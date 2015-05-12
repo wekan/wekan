@@ -1,0 +1,12 @@
+template(name="cardMembersPopup")
+  //- input.js-search-mem(autofocus placeholder="Search members…" type="text")
+  ul.pop-over-member-list.checkable.js-mem-list
+    each board.members
+      li.item.js-member-item(class="{{#if isCardMember}}active{{/if}}")
+        a.name.js-select-member(href="#")
+          +userAvatar(user=user size="small")
+          span.full-name
+            = user.profile.name
+            | (<span class="username">{{ user.username }}</span>)
+          if isCardMember
+            i.fa.fa-check

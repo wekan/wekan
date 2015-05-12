@@ -1,0 +1,33 @@
+//-
+  XXX This template can't be transformed into a component because it is
+  included by iron-router. That's a bug.
+template(name="board")
+  +boardComponent
+
+template(name="boardComponent")
+  if this
+    .board-wrapper(class=colorClass)
+      .board-canvas(class=sidebarSize)
+        .lists.js-lists
+          each lists
+            +list(this)
+          if currentUser.isBoardMember
+            +addlistForm
+      +boardSidebar
+    if currentCard
+      +cardSidebar(currentCard)
+  else
+    +message(label="board-no-found")
+
+template(name="addlistForm")
+  .list.js-list.add-list.js-add-list
+    +inlinedForm(autoclose=false)
+      input.list-name-input(type="text" placeholder="{{_ 'add-list'}}"
+        autocomplete="off" autofocus)
+      div.edit-controls.clearfix
+        button.primary.confirm.js-save-edit(type="submit") {{_ 'save'}}
+        a.fa.fa-times.dark-hover.cancel.js-close-inlined-form
+    else
+      .js-open-inlined-form
+        i.fa.fa-plus
+        | {{_ 'add-list'}}

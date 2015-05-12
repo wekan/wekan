@@ -1,0 +1,183 @@
+@import 'nib'
+
+// XXX Use .board-widget-labels as a flexbox container
+.card-label
+  background-color: #b3b3b3
+  border-radius: 4px
+  color: white
+  display: inline-block
+  font-weight: 700
+  font-size: 13px
+  margin-right: 4px
+  padding: 3px 8px
+  position:relative
+  max-width: 100%
+  min-width: 8px
+  overflow: ellipsis
+  height: 18px
+
+  &:hover
+    color: white
+
+.card-label-green
+  background-color: #3cb500
+
+.card-label-yellow
+  background-color: #fad900
+
+.card-label-orange
+  background-color: #ff9f19
+
+.card-label-red
+  background-color: #eb4646
+
+.card-label-purple
+  background-color: #a632db
+
+.card-label-blue
+  background-color: #0079bf
+
+.card-label-pink
+  background-color: #ff78cb
+
+.card-label-sky
+  background-color: #00c2e0
+
+.card-label-black
+  background-color: #4d4d4d
+
+.card-label-lime
+  background-color: #51e898
+
+.edit-label,
+.create-label
+  .card-label
+    float: left
+    height: 25px
+    margin: 0px 3% 7px 0px
+    width: 10.5%
+    cursor: pointer
+
+.edit-labels
+  input[type="text"]
+    margin: 4px 0 6px 38px
+    width: 243px
+
+  .card-label
+    height: 30px
+    left: 0
+    padding: 1px 5px
+    position: absolute
+    top: 0
+    width: 24px
+
+  .labels-static .card-label
+    line-height: 30px
+    margin-bottom: 4px
+    position: relative
+    top: auto
+    left: 0
+    width: 260px
+
+.minicard-labels
+  position: relative
+  z-index: 30
+  top: -6px
+
+  .card-label
+    border-radius: 0
+    float: left
+    height: 4px
+    margin-bottom: 1px
+    padding: 0
+    width: 40px
+    line-height: 100px
+
+.card-detail-item-labels .card-label
+  border-radius: 3px
+  display: block
+  float: left
+  height: 20px
+  line-height: 20px
+  margin: 0 4px 4px 0
+  min-width: 30px
+  padding: 5px 10px
+  width: auto
+
+.editable-labels .card-label:hover
+  cursor: pointer
+  opacity: .75
+
+.edit-labels-pop-over
+  margin-bottom: 8px
+
+.edit-labels-pop-over .shortcut
+  display: inline-block
+
+.card-label-selectable
+  border-radius: 3px
+  cursor: pointer
+  margin: 0 50px 4px 0
+  min-height: 18px
+  padding: 8px
+  position: relative
+  transition: margin-right .1s
+
+  .card-label-selectable-icon
+    position: absolute
+    top: 8px
+    right: -20px
+
+  &.active:hover,
+  &.active,
+  &.active.selected:hover,
+  &.active.selected
+    margin-right: 38px
+    padding-right: 32px
+
+    .card-label-selectable-icon
+      right: 6px
+
+  &.active:hover:hover,
+  &.active:hover,
+  &.active.selected:hover:hover,
+  &.active.selected:hover
+    margin-right: 38px
+
+  &.selected,
+  &:hover
+    margin-right: 38px
+    opacity: .8
+
+.active .card-label-selectable
+  &,
+  &:hover
+    margin-right: 0
+
+  .card-label-selectable-icon
+    right: 8px
+
+.card-label-edit-button
+  border-radius: 3px
+  float: right
+  padding: 8px
+
+  &:hover
+    background: #dbdbdb
+
+.card-label-color-select-icon
+  left: 14px
+  position: absolute
+  top: 9px
+
+.phenom .card-label
+  display: inline-block
+  font-size: 12px
+  height: 14px
+  line-height: 13px
+  padding: 0 4px
+  min-width: 16px
+  overflow: ellipsis
+
+.board-widget .phenom .card-label
+  max-width: 130px

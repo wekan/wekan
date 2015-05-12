@@ -1,0 +1,336 @@
+<template name="cardModal">
+    {{ > modal template='cardDetailWindow' card=this board=this.board }}
+</template>
+
+<template name="cardMemberPopup">
+    <div class="board-member-menu">
+        <div class="mini-profile-info">
+            {{> userAvatar user=user }}
+            <div class="info">
+                <h3 class="bottom" style="margin-right: 40px;">
+                    <a class="js-profile" href="{{ pathFor route='Profile' username=user.username }}">{{ user.profile.name }}</a>
+                </h3>
+                <p class="quiet bottom">@{{ user.username }}</p>
+            </div>
+        </div>
+        {{# if currentUser.isBoardMember }}
+            <ul class="pop-over-list">
+                <li><a class="js-remove-member">{{_ 'remove-member-from-card'}}</a></li>
+            </ul>
+        {{/ if }}
+    </div>
+</template>
+
+<template name="cardMorePopup">
+    <p class="quiet bottom">
+        <span class="clearfix">
+            <span>{{_ 'link-card'}}</span>
+            <span class="icon-sm fa {{#if card.board.isPublic}}fa-globe{{else}}fa-lock{{/if}}"></span>
+            <input class="js-url js-autoselect inline-input" type="text" readonly="readonly" value="{{ card.rootUrl }}">
+        </span>
+        {{_ 'added'}} <span class="date" title="{{ card.createdAt }}">{{ moment card.createdAt 'LLL' }}</span> -
+        <a class="js-delete" href="#" title="{{_ 'card-delete-notice'}}">{{_ 'delete'}}</a>
+    </p>
+</template>
+
+<template name="cardLabelsPopup">
+    <div>
+        {{! <input id="labelSearch" name="search" class="js-autofocus js-label-search" placeholder="Search labels…" value="" type="text"> }}
+        <ul class="edit-labels-pop-over js-labels-list">
+            {{# each card.board.labels }}
+                <li>
+                    <a href="#" class="card-label-edit-button icon-sm fa fa-pencil js-edit-label"></a>
+                    <span class="card-label card-label-selectable card-label-{{color}} js-select-label {{# if isLabelSelected ../card._id }}active{{/ if }}">
+                        {{name}}
+                        {{# if currentUser.isBoardAdmin }}
+                            <span class="card-label-selectable-icon icon-sm fa fa-check light"></span>
+                        {{/ if }}
+                    </span>
+                </li>
+            {{/ each}}
+        </ul>
+        <a class="quiet-button full js-add-label">{{_ 'label-create'}}</a>
+    </div>
+</template>
+
+<template name="cardAttachmentsPopup">
+    <div>
+        <ul class="pop-over-list">
+            <li>
+                <input type="file" name="file" class="js-attach-file hide" multiple>
+                <a class="js-computer-upload" href="#">
+                    {{_ 'computer'}}
+                </a>
+            </li>
+        </ul>
+    </div>
+</template>
+
+<template name="formLabel">
+    <div class="colors clearfix">
+        <label for="labelName">{{_ 'name'}}</label>
+        <input id="labelName" type="text" name="name" class="js-label-name" value='{{ name }}' autofocus>
+        <label>{{_ "select-color"}}</label>
+        {{# each labels }}
+            <span class="card-label card-label--selectable card-label-{{ color }} palette-color js-palette-color">
+            <span class="card-label-color-select-icon icon-sm fa fa-check light js-palette-select {{#if $neq color ../color}}hide{{/if}}"></span>
+            </span>
+        {{/each}}
+    </div>
+</template>
+
+<template name="createLabelPopup">
+    <form class="create-label">
+        {{#with color=defaultColor}}
+            {{> formLabel}}
+        {{/with}}
+        <input type="submit" class="primary wide left" value="{{_ 'create'}}">
+    </form>
+</template>
+
+<template name="editLabelPopup">
+    <form class="edit-label">
+        {{> formLabel}}
+        <input type="submit" class="primary wide left" value="{{_ 'save'}}">
+        <span class="right">
+            <input type="submit" value="{{_ 'delete'}}" class="negate js-delete-label">
+        </span>
+    </form>
+</template>
+
+<template name="deleteLabelPopup">
+    <p>{{_ "label-delete-pop"}}</p>
+    <input type="submit" class="js-confirm negate full" value="{{_ 'delete'}}">
+</template>
+
+<template name="cardDeletePopup">
+    <p>{{_ "card-delete-pop"}}</p>
+    <input type="submit" class="js-confirm negate full" value="{{_ 'delete'}}">
+</template>
+
+<template name="attachmentDeletePopup">
+    <p>{{_ "attachment-delete-pop"}}</p>
+    <input type="submit" class="js-confirm negate full" value="{{_ 'delete'}}">
+</template>
+
+<template name="cardDetailSidebarOld">
+    <div class="card-detail-window clearfix">
+        {{# if card.cover }}
+            <div class="window-cover js-card-cover-box js-open-card-cover-in-viewer has-cover" style="background-image: url({{ card.cover.url }}); background-color: rgb(119, 119, 119); background-size: contain;">
+        </div>
+        {{ /if }}
+        {{ #if card.archived }}
+            <div class="window-archive-banner js-archive-banner">
+                <span class="icon-lg fa fa-archive window-archive-banner-icon"></span>
+                <p class="window-archive-banner-text">{{_ "card-archived"}}</p>
+            </div>
+        {{ /if }}
+        <div class="window-header clearfix">
+            <span class="window-header-icon icon-lg fa fa-calendar-o"></span>
+            <div class="window-title card-detail-title non-empty inline {{# if currentUser.isBoardMember }}editable{{/ if }}">
+                <h2 class="window-title-text current hide-on-edit js-card-title">{{ card.title }}</h2>
+                <div class="edit edit-heavy">
+                    <form id="WindowTitleEdit">
+                        <textarea type="text" class="field single-line" id="title">{{ card.title }}</textarea>
+                        <div class="edit-controls clearfix">
+                            <input type="submit" class="primary confirm js-title-save-edit" value="{{_ 'save'}}">
+                            <a href="#" class="icon-lg fa fa-times dark-hover cancel js-cancel-edit"></a>
+                        </div>
+                    </form>
+                </div>
+                <div class="quiet hide-on-edit window-header-inline-content js-current-list">
+                    <p class="inline-block bottom">
+                        {{_ 'in-list'}}
+                        <a href="#" class="{{# if currentUser.isBoardMember }}js-open-move-from-header{{else}}disabled{{/ if }}"><strong>{{ card.list.title }}</strong></a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="window-main-col clearfix">
+            <div class="card-detail-data gutter clearfix">
+                <div class="card-detail-item card-detail-item-block clear clearfix editable">
+                    {{# if card.members }}
+                        <div class="card-detail-item card-detail-item-members clearfix js-card-detail-members">
+                            <h3 class="card-detail-item-header">{{_ 'members'}}</h3>
+                            <div class="js-card-detail-members-list clearfix">
+                                {{# each card.members }}
+                                    {{> userAvatar userId=this size="small" cardId=../card._id }}
+                                {{/ each }}
+                                <a class="card-detail-item-add-button dark-hover js-details-edit-members">
+                                    <span class="icon-sm fa fa-plus"></span>
+                                </a>
+                            </div>
+                        </div>
+                    {{/ if }}
+                    {{# if card.labels }}
+                        <div class="card-detail-item card-detail-item-labels clearfix js-card-detail-labels">
+                            <h3 class="card-detail-item-header">{{_ 'labels'}}</h3>
+                            <div class="js-card-detail-labels-list clearfix editable-labels js-edit-label">
+                                {{# each card.labels }}
+                                    <span class="card-label card-label-{{color}}" title="{{name}}">{{ name }}</span>
+                                {{/ each }}
+                                <a class="card-detail-item-add-button dark-hover js-details-edit-labels">
+                                    <span class="icon-sm fa fa-plus"></span>
+                                </a>
+                            </div>
+                        </div>
+                    {{/ if }}
+                    <div class="card-detail-item card-detail-item-block clear clearfix editable" attr="desc">
+                        {{# if card.description }}
+                            <h3 class="card-detail-item-header js-show-with-desc">{{_ 'description'}}</h3>
+                            {{# if currentUser.isBoardMember }}
+                                <a href="#" class="card-detail-item-header-edit hide-on-edit js-show-with-desc js-edit-desc">{{_ 'edit'}}</a>
+                            {{/ if }}
+                            <div class="current markeddown hide-on-edit js-card-desc js-show-with-desc">
+                              {{#viewer}}{{ card.description }}{{/viewer}}
+                            </div>
+                        {{ else }}
+                            {{# if currentUser.isBoardMember }}
+                                <p class="bottom">
+                                    <a href="#" class="hide-on-edit quiet-button w-img js-edit-desc js-hide-with-desc">
+                                        <span class="icon-sm fa fa-align-left"></span>
+                                        {{_ 'edit-description'}}
+                                    </a>
+                                </p>
+                            {{/ if }}
+                        {{/ if }}
+                        <div class="card-detail-edit edit">
+                            <form id="WindowDescEdit">
+                                {{#editor class="field single-line2" id="desc"}}{{ card.description }}{{/editor}}
+                                <div class="edit-controls clearfix">
+                                    <input type="submit" class="primary confirm js-title-save-edit" value="{{_ 'save'}}">
+                                    <a href="#" class="icon-lg fa fa-times dark-hover cancel js-cancel-edit"></a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{# if card.attachments.count }}
+                {{ > WindowAttachmentsModule card=card }}
+            {{/ if}}
+            {{ > WindowActivityModule card=card }}
+        </div>
+        {{# if currentUser.isBoardMember }}
+            {{ > WindowSidebarModule card=card }}
+        {{/if}}
+    </div>
+</template>
+
+<template name="WindowActivityModule">
+    <div class="card-detailwindow-module">
+        <div class="window-module-title window-module-title-no-divider">
+            <span class="window-module-title-icon icon-lg fa fa-comments-o"></span>
+            <h3>{{ _ 'activity'}}</h3>
+        </div>
+        {{# if currentUser.isBoardMember }}
+            <div class="new-comment js-new-comment">
+                {{> userAvatar user=currentUser size="small" class="member-no-menu" }}
+                <form id="CommentForm">
+                    {{#editor class="new-comment-input js-new-comment-input"}}{{/editor}}
+                    <div class="add-controls clearfix">
+                        <input type="submit" class="primary confirm clear js-add-comment" value="{{_ 'comment'}}" tabindex="2">
+                    </div>
+                </form>
+            </div>
+        {{/ if }}
+        {{ > activities mode="card" }}
+    </div>
+</template>
+
+<template name="WindowAttachmentsModule">
+    <div class="window-module js-attachments-section clearfix">
+        <div class="window-module-title window-module-title-no-divider">
+            <span class="window-module-title-icon icon-lg fa fa-paperclip"></span>
+            <h3 class="inline-block">{{_ 'attachments'}}</h3>
+        </div>
+        <div class="gutter">
+            <div class="clearfix js-attachment-list">
+                {{# each card.attachments }}
+                    <div class="attachment-thumbnail">
+                        {{# if isUploaded }}
+                            <a href="{{ url download=true }}" class="attachment-thumbnail-preview js-open-viewer attachment-thumbnail-preview-is-cover">
+                                {{# if isImage }}
+                                    <img src="{{ url }}">
+                                {{ else }}
+                                    <span class="attachment-thumbnail-preview-ext">{{ extension }}</span>
+                                {{ /if }}
+                            </a>
+                            <p class="attachment-thumbnail-details js-open-viewer">
+                                <a href="" class="attachment-thumbnail-details-title js-attachment-thumbnail-details">
+                                    {{ name }}
+                                    <span class="block quiet">
+                                    {{_ 'added'}} <span class="date">{{ moment uploadedAt }}</span>
+                                    </span>
+                                </a>
+                                <span class="quiet attachment-thumbnail-details-options">
+                                    <a href="{{ url download=true }}" class="attachment-thumbnail-details-options-item dark-hover js-download">
+                                        <span class="icon-sm fa fa-download"></span>
+                                        <span class="attachment-thumbnail-details-options-item-text">{{_ 'download'}}</span>
+                                    </a>
+                                    {{# if isImage }}
+                                        <a class="attachment-thumbnail-details-options-item dark-hover {{#if $eq ../card.coverId _id}}js-remove-cover{{else}}js-add-cover{{/if}}">
+                                            <span class="icon-sm fa fa-thumb-tack"></span>
+                                            <span class="attachment-thumbnail-details-options-item-text">{{#if $eq ../card.coverId _id}}{{_ 'remove-cover'}}{{else}}{{_ 'add-cover'}}{{/if}}</span>
+                                        </a>
+                                    {{/if}}
+                                    <a href="#" class="attachment-thumbnail-details-options-item attachment-thumbnail-details-options-item-delete dark-hover js-confirm-delete">
+                                        <span class="icon-sm fa fa-close"></span>
+                                        <span class="attachment-thumbnail-details-options-item-text">{{_ 'delete'}}</span>
+                                    </a>
+                                </span>
+                            </p>
+                        {{ else }}
+                            +spinner
+                        {{/ if }}
+                    </div>
+                {{/each}}
+            </div>
+            <p>
+                <a href="#" class="quiet-button js-attach">{{_ 'add-attachment' }}</a>
+            </p>
+        </div>
+    </div>
+</template>
+
+<template name="WindowSidebarModule">
+    <div class="window-sidebar" style="position: relative;">
+        <div class="window-module clearfix">
+            <h3>{{_ 'add'}}</h3>
+            <div class="clearfix">
+                <a href="#" class="button-link js-change-card-members" title="{{_ 'members-title'}}">
+                    <span class="icon-sm fa fa-user"></span> {{_ 'members'}}
+                </a>
+                <a href="#" class="button-link js-edit-labels" title="{{_ 'labels-title'}}">
+                    <span class="icon-sm fa fa-tags"></span> {{_ 'labels'}}
+                </a>
+                <a href="#" class="button-link js-attach" title="{{_ 'attachment-title'}}">
+                    <span class="icon-sm fa fa-paperclip"></span> {{_ 'attachment'}}
+                </a>
+            </div>
+        </div>
+        <div class="window-module other-actions clearfix">
+            <h3>{{_ 'actions'}}</h3>
+            <div class="clearfix">
+                <hr>
+                {{ #if card.archived }}
+                    <a href="#" class="button-link js-unarchive-card" title="{{_ 'send-to-board-title'}}">
+                        <span class="icon-sm fa fa-recycle"></span> {{_ 'send-to-board'}}
+                    </a>
+                    <a href="#" class="button-link negate js-delete-card" title="{{_ 'delete-title'}}">
+                        <span class="icon-sm fa fa-trash-o"></span> {{_ 'delete'}}
+                    </a>
+                {{ else }}
+                    <a href="#" class="button-link js-archive-card" title="{{_ 'archive-title'}}">
+                        <span class="icon-sm fa fa-archive"></span> {{_ 'archive'}}
+                    </a>
+                {{ /if }}
+            </div>
+        </div>
+        <div class="window-module clearfix">
+            <p class="quiet bottom">
+                <a href="#" class="quiet-button js-more-menu" title="{{_ 'share-and-more-title'}}">{{_ 'share-and-more'}}</a>
+            </p>
+        </div>
+    </div>
+</template>

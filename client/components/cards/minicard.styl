@@ -1,0 +1,136 @@
+.minicard
+  background-color: #fff
+  box-shadow: 0 1px 2px rgba(0,0,0,.2)
+  border-radius: 2px
+  cursor: pointer
+  margin-bottom: 9px
+  max-width: 300px
+  min-height: 20px
+  position: relative
+  z-index: 0
+  overflow: hidden
+
+  a
+    color: #4d4d4d
+
+    &.active-card
+      background-color: #f0f0f0
+      border-bottom-color: #c2c2c2
+
+      .minicard-operation
+        display: block
+
+  &.draggable-hover-card
+    background-color: #f0f0f0
+    border-bottom-color: #c2c2c2
+
+  .minicard-cover
+    background-position: center
+    background-repeat: no-repeat
+    background-size: cover
+    height: 145px
+    user-select: none
+    margin: -6px -8px 6px -8px
+    border-radius: top 2px
+
+    &.no-preview-size
+      background-size: auto
+      background-position: center
+
+  .minicard-details
+    padding: 6px 8px 2px
+    position: relative
+    z-index: 10
+
+
+  &.is-selected
+    .minicard-details
+      padding-bottom: 0
+
+  a.minicard-details
+    text-decoration:none
+
+  .minicard-details-overlay
+    background: transparent
+    bottom: 0
+    left: 0
+    position: absolute
+    right: 0
+    top: 0
+
+  .minicard-dropzone
+    display: none
+
+  .minicard.drophover .minicard-dropzone
+    background: rgba(255, 255, 255, .8)
+    // border-radius: 3px
+    // bottom: 0
+    // display: block
+    // font-weight: 700
+    // line-height: 100%
+    // left: 0
+    // margin: 0
+    // opacity: 1
+    // padding: 0
+    // position: absolute
+    // right: 0
+    // text-align: center
+    // top: 0
+    // z-index: 40
+
+  .minicard-title
+    display: block
+    font-weight: 400
+    margin: 0 0 4px
+    overflow: hidden
+    text-decoration: none
+    word-wrap: break-word
+
+    &::selection
+      background: transparent
+
+  .minicard-labels
+    padding-top: 3px
+    margin-top: 4px
+    float: right
+
+    .minicard-label
+      float: right
+      width: 8px
+      height: @width
+      border-radius: 2px
+      margin-left: 4px
+
+  .minicard-members
+    float: right
+    margin: 2px -8px -2px 0
+
+    .member
+      float: right
+      border-radius: 50%
+      height: 28px
+      width: @height
+
+    + .badges
+      margin-top: 10px
+
+  .minicard-members:empty
+    display: none
+
+.badges
+  float: left
+
+  &:empty
+    display: none
+
+textarea.minicard-composer-textarea,
+textarea.minicard-composer-textarea:focus
+  background: none
+  border: none
+  box-shadow: none
+  height: auto
+  margin-bottom: 4px
+  padding: 0
+  max-height: 162px
+  min-height: 54px
+  overflow-y: auto

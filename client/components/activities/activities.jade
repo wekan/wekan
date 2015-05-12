@@ -1,0 +1,8 @@
+template(name="activities")
+  .js-sidebar-activities
+    //- We should use Template.dynamic here but there is a bug with
+    //- blaze-components: https://github.com/peerlibrary/meteor-blaze-components/issues/30
+    if $eq mode "board"
+      +boardActivities
+    else
+      +cardActivities

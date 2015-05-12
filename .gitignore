@@ -1,0 +1,5 @@
+*~
+*.swp
+.meteor-spk
+.tx/
+*.sublime-workspace

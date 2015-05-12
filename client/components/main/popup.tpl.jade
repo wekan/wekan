@@ -1,0 +1,13 @@
+.pop-over.clearfix(
+  class="{{#unless title}}miniprofile{{/unless}}"
+  class=currentBoard.colorClass
+  style="display:block; left:{{offset.left}}px; top:{{offset.top}}px;")
+  .header.clearfix
+    if hasPopupParent
+      a.back-btn.js-back-view
+        i.fa.fa-chevron-left
+    span.header-title= title
+    a.close-btn.js-close-popover
+      i.fa.fa-times
+  .content.clearfix
+    +Template.dynamic(template=popupName data=dataContext)

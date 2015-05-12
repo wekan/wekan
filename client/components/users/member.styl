@@ -1,0 +1,107 @@
+@import 'nib'
+
+avatar-radius = 50%
+
+.member
+  border-radius: 3px
+  display: block
+  float: left
+  height: 30px
+  width: @height
+  margin: 0 4px 4px 0
+  position: relative
+  cursor: pointer
+  user-select: none
+  z-index: 1
+  text-decoration: none
+  border-radius: avatar-radius
+
+  .avatar
+    height: 100%
+    width: @height
+    display: flex
+    align-items: center
+    justify-content: center
+    overflow: hidden
+    border-radius: avatar-radius
+
+    .avatar-initials
+      font-weight: bold
+      max-width: 100%
+      max-height: 100%
+      font-size: 14px
+      line-height: 200%
+      background-color: #dbdbdb
+      color: #444444
+
+    .avatar-image
+      max-width: 100%
+      max-height: 100%
+
+  .member-status
+    background-color: #b3b3b3
+    border: 1px solid #fff
+    border-radius: 50%
+    height: 8px
+    width: @height
+    position: absolute
+    right: 0px
+    bottom: 0px
+    border: 1px solid white
+
+    &.active
+      background: #64c464
+      border-color: #daf1da
+
+    &.idle
+      background: #e4e467
+      border-color: #f7f7d4
+
+    &.disconnected
+      background: #bdbdbd
+      border-color: #ededed
+
+  &.extra-small
+    .avatar-initials
+      font-size: 9px
+      width: 18px
+      height: 18px
+      line-height: 18px
+
+    .avatar-image
+      width: 18px
+      height: 18px
+
+  &.small
+    width: 30px
+    height: 30px
+
+    .avatar-initials
+      font-size: 12px
+      line-height: 30px
+
+  &.large
+    height: 85px
+    line-height: 85px
+    width: 85px
+
+    .avatar
+      width: 85px
+      height: 85px
+
+      .avatar-initials
+        font-size: 16px
+        font-weight: 700
+        line-height: 85px
+        width: 85px
+
+.atMention
+  background: #dbdbdb
+  border-radius: 3px
+  padding: 1px 4px
+  margin: -1px 0
+  display: inline-block
+
+  &.me
+    background: #cfdfe8
+

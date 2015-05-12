@@ -1,0 +1,27 @@
+template(name="headerUserBar")
+  #header-user-bar
+    if currentUser
+      a.js-open-header-member-menu
+        if currentUser.profile.name
+          = currentUser.profile.name
+        else
+          = currentUser.username
+        i.fa.fa-chevron-down
+    else
+      a(href="{{pathFor route='signUp'}}") Sign in
+      span.separator -
+      a(href="{{pathFor route='signIn'}}") Log in
+
+template(name="memberHeader")
+  a.header-member.js-open-header-member-menu
+    span= currentUser.profile.name
+    +userAvatar(user=currentUser size="small")
+
+template(name="memberMenuPopup")
+  ul.pop-over-list
+    li: a(href="{{pathFor route='Profile' username=currentUser.username}}") {{_ 'profile'}}
+    li: a.js-language {{_ 'language'}}
+    li: a(href = "{{pathFor route='Settings'}}") {{_ 'settings'}}
+  hr
+  ul.pop-over-list
+    li: a.js-logout {{_ 'log-out'}}

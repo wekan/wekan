@@ -1,0 +1,154 @@
+@import 'nib'
+
+.sidebar
+  .sidebar-content
+    padding: 10px 20px
+    background: white
+    box-shadow: -10px 0px 5px -10px darken(white, 30%)
+    z-index: 10
+    position: absolute
+    top: 0
+    bottom: 0
+    right: 0
+    left: 0
+    overflow-x: hidden
+    overflow-y: auto
+
+    h3
+      color: darken(white, 50%)
+
+    hr
+      margin: 8px 0
+
+.board-sidebar
+  width: 248px
+  position: absolute
+  top: 0
+  right: -@width
+  bottom: 0
+  transition: top .1s, right .1s, width .1s
+
+  &.is-open
+    right: 0
+
+.board-widget-nav
+  border-radius: 3px
+  background: #dcdcdc
+  overflow: hidden
+  padding: 0
+  position: relative
+
+  .toggle-widget-nav
+    border-radius: 3px
+    color: #8c8c8c
+    margin: 0
+    padding: 7px 10px
+    position: relative
+    cursor: pointer
+
+    .toggle-menu-icon
+      position: absolute
+      top: 8px
+      right: 8px
+
+    &:hover
+      background: #ccc
+      color: #4d4d4d
+
+  .nav-list
+    display: block
+    opacity: 1
+    max-height: 400px
+
+    hr
+      margin: 2px 0
+      color: #ccc
+      background: #ccc
+
+  .nav-list-item
+    display: block
+    font-weight: 700
+    line-height: 30px
+    overflow: hidden
+    padding: 0 8px 0 36px
+    position: relative
+    text-decoration: none
+
+    .icon-type
+      left: 10px
+      position: absolute
+      top: 6px
+
+    &:hover
+      background: #ccc
+
+      .icon-type
+        color: #686868
+
+  .nav-list-sub-item
+    font-weight: 400
+    color: #666
+
+    &:hover
+      color: #4d4d4d
+
+  &.collapsed
+
+    .nav-list
+      max-height: 0
+      opacity: 0
+
+      hr
+        margin: 0
+
+    .toggle-widget-nav
+      color: #4d4d4d
+
+
+.board-widget-title
+  display: block
+  min-height: 20px
+  margin-bottom: 6px
+
+.board-widget-content
+  position: relative
+  z-index: 1
+
+.board-widget h4
+  margin: 5px 0
+
+.board-widget-activity
+  margin-right: -4px
+
+.sidebar-tongue
+  display: block
+  width: 30px
+  height: @width
+  left: -@width
+  position: absolute
+  top: 12px
+  z-index: 15
+  background: white
+  border-radius: left 3px
+  box-shadow: -4px 0px 7px -4px darken(white, 30%)
+  color: darken(white, 50%)
+  transition: left .1s
+
+  i.fa
+    margin: 9px
+    transition: transform 0.5s
+
+  .board-sidebar.is-open &
+    left: -@width + 2px
+
+    // XXX Bug: we should add a padding left
+    &:hover
+      left: -@width + 5px
+
+    i.fa
+      transform: rotate(180deg)
+
+  &.is-hidden,
+  .board-sidebar.is-open &.is-hidden
+    z-index: 0
+    left: 5px

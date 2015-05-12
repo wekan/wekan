@@ -1,0 +1,50 @@
+template(name="listBody")
+  .minicards.clearfix.js-minicards
+    if cards.count
+      +inlinedForm(autoclose=false position="top")
+        +addCardForm
+    each cards
+      .minicard.card.js-minicard.js-member-droppable(
+        class="{{#if isSelected}}is-selected{{/if}}")
+        a.minicard-details.clearfix.show(href=absoluteUrl)
+          if cover
+            .minicard-cover.js-card-cover(style="background-image: url({{cover.url}});")
+          if labels
+            .minicard-labels
+              each labels
+                .minicard-label(class="card-label-{{color}}" title="{{name}}")
+          .minicard-title= title
+          if members
+            .minicard-members.js-minicard-members
+              each members
+                +userAvatar(userId=this size="small" cardId="{{../_id}}")
+          .badges
+            if comments.count
+              .badge(title="{{_ 'card-comments-title' comments.count }}")
+                span.badge-icon.icon-sm.fa.fa-comment-o
+                .badge-text= comments.count
+            if description
+              .badge.badge-state-image-only(title=description)
+                span.badge-icon.icon-sm.fa.fa-align-left
+            if attachments.count
+              .badge
+                span.badge-icon.icon-sm.fa.fa-paperclip
+                span.badge-text= attachments.count
+    if currentUser.isBoardMember
+      +inlinedForm(autoclose=false position="bottom")
+        +addCardForm
+      else
+        a.open-card-composer.js-open-inlined-form
+          i.fa.fa-plus
+          | {{_ 'add-card'}}
+
+template(name="addCardForm")
+  .minicard.js-composer
+    .minicard-labels.js-minicard-composer-labels
+    .minicard-details.clearfix
+      textarea.minicard-composer-textarea.js-card-title(autofocus)
+        = getCache
+      .minicard-members.js-minicard-composer-members
+  .add-controls.clearfix
+    button.primary.confirm(type="submit") {{_ 'add'}}
+    a.fa.fa-times.dark-hover.cancel.js-close-inlined-form

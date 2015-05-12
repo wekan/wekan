@@ -1,0 +1,53 @@
+# Meteor packages used by this project, one per line.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+meteor-platform
+
+# Account system
+accounts-password
+kenton:accounts-sandstorm
+service-configuration
+useraccounts:unstyled
+
+# Compilers
+mquandalle:jade
+mquandalle:stylus
+
+# Collections
+aldeed:collection2
+cfs:gridfs
+cfs:standard-packages
+dburles:collection-helpers
+idmontie:migrations
+matb33:collection-hooks
+matteodem:easy-search
+reywood:publish-composite
+
+# Utilities
+alethes:pages
+audit-argument-checks
+iron:router
+meteorhacks:subs-manager
+mquandalle:autofocus
+mquandalle:moment
+ongoworks:speakingurl
+raix:handlebar-helpers
+random
+reactive-dict
+tap:i18n
+tmeasday:presence
+underscore
+
+# UI components
+bengott:avatar
+fortawesome:fontawesome
+linto:jquery-ui
+markdown
+mousetrap:mousetrap
+mquandalle:jquery-textcomplete
+peerlibrary:blaze-components
+reactive-var
+seriousm:emoji-continued
+useraccounts:core

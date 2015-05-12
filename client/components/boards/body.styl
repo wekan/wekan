@@ -1,0 +1,54 @@
+@import 'nib'
+
+.board-wrapper
+  left: 0
+  top: 0
+  bottom: 0
+  right: 0
+  position: absolute
+  overflow: hidden
+
+  .board-canvas
+    position: absolute
+    left: 0
+    right: 0
+    top: 0
+    bottom: 0
+    transition: margin .1s
+
+    &.next-small-sidebar
+      margin-right: 248px
+
+    &.next-large-sidebar
+      opacity: 0.8
+      margin-right: 496px
+
+.lists
+  align-items: flex-start
+  display: flex
+  flex-direction: row
+  margin-bottom: 10px
+  overflow-x: auto
+  overflow-y: hidden
+  padding-bottom: 10px
+  position: absolute
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+
+  &::-webkit-scrollbar
+    height: 13px
+    width: 13px
+
+  &::-webkit-scrollbar-thumb:vertical,
+  &::-webkit-scrollbar-thumb:horizontal
+    background: rgba(255, 255, 255, .4)
+
+  &::-webkit-scrollbar-track-piece
+    background: rgba(0, 0, 0, .15)
+
+  &::-webkit-scrollbar-button
+    display: block
+    height: 5px
+    width: 5px

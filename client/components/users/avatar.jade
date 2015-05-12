@@ -1,0 +1,7 @@
+template(name="userAvatar")
+  .member(class="{{class}} {{# if draggable }}js-member{{else}}js-member-on-card-menu{{/if}}"
+    title="{{userData.profile.name}} ({{userData.username}})")
+    +avatar(user=userData size=size)
+    if showBadges
+      span.member-status(class="{{# if userData.profile.status}}active{{/if}}")
+      span.member-type(class=memberType)

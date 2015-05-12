@@ -1,0 +1,18 @@
+<template name="notfound">
+    {{ > message label='page-not-found'}}
+</template>
+
+<template name='message'>
+    <div class="big-message quiet {{ color }}">
+        <h1>{{_ label}}</h1>
+        {{#with pathFor route='Login'}}
+            <p>{{{_ 'page-maybe-private' this}}}</p>
+        {{/with}}
+    </div>
+</template>
+
+<template name="editor">
+    <textarea class="{{class}}" placeholder="{{_ 'comment-placeholder'}}" id="{{id}}" tabindex="1">{{> UI.contentBlock }}</textarea>
+</template>
+
+<template name="viewer">{{#markdown}}{{#emoji}}{{#mentions}}{{> UI.contentBlock }}{{/mentions}}{{/emoji}}{{/markdown}}</template>

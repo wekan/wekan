@@ -1,0 +1,136 @@
+@import 'nib'
+
+.list
+  box-sizing: border-box
+  display: flex
+  flex-direction: column
+  flex: 0 0 270px
+  position: relative
+  // Even if this background color is the same as the body we can't leave it
+  // transparent, because that won't work during a list drag.
+  background: darken(white, 10%)
+  height: 100%
+  border-right: 1px solid darken(white, 17%)
+  border-left: 1px solid darken(white, 4%)
+  padding: 12px 7px 5px
+  overflow-y: auto
+
+  &:first-child
+    margin-left: 5px
+    border-left: none
+
+  &:last-child
+    margin-right: 5px
+    border-right: none
+
+  &.editable
+    cursor: grab
+
+    .list-wrapper
+      cursor: default
+
+  &.add-list
+    &.fade
+      opacity: 0
+
+    .list-name-input
+      background: rgba(0, 0, 0, .05)
+      border-color: #aaa
+      box-shadow: inset 0 1px 8px rgba(0, 0, 0, .15)
+      display: block
+      margin: 0
+      transition: margin 85ms ease-in,
+        background 85ms ease-in
+      width: 100%
+
+    .edit-controls
+      height: 32px
+      transition: margin 85ms ease-in,
+        height 85ms ease-in
+      overflow: hidden
+      margin: 4px 0 0
+
+      input[type=submit]
+        margin-top: 0
+        min-height: 30px
+        height: 30px
+
+.list-header
+  flex: 0 0 auto
+  padding: 10px 26px 4px 6px
+  position: relative
+  min-height: 20px
+
+  .list-header-name
+    display: inline
+    font-size: 16px
+    line-height: 17px
+    margin: 0
+    font-weight: bold
+    min-height: 9px
+    min-width: 30px
+    overflow: hidden
+    text-overflow: ellipsis
+    word-wrap: break-word
+
+  .list-header-menu-icon
+    background-clip: content-box
+    background-origin: content-box
+    padding: 6px 8px
+    position: absolute
+    top: 3px
+    right: -5px
+    color: #a6a6a6
+
+  .list-header-num-cards
+    color: #8c8c8c
+    margin: 0
+
+.minicards
+  // flex: 1 1 auto
+  overflow-y: auto
+  overflow-x: hidden
+  padding: 4px 4px 1px
+  z-index: 1
+  height: 100%
+
+  &::-webkit-scrollbar-button
+    display: block
+    height: 4px
+
+.open-card-composer
+  border-top-left-radius: 0
+  border-top-right-radius: 0
+  border-bottom-right-radius: 3px
+  border-bottom-left-radius: 3px
+  color: #8c8c8c
+  display: block
+  // flex: 0 0 auto
+  margin: 2px -3px -3px
+  padding: 7px 10px
+  position: relative
+  text-decoration: none
+
+  &:hover
+    background: #c3c3c3
+    color: #222
+    text-decoration: underline
+
+
+  &::selection
+    background: transparent
+
+.list.placeholder
+  background-color: rgba(0, 0, 0, .2)
+  border-color: transparent
+  box-shadow: none
+  height: 100px
+
+.list.ui-sortable-helper
+  cursor: grabbing
+  box-shadow: -2px 2px 8px rgba(0, 0, 0, .3), 0 0 1px rgba(0, 0, 0, .5)
+  transform: rotate(4deg)
+
+
+.list.ui-sortable-helper .list-header-menu-icon
+  display: none

@@ -1,0 +1,103 @@
+template(name="boardSidebar")
+  .board-sidebar.sidebar(class="{{#if isOpen}}is-open{{/if}}")
+    a.sidebar-tongue.js-toogle-sidebar(
+      class="{{#if isTongueHidden}}is-hidden{{/if}}")
+      i.fa.fa-chevron-left
+    .sidebar-content.js-board-sidebar-content
+      //- XXX https://github.com/peerlibrary/meteor-blaze-components/issues/30
+      if Filter.isActive
+        +filterSidebar
+      else
+        +homeSidebar
+
+template(name='homeSidebar')
+  +membersWidget
+  hr.clear
+  +labelsWidget
+  hr.clear
+  h3
+    i.fa.fa-comments-o
+    | {{_ 'activities'}}
+  +activities(mode="board")
+
+template(name="filterSidebar")
+  ul.pop-over-label-list.checkable
+    each currentBoard.labels
+      li.item.matches-filter
+        a.name.js-toggle-label-filter
+          span.card-label(class="card-label-{{color}}")
+          span.full-name
+            if name
+              = name
+            else
+              span.quiet {{_ "label-default" color}}
+            if Filter.labelIds.isSelected _id}}
+              span.icon-sm.fa.fa-check
+    hr
+    ul.pop-over-member-list.checkable
+      each currentBoard.members
+        if isActive
+          with getUser userId
+            li.item.js-member-item(
+              class="{{#if Filter.members.isSelected _id}}active{{/if}}")
+              a.name.js-toogle-member-filter
+                +userAvatar(user=this size="small")
+                span.full-name
+                  = profile.name
+                  | (<span class="username">{{ username }}</span>)
+                if Filter.members.isSelected _id
+                  span.icon-sm.fa.fa-check
+    hr
+    a.js-clear-all(class="{{#unless Filter.isActive}}disabled{{/unless}}")
+      | {{_ 'filter-clear'}}
+
+template(name="membersWidget")
+  .board-widget.board-widget-members
+    h3
+      i.fa.fa-user
+      | {{_ 'members'}}
+    .board-widget-content
+      each currentBoard.members
+        +userAvatar(
+          userId=this.userId
+          draggable=true
+          size="small"
+          showBadges=true)
+      unless isSandstorm
+        if currentUser.isBoardAdmin
+          a.js-open-manage-board-members
+
+template(name="labelsWidget")
+  .board-widget.board-widget-labels
+    h3
+      i.fa.fa-tags
+      | {{_ 'labels'}}
+    .board-widget-content
+      each currentBoard.labels
+        a.card-label(class="card-label-{{color}}").js-label
+          span.card-label-name= name
+      a.card-label.js-add-label
+        i.fa.fa-plus
+
+template(name="memberPopup")
+  .board-member-menu: .mini-profile-info
+    +userAvatar(user=user)
+    .info
+      h3.bottom
+        a.js-profile(href="{{pathFor route='Profile' username=user.username}}")
+          = user.profile.name
+      p.quiet.bottom @#{user.username}
+    if currentUser.isBoardMember
+      ul.pop-over-list
+        li
+          a.js-filter-member Filter cards
+        if currentUser.isBoardAdmin
+          li
+            a.js-change-role
+              | {{_ 'change-permissions'}}
+              span.quiet (#{memberType})
+          li
+            if currentUser.isBoardAdmin
+              a.js-remove-member {{_ 'remove-from-board'}}
+            else
+              a.js-leave-member {{_ 'leave-board'}}

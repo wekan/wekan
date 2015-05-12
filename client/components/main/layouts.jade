@@ -1,0 +1,17 @@
+head
+  title LibreBoard
+  meta(name="viewport"
+   content="maximum-scale=1.0,width=device-width,initial-scale=1.0,user-scalable=0")
+  link(rel="shortcut icon" href="/favicon.png")
+
+template(name="userFormsLayout")
+  h1.at-form-landing-logo
+    img(src="/logo.png" title="LibreBoard")
+  +yield
+
+template(name="defaultLayout")
+  #surface
+    +header
+    #content
+      +yield
+

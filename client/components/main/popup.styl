@@ -1,0 +1,585 @@
+@import 'nib'
+
+.pop-over
+  background: #fff
+  border-radius: 3px
+  border: 1px solid #dbdbdb
+  border-bottom-color: #c2c2c2
+  box-shadow: 0 1px 6px rgba(0, 0, 0, .3)
+  display: none
+  overflow: hidden
+  position: absolute
+  width: 300px
+  z-index: 99999
+  margin-top: 5px
+
+  hr
+    margin: 4px -10px
+    width: 275px + 2*10px
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"]
+    margin: 4px 0 12px
+    width: 100%
+
+  input[type="file"]
+    width: 240px
+
+  select
+    width: 100%
+    margin-bottom: 14px
+
+  textarea
+    height: 72px
+    margin: 4px 0 12px
+    width: 100%
+
+  .empty
+    margin: 0
+
+  img
+    max-width: 270px
+
+  .custom-image img
+    height: 18px
+    left: 9px
+    top: 9px
+    width: 18px
+
+  .title
+    line-height: 32px
+
+  .header
+    height: 36px
+    position: relative
+    margin-bottom: 8px
+    background: #F7F7F7
+    border-bottom: 1px solid #dcdcdc
+    color: darken(white, 60%)
+
+    .header-title
+      display: block
+      line-height: 32px
+      padding-top: 4px
+      margin: 0 10px
+      font-weight: bold
+      overflow: hidden
+      text-overflow: ellipsis
+      white-space: nowrap
+
+    .back-btn, .close-btn
+      &:hover .icon-sm
+        color: darken(white, 80%)
+
+    .back-btn
+      padding: 10px
+      float: left
+
+    .close-btn
+      padding: 10px 10px 10px 4px
+      position: absolute
+      top: 0
+      right: 0
+
+  .content
+    overflow-x: hidden
+    overflow-y: auto
+    padding: 0 10px 10px
+    max-height: 550px
+
+  .quiet
+    padding: 6px 6px 4px
+
+  &.search-over
+    background: #f0f0f0
+    min-height: 114px
+
+    .header
+      display: none
+
+    .content
+      padding: 8px 4px 8px 10px
+      margin-right: 8px
+
+      &::-webkit-scrollbar-button
+        display: block
+        height: 4px
+        width: 4px
+
+.select-members-list
+  margin-bottom: 8px
+
+.pop-over-list
+
+  &.navigable li.not-selectable>a:hover,
+  li.not-selectable>a:hover
+    color: #8c8c8c
+    cursor: default
+
+    .icon-sm
+      color: #a6a6a6
+
+  li > a
+    cursor: pointer
+    display: block
+    font-weight: 700
+    padding: 6px 10px
+    position: relative
+    margin: 0 -10px
+    text-decoration: none
+
+    .item-name
+      display: block
+      width: auto
+      padding-right: 22px
+
+    &:hover
+      background-color: #005377
+      color: #fff
+
+      .sub-name,
+      .quiet
+        color: #eee
+
+      .unread-indicator
+        background: #fff
+
+      .icon-sm
+        color: #fff
+
+    .sub-name
+      clear: both
+      color: #8c8c8c
+      display: block
+      font-size: 12px
+      font-weight: 400
+      line-height: 15px
+      margin-top: 4px
+
+    &.current
+      background-color: #e2e6e9
+
+    .unread-indicator
+      background: #2e85b8
+      background: linear-gradient(to bottom, #2e85b8 0, #2b7cab 100%)
+      border-radius: 7px
+      display: block
+      height: 14px
+      opacity: 0
+      position: absolute
+      right: 16px
+      top: 8px
+      width: 14px
+
+      &.any
+        opacity: 1
+
+    &:active
+      background-color: #2e85b8
+
+    &.disabled
+      color: #8c8c8c
+      cursor: default
+
+      .vis-icon
+        opacity: .35
+
+      .icon-sm
+        color: #a6a6a6
+
+      &:hover
+        background: none
+
+        .sub-name,
+        .quiet
+          color: #8c8c8c
+
+        .icon-sm
+          color: #a6a6a6
+
+      &:active
+        background: none
+
+  &.inset li > a
+    border-radius: 3px
+    margin: 0
+
+  .pop-over-list.checkable
+
+    .icon-check
+      display: none
+      position: absolute
+      top: 6px
+      right: 12px
+
+    li.active a
+      padding-right: 28px
+
+      .icon-check
+        display: block
+
+    &.left-check
+
+      .icon-check
+        right: auto
+        left: 10px
+
+      li a
+        padding-right: 10px
+        padding-left: 30px
+
+      li.active a
+        padding-right: 10px
+
+  &.normal-weight li>a
+    font-weight: 400
+
+  &.navigable
+
+    li > a:hover
+      background-color: transparent
+      color: #4d4d4d
+
+      .sub-name,
+      .quiet
+        color: #8c8c8c
+
+      .icon-sm
+        color: #a6a6a6
+
+    li.selected > a
+      background-color: #005377
+      color: #fff
+
+      .sub-name,
+      .quiet
+        color: #eee
+
+    li.selected > a
+
+      &.current
+        background-color: #005377
+
+      .unread-indicator
+        background: #fff
+
+      .icon-sm
+        color: #fff
+
+      &:active
+        background-color: #005377
+
+.pop-over.miniprofile
+
+  .header
+    border-bottom-color: transparent
+    height: 30px
+    position: absolute
+    right: 0
+    top: 0
+    width: 60px
+    z-index: 1
+
+  .header-title
+    display: none
+
+  .pop-over-list
+    padding-top: 8px
+
+.mini-profile-info
+  margin-top: 8px
+  min-height: 56px
+  position: relative
+
+  .member-large
+    position: absolute
+    top: 2px
+    left: 2px
+
+  .info
+    margin: 0 0 0 64px
+    word-wrap: break-word
+
+    h3 a
+      text-decoration: none
+
+      &:hover
+        text-decoration: underline
+
+.pop-over.avdetail .header
+  border-bottom-color: transparent
+  height: 20px
+  position: absolute
+  top: 8px
+  left: 8px
+  right: 8px
+  z-index: 0
+
+.pop-over.avdetail .header-title
+  display: none
+
+.pop-over.avdetail .content
+  text-align: center
+
+.pop-over.avdetail .mem-info
+  margin: 2px 24px 8px
+  position: relative
+  z-index: 1
+  width: 222px
+
+.pop-over.avdetail .mem-info h3 a
+  text-decoration: none
+
+.pop-over.avdetail .mem-info h3 a:hover
+  text-decoration: underline
+
+.pop-over-label-list li,
+.pop-over-member-list li
+
+  &.disabled a
+    cursor:default
+
+  &:not(.disabled):hover a
+    background-color: #005377
+    color: #fff
+
+
+.pop-over-label-list,
+.pop-over-member-list,
+.pop-over-emoji-list,
+.pop-over-card-list
+  li
+    a
+      border-radius: 3px
+      display: block
+      height: 30px
+      line-height: 30px
+      overflow: hidden
+      position: relative
+      text-overflow: ellipsis
+      text-decoration: none
+      white-space: nowrap
+      padding: 4px
+      margin-bottom: 2px
+
+      &.multi-line
+        line-height: 16px
+
+      .member
+        margin-right: 8px
+
+      .card-label
+        float: left
+        height: 30px
+        margin: 0 8px 0 0
+        padding: 0
+        width: 30px
+
+      .option,
+      .icon-check
+        background-clip: content-box
+        background-origin: content-box
+        padding: 11px
+        position: absolute
+        top: 0
+        right: 0
+
+      .sub-name
+        font-size: 12px
+
+
+    &:last-child a
+      margin-bottom: 0
+
+    &.disabled
+      opacity: .5
+
+      &.active a,
+      &.selected a
+        background: none
+        color: #4d4d4d
+        cursor: default
+
+        .quiet
+          color: #8c8c8c
+
+    &.email-invite
+
+      .member
+        display: none
+
+      a
+        padding: 0 10px
+
+    &.selected a
+      background-color: #005377
+      color: #fff
+
+      .quiet
+        color: #eee
+
+      .card-label
+        border-radius: 3px
+
+      .icon-check
+        color: #fff
+
+    &.active a .icon-check
+      display: block
+
+    &.unconfirmed a.name
+      line-height: 16px
+
+  &.options li
+
+    &.selected a
+      padding-right: 28px
+
+      .option
+        display: block
+        opacity: .5
+
+        &:hover
+          opacity: 1
+
+    &.disabled.selected a
+      padding-right: 0
+
+      .option
+        display: none
+
+
+    &.no-option.selected a
+      padding-right: 6px
+
+      .option
+        display: none
+
+  &.collapsed
+
+    &.checkable li.active a
+      padding-right: 0
+
+    li
+      float: left
+      margin: 0 3px 3px 0
+
+      a
+        padding: 0
+        margin: 0
+        width: 30px
+
+        .member
+          opacity: .8
+
+        .full-name
+          display: none
+
+      &.selected a .member,
+      &.active.selected a .member
+        border-color: #005377
+        opacity: .9
+
+      &.active a
+
+        .member
+          border-color: #2e85b8
+          opacity: 1
+
+        .icon-check
+          border-radius: 3px
+          background-color: #2e85b8
+          bottom: 0
+          color: #fff
+          display: block
+          padding: 0
+          right: 0
+          top: auto
+
+  &.checkable li.active a
+    padding-right: 28px
+
+  &.filtered li
+    display: none
+
+    &.matches-filter
+      display: block
+
+  &.limited li.exceeds-limit
+    display: none
+
+.pop-over-emoji-list li > a
+  padding: 2px 4px
+
+  .emoji
+    margin: 0 6px
+
+.pop-over-card-list li > a
+  padding: 2px 4px
+
+.login-signup-popover
+  padding: 15px
+
+  .form-tabs
+    display: none
+
+  h1
+    margin-bottom: 15px
+
+  p
+    margin: 8px 0
+
+  .form-parts-container
+    position: relative
+
+  .active-box
+    position: absolute
+    top: 0
+    background: #e2e2e2
+    border: 1px solid #c9c9c9
+    border-radius: 3px
+    z-index: 1
+    height: 100%
+    width: 49%
+    transition-property: all
+    transition-duration: .4s
+    opacity: 1
+
+    &.start
+      opacity: 0
+      left: 25%
+
+  .signup-form,
+  .login-form
+    position: relative
+    box-sizing: border-box
+    padding: 20px
+    width: 50%
+    z-index: 2
+    opacity: .3
+    transition-property: opacity
+    transition-duration: .2s
+
+    .active
+      opacity: 1
+
+
+  .js-signup-form-pos
+    left: 0
+
+  .login-form
+    position: absolute
+    top: 0
+
+  .login-form .icon-google
+    position: absolute
+    left: 5px
+    top: 3px
+
+  .login-form .button.google
+    padding-left: 40px
+    margin: 0 0 15px 0
+
+  .js-login-form-pos
+    left: 50%

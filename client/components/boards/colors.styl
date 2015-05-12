@@ -1,0 +1,34 @@
+// We define a set of six board colors that we took from the FlatUI palette.
+// http://flatuicolors.com
+
+setBoardColor(color)
+  &#header,
+  &.sk-spinner div,
+  .board-backgrounds-list &.background-box,
+  &.pop-over .pop-over-list li a:hover,
+  .board-list & a
+    background-color: color
+
+  & .minicard.is-selected .minicard-details
+    border-bottom: 2px solid color
+
+  button[type=submit].primary, input[type=submit].primary
+    background-color: darken(color, 20%)
+
+.board-color-nephritis
+  setBoardColor(#27AE60)
+
+.board-color-pomegranate
+  setBoardColor(#C0392B)
+
+.board-color-belize
+  setBoardColor(#2980B9)
+
+.board-color-wisteria
+  setBoardColor(#8E44AD)
+
+.board-color-midnight
+  setBoardColor(#2C3E50)
+
+.board-color-pumpkin
+  setBoardColor(#E67E22)

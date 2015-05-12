@@ -1,0 +1,118 @@
+<template name="setLanguagePopup">
+<ul class="pop-over-list">
+    {{#each languages}}
+        <li class="{{# if isCurrentLanguage}}active{{/if}}">
+            <a class="js-set-language">
+                {{name}}
+                {{# if isCurrentLanguage}}
+                    <span class="icon-sm fa fa-check"></span>
+                {{/if}}
+            </a>
+        </li>
+    {{/each}}
+</ul>
+</template>
+
+<template name='profile'>
+    {{ # if profile }}
+        <div class="tabbed-pane-header">
+            <div class="tabbed-pane-header-wrapper clearfix">
+                <a class="tabbed-pane-header-image profile-image ed js-change-avatar-profile" href="#">
+                    {{> userAvatar user=profile size="large"}}
+                </a>
+                <div class="tabbed-pane-header-details">
+                    <div class="js-current-details">
+                        <div class="tabbed-pane-header-details-name">
+                            <h1 class="inline"> {{ profile.profile.name }} </h1>
+                            <p class="window-title-extra quiet"> @{{ profile.username }} </p>
+                        </div>
+                        <div class="tabbed-pane-header-details-content">
+                            <p>{{ profile.profile.bio }}</p>
+                        </div>
+                        <div class="tabbed-pane-header-details-content"></div>
+                    </div>
+                    {{ > profileEditForm }}
+                </div>
+            </div>
+        </div>
+    {{ else }}
+        {{ > message label='user-profile-not-found' }}
+    {{ /if }}
+</template>
+
+<template name="settings">
+    {{ > profile profile=currentUser }}
+    <div class="tabbed-pane-main-col clearfix">
+        <div class="tabbed-pane-main-col-loading hide js-loading-page">
+            <span class="tabbed-pane-main-col-loading-spinner spinner"></span>
+        </div>
+        <div class="tabbed-pane-main-col-wrapper js-content">
+            <div class="window-module clearfix">
+                <div class="window-module-title">
+                    <h3>{{_ "account-details"}}</h3>
+                </div>
+                <a class="big-link js-change-name-and-bio" href="#">
+                    <span class="text">{{_ 'change-name-initials-bio'}}</span>
+                </a>
+                <a class="big-link js-change-avatar" href="#">
+                    <span class="text">{{_ 'change-avatar'}}</span>
+                </a>
+                <a class="big-link js-change-password" href="#">
+                    <span class="text">{{_ 'change-password'}}</span>
+                </a>
+                <a class="big-link js-change-email" href="#">
+                    <span class="text">{{_ 'change-email'}}</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="profileEditForm">
+    {{#if $eq currentUser.username profile.username }}
+        {{# if session 'ProfileEditForm' }}
+            <form id="ProfileEditForm" class="js-profile-form">
+                <p class="error js-profile-form-error hide"></p>
+                <label>{{_ "username"}}</label>
+                <input type="text" id="username" value="{{ profile.username }}" disabled>
+                <label>{{_ "fullname"}}</label>
+                <input type="text" id="name" value="{{ profile.profile.name }}">
+                <label>
+                    {{_ "bio"}} <span class="quiet">({{_ 'optional'}})</span>
+                </label>
+                <textarea id="bio">{{ profile.profile.bio }}</textarea>
+                <input type="submit" class="primary wide js-submit-profile" value="{{_ 'save'}}">
+                <input type="button" class="js-cancel-edit-profile" value="{{_ 'cancel'}}">
+            </form>
+        {{ else }}
+            <a class="button-link tabbed-pane-header-details-edit js-edit-profile" href="#">
+                <span class="icon-sm fa fa-pencil"></span>
+                {{_ "edit-profile"}}
+            </a>
+        {{ /if }}
+    {{ /if }}
+</template>
+
+<template name="userPopup">
+    <div class="board-member-menu">
+        <div class="mini-profile-info">
+            {{> userAvatar user=user}}
+            <div class="info">
+                <h3 class="bottom" style="margin-right: 40px;">
+                    <a class="js-profile" href="{{ pathFor route='Profile' username=user.username }}">{{ user.profile.name }}</a>
+                </h3>
+                <p class="quiet bottom">@{{ user.username }}</p>
+            </div>
+        </div>
+    </div>
+</template>
+
+
+<template name="memberName">
+    <a class="inline-object js-show-mem-menu" href="{{ pathFor route='Profile' username=user.username }}">
+        {{ user.profile.name }}
+        {{# if username }}
+            ({{ user.username }})
+        {{ /if }}
+    </a>
+</template>

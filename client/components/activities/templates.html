@@ -1,0 +1,154 @@
+<template name="boardActivities">
+    {{# each currentBoard.activities }}
+        <div class="phenom phenom-action clearfix phenom-other">
+            {{> userAvatar user=user size="extra-small" class="creator js-show-mem-menu" }}
+            <div class="phenom-desc">
+                {{ > memberName user=user }}
+
+                {{# if $eq activityType 'createBoard' }}
+                    {{_ 'activity-created' boardLabel}}.
+                {{ /if }}
+
+                {{# if $eq activityType 'createList' }}
+                    {{_ 'activity-added' list.title boardLabel}}.
+                {{ /if }}
+
+                {{# if $eq activityType 'archivedList' }}
+                    {{_ 'activity-archived' list.title}}.
+                {{ /if }}
+
+                {{# if $eq activityType 'createCard' }}
+                    {{{_ 'activity-added' cardLink boardLabel}}}.
+                {{ /if }}
+
+                {{# if $eq activityType 'archivedCard' }}
+                    {{{_ 'activity-archived' cardLink}}}.
+                {{ /if }}
+
+                {{# if $eq activityType 'restoredCard' }}
+                    {{{_ 'activity-sent' cardLink boardLabel}}}.
+                {{ /if }}
+
+                {{# if $eq activityType 'moveCard' }}
+                    {{{_ 'activity-moved' cardLink oldList.title list.title}}}.
+                {{ /if }}
+
+                {{# if $eq activityType 'addBoardMember' }}
+                    {{{_ 'activity-added' memberLink boardLabel}}}.
+                {{ /if }}
+
+                {{# if $eq activityType 'removeBoardMember' }}
+                    {{{_ 'activity-excluded' memberLink boardLabel}}}.
+                {{ /if }}
+
+                {{# if $eq activityType 'joinMember' }}
+                    {{# if $eq currentUser._id member._id }}
+                        {{{_ 'activity-joined' cardLink}}}.
+                    {{ else }}
+                        {{{_ 'activity-added' memberLink cardLink}}}.
+                    {{/if}}
+                {{ /if }}
+
+                {{# if $eq activityType 'unjoinMember' }}
+                    {{# if $eq currentUser._id member._id }}
+                        {{{_ 'activity-unjoined' cardLink}}}.
+                    {{ else }}
+                        {{{_ 'activity-removed' memberLink cardLink}}}.
+                    {{/if}}
+                {{ /if }}
+
+                {{# if $eq activityType 'addComment' }}
+                    <div class="phenom-desc">
+                    {{{_ 'activity-on' cardLink}}}
+                        <div class="action-comment markeddown">
+                            <a href="{{ card.absoluteUrl }}" class="current-comment show tdn">
+                                <p>{{#viewer}}{{ comment.text }}{{/viewer}}</p>
+                            </a>
+                        </div>
+                    </div>
+                {{ /if }}
+
+                {{# if $eq activityType 'addAttachment' }}
+                    <div class="phenom-desc">
+                        {{{_ 'activity-attached' attachmentLink cardLink}}}.
+                    </div>
+                {{ /if }}
+            </div>
+            <p class="phenom-meta quiet">
+                <span class="date js-hide-on-sending">
+                    {{ moment createdAt }}
+                </span>
+            </p>
+        </div>
+    {{ /each }}
+</template>
+
+<template name="cardActivities">
+    {{# each currentCard.comments }}
+        <div class="phenom phenom-action clearfix phenom-comment">
+            {{> userAvatar user=user size="small" class="creator js-show-mem-menu" }}
+            <form>
+                <div class="phenom-desc">
+                    {{ > memberName user=user }}
+                    <div class="action-comment markeddown">
+                        <div class="current-comment">
+                          {{#viewer}}{{ text }}{{/viewer}}
+                        </div>
+                        <textarea class="js-text" tabindex="1">{{ text }}</textarea>
+                    </div>
+                </div>
+                <div class="edit-controls clearfix">
+                    <input type="submit" class="primary confirm js-save-edit" value="{{_ 'save'}}" tabindex="2">
+                </div>
+            </form>
+            <p class="phenom-meta quiet">
+                <span class="date js-hide-on-sending">{{ moment createdAt }}</span>
+                {{# if currentUser }}
+                    <span class="js-hide-on-sending">
+                        - <a href="#" class="js-edit-action">{{_ "edit"}}</a>
+                        - <a href="#" class="js-confirm-delete-action">{{_ "delete"}}</a>
+                    </span>
+                {{/ if }}
+            </p>
+        </div>
+    {{/each}}
+
+    {{# each currentCard.activities }}
+        <div class="phenom phenom-action clearfix phenom-other">
+            {{> userAvatar user=user size="extra-small" class="creator js-show-mem-menu" }}
+            {{ > memberName user=user }}
+            {{# if $eq activityType 'createCard' }}
+                {{_ 'activity-added' cardLabel list.title}}.
+            {{ /if }}
+            {{# if $eq activityType 'joinMember' }}
+                {{# if $eq currentUser._id member._id }}
+                    {{_ 'activity-joined' cardLabel}}.
+                {{ else }}
+                    {{{_ 'activity-added' cardLabel memberLink}}}.
+                {{/if}}
+            {{/if}}
+            {{# if $eq activityType 'unjoinMember' }}
+                {{# if $eq currentUser._id member._id }}
+                    {{_ 'activity-unjoined' cardLabel}}.
+                {{ else }}
+                    {{{_ 'activity-removed' cardLabel memberLink}}}.
+                {{/if}}
+            {{ /if }}
+            {{# if $eq activityType 'archivedCard' }}
+                {{_ 'activity-archived' cardLabel}}.
+            {{ /if }}
+            {{# if $eq activityType 'restoredCard' }}
+                {{_ 'activity-sent' cardLabel boardLabel}}.
+            {{/ if }}
+            {{# if $eq activityType 'moveCard' }}
+                {{_ 'activity-moved' cardLabel oldList.title list.title}}.
+            {{/ if }}
+            {{# if $eq activityType 'addAttachment' }}
+                {{{_ 'activity-attached' attachmentLink cardLabel}}}.
+                {{# if attachment.isImage }}
+                    <img src="{{ attachment.url }}" class="attachment-image-preview">
+                {{/if}}
+            {{/ if}}
+        </div>
+    {{/each}}
+</template>

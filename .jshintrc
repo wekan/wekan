@@ -1,0 +1,82 @@
+{
+  // JSHint options: http://jshint.com/docs/options/
+  "maxerr": 50,
+
+  // Enforcing
+  "camelcase": true,
+  "eqeqeq": true,
+  "undef": true,
+  "unused": true,
+
+  // Environments
+  "browser": true,
+  "devel": true,
+
+  // Authorized globals
+  "globals": {
+    // Meteor globals
+    "Meteor": false,
+    "DDP": false,
+    "Mongo": false,
+    "Session": false,
+    "Accounts": false,
+    "Template": false,
+    "Blaze": false,
+    "UI": false,
+    "Match": false,
+    "check": false,
+    "Tracker": false,
+    "Deps": false,
+    "ReactiveVar": false,
+    "EJSON": false,
+    "HTTP": false,
+    "Email": false,
+    "Assets": false,
+    "Handlebars": false,
+    "Package": false,
+    "App": false,
+    "Npm": false,
+    "Tinytest": false,
+    "Random": false,
+    "HTML": false,
+
+    // Exported by packages we use
+    "_": false,
+    "$": false,
+    "Router": false,
+    "SimpleSchema": false,
+    "getSlug": false,
+    "Migrations": false,
+    "FS": false,
+    "BlazeComponent": false,
+    "TAPi18n": false,
+    "T9n": false,
+    "SubsManager": false,
+    "Mousetrap": false,
+    "Avatar": true,
+
+    // Our collections
+    "Boards": true,
+    "Lists": true,
+    "Cards": true,
+    "CardComments": true,
+    "Activities": true,
+    "Attachments": true,
+    "Users": true,
+    "AccountsTemplates": true,
+
+    // Our objects
+    "Utils": true,
+    "Popup": true,
+    "Filter": true,
+    "Sidebar": true,
+    "Mixins": true,
+
+    // XXX Temp, we should remove these
+    "allowIsBoardAdmin": true,
+    "allowIsBoardMember": true,
+    "BoardSubsManager": true,
+    "currentlyOpenedForm": true,
+    "Emoji": true
+  }
+}

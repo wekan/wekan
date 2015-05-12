@@ -1,0 +1,85 @@
+.board-list
+  margin: 25px auto
+  width: 1200px
+
+  li
+    float: left
+    width: 25%
+    box-sizing: border-box
+    position: relative
+
+    &.starred .fa-star-o
+      opacity: 1
+
+  a
+    background-color: #999
+    color: #f6f6f6
+    height: 90px
+    font-size: 16px
+    line-height: 22px
+    border-radius: 3px
+    display: block
+    font-weight: 700
+    min-height: 18px
+    padding: 8px 12px 8px 12px
+    margin: 0 16px 16px 0
+    position: relative
+    text-decoration: none
+
+    &.tile
+      background-size: auto
+      background-repeat: repeat
+
+  .details
+    height: 84px
+    padding-right: 36px
+    bottom: 0
+    left: 0
+    overflow: hidden
+    padding: 9px 12px
+    position: absolute
+    right: 0
+    top: 0
+
+  .board-list-item-sub-name
+    color: rgba(255, 255, 255, .5)
+    display: block
+    font-size: 14px
+    font-weight: 400
+    line-height: 22px
+
+  .fa-star-o
+    bottom: 0
+    font-size: 14px
+    height: 18px
+    line-height: 18px
+    opacity: 0
+    padding: 9px 9px
+    position: absolute
+    right: 0
+    top: 0
+    transition-duration: .15s
+    transition-property: color, font-size, background
+
+  .is-star-active
+    color: #e6bf00
+
+  li:hover a
+    color: #f6f6f6
+
+    .fa-star-o
+      color: #fff
+      opacity: .75
+
+      &:hover
+        font-size: 18px
+        opacity: 1
+
+      &.is-star-active
+        color: #e6bf00
+        opacity: 1
+
+        &:hover
+          color: #ffd91a
+          font-size: 16px
+          opacity: 1
