@@ -4,6 +4,16 @@
 //
 //   Migrations.add(name, migrationCallback, optionalOrder);
 
+// In the context of migration functions we don't want to validate database
+// mutation queries against the current (ie, latest) collection schema. Doing
+// that would work at the time we write the migration but would break in the
+// future when we'll update again the concerned collection schema.
+//
+// To prevent this bug we always have to set the `validate` option to false. We
+// generally use the shorthandlers defined below.
+var noValidate = { validate: false };
+var noValidateMulti = _.extend(noValidate, { multi: true });
+
 Migrations.add('board-background-color', function() {
   var defaultColor = '#16A085';
   Boards.update({
@@ -17,9 +27,7 @@ Migrations.add('board-background-color', function() {
         color: defaultColor
       }
     }
-  }, {
-    multi: true
-  });
+  }, noValidateMulti);
 });
 
 Migrations.add('lowercase-board-permission', function() {
@@ -27,7 +35,7 @@ Migrations.add('lowercase-board-permission', function() {
     Boards.update(
       { permission: permission },
       { $set: { permission: permission.toLowerCase() } },
-      { multi: true }
+      noValidateMulti
     );
   });
 });
@@ -42,7 +50,7 @@ Migrations.add('change-attachments-type-for-non-images', function() {
           'original.type': newTypeForNonImage,
           'copies.attachments.type': newTypeForNonImage
         }
-      });
+      }, noValidate);
     }
   });
 });
@@ -51,10 +59,10 @@ Migrations.add('card-covers', function() {
   Cards.find().forEach(function(card) {
     var cover =  Attachments.findOne({ cardId: card._id, cover: true });
     if (cover) {
-      Cards.update(card._id, {$set: {coverId: cover._id}});
+      Cards.update(card._id, {$set: {coverId: cover._id}}, noValidate);
     }
   });
-  Attachments.update({}, {$unset: {cover: ''}}, {multi: true});
+  Attachments.update({}, {$unset: {cover: ''}}, noValidateMulti);
 });
 
 Migrations.add('use-css-class-for-boards-colors', function() {
@@ -69,17 +77,17 @@ Migrations.add('use-css-class-for-boards-colors', function() {
   Boards.find().forEach(function(board) {
     var oldBoardColor = board.background.color;
     var newBoardColor = associationTable[oldBoardColor];
-    Boards._collection.update({ _id: board._id }, {
+    Boards.update(board._id, {
       $set: { color: newBoardColor },
       $unset: { background: '' }
-    });
+    }, noValidate);
   });
 });
 
 Migrations.add('denormalize-star-number-per-board', function() {
   Boards.find().forEach(function(board) {
     var nStars = Users.find({'profile.starredBoards': board._id}).count();
-    Boards.update(board._id, {$set: {stars: nStars}});
+    Boards.update(board._id, {$set: {stars: nStars}}, noValidate);
   });
 });
 
@@ -107,7 +115,6 @@ Migrations.add('add-member-isactive-field', function() {
         isActive: false
       });
     });
-    Boards._collection.update({_id: board._id},
-      {$set: {members: newMemberSet}});
+    Boards.update(board._id, {$set: {members: newMemberSet}}, noValidate);
   });
 });
