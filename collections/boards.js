@@ -14,6 +14,9 @@ Boards.attachSchema(new SimpleSchema({
     type: Date,
     denyUpdate: true
   },
+  background: {
+    type: Object
+  },
   // XXX Inconsistent field naming
   modifiedAt: {
     type: Date,
