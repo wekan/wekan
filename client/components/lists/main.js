@@ -1,4 +1,4 @@
-ListComponent = BlazeComponent.extendComponent({
+BlazeComponent.extendComponent({
   template: function() {
     return 'list';
   },
@@ -27,19 +27,19 @@ ListComponent = BlazeComponent.extendComponent({
     if (Meteor.user().isBoardMember()) {
       var $cards = this.$('.js-minicards');
       $cards.sortable({
-        connectWith: ".js-minicards",
+        connectWith: '.js-minicards',
         tolerance: 'pointer',
         appendTo: '.js-lists',
-        helper: "clone",
+        helper: 'clone',
         items: '.js-minicard:not(.placeholder, .hide, .js-composer)',
         placeholder: 'minicard placeholder',
-        start: function (event, ui) {
+        start: function(event, ui) {
           $('.minicard.placeholder').height(ui.item.height());
           Popup.close();
         },
         stop: function(event, ui) {
-          // To attribute the new index number, we need to get the dom element of
-          // the previous and the following card -- if any.
+          // To attribute the new index number, we need to get the dom element
+          // of the previous and the following card -- if any.
           var cardDomElement = ui.item.get(0);
           var prevCardDomElement = ui.item.prev('.js-minicard').get(0);
           var nextCardDomElement = ui.item.next('.js-minicard').get(0);
@@ -57,7 +57,7 @@ ListComponent = BlazeComponent.extendComponent({
 
       Utils.liveEvent('mouseover', function($el) {
         $el.find('.js-member-droppable').droppable({
-          hoverClass: "draggable-hover-card",
+          hoverClass: 'draggable-hover-card',
           accept: '.js-member',
           drop: function(event, ui) {
             var memberId = Blaze.getData(ui.draggable.get(0)).userId;
@@ -67,7 +67,7 @@ ListComponent = BlazeComponent.extendComponent({
         });
 
         $el.find('.js-member-droppable').droppable({
-          hoverClass: "draggable-hover-card",
+          hoverClass: 'draggable-hover-card',
           accept: '.js-label',
           drop: function(event, ui) {
             var labelId = Blaze.getData(ui.draggable.get(0))._id;

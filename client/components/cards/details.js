@@ -53,7 +53,7 @@ BlazeComponent.extendComponent({
 
         event.preventDefault();
       },
-      'click .js-cancel-edit': function(event, t) {
+      'click .js-cancel-edit': function() {
         // remove editing hide.
         $('.editing').removeClass('editing');
       },
@@ -64,8 +64,8 @@ BlazeComponent.extendComponent({
             $set: {
               title: title
             }
-          }, function (err, res) {
-            if (!err) $('.editing').removeClass('editing');
+          }, function(err) {
+            if (! err) $('.editing').removeClass('editing');
           });
         }
 
@@ -77,7 +77,7 @@ BlazeComponent.extendComponent({
             description: t.find('#desc').value
           }
         }, function(err) {
-          if (!err) $('.editing').removeClass('editing');
+          if (! err) $('.editing').removeClass('editing');
         });
         event.preventDefault();
       },

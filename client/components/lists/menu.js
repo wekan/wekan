@@ -3,8 +3,8 @@ Template.listActionPopup.events({
     // XXX We need a better API and architecture here. See
     // https://github.com/peerlibrary/meteor-blaze-components/issues/19
     var listDom = document.getElementById('js-list-' + this._id);
-    var listComponent = Blaze.getView(listDom).templateInstance().get('component');
-    listComponent.openForm();
+    var listInstance = Blaze.getView(listDom).templateInstance();
+    listInstance.get('component').openForm();
     Popup.close();
   },
   'click .js-list-subscribe': function() {},

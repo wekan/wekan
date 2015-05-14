@@ -61,7 +61,8 @@ BlazeComponent.extendComponent({
           var list = $('#js-list-' + this.data()._id);
           var nextList = list[isReverse ? 'prev' : 'next']('.js-list').get(0) ||
             $('.js-list:' + (isReverse ? 'last' : 'first')).get(0);
-          var nextListComponent = BlazeComponent.getComponentForElement(nextList);
+          var nextListComponent =
+                                BlazeComponent.getComponentForElement(nextList);
 
           // XXX Get the real position
           var position = 'bottom';

@@ -45,7 +45,7 @@ Blaze.Template.registerHelper('mentions', new Template('mentions', function() {
 
   var mentionRegex = /\B@(\w*)/gi;
   var currentMention, knowedUser, href, linkClass, linkValue, link;
-  while (currentMention = mentionRegex.exec(content)) {
+  while (!! (currentMention = mentionRegex.exec(content))) {
 
     knowedUser = _.findWhere(knowedUsers, { username: currentMention[1] });
     if (! knowedUser)
@@ -53,7 +53,9 @@ Blaze.Template.registerHelper('mentions', new Template('mentions', function() {
 
     linkValue = [' ', at, knowedUser.username];
     href = Router.url('Profile', { username: knowedUser.username });
-    linkClass = 'atMention' + (knowedUser.userId === Meteor.userId() ? ' me' : '');
+    linkClass = 'atMention';
+    if (knowedUser.userId === Meteor.userId())
+      linkClass += ' me';
     link = HTML.A({ href: href, 'class': linkClass }, linkValue);
 
     content = content.replace(currentMention[0], Blaze.toHTML(link));

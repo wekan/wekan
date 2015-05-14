@@ -9,6 +9,7 @@ meteor-platform
 accounts-password
 kenton:accounts-sandstorm
 service-configuration
+useraccounts:core
 useraccounts:unstyled
 
 # Compilers
@@ -50,4 +51,3 @@ mquandalle:jquery-textcomplete
 peerlibrary:blaze-components
 reactive-var
 seriousm:emoji-continued
-useraccounts:core
