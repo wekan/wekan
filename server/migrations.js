@@ -9,9 +9,15 @@
 // that would work at the time we write the migration but would break in the
 // future when we'll update again the concerned collection schema.
 //
-// To prevent this bug we always have to set the `validate` option to false. We
-// generally use the shorthandlers defined below.
-var noValidate = { validate: false };
+// To prevent this bug we always have to disable the schema validation and
+// argument transformations. We generally use the shorthandlers defined below.
+var noValidate = {
+  validate: false,
+  filter: false,
+  autoConvert: false,
+  removeEmptyStrings: false,
+  getAutoValues: false
+};
 var noValidateMulti = _.extend(noValidate, { multi: true });
 
 Migrations.add('board-background-color', function() {
