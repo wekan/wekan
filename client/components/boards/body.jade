@@ -12,18 +12,18 @@ template(name="boardComponent")
           each lists
             +list(this)
           if currentUser.isBoardMember
-            +addlistForm
+            +addListForm
       +boardSidebar
     if currentCard
       +cardSidebar(currentCard)
   else
     +message(label="board-no-found")
 
-template(name="addlistForm")
+template(name="addListForm")
   .list.js-list.add-list.js-add-list
     +inlinedForm(autoclose=false)
       input.list-name-input(type="text" placeholder="{{_ 'add-list'}}"
-        autocomplete="off" autofocus)
+        autocomplete="off" autofocus value=getCache)
       div.edit-controls.clearfix
         button.primary.confirm.js-save-edit(type="submit") {{_ 'save'}}
         a.fa.fa-times.dark-hover.cancel.js-close-inlined-form

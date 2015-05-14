@@ -87,8 +87,8 @@ observe-sequence@1.0.6
 ongoworks:speakingurl@1.1.0
 ordered-dict@1.0.3
 peerlibrary:assert@0.2.5
-peerlibrary:base-component@0.8.0
-peerlibrary:blaze-components@0.10.0
+peerlibrary:base-component@0.9.2
+peerlibrary:blaze-components@0.11.0
 raix:eventemitter@0.1.2
 raix:handlebar-helpers@0.2.4
 random@1.0.3

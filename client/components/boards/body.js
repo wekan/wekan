@@ -4,7 +4,7 @@ BlazeComponent.extendComponent({
   },
 
   openNewListForm: function() {
-    this.componentChildren('addlistForm')[0].open();
+    this.componentChildren('addListForm')[0].open();
   },
 
   scrollLeft: function() {
@@ -60,11 +60,29 @@ BlazeComponent.extendComponent({
 
 BlazeComponent.extendComponent({
   template: function() {
-    return 'addlistForm';
+    return 'addListForm';
   },
 
   // Proxy
   open: function() {
     this.componentChildren('inlinedForm')[0].open();
+  },
+
+  events: function() {
+    return [{
+      submit: function(evt) {
+        evt.preventDefault();
+        var title = this.find('.list-name-input');
+        if ($.trim(title.value)) {
+          Lists.insert({
+            title: title.value,
+            boardId: Session.get('currentBoard'),
+            sort: $('.list').length
+          });
+
+          title.value = '';
+        }
+      }
+    }];
   }
-}).register('addlistForm');
+}).register('addListForm');

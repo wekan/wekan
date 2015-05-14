@@ -1,45 +1,45 @@
 @import 'nib'
 
-.card-detail.sidebar-content
-  width: 496px - 2 * 20px
-  top: -46px !important
-  z-index: 20 !important
-  // XXX Animate apparition
+.card-sidebar.sidebar
+  width: 496px
+  top: -46px
 
-  .card-detail-header
-    background: #F7F7F7
-    border-bottom: 1px solid darken(white, 10%)
-    position: absolute
-    min-height: 38px
-    top: 0
-    left: 0
-    right: 0
-    padding 7px 20px 0
+  .card-detail.sidebar-content
+    padding: 0 20px
+    z-index: 20 !important
+    // XXX Animate apparition
 
-    i.fa
-      float: right
-      font-size: 1.3em
-      color: darken(white, 35%)
-      margin-top: 7px
+    .card-detail-header
+      margin: 0 -20px 5px
+      padding 7px 20px 0
+      background: #F7F7F7
+      border-bottom: 1px solid darken(white, 10%)
+      min-height: 38px
 
-    .card-detail-title
-      font-weight: bold
-      font-size: 1.7em
-      margin: 3px 0 0
-      padding: 0
+      i.fa
+        float: right
+        font-size: 1.3em
+        color: darken(white, 35%)
+        margin-top: 7px
 
-  .card-detail-list
-    font-size: 0.85em
-    margin-bottom: 3px
+      .card-detail-title
+        font-weight: bold
+        font-size: 1.7em
+        margin: 3px 0 0
+        padding: 0
 
-    a.card-detail-list-title
-      font-weight: bold
+    .card-detail-list
+      font-size: 0.85em
+      margin-bottom: 3px
 
-      &.is-editable
-        display: inline-block
-        background: darken(white, 10%)
-        border-radius: 3px
-        padding: 0px 5px
+      a.card-detail-list-title
+        font-weight: bold
+
+        &.is-editable
+          display: inline-block
+          background: darken(white, 10%)
+          border-radius: 3px
+          padding: 0px 5px
 
 .new-comment
   position: relative

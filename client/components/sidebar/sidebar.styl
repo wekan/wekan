@@ -1,6 +1,11 @@
 @import 'nib'
 
 .sidebar
+  position: absolute
+  top: 0
+  bottom: 0
+  right: 0
+
   .sidebar-content
     padding: 10px 20px
     background: white
@@ -22,10 +27,7 @@
 
 .board-sidebar
   width: 248px
-  position: absolute
-  top: 0
   right: -@width
-  bottom: 0
   transition: top .1s, right .1s, width .1s
 
   &.is-open
@@ -103,7 +105,6 @@
 
     .toggle-widget-nav
       color: #4d4d4d
-
 
 .board-widget-title
   display: block
