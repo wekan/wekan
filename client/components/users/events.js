@@ -1,9 +1,3 @@
-// XXX This should be handled by default (and in a better way) by useraccounts.
-// See https://github.com/meteor-useraccounts/core/issues/384
-Template.atForm.onRendered(function() {
-  this.find('input').focus();
-});
-
 Template.memberMenuPopup.events({
   'click .js-language': Popup.open('setLanguage'),
   'click .js-logout': function(evt) {
