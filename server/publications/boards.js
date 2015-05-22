@@ -3,9 +3,10 @@
 // 1. that the user is a member of
 // 2. the user has starred
 Meteor.publish('boards', function() {
-  // Ensure that the user is connected
+  // Ensure that the user is connected. If it is not, we need to return an empty
+  // array to tell the client to remove the previously published docs.
   if (! Match.test(this.userId, String))
-    return;
+    return [];
 
   // Defensive programming to verify that starredBoards has the expected
   // format -- since the field is in the `profile` a user can modify it.
