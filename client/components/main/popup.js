@@ -7,7 +7,7 @@ Popup.template.events({
   'click .js-back-view': function() {
     Popup.back();
   },
-  'click .js-close-popover': function() {
+  'click .js-close-pop-over': function() {
     Popup.close();
   },
   'click .js-confirm': function() {

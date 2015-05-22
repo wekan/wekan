@@ -56,9 +56,9 @@ Popup = {
 
       // If there are no popup currently opened we use the Blaze API to render
       // one into the DOM. We use a reactive function as the data parameter that
-      // just return the top element on the stack and depends on our internal
-      // dependency that is being invalidated every time the top element of the
-      // stack has changed and we want to update the popup.
+      // return the the complete along with its top element and depends on our
+      // internal dependency that is being invalidated every time the top
+      // element of the stack has changed and we want to update the popup.
       //
       // Otherwise if there is already a popup open we just need to invalidate
       // our internal dependency, and since we just changed the top element of
@@ -66,7 +66,10 @@ Popup = {
       if (! self.isOpen()) {
         self.current = Blaze.renderWithData(self.template, function() {
           self._dep.depend();
-          return self._stack[self._stack.length - 1];
+          return _.extend(self._stack[self._stack.length - 1], {
+            stack: self._stack,
+            containerTranslation: (self._stack.length - 1) * -300
+          });
         }, document.body);
 
       } else {

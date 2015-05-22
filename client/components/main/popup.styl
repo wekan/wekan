@@ -73,8 +73,17 @@
         color: darken(white, 80%)
 
     .back-btn
-      padding: 10px
       float: left
+      overflow: hidden
+      width: 30px
+      transition: width 0.2s
+
+      i.fa
+        margin: 10px
+        margin-top: 12px
+
+      &.is-hidden
+        width: 0
 
     .close-btn
       padding: 10px 10px 10px 4px
@@ -82,11 +91,21 @@
       top: 0
       right: 0
 
-  .content
-    overflow-x: hidden
-    overflow-y: auto
-    padding: 0 10px 10px
+  .content-wrapper
+    width: 100%
+
+  .content-container
+    width: 1000px
     max-height: 550px
+    transition: transform 0.2s
+
+    .content
+      width: 300 - 20px
+      padding: 0 10px 10px
+      float: left
+
+      &.is-hidden
+        height: 0
 
   .quiet
     padding: 6px 6px 4px
