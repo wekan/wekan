@@ -7,6 +7,12 @@ BlazeComponent.extendComponent({
     this.componentChildren('addListForm')[0].open();
   },
 
+  showNewCardForms: function(value) {
+    _.each(this.componentChildren('list'), function(listComponent) {
+      listComponent.showNewCardForm(value);
+    });
+  },
+
   scrollLeft: function() {
     // TODO
   },

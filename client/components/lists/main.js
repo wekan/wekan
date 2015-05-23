@@ -3,9 +3,17 @@ BlazeComponent.extendComponent({
     return 'list';
   },
 
-  // Proxy
+  // Proxies
   openForm: function(options) {
     this.componentChildren('listBody')[0].openForm(options);
+  },
+
+  showNewCardForm: function(value) {
+    this.componentChildren('listBody')[0].showNewCardForm(value);
+  },
+
+  onCreated: function() {
+    this.newCardFormIsVisible = new ReactiveVar(true);
   },
 
   // XXX The jQuery UI sortable plugin is far from ideal here. First we include
@@ -16,6 +24,7 @@ BlazeComponent.extendComponent({
   // the drag&drop code ourselves?
   onRendered: function() {
     if (Meteor.user().isBoardMember()) {
+      var boardComponent = this.componentParent();
       var $cards = this.$('.js-minicards');
       $cards.sortable({
         connectWith: '.js-minicards',
@@ -27,6 +36,7 @@ BlazeComponent.extendComponent({
         start: function(event, ui) {
           $('.minicard.placeholder').height(ui.item.height());
           Popup.close();
+          boardComponent.showNewCardForms(false);
         },
         stop: function(event, ui) {
           // To attribute the new index number, we need to get the dom element
@@ -43,6 +53,7 @@ BlazeComponent.extendComponent({
               sort: sort
             }
           });
+          boardComponent.showNewCardForms(true);
         }
       }).disableSelection();
 

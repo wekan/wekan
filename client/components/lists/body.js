@@ -58,6 +58,14 @@ BlazeComponent.extendComponent({
     }
   },
 
+  showNewCardForm: function(value) {
+    this.newCardFormIsVisible.set(value);
+  },
+
+  onCreated: function() {
+    this.newCardFormIsVisible = new ReactiveVar(true);
+  },
+
   events: function() {
     return [{
       submit: this.addCard

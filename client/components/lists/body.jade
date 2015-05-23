@@ -34,9 +34,10 @@ template(name="listBody")
       +inlinedForm(autoclose=false position="bottom")
         +addCardForm(listId=_id position="bottom")
       else
-        a.open-card-composer.js-open-inlined-form
-          i.fa.fa-plus
-          | {{_ 'add-card'}}
+        if newCardFormIsVisible.get
+          a.open-card-composer.js-open-inlined-form
+            i.fa.fa-plus
+            | {{_ 'add-card'}}
 
 template(name="addCardForm")
   .minicard.js-composer
