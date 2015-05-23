@@ -1,10 +1,8 @@
 Template.listActionPopup.events({
   'click .js-add-card': function() {
-    // XXX We need a better API and architecture here. See
-    // https://github.com/peerlibrary/meteor-blaze-components/issues/19
     var listDom = document.getElementById('js-list-' + this._id);
-    var listInstance = Blaze.getView(listDom).templateInstance();
-    listInstance.get('component').openForm();
+    var listComponent = BlazeComponent.getComponentForElement(listDom);
+    listComponent.openForm({ position: 'top' });
     Popup.close();
   },
   'click .js-list-subscribe': function() {},

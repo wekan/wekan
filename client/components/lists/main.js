@@ -3,18 +3,9 @@ BlazeComponent.extendComponent({
     return 'list';
   },
 
+  // Proxy
   openForm: function(options) {
-    options = options || {};
-    options.position = options.position || 'top';
-
-    var listComponent = this.componentChildren('listBody')[0];
-    var forms = listComponent.componentChildren('inlinedForm');
-
-    if (options.position === 'top') {
-      forms[0].open();
-    } else {
-      forms[forms.length - 1].open();
-    }
+    this.componentChildren('listBody')[0].openForm(options);
   },
 
   // XXX The jQuery UI sortable plugin is far from ideal here. First we include

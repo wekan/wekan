@@ -2,7 +2,7 @@ template(name="listBody")
   .minicards.clearfix.js-minicards
     if cards.count
       +inlinedForm(autoclose=false position="top")
-        +addCardForm
+        +addCardForm(listId=_id position="top")
     each cards
       .minicard.card.js-minicard.js-member-droppable(
         class="{{#if isSelected}}is-selected{{/if}}")
@@ -32,7 +32,7 @@ template(name="listBody")
                 span.badge-text= attachments.count
     if currentUser.isBoardMember
       +inlinedForm(autoclose=false position="bottom")
-        +addCardForm
+        +addCardForm(listId=_id position="bottom")
       else
         a.open-card-composer.js-open-inlined-form
           i.fa.fa-plus
