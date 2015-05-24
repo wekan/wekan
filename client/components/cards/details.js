@@ -17,6 +17,14 @@ BlazeComponent.extendComponent({
     activitiesComponent.loadNextPage();
   },
 
+  onRendered: function() {
+    var bodyBoardComponent = this.componentParent();
+    var additionalMargin = 550;
+    var $cardDetails = this.$(this.firstNode());
+    var scollLeft = $cardDetails.offset().left + additionalMargin;
+    bodyBoardComponent.scrollLeft(scollLeft);
+  },
+
   events: function() {
     return [{
       'click .js-move-card': Popup.open('moveCard'),

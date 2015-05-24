@@ -16,12 +16,12 @@ template(name="boardComponent")
               +cardDetails(currentCard)
           if currentUser.isBoardMember
             +addListForm
-      +boardSidebar
+      +sidebar
   else
     +message(label="board-no-found")
 
 template(name="addListForm")
-  .list.js-list.add-list.js-add-list
+  .list.js-list.list-composer.js-list-composer
     +inlinedForm(autoclose=false)
       input.list-name-input(type="text" placeholder="{{_ 'add-list'}}"
         autocomplete="off" autofocus value=getCache)

@@ -19,9 +19,10 @@ BlazeComponent.extendComponent({
   // XXX The jQuery UI sortable plugin is far from ideal here. First we include
   // all jQuery components but only use one. Second, it modifies the DOM itself,
   // resulting in Blaze abandoning reactive update of the nodes that have been
-  // moved which result in bugs if multiple users use the board in real time.
-  // I tried sortable:sortable but that was not better. Should we “simply” write
-  // the drag&drop code ourselves?
+  // moved which result in bugs if multiple users use the board in real time. I
+  // tried sortable:sortable but that was not better. And dragula is not
+  // powerful enough for our use casesShould we “simply” write the drag&drop
+  // code ourselves?
   onRendered: function() {
     if (Meteor.user().isBoardMember()) {
       var boardComponent = this.componentParent();

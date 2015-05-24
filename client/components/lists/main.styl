@@ -11,8 +11,7 @@
   background: darken(white, 10%)
   height: 100%
   border-left: 1px solid darken(white, 20%)
-  padding: 12px 7px 5px
-  overflow-y: auto
+  padding: 0
 
   &:first-child
     margin-left: 5px
@@ -21,15 +20,20 @@
   .card-detail + &
     border-left: none
 
-  &.editable
-    cursor: grab
+  &.ui-sortable-helper
+    cursor: grabbing
+    box-shadow: -2px 2px 8px rgba(0, 0, 0, .3),
+                0 0 1px rgba(0, 0, 0, .5)
+    transform: rotate(4deg)
 
-    .list-wrapper
-      cursor: default
+  &.placeholder
+    background-color: rgba(0, 0, 0, .2)
+    border-color: transparent
+    box-shadow: none
+    height: 100px
 
-  &.add-list
-    &.fade
-      opacity: 0
+  &.list-composer
+    padding: 17px
 
     .list-name-input
       background: rgba(0, 0, 0, .05)
@@ -55,7 +59,7 @@
 
 .list-header
   flex: 0 0 auto
-  padding: 10px 26px 4px 6px
+  margin: 20px 15px 4px
   position: relative
   min-height: 20px
 
@@ -74,24 +78,23 @@
   .list-header-menu-icon
     background-clip: content-box
     background-origin: content-box
-    padding: 6px 8px
+    // padding: 6px 8px
     position: absolute
-    top: 3px
-    right: -5px
+    top: 0
+    right: 0
     color: #a6a6a6
 
   .list-header-num-cards
     color: #8c8c8c
     margin: 0
 
-.minicards
-  padding: 4px 4px 1px
-  z-index: 1
-  height: 100%
+.list-body
+  flex: 1
+  overflow-y: auto
+  padding: 5px 11px
 
-  &::-webkit-scrollbar-button
-    display: block
-    height: 4px
+  .ps-scrollbar-y-rail
+    transform: translateX(2px)
 
 .open-card-composer
   border-radius: 2px
@@ -100,6 +103,7 @@
   padding: 7px 10px
   position: relative
   text-decoration: none
+  animation: fadeIn 0.3s
 
   i.fa
     margin-right: 7px
@@ -117,18 +121,3 @@
     opacity: 0
   to
     opacity: 1
-
-.list.placeholder
-  background-color: rgba(0, 0, 0, .2)
-  border-color: transparent
-  box-shadow: none
-  height: 100px
-
-.list.ui-sortable-helper
-  cursor: grabbing
-  box-shadow: -2px 2px 8px rgba(0, 0, 0, .3), 0 0 1px rgba(0, 0, 0, .5)
-  transform: rotate(4deg)
-
-
-.list.ui-sortable-helper .list-header-menu-icon
-  display: none

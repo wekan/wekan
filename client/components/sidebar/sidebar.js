@@ -1,10 +1,10 @@
 BlazeComponent.extendComponent({
   template: function() {
-    return 'boardSidebar';
+    return 'sidebar';
   },
 
   mixins: function() {
-    return [Mixins.InfiniteScrolling];
+    return [Mixins.InfiniteScrolling, Mixins.PerfectScrollbar];
   },
 
   onCreated: function() {
@@ -46,6 +46,26 @@ BlazeComponent.extendComponent({
     return this.isOpen() && Filter.isActive();
   },
 
+  onRendered: function() {
+    var self = this;
+    if (! Meteor.user().isBoardMember())
+      return;
+
+    $(document).on('mouseover', function() {
+      self.$('.js-member,.js-label').draggable({
+        appendTo: 'body',
+        helper: 'clone',
+        revert: 'invalid',
+        revertDuration: 150,
+        snap: false,
+        snapMode: 'both',
+        start: function() {
+          Popup.close();
+        }
+      });
+    });
+  },
+
   events: function() {
     // XXX Hacky, we need some kind of `super`
     var mixinEvents = this.getMixin(Mixins.InfiniteScrolling).events();
@@ -53,4 +73,4 @@ BlazeComponent.extendComponent({
       'click .js-toogle-sidebar': this.toogle
     }]);
   }
-}).register('boardSidebar');
+}).register('sidebar');

@@ -3,7 +3,7 @@ var widgetTitles = {
   background: 'change-background'
 };
 
-Template.boardSidebar.helpers({
+Template.sidebar.helpers({
   currentWidget: function() {
     return Session.get('currentWidget') + 'Sidebar';
   },

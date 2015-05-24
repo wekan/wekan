@@ -22,8 +22,20 @@ BlazeComponent.extendComponent({
     });
   },
 
-  scrollLeft: function() {
-    // TODO
+  scrollLeft: function(position) {
+    position = position || 0;
+    var $container = $(this.find('.js-lists'));
+    var containerWidth = $container.width();
+    var currentScrollPosition = $container.scrollLeft();
+    if (position < currentScrollPosition) {
+      $container.animate({
+        scrollLeft: position
+      });
+    } else if (position > currentScrollPosition + containerWidth) {
+      $container.animate({
+        scrollLeft: Math.max(0, position - containerWidth)
+      });
+    }
   },
 
   currentCardIsInThisList: function() {
@@ -67,14 +79,14 @@ BlazeComponent.extendComponent({
       tolerance: 'pointer',
       appendTo: '.js-lists',
       helper: 'clone',
-      items: '.js-list:not(.add-list)',
+      items: '.js-list:not(.js-list-composer)',
       placeholder: 'list placeholder',
       start: function(event, ui) {
         $('.list.placeholder').height(ui.item.height());
         Popup.close();
       },
       stop: function() {
-        self.$('.js-lists').find('.js-list:not(.add-list)').each(
+        self.$('.js-lists').find('.js-list:not(.js-list-composer)').each(
           function(i, list) {
             var data = Blaze.getData(list);
             Lists.update(data._id, {
@@ -95,7 +107,7 @@ BlazeComponent.extendComponent({
   },
 
   sidebarSize: function() {
-    var sidebar = this.componentChildren('boardSidebar')[0];
+    var sidebar = this.componentChildren('sidebar')[0];
     if (sidebar && sidebar.isOpen())
       return 'next-sidebar';
   }

@@ -3,6 +3,10 @@ BlazeComponent.extendComponent({
     return 'listBody';
   },
 
+  mixins: function() {
+    return [Mixins.PerfectScrollbar];
+  },
+
   isSelected: function() {
     return Session.equals('currentCard', this.currentData()._id);
   },
@@ -62,13 +66,21 @@ BlazeComponent.extendComponent({
     this.newCardFormIsVisible.set(value);
   },
 
+  scrollToBottom: function() {
+    var $container = $(this.firstNode());
+    $container.animate({
+      scrollTop: $container.height()
+    });
+  },
+
   onCreated: function() {
     this.newCardFormIsVisible = new ReactiveVar(true);
   },
 
   events: function() {
     return [{
-      submit: this.addCard
+      submit: this.addCard,
+      'click .open-card-composer': this.scrollToBottom
     }];
   }
 }).register('listBody');

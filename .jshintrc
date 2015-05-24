@@ -54,6 +54,7 @@
     "SubsManager": false,
     "Mousetrap": false,
     "Avatar": true,
+    "Ps": true,
 
     // Our collections
     "Boards": true,
