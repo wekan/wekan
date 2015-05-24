@@ -1,10 +1,11 @@
-Template.membersWidget.rendered = function() {
+Template.membersWidget.onRendered(function() {
+  var self = this;
   if (! Meteor.user().isBoardMember())
     return;
 
   _.each(['.js-member', '.js-label'], function(className) {
-    Utils.liveEvent('mouseover', function($this) {
-      $this.find(className).draggable({
+    $(document).on('mouseover', function() {
+      self.$(className).draggable({
         appendTo: 'body',
         helper: 'clone',
         revert: 'invalid',
@@ -17,5 +18,4 @@ Template.membersWidget.rendered = function() {
       });
     });
   });
-};
-
+});

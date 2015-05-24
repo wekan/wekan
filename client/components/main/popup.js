@@ -1,4 +1,4 @@
-// XXX This event list should be abstracted somewhere else.
+// XXX This event list must be abstracted somewhere else.
 var endTransitionEvents = [
   'webkitTransitionEnd',
   'otransitionend',

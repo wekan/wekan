@@ -1,6 +1,6 @@
 BlazeComponent.extendComponent({
   template: function() {
-    return 'cardSidebar';
+    return 'cardDetails';
   },
 
   mixins: function() {
@@ -8,7 +8,7 @@ BlazeComponent.extendComponent({
   },
 
   calculateNextPeak: function() {
-    var altitude = this.find('.js-card-sidebar-content').scrollHeight;
+    var altitude = this.find('.js-card-detail').scrollHeight;
     this.callFirstWith(this, 'setNextPeak', altitude);
   },
 
@@ -86,7 +86,7 @@ BlazeComponent.extendComponent({
       'click .js-details-edit-labels': Popup.open('cardLabels')
     }];
   }
-}).register('cardSidebar');
+}).register('cardDetails');
 
 Template.moveCardPopup.events({
   'click .js-select-list': function() {

@@ -4,7 +4,7 @@ template(name="listBody")
       +inlinedForm(autoclose=false position="top")
         +addCardForm(listId=_id position="top")
     each cards
-      .minicard.card.js-minicard.js-member-droppable(
+      .minicard.card.js-minicard(
         class="{{#if isSelected}}is-selected{{/if}}")
         a.minicard-details.clearfix.show(href=absoluteUrl)
           if cover

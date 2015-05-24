@@ -66,11 +66,6 @@
         "catch",
         "typeof"
     ],
-    "safeContextKeyword": [
-        "self",
-        "context",
-        "view"
-    ],
     "validateLineBreaks": "LF",
     "validateQuoteMarks": "'",
     "validateIndentation": 2,

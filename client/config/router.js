@@ -19,7 +19,6 @@ Router.configure({
 
     // Reset default sessions
     Session.set('error', false);
-    Session.set('warning', false);
 
     Popup.close();
 

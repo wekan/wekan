@@ -1,45 +1,57 @@
 @import 'nib'
 
-.card-sidebar.sidebar
-  width: 496px
-  top: -46px
+.card-detail
+  padding: 0 20px
+  height: 100%
+  flex: 0 0 470px
+  overflow: hidden
+  background: white
+  border-radius: 3px
+  z-index: 20 !important
+  animation: growIn 0.2s
+  box-shadow: 0 0 7px 0 darken(white, 30%)
+  transition: flex 0.2s, padding 0.2s
 
-  .card-detail.sidebar-content
-    padding: 0 20px
-    z-index: 20 !important
-    // XXX Animate apparition
+  .card-detail-canvas
+    width: 470px
 
-    .card-detail-header
-      margin: 0 -20px 5px
-      padding 7px 20px 0
-      background: #F7F7F7
-      border-bottom: 1px solid darken(white, 10%)
-      min-height: 38px
+  .card-detail-header
+    margin: 0 -20px 5px
+    padding 7px 20px 0
+    background: #F7F7F7
+    border-bottom: 1px solid darken(white, 10%)
+    min-height: 38px
 
-      i.fa
-        float: right
-        font-size: 1.3em
-        color: darken(white, 35%)
-        margin-top: 7px
+    i.fa
+      float: right
+      font-size: 1.3em
+      color: darken(white, 35%)
+      margin-top: 7px
 
-      .card-detail-title
-        font-weight: bold
-        font-size: 1.7em
-        margin: 3px 0 0
-        padding: 0
+    .card-detail-title
+      font-weight: bold
+      font-size: 1.7em
+      margin: 3px 0 0
+      padding: 0
 
-    .card-detail-list
-      font-size: 0.85em
-      margin-bottom: 3px
+  .card-detail-list
+    font-size: 0.85em
+    margin-bottom: 3px
 
-      a.card-detail-list-title
-        font-weight: bold
+    a.card-detail-list-title
+      font-weight: bold
 
-        &.is-editable
-          display: inline-block
-          background: darken(white, 10%)
-          border-radius: 3px
-          padding: 0px 5px
+      &.is-editable
+        display: inline-block
+        background: darken(white, 10%)
+        border-radius: 3px
+        padding: 0px 5px
+
+@keyframes growIn
+  from
+    flex: 0 0 0
+  to
+    flex: 0 0 470px
 
 .new-comment
   position: relative

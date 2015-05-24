@@ -8,7 +8,8 @@ BlazeComponent.extendComponent({
   },
 
   onCreated: function() {
-    this._isOpen = new ReactiveVar(true);
+    this._isOpen = new ReactiveVar(! Session.get('currentCard'));
+    Sidebar = this;
   },
 
   isOpen: function() {

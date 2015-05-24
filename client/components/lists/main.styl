@@ -10,8 +10,7 @@
   // transparent, because that won't work during a list drag.
   background: darken(white, 10%)
   height: 100%
-  border-right: 1px solid darken(white, 17%)
-  border-left: 1px solid darken(white, 4%)
+  border-left: 1px solid darken(white, 20%)
   padding: 12px 7px 5px
   overflow-y: auto
 
@@ -19,9 +18,8 @@
     margin-left: 5px
     border-left: none
 
-  &:last-child
-    margin-right: 5px
-    border-right: none
+  .card-detail + &
+    border-left: none
 
   &.editable
     cursor: grab
@@ -87,9 +85,6 @@
     margin: 0
 
 .minicards
-  // flex: 1 1 auto
-  overflow-y: auto
-  overflow-x: hidden
   padding: 4px 4px 1px
   z-index: 1
   height: 100%
@@ -105,7 +100,6 @@
   padding: 7px 10px
   position: relative
   text-decoration: none
-  animation: fadeIn 0.2s
 
   i.fa
     margin-right: 7px

@@ -75,7 +75,6 @@
     // XXX Temp, we should remove these
     "allowIsBoardAdmin": true,
     "allowIsBoardMember": true,
-    "BoardSubsManager": true,
     "currentlyOpenedForm": true,
     "Emoji": true
   }

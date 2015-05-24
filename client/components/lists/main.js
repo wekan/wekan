@@ -25,13 +25,14 @@ BlazeComponent.extendComponent({
   onRendered: function() {
     if (Meteor.user().isBoardMember()) {
       var boardComponent = this.componentParent();
+      var itemsSelector = '.js-minicard:not(.placeholder, .hide, .js-composer)';
       var $cards = this.$('.js-minicards');
       $cards.sortable({
         connectWith: '.js-minicards',
         tolerance: 'pointer',
         appendTo: '.js-lists',
         helper: 'clone',
-        items: '.js-minicard:not(.placeholder, .hide, .js-composer)',
+        items: itemsSelector,
         placeholder: 'minicard placeholder',
         start: function(event, ui) {
           $('.minicard.placeholder').height(ui.item.height());
@@ -57,24 +58,20 @@ BlazeComponent.extendComponent({
         }
       }).disableSelection();
 
-      Utils.liveEvent('mouseover', function($el) {
-        $el.find('.js-member-droppable').droppable({
+      $(document).on('mouseover', function() {
+        $cards.find(itemsSelector).droppable({
           hoverClass: 'draggable-hover-card',
-          accept: '.js-member',
+          accept: '.js-member,.js-label',
           drop: function(event, ui) {
-            var memberId = Blaze.getData(ui.draggable.get(0)).userId;
             var cardId = Blaze.getData(this)._id;
-            Cards.update(cardId, {$addToSet: {members: memberId}});
-          }
-        });
 
-        $el.find('.js-member-droppable').droppable({
-          hoverClass: 'draggable-hover-card',
-          accept: '.js-label',
-          drop: function(event, ui) {
-            var labelId = Blaze.getData(ui.draggable.get(0))._id;
-            var cardId = Blaze.getData(this)._id;
-            Cards.update(cardId, {$addToSet: {labelIds: labelId}});
+            if (ui.draggable.hasClass('js-member')) {
+              var memberId = Blaze.getData(ui.draggable.get(0)).userId;
+              Cards.update(cardId, {$addToSet: {members: memberId}});
+            } else {
+              var labelId = Blaze.getData(ui.draggable.get(0))._id;
+              Cards.update(cardId, {$addToSet: {labelIds: labelId}});
+            }
           }
         });
       });

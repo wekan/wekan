@@ -19,12 +19,7 @@ Mousetrap.bind('esc', function() {
 });
 
 Mousetrap.bind('w', function() {
-  if (! Session.get('currentCard')) {
-    Sidebar.toogle();
-  } else {
-    Utils.goBoardId(Session.get('currentBoard'));
-    Sidebar.hide();
-  }
+  Sidebar.toogle();
 });
 
 Mousetrap.bind('q', function() {

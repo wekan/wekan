@@ -1,47 +1,46 @@
-template(name="cardSidebar")
-  .card-sidebar.sidebar
-    .card-detail.sidebar-content.js-card-sidebar-content
-      if cover
-        .card-detail-cover(style="background-image: url({{ card.cover.url }})")
-      .card-detail-header(class="{{#if currentUser.isBoardMember}}editable{{/if}}")
-        a.js-close-card-detail
-          i.fa.fa-times
-        h2.card-detail-title.js-card-title= title
-      p.card-detail-list.js-move-card
-        | {{_ 'in-list'}}
-        a.card-detail-list-title(
-          class="{{#if currentUser.isBoardMember}}js-open-move-from-header is-editable{{/if}}")
-          = list.title
-      hr
-      //- if card.members
-      .card-detail-item.card-detail-item-members.clearfix.js-card-detail-members
-        h3.card-detail-item-header {{_ 'members'}}
-        .js-card-detail-members-list.clearfix
-          each members
-            +userAvatar(userId=this size="small" cardId=../_id)
-          a.card-detail-item-add-button.dark-hover.js-details-edit-members
-            i.fa.fa-plus
-      //- We should use "editable" to avoide repetiting ourselves
-      .clearfix
-      if currentUser.isBoardMember
-        h3 Description
-        +inlinedForm(classNames="js-card-description")
-          i.fa.fa-times.js-close-inlined-form
-          textarea(autofocus)= description
-          button(type="submit") {{_ 'edit'}}
-        else
-          .js-open-inlined-form
-            a {{_ 'edit'}}
-            +viewer
-              = description
-      else if description
-        h3 Description
-        +viewer
-          = description
-      hr
-      if attachments.count
-        +WindowAttachmentsModule(card=this)
-      +WindowActivityModule(card=this)
+template(name="cardDetails")
+  .card-detail.js-card-detail: .card-detail-canvas
+    if cover
+      .card-detail-cover(style="background-image: url({{ card.cover.url }})")
+    .card-detail-header(class="{{#if currentUser.isBoardMember}}editable{{/if}}")
+      a.js-close-card-detail
+        i.fa.fa-times
+      h2.card-detail-title.js-card-title= title
+    p.card-detail-list.js-move-card
+      | {{_ 'in-list'}}
+      a.card-detail-list-title(
+        class="{{#if currentUser.isBoardMember}}js-open-move-from-header is-editable{{/if}}")
+        = list.title
+    hr
+    //- if card.members
+    .card-detail-item.card-detail-item-members.clearfix.js-card-detail-members
+      h3.card-detail-item-header {{_ 'members'}}
+      .js-card-detail-members-list.clearfix
+        each members
+          +userAvatar(userId=this size="small" cardId=../_id)
+        a.card-detail-item-add-button.dark-hover.js-details-edit-members
+          i.fa.fa-plus
+    //- We should use "editable" to avoide repetiting ourselves
+    .clearfix
+    if currentUser.isBoardMember
+      h3 Description
+      +inlinedForm(classNames="js-card-description")
+        i.fa.fa-times.js-close-inlined-form
+        textarea(autofocus)= description
+        button(type="submit") {{_ 'edit'}}
+      else
+        .js-open-inlined-form
+          a {{_ 'edit'}}
+          +viewer
+            = description
+    else if description
+      h3 Description
+      +viewer
+        = description
+    hr
+    if attachments.count
+      +WindowAttachmentsModule(card=this)
+    +WindowActivityModule(card=this)
 
 template(name="moveCardPopup")
   +boardLists

@@ -18,18 +18,6 @@ Utils = {
     };
   },
 
-  Warning: {
-    get: function() {
-      return Session.get('warning');
-    },
-    open: function(desc) {
-      Session.set('warning', { desc: desc });
-    },
-    close: function() {
-      Session.set('warning', false);
-    }
-  },
-
   // XXX We should remove these two methods
   goBoardId: function(_id) {
     var board = Boards.findOne(_id);
@@ -46,12 +34,6 @@ Utils = {
       cardId: card._id,
       boardId: board._id,
       slug: board.slug
-    });
-  },
-
-  liveEvent: function(events, callback) {
-    $(document).on(events, function() {
-      callback($(this));
     });
   },
 

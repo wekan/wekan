@@ -1,6 +1,7 @@
 //-
   XXX This template can't be transformed into a component because it is
   included by iron-router. That's a bug.
+  See https://github.com/peerlibrary/meteor-blaze-components/issues/44
 template(name="board")
   +boardComponent
 
@@ -11,11 +12,11 @@ template(name="boardComponent")
         .lists.js-lists
           each lists
             +list(this)
+            if currentCardIsInThisList
+              +cardDetails(currentCard)
           if currentUser.isBoardMember
             +addListForm
       +boardSidebar
-    if currentCard
-      +cardSidebar(currentCard)
   else
     +message(label="board-no-found")
 
