@@ -55,17 +55,15 @@ BlazeComponent.extendComponent({
     // transition for the actual animation.
     lists._uihooks = {
       removeElement: function(node) {
-        var removeNode = function() {
+        var removeNode = _.once(function() {
           node.parentNode.removeChild(node);
-        };
+        });
         if ($(node).hasClass('js-card-detail')) {
           $(node).css({
-            flex: '0',
+            flex: '0 0 0',
             padding: 0
           });
-          $(lists).one(endTransitionEvents, function() {
-            removeNode();
-          });
+          $(lists).one(endTransitionEvents, removeNode);
         } else {
           removeNode();
         }
