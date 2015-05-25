@@ -48,7 +48,7 @@ BlazeComponent.extendComponent({
 
   onRendered: function() {
     var self = this;
-    if (! Meteor.user().isBoardMember())
+    if (! Meteor.userId() || ! Meteor.user().isBoardMember())
       return;
 
     $(document).on('mouseover', function() {

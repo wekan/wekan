@@ -33,13 +33,10 @@ Users.helpers({
 });
 
 Users.before.insert(function(userId, doc) {
-  doc.profile = {};
+  doc.profile = doc.profile || {};
 
   // connect profile.status default
   doc.profile.status = 'offline';
-
-  // slugify to username
-  //doc.username = getSlug(doc.profile.name, '');
 });
 
 if (Meteor.isServer) {

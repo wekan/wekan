@@ -5,26 +5,27 @@ template(name="header")
       list all starred boards with a link to go there. This is inspired by the
       Reddit "subreddit" bar.
       The first link goes to the boards page.
-    if currentUser
-      #header-quick-access
-        ul
-          li
-            +linkTo(route="Boards")
-              span.fa.fa-home
-              | All boards
-          each currentUser.starredBoards
-            li.separator -
-            li(class="{{#if $.Session.equals 'currentBoard' _id}}current{{/if}}")
-              +linkTo(route="Board" data=this)
-                = title
-          else
-            li.current Star a board to add a shortcut in this bar.
+    unless isSandstorm
+      if currentUser
+        #header-quick-access
+          ul
+            li
+              +linkTo(route="Boards")
+                span.fa.fa-home
+                | All boards
+            each currentUser.starredBoards
+              li.separator -
+              li(class="{{#if $.Session.equals 'currentBoard' _id}}current{{/if}}")
+                +linkTo(route="Board" data=this)
+                  = title
+            else
+              li.current Star a board to add a shortcut in this bar.
 
-          li
-            a.js-create-board
-              i.fa.fa-plus(title="Create a new board")
+            li
+              a.js-create-board
+                i.fa.fa-plus(title="Create a new board")
 
-        +headerUserBar
+          +headerUserBar
 
     //-
       The main bar is a colorful bar that provide all the meta-data for the

@@ -139,7 +139,7 @@ Boards.before.insert(function(userId, doc) {
   // In some cases (Chinese and Japanese for instance) the `getSlug` function
   // return an empty string. This is causes bugs in our application so we set
   // a default slug in this case.
-  doc.slug = getSlug(doc.title) || 'board';
+  doc.slug = doc.slug || getSlug(doc.title) || 'board';
   doc.createdAt = new Date();
   doc.archived = false;
   doc.members = [{
@@ -153,22 +153,13 @@ Boards.before.insert(function(userId, doc) {
   // Handle labels
   var colors = Boards.simpleSchema()._schema['labels.$.color'].allowedValues;
   var defaultLabelsColors = _.clone(colors).splice(0, 6);
-  doc.labels = [];
-  _.each(defaultLabelsColors, function(val) {
-    doc.labels.push({
+  doc.labels = _.map(defaultLabelsColors, function(val) {
+    return {
       _id: Random.id(6),
       name: '',
       color: val
-    });
-  });
-
-  // We randomly chose one of the default background colors for the board
-  if (Meteor.isClient) {
-    doc.background = {
-      type: 'color',
-      color: Random.choice(Boards.simpleSchema()._schema.color.allowedValues)
     };
-  }
+  });
 });
 
 Boards.before.update(function(userId, doc, fieldNames, modifier) {

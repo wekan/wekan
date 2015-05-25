@@ -70,7 +70,7 @@ BlazeComponent.extendComponent({
       }
     };
 
-    if (! Meteor.user().isBoardMember())
+    if (! Meteor.userId() || ! Meteor.user().isBoardMember())
       return;
 
     self.$(lists).sortable({

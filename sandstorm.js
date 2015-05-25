@@ -8,71 +8,94 @@ var isSandstorm = Meteor.settings && Meteor.settings.public &&
 // redirect the user to this particular board.
 var sandstormBoard = {
   _id: 'sandstorm',
-  slug: 'board',
 
   // XXX Should be shared with the grain instance name.
   title: 'LibreBoard',
-  permission: 'public',
-  background: {
-    type: 'color',
-    color: '#16A085'
-  },
+  slug: 'libreboard',
 
-  // XXX Not certain this is a bug, but we except these fields to get inserted
-  // by the `Lists.before.insert` collection-hook. Since this hook is not called
-  // in this case, we have to duplicate the logic and set them here.
-  archived: false,
-  createdAt: new Date()
+  // Board access security is handled by sandstorm, so in our point of view we
+  // can alway assume that the board is public (unauthorized users won’t be able
+  // to access it anyway).
+  permission: 'public'
 };
 
-// On the first launch of the instance a user is automatically created thanks to
-// the `accounts-sandstorm` package. After its creation we insert the unique
-// board document. Note that when the `Users.after.insert` hook is called, the
-// user is inserted into the database but not connected. So despite the
-// appearances `userId` is null in this block.
-//
-// If the hard-coded board already exists and we are inserting a new user, we
-// assume that the owner of the board want to share write privileges with the
-// new user.
-// XXX Improve that when the Sandstorm sharing model (“Powerbox”) arrives.
+// The list of permissions a user have is provided by sandstorm accounts
+// package.
+var userHasPermission = function(user, permission) {
+  var userPermissions = user.services.sandstorm.permissions;
+  return userPermissions.indexOf(permission) > -1;
+};
+
 if (isSandstorm && Meteor.isServer) {
+  // Redirect the user to the hard-coded board. On the first launch the user
+  // will be redirected to the board before its creation. But that’s not a
+  // problem thanks to the reactive board publication. We used to do this
+  // redirection on the client side but that was sometime visible on loading,
+  // and the home page was accessible by pressing the back button of the
+  // browser, a server-side redirection solves both of these issues.
+  //
+  // XXX Maybe sandstorm manifest could provide some kind of "home url"?
+  Router.route('/', function() {
+    var base = this.request.headers['x-sandstorm-base-path'];
+    // XXX If this routing scheme changes, this will break. We should generation
+    // the location url using the router, but at the time of writting, the
+    // router is only accessible on the client.
+    var path = '/boards/' + sandstormBoard._id + '/' + sandstormBoard.slug;
+
+    this.response.writeHead(301, {
+      Location: base + path
+    });
+    this.response.end();
+  }, { where: 'server' });
+
+  // On the first launch of the instance a user is automatically created thanks
+  // to the `accounts-sandstorm` package. After its creation we insert the
+  // unique board document. Note that when the `Users.after.insert` hook is
+  // called, the user is inserted into the database but not connected. So
+  // despite the appearances `userId` is null in this block.
   Users.after.insert(function(userId, doc) {
     if (! Boards.findOne(sandstormBoard._id)) {
-      Boards.insert(_.extend(sandstormBoard, { userId: doc._id }));
+      Boards.insert(sandstormBoard, {validate: false});
       Boards.update(sandstormBoard._id, {
         $set: {
-          'members.0.userId': doc._id
+          // The first member (the grain creator) has all rights
+          'members.0': {
+            userId: doc._id,
+            isActive: true,
+            isAdmin: true
+          }
         }
       });
-      Activities.update({
-        activityTypeId: sandstormBoard._id
-      }, {
-        $set: {
-          userId: doc._id
-        }
+      Activities.update(
+        { activityTypeId: sandstormBoard._id }, {
+        $set: { userId: doc._id }
       });
-    } else {
+    }
+
+    // If the hard-coded board already exists and we are inserting a new user,
+    // we need to update our user collection.
+    else if (userHasPermission(doc, 'participate')) {
       Boards.update({
         _id: sandstormBoard._id,
         permission: 'public'
       }, {
         $push: {
-          members: doc._id
+          members: {
+            userId: doc._id,
+            isActive: true,
+            isAdmin: userHasPermission(doc, 'configure')
+          }
         }
       });
     }
+
+    // The sandstom user package put the username in `profile.name`. We need to
+    // move this field value to follow our schema.
+    Users.update(doc._id, { $rename: { 'profile.name': 'username' }});
   });
 }
 
-// On the client, redirect the user to the hard-coded board. On the first launch
-// the user will be redirected to the board before its creation. But that’s not
-// a problem thanks to the reactive board publication.
 if (isSandstorm && Meteor.isClient) {
-  Router.go('Board', {
-    boardId: sandstormBoard._id,
-    slug: getSlug(sandstormBoard.title)
-  });
-
   // XXX Hack. `Meteor.absoluteUrl` doesn't work in Sandstorm, since every
   // session has a different URL whereas Meteor computes absoluteUrl based on
   // the ROOT_URL environment variable. So we overwrite this function on a
