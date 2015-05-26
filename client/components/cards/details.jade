@@ -26,7 +26,8 @@ template(name="cardDetails")
       h3 Description
       +inlinedForm(classNames="js-card-description")
         i.fa.fa-times.js-close-inlined-form
-        textarea(autofocus)= description
+        +editor(autofocus=true)
+          = description
         button(type="submit") {{_ 'edit'}}
       else
         .js-open-inlined-form

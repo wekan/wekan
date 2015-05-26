@@ -4,11 +4,7 @@ template(name="sidebar")
       class="{{#if isTongueHidden}}is-hidden{{/if}}")
       i.fa.fa-chevron-left
     .sidebar-content.js-board-sidebar-content.js-perfect-scrollbar
-      //- XXX https://github.com/peerlibrary/meteor-blaze-components/issues/30
-      if Filter.isActive
-        +filterSidebar
-      else
-        +homeSidebar
+      +Template.dynamic(template=getViewTemplate)
 
 template(name='homeSidebar')
   +membersWidget

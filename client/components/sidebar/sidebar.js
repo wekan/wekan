@@ -1,3 +1,7 @@
+var defaultView = 'home';
+
+Sidebar = null;
+
 BlazeComponent.extendComponent({
   template: function() {
     return 'sidebar';
@@ -9,7 +13,12 @@ BlazeComponent.extendComponent({
 
   onCreated: function() {
     this._isOpen = new ReactiveVar(! Session.get('currentCard'));
+    this._view = new ReactiveVar(defaultView);
     Sidebar = this;
+  },
+
+  onDestroyed: function() {
+    Sidebar = null;
   },
 
   isOpen: function() {
@@ -43,7 +52,20 @@ BlazeComponent.extendComponent({
   },
 
   isTongueHidden: function() {
-    return this.isOpen() && Filter.isActive();
+    return this.isOpen() && this.getView() !== defaultView;
+  },
+
+  getView: function() {
+    return this._view.get();
+  },
+
+  setView: function(view) {
+    view = view || defaultView;
+    this._view.set(view);
+  },
+
+  getViewTemplate: function() {
+    return this.getView() + 'Sidebar';
   },
 
   onRendered: function() {
@@ -74,3 +96,8 @@ BlazeComponent.extendComponent({
     }]);
   }
 }).register('sidebar');
+
+EscapeActions.register(40,
+  function() { return Sidebar && Sidebar.getView() !== defaultView; },
+  function() { Sidebar.setView(defaultView); }
+);

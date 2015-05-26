@@ -4,6 +4,10 @@
 // goal is to filter complete documents by using the local filters for each
 // fields.
 
+var showFilterSidebar = function() {
+  Sidebar.setView('filter');
+};
+
 // Use a "set" filter for a field that is a set of documents uniquely
 // identified. For instance `{ labels: ['labelA', 'labelC', 'labelD'] }`.
 var SetFilter = function() {
@@ -18,29 +22,27 @@ _.extend(SetFilter.prototype, {
   },
 
   add: function(val) {
-    if (this.indexOfVal(val) === -1) {
+    if (this._indexOfVal(val) === -1) {
       this._selectedElements.push(val);
       this._dep.changed();
+      showFilterSidebar();
     }
   },
 
   remove: function(val) {
     var indexOfVal = this._indexOfVal(val);
-    if (this.indexOfVal(val) !== -1) {
+    if (this._indexOfVal(val) !== -1) {
       this._selectedElements.splice(indexOfVal, 1);
       this._dep.changed();
     }
   },
 
   toogle: function(val) {
-    var indexOfVal = this._indexOfVal(val);
-    if (indexOfVal === -1) {
-      this._selectedElements.push(val);
+    if (this._indexOfVal(val) === -1) {
+      this.add(val);
     } else {
-      this._selectedElements.splice(indexOfVal, 1);
+      this.remove(val);
     }
-
-    this._dep.changed();
   },
 
   reset: function() {

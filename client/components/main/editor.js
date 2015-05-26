@@ -1,5 +1,9 @@
-Template.editor.rendered = function() {
-  this.$('textarea').textcomplete([
+var dropdownMenuIsOpened = false;
+
+Template.editor.onRendered(function() {
+  var $textarea = this.$('textarea');
+
+  $textarea.textcomplete([
     // Emojies
     {
       match: /\B:([\-+\w]*)$/,
@@ -37,4 +41,26 @@ Template.editor.rendered = function() {
       index: 1
     }
   ]);
-};
+
+  // Since commit d474017 jquery-textComplete automatically closes a potential
+  // opened dropdown menu when the user press Escape. This behavior conflicts
+  // with our EscapeActions system, but it's too complicated and hacky to
+  // monkey-pach textComplete to disable it -- I tried. Instead we listen to
+  // 'open' and 'hide' events, and create a ghost escapeAction when the dropdown
+  // is opened (and rely on textComplete to execute the actual action).
+  $textarea.on({
+    'textComplete:show': function() {
+      dropdownMenuIsOpened = true;
+    },
+    'textComplete:hide': function() {
+      Tracker.afterFlush(function() {
+        dropdownMenuIsOpened = false;
+      });
+    }
+  });
+});
+
+EscapeActions.register(10,
+  function() { return dropdownMenuIsOpened; },
+  function() {}
+);

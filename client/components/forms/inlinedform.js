@@ -15,7 +15,9 @@
 // We can only have one inlined form element opened at a time
 // XXX Could we avoid using a global here ? This is used in Mousetrap
 // keyboard.js
-currentlyOpenedForm = new ReactiveVar(null);
+var currentlyOpenedForm = new ReactiveVar(null);
+
+var inlinedFormEscapePriority = 30;
 
 BlazeComponent.extendComponent({
   template: function() {
@@ -32,9 +34,10 @@ BlazeComponent.extendComponent({
 
   open: function() {
     // Close currently opened form, if any
-    if (currentlyOpenedForm.get() !== null) {
-      currentlyOpenedForm.get().close();
-    }
+    // if (currentlyOpenedForm.get() !== null) {
+    //   currentlyOpenedForm.get().close();
+    // }
+    EscapeActions.executeLowerThan(inlinedFormEscapePriority);
     this.isOpen.set(true);
     currentlyOpenedForm.set(this);
   },
@@ -46,7 +49,8 @@ BlazeComponent.extendComponent({
   },
 
   getValue: function() {
-    return this.isOpen.get() && this.find('textarea,input[type=text]').value;
+    var input = this.find('textarea,input[type=text]');
+    return this.isOpen.get() && input && input.value;
   },
 
   saveValue: function() {
@@ -66,7 +70,7 @@ BlazeComponent.extendComponent({
       'keydown form input, keydown form textarea': function(evt) {
         if (evt.keyCode === 27) {
           evt.preventDefault();
-          this.close();
+          EscapeActions.executeLowest();
         }
       },
 
@@ -91,3 +95,9 @@ BlazeComponent.extendComponent({
     }];
   }
 }).register('inlinedForm');
+
+// Press escape to close the currently opened inlinedForm
+EscapeActions.register(inlinedFormEscapePriority,
+  function() { return currentlyOpenedForm.get() !== null; },
+  function() { currentlyOpenedForm.get().close(); }
+);

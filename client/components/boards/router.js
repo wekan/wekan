@@ -39,7 +39,7 @@ Router.route('/boards/:boardId/:slug/:cardId', {
   template: 'board',
   onAfterAction: function() {
     Tracker.nonreactive(function() {
-      if (! Session.get('currentCard') && typeof Sidebar !== 'undefined') {
+      if (! Session.get('currentCard') && Sidebar) {
         Sidebar.hide();
       }
     });
@@ -55,3 +55,9 @@ Router.route('/boards/:boardId/:slug/:cardId', {
     return Boards.findOne(this.params.boardId);
   }
 });
+
+// Close the card details pane by pressing escape
+EscapeActions.register(50,
+  function() { return ! Session.equals('currentCard', null); },
+  function() { Utils.goBoardId(Session.get('currentBoard')); }
+);

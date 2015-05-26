@@ -20,7 +20,9 @@ Router.configure({
     // Reset default sessions
     Session.set('error', false);
 
-    Popup.close();
+    Tracker.nonreactive(function() {
+      EscapeActions.executeLowerThan(40);
+    });
 
     this.next();
   }
