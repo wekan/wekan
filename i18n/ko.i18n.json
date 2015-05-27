@@ -157,7 +157,7 @@
     "cardMorePopup-title": "더보기",
     "cardDeletePopup-title": "카드를 삭제합니까?",
     "boardChangeTitlePopup-title": "보드 이름 바꾸기",
-    "boardChangePermissionPopup-title": "표시 여부 변경",
+    "boardChangeVisibilityPopup-title": "표시 여부 변경",
     "addMemberPopup-title": "멤버",
     "closeBoardPopup-title": "보드를 닫습니까?",
     "removeMemberPopup-title": "멤버를 제거합니까?",

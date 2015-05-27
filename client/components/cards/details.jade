@@ -4,7 +4,7 @@ template(name="cardDetails")
       .card-detail-cover(style="background-image: url({{ card.cover.url }})")
     .card-detail-header(class="{{#if currentUser.isBoardMember}}editable{{/if}}")
       a.js-close-card-detail
-        i.fa.fa-times
+        i.fa.fa-times-thin
       h2.card-detail-title.js-card-title= title
     p.card-detail-list.js-move-card
       | {{_ 'in-list'}}
@@ -25,7 +25,7 @@ template(name="cardDetails")
     if currentUser.isBoardMember
       h3 Description
       +inlinedForm(classNames="js-card-description")
-        i.fa.fa-times.js-close-inlined-form
+        a.fa.fa-times-thin.js-close-inlined-form
         +editor(autofocus=true)
           = description
         button(type="submit") {{_ 'edit'}}

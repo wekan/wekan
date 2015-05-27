@@ -5,15 +5,28 @@ setBoardColor(color)
   &#header,
   &.sk-spinner div,
   .board-backgrounds-list &.background-box,
-  &.pop-over .pop-over-list li a:hover,
   .board-list & a
     background-color: color
 
   & .minicard.is-selected .minicard-details
     border-left: 3px solid color
 
+  &.pop-over .pop-over-list li a:hover,
   button[type=submit].primary, input[type=submit].primary
     background-color: darken(color, 20%)
+
+  &#header #header-quick-access ul li.current
+    border-bottom: 2px solid lighten(color, 10%)
+
+  &#header #header-main-bar .board-header-btn.emphasis
+    background: complement(color)
+
+    &:hover,
+    .board-header-btn-close
+      background: darken(complement(color), 10%)
+
+    &:hover .board-header-btn-close
+      background: darken(complement(color), 20%)
 
 .board-color-nephritis
   setBoardColor(#27AE60)

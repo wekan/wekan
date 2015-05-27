@@ -91,6 +91,10 @@
       top: 0
       right: 0
 
+
+  &.no-title .header
+    background: none
+
   .content-wrapper
     width: 100%
 
@@ -527,78 +531,3 @@
 
   &.limited li.exceeds-limit
     display: none
-
-.pop-over-emoji-list li > a
-  padding: 2px 4px
-
-  .emoji
-    margin: 0 6px
-
-.pop-over-card-list li > a
-  padding: 2px 4px
-
-.login-signup-popover
-  padding: 15px
-
-  .form-tabs
-    display: none
-
-  h1
-    margin-bottom: 15px
-
-  p
-    margin: 8px 0
-
-  .form-parts-container
-    position: relative
-
-  .active-box
-    position: absolute
-    top: 0
-    background: #e2e2e2
-    border: 1px solid #c9c9c9
-    border-radius: 3px
-    z-index: 1
-    height: 100%
-    width: 49%
-    transition-property: all
-    transition-duration: .4s
-    opacity: 1
-
-    &.start
-      opacity: 0
-      left: 25%
-
-  .signup-form,
-  .login-form
-    position: relative
-    box-sizing: border-box
-    padding: 20px
-    width: 50%
-    z-index: 2
-    opacity: .3
-    transition-property: opacity
-    transition-duration: .2s
-
-    .active
-      opacity: 1
-
-
-  .js-signup-form-pos
-    left: 0
-
-  .login-form
-    position: absolute
-    top: 0
-
-  .login-form .icon-google
-    position: absolute
-    left: 5px
-    top: 3px
-
-  .login-form .button.google
-    padding-left: 40px
-    margin: 0 0 15px 0
-
-  .js-login-form-pos
-    left: 50%

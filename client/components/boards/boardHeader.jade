@@ -1,0 +1,94 @@
+template(name="headerBoard")
+  h1.header-board-menu(
+    class="{{#if currentUser.isBoardMember}}is-clickable js-edit-board-title{{/if}}")
+    = title
+
+  .board-header-btns.left
+    unless isSandstorm
+      if currentUser
+        a.board-header-btn.js-star-board(class="{{#if isStarred}}is-hovered{{/if}}"
+          title="{{#if isStarred}}{{_ 'click-to-unstar'}}{{else}}{{_ 'click-to-star'}}{{/if}} {{_ 'starred-boards-description'}}")
+          i.fa(class="fa-star{{#unless isStarred}}-o{{/unless}}")
+          if showStarCounter
+            span {{_ 'board-nb-stars' stars}}
+
+      a.board-header-btn.js-change-visibility(class="{{#unless currentUser.isBoardAdmin}}no-edit{{/unless}}")
+        i.fa(class="{{#if isPublic}}fa-globe{{else}}fa-lock{{/if}}")
+        span {{_ permission}}
+
+  .board-header-btns.right
+    a.board-header-btn.js-open-filter-view(
+        title="{{#if Filter.isActive}}{{_ 'filter-on-desc'}}{{/if}}"
+        class="{{#if Filter.isActive}}emphasis{{/if}}")
+      i.fa.fa-filter
+      if Filter.isActive
+        span {{_ 'filter-on'}}
+        a.board-header-btn-close.js-filter-reset(title="{{_ 'filter-clear'}}")
+          i.fa.fa-times-thin
+      else
+        span {{_ 'filter'}}
+    .separator
+    a.board-header-btn.js-open-board-menu
+      i.board-header-btn-icon.fa.fa-cog
+
+template(name="boardMenuPopup")
+  ul.pop-over-list
+    li: a.js-change-board-color Change color
+    li: a Copy this board
+    li: a Permissions
+
+template(name="boardVisibilityList")
+  ul.pop-over-list
+    li
+      with "private"
+        a.js-select-visibility
+          i.fa.fa-lock.colorful
+          | {{_ 'private'}}
+          if visibilityCheck
+            i.fa.fa-check
+          span.sub-name {{_ 'private-desc'}}
+    li
+      with "public"
+        a.js-select-visibility
+          i.fa.fa-globe.colorful
+          | {{_ 'public'}}
+          if visibilityCheck
+            i.fa.fa-check
+          span.sub-name {{_ 'public-desc'}}
+
+template(name="boardChangeVisibilityPopup")
+  +boardVisibilityList
+
+template(name="boardChangeColorPopup")
+  .board-backgrounds-list.clearfix
+    each backgroundColors
+      .board-background-select.js-select-background
+        span.background-box(class="board-color-{{this}}")
+          if isSelected
+            i.fa.fa-check
+
+template(name="createBoardPopup")
+  form
+    label
+      | {{_ 'title'}}
+      input.js-new-board-title(type="text" placeholder="{{_ 'bucket-example'}}" autofocus required)
+    if visibilityMenuIsOpen.get
+      +boardVisibilityList
+    else
+      p.quiet
+        if $eq visibility.get 'public'
+          span.fa.fa-globe.colorful
+          | {{{_ 'board-public-info'}}}
+        else
+          span.fa.fa-lock.colorful
+          | {{{_ 'board-private-info'}}}
+        a.js-change-visibility Change.
+    input.primary.wide(type="submit" value="{{_ 'create'}}")
+
+
+template(name="boardChangeTitlePopup")
+  form
+    label
+      | {{_ 'title'}}
+      input.js-board-name(type="text" value="{{title}}" autofocus)
+    input.primary.wide(type="submit" value="{{_ 'rename'}}")

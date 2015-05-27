@@ -1,16 +1,12 @@
 template(name="headerUserBar")
-  #header-user-bar
-    if currentUser
-      a.js-open-header-member-menu
-        if currentUser.profile.name
-          = currentUser.profile.name
-        else
-          = currentUser.username
-        i.fa.fa-chevron-down
-    else
-      a(href="{{pathFor route='signUp'}}") Sign in
-      span.separator -
-      a(href="{{pathFor route='signIn'}}") Log in
+  a#header-user-bar.js-open-header-member-menu
+    .header-user-bar-name
+      i.fa.fa-chevron-down
+      if currentUser.profile.name
+        = currentUser.profile.name
+      else
+        = currentUser.username
+    +userAvatar(user=currentUser)
 
 template(name="memberHeader")
   a.header-member.js-open-header-member-menu

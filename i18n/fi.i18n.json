@@ -157,7 +157,7 @@
     "cardMorePopup-title": "Lisää",
     "cardDeletePopup-title": "Poista kortti?",
     "boardChangeTitlePopup-title": "Nimeä taulu uudelleen",
-    "boardChangePermissionPopup-title": "Vaihda näkyvyyttä",
+    "boardChangeVisibilityPopup-title": "Vaihda näkyvyyttä",
     "addMemberPopup-title": "Jäsenet",
     "closeBoardPopup-title": "Sulje taulu?",
     "removeMemberPopup-title": "Poista jäsen?",

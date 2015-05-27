@@ -5,32 +5,7 @@ template(name="listBody")
         +inlinedForm(autoclose=false position="top")
           +addCardForm(listId=_id position="top")
       each cards
-        .minicard.card.js-minicard(
-          class="{{#if isSelected}}is-selected{{/if}}")
-          a.minicard-details.clearfix.show(href=absoluteUrl)
-            if cover
-              .minicard-cover.js-card-cover(style="background-image: url({{cover.url}});")
-            if labels
-              .minicard-labels
-                each labels
-                  .minicard-label(class="card-label-{{color}}" title="{{name}}")
-            .minicard-title= title
-            if members
-              .minicard-members.js-minicard-members
-                each members
-                  +userAvatar(userId=this size="small" cardId="{{../_id}}")
-            .badges
-              if comments.count
-                .badge(title="{{_ 'card-comments-title' comments.count }}")
-                  span.badge-icon.icon-sm.fa.fa-comment-o
-                  .badge-text= comments.count
-              if description
-                .badge.badge-state-image-only(title=description)
-                  span.badge-icon.icon-sm.fa.fa-align-left
-              if attachments.count
-                .badge
-                  span.badge-icon.icon-sm.fa.fa-paperclip
-                  span.badge-text= attachments.count
+        +minicard(this)
       if currentUser.isBoardMember
         +inlinedForm(autoclose=false position="bottom")
           +addCardForm(listId=_id position="bottom")
@@ -49,4 +24,4 @@ template(name="addCardForm")
       .minicard-members.js-minicard-composer-members
   .add-controls.clearfix
     button.primary.confirm(type="submit") {{_ 'add'}}
-    a.fa.fa-times.dark-hover.cancel.js-close-inlined-form
+    a.fa.fa-times-thin.js-close-inlined-form

@@ -157,7 +157,7 @@
     "cardMorePopup-title": "More",
     "cardDeletePopup-title": "Delete Card?",
     "boardChangeTitlePopup-title": "Rename Board",
-    "boardChangePermissionPopup-title": "Change Visibility",
+    "boardChangeVisibilityPopup-title": "Change Visibility",
     "addMemberPopup-title": "Members",
     "closeBoardPopup-title": "Close Board?",
     "removeMemberPopup-title": "Remove Member?",

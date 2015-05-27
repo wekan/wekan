@@ -29,6 +29,15 @@ Users.helpers({
     var board = Boards.findOne(Session.get('currentBoard'));
     if (this.isBoardMember(board))
       return _.where(board.members, {userId: this._id})[0].isAdmin;
+  },
+
+  toggleBoardStar: function(boardId) {
+    var queryType = Meteor.user().hasStarred(boardId) ? '$pull' : '$addToSet';
+    var query = {};
+    query[queryType] = {
+      'profile.starredBoards': boardId
+    };
+    Meteor.users.update(Meteor.userId(), query);
   }
 });
 

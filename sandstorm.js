@@ -109,7 +109,7 @@ if (isSandstorm && Meteor.isClient) {
   Meteor.absoluteUrl.defaultOptions = _defaultOptions;
 }
 
-// We use this blaze helper in the UI to hide some template that does not make
+// We use this blaze helper in the UI to hide some templates that does not make
 // sense in the context of sandstorm, like board staring, board archiving, user
 // name edition, etc.
 Blaze.registerHelper('isSandstorm', function() {

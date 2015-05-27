@@ -157,7 +157,7 @@
     "cardMorePopup-title": "更多",
     "cardDeletePopup-title": "删除卡片？",
     "boardChangeTitlePopup-title": "重命名看板",
-    "boardChangePermissionPopup-title": "更改可视级别",
+    "boardChangeVisibilityPopup-title": "更改可视级别",
     "addMemberPopup-title": "成员",
     "closeBoardPopup-title": "关闭看板？",
     "removeMemberPopup-title": "删除成员？",

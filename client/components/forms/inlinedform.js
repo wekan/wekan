@@ -30,11 +30,12 @@ BlazeComponent.extendComponent({
     this.isOpen = new ReactiveVar(false);
   },
 
+  onDestroyed: function() {
+    currentlyOpenedForm.set(null);
+  },
+
   open: function() {
     // Close currently opened form, if any
-    // if (currentlyOpenedForm.get() !== null) {
-    //   currentlyOpenedForm.get().close();
-    // }
     EscapeActions.executeLowerThan('inlinedForm');
     this.isOpen.set(true);
     currentlyOpenedForm.set(this);

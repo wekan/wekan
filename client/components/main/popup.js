@@ -1,11 +1,21 @@
 // XXX This event list must be abstracted somewhere else.
-var endTransitionEvents = [
-  'webkitTransitionEnd',
-  'otransitionend',
-  'oTransitionEnd',
-  'msTransitionEnd',
-  'transitionend'
-].join(' ');
+function whichTransitionEvent() {
+  var t;
+  var el = document.createElement('fakeelement');
+  var transitions = {
+    transition:'transitionend',
+    OTransition:'oTransitionEnd',
+    MozTransition:'transitionend',
+    WebkitTransition:'webkitTransitionEnd'
+  };
+
+  for (t in transitions) {
+    if (el.style[t] !== undefined) {
+      return transitions[t];
+    }
+  }
+}
+var transitionEvent = whichTransitionEvent();
 
 Popup.template.events({
   click: function(evt) {
@@ -32,7 +42,7 @@ Popup.template.onRendered(function() {
   container._uihooks = {
     removeElement: function(node) {
       $(node).addClass('no-height');
-      $(container).one(endTransitionEvents, function() {
+      $(container).one(transitionEvent, function() {
         node.parentNode.removeChild(node);
       });
     }

@@ -7,10 +7,6 @@ BlazeComponent.extendComponent({
     return [Mixins.PerfectScrollbar];
   },
 
-  isSelected: function() {
-    return Session.equals('currentCard', this.currentData()._id);
-  },
-
   openForm: function(options) {
     options = options || {};
     options.position = options.position || 'top';
@@ -37,11 +33,6 @@ BlazeComponent.extendComponent({
       sortIndex = Utils.getSortIndex(this.find('.js-minicard:last'), null);
     }
 
-    // Clear the form in-memory cache
-    // var inputCacheKey = "addCard-" + this.listId;
-    // InputsCache.set(inputCacheKey, '');
-
-    // title trim if not empty then
     if ($.trim(title)) {
       Cards.insert({
         title: title,
@@ -49,16 +40,18 @@ BlazeComponent.extendComponent({
         boardId: this.data().board()._id,
         sort: sortIndex
       }, function(err, _id) {
-        // In case the filter is active we need to add the newly
-        // inserted card in the list of exceptions -- cards that are
-        // not filtered. Otherwise the card will disappear instantly.
+        // In case the filter is active we need to add the newly inserted card
+        // in the list of exceptions -- cards that are not filtered. Otherwise
+        // the card will disappear instantly.
         // See https://github.com/libreboard/libreboard/issues/80
         Filter.addException(_id);
       });
 
       // We keep the form opened, empty it, and scroll to it.
       textarea.val('').focus();
-      Utils.Scroll(this.find('.js-minicards')).top(1000, true);
+      if (position === 'bottom') {
+        this.scrollToBottom();
+      }
     }
   },
 
@@ -67,9 +60,9 @@ BlazeComponent.extendComponent({
   },
 
   scrollToBottom: function() {
-    var $container = $(this.firstNode());
-    $container.animate({
-      scrollTop: $container.height()
+    var container = this.firstNode();
+    $(container).animate({
+      scrollTop: container.scrollHeight
     });
   },
 
@@ -94,7 +87,12 @@ BlazeComponent.extendComponent({
     // Pressing Enter should submit the card
     if (evt.keyCode === 13) {
       evt.preventDefault();
-      $(evt.currentTarget).parents('form:first').submit();
+      var $form = $(evt.currentTarget).parents('form:first');
+      // XXX For some reason $form.submit() does not work (it's probably a bug
+      // of blaze-component related to the fact that the submit event is non-
+      // bubbling). This is why we click on the submit button instead -- which
+      // work.
+      $form.find('button[type=submit]').click();
 
     // Pressing Tab should open the form of the next column, and Maj+Tab go
     // in the reverse order
@@ -102,7 +100,7 @@ BlazeComponent.extendComponent({
       evt.preventDefault();
       var isReverse = evt.shiftKey;
       var list = $('#js-list-' + this.data().listId);
-      var listSelector = '.js-list:not(.js-add-list)';
+      var listSelector = '.js-list:not(.js-list-composer)';
       var nextList = list[isReverse ? 'prev' : 'next'](listSelector).get(0);
       // If there isn't no next list, loop back to the beginning.
       if (! nextList) {

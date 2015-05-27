@@ -1,5 +1,7 @@
 @import 'nib'
 
+global-reset()
+
 html, body, input, select, textarea, button
   font: 14px "Helvetica Neue", Arial, Helvetica, sans-serif
   line-height: 18px
@@ -7,77 +9,8 @@ html, body, input, select, textarea, button
 
 html
   font-size: 100%
-  -webkit-text-size-adjust: 100%
-
-p
-  margin: 0
-
-ol,
-ul
-  list-style: none
-  margin: 0
-  padding: 0
-
-blockquote, q
-  quotes: none
-
-  &:before,
-  &:after
-    content: none
-
-ins
-  text-decoration: none
-
-del
-  text-decoration: line-through
-
-table
-  border-collapse: collapse
-  border-spacing: 0
-  width: 100%
-
-hr
-  height: 1px
-  border: 0
-  border: none
-  width: 100%
-  background: #dbdbdb
-  color: #dbdbdb
-  margin: 15px 0
-  padding: 0
-
-article,
-aside,
-figure,
-footer,
-header,
-hgroup,
-nav,
-section
-  display: block
-
-caption, th, td
-  text-align: left
-  font-weight: 400
-
-a img
-  border: none
-
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-nav,
-section,
-summary
-  display: block
-
-html
   max-height: 100%
+  -webkit-text-size-adjust: 100%
 
 body
   background: darken(white, 10%)
@@ -162,6 +95,16 @@ blockquote
   color: #666
   padding: 0 0 0 8px
 
+hr
+  height: 1px
+  border: 0
+  border: none
+  width: 100%
+  background: #dbdbdb
+  color: #dbdbdb
+  margin: 15px 0
+  padding: 0
+
 table, td, th
   vertical-align: top
   border-top: 1px solid #ccc
@@ -187,11 +130,6 @@ dl, dt
 
 dd
   margin: 0 0 16px 24px
-
-.emoji
-  height: 18px
-  width: 18px
-  vertical-align: text-bottom
 
 .edit
   display: none
@@ -285,7 +223,6 @@ dd
     right: 9px
 
   &.focus
-
     .member
       opacity: 1
 
@@ -407,10 +344,6 @@ dd
     right: 0
     top: 0
     width: 18px
-
-.chrome .minicard.ui-sortable-helper,
-.safari .minicard.ui-sortable-helper
-  box-shadow: -2px 2px 6px rgba(0, 0, 0, .2)
 
 input[type="text"].attachment-add-link-input
   float: left

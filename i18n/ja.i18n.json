@@ -157,7 +157,7 @@
     "cardMorePopup-title": "More",
     "cardDeletePopup-title": "カードを削除しますか？",
     "boardChangeTitlePopup-title": "ボード名の変更",
-    "boardChangePermissionPopup-title": "公開範囲の変更",
+    "boardChangeVisibilityPopup-title": "公開範囲の変更",
     "addMemberPopup-title": "メンバー",
     "closeBoardPopup-title": "ボードを閉じますか？",
     "removeMemberPopup-title": "メンバーを外しますか？",

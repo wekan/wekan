@@ -1,4 +1,11 @@
+//-
+  XXX This template can't be transformed into a component because it is
+  included by iron-router. That's a bug.
+  See https://github.com/peerlibrary/meteor-blaze-components/issues/44
 template(name="boards")
+  +boardList
+
+template(name="boardList")
   if boards
     ul.board-list.clearfix
       each boards

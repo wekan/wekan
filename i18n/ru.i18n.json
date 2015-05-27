@@ -157,7 +157,7 @@
     "cardMorePopup-title": "Поделиться",
     "cardDeletePopup-title": "Удалить карточку?",
     "boardChangeTitlePopup-title": "Переименовать доску",
-    "boardChangePermissionPopup-title": "Изменить настройки видимости",
+    "boardChangeVisibilityPopup-title": "Изменить настройки видимости",
     "addMemberPopup-title": "Участники",
     "closeBoardPopup-title": "Закрыть доску?",
     "removeMemberPopup-title": "Удалить участника?",

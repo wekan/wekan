@@ -1,13 +1,14 @@
 .pop-over.clearfix(
   class="{{#unless title}}miniprofile{{/unless}}"
   class=currentBoard.colorClass
+  class="{{#unless title}}no-title{{/unless}}"
   style="display:block; left:{{offset.left}}px; top:{{offset.top}}px;")
-  .header.clearfix
+  .header
     a.back-btn.js-back-view(class="{{#unless hasPopupParent}}is-hidden{{/unless}}")
       i.fa.fa-chevron-left
     span.header-title= title
     a.close-btn.js-close-pop-over
-      i.fa.fa-times
+      i.fa.fa-times-thin
   .content-wrapper
     //-
       We display the all stack of popup content next to each other and move
