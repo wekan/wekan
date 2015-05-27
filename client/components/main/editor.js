@@ -60,7 +60,7 @@ Template.editor.onRendered(function() {
   });
 });
 
-EscapeActions.register(10,
+EscapeActions.register('textcomplete',
   function() { return dropdownMenuIsOpened; },
   function() {}
 );

@@ -17,8 +17,6 @@
 // keyboard.js
 var currentlyOpenedForm = new ReactiveVar(null);
 
-var inlinedFormEscapePriority = 30;
-
 BlazeComponent.extendComponent({
   template: function() {
     return 'inlinedForm';
@@ -37,7 +35,7 @@ BlazeComponent.extendComponent({
     // if (currentlyOpenedForm.get() !== null) {
     //   currentlyOpenedForm.get().close();
     // }
-    EscapeActions.executeLowerThan(inlinedFormEscapePriority);
+    EscapeActions.executeLowerThan('inlinedForm');
     this.isOpen.set(true);
     currentlyOpenedForm.set(this);
   },
@@ -97,7 +95,7 @@ BlazeComponent.extendComponent({
 }).register('inlinedForm');
 
 // Press escape to close the currently opened inlinedForm
-EscapeActions.register(inlinedFormEscapePriority,
+EscapeActions.register('inlinedForm',
   function() { return currentlyOpenedForm.get() !== null; },
   function() { currentlyOpenedForm.get().close(); }
 );

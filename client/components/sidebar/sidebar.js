@@ -97,7 +97,7 @@ BlazeComponent.extendComponent({
   }
 }).register('sidebar');
 
-EscapeActions.register(40,
+EscapeActions.register('sidebarView',
   function() { return Sidebar && Sidebar.getView() !== defaultView; },
   function() { Sidebar.setView(defaultView); }
 );

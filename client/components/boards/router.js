@@ -57,7 +57,7 @@ Router.route('/boards/:boardId/:slug/:cardId', {
 });
 
 // Close the card details pane by pressing escape
-EscapeActions.register(50,
+EscapeActions.register('detailedPane',
   function() { return ! Session.equals('currentCard', null); },
   function() { Utils.goBoardId(Session.get('currentBoard')); }
 );
