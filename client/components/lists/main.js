@@ -39,7 +39,7 @@ BlazeComponent.extendComponent({
       items: itemsSelector,
       placeholder: 'minicard placeholder',
       start: function(event, ui) {
-        $('.minicard.placeholder').height(ui.item.height());
+        ui.placeholder.height(ui.helper.height());
         Popup.close();
         boardComponent.showNewCardForms(false);
       },
