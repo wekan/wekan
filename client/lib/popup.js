@@ -205,6 +205,6 @@ $(document).on('click', function(evt) {
 // Press escape to close the popup.
 var bindPopup = function(f) { return _.bind(f, Popup); };
 EscapeActions.register('popup',
-  bindPopup(Popup.isOpen),
-  bindPopup(Popup.close)
+  bindPopup(Popup.close),
+  bindPopup(Popup.isOpen)
 );

@@ -1,30 +1,57 @@
+.minicard-wrapper
+  cursor: pointer
+  position: relative
+  display: flex
+  align-items: center
+  margin-bottom: 9px
+
+  &.draggable-hover-card
+    background-color: #f0f0f0
+    border-bottom-color: #c2c2c2
+
+  &.placeholder
+    background: darken(white, 20%)
+    border-radius: 2px
+
+  &.ui-sortable-helper
+    transform: rotate(4deg)
+    display: block !important
+
+    .and-n-other
+      width: 100%
+      height: 16px
+      padding: 4px
+      background-color: darken(white, 5%)
+      text-align: center
+      border-radius: 3px
+
+    .multi-selection-checkbox
+      display: none
+
+  .multi-selection-checkbox + .minicard
+    margin-left: 8px
+
 .minicard
+  padding: 6px 8px 2px
+  position: relative
+  flex: 1
+  flex-wrap: wrap
   background-color: #fff
+  min-height: 20px
   box-shadow: 0 1px 2px rgba(0,0,0,.2)
   border-radius: 2px
-  cursor: pointer
-  margin-bottom: 9px
-  min-height: 20px
-  position: relative
-  z-index: 0
+  color: #4d4d4d
   overflow: hidden
   transition: transform 0.2s,
               border-radius 0.2s,
               border-left 0.2s
 
-  a
-    color: #4d4d4d
-
-    &.active-card
-      background-color: #f0f0f0
-      border-bottom-color: #c2c2c2
-
-      .minicard-operation
-        display: block
-
-  &.draggable-hover-card
-    background-color: #f0f0f0
-    border-bottom-color: #c2c2c2
+  .is-selected &
+    transform: translateX(11px)
+    border-bottom-right-radius: 0
+    border-top-right-radius: 0
+    z-index: 100
+    box-shadow: -2px 1px 2px rgba(0,0,0,.2)
 
   .minicard-cover
     background-position: center
@@ -38,21 +65,6 @@
     &.no-preview-size
       background-size: auto
       background-position: center
-
-  .minicard-details
-    padding: 6px 8px 2px
-    position: relative
-    // z-index: 1
-
-  &.is-selected
-    transform: translateX(11px)
-    border-bottom-right-radius: 0
-    border-top-right-radius: 0
-    z-index: 100
-    box-shadow: -2px 1px 2px rgba(0,0,0,.2)
-
-  a.minicard-details
-    text-decoration:none
 
   .minicard-details-overlay
     background: transparent
@@ -121,23 +133,24 @@
   .minicard-members:empty
     display: none
 
-  &.ui-sortable-helper
-    transform: rotate(4deg)
+  .badges
+    float: left
 
-.badges
-  float: left
+    &:empty
+      display: none
 
-  &:empty
-    display: none
+  &.minicard-composer
+    margin-bottom: 10px
 
-textarea.minicard-composer-textarea,
-textarea.minicard-composer-textarea:focus
-  background: none
-  border: none
-  box-shadow: none
-  height: auto
-  margin-bottom: 4px
-  padding: 0
-  max-height: 162px
-  min-height: 54px
-  overflow-y: auto
+    textarea.minicard-composer-textarea,
+    textarea.minicard-composer-textarea:focus
+      resize: none
+      background: none
+      border: none
+      box-shadow: none
+      height: auto
+      margin: 0
+      padding: 0
+      max-height: 162px
+      min-height: 54px
+      overflow-y: auto

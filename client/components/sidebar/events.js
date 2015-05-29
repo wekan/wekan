@@ -1,20 +1,3 @@
-Template.filterSidebar.events({
-  'click .js-toggle-label-filter': function(event) {
-    Filter.labelIds.toogle(this._id);
-    Filter.resetExceptions();
-    event.preventDefault();
-  },
-  'click .js-toogle-member-filter': function(event) {
-    Filter.members.toogle(this._id);
-    Filter.resetExceptions();
-    event.preventDefault();
-  },
-  'click .js-clear-all': function(event) {
-    Filter.reset();
-    event.preventDefault();
-  }
-});
-
 var getMemberIndex = function(board, searchId) {
   for (var i = 0; i < board.members.length; i++) {
     if (board.members[i].userId === searchId)

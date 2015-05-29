@@ -97,6 +97,6 @@ BlazeComponent.extendComponent({
 
 // Press escape to close the currently opened inlinedForm
 EscapeActions.register('inlinedForm',
-  function() { return currentlyOpenedForm.get() !== null; },
-  function() { currentlyOpenedForm.get().close(); }
+  function() { currentlyOpenedForm.get().close(); },
+  function() { return currentlyOpenedForm.get() !== null; }
 );

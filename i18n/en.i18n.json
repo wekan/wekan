@@ -74,7 +74,7 @@
     "email-placeholder": "e.g., doc@frankenstein.com",
     "filter": "Filter",
     "filter-cards": "Filter Cards",
-    "filter-clear": "Clear filter.",
+    "filter-clear": "Clear filter",
     "filter-on": "Filter is on",
     "filter-on-desc": "You are filtering cards on this board. Click here to edit filter.",
     "fullname": "Full Name",
@@ -98,6 +98,7 @@
     "leave-board": "Leave Board…",
     "link-card": "Link to this card",
     "list-move-cards": "Move All Cards in This List…",
+    "list-select-cards": "Select All Cards in This List",
     "list-archive-cards": "Archive All Cards in This List…",
     "list-archive-cards-pop": "This will remove all the cards in this list from the board. To view archived cards and bring them back to the board, click “Menu” > “Archived Items”.",
     "log-in": "Log In",
@@ -107,6 +108,7 @@
     "members-title": "Add or remove members of the board from the card.",
     "menu": "Menu",
     "modal-close-title": "Close this dialog window.",
+    "multi-selection": "Multi-Selection",
     "my-boards": "My Boards",
     "name": "Name",
     "name": "Name",
@@ -181,5 +183,6 @@
     "changePermissionsPopup-title": "Change Permissions",
     "setLanguagePopup-title": "Change Language",
     "cardAttachmentsPopup-title": "Attach From…",
-    "attachmentDeletePopup-title": "Delete Attachment?"
+    "attachmentDeletePopup-title": "Delete Attachment?",
+    "disambiguateMultiLabelPopup-title": "Disambiguate Label Action"
 }

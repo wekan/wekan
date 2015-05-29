@@ -1,8 +1,7 @@
 template(name="cardMembersPopup")
-  //- input.js-search-mem(autofocus placeholder="Search members…" type="text")
-  ul.pop-over-member-list.checkable.js-mem-list
+  ul.pop-over-member-list.js-mem-list
     each board.members
-      li.item.js-member-item(class="{{#if isCardMember}}active{{/if}}")
+      li.item(class="{{#if isCardMember}}active{{/if}}")
         a.name.js-select-member(href="#")
           +userAvatar(user=user size="small")
           span.full-name

@@ -27,15 +27,43 @@ template(name="headerBoard")
           i.fa.fa-times-thin
       else
         span {{_ 'filter'}}
+
+    if currentUser.isBoardMember
+      a.board-header-btn.js-multiselection-activate(
+          title="{{#if MultiSelection.isActive}}{{_ 'filter-on-desc'}}{{/if}}"
+          class="{{#if MultiSelection.isActive}}emphasis{{/if}}")
+        i.fa.fa-check-square-o
+        if MultiSelection.isActive
+          span Multi-Selection is on
+          a.board-header-btn-close.js-multiselection-reset(title="{{_ 'filter-clear'}}")
+            i.fa.fa-times-thin
+        else
+          span Multi-Selection
+
     .separator
     a.board-header-btn.js-open-board-menu
       i.board-header-btn-icon.fa.fa-cog
 
 template(name="boardMenuPopup")
+  if currentUser.isBoardMember
+    ul.pop-over-list
+      li: a Archived elements
+      li: a.js-change-board-color Change color
+      li: a Permissions
+    hr
   ul.pop-over-list
-    li: a.js-change-board-color Change color
     li: a Copy this board
-    li: a Permissions
+    //-
+      XXX Language should be handled by sandstorm, but for now display a
+      language selection link in the board menu. This link is normally present
+      in the header bar that is not displayed on sandstorm.
+    if isSandstorm
+      li: a.js-change-language {{_ 'language'}}
+  unless isSandstorm
+    if currentUser.isBoardAdmin
+      hr
+      ul.pop-over-list
+        li: a Close Board…
 
 template(name="boardVisibilityList")
   ul.pop-over-list

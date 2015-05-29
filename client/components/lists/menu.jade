@@ -5,6 +5,7 @@ template(name="listActionPopup")
   if cards.count
     hr
     ul.pop-over-list
+      li: a.js-select-cards {{_ 'list-select-cards'}}
       li: a.js-move-cards {{_ 'list-move-cards'}}
       li: a.js-archive-cards {{_ 'list-archive-cards'}}
   hr

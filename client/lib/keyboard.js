@@ -47,11 +47,16 @@ EscapeActions = {
     'textcomplete',
     'popup',
     'inlinedForm',
+    'multiselection-disable',
     'sidebarView',
-    'detailedPane'
+    'detailsPane',
+    'multiselection-reset'
   ],
 
-  register: function(label, condition, action) {
+  register: function(label, action, condition) {
+    if (_.isUndefined(condition))
+      condition = function() { return true; };
+
     // XXX Rewrite this with ES6: .push({ priority, condition, action })
     var priority = this.hierarchy.indexOf(label);
     if (priority === -1) {
@@ -87,6 +92,10 @@ EscapeActions = {
       if (!! currentAction.condition())
         currentAction.action();
     }
+  },
+
+  executeAll: function() {
+    return this.executeLowerThan();
   }
 };
 

@@ -34,18 +34,17 @@ BlazeComponent.extendComponent({
     }
 
     if ($.trim(title)) {
-      Cards.insert({
+      var _id = Cards.insert({
         title: title,
         listId: this.data()._id,
         boardId: this.data().board()._id,
         sort: sortIndex
-      }, function(err, _id) {
-        // In case the filter is active we need to add the newly inserted card
-        // in the list of exceptions -- cards that are not filtered. Otherwise
-        // the card will disappear instantly.
-        // See https://github.com/libreboard/libreboard/issues/80
-        Filter.addException(_id);
       });
+      // In case the filter is active we need to add the newly inserted card in
+      // the list of exceptions -- cards that are not filtered. Otherwise the
+      // card will disappear instantly.
+      // See https://github.com/libreboard/libreboard/issues/80
+      Filter.addException(_id);
 
       // We keep the form opened, empty it, and scroll to it.
       textarea.val('').focus();
@@ -55,10 +54,6 @@ BlazeComponent.extendComponent({
     }
   },
 
-  showNewCardForm: function(value) {
-    this.newCardFormIsVisible.set(value);
-  },
-
   scrollToBottom: function() {
     var container = this.firstNode();
     $(container).animate({
@@ -66,14 +61,10 @@ BlazeComponent.extendComponent({
     });
   },
 
-  onCreated: function() {
-    this.newCardFormIsVisible = new ReactiveVar(true);
-  },
-
   events: function() {
     return [{
       submit: this.addCard,
-      'click .open-card-composer': this.scrollToBottom
+      'click .open-minicard-composer': this.scrollToBottom
     }];
   }
 }).register('listBody');

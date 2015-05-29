@@ -1,7 +1,11 @@
 template(name="minicard")
-  .minicard.card.js-minicard(
-    class="{{#if isSelected}}is-selected{{/if}}")
-    a.minicard-details.clearfix.show(href=absoluteUrl)
+  a.minicard-wrapper.js-minicard(href=absoluteUrl
+    class="{{#if isSelected}}is-selected{{/if}}"
+    class="{{#if MultiSelection.isSelected _id}}is-checked{{/if}}")
+    if MultiSelection.isActive
+      .materialCheckBox.multi-selection-checkbox.js-toggle-multi-selection(
+        class="{{#if MultiSelection.isSelected _id}}is-checked{{/if}}")
+    .minicard
       if cover
         .minicard-cover.js-card-cover(style="background-image: url({{cover.url}});")
       if labels
@@ -16,12 +20,12 @@ template(name="minicard")
       .badges
         if comments.count
           .badge(title="{{_ 'card-comments-title' comments.count }}")
-            span.badge-icon.icon-sm.fa.fa-comment-o
+            span.badge-icon.fa.fa-comment-o
             .badge-text= comments.count
         if description
           .badge.badge-state-image-only(title=description)
-            span.badge-icon.icon-sm.fa.fa-align-left
+            span.badge-icon.fa.fa-align-left
         if attachments.count
           .badge
-            span.badge-icon.icon-sm.fa.fa-paperclip
+            span.badge-icon.fa.fa-paperclip
             span.badge-text= attachments.count

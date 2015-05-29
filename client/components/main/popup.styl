@@ -35,20 +35,8 @@
     margin: 4px 0 12px
     width: 100%
 
-  .empty
-    margin: 0
-
   img
     max-width: 270px
-
-  .custom-image img
-    height: 18px
-    left: 9px
-    top: 9px
-    width: 18px
-
-  .title
-    line-height: 32px
 
   .header
     height: 36px
@@ -68,10 +56,6 @@
       text-overflow: ellipsis
       white-space: nowrap
 
-    .back-btn, .close-btn
-      &:hover .icon-sm
-        color: darken(white, 80%)
-
     .back-btn
       float: left
       overflow: hidden
@@ -90,7 +74,6 @@
       position: absolute
       top: 0
       right: 0
-
 
   &.no-title .header
     background: none
@@ -134,14 +117,10 @@
   margin-bottom: 8px
 
 .pop-over-list
-
   &.navigable li.not-selectable>a:hover,
   li.not-selectable>a:hover
     color: #8c8c8c
     cursor: default
-
-    .icon-sm
-      color: #a6a6a6
 
   li > a
     cursor: pointer
@@ -167,9 +146,6 @@
 
       .unread-indicator
         background: #fff
-
-      .icon-sm
-        color: #fff
 
     .sub-name
       clear: both
@@ -208,18 +184,12 @@
       .vis-icon
         opacity: .35
 
-      .icon-sm
-        color: #a6a6a6
-
       &:hover
         background: none
 
         .sub-name,
         .quiet
           color: #8c8c8c
-
-        .icon-sm
-          color: #a6a6a6
 
       &:active
         background: none
@@ -268,9 +238,6 @@
       .quiet
         color: #8c8c8c
 
-      .icon-sm
-        color: #a6a6a6
-
     li.selected > a
       background-color: #005377
       color: #fff
@@ -287,14 +254,10 @@
       .unread-indicator
         background: #fff
 
-      .icon-sm
-        color: #fff
-
       &:active
         background-color: #005377
 
 .pop-over.miniprofile
-
   .header
     border-bottom-color: transparent
     height: 30px
@@ -329,205 +292,3 @@
 
       &:hover
         text-decoration: underline
-
-.pop-over.avdetail .header
-  border-bottom-color: transparent
-  height: 20px
-  position: absolute
-  top: 8px
-  left: 8px
-  right: 8px
-  z-index: 0
-
-.pop-over.avdetail .header-title
-  display: none
-
-.pop-over.avdetail .content
-  text-align: center
-
-.pop-over.avdetail .mem-info
-  margin: 2px 24px 8px
-  position: relative
-  z-index: 1
-  width: 222px
-
-.pop-over.avdetail .mem-info h3 a
-  text-decoration: none
-
-.pop-over.avdetail .mem-info h3 a:hover
-  text-decoration: underline
-
-.pop-over-label-list li,
-.pop-over-member-list li
-
-  &.disabled a
-    cursor:default
-
-  &:not(.disabled):hover a
-    background-color: #005377
-    color: #fff
-
-
-.pop-over-label-list,
-.pop-over-member-list,
-.pop-over-emoji-list,
-.pop-over-card-list
-  li
-    a
-      border-radius: 3px
-      display: block
-      height: 30px
-      line-height: 30px
-      overflow: hidden
-      position: relative
-      text-overflow: ellipsis
-      text-decoration: none
-      white-space: nowrap
-      padding: 4px
-      margin-bottom: 2px
-
-      &.multi-line
-        line-height: 16px
-
-      .member
-        margin-right: 8px
-
-      .card-label
-        float: left
-        height: 30px
-        margin: 0 8px 0 0
-        padding: 0
-        width: 30px
-
-      .option,
-      .icon-check
-        background-clip: content-box
-        background-origin: content-box
-        padding: 11px
-        position: absolute
-        top: 0
-        right: 0
-
-      .sub-name
-        font-size: 12px
-
-
-    &:last-child a
-      margin-bottom: 0
-
-    &.disabled
-      opacity: .5
-
-      &.active a,
-      &.selected a
-        background: none
-        color: #4d4d4d
-        cursor: default
-
-        .quiet
-          color: #8c8c8c
-
-    &.email-invite
-
-      .member
-        display: none
-
-      a
-        padding: 0 10px
-
-    &.selected a
-      background-color: #005377
-      color: #fff
-
-      .quiet
-        color: #eee
-
-      .card-label
-        border-radius: 3px
-
-      .icon-check
-        color: #fff
-
-    &.active a .icon-check
-      display: block
-
-    &.unconfirmed a.name
-      line-height: 16px
-
-  &.options li
-
-    &.selected a
-      padding-right: 28px
-
-      .option
-        display: block
-        opacity: .5
-
-        &:hover
-          opacity: 1
-
-    &.disabled.selected a
-      padding-right: 0
-
-      .option
-        display: none
-
-
-    &.no-option.selected a
-      padding-right: 6px
-
-      .option
-        display: none
-
-  &.collapsed
-
-    &.checkable li.active a
-      padding-right: 0
-
-    li
-      float: left
-      margin: 0 3px 3px 0
-
-      a
-        padding: 0
-        margin: 0
-        width: 30px
-
-        .member
-          opacity: .8
-
-        .full-name
-          display: none
-
-      &.selected a .member,
-      &.active.selected a .member
-        border-color: #005377
-        opacity: .9
-
-      &.active a
-
-        .member
-          border-color: #2e85b8
-          opacity: 1
-
-        .icon-check
-          border-radius: 3px
-          background-color: #2e85b8
-          bottom: 0
-          color: #fff
-          display: block
-          padding: 0
-          right: 0
-          top: auto
-
-  &.checkable li.active a
-    padding-right: 28px
-
-  &.filtered li
-    display: none
-
-    &.matches-filter
-      display: block
-
-  &.limited li.exceeds-limit
-    display: none

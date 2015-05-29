@@ -12,14 +12,16 @@ BlazeComponent.extendComponent({
     return 'boardComponent';
   },
 
+  onCreated: function() {
+    this.draggingActive = new ReactiveVar(false);
+  },
+
   openNewListForm: function() {
     this.componentChildren('addListForm')[0].open();
   },
 
-  showNewCardForms: function(value) {
-    _.each(this.componentChildren('list'), function(listComponent) {
-      listComponent.showNewCardForm(value);
-    });
+  setIsDragging: function(bool) {
+    this.draggingActive.set(bool);
   },
 
   scrollLeft: function(position) {
@@ -79,8 +81,8 @@ BlazeComponent.extendComponent({
       helper: 'clone',
       items: '.js-list:not(.js-list-composer)',
       placeholder: 'list placeholder',
-      start: function(event, ui) {
-        $('.list.placeholder').height(ui.item.height());
+      start: function(evt, ui) {
+        ui.placeholder.height(ui.helper.height());
         Popup.close();
       },
       stop: function() {
@@ -95,6 +97,11 @@ BlazeComponent.extendComponent({
           }
         );
       }
+    });
+
+    // Disable drag-dropping while in multi-selection mode
+    self.autorun(function() {
+      self.$(lists).sortable('option', 'disabled', MultiSelection.isActive());
     });
 
     // If there is no data in the board (ie, no lists) we autofocus the list

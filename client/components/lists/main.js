@@ -8,10 +8,6 @@ BlazeComponent.extendComponent({
     this.componentChildren('listBody')[0].openForm(options);
   },
 
-  showNewCardForm: function(value) {
-    this.componentChildren('listBody')[0].showNewCardForm(value);
-  },
-
   onCreated: function() {
     this.newCardFormIsVisible = new ReactiveVar(true);
   },
@@ -35,30 +31,59 @@ BlazeComponent.extendComponent({
       connectWith: '.js-minicards',
       tolerance: 'pointer',
       appendTo: '.js-lists',
-      helper: 'clone',
-      items: itemsSelector,
-      placeholder: 'minicard placeholder',
-      start: function(event, ui) {
-        ui.placeholder.height(ui.helper.height());
-        Popup.close();
-        boardComponent.showNewCardForms(false);
+      helper: function(evt, item) {
+        var helper = item.clone();
+        if (MultiSelection.isActive()) {
+          var andNOthers = $cards.find('.js-minicard.is-checked').length - 1;
+          if (andNOthers > 0) {
+            helper.append($(Blaze.toHTML(HTML.DIV(
+              // XXX Super bad class name
+              {'class': 'and-n-other'},
+              // XXX Need to translate
+              'and ' + andNOthers + ' other cards.'
+            ))));
+          }
+        }
+        return helper;
       },
-      stop: function(event, ui) {
+      items: itemsSelector,
+      placeholder: 'minicard-wrapper placeholder',
+      start: function(evt, ui) {
+        ui.placeholder.height(ui.helper.height());
+        EscapeActions.executeLowerThan('popup');
+        boardComponent.setIsDragging(true);
+      },
+      stop: function(evt, ui) {
         // To attribute the new index number, we need to get the dom element
         // of the previous and the following card -- if any.
         var cardDomElement = ui.item.get(0);
         var prevCardDomElement = ui.item.prev('.js-minicard').get(0);
         var nextCardDomElement = ui.item.next('.js-minicard').get(0);
         var sort = Utils.getSortIndex(prevCardDomElement, nextCardDomElement);
-        var cardId = Blaze.getData(cardDomElement)._id;
         var listId = Blaze.getData(ui.item.parents('.list').get(0))._id;
-        Cards.update(cardId, {
-          $set: {
-            listId: listId,
-            sort: sort
-          }
-        });
-        boardComponent.showNewCardForms(true);
+
+        if (MultiSelection.isActive()) {
+          Cards.find(MultiSelection.getMongoSelector()).forEach(function(c) {
+            Cards.update(c._id, {
+              $set: {
+                listId: listId,
+                sort: sort
+              }
+            });
+          });
+        } else {
+          var cardId = Blaze.getData(cardDomElement)._id;
+          Cards.update(cardId, {
+            $set: {
+              listId: listId,
+              // XXX Using the same sort index for multiple cards is
+              // unacceptable. Keep that only until we figure out if we want to
+              // refactor the whole sorting mecanism or do something more basic.
+              sort: sort
+            }
+          });
+        }
+        boardComponent.setIsDragging(false);
       }
     });
 

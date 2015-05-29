@@ -1,6 +1,7 @@
 Template.boardMenuPopup.events({
   'click .js-rename-board': Popup.open('boardChangeTitle'),
-  'click .js-change-board-color': Popup.open('boardChangeColor')
+  'click .js-change-board-color': Popup.open('boardChangeColor'),
+  'click .js-change-language': Popup.open('setLanguage')
 });
 
 Template.boardChangeTitlePopup.events({
@@ -24,14 +25,15 @@ BlazeComponent.extendComponent({
   },
 
   isStarred: function() {
-    var boardId = this.currentData()._id;
+    var currentBoard  = this.currentData();
     var user = Meteor.user();
-    return boardId && user && user.hasStarred(boardId);
+    return currentBoard && user && user.hasStarred(currentBoard._id);
   },
 
   // Only show the star counter if the number of star is greater than 2
   showStarCounter: function() {
-    return this.currentData().stars > 2;
+    var currentBoard = this.currentData();
+    return currentBoard && currentBoard.stars > 2;
   },
 
   events: function() {
@@ -49,6 +51,17 @@ BlazeComponent.extendComponent({
         evt.stopPropagation();
         Sidebar.setView();
         Filter.reset();
+      },
+      'click .js-multiselection-activate': function() {
+        var currentCard = Session.get('currentCard');
+        MultiSelection.activate();
+        if (currentCard) {
+          MultiSelection.add(currentCard);
+        }
+      },
+      'click .js-multiselection-reset': function(evt) {
+        evt.stopPropagation();
+        MultiSelection.disable();
       }
     }];
   }

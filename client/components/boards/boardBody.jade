@@ -8,7 +8,10 @@ template(name="board")
 template(name="boardComponent")
   if this
     .board-wrapper(class=colorClass)
-      .board-canvas(class=sidebarSize)
+      .board-canvas(
+        class=sidebarSize
+        class="{{#if MultiSelection.isActive}}is-multiselection-active{{/if}}"
+        class="{{#if draggingActive.get}}is-dragging-active{{/if}}")
         .lists.js-lists
           each lists
             +list(this)

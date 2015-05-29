@@ -19,7 +19,6 @@ Router.route('/boards/:_id/:slug', {
   onAfterAction: function() {
     // XXX We probably shouldn't rely on Session
     Session.set('sidebarIsOpen', true);
-    Session.set('currentWidget', 'home');
     Session.set('menuWidgetIsOpen', false);
   },
   waitOn: function() {
@@ -37,6 +36,7 @@ Router.route('/boards/:_id/:slug', {
 Router.route('/boards/:boardId/:slug/:cardId', {
   name: 'Card',
   template: 'board',
+  noEscapeActions: true,
   onAfterAction: function() {
     Tracker.nonreactive(function() {
       if (! Session.get('currentCard') && Sidebar) {
@@ -57,7 +57,7 @@ Router.route('/boards/:boardId/:slug/:cardId', {
 });
 
 // Close the card details pane by pressing escape
-EscapeActions.register('detailedPane',
-  function() { return ! Session.equals('currentCard', null); },
-  function() { Utils.goBoardId(Session.get('currentBoard')); }
+EscapeActions.register('detailsPane',
+  function() { Utils.goBoardId(Session.get('currentBoard')); },
+  function() { return ! Session.equals('currentCard', null); }
 );

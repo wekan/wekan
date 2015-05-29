@@ -61,6 +61,6 @@ Template.editor.onRendered(function() {
 });
 
 EscapeActions.register('textcomplete',
-  function() { return dropdownMenuIsOpened; },
-  function() {}
+  function() {},
+  function() { return dropdownMenuIsOpened; }
 );

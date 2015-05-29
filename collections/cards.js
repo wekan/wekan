@@ -120,8 +120,14 @@ Cards.helpers({
     });
     return cardLabels;
   },
+  hasLabel: function(labelId) {
+    return _.contains(this.labelIds, labelId);
+  },
   user: function() {
     return Users.findOne(this.userId);
+  },
+  isAssigned: function(memberId) {
+    return _.contains(this.members, memberId);
   },
   activities: function() {
     return Activities.find({ type: 'card', cardId: this._id },

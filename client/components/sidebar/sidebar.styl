@@ -7,7 +7,7 @@
   right: 0
 
   .sidebar-content
-    padding: 10px 20px
+    padding: 12px
     background: white
     box-shadow: -10px 0px 5px -10px darken(white, 30%)
     z-index: 10
@@ -23,7 +23,33 @@
       color: darken(white, 50%)
 
     hr
-      margin: 8px 0
+      margin: 13px 0
+
+    ul.sidebar-list
+      display: flex
+      flex-direction: column
+
+      li a
+        display: flex
+        height: 30px
+        margin: 0
+        padding: 4px
+        border-radius: 3px
+        align-items: center
+
+        &:hover
+          &, i, .quiet
+            color white
+
+        .member, .card-label
+          margin-right: 7px
+
+        .sidebar-list-item-description
+          flex: 1
+          overflow: ellipsis
+
+        .fa.fa-check
+          margin: 0 4px
 
 .board-sidebar
   width: 248px

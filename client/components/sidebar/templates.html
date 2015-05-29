@@ -1,0 +1,77 @@
+<!-- XXX Translate these template into jade -->
+<template name="closeBoardPopup">
+    <p>{{_ 'close-board-pop'}}</p>
+    <input type="submit" class="js-confirm negate full" value="{{_ 'close'}}">
+</template>
+
+<template name="removeMemberPopup">
+    <p>{{_ 'remove-member-pop'
+            name=user.profile.name
+            username=user.username
+            boardTitle=board.title}}</p>
+    <input type="submit" class="js-confirm negate full" value="{{_ 'remove-member'}}">
+</template>
+
+<template name="addMemberPopup">
+    <div class="search-with-spinner">
+        {{> esInput index="users" }}
+    </div>
+
+    <div class="manage-member-section hide js-search-results" style="display: block;">
+        <ul class="pop-over-member-list options js-list">
+            {{# esEach index="users"}}
+                <li class="item js-member-item {{# if isBoardMember }}disabled{{/if}}">
+                    <a href="#" class="name js-select-member {{# if isBoardMember }}multi-line{{/if}}" title="{{ profile.name }} ({{ username }})">
+                        {{> userAvatar user=this size="small" }}
+                        <span class="full-name">
+                            {{ profile.name }}  (<span class="username">{{ username }}</span>)
+                        </span>
+                       {{# if isBoardMember }}
+                           <div class="extra-text quiet">({{_ 'joined'}})</div>
+                       {{/if}}
+                        <span class="icon-sm fa fa-chevron-right light option js-open-option"></span>
+                    </a>
+                </li>
+            {{/esEach }}
+        </ul>
+    </div>
+
+    {{# ifEsIsSearching index='users' }}
+        <div class="tac">
+            <span class="tabbed-pane-main-col-loading-spinner spinner"></span>
+        </div>
+    {{ /ifEsIsSearching }}
+
+     {{# ifEsHasNoResults index="users" }}
+        <div class="manage-member-section js-no-results">
+            <p class="quiet center" style="padding: 16px 4px;">{{_ 'no-results'}}</p>
+        </div>
+    {{ /ifEsHasNoResults }}
+
+    <div class="manage-member-section js-helper">
+        <p class="bottom quiet" style="padding: 6px;">{{_ 'search-member-desc'}}</p>
+    </div>
+</template>
+
+<template name="changePermissionsPopup">
+    <ul class="pop-over-list">
+        <li>
+            <a class="{{#if isLastAdmin}}disabled{{else}}js-set-admin{{/if}}">
+                {{_ 'admin'}}
+                {{#if isAdmin}}<span class="icon-sm fa fa-check"></span>{{/if}}
+                <span class="sub-name">{{_ 'admin-desc'}}</span>
+            </a>
+        </li>
+        <li>
+            <a class="{{#if isLastAdmin}}disabled{{else}}js-set-normal{{/if}}">
+                {{_ 'normal'}}
+                {{#unless isAdmin}}<span class="icon-sm fa fa-check"></span>{{/unless}}
+                <span class="sub-name">{{_ 'normal-desc'}}</span>
+            </a>
+        </li>
+    </ul>
+    {{#if isLastAdmin}}
+        <hr>
+        <p class="quiet bottom">{{_ 'last-admin-desc'}}</p>
+    {{/if}}
+</template>

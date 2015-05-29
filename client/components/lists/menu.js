@@ -6,6 +6,14 @@ Template.listActionPopup.events({
     Popup.close();
   },
   'click .js-list-subscribe': function() {},
+  'click .js-select-cards': function() {
+    var cardIds = Cards.find(
+      {listId: this._id},
+      {fields: { _id: 1 }}
+    ).map(function(card) { return card._id; });
+    MultiSelection.add(cardIds);
+    Popup.close();
+  },
   'click .js-move-cards': Popup.open('listMoveCards'),
   'click .js-archive-cards': Popup.afterConfirm('listArchiveCards', function() {
     Cards.find({listId: this._id}).forEach(function(card) {

@@ -69,9 +69,10 @@
     // Our objects
     "EscapeActions": true,
     "Filter": true,
-    "Mixins": true,
-    "Popup": true,
     "Filter": true,
+    "Mixins": true,
+    "MultiSelection": true,
+    "Popup": true,
     "Sidebar": true,
     "Utils": true,
 

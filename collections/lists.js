@@ -44,7 +44,7 @@ if (Meteor.isServer) {
 
 Lists.helpers({
   cards: function() {
-    return Cards.find(_.extend(Filter.getMongoSelector(), {
+    return Cards.find(Filter.mongoSelector({
       listId: this._id,
       archived: false
     }), { sort: ['sort'] });

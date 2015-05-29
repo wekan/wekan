@@ -3,3 +3,4 @@
 .meteor-spk
 .tx/
 *.sublime-workspace
+tmp/

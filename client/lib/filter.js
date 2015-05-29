@@ -91,7 +91,7 @@ Filter = {
     });
   },
 
-  getMongoSelector: function() {
+  _getMongoSelector: function() {
     var self = this;
 
     if (! self.isActive())
@@ -110,6 +110,14 @@ Filter = {
     return {$or: [filterSelector, exceptionsSelector]};
   },
 
+  mongoSelector: function(additionalSelector) {
+    var filterSelector = this._getMongoSelector();
+    if (_.isUndefined(additionalSelector))
+      return filterSelector;
+    else
+      return {$and: [filterSelector, additionalSelector]};
+  },
+
   reset: function() {
     var self = this;
     _.forEach(self._fields, function(fieldName) {
@@ -123,6 +131,7 @@ Filter = {
     if (this.isActive()) {
       this._exceptions.push(_id);
       this._exceptionsDep.changed();
+      Tracker.flush();
     }
   },
 

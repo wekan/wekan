@@ -30,10 +30,6 @@ input[type="radio"]
   -webkit-appearance: radio
   min-height: inherit
 
-input[type="checkbox"]
-  -webkit-appearance: checkbox
-  margin-right: 4px
-
 input[type="text"],
 input[type="password"],
 input[type="email"]
@@ -182,10 +178,6 @@ fieldset
 input[type="hidden"]
   display: none
 
-input[type="checkbox"],
-input[type="radio"]
-  display: inline
-
 .radio-div,
 .check-div
   display: block
@@ -232,6 +224,36 @@ textarea
   .fa-times-thin
     font-size: 26px
     margin: 3px 4px
+
+// Material Design checkboxes
+[type="checkbox"]:not(:checked),
+[type="checkbox"]:checked
+  position: absolute
+  left: -9999px
+  visibility: hidden
+
+.materialCheckBox
+  position: relative
+  width: 13px
+  height: @width
+  z-index: 0
+  border: 2px solid #5a5a5a
+  border-radius: 1px
+  transition: .2s
+  margin: 0
+  cursor: pointer
+
+  &.is-checked
+    top: -4px
+    left: -3px
+    width: 7px
+    height: 15px
+    margin-right: 6px
+    border-top: 2px solid transparent
+    border-left: 2px solid transparent
+    transform: rotate(40deg)
+    -webkit-backface-visibility: hidden
+    transform-origin: 100% 100%
 
 .button-link
   background: #fff
@@ -355,9 +377,6 @@ textarea
       background-color: rgba(255, 255, 255, .3)
       border-color: transparent
 
-    .icon-sm
-      color: #fff
-
   &:active
     background: #2e85b8
     background: linear-gradient(#2e85b8, #28739f)
@@ -401,7 +420,6 @@ textarea
       border-color: #8b0e0e
 
 button
-
   &.quiet-button,
   &.loud-text-button
     background: none
@@ -437,11 +455,6 @@ button
 
   &.w-img
     padding-left: 28px
-
-  .icon-sm
-    left: 6px
-    position: absolute
-    top: 6px
 
   &:hover
     color: #4d4d4d
@@ -575,29 +588,8 @@ button
     border-color: #2e85b8
     color: #fff
 
-.form-grid
-  display: flex
-  flex-wrap: wrap
-  width: 100%
-
-.form-grid-child
-  flex: 1
-  margin: 0 0 8px
-
-.form-grid-child-full
-  flex: 1 1 100%
-
-.form-grid-child-threequarters
-  flex: 3
-  margin-right: 8px
-
-.form-grid-child-twothirds
-  flex: 2
-  margin-right: 8px
-
 .dropdown-menu
   border-radius: 2px
-  // padding-bottom: 3px
   overflow: hidden
 
   li

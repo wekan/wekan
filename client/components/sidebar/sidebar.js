@@ -1,6 +1,11 @@
+Sidebar = null;
+
 var defaultView = 'home';
 
-Sidebar = null;
+var viewTitles = {
+  filter: 'filter-cards',
+  multiselection: 'multi-selection'
+};
 
 BlazeComponent.extendComponent({
   template: function() {
@@ -60,12 +65,21 @@ BlazeComponent.extendComponent({
   },
 
   setView: function(view) {
-    view = view || defaultView;
+    view = _.isString(view) ? view : defaultView;
     this._view.set(view);
+    this.open();
+  },
+
+  isDefaultView: function() {
+    return this.getView() === defaultView;
   },
 
   getViewTemplate: function() {
     return this.getView() + 'Sidebar';
+  },
+
+  getViewTitle: function() {
+    return TAPi18n.__(viewTitles[this.getView()]);
   },
 
   // Board members can assign people or labels by drag-dropping elements from
@@ -108,12 +122,13 @@ BlazeComponent.extendComponent({
     // XXX Hacky, we need some kind of `super`
     var mixinEvents = this.getMixin(Mixins.InfiniteScrolling).events();
     return mixinEvents.concat([{
-      'click .js-toogle-sidebar': this.toogle
+      'click .js-toogle-sidebar': this.toogle,
+      'click .js-back-home': this.setView
     }]);
   }
 }).register('sidebar');
 
 EscapeActions.register('sidebarView',
-  function() { return Sidebar && Sidebar.getView() !== defaultView; },
-  function() { Sidebar.setView(defaultView); }
+  function() { Sidebar.setView(defaultView); },
+  function() { return Sidebar && Sidebar.getView() !== defaultView; }
 );
