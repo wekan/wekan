@@ -31,10 +31,11 @@ template(name="membersWidget")
           userId=this.userId
           draggable=true
           size="small"
-          showBadges=true)
+          showStatus=true)
       unless isSandstorm
         if currentUser.isBoardAdmin
           a.js-open-manage-board-members
+      .clearfix
 
 template(name="labelsWidget")
   .board-widget.board-widget-labels

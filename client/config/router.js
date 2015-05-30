@@ -24,6 +24,13 @@ Router.configure({
       return this.redirect('atSignIn');
     }
 
+    // We want to execute our EscapeActions.executeLowerThan method any time the
+    // route is changed, but not if the stays the same but only the parameters
+    // change (eg when a user is navigation from a card A to a card B). Iron-
+    // Router onBeforeAction is a reactive context (which is a bad desig choice
+    // as explained in
+    // https://github.com/meteorhacks/flow-router#routercurrent-is-evil) so we
+    // need to use Tracker.nonreactive
     Tracker.nonreactive(function() {
       if (! options.noEscapeActions &&
           ! (previousRoute && previousRoute.options.noEscapeActions))
@@ -35,17 +42,3 @@ Router.configure({
     this.next();
   }
 });
-
-// We want to execute our EscapeActions.executeLowerThan method any time the
-// route is changed, but not if the stays the same but only the parameters
-// change (eg when a user is navigation from a card A to a card B). This is why
-// we can’t put this function in the above `onBeforeAction` that is being run
-// too many times, instead we register a dependency only on the route name and
-// use Tracker.autorun. The following paragraph explains the problem quite well:
-// https://github.com/meteorhacks/flow-router#routercurrent-is-evil
-// Tracker.autorun(function(computation) {
-//   routeName.get();
-//   if (! computation.firstRun) {
-//     EscapeActions.executeLowerThan('inlinedForm');
-//   }
-// });

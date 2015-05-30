@@ -1,25 +1,3 @@
-Template.memberMenuPopup.events({
-  'click .js-language': Popup.open('setLanguage'),
-  'click .js-logout': function(evt) {
-    evt.preventDefault();
-
-    Meteor.logout(function() {
-      Router.go('Home');
-    });
-  }
-});
-
-Template.setLanguagePopup.events({
-  'click .js-set-language': function(evt) {
-    Users.update(Meteor.userId(), {
-      $set: {
-        'profile.language': this.tag
-      }
-    });
-    evt.preventDefault();
-  }
-});
-
 Template.profileEditForm.events({
   'click .js-edit-profile': function() {
     Session.set('ProfileEditForm', true);

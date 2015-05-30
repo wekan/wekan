@@ -55,6 +55,8 @@
     "Mousetrap": false,
     "Avatar": true,
     "Ps": true,
+    "Presence": true,
+    "Presences": true,
 
     // Our collections
     "Boards": true,

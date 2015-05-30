@@ -1,18 +1,3 @@
-<template name="setLanguagePopup">
-<ul class="pop-over-list">
-    {{#each languages}}
-        <li class="{{# if isCurrentLanguage}}active{{/if}}">
-            <a class="js-set-language">
-                {{name}}
-                {{# if isCurrentLanguage}}
-                    <span class="icon-sm fa fa-check"></span>
-                {{/if}}
-            </a>
-        </li>
-    {{/each}}
-</ul>
-</template>
-
 <template name='profile'>
     {{ # if profile }}
         <div class="tabbed-pane-header">
@@ -91,28 +76,4 @@
             </a>
         {{ /if }}
     {{ /if }}
-</template>
-
-<template name="userPopup">
-    <div class="board-member-menu">
-        <div class="mini-profile-info">
-            {{> userAvatar user=user}}
-            <div class="info">
-                <h3 class="bottom" style="margin-right: 40px;">
-                    <a class="js-profile" href="{{ pathFor route='Profile' username=user.username }}">{{ user.profile.name }}</a>
-                </h3>
-                <p class="quiet bottom">@{{ user.username }}</p>
-            </div>
-        </div>
-    </div>
-</template>
-
-
-<template name="memberName">
-    <a class="inline-object js-show-mem-menu" href="{{ pathFor route='Profile' username=user.username }}">
-        {{ user.profile.name }}
-        {{# if username }}
-            ({{ user.username }})
-        {{ /if }}
-    </a>
 </template>

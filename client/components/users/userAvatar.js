@@ -9,19 +9,14 @@ Template.userAvatar.helpers({
     var userId = this.userId || this.user._id;
     var user = Users.findOne(userId);
     return user && user.isBoardAdmin() ? 'admin' : 'normal';
-  }
-});
-
-Template.setLanguagePopup.helpers({
-  languages: function() {
-    return _.map(TAPi18n.getLanguages(), function(lang, tag) {
-      return {
-        tag: tag,
-        name: lang.name
-      };
-    });
   },
-  isCurrentLanguage: function() {
-    return this.tag === TAPi18n.getLanguage();
+  presenceStatusClassName: function() {
+    var userPresence = Presences.findOne({ userId: this.user._id });
+    if (! userPresence)
+      return 'disconnected';
+    else if (Session.equals('currentBoard', userPresence.state.currentBoardId))
+      return 'active';
+    else
+      return 'idle';
   }
 });

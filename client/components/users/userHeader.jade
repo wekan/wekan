@@ -8,11 +8,6 @@ template(name="headerUserBar")
         = currentUser.username
     +userAvatar(user=currentUser)
 
-template(name="memberHeader")
-  a.header-member.js-open-header-member-menu
-    span= currentUser.profile.name
-    +userAvatar(user=currentUser size="small")
-
 template(name="memberMenuPopup")
   ul.pop-over-list
     li: a(href="{{pathFor route='Profile' username=currentUser.username}}") {{_ 'profile'}}
@@ -21,3 +16,12 @@ template(name="memberMenuPopup")
   hr
   ul.pop-over-list
     li: a.js-logout {{_ 'log-out'}}
+
+template(name="setLanguagePopup")
+  ul.pop-over-list
+    each languages
+      li(class="{{# if isCurrentLanguage}}active{{/if}}")
+        a.js-set-language
+          = name
+          if isCurrentLanguage
+            i.fa.fa-check

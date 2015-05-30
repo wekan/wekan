@@ -43,9 +43,6 @@ Users.helpers({
 
 Users.before.insert(function(userId, doc) {
   doc.profile = doc.profile || {};
-
-  // connect profile.status default
-  doc.profile.status = 'offline';
 });
 
 if (Meteor.isServer) {
@@ -109,4 +106,13 @@ if (Meteor.isServer) {
       });
     });
   });
+}
+
+// Presence indicator
+if (Meteor.isClient) {
+  Presence.state = function() {
+    return {
+      currentBoardId: Session.get('currentBoard')
+    };
+  };
 }

@@ -38,16 +38,17 @@ avatar-radius = 50%
       max-width: 100%
       max-height: 100%
 
-  .member-status
+  .member-presence-status
     background-color: #b3b3b3
     border: 1px solid #fff
     border-radius: 50%
-    height: 8px
+    height: 7px
     width: @height
     position: absolute
-    right: 0px
-    bottom: 0px
+    right: -1px
+    bottom: -1px
     border: 1px solid white
+    z-index: 15
 
     &.active
       background: #64c464

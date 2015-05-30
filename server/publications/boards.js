@@ -108,14 +108,20 @@ Meteor.publishComposite('board', function(boardId, slug) {
       },
 
       // Board members. This publication also includes former board members that
-      // are no more members of the board but may have some activities attached
-      // to them.
+      // aren't members anymore but may have some activities attached to them in
+      // the history.
       {
         find: function(board) {
           return Users.find({
             _id: { $in: _.pluck(board.members, 'userId') }
           });
-        }
+        },
+        // Presence indicators
+        children: [{
+          find: function(user) {
+            return Presences.find({userId: user._id});
+          }
+        }]
       }
     ]
   };

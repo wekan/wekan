@@ -1,4 +1,3 @@
-
 _.each(['signIn', 'signUp', 'resetPwd',
   'forgotPwd', 'enrollAccount', 'changePwd'], function(routeName) {
   AccountsTemplates.configureRoute(routeName, {
