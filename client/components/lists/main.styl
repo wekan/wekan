@@ -90,11 +90,15 @@
 
 .list-body
   flex: 1
+  display: flex
   overflow-y: auto
   padding: 5px 11px
 
-  .minicards form
-    margin-bottom: 9px
+  .minicards
+    flex: 1
+
+    form
+      margin-bottom: 9px
 
   .ps-scrollbar-y-rail
     transform: translateX(2px)
