@@ -1,9 +1,7 @@
-FROM meteorhacks/meteord
+FROM meteorhacks/meteord:onbuild
 MAINTAINER Maxime Quandalle <maxime@quandalle.com>
 
 # Run as you wish!
-#
-# sudo docker run -d \
-#   -e "ROOT_URL=http://example.com"
-#   -e "MONGO_URL=mongodb://172.17.0.3:27017/libreboard-test" \
-#   -p 8080:80
+# docker run -d --name libreboard-db mongo
+# docker run -d --link "libreboard-db:db" -e "MONGO_URL=mongodb://db" \
+#   -e "ROOT_URL=http://example.com" -p 8080:80 mquandalle/libreboard
