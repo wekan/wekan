@@ -134,6 +134,9 @@ BlazeComponent.extendComponent({
     });
 
     Utils.goBoardId(boardId);
+
+    // Immediately star boards crated with the headerbar popup.
+    Meteor.user().toggleBoardStar(boardId);
   },
 
   events: function() {
