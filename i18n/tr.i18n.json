@@ -169,7 +169,7 @@
     "createLabelPopup-title": "Etiket Oluşturma",
     "deleteLabelPopup-title": "Etiket Silinsin mi?",
     "changePermissionsPopup-title": "Yetkileri Değiştirme",
-    "setLanguagePopup-title": "Dil Değiştir",
+    "changeLanguagePopup-title": "Dil Değiştir",
     "cardAttachmentsPopup-title": "Şuradan Ekle...",
     "attachmentDeletePopup-title": "Ek Dosya Silinsin Mi?"
 }

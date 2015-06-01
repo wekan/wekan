@@ -5,7 +5,7 @@
 <template name='message'>
     <div class="big-message quiet {{ color }}">
         <h1>{{_ label}}</h1>
-        {{#with pathFor route='Login'}}
+        {{#with pathFor route='atSignIn'}}
             <p>{{{_ 'page-maybe-private' this}}}</p>
         {{/with}}
     </div>

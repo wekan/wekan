@@ -169,7 +169,7 @@
     "createLabelPopup-title": "Luo tunniste",
     "deleteLabelPopup-title": "Poista tunniste?",
     "changePermissionsPopup-title": "Vaihda oikeuksia",
-    "setLanguagePopup-title": "Vaihda kieltä",
+    "changeLanguagePopup-title": "Vaihda kieltä",
     "cardAttachmentsPopup-title": "Liitä mistä...",
     "attachmentDeletePopup-title": "Poista liitetiedosto?"
 }

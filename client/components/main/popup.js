@@ -31,6 +31,19 @@ Popup.template.events({
   },
   'click .js-confirm': function() {
     this.__afterConfirmAction.call(this);
+  },
+  // This handler intends to solve a pretty tricky bug with our popup
+  // transition. The transition is implemented using a large container
+  // (.content-container) that is moved on the x-axis (from 0 to n*PopupSize)
+  // inside a wrapper (.container-wrapper) with a hidden overflow. The problem
+  // is that sometimes the wrapper is scrolled -- even if there are no
+  // scrollbars. This happen for instance when the newly opened popup has some
+  // focused field, the browser will automatically scroll the wrapper, resulting
+  // in moving the whole popup container outside of the popup wrapper. To
+  // disable this behavior we have to manually reset the scrollLeft position
+  // whenever it is modified.
+  'scroll .content-wrapper': function(evt) {
+    evt.currentTarget.scrollLeft = 0;
   }
 });
 

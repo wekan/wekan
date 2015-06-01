@@ -1,23 +1,44 @@
 template(name="headerUserBar")
-  a#header-user-bar.js-open-header-member-menu
-    .header-user-bar-name
+  a#header-user-bar
+    .header-user-bar-name.js-open-header-member-menu
       i.fa.fa-chevron-down
       if currentUser.profile.name
         = currentUser.profile.name
       else
         = currentUser.username
-    +userAvatar(user=currentUser)
+    .header-user-bar-avatar.js-change-avatar
+      +userAvatar(user=currentUser)
 
 template(name="memberMenuPopup")
   ul.pop-over-list
-    li: a(href="{{pathFor route='Profile' username=currentUser.username}}") {{_ 'profile'}}
-    li: a.js-language {{_ 'language'}}
-    li: a(href = "{{pathFor route='Settings'}}") {{_ 'settings'}}
+    with currentUser
+      li: a.js-edit-profile Edit Profile…
+    li: a.js-change-avatar Change Avatar…
+    li: a.js-change-password Change Password…
+    li: a.js-change-language Change Language…
   hr
   ul.pop-over-list
     li: a.js-logout {{_ 'log-out'}}
 
-template(name="setLanguagePopup")
+template(name="editProfilePopup")
+  form
+    label
+      | {{_ "fullname"}}
+      input.js-profile-fullname(type="text" value=profile.name autofocus)
+    label
+      | {{_ "username"}}
+      input.js-profile-username(type="text" value=username)
+    label
+      | Initials
+      input.js-profile-initials(type="text" value=profile.initials)
+    input.primary.wide(type="submit" value="{{_ 'save'}}")
+
+template(name="changeAvatarPopup")
+
+template(name="changePasswordPopup")
+  +atForm(state='changePwd')
+
+template(name="changeLanguagePopup")
   ul.pop-over-list
     each languages
       li(class="{{# if isCurrentLanguage}}active{{/if}}")

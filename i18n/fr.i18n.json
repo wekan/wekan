@@ -169,7 +169,7 @@
     "createLabelPopup-title": "Créer un étiquette",
     "deleteLabelPopup-title": "Supprimer l'étiquette ?",
     "changePermissionsPopup-title": "Changer les permissions",
-    "setLanguagePopup-title": "Changer la langue",
+    "changeLanguagePopup-title": "Changer la langue",
     "cardAttachmentsPopup-title": "Joindre depuis…",
     "attachmentDeletePopup-title": "Supprimer la pièce jointe ?"
 }

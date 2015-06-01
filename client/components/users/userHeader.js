@@ -1,8 +1,64 @@
 Template.headerUserBar.events({
-  'click .js-open-header-member-menu': Popup.open('memberMenu')
+  'click .js-open-header-member-menu': Popup.open('memberMenu'),
+  'click .js-change-avatar': Popup.open('changeAvatar')
 });
 
-Template.setLanguagePopup.helpers({
+Template.memberMenuPopup.events({
+  'click .js-edit-profile': Popup.open('editProfile'),
+  'click .js-change-avatar': Popup.open('changeAvatar'),
+  'click .js-change-password': Popup.open('changePassword'),
+  'click .js-change-language': Popup.open('changeLanguage'),
+  'click .js-logout': function(evt) {
+    evt.preventDefault();
+
+    AccountsTemplates.logout();
+  }
+});
+
+Template.editProfilePopup.events({
+  submit: function(evt, tpl) {
+    evt.preventDefault();
+    var fullname = $.trim(tpl.find('.js-profile-fullname').value);
+    var username = $.trim(tpl.find('.js-profile-username').value);
+    var initials = $.trim(tpl.find('.js-profile-initials').value);
+    Users.update(Meteor.userId(), {$set: {
+      'profile.fullname': fullname,
+      'profile.initials': initials
+    }});
+    // XXX We should report the error to the user.
+    if (username !== Meteor.user().username) {
+      Meteor.call('setUsername', username);
+    }
+    Popup.back();
+  }
+});
+
+// We display the form to change the password in a popup window that already
+// have a title, so we unset the title automatically displayed by useraccounts.
+AccountsTemplates.configure({
+  texts: {
+    title: {
+      changePwd: ''
+    }
+  }
+});
+
+AccountsTemplates.configureRoute('changePwd', {
+  redirect: function() {
+    // XXX We should emit a notification once we have a notification system.
+    // Currently the user has no indication that his modification has been
+    // applied.
+    Popup.back();
+  }
+});
+
+// XXX For some reason the useraccounts autofocus isnt working in this case.
+// See https://github.com/meteor-useraccounts/core/issues/384
+Template.changePasswordPopup.onRendered(function() {
+  this.find('#at-field-current_password').focus();
+});
+
+Template.changeLanguagePopup.helpers({
   languages: function() {
     return _.map(TAPi18n.getLanguages(), function(lang, tag) {
       return {
@@ -16,18 +72,7 @@ Template.setLanguagePopup.helpers({
   }
 });
 
-Template.memberMenuPopup.events({
-  'click .js-language': Popup.open('setLanguage'),
-  'click .js-logout': function(evt) {
-    evt.preventDefault();
-
-    Meteor.logout(function() {
-      Router.go('Home');
-    });
-  }
-});
-
-Template.setLanguagePopup.events({
+Template.changeLanguagePopup.events({
   'click .js-set-language': function(evt) {
     Users.update(Meteor.userId(), {
       $set: {

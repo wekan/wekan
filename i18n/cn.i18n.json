@@ -169,7 +169,7 @@
     "createLabelPopup-title": "创建标签",
     "deleteLabelPopup-title": "删除标签？",
     "changePermissionsPopup-title": "更改权限",
-    "setLanguagePopup-title": "更改语言",
+    "changeLanguagePopup-title": "更改语言",
     "cardAttachmentsPopup-title": "附加自...",
     "attachmentDeletePopup-title": "删除附件？"
 }

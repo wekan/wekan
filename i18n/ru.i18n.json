@@ -169,7 +169,7 @@
     "createLabelPopup-title": "Создать метку",
     "deleteLabelPopup-title": "Удалить метку?",
     "changePermissionsPopup-title": "Изменить настройки доступа",
-    "setLanguagePopup-title": "Сменить язык",
+    "changeLanguagePopup-title": "Сменить язык",
     "cardAttachmentsPopup-title": "Источник",
     "attachmentDeletePopup-title": "Удалить вложение?"
 }

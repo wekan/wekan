@@ -202,9 +202,9 @@ $(document).on('click', function(evt) {
   }
 });
 
-// Press escape to close the popup.
+// Press escape to go back, or close the popup.
 var bindPopup = function(f) { return _.bind(f, Popup); };
 EscapeActions.register('popup',
-  bindPopup(Popup.close),
+  bindPopup(Popup.back),
   bindPopup(Popup.isOpen)
 );

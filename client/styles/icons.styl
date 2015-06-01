@@ -21,8 +21,10 @@
     &:hover
       color: white
 
-a.fa, a i.fa
-  color: darken(white, 35%)
+a
+  &.fa, i.fa
+    color: darken(white, 35%)
 
   &:hover
-    color: darken(white, 60%)
+    &.fa, i.fa
+      color: darken(white, 60%)

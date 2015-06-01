@@ -6,8 +6,6 @@
   border: 1px solid #dbdbdb
   border-bottom-color: #c2c2c2
   box-shadow: 0 1px 6px rgba(0, 0, 0, .3)
-  display: none
-  overflow: hidden
   position: absolute
   width: 300px
   z-index: 99999
@@ -20,11 +18,9 @@
   input[type="text"],
   input[type="email"],
   input[type="password"]
+  input[type="file"]
     margin: 4px 0 12px
     width: 100%
-
-  input[type="file"]
-    width: 240px
 
   select
     width: 100%
@@ -34,9 +30,6 @@
     height: 72px
     margin: 4px 0 12px
     width: 100%
-
-  img
-    max-width: 270px
 
   .header
     height: 36px
@@ -80,6 +73,7 @@
 
   .content-wrapper
     width: 100%
+    overflow: hidden
 
   .content-container
     width: 5000px
@@ -92,7 +86,7 @@
       float: left
 
       &.no-height
-        height: 0
+        height: 20px
 
   .quiet
     padding: 6px 6px 4px
@@ -112,6 +106,17 @@
         display: block
         height: 4px
         width: 4px
+
+  .at-form
+    .at-error, .at-result
+      padding: 8px 12px
+      margin: -8px -10px 10px
+
+    .at-error
+      background: #ef9a9a
+
+    .at-result
+      background: #b2dfdb
 
 .select-members-list
   margin-bottom: 8px

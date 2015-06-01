@@ -169,7 +169,7 @@
     "createLabelPopup-title": "Create Label",
     "deleteLabelPopup-title": "Delete Label?",
     "changePermissionsPopup-title": "Change Permissions",
-    "setLanguagePopup-title": "Change Language",
+    "changeLanguagePopup-title": "Change Language",
     "cardAttachmentsPopup-title": "Attach From…",
     "attachmentDeletePopup-title": "Delete Attachment?"
 }

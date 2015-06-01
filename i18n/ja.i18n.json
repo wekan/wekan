@@ -169,7 +169,7 @@
     "createLabelPopup-title": "ラベルの作成",
     "deleteLabelPopup-title": "ラベルを削除しますか？",
     "changePermissionsPopup-title": "パーミッションの変更",
-    "setLanguagePopup-title": "言語の変更",
+    "changeLanguagePopup-title": "言語の変更",
     "cardAttachmentsPopup-title": "Attach From…",
     "attachmentDeletePopup-title": "Delete Attachment?"
 }

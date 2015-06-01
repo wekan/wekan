@@ -169,7 +169,7 @@
     "createLabelPopup-title": "라벨 생성",
     "deleteLabelPopup-title": "라벨을 삭제합니까?",
     "changePermissionsPopup-title": "권한 변경",
-    "setLanguagePopup-title": "언어 변경",
+    "changeLanguagePopup-title": "언어 변경",
     "cardAttachmentsPopup-title": "첨부할 위치...",
     "attachmentDeletePopup-title": "첨부 파일을 삭제합니까?"
 }

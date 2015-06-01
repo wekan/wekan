@@ -1,5 +1,5 @@
-_.each(['signIn', 'signUp', 'resetPwd',
-  'forgotPwd', 'enrollAccount', 'changePwd'], function(routeName) {
+_.each(['signIn', 'signUp', 'resetPwd', 'forgotPwd', 'enrollAccount'],
+  function(routeName) {
   AccountsTemplates.configureRoute(routeName, {
     layoutTemplate: 'userFormsLayout'
   });
@@ -19,10 +19,4 @@ Router.route('/profile/:username', {
       }
     };
   }
-});
-
-Router.route('/settings', {
-  name: 'Settings',
-  template: 'settings',
-  layoutTemplate: 'AuthLayout'
 });

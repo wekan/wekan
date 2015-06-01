@@ -41,11 +41,35 @@ Users.helpers({
   }
 });
 
+Meteor.methods({
+  setUsername: function(username) {
+    var nUsersWithUsername = Users.find({username: username}).count();
+    if (nUsersWithUsername > 0) {
+      throw new Meteor.Error('username-already-taken');
+    } else {
+      Users.update(this.userId, {$set: {
+        username: username
+      }});
+    }
+  }
+});
+
 Users.before.insert(function(userId, doc) {
   doc.profile = doc.profile || {};
+
+  if (! doc.username && doc.profile.name) {
+    doc.username = doc.profile.name.toLowerCase().replace(/\s/g, '');
+  }
 });
 
 if (Meteor.isServer) {
+  // Let mongoDB ensure username unicity
+  Meteor.startup(function() {
+    Users._collection._ensureIndex({
+      username: 1
+    }, { unique: true });
+  });
+
   // Each board document contains the de-normalized number of users that have
   // starred it. If the user star or unstar a board, we need to update this
   // counter.

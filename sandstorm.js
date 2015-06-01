@@ -88,10 +88,6 @@ if (isSandstorm && Meteor.isServer) {
         }
       });
     }
-
-    // The sandstom user package put the username in `profile.name`. We need to
-    // move this field value to follow our schema.
-    Users.update(doc._id, { $rename: { 'profile.name': 'username' }});
   });
 }
 

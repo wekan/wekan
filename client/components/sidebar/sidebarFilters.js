@@ -6,12 +6,12 @@ BlazeComponent.extendComponent({
   events: function() {
     return [{
       'click .js-toggle-label-filter': function(event) {
-        Filter.labelIds.toogle(this._id);
+        Filter.labelIds.toogle(this.currentData()._id);
         Filter.resetExceptions();
         event.preventDefault();
       },
       'click .js-toogle-member-filter': function(event) {
-        Filter.members.toogle(this._id);
+        Filter.members.toogle(this.currentData()._id);
         Filter.resetExceptions();
         event.preventDefault();
       },

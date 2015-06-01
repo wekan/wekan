@@ -1,8 +1,8 @@
-.pop-over.clearfix(
+.pop-over(
   class="{{#unless title}}miniprofile{{/unless}}"
   class=currentBoard.colorClass
   class="{{#unless title}}no-title{{/unless}}"
-  style="display:block; left:{{offset.left}}px; top:{{offset.top}}px;")
+  style="left:{{offset.left}}px; top:{{offset.top}}px;")
   .header
     a.back-btn.js-back-view(class="{{#unless hasPopupParent}}is-hidden{{/unless}}")
       i.fa.fa-chevron-left
@@ -20,3 +20,4 @@
           Hopefully the @last helper will come soon (or at least @index)
         .content(class="{{#unless $eq popupName ../popupName}}no-height{{/unless}}")
           +Template.dynamic(template=popupName data=dataContext)
+      .clearfix
