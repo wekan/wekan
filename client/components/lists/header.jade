@@ -7,7 +7,7 @@ template(name="listHeader")
       a.list-header-menu-icon.fa.fa-bars.js-open-list-menu
 
 template(name="editListTitleForm")
-  input.field.single-line(type="text" value="{{getCache title}}" autofocus)
+  input.field.single-line(type="text" value=title autofocus)
   .edit-controls.clearfix
-    input.primary.confirm(type="submit" value="{{_ 'save'}}")
-    a.fa.fa-times.js-close-inlined-form
+    button.primary.confirm(type="submit") {{_ 'save'}}
+    a.fa.fa-times-thin.js-close-inlined-form

@@ -27,7 +27,7 @@ template(name="addListForm")
   .list.js-list.list-composer.js-list-composer
     +inlinedForm(autoclose=false)
       input.list-name-input(type="text" placeholder="{{_ 'add-list'}}"
-        autocomplete="off" autofocus value=getCache)
+        autocomplete="off" autofocus)
       div.edit-controls.clearfix
         button.primary.confirm.js-save-edit(type="submit") {{_ 'save'}}
         a.fa.fa-times-thin.js-close-inlined-form

@@ -28,7 +28,7 @@ Template.createLabelPopup.helpers({
     var labels = this.labels || this.card.board().labels;
     var usedColors = _.pluck(labels, 'color');
     var availableColors = _.difference(labelColors, usedColors);
-    return availableColors.length > 1 ? availableColors[0] : 'green';
+    return availableColors.length > 1 ? availableColors[0] : labelColors[0];
   }
 });
 
