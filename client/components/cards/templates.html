@@ -33,26 +33,6 @@
     </p>
 </template>
 
-<template name="cardLabelsPopup">
-    <div>
-        {{! <input id="labelSearch" name="search" class="js-autofocus js-label-search" placeholder="Search labels…" value="" type="text"> }}
-        <ul class="edit-labels-pop-over js-labels-list">
-            {{# each card.board.labels }}
-                <li>
-                    <a href="#" class="card-label-edit-button icon-sm fa fa-pencil js-edit-label"></a>
-                    <span class="card-label card-label-selectable card-label-{{color}} js-select-label {{# if isLabelSelected ../card._id }}active{{/ if }}">
-                        {{name}}
-                        {{# if currentUser.isBoardAdmin }}
-                            <span class="card-label-selectable-icon icon-sm fa fa-check light"></span>
-                        {{/ if }}
-                    </span>
-                </li>
-            {{/ each}}
-        </ul>
-        <a class="quiet-button full js-add-label">{{_ 'label-create'}}</a>
-    </div>
-</template>
-
 <template name="cardAttachmentsPopup">
     <div>
         <ul class="pop-over-list">
@@ -114,7 +94,7 @@
 </template>
 
 <template name="cardDetailSidebarOld">
-    <div class="card-detail-window clearfix">
+    <div class="card-details-window clearfix">
         {{# if card.cover }}
             <div class="window-cover js-card-cover-box js-open-card-cover-in-viewer has-cover" style="background-image: url({{ card.cover.url }}); background-color: rgb(119, 119, 119); background-size: contain;">
         </div>
@@ -127,7 +107,7 @@
         {{ /if }}
         <div class="window-header clearfix">
             <span class="window-header-icon icon-lg fa fa-calendar-o"></span>
-            <div class="window-title card-detail-title non-empty inline {{# if currentUser.isBoardMember }}editable{{/ if }}">
+            <div class="window-title card-details-title non-empty inline {{# if currentUser.isBoardMember }}editable{{/ if }}">
                 <h2 class="window-title-text current hide-on-edit js-card-title">{{ card.title }}</h2>
                 <div class="edit edit-heavy">
                     <form id="WindowTitleEdit">
@@ -147,39 +127,39 @@
             </div>
         </div>
         <div class="window-main-col clearfix">
-            <div class="card-detail-data gutter clearfix">
-                <div class="card-detail-item card-detail-item-block clear clearfix editable">
+            <div class="card-details-data gutter clearfix">
+                <div class="card-details-item card-details-item-block clear clearfix editable">
                     {{# if card.members }}
-                        <div class="card-detail-item card-detail-item-members clearfix js-card-detail-members">
-                            <h3 class="card-detail-item-header">{{_ 'members'}}</h3>
-                            <div class="js-card-detail-members-list clearfix">
+                        <div class="card-details-item card-details-item-members clearfix js-card-details-members">
+                            <h3 class="card-details-item-header">{{_ 'members'}}</h3>
+                            <div class="js-card-details-members-list clearfix">
                                 {{# each card.members }}
                                     {{> userAvatar userId=this size="small" cardId=../card._id }}
                                 {{/ each }}
-                                <a class="card-detail-item-add-button dark-hover js-details-edit-members">
+                                <a class="card-details-item-add-button dark-hover js-details-edit-members">
                                     <span class="icon-sm fa fa-plus"></span>
                                 </a>
                             </div>
                         </div>
                     {{/ if }}
                     {{# if card.labels }}
-                        <div class="card-detail-item card-detail-item-labels clearfix js-card-detail-labels">
-                            <h3 class="card-detail-item-header">{{_ 'labels'}}</h3>
-                            <div class="js-card-detail-labels-list clearfix editable-labels js-edit-label">
+                        <div class="card-details-item card-details-item-labels clearfix js-card-details-labels">
+                            <h3 class="card-details-item-header">{{_ 'labels'}}</h3>
+                            <div class="js-card-details-labels-list clearfix editable-labels js-edit-label">
                                 {{# each card.labels }}
                                     <span class="card-label card-label-{{color}}" title="{{name}}">{{ name }}</span>
                                 {{/ each }}
-                                <a class="card-detail-item-add-button dark-hover js-details-edit-labels">
+                                <a class="card-details-item-add-button dark-hover js-details-edit-labels">
                                     <span class="icon-sm fa fa-plus"></span>
                                 </a>
                             </div>
                         </div>
                     {{/ if }}
-                    <div class="card-detail-item card-detail-item-block clear clearfix editable" attr="desc">
+                    <div class="card-details-item card-details-item-block clear clearfix editable" attr="desc">
                         {{# if card.description }}
-                            <h3 class="card-detail-item-header js-show-with-desc">{{_ 'description'}}</h3>
+                            <h3 class="card-details-item-header js-show-with-desc">{{_ 'description'}}</h3>
                             {{# if currentUser.isBoardMember }}
-                                <a href="#" class="card-detail-item-header-edit hide-on-edit js-show-with-desc js-edit-desc">{{_ 'edit'}}</a>
+                                <a href="#" class="card-details-item-header-edit hide-on-edit js-show-with-desc js-edit-desc">{{_ 'edit'}}</a>
                             {{/ if }}
                             <div class="current markeddown hide-on-edit js-card-desc js-show-with-desc">
                               {{#viewer}}{{ card.description }}{{/viewer}}
@@ -194,7 +174,7 @@
                                 </p>
                             {{/ if }}
                         {{/ if }}
-                        <div class="card-detail-edit edit">
+                        <div class="card-details-edit edit">
                             <form id="WindowDescEdit">
                                 {{#editor class="field single-line2" id="desc"}}{{ card.description }}{{/editor}}
                                 <div class="edit-controls clearfix">
@@ -218,7 +198,7 @@
 </template>
 
 <template name="WindowActivityModule">
-    <div class="card-detailwindow-module">
+    <div class="card-detailswindow-module">
         <div class="window-module-title window-module-title-no-divider">
             <span class="window-module-title-icon icon-lg fa fa-comments-o"></span>
             <h3>{{ _ 'activity'}}</h3>

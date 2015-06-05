@@ -14,12 +14,16 @@ BlazeComponent.extendComponent({
 
   onCreated: function() {
     this.draggingActive = new ReactiveVar(false);
+    this.showOverlay = new ReactiveVar(false);
   },
 
   openNewListForm: function() {
     this.componentChildren('addListForm')[0].open();
   },
 
+  // XXX Flow components allow us to avoid creating these two setter methods by
+  // exposing a public API to modify the component state. We need to investigate
+  // best practices here.
   setIsDragging: function(bool) {
     this.draggingActive.set(bool);
   },
@@ -60,9 +64,9 @@ BlazeComponent.extendComponent({
         var removeNode = _.once(function() {
           node.parentNode.removeChild(node);
         });
-        if ($(node).hasClass('js-card-detail')) {
+        if ($(node).hasClass('js-card-details')) {
           $(node).css({
-            flex: '0 0 0',
+            flexBasis: 0,
             padding: 0
           });
           $(lists).one(endTransitionEvents, removeNode);

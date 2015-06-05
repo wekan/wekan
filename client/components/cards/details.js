@@ -8,7 +8,7 @@ BlazeComponent.extendComponent({
   },
 
   calculateNextPeak: function() {
-    var altitude = this.find('.js-card-detail').scrollHeight;
+    var altitude = this.find('.js-card-details').scrollHeight;
     this.callFirstWith(this, 'setNextPeak', altitude);
   },
 
@@ -25,76 +25,66 @@ BlazeComponent.extendComponent({
     bodyBoardComponent.scrollLeft(scollLeft);
   },
 
+  onDestroyed: function() {
+    this.componentParent().showOverlay.set(false);
+  },
+
+  updateCard: function(modifier) {
+    Cards.update(this.data()._id, {
+      $set: modifier
+    });
+  },
+
   events: function() {
     return [{
+      'click .js-close-card-details': function() {
+        Utils.goBoardId(this.data().boardId);
+      },
       'click .js-move-card': Popup.open('moveCard'),
+      'click .js-open-card-details-menu': Popup.open('cardDetailsActions'),
       'submit .js-card-description': function(evt) {
         evt.preventDefault();
-        var cardId = Session.get('currentCard');
-        var form = this.componentChildren('inlinedForm')[0];
-        var newDescription = form.getValue();
-        Cards.update(cardId, {
-          $set: {
-            description: newDescription
-          }
-        });
-        form.close();
+        var description = this.currentComponent().getValue();
+        this.updateCard({ description: description });
       },
-      'click .js-close-card-detail': function() {
-        Utils.goBoardId(Session.get('currentBoard'));
-      },
-      'click .editable .js-card-title': function(event, t) {
-        var editable = t.$('.card-detail-title');
-
-        // add class editing and focus
-        $('.editing').removeClass('editing');
-        editable.addClass('editing');
-        editable.find('#title').focus();
-      },
-      'click .js-edit-desc': function(event, t) {
-        var editable = t.$('.card-detail-item');
-
-        // editing remove based and add current editing.
-        $('.editing').removeClass('editing');
-        editable.addClass('editing');
-        editable.find('#desc').focus();
-
-        event.preventDefault();
-      },
-      'click .js-cancel-edit': function() {
-        // remove editing hide.
-        $('.editing').removeClass('editing');
-      },
-      'submit #WindowTitleEdit': function(event, t) {
-        var title = t.find('#title').value;
+      'submit .js-card-details-title': function(evt) {
+        evt.preventDefault();
+        var title = this.currentComponent().getValue();
         if ($.trim(title)) {
-          Cards.update(this.card._id, {
-            $set: {
-              title: title
-            }
-          }, function(err) {
-            if (! err) $('.editing').removeClass('editing');
-          });
+          this.updateCard({ title: title });
         }
-
-        event.preventDefault();
       },
-      'submit #WindowDescEdit': function(event, t) {
-        Cards.update(this.card._id, {
-          $set: {
-            description: t.find('#desc').value
-          }
-        }, function(err) {
-          if (! err) $('.editing').removeClass('editing');
-        });
-        event.preventDefault();
+      'click .js-member': Popup.open('cardMember'),
+      'click .js-add-members': Popup.open('cardMembers'),
+      'click .js-add-labels': Popup.open('cardLabels'),
+      'mouseenter .js-card-details': function() {
+        this.componentParent().showOverlay.set(true);
       },
-      'click .member': Popup.open('cardMember'),
-      'click .js-details-edit-members': Popup.open('cardMembers'),
-      'click .js-details-edit-labels': Popup.open('cardLabels')
+      'mouseleave .js-card-details': function(evt) {
+        // We don't want to hide the overlay if the mouse is entering a pop-over
+        var $pointedElement = $(evt.toElement || evt.relatedTarget);
+        if ($pointedElement.closest('.pop-over').length === 0)
+          this.componentParent().showOverlay.set(false);
+      }
     }];
   }
 }).register('cardDetails');
+
+Template.cardDetailsActionsPopup.events({
+  'click .js-members': Popup.open('cardMembers'),
+  'click .js-labels': Popup.open('cardLabels'),
+  'click .js-attachments': Popup.open('cardAttachments'),
+  // 'click .js-copy': Popup.open(),
+  'click .js-archive': function(evt) {
+    evt.preventDefault();
+    Cards.update(this._id, {
+      $set: {
+        archived: true
+      }
+    });
+    Popup.close();
+  }
+});
 
 Template.moveCardPopup.events({
   'click .js-select-list': function() {
@@ -107,5 +97,6 @@ Template.moveCardPopup.events({
         listId: newListId
       }
     });
+    Popup.close();
   }
 });

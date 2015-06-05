@@ -24,6 +24,10 @@
     width: @height
     padding: 0
 
+  &.add-label
+    box-shadow: 0 0 0 2px darken(white, 25%) inset
+    background: darken(white, 5%)
+
 .card-label-green
   background-color: #3cb500
 
@@ -83,31 +87,6 @@
     top: auto
     left: 0
     width: 260px
-
-.minicard-labels
-  position: relative
-  z-index: 30
-  top: -6px
-
-  .card-label
-    border-radius: 0
-    float: left
-    height: 4px
-    margin-bottom: 1px
-    padding: 0
-    width: 40px
-    line-height: 100px
-
-.card-detail-item-labels .card-label
-  border-radius: 3px
-  display: block
-  float: left
-  height: 20px
-  line-height: 20px
-  margin: 0 4px 4px 0
-  min-width: 30px
-  padding: 5px 10px
-  width: auto
 
 .editable-labels .card-label:hover
   cursor: pointer
@@ -170,19 +149,3 @@
   &:hover
     background: #dbdbdb
 
-.card-label-color-select-icon
-  left: 14px
-  position: absolute
-  top: 9px
-
-.phenom .card-label
-  display: inline-block
-  font-size: 12px
-  height: 14px
-  line-height: 13px
-  padding: 0 4px
-  min-width: 16px
-  overflow: ellipsis
-
-.board-widget .phenom .card-label
-  max-width: 130px

@@ -1,20 +1,28 @@
 @import 'nib'
 
-.board-wrapper
-  left: 0
-  top: 0
-  bottom: 0
-  right: 0
-  position: absolute
-  overflow: hidden
-
-  .board-canvas
+position()
+  if arguments[0] == cover
     position: absolute
     left: 0
     right: 0
     top: 0
     bottom: 0
+  else
+    position: arguments
+
+.board-wrapper
+  position: cover
+
+  .board-canvas
+    position: cover
     transition: margin .1s
+
+    .board-overlay
+      position: cover
+      background: black
+      opacity: 0.33
+      animation: fadeIn 0.2s
+      z-index: 10
 
     &.next-sidebar
       margin-right: 248px
@@ -25,16 +33,18 @@
       .open-minicard-composer
         display: none
 
-.lists
-  align-items: flex-start
-  display: flex
-  flex-direction: row
-  margin-bottom: 10px
-  overflow-x: auto
-  overflow-y: hidden
-  padding-bottom: 10px
-  position: absolute
-  top: 0
-  right: 0
-  bottom: 0
-  left: 0
+  .lists
+    align-items: flex-start
+    display: flex
+    flex-direction: row
+    margin-bottom: 10px
+    overflow: auto
+    padding-bottom: 5px
+    position: cover
+
+    // In order for the card details pane to overlap the header we need to
+    // virtually increase this container size with the below hack. (Note that it
+    // is not possible to set overflow-x: auto, overflow-y: hidden as I
+    // originally tried).
+    padding-top: 10px
+    top: -10px

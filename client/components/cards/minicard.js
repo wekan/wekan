@@ -23,6 +23,14 @@ BlazeComponent.extendComponent({
       evt.preventDefault();
       var methodName = evt.shiftKey ? 'toogleRange' : 'toogle';
       MultiSelection[methodName](this.currentData()._id);
+
+    // If the card is already selected, we want to de-select it.
+    // XXX We should probably modify the minicard href attribute instead of
+    // overwriting the event in case the card is already selected.
+    } else if (Session.equals('currentCard', this.currentData()._id)) {
+      evt.stopImmediatePropagation();
+      evt.preventDefault();
+      Utils.goBoardId(Session.get('currentBoard'));
     }
   },
 

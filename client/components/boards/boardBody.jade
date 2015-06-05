@@ -12,6 +12,8 @@ template(name="boardComponent")
         class=sidebarSize
         class="{{#if MultiSelection.isActive}}is-multiselection-active{{/if}}"
         class="{{#if draggingActive.get}}is-dragging-active{{/if}}")
+        if showOverlay.get
+          .board-overlay
         .lists.js-lists
           each lists
             +list(this)
@@ -28,10 +30,10 @@ template(name="addListForm")
     +inlinedForm(autoclose=false)
       input.list-name-input(type="text" placeholder="{{_ 'add-list'}}"
         autocomplete="off" autofocus)
-      div.edit-controls.clearfix
-        button.primary.confirm.js-save-edit(type="submit") {{_ 'save'}}
+      .edit-controls.clearfix
+        button.primary.confirm(type="submit") {{_ 'save'}}
         a.fa.fa-times-thin.js-close-inlined-form
     else
-      .js-open-inlined-form
+      a.js-open-inlined-form
         i.fa.fa-plus
         | {{_ 'add-list'}}

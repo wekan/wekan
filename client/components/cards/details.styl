@@ -1,57 +1,73 @@
 @import 'nib'
 
-.card-detail
+.card-details
   padding: 0 20px
   height: 100%
-  flex: 0 0 470px
+  flex-shrink: 0
+  flex-basis: 470px
+  will-change: flex-basis
   overflow: hidden
   background: white
   border-radius: 3px
   z-index: 20 !important
-  animation: growIn 0.2s
+  animation: flexGrowIn 0.2s
   box-shadow: 0 0 7px 0 darken(white, 30%)
-  transition: flex 0.2s, padding 0.2s
+  transition: flex-basis 0.2s, padding 0.2s
+  margin-top: -9px
 
-  .card-detail-canvas
+  .card-details-canvas
     width: 470px
 
-  .card-detail-header
+  .card-details-header
     margin: 0 -20px 5px
     padding 7px 20px 0
     background: #F7F7F7
     border-bottom: 1px solid darken(white, 10%)
     min-height: 38px
+    position: relative
 
-    i.fa
+    .close-card-details
+      float: left
+      font-size: 24px
+      padding: 8px
+      padding-right: 11px
+      margin-left: -18px
+
+    .card-details-menu
       float: right
-      font-size: 1.3em
-      color: darken(white, 35%)
-      margin-top: 7px
+      position: absolute
+      bottom: 6px
+      right: 15px
 
-    .card-detail-title
+    .card-details-title
       font-weight: bold
-      font-size: 1.7em
-      margin: 3px 0 0
+      font-size: 1.33em
+      margin: 3px 0
       padding: 0
 
-  .card-detail-list
-    font-size: 0.85em
-    margin-bottom: 3px
+    .card-details-list
+      font-size: 0.85em
+      margin-bottom: 3px
 
-    a.card-detail-list-title
-      font-weight: bold
+      a.card-details-list-title
+        font-weight: bold
 
-      &.is-editable
-        display: inline-block
-        background: darken(white, 10%)
-        border-radius: 3px
-        padding: 0px 5px
+        &.is-editable
+          display: inline-block
+          background: darken(white, 10%)
+          border-radius: 3px
+          padding: 0px 5px
 
-@keyframes growIn
-  from
-    flex: 0 0 0
-  to
-    flex: 0 0 470px
+  .card-details-items
+    display: flex
+    margin: 15px 0
+
+    .card-details-item
+      flex-grow: 1
+
+  h3
+    font-size: 14px
+    color: darken(white, 45%)
 
 .new-comment
   position: relative
@@ -106,30 +122,6 @@
 
   &:focus
     cursor: auto
-
-.list-voters.compact .voter
-  position: relative
-  min-height: 36px
-
-  .member
-    left: 0
-    position: absolute
-    top: 0
-
-  .title
-    display: block
-    line-height: 30px
-    left: 0
-    overflow: hidden
-    padding-left: 38px
-    position: absolute
-    text-overflow: ellipsis
-    top: 0
-    white-space: nowrap
-    width: 230px
-
-.list-voters .title
-  display: none
 
 .card-composer
   padding-bottom: 8px

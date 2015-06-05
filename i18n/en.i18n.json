@@ -188,5 +188,6 @@
     "editProfilePopup-title": "Edit Profile",
     "changeAvatarPopup-title": "Change Avatar",
     "changePasswordPopup-title": "Change Password",
+    "cardDetailsActionsPopup-title": "Card Actions",
     "disambiguateMultiLabelPopup-title": "Disambiguate Label Action"
 }

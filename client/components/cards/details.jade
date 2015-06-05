@@ -1,47 +1,105 @@
 template(name="cardDetails")
-  .card-detail.js-card-detail: .card-detail-canvas
+  section.card-details.js-card-details: .card-details-canvas
     if cover
-      .card-detail-cover(style="background-image: url({{ card.cover.url }})")
-    .card-detail-header(class="{{#if currentUser.isBoardMember}}editable{{/if}}")
-      a.js-close-card-detail
-        i.fa.fa-times-thin
-      h2.card-detail-title.js-card-title= title
-    p.card-detail-list.js-move-card
-      | {{_ 'in-list'}}
-      a.card-detail-list-title(
-        class="{{#if currentUser.isBoardMember}}js-open-move-from-header is-editable{{/if}}")
-        = list.title
-    hr
-    //- if card.members
-    .card-detail-item.card-detail-item-members.clearfix.js-card-detail-members
-      h3.card-detail-item-header {{_ 'members'}}
-      .js-card-detail-members-list.clearfix
+      .card-details-cover(style="background-image: url({{ cover.url }})")
+
+    .card-details-header
+      +inlinedForm(classNames="js-card-details-title")
+        input.field.single-line(type="text" value=title autofocus)
+        .edit-controls.clearfix
+          button.primary.confirm(type="submit") {{_ 'save'}}
+          a.fa.fa-times-thin.js-close-inlined-form
+      else
+        a.fa.fa-angle-left.close-card-details.js-close-card-details
+        a.fa.fa-bars.card-details-menu.js-open-card-details-menu
+        h2.card-details-title.js-card-title(
+          class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
+            = title
+        p.card-details-list
+          | {{_ 'in-list'}}
+          a.card-details-list-title(
+            class="{{#if currentUser.isBoardMember}}js-move-card is-editable{{/if}}")
+            = list.title
+            if currentUser.isBoardMember
+              i.fa.fa-chevron-down
+
+    .card-details-items
+      .card-details-item.card-details-item-members
+        h3 {{_ 'members'}}
         each members
           +userAvatar(userId=this size="small" cardId=../_id)
-        a.card-detail-item-add-button.dark-hover.js-details-edit-members
+        a.member.add-member.card-details-item-add-button.js-add-members
           i.fa.fa-plus
-    //- We should use "editable" to avoide repetiting ourselves
-    .clearfix
+
+      .card-details-item.card-details-item-labels
+        h3 {{_ 'labels'}}
+        .js-add-labels
+          each labels
+            span.card-label(class="card-label-{{color}}" title=name)= name
+          a.card-label.add-label.js-add-labels
+            i.fa.fa-plus
+
+    //- XXX We should use "editable" to avoide repetiting ourselves
     if currentUser.isBoardMember
       h3 Description
       +inlinedForm(classNames="js-card-description")
-        a.fa.fa-times-thin.js-close-inlined-form
         +editor(autofocus=true)
           = description
-        button(type="submit") {{_ 'edit'}}
+        .edit-controls.clearfix
+          button.primary(type="submit") {{_ 'edit'}}
+          a.fa.fa-times-thin.js-close-inlined-form
       else
-        .js-open-inlined-form
-          a {{_ 'edit'}}
-          +viewer
-            = description
+        a.js-open-inlined-form
+          if description
+            +viewer
+              = description
+          else
+            | {{_ 'edit'}}
     else if description
       h3 Description
       +viewer
         = description
-    hr
     if attachments.count
+      hr
       +WindowAttachmentsModule(card=this)
-    +WindowActivityModule(card=this)
+    if isLoaded
+      hr
+      +WindowActivityModule(card=this)
+
+template(name="cardDetailsActionsPopup")
+  if currentUser.isBoardMember
+    ul.pop-over-list
+      li: a.js-members Edit Members…
+      li: a.js-labels Edit Labels…
+      li: a.js-attachments Edit Attachments…
+  hr
+  ul.pop-over-list
+    li: a.js-copy Copy card
+    li: a.js-archive Archive Card
 
 template(name="moveCardPopup")
   +boardLists
+
+template(name="cardMembersPopup")
+  ul.pop-over-member-list
+    each board.members
+      li.item(class="{{#if isCardMember}}active{{/if}}")
+        a.name.js-select-member(href="#")
+          +userAvatar(user=user size="small")
+          span.full-name
+            = user.profile.name
+            | (<span class="username">{{ user.username }}</span>)
+          if isCardMember
+            i.fa.fa-check
+
+template(name="cardLabelsPopup")
+  ul.edit-labels-pop-over
+    each board.labels
+      li
+        a.card-label-edit-button.fa.fa-pencil.js-edit-label
+        span.card-label.card-label-selectable.js-select-label(class="card-label-{{color}}"
+          class="{{# if isLabelSelected ../_id }}active{{/ if }}")
+            = name
+            if currentUser.isBoardAdmin
+              span.card-label-selectable-icon.fa.fa-check
+  a.quiet-button.full.js-add-label {{_ 'label-create'}}

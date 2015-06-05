@@ -1,6 +1,5 @@
 template(name="userAvatar")
-  .member(class="{{class}} {{# if draggable }}js-member{{else}}js-member-on-card-menu{{/if}}"
-    title="{{userData.profile.name}} ({{userData.username}})")
+  .member.js-member(class="{{class}}" title="{{userData.profile.name}} ({{userData.username}})")
     +avatar(user=userData size=size)
     if showStatus
       span.member-presence-status(class=presenceStatusClassName)

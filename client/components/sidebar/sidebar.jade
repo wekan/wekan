@@ -2,7 +2,7 @@ template(name="sidebar")
   .board-sidebar.sidebar(class="{{#if isOpen}}is-open{{/if}}")
     a.sidebar-tongue.js-toogle-sidebar(
       class="{{#if isTongueHidden}}is-hidden{{/if}}")
-      i.fa.fa-chevron-left
+      i.fa.fa-angle-left
     .sidebar-content.js-board-sidebar-content.js-perfect-scrollbar
       unless isDefaultView
         h2
@@ -44,9 +44,9 @@ template(name="labelsWidget")
       | {{_ 'labels'}}
     .board-widget-content
       each currentBoard.labels
-        a.card-label(class="card-label-{{color}}").js-label
-          span.card-label-name= name
-      a.card-label.js-add-label
+          a.card-label(class="card-label-{{color}}").js-label
+            span.card-label-name= name
+      a.card-label.add-label.js-add-label
         i.fa.fa-plus
 
 template(name="memberPopup")

@@ -59,88 +59,6 @@
   &.is-open
     right: 0
 
-.board-widget-nav
-  border-radius: 3px
-  background: #dcdcdc
-  overflow: hidden
-  padding: 0
-  position: relative
-
-  .toggle-widget-nav
-    border-radius: 3px
-    color: #8c8c8c
-    margin: 0
-    padding: 7px 10px
-    position: relative
-    cursor: pointer
-
-    .toggle-menu-icon
-      position: absolute
-      top: 8px
-      right: 8px
-
-    &:hover
-      background: #ccc
-      color: #4d4d4d
-
-  .nav-list
-    display: block
-    opacity: 1
-    max-height: 400px
-
-    hr
-      margin: 2px 0
-      color: #ccc
-      background: #ccc
-
-  .nav-list-item
-    display: block
-    font-weight: 700
-    line-height: 30px
-    overflow: hidden
-    padding: 0 8px 0 36px
-    position: relative
-    text-decoration: none
-
-    .icon-type
-      left: 10px
-      position: absolute
-      top: 6px
-
-    &:hover
-      background: #ccc
-
-      .icon-type
-        color: #686868
-
-  .nav-list-sub-item
-    font-weight: 400
-    color: #666
-
-    &:hover
-      color: #4d4d4d
-
-  &.collapsed
-
-    .nav-list
-      max-height: 0
-      opacity: 0
-
-      hr
-        margin: 0
-
-    .toggle-widget-nav
-      color: #4d4d4d
-
-.board-widget-title
-  display: block
-  min-height: 20px
-  margin-bottom: 6px
-
-.board-widget-content
-  position: relative
-  z-index: 1
-
 .board-widget h4
   margin: 5px 0
 
@@ -162,7 +80,8 @@
   transition: left .1s
 
   i.fa
-    margin: 9px
+    padding: 3px 9px
+    font-size: 24px
     transition: transform 0.5s
 
   .board-sidebar.is-open &

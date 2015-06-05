@@ -13,7 +13,7 @@ html
   -webkit-text-size-adjust: 100%
 
 body
-  background: darken(white, 10%)
+  background: darken(white, 13%)
   margin: 0
   position: relative
   z-index: 0
@@ -23,6 +23,7 @@ body
   display: flex
   flex-direction: column
   min-height: 100vh
+  overflow: hidden
 
 #content
   position: relative
@@ -216,12 +217,6 @@ dd
     top: 1px
     left: -38px
 
-  .helper
-    bottom: 0
-    display: none
-    position: absolute
-    right: 9px
-
   &.focus
     .member
       opacity: 1
@@ -259,368 +254,6 @@ dd
   &:focus
     cursor: auto
 
-.editing-members
-  float: right
-
-  .edit-in-progress
-    display: inline-block
-    border: 1px solid #ccc
-    background: #ddd
-    margin: 0 4px
-    border-radius: 2px
-
-    .inline-member
-      cursor: default
-
-    .inline-member-av
-      width: 18px
-      height: 18px
-      margin: 0 0 -4px 0
-
-    .initials
-      margin-left: 3px
-
-    .icon
-      animation: pulsate 1s ease-in alternate
-      animation-iteration-count: infinite
-
-@keyframes pulsate
-  0%
-    opacity: 1
-
-  to
-    opacity: .4
-
-.list-voters.compact .voter
-  position: relative
-  min-height: 36px
-
-  .member
-    left: 0
-    position: absolute
-    top: 0
-
-  .title
-    display: block
-    line-height: 30px
-    left: 0
-    overflow: hidden
-    padding-left: 38px
-    position: absolute
-    text-overflow: ellipsis
-    top: 0
-    white-space: nowrap
-    width: 230px
-
-.list-voters .title
-  display: none
-
-.card-composer
-  padding-bottom: 8px
-
-.card-detail-badge
-  background-color: #dbdbdb
-  border-radius: 3px
-  color: #737373
-  cursor: default
-  display: block
-  height: 20px
-  line-height: 20px
-  margin: 0 4px 4px 0
-  padding: 5px 10px
-  text-align: center
-  text-decoration: none
-
-  &:hover
-    color: #737373
-
-  &.badge-state-clickable
-    text-decoration: underline
-
-.badge-state-clickable:hover
-  color: #262626
-  cursor: pointer
-  text-decoration: underline
-
-.card-detail-badge-aging:first-letter
-  text-transform: uppercase
-
-.badge
-  color: #8c8c8c
-  float: left
-  height: 18px
-  margin: 0 3px 3px 0
-  padding: 0 4px 0 0
-  position: relative
-  text-decoration: none
-
-.badge-icon
-  float: left
-
-.badge-text
-  float: left
-  font-size: 12px
-
-.badge-state-image-only
-  padding: 0
-
-  .badge-icon
-    margin-right: 0
-
-.badge-state-clickable
-  cursor: pointer
-
-  .badge-text
-    text-decoration: underline
-
-.badge-state-complete
-  background-color: #4aba12
-  border-radius: 3px
-  color: #fff
-
-  .badge-icon
-    color: #fff
-
-.badge-state-unread-notification
-  background-color: #990f0f
-  border-radius: 3px
-  color: #fff
-
-  .badge-icon
-    color: #fff
-
-.badge-state-voted
-  background-color: #dbdbdb
-  border-radius: 3px
-  color: #8c8c8c
-
-  .badge-icon
-    color: #999
-
-.badge-state-due-soon, .badge-state-due-soon:hover
-  background-color: #e6bf00
-  border-radius: 3px
-  color: #fff
-
-  .badge-icon
-    color: #fff
-
-.badge-state-due-now, .badge-state-due-now:hover
-  background-color: #990f0f
-  border-radius: 3px
-  color: #fff
-
-  .badge-icon
-    color: #fff
-
-.badge-state-due-past, .badge-state-due-past:hover
-  background-color: #ad8585
-  border-radius: 3px
-  color: #fff
-
-  .badge-icon
-    color: #fff
-
-.checklist-list:empty
-  display: none
-
-.checklist
-  margin-bottom: 16px
-
-.checklist.placeholder
-  background: #dcdcdc
-  border-radius: 3px
-
-.checklist.ui-sortable-helper
-  background: rgba(240, 240, 240, .85)
-  border-radius: 3px
-
-  .checklist-title,
-  .current,
-  .window-module-title
-    cursor: grabbing
-
-  .icon-menu
-    visibility: hidden
-
-.checklist-items-list
-  min-height: 2px
-
-.checklist-item
-  clear: both
-  margin: 0 0 6px
-  padding: 0 0 4px 38px
-  position: relative
-  transform-origin: left bottom
-  transition-property: transform, opacity, height, padding, margin
-  transition-duration: .14s
-  transition-timing-function: ease-in
-
-  &.placeholder
-    background: #dcdcdc
-    border-radius: 3px
-    margin: -5px -5px 5px 5px
-    padding: 5px 0
-
-  &.ui-sortable-helper
-    background: rgba(240, 240, 240, .85)
-    border-radius: 3px
-    margin: -3px -3px -3px 7px
-    padding: 3px 3px 3px 33px
-
-    .checklist-item-checkbox
-      top: 2px
-      left: 2px
-
-.hide-completed-items .checklist-item-fade-out
-  height: 0
-  margin: 0
-  opacity: 0
-  padding: 0
-  transform: rotate(-5deg) translateX(-10px) translateY(-10px)
-
-.checklist-item-checkbox
-  background: #fff
-  border-radius: 3px
-  box-shadow: 0 2px 3px rgba(0, 0, 0, .1)
-  border: 1px solid #ccc
-  border-bottom-color: #b3b3b3
-  font-weight: 700
-  position: absolute
-  left: 6px
-  line-height: 18px
-  overflow: hidden
-  text-align: center
-  text-indent: 100%
-  top: -2px
-  height: 18px
-  width: 18px
-  white-space: nowrap
-
-  &.enabled:hover
-    background-color: #f0f0f0
-    border-color: #ccc
-    box-shadow: 0 1px 2px rgba(0, 0, 0, .1)
-    color: #8c8c8c
-    cursor: pointer
-    text-indent: 0
-
-  &.enabled:active
-    background-color: #e3e3e3
-    border-color: #ccc
-    box-shadow: inset 0 3px 6px rgba(0, 0, 0, .1)
-    color: #4d4d4d
-    text-indent: 0
-
-.checklist-item-details-text
-  min-height: 18px
-  margin-bottom: 0
-
-  &.enabled:hover
-    color: #4d4d4d
-    cursor: pointer
-
-  &:empty
-    content: "No name"
-    color: #8c8c8c
-
-.checklist-item-state-complete
-
-  .checklist-item-details-text
-    color: #8c8c8c
-    font-style: italic
-    text-decoration: line-through
-
-  img
-    opacity: .3
-
-  .checklist-item-checkbox
-    background-color: #f0f0f0
-    border-color: #dbdbdb
-    border-bottom-color: #ccc
-    box-shadow: none
-    text-indent: 0
-
-    &.enabled:hover
-      background-color: #e6e6e6
-      border-color: #ccc
-      box-shadow: none
-
-    &.enabled:active
-      background-color: #dbdbdb
-      box-shadow: inset 0 3px 6px rgba(0, 0, 0, .1)
-
-.hide-completed-items .checklist-item-state-complete
-  display: none
-
-.checklist-new-item-text,
-.checklist-new-item-text:hover
-  background: transparent
-  border-color: transparent
-  box-shadow: none
-  color: #8c8c8c
-  cursor: pointer
-  margin-bottom: 4px
-  max-height: 32px
-  overflow: hidden
-  resize: none
-  text-decoration: none
-
-  .checklist-new-item.focus &
-    background: #fff
-    border-color: #2b7cab
-    box-shadow: 0 0 3px #2b7cab
-    color: #4d4d4d
-    cursor: text
-    max-height: none
-    resize: vertical
-
-.checklist-progress
-  margin-bottom: 12px
-  position: relative
-
-.checklist-progress-percentage
-  color: #8c8c8c
-  font-size: 11px
-  line-height: 10px
-  position: absolute
-  left: 0
-  top: -1px
-  text-align: center
-  width: 38px
-
-.checklist-progress-bar
-  background: #dbdbdb
-  border-radius: 3px
-  clear: both
-  height: 8px
-  margin: 0 0 0 38px
-  overflow: hidden
-  position: relative
-
-.checklist-progress-bar-current
-  background: #479fd1
-  background: linear-gradient(to bottom, #479fd1 0, #2288c3 100%)
-  bottom: 0
-  left: 0
-  position: absolute
-  top: 0
-  transition: width .14s ease-in, background .14s ease-in
-
-.checklist-progress-bar-current-complete
-  background: #24a828
-
-.checklist-completed-text
-  display: block
-  margin: 8px 0 0 38px
-
-.checklist .edit
-  clear: both
-  margin-top: -5px
-
-.explorer .av-btn
-  background: url(about:blank)
-
 .atMention
   background: #dbdbdb
   border-radius: 3px
@@ -630,45 +263,6 @@ dd
 
   &.me
     background: #cfdfe8
-
-.helper
-  background-color: #e6e6e6
-  border-radius: 3px
-  color: #8c8c8c
-  font-size: 13px
-  line-height: 15px
-  margin: 4px 0 0
-  padding: 6px 8px
-  width: auto
-
-  a
-    color: #8c8c8c
-
-    &:hover
-      color: #666
-
-.empty-list, .empty
-  background: #e6e6e6
-  border: 1px dashed #ccc
-  border-radius: 3px
-  color: #8c8c8c
-  display: block
-  padding: 6px
-  text-align: center
-
-.empty-list
-  border-radius: 6px
-  padding: 25px 6px
-
-.search-results-page-contents .empty-list
-  margin: 12px 0 0 52px
-
-.window-module .empty-list
-  margin: 8px 0 0 38px
-
-.loading
-  margin: 19px auto
-  text-align: center
 
 .big-message
   display: block
@@ -684,28 +278,13 @@ dd
     font-size: 18px
     line-height: 22px
 
-  &.with-picture
-    margin-top: 35px
-
-    h1
-      margin-top: 20px
-
-    .callout
-      margin: 20px 0
-
-.callout
-  background: #e3e3e3
-  border-radius: 5px
-  padding: 20px
-
-  ol
-    text-align: left
-    list-style-type: decimal
-    margin-left: 25px
-    font-size: 16px
-
-  li
-    margin: 10px 0
-
 .gutter
   margin-left: 38px
+
+@keyframes fadeIn
+  from
+    opacity: 0
+
+@keyframes flexGrowIn
+  from
+    flex-basis: 0

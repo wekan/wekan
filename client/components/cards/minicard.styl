@@ -43,14 +43,13 @@
   color: #4d4d4d
   overflow: hidden
   transition: transform 0.2s,
-              border-radius 0.2s,
-              border-left 0.2s
+              border-radius 0.2s
 
   .is-selected &
     transform: translateX(11px)
     border-bottom-right-radius: 0
     border-top-right-radius: 0
-    z-index: 100
+    z-index: 25
     box-shadow: -2px 1px 2px rgba(0,0,0,.2)
 
   .minicard-cover
@@ -66,56 +65,33 @@
       background-size: auto
       background-position: center
 
-  .minicard-details-overlay
-    background: transparent
-    bottom: 0
-    left: 0
-    position: absolute
-    right: 0
-    top: 0
-
   .minicard-dropzone
     display: none
 
   .minicard.drophover .minicard-dropzone
     background: rgba(255, 255, 255, .8)
-    // border-radius: 3px
-    // bottom: 0
-    // display: block
-    // font-weight: 700
-    // line-height: 100%
-    // left: 0
-    // margin: 0
-    // opacity: 1
-    // padding: 0
-    // position: absolute
-    // right: 0
-    // text-align: center
-    // top: 0
-    // z-index: 40
 
   .minicard-title
     display: block
     font-weight: 400
-    margin: 0 0 4px
     overflow: hidden
+    margin-bottom: 2px
     text-decoration: none
     word-wrap: break-word
+    clear: both
 
     &::selection
       background: transparent
 
   .minicard-labels
-    padding-top: 3px
-    margin-top: 4px
     float: right
 
     .minicard-label
       float: right
-      width: 8px
+      width: 11px
       height: @width
       border-radius: 2px
-      margin-left: 4px
+      margin-right: 3px
 
   .minicard-members
     float: right
