@@ -132,3 +132,114 @@ EscapeActions.register('sidebarView',
   function() { Sidebar.setView(defaultView); },
   function() { return Sidebar && Sidebar.getView() !== defaultView; }
 );
+
+var getMemberIndex = function(board, searchId) {
+  for (var i = 0; i < board.members.length; i++) {
+    if (board.members[i].userId === searchId)
+      return i;
+  }
+  throw new Meteor.Error('Member not found');
+};
+
+Template.memberPopup.helpers({
+  user: function() {
+    return Users.findOne(this.userId);
+  },
+  memberType: function() {
+    var type = Users.findOne(this.userId).isBoardAdmin() ? 'admin' : 'normal';
+    return TAPi18n.__(type).toLowerCase();
+  }
+});
+
+Template.memberPopup.events({
+  'click .js-filter-member': function() {
+    Filter.members.toogle(this.userId);
+    Popup.close();
+  },
+  'click .js-change-role': Popup.open('changePermissions'),
+  'click .js-remove-member': Popup.afterConfirm('removeMember', function() {
+    var currentBoard = Boards.findOne(Session.get('currentBoard'));
+    var memberIndex = getMemberIndex(currentBoard, this.userId);
+    var setQuery = {};
+    setQuery[['members', memberIndex, 'isActive'].join('.')] = false;
+    Boards.update(currentBoard._id, { $set: setQuery });
+    Popup.close();
+  }),
+  'click .js-leave-member': function() {
+    // XXX Not implemented
+    Popup.close();
+  }
+});
+
+Template.membersWidget.events({
+  'click .js-member': Popup.open('member'),
+  'click .js-manage-board-members': Popup.open('addMember')
+});
+
+Template.labelsWidget.events({
+  'click .js-label': Popup.open('editLabel'),
+  'click .js-add-label': Popup.open('createLabel')
+});
+
+Template.addMemberPopup.helpers({
+  isBoardMember: function() {
+    var user = Users.findOne(this._id);
+    return user && user.isBoardMember();
+  }
+});
+
+Template.addMemberPopup.events({
+  'click .pop-over-member-list li:not(.disabled)': function() {
+    var userId = this._id;
+    var currentBoard = Boards.findOne(Session.get('currentBoard'));
+    var currentMembersIds = _.pluck(currentBoard.members, 'userId');
+    if (currentMembersIds.indexOf(userId) === -1) {
+      Boards.update(currentBoard._id, {
+        $push: {
+          members: {
+            userId: userId,
+            isAdmin: false,
+            isActive: true
+          }
+        }
+      });
+    } else {
+      var memberIndex = getMemberIndex(currentBoard, userId);
+      var setQuery = {};
+      setQuery[['members', memberIndex, 'isActive'].join('.')] = true;
+      Boards.update(currentBoard._id, { $set: setQuery });
+    }
+    Popup.close();
+  }
+});
+
+Template.addMemberPopup.onRendered(function() {
+  this.find('.js-search-member input').focus();
+});
+
+Template.changePermissionsPopup.events({
+  'click .js-set-admin, click .js-set-normal': function(event) {
+    var currentBoard = Boards.findOne(Session.get('currentBoard'));
+    var memberIndex = getMemberIndex(currentBoard, this.user._id);
+    var isAdmin = $(event.currentTarget).hasClass('js-set-admin');
+    var setQuery = {};
+    setQuery[['members', memberIndex, 'isAdmin'].join('.')] = isAdmin;
+    Boards.update(currentBoard._id, {
+      $set: setQuery
+    });
+    Popup.back(1);
+  }
+});
+
+Template.changePermissionsPopup.helpers({
+  isAdmin: function() {
+    return this.user.isBoardAdmin();
+  },
+  isLastAdmin: function() {
+    if (! this.user.isBoardAdmin())
+      return false;
+    var currentBoard = Boards.findOne(Session.get('currentBoard'));
+    var nbAdmins = _.where(currentBoard.members, { isAdmin: true }).length;
+    return nbAdmins === 1;
+  }
+});

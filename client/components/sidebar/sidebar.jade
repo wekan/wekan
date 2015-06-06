@@ -34,7 +34,8 @@ template(name="membersWidget")
           showStatus=true)
       unless isSandstorm
         if currentUser.isBoardAdmin
-          a.js-open-manage-board-members
+          a.member.add-member.js-manage-board-members
+            i.fa.fa-plus
       .clearfix
 
 template(name="labelsWidget")
@@ -54,7 +55,7 @@ template(name="memberPopup")
     +userAvatar(user=user)
     .info
       h3.bottom
-        a.js-profile(href="{{pathFor route='Profile' username=user.username}}")
+        .js-profile
           = user.profile.name
       p.quiet.bottom @#{user.username}
     if currentUser.isBoardMember
@@ -71,3 +72,48 @@ template(name="memberPopup")
               a.js-remove-member {{_ 'remove-from-board'}}
             else
               a.js-leave-member {{_ 'leave-board'}}
+
+
+template(name="removeMemberPopup")
+  p {{_ 'remove-member-pop' name=user.profile.name username=user.username boardTitle=board.title}}
+  button.js-confirm.negate.full(type="submit") {{_ 'remove-member'}}
+
+template(name="addMemberPopup")
+  .js-search-member
+    +esInput(index="users")
+
+  ul.pop-over-member-list
+    +esEach(index="users")
+      li.item.js-member-item(class="{{#if isBoardMember }}disabled{{/if}}")
+        a.name.js-select-member(title="{{ profile.name }} ({{ username }})")
+          +userAvatar(user=this size="small")
+          span.full-name
+            = profile.name
+            | (<span class="username">{{ username }}</span>)
+          if isBoardMember
+            .extra-text.quiet ({{_ 'joined'}})
+
+    +ifEsIsSearching(index='users')
+      +spinner
+
+    +ifEsHasNoResults(index="users")
+      .manage-member-section
+        p.quiet {{_ 'no-results'}}
+
+template(name="changePermissionsPopup")
+  ul.pop-over-list
+    li
+      a(class="{{#if isLastAdmin}}disabled{{else}}js-set-admin{{/if}}")
+        | {{_ 'admin'}}
+        if isAdmin
+          i.fa.fa-check
+        span.sub-name {{_ 'admin-desc'}}
+    li
+      a(class="{{#if isLastAdmin}}disabled{{else}}js-set-normal{{/if}}")
+        | {{_ 'normal'}}
+        unless isAdmin
+          i.fa.fa-check
+        span.sub-name {{_ 'normal-desc'}}
+  if isLastAdmin
+    hr
+    p.quiet.bottom {{_ 'last-admin-desc'}}

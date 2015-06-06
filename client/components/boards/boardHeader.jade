@@ -120,3 +120,7 @@ template(name="boardChangeTitlePopup")
       | {{_ 'title'}}
       input.js-board-name(type="text" value="{{title}}" autofocus)
     input.primary.wide(type="submit" value="{{_ 'rename'}}")
+
+template(name="closeBoardPopup")
+  p {{_ 'close-board-pop'}}
+  button.js-confirm.negate.full(type="submit") {{_ 'close'}}
