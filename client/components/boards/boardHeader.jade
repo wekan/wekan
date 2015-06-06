@@ -6,7 +6,7 @@ template(name="headerBoard")
   .board-header-btns.left
     unless isSandstorm
       if currentUser
-        a.board-header-btn.js-star-board(class="{{#if isStarred}}is-hovered{{/if}}"
+        a.board-header-btn.js-star-board(class="{{#if isStarred}}is-active{{/if}}"
           title="{{#if isStarred}}{{_ 'click-to-unstar'}}{{else}}{{_ 'click-to-star'}}{{/if}} {{_ 'starred-boards-description'}}")
           i.fa(class="fa-star{{#unless isStarred}}-o{{/unless}}")
           if showStarCounter

@@ -19,9 +19,13 @@ Popup = {
     return function(evt) {
       // If a popup is already openened, clicking again on the opener element
       // should close it -- and interupt the current `open` function.
-      if (self.isOpen() &&
-          self._getTopStack().openerElement === evt.currentTarget) {
-        return self.close();
+      if (self.isOpen()) {
+        var previousOpenerElement = self._getTopStack().openerElement;
+        if (previousOpenerElement === evt.currentTarget) {
+          return self.close();
+        } else {
+          $(previousOpenerElement).removeClass('is-active');
+        }
       }
 
       // We determine the `openerElement` (the DOM element that is being clicked
@@ -36,6 +40,7 @@ Popup = {
         self._stack = [];
         openerElement = evt.currentTarget;
       }
+      $(openerElement).addClass('is-active');
 
       // We modify the event to prevent the popup being closed when the event
       // bubble up to the document element.
@@ -122,6 +127,10 @@ Popup = {
     if (this.isOpen()) {
       Blaze.remove(this.current);
       this.current = null;
+
+      var openerElement = this._getTopStack().openerElement;
+      $(openerElement).removeClass('is-active');
+
       this._stack = [];
     }
   },
