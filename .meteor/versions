@@ -64,7 +64,6 @@ linto:jquery-ui@1.11.2
 livedata@1.0.13
 localstorage@1.0.3
 logging@1.0.7
-markdown@1.0.4
 matb33:collection-hooks@0.7.13
 matteodem:easy-search@1.5.6
 meteor@1.1.6
@@ -90,6 +89,7 @@ ordered-dict@1.0.3
 peerlibrary:assert@0.2.5
 peerlibrary:base-component@0.10.0
 peerlibrary:blaze-components@0.12.0
+perak:markdown@1.0.5
 raix:eventemitter@0.1.2
 raix:handlebar-helpers@0.2.4
 random@1.0.3
