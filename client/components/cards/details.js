@@ -59,12 +59,6 @@ BlazeComponent.extendComponent({
       'click .js-add-labels': Popup.open('cardLabels'),
       'mouseenter .js-card-details': function() {
         this.componentParent().showOverlay.set(true);
-      },
-      'mouseleave .js-card-details': function(evt) {
-        // We don't want to hide the overlay if the mouse is entering a pop-over
-        var $pointedElement = $(evt.toElement || evt.relatedTarget);
-        if ($pointedElement.closest('.pop-over').length === 0)
-          this.componentParent().showOverlay.set(false);
       }
     }];
   }

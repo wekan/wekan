@@ -119,6 +119,16 @@ BlazeComponent.extendComponent({
     var sidebar = this.componentChildren('sidebar')[0];
     if (sidebar && sidebar.isOpen())
       return 'next-sidebar';
+  },
+
+  events: function() {
+    return [{
+      // XXX The board-overlay div should probably be moved to the parent
+      // component.
+      'mouseenter .board-overlay': function() {
+        this.showOverlay.set(false);
+      }
+    }];
   }
 }).register('boardComponent');
 

@@ -78,7 +78,7 @@ BlazeComponent.extendComponent({
     // Pressing Enter should submit the card
     if (evt.keyCode === 13) {
       evt.preventDefault();
-      var $form = $(evt.currentTarget).parents('form:first');
+      var $form = $(evt.currentTarget).closest('form');
       // XXX For some reason $form.submit() does not work (it's probably a bug
       // of blaze-component related to the fact that the submit event is non-
       // bubbling). This is why we click on the submit button instead -- which
@@ -93,7 +93,7 @@ BlazeComponent.extendComponent({
       var list = $('#js-list-' + this.data().listId);
       var listSelector = '.js-list:not(.js-list-composer)';
       var nextList = list[isReverse ? 'prev' : 'next'](listSelector).get(0);
-      // If there isn't no next list, loop back to the beginning.
+      // If there is no next list, loop back to the beginning.
       if (! nextList) {
         nextList = $(listSelector + (isReverse ? ':last' : ':first')).get(0);
       }
