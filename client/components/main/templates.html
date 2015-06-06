@@ -11,8 +11,7 @@
     </div>
 </template>
 
-<template name="editor">
-    <textarea class="{{class}}" placeholder="{{_ 'comment-placeholder'}}" id="{{id}}" autofocus="{{autofocus}}">{{> UI.contentBlock}}</textarea>
-</template>
+<!-- XXX This should be moved to editor.jade but there is an issue with jade
+     handling of the markdown component. -->
 
 <template name="viewer">{{#markdown}}{{#emoji}}{{#mentions}}{{> UI.contentBlock }}{{/mentions}}{{/emoji}}{{/markdown}}</template>

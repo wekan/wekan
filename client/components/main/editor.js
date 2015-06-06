@@ -3,6 +3,8 @@ var dropdownMenuIsOpened = false;
 Template.editor.onRendered(function() {
   var $textarea = this.$('textarea');
 
+  autosize($textarea);
+
   $textarea.textcomplete([
     // Emojies
     {

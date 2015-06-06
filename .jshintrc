@@ -43,6 +43,7 @@
     // Exported by packages we use
     "_": false,
     "$": false,
+    "autosize": false,
     "Router": false,
     "SimpleSchema": false,
     "getSlug": false,
