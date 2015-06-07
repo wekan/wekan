@@ -111,7 +111,7 @@ BlazeComponent.extendComponent({
           snap: false,
           snapMode: 'both',
           start: function() {
-            EscapeActions.executeLowerThan('popup');
+            EscapeActions.executeUpTo('popup');
           }
         });
       });

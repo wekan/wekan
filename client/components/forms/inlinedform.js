@@ -36,7 +36,7 @@ BlazeComponent.extendComponent({
 
   open: function() {
     // Close currently opened form, if any
-    EscapeActions.executeLowerThan('inlinedForm');
+    EscapeActions.executeUpTo('inlinedForm');
     this.isOpen.set(true);
     currentlyOpenedForm.set(this);
   },
@@ -60,18 +60,6 @@ BlazeComponent.extendComponent({
     return [{
       'click .js-close-inlined-form': this.close,
       'click .js-open-inlined-form': this.open,
-
-      // Close the inlined form by pressing escape.
-      //
-      // Keydown (and not keypress) in necessary here because the `keyCode`
-      // property is consistent in all browsers, (there is not keyCode for the
-      // `keypress` event in firefox)
-      'keydown form input, keydown form textarea': function(evt) {
-        if (evt.keyCode === 27) {
-          evt.preventDefault();
-          EscapeActions.executeLowest();
-        }
-      },
 
       // Pressing Ctrl+Enter should submit the form
       'keydown form textarea': function(evt) {
@@ -98,5 +86,7 @@ BlazeComponent.extendComponent({
 // Press escape to close the currently opened inlinedForm
 EscapeActions.register('inlinedForm',
   function() { currentlyOpenedForm.get().close(); },
-  function() { return currentlyOpenedForm.get() !== null; }
+  function() { return currentlyOpenedForm.get() !== null; }, {
+    noClickEscapeOn: '.js-inlined-form'
+  }
 );

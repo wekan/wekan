@@ -78,7 +78,7 @@ MultiSelection = {
 
   activate: function() {
     if (! this.isActive()) {
-      EscapeActions.executeLowerThan('detailsPane');
+      EscapeActions.executeUpTo('detailsPane');
       this._isActive.set(true);
       Sidebar.setView(this.sidebarView);
       Tracker.flush();
@@ -91,6 +91,7 @@ MultiSelection = {
       if (Sidebar && Sidebar.getView() === this.sidebarView) {
         Sidebar.setView();
       }
+      this.reset();
     }
   },
 
@@ -149,11 +150,7 @@ MultiSelection = {
 
 Blaze.registerHelper('MultiSelection', MultiSelection);
 
-EscapeActions.register('multiselection-disable',
+EscapeActions.register('multiselection',
   function() { MultiSelection.disable(); },
   function() { return MultiSelection.isActive(); }
-);
-
-EscapeActions.register('multiselection-reset',
-  function() { MultiSelection.reset(); }
 );

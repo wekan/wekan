@@ -1,6 +1,6 @@
 template(name='inlinedForm')
   if isOpen.get
-    form(id=id class=classNames)
+    form.js-inlined-form(id=id class=classNames)
       +Template.contentBlock
   else
     +Template.elseBlock

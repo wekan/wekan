@@ -24,7 +24,7 @@ Router.configure({
       return this.redirect('atSignIn');
     }
 
-    // We want to execute our EscapeActions.executeLowerThan method any time the
+    // We want to execute our EscapeActions.executeUpTo method any time the
     // route is changed, but not if the stays the same but only the parameters
     // change (eg when a user is navigation from a card A to a card B). Iron-
     // Router onBeforeAction is a reactive context (which is a bad desig choice

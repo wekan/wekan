@@ -40,11 +40,8 @@ Popup = {
         self._stack = [];
         openerElement = evt.currentTarget;
       }
-      $(openerElement).addClass('is-active');
 
-      // We modify the event to prevent the popup being closed when the event
-      // bubble up to the document element.
-      evt.originalEvent.clickInPopup = true;
+      $(openerElement).addClass('is-active');
       evt.preventDefault();
 
       // We push our popup data to the stack. The top of the stack is always
@@ -201,19 +198,11 @@ Popup = {
   }
 };
 
-// We automatically close a potential opened popup on any left click on the
-// document. To avoid closing it unexpectedly we modify the bubbled event in
-// case the click event happen in the popup or in  a button that open a popup.
-$(document).on('click', function(evt) {
-  if (evt.which === 1 && ! (evt.originalEvent &&
-      evt.originalEvent.clickInPopup)) {
-    Popup.close();
-  }
-});
-
-// Press escape to go back, or close the popup.
-var bindPopup = function(f) { return _.bind(f, Popup); };
+// We close a potential opened popup on any left click on the document, or go
+// one step back by pressing escape.
 EscapeActions.register('popup',
-  bindPopup(Popup.back),
-  bindPopup(Popup.isOpen)
+  function(evt) { Popup[evt.type === 'click' ? 'close' : 'back'](); },
+  _.bind(Popup.isOpen, Popup), {
+    noClickEscapeOn: '.js-pop-over'
+  }
 );

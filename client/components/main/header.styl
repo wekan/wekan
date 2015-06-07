@@ -12,16 +12,15 @@
     font-size: 12px
     display: flex
 
-    #header-user-bar
+    #header-user-bar,
     ul li
       color: darken(white, 17%)
 
-      a, .fa
+      .fa
         color: inherit
-        text-decoration: none
 
-        &:hover
-          color: white
+      a:hover, a.is-active
+        color: white
 
     ul
       flex: 1
@@ -75,9 +74,6 @@
       margin-right: 10px
       float: left
       border-radius: 3px
-
-      &.is-clickable
-        cursor: pointer
 
     .board-header-btns
       display: block

@@ -1,7 +1,7 @@
 template(name="headerBoard")
-  h1.header-board-menu(
-    class="{{#if currentUser.isBoardMember}}is-clickable js-edit-board-title{{/if}}")
-    = title
+  h1.header-board-menu
+    a(class="{{#if currentUser.isBoardAdmin}}js-edit-board-title{{else}}is-disabled{{/if}}")
+      = title
 
   .board-header-btns.left
     unless isSandstorm
@@ -12,7 +12,7 @@ template(name="headerBoard")
           if showStarCounter
             span {{_ 'board-nb-stars' stars}}
 
-      a.board-header-btn.js-change-visibility(class="{{#unless currentUser.isBoardAdmin}}no-edit{{/unless}}")
+      a.board-header-btn(class="{{#if currentUser.isBoardAdmin}}js-change-visibility{{else}}is-disabled{{/if}}")
         i.fa(class="{{#if isPublic}}fa-globe{{else}}fa-lock{{/if}}")
         span {{_ permission}}
 

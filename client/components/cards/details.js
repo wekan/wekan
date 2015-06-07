@@ -94,3 +94,11 @@ Template.moveCardPopup.events({
     Popup.close();
   }
 });
+
+// Close the card details pane by pressing escape
+EscapeActions.register('detailsPane',
+  function() { Utils.goBoardId(Session.get('currentBoard')); },
+  function() { return ! Session.equals('currentCard', null); }, {
+    noClickEscapeOn: '.js-card-details'
+  }
+);

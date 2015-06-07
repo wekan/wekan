@@ -1,12 +1,12 @@
 template(name="headerUserBar")
-  a#header-user-bar
-    .header-user-bar-name.js-open-header-member-menu
+  #header-user-bar
+    a.header-user-bar-name.js-open-header-member-menu
       i.fa.fa-chevron-down
       if currentUser.profile.name
         = currentUser.profile.name
       else
         = currentUser.username
-    .header-user-bar-avatar.js-change-avatar
+    a.header-user-bar-avatar.js-change-avatar
       +userAvatar(user=currentUser)
 
 template(name="memberMenuPopup")
