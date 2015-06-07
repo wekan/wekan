@@ -4,7 +4,8 @@ var defaultView = 'home';
 
 var viewTitles = {
   filter: 'filter-cards',
-  multiselection: 'multi-selection'
+  multiselection: 'multi-selection',
+  archives: 'archives'
 };
 
 BlazeComponent.extendComponent({

@@ -91,7 +91,7 @@ Popup = {
     var self = this;
 
     return function(evt, tpl) {
-      var context = this;
+      var context = this.currentData && this.currentData() || this;
       context.__afterConfirmAction = action;
       self.open(name).call(context, evt, tpl);
     };

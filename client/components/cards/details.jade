@@ -74,8 +74,9 @@ template(name="cardDetailsActionsPopup")
       li: a.js-attachments Edit Attachments…
   hr
   ul.pop-over-list
-    li: a.js-copy Copy card
+    li: a.js-copy Copy Card
     li: a.js-archive Archive Card
+    li: a.js-delete Delete Card
 
 template(name="moveCardPopup")
   +boardLists
@@ -103,3 +104,9 @@ template(name="cardLabelsPopup")
             if currentUser.isBoardAdmin
               span.card-label-selectable-icon.fa.fa-check
   a.quiet-button.full.js-add-label {{_ 'label-create'}}
+
+template(name="cardDeletePopup")
+  p {{_ "card-delete-pop"}}
+  unless archived
+   p {{_ "card-delete-suggest-archive"}}
+  button.js-confirm.negate.full(type="submit") {{_ 'delete'}}

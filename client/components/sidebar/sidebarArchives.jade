@@ -1,0 +1,10 @@
+template(name="archivesSidebar")
+  each archivedCards
+    .minicard-wrapper.js-minicard
+      +minicard(this)
+    p.quiet
+      a.js-restore Restore
+      | -
+      a.js-delete Delete
+  else
+    p.no-items-message No archived cards.

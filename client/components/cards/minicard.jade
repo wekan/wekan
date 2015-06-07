@@ -1,31 +1,25 @@
 template(name="minicard")
-  a.minicard-wrapper.js-minicard(href=absoluteUrl
-    class="{{#if isSelected}}is-selected{{/if}}"
-    class="{{#if MultiSelection.isSelected _id}}is-checked{{/if}}")
-    if MultiSelection.isActive
-      .materialCheckBox.multi-selection-checkbox.js-toggle-multi-selection(
-        class="{{#if MultiSelection.isSelected _id}}is-checked{{/if}}")
-    .minicard
-      if cover
-        .minicard-cover.js-card-cover(style="background-image: url({{cover.url}});")
-      if labels
-        .minicard-labels
-          each labels
-            .minicard-label(class="card-label-{{color}}" title="{{name}}")
-      .minicard-title= title
-      if members
-        .minicard-members.js-minicard-members
-          each members
-            +userAvatar(userId=this size="small" cardId="{{../_id}}")
-      .badges
-        if comments.count
-          .badge(title="{{_ 'card-comments-title' comments.count }}")
-            span.badge-icon.fa.fa-comment-o
-            .badge-text= comments.count
-        if description
-          .badge.badge-state-image-only(title=description)
-            span.badge-icon.fa.fa-align-left
-        if attachments.count
-          .badge
-            span.badge-icon.fa.fa-paperclip
-            span.badge-text= attachments.count
+  .minicard
+    if cover
+      .minicard-cover(style="background-image: url({{cover.url}});")
+    if labels
+      .minicard-labels
+        each labels
+          .minicard-label(class="card-label-{{color}}" title="{{name}}")
+    .minicard-title= title
+    if members
+      .minicard-members.js-minicard-members
+        each members
+          +userAvatar(userId=this size="small" cardId="{{../_id}}")
+    .badges
+      if comments.count
+        .badge(title="{{_ 'card-comments-title' comments.count }}")
+          span.badge-icon.fa.fa-comment-o
+          .badge-text= comments.count
+      if description
+        .badge.badge-state-image-only(title=description)
+          span.badge-icon.fa.fa-align-left
+      if attachments.count
+        .badge
+          span.badge-icon.fa.fa-paperclip
+          span.badge-text= attachments.count

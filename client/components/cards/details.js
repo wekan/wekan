@@ -77,7 +77,12 @@ Template.cardDetailsActionsPopup.events({
       }
     });
     Popup.close();
-  }
+  },
+  'click .js-delete': Popup.afterConfirm('cardDelete', function() {
+    var cardId = this._id;
+    Cards.remove(cardId);
+    Popup.close();
+  })
 });
 
 Template.moveCardPopup.events({
