@@ -1,7 +1,7 @@
 <template name="cardMemberPopup">
     <div class="board-member-menu">
         <div class="mini-profile-info">
-            {{> userAvatar user=user }}
+            {{> userAvatar userId=user._id }}
             <div class="info">
                 <h3 class="bottom" style="margin-right: 40px;">
                     <a class="js-profile" href="{{ pathFor route='Profile' username=user.username }}">{{ user.profile.name }}</a>
@@ -125,7 +125,7 @@
                             <h3 class="card-details-item-header">{{_ 'members'}}</h3>
                             <div class="js-card-details-members-list clearfix">
                                 {{# each card.members }}
-                                    {{> userAvatar userId=this size="small" cardId=../card._id }}
+                                    {{> userAvatar userId=this}}
                                 {{/ each }}
                                 <a class="card-details-item-add-button dark-hover js-details-edit-members">
                                     <span class="icon-sm fa fa-plus"></span>
@@ -196,7 +196,7 @@
         </div>
         {{# if currentUser.isBoardMember }}
             <div class="new-comment js-new-comment">
-                {{> userAvatar user=currentUser size="small" class="member-no-menu" }}
+                {{> userAvatar userId=currentUser._id}}
                 <form id="CommentForm">
                     {{#editor class="new-comment-input js-new-comment-input"}}{{/editor}}
                     <div class="add-controls clearfix">

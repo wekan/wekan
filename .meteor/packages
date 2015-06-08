@@ -46,7 +46,6 @@ tmeasday:presence
 underscore
 
 # UI components
-bengott:avatar
 fortawesome:fontawesome
 linto:jquery-ui
 mousetrap:mousetrap

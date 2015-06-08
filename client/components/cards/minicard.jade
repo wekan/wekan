@@ -10,7 +10,7 @@ template(name="minicard")
     if members
       .minicard-members.js-minicard-members
         each members
-          +userAvatar(userId=this size="small" cardId="{{../_id}}")
+          +userAvatar(userId=this)
     .badges
       if comments.count
         .badge(title="{{_ 'card-comments-title' comments.count }}")

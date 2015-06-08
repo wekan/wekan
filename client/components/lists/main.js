@@ -25,7 +25,7 @@ BlazeComponent.extendComponent({
       return;
 
     var boardComponent = self.componentParent();
-    var itemsSelector = '.js-minicard:not(.placeholder, .hide, .js-composer)';
+    var itemsSelector = '.js-minicard:not(.placeholder, .js-composer)';
     var $cards = self.$('.js-minicards');
     $cards.sortable({
       connectWith: '.js-minicards',

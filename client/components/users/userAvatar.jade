@@ -1,22 +1,42 @@
 template(name="userAvatar")
-  .member.js-member(class="{{class}}" title="{{userData.profile.name}} ({{userData.username}})")
-    +avatar(user=userData size=size)
+  .member.js-member(title="{{userData.profile.fullname}} ({{userData.username}})")
+    if userData.profile.avatarUrl
+      img.avatar.avatar-image(src=userData.profile.avatarUrl)
     if showStatus
       span.member-presence-status(class=presenceStatusClassName)
       span.member-type(class=memberType)
-
 
 template(name="userPopup")
   .board-member-menu
     .mini-profile-info
       +userAvatar(user=user)
-        .info
-          h3.bottom
-            a.js-profile(href="{{ pathFor route='Profile' username=user.username }}")= user.profile.name
-            p.quiet.bottom @{{ user.username }}
+      .info
+        h3.bottom
+          a.js-profile(href="{{pathFor route='Profile' username=user.username}}")= user.profile.name
+          p.quiet.bottom @{{ user.username }}
 
 template(name="memberName")
-  a.inline-object.js-show-mem-menu(href="{{ pathFor route='Profile' username=user.username }}")
-    = user.profile.name
+  a.js-show-mem-menu(href="{{pathFor route='Profile' username=user.username}}")
+    = user.profile.fullname
     if username
       | ({{ user.username }})
+
+template(name="changeAvatarPopup")
+  ul.pop-over-list
+    each uploadedAvatars
+      li: a.js-select-avatar
+        .member: .avatar
+          img.avatar-image(src="{{url avatarUrlOptions}}")
+        | Uploaded avatar
+        if isSelected
+          i.fa.fa-check
+        p.sub-name
+          unless isSelected
+            a.js-delete-avatar
+              | Delete
+            |  -
+          = original.name
+  input.hide.js-upload-avatar-input(accept="image/*;capture=camera" type="file")
+  button.full.js-upload-avatar
+    i.fa.fa-upload
+    | Upload an avatar

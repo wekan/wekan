@@ -13,7 +13,7 @@
 
   hr
     margin: 4px -10px
-    width: 275px + 2*10px
+    width: 300px
 
   input[type="text"],
   input[type="email"],
@@ -122,12 +122,8 @@
   margin-bottom: 8px
 
 .pop-over-list
-  &.navigable li.not-selectable>a:hover,
-  li.not-selectable>a:hover
-    color: #8c8c8c
-    cursor: default
-
   li > a
+    clear: both
     cursor: pointer
     display: block
     font-weight: 700
@@ -153,7 +149,6 @@
         background: #fff
 
     .sub-name
-      clear: both
       color: #8c8c8c
       display: block
       font-size: 12px
@@ -163,21 +158,6 @@
 
     &.current
       background-color: #e2e6e9
-
-    .unread-indicator
-      background: #2e85b8
-      background: linear-gradient(to bottom, #2e85b8 0, #2b7cab 100%)
-      border-radius: 7px
-      display: block
-      height: 14px
-      opacity: 0
-      position: absolute
-      right: 16px
-      top: 8px
-      width: 14px
-
-      &.any
-        opacity: 1
 
     &:active
       background-color: #2e85b8
@@ -204,8 +184,7 @@
     margin: 0
 
   .pop-over-list.checkable
-
-    .icon-check
+    .fa-check
       display: none
       position: absolute
       top: 6px
@@ -214,53 +193,8 @@
     li.active a
       padding-right: 28px
 
-      .icon-check
+      .fa-check
         display: block
-
-    &.left-check
-
-      .icon-check
-        right: auto
-        left: 10px
-
-      li a
-        padding-right: 10px
-        padding-left: 30px
-
-      li.active a
-        padding-right: 10px
-
-  &.normal-weight li>a
-    font-weight: 400
-
-  &.navigable
-
-    li > a:hover
-      background-color: transparent
-      color: #4d4d4d
-
-      .sub-name,
-      .quiet
-        color: #8c8c8c
-
-    li.selected > a
-      background-color: #005377
-      color: #fff
-
-      .sub-name,
-      .quiet
-        color: #eee
-
-    li.selected > a
-
-      &.current
-        background-color: #005377
-
-      .unread-indicator
-        background: #fff
-
-      &:active
-        background-color: #005377
 
 .pop-over.miniprofile
   .header

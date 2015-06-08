@@ -27,11 +27,7 @@ template(name="membersWidget")
       | {{_ 'members'}}
     .board-widget-content
       each currentBoard.members
-        +userAvatar(
-          userId=this.userId
-          draggable=true
-          size="small"
-          showStatus=true)
+        +userAvatar(userId=this.userId showStatus=true)
       unless isSandstorm
         if currentUser.isBoardAdmin
           a.member.add-member.js-manage-board-members
@@ -86,7 +82,7 @@ template(name="addMemberPopup")
     +esEach(index="users")
       li.item.js-member-item(class="{{#if isBoardMember }}disabled{{/if}}")
         a.name.js-select-member(title="{{ profile.name }} ({{ username }})")
-          +userAvatar(user=this size="small")
+          +userAvatar(userId=_id)
           span.full-name
             = profile.name
             | (<span class="username">{{ username }}</span>)

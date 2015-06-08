@@ -134,7 +134,7 @@ Template.createLabelPopup.events({
   'submit .create-label': function(evt, tpl) {
     var name = tpl.$('#labelName').val().trim();
     var boardId = Session.get('currentBoard');
-    var selectLabelDom = tpl.$('.js-palette-select:not(.hide)').get(0);
+    var selectLabelDom = tpl.$('.js-palette-select').get(0);
     var selectLabel = Blaze.getData(selectLabelDom);
     Boards.update(boardId, {
       $push: {
@@ -166,7 +166,7 @@ Template.editLabelPopup.events({
     var name = tpl.$('#labelName').val().trim();
     var boardId = Session.get('currentBoard');
     var getLabel = Utils.getLabelIndex(boardId, this._id);
-    var selectLabelDom = tpl.$('.js-palette-select:not(.hide)').get(0);
+    var selectLabelDom = tpl.$('.js-palette-select').get(0);
     var selectLabel = Blaze.getData(selectLabelDom);
     var $set = {};
 

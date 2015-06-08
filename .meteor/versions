@@ -6,7 +6,6 @@ alethes:pages@1.8.4
 audit-argument-checks@1.0.3
 autoupdate@1.2.1
 base64@1.0.3
-bengott:avatar@0.7.6
 binary-heap@1.0.3
 blaze@2.1.2
 blaze-tools@1.0.3
@@ -52,9 +51,6 @@ iron:location@1.0.9
 iron:middleware-stack@1.0.9
 iron:router@1.0.9
 iron:url@1.0.9
-jparker:crypto-core@0.1.0
-jparker:crypto-md5@0.1.1
-jparker:gravatar@0.3.1
 jquery@1.11.3_2
 json@1.0.3
 kenton:accounts-sandstorm@0.1.3
@@ -107,7 +103,6 @@ softwarerero:accounts-t9n@1.0.9
 spacebars@1.0.6
 spacebars-compiler@1.0.6
 srp@1.0.3
-stylus@1.0.7
 tap:i18n@1.4.1
 templating@1.1.1
 tmeasday:presence@1.0.6

@@ -1,7 +1,7 @@
 <template name="boardActivities">
     {{# each currentBoard.activities }}
         <div class="phenom phenom-action clearfix phenom-other">
-            {{> userAvatar user=user size="extra-small" class="creator js-show-mem-menu" }}
+            {{> userAvatar userId=user._id}}
             <div class="phenom-desc">
                 {{ > memberName user=user }}
 
@@ -86,7 +86,7 @@
 <template name="cardActivities">
     {{# each currentCard.comments }}
         <div class="phenom phenom-action clearfix phenom-comment">
-            {{> userAvatar user=user size="small" class="creator js-show-mem-menu" }}
+            {{> userAvatar userId=user._id}}
             <form>
                 <div class="phenom-desc">
                     {{ > memberName user=user }}
@@ -115,7 +115,7 @@
 
     {{# each currentCard.activities }}
         <div class="phenom phenom-action clearfix phenom-other">
-            {{> userAvatar user=user size="extra-small" class="creator js-show-mem-menu" }}
+            {{> userAvatar userId=user._id size="extra-small" class="creator js-show-mem-menu" }}
             {{ > memberName user=user }}
             {{# if $eq activityType 'createCard' }}
                 {{_ 'activity-added' cardLabel list.title}}.

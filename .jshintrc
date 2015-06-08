@@ -55,6 +55,7 @@
     "SubsManager": false,
     "Mousetrap": false,
     "Avatar": true,
+    "Avatars": true,
     "Ps": true,
     "Presence": true,
     "Presences": true,

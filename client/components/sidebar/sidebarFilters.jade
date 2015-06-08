@@ -23,7 +23,7 @@ template(name="filterSidebar")
           with getUser userId
             li(class="{{#if Filter.members.isSelected _id}}active{{/if}}")
               a.name.js-toogle-member-filter
-                +userAvatar(user=this size="small")
+                +userAvatar(userId=this._id)
                 span.sidebar-list-item-description
                   = profile.name
                   | (<span class="username">{{ username }}</span>)

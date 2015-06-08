@@ -43,6 +43,7 @@ Users.helpers({
 
 Meteor.methods({
   setUsername: function(username) {
+    check(username, String);
     var nUsersWithUsername = Users.find({username: username}).count();
     if (nUsersWithUsername > 0) {
       throw new Meteor.Error('username-already-taken');
