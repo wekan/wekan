@@ -52,6 +52,7 @@ Popup = {
         hasPopupParent: self._hasPopupParent(),
         title: self._getTitle(popupName),
         openerElement: openerElement,
+        depth: self._stack.length,
         offset: self._getOffset(openerElement),
         dataContext: this.currentData && this.currentData() || this
       });
@@ -69,8 +70,7 @@ Popup = {
         self.current = Blaze.renderWithData(self.template, function() {
           self._dep.depend();
           return _.extend(self._stack[self._stack.length - 1], {
-            stack: self._stack,
-            containerTranslation: (self._stack.length - 1) * -300
+            stack: self._stack
           });
         }, document.body);
 

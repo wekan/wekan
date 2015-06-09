@@ -13,7 +13,7 @@
     //-
       We display the all stack of popup content next to each other and move
       the "window" by translating .content-container inside .content-wrapper.
-    .content-container(style="transform:translateX({{containerTranslation}}px)")
+    .content-container(class="popup-container-depth-{{depth}}")
       each stack
         //-
           XXX We need a better way to express the "is the last element" condition.

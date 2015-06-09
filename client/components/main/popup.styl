@@ -1,5 +1,7 @@
 @import 'nib'
 
+$popupWidth = 300px
+
 .pop-over
   background: #fff
   border-radius: 3px
@@ -7,13 +9,13 @@
   border-bottom-color: #c2c2c2
   box-shadow: 0 1px 6px rgba(0, 0, 0, .3)
   position: absolute
-  width: 300px
+  width: $popupWidth
   z-index: 99999
   margin-top: 5px
 
   hr
     margin: 4px -10px
-    width: 300px
+    width: $popupWidth
 
   input[type="text"],
   input[type="email"],
@@ -117,6 +119,10 @@
 
     .at-result
       background: #b2dfdb
+
+  for depth in (1..6)
+    .popup-container-depth-{depth}
+      transform: translateX(- depth * $popupWidth)
 
 .select-members-list
   margin-bottom: 8px
