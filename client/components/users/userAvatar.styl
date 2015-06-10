@@ -5,11 +5,11 @@ avatar-radius = 50%
 .member
   border-radius: 3px
   display: block
+  position: relative
   float: left
   height: 30px
   width: @height
   margin: 0 4px 4px 0
-  position: relative
   cursor: pointer
   user-select: none
   z-index: 1
@@ -17,26 +17,20 @@ avatar-radius = 50%
   border-radius: avatar-radius
 
   .avatar
-    height: 100%
-    width: @height
-    display: flex
-    align-items: center
-    justify-content: center
     overflow: hidden
     border-radius: avatar-radius
 
-    .avatar-initials
-      font-weight: bold
-      max-width: 100%
-      max-height: 100%
-      font-size: 14px
-      line-height: 200%
+    &.avatar-initials
+      height: 70%
+      width: @height
+      padding: 15%
       background-color: #dbdbdb
       color: #444444
+      position: absolute
 
-    .avatar-image
-      max-width: 100%
-      max-height: 100%
+    &.avatar-image
+      height: 100%
+      width: @height
 
   .member-presence-status
     background-color: #b3b3b3

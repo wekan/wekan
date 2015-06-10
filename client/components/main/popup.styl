@@ -218,22 +218,24 @@ $popupWidth = 300px
   .pop-over-list
     padding-top: 8px
 
-.mini-profile-info
-  margin-top: 8px
-  min-height: 56px
-  position: relative
+  .miniprofile-header
+    margin-top: 8px
+    min-height: 56px
+    position: relative
 
-  .member-large
-    position: absolute
-    top: 2px
-    left: 2px
+    .member
+      position: absolute
+      top: 2px
+      left: 2px
+      height: 50px
+      width: @height
 
-  .info
-    margin: 0 0 0 64px
-    word-wrap: break-word
+    .info
+      margin: 0 0 0 64px
+      word-wrap: break-word
 
-    h3 a
-      text-decoration: none
+      h3 a
+        text-decoration: none
 
-      &:hover
-        text-decoration: underline
+        &:hover
+          text-decoration: underline

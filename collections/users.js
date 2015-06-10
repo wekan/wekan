@@ -31,13 +31,28 @@ Users.helpers({
       return _.where(board.members, {userId: this._id})[0].isAdmin;
   },
 
+  getInitials: function() {
+    var profile = this.profile || {};
+    if (profile.initials)
+      return profile.initials;
+
+    else if (profile.fullname) {
+      return _.reduce(profile.fullname.split(/\s+/), function(memo, word) {
+        return memo + word[0];
+      }, '').toUpperCase();
+
+    } else {
+      return this.pseudo[0].toUpperCase();
+    }
+  },
+
   toggleBoardStar: function(boardId) {
-    var queryType = Meteor.user().hasStarred(boardId) ? '$pull' : '$addToSet';
+    var queryType = this.hasStarred(boardId) ? '$pull' : '$addToSet';
     var query = {};
     query[queryType] = {
       'profile.starredBoards': boardId
     };
-    Meteor.users.update(Meteor.userId(), query);
+    Meteor.users.update(this._id, query);
   }
 });
 

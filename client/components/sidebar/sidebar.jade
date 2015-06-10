@@ -47,13 +47,15 @@ template(name="labelsWidget")
         i.fa.fa-plus
 
 template(name="memberPopup")
-  .board-member-menu: .mini-profile-info
-    +userAvatar(user=user)
-    .info
-      h3.bottom
-        .js-profile
-          = user.profile.name
-      p.quiet.bottom @#{user.username}
+  .board-member-menu
+    .miniprofile-header
+      +userAvatar(userId=user._id)
+      .info
+        h3.bottom
+          .js-profile
+            = user.profile.name
+        p.quiet.bottom @#{user.username}
+
     if currentUser.isBoardMember
       ul.pop-over-list
         li

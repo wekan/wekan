@@ -26,6 +26,18 @@ Template.userAvatar.helpers({
   }
 });
 
+Template.userAvatarInitials.helpers({
+  initials: function() {
+    var user = Users.findOne(this.userId);
+    return user && user.getInitials();
+  },
+
+  viewPortWidth: function() {
+    var user = Users.findOne(this.userId);
+    return (user && user.getInitials().length || 1) * 12;
+  }
+});
+
 BlazeComponent.extendComponent({
   template: function() {
     return 'changeAvatarPopup';
@@ -47,6 +59,12 @@ BlazeComponent.extendComponent({
     var avatarUrl = userProfile && userProfile.avatarUrl;
     var currentAvatarUrl = this.currentData().url(this.avatarUrlOptions());
     return avatarUrl === currentAvatarUrl;
+  },
+
+  noAvatarUrl: function() {
+    var userProfile = Meteor.user().profile;
+    var avatarUrl = userProfile && userProfile.avatarUrl;
+    return ! avatarUrl;
   },
 
   setAvatar: function(avatarUrl) {
@@ -83,6 +101,9 @@ BlazeComponent.extendComponent({
       'click .js-select-avatar': function() {
         var avatarUrl = this.currentData().url(this.avatarUrlOptions());
         this.setAvatar(avatarUrl);
+      },
+      'click .js-select-initials': function() {
+        this.setAvatar('');
       },
       'click .js-delete-avatar': function() {
         Avatars.remove(this.currentData()._id);
