@@ -1,0 +1,16 @@
+{
+  "name": "LibreBoard",
+  "description": "An open-source community app built with Meteor",
+  "repository": "https://github.com/krichtof/libreboard/",
+  "logo": "http://libreboard.com/logos/logo.png",
+  "keywords": ["meteor", "todo"],
+  "env": {
+    "BUILDPACK_URL": "https://github.com/AdmitHub/meteor-buildpack-horse.git",
+    "ROOT_URL": {
+      "description": "The full URL of your libreboard app (by default, http://appname.herokuapp.com)."
+    }
+  },
+  "addons": [
+    "mongolab"
+  ]
+}
