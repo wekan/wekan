@@ -5,7 +5,7 @@ template(name="cardDetails")
 
     .card-details-header
       +inlinedForm(classNames="js-card-details-title")
-        input.field.single-line(type="text" value=title autofocus)
+        input.full-line(type="text" value=title autofocus)
         .edit-controls.clearfix
           button.primary.confirm(type="submit") {{_ 'save'}}
           a.fa.fa-times-thin.js-close-inlined-form
@@ -25,23 +25,23 @@ template(name="cardDetails")
 
     .card-details-items
       .card-details-item.card-details-item-members
-        h3 {{_ 'members'}}
+        h3.card-details-item-title {{_ 'members'}}
         each members
           +userAvatar(userId=this cardId=../_id)
         a.member.add-member.card-details-item-add-button.js-add-members
           i.fa.fa-plus
 
       .card-details-item.card-details-item-labels
-        h3 {{_ 'labels'}}
-        .js-add-labels
+        h3.card-details-item-title {{_ 'labels'}}
+        a.js-add-labels
           each labels
             span.card-label(class="card-label-{{color}}" title=name)= name
-          a.card-label.add-label.js-add-labels
-            i.fa.fa-plus
+        a.card-label.add-label.js-add-labels
+          i.fa.fa-plus
 
     //- XXX We should use "editable" to avoide repetiting ourselves
     if currentUser.isBoardMember
-      h3 Description
+      h3.card-details-item-title Description
       +inlinedForm(classNames="js-card-description")
         +editor(autofocus=true)
           = description
@@ -56,7 +56,7 @@ template(name="cardDetails")
           else
             | {{_ 'edit'}}
     else if description
-      h3 Description
+      h3.card-details-item-title Description
       +viewer
         = description
     if attachments.count

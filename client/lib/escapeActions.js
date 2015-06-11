@@ -151,7 +151,8 @@ Mousetrap.bindGlobal('esc', function() {
 // close the popup). We don't execute any action if the user has clicked on a
 // link or a button.
 $(document).on('click', function(evt) {
-  if (evt.which === 1 && $(evt.target).closest('a,button').length === 0) {
+  if (evt.which === 1 &&
+    $(evt.target).closest('a,button,.is-editable').length === 0) {
     EscapeActions.clickExecute(evt, 'detailsPane');
   }
 });
