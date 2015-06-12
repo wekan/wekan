@@ -1,5 +1,5 @@
 template(name="cardDetails")
-  section.card-details.js-card-details: .card-details-canvas
+  section.card-details.js-card-details.js-perfect-scrollbar: .card-details-canvas
     if cover
       .card-details-cover(style="background-image: url({{ cover.url }})")
 
@@ -42,7 +42,7 @@ template(name="cardDetails")
     //- XXX We should use "editable" to avoide repetiting ourselves
     if currentUser.isBoardMember
       h3.card-details-item-title Description
-      +inlinedForm(classNames="js-card-description")
+      +inlinedForm(classNames="card-description js-card-description")
         +editor(autofocus=true)
           = description
         .edit-controls.clearfix
@@ -62,9 +62,13 @@ template(name="cardDetails")
     if attachments.count
       hr
       +WindowAttachmentsModule(card=this)
-    if isLoaded
-      hr
-      +WindowActivityModule(card=this)
+
+    hr
+    h2 {{ _ 'activity'}}
+    if currentUser.isBoardMember
+      +commentForm
+    if isLoaded.get
+      +activities(card=this mode="card")
 
 template(name="cardDetailsActionsPopup")
   if currentUser.isBoardMember
@@ -75,14 +79,15 @@ template(name="cardDetailsActionsPopup")
   hr
   ul.pop-over-list
     li: a.js-copy Copy Card
-    li: a.js-archive Archive Card
-    li: a.js-delete Delete Card
+    unless archived
+      li: a.js-archive Archive Card
+    li: a.js-more More
 
 template(name="moveCardPopup")
   +boardLists
 
 template(name="cardMembersPopup")
-  ul.pop-over-member-list
+  ul.pop-over-list.pop-over-member-list
     each board.members
       li.item(class="{{#if isCardMember}}active{{/if}}")
         a.name.js-select-member(href="#")
@@ -104,6 +109,17 @@ template(name="cardLabelsPopup")
             if currentUser.isBoardAdmin
               span.card-label-selectable-icon.fa.fa-check
   a.quiet-button.full.js-add-label {{_ 'label-create'}}
+
+template(name="cardMorePopup")
+  p.quiet
+    span.clearfix
+      span {{_ 'link-card'}}
+      = ' '
+      i.fa.colorful(class="{{#if board.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
+      input.inline-input(type="text" readonly value="{{ rootUrl }}")
+    | {{_ 'added'}}
+    span.date(title=card.createdAt) {{ moment createdAt 'LLL' }}
+    a.js-delete(title="{{_ 'card-delete-notice'}}") {{_ 'delete'}}
 
 template(name="cardDeletePopup")
   p {{_ "card-delete-pop"}}

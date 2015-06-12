@@ -15,7 +15,7 @@ template(name="minicard")
       if comments.count
         .badge(title="{{_ 'card-comments-title' comments.count }}")
           span.badge-icon.fa.fa-comment-o
-          .badge-text= comments.count
+          span.badge-text= comments.count
       if description
         .badge.badge-state-image-only(title=description)
           span.badge-icon.fa.fa-align-left

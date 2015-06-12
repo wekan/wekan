@@ -85,10 +85,6 @@
     left: 0
     width: 260px
 
-.editable-labels .card-label:hover
-  cursor: pointer
-  opacity: .75
-
 .edit-labels-pop-over
   margin-bottom: 8px
 
@@ -98,7 +94,9 @@
 .card-label-selectable
   border-radius: 3px
   cursor: pointer
-  margin: 0 50px 4px 0
+  margin: 0
+  margin-bottom: 3px
+  width: 190px
   min-height: 18px
   padding: 8px
   position: relative
@@ -113,21 +111,13 @@
   &.active,
   &.active.selected:hover,
   &.active.selected
-    margin-right: 38px
     padding-right: 32px
 
     .card-label-selectable-icon
       right: 6px
 
-  &.active:hover:hover,
-  &.active:hover,
-  &.active.selected:hover:hover,
-  &.active.selected:hover
-    margin-right: 38px
-
   &.selected,
   &:hover
-    margin-right: 38px
     opacity: .8
 
 .active .card-label-selectable

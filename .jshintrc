@@ -71,6 +71,7 @@
     "AccountsTemplates": true,
 
     // Our objects
+    "CSSEvents": true,
     "EscapeActions": true,
     "Filter": true,
     "Filter": true,

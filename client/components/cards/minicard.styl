@@ -78,20 +78,34 @@
     margin-bottom: 2px
     text-decoration: none
     word-wrap: break-word
-    clear: both
 
     &::selection
       background: transparent
 
   .minicard-labels
     float: right
+    display: flex
 
     .minicard-label
-      float: right
       width: 11px
       height: @width
       border-radius: 2px
-      margin-right: 3px
+      margin-left: 3px
+
+  .badges
+    float: left
+    margin-top: 5px
+    color: darken(white, 60%)
+
+    &:empty
+      display: none
+
+    .badge
+      float: left
+      margin-right: 10px
+
+      .badge-text
+        font-size: 0.9em
 
   .minicard-members
     float: right
@@ -108,12 +122,6 @@
 
   .minicard-members:empty
     display: none
-
-  .badges
-    float: left
-
-    &:empty
-      display: none
 
   &.minicard-composer
     margin-bottom: 10px

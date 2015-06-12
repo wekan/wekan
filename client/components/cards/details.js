@@ -4,7 +4,7 @@ BlazeComponent.extendComponent({
   },
 
   mixins: function() {
-    return [Mixins.InfiniteScrolling];
+    return [Mixins.InfiniteScrolling, Mixins.PerfectScrollbar];
   },
 
   calculateNextPeak: function() {
@@ -35,8 +35,19 @@ BlazeComponent.extendComponent({
     });
   },
 
+  onCreated: function() {
+    this.isLoaded = new ReactiveVar(false);
+  },
+
   events: function() {
-    return [{
+    // XXX We can't define this event directly in the event map below because we
+    // miss ES6 object keys interpolation.
+    var events = {};
+    events[CSSEvents.animationend + ' .js-card-details'] = function() {
+      this.isLoaded.set(true);
+    };
+
+    return [_.extend(events, {
       'click .js-close-card-details': function() {
         Utils.goBoardId(this.data().boardId);
       },
@@ -60,7 +71,7 @@ BlazeComponent.extendComponent({
       'mouseenter .js-card-details': function() {
         this.componentParent().showOverlay.set(true);
       }
-    }];
+    })];
   }
 }).register('cardDetails');
 
@@ -78,11 +89,7 @@ Template.cardDetailsActionsPopup.events({
     });
     Popup.close();
   },
-  'click .js-delete': Popup.afterConfirm('cardDelete', function() {
-    var cardId = this._id;
-    Cards.remove(cardId);
-    Popup.close();
-  })
+  'click .js-more': Popup.open('cardMore')
 });
 
 Template.moveCardPopup.events({
@@ -98,6 +105,14 @@ Template.moveCardPopup.events({
     });
     Popup.close();
   }
+});
+
+Template.cardMorePopup.events({
+  'click .js-delete': Popup.afterConfirm('cardDelete', function() {
+    Popup.close();
+    Cards.remove(this._id);
+    Utils.goBoardId(this.board()._id);
+  })
 });
 
 // Close the card details pane by pressing escape

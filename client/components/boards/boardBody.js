@@ -1,12 +1,3 @@
-// XXX This event list must be abstracted somewhere else.
-var endTransitionEvents = [
-  'webkitTransitionEnd',
-  'otransitionend',
-  'oTransitionEnd',
-  'msTransitionEnd',
-  'transitionend'
-].join(' ');
-
 BlazeComponent.extendComponent({
   template: function() {
     return 'boardComponent';
@@ -69,7 +60,7 @@ BlazeComponent.extendComponent({
             flexBasis: 0,
             padding: 0
           });
-          $(lists).one(endTransitionEvents, removeNode);
+          $(lists).one(CSSEvents.transitionend, removeNode);
         } else {
           removeNode();
         }

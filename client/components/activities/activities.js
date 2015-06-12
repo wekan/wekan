@@ -49,10 +49,6 @@ BlazeComponent.extendComponent({
     return TAPi18n.__('this-board');
   },
 
-  cardLabel: function() {
-    return TAPi18n.__('this-card');
-  },
-
   cardLink: function() {
     var card = this.currentData().card();
     return Blaze.toHTML(HTML.A({
@@ -75,3 +71,35 @@ BlazeComponent.extendComponent({
     }, attachment.name()));
   }
 }).register('activities');
+
+BlazeComponent.extendComponent({
+  template: function() {
+    return 'cardActivities';
+  },
+
+  cardLabel: function() {
+    return TAPi18n.__('this-card');
+  },
+
+  events: function() {
+    return [{
+      // XXX We should use Popup.afterConfirmation here
+      'click .js-delete-comment': function() {
+        var commentId = this.currentData().commentId;
+        CardComments.remove(commentId);
+      },
+      'submit .js-edit-comment': function(evt) {
+        evt.preventDefault();
+        var commentText = this.currentComponent().getValue();
+        var commentId = Template.parentData().commentId;
+        if ($.trim(commentText)) {
+          CardComments.update(commentId, {
+            $set: {
+              text: commentText
+            }
+          });
+        }
+      }
+    }];
+  }
+}).register('cardActivities');

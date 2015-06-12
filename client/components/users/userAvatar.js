@@ -111,3 +111,40 @@ BlazeComponent.extendComponent({
     }];
   }
 }).register('changeAvatarPopup');
+
+Template.cardMembersPopup.helpers({
+  isCardMember: function() {
+    var cardId = Template.parentData()._id;
+    var cardMembers = Cards.findOne(cardId).members || [];
+    return _.contains(cardMembers, this.userId);
+  },
+  user: function() {
+    return Users.findOne(this.userId);
+  }
+});
+
+Template.cardMembersPopup.events({
+  'click .js-select-member': function(evt) {
+    var cardId = Template.parentData(2).data._id;
+    var memberId = this.userId;
+    var operation;
+    if (Cards.find({ _id: cardId, members: memberId}).count() === 0)
+      operation = '$addToSet';
+    else
+      operation = '$pull';
+
+    var query = {};
+    query[operation] = {
+      members: memberId
+    };
+    Cards.update(cardId, query);
+    evt.preventDefault();
+  }
+});
+
+Template.cardMemberPopup.events({
+  'click .js-remove-member': function() {
+    Cards.update(this.cardId, {$pull: {members: this.userId}});
+    Popup.close();
+  }
+});

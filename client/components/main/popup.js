@@ -1,22 +1,3 @@
-// XXX This event list must be abstracted somewhere else.
-function whichTransitionEvent() {
-  var t;
-  var el = document.createElement('fakeelement');
-  var transitions = {
-    transition:'transitionend',
-    OTransition:'oTransitionEnd',
-    MozTransition:'transitionend',
-    WebkitTransition:'webkitTransitionEnd'
-  };
-
-  for (t in transitions) {
-    if (el.style[t] !== undefined) {
-      return transitions[t];
-    }
-  }
-}
-var transitionEvent = whichTransitionEvent();
-
 Popup.template.events({
   'click .js-back-view': function() {
     Popup.back();
@@ -50,7 +31,7 @@ Popup.template.onRendered(function() {
   container._uihooks = {
     removeElement: function(node) {
       $(node).addClass('no-height');
-      $(container).one(transitionEvent, function() {
+      $(container).one(CSSEvents.transitionend, function() {
         node.parentNode.removeChild(node);
       });
     }

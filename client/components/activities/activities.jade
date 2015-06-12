@@ -1,8 +1,113 @@
 template(name="activities")
-  .js-sidebar-activities
+  .activities.js-sidebar-activities
     //- We should use Template.dynamic here but there is a bug with
     //- blaze-components: https://github.com/peerlibrary/meteor-blaze-components/issues/30
     if $eq mode "board"
       +boardActivities
     else
       +cardActivities
+
+template(name="boardActivities")
+  each currentBoard.activities
+    .activity
+      +userAvatar(userId=user._id)
+      p.activity-desc
+        +memberName(user=user)
+
+        if($eq activityType 'createBoard')
+          | {{_ 'activity-created' boardLabel}}.
+
+        if($eq activityType 'createList')
+          | {{_ 'activity-added' list.title boardLabel}}.
+
+        if($eq activityType 'archivedList')
+          | {{_ 'activity-archived' list.title}}.
+
+        if($eq activityType 'createCard')
+          | {{{_ 'activity-added' cardLink boardLabel}}}.
+
+        if($eq activityType 'archivedCard')
+          | {{{_ 'activity-archived' cardLink}}}.
+
+        if($eq activityType 'restoredCard')
+          | {{{_ 'activity-sent' cardLink boardLabel}}}.
+
+        if($eq activityType 'moveCard')
+          | {{{_ 'activity-moved' cardLink oldList.title list.title}}}.
+
+        if($eq activityType 'addBoardMember')
+          | {{{_ 'activity-added' memberLink boardLabel}}}.
+
+        if($eq activityType 'removeBoardMember')
+          | {{{_ 'activity-excluded' memberLink boardLabel}}}.
+
+        if($eq activityType 'joinMember')
+          if($eq currentUser._id member._id)
+            | {{{_ 'activity-joined' cardLink}}}.
+          else
+            | {{{_ 'activity-added' memberLink cardLink}}}.
+
+        if($eq activityType 'unjoinMember')
+          if($eq currentUser._id member._id)
+            | {{{_ 'activity-unjoined' cardLink}}}.
+          else
+            | {{{_ 'activity-removed' memberLink cardLink}}}.
+
+        if($eq activityType 'addComment')
+          | {{{_ 'activity-on' cardLink}}}
+          a.activity-comment(href="{{ card.absoluteUrl }}")
+            +viewer
+              = comment.text
+
+        if($eq activityType 'addAttachment')
+          | {{{_ 'activity-attached' attachmentLink cardLink}}}.
+
+        span.activity-meta {{ moment createdAt }}
+
+template(name="cardActivities")
+  each currentCard.activities
+    .activity
+      +userAvatar(userId=user._id)
+      p.activity-desc
+        +memberName(user=user)
+        if($eq activityType 'createCard')
+          | {{_ 'activity-added' cardLabel list.title}}.
+        if($eq activityType 'joinMember')
+          if($eq currentUser._id member._id)
+            | {{_ 'activity-joined' cardLabel}}.
+          else
+            | {{{_ 'activity-added' cardLabel memberLink}}}.
+        if($eq activityType 'unjoinMember')
+          if($eq currentUser._id member._id)
+            | {{_ 'activity-unjoined' cardLabel}}.
+          else
+            | {{{_ 'activity-removed' cardLabel memberLink}}}.
+        if($eq activityType 'archivedCard')
+          | {{_ 'activity-archived' cardLabel}}.
+        if($eq activityType 'restoredCard')
+          | {{_ 'activity-sent' cardLabel boardLabel}}.
+        if($eq activityType 'moveCard')
+          | {{_ 'activity-moved' cardLabel oldList.title list.title}}.
+        if($eq activityType 'addAttachment')
+          | {{{_ 'activity-attached' attachmentLink cardLabel}}}.
+          if attachment.isImage
+            img.attachment-image-preview(src=attachment.url)
+
+        if($eq activityType 'addComment')
+          +inlinedForm(classNames='js-edit-comment')
+            +editor(autofocus=true)
+              = comment.text
+            .edit-controls
+              button.primary(type="submit") {{_ 'edit'}}
+          else
+            .activity-comment
+              +viewer
+                = comment.text
+            span.activity-meta
+              | {{ moment createdAt }} -
+              a.js-open-inlined-form {{_ "edit"}}
+              = ' - '
+              a.js-delete-comment {{_ "delete"}}
+
+        else
+          span.activity-meta {{ moment createdAt }}

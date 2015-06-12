@@ -130,8 +130,7 @@ Cards.helpers({
     return _.contains(this.members, memberId);
   },
   activities: function() {
-    return Activities.find({ type: 'card', cardId: this._id },
-                                                    { sort: { createdAt: -1 }});
+    return Activities.find({ cardId: this._id }, { sort: { createdAt: -1 }});
   },
   comments: function() {
     return CardComments.find({ cardId: this._id }, { sort: { createdAt: -1 }});
@@ -182,7 +181,6 @@ CardComments.before.insert(function(userId, doc) {
 if (Meteor.isServer) {
   Cards.after.insert(function(userId, doc) {
     Activities.insert({
-      type: 'card',
       activityType: 'createCard',
       boardId: doc.boardId,
       listId: doc.listId,
@@ -196,7 +194,6 @@ if (Meteor.isServer) {
     if (_.contains(fieldNames, 'archived')) {
       if (doc.archived) {
         Activities.insert({
-          type: 'card',
           activityType: 'archivedCard',
           boardId: doc.boardId,
           listId: doc.listId,
@@ -205,7 +202,6 @@ if (Meteor.isServer) {
         });
       } else {
         Activities.insert({
-          type: 'card',
           activityType: 'restoredCard',
           boardId: doc.boardId,
           listId: doc.listId,
@@ -221,7 +217,6 @@ if (Meteor.isServer) {
     var oldListId = this.previous.listId;
     if (_.contains(fieldNames, 'listId') && doc.listId !== oldListId) {
       Activities.insert({
-        type: 'card',
         activityType: 'moveCard',
         listId: doc.listId,
         oldListId: oldListId,
@@ -242,7 +237,6 @@ if (Meteor.isServer) {
       memberId = modifier.$addToSet.members;
       if (! _.contains(doc.members, memberId)) {
         Activities.insert({
-          type: 'card',
           activityType: 'joinMember',
           boardId: doc.boardId,
           cardId: doc._id,
@@ -256,7 +250,6 @@ if (Meteor.isServer) {
     if (modifier.$pull && modifier.$pull.members) {
       memberId = modifier.$pull.members;
       Activities.insert({
-        type: 'card',
         activityType: 'unjoinMember',
         boardId: doc.boardId,
         cardId: doc._id,
@@ -275,7 +268,6 @@ if (Meteor.isServer) {
 
   CardComments.after.insert(function(userId, doc) {
     Activities.insert({
-      type: 'comment',
       activityType: 'addComment',
       boardId: doc.boardId,
       cardId: doc.cardId,

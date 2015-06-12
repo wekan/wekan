@@ -19,14 +19,17 @@ template(name="userPopup")
       +userAvatar(userId=user._id)
       .info
         h3.bottom
-          a.js-profile(href="{{pathFor route='Profile' username=user.username}}")= user.profile.name
+          = user.profile.fullname
           p.quiet.bottom @{{ user.username }}
 
 template(name="memberName")
-  a.js-show-mem-menu(href="{{pathFor route='Profile' username=user.username}}")
+  if showBoth
     = user.profile.fullname
-    if username
-      | ({{ user.username }})
+    | ({{ user.username }})
+  else if user.profile.fullname
+    = user.profile.fullname
+  else
+    = user.username
 
 template(name="changeAvatarPopup")
   ul.pop-over-list
@@ -54,3 +57,14 @@ template(name="changeAvatarPopup")
   button.full.js-upload-avatar
     i.fa.fa-upload
     | Upload an avatar
+
+template(name="cardMemberPopup")
+  .board-member-menu
+    .mini-profile-info
+      +userAvatar(userId=user._id)
+      .info
+        h3.bottom= user.profile.fullname
+        p.quiet.bottom @{{ user.username }}
+    if currentUser.isBoardMember
+      ul.pop-over-list
+        li: a.js-remove-member {{_ 'remove-member-from-card'}}

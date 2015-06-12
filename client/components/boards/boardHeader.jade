@@ -106,9 +106,11 @@ template(name="createBoardPopup")
       p.quiet
         if $eq visibility.get 'public'
           span.fa.fa-globe.colorful
+          = " "
           | {{{_ 'board-public-info'}}}
         else
           span.fa.fa-lock.colorful
+          = " "
           | {{{_ 'board-private-info'}}}
         a.js-change-visibility Change.
     input.primary.wide(type="submit" value="{{_ 'create'}}")
