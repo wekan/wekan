@@ -1,5 +1,5 @@
-Template.WindowAttachmentsModule.events({
-  'click .js-attach': Popup.open('cardAttachments'),
+Template.attachmentsGalery.events({
+  'click .js-add-attachment': Popup.open('cardAttachments'),
   'click .js-confirm-delete': Popup.afterConfirm('attachmentDelete',
     function() {
       Attachments.remove(this._id);
@@ -21,22 +21,18 @@ Template.WindowAttachmentsModule.events({
 
 Template.cardAttachmentsPopup.events({
   'change .js-attach-file': function(evt) {
-    var card = this.card;
+    var card = this;
     FS.Utility.eachFile(evt, function(f) {
       var file = new FS.File(f);
-
-      // set Ids
       file.boardId = card.boardId;
       file.cardId  = card._id;
 
-      // upload file
       Attachments.insert(file);
-
       Popup.close();
     });
   },
-  'click .js-computer-upload': function(evt, t) {
-    t.find('.js-attach-file').click();
+  'click .js-computer-upload': function(evt, tpl) {
+    tpl.find('.js-attach-file').click();
     evt.preventDefault();
   }
 });

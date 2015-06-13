@@ -61,7 +61,11 @@ template(name="cardDetails")
         = description
     if attachments.count
       hr
-      +WindowAttachmentsModule(card=this)
+      h2
+        i.fa.fa-paperclip
+        | {{_ 'attachments'}}
+
+      +attachmentsGalery
 
     hr
     h2 {{ _ 'activity'}}

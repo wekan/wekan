@@ -49,6 +49,10 @@ BlazeComponent.extendComponent({
     return TAPi18n.__('this-board');
   },
 
+  cardLabel: function() {
+    return TAPi18n.__('this-card');
+  },
+
   cardLink: function() {
     var card = this.currentData().card();
     return Blaze.toHTML(HTML.A({
@@ -69,16 +73,6 @@ BlazeComponent.extendComponent({
       href: attachment.url(),
       'class': 'js-open-attachment-viewer'
     }, attachment.name()));
-  }
-}).register('activities');
-
-BlazeComponent.extendComponent({
-  template: function() {
-    return 'cardActivities';
-  },
-
-  cardLabel: function() {
-    return TAPi18n.__('this-card');
   },
 
   events: function() {
@@ -102,4 +96,4 @@ BlazeComponent.extendComponent({
       }
     }];
   }
-}).register('cardActivities');
+}).register('activities');

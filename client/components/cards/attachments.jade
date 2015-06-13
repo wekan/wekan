@@ -1,0 +1,40 @@
+template(name="cardAttachmentsPopup")
+  ul.pop-over-list
+    li
+      input.js-attach-file.hide(type="file" name="file" multiple)
+      a.js-computer-upload {{_ 'computer'}}
+
+template(name="attachmentDeletePopup")
+  p {{_ "attachment-delete-pop"}}
+  button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
+
+template(name="attachmentsGalery")
+  .attachments-galery
+    each attachments
+      a.attachment-item.js-open-viewer(title="{{_ 'added'}} {{ moment uploadedAt }}")
+        .attachment-thumbnail
+          if isUploaded
+            if isImage
+              img.attachment-thumbnail-img(src=url)
+            else
+              span.attachment-thumbnail-ext= extension
+          else
+            +spinner
+        p.attachment-details
+          = name
+          span.attachment-details-actions
+            a.js-download
+              i.fa.fa-download
+              | {{_ 'download'}}
+            if isImage
+              a(class="{{#if $eq ../coverId _id}}js-remove-cover{{else}}js-add-cover{{/if}}")
+                i.fa.fa-thumb-tack
+                if($eq ../coverId _id)
+                  | {{_ 'remove-cover'}}
+                else
+                  | {{_ 'add-cover'}}
+            a.js-confirm-delete
+              i.fa.fa-close
+              | {{_ 'delete'}}
+
+    a.attachment-item.add-attachment.js-add-attachment {{_ 'add-attachment' }}
