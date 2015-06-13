@@ -34,6 +34,7 @@ BlazeComponent.extendComponent({
   open: function() {
     if (! this._isOpen.get()) {
       this._isOpen.set(true);
+      EscapeActions.executeUpTo('detailsPane');
     }
   },
 
@@ -67,7 +68,10 @@ BlazeComponent.extendComponent({
 
   setView: function(view) {
     view = _.isString(view) ? view : defaultView;
-    this._view.set(view);
+    if (this._view.get() !== view) {
+      this._view.set(view);
+      EscapeActions.executeUpTo('detailsPane');
+    }
     this.open();
   },
 
