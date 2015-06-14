@@ -16,3 +16,11 @@ template(name="defaultLayout")
     #content
       +yield
 
+template(name="notfound")
+  +message(label='page-not-found')
+
+template(name="message")
+  .big-message.quiet(class=color)
+    h1 {{_ label}}
+    with(pathFor route='atSignIn')
+      p {{{_ 'page-maybe-private' this}}}

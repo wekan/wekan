@@ -5,3 +5,9 @@ template(name="editor")
     autofocus=autofocus
     placeholder="{{_ 'comment-placeholder'}}")
     +Template.contentBlock
+
+template(name="viewer")
+  +mentions
+    +emoji
+      +markdown
+        {{> UI.contentBlock }}
