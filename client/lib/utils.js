@@ -37,23 +37,26 @@ Utils = {
   },
 
   // Determine the new sort index
-  getSortIndex: function(prevCardDomElement, nextCardDomElement) {
+  calculateIndex: function(prevCardDomElement, nextCardDomElement, nCards) {
+    nCards = nCards || 1;
+
     // If we drop the card to an empty column
     if (! prevCardDomElement && ! nextCardDomElement) {
-      return 0;
+      return {base: 0, increment: 1};
     // If we drop the card in the first position
     } else if (! prevCardDomElement) {
-      return Blaze.getData(nextCardDomElement).sort - 1;
+      return {base: Blaze.getData(nextCardDomElement).sort - 1, increment: -1};
     // If we drop the card in the last position
     } else if (! nextCardDomElement) {
-      return Blaze.getData(prevCardDomElement).sort + 1;
+      return {base: Blaze.getData(prevCardDomElement).sort + 1, increment: 1};
     }
     // In the general case take the average of the previous and next element
     // sort indexes.
     else {
       var prevSortIndex = Blaze.getData(prevCardDomElement).sort;
       var nextSortIndex = Blaze.getData(nextCardDomElement).sort;
-      return (prevSortIndex + nextSortIndex) / 2;
+      var increment = (nextSortIndex - prevSortIndex) / (nCards + 1);
+      return {base: prevSortIndex + increment, increment: increment};
     }
   }
 };

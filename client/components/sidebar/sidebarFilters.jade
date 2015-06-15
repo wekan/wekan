@@ -1,7 +1,7 @@
 //-
-  XXX There is a *lot* of code duplication in the above templates and in the
+  XXX There is a *lot* of code duplication in the below templates and in the
   corresponding JavaScript components. We will probably need the upcoming #let
-  and #each x in y constructors.
+  and #each x in y constructors to fix this.
 
 template(name="filterSidebar")
   ul.sidebar-list
@@ -16,22 +16,27 @@ template(name="filterSidebar")
               span.quiet {{_ "label-default" color}}
           if Filter.labelIds.isSelected _id
             i.fa.fa-check
+  hr
+  ul.sidebar-list
+    each currentBoard.members
+      if isActive
+        with getUser userId
+          li(class="{{#if Filter.members.isSelected _id}}active{{/if}}")
+            a.name.js-toogle-member-filter
+              +userAvatar(userId=this._id)
+              span.sidebar-list-item-description
+                = profile.name
+                | (<span class="username">{{ username }}</span>)
+              if Filter.members.isSelected _id
+                i.fa.fa-check
+  if Filter.isActive
     hr
-    ul.sidebar-list
-      each currentBoard.members
-        if isActive
-          with getUser userId
-            li(class="{{#if Filter.members.isSelected _id}}active{{/if}}")
-              a.name.js-toogle-member-filter
-                +userAvatar(userId=this._id)
-                span.sidebar-list-item-description
-                  = profile.name
-                  | (<span class="username">{{ username }}</span>)
-                if Filter.members.isSelected _id
-                  i.fa.fa-check
-    hr
-    a.js-clear-all(class="{{#unless Filter.isActive}}disabled{{/unless}}")
-      | {{_ 'filter-clear'}}
+    a.sidebar-btn.js-clear-all
+      i.fa.fa-filter
+      span {{_ 'filter-clear'}}
+    a.sidebar-btn.js-filter-to-selection
+      i.fa.fa-check-square-o
+      span Filter to selection
 
 template(name="multiselectionSidebar")
   ul.sidebar-list
@@ -48,10 +53,32 @@ template(name="multiselectionSidebar")
             i.fa.fa-check
           else if someSelectedElementHave 'label' _id
             i.fa.fa-ellipsis-h
-  //-
-    XXX We should be able to assign a member to the list of selected cards.
+  hr
+  ul.sidebar-list
+    each currentBoard.members
+      if isActive
+        with getUser userId
+          li(class="{{#if Filter.members.isSelected _id}}active{{/if}}")
+            a.name.js-toogle-member-multiselection
+              +userAvatar(userId=this._id)
+              span.sidebar-list-item-description
+                = profile.name
+                | (<span class="username">{{ username }}</span>)
+              if allSelectedElementHave 'member' _id
+                i.fa.fa-check
+              else if someSelectedElementHave 'member' _id
+                i.fa.fa-ellipsis-h
+  hr
+  a.sidebar-btn.js-archive-selection
+    i.fa.fa-archive
+    span Archive selection
 
 template(name="disambiguateMultiLabelPopup")
   p What do you want to do?
   button.wide.js-remove-label Remove the label
   button.wide.js-add-label Add the label
+
+template(name="disambiguateMultiMemberPopup")
+  p What do you want to do?
+  button.wide.js-unassign-member Unassign member
+  button.wide.js-assign-member Assign member

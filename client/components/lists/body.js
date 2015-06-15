@@ -27,10 +27,12 @@ BlazeComponent.extendComponent({
     var title = textarea.val();
     var position = Blaze.getData(evt.currentTarget).position;
     var sortIndex;
+    var firstCard = this.find('.js-minicard:first');
+    var lastCard = this.find('.js-minicard:last');
     if (position === 'top') {
-      sortIndex = Utils.getSortIndex(null, this.find('.js-minicard:first'));
+      sortIndex = Utils.calculateIndex(null, firstCard).base;
     } else if (position === 'bottom') {
-      sortIndex = Utils.getSortIndex(this.find('.js-minicard:last'), null);
+      sortIndex = Utils.calculateIndex(lastCard, null).base;
     }
 
     if ($.trim(title)) {

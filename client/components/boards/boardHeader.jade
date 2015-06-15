@@ -21,24 +21,20 @@ template(name="headerBoard")
         title="{{#if Filter.isActive}}{{_ 'filter-on-desc'}}{{/if}}"
         class="{{#if Filter.isActive}}emphasis{{/if}}")
       i.fa.fa-filter
+      span {{#if Filter.isActive}}{{_ 'filter-on'}}{{else}}{{_ 'filter'}}{{/if}}
       if Filter.isActive
-        span {{_ 'filter-on'}}
         a.board-header-btn-close.js-filter-reset(title="{{_ 'filter-clear'}}")
           i.fa.fa-times-thin
-      else
-        span {{_ 'filter'}}
 
     if currentUser.isBoardMember
       a.board-header-btn.js-multiselection-activate(
           title="{{#if MultiSelection.isActive}}{{_ 'filter-on-desc'}}{{/if}}"
           class="{{#if MultiSelection.isActive}}emphasis{{/if}}")
         i.fa.fa-check-square-o
+        span Multi-Selection {{#if MultiSelection.isActive}}is on{{/if}}
         if MultiSelection.isActive
-          span Multi-Selection is on
           a.board-header-btn-close.js-multiselection-reset(title="{{_ 'filter-clear'}}")
             i.fa.fa-times-thin
-        else
-          span Multi-Selection
 
     .separator
     a.board-header-btn.js-open-board-menu

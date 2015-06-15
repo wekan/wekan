@@ -5,19 +5,26 @@ BlazeComponent.extendComponent({
 
   events: function() {
     return [{
-      'click .js-toggle-label-filter': function(event) {
+      'click .js-toggle-label-filter': function(evt) {
+        evt.preventDefault();
         Filter.labelIds.toogle(this.currentData()._id);
         Filter.resetExceptions();
-        event.preventDefault();
       },
-      'click .js-toogle-member-filter': function(event) {
+      'click .js-toogle-member-filter': function(evt) {
+        evt.preventDefault();
         Filter.members.toogle(this.currentData()._id);
         Filter.resetExceptions();
-        event.preventDefault();
       },
-      'click .js-clear-all': function(event) {
+      'click .js-clear-all': function(evt) {
+        evt.preventDefault();
         Filter.reset();
-        event.preventDefault();
+      },
+      'click .js-filter-to-selection': function(evt) {
+        evt.preventDefault();
+        var selectedCards = Cards.find(Filter.mongoSelector()).map(function(c) {
+          return c._id;
+        });
+        MultiSelection.add(selectedCards);
       }
     }];
   }
@@ -57,7 +64,7 @@ BlazeComponent.extendComponent({
 
   events: function() {
     return [{
-      'click .js-toggle-label-multiselection': function(evt, tpl) {
+      'click .js-toggle-label-multiselection': function(evt) {
         var labelId = this.currentData()._id;
         var mappedSelection = this.mapSelection('label', labelId);
         var operation;
@@ -69,7 +76,7 @@ BlazeComponent.extendComponent({
           var popup = Popup.open('disambiguateMultiLabel');
           // XXX We need to have a better integration between the popup and the
           // UI components systems.
-          return popup.call(this.currentData(), evt, tpl);
+          return popup.call(this.currentData(), evt);
         }
 
         var query = {};
@@ -77,6 +84,30 @@ BlazeComponent.extendComponent({
           labelIds: labelId
         };
         updateSelectedCards(query);
+      },
+      'click .js-toogle-member-multiselection': function(evt) {
+        var memberId = this.currentData()._id;
+        var mappedSelection = this.mapSelection('member', memberId);
+        var operation;
+        if (_.every(mappedSelection))
+          operation = '$pull';
+        else if (_.every(mappedSelection, function(bool) { return ! bool; }))
+          operation = '$addToSet';
+        else {
+          var popup = Popup.open('disambiguateMultiMember');
+          // XXX We need to have a better integration between the popup and the
+          // UI components systems.
+          return popup.call(this.currentData(), evt);
+        }
+
+        var query = {};
+        query[operation] = {
+          members: memberId
+        };
+        updateSelectedCards(query);
+      },
+      'click .js-archive-selection': function() {
+        updateSelectedCards({$set: {archived: true}});
       }
     }];
   }
@@ -89,6 +120,17 @@ Template.disambiguateMultiLabelPopup.events({
   },
   'click .js-add-label': function() {
     updateSelectedCards({$addToSet: {labelIds: this._id}});
+    Popup.close();
+  }
+});
+
+Template.disambiguateMultiMemberPopup.events({
+  'click .js-unassign-member': function() {
+    updateSelectedCards({$pull: {members: this._id}});
+    Popup.close();
+  },
+  'click .js-assign-member': function() {
+    updateSelectedCards({$addToSet: {members: this._id}});
     Popup.close();
   }
 });

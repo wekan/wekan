@@ -153,6 +153,6 @@ Mousetrap.bindGlobal('esc', function() {
 $(document).on('click', function(evt) {
   if (evt.which === 1 &&
     $(evt.target).closest('a,button,.is-editable').length === 0) {
-    EscapeActions.clickExecute(evt, 'detailsPane');
+    EscapeActions.clickExecute(evt, 'multiselection');
   }
 });

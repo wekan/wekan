@@ -72,17 +72,21 @@ MultiSelection = {
     return this._isActive.get();
   },
 
+  count: function() {
+    return Cards.find(this.getMongoSelector()).count();
+  },
+
   isEmpty: function() {
-    return this._selectedCards.get().length === 0;
+    return this.count() === 0;
   },
 
   activate: function() {
     if (! this.isActive()) {
       EscapeActions.executeUpTo('detailsPane');
       this._isActive.set(true);
-      Sidebar.setView(this.sidebarView);
       Tracker.flush();
     }
+    Sidebar.setView(this.sidebarView);
   },
 
   disable: function() {
@@ -152,5 +156,7 @@ Blaze.registerHelper('MultiSelection', MultiSelection);
 
 EscapeActions.register('multiselection',
   function() { MultiSelection.disable(); },
-  function() { return MultiSelection.isActive(); }
+  function() { return MultiSelection.isActive(); }, {
+    noClickEscapeOn: '.js-minicard,.js-board-sidebar-content'
+  }
 );

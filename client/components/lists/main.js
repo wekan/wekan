@@ -56,22 +56,23 @@ BlazeComponent.extendComponent({
       stop: function(evt, ui) {
         // To attribute the new index number, we need to get the dom element
         // of the previous and the following card -- if any.
-        var cardDomElement = ui.item.get(0);
-        var prevCardDomElement = ui.item.prev('.js-minicard').get(0);
-        var nextCardDomElement = ui.item.next('.js-minicard').get(0);
-        var sort = Utils.getSortIndex(prevCardDomElement, nextCardDomElement);
+        var prevCardDom = ui.item.prev('.js-minicard').get(0);
+        var nextCardDom = ui.item.next('.js-minicard').get(0);
+        var nCards = MultiSelection.isActive() ? MultiSelection.count() : 1;
+        var sortIndex = Utils.calculateIndex(prevCardDom, nextCardDom, nCards);
         var listId = Blaze.getData(ui.item.parents('.list').get(0))._id;
 
         if (MultiSelection.isActive()) {
-          Cards.find(MultiSelection.getMongoSelector()).forEach(function(c) {
+          Cards.find(MultiSelection.getMongoSelector()).forEach(function(c, i) {
             Cards.update(c._id, {
               $set: {
                 listId: listId,
-                sort: sort
+                sort: sortIndex.base + i * sortIndex.increment
               }
             });
           });
         } else {
+          var cardDomElement = ui.item.get(0);
           var cardId = Blaze.getData(cardDomElement)._id;
           Cards.update(cardId, {
             $set: {
@@ -79,7 +80,7 @@ BlazeComponent.extendComponent({
               // XXX Using the same sort index for multiple cards is
               // unacceptable. Keep that only until we figure out if we want to
               // refactor the whole sorting mecanism or do something more basic.
-              sort: sort
+              sort: sortIndex.base
             }
           });
         }
