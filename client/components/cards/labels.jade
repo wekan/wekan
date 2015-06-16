@@ -1,12 +1,11 @@
 template(name="formLabel")
-  .colors
   label(for="labelName") {{_ 'name'}}
   input.js-label-name#labelName(type="text" name="name" value=name autofocus)
 
   label {{_ "select-color"}}
-  each labels
-    span.card-label.card-label--selectable.palette-color.js-palette-color(class="card-label-{{color}}")
-      if($eq color ../color)
+  .palette-colors: each labels
+    span.card-label.palette-color.js-palette-color(class="card-label-{{color}}")
+      if(isSelected color)
         i.fa.fa-check
 
 template(name="createLabelPopup")
@@ -21,7 +20,18 @@ template(name="editLabelPopup")
     button.primary.wide.left(type="submit") {{_ 'save'}}
     span.right
 
-
 template(name="deleteLabelPopup")
   p {{_ "label-delete-pop"}}
   button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
+
+template(name="cardLabelsPopup")
+  ul.edit-labels-pop-over
+    each board.labels
+      li
+        a.card-label-edit-button.fa.fa-pencil.js-edit-label
+        span.card-label.card-label-selectable.js-select-label(class="card-label-{{color}}"
+          class="{{# if isLabelSelected ../_id }}active{{/ if }}")
+            = name
+            if currentUser.isBoardAdmin
+              span.card-label-selectable-icon.fa.fa-check
+  a.quiet-button.full.js-add-label {{_ 'label-create'}}
