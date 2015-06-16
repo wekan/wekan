@@ -140,44 +140,117 @@ dl, dt
 dd
   margin: 0 0 16px 24px
 
+.clear
+  clear: both
+
+.clearfix
+  clearfix()
+
+.hide
+  display: none
+
+.show
+  display: block
+
+.bold
+  font-weight: 700
+
+.center
+  text-align: center
+
+.left
+  float: left
+
+.right
+  float: right
+
+.first
+  margin-left: 0
+  padding-left: 0
+
+.last
+  margin-right: 0
+  padding-right: 0
+
+.top
+  margin-top: 0
+  padding-top: 0
+
+.bottom
+  margin-bottom: 0
+  padding-bottom: 0
+
+.relative
+  position: relative
+
+.block
+  display: block
+
+.inline
+  display: inline
+
+.inline-block
+  display: inline-block
+
+.pointer
+  cursor: pointer
+
+.ellip
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
+
+.underline
+  text-decoration: underline
+
+.lowercase
+  text-transform: lowercase
+
+.invisible
+  visibility: hidden
+
+.wrapword
+  word-wrap: break-word
+
+.grab
+  cursor: grab
+
+.grabbing
+  cursor: grabbing
+
+.emoji
+  height: 18px
+  width: 18px
+  vertical-align: text-bottom
+
+// Implement a thiner close icon as suggested in
+// https://github.com/FortAwesome/Font-Awesome/issues/1540#issuecomment-68689950
+.fa.fa-times-thin:before
+  content: '\00d7';
+
+.fa.fa-globe.colorful
+  color: #4caf50
+
+.fa.fa-lock.colorful
+  color: #f44336
+
+.pop-over .pop-over-list li a:hover
+  .fa, .fa.colorful
+    color: white
+
+    &:hover
+      color: white
+
+a
+  &.fa, i.fa
+    color: darken(white, 35%)
+
+  &:hover, &.is-active
+    &.fa, i.fa
+      color: darken(white, 60%)
+
 .ui-draggable-dragging
   z-index: 200
-
-.board-backgrounds-list
-
-  .board-background-select
-    box-sizing: border-box
-    display: block
-    float: left
-    width: 50%
-    padding-top: 12px
-    position: relative
-    z-index: 1
-
-    &:nth-child(-n + 2)
-      padding-top: 0
-
-    &:nth-child(2n)
-      padding-left: 6px
-
-    &:nth-child(2n+1)
-      padding-right: 6px
-
-    .background-box
-      border-radius: 3px
-      background-size: cover
-      display: block
-      height: 74px
-      position: relative
-      width: 100%
-      cursor: pointer
-      display: flex
-      align-items: center
-      justify-content: center
-
-      i.fa-check
-        font-size: 25px
-        color: white
 
 .atMention
   background: #dbdbdb
@@ -205,6 +278,11 @@ dd
 
 .gutter
   margin-left: 38px
+
+.viewer
+  ul
+    list-style-type: initial
+    padding-left: 20px
 
 @keyframes fadeIn
   from
