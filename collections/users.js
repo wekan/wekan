@@ -42,7 +42,7 @@ Users.helpers({
       }, '').toUpperCase();
 
     } else {
-      return this.pseudo[0].toUpperCase();
+      return this.username[0].toUpperCase();
     }
   },
 
