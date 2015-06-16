@@ -62,6 +62,10 @@ BlazeComponent.extendComponent({
     return this.isOpen() && this.getView() !== defaultView;
   },
 
+  scrollTop: function() {
+    this.$('.js-board-sidebar-content').scrollTop(0);
+  },
+
   getView: function() {
     return this._view.get();
   },
@@ -70,6 +74,7 @@ BlazeComponent.extendComponent({
     view = _.isString(view) ? view : defaultView;
     if (this._view.get() !== view) {
       this._view.set(view);
+      this.scrollTop();
       EscapeActions.executeUpTo('detailsPane');
     }
     this.open();
@@ -85,42 +90,6 @@ BlazeComponent.extendComponent({
 
   getViewTitle: function() {
     return TAPi18n.__(viewTitles[this.getView()]);
-  },
-
-  // Board members can assign people or labels by drag-dropping elements from
-  // the sidebar to the cards on the board. In order to re-initialize the
-  // jquery-ui plugin any time a draggable member or label is modified or
-  // removed we use a autorun function and register a dependency on the both
-  // members and labels fields of the current board document.
-  onRendered: function() {
-    var self = this;
-    if (! Meteor.userId() || ! Meteor.user().isBoardMember())
-      return;
-
-    self.autorun(function() {
-      var currentBoardId = Tracker.nonreactive(function() {
-        return Session.get('currentBoard');
-      });
-      Boards.findOne(currentBoardId, {
-        fields: {
-          members: 1,
-          labels: 1
-        }
-      });
-      Tracker.afterFlush(function() {
-        self.$('.js-member,.js-label').draggable({
-          appendTo: 'body',
-          helper: 'clone',
-          revert: 'invalid',
-          revertDuration: 150,
-          snap: false,
-          snapMode: 'both',
-          start: function() {
-            EscapeActions.executeUpTo('popup');
-          }
-        });
-      });
-    });
   },
 
   events: function() {
@@ -185,6 +154,45 @@ Template.labelsWidget.events({
   'click .js-label': Popup.open('editLabel'),
   'click .js-add-label': Popup.open('createLabel')
 });
+
+// Board members can assign people or labels by drag-dropping elements from the
+// sidebar to the cards on the board. In order to re-initialize the jquery-ui
+// plugin any time a draggable member or label is modified or removed we use a
+// autorun function and register a dependency on the both members and labels
+// fields of the current board document.
+var draggableMembersLabelsWidgets = function() {
+  var self = this;
+  if (! Meteor.userId() || ! Meteor.user().isBoardMember())
+    return;
+
+  self.autorun(function() {
+    var currentBoardId = Tracker.nonreactive(function() {
+      return Session.get('currentBoard');
+    });
+    Boards.findOne(currentBoardId, {
+      fields: {
+        members: 1,
+        labels: 1
+      }
+    });
+    Tracker.afterFlush(function() {
+      self.$('.js-member,.js-label').draggable({
+        appendTo: 'body',
+        helper: 'clone',
+        revert: 'invalid',
+        revertDuration: 150,
+        snap: false,
+        snapMode: 'both',
+        start: function() {
+          EscapeActions.executeUpTo('popup');
+        }
+      });
+    });
+  });
+};
+
+Template.membersWidget.onRendered(draggableMembersLabelsWidgets);
+Template.labelsWidget.onRendered(draggableMembersLabelsWidgets);
 
 Template.addMemberPopup.helpers({
   isBoardMember: function() {
