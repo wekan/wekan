@@ -47,9 +47,9 @@ underscore
 
 # UI components
 fortawesome:fontawesome
-linto:jquery-ui
 mousetrap:mousetrap
 mquandalle:jquery-textcomplete
+mquandalle:jquery-ui-drag-drop-sort
 peerlibrary:blaze-components
 perak:markdown
 reactive-var

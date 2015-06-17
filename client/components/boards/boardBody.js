@@ -72,10 +72,10 @@ BlazeComponent.extendComponent({
 
     self.$(lists).sortable({
       tolerance: 'pointer',
-      appendTo: '.js-lists',
       helper: 'clone',
       items: '.js-list:not(.js-list-composer)',
       placeholder: 'list placeholder',
+      distance: 7,
       start: function(evt, ui) {
         ui.placeholder.height(ui.helper.height());
         Popup.close();

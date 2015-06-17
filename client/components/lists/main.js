@@ -12,25 +12,25 @@ BlazeComponent.extendComponent({
     this.newCardFormIsVisible = new ReactiveVar(true);
   },
 
-  // XXX The jQuery UI sortable plugin is far from ideal here. First we include
-  // all jQuery components but only use one. Second, it modifies the DOM itself,
-  // resulting in Blaze abandoning reactive update of the nodes that have been
-  // moved which result in bugs if multiple users use the board in real time. I
-  // tried sortable:sortable but that was not better. And dragula is not
-  // powerful enough for our use casesShould we “simply” write the drag&drop
-  // code ourselves?
+  // The jquery UI sortable library is the best solution I've found so far. I
+  // tried sortable and dragula but they were not powerful enough four our use
+  // case. I also considered writing/forking a drag-and-drop + sortable library
+  // but it's probably too much work.
+  // By calling asking the sortable library to cancel its move on the `stop`
+  // callback, we basically solve all issues related to reactive updates. A
+  // comment below provides further details.
   onRendered: function() {
     var self = this;
     if (! Meteor.userId() || ! Meteor.user().isBoardMember())
       return;
 
     var boardComponent = self.componentParent();
-    var itemsSelector = '.js-minicard:not(.placeholder, .js-composer)';
+    var itemsSelector = '.js-minicard:not(.placeholder, .js-card-composer)';
     var $cards = self.$('.js-minicards');
     $cards.sortable({
       connectWith: '.js-minicards',
       tolerance: 'pointer',
-      appendTo: '.js-lists',
+      appendTo: '#surface',
       helper: function(evt, item) {
         var helper = item.clone();
         if (MultiSelection.isActive()) {
@@ -46,7 +46,9 @@ BlazeComponent.extendComponent({
         }
         return helper;
       },
+      distance: 7,
       items: itemsSelector,
+      scroll: false,
       placeholder: 'minicard-wrapper placeholder',
       start: function(evt, ui) {
         ui.placeholder.height(ui.helper.height());
@@ -54,13 +56,22 @@ BlazeComponent.extendComponent({
         boardComponent.setIsDragging(true);
       },
       stop: function(evt, ui) {
-        // To attribute the new index number, we need to get the dom element
+        // To attribute the new index number, we need to get the DOM element
         // of the previous and the following card -- if any.
         var prevCardDom = ui.item.prev('.js-minicard').get(0);
         var nextCardDom = ui.item.next('.js-minicard').get(0);
         var nCards = MultiSelection.isActive() ? MultiSelection.count() : 1;
         var sortIndex = Utils.calculateIndex(prevCardDom, nextCardDom, nCards);
         var listId = Blaze.getData(ui.item.parents('.list').get(0))._id;
+
+        // Normally the jquery-ui sortable library moves the dragged DOM element
+        // to its new position, which disrupts Blaze reactive updates mechanism
+        // (especially when we move the last card of a list, or when multiple
+        // users move some cards at the same time). To prevent these UX glitches
+        // we ask sortable to gracefully cancel the move, and to put back the
+        // DOM in its initial state. The card move is then handled reactively by
+        // Blaze with the below query.
+        $cards.sortable('cancel');
 
         if (MultiSelection.isActive()) {
           Cards.find(MultiSelection.getMongoSelector()).forEach(function(c, i) {
@@ -77,9 +88,6 @@ BlazeComponent.extendComponent({
           Cards.update(cardId, {
             $set: {
               listId: listId,
-              // XXX Using the same sort index for multiple cards is
-              // unacceptable. Keep that only until we figure out if we want to
-              // refactor the whole sorting mecanism or do something more basic.
               sort: sortIndex.base
             }
           });
