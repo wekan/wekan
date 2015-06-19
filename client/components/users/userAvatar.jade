@@ -9,6 +9,11 @@ template(name="userAvatar")
       span.member-presence-status(class=presenceStatusClassName)
       span.member-type(class=memberType)
 
+    if showEdit
+      if $eq currentUser._id userData._id
+        a.edit-avatar.js-change-avatar
+          i.fa.fa-pencil
+
 template(name="userAvatarInitials")
   svg.avatar.avatar-initials(viewBox="0 0 {{viewPortWidth}} 15")
     text(x="0" y="13")= initials
@@ -18,9 +23,8 @@ template(name="userPopup")
     .mini-profile-info
       +userAvatar(userId=user._id)
       .info
-        h3.bottom
-          = user.profile.fullname
-          p.quiet.bottom @{{ user.username }}
+        h3= user.profile.fullname
+        p.quiet @{{ user.username }}
 
 template(name="memberName")
   if showBoth
@@ -61,10 +65,14 @@ template(name="changeAvatarPopup")
 template(name="cardMemberPopup")
   .board-member-menu
     .mini-profile-info
-      +userAvatar(userId=user._id)
+      +userAvatar(userId=user._id showEdit=true)
       .info
-        h3.bottom= user.profile.fullname
-        p.quiet.bottom @{{ user.username }}
+        h3= user.profile.fullname
+        p.quiet @{{ user.username }}
     if currentUser.isBoardMember
       ul.pop-over-list
         li: a.js-remove-member {{_ 'remove-member-from-card'}}
+
+        if $eq currentUser._id user._id
+          with currentUser
+            li: a.js-edit-profile Edit Profile

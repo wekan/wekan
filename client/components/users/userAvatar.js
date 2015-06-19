@@ -26,6 +26,10 @@ Template.userAvatar.helpers({
   }
 });
 
+Template.userAvatar.events({
+  'click .js-change-avatar': Popup.open('changeAvatar')
+});
+
 Template.userAvatarInitials.helpers({
   initials: function() {
     var user = Users.findOne(this.userId);
@@ -142,9 +146,16 @@ Template.cardMembersPopup.events({
   }
 });
 
+Template.cardMemberPopup.helpers({
+  user: function() {
+    return Users.findOne(this.userId);
+  }
+});
+
 Template.cardMemberPopup.events({
   'click .js-remove-member': function() {
     Cards.update(this.cardId, {$pull: {members: this.userId}});
     Popup.close();
-  }
+  },
+  'click .js-edit-profile': Popup.open('editProfile')
 });

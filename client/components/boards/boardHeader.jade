@@ -44,8 +44,9 @@ template(name="boardMenuPopup")
   if currentUser.isBoardMember
     ul.pop-over-list
       li: a.js-open-archives Archived elements
-      li: a.js-change-board-color Change color
-      li: a Permissions
+      if currentUser.isBoardAdmin
+        li: a.js-change-board-color Change color
+        li: a Permissions
     hr
   ul.pop-over-list
     li: a Copy this board

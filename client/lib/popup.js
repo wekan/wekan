@@ -16,6 +16,10 @@ Popup = {
     var self = this;
     var popupName = name + 'Popup';
 
+    var clickFromPopup = function(evt) {
+      return $(evt.target).closest('.js-pop-over').length !== 0;
+    };
+
     return function(evt) {
       // If a popup is already openened, clicking again on the opener element
       // should close it -- and interupt the current `open` function.
@@ -34,7 +38,7 @@ Popup = {
       // has one. This allows us to position a sub-popup exactly at the same
       // position than its parent.
       var openerElement;
-      if (self._hasPopupParent()) {
+      if (clickFromPopup(evt)) {
         openerElement = self._getTopStack().openerElement;
       } else {
         self._stack = [];
@@ -47,9 +51,8 @@ Popup = {
       // We push our popup data to the stack. The top of the stack is always
       // used as the data source for our current popup.
       self._stack.push({
-        __isPopup: true,
         popupName: popupName,
-        hasPopupParent: self._hasPopupParent(),
+        hasPopupParent: clickFromPopup(evt),
         title: self._getTitle(popupName),
         openerElement: openerElement,
         depth: self._stack.length,
@@ -153,15 +156,6 @@ Popup = {
   // An utility fonction that returns the top element of the internal stack
   _getTopStack: function() {
     return this._stack[this._stack.length - 1];
-  },
-
-  // We use the blaze API to determine if the current popup has been opened from
-  // a parent popup. The number we give to the `Template.parentData` has been
-  // determined experimentally and is susceptible to change if you modify the
-  // `Popup.template`
-  _hasPopupParent: function() {
-    var tryParentData = Template.parentData(3);
-    return !! (tryParentData && tryParentData.__isPopup);
   },
 
   // We automatically calculate the popup offset from the reference element

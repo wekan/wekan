@@ -56,39 +56,24 @@ avatar-radius = 50%
       background: #bdbdbd
       border-color: #ededed
 
-  &.extra-small
-    .avatar-initials
-      font-size: 9px
-      width: 18px
-      height: 18px
-      line-height: 18px
+  .edit-avatar
+    position: absolute
+    top: 0
+    height: 100%
+    width: 100%
+    border-radius: avatar-radius
+    background: black
+    display: flex
+    align-items: center
+    justify-content: center
+    opacity: 0
 
-    .avatar-image
-      width: 18px
-      height: 18px
+    &:hover
+      opacity: 0.6
 
-  &.small
-    width: 30px
-    height: 30px
+    i.fa-pencil
+      color: white
 
-    .avatar-initials
-      font-size: 12px
-      line-height: 30px
-
-  &.large
-    height: 85px
-    line-height: 85px
-    width: 85px
-
-    .avatar
-      width: 85px
-      height: 85px
-
-      .avatar-initials
-        font-size: 16px
-        font-weight: 700
-        line-height: 85px
-        width: 85px
 
   &.add-member
     display: flex
@@ -106,3 +91,19 @@ avatar-radius = 50%
   &.me
     background: #cfdfe8
 
+.mini-profile-info
+  margin-top: 10px
+
+  .info
+    padding-top: 5px
+
+    h3, p
+      margin-bottom: 0
+
+    p
+      padding-top: 0
+
+  .member
+    width: 50px
+    height: @width
+    margin-right: 10px
