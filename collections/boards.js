@@ -102,7 +102,7 @@ if (Meteor.isServer) {
       if (nbAdmins > 1)
         return false;
 
-      // If all the previous conditions where verified, we can't remove
+      // If all the previous conditions were verified, we can't remove
       // a user if it's an admin
       var removedMemberId = modifier.$pull.members.userId;
       return !! _.findWhere(doc.members, {
