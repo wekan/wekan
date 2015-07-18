@@ -25,10 +25,11 @@ BlazeComponent.extendComponent({
 
   events: function() {
     return [{
+      'click .js-add-board': Popup.open('createBoard'),
       'click .js-star-board': function(evt) {
         Meteor.user().toggleBoardStar(this._id);
         evt.preventDefault();
-      }
+      },
     }];
   }
 }).register('boardList');

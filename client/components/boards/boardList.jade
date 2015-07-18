@@ -6,7 +6,7 @@ template(name="boards")
   +boardList
 
 template(name="boardList")
-  if boards
+  if boards.count
     ul.board-list.clearfix
       each boards
         li(class="{{#if isStarred}}starred{{/if}}" class=colorClass)
@@ -17,5 +17,6 @@ template(name="boardList")
                 class="{{#if isStarred}}is-star-active{{/if}}"
                 title="{{_ 'star-board-title'}}")
   else
-    p.quiet {{_ 'no-boards'}}
-    button.js-add-board {{_ 'add-board'}}
+    ul.board-list.clearfix
+      li.js-add-board
+        a.label {{_ 'add-board'}}
