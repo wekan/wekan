@@ -53,7 +53,7 @@ template(name="memberPopup")
       .info
         h3.bottom
           .js-profile
-            = user.profile.name
+            = user.profile.fullname
         p.quiet.bottom @#{user.username}
 
     if currentUser.isBoardMember
@@ -73,7 +73,7 @@ template(name="memberPopup")
 
 
 template(name="removeMemberPopup")
-  p {{_ 'remove-member-pop' name=user.profile.name username=user.username boardTitle=board.title}}
+  p {{_ 'remove-member-pop' name=user.profile.fullname username=user.username boardTitle=board.title}}
   button.js-confirm.negate.full(type="submit") {{_ 'remove-member'}}
 
 template(name="addMemberPopup")
@@ -83,10 +83,10 @@ template(name="addMemberPopup")
   ul.pop-over-member-list
     +esEach(index="users")
       li.item.js-member-item(class="{{#if isBoardMember }}disabled{{/if}}")
-        a.name.js-select-member(title="{{ profile.name }} ({{ username }})")
+        a.name.js-select-member(title="{{ profile.fullname }} ({{ username }})")
           +userAvatar(userId=_id)
           span.full-name
-            = profile.name
+            = profile.fullname
             | (<span class="username">{{ username }}</span>)
           if isBoardMember
             .extra-text.quiet ({{_ 'joined'}})

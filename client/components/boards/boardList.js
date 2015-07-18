@@ -29,7 +29,7 @@ BlazeComponent.extendComponent({
       'click .js-star-board': function(evt) {
         Meteor.user().toggleBoardStar(this._id);
         evt.preventDefault();
-      },
+      }
     }];
   }
 }).register('boardList');

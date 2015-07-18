@@ -25,7 +25,7 @@ template(name="filterSidebar")
             a.name.js-toogle-member-filter
               +userAvatar(userId=this._id)
               span.sidebar-list-item-description
-                = profile.name
+                = profile.fullname
                 | (<span class="username">{{ username }}</span>)
               if Filter.members.isSelected _id
                 i.fa.fa-check
@@ -62,7 +62,7 @@ template(name="multiselectionSidebar")
             a.name.js-toogle-member-multiselection
               +userAvatar(userId=this._id)
               span.sidebar-list-item-description
-                = profile.name
+                = profile.fullname
                 | (<span class="username">{{ username }}</span>)
               if allSelectedElementHave 'member' _id
                 i.fa.fa-check

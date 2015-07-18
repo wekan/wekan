@@ -2,8 +2,8 @@ template(name="headerUserBar")
   #header-user-bar
     a.header-user-bar-name.js-open-header-member-menu
       i.fa.fa-chevron-down
-      if currentUser.profile.name
-        = currentUser.profile.name
+      if currentUser.profile.fullname
+        = currentUser.profile.fullname
       else
         = currentUser.username
     a.header-user-bar-avatar.js-change-avatar

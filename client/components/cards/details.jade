@@ -97,7 +97,7 @@ template(name="cardMembersPopup")
         a.name.js-select-member(href="#")
           +userAvatar(userId=user._id)
           span.full-name
-            = user.profile.name
+            = user.profile.fullname
             | (<span class="username">{{ user.username }}</span>)
           if isCardMember
             i.fa.fa-check
