@@ -2,8 +2,13 @@ BlazeComponent.extendComponent({
   template: function() {
     return 'archivesSidebar';
   },
+
   archivedCards: function() {
     return Cards.find({archived: true});
+  },
+
+  cardIsInArchivedList: function() {
+    return this.currentData().list().archived;
   },
 
   onRendered: function() {

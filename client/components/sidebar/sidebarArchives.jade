@@ -6,5 +6,7 @@ template(name="archivesSidebar")
       a.js-restore Restore
       | -
       a.js-delete Delete
+    if cardIsInArchivedList
+      p.quiet.small (warning: this card is in an archived list) <br>
   else
     p.no-items-message No archived cards.
