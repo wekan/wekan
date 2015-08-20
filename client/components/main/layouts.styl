@@ -3,13 +3,14 @@
 global-reset()
 
 html, body, input, select, textarea, button
-  font: 14px "Helvetica Neue", Arial, Helvetica, sans-serif
+  font: 14px Roboto, "Helvetica Neue", Arial, Helvetica, sans-serif
   line-height: 18px
   color: #4d4d4d
 
 html
   font-size: 100%
   max-height: 100%
+  user-select: none
   -webkit-text-size-adjust: 100%
 
 body
@@ -28,9 +29,6 @@ body
 #content
   position: relative
   flex: 1
-
-div::selection
-  background: transparent
 
 h1
   font-size: 22px
@@ -81,6 +79,8 @@ strong
   font-weight: bold
 
 p
+  user-select: text
+
   a
     text-decoration: underline
     word-wrap: break-word

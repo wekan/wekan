@@ -30,8 +30,8 @@ template(name="cardLabelsPopup")
       li
         a.card-label-edit-button.fa.fa-pencil.js-edit-label
         span.card-label.card-label-selectable.js-select-label(class="card-label-{{color}}"
-          class="{{# if isLabelSelected ../_id }}active{{/ if }}")
+          class="{{# if isLabelSelected ../_id }}active{{/if}}")
             = name
-            if isLabelSelected ../_id
+            if(isLabelSelected ../_id)
               i.card-label-selectable-icon.fa.fa-check
   a.quiet-button.full.js-add-label {{_ 'label-create'}}

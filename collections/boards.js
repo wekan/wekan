@@ -63,8 +63,13 @@ Boards.attachSchema(new SimpleSchema({
   color: {
     type: String,
     allowedValues: [
-    'nephritis', 'pomegranate', 'belize',
-    'wisteria', 'midnight', 'pumpkin']
+    'belize',
+    'nephritis',
+    'pomegranate',
+    'pumpkin',
+    'wisteria',
+    'midnight',
+    ]
   }
 }));
 
