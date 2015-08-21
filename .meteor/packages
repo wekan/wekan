@@ -14,6 +14,7 @@ kenton:accounts-sandstorm
 service-configuration
 useraccounts:core
 useraccounts:unstyled
+useraccounts:iron-routing
 
 # Compilers
 mquandalle:jade

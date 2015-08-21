@@ -1,10 +1,3 @@
-_.each(['signIn', 'signUp', 'resetPwd', 'forgotPwd', 'enrollAccount'],
-  function(routeName) {
-  AccountsTemplates.configureRoute(routeName, {
-    layoutTemplate: 'userFormsLayout'
-  });
-});
-
 Router.route('/profile/:username', {
   name: 'Profile',
   template: 'profile',
