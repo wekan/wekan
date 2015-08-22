@@ -107,6 +107,7 @@ spacebars@1.0.6
 spacebars-compiler@1.0.6
 srp@1.0.3
 tap:i18n@1.5.1
+templates:tabs@2.2.0
 templating@1.1.1
 tmeasday:presence@1.0.6
 tracker@1.0.7

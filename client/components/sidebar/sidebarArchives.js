@@ -3,8 +3,19 @@ BlazeComponent.extendComponent({
     return 'archivesSidebar';
   },
 
+  tabs: function() {
+    return [
+      { name: 'Cards', slug: 'cards' },
+      { name: 'Lists', slug: 'lists' }
+    ]
+  },
+
   archivedCards: function() {
-    return Cards.find({archived: true});
+    return Cards.find({ archived: true });
+  },
+
+  archivedLists: function() {
+    return Lists.find({ archived: true });
   },
 
   cardIsInArchivedList: function() {
@@ -17,15 +28,19 @@ BlazeComponent.extendComponent({
 
   events: function() {
     return [{
-      'click .js-restore': function() {
+      'click .js-restore-card': function() {
         var cardId = this.currentData()._id;
         Cards.update(cardId, {$set: {archived: false}});
       },
-      'click .js-delete': Popup.afterConfirm('cardDelete', function() {
+      'click .js-delete-card': Popup.afterConfirm('cardDelete', function() {
         var cardId = this._id;
         Cards.remove(cardId);
         Popup.close();
-      })
+      }),
+      'click .js-restore-list': function() {
+        var listId = this.currentData()._id;
+        Lists.update(listId, {$set: {archived: false}});
+      }
     }];
   }
 }).register('archivesSidebar');
