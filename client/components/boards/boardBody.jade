@@ -1,25 +1,28 @@
 template(name="board")
-  if Template.subscriptionsReady
+  if isBoardReady.get
     if currentBoard
-      .board-wrapper(class=currentBoard.colorClass)
-        .board-canvas(
-          class=currentBoard.sidebarSize
-          class="{{#if MultiSelection.isActive}}is-multiselection-active{{/if}}"
-          class="{{#if draggingActive.get}}is-dragging-active{{/if}}")
-          if showOverlay.get
-            .board-overlay
-          .lists.js-lists
-            each currentBoard.lists
-              +list(this)
-              if currentCardIsInThisList
-                +cardDetails(currentCard)
-            if currentUser.isBoardMember
-              +addListForm
-        +sidebar
+      +boardBody
     else
       +message(label="board-no-found")
   else
     +spinner
+
+template(name="boardBody")
+  .board-wrapper(class=currentBoard.colorClass)
+    .board-canvas(
+      class=currentBoard.sidebarSize
+      class="{{#if MultiSelection.isActive}}is-multiselection-active{{/if}}"
+      class="{{#if draggingActive.get}}is-dragging-active{{/if}}")
+      if showOverlay.get
+        .board-overlay
+      .lists.js-lists
+        each currentBoard.lists
+          +list(this)
+          if currentCardIsInThisList
+            +cardDetails(currentCard)
+        if currentUser.isBoardMember
+          +addListForm
+    +sidebar
 
 template(name="addListForm")
   .list.js-list.list-composer.js-list-composer
