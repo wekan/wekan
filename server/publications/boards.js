@@ -30,14 +30,12 @@ Meteor.publish('boards', function() {
   });
 });
 
-Meteor.publishComposite('board', function(boardId, slug) {
+Meteor.publishComposite('board', function(boardId) {
   check(boardId, String);
-  check(slug, String);
   return {
     find: function() {
       return Boards.find({
         _id: boardId,
-        slug: slug,
         archived: false,
         // If the board is not public the user has to be a member of it to see
         // it.

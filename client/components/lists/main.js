@@ -21,7 +21,7 @@ BlazeComponent.extendComponent({
   // comment below provides further details.
   onRendered: function() {
     var self = this;
-    if (! Meteor.userId() || ! Meteor.user().isBoardMember())
+    if (! Meteor.user() || ! Meteor.user().isBoardMember())
       return;
 
     var boardComponent = self.componentParent();

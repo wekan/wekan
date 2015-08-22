@@ -143,7 +143,7 @@ Cards.helpers({
   },
   absoluteUrl: function() {
     var board = this.board();
-    return Router.path('Card', {
+    return FlowRouter.path('card', {
       boardId: board._id,
       slug: board.slug,
       cardId: this._id

@@ -1,20 +1,20 @@
 template(name="headerBoard")
   h1.header-board-menu
     a(class="{{#if currentUser.isBoardAdmin}}js-edit-board-title{{else}}is-disabled{{/if}}")
-      = title
+      = currentBoard.title
 
   .board-header-btns.left
     unless isSandstorm
       if currentUser
         a.board-header-btn.js-star-board(class="{{#if isStarred}}is-active{{/if}}"
-          title="{{#if isStarred}}{{_ 'click-to-unstar'}}{{else}}{{_ 'click-to-star'}}{{/if}} {{_ 'starred-boards-description'}}")
-          i.fa(class="fa-star{{#unless isStarred}}-o{{/unless}}")
+          title="{{#if currentBoard.isStarred}}{{_ 'click-to-unstar'}}{{else}}{{_ 'click-to-star'}}{{/if}} {{_ 'starred-boards-description'}}")
+          i.fa(class="fa-star{{#unless currentBoard.isStarred}}-o{{/unless}}")
           if showStarCounter
-            span {{_ 'board-nb-stars' stars}}
+            span {{_ 'board-nb-stars' currentBoard.stars}}
 
       a.board-header-btn(class="{{#if currentUser.isBoardAdmin}}js-change-visibility{{else}}is-disabled{{/if}}")
-        i.fa(class="{{#if isPublic}}fa-globe{{else}}fa-lock{{/if}}")
-        span {{_ permission}}
+        i.fa(class="{{#if currentBoard.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
+        span {{_ currentBoard.permission}}
 
   .board-header-btns.right
     a.board-header-btn.js-open-filter-view(

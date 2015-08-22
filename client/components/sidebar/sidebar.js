@@ -162,7 +162,7 @@ Template.labelsWidget.events({
 // fields of the current board document.
 var draggableMembersLabelsWidgets = function() {
   var self = this;
-  if (! Meteor.userId() || ! Meteor.user().isBoardMember())
+  if (! Meteor.user() || ! Meteor.user().isBoardMember())
     return;
 
   self.autorun(function() {

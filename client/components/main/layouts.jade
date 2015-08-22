@@ -8,15 +8,15 @@ template(name="userFormsLayout")
   section.auth-layout
     h1.at-form-landing-logo
       img(src="/logo.png" title="LibreBoard")
-    +yield
+    +Template.dynamic(template=content)
 
 template(name="defaultLayout")
   #surface
     +header
     #content
-      +yield
+      +Template.dynamic(template=content)
 
-template(name="notfound")
+template(name="notFound")
   +message(label='page-not-found')
 
 template(name="message")

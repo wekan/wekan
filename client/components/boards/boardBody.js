@@ -1,11 +1,17 @@
+var boardSubsManager = new SubsManager();
+
 BlazeComponent.extendComponent({
   template: function() {
-    return 'boardComponent';
+    return 'board';
   },
 
   onCreated: function() {
     this.draggingActive = new ReactiveVar(false);
     this.showOverlay = new ReactiveVar(false);
+
+    // XXX The boardId should be readed from some sort the component "props",
+    // unfortunatly, Blaze doesn't have this notion.
+    boardSubsManager.subscribe('board', Session.get('currentBoard'));
   },
 
   openNewListForm: function() {
@@ -67,7 +73,7 @@ BlazeComponent.extendComponent({
       }
     };
 
-    if (! Meteor.userId() || ! Meteor.user().isBoardMember())
+    if (! Meteor.user() || ! Meteor.user().isBoardMember())
       return;
 
     self.$(lists).sortable({
@@ -101,7 +107,8 @@ BlazeComponent.extendComponent({
 
     // If there is no data in the board (ie, no lists) we autofocus the list
     // creation form by clicking on the corresponding element.
-    if (self.data().lists().count() === 0) {
+    var currentBoard = Boards.findOne(Session.get('currentBoard'));
+    if (currentBoard.lists().count() === 0) {
       this.openNewListForm();
     }
   },
@@ -121,7 +128,7 @@ BlazeComponent.extendComponent({
       }
     }];
   }
-}).register('boardComponent');
+}).register('board');
 
 BlazeComponent.extendComponent({
   template: function() {

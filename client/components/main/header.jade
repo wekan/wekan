@@ -10,13 +10,13 @@ template(name="header")
         #header-quick-access
           ul
             li
-              +linkTo(route="Boards")
+              a(href="{{pathFor 'home'}}")
                 span.fa.fa-home
                 | All boards
             each currentUser.starredBoards
               li.separator -
               li(class="{{#if $.Session.equals 'currentBoard' _id}}current{{/if}}")
-                +linkTo(route="Board" data=this)
+                a(href="{{pathFor 'board' id=_id slug=slug}}")
                   = title
             else
               li.current Star a board to add a shortcut in this bar.

@@ -1,16 +1,9 @@
-//-
-  XXX This template can't be transformed into a component because it is
-  included by iron-router. That's a bug.
-  See https://github.com/peerlibrary/meteor-blaze-components/issues/44
-template(name="boards")
-  +boardList
-
 template(name="boardList")
   if boards.count
     ul.board-list.clearfix
       each boards
         li(class="{{#if isStarred}}starred{{/if}}" class=colorClass)
-          a.js-open-board(href="{{ pathFor route='Board' boardId=_id }}")
+          a.js-open-board(href="{{pathFor 'board' id=_id slug=slug}}")
             span.details
               span.board-list-item-name= title
               i.fa.fa-star-o.js-star-board(

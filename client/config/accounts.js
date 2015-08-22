@@ -9,20 +9,25 @@ AccountsTemplates.addFields([{
 }, emailField, passwordField]);
 
 AccountsTemplates.configure({
+  defaultLayout: 'userFormsLayout',
+  defaultContentRegion: 'content',
   confirmPassword: false,
   enablePasswordChange: true,
   sendVerificationEmail: true,
   showForgotPasswordLink: true,
   onLogoutHook: function() {
-    Router.go('Home');
+    var homePage = 'home';
+    if (FlowRouter.getRouteName() === homePage) {
+      FlowRouter.reload();
+    } else {
+      FlowRouter.go(homePage);
+    }
   }
 });
 
 _.each(['signIn', 'signUp', 'resetPwd', 'forgotPwd', 'enrollAccount'],
   function(routeName) {
-  AccountsTemplates.configureRoute(routeName, {
-    layoutTemplate: 'userFormsLayout'
-  });
+  AccountsTemplates.configureRoute(routeName);
 });
 
 // We display the form to change the password in a popup window that already

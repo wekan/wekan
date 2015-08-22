@@ -14,7 +14,7 @@ kenton:accounts-sandstorm
 service-configuration
 useraccounts:core
 useraccounts:unstyled
-useraccounts:iron-routing
+useraccounts:flow-routing
 
 # Compilers
 mquandalle:jade
@@ -32,8 +32,11 @@ reywood:publish-composite
 
 # Utilities
 alethes:pages
+arillo:flow-router-helpers
 audit-argument-checks
-iron:router
+kadira:blaze-layout
+kadira:flow-router
+meteorhacks:picker
 meteorhacks:subs-manager
 mquandalle:autofocus
 mquandalle:bower

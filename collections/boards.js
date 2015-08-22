@@ -131,7 +131,7 @@ Boards.helpers({
     return Activities.find({ boardId: this._id }, { sort: { createdAt: -1 }});
   },
   absoluteUrl: function() {
-    return Router.path('Board', { boardId: this._id, slug: this.slug });
+    return FlowRouter.path('board', { id: this._id, slug: this.slug });
   },
   colorClass: function() {
     return 'board-color-' + this.color;
