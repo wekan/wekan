@@ -1,4 +1,4 @@
-# LibreBoard [![Build Status][travis-status]][travis-link]
+# LibreBoard
 
 LibreBoard is an open-source *kanban* board that let you organize things in
 cards, and cards in lists. You can use it alone, or with your team and family
@@ -19,7 +19,5 @@ made with [Meteor](https://www.meteor.com).
 
 [Our roadmap is self-hosted on LibreBoard][roadmap]
 
-[travis-status]: https://travis-ci.org/libreboard/libreboard.svg
-[travis-link]: https://travis-ci.org/libreboard/libreboard
 [thumbnail]: http://i.imgur.com/IIdHUmW.png
 [roadmap]: http://libreboard.com/boards/MeSsFJaSqeuo9M6bs/libreboard-roadmap
