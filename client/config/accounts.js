@@ -5,7 +5,7 @@ AccountsTemplates.addFields([{
   type: 'text',
   displayName: 'username',
   required: true,
-  minLength: 5
+  minLength: 2
 }, emailField, passwordField]);
 
 AccountsTemplates.configure({
