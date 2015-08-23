@@ -194,9 +194,14 @@ Popup = {
 
 // We close a potential opened popup on any left click on the document, or go
 // one step back by pressing escape.
-EscapeActions.register('popup',
-  function(evt) { Popup[evt.type === 'click' ? 'close' : 'back'](); },
-  _.bind(Popup.isOpen, Popup), {
-    noClickEscapeOn: '.js-pop-over'
-  }
-);
+var escapeActions = ['back', 'close'];
+_.each(escapeActions, function(actionName) {
+  EscapeActions.register('popup-' + actionName,
+    _.bind(Popup[actionName], Popup),
+    _.bind(Popup.isOpen, Popup), {
+      noClickEscapeOn: '.js-pop-over',
+      enabledOnClick: actionName === 'close'
+    }
+  );
+});
+

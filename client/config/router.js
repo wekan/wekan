@@ -28,7 +28,7 @@ FlowRouter.route('/b/:boardId/:slug/:cardId', {
   action: function(params) {
     Session.set('currentBoard', params.boardId);
     Session.set('currentCard', params.cardId);
-    EscapeActions.executeUpTo('popup');
+    EscapeActions.executeUpTo('popup-close');
 
     BlazeLayout.render('defaultLayout', { content: 'board' });
   }

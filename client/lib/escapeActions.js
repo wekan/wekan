@@ -9,7 +9,8 @@ EscapeActions = {
   // Executed in order
   hierarchy: [
     'textcomplete',
-    'popup',
+    'popup-back',
+    'popup-close',
     'inlinedForm',
     'detailsPane',
     'multiselection',
@@ -30,7 +31,8 @@ EscapeActions = {
       priority: priority,
       condition: condition,
       action: action,
-      noClickEscapeOn: options.noClickEscapeOn
+      noClickEscapeOn: options.noClickEscapeOn,
+      enabledOnClick: !! options.enabledOnClick
     });
     // XXX Rewrite this with ES6: => function
     this._actions = _.sortBy(this._actions, function(a) { return a.priority; });
@@ -55,11 +57,12 @@ EscapeActions = {
     });
   },
 
-  clickExecute: function(evt, maxLabel) {
+  clickExecute: function(target, maxLabel) {
     return this._execute({
       maxLabel: maxLabel,
       multipleActions: false,
-      evt: evt
+      isClick: true,
+      clickTarget: target
     });
   },
 
@@ -72,8 +75,9 @@ EscapeActions = {
 
   _execute: function(options) {
     var maxLabel = options.maxLabel;
-    var evt = options.evt || {};
     var multipleActions = options.multipleActions;
+    var isClick = !! options.isClick;
+    var clickTarget = options.clickTarget;
 
     var maxPriority, currentAction;
     var executedAtLeastOne = false;
@@ -87,11 +91,12 @@ EscapeActions = {
       if (currentAction.priority > maxPriority)
         return executedAtLeastOne;
 
-      if (evt.type === 'click' && this._stopClick(currentAction, evt.target))
+      if (isClick && this._stopClick(currentAction, clickTarget))
         return executedAtLeastOne;
 
-      if (currentAction.condition()) {
-        currentAction.action(evt);
+      var isEnabled = currentAction.enabledOnClick || ! isClick;
+      if (isEnabled && currentAction.condition()) {
+        currentAction.action();
         executedAtLeastOne = true;
         if (! multipleActions)
           return executedAtLeastOne;
@@ -153,6 +158,6 @@ Mousetrap.bindGlobal('esc', function() {
 $(document).on('click', function(evt) {
   if (evt.which === 1 &&
     $(evt.target).closest('a,button,.is-editable').length === 0) {
-    EscapeActions.clickExecute(evt, 'multiselection');
+    EscapeActions.clickExecute(evt.target, 'multiselection');
   }
 });

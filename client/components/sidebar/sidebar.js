@@ -184,7 +184,7 @@ var draggableMembersLabelsWidgets = function() {
         snap: false,
         snapMode: 'both',
         start: function() {
-          EscapeActions.executeUpTo('popup');
+          EscapeActions.executeUpTo('popup-back');
         }
       });
     });
