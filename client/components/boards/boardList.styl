@@ -8,8 +8,10 @@
     box-sizing: border-box
     position: relative
 
-    &.starred .fa-star-o
-      opacity: 1
+    &.starred
+      .fa-star,
+      .fa-star-o
+        opacity: 1
 
   a
     background-color: #999
@@ -47,6 +49,7 @@
     :hover
       background-color:#939393
 
+  .fa-star,
   .fa-star-o
     bottom: 0
     font-size: 14px
@@ -61,13 +64,14 @@
     transition-property: color, font-size, background
 
   .is-star-active
-    color: #e6bf00
+    color: white
 
   li:hover a
     color: #f6f6f6
 
+    .fa-star,
     .fa-star-o
-      color: #fff
+      color: white
       opacity: .75
 
       &:hover
@@ -75,14 +79,7 @@
         opacity: 1
 
       &.is-star-active
-        color: #e6bf00
         opacity: 1
-
-        &:hover
-          color: #ffd91a
-          font-size: 16px
-          opacity: 1
-
 
 .board-backgrounds-list
 

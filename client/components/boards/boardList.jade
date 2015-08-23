@@ -6,8 +6,8 @@ template(name="boardList")
           a.js-open-board(href="{{pathFor 'board' id=_id slug=slug}}")
             span.details
               span.board-list-item-name= title
-              i.fa.fa-star-o.js-star-board(
-                class="{{#if isStarred}}is-star-active{{/if}}"
+              i.fa.js-star-board(
+                class="fa-star{{#if isStarred}} is-star-active{{else}}-o{{/if}}"
                 title="{{_ 'star-board-title'}}")
   else
     ul.board-list.clearfix

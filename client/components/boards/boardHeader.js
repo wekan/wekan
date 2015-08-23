@@ -29,9 +29,9 @@ BlazeComponent.extendComponent({
   },
 
   isStarred: function() {
-    var currentBoard  = this.currentData();
+    var boardId = Session.get('currentBoard');
     var user = Meteor.user();
-    return currentBoard && user && user.hasStarred(currentBoard._id);
+    return user && user.hasStarred(boardId);
   },
 
   // Only show the star counter if the number of star is greater than 2

@@ -7,8 +7,8 @@ template(name="headerBoard")
     unless isSandstorm
       if currentUser
         a.board-header-btn.js-star-board(class="{{#if isStarred}}is-active{{/if}}"
-          title="{{#if currentBoard.isStarred}}{{_ 'click-to-unstar'}}{{else}}{{_ 'click-to-star'}}{{/if}} {{_ 'starred-boards-description'}}")
-          i.fa(class="fa-star{{#unless currentBoard.isStarred}}-o{{/unless}}")
+          title="{{#if isStarred}}{{_ 'click-to-unstar'}}{{else}}{{_ 'click-to-star'}}{{/if}} {{_ 'starred-boards-description'}}")
+          i.fa(class="fa-star{{#unless isStarred}}-o{{/unless}}")
           if showStarCounter
             span {{_ 'board-nb-stars' currentBoard.stars}}
 
