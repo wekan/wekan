@@ -14,7 +14,7 @@ Users.helpers({
   },
   starredBoards: function() {
     var starredBoardIds = this.profile.starredBoards || [];
-    return Boards.find({_id: {$in: starredBoardIds}});
+    return Boards.find({archived: false, _id: {$in: starredBoardIds}});
   },
   hasStarred: function(boardId) {
     var starredBoardIds = this.profile.starredBoards || [];

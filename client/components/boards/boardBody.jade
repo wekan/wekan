@@ -3,6 +3,7 @@ template(name="board")
     if currentBoard
       +boardBody
     else
+      //- XXX We need a better error message in case the board has been archived
       +message(label="board-no-found")
   else
     +spinner

@@ -4,7 +4,7 @@ BlazeComponent.extendComponent({
   },
 
   boards: function() {
-    return Boards.find({}, {
+    return Boards.find({ archived: false }, {
       sort: ['title']
     });
   },

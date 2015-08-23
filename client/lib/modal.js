@@ -1,6 +1,6 @@
 const closedValue = null
 
-Modal = new class {
+window.Modal = new class {
   constructor() {
     this._currentModal = new ReactiveVar(closedValue)
   }

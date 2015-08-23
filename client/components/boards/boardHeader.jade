@@ -60,7 +60,7 @@ template(name="boardMenuPopup")
     if currentUser.isBoardAdmin
       hr
       ul.pop-over-list
-        li: a Close Board…
+        li: a.js-archive-board Archive Board…
 
 template(name="boardVisibilityList")
   ul.pop-over-list
@@ -120,6 +120,6 @@ template(name="boardChangeTitlePopup")
       input.js-board-name(type="text" value="{{title}}" autofocus)
     input.primary.wide(type="submit" value="{{_ 'rename'}}")
 
-template(name="closeBoardPopup")
+template(name="archiveBoardPopup")
   p {{_ 'close-board-pop'}}
   button.js-confirm.negate.full(type="submit") {{_ 'close'}}

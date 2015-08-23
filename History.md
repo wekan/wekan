@@ -28,7 +28,7 @@ This release continues the implementation of basic features of a “kanban”
 software, especially:
 
 * Basic card attachments. If the attached file is an image we generate and
-  displayed a thumbnail that can be used as a card “cover” (visible in the board
+  display a thumbnail that can be used as a card “cover” (visible in the board
   general view);
 * User names mentions and auto-completion in card description and comments
   (though we don’t have any notification system for now, making this feature a

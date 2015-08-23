@@ -22,12 +22,35 @@ Meteor.publish('boards', function() {
   }, {
     fields: {
       _id: 1,
+      archived: 1,
       slug: 1,
       title: 1,
       color: 1,
       permission: 1
     }
   });
+});
+
+Meteor.publish('archivedBoards', function() {
+  if (! Match.test(this.userId, String))
+    return [];
+
+  return Boards.find({
+    archived: true,
+    members: {
+      $elemMatch: {
+        userId: this.userId,
+        isAdmin: true
+      }
+    }
+  }, {
+    fields: {
+      _id: 1,
+      archived: 1,
+      slug: 1,
+      title: 1
+    }
+  })
 });
 
 Meteor.publishComposite('board', function(boardId) {

@@ -5,7 +5,14 @@ Template.boardMenuPopup.events({
     Popup.close();
   },
   'click .js-change-board-color': Popup.open('boardChangeColor'),
-  'click .js-change-language': Popup.open('setLanguage')
+  'click .js-change-language': Popup.open('setLanguage'),
+  'click .js-archive-board ': Popup.afterConfirm('archiveBoard', function() {
+    var boardId = Session.get('currentBoard');
+    Boards.update(boardId, { $set: { archived: true }});
+    // XXX We should have some kind of notification on top of the page to
+    // confirm that the board was successfully archived.
+    FlowRouter.go('home');
+  })
 });
 
 Template.boardChangeTitlePopup.events({
