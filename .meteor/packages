@@ -6,21 +6,17 @@
 # XXX Should we replace tmeasday:presence by 3stack:presence? Or maybe the
 # packages will merge in the future?
 
-meteor-platform
+meteor-base
 
-# Account system
-accounts-password
-kenton:accounts-sandstorm
-service-configuration
-useraccounts:core
-useraccounts:unstyled
-useraccounts:flow-routing
-
-# Compilers
+# Build system
+es5-shim
+ecmascript
+standard-minifiers
 mquandalle:jade
 mquandalle:stylus
 
 # Collections
+mongo
 aldeed:collection2
 cfs:gridfs
 cfs:standard-packages
@@ -30,7 +26,22 @@ matb33:collection-hooks
 matteodem:easy-search
 reywood:publish-composite
 
+# Account system
+accounts-password
+kenton:accounts-sandstorm
+service-configuration
+useraccounts:core
+useraccounts:unstyled
+useraccounts:flow-routing
+
 # Utilities
+check
+jquery
+random
+reactive-dict
+session
+tracker
+underscore
 alethes:pages
 arillo:flow-router-helpers
 audit-argument-checks
@@ -43,19 +54,17 @@ mquandalle:bower
 mquandalle:moment
 ongoworks:speakingurl
 raix:handlebar-helpers
-random
-reactive-dict
 tap:i18n
 tmeasday:presence
-underscore
 
 # UI components
+blaze
+reactive-var
 fortawesome:fontawesome
 mousetrap:mousetrap
 mquandalle:jquery-textcomplete
 mquandalle:jquery-ui-drag-drop-sort
 peerlibrary:blaze-components
 perak:markdown
-reactive-var
 seriousm:emoji-continued
 templates:tabs

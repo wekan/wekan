@@ -40,11 +40,10 @@ BlazeComponent.extendComponent({
   },
 
   events: function() {
-    // XXX We can't define this event directly in the event map below because we
-    // miss ES6 object keys interpolation.
-    var events = {};
-    events[CSSEvents.animationend + ' .js-card-details'] = function() {
-      this.isLoaded.set(true);
+    var events = {
+      [CSSEvents.animationend + ' .js-card-details']: function() {
+        this.isLoaded.set(true);
+      }
     };
 
     return [_.extend(events, {

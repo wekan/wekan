@@ -17,25 +17,20 @@ EscapeActions = {
     'sidebarView'
   ],
 
-  register: function(label, action, condition, options) {
-    condition = condition || function() { return true; };
-    options = options || {};
-
-    // XXX Rewrite this with ES6: .push({ priority, condition, action })
+  register: function(label, action, condition = () => true, options = {}) {
     var priority = this.hierarchy.indexOf(label);
     if (priority === -1) {
       throw Error('You must define the label in the EscapeActions hierarchy');
     }
 
     this._actions.push({
-      priority: priority,
-      condition: condition,
-      action: action,
+      priority,
+      condition,
+      action,
       noClickEscapeOn: options.noClickEscapeOn,
       enabledOnClick: !! options.enabledOnClick
     });
-    // XXX Rewrite this with ES6: => function
-    this._actions = _.sortBy(this._actions, function(a) { return a.priority; });
+    this._actions = _.sortBy(this._actions, (a) => { return a.priority; });
   },
 
   executeLowest: function() {
