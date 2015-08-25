@@ -13,6 +13,7 @@ EscapeActions = {
     'popup-close',
     'inlinedForm',
     'detailsPane',
+    'modalWindow',
     'multiselection',
     'sidebarView'
   ],

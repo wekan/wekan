@@ -19,8 +19,6 @@ body
   position: relative
   z-index: 0
   overflow-y: auto
-
-#surface
   display: flex
   flex-direction: column
   min-height: 100vh
@@ -29,6 +27,30 @@ body
 #content
   position: relative
   flex: 1
+
+#modal
+  position: absolute
+  top: 0
+  bottom: 0
+  left: 0
+  right: 0
+  background: rgba(0, 0, 0, 0.6)
+  z-index: 100
+  overflow-y: auto
+
+  .modal-content
+    width: 660px
+    min-height: 160px
+    margin: 42px auto
+    border-radius: 4px
+    background: darken(white, 13%)
+    z-index: 110
+
+    .modal-close-btn
+      display: block
+      float: right
+      margin: 12px
+      font-size: 24px
 
 h1
   font-size: 22px

@@ -76,6 +76,7 @@
     "Filter": true,
     "Filter": true,
     "Mixins": true,
+    "Modal": true,
     "MultiSelection": true,
     "Popup": true,
     "Sidebar": true,

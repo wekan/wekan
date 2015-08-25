@@ -30,7 +30,7 @@ BlazeComponent.extendComponent({
     $cards.sortable({
       connectWith: '.js-minicards',
       tolerance: 'pointer',
-      appendTo: '#surface',
+      appendTo: 'body',
       helper: function(evt, item) {
         var helper = item.clone();
         if (MultiSelection.isActive()) {
