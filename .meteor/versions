@@ -85,12 +85,12 @@ mongo-id@1.0.1-rc.0
 mongo-livedata@1.0.9-rc.0
 mousetrap:mousetrap@1.4.6_1
 mquandalle:autofocus@1.0.0
-mquandalle:bower@1.4.1_3
 mquandalle:jade@0.4.3_1
 mquandalle:jade-compiler@0.4.3
 mquandalle:jquery-textcomplete@0.3.9_1
 mquandalle:jquery-ui-drag-drop-sort@0.1.0
 mquandalle:moment@1.0.0
+mquandalle:perfect-scrollbar@0.6.5_2
 mquandalle:stylus@1.1.1
 npm-bcrypt@0.7.8_2
 npm-mongo@1.4.39-rc.0_1
@@ -133,6 +133,7 @@ url@1.0.5-rc.0
 useraccounts:core@1.12.3
 useraccounts:flow-routing@1.12.3
 useraccounts:unstyled@1.12.3
+verron:autosize@3.0.8
 webapp@1.2.2-rc.0
 webapp-hashing@1.0.4-rc.0
 zimme:active-route@2.3.1
