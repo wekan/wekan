@@ -150,7 +150,7 @@ Mousetrap.bindGlobal('esc', function() {
 // On a left click on the document, we try to exectute one escape action (eg,
 // close the popup). We don't execute any action if the user has clicked on a
 // link or a button.
-$(document).on('click', function(evt) {
+$(document.body).on('click', function(evt) {
   if (evt.which === 1 &&
     $(evt.target).closest('a,button,.is-editable').length === 0) {
     EscapeActions.clickExecute(evt.target, 'multiselection');
