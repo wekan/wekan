@@ -14,9 +14,14 @@ FlowRouter.route('/', {
 FlowRouter.route('/b/:id/:slug', {
   name: 'board',
   action: function(params) {
-    EscapeActions.executeAll();
+    let currentBoard = params.id;
+    // If we close a card, we'll execute again this route action but we don't
+    // want to excape every current actions (filters, etc.)
+    if (Session.get('currentBoard') !== currentBoard) {
+      EscapeActions.executeAll();
+    }
 
-    Session.set('currentBoard', params.id);
+    Session.set('currentBoard', currentBoard);
     Session.set('currentCard', null);
 
     BlazeLayout.render('defaultLayout', { content: 'board' });

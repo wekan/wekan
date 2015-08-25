@@ -18,19 +18,25 @@ EscapeActions = {
   ],
 
   register: function(label, action, condition = () => true, options = {}) {
-    var priority = this.hierarchy.indexOf(label);
+    const priority = this.hierarchy.indexOf(label);
     if (priority === -1) {
       throw Error('You must define the label in the EscapeActions hierarchy');
     }
 
-    this._actions.push({
+    let enabledOnClick = options.enabledOnClick;
+    if (_.isUndefined(enabledOnClick)) {
+      enabledOnClick = true;
+    }
+
+    let noClickEscapeOn = options.noClickEscapeOn;
+
+    this._actions[priority] = {
       priority,
       condition,
       action,
-      noClickEscapeOn: options.noClickEscapeOn,
-      enabledOnClick: !! options.enabledOnClick
-    });
-    this._actions = _.sortBy(this._actions, (a) => { return a.priority; });
+      noClickEscapeOn,
+      enabledOnClick
+    };
   },
 
   executeLowest: function() {
@@ -69,27 +75,28 @@ EscapeActions = {
   },
 
   _execute: function(options) {
-    var maxLabel = options.maxLabel;
-    var multipleActions = options.multipleActions;
-    var isClick = !! options.isClick;
-    var clickTarget = options.clickTarget;
+    const maxLabel = options.maxLabel;
+    const multipleActions = options.multipleActions;
+    const isClick = !! options.isClick;
+    const clickTarget = options.clickTarget;
 
-    var maxPriority, currentAction;
-    var executedAtLeastOne = false;
+    let executedAtLeastOne = false;
+    let maxPriority;
+
     if (! maxLabel)
       maxPriority = Infinity;
     else
       maxPriority = this.hierarchy.indexOf(maxLabel);
 
-    for (var i = 0; i < this._actions.length; i++) {
-      currentAction = this._actions[i];
+    for (let i = 0; i < this._actions.length; i++) {
+      let currentAction = this._actions[i];
       if (currentAction.priority > maxPriority)
         return executedAtLeastOne;
 
       if (isClick && this._stopClick(currentAction, clickTarget))
         return executedAtLeastOne;
 
-      var isEnabled = currentAction.enabledOnClick || ! isClick;
+      let isEnabled = currentAction.enabledOnClick || ! isClick;
       if (isEnabled && currentAction.condition()) {
         currentAction.action();
         executedAtLeastOne = true;
@@ -150,8 +157,8 @@ Mousetrap.bindGlobal('esc', function() {
 // On a left click on the document, we try to exectute one escape action (eg,
 // close the popup). We don't execute any action if the user has clicked on a
 // link or a button.
-$(document.body).on('click', function(evt) {
-  if (evt.which === 1 &&
+$(document).on('click', function(evt) {
+  if (evt.button === 0 &&
     $(evt.target).closest('a,button,.is-editable').length === 0) {
     EscapeActions.clickExecute(evt.target, 'multiselection');
   }
