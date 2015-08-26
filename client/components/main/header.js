@@ -5,9 +5,7 @@ Template.header.helpers({
   },
 
   wrappedHeader: function() {
-    var unwrapedRoutes = ['board', 'card'];
-    var currentRouteName = FlowRouter.getRouteName();
-    return unwrapedRoutes.indexOf(currentRouteName) === -1;
+    return ! Session.get('currentBoard');
   }
 });
 

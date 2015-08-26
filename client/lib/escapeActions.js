@@ -11,9 +11,9 @@ EscapeActions = {
     'textcomplete',
     'popup-back',
     'popup-close',
+    'modalWindow',
     'inlinedForm',
     'detailsPane',
-    'modalWindow',
     'multiselection',
     'sidebarView'
   ],
