@@ -1,7 +1,16 @@
-FROM meteorhacks/meteord:onbuild
-MAINTAINER Maxime Quandalle <maxime@quandalle.com>
+FROM centos:centos7
 
-# Run as you wish!
-# docker run -d --name libreboard-db mongo
-# docker run -d --link "libreboard-db:db" -e "MONGO_URL=mongodb://db" \
-#   -e "ROOT_URL=http://example.com" -p 8080:80 mquandalle/libreboard
+RUN yum -y install tar
+RUN curl https://install.meteor.com/ | sh
+
+RUN yum -y install git
+RUN cd /opt; git clone https://github.com/libreboard/libreboard.git
+RUN cd /opt/libreboard; meteor update
+RUN alias ll="ls -l"
+
+WORKDIR /opt/libreboard
+CMD meteor
+
+# to run with mongo DB on the host machine and allow direct access to host network
+# docker run -d --name="libreboard" --net host -e "MONGO_URL=mongodb://127.0.0.1" -e "ROOT_URL=http://libreboard.localdomain" libreboard
+# starts libreboard on port 3000 on the host
