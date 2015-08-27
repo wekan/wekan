@@ -35,3 +35,28 @@ Mousetrap.bind(['down', 'up'], (evt, key) => {
     Utils.goCardId(nextCardId);
   }
 });
+
+Template.keyboardShortcuts.helpers({
+  mapping: [{
+    keys: ['W'],
+    action: 'Toogle Board Sidebar'
+  }, {
+    keys: ['Q'],
+    action: 'Filter my cards'
+  }, {
+    keys: ['X'],
+    action: 'Clear all filters'
+  }, {
+    keys: ['?'],
+    action: 'Bring up this shortcuts list'
+  }, {
+    keys: ['ESC'],
+    action: 'Close Dialog'
+  }, {
+    keys: ['@'],
+    action: 'Autocomplete members'
+  }, {
+    keys: [':'],
+    action: 'Autocomplete emojies'
+  }]
+});
