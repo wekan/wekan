@@ -1,3 +1,7 @@
+// XXX Obviously this shouldn't be a global, but this is currently the only way
+// to share a variable between two files.
+
+
 BlazeComponent.extendComponent({
   template: function() {
     return 'cardDetails';
@@ -17,6 +21,12 @@ BlazeComponent.extendComponent({
     activitiesComponent.loadNextPage();
   },
 
+  onCreated: function() {
+    this.isLoaded = new ReactiveVar(false);
+    this.componentParent().showOverlay.set(true);
+    this.componentParent().mouseHasEnterCardDetails = false;
+  },
+
   onRendered: function() {
     var bodyBoardComponent = this.componentParent();
     var additionalMargin = 550;
@@ -33,10 +43,6 @@ BlazeComponent.extendComponent({
     Cards.update(this.data()._id, {
       $set: modifier
     });
-  },
-
-  onCreated: function() {
-    this.isLoaded = new ReactiveVar(false);
   },
 
   events: function() {
@@ -69,6 +75,7 @@ BlazeComponent.extendComponent({
       'click .js-add-labels': Popup.open('cardLabels'),
       'mouseenter .js-card-details': function() {
         this.componentParent().showOverlay.set(true);
+        this.componentParent().mouseHasEnterCardDetails = true;
       }
     })];
   }

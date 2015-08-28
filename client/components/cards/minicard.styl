@@ -5,10 +5,6 @@
   align-items: center
   margin-bottom: 9px
 
-  &.draggable-hover-card
-    background-color: #f0f0f0
-    border-bottom-color: #c2c2c2
-
   &.placeholder
     background: darken(white, 20%)
     border-radius: 2px
@@ -53,6 +49,14 @@
     z-index: 25
     box-shadow: -2px 1px 2px rgba(0,0,0,.2)
 
+  &:hover:not(.minicard-composer),
+  .is-selected &,
+  .draggable-hover-card &
+    background: darken(white, 2%)
+
+  .draggable-hover-card &
+    background: darken(white, 4%)
+
   .minicard-cover
     background-position: center
     background-repeat: no-repeat
@@ -79,18 +83,26 @@
 
   .badges
     float: left
-    margin-top: 5px
-    color: darken(white, 60%)
+    margin-top: 7px
+    color: darken(white, 50%)
 
     &:empty
       display: none
 
     .badge
       float: left
-      margin-right: 10px
+      margin-right: 11px
+      margin-bottom: 3px
+      font-size: 0.9em
+
+      .badge-icon,
+      .badge-text
+        vertical-align: top
 
       .badge-text
         font-size: 0.9em
+        padding-left: 2px
+        line-height: 14px
 
   .minicard-members
     float: right

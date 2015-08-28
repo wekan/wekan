@@ -10,8 +10,9 @@ template(name="board")
 
 template(name="boardBody")
   .board-wrapper(class=currentBoard.colorClass)
+    +sidebar
     .board-canvas(
-      class=currentBoard.sidebarSize
+      class="{{#if Sidebar.isOpen}}is-sibling-sidebar-open{{/if}}"
       class="{{#if MultiSelection.isActive}}is-multiselection-active{{/if}}"
       class="{{#if draggingActive.get}}is-dragging-active{{/if}}")
       if showOverlay.get
@@ -23,7 +24,6 @@ template(name="boardBody")
             +cardDetails(currentCard)
         if currentUser.isBoardMember
           +addListForm
-    +sidebar
 
 template(name="addListForm")
   .list.js-list.list-composer.js-list-composer

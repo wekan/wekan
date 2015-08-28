@@ -102,6 +102,10 @@ BlazeComponent.extendComponent({
   }
 }).register('sidebar');
 
+Blaze.registerHelper('Sidebar', function() {
+  return Sidebar;
+});
+
 EscapeActions.register('sidebarView',
   function() { Sidebar.setView(defaultView); },
   function() { return Sidebar && Sidebar.getView() !== defaultView; }

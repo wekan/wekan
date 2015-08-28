@@ -22,6 +22,9 @@ BlazeComponent.extendComponent({
 
     self._isDragging = false;
     self._lastDragPositionX = 0;
+
+    // Used to set the overlay
+    self.mouseHasEnterCardDetails = false;
   },
 
   openNewListForm: function() {
@@ -57,18 +60,14 @@ BlazeComponent.extendComponent({
     return currentCard && currentCard.listId === listId;
   },
 
-  sidebarSize: function() {
-    var sidebar = this.componentChildren('sidebar')[0];
-    if (sidebar && sidebar.isOpen())
-      return 'next-sidebar';
-  },
-
   events: function() {
     return [{
       // XXX The board-overlay div should probably be moved to the parent
       // component.
       'mouseenter .board-overlay': function() {
-        this.showOverlay.set(false);
+        if (this.mouseHasEnterCardDetails) {
+          this.showOverlay.set(false);
+        }
       },
 
       // Click-and-drag action
