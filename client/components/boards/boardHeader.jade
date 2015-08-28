@@ -41,17 +41,16 @@ template(name="headerBoard")
       i.board-header-btn-icon.fa.fa-cog
 
 template(name="boardMenuPopup")
-  if currentUser.isBoardMember
-    ul.pop-over-list
-      li: a.js-open-archives Archived elements
-      if currentUser.isBoardAdmin
-        li: a.js-change-board-color Change color
-    //-
-      XXX Language should be handled by sandstorm, but for now display a
-      language selection link in the board menu. This link is normally present
-      in the header bar that is not displayed on sandstorm.
-    if isSandstorm
-      li: a.js-change-language {{_ 'language'}}
+  ul.pop-over-list
+    li: a.js-open-archives Archived elements
+    if currentUser.isBoardAdmin
+      li: a.js-change-board-color Change color
+  //-
+    XXX Language should be handled by sandstorm, but for now display a
+    language selection link in the board menu. This link is normally present
+    in the header bar that is not displayed on sandstorm.
+  if isSandstorm
+    li: a.js-change-language {{_ 'language'}}
   unless isSandstorm
     if currentUser.isBoardAdmin
       hr

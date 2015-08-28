@@ -43,8 +43,9 @@ template(name="labelsWidget")
       each currentBoard.labels
           a.card-label(class="card-label-{{color}}").js-label
             span.card-label-name= name
-      a.card-label.add-label.js-add-label
-        i.fa.fa-plus
+      if currentUser.isBoardAdmin
+        a.card-label.add-label.js-add-label
+          i.fa.fa-plus
 
 template(name="memberPopup")
   .board-member-menu
