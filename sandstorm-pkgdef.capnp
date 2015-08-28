@@ -19,13 +19,13 @@ const pkgdef :Spk.PackageDefinition = (
     # This manifest is included in our app package to tell Sandstorm about our
     # app.
 
-    appTitle = (defaultText = "LibreBoard"),
+    appTitle = (defaultText = "Wekan"),
     # The name of the app as it is displayed to the user.
 
     appVersion = 3,
     # Increment this for every release.
 
-    appMarketingVersion = (defaultText = "0.9.0_beta1"),
+    appMarketingVersion = (defaultText = "0.9.0_rc1"),
     # Human-readable presentation of the app version.
 
     minUpgradableAppVersion = 0,
@@ -51,18 +51,14 @@ const pkgdef :Spk.PackageDefinition = (
     # case.
 
     metadata = (
-      # icons = (
-      #   appGrid = (svg = embed "meta/icons/libreboard-128.svg"),
-      #   grain = (svg = embed "meta/icons/libreboard-24.svg"),
-      #   market = (svg = embed "meta/icons/libreboard-150.svg"),
-      # ),
-      # XXX We currently don't have an icon, because the bird image included in
-      # previous version was a copyright infringement, see
-      # https://github.com/libreboard/libreboard/issues/64.
-      # I have an idea to replace it but it's not ready yet.
+      icons = (
+        appGrid = (svg = embed "meta/icons/wekan-128.svg"),
+        grain = (svg = embed "meta/icons/wekan-24.svg"),
+        market = (svg = embed "meta/icons/wekan-150.svg"),
+      ),
 
       website = "http://libreboard.com",
-      codeUrl = "https://github.com/libreboard/libreboard",
+      codeUrl = "https://github.com/wekan/wekan",
       license = (openSource = mit),
       categories = [productivity, office],
 

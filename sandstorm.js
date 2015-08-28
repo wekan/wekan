@@ -10,7 +10,7 @@ var sandstormBoard = {
   _id: 'sandstorm',
 
   // XXX Should be shared with the grain instance name.
-  title: 'LibreBoard',
+  title: 'Wekan',
   slug: 'libreboard',
 
   // Board access security is handled by sandstorm, so in our point of view we

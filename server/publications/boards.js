@@ -91,7 +91,7 @@ Meteor.publishComposite('board', function(boardId) {
       // a similar problem:
       //
       //   https://github.com/Goluis/cottz-publish/issues/4
-      //   https://github.com/libreboard/libreboard/pull/78
+      //   https://github.com/wekan/wekan/pull/78
       //
       // The current state of relational publishing in meteor is a bit sad,
       // there are a lot of various packages, with various APIs, some of them

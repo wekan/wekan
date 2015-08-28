@@ -46,7 +46,7 @@ Migrations.add('lowercase-board-permission', function() {
   });
 });
 
-// Security migration: see https://github.com/libreboard/libreboard/issues/99
+// Security migration: see https://github.com/wekan/wekan/issues/99
 Migrations.add('change-attachments-type-for-non-images', function() {
   var newTypeForNonImage = 'application/octet-stream';
   Attachments.find().forEach(function(file) {

@@ -17,14 +17,15 @@ security. It also features the following improvements:
 
 Starting from this release we will also distribute official docker images on
 both the
-[GitHub release page](https://github.com/libreboard/libreboard/releases)
+[GitHub release page](https://github.com/wekan/wekan/releases)
 and on the
-[DockerHub](https://hub.docker.com/r/mquandalle/libreboard).
+[DockerHub](https://hub.docker.com/r/mquandalle/wekan).
 
 New languages supported: Chinese, Finnish, Spanish, Korean, and Russian.
 
 Special thanks to GitHub users ePirat, nata-goddanti, ocdtrekkie, and others who
-have supportive during this *traversée du desert*.
+have supportive during this *traversée du desert*, and to neynah for the Wekan
+icons.
 
 # v0.8
 
