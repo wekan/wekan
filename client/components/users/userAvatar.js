@@ -47,6 +47,10 @@ BlazeComponent.extendComponent({
     return 'changeAvatarPopup';
   },
 
+  onCreated: function() {
+    this.error = new ReactiveVar('');
+  },
+
   avatarUrlOptions: function() {
     return {
       auth: false,
@@ -79,28 +83,39 @@ BlazeComponent.extendComponent({
     });
   },
 
+  setError: function(error) {
+    this.error.set(error);
+  },
+
   events: function() {
     return [{
       'click .js-upload-avatar': function() {
         this.$('.js-upload-avatar-input').click();
       },
       'change .js-upload-avatar-input': function(evt) {
-        var self = this;
-        var file, fileUrl;
+        let file, fileUrl;
 
-        FS.Utility.eachFile(evt, function(f) {
-          file = Avatars.insert(new FS.File(f));
-          fileUrl = file.url(self.avatarUrlOptions());
+        FS.Utility.eachFile(evt, (f) => {
+          try {
+            file = Avatars.insert(new FS.File(f));
+            fileUrl = file.url(this.avatarUrlOptions());
+          } catch (e) {
+            this.setError('avatar-too-big');
+          }
         });
-        var fetchAvatarInterval = window.setInterval(function() {
-          $.ajax({
-            url: fileUrl,
-            success: function() {
-              self.setAvatar(file.url(self.avatarUrlOptions()));
-              window.clearInterval(fetchAvatarInterval);
-            }
-          });
-        }, 100);
+
+        if (fileUrl) {
+          this.setError('');
+          let fetchAvatarInterval = window.setInterval(() => {
+            $.ajax({
+              url: fileUrl,
+              success: () => {
+                this.setAvatar(file.url(this.avatarUrlOptions()));
+                window.clearInterval(fetchAvatarInterval);
+              }
+            });
+          }, 100);
+        }
       },
       'click .js-select-avatar': function() {
         var avatarUrl = this.currentData().url(this.avatarUrlOptions());

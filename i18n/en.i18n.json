@@ -189,6 +189,7 @@
     "editProfilePopup-title": "Edit Profile",
     "changeAvatarPopup-title": "Change Avatar",
     "changePasswordPopup-title": "Change Password",
+    "avatar-too-big": "The avatar is too large (70Kb max)",
     "cardDetailsActionsPopup-title": "Card Actions",
     "disambiguateMultiLabelPopup-title": "Disambiguate Label Action",
     "disambiguateMultiMemberPopup-title": "Disambiguate Member Action"
