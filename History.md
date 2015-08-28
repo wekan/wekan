@@ -2,25 +2,29 @@
 
 This release is a large re-write of the previous code base. Despite being
 relatively similar to v0.8 feature-wise, this release marks the beginning of our
-new user interface and continues to improve the overall performance. It also
-features the following improvements:
+new user interface and continues to improve the overall performance and
+security. It also features the following improvements:
 
 * A new user account system, including the possibility to reset a forgotten
   password, to change the password, or to enable email confirmation (all of
   which were previously impossible);
 * Avatar customization, including the possibility to upload images and to choose
-  one from gravatar or the user initials;
-* Keyboard navigation, including a list of available keyboard shortcuts visible
-  by pressing `?`;
+  one from Gravatar or the user initials;
+* Cards multi-selection to facilitate batch actions such as moving all the cards
+  of selection, or attaching a label or a member to them;
+* Keyboard navigation, press `?` to read the list of available shortcuts;
 * The possibility to restore archived boards, lists, and cards.
 
 Starting from this release we will also distribute official docker images on
 both the
 [GitHub release page](https://github.com/libreboard/libreboard/releases)
 and on the
-[DockerHub](https://hub.docker.com/r/mquandalle/libreboard].
+[DockerHub](https://hub.docker.com/r/mquandalle/libreboard).
 
 New languages supported: Chinese, Finnish, Spanish, Korean, and Russian.
+
+Special thanks to GitHub users ePirat, nata-goddanti, ocdtrekkie, and others who
+have supportive during this *traversée du desert*.
 
 # v0.8
 
