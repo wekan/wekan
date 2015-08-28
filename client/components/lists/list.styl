@@ -21,10 +21,13 @@
     border-left: none
 
   &.ui-sortable-helper
-    cursor: grabbing
     box-shadow: -2px 2px 8px rgba(0, 0, 0, .3),
                 0 0 1px rgba(0, 0, 0, .5)
     transform: rotate(4deg)
+    cursor: grabbing
+
+    .list-header.ui-sortable-handle
+      cursor: grabbing
 
   &.placeholder
     background-color: rgba(0, 0, 0, .2)
