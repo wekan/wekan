@@ -19,6 +19,9 @@ BlazeComponent.extendComponent({
       var handle = subManager.subscribe('board', Session.get('currentBoard'));
       self.isBoardReady.set(handle.ready());
     });
+
+    self._isDragging = false;
+    self._lastDragPositionX = 0;
   },
 
   openNewListForm: function() {
@@ -34,7 +37,7 @@ BlazeComponent.extendComponent({
 
   scrollLeft: function(position) {
     position = position || 0;
-    var $container = $(this.find('.js-lists'));
+    var $container = $(this.listsDom);
     var containerWidth = $container.width();
     var currentScrollPosition = $container.scrollLeft();
     if (position < currentScrollPosition) {
@@ -66,6 +69,33 @@ BlazeComponent.extendComponent({
       // component.
       'mouseenter .board-overlay': function() {
         this.showOverlay.set(false);
+      },
+
+      // Click-and-drag action
+      'mousedown .board-canvas': function(evt) {
+        if ($(evt.target).closest('a,.js-list-header').length === 0) {
+          this._isDragging = true;
+          this._lastDragPositionX = evt.clientX;
+        }
+      },
+      'mouseup': function(evt) {
+        if (this._isDragging) {
+          this._isDragging = false;
+        }
+      },
+      'mousemove': function(evt) {
+        if (this._isDragging) {
+          // Update the canvas position
+          this.listsDom.scrollLeft -= evt.clientX - this._lastDragPositionX;
+          this._lastDragPositionX = evt.clientX;
+          // Disable browser text selection while dragging
+          evt.stopPropagation();
+          evt.preventDefault();
+          // Don't close opened card or inlined form at the end of the
+          // click-and-drag.
+          EscapeActions.executeUpTo('popup-close');
+          EscapeActions.preventNextClick();
+        }
       }
     }];
   }
@@ -76,11 +106,11 @@ Template.boardBody.onRendered(function() {
 
   self.scrollLeft();
 
-  var lists = this.find('.js-lists');
+  self.listsDom = this.find('.js-lists');
 
   // We want to animate the card details window closing. We rely on CSS
   // transition for the actual animation.
-  lists._uihooks = {
+  self.listsDom._uihooks = {
     removeElement: function(node) {
       var removeNode = _.once(function() {
         node.parentNode.removeChild(node);
@@ -90,7 +120,7 @@ Template.boardBody.onRendered(function() {
           flexBasis: 0,
           padding: 0
         });
-        $(lists).one(CSSEvents.transitionend, removeNode);
+        $(self.listsDom).one(CSSEvents.transitionend, removeNode);
       } else {
         removeNode();
       }
@@ -100,9 +130,10 @@ Template.boardBody.onRendered(function() {
   if (! Meteor.user() || ! Meteor.user().isBoardMember())
     return;
 
-  self.$(lists).sortable({
+  self.$(self.listsDom).sortable({
     tolerance: 'pointer',
     helper: 'clone',
+    handle: '.js-list-header',
     items: '.js-list:not(.js-list-composer)',
     placeholder: 'list placeholder',
     distance: 7,
@@ -126,7 +157,8 @@ Template.boardBody.onRendered(function() {
 
   // Disable drag-dropping while in multi-selection mode
   self.autorun(function() {
-    self.$(lists).sortable('option', 'disabled', MultiSelection.isActive());
+    self.$(self.listsDom).sortable('option', 'disabled',
+      MultiSelection.isActive());
   });
 
   // If there is no data in the board (ie, no lists) we autofocus the list

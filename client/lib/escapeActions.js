@@ -4,6 +4,8 @@
 // escape we execute the action which have a valid condition and his the highest
 // in the label hierarchy.
 EscapeActions = {
+  _nextclickPrevented: false,
+
   _actions: [],
 
   // Executed in order
@@ -60,12 +62,20 @@ EscapeActions = {
   },
 
   clickExecute: function(target, maxLabel) {
-    return this._execute({
-      maxLabel: maxLabel,
-      multipleActions: false,
-      isClick: true,
-      clickTarget: target
-    });
+    if (this._nextclickPrevented) {
+      this._nextclickPrevented = false;
+    } else {
+      return this._execute({
+        maxLabel: maxLabel,
+        multipleActions: false,
+        isClick: true,
+        clickTarget: target
+      });
+    }
+  },
+
+  preventNextClick: function() {
+    this._nextclickPrevented = true;
   },
 
   _stopClick: function(action, clickTarget) {
