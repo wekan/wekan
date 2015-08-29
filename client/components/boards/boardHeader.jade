@@ -1,7 +1,8 @@
 template(name="headerBoard")
   h1.header-board-menu
-    a(class="{{#if currentUser.isBoardAdmin}}js-edit-board-title{{else}}is-disabled{{/if}}")
-      = currentBoard.title
+    with currentBoard
+      a(class="{{#if currentUser.isBoardAdmin}}js-edit-board-title{{else}}is-disabled{{/if}}")
+        = title
 
   .board-header-btns.left
     unless isSandstorm
