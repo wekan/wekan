@@ -73,18 +73,14 @@ const pkgdef :Spk.PackageDefinition = (
 
       shortDescription = (defaultText = "Kanban board"),
 
-      # screenshots = [
-      #   (
-      #     width = 1222,
-      #     height = 822,
-      #     png = embed "meta/screenshots/board-view.png"
-      #   ),
-      #   # XXX The UI visible screenshot is outdated, make some new screenshots
-      #   # before the final v0.9 release.
-      #   # XXX The screenshots should have a standard width and height.
-      # ],
-      # XXX Disabled because it seems that the PNG image is too large and causes
-      # an exception, is it?
+      screenshots = [
+        (
+          width = 1024,
+          height = 660,
+          jpeg = embed "meta/screenshots/board-view.jpg"
+        ),
+        # XXX The screenshots should have a standard width and height.
+      ],
 
       changeLog = (
         defaultText = embed "History.md",
