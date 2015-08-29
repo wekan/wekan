@@ -69,6 +69,10 @@ const pkgdef :Spk.PackageDefinition = (
 
       pgpKeyring = embed "meta/keyring",
 
+      description = (defaultText = embed "meta/description.md"),
+
+      shortDescription = (defaultText = "Kanban board"),
+
       # screenshots = [
       #   (
       #     width = 1222,
