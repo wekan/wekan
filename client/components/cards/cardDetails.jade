@@ -1,8 +1,5 @@
 template(name="cardDetails")
   section.card-details.js-card-details.js-perfect-scrollbar: .card-details-canvas
-    if cover
-      .card-details-cover(style="background-image: url({{ cover.url }})")
-
     .card-details-header
       +inlinedForm(classNames="js-card-details-title")
         input.full-line(type="text" value=title autofocus)
@@ -11,7 +8,8 @@ template(name="cardDetails")
           a.fa.fa-times-thin.js-close-inlined-form
       else
         a.fa.fa-angle-left.close-card-details.js-close-card-details
-        a.fa.fa-bars.card-details-menu.js-open-card-details-menu
+        if currentUser.isBoardMember
+          a.fa.fa-bars.card-details-menu.js-open-card-details-menu
         h2.card-details-title.js-card-title(
           class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
             = title
@@ -27,7 +25,7 @@ template(name="cardDetails")
       .card-details-item.card-details-item-members
         h3.card-details-item-title {{_ 'members'}}
         each members
-          +userAvatar(userId=this cardId=../_id)
+          +userAvatar(userId=this cardId="{{../_id}}")
         a.member.add-member.card-details-item-add-button.js-add-members
           i.fa.fa-plus
 
@@ -75,11 +73,10 @@ template(name="cardDetails")
       +activities(card=this mode="card")
 
 template(name="cardDetailsActionsPopup")
-  if currentUser.isBoardMember
-    ul.pop-over-list
-      li: a.js-members Edit Members…
-      li: a.js-labels Edit Labels…
-      li: a.js-attachments Edit Attachments…
+  ul.pop-over-list
+    li: a.js-members Edit Members…
+    li: a.js-labels Edit Labels…
+    li: a.js-attachments Edit Attachments…
   hr
   ul.pop-over-list
     li: a.js-copy Copy Card

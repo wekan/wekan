@@ -4,3 +4,10 @@ Blaze.registerHelper('currentBoard', function() {
     return Boards.findOne(boardId);
   }
 });
+
+Blaze.registerHelper('currentCard', function() {
+  var cardId = Session.get('currentCard');
+  if (cardId) {
+    return Cards.findOne(cardId);
+  }
+});

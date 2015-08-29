@@ -63,8 +63,13 @@ Boards.attachSchema(new SimpleSchema({
   color: {
     type: String,
     allowedValues: [
-    'nephritis', 'pomegranate', 'belize',
-    'wisteria', 'midnight', 'pumpkin']
+    'belize',
+    'nephritis',
+    'pomegranate',
+    'pumpkin',
+    'wisteria',
+    'midnight',
+    ]
   }
 }));
 
@@ -126,7 +131,7 @@ Boards.helpers({
     return Activities.find({ boardId: this._id }, { sort: { createdAt: -1 }});
   },
   absoluteUrl: function() {
-    return Router.path('Board', { boardId: this._id, slug: this.slug });
+    return FlowRouter.path('board', { id: this._id, slug: this.slug });
   },
   colorClass: function() {
     return 'board-color-' + this.color;

@@ -3,7 +3,7 @@
 #header
   color: white
   transition: background-color 0.4s
-  background: #27AE60
+  background: #2980B9
 
   #header-quick-access
     background-color: rgba(0, 0, 0, 0.2)
@@ -75,6 +75,16 @@
       float: left
       border-radius: 3px
 
+    .wekan-logo
+      display: block
+      margin: 3px auto 0
+      width: 97px
+      opacity: 0.6
+      transition: opacity 0.15s
+
+      &:hover
+        opacity: 0.9
+
     .board-header-btns
       display: block
       margin-top: 3px
@@ -106,6 +116,8 @@
         margin: 0 10px
 
         + span
+          display: inline-block
+          margin-top: 1px
           margin-right: 10px
 
       .board-header-btn-close
@@ -117,7 +129,7 @@
     .board-header-btn,
     h1.is-clickable
       &.is-active,
-      &:hover
+      &:hover:not(.is-disabled)
         background: rgba(0, 0, 0, .15)
 
     .separator

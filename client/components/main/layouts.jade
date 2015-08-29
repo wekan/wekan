@@ -1,5 +1,5 @@
 head
-  title LibreBoard
+  title Wekan
   meta(name="viewport"
    content="maximum-scale=1.0,width=device-width,initial-scale=1.0,user-scalable=0")
   link(rel="shortcut icon" href="/favicon.png")
@@ -7,16 +7,22 @@ head
 template(name="userFormsLayout")
   section.auth-layout
     h1.at-form-landing-logo
-      img(src="/logo.png" title="LibreBoard")
-    +yield
+      img(src="/wekan-logo.png" alt="Wekan")
+    +Template.dynamic(template=content)
 
 template(name="defaultLayout")
-  #surface
-    +header
-    #content
-      +yield
+  +header
+  #content
+    +Template.dynamic(template=content)
+  if (Modal.isOpen)
+    #modal
+      .overlay
+      .modal-content
+        a.modal-close-btn.js-close-modal
+          i.fa.fa-times-thin
+        +Template.dynamic(template=Modal.getTemplateName)
 
-template(name="notfound")
+template(name="notFound")
   +message(label='page-not-found')
 
 template(name="message")

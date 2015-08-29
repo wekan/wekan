@@ -1,10 +1,27 @@
 template(name="archivesSidebar")
-  each archivedCards
-    .minicard-wrapper.js-minicard
-      +minicard(this)
-    p.quiet
-      a.js-restore Restore
-      | -
-      a.js-delete Delete
-  else
-    p.no-items-message No archived cards.
+  +basicTabs(tabs=tabs)
+
+   +tabContent(slug="cards")
+    each archivedCards
+      .minicard-wrapper.js-minicard
+        +minicard(this)
+      if currentUser.isBoardMember
+        p.quiet
+          a.js-restore-card Restore
+          | -
+          a.js-delete-card Delete
+        if cardIsInArchivedList
+          p.quiet.small (warning: this card is in an archived list)
+    else
+      p.no-items-message No archived cards.
+
+   +tabContent(slug="lists")
+    ul.archived-lists
+      each archivedLists
+        li.archived-lists-item
+          if currentUser.isBoardMember
+            button.js-restore-list
+              i.fa.fa-undo
+          = title
+      else
+        li.no-items-message No archived lists.

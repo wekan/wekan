@@ -70,12 +70,10 @@ BlazeComponent.extendComponent({
 
       // Close the inlined form when after its submission
       submit: function() {
-        var self = this;
-        // XXX Swith to an arrow function here when we'll have ES6
         if (this.currentData().autoclose !== false) {
-          Tracker.afterFlush(function() {
-            self.close();
-            self.callFirstWith(self, 'resetCache');
+          Tracker.afterFlush(() => {
+            this.close();
+            this.callFirstWith(this, 'resetCache');
           });
         }
       }

@@ -1,10 +1,25 @@
+template(name="listHeader")
+  .list-header.js-list-header
+    +inlinedForm
+      +editListTitleForm
+    else
+      h2.list-header-name(
+        class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
+        = title
+      if currentUser.isBoardMember
+        a.list-header-menu-icon.fa.fa-bars.js-open-list-menu
+
+template(name="editListTitleForm")
+  .list-composer
+    input.full-line(type="text" value=title autofocus)
+    .edit-controls.clearfix
+      button.primary.confirm(type="submit") {{_ 'save'}}
+      a.fa.fa-times-thin.js-close-inlined-form
+
 template(name="listActionPopup")
   ul.pop-over-list
     li: a.js-add-card {{_ 'add-card'}}
-    li: a.highlight-icon.js-list-subscribe {{_ 'subscribe'}}
-  if cards.count
-    hr
-    ul.pop-over-list
+    if cards.count
       li: a.js-select-cards {{_ 'list-select-cards'}}
       li: a.js-move-cards {{_ 'list-move-cards'}}
       li: a.js-archive-cards {{_ 'list-archive-cards'}}

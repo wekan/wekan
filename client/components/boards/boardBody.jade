@@ -1,29 +1,29 @@
-//-
-  XXX This template can't be transformed into a component because it is
-  included by iron-router. That's a bug.
-  See https://github.com/peerlibrary/meteor-blaze-components/issues/44
 template(name="board")
-  +boardComponent
-
-template(name="boardComponent")
-  if this
-    .board-wrapper(class=colorClass)
-      .board-canvas(
-        class=sidebarSize
-        class="{{#if MultiSelection.isActive}}is-multiselection-active{{/if}}"
-        class="{{#if draggingActive.get}}is-dragging-active{{/if}}")
-        if showOverlay.get
-          .board-overlay
-        .lists.js-lists
-          each lists
-            +list(this)
-            if currentCardIsInThisList
-              +cardDetails(currentCard)
-          if currentUser.isBoardMember
-            +addListForm
-      +sidebar
+  if isBoardReady.get
+    if currentBoard
+      +boardBody
+    else
+      //- XXX We need a better error message in case the board has been archived
+      +message(label="board-no-found")
   else
-    +message(label="board-no-found")
+    +spinner
+
+template(name="boardBody")
+  .board-wrapper(class=currentBoard.colorClass)
+    +sidebar
+    .board-canvas(
+      class="{{#if Sidebar.isOpen}}is-sibling-sidebar-open{{/if}}"
+      class="{{#if MultiSelection.isActive}}is-multiselection-active{{/if}}"
+      class="{{#if draggingActive.get}}is-dragging-active{{/if}}")
+      if showOverlay.get
+        .board-overlay
+      .lists.js-lists
+        each currentBoard.lists
+          +list(this)
+          if currentCardIsInThisList
+            +cardDetails(currentCard)
+        if currentUser.isBoardMember
+          +addListForm
 
 template(name="addListForm")
   .list.js-list.list-composer.js-list-composer

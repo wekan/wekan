@@ -22,22 +22,44 @@ Meteor.publish('boards', function() {
   }, {
     fields: {
       _id: 1,
+      archived: 1,
       slug: 1,
       title: 1,
       color: 1,
+      members: 1,
       permission: 1
     }
   });
 });
 
-Meteor.publishComposite('board', function(boardId, slug) {
+Meteor.publish('archivedBoards', function() {
+  if (! Match.test(this.userId, String))
+    return [];
+
+  return Boards.find({
+    archived: true,
+    members: {
+      $elemMatch: {
+        userId: this.userId,
+        isAdmin: true
+      }
+    }
+  }, {
+    fields: {
+      _id: 1,
+      archived: 1,
+      slug: 1,
+      title: 1
+    }
+  })
+});
+
+Meteor.publishComposite('board', function(boardId) {
   check(boardId, String);
-  check(slug, String);
   return {
     find: function() {
       return Boards.find({
         _id: boardId,
-        slug: slug,
         archived: false,
         // If the board is not public the user has to be a member of it to see
         // it.
@@ -69,7 +91,7 @@ Meteor.publishComposite('board', function(boardId, slug) {
       // a similar problem:
       //
       //   https://github.com/Goluis/cottz-publish/issues/4
-      //   https://github.com/libreboard/libreboard/pull/78
+      //   https://github.com/wekan/wekan/pull/78
       //
       // The current state of relational publishing in meteor is a bit sad,
       // there are a lot of various packages, with various APIs, some of them

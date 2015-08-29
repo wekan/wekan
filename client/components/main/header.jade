@@ -10,13 +10,13 @@ template(name="header")
         #header-quick-access
           ul
             li
-              +linkTo(route="Boards")
+              a(href="{{pathFor 'home'}}")
                 span.fa.fa-home
                 | All boards
             each currentUser.starredBoards
               li.separator -
               li(class="{{#if $.Session.equals 'currentBoard' _id}}current{{/if}}")
-                +linkTo(route="Board" data=this)
+                a(href="{{pathFor 'board' id=_id slug=slug}}")
                   = title
             else
               li.current Star a board to add a shortcut in this bar.
@@ -31,11 +31,19 @@ template(name="header")
       The main bar is a colorful bar that provide all the meta-data for the
       current page. This bar is contextual based.
       If the user is not connected we display "sign in" and "log in" buttons.
-    #header-main-bar
+    #header-main-bar(class="{{#if wrappedHeader}}wrapper{{/if}}")
       if $.Session.get 'currentBoard'
         +headerBoard
-      else
+      else if($eq currentRouteName 'home')
         +headerTitle
 
+      a.wekan-logo(href="{{pathFor 'home'}}")
+        img(src="/wekan-logo-header.png" alt="Wekan")
+
 template(name="headerTitle")
-  h1 LibreBoard
+  h1 My Boards
+
+  .board-header-btns.right
+    a.board-header-btn.js-open-archived-board
+      i.fa.fa-archive
+      span Archives

@@ -10,7 +10,7 @@ var sandstormBoard = {
   _id: 'sandstorm',
 
   // XXX Should be shared with the grain instance name.
-  title: 'LibreBoard',
+  title: 'Wekan',
   slug: 'libreboard',
 
   // Board access security is handled by sandstorm, so in our point of view we
@@ -30,23 +30,23 @@ if (isSandstorm && Meteor.isServer) {
   // Redirect the user to the hard-coded board. On the first launch the user
   // will be redirected to the board before its creation. But that’s not a
   // problem thanks to the reactive board publication. We used to do this
-  // redirection on the client side but that was sometime visible on loading,
+  // redirection on the client side but that was sometimes visible on loading,
   // and the home page was accessible by pressing the back button of the
   // browser, a server-side redirection solves both of these issues.
   //
   // XXX Maybe sandstorm manifest could provide some kind of "home url"?
-  Router.route('/', function() {
-    var base = this.request.headers['x-sandstorm-base-path'];
+  Picker.route('/', function(params, request, response) {
+    var base = request.headers['x-sandstorm-base-path'];
     // XXX If this routing scheme changes, this will break. We should generation
     // the location url using the router, but at the time of writting, the
     // router is only accessible on the client.
     var path = '/boards/' + sandstormBoard._id + '/' + sandstormBoard.slug;
 
-    this.response.writeHead(301, {
+    response.writeHead(301, {
       Location: base + path
     });
-    this.response.end();
-  }, { where: 'server' });
+    response.end();
+  });
 
   // On the first launch of the instance a user is automatically created thanks
   // to the `accounts-sandstorm` package. After its creation we insert the

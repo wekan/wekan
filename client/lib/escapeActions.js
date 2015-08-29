@@ -4,36 +4,42 @@
 // escape we execute the action which have a valid condition and his the highest
 // in the label hierarchy.
 EscapeActions = {
+  _nextclickPrevented: false,
+
   _actions: [],
 
   // Executed in order
   hierarchy: [
     'textcomplete',
-    'popup',
+    'popup-back',
+    'popup-close',
+    'modalWindow',
     'inlinedForm',
     'detailsPane',
     'multiselection',
     'sidebarView'
   ],
 
-  register: function(label, action, condition, options) {
-    condition = condition || function() { return true; };
-    options = options || {};
-
-    // XXX Rewrite this with ES6: .push({ priority, condition, action })
-    var priority = this.hierarchy.indexOf(label);
+  register: function(label, action, condition = () => true, options = {}) {
+    const priority = this.hierarchy.indexOf(label);
     if (priority === -1) {
       throw Error('You must define the label in the EscapeActions hierarchy');
     }
 
-    this._actions.push({
-      priority: priority,
-      condition: condition,
-      action: action,
-      noClickEscapeOn: options.noClickEscapeOn
-    });
-    // XXX Rewrite this with ES6: => function
-    this._actions = _.sortBy(this._actions, function(a) { return a.priority; });
+    let enabledOnClick = options.enabledOnClick;
+    if (_.isUndefined(enabledOnClick)) {
+      enabledOnClick = true;
+    }
+
+    let noClickEscapeOn = options.noClickEscapeOn;
+
+    this._actions[priority] = {
+      priority,
+      condition,
+      action,
+      noClickEscapeOn,
+      enabledOnClick
+    };
   },
 
   executeLowest: function() {
@@ -55,12 +61,21 @@ EscapeActions = {
     });
   },
 
-  clickExecute: function(evt, maxLabel) {
-    return this._execute({
-      maxLabel: maxLabel,
-      multipleActions: false,
-      evt: evt
-    });
+  clickExecute: function(target, maxLabel) {
+    if (this._nextclickPrevented) {
+      this._nextclickPrevented = false;
+    } else {
+      return this._execute({
+        maxLabel: maxLabel,
+        multipleActions: false,
+        isClick: true,
+        clickTarget: target
+      });
+    }
+  },
+
+  preventNextClick: function() {
+    this._nextclickPrevented = true;
   },
 
   _stopClick: function(action, clickTarget) {
@@ -71,27 +86,30 @@ EscapeActions = {
   },
 
   _execute: function(options) {
-    var maxLabel = options.maxLabel;
-    var evt = options.evt || {};
-    var multipleActions = options.multipleActions;
+    const maxLabel = options.maxLabel;
+    const multipleActions = options.multipleActions;
+    const isClick = !! options.isClick;
+    const clickTarget = options.clickTarget;
 
-    var maxPriority, currentAction;
-    var executedAtLeastOne = false;
+    let executedAtLeastOne = false;
+    let maxPriority;
+
     if (! maxLabel)
       maxPriority = Infinity;
     else
       maxPriority = this.hierarchy.indexOf(maxLabel);
 
-    for (var i = 0; i < this._actions.length; i++) {
-      currentAction = this._actions[i];
+    for (let i = 0; i < this._actions.length; i++) {
+      let currentAction = this._actions[i];
       if (currentAction.priority > maxPriority)
         return executedAtLeastOne;
 
-      if (evt.type === 'click' && this._stopClick(currentAction, evt.target))
+      if (isClick && this._stopClick(currentAction, clickTarget))
         return executedAtLeastOne;
 
-      if (currentAction.condition()) {
-        currentAction.action(evt);
+      let isEnabled = currentAction.enabledOnClick || ! isClick;
+      if (isEnabled && currentAction.condition()) {
+        currentAction.action();
         executedAtLeastOne = true;
         if (! multipleActions)
           return executedAtLeastOne;
@@ -151,8 +169,8 @@ Mousetrap.bindGlobal('esc', function() {
 // close the popup). We don't execute any action if the user has clicked on a
 // link or a button.
 $(document).on('click', function(evt) {
-  if (evt.which === 1 &&
+  if (evt.button === 0 &&
     $(evt.target).closest('a,button,.is-editable').length === 0) {
-    EscapeActions.clickExecute(evt, 'multiselection');
+    EscapeActions.clickExecute(evt.target, 'multiselection');
   }
 });

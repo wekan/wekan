@@ -8,11 +8,13 @@
   font-weight: 700
   font-size: 13px
   margin-right: 4px
+  margin-bottom: 5px
   padding: 3px 8px
   max-width: 100%
   min-width: 8px
   overflow: ellipsis
   height: 18px
+  vertical-align: bottom
 
   &:hover
     color: white
@@ -24,6 +26,12 @@
 
   &.add-label
     box-shadow: 0 0 0 2px darken(white, 25%) inset
+
+    &:hover, &.is-active
+      box-shadow: 0 0 0 2px darken(white, 60%) inset
+
+    i.fa-plus
+      margin-top: 3px
 
 .palette-colors
   display: flex

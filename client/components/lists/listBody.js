@@ -45,7 +45,7 @@ BlazeComponent.extendComponent({
       // In case the filter is active we need to add the newly inserted card in
       // the list of exceptions -- cards that are not filtered. Otherwise the
       // card will disappear instantly.
-      // See https://github.com/libreboard/libreboard/issues/80
+      // See https://github.com/wekan/wekan/issues/80
       Filter.addException(_id);
 
       // We keep the form opened, empty it, and scroll to it.

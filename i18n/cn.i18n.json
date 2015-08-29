@@ -159,7 +159,7 @@
     "boardChangeTitlePopup-title": "重命名看板",
     "boardChangeVisibilityPopup-title": "更改可视级别",
     "addMemberPopup-title": "成员",
-    "closeBoardPopup-title": "关闭看板？",
+    "archiveBoardPopup-title": "关闭看板？",
     "removeMemberPopup-title": "删除成员？",
     "createBoardPopup-title": "创建看板",
     "listActionPopup-title": "列出动作",

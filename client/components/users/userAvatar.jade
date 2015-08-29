@@ -36,6 +36,8 @@ template(name="memberName")
     = user.username
 
 template(name="changeAvatarPopup")
+  if error.get
+    .warning {{_ error.get}}
   ul.pop-over-list
     each uploadedAvatars
       li: a.js-select-avatar

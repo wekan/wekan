@@ -159,7 +159,7 @@
     "boardChangeTitlePopup-title": "ボード名の変更",
     "boardChangeVisibilityPopup-title": "公開範囲の変更",
     "addMemberPopup-title": "メンバー",
-    "closeBoardPopup-title": "ボードを閉じますか？",
+    "archiveBoardPopup-title": "ボードを閉じますか？",
     "removeMemberPopup-title": "メンバーを外しますか？",
     "createBoardPopup-title": "ボードの作成",
     "listActionPopup-title": "操作一覧",

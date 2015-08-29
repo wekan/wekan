@@ -3,13 +3,14 @@
 global-reset()
 
 html, body, input, select, textarea, button
-  font: 14px "Helvetica Neue", Arial, Helvetica, sans-serif
+  font: 14px Roboto, "Helvetica Neue", Arial, Helvetica, sans-serif
   line-height: 18px
   color: #4d4d4d
 
 html
   font-size: 100%
   max-height: 100%
+  user-select: none
   -webkit-text-size-adjust: 100%
 
 body
@@ -18,19 +19,41 @@ body
   position: relative
   z-index: 0
   overflow-y: auto
-
-#surface
   display: flex
   flex-direction: column
-  min-height: 100vh
-  overflow: hidden
+  height: 100vh
 
 #content
   position: relative
   flex: 1
+  overflow: hidden
 
-div::selection
-  background: transparent
+#modal
+  position: absolute
+  top: 0
+  bottom: 0
+  left: 0
+  right: 0
+  background: rgba(0, 0, 0, 0.6)
+  z-index: 100
+  overflow-y: auto
+
+  .modal-content
+    width: 500px
+    min-height: 160px
+    margin: 42px auto
+    padding: 12px
+    border-radius: 4px
+    background: darken(white, 13%)
+    z-index: 110
+
+    h2
+      margin-bottom: 25px
+
+    .modal-close-btn
+      display: block
+      float: right
+      font-size: 24px
 
 h1
   font-size: 22px
@@ -67,6 +90,9 @@ h3, h4, h5, h6
   a
     color: #aa8f09
 
+.small
+  font-size: 0.8em
+
 a
   color: inherit
   cursor: pointer
@@ -81,6 +107,8 @@ strong
   font-weight: bold
 
 p
+  user-select: text
+
   a
     text-decoration: underline
     word-wrap: break-word
@@ -180,6 +208,10 @@ dd
 .bottom
   margin-bottom: 0
   padding-bottom: 0
+
+.wrapper
+  max-width: 1200px
+  margin: 0 auto
 
 .relative
   position: relative
@@ -284,6 +316,10 @@ a
   ul
     list-style-type: initial
     padding-left: 20px
+
+.basicTabs-container .tabs-content-container
+  padding: 0
+  padding-top: 15px
 
 @keyframes fadeIn
   from

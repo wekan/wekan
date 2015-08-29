@@ -33,25 +33,6 @@ Template.editProfilePopup.events({
   }
 });
 
-// We display the form to change the password in a popup window that already
-// have a title, so we unset the title automatically displayed by useraccounts.
-AccountsTemplates.configure({
-  texts: {
-    title: {
-      changePwd: ''
-    }
-  }
-});
-
-AccountsTemplates.configureRoute('changePwd', {
-  redirect: function() {
-    // XXX We should emit a notification once we have a notification system.
-    // Currently the user has no indication that his modification has been
-    // applied.
-    Popup.back();
-  }
-});
-
 // XXX For some reason the useraccounts autofocus isnt working in this case.
 // See https://github.com/meteor-useraccounts/core/issues/384
 Template.changePasswordPopup.onRendered(function() {

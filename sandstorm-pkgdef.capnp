@@ -19,13 +19,13 @@ const pkgdef :Spk.PackageDefinition = (
     # This manifest is included in our app package to tell Sandstorm about our
     # app.
 
-    appTitle = (defaultText = "LibreBoard"),
+    appTitle = (defaultText = "Wekan"),
     # The name of the app as it is displayed to the user.
 
-    appVersion = 2,
+    appVersion = 3,
     # Increment this for every release.
 
-    appMarketingVersion = (defaultText = "0.9.0"),
+    appMarketingVersion = (defaultText = "0.9.0_rc1"),
     # Human-readable presentation of the app version.
 
     minUpgradableAppVersion = 0,
@@ -38,24 +38,64 @@ const pkgdef :Spk.PackageDefinition = (
       # Define your "new document" handlers here.
       (
         title = (defaultText = "New board"),
-        command = .myCommand
+        command = .myCommand,
         # The command to run when starting for the first time. (".myCommand" is
         # just a constant defined at the bottom of the file.)
       )
     ],
 
-    continueCommand = .myCommand
+    continueCommand = .myCommand,
     # This is the command called to start your app back up after it has been
     # shut down for inactivity. Here we're using the same command as for
     # starting a new instance, but you could use different commands for each
     # case.
+
+    metadata = (
+      icons = (
+        appGrid = (svg = embed "meta/icons/wekan-128.svg"),
+        grain = (svg = embed "meta/icons/wekan-24.svg"),
+        market = (svg = embed "meta/icons/wekan-150.svg"),
+      ),
+
+      website = "http://libreboard.com",
+      codeUrl = "https://github.com/wekan/wekan",
+      license = (openSource = mit),
+      categories = [productivity, office],
+
+      author = (
+        contactEmail = "maxime@quandalle.com",
+        pgpSignature = embed "meta/mquandalle-pgp-sig",
+      ),
+
+      pgpKeyring = embed "meta/keyring",
+
+      # screenshots = [
+      #   (
+      #     width = 1222,
+      #     height = 822,
+      #     png = embed "meta/screenshots/board-view.png"
+      #   ),
+      #   # XXX The UI visible screenshot is outdated, make some new screenshots
+      #   # before the final v0.9 release.
+      #   # XXX The screenshots should have a standard width and height.
+      # ],
+      # XXX Disabled because it seems that the PNG image is too large and causes
+      # an exception, is it?
+
+      changeLog = (
+        defaultText = embed "History.md",
+        localizations = [
+          (locale = "fr", text = embed "meta/t9n-changelog/fr.md"),
+        ],
+      )
+    )
   ),
 
   sourceMap = (
     # The following directories will be copied into your package.
     searchPath = [
-      ( sourcePath = ".meteor-spk/deps" ),
-      ( sourcePath = ".meteor-spk/bundle" )
+      (sourcePath = ".meteor-spk/deps"),
+      (sourcePath = ".meteor-spk/bundle"),
     ]
   ),
 
@@ -69,23 +109,63 @@ const pkgdef :Spk.PackageDefinition = (
     viewInfo = (
       permissions = [(
         name = "participate",
-        title = (defaultText = "participate"),
-        description = (defaultText = "allows participating in the board")
+        title = (
+          defaultText = "participate",
+          localizations = [
+            (locale = "fr", text = "participer"),
+          ],
+        ),
+        description = (
+          defaultText = "allows participating in the board",
+          localizations = [
+            (locale = "fr", text = "permet de participer dans le tableau"),
+          ],
+        )
       ), (
         name = "configure",
-        title = (defaultText = "configure"),
-        description = (defaultText = "allows configuring the board")
+        title = (
+          defaultText = "configure",
+          localizations = [
+            (locale = "fr", text = "configurer"),
+          ],
+        ),
+        description = (
+          defaultText = "allows configuring the board",
+          localizations = [
+            (locale = "fr", text = "permet de configurer le tableau"),
+          ],
+        )
       )],
 
       roles = [(
-        title = (defaultText = "observer"),
+        title = (
+          defaultText = "observer",
+          localizations = [
+            (locale = "fr", text = "observateur"),
+          ],
+        ),
         permissions = [false, false],
-        verbPhrase = (defaultText = "can read")
+        verbPhrase = (
+          defaultText = "can read",
+          localizations = [
+            (locale = "fr", text = "peut lire"),
+          ],
+        )
       ), (
-        title = (defaultText = "member"),
+        title = (
+          defaultText = "member",
+          localizations = [
+            (locale = "fr", text = "membre"),
+          ],
+        ),
         permissions = [true, false],
-        verbPhrase = (defaultText = "can edit"),
-        default = true
+        verbPhrase = (
+          defaultText = "can edit",
+          localizations = [
+            (locale = "fr", text = "peut éditer"),
+          ],
+        ),
+        default = true,
       # ), (
       #   title = (defaultText = "administrator"),
       #   permissions = [true, true],
@@ -95,7 +175,7 @@ const pkgdef :Spk.PackageDefinition = (
       # role is currently useless.
       )]
     )
-  )
+  ),
 );
 
 const myCommand :Spk.Manifest.Command = (

@@ -159,7 +159,7 @@
     "boardChangeTitlePopup-title": "Renombrar tablero",
     "boardChangeVisibilityPopup-title": "Cambiar visibilidad",
     "addMemberPopup-title": "Miembros",
-    "closeBoardPopup-title": "Cerrar el tablero",
+    "archiveBoardPopup-title": "Cerrar el tablero",
     "removeMemberPopup-title": "¿Eliminar miembro?",
     "createBoardPopup-title": "Crear tablero",
     "listActionPopup-title": "Acciones de la lista",

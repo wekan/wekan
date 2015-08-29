@@ -103,11 +103,12 @@ template(name="cardActivities")
             .activity-comment
               +viewer
                 = comment.text
-            span.activity-meta
-              | {{ moment createdAt }} -
-              a.js-open-inlined-form {{_ "edit"}}
-              = ' - '
-              a.js-delete-comment {{_ "delete"}}
+            if ($eq currentUser comment.userId)
+              span.activity-meta
+                | {{ moment createdAt }} -
+                a.js-open-inlined-form {{_ "edit"}}
+                = ' - '
+                a.js-delete-comment {{_ "delete"}}
 
         else
           span.activity-meta {{ moment createdAt }}

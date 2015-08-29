@@ -102,6 +102,10 @@ BlazeComponent.extendComponent({
   }
 }).register('sidebar');
 
+Blaze.registerHelper('Sidebar', function() {
+  return Sidebar;
+});
+
 EscapeActions.register('sidebarView',
   function() { Sidebar.setView(defaultView); },
   function() { return Sidebar && Sidebar.getView() !== defaultView; }
@@ -162,7 +166,7 @@ Template.labelsWidget.events({
 // fields of the current board document.
 var draggableMembersLabelsWidgets = function() {
   var self = this;
-  if (! Meteor.userId() || ! Meteor.user().isBoardMember())
+  if (! Meteor.user() || ! Meteor.user().isBoardMember())
     return;
 
   self.autorun(function() {
@@ -184,7 +188,7 @@ var draggableMembersLabelsWidgets = function() {
         snap: false,
         snapMode: 'both',
         start: function() {
-          EscapeActions.executeUpTo('popup');
+          EscapeActions.executeUpTo('popup-back');
         }
       });
     });

@@ -3,7 +3,7 @@ Avatars = new FS.Collection('avatars', {
     new FS.Store.GridFS('avatars')
   ],
   filter: {
-    maxSize: 32000,
+    maxSize: 72000,
     allow: {
       contentTypes: ['image/*']
     }

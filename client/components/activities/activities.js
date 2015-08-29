@@ -55,7 +55,7 @@ BlazeComponent.extendComponent({
 
   cardLink: function() {
     var card = this.currentData().card();
-    return Blaze.toHTML(HTML.A({
+    return card && Blaze.toHTML(HTML.A({
       href: card.absoluteUrl(),
       'class': 'action-card'
     }, card.title));
@@ -69,7 +69,7 @@ BlazeComponent.extendComponent({
 
   attachmentLink: function() {
     var attachment = this.currentData().attachment();
-    return Blaze.toHTML(HTML.A({
+    return attachment && Blaze.toHTML(HTML.A({
       href: attachment.url(),
       'class': 'js-open-attachment-viewer'
     }, attachment.name()));

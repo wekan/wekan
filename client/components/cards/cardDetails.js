@@ -1,3 +1,7 @@
+// XXX Obviously this shouldn't be a global, but this is currently the only way
+// to share a variable between two files.
+
+
 BlazeComponent.extendComponent({
   template: function() {
     return 'cardDetails';
@@ -15,6 +19,12 @@ BlazeComponent.extendComponent({
   reachNextPeak: function() {
     var activitiesComponent = this.componentChildren('activities')[0];
     activitiesComponent.loadNextPage();
+  },
+
+  onCreated: function() {
+    this.isLoaded = new ReactiveVar(false);
+    this.componentParent().showOverlay.set(true);
+    this.componentParent().mouseHasEnterCardDetails = false;
   },
 
   onRendered: function() {
@@ -35,16 +45,11 @@ BlazeComponent.extendComponent({
     });
   },
 
-  onCreated: function() {
-    this.isLoaded = new ReactiveVar(false);
-  },
-
   events: function() {
-    // XXX We can't define this event directly in the event map below because we
-    // miss ES6 object keys interpolation.
-    var events = {};
-    events[CSSEvents.animationend + ' .js-card-details'] = function() {
-      this.isLoaded.set(true);
+    var events = {
+      [CSSEvents.animationend + ' .js-card-details']: function() {
+        this.isLoaded.set(true);
+      }
     };
 
     return [_.extend(events, {
@@ -70,6 +75,7 @@ BlazeComponent.extendComponent({
       'click .js-add-labels': Popup.open('cardLabels'),
       'mouseenter .js-card-details': function() {
         this.componentParent().showOverlay.set(true);
+        this.componentParent().mouseHasEnterCardDetails = true;
       }
     })];
   }
@@ -119,6 +125,6 @@ Template.cardMorePopup.events({
 EscapeActions.register('detailsPane',
   function() { Utils.goBoardId(Session.get('currentBoard')); },
   function() { return ! Session.equals('currentCard', null); }, {
-    noClickEscapeOn: '.js-card-details'
+    noClickEscapeOn: '.js-card-details,.board-sidebar,#header'
   }
 );

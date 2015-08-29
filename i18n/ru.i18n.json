@@ -159,7 +159,7 @@
     "boardChangeTitlePopup-title": "Переименовать доску",
     "boardChangeVisibilityPopup-title": "Изменить настройки видимости",
     "addMemberPopup-title": "Участники",
-    "closeBoardPopup-title": "Закрыть доску?",
+    "archiveBoardPopup-title": "Закрыть доску?",
     "removeMemberPopup-title": "Удалить участника?",
     "createBoardPopup-title": "Создать доску",
     "listActionPopup-title": "Список действий",
