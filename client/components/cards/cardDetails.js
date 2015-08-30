@@ -56,7 +56,6 @@ BlazeComponent.extendComponent({
       'click .js-close-card-details': function() {
         Utils.goBoardId(this.data().boardId);
       },
-      'click .js-move-card': Popup.open('moveCard'),
       'click .js-open-card-details-menu': Popup.open('cardDetailsActions'),
       'submit .js-card-description': function(evt) {
         evt.preventDefault();
@@ -85,6 +84,7 @@ Template.cardDetailsActionsPopup.events({
   'click .js-members': Popup.open('cardMembers'),
   'click .js-labels': Popup.open('cardLabels'),
   'click .js-attachments': Popup.open('cardAttachments'),
+  'click .js-move-card': Popup.open('moveCard'),
   // 'click .js-copy': Popup.open(),
   'click .js-archive': function(evt) {
     evt.preventDefault();

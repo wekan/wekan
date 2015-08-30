@@ -2,6 +2,7 @@
     "account-details": "Account Details",
     "actions": "Actions",
     "activity": "Activity",
+    "activities": "Activities",
     "activity-archived": "archived %s",
     "activity-created": "created %s",
     "activity-added": "added %s to %s",
@@ -191,6 +192,7 @@
     "changePasswordPopup-title": "Change Password",
     "avatar-too-big": "The avatar is too large (70Kb max)",
     "cardDetailsActionsPopup-title": "Card Actions",
+    "moveCardPopup-title": "Move Card",
     "disambiguateMultiLabelPopup-title": "Disambiguate Label Action",
     "disambiguateMultiMemberPopup-title": "Disambiguate Member Action"
 }
