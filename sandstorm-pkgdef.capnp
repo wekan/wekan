@@ -75,8 +75,8 @@ const pkgdef :Spk.PackageDefinition = (
 
       screenshots = [
         (
-          width = 1024,
-          height = 660,
+          width = 512,
+          height = 330,
           jpeg = embed "meta/screenshots/board-view.jpg"
         ),
         # XXX The screenshots should have a standard width and height.
