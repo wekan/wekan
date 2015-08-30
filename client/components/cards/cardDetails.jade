@@ -18,7 +18,8 @@ template(name="cardDetails")
       .card-details-item.card-details-item-members
         h3.card-details-item-title {{_ 'members'}}
         each members
-          +userAvatar(userId=this cardId="{{../_id}}")
+          +userAvatar(userId=this cardId=../_id)
+          | {{! XXX Hack to hide syntaxic coloration /// }}
         a.member.add-member.card-details-item-add-button.js-add-members
           i.fa.fa-plus
 
