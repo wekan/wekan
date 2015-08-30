@@ -7,7 +7,7 @@
   flex-basis: 470px
   will-change: flex-basis
   overflow: hidden
-  background: darken(white, 2%)
+  background: darken(white, 3%)
   border-radius: bottom 3px
   z-index: 20 !important
   animation: flexGrowIn 0.1s
@@ -19,29 +19,29 @@
 
   .card-details-header
     margin: 0 -20px 5px
-    padding 7px 20px 0
-    border-bottom: 1px solid darken(white, 10%)
-    min-height: 38px
-    position: relative
+    padding 7px 16px
+    background: darken(white, 7%)
+    border-bottom: 1px solid darken(white, 14%)
 
-    .close-card-details
-      float: left
-      font-size: 24px
-      padding: 8px
-      padding-right: 11px
-      margin-left: -18px
-
+    .close-card-details,
     .card-details-menu
       float: right
-      position: absolute
-      bottom: 6px
-      right: 15px
+
+    .close-card-details
+      font-size: 24px
+      padding: 5px
+      margin-right: -8px
+
+    .card-details-menu
+      font-size: 17px
+      padding: 10px
 
     .card-details-title
       font-weight: bold
       font-size: 1.33em
-      margin: 3px 0
+      margin: 7px 0 0
       padding: 0
+
 
     form.inlined-form
       margin-top: 5px

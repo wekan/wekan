@@ -7,19 +7,12 @@ template(name="cardDetails")
           button.primary.confirm(type="submit") {{_ 'save'}}
           a.fa.fa-times-thin.js-close-inlined-form
       else
-        a.fa.fa-angle-left.close-card-details.js-close-card-details
+        a.fa.fa-times-thin.close-card-details.js-close-card-details
         if currentUser.isBoardMember
-          a.fa.fa-bars.card-details-menu.js-open-card-details-menu
+          a.fa.fa-ellipsis-v.card-details-menu.js-open-card-details-menu
         h2.card-details-title.js-card-title(
           class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
             = title
-        p.card-details-list
-          | {{_ 'in-list'}}
-          a.card-details-list-title(
-            class="{{#if currentUser.isBoardMember}}js-move-card is-editable{{/if}}")
-            = list.title
-            if currentUser.isBoardMember
-              i.fa.fa-chevron-down
 
     .card-details-items
       .card-details-item.card-details-item-members
@@ -79,7 +72,7 @@ template(name="cardDetailsActionsPopup")
     li: a.js-attachments Edit Attachments…
   hr
   ul.pop-over-list
-    li: a.js-copy Copy Card
+    li: a.js-move-card Move card
     unless archived
       li: a.js-archive Archive Card
     li: a.js-more More
