@@ -26,8 +26,8 @@ BlazeComponent.extendComponent({
         let input = this.getInput();
         if ($.trim(input.val())) {
           CardComments.insert({
-            boardId: this.boardId,
-            cardId: this._id,
+            boardId: this.currentData().boardId,
+            cardId: this.currentData()._id,
             text: input.val()
           });
           resetCommentInput(input);
