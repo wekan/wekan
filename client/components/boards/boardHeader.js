@@ -5,7 +5,7 @@ Template.boardMenuPopup.events({
     Popup.close();
   },
   'click .js-change-board-color': Popup.open('boardChangeColor'),
-  'click .js-change-language': Popup.open('setLanguage'),
+  'click .js-change-language': Popup.open('changeLanguage'),
   'click .js-archive-board ': Popup.afterConfirm('archiveBoard', function() {
     var boardId = Session.get('currentBoard');
     Boards.update(boardId, { $set: { archived: true }});

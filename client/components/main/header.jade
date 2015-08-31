@@ -37,8 +37,16 @@ template(name="header")
       else if($eq currentRouteName 'home')
         +headerTitle
 
-      a.wekan-logo(href="{{pathFor 'home'}}")
-        img(src="/wekan-logo-header.png" alt="Wekan")
+      //-
+        On sandstorm, the logo shouldn't be clickable, because we only have one
+        page/document on it, and we don't want to see the home page containing
+        the list of all boards.
+      if isSandstorm
+        .wekan-logo
+          img(src="/wekan-logo-header.png" alt="Wekan")
+      else
+        a.wekan-logo(href="{{pathFor 'home'}}")
+          img(src="/wekan-logo-header.png" alt="Wekan")
 
 template(name="headerTitle")
   h1 My Boards

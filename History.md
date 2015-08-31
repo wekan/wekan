@@ -19,7 +19,8 @@ Starting from this release we will also distribute official docker images on
 both the
 [GitHub release page](https://github.com/wekan/wekan/releases)
 and on the
-[DockerHub](https://hub.docker.com/r/mquandalle/wekan).
+[DockerHub](https://hub.docker.com/r/mquandalle/wekan). We also improved
+Sandstorm integration with the support of its build-in sharing model.
 
 New languages supported: Chinese, Finnish, Spanish, Korean, and Russian.
 
