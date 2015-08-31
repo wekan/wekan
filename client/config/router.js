@@ -7,11 +7,11 @@ FlowRouter.route('/', {
   name: 'home',
   triggersEnter: [AccountsTemplates.ensureSignedIn],
   action: function() {
-    EscapeActions.executeAll();
-    Filter.reset();
-
     Session.set('currentBoard', null);
     Session.set('currentCard', null);
+
+    Filter.reset();
+    EscapeActions.executeAll();
 
     BlazeLayout.render('defaultLayout', { content: 'boardList' });
   }
@@ -21,14 +21,15 @@ FlowRouter.route('/b/:id/:slug', {
   name: 'board',
   action: function(params) {
     let currentBoard = params.id;
-    // If we close a card, we'll execute again this route action but we don't
-    // want to excape every current actions (filters, etc.)
-    if (Session.get('currentBoard') !== currentBoard) {
-      EscapeActions.executeAll();
-    }
-
+    let previousBoard = Session.get('currentBoard');
     Session.set('currentBoard', currentBoard);
     Session.set('currentCard', null);
+
+    // If we close a card, we'll execute again this route action but we don't
+    // want to excape every current actions (filters, etc.)
+    if (previousBoard !== currentBoard) {
+      EscapeActions.executeAll();
+    }
 
     BlazeLayout.render('defaultLayout', { content: 'board' });
   }
@@ -37,9 +38,10 @@ FlowRouter.route('/b/:id/:slug', {
 FlowRouter.route('/b/:boardId/:slug/:cardId', {
   name: 'card',
   action: function(params) {
-    EscapeActions.executeUpTo('inlinedForm');
     Session.set('currentBoard', params.boardId);
     Session.set('currentCard', params.cardId);
+
+    EscapeActions.executeUpTo('inlinedForm');
 
     BlazeLayout.render('defaultLayout', { content: 'board' });
   }

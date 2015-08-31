@@ -44,20 +44,10 @@ BlazeComponent.extendComponent({
     this.draggingActive.set(bool);
   },
 
-  scrollLeft: function(position) {
-    position = position || 0;
-    var $container = $(this.listsDom);
-    var containerWidth = $container.width();
-    var currentScrollPosition = $container.scrollLeft();
-    if (position < currentScrollPosition) {
-      $container.animate({
-        scrollLeft: position
-      });
-    } else if (position > currentScrollPosition + containerWidth) {
-      $container.animate({
-        scrollLeft: Math.max(0, position - containerWidth)
-      });
-    }
+  scrollLeft: function(position = 0) {
+    this.$('.js-lists').animate({
+      scrollLeft: position
+    });
   },
 
   currentCardIsInThisList: function() {
@@ -109,9 +99,11 @@ BlazeComponent.extendComponent({
 Template.boardBody.onRendered(function() {
   var self = BlazeComponent.getComponentForElement(this.firstNode);
 
-  self.scrollLeft();
-
   self.listsDom = this.find('.js-lists');
+
+  if (! Session.get('currentCard')) {
+    self.scrollLeft();
+  }
 
   // We want to animate the card details window closing. We rely on CSS
   // transition for the actual animation.

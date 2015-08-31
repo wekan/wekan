@@ -23,12 +23,32 @@ BlazeComponent.extendComponent({
     this.componentParent().mouseHasEnterCardDetails = false;
   },
 
+  scrollParentContainer: function() {
+    const cardPanelWidth = 510;
+    let bodyBoardComponent = this.componentParent();
+
+    let $cardContainer = bodyBoardComponent.$('.js-lists');
+    let $cardView = this.$(this.firstNode());
+    let cardContainerScroll = $cardContainer.scrollLeft();
+    let cardContainerWidth = $cardContainer.width();
+
+    let cardViewStart = $cardView.offset().left;
+    let cardViewEnd = cardViewStart + cardPanelWidth;
+
+    let offset = false;
+    if (cardViewStart < 0) {
+      offset = cardViewStart;
+    } else if(cardViewEnd > cardContainerWidth) {
+      offset = cardViewEnd - cardContainerWidth;
+    }
+
+    if (offset) {
+      bodyBoardComponent.scrollLeft(cardContainerScroll + offset);
+    }
+  },
+
   onRendered: function() {
-    var bodyBoardComponent = this.componentParent();
-    var additionalMargin = 550;
-    var $cardDetails = this.$(this.firstNode());
-    var scollLeft = $cardDetails.offset().left + additionalMargin;
-    bodyBoardComponent.scrollLeft(scollLeft);
+    this.scrollParentContainer();
   },
 
   onDestroyed: function() {
