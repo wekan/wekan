@@ -37,7 +37,7 @@ FlowRouter.route('/b/:id/:slug', {
 FlowRouter.route('/b/:boardId/:slug/:cardId', {
   name: 'card',
   action: function(params) {
-    EscapeActions.executeUpTo('popup-close');
+    EscapeActions.executeUpTo('inlinedForm');
     Session.set('currentBoard', params.boardId);
     Session.set('currentCard', params.cardId);
 

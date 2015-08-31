@@ -13,17 +13,11 @@
 //     // the content when the form is close (optional)
 
 // We can only have one inlined form element opened at a time
-// XXX Could we avoid using a global here ? This is used in Mousetrap
-// keyboard.js
-var currentlyOpenedForm = new ReactiveVar(null);
+currentlyOpenedForm = new ReactiveVar(null);
 
-BlazeComponent.extendComponent({
+InlinedForm = BlazeComponent.extendComponent({
   template: function() {
     return 'inlinedForm';
-  },
-
-  mixins: function() {
-    return [Mixins.CachedValue];
   },
 
   onCreated: function() {
@@ -42,7 +36,6 @@ BlazeComponent.extendComponent({
   },
 
   close: function() {
-    this.saveValue();
     this.isOpen.set(false);
     currentlyOpenedForm.set(null);
   },
@@ -50,10 +43,6 @@ BlazeComponent.extendComponent({
   getValue: function() {
     var input = this.find('textarea,input[type=text]');
     return this.isOpen.get() && input && input.value;
-  },
-
-  saveValue: function() {
-    this.callFirstWith(this, 'setCache', this.getValue());
   },
 
   events: function() {
@@ -73,7 +62,6 @@ BlazeComponent.extendComponent({
         if (this.currentData().autoclose !== false) {
           Tracker.afterFlush(() => {
             this.close();
-            this.callFirstWith(this, 'resetCache');
           });
         }
       }

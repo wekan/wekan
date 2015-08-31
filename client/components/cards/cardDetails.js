@@ -1,7 +1,3 @@
-// XXX Obviously this shouldn't be a global, but this is currently the only way
-// to share a variable between two files.
-
-
 BlazeComponent.extendComponent({
   template: function() {
     return 'cardDetails';
@@ -79,6 +75,37 @@ BlazeComponent.extendComponent({
     })];
   }
 }).register('cardDetails');
+
+// We extends the normal InlinedForm component to support UnsavedEdits draft
+// feature.
+(class extends InlinedForm {
+  _getUnsavedEditKey() {
+    return {
+      fieldName: 'cardDescription',
+      docId: Session.get('currentCard'),
+    }
+  }
+
+  close(isReset = false) {
+    if (this.isOpen.get() && ! isReset) {
+      UnsavedEdits.set(this._getUnsavedEditKey(), this.getValue());
+    }
+    super();
+  }
+
+  reset() {
+    UnsavedEdits.reset(this._getUnsavedEditKey());
+    this.close(true);
+  }
+
+  events() {
+    const parentEvents = InlinedForm.prototype.events()[0];
+    return [{
+      ...parentEvents,
+      'click .js-close-inlined-form': this.reset,
+    }];
+  }
+}).register('inlinedCardDescription');
 
 Template.cardDetailsActionsPopup.events({
   'click .js-members': Popup.open('cardMembers'),

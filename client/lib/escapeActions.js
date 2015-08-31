@@ -17,10 +17,10 @@ EscapeActions = {
     'inlinedForm',
     'detailsPane',
     'multiselection',
-    'sidebarView'
+    'sidebarView',
   ],
 
-  register: function(label, action, condition = () => true, options = {}) {
+  register(label, action, condition = () => true, options = {}) {
     const priority = this.hierarchy.indexOf(label);
     if (priority === -1) {
       throw Error('You must define the label in the EscapeActions hierarchy');
@@ -33,35 +33,35 @@ EscapeActions = {
 
     let noClickEscapeOn = options.noClickEscapeOn;
 
-    this._actions[priority] = {
+    this._actions = _.sortBy([...this._actions, {
       priority,
       condition,
       action,
       noClickEscapeOn,
-      enabledOnClick
-    };
+      enabledOnClick,
+    }], (action) => action.priority);
   },
 
-  executeLowest: function() {
+  executeLowest() {
     return this._execute({
       multipleAction: false
     });
   },
 
-  executeAll: function() {
+  executeAll() {
     return this._execute({
       multipleActions: true
     });
   },
 
-  executeUpTo: function(maxLabel) {
+  executeUpTo(maxLabel) {
     return this._execute({
       maxLabel: maxLabel,
       multipleActions: true
     });
   },
 
-  clickExecute: function(target, maxLabel) {
+  clickExecute(target, maxLabel) {
     if (this._nextclickPrevented) {
       this._nextclickPrevented = false;
     } else {
@@ -74,18 +74,18 @@ EscapeActions = {
     }
   },
 
-  preventNextClick: function() {
+  preventNextClick() {
     this._nextclickPrevented = true;
   },
 
-  _stopClick: function(action, clickTarget) {
+  _stopClick(action, clickTarget) {
     if (! _.isString(action.noClickEscapeOn))
       return false;
     else
       return $(clickTarget).closest(action.noClickEscapeOn).length > 0;
   },
 
-  _execute: function(options) {
+  _execute(options) {
     const maxLabel = options.maxLabel;
     const multipleActions = options.multipleActions;
     const isClick = !! options.isClick;
@@ -99,8 +99,7 @@ EscapeActions = {
     else
       maxPriority = this.hierarchy.indexOf(maxLabel);
 
-    for (let i = 0; i < this._actions.length; i++) {
-      let currentAction = this._actions[i];
+    for (let currentAction of this._actions) {
       if (currentAction.priority > maxPriority)
         return executedAtLeastOne;
 

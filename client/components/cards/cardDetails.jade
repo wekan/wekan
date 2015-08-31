@@ -34,11 +34,11 @@ template(name="cardDetails")
     //- XXX We should use "editable" to avoid repetiting ourselves
     if currentUser.isBoardMember
       h3.card-details-item-title Description
-      +inlinedForm(classNames="card-description js-card-description")
+      +inlinedCardDescription(classNames="card-description js-card-description")
         +editor(autofocus=true)
-          = description
+          | {{getUnsavedValue 'cardDescription' _id description}}
         .edit-controls.clearfix
-          button.primary(type="submit") {{_ 'edit'}}
+          button.primary(type="submit") {{_ 'save'}}
           a.fa.fa-times-thin.js-close-inlined-form
       else
         a.js-open-inlined-form
@@ -47,6 +47,12 @@ template(name="cardDetails")
               = description
           else
             | {{_ 'edit'}}
+        if (hasUnsavedValue 'cardDescription' _id)
+          p.quiet
+            | You have an unsaved description.
+            a.js-open-inlined-form View it
+            = ' - '
+            a.js-close-inlined-form Discard
     else if description
       h3.card-details-item-title Description
       +viewer

@@ -81,6 +81,7 @@
     "Popup": true,
     "Sidebar": true,
     "Utils": true,
+    "InlinedForm": true,
 
     // XXX Temp, we should remove these
     "allowIsBoardAdmin": true,
