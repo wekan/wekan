@@ -6,25 +6,31 @@ BlazeComponent.extendComponent({
   },
 
   onCreated: function() {
-    var self = this;
-    self.draggingActive = new ReactiveVar(false);
-    self.showOverlay = new ReactiveVar(false);
-    self.isBoardReady = new ReactiveVar(false);
+    this.draggingActive = new ReactiveVar(false);
+    this.showOverlay = new ReactiveVar(false);
+    this.isBoardReady = new ReactiveVar(false);
 
     // The pattern we use to manually handle data loading is described here:
     // https://kadira.io/academy/meteor-routing-guide/content/subscriptions-and-data-management/using-subs-manager
     // XXX The boardId should be readed from some sort the component "props",
     // unfortunatly, Blaze doesn't have this notion.
-    self.autorun(function() {
-      var handle = subManager.subscribe('board', Session.get('currentBoard'));
-      self.isBoardReady.set(handle.ready());
+    this.autorun(() => {
+      let currentBoardId = Session.get('currentBoard');
+      if (! currentBoardId)
+        return;
+      var handle = subManager.subscribe('board', currentBoardId);
+      Tracker.nonreactive(() => {
+        Tracker.autorun(() => {
+          this.isBoardReady.set(handle.ready());
+        })
+      })
     });
 
-    self._isDragging = false;
-    self._lastDragPositionX = 0;
+    this._isDragging = false;
+    this._lastDragPositionX = 0;
 
     // Used to set the overlay
-    self.mouseHasEnterCardDetails = false;
+    this.mouseHasEnterCardDetails = false;
   },
 
   openNewListForm: function() {
