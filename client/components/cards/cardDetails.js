@@ -88,7 +88,10 @@ BlazeComponent.extendComponent({
 
   close(isReset = false) {
     if (this.isOpen.get() && ! isReset) {
-      UnsavedEdits.set(this._getUnsavedEditKey(), this.getValue());
+      let draft = $.trim(this.getValue());
+      if (draft !== Cards.findOne(Session.get('currentCard')).description) {
+        UnsavedEdits.set(this._getUnsavedEditKey(), this.getValue());
+      }
     }
     super();
   }
