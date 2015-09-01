@@ -43,9 +43,9 @@ template(name="headerBoard")
 
 template(name="boardMenuPopup")
   ul.pop-over-list
-    li: a.js-open-archives Archived elements
+    li: a.js-open-archives {{_ 'archived-items'}}
     if currentUser.isBoardAdmin
-      li: a.js-change-board-color Change color
+      li: a.js-change-board-color {{_ 'board-change-color'}}
     //-
       XXX Language should be handled by sandstorm, but for now display a
       language selection link in the board menu. This link is normally present
@@ -56,7 +56,7 @@ template(name="boardMenuPopup")
     if currentUser.isBoardAdmin
       hr
       ul.pop-over-list
-        li: a.js-archive-board Archive Board…
+        li: a.js-archive-board {{_ 'archive-board'}}
 
 template(name="boardVisibilityList")
   ul.pop-over-list
@@ -113,7 +113,7 @@ template(name="boardChangeTitlePopup")
   form
     label
       | {{_ 'title'}}
-      input.js-board-name(type="text" value="{{title}}" autofocus)
+      input.js-board-name(type="text" value=title autofocus)
     input.primary.wide(type="submit" value="{{_ 'rename'}}")
 
 template(name="archiveBoardPopup")

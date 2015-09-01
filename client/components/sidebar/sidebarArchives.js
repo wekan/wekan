@@ -5,8 +5,8 @@ BlazeComponent.extendComponent({
 
   tabs: function() {
     return [
-      { name: 'Cards', slug: 'cards' },
-      { name: 'Lists', slug: 'lists' }
+      { name: TAPi18n.__('cards'), slug: 'cards' },
+      { name: TAPi18n.__('lists'), slug: 'lists' }
     ]
   },
 

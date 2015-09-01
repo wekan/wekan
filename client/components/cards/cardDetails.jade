@@ -14,26 +14,29 @@ template(name="cardDetails")
           class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
             = title
 
+    if archived
+      p.warning {{_ 'card-archived'}}
+
     .card-details-items
       .card-details-item.card-details-item-members
         h3.card-details-item-title {{_ 'members'}}
         each members
           +userAvatar(userId=this cardId=../_id)
           | {{! XXX Hack to hide syntaxic coloration /// }}
-        a.member.add-member.card-details-item-add-button.js-add-members
+        a.member.add-member.card-details-item-add-button.js-add-members(title="{{_ 'card-members-title'}}")
           i.fa.fa-plus
 
       .card-details-item.card-details-item-labels
         h3.card-details-item-title {{_ 'labels'}}
-        a.js-add-labels
+        a.js-add-labels(title="{{_ 'card-labels-title'}}")
           each labels
             span.card-label(class="card-label-{{color}}" title=name)= name
-        a.card-label.add-label.js-add-labels
+        a.card-label.add-label.js-add-labels(title="{{_ 'card-labels-title'}}")
           i.fa.fa-plus
 
     //- XXX We should use "editable" to avoid repetiting ourselves
     if currentUser.isBoardMember
-      h3.card-details-item-title Description
+      h3.card-details-item-title {{_ 'description'}}
       +inlinedCardDescription(classNames="card-description js-card-description")
         +editor(autofocus=true)
           | {{getUnsavedValue 'cardDescription' _id description}}
@@ -49,12 +52,12 @@ template(name="cardDetails")
             | {{_ 'edit'}}
         if (hasUnsavedValue 'cardDescription' _id)
           p.quiet
-            | You have an unsaved description.
-            a.js-open-inlined-form View it
+            | {{_ 'unsaved-description'}}
+            a.js-open-inlined-form {{_ 'view-it'}}
             = ' - '
-            a.js-close-inlined-form Discard
+            a.js-close-inlined-form {{_ 'discard'}}
     else if description
-      h3.card-details-item-title Description
+      h3.card-details-item-title {{_ 'description'}}
       +viewer
         = description
     if attachments.count
@@ -74,16 +77,16 @@ template(name="cardDetails")
 
 template(name="cardDetailsActionsPopup")
   ul.pop-over-list
-    li: a.js-members Edit Members…
-    li: a.js-labels Edit Labels…
+    li: a.js-members {{_ 'card-edit-members'}}
+    li: a.js-labels {{_ 'card-edit-labels'}}
     unless isSandstorm
-      li: a.js-attachments Edit Attachments…
+      li: a.js-attachments {{_ 'card-edit-attachments'}}
   hr
   ul.pop-over-list
-    li: a.js-move-card Move card
+    li: a.js-move-card {{_ 'moveCardPopup-title'}}
     unless archived
-      li: a.js-archive Archive Card
-    li: a.js-more More
+      li: a.js-archive {{_ 'archive-card'}}
+    li: a.js-more {{_ 'cardMorePopup-title'}}
 
 template(name="moveCardPopup")
   +boardLists

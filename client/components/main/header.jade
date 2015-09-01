@@ -12,14 +12,14 @@ template(name="header")
             li
               a(href="{{pathFor 'home'}}")
                 span.fa.fa-home
-                | All boards
+                | {{_ 'all-boards'}}
             each currentUser.starredBoards
               li.separator -
               li(class="{{#if $.Session.equals 'currentBoard' _id}}current{{/if}}")
                 a(href="{{pathFor 'board' id=_id slug=slug}}")
                   = title
             else
-              li.current Star a board to add a shortcut in this bar.
+              li.current {{_ 'quick-access-description'}}
 
             li
               a.js-create-board
@@ -45,13 +45,13 @@ template(name="header")
         .wekan-logo
           img(src="/wekan-logo-header.png" alt="Wekan")
       else
-        a.wekan-logo(href="{{pathFor 'home'}}")
+        a.wekan-logo(href="{{pathFor 'home'}}" title="{{_ 'header-logo-title'}}")
           img(src="/wekan-logo-header.png" alt="Wekan")
 
 template(name="headerTitle")
-  h1 My Boards
+  h1 {{_ 'my-boards'}}
 
   .board-header-btns.right
     a.board-header-btn.js-open-archived-board
       i.fa.fa-archive
-      span Archives
+      span {{_ 'archives'}}

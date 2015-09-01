@@ -43,13 +43,12 @@ template(name="changeAvatarPopup")
       li: a.js-select-avatar
         .member
           img.avatar.avatar-image(src="{{url avatarUrlOptions}}")
-        | Uploaded avatar
+        | {{_ 'uploaded-avatar'}}
         if isSelected
           i.fa.fa-check
         p.sub-name
           unless isSelected
-            a.js-delete-avatar
-              | Delete
+            a.js-delete-avatar {{_ 'delete'}}
             |  -
           = original.name
     li: a.js-select-initials
@@ -58,11 +57,11 @@ template(name="changeAvatarPopup")
       | Initials
       if noAvatarUrl
         i.fa.fa-check
-       p.sub-name Default avatar
+       p.sub-name {{_ 'default-avatar'}}
   input.hide.js-upload-avatar-input(accept="image/*;capture=camera" type="file")
   button.full.js-upload-avatar
     i.fa.fa-upload
-    | Upload an avatar
+    | {{_ 'upload-avatar'}}
 
 template(name="cardMemberPopup")
   .board-member-menu
@@ -77,4 +76,4 @@ template(name="cardMemberPopup")
 
         if $eq currentUser._id user._id
           with currentUser
-            li: a.js-edit-profile Edit Profile
+            li: a.js-edit-profile {{_ 'edit-profile'}}
