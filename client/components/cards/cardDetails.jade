@@ -79,8 +79,7 @@ template(name="cardDetailsActionsPopup")
   ul.pop-over-list
     li: a.js-members {{_ 'card-edit-members'}}
     li: a.js-labels {{_ 'card-edit-labels'}}
-    unless isSandstorm
-      li: a.js-attachments {{_ 'card-edit-attachments'}}
+    li: a.js-attachments {{_ 'card-edit-attachments'}}
   hr
   ul.pop-over-list
     li: a.js-move-card {{_ 'moveCardPopup-title'}}
