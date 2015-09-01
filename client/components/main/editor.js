@@ -66,3 +66,20 @@ EscapeActions.register('textcomplete',
   function() {},
   function() { return dropdownMenuIsOpened; }
 );
+
+Template.viewer.events({
+  // Viewer sometimes have click-able wrapper around them (for instance to edit
+  // the corresponding text). Clicking a link shouldn't fire these actions, stop
+  // we stop these event at the viewer component level.
+  'click a': function(evt) {
+    evt.stopPropagation();
+
+    // XXX We hijack the build-in browser action because we currently don't have
+    // `_blank` attributes in viewer links, and the transformer function is
+    // handled by a third party package that we can't configure easily. Fix that
+    // by using directly `_blank` attribute in the rendered HTML.
+    evt.preventDefault();
+    let href = evt.currentTarget.href;
+    window.open(href, '_blank');
+  }
+});
