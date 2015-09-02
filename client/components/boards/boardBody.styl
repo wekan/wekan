@@ -17,6 +17,19 @@ position()
     position: cover
     transition: margin .1s
 
+    &.is-sibling-sidebar-open
+      margin-right: 248px
+
+    .lists
+      align-items: flex-start
+      display: flex
+      flex-direction: row
+      margin: 0 0 10px
+      padding: 0 40px 5px 0
+      overflow-x: auto
+      overflow-y: hidden
+      position: cover
+
     .board-overlay
       position: cover
       top: -100px
@@ -26,20 +39,7 @@ position()
       animation: fadeIn 0.2s
       z-index: 16
 
-    &.is-sibling-sidebar-open
-      margin-right: 248px
-
     &.is-dragging-active
       .open-minicard-composer,
       .minicard-wrapper.is-checked
         display: none
-
-  .lists
-    align-items: flex-start
-    display: flex
-    flex-direction: row
-    margin: 0 0 10px
-    padding: 0 40px 5px 0
-    overflow-x: auto
-    overflow-y: hidden
-    position: cover
