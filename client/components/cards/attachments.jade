@@ -23,7 +23,7 @@ template(name="attachmentsGalery")
         p.attachment-details
           = name
           span.attachment-details-actions
-            a.js-download
+            a.js-download(href="{{url download=true}}")
               i.fa.fa-download
               | {{_ 'download'}}
             if isImage
