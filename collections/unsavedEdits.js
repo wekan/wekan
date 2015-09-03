@@ -4,16 +4,16 @@ UnsavedEditCollection = new Mongo.Collection('unsaved-edits');
 
 UnsavedEditCollection.attachSchema(new SimpleSchema({
   fieldName: {
-    type: String
+    type: String,
   },
   docId: {
-    type: String
+    type: String,
   },
   value: {
-    type: String
+    type: String,
   },
   userId: {
-    type: String
+    type: String,
   },
 }));
 
@@ -25,10 +25,10 @@ if (Meteor.isServer) {
     insert: isAuthor,
     update: isAuthor,
     remove: isAuthor,
-    fetch: ['userId']
+    fetch: ['userId'],
   });
 }
 
-UnsavedEditCollection.before.insert(function(userId, doc) {
+UnsavedEditCollection.before.insert((userId, doc) => {
   doc.userId = userId;
 });

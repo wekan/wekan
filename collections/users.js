@@ -2,42 +2,42 @@ Users = Meteor.users;
 
 // Search a user in the complete server database by its name or username. This
 // is used for instance to add a new user to a board.
-var searchInFields = ['username', 'profile.name'];
+const searchInFields = ['username', 'profile.name'];
 Users.initEasySearch(searchInFields, {
   use: 'mongo-db',
-  returnFields: searchInFields
+  returnFields: searchInFields,
 });
 
 Users.helpers({
-  boards: function() {
+  boards() {
     return Boards.find({ userId: this._id });
   },
-  starredBoards: function() {
-    var starredBoardIds = this.profile.starredBoards || [];
+  starredBoards() {
+    const starredBoardIds = this.profile.starredBoards || [];
     return Boards.find({archived: false, _id: {$in: starredBoardIds}});
   },
-  hasStarred: function(boardId) {
-    var starredBoardIds = this.profile.starredBoards || [];
+  hasStarred(boardId) {
+    const starredBoardIds = this.profile.starredBoards || [];
     return _.contains(starredBoardIds, boardId);
   },
-  isBoardMember: function() {
-    var board = Boards.findOne(Session.get('currentBoard'));
+  isBoardMember() {
+    const board = Boards.findOne(Session.get('currentBoard'));
     return board && _.contains(_.pluck(board.members, 'userId'), this._id) &&
                          _.where(board.members, {userId: this._id})[0].isActive;
   },
-  isBoardAdmin: function() {
-    var board = Boards.findOne(Session.get('currentBoard'));
+  isBoardAdmin() {
+    const board = Boards.findOne(Session.get('currentBoard'));
     if (this.isBoardMember(board))
       return _.where(board.members, {userId: this._id})[0].isAdmin;
   },
 
-  getInitials: function() {
-    var profile = this.profile || {};
+  getInitials() {
+    const profile = this.profile || {};
     if (profile.initials)
       return profile.initials;
 
     else if (profile.fullname) {
-      return _.reduce(profile.fullname.split(/\s+/), function(memo, word) {
+      return _.reduce(profile.fullname.split(/\s+/), (memo, word) => {
         return memo + word[0];
       }, '').toUpperCase();
 
@@ -46,43 +46,41 @@ Users.helpers({
     }
   },
 
-  toggleBoardStar: function(boardId) {
-    var queryType = this.hasStarred(boardId) ? '$pull' : '$addToSet';
-    var query = {};
-    query[queryType] = {
-      'profile.starredBoards': boardId
-    };
-    Meteor.users.update(this._id, query);
-  }
+  toggleBoardStar(boardId) {
+    const queryKind = this.hasStarred(boardId) ? '$pull' : '$addToSet';
+    Meteor.users.update(this._id, {
+      [queryKind]: {
+        'profile.starredBoards': boardId,
+      },
+    });
+  },
 });
 
 Meteor.methods({
-  setUsername: function(username) {
+  setUsername(username) {
     check(username, String);
-    var nUsersWithUsername = Users.find({username: username}).count();
+    const nUsersWithUsername = Users.find({ username }).count();
     if (nUsersWithUsername > 0) {
       throw new Meteor.Error('username-already-taken');
     } else {
-      Users.update(this.userId, {$set: {
-        username: username
-      }});
+      Users.update(this.userId, {$set: { username }});
     }
-  }
+  },
 });
 
-Users.before.insert(function(userId, doc) {
+Users.before.insert((userId, doc) => {
   doc.profile = doc.profile || {};
 
-  if (! doc.username && doc.profile.name) {
+  if (!doc.username && doc.profile.name) {
     doc.username = doc.profile.name.toLowerCase().replace(/\s/g, '');
   }
 });
 
 if (Meteor.isServer) {
   // Let mongoDB ensure username unicity
-  Meteor.startup(function() {
+  Meteor.startup(() => {
     Users._collection._ensureIndex({
-      username: 1
+      username: 1,
     }, { unique: true });
   });
 
@@ -94,44 +92,44 @@ if (Meteor.isServer) {
   Users.after.update(function(userId, user, fieldNames) {
     // The `starredBoards` list is hosted on the `profile` field. If this
     // field hasn't been modificated we don't need to run this hook.
-    if (! _.contains(fieldNames, 'profile'))
+    if (!_.contains(fieldNames, 'profile'))
       return;
 
     // To calculate a diff of board starred ids, we get both the previous
     // and the newly board ids list
-    var getStarredBoardsIds = function(doc) {
+    function getStarredBoardsIds(doc) {
       return doc.profile && doc.profile.starredBoards;
-    };
-    var oldIds = getStarredBoardsIds(this.previous);
-    var newIds = getStarredBoardsIds(user);
+    }
+    const oldIds = getStarredBoardsIds(this.previous);
+    const newIds = getStarredBoardsIds(user);
 
     // The _.difference(a, b) method returns the values from a that are not in
     // b. We use it to find deleted and newly inserted ids by using it in one
     // direction and then in the other.
-    var incrementBoards = function(boardsIds, inc) {
-      _.forEach(boardsIds, function(boardId) {
+    function incrementBoards(boardsIds, inc) {
+      _.forEach(boardsIds, (boardId) => {
         Boards.update(boardId, {$inc: {stars: inc}});
       });
-    };
+    }
     incrementBoards(_.difference(oldIds, newIds), -1);
     incrementBoards(_.difference(newIds, oldIds), +1);
   });
 
   // XXX i18n
-  Users.after.insert(function(userId, doc) {
-    var ExampleBoard = {
+  Users.after.insert((userId, doc) => {
+    const ExampleBoard = {
       title: 'Welcome Board',
       userId: doc._id,
-      permission: 'private'
+      permission: 'private',
     };
 
     // Insert the Welcome Board
-    Boards.insert(ExampleBoard, function(err, boardId) {
+    Boards.insert(ExampleBoard, (err, boardId) => {
 
-      _.forEach(['Basics', 'Advanced'], function(title) {
-        var list = {
-          title: title,
-          boardId: boardId,
+      _.forEach(['Basics', 'Advanced'], (title) => {
+        const list = {
+          title,
+          boardId,
           userId: ExampleBoard.userId,
 
           // XXX Not certain this is a bug, but we except these fields get
@@ -139,7 +137,7 @@ if (Meteor.isServer) {
           // hook is not called in this case, we have to dublicate the logic and
           // set them here.
           archived: false,
-          createdAt: new Date()
+          createdAt: new Date(),
         };
 
         Lists.insert(list);
@@ -150,9 +148,7 @@ if (Meteor.isServer) {
 
 // Presence indicator
 if (Meteor.isClient) {
-  Presence.state = function() {
-    return {
-      currentBoardId: Session.get('currentBoard')
-    };
+  Presence.state = () => {
+    return { currentBoardId: Session.get('currentBoard') };
   };
 }

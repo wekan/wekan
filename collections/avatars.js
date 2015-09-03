@@ -1,27 +1,27 @@
 Avatars = new FS.Collection('avatars', {
   stores: [
-    new FS.Store.GridFS('avatars')
+    new FS.Store.GridFS('avatars'),
   ],
   filter: {
     maxSize: 72000,
     allow: {
-      contentTypes: ['image/*']
-    }
-  }
+      contentTypes: ['image/*'],
+    },
+  },
 });
 
-var isOwner = function(userId, file) {
+function isOwner(userId, file) {
   return userId && userId === file.userId;
-};
+}
 
 Avatars.allow({
   insert: isOwner,
   update: isOwner,
   remove: isOwner,
-  download: function() { return true; },
-  fetch: ['userId']
+  download() { return true; },
+  fetch: ['userId'],
 });
 
-Avatars.files.before.insert(function(userId, doc) {
+Avatars.files.before.insert((userId, doc) => {
   doc.userId = userId;
 });

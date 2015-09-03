@@ -1,4 +1,4 @@
-let commentFormIsOpen = new ReactiveVar(false);
+const commentFormIsOpen = new ReactiveVar(false);
 
 BlazeComponent.extendComponent({
   template() {
@@ -19,16 +19,16 @@ BlazeComponent.extendComponent({
 
   events() {
     return [{
-      'click .js-new-comment:not(.focus)': function() {
+      'click .js-new-comment:not(.focus)'() {
         commentFormIsOpen.set(true);
       },
-      'submit .js-new-comment-form': function(evt) {
-        let input = this.getInput();
+      'submit .js-new-comment-form'(evt) {
+        const input = this.getInput();
         if ($.trim(input.val())) {
           CardComments.insert({
             boardId: this.currentData().boardId,
             cardId: this.currentData()._id,
-            text: input.val()
+            text: input.val(),
           });
           resetCommentInput(input);
           Tracker.flush();
@@ -37,13 +37,13 @@ BlazeComponent.extendComponent({
         evt.preventDefault();
       },
       // Pressing Ctrl+Enter should submit the form
-      'keydown form textarea': function(evt) {
+      'keydown form textarea'(evt) {
         if (evt.keyCode === 13 && (evt.metaKey || evt.ctrlKey)) {
           this.find('button[type=submit]').click();
         }
-      }
+      },
     }];
-  }
+  },
 }).register('commentForm');
 
 // XXX This should be a static method of the `commentForm` component
@@ -63,15 +63,15 @@ Tracker.autorun(() => {
   Tracker.afterFlush(() => {
     autosize.update($('.js-new-comment-input'));
   });
-})
+});
 
 EscapeActions.register('inlinedForm',
-  function() {
+  () => {
     const draftKey = {
       fieldName: 'cardComment',
-      docId: Session.get('currentCard')
+      docId: Session.get('currentCard'),
     };
-    let commentInput = $('.js-new-comment-input');
+    const commentInput = $('.js-new-comment-input');
     if ($.trim(commentInput.val())) {
       UnsavedEdits.set(draftKey, commentInput.val());
     } else {
@@ -79,7 +79,7 @@ EscapeActions.register('inlinedForm',
     }
     resetCommentInput(commentInput);
   },
-  function() { return commentFormIsOpen.get(); }, {
-    noClickEscapeOn: '.js-new-comment'
+  () => { return commentFormIsOpen.get(); }, {
+    noClickEscapeOn: '.js-new-comment',
   }
 );

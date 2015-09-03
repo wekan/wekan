@@ -27,9 +27,9 @@ UnsavedEdits = {
   // _collection: UnsavedEditCollection,
 
   get({ fieldName, docId }, defaultTo = '') {
-    let unsavedValue = this._getCollectionDocument(fieldName, docId);
+    const unsavedValue = this._getCollectionDocument(fieldName, docId);
     if (unsavedValue) {
-      return unsavedValue.value
+      return unsavedValue.value;
     } else {
       return defaultTo;
     }
@@ -40,13 +40,9 @@ UnsavedEdits = {
   },
 
   set({ fieldName, docId }, value) {
-    let currentDoc = this._getCollectionDocument(fieldName, docId);
+    const currentDoc = this._getCollectionDocument(fieldName, docId);
     if (currentDoc) {
-      UnsavedEditCollection.update(currentDoc._id, {
-        $set: {
-          value: value
-        }
-      });
+      UnsavedEditCollection.update(currentDoc._id, { $set: { value }});
     } else {
       UnsavedEditCollection.insert({
         fieldName,
@@ -57,7 +53,7 @@ UnsavedEdits = {
   },
 
   reset({ fieldName, docId }) {
-    let currentDoc = this._getCollectionDocument(fieldName, docId);
+    const currentDoc = this._getCollectionDocument(fieldName, docId);
     if (currentDoc) {
       UnsavedEditCollection.remove(currentDoc._id);
     }
@@ -65,13 +61,13 @@ UnsavedEdits = {
 
   _getCollectionDocument(fieldName, docId) {
     return UnsavedEditCollection.findOne({fieldName, docId});
-  }
-}
+  },
+};
 
 Blaze.registerHelper('getUnsavedValue', (fieldName, docId, defaultTo) => {
   // Workaround some blaze feature that ass a list of keywords arguments as the
   // last parameter (even if the caller didn't specify any).
-  if (! _.isString(defaultTo)) {
+  if (!_.isString(defaultTo)) {
     defaultTo = '';
   }
   return UnsavedEdits.get({ fieldName, docId }, defaultTo);

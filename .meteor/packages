@@ -9,11 +9,13 @@
 meteor-base
 
 # Build system
-es5-shim
 ecmascript
 standard-minifiers
 mquandalle:jade
 mquandalle:stylus
+
+# Polyfills
+es5-shim
 
 # Collections
 mongo
@@ -63,6 +65,7 @@ fortawesome:fontawesome
 mousetrap:mousetrap
 mquandalle:jquery-textcomplete
 mquandalle:jquery-ui-drag-drop-sort
+mquandalle:mousetrap-bindglobal
 mquandalle:perfect-scrollbar
 peerlibrary:blaze-components
 perak:markdown

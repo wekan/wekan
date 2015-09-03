@@ -11,41 +11,41 @@
 Activities = new Mongo.Collection('activities');
 
 Activities.helpers({
-  board: function() {
+  board() {
     return Boards.findOne(this.boardId);
   },
-  user: function() {
+  user() {
     return Users.findOne(this.userId);
   },
-  member: function() {
+  member() {
     return Users.findOne(this.memberId);
   },
-  list: function() {
+  list() {
     return Lists.findOne(this.listId);
   },
-  oldList: function() {
+  oldList() {
     return Lists.findOne(this.oldListId);
   },
-  card: function() {
+  card() {
     return Cards.findOne(this.cardId);
   },
-  comment: function() {
+  comment() {
     return CardComments.findOne(this.commentId);
   },
-  attachment: function() {
+  attachment() {
     return Attachments.findOne(this.attachmentId);
-  }
+  },
 });
 
-Activities.before.insert(function(userId, doc) {
+Activities.before.insert((userId, doc) => {
   doc.createdAt = new Date();
 });
 
 // For efficiency create an index on the date of creation.
 if (Meteor.isServer) {
-  Meteor.startup(function() {
+  Meteor.startup(() => {
     Activities._collection._ensureIndex({
-      createdAt: -1
+      createdAt: -1,
     });
   });
 }

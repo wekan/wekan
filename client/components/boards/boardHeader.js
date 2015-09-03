@@ -1,143 +1,143 @@
 Template.boardMenuPopup.events({
   'click .js-rename-board': Popup.open('boardChangeTitle'),
-  'click .js-open-archives': function() {
+  'click .js-open-archives'() {
     Sidebar.setView('archives');
     Popup.close();
   },
   'click .js-change-board-color': Popup.open('boardChangeColor'),
   'click .js-change-language': Popup.open('changeLanguage'),
-  'click .js-archive-board ': Popup.afterConfirm('archiveBoard', function() {
-    var boardId = Session.get('currentBoard');
+  'click .js-archive-board ': Popup.afterConfirm('archiveBoard', () => {
+    const boardId = Session.get('currentBoard');
     Boards.update(boardId, { $set: { archived: true }});
     // XXX We should have some kind of notification on top of the page to
     // confirm that the board was successfully archived.
     FlowRouter.go('home');
-  })
+  }),
 });
 
 Template.boardChangeTitlePopup.events({
-  submit: function(evt, t) {
-    var title = t.$('.js-board-name').val().trim();
+  submit(evt, tpl) {
+    const title = tpl.$('.js-board-name').val().trim();
     if (title) {
       Boards.update(this._id, {
         $set: {
-          title: title
-        }
+          title,
+        },
       });
       Popup.close();
     }
     evt.preventDefault();
-  }
+  },
 });
 
 BlazeComponent.extendComponent({
-  template: function() {
+  template() {
     return 'headerBoard';
   },
 
-  isStarred: function() {
-    var boardId = Session.get('currentBoard');
-    var user = Meteor.user();
+  isStarred() {
+    const boardId = Session.get('currentBoard');
+    const user = Meteor.user();
     return user && user.hasStarred(boardId);
   },
 
   // Only show the star counter if the number of star is greater than 2
-  showStarCounter: function() {
-    var currentBoard = this.currentData();
+  showStarCounter() {
+    const currentBoard = this.currentData();
     return currentBoard && currentBoard.stars >= 2;
   },
 
-  events: function() {
+  events() {
     return [{
       'click .js-edit-board-title': Popup.open('boardChangeTitle'),
-      'click .js-star-board': function() {
+      'click .js-star-board'() {
         Meteor.user().toggleBoardStar(Session.get('currentBoard'));
       },
       'click .js-open-board-menu': Popup.open('boardMenu'),
       'click .js-change-visibility': Popup.open('boardChangeVisibility'),
-      'click .js-open-filter-view': function() {
+      'click .js-open-filter-view'() {
         Sidebar.setView('filter');
       },
-      'click .js-filter-reset': function(evt) {
+      'click .js-filter-reset'(evt) {
         evt.stopPropagation();
         Sidebar.setView();
         Filter.reset();
       },
-      'click .js-multiselection-activate': function() {
-        var currentCard = Session.get('currentCard');
+      'click .js-multiselection-activate'() {
+        const currentCard = Session.get('currentCard');
         MultiSelection.activate();
         if (currentCard) {
           MultiSelection.add(currentCard);
         }
       },
-      'click .js-multiselection-reset': function(evt) {
+      'click .js-multiselection-reset'(evt) {
         evt.stopPropagation();
         MultiSelection.disable();
-      }
+      },
     }];
-  }
+  },
 }).register('headerBoard');
 
 BlazeComponent.extendComponent({
-  template: function() {
+  template() {
     return 'boardChangeColorPopup';
   },
 
-  backgroundColors: function() {
+  backgroundColors() {
     return Boards.simpleSchema()._schema.color.allowedValues;
   },
 
-  isSelected: function() {
-    var currentBoard = Boards.findOne(Session.get('currentBoard'));
+  isSelected() {
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
     return currentBoard.color === this.currentData().toString();
   },
 
-  events: function() {
+  events() {
     return [{
-      'click .js-select-background': function(evt) {
-        var currentBoardId = Session.get('currentBoard');
+      'click .js-select-background'(evt) {
+        const currentBoardId = Session.get('currentBoard');
         Boards.update(currentBoardId, {
           $set: {
-            color: this.currentData().toString()
-          }
+            color: this.currentData().toString(),
+          },
         });
         evt.preventDefault();
-      }
+      },
     }];
-  }
+  },
 }).register('boardChangeColorPopup');
 
 BlazeComponent.extendComponent({
-  template: function() {
+  template() {
     return 'createBoardPopup';
   },
 
-  onCreated: function() {
+  onCreated() {
     this.visibilityMenuIsOpen = new ReactiveVar(false);
     this.visibility = new ReactiveVar('private');
   },
 
-  visibilityCheck: function() {
+  visibilityCheck() {
     return this.currentData() === this.visibility.get();
   },
 
-  setVisibility: function(visibility) {
+  setVisibility(visibility) {
     this.visibility.set(visibility);
     this.visibilityMenuIsOpen.set(false);
   },
 
-  toogleVisibilityMenu: function() {
-    this.visibilityMenuIsOpen.set(! this.visibilityMenuIsOpen.get());
+  toogleVisibilityMenu() {
+    this.visibilityMenuIsOpen.set(!this.visibilityMenuIsOpen.get());
   },
 
-  onSubmit: function(evt) {
+  onSubmit(evt) {
     evt.preventDefault();
-    var title = this.find('.js-new-board-title').value;
-    var visibility = this.visibility.get();
+    const title = this.find('.js-new-board-title').value;
+    const visibility = this.visibility.get();
 
-    var boardId = Boards.insert({
-      title: title,
-      permission: visibility
+    const boardId = Boards.insert({
+      title,
+      permission: visibility,
     });
 
     Utils.goBoardId(boardId);
@@ -146,39 +146,39 @@ BlazeComponent.extendComponent({
     Meteor.user().toggleBoardStar(boardId);
   },
 
-  events: function() {
+  events() {
     return [{
-      'click .js-select-visibility': function() {
+      'click .js-select-visibility'() {
         this.setVisibility(this.currentData());
       },
       'click .js-change-visibility': this.toogleVisibilityMenu,
-      submit: this.onSubmit
+      submit: this.onSubmit,
     }];
-  }
+  },
 }).register('createBoardPopup');
 
 BlazeComponent.extendComponent({
-  template: function() {
+  template() {
     return 'boardChangeVisibilityPopup';
   },
 
-  visibilityCheck: function() {
-    var currentBoard = Boards.findOne(Session.get('currentBoard'));
+  visibilityCheck() {
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
     return this.currentData() === currentBoard.permission;
   },
 
-  selectBoardVisibility: function() {
+  selectBoardVisibility() {
     Boards.update(Session.get('currentBoard'), {
       $set: {
-        permission: this.currentData()
-      }
+        permission: this.currentData(),
+      },
     });
     Popup.close();
   },
 
-  events: function() {
+  events() {
     return [{
-      'click .js-select-visibility': this.selectBoardVisibility
+      'click .js-select-visibility': this.selectBoardVisibility,
     }];
-  }
+  },
 }).register('boardChangeVisibilityPopup');

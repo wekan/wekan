@@ -3,19 +3,19 @@ Attachments = new FS.Collection('attachments', {
 
     // XXX Add a new store for cover thumbnails so we don't load big images in
     // the general board view
-    new FS.Store.GridFS('attachments')
-  ]
+    new FS.Store.GridFS('attachments'),
+  ],
 });
 
 if (Meteor.isServer) {
   Attachments.allow({
-    insert: function(userId, doc) {
+    insert(userId, doc) {
       return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
     },
-    update: function(userId, doc) {
+    update(userId, doc) {
       return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
     },
-    remove: function(userId, doc) {
+    remove(userId, doc) {
       return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
     },
     // We authorize the attachment download either:
@@ -26,24 +26,24 @@ if (Meteor.isServer) {
     //
     //   https://github.com/CollectionFS/Meteor-CollectionFS/issues/449
     //
-    download: function(userId, doc) {
-      var query = {
+    download(userId, doc) {
+      const query = {
         $or: [
           { 'members.userId': userId },
-          { permission: 'public' }
-        ]
+          { permission: 'public' },
+        ],
       };
-      return !! Boards.findOne(doc.boardId, query);
+      return Boolean(Boards.findOne(doc.boardId, query));
     },
 
-    fetch: ['boardId']
+    fetch: ['boardId'],
   });
 }
 
 // XXX Enforce a schema for the Attachments CollectionFS
 
-Attachments.files.before.insert(function(userId, doc) {
-  var file = new FS.File(doc);
+Attachments.files.before.insert((userId, doc) => {
+  const file = new FS.File(doc);
   doc.userId = userId;
 
   // If the uploaded document is not an image we need to enforce browser
@@ -54,26 +54,26 @@ Attachments.files.before.insert(function(userId, doc) {
   // See https://github.com/libreboard/libreboard/issues/99
   // XXX Should we use `beforeWrite` option of CollectionFS instead of
   // collection-hooks?
-  if (! file.isImage()) {
+  if (!file.isImage()) {
     file.original.type = 'application/octet-stream';
   }
 });
 
 if (Meteor.isServer) {
-  Attachments.files.after.insert(function(userId, doc) {
+  Attachments.files.after.insert((userId, doc) => {
     Activities.insert({
+      userId,
       type: 'card',
       activityType: 'addAttachment',
       attachmentId: doc._id,
       boardId: doc.boardId,
       cardId: doc.cardId,
-      userId: userId
     });
   });
 
-  Attachments.files.after.remove(function(userId, doc) {
+  Attachments.files.after.remove((userId, doc) => {
     Activities.remove({
-      attachmentId: doc._id
+      attachmentId: doc._id,
     });
   });
 }

@@ -6,162 +6,161 @@ CardComments = new Mongo.Collection('card_comments');
 // of comments just to display the number of them in the board view.
 Cards.attachSchema(new SimpleSchema({
   title: {
-    type: String
+    type: String,
   },
   archived: {
-    type: Boolean
+    type: Boolean,
   },
   listId: {
-    type: String
+    type: String,
   },
   // The system could work without this `boardId` information (we could deduce
   // the board identifier from the card), but it would make the system more
   // difficult to manage and less efficient.
   boardId: {
-    type: String
+    type: String,
   },
   coverId: {
     type: String,
-    optional: true
+    optional: true,
   },
   createdAt: {
     type: Date,
-    denyUpdate: true
+    denyUpdate: true,
   },
   dateLastActivity: {
-    type: Date
+    type: Date,
   },
   description: {
     type: String,
-    optional: true
+    optional: true,
   },
   labelIds: {
     type: [String],
-    optional: true
+    optional: true,
   },
   members: {
     type: [String],
-    optional: true
+    optional: true,
   },
   // XXX Should probably be called `authorId`. Is it even needed since we have
   // the `members` field?
   userId: {
-    type: String
+    type: String,
   },
   sort: {
     type: Number,
-    decimal: true
-  }
+    decimal: true,
+  },
 }));
 
 CardComments.attachSchema(new SimpleSchema({
   boardId: {
-    type: String
+    type: String,
   },
   cardId: {
-    type: String
+    type: String,
   },
   // XXX Rename in `content`? `text` is a bit vague...
   text: {
-    type: String
+    type: String,
   },
   // XXX We probably don't need this information here, since we already have it
   // in the associated comment creation activity
   createdAt: {
     type: Date,
-    denyUpdate: false
+    denyUpdate: false,
   },
   // XXX Should probably be called `authorId`
   userId: {
-    type: String
-  }
+    type: String,
+  },
 }));
 
 if (Meteor.isServer) {
   Cards.allow({
-    insert: function(userId, doc) {
+    insert(userId, doc) {
       return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
     },
-    update: function(userId, doc) {
+    update(userId, doc) {
       return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
     },
-    remove: function(userId, doc) {
+    remove(userId, doc) {
       return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
     },
-    fetch: ['boardId']
+    fetch: ['boardId'],
   });
 
   CardComments.allow({
-    insert: function(userId, doc) {
+    insert(userId, doc) {
       return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
     },
-    update: function(userId, doc) {
+    update(userId, doc) {
       return userId === doc.userId;
     },
-    remove: function(userId, doc) {
+    remove(userId, doc) {
       return userId === doc.userId;
     },
-    fetch: ['userId', 'boardId']
+    fetch: ['userId', 'boardId'],
   });
 }
 
 Cards.helpers({
-  list: function() {
+  list() {
     return Lists.findOne(this.listId);
   },
-  board: function() {
+  board() {
     return Boards.findOne(this.boardId);
   },
-  labels: function() {
-    var self = this;
-    var boardLabels = self.board().labels;
-    var cardLabels = _.filter(boardLabels, function(label) {
-      return _.contains(self.labelIds, label._id);
+  labels() {
+    const boardLabels = this.board().labels;
+    const cardLabels = _.filter(boardLabels, (label) => {
+      return _.contains(this.labelIds, label._id);
     });
     return cardLabels;
   },
-  hasLabel: function(labelId) {
+  hasLabel(labelId) {
     return _.contains(this.labelIds, labelId);
   },
-  user: function() {
+  user() {
     return Users.findOne(this.userId);
   },
-  isAssigned: function(memberId) {
+  isAssigned(memberId) {
     return _.contains(this.members, memberId);
   },
-  activities: function() {
+  activities() {
     return Activities.find({ cardId: this._id }, { sort: { createdAt: -1 }});
   },
-  comments: function() {
+  comments() {
     return CardComments.find({ cardId: this._id }, { sort: { createdAt: -1 }});
   },
-  attachments: function() {
+  attachments() {
     return Attachments.find({ cardId: this._id }, { sort: { uploadedAt: -1 }});
   },
-  cover: function() {
+  cover() {
     return Attachments.findOne(this.coverId);
   },
-  absoluteUrl: function() {
-    var board = this.board();
+  absoluteUrl() {
+    const board = this.board();
     return FlowRouter.path('card', {
       boardId: board._id,
       slug: board.slug,
-      cardId: this._id
+      cardId: this._id,
     });
   },
-  rootUrl: function() {
+  rootUrl() {
     return Meteor.absoluteUrl(this.absoluteUrl().replace('/', ''));
-  }
+  },
 });
 
 CardComments.helpers({
-  user: function() {
+  user() {
     return Users.findOne(this.userId);
-  }
+  },
 });
 
 CardComments.hookOptions.after.update = { fetchPrevious: false };
-Cards.before.insert(function(userId, doc) {
+Cards.before.insert((userId, doc) => {
   doc.createdAt = new Date();
   doc.dateLastActivity = new Date();
 
@@ -169,44 +168,44 @@ Cards.before.insert(function(userId, doc) {
   doc.archived = false;
 
   // userId native set.
-  if (! doc.userId)
+  if (!doc.userId)
     doc.userId = userId;
 });
 
-CardComments.before.insert(function(userId, doc) {
+CardComments.before.insert((userId, doc) => {
   doc.createdAt = new Date();
   doc.userId = userId;
 });
 
 if (Meteor.isServer) {
-  Cards.after.insert(function(userId, doc) {
+  Cards.after.insert((userId, doc) => {
     Activities.insert({
+      userId,
       activityType: 'createCard',
       boardId: doc.boardId,
       listId: doc.listId,
       cardId: doc._id,
-      userId: userId
     });
   });
 
   // New activity for card (un)archivage
-  Cards.after.update(function(userId, doc, fieldNames) {
+  Cards.after.update((userId, doc, fieldNames) => {
     if (_.contains(fieldNames, 'archived')) {
       if (doc.archived) {
         Activities.insert({
+          userId,
           activityType: 'archivedCard',
           boardId: doc.boardId,
           listId: doc.listId,
           cardId: doc._id,
-          userId: userId
         });
       } else {
         Activities.insert({
+          userId,
           activityType: 'restoredCard',
           boardId: doc.boardId,
           listId: doc.listId,
           cardId: doc._id,
-          userId: userId
         });
       }
     }
@@ -214,34 +213,34 @@ if (Meteor.isServer) {
 
   // New activity for card moves
   Cards.after.update(function(userId, doc, fieldNames) {
-    var oldListId = this.previous.listId;
+    const oldListId = this.previous.listId;
     if (_.contains(fieldNames, 'listId') && doc.listId !== oldListId) {
       Activities.insert({
+        userId,
+        oldListId,
         activityType: 'moveCard',
         listId: doc.listId,
-        oldListId: oldListId,
         boardId: doc.boardId,
         cardId: doc._id,
-        userId: userId
       });
     }
   });
 
   // Add a new activity if we add or remove a member to the card
-  Cards.before.update(function(userId, doc, fieldNames, modifier) {
-    if (! _.contains(fieldNames, 'members'))
+  Cards.before.update((userId, doc, fieldNames, modifier) => {
+    if (!_.contains(fieldNames, 'members'))
       return;
-    var memberId;
+    let memberId;
     // Say hello to the new member
     if (modifier.$addToSet && modifier.$addToSet.members) {
       memberId = modifier.$addToSet.members;
-      if (! _.contains(doc.members, memberId)) {
+      if (!_.contains(doc.members, memberId)) {
         Activities.insert({
+          userId,
+          memberId,
           activityType: 'joinMember',
           boardId: doc.boardId,
           cardId: doc._id,
-          userId: userId,
-          memberId: memberId
         });
       }
     }
@@ -250,34 +249,34 @@ if (Meteor.isServer) {
     if (modifier.$pull && modifier.$pull.members) {
       memberId = modifier.$pull.members;
       Activities.insert({
+        userId,
+        memberId,
         activityType: 'unjoinMember',
         boardId: doc.boardId,
         cardId: doc._id,
-        userId: userId,
-        memberId: memberId
       });
     }
   });
 
   // Remove all activities associated with a card if we remove the card
-  Cards.after.remove(function(userId, doc) {
+  Cards.after.remove((userId, doc) => {
     Activities.remove({
-      cardId: doc._id
+      cardId: doc._id,
     });
   });
 
-  CardComments.after.insert(function(userId, doc) {
+  CardComments.after.insert((userId, doc) => {
     Activities.insert({
+      userId,
       activityType: 'addComment',
       boardId: doc.boardId,
       cardId: doc.cardId,
       commentId: doc._id,
-      userId: userId
     });
   });
 
-  CardComments.after.remove(function(userId, doc) {
-    var activity = Activities.findOne({ commentId: doc._id });
+  CardComments.after.remove((userId, doc) => {
+    const activity = Activities.findOne({ commentId: doc._id });
     if (activity) {
       Activities.remove(activity._id);
     }

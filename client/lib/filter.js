@@ -4,66 +4,66 @@
 // goal is to filter complete documents by using the local filters for each
 // fields.
 
-var showFilterSidebar = function() {
+function showFilterSidebar() {
   Sidebar.setView('filter');
-};
+}
 
 // Use a "set" filter for a field that is a set of documents uniquely
 // identified. For instance `{ labels: ['labelA', 'labelC', 'labelD'] }`.
-var SetFilter = function() {
-  this._dep = new Tracker.Dependency();
-  this._selectedElements = [];
-};
+class SetFilter {
+  constructor() {
+    this._dep = new Tracker.Dependency();
+    this._selectedElements = [];
+  }
 
-_.extend(SetFilter.prototype, {
-  isSelected: function(val) {
+  isSelected(val) {
     this._dep.depend();
     return this._selectedElements.indexOf(val) > -1;
-  },
+  }
 
-  add: function(val) {
+  add(val) {
     if (this._indexOfVal(val) === -1) {
       this._selectedElements.push(val);
       this._dep.changed();
       showFilterSidebar();
     }
-  },
+  }
 
-  remove: function(val) {
-    var indexOfVal = this._indexOfVal(val);
+  remove(val) {
+    const indexOfVal = this._indexOfVal(val);
     if (this._indexOfVal(val) !== -1) {
       this._selectedElements.splice(indexOfVal, 1);
       this._dep.changed();
     }
-  },
+  }
 
-  toogle: function(val) {
+  toogle(val) {
     if (this._indexOfVal(val) === -1) {
       this.add(val);
     } else {
       this.remove(val);
     }
-  },
+  }
 
-  reset: function() {
+  reset() {
     this._selectedElements = [];
     this._dep.changed();
-  },
+  }
 
-  _indexOfVal: function(val) {
+  _indexOfVal(val) {
     return this._selectedElements.indexOf(val);
-  },
+  }
 
-  _isActive: function() {
+  _isActive() {
     this._dep.depend();
     return this._selectedElements.length !== 0;
-  },
+  }
 
-  _getMongoSelector: function() {
+  _getMongoSelector() {
     this._dep.depend();
     return { $in: this._selectedElements };
   }
-});
+}
 
 // The global Filter object.
 // XXX It would be possible to re-write this object more elegantly, and removing
@@ -84,50 +84,46 @@ Filter = {
   _exceptions: [],
   _exceptionsDep: new Tracker.Dependency(),
 
-  isActive: function() {
-    var self = this;
-    return _.any(self._fields, function(fieldName) {
-      return self[fieldName]._isActive();
+  isActive() {
+    return _.any(this._fields, (fieldName) => {
+      return this[fieldName]._isActive();
     });
   },
 
-  _getMongoSelector: function() {
-    var self = this;
-
-    if (! self.isActive())
+  _getMongoSelector() {
+    if (!this.isActive())
       return {};
 
-    var filterSelector = {};
-    _.forEach(self._fields, function(fieldName) {
-      var filter = self[fieldName];
+    const filterSelector = {};
+    _.forEach(this._fields, (fieldName) => {
+      const filter = this[fieldName];
       if (filter._isActive())
         filterSelector[fieldName] = filter._getMongoSelector();
     });
 
-    var exceptionsSelector = {_id: {$in: this._exceptions}};
+    const exceptionsSelector = {_id: {$in: this._exceptions}};
     this._exceptionsDep.depend();
 
     return {$or: [filterSelector, exceptionsSelector]};
   },
 
-  mongoSelector: function(additionalSelector) {
-    var filterSelector = this._getMongoSelector();
+  mongoSelector(additionalSelector) {
+    const filterSelector = this._getMongoSelector();
     if (_.isUndefined(additionalSelector))
       return filterSelector;
     else
       return {$and: [filterSelector, additionalSelector]};
   },
 
-  reset: function() {
-    var self = this;
-    _.forEach(self._fields, function(fieldName) {
-      var filter = self[fieldName];
+  reset() {
+    _.forEach(this._fields, (fieldName) => {
+      const filter = this[fieldName];
       filter.reset();
     });
-    self.resetExceptions();
+    this.resetExceptions();
   },
 
-  addException: function(_id) {
+  addException(_id) {
     if (this.isActive()) {
       this._exceptions.push(_id);
       this._exceptionsDep.changed();
@@ -135,10 +131,10 @@ Filter = {
     }
   },
 
-  resetExceptions: function() {
+  resetExceptions() {
     this._exceptions = [];
     this._exceptionsDep.changed();
-  }
+  },
 };
 
 Blaze.registerHelper('Filter', Filter);
