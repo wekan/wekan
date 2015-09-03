@@ -141,7 +141,7 @@ Meteor.publishComposite('board', function(boardId) {
         // Presence indicators
         children: [{
           find(user) {
-            return Presences.find({userId: user._id});
+            return presences.find({userId: user._id});
           },
         }],
       },

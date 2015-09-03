@@ -1,3 +1,4 @@
+3stack:presence@1.0.3
 accounts-base@1.2.1-rc.2
 accounts-password@1.1.2-rc.1
 aldeed:collection2@2.3.3
@@ -126,7 +127,6 @@ tap:i18n@1.5.1
 templates:tabs@2.2.0
 templating@1.1.2-rc.4
 templating-tools@1.0.0-rc.0
-tmeasday:presence@1.0.6
 tracker@1.0.8-rc.0
 ui@1.0.7-rc.0
 underscore@1.0.4-rc.0

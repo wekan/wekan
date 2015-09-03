@@ -44,6 +44,7 @@ reactive-dict
 session
 tracker
 underscore
+3stack:presence
 alethes:pages
 arillo:flow-router-helpers
 audit-argument-checks
@@ -56,7 +57,6 @@ mquandalle:moment
 ongoworks:speakingurl
 raix:handlebar-helpers
 tap:i18n
-tmeasday:presence
 
 # UI components
 blaze

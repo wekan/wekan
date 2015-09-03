@@ -145,10 +145,3 @@ if (Meteor.isServer) {
     });
   });
 }
-
-// Presence indicator
-if (Meteor.isClient) {
-  Presence.state = () => {
-    return { currentBoardId: Session.get('currentBoard') };
-  };
-}
