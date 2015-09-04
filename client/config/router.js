@@ -29,6 +29,8 @@ FlowRouter.route('/b/:id/:slug', {
     // want to excape every current actions (filters, etc.)
     if (previousBoard !== currentBoard) {
       EscapeActions.executeAll();
+    } else {
+      EscapeActions.executeUpTo('popup-close');
     }
 
     BlazeLayout.render('defaultLayout', { content: 'board' });
