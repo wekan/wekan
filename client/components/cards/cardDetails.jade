@@ -91,7 +91,7 @@ template(name="moveCardPopup")
   +boardLists
 
 template(name="cardMembersPopup")
-  ul.pop-over-list.pop-over-member-list
+  ul.pop-over-list.js-card-member-list
     each board.members
       li.item(class="{{#if isCardMember}}active{{/if}}")
         a.name.js-select-member(href="#")

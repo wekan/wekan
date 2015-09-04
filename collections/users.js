@@ -12,23 +12,27 @@ Users.helpers({
   boards() {
     return Boards.find({ userId: this._id });
   },
+
   starredBoards() {
     const starredBoardIds = this.profile.starredBoards || [];
     return Boards.find({archived: false, _id: {$in: starredBoardIds}});
   },
+
   hasStarred(boardId) {
     const starredBoardIds = this.profile.starredBoards || [];
     return _.contains(starredBoardIds, boardId);
   },
+
   isBoardMember() {
     const board = Boards.findOne(Session.get('currentBoard'));
     return board && _.contains(_.pluck(board.members, 'userId'), this._id) &&
                          _.where(board.members, {userId: this._id})[0].isActive;
   },
+
   isBoardAdmin() {
     const board = Boards.findOne(Session.get('currentBoard'));
-    if (this.isBoardMember(board))
-      return _.where(board.members, {userId: this._id})[0].isAdmin;
+    return board && this.isBoardMember(board) &&
+                          _.where(board.members, {userId: this._id})[0].isAdmin;
   },
 
   getInitials() {

@@ -206,7 +206,7 @@ Template.addMemberPopup.helpers({
 });
 
 Template.addMemberPopup.events({
-  'click .pop-over-member-list li:not(.disabled)'() {
+  'click .js-select-member'() {
     const userId = this._id;
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
     const currentMembersIds = _.pluck(currentBoard.members, 'userId');
@@ -233,14 +233,14 @@ Template.addMemberPopup.events({
   },
 });
 
-Template.addMemberPopup.onRendered(() => {
+Template.addMemberPopup.onRendered(function() {
   this.find('.js-search-member input').focus();
 });
 
 Template.changePermissionsPopup.events({
   'click .js-set-admin, click .js-set-normal'(event) {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
-    const memberIndex = getMemberIndex(currentBoard, this.user._id);
+    const memberIndex = getMemberIndex(currentBoard, this.userId);
     const isAdmin = $(event.currentTarget).hasClass('js-set-admin');
 
     Boards.update(currentBoard._id, {
@@ -254,10 +254,13 @@ Template.changePermissionsPopup.events({
 
 Template.changePermissionsPopup.helpers({
   isAdmin() {
-    return this.user.isBoardAdmin();
+    const user = Users.findOne(this.userId);
+    return user.isBoardAdmin();
   },
+
   isLastAdmin() {
-    if (!this.user.isBoardAdmin())
+    const user = Users.findOne(this.userId);
+    if (!user.isBoardAdmin())
       return false;
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
     const nbAdmins = _.where(currentBoard.members, { isAdmin: true }).length;

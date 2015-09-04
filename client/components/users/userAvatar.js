@@ -137,6 +137,7 @@ Template.cardMembersPopup.helpers({
     const cardMembers = Cards.findOne(cardId).members || [];
     return _.contains(cardMembers, this.userId);
   },
+
   user() {
     return Users.findOne(this.userId);
   },

@@ -26,7 +26,7 @@ template(name="membersWidget")
       i.fa.fa-user
       | {{_ 'members'}}
     .board-widget-content
-      each currentBoard.members
+      each currentBoard.activeMembers
         +userAvatar(userId=this.userId showStatus=true)
       unless isSandstorm
         if currentUser.isBoardAdmin
@@ -50,7 +50,7 @@ template(name="labelsWidget")
 template(name="memberPopup")
   .board-member-menu
     .miniprofile-header
-      +userAvatar(userId=user._id)
+      +userAvatar(userId=user._id showEdit=true)
       .info
         h3
           .js-profile= user.profile.fullname
@@ -67,10 +67,12 @@ template(name="memberPopup")
                 | {{_ 'change-permissions'}}
                 span.quiet (#{memberType})
             li
-              if currentUser.isBoardAdmin
-                a.js-remove-member {{_ 'remove-from-board'}}
+              if $eq currentUser._id userId
+                //-
+                  XXX Not implemented!
+                // a.js-leave-member {{_ 'leave-board'}}
               else
-                a.js-leave-member {{_ 'leave-board'}}
+                a.js-remove-member {{_ 'remove-from-board'}}
 
 
 template(name="removeMemberPopup")
@@ -81,16 +83,16 @@ template(name="addMemberPopup")
   .js-search-member
     +esInput(index="users")
 
-  ul.pop-over-member-list
+  ul.pop-over-list
     +esEach(index="users")
-      li.item.js-member-item(class="{{#if isBoardMember }}disabled{{/if}}")
-        a.name.js-select-member(title="{{ profile.name }} ({{ username }})")
+      li.item.js-member-item(class="{{#if isBoardMember}}disabled{{/if}}")
+        a.name.js-select-member(title="{{profile.name}} ({{username}})")
           +userAvatar(userId=_id)
           span.full-name
             = profile.name
-            | (<span class="username">{{ username }}</span>)
+            | (<span class="username">{{username}}</span>)
           if isBoardMember
-            .extra-text.quiet ({{_ 'joined'}})
+            .quiet ({{_ 'joined'}})
 
     +ifEsIsSearching(index='users')
       +spinner

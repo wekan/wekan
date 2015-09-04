@@ -123,16 +123,24 @@ Boards.helpers({
   isPublic() {
     return this.permission === 'public';
   },
+
   lists() {
     return Lists.find({ boardId: this._id, archived: false },
                                                           { sort: { sort: 1 }});
   },
+
   activities() {
     return Activities.find({ boardId: this._id }, { sort: { createdAt: -1 }});
   },
+
+  activeMembers() {
+    return _.where(this.members, {isActive: true});
+  },
+
   absoluteUrl() {
     return FlowRouter.path('board', { id: this._id, slug: this.slug });
   },
+
   colorClass() {
     return `board-color-${this.color}`;
   },
