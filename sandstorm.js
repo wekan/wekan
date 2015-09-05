@@ -1,12 +1,12 @@
 // Sandstorm context is detected using the METEOR_SETTINGS environment variable
 // in the package definition.
-var isSandstorm = Meteor.settings && Meteor.settings.public &&
-                  Meteor.settings.public.sandstorm;
+const isSandstorm = Meteor.settings && Meteor.settings.public &&
+                    Meteor.settings.public.sandstorm;
 
 // In sandstorm we only have one board per sandstorm instance. Since we want to
 // keep most of our code unchanged, we simply hard-code a board `_id` and
 // redirect the user to this particular board.
-var sandstormBoard = {
+const sandstormBoard = {
   _id: 'sandstorm',
 
   // XXX Should be shared with the grain instance name.
@@ -16,15 +16,15 @@ var sandstormBoard = {
   // Board access security is handled by sandstorm, so in our point of view we
   // can alway assume that the board is public (unauthorized users won’t be able
   // to access it anyway).
-  permission: 'public'
+  permission: 'public',
 };
 
 // The list of permissions a user have is provided by sandstorm accounts
 // package.
-var userHasPermission = function(user, permission) {
-  var userPermissions = user.services.sandstorm.permissions;
+function userHasPermission(user, permission) {
+  const userPermissions = user.services.sandstorm.permissions;
   return userPermissions.indexOf(permission) > -1;
-};
+}
 
 if (isSandstorm && Meteor.isServer) {
   // Redirect the user to the hard-coded board. On the first launch the user
@@ -35,15 +35,15 @@ if (isSandstorm && Meteor.isServer) {
   // browser, a server-side redirection solves both of these issues.
   //
   // XXX Maybe sandstorm manifest could provide some kind of "home url"?
-  Picker.route('/', function(params, request, response) {
-    var base = request.headers['x-sandstorm-base-path'];
+  Picker.route('/', (params, request, response) => {
+    const base = request.headers['x-sandstorm-base-path'];
     // XXX If this routing scheme changes, this will break. We should generation
     // the location url using the router, but at the time of writting, the
     // router is only accessible on the client.
-    var path = '/boards/' + sandstormBoard._id + '/' + sandstormBoard.slug;
+    const path = `/boards/${sandstormBoard._id}/${sandstormBoard.slug}`;
 
     response.writeHead(301, {
-      Location: base + path
+      Location: base + path,
     });
     response.end();
   });
@@ -53,8 +53,8 @@ if (isSandstorm && Meteor.isServer) {
   // unique board document. Note that when the `Users.after.insert` hook is
   // called, the user is inserted into the database but not connected. So
   // despite the appearances `userId` is null in this block.
-  Users.after.insert(function(userId, doc) {
-    if (! Boards.findOne(sandstormBoard._id)) {
+  Users.after.insert((userId, doc) => {
+    if (!Boards.findOne(sandstormBoard._id)) {
       Boards.insert(sandstormBoard, {validate: false});
       Boards.update(sandstormBoard._id, {
         $set: {
@@ -62,14 +62,14 @@ if (isSandstorm && Meteor.isServer) {
           'members.0': {
             userId: doc._id,
             isActive: true,
-            isAdmin: true
-          }
-        }
+            isAdmin: true,
+          },
+        },
       });
       Activities.update(
-        { activityTypeId: sandstormBoard._id }, {
-        $set: { userId: doc._id }
-      });
+        { activityTypeId: sandstormBoard._id },
+        { $set: { userId: doc._id }}
+      );
     }
 
     // If the hard-coded board already exists and we are inserting a new user,
@@ -77,15 +77,15 @@ if (isSandstorm && Meteor.isServer) {
     else if (userHasPermission(doc, 'participate')) {
       Boards.update({
         _id: sandstormBoard._id,
-        permission: 'public'
+        permission: 'public',
       }, {
         $push: {
           members: {
             userId: doc._id,
             isActive: true,
-            isAdmin: userHasPermission(doc, 'configure')
-          }
-        }
+            isAdmin: userHasPermission(doc, 'configure'),
+          },
+        },
       });
     }
   });
@@ -96,10 +96,10 @@ if (isSandstorm && Meteor.isClient) {
   // session has a different URL whereas Meteor computes absoluteUrl based on
   // the ROOT_URL environment variable. So we overwrite this function on a
   // sandstorm client to return relative paths instead of absolutes.
-  var _absoluteUrl = Meteor.absoluteUrl;
-  var _defaultOptions = Meteor.absoluteUrl.defaultOptions;
-  Meteor.absoluteUrl = function(path, options) {
-    var url = _absoluteUrl(path, options);
+  const _absoluteUrl = Meteor.absoluteUrl;
+  const _defaultOptions = Meteor.absoluteUrl.defaultOptions;
+  Meteor.absoluteUrl = (path, options) => {
+    const url = _absoluteUrl(path, options);
     return url.replace(/^https?:\/\/127\.0\.0\.1:[0-9]{2,5}/, '');
   };
   Meteor.absoluteUrl.defaultOptions = _defaultOptions;
@@ -108,6 +108,4 @@ if (isSandstorm && Meteor.isClient) {
 // We use this blaze helper in the UI to hide some templates that does not make
 // sense in the context of sandstorm, like board staring, board archiving, user
 // name edition, etc.
-Blaze.registerHelper('isSandstorm', function() {
-  return isSandstorm;
-});
+Blaze.registerHelper('isSandstorm', () => isSandstorm);

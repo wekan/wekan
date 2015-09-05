@@ -1,11 +1,11 @@
 Popup.template.events({
-  'click .js-back-view': function() {
+  'click .js-back-view'() {
     Popup.back();
   },
-  'click .js-close-pop-over': function() {
+  'click .js-close-pop-over'() {
     Popup.close();
   },
-  'click .js-confirm': function() {
+  'click .js-confirm'() {
     this.__afterConfirmAction.call(this);
   },
   // This handler intends to solve a pretty tricky bug with our popup
@@ -18,22 +18,22 @@ Popup.template.events({
   // in moving the whole popup container outside of the popup wrapper. To
   // disable this behavior we have to manually reset the scrollLeft position
   // whenever it is modified.
-  'scroll .content-wrapper': function(evt) {
+  'scroll .content-wrapper'(evt) {
     evt.currentTarget.scrollLeft = 0;
-  }
+  },
 });
 
 // When a popup content is removed (ie, when the user press the "back" button),
 // we need to wait for the container translation to end before removing the
 // actual DOM element. For that purpose we use the undocumented `_uihooks` API.
-Popup.template.onRendered(function() {
-  var container = this.find('.content-container');
+Popup.template.onRendered(() => {
+  const container = this.find('.content-container');
   container._uihooks = {
-    removeElement: function(node) {
+    removeElement(node) {
       $(node).addClass('no-height');
-      $(container).one(CSSEvents.transitionend, function() {
+      $(container).one(CSSEvents.transitionend, () => {
         node.parentNode.removeChild(node);
       });
-    }
+    },
   };
 });

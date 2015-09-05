@@ -1,53 +1,53 @@
 
-var getCardsBetween = function(idA, idB) {
+function getCardsBetween(idA, idB) {
 
-  var pluckId = function(doc) {
+  function pluckId(doc) {
     return doc._id;
-  };
+  }
 
-  var getListsStrictlyBetween = function(id1, id2) {
+  function getListsStrictlyBetween(id1, id2) {
     return Lists.find({
       $and: [
         { sort: { $gt: Lists.findOne(id1).sort } },
-        { sort: { $lt: Lists.findOne(id2).sort } }
+        { sort: { $lt: Lists.findOne(id2).sort } },
       ],
-      archived: false
+      archived: false,
     }).map(pluckId);
-  };
+  }
 
-  var cards = _.sortBy([Cards.findOne(idA), Cards.findOne(idB)], function(c) {
+  const cards = _.sortBy([Cards.findOne(idA), Cards.findOne(idB)], (c) => {
     return c.sort;
   });
 
-  var selector;
+  let selector;
   if (cards[0].listId === cards[1].listId) {
     selector = {
       listId: cards[0].listId,
       sort: {
         $gte: cards[0].sort,
-        $lte: cards[1].sort
+        $lte: cards[1].sort,
       },
-      archived: false
+      archived: false,
     };
   } else {
     selector = {
       $or: [{
         listId: cards[0].listId,
-        sort: { $lte: cards[0].sort }
+        sort: { $lte: cards[0].sort },
       }, {
         listId: {
-          $in: getListsStrictlyBetween(cards[0].listId, cards[1].listId)
-        }
+          $in: getListsStrictlyBetween(cards[0].listId, cards[1].listId),
+        },
       }, {
         listId: cards[1].listId,
-        sort: { $gte: cards[1].sort }
+        sort: { $gte: cards[1].sort },
       }],
-      archived: false
+      archived: false,
     };
   }
 
   return Cards.find(Filter.mongoSelector(selector)).map(pluckId);
-};
+}
 
 MultiSelection = {
   sidebarView: 'multiselection',
@@ -58,30 +58,30 @@ MultiSelection = {
 
   startRangeCardId: null,
 
-  reset: function() {
+  reset() {
     this._selectedCards.set([]);
   },
 
-  getMongoSelector: function() {
+  getMongoSelector() {
     return Filter.mongoSelector({
-      _id: { $in: this._selectedCards.get() }
+      _id: { $in: this._selectedCards.get() },
     });
   },
 
-  isActive: function() {
+  isActive() {
     return this._isActive.get();
   },
 
-  count: function() {
+  count() {
     return Cards.find(this.getMongoSelector()).count();
   },
 
-  isEmpty: function() {
+  isEmpty() {
     return this.count() === 0;
   },
 
-  activate: function() {
-    if (! this.isActive()) {
+  activate() {
+    if (!this.isActive()) {
       EscapeActions.executeUpTo('detailsPane');
       this._isActive.set(true);
       Tracker.flush();
@@ -89,7 +89,7 @@ MultiSelection = {
     Sidebar.setView(this.sidebarView);
   },
 
-  disable: function() {
+  disable() {
     if (this.isActive()) {
       this._isActive.set(false);
       if (Sidebar && Sidebar.getView() === this.sidebarView) {
@@ -99,19 +99,19 @@ MultiSelection = {
     }
   },
 
-  add: function(cardIds) {
+  add(cardIds) {
     return this.toogle(cardIds, { add: true, remove: false });
   },
 
-  remove: function(cardIds) {
+  remove(cardIds) {
     return this.toogle(cardIds, { add: false, remove: true });
   },
 
-  toogleRange: function(cardId) {
-    var selectedCards = this._selectedCards.get();
-    var startRange;
+  toogleRange(cardId) {
+    const selectedCards = this._selectedCards.get();
+    let startRange;
     this.reset();
-    if (! this.isActive() || selectedCards.length === 0) {
+    if (!this.isActive() || selectedCards.length === 0) {
       this.toogle(cardId);
     } else {
       startRange = selectedCards[selectedCards.length - 1];
@@ -119,23 +119,22 @@ MultiSelection = {
     }
   },
 
-  toogle: function(cardIds, options) {
-    var self = this;
+  toogle(cardIds, options) {
     cardIds = _.isString(cardIds) ? [cardIds] : cardIds;
     options = _.extend({
       add: true,
-      remove: true
+      remove: true,
     }, options || {});
 
-    if (! self.isActive()) {
-      self.reset();
-      self.activate();
+    if (!this.isActive()) {
+      this.reset();
+      this.activate();
     }
 
-    var selectedCards = self._selectedCards.get();
+    const selectedCards = this._selectedCards.get();
 
-    _.each(cardIds, function(cardId) {
-      var indexOfCard = selectedCards.indexOf(cardId);
+    _.each(cardIds, (cardId) => {
+      const indexOfCard = selectedCards.indexOf(cardId);
 
       if (options.remove && indexOfCard > -1)
         selectedCards.splice(indexOfCard, 1);
@@ -144,19 +143,19 @@ MultiSelection = {
         selectedCards.push(cardId);
     });
 
-    self._selectedCards.set(selectedCards);
+    this._selectedCards.set(selectedCards);
   },
 
-  isSelected: function(cardId) {
+  isSelected(cardId) {
     return this._selectedCards.get().indexOf(cardId) > -1;
-  }
+  },
 };
 
 Blaze.registerHelper('MultiSelection', MultiSelection);
 
 EscapeActions.register('multiselection',
-  function() { MultiSelection.disable(); },
-  function() { return MultiSelection.isActive(); }, {
-    noClickEscapeOn: '.js-minicard,.js-board-sidebar-content'
+  () => { MultiSelection.disable(); },
+  () => { return MultiSelection.isActive(); }, {
+    noClickEscapeOn: '.js-minicard,.js-board-sidebar-content',
   }
 );

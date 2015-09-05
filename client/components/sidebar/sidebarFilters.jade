@@ -36,7 +36,7 @@ template(name="filterSidebar")
       span {{_ 'filter-clear'}}
     a.sidebar-btn.js-filter-to-selection
       i.fa.fa-check-square-o
-      span Filter to selection
+      span {{_ 'filter-to-selection'}}
 
 template(name="multiselectionSidebar")
   ul.sidebar-list
@@ -71,14 +71,14 @@ template(name="multiselectionSidebar")
   hr
   a.sidebar-btn.js-archive-selection
     i.fa.fa-archive
-    span Archive selection
+    span {{_ 'archive-selection'}}
 
 template(name="disambiguateMultiLabelPopup")
-  p What do you want to do?
-  button.wide.js-remove-label Remove the label
-  button.wide.js-add-label Add the label
+  p {{_ 'what-to-do'}}
+  button.wide.js-remove-label Remove {{_ 'remove-label'}}
+  button.wide.js-add-label Add {{_ 'add-label'}}
 
 template(name="disambiguateMultiMemberPopup")
-  p What do you want to do?
-  button.wide.js-unassign-member Unassign member
-  button.wide.js-assign-member Assign member
+  p {{_ 'what-to-do'}}
+  button.wide.js-unassign-member {{_ 'unassign-member'}}
+  button.wide.js-assign-member {{_ 'assign-member'}}

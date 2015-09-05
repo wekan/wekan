@@ -12,10 +12,10 @@ template(name="headerUserBar")
 template(name="memberMenuPopup")
   ul.pop-over-list
     with currentUser
-      li: a.js-edit-profile Edit Profile…
-    li: a.js-change-avatar Change Avatar…
-    li: a.js-change-password Change Password…
-    li: a.js-change-language Change Language…
+      li: a.js-edit-profile {{_ 'edit-profile'}}
+    li: a.js-change-avatar {{_ 'edit-avatar'}}
+    li: a.js-change-password {{_ 'changePasswordPopup-title'}}
+    li: a.js-change-language {{_ 'changeLanguagePopup-title'}}
   hr
   ul.pop-over-list
     li: a.js-logout {{_ 'log-out'}}
@@ -23,13 +23,13 @@ template(name="memberMenuPopup")
 template(name="editProfilePopup")
   form
     label
-      | {{_ "fullname"}}
+      | {{_ 'fullname'}}
       input.js-profile-fullname(type="text" value=profile.fullname autofocus)
     label
-      | {{_ "username"}}
+      | {{_ 'username'}}
       input.js-profile-username(type="text" value=username)
     label
-      | Initials
+      | {{_ 'initials'}}
       input.js-profile-initials(type="text" value=profile.initials)
     input.primary.wide(type="submit" value="{{_ 'save'}}")
 

@@ -1,136 +1,136 @@
 BlazeComponent.extendComponent({
-  template: function() {
+  template() {
     return 'filterSidebar';
   },
 
-  events: function() {
+  events() {
     return [{
-      'click .js-toggle-label-filter': function(evt) {
+      'click .js-toggle-label-filter'(evt) {
         evt.preventDefault();
         Filter.labelIds.toogle(this.currentData()._id);
         Filter.resetExceptions();
       },
-      'click .js-toogle-member-filter': function(evt) {
+      'click .js-toogle-member-filter'(evt) {
         evt.preventDefault();
         Filter.members.toogle(this.currentData()._id);
         Filter.resetExceptions();
       },
-      'click .js-clear-all': function(evt) {
+      'click .js-clear-all'(evt) {
         evt.preventDefault();
         Filter.reset();
       },
-      'click .js-filter-to-selection': function(evt) {
+      'click .js-filter-to-selection'(evt) {
         evt.preventDefault();
-        var selectedCards = Cards.find(Filter.mongoSelector()).map(function(c) {
+        const selectedCards = Cards.find(Filter.mongoSelector()).map((c) => {
           return c._id;
         });
         MultiSelection.add(selectedCards);
-      }
+      },
     }];
-  }
+  },
 }).register('filterSidebar');
 
-var updateSelectedCards = function(query) {
-  Cards.find(MultiSelection.getMongoSelector()).forEach(function(card) {
+function updateSelectedCards(query) {
+  Cards.find(MultiSelection.getMongoSelector()).forEach((card) => {
     Cards.update(card._id, query);
   });
-};
+}
 
 BlazeComponent.extendComponent({
-  template: function() {
+  template() {
     return 'multiselectionSidebar';
   },
 
-  mapSelection: function(kind, _id) {
-    return Cards.find(MultiSelection.getMongoSelector()).map(function(card) {
-      var methodName = kind === 'label' ? 'hasLabel' : 'isAssigned';
+  mapSelection(kind, _id) {
+    return Cards.find(MultiSelection.getMongoSelector()).map((card) => {
+      const methodName = kind === 'label' ? 'hasLabel' : 'isAssigned';
       return card[methodName](_id);
     });
   },
 
-  allSelectedElementHave: function(kind, _id) {
+  allSelectedElementHave(kind, _id) {
     if (MultiSelection.isEmpty())
       return false;
     else
       return _.every(this.mapSelection(kind, _id));
   },
 
-  someSelectedElementHave: function(kind, _id) {
+  someSelectedElementHave(kind, _id) {
     if (MultiSelection.isEmpty())
       return false;
     else
       return _.some(this.mapSelection(kind, _id));
   },
 
-  events: function() {
+  events() {
     return [{
-      'click .js-toggle-label-multiselection': function(evt) {
-        var labelId = this.currentData()._id;
-        var mappedSelection = this.mapSelection('label', labelId);
-        var operation;
+      'click .js-toggle-label-multiselection'(evt) {
+        const labelId = this.currentData()._id;
+        const mappedSelection = this.mapSelection('label', labelId);
+        let operation;
         if (_.every(mappedSelection))
           operation = '$pull';
-        else if (_.every(mappedSelection, function(bool) { return ! bool; }))
+        else if (_.every(mappedSelection, (bool) => !bool))
           operation = '$addToSet';
         else {
-          var popup = Popup.open('disambiguateMultiLabel');
+          const popup = Popup.open('disambiguateMultiLabel');
           // XXX We need to have a better integration between the popup and the
           // UI components systems.
           return popup.call(this.currentData(), evt);
         }
 
-        var query = {};
-        query[operation] = {
-          labelIds: labelId
-        };
-        updateSelectedCards(query);
+        updateSelectedCards({
+          [operation]: {
+            labelIds: labelId,
+          },
+        });
       },
-      'click .js-toogle-member-multiselection': function(evt) {
-        var memberId = this.currentData()._id;
-        var mappedSelection = this.mapSelection('member', memberId);
-        var operation;
+      'click .js-toogle-member-multiselection'(evt) {
+        const memberId = this.currentData()._id;
+        const mappedSelection = this.mapSelection('member', memberId);
+        let operation;
         if (_.every(mappedSelection))
           operation = '$pull';
-        else if (_.every(mappedSelection, function(bool) { return ! bool; }))
+        else if (_.every(mappedSelection, (bool) => !bool))
           operation = '$addToSet';
         else {
-          var popup = Popup.open('disambiguateMultiMember');
+          const popup = Popup.open('disambiguateMultiMember');
           // XXX We need to have a better integration between the popup and the
           // UI components systems.
           return popup.call(this.currentData(), evt);
         }
 
-        var query = {};
-        query[operation] = {
-          members: memberId
-        };
-        updateSelectedCards(query);
+        updateSelectedCards({
+          [operation]: {
+            members: memberId,
+          },
+        });
       },
-      'click .js-archive-selection': function() {
+      'click .js-archive-selection'() {
         updateSelectedCards({$set: {archived: true}});
-      }
+      },
     }];
-  }
+  },
 }).register('multiselectionSidebar');
 
 Template.disambiguateMultiLabelPopup.events({
-  'click .js-remove-label': function() {
+  'click .js-remove-label'() {
     updateSelectedCards({$pull: {labelIds: this._id}});
     Popup.close();
   },
-  'click .js-add-label': function() {
+  'click .js-add-label'() {
     updateSelectedCards({$addToSet: {labelIds: this._id}});
     Popup.close();
-  }
+  },
 });
 
 Template.disambiguateMultiMemberPopup.events({
-  'click .js-unassign-member': function() {
+  'click .js-unassign-member'() {
     updateSelectedCards({$pull: {members: this._id}});
     Popup.close();
   },
-  'click .js-assign-member': function() {
+  'click .js-assign-member'() {
     updateSelectedCards({$addToSet: {members: this._id}});
     Popup.close();
-  }
+  },
 });

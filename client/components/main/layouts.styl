@@ -28,6 +28,9 @@ body
   flex: 1
   overflow: hidden
 
+  .sk-spinner
+    margin-top: 30vh
+
 #modal
   position: absolute
   top: 0
@@ -267,7 +270,7 @@ dd
 .fa.fa-lock.colorful
   color: #f44336
 
-.pop-over .pop-over-list li a:hover
+.pop-over .pop-over-list li a:not(.disabled):hover
   .fa, .fa.colorful
     color: white
 
@@ -278,7 +281,7 @@ a
   &.fa, i.fa
     color: darken(white, 35%)
 
-  &:hover, &.is-active
+  &:not(.disabled):hover, &:not(.disabled).is-active
     &.fa, i.fa
       color: darken(white, 60%)
 
@@ -316,6 +319,11 @@ a
   ul
     list-style-type: initial
     padding-left: 20px
+
+  pre
+    padding: 10px 12px 7px
+    background: darken(white, 13%)
+    overflow-y: auto
 
 .basicTabs-container .tabs-content-container
   padding: 0

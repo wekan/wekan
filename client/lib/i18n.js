@@ -2,9 +2,9 @@
 // the language reactively. If the user is not connected we use the language
 // information provided by the browser, and default to english.
 
-Tracker.autorun(function() {
-  var language;
-  var currentUser = Meteor.user();
+Tracker.autorun(() => {
+  const currentUser = Meteor.user();
+  let language;
   if (currentUser) {
     language = currentUser.profile && currentUser.profile.language;
   } else {
@@ -12,11 +12,10 @@ Tracker.autorun(function() {
   }
 
   if (language) {
-
     TAPi18n.setLanguage(language);
 
     // XXX
-    var shortLanguage = language.split('-')[0];
+    const shortLanguage = language.split('-')[0];
     T9n.setLanguage(shortLanguage);
   }
 });

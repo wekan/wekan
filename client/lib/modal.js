@@ -1,4 +1,4 @@
-const closedValue = null
+const closedValue = null;
 
 window.Modal = new class {
   constructor() {

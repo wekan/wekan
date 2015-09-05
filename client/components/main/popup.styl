@@ -120,6 +120,9 @@ $popupWidth = 300px
     .at-result
       background: #b2dfdb
 
+  .sk-spinner
+    margin: 40px auto
+
   for depth in (1..6)
     .popup-container-depth-{depth}
       transform: translateX(- depth * $popupWidth)
@@ -133,7 +136,7 @@ $popupWidth = 300px
     cursor: pointer
     display: block
     font-weight: 700
-    padding: 0px 10px
+    padding: 1.5px 10px
     position: relative
     margin: 0 -10px
     text-decoration: none
@@ -145,7 +148,7 @@ $popupWidth = 300px
       width: auto
       padding-right: 22px
 
-    &:hover
+    &:not(.disabled):hover
       background-color: #005377
       color: #fff
 
@@ -162,7 +165,6 @@ $popupWidth = 300px
       font-size: 12px
       font-weight: 400
       line-height: 15px
-      margin-top: 4px
 
     &.current
       background-color: #e2e6e9

@@ -5,20 +5,20 @@
 Meteor.publish('boards', function() {
   // Ensure that the user is connected. If it is not, we need to return an empty
   // array to tell the client to remove the previously published docs.
-  if (! Match.test(this.userId, String))
+  if (!Match.test(this.userId, String))
     return [];
 
   // Defensive programming to verify that starredBoards has the expected
   // format -- since the field is in the `profile` a user can modify it.
-  var starredBoards = Users.findOne(this.userId).profile.starredBoards || [];
+  const starredBoards = Users.findOne(this.userId).profile.starredBoards || [];
   check(starredBoards, [String]);
 
   return Boards.find({
     archived: false,
     $or: [
       { 'members.userId': this.userId },
-      { _id: { $in: starredBoards } }
-    ]
+      { _id: { $in: starredBoards } },
+    ],
   }, {
     fields: {
       _id: 1,
@@ -27,13 +27,13 @@ Meteor.publish('boards', function() {
       title: 1,
       color: 1,
       members: 1,
-      permission: 1
-    }
+      permission: 1,
+    },
   });
 });
 
 Meteor.publish('archivedBoards', function() {
-  if (! Match.test(this.userId, String))
+  if (!Match.test(this.userId, String))
     return [];
 
   return Boards.find({
@@ -41,23 +41,23 @@ Meteor.publish('archivedBoards', function() {
     members: {
       $elemMatch: {
         userId: this.userId,
-        isAdmin: true
-      }
-    }
+        isAdmin: true,
+      },
+    },
   }, {
     fields: {
       _id: 1,
       archived: 1,
       slug: 1,
-      title: 1
-    }
-  })
+      title: 1,
+    },
+  });
 });
 
 Meteor.publishComposite('board', function(boardId) {
   check(boardId, String);
   return {
-    find: function() {
+    find() {
       return Boards.find({
         _id: boardId,
         archived: false,
@@ -65,18 +65,18 @@ Meteor.publishComposite('board', function(boardId) {
         // it.
         $or: [
           { permission: 'public' },
-          { 'members.userId': this.userId }
-        ]
+          { 'members.userId': this.userId },
+        ],
       }, { limit: 1 });
     },
     children: [
       // Lists
       {
-        find: function(board) {
+        find(board) {
           return Lists.find({
-            boardId: board._id
+            boardId: board._id,
           });
-        }
+        },
       },
 
       // Cards and cards comments
@@ -103,48 +103,48 @@ Meteor.publishComposite('board', function(boardId) {
       // And in the meantime our code below works pretty well -- it's not even a
       // hack!
       {
-        find: function(board) {
+        find(board) {
           return Cards.find({
-            boardId: board._id
+            boardId: board._id,
           });
         },
 
         children: [
           // comments
           {
-            find: function(card) {
+            find(card) {
               return CardComments.find({
-                cardId: card._id
+                cardId: card._id,
               });
-            }
+            },
           },
           // Attachments
           {
-            find: function(card) {
+            find(card) {
               return Attachments.find({
-                cardId: card._id
+                cardId: card._id,
               });
-            }
-          }
-        ]
+            },
+          },
+        ],
       },
 
       // Board members. This publication also includes former board members that
       // aren't members anymore but may have some activities attached to them in
       // the history.
       {
-        find: function(board) {
+        find(board) {
           return Users.find({
-            _id: { $in: _.pluck(board.members, 'userId') }
+            _id: { $in: _.pluck(board.members, 'userId') },
           });
         },
         // Presence indicators
         children: [{
-          find: function(user) {
-            return Presences.find({userId: user._id});
-          }
-        }]
-      }
-    ]
+          find(user) {
+            return presences.find({userId: user._id});
+          },
+        }],
+      },
+    ],
   };
 });

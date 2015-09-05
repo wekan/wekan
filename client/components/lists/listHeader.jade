@@ -11,7 +11,7 @@ template(name="listHeader")
 
 template(name="editListTitleForm")
   .list-composer
-    input.full-line(type="text" value=title autofocus)
+    input.list-name-input.full-line(type="text" value=title autofocus)
     .edit-controls.clearfix
       button.primary.confirm(type="submit") {{_ 'save'}}
       a.fa.fa-times-thin.js-close-inlined-form

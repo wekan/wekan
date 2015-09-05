@@ -9,11 +9,13 @@
 meteor-base
 
 # Build system
-es5-shim
 ecmascript
 standard-minifiers
 mquandalle:jade
 mquandalle:stylus
+
+# Polyfills
+es5-shim
 
 # Collections
 mongo
@@ -42,6 +44,7 @@ reactive-dict
 session
 tracker
 underscore
+3stack:presence
 alethes:pages
 arillo:flow-router-helpers
 audit-argument-checks
@@ -54,7 +57,6 @@ mquandalle:moment
 ongoworks:speakingurl
 raix:handlebar-helpers
 tap:i18n
-tmeasday:presence
 
 # UI components
 blaze
@@ -63,6 +65,7 @@ fortawesome:fontawesome
 mousetrap:mousetrap
 mquandalle:jquery-textcomplete
 mquandalle:jquery-ui-drag-drop-sort
+mquandalle:mousetrap-bindglobal
 mquandalle:perfect-scrollbar
 peerlibrary:blaze-components
 perak:markdown

@@ -1,37 +1,37 @@
-var peakAnticipation = 200;
+const peakAnticipation = 200;
 
 Mixins.InfiniteScrolling = BlazeComponent.extendComponent({
-  onCreated: function() {
+  onCreated() {
     this._nextPeak = Infinity;
   },
 
-  setNextPeak: function(v) {
+  setNextPeak(v) {
     this._nextPeak = v;
   },
 
-  getNextPeak: function() {
+  getNextPeak() {
     return this._nextPeak;
   },
 
-  resetNextPeak: function() {
+  resetNextPeak() {
     this._nextPeak = Infinity;
   },
 
   // To be overwritten by consumers of this mixin
-  reachNextPeak: function() {
+  reachNextPeak() {
 
   },
 
-  events: function() {
+  events() {
     return [{
-      scroll: function(evt) {
-        var domElement = evt.currentTarget;
-        var altitude = domElement.scrollTop + domElement.offsetHeight;
+      scroll(evt) {
+        const domElement = evt.currentTarget;
+        let altitude = domElement.scrollTop + domElement.offsetHeight;
         altitude += peakAnticipation;
         if (altitude >= this.callFirstWith(null, 'getNextPeak')) {
           this.callFirstWith(null, 'reachNextPeak');
         }
-      }
+      },
     }];
-  }
+  },
 });
