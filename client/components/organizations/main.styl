@@ -1,0 +1,134 @@
+@import 'nib'
+
+#orgs-surface
+  display: flex
+  flex-direction: column
+  min-height: 100vh
+  //overflow: hidden
+  //to show surface on ie11
+  height:100%
+  background: #fff none repeat scroll 0 0
+
+
+#orgs-content
+  background-color: #edeff0
+  position: relative
+  flex-grow: 1
+
+.org
+  background-color: #edeff0
+  .header
+    background-color: #edeff0
+    .header-wrapper.u-clearfix
+      margin: 0 auto
+      max-width: 630px
+      padding: 32px
+      position: relative
+  .main
+    background: #fff none repeat scroll 0 0
+    .main-wrapper
+      margin: 0 auto
+      max-width: 850px
+      padding: 32px
+      position: relative
+      .window-module
+        clear: both
+        margin-bottom: 20px
+        position: relative
+
+
+.org-members-options
+    //float: right
+    //max-width: 300px
+    min-height: 34px
+    position: relative
+    a
+      span
+        padding-left: 8px
+    .button-link
+      clear: both
+      float: left
+      margin: 0 0 8px
+      //max-width: 300px
+      padding-right: 10px
+    
+
+.member-list-item-detail 
+  border-bottom: 1px solid #d6dadc
+  clear: both
+  min-height: 39px
+  padding: 12px 0 12px 38px
+  position: relative
+  .member
+    left: 0
+    //position: absolute
+    //top: 14px
+  .details
+    //line-height:30px
+    float: left
+  .options
+    float: right
+    .option
+      float: left
+      margin: 4px 0 2px 8px
+      &.button-link
+        padding-right: 12px
+        &.role-button 
+          padding-left: 10px
+          padding-right: 26px
+          width: 95px
+  .name-line 
+    margin-bottom: 2px;
+  .full-name
+    font-size: 16px
+    font-weight: 700
+    margin-right: 3px
+
+.quiet, .quiet a
+  color: #8c8c8c
+.u-bottom 
+  margin-bottom: 0
+  padding-bottom: 0
+.u-inline-block
+  display: inline-block
+
+.u-clearfix::after
+  clear: both
+  content: ""
+  display: table
+
+
+.window-module 
+  clear: both
+  margin-bottom: 20px
+  position: relative
+
+
+.pop-over-member-list
+  li.disabled
+    a.name
+      line-height: 16px
+  li
+    a.name
+      border-radius: 3px
+      display: block
+      height: 30px
+      line-height: 30px
+      margin-bottom: 2px
+      overflow: hidden
+      padding: 4px
+      position: relative
+      text-decoration: none
+      text-overflow: ellipsis
+      white-space: nowrap
+
+.pop-over .quiet 
+    padding: 0px;
+
+.disabled
+  cursor: default
+
+.member-list-item-detail .options .option.button-link.role-button 
+  padding-left: 10px
+  padding-right: 26px
+  width: 95px

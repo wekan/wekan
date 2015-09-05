@@ -1,0 +1,113 @@
+//-
+  XXX This template can't be transformed into a component because it is
+  included by iron-router. That's a bug.
+  See https://github.com/peerlibrary/meteor-blaze-components/issues/44
+template(name="orgsLayout")
+    #orgs-surface
+      +header
+      #orgs-content
+        +Template.dynamic(template=content)
+
+
+template(name="organization")
+  if isOrgReady.get
+    if  currentOrganization
+      .org
+        .header
+          .header-wrapper.u-clearfix
+            .org-name
+              h1 {{currentOrganization.title}}
+            .org-desc
+              span {{currentOrganization.description}}
+        .nav
+        .main.u-clearfix
+          .main-wrapper
+            .window-module 
+              .org-members-options
+                if currentUser.isOrganizationAdmin
+                  a.button-link.js-manage-org-members 
+                    i.fa.fa-plus 
+                    | {{_ "Add Memebers"}}
+                    
+            hr
+            .window-module.js-member-list
+                each currentOrganization.members
+                  +userCard(user=this org=currentOrganization)
+    else
+      //- XXX We need a better error message in case the board has been archived
+      +message(label="Organization not found")
+  else
+    +spinner
+
+
+template(name="userCard")
+  .member-list-item-detail
+    +userAvatar(userId= userData._id showStatus=false) 
+    .details
+      if userData.profile.fullname
+        p.name-line
+          span.full-name
+              = userData.profile.fullname
+      p.u-bottom.quiet
+        span.quiet.u-inline-block @{{ userData.username }}
+
+    .options
+      a.js-change-org-role.option.button-link.role-button(class="{{#if isLastAdmin}}disabled{{/if}}") {{_ memberType}}
+        i.fa.fa-angle-down
+      if isCurrentUser
+        a.option.button-link.remove-button.js-remove-or-deactivate(class="{{#if isLastAdmin}}disabled{{/if}}")
+          span {{_ "Leave"}}
+      else if  currentUser.isOrgamizationAdmin
+        a.option.button-link.remove-button.js-remove-or-deactivate(class="{{#if isLastMember}}disabled{{/if}}")
+          span {{_ "Remove"}}
+
+template(name="removeOrgMemberPopup")
+  p {{_ 'remove-org-member-pop' name=userData.profile.fullname username=userData.username orgTitle=currentOrganization.title}}
+  button.js-confirm.negate.full(type="submit") {{_ 'remove-member'}}
+        
+template(name="addOrgMemberPopup")
+  .js-search-member
+    +esInput(index="users")
+
+  ul.pop-over-member-list
+    +esEach(index="users")
+      div
+        li.item.js-member-item(class="{{#if isOrganizationMember }}disabled{{/if}}")
+          a.name.js-select-member(title="{{ profile.fullname }} ({{ username }})" class="{{#if isOrganizationMember }}disabled{{/if}}")
+            +userAvatar(userId=_id)
+            span.full-name
+              = profile.fullname
+              | (<span class="username">{{ username }}</span>)
+            if isOrganizationMember
+              .extra-text.quiet ({{_ 'joined'}})
+
+    +ifEsIsSearching(index='users')
+      +spinner
+
+    +ifEsHasNoResults(index="users")
+      .manage-member-section
+        p.quiet {{_ 'no-results'}}
+
+template(name="changeOrgPermissionPopup")
+  ul.pop-over-list
+    li
+      a(class="{{#if isLastAdmin}}disabled{{else}}js-set-admin{{/if}}")
+        | {{_ 'admin'}}
+        if isAdmin
+          i.fa.fa-check
+        span.sub-name {{_ 'admin-desc'}}
+    li
+      a(class="{{#if isLastAdmin}}disabled{{else}}js-set-normal{{/if}}")
+        | {{_ 'normal'}}
+        unless isAdmin
+          i.fa.fa-check
+        span.sub-name {{_ 'normal-desc'}}
+  if isLastAdmin
+    hr
+    p.quiet.bottom {{_ 'last-admin-desc'}}
+        
+      
+
+
+
+
