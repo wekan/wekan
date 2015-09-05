@@ -43,7 +43,7 @@ BlazeComponent.extendComponent({
 
   // Only show the star counter if the number of star is greater than 2
   showStarCounter() {
-    const currentBoard = this.currentData();
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
     return currentBoard && currentBoard.stars >= 2;
   },
 
