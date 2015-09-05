@@ -9,10 +9,11 @@ template(name="userAvatar")
       span.member-presence-status(class=presenceStatusClassName)
       span.member-type(class=memberType)
 
-    if showEdit
-      if $eq currentUser._id userData._id
-        a.edit-avatar.js-change-avatar
-          i.fa.fa-pencil
+    unless isSandstorm
+      if showEdit
+        if $eq currentUser._id userData._id
+          a.edit-avatar.js-change-avatar
+            i.fa.fa-pencil
 
 template(name="userAvatarInitials")
   svg.avatar.avatar-initials(viewBox="0 0 {{viewPortWidth}} 15")

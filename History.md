@@ -9,7 +9,8 @@ security. It also features the following improvements:
   password, to change the password, or to enable email confirmation (all of
   which were previously impossible);
 * Avatar customization, including the possibility to upload images and to choose
-  one from Gravatar or the user initials;
+  one from Gravatar or the user initials (on Sandstrom we use the avatar exposed
+  by Sandstorm);
 * Cards multi-selection to facilitate batch actions such as moving all the cards
   of selection, or attaching a label or a member to them;
 * Keyboard navigation, press `?` to read the list of available shortcuts;
