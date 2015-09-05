@@ -12,7 +12,7 @@ template(name="header")
             li
               a(href="{{pathFor 'home'}}")
                 span.fa.fa-home
-                | All boards
+                | {{_ 'All boards'}}
             each currentUser.starredBoards
               li.separator -
               li(class="{{#if $.Session.equals 'currentBoard' _id}}current{{/if}}")
@@ -31,17 +31,19 @@ template(name="header")
       The main bar is a colorful bar that provide all the meta-data for the
       current page. This bar is contextual based.
       If the user is not connected we display "sign in" and "log in" buttons.
-    #header-main-bar(class="{{#if wrappedHeader}}wrapper{{/if}}")
-      if $.Session.get 'currentBoard'
-        +headerBoard
-      else if($eq currentRouteName 'home')
+    
+    if $.Session.get 'currentBoard'  
+      if currentUser
+        #header-main-bar(class="{{#if wrappedHeader}}wrapper{{/if}}")
+          +headerBoard
+    else if($eq currentRouteName 'home')
+      #header-main-bar(class="{{#if wrappedHeader}}wrapper{{/if}}")
         +headerTitle
 
-      a.wekan-logo(href="{{pathFor 'home'}}")
-        img(src="/wekan-logo-header.png" alt="Wekan")
+
 
 template(name="headerTitle")
-  h1 My Boards
+  h1 {{_ "My Boards"}}
 
   .board-header-btns.right
     a.board-header-btn.js-open-archived-board

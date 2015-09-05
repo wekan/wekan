@@ -6,3 +6,13 @@ allowIsBoardAdmin = function(userId, board) {
 allowIsBoardMember = function(userId, board) {
   return _.contains(_.pluck(board.members, 'userId'), userId);
 };
+
+allowIsOrgAdmin = function(userId, org) {
+  var admins = _.pluck(_.where(org.members, {isAdmin: true}), 'userId');
+  return _.contains(admins, userId);
+};
+
+allowIsOrgMember = function(userId, org) {
+  return _.contains(_.pluck(org.members, 'userId'), userId);
+};
+

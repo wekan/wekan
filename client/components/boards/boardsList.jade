@@ -1,7 +1,11 @@
 template(name="boardList")
-  .wrapper
-    if boards.count
-      ul.board-list.clearfix
+  .wrapper 
+    div.myboards
+      h2
+        i.fa.fa-user
+          span  {{_ "Personal Boards"}}
+    ul.board-list.clearfix
+      if boards.count
         each boards
           li(class="{{#if isStarred}}starred{{/if}}" class=colorClass)
             a.js-open-board(href="{{pathFor 'board' id=_id slug=slug}}")
@@ -10,7 +14,48 @@ template(name="boardList")
                 i.fa.js-star-board(
                   class="fa-star{{#if isStarred}} is-star-active{{else}}-o{{/if}}"
                   title="{{_ 'star-board-title'}}")
-    else
-      ul.board-list.clearfix
-        li.js-add-board
-          a.label {{_ 'add-board'}}
+      li.js-add-board.is-idle.add-board
+        a.label {{_ 'add-board'}}
+
+    if organizations.count
+      each organizations
+        div.window-module
+          .window-module-title.window-module-title-no-divider
+            span.i.fa.fa-users.fa-lg
+            h3 {{title}}
+            a.board-list-header-link.js-open-org(href="{{ pathFor route='organization' shortName=shortName }}")
+                  span {{_ "Members"}}
+        ul.board-list.clearfix
+          each boards this._id
+            li(class="{{#if isStarred}}starred{{/if}}" class=colorClass)
+              a.js-open-board(href="{{ pathFor route='board' id=_id slug=slug }}")
+                span.details
+                  span.board-list-item-name= title
+                  i.fa.js-star-board(
+                    class="fa-star{{#if isStarred}} is-star-active{{else}}-o{{/if}}"
+                    title="{{_ 'star-board-title'}}")
+          li.js-add-board.is-idle.add-board(id="org-{{_id}}")
+            a.label {{_ 'add-board'}}
+    i.fa
+      +addOrgForm
+      
+ 
+
+template(name="addOrgForm")
+  .addOrg
+      +inlinedForm(autoclose=true)
+
+        input.org-title-input(type="text" placeholder="{{_ 'Organization Title'}}"
+          autocomplete="off" autofocus required)
+        input.org-short-name-input(type="text" placeholder="{{_ 'Organization Short Name'}}"
+          autocomplete="off" required)
+        textarea.org-desc-input(type="text" placeholder="{{_ 'Organization Description'}}"
+          autocomplete="off" )
+        .edit-controls.clearfix
+          button.primary.confirm(type="submit") {{_ 'save'}}
+          a.fa.fa-times-thin.js-close-inlined-form
+      else
+        a.js-open-inlined-form
+          h2
+            i.fa.fa-plus
+            | {{_ 'Add Organization'}}

@@ -7,16 +7,17 @@ Tracker.autorun(function() {
   var currentUser = Meteor.user();
   if (currentUser) {
     language = currentUser.profile && currentUser.profile.language;
-  } else {
-    language = navigator.language || navigator.userLanguage;
+  } 
+  if (!language) {
+    language =  window.navigator.userLanguage || window.navigator.language || 'zh-CN';    
   }
 
   if (language) {
-
+    //language = language.toLowerCase();
     TAPi18n.setLanguage(language);
 
     // XXX
-    var shortLanguage = language.split('-')[0];
-    T9n.setLanguage(shortLanguage);
+    //var shortLanguage = language.split
+    T9n.setLanguage(language.toLowerCase());
   }
 });

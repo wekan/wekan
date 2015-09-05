@@ -26,7 +26,7 @@ template(name="boardBody")
           +addListForm
 
 template(name="addListForm")
-  .list.js-list.list-composer.js-list-composer
+  .list.js-list.list-composer.js-list-composer.is-idle.add-list 
     +inlinedForm(autoclose=false)
       input.list-name-input(type="text" placeholder="{{_ 'add-list'}}"
         autocomplete="off" autofocus)

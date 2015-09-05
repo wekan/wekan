@@ -14,7 +14,7 @@ html
   -webkit-text-size-adjust: 100%
 
 body
-  background: darken(white, 13%)
+  background: #0079bf
   margin: 0
   position: relative
   z-index: 0
@@ -22,11 +22,34 @@ body
   display: flex
   flex-direction: column
   height: 100vh
+  //height:100%
+
+#surface
+  display: flex
+  flex-direction: column
+  min-height: 100vh
+  overflow: hidden
+  //to show surface on ie11
+  height:100%
 
 #content
   position: relative
   flex: 1
   overflow: hidden
+
+#boards-surface
+  display: flex
+  flex-direction: column
+  min-height: 100vh
+  //overflow: hidden
+  //to show surface on ie11
+  height:100%;
+
+#boards-content
+  position: relative
+  flex-grow: 1
+  background-color: #fff
+
 
 #modal
   position: absolute
@@ -267,18 +290,18 @@ dd
 .fa.fa-lock.colorful
   color: #f44336
 
-.pop-over .pop-over-list li a:hover
+.pop-over .pop-over-list li a:hover:not(.disabled)
   .fa, .fa.colorful
-    color: white
+    color: darken(white, 65%)
 
-    &:hover
-      color: white
+    &:hover:not(.disabled)
+      color: darken(white, 65%)
 
 a
   &.fa, i.fa
     color: darken(white, 35%)
 
-  &:hover, &.is-active
+  &:hover:not(.disabled), &.is-active
     &.fa, i.fa
       color: darken(white, 60%)
 

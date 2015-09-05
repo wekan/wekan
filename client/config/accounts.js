@@ -48,3 +48,18 @@ AccountsTemplates.configureRoute('changePwd', {
     Popup.back();
   }
 });
+
+// Accounts.onLogin(function() {
+//  var currentUser = Meteor.user();
+//   if (currentUser) {
+//     language = currentUser.profile && currentUser.profile.language;
+//   } 
+//   if (!language) {
+//     language =  window.navigator.userLanguage || window.navigator.language || 'en';  
+//     Users.update(Meteor.userId(), {
+//       $set: {
+//         'profile.language': language
+//       }
+//     });  
+//   }
+// });

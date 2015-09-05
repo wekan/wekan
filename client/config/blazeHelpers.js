@@ -11,3 +11,11 @@ Blaze.registerHelper('currentCard', function() {
     return Cards.findOne(cardId);
   }
 });
+
+Blaze.registerHelper('currentOrganization', function() {
+  var orgShortName = Session.get('currentOrganizationShortName');
+  if (orgShortName) {
+    return Organizations.findOne({shortName: orgShortName});
+  }
+});
+

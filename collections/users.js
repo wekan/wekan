@@ -30,7 +30,16 @@ Users.helpers({
     if (this.isBoardMember(board))
       return _.where(board.members, {userId: this._id})[0].isAdmin;
   },
-
+  isOrganizationMember: function() {
+    var org = Organizations.findOne({shortName: Session.get('currentOrganizationShortName')});
+    return org && _.contains(_.pluck(org.members, 'userId'), this._id) &&
+                         _.where(org.members, {userId: this._id})[0].isActive;
+  },
+  isOrganizationAdmin: function() {
+    var org = Organizations.findOne({shortName: Session.get('currentOrganizationShortName')});
+    if (org && this.isOrganizationMember(org))
+      return _.where(org.members, {userId: this._id})[0].isAdmin;
+  },
   getInitials: function() {
     var profile = this.profile || {};
     if (profile.initials)

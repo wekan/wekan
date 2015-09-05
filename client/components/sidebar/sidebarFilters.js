@@ -134,3 +134,48 @@ Template.disambiguateMultiMemberPopup.events({
     Popup.close();
   }
 });
+
+BlazeComponent.extendComponent({
+  template: function() {
+    return 'boardsearchSidebar';
+  },
+
+  events: function() {
+    return [{
+      'keyup .js-search-text,mouseup .js-search-text': function(evt) {
+        var text = this.find('.js-search-text').value;
+        Session.set('currentBoardSearchText', text);
+        // if( text )
+        // {
+        //   var boardId = Session.get('currentBoard');
+        //   if (boardId) {
+        //     board = Boards.findOne(boardId);
+        //     for( var j=0;j++;j<board.lists.length )
+        //     {
+        //       var list = board.lists[j];
+
+        //       var slector = {
+        //         listId: this._id,
+        //         archived: false
+        //       };
+        //       list.cards = Cards.find(Filter.mongoSelector(slector));
+        //       for( var i=list.cards.length-1;i--;i>=0)
+        //       {
+                
+        //         if( list.cards[i].title.indexOf(text) > 0 )
+        //           list.cards.splice(i,1); 
+                 
+        //       }  
+        //     }
+            
+        //   }  
+        // }
+        
+        
+      //   evt.preventDefault();
+      //   Filter.labelIds.toogle(this.currentData()._id);
+      //   Filter.resetExceptions();
+       }
+    }];
+  }
+}).register('boardsearchSidebar');

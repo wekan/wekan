@@ -3,6 +3,7 @@ Sidebar = null;
 var defaultView = 'home';
 
 var viewTitles = {
+  boardsearch:'board-search',
   filter: 'filter-cards',
   multiselection: 'multi-selection',
   archives: 'archives'

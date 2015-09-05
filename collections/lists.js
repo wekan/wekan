@@ -14,6 +14,7 @@ Lists.attachSchema(new SimpleSchema({
     type: Date,
     denyUpdate: true
   },
+  
   sort: {
     type: Number,
     decimal: true,
@@ -43,11 +44,38 @@ if (Meteor.isServer) {
 }
 
 Lists.helpers({
-  cards: function() {
-    return Cards.find(Filter.mongoSelector({
+  cards: function() { 
+    var sortType = Session.get("currentBoardSort");
+
+    if( !sortType )
+      sortType = this.board.sortType;
+    if( !sortType )
+      sortType = 'sort';
+
+    var slector = {
       listId: this._id,
       archived: false
-    }), { sort: ['sort'] });
+    };
+
+    // var ret = new Mongo.Collection("");
+    // var cards = Cards.find(Filter.mongoSelector(slector), { sort: [sortType] });
+
+    // // miniMongo dont have index now!
+    // var searchText = Session.get('currentBoardSearchText');
+    // if( searchText ){
+    //   for( var i=cards.length-1;i--;i>=0)
+    //       {
+            
+    //         if( cards[i].title.indexOf(text) > 0 )
+    //           //cards.splice(i,1); 
+    //           ret
+             
+    //       }    
+    // }
+    // else
+    //   ret = cards;
+       
+    return Cards.find(Filter.mongoSelector(slector), { sort: [sortType] });
   },
   board: function() {
     return Boards.findOne(this.boardId);
@@ -60,6 +88,7 @@ Lists.hookOptions.after.update = { fetchPrevious: false };
 Lists.before.insert(function(userId, doc) {
   doc.createdAt = new Date();
   doc.archived = false;
+
   if (! doc.userId)
     doc.userId = userId;
 });

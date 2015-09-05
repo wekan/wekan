@@ -25,6 +25,8 @@ BlazeComponent.extendComponent({
 
     // Used to set the overlay
     self.mouseHasEnterCardDetails = false;
+
+    //Session.set('currentBoardSort', Boards.findOne(Session.get('currentBoard')).sortType);
   },
 
   openNewListForm: function() {
@@ -191,6 +193,7 @@ BlazeComponent.extendComponent({
           });
 
           title.value = '';
+          title.focus();
         }
       }
     }];

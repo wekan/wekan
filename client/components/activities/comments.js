@@ -13,6 +13,16 @@ Template.commentForm.events({
   'submit .js-new-comment-form': function(evt, tpl) {
     var input = tpl.$('.js-new-comment-input');
     if ($.trim(input.val())) {
+     if( ! Meteor.user().isBoardMember() )
+      Boards.update(this.boardId, {
+        $push: {
+          members: {
+            userId: Meteor.userId(),
+            isAdmin: false,
+            isActive: true
+          }
+        }
+      });
       CardComments.insert({
         boardId: this.boardId,
         cardId: this._id,

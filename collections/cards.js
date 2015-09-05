@@ -48,6 +48,10 @@ Cards.attachSchema(new SimpleSchema({
   userId: {
     type: String
   },
+  votes: {
+    type: Number,
+    decimal: true
+  },
   sort: {
     type: Number,
     decimal: true
@@ -167,6 +171,7 @@ Cards.before.insert(function(userId, doc) {
 
   // defaults
   doc.archived = false;
+  doc.votes = 0;
 
   // userId native set.
   if (! doc.userId)
