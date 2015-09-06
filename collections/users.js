@@ -5,7 +5,7 @@ Users = Meteor.users;
 const searchInFields = ['username', 'profile.name'];
 Users.initEasySearch(searchInFields, {
   use: 'mongo-db',
-  returnFields: searchInFields,
+  returnFields: [...searchInFields, 'profile.avatarUrl'],
 });
 
 Users.helpers({
