@@ -26,6 +26,8 @@
     "admin": "Admin",
     "admin-desc": "Can view and edit cards, remove members, and change settings for the board.",
     "all-boards": "All boards",
+    "and-n-other-card": "And __count__ other card",
+    "and-n-other-card_plural": "And __count__ other cards",
     "archive": "Archive",
     "archive-all": "Archive All",
     "archive-board": "Archive Board",
