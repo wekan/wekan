@@ -1,0 +1,14 @@
+# run with docker-compose up -d
+# comment image: and uncomment build: to use current git checkout
+app:
+  image: mquandalle/libreboard
+  #build: .
+  ports:
+    - 80:80
+  links:
+    - libreboardmongo:db
+  environment:
+    MONGO_URL: "mongodb://db"
+    ROOT_URL: "http://libreboard"
+libreboardmongo:
+  image: mongo
