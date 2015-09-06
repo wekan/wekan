@@ -126,7 +126,7 @@ BlazeComponent.extendComponent({
     this.visibilityMenuIsOpen.set(false);
   },
 
-  toogleVisibilityMenu() {
+  toggleVisibilityMenu() {
     this.visibilityMenuIsOpen.set(!this.visibilityMenuIsOpen.get());
   },
 
@@ -151,7 +151,7 @@ BlazeComponent.extendComponent({
       'click .js-select-visibility'() {
         this.setVisibility(this.currentData());
       },
-      'click .js-change-visibility': this.toogleVisibilityMenu,
+      'click .js-change-visibility': this.toggleVisibilityMenu,
       submit: this.onSubmit,
     }];
   },

@@ -37,7 +37,7 @@ class SetFilter {
     }
   }
 
-  toogle(val) {
+  toggle(val) {
     if (this._indexOfVal(val) === -1) {
       this.add(val);
     } else {
