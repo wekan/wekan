@@ -13,6 +13,7 @@
     display: flex
 
     #header-user-bar,
+    #header-new-board-icon,
     ul li
       color: darken(white, 17%)
 
@@ -23,9 +24,9 @@
         color: white
 
     ul
-      flex: 1
       transition: opacity 0.2s
       margin: 4px 0 0 5px
+      overflow: hidden
 
       li
         display: block
@@ -42,6 +43,10 @@
 
         a.js-create-board
           margin-left: 5px
+
+    #header-user-bar,
+    #header-new-board-icon
+      flex-shrink: 0
 
     #header-user-bar
       margin: 2px 0
@@ -61,6 +66,11 @@
 
         i.fa-chevron-down
           margin-right: 4px
+
+    #header-new-board-icon
+      flex-grow: 1
+      margin: 6px 5px 0
+      width: 12px
 
   #header-main-bar
     height: 28px * 1.618034 - 6px
