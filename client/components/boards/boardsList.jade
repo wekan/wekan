@@ -41,21 +41,20 @@ template(name="boardList")
       
  
 
-template(name="addOrgForm")
-  .addOrg
-      +inlinedForm(autoclose=true)
-
-        input.org-title-input(type="text" placeholder="{{_ 'Organization Title'}}"
-          autocomplete="off" autofocus required)
-        input.org-short-name-input(type="text" placeholder="{{_ 'Organization Short Name'}}"
-          autocomplete="off" required)
-        textarea.org-desc-input(type="text" placeholder="{{_ 'Organization Description'}}"
-          autocomplete="off" )
-        .edit-controls.clearfix
-          button.primary.confirm(type="submit") {{_ 'save'}}
-          a.fa.fa-times-thin.js-close-inlined-form
-      else
-        a.js-open-inlined-form
-          h2
-            i.fa.fa-plus
-            | {{_ 'Add Organization'}}
+template(name="addOrgForm")  
+  +inlinedForm(autoclose=true)
+    .addOrg
+      input.org-title-input(type="text" placeholder="{{_ 'Organization Title'}}"
+        autocomplete="off" autofocus required)
+      input.org-short-name-input(type="text" placeholder="{{_ 'Organization Short Name'}}"
+        autocomplete="off" required)
+      textarea.org-desc-input(type="text" placeholder="{{_ 'Organization Description'}}"
+        autocomplete="off" )
+      .edit-controls.clearfix
+        button.primary.confirm(type="submit") {{_ 'save'}}
+        a.fa.fa-times-thin.js-close-inlined-form
+  else
+    a.js-open-inlined-form
+      h2
+        i.fa.fa-plus
+        | {{_ 'Add Organization'}}

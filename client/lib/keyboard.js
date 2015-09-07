@@ -24,7 +24,7 @@ Mousetrap.bind('x', () => {
 });
 
 Mousetrap.bind(['down', 'up'], (evt, key) => {
-  if (! Session.get('currentCard')) {
+  if (!Session.get('currentCard')) {
     return;
   }
 
@@ -39,24 +39,24 @@ Mousetrap.bind(['down', 'up'], (evt, key) => {
 Template.keyboardShortcuts.helpers({
   mapping: [{
     keys: ['W'],
-    action: 'Toogle Board Sidebar'
+    action: 'shortcut-toogle-sidebar',
   }, {
     keys: ['Q'],
-    action: 'Filter my cards'
+    action: 'shortcut-filter-my-cards',
   }, {
     keys: ['X'],
-    action: 'Clear all filters'
+    action: 'shortcut-clear-filters',
   }, {
     keys: ['?'],
-    action: 'Bring up this shortcuts list'
+    action: 'shortcut-show-shortcuts',
   }, {
     keys: ['ESC'],
-    action: 'Close Dialog'
+    action: 'shortcut-close-dialog',
   }, {
     keys: ['@'],
-    action: 'Autocomplete members'
+    action: 'shortcut-autocomplete-members',
   }, {
     keys: [':'],
-    action: 'Autocomplete emojies'
-  }]
+    action: 'shortcut-autocomplete-emojies',
+  }],
 });

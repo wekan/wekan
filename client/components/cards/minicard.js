@@ -3,7 +3,7 @@
 // });
 
 BlazeComponent.extendComponent({
-  template: function() {
+  template() {
     return 'minicard';
-  }
+  },
 }).register('minicard');

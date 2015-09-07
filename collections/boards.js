@@ -2,13 +2,13 @@ Boards = new Mongo.Collection('boards');
 
 Boards.attachSchema(new SimpleSchema({
   title: {
-    type: String
+    type: String,
   },
   slug: {
-    type: String
+    type: String,
   },
   archived: {
-    type: Boolean
+    type: Boolean,
   },
   organizationId: {
     type: String,
@@ -19,17 +19,17 @@ Boards.attachSchema(new SimpleSchema({
   },
   createdAt: {
     type: Date,
-    denyUpdate: true
+    denyUpdate: true,
   },
   // XXX Inconsistent field naming
   modifiedAt: {
     type: Date,
     denyInsert: true,
-    optional: true
+    optional: true,
   },
   // De-normalized number of users that have starred this board
   stars: {
-    type: Number
+    type: Number,
   },
   // De-normalized label system
   'labels.$._id': {
@@ -38,30 +38,30 @@ Boards.attachSchema(new SimpleSchema({
     // always set on the server.
     // XXX Actually if we create a new label, the `_id` is set on the client
     // without being overwritten by the server, could it be a problem?
-    type: String
+    type: String,
   },
   'labels.$.name': {
     type: String,
-    optional: true
+    optional: true,
   },
   'labels.$.color': {
     type: String,
     allowedValues: [
       'green', 'yellow', 'orange', 'red', 'purple',
-      'blue', 'sky', 'lime', 'pink', 'black'
-    ]
+      'blue', 'sky', 'lime', 'pink', 'black',
+    ],
   },
   // XXX We might want to maintain more informations under the member sub-
   // documents like de-normalized meta-data (the date the member joined the
   // board, the number of contributions, etc.).
   'members.$.userId': {
-    type: String
+    type: String,
   },
   'members.$.isAdmin': {
-    type: Boolean
+    type: Boolean,
   },
   'members.$.isActive': {
-    type: Boolean
+    type: Boolean,
   },
   permission: {
     type: String,
@@ -70,14 +70,14 @@ Boards.attachSchema(new SimpleSchema({
   color: {
     type: String,
     allowedValues: [
-    'belize',
-    'nephritis',
-    'pomegranate',
-    'pumpkin',
-    'wisteria',
-    'midnight',
-    ]
-  }
+      'belize',
+      'nephritis',
+      'pomegranate',
+      'pumpkin',
+      'wisteria',
+      'midnight',
+    ],
+  },
 }));
 
 if (Meteor.isServer) {
@@ -85,30 +85,30 @@ if (Meteor.isServer) {
     insert: Meteor.userId,
     update: allowIsBoardAdmin,
     remove: allowIsBoardAdmin,
-    fetch: ['members']
+    fetch: ['members'],
   });
 
   // The number of users that have starred this board is managed by trusted code
   // and the user is not allowed to update it
   Boards.deny({
-    update: function(userId, board, fieldNames) {
+    update(userId, board, fieldNames) {
       return _.contains(fieldNames, 'stars');
     },
-    fetch: []
+    fetch: [],
   });
 
   // We can't remove a member if it is the last administrator
   Boards.deny({
-    update: function(userId, doc, fieldNames, modifier) {
-      if (! _.contains(fieldNames, 'members'))
+    update(userId, doc, fieldNames, modifier) {
+      if (!_.contains(fieldNames, 'members'))
         return false;
 
       // We only care in case of a $pull operation, ie remove a member
-      if (! _.isObject(modifier.$pull && modifier.$pull.members))
+      if (!_.isObject(modifier.$pull && modifier.$pull.members))
         return false;
 
       // If there is more than one admin, it's ok to remove anyone
-      var nbAdmins = _.filter(doc.members, function(member) {
+      const nbAdmins = _.filter(doc.members, (member) => {
         return member.isAdmin;
       }).length;
       if (nbAdmins > 1)
@@ -116,18 +116,18 @@ if (Meteor.isServer) {
 
       // If all the previous conditions were verified, we can't remove
       // a user if it's an admin
-      var removedMemberId = modifier.$pull.members.userId;
-      return !! _.findWhere(doc.members, {
+      const removedMemberId = modifier.$pull.members.userId;
+      return Boolean(_.findWhere(doc.members, {
         userId: removedMemberId,
-        isAdmin: true
-      });
+        isAdmin: true,
+      }));
     },
-    fetch: ['members']
+    fetch: ['members'],
   });
 }
 
 Boards.helpers({
-  isPublic: function() {
+  isPublic() {
     return this.permission === 'public';
   },
   isCollaborate: function() {
@@ -136,22 +136,30 @@ Boards.helpers({
   isPrivate: function() {
     return this.permission === 'private';
   },
-  lists: function() {
+
+  lists() {
     return Lists.find({ boardId: this._id, archived: false },
                                                           { sort: { sort: 1 }});
   },
-  activities: function() {
+
+  activities() {
     return Activities.find({ boardId: this._id }, { sort: { createdAt: -1 }});
   },
-  absoluteUrl: function() {
+
+  activeMembers() {
+    return _.where(this.members, {isActive: true});
+  },
+
+  absoluteUrl() {
     return FlowRouter.path('board', { id: this._id, slug: this.slug });
   },
-  colorClass: function() {
-    return 'board-color-' + this.color;
-  }
+
+  colorClass() {
+    return `board-color-${this.color}`;
+  },
 });
 
-Boards.before.insert(function(userId, doc) {
+Boards.before.insert((userId, doc) => {
   // XXX We need to improve slug management. Only the id should be necessary
   // to identify a board in the code.
   // XXX If the board title is updated, the slug should also be updated.
@@ -162,17 +170,17 @@ Boards.before.insert(function(userId, doc) {
   doc.createdAt = new Date();
   doc.archived = false;
   doc.members = [{
-    userId: userId,
+    userId,
     isAdmin: true,
-    isActive: true
+    isActive: true,
   }];
   doc.stars = 0;
   doc.color = Boards.simpleSchema()._schema.color.allowedValues[0];
   doc.organizationId = doc.organizationId || '';
 
   // Handle labels
-  var colors = Boards.simpleSchema()._schema['labels.$.color'].allowedValues;
-  var defaultLabelsColors = _.clone(colors).splice(0, 6);
+  const colors = Boards.simpleSchema()._schema['labels.$.color'].allowedValues;
+  const defaultLabelsColors = _.clone(colors).splice(0, 6);
 
   if( !(doc.sortType))
     if( doc.permission === "collaborate" || doc.permission === "public")
@@ -180,77 +188,77 @@ Boards.before.insert(function(userId, doc) {
     else
       doc.sortType = 'sort';
 
-  doc.labels = _.map(defaultLabelsColors, function(val) {
+  doc.labels = _.map(defaultLabelsColors, (color) => {
     return {
+      color,
       _id: Random.id(6),
       name: '',
-      color: val
     };
   });
 });
 
-Boards.before.update(function(userId, doc, fieldNames, modifier) {
+Boards.before.update((userId, doc, fieldNames, modifier) => {
   modifier.$set = modifier.$set || {};
   modifier.$set.modifiedAt = new Date();
 });
 
 if (Meteor.isServer) {
   // Let MongoDB ensure that a member is not included twice in the same board
-  Meteor.startup(function() {
+  Meteor.startup(() => {
     Boards._collection._ensureIndex({
       _id: 1,
-      'members.userId': 1
+      'members.userId': 1,
     }, { unique: true });
   });
 
   // Genesis: the first activity of the newly created board
-  Boards.after.insert(function(userId, doc) {
+  Boards.after.insert((userId, doc) => {
     Activities.insert({
+      userId,
       type: 'board',
       activityTypeId: doc._id,
       activityType: 'createBoard',
       boardId: doc._id,
-      userId: userId
     });
   });
 
   // If the user remove one label from a board, we cant to remove reference of
   // this label in any card of this board.
-  Boards.after.update(function(userId, doc, fieldNames, modifier) {
-    if (! _.contains(fieldNames, 'labels') ||
-      ! modifier.$pull ||
-      ! modifier.$pull.labels ||
-      ! modifier.$pull.labels._id)
+  Boards.after.update((userId, doc, fieldNames, modifier) => {
+    if (!_.contains(fieldNames, 'labels') ||
+      !modifier.$pull ||
+      !modifier.$pull.labels ||
+      !modifier.$pull.labels._id)
       return;
 
-    var removedLabelId = modifier.$pull.labels._id;
+    const removedLabelId = modifier.$pull.labels._id;
     Cards.update(
       { boardId: doc._id },
       {
         $pull: {
-          labels: removedLabelId
-        }
+          labels: removedLabelId,
+        },
       },
       { multi: true }
     );
   });
 
   // Add a new activity if we add or remove a member to the board
-  Boards.after.update(function(userId, doc, fieldNames, modifier) {
-    if (! _.contains(fieldNames, 'members'))
+  Boards.after.update((userId, doc, fieldNames, modifier) => {
+    if (!_.contains(fieldNames, 'members'))
       return;
 
-    var memberId;
+    let memberId;
 
     // Say hello to the new member
     if (modifier.$push && modifier.$push.members) {
       memberId = modifier.$push.members.userId;
       Activities.insert({
+        userId,
+        memberId,
         type: 'member',
         activityType: 'addBoardMember',
         boardId: doc._id,
-        userId: userId,
-        memberId: memberId
       });
     }
 
@@ -258,11 +266,11 @@ if (Meteor.isServer) {
     if (modifier.$pull && modifier.$pull.members) {
       memberId = modifier.$pull.members.userId;
       Activities.insert({
+        userId,
+        memberId,
         type: 'member',
         activityType: 'removeBoardMember',
         boardId: doc._id,
-        userId: userId,
-        memberId: memberId
       });
     }
   });

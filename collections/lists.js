@@ -2,44 +2,44 @@ Lists = new Mongo.Collection('lists');
 
 Lists.attachSchema(new SimpleSchema({
   title: {
-    type: String
+    type: String,
   },
   archived: {
-    type: Boolean
+    type: Boolean,
   },
   boardId: {
-    type: String
+    type: String,
   },
   createdAt: {
     type: Date,
-    denyUpdate: true
+    denyUpdate: true,
   },
   
   sort: {
     type: Number,
     decimal: true,
     // XXX We should probably provide a default
-    optional: true
+    optional: true,
   },
   updatedAt: {
     type: Date,
     denyInsert: true,
-    optional: true
-  }
+    optional: true,
+  },
 }));
 
 if (Meteor.isServer) {
   Lists.allow({
-    insert: function(userId, doc) {
+    insert(userId, doc) {
       return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
     },
-    update: function(userId, doc) {
+    update(userId, doc) {
       return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
     },
-    remove: function(userId, doc) {
+    remove(userId, doc) {
       return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
     },
-    fetch: ['boardId']
+    fetch: ['boardId'],
   });
 }
 
@@ -77,46 +77,46 @@ Lists.helpers({
        
     return Cards.find(Filter.mongoSelector(slector), { sort: [sortType] });
   },
-  board: function() {
+  board() {
     return Boards.findOne(this.boardId);
-  }
+  },
 });
 
 // HOOKS
 Lists.hookOptions.after.update = { fetchPrevious: false };
 
-Lists.before.insert(function(userId, doc) {
+Lists.before.insert((userId, doc) => {
   doc.createdAt = new Date();
   doc.archived = false;
 
-  if (! doc.userId)
+  if (!doc.userId)
     doc.userId = userId;
 });
 
-Lists.before.update(function(userId, doc, fieldNames, modifier) {
+Lists.before.update((userId, doc, fieldNames, modifier) => {
   modifier.$set = modifier.$set || {};
   modifier.$set.modifiedAt = new Date();
 });
 
 if (Meteor.isServer) {
-  Lists.after.insert(function(userId, doc) {
+  Lists.after.insert((userId, doc) => {
     Activities.insert({
+      userId,
       type: 'list',
       activityType: 'createList',
       boardId: doc.boardId,
       listId: doc._id,
-      userId: userId
     });
   });
 
-  Lists.after.update(function(userId, doc) {
+  Lists.after.update((userId, doc) => {
     if (doc.archived) {
       Activities.insert({
+        userId,
         type: 'list',
         activityType: 'archivedList',
         listId: doc._id,
         boardId: doc.boardId,
-        userId: userId
       });
     }
   });

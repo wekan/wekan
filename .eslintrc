@@ -1,0 +1,157 @@
+ecmaFeatures:
+  experimentalObjectRestSpread: true
+rules:
+  indent:
+    - 2
+    - 2
+  semi:
+    - 2
+    - always
+  comma-dangle:
+    - 2
+    - always-multiline
+  no-inner-declarations:
+    - 0
+  dot-notation:
+    - 2
+  eqeqeq:
+    - 2
+  no-eval:
+    - 2
+  radix:
+    - 2
+
+  # Stylistic Issues
+  camelcase:
+    - 2
+  comma-spacing:
+    - 2
+  comma-style:
+    - 2
+  new-parens:
+    - 2
+  no-lonely-if:
+    - 2
+  no-multiple-empty-lines:
+    - 2
+  no-nested-ternary:
+    - 2
+  linebreak-style:
+    - 2
+    - unix
+  quotes:
+    - 2
+    - single
+  semi-spacing:
+    - 2
+  spaced-comment:
+    - 2
+    - always
+    - markers:
+      - '/'
+  space-unary-ops:
+    - 2
+
+  # ECMAScript 6
+  arrow-parens:
+    - 2
+  arrow-spacing:
+    - 2
+  no-class-assign:
+    - 2
+  no-dupe-class-members:
+    - 2
+  no-var:
+    - 2
+  object-shorthand:
+    - 2
+  prefer-const:
+    - 2
+  prefer-template:
+    - 2
+  prefer-spread:
+    - 2
+globals:
+  # Meteor globals
+  Meteor: false
+  DDP: false
+  Mongo: false
+  Session: false
+  Accounts: false
+  Template: false
+  Blaze: false
+  UI: false
+  Match: false
+  check: false
+  Tracker: false
+  Deps: false
+  ReactiveVar: false
+  EJSON: false
+  HTTP: false
+  Email: false
+  Assets: false
+  Handlebars: false
+  Package: false
+  App: false
+  Npm: false
+  Tinytest: false
+  Random: false
+  HTML: false
+
+  # Exported by packages we use
+  '$': false
+  _: false
+  autosize: false
+  Avatar: true
+  Avatars: true
+  BlazeComponent: false
+  BlazeLayout: false
+  FlowRouter: false
+  FS: false
+  getSlug: false
+  Migrations: false
+  Mousetrap: false
+  Picker: false
+  Presence: true
+  presences: true
+  Ps: true
+  ReactiveTabs: false
+  SimpleSchema: false
+  SubsManager: false
+  T9n: false
+  TAPi18n: false
+
+  # Our collections
+  AccountsTemplates: true
+  Activities: true
+  Attachments: true
+  Boards: true
+  CardComments: true
+  Cards: true
+  Lists: true
+  UnsavedEditCollection: true
+  Users: true
+
+  # Our objects
+  CSSEvents: true
+  EscapeActions: true
+  Filter: true
+  Filter: true
+  Mixins: true
+  Modal: true
+  MultiSelection: true
+  Popup: true
+  Sidebar: true
+  Utils: true
+  InlinedForm: true
+  UnsavedEdits: true
+
+  # XXX Temp, we should remove these
+  allowIsBoardAdmin: true
+  allowIsBoardMember: true
+  Emoji: true
+env:
+  es6: true
+  node: true
+  browser: true
+extends: 'eslint:recommended'

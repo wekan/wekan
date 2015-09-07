@@ -1,5 +1,5 @@
 allowIsBoardAdmin = function(userId, board) {
-  var admins = _.pluck(_.where(board.members, {isAdmin: true}), 'userId');
+  const admins = _.pluck(_.where(board.members, {isAdmin: true}), 'userId');
   return _.contains(admins, userId);
 };
 

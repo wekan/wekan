@@ -19,7 +19,7 @@ template(name="header")
                 a(href="{{pathFor 'board' id=_id slug=slug}}")
                   = title
             else
-              li.current Star a board to add a shortcut in this bar.
+              li.current {{_ 'quick-access-description'}}
 
             li
               a.js-create-board
@@ -41,11 +41,10 @@ template(name="header")
         +headerTitle
 
 
-
 template(name="headerTitle")
-  h1 {{_ "My Boards"}}
+  h1 {{_ 'my-boards'}}
 
   .board-header-btns.right
     a.board-header-btn.js-open-archived-board
       i.fa.fa-archive
-      span Archives
+      span {{_ 'archives'}}

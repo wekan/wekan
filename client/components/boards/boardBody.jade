@@ -4,7 +4,7 @@ template(name="board")
       +boardBody
     else
       //- XXX We need a better error message in case the board has been archived
-      +message(label="board-no-found")
+      +message(label="board-not-found")
   else
     +spinner
 
@@ -27,13 +27,14 @@ template(name="boardBody")
 
 template(name="addListForm")
   .list.js-list.list-composer.js-list-composer.is-idle.add-list 
-    +inlinedForm(autoclose=false)
-      input.list-name-input(type="text" placeholder="{{_ 'add-list'}}"
-        autocomplete="off" autofocus)
-      .edit-controls.clearfix
-        button.primary.confirm(type="submit") {{_ 'save'}}
-        a.fa.fa-times-thin.js-close-inlined-form
-    else
-      a.js-open-inlined-form
-        i.fa.fa-plus
-        | {{_ 'add-list'}}
+    .list-header
+      +inlinedForm(autoclose=false)
+        input.list-name-input.full-line(type="text" placeholder="{{_ 'add-list'}}"
+          autocomplete="off" autofocus)
+        .edit-controls.clearfix
+          button.primary.confirm(type="submit") {{_ 'save'}}
+          a.fa.fa-times-thin.js-close-inlined-form
+      else
+        a.open-list-composer.js-open-inlined-form
+          i.fa.fa-plus
+          | {{_ 'add-list'}}

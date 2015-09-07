@@ -1,5 +1,5 @@
 BlazeComponent.extendComponent({
-  template: function() {
+  template() {
     return 'boardList';
   },
 
@@ -10,7 +10,7 @@ BlazeComponent.extendComponent({
       organizationId: organizationId,
       'members.userId': Meteor.userId()
     }, {
-      sort: ['title']
+      sort: ['title'],
     });
   },
   organizations: function() {
@@ -19,12 +19,12 @@ BlazeComponent.extendComponent({
     });
   },
 
-  isStarred: function() {
-    var user = Meteor.user();
+  isStarred() {
+    const user = Meteor.user();
     return user && user.hasStarred(this.currentData()._id);
   },
 
-  events: function() {
+  events() {
     return [{
       'click .js-add-board': function(evt){
         if(this.currentData())
@@ -37,12 +37,12 @@ BlazeComponent.extendComponent({
         return popup.call(this.currentData(), evt);
       },
       'click .js-star-board': function(evt) {
-        var boardId = this.currentData()._id;
+        const boardId = this.currentData()._id;
         Meteor.user().toggleBoardStar(boardId);
         evt.preventDefault();
-      }
+      },
     }];
-  }
+  },
 }).register('boardList');
 
 BlazeComponent.extendComponent({

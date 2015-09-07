@@ -1,98 +1,98 @@
 Meteor.subscribe('my-avatars');
 
 Template.userAvatar.helpers({
-  userData: function() {
+  userData() {
     return Users.findOne(this.userId, {
       fields: {
         profile: 1,
-        username: 1
-      }
+        username: 1,
+      },
     });
   },
 
-  memberType: function() {
-    var user = Users.findOne(this.userId);
+  memberType() {
+    const user = Users.findOne(this.userId);
     return user && user.isBoardAdmin() ? 'admin' : 'normal';
   },
 
-  presenceStatusClassName: function() {
-    var userPresence = Presences.findOne({ userId: this.userId });
-    if (! userPresence)
+  presenceStatusClassName() {
+    const userPresence = presences.findOne({ userId: this.userId });
+    if (!userPresence)
       return 'disconnected';
     else if (Session.equals('currentBoard', userPresence.state.currentBoardId))
       return 'active';
     else
       return 'idle';
-  }
+  },
 });
 
 Template.userAvatar.events({
-  'click .js-change-avatar': Popup.open('changeAvatar')
+  'click .js-change-avatar': Popup.open('changeAvatar'),
 });
 
 Template.userAvatarInitials.helpers({
-  initials: function() {
-    var user = Users.findOne(this.userId);
+  initials() {
+    const user = Users.findOne(this.userId);
     return user && user.getInitials();
   },
 
-  viewPortWidth: function() {
-    var user = Users.findOne(this.userId);
+  viewPortWidth() {
+    const user = Users.findOne(this.userId);
     return (user && user.getInitials().length || 1) * 12;
-  }
+  },
 });
 
 BlazeComponent.extendComponent({
-  template: function() {
+  template() {
     return 'changeAvatarPopup';
   },
 
-  onCreated: function() {
+  onCreated() {
     this.error = new ReactiveVar('');
   },
 
-  avatarUrlOptions: function() {
+  avatarUrlOptions() {
     return {
       auth: false,
-      brokenIsFine: true
+      brokenIsFine: true,
     };
   },
 
-  uploadedAvatars: function() {
+  uploadedAvatars() {
     return Avatars.find({userId: Meteor.userId()});
   },
 
-  isSelected: function() {
-    var userProfile = Meteor.user().profile;
-    var avatarUrl = userProfile && userProfile.avatarUrl;
-    var currentAvatarUrl = this.currentData().url(this.avatarUrlOptions());
+  isSelected() {
+    const userProfile = Meteor.user().profile;
+    const avatarUrl = userProfile && userProfile.avatarUrl;
+    const currentAvatarUrl = this.currentData().url(this.avatarUrlOptions());
     return avatarUrl === currentAvatarUrl;
   },
 
-  noAvatarUrl: function() {
-    var userProfile = Meteor.user().profile;
-    var avatarUrl = userProfile && userProfile.avatarUrl;
-    return ! avatarUrl;
+  noAvatarUrl() {
+    const userProfile = Meteor.user().profile;
+    const avatarUrl = userProfile && userProfile.avatarUrl;
+    return !avatarUrl;
   },
 
-  setAvatar: function(avatarUrl) {
+  setAvatar(avatarUrl) {
     Meteor.users.update(Meteor.userId(), {
       $set: {
-        'profile.avatarUrl': avatarUrl
-      }
+        'profile.avatarUrl': avatarUrl,
+      },
     });
   },
 
-  setError: function(error) {
+  setError(error) {
     this.error.set(error);
   },
 
-  events: function() {
+  events() {
     return [{
-      'click .js-upload-avatar': function() {
+      'click .js-upload-avatar'() {
         this.$('.js-upload-avatar-input').click();
       },
-      'change .js-upload-avatar-input': function(evt) {
+      'change .js-upload-avatar-input'(evt) {
         let file, fileUrl;
 
         FS.Utility.eachFile(evt, (f) => {
@@ -106,71 +106,72 @@ BlazeComponent.extendComponent({
 
         if (fileUrl) {
           this.setError('');
-          let fetchAvatarInterval = window.setInterval(() => {
+          const fetchAvatarInterval = window.setInterval(() => {
             $.ajax({
               url: fileUrl,
               success: () => {
                 this.setAvatar(file.url(this.avatarUrlOptions()));
                 window.clearInterval(fetchAvatarInterval);
-              }
+              },
             });
           }, 100);
         }
       },
-      'click .js-select-avatar': function() {
-        var avatarUrl = this.currentData().url(this.avatarUrlOptions());
+      'click .js-select-avatar'() {
+        const avatarUrl = this.currentData().url(this.avatarUrlOptions());
         this.setAvatar(avatarUrl);
       },
-      'click .js-select-initials': function() {
+      'click .js-select-initials'() {
         this.setAvatar('');
       },
-      'click .js-delete-avatar': function() {
+      'click .js-delete-avatar'() {
         Avatars.remove(this.currentData()._id);
-      }
+      },
     }];
-  }
+  },
 }).register('changeAvatarPopup');
 
 Template.cardMembersPopup.helpers({
-  isCardMember: function() {
-    var cardId = Template.parentData()._id;
-    var cardMembers = Cards.findOne(cardId).members || [];
+  isCardMember() {
+    const cardId = Template.parentData()._id;
+    const cardMembers = Cards.findOne(cardId).members || [];
     return _.contains(cardMembers, this.userId);
   },
-  user: function() {
+
+  user() {
     return Users.findOne(this.userId);
-  }
+  },
 });
 
 Template.cardMembersPopup.events({
-  'click .js-select-member': function(evt) {
-    var cardId = Template.parentData(2).data._id;
-    var memberId = this.userId;
-    var operation;
+  'click .js-select-member'(evt) {
+    const cardId = Template.parentData(2).data._id;
+    const memberId = this.userId;
+    let operation;
     if (Cards.find({ _id: cardId, members: memberId}).count() === 0)
       operation = '$addToSet';
     else
       operation = '$pull';
 
-    var query = {};
-    query[operation] = {
-      members: memberId
-    };
-    Cards.update(cardId, query);
+    Cards.update(cardId, {
+      [operation]: {
+        members: memberId,
+      },
+    });
     evt.preventDefault();
-  }
+  },
 });
 
 Template.cardMemberPopup.helpers({
-  user: function() {
+  user() {
     return Users.findOne(this.userId);
-  }
+  },
 });
 
 Template.cardMemberPopup.events({
-  'click .js-remove-member': function() {
+  'click .js-remove-member'() {
     Cards.update(this.cardId, {$pull: {members: this.userId}});
     Popup.close();
   },
-  'click .js-edit-profile': Popup.open('editProfile')
+  'click .js-edit-profile': Popup.open('editProfile'),
 });

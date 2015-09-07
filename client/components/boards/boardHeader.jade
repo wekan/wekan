@@ -14,7 +14,7 @@ template(name="headerBoard")
             span {{_ 'board-nb-stars' currentBoard.stars}}
 
       a.board-header-btn(class="{{#if currentUser.isBoardAdmin}}js-change-visibility{{else}}is-disabled{{/if}}")
-        i.fa(class="{{#if isPublic}}fa-globe{{else}}{{#if isCollaborate}}fa-globe{{else}}fa-lock{{/if}}{{/if}}")
+        i.fa(class="{{#if isPublic}}fa-globe{{else}}{{#if isCollaborate}}fa-magic{{else}}fa-lock{{/if}}{{/if}}")
         span {{_ currentBoard.permission}}
       a.board-header-btn.js-change-sort {{_ getSortTypeText}}
           i.fa.fa-angle-down
@@ -23,10 +23,10 @@ template(name="headerBoard")
     a.board-header-btn.js-open-board-search-view(
         title="{{#if BoardSearch.isActive}}{{_ 'board-search-on-desc'}}{{/if}}"
         class="{{#if BoardSearch.isActive}}emphasis{{/if}}")
-      i.fa.fa-filter
-      span {{#if Filter.isActive}}{{_ 'board-search-on'}}{{else}}{{_ 'board-search'}}{{/if}}
-      if Filter.isActive
-        a.board-header-btn-close.js-filter-reset(title="{{_ 'board-search-clear'}}")
+      i.fa.fa-search
+      span {{#if BoardSearch.isActive}}{{_ 'board-search-on'}}{{else}}{{_ 'board-search'}}{{/if}}
+      if BoardSearch.isActive
+        a.board-header-btn-close.js-board-search-reset(title="{{_ 'board-search-clear'}}")
           i.fa.fa-times-thin
 
     a.board-header-btn.js-open-filter-view(
@@ -54,20 +54,20 @@ template(name="headerBoard")
 
 template(name="boardMenuPopup")
   ul.pop-over-list
-    li: a.js-open-archives Archived elements
+    li: a.js-open-archives {{_ 'archived-items'}}
     if currentUser.isBoardAdmin
-      li: a.js-change-board-color Change color
-  //-
-    XXX Language should be handled by sandstorm, but for now display a
-    language selection link in the board menu. This link is normally present
-    in the header bar that is not displayed on sandstorm.
-  if isSandstorm
-    li: a.js-change-language {{_ 'language'}}
+      li: a.js-change-board-color {{_ 'board-change-color'}}
+    //-
+      XXX Language should be handled by sandstorm, but for now display a
+      language selection link in the board menu. This link is normally present
+      in the header bar that is not displayed on sandstorm.
+    if isSandstorm
+      li: a.js-change-language {{_ 'language'}}
   unless isSandstorm
     if currentUser.isBoardAdmin
       hr
       ul.pop-over-list
-        li: a.js-archive-board Archive Board…
+        li: a.js-archive-board {{_ 'archive-board'}}
 
 template(name="boardVisibilityList")
   ul.pop-over-list
@@ -82,7 +82,7 @@ template(name="boardVisibilityList")
     li
       with "collaborate"
         a.js-select-visibility
-          i.fa.fa-globe.colorful
+          i.fa.fa-magic.colorful
           | {{_ 'collaborate'}}
           if visibilityCheck
             i.fa.fa-check
@@ -143,7 +143,7 @@ template(name="boardChangeTitlePopup")
   form
     label
       | {{_ 'title'}}
-      input.js-board-name(type="text" value="{{title}}" autofocus)
+      input.js-board-name(type="text" value=title autofocus)
     input.primary.wide(type="submit" value="{{_ 'rename'}}")
 
 template(name="archiveBoardPopup")
@@ -168,12 +168,12 @@ template(name="changeBoardSortPopup")
           i.fa.fa-check
         span.sub-name {{_ 'sort by createAt desc'}}
     li
-      a(class="js-sort-updateAt")
-        | {{_ 'sort by updateAt'}}
+      a(class="js-sort-dateLastActivity")
+        | {{_ 'sort by dateLastActivity'}}
 
-        if ($eq getSortType 'updateAt')
+        if ($eq getSortType 'dateLastActivity')
           i.fa.fa-check
-        span.sub-name {{_ 'sort by updateAt desc'}}
+        span.sub-name {{_ 'sort by dateLastActivity desc'}}
     li
       a(class="js-sort-sort")
         | {{_ 'sort by sort'}}

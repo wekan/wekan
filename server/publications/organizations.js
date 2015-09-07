@@ -85,7 +85,7 @@ Meteor.publishComposite('organization', function(shortName) {
         // Presence indicators
         children: [{
           find: function(user) {
-            return Presences.find({userId: user._id});
+            return presences.find({userId: user._id});
           }
         }]
       }

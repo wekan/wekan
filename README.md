@@ -1,5 +1,7 @@
 # Wekan
 
+[![Join the chat at https://gitter.im/wekan/wekan](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/wekan/wekan?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 <!-- XXX Need to improve this introduction -->
 
 Wekan is an open-source *kanban* board that let you organize things in cards,

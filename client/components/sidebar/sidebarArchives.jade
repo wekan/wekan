@@ -7,13 +7,13 @@ template(name="archivesSidebar")
         +minicard(this)
       if currentUser.isBoardMember
         p.quiet
-          a.js-restore-card Restore
+          a.js-restore-card {{_ 'restore'}}
           | -
-          a.js-delete-card Delete
+          a.js-delete-card {{_ 'delete'}}
         if cardIsInArchivedList
-          p.quiet.small (warning: this card is in an archived list)
+          p.quiet.small ({{_ 'warn-list-archived'}})
     else
-      p.no-items-message No archived cards.
+      p.no-items-message {{_ 'no-archived-cards'}}
 
    +tabContent(slug="lists")
     ul.archived-lists
@@ -24,4 +24,4 @@ template(name="archivesSidebar")
               i.fa.fa-undo
           = title
       else
-        li.no-items-message No archived lists.
+        li.no-items-message {{_ 'no-archived-lists'}}

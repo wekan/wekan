@@ -1,14 +1,14 @@
 Meteor.subscribe('organizations');
 Meteor.subscribe('boards')
 
-BlazeLayout.setRoot('body')
+BlazeLayout.setRoot('body');
 
-Template.userFormsLayout.onRendered(function() {
-  EscapeActions.executeAll()
-})
+Template.userFormsLayout.onRendered(() => {
+  EscapeActions.executeAll();
+});
 
 Template.defaultLayout.events({
   'click .js-close-modal': () => {
-    Modal.close()
-  }
-})
+    Modal.close();
+  },
+});

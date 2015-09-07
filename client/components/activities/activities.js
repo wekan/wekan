@@ -1,99 +1,98 @@
-var activitiesPerPage = 20;
+const activitiesPerPage = 20;
 
 BlazeComponent.extendComponent({
-  template: function() {
+  template() {
     return 'activities';
   },
 
-  onCreated: function() {
-    var self = this;
+  onCreated() {
     // XXX Should we use ReactiveNumber?
-    self.page = new ReactiveVar(1);
-    self.loadNextPageLocked = false;
-    var sidebar = self.componentParent(); // XXX for some reason not working
+    this.page = new ReactiveVar(1);
+    this.loadNextPageLocked = false;
+    const sidebar = this.componentParent(); // XXX for some reason not working
     sidebar.callFirstWith(null, 'resetNextPeak');
-    self.autorun(function() {
-      var mode = self.data().mode;
-      var capitalizedMode = Utils.capitalize(mode);
-      var id = Session.get('current' + capitalizedMode);
-      var limit = self.page.get() * activitiesPerPage;
+    this.autorun(() => {
+      const mode = this.data().mode;
+      const capitalizedMode = Utils.capitalize(mode);
+      const id = Session.get(`current${capitalizedMode}`);
+      const limit = this.page.get() * activitiesPerPage;
       if (id === null)
         return;
 
-      self.subscribe('activities', mode, id, limit, function() {
-        self.loadNextPageLocked = false;
+      this.subscribe('activities', mode, id, limit, () => {
+        this.loadNextPageLocked = false;
 
         // If the sibear peak hasn't increased, that mean that there are no more
         // activities, and we can stop calling new subscriptions.
         // XXX This is hacky! We need to know excatly and reactively how many
         // activities there are, we probably want to denormalize this number
         // dirrectly into card and board documents.
-        var a = sidebar.callFirstWith(null, 'getNextPeak');
+        const nextPeakBefore = sidebar.callFirstWith(null, 'getNextPeak');
         sidebar.calculateNextPeak();
-        var b = sidebar.callFirstWith(null, 'getNextPeak');
-        if (a === b) {
+        const nextPeakAfter = sidebar.callFirstWith(null, 'getNextPeak');
+        if (nextPeakBefore === nextPeakAfter) {
           sidebar.callFirstWith(null, 'resetNextPeak');
         }
       });
     });
   },
 
-  loadNextPage: function() {
+  loadNextPage() {
     if (this.loadNextPageLocked === false) {
       this.page.set(this.page.get() + 1);
       this.loadNextPageLocked = true;
     }
   },
 
-  boardLabel: function() {
+  boardLabel() {
     return TAPi18n.__('this-board');
   },
 
-  cardLabel: function() {
+  cardLabel() {
     return TAPi18n.__('this-card');
   },
 
-  cardLink: function() {
-    var card = this.currentData().card();
+  cardLink() {
+    const card = this.currentData().card();
     return card && Blaze.toHTML(HTML.A({
       href: card.absoluteUrl(),
-      'class': 'action-card'
+      'class': 'action-card',
     }, card.title));
   },
 
-  memberLink: function() {
+  memberLink() {
     return Blaze.toHTMLWithData(Template.memberName, {
-      user: this.currentData().member()
+      user: this.currentData().member(),
     });
   },
 
-  attachmentLink: function() {
-    var attachment = this.currentData().attachment();
+  attachmentLink() {
+    const attachment = this.currentData().attachment();
     return attachment && Blaze.toHTML(HTML.A({
       href: attachment.url(),
-      'class': 'js-open-attachment-viewer'
+      'class': 'js-open-attachment-viewer',
     }, attachment.name()));
   },
 
-  events: function() {
+  events() {
     return [{
       // XXX We should use Popup.afterConfirmation here
-      'click .js-delete-comment': function() {
-        var commentId = this.currentData().commentId;
+      'click .js-delete-comment'() {
+        const commentId = this.currentData().commentId;
         CardComments.remove(commentId);
       },
-      'submit .js-edit-comment': function(evt) {
+      'submit .js-edit-comment'(evt) {
         evt.preventDefault();
-        var commentText = this.currentComponent().getValue();
-        var commentId = Template.parentData().commentId;
+        const commentText = this.currentComponent().getValue();
+        const commentId = Template.parentData().commentId;
         if ($.trim(commentText)) {
           CardComments.update(commentId, {
             $set: {
-              text: commentText
-            }
+              text: commentText,
+            },
           });
         }
-      }
+      },
     }];
-  }
+  },
 }).register('activities');

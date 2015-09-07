@@ -1,24 +1,19 @@
-// We use activities fields at three different places:
-// 1. The home page that contains
-// 2. The board
-// 3.
-// We use publish paginate for these three publications.
+// We use activities fields at two different places:
+// 1. The board sidebar
+// 2. The card activity tab
+// We use this publication to paginate for these two publications.
 
-Meteor.publish('activities', function(mode, id, limit) {
-  check(mode, Match.Where(function(x) {
+Meteor.publish('activities', (kind, id, limit) => {
+  check(kind, Match.Where((x) => {
     return ['board', 'card'].indexOf(x) !== -1;
   }));
   check(id, String);
   check(limit, Number);
 
-  var selector = {};
-  if (mode === 'board')
-    selector.boardId = id;
-  else if (mode === 'card')
-    selector.cardId = id;
-
-  return Activities.find(selector, {
+  return Activities.find({
+    [`${kind}Id`]: id,
+  }, {
+    limit,
     sort: {createdAt: -1},
-    limit: limit
   });
 });

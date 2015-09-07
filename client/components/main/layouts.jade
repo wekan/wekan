@@ -20,7 +20,7 @@ template(name="boardsLayout")
 template(name="defaultLayout")
 
   +header
-  #content
+  #content(class=currentBoard.colorClass)
     +Template.dynamic(template=content)
   if (Modal.isOpen)
     #modal

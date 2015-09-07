@@ -1,46 +1,46 @@
 BlazeComponent.extendComponent({
-  template: function() {
+  template() {
     return 'listBody';
   },
 
-  mixins: function() {
+  mixins() {
     return [Mixins.PerfectScrollbar];
   },
 
-  openForm: function(options) {
+  openForm(options) {
     options = options || {};
     options.position = options.position || 'top';
 
-    var forms = this.componentChildren('inlinedForm');
-    var form = _.find(forms, function(component) {
+    const forms = this.componentChildren('inlinedForm');
+    let form = _.find(forms, (component) => {
       return component.data().position === options.position;
     });
-    if (! form && forms.length > 0) {
+    if (!form && forms.length > 0) {
       form = forms[0];
     }
     form.open();
   },
 
-  addCard: function(evt) {
+  addCard(evt) {
     evt.preventDefault();
-    var textarea = $(evt.currentTarget).find('textarea');
-    var title = textarea.val();
-    var position = Blaze.getData(evt.currentTarget).position;
-    var sortIndex;
-    var firstCard = this.find('.js-minicard:first');
-    var lastCard = this.find('.js-minicard:last');
+    const firstCardDom = this.find('.js-minicard:first');
+    const lastCardDom = this.find('.js-minicard:last');
+    const textarea = $(evt.currentTarget).find('textarea');
+    const title = textarea.val();
+    const position = Blaze.getData(evt.currentTarget).position;
+    let sortIndex;
     if (position === 'top') {
-      sortIndex = Utils.calculateIndex(null, firstCard).base;
+      sortIndex = Utils.calculateIndex(null, firstCardDom).base;
     } else if (position === 'bottom') {
-      sortIndex = Utils.calculateIndex(lastCard, null).base;
+      sortIndex = Utils.calculateIndex(lastCardDom, null).base;
     }
 
     if ($.trim(title)) {
-      var _id = Cards.insert({
-        title: title,
+      const _id = Cards.insert({
+        title,
         listId: this.data()._id,
         boardId: this.data().board()._id,
-        sort: sortIndex
+        sort: sortIndex,
       });
       // In case the filter is active we need to add the newly inserted card in
       // the list of exceptions -- cards that are not filtered. Otherwise the
@@ -56,18 +56,18 @@ BlazeComponent.extendComponent({
     }
   },
 
-  scrollToBottom: function() {
-    var container = this.firstNode();
+  scrollToBottom() {
+    const container = this.firstNode();
     $(container).animate({
-      scrollTop: container.scrollHeight
+      scrollTop: container.scrollHeight,
     });
   },
 
-  clickOnMiniCard: function(evt) {
+  clickOnMiniCard(evt) {
     if (MultiSelection.isActive() || evt.shiftKey) {
       evt.stopImmediatePropagation();
       evt.preventDefault();
-      var methodName = evt.shiftKey ? 'toogleRange' : 'toogle';
+      const methodName = evt.shiftKey ? 'toogleRange' : 'toogle';
       MultiSelection[methodName](this.currentData()._id);
 
     // If the card is already selected, we want to de-select it.
@@ -80,36 +80,36 @@ BlazeComponent.extendComponent({
     }
   },
 
-  cardIsSelected: function() {
+  cardIsSelected() {
     return Session.equals('currentCard', this.currentData()._id);
   },
 
-  toggleMultiSelection: function(evt) {
+  toggleMultiSelection(evt) {
     evt.stopPropagation();
     evt.preventDefault();
     MultiSelection.toogle(this.currentData()._id);
   },
 
-  events: function() {
+  events() {
     return [{
       'click .js-minicard': this.clickOnMiniCard,
       'click .js-toggle-multi-selection': this.toggleMultiSelection,
       'click .open-minicard-composer': this.scrollToBottom,
-      submit: this.addCard
+      submit: this.addCard,
     }];
-  }
+  },
 }).register('listBody');
 
 BlazeComponent.extendComponent({
-  template: function() {
+  template() {
     return 'addCardForm';
   },
 
-  pressKey: function(evt) {
+  pressKey(evt) {
     // Pressing Enter should submit the card
     if (evt.keyCode === 13) {
       evt.preventDefault();
-      var $form = $(evt.currentTarget).closest('form');
+      const $form = $(evt.currentTarget).closest('form');
       // XXX For some reason $form.submit() does not work (it's probably a bug
       // of blaze-component related to the fact that the submit event is non-
       // bubbling). This is why we click on the submit button instead -- which
@@ -120,24 +120,24 @@ BlazeComponent.extendComponent({
     // in the reverse order
     } else if (evt.keyCode === 9) {
       evt.preventDefault();
-      var isReverse = evt.shiftKey;
-      var list = $('#js-list-' + this.data().listId);
-      var listSelector = '.js-list:not(.js-list-composer)';
-      var nextList = list[isReverse ? 'prev' : 'next'](listSelector).get(0);
+      const isReverse = evt.shiftKey;
+      const list = $(`#js-list-${this.data().listId}`);
+      const listSelector = '.js-list:not(.js-list-composer)';
+      let nextList = list[isReverse ? 'prev' : 'next'](listSelector).get(0);
       // If there is no next list, loop back to the beginning.
-      if (! nextList) {
+      if (!nextList) {
         nextList = $(listSelector + (isReverse ? ':last' : ':first')).get(0);
       }
 
       BlazeComponent.getComponentForElement(nextList).openForm({
-        position:this.data().position
+        position:this.data().position,
       });
     }
   },
 
-  events: function() {
+  events() {
     return [{
-      keydown: this.pressKey
+      keydown: this.pressKey,
     }];
-  }
+  },
 }).register('addCardForm');
