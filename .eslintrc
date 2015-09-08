@@ -1,76 +1,43 @@
 ecmaFeatures:
   experimentalObjectRestSpread: true
+
 rules:
-  indent:
-    - 2
-    - 2
-  semi:
-    - 2
-    - always
-  comma-dangle:
-    - 2
-    - always-multiline
-  no-inner-declarations:
-    - 0
-  dot-notation:
-    - 2
-  eqeqeq:
-    - 2
-  no-eval:
-    - 2
-  radix:
-    - 2
+  accessor-pairs: [2]
+  consistent-return: [2]
+  indent: [2, 2]
+  semi: [2, always]
+  comma-dangle: [2, always-multiline]
+  no-inner-declarations: [0]
+  dot-notation: [2]
+  eqeqeq: [2]
+  no-eval: [2]
+  radix: [2]
 
   # Stylistic Issues
-  camelcase:
-    - 2
-  comma-spacing:
-    - 2
-  comma-style:
-    - 2
-  new-parens:
-    - 2
-  no-lonely-if:
-    - 2
-  no-multiple-empty-lines:
-    - 2
-  no-nested-ternary:
-    - 2
-  linebreak-style:
-    - 2
-    - unix
-  quotes:
-    - 2
-    - single
-  semi-spacing:
-    - 2
-  spaced-comment:
-    - 2
-    - always
-    - markers:
-      - '/'
-  space-unary-ops:
-    - 2
+  camelcase: [2]
+  comma-spacing: [2]
+  comma-style: [2]
+  new-parens: [2]
+  no-lonely-if: [2]
+  no-multiple-empty-lines: [2]
+  no-nested-ternary: [2]
+  linebreak-style: [2, unix]
+  quotes: [2, single]
+  semi-spacing: [2]
+  spaced-comment: [2, always, markers: ['/']]
+  space-unary-ops: [2]
 
   # ECMAScript 6
-  arrow-parens:
-    - 2
-  arrow-spacing:
-    - 2
-  no-class-assign:
-    - 2
-  no-dupe-class-members:
-    - 2
-  no-var:
-    - 2
-  object-shorthand:
-    - 2
-  prefer-const:
-    - 2
-  prefer-template:
-    - 2
-  prefer-spread:
-    - 2
+  arrow-parens: [2]
+  arrow-spacing: [2]
+  no-class-assign: [2]
+  no-dupe-class-members: [2]
+  no-var: [2]
+  object-shorthand: [2]
+  prefer-const: [2]
+  prefer-template: [2]
+  prefer-spread: [2]
+
 globals:
   # Meteor globals
   Meteor: false
@@ -152,8 +119,10 @@ globals:
   allowIsBoardAdmin: true
   allowIsBoardMember: true
   Emoji: true
+
 env:
   es6: true
   node: true
   browser: true
+
 extends: 'eslint:recommended'
