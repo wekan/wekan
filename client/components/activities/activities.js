@@ -69,8 +69,8 @@ BlazeComponent.extendComponent({
   attachmentLink() {
     const attachment = this.currentData().attachment();
     return attachment && Blaze.toHTML(HTML.A({
-      href: attachment.url(),
-      'class': 'js-open-attachment-viewer',
+      href: attachment.url({ download: true }),
+      target: '_blank',
     }, attachment.name()));
   },
 

@@ -2,7 +2,13 @@ Meteor.subscribe('my-avatars');
 
 Template.userAvatar.helpers({
   userData() {
-    return Users.findOne(this.userId, {
+    // We need to handle a special case for the search results provided by the
+    // `matteodem:easy-search` package. Since these results gets published in a
+    // separate collection, and not in the standard Meteor.Users collection as
+    // expected, we use a component parameter ("property") to distinguish the
+    // two cases.
+    const userCollection = this.esSearch ? ESSearchResults : Users;
+    return userCollection.findOne(this.userId, {
       fields: {
         profile: 1,
         username: 1,

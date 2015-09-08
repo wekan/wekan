@@ -1,6 +1,6 @@
 template(name="sidebar")
   .board-sidebar.sidebar(class="{{#if isOpen}}is-open{{/if}}")
-    a.sidebar-tongue.js-toogle-sidebar(
+    a.sidebar-tongue.js-toggle-sidebar(
       class="{{#if isTongueHidden}}is-hidden{{/if}}")
       i.fa.fa-angle-left
     .sidebar-content.js-board-sidebar-content.js-perfect-scrollbar
@@ -41,7 +41,8 @@ template(name="labelsWidget")
       | {{_ 'labels'}}
     .board-widget-content
       each currentBoard.labels
-          a.card-label(class="card-label-{{color}}").js-label
+          a.card-label(class="card-label-{{color}}"
+            class="{{#if currentUser.isBoardMember}}js-add-labels{{/if}}")
             span.card-label-name= name
       if currentUser.isBoardAdmin
         a.card-label.add-label.js-add-label
@@ -87,7 +88,7 @@ template(name="addMemberPopup")
     +esEach(index="users")
       li.item.js-member-item(class="{{#if isBoardMember}}disabled{{/if}}")
         a.name.js-select-member(title="{{profile.name}} ({{username}})")
-          +userAvatar(userId=_id)
+          +userAvatar(userId=_id esSearch=true)
           span.full-name
             = profile.name
             | (<span class="username">{{username}}</span>)

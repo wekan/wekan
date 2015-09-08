@@ -108,10 +108,8 @@ BlazeComponent.extendComponent({
           const andNOthers = $cards.find('.js-minicard.is-checked').length - 1;
           if (andNOthers > 0) {
             helper.append($(Blaze.toHTML(HTML.DIV(
-              // XXX Super bad class name
-              {'class': 'and-n-other'},
-              // XXX Need to translate
-              `and ${andNOthers} other cards.`
+              { 'class': 'and-n-other' },
+              TAPi18n.__('and-n-other-card', { count: andNOthers })
             ))));
           }
         }

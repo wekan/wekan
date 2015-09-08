@@ -42,8 +42,8 @@ BlazeComponent.extendComponent({
   },
 
   // Only show the star counter if the number of star is greater than 2
-  showStarCounter: function() {
-    var currentBoard = Boards.findOne(Session.get('currentBoard'));
+  showStarCounter() {
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
     return currentBoard && currentBoard.stars >= 2;
   },
 
@@ -172,7 +172,7 @@ BlazeComponent.extendComponent({
     this.visibilityMenuIsOpen.set(false);
   },
 
-  toogleVisibilityMenu() {
+  toggleVisibilityMenu() {
     this.visibilityMenuIsOpen.set(!this.visibilityMenuIsOpen.get());
   },
 
@@ -199,7 +199,7 @@ BlazeComponent.extendComponent({
       'click .js-select-visibility'() {
         this.setVisibility(this.currentData());
       },
-      'click .js-change-visibility': this.toogleVisibilityMenu,
+      'click .js-change-visibility': this.toggleVisibilityMenu,
       submit: this.onSubmit,
     }];
   },

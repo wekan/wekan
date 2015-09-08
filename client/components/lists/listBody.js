@@ -67,7 +67,7 @@ BlazeComponent.extendComponent({
     if (MultiSelection.isActive() || evt.shiftKey) {
       evt.stopImmediatePropagation();
       evt.preventDefault();
-      const methodName = evt.shiftKey ? 'toogleRange' : 'toogle';
+      const methodName = evt.shiftKey ? 'toggleRange' : 'toggle';
       MultiSelection[methodName](this.currentData()._id);
 
     // If the card is already selected, we want to de-select it.
@@ -87,7 +87,7 @@ BlazeComponent.extendComponent({
   toggleMultiSelection(evt) {
     evt.stopPropagation();
     evt.preventDefault();
-    MultiSelection.toogle(this.currentData()._id);
+    MultiSelection.toggle(this.currentData()._id);
   },
 
   events() {

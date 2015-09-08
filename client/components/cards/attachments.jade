@@ -26,15 +26,17 @@ template(name="attachmentsGalery")
             a.js-download(href="{{url download=true}}")
               i.fa.fa-download
               | {{_ 'download'}}
-            if isImage
-              a(class="{{#if $eq ../coverId _id}}js-remove-cover{{else}}js-add-cover{{/if}}")
-                i.fa.fa-thumb-tack
-                if($eq ../coverId _id)
-                  | {{_ 'remove-cover'}}
-                else
-                  | {{_ 'add-cover'}}
-            a.js-confirm-delete
-              i.fa.fa-close
-              | {{_ 'delete'}}
+            if currentUser.isBoardMember
+              if isImage
+                a(class="{{#if $eq ../coverId _id}}js-remove-cover{{else}}js-add-cover{{/if}}")
+                  i.fa.fa-thumb-tack
+                  if($eq ../coverId _id)
+                    | {{_ 'remove-cover'}}
+                  else
+                    | {{_ 'add-cover'}}
+              a.js-confirm-delete
+                i.fa.fa-close
+                | {{_ 'delete'}}
 
-    a.attachment-item.add-attachment.js-add-attachment {{_ 'add-attachment' }}
+    if currentUser.isBoardMember
+      a.attachment-item.add-attachment.js-add-attachment {{_ 'add-attachment' }}

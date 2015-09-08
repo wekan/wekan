@@ -23,16 +23,18 @@ template(name="cardDetails")
         each members
           +userAvatar(userId=this cardId=../_id)
           | {{! XXX Hack to hide syntaxic coloration /// }}
-        a.member.add-member.card-details-item-add-button.js-add-members(title="{{_ 'card-members-title'}}")
-          i.fa.fa-plus
+        if currentUser.isBoardMember
+          a.member.add-member.card-details-item-add-button.js-add-members(title="{{_ 'card-members-title'}}")
+            i.fa.fa-plus
 
       .card-details-item.card-details-item-labels
         h3.card-details-item-title {{_ 'labels'}}
-        a.js-add-labels(title="{{_ 'card-labels-title'}}")
+        a(class="{{#if currentUser.isBoardMember}}js-add-labels{{else}}is-disabled{{/if}}" title="{{_ 'card-labels-title'}}")
           each labels
             span.card-label(class="card-label-{{color}}" title=name)= name
-        a.card-label.add-label.js-add-labels(title="{{_ 'card-labels-title'}}")
-          i.fa.fa-plus
+        if currentUser.isBoardMember
+          a.card-label.add-label.js-add-labels(title="{{_ 'card-labels-title'}}")
+            i.fa.fa-plus
 
     //- XXX We should use "editable" to avoid repetiting ourselves
     if currentUser.isBoardMember

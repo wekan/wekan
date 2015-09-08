@@ -169,7 +169,7 @@ Boards.before.insert((userId, doc) => {
   doc.slug = doc.slug || getSlug(doc.title) || 'board';
   doc.createdAt = new Date();
   doc.archived = false;
-  doc.members = [{
+  doc.members = doc.members || [{
     userId,
     isAdmin: true,
     isActive: true,

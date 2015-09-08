@@ -106,6 +106,7 @@ globals:
   Avatars: true
   BlazeComponent: false
   BlazeLayout: false
+  ESSearchResults: false
   FlowRouter: false
   FS: false
   getSlug: false

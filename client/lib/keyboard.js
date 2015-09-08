@@ -6,14 +6,14 @@ Mousetrap.bind('?', () => {
 });
 
 Mousetrap.bind('w', () => {
-  Sidebar.toogle();
+  Sidebar.toggle();
 });
 
 Mousetrap.bind('q', () => {
   const currentBoardId = Session.get('currentBoard');
   const currentUserId = Meteor.userId();
   if (currentBoardId && currentUserId) {
-    Filter.members.toogle(currentUserId);
+    Filter.members.toggle(currentUserId);
   }
 });
 
@@ -39,7 +39,7 @@ Mousetrap.bind(['down', 'up'], (evt, key) => {
 Template.keyboardShortcuts.helpers({
   mapping: [{
     keys: ['W'],
-    action: 'shortcut-toogle-sidebar',
+    action: 'shortcut-toggle-sidebar',
   }, {
     keys: ['Q'],
     action: 'shortcut-filter-my-cards',

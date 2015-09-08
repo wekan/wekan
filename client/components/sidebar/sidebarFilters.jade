@@ -22,7 +22,7 @@ template(name="filterSidebar")
       if isActive
         with getUser userId
           li(class="{{#if Filter.members.isSelected _id}}active{{/if}}")
-            a.name.js-toogle-member-filter
+            a.name.js-toggle-member-filter
               +userAvatar(userId=this._id)
               span.sidebar-list-item-description
                 = profile.fullname
@@ -59,7 +59,7 @@ template(name="multiselectionSidebar")
       if isActive
         with getUser userId
           li(class="{{#if Filter.members.isSelected _id}}active{{/if}}")
-            a.name.js-toogle-member-multiselection
+            a.name.js-toggle-member-multiselection
               +userAvatar(userId=this._id)
               span.sidebar-list-item-description
                 = profile.fullname

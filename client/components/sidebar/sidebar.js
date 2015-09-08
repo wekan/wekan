@@ -45,7 +45,7 @@ BlazeComponent.extendComponent({
     }
   },
 
-  toogle() {
+  toggle() {
     this._isOpen.set(!this._isOpen.get());
   },
 
@@ -97,7 +97,7 @@ BlazeComponent.extendComponent({
     // XXX Hacky, we need some kind of `super`
     const mixinEvents = this.getMixin(Mixins.InfiniteScrolling).events();
     return mixinEvents.concat([{
-      'click .js-toogle-sidebar': this.toogle,
+      'click .js-toggle-sidebar': this.toggle,
       'click .js-back-home': this.setView,
     }]);
   },
@@ -130,7 +130,7 @@ Template.memberPopup.helpers({
 
 Template.memberPopup.events({
   'click .js-filter-member'() {
-    Filter.members.toogle(this.userId);
+    Filter.members.toggle(this.userId);
     Popup.close();
   },
   'click .js-change-role': Popup.open('changePermissions'),

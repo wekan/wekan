@@ -100,26 +100,26 @@ MultiSelection = {
   },
 
   add(cardIds) {
-    return this.toogle(cardIds, { add: true, remove: false });
+    return this.toggle(cardIds, { add: true, remove: false });
   },
 
   remove(cardIds) {
-    return this.toogle(cardIds, { add: false, remove: true });
+    return this.toggle(cardIds, { add: false, remove: true });
   },
 
-  toogleRange(cardId) {
+  toggleRange(cardId) {
     const selectedCards = this._selectedCards.get();
     let startRange;
     this.reset();
     if (!this.isActive() || selectedCards.length === 0) {
-      this.toogle(cardId);
+      this.toggle(cardId);
     } else {
       startRange = selectedCards[selectedCards.length - 1];
-      this.toogle(getCardsBetween(startRange, cardId));
+      this.toggle(getCardsBetween(startRange, cardId));
     }
   },
 
-  toogle(cardIds, options) {
+  toggle(cardIds, options) {
     cardIds = _.isString(cardIds) ? [cardIds] : cardIds;
     options = _.extend({
       add: true,

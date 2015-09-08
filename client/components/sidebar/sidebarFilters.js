@@ -7,12 +7,12 @@ BlazeComponent.extendComponent({
     return [{
       'click .js-toggle-label-filter'(evt) {
         evt.preventDefault();
-        Filter.labelIds.toogle(this.currentData()._id);
+        Filter.labelIds.toggle(this.currentData()._id);
         Filter.resetExceptions();
       },
-      'click .js-toogle-member-filter'(evt) {
+      'click .js-toggle-member-filter'(evt) {
         evt.preventDefault();
-        Filter.members.toogle(this.currentData()._id);
+        Filter.members.toggle(this.currentData()._id);
         Filter.resetExceptions();
       },
       'click .js-clear-all'(evt) {
@@ -85,7 +85,7 @@ BlazeComponent.extendComponent({
           },
         });
       },
-      'click .js-toogle-member-multiselection'(evt) {
+      'click .js-toggle-member-multiselection'(evt) {
         const memberId = this.currentData()._id;
         const mappedSelection = this.mapSelection('member', memberId);
         let operation;
