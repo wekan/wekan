@@ -30,9 +30,9 @@ BlazeComponent.extendComponent({
   },
 }).register('filterSidebar');
 
-function updateSelectedCards(query) {
+function mutateSelectedCards(mutationName, ...args) {
   Cards.find(MultiSelection.getMongoSelector()).forEach((card) => {
-    Cards.update(card._id, query);
+    card[mutationName](...args);
   });
 }
 
@@ -67,47 +67,34 @@ BlazeComponent.extendComponent({
       'click .js-toggle-label-multiselection'(evt) {
         const labelId = this.currentData()._id;
         const mappedSelection = this.mapSelection('label', labelId);
-        let operation;
-        if (_.every(mappedSelection))
-          operation = '$pull';
-        else if (_.every(mappedSelection, (bool) => !bool))
-          operation = '$addToSet';
-        else {
+
+        if (_.every(mappedSelection)) {
+          mutateSelectedCards('addLabel', labelId);
+        } else if (_.every(mappedSelection, (bool) => !bool)) {
+          mutateSelectedCards('removeLabel', labelId);
+        } else {
           const popup = Popup.open('disambiguateMultiLabel');
           // XXX We need to have a better integration between the popup and the
           // UI components systems.
           return popup.call(this.currentData(), evt);
         }
-
-        updateSelectedCards({
-          [operation]: {
-            labelIds: labelId,
-          },
-        });
       },
       'click .js-toggle-member-multiselection'(evt) {
         const memberId = this.currentData()._id;
         const mappedSelection = this.mapSelection('member', memberId);
-        let operation;
-        if (_.every(mappedSelection))
-          operation = '$pull';
-        else if (_.every(mappedSelection, (bool) => !bool))
-          operation = '$addToSet';
-        else {
+        if (_.every(mappedSelection)) {
+          mutateSelectedCards('assignMember', memberId);
+        } else if (_.every(mappedSelection, (bool) => !bool)) {
+          mutateSelectedCards('unassignMember', memberId);
+        } else {
           const popup = Popup.open('disambiguateMultiMember');
           // XXX We need to have a better integration between the popup and the
           // UI components systems.
           return popup.call(this.currentData(), evt);
         }
-
-        updateSelectedCards({
-          [operation]: {
-            members: memberId,
-          },
-        });
       },
       'click .js-archive-selection'() {
-        updateSelectedCards({$set: {archived: true}});
+        mutateSelectedCards('archive');
       },
     }];
   },
@@ -115,22 +102,22 @@ BlazeComponent.extendComponent({
 
 Template.disambiguateMultiLabelPopup.events({
   'click .js-remove-label'() {
-    updateSelectedCards({$pull: {labelIds: this._id}});
+    mutateSelectedCards('removeLabel', this._id);
     Popup.close();
   },
   'click .js-add-label'() {
-    updateSelectedCards({$addToSet: {labelIds: this._id}});
+    mutateSelectedCards('addLabel', this._id);
     Popup.close();
   },
 });
 
 Template.disambiguateMultiMemberPopup.events({
   'click .js-unassign-member'() {
-    updateSelectedCards({$pull: {members: this._id}});
+    mutateSelectedCards('assignMember', this._id);
     Popup.close();
   },
   'click .js-assign-member'() {
-    updateSelectedCards({$addToSet: {members: this._id}});
+    mutateSelectedCards('unassignMember', this._id);
     Popup.close();
   },
 });

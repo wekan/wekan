@@ -49,14 +49,20 @@ Users.helpers({
       return this.username[0].toUpperCase();
     }
   },
+});
 
+Users.mutations({
   toggleBoardStar(boardId) {
     const queryKind = this.hasStarred(boardId) ? '$pull' : '$addToSet';
-    Meteor.users.update(this._id, {
+    return {
       [queryKind]: {
         'profile.starredBoards': boardId,
       },
-    });
+    };
+  },
+
+  setAvatarUrl(avatarUrl) {
+    return { $set: { 'profile.avatarUrl': avatarUrl }};
   },
 });
 

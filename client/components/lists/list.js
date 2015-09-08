@@ -73,23 +73,13 @@ BlazeComponent.extendComponent({
         $cards.sortable('cancel');
 
         if (MultiSelection.isActive()) {
-          Cards.find(MultiSelection.getMongoSelector()).forEach((c, i) => {
-            Cards.update(c._id, {
-              $set: {
-                listId,
-                sort: sortIndex.base + i * sortIndex.increment,
-              },
-            });
+          Cards.find(MultiSelection.getMongoSelector()).forEach((card, i) => {
+            card.move(listId, sortIndex.base + i * sortIndex.increment);
           });
         } else {
           const cardDomElement = ui.item.get(0);
-          const cardId = Blaze.getData(cardDomElement)._id;
-          Cards.update(cardId, {
-            $set: {
-              listId,
-              sort: sortIndex.base,
-            },
-          });
+          const card = Blaze.getData(cardDomElement);
+          card.move(listId, sortIndex.base);
         }
         boardComponent.setIsDragging(false);
       },
@@ -107,16 +97,15 @@ BlazeComponent.extendComponent({
           accept: '.js-member,.js-label',
           drop(event, ui) {
             const cardId = Blaze.getData(this)._id;
-            let addToSet;
+            const card = Cards.findOne(cardId);
 
             if (ui.draggable.hasClass('js-member')) {
               const memberId = Blaze.getData(ui.draggable.get(0)).userId;
-              addToSet = { members: memberId };
+              card.assignMember(memberId);
             } else {
               const labelId = Blaze.getData(ui.draggable.get(0))._id;
-              addToSet = { labelIds: labelId };
+              card.addLabel(labelId);
             }
-            Cards.update(cardId, { $addToSet: addToSet });
           },
         });
       });

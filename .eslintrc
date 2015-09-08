@@ -117,6 +117,7 @@ globals:
   presences: true
   Ps: true
   ReactiveTabs: false
+  Restivus: false
   SimpleSchema: false
   SubsManager: false
   T9n: false

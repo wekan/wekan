@@ -22,13 +22,9 @@ BlazeComponent.extendComponent({
   events() {
     return [{
       'click .js-restore-board'() {
-        const boardId = this.currentData()._id;
-        Boards.update(boardId, {
-          $set: {
-            archived: false,
-          },
-        });
-        Utils.goBoardId(boardId);
+        const board = this.currentData();
+        board.restore();
+        Utils.goBoardId(board._id);
       },
     }];
   },

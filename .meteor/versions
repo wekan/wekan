@@ -86,6 +86,7 @@ mongo-id@1.0.1-rc.0
 mongo-livedata@1.0.9-rc.0
 mousetrap:mousetrap@1.4.6_1
 mquandalle:autofocus@1.0.0
+mquandalle:collection-mutations@0.1.0
 mquandalle:jade@0.4.3_1
 mquandalle:jade-compiler@0.4.3
 mquandalle:jquery-textcomplete@0.3.9_1

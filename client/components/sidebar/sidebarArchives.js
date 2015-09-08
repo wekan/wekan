@@ -29,8 +29,8 @@ BlazeComponent.extendComponent({
   events() {
     return [{
       'click .js-restore-card'() {
-        const cardId = this.currentData()._id;
-        Cards.update(cardId, {$set: {archived: false}});
+        const card = this.currentData();
+        card.restore();
       },
       'click .js-delete-card': Popup.afterConfirm('cardDelete', function() {
         const cardId = this._id;
@@ -38,8 +38,8 @@ BlazeComponent.extendComponent({
         Popup.close();
       }),
       'click .js-restore-list'() {
-        const listId = this.currentData()._id;
-        Lists.update(listId, {$set: {archived: false}});
+        const list = this.currentData();
+        list.restore();
       },
     }];
   },

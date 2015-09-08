@@ -22,20 +22,6 @@ Utils = {
     return string.charAt(0).toUpperCase() + string.slice(1);
   },
 
-  getLabelIndex(boardId, labelId) {
-    const board = Boards.findOne(boardId);
-    const labels = {};
-    _.each(board.labels, (a, b) => {
-      labels[a._id] = b;
-    });
-    return {
-      index: labels[labelId],
-      key(key) {
-        return `labels.${labels[labelId]}.${key}`;
-      },
-    };
-  },
-
   // Determine the new sort index
   calculateIndex(prevCardDomElement, nextCardDomElement, nCards = 1) {
     let base, increment;
