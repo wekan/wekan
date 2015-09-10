@@ -96,6 +96,9 @@ BlazeComponent.extendComponent({
   _getUnsavedEditKey() {
     return {
       fieldName: 'cardDescription',
+      // XXX Recovering the currentCard identifier form a session variable is
+      // fragile because this variable may change for instance if the route
+      // change. We should use some component props instead.
       docId: Session.get('currentCard'),
     };
   }

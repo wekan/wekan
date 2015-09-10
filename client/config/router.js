@@ -40,10 +40,10 @@ FlowRouter.route('/b/:id/:slug', {
 FlowRouter.route('/b/:boardId/:slug/:cardId', {
   name: 'card',
   action(params) {
+    EscapeActions.executeUpTo('inlinedForm');
+
     Session.set('currentBoard', params.boardId);
     Session.set('currentCard', params.cardId);
-
-    EscapeActions.executeUpTo('inlinedForm');
 
     BlazeLayout.render('defaultLayout', { content: 'board' });
   },
