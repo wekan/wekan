@@ -18,7 +18,7 @@ that by providing one-click installation on Heroku or
 [Sandstorm](https://sandstorm.io) platforms and verified
 [Docker](https://www.docker.com) images.
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/wekan/wekan/tree/master)
 
 Wekan is released under the very permissive [MIT license](LICENSE), and made
 with [Meteor](https://www.meteor.com).
