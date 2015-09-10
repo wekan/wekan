@@ -25,3 +25,9 @@ with [Meteor](https://www.meteor.com).
 
 [thumbnail]: http://i.imgur.com/IIdHUmW.png
 [roadmap]: http://libreboard.com/boards/MeSsFJaSqeuo9M6bs/libreboard-roadmap
+
+### One-Click Deploy
+
+Deploy on Heroku:
+
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
