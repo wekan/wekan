@@ -13,6 +13,7 @@ security. It also features the following improvements:
   by Sandstorm);
 * Cards multi-selection to facilitate batch actions such as moving all the cards
   of selection, or attaching a label or a member to them;
+* Automatic drafts saving synced with the server;
 * Keyboard navigation, press `?` to read the list of available shortcuts;
 * The possibility to restore archived boards, lists, and cards.
 
