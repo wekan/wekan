@@ -1,0 +1,19 @@
+{
+  "name": "Wekan",
+  "description": "The open-source Trello-like kanban",
+  "repository": "https://github.com/wekan/wekan",
+  "logo": "https://raw.githubusercontent.com/wekan/wekan/heroku/meta/icons/wekan-150.png",
+  "keywords": ["productivity", "tool", "team", "kanban"],
+  "website": "http://wekan.io",
+  "env": {
+    "BUILDPACK_URL": "https://github.com/AdmitHub/meteor-buildpack-horse.git",
+    "ROOT_URL": {
+      "description": "IMPORTANT! Please replace <App Name> with the value provided on the top. This will be the full URL of your Rocket.Chat app.",
+      "value": "https://<App Name>.herokuapp.com"
+    }
+  },
+  "addons": [
+    "mongolab",
+    "logentries"
+  ]
+}

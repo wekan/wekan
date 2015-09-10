@@ -14,9 +14,11 @@ and many more.
 
 Since it is a free software, you don’t have to trust us with your data and can
 install Wekan on your own computer or server. In fact we encourage you to do
-that by providing one-click installation for the
-[Sandstorm](https://sandstorm.io) platform and verified
+that by providing one-click installation on Heroku or
+[Sandstorm](https://sandstorm.io) platforms and verified
 [Docker](https://www.docker.com) images.
+
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
 Wekan is released under the very permissive [MIT license](LICENSE), and made
 with [Meteor](https://www.meteor.com).
