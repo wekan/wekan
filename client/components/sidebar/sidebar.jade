@@ -42,7 +42,7 @@ template(name="labelsWidget")
     .board-widget-content
       each currentBoard.labels
           a.card-label(class="card-label-{{color}}"
-            class="{{#if currentUser.isBoardMember}}js-add-labels{{/if}}")
+            class="{{#if currentUser.isBoardMember}}js-label{{/if}}")
             span.card-label-name= name
       if currentUser.isBoardAdmin
         a.card-label.add-label.js-add-label
