@@ -69,9 +69,9 @@ BlazeComponent.extendComponent({
   },
   memberType: function(){
     if( this.currentData().user.isAdmin )
-      return "Admin";
+      return "admin";
     else
-      return "Member";
+      return "member";
   },
   events: function(){
     return [{

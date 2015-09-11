@@ -3,7 +3,7 @@ template(name="boardList")
     div.myboards
       h2
         i.fa.fa-user
-          span  {{_ "Personal Boards"}}
+          span  {{_ "personal-board"}}
     ul.board-list.clearfix
       if boards.count
         each boards
@@ -44,11 +44,11 @@ template(name="boardList")
 template(name="addOrgForm")  
   +inlinedForm(autoclose=true)
     .addOrg
-      input.org-title-input(type="text" placeholder="{{_ 'Organization Title'}}"
+      input.org-title-input(type="text" placeholder="{{_ 'organization-title'}}"
         autocomplete="off" autofocus required)
-      input.org-short-name-input(type="text" placeholder="{{_ 'Organization Short Name'}}"
+      input.org-short-name-input(type="text" placeholder="{{_ 'organization-short-name'}}"
         autocomplete="off" required)
-      textarea.org-desc-input(type="text" placeholder="{{_ 'Organization Description'}}"
+      textarea.org-desc-input(type="text" placeholder="{{_ 'organization-description'}}"
         autocomplete="off" )
       .edit-controls.clearfix
         button.primary.confirm(type="submit") {{_ 'save'}}
@@ -57,4 +57,4 @@ template(name="addOrgForm")
     a.js-open-inlined-form
       h2
         i.fa.fa-plus
-        | {{_ 'Add Organization'}}
+        | {{_ 'add-organization'}}

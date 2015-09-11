@@ -35,7 +35,7 @@ template(name="organization")
                   +userCard(user=this org=currentOrganization)
     else
       //- XXX We need a better error message in case the board has been archived
-      +message(label="Organization not found")
+      +message(label="organization-not-found")
   else
     +spinner
 
@@ -56,10 +56,10 @@ template(name="userCard")
         i.fa.fa-angle-down
       if isCurrentUser
         a.option.button-link.remove-button.js-remove-or-deactivate(class="{{#if isLastAdmin}}disabled{{/if}}")
-          span {{_ "Leave"}}
+          span {{_ "leave"}}
       else if  currentUser.isOrgamizationAdmin
         a.option.button-link.remove-button.js-remove-or-deactivate(class="{{#if isLastMember}}disabled{{/if}}")
-          span {{_ "Remove"}}
+          span {{_ "remove"}}
 
 template(name="removeOrgMemberPopup")
   p {{_ 'remove-org-member-pop' name=userData.profile.fullname username=userData.username orgTitle=currentOrganization.title}}

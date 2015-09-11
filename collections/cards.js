@@ -216,6 +216,8 @@ if (Meteor.isServer) {
 
       }
     }
+    if (_.contains(fieldNames, 'description')) 
+      Cards.update(doc._id,{$set: {dateLastActivity: new Date()}});
   });
 
   // New activity for card moves
@@ -263,8 +265,7 @@ if (Meteor.isServer) {
         cardId: doc._id,
       });
     }
-    if (_.contains(fieldNames, 'description')) 
-      doc.dateLastActivity = new Date();  
+    
   });
 
   // Remove all activities associated with a card if we remove the card
@@ -282,7 +283,7 @@ if (Meteor.isServer) {
       cardId: doc.cardId,
       commentId: doc._id,
     });
-    Cards.update(doc.cardId,{dateLastActivity: new Date()});
+    Cards.update(doc.cardId, {$set: {dateLastActivity: new Date()}});
   });
 
   CardComments.after.remove((userId, doc) => {

@@ -2,7 +2,9 @@ BlazeComponent.extendComponent({
   template() {
     return 'filterSidebar';
   },
-
+  onRendered() {
+    this.find('.js-search-text').value = Filter.title.get();//Session.get('currentBoardSearchText');  
+  },
   events() {
     return [{
       'click .js-toggle-label-filter'(evt) {
@@ -25,6 +27,16 @@ BlazeComponent.extendComponent({
           return c._id;
         });
         MultiSelection.add(selectedCards);
+      },
+      'keyup .js-search-text,mouseup .js-search-text': function(evt) {
+        var text = this.find('.js-search-text').value;
+        //Session.set('currentBoardSearchText', text);
+        Filter.title.set(text);
+        if( Filter.description.checked())
+          Filter.description.set(text);
+       },
+      'click .search-description': function(){
+        Filter.description.toogleChecked()
       },
     }];
   },
@@ -109,6 +121,7 @@ BlazeComponent.extendComponent({
       'click .js-archive-selection'() {
         updateSelectedCards({$set: {archived: true}});
       },
+      
     }];
   },
 }).register('multiselectionSidebar');
@@ -139,42 +152,16 @@ BlazeComponent.extendComponent({
   template: function() {
     return 'boardsearchSidebar';
   },
-
+  onRendered() {
+    this.find('.js-search-text').value = Session.get('currentBoardSearchText');  
+  },
   events: function() {
     return [{
       'keyup .js-search-text,mouseup .js-search-text': function(evt) {
         var text = this.find('.js-search-text').value;
         Session.set('currentBoardSearchText', text);
-        // if( text )
-        // {
-        //   var boardId = Session.get('currentBoard');
-        //   if (boardId) {
-        //     board = Boards.findOne(boardId);
-        //     for( var j=0;j++;j<board.lists.length )
-        //     {
-        //       var list = board.lists[j];
-
-        //       var slector = {
-        //         listId: this._id,
-        //         archived: false
-        //       };
-        //       list.cards = Cards.find(Filter.mongoSelector(slector));
-        //       for( var i=list.cards.length-1;i--;i>=0)
-        //       {
-                
-        //         if( list.cards[i].title.indexOf(text) > 0 )
-        //           list.cards.splice(i,1); 
-                 
-        //       }  
-        //     }
-            
-        //   }  
-        // }
-        
-        
-      //   evt.preventDefault();
-      //   Filter.labelIds.toogle(this.currentData()._id);
-      //   Filter.resetExceptions();
+        Filter.title.set(text);
+        Filter.description.set(text);
        }
     }];
   }

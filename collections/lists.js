@@ -45,12 +45,14 @@ if (Meteor.isServer) {
 
 Lists.helpers({
   cards: function() { 
-    var sortType = Session.get("currentBoardSort");
-
-    if( !sortType )
-      sortType = this.board.sortType;
-    if( !sortType )
-      sortType = 'sort';
+    var sortTypeText = Session.get("currentBoardSort");
+    var sortType = [];
+    if( sortTypeText )
+      sortType[sortTypeText] = -1 ;
+    else if (this.board.sortType)
+      sortType[this.board.sortType] = -1 ;
+    else
+      sortType = ['sort'];  
 
     var slector = {
       listId: this._id,
@@ -68,14 +70,31 @@ Lists.helpers({
             
     //         if( cards[i].title.indexOf(text) > 0 )
     //           //cards.splice(i,1); 
-    //           ret
+    //           var card = cards[i];
+    //           ret.insert({
+    //             title: card.title,
+    //             archived: card.archived,
+    //             listId: card.listId,
+    //             boardId: card.boardId,
+    //             coverId:card.coverId,
+    //             createdAt: card.createdAt,
+    //             dateLastActivity: card.dateLastActivity,
+    //             description: card.description,
+    //             labelIds: card.labelIds,
+    //             members: card.members,
+    //             // XXX Should probably be called `authorId`. Is it even needed since we have
+    //             // the `members` field?
+    //             userId: card.userId,
+    //             votes: card.votes,
+    //             sort: card.sort,
+    //           });
              
     //       }    
     // }
     // else
     //   ret = cards;
        
-    return Cards.find(Filter.mongoSelector(slector), { sort: [sortType] });
+    return Cards.find(Filter.mongoSelector(slector), { sort: sortType });
   },
   board() {
     return Boards.findOne(this.boardId);

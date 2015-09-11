@@ -67,6 +67,63 @@ Users.helpers({
       },
     });
   },
+
+
+  votedCards() {
+    const votedCardIds = this.profile.votedCards || [];
+    return Cards.find({archived: false, _id: {$in: votedCardIds}});
+  },
+
+  hasVoted(cardId) {
+    const votedCardIds = this.profile.votedCards || [];
+    return _.contains(votedCardIds, cardId);
+  },
+
+  getTodayVotes(){
+    var today = new Date();
+    var lastVoteDate = this.profile.lastVoteDate ;
+    if( !lastVoteDate || Utils.compareDay(today, lastVoteDate) )
+      return 0;
+    else{
+      return this.profile.todayVotes;
+    }
+       
+  },
+  todayVotesLeft(){
+    return 5 - this.getTodayVotes();
+  },
+
+  voteCard(cardId){
+    if( ! this.hasVoted(cardId) && this.getTodayVotes()<=5){
+      Cards.update(cardId, {$inc: {votes: 1}});  
+      var today = new Date();
+      var lastVoteDate = this.profile.lastVoteDate ;
+      if(!lastVoteDate || Utils.compareDay(today, lastVoteDate) )
+        Meteor.users.update(this._id, {
+          $set: {
+            'profile.todayVotes': 1
+          },
+        });
+      else 
+        Meteor.users.update(this._id, {
+        $inc: {
+          'profile.todayVotes':1
+        },
+      });
+      const queryKind =  '$addToSet';
+      Meteor.users.update(this._id, {
+          $set: {
+            'profile.lastVoteDate': new Date()
+          },
+        });
+      Meteor.users.update(this._id, {
+        [queryKind]: {
+          'profile.votedCards': cardId,
+        },
+      });
+    }
+   
+  },
 });
 
 Meteor.methods({

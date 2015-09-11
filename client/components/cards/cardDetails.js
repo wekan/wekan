@@ -92,6 +92,11 @@ BlazeComponent.extendComponent({
         this.componentParent().showOverlay.set(true);
         this.componentParent().mouseHasEnterCardDetails = true;
       },
+      'click .js-vote-card'() {
+        
+        Meteor.user().voteCard(this.currentData()._id);
+        //Users.update(Meteor.UserId(),{$addToSet: {profile.votedCards: this.currentData()._id}});
+      },
     })];
   },
 }).register('cardDetails');

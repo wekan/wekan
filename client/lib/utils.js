@@ -67,4 +67,20 @@ Utils = {
       increment,
     };
   },
+  compareDay: function(start, end) {
+    var arr = start.toString().split("-");
+    var starttime = new Date(arr[0], arr[1], arr[2]);
+    var starttimes = starttime.getTime();
+
+    var arrs = end.toString().split("-");
+    var lktime = new Date(arrs[0], arrs[1], arrs[2]);
+    var lktimes = lktime.getTime();
+
+    if (starttimes >= lktimes) {
+        return true;
+    }
+    else
+        return false;
+
+  },
 };

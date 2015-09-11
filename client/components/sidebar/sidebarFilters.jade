@@ -4,6 +4,11 @@
   and #each x in y constructors to fix this.
 
 template(name="filterSidebar")
+  input.search-text.js-search-text(type="text" placeholder="{{_ 'input-search-text'}}" autofocus required)
+
+  .materialCheckBox.search-description.js-search-description(class="{{#if Filter.description.checked}}is-checked{{/if}}")
+  span.search-description-text {{_ 'search-description'}}
+  hr
   ul.sidebar-list
     each currentBoard.labels
       li
@@ -84,4 +89,4 @@ template(name="disambiguateMultiMemberPopup")
   button.wide.js-assign-member {{_ 'assign-member'}}
 
 template(name="boardsearchSidebar")
-  input.search-text.js-search-text(type="text" placeholder="{{_ 'input-search-text'}}" autofocus required)
+  input.search-text.js-search-text(id="search-text-input" type="text" placeholder="{{_ 'input-search-text'}}" autofocus required)

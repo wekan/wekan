@@ -61,7 +61,7 @@ BlazeComponent.extendComponent({
       sort = currentBoard.sortType;
     }
         
-    return  Session.get('currentBoardSort');
+    return  sort;
    
   },
   getSortTypeText: function(){
@@ -71,8 +71,9 @@ BlazeComponent.extendComponent({
     //     currentBoard.sortType = 'votes';
     //   else
     //     currentBoard.sortType = 'sort';
-    return 'sort by '+ this.getSortType();
+    return 'sort-by-'+ this.getSortType();
   },
+  
   events: function() {
     return [{
       'click .js-change-sort': Popup.open('changeBoardSort'),

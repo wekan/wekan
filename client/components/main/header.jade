@@ -12,7 +12,7 @@ template(name="header")
             li
               a(href="{{pathFor 'home'}}")
                 span.fa.fa-home
-                | {{_ 'All boards'}}
+                | {{_ 'all-boards'}}
             each currentUser.starredBoards
               li.separator -
               li(class="{{#if $.Session.equals 'currentBoard' _id}}current{{/if}}")
