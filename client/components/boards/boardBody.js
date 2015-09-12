@@ -70,7 +70,13 @@ BlazeComponent.extendComponent({
 
       // Click-and-drag action
       'mousedown .board-canvas'(evt) {
-        if ($(evt.target).closest('a,.js-list-header').length === 0) {
+        // Translating the board canvas using the click-and-drag action can
+        // conflict with the build-in browser mechanism to select text. We
+        // define a list of elements in which we disable the dragging because
+        // the user will legitimately expect to be able to select some text with
+        // his mouse.
+        const noDragInside = ['a', 'input', 'textarea', 'p', '.js-list-header'];
+        if ($(evt.target).closest(noDragInside.join(',')).length === 0) {
           this._isDragging = true;
           this._lastDragPositionX = evt.clientX;
         }

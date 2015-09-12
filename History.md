@@ -13,15 +13,15 @@ security. It also features the following improvements:
   by Sandstorm);
 * Cards multi-selection to facilitate batch actions such as moving all the cards
   of selection, or attaching a label or a member to them;
+* Automatic drafts saving synced with the server;
 * Keyboard navigation, press `?` to read the list of available shortcuts;
 * The possibility to restore archived boards, lists, and cards.
 
 Starting from this release we will also distribute official docker images on
-both the
-[GitHub release page](https://github.com/wekan/wekan/releases)
-and on the
-[DockerHub](https://hub.docker.com/r/mquandalle/wekan). We also improved
-Sandstorm integration with the support of its build-in sharing model.
+both the [GitHub release page](https://github.com/wekan/wekan/releases) and on
+the [DockerHub](https://hub.docker.com/r/mquandalle/wekan). We also configured
+Heroku one-click install and improved Sandstorm integration with the integration
+of its build-in sharing model.
 
 New languages supported: Chinese, Finnish, Spanish, Korean, and Russian.
 
