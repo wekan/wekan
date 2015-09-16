@@ -69,9 +69,9 @@ BlazeComponent.extendComponent({
         const mappedSelection = this.mapSelection('label', labelId);
 
         if (_.every(mappedSelection)) {
-          mutateSelectedCards('addLabel', labelId);
-        } else if (_.every(mappedSelection, (bool) => !bool)) {
           mutateSelectedCards('removeLabel', labelId);
+        } else if (_.every(mappedSelection, (bool) => !bool)) {
+          mutateSelectedCards('addLabel', labelId);
         } else {
           const popup = Popup.open('disambiguateMultiLabel');
           // XXX We need to have a better integration between the popup and the
@@ -83,9 +83,9 @@ BlazeComponent.extendComponent({
         const memberId = this.currentData()._id;
         const mappedSelection = this.mapSelection('member', memberId);
         if (_.every(mappedSelection)) {
-          mutateSelectedCards('assignMember', memberId);
-        } else if (_.every(mappedSelection, (bool) => !bool)) {
           mutateSelectedCards('unassignMember', memberId);
+        } else if (_.every(mappedSelection, (bool) => !bool)) {
+          mutateSelectedCards('assignMember', memberId);
         } else {
           const popup = Popup.open('disambiguateMultiMember');
           // XXX We need to have a better integration between the popup and the
