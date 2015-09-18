@@ -26,6 +26,10 @@ Lists.attachSchema(new SimpleSchema({
     denyInsert: true,
     optional: true,
   },
+  permission: {
+    type: String,
+    allowedValues: ['any','registered', 'member', 'admin']
+  },
 }));
 
 if (Meteor.isServer) {
@@ -46,11 +50,11 @@ if (Meteor.isServer) {
 Lists.helpers({
   cards: function() { 
     var sortTypeText = Session.get("currentBoardSort");
-    var sortType = [];
+    var sortType = {};
     if( sortTypeText )
-      sortType[sortTypeText] = -1 ;
+      sortType[sortTypeText] = sortTypeText=='sort'?1:-1 ;
     else if (this.board.sortType)
-      sortType[this.board.sortType] = -1 ;
+      sortType[this.board.sortType] = sortTypeText=='sort'?1:-1 ;
     else
       sortType = ['sort'];  
 
@@ -107,6 +111,7 @@ Lists.hookOptions.after.update = { fetchPrevious: false };
 Lists.before.insert((userId, doc) => {
   doc.createdAt = new Date();
   doc.archived = false;
+  doc.permission = doc.permission || "member";
 
   if (!doc.userId)
     doc.userId = userId;

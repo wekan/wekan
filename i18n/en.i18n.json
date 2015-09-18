@@ -236,6 +236,13 @@
     "input-search-text": "input text for search",
     "vote-card-title": "vote for card",
     "votes-n-title": "This card has %s votes",
-    "user-can-vote": "You can vote s% times today",
+    "user-can-vote": "You can vote %s times today",
+    "list-permission-admin": "Admin",
+    "list-permission-admin-desc": "Admin can add and edit content",
+    "list-permission-member": "Member",
+    "list-permission-member-desc": "Member can add and edit content",
+    "list-permission-registered": "Registed",
+    "list-permission-registered-desc": "Registed user can add and edit content, will automatically become member after actions",
+    "set-list-permission": "Permission",
     "none": "None"
 }

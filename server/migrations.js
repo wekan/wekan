@@ -124,3 +124,9 @@ Migrations.add('add-member-isactive-field', () => {
     Boards.update(board._id, {$set: {members: newMemberSet}}, noValidate);
   });
 });
+
+Migrations.add('add-list-permission-field', () => {
+  Lists.find().forEach((list) => {
+    Boards.update(list._id, {$set: {permission: 'member'}}, noValidate);
+  });
+});

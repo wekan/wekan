@@ -23,14 +23,20 @@ Users.helpers({
     return _.contains(starredBoardIds, boardId);
   },
 
-  isBoardMember() {
-    const board = Boards.findOne(Session.get('currentBoard'));
+  isBoardMember(boardId) {
+    //at server side, can not use Session
+    if( !boardId )
+      boardId = Session.get('currentBoard');
+    const board = Boards.findOne(boardId);
     return board && _.contains(_.pluck(board.members, 'userId'), this._id) &&
                          _.where(board.members, {userId: this._id})[0].isActive;
   },
 
-  isBoardAdmin() {
-    const board = Boards.findOne(Session.get('currentBoard'));
+  isBoardAdmin(boardId) {
+    //at server side, can not use Session
+    if( !boardId )
+      boardId = Session.get('currentBoard');
+    const board = Boards.findOne(boardId);
     return board && this.isBoardMember(board) &&
                           _.where(board.members, {userId: this._id})[0].isAdmin;
   },
@@ -69,20 +75,21 @@ Users.helpers({
   },
 
 
-  votedCards() {
-    const votedCardIds = this.profile.votedCards || [];
-    return Cards.find({archived: false, _id: {$in: votedCardIds}});
-  },
+  // votedCards() {
+  //   const votedCardIds = this.profile.votedCards || [];
+  //   return Cards.find({archived: false, _id: {$in: votedCardIds}});
+  // },
 
   hasVoted(cardId) {
-    const votedCardIds = this.profile.votedCards || [];
-    return _.contains(votedCardIds, cardId);
+    const votedCards = this.profile.votedCards || [];
+    return _.contains(_.pluck(votedCards, 'cardId'), cardId);
+    //_.contains(votedCardIds, cardId);
   },
 
   getTodayVotes(){
     var today = new Date();
     var lastVoteDate = this.profile.lastVoteDate ;
-    if( !lastVoteDate || Utils.compareDay(today, lastVoteDate) )
+    if( !lastVoteDate || Utils.compareDay(today, lastVoteDate) === 1 )
       return 0;
     else{
       return this.profile.todayVotes;
@@ -94,11 +101,11 @@ Users.helpers({
   },
 
   voteCard(cardId){
-    if( ! this.hasVoted(cardId) && this.getTodayVotes()<=5){
+    if( ! this.hasVoted(cardId) && this.getTodayVotes()<5){
       Cards.update(cardId, {$inc: {votes: 1}});  
       var today = new Date();
       var lastVoteDate = this.profile.lastVoteDate ;
-      if(!lastVoteDate || Utils.compareDay(today, lastVoteDate) )
+      if(!lastVoteDate || Utils.compareDay(today, lastVoteDate) === 1 )
         Meteor.users.update(this._id, {
           $set: {
             'profile.todayVotes': 1
@@ -110,15 +117,16 @@ Users.helpers({
           'profile.todayVotes':1
         },
       });
-      const queryKind =  '$addToSet';
+      
       Meteor.users.update(this._id, {
           $set: {
-            'profile.lastVoteDate': new Date()
+            'profile.lastVoteDate': today
           },
         });
+      const queryKind =  '$addToSet';
       Meteor.users.update(this._id, {
         [queryKind]: {
-          'profile.votedCards': cardId,
+          'profile.votedCards': {cardId: cardId, date: today},
         },
       });
     }
@@ -195,12 +203,14 @@ if (Meteor.isServer) {
 
     // Insert the Welcome Board
     Boards.insert(ExampleBoard, (err, boardId) => {
-
+      var sort = 0;
       _.forEach(['Basics', 'Advanced'], (title) => {
         const list = {
           title,
           boardId,
           userId: ExampleBoard.userId,
+          sort: sort,
+          permission: 'member',
 
           // XXX Not certain this is a bug, but we except these fields get
           // inserted by the Lists.before.insert collection-hook. Since this
@@ -211,6 +221,7 @@ if (Meteor.isServer) {
         };
 
         Lists.insert(list);
+        sort++;
       });
     });
   });

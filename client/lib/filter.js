@@ -66,10 +66,10 @@ class SetFilter {
 }
 
 class RegexFilter {
-  constructor() {
+  constructor(checked) {
     this._dep = new Tracker.Dependency();
     this._regex = '';
-    this._checked = false;
+    this._checked = checked ? checked:false;
   }
 
   get() {
@@ -87,11 +87,13 @@ class RegexFilter {
   }
 
   checked(){
+    this._dep.depend();
     return this._checked;
   }
 
   toogleChecked(){
     this._checked = ! this._checked;
+    this._dep.changed();
   }
 
   _isActive() {
@@ -115,7 +117,7 @@ Filter = {
   // before changing the schema.
   labelIds: new SetFilter(),
   members: new SetFilter(),
-  title: new RegexFilter(),
+  title: new RegexFilter(true),
   description: new RegexFilter(),
 
   _fields: ['labelIds', 'members', 'title', 'description'],
@@ -157,7 +159,7 @@ Filter = {
     const filterSelectorRegex = new Array();
     _.forEach(this._fields_regex, (fieldName) => {
       const filter = this[fieldName];
-      if (filter._isActive())
+      if (filter._isActive() && filter.checked())
       {
         //filterSelectorRegex.push({''+fieldName: {$regex:'.*'+filter.get()+'.*', $options: ''}});
         var selector = {};

@@ -235,7 +235,14 @@
     "search-description": "搜索卡片描述",
     "input-search-text": "输入搜索的文字",
     "vote-card-title": "为该卡片投一票",
-    "votes-n-title": "该卡片有s%个投票",
-    "user-can-vote": "今天还可以投s%票",
+    "votes-n-title": "该卡片有%s个投票",
+    "user-can-vote": "今天还可以投%s票",
+    "list-permission-admin": "管理员",
+    "list-permission-admin-desc": "管理员可编辑添加内容",
+    "list-permission-member": "成员",
+    "list-permission-member-desc": "成员可编辑添加内容",
+    "list-permission-registered": "注册用户",
+    "list-permission-registered-desc": "注册用户可编辑添加内容",
+    "set-list-permission": "权限",
     "none": "无"
 }

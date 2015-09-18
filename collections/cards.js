@@ -84,20 +84,58 @@ CardComments.attachSchema(new SimpleSchema({
 if (Meteor.isServer) {
   Cards.allow({
     insert(userId, doc) {
-      return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+      if( Boards.findOne(doc.boardId).isPublic() || Boards.findOne(doc.boardId).isPrivate())
+        return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+      else if( Boards.findOne(doc.boardId).isCollaborate() ) {
+        if( Meteor.user().isBoardAdmin(doc.boardId) )
+          return true;
+        else if( ( this.list().permission === 'registered' && Meteor.user()) || 
+          ( this.list().permission === 'member' && Meteor.user().isBoardMember(doc.boardId)))
+          return true;
+        else
+          return false;
+      }
     },
     update(userId, doc) {
-      return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+      if( Boards.findOne(doc.boardId).isPublic() || Boards.findOne(doc.boardId).isPrivate())
+        return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+      else if( Boards.findOne(doc.boardId).isCollaborate() ) {
+        if( Meteor.user().isBoardAdmin(doc.boardId) )
+          return true;
+        else if( userId === doc.userId)
+          return true;
+        else
+          return false;
+      }      
     },
     remove(userId, doc) {
-      return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+      if( Boards.findOne(doc.boardId).isPublic() || Boards.findOne(doc.boardId).isPrivate())
+        return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+      else if( Boards.findOne(doc.boardId).isCollaborate() ) {
+        if( Meteor.user().isBoardAdmin(doc.boardId) )
+          return true;
+        else if( userId === doc.userId)
+          return true;
+        else
+          return false;
+      }
     },
     fetch: ['boardId'],
   });
 
   CardComments.allow({
     insert(userId, doc) {
-      return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+      if( Boards.findOne(doc.boardId).isPublic() || Boards.findOne(doc.boardId).isPrivate())
+        return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+      else if( Boards.findOne(doc.boardId).isCollaborate() ) {
+        if( Meteor.user().isBoardAdmin(doc.boardId) )
+          return true;
+        else if( ( Cards.findOne(cardId).list().permission === 'registered' && Meteor.user()) || 
+          ( Cards.findOne(cardId).list().permission === 'member' && Meteor.user().isBoardMember(doc.boardId)))
+          return true;
+        else
+          return false;
+      } 
     },
     update(userId, doc) {
       return userId === doc.userId;

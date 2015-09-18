@@ -19,6 +19,7 @@ BlazeComponent.extendComponent({
       },
       'click .js-clear-all'(evt) {
         evt.preventDefault();
+        $('.js-search-text').val('');
         Filter.reset();
       },
       'click .js-filter-to-selection'(evt) {
@@ -32,8 +33,8 @@ BlazeComponent.extendComponent({
         var text = this.find('.js-search-text').value;
         //Session.set('currentBoardSearchText', text);
         Filter.title.set(text);
-        if( Filter.description.checked())
-          Filter.description.set(text);
+        //if( Filter.description.checked())
+        Filter.description.set(text);
        },
       'click .search-description': function(){
         Filter.description.toogleChecked()
