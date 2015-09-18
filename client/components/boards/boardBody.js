@@ -30,7 +30,9 @@ BlazeComponent.extendComponent({
     this._lastDragPositionX = 0;
 
     // Used to set the overlay
-    this.mouseHasEnterCardDetails = false;
+    self.mouseHasEnterCardDetails = false;
+
+    //Session.set('currentBoardSort', Boards.findOne(Session.get('currentBoard')).sortType);
   },
 
   openNewListForm() {
@@ -182,19 +184,50 @@ BlazeComponent.extendComponent({
     this.componentChildren('inlinedForm')[0].open();
   },
 
+  onCreated() {
+    this.permissionMenuIsOpen = new ReactiveVar(false);
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    if( currentBoard.isCollaborate() && currentBoard.lists().count() === 0 )
+      this.permission = new ReactiveVar('registered');
+    else if( currentBoard.isCollaborate() )
+      this.permission = new ReactiveVar('admin');
+    else
+      this.permission = new ReactiveVar('member'); 
+  },
+
+  visibilityCheck() {
+    return this.currentData() === this.permission.get();
+  },
+
+  setPermission(permission) {
+    this.permission.set(permission);
+    this.permissionMenuIsOpen.set(false);
+  },
+
+  togglePermissionMenu() {
+    this.permissionMenuIsOpen.set(!this.permissionMenuIsOpen.get());
+  },
+
   events() {
     return [{
+      'click .js-change-permission': this.togglePermissionMenu,
+      'click .js-select-permission'() {
+        this.setVisibility(this.currentData());
+      },
       submit(evt) {
         evt.preventDefault();
+        var permission = this.permission.get();
         const title = this.find('.list-name-input');
         if ($.trim(title.value)) {
           Lists.insert({
             title: title.value,
             boardId: Session.get('currentBoard'),
             sort: $('.list').length,
+            permission: permission,
           });
 
           title.value = '';
+          title.focus();
         }
       },
     }];

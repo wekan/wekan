@@ -12,13 +12,7 @@ template(name="listBody")
             .materialCheckBox.multi-selection-checkbox.js-toggle-multi-selection(
               class="{{#if MultiSelection.isSelected _id}}is-checked{{/if}}")
           +minicard(this)
-      if currentUser.isBoardMember
-        +inlinedForm(autoclose=false position="bottom")
-          +addCardForm(listId=_id position="bottom")
-        else
-          a.open-minicard-composer.js-card-composer.js-open-inlined-form
-            i.fa.fa-plus
-            | {{_ 'add-card'}}
+      
 
 template(name="addCardForm")
   .minicard.minicard-composer.js-composer

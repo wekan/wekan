@@ -6,4 +6,10 @@ BlazeComponent.extendComponent({
   template() {
     return 'minicard';
   },
+
+  events:function(){
+    return [{
+      
+    }];
+  },
 }).register('minicard');

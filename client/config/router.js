@@ -9,12 +9,28 @@ FlowRouter.route('/', {
   action() {
     Session.set('currentBoard', null);
     Session.set('currentCard', null);
-
+    
     Filter.reset();
     EscapeActions.executeAll();
 
-    BlazeLayout.render('defaultLayout', { content: 'boardList' });
-  },
+    BlazeLayout.render('boardsLayout', { content: 'boardList' });
+  }
+});
+
+
+FlowRouter.route('/o/:shortName', {
+  name: 'organization',
+  triggersEnter: [AccountsTemplates.ensureSignedIn],
+  action: function(params) {
+    //var org = Organizations.findOne({shortName: params.shortName});
+    //if( org )
+    //  Session.set('currentOrganizationShortName', params._id);  
+    Session.set('currentOrganizationShortName', params.shortName);
+    // Session.set('currentBoard', null);
+    // Session.set('currentCard', null);
+
+    BlazeLayout.render('orgsLayout', { content: 'organization' });
+  }
 });
 
 FlowRouter.route('/b/:id/:slug', {

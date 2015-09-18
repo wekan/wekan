@@ -25,6 +25,16 @@ BlazeComponent.extendComponent({
       'submit .js-new-comment-form'(evt) {
         const input = this.getInput();
         if ($.trim(input.val())) {
+          if( ! Meteor.user().isBoardMember() )
+            Boards.update(this.boardId, {
+              $push: {
+                members: {
+                  userId: Meteor.userId(),
+                  isAdmin: false,
+                  isActive: true
+                }
+              }
+            });
           CardComments.insert({
             boardId: this.currentData().boardId,
             cardId: this.currentData()._id,

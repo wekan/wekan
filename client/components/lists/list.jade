@@ -1,4 +1,15 @@
 template(name='list')
   .list.js-list(id="js-list-{{_id}}")
-    +listHeader
-    +listBody
+    .js-list-content
+      +listHeader
+      +listBody
+      div
+        if allowAddCard
+          +inlinedForm(autoclose=false position="bottom")
+            +addCardForm(listId=_id position="bottom")
+          else
+            a.open-minicard-composer.js-card-composer.js-open-inlined-form
+              i.fa.fa-plus
+              | {{_ 'add-card'}} 
+
+        

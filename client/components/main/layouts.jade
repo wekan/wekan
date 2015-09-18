@@ -10,9 +10,17 @@ template(name="userFormsLayout")
       img(src="/wekan-logo.png" alt="Wekan")
     +Template.dynamic(template=content)
 
+template(name="boardsLayout")
+
+    +header
+    #boards-content
+      +Template.dynamic(template=content)
+
+      
 template(name="defaultLayout")
+
   +header
-  #content
+  #content(class=currentBoard.colorClass)
     +Template.dynamic(template=content)
   if (Modal.isOpen)
     #modal
@@ -28,5 +36,9 @@ template(name="notFound")
 template(name="message")
   .big-message.quiet(class=color)
     h1 {{_ label}}
-    with(pathFor route='atSignIn')
-      p {{{_ 'page-maybe-private' this}}}
+    
+    if currentUser
+      span
+    else
+      with(pathFor route='atSignIn')
+        p {{{_ 'page-maybe-private' this}}}

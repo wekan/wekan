@@ -1,5 +1,5 @@
 template(name="listHeader")
-  .list-header.js-list-header
+  .list-header.js-list-header.ui-sortable-handle
     +inlinedForm
       +editListTitleForm
     else
@@ -7,7 +7,7 @@ template(name="listHeader")
         class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
         = title
       if currentUser.isBoardMember
-        a.list-header-menu-icon.fa.fa-ellipsis-v.js-open-list-menu
+        a.list-header-menu-icon.fa.fa-bars.js-open-list-menu
 
 template(name="editListTitleForm")
   .list-composer

@@ -3,6 +3,7 @@ Sidebar = null;
 const defaultView = 'home';
 
 const viewTitles = {
+  boardsearch:'board-search',
   filter: 'filter-cards',
   multiselection: 'multi-selection',
   archives: 'archives',

@@ -48,6 +48,10 @@ Cards.attachSchema(new SimpleSchema({
   userId: {
     type: String,
   },
+  votes: {
+    type: Number,
+    decimal: true
+  },
   sort: {
     type: Number,
     decimal: true,
@@ -80,20 +84,58 @@ CardComments.attachSchema(new SimpleSchema({
 if (Meteor.isServer) {
   Cards.allow({
     insert(userId, doc) {
-      return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+      if( Boards.findOne(doc.boardId).isPublic() || Boards.findOne(doc.boardId).isPrivate())
+        return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+      else if( Boards.findOne(doc.boardId).isCollaborate() ) {
+        if( Meteor.user().isBoardAdmin(doc.boardId) )
+          return true;
+        else if( ( this.list().permission === 'registered' && Meteor.user()) || 
+          ( this.list().permission === 'member' && Meteor.user().isBoardMember(doc.boardId)))
+          return true;
+        else
+          return false;
+      }
     },
     update(userId, doc) {
-      return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+      if( Boards.findOne(doc.boardId).isPublic() || Boards.findOne(doc.boardId).isPrivate())
+        return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+      else if( Boards.findOne(doc.boardId).isCollaborate() ) {
+        if( Meteor.user().isBoardAdmin(doc.boardId) )
+          return true;
+        else if( userId === doc.userId)
+          return true;
+        else
+          return false;
+      }      
     },
     remove(userId, doc) {
-      return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+      if( Boards.findOne(doc.boardId).isPublic() || Boards.findOne(doc.boardId).isPrivate())
+        return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+      else if( Boards.findOne(doc.boardId).isCollaborate() ) {
+        if( Meteor.user().isBoardAdmin(doc.boardId) )
+          return true;
+        else if( userId === doc.userId)
+          return true;
+        else
+          return false;
+      }
     },
     fetch: ['boardId'],
   });
 
   CardComments.allow({
     insert(userId, doc) {
-      return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+      if( Boards.findOne(doc.boardId).isPublic() || Boards.findOne(doc.boardId).isPrivate())
+        return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+      else if( Boards.findOne(doc.boardId).isCollaborate() ) {
+        if( Meteor.user().isBoardAdmin(doc.boardId) )
+          return true;
+        else if( ( Cards.findOne(cardId).list().permission === 'registered' && Meteor.user()) || 
+          ( Cards.findOne(cardId).list().permission === 'member' && Meteor.user().isBoardMember(doc.boardId)))
+          return true;
+        else
+          return false;
+      } 
     },
     update(userId, doc) {
       return userId === doc.userId;
@@ -166,6 +208,7 @@ Cards.before.insert((userId, doc) => {
 
   // defaults
   doc.archived = false;
+  doc.votes = 0;
 
   // userId native set.
   if (!doc.userId)
@@ -175,6 +218,7 @@ Cards.before.insert((userId, doc) => {
 CardComments.before.insert((userId, doc) => {
   doc.createdAt = new Date();
   doc.userId = userId;
+
 });
 
 if (Meteor.isServer) {
@@ -207,8 +251,11 @@ if (Meteor.isServer) {
           listId: doc.listId,
           cardId: doc._id,
         });
+
       }
     }
+    if (_.contains(fieldNames, 'description')) 
+      Cards.update(doc._id,{$set: {dateLastActivity: new Date()}});
   });
 
   // New activity for card moves
@@ -256,6 +303,7 @@ if (Meteor.isServer) {
         cardId: doc._id,
       });
     }
+    
   });
 
   // Remove all activities associated with a card if we remove the card
@@ -273,6 +321,7 @@ if (Meteor.isServer) {
       cardId: doc.cardId,
       commentId: doc._id,
     });
+    Cards.update(doc.cardId, {$set: {dateLastActivity: new Date()}});
   });
 
   CardComments.after.remove((userId, doc) => {

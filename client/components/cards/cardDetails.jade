@@ -9,7 +9,8 @@ template(name="cardDetails")
       else
         a.fa.fa-times-thin.close-card-details.js-close-card-details
         if currentUser.isBoardMember
-          a.fa.fa-ellipsis-v.card-details-menu.js-open-card-details-menu
+          a.fa.fa-bars.card-details-menu.js-open-card-details-menu
+        span.badge-icon.fa.vote-card.js-vote-card(class="{{#if currentUser.hasVoted _id}}fa-thumbs-up card-voted{{else}}fa-thumbs-o-up card-not-voted{{/if}}" title="{{_ 'vote-card-title'}}")
         h2.card-details-title.js-card-title(
           class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
             = title
@@ -18,6 +19,7 @@ template(name="cardDetails")
       p.warning {{_ 'card-archived'}}
 
     .card-details-items
+
       .card-details-item.card-details-item-members
         h3.card-details-item-title {{_ 'members'}}
         each members
@@ -37,7 +39,7 @@ template(name="cardDetails")
             i.fa.fa-plus
 
     //- XXX We should use "editable" to avoid repetiting ourselves
-    if currentUser.isBoardMember
+    if descEditable
       h3.card-details-item-title {{_ 'description'}}
       +inlinedCardDescription(classNames="card-description js-card-description")
         +editor(autofocus=true)
@@ -72,7 +74,7 @@ template(name="cardDetails")
 
     hr
     h2 {{ _ 'activity'}}
-    if currentUser.isBoardMember
+    if canComment
       +commentForm
     if isLoaded.get
       +activities(card=this mode="card")

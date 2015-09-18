@@ -2,7 +2,9 @@ BlazeComponent.extendComponent({
   template() {
     return 'filterSidebar';
   },
-
+  onRendered() {
+    this.find('.js-search-text').value = Filter.title.get();//Session.get('currentBoardSearchText');  
+  },
   events() {
     return [{
       'click .js-toggle-label-filter'(evt) {
@@ -17,6 +19,7 @@ BlazeComponent.extendComponent({
       },
       'click .js-clear-all'(evt) {
         evt.preventDefault();
+        $('.js-search-text').val('');
         Filter.reset();
       },
       'click .js-filter-to-selection'(evt) {
@@ -25,6 +28,16 @@ BlazeComponent.extendComponent({
           return c._id;
         });
         MultiSelection.add(selectedCards);
+      },
+      'keyup .js-search-text,mouseup .js-search-text': function(evt) {
+        var text = this.find('.js-search-text').value;
+        //Session.set('currentBoardSearchText', text);
+        Filter.title.set(text);
+        //if( Filter.description.checked())
+        Filter.description.set(text);
+       },
+      'click .search-description': function(){
+        Filter.description.toogleChecked()
       },
     }];
   },
@@ -109,6 +122,7 @@ BlazeComponent.extendComponent({
       'click .js-archive-selection'() {
         updateSelectedCards({$set: {archived: true}});
       },
+      
     }];
   },
 }).register('multiselectionSidebar');
@@ -134,3 +148,22 @@ Template.disambiguateMultiMemberPopup.events({
     Popup.close();
   },
 });
+
+BlazeComponent.extendComponent({
+  template: function() {
+    return 'boardsearchSidebar';
+  },
+  onRendered() {
+    this.find('.js-search-text').value = Session.get('currentBoardSearchText');  
+  },
+  events: function() {
+    return [{
+      'keyup .js-search-text,mouseup .js-search-text': function(evt) {
+        var text = this.find('.js-search-text').value;
+        Session.set('currentBoardSearchText', text);
+        Filter.title.set(text);
+        Filter.description.set(text);
+       }
+    }];
+  }
+}).register('boardsearchSidebar');

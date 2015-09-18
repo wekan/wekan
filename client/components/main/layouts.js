@@ -1,4 +1,5 @@
-Meteor.subscribe('boards');
+Meteor.subscribe('organizations');
+Meteor.subscribe('boards')
 
 BlazeLayout.setRoot('body');
 

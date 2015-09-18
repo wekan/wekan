@@ -13,6 +13,9 @@ template(name="minicard")
         each members
           +userAvatar(userId=this)
     .badges
+      .badge
+        span.badge-icon.fa(class="{{#if currentUser.hasVoted _id}}fa-thumbs-up{{else}}fa-thumbs-o-up{{/if}}" title="{{_ 'votes-n-title' votes }}")
+        span.badge-text(title="{{_ 'votes-n-title' votes }}")= votes 
       if comments.count
         .badge(title="{{_ 'card-comments-title' comments.count }}")
           span.badge-icon.fa.fa-comment-o

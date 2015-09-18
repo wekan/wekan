@@ -61,6 +61,39 @@ BlazeComponent.extendComponent({
     });
   },
 
+  descEditable(){
+    if( this.data().list().board().isPublic() || this.data().list().board().isPrivate() ){
+      if( Meteor.user().isBoardMember() )
+        return true;
+      else
+        return false;
+    }
+    else if ( this.data().list().board().isCollaborate() ){
+      if( Meteor.user().isBoardAdmin() || this.data().userId === Meteor.userId() )
+        return true;
+      else
+        return false;
+    }
+  },
+
+  canComment(){
+    if( this.data().list().board().isPublic() || this.data().list().board().isPrivate() ){
+      if( Meteor.user().isBoardMember() )
+        return true;
+      else
+        return false;
+    }
+    else if ( this.data().list().board().isCollaborate() ){
+      if( Meteor.user().isBoardAdmin() )
+        return true;
+      else if( ( this.data().list().permission === 'registered' && Meteor.user()) || 
+        ( this.data().list().permission === 'member' && Meteor.user().isBoardMember()))
+        return true;
+      else
+        return false;
+    }
+  },
+
   events() {
     const events = {
       [`${CSSEvents.animationend} .js-card-details`]() {
@@ -91,6 +124,11 @@ BlazeComponent.extendComponent({
       'mouseenter .js-card-details'() {
         this.componentParent().showOverlay.set(true);
         this.componentParent().mouseHasEnterCardDetails = true;
+      },
+      'click .js-vote-card'() {
+        
+        Meteor.user().voteCard(this.currentData()._id);
+        //Users.update(Meteor.UserId(),{$addToSet: {profile.votedCards: this.currentData()._id}});
       },
     })];
   },

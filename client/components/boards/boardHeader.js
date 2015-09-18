@@ -47,15 +47,50 @@ BlazeComponent.extendComponent({
     return currentBoard && currentBoard.stars >= 2;
   },
 
-  events() {
+  getSortType: function(){
+    // var currentBoard = this.currentData();
+    // if( !(currentBoard.sortType))
+    //   if( currentBoard.permission === "collaborate" )
+    //     currentBoard.sortType = 'votes';
+    //   else
+    //     currentBoard.sortType = 'sort';
+
+    var sort = Session.get('currentBoardSort');
+    if( ! sort ){
+      var currentBoard = Boards.findOne(Session.get('currentBoard'));
+      sort = currentBoard.sortType;
+    }
+        
+    return  sort;
+   
+  },
+  getSortTypeText: function(){
+    // var currentBoard = this.currentData();
+    // if( !(currentBoard.sortType))
+    //   if( currentBoard.permission === "collaborate" )
+    //     currentBoard.sortType = 'votes';
+    //   else
+    //     currentBoard.sortType = 'sort';
+    return 'sort-by-'+ this.getSortType();
+  },
+  
+  events: function() {
     return [{
+      'click .js-change-sort': Popup.open('changeBoardSort'),
       'click .js-edit-board-title': Popup.open('boardChangeTitle'),
       'click .js-star-board'() {
         Meteor.user().toggleBoardStar(Session.get('currentBoard'));
       },
       'click .js-open-board-menu': Popup.open('boardMenu'),
       'click .js-change-visibility': Popup.open('boardChangeVisibility'),
-      'click .js-open-filter-view'() {
+      'click .js-open-board-search-view': function() {
+        Sidebar.setView('boardsearch');
+      },
+      'click .js-board-search-reset': function(evt) {
+        evt.stopPropagation();
+        Sidebar.setView();
+      },
+      'click .js-open-filter-view': function() {
         Sidebar.setView('filter');
       },
       'click .js-filter-reset'(evt) {
@@ -116,6 +151,18 @@ BlazeComponent.extendComponent({
     this.visibilityMenuIsOpen = new ReactiveVar(false);
     this.visibility = new ReactiveVar('private');
   },
+  organizations: function() {
+    return Organizations.find({}, {
+      sort: ['title']
+    });
+  },
+
+  isCurrentOrg: function(id){
+    if( Session.get('currentOrg') === id)
+      return true;
+    else
+      return false;
+  },
 
   visibilityCheck() {
     return this.currentData() === this.visibility.get();
@@ -132,12 +179,14 @@ BlazeComponent.extendComponent({
 
   onSubmit(evt) {
     evt.preventDefault();
-    const title = this.find('.js-new-board-title').value;
-    const visibility = this.visibility.get();
+    var title = this.find('.js-new-board-title').value;
+    var visibility = this.visibility.get();
+    var organizationId = this.find('.org-sel').value;
 
-    const boardId = Boards.insert({
-      title,
-      permission: visibility,
+    var boardId = Boards.insert({
+      title: title,
+      organizationId: organizationId,
+      permission: visibility
     });
 
     Utils.goBoardId(boardId);
@@ -182,3 +231,24 @@ BlazeComponent.extendComponent({
     }];
   },
 }).register('boardChangeVisibilityPopup');
+
+
+Template.changeBoardSortPopup.events({
+  'click .js-sort-votes, click .js-sort-createAt, click .js-sort-dateLastActivity, click .js-sort-sort': function(event) {
+    
+    var sortType = "";
+    if( $(event.currentTarget).hasClass('js-sort-votes'))
+      sortType = "votes";
+    else if( $(event.currentTarget).hasClass('js-sort-createAt'))
+      sortType = "createAt";
+    else if( $(event.currentTarget).hasClass('js-sort-dateLastActivity'))
+      sortType = "dateLastActivity";
+    else if( $(event.currentTarget).hasClass('js-sort-sort'))
+      sortType = "sort";
+    Session.set('currentBoardSort', sortType);
+    // Boards.update(currentBoard._id, {
+    //   sortType: sortType
+    // });
+    Popup.back(1);
+  }
+});
