@@ -23,6 +23,14 @@ Mousetrap.bind('x', () => {
   }
 });
 
+Mousetrap.bind('f', () => {
+  if (Sidebar.isOpen() && Sidebar.getView() === 'filter') {
+    Sidebar.toggle();
+  } else {
+    Sidebar.setView('filter');
+  }
+});
+
 Mousetrap.bind(['down', 'up'], (evt, key) => {
   if (!Session.get('currentCard')) {
     return;
@@ -63,6 +71,9 @@ Template.keyboardShortcuts.helpers({
   }, {
     keys: ['Q'],
     action: 'shortcut-filter-my-cards',
+  }, {
+    keys: ['F'],
+    action: 'shortcut-toggle-filterbar',
   }, {
     keys: ['X'],
     action: 'shortcut-clear-filters',
