@@ -36,6 +36,26 @@ Mousetrap.bind(['down', 'up'], (evt, key) => {
   }
 });
 
+// XXX This shortcut should also work when hovering over a card in board view
+Mousetrap.bind('space', (evt) => {
+  if (!Session.get('currentCard')) {
+    return;
+  }
+
+  const currentUserId = Meteor.userId();
+  if (currentUserId === null) {
+    return;
+  }
+
+  if (Meteor.user().isBoardMember()) {
+    const card = Cards.findOne(Session.get('currentCard'));
+    card.toggleMember(currentUserId);
+    // We should prevent scrolling in card when spacebar is clicked
+    // This should do it according to Mousetrap docs, but it doesn't
+    evt.preventDefault();
+  }
+});
+
 Template.keyboardShortcuts.helpers({
   mapping: [{
     keys: ['W'],
@@ -58,5 +78,8 @@ Template.keyboardShortcuts.helpers({
   }, {
     keys: [':'],
     action: 'shortcut-autocomplete-emojies',
+  }, {
+    keys: ['SPACE'],
+    action: 'shortcut-assign-self',
   }],
 });
