@@ -9,8 +9,8 @@ Meteor.publish('organizations', function() {
   //   return [];
 
   return Organizations.find({
-     archived: false,
-     'members.userId': this.userId
+    archived: false,
+    'members.userId': this.userId,
   }, {
     fields: {
       _id: 1,
@@ -19,33 +19,31 @@ Meteor.publish('organizations', function() {
       slug: 1,
       title: 1,
       members: 1,
-      sort: 1
-    }
+      sort: 1,
+    },
   });
 });
 
 Meteor.publishComposite('organization', function(shortName) {
   check(shortName, String);
-  //check(slug, String);
   return {
-    find: function() {
+    find() {
       return Organizations.find({
-        //_id: orgId,
-        shortName: shortName,
+        shortName,
         archived: false,
         // If the organization is not public the user has to be a member of it to see
         // it.
-        'members.userId': this.userId
+        'members.userId': this.userId,
       }, { limit: 1 });
     },
     children: [
       // Boards
       {
-        find: function(organization) {
+        find(organization) {
           return Boards.find({
-            organizationId: organization._id
+            organizationId: organization._id,
           });
-        }
+        },
       },
 
       // Cards and cards comments
@@ -77,18 +75,20 @@ Meteor.publishComposite('organization', function(shortName) {
       // aren't members anymore but may have some activities attached to them in
       // the history.
       {
-        find: function(organization) {
+        find(organization) {
           return Users.find({
-            _id: { $in: _.pluck(organization.members, 'userId') }
+            _id: { $in: _.pluck(organization.members, 'userId') },
           });
         },
         // Presence indicators
-        children: [{
-          find: function(user) {
-            return presences.find({userId: user._id});
-          }
-        }]
-      }
-    ]
+        children: [
+          {
+            find(user) {
+              return presences.find({userId: user._id});
+            },
+          },
+        ],
+      },
+    ],
   };
 });

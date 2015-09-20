@@ -132,6 +132,7 @@ globals:
   Lists: true
   UnsavedEditCollection: true
   Users: true
+  Organizations: true
 
   # Our objects
   CSSEvents: true

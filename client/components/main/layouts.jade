@@ -11,11 +11,16 @@ template(name="userFormsLayout")
     +Template.dynamic(template=content)
 
 template(name="boardsLayout")
-
-    +header
-    #boards-content
-      +Template.dynamic(template=content)
-
+  +header
+  #boards-content
+    +Template.dynamic(template=content)
+  if (Modal.isOpen)
+    #modal
+      .overlay
+      .modal-content
+        a.modal-close-btn.js-close-modal
+          i.fa.fa-times-thin
+        +Template.dynamic(template=Modal.getTemplateName)
       
 template(name="defaultLayout")
 

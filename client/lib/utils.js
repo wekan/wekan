@@ -36,20 +36,21 @@ Utils = {
     };
   },
 
-// Determine the new sort index
+  // Determine the new sort index of new created cards
+  // dont use calculateIndex 
   calculateSort(type, listId){
     var base = 0;
     var increment = 1;
     if( Cards.find({listId:listId}).count() === 0){
       base = 0;
     } 
-    if( type === "top" ){
+    else if( type === "top" ){
       var topsort = Cards.find({listId:listId}).fetch()[0].sort;
       base = topsort - 1;
     }
     else if( type === "bottom" ){
       var topsort = Cards.find({listId:listId}).fetch()[Cards.find({listId:listId}).count()-1].sort;
-      base = topsort - 1;    
+      base = topsort + 1;    
     }
     return base;
   },
