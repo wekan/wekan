@@ -76,7 +76,7 @@ template(name="memberPopup")
 
 
 template(name="removeMemberPopup")
-  p {{_ 'remove-member-pop' name=user.profile.name username=user.username boardTitle=board.title}}
+  p {{_ 'remove-member-pop' name=user.profile.fullname username=user.username boardTitle=board.title}}
   button.js-confirm.negate.full(type="submit") {{_ 'remove-member'}}
 
 template(name="addMemberPopup")
