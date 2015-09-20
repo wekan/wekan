@@ -152,10 +152,10 @@ Template.moveCardPopup.events({
 });
 
 Template.cardMorePopup.events({
-  'click .js-delete': Popup.afterConfirm('cardDelete', () => {
+  'click .js-delete': Popup.afterConfirm('cardDelete', function() {
     Popup.close();
     Cards.remove(this._id);
-    Utils.goBoardId(this.board()._id);
+    Utils.goBoardId(this.boardId);
   }),
 });
 
