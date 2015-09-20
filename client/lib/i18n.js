@@ -13,11 +13,8 @@ Tracker.autorun(() => {
   }
 
   if (language) {
-    //language = language.toLowerCase();
     TAPi18n.setLanguage(language);
 
-    // XXX
-    //var shortLanguage = language.split
     T9n.setLanguage(language.toLowerCase());
   }
 });
