@@ -34,7 +34,7 @@ Template.listActionPopup.events({
     Popup.close();
   },
   'click .js-move-cards': Popup.open('listMoveCards'),
-  'click .js-archive-cards': Popup.afterConfirm('listArchiveCards', () => {
+  'click .js-archive-cards': Popup.afterConfirm('listArchiveCards', function() {
     this.allCards().forEach((card) => {
       card.archive();
     });
