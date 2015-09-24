@@ -11,11 +11,17 @@ BlazeComponent.extendComponent({
   },
 
   archivedCards() {
-    return Cards.find({ archived: true });
+    return Cards.find({
+      archived: true,
+      boardId: Session.get('currentBoard'),
+    });
   },
 
   archivedLists() {
-    return Lists.find({ archived: true });
+    return Lists.find({
+      archived: true,
+      boardId: Session.get('currentBoard'),
+    });
   },
 
   cardIsInArchivedList() {
