@@ -80,6 +80,133 @@ Boards.attachSchema(new SimpleSchema({
   },
 }));
 
+
+Boards.helpers({
+  isPublic() {
+    return this.permission === 'public';
+  },
+
+  isCollaborate: function() {
+    return this.permission === 'collaborate';
+  },
+
+  isPrivate: function() {
+    return this.permission === 'private';
+  },
+
+  lists() {
+    return Lists.find({ boardId: this._id, archived: false },
+                                                          { sort: { sort: 1 }});
+  },
+
+  activities() {
+    return Activities.find({ boardId: this._id }, { sort: { createdAt: -1 }});
+  },
+
+  activeMembers() {
+    return _.where(this.members, {isActive: true});
+  },
+
+  labelIndex(labelId) {
+    return _.indexOf(_.pluck(this.labels, '_id'), labelId);
+  },
+
+  memberIndex(memberId) {
+    return _.indexOf(_.pluck(this.members, 'userId'), memberId);
+  },
+
+  absoluteUrl() {
+    return FlowRouter.path('board', { id: this._id, slug: this.slug });
+  },
+
+  colorClass() {
+    return `board-color-${this.color}`;
+  },
+});
+
+Boards.mutations({
+  archive() {
+    return { $set: { archived: true }};
+  },
+
+  restore() {
+    return { $set: { archived: false }};
+  },
+
+  rename(title) {
+    return { $set: { title }};
+  },
+
+  setColor(color) {
+    return { $set: { color }};
+  },
+
+  setVisibility(visibility) {
+    return { $set: { permission: visibility }};
+  },
+
+  addLabel(name, color) {
+    const _id = Random.id(6);
+    return { $push: {labels: { _id, name, color }}};
+  },
+
+  editLabel(labelId, name, color) {
+    const labelIndex = this.labelIndex(labelId);
+    return {
+      $set: {
+        [`labels.${labelIndex}.name`]: name,
+        [`labels.${labelIndex}.color`]: color,
+      },
+    };
+  },
+
+  removeLabel(labelId) {
+    return { $pull: { labels: { _id: labelId }}};
+  },
+
+  addMember(memberId) {
+    const memberIndex = this.memberIndex(memberId);
+    if (memberIndex === -1) {
+      return {
+        $push: {
+          members: {
+            userId: memberId,
+            isAdmin: false,
+            isActive: true,
+          },
+        },
+      };
+    } else {
+      return {
+        $set: {
+          [`members.${memberIndex}.isActive`]: true,
+          [`members.${memberIndex}.isAdmin`]: false,
+        },
+      };
+    }
+  },
+
+  removeMember(memberId) {
+    const memberIndex = this.memberIndex(memberId);
+
+    return {
+      $set: {
+        [`members.${memberIndex}.isActive`]: false,
+      },
+    };
+  },
+
+  setMemberPermission(memberId, isAdmin) {
+    const memberIndex = this.memberIndex(memberId);
+
+    return {
+      $set: {
+        [`members.${memberIndex}.isAdmin`]: isAdmin,
+      },
+    };
+  },
+});
+
 if (Meteor.isServer) {
   Boards.allow({
     insert: Meteor.userId,
@@ -125,39 +252,6 @@ if (Meteor.isServer) {
     fetch: ['members'],
   });
 }
-
-Boards.helpers({
-  isPublic() {
-    return this.permission === 'public';
-  },
-  isCollaborate: function() {
-    return this.permission === 'collaborate';
-  },
-  isPrivate: function() {
-    return this.permission === 'private';
-  },
-
-  lists() {
-    return Lists.find({ boardId: this._id, archived: false },
-                                                          { sort: { sort: 1 }});
-  },
-
-  activities() {
-    return Activities.find({ boardId: this._id }, { sort: { createdAt: -1 }});
-  },
-
-  activeMembers() {
-    return _.where(this.members, {isActive: true});
-  },
-
-  absoluteUrl() {
-    return FlowRouter.path('board', { id: this._id, slug: this.slug });
-  },
-
-  colorClass() {
-    return `board-color-${this.color}`;
-  },
-});
 
 Boards.before.insert((userId, doc) => {
   // XXX We need to improve slug management. Only the id should be necessary

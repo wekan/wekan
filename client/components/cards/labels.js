@@ -45,19 +45,9 @@ Template.createLabelPopup.helpers({
 
 Template.cardLabelsPopup.events({
   'click .js-select-label'(evt) {
-    const cardId = Template.parentData(2).data._id;
+    const card = Cards.findOne(Session.get('currentCard'));
     const labelId = this._id;
-    let operation;
-    if (Cards.find({ _id: cardId, labelIds: labelId}).count() === 0)
-      operation = '$addToSet';
-    else
-      operation = '$pull';
-
-    Cards.update(cardId, {
-      [operation]: {
-        labelIds: labelId,
-      },
-    });
+    card.toggleLabel(labelId);
     evt.preventDefault();
   },
   'click .js-edit-label': Popup.open('editLabel'),
@@ -79,20 +69,10 @@ Template.formLabel.events({
 Template.createLabelPopup.events({
   // Create the new label
   'submit .create-label'(evt, tpl) {
+    const board = Boards.findOne(Session.get('currentBoard'));
     const name = tpl.$('#labelName').val().trim();
-    const boardId = Session.get('currentBoard');
     const color = Blaze.getData(tpl.find('.fa-check')).color;
-
-    Boards.update(boardId, {
-      $push: {
-        labels: {
-          name,
-          color,
-          _id: Random.id(6),
-        },
-      },
-    });
-
+    board.addLabel(name, color);
     Popup.back();
     evt.preventDefault();
   },
@@ -100,31 +80,16 @@ Template.createLabelPopup.events({
 
 Template.editLabelPopup.events({
   'click .js-delete-label': Popup.afterConfirm('deleteLabel', function() {
-    const boardId = Session.get('currentBoard');
-    Boards.update(boardId, {
-      $pull: {
-        labels: {
-          _id: this._id,
-        },
-      },
-    });
-
+    const board = Boards.findOne(Session.get('currentBoard'));
+    board.removeLabel(this._id);
     Popup.back(2);
   }),
   'submit .edit-label'(evt, tpl) {
     evt.preventDefault();
+    const board = Boards.findOne(Session.get('currentBoard'));
     const name = tpl.$('#labelName').val().trim();
-    const boardId = Session.get('currentBoard');
-    const getLabel = Utils.getLabelIndex(boardId, this._id);
     const color = Blaze.getData(tpl.find('.fa-check')).color;
-
-    Boards.update(boardId, {
-      $set: {
-        [getLabel.key('name')]: name,
-        [getLabel.key('color')]: color,
-      },
-    });
-
+    board.editLabel(this._id, name, color);
     Popup.back();
   },
 });

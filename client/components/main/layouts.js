@@ -12,3 +12,9 @@ Template.defaultLayout.events({
     Modal.close();
   },
 });
+
+Template.boardsLayout.events({
+  'click .js-close-modal': () => {
+    Modal.close();
+  },
+});

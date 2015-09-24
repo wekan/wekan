@@ -1,7 +1,7 @@
 Template.attachmentsGalery.events({
   'click .js-add-attachment': Popup.open('cardAttachments'),
   'click .js-confirm-delete': Popup.afterConfirm('attachmentDelete',
-    () => {
+    function() {
       Attachments.remove(this._id);
       Popup.close();
     }
@@ -15,10 +15,10 @@ Template.attachmentsGalery.events({
     // XXX Not implemented!
   },
   'click .js-add-cover'() {
-    Cards.update(this.cardId, { $set: { coverId: this._id } });
+    Cards.findOne(this.cardId).setCover(this._id);
   },
   'click .js-remove-cover'() {
-    Cards.update(this.cardId, { $unset: { coverId: '' } });
+    Cards.findOne(this.cardId).unsetCover();
   },
 });
 

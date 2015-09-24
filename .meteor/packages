@@ -18,7 +18,6 @@ mquandalle:stylus
 es5-shim
 
 # Collections
-mongo
 aldeed:collection2
 cfs:gridfs
 cfs:standard-packages
@@ -26,6 +25,8 @@ dburles:collection-helpers
 idmontie:migrations
 matb33:collection-hooks
 matteodem:easy-search
+mongo
+mquandalle:collection-mutations
 reywood:publish-composite
 
 # Account system

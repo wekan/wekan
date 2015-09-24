@@ -5,14 +5,10 @@ BlazeComponent.extendComponent({
 
   editTitle(evt) {
     evt.preventDefault();
-    const form = this.componentChildren('inlinedForm')[0];
-    const newTitle = form.getValue();
+    const newTitle = this.componentChildren('inlinedForm')[0].getValue();
+    const list = this.currentData();
     if ($.trim(newTitle)) {
-      Lists.update(this.currentData()._id, {
-        $set: {
-          title: newTitle,
-        },
-      });
+      list.rename(newTitle);
     }
   },
 
@@ -33,45 +29,30 @@ Template.listActionPopup.events({
   },
   'click .js-list-subscribe'() {},
   'click .js-select-cards'() {
-    const cardIds = Cards.find(
-      {listId: this._id},
-      {fields: { _id: 1 }}
-    ).map((card) => card._id);
+    const cardIds = this.allCards().map((card) => card._id);
     MultiSelection.add(cardIds);
     Popup.close();
   },
   'click .js-move-cards': Popup.open('listMoveCards'),
-  'click .js-archive-cards': Popup.afterConfirm('listArchiveCards', () => {
-    Cards.find({listId: this._id}).forEach((card) => {
-      Cards.update(card._id, {
-        $set: {
-          archived: true,
-        },
-      });
+  'click .js-archive-cards': Popup.afterConfirm('listArchiveCards', function() {
+    this.allCards().forEach((card) => {
+      card.archive();
     });
     Popup.close();
   }),
   'click .js-close-list'(evt) {
     evt.preventDefault();
-    Lists.update(this._id, {
-      $set: {
-        archived: true,
-      },
-    });
+    this.archive();
     Popup.close();
   },
 });
 
 Template.listMoveCardsPopup.events({
   'click .js-select-list'() {
-    const fromList = Template.parentData(2).data._id;
+    const fromList = Template.parentData(2).data;
     const toList = this._id;
-    Cards.find({ listId: fromList }).forEach((card) => {
-      Cards.update(card._id, {
-        $set: {
-          listId: toList,
-        },
-      });
+    fromList.allCards().forEach((card) => {
+      card.move(toList);
     });
     Popup.close();
   },

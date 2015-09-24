@@ -40,6 +40,7 @@ FlowRouter.route('/b/:id/:slug', {
     const previousBoard = Session.get('currentBoard');
     Session.set('currentBoard', currentBoard);
     Session.set('currentCard', null);
+    Session.get('currentBoardSort', null);
 
     // If we close a card, we'll execute again this route action but we don't
     // want to excape every current actions (filters, etc.)

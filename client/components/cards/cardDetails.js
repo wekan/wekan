@@ -55,12 +55,6 @@ BlazeComponent.extendComponent({
     this.componentParent().showOverlay.set(false);
   },
 
-  updateCard(modifier) {
-    Cards.update(this.data()._id, {
-      $set: modifier,
-    });
-  },
-
   descEditable(){
     if( this.data().list().board().isPublic() || this.data().list().board().isPrivate() ){
       if( Meteor.user().isBoardMember() )
@@ -109,13 +103,13 @@ BlazeComponent.extendComponent({
       'submit .js-card-description'(evt) {
         evt.preventDefault();
         const description = this.currentComponent().getValue();
-        this.updateCard({ description });
+        this.data().setDescription(description);
       },
       'submit .js-card-details-title'(evt) {
         evt.preventDefault();
         const title = this.currentComponent().getValue();
         if ($.trim(title)) {
-          this.updateCard({ title });
+          this.data().setTitle(title);
         }
       },
       'click .js-member': Popup.open('cardMember'),
@@ -176,14 +170,9 @@ Template.cardDetailsActionsPopup.events({
   'click .js-labels': Popup.open('cardLabels'),
   'click .js-attachments': Popup.open('cardAttachments'),
   'click .js-move-card': Popup.open('moveCard'),
-  // 'click .js-copy': Popup.open(),
   'click .js-archive'(evt) {
     evt.preventDefault();
-    Cards.update(this._id, {
-      $set: {
-        archived: true,
-      },
-    });
+    this.archive();
     Popup.close();
   },
   'click .js-more': Popup.open('cardMore'),
@@ -193,22 +182,18 @@ Template.moveCardPopup.events({
   'click .js-select-list'() {
     // XXX We should *not* get the currentCard from the global state, but
     // instead from a “component” state.
-    const cardId = Session.get('currentCard');
+    const card = Cards.findOne(Session.get('currentCard'));
     const newListId = this._id;
-    Cards.update(cardId, {
-      $set: {
-        listId: newListId,
-      },
-    });
+    card.move(newListId);
     Popup.close();
   },
 });
 
 Template.cardMorePopup.events({
-  'click .js-delete': Popup.afterConfirm('cardDelete', () => {
+  'click .js-delete': Popup.afterConfirm('cardDelete', function() {
     Popup.close();
     Cards.remove(this._id);
-    Utils.goBoardId(this.board()._id);
+    Utils.goBoardId(this.boardId);
   }),
 });
 

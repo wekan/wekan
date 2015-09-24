@@ -36,7 +36,11 @@ template(name="headerBoard")
           title="{{#if MultiSelection.isActive}}{{_ 'multi-selection-on-desc'}}{{/if}}"
           class="{{#if MultiSelection.isActive}}emphasis{{/if}}")
         i.fa.fa-check-square-o
+<<<<<<< .mine
         span {{_ 'multi-selection'}} {{#if MultiSelection.isActive}}{{_ 'is-on'}}{{/if}}
+=======
+        span {{#if MultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}
+>>>>>>> .theirs
         if MultiSelection.isActive
           a.board-header-btn-close.js-multiselection-reset(title="{{_ 'multi-selection-clear'}}")
             i.fa.fa-times-thin
@@ -128,7 +132,11 @@ template(name="createBoardPopup")
           span.fa.fa-lock.colorful
           = " "
           | {{{_ 'board-private-info'}}}
+<<<<<<< .mine
         a.js-change-visibility {{_ 'change'}}
+=======
+        a.js-change-visibility {{_ 'change'}}.
+>>>>>>> .theirs
     input.primary.wide(type="submit" value="{{_ 'create'}}")
 
 

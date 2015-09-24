@@ -82,11 +82,7 @@ BlazeComponent.extendComponent({
   },
 
   setAvatar(avatarUrl) {
-    Meteor.users.update(Meteor.userId(), {
-      $set: {
-        'profile.avatarUrl': avatarUrl,
-      },
-    });
+    Meteor.user().setAvatarUrl(avatarUrl);
   },
 
   setError(error) {
@@ -151,19 +147,9 @@ Template.cardMembersPopup.helpers({
 
 Template.cardMembersPopup.events({
   'click .js-select-member'(evt) {
-    const cardId = Template.parentData(2).data._id;
+    const card = Cards.findOne(Session.get('currentCard'));
     const memberId = this.userId;
-    let operation;
-    if (Cards.find({ _id: cardId, members: memberId}).count() === 0)
-      operation = '$addToSet';
-    else
-      operation = '$pull';
-
-    Cards.update(cardId, {
-      [operation]: {
-        members: memberId,
-      },
-    });
+    card.toggleMember(memberId);
     evt.preventDefault();
   },
 });
@@ -176,7 +162,7 @@ Template.cardMemberPopup.helpers({
 
 Template.cardMemberPopup.events({
   'click .js-remove-member'() {
-    Cards.update(this.cardId, {$pull: {members: this.userId}});
+    Cards.findOne(this.cardId).unassignMember(this.userId);
     Popup.close();
   },
   'click .js-edit-profile': Popup.open('editProfile'),

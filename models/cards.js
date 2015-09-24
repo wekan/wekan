@@ -1,5 +1,4 @@
 Cards = new Mongo.Collection('cards');
-CardComments = new Mongo.Collection('card_comments');
 
 // XXX To improve pub/sub performances a card document should include a
 // de-normalized number of comments so we don't have to publish the whole list
@@ -58,102 +57,56 @@ Cards.attachSchema(new SimpleSchema({
   },
 }));
 
-CardComments.attachSchema(new SimpleSchema({
-  boardId: {
-    type: String,
+Cards.allow({
+  insert(userId, doc) {
+    if( Boards.findOne(doc.boardId).isPublic() || Boards.findOne(doc.boardId).isPrivate())
+      return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+    else if( Boards.findOne(doc.boardId).isCollaborate() ) {
+      if( Meteor.user().isBoardAdmin(doc.boardId) )
+        return true;
+      else if( ( this.list().permission === 'registered' && Meteor.user()) || 
+        ( this.list().permission === 'member' && Meteor.user().isBoardMember(doc.boardId)))
+        return true;
+      else
+        return false;
+    }
   },
-  cardId: {
-    type: String,
+  update(userId, doc) {
+    if( Boards.findOne(doc.boardId).isPublic() || Boards.findOne(doc.boardId).isPrivate())
+      return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+    else if( Boards.findOne(doc.boardId).isCollaborate() ) {
+      if( Meteor.user().isBoardAdmin(doc.boardId) )
+        return true;
+      else if( userId === doc.userId)
+        return true;
+      else
+        return false;
+    }      
   },
-  // XXX Rename in `content`? `text` is a bit vague...
-  text: {
-    type: String,
+  remove(userId, doc) {
+    if( Boards.findOne(doc.boardId).isPublic() || Boards.findOne(doc.boardId).isPrivate())
+      return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+    else if( Boards.findOne(doc.boardId).isCollaborate() ) {
+      if( Meteor.user().isBoardAdmin(doc.boardId) )
+        return true;
+      else if( userId === doc.userId)
+        return true;
+      else
+        return false;
+    }
   },
-  // XXX We probably don't need this information here, since we already have it
-  // in the associated comment creation activity
-  createdAt: {
-    type: Date,
-    denyUpdate: false,
-  },
-  // XXX Should probably be called `authorId`
-  userId: {
-    type: String,
-  },
-}));
-
-if (Meteor.isServer) {
-  Cards.allow({
-    insert(userId, doc) {
-      if( Boards.findOne(doc.boardId).isPublic() || Boards.findOne(doc.boardId).isPrivate())
-        return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
-      else if( Boards.findOne(doc.boardId).isCollaborate() ) {
-        if( Meteor.user().isBoardAdmin(doc.boardId) )
-          return true;
-        else if( ( this.list().permission === 'registered' && Meteor.user()) || 
-          ( this.list().permission === 'member' && Meteor.user().isBoardMember(doc.boardId)))
-          return true;
-        else
-          return false;
-      }
-    },
-    update(userId, doc) {
-      if( Boards.findOne(doc.boardId).isPublic() || Boards.findOne(doc.boardId).isPrivate())
-        return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
-      else if( Boards.findOne(doc.boardId).isCollaborate() ) {
-        if( Meteor.user().isBoardAdmin(doc.boardId) )
-          return true;
-        else if( userId === doc.userId)
-          return true;
-        else
-          return false;
-      }      
-    },
-    remove(userId, doc) {
-      if( Boards.findOne(doc.boardId).isPublic() || Boards.findOne(doc.boardId).isPrivate())
-        return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
-      else if( Boards.findOne(doc.boardId).isCollaborate() ) {
-        if( Meteor.user().isBoardAdmin(doc.boardId) )
-          return true;
-        else if( userId === doc.userId)
-          return true;
-        else
-          return false;
-      }
-    },
-    fetch: ['boardId'],
-  });
-
-  CardComments.allow({
-    insert(userId, doc) {
-      if( Boards.findOne(doc.boardId).isPublic() || Boards.findOne(doc.boardId).isPrivate())
-        return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
-      else if( Boards.findOne(doc.boardId).isCollaborate() ) {
-        if( Meteor.user().isBoardAdmin(doc.boardId) )
-          return true;
-        else if( ( Cards.findOne(cardId).list().permission === 'registered' && Meteor.user()) || 
-          ( Cards.findOne(cardId).list().permission === 'member' && Meteor.user().isBoardMember(doc.boardId)))
-          return true;
-        else
-          return false;
-      } 
-    },
-    update(userId, doc) {
-      return userId === doc.userId;
-    },
-    remove(userId, doc) {
-      return userId === doc.userId;
-    },
-    fetch: ['userId', 'boardId'],
-  });
-}
+  fetch: ['boardId'],
+});
 
 Cards.helpers({
   list() {
     return Lists.findOne(this.listId);
   },
+
   board() {
     return Boards.findOne(this.boardId);
   },
+
   labels() {
     const boardLabels = this.board().labels;
     const cardLabels = _.filter(boardLabels, (label) => {
@@ -161,27 +114,35 @@ Cards.helpers({
     });
     return cardLabels;
   },
+
   hasLabel(labelId) {
     return _.contains(this.labelIds, labelId);
   },
+
   user() {
     return Users.findOne(this.userId);
   },
+
   isAssigned(memberId) {
     return _.contains(this.members, memberId);
   },
+
   activities() {
     return Activities.find({ cardId: this._id }, { sort: { createdAt: -1 }});
   },
+
   comments() {
     return CardComments.find({ cardId: this._id }, { sort: { createdAt: -1 }});
   },
+
   attachments() {
     return Attachments.find({ cardId: this._id }, { sort: { uploadedAt: -1 }});
   },
+
   cover() {
     return Attachments.findOne(this.coverId);
   },
+
   absoluteUrl() {
     const board = this.board();
     return FlowRouter.path('card', {
@@ -190,36 +151,88 @@ Cards.helpers({
       cardId: this._id,
     });
   },
+
   rootUrl() {
     return Meteor.absoluteUrl(this.absoluteUrl().replace('/', ''));
   },
 });
 
-CardComments.helpers({
-  user() {
-    return Users.findOne(this.userId);
+Cards.mutations({
+  archive() {
+    return { $set: { archived: true }};
+  },
+
+  restore() {
+    return { $set: { archived: false }};
+  },
+
+  setTitle(title) {
+    return { $set: { title }};
+  },
+
+  setDescription(description) {
+    return { $set: { description }};
+  },
+
+  move(listId, sortIndex) {
+    const mutatedFields = { listId };
+    if (sortIndex) {
+      mutatedFields.sort = sortIndex;
+    }
+    return { $set: mutatedFields };
+  },
+
+  addLabel(labelId) {
+    return { $addToSet: { labelIds: labelId }};
+  },
+
+  removeLabel(labelId) {
+    return { $pull: { labelIds: labelId }};
+  },
+
+  toggleLabel(labelId) {
+    if (this.labelIds && this.labelIds.indexOf(labelId) > -1) {
+      return this.removeLabel(labelId);
+    } else {
+      return this.addLabel(labelId);
+    }
+  },
+
+  assignMember(memberId) {
+    return { $addToSet: { members: memberId }};
+  },
+
+  unassignMember(memberId) {
+    return { $pull: { members: memberId }};
+  },
+
+  toggleMember(memberId) {
+    if (this.members && this.members.indexOf(memberId) > -1) {
+      return this.unassignMember(memberId);
+    } else {
+      return this.assignMember(memberId);
+    }
+  },
+
+  setCover(coverId) {
+    return { $set: { coverId }};
+  },
+
+  unsetCover() {
+    return { $unset: { coverId: '' }};
   },
 });
 
-CardComments.hookOptions.after.update = { fetchPrevious: false };
 Cards.before.insert((userId, doc) => {
   doc.createdAt = new Date();
   doc.dateLastActivity = new Date();
-
-  // defaults
   doc.archived = false;
   doc.votes = 0;
 
-  // userId native set.
-  if (!doc.userId)
+  if (!doc.userId) 
     doc.userId = userId;
 });
 
-CardComments.before.insert((userId, doc) => {
-  doc.createdAt = new Date();
-  doc.userId = userId;
-
-});
 
 if (Meteor.isServer) {
   Cards.after.insert((userId, doc) => {
@@ -313,21 +326,4 @@ if (Meteor.isServer) {
     });
   });
 
-  CardComments.after.insert((userId, doc) => {
-    Activities.insert({
-      userId,
-      activityType: 'addComment',
-      boardId: doc.boardId,
-      cardId: doc.cardId,
-      commentId: doc._id,
-    });
-    Cards.update(doc.cardId, {$set: {dateLastActivity: new Date()}});
-  });
-
-  CardComments.after.remove((userId, doc) => {
-    const activity = Activities.findOne({ commentId: doc._id });
-    if (activity) {
-      Activities.remove(activity._id);
-    }
-  });
 }

@@ -32,20 +32,18 @@ Lists.attachSchema(new SimpleSchema({
   },
 }));
 
-if (Meteor.isServer) {
-  Lists.allow({
-    insert(userId, doc) {
-      return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
-    },
-    update(userId, doc) {
-      return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
-    },
-    remove(userId, doc) {
-      return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
-    },
-    fetch: ['boardId'],
-  });
-}
+Lists.allow({
+  insert(userId, doc) {
+    return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+  },
+  update(userId, doc) {
+    return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+  },
+  remove(userId, doc) {
+    return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+  },
+  fetch: ['boardId'],
+});
 
 Lists.helpers({
   cards: function() { 
@@ -100,12 +98,30 @@ Lists.helpers({
        
     return Cards.find(Filter.mongoSelector(slector), { sort: sortType });
   },
+
+  allCards() {
+    return Cards.find({ listId: this._id });
+  },
+
   board() {
     return Boards.findOne(this.boardId);
   },
 });
 
-// HOOKS
+Lists.mutations({
+  rename(title) {
+    return { $set: { title }};
+  },
+
+  archive() {
+    return { $set: { archived: true }};
+  },
+
+  restore() {
+    return { $set: { archived: false }};
+  },
+});
+
 Lists.hookOptions.after.update = { fetchPrevious: false };
 
 Lists.before.insert((userId, doc) => {

@@ -110,14 +110,6 @@ EscapeActions.register('sidebarView',
   () => { return Sidebar && Sidebar.getView() !== defaultView; }
 );
 
-function getMemberIndex(board, searchId) {
-  for (let i = 0; i < board.members.length; i++) {
-    if (board.members[i].userId === searchId)
-      return i;
-  }
-  throw new Meteor.Error('Member not found');
-}
-
 Template.memberPopup.helpers({
   user() {
     return Users.findOne(this.userId);
@@ -136,18 +128,22 @@ Template.memberPopup.events({
   'click .js-change-role': Popup.open('changePermissions'),
   'click .js-remove-member': Popup.afterConfirm('removeMember', function() {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
-    const memberIndex = getMemberIndex(currentBoard, this.userId);
-
-    Boards.update(currentBoard._id, {
-      $set: {
-        [`members.${memberIndex}.isActive`]: false,
-      },
-    });
+    const memberId = this.userId;
+    currentBoard.removeMember(memberId);
     Popup.close();
   }),
   'click .js-leave-member'() {
     // XXX Not implemented
     Popup.close();
+  },
+});
+
+Template.removeMemberPopup.helpers({
+  user() {
+    return Users.findOne(this.userId);
+  },
+  board() {
+    return Boards.findOne(Session.get('currentBoard'));
   },
 });
 
@@ -210,26 +206,7 @@ Template.addMemberPopup.events({
   'click .js-select-member'() {
     const userId = this._id;
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
-    const currentMembersIds = _.pluck(currentBoard.members, 'userId');
-    if (currentMembersIds.indexOf(userId) === -1) {
-      Boards.update(currentBoard._id, {
-        $push: {
-          members: {
-            userId,
-            isAdmin: false,
-            isActive: true,
-          },
-        },
-      });
-    } else {
-      const memberIndex = getMemberIndex(currentBoard, userId);
-
-      Boards.update(currentBoard._id, {
-        $set: {
-          [`members.${memberIndex}.isActive`]: true,
-        },
-      });
-    }
+    currentBoard.addMember(userId);
     Popup.close();
   },
 });
@@ -241,14 +218,9 @@ Template.addMemberPopup.onRendered(function() {
 Template.changePermissionsPopup.events({
   'click .js-set-admin, click .js-set-normal'(event) {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
-    const memberIndex = getMemberIndex(currentBoard, this.userId);
+    const memberId = this.userId;
     const isAdmin = $(event.currentTarget).hasClass('js-set-admin');
-
-    Boards.update(currentBoard._id, {
-      $set: {
-        [`members.${memberIndex}.isAdmin`]: isAdmin,
-      },
-    });
+    currentBoard.setMemberPermission(memberId, isAdmin);
     Popup.back(1);
   },
 });

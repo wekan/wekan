@@ -6,9 +6,9 @@ Template.boardMenuPopup.events({
   },
   'click .js-change-board-color': Popup.open('boardChangeColor'),
   'click .js-change-language': Popup.open('changeLanguage'),
-  'click .js-archive-board ': Popup.afterConfirm('archiveBoard', () => {
-    const boardId = Session.get('currentBoard');
-    Boards.update(boardId, { $set: { archived: true }});
+  'click .js-archive-board ': Popup.afterConfirm('archiveBoard', function() {
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    currentBoard.archive();
     // XXX We should have some kind of notification on top of the page to
     // confirm that the board was successfully archived.
     FlowRouter.go('home');
@@ -17,13 +17,9 @@ Template.boardMenuPopup.events({
 
 Template.boardChangeTitlePopup.events({
   submit(evt, tpl) {
-    const title = tpl.$('.js-board-name').val().trim();
-    if (title) {
-      Boards.update(this._id, {
-        $set: {
-          title,
-        },
-      });
+    const newTitle = tpl.$('.js-board-name').val().trim();
+    if (newTitle) {
+      this.rename(newTitle);
       Popup.close();
     }
     evt.preventDefault();
@@ -130,12 +126,9 @@ BlazeComponent.extendComponent({
   events() {
     return [{
       'click .js-select-background'(evt) {
-        const currentBoardId = Session.get('currentBoard');
-        Boards.update(currentBoardId, {
-          $set: {
-            color: this.currentData().toString(),
-          },
-        });
+        const currentBoard = Boards.findOne(Session.get('currentBoard'));
+        const newColor = this.currentData().toString();
+        currentBoard.setColor(newColor);
         evt.preventDefault();
       },
     }];
@@ -217,11 +210,9 @@ BlazeComponent.extendComponent({
   },
 
   selectBoardVisibility() {
-    Boards.update(Session.get('currentBoard'), {
-      $set: {
-        permission: this.currentData(),
-      },
-    });
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    const visibility = this.currentData();
+    currentBoard.setVisibility(visibility);
     Popup.close();
   },
 

@@ -65,21 +65,6 @@ Users.helpers({
     }
   },
 
-  toggleBoardStar(boardId) {
-    const queryKind = this.hasStarred(boardId) ? '$pull' : '$addToSet';
-    Meteor.users.update(this._id, {
-      [queryKind]: {
-        'profile.starredBoards': boardId,
-      },
-    });
-  },
-
-
-  // votedCards() {
-  //   const votedCardIds = this.profile.votedCards || [];
-  //   return Cards.find({archived: false, _id: {$in: votedCardIds}});
-  // },
-
   hasVoted(cardId) {
     const votedCards = this.profile.votedCards || [];
     return _.contains(_.pluck(votedCards, 'cardId'), cardId);
@@ -132,6 +117,22 @@ Users.helpers({
     }
    
   },
+});
+
+Users.mutations({
+  toggleBoardStar(boardId) {
+    const queryKind = this.hasStarred(boardId) ? '$pull' : '$addToSet';
+    return {
+      [queryKind]: {
+        'profile.starredBoards': boardId,
+      },
+    };
+  },
+
+  setAvatarUrl(avatarUrl) {
+    return { $set: { 'profile.avatarUrl': avatarUrl }};
+  },
+
 });
 
 Meteor.methods({

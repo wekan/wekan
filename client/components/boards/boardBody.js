@@ -132,7 +132,9 @@ Template.boardBody.onRendered(function() {
     },
   };
 
-  if (!Meteor.user() || !Meteor.user().isBoardMember())
+  const currentBoard = Boards.findOne(Session.get('currentBoard'));
+  if (!Meteor.user() || !Meteor.user().isBoardMember() ||
+    (currentBoard.isCollaborate() && ! (Meteor.user().isBoardAdmin())))
     return;
 
   self.$(self.listsDom).sortable({
@@ -168,7 +170,6 @@ Template.boardBody.onRendered(function() {
 
   // If there is no data in the board (ie, no lists) we autofocus the list
   // creation form by clicking on the corresponding element.
-  const currentBoard = Boards.findOne(Session.get('currentBoard'));
   if (currentBoard.lists().count() === 0) {
     self.openNewListForm();
   }
