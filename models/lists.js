@@ -14,7 +14,6 @@ Lists.attachSchema(new SimpleSchema({
     type: Date,
     denyUpdate: true,
   },
-  
   sort: {
     type: Number,
     decimal: true,
@@ -25,10 +24,6 @@ Lists.attachSchema(new SimpleSchema({
     type: Date,
     denyInsert: true,
     optional: true,
-  },
-  permission: {
-    type: String,
-    allowedValues: ['any','registered', 'member', 'admin']
   },
 }));
 
@@ -46,57 +41,11 @@ Lists.allow({
 });
 
 Lists.helpers({
-  cards: function() { 
-    var sortTypeText = Session.get("currentBoardSort");
-    var sortType = {};
-    if( sortTypeText )
-      sortType[sortTypeText] = sortTypeText=='sort'?1:-1 ;
-    else if (this.board.sortType)
-      sortType[this.board.sortType] = sortTypeText=='sort'?1:-1 ;
-    else
-      sortType = ['sort'];  
-
-    var slector = {
+  cards() {
+    return Cards.find(Filter.mongoSelector({
       listId: this._id,
-      archived: false
-    };
-
-    // var ret = new Mongo.Collection("");
-    // var cards = Cards.find(Filter.mongoSelector(slector), { sort: [sortType] });
-
-    // // miniMongo dont have index now!
-    // var searchText = Session.get('currentBoardSearchText');
-    // if( searchText ){
-    //   for( var i=cards.length-1;i--;i>=0)
-    //       {
-            
-    //         if( cards[i].title.indexOf(text) > 0 )
-    //           //cards.splice(i,1); 
-    //           var card = cards[i];
-    //           ret.insert({
-    //             title: card.title,
-    //             archived: card.archived,
-    //             listId: card.listId,
-    //             boardId: card.boardId,
-    //             coverId:card.coverId,
-    //             createdAt: card.createdAt,
-    //             dateLastActivity: card.dateLastActivity,
-    //             description: card.description,
-    //             labelIds: card.labelIds,
-    //             members: card.members,
-    //             // XXX Should probably be called `authorId`. Is it even needed since we have
-    //             // the `members` field?
-    //             userId: card.userId,
-    //             votes: card.votes,
-    //             sort: card.sort,
-    //           });
-             
-    //       }    
-    // }
-    // else
-    //   ret = cards;
-       
-    return Cards.find(Filter.mongoSelector(slector), { sort: sortType });
+      archived: false,
+    }), { sort: ['sort'] });
   },
 
   allCards() {
@@ -127,8 +76,6 @@ Lists.hookOptions.after.update = { fetchPrevious: false };
 Lists.before.insert((userId, doc) => {
   doc.createdAt = new Date();
   doc.archived = false;
-  doc.permission = doc.permission || "member";
-
   if (!doc.userId)
     doc.userId = userId;
 });

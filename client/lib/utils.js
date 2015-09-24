@@ -22,6 +22,7 @@ Utils = {
     return string.charAt(0).toUpperCase() + string.slice(1);
   },
 
+<<<<<<< .mine
   // Determine the new sort index of new created cards
   // dont use calculateIndex 
   calculateSort(type, listId){
@@ -40,6 +41,26 @@ Utils = {
     }
     return base;
   },
+=======
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> .theirs
   // Determine the new sort index
   calculateIndex(prevCardDomElement, nextCardDomElement, nCards = 1) {
     let base, increment;

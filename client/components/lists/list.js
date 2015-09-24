@@ -15,24 +15,11 @@ BlazeComponent.extendComponent({
   },
 
   allowAddCard: function(){
-    if ( this.data().board().isPublic() || this.data().board().isPrivate() ){
-      if(Meteor.user().isBoardMember())
-        return true;
-      else
-        return false;      
-    }
-    else if ( this.data().board().isCollaborate() ){
-      if( Meteor.user().isBoardAdmin() )
-        return true;
-      else if( ( this.data().permission === 'registered' && Meteor.user()) || 
-        ( this.data().permission === 'member' && Meteor.user().isBoardMember()))
-        return true;
-      else
-        return false;
-    }
+    if(Meteor.user().isBoardMember() || this.data().board().isCollaborate())
+      return true;
     else
       return false;
-  }, 
+  },
 
 
   addCard: function(evt) {
@@ -44,11 +31,10 @@ BlazeComponent.extendComponent({
     var firstCard = this.find('.js-minicard:first');
     var lastCard = this.find('.js-minicard:last');
     if (position === 'top') {
-      //sortIndex = Utils.calculateIndex(null, firstCard).base;
+      sortIndex = Utils.calculateIndex(null, firstCard).base;
     } else if (position === 'bottom') {
-      //sortIndex = Utils.calculateIndex(lastCard, null).base;
+      sortIndex = Utils.calculateIndex(lastCard, null).base;
     }
-    sortIndex = Utils.calculateSort(position, this.data()._id);
 
     if ($.trim(title)) {
       if( ! Meteor.user().isBoardMember() )
@@ -112,126 +98,54 @@ BlazeComponent.extendComponent({
     var $cards = self.$('.js-minicards');
 
     //if( Session.get('currentBoardSort') === 'sort' || ! Session.get('currentBoardSort') )
-    //if ( !(this.data().board().isCollaborate() && ! (Meteor.user().isBoardAdmin)) )
-    {
-      self.sortable = $cards.sortable({
-        connectWith: '.js-minicards',
-        tolerance: 'pointer',
-        appendTo: 'body',
-        helper(evt, item) {
-          const helper = item.clone();
-          if (MultiSelection.isActive()) {
-            const andNOthers = $cards.find('.js-minicard.is-checked').length - 1;
-            if (andNOthers > 0) {
-              helper.append($(Blaze.toHTML(HTML.DIV(
-                { 'class': 'and-n-other' },
-                TAPi18n.__('and-n-other-card', { count: andNOthers })
-              ))));
-            }
+    this.sortable = $cards.sortable({
+      connectWith: '.js-minicards',
+      tolerance: 'pointer',
+      appendTo: 'body',
+      helper(evt, item) {
+        const helper = item.clone();
+        if (MultiSelection.isActive()) {
+          const andNOthers = $cards.find('.js-minicard.is-checked').length - 1;
+          if (andNOthers > 0) {
+            helper.append($(Blaze.toHTML(HTML.DIV(
+              { 'class': 'and-n-other' },
+              TAPi18n.__('and-n-other-card', { count: andNOthers })
+            ))));
           }
-          return helper;
-        },
-        distance: 7,
-        items: itemsSelector,
-        scroll: false,
-        placeholder: 'minicard-wrapper placeholder',
-        start(evt, ui) {
-          ui.placeholder.height(ui.helper.height());
-          EscapeActions.executeUpTo('popup');
-          boardComponent.setIsDragging(true);
-        },
-        stop(evt, ui) {
-          // To attribute the new index number, we need to get the DOM element
-          // of the previous and the following card -- if any.
-          const prevCardDom = ui.item.prev('.js-minicard').get(0);
-          const nextCardDom = ui.item.next('.js-minicard').get(0);
-          const nCards = MultiSelection.isActive() ? MultiSelection.count() : 1;
-          const sortIndex = calculateIndex(prevCardDom, nextCardDom, nCards);
-          const listId = Blaze.getData(ui.item.parents('.list').get(0))._id;
+        }
+        return helper;
+      },
+      distance: 7,
+      items: itemsSelector,
+      scroll: false,
+      placeholder: 'minicard-wrapper placeholder',
+      start(evt, ui) {
+        ui.placeholder.height(ui.helper.height());
+        EscapeActions.executeUpTo('popup');
+        boardComponent.setIsDragging(true);
+      },
+      stop(evt, ui) {
+        // To attribute the new index number, we need to get the DOM element
+        // of the previous and the following card -- if any.
+        const prevCardDom = ui.item.prev('.js-minicard').get(0);
+        const nextCardDom = ui.item.next('.js-minicard').get(0);
+        const nCards = MultiSelection.isActive() ? MultiSelection.count() : 1;
+        const sortIndex = calculateIndex(prevCardDom, nextCardDom, nCards);
+        const listId = Blaze.getData(ui.item.parents('.list').get(0))._id;
 
-          // Normally the jquery-ui sortable library moves the dragged DOM element
-          // to its new position, which disrupts Blaze reactive updates mechanism
-          // (especially when we move the last card of a list, or when multiple
-          // users move some cards at the same time). To prevent these UX glitches
-          // we ask sortable to gracefully cancel the move, and to put back the
-          // DOM in its initial state. The card move is then handled reactively by
-          // Blaze with the below query.
-          $cards.sortable('cancel');
+        // Normally the jquery-ui sortable library moves the dragged DOM element
+        // to its new position, which disrupts Blaze reactive updates mechanism
+        // (especially when we move the last card of a list, or when multiple
+        // users move some cards at the same time). To prevent these UX glitches
+        // we ask sortable to gracefully cancel the move, and to put back the
+        // DOM in its initial state. The card move is then handled reactively by
+        // Blaze with the below query.
+        $cards.sortable('cancel');
 
-<<<<<<< .mine
-          if (MultiSelection.isActive()) {
-            Cards.find(MultiSelection.getMongoSelector()).forEach((c, i) => {
-              Cards.update(c._id, {
-                $set: {
-                  listId,
-                  sort: sortIndex.base + i * sortIndex.increment,
-                },
-              });
-            });
-          } else {
-            const cardDomElement = ui.item.get(0);
-            const cardId = Blaze.getData(cardDomElement)._id;
-            Cards.update(cardId, {
-              $set: {
-                listId,
-                sort: sortIndex.base,
-              },
-            });
-=======
         if (MultiSelection.isActive()) {
           Cards.find(MultiSelection.getMongoSelector()).forEach((card, i) => {
             card.move(listId, sortIndex.base + i * sortIndex.increment);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> .theirs
-          }
-          boardComponent.setIsDragging(false);
-        },
-      });
-      // this.autorun(() => {
-      //   //if ( !(this.data().board().isCollaborate() && ! (Meteor.user().isBoardAdmin)) )
-      //     if( self.sortable )
-      //       if( Session.get('currentBoardSort') === 'sort' )
-      //         $cards.sortable( "enable" );
-      //       else
-      //         $cards.sortable( "disable" ); 
-      // }),
-      // We want to re-run this function any time a card is added.
-      this.autorun(() => {
-        //if ( !(this.data().board().isCollaborate() && ! (Meteor.user().isBoardAdmin)) ){
-          // if( self.sortable )
-          //   if( Session.get('currentBoardSort') === 'sort' )
-          //     $cards.sortable( "enable" );
-          //   else
-          //     $cards.sortable( "disable" );
-
-          const currentBoardId = Tracker.nonreactive(() => {
-            return Session.get('currentBoard');
           });
-<<<<<<< .mine
-          Cards.find({ boardId: currentBoardId }).fetch();
-          //f( Session.get('currentBoardSort') === 'sort' || ! Session.get('currentBoardSort') )
-          Tracker.afterFlush(function() {
-            $cards.find(itemsSelector).droppable({
-              hoverClass: 'draggable-hover-card',
-              accept: '.js-member,.js-label',
-              drop(event, ui) {
-                const cardId = Blaze.getData(this)._id;
-                let addToSet;
-=======
         } else {
           const cardDomElement = ui.item.get(0);
           const card = Blaze.getData(cardDomElement);
@@ -240,47 +154,16 @@ BlazeComponent.extendComponent({
         boardComponent.setIsDragging(false);
       },
     });
+    
 
->>>>>>> .theirs
-
-                if (ui.draggable.hasClass('js-member')) {
-                  const memberId = Blaze.getData(ui.draggable.get(0)).userId;
-                  addToSet = { members: memberId };
-                } else {
-                  const labelId = Blaze.getData(ui.draggable.get(0))._id;
-                  addToSet = { labelIds: labelId };
-                }
-                Cards.update(cardId, { $addToSet: addToSet });
-              },
-            });
-          });  
-        //}
-        
+    // We want to re-run this function any time a card is added.
+    this.autorun(() => {
+      const currentBoardId = Tracker.nonreactive(() => {
+        return Session.get('currentBoard');
       });
-<<<<<<< .mine
-    }
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-=======
       Cards.find({ boardId: currentBoardId }).fetch();
-      Tracker.afterFlush(() => {
+      //f( Session.get('currentBoardSort') === 'sort' || ! Session.get('currentBoardSort') )
+      Tracker.afterFlush(function() {
         $cards.find(itemsSelector).droppable({
           hoverClass: 'draggable-hover-card',
           accept: '.js-member,.js-label',
@@ -299,6 +182,5 @@ BlazeComponent.extendComponent({
         });
       });
     });
->>>>>>> .theirs
   },
 }).register('list');
