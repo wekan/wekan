@@ -25,6 +25,7 @@ CardComments.attachSchema(new SimpleSchema({
 
 CardComments.allow({
   insert(userId, doc) {
+<<<<<<< HEAD
     if( Boards.findOne(doc.boardId).isPublic() || Boards.findOne(doc.boardId).isPrivate())
       return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
     else if( Boards.findOne(doc.boardId).isCollaborate() ) {
@@ -36,6 +37,9 @@ CardComments.allow({
       else
         return false;
     } 
+=======
+    return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+>>>>>>> 57fa7af24c8d59629e1b82f6d4f2173d77710128
   },
   update(userId, doc) {
     return userId === doc.userId;

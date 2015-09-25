@@ -40,6 +40,7 @@ Utils = {
     }
     return base;
   },
+
   // Determine the new sort index
   calculateIndex(prevCardDomElement, nextCardDomElement, nCards = 1) {
     let base, increment;

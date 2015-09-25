@@ -120,7 +120,7 @@ BlazeComponent.extendComponent({
         this.componentParent().mouseHasEnterCardDetails = true;
       },
       'click .js-vote-card'() {
-        
+        if(!Meteor.user()) FlowRouter.go("/login");
         Meteor.user().voteCard(this.currentData()._id);
         //Users.update(Meteor.UserId(),{$addToSet: {profile.votedCards: this.currentData()._id}});
       },
