@@ -22,12 +22,10 @@ FlowRouter.route('/o/:shortName', {
   name: 'organization',
   triggersEnter: [AccountsTemplates.ensureSignedIn],
   action: function(params) {
-    //var org = Organizations.findOne({shortName: params.shortName});
-    //if( org )
-    //  Session.set('currentOrganizationShortName', params._id);  
     Session.set('currentOrganizationShortName', params.shortName);
-    // Session.set('currentBoard', null);
-    // Session.set('currentCard', null);
+    Session.set('currentBoard', null);
+    Session.set('currentCard', null);
+    Session.set('previousURL', FlowRouter.current().path);
 
     BlazeLayout.render('orgsLayout', { content: 'organization' });
   }
@@ -41,6 +39,7 @@ FlowRouter.route('/b/:id/:slug', {
     Session.set('currentBoard', currentBoard);
     Session.set('currentCard', null);
     Session.get('currentBoardSort', null);
+    Session.set('previousURL', FlowRouter.current().path);
 
     // If we close a card, we'll execute again this route action but we don't
     // want to excape every current actions (filters, etc.)
@@ -61,6 +60,7 @@ FlowRouter.route('/b/:boardId/:slug/:cardId', {
 
     Session.set('currentBoard', params.boardId);
     Session.set('currentCard', params.cardId);
+    Session.set('previousURL', FlowRouter.current().path);
 
     BlazeLayout.render('defaultLayout', { content: 'board' });
   },

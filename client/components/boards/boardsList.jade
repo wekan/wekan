@@ -34,8 +34,9 @@ template(name="boardList")
                   i.fa.js-star-board(
                     class="fa-star{{#if isStarred}} is-star-active{{else}}-o{{/if}}"
                     title="{{_ 'star-board-title'}}")
-          li.js-add-board.is-idle.add-board(id="org-{{_id}}")
-            a.label {{_ 'add-board'}}
+          if currentUser.isOrganizationAdmin
+            li.js-add-board.is-idle.add-board(id="org-{{_id}}")
+              a.label {{_ 'add-board'}}
     i.fa
       +addOrgForm
       

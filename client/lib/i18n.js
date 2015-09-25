@@ -15,7 +15,7 @@ Tracker.autorun(() => {
   if (language) {
     TAPi18n.setLanguage(language);
 
-    // T9n need to change zh-CN to zh-cn
-    T9n.setLanguage(language.toLowerCase());
+    // T9n need to change zh-CN to zh_cn
+    T9n.setLanguage(language.replace(/-/,"_").toLowerCase());
   }
 });

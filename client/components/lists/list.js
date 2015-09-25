@@ -23,6 +23,7 @@ BlazeComponent.extendComponent({
 
 
   addCard: function(evt) {
+    if(!Meteor.user()) FlowRouter.go("/login");
     evt.preventDefault();
     var textarea = $(evt.currentTarget).find('textarea');
     var title = textarea.val();

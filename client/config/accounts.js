@@ -47,6 +47,14 @@ AccountsTemplates.configureRoute('changePwd', {
   },
 });
 
+Accounts.onLogin(function() {
+  var path = FlowRouter.current().path;
+  // we only do it if the user is in the login page
+  if(path === "/login"){
+    FlowRouter.go(Session.get("previousURL"));
+  }
+});
+
 // Accounts.onLogin(function() {
 //  var currentUser = Meteor.user();
 //   if (currentUser) {

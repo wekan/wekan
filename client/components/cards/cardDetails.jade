@@ -74,8 +74,11 @@ template(name="cardDetails")
 
     hr
     h2 {{ _ 'activity'}}
-    if canComment
-      +commentForm
+    if currentUser
+      if canComment
+        +commentForm
+    else
+      span {{_ 'login-to-comment' '/login'}}
     if isLoaded.get
       +activities(card=this mode="card")
 

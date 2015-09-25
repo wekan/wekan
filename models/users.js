@@ -64,9 +64,7 @@ Users.helpers({
       return this.username[0].toUpperCase();
     }
   },
-});
 
-<<<<<<< .mine
   hasVoted(cardId) {
     const votedCards = this.profile.votedCards || [];
     return _.contains(_.pluck(votedCards, 'cardId'), cardId);
@@ -122,63 +120,6 @@ Users.helpers({
 });
 
 Users.mutations({
-=======
-Users.mutations({
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
->>>>>>> .theirs
   toggleBoardStar(boardId) {
     const queryKind = this.hasStarred(boardId) ? '$pull' : '$addToSet';
     return {
@@ -187,19 +128,11 @@ Users.mutations({
       },
     };
   },
-<<<<<<< .mine
 
   setAvatarUrl(avatarUrl) {
     return { $set: { 'profile.avatarUrl': avatarUrl }};
   },
 
-=======
-
-  setAvatarUrl(avatarUrl) {
-    return { $set: { 'profile.avatarUrl': avatarUrl }};
-  },
-
->>>>>>> .theirs
 });
 
 Meteor.methods({

@@ -20,19 +20,14 @@ template(name="headerBoard")
           i.fa.fa-angle-down
 
   .board-header-btns.right
-    a.board-header-btn.js-open-board-search-view(
-        title="{{#if BoardSearch.isActive}}{{_ 'board-search-on-desc'}}{{/if}}"
-        class="{{#if BoardSearch.isActive}}emphasis{{/if}}")
-      i.fa.fa-search
-      span {{#if BoardSearch.isActive}}{{_ 'board-search-on'}}{{else}}{{_ 'board-search'}}{{/if}}
-      if BoardSearch.isActive
-        a.board-header-btn-close.js-board-search-reset(title="{{_ 'board-search-clear'}}")
-          i.fa.fa-times-thin
-
+    if currentUser
+      span.left-votes {{_ "user-can-vote" currentUser.todayVotesLeft}}
+    else
+      span.left-voate {{_ 'login-to-vote' '/login'}}
     a.board-header-btn.js-open-filter-view(
         title="{{#if Filter.isActive}}{{_ 'filter-on-desc'}}{{/if}}"
         class="{{#if Filter.isActive}}emphasis{{/if}}")
-      i.fa.fa-filter
+      i.fa.fa-search
       span {{#if Filter.isActive}}{{_ 'filter-on'}}{{else}}{{_ 'filter'}}{{/if}}
       if Filter.isActive
         a.board-header-btn-close.js-filter-reset(title="{{_ 'filter-clear'}}")
@@ -43,7 +38,7 @@ template(name="headerBoard")
           title="{{#if MultiSelection.isActive}}{{_ 'multi-selection-on-desc'}}{{/if}}"
           class="{{#if MultiSelection.isActive}}emphasis{{/if}}")
         i.fa.fa-check-square-o
-        span {{#if MultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}
+        span {{_ 'multi-selection'}} {{#if MultiSelection.isActive}}{{_ 'is-on'}}{{/if}}
         if MultiSelection.isActive
           a.board-header-btn-close.js-multiselection-reset(title="{{_ 'multi-selection-clear'}}")
             i.fa.fa-times-thin
@@ -114,7 +109,7 @@ template(name="createBoardPopup")
       input.js-new-board-title(type="text" placeholder="{{_ 'bucket-example'}}" autofocus required)
     label
       select(name="org-id" class="org-sel")
-        option(value='' selected="{{#if isCurrentOrg ''}}selected{{/if}}") {{_ 'None'}} 
+        option(value='' selected="{{#if isCurrentOrg ''}}selected{{/if}}") {{_ 'none'}} 
         if organizations.count  
           each organizations
             option(value='{{_id}}' selected="{{#if isCurrentOrg _id}}selected{{/if}}") {{_ title}}        
@@ -135,7 +130,7 @@ template(name="createBoardPopup")
           span.fa.fa-lock.colorful
           = " "
           | {{{_ 'board-private-info'}}}
-        a.js-change-visibility {{_ 'change'}}.
+        a.js-change-visibility {{_ 'change'}}
     input.primary.wide(type="submit" value="{{_ 'create'}}")
 
 
@@ -155,29 +150,29 @@ template(name="changeBoardSortPopup")
   ul.pop-over-list
     li
       a(class="js-sort-votes")
-        | {{_ 'sort by votes'}}
+        | {{_ 'sort-by-votes'}}
 
         if ($eq getSortType 'votes')
           i.fa.fa-check
-        span.sub-name {{_ 'sort by votes desc'}}
+        span.sub-name {{_ 'sort-by-votes-desc'}}
     li
       a(class="js-sort-createAt")
-        | {{_ 'sort by createAt'}}
+        | {{_ 'sort-by-createAt'}}
 
         if ($eq getSortType 'createAt')
           i.fa.fa-check
-        span.sub-name {{_ 'sort by createAt desc'}}
+        span.sub-name {{_ 'sort-by-createAt-desc'}}
     li
       a(class="js-sort-dateLastActivity")
-        | {{_ 'sort by dateLastActivity'}}
+        | {{_ 'sort-by-dateLastActivity'}}
 
         if ($eq getSortType 'dateLastActivity')
           i.fa.fa-check
-        span.sub-name {{_ 'sort by dateLastActivity desc'}}
+        span.sub-name {{_ 'sort-by-dateLastActivity-desc'}}
     li
       a(class="js-sort-sort")
-        | {{_ 'sort by sort'}}
+        | {{_ 'sort-by-sort'}}
 
         if ($eq getSortType 'sort')
           i.fa.fa-check
-        span.sub-name {{_ 'sort by sort desc'}}
+        span.sub-name {{_ 'sort-by-sort-desc'}}

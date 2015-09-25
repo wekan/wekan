@@ -57,7 +57,6 @@ Cards.attachSchema(new SimpleSchema({
   },
 }));
 
-<<<<<<< .mine
 Cards.allow({
   insert(userId, doc) {
     if( Boards.findOne(doc.boardId).isPublic() || Boards.findOne(doc.boardId).isPrivate())
@@ -71,23 +70,7 @@ Cards.allow({
       else
         return false;
     }
-=======
-Cards.allow({
-  insert(userId, doc) {
-    return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
-
-
-
-
-
-
-
-
-
-
->>>>>>> .theirs
   },
-<<<<<<< .mine
   update(userId, doc) {
     if( Boards.findOne(doc.boardId).isPublic() || Boards.findOne(doc.boardId).isPrivate())
       return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
@@ -99,21 +82,7 @@ Cards.allow({
       else
         return false;
     }      
-=======
-  update(userId, doc) {
-    return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
-
-
-
-
-
-
-
-
-
->>>>>>> .theirs
   },
-<<<<<<< .mine
   remove(userId, doc) {
     if( Boards.findOne(doc.boardId).isPublic() || Boards.findOne(doc.boardId).isPrivate())
       return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
@@ -125,19 +94,6 @@ Cards.allow({
       else
         return false;
     }
-=======
-  remove(userId, doc) {
-    return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
-
-
-
-
-
-
-
-
-
->>>>>>> .theirs
   },
   fetch: ['boardId'],
 });
@@ -273,20 +229,11 @@ Cards.before.insert((userId, doc) => {
   doc.archived = false;
   doc.votes = 0;
 
-<<<<<<< .mine
   if (!doc.userId) 
-=======
-  if (!doc.userId) {
->>>>>>> .theirs
     doc.userId = userId;
-  }
 });
 
-<<<<<<< .mine
 
-=======
-
->>>>>>> .theirs
 if (Meteor.isServer) {
   Cards.after.insert((userId, doc) => {
     Activities.insert({
@@ -378,9 +325,5 @@ if (Meteor.isServer) {
       cardId: doc._id,
     });
   });
-<<<<<<< .mine
 
-=======
-
->>>>>>> .theirs
 }

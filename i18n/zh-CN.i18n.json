@@ -248,5 +248,7 @@
     "list-permission-registered": "注册用户",
     "list-permission-registered-desc": "注册用户可编辑添加内容",
     "set-list-permission": "权限",
+    "login-to-comment": "<a href='%s'>登录</a>后发表评论",
+    "login-to-vote": "<a href='%s'>登录</a>后才能投票",
     "none": "无"
 }
