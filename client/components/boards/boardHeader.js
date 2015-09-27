@@ -44,29 +44,14 @@ BlazeComponent.extendComponent({
   },
 
   getSortType: function(){
-    // var currentBoard = this.currentData();
-    // if( !(currentBoard.sortType))
-    //   if( currentBoard.permission === "collaborate" )
-    //     currentBoard.sortType = 'votes';
-    //   else
-    //     currentBoard.sortType = 'sort';
-
     var sort = Session.get('currentBoardSort');
     if( ! sort ){
       var currentBoard = Boards.findOne(Session.get('currentBoard'));
       sort = currentBoard.sortType;
-    }
-        
+    }      
     return  sort;
-   
   },
   getSortTypeText: function(){
-    // var currentBoard = this.currentData();
-    // if( !(currentBoard.sortType))
-    //   if( currentBoard.permission === "collaborate" )
-    //     currentBoard.sortType = 'votes';
-    //   else
-    //     currentBoard.sortType = 'sort';
     return 'sort-by-'+ this.getSortType();
   },
   

@@ -38,7 +38,7 @@ FlowRouter.route('/b/:id/:slug', {
     const previousBoard = Session.get('currentBoard');
     Session.set('currentBoard', currentBoard);
     Session.set('currentCard', null);
-    Session.get('currentBoardSort', null);
+    Session.set('currentBoardSort', null);
     Session.set('previousURL', FlowRouter.current().path);
 
     // If we close a card, we'll execute again this route action but we don't
@@ -60,6 +60,7 @@ FlowRouter.route('/b/:boardId/:slug/:cardId', {
 
     Session.set('currentBoard', params.boardId);
     Session.set('currentCard', params.cardId);
+    //Session.set('cardURL', FlowRouter.current().path);
     Session.set('previousURL', FlowRouter.current().path);
 
     BlazeLayout.render('defaultLayout', { content: 'board' });

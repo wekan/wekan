@@ -185,8 +185,11 @@ BlazeComponent.extendComponent({
     this.componentChildren('inlinedForm')[0].open();
   },
 
-  onCreated() {
-    this.permissionMenuIsOpen = new ReactiveVar(false);
+  onRendered() {
+    this.updatePermission();
+  },
+
+  updatePermission(){
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
     if( currentBoard.isCollaborate() && currentBoard.lists().count() === 0 )
       this.permission = new ReactiveVar('registered');
@@ -196,7 +199,11 @@ BlazeComponent.extendComponent({
       this.permission = new ReactiveVar('member'); 
   },
 
-  visibilityCheck() {
+  onCreated() {
+    this.permissionMenuIsOpen = new ReactiveVar(false);
+  },
+
+  permissionCheck() {
     return this.currentData() === this.permission.get();
   },
 
@@ -213,7 +220,7 @@ BlazeComponent.extendComponent({
     return [{
       'click .js-change-permission': this.togglePermissionMenu,
       'click .js-select-permission'() {
-        this.setVisibility(this.currentData());
+        this.setPermission(this.currentData());
       },
       submit(evt) {
         evt.preventDefault();
@@ -227,6 +234,7 @@ BlazeComponent.extendComponent({
             permission: permission,
           });
 
+          this.updatePermission();
           title.value = '';
           title.focus();
         }

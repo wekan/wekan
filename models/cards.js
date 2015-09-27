@@ -59,7 +59,6 @@ Cards.attachSchema(new SimpleSchema({
 
 Cards.allow({
   insert(userId, doc) {
-<<<<<<< HEAD:models/cards.js
     if( Boards.findOne(doc.boardId).isPublic() || Boards.findOne(doc.boardId).isPrivate())
       return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
     else if( Boards.findOne(doc.boardId).isCollaborate() ) {
@@ -95,15 +94,6 @@ Cards.allow({
       else
         return false;
     }
-=======
-    return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
-  },
-  update(userId, doc) {
-    return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
-  },
-  remove(userId, doc) {
-    return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
->>>>>>> 57fa7af24c8d59629e1b82f6d4f2173d77710128:models/cards.js
   },
   fetch: ['boardId'],
 });
@@ -239,17 +229,10 @@ Cards.before.insert((userId, doc) => {
   doc.archived = false;
   doc.votes = 0;
 
-<<<<<<< HEAD:models/cards.js
   if (!doc.userId) 
     doc.userId = userId;
 });
 
-=======
-  if (!doc.userId) {
-    doc.userId = userId;
-  }
-});
->>>>>>> 57fa7af24c8d59629e1b82f6d4f2173d77710128:models/cards.js
 
 if (Meteor.isServer) {
   Cards.after.insert((userId, doc) => {
@@ -342,8 +325,5 @@ if (Meteor.isServer) {
       cardId: doc._id,
     });
   });
-<<<<<<< HEAD:models/cards.js
 
-=======
->>>>>>> 57fa7af24c8d59629e1b82f6d4f2173d77710128:models/cards.js
 }

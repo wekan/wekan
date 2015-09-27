@@ -26,16 +26,20 @@ template(name="header")
             i.fa.fa-plus(title="Create a new board")
 
           +headerUserBar
+      else
+        #header-title-desc
+          span.header-app-name {{_ 'header-app-name'}}
+          span.header-app-description  {{_ 'header-app-description'}}  
 
     //-
       The main bar is a colorful bar that provide all the meta-data for the
       current page. This bar is contextual based.
       If the user is not connected we display "sign in" and "log in" buttons.
     
-    if $.Session.get 'currentBoard'  
-      if currentUser
-        #header-main-bar(class="{{#if wrappedHeader}}wrapper{{/if}}")
-          +headerBoard
+    if currentBoard  
+      // if currentUser
+      #header-main-bar(class="{{#if wrappedHeader}}wrapper{{/if}}")
+        +headerBoard
     else if($eq currentRouteName 'home')
       #header-main-bar(class="{{#if wrappedHeader}}wrapper{{/if}}")
         +headerTitle

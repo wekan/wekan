@@ -12,7 +12,7 @@ Boards.attachSchema(new SimpleSchema({
   },
   organizationId: {
     type: String,
-    optional: true
+    optional: true,
   },
   sortType: {
     type: String
@@ -85,7 +85,6 @@ Boards.helpers({
     return this.permission === 'public';
   },
 
-<<<<<<< HEAD:models/boards.js
   isCollaborate: function() {
     return this.permission === 'collaborate';
   },
@@ -94,8 +93,6 @@ Boards.helpers({
     return this.permission === 'private';
   },
 
-=======
->>>>>>> 57fa7af24c8d59629e1b82f6d4f2173d77710128:models/boards.js
   lists() {
     return Lists.find({ boardId: this._id, archived: false },
                                                           { sort: { sort: 1 }});

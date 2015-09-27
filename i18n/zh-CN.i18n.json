@@ -250,5 +250,10 @@
     "set-list-permission": "权限",
     "login-to-comment": "<a href='%s'>登录</a>后发表评论",
     "login-to-vote": "<a href='%s'>登录</a>后才能投票",
+    "app-page-title": "思齐 -  清单管理云平台  实时 - 无刷新  简单 - 全拖拽",
+    "header-app-name": "思齐",
+    "header-app-description": "清单管理云平台  实时 - 无刷新  简单 - 全拖拽",
+    "login-app-name": "思齐  -  清单管理云平台",
+    "login-app-description": "实时 - 无刷新  简单 - 全拖拽",
     "none": "无"
 }

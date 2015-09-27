@@ -15,15 +15,26 @@ BlazeComponent.extendComponent({
   },
 
   allowAddCard: function(){
-    if(Meteor.user().isBoardMember() || this.data().board().isCollaborate())
+    if(Meteor.user() &&  Meteor.user().isBoardMember() )
+      return true;
+    else if( this.data().board().isCollaborate() && (
+        ( Meteor.user()  && Meteor.user().isBoardAdmin() )||
+        ( Meteor.user() && this.data().permission === 'registered' )||
+        ( Meteor.user() && this.data().permission === 'member' && Meteor.user().isBoardMember() )
+      ))
+      return true;
+    else
+      return false;
+  },
+  showLoginToAddCard(){
+    if( this.data().board().isCollaborate() && this.data().permission === 'registered')
       return true;
     else
       return false;
   },
 
 
-  addCard: function(evt) {
-    if(!Meteor.user()) FlowRouter.go("/login");
+  addCard: function(evt) {   
     evt.preventDefault();
     var textarea = $(evt.currentTarget).find('textarea');
     var title = textarea.val();
@@ -78,7 +89,12 @@ BlazeComponent.extendComponent({
 
   events: function() {
     return [{
-      
+      'click .js-login-to-add-card'(){
+        if(!(Meteor.userId())) {
+          FlowRouter.go("atSignIn");
+          return;
+        }
+      },
       submit: this.addCard
     }]
   },

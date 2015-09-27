@@ -57,13 +57,13 @@ BlazeComponent.extendComponent({
 
   descEditable(){
     if( this.data().list().board().isPublic() || this.data().list().board().isPrivate() ){
-      if( Meteor.user().isBoardMember() )
+      if( Meteor.user() && Meteor.user().isBoardMember() )
         return true;
       else
         return false;
     }
     else if ( this.data().list().board().isCollaborate() ){
-      if( Meteor.user().isBoardAdmin() || this.data().userId === Meteor.userId() )
+      if( Meteor.user() && (Meteor.user().isBoardAdmin() || this.data().userId === Meteor.userId() ) )
         return true;
       else
         return false;
@@ -78,14 +78,21 @@ BlazeComponent.extendComponent({
         return false;
     }
     else if ( this.data().list().board().isCollaborate() ){
-      if( Meteor.user().isBoardAdmin() )
+      if( Meteor.user() && Meteor.user().isBoardAdmin() )
         return true;
       else if( ( this.data().list().permission === 'registered' && Meteor.user()) || 
-        ( this.data().list().permission === 'member' && Meteor.user().isBoardMember()))
+        ( this.data().list().permission === 'member' && Meteor.user() && Meteor.user().isBoardMember()))
         return true;
       else
         return false;
     }
+  },
+
+  showCommentForm(){
+    if( this.data().board().isCollaborate() && this.data().list().permission === 'registered')
+      return true;
+    else
+      return false;
   },
 
   events() {
@@ -119,8 +126,12 @@ BlazeComponent.extendComponent({
         this.componentParent().showOverlay.set(true);
         this.componentParent().mouseHasEnterCardDetails = true;
       },
-      'click .js-vote-card'() {
-        if(!Meteor.user()) FlowRouter.go("/login");
+      'click .js-vote-card'(evt) {
+        if(!Meteor.user()) {
+          evt.preventDefault();
+          FlowRouter.go("/sign-in");
+          return;
+        }
         Meteor.user().voteCard(this.currentData()._id);
         //Users.update(Meteor.UserId(),{$addToSet: {profile.votedCards: this.currentData()._id}});
       },
@@ -199,7 +210,12 @@ Template.cardMorePopup.events({
 
 // Close the card details pane by pressing escape
 EscapeActions.register('detailsPane',
-  () => { Utils.goBoardId(Session.get('currentBoard')); },
+  () => { 
+    // don't go to board if we click url at the card detail
+    // and if current path is previousURL(card url, because this is for card detail), go to boardid
+    if( Session.get('previousURL') === FlowRouter.current().path )
+      Utils.goBoardId(Session.get('currentBoard')); 
+  },
   () => { return !Session.equals('currentCard', null); }, {
     noClickEscapeOn: '.js-card-details,.board-sidebar,#header',
   }

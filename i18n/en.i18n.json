@@ -248,5 +248,9 @@
     "list-permission-registered": "Registed",
     "list-permission-registered-desc": "Registed user can add and edit content, will automatically become member after actions",
     "set-list-permission": "Permission",
+    "login-to-comment": "<a href='%s'>Login</a> to comment",
+    "login-to-vote": "<a href='%s'>Login</a> to vote",
+    "app-name": "App Name",
+    "app-description": "App description",
     "none": "None"
 }

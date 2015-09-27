@@ -8,9 +8,10 @@ template(name="cardDetails")
           a.fa.fa-times-thin.js-close-inlined-form
       else
         a.fa.fa-times-thin.close-card-details.js-close-card-details
-        if currentUser.isBoardMember
-          a.fa.fa-bars.card-details-menu.js-open-card-details-menu
-        span.badge-icon.fa.vote-card.js-vote-card(class="{{#if currentUser.hasVoted _id}}fa-thumbs-up card-voted{{else}}fa-thumbs-o-up card-not-voted{{/if}}" title="{{_ 'vote-card-title'}}")
+        if currentUser
+          if currentUser.isBoardMember
+            a.fa.fa-bars.card-details-menu.js-open-card-details-menu
+        span.badge-icon.fa.vote-card.js-vote-card(class="{{#if currentUser}}{{#if currentUser.hasVoted _id}}fa-thumbs-up card-voted{{else}}fa-thumbs-o-up card-not-voted{{/if}}{{else}}fa-thumbs-o-up card-not-voted{{/if}}" title="{{_ 'vote-card-title'}}")
         h2.card-details-title.js-card-title(
           class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
             = title
@@ -74,11 +75,13 @@ template(name="cardDetails")
 
     hr
     h2 {{ _ 'activity'}}
-    if currentUser
-      if canComment
-        +commentForm
+
+    if canComment
+      +commentForm
     else
-      span {{_ 'login-to-comment' '/login'}}
+      if showCommentForm
+        +commentForm
+
     if isLoaded.get
       +activities(card=this mode="card")
 

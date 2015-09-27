@@ -64,9 +64,7 @@ Users.helpers({
       return this.username[0].toUpperCase();
     }
   },
-});
 
-<<<<<<< HEAD:models/users.js
   hasVoted(cardId) {
     const votedCards = this.profile.votedCards || [];
     return _.contains(_.pluck(votedCards, 'cardId'), cardId);
@@ -121,8 +119,6 @@ Users.helpers({
   },
 });
 
-=======
->>>>>>> 57fa7af24c8d59629e1b82f6d4f2173d77710128:models/users.js
 Users.mutations({
   toggleBoardStar(boardId) {
     const queryKind = this.hasStarred(boardId) ? '$pull' : '$addToSet';

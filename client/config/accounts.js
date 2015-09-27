@@ -17,11 +17,12 @@ AccountsTemplates.configure({
   showForgotPasswordLink: true,
   onLogoutHook() {
     const homePage = 'home';
-    if (FlowRouter.getRouteName() === homePage) {
-      FlowRouter.reload();
-    } else {
-      FlowRouter.go(homePage);
-    }
+    FlowRouter.reload();
+    // if (FlowRouter.getRouteName() === homePage) {
+    //   FlowRouter.reload();
+    // } else {
+    //   FlowRouter.go(homePage);
+    // }
   },
 });
 
@@ -50,8 +51,27 @@ AccountsTemplates.configureRoute('changePwd', {
 Accounts.onLogin(function() {
   var path = FlowRouter.current().path;
   // we only do it if the user is in the login page
-  if(path === "/login"){
-    FlowRouter.go(Session.get("previousURL"));
+  // if(path === "/sign-in"){
+  //   FlowRouter.go(Session.get("previousURL"));
+  // }
+});
+
+Meteor.startup(() => {
+  //T9n.defaultLanguage = "zh_cn";
+  const currentUser = Meteor.user();
+  let language;
+  if (currentUser) {
+    language = currentUser.profile && currentUser.profile.language;
+  } 
+  if (!language) {
+    language =  window.navigator.userLanguage || window.navigator.language || 'zh-CN';    
+  }
+
+  if (language) {
+    TAPi18n.setLanguage(language);
+
+    // T9n need to change zh-CN to zh_cn
+    T9n.setLanguage(language.replace(/-/,"_").toLowerCase());
   }
 });
 

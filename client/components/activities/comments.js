@@ -17,6 +17,10 @@ BlazeComponent.extendComponent({
     return this.$('.js-new-comment-input');
   },
 
+  onRendered() {
+    // if( Session.get('currentCommentCard') === this.currentData()._id )
+    //   this.getInput().value = Session.get('currentComment');
+  },
   events() {
     return [{
       'click .js-new-comment:not(.focus)'() {
@@ -24,6 +28,13 @@ BlazeComponent.extendComponent({
       },
       'submit .js-new-comment-form'(evt) {
         const input = this.getInput();
+        if(!(Meteor.userId())) {
+          Session.set('currentCommentCard',this.currentData()._id);
+          Session.set('currentComment',input.val());
+          evt.preventDefault();
+          FlowRouter.go("atSignIn");
+          return;
+        }
         if ($.trim(input.val())) {
           if( ! Meteor.user().isBoardMember() )
             Boards.update(this.boardId, {
@@ -40,6 +51,7 @@ BlazeComponent.extendComponent({
             cardId: this.currentData()._id,
             text: input.val(),
           });
+          //Session.set('currentComment', null);
           resetCommentInput(input);
           Tracker.flush();
           autosize.update(input);
@@ -83,9 +95,13 @@ EscapeActions.register('inlinedForm',
     };
     const commentInput = $('.js-new-comment-input');
     if ($.trim(commentInput.val())) {
-      UnsavedEdits.set(draftKey, commentInput.val());
+      if(Meteor.userId())
+        UnsavedEdits.set(draftKey, commentInput.val());
+      else
+        SessionUnsavedEdits.set(draftKey, commentInput.val());
     } else {
       UnsavedEdits.reset(draftKey);
+      SessionUnsavedEdits.reset(draftKey);
     }
     resetCommentInput(commentInput);
   },
