@@ -59,6 +59,7 @@ htmljs@1.0.5
 http@1.1.1
 id-map@1.0.4
 idmontie:migrations@1.0.0
+jimmiebtlr:wekan-time@0.0.1
 jquery@1.11.4
 kadira:blaze-layout@2.1.0
 kadira:flow-router@2.6.1
@@ -103,6 +104,7 @@ ordered-dict@1.0.4
 peerlibrary:assert@0.2.5
 peerlibrary:base-component@0.10.0
 peerlibrary:blaze-components@0.13.0
+peppelg:on-login-logout@1.0.0
 perak:markdown@1.0.5
 promise@0.4.8
 raix:eventemitter@0.1.3
