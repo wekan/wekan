@@ -82,6 +82,8 @@ template(name="cardDetailsActionsPopup")
     li: a.js-members {{_ 'card-edit-members'}}
     li: a.js-labels {{_ 'card-edit-labels'}}
     li: a.js-attachments {{_ 'card-edit-attachments'}}
+    each plugins in plugin
+      li: {{> Template.dynamic template=this data=data}}
   hr
   ul.pop-over-list
     li: a.js-move-card {{_ 'moveCardPopup-title'}}

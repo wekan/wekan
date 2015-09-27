@@ -138,4 +138,14 @@ useraccounts:unstyled@1.12.3
 verron:autosize@3.0.8
 webapp@1.2.2
 webapp-hashing@1.0.5
+wekan:activities@0.0.1
+wekan:attachments@0.0.1
+wekan:avatars@0.0.1
+wekan:boards@0.0.1
+wekan:card-comments@0.0.1
+wekan:cards@0.0.1
+wekan:lib@0.0.1
+wekan:lists@0.0.1
+wekan:plugin@0.0.1
+wekan:unsaved-edits@0.0.1
 zimme:active-route@2.3.2

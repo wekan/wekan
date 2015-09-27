@@ -33,6 +33,12 @@ BlazeComponent.extendComponent({
     this.mouseHasEnterCardDetails = false;
   },
 
+  plugins: function(){
+    return Wekan.plugins.map(function(plugin){
+      return plugin.boardOverview;
+    });
+  },
+
   openNewListForm() {
     this.componentChildren('addListForm')[0].open();
   },
