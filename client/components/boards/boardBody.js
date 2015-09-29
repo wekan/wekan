@@ -104,6 +104,18 @@ BlazeComponent.extendComponent({
   },
 }).register('board');
 
+Template.boardBody.helpers({
+  canAddList(){
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    if ( ( !currentBoard.isCollaborate() && Meteor.user() && Meteor.user().isBoardMember())||
+      (currentBoard.isCollaborate() && Meteor.user().isBoardAdmin()))
+      return true;
+    else 
+      return false;
+  },
+  
+});
+
 Template.boardBody.onRendered(function() {
   const self = BlazeComponent.getComponentForElement(this.firstNode);
 

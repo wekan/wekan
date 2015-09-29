@@ -22,7 +22,7 @@ template(name="boardBody")
           +list(this)
           if currentCardIsInThisList
             +cardDetails(currentCard)
-        if currentUser.isBoardMember
+        if canAddList
           +addListForm
 
 template(name="addListForm")

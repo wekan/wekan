@@ -40,9 +40,9 @@ template(name="organization")
               .window-module.js-member-list
                   each currentOrganization.members
                     +userCard(user=this org=currentOrganization)
-        else
-          //- XXX We need a better error message in case the board has been archived
-          +message(label="organization-not-found")
+      else
+        //- XXX We need a better error message in case the board has been archived
+        +message(label="organization-not-found")
   else
     +spinner
 

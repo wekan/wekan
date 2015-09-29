@@ -77,8 +77,9 @@ EscapeActions.register('textcomplete',
 const at = HTML.CharRef({html: '&commat;', str: '@'});
 Blaze.Template.registerHelper('mentions', new Template('mentions', function() {
   const view = this;
-  if( !Session.get('currentBoard') ) return;
+
   const currentBoard = Boards.findOne(Session.get('currentBoard'));
+  if( !currentBoard ) return;
   const knowedUsers = _.map(currentBoard.members, (member) => {
     member.username = Users.findOne(member.userId).username;
     return member;

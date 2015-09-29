@@ -141,19 +141,6 @@ BlazeComponent.extendComponent({
     return Organizations.find(
        { members:{ $elemMatch: { userId: Meteor.userId(), isAdmin: true } } }
     )
-    // let args = [];
-    // let userId  = Meteor.userId();
-    // let all = Organizations.find({ 
-    //   $and: [
-    //     { 'members.userId': userId },
-    //     { 'members.isAdmin':  true },
-    //   ],
-    // });
-    // all.forEach(function(org){
-    //   if( _.where(org.members, { userId, isAdmin: true }).length >= 1 )
-    //     args.push(org);
-    // });
-    // return orgs;
   },
 
   isCurrentOrg: function(id){
