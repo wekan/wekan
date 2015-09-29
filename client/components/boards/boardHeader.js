@@ -146,8 +146,8 @@ BlazeComponent.extendComponent({
   isCurrentOrg: function(id){
     var currentOrganization = Organizations.findOne({shortName: Session.get('currentOrganizationShortName')});
     
-    if( currentOrganization._id === id ||
-      !currentOrganization && !id)
+    if( (currentOrganization && currentOrganization._id === id) ||
+      (!currentOrganization && !id))
       return true;
     else
       return false;
