@@ -108,7 +108,7 @@ Template.boardBody.helpers({
   canAddList(){
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
     if ( ( !currentBoard.isCollaborate() && Meteor.user() && Meteor.user().isBoardMember())||
-      (currentBoard.isCollaborate() && Meteor.user().isBoardAdmin()))
+      (currentBoard.isCollaborate() && Meteor.user() && Meteor.user().isBoardAdmin()))
       return true;
     else 
       return false;
