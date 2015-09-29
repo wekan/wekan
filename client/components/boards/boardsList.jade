@@ -20,11 +20,11 @@ template(name="boardList")
     if organizations.count
       each organizations
         div.window-module
-          .window-module-title.window-module-title-no-divider
+          .window-module-title
             span.i.fa.fa-users.fa-lg
             h3 {{title}}
             a.board-list-header-link.js-open-org(href="{{ pathFor route='organization' shortName=shortName }}")
-                  span {{_ "Members"}}
+                  span {{_ "members"}}
         ul.board-list.clearfix
           each boards this._id
             li(class="{{#if isStarred}}starred{{/if}}" class=colorClass)
@@ -34,11 +34,13 @@ template(name="boardList")
                   i.fa.js-star-board(
                     class="fa-star{{#if isStarred}} is-star-active{{else}}-o{{/if}}"
                     title="{{_ 'star-board-title'}}")
-          if currentUser.isOrganizationAdmin
+          if currentUser.isOrganizationAdmin this._id
             li.js-add-board.is-idle.add-board(id="org-{{_id}}")
               a.label {{_ 'add-board'}}
-    i.fa
-      +addOrgForm
+    div.window-module
+      .window-module-title
+        i.fa
+          +addOrgForm
       
  
 

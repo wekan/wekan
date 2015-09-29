@@ -78,11 +78,11 @@ BlazeComponent.extendComponent({
         return false;
     }
     else if ( this.data().list().board().isCollaborate() ){
-      if( Meteor.user() && Meteor.user().isBoardAdmin() )
-        return true;
-      else if( ( this.data().list().permission === 'registered' && Meteor.user()) || 
-        ( this.data().list().permission === 'member' && Meteor.user() && Meteor.user().isBoardMember()))
-        return true;
+      // todo: separate permision for list comment, chat last condition to permission === 'member' && Meteor.user() && Meteor.user().isBoardMember()))
+      if( (this.data().list().permission === 'admin' && Meteor.user() && Meteor.user().isBoardAdmin()) ||
+        ( this.data().list().permission === 'registered' && Meteor.user()) || 
+        ( this.data().list().permission === 'member' && Meteor.user() ))
+         return true;
       else
         return false;
     }

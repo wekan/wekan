@@ -64,6 +64,12 @@ BlazeComponent.extendComponent({
     var nbAdmins = _.where(currentOrganization.members, { isAdmin: true }).length;
     return nbAdmins === 1;
   },
+  canChangeRole(){
+    if( this.isLastAdmin() || ! Meteor.user().isOrganizationAdmin() )
+      return false;
+    else
+      return true;
+  },
   isCurrentUser: function(){
     return Meteor.userId() === this.currentData().user.userId;
   },

@@ -91,28 +91,28 @@ if (Meteor.isServer) {
       var removedMemberId = modifier.$pull.members.userId;
       return !! _.findWhere(doc.members, {
         userId: removedMemberId,
-        isAdmin: true
+        isAdmin: true,
       });
     },
-    fetch: ['members']
+    fetch: ['members'],
   });
 }
 
 Organizations.helpers({
-  boards: function() {
+  boards() {
     return Boards.find({ organizationId: this._id, archived: false },
                                                           { sort: { sort: 1 }});
   },
   
-  activities: function() {
+  activities() {
     return Activities.find({ organizationId: this._id }, { sort: { createdAt: -1 }});
   },
-  absoluteUrl: function() {
+  absoluteUrl() {
     return Router.path('Org', { organizationId: this._id, slug: this.slug });
   },
-  colorClass: function() {
+  colorClass() {
     return 'org-color-' + this.color;
-  }
+  },
 });
 
 Organizations.before.insert(function(userId, doc) {
@@ -126,9 +126,9 @@ Organizations.before.insert(function(userId, doc) {
   doc.createdAt = new Date();
   doc.archived = false;
   doc.members = [{
-    userId: userId,
+    userId,
     isAdmin: true,
-    isActive: true
+    isActive: true,
   }];
 
   doc.color = Organizations.simpleSchema()._schema.color.allowedValues[0];
@@ -145,7 +145,7 @@ if (Meteor.isServer) {
   Meteor.startup(function() {
     Organizations._collection._ensureIndex({
       _id: 1,
-      'members.userId': 1
+      'members.userId': 1,
     }, { unique: true });
   });
 
@@ -156,28 +156,30 @@ if (Meteor.isServer) {
       activityTypeId: doc._id,
       activityType: 'createOrganization',
       organizationId: doc._id,
-      userId: userId
+      userId,
     });
   });
 
-var getMemberIndex = function(org, searchId) {
-  for (var i = 0; i < org.members.length; i++) {
-    if (org.members[i].userId === searchId)
-      return i;
-  }
-  throw new Meteor.Error('Member not found');
-};
-  Boards.after.update(function(userId, doc, fieldNames, modifier) {
-    if (! _.contains(fieldNames, 'members') ||
-      ! modifier.$pull ||
-      ! modifier.$pull.members ||
-      ! modifier.$pull.members._id)
+  let getMemberIndex = function(org, searchId) {
+    for (let i = 0; i < org.members.length; i++) {
+      if (org.members[i].userId === searchId)
+        return i;
+    }
+    throw new Meteor.Error('Member not found');
+  };
+
+  Organizations.after.update(function(userId, doc, fieldNames, modifier) {
+    if (!_.contains(fieldNames, 'members') ||
+      !modifier.$pull ||
+      !modifier.$pull.members ||
+      !modifier.$pull.members._id)
       return;
-    for(var i=0;i<boards;i++) {
-      board = boards[i];
-      memberId = modifier.$pull.members.userId;
-      var memberIndex = getMemberIndex(currentBoard, memberId);
-      var setQuery = {};
+    const boards = Boards.find({organizationId: doc._id});
+    for(let i=0; i<boards; i++) {
+      const board = boards[i];
+      const memberId = modifier.$pull.members.userId;
+      let memberIndex = getMemberIndex(board, memberId);
+      let setQuery = {};
       setQuery[['members', memberIndex, 'isActive'].join('.')] = false; 
       Boards.update({ _id: board._id }, { $set: setQuery });
     }
@@ -186,10 +188,10 @@ var getMemberIndex = function(org, searchId) {
 
   // Add a new activity if we add or remove a member to the board
   Organizations.after.update(function(userId, doc, fieldNames, modifier) {
-    if (! _.contains(fieldNames, 'members'))
+    if (!_.contains(fieldNames, 'members'))
       return;
 
-    var memberId;
+    let memberId;
 
     // Say hello to the new member
     if (modifier.$push && modifier.$push.members) {
@@ -198,8 +200,8 @@ var getMemberIndex = function(org, searchId) {
         type: 'member',
         activityType: 'addOrganizationMember',
         organizationId: doc._id,
-        userId: userId,
-        memberId: memberId
+        userId,
+        memberId,
       });
     }
 
@@ -210,8 +212,8 @@ var getMemberIndex = function(org, searchId) {
         type: 'member',
         activityType: 'removeOrganizationMember',
         organizationId: doc._id,
-        userId: userId,
-        memberId: memberId
+        userId,
+        memberId,
       });
     }
   });

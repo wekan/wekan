@@ -56,8 +56,9 @@ Accounts.onLogin(function() {
   // }
 });
 
+// detect language at the startup time, invoid the apparent reloading of the UI
+// the code is the same to i118n ?
 Meteor.startup(() => {
-  //T9n.defaultLanguage = "zh_cn";
   const currentUser = Meteor.user();
   let language;
   if (currentUser) {
@@ -74,18 +75,3 @@ Meteor.startup(() => {
     T9n.setLanguage(language.replace(/-/,"_").toLowerCase());
   }
 });
-
-// Accounts.onLogin(function() {
-//  var currentUser = Meteor.user();
-//   if (currentUser) {
-//     language = currentUser.profile && currentUser.profile.language;
-//   } 
-//   if (!language) {
-//     language =  window.navigator.userLanguage || window.navigator.language || 'en';  
-//     Users.update(Meteor.userId(), {
-//       $set: {
-//         'profile.language': language
-//       }
-//     });  
-//   }
-// });

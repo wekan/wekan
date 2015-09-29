@@ -112,9 +112,10 @@ template(name="createBoardPopup")
     label
       select(name="org-id" class="org-sel")
         option(value='' selected="{{#if isCurrentOrg ''}}selected{{/if}}") {{_ 'none'}} 
-        if organizations.count  
-          each organizations
-            option(value='{{_id}}' selected="{{#if isCurrentOrg _id}}selected{{/if}}") {{_ title}}        
+        if canCreateBoardOrgs.count  
+          each canCreateBoardOrgs
+            if currentUser.isOrganizationAdmin _id
+              option(value='{{_id}}' selected="{{#if isCurrentOrg _id}}selected{{/if}}") {{_ title}}        
            
     if visibilityMenuIsOpen.get
       +boardVisibilityList

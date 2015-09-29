@@ -18,31 +18,31 @@ template(name="orgsLayout")
 
 template(name="organization")
   if isOrgReady.get
-    if currentOrganization
-      .org
-        .header
-          .header-wrapper.u-clearfix
-            .org-name
-              h1 {{currentOrganization.title}}
-            .org-desc
-              span {{currentOrganization.description}}
-        .nav
-        .main.u-clearfix
-          .main-wrapper
-            .window-module 
-              .org-members-options
-                if currentUser.isOrganizationAdmin
-                  a.button-link.js-manage-org-members 
-                    i.fa.fa-plus 
-                    | {{_ "Add Memebers"}}
-                    
-            hr
-            .window-module.js-member-list
-                each currentOrganization.members
-                  +userCard(user=this org=currentOrganization)
-    else
-      //- XXX We need a better error message in case the board has been archived
-      +message(label="organization-not-found")
+    if currentUser
+      if currentOrganization
+        .org
+          .header
+            .header-wrapper.u-clearfix
+              .org-name
+                h1 {{currentOrganization.title}}
+              .org-desc
+                span {{currentOrganization.description}}
+          .nav
+          .main.u-clearfix
+            .main-wrapper
+              if currentUser.isOrganizationAdmin
+                .window-module 
+                  .org-members-options
+                      a.button-link.js-manage-org-members 
+                        i.fa.fa-plus 
+                        | {{_ "add-member"}}
+                hr
+              .window-module.js-member-list
+                  each currentOrganization.members
+                    +userCard(user=this org=currentOrganization)
+        else
+          //- XXX We need a better error message in case the board has been archived
+          +message(label="organization-not-found")
   else
     +spinner
 
@@ -59,12 +59,13 @@ template(name="userCard")
         span.quiet.u-inline-block @{{ userData.username }}
 
     .options
-      a.js-change-org-role.option.button-link.role-button(class="{{#if isLastAdmin}}disabled{{/if}}") {{_ memberType}}
-        i.fa.fa-angle-down
+      a.js-change-org-role.option.button-link.role-button(class="{{#if canChangeRole}}{{else}}disabled{{/if}}") {{_ memberType}}
+        if canChangeRole
+          i.fa.fa-angle-down
       if isCurrentUser
         a.option.button-link.remove-button.js-remove-or-deactivate(class="{{#if isLastAdmin}}disabled{{/if}}")
           span {{_ "leave"}}
-      else if  currentUser.isOrgamizationAdmin
+      else if  currentUser.isOrganizationAdmin
         a.option.button-link.remove-button.js-remove-or-deactivate(class="{{#if isLastMember}}disabled{{/if}}")
           span {{_ "remove"}}
 

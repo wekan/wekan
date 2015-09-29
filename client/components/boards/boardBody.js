@@ -186,10 +186,16 @@ BlazeComponent.extendComponent({
   },
 
   onRendered() {
-    this.updatePermission();
+    // this.updatePermission();
+
   },
 
   updatePermission(){
+    
+  },
+
+  onCreated() {
+    this.permissionMenuIsOpen = new ReactiveVar(false);
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
     if( currentBoard.isCollaborate() && currentBoard.lists().count() === 0 )
       this.permission = new ReactiveVar('registered');
@@ -197,11 +203,18 @@ BlazeComponent.extendComponent({
       this.permission = new ReactiveVar('admin');
     else
       this.permission = new ReactiveVar('member'); 
+    this.autorun(() => {
+      const currentBoard = Boards.findOne(Session.get('currentBoard'));
+      if( currentBoard.isCollaborate() && currentBoard.lists().count() === 0 )
+        this.setPermission('registered');
+      else if( currentBoard.isCollaborate() )
+        this.setPermission('admin');
+      else
+        this.setPermission('member'); 
+    });
   },
 
-  onCreated() {
-    this.permissionMenuIsOpen = new ReactiveVar(false);
-  },
+  
 
   permissionCheck() {
     return this.currentData() === this.permission.get();

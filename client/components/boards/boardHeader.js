@@ -129,10 +129,31 @@ BlazeComponent.extendComponent({
     this.visibilityMenuIsOpen = new ReactiveVar(false);
     this.visibility = new ReactiveVar('private');
   },
+
   organizations: function() {
     return Organizations.find({}, {
       sort: ['title']
     });
+  },
+
+  canCreateBoardOrgs(){
+    // meteor mini-mongo not support $elemMatch? it alway return all the elements
+    return Organizations.find(
+       { members:{ $elemMatch: { userId: Meteor.userId(), isAdmin: true } } }
+    )
+    // let args = [];
+    // let userId  = Meteor.userId();
+    // let all = Organizations.find({ 
+    //   $and: [
+    //     { 'members.userId': userId },
+    //     { 'members.isAdmin':  true },
+    //   ],
+    // });
+    // all.forEach(function(org){
+    //   if( _.where(org.members, { userId, isAdmin: true }).length >= 1 )
+    //     args.push(org);
+    // });
+    // return orgs;
   },
 
   isCurrentOrg: function(id){

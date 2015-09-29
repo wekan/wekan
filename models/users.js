@@ -23,8 +23,8 @@ Users.helpers({
     return _.contains(starredBoardIds, boardId);
   },
 
+  // at server side, can not use Session.get, must give boardId 
   isBoardMember(boardId) {
-    //at server side, can not use Session
     if( !boardId )
       boardId = Session.get('currentBoard');
     const board = Boards.findOne(boardId);
@@ -32,24 +32,37 @@ Users.helpers({
                          _.where(board.members, {userId: this._id})[0].isActive;
   },
 
+  // at server side, can not use Session.get, must give boardId 
   isBoardAdmin(boardId) {
-    //at server side, can not use Session
     if( !boardId )
       boardId = Session.get('currentBoard');
     const board = Boards.findOne(boardId);
     return board && this.isBoardMember(board) &&
                           _.where(board.members, {userId: this._id})[0].isAdmin;
   },
-  isOrganizationMember: function() {
-    var org = Organizations.findOne({shortName: Session.get('currentOrganizationShortName')});
+
+  // at server side, can not use Session.get, must give orgId 
+  isOrganizationMember(orgId) {
+    let org;
+    if( orgId )
+      org = Organizations.findOne(orgId);
+    else
+      org = Organizations.findOne({shortName: Session.get('currentOrganizationShortName')});
     return org && _.contains(_.pluck(org.members, 'userId'), this._id) &&
                          _.where(org.members, {userId: this._id})[0].isActive;
   },
-  isOrganizationAdmin: function() {
-    var org = Organizations.findOne({shortName: Session.get('currentOrganizationShortName')});
+
+  // at server side, can not use Session.get, must give orgId 
+  isOrganizationAdmin(orgId) {
+    let org;
+    if( orgId )
+      org = Organizations.findOne(orgId);
+    else
+      org = Organizations.findOne({shortName: Session.get('currentOrganizationShortName')});
     if (org && this.isOrganizationMember(org))
       return _.where(org.members, {userId: this._id})[0].isAdmin;
   },
+
   getInitials() {
     const profile = this.profile || {};
     if (profile.initials)
@@ -68,12 +81,11 @@ Users.helpers({
   hasVoted(cardId) {
     const votedCards = this.profile.votedCards || [];
     return _.contains(_.pluck(votedCards, 'cardId'), cardId);
-    //_.contains(votedCardIds, cardId);
   },
 
   getTodayVotes(){
-    var today = new Date();
-    var lastVoteDate = this.profile.lastVoteDate ;
+    const today = new Date();
+    const lastVoteDate = this.profile.lastVoteDate;
     if( !lastVoteDate || Utils.compareDay(today, lastVoteDate) === 1 )
       return 0;
     else{
@@ -86,32 +98,32 @@ Users.helpers({
   },
 
   voteCard(cardId){
-    if( ! this.hasVoted(cardId) && this.getTodayVotes()<5){
+    if( !this.hasVoted(cardId) && this.getTodayVotes() < 5 ){
       Cards.update(cardId, {$inc: {votes: 1}});  
-      var today = new Date();
-      var lastVoteDate = this.profile.lastVoteDate ;
+      const today = new Date();
+      const lastVoteDate = this.profile.lastVoteDate;
       if(!lastVoteDate || Utils.compareDay(today, lastVoteDate) === 1 )
         Meteor.users.update(this._id, {
           $set: {
-            'profile.todayVotes': 1
+            'profile.todayVotes': 1,
           },
         });
       else 
         Meteor.users.update(this._id, {
-        $inc: {
-          'profile.todayVotes':1
-        },
-      });
-      
-      Meteor.users.update(this._id, {
-          $set: {
-            'profile.lastVoteDate': today
+          $inc: {
+            'profile.todayVotes':1,
           },
         });
+      
+      Meteor.users.update(this._id, {
+        $set: {
+          'profile.lastVoteDate': today,
+        },
+      });
       const queryKind =  '$addToSet';
       Meteor.users.update(this._id, {
         [queryKind]: {
-          'profile.votedCards': {cardId: cardId, date: today},
+          'profile.votedCards': {cardId, date: today},
         },
       });
     }
@@ -204,13 +216,13 @@ if (Meteor.isServer) {
 
     // Insert the Welcome Board
     Boards.insert(ExampleBoard, (err, boardId) => {
-      var sort = 0;
+      let sort = 0;
       _.forEach(['Basics', 'Advanced'], (title) => {
         const list = {
           title,
           boardId,
           userId: ExampleBoard.userId,
-          sort: sort,
+          sort,
           permission: 'member',
 
           // XXX Not certain this is a bug, but we except these fields get

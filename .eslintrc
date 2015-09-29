@@ -16,12 +16,12 @@ rules:
   # Stylistic Issues
   camelcase: [2]
   comma-spacing: [2]
-  comma-style: [2]
+  comma-style: [2] 
   new-parens: [2]
   no-lonely-if: [2]
   no-multiple-empty-lines: [2]
   no-nested-ternary: [2]
-  linebreak-style: [2, unix]
+  # linebreak-style: [2, unix]
   quotes: [2, single]
   semi-spacing: [2]
   spaced-comment: [2, always, markers: ['/']]
@@ -119,6 +119,8 @@ globals:
   # XXX Temp, we should remove these
   allowIsBoardAdmin: true
   allowIsBoardMember: true
+  allowIsOrgAdmin: true
+  allowIsOrgMember: true
   Emoji: true
 
 env:

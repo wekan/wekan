@@ -1,17 +1,15 @@
 {
-  "name": "思齐",
-  "description": "简单实时的清单管理平台",
+  "name": "Wekan",
+  "description": "The open-source Trello-like kanban",
   "repository": "https://github.com/wekan/wekan",
   "logo": "https://raw.githubusercontent.com/wekan/wekan/master/meta/icons/wekan-150.png",
-  "keywords": ["任务", "清单", "看板", "团队"],
-  "website": "http://smoch.cn",
-
+  "keywords": ["productivity", "tool", "team", "kanban"],
+  "website": "http://wekan.io",
   "env": {
-    "MAIL_URL": "smtp://smoch:liangting@smtp.126.com/",
     "BUILDPACK_URL": "https://github.com/AdmitHub/meteor-buildpack-horse.git",
     "ROOT_URL": {
       "description": "IMPORTANT! Please replace <App Name> with the value provided on the top. This will be the full URL of your Wekan app.",
-      "value": "https://smoch.cn"
+      "value": "https://<App Name>.herokuapp.com"
     }
   },
   "addons": [
