@@ -5,8 +5,10 @@ Organizations.attachSchema(new SimpleSchema({
     type: String
   },
   shortName: {
-    type: String
-  },description: {
+    type: String,
+    unique: true
+  },
+  description: {
     type: String
   },
   slug: {

@@ -111,7 +111,7 @@ template(name="createBoardPopup")
       input.js-new-board-title(type="text" placeholder="{{_ 'bucket-example'}}" autofocus required)
     label
       select(name="org-id" class="org-sel")
-        option(value='' selected="{{#if isCurrentOrg ''}}selected{{/if}}") {{_ 'none'}} 
+        option(value='' selected="{{#if isCurrentOrg }}selected{{/if}}") {{_ 'none'}} 
         if canCreateBoardOrgs.count  
           each canCreateBoardOrgs
             if currentUser.isOrganizationAdmin _id

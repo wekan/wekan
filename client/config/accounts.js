@@ -50,7 +50,7 @@ AccountsTemplates.configureRoute('changePwd', {
 
 Accounts.onLogin(function() {
   var path = FlowRouter.current().path;
-  // we only do it if the user is in the login page
+  // It seems that meteor has done this, we only do it if the user is in the login page
   // if(path === "/sign-in"){
   //   FlowRouter.go(Session.get("previousURL"));
   // }
