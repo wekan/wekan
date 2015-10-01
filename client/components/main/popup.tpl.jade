@@ -4,10 +4,10 @@
   class="{{#unless title}}no-title{{/unless}}"
   style="left:{{offset.left}}px; top:{{offset.top}}px;")
   .header
-    a.back-btn.js-back-view(class="{{#unless hasPopupParent}}is-hidden{{/unless}}")
+    a.back-btn.js-back-view(class="{{#unless hasPopupParent}}is-hidden{{/unless}}" href="#")
       i.fa.fa-chevron-left
     span.header-title= title
-    a.close-btn.js-close-pop-over
+    a.close-btn.js-close-pop-over(href = "#")
       i.fa.fa-times-thin
   .content-wrapper
     //-

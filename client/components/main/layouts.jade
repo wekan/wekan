@@ -18,7 +18,7 @@ template(name="defaultLayout")
     #modal
       .overlay
       .modal-content
-        a.modal-close-btn.js-close-modal
+        a.modal-close-btn.js-close-modal(href = "#")
           i.fa.fa-times-thin
         +Template.dynamic(template=Modal.getTemplateName)
 

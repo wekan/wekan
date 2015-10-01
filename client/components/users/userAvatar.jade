@@ -1,5 +1,5 @@
 template(name="userAvatar")
-  a.member.js-member(title="{{userData.profile.fullname}} ({{userData.username}})")
+  a.member.js-member(title="{{userData.profile.fullname}} ({{userData.username}})" href="#")
     if userData.profile.avatarUrl
       img.avatar.avatar-image(src=userData.profile.avatarUrl)
     else
@@ -12,7 +12,7 @@ template(name="userAvatar")
     unless isSandstorm
       if showEdit
         if $eq currentUser._id userData._id
-          a.edit-avatar.js-change-avatar
+          a.edit-avatar.js-change-avatar(href="#")
             i.fa.fa-pencil
 
 template(name="userAvatarInitials")
@@ -41,7 +41,7 @@ template(name="changeAvatarPopup")
     .warning {{_ error.get}}
   ul.pop-over-list
     each uploadedAvatars
-      li: a.js-select-avatar
+      li: a.js-select-avatar(href="#")
         .member
           img.avatar.avatar-image(src="{{url avatarUrlOptions}}")
         | {{_ 'uploaded-avatar'}}
@@ -49,10 +49,10 @@ template(name="changeAvatarPopup")
           i.fa.fa-check
         p.sub-name
           unless isSelected
-            a.js-delete-avatar {{_ 'delete'}}
+            a.js-delete-avatar(href="#") {{_ 'delete'}}
             |  -
           = original.name
-    li: a.js-select-initials
+    li: a.js-select-initials(href="#")
       .member
         +userAvatarInitials(userId=currentUser._id)
       | Initials
@@ -73,8 +73,8 @@ template(name="cardMemberPopup")
         p.quiet @{{ user.username }}
     if currentUser.isBoardMember
       ul.pop-over-list
-        li: a.js-remove-member {{_ 'remove-member-from-card'}}
+        li: a.js-remove-member(href="#") {{_ 'remove-member-from-card'}}
 
         if $eq currentUser._id user._id
           with currentUser
-            li: a.js-edit-profile {{_ 'edit-profile'}}
+            li: a.js-edit-profile(href="#") {{_ 'edit-profile'}}

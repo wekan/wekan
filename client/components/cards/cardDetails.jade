@@ -5,11 +5,11 @@ template(name="cardDetails")
         input.full-line(type="text" value=title autofocus)
         .edit-controls.clearfix
           button.primary.confirm(type="submit") {{_ 'save'}}
-          a.fa.fa-times-thin.js-close-inlined-form
+          a.fa.fa-times-thin.js-close-inlined-form(href="#")
       else
-        a.fa.fa-times-thin.close-card-details.js-close-card-details
+        a.fa.fa-times-thin.close-card-details.js-close-card-details(href="#")
         if currentUser.isBoardMember
-          a.fa.fa-ellipsis-v.card-details-menu.js-open-card-details-menu
+          a.fa.fa-ellipsis-v.card-details-menu.js-open-card-details-menu(href="#")
         h2.card-details-title.js-card-title(
           class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
             = title
@@ -24,16 +24,16 @@ template(name="cardDetails")
           +userAvatar(userId=this cardId=../_id)
           | {{! XXX Hack to hide syntaxic coloration /// }}
         if currentUser.isBoardMember
-          a.member.add-member.card-details-item-add-button.js-add-members(title="{{_ 'card-members-title'}}")
+          a.member.add-member.card-details-item-add-button.js-add-members(title="{{_ 'card-members-title'}}" href="#")
             i.fa.fa-plus
 
       .card-details-item.card-details-item-labels
         h3.card-details-item-title {{_ 'labels'}}
-        a(class="{{#if currentUser.isBoardMember}}js-add-labels{{else}}is-disabled{{/if}}" title="{{_ 'card-labels-title'}}")
+        a(class="{{#if currentUser.isBoardMember}}js-add-labels{{else}}is-disabled{{/if}}" title="{{_ 'card-labels-title'}}" href="#")
           each labels
             span.card-label(class="card-label-{{color}}" title=name)= name
         if currentUser.isBoardMember
-          a.card-label.add-label.js-add-labels(title="{{_ 'card-labels-title'}}")
+          a.card-label.add-label.js-add-labels(title="{{_ 'card-labels-title'}}" href="#")
             i.fa.fa-plus
 
     //- XXX We should use "editable" to avoid repetiting ourselves
@@ -44,9 +44,9 @@ template(name="cardDetails")
           | {{getUnsavedValue 'cardDescription' _id description}}
         .edit-controls.clearfix
           button.primary(type="submit") {{_ 'save'}}
-          a.fa.fa-times-thin.js-close-inlined-form
+          a.fa.fa-times-thin.js-close-inlined-form(href="#")
       else
-        a.js-open-inlined-form
+        a.js-open-inlined-form(href="#")
           if description
             +viewer
               = description
@@ -55,9 +55,9 @@ template(name="cardDetails")
         if (hasUnsavedValue 'cardDescription' _id)
           p.quiet
             | {{_ 'unsaved-description'}}
-            a.js-open-inlined-form {{_ 'view-it'}}
+            a.js-open-inlined-form(href="#") {{_ 'view-it'}}
             = ' - '
-            a.js-close-inlined-form {{_ 'discard'}}
+            a.js-close-inlined-form(href="#") {{_ 'discard'}}
     else if description
       h3.card-details-item-title {{_ 'description'}}
       +viewer
@@ -79,15 +79,15 @@ template(name="cardDetails")
 
 template(name="cardDetailsActionsPopup")
   ul.pop-over-list
-    li: a.js-members {{_ 'card-edit-members'}}
-    li: a.js-labels {{_ 'card-edit-labels'}}
-    li: a.js-attachments {{_ 'card-edit-attachments'}}
+    li: a.js-members(href="#") {{_ 'card-edit-members'}}
+    li: a.js-labels(href="#") {{_ 'card-edit-labels'}}
+    li: a.js-attachments(href="#") {{_ 'card-edit-attachments'}}
   hr
   ul.pop-over-list
-    li: a.js-move-card {{_ 'moveCardPopup-title'}}
+    li: a.js-move-card(href="#") {{_ 'moveCardPopup-title'}}
     unless archived
-      li: a.js-archive {{_ 'archive-card'}}
-    li: a.js-more {{_ 'cardMorePopup-title'}}
+      li: a.js-archive(href="#") {{_ 'archive-card'}}
+    li: a.js-more(href="#") {{_ 'cardMorePopup-title'}}
 
 template(name="moveCardPopup")
   +boardLists
@@ -113,7 +113,7 @@ template(name="cardMorePopup")
       input.inline-input(type="text" readonly value="{{ rootUrl }}")
     | {{_ 'added'}}
     span.date(title=card.createdAt) {{ moment createdAt 'LLL' }}
-    a.js-delete(title="{{_ 'card-delete-notice'}}") {{_ 'delete'}}
+    a.js-delete(title="{{_ 'card-delete-notice'}}" href="#") {{_ 'delete'}}
 
 template(name="cardDeletePopup")
   p {{_ "card-delete-pop"}}
