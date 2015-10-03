@@ -1,7 +1,7 @@
 Template.attachmentsGalery.events({
   'click .js-add-attachment': Popup.open('cardAttachments'),
   'click .js-confirm-delete': Popup.afterConfirm('attachmentDelete',
-    () => {
+    function() {
       Attachments.remove(this._id);
       Popup.close();
     }

@@ -24,3 +24,6 @@ template(name="minicard")
         .badge
           span.badge-icon.fa.fa-paperclip
           span.badge-text= attachments.count
+      if linkedBoard
+        .badge.badge-state-image-only(title=linkedBoardId)
+          span.badge-icon.fa.fa-link

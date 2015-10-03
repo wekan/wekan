@@ -137,6 +137,15 @@ Template.memberPopup.events({
   },
 });
 
+Template.removeMemberPopup.helpers({
+  user() {
+    return Users.findOne(this.userId);
+  },
+  board() {
+    return Boards.findOne(Session.get('currentBoard'));
+  },
+});
+
 Template.membersWidget.events({
   'click .js-member': Popup.open('member'),
   'click .js-manage-board-members': Popup.open('addMember'),

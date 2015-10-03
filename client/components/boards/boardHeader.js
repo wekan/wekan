@@ -6,7 +6,7 @@ Template.boardMenuPopup.events({
   },
   'click .js-change-board-color': Popup.open('boardChangeColor'),
   'click .js-change-language': Popup.open('changeLanguage'),
-  'click .js-archive-board ': Popup.afterConfirm('archiveBoard', () => {
+  'click .js-archive-board ': Popup.afterConfirm('archiveBoard', function() {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
     currentBoard.archive();
     // XXX We should have some kind of notification on top of the page to
