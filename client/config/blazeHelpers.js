@@ -13,13 +13,3 @@ Blaze.registerHelper('currentCard', () => {
 });
 
 Blaze.registerHelper('getUser', (userId) => Users.findOne(userId));
-
-Blaze.registerHelper('currentLinkedBoard', () => {
-  const cardId = Session.get('currentCard');
-  if (cardId) {
-    const lBoardId = Cards.findOne(cardId, {linkedBoardId:1});
-    console.log(lBoardId);
-    return lBoardId;
-
-  }
-});

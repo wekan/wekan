@@ -156,7 +156,7 @@ BlazeComponent.extendComponent({
 
   onSubmit(evt) {
     evt.preventDefault();
-    const title = this.data().board().title + " :: " + this.data().title;
+    const title = `${this.data().board().title} :: ${this.data().title}`;
     const visibility = this.visibility.get();
     const parentCard = Session.get('currentCard');
     const boardId = Boards.insert({
@@ -166,8 +166,6 @@ BlazeComponent.extendComponent({
     });
 
     Cards.update({_id: parentCard}, {$set:{linkedBoardId: boardId}});
-
-    const link = this.data().linkedBoardId;
 
     Popup.close();
     // Utils.goBoardId(boardId);
