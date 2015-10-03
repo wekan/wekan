@@ -217,7 +217,7 @@ Template.cardMorePopup.events({
   }),
   'click .js-add-board': Popup.open('createLinkedBoard'),
   'click .js-unlink-board'() {
-    Cards.update({_id: Session.get('currentCard')}, {$unset:{linkedBoardId: ""}});
+    Cards.update({_id: Session.get('currentCard')}, {$unset:{linkedBoardId: ''}});
     Popup.close();
   },
 });
