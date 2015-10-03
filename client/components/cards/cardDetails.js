@@ -86,6 +86,10 @@ BlazeComponent.extendComponent({
         this.componentParent().showOverlay.set(true);
         this.componentParent().mouseHasEnterCardDetails = true;
       },
+      'click .js-open-board'() {
+        Utils.goBoardId(this.data().linkedBoardId);
+      },
+
     })];
   },
 }).register('cardDetails');
@@ -127,6 +131,62 @@ BlazeComponent.extendComponent({
   }
 }).register('inlinedCardDescription');
 
+BlazeComponent.extendComponent({
+  template() {
+    return 'createLinkedBoardPopup';
+  },
+
+  onCreated() {
+    this.visibilityMenuIsOpen = new ReactiveVar(false);
+    this.visibility = new ReactiveVar('private');
+  },
+
+  visibilityCheck() {
+    return this.currentData() === this.visibility.get();
+  },
+
+  setVisibility(visibility) {
+    this.visibility.set(visibility);
+    this.visibilityMenuIsOpen.set(false);
+  },
+
+  toggleVisibilityMenu() {
+    this.visibilityMenuIsOpen.set(!this.visibilityMenuIsOpen.get());
+  },
+
+  onSubmit(evt) {
+    evt.preventDefault();
+    const title = this.data().board().title + " :: " + this.data().title;
+    const visibility = this.visibility.get();
+    const parentCard = Session.get('currentCard');
+    const boardId = Boards.insert({
+      title,
+      permission: visibility,
+      linkedCardId: parentCard,
+    });
+
+    Cards.update({_id: parentCard}, {$set:{linkedBoardId: boardId}});
+
+    const link = this.data().linkedBoardId;
+
+    Popup.close();
+    // Utils.goBoardId(boardId);
+
+    // Immediately star boards crated with the headerbar popup.
+    // Meteor.user().toggleBoardStar(boardId);
+  },
+
+  events() {
+    return [{
+      'click .js-select-visibility'() {
+        this.setVisibility(this.currentData());
+      },
+      'click .js-change-visibility': this.toggleVisibilityMenu,
+      submit: this.onSubmit,
+    }];
+  },
+}).register('createLinkedBoardPopup');
+
 Template.cardDetailsActionsPopup.events({
   'click .js-members': Popup.open('cardMembers'),
   'click .js-labels': Popup.open('cardLabels'),
@@ -157,6 +217,11 @@ Template.cardMorePopup.events({
     Cards.remove(this._id);
     Utils.goBoardId(this.boardId);
   }),
+  'click .js-add-board': Popup.open('createLinkedBoard'),
+  'click .js-unlink-board'() {
+    Cards.update({_id: Session.get('currentCard')}, {$unset:{linkedBoardId: ""}});
+    Popup.close();
+  },
 });
 
 // Close the card details pane by pressing escape

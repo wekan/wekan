@@ -71,6 +71,10 @@ Boards.attachSchema(new SimpleSchema({
       'midnight',
     ],
   },
+  linkedCardId: {
+    type: String,
+    optional: true,
+  },
 }));
 
 
