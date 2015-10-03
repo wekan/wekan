@@ -42,10 +42,10 @@ BlazeComponent.extendComponent({
 
       // Find all @-mentioned usernames, collect a list of their IDs and strip
       // their mention out of the title.
-      let foundUserIds = [];
-      currentBoard.members.forEach(member => {
+      let foundUserIds = []; // eslint-disable-line prefer-const
+      currentBoard.members.forEach((member) => {
         const username = Users.findOne(member.userId).username;
-        let nameNdx = title.indexOf('@' + username);
+        const nameNdx = title.indexOf(`@${username}!`);
         if(nameNdx !== -1) {
           foundUserIds.push(member.userId);
           title = title.substr(0, nameNdx)
@@ -55,11 +55,11 @@ BlazeComponent.extendComponent({
 
       // Find all #-mentioned labels (based on their colour or name), collect a
       // list of their IDs, and strip their mention out of the title.
-      let foundLabelIds = [];
-      currentBoard.labels.forEach(label => {
-        const labelName = (!label.name || label.name === "")
+      let foundLabelIds = []; // eslint-disable-line prefer-const
+      currentBoard.labels.forEach((label) => {
+        const labelName = (!label.name || label.name === '')
                         ? label.color : label.name;
-        let labelNdx = title.indexOf('#' + labelName);
+        const labelNdx = title.indexOf(`#${labelName}`);
         if(labelNdx !== -1) {
           foundLabelIds.push(label._id);
           title = title.substr(0, labelNdx)
@@ -141,7 +141,7 @@ BlazeComponent.extendComponent({
 
   pressKey(evt) {
     // Don't do anything if the drop down is showing
-    if(dropDownIsOpened) {
+    if(dropdownMenuIsOpened) {
       return;
     }
 
@@ -181,7 +181,7 @@ BlazeComponent.extendComponent({
   },
 
   onCreated() {
-    dropDownIsOpened = false;
+    dropdownMenuIsOpened = false;
   },
 
   onRendered() {
@@ -212,7 +212,7 @@ BlazeComponent.extendComponent({
         search(term, callback) {
           const currentBoard = Boards.findOne(Session.get('currentBoard'));
           callback($.map(currentBoard.labels, (label) => {
-            const labelName = (!label.name || label.name === "") ? label.color : label.name;
+            const labelName = (!label.name || label.name === '') ? label.color : label.name;
             return labelName.indexOf(term) === 0 ? labelName : null;
           }));
         },
@@ -229,11 +229,11 @@ BlazeComponent.extendComponent({
     // customize hooks for dealing with the dropdowns
     $textarea.on({
       'textComplete:show'() {
-        dropDownIsOpened = true;
+        dropdownMenuIsOpened = true;
       },
       'textComplete:hide'() {
         Tracker.afterFlush(() => {
-          dropDownIsOpened = false;
+          dropdownMenuIsOpened = false;
         });
       },
     });
