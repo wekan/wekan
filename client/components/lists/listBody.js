@@ -45,7 +45,7 @@ BlazeComponent.extendComponent({
       let foundUserIds = []; // eslint-disable-line prefer-const
       currentBoard.members.forEach((member) => {
         const username = Users.findOne(member.userId).username;
-        const nameNdx = title.indexOf(`@${username}!`);
+        const nameNdx = title.indexOf(`@${username}`);
         if(nameNdx !== -1) {
           foundUserIds.push(member.userId);
           title = title.substr(0, nameNdx)
