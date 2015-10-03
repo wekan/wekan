@@ -40,28 +40,30 @@ BlazeComponent.extendComponent({
       // and applying the appropriate users and labels to the card instead.
       const currentBoard = Boards.findOne(Session.get('currentBoard'));
 
-      // Find all @-mentioned usernames, collect a list of their IDs
-      // and strip their mention out of the title.
+      // Find all @-mentioned usernames, collect a list of their IDs and strip
+      // their mention out of the title.
       let foundUserIds = [];
       currentBoard.members.forEach(member => {
         const username = Users.findOne(member.userId).username;
         let nameNdx = title.indexOf('@' + username);
         if(nameNdx !== -1) {
           foundUserIds.push(member.userId);
-          title = title.substr(0, nameNdx) + title.substr(nameNdx + username.length + 1);
+          title = title.substr(0, nameNdx)
+                + title.substr(nameNdx + username.length + 1);
         }
       });
 
-      // Find all #-mentioned labels (based on their colour or name),
-      // collect a list of their IDs, and strip their mention out of
-      // the title.
+      // Find all #-mentioned labels (based on their colour or name), collect a
+      // list of their IDs, and strip their mention out of the title.
       let foundLabelIds = [];
       currentBoard.labels.forEach(label => {
-        const labelName = (!label.name || label.name === "") ? label.color : label.name;
+        const labelName = (!label.name || label.name === "")
+                        ? label.color : label.name;
         let labelNdx = title.indexOf('#' + labelName);
         if(labelNdx !== -1) {
           foundLabelIds.push(label._id);
-          title = title.substr(0, labelNdx) + title.substr(labelNdx + labelName.length + 1);
+          title = title.substr(0, labelNdx)
+                + title.substr(labelNdx + labelName.length + 1);
         }
       });
 
@@ -138,7 +140,7 @@ BlazeComponent.extendComponent({
   },
 
   pressKey(evt) {
-    // don't do anything if the drop down is showing
+    // Don't do anything if the drop down is showing
     if(dropDownIsOpened) {
       return;
     }
