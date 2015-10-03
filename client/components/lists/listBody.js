@@ -26,7 +26,7 @@ BlazeComponent.extendComponent({
     const firstCardDom = this.find('.js-minicard:first');
     const lastCardDom = this.find('.js-minicard:last');
     const textarea = $(evt.currentTarget).find('textarea');
-    const title = textarea.val();
+    let title = textarea.val();
     const position = Blaze.getData(evt.currentTarget).position;
     let sortIndex;
     if (position === 'top') {
@@ -36,10 +36,41 @@ BlazeComponent.extendComponent({
     }
 
     if ($.trim(title)) {
+      // Parse for @user and #label mentions, stripping them from the title
+      // and applying the appropriate users and labels to the card instead.
+      const currentBoard = Boards.findOne(Session.get('currentBoard'));
+
+      // Find all @-mentioned usernames, collect a list of their IDs
+      // and strip their mention out of the title.
+      let foundUserIds = [];
+      currentBoard.members.forEach(member => {
+        const username = Users.findOne(member.userId).username;
+        let nameNdx = title.indexOf('@' + username);
+        if(nameNdx !== -1) {
+          foundUserIds.push(member.userId);
+          title = title.substr(0, nameNdx) + title.substr(nameNdx + username.length + 1);
+        }
+      });
+
+      // Find all #-mentioned labels (based on their colour or name),
+      // collect a list of their IDs, and strip their mention out of
+      // the title.
+      let foundLabelIds = [];
+      currentBoard.labels.forEach(label => {
+        const labelName = (!label.name || label.name === "") ? label.color : label.name;
+        let labelNdx = title.indexOf('#' + labelName);
+        if(labelNdx !== -1) {
+          foundLabelIds.push(label._id);
+          title = title.substr(0, labelNdx) + title.substr(labelNdx + labelName.length + 1);
+        }
+      });
+
       const _id = Cards.insert({
         title,
         listId: this.data()._id,
         boardId: this.data().board()._id,
+        labelIds: foundLabelIds,
+        members: foundUserIds,
         sort: sortIndex,
       });
       // In case the filter is active we need to add the newly inserted card in
@@ -100,12 +131,18 @@ BlazeComponent.extendComponent({
   },
 }).register('listBody');
 
+let dropdownMenuIsOpened = false;
 BlazeComponent.extendComponent({
   template() {
     return 'addCardForm';
   },
 
   pressKey(evt) {
+    // don't do anything if the drop down is showing
+    if(dropDownIsOpened) {
+      return;
+    }
+
     // Pressing Enter should submit the card
     if (evt.keyCode === 13) {
       evt.preventDefault();
@@ -139,5 +176,64 @@ BlazeComponent.extendComponent({
     return [{
       keydown: this.pressKey,
     }];
+  },
+
+  onCreated() {
+    dropDownIsOpened = false;
+  },
+
+  onRendered() {
+    const $textarea = this.$('textarea');
+    $textarea.textcomplete([
+      // User mentions
+      {
+        match: /\B@(\w*)$/,
+        search(term, callback) {
+          const currentBoard = Boards.findOne(Session.get('currentBoard'));
+          callback($.map(currentBoard.members, (member) => {
+            const username = Users.findOne(member.userId).username;
+            return username.indexOf(term) === 0 ? username : null;
+          }));
+        },
+        template(value) {
+          return value;
+        },
+        replace(username) {
+          return `@${username} `;
+        },
+        index: 1,
+      },
+
+      // Labels
+      {
+        match: /\B#(\w*)$/,
+        search(term, callback) {
+          const currentBoard = Boards.findOne(Session.get('currentBoard'));
+          callback($.map(currentBoard.labels, (label) => {
+            const labelName = (!label.name || label.name === "") ? label.color : label.name;
+            return labelName.indexOf(term) === 0 ? labelName : null;
+          }));
+        },
+        template(value) {
+          return value;
+        },
+        replace(label) {
+          return `#${label} `;
+        },
+        index: 1,
+      },
+    ]);
+
+    // customize hooks for dealing with the dropdowns
+    $textarea.on({
+      'textComplete:show'() {
+        dropDownIsOpened = true;
+      },
+      'textComplete:hide'() {
+        Tracker.afterFlush(() => {
+          dropDownIsOpened = false;
+        });
+      },
+    });
   },
 }).register('addCardForm');
