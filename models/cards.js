@@ -51,6 +51,10 @@ Cards.attachSchema(new SimpleSchema({
     type: Number,
     decimal: true,
   },
+  linkedBoardId: {
+    type: String,
+    optional: true,
+  },
 }));
 
 Cards.allow({
@@ -105,6 +109,10 @@ Cards.helpers({
 
   attachments() {
     return Attachments.find({ cardId: this._id }, { sort: { uploadedAt: -1 }});
+  },
+
+  linkedBoard() {    
+    return Boards.findOne(this.linkedBoardId);
   },
 
   cover() {
