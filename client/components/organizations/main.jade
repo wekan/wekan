@@ -25,17 +25,26 @@ template(name="organization")
             .header-wrapper.u-clearfix
               .org-name
                 h1 {{currentOrganization.title}}
+              .org-edit
+                a.button-link.js-edit-org 
+                  i.fa.fa-pencil 
+                  | {{_ "edit"}}
               .org-desc
                 span {{currentOrganization.description}}
+              
           .nav
           .main.u-clearfix
             .main-wrapper
               if currentUser.isOrganizationAdmin
-                .window-module 
+                .window-module.org-functions
                   .org-members-options
-                      a.button-link.js-manage-org-members 
-                        i.fa.fa-plus 
-                        | {{_ "add-member"}}
+                    a.button-link.js-manage-org-members 
+                      i.fa.fa-plus 
+                      | {{_ "add-member"}}
+                  .org-send-invite
+                    a.button-link.js-org-send-invite 
+                      i.fa.fa-send-o 
+                      | {{_ "invite"}}
                 hr
               .window-module.js-member-list
                   each currentOrganization.members
@@ -115,7 +124,25 @@ template(name="changeOrgPermissionPopup")
     p.quiet.bottom {{_ 'last-admin-desc'}}
         
       
+template(name="editOrgFormPopup")  
+  form
+    .editOrg
+      input.org-title-input(type="text" placeholder="{{_ 'organization-title'}}"
+        autocomplete="off" autofocus required)
+      input.org-short-name-input(type="text" placeholder="{{_ 'organization-short-name'}}"
+        autocomplete="off" required)
+      textarea.org-desc-input(type="text" placeholder="{{_ 'organization-description'}}"
+        autocomplete="off" )
+      .edit-controls.clearfix
+        button.primary.confirm(type="submit") {{_ 'save'}}
+        a.fa.fa-times-thin.js-close-inlined-form
 
 
-
-
+template(name="inviteEmailsForOrgPopup")
+  form
+    span {{_ 'invite-emails-for-org-description'}}
+    label
+      | {{_ 'invite-emails'}}
+      textarea.js-invite-emails-input(type="text" placeholder="{{_ 'invite-emails-description'}}"
+        autocomplete="off" autofocus)
+    input.primary.wide(type="submit" value="{{_ 'send'}}")

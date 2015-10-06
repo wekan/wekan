@@ -248,8 +248,6 @@
     "list-permission-registered": "Registed",
     "list-permission-registered-desc": "Registed user can add and edit content, will automatically become member after actions",
     "set-list-permission": "Permission",   
-    "app-name": "App Name",
-    "app-description": "App description",
     "login-to-comment": "<a href='%s'>Login</a> to comment",
     "login-to-vote": "<a href='%s'>Login</a> to vote",
     "app-page-title": "App title",
@@ -260,6 +258,18 @@
     "member": "Member",
     "Members": "Members",
     "add-member": "Add Member",
-    "initials": "头像字母",
+    "initials": "Profile chars",
+    "invite": "Invite",
+    "inviteEmailsForOrgPopup-title": "Invite",
+    "invite-emails-for-org-description": "Send invitations to memebers, they will joind this organization to be member after acceptted;use\";\"to divide multiple emails",
+    "inviteEmailsForBoardPopup-title": "Invite",
+    "invite-emails-for-board-description": "Send invitations to memebers, they will joind this board to be member after acceptted;use\";\"to divide multiple emails",
+    "inviteEmailsPopup-title": "Invite",
+    "invite-emails-description": "Send invitations to memebers;use\";\"to divide multiple emails",
+    
+    "invite-emails": "Emails",
+    "invite-emails-description": "use\";\"to divide multiple emails",
+     "editOrgFormPopup-title": "Edit Organization",
+    "send": "发送",
     "none": "None"
 }

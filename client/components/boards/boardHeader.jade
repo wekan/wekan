@@ -54,6 +54,7 @@ template(name="boardMenuPopup")
     li: a.js-open-archives {{_ 'archived-items'}}
     if currentUser.isBoardAdmin
       li: a.js-change-board-color {{_ 'board-change-color'}}
+      li: a.js-invite-emails-for-board {{_ 'invite'}}
     //-
       XXX Language should be handled by sandstorm, but for now display a
       language selection link in the board menu. This link is normally present
@@ -65,6 +66,15 @@ template(name="boardMenuPopup")
       hr
       ul.pop-over-list
         li: a.js-archive-board {{_ 'archive-board'}}
+
+template(name="inviteEmailsForBoardPopup")
+  form
+    span {{_ 'invite-emails-for-board-description'}}
+    label
+      | {{_ 'invite-emails'}}
+      textarea.js-invite-emails-input(type="text" placeholder="{{_ 'invite-emails-description'}}"
+        autocomplete="off" autofocus)
+    input.primary.wide(type="submit" value="{{_ 'send'}}")
 
 template(name="boardVisibilityList")
   ul.pop-over-list

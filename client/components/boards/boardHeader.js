@@ -6,6 +6,7 @@ Template.boardMenuPopup.events({
   },
   'click .js-change-board-color': Popup.open('boardChangeColor'),
   'click .js-change-language': Popup.open('changeLanguage'),
+  'click .js-invite-emails-for-board': Popup.open('inviteEmailsForBoard'),
   'click .js-archive-board ': Popup.afterConfirm('archiveBoard', function() {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
     currentBoard.archive();
@@ -13,6 +14,20 @@ Template.boardMenuPopup.events({
     // confirm that the board was successfully archived.
     FlowRouter.go('home');
   }),
+});
+
+Template.inviteEmailsForBoardPopup.events({
+  submit(evt, tpl) {
+    evt.preventDefault();
+    const emails = $.trim(tpl.find('.js-invite-emails-input').value);
+    
+    const emailArray = emails.split(";");
+    Meteor.call('enrollAccounts', emailArray, 'board', Session.get('currentBoard'), function (error, result){
+      let notify;
+    });
+
+    Popup.back();
+  },
 });
 
 Template.boardChangeTitlePopup.events({
@@ -130,6 +145,10 @@ BlazeComponent.extendComponent({
     this.visibility = new ReactiveVar('private');
   },
 
+  onDestroyed(){
+    Session.set('currentOrgIdHomeBoardList',''); 
+  },
+
   organizations: function() {
     return Organizations.find({}, {
       sort: ['title']
@@ -144,8 +163,15 @@ BlazeComponent.extendComponent({
   },
 
   isCurrentOrg: function(id){
-    var currentOrganization = Organizations.findOne({shortName: Session.get('currentOrganizationShortName')});
-    
+
+    let currentOrganization;
+    currentOrganization = Organizations.findOne(Session.get('currentOrgIdHomeBoardList'));
+    if( !currentOrganization)
+      currentOrganization = Organizations.findOne({shortName: Session.get('currentOrganizationShortName')});
+    if( !currentOrganization){
+      if( Session.get('currentBoard') )
+        currentOrganization = Organizations.find(  Boards.findOne(Session.get('currentBoard')).organizationId );
+    }
     if( (currentOrganization && currentOrganization._id === id) ||
       (!currentOrganization && !id))
       return true;

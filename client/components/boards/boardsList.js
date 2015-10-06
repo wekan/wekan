@@ -28,9 +28,9 @@ BlazeComponent.extendComponent({
     return [{
       'click .js-add-board': function(evt){
         if(this.currentData())
-          Session.set('currentOrg',this.currentData()._id);
+          Session.set('currentOrgIdHomeBoardList',this.currentData()._id);
         else
-          Session.set('currentOrg',''); 
+          Session.set('currentOrgIdHomeBoardList',''); 
         var popup = Popup.open('createBoard');
         // XXX We need to have a better integration between the popup and the
         // UI components systems.
@@ -62,21 +62,19 @@ BlazeComponent.extendComponent({
         var title = this.find('.org-title-input');
         var shortName = this.find('.org-short-name-input');
         var desc = this.find('.org-desc-input');
-
-        if ($.trim(title.value)) {
+        if ( $.trim(title.value) && $.trim(shortName.value)) {
           var orgId = Organizations.insert({
-            title: title.value,
-            shortName: shortName.value,
-            description: desc.value,
+            title: $.trim(title.value),
+            shortName: $.trim(shortName.value),
+            description: $.trim(desc.value),
             //boardId: Session.get('currentBoard'),
             sort: $('.organization').length
           });
-
-          title.value = '';
-          title.focus();
-          shortName.value = '';
-          desc.value = '';
         }
+        title.value = '';
+        title.focus();
+        shortName.value = '';
+        desc.value = '';
        
       }
     }];

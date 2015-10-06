@@ -24,6 +24,11 @@
       max-width: 630px
       padding: 32px
       position: relative
+      .org-name, .org-desc
+        width: 85%
+        float: left
+      .org-edit
+        float: right
   .main
     background: #fff none repeat scroll 0 0
     .main-wrapper
@@ -35,11 +40,12 @@
         clear: both
         margin-bottom: 20px
         position: relative
+      .org-functions
+        min-height: 39px
 
 
-.org-members-options
-    //float: right
-    //max-width: 300px
+.org-members-options, .org-send-invite
+    max-width: 300px
     min-height: 34px
     position: relative
     a
@@ -51,7 +57,12 @@
       margin: 0 0 8px
       //max-width: 300px
       padding-right: 10px
-    
+ 
+.org-members-options
+  float: left
+
+.org-send-invite
+  float: right
 
 .member-list-item-detail 
   border-bottom: 1px solid #d6dadc

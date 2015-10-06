@@ -7,8 +7,10 @@ FlowRouter.route('/', {
   name: 'home',
   triggersEnter: [AccountsTemplates.ensureSignedIn],
   action() {
+    Session.set('currentOrganizationShortName', null);
     Session.set('currentBoard', null);
     Session.set('currentCard', null);
+    Session.set('previousURL', FlowRouter.current().path);
     
     Filter.reset();
     EscapeActions.executeAll();
@@ -18,7 +20,7 @@ FlowRouter.route('/', {
 });
 
 
-FlowRouter.route('/o/:shortName', {
+FlowRouter.route('/org/:shortName', {
   name: 'organization',
   triggersEnter: [AccountsTemplates.ensureSignedIn],
   action: function(params) {
@@ -36,6 +38,7 @@ FlowRouter.route('/b/:id/:slug', {
   action(params) {
     const currentBoard = params.id;
     const previousBoard = Session.get('currentBoard');
+    Session.set('currentOrganizationShortName', null);
     Session.set('currentBoard', currentBoard);
     Session.set('currentCard', null);
     Session.set('currentBoardSort', null);
@@ -58,6 +61,7 @@ FlowRouter.route('/b/:boardId/:slug/:cardId', {
   action(params) {
     EscapeActions.executeUpTo('inlinedForm');
 
+    Session.set('currentOrganizationShortName', null);
     Session.set('currentBoard', params.boardId);
     Session.set('currentCard', params.cardId);
     //Session.set('cardURL', FlowRouter.current().path);
@@ -97,6 +101,9 @@ const redirections = {
   '/boards': '/',
   '/boards/:id/:slug': '/b/:id/:slug',
   '/boards/:id/:slug/:cardId': '/b/:id/:slug/:cardId',
+  '/#/enroll-account/:id': '/enroll-account/:id',
+  '/#/reset-password/:id': '/reset-password/:id',
+  '/#/verify-email/:id': '/verify-email/:id',
 };
 
 _.each(redirections, (newPath, oldPath) => {

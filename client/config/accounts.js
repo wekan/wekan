@@ -1,3 +1,4 @@
+
 const passwordField = AccountsTemplates.removeField('password');
 const emailField = AccountsTemplates.removeField('email');
 AccountsTemplates.addFields([{
@@ -12,8 +13,11 @@ AccountsTemplates.configure({
   defaultLayout: 'userFormsLayout',
   defaultContentRegion: 'content',
   confirmPassword: false,
-  enablePasswordChange: true,
+  // i18n not finished the ui sentence
+  // showResendVerificationEmailLink: true,
+  enforceEmailVerification: false,
   sendVerificationEmail: true,
+  enablePasswordChange: true,
   showForgotPasswordLink: true,
   onLogoutHook() {
     const homePage = 'home';
@@ -55,7 +59,6 @@ Accounts.onLogin(function() {
   //   FlowRouter.go(Session.get("previousURL"));
   // }
 });
-
 // detect language at the startup time, invoid the apparent reloading of the UI
 // the code is the same to i118n ?
 Meteor.startup(() => {

@@ -197,15 +197,6 @@ BlazeComponent.extendComponent({
     this.componentChildren('inlinedForm')[0].open();
   },
 
-  onRendered() {
-    // this.updatePermission();
-
-  },
-
-  updatePermission(){
-    
-  },
-
   onCreated() {
     this.permissionMenuIsOpen = new ReactiveVar(false);
     const currentBoard = Boards.findOne(Session.get('currentBoard'));

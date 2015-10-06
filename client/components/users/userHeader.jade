@@ -16,9 +16,18 @@ template(name="memberMenuPopup")
     li: a.js-change-avatar {{_ 'edit-avatar'}}
     li: a.js-change-password {{_ 'changePasswordPopup-title'}}
     li: a.js-change-language {{_ 'changeLanguagePopup-title'}}
+    li: a.js-invite-emails {{_ 'inviteEmailsPopup-title'}}
   hr
   ul.pop-over-list
     li: a.js-logout {{_ 'log-out'}}
+
+template(name="inviteEmailsPopup")
+  form
+    label
+      | {{_ 'invite-emails'}}
+      textarea.js-invite-emails-input(type="text" placeholder="{{_ 'invite-emails-description'}}"
+        autocomplete="off" autofocus)
+    input.primary.wide(type="submit" value="{{_ 'send'}}")
 
 template(name="editProfilePopup")
   form

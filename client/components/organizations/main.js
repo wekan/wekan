@@ -21,7 +21,9 @@ BlazeComponent.extendComponent({
   },
   events: function(){
     return [{
-        'click .js-manage-org-members': Popup.open('addOrgMember')
+        'click .js-manage-org-members': Popup.open('addOrgMember'),
+        'click .js-edit-org': Popup.open('editOrgForm'),
+        'click .js-org-send-invite': Popup.open('inviteEmailsForOrg'),
 
       }];
   },
@@ -178,7 +180,71 @@ Template.changeOrgPermissionPopup.helpers({
   }
 });
 
+BlazeComponent.extendComponent({
+  template: function() {
+    return 'editOrgFormPopup';
+  },
 
+  // Proxy
+  open: function() {
+    this.componentChildren('inlinedForm')[0].open();
+  },
 
+  onRendered() {
+    let currentOrganization = Organizations.findOne({shortName: Session.get('currentOrganizationShortName')});
+    if( currentOrganization ){
+      this.find('.org-title-input').value = currentOrganization.title;
+      this.find('.org-short-name-input').value = currentOrganization.shortName;
+      this.find('.org-desc-input').value = currentOrganization.description;
+      this.find('.org-title-input').focus();
+    }
+  },
 
+  events: function() {
+    return [{
+      submit: function(evt) {
+        evt.preventDefault();
+        var title = this.find('.org-title-input');
+        var shortName = this.find('.org-short-name-input');
+        var desc = this.find('.org-desc-input');
+        let currentOrganization = Organizations.findOne({shortName: Session.get('currentOrganizationShortName')});
+        if( currentOrganization ){
+          if ( $.trim(title.value) && $.trim(title.value)  !== currentOrganization.title )
+            currentOrganization.setTitle($.trim(title.value));
+          if ( $.trim(desc.value) && $.trim(desc.value)  !== currentOrganization.description )
+            currentOrganization.setDescription($.trim(desc.value));
+          if ( $.trim(shortName.value) && $.trim(shortName.value)  !== currentOrganization.shortName ){
+
+            currentOrganization.setShortName($.trim(shortName.value));
+            FlowRouter.go('/org/'+$.trim(shortName.value));
+          }
+        }
+        
+        title.value = '';
+        title.focus();
+
+        // support change shortName ?
+        shortName.value = '';
+
+        desc.value = '';
+        Popup.close();
+      }
+    }];
+  }
+}).register('editOrgFormPopup');
+
+Template.inviteEmailsForOrgPopup.events({
+  submit(evt, tpl) {
+    evt.preventDefault();
+    const emails = $.trim(tpl.find('.js-invite-emails-input').value);
+    
+    const emailArray = emails.split(";");
+    let currentOrganization = Organizations.findOne({shortName: Session.get('currentOrganizationShortName')});
+        
+    Meteor.call('enrollAccounts', emailArray, 'organization', currentOrganization._id, function (error, result){
+      let notify;
+    });
+    Popup.back();
+  },
+});
 
