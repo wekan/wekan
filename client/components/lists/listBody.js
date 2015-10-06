@@ -22,6 +22,11 @@ BlazeComponent.extendComponent({
   },
 
   addCard(evt) {
+    if(!Meteor.user()) {
+      FlowRouter.go("atSignIn");
+      FlowRouter.reload();
+      return;
+    }   
     evt.preventDefault();
     const firstCardDom = this.find('.js-minicard:first');
     const lastCardDom = this.find('.js-minicard:last');

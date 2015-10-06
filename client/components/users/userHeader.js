@@ -8,10 +8,23 @@ Template.memberMenuPopup.events({
   'click .js-change-avatar': Popup.open('changeAvatar'),
   'click .js-change-password': Popup.open('changePassword'),
   'click .js-change-language': Popup.open('changeLanguage'),
+  'click .js-invite-emails': Popup.open('inviteEmails'),
   'click .js-logout'(evt) {
     evt.preventDefault();
 
     AccountsTemplates.logout();
+  },
+});
+
+Template.inviteEmailsPopup.events({
+  submit(evt, tpl) {
+    evt.preventDefault();
+    const emails = $.trim(tpl.find('.js-invite-emails-input').value);
+    
+    const emailArray = emails.split(";");
+    Meteor.call('enrollAccounts', emailArray, '', '', function (error, result){
+    });
+    Popup.back();
   },
 });
 

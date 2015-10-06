@@ -1,4 +1,21 @@
 Meteor.subscribe('unsaved-edits');
+SessionUnsavedEditCollection = new Mongo.Collection(null);
+
+SessionUnsavedEditCollection.attachSchema(new SimpleSchema({
+  fieldName: {
+    type: String,
+  },
+  docId: {
+    type: String,
+  },
+  value: {
+    type: String,
+  },
+  userId: {
+    type: String,
+    optional: true,
+  },
+}));
 
 // `UnsavedEdits` is a global key-value store used to save drafts of user
 // inputs. We used to have the notion of a `cachedValue` that was local to a
@@ -64,15 +81,62 @@ UnsavedEdits = {
   },
 };
 
+SessionUnsavedEdits = {
+  // XXX Wanted to have the collection has an instance variable, but
+  // unfortunately the collection isn't defined yet at this point. We need ES6
+  // modules to solve the file order issue!
+  //
+  // _collection: SessionUnsavedEditCollection,
+
+  get({ fieldName, docId }, defaultTo = '') {
+    const unsavedValue = this._getCollectionDocument(fieldName, docId);
+    if (unsavedValue) {
+      return unsavedValue.value;
+    } else {
+      return defaultTo;
+    }
+  },
+
+  has({ fieldName, docId }) {
+    return Boolean(this.get({fieldName, docId}));
+  },
+
+  set({ fieldName, docId }, value) {
+    const currentDoc = this._getCollectionDocument(fieldName, docId);
+    if (currentDoc) {
+      SessionUnsavedEditCollection.update(currentDoc._id, { $set: { value }});
+    } else {
+      SessionUnsavedEditCollection.insert({
+        fieldName,
+        docId,
+        value,
+      });
+    }
+  },
+
+  reset({ fieldName, docId }) {
+    const currentDoc = this._getCollectionDocument(fieldName, docId);
+    if (currentDoc) {
+      SessionUnsavedEditCollection.remove(currentDoc._id);
+    }
+  },
+
+  _getCollectionDocument(fieldName, docId) {
+    return SessionUnsavedEditCollection.findOne({fieldName, docId});
+  },
+};
+
 Blaze.registerHelper('getUnsavedValue', (fieldName, docId, defaultTo) => {
   // Workaround some blaze feature that pass a list of keywords arguments as the
   // last parameter (even if the caller didn't specify any).
   if (!_.isString(defaultTo)) {
     defaultTo = '';
   }
-  return UnsavedEdits.get({ fieldName, docId }, defaultTo);
+  return UnsavedEdits.get({ fieldName, docId }, defaultTo) ||
+    SessionUnsavedEdits.get({ fieldName, docId }, defaultTo);
 });
 
 Blaze.registerHelper('hasUnsavedValue', (fieldName, docId) => {
-  return UnsavedEdits.has({ fieldName, docId });
+  return UnsavedEdits.has({ fieldName, docId }) ||
+    SessionUnsavedEdits.has({ fieldName, docId });
 });

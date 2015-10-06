@@ -10,6 +10,13 @@ Boards.attachSchema(new SimpleSchema({
   archived: {
     type: Boolean,
   },
+  organizationId: {
+    type: String,
+    optional: true,
+  },
+  sortType: {
+    type: String
+  },
   createdAt: {
     type: Date,
     denyUpdate: true,
@@ -58,7 +65,7 @@ Boards.attachSchema(new SimpleSchema({
   },
   permission: {
     type: String,
-    allowedValues: ['public', 'private'],
+    allowedValues: ['public','collaborate', 'private']
   },
   color: {
     type: String,
@@ -73,10 +80,17 @@ Boards.attachSchema(new SimpleSchema({
   },
 }));
 
-
 Boards.helpers({
   isPublic() {
     return this.permission === 'public';
+  },
+
+  isCollaborate: function() {
+    return this.permission === 'collaborate';
+  },
+
+  isPrivate: function() {
+    return this.permission === 'private';
   },
 
   lists() {
@@ -255,10 +269,18 @@ Boards.before.insert((userId, doc) => {
   }];
   doc.stars = 0;
   doc.color = Boards.simpleSchema()._schema.color.allowedValues[0];
+  doc.organizationId = doc.organizationId || '';
 
   // Handle labels
   const colors = Boards.simpleSchema()._schema['labels.$.color'].allowedValues;
   const defaultLabelsColors = _.clone(colors).splice(0, 6);
+
+  if( !(doc.sortType))
+    if( doc.permission === "collaborate" || doc.permission === "public")
+      doc.sortType = 'votes';
+    else
+      doc.sortType = 'sort';
+
   doc.labels = _.map(defaultLabelsColors, (color) => {
     return {
       color,

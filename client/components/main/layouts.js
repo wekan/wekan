@@ -1,4 +1,5 @@
-Meteor.subscribe('boards');
+Meteor.subscribe('organizations');
+Meteor.subscribe('boards')
 
 BlazeLayout.setRoot('body');
 
@@ -7,6 +8,12 @@ Template.userFormsLayout.onRendered(() => {
 });
 
 Template.defaultLayout.events({
+  'click .js-close-modal': () => {
+    Modal.close();
+  },
+});
+
+Template.boardsLayout.events({
   'click .js-close-modal': () => {
     Modal.close();
   },

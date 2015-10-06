@@ -30,7 +30,9 @@ BlazeComponent.extendComponent({
     this._lastDragPositionX = 0;
 
     // Used to set the overlay
-    this.mouseHasEnterCardDetails = false;
+    self.mouseHasEnterCardDetails = false;
+
+    //Session.set('currentBoardSort', Boards.findOne(Session.get('currentBoard')).sortType);
   },
 
   openNewListForm() {
@@ -102,6 +104,18 @@ BlazeComponent.extendComponent({
   },
 }).register('board');
 
+Template.boardBody.helpers({
+  canAddList(){
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    if ( ( !currentBoard.isCollaborate() && Meteor.user() && Meteor.user().isBoardMember())||
+      (currentBoard.isCollaborate() && Meteor.user() && Meteor.user().isBoardAdmin()))
+      return true;
+    else 
+      return false;
+  },
+  
+});
+
 Template.boardBody.onRendered(function() {
   const self = BlazeComponent.getComponentForElement(this.firstNode);
 
@@ -130,7 +144,9 @@ Template.boardBody.onRendered(function() {
     },
   };
 
-  if (!Meteor.user() || !Meteor.user().isBoardMember())
+  const currentBoard = Boards.findOne(Session.get('currentBoard'));
+  if (!Meteor.user() || !Meteor.user().isBoardMember() ||
+    (currentBoard.isCollaborate() && ! (Meteor.user().isBoardAdmin())))
     return;
 
   self.$(self.listsDom).sortable({
@@ -166,7 +182,6 @@ Template.boardBody.onRendered(function() {
 
   // If there is no data in the board (ie, no lists) we autofocus the list
   // creation form by clicking on the corresponding element.
-  const currentBoard = Boards.findOne(Session.get('currentBoard'));
   if (currentBoard.lists().count() === 0) {
     self.openNewListForm();
   }
@@ -182,19 +197,62 @@ BlazeComponent.extendComponent({
     this.componentChildren('inlinedForm')[0].open();
   },
 
+  onCreated() {
+    this.permissionMenuIsOpen = new ReactiveVar(false);
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    if( currentBoard.isCollaborate() && currentBoard.lists().count() === 0 )
+      this.permission = new ReactiveVar('registered');
+    else if( currentBoard.isCollaborate() )
+      this.permission = new ReactiveVar('admin');
+    else
+      this.permission = new ReactiveVar('member'); 
+    this.autorun(() => {
+      const currentBoard = Boards.findOne(Session.get('currentBoard'));
+      if( currentBoard.isCollaborate() && currentBoard.lists().count() === 0 )
+        this.setPermission('registered');
+      else if( currentBoard.isCollaborate() )
+        this.setPermission('admin');
+      else
+        this.setPermission('member'); 
+    });
+  },
+
+  
+
+  permissionCheck() {
+    return this.currentData() === this.permission.get();
+  },
+
+  setPermission(permission) {
+    this.permission.set(permission);
+    this.permissionMenuIsOpen.set(false);
+  },
+
+  togglePermissionMenu() {
+    this.permissionMenuIsOpen.set(!this.permissionMenuIsOpen.get());
+  },
+
   events() {
     return [{
+      'click .js-change-permission': this.togglePermissionMenu,
+      'click .js-select-permission'() {
+        this.setPermission(this.currentData());
+      },
       submit(evt) {
         evt.preventDefault();
+        var permission = this.permission.get();
         const title = this.find('.list-name-input');
         if ($.trim(title.value)) {
           Lists.insert({
             title: title.value,
             boardId: Session.get('currentBoard'),
             sort: $('.list').length,
+            permission: permission,
           });
 
+          this.updatePermission();
           title.value = '';
+          title.focus();
         }
       },
     }];

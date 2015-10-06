@@ -23,16 +23,44 @@ Users.helpers({
     return _.contains(starredBoardIds, boardId);
   },
 
-  isBoardMember() {
-    const board = Boards.findOne(Session.get('currentBoard'));
+  // at server side, can not use Session.get, must give boardId 
+  isBoardMember(boardId) {
+    if( !boardId )
+      boardId = Session.get('currentBoard');
+    const board = Boards.findOne(boardId);
     return board && _.contains(_.pluck(board.members, 'userId'), this._id) &&
                          _.where(board.members, {userId: this._id})[0].isActive;
   },
 
-  isBoardAdmin() {
-    const board = Boards.findOne(Session.get('currentBoard'));
+  // at server side, can not use Session.get, must give boardId 
+  isBoardAdmin(boardId) {
+    if( !boardId )
+      boardId = Session.get('currentBoard');
+    const board = Boards.findOne(boardId);
     return board && this.isBoardMember(board) &&
                           _.where(board.members, {userId: this._id})[0].isAdmin;
+  },
+
+  // at server side, can not use Session.get, must give orgId 
+  isOrganizationMember(orgId) {
+    let org;
+    if( orgId )
+      org = Organizations.findOne(orgId);
+    else
+      org = Organizations.findOne({shortName: Session.get('currentOrganizationShortName')});
+    return org && _.contains(_.pluck(org.members, 'userId'), this._id) &&
+                         _.where(org.members, {userId: this._id})[0].isActive;
+  },
+
+  // at server side, can not use Session.get, must give orgId 
+  isOrganizationAdmin(orgId) {
+    let org;
+    if( orgId )
+      org = Organizations.findOne(orgId);
+    else
+      org = Organizations.findOne({shortName: Session.get('currentOrganizationShortName')});
+    if (org && this.isOrganizationMember(org))
+      return _.where(org.members, {userId: this._id})[0].isAdmin;
   },
 
   getInitials() {
@@ -49,6 +77,58 @@ Users.helpers({
       return this.username[0].toUpperCase();
     }
   },
+
+  hasVoted(cardId) {
+    const votedCards = this.profile.votedCards || [];
+    return _.contains(_.pluck(votedCards, 'cardId'), cardId);
+  },
+
+  getTodayVotes(){
+    const today = new Date();
+    const lastVoteDate = this.profile.lastVoteDate;
+    if( !lastVoteDate || Utils.compareDay(today, lastVoteDate) === 1 )
+      return 0;
+    else{
+      return this.profile.todayVotes;
+    }
+       
+  },
+  todayVotesLeft(){
+    return 5 - this.getTodayVotes();
+  },
+
+  voteCard(cardId){
+    if( !this.hasVoted(cardId) && this.getTodayVotes() < 5 ){
+      Cards.update(cardId, {$inc: {votes: 1}});  
+      const today = new Date();
+      const lastVoteDate = this.profile.lastVoteDate;
+      if(!lastVoteDate || Utils.compareDay(today, lastVoteDate) === 1 )
+        Meteor.users.update(this._id, {
+          $set: {
+            'profile.todayVotes': 1,
+          },
+        });
+      else 
+        Meteor.users.update(this._id, {
+          $inc: {
+            'profile.todayVotes':1,
+          },
+        });
+      
+      Meteor.users.update(this._id, {
+        $set: {
+          'profile.lastVoteDate': today,
+        },
+      });
+      const queryKind =  '$addToSet';
+      Meteor.users.update(this._id, {
+        [queryKind]: {
+          'profile.votedCards': {cardId, date: today},
+        },
+      });
+    }
+   
+  },
 });
 
 Users.mutations({
@@ -64,6 +144,7 @@ Users.mutations({
   setAvatarUrl(avatarUrl) {
     return { $set: { 'profile.avatarUrl': avatarUrl }};
   },
+
 });
 
 Meteor.methods({
@@ -77,6 +158,47 @@ Meteor.methods({
     }
   },
 });
+
+if (Meteor.isServer) {
+  Meteor.methods({
+    enrollAccount (email) {
+      check(email,String);
+      const newUserId = Accounts.createUser({email: email, username:email.substring(0, email.indexOf('@')), password: 'smoch.cn'});
+      
+      // custom enroll template
+      Accounts.sendEnrollmentEmail(newUserId);
+
+      return newUserId;
+    },
+    enrollAccounts (emails, destType,destId) {
+      check(emails,Array);
+      check(destType,String);
+      check(destId,String);
+      for(var i=0;i<emails.length;i++){
+        let userId;
+        if ( emails[i].indexOf('@') < 1 )
+          continue;
+        if( !Users.findOne({emails: {$elemMatch: {address:emails[i]}}})  ){
+          userId = Meteor.call('enrollAccount', emails[i]);
+        }
+        else
+          userId = Users.findOne({emails: {$elemMatch: {address:emails[i]}}})._id;
+        if( userId )
+        {
+          if( destType === 'organization' && Meteor.user().isOrganizationAdmin(destId) ){
+            let org = Organizations.findOne(destId);
+            org.addMember(userId);
+          }
+          else if( destType === 'board' && Meteor.user().isBoardAdmin(destId) ){
+            let board = Boards.findOne(destId);
+            board.addMember(userId);
+          }
+        }
+        
+      }
+    },
+  });
+};
 
 Users.before.insert((userId, doc) => {
   doc.profile = doc.profile || {};
@@ -135,12 +257,14 @@ if (Meteor.isServer) {
 
     // Insert the Welcome Board
     Boards.insert(ExampleBoard, (err, boardId) => {
-
+      let sort = 0;
       _.forEach(['Basics', 'Advanced'], (title) => {
         const list = {
           title,
           boardId,
           userId: ExampleBoard.userId,
+          sort,
+          permission: 'member',
 
           // XXX Not certain this is a bug, but we except these fields get
           // inserted by the Lists.before.insert collection-hook. Since this
@@ -151,6 +275,7 @@ if (Meteor.isServer) {
         };
 
         Lists.insert(list);
+        sort++;
       });
     });
   });

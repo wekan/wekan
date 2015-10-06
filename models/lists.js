@@ -14,6 +14,10 @@ Lists.attachSchema(new SimpleSchema({
     type: Date,
     denyUpdate: true,
   },
+  permission: {
+    type: String,
+    allowedValues: ['anonymous','registered', 'member', 'admin']
+  },
   sort: {
     type: Number,
     decimal: true,

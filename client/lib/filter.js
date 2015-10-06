@@ -65,6 +65,48 @@ class SetFilter {
   }
 }
 
+class RegexFilter {
+  constructor(checked) {
+    this._dep = new Tracker.Dependency();
+    this._regex = '';
+    this._checked = checked ? checked:false;
+  }
+
+  get() {
+    return this._regex;
+  }
+
+  set(val) {
+    this._regex = val;
+    this._dep.changed();
+  }
+  
+  reset() {
+    this._regex = '';
+    this._dep.changed();
+  }
+
+  checked(){
+    this._dep.depend();
+    return this._checked;
+  }
+
+  toogleChecked(){
+    this._checked = ! this._checked;
+    this._dep.changed();
+  }
+
+  _isActive() {
+    this._dep.depend();
+    return this._regex !== '';
+  }
+
+  _getMongoSelector() {
+    this._dep.depend();
+    return { $regex:'.*'+this._regex+'.*', $options: '' };
+  }
+}
+
 // The global Filter object.
 // XXX It would be possible to re-write this object more elegantly, and removing
 // the need to provide a list of `_fields`. We also should move methods into the
@@ -75,8 +117,12 @@ Filter = {
   // before changing the schema.
   labelIds: new SetFilter(),
   members: new SetFilter(),
+  title: new RegexFilter(true),
+  description: new RegexFilter(),
 
-  _fields: ['labelIds', 'members'],
+  _fields: ['labelIds', 'members', 'title', 'description'],
+  _fields_set: ['labelIds', 'members'],
+  _fields_regex: ['title', 'description'],
 
   // We don't filter cards that have been added after the last filter change. To
   // implement this we keep the id of these cards in this `_exceptions` fields
@@ -84,27 +130,52 @@ Filter = {
   _exceptions: [],
   _exceptionsDep: new Tracker.Dependency(),
 
-  isActive() {
-    return _.any(this._fields, (fieldName) => {
-      return this[fieldName]._isActive();
-    });
+  isActive(type) {
+    if( type === "set" )
+      return _.any(this._fields_set, (fieldName) => {
+        return this[fieldName]._isActive();
+      });
+    else if( type === "regex" )
+      return _.any(this._fields_regex, (fieldName) => {
+        return this[fieldName]._isActive();
+      });
+    else
+      return _.any(this._fields, (fieldName) => {
+        return this[fieldName]._isActive();
+      });
   },
 
   _getMongoSelector() {
     if (!this.isActive())
       return {};
 
-    const filterSelector = {};
-    _.forEach(this._fields, (fieldName) => {
+    const filterSelectorSet = {};
+    _.forEach(this._fields_set, (fieldName) => {
       const filter = this[fieldName];
       if (filter._isActive())
-        filterSelector[fieldName] = filter._getMongoSelector();
+        filterSelectorSet[fieldName] = filter._getMongoSelector();
     });
+
+    const filterSelectorRegex = new Array();
+    _.forEach(this._fields_regex, (fieldName) => {
+      const filter = this[fieldName];
+      if (filter._isActive() && filter.checked())
+      {
+        //filterSelectorRegex.push({''+fieldName: {$regex:'.*'+filter.get()+'.*', $options: ''}});
+        var selector = {};
+        selector[fieldName] = filter._getMongoSelector(); 
+        filterSelectorRegex.push(selector);
+      }
+        
+    });
+
+    if( filterSelectorRegex.length > 0 )
+      filterSelectorSet['$or'] = filterSelectorRegex;
 
     const exceptionsSelector = {_id: {$in: this._exceptions}};
     this._exceptionsDep.depend();
 
-    return {$or: [filterSelector, exceptionsSelector]};
+    return {$or: [filterSelectorSet, exceptionsSelector]};
   },
 
   mongoSelector(additionalSelector) {

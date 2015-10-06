@@ -13,39 +13,48 @@ template(name="headerBoard")
           if showStarCounter
             span {{_ 'board-nb-stars' currentBoard.stars}}
 
-      a.board-header-btn(class="{{#if currentUser.isBoardAdmin}}js-change-visibility{{else}}is-disabled{{/if}}")
-        i.fa(class="{{#if currentBoard.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
-        span {{_ currentBoard.permission}}
+        a.board-header-btn(class="{{#if currentUser.isBoardAdmin}}js-change-visibility{{else}}is-disabled{{/if}}")
+          i.fa(class="{{#if isPublic}}fa-globe{{else}}{{#if isCollaborate}}fa-magic{{else}}fa-lock{{/if}}{{/if}}")
+          span {{_ currentBoard.permission}}
+      a.board-header-btn.js-change-sort {{_ getSortTypeText}}
+          i.fa.fa-angle-down
 
   .board-header-btns.right
+    if currentUser
+      a.left-votes 
+        span {{_ "user-can-vote" currentUser.todayVotesLeft}}
+    else
+      with(pathFor route='atSignIn')
+          p.left-votes {{{_ 'login-to-vote' this}}}
     a.board-header-btn.js-open-filter-view(
         title="{{#if Filter.isActive}}{{_ 'filter-on-desc'}}{{/if}}"
         class="{{#if Filter.isActive}}emphasis{{/if}}")
-      i.fa.fa-filter
+      i.fa.fa-search
       span {{#if Filter.isActive}}{{_ 'filter-on'}}{{else}}{{_ 'filter'}}{{/if}}
       if Filter.isActive
         a.board-header-btn-close.js-filter-reset(title="{{_ 'filter-clear'}}")
           i.fa.fa-times-thin
+    if currentUser      
+      if currentUser.isBoardMember
+        a.board-header-btn.js-multiselection-activate(
+            title="{{#if MultiSelection.isActive}}{{_ 'multi-selection-on-desc'}}{{/if}}"
+            class="{{#if MultiSelection.isActive}}emphasis{{/if}}")
+          i.fa.fa-check-square-o
+          span {{_ 'multi-selection'}} {{#if MultiSelection.isActive}}{{_ 'is-on'}}{{/if}}
+          if MultiSelection.isActive
+            a.board-header-btn-close.js-multiselection-reset(title="{{_ 'multi-selection-clear'}}")
+              i.fa.fa-times-thin
 
-    if currentUser.isBoardMember
-      a.board-header-btn.js-multiselection-activate(
-          title="{{#if MultiSelection.isActive}}{{_ 'filter-on-desc'}}{{/if}}"
-          class="{{#if MultiSelection.isActive}}emphasis{{/if}}")
-        i.fa.fa-check-square-o
-        span {{#if MultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}
-        if MultiSelection.isActive
-          a.board-header-btn-close.js-multiselection-reset(title="{{_ 'filter-clear'}}")
-            i.fa.fa-times-thin
-
-    .separator
-    a.board-header-btn.js-open-board-menu
-      i.board-header-btn-icon.fa.fa-cog
+      .separator
+      a.board-header-btn.js-open-board-menu
+        i.board-header-btn-icon.fa.fa-cog
 
 template(name="boardMenuPopup")
   ul.pop-over-list
     li: a.js-open-archives {{_ 'archived-items'}}
     if currentUser.isBoardAdmin
       li: a.js-change-board-color {{_ 'board-change-color'}}
+      li: a.js-invite-emails-for-board {{_ 'invite'}}
     //-
       XXX Language should be handled by sandstorm, but for now display a
       language selection link in the board menu. This link is normally present
@@ -58,6 +67,15 @@ template(name="boardMenuPopup")
       ul.pop-over-list
         li: a.js-archive-board {{_ 'archive-board'}}
 
+template(name="inviteEmailsForBoardPopup")
+  form
+    span {{_ 'invite-emails-for-board-description'}}
+    label
+      | {{_ 'invite-emails'}}
+      textarea.js-invite-emails-input(type="text" placeholder="{{_ 'invite-emails-description'}}"
+        autocomplete="off" autofocus)
+    input.primary.wide(type="submit" value="{{_ 'send'}}")
+
 template(name="boardVisibilityList")
   ul.pop-over-list
     li
@@ -68,6 +86,14 @@ template(name="boardVisibilityList")
           if visibilityCheck
             i.fa.fa-check
           span.sub-name {{_ 'private-desc'}}
+    li
+      with "collaborate"
+        a.js-select-visibility
+          i.fa.fa-magic.colorful
+          | {{_ 'collaborate'}}
+          if visibilityCheck
+            i.fa.fa-check
+          span.sub-name {{_ 'collaborate-desc'}}
     li
       with "public"
         a.js-select-visibility
@@ -93,6 +119,14 @@ template(name="createBoardPopup")
     label
       | {{_ 'title'}}
       input.js-new-board-title(type="text" placeholder="{{_ 'bucket-example'}}" autofocus required)
+    label
+      select(name="org-id" class="org-sel")
+        option(value='' selected="{{#if isCurrentOrg }}selected{{/if}}") {{_ 'none'}} 
+        if canCreateBoardOrgs.count  
+          each canCreateBoardOrgs
+            if currentUser.isOrganizationAdmin _id
+              option(value='{{_id}}' selected="{{#if isCurrentOrg _id}}selected{{/if}}") {{_ title}}        
+           
     if visibilityMenuIsOpen.get
       +boardVisibilityList
     else
@@ -101,11 +135,15 @@ template(name="createBoardPopup")
           span.fa.fa-globe.colorful
           = " "
           | {{{_ 'board-public-info'}}}
+        else if $eq visibility.get 'collaborate'
+          span.fa.fa-globe.colorful
+          = " "
+          | {{{_ 'board-collaborate-info'}}}
         else
           span.fa.fa-lock.colorful
           = " "
           | {{{_ 'board-private-info'}}}
-        a.js-change-visibility {{_ 'change'}}.
+        a.js-change-visibility {{_ 'change'}}
     input.primary.wide(type="submit" value="{{_ 'create'}}")
 
 
@@ -119,3 +157,35 @@ template(name="boardChangeTitlePopup")
 template(name="archiveBoardPopup")
   p {{_ 'close-board-pop'}}
   button.js-confirm.negate.full(type="submit") {{_ 'close'}}
+
+
+template(name="changeBoardSortPopup")
+  ul.pop-over-list
+    li
+      a(class="js-sort-votes")
+        | {{_ 'sort-by-votes'}}
+
+        if ($eq getSortType 'votes')
+          i.fa.fa-check
+        span.sub-name {{_ 'sort-by-votes-desc'}}
+    li
+      a(class="js-sort-createAt")
+        | {{_ 'sort-by-createAt'}}
+
+        if ($eq getSortType 'createAt')
+          i.fa.fa-check
+        span.sub-name {{_ 'sort-by-createAt-desc'}}
+    li
+      a(class="js-sort-dateLastActivity")
+        | {{_ 'sort-by-dateLastActivity'}}
+
+        if ($eq getSortType 'dateLastActivity')
+          i.fa.fa-check
+        span.sub-name {{_ 'sort-by-dateLastActivity-desc'}}
+    li
+      a(class="js-sort-sort")
+        | {{_ 'sort-by-sort'}}
+
+        if ($eq getSortType 'sort')
+          i.fa.fa-check
+        span.sub-name {{_ 'sort-by-sort-desc'}}

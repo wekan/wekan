@@ -7,14 +7,30 @@ FlowRouter.route('/', {
   name: 'home',
   triggersEnter: [AccountsTemplates.ensureSignedIn],
   action() {
+    Session.set('currentOrganizationShortName', null);
     Session.set('currentBoard', null);
     Session.set('currentCard', null);
-
+    Session.set('previousURL', FlowRouter.current().path);
+    
     Filter.reset();
     EscapeActions.executeAll();
 
-    BlazeLayout.render('defaultLayout', { content: 'boardList' });
-  },
+    BlazeLayout.render('boardsLayout', { content: 'boardList' });
+  }
+});
+
+
+FlowRouter.route('/org/:shortName', {
+  name: 'organization',
+  triggersEnter: [AccountsTemplates.ensureSignedIn],
+  action: function(params) {
+    Session.set('currentOrganizationShortName', params.shortName);
+    Session.set('currentBoard', null);
+    Session.set('currentCard', null);
+    Session.set('previousURL', FlowRouter.current().path);
+
+    BlazeLayout.render('orgsLayout', { content: 'organization' });
+  }
 });
 
 FlowRouter.route('/b/:id/:slug', {
@@ -22,8 +38,11 @@ FlowRouter.route('/b/:id/:slug', {
   action(params) {
     const currentBoard = params.id;
     const previousBoard = Session.get('currentBoard');
+    Session.set('currentOrganizationShortName', null);
     Session.set('currentBoard', currentBoard);
     Session.set('currentCard', null);
+    Session.set('currentBoardSort', null);
+    Session.set('previousURL', FlowRouter.current().path);
 
     // If we close a card, we'll execute again this route action but we don't
     // want to excape every current actions (filters, etc.)
@@ -42,8 +61,11 @@ FlowRouter.route('/b/:boardId/:slug/:cardId', {
   action(params) {
     EscapeActions.executeUpTo('inlinedForm');
 
+    Session.set('currentOrganizationShortName', null);
     Session.set('currentBoard', params.boardId);
     Session.set('currentCard', params.cardId);
+    //Session.set('cardURL', FlowRouter.current().path);
+    Session.set('previousURL', FlowRouter.current().path);
 
     BlazeLayout.render('defaultLayout', { content: 'board' });
   },
@@ -79,6 +101,9 @@ const redirections = {
   '/boards': '/',
   '/boards/:id/:slug': '/b/:id/:slug',
   '/boards/:id/:slug/:cardId': '/b/:id/:slug/:cardId',
+  '/#/enroll-account/:id': '/enroll-account/:id',
+  '/#/reset-password/:id': '/reset-password/:id',
+  '/#/verify-email/:id': '/verify-email/:id',
 };
 
 _.each(redirections, (newPath, oldPath) => {

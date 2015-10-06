@@ -25,7 +25,17 @@ CardComments.attachSchema(new SimpleSchema({
 
 CardComments.allow({
   insert(userId, doc) {
-    return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+    // // todo: separate permision for list comment, chat last condition to Meteor.user().isBoardMember(doc.boardId)))
+    if( Boards.findOne(doc.boardId).isPublic() || Boards.findOne(doc.boardId).isPrivate())
+      return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+    else if( Boards.findOne(doc.boardId).isCollaborate() ) {
+      if( ( Cards.findOne(cardId).list().permission === 'admn' &&Meteor.user().isBoardAdmin(doc.boardId) )||
+        ( Cards.findOne(cardId).list().permission === 'registered' && Meteor.user()) || 
+        ( Cards.findOne(cardId).list().permission === 'member' && Meteor.user().isBoardMember(doc.boardId)))
+        return true;
+      else
+        return false;
+    } 
   },
   update(userId, doc) {
     return userId === doc.userId;

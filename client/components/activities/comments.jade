@@ -1,7 +1,8 @@
 template(name="commentForm")
   .new-comment.js-new-comment(
     class="{{#if commentFormIsOpen}}is-open{{/if}}")
-    +userAvatar(userId=currentUser._id)
+    if currentUser
+      +userAvatar(userId=currentUser._id)
     form.js-new-comment-form
       +editor(class="js-new-comment-input")
         | {{getUnsavedValue 'cardComment' currentCard._id}}

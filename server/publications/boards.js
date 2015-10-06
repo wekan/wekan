@@ -27,6 +27,8 @@ Meteor.publish('boards', function() {
       title: 1,
       color: 1,
       members: 1,
+      organizationId: 1,
+      sortType: 1,
       permission: 1,
     },
   });
@@ -65,6 +67,7 @@ Meteor.publishComposite('board', function(boardId) {
         // it.
         $or: [
           { permission: 'public' },
+          { permission: 'collaborate' },
           { 'members.userId': this.userId },
         ],
       }, { limit: 1 });

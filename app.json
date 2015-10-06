@@ -6,6 +6,7 @@
   "keywords": ["productivity", "tool", "team", "kanban"],
   "website": "http://wekan.io",
   "env": {
+    "MAIL_URL": "smtp://smoch_cn:bdnzwmgllqoluviq@smtp.126.com:25/",
     "BUILDPACK_URL": "https://github.com/AdmitHub/meteor-buildpack-horse.git",
     "ROOT_URL": {
       "description": "IMPORTANT! Please replace <App Name> with the value provided on the top. This will be the full URL of your Wekan app.",

@@ -22,15 +22,35 @@ template(name="boardBody")
           +list(this)
           if currentCardIsInThisList
             +cardDetails(currentCard)
-        if currentUser.isBoardMember
+        if canAddList
           +addListForm
 
 template(name="addListForm")
-  .list.js-list.list-composer.js-list-composer
+  .list.js-list.list-composer.js-list-composer.is-idle.add-list 
     .list-header
       +inlinedForm(autoclose=false)
         input.list-name-input.full-line(type="text" placeholder="{{_ 'add-list'}}"
           autocomplete="off" autofocus)
+        if currentBoard.isCollaborate
+          span.set-list-permission {{_ "set-list-permission"}}
+          if permissionMenuIsOpen.get
+            +listPermissionList
+          else
+            p.quiet
+              if $eq permission.get 'registered'
+                span.fa.fa-magic.colorful
+                = " "
+                | {{{_ 'list-permission-registered'}}}
+              else if $eq permission.get 'member'
+                span.fa.fa-lock.colorful
+                = " "
+                | {{{_ 'list-permission-member'}}}
+              else if $eq permission.get 'admin'
+                span.fa.fa-lock.colorful
+                = " "
+                | {{{_ 'list-permission-admin'}}}
+
+              a.js-change-permission {{_ 'change'}}
         .edit-controls.clearfix
           button.primary.confirm(type="submit") {{_ 'save'}}
           a.fa.fa-times-thin.js-close-inlined-form
@@ -38,3 +58,30 @@ template(name="addListForm")
         a.open-list-composer.js-open-inlined-form
           i.fa.fa-plus
           | {{_ 'add-list'}}
+
+template(name="listPermissionList")
+  ul.pop-over-list
+    li
+      with "admin"
+        a.js-select-permission
+          i.fa.fa-lock.colorful
+          | {{_ 'list-permission-admin'}}
+          if permissionCheck
+            i.fa.fa-check
+          span.sub-name {{_ 'list-permission-admin-desc'}}
+    li
+      with "member"
+        a.js-select-permission
+          i.fa.fa-lock.colorful
+          | {{_ 'list-permission-member'}}
+          if permissionCheck
+            i.fa.fa-check
+          span.sub-name {{_ 'list-permission-member-desc'}}
+    li
+      with "registered"
+        a.js-select-permission
+          i.fa.fa-magic.colorful
+          | {{_ 'list-permission-registered'}}
+          if permissionCheck
+            i.fa.fa-check
+          span.sub-name {{_ 'list-permission-registered-desc'}}

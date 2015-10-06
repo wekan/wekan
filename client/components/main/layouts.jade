@@ -1,18 +1,33 @@
 head
-  title Wekan
+  title 思奇 -  清单管理云平台  实时 - 无刷新  简单 - 全拖拽
   meta(name="viewport"
    content="maximum-scale=1.0,width=device-width,initial-scale=1.0,user-scalable=0")
   link(rel="shortcut icon" href="/wekan-favicon.png")
 
 template(name="userFormsLayout")
   section.auth-layout
-    h1.at-form-landing-logo
-      img(src="/wekan-logo.png" alt="Wekan")
+    h1.app-title
+      span {{_ "login-app-name"}}
+    h2.app-description
+      span {{_ "login-app-description"}}
     +Template.dynamic(template=content)
 
-template(name="defaultLayout")
+template(name="boardsLayout")
   +header
-  #content
+  #boards-content
+    +Template.dynamic(template=content)
+  if (Modal.isOpen)
+    #modal
+      .overlay
+      .modal-content
+        a.modal-close-btn.js-close-modal
+          i.fa.fa-times-thin
+        +Template.dynamic(template=Modal.getTemplateName)
+      
+template(name="defaultLayout")
+
+  +header
+  #content(class=currentBoard.colorClass)
     +Template.dynamic(template=content)
   if (Modal.isOpen)
     #modal
@@ -28,5 +43,9 @@ template(name="notFound")
 template(name="message")
   .big-message.quiet(class=color)
     h1 {{_ label}}
-    with(pathFor route='atSignIn')
-      p {{{_ 'page-maybe-private' this}}}
+    
+    if currentUser
+      span
+    else
+      with(pathFor route='atSignIn')
+        p {{{_ 'page-maybe-private' this}}}

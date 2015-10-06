@@ -13,6 +13,7 @@
   animation: flexGrowIn 0.1s
   box-shadow: 0 0 7px 0 darken(white, 30%)
   transition: flex-basis 0.1s
+  left: -10px;
 
   .card-details-canvas
     width: 470px
@@ -24,8 +25,18 @@
     border-bottom: 1px solid darken(white, 14%)
 
     .close-card-details,
+    .vote-card,
     .card-details-menu
       float: right
+    
+    .card-not-voted
+      cursor: pointer
+    .card-voted  
+      cursor:default
+    .vote-card
+      font-size: 18px
+      padding: 10px
+      margin-right: -8px
 
     .close-card-details
       font-size: 24px
