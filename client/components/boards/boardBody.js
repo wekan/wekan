@@ -208,10 +208,10 @@ BlazeComponent.extendComponent({
                     boardId: Session.get('currentBoard'),
                     sort: 0,
                     description: EJSON.stringify(c, {indent: true}),
-                  });}
-              }
-              );
-          });
+                  });
+                }
+              });
+          }});
           title.value = '';
         }
       },
