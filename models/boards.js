@@ -71,6 +71,10 @@ Boards.attachSchema(new SimpleSchema({
       'midnight',
     ],
   },
+  linkedCardId: {
+    type: String,
+    optional: true,
+  },
 }));
 
 
@@ -106,6 +110,10 @@ Boards.helpers({
 
   colorClass() {
     return `board-color-${this.color}`;
+  },
+
+  linkedCard() {
+    return Cards.findOne(this.linkedCardId);
   },
 });
 
@@ -190,6 +198,7 @@ Boards.mutations({
       },
     };
   },
+
 });
 
 if (Meteor.isServer) {
