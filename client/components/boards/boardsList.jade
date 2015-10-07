@@ -5,9 +5,9 @@ template(name="boardList")
         li(class="{{#if isStarred}}starred{{/if}}" class=colorClass)
           a.js-open-board(href="{{pathFor 'board' id=_id slug=slug}}")
             span.details
-              span.board-list-item-name= title              
+              span.board-list-item-name= title
               i.fa.js-star-board(
                 class="fa-star{{#if isStarred}} is-star-active{{else}}-o{{/if}}"
-                title="{{_ 'star-board-title'}}")              
+                title="{{_ 'star-board-title'}}")
       li.js-add-board
         a.label {{_ 'add-board'}}
