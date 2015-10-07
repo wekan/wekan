@@ -51,6 +51,10 @@ Cards.attachSchema(new SimpleSchema({
     type: Number,
     decimal: true,
   },
+  linkedBoardId: {
+    type: String,
+    optional: true,
+  },
 }));
 
 Cards.allow({
@@ -122,6 +126,10 @@ Cards.helpers({
 
   rootUrl() {
     return Meteor.absoluteUrl(this.absoluteUrl().replace('/', ''));
+  },
+
+  linkedBoard() {
+    return Boards.findOne(this.linkedBoardId);
   },
 });
 
