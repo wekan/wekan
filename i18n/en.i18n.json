@@ -117,6 +117,8 @@
     "filter-on-desc": "You are filtering cards on this board. Click here to edit filter.",
     "filter-to-selection": "Filter to selection",
     "fullname": "Full Name",
+    "generate-cards": "Generate cards",
+    "generate-cards-pop": "Please enter a JSON data endpoint",
     "header-logo-title": "Go back to your boards page.",
     "home": "Home",
     "info": "Infos",
