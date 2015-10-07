@@ -211,7 +211,8 @@ BlazeComponent.extendComponent({
                   });
                 }
               });
-          }});
+            }
+          });
           title.value = '';
         }
       },
