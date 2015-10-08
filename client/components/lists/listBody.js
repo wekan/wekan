@@ -34,7 +34,7 @@ BlazeComponent.extendComponent({
     } else if (position === 'bottom') {
       sortIndex = Utils.calculateIndex(lastCardDom, null).base;
     }
-    
+
     // Parse for @user and #label mentions, stripping them from the title
     // and applying the appropriate users and labels to the card instead.
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
@@ -182,12 +182,12 @@ BlazeComponent.extendComponent({
 
   onRendered() {
     const $textarea = this.$('textarea');
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
     $textarea.textcomplete([
       // User mentions
       {
         match: /\B@(\w*)$/,
         search(term, callback) {
-          const currentBoard = Boards.findOne(Session.get('currentBoard'));
           callback($.map(currentBoard.members, (member) => {
             const username = Users.findOne(member.userId).username;
             return username.indexOf(term) === 0 ? username : null;
@@ -206,14 +206,23 @@ BlazeComponent.extendComponent({
       {
         match: /\B#(\w*)$/,
         search(term, callback) {
-          const currentBoard = Boards.findOne(Session.get('currentBoard'));
           callback($.map(currentBoard.labels, (label) => {
-            const labelName = (!label.name || label.name === '') ? label.color : label.name;
+            const labelName = (!label.name || label.name === '')
+                              ? label.color
+                              : label.name;
             return labelName.indexOf(term) === 0 ? labelName : null;
           }));
         },
         template(value) {
-          return value;
+          // add a "colour badge" in front of the label name
+          // but first, get the colour's name from its value
+          const colorName = currentBoard.labels.find((label) => {
+            return value === label.name || value === label.color;
+          }).color;
+          return (colorName && colorName !== '')
+                 ? `<div class="minicard-label card-label-${colorName}"
+                    title="${value}"></div> ${value}`
+                 : value;
         },
         replace(label) {
           return `#${label} `;
