@@ -201,7 +201,7 @@ BlazeComponent.extendComponent({
               const newCards = response.data;
               _.forEach(newCards, (c, i) => {
                 if (($.trim(c.title) || ($.trim(c.name)))) {
-                  const cname = $.trim(c.title) + ' ' + $.trim(c.name);
+                  const cname = `${$.trim(c.title)} ${$.trim(c.name)}`;
                   Cards.insert({
                     title: cname,
                     listId: newlistId,
