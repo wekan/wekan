@@ -45,7 +45,7 @@ BlazeComponent.extendComponent({
       let foundUserIds = []; // eslint-disable-line prefer-const
       currentBoard.members.forEach((member) => {
         const username = Users.findOne(member.userId).username;
-        if(title.indexOf(`@${username}`) !== -1) {
+        if (title.indexOf(`@${username}`) !== -1) {
           foundUserIds.push(member.userId);
           title = title.replace(`@${username}`, '');
         }
@@ -57,7 +57,7 @@ BlazeComponent.extendComponent({
       currentBoard.labels.forEach((label) => {
         const labelName = (!label.name || label.name === '')
                         ? label.color : label.name;
-        if(title.indexOf(`#${labelName}`) !== -1) {
+        if (title.indexOf(`#${labelName}`) !== -1) {
           foundLabelIds.push(label._id);
           title = title.replace(`#${labelName}`, '');
         }
@@ -137,7 +137,7 @@ BlazeComponent.extendComponent({
 
   pressKey(evt) {
     // Don't do anything if the drop down is showing
-    if(dropdownMenuIsOpened) {
+    if (dropdownMenuIsOpened) {
       return;
     }
 
