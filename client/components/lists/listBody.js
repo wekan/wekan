@@ -26,7 +26,9 @@ BlazeComponent.extendComponent({
     const firstCardDom = this.find('.js-minicard:first');
     const lastCardDom = this.find('.js-minicard:last');
     const textarea = $(evt.currentTarget).find('textarea');
+    const membersInput = $(evt.currentTarget).find('input.js-card-members');
     const title = textarea.val();
+    const members = membersInput.val().split(',');
     const position = Blaze.getData(evt.currentTarget).position;
     let sortIndex;
     if (position === 'top') {
@@ -38,6 +40,7 @@ BlazeComponent.extendComponent({
     if ($.trim(title)) {
       const _id = Cards.insert({
         title,
+        members,
         listId: this.data()._id,
         boardId: this.data().board()._id,
         sort: sortIndex,
@@ -103,6 +106,38 @@ BlazeComponent.extendComponent({
 BlazeComponent.extendComponent({
   template() {
     return 'addCardForm';
+  },
+
+  onRendered() {
+    const $textarea = this.$('textarea');
+    const $members = this.$('.js-card-members');
+
+    $textarea.textcomplete([
+      // User assign
+      {
+        match: /\B@(\w*)$/,
+        search(term, callback) {
+          const currentBoard = Boards.findOne(Session.get('currentBoard'));
+          callback($.map(currentBoard.members, (member) => {
+            const username = Users.findOne(member.userId).username;
+            return username.indexOf(term) === 0 ? username : null;
+          }));
+        },
+        template(value) {
+          return value;
+        },
+        replace(username) {
+          const user = Users.findOne({
+            username,
+          });
+          const members = $members.val().split(',');
+          members.push( user._id );
+          $members.val( members.join(',') );
+          return '';
+        },
+        index: 1,
+      },
+    ]);
   },
 
   pressKey(evt) {
