@@ -199,14 +199,14 @@ BlazeComponent.extendComponent({
           HTTP.call('GET', sourceUrl, {}, function( error, response ) {
             if (response.data) {
               const newCards = response.data;
-              _.forEach(newCards, (c) => {
+              _.forEach(newCards, (c, i) => {
                 if (($.trim(c.title) || ($.trim(c.name)))) {
-                  const cname = $.trim(c.title) + $.trim(c.name);
+                  const cname = $.trim(c.title) + ' ' + $.trim(c.name);
                   Cards.insert({
                     title: cname,
                     listId: newlistId,
                     boardId: Session.get('currentBoard'),
-                    sort: 0,
+                    sort: i,
                     description: EJSON.stringify(c, {indent: true}),
                   });
                 }
