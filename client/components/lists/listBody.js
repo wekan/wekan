@@ -45,11 +45,9 @@ BlazeComponent.extendComponent({
       let foundUserIds = []; // eslint-disable-line prefer-const
       currentBoard.members.forEach((member) => {
         const username = Users.findOne(member.userId).username;
-        const nameNdx = title.indexOf(`@${username}`);
-        if(nameNdx !== -1) {
+        if(title.indexOf(`@${username}`) !== -1) {
           foundUserIds.push(member.userId);
-          title = title.substr(0, nameNdx)
-                + title.substr(nameNdx + username.length + 1);
+          title = title.replace(`@${username}`, '');
         }
       });
 
@@ -59,11 +57,9 @@ BlazeComponent.extendComponent({
       currentBoard.labels.forEach((label) => {
         const labelName = (!label.name || label.name === '')
                         ? label.color : label.name;
-        const labelNdx = title.indexOf(`#${labelName}`);
-        if(labelNdx !== -1) {
+        if(title.indexOf(`#${labelName}`) !== -1) {
           foundLabelIds.push(label._id);
-          title = title.substr(0, labelNdx)
-                + title.substr(labelNdx + labelName.length + 1);
+          title = title.replace(`#${labelName}`, '');
         }
       });
 
