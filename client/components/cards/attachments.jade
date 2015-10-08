@@ -15,7 +15,7 @@ template(name="attachmentsGalery")
         .attachment-thumbnail
           if isUploaded
             if isImage
-              img.attachment-thumbnail-img(src=url)
+              img.attachment-thumbnail-img(src="{{pathfor url}}")
             else
               span.attachment-thumbnail-ext= extension
           else

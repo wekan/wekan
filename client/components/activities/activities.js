@@ -55,7 +55,7 @@ BlazeComponent.extendComponent({
   cardLink() {
     const card = this.currentData().card();
     return card && Blaze.toHTML(HTML.A({
-      href: card.absoluteUrl(),
+      href: FlowRouter.path(card.absoluteUrl()),
       'class': 'action-card',
     }, card.title));
   },
@@ -69,7 +69,7 @@ BlazeComponent.extendComponent({
   attachmentLink() {
     const attachment = this.currentData().attachment();
     return attachment && Blaze.toHTML(HTML.A({
-      href: attachment.url({ download: true }),
+      href: FlowRouter.path(attachment.url({ download: true })),
       target: '_blank',
     }, attachment.name()));
   },

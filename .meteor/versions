@@ -61,7 +61,7 @@ id-map@1.0.4
 idmontie:migrations@1.0.0
 jquery@1.11.4
 kadira:blaze-layout@2.1.0
-kadira:flow-router@2.6.1
+kadira:flow-router@2.7.0
 kenton:accounts-sandstorm@0.1.4
 launch-screen@1.0.4
 less@2.5.0_3
