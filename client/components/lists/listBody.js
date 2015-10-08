@@ -233,5 +233,10 @@ BlazeComponent.extendComponent({
         });
       },
     });
+
+    EscapeActions.register('textcomplete',
+      () => {},
+      () => dropdownMenuIsOpened
+    );
   },
 }).register('addCardForm');
