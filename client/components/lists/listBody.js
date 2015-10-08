@@ -34,35 +34,35 @@ BlazeComponent.extendComponent({
     } else if (position === 'bottom') {
       sortIndex = Utils.calculateIndex(lastCardDom, null).base;
     }
+    
+    // Parse for @user and #label mentions, stripping them from the title
+    // and applying the appropriate users and labels to the card instead.
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+
+    // Find all @-mentioned usernames, collect a list of their IDs and strip
+    // their mention out of the title.
+    let foundUserIds = []; // eslint-disable-line prefer-const
+    currentBoard.members.forEach((member) => {
+      const username = Users.findOne(member.userId).username;
+      if (title.indexOf(`@${username}`) !== -1) {
+        foundUserIds.push(member.userId);
+        title = title.replace(`@${username}`, '');
+      }
+    });
+
+    // Find all #-mentioned labels (based on their colour or name), collect a
+    // list of their IDs, and strip their mention out of the title.
+    let foundLabelIds = []; // eslint-disable-line prefer-const
+    currentBoard.labels.forEach((label) => {
+      const labelName = (!label.name || label.name === '')
+                      ? label.color : label.name;
+      if (title.indexOf(`#${labelName}`) !== -1) {
+        foundLabelIds.push(label._id);
+        title = title.replace(`#${labelName}`, '');
+      }
+    });
 
     if ($.trim(title)) {
-      // Parse for @user and #label mentions, stripping them from the title
-      // and applying the appropriate users and labels to the card instead.
-      const currentBoard = Boards.findOne(Session.get('currentBoard'));
-
-      // Find all @-mentioned usernames, collect a list of their IDs and strip
-      // their mention out of the title.
-      let foundUserIds = []; // eslint-disable-line prefer-const
-      currentBoard.members.forEach((member) => {
-        const username = Users.findOne(member.userId).username;
-        if (title.indexOf(`@${username}`) !== -1) {
-          foundUserIds.push(member.userId);
-          title = title.replace(`@${username}`, '');
-        }
-      });
-
-      // Find all #-mentioned labels (based on their colour or name), collect a
-      // list of their IDs, and strip their mention out of the title.
-      let foundLabelIds = []; // eslint-disable-line prefer-const
-      currentBoard.labels.forEach((label) => {
-        const labelName = (!label.name || label.name === '')
-                        ? label.color : label.name;
-        if (title.indexOf(`#${labelName}`) !== -1) {
-          foundLabelIds.push(label._id);
-          title = title.replace(`#${labelName}`, '');
-        }
-      });
-
       const _id = Cards.insert({
         title,
         listId: this.data()._id,
