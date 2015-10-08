@@ -24,6 +24,7 @@ template(name="addCardForm")
   .minicard.minicard-composer.js-composer
     .minicard-detailss.clearfix
       textarea.minicard-composer-textarea.js-card-title(autofocus)
+      input.js-card-members(type="hidden")
       .minicard-members.js-minicard-composer-members
   .add-controls.clearfix
     button.primary.confirm(type="submit") {{_ 'add'}}
