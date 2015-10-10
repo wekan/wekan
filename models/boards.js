@@ -14,6 +14,10 @@ Boards.attachSchema(new SimpleSchema({
     type: String,
     optional: true,
   },
+  orgMemberAutoJoin: {
+    type: Boolean,
+    optional: true,
+  },
   sortType: {
     type: String
   },
@@ -179,7 +183,7 @@ Boards.mutations({
       return {
         $set: {
           [`members.${memberIndex}.isActive`]: true,
-          [`members.${memberIndex}.isAdmin`]: false,
+          // [`members.${memberIndex}.isAdmin`]: false,
         },
       };
     }

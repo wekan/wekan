@@ -15,15 +15,23 @@ allowIsOrgAdmin = function(userId, org) {
 allowIsOrgMember = function(userId, org) {
   return _.contains(_.pluck(org.members, 'userId'), userId);
 };
-
-AccountsTemplates.configure({
-  // i18n not finished the ui sentence
-  // showResendVerificationEmailLink: true,
-  enforceEmailVerification: false,
-  sendVerificationEmail: true,
-  enablePasswordChange: true,
-  showForgotPasswordLink: true,
+Meteor.startup(() => {
+  AccountsServer.prototype.urls = {                                                                                  // 3
+    resetPassword: function (token) {                                                                                // 4
+      return Meteor.absoluteUrl('reset-password/' + token);                                                        // 5
+    },                                                                                                               //
+                                                                                                                     //
+    verifyEmail: function (token) {                                                                                  // 8
+      return Meteor.absoluteUrl('verify-email/' + token);                                                          // 9
+    },                                                                                                               //
+                                                                                                                     //
+    enrollAccount: function (token) {                                                                                // 12
+      return Meteor.absoluteUrl('enroll-account/' + token);                                                        // 13
+    }                                                                                                                //
+  };      
 });
+
+
 
 Accounts.emailTemplates = {
   from: "思奇<smoch_cn@126.com>",  

@@ -118,6 +118,7 @@ Organizations.helpers({
   memberIndex(memberId) {
     return _.indexOf(_.pluck(this.members, 'userId'), memberId);
   },
+
 });
 Organizations.mutations({
   setTitle(title) {
@@ -148,7 +149,7 @@ Organizations.mutations({
       return {
         $set: {
           [`members.${memberIndex}.isActive`]: true,
-          [`members.${memberIndex}.isAdmin`]: false,
+          // [`members.${memberIndex}.isAdmin`]: false,
         },
       };
     }
@@ -175,6 +176,17 @@ Organizations.mutations({
   },
 
 });
+Meteor.methods({
+  checkOrgShortNameUsable(shortName){
+    check(shortName, String);
+    if( Organizations.findOne({shortName: shortName}))
+      return false;
+    else
+      return true;
+  },
+});
+
+
 Organizations.before.insert(function(userId, doc) {
   // XXX We need to improve slug management. Only the id should be necessary
   // to identify a board in the code.
@@ -228,6 +240,7 @@ if (Meteor.isServer) {
     throw new Meteor.Error('Member not found');
   };
 
+  // set memeber isActive to be false when remove member from organization
   Organizations.after.update(function(userId, doc, fieldNames, modifier) {
     if (!_.contains(fieldNames, 'members') ||
       !modifier.$pull ||
@@ -237,13 +250,43 @@ if (Meteor.isServer) {
     const boards = Boards.find({organizationId: doc._id});
     for(let i=0; i<boards; i++) {
       const board = boards[i];
+      // if remove multiple members, update here
+      // set isActive to false, or remove the member?
       const memberId = modifier.$pull.members.userId;
-      let memberIndex = getMemberIndex(board, memberId);
+      let memberIndex = getMemberIndex(doc, memberId);
       let setQuery = {};
       setQuery[['members', memberIndex, 'isActive'].join('.')] = false; 
       Boards.update({ _id: board._id }, { $set: setQuery });
     }
 
+  });
+
+  // Add the user to boards that set orgMemberAutoJoin to be true
+  Organizations.after.update(function(userId, doc, fieldNames, modifier) {
+    if (!_.contains(fieldNames, 'members'))
+      return;
+
+    let memberId;
+
+    if (modifier.$push && modifier.$push.members) {
+      memberId = modifier.$push.members.userId;
+      const boards = Boards.find({organizationId: doc._id, orgMemberAutoJoin: true,});
+      for(let i=0; i<boards.count(); i++) {
+        let board = boards[i];
+        board.addMember(memberId);
+      }
+    }
+  });
+
+  // Add all members to board that orgMemberAutoJoin is true
+  Boards.after.insert((userId, doc) => {
+    if( doc.organizationId && doc.orgMemberAutoJoin ){
+      let org = Organizations.findOne(doc.organizationId);
+      let board = Boards.findOne(doc._id);
+      for (let i = 0; i < org.members.length; i++) {
+        board.addMember(org.members[i].userId);
+      }
+    }
   });
 
   // Add a new activity if we add or remove a member to the board

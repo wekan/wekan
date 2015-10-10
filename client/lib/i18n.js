@@ -13,7 +13,8 @@ Tracker.autorun(() => {
   }
 
   if (language) {
-    TAPi18n.setLanguage(language);
+    // safari mobile return zh-cn not zh-CN of window.navigator.language
+    TAPi18n.setLanguage(language.toLowerCase());
 
     // T9n need to change zh-CN to zh_cn
     T9n.setLanguage(language.replace(/-/,"_").toLowerCase());

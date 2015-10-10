@@ -4,6 +4,7 @@ Users = Meteor.users;
 // is used for instance to add a new user to a board.
 const searchInFields = ['username', 'profile.name'];
 Users.initEasySearch(searchInFields, {
+  'limit' : 20,
   use: 'mongo-db',
   returnFields: [...searchInFields, 'profile.avatarUrl'],
 });

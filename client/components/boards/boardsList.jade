@@ -39,25 +39,21 @@ template(name="boardList")
               a.label {{_ 'add-board'}}
     div.window-module
       .window-module-title
-        i.fa
-          +addOrgForm
+         a.add-org.js-add-org
+          h2
+            i.fa.fa-plus
+            | {{_ 'add-organization'}}
       
- 
-
-template(name="addOrgForm")  
-  +inlinedForm(autoclose=true)
+template(name="createOrgPopup") 
+  form
     .addOrg
       input.org-title-input(type="text" placeholder="{{_ 'organization-title'}}"
         autocomplete="off" autofocus required)
+      span.js-short-name-invalid {{_ 'short-name-invalid'}}
       input.org-short-name-input(type="text" placeholder="{{_ 'organization-short-name'}}"
         autocomplete="off" required)
       textarea.org-desc-input(type="text" placeholder="{{_ 'organization-description'}}"
         autocomplete="off" )
       .edit-controls.clearfix
         button.primary.confirm(type="submit") {{_ 'save'}}
-        a.fa.fa-times-thin.js-close-inlined-form
-  else
-    a.js-open-inlined-form
-      h2
-        i.fa.fa-plus
-        | {{_ 'add-organization'}}
+

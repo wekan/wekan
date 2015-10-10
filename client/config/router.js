@@ -95,21 +95,3 @@ FlowRouter.notFound = {
   },
 };
 
-// We maintain a list of redirections to ensure that we don't break old URLs
-// when we change our routing scheme.
-const redirections = {
-  '/boards': '/',
-  '/boards/:id/:slug': '/b/:id/:slug',
-  '/boards/:id/:slug/:cardId': '/b/:id/:slug/:cardId',
-  '/#/enroll-account/:id': '/enroll-account/:id',
-  '/#/reset-password/:id': '/reset-password/:id',
-  '/#/verify-email/:id': '/verify-email/:id',
-};
-
-_.each(redirections, (newPath, oldPath) => {
-  FlowRouter.route(oldPath, {
-    triggersEnter: [(context, redirect) => {
-      redirect(FlowRouter.path(newPath, context.params));
-    }],
-  });
-});
