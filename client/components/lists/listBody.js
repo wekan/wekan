@@ -214,14 +214,19 @@ BlazeComponent.extendComponent({
           }));
         },
         template(value) {
+          // XXX the following is duplicated from editor.js and should be
+          // abstracted to keep things DRY
           // add a "colour badge" in front of the label name
           // but first, get the colour's name from its value
           const colorName = currentBoard.labels.find((label) => {
             return value === label.name || value === label.color;
           }).color;
+          const valueSpan = (colorName === value)
+                            ? `<span class="quiet">${value}</span>`
+                            : value;
           return (colorName && colorName !== '')
                  ? `<div class="minicard-label card-label-${colorName}"
-                    title="${value}"></div> ${value}`
+                    title="${value}"></div> ${valueSpan}`
                  : value;
         },
         replace(label) {
