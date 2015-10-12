@@ -20,8 +20,8 @@ template(name="archivesSidebar")
       each archivedLists
         li.archived-lists-item
           if currentUser.isBoardMember
-            button.js-restore-list
-              i.fa.fa-undo
+            p.quiet
+              a.js-restore-list {{_ 'restore'}}
           = title
       else
         li.no-items-message {{_ 'no-archived-lists'}}

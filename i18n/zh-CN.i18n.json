@@ -128,7 +128,7 @@
     "language": "语言",
     "last-admin-desc": "你不能更改角色，因为至少需要一名管理员。",
     "leave-board": "离开看板",
-    "link-card": "关联至该卡片",
+    "link-card": "该卡片的链接",
     "list-archive-cards": "归档该列表中的所有卡片",
     "list-archive-cards-pop": "这将会从本看板中移除该列表中的所有卡片。如果需要浏览已归档的卡片并且将其恢复至看板，请点击\"菜单\">\"归档项\"",
     "list-move-cards": "移动该列表中的所有卡片",

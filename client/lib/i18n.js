@@ -4,7 +4,7 @@
 
 Tracker.autorun(() => {
   const currentUser = Meteor.user();
-  let language;
+  var language;
   if (currentUser) {
     language = currentUser.profile && currentUser.profile.language;
   } 
@@ -19,7 +19,7 @@ Tracker.autorun(() => {
   
   if (language) {
 
-    TAPi18n.setLanguage(language.toLowerCase());
+    TAPi18n.setLanguage(language);
 
     // T9n need to change zh-CN to zh_cn
     T9n.setLanguage(language.replace(/-/,"_").toLowerCase());
