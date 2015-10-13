@@ -33,6 +33,7 @@ Template.listActionPopup.events({
     MultiSelection.add(cardIds);
     Popup.close();
   },
+  'click .js-import-card': Popup.open('listImportCard'),
   'click .js-move-cards': Popup.open('listMoveCards'),
   'click .js-archive-cards': Popup.afterConfirm('listArchiveCards', function() {
     this.allCards().forEach((card) => {
@@ -40,6 +41,7 @@ Template.listActionPopup.events({
     });
     Popup.close();
   }),
+
   'click .js-close-list'(evt) {
     evt.preventDefault();
     this.archive();
