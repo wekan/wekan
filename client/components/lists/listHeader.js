@@ -49,6 +49,32 @@ Template.listActionPopup.events({
   },
 });
 
+Template.listImportCardPopup.events({
+  submit(evt, template) {
+    // 1. get the json data out of the form and parse it
+    evt.preventDefault();
+    const jsonData = $(evt.currentTarget).find('textarea').val();
+    const data = JSON.parse(jsonData);
+    // 2. map all fields for the card to create
+    const firstCardDom = $(`#js-list-${this._id} .js-minicard:first`).get(0);
+    sortIndex = Utils.calculateIndex(null, firstCardDom).base;
+    const cardToCreate = {
+      title: data.name,
+      listId: this._id,
+      boardId: this.boardId,
+      userId: Meteor.userId(),
+      sort: sortIndex,
+    }
+    // 3. finally, insert new card into list
+    const _id = Cards.insert(cardToCreate);
+    // In case the filter is active we need to add the newly inserted card in
+    // the list of exceptions -- cards that are not filtered. Otherwise the
+    // card will disappear instantly.
+    // See https://github.com/wekan/wekan/issues/80
+    Filter.addException(_id);
+  }
+});
+
 Template.listMoveCardsPopup.events({
   'click .js-select-list'() {
     const fromList = Template.parentData(2).data;
