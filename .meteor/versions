@@ -30,7 +30,7 @@ cfs:power-queue@0.9.11
 cfs:reactive-list@0.0.9
 cfs:reactive-property@0.0.4
 cfs:standard-packages@0.5.9
-cfs:storage-adapter@0.2.2
+cfs:storage-adapter@0.2.3
 cfs:tempstore@0.1.5
 cfs:upload-http@0.0.20
 cfs:worker@0.1.4
