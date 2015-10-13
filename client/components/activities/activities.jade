@@ -108,7 +108,7 @@ template(name="cardActivities")
                 = ' - '
                 a.js-open-inlined-form {{_ "edit"}}
                 = ' - '
-                a.js-delete-comment {{_ "delete"}}
+                a.js-delete-comment(href = "#") {{_ "delete"}}
 
         else
           span.activity-meta {{ moment createdAt }}

@@ -8,6 +8,7 @@ template(name="boardList")
               span.board-list-item-name= title
               i.fa.js-star-board(
                 class="fa-star{{#if isStarred}} is-star-active{{else}}-o{{/if}}"
-                title="{{_ 'star-board-title'}}")
+                title="{{_ 'star-board-title'}}"
+                aria-label="{{_ 'star-board-title'}}")
       li.js-add-board
-        a.label {{_ 'add-board'}}
+        a.label(href = "#") {{_ 'add-board'}}

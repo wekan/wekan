@@ -7,7 +7,7 @@ template(name="filterSidebar")
   ul.sidebar-list
     each currentBoard.labels
       li
-        a.name.js-toggle-label-filter
+        a.name.js-toggle-label-filter(href="#")
           span.card-label.square(class="card-label-{{color}}")
           span.sidebar-list-item-description
             if name
@@ -22,7 +22,7 @@ template(name="filterSidebar")
       if isActive
         with getUser userId
           li(class="{{#if Filter.members.isSelected _id}}active{{/if}}")
-            a.name.js-toggle-member-filter
+            a.name.js-toggle-member-filter(href="#")
               +userAvatar(userId=this._id)
               span.sidebar-list-item-description
                 = profile.fullname
@@ -31,10 +31,10 @@ template(name="filterSidebar")
                 i.fa.fa-check
   if Filter.isActive
     hr
-    a.sidebar-btn.js-clear-all
+    a.sidebar-btn.js-clear-all(href="#")
       i.fa.fa-filter
       span {{_ 'filter-clear'}}
-    a.sidebar-btn.js-filter-to-selection
+    a.sidebar-btn.js-filter-to-selection(href="#")
       i.fa.fa-check-square-o
       span {{_ 'filter-to-selection'}}
 
@@ -42,7 +42,7 @@ template(name="multiselectionSidebar")
   ul.sidebar-list
     each currentBoard.labels
       li
-        a.name.js-toggle-label-multiselection
+        a.name.js-toggle-label-multiselection(href="#")
           span.card-label.square(class="card-label-{{color}}")
           span.sidebar-list-item-description
             if name
@@ -59,7 +59,7 @@ template(name="multiselectionSidebar")
       if isActive
         with getUser userId
           li(class="{{#if Filter.members.isSelected _id}}active{{/if}}")
-            a.name.js-toggle-member-multiselection
+            a.name.js-toggle-member-multiselection(href="#")
               +userAvatar(userId=this._id)
               span.sidebar-list-item-description
                 = profile.fullname
@@ -69,7 +69,7 @@ template(name="multiselectionSidebar")
               else if someSelectedElementHave 'member' _id
                 i.fa.fa-ellipsis-h
   hr
-  a.sidebar-btn.js-archive-selection
+  a.sidebar-btn.js-archive-selection(href="#")
     i.fa.fa-archive
     span {{_ 'archive-selection'}}
 
