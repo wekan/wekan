@@ -25,10 +25,19 @@ template(name="listActionPopup")
       li: a.js-archive-cards {{_ 'list-archive-cards'}}
   hr
   ul.pop-over-list
+    li: a.js-import-card {{_ 'import-card'}}
     li: a.js-close-list {{_ 'archive-list'}}
 
 template(name="listMoveCardsPopup")
   +boardLists
+
+template(name="listImportCardPopup")
+  form
+    label
+      | {{_ 'card-json'}}
+      //+editor(class="js-card-json" autofocus=true)
+      textarea.js-card-json(placeholder="{{_ 'card-json-placeholder'}}" autofocus)
+    input.primary.wide(type="submit" value="{{_ 'import'}}")
 
 template(name="boardLists")
   ul.pop-over-list
