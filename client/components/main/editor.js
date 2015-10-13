@@ -1,11 +1,9 @@
-let dropdownMenuIsOpened = false;
-
 Template.editor.onRendered(() => {
   const $textarea = this.$('textarea');
 
   autosize($textarea);
 
-  $textarea.textcomplete([
+  $textarea.escapeableTextComplete([
     // Emojies
     {
       match: /\B:([\-+\w]*)$/,
@@ -44,29 +42,7 @@ Template.editor.onRendered(() => {
       index: 1,
     },
   ]);
-
-  // Since commit d474017 jquery-textComplete automatically closes a potential
-  // opened dropdown menu when the user press Escape. This behavior conflicts
-  // with our EscapeActions system, but it's too complicated and hacky to
-  // monkey-pach textComplete to disable it -- I tried. Instead we listen to
-  // 'open' and 'hide' events, and create a ghost escapeAction when the dropdown
-  // is opened (and rely on textComplete to execute the actual action).
-  $textarea.on({
-    'textComplete:show'() {
-      dropdownMenuIsOpened = true;
-    },
-    'textComplete:hide'() {
-      Tracker.afterFlush(() => {
-        dropdownMenuIsOpened = false;
-      });
-    },
-  });
 });
-
-EscapeActions.register('textcomplete',
-  () => {},
-  () => dropdownMenuIsOpened
-);
 
 // XXX I believe we should compute a HTML rendered field on the server that
 // would handle markdown, emojies and user mentions. We can simply have two
