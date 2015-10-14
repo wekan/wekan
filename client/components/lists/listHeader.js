@@ -53,7 +53,7 @@ Template.listActionPopup.events({
 BlazeComponent.extendComponent({
   events() {
     return [{
-      'submit': (evt) => {
+      submit(evt) {
         evt.preventDefault();
         const jsonData = $(evt.currentTarget).find('textarea').val();
         const firstCardDom = $(`#js-list-${this.currentData()._id} .js-minicard:first`).get(0);
