@@ -4,5 +4,6 @@ node_js:
   - "0.10.40"
 install:
   - "npm install -g eslint"
+  - "npm install -g eslint-plugin-meteor"
 script:
   - "eslint ./"

@@ -7,7 +7,7 @@
 // Without an href, links are non-keyboard-focusable and are not presented on
 // blind screen readers. We default to the empty anchor `#` href.
 function enforceHref(attributes) {
-  if (! _.has(attributes, 'href')) {
+  if (!_.has(attributes, 'href')) {
     attributes.href = '#';
   }
   return attributes;
@@ -17,7 +17,7 @@ function enforceHref(attributes) {
 // presented by screen readers. `aria-label`, on the other hand, is specific to
 // accessibility and is presented in ways that title shouldn't be.
 function copyTitleInAriaLabel(attributes) {
-  if (! _.has(attributes, 'aria-label') && _.has(attributes, 'title')) {
+  if (!_.has(attributes, 'aria-label') && _.has(attributes, 'title')) {
     attributes['aria-label'] = attributes.title;
   }
   return attributes;
@@ -34,8 +34,8 @@ const {
 
 HTML.A = (attributes, ...others) => {
   return superA(copyTitleInAriaLabel(enforceHref(attributes)), ...others);
-}
+};
 
 HTML.I = (attributes, ...others) => {
   return superI(copyTitleInAriaLabel(attributes), ...others);
-}
+};

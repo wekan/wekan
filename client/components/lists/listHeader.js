@@ -62,14 +62,12 @@ BlazeComponent.extendComponent({
         try {
           trelloCard = JSON.parse(jsonData);
         } catch (e) {
-          console.log(e);
           this.setError('error-json-malformed');
           return;
         }
         Meteor.call('importTrelloCard', trelloCard, this.currentData()._id, sortIndex,
           (error, response) => {
             if (error) {
-              console.log(error);
               this.setError(error.error);
             } else {
               Filter.addException(response);
@@ -77,8 +75,8 @@ BlazeComponent.extendComponent({
             }
           }
         );
-      }
-    },];
+      },
+    }];
   },
 
   onCreated() {
