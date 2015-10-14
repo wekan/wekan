@@ -65,6 +65,7 @@ Template.listImportCardPopup.events({
       boardId: this.boardId,
       userId: Meteor.userId(),
       sort: sortIndex,
+      archived: data.closed,
     };
     // 3. map labels
     data.labels.forEach((current) => {
