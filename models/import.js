@@ -38,7 +38,6 @@ Meteor.methods({
 
     // 1. map all fields for the card to create
     const dateOfImport = new Date();
-    // XXX parse trelloCard.actions to determine creation date
     const cardToCreate = {
       title: trelloCard.name,
       description: trelloCard.desc,
@@ -47,10 +46,15 @@ Meteor.methods({
       userId: Meteor.userId(),
       sort: sortIndex,
       archived: trelloCard.closed,
-      // XXX dateOfImport
+      // this is a default date, we'll fetch the actual one from the actions array
       createdAt: dateOfImport,
       dateLastActivity: dateOfImport,
     };
+    // find actual creation date
+    const creationAction = trelloCard.actions.find((action) => {return action.type === 'createCard';});
+    if(creationAction) {
+      cardToCreate.createdAt = creationAction.date;
+    }
     // 2. map labels
     trelloCard.labels.forEach((currentLabel) => {
       const color = currentLabel.color;
@@ -74,25 +78,30 @@ Meteor.methods({
       }
     });
     // 3. insert new card into list
-    // XXX replace with direct MongoDB inserts
-    const _id = Cards.direct.insert(cardToCreate);
+    const cardId = Cards.direct.insert(cardToCreate);
     // XXX then add import activity
     // 4. parse actions and add comments
     trelloCard.actions.forEach((currentAction) => {
       if(currentAction.type === 'commentCard') {
         const commentToCreate = {
           boardId: list.boardId,
-          cardId: _id,
-          userId: Meteor.userId(),
-          text: currentAction.data.text,
+          cardId: cardId,
           createdAt: currentAction.date,
+          text: currentAction.data.text,
+          userId: Meteor.userId(),
         };
-        // console.log(commentToCreate);
-        CardComments.direct.insert(commentToCreate);
+        const commentId = CardComments.direct.insert(commentToCreate);
+        Activities.direct.insert({
+          activityType: 'addComment',
+          boardId: commentToCreate.boardId,
+          cardId: commentToCreate.cardId,
+          commentId: commentId,
+          createdAt: commentToCreate.createdAt,
+          userId: commentToCreate.userId,
+        });
       }
       // XXX add other type of activities?
-      // XXX look for createCard to set create date > no do it BEFORE saving
     });
-    return _id;
+    return cardId;
   },
 });
