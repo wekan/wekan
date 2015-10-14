@@ -1,7 +1,8 @@
+/* global moment */
 Meteor.methods({
   importTrelloCard(trelloCard, listId, sortIndex) {
     // 1. check parameters are ok from a syntax point of view
-    DateString = Match.Where(function (dateAsString) {
+    const DateString = Match.Where(function (dateAsString) {
       check(dateAsString, String);
       return moment(dateAsString, moment.ISO_8601).isValid();
     });
@@ -25,9 +26,6 @@ Meteor.methods({
       check(listId, String);
       check(sortIndex, Number);
     } catch(e) {
-      if(Meteor.isServer) {
-        console.log(e);
-      }
       throw new Meteor.Error('error-json-schema');
     }
 
@@ -92,7 +90,7 @@ Meteor.methods({
     Activities.direct.insert({
       activityType: 'importCard',
       boardId: cardToCreate.boardId,
-      cardId: cardId,
+      cardId,
       createdAt: dateOfImport,
       listId: cardToCreate.listId,
       source: {
@@ -109,7 +107,7 @@ Meteor.methods({
       if(currentAction.type === 'commentCard') {
         const commentToCreate = {
           boardId: list.boardId,
-          cardId: cardId,
+          cardId,
           createdAt: currentAction.date,
           text: currentAction.data.text,
           // XXX use the original comment user instead
@@ -120,7 +118,7 @@ Meteor.methods({
           activityType: 'addComment',
           boardId: commentToCreate.boardId,
           cardId: commentToCreate.cardId,
-          commentId: commentId,
+          commentId,
           createdAt: commentToCreate.createdAt,
           userId: commentToCreate.userId,
         });
