@@ -60,13 +60,28 @@ Template.listImportCardPopup.events({
     sortIndex = Utils.calculateIndex(null, firstCardDom).base;
     const cardToCreate = {
       title: data.name,
+      description: data.desc,
       listId: this._id,
       boardId: this.boardId,
       userId: Meteor.userId(),
       sort: sortIndex,
     }
-    // 3. finally, insert new card into list
+    // 3. insert new card into list
     const _id = Cards.insert(cardToCreate);
+    // 4. parse actions and add comments/activities - if any
+    data.actions.forEach((current, i, actions)=>{
+      if(current.type == 'commentCard') {
+        const commentToCreate = {
+          boardId: this.boardId,
+          cardId: _id,
+          userId: Meteor.userId(),
+          text: current.data.text
+        }
+        CardComments.insert(commentToCreate);
+      }
+      Popup.close();
+    });
+
     // In case the filter is active we need to add the newly inserted card in
     // the list of exceptions -- cards that are not filtered. Otherwise the
     // card will disappear instantly.
