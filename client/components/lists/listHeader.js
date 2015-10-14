@@ -54,63 +54,23 @@ Template.listImportCardPopup.events({
     // 1. get the json data out of the form and parse it
     evt.preventDefault();
     const jsonData = $(evt.currentTarget).find('textarea').val();
-    const data = JSON.parse(jsonData);
-    // 2. map all fields for the card to create
     const firstCardDom = $(`#js-list-${this._id} .js-minicard:first`).get(0);
     const sortIndex = Utils.calculateIndex(null, firstCardDom).base;
-    const cardToCreate = {
-      title: data.name,
-      description: data.desc,
-      listId: this._id,
-      boardId: this.boardId,
-      userId: Meteor.userId(),
-      sort: sortIndex,
-      archived: data.closed,
-    };
-    // 3. map labels
-    data.labels.forEach((current) => {
-      const color = current.color;
-      const name = current.name;
-      const existingLabel = this.board().getLabel(name, color);
-      let labelId = undefined;
-      if (existingLabel) {
-        labelId = existingLabel._id;
-      } else {
-        let labelCreated = this.board().addLabel(name, color);
-        // XXX currently mutations return no value so we have to fetch the label we just created
-        // waiting on https://github.com/mquandalle/meteor-collection-mutations/issues/1 to remove...
-        labelCreated = this.board().getLabel(name, color);
-        labelId = labelCreated._id;
-      }
-      if(labelId) {
-        if (!cardToCreate.labelIds) {
-          cardToCreate.labelIds = [];
-        }
-        cardToCreate.labelIds.push(labelId);
-      }
-    });
-    // 4. insert new card into list
-    const _id = Cards.insert(cardToCreate);
-    // 5. parse actions and add comments
-    data.actions.forEach((current) => {
-      if(current.type === 'commentCard') {
-        const commentToCreate = {
-          boardId: this.boardId,
-          cardId: _id,
-          userId: Meteor.userId(),
-          text: current.data.text,
-        };
-        CardComments.insert(commentToCreate);
-      }
-      // XXX add other type of activities?
+    try {
+      const trelloCard = JSON.parse(jsonData);
+      const cardId = Meteor.call('importTrelloCard', trelloCard, this._id, sortIndex);
+      // In case the filter is active we need to add the newly inserted card in
+      // the list of exceptions -- cards that are not filtered. Otherwise the
+      // card will disappear instantly.
+      // See https://github.com/wekan/wekan/issues/80
+      Filter.addException(cardId);
       Popup.close();
-    });
-
-    // In case the filter is active we need to add the newly inserted card in
-    // the list of exceptions -- cards that are not filtered. Otherwise the
-    // card will disappear instantly.
-    // See https://github.com/wekan/wekan/issues/80
-    Filter.addException(_id);
+    } catch(e) {
+      // XXX handle error
+      // this.error.set('avatar-too-big');
+      console.log('Invalid JSON');
+      return;
+    }
   },
 });
 
