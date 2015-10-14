@@ -1,40 +1,44 @@
 Meteor.methods({
-  /**
-   *
-   */
   importTrelloCard(trelloCard, listId, sortIndex) {
     // 1. check parameters are ok from a syntax point of view
     DateString = Match.Where(function (dateAsString) {
       check(dateAsString, String);
       return moment(dateAsString, moment.ISO_8601).isValid();
     });
-    check(trelloCard, Match.ObjectIncluding({
-      name: String,
-      desc: String,
-      closed: Boolean,
-      dateLastActivity: DateString,
-      labels: [Match.ObjectIncluding({
+    try {
+      check(trelloCard, Match.ObjectIncluding({
         name: String,
-        color: String,
-      })],
-      actions: [Match.ObjectIncluding({
-        type: String,
-        date: DateString,
-        data: Object,
-      })],
-      members: [Object],
-    }));
-    check(listId, String);
-    check(sortIndex, Number);
+        desc: String,
+        closed: Boolean,
+        dateLastActivity: DateString,
+        labels: [Match.ObjectIncluding({
+          name: String,
+          color: String,
+        })],
+        actions: [Match.ObjectIncluding({
+          type: String,
+          date: DateString,
+          data: Object,
+        })],
+        members: [Object],
+      }));
+      check(listId, String);
+      check(sortIndex, Number);
+    } catch(e) {
+      if(Meteor.isServer) {
+        console.log(e);
+      }
+      throw new Meteor.Error('error-json-schema');
+    }
 
     // 2. check parameters are ok from a business point of view (exist & authorized)
     const list = Lists.findOne(listId);
     if(!list) {
-      throw 'exception-list-doesNotExist';
+      throw new Meteor.Error('error-list-doesNotExist');
     }
     if(Meteor.isServer) {
       if (!allowIsBoardMember(Meteor.userId(), Boards.findOne(list.boardId))) {
-        throw 'exception-board-notAMember';
+        throw new Meteor.Error('error-board-notAMember');
       }
     }
 
