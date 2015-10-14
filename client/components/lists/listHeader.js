@@ -12,6 +12,12 @@ BlazeComponent.extendComponent({
     }
   },
 
+  plugins: function(){
+    return Wekan.plugins.map(function(plugin){
+      return plugin.listHeader;
+    });
+  },
+
   events() {
     return [{
       'click .js-open-list-menu': Popup.open('listAction'),

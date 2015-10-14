@@ -127,6 +127,18 @@ BlazeComponent.extendComponent({
   }
 }).register('inlinedCardDescription');
 
+BlazeComponent.extendComponent({
+  template() {
+    return 'cardDetailsActionsPopup';
+  },
+
+  plugins: function(){
+    return Wekan.plugins.map(function(plugin){
+      return plugin.cardAction;
+    });
+  }
+}).register('cardDetailsActionsPopup');
+
 Template.cardDetailsActionsPopup.events({
   'click .js-members': Popup.open('cardMembers'),
   'click .js-labels': Popup.open('cardLabels'),

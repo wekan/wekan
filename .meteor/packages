@@ -73,3 +73,14 @@ perak:markdown
 seriousm:emoji-continued
 templates:tabs
 verron:autosize
+wekan:plugin
+wekan:activities
+wekan:attachments
+wekan:avatars
+wekan:boards
+wekan:card-comments
+wekan:cards
+wekan:lib
+wekan:lists
+wekan:unsaved-edits
+jimmiebtlr:wekan-time

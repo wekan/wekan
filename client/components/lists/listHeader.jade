@@ -6,6 +6,8 @@ template(name="listHeader")
       h2.list-header-name(
         class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
         = title
+        each plugins in plugin
+          {{>Template.dynamic template=this data=data}}
       if currentUser.isBoardMember
         a.list-header-menu-icon.fa.fa-ellipsis-v.js-open-list-menu
 

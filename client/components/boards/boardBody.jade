@@ -5,6 +5,8 @@ template(name="board")
     else
       //- XXX We need a better error message in case the board has been archived
       +message(label="board-not-found")
+  each plugins in plugin
+    {{>Template.dynamic template=this data=data}}
   else
     +spinner
 
