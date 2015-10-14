@@ -66,9 +66,31 @@ Template.listImportCardPopup.events({
       userId: Meteor.userId(),
       sort: sortIndex,
     }
-    // 3. insert new card into list
+    // 3. map labels
+    data.labels.forEach((current, i, actions) => {
+      const color = current.color;
+      const name = current.name;
+      const existingLabel = this.board().getLabel(name, color);
+      let labelId = undefined;
+      if (existingLabel) {
+        labelId = existingLabel._id;
+      } else {
+        let labelCreated = this.board().addLabel(name, color);
+        // XXX currently mutations return no value so we have to fetch the label we just created
+        // waiting on https://github.com/mquandalle/meteor-collection-mutations/issues/1 to remove...
+        labelCreated = this.board().getLabel(name, color);
+        labelId = labelCreated._id;
+      }
+      if(labelId) {
+        if (!cardToCreate.labelIds) {
+          cardToCreate.labelIds = [];
+        }
+        cardToCreate.labelIds.push(labelId);
+      }
+    });
+    // 4. insert new card into list
     const _id = Cards.insert(cardToCreate);
-    // 4. parse actions and add comments/activities - if any
+    // 5. parse actions and add comments
     data.actions.forEach((current, i, actions)=>{
       if(current.type == 'commentCard') {
         const commentToCreate = {
@@ -79,6 +101,7 @@ Template.listImportCardPopup.events({
         }
         CardComments.insert(commentToCreate);
       }
+      // XXX add other type of activities?
       Popup.close();
     });
 

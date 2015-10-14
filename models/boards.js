@@ -92,6 +92,12 @@ Boards.helpers({
     return _.where(this.members, {isActive: true});
   },
 
+  getLabel(name, color) {
+    return this.labels.find((current, i, labels) => {
+      return (current.name == name && current.color == color);
+    });
+  },
+
   labelIndex(labelId) {
     return _.indexOf(_.pluck(this.labels, '_id'), labelId);
   },
@@ -293,8 +299,8 @@ if (Meteor.isServer) {
     });
   });
 
-  // If the user remove one label from a board, we cant to remove reference of
-  // this label in any card of this board.
+  // If the user removes a label from a board, we have to remove references to
+  // this label in all cards of the board.
   Boards.after.update((userId, doc, fieldNames, modifier) => {
     if (!_.contains(fieldNames, 'labels') ||
       !modifier.$pull ||
