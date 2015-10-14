@@ -7,6 +7,7 @@
     "activity-attached": "attached %s to %s",
     "activity-created": "created %s",
     "activity-excluded": "excluded %s from %s",
+    "activity-imported": "imported %s into %s from %s",
     "activity-joined": "joined %s",
     "activity-moved": "moved %s from %s to %s",
     "activity-on": "on %s",

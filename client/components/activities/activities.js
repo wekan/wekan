@@ -60,6 +60,13 @@ BlazeComponent.extendComponent({
     }, card.title));
   },
 
+  sourceLink() {
+    const source = this.currentData().source;
+    return source && Blaze.toHTML(HTML.A({
+      href: source.url,
+    }, source.system));
+  },
+
   memberLink() {
     return Blaze.toHTMLWithData(Template.memberName, {
       user: this.currentData().member(),
