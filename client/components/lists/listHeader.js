@@ -70,9 +70,7 @@ Template.listImportCardPopup.events({
     const _id = Cards.insert(cardToCreate);
     // 4. parse actions and add comments/activities - if any
     data.actions.forEach((current, i, actions)=>{
-      console.log(current);
       if(current.type == 'commentCard') {
-        console.log('comment');
         const commentToCreate = {
           boardId: this.boardId,
           cardId: _id,
