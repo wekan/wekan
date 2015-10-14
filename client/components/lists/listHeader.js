@@ -50,14 +50,14 @@ Template.listActionPopup.events({
 });
 
 Template.listImportCardPopup.events({
-  submit(evt, template) {
+  submit(evt) {
     // 1. get the json data out of the form and parse it
     evt.preventDefault();
     const jsonData = $(evt.currentTarget).find('textarea').val();
     const data = JSON.parse(jsonData);
     // 2. map all fields for the card to create
     const firstCardDom = $(`#js-list-${this._id} .js-minicard:first`).get(0);
-    sortIndex = Utils.calculateIndex(null, firstCardDom).base;
+    const sortIndex = Utils.calculateIndex(null, firstCardDom).base;
     const cardToCreate = {
       title: data.name,
       description: data.desc,
@@ -65,9 +65,9 @@ Template.listImportCardPopup.events({
       boardId: this.boardId,
       userId: Meteor.userId(),
       sort: sortIndex,
-    }
+    };
     // 3. map labels
-    data.labels.forEach((current, i, actions) => {
+    data.labels.forEach((current) => {
       const color = current.color;
       const name = current.name;
       const existingLabel = this.board().getLabel(name, color);
@@ -91,14 +91,14 @@ Template.listImportCardPopup.events({
     // 4. insert new card into list
     const _id = Cards.insert(cardToCreate);
     // 5. parse actions and add comments
-    data.actions.forEach((current, i, actions)=>{
-      if(current.type == 'commentCard') {
+    data.actions.forEach((current) => {
+      if(current.type === 'commentCard') {
         const commentToCreate = {
           boardId: this.boardId,
           cardId: _id,
           userId: Meteor.userId(),
-          text: current.data.text
-        }
+          text: current.data.text,
+        };
         CardComments.insert(commentToCreate);
       }
       // XXX add other type of activities?
@@ -110,7 +110,7 @@ Template.listImportCardPopup.events({
     // card will disappear instantly.
     // See https://github.com/wekan/wekan/issues/80
     Filter.addException(_id);
-  }
+  },
 });
 
 Template.listMoveCardsPopup.events({

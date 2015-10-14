@@ -93,8 +93,8 @@ Boards.helpers({
   },
 
   getLabel(name, color) {
-    return this.labels.find((current, i, labels) => {
-      return (current.name == name && current.color == color);
+    return this.labels.find((current) => {
+      return ((current.name === name) && (current.color === color));
     });
   },
 
