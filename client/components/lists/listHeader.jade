@@ -32,6 +32,8 @@ template(name="listMoveCardsPopup")
   +boardLists
 
 template(name="listImportCardPopup")
+  if error.get
+    .warning {{_ error.get}}
   form
     label
       | {{_ 'card-json'}}
