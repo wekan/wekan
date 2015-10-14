@@ -3,13 +3,11 @@ Meteor.methods({
    *
    */
   importTrelloCard(trelloCard, listId, sortIndex) {
+    // 1. check parameters are ok from a syntax point of view
     DateString = Match.Where(function (dateAsString) {
       check(dateAsString, String);
-      //const date = new Date(dateAsString);
-      //return (date.toString() !== 'Invalid Date') && !isNan(date);
       return moment(dateAsString, moment.ISO_8601).isValid();
     });
-
     check(trelloCard, Match.ObjectIncluding({
       name: String,
       desc: String,
@@ -29,14 +27,18 @@ Meteor.methods({
     check(listId, String);
     check(sortIndex, Number);
 
+    // 2. check parameters are ok from a business point of view (exist & authorized)
     const list = Lists.findOne(listId);
     if(!list) {
       throw 'exception-list-doesNotExist';
     }
+    if(Meteor.isServer) {
+      if (!allowIsBoardMember(Meteor.userId(), Boards.findOne(list.boardId))) {
+        throw 'exception-board-notAMember';
+      }
+    }
 
-    // XXX check we are allowed to run method
-
-    // 1. map all fields for the card to create
+    // 3. map all fields for the card to create
     const dateOfImport = new Date();
     const cardToCreate = {
       title: trelloCard.name,
@@ -50,12 +52,14 @@ Meteor.methods({
       createdAt: dateOfImport,
       dateLastActivity: dateOfImport,
     };
-    // find actual creation date
+
+    // 4. find actual creation date
     const creationAction = trelloCard.actions.find((action) => {return action.type === 'createCard';});
     if(creationAction) {
       cardToCreate.createdAt = creationAction.date;
     }
-    // 2. map labels
+
+    // 5. map labels - create missing ones
     trelloCard.labels.forEach((currentLabel) => {
       const color = currentLabel.color;
       const name = currentLabel.name;
@@ -77,10 +81,12 @@ Meteor.methods({
         cardToCreate.labelIds.push(labelId);
       }
     });
-    // 3. insert new card into list
+
+    // 6. insert new card into list
     const cardId = Cards.direct.insert(cardToCreate);
     // XXX then add import activity
-    // 4. parse actions and add comments
+
+    // 7. parse actions and add comments
     trelloCard.actions.forEach((currentAction) => {
       if(currentAction.type === 'commentCard') {
         const commentToCreate = {
