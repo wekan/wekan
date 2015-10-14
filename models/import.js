@@ -41,16 +41,17 @@ Meteor.methods({
     // 3. map all fields for the card to create
     const dateOfImport = new Date();
     const cardToCreate = {
-      title: trelloCard.name,
-      description: trelloCard.desc,
-      listId: list._id,
-      boardId: list.boardId,
-      userId: Meteor.userId(),
-      sort: sortIndex,
       archived: trelloCard.closed,
+      boardId: list.boardId,
       // this is a default date, we'll fetch the actual one from the actions array
       createdAt: dateOfImport,
       dateLastActivity: dateOfImport,
+      description: trelloCard.desc,
+      listId: list._id,
+      sort: sortIndex,
+      title: trelloCard.name,
+      // XXX use the original user?
+      userId: Meteor.userId(),
     };
 
     // 4. find actual creation date
@@ -84,7 +85,20 @@ Meteor.methods({
 
     // 6. insert new card into list
     const cardId = Cards.direct.insert(cardToCreate);
-    // XXX then add import activity
+    Activities.direct.insert({
+      activityType: 'importCard',
+      boardId: cardToCreate.boardId,
+      cardId: cardId,
+      createdAt: dateOfImport,
+      listId: cardToCreate.listId,
+      source: {
+        id: trelloCard.id,
+        system: 'Trello',
+        url: trelloCard.url,
+      },
+      // we attribute the import to current user, not the one from the original card
+      userId: Meteor.userId(),
+    });
 
     // 7. parse actions and add comments
     trelloCard.actions.forEach((currentAction) => {
@@ -94,6 +108,7 @@ Meteor.methods({
           cardId: cardId,
           createdAt: currentAction.date,
           text: currentAction.data.text,
+          // XXX use the original comment user instead
           userId: Meteor.userId(),
         };
         const commentId = CardComments.direct.insert(commentToCreate);
@@ -106,7 +121,6 @@ Meteor.methods({
           userId: commentToCreate.userId,
         });
       }
-      // XXX add other type of activities?
     });
     return cardId;
   },
