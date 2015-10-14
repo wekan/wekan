@@ -35,7 +35,6 @@ template(name="listImportCardPopup")
   form
     label
       | {{_ 'card-json'}}
-      //+editor(class="js-card-json" autofocus=true)
       textarea.js-card-json(placeholder="{{_ 'card-json-placeholder'}}" autofocus)
     input.primary.wide(type="submit" value="{{_ 'import'}}")
 
