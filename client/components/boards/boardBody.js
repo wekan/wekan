@@ -188,12 +188,31 @@ BlazeComponent.extendComponent({
         evt.preventDefault();
         const title = this.find('.list-name-input');
         if ($.trim(title.value)) {
-          Lists.insert({
+          const newlistId = Lists.insert({
             title: title.value,
             boardId: Session.get('currentBoard'),
             sort: $('.list').length,
           });
-
+          const sourceUrl = title.value;
+          const urlSchema = new SimpleSchema({testUrl: {type: SimpleSchema.RegEx.Url}});
+          check({testUrl: sourceUrl}, urlSchema);
+          HTTP.call('GET', sourceUrl, {}, function( error, response ) {
+            if (response.data) {
+              const newCards = response.data;
+              _.forEach(newCards, (c, i) => {
+                if (($.trim(c.title) || ($.trim(c.name)))) {
+                  const cname = `${$.trim(c.title)} ${$.trim(c.name)}`;
+                  Cards.insert({
+                    title: cname,
+                    listId: newlistId,
+                    boardId: Session.get('currentBoard'),
+                    sort: i,
+                    description: EJSON.stringify(c, {indent: true}),
+                  });
+                }
+              });
+            }
+          });
           title.value = '';
         }
       },
