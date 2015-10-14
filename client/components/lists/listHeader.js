@@ -49,30 +49,44 @@ Template.listActionPopup.events({
   },
 });
 
-Template.listImportCardPopup.events({
-  submit(evt) {
-    // 1. get the json data out of the form and parse it
-    evt.preventDefault();
-    const jsonData = $(evt.currentTarget).find('textarea').val();
-    const firstCardDom = $(`#js-list-${this._id} .js-minicard:first`).get(0);
-    const sortIndex = Utils.calculateIndex(null, firstCardDom).base;
-    try {
-      const trelloCard = JSON.parse(jsonData);
-      const cardId = Meteor.call('importTrelloCard', trelloCard, this._id, sortIndex);
-      // In case the filter is active we need to add the newly inserted card in
-      // the list of exceptions -- cards that are not filtered. Otherwise the
-      // card will disappear instantly.
-      // See https://github.com/wekan/wekan/issues/80
-      Filter.addException(cardId);
-      Popup.close();
-    } catch(e) {
-      // XXX handle error
-      // this.error.set('avatar-too-big');
-      console.log('Invalid JSON');
-      return;
-    }
+
+BlazeComponent.extendComponent({
+  events() {
+    return [{
+      submit(evt) {
+        evt.preventDefault();
+        const jsonData = $(evt.currentTarget).find('textarea').val();
+        const firstCardDom = $(`#js-list-${this.currentData()._id} .js-minicard:first`).get(0);
+        const sortIndex = Utils.calculateIndex(null, firstCardDom).base;
+        let trelloCard;
+        try {
+          trelloCard = JSON.parse(jsonData);
+        } catch (e) {
+          this.setError('error-json-malformed');
+          return;
+        }
+        Meteor.call('importTrelloCard', trelloCard, this.currentData()._id, sortIndex,
+          (error, response) => {
+            if (error) {
+              this.setError(error.error);
+            } else {
+              Filter.addException(response);
+              Popup.close();
+            }
+          }
+        );
+      },
+    }];
   },
-});
+
+  onCreated() {
+    this.error = new ReactiveVar('');
+  },
+
+  setError(error) {
+    this.error.set(error);
+  },
+}).register('listImportCardPopup');
 
 Template.listMoveCardsPopup.events({
   'click .js-select-list'() {
