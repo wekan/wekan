@@ -13,6 +13,8 @@ template(name="cardDetails")
         h2.card-details-title.js-card-title(
           class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
             = title
+            if linkedBoard
+              a.fa.fa-clone.open-board.js-open-board(title="{{_ 'linked-board'}}")
 
     if archived
       p.warning {{_ 'card-archived'}}
@@ -111,6 +113,17 @@ template(name="cardMorePopup")
       = ' '
       i.fa.colorful(class="{{#if board.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
       input.inline-input(type="text" readonly value="{{ rootUrl }}")
+      span.clearfix
+        span {{_ 'link-board'}}
+        = ' '
+        if linkedBoard
+          a.card-label.add-label.js-add-labels(title="{{_ 'unlink-board'}}")
+            li.js-unlink-board
+              a.label {{_ 'unlink-board'}}          
+        else                    
+          a.card-label.add-label.js-add-labels(title="{{_ 'add-board'}}")
+            li.js-add-board
+              a.label {{_ 'add-board'}}        
     | {{_ 'added'}}
     span.date(title=card.createdAt) {{ moment createdAt 'LLL' }}
     a.js-delete(title="{{_ 'card-delete-notice'}}") {{_ 'delete'}}
@@ -120,3 +133,23 @@ template(name="cardDeletePopup")
   unless archived
    p {{_ "card-delete-suggest-archive"}}
   button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
+
+template(name="createLinkedBoardPopup")
+  form
+    label
+      | {{_ 'title'}}
+      //- input.js-new-board-title(type="text" placeholder="{{_ 'bucket-example'}}" autofocus required)
+    if visibilityMenuIsOpen.get
+      +boardVisibilityList
+    else
+      p.quiet
+        if $eq visibility.get 'public'
+          span.fa.fa-globe.colorful
+          = " "
+          | {{{_ 'board-public-info'}}}
+        else
+          span.fa.fa-lock.colorful
+          = " "
+          | {{{_ 'board-private-info'}}}
+        a.js-change-visibility {{_ 'change'}}.
+    input.primary.wide(type="submit" value="{{_ 'create'}}")
