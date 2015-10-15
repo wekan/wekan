@@ -7,7 +7,9 @@ template(name="minicard")
       .minicard-labels
         each labels
           .minicard-label(class="card-label-{{color}}" title="{{name}}")
-    .minicard-title= title
+    .minicard-title
+      +viewer
+         = title
     if members
       .minicard-members.js-minicard-members
         each members
