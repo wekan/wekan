@@ -1,5 +1,5 @@
 Meteor.methods({
-  importTrelloCard(trelloCard, listId, sortIndex) {
+  importTrelloCard(trelloCard, data) {
     // 1. check parameters are ok from a syntax point of view
     const DateString = Match.Where(function (dateAsString) {
       check(dateAsString, String);
@@ -22,14 +22,16 @@ Meteor.methods({
         })],
         members: [Object],
       }));
-      check(listId, String);
-      check(sortIndex, Number);
+      check(data, {
+        listId: String,
+        sortIndex: Number,
+      });
     } catch(e) {
       throw new Meteor.Error('error-json-schema');
     }
 
     // 2. check parameters are ok from a business point of view (exist & authorized)
-    const list = Lists.findOne(listId);
+    const list = Lists.findOne(data.listId);
     if(!list) {
       throw new Meteor.Error('error-list-doesNotExist');
     }
@@ -49,7 +51,7 @@ Meteor.methods({
       dateLastActivity: dateOfImport,
       description: trelloCard.desc,
       listId: list._id,
-      sort: sortIndex,
+      sort: data.sortIndex,
       title: trelloCard.name,
       // XXX use the original user?
       userId: Meteor.userId(),
@@ -126,5 +128,18 @@ Meteor.methods({
       }
     });
     return cardId;
+  },
+  importTrelloBoard(trelloBoard, data) {
+    // 1. check parameters are ok from a syntax point of view
+    try {
+      // XXX do proper checking
+      check(trelloBoard, Object);
+      check(data, Object);
+    } catch(e) {
+      throw new Meteor.Error('error-json-schema');
+    }
+    // 2. check parameters are ok from a business point of view (exist & authorized)
+    // XXX check we are allowed
+    // 3. create all elements
   },
 });

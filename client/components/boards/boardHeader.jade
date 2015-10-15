@@ -107,6 +107,8 @@ template(name="createBoardPopup")
           | {{{_ 'board-private-info'}}}
         a.js-change-visibility {{_ 'change'}}.
     input.primary.wide(type="submit" value="{{_ 'create'}}")
+    | {{_ 'or'}}
+    a.js-import {{_ 'import-board'}}
 
 
 template(name="boardChangeTitlePopup")
