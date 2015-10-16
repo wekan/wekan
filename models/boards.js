@@ -135,29 +135,26 @@ Boards.mutations({
   },
 
   addLabel(name, color) {
-    const _id = Random.id(6);
-
-    // If an empty label of a given color already exists we don't want to create
-    // an other one because they would be indistinguishable in the UI (they
-    // would still have different `_id` but that is not exposed to the user).
-    if (name === '' && this.getLabel(name, color)) {
-      return {};
+    // If label with the same name and color already exists we don't want to
+    // create another one because they would be indistinguishable in the UI
+    // (they would still have different `_id` but that is not exposed to the
+    // user).
+    if (!this.getLabel(name, color)) {
+      const _id = Random.id(6);
+      return { $push: {labels: { _id, name, color }}};
     }
-    return { $push: {labels: { _id, name, color }}};
   },
 
   editLabel(labelId, name, color) {
-    const labelIndex = this.labelIndex(labelId);
-
-    if (name === '' && this.getLabel(name, color)) {
-      return {};
+    if (!this.getLabel(name, color)) {
+      const labelIndex = this.labelIndex(labelId);
+      return {
+        $set: {
+          [`labels.${labelIndex}.name`]: name,
+          [`labels.${labelIndex}.color`]: color,
+        },
+      };
     }
-    return {
-      $set: {
-        [`labels.${labelIndex}.name`]: name,
-        [`labels.${labelIndex}.color`]: color,
-      },
-    };
   },
 
   removeLabel(labelId) {

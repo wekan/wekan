@@ -24,16 +24,17 @@ Meteor.methods({
       }));
       check(listId, String);
       check(sortIndex, Number);
-    } catch(e) {
+    } catch (e) {
       throw new Meteor.Error('error-json-schema');
     }
 
-    // 2. check parameters are ok from a business point of view (exist & authorized)
+    // 2. check parameters are ok from a business point of view (exist &
+    // authorized)
     const list = Lists.findOne(listId);
-    if(!list) {
+    if (!list) {
       throw new Meteor.Error('error-list-doesNotExist');
     }
-    if(Meteor.isServer) {
+    if (Meteor.isServer) {
       if (!allowIsBoardMember(Meteor.userId(), Boards.findOne(list.boardId))) {
         throw new Meteor.Error('error-board-notAMember');
       }
@@ -48,6 +49,7 @@ Meteor.methods({
       createdAt: dateOfImport,
       dateLastActivity: dateOfImport,
       description: trelloCard.desc,
+      labelIds: [],
       listId: list._id,
       sort: sortIndex,
       title: trelloCard.name,
@@ -59,29 +61,18 @@ Meteor.methods({
     const creationAction = trelloCard.actions.find((action) => {
       return action.type === 'createCard';
     });
-    if(creationAction) {
+    if (creationAction) {
       cardToCreate.createdAt = creationAction.date;
     }
 
     // 5. map labels - create missing ones
     trelloCard.labels.forEach((currentLabel) => {
-      const color = currentLabel.color;
-      const name = currentLabel.name;
-      const existingLabel = list.board().getLabel(name, color);
-      let labelId = undefined;
-      if (existingLabel) {
-        labelId = existingLabel._id;
-      } else {
-        let labelCreated = list.board().addLabel(name, color);
-        // XXX currently mutations return no value so we have to fetch the label we just created
-        // waiting on https://github.com/mquandalle/meteor-collection-mutations/issues/1 to remove...
-        labelCreated = list.board().getLabel(name, color);
-        labelId = labelCreated._id;
-      }
-      if(labelId) {
-        if (!cardToCreate.labelIds) {
-          cardToCreate.labelIds = [];
-        }
+      const { name, color } = currentLabel;
+      // `addLabel` won't create dublicate labels (ie labels with the same name
+      // and color) so here it is used more in a "enforceLabelExistence" way.
+      list.board().addLabel(name, color);
+      const { _id: labelId } = list.board().getLabel(name, color);
+      if (labelId) {
         cardToCreate.labelIds.push(labelId);
       }
     });
@@ -99,13 +90,14 @@ Meteor.methods({
         system: 'Trello',
         url: trelloCard.url,
       },
-      // we attribute the import to current user, not the one from the original card
+      // we attribute the import to current user, not the one from the original
+      // card
       userId: Meteor.userId(),
     });
 
     // 7. parse actions and add comments
     trelloCard.actions.forEach((currentAction) => {
-      if(currentAction.type === 'commentCard') {
+      if (currentAction.type === 'commentCard') {
         const commentToCreate = {
           boardId: list.boardId,
           cardId,
