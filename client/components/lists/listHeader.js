@@ -33,6 +33,7 @@ Template.listActionPopup.events({
     MultiSelection.add(cardIds);
     Popup.close();
   },
+  'click .js-import-card': Popup.open('listImportCard'),
   'click .js-move-cards': Popup.open('listMoveCards'),
   'click .js-archive-cards': Popup.afterConfirm('listArchiveCards', function() {
     this.allCards().forEach((card) => {
@@ -40,12 +41,52 @@ Template.listActionPopup.events({
     });
     Popup.close();
   }),
+
   'click .js-close-list'(evt) {
     evt.preventDefault();
     this.archive();
     Popup.close();
   },
 });
+
+
+BlazeComponent.extendComponent({
+  events() {
+    return [{
+      'submit': (evt) => {
+        evt.preventDefault();
+        const jsonData = $(evt.currentTarget).find('textarea').val();
+        const firstCardDom = $(`#js-list-${this.currentData()._id} .js-minicard:first`).get(0);
+        const sortIndex = Utils.calculateIndex(null, firstCardDom).base;
+        let trelloCard;
+        try {
+          trelloCard = JSON.parse(jsonData);
+        } catch (e) {
+          this.setError('error-json-malformed');
+          return;
+        }
+        Meteor.call('importTrelloCard', trelloCard, this.currentData()._id, sortIndex,
+          (error, response) => {
+            if (error) {
+              this.setError(error.error);
+            } else {
+              Filter.addException(response);
+              Popup.close();
+            }
+          }
+        );
+      },
+    }];
+  },
+
+  onCreated() {
+    this.error = new ReactiveVar('');
+  },
+
+  setError(error) {
+    this.error.set(error);
+  },
+}).register('listImportCardPopup');
 
 Template.listMoveCardsPopup.events({
   'click .js-select-list'() {

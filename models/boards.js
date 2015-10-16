@@ -92,6 +92,10 @@ Boards.helpers({
     return _.where(this.members, {isActive: true});
   },
 
+  getLabel(name, color) {
+    return _.findWhere(this.labels, { name, color });
+  },
+
   labelIndex(labelId) {
     return _.indexOf(_.pluck(this.labels, '_id'), labelId);
   },
@@ -132,11 +136,22 @@ Boards.mutations({
 
   addLabel(name, color) {
     const _id = Random.id(6);
+
+    // If an empty label of a given color already exists we don't want to create
+    // an other one because they would be indistinguishable in the UI (they
+    // would still have different `_id` but that is not exposed to the user).
+    if (name === '' && this.getLabel(name, color)) {
+      return {};
+    }
     return { $push: {labels: { _id, name, color }}};
   },
 
   editLabel(labelId, name, color) {
     const labelIndex = this.labelIndex(labelId);
+
+    if (name === '' && this.getLabel(name, color)) {
+      return {};
+    }
     return {
       $set: {
         [`labels.${labelIndex}.name`]: name,
