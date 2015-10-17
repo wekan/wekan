@@ -1,3 +1,72 @@
+const trelloCreator = {
+  // the object creation dates, indexed by Trello id (so we only parse actions once!)
+  createdAt: {
+    board: null,
+    cards: {},
+    lists: {},
+  },
+
+  // the labels we created, indexed by Trello id (to map when importing cards)
+  labels: {},
+
+  /**
+   * must call parseActions before calling this one
+   */
+  createBoard(trelloBoard, dateOfImport) {
+    const createdAt = this.createdAt.board;
+    const boardToCreate = {
+      archived: trelloBoard.closed,
+      // XXX map from Trello colors
+      color: Boards.simpleSchema()._schema.color.allowedValues[0],
+      createdAt,
+      labels: [],
+      members: [{
+        userId: Meteor.userId(),
+        isAdmin: true,
+        isActive: true,
+      }],
+      // XXX make a more robust mapping algorithm?
+      permission: trelloBoard.prefs.permissionLevel,
+      slug: getSlug(trelloBoard.name) || 'board',
+      stars: 0,
+      title: trelloBoard.name,
+    };
+    trelloBoard.labels.forEach((label) => {
+      labelToCreate = {
+        _id: Random.id(6),
+        color: label.color,
+        name: label.name,
+      };
+      // we need to remember them by Trello ID, as this is the only ref we have when importing cards
+      this.labels[label.id] = labelToCreate;
+      boardToCreate.labels.push(labelToCreate);
+    });
+    const boardId = Boards.direct.insert(boardToCreate);
+    return boardId;
+  },
+
+  parseActions(trelloActions) {
+    trelloActions.forEach((action) =>{
+      switch (action.type) {
+        case 'createBoard':
+          this.createdAt.board = action.date;
+          break;
+        case 'createCard':
+          const cardId = action.data.card.id;
+          this.createdAt.cards[cardId] = action.date;
+          break;
+        case 'createList':
+          const listId = action.data.list.id;
+          this.createdAt.lists[listId] = action.date;
+          break;
+        default:
+          // do nothing
+          break;
+      }
+    });
+  }
+}
+
 Meteor.methods({
   importTrelloCard(trelloCard, data) {
     // 1. check parameters are ok from a syntax point of view
@@ -141,5 +210,9 @@ Meteor.methods({
     // 2. check parameters are ok from a business point of view (exist & authorized)
     // XXX check we are allowed
     // 3. create all elements
+    const dateOfImport = new Date();
+    trelloCreator.parseActions(trelloBoard.actions);
+    const boardId = trelloCreator.createBoard(trelloBoard, dateOfImport);
+    return boardId;
   },
 });

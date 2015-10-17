@@ -28,7 +28,7 @@ const ImportPopup = BlazeComponent.extendComponent({
               this.setError(error.error);
             } else {
               Filter.addException(response);
-              Popup.close();
+              this.onFinish(response);
             }
           }
         );
@@ -43,6 +43,10 @@ const ImportPopup = BlazeComponent.extendComponent({
   setError(error) {
     this.error.set(error);
   },
+
+  onFinish() {
+    Popup.close();
+  }
 });
 
 ImportPopup.extendComponent({
@@ -75,6 +79,10 @@ ImportPopup.extendComponent({
 
   getLabel() {
     return 'import-board-trello-instruction';
+  },
+
+  onFinish(response) {
+    Utils.goBoardId(response);
   },
 }).register('boardImportBoardPopup');
 
