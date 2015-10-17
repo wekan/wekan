@@ -1,18 +1,21 @@
-const trelloCreator = {
-  // the object creation dates, indexed by Trello id (so we only parse actions once!)
-  createdAt: {
-    board: null,
-    cards: {},
-    lists: {},
-  },
-
-  // the labels we created, indexed by Trello id (to map when importing cards)
-  labels: {},
+class TrelloCreator {
+  constructor() {
+    // the object creation dates, indexed by Trello id (so we only parse actions once!)
+    this.createdAt = {
+      board: null,
+      cards: {},
+      lists: {},
+    };
+    // the labels we created, indexed by Trello id (to map when importing cards)
+    this.labels = {};
+    // the lists we created, indexed by Trello id (to map when importing cards)
+    this.lists = {};
+  }
 
   /**
    * must call parseActions before calling this one
    */
-  createBoard(trelloBoard, dateOfImport) {
+  createBoardAndLabels(trelloBoard, dateOfImport) {
     const createdAt = this.createdAt.board;
     const boardToCreate = {
       archived: trelloBoard.closed,
@@ -42,8 +45,51 @@ const trelloCreator = {
       boardToCreate.labels.push(labelToCreate);
     });
     const boardId = Boards.direct.insert(boardToCreate);
+    // XXX add activities
     return boardId;
-  },
+  }
+
+  createLists(trelloLists, boardId, dateOfImport) {
+    trelloLists.forEach((list) => {
+      const listToCreate = {
+        archived: list.closed,
+        boardId,
+        createdAt: this.createdAt.lists[list.id],
+        title: list.name,
+        userId: Meteor.userId(),
+      };
+      listToCreate._id = Lists.direct.insert(listToCreate);
+      this.lists[list.id] = listToCreate;
+      // XXX add activities
+    });
+  }
+
+  createCards(trelloCards, boardId, dateOfImport) {
+    trelloCards.forEach((card) => {
+      const cardToCreate = {
+        archived: card.closed,
+        boardId,
+        createdAt: this.createdAt.cards[card.id],
+        dateLastActivity: dateOfImport,
+        description: card.desc,
+        listId: this.lists[card.idList]._id,
+        sort: card.pos,
+        title: card.name,
+        // XXX use the original user?
+        userId: Meteor.userId(),
+      };
+      // add labels
+      if(card.idLabels) {
+        cardToCreate.labelIds = card.idLabels.map((trelloId) => {
+          return this.labels[trelloId]._id;
+        });
+      }
+      Cards.direct.insert(cardToCreate);
+      // XXX add comments
+      // XXX add attachments
+      // XXX add activities
+    });
+  }
 
   parseActions(trelloActions) {
     trelloActions.forEach((action) =>{
@@ -59,6 +105,7 @@ const trelloCreator = {
           const listId = action.data.list.id;
           this.createdAt.lists[listId] = action.date;
           break;
+        // XXX extract comments as well
         default:
           // do nothing
           break;
@@ -199,6 +246,7 @@ Meteor.methods({
     return cardId;
   },
   importTrelloBoard(trelloBoard, data) {
+    const trelloCreator = new TrelloCreator();
     // 1. check parameters are ok from a syntax point of view
     try {
       // XXX do proper checking
@@ -212,7 +260,12 @@ Meteor.methods({
     // 3. create all elements
     const dateOfImport = new Date();
     trelloCreator.parseActions(trelloBoard.actions);
-    const boardId = trelloCreator.createBoard(trelloBoard, dateOfImport);
+    const boardId = trelloCreator.createBoardAndLabels(trelloBoard, dateOfImport);
+    trelloCreator.createLists(trelloBoard.lists, boardId, dateOfImport);
+    trelloCreator.createCards(trelloBoard.cards, boardId, dateOfImport);
+    // XXX add activities
+    // XXX set modifiedAt or lastActivity
+    // XXX add members
     return boardId;
   },
 });
