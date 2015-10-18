@@ -10,12 +10,14 @@ class TrelloCreator {
     this.labels = {};
     // the lists we created, indexed by Trello id (to map when importing cards)
     this.lists = {};
+    // the comments, indexed by Trello card id (to map when importing cards)
+    this.comments = {};
   }
 
   /**
    * must call parseActions before calling this one
    */
-  createBoardAndLabels(trelloBoard, dateOfImport) {
+  createBoardAndLabels(trelloBoard) {
     const createdAt = this.createdAt.board;
     const boardToCreate = {
       archived: trelloBoard.closed,
@@ -35,7 +37,7 @@ class TrelloCreator {
       title: trelloBoard.name,
     };
     trelloBoard.labels.forEach((label) => {
-      labelToCreate = {
+      const labelToCreate = {
         _id: Random.id(6),
         color: label.color,
         name: label.name,
@@ -45,11 +47,23 @@ class TrelloCreator {
       boardToCreate.labels.push(labelToCreate);
     });
     const boardId = Boards.direct.insert(boardToCreate);
-    // XXX add activities
+    // log activity
+    Activities.direct.insert({
+      activityType: 'importBoard',
+      boardId,
+      createdAt: new Date(),
+      source: {
+        id: trelloBoard.id,
+        system: 'Trello',
+        url: trelloBoard.url,
+      },
+      // we attribute the import to current user, not the one from the original object
+      userId: Meteor.userId(),
+    });
     return boardId;
   }
 
-  createLists(trelloLists, boardId, dateOfImport) {
+  createLists(trelloLists, boardId) {
     trelloLists.forEach((list) => {
       const listToCreate = {
         archived: list.closed,
@@ -60,17 +74,29 @@ class TrelloCreator {
       };
       listToCreate._id = Lists.direct.insert(listToCreate);
       this.lists[list.id] = listToCreate;
-      // XXX add activities
+      // log activity
+      Activities.direct.insert({
+        activityType: 'importList',
+        boardId,
+        createdAt: new Date(),
+        listId: listToCreate._id,
+        source: {
+          id: list.id,
+          system: 'Trello',
+        },
+        // we attribute the import to current user, not the one from the original object
+        userId: Meteor.userId(),
+      });
     });
   }
 
-  createCards(trelloCards, boardId, dateOfImport) {
+  createCardsAndComments(trelloCards, boardId) {
     trelloCards.forEach((card) => {
       const cardToCreate = {
         archived: card.closed,
         boardId,
         createdAt: this.createdAt.cards[card.id],
-        dateLastActivity: dateOfImport,
+        dateLastActivity: new Date(),
         description: card.desc,
         listId: this.lists[card.idList]._id,
         sort: card.pos,
@@ -84,37 +110,102 @@ class TrelloCreator {
           return this.labels[trelloId]._id;
         });
       }
-      Cards.direct.insert(cardToCreate);
-      // XXX add comments
+      // insert card
+      const cardId = Cards.direct.insert(cardToCreate);
+      // log activity
+      Activities.direct.insert({
+        activityType: 'importCard',
+        boardId,
+        cardId,
+        createdAt: new Date(),
+        listId: cardToCreate.listId,
+        source: {
+          id: card.id,
+          system: 'Trello',
+          url: card.url,
+        },
+        // we attribute the import to current user, not the one from the original card
+        userId: Meteor.userId(),
+      });
+      // add comments
+      const comments = this.comments[card.id];
+      if(comments) {
+        comments.forEach((comment) => {
+          const commentToCreate = {
+            boardId,
+            cardId,
+            createdAt: comment.date,
+            text: comment.data.text,
+            // XXX use the original comment user instead
+            userId: Meteor.userId(),
+          };
+          const commentId = CardComments.direct.insert(commentToCreate);
+          Activities.direct.insert({
+            activityType: 'addComment',
+            boardId: commentToCreate.boardId,
+            cardId: commentToCreate.cardId,
+            commentId,
+            createdAt: commentToCreate.createdAt,
+            userId: commentToCreate.userId,
+          });
+        });
+      }
       // XXX add attachments
-      // XXX add activities
     });
   }
 
   parseActions(trelloActions) {
-    trelloActions.forEach((action) =>{
+    trelloActions.forEach((action) => {
       switch (action.type) {
-        case 'createBoard':
-          this.createdAt.board = action.date;
-          break;
-        case 'createCard':
-          const cardId = action.data.card.id;
-          this.createdAt.cards[cardId] = action.date;
-          break;
-        case 'createList':
-          const listId = action.data.list.id;
-          this.createdAt.lists[listId] = action.date;
-          break;
-        // XXX extract comments as well
-        default:
-          // do nothing
-          break;
+      case 'createBoard':
+        this.createdAt.board = action.date;
+        break;
+      case 'createCard':
+        const cardId = action.data.card.id;
+        this.createdAt.cards[cardId] = action.date;
+        break;
+      case 'createList':
+        const listId = action.data.list.id;
+        this.createdAt.lists[listId] = action.date;
+        break;
+      case 'commentCard':
+        const id = action.data.card.id;
+        if(this.comments[id]) {
+          this.comments[id].push(action);
+        } else {
+          this.comments[id] = [action];
+        }
+        break;
+      default:
+        // do nothing
+        break;
       }
     });
   }
 }
 
 Meteor.methods({
+  importTrelloBoard(trelloBoard, data) {
+    const trelloCreator = new TrelloCreator();
+    // 1. check parameters are ok from a syntax point of view
+    try {
+      // XXX do proper checking
+      check(trelloBoard, Object);
+      check(data, Object);
+    } catch(e) {
+      throw new Meteor.Error('error-json-schema');
+    }
+    // 2. check parameters are ok from a business point of view (exist & authorized)
+    // XXX check we are allowed
+    // 3. create all elements
+    trelloCreator.parseActions(trelloBoard.actions);
+    const boardId = trelloCreator.createBoardAndLabels(trelloBoard);
+    trelloCreator.createLists(trelloBoard.lists, boardId);
+    trelloCreator.createCardsAndComments(trelloBoard.cards, boardId);
+    // XXX set modifiedAt or lastActivity
+    // XXX add members
+    return boardId;
+  },
   importTrelloCard(trelloCard, data) {
     // 1. check parameters are ok from a syntax point of view
     const DateString = Match.Where(function (dateAsString) {
@@ -244,28 +335,5 @@ Meteor.methods({
       }
     });
     return cardId;
-  },
-  importTrelloBoard(trelloBoard, data) {
-    const trelloCreator = new TrelloCreator();
-    // 1. check parameters are ok from a syntax point of view
-    try {
-      // XXX do proper checking
-      check(trelloBoard, Object);
-      check(data, Object);
-    } catch(e) {
-      throw new Meteor.Error('error-json-schema');
-    }
-    // 2. check parameters are ok from a business point of view (exist & authorized)
-    // XXX check we are allowed
-    // 3. create all elements
-    const dateOfImport = new Date();
-    trelloCreator.parseActions(trelloBoard.actions);
-    const boardId = trelloCreator.createBoardAndLabels(trelloBoard, dateOfImport);
-    trelloCreator.createLists(trelloBoard.lists, boardId, dateOfImport);
-    trelloCreator.createCards(trelloBoard.cards, boardId, dateOfImport);
-    // XXX add activities
-    // XXX set modifiedAt or lastActivity
-    // XXX add members
-    return boardId;
   },
 });

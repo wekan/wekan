@@ -46,7 +46,7 @@ const ImportPopup = BlazeComponent.extendComponent({
 
   onFinish() {
     Popup.close();
-  }
+  },
 });
 
 ImportPopup.extendComponent({
