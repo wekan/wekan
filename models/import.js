@@ -1,3 +1,8 @@
+const DateString = Match.Where(function (dateAsString) {
+  check(dateAsString, String);
+  return moment(dateAsString, moment.ISO_8601).isValid();
+});
+
 class TrelloCreator {
   constructor() {
     // the object creation dates, indexed by Trello id (so we only parse actions once!)
@@ -12,6 +17,50 @@ class TrelloCreator {
     this.lists = {};
     // the comments, indexed by Trello card id (to map when importing cards)
     this.comments = {};
+  }
+
+  checkActions(trelloActions) {
+    check(trelloActions, [Match.ObjectIncluding({
+      data: Object,
+      date: DateString,
+      type: String,
+    })]);
+    // XXX perform deeper checks based on type
+  }
+
+  checkBoard(trelloBoard) {
+    check(trelloBoard, Match.ObjectIncluding({
+      closed: Boolean,
+      labels: [Match.ObjectIncluding({
+        // XXX check versus list
+        color: String,
+        name: String,
+      })],
+      name: String,
+      prefs: Match.ObjectIncluding({
+        // XXX check versus list
+        background: String,
+        // XXX check versus list
+        permissionLevel: String,
+      }),
+    }));
+  }
+
+  checkLists(trelloLists) {
+    check(trelloLists, [Match.ObjectIncluding({
+      closed: Boolean,
+      name: String,
+    })]);
+  }
+
+  checkCards(trelloCards) {
+    check(trelloCards, [Match.ObjectIncluding({
+      closed: Boolean,
+      desc: String,
+      // XXX check idLabels
+      name: String,
+      pos: Number,
+    })]);
   }
 
   /**
@@ -29,7 +78,7 @@ class TrelloCreator {
         isAdmin: true,
         isActive: true,
       }],
-      // XXX make a more robust mapping algorithm?
+      // current mapping is easy as trello and wekan use same keys: 'private' and 'public'
       permission: trelloBoard.prefs.permissionLevel,
       slug: getSlug(trelloBoard.name) || 'board',
       stars: 0,
@@ -209,16 +258,19 @@ class TrelloCreator {
 Meteor.methods({
   importTrelloBoard(trelloBoard, data) {
     const trelloCreator = new TrelloCreator();
-    // 1. check parameters are ok from a syntax point of view
+    // 1. check all parameters are ok from a syntax point of view
     try {
-      // XXX do proper checking
-      check(trelloBoard, Object);
-      check(data, Object);
+      // we don't use additional data - this should be an empty object
+      check(data, {});
+      trelloCreator.checkActions(trelloBoard.actions);
+      trelloCreator.checkBoard(trelloBoard);
+      trelloCreator.checkLists(trelloBoard.lists);
+      trelloCreator.checkCards(trelloBoard.cards);
     } catch(e) {
       throw new Meteor.Error('error-json-schema');
     }
     // 2. check parameters are ok from a business point of view (exist & authorized)
-    // XXX check we are allowed
+    // nothing to check, everyone can import boards in their account
     // 3. create all elements
     trelloCreator.parseActions(trelloBoard.actions);
     const boardId = trelloCreator.createBoardAndLabels(trelloBoard);
