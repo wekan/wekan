@@ -21,8 +21,7 @@ class TrelloCreator {
     const createdAt = this.createdAt.board;
     const boardToCreate = {
       archived: trelloBoard.closed,
-      // XXX map from Trello colors
-      color: Boards.simpleSchema()._schema.color.allowedValues[0],
+      color: this.getColor(trelloBoard.prefs.background),
       createdAt,
       labels: [],
       members: [{
@@ -46,12 +45,14 @@ class TrelloCreator {
       this.labels[label.id] = labelToCreate;
       boardToCreate.labels.push(labelToCreate);
     });
+    const now = new Date();
     const boardId = Boards.direct.insert(boardToCreate);
+    Boards.direct.update(boardId, {$set: {modifiedAt: now}});
     // log activity
     Activities.direct.insert({
       activityType: 'importBoard',
       boardId,
-      createdAt: new Date(),
+      createdAt: now,
       source: {
         id: trelloBoard.id,
         system: 'Trello',
@@ -72,14 +73,17 @@ class TrelloCreator {
         title: list.name,
         userId: Meteor.userId(),
       };
-      listToCreate._id = Lists.direct.insert(listToCreate);
+      const listId = Lists.direct.insert(listToCreate);
+      const now = new Date();
+      Lists.direct.update(listId, {$set: {'updatedAt': now}});
+      listToCreate._id = listId;
       this.lists[list.id] = listToCreate;
       // log activity
       Activities.direct.insert({
         activityType: 'importList',
         boardId,
-        createdAt: new Date(),
-        listId: listToCreate._id,
+        createdAt: now,
+        listId,
         source: {
           id: list.id,
           system: 'Trello',
@@ -139,6 +143,7 @@ class TrelloCreator {
             // XXX use the original comment user instead
             userId: Meteor.userId(),
           };
+          // dateLastActivity will be set from activity insert, no need to update it ourselves
           const commentId = CardComments.direct.insert(commentToCreate);
           Activities.direct.insert({
             activityType: 'addComment',
@@ -152,6 +157,23 @@ class TrelloCreator {
       }
       // XXX add attachments
     });
+  }
+
+  getColor(trelloColorCode) {
+    // trello color name => wekan color
+    const mapColors = {
+      'blue': 'belize',
+      'orange': 'pumpkin',
+      'green': 'nephritis',
+      'red': 'pomegranate',
+      'purple': 'wisteria',
+      'pink': 'pomegranate',
+      'lime': 'nephritis',
+      'sky': 'belize',
+      'grey': 'midnight',
+    };
+    const wekanColor = mapColors[trelloColorCode];
+    return wekanColor || Boards.simpleSchema()._schema.color.allowedValues[0];
   }
 
   parseActions(trelloActions) {
@@ -202,7 +224,6 @@ Meteor.methods({
     const boardId = trelloCreator.createBoardAndLabels(trelloBoard);
     trelloCreator.createLists(trelloBoard.lists, boardId);
     trelloCreator.createCardsAndComments(trelloBoard.cards, boardId);
-    // XXX set modifiedAt or lastActivity
     // XXX add members
     return boardId;
   },
