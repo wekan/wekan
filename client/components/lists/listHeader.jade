@@ -31,15 +31,6 @@ template(name="listActionPopup")
 template(name="listMoveCardsPopup")
   +boardLists
 
-template(name="listImportCardPopup")
-  if error.get
-    .warning {{_ error.get}}
-  form
-    label
-      | {{_ 'card-json'}}
-      textarea.js-card-json(placeholder="{{_ 'card-json-placeholder'}}" autofocus)
-    input.primary.wide(type="submit" value="{{_ 'import'}}")
-
 template(name="boardLists")
   ul.pop-over-list
     each currentBoard.lists

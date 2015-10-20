@@ -60,11 +60,22 @@ BlazeComponent.extendComponent({
     }, card.title));
   },
 
+  listLabel() {
+    return this.currentData().list().title;
+  },
+
   sourceLink() {
     const source = this.currentData().source;
-    return source && Blaze.toHTML(HTML.A({
-      href: source.url,
-    }, source.system));
+    if(source) {
+      if(source.url) {
+        return Blaze.toHTML(HTML.A({
+          href: source.url,
+        }, source.system));
+      } else {
+        return source.system;
+      }
+    }
+    return null;
   },
 
   memberLink() {

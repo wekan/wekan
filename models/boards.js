@@ -111,6 +111,14 @@ Boards.helpers({
   colorClass() {
     return `board-color-${this.color}`;
   },
+
+  // XXX currently mutations return no value so we have an issue when using addLabel in import
+  // XXX waiting on https://github.com/mquandalle/meteor-collection-mutations/issues/1 to remove...
+  pushLabel(name, color) {
+    const _id = Random.id(6);
+    Boards.direct.update(this._id, { $push: {labels: { _id, name, color }}});
+    return _id;
+  },
 });
 
 Boards.mutations({
