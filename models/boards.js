@@ -319,7 +319,7 @@ if (Meteor.isServer) {
       { boardId: doc._id },
       {
         $pull: {
-          labels: removedLabelId,
+          labelIds: removedLabelId,
         },
       },
       { multi: true }
