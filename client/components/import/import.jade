@@ -2,7 +2,6 @@ template(name="importPopup")
   if error.get
     .warning {{_ error.get}}
   form
-    label
-      | {{_ getLabel}}
-      textarea.js-card-json(placeholder="{{_ 'import-json-placeholder'}}" autofocus)
+    p: label(for='import-textarea') {{_ getLabel}}
+    textarea#import-textarea.js-import-json(placeholder="{{_ 'import-json-placeholder'}}" autofocus)
     input.primary.wide(type="submit" value="{{_ 'import'}}")

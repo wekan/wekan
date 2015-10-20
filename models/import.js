@@ -5,17 +5,18 @@ const DateString = Match.Where(function (dateAsString) {
 
 class TrelloCreator {
   constructor() {
-    // the object creation dates, indexed by Trello id (so we only parse actions once!)
+    // The object creation dates, indexed by Trello id (so we only parse actions
+    // once!)
     this.createdAt = {
       board: null,
       cards: {},
       lists: {},
     };
-    // map of labels Trello ID => Wekan ID
+    // Map of labels Trello ID => Wekan ID
     this.labels = {};
-    // map of lists Trello ID => Wekan ID
+    // Map of lists Trello ID => Wekan ID
     this.lists = {};
-    // the comments, indexed by Trello card id (to map when importing cards)
+    // The comments, indexed by Trello card id (to map when importing cards)
     this.comments = {};
   }
 
@@ -33,9 +34,12 @@ class TrelloCreator {
       closed: Boolean,
       name: String,
       prefs: Match.ObjectIncluding({
-        // XXX refine control by validating 'background' against a list of allowed values (is it worth the maintenance?)
+        // XXX refine control by validating 'background' against a list of
+        // allowed values (is it worth the maintenance?)
         background: String,
-        permissionLevel: Match.Where((value) => {return ['org', 'private', 'public'].indexOf(value)>= 0;}),
+        permissionLevel: Match.Where((value) => {
+          return ['org', 'private', 'public'].indexOf(value)>= 0;
+        }),
       }),
     }));
   }
@@ -54,7 +58,8 @@ class TrelloCreator {
 
   checkLabels(trelloLabels) {
     check(trelloLabels, [Match.ObjectIncluding({
-      // XXX refine control by validating 'color' against a list of allowed values (is it worth the maintenance?)
+      // XXX refine control by validating 'color' against a list of allowed
+      // values (is it worth the maintenance?)
       color: String,
       name: String,
     })]);
@@ -67,9 +72,7 @@ class TrelloCreator {
     })]);
   }
 
-  /**
-   * must call parseActions before calling this one
-   */
+  // You must call parseActions before calling this one.
   createBoardAndLabels(trelloBoard) {
     const createdAt = this.createdAt.board;
     const boardToCreate = {
@@ -93,7 +96,8 @@ class TrelloCreator {
         color: label.color,
         name: label.name,
       };
-      // we need to remember them by Trello ID, as this is the only ref we have when importing cards
+      // We need to remember them by Trello ID, as this is the only ref we have
+      // when importing cards.
       this.labels[label.id] = labelToCreate._id;
       boardToCreate.labels.push(labelToCreate);
     });
@@ -110,15 +114,14 @@ class TrelloCreator {
         system: 'Trello',
         url: trelloBoard.url,
       },
-      // we attribute the import to current user, not the one from the original object
+      // We attribute the import to current user, not the one from the original
+      // object.
       userId: Meteor.userId(),
     });
     return boardId;
   }
 
-  /**
-   * Create labels if they do not exist and load this.labels.
-   */
+  // Create labels if they do not exist and load this.labels.
   createLabels(trelloLabels, board) {
     trelloLabels.forEach((label) => {
       const color = label.color;
@@ -138,7 +141,11 @@ class TrelloCreator {
       const listToCreate = {
         archived: list.closed,
         boardId,
-        createdAt: this.createdAt.lists[list.id],
+        // We are being defensing here by providing a default date (now) if the
+        // creation date wasn't found on the action log. This happen on old
+        // Trello boards (eg from 2013) that didn't log the 'createList' action
+        // we require.
+        createdAt: new Date(this.createdAt.lists[list.id] || Date.now()),
         title: list.name,
         userId: Meteor.userId(),
       };
@@ -156,7 +163,8 @@ class TrelloCreator {
           id: list.id,
           system: 'Trello',
         },
-        // we attribute the import to current user, not the one from the original object
+        // We attribute the import to current user, not the one from the
+        // original object
         userId: Meteor.userId(),
       });
     });
@@ -168,7 +176,7 @@ class TrelloCreator {
       const cardToCreate = {
         archived: card.closed,
         boardId,
-        createdAt: this.createdAt.cards[card.id],
+        createdAt: new Date(this.createdAt.cards[card.id]  || Date.now()),
         dateLastActivity: new Date(),
         description: card.desc,
         listId: this.lists[card.idList],
@@ -197,7 +205,8 @@ class TrelloCreator {
           system: 'Trello',
           url: card.url,
         },
-        // we attribute the import to current user, not the one from the original card
+        // we attribute the import to current user, not the one from the
+        // original card
         userId: Meteor.userId(),
       });
       // add comments
@@ -212,7 +221,8 @@ class TrelloCreator {
             // XXX use the original comment user instead
             userId: Meteor.userId(),
           };
-          // dateLastActivity will be set from activity insert, no need to update it ourselves
+          // dateLastActivity will be set from activity insert, no need to
+          // update it ourselves
           const commentId = CardComments.direct.insert(commentToCreate);
           Activities.direct.insert({
             activityType: 'addComment',
@@ -251,7 +261,8 @@ class TrelloCreator {
     if(trelloPermissionCode === 'public') {
       return 'public';
     }
-    // Wekan does NOT have organization level, so we default both 'private' and 'org' to private.
+    // Wekan does NOT have organization level, so we default both 'private' and
+    // 'org' to private.
     return 'private';
   }
 
@@ -302,8 +313,8 @@ Meteor.methods({
       throw new Meteor.Error('error-json-schema');
     }
 
-    // 2. check parameters are ok from a business point of view (exist & authorized)
-    // nothing to check, everyone can import boards in their account
+    // 2. check parameters are ok from a business point of view (exist &
+    // authorized) nothing to check, everyone can import boards in their account
 
     // 3. create all elements
     trelloCreator.parseActions(trelloBoard.actions);
@@ -330,7 +341,8 @@ Meteor.methods({
       throw new Meteor.Error('error-json-schema');
     }
 
-    // 2. check parameters are ok from a business point of view (exist & authorized)
+    // 2. check parameters are ok from a business point of view (exist &
+    // authorized)
     const list = Lists.findOne(data.listId);
     if(!list) {
       throw new Meteor.Error('error-list-doesNotExist');
