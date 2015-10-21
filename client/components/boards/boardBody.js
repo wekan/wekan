@@ -34,7 +34,7 @@ BlazeComponent.extendComponent({
   },
 
   openNewListForm() {
-    this.componentChildren('addListForm')[0].open();
+    this.childrenComponents('addListForm')[0].open();
   },
 
   // XXX Flow components allow us to avoid creating these two setter methods by
@@ -179,7 +179,7 @@ BlazeComponent.extendComponent({
 
   // Proxy
   open() {
-    this.componentChildren('inlinedForm')[0].open();
+    this.childrenComponents('inlinedForm')[0].open();
   },
 
   events() {

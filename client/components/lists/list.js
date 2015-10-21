@@ -7,7 +7,7 @@ BlazeComponent.extendComponent({
 
   // Proxy
   openForm(options) {
-    this.componentChildren('listBody')[0].openForm(options);
+    this.childrenComponents('listBody')[0].openForm(options);
   },
 
   onCreated() {
@@ -25,7 +25,7 @@ BlazeComponent.extendComponent({
     if (!Meteor.user() || !Meteor.user().isBoardMember())
       return;
 
-    const boardComponent = this.componentParent();
+    const boardComponent = this.parentComponent();
     const itemsSelector = '.js-minicard:not(.placeholder, .js-card-composer)';
     const $cards = this.$('.js-minicards');
     $cards.sortable({

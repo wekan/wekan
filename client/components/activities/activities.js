@@ -9,7 +9,7 @@ BlazeComponent.extendComponent({
     // XXX Should we use ReactiveNumber?
     this.page = new ReactiveVar(1);
     this.loadNextPageLocked = false;
-    const sidebar = this.componentParent(); // XXX for some reason not working
+    const sidebar = this.parentComponent(); // XXX for some reason not working
     sidebar.callFirstWith(null, 'resetNextPeak');
     this.autorun(() => {
       const mode = this.data().mode;

@@ -11,7 +11,7 @@ BlazeComponent.extendComponent({
     options = options || {};
     options.position = options.position || 'top';
 
-    const forms = this.componentChildren('inlinedForm');
+    const forms = this.childrenComponents('inlinedForm');
     let form = _.find(forms, (component) => {
       return component.data().position === options.position;
     });
