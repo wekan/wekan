@@ -21,16 +21,9 @@ if (isSandstorm && Meteor.isServer) {
     permission: 'public',
   };
 
-  // This function should probably be handled by `accounts-sandstorm` but
-  // apparently meteor-core misses an API to handle that cleanly, cf.
-  // https://github.com/meteor/meteor/blob/ff783e9a12ffa04af6fd163843a563c9f4bbe8c1/packages/accounts-base/accounts_server.js#L1143
-  function updateUserAvatar(userId, avatarUrl) {
-    Users.findOne(userId).setAvatarUrl(avatarUrl);
-  }
-
   function updateUserPermissions(userId, permissions) {
-    const isActive = permissions.indexOf('participate') > -1;
-    const isAdmin = permissions.indexOf('configure') > -1;
+    const isActive = permissions.includes('participate');
+    const isAdmin = permissions.includes('configure');
     const permissionDoc = { userId, isActive, isAdmin };
 
     const boardMembers = Boards.findOne(sandstormBoard._id).members;
@@ -55,7 +48,8 @@ if (isSandstorm && Meteor.isServer) {
     // and the home page was accessible by pressing the back button of the
     // browser, a server-side redirection solves both of these issues.
     //
-    // XXX Maybe sandstorm manifest could provide some kind of "home URL"?
+    // XXX Maybe the sandstorm http-bridge could provide some kind of "home URL"
+    // in the manifest?
     const base = req.headers['x-sandstorm-base-path'];
     // XXX If this routing scheme changes, this will break. We should generate
     // the location URL using the router, but at the time of writing, the
@@ -68,20 +62,14 @@ if (isSandstorm && Meteor.isServer) {
     res.end();
 
     // `accounts-sandstorm` populate the Users collection when new users
-    // accesses the document, but in case a already known user come back, we
+    // accesses the document, but in case a already known user comes back, we
     // need to update his associated document to match the request HTTP headers
     // informations.
     const user = Users.findOne({
       'services.sandstorm.id': req.headers['x-sandstorm-user-id'],
     });
     if (user) {
-      const userId = user._id;
-      const avatarUrl = req.headers['x-sandstorm-user-picture'];
-      const permissions = req.headers['x-sandstorm-permissions'].split(',') || [];
-
-      // XXX The user may also change his name, we should handle it.
-      updateUserAvatar(userId, avatarUrl);
-      updateUserPermissions(userId, permissions);
+      updateUserPermissions(user._id, user.permissions);
     }
   });
 
@@ -90,6 +78,8 @@ if (isSandstorm && Meteor.isServer) {
   // unique board document. Note that when the `Users.after.insert` hook is
   // called, the user is inserted into the database but not connected. So
   // despite the appearances `userId` is null in this block.
+  //
+  // XXX We should support the `preferredHandle` exposed by Sandstorm
   Users.after.insert((userId, doc) => {
     if (!Boards.findOne(sandstormBoard._id)) {
       Boards.insert(sandstormBoard, {validate: false});
@@ -104,7 +94,7 @@ if (isSandstorm && Meteor.isServer) {
 
   // LibreBoard v0.8 didn’t implement the Sandstorm sharing model and instead
   // kept the visibility setting (“public” or “private”) in the UI as does the
-  // main Meteor application. We need to enforce “public” visibility has the
+  // main Meteor application. We need to enforce “public” visibility as the
   // sharing is now handled by Sandstorm.
   // See https://github.com/wekan/wekan/issues/346
   Migrations.add('enforce-public-visibility-for-sandstorm', () => {

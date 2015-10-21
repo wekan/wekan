@@ -62,7 +62,7 @@ idmontie:migrations@1.0.0
 jquery@1.11.4
 kadira:blaze-layout@2.1.0
 kadira:flow-router@2.7.0
-kenton:accounts-sandstorm@0.1.4
+kenton:accounts-sandstorm@0.1.6
 launch-screen@1.0.4
 less@2.5.0_3
 livedata@1.0.15
