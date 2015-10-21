@@ -14,6 +14,13 @@ template(name="boardList")
                 i.fa.js-star-board(
                   class="fa-star{{#if isStarred}} is-star-active{{else}}-o{{/if}}"
                   title="{{_ 'star-board-title'}}")
+                span.board-list-item-role  
+                  if($eq getRole 'creator')
+                    | {{_ 'creator'}}
+                  if($eq getRole 'admin')
+                    | {{_ 'admin'}}  
+                  if($eq getRole 'member')
+                    | {{_ 'member'}}  
       li.js-add-board.is-idle.add-board
         a.label {{_ 'add-board'}}
 
@@ -34,6 +41,13 @@ template(name="boardList")
                   i.fa.js-star-board(
                     class="fa-star{{#if isStarred}} is-star-active{{else}}-o{{/if}}"
                     title="{{_ 'star-board-title'}}")
+                  span.board-list-item-role  
+                    if($eq getRole 'creator')
+                      | {{_ 'creator'}}
+                    if($eq getRole 'admin')
+                      | {{_ 'admin'}}  
+                    if($eq getRole 'member')
+                      | {{_ 'member'}}  
           if currentUser.isOrganizationAdmin this._id
             li.js-add-board.is-idle.add-board(id="org-{{_id}}")
               a.label {{_ 'add-board'}}

@@ -135,3 +135,9 @@ Migrations.add('add-list-permission-field', () => {
     {$set: {permission: 'member'}}, noValidate);
   });
 });
+
+Migrations.add('add-board-createuser-field', () => {
+  Boards.find({}, {fields: {members: 1}}).forEach((board) => {
+    Boards.update(board._id, {$set: {createUser: board.members[0].userId}}, noValidate);
+  });
+});

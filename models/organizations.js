@@ -271,9 +271,10 @@ if (Meteor.isServer) {
     if (modifier.$push && modifier.$push.members) {
       memberId = modifier.$push.members.userId;
       const boards = Boards.find({organizationId: doc._id, orgMemberAutoJoin: true,});
-      for(let i=0; i<boards.count(); i++) {
-        let board = boards[i];
-        board.addMember(memberId);
+      let i = 0;
+      for( i=0; i<boards.count(); i++) {
+        if( boards[i] )
+          boards[i].addMember(memberId);
       }
     }
   });

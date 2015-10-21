@@ -6,7 +6,7 @@ const searchInFields = ['username', 'profile.name'];
 Users.initEasySearch(searchInFields, {
   'limit' : 20,
   use: 'mongo-db',
-  returnFields: [...searchInFields, 'profile.avatarUrl'],
+  returnFields: [...searchInFields, 'profile.avatarUrl', 'profile.fullname'],
 });
 
 Users.helpers({
@@ -175,6 +175,7 @@ if (Meteor.isServer) {
       check(emails,Array);
       check(destType,String);
       check(destId,String);
+      let dest = null;
       for(var i=0;i<emails.length;i++){
         let userId;
         if ( emails[i].indexOf('@') < 1 )
@@ -186,14 +187,17 @@ if (Meteor.isServer) {
           userId = Users.findOne({emails: {$elemMatch: {address:emails[i]}}})._id;
         if( userId )
         {
-          if( destType === 'organization' && Meteor.user().isOrganizationAdmin(destId) ){
-            let org = Organizations.findOne(destId);
-            org.addMember(userId);
+          if( dest === null ){
+            if( destType === 'organization' && Meteor.user().isOrganizationAdmin(destId) ){
+                dest = Organizations.findOne(destId);
+            }
+            else if( destType === 'board' && Meteor.user().isBoardAdmin(destId) ){
+              dest = Boards.findOne(destId);   
+            }
           }
-          else if( destType === 'board' && Meteor.user().isBoardAdmin(destId) ){
-            let board = Boards.findOne(destId);
-            board.addMember(userId);
-          }
+            
+          if( dest)
+            dest.addMember(userId);
         }
         
       }

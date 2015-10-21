@@ -274,5 +274,6 @@
     "org-member-auto-join-description": "All orgnization members join this board automatically",
     "short-name-invalid": "Short name has been used",
     "createOrgPopup-title": "Create Organization",
+    "creator": "Creator",
     "none": "None"
 }

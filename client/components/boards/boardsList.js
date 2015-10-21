@@ -24,6 +24,16 @@ BlazeComponent.extendComponent({
     return user && user.hasStarred(this.currentData()._id);
   },
 
+  getRole(){
+    const user = Meteor.user();
+    if( Meteor.userId() === this.currentData().createUser )
+      return 'creator';
+    else if( Meteor.user().isBoardAdmin(this.currentData()._id) )
+      return 'admin';
+    else if( Meteor.user().isBoardMember(this.currentData()._id) )
+      return 'member';
+  },
+
   events() {
     return [{
       'click .js-add-board': function(evt){
