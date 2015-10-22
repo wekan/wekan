@@ -119,12 +119,13 @@ MultiSelection = {
     }
   },
 
-  toggle(cardIds, options) {
+  toggle(cardIds, options = {}) {
     cardIds = _.isString(cardIds) ? [cardIds] : cardIds;
-    options = _.extend({
+    options = {
       add: true,
       remove: true,
-    }, options || {});
+      ...options,
+    };
 
     if (!this.isActive()) {
       this.reset();
@@ -133,7 +134,7 @@ MultiSelection = {
 
     const selectedCards = this._selectedCards.get();
 
-    _.each(cardIds, (cardId) => {
+    cardIds.forEach((cardId) => {
       const indexOfCard = selectedCards.indexOf(cardId);
 
       if (options.remove && indexOfCard > -1)
