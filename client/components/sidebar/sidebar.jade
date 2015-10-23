@@ -86,7 +86,7 @@ template(name="addMemberPopup")
   ul.pop-over-list
     +esEach(index="users")
       li.item.js-member-item(class="{{#if isBoardMember}}disabled{{/if}}")
-        a.name.js-select-member(title="{{profile.name}} ({{username}})")
+        a.name.js-select-member(title="{{profile.fullname}} ({{username}})")
           +userAvatar(userId=_id esSearch=true)
           span.full-name
             = profile.name

@@ -120,13 +120,17 @@ template(name="createBoardPopup")
       | {{_ 'title'}}
       input.js-new-board-title(type="text" placeholder="{{_ 'bucket-example'}}" autofocus required)
     label
-      select(name="org-id" class="org-sel")
+      | {{_ 'set-organization'}}
+      select(name="org-id" id="org-id" class="org-sel")
         option(value='' selected="{{#if isCurrentOrg }}selected{{/if}}") {{_ 'none'}} 
         if canCreateBoardOrgs.count  
           each canCreateBoardOrgs
             if currentUser.isOrganizationAdmin _id
               option(value='{{_id}}' selected="{{#if isCurrentOrg _id}}selected{{/if}}") {{_ title}}        
-           
+    if showOrgMemberAutoJoin.get
+      .org-member-auto-join-module
+        .materialCheckBox.org-member-auto-join.js-org-member-auto-join(class="{{#if checkOrgMemberAutoJoin.get }}is-checked{{/if}}")
+        span.org-member-auto-join-text {{_ 'org-member-auto-join-description'}}       
     if visibilityMenuIsOpen.get
       +boardVisibilityList
     else

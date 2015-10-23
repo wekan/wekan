@@ -24,6 +24,16 @@ BlazeComponent.extendComponent({
     return user && user.hasStarred(this.currentData()._id);
   },
 
+  getRole(){
+    const user = Meteor.user();
+    if( Meteor.userId() === this.currentData().createUser )
+      return 'creator';
+    else if( Meteor.user().isBoardAdmin(this.currentData()._id) )
+      return 'admin';
+    else if( Meteor.user().isBoardMember(this.currentData()._id) )
+      return 'member';
+  },
+
   events() {
     return [{
       'click .js-add-board': function(evt){
@@ -36,6 +46,7 @@ BlazeComponent.extendComponent({
         // UI components systems.
         return popup.call(this.currentData(), evt);
       },
+      'click .js-add-org': Popup.open('createOrg'),
       'click .js-star-board': function(evt) {
         const boardId = this.currentData()._id;
         Meteor.user().toggleBoardStar(boardId);
@@ -47,36 +58,45 @@ BlazeComponent.extendComponent({
 
 BlazeComponent.extendComponent({
   template: function() {
-    return 'addOrgForm';
-  },
-
-  // Proxy
-  open: function() {
-    this.componentChildren('inlinedForm')[0].open();
+    return 'createOrgPopup';
   },
 
   events: function() {
     return [{
       submit: function(evt) {
         evt.preventDefault();
+        
+
         var title = this.find('.org-title-input');
         var shortName = this.find('.org-short-name-input');
         var desc = this.find('.org-desc-input');
-        if ( $.trim(title.value) && $.trim(shortName.value)) {
-          var orgId = Organizations.insert({
-            title: $.trim(title.value),
-            shortName: $.trim(shortName.value),
-            description: $.trim(desc.value),
-            //boardId: Session.get('currentBoard'),
-            sort: $('.organization').length
-          });
-        }
-        title.value = '';
-        title.focus();
-        shortName.value = '';
-        desc.value = '';
-       
+        var alert_short_name = $('.js-short-name-invalid');
+
+        Meteor.call('checkOrgShortNameUsable',$.trim(shortName.value),function (error, result){
+          if( result ){
+            alert_short_name.hide();
+            if ( $.trim(title.value) && $.trim(shortName.value)) {
+              var orgId = Organizations.insert({
+                title: $.trim(title.value),
+                shortName: $.trim(shortName.value),
+                description: $.trim(desc.value),
+                //boardId: Session.get('currentBoard'),
+                sort: $('.organization').length
+              });
+            }
+            title.value = '';
+            title.focus();
+            shortName.value = '';
+            desc.value = '';
+            Popup.back();
+
+          }
+          else{
+            alert_short_name.show();
+          }
+
+        });
       }
     }];
   }
-}).register('addOrgForm');
+}).register('createOrgPopup');

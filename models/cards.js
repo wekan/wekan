@@ -64,8 +64,8 @@ Cards.allow({
     else if( Boards.findOne(doc.boardId).isCollaborate() ) {
       if( Meteor.user().isBoardAdmin(doc.boardId) )
         return true;
-      else if( ( this.list().permission === 'registered' && Meteor.user()) || 
-        ( this.list().permission === 'member' && Meteor.user().isBoardMember(doc.boardId)))
+      else if( ( Lists.findOne(doc.listId).permission === 'registered' && Meteor.user()) || 
+        ( Lists.findOne(doc.listId).permission === 'member' && Meteor.user().isBoardMember(doc.boardId)))
         return true;
       else
         return false;

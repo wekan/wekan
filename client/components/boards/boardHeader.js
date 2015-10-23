@@ -143,6 +143,21 @@ BlazeComponent.extendComponent({
   onCreated() {
     this.visibilityMenuIsOpen = new ReactiveVar(false);
     this.visibility = new ReactiveVar('private');
+    let currentOrganization;
+    currentOrganization = Organizations.findOne(Session.get('currentOrgIdHomeBoardList'));
+    if( !currentOrganization)
+      currentOrganization = Organizations.findOne({shortName: Session.get('currentOrganizationShortName')});
+    if( !currentOrganization){
+      if( Session.get('currentBoard') && Boards.findOne(Session.get('currentBoard')) )
+        currentOrganization = Organizations.findOne(  Boards.findOne(Session.get('currentBoard')).organizationId );
+    }
+    this.showOrgMemberAutoJoin = new ReactiveVar(false);
+    this.checkOrgMemberAutoJoin = new ReactiveVar(false);
+    if( currentOrganization ){
+      this.showOrgMemberAutoJoin = new ReactiveVar(true);
+      if( Boards.find({organizationId: currentOrganization._id, orgMemberAutoJoin: false,}).count() < 1)
+        this.checkOrgMemberAutoJoin.set(true);
+    }
   },
 
   onDestroyed(){
@@ -169,8 +184,8 @@ BlazeComponent.extendComponent({
     if( !currentOrganization)
       currentOrganization = Organizations.findOne({shortName: Session.get('currentOrganizationShortName')});
     if( !currentOrganization){
-      if( Session.get('currentBoard') )
-        currentOrganization = Organizations.find(  Boards.findOne(Session.get('currentBoard')).organizationId );
+      if( Session.get('currentBoard') && Boards.findOne(Session.get('currentBoard')) )
+        currentOrganization = Organizations.findOne(  Boards.findOne(Session.get('currentBoard')).organizationId );
     }
     if( (currentOrganization && currentOrganization._id === id) ||
       (!currentOrganization && !id))
@@ -201,7 +216,8 @@ BlazeComponent.extendComponent({
     var boardId = Boards.insert({
       title: title,
       organizationId: organizationId,
-      permission: visibility
+      permission: visibility,
+      orgMemberAutoJoin: this.checkOrgMemberAutoJoin.get(),
     });
 
     Utils.goBoardId(boardId);
@@ -216,6 +232,16 @@ BlazeComponent.extendComponent({
         this.setVisibility(this.currentData());
       },
       'click .js-change-visibility': this.toggleVisibilityMenu,
+      'change #org-id': function(evt) {
+        var orgId = $(evt.target).val();
+        if( orgId !== '')
+          this.showOrgMemberAutoJoin.set(true);
+        else
+          this.showOrgMemberAutoJoin.set(false);
+      },
+      'click .js-org-member-auto-join': function(){
+        this.checkOrgMemberAutoJoin.set( !this.checkOrgMemberAutoJoin.get() )
+      },
       submit: this.onSubmit,
     }];
   },

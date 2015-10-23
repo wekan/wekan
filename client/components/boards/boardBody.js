@@ -249,8 +249,7 @@ BlazeComponent.extendComponent({
             sort: $('.list').length,
             permission: permission,
           });
-
-          this.updatePermission();
+ 
           title.value = '';
           title.focus();
         }

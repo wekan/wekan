@@ -59,7 +59,7 @@ template(name="organization")
 template(name="userCard")
   .member-list-item-detail
     +userAvatar(userId= userData._id showStatus=false) 
-    .details
+    .details(class="{{#if userData.profile.fullname}}has-fullname{{else}}{{/if}}")
       if userData.profile.fullname
         p.name-line
           span.full-name
@@ -93,7 +93,7 @@ template(name="addOrgMemberPopup")
           a.name.js-select-member(title="{{ profile.fullname }} ({{ username }})" class="{{#if isOrganizationMember }}disabled{{/if}}")
             +userAvatar(userId=_id)
             span.full-name
-              = profile.fullname
+              =  profile.fullname 
               | (<span class="username">{{ username }}</span>)
             if isOrganizationMember
               .extra-text.quiet ({{_ 'joined'}})
