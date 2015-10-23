@@ -95,7 +95,7 @@ Filter = {
       return {};
 
     const filterSelector = {};
-    _.forEach(this._fields, (fieldName) => {
+    this._fields.forEach((fieldName) => {
       const filter = this[fieldName];
       if (filter._isActive())
         filterSelector[fieldName] = filter._getMongoSelector();
@@ -116,7 +116,7 @@ Filter = {
   },
 
   reset() {
-    _.forEach(this._fields, (fieldName) => {
+    this._fields.forEach((fieldName) => {
       const filter = this[fieldName];
       filter.reset();
     });

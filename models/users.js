@@ -14,13 +14,13 @@ Users.helpers({
   },
 
   starredBoards() {
-    const starredBoardIds = this.profile.starredBoards || [];
-    return Boards.find({archived: false, _id: {$in: starredBoardIds}});
+    const {starredBoards = []} = this.profile;
+    return Boards.find({archived: false, _id: {$in: starredBoards}});
   },
 
   hasStarred(boardId) {
-    const starredBoardIds = this.profile.starredBoards || [];
-    return _.contains(starredBoardIds, boardId);
+    const {starredBoards = []} = this.profile;
+    return _.contains(starredBoards, boardId);
   },
 
   isBoardMember() {
@@ -54,9 +54,9 @@ Users.helpers({
       return profile.initials;
 
     else if (profile.fullname) {
-      return _.reduce(profile.fullname.split(/\s+/), (memo, word) => {
+      return profile.fullname.split(/\s+/).reduce((memo = '', word) => {
         return memo + word[0];
-      }, '').toUpperCase();
+      }).toUpperCase();
 
     } else {
       return this.username[0].toUpperCase();
@@ -130,7 +130,7 @@ if (Meteor.isServer) {
     // b. We use it to find deleted and newly inserted ids by using it in one
     // direction and then in the other.
     function incrementBoards(boardsIds, inc) {
-      _.forEach(boardsIds, (boardId) => {
+      boardsIds.forEach((boardId) => {
         Boards.update(boardId, {$inc: {stars: inc}});
       });
     }
@@ -149,7 +149,7 @@ if (Meteor.isServer) {
     // Insert the Welcome Board
     Boards.insert(ExampleBoard, (err, boardId) => {
 
-      _.forEach(['Basics', 'Advanced'], (title) => {
+      ['Basics', 'Advanced'].forEach((title) => {
         const list = {
           title,
           boardId,

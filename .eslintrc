@@ -78,6 +78,7 @@ globals:
   Avatars: true
   BlazeComponent: false
   BlazeLayout: false
+  DocHead: false
   ESSearchResults: false
   FlowRouter: false
   FS: false

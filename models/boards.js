@@ -279,7 +279,7 @@ Boards.before.insert((userId, doc) => {
   // Handle labels
   const colors = Boards.simpleSchema()._schema['labels.$.color'].allowedValues;
   const defaultLabelsColors = _.clone(colors).splice(0, 6);
-  doc.labels = _.map(defaultLabelsColors, (color) => {
+  doc.labels = defaultLabelsColors.map((color) => {
     return {
       color,
       _id: Random.id(6),

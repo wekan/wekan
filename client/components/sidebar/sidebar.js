@@ -95,10 +95,10 @@ BlazeComponent.extendComponent({
   events() {
     // XXX Hacky, we need some kind of `super`
     const mixinEvents = this.getMixin(Mixins.InfiniteScrolling).events();
-    return mixinEvents.concat([{
+    return [...mixinEvents, {
       'click .js-toggle-sidebar': this.toggle,
       'click .js-back-home': this.setView,
-    }]);
+    }];
   },
 }).register('sidebar');
 

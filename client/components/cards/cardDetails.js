@@ -62,7 +62,8 @@ BlazeComponent.extendComponent({
       },
     };
 
-    return [_.extend(events, {
+    return [{
+      ...events,
       'click .js-close-card-details'() {
         Utils.goBoardId(this.data().boardId);
       },
@@ -86,7 +87,7 @@ BlazeComponent.extendComponent({
         this.parentComponent().showOverlay.set(true);
         this.parentComponent().mouseHasEnterCardDetails = true;
       },
-    })];
+    }];
   },
 }).register('cardDetails');
 
