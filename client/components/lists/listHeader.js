@@ -6,9 +6,9 @@ BlazeComponent.extendComponent({
   editTitle(evt) {
     evt.preventDefault();
     const newTitle = this.childrenComponents('inlinedForm')[0].getValue();
-    const list = this.currentData();
-    if ($.trim(newTitle)) {
-      list.rename(newTitle);
+    const list = this.currentData().trim();
+    if (newTitle) {
+      list.rename(newTitle.trim());
     }
   },
 

@@ -27,7 +27,7 @@ if (isSandstorm && Meteor.isServer) {
     const permissionDoc = { userId, isActive, isAdmin };
 
     const boardMembers = Boards.findOne(sandstormBoard._id).members;
-    const memberIndex = _.indexOf(_.pluck(boardMembers, 'userId'), userId);
+    const memberIndex = _.pluck(boardMembers, 'userId').indexOf(userId);
 
     let modifier;
     if (memberIndex > -1)

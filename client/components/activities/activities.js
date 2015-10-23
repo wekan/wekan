@@ -101,9 +101,9 @@ BlazeComponent.extendComponent({
       },
       'submit .js-edit-comment'(evt) {
         evt.preventDefault();
-        const commentText = this.currentComponent().getValue();
+        const commentText = this.currentComponent().getValue().trim();
         const commentId = Template.parentData().commentId;
-        if ($.trim(commentText)) {
+        if (commentText) {
           CardComments.update(commentId, {
             $set: {
               text: commentText,

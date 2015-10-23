@@ -186,10 +186,10 @@ BlazeComponent.extendComponent({
     return [{
       submit(evt) {
         evt.preventDefault();
-        const title = this.find('.list-name-input');
-        if ($.trim(title.value)) {
+        const title = this.find('.list-name-input').value.trim();
+        if (title) {
           Lists.insert({
-            title: title.value,
+            title,
             boardId: Session.get('currentBoard'),
             sort: $('.list').length,
           });

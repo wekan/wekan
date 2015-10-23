@@ -75,8 +75,8 @@ BlazeComponent.extendComponent({
       },
       'submit .js-card-details-title'(evt) {
         evt.preventDefault();
-        const title = this.currentComponent().getValue();
-        if ($.trim(title)) {
+        const title = this.currentComponent().getValue().trim();
+        if (title) {
           this.data().setTitle(title);
         }
       },
@@ -106,7 +106,7 @@ BlazeComponent.extendComponent({
 
   close(isReset = false) {
     if (this.isOpen.get() && !isReset) {
-      const draft = $.trim(this.getValue());
+      const draft = this.getValue().trim();
       if (draft !== Cards.findOne(Session.get('currentCard')).description) {
         UnsavedEdits.set(this._getUnsavedEditKey(), this.getValue());
       }

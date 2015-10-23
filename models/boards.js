@@ -97,11 +97,11 @@ Boards.helpers({
   },
 
   labelIndex(labelId) {
-    return _.indexOf(_.pluck(this.labels, '_id'), labelId);
+    return _.pluck(this.labels, '_id').indexOf(labelId);
   },
 
   memberIndex(memberId) {
-    return _.indexOf(_.pluck(this.members, 'userId'), memberId);
+    return _.pluck(this.members, 'userId').indexOf(memberId);
   },
 
   absoluteUrl() {
