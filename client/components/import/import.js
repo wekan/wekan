@@ -13,32 +13,44 @@ const ImportPopup = BlazeComponent.extendComponent({
 
   events() {
     return [{
-      'submit': (evt) => {
+      submit(evt) {
         evt.preventDefault();
         const dataJson = $(evt.currentTarget).find('.js-import-json').val();
         let dataObject;
         try {
           dataObject = JSON.parse(dataJson);
+          this.setError('');
         } catch (e) {
           this.setError('error-json-malformed');
           return;
         }
-        Meteor.call(this.getMethodName(), dataObject, this.getAdditionalData(),
-          (error, response) => {
-            if (error) {
-              this.setError(error.error);
-            } else {
-              Filter.addException(response);
-              this.onFinish(response);
+        if(dataObject.members.length > 0) {
+          this.data().toImport = dataObject;
+          members.forEach(
+            // todo if there is a Wekan user with same name, add it as a field 'wekanUser'
+          );
+          this.data().members = dataObject.members;
+          // we bind to preserve data context
+          Popup.open('mapMembers').bind(this)(evt);
+        } else {
+          Meteor.call(this.getMethodName(), dataObject, this.getAdditionalData(),
+            (error, response) => {
+              if (error) {
+                this.setError(error.error);
+              } else {
+                Filter.addException(response);
+                this.onFinish(response);
+              }
             }
-          }
-        );
+          );
+        }
       },
     }];
   },
 
   onCreated() {
     this.error = new ReactiveVar('');
+    this.dataToImport = '';
   },
 
   setError(error) {
@@ -88,3 +100,13 @@ ImportPopup.extendComponent({
   },
 }).register('boardImportBoardPopup');
 
+BlazeComponent.extendComponent({
+  events() {
+    return [{
+      'submit': (evt) => {
+        evt.preventDefault();
+        console.log(this.data());
+      },
+    }];
+  },
+}).register('mapMembersPopup');

@@ -5,3 +5,11 @@ template(name="importPopup")
     p: label(for='import-textarea') {{_ getLabel}}
     textarea#import-textarea.js-import-json(placeholder="{{_ 'import-json-placeholder'}}" autofocus)
     input.primary.wide(type="submit" value="{{_ 'import'}}")
+
+template(name="mapMembersPopup")
+  p {{_ 'import-members-map'}}
+  ul
+    each members
+      li.item {{ fullName }} > world
+  form
+    input.primary.wide(type="submit" value="{{_ 'import'}}")
