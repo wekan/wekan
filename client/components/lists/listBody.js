@@ -76,7 +76,7 @@ BlazeComponent.extendComponent({
     } else if (Session.equals('currentCard', this.currentData()._id)) {
       evt.stopImmediatePropagation();
       evt.preventDefault();
-      let newmd =  document.getElementById('epicareamdeditorcontainer').value;
+      const newmd =  document.getElementById('epicareamdeditorcontainer').value;
       Cards.update({_id: Session.get('currentCard')}, { $set: {cardMarkdown: newmd}});
       Session.set('cardMarkdown', false);
       Utils.goBoardId(Session.get('currentBoard'));

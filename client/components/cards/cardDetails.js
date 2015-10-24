@@ -92,7 +92,6 @@ BlazeComponent.extendComponent({
         this.parentComponent().showOverlay.set(true);
         this.parentComponent().mouseHasEnterCardDetails = true;
       },
-<<<<<<< HEAD
       'mouseenter .js-card-markdown'() {
         this.componentParent().showOverlay.set(true);
         this.componentParent().mouseHasEnterCardDetails = true;
@@ -110,9 +109,6 @@ BlazeComponent.extendComponent({
         // }
       },
     })];
-=======
-    }];
->>>>>>> 31b60d82fcae64a844805a2a76a0af25fb9c16c2
   },
 }).register('cardDetails');
 

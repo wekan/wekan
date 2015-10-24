@@ -31,7 +31,7 @@ BlazeComponent.extendComponent({
     const $cardView = this.$(this.firstNode());
     const cardContainerScroll = $cardContainer.scrollLeft();
     const cardContainerWidth = $cardContainer.width();
-    //const cardContainerHeight = $cardContainer.height();
+    // const cardContainerHeight = $cardContainer.height();
 
     const cardViewStart = $cardView.offset().left;
     const cardViewEnd = cardViewStart + cardPanelWidth;
@@ -54,7 +54,7 @@ BlazeComponent.extendComponent({
     if (!currcardmd) {
       currcardmd = '';
     }
-    let opts = {
+    const opts = {
       preloadText: currcardmd,
       clientSideStorage: false,
       autogrow: true,
@@ -75,7 +75,7 @@ BlazeComponent.extendComponent({
 
     return [_.extend(events, {
       'click .js-close-card-markdown'() {
-        let newmd =  document.getElementById('epicareamdeditorcontainer').value;
+        const newmd =  document.getElementById('epicareamdeditorcontainer').value;
         Cards.update({_id: Session.get('currentCard')}, { $set: {cardMarkdown: newmd}});
         Session.set('cardMarkdown', false);
       },

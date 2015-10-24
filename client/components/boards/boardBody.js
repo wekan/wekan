@@ -136,11 +136,6 @@ Template.boardBody.onRendered(function() {
       } else {
         removeNode();
       }
-    },
-    removeElement(node) {
-      const removeNode = _.once(() => {
-        node.parentNode.removeChild(node);
-      });
       if ($(node).hasClass('js-card-markdown')) {
         $(node).css({
           flexBasis: 0,
@@ -150,6 +145,8 @@ Template.boardBody.onRendered(function() {
       } else {
         removeNode();
       }
+    },
+
     },
   };
 

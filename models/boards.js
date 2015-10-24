@@ -116,7 +116,6 @@ Boards.helpers({
     return `board-color-${this.color}`;
   },
 
-<<<<<<< HEAD
   linkedCard() {
     return Cards.findOne(this.linkedCardId);
   },
