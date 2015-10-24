@@ -10,11 +10,13 @@ template(name="cardDetails")
         a.fa.fa-times-thin.close-card-details.js-close-card-details
         if currentUser.isBoardMember
           a.fa.fa-ellipsis-v.card-details-menu.js-open-card-details-menu
+        if linkedBoard
+          a.fa.fa-clone.card-details-menu.js-open-board(title="{{_ 'linked-board'}}")
+        if cardMarkdown 
+          a.fa.fa-file-text-o.card-details-menu.js-edit-markdown(title="{{_ 'linked-markdown'}}")
         h2.card-details-title.js-card-title(
           class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
-            = title
-            if linkedBoard
-              a.fa.fa-clone.open-board.js-open-board(title="{{_ 'linked-board'}}")
+            = title            
 
     if archived
       p.warning {{_ 'card-archived'}}
@@ -89,6 +91,8 @@ template(name="cardDetailsActionsPopup")
     li: a.js-move-card {{_ 'moveCardPopup-title'}}
     unless archived
       li: a.js-archive {{_ 'archive-card'}}
+    unless cardMarkdown
+      li: a.js-add-markdown {{_ 'add-markdown' }}
     li: a.js-more {{_ 'cardMorePopup-title'}}
 
 template(name="moveCardPopup")
@@ -120,7 +124,7 @@ template(name="cardMorePopup")
           a.card-label.add-label.js-add-labels(title="{{_ 'unlink-board'}}")
             li.js-unlink-board
               a.label {{_ 'unlink-board'}}          
-        else                    
+        else
           a.card-label.add-label.js-add-labels(title="{{_ 'add-board'}}")
             li.js-add-board
               a.label {{_ 'add-board'}}        

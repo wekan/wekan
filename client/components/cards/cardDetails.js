@@ -1,3 +1,5 @@
+
+
 BlazeComponent.extendComponent({
   template() {
     return 'cardDetails';
@@ -53,6 +55,7 @@ BlazeComponent.extendComponent({
 
   onDestroyed() {
     this.componentParent().showOverlay.set(false);
+    Session.set('cardMarkdown',false);
   },
 
   events() {
@@ -64,6 +67,8 @@ BlazeComponent.extendComponent({
 
     return [_.extend(events, {
       'click .js-close-card-details'() {
+        Session.set('editor-markdown','');
+        Session.set('cardMarkdown',false);
         Utils.goBoardId(this.data().boardId);
       },
       'click .js-open-card-details-menu': Popup.open('cardDetailsActions'),
@@ -86,8 +91,21 @@ BlazeComponent.extendComponent({
         this.componentParent().showOverlay.set(true);
         this.componentParent().mouseHasEnterCardDetails = true;
       },
+      'mouseenter .js-card-markdown'() {
+        this.componentParent().showOverlay.set(true);
+        this.componentParent().mouseHasEnterCardDetails = true;
+      },
       'click .js-open-board'() {
         Utils.goBoardId(this.data().linkedBoardId);
+      },
+      'click .js-edit-markdown'() {
+        if (!Session.get('cardMarkdown')) {
+          Session.set('cardMarkdown',true);
+        }
+        // TODO: rerender the md editor when toggled - currently blank on reopen
+        // else {
+        //   Session.set('cardMarkdown',false);
+        // }
       },
     })];
   },
@@ -189,6 +207,11 @@ Template.cardDetailsActionsPopup.events({
     Popup.close();
   },
   'click .js-more': Popup.open('cardMore'),
+  'click .js-add-markdown'() {
+    Session.set('editor-markdown', '');
+    Session.set('cardMarkdown',true);
+    Popup.close();
+  },
 });
 
 Template.moveCardPopup.events({

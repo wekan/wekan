@@ -8,6 +8,7 @@ BlazeComponent.extendComponent({
   onCreated() {
     this.draggingActive = new ReactiveVar(false);
     this.showOverlay = new ReactiveVar(false);
+    this.showOverlay1 = new ReactiveVar(false);
     this.isBoardReady = new ReactiveVar(false);
 
     // The pattern we use to manually handle data loading is described here:
@@ -31,6 +32,7 @@ BlazeComponent.extendComponent({
 
     // Used to set the overlay
     this.mouseHasEnterCardDetails = false;
+    this.mouseHasEnterCardMarkdown = false;
   },
 
   openNewListForm() {
@@ -50,6 +52,10 @@ BlazeComponent.extendComponent({
     });
   },
 
+  showCardMarkdown(){
+    return Session.get('cardMarkdown');
+  },
+
   currentCardIsInThisList() {
     const currentCard = Cards.findOne(Session.get('currentCard'));
     const listId = this.currentData()._id;
@@ -63,6 +69,9 @@ BlazeComponent.extendComponent({
       'mouseenter .board-overlay'() {
         if (this.mouseHasEnterCardDetails) {
           this.showOverlay.set(false);
+        }
+        if (this.mouseHasEnterCardMarkdown) {
+          this.showOverlay1.set(false);
         }
       },
 
@@ -119,6 +128,20 @@ Template.boardBody.onRendered(function() {
         node.parentNode.removeChild(node);
       });
       if ($(node).hasClass('js-card-details')) {
+        $(node).css({
+          flexBasis: 0,
+          padding: 0,
+        });
+        $(self.listsDom).one(CSSEvents.transitionend, removeNode);
+      } else {
+        removeNode();
+      }
+    },
+    removeElement(node) {
+      const removeNode = _.once(() => {
+        node.parentNode.removeChild(node);
+      });
+      if ($(node).hasClass('js-card-markdown')) {
         $(node).css({
           flexBasis: 0,
           padding: 0,

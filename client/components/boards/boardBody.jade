@@ -22,6 +22,8 @@ template(name="boardBody")
           +list(this)
           if currentCardIsInThisList
             +cardDetails(currentCard)
+          if showCardMarkdown            
+            +cardMarkdown(currentCard)
         if currentUser.isBoardMember
           +addListForm
 

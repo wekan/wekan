@@ -55,6 +55,10 @@ Cards.attachSchema(new SimpleSchema({
     type: String,
     optional: true,
   },
+  cardMarkdown: {
+    type: String,
+    optional: true,
+  },
 }));
 
 Cards.allow({
@@ -131,6 +135,10 @@ Cards.helpers({
   linkedBoard() {
     return Boards.findOne(this.linkedBoardId);
   },
+
+  islinkedBoard() {
+    return this.cardMarkdown;
+  },
 });
 
 Cards.mutations({
@@ -197,6 +205,7 @@ Cards.mutations({
   unsetCover() {
     return { $unset: { coverId: '' }};
   },
+
 });
 
 Cards.before.insert((userId, doc) => {
