@@ -121,6 +121,7 @@ globals:
   Utils: true
   InlinedForm: true
   UnsavedEdits: true
+  Epic: true
 
   # XXX Temp, we should remove these
   allowIsBoardAdmin: true
