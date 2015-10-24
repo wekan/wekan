@@ -2,7 +2,7 @@ template(name="minicard")
   .minicard
     if cover
       .minicard-cover
-        img(src=cover.url)
+        img(src="{{pathFor cover.url}}")
     if labels
       .minicard-labels
         each labels

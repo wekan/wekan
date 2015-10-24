@@ -36,7 +36,7 @@ BlazeComponent.extendComponent({
   },
 
   openNewListForm() {
-    this.componentChildren('addListForm')[0].open();
+    this.childrenComponents('addListForm')[0].open();
   },
 
   // XXX Flow components allow us to avoid creating these two setter methods by
@@ -202,17 +202,24 @@ BlazeComponent.extendComponent({
 
   // Proxy
   open() {
-    this.componentChildren('inlinedForm')[0].open();
+    this.childrenComponents('inlinedForm')[0].open();
   },
 
   events() {
     return [{
       submit(evt) {
         evt.preventDefault();
+<<<<<<< HEAD
         const title = this.find('.list-name-input');
         if ($.trim(title.value)) {
           const newlistId = Lists.insert({
             title: title.value,
+=======
+        const title = this.find('.list-name-input').value.trim();
+        if (title) {
+          Lists.insert({
+            title,
+>>>>>>> 31b60d82fcae64a844805a2a76a0af25fb9c16c2
             boardId: Session.get('currentBoard'),
             sort: $('.list').length,
           });

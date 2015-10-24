@@ -1,0 +1,23 @@
+template(name="cardMarkdown")
+  section.card-markdown.js-card-markdown.js-perfect-scrollbar: .card-markdown-canvas
+    .card-markdown-header
+      +inlinedForm(classNames="js-card-markdown-title")
+        input.full-line(type="text" value=title autofocus)
+        .edit-controls.clearfix
+          button.primary.confirm(type="submit") {{_ 'save'}}
+          a.fa.fa-times-thin.js-close-inlined-form
+      else
+        a.fa.fa-times-thin.close-card-markdown.js-close-card-markdown
+        h2.card-markdown-title.js-card-title()
+            = title                  
+    +mdEditor 
+
+template(name="mdEditor")
+  #mdeditorcontainer
+  //if isCardMarkdown
+    
+  //-   +MDEdit id='test' defaultContent=isCardMarkdown
+  //- else 
+  //-   +MDEdit id='test' defaultContent="##enter markdown"
+  //
+  

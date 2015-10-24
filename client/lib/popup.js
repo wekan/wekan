@@ -91,7 +91,7 @@ window.Popup = new class {
       if (!self.isOpen()) {
         self.current = Blaze.renderWithData(self.template, () => {
           self._dep.depend();
-          return _.extend(self._getTopStack(), { stack: self._stack });
+          return { ...self._getTopStack(), stack: self._stack };
         }, document.body);
 
       } else {
@@ -191,7 +191,7 @@ window.Popup = new class {
 // We close a potential opened popup on any left click on the document, or go
 // one step back by pressing escape.
 const escapeActions = ['back', 'close'];
-_.each(escapeActions, (actionName) => {
+escapeActions.forEach((actionName) => {
   EscapeActions.register(`popup-${actionName}`,
     () => Popup[actionName](),
     () => Popup.isOpen(),

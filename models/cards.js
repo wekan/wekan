@@ -211,8 +211,9 @@ Cards.mutations({
 Cards.before.insert((userId, doc) => {
   doc.createdAt = new Date();
   doc.dateLastActivity = new Date();
-  doc.archived = false;
-
+  if(!doc.hasOwnProperty('archived')){
+    doc.archived = false;
+  }
   if (!doc.userId) {
     doc.userId = userId;
   }

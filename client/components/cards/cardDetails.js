@@ -15,19 +15,19 @@ BlazeComponent.extendComponent({
   },
 
   reachNextPeak() {
-    const activitiesComponent = this.componentChildren('activities')[0];
+    const activitiesComponent = this.childrenComponents('activities')[0];
     activitiesComponent.loadNextPage();
   },
 
   onCreated() {
     this.isLoaded = new ReactiveVar(false);
-    this.componentParent().showOverlay.set(true);
-    this.componentParent().mouseHasEnterCardDetails = false;
+    this.parentComponent().showOverlay.set(true);
+    this.parentComponent().mouseHasEnterCardDetails = false;
   },
 
   scrollParentContainer() {
     const cardPanelWidth = 510;
-    const bodyBoardComponent = this.componentParent();
+    const bodyBoardComponent = this.parentComponent();
 
     const $cardContainer = bodyBoardComponent.$('.js-lists');
     const $cardView = this.$(this.firstNode());
@@ -54,8 +54,12 @@ BlazeComponent.extendComponent({
   },
 
   onDestroyed() {
+<<<<<<< HEAD
     this.componentParent().showOverlay.set(false);
     Session.set('cardMarkdown',false);
+=======
+    this.parentComponent().showOverlay.set(false);
+>>>>>>> 31b60d82fcae64a844805a2a76a0af25fb9c16c2
   },
 
   events() {
@@ -65,7 +69,8 @@ BlazeComponent.extendComponent({
       },
     };
 
-    return [_.extend(events, {
+    return [{
+      ...events,
       'click .js-close-card-details'() {
         Session.set('editor-markdown','');
         Session.set('cardMarkdown',false);
@@ -79,8 +84,8 @@ BlazeComponent.extendComponent({
       },
       'submit .js-card-details-title'(evt) {
         evt.preventDefault();
-        const title = this.currentComponent().getValue();
-        if ($.trim(title)) {
+        const title = this.currentComponent().getValue().trim();
+        if (title) {
           this.data().setTitle(title);
         }
       },
@@ -88,9 +93,10 @@ BlazeComponent.extendComponent({
       'click .js-add-members': Popup.open('cardMembers'),
       'click .js-add-labels': Popup.open('cardLabels'),
       'mouseenter .js-card-details'() {
-        this.componentParent().showOverlay.set(true);
-        this.componentParent().mouseHasEnterCardDetails = true;
+        this.parentComponent().showOverlay.set(true);
+        this.parentComponent().mouseHasEnterCardDetails = true;
       },
+<<<<<<< HEAD
       'mouseenter .js-card-markdown'() {
         this.componentParent().showOverlay.set(true);
         this.componentParent().mouseHasEnterCardDetails = true;
@@ -108,6 +114,9 @@ BlazeComponent.extendComponent({
         // }
       },
     })];
+=======
+    }];
+>>>>>>> 31b60d82fcae64a844805a2a76a0af25fb9c16c2
   },
 }).register('cardDetails');
 
@@ -126,7 +135,7 @@ BlazeComponent.extendComponent({
 
   close(isReset = false) {
     if (this.isOpen.get() && !isReset) {
-      const draft = $.trim(this.getValue());
+      const draft = this.getValue().trim();
       if (draft !== Cards.findOne(Session.get('currentCard')).description) {
         UnsavedEdits.set(this._getUnsavedEditKey(), this.getValue());
       }

@@ -50,6 +50,7 @@ alethes:pages
 arillo:flow-router-helpers
 audit-argument-checks
 kadira:blaze-layout
+kadira:dochead
 kadira:flow-router
 meteorhacks:picker
 meteorhacks:subs-manager

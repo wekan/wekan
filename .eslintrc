@@ -2,41 +2,46 @@ ecmaFeatures:
   experimentalObjectRestSpread: true
 
 rules:
-  accessor-pairs: [2]
-  consistent-return: [2]
+  accessor-pairs: 2
+  comma-dangle: [2, 'always-multiline']
+  consistent-return: 2
+  dot-notation: 2
+  eqeqeq: 2
   indent: [2, 2]
-  semi: [2, always]
-  comma-dangle: [2, always-multiline]
+  no-cond-assign: 2
+  no-constant-condition: 2
+  no-eval: 2
   no-inner-declarations: [0]
-  dot-notation: [2]
-  eqeqeq: [2]
-  no-eval: [2]
-  radix: [2]
+  no-unneeded-ternary: 2
+  radix: 2
+  semi: [2, always]
 
   # Stylistic Issues
-  camelcase: [2]
-  comma-spacing: [2]
-  comma-style: [2]
-  new-parens: [2]
-  no-lonely-if: [2]
-  no-multiple-empty-lines: [2]
-  no-nested-ternary: [2]
+  camelcase: 2
+  comma-spacing: 2
+  comma-style: 2
   linebreak-style: [2, unix]
+  new-parens: 2
+  no-lonely-if: 2
+  no-multiple-empty-lines: 2
+  no-nested-ternary: 2
+  no-spaced-func: 2
+  operator-linebreak: 2
   quotes: [2, single]
-  semi-spacing: [2]
+  semi-spacing: 2
+  space-unary-ops: 2
   spaced-comment: [2, always, markers: ['/']]
-  space-unary-ops: [2]
 
   # ECMAScript 6
-  arrow-parens: [2]
-  arrow-spacing: [2]
-  no-class-assign: [2]
-  no-dupe-class-members: [2]
-  no-var: [2]
-  object-shorthand: [2]
-  prefer-const: [2]
-  prefer-template: [2]
-  prefer-spread: [2]
+  arrow-parens: 2
+  arrow-spacing: 2
+  no-class-assign: 2
+  no-dupe-class-members: 2
+  no-var: 2
+  object-shorthand: 2
+  prefer-const: 2
+  prefer-spread: 2
+  prefer-template: 2
 
 globals:
   # Meteor globals
@@ -73,11 +78,13 @@ globals:
   Avatars: true
   BlazeComponent: false
   BlazeLayout: false
+  DocHead: false
   ESSearchResults: false
   FlowRouter: false
   FS: false
   getSlug: false
   Migrations: false
+  moment: false
   Mousetrap: false
   Picker: false
   Presence: true

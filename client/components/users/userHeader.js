@@ -18,9 +18,9 @@ Template.memberMenuPopup.events({
 Template.editProfilePopup.events({
   submit(evt, tpl) {
     evt.preventDefault();
-    const fullname = $.trim(tpl.find('.js-profile-fullname').value);
-    const username = $.trim(tpl.find('.js-profile-username').value);
-    const initials = $.trim(tpl.find('.js-profile-initials').value);
+    const fullname = tpl.find('.js-profile-fullname').value.trim();
+    const username = tpl.find('.js-profile-username').value.trim();
+    const initials = tpl.find('.js-profile-initials').value.trim();
     Users.update(Meteor.userId(), {$set: {
       'profile.fullname': fullname,
       'profile.initials': initials,
@@ -41,7 +41,7 @@ Template.changePasswordPopup.onRendered(function() {
 
 Template.changeLanguagePopup.helpers({
   languages() {
-    return _.map(TAPi18n.getLanguages(), (lang, tag) => {
+    return TAPi18n.getLanguages().map((lang, tag) => {
       const name = lang.name;
       return { tag, name };
     });
