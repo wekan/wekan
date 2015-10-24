@@ -108,7 +108,7 @@ BlazeComponent.extendComponent({
         //   Session.set('cardMarkdown',false);
         // }
       },
-    })];
+    }];
   },
 }).register('cardDetails');
 

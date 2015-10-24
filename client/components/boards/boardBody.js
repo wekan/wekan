@@ -146,8 +146,6 @@ Template.boardBody.onRendered(function() {
         removeNode();
       }
     },
-
-    },
   };
 
   if (!Meteor.user() || !Meteor.user().isBoardMember())
