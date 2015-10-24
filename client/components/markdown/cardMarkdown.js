@@ -31,7 +31,7 @@ BlazeComponent.extendComponent({
     const $cardView = this.$(this.firstNode());
     const cardContainerScroll = $cardContainer.scrollLeft();
     const cardContainerWidth = $cardContainer.width();
-    const cardContainerHeight = $cardContainer.height();
+    //const cardContainerHeight = $cardContainer.height();
 
     const cardViewStart = $cardView.offset().left;
     const cardViewEnd = cardViewStart + cardPanelWidth;
@@ -50,16 +50,15 @@ BlazeComponent.extendComponent({
 
   onRendered() {
     this.scrollParentContainer();
-    var currcardmd = this.data().cardMarkdown;
+    let currcardmd = this.data().cardMarkdown;
     if (!currcardmd) {
-      currcardmd = "";
+      currcardmd = '';
     }
-    var opts = {
+    let opts = {
       preloadText: currcardmd,
       clientSideStorage: false,
-      autogrow: true
+      autogrow: true,
     };
-
     Epic.create('mdeditorcontainer', opts);
   },
 
@@ -76,9 +75,9 @@ BlazeComponent.extendComponent({
 
     return [_.extend(events, {
       'click .js-close-card-markdown'() {
-        var newmd =  document.getElementById('epicareamdeditorcontainer').value;
+        let newmd =  document.getElementById('epicareamdeditorcontainer').value;
         Cards.update({_id: Session.get('currentCard')}, { $set: {cardMarkdown: newmd}});
-        Session.set('cardMarkdown',false);
+        Session.set('cardMarkdown', false);
       },
       'mouseenter .js-card-markdown'() {
         this.componentParent().showOverlay1.set(true);

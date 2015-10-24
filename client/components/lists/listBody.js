@@ -76,15 +76,15 @@ BlazeComponent.extendComponent({
     } else if (Session.equals('currentCard', this.currentData()._id)) {
       evt.stopImmediatePropagation();
       evt.preventDefault();
-      var newmd =  document.getElementById('epicareamdeditorcontainer').value;
+      let newmd =  document.getElementById('epicareamdeditorcontainer').value;
       Cards.update({_id: Session.get('currentCard')}, { $set: {cardMarkdown: newmd}});
-      Session.set('cardMarkdown',false);
+      Session.set('cardMarkdown', false);
       Utils.goBoardId(Session.get('currentBoard'));
     }
   },
 
   cardIsSelected() {
-    Session.set('cardMarkdown',false);
+    Session.set('cardMarkdown', false);
     return Session.equals('currentCard', this.currentData()._id);
   },
 

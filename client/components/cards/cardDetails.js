@@ -54,12 +54,8 @@ BlazeComponent.extendComponent({
   },
 
   onDestroyed() {
-<<<<<<< HEAD
     this.componentParent().showOverlay.set(false);
     Session.set('cardMarkdown',false);
-=======
-    this.parentComponent().showOverlay.set(false);
->>>>>>> 31b60d82fcae64a844805a2a76a0af25fb9c16c2
   },
 
   events() {

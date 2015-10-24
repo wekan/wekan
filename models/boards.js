@@ -119,14 +119,13 @@ Boards.helpers({
 <<<<<<< HEAD
   linkedCard() {
     return Cards.findOne(this.linkedCardId);
-=======
+  },
   // XXX currently mutations return no value so we have an issue when using addLabel in import
   // XXX waiting on https://github.com/mquandalle/meteor-collection-mutations/issues/1 to remove...
   pushLabel(name, color) {
     const _id = Random.id(6);
     Boards.direct.update(this._id, { $push: {labels: { _id, name, color }}});
     return _id;
->>>>>>> 31b60d82fcae64a844805a2a76a0af25fb9c16c2
   },
 });
 

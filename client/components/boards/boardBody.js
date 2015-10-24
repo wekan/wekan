@@ -209,17 +209,11 @@ BlazeComponent.extendComponent({
     return [{
       submit(evt) {
         evt.preventDefault();
-<<<<<<< HEAD
         const title = this.find('.list-name-input');
         if ($.trim(title.value)) {
           const newlistId = Lists.insert({
             title: title.value,
-=======
-        const title = this.find('.list-name-input').value.trim();
-        if (title) {
-          Lists.insert({
-            title,
->>>>>>> 31b60d82fcae64a844805a2a76a0af25fb9c16c2
+
             boardId: Session.get('currentBoard'),
             sort: $('.list').length,
           });
