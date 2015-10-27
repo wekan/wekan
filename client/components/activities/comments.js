@@ -23,7 +23,7 @@ BlazeComponent.extendComponent({
         commentFormIsOpen.set(true);
       },
       'submit .js-new-comment-form'(evt) {
-        const input = this.getInput()
+        const input = this.getInput();
         const text = input.val().trim();
         if (text) {
           CardComments.insert({
