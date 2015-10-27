@@ -51,16 +51,20 @@ rules:
   prefer-template: 2
 
   # eslint-plugin-meteor
+  ## Meteor API
   meteor/globals: 2
-  meteor/no-zero-timeout: 2
-  meteor/no-session: 0
-  meteor/pubsub: 2
   meteor/core: 2
+  meteor/pubsub: 2
   meteor/methods: 2
   meteor/check: 2
   meteor/connections: 2
   meteor/collections: 2
   meteor/session: [2, 'no-equal']
+
+  ## Best practices
+  meteor/no-session: 0
+  meteor/no-zero-timeout: 2
+  meteor/no-blaze-lifecycle-assignment: 2
 
 settings:
   meteor:
