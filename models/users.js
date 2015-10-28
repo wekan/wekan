@@ -1,4 +1,4 @@
-Users = Meteor.users;
+Users = Meteor.users; // eslint-disable-line meteor/collections
 
 // Search a user in the complete server database by its name or username. This
 // is used for instance to add a new user to a board.
@@ -7,6 +7,24 @@ Users.initEasySearch(searchInFields, {
   use: 'mongo-db',
   returnFields: [...searchInFields, 'profile.avatarUrl'],
 });
+
+if (Meteor.isClient) {
+  Users.helpers({
+    isBoardMember() {
+      const board = Boards.findOne(Session.get('currentBoard'));
+      return board &&
+        _.contains(_.pluck(board.members, 'userId'), this._id) &&
+        _.where(board.members, {userId: this._id})[0].isActive;
+    },
+
+    isBoardAdmin() {
+      const board = Boards.findOne(Session.get('currentBoard'));
+      return board &&
+        this.isBoardMember(board) &&
+        _.where(board.members, {userId: this._id})[0].isAdmin;
+    },
+  });
+}
 
 Users.helpers({
   boards() {
@@ -21,18 +39,6 @@ Users.helpers({
   hasStarred(boardId) {
     const {starredBoards = []} = this.profile;
     return _.contains(starredBoards, boardId);
-  },
-
-  isBoardMember() {
-    const board = Boards.findOne(Session.get('currentBoard'));
-    return board && _.contains(_.pluck(board.members, 'userId'), this._id) &&
-                         _.where(board.members, {userId: this._id})[0].isActive;
-  },
-
-  isBoardAdmin() {
-    const board = Boards.findOne(Session.get('currentBoard'));
-    return board && this.isBoardMember(board) &&
-                          _.where(board.members, {userId: this._id})[0].isAdmin;
   },
 
   getAvatarUrl() {
