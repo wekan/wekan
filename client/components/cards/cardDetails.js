@@ -1,3 +1,5 @@
+
+
 BlazeComponent.extendComponent({
   template() {
     return 'cardDetails';
@@ -52,7 +54,8 @@ BlazeComponent.extendComponent({
   },
 
   onDestroyed() {
-    this.parentComponent().showOverlay.set(false);
+    this.componentParent().showOverlay.set(false);
+    Session.set('cardMarkdown', false);
   },
 
   events() {
@@ -65,6 +68,8 @@ BlazeComponent.extendComponent({
     return [{
       ...events,
       'click .js-close-card-details'() {
+        Session.set('editor-markdown', '');
+        Session.set('cardMarkdown', false);
         Utils.goBoardId(this.data().boardId);
       },
       'click .js-open-card-details-menu': Popup.open('cardDetailsActions'),
@@ -86,6 +91,22 @@ BlazeComponent.extendComponent({
       'mouseenter .js-card-details'() {
         this.parentComponent().showOverlay.set(true);
         this.parentComponent().mouseHasEnterCardDetails = true;
+      },
+      'mouseenter .js-card-markdown'() {
+        this.componentParent().showOverlay.set(true);
+        this.componentParent().mouseHasEnterCardDetails = true;
+      },
+      'click .js-open-board'() {
+        Utils.goBoardId(this.data().linkedBoardId);
+      },
+      'click .js-edit-markdown'() {
+        if (!Session.get('cardMarkdown')) {
+          Session.set('cardMarkdown', true);
+        }
+        // TODO: rerender the md editor when toggled - currently blank on reopen
+        // else {
+        //   Session.set('cardMarkdown',false);
+        // }
       },
     }];
   },
@@ -128,6 +149,54 @@ BlazeComponent.extendComponent({
   }
 }).register('inlinedCardDescription');
 
+BlazeComponent.extendComponent({
+  template() {
+    return 'createLinkedBoardPopup';
+  },
+
+  onCreated() {
+    this.visibilityMenuIsOpen = new ReactiveVar(false);
+    this.visibility = new ReactiveVar('private');
+  },
+
+  visibilityCheck() {
+    return this.currentData() === this.visibility.get();
+  },
+
+  setVisibility(visibility) {
+    this.visibility.set(visibility);
+    this.visibilityMenuIsOpen.set(false);
+  },
+
+  toggleVisibilityMenu() {
+    this.visibilityMenuIsOpen.set(!this.visibilityMenuIsOpen.get());
+  },
+
+  onSubmit(evt) {
+    evt.preventDefault();
+    const title = `${this.data().board().title} :: ${this.data().title}`;
+    const visibility = this.visibility.get();
+    const parentCard = Session.get('currentCard');
+    const boardId = Boards.insert({
+      title,
+      permission: visibility,
+      linkedCardId: parentCard,
+    });
+    Cards.update({_id: parentCard}, {$set:{linkedBoardId: boardId}});
+    Popup.close();
+  },
+
+  events() {
+    return [{
+      'click .js-select-visibility'() {
+        this.setVisibility(this.currentData());
+      },
+      'click .js-change-visibility': this.toggleVisibilityMenu,
+      submit: this.onSubmit,
+    }];
+  },
+}).register('createLinkedBoardPopup');
+
 Template.cardDetailsActionsPopup.events({
   'click .js-members': Popup.open('cardMembers'),
   'click .js-labels': Popup.open('cardLabels'),
@@ -139,6 +208,11 @@ Template.cardDetailsActionsPopup.events({
     Popup.close();
   },
   'click .js-more': Popup.open('cardMore'),
+  'click .js-add-markdown'() {
+    Session.set('editor-markdown', '');
+    Session.set('cardMarkdown', true);
+    Popup.close();
+  },
 });
 
 Template.moveCardPopup.events({
@@ -158,6 +232,11 @@ Template.cardMorePopup.events({
     Cards.remove(this._id);
     Utils.goBoardId(this.boardId);
   }),
+  'click .js-add-board': Popup.open('createLinkedBoard'),
+  'click .js-unlink-board'() {
+    Cards.update({_id: Session.get('currentCard')}, {$unset:{linkedBoardId: ''}});
+    Popup.close();
+  },
 });
 
 // Close the card details pane by pressing escape

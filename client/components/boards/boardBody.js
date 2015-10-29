@@ -8,6 +8,7 @@ BlazeComponent.extendComponent({
   onCreated() {
     this.draggingActive = new ReactiveVar(false);
     this.showOverlay = new ReactiveVar(false);
+    this.showOverlay1 = new ReactiveVar(false);
     this.isBoardReady = new ReactiveVar(false);
 
     // The pattern we use to manually handle data loading is described here:
@@ -31,6 +32,7 @@ BlazeComponent.extendComponent({
 
     // Used to set the overlay
     this.mouseHasEnterCardDetails = false;
+    this.mouseHasEnterCardMarkdown = false;
   },
 
   openNewListForm() {
@@ -50,6 +52,10 @@ BlazeComponent.extendComponent({
     });
   },
 
+  showCardMarkdown(){
+    return Session.get('cardMarkdown');
+  },
+
   currentCardIsInThisList() {
     const currentCard = Cards.findOne(Session.get('currentCard'));
     const listId = this.currentData()._id;
@@ -63,6 +69,9 @@ BlazeComponent.extendComponent({
       'mouseenter .board-overlay'() {
         if (this.mouseHasEnterCardDetails) {
           this.showOverlay.set(false);
+        }
+        if (this.mouseHasEnterCardMarkdown) {
+          this.showOverlay1.set(false);
         }
       },
 
@@ -119,6 +128,15 @@ Template.boardBody.onRendered(function() {
         node.parentNode.removeChild(node);
       });
       if ($(node).hasClass('js-card-details')) {
+        $(node).css({
+          flexBasis: 0,
+          padding: 0,
+        });
+        $(self.listsDom).one(CSSEvents.transitionend, removeNode);
+      } else {
+        removeNode();
+      }
+      if ($(node).hasClass('js-card-markdown')) {
         $(node).css({
           flexBasis: 0,
           padding: 0,
@@ -186,14 +204,34 @@ BlazeComponent.extendComponent({
     return [{
       submit(evt) {
         evt.preventDefault();
-        const title = this.find('.list-name-input').value.trim();
-        if (title) {
-          Lists.insert({
-            title,
+        const title = this.find('.list-name-input');
+        if ($.trim(title.value)) {
+          const newlistId = Lists.insert({
+            title: title.value,
+
             boardId: Session.get('currentBoard'),
             sort: $('.list').length,
           });
-
+          const sourceUrl = title.value;
+          const urlSchema = new SimpleSchema({testUrl: {type: SimpleSchema.RegEx.Url}});
+          check({testUrl: sourceUrl}, urlSchema);
+          HTTP.call('GET', sourceUrl, {}, function( error, response ) {
+            if (response.data) {
+              const newCards = response.data;
+              _.forEach(newCards, (c, i) => {
+                if (($.trim(c.title) || ($.trim(c.name)))) {
+                  const cname = `${$.trim(c.title)} ${$.trim(c.name)}`;
+                  Cards.insert({
+                    title: cname,
+                    listId: newlistId,
+                    boardId: Session.get('currentBoard'),
+                    sort: i,
+                    description: EJSON.stringify(c, {indent: true}),
+                  });
+                }
+              });
+            }
+          });
           title.value = '';
         }
       },

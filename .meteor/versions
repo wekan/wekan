@@ -37,6 +37,7 @@ cfs:worker@0.1.4
 check@1.1.0-rc.0
 coffeescript@1.0.11-rc.0
 cosmos:browserify@0.5.1
+d4nyll:epic@1.2.0
 dburles:collection-helpers@1.0.3
 ddp@1.2.2
 ddp-client@1.2.1

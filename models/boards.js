@@ -71,6 +71,10 @@ Boards.attachSchema(new SimpleSchema({
       'midnight',
     ],
   },
+  linkedCardId: {
+    type: String,
+    optional: true,
+  },
 }));
 
 
@@ -112,6 +116,9 @@ Boards.helpers({
     return `board-color-${this.color}`;
   },
 
+  linkedCard() {
+    return Cards.findOne(this.linkedCardId);
+  },
   // XXX currently mutations return no value so we have an issue when using addLabel in import
   // XXX waiting on https://github.com/mquandalle/meteor-collection-mutations/issues/1 to remove...
   pushLabel(name, color) {
@@ -210,6 +217,7 @@ Boards.mutations({
       },
     };
   },
+
 });
 
 if (Meteor.isServer) {
