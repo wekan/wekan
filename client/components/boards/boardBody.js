@@ -186,7 +186,8 @@ BlazeComponent.extendComponent({
     return [{
       submit(evt) {
         evt.preventDefault();
-        const title = this.find('.list-name-input').value.trim();
+        const titleInput = this.find('.list-name-input');
+        const title = titleInput.value.trim();
         if (title) {
           Lists.insert({
             title,
@@ -194,7 +195,8 @@ BlazeComponent.extendComponent({
             sort: $('.list').length,
           });
 
-          title.value = '';
+          titleInput.value = '';
+          titleInput.focus();
         }
       },
     }];
