@@ -3,6 +3,8 @@
 This release features:
 
 * Card import from Trello
+* Accelerate the initial page rendering by sending the data on the intial HTTP
+  response instead of waiting for the DDP connection to open.
 
 Thanks to GitHub users AlexanderS, fisle, ndarilek, and xavierpriour for their
 contributions.

@@ -90,6 +90,7 @@ globals:
   BlazeLayout: false
   DocHead: false
   ESSearchResults: false
+  FastRender: false
   FlowRouter: false
   FS: false
   getSlug: false
