@@ -13,7 +13,7 @@ template(name="filterSidebar")
             if name
               = name
             else
-              span.quiet {{_ "label-default" color}}
+              span.quiet {{_ "label-default" (_ (concat "color-" color))}}
           if Filter.labelIds.isSelected _id
             i.fa.fa-check
   hr

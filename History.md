@@ -1,4 +1,15 @@
-# NEXT — v0.9
+# v0.10
+
+This release features:
+
+* Card import from Trello
+* Accelerate the initial page rendering by sending the data on the intial HTTP
+  response instead of waiting for the DDP connection to open.
+
+Thanks to GitHub users AlexanderS, fisle, ndarilek, and xavierpriour for their
+contributions.
+
+# v0.9
 
 This release is a large re-write of the previous code base. Despite being
 relatively similar to v0.8 feature-wise, this release marks the beginning of our

@@ -11,8 +11,8 @@ BlazeComponent.extendComponent({
     options = options || {};
     options.position = options.position || 'top';
 
-    const forms = this.componentChildren('inlinedForm');
-    let form = _.find(forms, (component) => {
+    const forms = this.childrenComponents('inlinedForm');
+    let form = forms.find((component) => {
       return component.data().position === options.position;
     });
     if (!form && forms.length > 0) {
@@ -26,8 +26,8 @@ BlazeComponent.extendComponent({
     const firstCardDom = this.find('.js-minicard:first');
     const lastCardDom = this.find('.js-minicard:last');
     const textarea = $(evt.currentTarget).find('textarea');
-    let title = textarea.val();
-    const position = Blaze.getData(evt.currentTarget).position;
+    const position = this.currentData().position;
+    let title = textarea.val().trim();
     let sortIndex;
     if (position === 'top') {
       sortIndex = Utils.calculateIndex(null, firstCardDom).base;
@@ -62,7 +62,7 @@ BlazeComponent.extendComponent({
       }
     });
 
-    if ($.trim(title)) {
+    if (title) {
       const _id = Cards.insert({
         title,
         listId: this.data()._id,

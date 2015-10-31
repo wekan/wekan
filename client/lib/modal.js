@@ -21,9 +21,9 @@ window.Modal = new class {
     }
   }
 
-  open(modalName, options) {
+  open(modalName, { onCloseGoTo = ''} = {}) {
     this._currentModal.set(modalName);
-    this._onCloseGoTo = options && options.onCloseGoTo || '';
+    this._onCloseGoTo = onCloseGoTo;
   }
 };
 

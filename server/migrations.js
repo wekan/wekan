@@ -4,6 +4,12 @@
 //
 //   Migrations.add(name, migrationCallback, optionalOrder);
 
+// Note that we have extra migrations defined in `sandstorm.js` that are
+// exclusive to Sandstorm and shouldn’t be executed in the general case.
+// XXX I guess if we had ES6 modules we could
+// `import { isSandstorm } from sandstorm.js` and define the migration here as
+// well, but for now I want to avoid definied too many globals.
+
 // In the context of migration functions we don't want to validate database
 // mutation queries against the current (ie, latest) collection schema. Doing
 // that would work at the time we write the migration but would break in the
@@ -37,7 +43,7 @@ Migrations.add('board-background-color', () => {
 });
 
 Migrations.add('lowercase-board-permission', () => {
-  _.forEach(['Public', 'Private'], (permission) => {
+  ['Public', 'Private'].forEach((permission) => {
     Boards.update(
       { permission },
       { $set: { permission: permission.toLowerCase() } },
@@ -110,11 +116,11 @@ Migrations.add('add-member-isactive-field', () => {
     const formerUsers = _.difference(allUsersWithSomeActivity, currentUsers);
 
     const newMemberSet = [];
-    _.forEach(board.members, (member) => {
+    board.members.forEach((member) => {
       member.isActive = true;
       newMemberSet.push(member);
     });
-    _.forEach(formerUsers, (userId) => {
+    formerUsers.forEach((userId) => {
       newMemberSet.push({
         userId,
         isAdmin: false,

@@ -14,44 +14,11 @@ template(name="boardActivities")
       p.activity-desc
         +memberName(user=user)
 
-        if($eq activityType 'createBoard')
-          | {{_ 'activity-created' boardLabel}}.
-
-        if($eq activityType 'createList')
-          | {{_ 'activity-added' list.title boardLabel}}.
-
-        if($eq activityType 'archivedList')
-          | {{_ 'activity-archived' list.title}}.
-
-        if($eq activityType 'createCard')
-          | {{{_ 'activity-added' cardLink boardLabel}}}.
-
-        if($eq activityType 'archivedCard')
-          | {{{_ 'activity-archived' cardLink}}}.
-
-        if($eq activityType 'restoredCard')
-          | {{{_ 'activity-sent' cardLink boardLabel}}}.
-
-        if($eq activityType 'moveCard')
-          | {{{_ 'activity-moved' cardLink oldList.title list.title}}}.
+        if($eq activityType 'addAttachment')
+          | {{{_ 'activity-attached' attachmentLink cardLink}}}.
 
         if($eq activityType 'addBoardMember')
           | {{{_ 'activity-added' memberLink boardLabel}}}.
-
-        if($eq activityType 'removeBoardMember')
-          | {{{_ 'activity-excluded' memberLink boardLabel}}}.
-
-        if($eq activityType 'joinMember')
-          if($eq currentUser._id member._id)
-            | {{{_ 'activity-joined' cardLink}}}.
-          else
-            | {{{_ 'activity-added' memberLink cardLink}}}.
-
-        if($eq activityType 'unjoinMember')
-          if($eq currentUser._id member._id)
-            | {{{_ 'activity-unjoined' cardLink}}}.
-          else
-            | {{{_ 'activity-removed' memberLink cardLink}}}.
 
         if($eq activityType 'addComment')
           | {{{_ 'activity-on' cardLink}}}
@@ -59,8 +26,50 @@ template(name="boardActivities")
             +viewer
               = comment.text
 
-        if($eq activityType 'addAttachment')
-          | {{{_ 'activity-attached' attachmentLink cardLink}}}.
+        if($eq activityType 'archivedCard')
+          | {{{_ 'activity-archived' cardLink}}}.
+
+        if($eq activityType 'archivedList')
+          | {{_ 'activity-archived' list.title}}.
+
+        if($eq activityType 'createBoard')
+          | {{_ 'activity-created' boardLabel}}.
+
+        if($eq activityType 'createCard')
+          | {{{_ 'activity-added' cardLink boardLabel}}}.
+
+        if($eq activityType 'createList')
+          | {{_ 'activity-added' list.title boardLabel}}.
+
+        if($eq activityType 'importBoard')
+          | {{{_ 'activity-imported-board' boardLabel sourceLink}}}.
+
+        if($eq activityType 'importCard')
+          | {{{_ 'activity-imported' cardLink boardLabel sourceLink}}}.
+
+        if($eq activityType 'importList')
+          | {{{_ 'activity-imported' listLabel boardLabel sourceLink}}}.
+
+        if($eq activityType 'joinMember')
+          if($eq currentUser._id member._id)
+            | {{{_ 'activity-joined' cardLink}}}.
+          else
+            | {{{_ 'activity-added' memberLink cardLink}}}.
+
+        if($eq activityType 'moveCard')
+          | {{{_ 'activity-moved' cardLink oldList.title list.title}}}.
+
+        if($eq activityType 'removeBoardMember')
+          | {{{_ 'activity-excluded' memberLink boardLabel}}}.
+
+        if($eq activityType 'restoredCard')
+          | {{{_ 'activity-sent' cardLink boardLabel}}}.
+
+        if($eq activityType 'unjoinMember')
+          if($eq currentUser._id member._id)
+            | {{{_ 'activity-unjoined' cardLink}}}.
+          else
+            | {{{_ 'activity-removed' memberLink cardLink}}}.
 
         span.activity-meta {{ moment createdAt }}
 
@@ -72,6 +81,8 @@ template(name="cardActivities")
         +memberName(user=user)
         if($eq activityType 'createCard')
           | {{_ 'activity-added' cardLabel list.title}}.
+        if($eq activityType 'importCard')
+          | {{{_ 'activity-imported' cardLabel list.title sourceLink}}}.
         if($eq activityType 'joinMember')
           if($eq currentUser._id member._id)
             | {{_ 'activity-joined' cardLabel}}.
