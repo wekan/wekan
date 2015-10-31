@@ -11,7 +11,7 @@ BlazeComponent.extendComponent({
     options = options || {};
     options.position = options.position || 'top';
 
-    const forms = this.childrenComponents('inlinedForm');
+    const forms = this.childComponents('inlinedForm');
     let form = forms.find((component) => {
       return component.data().position === options.position;
     });
@@ -27,7 +27,9 @@ BlazeComponent.extendComponent({
     const lastCardDom = this.find('.js-minicard:last');
     const textarea = $(evt.currentTarget).find('textarea');
     const position = this.currentData().position;
-    let title = textarea.val().trim();
+    const title = textarea.val().trim();
+
+    const formComponent = this.childComponents('addCardForm')[0];
     let sortIndex;
     if (position === 'top') {
       sortIndex = Utils.calculateIndex(null, firstCardDom).base;
@@ -35,40 +37,16 @@ BlazeComponent.extendComponent({
       sortIndex = Utils.calculateIndex(lastCardDom, null).base;
     }
 
-    // Parse for @user and #label mentions, stripping them from the title
-    // and applying the appropriate users and labels to the card instead.
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
-
-    // Find all @-mentioned usernames, collect a list of their IDs and strip
-    // their mention out of the title.
-    let foundUserIds = []; // eslint-disable-line prefer-const
-    currentBoard.members.forEach((member) => {
-      const username = Users.findOne(member.userId).username;
-      if (title.indexOf(`@${username}`) !== -1) {
-        foundUserIds.push(member.userId);
-        title = title.replace(`@${username}`, '');
-      }
-    });
-
-    // Find all #-mentioned labels (based on their colour or name), collect a
-    // list of their IDs, and strip their mention out of the title.
-    let foundLabelIds = []; // eslint-disable-line prefer-const
-    currentBoard.labels.forEach((label) => {
-      const labelName = (!label.name || label.name === '')
-                      ? label.color : label.name;
-      if (title.indexOf(`#${labelName}`) !== -1) {
-        foundLabelIds.push(label._id);
-        title = title.replace(`#${labelName}`, '');
-      }
-    });
+    const members = formComponent.members.get();
+    const labelIds = formComponent.labels.get();
 
     if (title) {
       const _id = Cards.insert({
         title,
+        members,
+        labelIds,
         listId: this.data()._id,
         boardId: this.data().board()._id,
-        labelIds: foundLabelIds,
-        members: foundUserIds,
         sort: sortIndex,
       });
       // In case the filter is active we need to add the newly inserted card in
@@ -82,6 +60,8 @@ BlazeComponent.extendComponent({
       if (position === 'bottom') {
         this.scrollToBottom();
       }
+
+      formComponent.reset();
     }
   },
 
@@ -129,18 +109,40 @@ BlazeComponent.extendComponent({
   },
 }).register('listBody');
 
-let dropdownMenuIsOpened = false;
+function toggleValueInReactiveArray(reactiveValue, value) {
+  const array = reactiveValue.get();
+  const valueIndex = array.indexOf(value);
+  if (valueIndex === -1) {
+    array.push(value);
+  } else {
+    array.splice(valueIndex, 1);
+  }
+  reactiveValue.set(array);
+}
+
 BlazeComponent.extendComponent({
   template() {
     return 'addCardForm';
   },
 
-  pressKey(evt) {
-    // Don't do anything if the drop down is showing
-    if (dropdownMenuIsOpened) {
-      return;
-    }
+  onCreated() {
+    this.labels = new ReactiveVar([]);
+    this.members = new ReactiveVar([]);
+  },
 
+  reset() {
+    this.labels.set([]);
+    this.members.set([]);
+  },
+
+  getLabels() {
+    const currentBoardId = Session.get('currentBoard');
+    return Boards.findOne(currentBoardId).labels.filter((label) => {
+      return this.labels.get().indexOf(label._id) > -1;
+    });
+  },
+
+  pressKey(evt) {
     // Pressing Enter should submit the card
     if (evt.keyCode === 13) {
       evt.preventDefault();
@@ -176,28 +178,25 @@ BlazeComponent.extendComponent({
     }];
   },
 
-  onCreated() {
-    dropdownMenuIsOpened = false;
-  },
-
   onRendered() {
-    const $textarea = this.$('textarea');
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
-    $textarea.textcomplete([
+    const editor = this;
+    this.$('textarea').escapeableTextComplete([
       // User mentions
       {
         match: /\B@(\w*)$/,
         search(term, callback) {
+          const currentBoard = Boards.findOne(Session.get('currentBoard'));
           callback($.map(currentBoard.members, (member) => {
-            const username = Users.findOne(member.userId).username;
-            return username.indexOf(term) === 0 ? username : null;
+            const user = Users.findOne(member.userId);
+            return user.username.indexOf(term) === 0 ? user : null;
           }));
         },
-        template(value) {
-          return value;
+        template(user) {
+          return user.username;
         },
-        replace(username) {
-          return `@${username} `;
+        replace(user) {
+          toggleValueInReactiveArray(editor.members, user._id);
+          return '';
         },
         index: 1,
       },
@@ -206,51 +205,38 @@ BlazeComponent.extendComponent({
       {
         match: /\B#(\w*)$/,
         search(term, callback) {
+          const currentBoard = Boards.findOne(Session.get('currentBoard'));
           callback($.map(currentBoard.labels, (label) => {
-            const labelName = (!label.name || label.name === '')
-                              ? label.color
-                              : label.name;
-            return labelName.indexOf(term) === 0 ? labelName : null;
+            if (label.name.indexOf(term) > -1 ||
+                label.color.indexOf(term) > -1) {
+              return label;
+            }
           }));
         },
-        template(value) {
-          // XXX the following is duplicated from editor.js and should be
-          // abstracted to keep things DRY
-          // add a "colour badge" in front of the label name
-          // but first, get the colour's name from its value
-          const colorName = currentBoard.labels.find((label) => {
-            return value === label.name || value === label.color;
-          }).color;
-          const valueSpan = (colorName === value)
-                            ? `<span class="quiet">${value}</span>`
-                            : value;
-          return (colorName && colorName !== '')
-                 ? `<div class="minicard-label card-label-${colorName}"
-                    title="${value}"></div> ${valueSpan}`
-                 : value;
+        template(label) {
+          return Blaze.toHTMLWithData(Template.autocompleteLabelLine, {
+            hasNoName: !Boolean(label.name),
+            colorName: label.color,
+            labelName: label.name || label.color,
+          });
         },
         replace(label) {
-          return `#${label} `;
+          toggleValueInReactiveArray(editor.labels, label._id);
+          return '';
         },
         index: 1,
       },
-    ]);
-
-    // customize hooks for dealing with the dropdowns
-    $textarea.on({
-      'textComplete:show'() {
-        dropdownMenuIsOpened = true;
-      },
-      'textComplete:hide'() {
-        Tracker.afterFlush(() => {
-          dropdownMenuIsOpened = false;
-        });
+    ], {
+      // When the autocomplete menu is shown we want both a press of both `Tab`
+      // or `Enter` to validation the auto-completion. We also need to stop the
+      // event propagation to prevent the card from submitting (on `Enter`) or
+      // going on the next column (on `Tab`).
+      onKeydown(evt, commands) {
+        if (evt.keyCode === 9 || evt.keyCode === 13) {
+          evt.stopPropagation();
+          return commands.KEY_ENTER;
+        }
       },
     });
-
-    EscapeActions.register('textcomplete',
-      () => {},
-      () => dropdownMenuIsOpened
-    );
   },
 }).register('addCardForm');

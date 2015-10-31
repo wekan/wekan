@@ -22,9 +22,20 @@ template(name="listBody")
 
 template(name="addCardForm")
   .minicard.minicard-composer.js-composer
-    .minicard-detailss.clearfix
-      textarea.minicard-composer-textarea.js-card-title(autofocus)
+    if getLabels
+      .minicard-labels
+        each getLabels
+          .minicard-label(class="card-label-{{color}}" title="{{name}}")
+    textarea.minicard-composer-textarea.js-card-title(autofocus)
+    if members.get
       .minicard-members.js-minicard-composer-members
+        each members.get
+          +userAvatar(userId=this)
+
   .add-controls.clearfix
     button.primary.confirm(type="submit") {{_ 'add'}}
     a.fa.fa-times-thin.js-close-inlined-form
+
+template(name="autocompleteLabelLine")
+  .minicard-label(class="card-label-{{colorName}}" title=labelName)
+  span(class="{{#if hasNoName}}quiet{{/if}}")= labelName
