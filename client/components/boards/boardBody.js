@@ -34,7 +34,7 @@ BlazeComponent.extendComponent({
   },
 
   openNewListForm() {
-    this.childrenComponents('addListForm')[0].open();
+    this.childComponents('addListForm')[0].open();
   },
 
   // XXX Flow components allow us to avoid creating these two setter methods by
@@ -146,14 +146,14 @@ Template.boardBody.onRendered(function() {
     },
     stop() {
       self.$('.js-lists').find('.js-list:not(.js-list-composer)').each(
-        (i, list) => {
-          const data = Blaze.getData(list);
-          Lists.update(data._id, {
-            $set: {
-              sort: i,
-            },
-          });
-        }
+          (i, list) => {
+            const data = Blaze.getData(list);
+            Lists.update(data._id, {
+              $set: {
+                sort: i,
+              },
+            });
+          }
       );
     },
   });
@@ -161,7 +161,7 @@ Template.boardBody.onRendered(function() {
   // Disable drag-dropping while in multi-selection mode
   self.autorun(() => {
     self.$(self.listsDom).sortable('option', 'disabled',
-      MultiSelection.isActive());
+        MultiSelection.isActive());
   });
 
   // If there is no data in the board (ie, no lists) we autofocus the list
@@ -179,14 +179,15 @@ BlazeComponent.extendComponent({
 
   // Proxy
   open() {
-    this.childrenComponents('inlinedForm')[0].open();
+    this.childComponents('inlinedForm')[0].open();
   },
 
   events() {
     return [{
       submit(evt) {
         evt.preventDefault();
-        const title = this.find('.list-name-input').value.trim();
+        const titleInput = this.find('.list-name-input');
+        const title = titleInput.value.trim();
         if (title) {
           Lists.insert({
             title,
@@ -194,7 +195,8 @@ BlazeComponent.extendComponent({
             sort: $('.list').length,
           });
 
-          title.value = '';
+          titleInput.value = '';
+          titleInput.focus();
         }
       },
     }];

@@ -41,7 +41,7 @@ Template.changePasswordPopup.onRendered(function() {
 
 Template.changeLanguagePopup.helpers({
   languages() {
-    return TAPi18n.getLanguages().map((lang, tag) => {
+    return _.map(TAPi18n.getLanguages(), (lang, tag) => {
       const name = lang.name;
       return { tag, name };
     });
