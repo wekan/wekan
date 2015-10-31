@@ -26,8 +26,9 @@ const noValidate = {
 };
 const noValidateMulti = { ...noValidate, multi: true };
 
+
 Migrations.add('board-background-color', () => {
-  const defaultColor = '#16A085';
+  const defaultColor = '#566f7c';
   Boards.update({
     background: {
       $exists: false,

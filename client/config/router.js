@@ -94,7 +94,7 @@ _.each(redirections, (newPath, oldPath) => {
 // using the `kadira:dochead` package. Currently we only use it to display the
 // board title if we are in a board page (see #364) but we may want to support
 // some <meta> tags in the future.
-const appTitle = 'Wekan';
+const appTitle = 'iW[board]';
 
 // XXX The `Meteor.startup` should not be necessary -- we don't need to wait for
 // the complete DOM to be ready to call `DocHead.setTitle`. But the problem is

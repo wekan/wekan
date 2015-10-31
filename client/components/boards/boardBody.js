@@ -146,14 +146,14 @@ Template.boardBody.onRendered(function() {
     },
     stop() {
       self.$('.js-lists').find('.js-list:not(.js-list-composer)').each(
-        (i, list) => {
-          const data = Blaze.getData(list);
-          Lists.update(data._id, {
-            $set: {
-              sort: i,
-            },
-          });
-        }
+          (i, list) => {
+            const data = Blaze.getData(list);
+            Lists.update(data._id, {
+              $set: {
+                sort: i,
+              },
+            });
+          }
       );
     },
   });
@@ -161,7 +161,7 @@ Template.boardBody.onRendered(function() {
   // Disable drag-dropping while in multi-selection mode
   self.autorun(() => {
     self.$(self.listsDom).sortable('option', 'disabled',
-      MultiSelection.isActive());
+        MultiSelection.isActive());
   });
 
   // If there is no data in the board (ie, no lists) we autofocus the list

@@ -26,7 +26,6 @@ window.Modal = new class {
     this._onCloseGoTo = onCloseGoTo;
   }
 };
-
 Blaze.registerHelper('Modal', Modal);
 
 EscapeActions.register('modalWindow',
