@@ -13,7 +13,7 @@ BlazeComponent.extendComponent({
   },
 
   labels() {
-    return _.map(labelColors, (color) => {
+    return labelColors.map((color) => {
       return { color, name: '' };
     });
   },

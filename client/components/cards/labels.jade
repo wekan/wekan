@@ -18,7 +18,7 @@ template(name="editLabelPopup")
   form.edit-label
     +formLabel
     button.primary.wide.left(type="submit") {{_ 'save'}}
-    span.right
+    button.js-delete-label.negate.wide.right {{_ 'delete'}}
 
 template(name="deleteLabelPopup")
   p {{_ "label-delete-pop"}}

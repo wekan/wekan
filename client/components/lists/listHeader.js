@@ -5,10 +5,10 @@ BlazeComponent.extendComponent({
 
   editTitle(evt) {
     evt.preventDefault();
-    const newTitle = this.componentChildren('inlinedForm')[0].getValue();
+    const newTitle = this.childrenComponents('inlinedForm')[0].getValue().trim();
     const list = this.currentData();
-    if ($.trim(newTitle)) {
-      list.rename(newTitle);
+    if (newTitle) {
+      list.rename(newTitle.trim());
     }
   },
 
@@ -48,45 +48,6 @@ Template.listActionPopup.events({
     Popup.close();
   },
 });
-
-
-BlazeComponent.extendComponent({
-  events() {
-    return [{
-      'submit': (evt) => {
-        evt.preventDefault();
-        const jsonData = $(evt.currentTarget).find('textarea').val();
-        const firstCardDom = $(`#js-list-${this.currentData()._id} .js-minicard:first`).get(0);
-        const sortIndex = Utils.calculateIndex(null, firstCardDom).base;
-        let trelloCard;
-        try {
-          trelloCard = JSON.parse(jsonData);
-        } catch (e) {
-          this.setError('error-json-malformed');
-          return;
-        }
-        Meteor.call('importTrelloCard', trelloCard, this.currentData()._id, sortIndex,
-          (error, response) => {
-            if (error) {
-              this.setError(error.error);
-            } else {
-              Filter.addException(response);
-              Popup.close();
-            }
-          }
-        );
-      },
-    }];
-  },
-
-  onCreated() {
-    this.error = new ReactiveVar('');
-  },
-
-  setError(error) {
-    this.error.set(error);
-  },
-}).register('listImportCardPopup');
 
 Template.listMoveCardsPopup.events({
   'click .js-select-list'() {

@@ -9,7 +9,7 @@ BlazeComponent.extendComponent({
     // XXX Should we use ReactiveNumber?
     this.page = new ReactiveVar(1);
     this.loadNextPageLocked = false;
-    const sidebar = this.componentParent(); // XXX for some reason not working
+    const sidebar = this.parentComponent(); // XXX for some reason not working
     sidebar.callFirstWith(null, 'resetNextPeak');
     this.autorun(() => {
       const mode = this.data().mode;
@@ -60,11 +60,22 @@ BlazeComponent.extendComponent({
     }, card.title));
   },
 
+  listLabel() {
+    return this.currentData().list().title;
+  },
+
   sourceLink() {
     const source = this.currentData().source;
-    return source && Blaze.toHTML(HTML.A({
-      href: source.url,
-    }, source.system));
+    if(source) {
+      if(source.url) {
+        return Blaze.toHTML(HTML.A({
+          href: source.url,
+        }, source.system));
+      } else {
+        return source.system;
+      }
+    }
+    return null;
   },
 
   memberLink() {
@@ -90,9 +101,9 @@ BlazeComponent.extendComponent({
       },
       'submit .js-edit-comment'(evt) {
         evt.preventDefault();
-        const commentText = this.currentComponent().getValue();
+        const commentText = this.currentComponent().getValue().trim();
         const commentId = Template.parentData().commentId;
-        if ($.trim(commentText)) {
+        if (commentText) {
           CardComments.update(commentId, {
             $set: {
               text: commentText,

@@ -145,6 +145,7 @@ BlazeComponent.extendComponent({
         this.setVisibility(this.currentData());
       },
       'click .js-change-visibility': this.toggleVisibilityMenu,
+      'click .js-import': Popup.open('boardImportBoard'),
       submit: this.onSubmit,
     }];
   },

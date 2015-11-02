@@ -97,11 +97,11 @@ Boards.helpers({
   },
 
   labelIndex(labelId) {
-    return _.indexOf(_.pluck(this.labels, '_id'), labelId);
+    return _.pluck(this.labels, '_id').indexOf(labelId);
   },
 
   memberIndex(memberId) {
-    return _.indexOf(_.pluck(this.members, 'userId'), memberId);
+    return _.pluck(this.members, 'userId').indexOf(memberId);
   },
 
   absoluteUrl() {
@@ -110,6 +110,14 @@ Boards.helpers({
 
   colorClass() {
     return `board-color-${this.color}`;
+  },
+
+  // XXX currently mutations return no value so we have an issue when using addLabel in import
+  // XXX waiting on https://github.com/mquandalle/meteor-collection-mutations/issues/1 to remove...
+  pushLabel(name, color) {
+    const _id = Random.id(6);
+    Boards.direct.update(this._id, { $push: {labels: { _id, name, color }}});
+    return _id;
   },
 });
 
@@ -135,29 +143,26 @@ Boards.mutations({
   },
 
   addLabel(name, color) {
-    const _id = Random.id(6);
-
-    // If an empty label of a given color already exists we don't want to create
-    // an other one because they would be indistinguishable in the UI (they
-    // would still have different `_id` but that is not exposed to the user).
-    if (name === '' && this.getLabel(name, color)) {
-      return {};
+    // If label with the same name and color already exists we don't want to
+    // create another one because they would be indistinguishable in the UI
+    // (they would still have different `_id` but that is not exposed to the
+    // user).
+    if (!this.getLabel(name, color)) {
+      const _id = Random.id(6);
+      return { $push: {labels: { _id, name, color }}};
     }
-    return { $push: {labels: { _id, name, color }}};
   },
 
   editLabel(labelId, name, color) {
-    const labelIndex = this.labelIndex(labelId);
-
-    if (name === '' && this.getLabel(name, color)) {
-      return {};
+    if (!this.getLabel(name, color)) {
+      const labelIndex = this.labelIndex(labelId);
+      return {
+        $set: {
+          [`labels.${labelIndex}.name`]: name,
+          [`labels.${labelIndex}.color`]: color,
+        },
+      };
     }
-    return {
-      $set: {
-        [`labels.${labelIndex}.name`]: name,
-        [`labels.${labelIndex}.color`]: color,
-      },
-    };
   },
 
   removeLabel(labelId) {
@@ -274,7 +279,7 @@ Boards.before.insert((userId, doc) => {
   // Handle labels
   const colors = Boards.simpleSchema()._schema['labels.$.color'].allowedValues;
   const defaultLabelsColors = _.clone(colors).splice(0, 6);
-  doc.labels = _.map(defaultLabelsColors, (color) => {
+  doc.labels = defaultLabelsColors.map((color) => {
     return {
       color,
       _id: Random.id(6),
@@ -322,7 +327,7 @@ if (Meteor.isServer) {
       { boardId: doc._id },
       {
         $pull: {
-          labels: removedLabelId,
+          labelIds: removedLabelId,
         },
       },
       { multi: true }

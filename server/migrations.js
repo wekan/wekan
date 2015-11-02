@@ -43,7 +43,7 @@ Migrations.add('board-background-color', () => {
 });
 
 Migrations.add('lowercase-board-permission', () => {
-  _.forEach(['Public', 'Private'], (permission) => {
+  ['Public', 'Private'].forEach((permission) => {
     Boards.update(
       { permission },
       { $set: { permission: permission.toLowerCase() } },
@@ -116,11 +116,11 @@ Migrations.add('add-member-isactive-field', () => {
     const formerUsers = _.difference(allUsersWithSomeActivity, currentUsers);
 
     const newMemberSet = [];
-    _.forEach(board.members, (member) => {
+    board.members.forEach((member) => {
       member.isActive = true;
       newMemberSet.push(member);
     });
-    _.forEach(formerUsers, (userId) => {
+    formerUsers.forEach((userId) => {
       newMemberSet.push({
         userId,
         isAdmin: false,
