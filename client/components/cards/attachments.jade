@@ -3,6 +3,8 @@ template(name="cardAttachmentsPopup")
     li
       input.js-attach-file.hide(type="file" name="file" multiple)
       a.js-computer-upload {{_ 'computer'}}
+    li
+      a.js-clipboard-upload {{_ 'clipboard'}}
 
 template(name="attachmentDeletePopup")
   p {{_ "attachment-delete-pop"}}
@@ -23,6 +25,10 @@ template(name="attachmentsGalery")
         p.attachment-details
           = name
           span.attachment-details-actions
+            if isImage
+              a.js-preview-image()
+                i.fa.fa-image
+                | {{_ 'open-viewer'}}
             a.js-download(href="{{url download=true}}")
               i.fa.fa-download
               | {{_ 'download'}}
