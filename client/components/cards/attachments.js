@@ -14,6 +14,9 @@ Template.attachmentsGalery.events({
   'click .js-open-viewer'() {
     // XXX Not implemented!
   },
+  'click .js-preview-image'() {
+    alert(this._id);
+  },
   'click .js-add-cover'() {
     Cards.findOne(this.cardId).setCover(this._id);
   },
@@ -36,6 +39,12 @@ Template.cardAttachmentsPopup.events({
   },
   'click .js-computer-upload'(evt, tpl) {
     tpl.find('.js-attach-file').click();
+    evt.preventDefault();
+  },
+  'click .js-clipboard-upload'(evt, tpl) {
+    //tpl.find('.js-attach-file').click();
+    alert('uploading clipboard');
+    Popup.close();
     evt.preventDefault();
   },
 });
