@@ -18,6 +18,7 @@ template(name="attachmentsGalery")
           if isUploaded
             if isImage
               img.attachment-thumbnail-img(src="{{pathFor url}}")
+              img.preview-image-show(src="{{pathFor url}}")
             else
               span.attachment-thumbnail-ext= extension
           else
@@ -28,7 +29,7 @@ template(name="attachmentsGalery")
             if isImage
               a.js-preview-image()
                 i.fa.fa-image
-                | {{_ 'open-viewer'}}
+                | {{_ 'preview'}}
             a.js-download(href="{{url download=true}}")
               i.fa.fa-download
               | {{_ 'download'}}

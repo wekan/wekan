@@ -44,6 +44,7 @@ Template.cardAttachmentsPopup.events({
   'click .js-clipboard-upload'(evt, tpl) {
     //tpl.find('.js-attach-file').click();
     alert('uploading clipboard');
+    Popup.close();
     evt.preventDefault();
   },
 });
