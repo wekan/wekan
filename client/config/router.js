@@ -67,6 +67,13 @@ FlowRouter.route('/shortcuts', {
   },
 });
 
+FlowRouter.route('/b/:boardId/:slug/:cardId/timers', {
+  name: 'timers',
+  action() {
+    BlazeLayout.render('cardTimer', { content: '' });
+  },
+});
+
 FlowRouter.notFound = {
   action() {
     BlazeLayout.render('defaultLayout', { content: 'notFound' });
