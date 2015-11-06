@@ -32,14 +32,14 @@ BlazeComponent.extendComponent({
       },
       'dblclick .js-toggle-card-timer'() {
         cardClock.stop();
-        const text = ':watch: ' + cardClock.elapsedTime({humanize: true}) + ' (' + cardClock.elapsedTime() + ')' ;
+        const text = `:watch: ${cardClock.elapsedTime({humanize: true})} (${cardClock.elapsedTime()})`;
         CardComments.insert({
           text,
           boardId: Session.get('currentBoard'),
           cardId: Session.get('currentCard'),
         });
         cardClock.setElapsedSeconds(0);
-      }
+      },
     }];
   },
 
@@ -52,9 +52,5 @@ BlazeComponent.extendComponent({
     const elapsedSeconds = cardClock.elapsedTime();
     return elapsedSeconds;
   },
-
-  getUserId() {
-    return Meteor.userId();
-  }
 
 }).register('cardTimer');

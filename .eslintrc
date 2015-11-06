@@ -101,6 +101,7 @@ globals:
   Presence: true
   presences: true
   Ps: true
+  ReactiveClock: true
   ReactiveTabs: false
   Restivus: false
   SimpleSchema: false
