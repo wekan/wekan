@@ -25,6 +25,16 @@ Lists.attachSchema(new SimpleSchema({
     denyInsert: true,
     optional: true,
   },
+  status: {
+    type: String,
+    optional: true,
+    allowedValues: [
+      null,
+      'todo',
+      'doing',
+      'done',
+    ],
+  },
 }));
 
 Lists.allow({
@@ -60,6 +70,14 @@ Lists.helpers({
 Lists.mutations({
   rename(title) {
     return { $set: { title }};
+  },
+
+  change(title, sort) {
+    return { $set: {title, sort}};
+  },
+
+  setStatus(status) {
+    return { $set: {status}};
   },
 
   archive() {
