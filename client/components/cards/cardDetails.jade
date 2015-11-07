@@ -34,7 +34,7 @@ template(name="cardDetails")
             span.card-label(class="card-label-{{color}}" title=name)= name
         if currentUser.isBoardMember
           a.card-label.add-label.js-add-labels(title="{{_ 'card-labels-title'}}")
-            i.fa.fa-plus    
+            i.fa.fa-plus
 
     //- XXX We should use "editable" to avoid repetiting ourselves
     if currentUser.isBoardMember
