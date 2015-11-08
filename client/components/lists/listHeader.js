@@ -20,6 +20,12 @@ BlazeComponent.extendComponent({
   },
 }).register('listHeader');
 
+let currentListId = null;
+
+Template.listActionPopup.onRendered(function() {
+  currentListId = this.data._id;
+});
+
 Template.listActionPopup.events({
   'click .js-add-card'() {
     const listDom = document.getElementById(`js-list-${this._id}`);
@@ -41,7 +47,7 @@ Template.listActionPopup.events({
     });
     Popup.close();
   }),
-
+  'click .js-list-settings': Popup.open('listSettings'),
   'click .js-close-list'(evt) {
     evt.preventDefault();
     this.archive();
@@ -59,3 +65,49 @@ Template.listMoveCardsPopup.events({
     Popup.close();
   },
 });
+
+BlazeComponent.extendComponent({
+  template() {
+    return 'listSettingsPopup';
+  },
+
+  allStatus() {
+    return Lists.simpleSchema()._schema.status.allowedValues;
+  },
+
+  list() {
+    return Lists.findOne(currentListId);
+  },
+
+  noStatus() {
+    const curList = this.list();
+    return (!curList.status);
+  },
+
+  select(to) {
+    const lists = this.list();
+    this.allStatus().forEach((st) => {
+      if(st === to) lists.setStatus(st);
+    });
+  },
+
+  events() {
+    return [{
+      'click .js-select-none'() {
+        this.select(null);
+      },
+      'click .js-select-todo'() {
+        this.select('todo');
+      },
+      'click .js-select-doing'() {
+        this.select('doing');
+      },
+      'click .js-select-done'() {
+        this.select('done');
+      },
+      'click .js-confirm-select'() {
+        Popup.close();
+      },
+    }];
+  },
+}).register('listSettingsPopup');

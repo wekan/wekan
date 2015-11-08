@@ -17,16 +17,52 @@ template(name="editListTitleForm")
       a.fa.fa-times-thin.js-close-inlined-form
 
 template(name="listActionPopup")
-  ul.pop-over-list
-    li: a.js-add-card {{_ 'add-card'}}
-    if cards.count
+  if cards.count
+    ul.pop-over-list
       li: a.js-select-cards {{_ 'list-select-cards'}}
       li: a.js-move-cards {{_ 'list-move-cards'}}
-      li: a.js-archive-cards {{_ 'list-archive-cards'}}
+    hr
+  ul.pop-over-list
+    li: a.js-add-card {{_ 'add-card'}}
+    li: a.js-import-card {{_ 'import-card'}}
   hr
   ul.pop-over-list
-    li: a.js-import-card {{_ 'import-card'}}
+    if cards.count
+      li: a.js-archive-cards {{_ 'list-archive-cards'}}
     li: a.js-close-list {{_ 'archive-list'}}
+  hr
+  ul.pop-over-list
+    li: a.js-list-settings {{_ 'settings'}}
+
+template(name="listSettingsPopup")
+  p {{_ 'when-drop-card-to-list'}}
+  ul.pop-over-list
+    li
+      a.js-select-none
+        i.fa.fa-clock-o
+        | {{_ 'none-task-time'}}
+        if noStatus
+          i.fa.fa-check
+    li
+      a.js-select-todo
+        i.fa.fa-clock-o
+        | {{_ 'todo-task-time'}}
+        if($eq list.status "todo")
+          i.fa.fa-check
+    li
+      a.js-select-doing
+        i.fa.fa-clock-o
+        | {{_ 'doing-task-time'}}
+        if($eq list.status "doing")
+          i.fa.fa-check
+    li
+      a.js-select-done
+        i.fa.fa-clock-o
+        | {{_ 'done-task-time'}}
+        if($eq list.status "done")
+          i.fa.fa-check
+  hr
+  button.primary.confirm.js-confirm-select(type="submit") {{_ 'confirm'}}
 
 template(name="listMoveCardsPopup")
   +boardLists

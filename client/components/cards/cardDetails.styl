@@ -73,9 +73,54 @@
         width: 50%
         flex-shrink: 1
 
+    .card-details-item
+      &.card-details-item-manhour
+        width: 25%
+        flex-shrink: 1
+
+    .card-details-item
+      &.card-details-item-duedate
+        width: 40%
+        flex-shrink: 1
+
+    .card-details-item
+      &.card-details-item-actualdate
+        width: 35%
+        flex-shrink: 1
+
   .card-details-item-title
     font-size: 14px
     color: darken(white, 45%)
+
+  .card-details-item-content
+    font-size: 12px
+
+  .card-details-manhour
+    width: 80px
+    text-align: center
+
+  .badges
+    float: left
+    margin-top: 7px
+    color: darken(white, 50%)
+
+    &:empty
+      display: none
+
+    .badge
+      float: left
+      margin-right: 11px
+      margin-bottom: 3px
+      font-size: 0.9em
+
+      .badge-icon,
+      .badge-text
+        vertical-align: top
+
+      .badge-text
+        font-size: 0.9em
+        padding-left: 2px
+        line-height: 14px
 
   .card-label
     padding-top: 5px

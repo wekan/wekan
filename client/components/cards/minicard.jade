@@ -24,3 +24,11 @@ template(name="minicard")
         .badge
           span.badge-icon.fa.fa-paperclip
           span.badge-text= attachments.count
+      if finishDate
+        .badge
+          span.badge-icon.fa.fa-clock-o
+          span.badge-text {{moment finishDate}}
+      else if dueDate
+        .badge
+          span.badge-icon.fa.fa-clock-o
+          span.badge-text {{moment dueDate}}

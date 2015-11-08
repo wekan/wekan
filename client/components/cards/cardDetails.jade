@@ -62,6 +62,40 @@ template(name="cardDetails")
       h3.card-details-item-title {{_ 'description'}}
       +viewer
         = description
+
+    hr
+    .card-details-items
+      .card-details-item.card-details-item-manhour
+        h3.card-details-item-title {{_ 'manhour'}}
+        if currentUser.isBoardMember
+          input.card-details-manhour.js-man-hour(type="number" id="manHour" size="4" min="0" max="9999" value="{{manHour}}")
+        else
+          span.card-details-item-content {{manHour}}
+
+      .card-details-item.card-details-item-duedate
+        if currentUser.isBoardMember
+          h3.card-details-item-title {{_ 'due-date'}}
+          if dueDate
+            input.card-details-duedate.js-due-date(type="date" id="dueDate" value="{{forInputDate dueDate}}")
+          else
+            input.card-details-item-content.js-due-date(type="date")
+        else if dueDate
+          h3.card-details-item-title {{_ 'due-date'}}
+          span.card-details-item-content {{forDisplayDate dueDate}}
+
+      .card-details-item.card-details-item-actualdate
+        h3.card-details-item-title {{_ 'actual-date'}}
+        .badges
+          .badge
+            span.badge-icon.fa.fa-clock-o
+            if startDate
+              span.badge-text {{toDateTimeString startDate}}
+          br
+          .badge
+            span.badge-icon.fa.fa-clock-o
+            if finishDate
+              span.badge-text {{toDateTimeString finishDate}}
+
     if attachments.count
       hr
       h2

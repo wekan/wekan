@@ -80,6 +80,25 @@ BlazeComponent.extendComponent({
           this.data().setTitle(title);
         }
       },
+      'change .js-due-date'(evt) {
+        evt.preventDefault();
+        const strDate = $(evt.currentTarget).val().trim();
+        if (strDate) {
+          const cobTime = ' 18:00:00';
+          this.data().setDueDate(new Date(strDate + cobTime));
+        } else {
+          this.data().setDueDate(null);
+        }
+      },
+      'change .js-man-hour'(evt) {
+        evt.preventDefault();
+        const manHour = parseInt($(evt.currentTarget).val(), 10);
+        if (manHour > 0) {
+          this.data().setManHour(manHour);
+        } else {
+          this.data().setManHour(0);
+        }
+      },
       'click .js-member': Popup.open('cardMember'),
       'click .js-add-members': Popup.open('cardMembers'),
       'click .js-add-labels': Popup.open('cardLabels'),
@@ -127,6 +146,18 @@ BlazeComponent.extendComponent({
     }];
   }
 }).register('inlinedCardDescription');
+
+Template.registerHelper('forInputDate', function(date) {
+  return new Date(date).toISOString().split('T')[0];
+});
+
+Template.registerHelper('forDisplayDate', function(date) {
+  return new Intl.DateTimeFormat().format(date);
+});
+
+Template.registerHelper('toDateTimeString', function(date) {
+  return new Date(date).toLocaleString(date);
+});
 
 Template.cardDetailsActionsPopup.events({
   'click .js-members': Popup.open('cardMembers'),
