@@ -21,6 +21,125 @@ BlazeComponent.extendComponent({
     form.open();
   },
 
+  addSingleCard(list, board, title, sort) {
+    const listId = list._id;
+    const boardId = board._id;
+    const _id = Cards.insert({
+      title,
+      listId,
+      boardId,
+      sort,
+    });
+    // In case the filter is active we need to add the newly inserted card in
+    // the list of exceptions -- cards that are not filtered. Otherwise the
+    // card will disappear instantly.
+    // See https://github.com/wekan/wekan/issues/80
+    Filter.addException(_id);
+  },
+
+  // we can also copy & paste excel data for batch task
+  // header: (specify the index of fields)
+  // title description dueDate member member member label label label
+  // accepted header alias:
+  // desc -> description
+  // owner -> member
+  // type, category, priority -> label
+  addMultiCards(list, board, text, sortIndex) {
+    const listId = list._id;
+    const boardId = board._id;
+    const allLabels = board.labels;
+    const allMembers = board.members;
+    const lines = text.split('\n');
+
+    // the columns can be in any order, but need header to find index
+    let titleIndex = -1;
+    let descIndex = -1;
+    let dueDateIndex = -1;
+    const memberIndex = [];
+    const labelIndex = [];
+    const headers = lines[0].split('\t');
+    for(let i=0; i<headers.length; i++) {
+      switch(headers[i].trim().toLowerCase()) {
+      case 'title':
+        titleIndex = i;
+        break;
+      case 'description':
+      case 'desc':
+        descIndex = i;
+        break;
+      case 'duedate':
+      case 'deadline':
+        dueDateIndex = i;
+        break;
+      case 'member':
+      case 'owner':
+        memberIndex.push(i);
+        break;
+      case 'label':
+      case 'type':
+      case 'category':
+      case 'priority':
+        labelIndex.push(i);
+        break;
+      }
+    }
+
+    let j = 0;
+    if(titleIndex >= 0) {
+      j++;
+    } else {
+      titleIndex = 0;
+      descIndex = 1;
+    }
+    while(j < lines.length) {
+      const line = lines[j++];
+      const items = line.split('\t');
+      let title = null;
+      let description = null;
+      let dueDate = null;
+      const members = [];
+      const labelIds = [];
+
+      for(let i=0; i<items.length; i++) {
+        const item = items[i].trim();
+        if(!item) continue;
+        if (i === titleIndex) title = item;
+        else if (i === descIndex) description = item;
+        else if(_.contains(memberIndex, i)) {
+          // check the member id
+          const member = _.findWhere(allMembers, {userId: item});
+          if (member) members.push(item);
+        } else if(_.contains(labelIndex, i)) {
+          // convert label name to id
+          const label = _.findWhere(allLabels, {name: item});
+          if(label) labelIds.push(label._id);
+        } else if (i === dueDateIndex) {
+          const cobTime = ' 18:00:00';
+          dueDate = new Date(item + cobTime);
+          if(isNaN(dueDate.getTime())) dueDate = null;
+        }
+      }
+
+      if (title) {
+        const _id = Cards.insert({
+          title,
+          listId,
+          boardId,
+          sort: sortIndex++,
+          description,
+          dueDate,
+          members,
+          labelIds,
+        });
+        // In case the filter is active we need to add the newly inserted card in
+        // the list of exceptions -- cards that are not filtered. Otherwise the
+        // card will disappear instantly.
+        // See https://github.com/wekan/wekan/issues/80
+        Filter.addException(_id);
+      }
+    }
+  },
+
   addCard(evt) {
     evt.preventDefault();
     const firstCardDom = this.find('.js-minicard:first');
@@ -36,17 +155,13 @@ BlazeComponent.extendComponent({
     }
 
     if (title) {
-      const _id = Cards.insert({
-        title,
-        listId: this.data()._id,
-        boardId: this.data().board()._id,
-        sort: sortIndex,
-      });
-      // In case the filter is active we need to add the newly inserted card in
-      // the list of exceptions -- cards that are not filtered. Otherwise the
-      // card will disappear instantly.
-      // See https://github.com/wekan/wekan/issues/80
-      Filter.addException(_id);
+      const list = this.data();
+      const board = this.data().board();
+      if(title.indexOf('\n') > 0) {
+        this.addMultiCards(list, board, title, sortIndex);
+      } else {
+        this.addSingleCard(list, board, title, sortIndex);
+      }
 
       // We keep the form opened, empty it, and scroll to it.
       textarea.val('').focus();
