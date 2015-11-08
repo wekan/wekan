@@ -56,7 +56,23 @@ template(name="boardMenuPopup")
     if currentUser.isBoardAdmin
       hr
       ul.pop-over-list
+        li: a.js-clone-template {{_ 'clone-template'}}
+      hr
+      ul.pop-over-list
         li: a.js-archive-board {{_ 'archive-board'}}
+
+template(name="cloneBoardTemplatePopup")
+  ul.pop-over-list
+    each boards
+      li
+        if($eq currentBoardId _id)
+          a.disabled {{title}} ({{_ 'current'}})
+        else
+          a.js-clone-from-board(id="{{_id}}") {{title}}
+
+template(name="confirmCloneTemplatePopup")
+  p {{_ 'clone-board-pop'}}
+  button.js-confirm.negate.full(type="submit") {{_ 'confirm'}}
 
 template(name="boardVisibilityList")
   ul.pop-over-list
@@ -110,7 +126,6 @@ template(name="createBoardPopup")
     span.quiet
       | {{_ 'or'}}
       a.js-import {{_ 'import-board'}}
-
 
 template(name="boardChangeTitlePopup")
   form
