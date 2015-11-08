@@ -24,6 +24,7 @@ template(name="listActionPopup")
     hr
   ul.pop-over-list
     li: a.js-add-card {{_ 'add-card'}}
+    li: a.js-import-card-other-board {{_ 'import-card-other-board'}}
     li: a.js-import-card {{_ 'import-card'}}
   hr
   ul.pop-over-list
@@ -66,6 +67,22 @@ template(name="listSettingsPopup")
 
 template(name="listMoveCardsPopup")
   +boardLists
+
+template(name="importCardFromOtherBoardPopup")
+  ul.pop-over-list
+    each boards
+      li
+        if($eq currentBoard._id _id)
+          a.disabled {{title}} ({{_ 'current'}})
+        else
+          a.js-select-list-from-board {{title}}
+
+template(name="importCardFromOtherListPopup")
+  ul.pop-over-list
+    each lists
+      unless archived
+        li
+          a.js-import-card-from-list {{title}}
 
 template(name="boardLists")
   ul.pop-over-list

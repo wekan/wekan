@@ -39,6 +39,7 @@ Template.listActionPopup.events({
     MultiSelection.add(cardIds);
     Popup.close();
   },
+  'click .js-import-card-other-board': Popup.open('importCardFromOtherBoard'),
   'click .js-import-card': Popup.open('listImportCard'),
   'click .js-move-cards': Popup.open('listMoveCards'),
   'click .js-archive-cards': Popup.afterConfirm('listArchiveCards', function() {
@@ -65,6 +66,65 @@ Template.listMoveCardsPopup.events({
     Popup.close();
   },
 });
+
+BlazeComponent.extendComponent({
+  template() {
+    return 'importCardFromOtherBoardPopup';
+  },
+
+  boards() {
+    return Boards.find({
+      archived: false,
+      'members.userId': Meteor.userId(),
+    }, {
+      sort: ['title'],
+    });
+  },
+
+  events() {
+    return [{
+      'click .js-select-list-from-board'(...args) {
+        const fromBoard = this.currentData();
+        new SubsManager().subscribe('board', fromBoard._id);
+        Popup.open('importCardFromOtherList').call(this, ...args);
+      },
+    }];
+  },
+}).register('importCardFromOtherBoardPopup');
+
+BlazeComponent.extendComponent({
+  template() {
+    return 'importCardFromOtherListPopup';
+  },
+
+  lists() {
+    const boardId = Template.parentData(2).data._id;
+    return Lists.find({boardId}, { sort: ['sort'] });
+  },
+
+  events() {
+    return [{
+      'click .js-import-card-from-list'() {
+        const toList = Lists.findOne(currentListId);
+        const fromList = this.currentData();
+        fromList.allCards().forEach((card) => {
+          if(card.archived) return;
+          Cards.insert({
+            listId: toList._id,
+            boardId: toList.board()._id,
+            title: card.title,
+            sort: card.sort,
+            description: card.description,
+            dueDate: card.dueDate,
+            manHour: card.manHour,
+            createdAt: card.createdAt,
+          });
+        });
+        Popup.close();
+      },
+    }];
+  },
+}).register('importCardFromOtherListPopup');
 
 BlazeComponent.extendComponent({
   template() {
