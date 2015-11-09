@@ -20,7 +20,7 @@ BlazeComponent.extendComponent({
 
     return [{
       ...events,
-      'click .js-show-lists'(evt) {
+      'click .js-show-lists'() {
         if (Session.get('showLists')) {
           Session.set('showListsSel', undefined);
           Session.set('showLists', false);
@@ -35,8 +35,8 @@ BlazeComponent.extendComponent({
         const toListId = this.currentData()._id;
         const toBoardId = this.currentData().boardId;
         const toSort = Cards.find({'listId': toListId, 'archived': false}).count();
-        let toCard = Cards.findOne({'_id': Session.get('currentCard')});
-        toCard._id = Meteor.Collection.ObjectID();;
+        const toCard = Cards.findOne({'_id': Session.get('currentCard')});
+        toCard._id = Meteor.Collection.ObjectID();
         toCard.listId = toListId;
         toCard.boardId = toBoardId;
         toCard.sort = toSort;
@@ -59,7 +59,7 @@ BlazeComponent.extendComponent({
 
   showBoards() {
     if (Session.get('showBoards')) {
-    return Boards.find({'archived': false}, {sort: {'modifiedAt': -1}, limit : 25});
+      return Boards.find({'archived': false}, {sort: {'modifiedAt': -1}, limit : 25});
     }
     else {
       return false;
