@@ -7,9 +7,9 @@ template(name="cardAttachmentsPopup")
       a.js-upload-clipboard-image {{_ 'clipboard'}}
 
 template(name="previewClipboardImagePopup")
-  img.preview-clipboard-image(src="")
   p {{_ "paste-or-dragdrop"}}
-  button.js-upload-pasted-image {{_ 'upload'}}
+  img.preview-clipboard-image()
+  button.primary.js-upload-pasted-image {{_ 'upload'}}
 
 template(name="previewAttachedImagePopup")
   img.preview-large-image.js-large-image-clicked(src="{{pathFor url}}")
