@@ -73,8 +73,9 @@ template(name="cardDetails")
     if currentUser.isBoardMember
       if showPlugins
         hr
-        h3.card-details-item-title {{_ 'tools'}}
+        h2 {{_ 'tools'}}
         +pluginMarkdownBody
+        
     hr
     h2 {{ _ 'activity'}}
     if currentUser.isBoardMember

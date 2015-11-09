@@ -43,6 +43,10 @@ BlazeComponent.extendComponent({
     }];
   },
 
+  showTimer() {
+    return Session.get('showTimer');
+  },
+
   elapsedTime() {
     const elapsedTimeHumanized = cardClock.elapsedTime({humanize: true});
     return elapsedTimeHumanized;
