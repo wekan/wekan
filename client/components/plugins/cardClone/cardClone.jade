@@ -1,0 +1,11 @@
+template(name='cardClone')
+  if showBoards
+    hr
+    h3 {{_ 'boards'}}
+    each showBoards
+      button.btn-sm.js-show-lists(type="submit")= title
+  if showLists
+    hr
+    h3 {{_ 'lists'}}
+    each showLists
+      button.btn-sm.js-clone-card(type="submit")= title

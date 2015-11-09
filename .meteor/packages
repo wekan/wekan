@@ -15,6 +15,7 @@ mquandalle:stylus
 es5-shim
 
 # Collections
+mongo
 aldeed:collection2
 cfs:gridfs
 cfs:standard-packages
@@ -22,19 +23,19 @@ dburles:collection-helpers
 idmontie:migrations
 matb33:collection-hooks
 matteodem:easy-search
-mongo
 mquandalle:collection-mutations
 reywood:publish-composite
 
 # Account system
 accounts-password
-kenton:accounts-sandstorm
 service-configuration
+kenton:accounts-sandstorm
 useraccounts:core
 useraccounts:unstyled
 useraccounts:flow-routing
 
 # Utilities
+audit-argument-checks
 check
 jquery
 random
@@ -43,9 +44,9 @@ session
 tracker
 underscore
 3stack:presence
+aldeed:clock
 alethes:pages
 arillo:flow-router-helpers
-audit-argument-checks
 kadira:blaze-layout
 kadira:dochead
 kadira:flow-router
@@ -70,5 +71,6 @@ mquandalle:perfect-scrollbar
 peerlibrary:blaze-components
 perak:markdown
 seriousm:emoji-continued
+simple:markdown-templating
 templates:tabs
 verron:autosize

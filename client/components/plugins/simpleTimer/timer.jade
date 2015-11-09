@@ -1,0 +1,6 @@
+template(name='cardTimer')
+  if showTimer
+    hr
+    h3 {{_ 'timer'}}
+    a.js-toggle-card-timer
+      | {{elapsedSeconds}} ({{elapsedTime}})

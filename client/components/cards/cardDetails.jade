@@ -70,6 +70,12 @@ template(name="cardDetails")
 
       +attachmentsGalery
 
+    if currentUser.isBoardMember
+      if showPlugins
+        hr
+        h2 {{_ 'tools'}}
+        +pluginMarkdownBody
+        
     hr
     h2 {{ _ 'activity'}}
     if currentUser.isBoardMember
@@ -82,6 +88,7 @@ template(name="cardDetailsActionsPopup")
     li: a.js-members {{_ 'card-edit-members'}}
     li: a.js-labels {{_ 'card-edit-labels'}}
     li: a.js-attachments {{_ 'card-edit-attachments'}}
+    li: a.js-show-plugins {{_ 'tools'}}
   hr
   ul.pop-over-list
     li: a.js-move-card {{_ 'moveCardPopup-title'}}

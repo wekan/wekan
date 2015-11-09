@@ -89,6 +89,11 @@ BlazeComponent.extendComponent({
       },
     }];
   },
+
+  showPlugins() {
+    return Session.get('showPlugins');
+  },
+
 }).register('cardDetails');
 
 // We extends the normal InlinedForm component to support UnsavedEdits draft
@@ -139,6 +144,15 @@ Template.cardDetailsActionsPopup.events({
     Popup.close();
   },
   'click .js-more': Popup.open('cardMore'),
+  'click .js-show-plugins'() {
+    if (!Session.get('showPlugins')) {
+      Session.set('showPlugins', true);
+    }
+    else {
+      Session.set('showPlugins', false);
+    }
+    Popup.close();
+  },
 });
 
 Template.moveCardPopup.events({
