@@ -80,8 +80,7 @@ Boards.helpers({
   },
 
   lists() {
-    return Lists.find({ boardId: this._id, archived: false },
-                                                          { sort: { sort: 1 }});
+    return Lists.find({ boardId: this._id, archived: false }, { sort: { sort: 1 }});
   },
 
   activities() {
@@ -90,6 +89,11 @@ Boards.helpers({
 
   activeMembers() {
     return _.where(this.members, {isActive: true});
+  },
+
+  memberUsers() {
+    const memberIds = _.map(this.members, (m) => { return m.userId; });
+    return Users.find({ _id: {$in: memberIds} });
   },
 
   getLabel(name, color) {
