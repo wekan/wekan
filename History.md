@@ -3,11 +3,13 @@
 This release features:
 
 * Card import from Trello
+* Autocompletion in the minicard editor. Start with <kbd>@</kbd> to start the
+  a board member autocompletion, or <kbd>#</kbd> for a label.
 * Accelerate the initial page rendering by sending the data on the intial HTTP
   response instead of waiting for the DDP connection to open.
 
-Thanks to GitHub users AlexanderS, fisle, ndarilek, and xavierpriour for their
-contributions.
+Thanks to GitHub users AlexanderS, fisle, FuzzyWuzzie, ndarilek, and
+xavierpriour for their contributions.
 
 # v0.9
 
