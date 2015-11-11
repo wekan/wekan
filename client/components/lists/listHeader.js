@@ -5,10 +5,10 @@ BlazeComponent.extendComponent({
 
   editTitle(evt) {
     evt.preventDefault();
-    const newTitle = this.componentChildren('inlinedForm')[0].getValue();
+    const newTitle = this.childComponents('inlinedForm')[0].getValue().trim();
     const list = this.currentData();
-    if ($.trim(newTitle)) {
-      list.rename(newTitle);
+    if (newTitle) {
+      list.rename(newTitle.trim());
     }
   },
 
@@ -33,6 +33,7 @@ Template.listActionPopup.events({
     MultiSelection.add(cardIds);
     Popup.close();
   },
+  'click .js-import-card': Popup.open('listImportCard'),
   'click .js-move-cards': Popup.open('listMoveCards'),
   'click .js-archive-cards': Popup.afterConfirm('listArchiveCards', function() {
     this.allCards().forEach((card) => {
@@ -40,6 +41,7 @@ Template.listActionPopup.events({
     });
     Popup.close();
   }),
+
   'click .js-close-list'(evt) {
     evt.preventDefault();
     this.archive();

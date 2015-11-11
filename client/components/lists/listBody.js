@@ -11,8 +11,8 @@ BlazeComponent.extendComponent({
     options = options || {};
     options.position = options.position || 'top';
 
-    const forms = this.componentChildren('inlinedForm');
-    let form = _.find(forms, (component) => {
+    const forms = this.childComponents('inlinedForm');
+    let form = forms.find((component) => {
       return component.data().position === options.position;
     });
     if (!form && forms.length > 0) {
@@ -26,8 +26,10 @@ BlazeComponent.extendComponent({
     const firstCardDom = this.find('.js-minicard:first');
     const lastCardDom = this.find('.js-minicard:last');
     const textarea = $(evt.currentTarget).find('textarea');
-    const title = textarea.val();
-    const position = Blaze.getData(evt.currentTarget).position;
+    const position = this.currentData().position;
+    const title = textarea.val().trim();
+
+    const formComponent = this.childComponents('addCardForm')[0];
     let sortIndex;
     if (position === 'top') {
       sortIndex = Utils.calculateIndex(null, firstCardDom).base;
@@ -35,9 +37,14 @@ BlazeComponent.extendComponent({
       sortIndex = Utils.calculateIndex(lastCardDom, null).base;
     }
 
-    if ($.trim(title)) {
+    const members = formComponent.members.get();
+    const labelIds = formComponent.labels.get();
+
+    if (title) {
       const _id = Cards.insert({
         title,
+        members,
+        labelIds,
         listId: this.data()._id,
         boardId: this.data().board()._id,
         sort: sortIndex,
@@ -53,6 +60,8 @@ BlazeComponent.extendComponent({
       if (position === 'bottom') {
         this.scrollToBottom();
       }
+
+      formComponent.reset();
     }
   },
 
@@ -100,9 +109,37 @@ BlazeComponent.extendComponent({
   },
 }).register('listBody');
 
+function toggleValueInReactiveArray(reactiveValue, value) {
+  const array = reactiveValue.get();
+  const valueIndex = array.indexOf(value);
+  if (valueIndex === -1) {
+    array.push(value);
+  } else {
+    array.splice(valueIndex, 1);
+  }
+  reactiveValue.set(array);
+}
+
 BlazeComponent.extendComponent({
   template() {
     return 'addCardForm';
+  },
+
+  onCreated() {
+    this.labels = new ReactiveVar([]);
+    this.members = new ReactiveVar([]);
+  },
+
+  reset() {
+    this.labels.set([]);
+    this.members.set([]);
+  },
+
+  getLabels() {
+    const currentBoardId = Session.get('currentBoard');
+    return Boards.findOne(currentBoardId).labels.filter((label) => {
+      return this.labels.get().indexOf(label._id) > -1;
+    });
   },
 
   pressKey(evt) {
@@ -139,5 +176,67 @@ BlazeComponent.extendComponent({
     return [{
       keydown: this.pressKey,
     }];
+  },
+
+  onRendered() {
+    const editor = this;
+    this.$('textarea').escapeableTextComplete([
+      // User mentions
+      {
+        match: /\B@(\w*)$/,
+        search(term, callback) {
+          const currentBoard = Boards.findOne(Session.get('currentBoard'));
+          callback($.map(currentBoard.members, (member) => {
+            const user = Users.findOne(member.userId);
+            return user.username.indexOf(term) === 0 ? user : null;
+          }));
+        },
+        template(user) {
+          return user.username;
+        },
+        replace(user) {
+          toggleValueInReactiveArray(editor.members, user._id);
+          return '';
+        },
+        index: 1,
+      },
+
+      // Labels
+      {
+        match: /\B#(\w*)$/,
+        search(term, callback) {
+          const currentBoard = Boards.findOne(Session.get('currentBoard'));
+          callback($.map(currentBoard.labels, (label) => {
+            if (label.name.indexOf(term) > -1 ||
+                label.color.indexOf(term) > -1) {
+              return label;
+            }
+          }));
+        },
+        template(label) {
+          return Blaze.toHTMLWithData(Template.autocompleteLabelLine, {
+            hasNoName: !Boolean(label.name),
+            colorName: label.color,
+            labelName: label.name || label.color,
+          });
+        },
+        replace(label) {
+          toggleValueInReactiveArray(editor.labels, label._id);
+          return '';
+        },
+        index: 1,
+      },
+    ], {
+      // When the autocomplete menu is shown we want both a press of both `Tab`
+      // or `Enter` to validation the auto-completion. We also need to stop the
+      // event propagation to prevent the card from submitting (on `Enter`) or
+      // going on the next column (on `Tab`).
+      onKeydown(evt, commands) {
+        if (evt.keyCode === 9 || evt.keyCode === 13) {
+          evt.stopPropagation();
+          return commands.KEY_ENTER;
+        }
+      },
+    });
   },
 }).register('addCardForm');

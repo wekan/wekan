@@ -25,7 +25,7 @@ AccountsTemplates.configure({
   },
 });
 
-_.each(['signIn', 'signUp', 'resetPwd', 'forgotPwd', 'enrollAccount'],
+['signIn', 'signUp', 'resetPwd', 'forgotPwd', 'enrollAccount'].forEach(
   (routeName) => AccountsTemplates.configureRoute(routeName));
 
 // We display the form to change the password in a popup window that already
