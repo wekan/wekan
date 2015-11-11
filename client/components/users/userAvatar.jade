@@ -78,3 +78,18 @@ template(name="cardMemberPopup")
         if $eq currentUser._id user._id
           with currentUser
             li: a.js-edit-profile {{_ 'edit-profile'}}
+
+template(name="listMemberPopup")
+  .board-member-menu
+    .mini-profile-info
+      +userAvatar(userId=user._id showEdit=true)
+      .info
+        h3= user.profile.fullname
+        p.quiet @{{ user.username }}
+    if currentUser.isBoardMember
+      ul.pop-over-list
+        li: a.js-remove-member {{_ 'remove-member-from-list'}}
+
+        if $eq currentUser._id user._id
+          with currentUser
+            li: a.js-edit-profile {{_ 'edit-profile'}}

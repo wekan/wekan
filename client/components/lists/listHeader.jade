@@ -35,36 +35,6 @@ template(name="listActionPopup")
   ul.pop-over-list
     li: a.js-list-settings {{_ 'settings'}}
 
-template(name="listSettingsPopup")
-  p {{_ 'when-drop-card-to-list'}}
-  ul.pop-over-list
-    li
-      a.js-select-none
-        i.fa.fa-clock-o
-        | {{_ 'none-task-time'}}
-        if noStatus
-          i.fa.fa-check
-    li
-      a.js-select-todo
-        i.fa.fa-clock-o
-        | {{_ 'todo-task-time'}}
-        if($eq list.status "todo")
-          i.fa.fa-check
-    li
-      a.js-select-doing
-        i.fa.fa-clock-o
-        | {{_ 'doing-task-time'}}
-        if($eq list.status "doing")
-          i.fa.fa-check
-    li
-      a.js-select-done
-        i.fa.fa-clock-o
-        | {{_ 'done-task-time'}}
-        if($eq list.status "done")
-          i.fa.fa-check
-  hr
-  button.primary.confirm.js-confirm-select(type="submit") {{_ 'confirm'}}
-
 template(name="listMoveCardsPopup")
   +boardLists
 
@@ -96,3 +66,53 @@ template(name="boardLists")
 template(name="listArchiveCardsPopup")
   p {{_ 'list-archive-cards-pop'}}
   input.js-confirm.negate.full(type="submit" value="{{_ 'archive-all'}}")
+
+template(name="listSettingsPopup")
+  p {{_ 'when-drop-card-to-list'}}
+  ul.pop-over-list
+    li
+      a.js-select-none
+        i.fa.fa-clock-o
+        | {{_ 'none-task-time'}}
+        if noStatus
+          i.fa.fa-check
+    li
+      a.js-select-todo
+        i.fa.fa-clock-o
+        | {{_ 'todo-task-time'}}
+        if($eq list.status "todo")
+          i.fa.fa-check
+    li
+      a.js-select-doing
+        i.fa.fa-clock-o
+        | {{_ 'doing-task-time'}}
+        if($eq list.status "doing")
+          i.fa.fa-check
+    li
+      a.js-select-done
+        i.fa.fa-clock-o
+        | {{_ 'done-task-time'}}
+        if($eq list.status "done")
+          i.fa.fa-check
+  hr
+  h3
+    i.fa.fa-user
+    | {{_ 'members'}}
+  each members
+    +userAvatar(userId=this listId=list._id)
+    | {{! XXX Hack to hide syntaxic coloration /// }}
+  if currentUser.isBoardMember
+    a.member.add-member.js-add-members(title="{{_ 'list-members-title'}}")
+      i.fa.fa-plus
+
+template(name="listMembersPopup")
+  ul.pop-over-list.js-list-member-list
+    each board.members
+      li.item(class="{{#if isListMember}}active{{/if}}")
+        a.name.js-select-member(href="#")
+          +userAvatar(userId=user._id listId=list._id)
+          span.full-name
+            = user.profile.fullname
+            | (<span class="username">{{ user.username }}</span>)
+          if isListMember
+            i.fa.fa-check

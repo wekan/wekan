@@ -35,6 +35,10 @@ Lists.attachSchema(new SimpleSchema({
       'done',
     ],
   },
+  members: {
+    type: [String],
+    optional: true,
+  },
 }));
 
 Lists.allow({
@@ -78,6 +82,22 @@ Lists.mutations({
 
   setStatus(status) {
     return { $set: {status}};
+  },
+
+  assignMember(memberId) {
+    return { $addToSet: { members: memberId }};
+  },
+
+  unassignMember(memberId) {
+    return { $pull: { members: memberId }};
+  },
+
+  toggleMember(memberId) {
+    if (this.members && this.members.indexOf(memberId) > -1) {
+      return this.unassignMember(memberId);
+    } else {
+      return this.assignMember(memberId);
+    }
   },
 
   archive() {

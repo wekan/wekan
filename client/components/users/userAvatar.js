@@ -167,3 +167,26 @@ Template.cardMemberPopup.events({
   },
   'click .js-edit-profile': Popup.open('editProfile'),
 });
+
+Template.listMemberPopup.events({
+  'click .js-select-member'(evt) {
+    const list = Lists.findOne(this.listId);
+    const memberId = this.userId;
+    list.toggleMember(memberId);
+    evt.preventDefault();
+  },
+});
+
+Template.listMemberPopup.helpers({
+  user() {
+    return Users.findOne(this.userId);
+  },
+});
+
+Template.listMemberPopup.events({
+  'click .js-remove-member'() {
+    Lists.findOne(this.listId).unassignMember(this.userId);
+    Popup.close();
+  },
+  'click .js-edit-profile': Popup.open('editProfile'),
+});

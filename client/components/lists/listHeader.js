@@ -139,6 +139,10 @@ BlazeComponent.extendComponent({
     return Lists.findOne(currentListId);
   },
 
+  members() {
+    return this.list().members;
+  },
+
   noStatus() {
     const curList = this.list();
     return (!curList.status);
@@ -153,6 +157,8 @@ BlazeComponent.extendComponent({
 
   events() {
     return [{
+      'click .js-member': Popup.open('listMember'),
+      'click .js-add-members': Popup.open('listMembers'),
       'click .js-select-none'() {
         this.select(null);
       },
@@ -165,9 +171,36 @@ BlazeComponent.extendComponent({
       'click .js-select-done'() {
         this.select('done');
       },
-      'click .js-confirm-select'() {
-        Popup.close();
-      },
     }];
   },
 }).register('listSettingsPopup');
+
+BlazeComponent.extendComponent({
+  template() {
+    return 'listMembersPopup';
+  },
+
+  list() {
+    return Lists.findOne(currentListId);
+  },
+
+  board() {
+    return this.list().board();
+  },
+
+  isListMember() {
+    return _.contains(this.list().members, this.currentData().userId);
+  },
+
+  user() {
+    return Users.findOne(this.currentData().userId);
+  },
+
+  events() {
+    return [{
+      'click .js-select-member'() {
+        this.list().toggleMember(this.currentData().userId);
+      },
+    }];
+  },
+}).register('listMembersPopup');
