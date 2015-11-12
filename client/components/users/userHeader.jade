@@ -31,6 +31,9 @@ template(name="editProfilePopup")
     label
       | {{_ 'initials'}}
       input.js-profile-initials(type="text" value=profile.initials)
+      | {{_ 'qq'}}
+    label
+      input.js-profile-qq(type="text" value=profile.qq)
     input.primary.wide(type="submit" value="{{_ 'save'}}")
 
 template(name="changePasswordPopup")
