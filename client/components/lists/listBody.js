@@ -21,155 +21,6 @@ BlazeComponent.extendComponent({
     form.open();
   },
 
-  // we can also copy & paste excel data for batch task
-  // header: (specify the index of fields)
-  // title description dueDate member member member label label label
-  // accepted header alias:
-  // desc -> description
-  // owner -> member
-  // type, category, priority -> label
-  addMultiCards(list, board, text, sortIndex) {
-    const listId = list._id;
-    const boardId = board._id;
-    const allLabels = board.labels;
-
-    // csv/tsv members are username instead of userid, so we need get the mapping
-    const mapUsername2UserId = {};
-    board.memberUsers().forEach((user) => {
-      mapUsername2UserId[ user.username ] = user._id;
-    });
-
-    let rows = [];
-    // if the text contains '\t', it's treated as TSV format
-    if (text.indexOf('\t') > 0) {
-      text.split('\n').forEach((line) => {
-        if(line.length > 0)
-          rows.push(line.split('\t'));
-      });
-    } else {
-      // we use Papa.Parse to parse CSV to data rows
-      if (!window.Papa) return;
-      const ret = window.Papa.parse(text);
-      if (ret && ret.data && ret.data.length) rows = ret.data;
-    }
-
-    // the columns can be in arbitrary order, but need header to find index
-    let titleIndex = -1;
-    let descIndex = -1;
-    const memberIndex = [];
-    const labelIndex = [];
-    let manHourIndex = -1;
-    let dueDateIndex = -1;
-    let createAtIndex = -1;
-    let updateAtIndex = -1;
-    let startDateIndex = -1;
-    let finishDateIndex = -1;
-
-    const headers = rows[0];
-    for (let i=0; i<headers.length; i++) {
-      switch (headers[i].trim().toLowerCase()) {
-      case 'title':
-        titleIndex = i;
-        break;
-      case 'description':
-      case 'desc':
-        descIndex = i;
-        break;
-      case 'member':
-      case 'owner':
-        memberIndex.push(i);
-        break;
-      case 'label':
-      case 'type':
-      case 'category':
-      case 'priority':
-        labelIndex.push(i);
-        break;
-      case 'manhour':
-        manHourIndex = i;
-        break;
-      case 'duedate':
-      case 'deadline':
-        dueDateIndex = i;
-        break;
-      case 'createat':
-        createAtIndex = i;
-        break;
-      case 'updateat':
-        updateAtIndex = i;
-        break;
-      case 'startdate':
-        startDateIndex = i;
-        break;
-      case 'finishdate':
-        finishDateIndex = i;
-        break;
-      }
-    }
-
-    let j = 0;
-    if (titleIndex >= 0) {
-      j++;
-    } else {
-      titleIndex = 0;
-      descIndex = 1;
-    }
-    while (j < rows.length) {
-      const items = rows[j++];
-      const card = {
-        title: '',
-        listId,
-        boardId,
-        sort: sortIndex++,
-        members: [],
-        labelIds: [],
-      };
-
-      for (let i=0; i<items.length; i++) {
-        const item = items[i].trim();
-        if (!item) continue;
-        if (i === titleIndex) card.title = item;
-        else if (i === descIndex) card.description = item;
-        else if (_.contains(memberIndex, i)) {
-          // check the member id
-          const userId = mapUsername2UserId[item];
-          if (userId && (!_.contains(card.members, userId))) card.members.push(userId);
-        } else if (_.contains(labelIndex, i)) {
-          // convert label name to id
-          const label = _.findWhere(allLabels, {name: item});
-          if(label) card.labelIds.push(label._id);
-        } else if (i === manHourIndex) {
-          const n = parseInt(item, 10);
-          if(n > 0) card.manHour = n;
-        } else if (i === dueDateIndex) {
-          const d = new Date(`${item} 12:00:00`);
-          if(!isNaN(d.getTime())) card.dueDate = d;
-        } else if (i === createAtIndex) {
-          const d = new Date(`${item} 12:00:00`);
-          if(!isNaN(d.getTime())) card.createAt = d;
-        } else if (i === updateAtIndex) {
-          const d = new Date(`${item} 12:00:00`);
-          if(!isNaN(d.getTime())) card.updateAt = d;
-        } else if (i === startDateIndex) {
-          const d = new Date(`${item} 12:00:00`);
-          if(!isNaN(d.getTime())) card.startDate = d;
-        } else if (i === finishDateIndex) {
-          const d = new Date(`${item} 12:00:00`);
-          if(!isNaN(d.getTime())) card.finishDate = d;
-        }
-      }
-
-      if (card.title) {
-        const _id = Cards.insert(card);
-        // In case the filter is active we need to add the newly inserted card in
-        // the list of exceptions -- cards that are not filtered. Otherwise the
-        // card will disappear instantly.
-        // See https://github.com/wekan/wekan/issues/80
-        Filter.addException(_id);
-      }
-    }
-  },
-
   addCard(evt) {
     evt.preventDefault();
     const firstCardDom = this.find('.js-minicard:first');
@@ -190,7 +41,40 @@ BlazeComponent.extendComponent({
       const list = this.data();
       const board = list.board();
       if(title.indexOf('\n') > 0) {
-        this.addMultiCards(list, board, title, sortIndex);
+        let rows = [];
+        // if the text contains '\t', it's treated as TSV format
+        if (title.indexOf('\t') > 0) {
+          title.split('\n').forEach((line) => {
+            if(line.length > 0)
+              rows.push(line.split('\t'));
+          });
+        } else {
+          // we use Papa.Parse to parse CSV to data rows
+          if (!window.Papa) return;
+          const ret = window.Papa.parse(title);
+          if (ret && ret.data && ret.data.length) rows = ret.data;
+        }
+
+        if(rows.length > 0) {
+          // import batch cards will be more efficient on server-side
+          const extra = {
+            listId: list._id,
+            sortIndex,
+          };
+          Meteor.call('importRedmine', rows, extra, (err, res) => {
+            if (err) {
+              this.setError(err.error);
+            } else if(res && res.length) {
+              res.forEach((cardId) => {
+                // In case the filter is active we need to add the newly inserted card in
+                // the list of exceptions -- cards that are not filtered. Otherwise the
+                // card will disappear instantly.
+                // See https://github.com/wekan/wekan/issues/80
+                Filter.addException(cardId);
+              });
+            }
+          });
+        }
       } else {
         const members = formComponent.members.get();
         const labelIds = formComponent.labels.get();

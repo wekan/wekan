@@ -71,6 +71,10 @@ Boards.attachSchema(new SimpleSchema({
       'midnight',
     ],
   },
+  dataMapping: {
+    type: String,
+    optional: true,
+  },
 }));
 
 
@@ -92,8 +96,7 @@ Boards.helpers({
   },
 
   memberUsers() {
-    const memberIds = _.map(this.members, (m) => { return m.userId; });
-    return Users.find({ _id: {$in: memberIds} });
+    return Users.find({ _id: {$in: _.pluck(this.members, 'userId')} });
   },
 
   getLabel(name, color) {
@@ -144,6 +147,10 @@ Boards.mutations({
 
   setVisibility(visibility) {
     return { $set: { permission: visibility }};
+  },
+
+  updateDataMapping(dataMapping) {
+    return { $set: { dataMapping }};
   },
 
   addLabel(name, color) {

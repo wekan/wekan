@@ -26,6 +26,7 @@ template(name="listActionPopup")
     li: a.js-add-card {{_ 'add-card'}}
     li: a.js-import-card-other-board {{_ 'import-card-other-board'}}
     li: a.js-import-card {{_ 'import-card'}}
+    li: a.js-import-redminecsv {{_ 'import-redminecsv'}}
   hr
   ul.pop-over-list
     if cards.count
@@ -116,3 +117,19 @@ template(name="listMembersPopup")
             | (<span class="username">{{ user.username }}</span>)
           if isListMember
             i.fa.fa-check
+
+template(name="listImportRedminePopup")
+  if error.get
+    .warning {{_ error.get}}
+  form
+    p: label(for='file-redminecsv') {{_ "select-redminecsv"}}
+      input#file-redminecsv.js-select-redminecsv(type="file")
+    p: label(for='encoding-csv') {{_ "charset-encoding"}}
+      select#encoding-csv.js-encodingcsv
+        each csvEncodings
+          option(value="{{this}}") {{this.toUpperCase}}
+    p: label(for='file-mappingcsv') {{_ "select-mappingcsv"}}
+      textarea#file-mappingcsv.js-select-mappingcsv
+        = board.dataMapping
+    hr
+    input.primary.wide.js-import-now(type="submit" value="{{_ 'import'}}")

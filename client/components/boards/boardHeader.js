@@ -282,6 +282,7 @@ BlazeComponent.extendComponent({
         self.copyLabels(to, from.labels);
         self.copyMembers(to, from.members);
         self.copyLists(to, lists);
+        to.updateDataMapping(from.dataMapping);
         callback();
       } else if(--loopMax > 0) {
         window.setTimeout(checkDataLoop, 50);

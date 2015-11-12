@@ -41,6 +41,7 @@ Template.listActionPopup.events({
   },
   'click .js-import-card-other-board': Popup.open('importCardFromOtherBoard'),
   'click .js-import-card': Popup.open('listImportCard'),
+  'click .js-import-redminecsv': Popup.open('listImportRedmine'),
   'click .js-move-cards': Popup.open('listMoveCards'),
   'click .js-archive-cards': Popup.afterConfirm('listArchiveCards', function() {
     this.allCards().forEach((card) => {
@@ -185,7 +186,7 @@ BlazeComponent.extendComponent({
   },
 
   board() {
-    return this.list().board();
+    return Boards.findOne(Session.get('currentBoard'));
   },
 
   isListMember() {
@@ -204,3 +205,134 @@ BlazeComponent.extendComponent({
     }];
   },
 }).register('listMembersPopup');
+
+let csvRedmine = null;
+
+BlazeComponent.extendComponent({
+  template() {
+    return 'listImportRedminePopup';
+  },
+
+  csvEncodings: () => {
+    return ['utf8', 'gbk', 'big5'];
+  },
+
+  list() {
+    return Lists.findOne(currentListId);
+  },
+
+  board() {
+    return Boards.findOne(Session.get('currentBoard'));
+  },
+
+  getAdditionalData: () => {
+    const listId = currentListId;
+    const selector = `#js-list-${listId} .js-minicard:first`;
+    const firstCardDom = $(selector).get(0);
+    const sortIndex = Utils.calculateIndex(null, firstCardDom).base;
+    const result = {listId, sortIndex};
+    return result;
+  },
+
+  getDataGrid: (callback) => {
+    if (!csvRedmine) return callback(null);
+
+    const datamap = {};
+
+    // all redmine field name should be defined in i18n for data mapping
+    const currentUser = Meteor.user();
+    if (currentUser && currentUser.profile && currentUser.profile.language) {
+      const fields = 'number,project,type,parent,status,priority,title,owner,member,updateat,category,version,startdate,duedate,manhour,spent,percent,createat,finishdate,related,desc'.split(',');
+      // #,Project,Tracker,Parent task,Status,Priority,Subject,Author,Assignee,Updated,Category,Target version,Start date,Due date,Estimated time,Spent time,% Done,Created,Closed,Related issues,Description
+      const lang = currentUser.profile.language;
+      const langFields = TAPi18n.__('redmine-csv-headers', {}, lang).split(',');
+      if(fields.length === langFields.length) {
+        for(let i=0; i<fields.length; i++) {
+          datamap[ langFields[i] ] = fields[i];
+        }
+      }
+    }
+
+    // user can also use own data mapping file to handle fields & member names
+    const maptext = $('textarea.js-select-mappingcsv').val();
+    maptext.split('\n').forEach((line) => {
+      const words = line.trim().split(',');
+      if (words.length >= 2) {
+        datamap[ words[0] ] = words[1];
+      }
+    });
+
+    // now do data mapping if needed
+    const csvEncoding = $('select.js-encodingcsv').val();
+    window.Papa.parse(csvRedmine, {
+      encoding: csvEncoding,
+      newline: '\n',
+      complete: (results) => {
+        const rows = [];
+        results.data.forEach((items) => {
+          const row = [];
+          items.forEach((item) => {
+            const v = datamap[ item ];
+            if (v) row.push(v);
+            else row.push(item);
+          });
+          rows.push(row);
+        });
+        return callback(rows);
+      },
+    });
+
+    return callback(null);
+  },
+
+  events() {
+    return [{
+      'change .js-select-redminecsv': (evt) => {
+        FS.Utility.eachFile(evt, (f) => {
+          csvRedmine = f;
+        });
+      },
+
+      'change .js-select-mappingcsv': (evt) => {
+        this.board().updateDataMapping($(evt.currentTarget).val());
+      },
+
+      'submit': (evt) => {
+        evt.preventDefault();
+        const self = this;
+        this.getDataGrid((rows) => {
+          if (!rows) {
+            self.setError('error-json-malformed');
+            return false;
+          }
+
+          // import batch cards will be more efficient on server-side
+          Meteor.call('importRedmine', rows, self.getAdditionalData(), (err, res) => {
+            if (err) {
+              self.setError(err.error);
+            } else {
+              if (res && res.length) {
+                res.forEach((cardId) => {
+                  Filter.addException(cardId);
+                });
+              }
+              self.onFinish(res);
+            }
+          });
+        });
+      },
+    }];
+  },
+
+  onCreated() {
+    this.error = new ReactiveVar('');
+  },
+
+  setError(error) {
+    this.error.set(error);
+  },
+
+  onFinish() {
+    Popup.close();
+  },
+}).register('listImportRedminePopup');
