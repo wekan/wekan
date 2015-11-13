@@ -92,6 +92,24 @@ class TrelloCreator {
       stars: 0,
       title: trelloBoard.name,
     };
+    // now add other members
+    if(trelloBoard.memberships) {
+      trelloBoard.memberships.forEach((trelloMembership) => {
+        const trelloId = trelloMembership.idMember;
+        // do we have a mapping?
+        if(this.members[trelloId]) {
+          const wekanId = this.members[trelloId];
+          // do we already have it in our list?
+          if(!boardToCreate.members.find((wekanMember) => {return (wekanMember.userId === wekanId);})) {
+            boardToCreate.members.push({
+              userId: wekanId,
+              isAdmin: false,
+              isActive: true,
+            });
+          }
+        }
+      });
+    }
     trelloBoard.labels.forEach((label) => {
       const labelToCreate = {
         _id: Random.id(6),
@@ -197,10 +215,16 @@ class TrelloCreator {
       if(card.idMembers) {
         const wekanMembers = [];
         // we can't just map, as some members may not have been mapped
-        card.idMembers.forEach((id) => {
-          if(this.members[id]) {
-            wekanMembers.push(this.members[id]);
+        card.idMembers.forEach((trelloId) => {
+          if(this.members[trelloId]) {
+            const wekanId = this.members[trelloId];
+            // we may map multiple Trello members to the same wekan user
+            // in which case we risk adding the same user multiple times
+            if(!wekanMembers.find((wId) => {return (wId === wekanId);})){
+              wekanMembers.push(wekanId);
+            }
           }
+          return true;
         });
         if(wekanMembers.length>0) {
           cardToCreate.members = wekanMembers;
@@ -317,8 +341,9 @@ Meteor.methods({
 
     // 1. check all parameters are ok from a syntax point of view
     try {
-      // we don't use additional data - this should be an empty object
-      check(data, {});
+      check(data, {
+        membersMapping: Match.Optional(Object),
+      });
       trelloCreator.checkActions(trelloBoard.actions);
       trelloCreator.checkBoard(trelloBoard);
       trelloCreator.checkLabels(trelloBoard.labels);

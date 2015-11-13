@@ -8,7 +8,7 @@ template(name="importPopup")
     if membersMapping
       div
         a.show-mapping
-          | {{_ 'show-mapping'}}
+          | {{_ 'import-show-user-mapping'}}
     input.primary.wide(type="submit" value="{{_ 'import'}}")
 
 template(name="mapMembersPopup")
@@ -35,7 +35,8 @@ template(name="mapMembersPopup")
 
 template(name="mapMembersAddPopup")
   .select-member
-    p Hello world
+    p
+      | {{_ 'import-user-select'}}
     .js-map-member
       +esInput(index="users")
     ul.pop-over-list

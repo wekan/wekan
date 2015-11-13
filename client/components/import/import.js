@@ -29,13 +29,12 @@ const ImportPopup = BlazeComponent.extendComponent({
   },
 
   onShowMapping(evt) {
-    // todo xxx make it work - currently we don't find the text
-    // this._storeText(evt);
+    this._storeText(evt);
     Popup.open('mapMembers')(evt);
   },
 
   _storeText(evt) {
-    const dataJson = $(evt.currentTarget).find('.js-import-json').val();
+    const dataJson = this.$('.js-import-json').val();
     Session.set('import.text', dataJson);
     return dataJson;
   },
