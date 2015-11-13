@@ -2,9 +2,6 @@
 #
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
-#
-# XXX Should we replace tmeasday:presence by 3stack:presence? Or maybe the
-# packages will merge in the future?
 
 meteor-base
 
@@ -52,6 +49,7 @@ audit-argument-checks
 kadira:blaze-layout
 kadira:dochead
 kadira:flow-router
+meteorhacks:fast-render
 meteorhacks:picker
 meteorhacks:subs-manager
 mquandalle:autofocus

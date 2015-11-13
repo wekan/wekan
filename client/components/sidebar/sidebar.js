@@ -54,7 +54,7 @@ BlazeComponent.extendComponent({
   },
 
   reachNextPeak() {
-    const activitiesComponent = this.childrenComponents('activities')[0];
+    const activitiesComponent = this.childComponents('activities')[0];
     activitiesComponent.loadNextPage();
   },
 

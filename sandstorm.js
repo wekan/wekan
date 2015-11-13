@@ -22,12 +22,12 @@ if (isSandstorm && Meteor.isServer) {
   };
 
   function updateUserPermissions(userId, permissions) {
-    const isActive = permissions.includes('participate');
-    const isAdmin = permissions.includes('configure');
+    const isActive = permissions.indexOf('participate') > -1;
+    const isAdmin = permissions.indexOf('configure') > -1;
     const permissionDoc = { userId, isActive, isAdmin };
 
     const boardMembers = Boards.findOne(sandstormBoard._id).members;
-    const memberIndex = _.indexOf(_.pluck(boardMembers, 'userId'), userId);
+    const memberIndex = _.pluck(boardMembers, 'userId').indexOf(userId);
 
     let modifier;
     if (memberIndex > -1)
@@ -78,16 +78,39 @@ if (isSandstorm && Meteor.isServer) {
   // unique board document. Note that when the `Users.after.insert` hook is
   // called, the user is inserted into the database but not connected. So
   // despite the appearances `userId` is null in this block.
-  //
-  // XXX We should support the `preferredHandle` exposed by Sandstorm
   Users.after.insert((userId, doc) => {
     if (!Boards.findOne(sandstormBoard._id)) {
-      Boards.insert(sandstormBoard, {validate: false});
+      Boards.insert(sandstormBoard, { validate: false });
       Activities.update(
         { activityTypeId: sandstormBoard._id },
         { $set: { userId: doc._id }}
       );
     }
+
+    // We rely on username uniqueness for the user mention feature, but
+    // Sandstorm doesn't enforce this property -- see #352. Our strategy to
+    // generate unique usernames from the Sandstorm `preferredHandle` is to
+    // append a number that we increment until we generate a username that no
+    // one already uses (eg, 'max', 'max1', 'max2').
+    function generateUniqueUsername(username, appendNumber) {
+      return username + String(appendNumber === 0 ? '' : appendNumber);
+    }
+
+    const username = doc.services.sandstorm.preferredHandle;
+    let appendNumber = 0;
+    while (Users.findOne({
+      _id: { $ne: doc._id },
+      username: generateUniqueUsername(username, appendNumber),
+    })) {
+      appendNumber += 1;
+    }
+
+    Users.update(doc._id, {
+      $set: {
+        username: generateUniqueUsername(username, appendNumber),
+        'profile.fullname': doc.services.sandstorm.name,
+      },
+    });
 
     updateUserPermissions(doc._id, doc.services.sandstorm.permissions);
   });
@@ -109,7 +132,7 @@ if (isSandstorm && Meteor.isClient) {
   // sandstorm client to return relative paths instead of absolutes.
   const _absoluteUrl = Meteor.absoluteUrl;
   const _defaultOptions = Meteor.absoluteUrl.defaultOptions;
-  Meteor.absoluteUrl = (path, options) => {
+  Meteor.absoluteUrl = (path, options) => { // eslint-disable-line meteor/core
     const url = _absoluteUrl(path, options);
     return url.replace(/^https?:\/\/127\.0\.0\.1:[0-9]{2,5}/, '');
   };

@@ -35,6 +35,7 @@ cfs:tempstore@0.1.5
 cfs:upload-http@0.0.20
 cfs:worker@0.1.4
 check@1.1.0
+chuangbo:cookie@1.1.0
 coffeescript@1.0.11
 cosmos:browserify@0.8.3
 dburles:collection-helpers@1.0.4
@@ -75,6 +76,8 @@ meteor-base@1.0.1
 meteor-platform@1.2.3
 meteorhacks:aggregate@1.3.0
 meteorhacks:collection-utils@1.2.0
+meteorhacks:fast-render@2.10.0
+meteorhacks:inject-data@1.4.1
 meteorhacks:picker@1.0.3
 meteorhacks:subs-manager@1.6.2
 meteorspark:util@0.2.0

@@ -7,7 +7,7 @@ BlazeComponent.extendComponent({
 
   // Proxy
   openForm(options) {
-    this.childrenComponents('listBody')[0].openForm(options);
+    this.childComponents('listBody')[0].openForm(options);
   },
 
   onCreated() {
