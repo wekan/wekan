@@ -4,7 +4,7 @@ const DateString = Match.Where(function (dateAsString) {
 });
 
 class TrelloCreator {
-  constructor() {
+  constructor(data) {
     // The object creation dates, indexed by Trello id (so we only parse actions
     // once!)
     this.createdAt = {
@@ -18,6 +18,8 @@ class TrelloCreator {
     this.lists = {};
     // The comments, indexed by Trello card id (to map when importing cards)
     this.comments = {};
+    // the members, indexed by Trello member id => Wekan user ID
+    this.members = data.membersMapping ? data.membersMapping : {};
   }
 
   checkActions(trelloActions) {
@@ -191,6 +193,19 @@ class TrelloCreator {
           return this.labels[trelloId];
         });
       }
+      // add members {
+      if(card.idMembers) {
+        const wekanMembers = [];
+        // we can't just map, as some members may not have been mapped
+        card.idMembers.forEach((id) => {
+          if(this.members[id]) {
+            wekanMembers.push(this.members[id]);
+          }
+        });
+        if(wekanMembers.length>0) {
+          cardToCreate.members = wekanMembers;
+        }
+      }
       // insert card
       const cardId = Cards.direct.insert(cardToCreate);
       // log activity
@@ -298,7 +313,7 @@ class TrelloCreator {
 
 Meteor.methods({
   importTrelloBoard(trelloBoard, data) {
-    const trelloCreator = new TrelloCreator();
+    const trelloCreator = new TrelloCreator(data);
 
     // 1. check all parameters are ok from a syntax point of view
     try {
@@ -326,13 +341,14 @@ Meteor.methods({
   },
 
   importTrelloCard(trelloCard, data) {
-    const trelloCreator = new TrelloCreator();
+    const trelloCreator = new TrelloCreator(data);
 
     // 1. check parameters are ok from a syntax point of view
     try {
       check(data, {
         listId: String,
         sortIndex: Number,
+        membersMapping: Match.Optional(Object),
       });
       trelloCreator.checkCards([trelloCard]);
       trelloCreator.checkLabels(trelloCard.labels);

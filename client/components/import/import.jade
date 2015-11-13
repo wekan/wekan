@@ -4,6 +4,11 @@ template(name="importPopup")
   form
     p: label(for='import-textarea') {{_ getLabel}}
     textarea#import-textarea.js-import-json(placeholder="{{_ 'import-json-placeholder'}}" autofocus)
+      | {{jsonText}}
+    if membersMapping
+      div
+        a.show-mapping
+          | {{_ 'show-mapping'}}
     input.primary.wide(type="submit" value="{{_ 'import'}}")
 
 template(name="mapMembersPopup")
@@ -24,7 +29,7 @@ template(name="mapMembersPopup")
               a.member.add-member.js-add-members
                 i.fa.fa-plus
     form
-      input.primary.wide(type="submit" value="{{_ 'import'}}")
+      input.primary.wide(type="submit" value="{{_ 'done'}}")
 
       template(name="addMemberPopup")
 
@@ -36,7 +41,7 @@ template(name="mapMembersAddPopup")
     ul.pop-over-list
       +esEach(index="users")
         li.item.js-member-item
-          a.name.js-select-member(title="{{profile.name}} ({{username}})" data-id="{{_id}}")
+          a.name.js-select-import(title="{{profile.name}} ({{username}})" data-id="{{_id}}")
             +userAvatar(userId=_id esSearch=true)
             span.full-name
               = profile.name

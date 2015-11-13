@@ -11,6 +11,14 @@ const ImportPopup = BlazeComponent.extendComponent({
     return 'importPopup';
   },
 
+  jsonText() {
+    return Session.get('import.text');
+  },
+
+  membersMapping() {
+    return Session.get('import.membersToMap');
+  },
+
   onCreated() {
     this.error = new ReactiveVar('');
     this.dataToImport = '';
@@ -20,9 +28,21 @@ const ImportPopup = BlazeComponent.extendComponent({
     Popup.close();
   },
 
+  onShowMapping(evt) {
+    // todo xxx make it work - currently we don't find the text
+    // this._storeText(evt);
+    Popup.open('mapMembers')(evt);
+  },
+
+  _storeText(evt) {
+    const dataJson = $(evt.currentTarget).find('.js-import-json').val();
+    Session.set('import.text', dataJson);
+    return dataJson;
+  },
+
   onSubmit(evt){
     evt.preventDefault();
-    const dataJson = $(evt.currentTarget).find('.js-import-json').val();
+    const dataJson = this._storeText(evt);
     let dataObject;
     try {
       dataObject = JSON.parse(dataJson);
@@ -31,18 +51,14 @@ const ImportPopup = BlazeComponent.extendComponent({
       this.setError('error-json-malformed');
       return;
     }
-    // if there are members listed in the import, we need to map them
-    if(dataObject.members.length > 0) {
+    // if there are members listed in the import and we have no mapping for them...
+    if(dataObject.members.length > 0 && !this.membersMapping()) {
       // we will work on the list itself (an ordered array of POJO)
       // when a mapping is done, we add a 'wekan' field to the POJO representing the imported member
       const membersToMap = dataObject.members;
-      // todo save initial import object - to save later, on mapping submission
-      // this.data().toImport = dataObject;
-
       // auto-map based on username
-      const wekanMembers = Users;
       membersToMap.forEach((importedMember) => {
-        const wekanUser = Users.findOne({username: importedMember.username})
+        const wekanUser = Users.findOne({username: importedMember.username});
         if(wekanUser) {
           importedMember.wekan = wekanUser;
         }
@@ -52,7 +68,20 @@ const ImportPopup = BlazeComponent.extendComponent({
       Session.set('import.membersToMap', membersToMap);
       Popup.open('mapMembers')(evt);
     } else {
-      Meteor.call(this.getMethodName(), dataObject, this.getAdditionalData(),
+      const additionalData = this.getAdditionalData();
+      const membersMapping = this.membersMapping();
+      if(membersMapping) {
+        const mappingById = {};
+        membersMapping.forEach((member) => {
+          if (member.wekan) {
+            mappingById[member.id] = member.wekan._id;
+          }
+        });
+        additionalData.membersMapping = mappingById;
+      }
+      Session.set('import.membersToMap', null);
+      Session.set('import.text', null);
+      Meteor.call(this.getMethodName(), dataObject, additionalData,
         (error, response) => {
           if (error) {
             this.setError(error.error);
@@ -69,6 +98,7 @@ const ImportPopup = BlazeComponent.extendComponent({
   events() {
     return [{
       submit: this.onSubmit,
+      'click .show-mapping': this.onShowMapping,
     }];
   },
 
@@ -144,7 +174,7 @@ const ImportMapMembers = BlazeComponent.extendComponent({
     listOfMembers.forEach((member) => {
       if(finder(member)) {
         if(value !== null) {
-          member[property] = true;
+          member[property] = value;
         } else {
           delete member[property];
         }
@@ -152,10 +182,8 @@ const ImportMapMembers = BlazeComponent.extendComponent({
           // we shortcut if we don't care about unsetting the others
           return false;
         }
-      } else {
-        if(unset) {
-          delete member[property];
-        }
+      } else if(unset) {
+        delete member[property];
       }
       return true;
     });
@@ -188,47 +216,40 @@ const ImportMapMembers = BlazeComponent.extendComponent({
 });
 
 ImportMapMembers.extendComponent({
-  onSelectMember(evt) {
+  onMapMember(evt) {
     const memberToMap = this.currentData();
-    this.setSelectedMember(memberToMap.id);
-    console.log(`selected member#${memberToMap.id}`);
-    Popup.open('mapMembersAdd')(evt);
-  },
-  onRemove(evt){
-    const userId = this.currentData()._id;
-    console.log(`confirm and then call unmapMember ${userId}`);
+    if(memberToMap.wekan) {
+      // todo xxx ask for confirmation?
+      this.unmapMember(memberToMap.id);
+    } else {
+      this.setSelectedMember(memberToMap.id);
+      Popup.open('mapMembersAdd')(evt);
+    }
   },
   onSubmit(evt) {
-    console.log("Mapping:");
-    console.log(this.members());
+    evt.preventDefault();
+    Popup.back();
   },
   events() {
     return [{
       'submit': this.onSubmit,
-      'click .js-add-members': this.onSelectMember,
-      'click .js-member': this.onRemove,
+      'click .mapping': this.onMapMember,
     }];
   },
 }).register('mapMembersPopup');
 
 ImportMapMembers.extendComponent({
-  //template() {
-  //  return "mapMembersAddPopup";
-  //},
   onSelectUser(){
-    const wekanUser = this.currentData();
-    console.log(`clicked on ${wekanUser._id}`);
-    console.log(wekanUser);
-    //this.mapSelectedMember(this.currentData());
+    this.mapSelectedMember(this.currentData());
+    Popup.back();
   },
   events() {
     return [{
-      //'click .js-select-member': this.onSelectUser(),
+      'click .js-select-import': this.onSelectUser,
     }];
   },
   onRendered() {
-    console.log('rendered');
-    // todo XXX why do I not focus??
-    $('.js-map-member input').focus();
+    // todo XXX why do I not get the focus??
+    this.find('.js-map-member input').focus();
   },
 }).register('mapMembersAddPopup');
