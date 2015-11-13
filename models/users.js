@@ -2,11 +2,13 @@ Users = Meteor.users;
 
 // Search a user in the complete server database by its name or username. This
 // is used for instance to add a new user to a board.
-const searchInFields = ['username', 'profile.name'];
+const searchInFields = ['username', 'profile.fullname'];
 Users.initEasySearch(searchInFields, {
   use: 'mongo-db',
   returnFields: [...searchInFields, 'profile.avatarUrl'],
 });
+
+
 
 Users.helpers({
   boards() {

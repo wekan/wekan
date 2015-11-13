@@ -7,9 +7,42 @@ template(name="importPopup")
     input.primary.wide(type="submit" value="{{_ 'import'}}")
 
 template(name="mapMembersPopup")
-  p {{_ 'import-members-map'}}
-  ul
-    each members
-      li.item {{ fullName }} > world
-  form
-    input.primary.wide(type="submit" value="{{_ 'import'}}")
+  .map-members
+    p {{_ 'import-members-map'}}
+    .mapping-list
+      each members
+        .mapping
+          a.source
+            div.full-name
+              = fullName
+            div.username
+              | ({{username}})
+          .wekan
+            if wekan
+              +userAvatar(userId=wekan._id)
+            else
+              a.member.add-member.js-add-members
+                i.fa.fa-plus
+    form
+      input.primary.wide(type="submit" value="{{_ 'import'}}")
+
+      template(name="addMemberPopup")
+
+template(name="mapMembersAddPopup")
+  .select-member
+    p Hello world
+    .js-map-member
+      +esInput(index="users")
+    ul.pop-over-list
+      +esEach(index="users")
+        li.item.js-member-item
+          a.name.js-select-member(title="{{profile.name}} ({{username}})" data-id="{{_id}}")
+            +userAvatar(userId=_id esSearch=true)
+            span.full-name
+              = profile.name
+              | (<span class="username">{{username}}</span>)
+      +ifEsIsSearching(index='users')
+        +spinner
+      +ifEsHasNoResults(index="users")
+        .manage-member-section
+          p.quiet {{_ 'no-results'}}
