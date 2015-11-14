@@ -62,6 +62,10 @@ Lists.helpers({
     }), { sort: ['sort'] });
   },
 
+  cardCount() {
+    return this.cards().count();
+  },
+
   allCards() {
     return Cards.find({ listId: this._id });
   },
