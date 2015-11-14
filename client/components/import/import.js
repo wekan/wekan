@@ -33,7 +33,7 @@ const ImportPopup = BlazeComponent.extendComponent({
     Popup.open('mapMembers')(evt);
   },
 
-  _storeText(evt) {
+  _storeText() {
     const dataJson = this.$('.js-import-json').val();
     Session.set('import.text', dataJson);
     return dataJson;
