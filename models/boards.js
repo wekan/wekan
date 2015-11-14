@@ -181,6 +181,7 @@ Boards.mutations({
   },
 
   addMember(memberId) {
+    if (memberId === Meteor.userId()) return;
     const memberIndex = this.memberIndex(memberId);
     if (memberIndex === -1) {
       return {
@@ -203,6 +204,7 @@ Boards.mutations({
   },
 
   removeMember(memberId) {
+    if (memberId === Meteor.userId()) return;
     const memberIndex = this.memberIndex(memberId);
 
     return {
@@ -213,6 +215,7 @@ Boards.mutations({
   },
 
   setMemberPermission(memberId, isAdmin) {
+    if (memberId === Meteor.userId()) return;
     const memberIndex = this.memberIndex(memberId);
 
     return {
