@@ -184,7 +184,7 @@
     "page-maybe-private": "This page may be private. You may be able to view it by <a href='%s'>logging in</a>.",
     "page-not-found": "Page not found.",
     "password": "Password",
-    "paste-or-dragdrop": "Ctrl-V to paste, or drag & drop image file to it (image only)",
+    "paste-or-dragdrop": "to paste, or drag & drop image file to it (image only)",
     "preview": "Preview",
     "previewClipboardImagePopup-title": "Preview",
     "previewAttachedImagePopup-title": "Preview",
