@@ -275,6 +275,7 @@ BlazeComponent.extendComponent({
           return commands.KEY_ENTER;
         }
       },
+      maxCount: 30,
     });
   },
 }).register('addCardForm');
