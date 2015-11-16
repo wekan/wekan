@@ -20,6 +20,9 @@ class TrelloCreator {
     this.comments = {};
     // the members, indexed by Trello member id => Wekan user ID
     this.members = data.membersMapping ? data.membersMapping : {};
+
+    // maps a trelloCardId to an array of trelloAttachments
+    this.attachments = {};
   }
 
   checkActions(trelloActions) {
@@ -141,56 +144,14 @@ class TrelloCreator {
     return boardId;
   }
 
-  // Create labels if they do not exist and load this.labels.
-  createLabels(trelloLabels, board) {
-    trelloLabels.forEach((label) => {
-      const color = label.color;
-      const name = label.name;
-      const existingLabel = board.getLabel(name, color);
-      if (existingLabel) {
-        this.labels[label.id] = existingLabel._id;
-      } else {
-        const idLabelCreated = board.pushLabel(name, color);
-        this.labels[label.id] = idLabelCreated;
-      }
-    });
-  }
-
-  createLists(trelloLists, boardId) {
-    trelloLists.forEach((list) => {
-      const listToCreate = {
-        archived: list.closed,
-        boardId,
-        // We are being defensing here by providing a default date (now) if the
-        // creation date wasn't found on the action log. This happen on old
-        // Trello boards (eg from 2013) that didn't log the 'createList' action
-        // we require.
-        createdAt: new Date(this.createdAt.lists[list.id] || Date.now()),
-        title: list.name,
-        userId: Meteor.userId(),
-      };
-      const listId = Lists.direct.insert(listToCreate);
-      const now = new Date();
-      Lists.direct.update(listId, {$set: {'updatedAt': now}});
-      this.lists[list.id] = listId;
-      // log activity
-      Activities.direct.insert({
-        activityType: 'importList',
-        boardId,
-        createdAt: now,
-        listId,
-        source: {
-          id: list.id,
-          system: 'Trello',
-        },
-        // We attribute the import to current user, not the one from the
-        // original object
-        userId: Meteor.userId(),
-      });
-    });
-  }
-
-  createCardsAndComments(trelloCards, boardId) {
+  /**
+   * Create the Wekan cards corresponding to the supplied Trello cards,
+   * as well as all linked data: activities, comments, and attachments
+   * @param trelloCards
+   * @param boardId
+   * @returns {Array}
+   */
+  createCards(trelloCards, boardId) {
     const result = [];
     trelloCards.forEach((card) => {
       const cardToCreate = {
@@ -273,11 +234,89 @@ class TrelloCreator {
           });
         });
       }
-      // XXX add attachments
+      const attachments = this.attachments[card.id];
+      const trelloCoverId = card.idAttachmentCover;
+      if (attachments) {
+        attachments.forEach((att) => {
+          const file = new FS.File();
+          // Simulating file.attachData on the client generates multiple errors
+          // - HEAD returns null, which causes exception down the line
+          // - the template then tries to display the url to the attachment which causes other errors
+          // so we make it server only, and let UI catch up once it is done, forget about latency comp.
+          if(Meteor.isServer) {
+            file.attachData(att.url, function (error) {
+              file.boardId = boardId;
+              file.cardId = cardId;
+              if (error) {
+                throw(error);
+              } else {
+                const wekanAtt = Attachments.insert(file, () => {
+                  // we do nothing
+                });
+                //
+                if(trelloCoverId === att.id) {
+                  Cards.direct.update(cardId, { $set: {coverId: wekanAtt._id}});
+                }
+              }
+            });
+          }
+          // todo XXX set cover - if need be
+        });
+      }
       result.push(cardId);
     });
     return result;
   }
+
+  // Create labels if they do not exist and load this.labels.
+  createLabels(trelloLabels, board) {
+    trelloLabels.forEach((label) => {
+      const color = label.color;
+      const name = label.name;
+      const existingLabel = board.getLabel(name, color);
+      if (existingLabel) {
+        this.labels[label.id] = existingLabel._id;
+      } else {
+        const idLabelCreated = board.pushLabel(name, color);
+        this.labels[label.id] = idLabelCreated;
+      }
+    });
+  }
+
+  createLists(trelloLists, boardId) {
+    trelloLists.forEach((list) => {
+      const listToCreate = {
+        archived: list.closed,
+        boardId,
+        // We are being defensing here by providing a default date (now) if the
+        // creation date wasn't found on the action log. This happen on old
+        // Trello boards (eg from 2013) that didn't log the 'createList' action
+        // we require.
+        createdAt: new Date(this.createdAt.lists[list.id] || Date.now()),
+        title: list.name,
+        userId: Meteor.userId(),
+      };
+      const listId = Lists.direct.insert(listToCreate);
+      const now = new Date();
+      Lists.direct.update(listId, {$set: {'updatedAt': now}});
+      this.lists[list.id] = listId;
+      // log activity
+      Activities.direct.insert({
+        activityType: 'importList',
+        boardId,
+        createdAt: now,
+        listId,
+        source: {
+          id: list.id,
+          system: 'Trello',
+        },
+        // We attribute the import to current user, not the one from the
+        // original object
+        userId: Meteor.userId(),
+      });
+    });
+  }
+
 
   getColor(trelloColorCode) {
     // trello color name => wekan color
@@ -308,6 +347,29 @@ class TrelloCreator {
   parseActions(trelloActions) {
     trelloActions.forEach((action) => {
       switch (action.type) {
+      case 'addAttachmentToCard':
+        // We have to be cautious, because the attachment could have been removed later.
+        // In that case Trello still reports its addition, but removes its 'url' field.
+        // So we test for that
+        const trelloAttachment = action.data.attachment;
+        if(trelloAttachment.url) {
+          // we cannot actually create the Wekan attachment, because we don't yet
+          // have the cards to attach it to, so we store it in the instance variable.
+          const trelloCardId = action.data.card.id;
+          if(!this.attachments[trelloCardId]) {
+            this.attachments[trelloCardId] = [];
+          }
+          this.attachments[trelloCardId].push(trelloAttachment);
+        }
+        break;
+      case 'commentCard':
+        const id = action.data.card.id;
+        if (this.comments[id]) {
+          this.comments[id].push(action);
+        } else {
+          this.comments[id] = [action];
+        }
+        break;
       case 'createBoard':
         this.createdAt.board = action.date;
         break;
@@ -318,14 +380,6 @@ class TrelloCreator {
       case 'createList':
         const listId = action.data.list.id;
         this.createdAt.lists[listId] = action.date;
-        break;
-      case 'commentCard':
-        const id = action.data.card.id;
-        if (this.comments[id]) {
-          this.comments[id].push(action);
-        } else {
-          this.comments[id] = [action];
-        }
         break;
       default:
         // do nothing
@@ -360,7 +414,7 @@ Meteor.methods({
     trelloCreator.parseActions(trelloBoard.actions);
     const boardId = trelloCreator.createBoardAndLabels(trelloBoard);
     trelloCreator.createLists(trelloBoard.lists, boardId);
-    trelloCreator.createCardsAndComments(trelloBoard.cards, boardId);
+    trelloCreator.createCards(trelloBoard.cards, boardId);
     // XXX add members
     return boardId;
   },
@@ -399,7 +453,7 @@ Meteor.methods({
     trelloCreator.parseActions(trelloCard.actions);
     const board = list.board();
     trelloCreator.createLabels(trelloCard.labels, board);
-    const cardIds = trelloCreator.createCardsAndComments([trelloCard], board._id);
+    const cardIds = trelloCreator.createCards([trelloCard], board._id);
     return cardIds[0];
   },
 });
