@@ -64,7 +64,7 @@ const ImportPopup = BlazeComponent.extendComponent({
     this.error.set(error);
   },
 
-  _import: function (dataObject) {
+  _import(dataObject) {
     const additionalData = this.getAdditionalData();
     const membersMapping = this.membersMapping();
     if (membersMapping) {
