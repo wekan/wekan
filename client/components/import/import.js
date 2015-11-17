@@ -33,12 +33,6 @@ const ImportPopup = BlazeComponent.extendComponent({
     Popup.open('mapMembers')(evt);
   },
 
-  _storeText() {
-    const dataJson = this.$('.js-import-json').val();
-    Session.set('import.text', dataJson);
-    return dataJson;
-  },
-
   onSubmit(evt){
     evt.preventDefault();
     const dataJson = this._storeText(evt);
@@ -50,47 +44,12 @@ const ImportPopup = BlazeComponent.extendComponent({
       this.setError('error-json-malformed');
       return;
     }
-    // if there are members listed in the import and we have no mapping for them...
-    if(dataObject.members.length > 0 && !this.membersMapping()) {
-      // we will work on the list itself (an ordered array of POJO)
-      // when a mapping is done, we add a 'wekan' field to the POJO representing the imported member
-      const membersToMap = dataObject.members;
-      // auto-map based on username
-      membersToMap.forEach((importedMember) => {
-        const wekanUser = Users.findOne({username: importedMember.username});
-        if(wekanUser) {
-          importedMember.wekan = wekanUser;
-        }
-      });
-      // store members data and mapping in Session
-      // (we go deep and 2-way, so storing in data context is not a viable option)
-      Session.set('import.membersToMap', membersToMap);
-      Popup.open('mapMembers')(evt);
+    if(this._hasAllNeededData(dataObject)) {
+      this._import(dataObject);
     } else {
-      const additionalData = this.getAdditionalData();
-      const membersMapping = this.membersMapping();
-      if(membersMapping) {
-        const mappingById = {};
-        membersMapping.forEach((member) => {
-          if (member.wekan) {
-            mappingById[member.id] = member.wekan._id;
-          }
-        });
-        additionalData.membersMapping = mappingById;
-      }
-      Session.set('import.membersToMap', null);
-      Session.set('import.text', null);
-      Meteor.call(this.getMethodName(), dataObject, additionalData,
-        (error, response) => {
-          if (error) {
-            this.setError(error.error);
-          } else {
-            // ensure will display what we just imported
-            Filter.addException(response);
-            this.onFinish(response);
-          }
-        }
-      );
+      this._prepareAdditionalData(dataObject);
+      Popup.open(this._screenAdditionalData())(evt);
+
     }
   },
 
@@ -105,6 +64,64 @@ const ImportPopup = BlazeComponent.extendComponent({
     this.error.set(error);
   },
 
+  _import: function (dataObject) {
+    const additionalData = this.getAdditionalData();
+    const membersMapping = this.membersMapping();
+    if (membersMapping) {
+      const mappingById = {};
+      membersMapping.forEach((member) => {
+        if (member.wekan) {
+          mappingById[member.id] = member.wekan._id;
+        }
+      });
+      additionalData.membersMapping = mappingById;
+    }
+    Session.set('import.membersToMap', null);
+    Session.set('import.text', null);
+    Meteor.call(this.getMethodName(), dataObject, additionalData,
+      (error, response) => {
+        if (error) {
+          this.setError(error.error);
+        } else {
+          // ensure will display what we just imported
+          Filter.addException(response);
+          this.onFinish(response);
+        }
+      }
+    );
+  },
+
+  _hasAllNeededData(dataObject) {
+    // import has no members or they are already mapped
+    return dataObject.members.length === 0 || this.membersMapping();
+  },
+
+  _prepareAdditionalData(dataObject) {
+    // we will work on the list itself (an ordered array of objects)
+    // when a mapping is done, we add a 'wekan' field to the object representing the imported member
+    const membersToMap = dataObject.members;
+    // auto-map based on username
+    membersToMap.forEach((importedMember) => {
+      const wekanUser = Users.findOne({username: importedMember.username});
+      if(wekanUser) {
+        importedMember.wekan = wekanUser;
+      }
+    });
+    // store members data and mapping in Session
+    // (we go deep and 2-way, so storing in data context is not a viable option)
+    Session.set('import.membersToMap', membersToMap);
+    return membersToMap;
+  },
+
+  _screenAdditionalData() {
+    return 'mapMembers';
+  },
+
+  _storeText() {
+    const dataJson = this.$('.js-import-json').val();
+    Session.set('import.text', dataJson);
+    return dataJson;
+  },
 });
 
 ImportPopup.extendComponent({

@@ -103,7 +103,7 @@ class TrelloCreator {
         if(this.members[trelloId]) {
           const wekanId = this.members[trelloId];
           // do we already have it in our list?
-          if(!boardToCreate.members.find((wekanMember) => {return (wekanMember.userId === wekanId);})) {
+          if(!boardToCreate.members.find((wekanMember) => wekanMember.userId === wekanId)) {
             boardToCreate.members.push({
               userId: wekanId,
               isAdmin: false,
@@ -181,7 +181,7 @@ class TrelloCreator {
             const wekanId = this.members[trelloId];
             // we may map multiple Trello members to the same wekan user
             // in which case we risk adding the same user multiple times
-            if(!wekanMembers.find((wId) => {return (wId === wekanId);})){
+            if(!wekanMembers.find((wId) => wId === wekanId)){
               wekanMembers.push(wekanId);
             }
           }

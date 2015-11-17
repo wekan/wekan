@@ -14,7 +14,7 @@ binary-heap@1.0.4
 blaze@2.1.3
 blaze-html-templates@1.0.1
 blaze-tools@1.0.4
-boilerplate-generator@1.0.5-cdn-url
+boilerplate-generator@1.0.4
 caching-compiler@1.0.0
 caching-html-compiler@1.0.2
 callback-hook@1.0.4
@@ -142,6 +142,6 @@ useraccounts:core@1.12.4
 useraccounts:flow-routing@1.12.4
 useraccounts:unstyled@1.12.4
 verron:autosize@3.0.8
-webapp@1.2.4-cdn-url
+webapp@1.2.3
 webapp-hashing@1.0.5
 zimme:active-route@2.3.2
