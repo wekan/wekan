@@ -6,7 +6,7 @@ FlowRouter.triggers.exit([({path}) => {
 FlowRouter.triggers.enter([({path}) => {
   if (window.parent) {
     window.parent.postMessage({
-      setPath: path
+      setPath: path,
     }, '*');
   }
 }]);
