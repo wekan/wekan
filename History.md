@@ -11,7 +11,7 @@ This release features:
 * Support images attachments copy pasting.
 
 Thanks to GitHub users AlexanderS, fisle, floatinghotpot, FuzzyWuzzie, ndarilek,
-and xavierpriour for their contributions.
+SirCmpwn, and xavierpriour for their contributions.
 
 # v0.9
 
