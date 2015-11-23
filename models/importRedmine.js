@@ -160,6 +160,75 @@ class RedmineImporter {
     
     throw new Meteor.Error('error-json-schema');
   }
+
+  exportCards(filter, boardId, tsv) {
+    const separator = tsv ? '\t' : ',';
+    const board = Boards.findOne(boardId);
+    const users = board.memberUsers().fetch();
+    const lists = board.lists().fetch();
+    const mapuser = {};
+    const maplist = {};
+    const maplabel = {};
+    users.forEach((user) => {
+      mapuser[user._id] = user.username;
+    });
+    lists.forEach((list) => {
+      maplist[list._id] = list.title;
+    });
+    board.labels.forEach((label) => {
+      maplabel[label._id] = label.name || label.color;
+    });
+
+    const cards = Cards.find(filter, { sort: ['sort'] }).fetch();
+
+    let maxMembers = 1;
+    let maxLabels = 1;
+    cards.forEach((card) => {
+      if(card.members && card.members.length > maxMembers) maxMembers = card.members.length;
+      if(card.labelIds && card.labelIds.length > maxLabels) maxLabels = card.labelIds.length;
+    });
+    const hmembers = _.range(maxMembers).map(() => 'member');
+    const hlabels = _.range(maxLabels).map(() => 'label');
+    const headers = ['title',
+                     'description',
+                     'status'].concat(
+                       hmembers,
+                       hlabels,
+                       ['manHour',
+                     'dueDate',
+                     'startDate',
+                     'finishDate',
+                     'createAt',
+                     'updateAt']);
+    const dataGrid = [];
+    dataGrid.push( headers.join(separator) );
+
+    cards.forEach((card) => {
+      const usernames = card.members.map((memberId) => mapuser[memberId]);
+      if (usernames.length < maxMembers) {
+        for (let i=usernames.length; i<maxMembers; i++) usernames.push('');
+      }
+      const labels = card.labelIds.map((labelId) => maplabel[labelId]);
+      if (labels.length < maxLabels) {
+        for (let i=labels.length; i<maxLabels; i++) labels.push('');
+      }
+      const fields = [card.title,
+                      `"${card.description || ''}"`,
+                      maplist[card.listId]].concat(
+                        usernames,
+                        labels,
+                      [card.manHour || '',
+                      card.dueDate ? moment(card.dueDate).format('YYYY-MM-DD') : '',
+                      card.startDate ? moment(card.startDate).format('YYYY-MM-DD') : '',
+                      card.finishDate ? moment(card.finishDate).format('YYYY-MM-DD') : '',
+                      card.createdAt ? moment(card.createdAt).format('YYYY-MM-DD HH:mm:ss') : '',
+                      card.dateLastActivity ? moment(card.dateLastActivity).format('YYYY-MM-DD HH:mm:ss') : ''
+                     ]);
+      dataGrid.push( fields.join(separator) );
+    });
+
+    return dataGrid.join('\n');
+  }
 }
 
 Meteor.methods({
@@ -173,7 +242,17 @@ Meteor.methods({
     } catch(e) {
       throw new Meteor.Error('error-json-schema');
     }
-
     return new RedmineImporter().importCards(rows, data.listId, data.sortIndex);
+  },
+  exportCardList(listId, boardId, tsv) {
+    try {
+      check(listId, String);
+      check(boardId, String);
+      check(tsv, Boolean);
+    } catch(e) {
+      throw new Meteor.Error('error-json-schema');
+    }
+    const filter = { listId, boardId, archived: false };
+    return new RedmineImporter().exportCards(filter, boardId, tsv);
   },
 });

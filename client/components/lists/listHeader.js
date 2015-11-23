@@ -35,10 +35,11 @@ Template.listActionPopup.events({
   },
   'click .js-list-subscribe'() {},
   'click .js-select-cards'() {
-    const cardIds = this.allCards().map((card) => card._id);
+    const cardIds = this.cards().map((card) => card._id);
     MultiSelection.add(cardIds);
     Popup.close();
   },
+  'click .js-export-cards': Popup.open('listExportCards'),
   'click .js-import-card-other-board': Popup.open('importCardFromOtherBoard'),
   'click .js-import-card': Popup.open('listImportCard'),
   'click .js-import-redminecsv': Popup.open('listImportRedmine'),
@@ -66,6 +67,14 @@ Template.listMoveCardsPopup.events({
     });
     Popup.close();
   },
+});
+
+Template.listExportCardsPopup.onRendered(function() {
+  Meteor.call('exportCardList', currentListId, Session.get('currentBoard'), false, (err,ret) => {
+    if (!err) {
+      $('.js-export-cards-csv').val(ret);
+    }
+  });
 });
 
 BlazeComponent.extendComponent({
