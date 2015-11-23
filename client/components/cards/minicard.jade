@@ -8,8 +8,10 @@ template(name="minicard")
         each labels
           .minicard-label(class="card-label-{{color}}" title="{{name}}")
     .minicard-title= title
-    if members
-      .minicard-members.js-minicard-members
+    .minicard-members.js-minicard-members
+      userId
+        +userAvatar(userId=userId)
+      if members
         each members
           +userAvatar(userId=this)
     .badges
