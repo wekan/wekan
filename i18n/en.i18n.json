@@ -176,6 +176,7 @@
     "listActionPopup-title": "List Actions",
     "listArchiveCardsPopup-title": "Archive All Cards in this List?",
     "listExportCardsPopup-title": "Export Cards to CSV",
+    "listExportCardsTsvPopup-title": "Export Cards to Excel TSV",
     "listImportCardPopup-title": "Import a Trello card",
     "listImportRedminePopup-title": "Import Redmine CSV",
     "listMembersPopup-title": "List Members",

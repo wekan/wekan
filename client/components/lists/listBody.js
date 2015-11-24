@@ -27,7 +27,7 @@ BlazeComponent.extendComponent({
     const lastCardDom = this.find('.js-minicard:last');
     const textarea = $(evt.currentTarget).find('textarea');
     const position = this.currentData().position;
-    const title = textarea.val().trim();
+    let title = textarea.val().trim();
 
     const formComponent = this.childComponents('addCardForm')[0];
     let sortIndex;
@@ -42,18 +42,12 @@ BlazeComponent.extendComponent({
       const board = list.board();
       if(title.indexOf('\n') > 0) {
         let rows = [];
-        // if the text contains '\t', it's treated as TSV format
-        if (title.indexOf('\t') > 0) {
-          title.split('\n').forEach((line) => {
-            if(line.length > 0)
-              rows.push(line.split('\t'));
-          });
-        } else {
-          // we use Papa.Parse to parse CSV to data rows
-          if (!window.Papa) return;
-          const ret = window.Papa.parse(title);
-          if (ret && ret.data && ret.data.length) rows = ret.data;
-        }
+        // if the text contains '\t', we convert TSV to CSV
+        if (title.indexOf('\t') > 0) title = title.replace(/(\t)/g,',');
+        // we use Papa.Parse to parse CSV to data rows
+        if (!window.Papa) return;
+        const ret = window.Papa.parse(title);
+        if (ret && ret.data && ret.data.length) rows = ret.data;
 
         if(rows.length > 0) {
           // import batch cards will be more efficient on server-side

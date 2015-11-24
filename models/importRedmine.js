@@ -18,6 +18,7 @@ class RedmineImporter {
     const index = {
       title: -1,
       desc: -1,
+      owner: -1,
       member: [],
       label: [],
       state: -1,
@@ -37,8 +38,10 @@ class RedmineImporter {
       case 'desc':
         index.desc = i;
         break;
-      case 'member':
       case 'owner':
+        index.owner = i;
+        break;
+      case 'member':
         index.member.push(i);
         break;
       case 'label':
@@ -97,6 +100,7 @@ class RedmineImporter {
       if (!item) continue;
       if (i === index.title) card.title = item;
       else if (i === index.desc) card.description = item;
+      else if (i === index.owner) card.userId = mapping[item];
       else if (_.contains(index.member, i)) {
         // check the member id
         const userId = mapping[item];
@@ -191,6 +195,7 @@ class RedmineImporter {
     const hlabels = _.range(maxLabels).map(() => 'label');
     const headers = ['title',
                      'description',
+                     'owner',
                      'status'].concat(
                        hmembers,
                        hlabels,
@@ -204,16 +209,17 @@ class RedmineImporter {
     dataGrid.push( headers.join(separator) );
 
     cards.forEach((card) => {
-      const usernames = card.members.map((memberId) => mapuser[memberId]);
+      const usernames = (card.members) ? card.members.map((memberId) => mapuser[memberId]) : [];
       if (usernames.length < maxMembers) {
         for (let i=usernames.length; i<maxMembers; i++) usernames.push('');
       }
-      const labels = card.labelIds.map((labelId) => maplabel[labelId]);
+      const labels = (card.labelIds) ? card.labelIds.map((labelId) => maplabel[labelId]) : [];
       if (labels.length < maxLabels) {
         for (let i=labels.length; i<maxLabels; i++) labels.push('');
       }
-      const fields = [card.title,
+      const fields = [`"${card.title}"`,
                       `"${card.description || ''}"`,
+                      mapuser[card.userId],
                       maplist[card.listId]].concat(
                         usernames,
                         labels,

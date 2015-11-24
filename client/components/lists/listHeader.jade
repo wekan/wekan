@@ -20,18 +20,19 @@ template(name="editListTitleForm")
       a.fa.fa-times-thin.js-close-inlined-form
 
 template(name="listActionPopup")
-  if cards.count
-    ul.pop-over-list
-      li: a.js-select-cards {{_ 'list-select-cards'}}
-      li: a.js-move-cards {{_ 'list-move-cards'}}
-      li: a.js-export-cards {{_ 'listExportCardsPopup-title'}}
-    hr
   ul.pop-over-list
     li: a.js-add-card {{_ 'add-card'}}
     li: a.js-import-card-other-board {{_ 'import-card-other-board'}}
     li: a.js-import-card {{_ 'import-card'}}
     li: a.js-import-redminecsv {{_ 'import-redminecsv'}}
   hr
+  if cards.count
+    ul.pop-over-list
+      li: a.js-select-cards {{_ 'list-select-cards'}}
+      li: a.js-move-cards {{_ 'list-move-cards'}}
+      li: a.js-export-cards {{_ 'listExportCardsPopup-title'}}
+      li: a.js-export-cards {{_ 'listExportCardsTsvPopup-title'}}
+    hr
   ul.pop-over-list
     if cards.count
       li: a.js-archive-cards {{_ 'list-archive-cards'}}
@@ -46,6 +47,10 @@ template(name="listMoveCardsPopup")
 template(name="listExportCardsPopup")
   span {{_ 'select-and-copy'}}
   textarea.js-export-cards-csv
+
+template(name="listExportCardsTsvPopup")
+  span {{_ 'select-and-copy'}}
+  textarea.js-export-cards-tsv
 
 template(name="importCardFromOtherBoardPopup")
   ul.pop-over-list
@@ -130,13 +135,13 @@ template(name="listImportRedminePopup")
   if error.get
     .warning {{_ error.get}}
   form
-    p: label(for='file-redminecsv') {{_ "select-redminecsv"}}
+    label(for='file-redminecsv') {{_ "select-redminecsv"}}
       input#file-redminecsv.js-select-redminecsv(type="file")
-    p: label(for='encoding-csv') {{_ "charset-encoding"}}
+    label(for='encoding-csv') {{_ "charset-encoding"}}
       select#encoding-csv.js-encodingcsv
         each csvEncodings
           option(value="{{this}}") {{this.toUpperCase}}
-    p: label(for='file-mappingcsv') {{_ "select-mappingcsv"}}
+    label(for='file-mappingcsv') {{_ "select-mappingcsv"}}
       textarea#file-mappingcsv.js-select-mappingcsv
         = board.dataMapping
     hr
