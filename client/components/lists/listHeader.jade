@@ -7,26 +7,26 @@ template(name="listHeader")
         class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
         = title
       if currentUser.isBoardMember
-        a.list-header-menu-icon.fa.fa-ellipsis-v.js-open-list-menu
+        a.list-header-menu-icon.fa.fa-ellipsis-v.js-open-list-menu(href="#")
 
 template(name="editListTitleForm")
   .list-composer
     input.list-name-input.full-line(type="text" value=title autofocus)
     .edit-controls.clearfix
       button.primary.confirm(type="submit") {{_ 'save'}}
-      a.fa.fa-times-thin.js-close-inlined-form
+      a.fa.fa-times-thin.js-close-inlined-form(href="#")
 
 template(name="listActionPopup")
   ul.pop-over-list
-    li: a.js-add-card {{_ 'add-card'}}
+    li: a.js-add-card(href="#") {{_ 'add-card'}}
     if cards.count
-      li: a.js-select-cards {{_ 'list-select-cards'}}
-      li: a.js-move-cards {{_ 'list-move-cards'}}
-      li: a.js-archive-cards {{_ 'list-archive-cards'}}
+      li: a.js-select-cards(href="#") {{_ 'list-select-cards'}}
+      li: a.js-move-cards(href="#") {{_ 'list-move-cards'}}
+      li: a.js-archive-cards(href="#") {{_ 'list-archive-cards'}}
   hr
   ul.pop-over-list
-    li: a.js-import-card {{_ 'import-card'}}
-    li: a.js-close-list {{_ 'archive-list'}}
+    li: a.js-import-card(href="#") {{_ 'import-card'}}
+    li: a.js-close-list(href="#") {{_ 'archive-list'}}
 
 template(name="listMoveCardsPopup")
   +boardLists
@@ -36,9 +36,9 @@ template(name="boardLists")
     each currentBoard.lists
       li
         if($eq ../_id _id)
-          a.disabled {{title}} ({{_ 'current'}})
+          a.disabled(href="#") {{title}} ({{_ 'current'}})
         else
-          a.js-select-list= title
+          a.js-select-list(href="#")= title
 
 template(name="listArchiveCardsPopup")
   p {{_ 'list-archive-cards-pop'}}

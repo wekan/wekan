@@ -33,8 +33,8 @@ template(name="addListForm")
           autocomplete="off" autofocus)
         .edit-controls.clearfix
           button.primary.confirm(type="submit") {{_ 'save'}}
-          a.fa.fa-times-thin.js-close-inlined-form
+          a.fa.fa-times-thin.js-close-inlined-form(href="#")
       else
-        a.open-list-composer.js-open-inlined-form
+        a.open-list-composer.js-open-inlined-form(href="#")
           i.fa.fa-plus
           | {{_ 'add-list'}}

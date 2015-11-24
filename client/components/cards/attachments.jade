@@ -2,7 +2,7 @@ template(name="cardAttachmentsPopup")
   ul.pop-over-list
     li
       input.js-attach-file.hide(type="file" name="file" multiple)
-      a.js-computer-upload {{_ 'computer'}}
+      a.js-computer-upload(href="#") {{_ 'computer'}}
 
 template(name="attachmentDeletePopup")
   p {{_ "attachment-delete-pop"}}
@@ -11,7 +11,7 @@ template(name="attachmentDeletePopup")
 template(name="attachmentsGalery")
   .attachments-galery
     each attachments
-      a.attachment-item.js-open-viewer(title="{{_ 'added'}} {{ moment uploadedAt }}")
+      a.attachment-item.js-open-viewer(href="#" title="{{_ 'added'}} {{ moment uploadedAt }}")
         .attachment-thumbnail
           if isUploaded
             if isImage
@@ -28,15 +28,15 @@ template(name="attachmentsGalery")
               | {{_ 'download'}}
             if currentUser.isBoardMember
               if isImage
-                a(class="{{#if $eq ../coverId _id}}js-remove-cover{{else}}js-add-cover{{/if}}")
+                a(href="#" class="{{#if $eq ../coverId _id}}js-remove-cover{{else}}js-add-cover{{/if}}")
                   i.fa.fa-thumb-tack
                   if($eq ../coverId _id)
                     | {{_ 'remove-cover'}}
                   else
                     | {{_ 'add-cover'}}
-              a.js-confirm-delete
+              a.js-confirm-delete(href="#")
                 i.fa.fa-close
                 | {{_ 'delete'}}
 
     if currentUser.isBoardMember
-      a.attachment-item.add-attachment.js-add-attachment {{_ 'add-attachment' }}
+      a.attachment-item.add-attachment.js-add-attachment(href="#") {{_ 'add-attachment' }}
