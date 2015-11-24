@@ -1,12 +1,13 @@
 template(name="sidebar")
   .board-sidebar.sidebar(class="{{#if isOpen}}is-open{{/if}}")
     a.sidebar-tongue.js-toggle-sidebar(
+      href="#"
       class="{{#if isTongueHidden}}is-hidden{{/if}}")
       i.fa.fa-angle-left
     .sidebar-content.js-board-sidebar-content.js-perfect-scrollbar
       unless isDefaultView
         h2
-          a.fa.fa-chevron-left.js-back-home
+          a.fa.fa-chevron-left.js-back-home(href="#")
           = getViewTitle
       +Template.dynamic(template=getViewTemplate)
 
@@ -30,7 +31,7 @@ template(name="membersWidget")
         +userAvatar(userId=this.userId showStatus=true)
       unless isSandstorm
         if currentUser.isBoardAdmin
-          a.member.add-member.js-manage-board-members
+          a.member.add-member.js-manage-board-members(href="#")
             i.fa.fa-plus
       .clearfix
 
@@ -41,11 +42,11 @@ template(name="labelsWidget")
       | {{_ 'labels'}}
     .board-widget-content
       each currentBoard.labels
-          a.card-label(class="card-label-{{color}}"
+          a.card-label(href="#" class="card-label-{{color}}"
             class="{{#if currentUser.isBoardMember}}js-label{{/if}}")
             span.card-label-name= name
       if currentUser.isBoardAdmin
-        a.card-label.add-label.js-add-label
+        a.card-label.add-label.js-add-label(href="#")
           i.fa.fa-plus
 
 template(name="memberPopup")
@@ -59,20 +60,20 @@ template(name="memberPopup")
 
     ul.pop-over-list
       li
-        a.js-filter-member {{_ 'filter-cards'}}
+        a.js-filter-member(href="#") {{_ 'filter-cards'}}
       if currentUser.isBoardAdmin
         unless isSandstorm
           li
-            a.js-change-role
+            a.js-change-role(href="#")
               | {{_ 'change-permissions'}}
               span.quiet (#{memberType})
           li
             if $eq currentUser._id userId
               //-
                 XXX Not implemented!
-              // a.js-leave-member {{_ 'leave-board'}}
+              // a.js-leave-member(href="#") {{_ 'leave-board'}}
             else
-              a.js-remove-member {{_ 'remove-from-board'}}
+              a.js-remove-member(href="#") {{_ 'remove-from-board'}}
 
 
 template(name="removeMemberPopup")
@@ -86,7 +87,7 @@ template(name="addMemberPopup")
   ul.pop-over-list
     +esEach(index="users")
       li.item.js-member-item(class="{{#if isBoardMember}}disabled{{/if}}")
-        a.name.js-select-member(title="{{profile.name}} ({{username}})")
+        a.name.js-select-member(href="#" title="{{profile.name}} ({{username}})")
           +userAvatar(userId=_id esSearch=true)
           span.full-name
             = profile.fullname
@@ -104,13 +105,13 @@ template(name="addMemberPopup")
 template(name="changePermissionsPopup")
   ul.pop-over-list
     li
-      a(class="{{#if isLastAdmin}}disabled{{else}}js-set-admin{{/if}}")
+      a(href="#" class="{{#if isLastAdmin}}disabled{{else}}js-set-admin{{/if}}")
         | {{_ 'admin'}}
         if isAdmin
           i.fa.fa-check
         span.sub-name {{_ 'admin-desc'}}
     li
-      a(class="{{#if isLastAdmin}}disabled{{else}}js-set-normal{{/if}}")
+      a(href="#" class="{{#if isLastAdmin}}disabled{{else}}js-set-normal{{/if}}")
         | {{_ 'normal'}}
         unless isAdmin
           i.fa.fa-check

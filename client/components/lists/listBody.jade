@@ -16,7 +16,7 @@ template(name="listBody")
         +inlinedForm(autoclose=false position="bottom")
           +addCardForm(listId=_id position="bottom")
         else
-          a.open-minicard-composer.js-card-composer.js-open-inlined-form
+          a.open-minicard-composer.js-card-composer.js-open-inlined-form(href="#")
             i.fa.fa-plus
             | {{_ 'add-card'}}
 
@@ -34,7 +34,7 @@ template(name="addCardForm")
 
   .add-controls.clearfix
     button.primary.confirm(type="submit") {{_ 'add'}}
-    a.fa.fa-times-thin.js-close-inlined-form
+    a.fa.fa-times-thin.js-close-inlined-form(href="#")
 
 template(name="autocompleteLabelLine")
   .minicard-label(class="card-label-{{colorName}}" title=labelName)
