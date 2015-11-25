@@ -168,10 +168,16 @@ BlazeComponent.extendComponent({
   },
 
   select(to) {
-    const lists = this.list();
+    const curList = this.list();
     this.allStatus().forEach((st) => {
-      if(st === to) lists.setStatus(st);
+      if(st === to) curList.setStatus(st);
     });
+  },
+
+  toggle(tag) {
+    const curList = this.list();
+    if (curList.hasTag(tag)) curList.removeTag(tag);
+    else curList.addTag(tag);
   },
 
   events() {
@@ -189,6 +195,15 @@ BlazeComponent.extendComponent({
       },
       'click .js-select-done'() {
         this.select('done');
+      },
+      'click .js-list-toggle-notify-owner'() {
+        this.toggle('notifyOwner');
+      },
+      'click .js-list-toggle-notify-members'() {
+        this.toggle('notifyMembers');
+      },
+      'click .js-list-toggle-notify-list'() {
+        this.toggle('notifyList');
       },
     }];
   },

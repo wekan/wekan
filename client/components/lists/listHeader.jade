@@ -82,7 +82,17 @@ template(name="listArchiveCardsPopup")
   input.js-confirm.negate.full(type="submit" value="{{_ 'archive-all'}}")
 
 template(name="listSettingsPopup")
-  p {{_ 'when-drop-card-to-list'}}
+  h3
+    i.fa.fa-user
+    | {{_ 'list-members'}}
+  each members
+    +userAvatar(userId=this listId=list._id)
+    | {{! XXX Hack to hide syntaxic coloration /// }}
+  if currentUser.isBoardMember
+    a.member.add-member.js-add-members(title="{{_ 'list-members-title'}}")
+      i.fa.fa-plus
+  hr
+  h3 {{_ 'when-drop-card-to-list'}}
   ul.pop-over-list
     li
       a.js-select-none
@@ -110,14 +120,27 @@ template(name="listSettingsPopup")
           i.fa.fa-check
   hr
   h3
-    i.fa.fa-user
-    | {{_ 'members'}}
-  each members
-    +userAvatar(userId=this listId=list._id)
-    | {{! XXX Hack to hide syntaxic coloration /// }}
-  if currentUser.isBoardMember
-    a.member.add-member.js-add-members(title="{{_ 'list-members-title'}}")
-      i.fa.fa-plus
+    i.fa.fa-bell
+    | {{_ 'notify'}}
+  ul.pop-over-list
+    li
+      a.js-list-toggle-notify-owner
+        i.fa.fa-user
+        | {{_ 'card-owner'}}
+        if (list.hasTag "notifyOwner")
+          i.fa.fa-check
+    li
+      a.js-list-toggle-notify-members
+        i.fa.fa-users
+        | {{_ 'card-members'}}
+        if (list.hasTag "notifyMembers")
+          i.fa.fa-check
+    li
+      a.js-list-toggle-notify-list
+        i.fa.fa-users
+        | {{_ 'list-members'}}
+        if (list.hasTag "notifyList")
+          i.fa.fa-check
 
 template(name="listMembersPopup")
   ul.pop-over-list.js-list-member-list

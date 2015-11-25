@@ -41,7 +41,11 @@ const actHandlers = {
       ],
     }, user.profile.language);
     const msg = `${showName(user)} ${actStr} -- ${cardUrl(card)}`;
-    if(callback) return callback(_.union([user._id], card.members, list.members), msg);
+    let userList = [user._id];
+    if(list.hasTag('notifyOwner')) userList = _.union(userList, [card.userId]);
+    if(list.hasTag('notifyMembers')) userList = _.union(userList, card.members);
+    if(list.hasTag('notifyList')) userList = _.union(userList, list.members);
+    if(callback) return callback(userList, msg);
   },
 
   addComment: (act, callback) => {
@@ -54,7 +58,7 @@ const actHandlers = {
       ],
     }, user.profile.language);
     const msg = `${showName(user)} ${actStr} [${act.comment().text}] -- ${cardUrl(card)}`;
-    if(callback) return callback(_.union([user._id], card.members), msg);
+    if(callback) return callback(_.union([user._id], [card.userId], card.members), msg);
   },
 
   joinMember: (act, callback) => {
@@ -75,7 +79,6 @@ const actHandlers = {
 };
 
 Meteor.startup(() => {
-  if (!QQBOT_HOST) return;
   Activities.after.insert((userId, doc) => {
     const func = actHandlers[ doc.activityType ];
     if (func) {
@@ -90,9 +93,11 @@ Meteor.startup(() => {
             }
           });
         }
-        qqlist.forEach((to) => {
-          qqSend({ type:'buddy', to, msg });
-        });
+        if (QQBOT_HOST) {
+          qqlist.forEach((to) => {
+            qqSend({ type:'buddy', to, msg });
+          });
+        }
       });
     }
   });

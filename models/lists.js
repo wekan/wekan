@@ -39,6 +39,10 @@ Lists.attachSchema(new SimpleSchema({
     type: [String],
     optional: true,
   },
+  tags: {
+    type: [String],
+    optional: true,
+  },
 }));
 
 Lists.allow({
@@ -73,6 +77,10 @@ Lists.helpers({
   board() {
     return Boards.findOne(this.boardId);
   },
+
+  hasTag(tag) {
+    return this.tags && _.contains(this.tags, tag);
+  },
 });
 
 Lists.mutations({
@@ -94,6 +102,14 @@ Lists.mutations({
 
   unassignMember(memberId) {
     return { $pull: { members: memberId }};
+  },
+
+  addTag(tag) {
+    return { $addToSet: { tags: tag }};
+  },
+
+  removeTag(tag) {
+    return { $pull: { tags: tag }};
   },
 
   toggleMember(memberId) {
