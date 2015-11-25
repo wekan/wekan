@@ -132,6 +132,9 @@ template(name="boardChangeTitlePopup")
     label
       | {{_ 'title'}}
       input.js-board-name(type="text" value=title autofocus)
+    label
+      | {{_ 'description'}}
+      textarea.js-board-desc= description
     input.primary.wide(type="submit" value="{{_ 'rename'}}")
 
 template(name="archiveBoardPopup")
