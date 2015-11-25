@@ -2,7 +2,8 @@
 
 This release features:
 
-* Card import from Trello
+* Trello boards and cards importation, including card history, assigned members,
+  labels, comments, and attachments;
 * Autocompletion in the minicard editor. Start with <kbd>@</kbd> to start the
   a board member autocompletion, or <kbd>#</kbd> for a label;
 * Accelerate the initial page rendering by sending the data on the intial HTTP

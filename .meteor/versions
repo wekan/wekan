@@ -12,6 +12,7 @@ babel-runtime@0.1.4
 base64@1.0.4
 binary-heap@1.0.4
 blaze@2.1.3
+blaze-html-templates@1.0.1
 blaze-tools@1.0.4
 boilerplate-generator@1.0.4
 caching-compiler@1.0.0
@@ -63,7 +64,7 @@ idmontie:migrations@1.0.1
 jquery@1.11.4
 kadira:blaze-layout@2.2.0
 kadira:dochead@1.3.2
-kadira:flow-router@2.8.0
+kadira:flow-router@2.9.0
 kenton:accounts-sandstorm@0.1.8
 launch-screen@1.0.4
 livedata@1.0.15
@@ -124,7 +125,7 @@ seriousm:emoji-continued@1.4.0
 service-configuration@1.0.5
 session@1.1.1
 sha@1.0.4
-softwarerero:accounts-t9n@1.1.4
+softwarerero:accounts-t9n@1.1.6
 spacebars@1.0.7
 spacebars-compiler@1.0.7
 srp@1.0.4
