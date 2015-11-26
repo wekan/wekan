@@ -46,3 +46,9 @@ AccountsTemplates.configureRoute('changePwd', {
     Popup.back();
   },
 });
+
+if (Meteor.isServer) {
+  if (process.env.MAIL_FROM) {
+    Accounts.emailTemplates.from = process.env.MAIL_FROM;
+  }
+}

@@ -7,7 +7,7 @@ template(name="cardAttachmentsPopup")
       a.js-upload-clipboard-image {{_ 'clipboard'}}
 
 template(name="previewClipboardImagePopup")
-  p {{_ "paste-or-dragdrop"}}
+  p <kbd>Ctrl</kbd>+<kbd>V</kbd> {{_ "paste-or-dragdrop"}}
   img.preview-clipboard-image()
   button.primary.js-upload-pasted-image {{_ 'upload'}}
 

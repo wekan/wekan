@@ -4,7 +4,7 @@ const DateString = Match.Where(function (dateAsString) {
 });
 
 class TrelloCreator {
-  constructor() {
+  constructor(data) {
     // The object creation dates, indexed by Trello id (so we only parse actions
     // once!)
     this.createdAt = {
@@ -18,6 +18,11 @@ class TrelloCreator {
     this.lists = {};
     // The comments, indexed by Trello card id (to map when importing cards)
     this.comments = {};
+    // the members, indexed by Trello member id => Wekan user ID
+    this.members = data.membersMapping ? data.membersMapping : {};
+
+    // maps a trelloCardId to an array of trelloAttachments
+    this.attachments = {};
   }
 
   checkActions(trelloActions) {
@@ -90,6 +95,24 @@ class TrelloCreator {
       stars: 0,
       title: trelloBoard.name,
     };
+    // now add other members
+    if(trelloBoard.memberships) {
+      trelloBoard.memberships.forEach((trelloMembership) => {
+        const trelloId = trelloMembership.idMember;
+        // do we have a mapping?
+        if(this.members[trelloId]) {
+          const wekanId = this.members[trelloId];
+          // do we already have it in our list?
+          if(!boardToCreate.members.find((wekanMember) => wekanMember.userId === wekanId)) {
+            boardToCreate.members.push({
+              userId: wekanId,
+              isAdmin: false,
+              isActive: true,
+            });
+          }
+        }
+      });
+    }
     trelloBoard.labels.forEach((label) => {
       const labelToCreate = {
         _id: Random.id(6),
@@ -119,6 +142,130 @@ class TrelloCreator {
       userId: Meteor.userId(),
     });
     return boardId;
+  }
+
+  /**
+   * Create the Wekan cards corresponding to the supplied Trello cards,
+   * as well as all linked data: activities, comments, and attachments
+   * @param trelloCards
+   * @param boardId
+   * @returns {Array}
+   */
+  createCards(trelloCards, boardId) {
+    const result = [];
+    trelloCards.forEach((card) => {
+      const cardToCreate = {
+        archived: card.closed,
+        boardId,
+        createdAt: new Date(this.createdAt.cards[card.id]  || Date.now()),
+        dateLastActivity: new Date(),
+        description: card.desc,
+        listId: this.lists[card.idList],
+        sort: card.pos,
+        title: card.name,
+        // XXX use the original user?
+        userId: Meteor.userId(),
+      };
+      // add labels
+      if (card.idLabels) {
+        cardToCreate.labelIds = card.idLabels.map((trelloId) => {
+          return this.labels[trelloId];
+        });
+      }
+      // add members {
+      if(card.idMembers) {
+        const wekanMembers = [];
+        // we can't just map, as some members may not have been mapped
+        card.idMembers.forEach((trelloId) => {
+          if(this.members[trelloId]) {
+            const wekanId = this.members[trelloId];
+            // we may map multiple Trello members to the same wekan user
+            // in which case we risk adding the same user multiple times
+            if(!wekanMembers.find((wId) => wId === wekanId)){
+              wekanMembers.push(wekanId);
+            }
+          }
+          return true;
+        });
+        if(wekanMembers.length>0) {
+          cardToCreate.members = wekanMembers;
+        }
+      }
+      // insert card
+      const cardId = Cards.direct.insert(cardToCreate);
+      // log activity
+      Activities.direct.insert({
+        activityType: 'importCard',
+        boardId,
+        cardId,
+        createdAt: new Date(),
+        listId: cardToCreate.listId,
+        source: {
+          id: card.id,
+          system: 'Trello',
+          url: card.url,
+        },
+        // we attribute the import to current user, not the one from the
+        // original card
+        userId: Meteor.userId(),
+      });
+      // add comments
+      const comments = this.comments[card.id];
+      if (comments) {
+        comments.forEach((comment) => {
+          const commentToCreate = {
+            boardId,
+            cardId,
+            createdAt: comment.date,
+            text: comment.data.text,
+            // XXX use the original comment user instead
+            userId: Meteor.userId(),
+          };
+          // dateLastActivity will be set from activity insert, no need to
+          // update it ourselves
+          const commentId = CardComments.direct.insert(commentToCreate);
+          Activities.direct.insert({
+            activityType: 'addComment',
+            boardId: commentToCreate.boardId,
+            cardId: commentToCreate.cardId,
+            commentId,
+            createdAt: commentToCreate.createdAt,
+            userId: commentToCreate.userId,
+          });
+        });
+      }
+      const attachments = this.attachments[card.id];
+      const trelloCoverId = card.idAttachmentCover;
+      if (attachments) {
+        attachments.forEach((att) => {
+          const file = new FS.File();
+          // Simulating file.attachData on the client generates multiple errors
+          // - HEAD returns null, which causes exception down the line
+          // - the template then tries to display the url to the attachment which causes other errors
+          // so we make it server only, and let UI catch up once it is done, forget about latency comp.
+          if(Meteor.isServer) {
+            file.attachData(att.url, function (error) {
+              file.boardId = boardId;
+              file.cardId = cardId;
+              if (error) {
+                throw(error);
+              } else {
+                const wekanAtt = Attachments.insert(file, () => {
+                  // we do nothing
+                });
+                //
+                if(trelloCoverId === att.id) {
+                  Cards.direct.update(cardId, { $set: {coverId: wekanAtt._id}});
+                }
+              }
+            });
+          }
+          // todo XXX set cover - if need be
+        });
+      }
+      result.push(cardId);
+    });
+    return result;
   }
 
   // Create labels if they do not exist and load this.labels.
@@ -170,75 +317,6 @@ class TrelloCreator {
     });
   }
 
-  createCardsAndComments(trelloCards, boardId) {
-    const result = [];
-    trelloCards.forEach((card) => {
-      const cardToCreate = {
-        archived: card.closed,
-        boardId,
-        createdAt: new Date(this.createdAt.cards[card.id]  || Date.now()),
-        dateLastActivity: new Date(),
-        description: card.desc,
-        listId: this.lists[card.idList],
-        sort: card.pos,
-        title: card.name,
-        // XXX use the original user?
-        userId: Meteor.userId(),
-      };
-      // add labels
-      if (card.idLabels) {
-        cardToCreate.labelIds = card.idLabels.map((trelloId) => {
-          return this.labels[trelloId];
-        });
-      }
-      // insert card
-      const cardId = Cards.direct.insert(cardToCreate);
-      // log activity
-      Activities.direct.insert({
-        activityType: 'importCard',
-        boardId,
-        cardId,
-        createdAt: new Date(),
-        listId: cardToCreate.listId,
-        source: {
-          id: card.id,
-          system: 'Trello',
-          url: card.url,
-        },
-        // we attribute the import to current user, not the one from the
-        // original card
-        userId: Meteor.userId(),
-      });
-      // add comments
-      const comments = this.comments[card.id];
-      if (comments) {
-        comments.forEach((comment) => {
-          const commentToCreate = {
-            boardId,
-            cardId,
-            createdAt: comment.date,
-            text: comment.data.text,
-            // XXX use the original comment user instead
-            userId: Meteor.userId(),
-          };
-          // dateLastActivity will be set from activity insert, no need to
-          // update it ourselves
-          const commentId = CardComments.direct.insert(commentToCreate);
-          Activities.direct.insert({
-            activityType: 'addComment',
-            boardId: commentToCreate.boardId,
-            cardId: commentToCreate.cardId,
-            commentId,
-            createdAt: commentToCreate.createdAt,
-            userId: commentToCreate.userId,
-          });
-        });
-      }
-      // XXX add attachments
-      result.push(cardId);
-    });
-    return result;
-  }
 
   getColor(trelloColorCode) {
     // trello color name => wekan color
@@ -269,6 +347,29 @@ class TrelloCreator {
   parseActions(trelloActions) {
     trelloActions.forEach((action) => {
       switch (action.type) {
+      case 'addAttachmentToCard':
+        // We have to be cautious, because the attachment could have been removed later.
+        // In that case Trello still reports its addition, but removes its 'url' field.
+        // So we test for that
+        const trelloAttachment = action.data.attachment;
+        if(trelloAttachment.url) {
+          // we cannot actually create the Wekan attachment, because we don't yet
+          // have the cards to attach it to, so we store it in the instance variable.
+          const trelloCardId = action.data.card.id;
+          if(!this.attachments[trelloCardId]) {
+            this.attachments[trelloCardId] = [];
+          }
+          this.attachments[trelloCardId].push(trelloAttachment);
+        }
+        break;
+      case 'commentCard':
+        const id = action.data.card.id;
+        if (this.comments[id]) {
+          this.comments[id].push(action);
+        } else {
+          this.comments[id] = [action];
+        }
+        break;
       case 'createBoard':
         this.createdAt.board = action.date;
         break;
@@ -280,14 +381,6 @@ class TrelloCreator {
         const listId = action.data.list.id;
         this.createdAt.lists[listId] = action.date;
         break;
-      case 'commentCard':
-        const id = action.data.card.id;
-        if (this.comments[id]) {
-          this.comments[id].push(action);
-        } else {
-          this.comments[id] = [action];
-        }
-        break;
       default:
         // do nothing
         break;
@@ -298,12 +391,13 @@ class TrelloCreator {
 
 Meteor.methods({
   importTrelloBoard(trelloBoard, data) {
-    const trelloCreator = new TrelloCreator();
+    const trelloCreator = new TrelloCreator(data);
 
     // 1. check all parameters are ok from a syntax point of view
     try {
-      // we don't use additional data - this should be an empty object
-      check(data, {});
+      check(data, {
+        membersMapping: Match.Optional(Object),
+      });
       trelloCreator.checkActions(trelloBoard.actions);
       trelloCreator.checkBoard(trelloBoard);
       trelloCreator.checkLabels(trelloBoard.labels);
@@ -320,19 +414,20 @@ Meteor.methods({
     trelloCreator.parseActions(trelloBoard.actions);
     const boardId = trelloCreator.createBoardAndLabels(trelloBoard);
     trelloCreator.createLists(trelloBoard.lists, boardId);
-    trelloCreator.createCardsAndComments(trelloBoard.cards, boardId);
+    trelloCreator.createCards(trelloBoard.cards, boardId);
     // XXX add members
     return boardId;
   },
 
   importTrelloCard(trelloCard, data) {
-    const trelloCreator = new TrelloCreator();
+    const trelloCreator = new TrelloCreator(data);
 
     // 1. check parameters are ok from a syntax point of view
     try {
       check(data, {
         listId: String,
         sortIndex: Number,
+        membersMapping: Match.Optional(Object),
       });
       trelloCreator.checkCards([trelloCard]);
       trelloCreator.checkLabels(trelloCard.labels);
@@ -358,7 +453,7 @@ Meteor.methods({
     trelloCreator.parseActions(trelloCard.actions);
     const board = list.board();
     trelloCreator.createLabels(trelloCard.labels, board);
-    const cardIds = trelloCreator.createCardsAndComments([trelloCard], board._id);
+    const cardIds = trelloCreator.createCards([trelloCard], board._id);
     return cardIds[0];
   },
 });

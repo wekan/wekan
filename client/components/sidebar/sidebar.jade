@@ -89,7 +89,7 @@ template(name="addMemberPopup")
         a.name.js-select-member(title="{{profile.name}} ({{username}})")
           +userAvatar(userId=_id esSearch=true)
           span.full-name
-            = profile.name
+            = profile.fullname
             | (<span class="username">{{username}}</span>)
           if isBoardMember
             .quiet ({{_ 'joined'}})
