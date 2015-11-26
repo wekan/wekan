@@ -187,6 +187,7 @@ Cards.mutations({
     if(this.listId !== listId) {
       const oldStatus = Lists.findOne(this.listId).status;
       const newStatus = Lists.findOne(listId).status;
+      const now = new Date();
       if(oldStatus !== newStatus) {
         switch(newStatus) {
         case 'todo':
@@ -194,14 +195,12 @@ Cards.mutations({
           mutatedFields.finishDate = null;
           break;
         case 'doing':
-          mutatedFields.startDate = new Date();
+          if (!this.startDate) mutatedFields.startDate = now;
           mutatedFields.finishDate = null;
           break;
         case 'done':
-          if(oldStatus === 'todo' || oldStatus === 'doing') {
-            if(!this.startDate) mutatedFields.startDate = new Date();
-            mutatedFields.finishDate = new Date();
-          }
+          if (!this.startDate) mutatedFields.startDate = now;
+          if (!this.finishDate) mutatedFields.finishDate = now;
           break;
         }
       }
