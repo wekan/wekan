@@ -10,8 +10,8 @@ This release features:
   response instead of waiting for the DDP connection to open;
 * Support images attachments copy pasting.
 
-Thanks to GitHub users AlexanderS, fisle, floatinghotpot, FuzzyWuzzie, ndarilek,
-SirCmpwn, and xavierpriour for their contributions.
+Thanks to GitHub users AlexanderS, fisle, floatinghotpot, FuzzyWuzzie, mnutt,
+ndarilek, SirCmpwn, and xavierpriour for their contributions.
 
 # v0.9
 
