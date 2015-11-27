@@ -228,7 +228,7 @@ class RedmineImporter {
                       card.startDate ? moment(card.startDate).format('YYYY-MM-DD') : '',
                       card.finishDate ? moment(card.finishDate).format('YYYY-MM-DD') : '',
                       card.createdAt ? moment(card.createdAt).format('YYYY-MM-DD HH:mm:ss') : '',
-                      card.dateLastActivity ? moment(card.dateLastActivity).format('YYYY-MM-DD HH:mm:ss') : ''
+                      card.dateLastActivity ? moment(card.dateLastActivity).format('YYYY-MM-DD HH:mm:ss') : '',
                      ]);
       dataGrid.push( fields.join(separator) );
     });

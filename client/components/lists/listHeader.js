@@ -39,8 +39,7 @@ Template.listActionPopup.events({
     MultiSelection.add(cardIds);
     Popup.close();
   },
-  'click .js-export-cards': Popup.open('listExportCards'),
-  'click .js-export-cards': Popup.open('listExportCardsTsv'),
+  'click .js-export-cards-tsv': Popup.open('listExportCardsTsv'),
   'click .js-import-card-other-board': Popup.open('importCardFromOtherBoard'),
   'click .js-import-card': Popup.open('listImportCard'),
   'click .js-import-redminecsv': Popup.open('listImportRedmine'),
@@ -70,16 +69,8 @@ Template.listMoveCardsPopup.events({
   },
 });
 
-Template.listExportCardsPopup.onRendered(function() {
-  Meteor.call('exportCardList', currentListId, Session.get('currentBoard'), false, (err,ret) => {
-    if (!err) {
-      $('.js-export-cards-csv').val(ret);
-    }
-  });
-});
-
 Template.listExportCardsTsvPopup.onRendered(function() {
-  Meteor.call('exportCardList', currentListId, Session.get('currentBoard'), true, (err,ret) => {
+  Meteor.call('exportCardList', currentListId, Session.get('currentBoard'), true, (err, ret) => {
     if (!err) {
       $('.js-export-cards-tsv').val(ret);
     }

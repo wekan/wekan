@@ -2,21 +2,20 @@ const QQBOT_HOST = process.env.QQBOT_HOST || '';
 const QQBOT_PORT = process.env.QQBOT_PORT || 3200;
 
 const qqSend = (params, callback) => {
-  if (!QQBOT_HOST) return;
   const url = `http://${QQBOT_HOST}:${QQBOT_PORT}/send`;
   try {
     HTTP.post(url, { data: params }, (err, res) => {
-      if(callback) return callback(err, res);
+      if (callback) return callback(err, res);
     });
   } catch (e) {
-    if(callback) return callback(e, 'failed post to qqbot');
+    if (callback) return callback(e, 'failed post to qqbot');
   }
 };
 
 const cardUrl = (card) => {
   const board = card.board();
   let rootUrl = process.env.ROOT_URL;
-  if(!rootUrl.endsWith('/')) rootUrl = `${rootUrl}/`;
+  if (!rootUrl.endsWith('/')) rootUrl = `${rootUrl}/`;
   return `${rootUrl}b/${board._id}/${board.slug}/${card._id}`;
 };
 
@@ -42,10 +41,10 @@ const actHandlers = {
     }, user.profile.language);
     const msg = `${showName(user)} ${actStr} -- ${cardUrl(card)}`;
     let userList = [user._id];
-    if(list.hasTag('notifyOwner')) userList = _.union(userList, [card.userId]);
-    if(list.hasTag('notifyMembers')) userList = _.union(userList, card.members);
-    if(list.hasTag('notifyList')) userList = _.union(userList, list.members);
-    if(callback) return callback(userList, msg);
+    if (list.hasTag('notifyOwner')) userList = _.union(userList, [card.userId]);
+    if (list.hasTag('notifyMembers')) userList = _.union(userList, card.members);
+    if (list.hasTag('notifyList')) userList = _.union(userList, list.members);
+    if (callback) return callback(userList, msg);
   },
 
   addComment: (act, callback) => {
@@ -58,7 +57,7 @@ const actHandlers = {
       ],
     }, user.profile.language);
     const msg = `${showName(user)} ${actStr} [${act.comment().text}] -- ${cardUrl(card)}`;
-    if(callback) return callback(_.union([user._id], [card.userId], card.members), msg);
+    if (callback) return callback(_.union([user._id], [card.userId], card.members), msg);
   },
 
   joinMember: (act, callback) => {
@@ -73,7 +72,7 @@ const actHandlers = {
       ],
     }, user.profile.language);
     const msg = `${showName(user)} ${actStr} -- ${cardUrl(card)}`;
-    if(callback) return callback(_.union([user._id], [member._id]), msg);
+    if (callback) return callback(_.union([user._id], [member._id]), msg);
   },
 
 };
@@ -84,20 +83,22 @@ Meteor.startup(() => {
     if (func) {
       const act = Activities.findOne(doc._id);
       func(act, (users, msg) => {
-        const qqlist = [];
-        if (users) {
-          users.forEach((userId) => {
-            const user = Users.findOne(userId);
-            if (user && user.profile && user.profile.qq) {
-              if (!_.contains(qqlist, user.profile.qq)) qqlist.push(user.profile.qq);
-            }
-          });
-        }
+        // if qqbot configured, set send notification via qqbot
         if (QQBOT_HOST) {
+          const qqlist = [];
+          if (users) {
+            users.forEach((userId) => {
+              const user = Users.findOne(userId);
+              if (user && user.profile && user.profile.qq) {
+                if (!_.contains(qqlist, user.profile.qq)) qqlist.push(user.profile.qq);
+              }
+            });
+          }
           qqlist.forEach((to) => {
             qqSend({ type:'buddy', to, msg });
           });
         }
+        // TODO: else, we send notification via email
       });
     }
   });

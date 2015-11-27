@@ -43,7 +43,7 @@ BlazeComponent.extendComponent({
       if(title.indexOf('\n') > 0) {
         let rows = [];
         // if the text contains '\t', we convert TSV to CSV
-        if (title.indexOf('\t') > 0) title = title.replace(/(\t)/g,',');
+        if (title.indexOf('\t') > 0) title = title.replace(/(\t)/g, ',');
         // we use Papa.Parse to parse CSV to data rows
         if (!window.Papa) return;
         const ret = window.Papa.parse(title);
