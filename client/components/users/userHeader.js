@@ -21,9 +21,11 @@ Template.editProfilePopup.events({
     const fullname = tpl.find('.js-profile-fullname').value.trim();
     const username = tpl.find('.js-profile-username').value.trim();
     const initials = tpl.find('.js-profile-initials').value.trim();
+    const qq = tpl.find('.js-profile-qq').value.trim();
     Users.update(Meteor.userId(), {$set: {
       'profile.fullname': fullname,
       'profile.initials': initials,
+      'profile.qq': qq,
     }});
     // XXX We should report the error to the user.
     if (username !== Meteor.user().username) {

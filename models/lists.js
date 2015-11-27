@@ -25,6 +25,24 @@ Lists.attachSchema(new SimpleSchema({
     denyInsert: true,
     optional: true,
   },
+  status: {
+    type: String,
+    optional: true,
+    allowedValues: [
+      null,
+      'todo',
+      'doing',
+      'done',
+    ],
+  },
+  members: {
+    type: [String],
+    optional: true,
+  },
+  tags: {
+    type: [String],
+    optional: true,
+  },
 }));
 
 Lists.allow({
@@ -48,6 +66,10 @@ Lists.helpers({
     }), { sort: ['sort'] });
   },
 
+  cardCount() {
+    return this.cards().count();
+  },
+
   allCards() {
     return Cards.find({ listId: this._id });
   },
@@ -55,11 +77,47 @@ Lists.helpers({
   board() {
     return Boards.findOne(this.boardId);
   },
+
+  hasTag(tag) {
+    return this.tags && _.contains(this.tags, tag);
+  },
 });
 
 Lists.mutations({
   rename(title) {
     return { $set: { title }};
+  },
+
+  change(title, sort) {
+    return { $set: {title, sort}};
+  },
+
+  setStatus(status) {
+    return { $set: {status}};
+  },
+
+  assignMember(memberId) {
+    return { $addToSet: { members: memberId }};
+  },
+
+  unassignMember(memberId) {
+    return { $pull: { members: memberId }};
+  },
+
+  addTag(tag) {
+    return { $addToSet: { tags: tag }};
+  },
+
+  removeTag(tag) {
+    return { $pull: { tags: tag }};
+  },
+
+  toggleMember(memberId) {
+    if (this.members && this.members.indexOf(memberId) > -1) {
+      return this.unassignMember(memberId);
+    } else {
+      return this.assignMember(memberId);
+    }
   },
 
   archive() {

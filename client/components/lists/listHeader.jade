@@ -6,8 +6,11 @@ template(name="listHeader")
       h2.list-header-name(
         class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
         = title
+        span.list-header-count ({{cardCount}})
       if currentUser.isBoardMember
         a.list-header-menu-icon.fa.fa-ellipsis-v.js-open-list-menu
+      if status
+        i.list-header-time-icon.fa.fa-clock-o
 
 template(name="editListTitleForm")
   .list-composer
@@ -19,17 +22,50 @@ template(name="editListTitleForm")
 template(name="listActionPopup")
   ul.pop-over-list
     li: a.js-add-card {{_ 'add-card'}}
-    if cards.count
+    li: a.js-import-card-other-board {{_ 'import-card-other-board'}}
+    li: a.js-import-card {{_ 'import-card'}}
+    li: a.js-import-redminecsv {{_ 'listImportRedminePopup-title'}}
+  hr
+  if cards.count
+    ul.pop-over-list
       li: a.js-select-cards {{_ 'list-select-cards'}}
       li: a.js-move-cards {{_ 'list-move-cards'}}
+      li: a.js-export-cards-tsv {{_ 'listExportCardsTsvPopup-title'}}
+    hr
+  ul.pop-over-list
+    if cards.count
       li: a.js-archive-cards {{_ 'list-archive-cards'}}
+    li: a.js-close-list {{_ 'archive-list'}}
   hr
   ul.pop-over-list
-    li: a.js-import-card {{_ 'import-card'}}
-    li: a.js-close-list {{_ 'archive-list'}}
+    li: a.js-list-settings {{_ 'settings'}}
 
 template(name="listMoveCardsPopup")
   +boardLists
+
+template(name="listExportCardsPopup")
+  span {{_ 'select-and-copy'}}
+  textarea.js-export-cards-csv
+
+template(name="listExportCardsTsvPopup")
+  span {{_ 'select-and-copy'}}
+  textarea.js-export-cards-tsv
+
+template(name="importCardFromOtherBoardPopup")
+  ul.pop-over-list
+    each boards
+      li
+        if($eq currentBoard._id _id)
+          a.disabled {{title}} ({{_ 'current'}})
+        else
+          a.js-select-list-from-board {{title}}
+
+template(name="importCardFromOtherListPopup")
+  ul.pop-over-list
+    each lists
+      unless archived
+        li
+          a.js-import-card-from-list {{title}}
 
 template(name="boardLists")
   ul.pop-over-list
@@ -43,3 +79,92 @@ template(name="boardLists")
 template(name="listArchiveCardsPopup")
   p {{_ 'list-archive-cards-pop'}}
   input.js-confirm.negate.full(type="submit" value="{{_ 'archive-all'}}")
+
+template(name="listSettingsPopup")
+  h3
+    i.fa.fa-user
+    | {{_ 'list-members'}}
+  each members
+    +userAvatar(userId=this listId=list._id)
+    | {{! XXX Hack to hide syntaxic coloration /// }}
+  if currentUser.isBoardMember
+    a.member.add-member.js-add-members(title="{{_ 'list-members-title'}}")
+      i.fa.fa-plus
+  hr
+  h3 {{_ 'when-drop-card-to-list'}}
+  ul.pop-over-list
+    li
+      a.js-select-none
+        i.fa.fa-clock-o
+        | {{_ 'none-task-time'}}
+        if noStatus
+          i.fa.fa-check
+    li
+      a.js-select-todo
+        i.fa.fa-clock-o
+        | {{_ 'todo-task-time'}}
+        if($eq list.status "todo")
+          i.fa.fa-check
+    li
+      a.js-select-doing
+        i.fa.fa-clock-o
+        | {{_ 'doing-task-time'}}
+        if($eq list.status "doing")
+          i.fa.fa-check
+    li
+      a.js-select-done
+        i.fa.fa-clock-o
+        | {{_ 'done-task-time'}}
+        if($eq list.status "done")
+          i.fa.fa-check
+  hr
+  h3
+    i.fa.fa-bell
+    | {{_ 'notify'}}
+  ul.pop-over-list
+    li
+      a.js-list-toggle-notify-owner
+        i.fa.fa-user
+        | {{_ 'card-owner'}}
+        if (list.hasTag "notifyOwner")
+          i.fa.fa-check
+    li
+      a.js-list-toggle-notify-members
+        i.fa.fa-users
+        | {{_ 'card-members'}}
+        if (list.hasTag "notifyMembers")
+          i.fa.fa-check
+    li
+      a.js-list-toggle-notify-list
+        i.fa.fa-users
+        | {{_ 'list-members'}}
+        if (list.hasTag "notifyList")
+          i.fa.fa-check
+
+template(name="listMembersPopup")
+  ul.pop-over-list.js-list-member-list
+    each board.members
+      li.item(class="{{#if isListMember}}active{{/if}}")
+        a.name.js-select-member(href="#")
+          +userAvatar(userId=user._id listId=list._id)
+          span.full-name
+            = user.profile.fullname
+            | (<span class="username">{{ user.username }}</span>)
+          if isListMember
+            i.fa.fa-check
+
+template(name="listImportRedminePopup")
+  if error.get
+    .warning {{_ error.get}}
+  form
+    label(for='file-redminecsv') {{_ "select-redminecsv"}}
+      input#file-redminecsv.js-select-redminecsv(type="file")
+    label(for='encoding-csv') {{_ "charset-encoding"}}
+      select#encoding-csv.js-encodingcsv
+        each csvEncodings
+          option(value="{{this}}") {{this.toUpperCase}}
+    label(for='file-mappingcsv') {{_ "select-mappingcsv"}}
+      textarea#file-mappingcsv.js-select-mappingcsv
+        = board.dataMapping
+    hr
+    input.primary.wide.js-import-now(type="submit" value="{{_ 'import'}}")

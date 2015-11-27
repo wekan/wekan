@@ -25,6 +25,7 @@ Meteor.publish('boards', function() {
       archived: 1,
       slug: 1,
       title: 1,
+      description: 1,
       color: 1,
       members: 1,
       permission: 1,

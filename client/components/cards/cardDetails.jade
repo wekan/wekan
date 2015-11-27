@@ -19,7 +19,9 @@ template(name="cardDetails")
 
     .card-details-items
       .card-details-item.card-details-item-members
-        h3.card-details-item-title {{_ 'members'}}
+        h3.card-details-item-title
+          i.fa.fa-user
+          | {{_ 'members'}}
         each members
           +userAvatar(userId=this cardId=../_id)
           | {{! XXX Hack to hide syntaxic coloration /// }}
@@ -28,7 +30,9 @@ template(name="cardDetails")
             i.fa.fa-plus
 
       .card-details-item.card-details-item-labels
-        h3.card-details-item-title {{_ 'labels'}}
+        h3.card-details-item-title
+          i.fa.fa-tags
+          | {{_ 'labels'}}
         a(class="{{#if currentUser.isBoardMember}}js-add-labels{{else}}is-disabled{{/if}}" title="{{_ 'card-labels-title'}}")
           each labels
             span.card-label(class="card-label-{{color}}" title=name)= name
@@ -38,7 +42,9 @@ template(name="cardDetails")
 
     //- XXX We should use "editable" to avoid repetiting ourselves
     if currentUser.isBoardMember
-      h3.card-details-item-title {{_ 'description'}}
+      h3.card-details-item-title
+        i.fa.fa-file-text-o
+        | {{_ 'description'}}
       +inlinedCardDescription(classNames="card-description js-card-description")
         +editor(autofocus=true)
           | {{getUnsavedValue 'cardDescription' _id description}}
@@ -62,16 +68,59 @@ template(name="cardDetails")
       h3.card-details-item-title {{_ 'description'}}
       +viewer
         = description
-    if attachments.count
-      hr
-      h2
-        i.fa.fa-paperclip
-        | {{_ 'attachments'}}
-
-      +attachmentsGalery
 
     hr
-    h2 {{ _ 'activity'}}
+    .card-details-items
+      .card-details-item.card-details-item-manhour
+        h3.card-details-item-title
+          i.fa.fa-calculator
+          | {{_ 'manhour'}}
+        if currentUser.isBoardMember
+          input.card-details-manhour.js-man-hour(type="number" id="manHour" size="4" min="0" max="9999" value="{{manHour}}")
+        else
+          span.card-details-item-content {{manHour}}
+
+      .card-details-item.card-details-item-duedate
+        if currentUser.isBoardMember
+          h3.card-details-item-title
+            i.fa.fa-calendar
+            | {{_ 'due-date'}}
+          if dueDate
+            input.card-details-duedate.js-due-date(type="date" id="dueDate" value="{{forInputDate dueDate}}")
+          else
+            input.card-details-item-content.js-due-date(type="date")
+        else if dueDate
+          h3.card-details-item-title
+            i.fa.fa-calendar
+            | {{_ 'due-date'}}
+          span.card-details-item-content {{forDisplayDate dueDate}}
+
+      .card-details-item.card-details-item-actualdate
+        h3.card-details-item-title
+          i.fa.fa-calendar-check-o
+          | {{_ 'actual-date'}}
+        .badges
+          .badge
+            span.badge-icon.fa.fa-clock-o
+            if startDate
+              span.badge-text {{toDateTimeString startDate}}
+          br
+          .badge
+            span.badge-icon.fa.fa-clock-o
+            if finishDate
+              span.badge-text {{toDateTimeString finishDate}}
+
+    hr
+    h3
+      i.fa.fa-paperclip
+      | {{_ 'attachments'}}
+
+    +attachmentsGalery
+
+    hr
+    h3
+      i.fa.fa-th-list
+      | {{ _ 'activity'}}
     if currentUser.isBoardMember
       +commentForm
     if isLoaded.get

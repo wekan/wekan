@@ -71,6 +71,14 @@ Boards.attachSchema(new SimpleSchema({
       'midnight',
     ],
   },
+  description: {
+    type: String,
+    optional: true,
+  },
+  dataMapping: {
+    type: String,
+    optional: true,
+  },
 }));
 
 
@@ -80,8 +88,7 @@ Boards.helpers({
   },
 
   lists() {
-    return Lists.find({ boardId: this._id, archived: false },
-                                                          { sort: { sort: 1 }});
+    return Lists.find({ boardId: this._id, archived: false }, { sort: { sort: 1 }});
   },
 
   activities() {
@@ -90,6 +97,10 @@ Boards.helpers({
 
   activeMembers() {
     return _.where(this.members, {isActive: true});
+  },
+
+  memberUsers() {
+    return Users.find({ _id: {$in: _.pluck(this.members, 'userId')} });
   },
 
   getLabel(name, color) {
@@ -134,12 +145,20 @@ Boards.mutations({
     return { $set: { title }};
   },
 
+  setDesciption(description) {
+    return { $set: {description} };
+  },
+
   setColor(color) {
     return { $set: { color }};
   },
 
   setVisibility(visibility) {
     return { $set: { permission: visibility }};
+  },
+
+  updateDataMapping(dataMapping) {
+    return { $set: { dataMapping }};
   },
 
   addLabel(name, color) {
@@ -170,6 +189,7 @@ Boards.mutations({
   },
 
   addMember(memberId) {
+    if (memberId === Meteor.userId()) return null;
     const memberIndex = this.memberIndex(memberId);
     if (memberIndex === -1) {
       return {
@@ -192,6 +212,7 @@ Boards.mutations({
   },
 
   removeMember(memberId) {
+    if (memberId === Meteor.userId()) return null;
     const memberIndex = this.memberIndex(memberId);
 
     return {
@@ -202,6 +223,7 @@ Boards.mutations({
   },
 
   setMemberPermission(memberId, isAdmin) {
+    if (memberId === Meteor.userId()) return null;
     const memberIndex = this.memberIndex(memberId);
 
     return {

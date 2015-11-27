@@ -27,7 +27,7 @@ BlazeComponent.extendComponent({
     const lastCardDom = this.find('.js-minicard:last');
     const textarea = $(evt.currentTarget).find('textarea');
     const position = this.currentData().position;
-    const title = textarea.val().trim();
+    let title = textarea.val().trim();
 
     const formComponent = this.childComponents('addCardForm')[0];
     let sortIndex;
@@ -37,23 +37,55 @@ BlazeComponent.extendComponent({
       sortIndex = Utils.calculateIndex(lastCardDom, null).base;
     }
 
-    const members = formComponent.members.get();
-    const labelIds = formComponent.labels.get();
-
     if (title) {
-      const _id = Cards.insert({
-        title,
-        members,
-        labelIds,
-        listId: this.data()._id,
-        boardId: this.data().board()._id,
-        sort: sortIndex,
-      });
-      // In case the filter is active we need to add the newly inserted card in
-      // the list of exceptions -- cards that are not filtered. Otherwise the
-      // card will disappear instantly.
-      // See https://github.com/wekan/wekan/issues/80
-      Filter.addException(_id);
+      const list = this.data();
+      const board = list.board();
+      if(title.indexOf('\n') > 0) {
+        let rows = [];
+        // if the text contains '\t', we convert TSV to CSV
+        if (title.indexOf('\t') > 0) title = title.replace(/(\t)/g, ',');
+        // we use Papa.Parse to parse CSV to data rows
+        if (!window.Papa) return;
+        const ret = window.Papa.parse(title);
+        if (ret && ret.data && ret.data.length) rows = ret.data;
+
+        if(rows.length > 0) {
+          // import batch cards will be more efficient on server-side
+          const extra = {
+            listId: list._id,
+            sortIndex,
+          };
+          Meteor.call('importRedmine', rows, extra, (err, res) => {
+            if (err) {
+              this.setError(err.error);
+            } else if(res && res.length) {
+              res.forEach((cardId) => {
+                // In case the filter is active we need to add the newly inserted card in
+                // the list of exceptions -- cards that are not filtered. Otherwise the
+                // card will disappear instantly.
+                // See https://github.com/wekan/wekan/issues/80
+                Filter.addException(cardId);
+              });
+            }
+          });
+        }
+      } else {
+        const members = formComponent.members.get();
+        const labelIds = formComponent.labels.get();
+        const _id = Cards.insert({
+          title,
+          members,
+          labelIds,
+          listId: list._id,
+          boardId: board._id,
+          sort: sortIndex,
+        });
+        // In case the filter is active we need to add the newly inserted card in
+        // the list of exceptions -- cards that are not filtered. Otherwise the
+        // card will disappear instantly.
+        // See https://github.com/wekan/wekan/issues/80
+        Filter.addException(_id);
+      }
 
       // We keep the form opened, empty it, and scroll to it.
       textarea.val('').focus();
@@ -237,6 +269,7 @@ BlazeComponent.extendComponent({
           return commands.KEY_ENTER;
         }
       },
+      maxCount: 30,
     });
   },
 }).register('addCardForm');

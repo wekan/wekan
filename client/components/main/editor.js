@@ -41,7 +41,9 @@ Template.editor.onRendered(() => {
       },
       index: 1,
     },
-  ]);
+  ], {
+    maxCount: 30,
+  });
 });
 
 // XXX I believe we should compute a HTML rendered field on the server that

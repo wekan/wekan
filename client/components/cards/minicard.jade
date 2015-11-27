@@ -8,8 +8,10 @@ template(name="minicard")
         each labels
           .minicard-label(class="card-label-{{color}}" title="{{name}}")
     .minicard-title= title
-    if members
-      .minicard-members.js-minicard-members
+    .minicard-members.js-minicard-members
+      userId
+        +userAvatar(userId=userId)
+      if members
         each members
           +userAvatar(userId=this)
     .badges
@@ -24,3 +26,19 @@ template(name="minicard")
         .badge
           span.badge-icon.fa.fa-paperclip
           span.badge-text= attachments.count
+      if finishDate
+        .badge
+          span.badge-icon.fa.fa-clock-o
+          span.badge-text {{moment finishDate}}
+      else if dueDate
+        .badge
+          span.badge-icon.fa.fa-clock-o
+          span.badge-text {{moment dueDate}}
+      else if startDate
+        .badge
+          span.badge-icon.fa.fa-clock-o
+          span.badge-text {{moment startDate}}
+      else if createAt
+        .badge
+          span.badge-icon.fa.fa-clock-o
+          span.badge-text {{moment createAt}}

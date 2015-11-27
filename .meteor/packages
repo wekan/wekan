@@ -57,6 +57,7 @@ mquandalle:moment
 ongoworks:speakingurl
 raix:handlebar-helpers
 tap:i18n
+http
 
 # UI components
 blaze
@@ -72,3 +73,4 @@ perak:markdown
 seriousm:emoji-continued
 templates:tabs
 verron:autosize
+harrison:papa-parse

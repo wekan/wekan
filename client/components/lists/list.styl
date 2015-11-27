@@ -58,6 +58,7 @@
     font-size: 16px
     line-height: 17px
     margin: 0
+    margin-left: 16px
     font-weight: bold
     min-height: 9px
     min-width: 30px
@@ -65,12 +66,23 @@
     text-overflow: ellipsis
     word-wrap: break-word
 
+  .list-header-count
+    color: darken(white, 50%)
+    font-size: 0.6em
+
   .list-header-menu-icon
     position: absolute
     padding: 7px
     margin-top: 1px
     top: -@padding
     right: -@padding
+
+  .list-header-time-icon
+    position: absolute
+    padding: 7px
+    margin-top: 1px
+    top: -@padding
+    left: -@padding
 
 .list-body
   flex: 1
