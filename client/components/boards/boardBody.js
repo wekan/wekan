@@ -134,7 +134,7 @@ Template.boardBody.onRendered(function() {
   if (!Meteor.user() || !Meteor.user().isBoardMember())
     return;
 
-  self.$(self.listsDom).sortable({
+  $(self.listsDom).sortable({
     tolerance: 'pointer',
     helper: 'clone',
     handle: '.js-list-header',
@@ -146,7 +146,7 @@ Template.boardBody.onRendered(function() {
       Popup.close();
     },
     stop() {
-      self.$('.js-lists').find('.js-list:not(.js-list-composer)').each(
+      $(self.listsDom).find('.js-list:not(.js-list-composer)').each(
         (i, list) => {
           const data = Blaze.getData(list);
           Lists.update(data._id, {
@@ -161,7 +161,7 @@ Template.boardBody.onRendered(function() {
 
   // Disable drag-dropping while in multi-selection mode
   self.autorun(() => {
-    self.$(self.listsDom).sortable('option', 'disabled',
+    $(self.listsDom).sortable('option', 'disabled',
       MultiSelection.isActive());
   });
 
