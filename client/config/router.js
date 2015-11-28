@@ -3,6 +3,14 @@ FlowRouter.triggers.exit([({path}) => {
   previousPath = path;
 }]);
 
+FlowRouter.triggers.enter([({path}) => {
+  if (window.parent) {
+    window.parent.postMessage({
+      setPath: path,
+    }, '*');
+  }
+}]);
+
 FlowRouter.route('/', {
   name: 'home',
   triggersEnter: [AccountsTemplates.ensureSignedIn],
