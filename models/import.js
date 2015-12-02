@@ -8,13 +8,19 @@ class TrelloCreator {
     // we log current date, to use the same timestamp for all our actions.
     // this helps to retrieve all elements performed by the same import.
     this._nowDate = new Date();
-    // The object creation dates, indexed by Trello id (so we only parse actions
-    // once!)
+    // The object creation dates, indexed by Trello id
+    // (so we only parse actions once!)
     this.createdAt = {
       board: null,
       cards: {},
       lists: {},
     };
+    // The object creator Trello Id, indexed by the object Trello id
+    // (so we only parse actions once!)
+    this.createdBy = {
+      cards: {}, // only cards have a field for that
+    };
+
     // Map of labels Trello ID => Wekan ID
     this.labels = {};
     // Map of lists Trello ID => Wekan ID
@@ -139,10 +145,16 @@ class TrelloCreator {
         if(this.members[trelloId]) {
           const wekanId = this.members[trelloId];
           // do we already have it in our list?
-          if(!boardToCreate.members.find((wekanMember) => wekanMember.userId === wekanId)) {
+          const wekanMember = boardToCreate.members.find((wekanMember) => wekanMember.userId === wekanId);
+          if(wekanMember) {
+            // we're already mapped, but maybe with lower rights
+            if(!wekanMember.isAdmin) {
+              wekanMember.isAdmin = this.getAdmin(trelloMembership.memberType);
+            }
+          } else {
             boardToCreate.members.push({
               userId: wekanId,
-              isAdmin: false,
+              isAdmin: this.getAdmin(trelloMembership.memberType),
               isActive: true,
             });
           }
@@ -172,9 +184,9 @@ class TrelloCreator {
         system: 'Trello',
         url: trelloBoard.url,
       },
-      // We attribute the import to current user, not the one from the original
-      // object.
-      userId: Meteor.userId(),
+      // We attribute the import to current user,
+      // not the author from the original object.
+      userId: this._user(),
     });
     return boardId;
   }
@@ -199,8 +211,8 @@ class TrelloCreator {
         listId: this.lists[card.idList],
         sort: card.pos,
         title: card.name,
-        // XXX use the original user?
-        userId: Meteor.userId(),
+        // we attribute the card to its creator if available
+        userId: this._user(this.createdBy.cards[card.id]),
       };
       // add labels
       if (card.idLabels) {
@@ -241,9 +253,9 @@ class TrelloCreator {
           system: 'Trello',
           url: card.url,
         },
-        // we attribute the import to current user, not the one from the
-        // original card
-        userId: Meteor.userId(),
+        // we attribute the import to current user,
+        // not the author of the original card
+        userId: this._user(),
       });
       // add comments
       const comments = this.comments[card.id];
@@ -254,7 +266,7 @@ class TrelloCreator {
             cardId,
             createdAt: this._now(comment.date),
             text: comment.data.text,
-            // map comment author, default to current user
+            // we attribute the comment to the original author, default to current user
             userId: this._user(comment.memberCreator.id),
           };
           // dateLastActivity will be set from activity insert, no need to
@@ -266,6 +278,8 @@ class TrelloCreator {
             cardId: commentToCreate.cardId,
             commentId,
             createdAt: this._now(commentToCreate.createdAt),
+            // we attribute the addComment (not the import)
+            // to the original author - it is needed by some UI elements.
             userId: commentToCreate.userId,
           });
         });
@@ -330,7 +344,6 @@ class TrelloCreator {
         // we require.
         createdAt: this._now(this.createdAt.lists[list.id]),
         title: list.name,
-        userId: Meteor.userId(),
       };
       const listId = Lists.direct.insert(listToCreate);
       Lists.direct.update(listId, {$set: {'updatedAt': this._now()}});
@@ -345,13 +358,19 @@ class TrelloCreator {
           id: list.id,
           system: 'Trello',
         },
-        // We attribute the import to current user, not the one from the
-        // original object
-        userId: Meteor.userId(),
+        // We attribute the import to current user,
+        // not the creator of the original object
+        userId: this._user(),
       });
     });
   }
 
+  getAdmin(trelloMemberType) {
+    if (trelloMemberType === 'admin') {
+      return true;
+    }
+    return false;
+  }
 
   getColor(trelloColorCode) {
     // trello color name => wekan color
@@ -411,6 +430,7 @@ class TrelloCreator {
       case 'createCard':
         const cardId = action.data.card.id;
         this.createdAt.cards[cardId] = action.date;
+        this.createdBy.cards[cardId] = action.idMemberCreator;
         break;
       case 'createList':
         const listId = action.data.list.id;
