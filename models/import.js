@@ -5,13 +5,22 @@ const DateString = Match.Where(function (dateAsString) {
 
 class TrelloCreator {
   constructor(data) {
-    // The object creation dates, indexed by Trello id (so we only parse actions
-    // once!)
+    // we log current date, to use the same timestamp for all our actions.
+    // this helps to retrieve all elements performed by the same import.
+    this._nowDate = new Date();
+    // The object creation dates, indexed by Trello id
+    // (so we only parse actions once!)
     this.createdAt = {
       board: null,
       cards: {},
       lists: {},
     };
+    // The object creator Trello Id, indexed by the object Trello id
+    // (so we only parse actions once!)
+    this.createdBy = {
+      cards: {}, // only cards have a field for that
+    };
+
     // Map of labels Trello ID => Wekan ID
     this.labels = {};
     // Map of lists Trello ID => Wekan ID
@@ -23,6 +32,39 @@ class TrelloCreator {
 
     // maps a trelloCardId to an array of trelloAttachments
     this.attachments = {};
+  }
+
+  /**
+   * If dateString is provided,
+   * return the Date it represents.
+   * If not, will return the date when it was first called.
+   * This is useful for us, as we want all import operations to
+   * have the exact same date for easier later retrieval.
+   *
+   * @param {String} dateString a properly formatted Date
+   */
+  _now(dateString) {
+    if(dateString) {
+      return new Date(dateString);
+    }
+    if(!this._nowDate) {
+      this._nowDate = new Date();
+    }
+    return this._nowDate;
+  }
+
+  /**
+   * if trelloUserId is provided and we have a mapping,
+   * return it.
+   * Otherwise return current logged user.
+   * @param trelloUserId
+   * @private
+     */
+  _user(trelloUserId) {
+    if(trelloUserId && this.members[trelloUserId]) {
+      return this.members[trelloUserId];
+    }
+    return Meteor.userId();
   }
 
   checkActions(trelloActions) {
@@ -79,11 +121,11 @@ class TrelloCreator {
 
   // You must call parseActions before calling this one.
   createBoardAndLabels(trelloBoard) {
-    const createdAt = this.createdAt.board;
     const boardToCreate = {
       archived: trelloBoard.closed,
       color: this.getColor(trelloBoard.prefs.background),
-      createdAt,
+      // very old boards won't have a creation activity so no creation date
+      createdAt: this._now(this.createdAt.board),
       labels: [],
       members: [{
         userId: Meteor.userId(),
@@ -103,10 +145,16 @@ class TrelloCreator {
         if(this.members[trelloId]) {
           const wekanId = this.members[trelloId];
           // do we already have it in our list?
-          if(!boardToCreate.members.find((wekanMember) => wekanMember.userId === wekanId)) {
+          const wekanMember = boardToCreate.members.find((wekanMember) => wekanMember.userId === wekanId);
+          if(wekanMember) {
+            // we're already mapped, but maybe with lower rights
+            if(!wekanMember.isAdmin) {
+              wekanMember.isAdmin = this.getAdmin(trelloMembership.memberType);
+            }
+          } else {
             boardToCreate.members.push({
               userId: wekanId,
-              isAdmin: false,
+              isAdmin: this.getAdmin(trelloMembership.memberType),
               isActive: true,
             });
           }
@@ -124,22 +172,21 @@ class TrelloCreator {
       this.labels[label.id] = labelToCreate._id;
       boardToCreate.labels.push(labelToCreate);
     });
-    const now = new Date();
     const boardId = Boards.direct.insert(boardToCreate);
-    Boards.direct.update(boardId, {$set: {modifiedAt: now}});
+    Boards.direct.update(boardId, {$set: {modifiedAt: this._now()}});
     // log activity
     Activities.direct.insert({
       activityType: 'importBoard',
       boardId,
-      createdAt: now,
+      createdAt: this._now(),
       source: {
         id: trelloBoard.id,
         system: 'Trello',
         url: trelloBoard.url,
       },
-      // We attribute the import to current user, not the one from the original
-      // object.
-      userId: Meteor.userId(),
+      // We attribute the import to current user,
+      // not the author from the original object.
+      userId: this._user(),
     });
     return boardId;
   }
@@ -157,14 +204,15 @@ class TrelloCreator {
       const cardToCreate = {
         archived: card.closed,
         boardId,
-        createdAt: new Date(this.createdAt.cards[card.id]  || Date.now()),
-        dateLastActivity: new Date(),
+        // very old boards won't have a creation activity so no creation date
+        createdAt: this._now(this.createdAt.cards[card.id]),
+        dateLastActivity: this._now(),
         description: card.desc,
         listId: this.lists[card.idList],
         sort: card.pos,
         title: card.name,
-        // XXX use the original user?
-        userId: Meteor.userId(),
+        // we attribute the card to its creator if available
+        userId: this._user(this.createdBy.cards[card.id]),
       };
       // add labels
       if (card.idLabels) {
@@ -198,16 +246,16 @@ class TrelloCreator {
         activityType: 'importCard',
         boardId,
         cardId,
-        createdAt: new Date(),
+        createdAt: this._now(),
         listId: cardToCreate.listId,
         source: {
           id: card.id,
           system: 'Trello',
           url: card.url,
         },
-        // we attribute the import to current user, not the one from the
-        // original card
-        userId: Meteor.userId(),
+        // we attribute the import to current user,
+        // not the author of the original card
+        userId: this._user(),
       });
       // add comments
       const comments = this.comments[card.id];
@@ -216,10 +264,10 @@ class TrelloCreator {
           const commentToCreate = {
             boardId,
             cardId,
-            createdAt: comment.date,
+            createdAt: this._now(comment.date),
             text: comment.data.text,
-            // XXX use the original comment user instead
-            userId: Meteor.userId(),
+            // we attribute the comment to the original author, default to current user
+            userId: this._user(comment.memberCreator.id),
           };
           // dateLastActivity will be set from activity insert, no need to
           // update it ourselves
@@ -229,7 +277,9 @@ class TrelloCreator {
             boardId: commentToCreate.boardId,
             cardId: commentToCreate.cardId,
             commentId,
-            createdAt: commentToCreate.createdAt,
+            createdAt: this._now(commentToCreate.createdAt),
+            // we attribute the addComment (not the import)
+            // to the original author - it is needed by some UI elements.
             userId: commentToCreate.userId,
           });
         });
@@ -292,31 +342,32 @@ class TrelloCreator {
         // creation date wasn't found on the action log. This happen on old
         // Trello boards (eg from 2013) that didn't log the 'createList' action
         // we require.
-        createdAt: new Date(this.createdAt.lists[list.id] || Date.now()),
+        createdAt: this._now(this.createdAt.lists[list.id]),
         title: list.name,
-        userId: Meteor.userId(),
       };
       const listId = Lists.direct.insert(listToCreate);
-      const now = new Date();
-      Lists.direct.update(listId, {$set: {'updatedAt': now}});
+      Lists.direct.update(listId, {$set: {'updatedAt': this._now()}});
       this.lists[list.id] = listId;
       // log activity
       Activities.direct.insert({
         activityType: 'importList',
         boardId,
-        createdAt: now,
+        createdAt: this._now(),
         listId,
         source: {
           id: list.id,
           system: 'Trello',
         },
-        // We attribute the import to current user, not the one from the
-        // original object
-        userId: Meteor.userId(),
+        // We attribute the import to current user,
+        // not the creator of the original object
+        userId: this._user(),
       });
     });
   }
 
+  getAdmin(trelloMemberType) {
+    return trelloMemberType === 'admin';
+  }
 
   getColor(trelloColorCode) {
     // trello color name => wekan color
@@ -376,6 +427,7 @@ class TrelloCreator {
       case 'createCard':
         const cardId = action.data.card.id;
         this.createdAt.cards[cardId] = action.date;
+        this.createdBy.cards[cardId] = action.idMemberCreator;
         break;
       case 'createList':
         const listId = action.data.list.id;
