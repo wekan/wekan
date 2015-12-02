@@ -54,10 +54,10 @@ if (isSandstorm && Meteor.isServer) {
     // XXX If this routing scheme changes, this will break. We should generate
     // the location URL using the router, but at the time of writing, the
     // it is only accessible on the client.
-    const path = `/boards/${sandstormBoard._id}/${sandstormBoard.slug}`;
+    const boardPath = `/b/${sandstormBoard._id}/${sandstormBoard.slug}`;
 
     res.writeHead(301, {
-      Location: base + path,
+      Location: base + boardPath,
     });
     res.end();
 
@@ -126,6 +126,22 @@ if (isSandstorm && Meteor.isServer) {
 }
 
 if (isSandstorm && Meteor.isClient) {
+  // Since the Sandstorm grain is displayed in an iframe of the Sandstorm shell,
+  // we need to explicitly expose meta data like the page title or the URL path
+  // so that they could appear in the browser window.
+  // See https://docs.sandstorm.io/en/latest/developing/path/
+  function updateSandstormMetaData(msg) {
+    return window.parent.postMessage(msg, '*');
+  }
+
+  FlowRouter.triggers.enter([({ path }) => {
+    updateSandstormMetaData({ setPath: path });
+  }]);
+
+  Tracker.autorun(() => {
+    updateSandstormMetaData({ setTitle: DocHead.getTitle() });
+  });
+
   // XXX Hack. `Meteor.absoluteUrl` doesn't work in Sandstorm, since every
   // session has a different URL whereas Meteor computes absoluteUrl based on
   // the ROOT_URL environment variable. So we overwrite this function on a
