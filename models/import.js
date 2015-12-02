@@ -5,6 +5,9 @@ const DateString = Match.Where(function (dateAsString) {
 
 class TrelloCreator {
   constructor(data) {
+    // we log current date, to use the same timestamp for all our actions.
+    // this helps to retrieve all elements performed by the same import.
+    this._now = new Date();
     // The object creation dates, indexed by Trello id (so we only parse actions
     // once!)
     this.createdAt = {
@@ -23,6 +26,25 @@ class TrelloCreator {
 
     // maps a trelloCardId to an array of trelloAttachments
     this.attachments = {};
+  }
+
+  /**
+   * If dateString is provided,
+   * return the Date it represents.
+   * If not, will return the date when it was first called.
+   * This is useful for us, as we want all import operations to
+   * have the exact same date for easier later retrieval.
+   *
+   * @param {String} dateString a properly formatted Date
+   */
+  now(dateString) {
+    if(dateString) {
+      return new Date(dateString);
+    }
+    if(!this._now) {
+      this._now = new Date();
+    }
+    return this._now;
   }
 
   checkActions(trelloActions) {
@@ -79,11 +101,11 @@ class TrelloCreator {
 
   // You must call parseActions before calling this one.
   createBoardAndLabels(trelloBoard) {
-    const createdAt = this.createdAt.board;
     const boardToCreate = {
       archived: trelloBoard.closed,
       color: this.getColor(trelloBoard.prefs.background),
-      createdAt,
+      // very old boards won't have a creation activity so no creation date
+      createdAt: this.now(this.createdAt.board),
       labels: [],
       members: [{
         userId: Meteor.userId(),
@@ -124,14 +146,13 @@ class TrelloCreator {
       this.labels[label.id] = labelToCreate._id;
       boardToCreate.labels.push(labelToCreate);
     });
-    const now = new Date();
     const boardId = Boards.direct.insert(boardToCreate);
-    Boards.direct.update(boardId, {$set: {modifiedAt: now}});
+    Boards.direct.update(boardId, {$set: {modifiedAt: this.now()}});
     // log activity
     Activities.direct.insert({
       activityType: 'importBoard',
       boardId,
-      createdAt: now,
+      createdAt: this.now(),
       source: {
         id: trelloBoard.id,
         system: 'Trello',
@@ -157,8 +178,9 @@ class TrelloCreator {
       const cardToCreate = {
         archived: card.closed,
         boardId,
-        createdAt: new Date(this.createdAt.cards[card.id]  || Date.now()),
-        dateLastActivity: new Date(),
+        // very old boards won't have a creation activity so no creation date
+        createdAt: this.now(this.createdAt.cards[card.id]),
+        dateLastActivity: this.now(),
         description: card.desc,
         listId: this.lists[card.idList],
         sort: card.pos,
@@ -198,7 +220,7 @@ class TrelloCreator {
         activityType: 'importCard',
         boardId,
         cardId,
-        createdAt: new Date(),
+        createdAt: this.now(),
         listId: cardToCreate.listId,
         source: {
           id: card.id,
@@ -216,7 +238,7 @@ class TrelloCreator {
           const commentToCreate = {
             boardId,
             cardId,
-            createdAt: comment.date,
+            createdAt: this.now(comment.date),
             text: comment.data.text,
             // XXX use the original comment user instead
             userId: Meteor.userId(),
@@ -229,7 +251,7 @@ class TrelloCreator {
             boardId: commentToCreate.boardId,
             cardId: commentToCreate.cardId,
             commentId,
-            createdAt: commentToCreate.createdAt,
+            createdAt: this.now(commentToCreate.createdAt),
             userId: commentToCreate.userId,
           });
         });
@@ -292,19 +314,18 @@ class TrelloCreator {
         // creation date wasn't found on the action log. This happen on old
         // Trello boards (eg from 2013) that didn't log the 'createList' action
         // we require.
-        createdAt: new Date(this.createdAt.lists[list.id] || Date.now()),
+        createdAt: this.now(this.createdAt.lists[list.id]),
         title: list.name,
         userId: Meteor.userId(),
       };
       const listId = Lists.direct.insert(listToCreate);
-      const now = new Date();
-      Lists.direct.update(listId, {$set: {'updatedAt': now}});
+      Lists.direct.update(listId, {$set: {'updatedAt': this.now()}});
       this.lists[list.id] = listId;
       // log activity
       Activities.direct.insert({
         activityType: 'importList',
         boardId,
-        createdAt: now,
+        createdAt: this.now(),
         listId,
         source: {
           id: list.id,
