@@ -366,10 +366,7 @@ class TrelloCreator {
   }
 
   getAdmin(trelloMemberType) {
-    if (trelloMemberType === 'admin') {
-      return true;
-    }
-    return false;
+    return trelloMemberType === 'admin';
   }
 
   getColor(trelloColorCode) {
