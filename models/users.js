@@ -68,6 +68,16 @@ Users.helpers({
       return this.username[0].toUpperCase();
     }
   },
+
+  getName() {
+    const profile = this.profile || {};
+    return profile.fullname || this.username;
+  },
+
+  getLanguage() {
+    const profile = this.profile || {};
+    return profile.language || 'en';
+  },
 });
 
 Users.mutations({
