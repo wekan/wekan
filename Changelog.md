@@ -4,8 +4,9 @@ This release features:
 
 * Trello boards and cards importation, including card history, assigned members,
   labels, comments, and attachments;
-* Autocompletion in the minicard editor. Start with <kbd>@</kbd> to start the
-  a board member autocompletion, or <kbd>#</kbd> for a label;
+* Invite new users to a board using a email address;
+* Autocompletion in the minicard editor. Start with <kbd>@</kbd> to start a
+  board member autocompletion, or <kbd>#</kbd> for a label;
 * Accelerate the initial page rendering by sending the data on the intial HTTP
   response instead of waiting for the DDP connection to open;
 * Support images attachments copy pasting.
@@ -15,10 +16,9 @@ ndarilek, SirCmpwn, and xavierpriour for their contributions.
 
 # v0.9
 
-This release is a large re-write of the previous code base. Despite being
-relatively similar to v0.8 feature-wise, this release marks the beginning of our
-new user interface and continues to improve the overall performance and
-security. It also features the following improvements:
+This release is a large re-write of the previous code base. This release marks
+the beginning of our new user interface and continues to improve the overall
+performance and security. It also features the following improvements:
 
 * A new user account system, including the possibility to reset a forgotten
   password, to change the password, or to enable email confirmation (all of
