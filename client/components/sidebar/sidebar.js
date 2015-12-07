@@ -117,6 +117,9 @@ Template.memberPopup.helpers({
     const type = Users.findOne(this.userId).isBoardAdmin() ? 'admin' : 'normal';
     return TAPi18n.__(type).toLowerCase();
   },
+  isInvited() {
+    return Users.findOne(this.userId).isInvitedTo(Session.get('currentBoard'));
+  },
 });
 
 Template.memberPopup.events({
@@ -132,8 +135,13 @@ Template.memberPopup.events({
     Popup.close();
   }),
   'click .js-leave-member'() {
-    // XXX Not implemented
-    Popup.close();
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    Meteor.call('quitBoard', currentBoard, (err, ret) => {
+      if (!ret && ret) {
+        Popup.close();
+        FlowRouter.go('home');
+      }
+    });
   },
 });
 
@@ -146,9 +154,29 @@ Template.removeMemberPopup.helpers({
   },
 });
 
+Template.membersWidget.helpers({
+  isInvited() {
+    const user = Meteor.user();
+    return user && user.isInvitedTo(Session.get('currentBoard'));
+  },
+});
+
 Template.membersWidget.events({
   'click .js-member': Popup.open('member'),
   'click .js-manage-board-members': Popup.open('addMember'),
+  'click .js-member-invite-accept'() {
+    const boardId = Session.get('currentBoard');
+    Meteor.user().removeInvite(boardId);
+  },
+  'click .js-member-invite-decline'() {
+    const boardId = Session.get('currentBoard');
+    Meteor.call('quitBoard', boardId, (err, ret) => {
+      if (!err && ret) {
+        Meteor.user().removeInvite(boardId);
+        FlowRouter.go('home');
+      }
+    });
+  },
 });
 
 Template.labelsWidget.events({
@@ -194,25 +222,76 @@ function draggableMembersLabelsWidgets() {
 Template.membersWidget.onRendered(draggableMembersLabelsWidgets);
 Template.labelsWidget.onRendered(draggableMembersLabelsWidgets);
 
-Template.addMemberPopup.helpers({
+BlazeComponent.extendComponent({
+  template() {
+    return 'addMemberPopup';
+  },
+
+  onCreated() {
+    this.error = new ReactiveVar('');
+    this.loading = new ReactiveVar(false);
+  },
+
+  onRendered() {
+    this.find('.js-search-member input').focus();
+    this.setLoading(false);
+  },
+
   isBoardMember() {
-    const user = Users.findOne(this._id);
+    const userId = this.currentData()._id;
+    const user = Users.findOne(userId);
     return user && user.isBoardMember();
   },
-});
 
-Template.addMemberPopup.events({
-  'click .js-select-member'() {
-    const userId = this._id;
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
-    currentBoard.addMember(userId);
-    Popup.close();
+  isValidEmail(email) {
+    return SimpleSchema.RegEx.Email.test(email);
   },
-});
 
-Template.addMemberPopup.onRendered(function() {
-  this.find('.js-search-member input').focus();
-});
+  setError(error) {
+    this.error.set(error);
+  },
+
+  setLoading(w) {
+    this.loading.set(w);
+  },
+
+  isLoading() {
+    return this.loading.get();
+  },
+
+  inviteUser(idNameEmail) {
+    const boardId = Session.get('currentBoard');
+    this.setLoading(true);
+    const self = this;
+    Meteor.call('inviteUserToBoard', idNameEmail, boardId, (err, ret) => {
+      self.setLoading(false);
+      if (err) self.setError(err.error);
+      else if (ret.email) self.setError('email-sent');
+      else Popup.close();
+    });
+  },
+
+  events() {
+    return [{
+      'keyup input'() {
+        this.setError('');
+      },
+      'click .js-select-member'() {
+        const userId = this.currentData()._id;
+        const currentBoard = Boards.findOne(Session.get('currentBoard'));
+        if (currentBoard.memberIndex(userId)<0) {
+          this.inviteUser(userId);
+        }
+      },
+      'click .js-email-invite'() {
+        const idNameEmail = $('.js-search-member input').val();
+        if (idNameEmail.indexOf('@')<0 || this.isValidEmail(idNameEmail)) {
+          this.inviteUser(idNameEmail);
+        } else this.setError('email-invalid');
+      },
+    }];
+  },
+}).register('addMemberPopup');
 
 Template.changePermissionsPopup.events({
   'click .js-set-admin, click .js-set-normal'(event) {

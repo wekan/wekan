@@ -33,6 +33,13 @@ template(name="membersWidget")
           a.member.add-member.js-manage-board-members
             i.fa.fa-plus
       .clearfix
+  if isInvited
+    hr
+    p
+      i.fa.fa-exclamation-circle
+      | {{_ 'just-invited'}}
+    button.js-member-invite-accept.primary {{_ 'accept'}}
+    button.js-member-invite-decline {{_ 'decline'}}
 
 template(name="labelsWidget")
   .board-widget.board-widget-labels
@@ -56,6 +63,10 @@ template(name="memberPopup")
         h3
           .js-profile= user.profile.fullname
         p.quiet @#{user.username}
+        if isInvited
+          p
+            i.fa.fa-exclamation-circle
+            | {{_ 'not-accepted-yet'}}
 
     ul.pop-over-list
       li
@@ -68,9 +79,7 @@ template(name="memberPopup")
               span.quiet (#{memberType})
           li
             if $eq currentUser._id userId
-              //-
-                XXX Not implemented!
-              // a.js-leave-member {{_ 'leave-board'}}
+              a.js-leave-member {{_ 'leave-board'}}
             else
               a.js-remove-member {{_ 'remove-from-board'}}
 
@@ -83,23 +92,29 @@ template(name="addMemberPopup")
   .js-search-member
     +esInput(index="users")
 
-  ul.pop-over-list
-    +esEach(index="users")
-      li.item.js-member-item(class="{{#if isBoardMember}}disabled{{/if}}")
-        a.name.js-select-member(title="{{profile.name}} ({{username}})")
-          +userAvatar(userId=_id esSearch=true)
-          span.full-name
-            = profile.fullname
-            | (<span class="username">{{username}}</span>)
-          if isBoardMember
-            .quiet ({{_ 'joined'}})
+  if loading.get
+    +spinner
+  else if error.get
+    .warning {{_ error.get}}
+  else
+    ul.pop-over-list
+      +esEach(index="users")
+        li.item.js-member-item(class="{{#if isBoardMember}}disabled{{/if}}")
+          a.name.js-select-member(title="{{profile.name}} ({{username}})")
+            +userAvatar(userId=_id esSearch=true)
+            span.full-name
+              = profile.fullname
+              | (<span class="username">{{username}}</span>)
+            if isBoardMember
+              .quiet ({{_ 'joined'}})
 
-    +ifEsIsSearching(index='users')
-      +spinner
+      +ifEsIsSearching(index='users')
+        +spinner
 
-    +ifEsHasNoResults(index="users")
-      .manage-member-section
-        p.quiet {{_ 'no-results'}}
+      +ifEsHasNoResults(index="users")
+        .manage-member-section
+          p.quiet {{_ 'no-results'}}
+    button.js-email-invite.primary.full {{_ 'email-invite'}}
 
 template(name="changePermissionsPopup")
   ul.pop-over-list
