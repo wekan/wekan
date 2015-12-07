@@ -18,8 +18,10 @@ Template.boardMenuPopup.events({
 Template.boardChangeTitlePopup.events({
   submit(evt, tpl) {
     const newTitle = tpl.$('.js-board-name').val().trim();
+    const newDesc = tpl.$('.js-board-desc').val().trim();
     if (newTitle) {
       this.rename(newTitle);
+      this.setDesciption(newDesc);
       Popup.close();
     }
     evt.preventDefault();

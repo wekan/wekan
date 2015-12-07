@@ -20,5 +20,6 @@ template(name="boardList")
                 i.fa.js-star-board(
                   class="fa-star{{#if isStarred}} is-star-active{{else}}-o{{/if}}"
                   title="{{_ 'star-board-title'}}")
+                p.board-list-item-desc= description
       li.js-add-board
         a.board-list-item.label {{_ 'add-board'}}

@@ -71,6 +71,10 @@ Boards.attachSchema(new SimpleSchema({
       'midnight',
     ],
   },
+  description: {
+    type: String,
+    optional: true,
+  },
 }));
 
 
@@ -139,6 +143,10 @@ Boards.mutations({
 
   rename(title) {
     return { $set: { title }};
+  },
+
+  setDesciption(description) {
+    return { $set: {description} };
   },
 
   setColor(color) {
