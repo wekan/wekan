@@ -13,6 +13,13 @@ template(name="userFormsLayout")
     h1.at-form-landing-logo
       img(src="{{pathFor '/wekan-logo.png'}}" alt="Wekan")
     +Template.dynamic(template=content)
+    div.at-form-lang
+      select.select-lang.js-userform-set-language
+        each languages
+          if isCurrentLanguage
+            option(value="{{tag}}" selected="selected") {{name}}
+          else
+            option(value="{{tag}}") {{name}}
 
 template(name="defaultLayout")
   +header
