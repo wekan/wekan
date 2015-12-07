@@ -11,6 +11,8 @@ This release features:
   response instead of waiting for the DDP connection to open;
 * Support images attachments copy pasting.
 
+New languages supported: Arabic, Catalan, Italian, and Russian.
+
 Thanks to GitHub users AlexanderS, fisle, floatinghotpot, FuzzyWuzzie, mnutt,
 ndarilek, SirCmpwn, and xavierpriour for their contributions.
 
