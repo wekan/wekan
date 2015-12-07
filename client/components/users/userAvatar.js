@@ -22,8 +22,11 @@ Template.userAvatar.helpers({
   },
 
   presenceStatusClassName() {
+    const user = Users.findOne(this.userId);
     const userPresence = presences.findOne({ userId: this.userId });
-    if (!userPresence)
+    if (user && user.isInvitedTo(Session.get('currentBoard')))
+      return 'pending';
+    else if (!userPresence)
       return 'disconnected';
     else if (Session.equals('currentBoard', userPresence.state.currentBoardId))
       return 'active';
