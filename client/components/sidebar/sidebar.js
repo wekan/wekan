@@ -279,7 +279,7 @@ BlazeComponent.extendComponent({
       'click .js-select-member'() {
         const userId = this.currentData()._id;
         const currentBoard = Boards.findOne(Session.get('currentBoard'));
-        if (currentBoard.memberIndex(userId)<0) {
+        if (!currentBoard.hasMember(userId)) {
           this.inviteUser(userId);
         }
       },
@@ -305,16 +305,12 @@ Template.changePermissionsPopup.events({
 
 Template.changePermissionsPopup.helpers({
   isAdmin() {
-    const user = Users.findOne(this.userId);
-    return user.isBoardAdmin();
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    return currentBoard.hasAdmin(this.userId);
   },
 
   isLastAdmin() {
-    const user = Users.findOne(this.userId);
-    if (!user.isBoardAdmin())
-      return false;
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
-    const nbAdmins = _.where(currentBoard.members, { isAdmin: true }).length;
-    return nbAdmins === 1;
+    return currentBoard.hasAdmin(this.userId) && (currentBoard.activeAdmins() === 1);
   },
 });

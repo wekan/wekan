@@ -186,7 +186,7 @@ BlazeComponent.extendComponent({
         match: /\B@(\w*)$/,
         search(term, callback) {
           const currentBoard = Boards.findOne(Session.get('currentBoard'));
-          callback($.map(currentBoard.members, (member) => {
+          callback($.map(currentBoard.activeMembers(), (member) => {
             const user = Users.findOne(member.userId);
             return user.username.indexOf(term) === 0 ? user : null;
           }));
