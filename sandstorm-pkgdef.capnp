@@ -22,10 +22,10 @@ const pkgdef :Spk.PackageDefinition = (
     appTitle = (defaultText = "Wekan"),
     # The name of the app as it is displayed to the user.
 
-    appVersion = 6,
+    appVersion = 7,
     # Increment this for every release.
 
-    appMarketingVersion = (defaultText = "0.9.0"),
+    appMarketingVersion = (defaultText = "0.10.0-RC1"),
     # Human-readable presentation of the app version.
 
     minUpgradableAppVersion = 0,
@@ -83,7 +83,7 @@ const pkgdef :Spk.PackageDefinition = (
       ],
 
       changeLog = (
-        defaultText = embed "History.md",
+        defaultText = embed "Changelog.md",
         localizations = [
           (locale = "fr", text = embed "meta/t9n-changelog/fr.md"),
         ],
