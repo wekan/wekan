@@ -33,7 +33,6 @@ Template.listActionPopup.events({
     MultiSelection.add(cardIds);
     Popup.close();
   },
-  'click .js-import-card': Popup.open('listImportCard'),
   'click .js-close-list'(evt) {
     evt.preventDefault();
     this.archive();

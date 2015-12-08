@@ -2,8 +2,8 @@
 
 This release features:
 
-* Trello boards and cards importation, including card history, assigned members,
-  labels, comments, and attachments;
+* Trello boards importation, including card history, assigned members, labels,
+  comments, and attachments;
 * Invite new users to a board using a email address;
 * Autocompletion in the minicard editor. Start with <kbd>@</kbd> to start a
   board member autocompletion, or <kbd>#</kbd> for a label;
