@@ -1,4 +1,4 @@
-Template.headerTitle.events({
+Template.boardHeaderBar.events({
   'click .js-open-archived-board'() {
     Modal.open('archivedBoards');
   },
