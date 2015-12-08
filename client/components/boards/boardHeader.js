@@ -15,6 +15,12 @@ Template.boardMenuPopup.events({
   }),
 });
 
+Template.boardMenuPopup.helpers({
+  urlExport() {
+    return Meteor.absoluteUrl(`api/b/${Session.get('currentBoard')}`);
+  },
+});
+
 Template.boardChangeTitlePopup.events({
   submit(evt, tpl) {
     const newTitle = tpl.$('.js-board-name').val().trim();
