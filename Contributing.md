@@ -6,6 +6,12 @@ opening a new thread please verify that your issue hasn’t already been reporte
 
 <https://github.com/wekan/wekan>
 
+## Security Disclosure
+
+Security is very important to us. If discover any issue regarding security,
+please disclose the information responsibly by sending an email to
+security@wekan.io and not by creating a GitHub issue.
+
 ## Translations
 
 You are encouraged to translate (or improve the translation of) Wekan in your
