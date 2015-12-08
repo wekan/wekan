@@ -125,7 +125,7 @@ template(name="createBoardPopup")
     input.primary.wide(type="submit" value="{{_ 'create'}}")
     span.quiet
       | {{_ 'or'}}
-      a.js-import {{_ 'import-board'}}
+      a(href="{{pathFor 'import'}}") {{_ 'import-board'}}
 
 
 template(name="boardChangeTitlePopup")
