@@ -95,6 +95,7 @@ BlazeComponent.extendComponent({
       },
       'click .js-archive-selection'() {
         mutateSelectedCards('archive');
+        EscapeActions.executeUpTo('multiselection');
       },
     }];
   },

@@ -21,15 +21,10 @@ template(name="listActionPopup")
     li: a.js-add-card {{_ 'add-card'}}
     if cards.count
       li: a.js-select-cards {{_ 'list-select-cards'}}
-      li: a.js-move-cards {{_ 'list-move-cards'}}
-      li: a.js-archive-cards {{_ 'list-archive-cards'}}
   hr
   ul.pop-over-list
     li: a.js-import-card {{_ 'import-card'}}
     li: a.js-close-list {{_ 'archive-list'}}
-
-template(name="listMoveCardsPopup")
-  +boardLists
 
 template(name="boardLists")
   ul.pop-over-list
@@ -39,7 +34,3 @@ template(name="boardLists")
           a.disabled {{title}} ({{_ 'current'}})
         else
           a.js-select-list= title
-
-template(name="listArchiveCardsPopup")
-  p {{_ 'list-archive-cards-pop'}}
-  input.js-confirm.negate.full(type="submit" value="{{_ 'archive-all'}}")

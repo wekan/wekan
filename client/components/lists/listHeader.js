@@ -34,28 +34,9 @@ Template.listActionPopup.events({
     Popup.close();
   },
   'click .js-import-card': Popup.open('listImportCard'),
-  'click .js-move-cards': Popup.open('listMoveCards'),
-  'click .js-archive-cards': Popup.afterConfirm('listArchiveCards', function() {
-    this.allCards().forEach((card) => {
-      card.archive();
-    });
-    Popup.close();
-  }),
-
   'click .js-close-list'(evt) {
     evt.preventDefault();
     this.archive();
-    Popup.close();
-  },
-});
-
-Template.listMoveCardsPopup.events({
-  'click .js-select-list'() {
-    const fromList = Template.parentData(2).data;
-    const toList = this._id;
-    fromList.allCards().forEach((card) => {
-      card.move(toList);
-    });
     Popup.close();
   },
 });
