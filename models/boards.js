@@ -115,6 +115,14 @@ Boards.helpers({
     return _.pluck(this.members, 'userId').indexOf(memberId);
   },
 
+  hasMember(memberId) {
+    return !!_.findWhere(this.members, {userId: memberId, isActive: true});
+  },
+
+  hasAdmin(memberId) {
+    return !!_.findWhere(this.members, {userId: memberId, isActive: true, isAdmin: true});
+  },
+
   absoluteUrl() {
     return FlowRouter.path('board', { id: this._id, slug: this.slug });
   },
@@ -186,34 +194,23 @@ Boards.mutations({
 
   addMember(memberId) {
     const memberIndex = this.memberIndex(memberId);
-    if (memberIndex === -1) {
-      const xIndex = this.memberIndex('x');
-      if (xIndex === -1) {
-        return {
-          $push: {
-            members: {
-              userId: memberId,
-              isAdmin: false,
-              isActive: true,
-            },
-          },
-        };
-      } else {
-        return {
-          $set: {
-            [`members.${xIndex}.userId`]: memberId,
-            [`members.${xIndex}.isActive`]: true,
-            [`members.${xIndex}.isAdmin`]: false,
-          },
-        };
-      }
-    } else {
+    if (memberIndex >= 0) {
       return {
         $set: {
           [`members.${memberIndex}.isActive`]: true,
         },
       };
     }
+
+    return {
+      $push: {
+        members: {
+          userId: memberId,
+          isAdmin: false,
+          isActive: true,
+        },
+      },
+    };
   },
 
   removeMember(memberId) {
@@ -221,22 +218,20 @@ Boards.mutations({
 
     // we do not allow the only one admin to be removed
     const allowRemove = (!this.members[memberIndex].isAdmin) || (this.activeAdmins().length > 1);
-
-    if (allowRemove) {
-      return {
-        $set: {
-          [`members.${memberIndex}.userId`]: 'x',
-          [`members.${memberIndex}.isActive`]: false,
-          [`members.${memberIndex}.isAdmin`]: false,
-        },
-      };
-    } else {
+    if (!allowRemove) {
       return {
         $set: {
           [`members.${memberIndex}.isActive`]: true,
         },
       };
     }
+
+    return {
+      $set: {
+        [`members.${memberIndex}.isActive`]: false,
+        [`members.${memberIndex}.isAdmin`]: false,
+      },
+    };
   },
 
   setMemberPermission(memberId, isAdmin) {

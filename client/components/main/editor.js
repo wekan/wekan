@@ -28,7 +28,7 @@ Template.editor.onRendered(() => {
       match: /\B@(\w*)$/,
       search(term, callback) {
         const currentBoard = Boards.findOne(Session.get('currentBoard'));
-        callback(currentBoard.members.map((member) => {
+        callback(currentBoard.activeMembers().map((member) => {
           const username = Users.findOne(member.userId).username;
           return username.includes(term) ? username : null;
         }));

@@ -18,17 +18,16 @@ template(name="filterSidebar")
             i.fa.fa-check
   hr
   ul.sidebar-list
-    each currentBoard.members
-      if isActive
-        with getUser userId
-          li(class="{{#if Filter.members.isSelected _id}}active{{/if}}")
-            a.name.js-toggle-member-filter
-              +userAvatar(userId=this._id)
-              span.sidebar-list-item-description
-                = profile.fullname
-                | (<span class="username">{{ username }}</span>)
-              if Filter.members.isSelected _id
-                i.fa.fa-check
+    each currentBoard.activeMembers
+      with getUser userId
+        li(class="{{#if Filter.members.isSelected _id}}active{{/if}}")
+          a.name.js-toggle-member-filter
+            +userAvatar(userId=this._id)
+            span.sidebar-list-item-description
+              = profile.fullname
+              | (<span class="username">{{ username }}</span>)
+            if Filter.members.isSelected _id
+              i.fa.fa-check
   if Filter.isActive
     hr
     a.sidebar-btn.js-clear-all
@@ -55,19 +54,18 @@ template(name="multiselectionSidebar")
             i.fa.fa-ellipsis-h
   hr
   ul.sidebar-list
-    each currentBoard.members
-      if isActive
-        with getUser userId
-          li(class="{{#if Filter.members.isSelected _id}}active{{/if}}")
-            a.name.js-toggle-member-multiselection
-              +userAvatar(userId=this._id)
-              span.sidebar-list-item-description
-                = profile.fullname
-                | (<span class="username">{{ username }}</span>)
-              if allSelectedElementHave 'member' _id
-                i.fa.fa-check
-              else if someSelectedElementHave 'member' _id
-                i.fa.fa-ellipsis-h
+    each currentBoard.activeMembers
+      with getUser userId
+        li(class="{{#if Filter.members.isSelected _id}}active{{/if}}")
+          a.name.js-toggle-member-multiselection
+            +userAvatar(userId=this._id)
+            span.sidebar-list-item-description
+              = profile.fullname
+              | (<span class="username">{{ username }}</span>)
+            if allSelectedElementHave 'member' _id
+              i.fa.fa-check
+            else if someSelectedElementHave 'member' _id
+              i.fa.fa-ellipsis-h
   hr
   a.sidebar-btn.js-archive-selection
     i.fa.fa-archive
