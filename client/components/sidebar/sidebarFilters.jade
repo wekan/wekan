@@ -67,6 +67,9 @@ template(name="multiselectionSidebar")
             else if someSelectedElementHave 'member' _id
               i.fa.fa-ellipsis-h
   hr
+  a.sidebar-btn.js-move-selection
+    i.fa.fa-share
+    span {{_ 'move-selection'}}
   a.sidebar-btn.js-archive-selection
     i.fa.fa-archive
     span {{_ 'archive-selection'}}
@@ -80,3 +83,7 @@ template(name="disambiguateMultiMemberPopup")
   p {{_ 'what-to-do'}}
   button.wide.js-unassign-member {{_ 'unassign-member'}}
   button.wide.js-assign-member {{_ 'assign-member'}}
+
+template(name="moveSelectionPopup")
+  +boardLists
+

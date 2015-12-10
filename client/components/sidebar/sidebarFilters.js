@@ -93,6 +93,7 @@ BlazeComponent.extendComponent({
           return popup.call(this.currentData(), evt);
         }
       },
+      'click .js-move-selection': Popup.open('moveSelection'),
       'click .js-archive-selection'() {
         mutateSelectedCards('archive');
         EscapeActions.executeUpTo('multiselection');
@@ -120,5 +121,12 @@ Template.disambiguateMultiMemberPopup.events({
   'click .js-assign-member'() {
     mutateSelectedCards('unassignMember', this._id);
     Popup.close();
+  },
+});
+
+Template.moveSelectionPopup.events({
+  'click .js-select-list'() {
+    mutateSelectedCards('move', this._id);
+    EscapeActions.executeUpTo('multiselection');
   },
 });
