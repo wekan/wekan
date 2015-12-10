@@ -30,7 +30,7 @@ Template.boardChangeTitlePopup.events({
 
 BlazeComponent.extendComponent({
   template() {
-    return 'headerBoard';
+    return 'boardHeaderBar';
   },
 
   isStarred() {
@@ -74,7 +74,7 @@ BlazeComponent.extendComponent({
       },
     }];
   },
-}).register('headerBoard');
+}).register('boardHeaderBar');
 
 BlazeComponent.extendComponent({
   template() {
