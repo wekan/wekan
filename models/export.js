@@ -1,8 +1,26 @@
 /* global JsonRoutes */
-JsonRoutes.add('get', '/api/b/:id', function (req, res) {
-  const id = req.params.id;
-  const exporter = new Exporter(id);
-  JsonRoutes.sendResult(res, 200, exporter.build());
+if(Meteor.isServer) {
+  console.log(`userId is ${this.userId}`);
+  JsonRoutes.add('get', '/api/b/:id', function (req, res) {
+    const id = req.params.id;
+    const board = Boards.findOne(id);
+    //if(Meteor.userId() && allowIsBoardMember(Meteor.userId(), board)) {
+    const exporter = new Exporter(id);
+    JsonRoutes.sendResult(res, 200, exporter.build());
+    //} else {
+    //  // 403 = forbidden
+    //  JsonRoutes.sendError(res, 403);
+    //}
+  });
+}
+
+Meteor.methods({
+  exportBoard(boardId) {
+    const board = Boards.findOne(boardId);
+//    //if(Meteor.userId() && allowIsBoardMember(Meteor.userId(), board)) {
+    const exporter = new Exporter(boardId);
+    return exporter.build();
+  }
 });
 
 class Exporter {
@@ -45,7 +63,7 @@ class Exporter {
       'profile.avatarUrl': 1,
     }};
     result.users = Users.find(byUserIds, userFields).fetch();
-
+    //return JSON.stringify(result);
     return result;
   }
 }
