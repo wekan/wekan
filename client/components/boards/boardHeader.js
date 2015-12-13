@@ -1,3 +1,4 @@
+/* global saveAs */
 Template.boardMenuPopup.events({
   'click .js-rename-board': Popup.open('boardChangeTitle'),
   'click .js-open-archives'() {
@@ -26,7 +27,7 @@ Template.boardMenuPopup.events({
         saveAs(dataToSave, filename);
       }
     });
-  }
+  },
 });
 
 Template.boardMenuPopup.helpers({

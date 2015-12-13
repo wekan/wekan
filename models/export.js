@@ -10,7 +10,7 @@ Meteor.methods({
     } else {
       throw new Meteor.Error('error-board-notAMember');
     }
-  }
+  },
 });
 
 class Exporter {
@@ -53,7 +53,6 @@ class Exporter {
       'profile.avatarUrl': 1,
     }};
     result.users = Users.find(byUserIds, userFields).fetch();
-    //return JSON.stringify(result);
     return result;
   }
 }
