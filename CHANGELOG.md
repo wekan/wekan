@@ -7,9 +7,13 @@ This release features:
 * Invite new users to a board using a email address;
 * Autocompletion in the minicard editor. Start with <kbd>@</kbd> to start a
   board member autocompletion, or <kbd>#</kbd> for a label;
+* Improve the user interface on small screens so that Wekan could be used on the
+  mobile web;
 * Accelerate the initial page rendering by sending the data on the intial HTTP
   response instead of waiting for the DDP connection to open;
-* Support images attachments copy pasting.
+* Support images attachments copy pasting;
+* On Sandstorm, expose the Wekan grain title and URL to the Sandstorm shell;
+* Support Wekan deployment under a sub-path of a domain name.
 
 New languages supported: Arabic, Catalan, Italian, and Russian.
 
