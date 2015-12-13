@@ -56,7 +56,7 @@ template(name="boardMenuPopup")
     if currentUser.isBoardAdmin
       hr
       ul.pop-over-list
-        li: a.js-export-board(href="{{urlExport}}", download) {{_ 'export-board'}}
+        li: a.js-export-board {{_ 'export-board'}}
         li: a.js-archive-board {{_ 'archive-board'}}
 
 template(name="boardVisibilityList")

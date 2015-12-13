@@ -1,25 +1,15 @@
-/* global JsonRoutes */
-if(Meteor.isServer) {
-  console.log(`userId is ${this.userId}`);
-  JsonRoutes.add('get', '/api/b/:id', function (req, res) {
-    const id = req.params.id;
-    const board = Boards.findOne(id);
-    //if(Meteor.userId() && allowIsBoardMember(Meteor.userId(), board)) {
-    const exporter = new Exporter(id);
-    JsonRoutes.sendResult(res, 200, exporter.build());
-    //} else {
-    //  // 403 = forbidden
-    //  JsonRoutes.sendError(res, 403);
-    //}
-  });
-}
+
 
 Meteor.methods({
   exportBoard(boardId) {
+    check(boardId, String);
     const board = Boards.findOne(boardId);
-//    //if(Meteor.userId() && allowIsBoardMember(Meteor.userId(), board)) {
-    const exporter = new Exporter(boardId);
-    return exporter.build();
+    if(board.isVisibleByUser()) {
+      const exporter = new Exporter(boardId);
+      return exporter.build();
+    } else {
+      throw new Meteor.Error('error-board-notAMember');
+    }
   }
 });
 

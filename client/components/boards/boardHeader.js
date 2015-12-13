@@ -13,6 +13,20 @@ Template.boardMenuPopup.events({
     // confirm that the board was successfully archived.
     FlowRouter.go('home');
   }),
+  'click .js-export-board'() {
+    const boardId = Session.get('currentBoard');
+    Meteor.call('exportBoard', boardId, (error, response) => {
+      if(error) {
+        // the only error we can anticipate is accessing a non-authorized board
+        // and this should have been caugh by UI before.
+        // So no treatment here for the time being.
+      } else {
+        const dataToSave = new Blob([JSON.stringify(response)], {type: 'application/json;charset=utf-8'});
+        const filename = `wekan-export-board-${boardId}.json`;
+        saveAs(dataToSave, filename);
+      }
+    });
+  }
 });
 
 Template.boardMenuPopup.helpers({
