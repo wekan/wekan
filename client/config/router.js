@@ -13,7 +13,10 @@ FlowRouter.route('/', {
     Filter.reset();
     EscapeActions.executeAll();
 
-    BlazeLayout.render('defaultLayout', { content: 'boardList' });
+    BlazeLayout.render('defaultLayout', {
+      headerBar: 'boardListHeaderBar',
+      content: 'boardList',
+    });
   },
 });
 
@@ -33,7 +36,10 @@ FlowRouter.route('/b/:id/:slug', {
       EscapeActions.executeUpTo('popup-close');
     }
 
-    BlazeLayout.render('defaultLayout', { content: 'board' });
+    BlazeLayout.render('defaultLayout', {
+      headerBar: 'boardHeaderBar',
+      content: 'board',
+    });
   },
 });
 
@@ -45,7 +51,10 @@ FlowRouter.route('/b/:boardId/:slug/:cardId', {
     Session.set('currentBoard', params.boardId);
     Session.set('currentCard', params.cardId);
 
-    BlazeLayout.render('defaultLayout', { content: 'board' });
+    BlazeLayout.render('defaultLayout', {
+      headerBar: 'boardHeaderBar',
+      content: 'board',
+    });
   },
 });
 
@@ -58,11 +67,14 @@ FlowRouter.route('/shortcuts', {
 
     if (previousPath) {
       Modal.open(shortcutsTemplate, {
+        header: 'shortcutsModalTitle',
         onCloseGoTo: previousPath,
       });
     } else {
-      // XXX There is currently no way to escape this page on Sandstorm
-      BlazeLayout.render('defaultLayout', { content: shortcutsTemplate });
+      BlazeLayout.render('defaultLayout', {
+        headerBar: 'shortcutsHeaderBar',
+        content: shortcutsTemplate,
+      });
     }
   },
 });

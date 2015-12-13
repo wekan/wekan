@@ -1,4 +1,4 @@
-template(name="headerBoard")
+template(name="boardHeaderBar")
   h1.header-board-menu
     with currentBoard
       a(class="{{#if currentUser.isBoardAdmin}}js-edit-board-title{{else}}is-disabled{{/if}}")
@@ -125,4 +125,4 @@ template(name="boardChangeTitlePopup")
 
 template(name="archiveBoardPopup")
   p {{_ 'close-board-pop'}}
-  button.js-confirm.negate.full(type="submit") {{_ 'close'}}
+  button.js-confirm.negate.full(type="submit") {{_ 'archive'}}

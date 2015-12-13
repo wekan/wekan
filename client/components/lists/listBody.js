@@ -57,6 +57,7 @@ BlazeComponent.extendComponent({
 
       // We keep the form opened, empty it, and scroll to it.
       textarea.val('').focus();
+      autosize.update(textarea);
       if (position === 'bottom') {
         this.scrollToBottom();
       }
@@ -180,13 +181,17 @@ BlazeComponent.extendComponent({
 
   onRendered() {
     const editor = this;
-    this.$('textarea').escapeableTextComplete([
+    const $textarea = this.$('textarea');
+
+    autosize($textarea);
+
+    $textarea.escapeableTextComplete([
       // User mentions
       {
         match: /\B@(\w*)$/,
         search(term, callback) {
           const currentBoard = Boards.findOne(Session.get('currentBoard'));
-          callback($.map(currentBoard.members, (member) => {
+          callback($.map(currentBoard.activeMembers(), (member) => {
             const user = Users.findOne(member.userId);
             return user.username.indexOf(term) === 0 ? user : null;
           }));

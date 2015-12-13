@@ -3,24 +3,24 @@
 const isSandstorm = Meteor.settings && Meteor.settings.public &&
                     Meteor.settings.public.sandstorm;
 
+// In sandstorm we only have one board per sandstorm instance. Since we want to
+// keep most of our code unchanged, we simply hard-code a board `_id` and
+// redirect the user to this particular board.
+const sandstormBoard = {
+  _id: 'sandstorm',
+
+  // XXX Should be shared with the grain instance name.
+  title: 'Wekan',
+  slug: 'libreboard',
+  members: [],
+
+  // Board access security is handled by sandstorm, so in our point of view we
+  // can alway assume that the board is public (unauthorized users won't be able
+  // to access it anyway).
+  permission: 'public',
+};
+
 if (isSandstorm && Meteor.isServer) {
-  // In sandstorm we only have one board per sandstorm instance. Since we want
-  // to keep most of our code unchanged, we simply hard-code a board `_id` and
-  // redirect the user to this particular board.
-  const sandstormBoard = {
-    _id: 'sandstorm',
-
-    // XXX Should be shared with the grain instance name.
-    title: 'Wekan',
-    slug: 'libreboard',
-    members: [],
-
-    // Board access security is handled by sandstorm, so in our point of view we
-    // can alway assume that the board is public (unauthorized users won't be
-    // able to access it anyway).
-    permission: 'public',
-  };
-
   function updateUserPermissions(userId, permissions) {
     const isActive = permissions.indexOf('participate') > -1;
     const isAdmin = permissions.indexOf('configure') > -1;
@@ -140,6 +140,18 @@ if (isSandstorm && Meteor.isClient) {
 
   Tracker.autorun(() => {
     updateSandstormMetaData({ setTitle: DocHead.getTitle() });
+  });
+
+  // Runtime redirection from the home page to the unique board -- since the
+  // home page contains a list of a single board it's not worth to display.
+  //
+  // XXX Hack. The home route is already defined at this point so we need to
+  // add the redirection trigger to the internal route object.
+  FlowRouter._routesMap.home._triggersEnter.push((context, redirect) => {
+    redirect(FlowRouter.path('board', {
+      id: sandstormBoard._id,
+      slug: sandstormBoard.slug,
+    }));
   });
 
   // XXX Hack. `Meteor.absoluteUrl` doesn't work in Sandstorm, since every
