@@ -1,11 +1,30 @@
+/* global JsonRoutes */
+if(Meteor.isServer) {
+  JsonRoutes.add('get', '/api/b/:boardId/:userId/:loginToken', function (req, res) {
+    const { userId, loginToken, boardId } = req.params;
+    const hashToken = Accounts._hashLoginToken(loginToken);
+    const user = Meteor.users.findOne({
+      _id: userId,
+      'services.resume.loginTokens.hashedToken': hashToken,
+    });
+
+    const exporter = new Exporter(boardId);
+    if(user && exporter.canExport(user)) {
+      JsonRoutes.sendResult(res, 200, exporter.build());
+    } else {
+      // we could send an explicit error message, but on the other
+      // hand the only way to get there is by hacking the UI so...
+      JsonRoutes.sendResult(res, 403);
+    }
+  });
+}
 
 
 Meteor.methods({
   exportBoard(boardId) {
     check(boardId, String);
-    const board = Boards.findOne(boardId);
-    if(board.isVisibleByUser()) {
-      const exporter = new Exporter(boardId);
+    const exporter = new Exporter(boardId);
+    if(exporter.canExport(Meteor.user())) {
       return exporter.build();
     } else {
       throw new Meteor.Error('error-board-notAMember');
@@ -55,5 +74,10 @@ class Exporter {
     }};
     result.users = Users.find(byUserIds, userFields).fetch();
     return result;
+  }
+
+  canExport(user) {
+    const board = Boards.findOne(this._boardId);
+    return board && board.isVisibleBy(user);
   }
 }

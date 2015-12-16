@@ -80,15 +80,15 @@ Boards.attachSchema(new SimpleSchema({
 
 Boards.helpers({
   /**
-   * Is current logged-in user authorized to view this board?
+   * Is supplied user authorized to view this board?
    */
-  isVisibleByUser() {
+  isVisibleBy(user) {
     if(this.isPublic()) {
       // public boards are visible to everyone
       return true;
     } else {
       // otherwise you have to be logged-in and active member
-      return this.isActiveMember(Meteor.userId());
+      return this.isActiveMember(user._id);
     }
   },
 
