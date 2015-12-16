@@ -20,12 +20,13 @@ class Exporter {
 
   build() {
     const byBoard = {boardId: this._boardId};
-    const fields = {fields: {boardId: 0}};
-    const result = Boards.findOne(this._boardId);
-    result.lists = Lists.find(byBoard, fields).fetch();
-    result.cards = Cards.find(byBoard, fields).fetch();
-    result.comments = CardComments.find(byBoard, fields).fetch();
-    result.activities = Activities.find(byBoard, fields).fetch();
+    // we do not want to retrieve boardId in related elements
+    const noBoardId = {fields: {boardId: 0}};
+    const result = Boards.findOne(this._boardId, {fields: {stars: 0}});
+    result.lists = Lists.find(byBoard, noBoardId).fetch();
+    result.cards = Cards.find(byBoard, noBoardId).fetch();
+    result.comments = CardComments.find(byBoard, noBoardId).fetch();
+    result.activities = Activities.find(byBoard, noBoardId).fetch();
 
     // we also have to export some user data - as the other elements only include id
     // but we have to be careful:
