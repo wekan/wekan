@@ -34,7 +34,7 @@ template(name="header")
     #header-main-bar(class="{{#if wrappedHeader}}wrapper{{/if}}")
       +Template.dynamic(template=headerBar)
 
-      if wrappedHeader
+      unless hideLogo
         //-
           On sandstorm, the logo shouldn't be clickable, because we only have one
           page/document on it, and we don't want to see the home page containing
