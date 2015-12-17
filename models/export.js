@@ -1,5 +1,15 @@
 /* global JsonRoutes */
 if(Meteor.isServer) {
+  // todo XXX once we have a real API in place, move that route there
+  /*
+   * This route is used to export the board FROM THE APPLICATION.
+   * We want to identify the logged-in user without asking for password again,
+   * but the server-side API routing has no notion of "current user".
+   * So we have to pass login information (id + token) to authenticate.
+   *
+   * See https://blog.kayla.com.au/server-side-route-authentication-in-meteor/
+   * for detailed explanations
+   */
   JsonRoutes.add('get', '/api/b/:boardId/:userId/:loginToken', function (req, res) {
     const { userId, loginToken, boardId } = req.params;
     const hashToken = Accounts._hashLoginToken(loginToken);
