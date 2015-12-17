@@ -19,19 +19,6 @@ if(Meteor.isServer) {
   });
 }
 
-
-Meteor.methods({
-  exportBoard(boardId) {
-    check(boardId, String);
-    const exporter = new Exporter(boardId);
-    if(exporter.canExport(Meteor.user())) {
-      return exporter.build();
-    } else {
-      throw new Meteor.Error('error-board-notAMember');
-    }
-  },
-});
-
 class Exporter {
   constructor(boardId) {
     this._boardId = boardId;
@@ -41,12 +28,20 @@ class Exporter {
     const byBoard = {boardId: this._boardId};
     // we do not want to retrieve boardId in related elements
     const noBoardId = {fields: {boardId: 0}};
-    const result = Boards.findOne(this._boardId, {fields: {stars: 0}});
-    result._format = 'wekan-board-1.0.0';
+    const result = {
+      _format: 'wekan-board-1.0.0',
+    };
+    _.extend(result, Boards.findOne(this._boardId, {fields: {stars: 0}}));
     result.lists = Lists.find(byBoard, noBoardId).fetch();
     result.cards = Cards.find(byBoard, noBoardId).fetch();
     result.comments = CardComments.find(byBoard, noBoardId).fetch();
     result.activities = Activities.find(byBoard, noBoardId).fetch();
+    // for attachments we only export IDs and absolute url to original doc
+    result.attachments = Attachments.find(byBoard).fetch().map((attachment) => { return {
+      _id: attachment._id,
+      cardId: attachment.cardId,
+      url: Meteor.absoluteUrl(Utils.stripLeadingSlash(attachment.url())),
+    };});
 
     // we also have to export some user data - as the other elements only include id
     // but we have to be careful:
@@ -73,7 +68,13 @@ class Exporter {
       'profile.initials': 1,
       'profile.avatarUrl': 1,
     }};
-    result.users = Users.find(byUserIds, userFields).fetch();
+    result.users = Users.find(byUserIds, userFields).fetch().map((user) => {
+      // user avatar is stored as a relative url, we export absolute
+      if(user.profile.avatarUrl) {
+        user.profile.avatarUrl = Meteor.absoluteUrl(Utils.stripLeadingSlash(user.profile.avatarUrl));
+      }
+      return user;
+    });
     return result;
   }
 
