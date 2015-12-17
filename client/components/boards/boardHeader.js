@@ -18,9 +18,8 @@ Template.boardMenuPopup.events({
 Template.boardMenuPopup.helpers({
   exportUrl() {
     const boardId = Session.get('currentBoard');
-    const userId = Meteor.userId();
     const loginToken = Accounts._storedLoginToken();
-    return Meteor.absoluteUrl(`api/b/${boardId}/${userId}/${loginToken}`);
+    return Meteor.absoluteUrl(`api/boards/${boardId}?authToken=${loginToken}`);
   },
   exportFilename() {
     const boardId = Session.get('currentBoard');

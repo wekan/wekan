@@ -88,7 +88,7 @@ Boards.helpers({
       return true;
     } else {
       // otherwise you have to be logged-in and active member
-      return this.isActiveMember(user._id);
+      return user && this.isActiveMember(user._id);
     }
   },
 

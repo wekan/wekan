@@ -1,29 +1,36 @@
 /* global JsonRoutes */
 if(Meteor.isServer) {
   // todo XXX once we have a real API in place, move that route there
+  // todo XXX also  share the route definition between the client and the server
+  // so that we could use something like ApiRoutes.path('boards/export', boardId)
+  // on the client instead of copy/pasting the route path manually between the client and the server.
   /*
    * This route is used to export the board FROM THE APPLICATION.
-   * We want to identify the logged-in user without asking for password again,
-   * but the server-side API routing has no notion of "current user".
-   * So we have to pass login information (id + token) to authenticate.
+   * If user is already logged-in, pass loginToken as param "authToken":
+   * '/api/boards/:boardId?authToken=:token'
    *
    * See https://blog.kayla.com.au/server-side-route-authentication-in-meteor/
    * for detailed explanations
    */
-  JsonRoutes.add('get', '/api/b/:boardId/:userId/:loginToken', function (req, res) {
-    const { userId, loginToken, boardId } = req.params;
-    const hashToken = Accounts._hashLoginToken(loginToken);
-    const user = Meteor.users.findOne({
-      _id: userId,
-      'services.resume.loginTokens.hashedToken': hashToken,
-    });
+  JsonRoutes.add('get', '/api/boards/:boardId', function (req, res) {
+    const boardId = req.params.boardId;
+    let user = null;
+    // todo XXX for real API, first look for token in Authentication: header
+    // then fallback to parameter
+    const loginToken = req.query.authToken;
+    if (loginToken) {
+      const hashToken = Accounts._hashLoginToken(loginToken);
+      user = Meteor.users.findOne({
+        'services.resume.loginTokens.hashedToken': hashToken,
+      });
+    }
 
     const exporter = new Exporter(boardId);
-    if(user && exporter.canExport(user)) {
+    if(exporter.canExport(user)) {
       JsonRoutes.sendResult(res, 200, exporter.build());
     } else {
-      // we could send an explicit error message, but on the other
-      // hand the only way to get there is by hacking the UI so...
+      // we could send an explicit error message, but on the other hand the only way to
+      // get there is by hacking the UI so let's keep it raw.
       JsonRoutes.sendResult(res, 403);
     }
   });
