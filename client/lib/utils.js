@@ -22,6 +22,17 @@ Utils = {
     return string.charAt(0).toUpperCase() + string.slice(1);
   },
 
+  windowResizeDep: new Tracker.Dependency(),
+
+  // in fact, what we really care is screen size
+  // large mobile device like iPad or android Pad has a big screen, it should also behave like a desktop
+  // in a small window (even on desktop), Wekan run in compact mode.
+  // we can easily debug with a small window of desktop broswer. :-)
+  isMiniScreen() {
+    this.windowResizeDep.depend();
+    return $(window).width() <= 800;
+  },
+
   // Determine the new sort index
   calculateIndex(prevCardDomElement, nextCardDomElement, nCards = 1) {
     let base, increment;
@@ -54,3 +65,9 @@ Utils = {
     };
   },
 };
+
+// A simple tracker dependency that we invalidate every time the window is
+// resized. This is used to reactively re-calculate the popup position in case
+// of a window resize. This is the equivalent of a "Signal" in some other
+// programming environments (eg, elm).
+$(window).on('resize', () => Utils.windowResizeDep.changed());

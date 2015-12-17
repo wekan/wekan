@@ -1,7 +1,7 @@
 $spaceBetweenTiles = 16px
 
 .board-list
-  margin: $spaceBetweenTiles ($spaceBetweenTiles/-2) 0
+  margin: 0 ($spaceBetweenTiles/2)
 
   li
     float: left
@@ -24,8 +24,8 @@ $spaceBetweenTiles = 16px
     display: block
     font-weight: 700
     min-height: 18px
-    padding: 8px 12px 8px 12px
-    margin: 0 ($spaceBetweenTiles/2) $spaceBetweenTiles
+    padding: 8px
+    margin: ($spaceBetweenTiles/2)
     position: relative
     text-decoration: none
 
@@ -128,3 +128,22 @@ $spaceBetweenTiles = 16px
         font-size: 25px
         color: white
 
+@media screen and (max-width: 800px)
+  .board-list
+    height: 100%
+    overflow: scroll
+
+    li
+      width: 33.3%
+
+    .board-list-item
+      overflow: hidden
+
+    .board-list-item-sub-name
+      position: relative
+      top: -100px
+      left: -100px
+
+@media screen and (max-width: 360px)
+    li
+      width: 50%

@@ -5,75 +5,8 @@
   transition: background-color 0.4s
   background: #2980B9
 
-  #header-quick-access
-    background-color: rgba(0, 0, 0, 0.2)
-    padding: 0px 10px
-    height: 28px
-    font-size: 12px
-    display: flex
-
-    #header-user-bar,
-    #header-new-board-icon,
-    ul li
-      color: darken(white, 17%)
-
-      .fa
-        color: inherit
-
-      a:hover, a.is-active
-        color: white
-
-    ul
-      transition: opacity 0.2s
-      margin: 4px 0 0 5px
-      overflow: hidden
-
-      li
-        display: block
-        float: left
-        width: auto
-        color: darken(white, 15%)
-        padding: 2px 5px 0
-
-        &.current
-          color: darken(white, 5%)
-
-        &:first-child .fa-home
-          margin-right: 5px
-
-        a.js-create-board
-          margin-left: 5px
-
-    #header-user-bar,
-    #header-new-board-icon
-      flex-shrink: 0
-
-    #header-user-bar
-      margin: 2px 0
-
-      .header-user-bar-avatar
-        float: left
-
-        .member
-          width: 24px
-          height: @width
-          margin: 0
-          margin-top: 1px
-
-      .header-user-bar-name
-        margin: 4px 8px 0 0
-        float: left
-
-        i.fa-chevron-down
-          margin-right: 4px
-
-    #header-new-board-icon
-      flex-grow: 1
-      margin: 6px 5px 0
-      width: 12px
-
   #header-main-bar
-    height: 28px * 1.618034 - 6px
+    height: 40px
     padding: 7px 10px 0
 
     h1
@@ -155,3 +88,111 @@
       border-left: 1px solid rgba(255, 255, 255, .3)
       height: 24px
       float: left
+
+#header-quick-access
+  color: white
+  transition: background-color 0.4s
+  background: #2573a7
+  height: 28px
+  font-size: 12px
+  display: flex
+
+  #header-user-bar,
+  #header-new-board-icon,
+  ul li
+    color: darken(white, 17%)
+
+    .fa
+      color: inherit
+
+    a:hover, a.is-active
+      color: white
+
+  ul
+    transition: opacity 0.2s
+    margin: 4px 0 0 5px
+    overflow: hidden
+
+    li
+      display: block
+      float: left
+      width: auto
+      color: darken(white, 15%)
+      padding: 2px 5px 0
+
+      &.current
+        color: darken(white, 5%)
+
+      &:first-child .fa-home
+        margin-right: 5px
+
+      a.js-create-board
+        margin-left: 5px
+
+  #header-user-bar,
+  #header-new-board-icon
+    flex-shrink: 0
+
+  #header-user-bar
+    margin: 2px 0
+
+    .header-user-bar-avatar
+      float: left
+      position: relative
+      top: -5px
+      margin-right: 5px
+
+      .member
+        width: 24px
+        height: @width
+        margin: 0
+        margin-top: 1px
+
+    .header-user-bar-name
+      margin: 4px 8px 0 0
+      float: left
+
+      i.fa-chevron-down
+        margin-right: 4px
+
+  #header-new-board-icon
+    flex-grow: 1
+    margin: 6px 5px 0
+    width: 12px
+
+@media screen and (max-width: 800px)
+  #header
+    #header-main-bar
+      height: 40px
+
+      h1
+        display: none
+
+      .board-header-btns
+        margin-top: 0px
+
+      .board-header-btn
+        height: 32px
+        line-height: @height
+        font-size: 16px
+
+        i.fa
+          line-height: 32px
+
+          + span
+            display: none
+
+  #header-quick-access
+    transition: background-color 0.4s
+    width: 100%
+    padding: 10px 0px
+    z-index: 30
+    position: absolute
+    bottom: 0px
+
+    ul
+      width: calc(100% - 150px)
+      overflow: ellipsis
+
+      li
+        height: 28px
