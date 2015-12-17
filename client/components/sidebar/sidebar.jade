@@ -4,6 +4,8 @@ template(name="sidebar")
       class="{{#if isTongueHidden}}is-hidden{{/if}}")
       i.fa.fa-angle-left
     .sidebar-content.js-board-sidebar-content.js-perfect-scrollbar
+      a.hide-btn.js-hide-sidebar
+        i.fa.fa-angle-right
       unless isDefaultView
         h2
           a.fa.fa-chevron-left.js-back-home

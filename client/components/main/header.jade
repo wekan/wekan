@@ -1,32 +1,32 @@
 template(name="header")
+  //-
+    If the user is connected we display a small "quick-access" top bar that
+    list all starred boards with a link to go there. This is inspired by the
+    Reddit "subreddit" bar.
+    The first link goes to the boards page.
+  unless isSandstorm
+    if currentUser
+      #header-quick-access(class=currentBoard.colorClass)
+        ul
+          li
+            a(href="{{pathFor 'home'}}")
+              span.fa.fa-home
+              | {{_ 'all-boards'}}
+          each currentUser.starredBoards
+            li.separator -
+            li(class="{{#if $.Session.equals 'currentBoard' _id}}current{{/if}}")
+              a(href="{{pathFor 'board' id=_id slug=slug}}")
+                = title
+          else
+            li.current {{_ 'quick-access-description'}}
+
+
+        a#header-new-board-icon.js-create-board
+          i.fa.fa-plus(title="Create a new board")
+
+        +headerUserBar
+
   #header(class=currentBoard.colorClass)
-    //-
-      If the user is connected we display a small "quick-access" top bar that
-      list all starred boards with a link to go there. This is inspired by the
-      Reddit "subreddit" bar.
-      The first link goes to the boards page.
-    unless isSandstorm
-      if currentUser
-        #header-quick-access
-          ul
-            li
-              a(href="{{pathFor 'home'}}")
-                span.fa.fa-home
-                | {{_ 'all-boards'}}
-            each currentUser.starredBoards
-              li.separator -
-              li(class="{{#if $.Session.equals 'currentBoard' _id}}current{{/if}}")
-                a(href="{{pathFor 'board' id=_id slug=slug}}")
-                  = title
-            else
-              li.current {{_ 'quick-access-description'}}
-
-
-          a#header-new-board-icon.js-create-board
-            i.fa.fa-plus(title="Create a new board")
-
-          +headerUserBar
-
     //-
       The main bar is a colorful bar that provide all the meta-data for the
       current page. This bar is contextual based.
@@ -34,13 +34,14 @@ template(name="header")
     #header-main-bar(class="{{#if wrappedHeader}}wrapper{{/if}}")
       +Template.dynamic(template=headerBar)
 
-      //-
-        On sandstorm, the logo shouldn't be clickable, because we only have one
-        page/document on it, and we don't want to see the home page containing
-        the list of all boards.
-      if isSandstorm
-        .wekan-logo
-          img(src="{{pathFor '/wekan-logo-header.png'}}" alt="Wekan")
-      else
-        a.wekan-logo(href="{{pathFor 'home'}}" title="{{_ 'header-logo-title'}}")
-          img(src="{{pathFor '/wekan-logo-header.png'}}" alt="Wekan")
+      if wrappedHeader
+        //-
+          On sandstorm, the logo shouldn't be clickable, because we only have one
+          page/document on it, and we don't want to see the home page containing
+          the list of all boards.
+        if isSandstorm
+          .wekan-logo
+            img(src="{{pathFor '/wekan-logo-header.png'}}" alt="Wekan")
+        else
+          a.wekan-logo(href="{{pathFor 'home'}}" title="{{_ 'header-logo-title'}}")
+            img(src="{{pathFor '/wekan-logo-header.png'}}" alt="Wekan")

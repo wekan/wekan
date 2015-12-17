@@ -1,10 +1,3 @@
-// A simple tracker dependency that we invalidate every time the window is
-// resized. This is used to reactively re-calculate the popup position in case
-// of a window resize. This is the equivalent of a "Signal" in some other
-// programming environments (eg, elm).
-const windowResizeDep = new Tracker.Dependency();
-$(window).on('resize', () => windowResizeDep.changed());
-
 window.Popup = new class {
   constructor() {
     // The template we use to render popups
@@ -160,7 +153,10 @@ window.Popup = new class {
   _getOffset(element) {
     const $element = $(element);
     return () => {
-      windowResizeDep.depend();
+      Utils.windowResizeDep.depend();
+
+      if(Utils.isMiniScreen()) return { left:0, top:0 };
+
       const offset = $element.offset();
       const popupWidth = 300 + 15;
       return {
@@ -183,7 +179,9 @@ window.Popup = new class {
       // was available and returns `false`. There is a (small) risk a false
       // positives.
       const title = TAPi18n.__(translationKey);
-      return title !== translationKey ? title : false;
+      // when popup showed as full of small screen, we need a default header to clearly see [X] button
+      const defaultTitle = Utils.isMiniScreen() ? 'Wekan' : false;
+      return title !== translationKey ? title : defaultTitle;
     };
   }
 };
