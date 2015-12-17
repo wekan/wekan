@@ -18,7 +18,8 @@ BlazeComponent.extendComponent({
   },
 
   onCreated() {
-    this._isOpen = new ReactiveVar(!Session.get('currentCard'));
+    const initOpen = Utils.isMiniScreen() ? false : (!Session.get('currentCard'));
+    this._isOpen = new ReactiveVar(initOpen);
     this._view = new ReactiveVar(defaultView);
     Sidebar = this;
   },
@@ -96,6 +97,7 @@ BlazeComponent.extendComponent({
     // XXX Hacky, we need some kind of `super`
     const mixinEvents = this.getMixin(Mixins.InfiniteScrolling).events();
     return [...mixinEvents, {
+      'click .js-hide-sidebar': this.hide,
       'click .js-toggle-sidebar': this.toggle,
       'click .js-back-home': this.setView,
     }];

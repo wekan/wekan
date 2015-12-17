@@ -23,8 +23,12 @@ setBoardColor(color)
   .sidebar-list li a:hover
     background-color: lighten(color, 10%)
 
-  &#header #header-quick-access ul li.current
+  &#header ul li.current, &#header-quick-access ul li.current
     border-bottom: 2px solid lighten(color, 10%)
+
+  &#header-quick-access
+    background: darken(color, 10%)
+    color: white
 
   &#header #header-main-bar .board-header-btn.emphasis
     background: complement(color)
@@ -46,6 +50,11 @@ setBoardColor(color)
 
     &:not(.is-checked) + .minicard:hover:not(.minicard-composer)
       background: lighten(color, 97%)
+
+  @media screen and (max-width: 800px)
+    &.pop-over .header
+      background: color
+      color: white
 
 .board-color-nephritis
   setBoardColor(#27AE60)

@@ -19,6 +19,9 @@
     overflow-x: hidden
     overflow-y: auto
 
+    .hide-btn
+      display: none
+
     h3
       color: darken(white, 50%)
       font-size: 1em
@@ -130,3 +133,48 @@
     margin: 0
     margin-bottom: 5px
     padding: 0 2px 0 10px
+
+@media screen and (max-width: 800px)
+  .board-sidebar
+    width: 100%
+    right: -@width
+
+    .sidebar-content
+      .hide-btn
+        width: 40px
+        height: @width
+        position: absolute
+        right: 5px
+        top: 5px
+        display: block
+        z-index: 15
+        background: darken(white, 3%)
+        transition: left .1s
+        color: darken(white, 50%)
+        border-radius: 50%
+        border: 1px solid darken(white, 30%)
+        box-shadow: 0 1px 6px rgba(0, 0, 0, .3)
+        color: darken(white, 50%)
+
+        i.fa
+          padding: 8px 16px
+          font-size: 24px
+          font-weight: bold
+
+  .sidebar-tongue
+    width: 40px
+    height: @width
+    left: -@width - 7px
+    top: 5px
+    display: block
+    border-radius: 50%
+    border: 1px solid darken(white, 30%)
+    box-shadow: 0 1px 6px rgba(0, 0, 0, .3)
+    color: darken(white, 50%)
+
+    .board-sidebar.is-open &
+      display: none
+
+    i.fa
+      padding: 8px 0px 8px 16px
+      font-weight: bold

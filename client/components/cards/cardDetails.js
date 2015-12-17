@@ -48,7 +48,7 @@ BlazeComponent.extendComponent({
   },
 
   onRendered() {
-    this.scrollParentContainer();
+    if (!Utils.isMiniScreen()) this.scrollParentContainer();
   },
 
   onDestroyed() {

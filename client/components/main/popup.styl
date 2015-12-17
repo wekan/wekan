@@ -83,7 +83,7 @@ $popupWidth = 300px
     transition: transform 0.2s
 
     .content
-      width: 300 - 20px
+      width: $popupWidth - 20px
       padding: 0 10px 10px
       float: left
 
@@ -243,3 +243,88 @@ $popupWidth = 300px
 
         &:hover
           text-decoration: underline
+
+@media screen and (max-width: 800px)
+  .pop-over
+    width: 100%
+    height: 100%
+    overflow: hidden
+    margin-top: 0px
+    border: 0px solid #dbdbdb
+
+    .header
+      color: white
+      background: #2980B9
+      height: 48px
+      padding: 0px 0px
+      border: 0px
+      margin: 0px 0px
+      width: 100%
+      position: absolute
+      top: 0px
+
+      .header-title
+        font-size: 20px
+        font-weight: normal
+        padding-top: 8px
+
+      .back-btn
+        width: 30px
+        padding: 8px 12px 8px 12px
+
+        i.fa
+          color: white
+
+      .close-btn
+        padding: 10px 12px
+
+        i.fa
+          font-size: 24px
+          color: white
+
+    .content-wrapper
+      width: 100%
+      height: calc(100% - 48px)
+      overflow-y: scroll
+      overflow-x: hidden
+      margin: 48px 0px 0px 0px
+
+    .content-container
+      width: 1000%
+      height: 100%
+      max-height: 100%
+
+      .content
+        width: calc(10% - 20px)
+        height: calc(100% - 20px)
+        padding: 10px
+
+        form
+          margin: 10px 10px
+          width: calc(100% - 20px)
+
+        p,
+        textarea,
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="file"]
+          margin: 4px 0 12px
+          width: 100%
+
+    .pop-over-list
+      li > a
+        width: calc(100% - 20px)
+        padding: 10px 10px
+        margin: 0px 0px
+        border-bottom: 1px solid #eee
+
+    hr
+      width: 100%
+      height: 20px
+      margin: 0px 0px
+      color: #eee
+
+    for depth in (1..6)
+      .popup-container-depth-{depth}
+        transform: translateX(- depth * 10%)

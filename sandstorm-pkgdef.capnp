@@ -83,7 +83,7 @@ const pkgdef :Spk.PackageDefinition = (
       ],
 
       changeLog = (
-        defaultText = embed "Changelog.md",
+        defaultText = embed "CHANGELOG.md",
         localizations = [
           (locale = "fr", text = embed "meta/t9n-changelog/fr.md"),
         ],

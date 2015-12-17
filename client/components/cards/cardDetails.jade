@@ -9,7 +9,7 @@ template(name="cardDetails")
       else
         a.fa.fa-times-thin.close-card-details.js-close-card-details
         if currentUser.isBoardMember
-          a.fa.fa-ellipsis-v.card-details-menu.js-open-card-details-menu
+          a.fa.fa-navicon.card-details-menu.js-open-card-details-menu
         h2.card-details-title.js-card-title(
           class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
             = title

@@ -57,6 +57,10 @@ BlazeComponent.extendComponent({
     return currentCard && currentCard.listId === listId;
   },
 
+  onlyShowCurrentCard() {
+    return Utils.isMiniScreen() && Session.get('currentCard');
+  },
+
   events() {
     return [{
       // XXX The board-overlay div should probably be moved to the parent
