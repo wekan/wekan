@@ -51,7 +51,7 @@ template(name="boardActivities")
           | {{{_ 'activity-imported' listLabel boardLabel sourceLink}}}.
 
         if($eq activityType 'joinMember')
-          if($eq currentUser._id member._id)
+          if($eq user._id member._id)
             | {{{_ 'activity-joined' cardLink}}}.
           else
             | {{{_ 'activity-added' memberLink cardLink}}}.
@@ -66,7 +66,7 @@ template(name="boardActivities")
           | {{{_ 'activity-sent' cardLink boardLabel}}}.
 
         if($eq activityType 'unjoinMember')
-          if($eq currentUser._id member._id)
+          if($eq user._id member._id)
             | {{{_ 'activity-unjoined' cardLink}}}.
           else
             | {{{_ 'activity-removed' memberLink cardLink}}}.
@@ -84,12 +84,12 @@ template(name="cardActivities")
         if($eq activityType 'importCard')
           | {{{_ 'activity-imported' cardLabel list.title sourceLink}}}.
         if($eq activityType 'joinMember')
-          if($eq currentUser._id member._id)
+          if($eq user._id member._id)
             | {{_ 'activity-joined' cardLabel}}.
           else
-            | {{{_ 'activity-added' cardLabel memberLink}}}.
+            | {{{_ 'activity-added' memberLink cardLabel}}}.
         if($eq activityType 'unjoinMember')
-          if($eq currentUser._id member._id)
+          if($eq user._id member._id)
             | {{_ 'activity-unjoined' cardLabel}}.
           else
             | {{{_ 'activity-removed' cardLabel memberLink}}}.
