@@ -1,6 +1,11 @@
-Lists = new Mongo.Collection('lists');
+import Mongo from 'Mongo';
+import { allowIsBoardMember } from 'server/lib/utils';
+import { Filter } from 'client/lib';
+import { Boards, Cards, Activities } from 'models';
 
-Lists.attachSchema(new SimpleSchema({
+export const Lists = new Mongo.Collection('lists');
+
+Lists.attachSchema({
   title: {
     type: String,
   },
@@ -25,7 +30,7 @@ Lists.attachSchema(new SimpleSchema({
     denyInsert: true,
     optional: true,
   },
-}));
+});
 
 Lists.allow({
   insert(userId, doc) {

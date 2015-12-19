@@ -1,6 +1,10 @@
-CardComments = new Mongo.Collection('card_comments');
+import Mongo from 'Mongo';
+import { allowIsBoardMember } from 'server/lib/utils';
+import { Boards, Users, Activities } from 'models';
 
-CardComments.attachSchema(new SimpleSchema({
+export const CardComments = new Mongo.Collection('card_comments');
+
+CardComments.attachSchema({
   boardId: {
     type: String,
   },
@@ -21,7 +25,7 @@ CardComments.attachSchema(new SimpleSchema({
   userId: {
     type: String,
   },
-}));
+});
 
 CardComments.allow({
   insert(userId, doc) {

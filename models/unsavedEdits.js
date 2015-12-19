@@ -1,8 +1,10 @@
+import Mongo from 'Mongo';
+
 // This collection shouldn't be manipulated directly by instead throw the
 // `UnsavedEdits` API on the client.
-UnsavedEditCollection = new Mongo.Collection('unsaved-edits');
+export const UnsavedEditCollection = new Mongo.Collection('unsaved-edits');
 
-UnsavedEditCollection.attachSchema(new SimpleSchema({
+UnsavedEditCollection.attachSchema({
   fieldName: {
     type: String,
   },
@@ -15,7 +17,7 @@ UnsavedEditCollection.attachSchema(new SimpleSchema({
   userId: {
     type: String,
   },
-}));
+});
 
 if (Meteor.isServer) {
   function isAuthor(userId, doc, fieldNames = []) {

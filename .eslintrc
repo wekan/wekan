@@ -70,62 +70,62 @@ settings:
   meteor:
 
     # Our collections
-    collections:
-      - AccountsTemplates
-      - Activities
-      - Attachments
-      - Boards
-      - CardComments
-      - Cards
-      - Lists
-      - UnsavedEditCollection
-      - Users
+    # collections:
+      # - AccountsTemplates
+      # - Activities
+      # - Attachments
+      # - Boards
+      # - CardComments
+      # - Cards
+      # - Lists
+      # - UnsavedEditCollection
+      # - Users
 
 globals:
-  # Exported by packages we use
-  autosize: false
-  Avatar: true
-  Avatars: true
-  BlazeComponent: false
-  BlazeLayout: false
-  DocHead: false
-  ESSearchResults: false
-  FastRender: false
-  FlowRouter: false
-  FS: false
-  getSlug: false
-  Migrations: false
-  moment: false
-  Mousetrap: false
-  Picker: false
-  Presence: true
-  presences: true
-  Ps: true
-  ReactiveTabs: false
-  Restivus: false
-  SimpleSchema: false
-  SubsManager: false
-  T9n: false
-  TAPi18n: false
+  # # Exported by packages we use
+  # autosize: false
+  # Avatar: true
+  # Avatars: true
+  # BlazeComponent: false
+  # BlazeLayout: false
+  # DocHead: false
+  # ESSearchResults: false
+  # FastRender: false
+  # FlowRouter: false
+  # FS: false
+  # getSlug: false
+  # Migrations: false
+  # moment: false
+  # Mousetrap: false
+  # Picker: false
+  # Presence: true
+  # presences: true
+  # Ps: true
+  # ReactiveTabs: false
+  # Restivus: false
+  # SimpleSchema: false
+  # SubsManager: false
+  # T9n: false
+  # TAPi18n: false
 
-  # Our objects
-  CSSEvents: true
-  EscapeActions: true
-  Filter: true
-  Filter: true
-  Mixins: true
-  Modal: true
-  MultiSelection: true
-  Popup: true
-  Sidebar: true
-  Utils: true
-  InlinedForm: true
-  UnsavedEdits: true
+  # # Our objects
+  # CSSEvents: true
+  # EscapeActions: true
+  # Filter: true
+  # Filter: true
+  # Mixins: true
+  # Modal: true
+  # MultiSelection: true
+  # Popup: true
+  # Sidebar: true
+  # Utils: true
+  # InlinedForm: true
+  # UnsavedEdits: true
 
-  # XXX Temp, we should remove these
-  allowIsBoardAdmin: true
-  allowIsBoardMember: true
-  Emoji: true
+  # # XXX Temp, we should remove these
+  # allowIsBoardAdmin: true
+  # allowIsBoardMember: true
+  # Emoji: true
 
 env:
   es6: true

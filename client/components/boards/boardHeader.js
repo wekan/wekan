@@ -1,3 +1,9 @@
+import FlowRouter from 'FlowRouter';
+import Template from 'Template';
+import BlazeComponent from 'BlazeComponent';
+import { Popup, Sidebar, Utils, Filter, MultiSelection } from 'client/lib';
+import { Boards } from 'models';
+
 Template.boardMenuPopup.events({
   'click .js-rename-board': Popup.open('boardChangeTitle'),
   'click .js-open-archives'() {

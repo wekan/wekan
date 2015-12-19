@@ -1,4 +1,8 @@
-Attachments = new FS.Collection('attachments', { // eslint-disable-line meteor/collections
+import FS from 'FS';
+import { allowIsBoardMember } from 'server/lib/utils';
+import { Boards, Activities } from 'models';
+
+export const Attachments = new FS.Collection('attachments', { // eslint-disable-line meteor/collections
   stores: [
 
     // XXX Add a new store for cover thumbnails so we don't load big images in

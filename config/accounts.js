@@ -1,3 +1,7 @@
+import FlowRouter from 'FlowRouter';
+import TAPi18n from 'TAPi18n';
+import { Popup } from 'client/lib';
+
 const passwordField = AccountsTemplates.removeField('password');
 const emailField = AccountsTemplates.removeField('email');
 AccountsTemplates.addFields([{

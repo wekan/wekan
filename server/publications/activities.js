@@ -2,6 +2,7 @@
 // 1. The board sidebar
 // 2. The card activity tab
 // We use this publication to paginate for these two publications.
+import { Activities } from 'models';
 
 Meteor.publish('activities', (kind, id, limit) => {
   check(kind, Match.Where((x) => {

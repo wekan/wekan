@@ -1,6 +1,10 @@
+import Blaze from 'Blaze';
+import FlowRouter from 'FlowRouter';
+import { EscapeActions } from 'client/lib';
+
 const closedValue = null;
 
-window.Modal = new class {
+export const Modal = new class {
   constructor() {
     this._currentModal = new ReactiveVar(closedValue);
     this._onCloseGoTo = '';

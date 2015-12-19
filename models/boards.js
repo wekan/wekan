@@ -1,6 +1,12 @@
-Boards = new Mongo.Collection('boards');
+import Mongo from 'mongo';
+import FlowRouter from 'FlowRouter';
+import getSlug from 'getSlug';
+import { allowIsBoardAdmin } from 'server/lib/utils';
+import { Lists, Activities, Users, Cards } from 'models';
 
-Boards.attachSchema(new SimpleSchema({
+export const Boards = new Mongo.Collection('boards');
+
+Boards.attachSchema({
   title: {
     type: String,
   },
@@ -75,7 +81,7 @@ Boards.attachSchema(new SimpleSchema({
     type: String,
     optional: true,
   },
-}));
+});
 
 
 Boards.helpers({

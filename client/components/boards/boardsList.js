@@ -1,3 +1,8 @@
+import BlazeComponent from 'BlazeComponent';
+import FlowRouter from 'FlowRouter';
+import { Boards } from 'models';
+import { Popup } from 'client/lib';
+
 BlazeComponent.extendComponent({
   template() {
     return 'boardList';

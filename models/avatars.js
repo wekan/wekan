@@ -1,4 +1,6 @@
-Avatars = new FS.Collection('avatars', {
+import FS from 'FS';
+
+export const Avatars = new FS.Collection('avatars', {
   stores: [
     new FS.Store.GridFS('avatars'),
   ],

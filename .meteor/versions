@@ -145,4 +145,7 @@ useraccounts:unstyled@1.13.0
 verron:autosize@3.0.8
 webapp@1.2.3
 webapp-hashing@1.0.5
+webpack:npmworkaround@0.1.0
+webpack:reload@0.2.0
+webpack:webpack@0.4.3
 zimme:active-route@2.3.2

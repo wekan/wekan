@@ -1,3 +1,6 @@
+import Blaze from 'Blaze';
+import { Filter, EscapeActions, Sidebar } from 'client/lib';
+import { Cards } from 'models';
 
 function getCardsBetween(idA, idB) {
 
@@ -49,7 +52,7 @@ function getCardsBetween(idA, idB) {
   return Cards.find(Filter.mongoSelector(selector)).map(pluckId);
 }
 
-MultiSelection = {
+export const MultiSelection = {
   sidebarView: 'multiselection',
 
   _selectedCards: new ReactiveVar([]),

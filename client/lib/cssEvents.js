@@ -34,7 +34,7 @@ function whichAnimationEvent() {
   }
 }
 
-CSSEvents = {
+export const CSSEvents = {
   transitionend: whichTransitionEvent(),
   animationend: whichAnimationEvent(),
 };

@@ -1,3 +1,5 @@
+// import { Sidebar } from 'lib/sidebar';
+
 // Filtered view manager
 // We define local filter objects for each different type of field (SetFilter,
 // RangeFilter, dateFilter, etc.). We then define a global `Filter` object whose
@@ -69,7 +71,7 @@ class SetFilter {
 // XXX It would be possible to re-write this object more elegantly, and removing
 // the need to provide a list of `_fields`. We also should move methods into the
 // object prototype.
-Filter = {
+export const Filter = {
   // XXX I would like to rename this field into `labels` to be consistent with
   // the rest of the schema, but we need to set some migrations architecture
   // before changing the schema.

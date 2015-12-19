@@ -10,6 +10,9 @@
 // `import { isSandstorm } from sandstorm.js` and define the migration here as
 // well, but for now I want to avoid definied too many globals.
 
+// import Migrations from 'Migrations';
+import { Boards, Attachments, Users, Activities, Cards } from 'models';
+
 // In the context of migration functions we don't want to validate database
 // mutation queries against the current (ie, latest) collection schema. Doing
 // that would work at the time we write the migration but would break in the

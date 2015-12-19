@@ -1,3 +1,6 @@
+import Mongo from 'Mongo';
+import { Boards, Users, Lists, Cards, CardComments, Attachments } from 'models';
+
 // Activities don't need a schema because they are always set from the a trusted
 // environment - the server - and there is no risk that a user change the logic
 // we use with this collection. Moreover using a schema for this collection
@@ -8,7 +11,7 @@
 // instance if a user archive a card, and un-archive it a few seconds later we
 // should remove both activities assuming it was an error the user decided to
 // revert.
-Activities = new Mongo.Collection('activities');
+export const Activities = new Mongo.Collection('activities');
 
 Activities.helpers({
   board() {

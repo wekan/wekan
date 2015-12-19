@@ -1,3 +1,9 @@
+import SubsManager from 'SubsManager';
+import BlazeComponent from 'BlazeComponent';
+import ReactiveVar from 'ReactiveVar';
+import { Cards, Lists, Boards } from 'models';
+import { EscapeActions, CSSEvents, Popup, MultiSelection, Utils } from 'client/lib';
+
 const subManager = new SubsManager();
 
 BlazeComponent.extendComponent({

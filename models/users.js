@@ -1,4 +1,9 @@
-Users = Meteor.users; // eslint-disable-line meteor/collections
+import Accounts from 'Accounts';
+import Meteor from 'Meteor';
+import TAPi18n from 'TAPi18n';
+import { Boards } from 'models';
+
+export const Users = Meteor.users;
 
 // Search a user in the complete server database by its name or username. This
 // is used for instance to add a new user to a board.

@@ -1,3 +1,5 @@
+import { CardComments } from 'models';
+
 const activitiesPerPage = 20;
 
 BlazeComponent.extendComponent({

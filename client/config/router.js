@@ -1,3 +1,11 @@
+import AccountsTemplates from 'AccountsTemplates';
+import BlazeLayout from 'BlazeLayout';
+import DocHead from 'DocHead';
+import FlowRouter from 'FlowRouter';
+import Session from 'Session';
+import { Boards } from 'models';
+import { Filter, EscapeActions } from 'client/lib';
+
 let previousPath;
 FlowRouter.triggers.exit([({path}) => {
   previousPath = path;

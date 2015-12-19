@@ -1,3 +1,8 @@
+import Template from 'Template';
+import BlazeComponent from 'BlazeComponent';
+import { Modal, Utils } from 'client/lib';
+import { Boards } from 'models';
+
 Template.boardListHeaderBar.events({
   'click .js-open-archived-board'() {
     Modal.open('archivedBoards');

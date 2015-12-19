@@ -1,4 +1,8 @@
-Utils = {
+import Blaze from 'Blaze';
+import FlowRouter from 'FlowRouter';
+import { Boards, Cards } from 'models';
+
+export const Utils = {
   // XXX We should remove these two methods
   goBoardId(_id) {
     const board = Boards.findOne(_id);

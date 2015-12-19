@@ -1,4 +1,8 @@
-window.Popup = new class {
+import TAPi18n from 'TAPi18n';
+import Tracker from 'Tracker';
+import { Utils, EscapeActions } from 'client/lib';
+
+export const Popup = new class {
   constructor() {
     // The template we use to render popups
     this.template = Template.popup;

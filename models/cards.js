@@ -1,9 +1,13 @@
-Cards = new Mongo.Collection('cards');
+import Mongo from 'Mongo';
+import FlowRouter from 'FlowRouter';
+import { allowIsBoardMember } from 'server/lib/utils';
+
+export const Cards = new Mongo.Collection('cards');
 
 // XXX To improve pub/sub performances a card document should include a
 // de-normalized number of comments so we don't have to publish the whole list
 // of comments just to display the number of them in the board view.
-Cards.attachSchema(new SimpleSchema({
+Cards.attachSchema({
   title: {
     type: String,
   },
@@ -51,7 +55,7 @@ Cards.attachSchema(new SimpleSchema({
     type: Number,
     decimal: true,
   },
-}));
+});
 
 Cards.allow({
   insert(userId, doc) {

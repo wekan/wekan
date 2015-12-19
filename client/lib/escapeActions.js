@@ -1,9 +1,11 @@
+import Mousetrap from 'Mousetrap';
+
 // Pressing `Escape` should close the last opened “element” and only the last
 // one. Components can register themselves using a label a condition, and an
 // action. This is used by Popup or inlinedForm for instance. When we press
 // escape we execute the action which have a valid condition and his the highest
 // in the label hierarchy.
-EscapeActions = {
+export const EscapeActions = {
   _nextclickPrevented: false,
 
   _actions: [],

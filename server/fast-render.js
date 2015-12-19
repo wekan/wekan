@@ -1,3 +1,5 @@
+import FastRender from 'FastRender';
+
 FastRender.onAllRoutes(function() {
   this.subscribe('boards');
 });

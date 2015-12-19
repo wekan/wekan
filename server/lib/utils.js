@@ -1,14 +1,14 @@
-allowIsBoardAdmin = function(userId, board) {
+export function allowIsBoardAdmin(userId, board) {
   return board && board.hasAdmin(userId);
-};
+}
 
-allowIsBoardMember = function(userId, board) {
+export function allowIsBoardMember(userId, board) {
   return board && board.hasMember(userId);
-};
+}
 
 // todo XXX not really server-specific,
 // so move it to a common (client+server) lib?
-Utils = {
+export const Utils = {
   /**
    * If text starts with a / will remove it.
    * @param text

@@ -1,3 +1,6 @@
+import presences from 'presences';
+import { Boards, Lists, Cards, Users, CardComments, Attachments } from 'models';
+
 // This is the publication used to display the board list. We publish all the
 // non-archived boards:
 // 1. that the user is a member of
