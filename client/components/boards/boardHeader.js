@@ -214,8 +214,8 @@ BlazeComponent.extendComponent({
 
   events() {
     return [{
-      'click .js-clone-from-board'(evt, tpl) {
-        const fromId = $(evt.currentTarget).attr('id').trim();
+      'click .js-clone-from-board'(...args) {
+        const fromId = this.currentData()._id.trim();
         if(fromId) {
           Popup.afterConfirm('confirmCloneTemplate', () => {
             Meteor.call('cloneBoardTemplate', Session.get('currentBoard'), fromId, (err, ret) => {
@@ -223,7 +223,7 @@ BlazeComponent.extendComponent({
                 Popup.close();
               }
             });
-          }).call(this, evt, tpl);
+          }).call(this, ...args);
         }
       },
     }];

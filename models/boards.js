@@ -344,7 +344,7 @@ if (Meteor.isServer) {
 
       const userId = Meteor.userId();
       if (!toBoard.hasAdmin(userId)) throw new Meteor.Error('error-board-notAdmin');
-      if (!fromBoard.hasMember(userId)) throw new Meteor.Error('error-board-notAMember');
+      if (fromBoard.permission === 'private' && !fromBoard.hasMember(userId)) throw new Meteor.Error('error-board-notAMember');
 
       // copy members
       const newMembers = toBoard.members;
@@ -396,11 +396,9 @@ if (Meteor.isServer) {
       const copyLists = [];
       const srcLists = Lists.find({boardId: fromId}, { sort: ['sort'] }).fetch();
       srcLists.forEach((list) => {
-        if (!list.archived) {
-          const other = _.omit(list, ['_id', 'boardId', 'createdAt', 'updatedAt', '__proto__']);
-          other.boardId = toId;
-          copyLists.push(other);
-        }
+        const other = _.omit(list, ['_id', 'boardId', 'createdAt', 'updatedAt', '__proto__']);
+        other.boardId = toId;
+        copyLists.push(other);
       });
       let i = 0;
       // we reuse and rename the existing lists, and archive the rest
