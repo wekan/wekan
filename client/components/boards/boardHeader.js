@@ -13,6 +13,7 @@ Template.boardMenuPopup.events({
     // confirm that the board was successfully archived.
     FlowRouter.go('home');
   }),
+  'click .js-clone-template': Popup.open('cloneBoardTemplate'),
 });
 
 Template.boardMenuPopup.helpers({
@@ -192,3 +193,39 @@ BlazeComponent.extendComponent({
     }];
   },
 }).register('boardChangeVisibilityPopup');
+
+BlazeComponent.extendComponent({
+  template() {
+    return 'cloneBoardTemplatePopup';
+  },
+
+  boards() {
+    return Boards.find({
+      archived: false,
+      'members.userId': Meteor.userId(),
+    }, {
+      sort: ['title'],
+    });
+  },
+
+  isCurrentBoard(boardId) {
+    return boardId === Session.get('currentBoard');
+  },
+
+  events() {
+    return [{
+      'click .js-clone-from-board'(evt, tpl) {
+        const fromId = $(evt.currentTarget).attr('id').trim();
+        if(fromId) {
+          Popup.afterConfirm('confirmCloneTemplate', () => {
+            Meteor.call('cloneBoardTemplate', Session.get('currentBoard'), fromId, (err, ret) => {
+              if (!err && ret) {
+                Popup.close();
+              }
+            });
+          }).call(this, evt, tpl);
+        }
+      },
+    }];
+  },
+}).register('cloneBoardTemplatePopup');
