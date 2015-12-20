@@ -3,7 +3,7 @@ template(name="importPopup")
     .warning {{_ error.get}}
   form
     p: label(for='import-textarea') {{_ getLabel}}
-    textarea#import-textarea.js-import-json(placeholder="{{_ 'import-json-placeholder'}}" autofocus)
+    textarea#import-textarea.js-import-json(placeholder="{{_ getDataPlaceholder}}" autofocus)
       | {{jsonText}}
     if membersMapping
       div

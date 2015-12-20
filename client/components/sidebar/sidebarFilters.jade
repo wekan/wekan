@@ -67,6 +67,9 @@ template(name="multiselectionSidebar")
             else if someSelectedElementHave 'member' _id
               i.fa.fa-ellipsis-h
   hr
+  a.sidebar-btn.js-export-selection-tsv
+    i.fa.fa-file-excel-o
+    span {{_ 'exportSelectionTsvPopup-title'}}
   a.sidebar-btn.js-move-selection
     i.fa.fa-share
     span {{_ 'move-selection'}}
@@ -87,3 +90,6 @@ template(name="disambiguateMultiMemberPopup")
 template(name="moveSelectionPopup")
   +boardLists
 
+template(name="exportSelectionTsvPopup")
+  span {{_ 'select-and-copy'}}
+  textarea.js-export-cards-tsv

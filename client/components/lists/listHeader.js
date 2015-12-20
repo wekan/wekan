@@ -29,7 +29,7 @@ Template.listActionPopup.events({
   },
   'click .js-list-subscribe'() {},
   'click .js-select-cards'() {
-    const cardIds = this.allCards().map((card) => card._id);
+    const cardIds = this.cards().map((card) => card._id);
     MultiSelection.add(cardIds);
     Popup.close();
   },
@@ -39,4 +39,5 @@ Template.listActionPopup.events({
     this.archive();
     Popup.close();
   },
+  'click .js-import-cards-tsv': Popup.open('listImportCardsTsv'),
 });

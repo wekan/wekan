@@ -47,6 +47,7 @@ underscore
 alethes:pages
 arillo:flow-router-helpers
 audit-argument-checks
+harrison:papa-parse
 kadira:blaze-layout
 kadira:dochead
 kadira:flow-router

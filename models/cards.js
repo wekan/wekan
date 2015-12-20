@@ -51,6 +51,23 @@ Cards.attachSchema(new SimpleSchema({
     type: Number,
     decimal: true,
   },
+  manHour: {
+    type: Number,
+    decimal: true,
+    optional: true,
+  },
+  dueDate: {
+    type: Date,
+    optional: true,
+  },
+  startDate: {
+    type: Date,
+    optional: true,
+  },
+  finishDate: {
+    type: Date,
+    optional: true,
+  },
 }));
 
 Cards.allow({
@@ -143,6 +160,22 @@ Cards.mutations({
 
   setDescription(description) {
     return { $set: { description }};
+  },
+
+  setManHour(manHour) {
+    return { $set: { manHour }};
+  },
+
+  setDueDate(dueDate) {
+    return { $set: { dueDate }};
+  },
+
+  setStartDate(startDate) {
+    return { $set: { startDate }};
+  },
+
+  setFinishDate(finishDate) {
+    return { $set: { finishDate }};
   },
 
   move(listId, sortIndex) {

@@ -38,7 +38,7 @@ const ImportPopup = BlazeComponent.extendComponent({
     const dataJson = this._storeText(evt);
     let dataObject;
     try {
-      dataObject = JSON.parse(dataJson);
+      dataObject = this.parseDataObject(dataJson);
       this.setError('');
     } catch (e) {
       this.setError('error-json-malformed');
@@ -62,6 +62,14 @@ const ImportPopup = BlazeComponent.extendComponent({
 
   setError(error) {
     this.error.set(error);
+  },
+
+  parseDataObject(text) {
+    return JSON.parse(text);
+  },
+
+  getDataPlaceholder() {
+    return 'import-json-placeholder';
   },
 
   _import(dataObject) {
@@ -93,7 +101,7 @@ const ImportPopup = BlazeComponent.extendComponent({
 
   _hasAllNeededData(dataObject) {
     // import has no members or they are already mapped
-    return dataObject.members.length === 0 || this.membersMapping();
+    return (!dataObject.members) || dataObject.members.length === 0 || this.membersMapping();
   },
 
   _prepareAdditionalData(dataObject) {
@@ -126,6 +134,44 @@ const ImportPopup = BlazeComponent.extendComponent({
 
 ImportPopup.extendComponent({
   getAdditionalData() {
+    // XXX we should find a way to avoid this crazy DOM reading gymnastic,
+    // though it's currently the easiest way to retreive the index.
+    const listId = this.currentData()._id;
+    const selector = `#js-list-${this.currentData()._id} .js-minicard:first`;
+    const firstCardDom = $(selector).get(0);
+    const sortIndex = Utils.calculateIndex(null, firstCardDom).base;
+    const result = {listId, sortIndex};
+    return result;
+  },
+
+  getMethodName() {
+    return 'importCsvData';
+  },
+
+  getLabel() {
+    return 'import-tsv-instruction';
+  },
+
+  parseDataObject(text) {
+    if (window.Papa) {
+      // if the text contains '\t', we convert TSV to CSV
+      const csv = (text.indexOf('\t') > 0) ? text.replace(/(\t)/g, ',') : text;
+      const ret = window.Papa.parse(csv);
+      if (ret && ret.data && ret.data.length) return ret.data;
+      else throw new Meteor.Error('error-json-schema');
+    }
+  },
+
+  getDataPlaceholder() {
+    return 'import-tsv-placeholder';
+  },
+
+}).register('listImportCardsTsvPopup');
+
+ImportPopup.extendComponent({
+  getAdditionalData() {
+    // XXX we should find a way to avoid this crazy DOM reading gymnastic,
+    // though it's currently the easiest way to retreive the index.
     const listId = this.currentData()._id;
     const selector = `#js-list-${this.currentData()._id} .js-minicard:first`;
     const firstCardDom = $(selector).get(0);
