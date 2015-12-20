@@ -85,7 +85,7 @@ template(name="cloneBoardTemplatePopup")
         if(isCurrentBoard _id)
           a.disabled {{title}} ({{_ 'current'}})
         else
-          a.js-clone-from-board(id="{{_id}}") {{title}}
+          a.js-clone-from-board {{title}}
 
 template(name="confirmCloneTemplatePopup")
   p {{_ 'clone-board-pop'}}
