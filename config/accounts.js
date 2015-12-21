@@ -53,9 +53,13 @@ if (Meteor.isServer) {
   }
 
   ['resetPassword-subject', 'resetPassword-text', 'verifyEmail-subject', 'verifyEmail-text', 'enrollAccount-subject', 'enrollAccount-text'].forEach((str) => {
-    const words = str.split('-');
-    Accounts.emailTemplates[words[0]][words[1]] = (user, url) => {
-      return TAPi18n.__(`email-${str}`, { user: user.getName(), url }, user.getLanguage());
+    const [templateName, field] = str.split('-');
+    Accounts.emailTemplates[templateName][field] = (user, url) => {
+      return TAPi18n.__(`email-${str}`, {
+        url,
+        user: user.getName(),
+        siteName: Accounts.emailTemplates.siteName,
+      }, user.getLanguage());
     };
   });
 }
