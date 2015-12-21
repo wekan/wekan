@@ -131,9 +131,12 @@ Template.memberPopup.events({
   },
   'click .js-change-role': Popup.open('changePermissions'),
   'click .js-remove-member': Popup.afterConfirm('removeMember', function() {
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    const boardId = Session.get('currentBoard');
     const memberId = this.userId;
-    currentBoard.removeMember(memberId);
+    Cards.find({ boardId, members: memberId }).forEach((card) => {
+      card.unassignMember(memberId);
+    });
+    Boards.findOne(boardId).removeMember(memberId);
     Popup.close();
   }),
   'click .js-leave-member'() {
