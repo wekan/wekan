@@ -40,5 +40,6 @@ template(name="notFound")
 template(name="message")
   .big-message.quiet(class=color)
     h1 {{_ label}}
-    with(pathFor route='atSignIn')
-      p {{{_ 'page-maybe-private' this}}}
+    unless currentUser
+      with(pathFor route='atSignIn')
+        p {{{_ 'page-maybe-private' this}}}
