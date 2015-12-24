@@ -7,9 +7,9 @@ meteor-base
 
 # Build system
 ecmascript
+stylus
 standard-minifiers
 mquandalle:jade
-mquandalle:stylus
 
 # Polyfills
 es5-shim
