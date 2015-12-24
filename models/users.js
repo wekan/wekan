@@ -1,4 +1,4 @@
-Users = Meteor.users; // eslint-disable-line meteor/collections
+Users = Meteor.users;
 
 // Search a user in the complete server database by its name or username. This
 // is used for instance to add a new user to a board.

@@ -160,7 +160,7 @@ if (isSandstorm && Meteor.isClient) {
   // sandstorm client to return relative paths instead of absolutes.
   const _absoluteUrl = Meteor.absoluteUrl;
   const _defaultOptions = Meteor.absoluteUrl.defaultOptions;
-  Meteor.absoluteUrl = (path, options) => { // eslint-disable-line meteor/core
+  Meteor.absoluteUrl = (path, options) => {
     const url = _absoluteUrl(path, options);
     return url.replace(/^https?:\/\/127\.0\.0\.1:[0-9]{2,5}/, '');
   };

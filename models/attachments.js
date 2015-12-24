@@ -1,4 +1,4 @@
-Attachments = new FS.Collection('attachments', { // eslint-disable-line meteor/collections
+Attachments = new FS.Collection('attachments', {
   stores: [
 
     // XXX Add a new store for cover thumbnails so we don't load big images in
