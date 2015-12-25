@@ -6,6 +6,11 @@ Template.boardMenuPopup.events({
   },
   'click .js-change-board-color': Popup.open('boardChangeColor'),
   'click .js-change-language': Popup.open('changeLanguage'),
+  'click .js-toggle-watch-board'() {
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    currentBoard.toggleWatcher(Meteor.userId());
+    Popup.close();
+  },
   'click .js-archive-board ': Popup.afterConfirm('archiveBoard', function() {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
     currentBoard.archive();
@@ -16,6 +21,10 @@ Template.boardMenuPopup.events({
 });
 
 Template.boardMenuPopup.helpers({
+  isWatching() {
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    return currentBoard.hasWatcher(Meteor.userId());
+  },
   exportUrl() {
     const boardId = Session.get('currentBoard');
     const loginToken = Accounts._storedLoginToken();
@@ -43,6 +52,11 @@ Template.boardChangeTitlePopup.events({
 BlazeComponent.extendComponent({
   template() {
     return 'boardHeaderBar';
+  },
+
+  isWatching() {
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    return currentBoard.hasWatcher(Meteor.userId());
   },
 
   isStarred() {

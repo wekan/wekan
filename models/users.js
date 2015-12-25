@@ -47,6 +47,11 @@ Users.helpers({
     return _.contains(invitedBoards, boardId);
   },
 
+  hasTag(tag) {
+    const {tags = []} = this.profile;
+    return _.contains(tags, tag);
+  },
+
   getAvatarUrl() {
     // Although we put the avatar picture URL in the `profile` object, we need
     // to support Sandstorm which put in the `picture` attribute by default.
@@ -110,6 +115,29 @@ Users.mutations({
         'profile.invitedBoards': boardId,
       },
     };
+  },
+
+  addTag(tag) {
+    return {
+      $addToSet: {
+        'profile.tags': tag,
+      },
+    };
+  },
+
+  removeTag(tag) {
+    return {
+      $pull: {
+        'profile.tags': tag,
+      },
+    };
+  },
+
+  toggleTag(tag) {
+    if (this.hasTag(tag))
+      this.removeTag(tag);
+    else
+      this.addTag(tag);
   },
 
   setAvatarUrl(avatarUrl) {
@@ -182,15 +210,11 @@ if (Meteor.isServer) {
       if (!process.env.MAIL_URL || (!Email)) return { username: user.username };
 
       try {
-        let rootUrl = Meteor.absoluteUrl.defaultOptions.rootUrl || '';
-        if (!rootUrl.endsWith('/')) rootUrl = `${rootUrl}/`;
-        const boardUrl = `${rootUrl}b/${board._id}/${board.slug}`;
-
         const vars = {
           user: user.username,
           inviter: inviter.username,
           board: board.title,
-          url: boardUrl,
+          url: board.rootUrl(),
         };
         const lang = user.getLanguage();
         Email.send({

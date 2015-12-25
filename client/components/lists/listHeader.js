@@ -12,6 +12,11 @@ BlazeComponent.extendComponent({
     }
   },
 
+  isWatching() {
+    const list = this.currentData();
+    return list.hasWatcher(Meteor.userId());
+  },
+
   events() {
     return [{
       'click .js-open-list-menu': Popup.open('listAction'),
@@ -19,6 +24,12 @@ BlazeComponent.extendComponent({
     }];
   },
 }).register('listHeader');
+
+Template.listActionPopup.helpers({
+  isWatching() {
+    return this.hasWatcher(Meteor.userId());
+  },
+});
 
 Template.listActionPopup.events({
   'click .js-add-card'() {
@@ -31,6 +42,10 @@ Template.listActionPopup.events({
   'click .js-select-cards'() {
     const cardIds = this.allCards().map((card) => card._id);
     MultiSelection.add(cardIds);
+    Popup.close();
+  },
+  'click .js-toggle-watch-list'() {
+    this.toggleWatcher(Meteor.userId());
     Popup.close();
   },
   'click .js-close-list'(evt) {

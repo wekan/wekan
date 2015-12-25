@@ -75,6 +75,10 @@ Boards.attachSchema(new SimpleSchema({
     type: String,
     optional: true,
   },
+  watchers: {
+    type: [String],
+    optional: true,
+  },
 }));
 
 
@@ -154,6 +158,10 @@ Boards.helpers({
     return FlowRouter.path('board', { id: this._id, slug: this.slug });
   },
 
+  rootUrl() {
+    return Meteor.absoluteUrl(this.absoluteUrl().replace(/^\//, ''));
+  },
+
   colorClass() {
     return `board-color-${this.color}`;
   },
@@ -164,6 +172,10 @@ Boards.helpers({
     const _id = Random.id(6);
     Boards.direct.update(this._id, { $push: {labels: { _id, name, color }}});
     return _id;
+  },
+
+  hasWatcher(userId) {
+    return _.contains(this.watchers, userId);
   },
 });
 
@@ -274,6 +286,22 @@ Boards.mutations({
         [`members.${memberIndex}.isAdmin`]: isAdmin,
       },
     };
+  },
+
+  addWatcher(userId) {
+    return { $addToSet: { watchers: userId }};
+  },
+
+  removeWatcher(userId) {
+    return { $pull: { watchers: userId }};
+  },
+
+  toggleWatcher(userId) {
+    if (this.hasWatcher(userId)) {
+      return this.removeWatcher(userId);
+    } else {
+      return this.addWatcher(userId);
+    }
   },
 });
 
