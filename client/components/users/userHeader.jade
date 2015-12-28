@@ -3,10 +3,11 @@ template(name="headerUserBar")
     a.header-user-bar-name.js-open-header-member-menu
       .header-user-bar-avatar
         +userAvatar(userId=currentUser._id)
-      if currentUser.profile.fullname
-        = currentUser.profile.fullname
-      else
-        = currentUser.username
+      unless isMiniScreen
+        if currentUser.profile.fullname
+          = currentUser.profile.fullname
+        else
+          = currentUser.username
 
 template(name="memberMenuPopup")
   ul.pop-over-list

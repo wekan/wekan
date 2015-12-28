@@ -3,11 +3,19 @@ template(name="listHeader")
     +inlinedForm
       +editListTitleForm
     else
+      if isMiniScreen
+        if currentList
+          a.list-header-left-icon.fa.fa-angle-left.js-unselect-list
       h2.list-header-name(
         class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
         = title
-      if currentUser.isBoardMember
-        a.list-header-menu-icon.fa.fa-navicon.js-open-list-menu
+      if isMiniScreen
+        if currentList
+          a.list-header-menu-icon.fa.fa-navicon.js-open-list-menu
+        else
+          a.list-header-menu-icon.fa.fa-angle-right.js-select-list
+      else if currentUser.isBoardMember
+          a.list-header-menu-icon.fa.fa-navicon.js-open-list-menu
 
 template(name="editListTitleForm")
   .list-composer
