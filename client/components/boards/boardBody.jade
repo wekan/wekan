@@ -21,12 +21,21 @@ template(name="boardBody")
       if showOverlay.get
         .board-overlay
       .lists.js-lists
-        each currentBoard.lists
-          +list(this)
-          if currentCardIsInThisList
-            +cardDetails(currentCard)
-        if currentUser.isBoardMember
-          +addListForm
+        if isMiniScreen
+          if currentList
+            +list(currentList)
+          else
+            each currentBoard.lists
+              +miniList(this)
+            if currentUser.isBoardMember
+              +addListForm
+        else
+          each currentBoard.lists
+            +list(this)
+            if currentCardIsInThisList
+              +cardDetails(currentCard)
+          if currentUser.isBoardMember
+            +addListForm
 
 template(name="addListForm")
   .list.js-list.list-composer.js-list-composer

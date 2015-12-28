@@ -8,6 +8,7 @@ FlowRouter.route('/', {
   triggersEnter: [AccountsTemplates.ensureSignedIn],
   action() {
     Session.set('currentBoard', null);
+    Session.set('currentList', null);
     Session.set('currentCard', null);
 
     Filter.reset();

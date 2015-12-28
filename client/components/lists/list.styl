@@ -53,6 +53,9 @@
   &.ui-sortable-handle
     cursor: grab
 
+  .list-header-left-icon
+    display: none
+
   .list-header-name
     display: inline
     font-size: 16px
@@ -103,3 +106,49 @@
       background: #fafafa
       color: #222
       box-shadow: 0 1px 2px rgba(0,0,0,.2)
+
+@media screen and (max-width: 800px)
+  .mini-list
+    flex: 0 0 60px
+    height: 60px
+    width: 100%
+    border-left: 0px
+    border-bottom: 1px solid darken(white, 20%)
+
+  .list
+    display: block
+    width: 100%
+    border-left: 0px
+
+    &.ui-sortable-helper
+      flex: 0 0 60px
+      height: 60px
+      width: 100%
+      border-left: 0px
+      border-bottom: 1px solid darken(white, 20%)
+
+      .list-header.ui-sortable-handle
+        cursor: grabbing
+
+    &.placeholder
+      flex: 0 0 60px
+      height: 60px
+      width: 100%
+      border-left: 0px
+      border-bottom: 1px solid darken(white, 20%)
+
+  .list-header
+
+    .list-header-left-icon
+      display: inline
+      padding: 7px
+      padding-right: 27px
+      margin-top: 1px
+      top: -@padding
+      left: -@padding
+
+    .list-header-menu-icon
+      position: absolute
+      padding: 7px
+      top: -@padding
+      right: 17px

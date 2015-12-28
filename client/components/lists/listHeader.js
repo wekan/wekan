@@ -15,6 +15,9 @@ BlazeComponent.extendComponent({
   events() {
     return [{
       'click .js-open-list-menu': Popup.open('listAction'),
+      'click .js-unselect-list'() {
+        Session.set('currentList', null);
+      },
       submit: this.editTitle,
     }];
   },

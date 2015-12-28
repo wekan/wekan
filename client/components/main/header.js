@@ -10,4 +10,8 @@ Template.header.helpers({
 
 Template.header.events({
   'click .js-create-board': Popup.open('createBoard'),
+  'click .js-select-list'() {
+    Session.set('currentList', this._id);
+    Session.set('currentCard', null);
+  },
 });
