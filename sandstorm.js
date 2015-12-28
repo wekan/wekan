@@ -51,10 +51,8 @@ if (isSandstorm && Meteor.isServer) {
     // XXX Maybe the sandstorm http-bridge could provide some kind of "home URL"
     // in the manifest?
     const base = req.headers['x-sandstorm-base-path'];
-    // XXX If this routing scheme changes, this will break. We should generate
-    // the location URL using the router, but at the time of writing, the
-    // it is only accessible on the client.
-    const boardPath = `/b/${sandstormBoard._id}/${sandstormBoard.slug}`;
+    const { _id, slug } = sandstormBoard;
+    const boardPath = FlowRouter.path('board', { id: _id, slug });
 
     res.writeHead(301, {
       Location: base + boardPath,

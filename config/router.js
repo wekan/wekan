@@ -113,7 +113,7 @@ const appTitle = 'Wekan';
 // that the global variable `Boards` is undefined when this file loads so we
 // wait a bit until hopefully all files are loaded. This will be fixed in a
 // clean way once Meteor will support ES6 modules -- hopefully in Meteor 1.3.
-Meteor.startup(() => {
+Meteor.isClient && Meteor.startup(() => {
   Tracker.autorun(() => {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
     const titleStack = [appTitle];
