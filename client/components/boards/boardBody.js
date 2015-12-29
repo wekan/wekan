@@ -135,9 +135,6 @@ Template.boardBody.onRendered(function() {
     },
   };
 
-  if (!Meteor.user() || !Meteor.user().isBoardMember())
-    return;
-
   $(self.listsDom).sortable({
     tolerance: 'pointer',
     helper: 'clone',
@@ -163,16 +160,21 @@ Template.boardBody.onRendered(function() {
     },
   });
 
-  // Disable drag-dropping while in multi-selection mode
+  function userIsMember() {
+    return Meteor.user() && Meteor.user().isBoardMember();
+  }
+
+  // Disable drag-dropping while in multi-selection mode, or if the current user
+  // is not a board member
   self.autorun(() => {
     $(self.listsDom).sortable('option', 'disabled',
-      MultiSelection.isActive());
+      MultiSelection.isActive() || !userIsMember());
   });
 
   // If there is no data in the board (ie, no lists) we autofocus the list
   // creation form by clicking on the corresponding element.
   const currentBoard = Boards.findOne(Session.get('currentBoard'));
-  if (currentBoard.lists().count() === 0) {
+  if (userIsMember() && currentBoard.lists().count() === 0) {
     self.openNewListForm();
   }
 });
