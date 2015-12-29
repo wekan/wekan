@@ -195,9 +195,6 @@ Template.labelsWidget.events({
 // autorun function and register a dependency on the both members and labels
 // fields of the current board document.
 function draggableMembersLabelsWidgets() {
-  if (!Meteor.user() || !Meteor.user().isBoardMember())
-    return;
-
   this.autorun(() => {
     const currentBoardId = Tracker.nonreactive(() => {
       return Session.get('currentBoard');
@@ -209,7 +206,8 @@ function draggableMembersLabelsWidgets() {
       },
     });
     Tracker.afterFlush(() => {
-      this.$('.js-member,.js-label').draggable({
+      const $draggables = this.$('.js-member,.js-label');
+      $draggables.draggable({
         appendTo: 'body',
         helper: 'clone',
         revert: 'invalid',
@@ -219,6 +217,14 @@ function draggableMembersLabelsWidgets() {
         start() {
           EscapeActions.executeUpTo('popup-back');
         },
+      });
+
+      function userIsMember() {
+        return Meteor.user() && Meteor.user().isBoardMember();
+      }
+
+      this.autorun(() => {
+        $draggables.draggable('option', 'disabled', !userIsMember());
       });
     });
   });
