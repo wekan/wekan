@@ -42,11 +42,13 @@ BlazeComponent.extendComponent({
         }
         return helper;
       },
-      distance: 7,
       items: itemsSelector,
       scroll: false,
       placeholder: 'minicard-wrapper placeholder',
       start(evt, ui) {
+        if (window.navigator.vibrate) {
+          window.navigator.vibrate(50);
+        }
         ui.placeholder.height(ui.helper.height());
         EscapeActions.executeUpTo('popup');
         boardComponent.setIsDragging(true);
@@ -80,6 +82,12 @@ BlazeComponent.extendComponent({
         }
         boardComponent.setIsDragging(false);
       },
+    });
+
+    this.autorun(() => {
+      const isTouchDevice = Utils.isMiniScreen();
+      $cards.sortable('option', 'distance', isTouchDevice ? 1 : 7);
+      $cards.sortable('option', 'delay', isTouchDevice ? 500 : 0);
     });
 
     function userIsMember() {
