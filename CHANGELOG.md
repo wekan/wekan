@@ -1,3 +1,10 @@
+# v0.10.1
+
+This patch release fixes two bugs on Sandstorm:
+
+* Drag and drop was broken;
+* Avatars weren’t working.
+
 # v0.10
 
 This release features:
