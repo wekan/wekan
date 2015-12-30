@@ -28,6 +28,7 @@ rules:
   no-multiple-empty-lines: 2
   no-nested-ternary: 2
   no-spaced-func: 2
+  no-trailing-spaces: 2
   operator-linebreak: 2
   quotes: [2, single]
   semi-spacing: 2
