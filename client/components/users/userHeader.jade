@@ -15,6 +15,7 @@ template(name="memberMenuPopup")
     li: a.js-change-avatar {{_ 'edit-avatar'}}
     li: a.js-change-password {{_ 'changePasswordPopup-title'}}
     li: a.js-change-language {{_ 'changeLanguagePopup-title'}}
+    li: a.js-edit-notification {{_ 'editNotificationPopup-title'}}
   hr
   ul.pop-over-list
     li: a.js-logout {{_ 'log-out'}}
@@ -31,6 +32,21 @@ template(name="editProfilePopup")
       | {{_ 'initials'}}
       input.js-profile-initials(type="text" value=profile.initials)
     input.primary.wide(type="submit" value="{{_ 'save'}}")
+
+template(name="editNotificationPopup")
+  ul.pop-over-list
+    li
+      a.js-toggle-tag-notify-participate
+        i.fa(class="{{#if hasTag 'notify-participate'}}fa-check-square-o{{else}}fa-square-o{{/if}}")
+        | {{_ 'participating'}}
+        span.sub-name {{_ 'notify-participate'}}
+  hr
+  ul.pop-over-list
+    li
+      a.js-toggle-tag-notify-watch
+        i.fa(class="{{#if hasTag 'notify-watch'}}fa-check-square-o{{else}}fa-square-o{{/if}}")
+        | {{_ 'watching'}}
+        span.sub-name {{_ 'notify-watch'}}
 
 template(name="changePasswordPopup")
   +atForm(state='changePwd')

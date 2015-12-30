@@ -12,6 +12,11 @@ BlazeComponent.extendComponent({
     }
   },
 
+  isWatching() {
+    const list = this.currentData();
+    return list.findWatcher(Meteor.userId());
+  },
+
   events() {
     return [{
       'click .js-open-list-menu': Popup.open('listAction'),
@@ -19,6 +24,12 @@ BlazeComponent.extendComponent({
     }];
   },
 }).register('listHeader');
+
+Template.listActionPopup.helpers({
+  isWatching() {
+    return this.findWatcher(Meteor.userId());
+  },
+});
 
 Template.listActionPopup.events({
   'click .js-add-card'() {
@@ -32,6 +43,13 @@ Template.listActionPopup.events({
     const cardIds = this.allCards().map((card) => card._id);
     MultiSelection.add(cardIds);
     Popup.close();
+  },
+  'click .js-toggle-watch-list'() {
+    const currentList = this;
+    const level = currentList.findWatcher(Meteor.userId()) ? null : 'watching';
+    Meteor.call('watch', 'list', currentList._id, level, (err, ret) => {
+      if (!err && ret) Popup.close();
+    });
   },
   'click .js-close-list'(evt) {
     evt.preventDefault();

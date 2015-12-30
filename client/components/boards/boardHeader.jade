@@ -3,6 +3,8 @@ template(name="boardHeaderBar")
     with currentBoard
       a(class="{{#if currentUser.isBoardAdmin}}js-edit-board-title{{else}}is-disabled{{/if}}")
         = title
+    if isWatching
+      i.board-header-watch-icon.fa.fa-eye
 
   .board-header-btns.left
     unless isMiniScreen
@@ -58,6 +60,9 @@ template(name="boardHeaderBar")
       i.board-header-btn-icon.fa.fa-navicon
 
 template(name="boardMenuPopup")
+  if currentUser.isBoardMember
+    ul.pop-over-list
+      li: a.js-toggle-watch-board {{#if isWatching}}{{_ 'unwatch'}}{{else}}{{_ 'watch'}}{{/if}}
   ul.pop-over-list
     li: a.js-open-archives {{_ 'archived-items'}}
     if currentUser.isBoardAdmin

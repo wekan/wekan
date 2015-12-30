@@ -47,6 +47,16 @@ Users.helpers({
     return _.contains(invitedBoards, boardId);
   },
 
+  hasTag(tag) {
+    const {tags = []} = this.profile;
+    return _.contains(tags, tag);
+  },
+
+  hasNotification(activityId) {
+    const {notifications = []} = this.profile;
+    return _.contains(notifications, activityId);
+  },
+
   getAvatarUrl() {
     // Although we put the avatar picture URL in the `profile` object, we need
     // to support Sandstorm which put in the `picture` attribute by default.
@@ -108,6 +118,45 @@ Users.mutations({
     return {
       $pull: {
         'profile.invitedBoards': boardId,
+      },
+    };
+  },
+
+  addTag(tag) {
+    return {
+      $addToSet: {
+        'profile.tags': tag,
+      },
+    };
+  },
+
+  removeTag(tag) {
+    return {
+      $pull: {
+        'profile.tags': tag,
+      },
+    };
+  },
+
+  toggleTag(tag) {
+    if (this.hasTag(tag))
+      this.removeTag(tag);
+    else
+      this.addTag(tag);
+  },
+
+  addNotification(activityId) {
+    return {
+      $addToSet: {
+        'profile.notifications': activityId,
+      },
+    };
+  },
+
+  removeNotification(activityId) {
+    return {
+      $pull: {
+        'profile.notifications': activityId,
       },
     };
   },
@@ -179,25 +228,19 @@ if (Meteor.isServer) {
       board.addMember(user._id);
       user.addInvite(boardId);
 
-      if (!process.env.MAIL_URL || (!Email)) return { username: user.username };
-
       try {
-        let rootUrl = Meteor.absoluteUrl.defaultOptions.rootUrl || '';
-        if (!rootUrl.endsWith('/')) rootUrl = `${rootUrl}/`;
-        const boardUrl = `${rootUrl}b/${board._id}/${board.slug}`;
-
-        const vars = {
+        const params = {
           user: user.username,
           inviter: inviter.username,
           board: board.title,
-          url: boardUrl,
+          url: board.absoluteUrl(),
         };
         const lang = user.getLanguage();
         Email.send({
           to: user.emails[0].address,
           from: Accounts.emailTemplates.from,
-          subject: TAPi18n.__('email-invite-subject', vars, lang),
-          text: TAPi18n.__('email-invite-text', vars, lang),
+          subject: TAPi18n.__('email-invite-subject', params, lang),
+          text: TAPi18n.__('email-invite-text', params, lang),
         });
       } catch (e) {
         throw new Meteor.Error('email-fail', e.message);

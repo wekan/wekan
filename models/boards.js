@@ -75,6 +75,10 @@ Boards.attachSchema(new SimpleSchema({
     type: String,
     optional: true,
   },
+  watchers: {
+    type: [String],
+    optional: true,
+  },
 }));
 
 
@@ -151,7 +155,7 @@ Boards.helpers({
   },
 
   absoluteUrl() {
-    return FlowRouter.path('board', { id: this._id, slug: this.slug });
+    return FlowRouter.url('board', { id: this._id, slug: this.slug });
   },
 
   colorClass() {
@@ -164,6 +168,10 @@ Boards.helpers({
     const _id = Random.id(6);
     Boards.direct.update(this._id, { $push: {labels: { _id, name, color }}});
     return _id;
+  },
+
+  findWatcher(userId) {
+    return _.contains(this.watchers, userId);
   },
 });
 
@@ -274,6 +282,12 @@ Boards.mutations({
         [`members.${memberIndex}.isAdmin`]: isAdmin,
       },
     };
+  },
+
+  setWatcher(userId, level) {
+    // if level undefined or null or false, then remove
+    if (!level) return { $pull: { watchers: userId }};
+    return { $addToSet: { watchers: userId }};
   },
 });
 

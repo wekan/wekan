@@ -25,6 +25,10 @@ Lists.attachSchema(new SimpleSchema({
     denyInsert: true,
     optional: true,
   },
+  watchers: {
+    type: [String],
+    optional: true,
+  },
 }));
 
 Lists.allow({
@@ -55,6 +59,10 @@ Lists.helpers({
   board() {
     return Boards.findOne(this.boardId);
   },
+
+  findWatcher(userId) {
+    return _.contains(this.watchers, userId);
+  },
 });
 
 Lists.mutations({
@@ -68,6 +76,12 @@ Lists.mutations({
 
   restore() {
     return { $set: { archived: false }};
+  },
+
+  setWatcher(userId, level) {
+    // if level undefined or null or false, then remove
+    if (!level) return { $pull: { watchers: userId }};
+    return { $addToSet: { watchers: userId }};
   },
 });
 

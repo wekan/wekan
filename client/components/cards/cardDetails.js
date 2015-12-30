@@ -23,6 +23,11 @@ BlazeComponent.extendComponent({
     this.parentComponent().mouseHasEnterCardDetails = false;
   },
 
+  isWatching() {
+    const card = this.currentData();
+    return card.findWatcher(Meteor.userId());
+  },
+
   scrollParentContainer() {
     const cardPanelWidth = 510;
     const bodyBoardComponent = this.parentComponent();
@@ -128,6 +133,12 @@ BlazeComponent.extendComponent({
   }
 }).register('inlinedCardDescription');
 
+Template.cardDetailsActionsPopup.helpers({
+  isWatching() {
+    return this.findWatcher(Meteor.userId());
+  },
+});
+
 Template.cardDetailsActionsPopup.events({
   'click .js-members': Popup.open('cardMembers'),
   'click .js-labels': Popup.open('cardLabels'),
@@ -139,6 +150,13 @@ Template.cardDetailsActionsPopup.events({
     Popup.close();
   },
   'click .js-more': Popup.open('cardMore'),
+  'click .js-toggle-watch-card'() {
+    const currentCard = this;
+    const level = currentCard.findWatcher(Meteor.userId()) ? null : 'watching';
+    Meteor.call('watch', 'card', currentCard._id, level, (err, ret) => {
+      if (!err && ret) Popup.close();
+    });
+  },
 });
 
 Template.moveCardPopup.events({
