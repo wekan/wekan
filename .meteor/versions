@@ -99,6 +99,7 @@ mquandalle:jquery-ui-drag-drop-sort@0.2.0
 mquandalle:moment@1.0.1
 mquandalle:mousetrap-bindglobal@0.0.1
 mquandalle:perfect-scrollbar@0.6.5_2
+mquandalle:stylus@1.1.1
 npm-bcrypt@0.7.8_2
 npm-mongo@1.4.40-faster-rebuild.0
 observe-sequence@1.0.7
@@ -130,7 +131,6 @@ spacebars@1.0.7
 spacebars-compiler@1.0.7
 srp@1.0.4
 standard-minifiers@1.0.3-faster-rebuild.0
-stylus@2.511.2-faster-rebuild.0
 tap:i18n@1.7.0
 templates:tabs@2.2.0
 templating@1.1.6-faster-rebuild.0
