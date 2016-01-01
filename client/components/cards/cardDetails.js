@@ -141,6 +141,19 @@ Template.cardDetailsActionsPopup.events({
   'click .js-more': Popup.open('cardMore'),
 });
 
+Template.editCardTitleForm.onRendered(function() {
+  autosize(this.$('.js-edit-card-title'));
+});
+
+Template.editCardTitleForm.events({
+  'keydown .js-edit-card-title'(evt) {
+    // If enter key was pressed, submit the data
+    if (evt.keyCode === 13) {
+      $('.js-submit-edit-card-title-form').click();
+    }
+  },
+});
+
 Template.moveCardPopup.events({
   'click .js-select-list'() {
     // XXX We should *not* get the currentCard from the global state, but

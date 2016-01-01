@@ -2,10 +2,7 @@ template(name="cardDetails")
   section.card-details.js-card-details.js-perfect-scrollbar: .card-details-canvas
     .card-details-header
       +inlinedForm(classNames="js-card-details-title")
-        input.full-line(type="text" value=title autofocus)
-        .edit-controls.clearfix
-          button.primary.confirm(type="submit") {{_ 'save'}}
-          a.fa.fa-times-thin.js-close-inlined-form
+        +editCardTitleForm
       else
         a.fa.fa-times-thin.close-card-details.js-close-card-details
         if currentUser.isBoardMember
@@ -76,6 +73,13 @@ template(name="cardDetails")
       +commentForm
     if isLoaded.get
       +activities(card=this mode="card")
+
+template(name="editCardTitleForm")
+  textarea.js-edit-card-title(rows='1' autofocus)
+    = title
+  .edit-controls.clearfix
+    button.primary.confirm.js-submit-edit-card-title-form(type="submit") {{_ 'save'}}
+    a.fa.fa-times-thin.js-close-inlined-form
 
 template(name="cardDetailsActionsPopup")
   ul.pop-over-list
