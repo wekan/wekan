@@ -166,12 +166,9 @@ if (Meteor.isServer) {
       board.addMember(user._id);
       user.addInvite(boardId);
 
-      if (!process.env.MAIL_URL || (!Email)) return { username: user.username };
-
       try {
-        let rootUrl = Meteor.absoluteUrl.defaultOptions.rootUrl || '';
-        if (!rootUrl.endsWith('/')) rootUrl = `${rootUrl}/`;
-        const boardUrl = `${rootUrl}b/${board._id}/${board.slug}`;
+        const { _id, slug } = board;
+        const boardUrl = FlowRouter.url('board', { id: _id, slug });
 
         const vars = {
           user: user.username,
