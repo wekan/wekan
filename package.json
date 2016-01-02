@@ -1,6 +1,6 @@
 {
-  "name": "wekan",
-  "version": "1.0.0",
+  "name": "Wekan",
+  "version": "0.10.1",
   "description": "The open-source Trello-like kanban",
   "private": true,
   "scripts": {
@@ -15,7 +15,7 @@
   "bugs": {
     "url": "https://github.com/wekan/wekan/issues"
   },
-  "homepage": "http://wekan.io",
+  "homepage": "https://wekan.io",
   "devDependencies": {
     "babel-eslint": "4.1.3",
     "eslint": "1.7.3",

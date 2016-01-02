@@ -126,10 +126,10 @@ if (isSandstorm && Meteor.isServer) {
     updateUserPermissions(doc._id, doc.services.sandstorm.permissions);
   });
 
-  // LibreBoard v0.8 didn’t implement the Sandstorm sharing model and instead
-  // kept the visibility setting (“public” or “private”) in the UI as does the
-  // main Meteor application. We need to enforce “public” visibility as the
-  // sharing is now handled by Sandstorm.
+  // Wekan v0.8 didn’t implement the Sandstorm sharing model and instead kept
+  // the visibility setting (“public” or “private”) in the UI as does the main
+  // Meteor application. We need to enforce “public” visibility as the sharing
+  // is now handled by Sandstorm.
   // See https://github.com/wekan/wekan/issues/346
   Migrations.add('enforce-public-visibility-for-sandstorm', () => {
     Boards.update('sandstorm', { $set: { permission: 'public' }});

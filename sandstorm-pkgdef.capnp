@@ -57,13 +57,13 @@ const pkgdef :Spk.PackageDefinition = (
         market = (svg = embed "meta/icons/wekan-150.svg"),
       ),
 
-      website = "http://libreboard.com",
+      website = "https://wekan.io",
       codeUrl = "https://github.com/wekan/wekan",
       license = (openSource = mit),
       categories = [productivity, office],
 
       author = (
-        contactEmail = "maxime@quandalle.com",
+        contactEmail = "mquandalle@wekan.io",
         pgpSignature = embed "meta/mquandalle-pgp-sig",
       ),
 

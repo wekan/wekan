@@ -51,7 +51,7 @@ Attachments.files.before.insert((userId, doc) => {
   // files that the browser will just execute if we don't serve them with the
   // appropriate `application/octet-stream` MIME header which can lead to user
   // data leaks. I imagine other formats (like PDF) can also be attack vectors.
-  // See https://github.com/libreboard/libreboard/issues/99
+  // See https://github.com/wekan/wekan/issues/99
   // XXX Should we use `beforeWrite` option of CollectionFS instead of
   // collection-hooks?
   if (!file.isImage()) {

@@ -1,5 +1,5 @@
 FROM meteorhacks/meteord:onbuild
-MAINTAINER Maxime Quandalle <maxime@quandalle.com>
+MAINTAINER Maxime Quandalle <mquandalle@wekan.io>
 
 # Run as you wish!
 # docker run -d --name wekan-db mongo
