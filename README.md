@@ -39,4 +39,4 @@ with [Meteor](https://www.meteor.com).
 [heroku_button]: https://www.herokucdn.com/deploy/button.png
 [heroku_deploy]: https://heroku.com/deploy?template=https://github.com/wekan/wekan/tree/master
 [scalingo_button]: https://cdn.scalingo.com/deploy/button.svg
-[scalingo_deploy]: https://my.scalingo.com/deploy?source=https://github.com/wekan/wekan#devel
+[scalingo_deploy]: https://my.scalingo.com/deploy?source=https://github.com/wekan/wekan#master
