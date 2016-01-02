@@ -71,7 +71,7 @@ template(name="boardActivities")
           else
             | {{{_ 'activity-removed' memberLink cardLink}}}.
 
-        span.activity-meta {{ moment createdAt }}
+        span(title=createdAt).activity-meta {{ moment createdAt }}
 
 template(name="cardActivities")
   each currentCard.activities
@@ -114,7 +114,7 @@ template(name="cardActivities")
             .activity-comment
               +viewer
                 = comment.text
-            span.activity-meta {{ moment createdAt }}
+            span(title=createdAt).activity-meta {{ moment createdAt }}
               if ($eq currentUser._id comment.userId)
                 = ' - '
                 a.js-open-inlined-form {{_ "edit"}}
@@ -122,4 +122,4 @@ template(name="cardActivities")
                 a.js-delete-comment {{_ "delete"}}
 
         else
-          span.activity-meta {{ moment createdAt }}
+          span(title=createdAt).activity-meta {{ moment createdAt }}
