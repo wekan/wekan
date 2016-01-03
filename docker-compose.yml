@@ -1,5 +1,23 @@
-# Run with `docker-compose up -d`
-# XXX We should activate MongoDB oplog for better performance.
+# You can read the Docker Compose documentation at:
+#
+#   https://docs.docker.com/compose/
+#
+# Run with file with `docker-compose up -d`.
+#
+# We use two separate Docker containers: one for the database and one for the
+# Wekan application. The Wekan container doensn’t contain any mutable state
+# (all the user data, even uploads, are saved in the database) so updating it
+# is as simple as stoping the old version and starting the new one. If you want
+# to update the database you need to uncomment the volume section below.
+
+wekandb:
+  image: mongo
+#  volumes:
+#    - ./data/runtime/db:/data/db
+#    - ./data/dump:/dump
+  command: mongod --smallfiles --oplogSize 128
+  ports: 27017
+
 wekan:
   image: mquandalle/wekan
   links:
@@ -10,7 +28,3 @@ wekan:
   ports:
     - 80:80
 
-wekandb:
-   image: mongo
-   ports:
-     - 27017
