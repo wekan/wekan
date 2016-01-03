@@ -1,8 +1,4 @@
 BlazeComponent.extendComponent({
-  template() {
-    return 'listBody';
-  },
-
   mixins() {
     return [Mixins.PerfectScrollbar];
   },
@@ -122,10 +118,6 @@ function toggleValueInReactiveArray(reactiveValue, value) {
 }
 
 BlazeComponent.extendComponent({
-  template() {
-    return 'addCardForm';
-  },
-
   onCreated() {
     this.labels = new ReactiveVar([]);
     this.members = new ReactiveVar([]);

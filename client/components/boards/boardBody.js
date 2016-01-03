@@ -1,10 +1,6 @@
 const subManager = new SubsManager();
 
 BlazeComponent.extendComponent({
-  template() {
-    return 'board';
-  },
-
   onCreated() {
     this.draggingActive = new ReactiveVar(false);
     this.showOverlay = new ReactiveVar(false);
@@ -180,10 +176,6 @@ Template.boardBody.onRendered(function() {
 });
 
 BlazeComponent.extendComponent({
-  template() {
-    return 'addListForm';
-  },
-
   // Proxy
   open() {
     this.childComponents('inlinedForm')[0].open();

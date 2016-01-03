@@ -1,8 +1,4 @@
 BlazeComponent.extendComponent({
-  template() {
-    return 'filterSidebar';
-  },
-
   events() {
     return [{
       'click .js-toggle-label-filter'(evt) {
@@ -37,10 +33,6 @@ function mutateSelectedCards(mutationName, ...args) {
 }
 
 BlazeComponent.extendComponent({
-  template() {
-    return 'multiselectionSidebar';
-  },
-
   mapSelection(kind, _id) {
     return Cards.find(MultiSelection.getMongoSelector()).map((card) => {
       const methodName = kind === 'label' ? 'hasLabel' : 'isAssigned';

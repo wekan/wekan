@@ -1,10 +1,6 @@
 const activitiesPerPage = 20;
 
 BlazeComponent.extendComponent({
-  template() {
-    return 'activities';
-  },
-
   onCreated() {
     // XXX Should we use ReactiveNumber?
     this.page = new ReactiveVar(1);

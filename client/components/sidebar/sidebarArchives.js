@@ -1,8 +1,4 @@
 BlazeComponent.extendComponent({
-  template() {
-    return 'archivesSidebar';
-  },
-
   tabs() {
     return [
       { name: TAPi18n.__('cards'), slug: 'cards' },

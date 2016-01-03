@@ -1,8 +1,4 @@
 BlazeComponent.extendComponent({
-  template() {
-    return 'cardDetails';
-  },
-
   mixins() {
     return [Mixins.InfiniteScrolling, Mixins.PerfectScrollbar];
   },

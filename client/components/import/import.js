@@ -7,10 +7,6 @@
 /// - getLabel(): i18n key for the text displayed in the popup, usually to
 /// explain how to get the data out of the source system.
 const ImportPopup = BlazeComponent.extendComponent({
-  template() {
-    return 'importPopup';
-  },
-
   jsonText() {
     return Session.get('import.text');
   },

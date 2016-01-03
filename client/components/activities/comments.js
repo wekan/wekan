@@ -1,10 +1,6 @@
 const commentFormIsOpen = new ReactiveVar(false);
 
 BlazeComponent.extendComponent({
-  template() {
-    return 'commentForm';
-  },
-
   onDestroyed() {
     commentFormIsOpen.set(false);
   },

@@ -1,10 +1,6 @@
 const { calculateIndex } = Utils;
 
 BlazeComponent.extendComponent({
-  template() {
-    return 'list';
-  },
-
   // Proxy
   openForm(options) {
     this.childComponents('listBody')[0].openForm(options);

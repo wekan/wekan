@@ -9,10 +9,6 @@ const viewTitles = {
 };
 
 BlazeComponent.extendComponent({
-  template() {
-    return 'sidebar';
-  },
-
   mixins() {
     return [Mixins.InfiniteScrolling, Mixins.PerfectScrollbar];
   },
@@ -232,10 +228,6 @@ Template.membersWidget.onRendered(draggableMembersLabelsWidgets);
 Template.labelsWidget.onRendered(draggableMembersLabelsWidgets);
 
 BlazeComponent.extendComponent({
-  template() {
-    return 'addMemberPopup';
-  },
-
   onCreated() {
     this.error = new ReactiveVar('');
     this.loading = new ReactiveVar(false);

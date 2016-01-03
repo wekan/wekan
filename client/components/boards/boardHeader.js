@@ -41,10 +41,6 @@ Template.boardChangeTitlePopup.events({
 });
 
 BlazeComponent.extendComponent({
-  template() {
-    return 'boardHeaderBar';
-  },
-
   isStarred() {
     const boardId = Session.get('currentBoard');
     const user = Meteor.user();
@@ -93,10 +89,6 @@ BlazeComponent.extendComponent({
 }).register('boardHeaderBar');
 
 BlazeComponent.extendComponent({
-  template() {
-    return 'boardChangeColorPopup';
-  },
-
   backgroundColors() {
     return Boards.simpleSchema()._schema.color.allowedValues;
   },
@@ -119,10 +111,6 @@ BlazeComponent.extendComponent({
 }).register('boardChangeColorPopup');
 
 BlazeComponent.extendComponent({
-  template() {
-    return 'createBoardPopup';
-  },
-
   onCreated() {
     this.visibilityMenuIsOpen = new ReactiveVar(false);
     this.visibility = new ReactiveVar('private');
@@ -170,10 +158,6 @@ BlazeComponent.extendComponent({
 }).register('createBoardPopup');
 
 BlazeComponent.extendComponent({
-  template() {
-    return 'boardChangeVisibilityPopup';
-  },
-
   visibilityCheck() {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
     return this.currentData() === currentBoard.permission;
