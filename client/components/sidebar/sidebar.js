@@ -94,9 +94,7 @@ BlazeComponent.extendComponent({
   },
 
   events() {
-    // XXX Hacky, we need some kind of `super`
-    const mixinEvents = this.getMixin(Mixins.InfiniteScrolling).events();
-    return [...mixinEvents, {
+    return [{
       'click .js-hide-sidebar': this.hide,
       'click .js-toggle-sidebar': this.toggle,
       'click .js-back-home': this.setView,

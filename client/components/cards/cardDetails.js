@@ -8,8 +8,11 @@ BlazeComponent.extendComponent({
   },
 
   calculateNextPeak() {
-    const altitude = this.find('.js-card-details').scrollHeight;
-    this.callFirstWith(this, 'setNextPeak', altitude);
+    const cardElement = this.find('.js-card-details');
+    if (cardElement) {
+      const altitude = cardElement.scrollHeight;
+      this.callFirstWith(this, 'setNextPeak', altitude);
+    }
   },
 
   reachNextPeak() {
@@ -21,6 +24,7 @@ BlazeComponent.extendComponent({
     this.isLoaded = new ReactiveVar(false);
     this.parentComponent().showOverlay.set(true);
     this.parentComponent().mouseHasEnterCardDetails = false;
+    this.calculateNextPeak();
   },
 
   scrollParentContainer() {
