@@ -151,7 +151,7 @@ Boards.helpers({
   },
 
   absoluteUrl() {
-    return FlowRouter.path('board', { id: this._id, slug: this.slug });
+    return FlowRouter.url('board', { id: this._id, slug: this.slug });
   },
 
   colorClass() {

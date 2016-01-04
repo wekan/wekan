@@ -10,6 +10,8 @@ template(name="cardDetails")
         h2.card-details-title.js-card-title(
           class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
             = title
+            if isWatching
+              i.fa.fa-eye.card-details-watch
 
     if archived
       p.warning {{_ 'card-archived'}}
@@ -82,6 +84,9 @@ template(name="editCardTitleForm")
     a.fa.fa-times-thin.js-close-inlined-form
 
 template(name="cardDetailsActionsPopup")
+  ul.pop-over-list
+    li: a.js-toggle-watch-card {{#if isWatching}}{{_ 'unwatch'}}{{else}}{{_ 'watch'}}{{/if}}
+  hr
   ul.pop-over-list
     li: a.js-members {{_ 'card-edit-members'}}
     li: a.js-labels {{_ 'card-edit-labels'}}
