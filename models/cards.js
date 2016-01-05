@@ -116,15 +116,11 @@ Cards.helpers({
 
   absoluteUrl() {
     const board = this.board();
-    return FlowRouter.path('card', {
+    return FlowRouter.url('card', {
       boardId: board._id,
       slug: board.slug,
       cardId: this._id,
     });
-  },
-
-  rootUrl() {
-    return Meteor.absoluteUrl(this.absoluteUrl().replace('/', ''));
   },
 });
 

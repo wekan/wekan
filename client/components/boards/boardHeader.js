@@ -41,6 +41,11 @@ Template.boardChangeTitlePopup.events({
 });
 
 BlazeComponent.extendComponent({
+  watchLevel() {
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    return currentBoard.getWatchLevel(Meteor.userId());
+  },
+
   isStarred() {
     const boardId = Session.get('currentBoard');
     const user = Meteor.user();
@@ -65,6 +70,7 @@ BlazeComponent.extendComponent({
       },
       'click .js-open-board-menu': Popup.open('boardMenu'),
       'click .js-change-visibility': Popup.open('boardChangeVisibility'),
+      'click .js-watch-board': Popup.open('boardChangeWatch'),
       'click .js-open-filter-view'() {
         Sidebar.setView('filter');
       },
@@ -176,3 +182,25 @@ BlazeComponent.extendComponent({
     }];
   },
 }).register('boardChangeVisibilityPopup');
+
+BlazeComponent.extendComponent({
+  watchLevel() {
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    return currentBoard.getWatchLevel(Meteor.userId());
+  },
+
+  watchCheck() {
+    return this.currentData() === this.watchLevel();
+  },
+
+  events() {
+    return [{
+      'click .js-select-watch'() {
+        const level = this.currentData();
+        Meteor.call('watch', 'board', Session.get('currentBoard'), level, (err, ret) => {
+          if (!err && ret) Popup.close();
+        });
+      },
+    }];
+  },
+}).register('boardChangeWatchPopup');

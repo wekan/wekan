@@ -19,6 +19,17 @@ template(name="boardHeaderBar")
           i.fa(class="{{#if currentBoard.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
           span {{_ currentBoard.permission}}
 
+        a.board-header-btn.js-watch-board
+          if $eq watchLevel "watching"
+            i.fa.fa-eye
+            span {{_ 'watching'}}
+          if $eq watchLevel "tracking"
+            i.fa.fa-user
+            span {{_ 'tracking'}}
+          if $eq watchLevel "muted"
+            i.fa.fa-times-circle
+            span {{_ 'muted'}}
+
   .board-header-btns.right
     if isMiniScreen
       unless isSandstorm
@@ -33,6 +44,17 @@ template(name="boardHeaderBar")
         a.board-header-btn(class="{{#if currentUser.isBoardAdmin}}js-change-visibility{{else}}is-disabled{{/if}}")
           i.fa(class="{{#if currentBoard.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
           span {{_ currentBoard.permission}}
+
+        a.board-header-btn.js-watch-board
+          if $eq watchLevel "watching"
+            i.fa.fa-eye
+            span {{_ 'watching'}}
+          if $eq watchLevel "tracking"
+            i.fa.fa-user
+            span {{_ 'tracking'}}
+          if $eq watchLevel "muted"
+            i.fa.fa-times-circle
+            span {{_ 'muted'}}
 
     a.board-header-btn.js-open-filter-view(
         title="{{#if Filter.isActive}}{{_ 'filter-on-desc'}}{{/if}}"
@@ -96,6 +118,33 @@ template(name="boardVisibilityList")
 
 template(name="boardChangeVisibilityPopup")
   +boardVisibilityList
+
+template(name="boardChangeWatchPopup")
+  ul.pop-over-list
+    li
+      with "watching"
+        a.js-select-watch
+          i.fa.fa-eye.colorful
+          | {{_ 'watching'}}
+          if watchCheck
+            i.fa.fa-check
+          span.sub-name {{_ 'watching-info'}}
+    li
+      with "tracking"
+        a.js-select-watch
+          i.fa.fa-user.colorful
+          | {{_ 'tracking'}}
+          if watchCheck
+            i.fa.fa-check
+          span.sub-name {{_ 'tracking-info'}}
+    li
+      with "muted"
+        a.js-select-watch
+          i.fa.fa-times-circle.colorful
+          | {{_ 'muted'}}
+          if watchCheck
+            i.fa.fa-check
+          span.sub-name {{_ 'muted-info'}}
 
 template(name="boardChangeColorPopup")
   .board-backgrounds-list.clearfix
