@@ -47,6 +47,21 @@ Users.helpers({
     return _.contains(invitedBoards, boardId);
   },
 
+  hasTag(tag) {
+    const {tags = []} = this.profile;
+    return _.contains(tags, tag);
+  },
+
+  hasNotification(activityId) {
+    const {notifications = []} = this.profile;
+    return _.contains(notifications, activityId);
+  },
+
+  getEmailBuffer() {
+    const {emailBuffer = []} = this.profile;
+    return emailBuffer;
+  },
+
   getInitials() {
     const profile = this.profile || {};
     if (profile.initials)
@@ -95,6 +110,61 @@ Users.mutations({
     return {
       $pull: {
         'profile.invitedBoards': boardId,
+      },
+    };
+  },
+
+  addTag(tag) {
+    return {
+      $addToSet: {
+        'profile.tags': tag,
+      },
+    };
+  },
+
+  removeTag(tag) {
+    return {
+      $pull: {
+        'profile.tags': tag,
+      },
+    };
+  },
+
+  toggleTag(tag) {
+    if (this.hasTag(tag))
+      this.removeTag(tag);
+    else
+      this.addTag(tag);
+  },
+
+  addNotification(activityId) {
+    return {
+      $addToSet: {
+        'profile.notifications': activityId,
+      },
+    };
+  },
+
+  removeNotification(activityId) {
+    return {
+      $pull: {
+        'profile.notifications': activityId,
+      },
+    };
+  },
+
+  addEmailBuffer(text) {
+    return {
+      $addToSet: {
+        'profile.emailBuffer': text,
+      },
+    };
+  },
+
+  clearEmailBuffer() {
+    return {
+      $set: {
+        'profile.emailBuffer': [],
       },
     };
   },
@@ -167,21 +237,18 @@ if (Meteor.isServer) {
       user.addInvite(boardId);
 
       try {
-        const { _id, slug } = board;
-        const boardUrl = FlowRouter.url('board', { id: _id, slug });
-
-        const vars = {
+        const params = {
           user: user.username,
           inviter: inviter.username,
           board: board.title,
-          url: boardUrl,
+          url: board.absoluteUrl(),
         };
         const lang = user.getLanguage();
         Email.send({
           to: user.emails[0].address,
           from: Accounts.emailTemplates.from,
-          subject: TAPi18n.__('email-invite-subject', vars, lang),
-          text: TAPi18n.__('email-invite-text', vars, lang),
+          subject: TAPi18n.__('email-invite-subject', params, lang),
+          text: TAPi18n.__('email-invite-text', params, lang),
         });
       } catch (e) {
         throw new Meteor.Error('email-fail', e.message);
