@@ -50,10 +50,10 @@ if (Meteor.isServer) {
   });
 
   Activities.after.insert((userId, doc) => {
-    const activity = Activities.findOne(doc._id);
+    const activity = Activities._transform(doc);
     let participants = [];
     let watchers = [];
-    let title = 'Wekan Notification';
+    let title = 'act-activity-notify';
     let board = null;
     const description = `act-${activity.activityType}`;
     const params = {
@@ -101,20 +101,20 @@ if (Meteor.isServer) {
       params.attachment = attachment._id;
     }
     if (board) {
-      const boardWatching = _.pluck(_.where(board.watchers, {level: 'watching'}), 'userId');
-      const boardTracking = _.pluck(_.where(board.watchers, {level: 'tracking'}), 'userId');
-      const boardMuted = _.pluck(_.where(board.watchers, {level: 'muted'}), 'userId');
+      const watchingUsers = _.pluck(_.where(board.watchers, {level: 'watching'}), 'userId');
+      const trackingUsers = _.pluck(_.where(board.watchers, {level: 'tracking'}), 'userId');
+      const mutedUsers = _.pluck(_.where(board.watchers, {level: 'muted'}), 'userId');
       switch(board.getWatchDefault()) {
       case 'muted':
-        participants = _.intersection(participants, boardTracking);
-        watchers = _.intersection(watchers, boardTracking);
+        participants = _.intersection(participants, trackingUsers);
+        watchers = _.intersection(watchers, trackingUsers);
         break;
       case 'tracking':
-        participants = _.difference(participants, boardMuted);
-        watchers = _.difference(watchers, boardMuted);
+        participants = _.difference(participants, mutedUsers);
+        watchers = _.difference(watchers, mutedUsers);
         break;
       }
-      watchers = _.union(watchers, boardWatching || []);
+      watchers = _.union(watchers, watchingUsers || []);
     }
 
     Notifications.getUsers(participants, watchers).forEach((user) => {

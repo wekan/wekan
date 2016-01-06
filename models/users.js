@@ -57,9 +57,9 @@ Users.helpers({
     return _.contains(notifications, activityId);
   },
 
-  getEmailCache() {
-    const {emailCache = []} = this.profile;
-    return emailCache;
+  getEmailBuffer() {
+    const {emailBuffer = []} = this.profile;
+    return emailBuffer;
   },
 
   getInitials() {
@@ -153,18 +153,18 @@ Users.mutations({
     };
   },
 
-  addEmailCache(text) {
+  addEmailBuffer(text) {
     return {
       $addToSet: {
-        'profile.emailCache': text,
+        'profile.emailBuffer': text,
       },
     };
   },
 
-  clearEmailCache() {
+  clearEmailBuffer() {
     return {
       $set: {
-        'profile.emailCache': [],
+        'profile.emailBuffer': [],
       },
     };
   },
