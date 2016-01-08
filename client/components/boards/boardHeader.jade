@@ -24,10 +24,10 @@ template(name="boardHeaderBar")
             i.fa.fa-eye
             span {{_ 'watching'}}
           if $eq watchLevel "tracking"
-            i.fa.fa-user
+            i.fa.fa-bell
             span {{_ 'tracking'}}
           if $eq watchLevel "muted"
-            i.fa.fa-times-circle
+            i.fa.fa-bell-slash
             span {{_ 'muted'}}
 
   .board-header-btns.right
@@ -50,10 +50,10 @@ template(name="boardHeaderBar")
             i.fa.fa-eye
             span {{_ 'watching'}}
           if $eq watchLevel "tracking"
-            i.fa.fa-user
+            i.fa.fa-bell
             span {{_ 'tracking'}}
           if $eq watchLevel "muted"
-            i.fa.fa-times-circle
+            i.fa.fa-bell-slash
             span {{_ 'muted'}}
 
     a.board-header-btn.js-open-filter-view(
@@ -132,7 +132,7 @@ template(name="boardChangeWatchPopup")
     li
       with "tracking"
         a.js-select-watch
-          i.fa.fa-user.colorful
+          i.fa.fa-bell.colorful
           | {{_ 'tracking'}}
           if watchCheck
             i.fa.fa-check
@@ -140,7 +140,7 @@ template(name="boardChangeWatchPopup")
     li
       with "muted"
         a.js-select-watch
-          i.fa.fa-times-circle.colorful
+          i.fa.fa-bell-slash.colorful
           | {{_ 'muted'}}
           if watchCheck
             i.fa.fa-check
