@@ -44,8 +44,8 @@ BlazeComponent.extendComponent({
     if (membersMapping) {
       const mappingById = {};
       membersMapping.forEach((member) => {
-        if (member.wekan) {
-          mappingById[member.id] = member.wekan._id;
+        if (member.wekanId) {
+          mappingById[member.id] = member.wekanId;
         }
       });
       additionalData.membersMapping = mappingById;
@@ -71,7 +71,7 @@ BlazeComponent.extendComponent({
     membersToMap.forEach((importedMember) => {
       const wekanUser = Users.findOne({ username: importedMember.username });
       if (wekanUser) {
-        importedMember.wekan = wekanUser;
+        importedMember.wekanId = wekanUser._id;
       }
     });
     // store members data and mapping in Session
@@ -102,10 +102,9 @@ BlazeComponent.extendComponent({
 BlazeComponent.extendComponent({
   onCreated() {
     this.autorun(() => {
-      this.parentComponent().membersToMap.get().forEach(({ wekan }) => {
-        if (wekan !== undefined) {
-          const userId = wekan._id;
-          this.subscribe('user-miniprofile', userId);
+      this.parentComponent().membersToMap.get().forEach(({ wekanId }) => {
+        if (wekanId) {
+          this.subscribe('user-miniprofile', wekanId);
         }
       });
     });
@@ -168,7 +167,7 @@ BlazeComponent.extendComponent({
   getMember(memberId = null) {
     const allMembers = this.members();
     let finder = null;
-    if(memberId) {
+    if (memberId) {
       finder = (user) => user.id === memberId;
     } else {
       finder = (user) => user.selected;
@@ -176,12 +175,12 @@ BlazeComponent.extendComponent({
     return allMembers.find(finder);
   },
 
-  mapSelectedMember(wekan) {
-    return this._setPropertyForMember('wekan', wekan, null);
+  mapSelectedMember(wekanId) {
+    return this._setPropertyForMember('wekanId', wekanId, null);
   },
 
   unmapMember(memberId){
-    return this._setPropertyForMember('wekan', null, memberId);
+    return this._setPropertyForMember('wekanId', null, memberId);
   },
 
   onSubmit(evt) {
@@ -214,7 +213,7 @@ BlazeComponent.extendComponent({
   },
 
   onSelectUser(){
-    Popup.getOpenerComponent().mapSelectedMember(this.currentData());
+    Popup.getOpenerComponent().mapSelectedMember(this.currentData()._id);
     Popup.back();
   },
 

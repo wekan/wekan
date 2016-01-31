@@ -23,14 +23,14 @@ template(name="importMapMembers")
     p {{_ 'import-members-map'}}
     .mapping-list
       each members
-        a.mapping-item.js-select-member(class="{{#if wekan}}filled{{/if}}")
+        a.mapping-item.js-select-member(class="{{#if wekanId}}filled{{/if}}")
           .profile-source
             .full-name= fullName
             .username
               | ({{username}})
           .wekan
-            if wekan
-              +userAvatar(userId=wekan._id)
+            if wekanId
+              +userAvatar(userId=wekanId)
             else
               a.member.add-member
                 i.fa.fa-plus
