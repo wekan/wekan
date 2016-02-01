@@ -470,42 +470,4 @@ Meteor.methods({
     // XXX add members
     return boardId;
   },
-
-  importTrelloCard(trelloCard, data) {
-    const trelloCreator = new TrelloCreator(data);
-
-    // 1. check parameters are ok from a syntax point of view
-    try {
-      check(data, {
-        listId: String,
-        sortIndex: Number,
-        membersMapping: Match.Optional(Object),
-      });
-      trelloCreator.checkCards([trelloCard]);
-      trelloCreator.checkLabels(trelloCard.labels);
-      trelloCreator.checkActions(trelloCard.actions);
-    } catch(e) {
-      throw new Meteor.Error('error-json-schema');
-    }
-
-    // 2. check parameters are ok from a business point of view (exist &
-    // authorized)
-    const list = Lists.findOne(data.listId);
-    if (!list) {
-      throw new Meteor.Error('error-list-doesNotExist');
-    }
-    if (Meteor.isServer) {
-      if (!allowIsBoardMember(Meteor.userId(), Boards.findOne(list.boardId))) {
-        throw new Meteor.Error('error-board-notAMember');
-      }
-    }
-
-    // 3. create all elements
-    trelloCreator.lists[trelloCard.idList] = data.listId;
-    trelloCreator.parseActions(trelloCard.actions);
-    const board = list.board();
-    trelloCreator.createLabels(trelloCard.labels, board);
-    const cardIds = trelloCreator.createCards([trelloCard], board._id);
-    return cardIds[0];
-  },
 });

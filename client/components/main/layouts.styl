@@ -26,13 +26,14 @@ body
 #content
   position: relative
   flex: 1
-  overflow: hidden
+  overflow-x: hidden
 
   .sk-spinner
     margin-top: 30vh
 
   > .wrapper
-    margin-top: 25px
+    margin-top: 10px
+    padding: 15px
 
 #modal
   position: absolute
@@ -108,6 +109,9 @@ a
   &.is-disabled:hover
     cursor: default
     text-decoration: none
+
+span a
+  text-decoration: underline
 
 strong
   font-weight: bold

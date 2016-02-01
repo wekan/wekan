@@ -106,7 +106,6 @@ globals:
   CSSEvents: true
   EscapeActions: true
   Filter: true
-  Filter: true
   Mixins: true
   Modal: true
   MultiSelection: true
