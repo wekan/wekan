@@ -23,6 +23,8 @@ that by providing one-click installation on Heroku or [Sandstorm]
 
 [![Deploy][heroku_button]][heroku_deploy]
 
+[![SignUp][indiehosters_button]][indiehosters_saas]
+
 [![Deploy to Scalingo][scalingo_button]][scalingo_deploy]
 
 Wekan is released under the very permissive [MIT license](LICENSE), and made
@@ -38,5 +40,7 @@ with [Meteor](https://www.meteor.com).
 [docker_image]: https://hub.docker.com/r/mquandalle/wekan/
 [heroku_button]: https://www.herokucdn.com/deploy/button.png
 [heroku_deploy]: https://heroku.com/deploy?template=https://github.com/wekan/wekan/tree/master
+[indiehosters_button]: https://indie.host/signup.png
+[indiehosters_saas]: https://indiehosters.net/shop/product/wekan-20
 [scalingo_button]: https://cdn.scalingo.com/deploy/button.svg
 [scalingo_deploy]: https://my.scalingo.com/deploy?source=https://github.com/wekan/wekan#master
