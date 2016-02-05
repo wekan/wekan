@@ -26,20 +26,28 @@
   &:hover, &.is-active
     background-color: #b3b3b3
   
+  &.current, &.almost-due, &.due, &.long-overdue
+    color: #fff
+
   &.current
     background-color: #42ca00
     &:hover, &.is-active
       background-color: darken(#42ca00, 15)
   
   &.almost-due
-    background-color: #fad900
+    background-color: #edc909
     &:hover, &.is-active
-      background-color: darken(#fad900, 15)
+      background-color: darken(#edc909, 10)
   
   &.due
     background-color: #fa3f00
     &:hover, &.is-active
       background-color: darken(#fa3f00, 15)
+  
+  &.long-overdue
+    background-color: #fd5d47
+    &:hover, &.is-active
+      background-color: darken(#fd5d47, 7)
 
   time
     &::before
