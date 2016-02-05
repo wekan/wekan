@@ -16,8 +16,7 @@ const EditCardDate = BlazeComponent.extendComponent({
       todayBtn: 'linked',
       language: TAPi18n.getLanguage()
     }).on('changeDate', function(e) {
-      const localDate = moment(e.date).format('L');
-      date.value = localDate;
+      date.value = moment(e.date).format('L');
       this.error.set('');
       time.focus();
     }.bind(this));
@@ -66,7 +65,7 @@ const EditCardDate = BlazeComponent.extendComponent({
         var time = evt.target.time.value || moment(new Date().setHours(12,0,0)).format('LT');
         
         const dateString = evt.target.date.value + ' ' + time;
-        const newDate = moment.utc(dateString, 'L LT', true);
+        const newDate = moment(dateString, 'L LT', true);
         if (newDate.isValid()) {
           this._storeDate(newDate.toDate());
           Popup.close();
@@ -89,9 +88,7 @@ const EditCardDate = BlazeComponent.extendComponent({
 (class extends EditCardDate {
   onCreated() {
     super();
-    if (this.data().startAt) {
-      this.date.set(moment.utc(this.data().startAt));
-    }
+    this.data().startAt && this.date.set(moment(this.data().startAt));
   }
 
   _storeDate(date) {
@@ -107,9 +104,7 @@ const EditCardDate = BlazeComponent.extendComponent({
 (class extends EditCardDate {
   onCreated() {
     super();
-    if (this.data().dueAt !== undefined) {
-      this.date.set(moment.utc(this.data().dueAt));
-    }
+    this.data().dueAt && this.date.set(moment(this.data().dueAt));
   }
 
   onRendered() {
@@ -129,7 +124,6 @@ const EditCardDate = BlazeComponent.extendComponent({
 }).register('editCardDueDatePopup');
 
 
-
 // Display start & due dates
 const CardDate = BlazeComponent.extendComponent({
   template() {
@@ -137,7 +131,12 @@ const CardDate = BlazeComponent.extendComponent({
   },
 
   onCreated() {
-    this.date = ReactiveVar();
+    let self = this;
+    self.date = ReactiveVar();
+    self.now = ReactiveVar(moment());
+    Meteor.setInterval(() => {
+      self.now.set(moment());
+    }, 60000);
   },
 
   showDate() {
@@ -163,8 +162,15 @@ class CardStartDate extends CardDate {
     super();
     let self = this;
     this.autorun(() => {
-      self.date.set(moment.utc(this.data().startAt));
+      self.date.set(moment(this.data().startAt));
     });
+  }
+
+  classes() {
+    if (this.date.get().isBefore(this.now.get(), 'minute') &&
+        this.now.get().isBefore(this.data().dueAt)) {
+      return 'current';
+    }
   }
 
   events() {
@@ -180,8 +186,17 @@ class CardDueDate extends CardDate {
     super();
     let self = this;
     this.autorun(() => {
-      self.date.set(moment.utc(this.data().dueAt));
+      self.date.set(moment(this.data().dueAt));
     });
+  }
+
+  classes() {
+    if (this.now.get().diff(this.date.get(), 'days') >= 2)
+      return 'long-overdue';
+    else if (this.now.get().diff(this.date.get(), 'minute') >= 0)
+      return 'due';
+    else if (this.now.get().diff(this.date.get(), 'days') >= -1)
+      return 'almost-due';
   }
 
   events() {

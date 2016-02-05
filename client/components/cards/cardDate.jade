@@ -15,6 +15,6 @@ template(name="editCardDate")
       button.js-delete-date.negate.wide.right.js-delete-date {{_ 'delete'}}
 
 template(name="dateBadge")
-  a.js-edit-date.card-date(title="{{showTitle}}")
+  a.js-edit-date.card-date(title="{{showTitle}}" class="{{classes}}")
     time(datetime="{{showISODate}}")
       | {{showDate}}
