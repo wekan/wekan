@@ -158,8 +158,7 @@ const CardDate = BlazeComponent.extendComponent({
   },
 });
 
-// cardStartDate
-(class extends CardDate {
+class CardStartDate extends CardDate {
   onCreated() {
     super();
     let self = this;
@@ -173,10 +172,10 @@ const CardDate = BlazeComponent.extendComponent({
       'click .js-edit-date': Popup.open('editCardStartDate'),
     });
   }
-}).register('cardStartDate');
+}
+CardStartDate.register('cardStartDate');
 
-// cardDueDate
-(class extends CardDate {
+class CardDueDate extends CardDate {
   onCreated() {
     super();
     let self = this;
@@ -190,4 +189,17 @@ const CardDate = BlazeComponent.extendComponent({
       'click .js-edit-date': Popup.open('editCardDueDate'),
     });
   }
-}).register('cardDueDate');
+}
+CardDueDate.register('cardDueDate');
+
+(class extends CardStartDate {
+  showDate() {
+    return this.date.get().format('l');
+  }
+}).register('minicardStartDate');
+
+(class extends CardDueDate {
+  showDate() {
+    return this.date.get().format('l');
+  }
+}).register('minicardDueDate');
