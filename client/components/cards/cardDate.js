@@ -148,10 +148,6 @@ const CardDate = BlazeComponent.extendComponent({
     });
   },
 
-  showTitle() {
-    return this.date.get().format('LLLL');
-  },
-
   showISODate() {
     return this.date.get().toISOString();
   },
@@ -171,6 +167,10 @@ class CardStartDate extends CardDate {
         this.now.get().isBefore(this.data().dueAt)) {
       return 'current';
     }
+  }
+
+  showTitle() {
+    return TAPi18n.__('card-start-on') + ' ' + this.date.get().format('LLLL');
   }
 
   events() {
@@ -197,6 +197,10 @@ class CardDueDate extends CardDate {
       return 'due';
     else if (this.now.get().diff(this.date.get(), 'days') >= -1)
       return 'almost-due';
+  }
+
+  showTitle() {
+    return TAPi18n.__('card-due-on') + ' ' + this.date.get().format('LLLL');
   }
 
   events() {
