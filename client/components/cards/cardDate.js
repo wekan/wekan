@@ -11,10 +11,10 @@ const EditCardDate = BlazeComponent.extendComponent({
   },
 
   onRendered() {
-    let $picker = this.$('.js-datepicker').datepicker({
+    const $picker = this.$('.js-datepicker').datepicker({
       todayHighlight: true,
       todayBtn: 'linked',
-      language: TAPi18n.getLanguage()
+      language: TAPi18n.getLanguage(),
     }).on('changeDate', function(e) {
       date.value = moment(e.date).format('L');
       this.error.set('');
@@ -43,7 +43,7 @@ const EditCardDate = BlazeComponent.extendComponent({
 
   events() {
     return [{
-      'keyup .js-date-field'(evt) {
+      'keyup .js-date-field'() {
         // parse for localized date format in strict mode
         const dateMoment = moment(date.value, 'L', true);
         if (dateMoment.isValid()) {
@@ -51,7 +51,7 @@ const EditCardDate = BlazeComponent.extendComponent({
           this.$('.js-datepicker').datepicker('update', dateMoment.toDate());
         }
       },
-      'keyup .js-time-field'(evt) {
+      'keyup .js-time-field'() {
         // parse for localized time format in strict mode
         const dateMoment = moment(time.value, 'LT', true);
         if (dateMoment.isValid()) {
@@ -62,8 +62,8 @@ const EditCardDate = BlazeComponent.extendComponent({
         evt.preventDefault();
 
         // if no time was given, init with 12:00
-        var time = evt.target.time.value || moment(new Date().setHours(12,0,0)).format('LT');
-        
+        const time = evt.target.time.value || moment(new Date().setHours(12, 0, 0)).format('LT');
+
         const dateString = evt.target.date.value + ' ' + time;
         const newDate = moment(dateString, 'L LT', true);
         if (newDate.isValid()) {
@@ -131,7 +131,7 @@ const CardDate = BlazeComponent.extendComponent({
   },
 
   onCreated() {
-    let self = this;
+    const self = this;
     self.date = ReactiveVar();
     self.now = ReactiveVar(moment());
     Meteor.setInterval(() => {
@@ -144,7 +144,7 @@ const CardDate = BlazeComponent.extendComponent({
     // is updated to at least moment.js 2.10.5
     // until then, the date is displayed in the "L" format
     return this.date.get().calendar(null, {
-      sameElse: 'llll'
+      sameElse: 'llll',
     });
   },
 
@@ -156,9 +156,9 @@ const CardDate = BlazeComponent.extendComponent({
 class CardStartDate extends CardDate {
   onCreated() {
     super();
-    let self = this;
-    this.autorun(() => {
-      self.date.set(moment(this.data().startAt));
+    const self = this;
+    self.autorun(() => {
+      self.date.set(moment(self.data().startAt));
     });
   }
 
@@ -184,9 +184,9 @@ CardStartDate.register('cardStartDate');
 class CardDueDate extends CardDate {
   onCreated() {
     super();
-    let self = this;
-    this.autorun(() => {
-      self.date.set(moment(this.data().dueAt));
+    const self = this;
+    self.autorun(() => {
+      self.date.set(moment(self.data().dueAt));
     });
   }
 
