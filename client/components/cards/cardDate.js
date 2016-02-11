@@ -11,14 +11,14 @@ const EditCardDate = BlazeComponent.extendComponent({
   },
 
   onRendered() {
-    let $picker = this.$('.js-datepicker').datepicker({
+    const $picker = this.$('.js-datepicker').datepicker({
       todayHighlight: true,
       todayBtn: 'linked',
-      language: TAPi18n.getLanguage()
-    }).on('changeDate', function(e) {
-      date.value = moment(e.date).format('L');
+      language: TAPi18n.getLanguage(),
+    }).on('changeDate', function(evt) {
+      this.find('#date').value = moment(evt.date).format('L');
       this.error.set('');
-      time.focus();
+      this.find('#time').focus();
     }.bind(this));
 
     if (this.date.get().isValid()) {
@@ -29,10 +29,12 @@ const EditCardDate = BlazeComponent.extendComponent({
   showDate() {
     if (this.date.get().isValid())
       return this.date.get().format('L');
+    return '';
   },
   showTime() {
     if (this.date.get().isValid())
       return this.date.get().format('LT');
+    return '';
   },
   dateFormat() {
     return moment.localeData().longDateFormat('L');
@@ -43,17 +45,17 @@ const EditCardDate = BlazeComponent.extendComponent({
 
   events() {
     return [{
-      'keyup .js-date-field'(evt) {
+      'keyup .js-date-field'() {
         // parse for localized date format in strict mode
-        const dateMoment = moment(date.value, 'L', true);
+        const dateMoment = moment(this.find('#date').value, 'L', true);
         if (dateMoment.isValid()) {
           this.error.set('');
           this.$('.js-datepicker').datepicker('update', dateMoment.toDate());
         }
       },
-      'keyup .js-time-field'(evt) {
+      'keyup .js-time-field'() {
         // parse for localized time format in strict mode
-        const dateMoment = moment(time.value, 'LT', true);
+        const dateMoment = moment(this.find('#time').value, 'LT', true);
         if (dateMoment.isValid()) {
           this.error.set('');
         }
@@ -62,9 +64,9 @@ const EditCardDate = BlazeComponent.extendComponent({
         evt.preventDefault();
 
         // if no time was given, init with 12:00
-        var time = evt.target.time.value || moment(new Date().setHours(12,0,0)).format('LT');
-        
-        const dateString = evt.target.date.value + ' ' + time;
+        const time = evt.target.time.value || moment(new Date().setHours(12, 0, 0)).format('LT');
+
+        const dateString = `${evt.target.date.value} ${time}`;
         const newDate = moment(dateString, 'L LT', true);
         if (newDate.isValid()) {
           this._storeDate(newDate.toDate());
@@ -87,7 +89,7 @@ const EditCardDate = BlazeComponent.extendComponent({
 // editCardStartDatePopup
 (class extends EditCardDate {
   onCreated() {
-    super();
+    super.onCreated();
     this.data().startAt && this.date.set(moment(this.data().startAt));
   }
 
@@ -103,12 +105,12 @@ const EditCardDate = BlazeComponent.extendComponent({
 // editCardDueDatePopup
 (class extends EditCardDate {
   onCreated() {
-    super();
+    super.onCreated();
     this.data().dueAt && this.date.set(moment(this.data().dueAt));
   }
 
   onRendered() {
-    super();
+    super.onRendered();
     if (moment.isDate(this.card.startAt)) {
       this.$('.js-datepicker').datepicker('setStartDate', this.card.startAt);
     }
@@ -131,7 +133,7 @@ const CardDate = BlazeComponent.extendComponent({
   },
 
   onCreated() {
-    let self = this;
+    const self = this;
     self.date = ReactiveVar();
     self.now = ReactiveVar(moment());
     Meteor.setInterval(() => {
@@ -144,7 +146,7 @@ const CardDate = BlazeComponent.extendComponent({
     // is updated to at least moment.js 2.10.5
     // until then, the date is displayed in the "L" format
     return this.date.get().calendar(null, {
-      sameElse: 'llll'
+      sameElse: 'llll',
     });
   },
 
@@ -155,10 +157,10 @@ const CardDate = BlazeComponent.extendComponent({
 
 class CardStartDate extends CardDate {
   onCreated() {
-    super();
-    let self = this;
-    this.autorun(() => {
-      self.date.set(moment(this.data().startAt));
+    super.onCreated();
+    const self = this;
+    self.autorun(() => {
+      self.date.set(moment(self.data().startAt));
     });
   }
 
@@ -167,10 +169,11 @@ class CardStartDate extends CardDate {
         this.now.get().isBefore(this.data().dueAt)) {
       return 'current';
     }
+    return '';
   }
 
   showTitle() {
-    return TAPi18n.__('card-start-on') + ' ' + this.date.get().format('LLLL');
+    return `${TAPi18n.__('card-start-on')} ${this.date.get().format('LLLL')}`;
   }
 
   events() {
@@ -183,10 +186,10 @@ CardStartDate.register('cardStartDate');
 
 class CardDueDate extends CardDate {
   onCreated() {
-    super();
-    let self = this;
-    this.autorun(() => {
-      self.date.set(moment(this.data().dueAt));
+    super.onCreated();
+    const self = this;
+    self.autorun(() => {
+      self.date.set(moment(self.data().dueAt));
     });
   }
 
@@ -197,10 +200,11 @@ class CardDueDate extends CardDate {
       return 'due';
     else if (this.now.get().diff(this.date.get(), 'days') >= -1)
       return 'almost-due';
+    return '';
   }
 
   showTitle() {
-    return TAPi18n.__('card-due-on') + ' ' + this.date.get().format('LLLL');
+    return `${TAPi18n.__('card-due-on')} ${this.date.get().format('LLLL')}`;
   }
 
   events() {
