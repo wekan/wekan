@@ -2,6 +2,8 @@ Blaze.registerHelper('currentBoard', () => {
   const boardId = Session.get('currentBoard');
   if (boardId) {
     return Boards.findOne(boardId);
+  } else {
+    return null;
   }
 });
 
@@ -9,6 +11,8 @@ Blaze.registerHelper('currentCard', () => {
   const cardId = Session.get('currentCard');
   if (cardId) {
     return Cards.findOne(cardId);
+  } else {
+    return null;
   }
 });
 

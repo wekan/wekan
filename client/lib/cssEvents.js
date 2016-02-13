@@ -15,6 +15,7 @@ function whichTransitionEvent() {
       return transitions[t];
     }
   }
+  return null;
 }
 
 function whichAnimationEvent() {
@@ -32,6 +33,7 @@ function whichAnimationEvent() {
       return transitions[t];
     }
   }
+  return null;
 }
 
 CSSEvents = {

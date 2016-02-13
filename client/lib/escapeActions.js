@@ -64,6 +64,7 @@ EscapeActions = {
   clickExecute(target, maxLabel) {
     if (this._nextclickPrevented) {
       this._nextclickPrevented = false;
+      return false;
     } else {
       return this._execute({
         maxLabel,

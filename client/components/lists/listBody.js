@@ -208,11 +208,12 @@ BlazeComponent.extendComponent({
                 label.color.indexOf(term) > -1) {
               return label;
             }
+            return null;
           }));
         },
         template(label) {
           return Blaze.toHTMLWithData(Template.autocompleteLabelLine, {
-            hasNoName: !Boolean(label.name),
+            hasNoName: !label.name,
             colorName: label.color,
             labelName: label.name || label.color,
           });
@@ -233,6 +234,7 @@ BlazeComponent.extendComponent({
           evt.stopPropagation();
           return commands.KEY_ENTER;
         }
+        return null;
       },
     });
   },

@@ -397,8 +397,7 @@ class TrelloCreator {
 
   parseActions(trelloActions) {
     trelloActions.forEach((action) => {
-      switch (action.type) {
-      case 'addAttachmentToCard':
+      if (action.type === 'addAttachmentToCard') {
         // We have to be cautious, because the attachment could have been removed later.
         // In that case Trello still reports its addition, but removes its 'url' field.
         // So we test for that
@@ -412,30 +411,22 @@ class TrelloCreator {
           }
           this.attachments[trelloCardId].push(trelloAttachment);
         }
-        break;
-      case 'commentCard':
+      } else if (action.type === 'commentCard') {
         const id = action.data.card.id;
         if (this.comments[id]) {
           this.comments[id].push(action);
         } else {
           this.comments[id] = [action];
         }
-        break;
-      case 'createBoard':
+      } else if (action.type === 'createBoard') {
         this.createdAt.board = action.date;
-        break;
-      case 'createCard':
+      } else if (action.type === 'createCard') {
         const cardId = action.data.card.id;
         this.createdAt.cards[cardId] = action.date;
         this.createdBy.cards[cardId] = action.idMemberCreator;
-        break;
-      case 'createList':
+      } else if (action.type === 'createList') {
         const listId = action.data.list.id;
         this.createdAt.lists[listId] = action.date;
-        break;
-      default:
-        // do nothing
-        break;
       }
     });
   }

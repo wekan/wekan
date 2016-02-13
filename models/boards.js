@@ -201,6 +201,7 @@ Boards.mutations({
       const _id = Random.id(6);
       return { $push: {labels: { _id, name, color }}};
     }
+    return {};
   },
 
   editLabel(labelId, name, color) {
@@ -213,6 +214,7 @@ Boards.mutations({
         },
       };
     }
+    return {};
   },
 
   removeLabel(labelId) {
@@ -397,8 +399,9 @@ if (Meteor.isServer) {
     if (!_.contains(fieldNames, 'labels') ||
       !modifier.$pull ||
       !modifier.$pull.labels ||
-      !modifier.$pull.labels._id)
+      !modifier.$pull.labels._id) {
       return;
+    }
 
     const removedLabelId = modifier.$pull.labels._id;
     Cards.update(
@@ -414,8 +417,9 @@ if (Meteor.isServer) {
 
   // Add a new activity if we add or remove a member to the board
   Boards.after.update((userId, doc, fieldNames, modifier) => {
-    if (!_.contains(fieldNames, 'members'))
+    if (!_.contains(fieldNames, 'members')) {
       return;
+    }
 
     let memberId;
 

@@ -38,7 +38,8 @@ window.Popup = new class {
       if (self.isOpen()) {
         const previousOpenerElement = self._getTopStack().openerElement;
         if (previousOpenerElement === evt.currentTarget) {
-          return self.close();
+          self.close();
+          return;
         } else {
           $(previousOpenerElement).removeClass('is-active');
         }
