@@ -136,7 +136,7 @@ const CardDate = BlazeComponent.extendComponent({
     const self = this;
     self.date = ReactiveVar();
     self.now = ReactiveVar(moment());
-    Meteor.setInterval(() => {
+    window.setInterval(() => {
       self.now.set(moment());
     }, 60000);
   },
