@@ -144,6 +144,17 @@ Template.cardDetailsActionsPopup.events({
   'click .js-labels': Popup.open('cardLabels'),
   'click .js-attachments': Popup.open('cardAttachments'),
   'click .js-move-card': Popup.open('moveCard'),
+  'click .js-move-card-to-top'(evt) {
+    evt.preventDefault();
+    var firstOrder = this.list().cards().map(c => c.sort)[0];
+    this.move(this.listId, firstOrder / 2);
+  },
+  'click .js-move-card-to-bottom'(evt) {
+    evt.preventDefault();
+    var orders = this.list().cards().map(c => c.sort);
+    var lastOrder = orders[orders.length - 1];
+    this.move(this.listId, lastOrder | 0 + 1);
+  },
   'click .js-archive'(evt) {
     evt.preventDefault();
     this.archive();
