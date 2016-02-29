@@ -4,7 +4,7 @@ Template.editor.onRendered(() => {
   autosize($textarea);
 
   $textarea.escapeableTextComplete([
-    // Emojies
+    // Emoji
     {
       match: /\B:([\-+\w]*)$/,
       search(term, callback) {
@@ -45,7 +45,7 @@ Template.editor.onRendered(() => {
 });
 
 // XXX I believe we should compute a HTML rendered field on the server that
-// would handle markdown, emojies and user mentions. We can simply have two
+// would handle markdown, emoji and user mentions. We can simply have two
 // fields, one source, and one compiled version (in HTML) and send only the
 // compiled version to most users -- who don't need to edit.
 // In the meantime, all the transformation are done on the client using the

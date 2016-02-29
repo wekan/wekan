@@ -39,9 +39,9 @@ Les nouvelles fonctionnalités incluent:
 * Assigner et retirer l’assignation de membres aux cartes;
 * Archiver des cartes (bien que la restauration ne soit pas encore possible);
 * Tableaux favoris
-* Support du markdown et des emojies dans les commentaires et la description des
+* Support du markdown et des emoji dans les commentaires et la description des
   cartes;
-* Auto-complétion des emojies dans l'éditeur de texte;
+* Auto-complétion des emoji dans l'éditeur de texte;
 * Quelques raccourcis clavier (ex `Ctrl`+`Enter` pour envoyer une entrée
   multi-lignes).
 
