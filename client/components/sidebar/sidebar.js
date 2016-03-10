@@ -295,10 +295,10 @@ BlazeComponent.extendComponent({
 }).register('addMemberPopup');
 
 Template.changePermissionsPopup.events({
-  'click .js-set-admin, click .js-set-normal'(event) {
+  'click .js-set-admin, click .js-set-normal'(evt) {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
     const memberId = this.userId;
-    const isAdmin = $(event.currentTarget).hasClass('js-set-admin');
+    const isAdmin = $(evt.currentTarget).hasClass('js-set-admin');
     currentBoard.setMemberPermission(memberId, isAdmin);
     Popup.back(1);
   },

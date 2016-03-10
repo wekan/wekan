@@ -398,7 +398,7 @@ class TrelloCreator {
   parseActions(trelloActions) {
     trelloActions.forEach((action) => {
       switch (action.type) {
-      case 'addAttachmentToCard':
+      case 'addAttachmentToCard': {
         // We have to be cautious, because the attachment could have been removed later.
         // In that case Trello still reports its addition, but removes its 'url' field.
         // So we test for that
@@ -413,7 +413,8 @@ class TrelloCreator {
           this.attachments[trelloCardId].push(trelloAttachment);
         }
         break;
-      case 'commentCard':
+      }
+      case 'commentCard': {
         const id = action.data.card.id;
         if (this.comments[id]) {
           this.comments[id].push(action);
@@ -421,18 +422,21 @@ class TrelloCreator {
           this.comments[id] = [action];
         }
         break;
+      }
       case 'createBoard':
         this.createdAt.board = action.date;
         break;
-      case 'createCard':
+      case 'createCard': {
         const cardId = action.data.card.id;
         this.createdAt.cards[cardId] = action.date;
         this.createdBy.cards[cardId] = action.idMemberCreator;
         break;
-      case 'createList':
+      }
+      case 'createList': {
         const listId = action.data.list.id;
         this.createdAt.lists[listId] = action.date;
         break;
+      }
       default:
         // do nothing
         break;
@@ -446,10 +450,11 @@ Meteor.methods({
     const trelloCreator = new TrelloCreator(data);
 
     // 1. check all parameters are ok from a syntax point of view
+    check(trelloBoard, Match.Any);
+    check(data, {
+      membersMapping: Match.Optional(Object),
+    });
     try {
-      check(data, {
-        membersMapping: Match.Optional(Object),
-      });
       trelloCreator.checkActions(trelloBoard.actions);
       trelloCreator.checkBoard(trelloBoard);
       trelloCreator.checkLabels(trelloBoard.labels);

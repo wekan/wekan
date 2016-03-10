@@ -8,8 +8,8 @@ Template.attachmentsGalery.events({
   ),
   // If we let this event bubble, FlowRouter will handle it and empty the page
   // content, see #101.
-  'click .js-download'(event) {
-    event.stopPropagation();
+  'click .js-download'(evt) {
+    evt.stopPropagation();
   },
   'click .js-open-viewer'() {
     // XXX Not implemented!

@@ -70,6 +70,7 @@ BlazeComponent.extendComponent({
           // UI components systems.
           return popup.call(this.currentData(), evt);
         }
+        return undefined;
       },
       'click .js-toggle-member-multiselection'(evt) {
         const memberId = this.currentData()._id;
@@ -84,6 +85,7 @@ BlazeComponent.extendComponent({
           // UI components systems.
           return popup.call(this.currentData(), evt);
         }
+        return undefined;
       },
       'click .js-move-selection': Popup.open('moveSelection'),
       'click .js-archive-selection'() {

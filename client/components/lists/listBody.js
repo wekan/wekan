@@ -203,16 +203,15 @@ BlazeComponent.extendComponent({
         match: /\B#(\w*)$/,
         search(term, callback) {
           const currentBoard = Boards.findOne(Session.get('currentBoard'));
-          callback($.map(currentBoard.labels, (label) => {
-            if (label.name.indexOf(term) > -1 ||
-                label.color.indexOf(term) > -1) {
-              return label;
-            }
-          }));
+          callback($.map(currentBoard.labels, (label) =>
+            label.name.indexOf(term) > -1 || label.color.indexOf(term) > -1
+              ? label
+              : undefined
+          ));
         },
         template(label) {
           return Blaze.toHTMLWithData(Template.autocompleteLabelLine, {
-            hasNoName: !Boolean(label.name),
+            hasNoName: !label.name,
             colorName: label.color,
             labelName: label.name || label.color,
           });
@@ -233,6 +232,7 @@ BlazeComponent.extendComponent({
           evt.stopPropagation();
           return commands.KEY_ENTER;
         }
+        return undefined;
       },
     });
   },

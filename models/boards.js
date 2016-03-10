@@ -201,6 +201,7 @@ Boards.mutations({
       const _id = Random.id(6);
       return { $push: {labels: { _id, name, color }}};
     }
+    return undefined;
   },
 
   editLabel(labelId, name, color) {
@@ -213,6 +214,7 @@ Boards.mutations({
         },
       };
     }
+    return undefined;
   },
 
   removeLabel(labelId) {
