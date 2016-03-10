@@ -1,15 +1,15 @@
 Blaze.registerHelper('currentBoard', () => {
   const boardId = Session.get('currentBoard');
-  if (boardId) {
-    return Boards.findOne(boardId);
-  }
+  return boardId
+    ? Boards.findOne(boardId)
+    : undefined;
 });
 
 Blaze.registerHelper('currentCard', () => {
   const cardId = Session.get('currentCard');
-  if (cardId) {
-    return Cards.findOne(cardId);
-  }
+  return cardId
+   ? Cards.findOne(cardId)
+   : undefined;
 });
 
 Blaze.registerHelper('getUser', (userId) => Users.findOne(userId));

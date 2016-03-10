@@ -1,5 +1,8 @@
-ecmaFeatures:
-  experimentalObjectRestSpread: true
+parserOptions:
+  ecmaVersion: 6
+  sourceType: module
+  ecmaFeatures:
+    experimentalObjectRestSpread: true
 
 rules:
   strict: 0
@@ -47,23 +50,17 @@ rules:
   prefer-spread: 2
   prefer-template: 2
 
-globals:
-  # Meteor globals
-  Meteor: false
-  Session: false
-  HTML: false
-  check: false
-  Tracker: false
-  Blaze: false
-  Accounts: false
-  Match: false
-  Mongo: false
-  Random: false
-  ReactiveVar: false
-  Email: false
-  Template: false
+  # ESLint-plugin-Meteor
+  meteor/no-session: [0]
+  meteor/prefer-session-equals: [2]
+  meteor/eventmap-params:
+    - 2
+    - eventParamName: evt
+      templateInstanceParamName: tpl
 
+globals:
   # Exported by packages we use
+  HTML: false
   '$': false
   _: false
   autosize: false
@@ -125,5 +122,11 @@ env:
   es6: true
   node: true
   browser: true
+  meteor: true
 
-extends: 'eslint:recommended'
+plugins:
+  - meteor
+
+extends:
+  - 'eslint:recommended'
+  - 'plugin:meteor/recommended'

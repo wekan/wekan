@@ -72,6 +72,7 @@ EscapeActions = {
         clickTarget: target,
       });
     }
+    return undefined;
   },
 
   preventNextClick() {

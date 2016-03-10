@@ -17,8 +17,7 @@
   },
   "homepage": "https://wekan.io",
   "devDependencies": {
-    "babel-eslint": "4.1.3",
-    "eslint": "1.7.3",
-    "eslint-plugin-meteor": "1.7.0"
+    "eslint": "2.3.0",
+    "eslint-plugin-meteor": "3.0.2"
   }
 }

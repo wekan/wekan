@@ -14,6 +14,7 @@ $.fn.escapeableTextComplete = function(strategies, options, ...otherArgs) {
         evt.stopPropagation();
         return commands.KEY_ENTER;
       }
+      return undefined;
     },
     ...options,
   };

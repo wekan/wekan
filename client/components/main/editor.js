@@ -61,18 +61,17 @@ Blaze.Template.registerHelper('mentions', new Template('mentions', function() {
   const mentionRegex = /\B@(\w*)/gi;
   let content = Blaze.toHTML(view.templateContentBlock);
 
-  let currentMention, knowedUser, linkClass, linkValue, link;
-  while (Boolean(currentMention = mentionRegex.exec(content))) {
-
-    knowedUser = _.findWhere(knowedUsers, { username: currentMention[1] });
+  let currentMention, linkClass;
+  while (currentMention = mentionRegex.exec(content)) { // eslint-disable-line no-cond-assign
+    const knowedUser = _.findWhere(knowedUsers, { username: currentMention[1] });
     if (!knowedUser)
       continue;
 
-    linkValue = [' ', at, knowedUser.username];
+    const linkValue = [' ', at, knowedUser.username];
     linkClass = 'atMention js-open-member';
     if (knowedUser.userId === Meteor.userId())
       linkClass += ' me';
-    link = HTML.A({
+    const link = HTML.A({
       'class': linkClass,
       // XXX Hack. Since we stringify this render function result below with
       // `Blaze.toHTML` we can't rely on blaze data contexts to pass the
