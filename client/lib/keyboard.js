@@ -88,7 +88,7 @@ Template.keyboardShortcuts.helpers({
     action: 'shortcut-autocomplete-members',
   }, {
     keys: [':'],
-    action: 'shortcut-autocomplete-emojies',
+    action: 'shortcut-autocomplete-emoji',
   }, {
     keys: ['SPACE'],
     action: 'shortcut-assign-self',
