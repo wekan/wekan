@@ -93,6 +93,10 @@ template(name="cardDetailsActionsPopup")
     li: a.js-attachments {{_ 'card-edit-attachments'}}
   hr
   ul.pop-over-list
+    li: a.js-move-card-to-top {{_ 'moveCardToTop-title'}}
+    li: a.js-move-card-to-bottom {{_ 'moveCardToBottom-title'}}
+  hr
+  ul.pop-over-list
     li: a.js-move-card {{_ 'moveCardPopup-title'}}
     unless archived
       li: a.js-archive {{_ 'archive-card'}}

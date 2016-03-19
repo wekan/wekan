@@ -215,6 +215,8 @@
     "menu": "Menu",
     "move-selection": "Move selection",
     "moveCardPopup-title": "Move Card",
+    "moveCardToBottom-title": "Move to Bottom",
+    "moveCardToTop-title": "Move to Top",
     "moveSelectionPopup-title": "Move selection",
     "multi-selection": "Multi-Selection",
     "multi-selection-on": "Multi-Selection is on",
