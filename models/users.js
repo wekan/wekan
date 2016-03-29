@@ -388,25 +388,31 @@ if (Meteor.isServer) {
     incrementBoards(_.difference(newIds, oldIds), +1);
   });
 
+  const fakeUserId = new Meteor.EnvironmentVariable();
+  const getUserId = CollectionHooks.getUserId;
+  CollectionHooks.getUserId = () => {
+    return fakeUserId.get() || getUserId();
+  };
+
   // XXX i18n
   Users.after.insert((userId, doc) => {
-    const ExampleBoard = {
-      title: 'Welcome Board',
-      userId: doc._id,
-      permission: 'private',
+    const fakeUser = {
+      extendAutoValueContext: {
+        userId: doc._id,
+      },
     };
 
-    // Insert the Welcome Board
-    Boards.insert(ExampleBoard, (err, boardId) => {
+    fakeUserId.withValue(doc._id, () => {
+      // Insert the Welcome Board
+      Boards.insert({
+        title: 'Welcome Board',
+        permission: 'private',
+      }, fakeUser, (err, boardId) => {
 
-      ['Basics', 'Advanced'].forEach((title) => {
-        const list = {
-          title,
-          boardId,
-          userId: ExampleBoard.userId,
-        };
+        ['Basics', 'Advanced'].forEach((title) => {
+          Lists.insert({ title, boardId }, fakeUser);
+        });
 
-        Lists.insert(list);
       });
     });
   });
