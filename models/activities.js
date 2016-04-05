@@ -66,9 +66,11 @@ if (Meteor.isServer) {
     }
     if (activity.boardId) {
       board = activity.board();
-      params.board = board.title;
-      title = 'act-withBoardTitle';
-      params.url = board.absoluteUrl();
+      try{
+        params.board = board.title;
+        title = 'act-withBoardTitle';
+        params.url = board.absoluteUrl();
+      }catch(err){}      
     }
     if (activity.memberId) {
       participants = _.union(participants, [activity.memberId]);
