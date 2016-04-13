@@ -9,6 +9,7 @@ This release adds the following new features:
 * Add shortcuts to move cards to the top or the bottom of a list;
 * A new log-in button on the public board view to sign in, even if the board
   is published;
+* New link to the keyboard shortcuts in the board sidebar;
 
 and fixes the following bugs:
 
