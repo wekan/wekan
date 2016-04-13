@@ -19,16 +19,17 @@ template(name="boardHeaderBar")
           i.fa(class="{{#if currentBoard.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
           span {{_ currentBoard.permission}}
 
-        a.board-header-btn.js-watch-board
-          if $eq watchLevel "watching"
-            i.fa.fa-eye
-            span {{_ 'watching'}}
-          if $eq watchLevel "tracking"
-            i.fa.fa-bell
-            span {{_ 'tracking'}}
-          if $eq watchLevel "muted"
-            i.fa.fa-bell-slash
-            span {{_ 'muted'}}
+        if currentUser
+          a.board-header-btn.js-watch-board
+            if $eq watchLevel "watching"
+              i.fa.fa-eye
+              span {{_ 'watching'}}
+            if $eq watchLevel "tracking"
+              i.fa.fa-bell
+              span {{_ 'tracking'}}
+            if $eq watchLevel "muted"
+              i.fa.fa-bell-slash
+              span {{_ 'muted'}}
 
   .board-header-btns.right
     if isMiniScreen
@@ -45,16 +46,17 @@ template(name="boardHeaderBar")
           i.fa(class="{{#if currentBoard.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
           span {{_ currentBoard.permission}}
 
-        a.board-header-btn.js-watch-board
-          if $eq watchLevel "watching"
-            i.fa.fa-eye
-            span {{_ 'watching'}}
-          if $eq watchLevel "tracking"
-            i.fa.fa-bell
-            span {{_ 'tracking'}}
-          if $eq watchLevel "muted"
-            i.fa.fa-bell-slash
-            span {{_ 'muted'}}
+        if currentUser
+          a.board-header-btn.js-watch-board
+            if $eq watchLevel "watching"
+              i.fa.fa-eye
+              span {{_ 'watching'}}
+            if $eq watchLevel "tracking"
+              i.fa.fa-bell
+              span {{_ 'tracking'}}
+            if $eq watchLevel "muted"
+              i.fa.fa-bell-slash
+              span {{_ 'muted'}}
 
     a.board-header-btn.js-open-filter-view(
         title="{{#if Filter.isActive}}{{_ 'filter-on-desc'}}{{/if}}"
