@@ -25,7 +25,11 @@ template(name="boardActivities")
           a.activity-comment(href="{{ card.absoluteUrl }}")
             +viewer
               = comment.text
-
+        if($eq activityType 'addChecklist')
+          | {{{_ 'activity-checklist-item-added' cardLink}}}
+          a.activity-checklist(href="{{ card.absoluteUrl }}")
+            +viewer
+              = checklist.text
         if($eq activityType 'archivedCard')
           | {{{_ 'activity-archived' cardLink}}}.
 
@@ -120,6 +124,11 @@ template(name="cardActivities")
                 a.js-open-inlined-form {{_ "edit"}}
                 = ' - '
                 a.js-delete-comment {{_ "delete"}}
-
+        if($eq activityType 'addChecklist')
+          | {{_ 'activity-checklist-item-added' card.title}}.
+          .activity-checklist
+            +viewer
+              = checklist.text
+          span(title=createdAt).activity-meta {{ moment createdAt }}
         else
           span(title=createdAt).activity-meta {{ moment createdAt }}

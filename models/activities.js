@@ -32,6 +32,9 @@ Activities.helpers({
   comment() {
     return CardComments.findOne(this.commentId);
   },
+  checklist() {
+    return CardChecklists.findOne(this.checklistId);
+  },
   attachment() {
     return Attachments.findOne(this.attachmentId);
   },
@@ -95,6 +98,10 @@ if (Meteor.isServer) {
     if (activity.commentId) {
       const comment = activity.comment();
       params.comment = comment.text;
+    }
+    if (activity.checklistId) {
+      const checklist = activity.checklist();
+      params.checklist = checklist.text;
     }
     if (activity.attachmentId) {
       const attachment = activity.attachment();

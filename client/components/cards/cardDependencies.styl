@@ -1,0 +1,279 @@
+@import 'nib'
+
+.card-details-item-title
+  font-size: 14px
+  color: darken(white, 45%)
+  padding-top: 10px
+
+.card-dependency-items
+  display: flex;
+  align-items: center;
+.card-dependency-item-title
+  margin-left: 10px;
+
+.open-dependency-composer1
+  border-radius: 2px
+  color: #8c8c8c
+  display: block
+  padding: 7px 10px
+  position: relative
+  text-decoration: none
+  animation: fadeIn 0.3s
+
+  &:hover .fa-times
+    visibility:visible;
+    
+  .fa-times
+    visibility:hidden;
+
+.open-dependency-composer
+  border-radius: 2px
+  color: #8c8c8c
+  display: block
+  padding: 7px 10px
+  position: relative
+  text-decoration: none
+  animation: fadeIn 0.3s
+
+  &:hover
+    background: #fafafa
+    color: #222
+    box-shadow: 0 1px 2px rgba(0,0,0,.2)
+    
+.dependencys
+  clear: both
+
+  .dependency
+    margin: 10px 0
+    display: flex
+
+    .member
+      width: 24px
+      height: @width
+
+    .dependency-desc
+      flex: 1
+      align-self: center
+      margin: 0
+      margin-left: 3px
+
+      .dependency-comment
+        display: block
+        border-radius: 3px
+        background: white
+        text-decoration: none
+        box-shadow: 0 1px 2px rgba(0,0,0,.2)
+        margin-top: 5px
+        padding: 5px
+
+.dependency-meta
+  float: right
+  font-size: 0.8em
+  color: darken(white, 40%)
+
+.new-dependency
+  position: relative
+  margin: 0 0 20px 38px
+
+  .member
+    opacity: .7
+    position: absolute
+    top: 1px
+    left: -38px
+
+  &.is-open
+    .member
+      opacity: 1
+
+    .helper
+      display: inline-block
+
+    textarea
+      min-height: 100px
+      color: #4d4d4d
+      cursor: auto
+      overflow: hidden
+      word-wrap: break-word
+
+  .too-long
+    margin-top: 8px
+
+  textarea
+    background-color: #fff
+    border: 0
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .23)
+    color: #8c8c8c
+    height: 36px
+    margin: 4px 4px 6px 0
+    padding: 9px 11px
+    width: 100%
+
+    &:hover,
+    &:is-open
+      background-color: #fff
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .33)
+      border: 0
+      cursor: pointer
+
+    &:is-open
+      cursor: auto
+
+
+.dependencyCard-wrapper
+  cursor: pointer
+  position: relative
+  display: flex
+  align-items: center
+  margin-bottom: 9px
+
+  &.placeholder
+    background: darken(white, 20%)
+    border-radius: 2px
+
+  &.ui-sortable-helper
+    cursor: grabbing
+    transform: rotate(4deg)
+    display: block !important
+
+    .and-n-other
+      width: 100%
+      height: 16px
+      padding: 4px
+      background-color: darken(white, 5%)
+      text-align: center
+      border-radius: 3px
+
+    .multi-selection-checkbox
+      display: none
+
+  .multi-selection-checkbox + .dependencyCard
+    margin-left: 8px
+
+.dependencyCard
+  padding: 6px 8px 2px
+  position: relative
+  flex: 1
+  flex-wrap: wrap
+  background-color: #fff
+  min-height: 20px
+  box-shadow: 0 1px 2px rgba(0,0,0,.15)
+  border-radius: 2px
+  color: #4d4d4d
+  overflow: hidden
+  transition: transform 0.2s,
+              border-radius 0.2s
+
+  .is-selected &
+    transform: translateX(11px)
+    border-bottom-right-radius: 0
+    border-top-right-radius: 0
+    z-index: 25
+    box-shadow: -2px 1px 2px rgba(0,0,0,.2)
+
+  &:hover:not(.dependencyCard-composer),
+  .is-selected &,
+  .draggable-hover-card &
+    background: darken(white, 3%)
+
+  .draggable-hover-card &
+    background: darken(white, 7%)
+
+  .dependencyCard-cover
+    background-position: center
+    background-repeat: no-repeat
+    background-size: cover
+    height: 145px
+    user-select: none
+    margin: -6px -8px 6px -8px
+    border-radius: top 2px
+    position: relative
+
+    img
+      height: 100%
+      width: 100%
+
+  .dependencyCard-labels
+    float: right
+    display: flex
+
+    .dependencyCard-label
+      width: 11px
+      height: @width
+      border-radius: 2px
+      margin-left: 3px
+
+  .badges
+    float: left
+    margin-top: 7px
+    color: darken(white, 50%)
+
+    &:empty
+      display: none
+
+    .badge
+      float: left
+      margin-right: 11px
+      margin-bottom: 3px
+      font-size: 0.9em
+
+      .badge-icon,
+      .badge-text
+        vertical-align: top
+
+      .badge-text
+        font-size: 0.9em
+        padding-left: 2px
+        line-height: 14px
+
+  .dependencyCard-members
+    float: right
+    margin: 2px -8px -2px 0
+
+    .member
+      float: right
+      border-radius: 50%
+      height: 28px
+      width: @height
+
+    + .badges
+      margin-top: 10px
+
+  .dependencyCard-members:empty
+    display: none
+    
+  .dependencyCard-title-bar
+    display: flex
+    .dependencyCard-remove
+      margin-left: 15px
+      
+    &:hover .fa-times
+      visibility:visible;
+      
+    .fa-times
+      visibility:hidden;
+    
+  &.dependencyCard-composer
+    margin-bottom: 10px
+
+    textarea.dependencyCard-composer-textarea,
+    textarea.dependencyCard-composer-textarea:focus
+      resize: none
+      background: none
+      border: none
+      box-shadow: none
+      height: auto
+      margin: 0
+      padding: 0
+      max-height: 162px
+      min-height: 36px
+      margin-bottom: 20px
+      overflow-y: auto
+
+@media screen and (max-width: 800px)
+  .dependencyCard
+    .is-selected &
+      transform: translateX(0px)
+      border-bottom-right-radius: 0
+      border-top-right-radius: 0
+      z-index: 15
+      box-shadow: 0 1px 2px rgba(0,0,0,.15)

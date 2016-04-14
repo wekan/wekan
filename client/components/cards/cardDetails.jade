@@ -61,6 +61,16 @@ template(name="cardDetails")
       h3.card-details-item-title {{_ 'description'}}
       +viewer
         = description
+
+    hr
+    h2 {{ _ 'checklist'}}
+    +cardChecklists
+
+    hr
+    h2 {{ _ 'dependencies'}}
+    +cardDependencyPanel(cardDependencyType="depends-on")
+    +cardDependencyPanel(cardDependencyType="depended-by")
+
     if attachments.count
       hr
       h2

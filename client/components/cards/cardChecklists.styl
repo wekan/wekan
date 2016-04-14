@@ -1,0 +1,99 @@
+@import 'nib'
+
+.card-checklist-items
+  display: flex;
+  align-items: center;
+.card-checklist-item-title
+  margin-left: 10px;
+  
+.open-checklist-composer
+  border-radius: 2px
+  color: #8c8c8c
+  display: block
+  padding: 7px 10px
+  position: relative
+  text-decoration: none
+  animation: fadeIn 0.3s
+
+  &:hover
+    background: #fafafa
+    color: #222
+    box-shadow: 0 1px 2px rgba(0,0,0,.2)   
+
+.checklists
+  clear: both
+
+  .checklist
+    margin: 10px 0
+    display: flex
+
+    .member
+      width: 24px
+      height: @width
+
+    .checklist-desc
+      flex: 1
+      align-self: center
+      margin: 0
+      margin-left: 3px
+
+      .checklist-comment
+        display: block
+        border-radius: 3px
+        background: white
+        text-decoration: none
+        box-shadow: 0 1px 2px rgba(0,0,0,.2)
+        margin-top: 5px
+        padding: 5px
+
+.checklist-meta
+  float: right
+  font-size: 0.8em
+  color: darken(white, 40%)
+
+.new-checklist
+  position: relative
+  margin: 0 0 20px 38px
+
+  .member
+    opacity: .7
+    position: absolute
+    top: 1px
+    left: -38px
+
+  &.is-open
+    .member
+      opacity: 1
+
+    .helper
+      display: inline-block
+
+    textarea
+      min-height: 100px
+      color: #4d4d4d
+      cursor: auto
+      overflow: hidden
+      word-wrap: break-word
+
+  .too-long
+    margin-top: 8px
+
+  textarea
+    background-color: #fff
+    border: 0
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .23)
+    color: #8c8c8c
+    height: 36px
+    margin: 4px 4px 6px 0
+    padding: 9px 11px
+    width: 100%
+
+    &:hover,
+    &:is-open
+      background-color: #fff
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .33)
+      border: 0
+      cursor: pointer
+
+    &:is-open
+      cursor: auto
