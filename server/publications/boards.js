@@ -105,7 +105,11 @@ Meteor.publishRelations('board', function(boardId) {
     //
     this.cursor(Users.find({
       _id: { $in: _.pluck(board.members, 'userId') },
-    }), function(userId) {
+    }, { fields: {
+      'username': 1,
+      'profile.fullname': 1,
+      'profile.avatarUrl': 1,
+    }}), function(userId) {
       // Presence indicators
       this.cursor(presences.find({ userId }));
     });
