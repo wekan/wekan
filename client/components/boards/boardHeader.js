@@ -90,6 +90,9 @@ BlazeComponent.extendComponent({
         evt.stopPropagation();
         MultiSelection.disable();
       },
+      'click .js-log-in'() {
+        FlowRouter.go('atSignIn');
+      },
     }];
   },
 }).register('boardHeaderBar');
