@@ -41,23 +41,24 @@ template(name="boardHeaderBar")
               span
                 = currentBoard.stars
 
-        a.board-header-btn(class="{{#if currentUser.isBoardAdmin}}js-change-visibility{{else}}is-disabled{{/if}}")
+        a.board-header-btn(
+          class="{{#if currentUser.isBoardAdmin}}js-change-visibility{{else}}is-disabled{{/if}}"
+          title="{{_ currentBoard.permission}}")
           i.fa(class="{{#if currentBoard.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
           span {{_ currentBoard.permission}}
 
-        a.board-header-btn.js-watch-board
+        a.board-header-btn.js-watch-board(
+          title="{{_ watchLevel }}")
           if $eq watchLevel "watching"
             i.fa.fa-eye
-            span {{_ 'watching'}}
           if $eq watchLevel "tracking"
             i.fa.fa-bell
-            span {{_ 'tracking'}}
           if $eq watchLevel "muted"
             i.fa.fa-bell-slash
-            span {{_ 'muted'}}
+          span {{_ watchLevel}}
 
     a.board-header-btn.js-open-filter-view(
-        title="{{#if Filter.isActive}}{{_ 'filter-on-desc'}}{{/if}}"
+        title="{{#if Filter.isActive}}{{_ 'filter-on-desc'}}{{else}}{{_ 'filter'}}{{/if}}"
         class="{{#if Filter.isActive}}emphasis{{/if}}")
       i.fa.fa-filter
       span {{#if Filter.isActive}}{{_ 'filter-on'}}{{else}}{{_ 'filter'}}{{/if}}
@@ -67,7 +68,7 @@ template(name="boardHeaderBar")
 
     if currentUser.isBoardMember
       a.board-header-btn.js-multiselection-activate(
-          title="{{#if MultiSelection.isActive}}{{_ 'multi-selection-on'}}{{/if}}"
+          title="{{#if MultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}"
           class="{{#if MultiSelection.isActive}}emphasis{{/if}}")
         i.fa.fa-check-square-o
         span {{#if MultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}
