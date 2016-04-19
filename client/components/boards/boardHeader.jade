@@ -67,7 +67,7 @@ template(name="boardHeaderBar")
 
     if currentUser.isBoardMember
       a.board-header-btn.js-multiselection-activate(
-          title="{{#if MultiSelection.isActive}}{{_ 'filter-on-desc'}}{{/if}}"
+          title="{{#if MultiSelection.isActive}}{{_ 'multi-selection-on'}}{{/if}}"
           class="{{#if MultiSelection.isActive}}emphasis{{/if}}")
         i.fa.fa-check-square-o
         span {{#if MultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}
