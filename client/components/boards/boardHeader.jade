@@ -16,20 +16,21 @@ template(name="boardHeaderBar")
                 span
                   = currentBoard.stars
 
-            a.board-header-btn(class="{{#if currentUser.isBoardAdmin}}js-change-visibility{{else}}is-disabled{{/if}}")
+            a.board-header-btn(
+              class="{{#if currentUser.isBoardAdmin}}js-change-visibility{{else}}is-disabled{{/if}}"
+              title="{{_ currentBoard.permission}}")
               i.fa(class="{{#if currentBoard.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
               span {{_ currentBoard.permission}}
 
-            a.board-header-btn.js-watch-board
+            a.board-header-btn.js-watch-board(
+              title="{{_ watchLevel }}")
               if $eq watchLevel "watching"
                 i.fa.fa-eye
-                span {{_ 'watching'}}
               if $eq watchLevel "tracking"
                 i.fa.fa-bell
-                span {{_ 'tracking'}}
               if $eq watchLevel "muted"
                 i.fa.fa-bell-slash
-                span {{_ 'muted'}}
+              span {{_ watchLevel}}
 
           else
             a.board-header-btn.js-log-in(
