@@ -9,9 +9,7 @@ BlazeComponent.extendComponent({
   },
 
   labels() {
-    return labelColors.map((color) => {
-      return { color, name: '' };
-    });
+    return labelColors.map((color) => ({ color, name: '' }));
   },
 
   isSelected(color) {

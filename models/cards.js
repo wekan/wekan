@@ -9,6 +9,11 @@ Cards.attachSchema(new SimpleSchema({
   },
   archived: {
     type: Boolean,
+    autoValue() { // eslint-disable-line consistent-return
+      if (this.isInsert && !this.isSet) {
+        return false;
+      }
+    },
   },
   listId: {
     type: String,
@@ -25,10 +30,19 @@ Cards.attachSchema(new SimpleSchema({
   },
   createdAt: {
     type: Date,
-    denyUpdate: true,
+    autoValue() { // eslint-disable-line consistent-return
+      if (this.isInsert) {
+        return new Date();
+      } else {
+        this.unset();
+      }
+    },
   },
   dateLastActivity: {
     type: Date,
+    autoValue() {
+      return new Date();
+    },
   },
   description: {
     type: String,
@@ -46,6 +60,11 @@ Cards.attachSchema(new SimpleSchema({
   // the `members` field?
   userId: {
     type: String,
+    autoValue() { // eslint-disable-line consistent-return
+      if (this.isInsert && !this.isSet) {
+        return this.userId;
+      }
+    },
   },
   sort: {
     type: Number,
@@ -188,17 +207,6 @@ Cards.mutations({
   unsetCover() {
     return { $unset: { coverId: '' }};
   },
-});
-
-Cards.before.insert((userId, doc) => {
-  doc.createdAt = new Date();
-  doc.dateLastActivity = new Date();
-  if(!doc.hasOwnProperty('archived')){
-    doc.archived = false;
-  }
-  if (!doc.userId) {
-    doc.userId = userId;
-  }
 });
 
 if (Meteor.isServer) {
