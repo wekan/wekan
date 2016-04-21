@@ -68,9 +68,9 @@ Users.helpers({
       return profile.initials;
 
     else if (profile.fullname) {
-      return profile.fullname.split(/\s+/).reduce((memo = '', word) => {
+      return profile.fullname.split(/\s+/).reduce((memo, word) => {
         return memo + word[0];
-      }).toUpperCase();
+      }, '').toUpperCase();
 
     } else {
       return this.username[0].toUpperCase();
