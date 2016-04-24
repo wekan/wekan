@@ -23,6 +23,8 @@ that by providing one-click installation on Heroku or [Sandstorm]
 
 [![Deploy][heroku_button]][heroku_deploy]
 
+[![DP deploy](https://raw.githubusercontent.com/j8r/DPlatform/gh-pages/img/deploy.png)](https://j8r.github.io/DPlatform/)
+
 [![SignUp][indiehosters_button]][indiehosters_saas]
 
 [![Deploy to Scalingo][scalingo_button]][scalingo_deploy]
