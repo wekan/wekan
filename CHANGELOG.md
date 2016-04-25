@@ -18,6 +18,7 @@ and fixes the following bugs:
 * Fix the generation and alignment of the initials avatars;
 * Only display the buttons in the board header, if the data is avialable
   and the user is able to use it;
+* Fix the scaling of cover images;
 
 Thanks to GitHub users alayek, AlexanderS, choclin, floatinghotpot, ForNeVeR,
 seschwar, and TheElf for their contributions.
