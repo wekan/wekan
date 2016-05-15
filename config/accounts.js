@@ -15,6 +15,7 @@ AccountsTemplates.configure({
   enablePasswordChange: true,
   sendVerificationEmail: true,
   showForgotPasswordLink: true,
+  forbidClientAccountCreation: true,
   onLogoutHook() {
     const homePage = 'home';
     if (FlowRouter.getRouteName() === homePage) {
