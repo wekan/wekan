@@ -147,12 +147,12 @@ Template.cardDetailsActionsPopup.events({
   'click .js-move-card-to-top'(evt) {
     evt.preventDefault();
     const minOrder = _.min(this.list().cards().map((c) => c.sort));
-    this.move(this.listId, minOrder / 2);
+    this.move(this.listId, minOrder - 1);
   },
   'click .js-move-card-to-bottom'(evt) {
     evt.preventDefault();
     const maxOrder = _.max(this.list().cards().map((c) => c.sort));
-    this.move(this.listId, Math.floor(maxOrder) + 1);
+    this.move(this.listId, maxOrder + 1);
   },
   'click .js-archive'(evt) {
     evt.preventDefault();
