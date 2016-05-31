@@ -294,5 +294,8 @@
     "watch": "Watch",
     "watching": "Watching",
     "watching-info": "You will be notified of any change in this board",
+    "welcome-board": "Welcome Board",
+    "welcome-list1": "Basics",
+    "welcome-list2": "Advanced",
     "what-to-do": "What do you want to do?"
 }

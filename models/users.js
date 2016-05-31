@@ -394,7 +394,6 @@ if (Meteor.isServer) {
     return fakeUserId.get() || getUserId();
   };
 
-  // XXX i18n
   Users.after.insert((userId, doc) => {
     const fakeUser = {
       extendAutoValueContext: {
@@ -405,12 +404,12 @@ if (Meteor.isServer) {
     fakeUserId.withValue(doc._id, () => {
       // Insert the Welcome Board
       Boards.insert({
-        title: 'Welcome Board',
+        title: TAPi18n.__('welcome-board'),
         permission: 'private',
       }, fakeUser, (err, boardId) => {
 
-        ['Basics', 'Advanced'].forEach((title) => {
-          Lists.insert({ title, boardId }, fakeUser);
+        ['welcome-list1', 'welcome-list2'].forEach((title) => {
+          Lists.insert({ title: TAPi18n.__(title), boardId }, fakeUser);
         });
 
       });
