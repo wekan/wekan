@@ -1,5 +1,95 @@
 Users = Meteor.users;
 
+Users.attachSchema(new SimpleSchema({
+  username: {
+    type: String,
+    optional: true,
+    autoValue() { // eslint-disable-line consistent-return
+      if (this.isInsert && !this.isSet) {
+        const name = this.field('profile.fullname');
+        if (name.isSet) {
+          return name.value.toLowerCase().replace(/\s/g, '');
+        }
+      }
+    },
+  },
+  emails: {
+    type: [Object],
+    optional: true,
+  },
+  'emails.$.address': {
+    type: String,
+    regEx: SimpleSchema.RegEx.Email,
+  },
+  'emails.$.verified': {
+    type: Boolean,
+  },
+  createdAt: {
+    type: Date,
+    autoValue() { // eslint-disable-line consistent-return
+      if (this.isInsert) {
+        return new Date();
+      } else {
+        this.unset();
+      }
+    },
+  },
+  profile: {
+    type: Object,
+    optional: true,
+    autoValue() { // eslint-disable-line consistent-return
+      if (this.isInsert && !this.isSet) {
+        return {};
+      }
+    },
+  },
+  'profile.avatarUrl': {
+    type: String,
+    optional: true,
+  },
+  'profile.emailBuffer': {
+    type: [String],
+    optional: true,
+  },
+  'profile.fullname': {
+    type: String,
+    optional: true,
+  },
+  'profile.initials': {
+    type: String,
+    optional: true,
+  },
+  'profile.invitedBoards': {
+    type: [String],
+    optional: true,
+  },
+  'profile.language': {
+    type: String,
+    optional: true,
+  },
+  'profile.notifications': {
+    type: [String],
+    optional: true,
+  },
+  'profile.starredBoards': {
+    type: [String],
+    optional: true,
+  },
+  'profile.tags': {
+    type: [String],
+    optional: true,
+  },
+  services: {
+    type: Object,
+    optional: true,
+    blackbox: true,
+  },
+  heartbeat: {
+    type: Date,
+    optional: true,
+  },
+}));
+
 // Search a user in the complete server database by its name or username. This
 // is used for instance to add a new user to a board.
 const searchInFields = ['username', 'profile.fullname'];
@@ -258,14 +348,6 @@ if (Meteor.isServer) {
     },
   });
 }
-
-Users.before.insert((userId, doc) => {
-  doc.profile = doc.profile || {};
-
-  if (!doc.username && doc.profile.name) {
-    doc.username = doc.profile.name.toLowerCase().replace(/\s/g, '');
-  }
-});
 
 if (Meteor.isServer) {
   // Let mongoDB ensure username unicity
