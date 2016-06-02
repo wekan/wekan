@@ -5,3 +5,7 @@
 *.sublime-workspace
 tmp/
 node_modules/
+
+run.sh
+
+run-email.sh

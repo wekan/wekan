@@ -1,4 +1,6 @@
 Meteor.subscribe('boards');
+Meteor.subscribe('setting');
+Meteor.subscribe('user-admin');
 
 BlazeLayout.setRoot('body');
 

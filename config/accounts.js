@@ -1,12 +1,21 @@
 const passwordField = AccountsTemplates.removeField('password');
 const emailField = AccountsTemplates.removeField('email');
+
 AccountsTemplates.addFields([{
   _id: 'username',
   type: 'text',
   displayName: 'username',
   required: true,
   minLength: 2,
-}, emailField, passwordField]);
+}, emailField, passwordField, {
+  _id: 'invitationcode',
+  type: 'text',
+  displayName: 'Invitation Code',
+  required: false,
+  minLength: 6,
+  errStr: 'Invitation code doesn\'t exist',
+  template: 'invitationCode',
+}]);
 
 AccountsTemplates.configure({
   defaultLayout: 'userFormsLayout',
@@ -48,9 +57,6 @@ AccountsTemplates.configureRoute('changePwd', {
 });
 
 if (Meteor.isServer) {
-  if (process.env.MAIL_FROM) {
-    Accounts.emailTemplates.from = process.env.MAIL_FROM;
-  }
 
   ['resetPassword-subject', 'resetPassword-text', 'verifyEmail-subject', 'verifyEmail-text', 'enrollAccount-subject', 'enrollAccount-text'].forEach((str) => {
     const [templateName, field] = str.split('-');
@@ -63,3 +69,4 @@ if (Meteor.isServer) {
     };
   });
 }
+

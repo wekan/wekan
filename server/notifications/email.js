@@ -25,7 +25,6 @@ Meteor.startup(() => {
       // merge the cached content into single email and flush
       const text = texts.join('\n\n');
       user.clearEmailBuffer();
-
       try {
         Email.send({
           to: user.emails[0].address,
