@@ -44,25 +44,25 @@ template(name="general")
 
 template(name='email')
   ul#email-setting.setting-detail
-    li
+    li.smtp-form
       .title SMTP Host {{currentSetting.mailServer.port}}
       .description The address of the SMTP server that handles your emails.
       .form-group
         input.form-control#mail-server-host(type="text", placeholder="smtp.domain.com" value="{{currentSetting.mailServer.host}}")
-    li
+    li.smtp-form
       .title SMTP Port
       .description The port your SMTP server uses for outgoing emails.
       .form-group
         input.form-control#mail-server-port(type="text", placeholder="25" value="{{currentSetting.mailServer.port}}")
-    li
+    li.smtp-form
       .title SMTP user name
       .form-group
         input.form-control#mail-server-username(type="text", placeholder="user name" value="{{currentSetting.mailServer.username}}")
-    li
+    li.smtp-form
       .title SMTP password
       .form-group
         input.form-control#mail-server-password(type="text", placeholder="password" value="{{currentSetting.mailServer.password}}")
-    li
+    li.smtp-form
       .title From
       .Email address you want to use to send emails.
       .form-group

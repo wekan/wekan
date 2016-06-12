@@ -20,7 +20,7 @@ BlazeComponent.extendComponent({
   checkField(selector) {
     const value = $(selector).val();
     if(!value || value.trim() === ''){
-      $(selector).parent().parent().addClass('has-error');
+      $(selector).parents('li.smtp-form').addClass('has-error');
       throw Error('blank field');
     } else {
       return value;
@@ -69,14 +69,8 @@ BlazeComponent.extendComponent({
       target = target.parent();
     }
     const checkboxId = target.attr('id');
-    const boardCheckbox = $(`#${checkboxId} .materialCheckBox`);
-    if (boardCheckbox.hasClass('is-checked')) {
-      boardCheckbox.removeClass('is-checked');
-      $(`#${checkboxId}`).removeClass('is-checked');
-    }else{
-      boardCheckbox.addClass('is-checked');
-      $(`#${checkboxId}`).addClass('is-checked');
-    }
+    $(`#${checkboxId} .materialCheckBox`).toggleClass('is-checked');
+    $(`#${checkboxId}`).toggleClass('is-checked');
   },
 
   inviteThroughEmail(){

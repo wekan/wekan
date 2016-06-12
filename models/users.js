@@ -86,12 +86,6 @@ Users.helpers({
     const profile = this.profile || {};
     return profile.language || 'en';
   },
-  // isAdmin(){
-    // const admins = Settings.findOne().admins || [];
-    // console.log('admins:', admins)
-    // return _.contains(admins, this._id);
-//     return this.isAdmin || false;
-//   }
 });
 
 Users.mutations({

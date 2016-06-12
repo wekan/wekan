@@ -53,7 +53,7 @@ if (Meteor.isServer) {
       const now = new Date();
       const defaultSetting = {strict: false, mailServer: {
         username: '', password:'', host: '', port:'', from: '',
-      }, createdAt: now, modifiedAt: now, admins:[]};
+      }, createdAt: now, modifiedAt: now};
       Settings.insert(defaultSetting);
     }
     const newSetting = Settings.findOne();
