@@ -1,0 +1,61 @@
+template(name="checklists")
+  h2 {{_ 'checklists'}}
+  .card-checklist-items
+    each checklist in currentCard.checklists
+      +checklistDetail(checklist = checklist)
+  +inlinedForm(classNames="js-add-checklist" cardId = cardId)
+    +addChecklistItemForm
+  else
+    a.js-open-inlined-form
+      i.fa.fa-plus
+      | {{_ 'add-checklist'}}...
+
+template(name="checklistDetail")
+  +inlinedForm(classNames="js-edit-checklist-title")
+    +editChecklistItemForm(checklist = checklist)
+  else
+    .checklist-title
+      .checkbox.fa.fa-check-square-o
+      a.js-delete-checklist {{_ "delete"}}...
+      span.checklist-stat(class="{{#if checklist.isFinished}}is-finished{{/if}}") {{checklist.finishedCount}}/{{checklist.itemCount}}
+      h2.title.js-open-inlined-form.is-editable  {{checklist.title}}
+  +checklistItems(checklist = checklist)
+
+template(name="addChecklistItemForm")
+  textarea.js-add-checklist-item(rows='1' autofocus)
+  .edit-controls.clearfix
+    button.primary.confirm.js-submit-add-checklist-item-form(type="submit") {{_ 'save'}}
+    a.fa.fa-times-thin.js-close-inlined-form
+
+template(name="editChecklistItemForm")
+  textarea.js-edit-checklist-item(rows='1' autofocus)
+    if $eq type 'item'
+      = item.title
+    else
+      = checklist.title
+  .edit-controls.clearfix
+    button.primary.confirm.js-submit-edit-checklist-item-form(type="submit") {{_ 'save'}}
+    a.fa.fa-times-thin.js-close-inlined-form
+    span(title=createdAt) {{ moment createdAt }}
+    if currentUser.isBoardMember
+      a.js-delete-checklist-item {{_ "delete"}}...
+
+template(name="checklistItems")
+  .checklist-items
+    each item in checklist.items
+      +inlinedForm(classNames="js-edit-checklist-item")
+        +editChecklistItemForm(type = 'item' item = item checklist = checklist)
+      else
+        +itemDetail(item = item checklist = checklist)
+    if currentUser.isBoardMember
+      +inlinedForm(classNames="js-add-checklist-item" checklist = checklist)
+        +addChecklistItemForm
+      else
+        a.add-checklist-item.js-open-inlined-form
+          i.fa.fa-plus
+          | {{_ 'add-checklist-item'}}...
+
+template(name='itemDetail')
+  .item
+    .check-box.materialCheckBox(class="{{#if item.isFinished }}is-checked{{/if}}")
+    .item-title.js-open-inlined-form.is-editable(class="{{#if item.isFinished }}is-checked{{/if}}") {{item.title}}

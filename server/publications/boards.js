@@ -97,6 +97,7 @@ Meteor.publishRelations('board', function(boardId) {
     this.cursor(Cards.find({ boardId }), function(cardId) {
       this.cursor(CardComments.find({ cardId }));
       this.cursor(Attachments.find({ cardId }));
+      this.cursor(Checklists.find({ cardId }));
     });
 
     // Board members. This publication also includes former board members that
