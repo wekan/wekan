@@ -27,6 +27,8 @@ that by providing one-click installation on Heroku or [Sandstorm]
 
 [![Deploy to Scalingo][scalingo_button]][scalingo_deploy]
 
+[![Install on Cloudron][cloudron_button]][cloudron_install]
+
 Wekan is released under the very permissive [MIT license](LICENSE), and made
 with [Meteor](https://www.meteor.com).
 
@@ -44,3 +46,5 @@ with [Meteor](https://www.meteor.com).
 [indiehosters_saas]: https://indiehosters.net/shop/product/wekan-20
 [scalingo_button]: https://cdn.scalingo.com/deploy/button.svg
 [scalingo_deploy]: https://my.scalingo.com/deploy?source=https://github.com/wekan/wekan#master
+[cloudron_button]: https://cloudron.io/img/button.svg
+[cloudron_install]: https://cloudron.io/button.html?app=io.wekan.cloudronapp
