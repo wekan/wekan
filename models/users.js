@@ -262,8 +262,8 @@ if (Meteor.isServer) {
 Users.before.insert((userId, doc) => {
   doc.profile = doc.profile || {};
 
-  if (!doc.username && doc.profile.name) {
-    doc.username = doc.profile.name.toLowerCase().replace(/\s/g, '');
+  if (!doc.username && doc.profile.fullname) {
+    doc.username = doc.profile.fullname.toLowerCase().replace(/\s/g, '');
   }
 });
 

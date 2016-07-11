@@ -55,10 +55,10 @@ template(name="importMapMembersAddPopup")
     ul.pop-over-list
       +esEach(index="users")
         li.item.js-member-item
-          a.name.js-select-import(title="{{profile.name}} ({{username}})" data-id="{{_id}}")
+          a.name.js-select-import(title="{{profile.fullname}} ({{username}})" data-id="{{_id}}")
             +userAvatar(userId=_id esSearch=true)
             span.full-name
-              = profile.name
+              = profile.fullname
               | (<span class="username">{{username}}</span>)
       +ifEsIsSearching(index='users')
         +spinner
