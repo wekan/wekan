@@ -90,15 +90,10 @@ Blaze.Template.registerHelper('mentions', new Template('mentions', function() {
 }));
 
 Template.viewer.events({
-  'click .js-open-member'(evt, tpl) {
-    const userId = evt.currentTarget.dataset.userid;
-    Popup.open('member').call({ userId }, evt, tpl);
-  },
-
   // Viewer sometimes have click-able wrapper around them (for instance to edit
   // the corresponding text). Clicking a link shouldn't fire these actions, stop
   // we stop these event at the viewer component level.
-  'click a'(evt) {
+  'click a'(evt, tpl) {
     evt.stopPropagation();
 
     // XXX We hijack the build-in browser action because we currently don't have
@@ -106,9 +101,16 @@ Template.viewer.events({
     // handled by a third party package that we can't configure easily. Fix that
     // by using directly `_blank` attribute in the rendered HTML.
     evt.preventDefault();
-    const href = evt.currentTarget.href;
-    if (href) {
-      window.open(href, '_blank');
+
+    const userId = evt.currentTarget.dataset.userid;
+    if (userId) {
+      Popup.open('member').call({ userId }, evt, tpl);
+    }
+    else {
+      const href = evt.currentTarget.href;
+      if (href) {
+        window.open(href, '_blank');
+      }
     }
   },
 });
