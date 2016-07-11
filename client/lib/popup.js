@@ -75,7 +75,7 @@ window.Popup = new class {
 
       // If there are no popup currently opened we use the Blaze API to render
       // one into the DOM. We use a reactive function as the data parameter that
-      // return the the complete along with its top element and depends on our
+      // return the complete along with its top element and depends on our
       // internal dependency that is being invalidated every time the top
       // element of the stack has changed and we want to update the popup.
       //
