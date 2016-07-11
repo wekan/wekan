@@ -14,6 +14,9 @@ Template.memberMenuPopup.events({
 
     AccountsTemplates.logout();
   },
+  'click .js-go-setting'() {
+    Popup.close();
+  },
 });
 
 Template.editProfilePopup.events({

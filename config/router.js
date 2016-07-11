@@ -99,6 +99,16 @@ FlowRouter.route('/import', {
   },
 });
 
+FlowRouter.route('/setting', {
+  name: 'setting',
+  action() {
+    BlazeLayout.render('defaultLayout', {
+      headerBar: 'settingHeaderBar',
+      content: 'setting',
+    });
+  },
+});
+
 FlowRouter.notFound = {
   action() {
     BlazeLayout.render('defaultLayout', { content: 'notFound' });

@@ -259,5 +259,17 @@
     "username": "用户名",
     "view-it": "查看",
     "warn-list-archived": "警告: 该卡片位于已删除的清单中",
-    "what-to-do": "要做什么？"
+    "what-to-do": "要做什么？",
+    "watch": "关注",
+    "watching": "正在关注",
+    "watching-info": "你将会受到此看板的所有更新",
+    "unwatch": "取消关注",
+    "admin-panel": "管理面板",
+    "system-setting": "系统设置",
+    "option-setting": "设置",
+    "option-people": "成员",
+    "invitation-code": "邀请码",
+    "email-invite-register-subject": "__inviter__ 向您发出邀请",
+    "email-invite-register-text": "尊敬的 __user__,\n\n__inviter__ 邀请您加入看板参与协作。\n\n请点击下面的链接访问进行注册：\n\n__url__\n您的邀请码是： __icode__\n\n谢谢。\n",
+    "error-invitation-code-not-exist": "验证码不存在"
 }

@@ -116,6 +116,8 @@
     "Notifications": true,
     "allowIsBoardAdmin": true,
     "allowIsBoardMember": true,
-    "Emoji": true
+    "Emoji": true,
+    "Settings": true,
+    "InvitationCodes": true
   }
 }
