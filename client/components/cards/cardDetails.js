@@ -21,6 +21,14 @@ BlazeComponent.extendComponent({
     this.parentComponent().showOverlay.set(true);
     this.parentComponent().mouseHasEnterCardDetails = false;
     this.calculateNextPeak();
+    setTimeout(() => {
+      // Work around animationend event dispatch bug in IE11.
+      // The animationend listener is placed on the root node,
+      // not on the node specified by the selector.  As a result,
+      // IE never sees the completion of the animation, and never
+      // shows the activity list.
+      this.isLoaded.set(true);
+    }, 100);
   },
 
   isWatching() {
