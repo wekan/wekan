@@ -44,6 +44,8 @@ Template.editor.onRendered(() => {
   ]);
 });
 
+import sanitizeXss from 'xss';
+
 // XXX I believe we should compute a HTML rendered field on the server that
 // would handle markdown, emoji and user mentions. We can simply have two
 // fields, one source, and one compiled version (in HTML) and send only the
@@ -86,7 +88,7 @@ Blaze.Template.registerHelper('mentions', new Template('mentions', function() {
     content = content.replace(fullMention, Blaze.toHTML(link));
   }
 
-  return HTML.Raw(content);
+  return HTML.Raw(sanitizeXss(content));
 }));
 
 Template.viewer.events({
