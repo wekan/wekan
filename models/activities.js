@@ -41,12 +41,14 @@ Activities.before.insert((userId, doc) => {
   doc.createdAt = new Date();
 });
 
-// For efficiency create an index on the date of creation.
 if (Meteor.isServer) {
+  // For efficiency create indexes on the date of creation, and on the date of
+  // creation in conjunction with the card or board id, as corresponding views
+  // are largely used in the App. See #524.
   Meteor.startup(() => {
-    Activities._collection._ensureIndex({
-      createdAt: -1,
-    });
+    Activities._collection._ensureIndex({ createdAt: -1 });
+    Activities._collection._ensureIndex({ cardId: 1, createdAt: -1 });
+    Activities._collection._ensureIndex({ boardId: 1, createdAt: -1 });
   });
 
   Activities.after.insert((userId, doc) => {

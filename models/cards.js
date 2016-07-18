@@ -210,6 +210,12 @@ Cards.mutations({
 });
 
 if (Meteor.isServer) {
+  // Cards are often fetched within a board, so we create an index to make these
+  // queries more efficient.
+  Meteor.startup(() => {
+    Cards._collection._ensureIndex({ boardId: 1 });
+  });
+
   Cards.after.insert((userId, doc) => {
     Activities.insert({
       userId,

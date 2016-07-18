@@ -91,6 +91,10 @@ Lists.mutations({
 Lists.hookOptions.after.update = { fetchPrevious: false };
 
 if (Meteor.isServer) {
+  Meteor.startup(() => {
+    Lists._collection._ensureIndex({ boardId: 1 });
+  });
+
   Lists.after.insert((userId, doc) => {
     Activities.insert({
       userId,
