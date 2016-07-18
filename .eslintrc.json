@@ -74,6 +74,7 @@
     "Avatars": true,
     "BlazeComponent": false,
     "BlazeLayout": false,
+    "CollectionHooks": false,
     "DocHead": false,
     "ESSearchResults": false,
     "FastRender": false,
