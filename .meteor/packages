@@ -8,7 +8,8 @@ meteor-base
 # Build system
 ecmascript
 stylus
-standard-minifiers
+standard-minifier-css
+standard-minifier-js
 mquandalle:jade
 
 # Polyfills
