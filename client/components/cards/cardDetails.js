@@ -62,7 +62,7 @@ BlazeComponent.extendComponent({
 
   events() {
     const events = {
-      [`${CSSEvents.animationend} .js-card-details`]() {
+      [`${CSSEvents.transitionend} .js-card-details`]() {
         this.isLoaded.set(true);
       },
     };
