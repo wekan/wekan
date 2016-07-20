@@ -107,7 +107,6 @@ Boards.attachSchema(new SimpleSchema({
           userId: this.userId,
           isAdmin: true,
           isActive: true,
-          isInvited: false,
         }];
       }
     },
