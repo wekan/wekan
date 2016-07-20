@@ -7,21 +7,25 @@ This release adds the following new features:
 * Show the exact time when hovering the activity time;
 * Allow to edit more easily longer card titles by resizing the input box;
 * Add shortcuts to move cards to the top or the bottom of a list;
+* Add a warning indicator when the application is offline;
 * A new log-in button on the public board view to sign in, even if the board
   is published;
 
 and fixes the following bugs:
 
-* Fix the syntax of the docker-compose.yml;
+* Fix the syntax of the `docker-compose.yml`;
 * Use the correct pluralization of emoji;
 * Only publish required user data and keep the hashed passwords confidential;
 * Fix the generation and alignment of the initials avatars;
-* Only display the buttons in the board header, if the data is avialable
+* Fix the “welcome board” feature;
+* Only display the buttons in the board header, if the data is available
   and the user is able to use it;
 * Fix the scaling of cover images;
+* Fix bugs on Internet Explorer v11 that blocked card creation and activity feed
+  visualization.
 
 Thanks to GitHub users alayek, AlexanderS, choclin, floatinghotpot, ForNeVeR,
-seschwar, and TheElf for their contributions.
+PeterDaveHello, seschwar, and TheElf for their contributions.
 
 # v0.10.1
 
