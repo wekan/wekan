@@ -6,6 +6,10 @@ Template.header.helpers({
   hideLogo() {
     return Utils.isMiniScreen() && Session.get('currentBoard');
   },
+
+  appIsOffline() {
+    return !Meteor.status().connected;
+  },
 });
 
 Template.header.events({
