@@ -186,7 +186,7 @@ BlazeComponent.extendComponent({
           callback($.map(currentBoard.activeMembers(), (member) => {
             const user = Users.findOne(member.userId);
             return user.username.indexOf(term) === 0 ? user : null;
-          }));
+          }).filter(user => !!user));
         },
         template(user) {
           return user.username;

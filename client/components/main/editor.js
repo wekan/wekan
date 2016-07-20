@@ -31,7 +31,7 @@ Template.editor.onRendered(() => {
         callback(currentBoard.activeMembers().map((member) => {
           const username = Users.findOne(member.userId).username;
           return username.includes(term) ? username : null;
-        }));
+        }).filter(username => !!username));
       },
       template(value) {
         return value;
