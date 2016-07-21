@@ -4,8 +4,8 @@
   "description": "The open-source Trello-like kanban",
   "private": true,
   "scripts": {
-    "lint": "eslint .; exit 0",
-    "test": "npm run --silent lint; exit 0"
+    "lint": "eslint .",
+    "test": "npm run --silent lint"
   },
   "repository": {
     "type": "git",

@@ -10,7 +10,7 @@ Template.editor.onRendered(() => {
       search(term, callback) {
         callback(Emoji.values.map((emoji) => {
           return emoji.includes(term) ? emoji : null;
-        }).filter(emoji => !!emoji));
+        }).filter(Boolean));
       },
       template(value) {
         const imgSrc = Emoji.baseImagePath + value;
@@ -31,7 +31,7 @@ Template.editor.onRendered(() => {
         callback(currentBoard.activeMembers().map((member) => {
           const username = Users.findOne(member.userId).username;
           return username.includes(term) ? username : null;
-        }).filter(username => !!username));
+        }).filter(Boolean));
       },
       template(value) {
         return value;
