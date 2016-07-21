@@ -163,8 +163,11 @@ Template.boardBody.onRendered(function() {
   // Disable drag-dropping while in multi-selection mode, or if the current user
   // is not a board member
   self.autorun(() => {
-    $(self.listsDom).sortable('option', 'disabled',
-      MultiSelection.isActive() || !userIsMember());
+    const $listDom = $(self.listsDom);
+    if ($listDom.data('sortable')) {
+      $(self.listsDom).sortable('option', 'disabled',
+        MultiSelection.isActive() || !userIsMember());
+    }
   });
 
   // If there is no data in the board (ie, no lists) we autofocus the list
