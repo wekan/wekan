@@ -1,41 +1,41 @@
 BlazeComponent.extendComponent({
   addChecklist(event) {
     event.preventDefault();
-    const textarea = $(event.currentTarget).find('textarea');
-    const title = textarea.val().trim();
+    const textarea = this.find('textarea.js-add-checklist-item');
+    const title = textarea.value.trim();
     const cardId = this.currentData().cardId;
     Checklists.insert({
       cardId,
       title,
     });
   },
+
   addChecklistItem(event) {
     event.preventDefault();
-    const textarea = $(event.currentTarget).find('textarea');
-    const title = textarea.val().trim();
+    const textarea = this.find('textarea.js-add-checklist-item');
+    const title = textarea.value.trim();
     const checklist = this.currentData().checklist;
     checklist.addItem(title);
   },
+
   editChecklist(event) {
     event.preventDefault();
-    const textarea = $(event.currentTarget).find('textarea');
-    const title = textarea.val().trim();
-    const checklistId = this.currentData().checklist._id;
-    Checklists.update(checklistId, {
-      $set:{
-        title,
-      },
-    });
+    const textarea = this.find('textarea.js-edit-checklist-item');
+    const title = textarea.value.trim();
+    const checklist = this.currentData().checklist;
+    checklist.setTitle(title);
   },
+
   editChecklistItem(event) {
     event.preventDefault();
 
-    const textarea = $(event.currentTarget).find('textarea');
-    const title = textarea.val().trim();
+    const textarea = this.find('textarea.js-edit-checklist-item');
+    const title = textarea.value.trim();
     const itemId = this.currentData().item._id;
     const checklist = this.currentData().checklist;
     checklist.editItem(itemId, title);
   },
+
   deleteItem() {
     const checklist = this.currentData().checklist;
     const item = this.currentData().item;
@@ -43,19 +43,23 @@ BlazeComponent.extendComponent({
       checklist.removeItem(item._id);
     }
   },
+
   deleteChecklist() {
     const checklist = this.currentData().checklist;
     if (checklist && checklist._id) {
       Checklists.remove(checklist._id);
     }
   },
+
   pressKey(event) {
+    //If user press enter key inside a form, submit it, so user doesn't have to leave keyboard to submit a form.
     if (event.keyCode === 13) {
       event.preventDefault();
       const $form = $(event.currentTarget).closest('form');
       $form.find('button[type=submit]').click();
     }
   },
+
   events() {
     return [{
       'submit .js-add-checklist': this.addChecklist,
@@ -68,18 +72,3 @@ BlazeComponent.extendComponent({
     }];
   },
 }).register('checklists');
-
-BlazeComponent.extendComponent({
-  toggleItem() {
-    const checklist = this.currentData().checklist;
-    const item = this.currentData().item;
-    if (checklist && item && item._id) {
-      checklist.toggleItem(item._id);
-    }
-  },
-  events() {
-    return [{
-      'click .item .check-box': this.toggleItem,
-    }];
-  },
-}).register('itemDetail');

@@ -7,6 +7,10 @@ Checklists.attachSchema(new SimpleSchema({
   title: {
     type: String,
   },
+  items: {
+    type: [Object],
+    defaultValue: [],
+  },
   'items.$._id': {
     type: String,
   },
@@ -29,15 +33,9 @@ Checklists.attachSchema(new SimpleSchema({
 
 Checklists.helpers({
   itemCount () {
-    if (!this.items) {
-      this.items = [];
-    }
     return this.items.length;
   },
   finishedCount () {
-    if (!this.items) {
-      this.items = [];
-    }
     return this.items.filter((item) => {
       return item.isFinished;
     }).length;
@@ -68,13 +66,17 @@ Checklists.allow({
 
 Checklists.before.insert((userId, doc) => {
   doc.createdAt = new Date();
-  doc.items = [];
   if (!doc.userId) {
     doc.userId = userId;
   }
 });
 
 Checklists.mutations({
+  //for checklist itself
+  setTitle(title){
+    return { $set: { title }};
+  },
+  //for items in checklist
   addItem(title) {
     const itemCount = this.itemCount();
     const _id = `${this._id}${itemCount}`;
@@ -153,8 +155,8 @@ if (Meteor.isServer) {
     // });
   // });
 
-  Checklists.after.remove((userId, doc) => {
-    const activity = Activities.findOne({ ChecklistId: doc._id });
+  Checklists.before.remove((userId, doc) => {
+    const activity = Activities.findOne({ checklistId: doc._id });
     if (activity) {
       Activities.remove(activity._id);
     }
