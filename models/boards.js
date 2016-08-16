@@ -449,17 +449,28 @@ if (Meteor.isServer) {
     );
   });
 
+  const foreachRemovedMember = (doc, modifier, callback) => {
+    Object.keys(modifier).forEach((set) => {
+      if (modifier[set] !== false) {
+        return;
+      }
+
+      const parts = set.split('.');
+      if (parts.length === 3 && parts[0] === 'members' && parts[2] === 'isActive') {
+        callback(doc.members[parts[1]].userId);
+      }
+    });
+  };
+
   // Add a new activity if we add or remove a member to the board
   Boards.after.update((userId, doc, fieldNames, modifier) => {
     if (!_.contains(fieldNames, 'members')) {
       return;
     }
 
-    let memberId;
-
     // Say hello to the new member
     if (modifier.$push && modifier.$push.members) {
-      memberId = modifier.$push.members.userId;
+      const memberId = modifier.$push.members.userId;
       Activities.insert({
         userId,
         memberId,
@@ -470,14 +481,15 @@ if (Meteor.isServer) {
     }
 
     // Say goodbye to the former member
-    if (modifier.$pull && modifier.$pull.members) {
-      memberId = modifier.$pull.members.userId;
-      Activities.insert({
-        userId,
-        memberId,
-        type: 'member',
-        activityType: 'removeBoardMember',
-        boardId: doc._id,
+    if (modifier.$set) {
+      foreachRemovedMember(doc, modifier.$set, (memberId) => {
+        Activities.insert({
+          userId,
+          memberId,
+          type: 'member',
+          activityType: 'removeBoardMember',
+          boardId: doc._id,
+        });
       });
     }
   });
