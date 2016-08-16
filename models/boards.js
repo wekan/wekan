@@ -494,6 +494,18 @@ if (Meteor.isServer) {
 
         const board = Boards._transform(doc);
         board.setWatcher(memberId, false);
+
+        // Remove board from users starred list
+        if (!board.isPublic()) {
+          Users.update(
+            memberId,
+            {
+              $pull: {
+                'profile.starredBoards': boardId,
+              },
+            }
+          );
+        }
       });
     }
   });
