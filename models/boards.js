@@ -462,6 +462,42 @@ if (Meteor.isServer) {
     });
   };
 
+  // Remove a member from all objects of the board before leaving the board
+  Boards.before.update((userId, doc, fieldNames, modifier) => {
+    if (!_.contains(fieldNames, 'members')) {
+      return;
+    }
+
+    if (modifier.$set) {
+      const boardId = doc._id;
+      foreachRemovedMember(doc, modifier.$set, (memberId) => {
+        Cards.update(
+          { boardId },
+          {
+            $pull: {
+              members: memberId,
+              watchers: memberId,
+            },
+          },
+          { multi: true }
+        );
+
+        Lists.update(
+          { boardId },
+          {
+            $pull: {
+              watchers: memberId,
+            },
+          },
+          { multi: true }
+        );
+
+        const board = Boards._transform(doc);
+        board.setWatcher(memberId, false);
+      });
+    }
+  });
+
   // Add a new activity if we add or remove a member to the board
   Boards.after.update((userId, doc, fieldNames, modifier) => {
     if (!_.contains(fieldNames, 'members')) {
