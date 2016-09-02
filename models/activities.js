@@ -35,6 +35,9 @@ Activities.helpers({
   attachment() {
     return Attachments.findOne(this.attachmentId);
   },
+  checklist() {
+    return Checklists.findOne(this.checklistId);
+  },
 });
 
 Activities.before.insert((userId, doc) => {
@@ -101,6 +104,10 @@ if (Meteor.isServer) {
     if (activity.attachmentId) {
       const attachment = activity.attachment();
       params.attachment = attachment._id;
+    }
+    if (activity.checklistId) {
+      const checklist = activity.checklist();
+      params.checklist = checklist.title;
     }
     if (board) {
       const watchingUsers = _.pluck(_.where(board.watchers, {level: 'watching'}), 'userId');

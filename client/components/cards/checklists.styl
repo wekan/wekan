@@ -1,0 +1,68 @@
+.js-add-checklist
+  color: #8c8c8c
+
+textarea.js-add-checklist-item, textarea.js-edit-checklist-item
+  overflow: hidden
+  word-wrap: break-word
+  resize: none
+  height: 34px
+
+.delete-text
+  color: #8c8c8c
+  text-decoration: underline
+  word-wrap: break-word
+  float: right
+  padding-top: 6px
+  &:hover
+    color: inherit
+
+.checklist-title
+  .checkbox
+    float: left
+    width: 30px
+    height 30px
+    font-size: 18px
+    line-height: 30px
+
+  .title
+    font-size: 18px
+    line-height: 30px
+
+  .checklist-stat
+    margin: 0 0.5em
+    float: right
+    padding-top: 6px
+    &.is-finished
+      color: #3cb500
+
+  .js-delete-checklist
+    @extends .delete-text
+
+.checklist-items
+  margin: 0 0 0.5em 1.33em
+
+  .item
+    line-height: 25px
+    font-size: 1.1em
+    margin-top: 3px
+    display: flex
+
+    .check-box
+      margin-top: 5px
+      &.is-checked
+        border-bottom: 2px solid #3cb500
+        border-right: 2px solid #3cb500
+
+    .item-title
+      padding-left: 10px;
+      &.is-checked
+        color: #8c8c8c
+        font-style: italic
+
+  .js-delete-checklist-item
+    @extends .delete-text
+    padding: 12px 0 0 0
+
+  .add-checklist-item
+    padding-top: 0.5em
+    display: inline-block

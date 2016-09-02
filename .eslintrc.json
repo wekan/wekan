@@ -117,6 +117,8 @@
     "Notifications": true,
     "allowIsBoardAdmin": true,
     "allowIsBoardMember": true,
-    "Emoji": true
+    "allowIsBoardMemberByCard": true,
+    "Emoji": true,
+    "Checklists": true
   }
 }

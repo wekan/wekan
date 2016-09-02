@@ -61,6 +61,10 @@ template(name="cardDetails")
       h3.card-details-item-title {{_ 'description'}}
       +viewer
         = description
+
+    hr
+    +checklists(cardId = _id)
+
     if attachments.count
       hr
       h2
