@@ -13,9 +13,6 @@ Tracker.autorun(() => {
 
   if (language) {
     TAPi18n.setLanguage(language);
-
-    // XXX
-    const shortLanguage = language.split('-')[0];
-    T9n.setLanguage(shortLanguage);
+    T9n.setLanguage(language);
   }
 });
