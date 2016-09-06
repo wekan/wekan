@@ -16,6 +16,9 @@ Tracker.autorun(() => {
 
     // XXX
     const shortLanguage = language.split('-')[0];
-    T9n.setLanguage(shortLanguage);
+    if (language === 'zh')
+      T9n.setLanguage('zh_CN');
+    else
+      T9n.setLanguage(shortLanguage);
   }
 });
