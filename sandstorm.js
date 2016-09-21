@@ -58,29 +58,6 @@ if (isSandstorm && Meteor.isServer) {
       Location: base + boardPath,
     });
     res.end();
-
-    // `accounts-sandstorm` populate the Users collection when new users
-    // accesses the document, but in case a already known user comes back, we
-    // need to update his associated document to match the request HTTP headers
-    // informations.
-    // XXX We need to update this document even if the initial route is not `/`.
-    // Unfortuanlty I wasn't able to make the Webapp.rawConnectHandlers solution
-    // work.
-    const user = Users.findOne({
-      'services.sandstorm.id': req.headers['x-sandstorm-user-id'],
-    });
-    if (user) {
-      // XXX At this point the user.services.sandstorm credentials haven't been
-      // updated, which mean that the user will have to restart the application
-      // a second time to see its updated name and avatar.
-      Users.update(user._id, {
-        $set: {
-          'profile.fullname': user.services.sandstorm.name,
-          'profile.avatarUrl': user.services.sandstorm.picture,
-        },
-      });
-      updateUserPermissions(user._id, user.services.sandstorm.permissions);
-    }
   });
 
   // On the first launch of the instance a user is automatically created thanks
@@ -124,6 +101,29 @@ if (isSandstorm && Meteor.isServer) {
     });
 
     updateUserPermissions(doc._id, doc.services.sandstorm.permissions);
+  });
+
+  Meteor.startup(() => {
+    Users.find().observeChanges({
+      changed(userId, fields) {
+        const sandstormData = (fields.services || {}).sandstorm || {};
+        if (sandstormData.name) {
+          Users.update(userId, {
+            $set: { 'profile.fullname': sandstormData.name },
+          });
+        }
+
+        if (sandstormData.picture) {
+          Users.update(userId, {
+            $set: { 'profile.avatarUrl': sandstormData.picture },
+          });
+        }
+
+        if (sandstormData.permissions) {
+          updateUserPermissions(userId, sandstormData.permissions);
+        }
+      },
+    });
   });
 
   // Wekan v0.8 didn’t implement the Sandstorm sharing model and instead kept
