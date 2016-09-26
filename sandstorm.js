@@ -21,6 +21,79 @@ const sandstormBoard = {
 };
 
 if (isSandstorm && Meteor.isServer) {
+  const Capnp = require('capnp');
+  const Powerbox = Capnp.importSystem('sandstorm/powerbox.capnp');
+  const Identity = Capnp.importSystem('sandstorm/identity.capnp');
+  const SandstormHttpBridge =
+    Capnp.importSystem('sandstorm/sandstorm-http-bridge.capnp').SandstormHttpBridge;
+
+  let httpBridge = null;
+
+  function getHttpBridge() {
+    if (!httpBridge) {
+      const capnpConnection = Capnp.connect('unix:/tmp/sandstorm-api');
+      httpBridge = capnpConnection.restore(null, SandstormHttpBridge);
+    }
+    return httpBridge;
+  }
+
+  Meteor.methods({
+    sandstormClaimIdentityRequest(token, descriptor) {
+      check(token, String);
+      check(descriptor, String);
+
+      const parsedDescriptor = Capnp.parse(
+        Powerbox.PowerboxDescriptor,
+        new Buffer(descriptor, 'base64'),
+        { packed: true });
+
+      const tag = Capnp.parse(Identity.Identity.PowerboxTag, parsedDescriptor.tags[0].value);
+      const permissions = [];
+      if (tag.permissions[1]) {
+        permissions.push('configure');
+      }
+
+      if (tag.permissions[0]) {
+        permissions.push('participate');
+      }
+
+      const sessionId = this.connection.sandstormSessionId();
+      const httpBridge = getHttpBridge();
+      const session = httpBridge.getSessionContext(sessionId).context;
+      const api = httpBridge.getSandstormApi(sessionId).api;
+
+      Meteor.wrapAsync((done) => {
+        session.claimRequest(token).then((response) => {
+          const identity = response.cap.castAs(Identity.Identity);
+          const promises = [api.getIdentityId(identity), identity.getProfile()];
+          return Promise.all(promises).then((responses) => {
+            const identityId = responses[0].id.toString('hex').slice(0, 32);
+            const profile = responses[1].profile;
+            return profile.picture.getUrl().then((response) => {
+              const sandstormInfo = {
+                id: identityId,
+                name: profile.displayName.defaultText,
+                permissions,
+                picture: `${response.protocol}://${response.hostPath}`,
+                preferredHandle: profile.preferredHandle,
+                pronouns: profile.pronouns,
+              };
+
+              const login = Accounts.updateOrCreateUserFromExternalService(
+                'sandstorm', sandstormInfo,
+                { profile: { name: sandstormInfo.name, fullname: sandstormInfo.name } });
+
+              updateUserPermissions(login.userId, permissions);
+              done();
+            });
+          });
+        }).catch((e) => {
+          done(e, null);
+        });
+      })();
+    },
+  });
+
   function updateUserPermissions(userId, permissions) {
     const isActive = permissions.indexOf('participate') > -1;
     const isAdmin = permissions.indexOf('configure') > -1;
@@ -137,6 +210,77 @@ if (isSandstorm && Meteor.isServer) {
 }
 
 if (isSandstorm && Meteor.isClient) {
+  let rpcCounter = 0;
+  const rpcs = {};
+
+  window.addEventListener('message', (event) => {
+    if (event.source === window) {
+      // Meteor likes to postmessage itself.
+      return;
+    }
+
+    if ((event.source !== window.parent) ||
+        typeof event.data !== 'object' ||
+        typeof event.data.rpcId !== 'number') {
+      throw new Error(`got unexpected postMessage: ${event}`);
+    }
+
+    const handler = rpcs[event.data.rpcId];
+    if (!handler) {
+      throw new Error(`no such rpc ID for event ${event}`);
+    }
+
+    delete rpcs[event.data.rpcId];
+    handler(event.data);
+  });
+
+  function sendRpc(name, message) {
+    const id = rpcCounter++;
+    message.rpcId = id;
+    const obj = {};
+    obj[name] = message;
+    window.parent.postMessage(obj, '*');
+    return new Promise((resolve, reject) => {
+      rpcs[id] = (response) => {
+        if (response.error) {
+          reject(new Error(response.error));
+        } else {
+          resolve(response);
+        }
+      };
+    });
+  }
+
+  const powerboxDescriptors = {
+    identity: 'EAhQAQEAABEBF1EEAQH_GN1RqXqYhMAAQAERAREBAQ',
+    // Generated using the following code:
+    //
+    // Capnp.serializePacked(
+    //  Powerbox.PowerboxDescriptor,
+    //  { tags: [ {
+    //    id: "13872380404802116888",
+    //    value: Capnp.serialize(Identity.PowerboxTag, { permissions: [true, false] })
+    //  }]}).toString('base64')
+    //      .replace(/\//g, "_")
+    //      .replace(/\+/g, "-");
+  };
+
+  function doRequest(serializedPowerboxDescriptor, onSuccess) {
+    return sendRpc('powerboxRequest', {
+      query: [serializedPowerboxDescriptor],
+    }).then((response) => {
+      if (!response.canceled) {
+        onSuccess(response);
+      }
+    });
+  }
+
+  window.sandstormRequestIdentity = function () {
+    doRequest(powerboxDescriptors.identity, (response) => {
+      Meteor.call('sandstormClaimIdentityRequest', response.token, response.descriptor);
+    });
+  };
+
   // Since the Sandstorm grain is displayed in an iframe of the Sandstorm shell,
   // we need to explicitly expose meta data like the page title or the URL path
   // so that they could appear in the browser window.
