@@ -7,15 +7,15 @@ Tracker.autorun(() => {
   let language;
   if (currentUser) {
     language = currentUser.profile && currentUser.profile.language;
-  } else {
+  } 
+  if (!language) {
     language = navigator.language || navigator.userLanguage;
   }
 
   if (language) {
     TAPi18n.setLanguage(language);
 
-    // XXX
-    const shortLanguage = language.split('-')[0];
-    T9n.setLanguage(shortLanguage);
+    // T9n　need zh-CN changed to zh-cn
+    T9n.setLanguage(language.toLowerCase());
   }
 });
