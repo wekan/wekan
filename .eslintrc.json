@@ -99,6 +99,8 @@
     "Attachments": true,
     "Boards": true,
     "CardComments": true,
+    "CardChecklists": true,
+    "CardDependencies": true,
     "Cards": true,
     "Lists": true,
     "UnsavedEditCollection": true,

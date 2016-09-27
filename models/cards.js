@@ -114,6 +114,10 @@ Cards.helpers({
     return _.contains(this.members, memberId);
   },
 
+  checklists() {
+    return CardChecklists.find({ cardId: this._id }, { sort: { createdAt: 1 }});
+  },
+
   activities() {
     return Activities.find({ cardId: this._id }, { sort: { createdAt: -1 }});
   },

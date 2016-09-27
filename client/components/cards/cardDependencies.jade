@@ -1,0 +1,75 @@
+template(name="addCardDependencies")
+  if currentUser.isBoardMember
+    a.open-dependency-composer.js-add-dependency
+      i.fa.fa-plus
+      | {{#if $eq "depends-on" cardDependencyType}}{{_ 'add-depends-on-item'}}{{else}}{{_ 'add-depended-by-item'}}{{/if}}
+
+template(name="cardDependenciesBoardsPopup")
+  +boardsByUserId(type=this.cardDependencyType)
+
+template(name="boardsByUserId")
+  ul.pop-over-list
+    each boards
+      li
+        // if($eq ../_id _id)
+        //   a.disabled {{title}} ({{_ 'current'}})
+        // else
+        a.js-select-list= title
+
+template(name="cardDependenciesListsPopup")
+  +listsByBoardId(selectedBoard=this)
+
+template(name="listsByBoardId")
+  ul.pop-over-list
+    each lists
+      li
+        // if($eq ../_id _id)
+        //   a.disabled {{title}} ({{_ 'current'}})
+        // else
+        a.js-select-list= title
+
+template(name="cardDependenciesCardsPopup")
+  +cardsByListId(selectedList=this)
+
+template(name="cardsByListId")
+  ul.pop-over-list
+    each cards
+      li
+        a.js-select-list
+          = title
+          if(exists)
+            i.fa.fa-check
+
+template(name="cardDependencyPanel")
+  h3.card-details-item-title {{_ cardDependencyType}}
+  each dependencies
+    +dependencyCard(this)
+  +addCardDependencies(cardDependencyType=cardDependencyType)
+  
+template(name="dependencyCard")
+  .dependencyCard
+    if card.labels
+      .dependencyCard-labels
+        each card.labels
+          .dependencyCard-label(class="card-label-{{color}}" title="{{name}}")  
+    a.dependencyCard-title-bar.js-remove-dependency
+      .dependencyCard-title
+        | {{card.board.title}} - {{card.title}}
+      .dependencyCard-remove
+        i.fa.fa-times
+    if card.members
+      .dependencyCard-members.js-dependencyCard-members
+        each card.members
+          +userAvatar(userId=this)
+    .badges
+      if card.comments.count
+        .badge(title="{{_ 'card-comments-title' card.comments.count }}")
+          span.badge-icon.fa.fa-comment-o
+          span.badge-text= card.comments.count
+      if card.description
+        .badge.badge-state-image-only(title=card.description)
+          span.badge-icon.fa.fa-align-left
+      if card.attachments.count
+        .badge
+          span.badge-icon.fa.fa-paperclip
+          span.badge-text= card.attachments.count

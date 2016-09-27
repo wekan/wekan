@@ -1,9 +1,4 @@
-Meteor.publish('card', (cardId) => {
-  check(cardId, String);
-  return Cards.find({ _id: cardId });
-});
-
-Meteor.publish('cards', function() {
+Meteor.publish('lists', function() {
   // Ensure that the user is connected. If it is not, we need to return an empty
   // array to tell the client to remove the previously published docs.
   if (!Match.test(this.userId, String))
@@ -27,23 +22,18 @@ Meteor.publish('cards', function() {
     },
   }).fetch();
   
-  var _cards = Cards.find({
+  return Lists.find({
     archived: false,
     boardId: {$in: _.pluck(_boards,'_id')},
   }, {
     fields: {
       _id: 1,
+      archived: 1,
       title: 1,
-      members: 1,
-      labelIds: 1,
-      listId: 1,
       boardId: 1,
       sort: 1,
-      createdAt: 1,
-      archived: 1,
       userId: 1,
+      createdAt: 1,
     },
   });
-
-  return _cards;
 });

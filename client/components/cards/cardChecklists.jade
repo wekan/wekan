@@ -1,0 +1,32 @@
+template(name="cardChecklists")
+  each currentCard.checklists
+    +inlinedForm(classNames="js-card-checklist-item" _id=_id)
+      +editChecklistItemForm
+    else
+      .card-checklist-items
+        .materialCheckBox.js-toggle-multi-selection(class="{{#if isFinished }}is-checked{{/if}}")
+        a.card-checklist-item-title.open-checklist-composer(class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
+          = text
+  if currentUser.isBoardMember
+    +inlinedForm(classNames="js-card-add-checklist-item" card=currentCard)
+      +addChecklistItemForm   
+    else
+      a.open-checklist-composer.js-add-checklist.js-open-inlined-form
+        i.fa.fa-plus
+        | {{_ 'add-checklist-item'}}
+
+template(name="addChecklistItemForm")
+  textarea.js-add-checklist-item(rows='1' autofocus)
+  .edit-controls.clearfix
+    button.primary.confirm.js-submit-add-checklist-item-form(type="submit") {{_ 'save'}}
+    a.fa.fa-times-thin.js-close-inlined-form
+
+template(name="editChecklistItemForm")
+  textarea.js-edit-checklist-item(rows='1' autofocus)
+    = text
+  .edit-controls.clearfix
+    button.primary.confirm.js-submit-edit-checklist-item-form(type="submit") {{_ 'save'}}
+    a.fa.fa-times-thin.js-close-inlined-form
+    span(title=createdAt).checklist-meta  {{ moment createdAt }}
+      if ($eq currentUser._id userId)
+        a.js-delete-checklist {{_ "delete"}}

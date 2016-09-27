@@ -74,7 +74,21 @@
 
     .card-details-item
       &.card-details-item-labels,
-      &.card-details-item-members
+      &.card-details-item-members,
+      &.card-details-item-due-date,
+      &.card-details-item-priority,
+      &.card-details-item-story-points,
+      &.card-details-item-value-points,
+      &.card-details-item-bang-for-the-buck,
+      &.card-details-item-votes,
+      &.card-details-item-planned-start,
+      &.card-details-item-planned-end,
+      &.card-details-item-effective-start,
+      &.card-details-item-effective-end,
+      &.card-details-item-estimated-effort,
+      &.card-details-item-actual-effort,
+      &.card-details-item-sprint,
+      &.card-details-item-user-story
         width: 50%
         flex-shrink: 1
 
@@ -116,3 +130,43 @@ input[type="submit"].attachment-add-link-submit
 
       .card-details-menu
         margin-right: 10px
+
+.open-checklist-composer
+  border-radius: 2px
+  color: #8c8c8c
+  display: block
+  padding: 7px 10px
+  position: relative
+  text-decoration: none
+  animation: fadeIn 0.3s
+
+  i.fa
+    margin-right: 7px
+
+  &:hover
+    background: #fafafa
+    color: #222
+    box-shadow: 0 1px 2px rgba(0,0,0,.2)
+    
+.card-dependency-items
+  display: flex;
+  padding: 7px 10px
+.card-dependency-item-title
+  margin-left: 10px;
+  
+.open-dependency-composer
+  border-radius: 2px
+  color: #8c8c8c
+  display: block
+  padding: 7px 10px
+  position: relative
+  text-decoration: none
+  animation: fadeIn 0.3s
+
+  i.fa
+    margin-right: 7px
+
+  &:hover
+    background: #fafafa
+    color: #222
+    box-shadow: 0 1px 2px rgba(0,0,0,.2)
