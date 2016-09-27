@@ -31,8 +31,9 @@ template(name="membersWidget")
       each currentBoard.activeMembers
         +userAvatar(userId=this.userId showStatus=true)
       if isSandstorm
-        a.member.add-member.sandstorm-powerbox-request-identity
-          i.fa.fa-plus
+        if currentUser.isBoardMember
+          a.member.add-member.sandstorm-powerbox-request-identity
+            i.fa.fa-plus
       else if currentUser.isBoardAdmin
         a.member.add-member.js-manage-board-members
           i.fa.fa-plus
