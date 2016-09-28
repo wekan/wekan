@@ -28,10 +28,11 @@ if (isSandstorm && Meteor.isServer) {
     Capnp.importSystem('sandstorm/sandstorm-http-bridge.capnp').SandstormHttpBridge;
 
   let httpBridge = null;
+  let capnpConnection = null;
 
   function getHttpBridge() {
     if (!httpBridge) {
-      const capnpConnection = Capnp.connect('unix:/tmp/sandstorm-api');
+      capnpConnection = Capnp.connect('unix:/tmp/sandstorm-api');
       httpBridge = capnpConnection.restore(null, SandstormHttpBridge);
     }
     return httpBridge;
