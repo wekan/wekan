@@ -17,7 +17,7 @@
   },
   "homepage": "https://wekan.io",
   "devDependencies": {
-    "eslint": "^2.0.0"
+    "eslint": "^3.7.0"
   },
   "dependencies": {
     "xss": "^0.2.13"
