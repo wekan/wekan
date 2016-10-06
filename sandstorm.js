@@ -21,7 +21,9 @@ const sandstormBoard = {
 };
 
 if (isSandstorm && Meteor.isServer) {
+  const fs = require('fs');
   const Capnp = require('capnp');
+  const Package = Capnp.importSystem('sandstorm/package.capnp');
   const Powerbox = Capnp.importSystem('sandstorm/powerbox.capnp');
   const Identity = Capnp.importSystem('sandstorm/identity.capnp');
   const SandstormHttpBridge =
@@ -29,6 +31,10 @@ if (isSandstorm && Meteor.isServer) {
 
   let httpBridge = null;
   let capnpConnection = null;
+
+  const bridgeConfig = Capnp.parse(
+    Package.BridgeConfig,
+    fs.readFileSync('/sandstorm-http-bridge-config'));
 
   function getHttpBridge() {
     if (!httpBridge) {
@@ -66,7 +72,8 @@ if (isSandstorm && Meteor.isServer) {
       Meteor.wrapAsync((done) => {
         session.claimRequest(token).then((response) => {
           const identity = response.cap.castAs(Identity.Identity);
-          const promises = [api.getIdentityId(identity), identity.getProfile()];
+          const promises = [api.getIdentityId(identity), identity.getProfile(),
+                            httpBridge.saveIdentity(identity)];
           return Promise.all(promises).then((responses) => {
             const identityId = responses[0].id.toString('hex').slice(0, 32);
             const profile = responses[1].profile;
@@ -93,6 +100,100 @@ if (isSandstorm && Meteor.isServer) {
         });
       })();
     },
+  });
+
+  function reportActivity(sessionId, path, type, users, caption) {
+    const httpBridge = getHttpBridge();
+    const session = httpBridge.getSessionContext(sessionId).context;
+    Meteor.wrapAsync((done) => {
+      return Promise.all(users.map((user) => {
+        return httpBridge.getSavedIdentity(user.id).then((response) => {
+          return { identity: response.identity,
+                   mentioned: !!user.mentioned,
+                   subscribed: !!user.subscribed,
+                 };
+        }).catch(() => {
+          // Ignore identities that fail to restore. Probably they have lost access to the board.
+        });
+      })).then((maybeUsers) => {
+        const users = maybeUsers.filter((u) => !!u);
+        const event = { path, type, users };
+        if (caption) {
+          event.notification = { caption };
+        }
+
+        return session.activity(event);
+      }).then(() => done(),
+              (e) => done(e));
+    })();
+  }
+
+  Meteor.startup(() => {
+    Activities.after.insert((userId, doc) => {
+      // HACK: We need the connection that's making the request in order to read the
+      // Sandstorm session ID.
+      const invocation = DDP._CurrentInvocation.get(); // eslint-disable-line no-undef
+      if (invocation) {
+        const sessionId = invocation.connection.sandstormSessionId();
+
+        const eventTypes = bridgeConfig.viewInfo.eventTypes;
+
+        const defIdx = eventTypes.findIndex((def) => def.name === doc.activityType );
+        if (defIdx >= 0) {
+          const users = {};
+          function ensureUserListed(userId) {
+            if (!users[userId]) {
+              const user = Meteor.users.findOne(userId);
+              if (user) {
+                users[userId] = { id: user.services.sandstorm.id };
+              } else {
+                return false;
+              }
+            }
+            return true;
+          }
+
+          function mentionedUser(userId) {
+            if (ensureUserListed(userId)) {
+              users[userId].mentioned = true;
+            }
+          }
+
+          function subscribedUser(userId) {
+            if (ensureUserListed(userId)) {
+              users[userId].subscribed = true;
+            }
+          }
+
+          let path = '';
+          let caption = null;
+
+          if (doc.cardId) {
+            path = `b/sandstorm/libreboard/${doc.cardId}`;
+            Cards.findOne(doc.cardId).members.map(subscribedUser);
+          }
+
+          if (doc.memberId) {
+            mentionedUser(doc.memberId);
+          }
+
+          if (doc.activityType === 'addComment') {
+            const comment = CardComments.findOne(doc.commentId);
+            caption = { defaultText: comment.text };
+            const activeMembers =
+              _.pluck(Boards.findOne(sandstormBoard._id).activeMembers(), 'userId');
+            (comment.text.match(/\B@(\w*)/g) || []).forEach((username) => {
+              const user = Meteor.users.findOne({ username: username.slice(1)});
+              if (user && activeMembers.indexOf(user._id) !== -1) {
+                mentionedUser(user._id);
+              }
+            });
+          }
+
+          reportActivity(sessionId, path, defIdx, _.values(users), caption);
+        }
+      }
+    });
   });
 
   function updateUserPermissions(userId, permissions) {
