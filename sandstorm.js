@@ -21,6 +21,186 @@ const sandstormBoard = {
 };
 
 if (isSandstorm && Meteor.isServer) {
+  const fs = require('fs');
+  const Capnp = require('capnp');
+  const Package = Capnp.importSystem('sandstorm/package.capnp');
+  const Powerbox = Capnp.importSystem('sandstorm/powerbox.capnp');
+  const Identity = Capnp.importSystem('sandstorm/identity.capnp');
+  const SandstormHttpBridge =
+    Capnp.importSystem('sandstorm/sandstorm-http-bridge.capnp').SandstormHttpBridge;
+
+  let httpBridge = null;
+  let capnpConnection = null;
+
+  const bridgeConfig = Capnp.parse(
+    Package.BridgeConfig,
+    fs.readFileSync('/sandstorm-http-bridge-config'));
+
+  function getHttpBridge() {
+    if (!httpBridge) {
+      capnpConnection = Capnp.connect('unix:/tmp/sandstorm-api');
+      httpBridge = capnpConnection.restore(null, SandstormHttpBridge);
+    }
+    return httpBridge;
+  }
+
+  Meteor.methods({
+    sandstormClaimIdentityRequest(token, descriptor) {
+      check(token, String);
+      check(descriptor, String);
+
+      const parsedDescriptor = Capnp.parse(
+        Powerbox.PowerboxDescriptor,
+        new Buffer(descriptor, 'base64'),
+        { packed: true });
+
+      const tag = Capnp.parse(Identity.Identity.PowerboxTag, parsedDescriptor.tags[0].value);
+      const permissions = [];
+      if (tag.permissions[1]) {
+        permissions.push('configure');
+      }
+
+      if (tag.permissions[0]) {
+        permissions.push('participate');
+      }
+
+      const sessionId = this.connection.sandstormSessionId();
+      const httpBridge = getHttpBridge();
+      const session = httpBridge.getSessionContext(sessionId).context;
+      const api = httpBridge.getSandstormApi(sessionId).api;
+
+      Meteor.wrapAsync((done) => {
+        session.claimRequest(token).then((response) => {
+          const identity = response.cap.castAs(Identity.Identity);
+          const promises = [api.getIdentityId(identity), identity.getProfile(),
+                            httpBridge.saveIdentity(identity)];
+          return Promise.all(promises).then((responses) => {
+            const identityId = responses[0].id.toString('hex').slice(0, 32);
+            const profile = responses[1].profile;
+            return profile.picture.getUrl().then((response) => {
+              const sandstormInfo = {
+                id: identityId,
+                name: profile.displayName.defaultText,
+                permissions,
+                picture: `${response.protocol}://${response.hostPath}`,
+                preferredHandle: profile.preferredHandle,
+                pronouns: profile.pronouns,
+              };
+
+              const login = Accounts.updateOrCreateUserFromExternalService(
+                'sandstorm', sandstormInfo,
+                { profile: { name: sandstormInfo.name, fullname: sandstormInfo.name } });
+
+              updateUserPermissions(login.userId, permissions);
+              done();
+            });
+          });
+        }).catch((e) => {
+          done(e, null);
+        });
+      })();
+    },
+  });
+
+  function reportActivity(sessionId, path, type, users, caption) {
+    const httpBridge = getHttpBridge();
+    const session = httpBridge.getSessionContext(sessionId).context;
+    Meteor.wrapAsync((done) => {
+      return Promise.all(users.map((user) => {
+        return httpBridge.getSavedIdentity(user.id).then((response) => {
+          // Call getProfile() to make sure that the identity successfully resolves.
+          // (In C++ we would instead call whenResolved() here.)
+          const identity = response.identity;
+          return identity.getProfile().then(() => {
+            return { identity,
+                     mentioned: !!user.mentioned,
+                     subscribed: !!user.subscribed,
+                   };
+          }).catch(() => {
+            // Ignore identities that fail to resolve. Probably they have lost access to the board.
+          });
+        });
+      })).then((maybeUsers) => {
+        const users = maybeUsers.filter((u) => !!u);
+        const event = { path, type, users };
+        if (caption) {
+          event.notification = { caption };
+        }
+
+        return session.activity(event);
+      }).then(() => done(),
+              (e) => done(e));
+    })();
+  }
+
+  Meteor.startup(() => {
+    Activities.after.insert((userId, doc) => {
+      // HACK: We need the connection that's making the request in order to read the
+      // Sandstorm session ID.
+      const invocation = DDP._CurrentInvocation.get(); // eslint-disable-line no-undef
+      if (invocation) {
+        const sessionId = invocation.connection.sandstormSessionId();
+
+        const eventTypes = bridgeConfig.viewInfo.eventTypes;
+
+        const defIdx = eventTypes.findIndex((def) => def.name === doc.activityType );
+        if (defIdx >= 0) {
+          const users = {};
+          function ensureUserListed(userId) {
+            if (!users[userId]) {
+              const user = Meteor.users.findOne(userId);
+              if (user) {
+                users[userId] = { id: user.services.sandstorm.id };
+              } else {
+                return false;
+              }
+            }
+            return true;
+          }
+
+          function mentionedUser(userId) {
+            if (ensureUserListed(userId)) {
+              users[userId].mentioned = true;
+            }
+          }
+
+          function subscribedUser(userId) {
+            if (ensureUserListed(userId)) {
+              users[userId].subscribed = true;
+            }
+          }
+
+          let path = '';
+          let caption = null;
+
+          if (doc.cardId) {
+            path = `b/sandstorm/libreboard/${doc.cardId}`;
+            Cards.findOne(doc.cardId).members.map(subscribedUser);
+          }
+
+          if (doc.memberId) {
+            mentionedUser(doc.memberId);
+          }
+
+          if (doc.activityType === 'addComment') {
+            const comment = CardComments.findOne(doc.commentId);
+            caption = { defaultText: comment.text };
+            const activeMembers =
+              _.pluck(Boards.findOne(sandstormBoard._id).activeMembers(), 'userId');
+            (comment.text.match(/\B@(\w*)/g) || []).forEach((username) => {
+              const user = Meteor.users.findOne({ username: username.slice(1)});
+              if (user && activeMembers.indexOf(user._id) !== -1) {
+                mentionedUser(user._id);
+              }
+            });
+          }
+
+          reportActivity(sessionId, path, defIdx, _.values(users), caption);
+        }
+      }
+    });
+  });
+
   function updateUserPermissions(userId, permissions) {
     const isActive = permissions.indexOf('participate') > -1;
     const isAdmin = permissions.indexOf('configure') > -1;
@@ -58,29 +238,6 @@ if (isSandstorm && Meteor.isServer) {
       Location: base + boardPath,
     });
     res.end();
-
-    // `accounts-sandstorm` populate the Users collection when new users
-    // accesses the document, but in case a already known user comes back, we
-    // need to update his associated document to match the request HTTP headers
-    // informations.
-    // XXX We need to update this document even if the initial route is not `/`.
-    // Unfortuanlty I wasn't able to make the Webapp.rawConnectHandlers solution
-    // work.
-    const user = Users.findOne({
-      'services.sandstorm.id': req.headers['x-sandstorm-user-id'],
-    });
-    if (user) {
-      // XXX At this point the user.services.sandstorm credentials haven't been
-      // updated, which mean that the user will have to restart the application
-      // a second time to see its updated name and avatar.
-      Users.update(user._id, {
-        $set: {
-          'profile.fullname': user.services.sandstorm.name,
-          'profile.avatarUrl': user.services.sandstorm.picture,
-        },
-      });
-      updateUserPermissions(user._id, user.services.sandstorm.permissions);
-    }
   });
 
   // On the first launch of the instance a user is automatically created thanks
@@ -126,6 +283,29 @@ if (isSandstorm && Meteor.isServer) {
     updateUserPermissions(doc._id, doc.services.sandstorm.permissions);
   });
 
+  Meteor.startup(() => {
+    Users.find().observeChanges({
+      changed(userId, fields) {
+        const sandstormData = (fields.services || {}).sandstorm || {};
+        if (sandstormData.name) {
+          Users.update(userId, {
+            $set: { 'profile.fullname': sandstormData.name },
+          });
+        }
+
+        if (sandstormData.picture) {
+          Users.update(userId, {
+            $set: { 'profile.avatarUrl': sandstormData.picture },
+          });
+        }
+
+        if (sandstormData.permissions) {
+          updateUserPermissions(userId, sandstormData.permissions);
+        }
+      },
+    });
+  });
+
   // Wekan v0.8 didn’t implement the Sandstorm sharing model and instead kept
   // the visibility setting (“public” or “private”) in the UI as does the main
   // Meteor application. We need to enforce “public” visibility as the sharing
@@ -137,6 +317,77 @@ if (isSandstorm && Meteor.isServer) {
 }
 
 if (isSandstorm && Meteor.isClient) {
+  let rpcCounter = 0;
+  const rpcs = {};
+
+  window.addEventListener('message', (event) => {
+    if (event.source === window) {
+      // Meteor likes to postmessage itself.
+      return;
+    }
+
+    if ((event.source !== window.parent) ||
+        typeof event.data !== 'object' ||
+        typeof event.data.rpcId !== 'number') {
+      throw new Error(`got unexpected postMessage: ${event}`);
+    }
+
+    const handler = rpcs[event.data.rpcId];
+    if (!handler) {
+      throw new Error(`no such rpc ID for event ${event}`);
+    }
+
+    delete rpcs[event.data.rpcId];
+    handler(event.data);
+  });
+
+  function sendRpc(name, message) {
+    const id = rpcCounter++;
+    message.rpcId = id;
+    const obj = {};
+    obj[name] = message;
+    window.parent.postMessage(obj, '*');
+    return new Promise((resolve, reject) => {
+      rpcs[id] = (response) => {
+        if (response.error) {
+          reject(new Error(response.error));
+        } else {
+          resolve(response);
+        }
+      };
+    });
+  }
+
+  const powerboxDescriptors = {
+    identity: 'EAhQAQEAABEBF1EEAQH_GN1RqXqYhMAAQAERAREBAQ',
+    // Generated using the following code:
+    //
+    // Capnp.serializePacked(
+    //  Powerbox.PowerboxDescriptor,
+    //  { tags: [ {
+    //    id: "13872380404802116888",
+    //    value: Capnp.serialize(Identity.PowerboxTag, { permissions: [true, false] })
+    //  }]}).toString('base64')
+    //      .replace(/\//g, "_")
+    //      .replace(/\+/g, "-");
+  };
+
+  function doRequest(serializedPowerboxDescriptor, onSuccess) {
+    return sendRpc('powerboxRequest', {
+      query: [serializedPowerboxDescriptor],
+    }).then((response) => {
+      if (!response.canceled) {
+        onSuccess(response);
+      }
+    });
+  }
+
+  window.sandstormRequestIdentity = function () {
+    doRequest(powerboxDescriptors.identity, (response) => {
+      Meteor.call('sandstormClaimIdentityRequest', response.token, response.descriptor);
+    });
+  };
+
   // Since the Sandstorm grain is displayed in an iframe of the Sandstorm shell,
   // we need to explicitly expose meta data like the page title or the URL path
   // so that they could appear in the browser window.
