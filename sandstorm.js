@@ -108,12 +108,17 @@ if (isSandstorm && Meteor.isServer) {
     Meteor.wrapAsync((done) => {
       return Promise.all(users.map((user) => {
         return httpBridge.getSavedIdentity(user.id).then((response) => {
-          return { identity: response.identity,
-                   mentioned: !!user.mentioned,
-                   subscribed: !!user.subscribed,
-                 };
-        }).catch(() => {
-          // Ignore identities that fail to restore. Probably they have lost access to the board.
+          // Call getProfile() to make sure that the identity successfully resolves.
+          // (In C++ we would instead call whenResolved() here.)
+          const identity = response.identity;
+          return identity.getProfile().then(() => {
+            return { identity,
+                     mentioned: !!user.mentioned,
+                     subscribed: !!user.subscribed,
+                   };
+          }).catch(() => {
+            // Ignore identities that fail to resolve. Probably they have lost access to the board.
+          });
         });
       })).then((maybeUsers) => {
         const users = maybeUsers.filter((u) => !!u);
