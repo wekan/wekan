@@ -7,8 +7,14 @@ Tracker.autorun(() => {
   let language;
   if (currentUser) {
     language = currentUser.profile && currentUser.profile.language;
-  } else {
-    language = navigator.language || navigator.userLanguage;
+  }
+
+  if (!language) {
+    if(navigator.languages) {
+      language = navigator.languages[0];
+    } else {
+      language = navigator.language || navigator.userLanguage;
+    }
   }
 
   if (language) {
