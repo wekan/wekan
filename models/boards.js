@@ -249,7 +249,7 @@ Boards.mutations({
     return { $set: { title }};
   },
 
-  setDesciption(description) {
+  setDescription(description) {
     return { $set: {description} };
   },
 
