@@ -1,6 +1,6 @@
 # Wekan fork
 
-[![Join the chat][rocket_badge]]
+[![Join the chat](https://demo.rocket.chat/images/join-chat.svg)](https://chat.indie.host/channel/wekan)
 
 Wekan is an open-source and collaborative kanban board application.
 
@@ -40,8 +40,6 @@ Wekan fork roadmap is to first integrate existing pull requests, and then
 plan for more.
 
 [screenshot]: http://i.imgur.com/cI4jW2h.png
-[rocket_badge]: https://demo.rocket.chat/images/join-chat.svg
-[rocket_chat]: https://chat.indie.host/channel/wekan
 [roadmap]: http://try.wekan.io/b/MeSsFJaSqeuo9M6bs/wekan-roadmap
 [sandstorm_market]: https://oasis.sandstorm.io/appdemo/....
 [docker_image]: https://hub.docker.com/r/...
