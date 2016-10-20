@@ -4,6 +4,8 @@
 
 [Wekan fork announcement](https://github.com/wekan/wekan/issues/640#issuecomment-255091832)
 
+[Wekan fork roadmap is self-hosted on Wekan fork](https://wekan.indie.host/b/t2YaGmyXgNkppcFBq/wekan-fork-roadmap)
+
 Wekan is an open-source and collaborative kanban board application.
 
 Whether you’re maintaining a personal todo list, planning your holidays with
@@ -39,9 +41,6 @@ don't work yet:
 
 Wekan fork is released under the very permissive [MIT license](LICENSE), and made
 with [Meteor](https://www.meteor.com).
-
-Wekan fork roadmap is to first integrate existing pull requests, and then
-plan for more.
 
 [screenshot]: http://i.imgur.com/cI4jW2h.png
 [roadmap]: http://try.wekan.io/b/MeSsFJaSqeuo9M6bs/wekan-roadmap
