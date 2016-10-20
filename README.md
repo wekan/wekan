@@ -1,10 +1,8 @@
 # Wekan fork
 
-[![Join the chat](https://demo.rocket.chat/images/join-chat.svg)](https://chat.indie.host/channel/wekan)
+[![Join the chat][rocket_badge]][rocket_chat]
 
-[Wekan fork announcement](https://github.com/wekan/wekan/issues/640#issuecomment-255091832)
-
-[Wekan fork roadmap is self-hosted on Wekan fork](https://wekan.indie.host/b/t2YaGmyXgNkppcFBq/wekan-fork-roadmap)
+[Wekan fork announcement][fork_announcement]
 
 Wekan is an open-source and collaborative kanban board application.
 
@@ -14,7 +12,7 @@ boards are an unbeatable tool to keep your things organized. They give you a
 visual overview of the current state of your project, and make you productive by
 allowing you to focus on the few items that matter the most.
 
-[![Original Wekan's roadmap is self-hosted on Wekan][screenshot]][roadmap]
+[![Our roadmap is self-hosted on Wekan fork][screenshot]][roadmap]
 
 Wekan supports most features you would expect of it including a real-time user
 interface, cards comments, member assignations, customizable labels, filtered
@@ -24,7 +22,7 @@ Since it is a free software, you don’t have to trust us with your data and can
 install Wekan on your own computer or server. In fact we encourage you to do
 that by providing one-click installation on various platforms.
 
-Currently you can install Wekan fork on the followin Platforms:
+Currently you can install Wekan fork on the following Platforms:
 
 [![Deploy][heroku_button]][heroku_deploy]
 [![Deploy to Scalingo][scalingo_button]][scalingo_deploy]
@@ -42,8 +40,13 @@ don't work yet:
 Wekan fork is released under the very permissive [MIT license](LICENSE), and made
 with [Meteor](https://www.meteor.com).
 
-[screenshot]: http://i.imgur.com/cI4jW2h.png
-[roadmap]: http://try.wekan.io/b/MeSsFJaSqeuo9M6bs/wekan-roadmap
+[Our roadmap is self-hosted on Wekan fork][roadmap]
+
+[fork_announcement]: https://github.com/wekan/wekan/issues/640#issuecomment-255091832
+[screenshot]: http://i.imgur.com/uNVJnBE.png
+[rocket_badge]: https://chat.indie.host/images/join-chat.svg
+[rocket_chat]: https://chat.indie.host/channel/wekan
+[roadmap]: https://wekan.indie.host/b/t2YaGmyXgNkppcFBq/wekan-fork-roadmap
 [sandstorm_market]: https://oasis.sandstorm.io/appdemo/....
 [docker_image]: https://hub.docker.com/r/...
 [heroku_button]: https://www.herokucdn.com/deploy/button.png
