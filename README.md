@@ -2,6 +2,8 @@
 
 [![Join the chat](https://demo.rocket.chat/images/join-chat.svg)](https://chat.indie.host/channel/wekan)
 
+[Wekan fork announcement](https://github.com/wekan/wekan/issues/640#issuecomment-255091832)
+
 Wekan is an open-source and collaborative kanban board application.
 
 Whether you’re maintaining a personal todo list, planning your holidays with
@@ -30,7 +32,9 @@ These Platforms have not been tested yet, but are coming sometime, so links
 don't work yet:
 
 [Docker][docker_image]
+
 [Sandstorm][sandstorm_market]
+
 [![SignUp][indiehosters_button]][indiehosters_saas]
 
 Wekan fork is released under the very permissive [MIT license](LICENSE), and made
