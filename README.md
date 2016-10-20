@@ -1,6 +1,6 @@
 # Wekan fork
 
-[![Join the chat][rocket_badge]][gitter_chat]
+[![Join the chat][rocket_badge]]
 
 Wekan is an open-source and collaborative kanban board application.
 
