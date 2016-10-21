@@ -25,6 +25,7 @@ that by providing one-click installation on various platforms.
 Currently you can install Wekan fork on the following Platforms:
 
 [![Deploy][heroku_button]][heroku_deploy]
+[![SignUp][indiehosters_button]][indiehosters_saas]
 [![Deploy to Scalingo][scalingo_button]][scalingo_deploy]
 [![Install on Cloudron][cloudron_button]][cloudron_install]
 
@@ -34,8 +35,6 @@ don't work yet:
 [Docker][docker_image]
 
 [Sandstorm][sandstorm_market]
-
-[![SignUp][indiehosters_button]][indiehosters_saas]
 
 Wekan fork is released under the very permissive [MIT license](LICENSE), and made
 with [Meteor](https://www.meteor.com).
