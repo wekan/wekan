@@ -134,8 +134,8 @@ Template.memberPopup.events({
     Popup.close();
   }),
   'click .js-leave-member'() {
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
-    Meteor.call('quitBoard', currentBoard, (err, ret) => {
+    const boardId = Session.get('currentBoard');
+    Meteor.call('quitBoard', boardId, (err, ret) => {
       if (!ret && ret) {
         Popup.close();
         FlowRouter.go('home');
