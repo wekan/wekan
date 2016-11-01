@@ -24,6 +24,8 @@ that by providing one-click installation on various platforms.
 
 Currently you can install Wekan fork on the following Platforms:
 
+[Debian Wheezy 64bit][debian_wheezy]
+
 [![Deploy][heroku_button]][heroku_deploy]
 [![SignUp][indiehosters_button]][indiehosters_saas]
 [![Deploy to Scalingo][scalingo_button]][scalingo_deploy]
@@ -56,3 +58,4 @@ with [Meteor](https://www.meteor.com).
 [scalingo_deploy]: https://my.scalingo.com/deploy?source=https://github.com/wefork/wekan#master
 [cloudron_button]: https://cloudron.io/img/button.svg
 [cloudron_install]: https://cloudron.io/button.html?app=io.wekan.cloudronapp
+[debian_wheezy]: https://github.com/soohwa/sps/blob/master/example/docs/1/wekan.md
