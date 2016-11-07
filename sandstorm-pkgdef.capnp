@@ -173,8 +173,48 @@ const pkgdef :Spk.PackageDefinition = (
       #
       # XXX Administrators configuration options aren’t implemented yet, so this
       # role is currently useless.
-      )]
-    )
+      )],
+
+      eventTypes = [(
+         name = "addBoardMember",
+         verbPhrase = (defaultText = "added to board"),
+      ), (
+        name = "createList",
+        verbPhrase = (defaultText = "created new list"),
+      ), (
+        name = "archivedList",
+        verbPhrase = (defaultText = "archived list"),
+      ), (
+        name = "restoredList",
+        verbPhrase = (defaultText = "restored list"),
+      ), (
+        name = "createCard",
+        verbPhrase = (defaultText = "created new card"),
+      ), (
+        name = "moveCard",
+        verbPhrase = (defaultText = "moved card"),
+      ), (
+        name = "archivedCard",
+        verbPhrase = (defaultText = "archived card"),
+      ), (
+        name = "restoredCard",
+        verbPhrase = (defaultText = "restored card"),
+      ), (
+        name = "addComment",
+        verbPhrase = (defaultText = "added comment"),
+      ), (
+        name = "addAttachement",
+        verbPhrase = (defaultText = "added attachment"),
+      ), (
+        name = "joinMember",
+        verbPhrase = (defaultText = "added to card"),
+      ), (
+        name = "unjoinMember",
+        verbPhrase = (defaultText = "removed from card"),
+      ), ],
+    ),
+
+    saveIdentityCaps = true,
   ),
 );
 
@@ -184,6 +224,7 @@ const myCommand :Spk.Manifest.Command = (
   environ = [
     # Note that this defines the *entire* environment seen by your app.
     (key = "PATH", value = "/usr/local/bin:/usr/bin:/bin"),
+    (key = "SANDSTORM", value = "1"),
     (key = "METEOR_SETTINGS", value = "{\"public\": {\"sandstorm\": true}}")
   ]
 );
