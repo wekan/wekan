@@ -89,7 +89,7 @@ if (isSandstorm && Meteor.isServer) {
 
               const login = Accounts.updateOrCreateUserFromExternalService(
                 'sandstorm', sandstormInfo,
-                { profile: { name: sandstormInfo.name, fullname: sandstormInfo.name } });
+                { profile: { name: sandstormInfo.name } });
 
               updateUserPermissions(login.userId, permissions);
               done();
