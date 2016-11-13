@@ -61,7 +61,7 @@ class SetFilter {
 
   _getMongoSelector() {
     this._dep.depend();
-    return { $in: this._selectedElements }
+    return { $in: this._selectedElements };
   }
 
   _getEmptySelector() {
