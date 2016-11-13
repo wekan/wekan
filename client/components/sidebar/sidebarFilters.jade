@@ -8,7 +8,7 @@ template(name="filterSidebar")
     li(class="{{#if Filter.labelIds.isSelected undefined}}active{{/if}}")
           a.name.js-toggle-label-filter
             span.sidebar-list-item-description
-              <span class="username">{{_ 'filter-no-label'}}</span>
+              {{_ 'filter-no-label'}}
             if Filter.labelIds.isSelected undefined
               i.fa.fa-check
     each currentBoard.labels
@@ -27,7 +27,7 @@ template(name="filterSidebar")
     li(class="{{#if Filter.members.isSelected undefined}}active{{/if}}")
           a.name.js-toggle-member-filter
             span.sidebar-list-item-description
-              <span class="username">{{_ 'filter-no-member'}}</span>
+              {{_ 'filter-no-member'}}
             if Filter.members.isSelected undefined
               i.fa.fa-check
     each currentBoard.activeMembers
