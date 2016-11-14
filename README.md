@@ -1,7 +1,7 @@
 # Wekan fork
 
 [![Join the chat][rocket_badge]][rocket_chat]
-[![Build Status][travis_badge][travis_status]
+[![Build Status][travis_badge]][travis_status]
 
 [Wekan fork announcement][fork_announcement]
 
