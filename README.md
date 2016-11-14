@@ -1,6 +1,7 @@
 # Wekan fork
 
 [![Join the chat][rocket_badge]][rocket_chat]
+[![Build Status][travis_badge][travis_status]
 
 [Wekan fork announcement][fork_announcement]
 
@@ -59,3 +60,5 @@ with [Meteor](https://www.meteor.com).
 [cloudron_button]: https://cloudron.io/img/button.svg
 [cloudron_install]: https://cloudron.io/button.html?app=io.wekan.cloudronapp
 [debian_wheezy]: https://github.com/soohwa/sps/blob/master/example/docs/1/wekan.md
+[travis_badge]: https://travis-ci.org/wefork/wekan.svg?branch=master
+[travis_status]: https://travis-ci.org/wefork/wekan
