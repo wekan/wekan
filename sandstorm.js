@@ -116,9 +116,10 @@ if (isSandstorm && Meteor.isServer) {
                      mentioned: !!user.mentioned,
                      subscribed: !!user.subscribed,
                    };
-          }).catch(() => {
-            // Ignore identities that fail to resolve. Probably they have lost access to the board.
           });
+        }).catch(() => {
+          // Ignore identities that fail to restore. Either they were added before we set
+          // `saveIdentityCaps` to true, or they have lost access to the board.
         });
       })).then((maybeUsers) => {
         const users = maybeUsers.filter((u) => !!u);
