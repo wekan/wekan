@@ -6,8 +6,8 @@ Meteor.startup(() => {
   Tracker.autorun(() => {
     const currentUser = Meteor.user();
     let language;
-    if (currentUser) {
-      language = currentUser.profile && currentUser.profile.language;
+    if (currentUser && currentUser.profile && currentUser.profile.language) {
+      language = currentUser.profile.language;
     } else {
       language = navigator.language || navigator.userLanguage;
     }
