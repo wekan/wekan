@@ -46,7 +46,7 @@ with [Meteor](https://www.meteor.com).
 
 [Our roadmap is self-hosted on Wekan fork][roadmap]
 
-[fork_faq]: https://github.com/wefork/wekan/wiki/Wekan-fork-FAQ
+[fork_faq]: https://github.com/wefork/wekan/wiki/FAQ
 [fork_announcement]: https://github.com/wekan/wekan/issues/640#issuecomment-255091832
 [screenshot]: http://i.imgur.com/hjKZry7.png
 [rocket_badge]: https://chat.indie.host/images/join-chat.svg
