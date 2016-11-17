@@ -33,13 +33,12 @@ Currently you can install Wekan fork on the following Platforms:
 [![SignUp][indiehosters_button]][indiehosters_saas]
 [![Deploy to Scalingo][scalingo_button]][scalingo_deploy]
 [![Install on Cloudron][cloudron_button]][cloudron_install]
+[![Try on Sandstorm][sandstorm_button]][sandstorm_appdemo]
 
 These Platforms have not been tested yet, but are coming sometime, so links
 don't work yet:
 
 [Docker][docker_image]
-
-[Sandstorm][sandstorm_market]
 
 Wekan fork is released under the very permissive [MIT license](LICENSE), and made
 with [Meteor](https://www.meteor.com).
@@ -52,7 +51,8 @@ with [Meteor](https://www.meteor.com).
 [rocket_badge]: https://chat.indie.host/images/join-chat.svg
 [rocket_chat]: https://chat.indie.host/channel/wekan
 [roadmap]: https://wekan.indie.host/b/t2YaGmyXgNkppcFBq/wekan-fork-roadmap
-[sandstorm_market]: https://oasis.sandstorm.io/appdemo/....
+[sandstorm_button]: https://img.shields.io/badge/try-Wekan%20on%20Sandstorm-783189.svg
+[sandstorm_appdemo]: https://demo.sandstorm.io/appdemo/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h
 [docker_image]: https://hub.docker.com/r/...
 [heroku_button]: https://www.herokucdn.com/deploy/button.png
 [heroku_deploy]: https://heroku.com/deploy?template=https://github.com/wefork/wekan/tree/master
