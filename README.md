@@ -47,7 +47,7 @@ with [Meteor](https://www.meteor.com).
 
 [fork_faq]: https://github.com/wefork/wekan/wiki/FAQ
 [fork_announcement]: https://github.com/wekan/wekan/issues/640#issuecomment-255091832
-[screenshot]: http://i.imgur.com/4N25GyU.png
+[screenshot]: http://i.imgur.com/ShX2OTk.png
 [rocket_badge]: https://chat.indie.host/images/join-chat.svg
 [rocket_chat]: https://chat.indie.host/channel/wekan
 [roadmap]: https://wekan.indie.host/b/t2YaGmyXgNkppcFBq/wekan-fork-roadmap
