@@ -63,5 +63,5 @@ with [Meteor](https://www.meteor.com).
 [cloudron_button]: https://cloudron.io/img/button.svg
 [cloudron_install]: https://cloudron.io/button.html?app=io.wekan.cloudronapp
 [debian_wheezy]: https://github.com/soohwa/sps/blob/master/example/docs/1/wekan.md
-[travis_badge]: https://travis-ci.org/wefork/wekan.svg?branch=master
+[travis_badge]: https://travis-ci.org/wefork/wekan.svg?branch=devel
 [travis_status]: https://travis-ci.org/wefork/wekan
