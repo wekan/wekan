@@ -66,9 +66,9 @@ class SetFilter {
 
   _getEmptySelector() {
     this._dep.depend();
-    let includeEmpty = false
+    let includeEmpty = false;
     this._selectedElements.forEach((el) => {
-      if (el == undefined) {
+      if (el === undefined) {
         includeEmpty = true;
       }
     });
@@ -113,7 +113,7 @@ Filter = {
       if (filter._isActive()) {
         filterSelector[fieldName] = filter._getMongoSelector();
         emptySelector[fieldName] = filter._getEmptySelector();
-        if (emptySelector[fieldName] != null) {
+        if (emptySelector[fieldName] !== null) {
           includeEmptySelectors = true;
         }
       }
