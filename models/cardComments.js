@@ -62,7 +62,7 @@ if (Meteor.isServer) {
   Meteor.startup(() => {
     CardComments._collection._ensureIndex({ cardId: 1, createdAt: -1 });
   });
-  
+
   CardComments.after.insert((userId, doc) => {
     Activities.insert({
       userId,
