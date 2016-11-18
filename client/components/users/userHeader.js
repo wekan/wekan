@@ -31,7 +31,7 @@ Template.editProfilePopup.events({
       Meteor.call('setUsername', username, function(error) {
         const messageElement = tpl.$('.username-taken');
         if (error) {
-         messageElement.show();
+          messageElement.show();
         } else {
           messageElement.hide();
           Popup.back();
