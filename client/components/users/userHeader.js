@@ -26,11 +26,18 @@ Template.editProfilePopup.events({
       'profile.fullname': fullname,
       'profile.initials': initials,
     }});
-    // XXX We should report the error to the user.
+
     if (username !== Meteor.user().username) {
-      Meteor.call('setUsername', username);
-    }
-    Popup.back();
+      Meteor.call('setUsername', username, function(error) {
+        const messageElement = tpl.$('.username-taken');
+        if (error) {
+         messageElement.show();
+        } else {
+          messageElement.hide();
+          Popup.back();
+        }
+      });
+    } else Popup.back();
   },
 });
 
