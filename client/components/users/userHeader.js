@@ -87,11 +87,11 @@ Template.changeLanguagePopup.events({
 Template.changeSettingsPopup.helpers({
   hiddenSystemMessages() {
     return Meteor.user().hasHiddenSystemMessages();
-  }
+  },
 });
 
 Template.changeSettingsPopup.events({
-  'click .js-toggle-system-messages'(evt) {
+  'click .js-toggle-system-messages'() {
     Meteor.call('toggleSystemMessages');
   },
 });

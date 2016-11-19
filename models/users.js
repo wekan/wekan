@@ -61,7 +61,7 @@ Users.attachSchema(new SimpleSchema({
   },
   'profile.hiddenSystemMessages': {
     type: Boolean,
-    optional: true
+    optional: true,
   },
   'profile.initials': {
     type: String,
@@ -296,7 +296,7 @@ Meteor.methods({
     }
   },
   toggleSystemMessages() {
-    user = Meteor.user();
+    const user = Meteor.user();
     user.toggleSystem(user.hasHiddenSystemMessages());
   },
 });

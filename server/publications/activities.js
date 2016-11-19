@@ -11,9 +11,9 @@ Meteor.publish('activities', (kind, id, limit, hideSystem) => {
   check(limit, Number);
   check(hideSystem, Boolean);
 
-  let selector = (hideSystem) ? {$and: [{activityType: 'addComment'}, {[`${kind}Id`]: id}]} : {[`${kind}Id`]: id};
+  const selector = (hideSystem) ? {$and: [{activityType: 'addComment'}, {[`${kind}Id`]: id}]} : {[`${kind}Id`]: id};
   return Activities.find(selector, {
-      limit,
-      sort: {createdAt: -1},
-    });
+    limit,
+    sort: {createdAt: -1},
+  });
 });
