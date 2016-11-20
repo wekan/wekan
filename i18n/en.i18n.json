@@ -169,6 +169,7 @@
     "error-user-doesNotExist": "This user does not exist",
     "error-user-notAllowSelf": "This action on self is not allowed",
     "error-user-notCreated": "This user is not created",
+    "error-username-taken": "This username is already taken",
     "export-board": "Export board",
     "filter": "Filter",
     "filter-cards": "Filter Cards",
