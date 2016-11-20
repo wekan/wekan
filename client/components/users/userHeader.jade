@@ -12,10 +12,11 @@ template(name="memberMenuPopup")
   ul.pop-over-list
     with currentUser
       li: a.js-edit-profile {{_ 'edit-profile'}}
-    li: a.js-change-avatar {{_ 'edit-avatar'}}
-    li: a.js-change-password {{_ 'changePasswordPopup-title'}}
-    li: a.js-change-language {{_ 'changeLanguagePopup-title'}}
-    li: a.js-edit-notification {{_ 'editNotificationPopup-title'}}
+      li: a.js-change-settings {{_ 'change-settings'}}
+      li: a.js-change-avatar {{_ 'edit-avatar'}}
+      li: a.js-change-password {{_ 'changePasswordPopup-title'}}
+      li: a.js-change-language {{_ 'changeLanguagePopup-title'}}
+      li: a.js-edit-notification {{_ 'editNotificationPopup-title'}}
   hr
   ul.pop-over-list
     li: a.js-logout {{_ 'log-out'}}
@@ -63,3 +64,11 @@ template(name="changeLanguagePopup")
           = name
           if isCurrentLanguage
             i.fa.fa-check
+
+template(name="changeSettingsPopup")
+  ul.pop-over-list
+    li
+      a.js-toggle-system-messages
+        | {{_ 'hide-system-messages'}}
+        if hiddenSystemMessages
+          i.fa.fa-check

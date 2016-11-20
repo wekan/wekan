@@ -59,6 +59,10 @@ Users.attachSchema(new SimpleSchema({
     type: String,
     optional: true,
   },
+  'profile.hiddenSystemMessages': {
+    type: Boolean,
+    optional: true,
+  },
   'profile.initials': {
     type: String,
     optional: true,
@@ -151,6 +155,11 @@ Users.helpers({
     return _.contains(notifications, activityId);
   },
 
+  hasHiddenSystemMessages() {
+    const profile = this.profile || {};
+    return profile.hiddenSystemMessages || false;
+  },
+
   getEmailBuffer() {
     const {emailBuffer = []} = this.profile;
     return emailBuffer;
@@ -231,6 +240,14 @@ Users.mutations({
       this.addTag(tag);
   },
 
+  toggleSystem(value = false) {
+    return {
+      $set: {
+        'profile.hiddenSystemMessages': !value,
+      },
+    };
+  },
+
   addNotification(activityId) {
     return {
       $addToSet: {
@@ -277,6 +294,10 @@ Meteor.methods({
     } else {
       Users.update(this.userId, {$set: { username }});
     }
+  },
+  toggleSystemMessages() {
+    const user = Meteor.user();
+    user.toggleSystem(user.hasHiddenSystemMessages());
   },
 });
 

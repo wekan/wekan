@@ -12,10 +12,12 @@ BlazeComponent.extendComponent({
       const capitalizedMode = Utils.capitalize(mode);
       const id = Session.get(`current${capitalizedMode}`);
       const limit = this.page.get() * activitiesPerPage;
+      const user = Meteor.user();
+      const hideSystem = user ? user.hasHiddenSystemMessages() : false;
       if (id === null)
         return;
 
-      this.subscribe('activities', mode, id, limit, () => {
+      this.subscribe('activities', mode, id, limit, hideSystem, () => {
         this.loadNextPageLocked = false;
 
         // If the sibear peak hasn't increased, that mean that there are no more

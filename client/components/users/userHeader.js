@@ -5,6 +5,7 @@ Template.headerUserBar.events({
 
 Template.memberMenuPopup.events({
   'click .js-edit-profile': Popup.open('editProfile'),
+  'click .js-change-settings': Popup.open('changeSettings'),
   'click .js-change-avatar': Popup.open('changeAvatar'),
   'click .js-change-password': Popup.open('changePassword'),
   'click .js-change-language': Popup.open('changeLanguage'),
@@ -87,5 +88,17 @@ Template.changeLanguagePopup.events({
       },
     });
     evt.preventDefault();
+  },
+});
+
+Template.changeSettingsPopup.helpers({
+  hiddenSystemMessages() {
+    return Meteor.user().hasHiddenSystemMessages();
+  },
+});
+
+Template.changeSettingsPopup.events({
+  'click .js-toggle-system-messages'() {
+    Meteor.call('toggleSystemMessages');
   },
 });
