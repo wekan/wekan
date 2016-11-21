@@ -143,6 +143,8 @@ Template.cardDetailsActionsPopup.events({
   'click .js-members': Popup.open('cardMembers'),
   'click .js-labels': Popup.open('cardLabels'),
   'click .js-attachments': Popup.open('cardAttachments'),
+  'click .js-start-date': Popup.open('editCardStartDate'),
+  'click .js-due-date': Popup.open('editCardDueDate'),
   'click .js-move-card': Popup.open('moveCard'),
   'click .js-move-card-to-top'(evt) {
     evt.preventDefault();

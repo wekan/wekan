@@ -5,6 +5,12 @@
 
 template(name="filterSidebar")
   ul.sidebar-list
+    li(class="{{#if Filter.labelIds.isSelected undefined}}active{{/if}}")
+          a.name.js-toggle-label-filter
+            span.sidebar-list-item-description
+              {{_ 'filter-no-label'}}
+            if Filter.labelIds.isSelected undefined
+              i.fa.fa-check
     each currentBoard.labels
       li
         a.name.js-toggle-label-filter
@@ -18,6 +24,12 @@ template(name="filterSidebar")
             i.fa.fa-check
   hr
   ul.sidebar-list
+    li(class="{{#if Filter.members.isSelected undefined}}active{{/if}}")
+          a.name.js-toggle-member-filter
+            span.sidebar-list-item-description
+              {{_ 'filter-no-member'}}
+            if Filter.members.isSelected undefined
+              i.fa.fa-check
     each currentBoard.activeMembers
       with getUser userId
         li(class="{{#if Filter.members.isSelected _id}}active{{/if}}")

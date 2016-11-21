@@ -5,6 +5,7 @@ Template.headerUserBar.events({
 
 Template.memberMenuPopup.events({
   'click .js-edit-profile': Popup.open('editProfile'),
+  'click .js-change-settings': Popup.open('changeSettings'),
   'click .js-change-avatar': Popup.open('changeAvatar'),
   'click .js-change-password': Popup.open('changePassword'),
   'click .js-change-language': Popup.open('changeLanguage'),
@@ -26,11 +27,18 @@ Template.editProfilePopup.events({
       'profile.fullname': fullname,
       'profile.initials': initials,
     }});
-    // XXX We should report the error to the user.
+
     if (username !== Meteor.user().username) {
-      Meteor.call('setUsername', username);
-    }
-    Popup.back();
+      Meteor.call('setUsername', username, function(error) {
+        const messageElement = tpl.$('.username-taken');
+        if (error) {
+          messageElement.show();
+        } else {
+          messageElement.hide();
+          Popup.back();
+        }
+      });
+    } else Popup.back();
   },
 });
 
@@ -80,5 +88,17 @@ Template.changeLanguagePopup.events({
       },
     });
     evt.preventDefault();
+  },
+});
+
+Template.changeSettingsPopup.helpers({
+  hiddenSystemMessages() {
+    return Meteor.user().hasHiddenSystemMessages();
+  },
+});
+
+Template.changeSettingsPopup.events({
+  'click .js-toggle-system-messages'() {
+    Meteor.call('toggleSystemMessages');
   },
 });
