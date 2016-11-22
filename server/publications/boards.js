@@ -99,20 +99,21 @@ Meteor.publishRelations('board', function(boardId) {
       this.cursor(Attachments.find({ cardId }));
     });
 
-    // Board members. This publication also includes former board members that
-    // aren't members anymore but may have some activities attached to them in
-    // the history.
-    //
-    this.cursor(Users.find({
-      _id: { $in: _.pluck(board.members, 'userId') },
-    }, { fields: {
-      'username': 1,
-      'profile.fullname': 1,
-      'profile.avatarUrl': 1,
-    }}), function(userId) {
-      // Presence indicators
-      this.cursor(presences.find({ userId }));
-    });
+    if (board.members) {
+      // Board members. This publication also includes former board members that
+      // aren't members anymore but may have some activities attached to them in
+      // the history.
+      this.cursor(Users.find({
+        _id: { $in: _.pluck(board.members, 'userId') },
+      }, { fields: {
+        'username': 1,
+        'profile.fullname': 1,
+        'profile.avatarUrl': 1,
+      }}), function(userId) {
+        // Presence indicators
+        this.cursor(presences.find({ userId }));
+      });
+    }
   });
 
   return this.ready();
