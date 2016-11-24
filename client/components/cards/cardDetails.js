@@ -65,6 +65,9 @@ BlazeComponent.extendComponent({
       [`${CSSEvents.transitionend} .js-card-details`]() {
         this.isLoaded.set(true);
       },
+      [`${CSSEvents.animationend} .js-card-details`]() {
+        this.isLoaded.set(true);
+      },
     };
 
     return [{
