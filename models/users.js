@@ -315,7 +315,7 @@ Meteor.methods({
   changeLimitToShowCardsCount(limit) {
     check(limit, Number);
     Meteor.user().setShowCardsCountAt(limit);
-  }
+  },
 });
 
 if (Meteor.isServer) {

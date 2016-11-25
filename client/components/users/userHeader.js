@@ -106,7 +106,7 @@ Template.changeSettingsPopup.events({
   },
   'click .js-apply-show-cards-at'(evt, tpl) {
     evt.preventDefault();
-    const minLimit = parseInt(tpl.$('#show-cards-count-at').val());
+    const minLimit = parseInt(tpl.$('#show-cards-count-at').val(), 10);
     if (!isNaN(minLimit)) {
       Meteor.call('changeLimitToShowCardsCount', minLimit);
       Popup.back();
