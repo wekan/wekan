@@ -56,6 +56,14 @@ Cards.attachSchema(new SimpleSchema({
     type: [String],
     optional: true,
   },
+  startAt: {
+    type: Date,
+    optional: true,
+  },
+  dueAt: {
+    type: Date,
+    optional: true,
+  },
   // XXX Should probably be called `authorId`. Is it even needed since we have
   // the `members` field?
   userId: {
@@ -206,6 +214,22 @@ Cards.mutations({
 
   unsetCover() {
     return { $unset: { coverId: '' }};
+  },
+
+  setStart(startAt) {
+    return { $set: { startAt }};
+  },
+
+  unsetStart() {
+    return { $unset: { startAt: '' }};
+  },
+
+  setDue(dueAt) {
+    return { $set: { dueAt }};
+  },
+
+  unsetDue() {
+    return { $unset: { dueAt: '' }};
   },
 });
 
