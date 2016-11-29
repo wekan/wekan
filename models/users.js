@@ -79,6 +79,10 @@ Users.attachSchema(new SimpleSchema({
     type: [String],
     optional: true,
   },
+  'profile.showCardsCountAt': {
+    type: Number,
+    optional: true,
+  },
   'profile.starredBoards': {
     type: [String],
     optional: true,
@@ -178,6 +182,11 @@ Users.helpers({
     } else {
       return this.username[0].toUpperCase();
     }
+  },
+
+  getLimitToShowCardsCount() {
+    const profile = this.profile || {};
+    return profile.showCardsCountAt;
   },
 
   getName() {
@@ -283,6 +292,10 @@ Users.mutations({
   setAvatarUrl(avatarUrl) {
     return { $set: { 'profile.avatarUrl': avatarUrl }};
   },
+
+  setShowCardsCountAt(limit) {
+    return { $set: { 'profile.showCardsCountAt': limit } };
+  },
 });
 
 Meteor.methods({
@@ -298,6 +311,10 @@ Meteor.methods({
   toggleSystemMessages() {
     const user = Meteor.user();
     user.toggleSystem(user.hasHiddenSystemMessages());
+  },
+  changeLimitToShowCardsCount(limit) {
+    check(limit, Number);
+    Meteor.user().setShowCardsCountAt(limit);
   },
 });
 

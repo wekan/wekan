@@ -72,3 +72,8 @@ template(name="changeSettingsPopup")
         | {{_ 'hide-system-messages'}}
         if hiddenSystemMessages
           i.fa.fa-check
+    li
+      label.bold
+        | {{_ 'show-cards-minimum-count'}}
+      input#show-cards-count-at.inline-input.left(type="number" value="#{showCardsCountAt}" min="1" max="99" onkeydown="return false")
+      input.js-apply-show-cards-at.left(type="submit" value="{{_ 'apply'}}")
