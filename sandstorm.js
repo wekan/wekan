@@ -428,6 +428,13 @@ if (isSandstorm && Meteor.isClient) {
     return url.replace(/^https?:\/\/127\.0\.0\.1:[0-9]{2,5}/, '');
   };
   Meteor.absoluteUrl.defaultOptions = _defaultOptions;
+
+  // XXX Hack to fix https://github.com/wefork/wekan/issues/27
+  // Sandstorm Wekan instances only ever have a single board, so there is no need
+  // to cache per-board subscriptions.
+  SubsManager.prototype.subscribe = function(...params) {
+    return Meteor.subscribe(...params);
+  };
 }
 
 // We use this blaze helper in the UI to hide some templates that does not make
