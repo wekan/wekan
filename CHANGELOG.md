@@ -1,3 +1,30 @@
+# v0.x Wekan fork upcoming release, already committed to devel branch
+
+This release adds the following new features:
+
+* Start- and Duedate for cards;
+* Allow IE 11 to work;
+* Option to hide system messages in the card;
+* Option to setup minimum limit to show cards count
+  for each list in board;
+* Option 'filter by empty' to filter by cards by 'no member'
+  and 'no label' properties;
+* Speedup: Added MongoDB index on CardId into Comments collection.
+
+and fixes the following bugs:
+
+* Sandstorm: username handling, restore identity, eslint regressions,
+  board not found;
+* Failure to load when navigator.language is Chinese or Finnish;
+* Hover background for labels in filter sidebar. Now correctly
+  centered;
+* Display message when user wants to choose existing username;
+* Client sometimes fails to receive current user's profile;
+* Old users could see broken presence indicatons on new users.
+
+Thanks to GitHub users dwrencha, fmonthel, mario-orlicky, pierreozoux,
+shoetten, and xet7 for their contributions.
+
 # v0.11
 
 This release adds the following new features:
