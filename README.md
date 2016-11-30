@@ -25,7 +25,7 @@ Since it is a free software, you don’t have to trust us with your data and can
 install Wekan on your own computer or server. In fact we encourage you to do
 that by providing one-click installation on various platforms.
 
-Currently you can install Wekan fork on the following Platforms:
+## Supported Platforms
 
 [Debian Wheezy 64bit][debian_wheezy]
 
@@ -35,13 +35,37 @@ Currently you can install Wekan fork on the following Platforms:
 [![Install on Cloudron][cloudron_button]][cloudron_install]
 [![Try on Sandstorm][sandstorm_button]][sandstorm_appdemo]
 
-These Platforms have not been tested yet, but are coming sometime, so links
-don't work yet:
+## Upcoming Platforms
+
+[Install from source][install_source]
+
+[Create Sandstorm .spk file from source][sandstorm_spk]
 
 [Docker][docker_image]
 
+[Docker on SUSE Linux Enterprise Server 12 SP1][sles]
+
+[VirtualBox][virtualbox]: Needs to be updated for Wefork.
+
+Email to work on already working Heroku: Use 3rd party
+email like SendGrid, update process.env.MAIL_URL ,
+change from email at Accounts.emailTeamplates.from ,
+new file in server folder called smtp.js on code
+`Meteor.startup(function () });` .
+TODO: Test and find a way to use API keys instead.
+
+Azure: Install from source. Azure endpoint needs to be added. Not tested yet.
+
+OpenShift: Not tested yet.
+
+Google Cloud: Needs info how to enable websockets.
+
+## License
+
 Wekan fork is released under the very permissive [MIT license](LICENSE), and made
 with [Meteor](https://www.meteor.com).
+
+## Roadmap
 
 [Our roadmap is self-hosted on Wekan fork][roadmap]
 
@@ -65,3 +89,8 @@ with [Meteor](https://www.meteor.com).
 [debian_wheezy]: https://github.com/soohwa/sps/blob/master/example/docs/1/wekan.md
 [travis_badge]: https://travis-ci.org/wefork/wekan.svg?branch=devel
 [travis_status]: https://travis-ci.org/wefork/wekan
+[install_source]: https://github.com/wefork/wekan/wiki/Install-from-source
+[sles]: https://github.com/wekan/wekan/wiki/Install-Wekan-Docker-on-SUSE-Linux-Enterprise-Server-12-SP1
+[virtualbox]: https://github.com/wekan/wekan/wiki/virtual-appliance
+[sandstorm_spk]: https://github.com/wefork/wekan/issues/36
+[docker_image]: https://github.com/wefork/wekan/issues/33
