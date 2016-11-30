@@ -20,7 +20,7 @@ and fixes the following bugs:
   centered;
 * Display message when user wants to choose existing username;
 * Client sometimes fails to receive current user's profile;
-* Old users could see broken presence indicatons on new users.
+* Old users could see broken presence indicators on new users.
 
 Thanks to GitHub users dwrencha, fmonthel, mario-orlicky, pierreozoux,
 shoetten, and xet7 for their contributions.
