@@ -41,7 +41,7 @@ host = https://www.transifex.com
 # or the other, so we need to do a Manual mapping.
 lang_map = es_ES: es-ES, fi_FI:fi, pt_BR:pt-BR, zh_CN:zh-CN, zh_TW: zh-TW
 
-[wekan.application]
+[wefork.application]
 file_filter = i18n/<lang>.i18n.json
 source_lang = en
 type = KEYVALUEJSON
@@ -49,7 +49,7 @@ type = KEYVALUEJSON
 # We might have a dedicated second resource later to translate the “Welcome
 # Board” data.
 #
-# [wekan.welcomeBoard]
+# [wefork.welcomeBoard]
 # file_filter = private/welcomeBoard/<lang>.json
 # source_lang = en
 # type = KEYVALUEJSON

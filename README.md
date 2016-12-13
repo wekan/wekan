@@ -7,6 +7,8 @@
 
 [Wekan fork announcement][fork_announcement]
 
+[Translate Wekan fork at Transifex][translate_wefork]
+
 Wekan is an open-source and collaborative kanban board application.
 
 Whether you’re maintaining a personal todo list, planning your holidays with
@@ -94,3 +96,4 @@ with [Meteor](https://www.meteor.com).
 [virtualbox]: https://github.com/wekan/wekan/wiki/virtual-appliance
 [sandstorm_spk]: https://github.com/wefork/wekan/issues/36
 [docker_image]: https://github.com/wefork/wekan/issues/33
+[translate_wefork]: https://www.transifex.com/wefork/wefork/
