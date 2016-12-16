@@ -1,4 +1,4 @@
-# v0.x Wekan fork upcoming release, already committed to devel branch
+# v0.11.0 Wekan fork first release
 
 This release adds the following new features:
 
@@ -10,6 +10,7 @@ This release adds the following new features:
 * Option 'filter by empty' to filter by cards by 'no member'
   and 'no label' properties;
 * Speedup: Added MongoDB index on CardId into Comments collection.
+* Translation updates
 
 and fixes the following bugs:
 
@@ -25,7 +26,7 @@ and fixes the following bugs:
 Thanks to GitHub users dwrencha, fmonthel, mario-orlicky, pierreozoux,
 shoetten, and xet7 for their contributions.
 
-# v0.11
+# v0.11.0-rc2
 
 This release adds the following new features:
 
