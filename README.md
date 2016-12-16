@@ -41,13 +41,15 @@ that by providing one-click installation on various platforms.
 
 ## Upcoming Platforms
 
-[Create Sandstorm .spk file from source][sandstorm_spk]
-
 [Docker][docker_image]
 
 [Docker on SUSE Linux Enterprise Server 12 SP1][sles]
 
+[Autoinstall script][autoinstall] based on [this issue][autoinstall_issue]
+
 [VirtualBox][virtualbox]: Needs to be updated for Wefork.
+
+[Create Sandstorm .spk file from source][sandstorm_spk]
 
 Email to work on already working Heroku: Use 3rd party
 email like SendGrid, update process.env.MAIL_URL ,
@@ -97,3 +99,5 @@ with [Meteor](https://www.meteor.com).
 [sandstorm_spk]: https://github.com/wefork/wekan/issues/36
 [docker_image]: https://github.com/wefork/wekan/issues/33
 [translate_wefork]: https://www.transifex.com/wefork/wefork/
+[autoinstall]: https://github.com/wefork/wekan-autoinstall
+[autoinstall_issue]: https://github.com/anselal/wekan/issues/18
