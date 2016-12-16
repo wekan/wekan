@@ -29,6 +29,8 @@ that by providing one-click installation on various platforms.
 
 ## Supported Platforms
 
+[Install from source][install_source]
+
 [Debian Wheezy 64bit][debian_wheezy]
 
 [![Deploy][heroku_button]][heroku_deploy]
@@ -38,8 +40,6 @@ that by providing one-click installation on various platforms.
 [![Try on Sandstorm][sandstorm_button]][sandstorm_appdemo]
 
 ## Upcoming Platforms
-
-[Install from source][install_source]
 
 [Create Sandstorm .spk file from source][sandstorm_spk]
 
