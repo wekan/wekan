@@ -1,17 +1,17 @@
 head
-  title Wekan
+  title Holler
   meta(name="viewport"
    content="maximum-scale=1.0,width=device-width,initial-scale=1.0,user-scalable=0")
   //- XXX We should use pathFor in the following `href` to support the case
     where the application is deployed with a path prefix, but it seems to be
     difficult to do that cleanly with Blaze -- at least without adding extra
     packages.
-  link(rel="shortcut icon" href="/wekan-favicon.png")
+  link(rel="shortcut icon" href="/holler-favicon.png")
 
 template(name="userFormsLayout")
   section.auth-layout
     h1.at-form-landing-logo
-      img(src="{{pathFor '/wekan-logo.png'}}" alt="Wekan")
+      img(src="{{pathFor '/holler-logo.png'}}" alt="Holler")
     section.auth-dialog
       +Template.dynamic(template=content)
       div.at-form-lang

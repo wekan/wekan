@@ -40,11 +40,11 @@ template(name="header")
           page/document on it, and we don't want to see the home page containing
           the list of all boards.
         if isSandstorm
-          .wekan-logo
-            img(src="{{pathFor '/wekan-logo-header.png'}}" alt="Wekan")
+          .holler-logo
+            img(src="{{pathFor '/holler-logo-header.png'}}" alt="Holler")
         else
-          a.wekan-logo(href="{{pathFor 'home'}}" title="{{_ 'header-logo-title'}}")
-            img(src="{{pathFor '/wekan-logo-header.png'}}" alt="Wekan")
+          a.holler-logo(href="{{pathFor 'home'}}" title="{{_ 'header-logo-title'}}")
+            img(src="{{pathFor '/holler-logo-header.png'}}" alt="Holler")
 
   if appIsOffline
     +offlineWarning
