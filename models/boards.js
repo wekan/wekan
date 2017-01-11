@@ -4,6 +4,10 @@ Boards.attachSchema(new SimpleSchema({
   title: {
     type: String,
   },
+  sparkId: {
+    type: String,
+    optional: true,
+  },
   slug: {
     type: String,
     autoValue() { // eslint-disable-line consistent-return

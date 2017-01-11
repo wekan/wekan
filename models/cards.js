@@ -18,6 +18,10 @@ Cards.attachSchema(new SimpleSchema({
   listId: {
     type: String,
   },
+  friendlyId: {
+    type: String,
+    optional: true,
+  },
   // The system could work without this `boardId` information (we could deduce
   // the board identifier from the card), but it would make the system more
   // difficult to manage and less efficient.
@@ -143,6 +147,15 @@ Cards.helpers({
   },
 });
 
+Meteor.methods({
+  //Each Board is a Spark Room - this initializes the room
+  'cards.removeLabel'(cardId) {
+    check(cardId, String);
+    Cards.update({_id: cardId}, {$pop: {labelIds: 1}});
+  }
+})//methods
+
+
 Cards.mutations({
   archive() {
     return { $set: { archived: true }};
@@ -169,26 +182,90 @@ Cards.mutations({
   },
 
   addLabel(labelId) {
+    //send labelId to label.js for actions
+    var sparkBoard = Boards.findOne({_id: this.boardId}).sparkId;
+    var label;
+    var cardId = this._id;
+    var title = this.title;
+    var members = this.members;
+    var friendlyId = this.friendlyId;
+    var labelName = Boards.findOne({labels: {$elemMatch: {_id: labelId}}}).labels;
+    for (i=0; i < labelName.length; i++) {
+       if (labelName[i]._id === labelId) {
+           label = labelName[i].name;
+       }
+     }
+    Meteor.call(
+      'label.which',
+      label,
+      sparkBoard,
+      members,
+      title,
+      friendlyId,
+      labelId,
+      cardId,
+      function(err,res){
+        if(err){
+        } else{
+        }
+      }
+    )//call to label.action
     return { $addToSet: { labelIds: labelId }};
   },
 
   removeLabel(labelId) {
+//    console.log("removed a label")
     return { $pull: { labelIds: labelId }};
   },
 
   toggleLabel(labelId) {
     if (this.labelIds && this.labelIds.indexOf(labelId) > -1) {
+      //add code here for action when label is removed
+//      console.log("i removed a label");
       return this.removeLabel(labelId);
     } else {
+      //add code here for action for when a label is added
+//      console.log("i added a label");
       return this.addLabel(labelId);
     }
   },
 
   assignMember(memberId) {
+    //Alert In Spark of Task Assignment
+    var sparkRoom = Boards.findOne({_id: this.boardId}).sparkId;
+    var createdBy = Users.findOne({_id: this.userId}).username;
+    var userName = Users.findOne({_id: memberId}).username;
+    var yourAssigned = "Hey **" + userName + "**, you've been assigned a new task: **" + this.title + "** by: **" + createdBy+"**";
+      Meteor.call(
+       'spark.msgRoom',
+        sparkRoom,
+        yourAssigned,
+         function(err, res) {
+           if(err) {
+             console.log(err);
+           } else {
+                }
+              }
+        );//call to msgRoom
     return { $addToSet: { members: memberId }};
   },
 
   unassignMember(memberId) {
+    var sparkRoom = Boards.findOne({_id: this.boardId}).sparkId;
+    var createdBy = Users.findOne({_id: this.userId}).username;
+    var userName = Users.findOne({_id: memberId}).username;
+    var yourAssigned = "Hey **" + userName + "**, you've been unassigned a task: **" + this.title + " ** by: **" + createdBy;
+      Meteor.call(
+       'spark.msgRoom',
+        sparkRoom,
+        yourAssigned,
+         function(err, res) {
+           if(err) {
+             console.log(err);
+           } else {
+                }
+              }
+        );//call to msgRoom
     return { $pull: { members: memberId }};
   },
 
@@ -217,6 +294,10 @@ if (Meteor.isServer) {
   });
 
   Cards.after.insert((userId, doc) => {
+    //add friendlyId and set to the current index value
+    var index = Cards.find().fetch().length;
+      Cards.update({_id: doc._id}, {$set: {friendlyId: index}});
+      console.log(doc.boardId);
     Activities.insert({
       userId,
       activityType: 'createCard',

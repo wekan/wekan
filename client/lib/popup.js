@@ -186,7 +186,7 @@ window.Popup = new class {
       // positives.
       const title = TAPi18n.__(translationKey);
       // when popup showed as full of small screen, we need a default header to clearly see [X] button
-      const defaultTitle = Utils.isMiniScreen() ? 'Wekan' : false;
+      const defaultTitle = Utils.isMiniScreen() ? 'Holler' : false;
       return title !== translationKey ? title : defaultTitle;
     };
   }
@@ -205,4 +205,3 @@ escapeActions.forEach((actionName) => {
     }
   );
 });
-

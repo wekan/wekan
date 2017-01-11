@@ -71,6 +71,58 @@ BlazeComponent.extendComponent({
       'click .js-open-board-menu': Popup.open('boardMenu'),
       'click .js-change-visibility': Popup.open('boardChangeVisibility'),
       'click .js-watch-board': Popup.open('boardChangeWatch'),
+      'click .js-email-board' (event,template){//email boardId
+
+//      var boardMembers = Boards.findOne(Session.get('currentBoard')).members;
+//      var boardMembersEmail;
+//      var thisBoardUser;
+//      var boardUserId = new Array;
+//      var boardUser;
+      Bert.alert({
+        title: 'Creating Email',
+        message: 'Exporting Board Items..',
+        type: 'info',
+        style: 'growl-bottom-right',
+        icon: 'fa-envelope-o'
+      });//Bert
+
+      var boardId = Session.get('currentBoard');
+      Meteor.call(
+      'email.form',
+      boardId,
+      function(err, res) {
+      if(err) {
+      console.log(err);
+      } else {
+//        console.log(res);
+      window.location.href = res;
+      }
+    }
+)},//email-board
+
+
+
+
+//      for (i=0; i<=boardMembers.length-1; i++){
+//        boardUserId[i] = boardMembers[i].userId;
+//        boardUser = Users.findOne({_id: boardUserId}).emails[0].address;
+//        console.log(boardUserId[i]);
+//      }
+
+//      for (i=0; i<=boardUserId.length-1; i++){
+//        thisBoardUser = boardUserId[i];
+//        console.log("i="+i+", thisBoardUser "+thisBoardUser);
+
+//        boardUser = Users.findOne({_id: 'jnbjGsaDnJ9wB8XKA'}).emails[0].address;
+//        console.log("i="+i+", boardUser "+boardUser);
+//      }
+
+
+
+//},
+
+
+
       'click .js-open-filter-view'() {
         Sidebar.setView('filter');
       },
@@ -143,14 +195,31 @@ BlazeComponent.extendComponent({
     const title = this.find('.js-new-board-title').value;
     const visibility = this.visibility.get();
 
+//begin jeff thinking he can code
+const boardEmail = Meteor.user().emails[0].address;
+const boardName = Meteor.user().username;
+
     const boardId = Boards.insert({
       title,
       permission: visibility,
     });
 
+    //Every Board is a Spark Room
+    Meteor.call(
+      'spark.attachRoom',
+      boardId,
+      function(err, res) {
+        if(err) {
+          console.log(err);
+        } else {
+  //        console.log(boardId);
+          }//else
+      }//function
+    );//call
+
     Utils.goBoardId(boardId);
 
-    // Immediately star boards crated with the headerbar popup.
+    // Immediately star boards created with the headerbar popup.
     Meteor.user().toggleBoardStar(boardId);
   },
 

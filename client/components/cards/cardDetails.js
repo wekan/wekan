@@ -86,8 +86,97 @@ BlazeComponent.extendComponent({
         }
       },
       'click .js-member': Popup.open('cardMember'),
+      'click .js-attachments': Popup.open('cardAttachments'),
       'click .js-add-members': Popup.open('cardMembers'),
       'click .js-add-labels': Popup.open('cardLabels'),
+      'click .js-add-conference'(event, template) {
+        Bert.alert({
+          title: 'Conference Now',
+          message: 'Connecting to Tropo...',
+          type: 'info',
+          style: 'growl-bottom-right',
+          icon: 'fa-phone'
+        });
+       var cardId = Session.get('currentCard');
+        Meteor.call(
+          'tropo.conference',
+          cardId,
+          function(err, res) {
+            if(err) {
+              console.log(err);
+            } else {
+             }
+           }
+      )},
+      'click .js-add-webex'(event, template) {
+       var cardId = Session.get('currentCard');
+        Bert.alert({
+          title: 'Webex Meeting Center',
+          message: 'Generated Message Invite',
+          type: 'info',
+          style: 'growl-bottom-right',
+          icon: 'fa-adjust'
+        });//bert
+        Meteor.call(
+          'webex.meet',
+          cardId,
+          function(err, res) {
+            if(err) {
+              console.log(err);
+            } else {
+             }
+           }
+      )},//webex
+      'click .js-update'(event, template) {
+       var cardId = Session.get('currentCard');
+       var members = Cards.findOne({_id: cardId}).members;
+       var title = Cards.findOne({_id: cardId}).title;
+       var friendlyId = Cards.findOne({_id: cardId}).friendlyId;
+       var boardId = Cards.findOne({_id: cardId}).boardId;
+       var sparkId = Boards.findOne({_id: boardId}).sparkId;
+       console.log("holler sparkid: " +sparkId);
+       var assigned="";
+       for (i=0; i<members.length; i++){
+             console.log(members[i]);
+             if(typeof members[i] !== "undefined" && assigned !== ""){
+             assigned = assigned + ", " +Users.findOne({_id: members[i]}).username;
+           }//if
+           else{
+             assigned = Users.findOne({_id: members[i]}).username;
+           }
+       }//for
+       var bertmsg = "Hollering at: "+assigned;
+        Bert.alert({
+          title: 'Requesting Update..',
+          message: bertmsg,
+          type: 'info',
+          style: 'growl-bottom-right',
+          icon: 'fa-bullhorn'
+        });//bert
+        var listText="Hey **"+assigned+"** an update is required for task: **"+title+"**";
+        var listText2="To stop this message from repeating, please **@holler update** **"+friendlyId+"** `<notes>`";
+        Meteor.call(
+        'spark.msgRoom',
+        sparkId,
+        listText,
+           function(err, res) {
+             if(err) {
+             } else {
+               Meteor.call(
+               'spark.msgRoom',
+               sparkId,
+               listText2,
+                  function(err, res) {
+                    if(err) {
+                    } else {
+                      }
+                   }//function
+                 );//call to msgRoom
+               }
+            }//function
+          );//call to msgRoom
+
+      },
       'mouseenter .js-card-details'() {
         this.parentComponent().showOverlay.set(true);
         this.parentComponent().mouseHasEnterCardDetails = true;
