@@ -1,4 +1,4 @@
-# v0.11.0 Wekan fork first release
+# v0.11.0 2016-12-16 Wekan fork first release
 
 This release adds the following new features:
 
@@ -26,7 +26,7 @@ and fixes the following bugs:
 Thanks to GitHub users dwrencha, fmonthel, mario-orlicky, pierreozoux,
 shoetten, and xet7 for their contributions.
 
-# v0.11.0-rc2
+# v0.11.0-rc2 2016-07-21
 
 This release adds the following new features:
 
@@ -55,14 +55,14 @@ and fixes the following bugs:
 Thanks to GitHub users alayek, AlexanderS, choclin, floatinghotpot, ForNeVeR,
 PeterDaveHello, seschwar, and TheElf for their contributions.
 
-# v0.10.1
+# v0.10.1 2015-12-30
 
 This patch release fixes two bugs on Sandstorm:
 
 * Drag and drop was broken;
 * Avatars weren’t working.
 
-# v0.10
+# v0.10 2015-12-22
 
 This release features:
 
@@ -84,7 +84,7 @@ New languages supported: Arabic, Catalan, Italian, and Russian.
 Thanks to GitHub users AlexanderS, fisle, floatinghotpot, FuzzyWuzzie, mnutt,
 ndarilek, SirCmpwn, and xavierpriour for their contributions.
 
-# v0.9
+# v0.9 2015-09-10
 
 This release is a large re-write of the previous code base. This release marks
 the beginning of our new user interface and continues to improve the overall
