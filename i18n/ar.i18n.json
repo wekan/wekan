@@ -223,6 +223,7 @@
     "remove-cover": "حذف الغلاف",
     "remove-from-board": "حذف من اللوحة",
     "remove-label": "حذف هذه العلامة",
+    "remove-list": "Remove the list",
     "remove-member": "حذف العضو",
     "remove-member-from-card": "حذف من البطاقة",
     "remove-member-pop": "حذف __name__ (__username__) من __boardTitle__ ? سيتم حذف هذا العضو من جميع بطاقة اللوحة مع إرسال إشعار له بذاك.",

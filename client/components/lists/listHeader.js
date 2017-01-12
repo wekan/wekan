@@ -52,4 +52,9 @@ Template.listActionPopup.events({
     this.archive();
     Popup.close();
   },
+  'click .js-remove-list'(evt) {
+    const currentList = this;
+    evt.preventDefault();
+    Lists.remove(currentList._id);
+  }
 });
