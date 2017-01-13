@@ -223,6 +223,7 @@
     "remove-cover": "移除封面",
     "remove-from-board": "從看板中刪除",
     "remove-label": "移除標籤",
+    "remove-list": "Remove the list",
     "remove-member": "移除成員",
     "remove-member-from-card": "從該卡片中移除",
     "remove-member-pop": "確定從 __boardTitle__ 中移除 __name__ (__username__) 嗎? 該成員將被從該看板的所有卡片中移除，同時他會收到一則提醒。",

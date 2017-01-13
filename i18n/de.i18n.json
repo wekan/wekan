@@ -223,6 +223,7 @@
     "remove-cover": "Cover entfernen",
     "remove-from-board": "Von Board entfernen",
     "remove-label": "Label entfernen",
+    "remove-list": "Remove the list",
     "remove-member": "Nutzer entfernen",
     "remove-member-from-card": "Von Karte entfernen",
     "remove-member-pop": "Entferne __name__ (__username__) von __boardTitle__? Nutzer wird von allen Karten auf diesem Board entfernt werden. Er wird eine Benachrichtigung erhalten.",

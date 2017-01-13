@@ -223,6 +223,7 @@
     "remove-cover": "Usuń okładkę",
     "remove-from-board": "Usuń z tablicy",
     "remove-label": "Usuń etykietę",
+    "remove-list": "Remove the list",
     "remove-member": "Usuń członka",
     "remove-member-from-card": "Usuń z karty",
     "remove-member-pop": "Remove __name__ (__username__) from __boardTitle__? The member will be removed from all cards on this board. They will receive a notification.",

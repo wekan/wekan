@@ -223,6 +223,7 @@
     "remove-cover": "Enlever la couverture",
     "remove-from-board": "Retirer du tableau",
     "remove-label": "Retirer cette étiquette",
+    "remove-list": "Supprimer la liste",
     "remove-member": "Supprimer le membre",
     "remove-member-from-card": "Supprimer de la carte",
     "remove-member-pop": "Supprimer __name__ (__username__) de __boardTitle__ ? Ce membre sera supprimé de toutes les cartes du tableau et recevra une notification.",
