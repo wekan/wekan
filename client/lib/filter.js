@@ -63,6 +63,17 @@ class SetFilter {
     this._dep.depend();
     return { $in: this._selectedElements };
   }
+
+  _getEmptySelector() {
+    this._dep.depend();
+    let includeEmpty = false;
+    this._selectedElements.forEach((el) => {
+      if (el === undefined) {
+        includeEmpty = true;
+      }
+    });
+    return includeEmpty ? { $eq: [] } : null;
+  }
 }
 
 // The global Filter object.
@@ -95,16 +106,26 @@ Filter = {
       return {};
 
     const filterSelector = {};
+    const emptySelector = {};
+    let includeEmptySelectors = false;
     this._fields.forEach((fieldName) => {
       const filter = this[fieldName];
-      if (filter._isActive())
+      if (filter._isActive()) {
         filterSelector[fieldName] = filter._getMongoSelector();
+        emptySelector[fieldName] = filter._getEmptySelector();
+        if (emptySelector[fieldName] !== null) {
+          includeEmptySelectors = true;
+        }
+      }
     });
 
     const exceptionsSelector = {_id: {$in: this._exceptions}};
     this._exceptionsDep.depend();
 
-    return {$or: [filterSelector, exceptionsSelector]};
+    if (includeEmptySelectors)
+      return {$or: [filterSelector, exceptionsSelector, emptySelector]};
+    else
+      return {$or: [filterSelector, exceptionsSelector]};
   },
 
   mongoSelector(additionalSelector) {

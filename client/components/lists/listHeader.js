@@ -13,6 +13,14 @@ BlazeComponent.extendComponent({
     return list.findWatcher(Meteor.userId());
   },
 
+  limitToShowCardsCount() {
+    return Meteor.user().getLimitToShowCardsCount();
+  },
+
+  showCardsCountForList(count) {
+    return count > this.limitToShowCardsCount();
+  },
+
   events() {
     return [{
       'click .js-open-list-menu': Popup.open('listAction'),

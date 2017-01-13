@@ -163,6 +163,9 @@ Template.membersWidget.helpers({
 Template.membersWidget.events({
   'click .js-member': Popup.open('member'),
   'click .js-manage-board-members': Popup.open('addMember'),
+  'click .sandstorm-powerbox-request-identity'() {
+    window.sandstormRequestIdentity();
+  },
   'click .js-member-invite-accept'() {
     const boardId = Session.get('currentBoard');
     Meteor.user().removeInvite(boardId);
