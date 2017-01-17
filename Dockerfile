@@ -52,7 +52,7 @@ RUN apt-get update -y && apt-get install -y ${BUILD_DEPS} && \
     cd ./app && \
     meteor npm install --save xss && \
     echo "Starting meteor build of the app...   \n" && \
-    meteor build --directory /opt/app_build && \
+    meteor build --directory --allow-superuser /opt/app_build && \
     cd /opt/app_build/bundle/programs/server/ && \
     npm install && \
     mv /opt/app_build/bundle /build && \
