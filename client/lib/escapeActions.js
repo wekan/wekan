@@ -44,7 +44,7 @@ EscapeActions = {
 
   executeLowest() {
     return this._execute({
-      multipleAction: false,
+      multipleActions: false,
     });
   },
 
