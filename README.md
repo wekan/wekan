@@ -31,6 +31,8 @@ that by providing one-click installation on various platforms.
 
 [Install from source][install_source]
 
+[VirtualBox][virtualbox]
+
 [Debian Wheezy 64bit][debian_wheezy]
 
 [![Deploy][heroku_button]][heroku_deploy]
@@ -47,7 +49,6 @@ that by providing one-click installation on various platforms.
 
 [Autoinstall script][autoinstall] based on [this issue][autoinstall_issue]
 
-[VirtualBox][virtualbox]: Needs to be updated for Wefork.
 
 [Create Sandstorm .spk file from source][sandstorm_spk]
 
