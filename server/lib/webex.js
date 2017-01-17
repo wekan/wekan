@@ -10,6 +10,7 @@ Meteor.methods({
   var boardId = Cards.findOne({_id: cardId}).boardId;
   var sparkId = Boards.findOne({_id: boardId}).sparkId;
   var initiator = Users.findOne({_id: members[0]}).username;
+  var domain = "mydomain";
   var participants="";
   for (i=0; i<members.length; i++){
         if(typeof members[i] !== "undefined" && participants !== ""){
@@ -20,7 +21,7 @@ Meteor.methods({
         }
   }//for
 
-  //Doesn't actually use WebEx API, just constrcts the CMR link from email address
+  //Doesn't actually use WebEx API, just constructs the CMR link from email address
   var messageText = "Hey **"+participants+"** a meeting has been requested to discuss **"+title+"**, please join @ https://<domain>.webex.com/meet/"+initiator+"<domain>.com";
   Meteor.call(
      'spark.msgRoom',
