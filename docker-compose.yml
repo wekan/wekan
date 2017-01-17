@@ -1,31 +1,41 @@
-# You can read the Docker Compose documentation at:
-#
-#   https://docs.docker.com/compose/
-#
-# Run with file with `docker-compose up -d`.
-#
-# We use two separate Docker containers: one for the database and one for the
-# Wekan application. The Wekan container doensn’t contain any mutable state
-# (all the user data, even uploads, are saved in the database) so updating it
-# is as simple as stoping the old version and starting the new one. If you want
-# to update the database you need to uncomment the volume section below.
+version: '2'
 
-wekandb:
-  image: mongo
-#  volumes:
-#    - ./data/runtime/db:/data/db
-#    - ./data/dump:/dump
-  command: mongod --smallfiles --oplogSize 128
-  ports:
-    - 27017
+services:
 
-wekan:
-  image: mquandalle/wekan
-  links:
-    - wekandb
-  environment:
-    - MONGO_URL=mongodb://wekandb/wekan
-    - ROOT_URL=http://localhost:80
-  ports:
-    - 80:80
+  wekandb:
+    image: mongo:latest
+    container_name: wekan-db
+    restart: always
+    command: mongod --smallfiles --oplogSize 128
+    expose:
+      - 27017
+    volumes:
+      - wekan-db:/data/db
+      - wekan-db-dump:/dump
 
+  wekan:
+    image: wefork/wekan
+    container_name: wekan-app
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - node_version=${NODE_VERSION}
+        - meteor_release=${METEOR_RELEASE}
+        - npm_version=${NPM_VERSION}
+        - architecture=${ARCHITECTURE}
+        - src_path=${SRC_PATH}
+    ports:
+      - 80:80
+    environment:
+      - MONGO_URL=mongodb://wekandb:27017/wekan
+      - ROOT_URL=http://localhost
+    links:
+      - wekandb
+    depends_on:
+      - wekandb
+
+volumes:
+  wekan-db:
+    driver: local
