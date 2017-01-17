@@ -12,14 +12,13 @@ ARG SRC_PATH=./
 COPY ${SRC_PATH} ./app
 
 # OS dependencies
-RUN apt-get update -y && apt-get install -y ${BUILD_DEPS}
-
-# Download nodejs
-RUN wget https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHICTECTURE}.tar.gz && \
-    wget https://nodejs.org/dist/${NODE_VERSION}/SHASUMS256.txt.asc
-
-# Verify nodejs authenticity
-RUN \
+RUN apt-get update -y && apt-get install -y ${BUILD_DEPS} && \
+    \
+    # Download nodejs
+    wget https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHICTECTURE}.tar.gz && \
+    wget https://nodejs.org/dist/${NODE_VERSION}/SHASUMS256.txt.asc && \
+    \
+    # Verify nodejs authenticity
     grep ${NODE_VERSION}-${ARCHICTECTURE}.tar.gz SHASUMS256.txt.asc | shasum -a 256 -c - && \
     gpg --keyserver pool.sks-keyservers.net --recv-keys 9554F04D7259F04124DE6B476D5A82AC7E37093B && \
     gpg --keyserver pool.sks-keyservers.net --recv-keys 94AE36675C464D64BAFA68DD7434390BDBE9B9C5 && \
@@ -29,39 +28,37 @@ RUN \
     gpg --keyserver pool.sks-keyservers.net --recv-keys C4F0DFFF4E8C1A8236409D08E73BC641CC11F4C8 && \
     gpg --keyserver pool.sks-keyservers.net --recv-keys B9AE9905FFD7803F25714661B63B535A4C206CA9 && \
     gpg --refresh-keys pool.sks-keyservers.net && \
-    gpg --verify SHASUMS256.txt.asc
-
-# Install Node
-RUN \
+    gpg --verify SHASUMS256.txt.asc && \
+    \
+    # Install Node
     tar xvzf node-${NODE_VERSION}-${ARCHICTECTURE}.tar.gz && \
     rm node-${NODE_VERSION}-${ARCHICTECTURE}.tar.gz && \
     mv node-${NODE_VERSION}-${ARCHICTECTURE} /opt/nodejs && \
     ln -s /opt/nodejs/bin/node /usr/bin/node && \
-    ln -s /opt/nodejs/bin/npm /usr/bin/npm
-
-# Install Node dependencies
-RUN npm install npm@${NPM_VERSION} -g && \
+    ln -s /opt/nodejs/bin/npm /usr/bin/npm && \
+    \
+    # Install Node dependencies
+    npm install npm@${NPM_VERSION} -g && \
     npm install -g node-gyp && \
-    npm install -g fibers
-
-# Install meteor
-RUN curl https://install.meteor.com -o ./install_meteor.sh && \
+    npm install -g fibers && \
+    \
+    # Install meteor
+    curl https://install.meteor.com -o ./install_meteor.sh && \
     sed -i "s|RELEASE=.*|RELEASE=${METEOR_RELEASE}\"\"|g" ./install_meteor.sh && \
     echo "Starting meteor ${METEOR_RELEASE} installation...   \n" && \
-    sh ./install_meteor.sh
-
-# Build app
-RUN cd ./app && \
+    sh ./install_meteor.sh && \
+    \
+    # Build app
+    cd ./app && \
     meteor npm install --save xss && \
     echo "Starting meteor build of the app...   \n" && \
     meteor build --directory /opt/app_build && \
     cd /opt/app_build/bundle/programs/server/ && \
     npm install && \
     mv /opt/app_build/bundle /build && \
-    cd /build
-
-# Cleanup
-RUN \
+    cd /build && \
+    \
+    # Cleanup
     apt-get remove --purge -y ${BUILD_DEPS} && \
     rm -R /var/lib/apt/lists/* /app /opt/app_build ~/.meteor && \
     rm /install_meteor.sh
