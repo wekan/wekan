@@ -60,6 +60,7 @@ RUN apt-get update -y && apt-get install -y ${BUILD_DEPS} && \
     \
     # Cleanup
     apt-get remove --purge -y ${BUILD_DEPS} && \
+    apt-get autoremove -y && \
     rm -R /var/lib/apt/lists/* /app /opt/app_build ~/.meteor && \
     rm /install_meteor.sh
 
