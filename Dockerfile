@@ -11,8 +11,9 @@ ARG SRC_PATH=./
 # Copy the app to the image
 COPY ${SRC_PATH} ./app
 
-# OS dependencies
-RUN apt-get update -y && apt-get install -y ${BUILD_DEPS} && \
+RUN \
+    # OS dependencies
+    apt-get update -y && apt-get install -y ${BUILD_DEPS} && \
     \
     # Download nodejs
     wget https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHICTECTURE}.tar.gz && \
