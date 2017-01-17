@@ -25,11 +25,11 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        - node_version=${NODE_VERSION}
-        - meteor_release=${METEOR_RELEASE}
-        - npm_version=${NPM_VERSION}
-        - architecture=${ARCHITECTURE}
-        - src_path=${SRC_PATH}
+        - NODE_VERSION=${NODE_VERSION}
+        - METEOR_RELEASE=${METEOR_RELEASE}
+        - NPM_VERSION=${NPM_VERSION}
+        - ARCHITECTURE=${ARCHITECTURE}
+        - SRC_PATH=${SRC_PATH}
     ports:
       - 80:80
     environment:
