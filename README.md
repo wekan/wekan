@@ -33,7 +33,7 @@ that by providing one-click installation on various platforms.
 
 [VirtualBox][virtualbox]
 
-Docker: [Docs][docker_docs] [Nginx proxy][docker_nginxproxy] [Issue][docker_issue]
+Docker: [Docs][docker_docs], [Docker Nginx proxy][docker_nginxproxy], [Docker Issue][docker_issue]
 
 [Debian Wheezy 64bit][debian_wheezy]
 
