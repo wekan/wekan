@@ -33,6 +33,8 @@ that by providing one-click installation on various platforms.
 
 [VirtualBox][virtualbox]
 
+Docker: [Docs][docker_docs] [Nginx proxy][docker_nginxproxy] [Issue][docker_issue]
+
 [Debian Wheezy 64bit][debian_wheezy]
 
 [![Deploy][heroku_button]][heroku_deploy]
@@ -43,12 +45,9 @@ that by providing one-click installation on various platforms.
 
 ## Upcoming Platforms
 
-[Docker][docker_image]
-
 [Docker on SUSE Linux Enterprise Server 12 SP1][sles]
 
 [Autoinstall script][autoinstall] based on [this issue][autoinstall_issue]
-
 
 [Create Sandstorm .spk file from source][sandstorm_spk]
 
@@ -98,7 +97,9 @@ with [Meteor](https://www.meteor.com).
 [sles]: https://github.com/wekan/wekan/wiki/Install-Wekan-Docker-on-SUSE-Linux-Enterprise-Server-12-SP1
 [virtualbox]: https://github.com/wekan/wekan/wiki/virtual-appliance
 [sandstorm_spk]: https://github.com/wefork/wekan/issues/36
-[docker_image]: https://github.com/wefork/wekan/issues/33
+[docker_docs]: https://github.com/wefork/wekan/wiki/Docker
+[docker_nginxproxy]: https://github.com/wefork/wekan/wiki/Docker-NginxProxy
+[docker_issue]: https://github.com/wefork/wekan/issues/33
 [translate_wefork]: https://www.transifex.com/wefork/wefork/
 [autoinstall]: https://github.com/wefork/wekan-autoinstall
 [autoinstall_issue]: https://github.com/anselal/wekan/issues/18
