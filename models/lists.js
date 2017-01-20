@@ -112,7 +112,7 @@ if (Meteor.isServer) {
       activityType: 'removeList',
       boardId: doc.boardId,
       listId: doc._id,
-      title: doc.title
+      title: doc.title,
     });
   });
 
