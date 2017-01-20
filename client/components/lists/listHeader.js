@@ -64,5 +64,6 @@ Template.listActionPopup.events({
     const currentList = this;
     evt.preventDefault();
     Lists.remove(currentList._id);
+    Popup.close();
   },
 });

@@ -33,7 +33,7 @@
     "activity-joined": "a rejoint %s",
     "activity-moved": "a déplacé %s depuis %s vers %s",
     "activity-on": "sur %s",
-    "activity-removed": "a supprimé %s vers %s",
+    "activity-removed": "a supprimé %s de %s",
     "activity-sent": "a envoyé %s vers %s",
     "activity-unjoined": "a quitté %s",
     "add": "Ajouter",
