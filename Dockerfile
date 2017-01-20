@@ -75,7 +75,6 @@ RUN \
     cd /home/wekan/app_build/bundle/programs/server/ && \
     gosu wekan npm install && \
     mv /home/wekan/app_build/bundle /build && \
-    cd /build && \
     \
     # Cleanup
     apt-get remove --purge -y ${BUILD_DEPS} && \
