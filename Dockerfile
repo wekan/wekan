@@ -1,7 +1,8 @@
 FROM debian:wheezy
 MAINTAINER wefork
 
-ENV BUILD_DEPS="wget curl bzip2 build-essential python git"
+ENV BUILD_DEPS="wget curl bzip2 build-essential python git ca-certificates"
+ENV GOSU_VERSION=1.10
 ARG NODE_VERSION=v0.10.48
 ARG METEOR_RELEASE=1.3.5.1
 ARG NPM_VERSION=3.10.10
@@ -9,11 +10,24 @@ ARG ARCHITECTURE=linux-x64
 ARG SRC_PATH=./
 
 # Copy the app to the image
-COPY ${SRC_PATH} ./app
+COPY ${SRC_PATH} /home/wekan/app
 
 RUN \
+    # Add non-root user wekan
+    useradd --user-group --system --home-dir /home/wekan wekan && \
+    \
     # OS dependencies
-    apt-get update -y && apt-get install -y ${BUILD_DEPS} && \
+    apt-get update -y && apt-get install -y --no-install-recommends ${BUILD_DEPS} && \
+    \
+    # Gosu installation
+    GOSU_ARCHITECTURE="$(dpkg --print-architecture | awk -F- '{ print $NF }')" && \
+    wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-${GOSU_ARCHITECTURE}" && \
+    wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-${GOSU_ARCHITECTURE}.asc" && \
+    export GNUPGHOME="$(mktemp -d)" && \
+    gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 && \
+    gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu && \
+    rm -R "$GNUPGHOME" /usr/local/bin/gosu.asc && \
+    chmod +x /usr/local/bin/gosu && \
     \
     # Download nodejs
     wget https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
@@ -21,6 +35,7 @@ RUN \
     \
     # Verify nodejs authenticity
     grep ${NODE_VERSION}-${ARCHITECTURE}.tar.gz SHASUMS256.txt.asc | shasum -a 256 -c - && \
+    export GNUPGHOME="$(mktemp -d)" && \
     gpg --keyserver pool.sks-keyservers.net --recv-keys 9554F04D7259F04124DE6B476D5A82AC7E37093B && \
     gpg --keyserver pool.sks-keyservers.net --recv-keys 94AE36675C464D64BAFA68DD7434390BDBE9B9C5 && \
     gpg --keyserver pool.sks-keyservers.net --recv-keys FD3A5288F042B6850C66B31F09FE44734EB7990E && \
@@ -30,6 +45,7 @@ RUN \
     gpg --keyserver pool.sks-keyservers.net --recv-keys B9AE9905FFD7803F25714661B63B535A4C206CA9 && \
     gpg --refresh-keys pool.sks-keyservers.net && \
     gpg --verify SHASUMS256.txt.asc && \
+    rm -R "$GNUPGHOME" SHASUMS256.txt.asc && \
     \
     # Install Node
     tar xvzf node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
@@ -43,27 +59,32 @@ RUN \
     npm install -g node-gyp && \
     npm install -g fibers && \
     \
-    # Install meteor
+    # Change user to wekan and install meteor
+    cd /home/wekan/ && \
+    chown wekan:wekan --recursive /home/wekan && \
     curl https://install.meteor.com -o ./install_meteor.sh && \
     sed -i "s|RELEASE=.*|RELEASE=${METEOR_RELEASE}\"\"|g" ./install_meteor.sh && \
     echo "Starting meteor ${METEOR_RELEASE} installation...   \n" && \
-    sh ./install_meteor.sh && \
+    chown wekan:wekan ./install_meteor.sh && \
+    gosu wekan:wekan sh ./install_meteor.sh && \
     \
     # Build app
-    cd ./app && \
-    meteor npm install --save xss && \
-    echo "Starting meteor build of the app...   \n" && \
-    meteor build --directory --allow-superuser /opt/app_build && \
-    cd /opt/app_build/bundle/programs/server/ && \
-    npm install && \
-    mv /opt/app_build/bundle /build && \
+    cd /home/wekan/app && \
+    gosu wekan /home/wekan/.meteor/meteor npm install --save xss && \
+    gosu wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build && \
+    cd /home/wekan/app_build/bundle/programs/server/ && \
+    gosu wekan npm install && \
+    mv /home/wekan/app_build/bundle /build && \
     cd /build && \
     \
     # Cleanup
     apt-get remove --purge -y ${BUILD_DEPS} && \
     apt-get autoremove -y && \
-    rm -R /var/lib/apt/lists/* /app /opt/app_build ~/.meteor && \
-    rm /install_meteor.sh
+    rm -R /var/lib/apt/lists/* && \
+    rm -R /home/wekan/.meteor && \
+    rm -R /home/wekan/app && \
+    rm -R /home/wekan/app_build && \
+    rm /home/wekan/install_meteor.sh
 
 ENV PORT=80
 
