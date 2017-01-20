@@ -1,3 +1,7 @@
+// Sandstorm context is detected using the METEOR_SETTINGS environment variable
+// in the package definition.
+const isSandstorm = Meteor.settings && Meteor.settings.public &&
+                    Meteor.settings.public.sandstorm;
 Users = Meteor.users;
 
 Users.attachSchema(new SimpleSchema({
@@ -55,6 +59,10 @@ Users.attachSchema(new SimpleSchema({
     type: String,
     optional: true,
   },
+  'profile.hiddenSystemMessages': {
+    type: Boolean,
+    optional: true,
+  },
   'profile.initials': {
     type: String,
     optional: true,
@@ -69,6 +77,10 @@ Users.attachSchema(new SimpleSchema({
   },
   'profile.notifications': {
     type: [String],
+    optional: true,
+  },
+  'profile.showCardsCountAt': {
+    type: Number,
     optional: true,
   },
   'profile.starredBoards': {
@@ -147,6 +159,11 @@ Users.helpers({
     return _.contains(notifications, activityId);
   },
 
+  hasHiddenSystemMessages() {
+    const profile = this.profile || {};
+    return profile.hiddenSystemMessages || false;
+  },
+
   getEmailBuffer() {
     const {emailBuffer = []} = this.profile;
     return emailBuffer;
@@ -165,6 +182,11 @@ Users.helpers({
     } else {
       return this.username[0].toUpperCase();
     }
+  },
+
+  getLimitToShowCardsCount() {
+    const profile = this.profile || {};
+    return profile.showCardsCountAt;
   },
 
   getName() {
@@ -227,6 +249,14 @@ Users.mutations({
       this.addTag(tag);
   },
 
+  toggleSystem(value = false) {
+    return {
+      $set: {
+        'profile.hiddenSystemMessages': !value,
+      },
+    };
+  },
+
   addNotification(activityId) {
     return {
       $addToSet: {
@@ -262,6 +292,10 @@ Users.mutations({
   setAvatarUrl(avatarUrl) {
     return { $set: { 'profile.avatarUrl': avatarUrl }};
   },
+
+  setShowCardsCountAt(limit) {
+    return { $set: { 'profile.showCardsCountAt': limit } };
+  },
 });
 
 Meteor.methods({
@@ -273,6 +307,14 @@ Meteor.methods({
     } else {
       Users.update(this.userId, {$set: { username }});
     }
+  },
+  toggleSystemMessages() {
+    const user = Meteor.user();
+    user.toggleSystem(user.hasHiddenSystemMessages());
+  },
+  changeLimitToShowCardsCount(limit) {
+    check(limit, Number);
+    Meteor.user().setShowCardsCountAt(limit);
   },
 });
 
@@ -394,24 +436,26 @@ if (Meteor.isServer) {
     return fakeUserId.get() || getUserId();
   };
 
-  Users.after.insert((userId, doc) => {
-    const fakeUser = {
-      extendAutoValueContext: {
-        userId: doc._id,
-      },
-    };
+  if (!isSandstorm) {
+    Users.after.insert((userId, doc) => {
+      const fakeUser = {
+        extendAutoValueContext: {
+          userId: doc._id,
+        },
+      };
 
-    fakeUserId.withValue(doc._id, () => {
-      // Insert the Welcome Board
-      Boards.insert({
-        title: TAPi18n.__('welcome-board'),
-        permission: 'private',
-      }, fakeUser, (err, boardId) => {
+      fakeUserId.withValue(doc._id, () => {
+        // Insert the Welcome Board
+        Boards.insert({
+          title: TAPi18n.__('welcome-board'),
+          permission: 'private',
+        }, fakeUser, (err, boardId) => {
 
-        ['welcome-list1', 'welcome-list2'].forEach((title) => {
-          Lists.insert({ title: TAPi18n.__(title), boardId }, fakeUser);
+          ['welcome-list1', 'welcome-list2'].forEach((title) => {
+            Lists.insert({ title: TAPi18n.__(title), boardId }, fakeUser);
+          });
         });
       });
     });
-  });
+  }
 }

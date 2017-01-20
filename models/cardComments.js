@@ -57,6 +57,12 @@ CardComments.helpers({
 CardComments.hookOptions.after.update = { fetchPrevious: false };
 
 if (Meteor.isServer) {
+  // Comments are often fetched within a card, so we create an index to make these
+  // queries more efficient.
+  Meteor.startup(() => {
+    CardComments._collection._ensureIndex({ cardId: 1, createdAt: -1 });
+  });
+
   CardComments.after.insert((userId, doc) => {
     Activities.insert({
       userId,
