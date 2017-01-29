@@ -8,7 +8,7 @@ template(name="filterSidebar")
     li(class="{{#if Filter.labelIds.isSelected undefined}}active{{/if}}")
           a.name.js-toggle-label-filter
             span.sidebar-list-item-description
-              {{_ 'filter-no-label'}}
+              | {{_ 'filter-no-label'}}
             if Filter.labelIds.isSelected undefined
               i.fa.fa-check
     each currentBoard.labels
@@ -27,7 +27,7 @@ template(name="filterSidebar")
     li(class="{{#if Filter.members.isSelected undefined}}active{{/if}}")
           a.name.js-toggle-member-filter
             span.sidebar-list-item-description
-              {{_ 'filter-no-member'}}
+              | {{_ 'filter-no-member'}}
             if Filter.members.isSelected undefined
               i.fa.fa-check
     each currentBoard.activeMembers
@@ -98,4 +98,3 @@ template(name="disambiguateMultiMemberPopup")
 
 template(name="moveSelectionPopup")
   +boardLists
-
