@@ -32,13 +32,9 @@ Newer [Wefork GitHub issues][wefork_issues] will be be moved to there also.
 
 ## Screenshots
 
-[Previous Wekan roadmap][roadmap_wekan]
+[![Screenshot of Wekan][screenshot_wekan]][roadmap_wekan]
 
-[![Screenshot of Wekan][screenshot_wekan]][screenshot]
-
-[Previous Wefork roadmap][roadmap_wefork]
-
-[![Screenshot of Wefork][screenshot_wefork]][screenshot2]
+[![Screenshot of Wefork][screenshot_wefork]][roadmap_wefork]
 
 Wekan supports most features you would expect of it including a real-time user
 interface, cards comments, member assignations, customizable labels, filtered
