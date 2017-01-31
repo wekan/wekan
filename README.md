@@ -1,13 +1,20 @@
-# Wekan fork
+# Wekan
 
-[![Join the chat][rocket_badge]][rocket_chat]
-[![Build Status][travis_badge]][travis_status]
+[![Join the chat][gitter_badge]][gitter_chat]
 
-[Wekan fork FAQ][fork_faq]
+2017-01-31 News: Wekan fork/Wefork is being merged back to official Wekan.
 
-[Wekan fork announcement][fork_announcement]
+[Wefork announcement and merging back][fork_announcement]
 
-[Translate Wekan fork at Transifex][translate_wefork]
+[![Wefork chat][rocket_badge]][rocket_chat]
+
+[![Wefork Build Status][travis_badge]][travis_status]
+
+[Wefork FAQ][fork_faq]
+
+[Newer Wefork translations at Transifex][translate_wefork]
+
+[Wekan at Transifex][translate_wekan]
 
 Wekan is an open-source and collaborative kanban board application.
 
@@ -17,7 +24,21 @@ boards are an unbeatable tool to keep your things organized. They give you a
 visual overview of the current state of your project, and make you productive by
 allowing you to focus on the few items that matter the most.
 
-[![Our roadmap is self-hosted on Wekan fork][screenshot]][roadmap]
+## Roadmap
+
+Roadmap is handled using [Wekan GitHub issues][wekan_issues].
+
+Newer [Wefork GitHub issues][wefork_issues] will be be moved to there also.
+
+## Screenshots
+
+[Previous Wekan roadmap][roadmap_wekan]
+
+[![Screenshot of Wekan][screenshot_wekan]][screenshot]
+
+[Previous Wefork roadmap][roadmap_wefork]
+
+[![Screenshot of Wefork][screenshot_wefork]][screenshot2]
 
 Wekan supports most features you would expect of it including a real-time user
 interface, cards comments, member assignations, customizable labels, filtered
@@ -33,7 +54,7 @@ that by providing one-click installation on various platforms.
 
 [VirtualBox][virtualbox]
 
-Docker: [Docs][docker_docs], [Docker Nginx proxy][docker_nginxproxy], [Docker Issue][docker_issue]
+Docker: [Docker image][docker_image] (needs updating), [Docs][docker_docs], [Docker Nginx proxy][docker_nginxproxy], [Docker Issue][docker_issue]
 
 [Debian Wheezy 64bit][debian_wheezy]
 
@@ -66,22 +87,24 @@ Google Cloud: Needs info how to enable websockets.
 
 ## License
 
-Wekan fork is released under the very permissive [MIT license](LICENSE), and made
+Wekan is released under the very permissive [MIT license](LICENSE), and made
 with [Meteor](https://www.meteor.com).
 
-## Roadmap
-
-[Our roadmap is self-hosted on Wekan fork][roadmap]
-
+[gitter_badge]: https://badges.gitter.im/Join%20Chat.svg
+[gitter_chat]: https://gitter.im/wekan/wekan
 [fork_faq]: https://github.com/wefork/wekan/wiki/FAQ
-[fork_announcement]: https://github.com/wekan/wekan/issues/640#issuecomment-255091832
-[screenshot]: http://i.imgur.com/ShX2OTk.png
+[fork_announcement]: https://github.com/wekan/wekan/issues/640#issuecomment-276383458
+[screenshot_wekan]: http://i.imgur.com/cI4jW2h.png
+[screenshot_wefork]: http://i.imgur.com/ShX2OTk.png
+[roadmap_wekan]: http://try.wekan.io/b/MeSsFJaSqeuo9M6bs/wekan-roadmap
+[roadmap_wefork]: https://wekan.indie.host/b/t2YaGmyXgNkppcFBq/wekan-fork-roadmap
 [rocket_badge]: https://chat.indie.host/images/join-chat.svg
 [rocket_chat]: https://chat.indie.host/channel/wekan
-[roadmap]: https://wekan.indie.host/b/t2YaGmyXgNkppcFBq/wekan-fork-roadmap
+[wekan_issues]: https://github.com/wekan/wekan/issues
+[wefork_issues]: https://github.com/wefork/wekan/issues
 [sandstorm_button]: https://img.shields.io/badge/try-Wekan%20on%20Sandstorm-783189.svg
 [sandstorm_appdemo]: https://demo.sandstorm.io/appdemo/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h
-[docker_image]: https://hub.docker.com/r/...
+[docker_image]: https://hub.docker.com/r/mquandalle/wekan/
 [heroku_button]: https://www.herokucdn.com/deploy/button.png
 [heroku_deploy]: https://heroku.com/deploy?template=https://github.com/wefork/wekan/tree/master
 [indiehosters_button]: https://indie.host/signup.png
@@ -97,9 +120,11 @@ with [Meteor](https://www.meteor.com).
 [sles]: https://github.com/wekan/wekan/wiki/Install-Wekan-Docker-on-SUSE-Linux-Enterprise-Server-12-SP1
 [virtualbox]: https://github.com/wekan/wekan/wiki/virtual-appliance
 [sandstorm_spk]: https://github.com/wefork/wekan/issues/36
+[docker_image]: https://hub.docker.com/r/mquandalle/wekan/
 [docker_docs]: https://github.com/wefork/wekan/wiki/Docker
 [docker_nginxproxy]: https://github.com/wefork/wekan/wiki/Docker-NginxProxy
 [docker_issue]: https://github.com/wefork/wekan/issues/33
+[translate_wekan]: https://www.transifex.com/wekan/wekan/
 [translate_wefork]: https://www.transifex.com/wefork/wefork/
 [autoinstall]: https://github.com/wefork/wekan-autoinstall
 [autoinstall_issue]: https://github.com/anselal/wekan/issues/18
