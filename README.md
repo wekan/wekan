@@ -59,6 +59,8 @@ docker run -d --restart=always --name wekan-db mongo:3.2.11
 docker run -d --restart=always --name wekan --link "wekan-db:db" -e "MONGO_URL=mongodb://db" -e "ROOT_URL=http://localhost:8080" -p 8080:80 mquandalle/wekan:latest
 ```
 
+[Docker on SUSE Linux Enterprise Server 12 SP1][sles]
+
 [Debian Wheezy 64bit][debian_wheezy]
 
 [![Deploy][heroku_button]][heroku_deploy]
@@ -67,9 +69,8 @@ docker run -d --restart=always --name wekan --link "wekan-db:db" -e "MONGO_URL=m
 [![Install on Cloudron][cloudron_button]][cloudron_install]
 [![Try on Sandstorm][sandstorm_button]][sandstorm_appdemo]
 
-## Upcoming Platforms
 
-[Docker on SUSE Linux Enterprise Server 12 SP1][sles]
+## Upcoming Platforms
 
 [Autoinstall script][autoinstall] based on [this issue][autoinstall_issue]
 
