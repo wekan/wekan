@@ -50,7 +50,14 @@ that by providing one-click installation on various platforms.
 
 [VirtualBox][virtualbox]
 
-Docker: [Docker image][docker_image] (needs updating), [Docs][docker_docs], [Docker Nginx proxy][docker_nginxproxy], [Docker Issue][docker_issue]
+Docker: [Docker image][docker_image], [Docs][docker_docs], [Docker Nginx proxy][docker_nginxproxy], [Docker Issue][docker_issue]
+
+Docker example, running latest Wekan:
+```
+docker run -d --restart=always --name wekan-db mongo:3.2.11
+
+docker run -d --restart=always --name wekan --link "wekan-db:db" -e "MONGO_URL=mongodb://db" -e "ROOT_URL=http://localhost:8080" -p 8080:80 mquandalle/wekan:latest
+```
 
 [Debian Wheezy 64bit][debian_wheezy]
 
