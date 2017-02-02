@@ -56,7 +56,7 @@ Docker example, running latest Wekan using docker-compose:
 
 #### Running from remote dockerhub images
 ```
-sudo docker-compose pull & sudo docker-compose up -d --no-build
+sudo docker-compose pull && sudo docker-compose up -d --no-build
 ```
 
 #### Running from locally built dockerhub images
