@@ -72,3 +72,18 @@ BlazeComponent.extendComponent({
     }];
   },
 }).register('checklists');
+
+BlazeComponent.extendComponent({
+  toggleItem() {
+    const checklist = this.currentData().checklist;
+    const item = this.currentData().item;
+    if (checklist && item && item._id) {
+      checklist.toggleItem(item._id);
+    }
+  },
+  events() {
+    return [{
+      'click .item .check-box': this.toggleItem,
+    }];
+  },
+}).register('itemDetail');
