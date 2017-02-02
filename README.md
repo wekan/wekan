@@ -50,9 +50,31 @@ that by providing one-click installation on various platforms.
 
 [VirtualBox][virtualbox]
 
-Docker: [Docker image][docker_image], [Docs][docker_docs], [Docker Nginx proxy][docker_nginxproxy], [Docker Issue][docker_issue]
+### Docker: [Docker image][docker_image], [Docs][docker_docs], [Docker Nginx proxy][docker_nginxproxy], [Docker Issue][docker_issue]
 
-Docker example, running latest Wekan:
+Docker example, running latest Wekan using docker-compose:
+
+#### Running from remote dockerhub images
+```
+sudo docker-compose pull & sudo docker-compose up -d --no-build
+```
+
+#### Running from locally built dockerhub images
+```
+sudo docker-compose up -d --build
+```
+
+#### Running from locally built dockerhub images and modified `ARG` variables (not recommended)
+```
+echo 'NODE_VERSION=v6.6.0' >> .env && \
+echo 'METEOR_RELEASE=1.4.2.3' >> .env && \
+echo 'NPM_VERSION=4.1.2' >> .env && \
+echo 'ARCHITECTURE=linux-x64' >> .env && \
+echo 'SRC_PATH=./' >> .env && \
+sudo docker-compose up -d --build
+```
+
+Docker example, running latest Wekan using docker run commands alone:
 ```
 docker run -d --restart=always --name wekan-db mongo:3.2.11
 
