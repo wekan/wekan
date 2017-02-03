@@ -1,3 +1,38 @@
+# v0.11.1 Upcoming Wekan release
+
+2017-01-29 mquandalle gave Wekan access to xet7,
+so at 2017-01-31 xet7 started merging Wefork back to Wekan.
+At 2017-02-03 all Wefork code and pull requests are now
+merged back to Wekan.
+
+This release adds the following supported platforms:
+
+* Docker;
+* Docker on SLES12SP1.
+
+and adds the following new features:
+
+* Checklists;
+* Remove a list.
+
+and fixes the following bugs:
+
+* Typos in boards.js and boardHeader.js;
+* Build warning in jade template;
+* Using older version of MongoDB because of newer
+  version breaks uploading files and avatars.
+
+and adds the following new documentation to Wefork wiki,
+to be moved to Wekan wiki:
+
+* Developer Documentation
+* Docker
+* Docker NginxProxy
+
+Thanks to GitHub users BaobabCoder, jLouzado, lkisme, mario-orlicky,
+martingabelmann, mquandalle, stephenmoloney, umbertooo, xet7 and
+qge for their contributions.
+
 # v0.11.0 2016-12-16 Wekan fork first release
 
 This release adds the following new features:

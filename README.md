@@ -1,8 +1,10 @@
 # Wekan
 
-[![Join the chat][gitter_badge]][gitter_chat]
+[![JOIN OFFICIAL WEKAN CHAT][gitter_badge]][gitter_chat]
 
-2017-01-31 News: Wekan fork/Wefork is being merged back to official Wekan.
+2017-02-03 News: All Wekan fork/Wefork code and pull requests has been
+merged back to official Wekan. Wefork will not accept new pull requests
+and issues to Wefork. All development happens on Wekan.
 
 [Wefork announcement and merging back][fork_announcement]
 
@@ -12,9 +14,9 @@
 
 [Wefork FAQ][fork_faq]
 
-[Newer Wefork translations at Transifex][translate_wefork]
+[Translate Wekan using newer Wefork translations at Transifex][translate_wefork]
 
-[Wekan at Transifex][translate_wekan]
+[Not in use yet: Old Wekan translations at Transifex][translate_wekan]
 
 Wekan is an open-source and collaborative kanban board application.
 
@@ -37,8 +39,8 @@ Newer [Wefork GitHub issues][wefork_issues] will be be moved to there also.
 [![Screenshot of Wefork][screenshot_wefork]][roadmap_wefork]
 
 Wekan supports most features you would expect of it including a real-time user
-interface, cards comments, member assignations, customizable labels, filtered
-views, and more.
+interface, cards comments, checklists, member assignations, customizable labels,
+closing lists, filtered views, and more.
 
 Since it is a free software, you don’t have to trust us with your data and can
 install Wekan on your own computer or server. In fact we encourage you to do
@@ -46,9 +48,8 @@ that by providing one-click installation on various platforms.
 
 ## Supported Platforms
 
-[Install from source][install_source]
-
-[VirtualBox][virtualbox]
+Newest features are already at dockerhub images by automatically generated
+trusted build. Other platforms are not up-to-date yet.
 
 ### Docker: [Docker image][docker_image], [Docs][docker_docs], [Docker Nginx proxy][docker_nginxproxy], [Docker Issue][docker_issue]
 
@@ -82,6 +83,10 @@ docker run -d --restart=always --name wekan --link "wekan-db:db" -e "MONGO_URL=m
 ```
 
 [Docker on SUSE Linux Enterprise Server 12 SP1][sles]
+
+[Install from source][install_source]
+
+[VirtualBox][virtualbox]
 
 [Debian Wheezy 64bit][debian_wheezy]
 
