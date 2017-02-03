@@ -14,7 +14,7 @@ template(name="minicard")
     .badges
       if comments.count
         .badge(title="{{_ 'card-comments-title' comments.count }}")
-          span.badge-icon.fa.fa-comment-o
+          span.badge-icon.fa.fa-comment-o.badge-comment
           span.badge-text= comments.count
       if description
         .badge.badge-state-image-only(title=description)
@@ -29,3 +29,8 @@ template(name="minicard")
       if dueAt
         .badge
           +minicardDueDate
+      if checklists.count
+        .badge(class="{{#if checklistFinished}}is-finished{{/if}}")
+          span.badge-icon.fa.fa-check-square-o
+          span.badge-text.check-list-text {{checklistFinishedCount}}/{{checklistItemCount}}
+
