@@ -105,6 +105,17 @@ if (Meteor.isServer) {
     });
   });
 
+  Lists.before.remove((userId, doc) => {
+    Activities.insert({
+      userId,
+      type: 'list',
+      activityType: 'removeList',
+      boardId: doc.boardId,
+      listId: doc._id,
+      title: doc.title,
+    });
+  });
+
   Lists.after.update((userId, doc) => {
     if (doc.archived) {
       Activities.insert({

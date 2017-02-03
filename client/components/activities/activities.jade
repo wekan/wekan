@@ -47,6 +47,9 @@ template(name="boardActivities")
         if($eq activityType 'createList')
           | {{_ 'activity-added' list.title boardLabel}}.
 
+        if($eq activityType 'removeList')
+          | {{_ 'activity-removed' title boardLabel}}.
+
         if($eq activityType 'importBoard')
           | {{{_ 'activity-imported-board' boardLabel sourceLink}}}.
 

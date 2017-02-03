@@ -268,6 +268,7 @@
     "remove-cover": "Remover Capa",
     "remove-from-board": "Remover do Quadro",
     "remove-label": "Remover Etiqueta",
+    "remove-list": "Remove the list",
     "remove-member": "Remover Membro",
     "remove-member-from-card": "Remover do Cartão",
     "remove-member-pop": "Remover __name__ (__username__) de __boardTitle__? O membro será removido de todos os cartões neste quadro e será notificado.",

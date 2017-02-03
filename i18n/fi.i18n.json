@@ -268,6 +268,7 @@
     "remove-cover": "Poista kansi",
     "remove-from-board": "Poista taululta",
     "remove-label": "Poista tunniste",
+    "remove-list": "Remove the list",
     "remove-member": "Poista jäsen",
     "remove-member-from-card": "Poista kortilta",
     "remove-member-pop": "Poista __name__ (__username__) taululta __boardTitle__? Jäsen poistetaan kaikilta taulun korteilta. Heille lähetetään ilmoitus.",
