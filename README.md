@@ -2,9 +2,9 @@
 
 [![JOIN OFFICIAL WEKAN CHAT][gitter_badge]][gitter_chat]
 
-2017-02-03 News: All Wekan fork/Wefork code and pull requests has been
-merged back to official Wekan. Wefork will not accept new pull requests
-and issues to Wefork. All development happens on Wekan.
+2017-02-04 News: All Wekan fork/Wefork code, pull requests and translations
+has been merged back to official Wekan. Wefork will not accept new pull
+requests and issues to Wefork. All development happens on Wekan.
 
 [Wefork announcement and merging back][fork_announcement]
 
@@ -14,9 +14,7 @@ and issues to Wefork. All development happens on Wekan.
 
 [Wefork FAQ][fork_faq]
 
-[Translate Wekan using newer Wefork translations at Transifex][translate_wefork]
-
-[Not in use yet: Old Wekan translations at Transifex][translate_wekan]
+[Translate Wekan at Transifex][translate_wekan]
 
 Wekan is an open-source and collaborative kanban board application.
 
@@ -156,6 +154,5 @@ with [Meteor](https://www.meteor.com).
 [docker_nginxproxy]: https://github.com/wefork/wekan/wiki/Docker-NginxProxy
 [docker_issue]: https://github.com/wefork/wekan/issues/33
 [translate_wekan]: https://www.transifex.com/wekan/wekan/
-[translate_wefork]: https://www.transifex.com/wefork/wefork/
 [autoinstall]: https://github.com/wefork/wekan-autoinstall
 [autoinstall_issue]: https://github.com/anselal/wekan/issues/18
