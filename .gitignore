@@ -5,3 +5,4 @@
 tmp/
 node_modules/
 .vscode/
+.build/*
