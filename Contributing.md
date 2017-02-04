@@ -1,3 +1,9 @@
+# IMPORTANT NOTE :
+
+This page is deprecated, please consult the 'Developer Documentation' page on the Wiki, the information here might be out of date.
+
+---
+
 # Contributing
 
 We’re glad you’re interested in helping the Wekan project! We welcome bug
