@@ -26,9 +26,28 @@ allowing you to focus on the few items that matter the most.
 
 ## Roadmap
 
+Upcoming Wekan App Development Platform will make possible
+many use cases like kanban workflows, dependencies, gantt charts,
+WIP limits, time tracking, managing website, Rocket.Chat support
+and custom apps with themes by providing Team/Organizations,
+APIs, admin interface, custom fields, calendar view, time tracking,
+vote on cards, move cards to another board, board templates. LDAP and other
+SSO options are already available on Sandstorm, not standalone Wekan.
+Some of these don't even have feature request in Wekan issues,
+we do need detailed descriptions, screenshots and links to videos
+how these should work.
+
+We are very welcoming to new developers and teams to submit new pull
+requests to devel branch to make this Wekan App Development Platform possible
+faster. By working directly with Wekan you get benefit of active
+maintenance and new features added by growing Wekan developer community.
+Please see [Developer Documentation][dev_docs] to get started.
+
 Roadmap is handled using [Wekan GitHub issues][wekan_issues].
+If you don't see your feature request or use case there, please add it.
 
 Newer [Wefork GitHub issues][wefork_issues] will be be moved to there also.
+
 
 ## Screenshots
 
@@ -37,8 +56,8 @@ Newer [Wefork GitHub issues][wefork_issues] will be be moved to there also.
 [![Screenshot of Wefork][screenshot_wefork]][roadmap_wefork]
 
 Wekan supports most features you would expect of it including a real-time user
-interface, cards comments, checklists, member assignations, customizable labels,
-closing lists, filtered views, and more.
+interface, import from Trello, cards comments, checklists, member assignations,
+customizable labels, closing lists, filtered views, and more.
 
 Since it is a free software, you don’t have to trust us with your data and can
 install Wekan on your own computer or server. In fact we encourage you to do
@@ -156,3 +175,4 @@ with [Meteor](https://www.meteor.com).
 [translate_wekan]: https://www.transifex.com/wekan/wekan/
 [autoinstall]: https://github.com/wefork/wekan-autoinstall
 [autoinstall_issue]: https://github.com/anselal/wekan/issues/18
+[dev_docs]: https://github.com/wekan/wekan/wiki/Developer-Documentation
