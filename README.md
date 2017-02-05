@@ -29,7 +29,7 @@ allowing you to focus on the few items that matter the most.
 Upcoming Wekan App Development Platform will make possible
 many use cases like kanban workflows, dependencies, gantt charts,
 WIP limits, time tracking, managing website, Rocket.Chat support
-and custom apps with themes by providing Team/Organizations,
+and custom apps with themes by providing Teams/Organizations,
 APIs, admin interface, custom fields, calendar view, time tracking,
 vote on cards, move cards to another board and board templates.
 LDAP and other SSO options are already available on Sandstorm,
