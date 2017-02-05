@@ -39,7 +39,7 @@ screenshots and links to videos how these should work.
 
 We are very welcoming to new developers and teams to submit new pull
 requests to devel branch to make this Wekan App Development Platform possible
-faster. By working directly with Wekan you get benefit of active
+faster. By working directly with Wekan you get the benefit of active
 maintenance and new features added by growing Wekan developer community.
 Please see [Developer Documentation][dev_docs] to get started.
 
