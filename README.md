@@ -31,11 +31,11 @@ many use cases like kanban workflows, dependencies, gantt charts,
 WIP limits, time tracking, managing website, Rocket.Chat support
 and custom apps with themes by providing Team/Organizations,
 APIs, admin interface, custom fields, calendar view, time tracking,
-vote on cards, move cards to another board, board templates. LDAP and other
-SSO options are already available on Sandstorm, not standalone Wekan.
-Some of these don't even have feature request in Wekan issues,
-we do need detailed descriptions, screenshots and links to videos
-how these should work.
+vote on cards, move cards to another board and board templates.
+LDAP and other SSO options are already available on Sandstorm,
+not standalone Wekan. Some of these don't even have feature
+requests in Wekan issues, so we do need detailed descriptions,
+screenshots and links to videos how these should work.
 
 We are very welcoming to new developers and teams to submit new pull
 requests to devel branch to make this Wekan App Development Platform possible
