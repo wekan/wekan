@@ -1,14 +1,12 @@
 # Wekan
 
-[![JOIN OFFICIAL WEKAN CHAT][gitter_badge]][gitter_chat]
+[![Wekan chat][vanila_badge]][vanila_chat]
 
 2017-02-04 News: All Wekan fork/Wefork code, pull requests and translations
 has been merged back to official Wekan. Wefork will not accept new pull
 requests and issues to Wefork. All development happens on Wekan.
 
 [Wefork announcement and merging back][fork_announcement]
-
-[![Wefork chat][rocket_badge]][rocket_chat]
 
 [![Wefork Build Status][travis_badge]][travis_status]
 
@@ -138,16 +136,14 @@ Google Cloud: Needs info how to enable websockets.
 Wekan is released under the very permissive [MIT license](LICENSE), and made
 with [Meteor](https://www.meteor.com).
 
-[gitter_badge]: https://badges.gitter.im/Join%20Chat.svg
-[gitter_chat]: https://gitter.im/wekan/wekan
+[vanila_badge]: https://vanila.io/img/join-chat-button2.png
+[vanila_chat]: https://chat.vanila.io/channel/wekan
 [fork_faq]: https://github.com/wefork/wekan/wiki/FAQ
 [fork_announcement]: https://github.com/wekan/wekan/issues/640#issuecomment-276383458
 [screenshot_wekan]: http://i.imgur.com/cI4jW2h.png
 [screenshot_wefork]: http://i.imgur.com/ShX2OTk.png
 [roadmap_wekan]: http://try.wekan.io/b/MeSsFJaSqeuo9M6bs/wekan-roadmap
 [roadmap_wefork]: https://wekan.indie.host/b/t2YaGmyXgNkppcFBq/wekan-fork-roadmap
-[rocket_badge]: https://chat.indie.host/images/join-chat.svg
-[rocket_chat]: https://chat.indie.host/channel/wekan
 [wekan_issues]: https://github.com/wekan/wekan/issues
 [wefork_issues]: https://github.com/wefork/wekan/issues
 [sandstorm_button]: https://img.shields.io/badge/try-Wekan%20on%20Sandstorm-783189.svg
