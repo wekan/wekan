@@ -2,9 +2,9 @@
 
 [![Wekan chat][vanila_badge]][vanila_chat]
 
-2017-02-04 News: All Wekan fork/Wefork code, pull requests and translations
-has been merged back to official Wekan. Wefork will not accept new pull
-requests and issues to Wefork. All development happens on Wekan.
+2017-02-08 News: All of Wefork is now merged and moved back to official
+Wekan. Wefork will not accept any new issues and pull requests.
+All development happens on Wekan.
 
 [Wefork announcement and merging back][fork_announcement]
 
@@ -22,6 +22,18 @@ boards are an unbeatable tool to keep your things organized. They give you a
 visual overview of the current state of your project, and make you productive by
 allowing you to focus on the few items that matter the most.
 
+Wekan supports most features you would expect of it including a real-time user
+interface, import from Trello (on standalone Wekan), cards comments, checklists,
+member assignations, customizable labels, closing lists, filtered views, and more.
+
+SSO options like LDAP, passwordless email, SAML, GitHub and Google Auth are
+already available on Sandstorm, not standalone Wekan. Sandstorm is now completely
+Open Source, including server clustering.
+
+Since Wekan is a free software, you don’t have to trust us with your data and can
+install Wekan on your own computer or server. In fact we encourage you to do
+that by providing one-click installation on various platforms.
+
 ## Roadmap
 
 Upcoming Wekan App Development Platform will make possible
@@ -30,10 +42,9 @@ WIP limits, time tracking, managing website, Rocket.Chat support
 and custom apps with themes by providing Teams/Organizations,
 APIs, admin interface, custom fields, calendar view, time tracking,
 vote on cards, move cards to another board and board templates.
-LDAP and other SSO options are already available on Sandstorm,
-not standalone Wekan. Some of these don't even have feature
-requests in Wekan issues, so we do need detailed descriptions,
-screenshots and links to videos how these should work.
+Some of these don't even have feature requests in Wekan issues,
+so we do need detailed descriptions, screenshots and links to
+videos how these should work.
 
 We are very welcoming to new developers and teams to submit new pull
 requests to devel branch to make this Wekan App Development Platform possible
@@ -53,18 +64,15 @@ Newer [Wefork GitHub issues][wefork_issues] will be be moved to there also.
 
 [![Screenshot of Wefork][screenshot_wefork]][roadmap_wefork]
 
-Wekan supports most features you would expect of it including a real-time user
-interface, import from Trello, cards comments, checklists, member assignations,
-customizable labels, closing lists, filtered views, and more.
-
-Since it is a free software, you don’t have to trust us with your data and can
+Since Wekan is a free software, you don’t have to trust us with your data and can
 install Wekan on your own computer or server. In fact we encourage you to do
 that by providing one-click installation on various platforms.
 
 ## Supported Platforms
 
-Newest features are already at dockerhub images by automatically generated
-trusted build. Other platforms are not up-to-date yet.
+Automatic generated newest builds are available for Docker, and some others that
+install directly from this repo. Automatic builds will be added later for more
+platforms.
 
 ### Docker: [Docker image][docker_image], [Docs][docker_docs], [Docker Nginx proxy][docker_nginxproxy], [Docker Issue][docker_issue]
 
