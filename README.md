@@ -27,8 +27,11 @@ interface, import from Trello (on standalone Wekan), cards comments, checklists,
 member assignations, customizable labels, closing lists, filtered views, and more.
 
 SSO options like LDAP, passwordless email, SAML, GitHub and Google Auth are
-already available on Sandstorm, not standalone Wekan. Sandstorm is now completely
-Open Source, including server clustering.
+already available on Sandstorm, not standalone Wekan. Sandstorm is Enterprise
+scale highly secure platform with grains, logging, admin settings,
+server clustering, App Market and it's now fully Open Source. Sandstorm is
+preferred platform for Wekan, as it would take a lot of work to reimplement
+everything in standalone Wekan.
 
 Since Wekan is a free software, you don’t have to trust us with your data and can
 install Wekan on your own computer or server. In fact we encourage you to do
@@ -52,17 +55,18 @@ faster. By working directly with Wekan you get the benefit of active
 maintenance and new features added by growing Wekan developer community.
 Please see [Developer Documentation][dev_docs] to get started.
 
-Roadmap is handled using [Wekan GitHub issues][wekan_issues].
-If you don't see your feature request or use case there, please add it.
+[Roadmap is self-hosted on Wekan][roadmap_wefork]
 
-Newer [Wefork GitHub issues][wefork_issues] will be be moved to there also.
+At roadmap there is links to [Wekan GitHub issues][wekan_issues] where actual
+work happens. If you don't see your feature request at GitHub issues,
+please add it. Not all feature requests have been added to roadmap board yet.
 
-
-## Screenshots
-
-[![Screenshot of Wekan][screenshot_wekan]][roadmap_wekan]
+## Screenshot
 
 [![Screenshot of Wefork][screenshot_wefork]][roadmap_wefork]
+
+Content is being copied from [old Wekan roadmap][roadmap_wekan] to
+new one in process of merging Wefork back to Wekan.
 
 Since Wekan is a free software, you don’t have to trust us with your data and can
 install Wekan on your own computer or server. In fact we encourage you to do
@@ -149,7 +153,7 @@ with [Meteor](https://www.meteor.com).
 [fork_faq]: https://github.com/wefork/wekan/wiki/FAQ
 [fork_announcement]: https://github.com/wekan/wekan/issues/640#issuecomment-276383458
 [screenshot_wekan]: http://i.imgur.com/cI4jW2h.png
-[screenshot_wefork]: http://i.imgur.com/ShX2OTk.png
+[screenshot_wefork]: http://i.imgur.com/auWUKxO.png
 [roadmap_wekan]: http://try.wekan.io/b/MeSsFJaSqeuo9M6bs/wekan-roadmap
 [roadmap_wefork]: https://wekan.indie.host/b/t2YaGmyXgNkppcFBq/wekan-fork-roadmap
 [wekan_issues]: https://github.com/wekan/wekan/issues
