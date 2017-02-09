@@ -19,9 +19,7 @@ const EditCardEstimate = BlazeComponent.extendComponent({
       'submit .edit-estimate'(evt) {
         evt.preventDefault();
 
-        var estimate = evt.target.estimate.value;
-        //jlouzado TODO remove debug statements later
-        console.log("estimate = " + estimate);
+        let estimate = evt.target.estimate.value;
         if (estimate && estimate >= 0) {
           this._storeEstimate(estimate);
           Popup.close();
@@ -84,5 +82,5 @@ const CardEstimate = BlazeComponent.extendComponent({
     return [{
       'click .js-edit-estimate': Popup.open('editCardEstimate'),
     }];
-  }
+  },
 }).register('cardEstimate');
