@@ -184,6 +184,7 @@
     "error-user-notAllowSelf": "This action on self is not allowed",
     "error-user-notCreated": "This user is not created",
     "error-username-taken": "This username is already taken",
+    "estimate-hrs": "Estimate (Hrs)",
     "export-board": "Export board",
     "filter": "Filter",
     "filter-cards": "Filter Cards",
