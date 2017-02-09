@@ -33,9 +33,9 @@ server clustering, App Market and it's now fully Open Source. Sandstorm is
 preferred platform for Wekan, as it would take a lot of work to reimplement
 everything in standalone Wekan.
 
-Since Wekan is a free software, you don’t have to trust us with your data and can
-install Wekan on your own computer or server. In fact we encourage you to do
-that by providing one-click installation on various platforms.
+You don’t have to trust us with your data and can install Wekan on your own
+computer or server. In fact we encourage you to do that by providing
+one-click installation on various platforms.
 
 ## Roadmap
 
@@ -51,9 +51,10 @@ videos how these should work.
 
 We are very welcoming to new developers and teams to submit new pull
 requests to devel branch to make this Wekan App Development Platform possible
-faster. By working directly with Wekan you get the benefit of active
-maintenance and new features added by growing Wekan developer community.
-Please see [Developer Documentation][dev_docs] to get started.
+faster. Please see [Developer Documentation][dev_docs] to get started.
+We also welcome sponsors for features. By working directly with Wekan you
+get the benefit of active maintenance and new features added by
+growing Wekan developer community.
 
 [Roadmap is self-hosted on Wekan][roadmap_wefork]
 
