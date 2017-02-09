@@ -45,6 +45,11 @@ template(name="cardDetails")
           h3.card-details-item-title {{_ 'card-due'}}
           +cardDueDate
 
+      if estimate
+        .card-details-item.card-details-item-estimate
+          h3.card-details-item-title {{_ 'estimate-hrs'}}
+          +cardEstimate
+
 
     //- XXX We should use "editable" to avoid repetiting ourselves
     if currentUser.isBoardMember
@@ -90,6 +95,8 @@ template(name="cardDetails")
       +commentForm
     if isLoaded.get
       +activities(card=this mode="card")
+
+template(name="")
 
 template(name="editCardTitleForm")
   textarea.js-edit-card-title(rows='1' autofocus)
