@@ -50,7 +50,6 @@ template(name="cardDetails")
           h3.card-details-item-title {{_ 'estimate-hrs'}}
           +cardEstimate
 
-
     //- XXX We should use "editable" to avoid repetiting ourselves
     if currentUser.isBoardMember
       h3.card-details-item-title {{_ 'description'}}
@@ -115,6 +114,7 @@ template(name="cardDetailsActionsPopup")
     li: a.js-attachments {{_ 'card-edit-attachments'}}
     li: a.js-start-date {{_ 'editCardStartDatePopup-title'}}
     li: a.js-due-date {{_ 'editCardDueDatePopup-title'}}
+    li: a.js-estimate {{_ 'editCardEstimate-title'}}
   hr
   ul.pop-over-list
     li: a.js-move-card-to-top {{_ 'moveCardToTop-title'}}
