@@ -81,7 +81,7 @@ Automatic generated newest builds are available for Docker, and some others that
 install directly from this repo. Automatic builds will be added later for more
 platforms.
 
-### Docker: [Docker image][docker_image], [Docs][docker_docs], [Docker Nginx proxy][docker_nginxproxy], [Docker Issue][docker_issue]
+### Docker: [Docker image][docker_image], [Docs at wiki][wekan_wiki]
 
 Docker example, running latest Wekan using docker-compose:
 
@@ -165,26 +165,24 @@ with [Meteor](https://www.meteor.com).
 [sandstorm_appdemo]: https://demo.sandstorm.io/appdemo/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h
 [docker_image]: https://hub.docker.com/r/mquandalle/wekan/
 [heroku_button]: https://www.herokucdn.com/deploy/button.png
-[heroku_deploy]: https://heroku.com/deploy?template=https://github.com/wefork/wekan/tree/master
+[heroku_deploy]: https://heroku.com/deploy?template=https://github.com/wekan/wekan/tree/master
 [indiehosters_button]: https://indie.host/signup.png
 [indiehosters_saas]: https://indiehosters.net/shop/product/wekan-20
 [scalingo_button]: https://cdn.scalingo.com/deploy/button.svg
-[scalingo_deploy]: https://my.scalingo.com/deploy?source=https://github.com/wefork/wekan#master
+[scalingo_deploy]: https://my.scalingo.com/deploy?source=https://github.com/wekan/wekan#master
 [cloudron_button]: https://cloudron.io/img/button.svg
 [cloudron_install]: https://cloudron.io/button.html?app=io.wekan.cloudronapp
 [debian_wheezy]: https://github.com/soohwa/sps/blob/master/example/docs/1/wekan.md
-[travis_badge]: https://travis-ci.org/wefork/wekan.svg?branch=devel
-[travis_status]: https://travis-ci.org/wefork/wekan
-[install_source]: https://github.com/wefork/wekan/wiki/Install-from-source
+[travis_badge]: https://travis-ci.org/wekan/wekan.svg?branch=devel
+[travis_status]: https://travis-ci.org/wekan/wekan
+[install_source]: https://github.com/wekan/wekan/wiki/Install-and-Update#install-manually-from-source
 [sles]: https://github.com/wekan/wekan/wiki/Install-Wekan-Docker-on-SUSE-Linux-Enterprise-Server-12-SP1
 [virtualbox]: https://github.com/wekan/wekan/wiki/virtual-appliance
-[sandstorm_spk]: https://github.com/wefork/wekan/issues/36
+[sandstorm_spk]: https://github.com/wekan/wekan/issues/823
 [docker_image]: https://hub.docker.com/r/mquandalle/wekan/
-[docker_docs]: https://github.com/wefork/wekan/wiki/Docker
-[docker_nginxproxy]: https://github.com/wefork/wekan/wiki/Docker-NginxProxy
-[docker_issue]: https://github.com/wefork/wekan/issues/33
+[wekan_wiki]: https://github.com/wekan/wekan/wiki
 [translate_wekan]: https://www.transifex.com/wekan/wekan/
-[autoinstall]: https://github.com/wefork/wekan-autoinstall
+[autoinstall]: https://github.com/wekan/wekan-autoinstall
 [autoinstall_issue]: https://github.com/anselal/wekan/issues/18
 [dev_docs]: https://github.com/wekan/wekan/wiki/Developer-Documentation
 [donations]: http://www.xet7.org/wekan
