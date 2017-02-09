@@ -67,8 +67,9 @@ Cards.attachSchema(new SimpleSchema({
   estimate: {
     type: Number,
     optional: true,
+    //jlouzado TODO  : remove autovalue later
     autoValue() {
-      return 1;
+      return 5;
     },
     min: 0,
   },
@@ -268,6 +269,14 @@ Cards.mutations({
 
   unsetDue() {
     return { $unset: { dueAt: '' }};
+  },
+
+  setEstimate(estimate) {
+    return { $set: { estimate }};
+  },
+
+  unsetEstimate() {
+    return { $unset: { estimate: -1 }};
   },
 });
 
