@@ -42,7 +42,7 @@ and fixes the following bugs:
   and avatars, so using older version;
 * Tweaked .gitignore to exclude .build/*;
 * Fix executeUpTo label when dragging cards,
-  popup was not in the predefined hierachy;
+  popup was not in the predefined hierachy.
 
 and adds the following new documentation:
 
