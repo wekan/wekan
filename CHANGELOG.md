@@ -73,6 +73,7 @@ This release adds the following new features:
 * Add a warning indicator when the application is offline;
 * A new log-in button on the public board view to sign in, even if the board
   is published;
+* New link to the keyboard shortcuts in the board sidebar;
 
 and fixes the following bugs:
 
