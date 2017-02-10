@@ -8,30 +8,42 @@ merged back to Wekan.
 This release adds the following supported platforms:
 
 * Docker;
-* Docker on SLES12SP1.
+* Docker on SLES12SP1;
+* Install from source.
 
 and adds the following new features:
 
 * Checklists;
-* Remove a list.
+* Remove a list;
+* Admin of board can leave board if he/she
+  is not last admin in the board;
+* Shortcuts popup, link to it on
+  bottom right corner;
+* Links are now underlined and change
+  link color on hover;
+* Added YuGothic and Meiryo fonts to show
+  non-English text correctly.
 
 and fixes the following bugs:
 
+* Update xss to v0.3.3;
 * Typos in boards.js and boardHeader.js;
 * Build warning in jade template;
-* Using older version of MongoDB because of newer
-  version breaks uploading files and avatars.
+* New MongoDB version breaks uploading files
+  and avatars, so using older version;
+* Tweaked .gitignore to exclude .build/*;
+* Fix executeUpTo label when dragging cards,
+  popup was not in the predefined hierachy;
 
-and adds the following new documentation to Wefork wiki,
-to be moved to Wekan wiki:
+and adds the following new documentation:
 
-* Developer Documentation
-* Docker
-* Docker NginxProxy
+* Developer Documentation;
+* Docker;
+* and others.
 
-Thanks to GitHub users BaobabCoder, jLouzado, lkisme, mario-orlicky,
-martingabelmann, mquandalle, stephenmoloney, umbertooo, xet7 and
-qge for their contributions.
+Thanks to GitHub users AlexanderR, BaobabCoder, jLouzado, kamijin-fanta,
+lkisme, mario-orlicky, martingabelmann, mquandalle, stephenmoloney,
+umbertooo, xet7 and qge for their contributions.
 
 # v0.11.0 2016-12-16 Wekan fork first release
 
