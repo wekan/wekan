@@ -1,3 +1,8 @@
+# Next Wekan version plans
+
+* When known bugs are fixed, v0.11.1 will be released.
+* After that, next version will be v0.12 .
+
 # v0.11.1-rc1 2017-02-10 Wekan prerelease
 
 2017-01-29 mquandalle gave Wekan access to xet7,
