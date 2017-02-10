@@ -44,7 +44,7 @@ BlazeComponent.extendComponent({
       placeholder: 'minicard-wrapper placeholder',
       start(evt, ui) {
         ui.placeholder.height(ui.helper.height());
-        EscapeActions.executeUpTo('popup');
+        EscapeActions.executeUpTo('popup-close');
         boardComponent.setIsDragging(true);
       },
       stop(evt, ui) {
