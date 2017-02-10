@@ -94,6 +94,9 @@ BlazeComponent.extendComponent({
       'click .js-hide-sidebar': this.hide,
       'click .js-toggle-sidebar': this.toggle,
       'click .js-back-home': this.setView,
+      'click .js-shortcuts'() {
+        FlowRouter.go('shortcuts');
+      },
     }];
   },
 }).register('sidebar');
