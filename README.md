@@ -1,5 +1,7 @@
 # Wekan
 
+[![Wekan Build Status][travis_badge]][travis_status]
+
 [![Wekan chat][vanila_badge]][vanila_chat]
 
 [Donations][donations]
@@ -9,8 +11,6 @@ Wekan. Wefork will not accept any new issues and pull requests.
 All development happens on Wekan.
 
 [Wefork announcement and merging back][fork_announcement]
-
-[![Wefork Build Status][travis_badge]][travis_status]
 
 [Wefork FAQ][fork_faq]
 
