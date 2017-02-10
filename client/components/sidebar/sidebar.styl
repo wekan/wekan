@@ -6,11 +6,19 @@
   bottom: 0
   right: 0
 
-  .sidebar-content
-    padding: 12px
+  .sidebar-shadow
+    position: absolute
+    top: 0
+    bottom: 0
+    right: 0
+    left: 0
     background: darken(white, 3%)
     box-shadow: -10px 0px 5px -10px darken(white, 30%)
     z-index: 10
+
+  .sidebar-content
+    padding: 12px
+    margin-bottom: 1.6em
     position: absolute
     top: 0
     bottom: 0
@@ -51,6 +59,7 @@
 
         .member, .card-label
           margin-right: 7px
+          margin-top: 5px
 
         .sidebar-list-item-description
           flex: 1
@@ -71,6 +80,16 @@
 
       i.fa
         margin-right: 10px
+
+  .sidebar-shortcuts
+    margin: 0
+    padding: 0
+    top: auto
+    text-align: center
+    font-size: 0.8em
+    line-height: 1.6em
+    vertical-align: middle
+    color: darken(white, 40%)
 
 .board-sidebar
   width: 248px

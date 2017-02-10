@@ -33,7 +33,7 @@ Template.boardChangeTitlePopup.events({
     const newDesc = tpl.$('.js-board-desc').val().trim();
     if (newTitle) {
       this.rename(newTitle);
-      this.setDesciption(newDesc);
+      this.setDescription(newDesc);
       Popup.close();
     }
     evt.preventDefault();

@@ -1,4 +1,67 @@
-# v0.11
+# v0.11.1 Upcoming Wekan release
+
+2017-01-29 mquandalle gave Wekan access to xet7,
+so at 2017-01-31 xet7 started merging Wefork back to Wekan.
+At 2017-02-03 all Wefork code and pull requests are now
+merged back to Wekan.
+
+This release adds the following supported platforms:
+
+* Docker;
+* Docker on SLES12SP1.
+
+and adds the following new features:
+
+* Checklists;
+* Remove a list.
+
+and fixes the following bugs:
+
+* Typos in boards.js and boardHeader.js;
+* Build warning in jade template;
+* Using older version of MongoDB because of newer
+  version breaks uploading files and avatars.
+
+and adds the following new documentation to Wefork wiki,
+to be moved to Wekan wiki:
+
+* Developer Documentation
+* Docker
+* Docker NginxProxy
+
+Thanks to GitHub users BaobabCoder, jLouzado, lkisme, mario-orlicky,
+martingabelmann, mquandalle, stephenmoloney, umbertooo, xet7 and
+qge for their contributions.
+
+# v0.11.0 2016-12-16 Wekan fork first release
+
+This release adds the following new features:
+
+* Start- and Duedate for cards;
+* Allow IE 11 to work;
+* Option to hide system messages in the card;
+* Option to setup minimum limit to show cards count
+  for each list in board;
+* Option 'filter by empty' to filter by cards by 'no member'
+  and 'no label' properties;
+* Speedup: Added MongoDB index on CardId into Comments collection.
+* Translation updates
+
+and fixes the following bugs:
+
+* Sandstorm: username handling, restore identity, eslint regressions,
+  board not found;
+* Failure to load when navigator.language is Chinese or Finnish;
+* Hover background for labels in filter sidebar. Now correctly
+  centered;
+* Display message when user wants to choose existing username;
+* Client sometimes fails to receive current user's profile;
+* Old users could see broken presence indicators on new users.
+
+Thanks to GitHub users dwrencha, fmonthel, mario-orlicky, pierreozoux,
+shoetten, and xet7 for their contributions.
+
+# v0.11.0-rc2 2016-07-21
 
 This release adds the following new features:
 
@@ -10,6 +73,7 @@ This release adds the following new features:
 * Add a warning indicator when the application is offline;
 * A new log-in button on the public board view to sign in, even if the board
   is published;
+* New link to the keyboard shortcuts in the board sidebar;
 
 and fixes the following bugs:
 
@@ -27,14 +91,14 @@ and fixes the following bugs:
 Thanks to GitHub users alayek, AlexanderS, choclin, floatinghotpot, ForNeVeR,
 PeterDaveHello, seschwar, and TheElf for their contributions.
 
-# v0.10.1
+# v0.10.1 2015-12-30
 
 This patch release fixes two bugs on Sandstorm:
 
 * Drag and drop was broken;
 * Avatars weren’t working.
 
-# v0.10
+# v0.10 2015-12-22
 
 This release features:
 
@@ -56,7 +120,7 @@ New languages supported: Arabic, Catalan, Italian, and Russian.
 Thanks to GitHub users AlexanderS, fisle, floatinghotpot, FuzzyWuzzie, mnutt,
 ndarilek, SirCmpwn, and xavierpriour for their contributions.
 
-# v0.9
+# v0.9 2015-09-10
 
 This release is a large re-write of the previous code base. This release marks
 the beginning of our new user interface and continues to improve the overall

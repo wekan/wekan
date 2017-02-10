@@ -3,14 +3,19 @@ template(name="sidebar")
     a.sidebar-tongue.js-toggle-sidebar(
       class="{{#if isTongueHidden}}is-hidden{{/if}}")
       i.fa.fa-angle-left
-    .sidebar-content.js-board-sidebar-content.js-perfect-scrollbar
-      a.hide-btn.js-hide-sidebar
-        i.fa.fa-angle-right
-      unless isDefaultView
-        h2
-          a.fa.fa-chevron-left.js-back-home
-          = getViewTitle
-      +Template.dynamic(template=getViewTemplate)
+    .sidebar-shadow
+      .sidebar-content.sidebar-shortcuts
+        a.board-header-btn.js-shortcuts
+          i.fa.fa-keyboard-o
+          span {{_ 'keyboard-shortcuts' }}
+      .sidebar-content.js-board-sidebar-content.js-perfect-scrollbar
+        a.hide-btn.js-hide-sidebar
+          i.fa.fa-angle-right
+        unless isDefaultView
+          h2
+            a.fa.fa-chevron-left.js-back-home
+            = getViewTitle
+        +Template.dynamic(template=getViewTemplate)
 
 template(name='homeSidebar')
   +membersWidget
@@ -30,10 +35,13 @@ template(name="membersWidget")
     .board-widget-content
       each currentBoard.activeMembers
         +userAvatar(userId=this.userId showStatus=true)
-      unless isSandstorm
-        if currentUser.isBoardAdmin
-          a.member.add-member.js-manage-board-members
+      if isSandstorm
+        if currentUser.isBoardMember
+          a.member.add-member.sandstorm-powerbox-request-identity
             i.fa.fa-plus
+      else if currentUser.isBoardAdmin
+        a.member.add-member.js-manage-board-members
+          i.fa.fa-plus
       .clearfix
   if isInvited
     hr

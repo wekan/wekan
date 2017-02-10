@@ -56,6 +56,14 @@ Cards.attachSchema(new SimpleSchema({
     type: [String],
     optional: true,
   },
+  startAt: {
+    type: Date,
+    optional: true,
+  },
+  dueAt: {
+    type: Date,
+    optional: true,
+  },
   // XXX Should probably be called `authorId`. Is it even needed since we have
   // the `members` field?
   userId: {
@@ -133,6 +141,36 @@ Cards.helpers({
     return cover && cover.url() && cover;
   },
 
+  checklists() {
+    return Checklists.find({ cardId: this._id }, { sort: { createdAt: 1 }});
+  },
+
+  checklistItemCount() {
+    const checklists = this.checklists().fetch();
+    return checklists.map((checklist) => {
+      return checklist.itemCount();
+    }).reduce((prev, next) => {
+      return prev + next;
+    }, 0);
+  },
+
+  checklistFinishedCount() {
+    const checklists = this.checklists().fetch();
+    return checklists.map((checklist) => {
+      return checklist.finishedCount();
+    }).reduce((prev, next) => {
+      return prev + next;
+    }, 0);
+  },
+
+  checklistFinished() {
+    return this.hasChecklist() && this.checklistItemCount() === this.checklistFinishedCount();
+  },
+
+  hasChecklist() {
+    return this.checklistItemCount() !== 0;
+  },
+
   absoluteUrl() {
     const board = this.board();
     return FlowRouter.url('card', {
@@ -206,6 +244,22 @@ Cards.mutations({
 
   unsetCover() {
     return { $unset: { coverId: '' }};
+  },
+
+  setStart(startAt) {
+    return { $set: { startAt }};
+  },
+
+  unsetStart() {
+    return { $unset: { startAt: '' }};
+  },
+
+  setDue(dueAt) {
+    return { $set: { dueAt }};
+  },
+
+  unsetDue() {
+    return { $unset: { dueAt: '' }};
   },
 });
 

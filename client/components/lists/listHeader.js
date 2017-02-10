@@ -13,6 +13,14 @@ BlazeComponent.extendComponent({
     return list.findWatcher(Meteor.userId());
   },
 
+  limitToShowCardsCount() {
+    return Meteor.user().getLimitToShowCardsCount();
+  },
+
+  showCardsCountForList(count) {
+    return count > this.limitToShowCardsCount();
+  },
+
   events() {
     return [{
       'click .js-open-list-menu': Popup.open('listAction'),
@@ -50,6 +58,12 @@ Template.listActionPopup.events({
   'click .js-close-list'(evt) {
     evt.preventDefault();
     this.archive();
+    Popup.close();
+  },
+  'click .js-remove-list'(evt) {
+    const currentList = this;
+    evt.preventDefault();
+    Lists.remove(currentList._id);
     Popup.close();
   },
 });

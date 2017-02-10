@@ -3,7 +3,7 @@
 global-reset()
 
 html, body, input, select, textarea, button
-  font: 14px Roboto, "Helvetica Neue", Arial, Helvetica, sans-serif
+  font: 14px Roboto, "Helvetica Neue", Arial, Helvetica, "Yu Gothic", "Meiryo", sans-serif
   line-height: 18px
   color: #4d4d4d
 
@@ -351,6 +351,11 @@ a
     background: darken(white, 13%)
     overflow-y: auto
 
+  a
+    text-decoration: underline
+    &:hover
+      color: #333
+
 .basicTabs-container .tabs-content-container
   padding: 0
   padding-top: 15px
@@ -374,3 +379,8 @@ a
   .wrapper
     height: 100%
     margin: 0px
+
+.inline-input
+  height: 37px
+  margin: 8px 10px 0 0
+  width: 50px
