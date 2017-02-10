@@ -1,6 +1,6 @@
 {
   "name": "wekan",
-  "version": "0.11.0",
+  "version": "0.11.1-rc1",
   "description": "The open-source Trello-like kanban",
   "private": true,
   "scripts": {
@@ -9,13 +9,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wefork/wekan.git"
+    "url": "git+https://github.com/wekan/wekan.git"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/wefork/wekan/issues"
+    "url": "https://github.com/wekan/wekan/issues"
   },
-  "homepage": "https://github.com/wefork/wekan",
+  "homepage": "https://github.com/wekan/wekan",
   "devDependencies": {
     "eslint": "^2.0.0"
   },

@@ -1,9 +1,13 @@
-# v0.11.1 Upcoming Wekan release
+# v0.11.1-rc1 2017-02-10 Wekan prerelease
 
 2017-01-29 mquandalle gave Wekan access to xet7,
 so at 2017-01-31 xet7 started merging Wefork back to Wekan.
 At 2017-02-03 all Wefork code and pull requests are now
 merged back to Wekan.
+
+Known bugs:
+* https://github.com/wekan/wekan/issues/785
+* https://github.com/wekan/wekan/issues/784
 
 This release adds the following supported platforms:
 
