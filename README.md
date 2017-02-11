@@ -66,7 +66,7 @@ please add it. Not all feature requests have been added to roadmap board yet.
 
 ## Screenshot
 
-[![Screenshot of Wefork][screenshot_wefork]][roadmap_wefork]
+[![Screenshot of Wekan][screenshot_wefork]][roadmap_wefork]
 
 Content is being copied from [old Wekan roadmap][roadmap_wekan] to
 new one in process of merging Wefork back to Wekan.
@@ -156,7 +156,7 @@ with [Meteor](https://www.meteor.com).
 [fork_faq]: https://github.com/wefork/wekan/wiki/FAQ
 [fork_announcement]: https://github.com/wekan/wekan/issues/640#issuecomment-276383458
 [screenshot_wekan]: http://i.imgur.com/cI4jW2h.png
-[screenshot_wefork]: http://i.imgur.com/auWUKxO.png
+[screenshot_wefork]: http://i.imgur.com/OCtpqb6.png
 [roadmap_wekan]: http://try.wekan.io/b/MeSsFJaSqeuo9M6bs/wekan-roadmap
 [roadmap_wefork]: https://wekan.indie.host/b/t2YaGmyXgNkppcFBq/wekan-fork-roadmap
 [wekan_issues]: https://github.com/wekan/wekan/issues
