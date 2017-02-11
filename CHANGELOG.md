@@ -1,7 +1,10 @@
-# Next Wekan version plans
+# Upcoming Wekan release
 
-* When known bugs are fixed, v0.11.1 will be released.
-* After that, next version will be v0.12 .
+This release add followin new features:
+
+* Make Due Date layout nicer on minicard.
+
+Thanks to GitHub user whittssg2 for his contributions.
 
 # v0.11.1-rc1 2017-02-10 Wekan prerelease
 
