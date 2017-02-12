@@ -1,6 +1,6 @@
 # Upcoming Wekan release
 
-This release add followin new features:
+This release adds following new features:
 
 * Make Due Date layout nicer on minicard.
 
