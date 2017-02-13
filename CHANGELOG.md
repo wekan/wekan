@@ -2,14 +2,19 @@
 
 This release adds following new features:
 
-* Make Due Date layout nicer on minicard.
+* Make Due Date layout nicer on minicard;
 * Wekan <=> MongoDB <=> ToroDB => PostgreSQL read-only
   mirroring for SQL access with any programming language
   or Office package that has PostgreSQL support, like
   newest LibreOffice 3.5:
   https://github.com/wekan/wekan-postgresql
 
-Thanks to GitHub users whittssg2 and xet7 for their
+and fixes the following bugs:
+
+* Dockerfile was missing EXPOSE $PORT;
+* Typos.
+
+Thanks to GitHub users vuxor, whittssg2 and xet7 for their
 contributions.
 
 # v0.11.1-rc1 2017-02-10 Wekan prerelease
