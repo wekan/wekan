@@ -27,7 +27,7 @@ Utils = {
   // in fact, what we really care is screen size
   // large mobile device like iPad or android Pad has a big screen, it should also behave like a desktop
   // in a small window (even on desktop), Wekan run in compact mode.
-  // we can easily debug with a small window of desktop broswer. :-)
+  // we can easily debug with a small window of desktop browser. :-)
   isMiniScreen() {
     this.windowResizeDep.depend();
     return $(window).width() <= 800;
