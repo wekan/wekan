@@ -94,5 +94,6 @@ RUN \
     rm /home/wekan/install_meteor.sh
 
 ENV PORT=80
+EXPOSE $PORT
 
 CMD ["node", "/build/main.js"]
