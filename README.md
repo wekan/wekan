@@ -90,6 +90,12 @@ Docker example, running latest Wekan using docker-compose:
 sudo docker-compose pull && sudo docker-compose up -d --no-build
 ```
 
+#### PostgreSQL read-only mirroring using dockerhub images
+
+[Wekan <=> MongoDB <=> ToroDB => PostgreSQL read-only mirroring for SQL access
+with any programming language or Office package that has PostgreSQL support, like
+newest LibreOffice 3.5][wekan_postgresql].
+
 #### Running from locally built dockerhub images
 ```
 sudo docker-compose up -d --build
@@ -186,3 +192,4 @@ with [Meteor](https://www.meteor.com).
 [autoinstall_issue]: https://github.com/anselal/wekan/issues/18
 [dev_docs]: https://github.com/wekan/wekan/wiki/Developer-Documentation
 [donations]: http://www.xet7.org/wekan
+[wekan_postgresql]: https://github.com/wekan/wekan-postgresql
