@@ -45,6 +45,10 @@ template(name="cardDetails")
           h3.card-details-item-title {{_ 'card-due'}}
           +cardDueDate
 
+      if estimate
+        .card-details-item.card-details-item-estimate
+          h3.card-details-item-title {{_ 'estimate'}}
+          +cardEstimate
 
     //- XXX We should use "editable" to avoid repetiting ourselves
     if currentUser.isBoardMember
@@ -91,6 +95,8 @@ template(name="cardDetails")
     if isLoaded.get
       +activities(card=this mode="card")
 
+template(name="")
+
 template(name="editCardTitleForm")
   textarea.js-edit-card-title(rows='1' autofocus)
     = title
@@ -108,6 +114,7 @@ template(name="cardDetailsActionsPopup")
     li: a.js-attachments {{_ 'card-edit-attachments'}}
     li: a.js-start-date {{_ 'editCardStartDatePopup-title'}}
     li: a.js-due-date {{_ 'editCardDueDatePopup-title'}}
+    li: a.js-estimate {{_ 'editCardEstimate-title'}}
   hr
   ul.pop-over-list
     li: a.js-move-card-to-top {{_ 'moveCardToTop-title'}}
