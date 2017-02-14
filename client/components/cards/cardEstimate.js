@@ -11,7 +11,7 @@ const EditCardEstimate = BlazeComponent.extendComponent({
   },
 
   showEstimate() {
-    return this.estimate;
+    return this.estimate.get();
   },
 
   events() {
@@ -54,7 +54,7 @@ const EditCardEstimate = BlazeComponent.extendComponent({
   _deleteEstimate() {
     this.card.unsetEstimate();
   }
-}).register('editCardEsimatePopup');
+}).register('editCardEstimatePopup');
 
 // Display card estimate
 const CardEstimate = BlazeComponent.extendComponent({
