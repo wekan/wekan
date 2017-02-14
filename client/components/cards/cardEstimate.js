@@ -19,9 +19,9 @@ const EditCardEstimate = BlazeComponent.extendComponent({
       'submit .edit-estimate'(evt) {
         evt.preventDefault();
 
-        let estimate = evt.target.estimate.value;
-        if (estimate && estimate >= 0) {
-          this._storeEstimate(estimate);
+        const estimateFromPage = evt.target.estimate.value;
+        if (estimateFromPage && estimateFromPage > 0) {
+          this._storeEstimate(estimateFromPage);
           Popup.close();
         }
         else {

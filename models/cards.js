@@ -67,11 +67,8 @@ Cards.attachSchema(new SimpleSchema({
   estimate: {
     type: Number,
     optional: true,
-    //jlouzado TODO  : remove autovalue later
-    autoValue() {
-      return 5;
-    },
     min: 0,
+    decimal: true,
   },
   // XXX Should probably be called `authorId`. Is it even needed since we have
   // the `members` field?
