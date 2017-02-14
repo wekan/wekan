@@ -84,3 +84,10 @@ const CardEstimate = BlazeComponent.extendComponent({
     }];
   },
 }).register('cardEstimate');
+
+
+(class extends CardEstimate {
+  showEstimate() {
+    return this.estimate.get();
+  }
+}).register('minicardEstimate');
