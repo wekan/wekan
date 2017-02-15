@@ -92,7 +92,7 @@ BlazeComponent.extendComponent({
   showTongueTitle() {
     if (this.isOpen())
       return `${TAPi18n.__('sidebar-close')}`;
-    else 
+    else
       return `${TAPi18n.__('sidebar-open')}`;
   },
 
