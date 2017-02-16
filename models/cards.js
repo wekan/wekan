@@ -84,6 +84,10 @@ Cards.attachSchema(new SimpleSchema({
     type: Number,
     decimal: true,
   },
+  subBoardId: {
+    type: String,
+    optional: true,
+  },
 }));
 
 Cards.allow({
@@ -274,6 +278,14 @@ Cards.mutations({
 
   unsetEstimate() {
     return { $unset: { estimate: -1 }};
+  },
+
+  setSubBoard(dueAt) {
+    return { $set: { subBoardId }};
+  },
+
+  unsetSubBoard() {
+    return { $unset: { subBoardId: '' }};
   },
 });
 
