@@ -31,6 +31,10 @@ Boards.attachSchema(new SimpleSchema({
       }
     },
   },
+  hidden: {
+    type: Boolean,
+    defaultValue: false,
+  },
   createdAt: {
     type: Date,
     autoValue() { // eslint-disable-line consistent-return
@@ -243,6 +247,10 @@ Boards.mutations({
 
   restore() {
     return { $set: { archived: false }};
+  },
+
+  setHidden(hidden) {
+    return { $set: { hidden }};
   },
 
   rename(title) {
