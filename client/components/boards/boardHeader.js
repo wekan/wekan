@@ -119,7 +119,7 @@ BlazeComponent.extendComponent({
   },
 }).register('boardChangeColorPopup');
 
-BlazeComponent.extendComponent({
+const CreateBoard = BlazeComponent.extendComponent({
   onCreated() {
     this.visibilityMenuIsOpen = new ReactiveVar(false);
     this.visibility = new ReactiveVar('private');
@@ -165,6 +165,24 @@ BlazeComponent.extendComponent({
     }];
   },
 }).register('createBoardPopup');
+
+(class extends CreateBoard {
+  onCreated() {
+    super.onCreated();
+    this.hidden = new ReactiveVar(true);
+  }
+
+  onSubmit() {
+    super.onSubmit();
+    //store the boardID in the invoking card
+    console.log("boardID = " + boardId);
+    this._storeSubBoardId(boardId);
+  }
+
+  _storeSubBoardId (boardId) {
+    this.card.setSubBoard(boardId);
+  }
+}).register('createSubBoardPopup');
 
 BlazeComponent.extendComponent({
   visibilityCheck() {

@@ -280,7 +280,7 @@ Cards.mutations({
     return { $unset: { estimate: -1 }};
   },
 
-  setSubBoard(dueAt) {
+  setSubBoard(subBoardId) {
     return { $set: { subBoardId }};
   },
 
