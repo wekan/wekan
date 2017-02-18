@@ -414,6 +414,9 @@ if (Meteor.isServer) {
       _id: 1,
       'members.userId': 1,
     }, { unique: true });
+    Boards._collection._ensureIndex({
+      'members.userId': 1,
+    }, { unique: true });
   });
 
   // Genesis: the first activity of the newly created board
