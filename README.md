@@ -103,9 +103,9 @@ sudo docker-compose up -d --nobuild
 
 #### PostgreSQL read-only mirroring using dockerhub images
 
-[Wekan <=> MongoDB <=> ToroDB => PostgreSQL read-only mirroring for SQL access
-with any programming language or Office package that has PostgreSQL support, like
-newest LibreOffice 3.5][wekan_postgresql].
+[Wekan <=> MongoDB <=> ToroDB => PostgreSQL read-only mirroring][wekan_postgresql]
+for SQL access with any programming language or Office package that has PostgreSQL support, like
+newest LibreOffice 3.5.
 
 #### Running from locally built dockerhub images
 ```
