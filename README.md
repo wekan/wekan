@@ -81,6 +81,8 @@ Automatic generated newest builds are available for Docker, and some others that
 install directly from this repo. Automatic builds will be added later for more
 platforms.
 
+[Wekan database cleanup script][wekan_cleanup] -- [Feedback][cleanup_issue]
+
 ### Docker: [Docker image][docker_image], [Docs at wiki][wekan_wiki]
 
 Docker example, running latest Wekan using docker-compose:
@@ -193,3 +195,5 @@ with [Meteor](https://www.meteor.com).
 [dev_docs]: https://github.com/wekan/wekan/wiki/Developer-Documentation
 [donations]: http://www.xet7.org/wekan
 [wekan_postgresql]: https://github.com/wekan/wekan-postgresql
+[wekan_cleanup]: https://github.com/fmonthel/wekan-cleanup
+[cleanup_issue]: https://github.com/wekan/wekan/issues/833
