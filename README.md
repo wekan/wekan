@@ -88,8 +88,17 @@ platforms.
 Docker example, running latest Wekan using docker-compose:
 
 #### Running from remote dockerhub images
+
+Recommended:
+
+* [Wekan <=> MongoDB][wekan_mongodb] - contains the only required Docker Compose file
+
+Development:
+
+* Clone this wekan repo and run from dockerhub without building:
+
 ```
-sudo docker-compose pull && sudo docker-compose up -d --no-build
+sudo docker-compose up -d --nobuild
 ```
 
 #### PostgreSQL read-only mirroring using dockerhub images
@@ -194,6 +203,7 @@ with [Meteor](https://www.meteor.com).
 [autoinstall_issue]: https://github.com/anselal/wekan/issues/18
 [dev_docs]: https://github.com/wekan/wekan/wiki/Developer-Documentation
 [donations]: http://www.xet7.org/wekan
+[wekan_mongodb]: https://github.com/wekan/wekan-mongodb
 [wekan_postgresql]: https://github.com/wekan/wekan-postgresql
 [wekan_cleanup]: https://github.com/fmonthel/wekan-cleanup
 [cleanup_issue]: https://github.com/wekan/wekan/issues/833
