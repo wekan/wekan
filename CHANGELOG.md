@@ -10,15 +10,16 @@ This release adds following new features:
   newest LibreOffice 3.5;
 * [Wekan database cleanup script](https://github.com/fmonthel/wekan-cleanup) --
   [Feedback](https://github.com/wekan/wekan/issues/833).
-  Link to cleanup script also added to README.md.
+  Link to cleanup script also added to README.md;
+* Added tooltip for board menu and sidebar buttons.
 
 and fixes the following bugs:
 
 * Dockerfile was missing EXPOSE $PORT;
 * Typos.
 
-Thanks to GitHub users fmonthel, vuxor, whittssg2 and xet7
-for their contributions.
+Thanks to GitHub users fmonthel, jLouzado, vuxor, whittssg2
+and xet7 for their contributions.
 
 # v0.11.1-rc1 2017-02-10 Wekan prerelease
 
