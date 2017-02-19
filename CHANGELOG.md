@@ -4,9 +4,10 @@ This release adds following new features:
 
 * Make Due Date layout nicer on minicard;
 * [Wekan <=> MongoDB <=> ToroDB => PostgreSQL read-only
-  mirroring for SQL access with any programming language
+  mirroring](https://github.com/wekan/wekan-postgresql)
+  for SQL access with any programming language
   or Office package that has PostgreSQL support, like
-  newest LibreOffice 3.5](https://github.com/wekan/wekan-postgresql)
+  newest LibreOffice 3.5
 * [Wekan database cleanup script](https://github.com/fmonthel/wekan-cleanup) --
   [Feedback](https://github.com/wekan/wekan/issues/833).
   Link to cleanup script also added to README.md .
