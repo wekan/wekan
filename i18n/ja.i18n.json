@@ -293,6 +293,8 @@
     "shortcut-toggle-filterbar": "フィルターサイドバーの切り替え",
     "shortcut-toggle-sidebar": "ボードサイドバーの切り替え",
     "show-cards-minimum-count": "Show cards count if list contains more than",
+    "sidebar-open": "Open Sidebar",
+    "sidebar-close": "Close Sidebar",
     "signupPopup-title": "アカウント作成",
     "star-board-title": "ボードにスターをつけると自分のボード一覧のトップに表示されます。",
     "starred-boards": "スターのついたボード",

@@ -293,6 +293,8 @@
     "shortcut-toggle-filterbar": "Toggle Filter Sidebar",
     "shortcut-toggle-sidebar": "Toggle Board Sidebar",
     "show-cards-minimum-count": "Show cards count if list contains more than",
+    "sidebar-open": "Open Sidebar",
+    "sidebar-close": "Close Sidebar",
     "signupPopup-title": "계정 생성",
     "star-board-title": "보드에 별을 클릭합니다. 보드 목록에서 최상위로 둘 수 있습니다.",
     "starred-boards": "별표된 보드",

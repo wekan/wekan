@@ -293,6 +293,8 @@
     "shortcut-toggle-filterbar": "Toggle Filter Sidebar",
     "shortcut-toggle-sidebar": "Toggle Board Sidebar",
     "show-cards-minimum-count": "Show cards count if list contains more than",
+    "sidebar-open": "Open Sidebar",
+    "sidebar-close": "Close Sidebar",
     "signupPopup-title": "Create an Account",
     "star-board-title": "Click to star this board. It will show up at top of your boards list.",
     "starred-boards": "Starred Boards",
