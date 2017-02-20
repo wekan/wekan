@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/wekan/wekan",
   "devDependencies": {
-    "eslint": "^2.0.0"
+    "eslint": "^3.16.0"
   },
   "dependencies": {
     "xss": "^0.3.3"
