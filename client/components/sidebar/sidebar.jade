@@ -1,7 +1,8 @@
 template(name="sidebar")
   .board-sidebar.sidebar(class="{{#if isOpen}}is-open{{/if}}")
     a.sidebar-tongue.js-toggle-sidebar(
-      class="{{#if isTongueHidden}}is-hidden{{/if}}")(title="{{showTongueTitle}}")
+      class="{{#if isTongueHidden}}is-hidden{{/if}}",
+      title="{{showTongueTitle}}")
       i.fa.fa-angle-left
     .sidebar-shadow
       .sidebar-content.sidebar-shortcuts
