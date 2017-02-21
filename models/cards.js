@@ -340,6 +340,7 @@ if (Meteor.isServer) {
     // Say goodbye to the former member
     if (modifier.$pull && modifier.$pull.members) {
       memberId = modifier.$pull.members;
+	  // Check that the former member is member of the card
       if (_.contains(doc.members, memberId)) {
         Activities.insert({
           userId,
