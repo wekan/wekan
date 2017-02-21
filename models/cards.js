@@ -340,13 +340,15 @@ if (Meteor.isServer) {
     // Say goodbye to the former member
     if (modifier.$pull && modifier.$pull.members) {
       memberId = modifier.$pull.members;
-      Activities.insert({
-        userId,
-        memberId,
-        activityType: 'unjoinMember',
-        boardId: doc.boardId,
-        cardId: doc._id,
-      });
+	  if (_.contains(doc.members, memberId)) {
+        Activities.insert({
+          userId,
+          memberId,
+          activityType: 'unjoinMember',
+          boardId: doc.boardId,
+          cardId: doc._id,
+        });
+	  }
     }
   });
 
