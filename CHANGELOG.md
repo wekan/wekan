@@ -16,6 +16,9 @@ This release adds following new features:
 and fixes the following bugs:
 
 * Dockerfile was missing EXPOSE $PORT;
+* Bug when removing user from board that generate activity for
+  all cards of the board. Add check before user is one owner
+  of the card before adding activity.
 * Typos.
 
 Thanks to GitHub users fmonthel, jLouzado, vuxor, whittssg2
