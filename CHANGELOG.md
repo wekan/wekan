@@ -60,7 +60,7 @@ and fixes the following bugs:
   and avatars, so using older version;
 * Tweaked .gitignore to exclude .build/*;
 * Fix executeUpTo label when dragging cards,
-  popup was not in the predefined hierachy.
+  popup was not in the predefined hierarchy.
 
 and adds the following new documentation:
 
@@ -143,12 +143,12 @@ This release features:
 
 * Trello boards importation, including card history, assigned members, labels,
   comments, and attachments;
-* Invite new users to a board using a email address;
+* Invite new users to a board using an email address;
 * Autocompletion in the minicard editor. Start with <kbd>@</kbd> to start a
   board member autocompletion, or <kbd>#</kbd> for a label;
 * Improve the user interface on small screens so that Wekan could be used on the
   mobile web;
-* Accelerate the initial page rendering by sending the data on the intial HTTP
+* Accelerate the initial page rendering by sending the data on the initial HTTP
   response instead of waiting for the DDP connection to open;
 * Support images attachments copy pasting;
 * On Sandstorm, expose the Wekan grain title and URL to the Sandstorm shell;
