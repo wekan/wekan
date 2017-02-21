@@ -83,6 +83,9 @@ platforms.
 
 [Wekan database cleanup script][wekan_cleanup] -- [Feedback][cleanup_issue]
 
+[Daily export of Wekan changes as JSON to Logstash and
+ElasticSearch / Kibana (ELK)][wekan_logstash] -- [Feedback][logstash_issue]
+
 ### Docker: [Docker image][docker_image], [Docs at wiki][wekan_wiki]
 
 Docker example, running latest Wekan using docker-compose:
@@ -207,3 +210,5 @@ with [Meteor](https://www.meteor.com).
 [wekan_postgresql]: https://github.com/wekan/wekan-postgresql
 [wekan_cleanup]: https://github.com/fmonthel/wekan-cleanup
 [cleanup_issue]: https://github.com/wekan/wekan/issues/833
+[wekan_logstash]: https://github.com/fmonthel/wekan-logstash
+[logstash_issue]: https://github.com/wekan/wekan/issues/855

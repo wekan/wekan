@@ -3,6 +3,7 @@
 This release adds following new features:
 
 * Make Due Date layout nicer on minicard;
+* Added tooltip for board menu and sidebar buttons.
 * [Wekan <=> MongoDB <=> ToroDB => PostgreSQL read-only
   mirroring](https://github.com/wekan/wekan-postgresql)
   for SQL access with any programming language
@@ -11,7 +12,9 @@ This release adds following new features:
 * [Wekan database cleanup script](https://github.com/fmonthel/wekan-cleanup) --
   [Feedback](https://github.com/wekan/wekan/issues/833).
   Link to cleanup script also added to README.md;
-* Added tooltip for board menu and sidebar buttons.
+* [Daily export of Wekan changes as JSON to Logstash and
+  ElasticSearch / Kibana (ELK)][https://github.com/fmonthel/wekan-logstash] --
+  [Feedback][https://github.com/wekan/wekan/issues/855]
 
 and fixes the following bugs:
 
