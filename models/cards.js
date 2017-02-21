@@ -348,7 +348,7 @@ if (Meteor.isServer) {
           boardId: doc.boardId,
           cardId: doc._id,
         });
-	  }
+      }
     }
   });
 
