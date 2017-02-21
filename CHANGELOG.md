@@ -21,7 +21,7 @@ and fixes the following bugs:
   of the card before adding activity.
 * Typos.
 
-Thanks to GitHub users fmonthel, jLouzado, vuxor, whittssg2
+Thanks to GitHub users fmonthel, jLouzado, pra85, vuxor, whittssg2
 and xet7 for their contributions.
 
 # v0.11.1-rc1 2017-02-10 Wekan prerelease
