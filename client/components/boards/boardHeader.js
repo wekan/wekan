@@ -119,10 +119,15 @@ BlazeComponent.extendComponent({
   },
 }).register('boardChangeColorPopup');
 
-BlazeComponent.extendComponent({
+const CreateBoard = BlazeComponent.extendComponent({
+  template() {
+    return 'createBoard';
+  },
+
   onCreated() {
     this.visibilityMenuIsOpen = new ReactiveVar(false);
     this.visibility = new ReactiveVar('private');
+    this.boardId = new ReactiveVar('');
   },
 
   visibilityCheck() {
@@ -143,15 +148,12 @@ BlazeComponent.extendComponent({
     const title = this.find('.js-new-board-title').value;
     const visibility = this.visibility.get();
 
-    const boardId = Boards.insert({
+    this.boardId.set(Boards.insert({
       title,
       permission: visibility,
-    });
+    }));
 
-    Utils.goBoardId(boardId);
-
-    // Immediately star boards crated with the headerbar popup.
-    Meteor.user().toggleBoardStar(boardId);
+    Utils.goBoardId(this.boardId.get());
   },
 
   events() {
@@ -165,6 +167,14 @@ BlazeComponent.extendComponent({
     }];
   },
 }).register('createBoardPopup');
+
+(class HeaderBarCreateBoard extends CreateBoard {
+  onSubmit(evt) {
+    super.onSubmit(evt);
+    // Immediately star boards crated with the headerbar popup.
+    Meteor.user().toggleBoardStar(this.boardId.get());
+  }
+}).register('headerBarCreateBoardPopup');
 
 BlazeComponent.extendComponent({
   visibilityCheck() {
