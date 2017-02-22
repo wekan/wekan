@@ -13,5 +13,5 @@ Template.header.helpers({
 });
 
 Template.header.events({
-  'click .js-create-board': Popup.open('createBoard'),
+  'click .js-create-board': Popup.open('headerBarCreateBoard'),
 });
