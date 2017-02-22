@@ -120,9 +120,16 @@ BlazeComponent.extendComponent({
 }).register('boardChangeColorPopup');
 
 const CreateBoard = BlazeComponent.extendComponent({
+  template() {
+    return 'createBoard';
+  },
+
   onCreated() {
     this.visibilityMenuIsOpen = new ReactiveVar(false);
     this.visibility = new ReactiveVar('private');
+    this.hidden = new ReactiveVar(false);
+    const boardId = '';
+    const boardTitle = '';
   },
 
   visibilityCheck() {
@@ -140,12 +147,13 @@ const CreateBoard = BlazeComponent.extendComponent({
 
   onSubmit(evt) {
     evt.preventDefault();
-    const title = this.find('.js-new-board-title').value;
+    boardTitle = this.find('.js-new-board-title').value;
     const visibility = this.visibility.get();
 
-    const boardId = Boards.insert({
-      title,
+    boardId = Boards.insert({
+      title: boardTitle,
       permission: visibility,
+      hidden: this.hidden.get(),
     });
 
     Utils.goBoardId(boardId);
@@ -166,21 +174,17 @@ const CreateBoard = BlazeComponent.extendComponent({
   },
 }).register('createBoardPopup');
 
-(class extends CreateBoard {
+(class SubBoard extends CreateBoard {
   onCreated() {
     super.onCreated();
-    this.hidden = new ReactiveVar(true);
+    this.hidden.set(true);
   }
 
-  onSubmit() {
-    super.onSubmit();
-    //store the boardID in the invoking card
-    console.log("boardID = " + boardId);
-    this._storeSubBoardId(boardId);
-  }
-
-  _storeSubBoardId (boardId) {
-    this.card.setSubBoard(boardId);
+  onSubmit(evt) {
+    super.onSubmit(evt);
+    const card = this.currentData();
+    card.setSubBoard(boardId);
+    card.setSubBoardSlug(boardTitle);
   }
 }).register('createSubBoardPopup');
 
