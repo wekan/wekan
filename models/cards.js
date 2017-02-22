@@ -88,6 +88,10 @@ Cards.attachSchema(new SimpleSchema({
     type: String,
     optional: true,
   },
+  subBoardSlug: {
+    type: String,
+    optional: true,
+  },
 }));
 
 Cards.allow({
@@ -286,6 +290,14 @@ Cards.mutations({
 
   unsetSubBoard() {
     return { $unset: { subBoardId: '' }};
+  },
+
+  setSubBoardSlug(subBoardSlug) {
+    return { $set: { subBoardSlug }};
+  },
+
+  unsetSubBoardSlug() {
+    return { $unset: { subBoardSlug: '' }};
   },
 });
 
