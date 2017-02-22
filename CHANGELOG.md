@@ -21,10 +21,11 @@ and fixes the following bugs:
 * Dockerfile was missing EXPOSE $PORT;
 * Bug when removing user from board that generate activity for
   all cards of the board. Add check before user is one owner
-  of the card before adding activity.
+  of the card before adding activity;
+* Improve Wekan performance by adding indexes to MongoDB;
 * Typos.
 
-Thanks to GitHub users fmonthel, jLouzado, pra85, vuxor, whittssg2
+Thanks to GitHub users fmonthel, jLouzado, maulal, pra85, vuxor, whittssg2
 and xet7 for their contributions.
 
 # v0.11.1-rc1 2017-02-10 Wekan prerelease
