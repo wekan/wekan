@@ -127,7 +127,7 @@ const CreateBoard = BlazeComponent.extendComponent({
   onCreated() {
     this.visibilityMenuIsOpen = new ReactiveVar(false);
     this.visibility = new ReactiveVar('private');
-    const boardId = '';
+    this.boardId = new ReactiveVar('');
   },
 
   visibilityCheck() {
@@ -148,12 +148,12 @@ const CreateBoard = BlazeComponent.extendComponent({
     const title = this.find('.js-new-board-title').value;
     const visibility = this.visibility.get();
 
-    boardId = Boards.insert({
+    this.boardId.set(Boards.insert({
       title,
       permission: visibility,
-    });
+    }));
 
-    Utils.goBoardId(boardId);
+    Utils.goBoardId(this.boardId.get());
   },
 
   events() {
@@ -172,9 +172,9 @@ const CreateBoard = BlazeComponent.extendComponent({
   onSubmit(evt) {
     super.onSubmit(evt);
     // Immediately star boards crated with the headerbar popup.
-    Meteor.user().toggleBoardStar(boardId);
+    Meteor.user().toggleBoardStar(this.boardId.get());
   }
-}).register('headerBarCreateBoardPopup')
+}).register('headerBarCreateBoardPopup');
 
 BlazeComponent.extendComponent({
   visibilityCheck() {
