@@ -22,6 +22,8 @@ and fixes the following bugs:
 * Bug when removing user from board that generate activity for
   all cards of the board. Add check before user is one owner
   of the card before adding activity;
+* All new boards are automatically starred. Fixed to
+  only star header-bar new-boards;
 * Improve Wekan performance by adding indexes to MongoDB;
 * Typos.
 
