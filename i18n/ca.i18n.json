@@ -293,6 +293,8 @@
     "shortcut-toggle-filterbar": "Canvia la barra lateral del tauler",
     "shortcut-toggle-sidebar": "Canvia Sidebar del Tauler",
     "show-cards-minimum-count": "Mostra contador de fitxes si la llista en conté més de",
+    "sidebar-open": "Open Sidebar",
+    "sidebar-close": "Close Sidebar",
     "signupPopup-title": "Crea un compte",
     "star-board-title": "Fes clic per destacar aquest tauler. Es mostrarà a la part superior de la llista de taulers.",
     "starred-boards": "Taulers destacats",

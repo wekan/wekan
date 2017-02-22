@@ -293,6 +293,8 @@
     "shortcut-toggle-filterbar": "切換過濾程式邊欄",
     "shortcut-toggle-sidebar": "切換面板邊欄",
     "show-cards-minimum-count": "顯示卡片數量，當內容超過數量",
+    "sidebar-open": "Open Sidebar",
+    "sidebar-close": "Close Sidebar",
     "signupPopup-title": "建立帳戶",
     "star-board-title": "點此標記該看板，它將會出現在您的看板列表上方。",
     "starred-boards": "已標記看板",

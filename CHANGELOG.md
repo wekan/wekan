@@ -2,9 +2,30 @@
 
 This release adds following new features:
 
-* Make Due Date layout nicer on minicard.
+* Make Due Date layout nicer on minicard;
+* Added tooltip for board menu and sidebar buttons.
+* [Wekan <=> MongoDB <=> ToroDB => PostgreSQL read-only
+  mirroring](https://github.com/wekan/wekan-postgresql)
+  for SQL access with any programming language
+  or Office package that has PostgreSQL support, like
+  newest LibreOffice 3.5;
+* [Wekan database cleanup script](https://github.com/fmonthel/wekan-cleanup) --
+  [Feedback](https://github.com/wekan/wekan/issues/833).
+  Link to cleanup script also added to README.md;
+* [Daily export of Wekan changes as JSON to Logstash and
+  ElasticSearch / Kibana (ELK)][https://github.com/fmonthel/wekan-logstash] --
+  [Feedback][https://github.com/wekan/wekan/issues/855]
 
-Thanks to GitHub user whittssg2 for his contributions.
+and fixes the following bugs:
+
+* Dockerfile was missing EXPOSE $PORT;
+* Bug when removing user from board that generate activity for
+  all cards of the board. Add check before user is one owner
+  of the card before adding activity.
+* Typos.
+
+Thanks to GitHub users fmonthel, jLouzado, pra85, vuxor, whittssg2
+and xet7 for their contributions.
 
 # v0.11.1-rc1 2017-02-10 Wekan prerelease
 
@@ -45,7 +66,7 @@ and fixes the following bugs:
   and avatars, so using older version;
 * Tweaked .gitignore to exclude .build/*;
 * Fix executeUpTo label when dragging cards,
-  popup was not in the predefined hierachy.
+  popup was not in the predefined hierarchy.
 
 and adds the following new documentation:
 
@@ -128,12 +149,12 @@ This release features:
 
 * Trello boards importation, including card history, assigned members, labels,
   comments, and attachments;
-* Invite new users to a board using a email address;
+* Invite new users to a board using an email address;
 * Autocompletion in the minicard editor. Start with <kbd>@</kbd> to start a
   board member autocompletion, or <kbd>#</kbd> for a label;
 * Improve the user interface on small screens so that Wekan could be used on the
   mobile web;
-* Accelerate the initial page rendering by sending the data on the intial HTTP
+* Accelerate the initial page rendering by sending the data on the initial HTTP
   response instead of waiting for the DDP connection to open;
 * Support images attachments copy pasting;
 * On Sandstorm, expose the Wekan grain title and URL to the Sandstorm shell;

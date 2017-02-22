@@ -81,14 +81,34 @@ Automatic generated newest builds are available for Docker, and some others that
 install directly from this repo. Automatic builds will be added later for more
 platforms.
 
+[Wekan database cleanup script][wekan_cleanup] -- [Feedback][cleanup_issue]
+
+[Daily export of Wekan changes as JSON to Logstash and
+ElasticSearch / Kibana (ELK)][wekan_logstash] -- [Feedback][logstash_issue]
+
 ### Docker: [Docker image][docker_image], [Docs at wiki][wekan_wiki]
 
 Docker example, running latest Wekan using docker-compose:
 
 #### Running from remote dockerhub images
+
+Recommended:
+
+* [Wekan <=> MongoDB][wekan_mongodb] - contains the only required Docker Compose file
+
+Development:
+
+* Clone this wekan repo and run from dockerhub without building:
+
 ```
-sudo docker-compose pull && sudo docker-compose up -d --no-build
+sudo docker-compose up -d --nobuild
 ```
+
+#### PostgreSQL read-only mirroring using dockerhub images
+
+[Wekan <=> MongoDB <=> ToroDB => PostgreSQL read-only mirroring][wekan_postgresql]
+for SQL access with any programming language or Office package that has PostgreSQL support, like
+newest LibreOffice 3.5.
 
 #### Running from locally built dockerhub images
 ```
@@ -186,3 +206,9 @@ with [Meteor](https://www.meteor.com).
 [autoinstall_issue]: https://github.com/anselal/wekan/issues/18
 [dev_docs]: https://github.com/wekan/wekan/wiki/Developer-Documentation
 [donations]: http://www.xet7.org/wekan
+[wekan_mongodb]: https://github.com/wekan/wekan-mongodb
+[wekan_postgresql]: https://github.com/wekan/wekan-postgresql
+[wekan_cleanup]: https://github.com/fmonthel/wekan-cleanup
+[cleanup_issue]: https://github.com/wekan/wekan/issues/833
+[wekan_logstash]: https://github.com/fmonthel/wekan-logstash
+[logstash_issue]: https://github.com/wekan/wekan/issues/855

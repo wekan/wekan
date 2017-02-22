@@ -89,6 +89,13 @@ BlazeComponent.extendComponent({
     return TAPi18n.__(viewTitles[this.getView()]);
   },
 
+  showTongueTitle() {
+    if (this.isOpen())
+      return `${TAPi18n.__('sidebar-close')}`;
+    else
+      return `${TAPi18n.__('sidebar-open')}`;
+  },
+
   events() {
     return [{
       'click .js-hide-sidebar': this.hide,

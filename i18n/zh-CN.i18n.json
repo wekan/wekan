@@ -293,6 +293,8 @@
     "shortcut-toggle-filterbar": "切换过滤器边栏",
     "shortcut-toggle-sidebar": "切换面板边栏",
     "show-cards-minimum-count": "当列表中的卡片多于此阈值时将显示数量",
+    "sidebar-open": "Open Sidebar",
+    "sidebar-close": "Close Sidebar",
     "signupPopup-title": "创建账户",
     "star-board-title": "点此来标记该看板，它将会出现在您的看板列表顶部。",
     "starred-boards": "已标记看板",
