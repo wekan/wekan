@@ -119,10 +119,17 @@ BlazeComponent.extendComponent({
   },
 }).register('boardChangeColorPopup');
 
-BlazeComponent.extendComponent({
+const CreateBoard = BlazeComponent.extendComponent({
+  template() {
+    return 'createBoard';
+  },
+
   onCreated() {
     this.visibilityMenuIsOpen = new ReactiveVar(false);
     this.visibility = new ReactiveVar('private');
+    this.hidden = new ReactiveVar(false);
+    const boardId = '';
+    const boardTitle = '';
   },
 
   visibilityCheck() {
@@ -140,12 +147,13 @@ BlazeComponent.extendComponent({
 
   onSubmit(evt) {
     evt.preventDefault();
-    const title = this.find('.js-new-board-title').value;
+    boardTitle = this.find('.js-new-board-title').value;
     const visibility = this.visibility.get();
 
-    const boardId = Boards.insert({
-      title,
+    boardId = Boards.insert({
+      title: boardTitle,
       permission: visibility,
+      hidden: this.hidden.get(),
     });
 
     Utils.goBoardId(boardId);
@@ -165,6 +173,20 @@ BlazeComponent.extendComponent({
     }];
   },
 }).register('createBoardPopup');
+
+(class SubBoard extends CreateBoard {
+  onCreated() {
+    super.onCreated();
+    this.hidden.set(true);
+  }
+
+  onSubmit(evt) {
+    super.onSubmit(evt);
+    const card = this.currentData();
+    card.setSubBoard(boardId);
+    card.setSubBoardSlug(boardTitle);
+  }
+}).register('createSubBoardPopup');
 
 BlazeComponent.extendComponent({
   visibilityCheck() {
