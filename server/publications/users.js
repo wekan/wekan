@@ -9,3 +9,11 @@ Meteor.publish('user-miniprofile', function(userId) {
     },
   });
 });
+
+Meteor.publish('user-admin', function() {
+  return Meteor.users.find(this.userId, {
+    fields: {
+      isAdmin: 1,
+    },
+  });
+});

@@ -1,0 +1,13 @@
+Meteor.publish('setting', () => {
+  return Settings.find({}, {fields:{strict: 1}});
+});
+
+Meteor.publish('mailServer', function () {
+  if (!Match.test(this.userId, String))
+    return [];
+  const user = Users.findOne(this.userId);
+  if(user && user.isAdmin){
+    return Settings.find({}, {fields: {mailServer: 1}});
+  }
+  return [];
+});

@@ -348,7 +348,7 @@ if (Meteor.isServer) {
         if (user._id === inviter._id) throw new Meteor.Error('error-user-notAllowSelf');
       } else {
         if (posAt <= 0) throw new Meteor.Error('error-user-doesNotExist');
-
+        if (Settings.findOne().strict) throw new Meteor.Error('error-user-notCreated');
         const email = username;
         username = email.substring(0, posAt);
         const newUserId = Accounts.createUser({ username, email });
@@ -388,6 +388,28 @@ if (Meteor.isServer) {
 
       return { username: user.username, email: user.emails[0].address };
     },
+  });
+  Accounts.onCreateUser((options, user) => {
+    const userCount = Users.find().count();
+    if (userCount === 0){
+      user.isAdmin = true;
+      return user;
+    }
+    const strict = Settings.findOne().strict;
+    if (!strict) {
+      return user;
+    }
+
+    const iCode = options.profile.invitationcode | '';
+
+    const invitationCode = InvitationCodes.findOne({code: iCode, valid:true});
+    if (!invitationCode) {
+      throw new Meteor.Error('error-invitation-code-not-exist');
+    }else{
+      user.profile = {icode: options.profile.invitationcode};
+    }
+
+    return user;
   });
 }
 
@@ -458,4 +480,25 @@ if (Meteor.isServer) {
       });
     });
   }
+
+  Users.after.insert((userId, doc) => {
+
+    //invite user to corresponding boards
+    const strict = Settings.findOne().strict;
+    if (strict) {
+      const user = Users.findOne(doc._id);
+      const invitationCode = InvitationCodes.findOne({code: user.profile.icode, valid:true});
+      if (!invitationCode) {
+        throw new Meteor.Error('error-user-notCreated');
+      }else{
+        invitationCode.boardsToBeInvited.forEach((boardId) => {
+          const board = Boards.findOne(boardId);
+          board.addMember(doc._id);
+        });
+        user.profile = {invitedBoards: invitationCode.boardsToBeInvited};
+        InvitationCodes.update(invitationCode._id, {$set: {valid:false}});
+      }
+    }
+  });
 }
+

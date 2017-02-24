@@ -1,0 +1,72 @@
+template(name="setting")
+  .setting-content
+    .content-title
+      span Settings
+    .content-body
+      .side-menu
+        ul
+          li.active
+            a.js-setting-menu(data-id="general-setting") System
+          li
+            a.js-setting-menu(data-id="email-setting") Email
+      .main-body
+        if loading.get
+          +spinner
+        else if generalSetting.get
+          +general
+        else if emailSetting.get
+          +email
+        
+template(name="general")
+  ul#general-setting.setting-detail
+    li
+      a.flex.js-toggle-strict-mode
+        .materialCheckBox(class="{{#if currentSetting.strict}}is-checked{{/if}}")
+
+        span Use Strict Mode
+    li
+      .invite-people(class="{{#if currentSetting.strict}}{{else}}hide{{/if}}")
+        ul
+          li
+            .title Invite People
+            textarea#email-to-invite.form-control(rows='5', placeholder="Email Adresses")
+          li
+            .title To board(s)
+            .bg-white
+              each boards
+                a.option.flex.js-toggle-board-choose(id= _id)
+                  .materialCheckBox(data-id= _id)
+
+                  span= title
+
+          li
+            button.js-email-invite.primary Invite
+
+template(name='email')
+  ul#email-setting.setting-detail
+    li.smtp-form
+      .title SMTP Host {{currentSetting.mailServer.port}}
+      .description The address of the SMTP server that handles your emails.
+      .form-group
+        input.form-control#mail-server-host(type="text", placeholder="smtp.domain.com" value="{{currentSetting.mailServer.host}}")
+    li.smtp-form
+      .title SMTP Port
+      .description The port your SMTP server uses for outgoing emails.
+      .form-group
+        input.form-control#mail-server-port(type="text", placeholder="25" value="{{currentSetting.mailServer.port}}")
+    li.smtp-form
+      .title SMTP user name
+      .form-group
+        input.form-control#mail-server-username(type="text", placeholder="user name" value="{{currentSetting.mailServer.username}}")
+    li.smtp-form
+      .title SMTP password
+      .form-group
+        input.form-control#mail-server-password(type="text", placeholder="password" value="{{currentSetting.mailServer.password}}")
+    li.smtp-form
+      .title From
+      .Email address you want to use to send emails.
+      .form-group
+        input.form-control#mail-server-from(type="email", placeholder="no-reply@domain.com" value="{{currentSetting.mailServer.from}}")
+
+    li
+      button.js-save.primary Save              
