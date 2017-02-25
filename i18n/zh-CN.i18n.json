@@ -322,12 +322,5 @@
     "welcome-board": "“欢迎”看板",
     "welcome-list1": "基本",
     "welcome-list2": "高阶",
-    "what-to-do": "要做什么？",
-    "system-setting": "系统设置",
-    "option-setting": "设置",
-    "option-people": "成员",
-    "invitation-code": "邀请码",
-    "email-invite-register-subject": "__inviter__ 向您发出邀请",
-    "email-invite-register-text": "尊敬的 __user__,\n\n__inviter__ 邀请您加入看板参与协作。\n\n请点击下面的链接访问进行注册：\n\n__url__\n您的邀请码是： __icode__\n\n谢谢。\n",
-    "error-invitation-code-not-exist": "验证码不存在"
+    "what-to-do": "要做什么？"
 }
