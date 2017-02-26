@@ -1,7 +1,7 @@
 Settings = new Mongo.Collection('settings');
 
 Settings.attachSchema(new SimpleSchema({
-  strict: {
+  disableRegistration: {
     type: Boolean,
   },
   'mailServer.username': {
@@ -23,7 +23,7 @@ Settings.attachSchema(new SimpleSchema({
   'mailServer.from': {
     type: String,
     optional: true,
-    defaultValue: 'Kanban',
+    defaultValue: 'Wekan',
   },
   createdAt: {
     type: Date,
@@ -56,7 +56,7 @@ if (Meteor.isServer) {
     const setting = Settings.findOne({});
     if(!setting){
       const now = new Date();
-      const defaultSetting = {strict: false, mailServer: {
+      const defaultSetting = {disableRegistration: false, mailServer: {
         username: '', password:'', host: '', port:'', from: '',
       }, createdAt: now, modifiedAt: now};
       Settings.insert(defaultSetting);

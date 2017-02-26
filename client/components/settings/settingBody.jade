@@ -1,14 +1,14 @@
 template(name="setting")
   .setting-content
     .content-title
-      span Settings
+      span {{_ 'settings'}}
     .content-body
       .side-menu
         ul
           li.active
-            a.js-setting-menu(data-id="general-setting") System
+            a.js-setting-menu(data-id="registration-setting") {{_ 'registration'}}
           li
-            a.js-setting-menu(data-id="email-setting") Email
+            a.js-setting-menu(data-id="email-setting") {{_ 'email'}}
       .main-body
         if loading.get
           +spinner
@@ -18,20 +18,20 @@ template(name="setting")
           +email
         
 template(name="general")
-  ul#general-setting.setting-detail
+  ul#registration-setting.setting-detail
     li
-      a.flex.js-toggle-strict-mode
-        .materialCheckBox(class="{{#if currentSetting.strict}}is-checked{{/if}}")
+      a.flex.js-toggle-registration
+        .materialCheckBox(class="{{#if currentSetting.disableRegistration}}is-checked{{/if}}")
 
-        span Use Strict Mode
+        span {{_ 'disable-self-registration'}}
     li
-      .invite-people(class="{{#if currentSetting.strict}}{{else}}hide{{/if}}")
+      .invite-people(class="{{#if currentSetting.disableRegistration}}{{else}}hide{{/if}}")
         ul
           li
-            .title Invite People
-            textarea#email-to-invite.form-control(rows='5', placeholder="Email Adresses")
+            .title {{_ 'invite-people'}}
+            textarea#email-to-invite.form-control(rows='5', placeholder="{{_ 'email-addresses'}}")
           li
-            .title To board(s)
+            .title {{_ 'to-boards'}}
             .bg-white
               each boards
                 a.option.flex.js-toggle-board-choose(id= _id)
@@ -40,31 +40,30 @@ template(name="general")
                   span= title
 
           li
-            button.js-email-invite.primary Invite
+            button.js-email-invite.primary {{_ 'invite'}}
 
 template(name='email')
   ul#email-setting.setting-detail
     li.smtp-form
-      .title SMTP Host {{currentSetting.mailServer.port}}
-      .description The address of the SMTP server that handles your emails.
+      .title {{_ 'smtp-host'}}
+      .description {{_ 'smtp-host-description'}}
       .form-group
         input.form-control#mail-server-host(type="text", placeholder="smtp.domain.com" value="{{currentSetting.mailServer.host}}")
     li.smtp-form
-      .title SMTP Port
-      .description The port your SMTP server uses for outgoing emails.
+      .title {{_ 'smtp-port'}}
+      .description {{_ 'smtp-port-description'}}
       .form-group
         input.form-control#mail-server-port(type="text", placeholder="25" value="{{currentSetting.mailServer.port}}")
     li.smtp-form
-      .title SMTP user name
+      .title {{_ 'smtp-username'}}
       .form-group
-        input.form-control#mail-server-username(type="text", placeholder="user name" value="{{currentSetting.mailServer.username}}")
+        input.form-control#mail-server-username(type="text", placeholder="{{_ 'username'}}" value="{{currentSetting.mailServer.username}}")
     li.smtp-form
-      .title SMTP password
+      .title {{_ 'smtp-password'}}
       .form-group
-        input.form-control#mail-server-password(type="text", placeholder="password" value="{{currentSetting.mailServer.password}}")
+        input.form-control#mail-server-password(type="text", placeholder="{{_ 'password'}}" value="{{currentSetting.mailServer.password}}")
     li.smtp-form
-      .title From
-      .Email address you want to use to send emails.
+      .title {{_ 'send-from'}}
       .form-group
         input.form-control#mail-server-from(type="email", placeholder="no-reply@domain.com" value="{{currentSetting.mailServer.from}}")
 

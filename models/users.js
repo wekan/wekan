@@ -348,7 +348,7 @@ if (Meteor.isServer) {
         if (user._id === inviter._id) throw new Meteor.Error('error-user-notAllowSelf');
       } else {
         if (posAt <= 0) throw new Meteor.Error('error-user-doesNotExist');
-        if (Settings.findOne().strict) throw new Meteor.Error('error-user-notCreated');
+        if (Settings.findOne().disableRegistration) throw new Meteor.Error('error-user-notCreated');
         const email = username;
         username = email.substring(0, posAt);
         const newUserId = Accounts.createUser({ username, email });
@@ -395,8 +395,8 @@ if (Meteor.isServer) {
       user.isAdmin = true;
       return user;
     }
-    const strict = Settings.findOne().strict;
-    if (!strict) {
+    const disableRegistration = Settings.findOne().disableRegistration;
+    if (!disableRegistration) {
       return user;
     }
 
@@ -484,8 +484,8 @@ if (Meteor.isServer) {
   Users.after.insert((userId, doc) => {
 
     //invite user to corresponding boards
-    const strict = Settings.findOne().strict;
-    if (strict) {
+    const disableRegistration = Settings.findOne().disableRegistration;
+    if (disableRegistration) {
       const user = Users.findOne(doc._id);
       const invitationCode = InvitationCodes.findOne({code: user.profile.icode, valid:true});
       if (!invitationCode) {

@@ -40,12 +40,12 @@ BlazeComponent.extendComponent({
       sort: ['title'],
     });
   },
-  toggleStrictMode(){
+  toggleRegistration(){
     this.setLoading(true);
-    const isStrictMode = this.currentSetting().strict;
-    Settings.update(Settings.findOne()._id, {$set:{strict: !isStrictMode}});
+    const registrationClosed = this.currentSetting().disableRegistration;
+    Settings.update(Settings.findOne()._id, {$set:{disableRegistration: !registrationClosed}});
     this.setLoading(false);
-    if(isStrictMode){
+    if(registrationClosed){
       $('.invite-people').slideUp();
     }else{
       $('.invite-people').slideDown();
@@ -58,7 +58,7 @@ BlazeComponent.extendComponent({
       $('.side-menu li.active').removeClass('active');
       target.parent().addClass('active');
       const targetID = target.data('id');
-      this.generalSetting.set('general-setting' === targetID);
+      this.generalSetting.set('registration-setting' === targetID);
       this.emailSetting.set('email-setting' === targetID);
     }
   },
@@ -74,7 +74,6 @@ BlazeComponent.extendComponent({
   },
 
   inviteThroughEmail(){
-    this.setLoading(true);
     const emails = $('#email-to-invite').val().trim().split('\n').join(',').split(',');
     const boardsToInvite = [];
     $('.js-toggle-board-choose .materialCheckBox.is-checked').each(function () {
@@ -86,12 +85,15 @@ BlazeComponent.extendComponent({
         validEmails.push(email.trim());
       }
     });
-    Meteor.call('sendInvitation', validEmails, boardsToInvite, () => {
-      // if (!err) {
-      //   TODO - show more info to user
-      // }
-      this.setLoading(false);
-    });
+    if (validEmails.length) {
+      this.setLoading(true);
+      Meteor.call('sendInvitation', validEmails, boardsToInvite, () => {
+        // if (!err) {
+        //   TODO - show more info to user
+        // }
+        this.setLoading(false);
+      });
+    }
   },
 
   saveMailServerInfo(){
@@ -116,7 +118,7 @@ BlazeComponent.extendComponent({
 
   events(){
     return [{
-      'click a.js-toggle-strict-mode': this.toggleStrictMode,
+      'click a.js-toggle-registration': this.toggleRegistration,
       'click a.js-setting-menu': this.switchMenu,
       'click a.js-toggle-board-choose': this.checkBoard,
       'click button.js-email-invite': this.inviteThroughEmail,

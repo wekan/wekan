@@ -1,5 +1,5 @@
 Meteor.publish('setting', () => {
-  return Settings.find({}, {fields:{strict: 1}});
+  return Settings.find({}, {fields:{disableRegistration: 1}});
 });
 
 Meteor.publish('mailServer', function () {
