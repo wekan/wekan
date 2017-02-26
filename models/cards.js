@@ -354,8 +354,18 @@ if (Meteor.isServer) {
   });
 
   // Remove all activities associated with a card if we remove the card
+  // Remove also card_comments / checklists / attachments
   Cards.after.remove((userId, doc) => {
     Activities.remove({
+      cardId: doc._id,
+    });
+    Checklists.remove({
+      cardId: doc._id,
+    });
+    CardComments.remove({
+      cardId: doc._id,
+    });
+    Attachments.remove({
       cardId: doc._id,
     });
   });
