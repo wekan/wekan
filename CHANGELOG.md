@@ -24,6 +24,7 @@ and fixes the following bugs:
   of the card before adding activity;
 * All new boards are automatically starred. Fixed to
   only star header-bar new-boards;
+* Orphan documents were created when cards were deleted;
 * Improve Wekan performance by adding indexes to MongoDB;
 * Typos.
 
