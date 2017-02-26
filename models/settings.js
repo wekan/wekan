@@ -6,18 +6,23 @@ Settings.attachSchema(new SimpleSchema({
   },
   'mailServer.username': {
     type: String,
+    optional: true,
   },
   'mailServer.password': {
     type: String,
+    optional: true,
   },
   'mailServer.host': {
     type: String,
+    optional: true,
   },
   'mailServer.port': {
     type: String,
+    optional: true,
   },
   'mailServer.from': {
     type: String,
+    optional: true,
     defaultValue: 'Kanban',
   },
   createdAt: {
