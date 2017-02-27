@@ -97,7 +97,10 @@ Meteor.publishRelations('board', function(boardId) {
     // hack!
     this.cursor(Cards.find({ boardId }), function(cardId) {
       this.cursor(CardComments.find({ cardId }));
-      this.cursor(Attachments.find({ cardId }));
+      this.cursor(Attachments.find({
+        'metadata._Resumable': { $exists: false },
+        'metadata.cardId': cardId
+      }));
       this.cursor(Checklists.find({ cardId }));
     });
 

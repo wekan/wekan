@@ -79,7 +79,7 @@
     "ESSearchResults": false,
     "FastRender": false,
     "FlowRouter": false,
-    "FS": false,
+    "FileCollection": false,
     "getSlug": false,
     "Migrations": false,
     "moment": false,

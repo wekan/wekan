@@ -288,6 +288,8 @@ class TrelloCreator {
       const trelloCoverId = card.idAttachmentCover;
       if (attachments) {
         attachments.forEach((att) => {
+          console.warn('[re-attach] Attachment import not implemented yet!', att);
+          /*
           const file = new FS.File();
           // Simulating file.attachData on the client generates multiple errors
           // - HEAD returns null, which causes exception down the line
@@ -311,6 +313,7 @@ class TrelloCreator {
             });
           }
           // todo XXX set cover - if need be
+          */
         });
       }
       result.push(cardId);

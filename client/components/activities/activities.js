@@ -85,10 +85,10 @@ BlazeComponent.extendComponent({
   attachmentLink() {
     const attachment = this.currentData().attachment();
     // trying to display url before file is stored generates js errors
-    return attachment && attachment.url({ download: true }) && Blaze.toHTML(HTML.A({
-      href: FlowRouter.path(attachment.url({ download: true })),
+    return attachment && attachment.md5 && Blaze.toHTML(HTML.A({
+      href: FlowRouter.path(`${Attachments.baseURL}/${attachment.md5}?download=true`),
       target: '_blank',
-    }, attachment.name()));
+    }, attachment.filename));
   },
 
   events() {

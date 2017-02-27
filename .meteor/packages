@@ -17,8 +17,6 @@ es5-shim
 
 # Collections
 aldeed:collection2
-cfs:gridfs
-cfs:standard-packages
 cottz:publish-relations
 dburles:collection-helpers
 idmontie:migrations
@@ -26,6 +24,7 @@ matb33:collection-hooks
 matteodem:easy-search
 mongo
 mquandalle:collection-mutations
+vsivsi:file-collection
 
 # Account system
 accounts-password

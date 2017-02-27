@@ -1,27 +1,37 @@
-Avatars = new FS.Collection('avatars', {
-  stores: [
-    new FS.Store.GridFS('avatars'),
-  ],
+Avatars = new FileCollection('avatars', {
+  resumable: true,
+  resumableIndexName: 'ava_resume',
+  http: [{
+    method: 'get',
+    path: '/:md5',
+    lookup: ({ md5 }) => ({ md5 })
+  }]
+});
+
+console.warn('[re-attach] Avatar size & type filters disabled!');
+/*
   filter: {
     maxSize: 72000,
     allow: {
       contentTypes: ['image/*'],
     },
   },
-});
+*/
 
-function isOwner(userId, file) {
-  return userId && userId === file.userId;
+if (Meteor.isServer) {
+  function isOwner(userId, file) {
+    return userId && userId === file.metadata.userId;
+  }
+
+  Avatars.allow({
+    insert: isOwner,
+    remove: isOwner,
+    read: () => true,
+    write: isOwner,
+  });
 }
 
-Avatars.allow({
-  insert: isOwner,
-  update: isOwner,
-  remove: isOwner,
-  download() { return true; },
-  fetch: ['userId'],
-});
-
-Avatars.files.before.insert((userId, doc) => {
-  doc.userId = userId;
+Avatars.before.insert((userId, file) => {
+  if (!file.metadata) file.metadata = { userId };
+  else file.metadata.userId = userId;
 });

@@ -1,47 +1,56 @@
-Attachments = new FS.Collection('attachments', {
-  stores: [
-
-    // XXX Add a new store for cover thumbnails so we don't load big images in
-    // the general board view
-    new FS.Store.GridFS('attachments'),
-  ],
+Attachments = new FileCollection('attachments', {
+  resumable: true,
+  resumableIndexName: 'att_resume',
+  http: [{
+    method: 'get',
+    path: '/:md5',
+    lookup: ({ md5 }) => ({ md5 })
+  }]
 });
 
 if (Meteor.isServer) {
   Attachments.allow({
-    insert(userId, doc) {
-      return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+    insert(userId, { metadata }) {
+      if (!metadata) return false;
+      if (!metadata.userId) metadata.userId = userId;
+      return allowIsBoardMember(userId, Boards.findOne(metadata.boardId));
     },
-    update(userId, doc) {
-      return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+    remove(userId, { metadata }) {
+      return metadata && allowIsBoardMember(userId, Boards.findOne(metadata.boardId));
     },
-    remove(userId, doc) {
-      return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
-    },
-    // We authorize the attachment download either:
-    // - if the board is public, everyone (even unconnected) can download it
-    // - if the board is private, only board members can download it
-    //
-    // XXX We have a bug with the `userId` verification:
-    //
-    //   https://github.com/CollectionFS/Meteor-CollectionFS/issues/449
-    //
-    download(userId, doc) {
-      const query = {
+    read(userId, { metadata }) {
+      return metadata && Boolean(Boards.findOne(metadata.boardId, {
         $or: [
           { 'members.userId': userId },
           { permission: 'public' },
-        ],
-      };
-      return Boolean(Boards.findOne(doc.boardId, query));
+        ]
+      }));
     },
+    write(userId, { metadata }) {
+      return metadata && metadata.userId && allowIsBoardMember(userId, Boards.findOne(metadata.boardId));
+    },
+  });
 
-    fetch: ['boardId'],
+  Attachments.after.insert((userId, { _id, metadata }) => {
+    Activities.insert({
+      userId,
+      type: 'card',
+      activityType: 'addAttachment',
+      attachmentId: _id,
+      boardId: metadata.boardId,
+      cardId: metadata.cardId,
+    });
+  });
+
+  Attachments.after.remove((userId, { _id }) => {
+    Activities.remove({
+      attachmentId: _id,
+    });
   });
 }
 
-// XXX Enforce a schema for the Attachments CollectionFS
-
+console.warn('[re-attach] Upload file type "fix" disabled!');
+/*
 Attachments.files.before.insert((userId, doc) => {
   const file = new FS.File(doc);
   doc.userId = userId;
@@ -58,22 +67,40 @@ Attachments.files.before.insert((userId, doc) => {
     file.original.type = 'application/octet-stream';
   }
 });
+*/
 
-if (Meteor.isServer) {
-  Attachments.files.after.insert((userId, doc) => {
-    Activities.insert({
-      userId,
-      type: 'card',
-      activityType: 'addAttachment',
-      attachmentId: doc._id,
-      boardId: doc.boardId,
-      cardId: doc.cardId,
+if (Meteor.isClient) Meteor.startup(() => {
+  Attachments.resumable.on('fileAdded', file => {
+    const boardId = Session.get('currentBoard');
+    const cardId = Session.get('currentCard');
+    if (!boardId || !cardId) throw new Error(`Active board <${boardId}> & card <${cardId}> required for upload!`);
+    Attachments.insert({
+      _id: file.uniqueIdentifier,
+      filename: file.fileName,
+      contentType: file.file.type,
+      metadata: { boardId, cardId }
+    }, (err) => {
+      if (err) return console.warn('Upload failed', err);
+      Attachments.resumable.upload();
+      Popup.close();
+      Session.set('lastModifiedCard', cardId);
     });
   });
 
-  Attachments.files.after.remove((userId, doc) => {
-    Activities.remove({
-      attachmentId: doc._id,
-    });
+  Attachments.resumable.on('fileProgress', (file) => {
+    console.log('[re-attach] Upload progress', file.progress(), file);
   });
-}
+
+  Attachments.resumable.on('fileSuccess', (file, msg) => {
+    console.log('[re-attach] Upload success', msg, file);
+  });
+
+  Attachments.resumable.on('fileError', (file, msg) => {
+    console.warn('[re-attach] Upload error:', msg, file);
+  });
+
+  // required for file-collection authentication of write() events
+  Tracker.autorun(() => {
+    document.cookie = `X-Auth-Token=${Accounts._storedLoginToken()}; path=/`;
+  });
+});

@@ -64,7 +64,11 @@ BlazeComponent.extendComponent({
   },
 
   uploadedAvatars() {
-    return Avatars.find({userId: Meteor.userId()});
+    return Avatars.find({ 'metadata.userId': Meteor.userId() });
+  },
+
+  url(md5) {
+    return `${Avatars.baseURL}/${md5}`;
   },
 
   isSelected() {
@@ -96,6 +100,8 @@ BlazeComponent.extendComponent({
       'change .js-upload-avatar-input'(evt) {
         let file, fileUrl;
 
+        console.warn('[re-attach] Avatar upload not implemented yet!');
+        /*
         FS.Utility.eachFile(evt, (f) => {
           try {
             file = Avatars.insert(new FS.File(f));
@@ -117,6 +123,7 @@ BlazeComponent.extendComponent({
             });
           }, 100);
         }
+        */
       },
       'click .js-select-avatar'() {
         const avatarUrl = this.currentData().url(this.avatarUrlOptions());

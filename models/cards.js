@@ -131,7 +131,7 @@ Cards.helpers({
   },
 
   attachments() {
-    return Attachments.find({ cardId: this._id }, { sort: { uploadedAt: -1 }});
+    return Attachments.find({ 'metadata.cardId': this._id }, { sort: { uploadDate: -1 }});
   },
 
   cover() {

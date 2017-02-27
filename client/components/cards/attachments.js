@@ -49,28 +49,35 @@ Template.attachmentsGalery.events({
   },
 });
 
+Template.attachmentsGalery.helpers({
+  isImage() {
+    return this.contentType.indexOf('image/') === 0;
+  },
+  isUploaded() {
+    return this.length > 0;
+  },
+  url(download) {
+    return `${Attachments.baseURL}/${this.md5}${download ? '?download=true' :''}`;
+  }
+});
+
 Template.previewAttachedImagePopup.events({
   'click .js-large-image-clicked'(){
     Popup.close();
   },
 });
 
-Template.cardAttachmentsPopup.events({
-  'change .js-attach-file'(evt) {
-    const card = this;
-    FS.Utility.eachFile(evt, (f) => {
-      const file = new FS.File(f);
-      file.boardId = card.boardId;
-      file.cardId = card._id;
+Template.previewAttachedImagePopup.helpers({
+  url() {
+    return `${Attachments.baseURL}/${this.md5}`;
+  }
+});
 
-      Attachments.insert(file);
-      Popup.close();
-    });
-  },
-  'click .js-computer-upload'(evt, tpl) {
-    tpl.find('.js-attach-file').click();
-    evt.preventDefault();
-  },
+Template.cardAttachmentsPopup.onRendered(function() {
+  Attachments.resumable.assignBrowse(this.find('.js-computer-upload'));
+});
+
+Template.cardAttachmentsPopup.events({
   'click .js-upload-clipboard-image': Popup.open('previewClipboardImage'),
 });
 
@@ -96,23 +103,10 @@ Template.previewClipboardImagePopup.onRendered(() => {
 
 Template.previewClipboardImagePopup.events({
   'click .js-upload-pasted-image'() {
-    const results = pastedResults;
-    if (results && results.file) {
-      const card = this;
-      const file = new FS.File(results.file);
-      if (!results.name) {
-        // if no filename, it's from clipboard. then we give it a name, with ext name from MIME type
-        if (typeof results.file.type === 'string') {
-          file.name(results.file.type.replace('image/', 'clipboard.'));
-        }
-      }
-      file.updatedAt(new Date());
-      file.boardId = card.boardId;
-      file.cardId = card._id;
-      Attachments.insert(file);
+    if (pastedResults && pastedResults.file) {
+      Attachments.resumable.addFile(pastedResults.file);
       pastedResults = null;
       $(document.body).pasteImageReader(() => {});
-      Popup.close();
     }
   },
 });

@@ -131,7 +131,7 @@ $popupWidth = 300px
   margin-bottom: 8px
 
 .pop-over-list
-  li > a
+  li > a, li > .js-link
     clear: both
     cursor: pointer
     display: block
@@ -189,7 +189,7 @@ $popupWidth = 300px
       &:active
         background: none
 
-  &.inset li > a
+  &.inset li > a, &.inset li > .js-link
     border-radius: 3px
     margin: 0
 
@@ -200,7 +200,7 @@ $popupWidth = 300px
       top: 6px
       right: 12px
 
-    li.active a
+    li.active a, li.active .js-link
       padding-right: 28px
 
       .fa-check
@@ -313,7 +313,7 @@ $popupWidth = 300px
           width: 100%
 
     .pop-over-list
-      li > a
+      li > a, li > .js-link
         width: calc(100% - 20px)
         padding: 10px 10px
         margin: 0px 0px

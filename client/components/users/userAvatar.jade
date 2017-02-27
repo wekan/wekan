@@ -43,7 +43,7 @@ template(name="changeAvatarPopup")
     each uploadedAvatars
       li: a.js-select-avatar
         .member
-          img.avatar.avatar-image(src="{{url avatarUrlOptions}}")
+          img.avatar.avatar-image(src="{{url md5}}")
         | {{_ 'uploaded-avatar'}}
         if isSelected
           i.fa.fa-check
