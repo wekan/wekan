@@ -17,9 +17,6 @@ ENV NPM_VERSION ${NPM_VERSION:-3.10.10}
 ENV ARCHITECTURE ${ARCHITECTURE:-linux-x64}
 ENV SRC_PATH ${SRC_PATH:-./}
 
-# Copy the app to the image
-COPY ${SRC_PATH} /home/wekan/app
-
 RUN \
     # Add non-root user wekan
     useradd --user-group --system --home-dir /home/wekan wekan && \
@@ -68,15 +65,21 @@ RUN \
     npm install -g fibers && \
     \
     # Change user to wekan and install meteor
+    mkdir -p /home/wekan && \
     cd /home/wekan/ && \
     chown wekan:wekan --recursive /home/wekan && \
     curl https://install.meteor.com -o ./install_meteor.sh && \
     sed -i "s|RELEASE=.*|RELEASE=${METEOR_RELEASE}\"\"|g" ./install_meteor.sh && \
     echo "Starting meteor ${METEOR_RELEASE} installation...   \n" && \
     chown wekan:wekan ./install_meteor.sh && \
-    gosu wekan:wekan sh ./install_meteor.sh && \
-    \
+    gosu wekan:wekan sh ./install_meteor.sh
+
+# Copy the app to the image
+COPY ${SRC_PATH} /home/wekan/app
+
+RUN \
     # Build app
+    chown wekan:wekan --recursive /home/wekan/app && \
     cd /home/wekan/app && \
     gosu wekan /home/wekan/.meteor/meteor npm install --save xss && \
     gosu wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build && \
