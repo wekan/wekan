@@ -81,10 +81,12 @@ Automatic generated newest builds are available for Docker, and some others that
 install directly from this repo. Automatic builds will be added later for more
 platforms.
 
-[Wekan database cleanup script][wekan_cleanup] -- [Feedback][cleanup_issue]
+[Wekan database cleanup script][wekan_cleanup]
 
 [Daily export of Wekan changes as JSON to Logstash and
-ElasticSearch / Kibana (ELK)][wekan_logstash] -- [Feedback][logstash_issue]
+ElasticSearch / Kibana (ELK)][wekan_logstash]
+
+[Wekan stats][wekan_stats]
 
 ### Docker: [Docker image][docker_image], [Docs at wiki][wekan_wiki]
 
@@ -208,7 +210,7 @@ with [Meteor](https://www.meteor.com).
 [donations]: http://www.xet7.org/wekan
 [wekan_mongodb]: https://github.com/wekan/wekan-mongodb
 [wekan_postgresql]: https://github.com/wekan/wekan-postgresql
-[wekan_cleanup]: https://github.com/fmonthel/wekan-cleanup
-[cleanup_issue]: https://github.com/wekan/wekan/issues/833
-[wekan_logstash]: https://github.com/fmonthel/wekan-logstash
+[wekan_cleanup]: https://github.com/wekan/wekan-cleanup
+[wekan_logstash]: https://github.com/wekan/wekan-logstash
+[wekan_stats]: https://github.com/wekan/wekan-stats
 [logstash_issue]: https://github.com/wekan/wekan/issues/855

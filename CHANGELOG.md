@@ -9,12 +9,10 @@ This release adds following new features:
   for SQL access with any programming language
   or Office package that has PostgreSQL support, like
   newest LibreOffice 3.5;
-* [Wekan database cleanup script](https://github.com/fmonthel/wekan-cleanup) --
-  [Feedback](https://github.com/wekan/wekan/issues/833).
-  Link to cleanup script also added to README.md;
+* [Wekan database cleanup script](https://github.com/wekan/wekan-cleanup);
 * [Daily export of Wekan changes as JSON to Logstash and
-  ElasticSearch / Kibana (ELK)][https://github.com/fmonthel/wekan-logstash] --
-  [Feedback][https://github.com/wekan/wekan/issues/855]
+  ElasticSearch / Kibana (ELK)](https://github.com/wekan/wekan-logstash);
+* [Wekan stats](https://github.com/wekan/wekan-stats).
 
 and fixes the following bugs:
 
