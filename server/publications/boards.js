@@ -32,6 +32,7 @@ Meteor.publish('boards', function() {
       color: 1,
       members: 1,
       permission: 1,
+      hidden: 1,
     },
   });
 });
@@ -54,6 +55,7 @@ Meteor.publish('archivedBoards', function() {
       archived: 1,
       slug: 1,
       title: 1,
+      hidden: 1,
     },
   });
 });
