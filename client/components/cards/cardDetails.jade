@@ -77,6 +77,10 @@ template(name="cardDetails")
       +viewer
         = description
 
+    if subBoardId
+      hr
+      +cardSubBoard
+
     hr
     +checklists(cardId = _id)
 
