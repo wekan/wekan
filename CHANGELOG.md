@@ -12,7 +12,8 @@ This release adds following new features:
 * [Wekan database cleanup script](https://github.com/wekan/wekan-cleanup);
 * [Daily export of Wekan changes as JSON to Logstash and
   ElasticSearch / Kibana (ELK)](https://github.com/wekan/wekan-logstash);
-* [Wekan stats](https://github.com/wekan/wekan-stats).
+* [Wekan stats](https://github.com/wekan/wekan-stats);
+* [Docker environment for Wekan development](https://github.com/wekan/wekan-dev).
 
 and fixes the following bugs:
 
@@ -26,8 +27,8 @@ and fixes the following bugs:
 * Improve Wekan performance by adding indexes to MongoDB;
 * Typos.
 
-Thanks to GitHub users fmonthel, jLouzado, maulal, pra85, vuxor, whittssg2
-and xet7 for their contributions.
+Thanks to GitHub users eemeli, fmonthel, jLouzado, maulal, pra85,
+vuxor, whittssg2 and xet7 for their contributions.
 
 # v0.11.1-rc1 2017-02-10 Wekan prerelease
 

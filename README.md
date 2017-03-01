@@ -136,6 +136,8 @@ docker run -d --restart=always --name wekan --link "wekan-db:db" -e "MONGO_URL=m
 
 [Docker on SUSE Linux Enterprise Server 12 SP1][sles]
 
+[Docker environment for Wekan development][wekan_dev]
+
 [Install from source][install_source]
 
 [VirtualBox][virtualbox]
@@ -213,4 +215,5 @@ with [Meteor](https://www.meteor.com).
 [wekan_cleanup]: https://github.com/wekan/wekan-cleanup
 [wekan_logstash]: https://github.com/wekan/wekan-logstash
 [wekan_stats]: https://github.com/wekan/wekan-stats
+[wekan_dev]: https://github.com/wekan/wekan-dev
 [logstash_issue]: https://github.com/wekan/wekan/issues/855
