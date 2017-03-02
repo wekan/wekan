@@ -4,8 +4,6 @@
 
 [![Wekan chat][vanila_badge]][vanila_chat]
 
-[Donations][donations]
-
 2017-02-08 News: All of Wefork is now merged and moved back to official
 Wekan. Wefork will not accept any new issues and pull requests.
 All development happens on Wekan.
@@ -209,7 +207,6 @@ with [Meteor](https://www.meteor.com).
 [autoinstall]: https://github.com/wekan/wekan-autoinstall
 [autoinstall_issue]: https://github.com/anselal/wekan/issues/18
 [dev_docs]: https://github.com/wekan/wekan/wiki/Developer-Documentation
-[donations]: http://www.xet7.org/wekan
 [wekan_mongodb]: https://github.com/wekan/wekan-mongodb
 [wekan_postgresql]: https://github.com/wekan/wekan-postgresql
 [wekan_cleanup]: https://github.com/wekan/wekan-cleanup
