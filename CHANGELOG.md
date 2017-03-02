@@ -1,21 +1,24 @@
 # Upcoming Wekan release
 
-This release adds following new features:
+This release adds the following supported platforms:
 
-* Make Due Date layout nicer on minicard;
-* Added tooltip for board menu and sidebar buttons.
+* [Docker environment for Wekan development](https://github.com/wekan/wekan-dev);
 * [Wekan <=> MongoDB <=> ToroDB => PostgreSQL read-only
   mirroring](https://github.com/wekan/wekan-postgresql)
   for SQL access with any programming language
   or Office package that has PostgreSQL support, like
   newest LibreOffice 3.5;
-* [Wekan database cleanup script](https://github.com/wekan/wekan-cleanup);
-* [Daily export of Wekan changes as JSON to Logstash and
-  ElasticSearch / Kibana (ELK)](https://github.com/wekan/wekan-logstash);
-* [Wekan stats](https://github.com/wekan/wekan-stats);
-* [Docker environment for Wekan development](https://github.com/wekan/wekan-dev);
 * [Install from source on
   Windows](https://github.com/wekan/wekan/wiki/Install-Wekan-from-source-on-Windows).
+
+and adds the following new features:
+
+* Make Due Date layout nicer on minicard;
+* Added tooltip for board menu and sidebar buttons;
+* [Wekan database cleanup script](https://github.com/wekan/wekan-cleanup);
+* [Daily export script of Wekan changes as JSON to Logstash and
+  ElasticSearch / Kibana (ELK)](https://github.com/wekan/wekan-logstash);
+* [Wekan stats script](https://github.com/wekan/wekan-stats).
 
 and fixes the following bugs:
 
