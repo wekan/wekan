@@ -13,9 +13,9 @@ This release adds following new features:
 * [Daily export of Wekan changes as JSON to Logstash and
   ElasticSearch / Kibana (ELK)](https://github.com/wekan/wekan-logstash);
 * [Wekan stats](https://github.com/wekan/wekan-stats);
-* [Docker environment for Wekan development](https://github.com/wekan/wekan-dev).
+* [Docker environment for Wekan development](https://github.com/wekan/wekan-dev);
 * [Install from source on
-  Windows](https://github.com/wekan/wekan/wiki/Install-Wekan-from-source-on-Windows)
+  Windows](https://github.com/wekan/wekan/wiki/Install-Wekan-from-source-on-Windows).
 
 and fixes the following bugs:
 
