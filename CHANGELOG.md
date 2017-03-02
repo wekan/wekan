@@ -14,6 +14,8 @@ This release adds following new features:
   ElasticSearch / Kibana (ELK)](https://github.com/wekan/wekan-logstash);
 * [Wekan stats](https://github.com/wekan/wekan-stats);
 * [Docker environment for Wekan development](https://github.com/wekan/wekan-dev).
+* [Install from source on
+  Windows](https://github.com/wekan/wekan/wiki/Install-Wekan-from-source-on-Windows)
 
 and fixes the following bugs:
 
@@ -27,8 +29,8 @@ and fixes the following bugs:
 * Improve Wekan performance by adding indexes to MongoDB;
 * Typos.
 
-Thanks to GitHub users eemeli, fmonthel, jLouzado, maulal, pra85,
-vuxor, whittssg2 and xet7 for their contributions.
+Thanks to GitHub users eemeli, entrptaher, fmonthel, jLouzado, maulal,
+pra85, vuxor, whittssg2 and xet7 for their contributions.
 
 # v0.11.1-rc1 2017-02-10 Wekan prerelease
 

@@ -138,6 +138,8 @@ docker run -d --restart=always --name wekan --link "wekan-db:db" -e "MONGO_URL=m
 
 [Install from source][install_source]
 
+[Install from source on Windows][installsource_windows]
+
 [VirtualBox][virtualbox]
 
 [Debian Wheezy 64bit][debian_wheezy]
@@ -198,6 +200,7 @@ with [Meteor](https://www.meteor.com).
 [travis_badge]: https://travis-ci.org/wekan/wekan.svg?branch=devel
 [travis_status]: https://travis-ci.org/wekan/wekan
 [install_source]: https://github.com/wekan/wekan/wiki/Install-and-Update#install-manually-from-source
+[installsource_windows]: https://github.com/wekan/wekan/wiki/Install-Wekan-from-source-on-Windows
 [sles]: https://github.com/wekan/wekan/wiki/Install-Wekan-Docker-on-SUSE-Linux-Enterprise-Server-12-SP1
 [virtualbox]: https://github.com/wekan/wekan/wiki/virtual-appliance
 [sandstorm_spk]: https://github.com/wekan/wekan/issues/823
