@@ -128,8 +128,8 @@ class TrelloCreator {
       name: String,
       checkItems: [Match.ObjectIncluding({
         state: String,
-        name: String
-      })]
+        name: String,
+      })],
     })]);
   }
 
@@ -387,7 +387,7 @@ class TrelloCreator {
       const checklistToCreate = {
         cardId: this.cards[checklist.idCard],
         title: checklist.name,
-        createdAt: this._now()
+        createdAt: this._now(),
       };
       const checklistId = Checklists.direct.insert(checklistToCreate);
       // Now add the items to the checklist
@@ -396,7 +396,7 @@ class TrelloCreator {
         itemsToCreate.push({
           _id: checklistId + itemsToCreate.length,
           title: item.name,
-          isFinished: item.state == 'complete'
+          isFinished: item.state === 'complete',
         });
       });
       Checklists.direct.update(checklistId, {$set: {items: itemsToCreate}});
