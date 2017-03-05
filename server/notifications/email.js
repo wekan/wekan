@@ -28,7 +28,7 @@ Meteor.startup(() => {
 
       try {
         Email.send({
-          to: user.emails[0].address,
+          to: user.emails[0].address.toLowerCase(),
           from: Accounts.emailTemplates.from,
           subject: TAPi18n.__('act-activity-notify', {}, user.getLanguage()),
           text,

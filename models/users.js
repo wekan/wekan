@@ -349,7 +349,8 @@ if (Meteor.isServer) {
       } else {
         if (posAt <= 0) throw new Meteor.Error('error-user-doesNotExist');
 
-        const email = username;
+        // Set in lowercase email before creating account
+        const email = username.toLowerCase();
         username = email.substring(0, posAt);
         const newUserId = Accounts.createUser({ username, email });
         if (!newUserId) throw new Meteor.Error('error-user-notCreated');
@@ -377,7 +378,7 @@ if (Meteor.isServer) {
         };
         const lang = user.getLanguage();
         Email.send({
-          to: user.emails[0].address,
+          to: user.emails[0].address.toLowerCase(),
           from: Accounts.emailTemplates.from,
           subject: TAPi18n.__('email-invite-subject', params, lang),
           text: TAPi18n.__('email-invite-text', params, lang),
