@@ -193,6 +193,13 @@ template(name="createBoard")
       | {{_ 'or'}}
       a(href="{{pathFor 'import'}}") {{_ 'import-board'}}
 
+template(name="subBoardBadge")
+  a.card-sub-board(href="{{pathFor 'board' id=subBoardId slug=subBoardSlug}}")
+    span.fa.fa-table  {{_ 'openSubBoard'}}
+
+template(name="subBoardMiniBadge")
+  a.card-sub-board(href="{{pathFor 'board' id=subBoardId slug=subBoardSlug}}")
+    span.fa.fa-table
 
 template(name="boardChangeTitlePopup")
   form

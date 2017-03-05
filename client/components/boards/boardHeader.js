@@ -188,6 +188,18 @@ const CreateBoard = BlazeComponent.extendComponent({
   }
 }).register('createSubBoardPopup');
 
+const CardSubBoard = BlazeComponent.extendComponent({
+  template() {
+    return 'subBoardBadge';
+  },
+}).register('cardSubBoard');
+
+(class extends CardSubBoard {
+  template() {
+    return 'subBoardMiniBadge';
+  }
+}).register('minicardSubBoard');
+
 BlazeComponent.extendComponent({
   visibilityCheck() {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
