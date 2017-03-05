@@ -30,6 +30,7 @@ and fixes the following bugs:
   only star header-bar new-boards;
 * Orphan documents were created when cards were deleted;
 * Improve Wekan performance by adding indexes to MongoDB;
+* Invite user with lower case email;
 * Typos.
 
 Thanks to GitHub users eemeli, entrptaher, fmonthel, jLouzado, maulal,
