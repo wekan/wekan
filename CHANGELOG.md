@@ -1,6 +1,21 @@
+# v0.12 2017-03-05 Wekan release
+
+Known bugs:
+* https://github.com/wekan/wekan/issues/785
+* https://github.com/wekan/wekan/issues/784
+
+This release adds the following new features:
+
+* Import Checklists from Trello;
+* Simplified release numbers of Wekan.
+
+Thanks to GitHub user whodafly and xet7 for
+their contributions.
+
 # v0.11.1-rc2 2017-03-05 Wekan prerelease
 
 Known bugs:
+
 * https://github.com/wekan/wekan/issues/785
 * https://github.com/wekan/wekan/issues/784
 
