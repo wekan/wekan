@@ -1,4 +1,8 @@
-# Upcoming Wekan release
+# v0.11.1-rc2 2017-03-05 Wekan prerelease
+
+Known bugs:
+* https://github.com/wekan/wekan/issues/785
+* https://github.com/wekan/wekan/issues/784
 
 This release adds the following supported platforms:
 
@@ -14,22 +18,18 @@ This release adds the following supported platforms:
 and adds the following new features:
 
 * Admin Panel:
+```
   1) Disable Self-Registration and invite users
   2) SMTP settings.
     
   Adding Admin user in mongo cli:
   1) Use database that has wekan data, for example:
-```
-  use admin;
-```
+     use admin;
   2) Add Admin rights to some Wekan username:
-```
-  db.users.update({username:'admin-username-here'},{$set:{isAdmin:true}})
-```    
+     db.users.update({username:'admin-username-here'},{$set:{isAdmin:true}})
   Hiding Admin panel by removing Admin rights:
-```
-  use admin;
-  db.settings.remove({});
+     use admin;
+     db.settings.remove({});
 ```
 * Make Due Date layout nicer on minicard;
 * Added tooltip for board menu and sidebar buttons;
