@@ -25,6 +25,8 @@ class TrelloCreator {
     this.labels = {};
     // Map of lists Trello ID => Wekan ID
     this.lists = {};
+    // Map of cards Trello ID => Wekan ID
+    this.cards = {};
     // The comments, indexed by Trello card id (to map when importing cards)
     this.comments = {};
     // the members, indexed by Trello member id => Wekan user ID
@@ -116,6 +118,18 @@ class TrelloCreator {
     check(trelloLists, [Match.ObjectIncluding({
       closed: Boolean,
       name: String,
+    })]);
+  }
+
+  checkChecklists(trelloChecklists) {
+    check(trelloChecklists, [Match.ObjectIncluding({
+      idBoard: String,
+      idCard: String,
+      name: String,
+      checkItems: [Match.ObjectIncluding({
+        state: String,
+        name: String
+      })]
     })]);
   }
 
@@ -241,6 +255,8 @@ class TrelloCreator {
       }
       // insert card
       const cardId = Cards.direct.insert(cardToCreate);
+      // keep track of Trello id => WeKan id
+      this.cards[card.id] = cardId;
       // log activity
       Activities.direct.insert({
         activityType: 'importCard',
@@ -280,7 +296,7 @@ class TrelloCreator {
             createdAt: this._now(commentToCreate.createdAt),
             // we attribute the addComment (not the import)
             // to the original author - it is needed by some UI elements.
-            userId: commentToCreate.userId,
+            userId: this._user(commentToCreate.userId),
           });
         });
       }
@@ -365,6 +381,28 @@ class TrelloCreator {
     });
   }
 
+  createChecklists(trelloChecklists) {
+    trelloChecklists.forEach((checklist) => {
+      // Create the checklist
+      const checklistToCreate = {
+        cardId: this.cards[checklist.idCard],
+        title: checklist.name,
+        createdAt: this._now()
+      };
+      const checklistId = Checklists.direct.insert(checklistToCreate);
+      // Now add the items to the checklist
+      const itemsToCreate = [];
+      checklist.checkItems.forEach((item) => {
+        itemsToCreate.push({
+          _id: checklistId + itemsToCreate.length,
+          title: item.name,
+          isFinished: item.state == 'complete'
+        });
+      });
+      Checklists.direct.update(checklistId, {$set: {items: itemsToCreate}});
+    });
+  }
+
   getAdmin(trelloMemberType) {
     return trelloMemberType === 'admin';
   }
@@ -446,6 +484,7 @@ Meteor.methods({
       trelloCreator.checkLabels(trelloBoard.labels);
       trelloCreator.checkLists(trelloBoard.lists);
       trelloCreator.checkCards(trelloBoard.cards);
+      trelloCreator.checkChecklists(trelloBoard.checklists);
     } catch (e) {
       throw new Meteor.Error('error-json-schema');
     }
@@ -458,6 +497,7 @@ Meteor.methods({
     const boardId = trelloCreator.createBoardAndLabels(trelloBoard);
     trelloCreator.createLists(trelloBoard.lists, boardId);
     trelloCreator.createCards(trelloBoard.cards, boardId);
+    trelloCreator.createChecklists(trelloBoard.checklists);
     // XXX add members
     return boardId;
   },
