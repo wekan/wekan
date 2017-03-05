@@ -119,6 +119,8 @@
     "allowIsBoardMember": true,
     "allowIsBoardMemberByCard": true,
     "Emoji": true,
-    "Checklists": true
+    "Checklists": true,
+    "Settings": true,
+    "InvitationCodes": true
   }
 }
