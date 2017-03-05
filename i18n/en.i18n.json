@@ -333,7 +333,7 @@
     "invite": "Invite",
     "invite-people": "Invite People",
     "to-boards": "To board(s)",
-    "email-addresses":"Email Addresses",
+    "email-addresses": "Email Addresses",
     "smtp-host-description": "The address of the SMTP server that handles your emails.",
     "smtp-port-description": "The port your SMTP server uses for outgoing emails.",
     "smtp-host": "SMTP Host",
@@ -343,6 +343,6 @@
     "send-from": "From",
     "invitation-code": "Invitation Code",
     "email-invite-register-subject": "__inviter__ sent you an invitation",
-    "email-invite-register-text": "Dear __user__,\n\n__inviter__ invites you to Wekan for collaborations.\n\nPlease follow the link below:\n__url__\n\nAnd your invitation code is: __icode__\n\nThanks.\n",
+    "email-invite-register-text": "Dear __user__,\n\n__inviter__ invites you to Wekan for collaborations.\n\nPlease follow the link below:\n__url__\n\nAnd your invitation code is: __icode__\n\nThanks.",
     "error-invitation-code-not-exist": "Invitation code doesn't exist"
 }
