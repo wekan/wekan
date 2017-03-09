@@ -17,6 +17,9 @@ template(name="minicard")
       if estimate
           .estimate
             +minicardEstimate
+      if subBoardId
+        .subBoard
+          +minicardSubBoard
     if members
       .minicard-members.js-minicard-members
         each members

@@ -77,6 +77,10 @@ template(name="cardDetails")
       +viewer
         = description
 
+    if subBoardId
+      hr
+      +cardSubBoard
+
     hr
     +checklists(cardId = _id)
 
@@ -115,6 +119,12 @@ template(name="cardDetailsActionsPopup")
     li: a.js-start-date {{_ 'editCardStartDatePopup-title'}}
     li: a.js-due-date {{_ 'editCardDueDatePopup-title'}}
     li: a.js-estimate {{_ 'editCardEstimate-title'}}
+  hr
+  ul.pop-over-list
+    if subBoardId
+      li: a.js-open-board(href="{{pathFor 'board' id=subBoardId slug=subBoardSlug}}") {{_ 'openSubBoard'}}
+    else
+      li: a.js-sub-board {{_ 'createSubBoardPopup-title'}}
   hr
   ul.pop-over-list
     li: a.js-move-card-to-top {{_ 'moveCardToTop-title'}}
