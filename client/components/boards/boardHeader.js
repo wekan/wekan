@@ -128,7 +128,7 @@ const CreateBoard = BlazeComponent.extendComponent({
     this.visibilityMenuIsOpen = new ReactiveVar(false);
     this.visibility = new ReactiveVar('private');
     this.hidden = new ReactiveVar(false);
-    const boardId = '';
+    this.boardId = new ReactiveVar('');
     const boardTitle = '';
   },
 
@@ -150,16 +150,13 @@ const CreateBoard = BlazeComponent.extendComponent({
     boardTitle = this.find('.js-new-board-title').value;
     const visibility = this.visibility.get();
 
-    boardId = Boards.insert({
+    this.boardId.set(Boards.insert({
       title: boardTitle,
       permission: visibility,
       hidden: this.hidden.get(),
-    });
+    }));
 
-    Utils.goBoardId(boardId);
-
-    // Immediately star boards crated with the headerbar popup.
-    Meteor.user().toggleBoardStar(boardId);
+    Utils.goBoardId(this.boardId.get());
   },
 
   events() {
@@ -183,7 +180,7 @@ const CreateBoard = BlazeComponent.extendComponent({
   onSubmit(evt) {
     super.onSubmit(evt);
     const card = this.currentData();
-    card.setSubBoard(boardId);
+    card.setSubBoard(this.boardId.get());
     card.setSubBoardSlug(boardTitle);
   }
 }).register('createSubBoardPopup');
@@ -199,6 +196,14 @@ const CardSubBoard = BlazeComponent.extendComponent({
     return 'subBoardMiniBadge';
   }
 }).register('minicardSubBoard');
+
+(class HeaderBarCreateBoard extends CreateBoard {
+  onSubmit(evt) {
+    super.onSubmit(evt);
+    // Immediately star boards crated with the headerbar popup.
+    Meteor.user().toggleBoardStar(this.boardId.get());
+  }
+}).register('headerBarCreateBoardPopup');
 
 BlazeComponent.extendComponent({
   visibilityCheck() {

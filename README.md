@@ -4,8 +4,6 @@
 
 [![Wekan chat][vanila_badge]][vanila_chat]
 
-[Donations][donations]
-
 2017-02-08 News: All of Wefork is now merged and moved back to official
 Wekan. Wefork will not accept any new issues and pull requests.
 All development happens on Wekan.
@@ -81,10 +79,12 @@ Automatic generated newest builds are available for Docker, and some others that
 install directly from this repo. Automatic builds will be added later for more
 platforms.
 
-[Wekan database cleanup script][wekan_cleanup] -- [Feedback][cleanup_issue]
+[Wekan database cleanup script][wekan_cleanup]
 
 [Daily export of Wekan changes as JSON to Logstash and
-ElasticSearch / Kibana (ELK)][wekan_logstash] -- [Feedback][logstash_issue]
+ElasticSearch / Kibana (ELK)][wekan_logstash]
+
+[Wekan stats][wekan_stats]
 
 ### Docker: [Docker image][docker_image], [Docs at wiki][wekan_wiki]
 
@@ -134,7 +134,11 @@ docker run -d --restart=always --name wekan --link "wekan-db:db" -e "MONGO_URL=m
 
 [Docker on SUSE Linux Enterprise Server 12 SP1][sles]
 
+[Docker environment for Wekan development][wekan_dev]
+
 [Install from source][install_source]
+
+[Install from source on Windows][installsource_windows]
 
 [VirtualBox][virtualbox]
 
@@ -196,6 +200,7 @@ with [Meteor](https://www.meteor.com).
 [travis_badge]: https://travis-ci.org/wekan/wekan.svg?branch=devel
 [travis_status]: https://travis-ci.org/wekan/wekan
 [install_source]: https://github.com/wekan/wekan/wiki/Install-and-Update#install-manually-from-source
+[installsource_windows]: https://github.com/wekan/wekan/wiki/Install-Wekan-from-source-on-Windows
 [sles]: https://github.com/wekan/wekan/wiki/Install-Wekan-Docker-on-SUSE-Linux-Enterprise-Server-12-SP1
 [virtualbox]: https://github.com/wekan/wekan/wiki/virtual-appliance
 [sandstorm_spk]: https://github.com/wekan/wekan/issues/823
@@ -205,10 +210,10 @@ with [Meteor](https://www.meteor.com).
 [autoinstall]: https://github.com/wekan/wekan-autoinstall
 [autoinstall_issue]: https://github.com/anselal/wekan/issues/18
 [dev_docs]: https://github.com/wekan/wekan/wiki/Developer-Documentation
-[donations]: http://www.xet7.org/wekan
 [wekan_mongodb]: https://github.com/wekan/wekan-mongodb
 [wekan_postgresql]: https://github.com/wekan/wekan-postgresql
-[wekan_cleanup]: https://github.com/fmonthel/wekan-cleanup
-[cleanup_issue]: https://github.com/wekan/wekan/issues/833
-[wekan_logstash]: https://github.com/fmonthel/wekan-logstash
+[wekan_cleanup]: https://github.com/wekan/wekan-cleanup
+[wekan_logstash]: https://github.com/wekan/wekan-logstash
+[wekan_stats]: https://github.com/wekan/wekan-stats
+[wekan_dev]: https://github.com/wekan/wekan-dev
 [logstash_issue]: https://github.com/wekan/wekan/issues/855

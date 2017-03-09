@@ -26,6 +26,9 @@ if (Meteor.isServer) {
   function isAuthor(userId, doc, fieldNames = []) {
     return userId === doc.userId && fieldNames.indexOf('userId') === -1;
   }
+  Meteor.startup(() => {
+    UnsavedEditCollection._collection._ensureIndex({ userId: 1 });
+  });
   UnsavedEditCollection.allow({
     insert: isAuthor,
     update: isAuthor,
