@@ -12,6 +12,10 @@
     return this.progress.get();
   }
 
+  progressCSS() {
+    return "width:"+this.progress.get()+"%";
+  }
+
   //IMPORTANT:
   //pass data context into this helper when using this component
   setProgress(currProgress) {
