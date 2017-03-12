@@ -35,8 +35,10 @@ Settings.attachSchema(new SimpleSchema({
 }));
 Settings.helpers({
   mailUrl () {
-    const mailUrl = `smtp://${this.mailServer.username}:${this.mailServer.password}@${this.mailServer.host}:${this.mailServer.port}/`;
-    return mailUrl;
+    if (!this.mailServer.username && !this.mailServer.password) {
+      return `smtp://${this.mailServer.host}:${this.mailServer.port}/`;
+    }
+    return `smtp://${this.mailServer.username}:${this.mailServer.password}@${this.mailServer.host}:${this.mailServer.port}/`;
   },
 });
 Settings.allow({
@@ -64,6 +66,17 @@ if (Meteor.isServer) {
     const newSetting = Settings.findOne();
     process.env.MAIL_URL = newSetting.mailUrl();
     Accounts.emailTemplates.from = newSetting.mailServer.from;
+  });
+  Settings.after.update((userId, doc, fieldNames) => {
+    // assign new values to mail-from & MAIL_URL in environment
+    if (_.contains(fieldNames, 'mailServer')) {
+      if (!doc.mailServer.username && !doc.mailServer.password) {
+        process.env.MAIL_URL = `smtp://${doc.mailServer.host}:${doc.mailServer.port}/`;
+      } else {
+        process.env.MAIL_URL = `smtp://${doc.mailServer.username}:${doc.mailServer.password}@${doc.mailServer.host}:${doc.mailServer.port}/`;
+      }
+      Accounts.emailTemplates.from = doc.mailServer.from;
+    }
   });
 
   function getRandomNum (min, max) {
@@ -107,7 +120,11 @@ if (Meteor.isServer) {
         if (email && SimpleSchema.RegEx.Email.test(email)) {
           const code = getRandomNum(100000, 999999);
           InvitationCodes.insert({code, email, boardsToBeInvited: boards, createdAt: new Date(), authorId: Meteor.userId()}, function(err, _id){
-            if(!err && _id) sendInvitationEmail(_id);
+            if (!err && _id) {
+              sendInvitationEmail(_id);
+            } else {
+              throw new Meteor.Error('invitation-generated-fail', err.message);
+            }
           });
         }
       });

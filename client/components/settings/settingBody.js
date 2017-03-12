@@ -103,8 +103,8 @@ BlazeComponent.extendComponent({
     try{
       const host = this.checkField('#mail-server-host');
       const port = this.checkField('#mail-server-port');
-      const username = this.checkField('#mail-server-username');
-      const password = this.checkField('#mail-server-password');
+      const username = $('#mail-server-username').val().trim();
+      const password = $('#mail-server-password').val().trim();
       const from = this.checkField('#mail-server-from');
       Settings.update(Settings.findOne()._id, {$set:{'mailServer.host':host, 'mailServer.port': port, 'mailServer.username': username,
           'mailServer.password': password, 'mailServer.from': from}});
