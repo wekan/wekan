@@ -1,6 +1,21 @@
+# v0.13 2017-03-12 Wekan release
+
+Known bugs:
+
+* https://github.com/wekan/wekan/issues/785
+* https://github.com/wekan/wekan/issues/784
+
+This release fixes the following bug:
+
+* Admin Panel: Set mail-from to environment immediately after changed,
+  allow user set a blank username and password pair in SMTP setting.
+
+Thanks to GitHub user lkisme for contributions.
+
 # v0.12 2017-03-05 Wekan release
 
 Known bugs:
+
 * https://github.com/wekan/wekan/issues/785
 * https://github.com/wekan/wekan/issues/784
 
