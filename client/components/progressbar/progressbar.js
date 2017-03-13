@@ -5,24 +5,14 @@
 
   onCreated() {
     super.onCreated();
-    this.progress = new ReactiveVar(25);
+    this.value = new ReactiveVar(this.data().prog);
   }
 
   progressValue() {
-    return this.progress.get();
+    return this.value.get();
   }
 
   progressCSS() {
-    return "width:"+this.progress.get()+"%";
+    return "width:"+ this.value.get() +"%";
   }
-
-  //IMPORTANT:
-  //pass data context into this helper when using this component
-  setProgress(currProgress) {
-    if (currProgress <= 100 && currProgress >= 0)
-      this.progress.set(currProgress);
-    console.log("value: " + this.progress.get());
-  }
-
-
 }).register("progressBar");
