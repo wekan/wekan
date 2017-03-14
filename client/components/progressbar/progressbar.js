@@ -1,3 +1,8 @@
+const ProgSubs = new SubsManager({
+  cacheLimit: 10,
+  expireIn: 5,
+});
+
 class ProgressBar extends BlazeComponent {
   template() {
     return 'progressBarTemplate';
@@ -28,14 +33,14 @@ class ProgressBar extends BlazeComponent {
       if (!Match.test(currentBoardId, String))
         return;
 
-      const listsHandle = Meteor.subscribe('boardLists', currentBoardId);
-      const cardsHandle = Meteor.subscribe('boardCards', currentBoardId);
+      const listsHandle = ProgSubs.subscribe('boardLists', currentBoardId);
+      const cardsHandle = ProgSubs.subscribe('boardCards', currentBoardId);
       
       //waiting for subscriptions to be ready
       const subsReady = (listsHandle.ready() && cardsHandle.ready());
       this.ready.set(subsReady);
 
-      Tracker.autorun((c) => {
+      Tracker.autorun(() => {
         if(true == this.ready.get()) {
           const lists = Lists.find({boardId: currentBoardId}).count();
           const cards = Cards.find({boardId: currentBoardId}).count();
