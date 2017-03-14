@@ -1,3 +1,11 @@
+# v0.16 2017-03-15 Wekan release
+
+Added missing changelog updates.
+
+# v0.15 2017-03-15 Wekan release
+
+Updated translations.
+
 # v0.14 2017-03-15 Wekan release
 
 Known bugs:
