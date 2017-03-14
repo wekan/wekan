@@ -39,15 +39,10 @@ class ProgressBar extends BlazeComponent {
         if(true == this.ready.get()) {
           const lists = Lists.find({boardId: currentBoardId}).count();
           const cards = Cards.find({boardId: currentBoardId}).count();
-          console.log("lists: "+ lists+" cards: "+cards);
-          if (lists > 0 && cards > 0) {
-            console.log('board is determinate')
+          if (lists > 0 && cards > 0)
             this.determinate.set(true);
-          }
-          else {
-            console.log('board is NOT determinate')
+          else 
             this.determinate.set(false);
-          }
         }
       });
 
