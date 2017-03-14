@@ -341,7 +341,7 @@
     "smtp-username": "Nom d'Usuari",
     "smtp-password": "Contrasenya",
     "send-from": "De",
-    "invitation-code": "Codi d'invidació",
+    "invitation-code": "Codi d'invitació",
     "email-invite-register-subject": "__inviter__ t'ha convidat",
     "email-invite-register-text": " __user__,\n\n __inviter__  us ha convidat a col·laborar a Wekan.\n\n Clicau l'enllaç següent per acceptar l'invitació:\n __url__\n\n El vostre codi d'invitació és: __icode__\n\n Gràcies",
     "error-invitation-code-not-exist": "El codi d'invitació no existeix"
