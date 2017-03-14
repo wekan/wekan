@@ -348,8 +348,9 @@ if (Meteor.isServer) {
         if (user._id === inviter._id) throw new Meteor.Error('error-user-notAllowSelf');
       } else {
         if (posAt <= 0) throw new Meteor.Error('error-user-doesNotExist');
-
-        const email = username;
+        if (Settings.findOne().disableRegistration) throw new Meteor.Error('error-user-notCreated');
+        // Set in lowercase email before creating account
+        const email = username.toLowerCase();
         username = email.substring(0, posAt);
         const newUserId = Accounts.createUser({ username, email });
         if (!newUserId) throw new Meteor.Error('error-user-notCreated');
@@ -377,7 +378,7 @@ if (Meteor.isServer) {
         };
         const lang = user.getLanguage();
         Email.send({
-          to: user.emails[0].address,
+          to: user.emails[0].address.toLowerCase(),
           from: Accounts.emailTemplates.from,
           subject: TAPi18n.__('email-invite-subject', params, lang),
           text: TAPi18n.__('email-invite-text', params, lang),
@@ -388,6 +389,28 @@ if (Meteor.isServer) {
 
       return { username: user.username, email: user.emails[0].address };
     },
+  });
+  Accounts.onCreateUser((options, user) => {
+    const userCount = Users.find().count();
+    if (userCount === 0){
+      user.isAdmin = true;
+      return user;
+    }
+    const disableRegistration = Settings.findOne().disableRegistration;
+    if (!disableRegistration) {
+      return user;
+    }
+
+    const iCode = options.profile.invitationcode | '';
+
+    const invitationCode = InvitationCodes.findOne({code: iCode, valid:true});
+    if (!invitationCode) {
+      throw new Meteor.Error('error-invitation-code-not-exist');
+    }else{
+      user.profile = {icode: options.profile.invitationcode};
+    }
+
+    return user;
   });
 }
 
@@ -458,4 +481,25 @@ if (Meteor.isServer) {
       });
     });
   }
+
+  Users.after.insert((userId, doc) => {
+
+    //invite user to corresponding boards
+    const disableRegistration = Settings.findOne().disableRegistration;
+    if (disableRegistration) {
+      const user = Users.findOne(doc._id);
+      const invitationCode = InvitationCodes.findOne({code: user.profile.icode, valid:true});
+      if (!invitationCode) {
+        throw new Meteor.Error('error-user-notCreated');
+      }else{
+        invitationCode.boardsToBeInvited.forEach((boardId) => {
+          const board = Boards.findOne(boardId);
+          board.addMember(doc._id);
+        });
+        user.profile = {invitedBoards: invitationCode.boardsToBeInvited};
+        InvitationCodes.update(invitationCode._id, {$set: {valid:false}});
+      }
+    }
+  });
 }
+

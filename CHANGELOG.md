@@ -1,21 +1,73 @@
-# Upcoming Wekan release
+# v0.12 2017-03-05 Wekan release
 
-This release adds following new features:
+Known bugs:
+* https://github.com/wekan/wekan/issues/785
+* https://github.com/wekan/wekan/issues/784
 
-* Make Due Date layout nicer on minicard;
-* Wekan <=> MongoDB <=> ToroDB => PostgreSQL read-only
-  mirroring for SQL access with any programming language
+This release adds the following new features:
+
+* Import Checklists from Trello;
+* Simplified release numbers of Wekan.
+
+Thanks to GitHub users whodafly and xet7 for
+their contributions.
+
+# v0.11.1-rc2 2017-03-05 Wekan prerelease
+
+Known bugs:
+
+* https://github.com/wekan/wekan/issues/785
+* https://github.com/wekan/wekan/issues/784
+
+This release adds the following supported platforms:
+
+* [Docker environment for Wekan development](https://github.com/wekan/wekan-dev);
+* [Wekan <=> MongoDB <=> ToroDB => PostgreSQL read-only
+  mirroring](https://github.com/wekan/wekan-postgresql)
+  for SQL access with any programming language
   or Office package that has PostgreSQL support, like
-  newest LibreOffice 3.5:
-  https://github.com/wekan/wekan-postgresql
+  newest LibreOffice 3.5;
+* [Install from source on
+  Windows](https://github.com/wekan/wekan/wiki/Install-Wekan-from-source-on-Windows).
+
+and adds the following new features:
+
+* Admin Panel:
+```
+  1) Disable Self-Registration and invite users
+  2) SMTP settings.
+    
+  Adding Admin user in mongo cli:
+  1) Use database that has wekan data, for example:
+     use admin;
+  2) Add Admin rights to some Wekan username:
+     db.users.update({username:'admin-username-here'},{$set:{isAdmin:true}})
+  Hiding Admin panel by removing Admin rights:
+     use admin;
+     db.settings.remove({});
+```
+* Make Due Date layout nicer on minicard;
+* Added tooltip for board menu and sidebar buttons;
+* [Wekan database cleanup script](https://github.com/wekan/wekan-cleanup);
+* [Daily export script of Wekan changes as JSON to Logstash and
+  ElasticSearch / Kibana (ELK)](https://github.com/wekan/wekan-logstash);
+* [Wekan stats script](https://github.com/wekan/wekan-stats).
 
 and fixes the following bugs:
 
 * Dockerfile was missing EXPOSE $PORT;
+* Bug when removing user from board that generate activity for
+  all cards of the board. Add check before user is one owner
+  of the card before adding activity;
+* All new boards are automatically starred. Fixed to
+  only star header-bar new-boards;
+* Orphan documents were created when cards were deleted;
+* Improve Wekan performance by adding indexes to MongoDB;
+* Invite user with lower case email;
 * Typos.
 
-Thanks to GitHub users vuxor, whittssg2 and xet7 for their
-contributions.
+Thanks to GitHub users eemeli, entrptaher, fmonthel, jLouzado, lkisme,
+maulal, pra85, vuxor, whittssg2 and xet7 for their contributions.
 
 # v0.11.1-rc1 2017-02-10 Wekan prerelease
 
@@ -56,7 +108,7 @@ and fixes the following bugs:
   and avatars, so using older version;
 * Tweaked .gitignore to exclude .build/*;
 * Fix executeUpTo label when dragging cards,
-  popup was not in the predefined hierachy.
+  popup was not in the predefined hierarchy.
 
 and adds the following new documentation:
 
@@ -139,12 +191,12 @@ This release features:
 
 * Trello boards importation, including card history, assigned members, labels,
   comments, and attachments;
-* Invite new users to a board using a email address;
+* Invite new users to a board using an email address;
 * Autocompletion in the minicard editor. Start with <kbd>@</kbd> to start a
   board member autocompletion, or <kbd>#</kbd> for a label;
 * Improve the user interface on small screens so that Wekan could be used on the
   mobile web;
-* Accelerate the initial page rendering by sending the data on the intial HTTP
+* Accelerate the initial page rendering by sending the data on the initial HTTP
   response instead of waiting for the DDP connection to open;
 * Support images attachments copy pasting;
 * On Sandstorm, expose the Wekan grain title and URL to the Sandstorm shell;

@@ -52,6 +52,8 @@ if (Meteor.isServer) {
     Activities._collection._ensureIndex({ createdAt: -1 });
     Activities._collection._ensureIndex({ cardId: 1, createdAt: -1 });
     Activities._collection._ensureIndex({ boardId: 1, createdAt: -1 });
+    Activities._collection._ensureIndex({ commentId: 1 }, { partialFilterExpression: { commentId: { $exists: true } } });
+    Activities._collection._ensureIndex({ attachmentId: 1 }, { partialFilterExpression: { attachmentId: { $exists: true } } });
   });
 
   Activities.after.insert((userId, doc) => {

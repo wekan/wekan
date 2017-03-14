@@ -305,7 +305,7 @@ if (Meteor.isServer) {
   // Cards are often fetched within a board, so we create an index to make these
   // queries more efficient.
   Meteor.startup(() => {
-    Cards._collection._ensureIndex({ boardId: 1 });
+    Cards._collection._ensureIndex({ boardId: 1, createdAt: -1 });
   });
 
   Cards.after.insert((userId, doc) => {
@@ -378,19 +378,32 @@ if (Meteor.isServer) {
     // Say goodbye to the former member
     if (modifier.$pull && modifier.$pull.members) {
       memberId = modifier.$pull.members;
-      Activities.insert({
-        userId,
-        memberId,
-        activityType: 'unjoinMember',
-        boardId: doc.boardId,
-        cardId: doc._id,
-      });
+      // Check that the former member is member of the card
+      if (_.contains(doc.members, memberId)) {
+        Activities.insert({
+          userId,
+          memberId,
+          activityType: 'unjoinMember',
+          boardId: doc.boardId,
+          cardId: doc._id,
+        });
+      }
     }
   });
 
   // Remove all activities associated with a card if we remove the card
+  // Remove also card_comments / checklists / attachments
   Cards.after.remove((userId, doc) => {
     Activities.remove({
+      cardId: doc._id,
+    });
+    Checklists.remove({
+      cardId: doc._id,
+    });
+    CardComments.remove({
+      cardId: doc._id,
+    });
+    Attachments.remove({
       cardId: doc._id,
     });
   });
