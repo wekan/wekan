@@ -1,5 +1,3 @@
-const ProgressSubs = new SubsManager();
-
 class ProgressBar extends BlazeComponent {
   template() {
     return 'progressBarTemplate';
@@ -15,7 +13,7 @@ class ProgressBar extends BlazeComponent {
   progressValue() {
     const completed = this.completedItems();
     const total = this.totalItems();
-    console.log(completed + " " + total);
+    console.log("done: " + completed + " total: " + total);
     return ((completed / total) * 100).toFixed(2);
   }
 
@@ -24,10 +22,12 @@ class ProgressBar extends BlazeComponent {
   }
 
   ready() {
+    console.log("checking ready")
     return this.ready.get();
   }
 
   determinate() {
+    console.log("checking determinate")
     return this.determinate.get();
   }
 }
@@ -36,33 +36,32 @@ class ProgressBar extends BlazeComponent {
   onCreated() {
     super.onCreated();
     this.autorun(() => {
-      const currentBoardId = Session.get('currentBoard');
-      if (!currentBoardId)
+      const currentBoardId = this.data()["context"];
+      console.log('boardId: ' + currentBoardId);
+      if (!Match.test(currentBoardId, String))
         return;
 
-      const listsHandle = ProgressSubs.subscribe('boardLists', currentBoardId);
-      const cardsHandle = ProgressSubs.subscribe('boardCards', currentBoardId);
+      const listsHandle = Meteor.subscribe('boardLists', currentBoardId);
+      const cardsHandle = Meteor.subscribe('boardCards', currentBoardId);
+      
+      //waiting for subscriptions to be ready
+      const subsReady = (listsHandle.ready() && cardsHandle.ready());
+      this.ready.set(subsReady);
 
-      Tracker.nonreactive(() => {
-        Tracker.autorun((c) => {
-          const subsReady = (listsHandle.ready() && cardsHandle.ready());
-          this.ready.set(subsReady);
-          if (subsReady)
-            c.stop();
-        });
-      });
-
-      Tracker.nonreactive(() => {
-        Tracker.autorun((c) => {
-          if(true == this.ready.get()) {
-            const lists = Lists.find({}).count();
-            const cards = Cards.find({}).count();
-            if (lists > 0 && cards > 0) {
-              this.determinate.set(true);
-              c.stop();
-            }
+      Tracker.autorun((c) => {
+        if(true == this.ready.get()) {
+          const lists = Lists.find({}).count();
+          const cards = Cards.find({}).count();
+          console.log("lists: "+ lists+" cards: "+cards);
+          if (lists > 0 && cards > 0) {
+            console.log('board is determinate')
+            this.determinate.set(true);
           }
-        });
+          else {
+            console.log('board is NOT determinate')
+            this.determinate.set(false);
+          }
+        }
       });
     });
   }
