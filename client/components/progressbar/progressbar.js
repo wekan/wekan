@@ -8,27 +8,15 @@ class ProgressBar extends BlazeComponent {
     const self = this;
     self.ready = new ReactiveVar(false);
     self.determinate = new ReactiveVar(false);
+    self.boardId = new ReactiveVar();
   }
 
   progressValue() {
-    const completed = this.completedItems();
-    const total = this.totalItems();
-    console.log("done: " + completed + " total: " + total);
-    return ((completed / total) * 100).toFixed(2);
+    return ((this.completedItems() / this.totalItems()) * 100).toFixed(2);
   }
 
   progressCSS() {
     return "width:"+ this.progressValue() +"%";
-  }
-
-  ready() {
-    console.log("checking ready")
-    return this.ready.get();
-  }
-
-  determinate() {
-    console.log("checking determinate")
-    return this.determinate.get();
   }
 }
 
@@ -36,8 +24,7 @@ class ProgressBar extends BlazeComponent {
   onCreated() {
     super.onCreated();
     this.autorun(() => {
-      const currentBoardId = this.data()["context"];
-      console.log('boardId: ' + currentBoardId);
+      const currentBoardId = this.data()["board"];
       if (!Match.test(currentBoardId, String))
         return;
 
@@ -50,8 +37,8 @@ class ProgressBar extends BlazeComponent {
 
       Tracker.autorun((c) => {
         if(true == this.ready.get()) {
-          const lists = Lists.find({}).count();
-          const cards = Cards.find({}).count();
+          const lists = Lists.find({boardId: currentBoardId}).count();
+          const cards = Cards.find({boardId: currentBoardId}).count();
           console.log("lists: "+ lists+" cards: "+cards);
           if (lists > 0 && cards > 0) {
             console.log('board is determinate')
@@ -63,15 +50,17 @@ class ProgressBar extends BlazeComponent {
           }
         }
       });
+
+      this.boardId.set(currentBoardId);
     });
   }
 
   totalItems() {
-    return Cards.find({}).count();
+    return Cards.find({"boardId": this.boardId.get()}).count();
   }
 
   completedItems() {
-    const completedList = Lists.findOne({}, {sort: {sort: -1}});
+    const completedList = Lists.findOne({"boardId": this.boardId.get()}, {sort: {sort: -1}});
     return Cards.find({listId: completedList["_id"]}).count();
   }
 }).register('boardProgressBar');

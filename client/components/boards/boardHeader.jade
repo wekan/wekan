@@ -2,7 +2,7 @@ template(name="boardHeaderBar")
   if currentUser.isBoardMember
     if currentBoard
       div.progress-bar
-        +boardProgressBar(context=currentBoard._id)
+        +boardProgressBar(board=currentBoard._id)
 
   h1.header-board-menu
     with currentBoard
