@@ -1,3 +1,18 @@
+# v0.14 2017-03-15 Wekan release
+
+Known bugs:
+
+* https://github.com/wekan/wekan/issues/785
+* https://github.com/wekan/wekan/issues/784
+
+This release fixes the following bug:
+
+* Set IE compatibility mode to Edge to so that
+  Wekan board loads correctly.
+
+Thanks to GitHub users immertroll and REJack for
+their contributions.
+
 # v0.13 2017-03-12 Wekan release
 
 Known bugs:
