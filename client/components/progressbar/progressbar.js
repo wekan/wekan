@@ -8,17 +8,15 @@ class ProgressBar extends BlazeComponent {
   onCreated() {
     super.onCreated();
     const self = this;
-    self.state = new ReactiveDict('progressBarState');
-    self.state.set('ready', false);
+    self.ready = new ReactiveVar(false);
+    self.determinate = new ReactiveVar(false);
   }
 
   progressValue() {
     const completed = this.completedItems();
     const total = this.totalItems();
-    if(total > 0)
-      return (completed / total) * 100;
-    else
-      return;
+    console.log(completed + " " + total);
+    return ((completed / total) * 100).toFixed(2);
   }
 
   progressCSS() {
@@ -26,7 +24,11 @@ class ProgressBar extends BlazeComponent {
   }
 
   ready() {
-    return this.state.get('ready');
+    return this.ready.get();
+  }
+
+  determinate() {
+    return this.determinate.get();
   }
 }
 
@@ -37,11 +39,31 @@ class ProgressBar extends BlazeComponent {
       const currentBoardId = Session.get('currentBoard');
       if (!currentBoardId)
         return;
+
       const listsHandle = ProgressSubs.subscribe('boardLists', currentBoardId);
       const cardsHandle = ProgressSubs.subscribe('boardCards', currentBoardId);
 
-      const subsReady = (listsHandle.ready() && cardsHandle.ready());
-      this.state.set('ready', subsReady);
+      Tracker.nonreactive(() => {
+        Tracker.autorun((c) => {
+          const subsReady = (listsHandle.ready() && cardsHandle.ready());
+          this.ready.set(subsReady);
+          if (subsReady)
+            c.stop();
+        });
+      });
+
+      Tracker.nonreactive(() => {
+        Tracker.autorun((c) => {
+          if(true == this.ready.get()) {
+            const lists = Lists.find({}).count();
+            const cards = Cards.find({}).count();
+            if (lists > 0 && cards > 0) {
+              this.determinate.set(true);
+              c.stop();
+            }
+          }
+        });
+      });
     });
   }
 

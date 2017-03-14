@@ -1,8 +1,15 @@
 template(name="progressBarTemplate")
   div.meter
     if ready
-      span(style="{{progressCSS}}")
-        | {{progressValue}} %
+      if determinate
+        span(style="{{progressCSS}}")
+          | {{progressValue}} %
+      else
+        +progressBarLoading
     else
-      span
-        | Loading
+      +progressBarLoading
+
+
+template(name="progressBarLoading")
+  span
+    | Loading
