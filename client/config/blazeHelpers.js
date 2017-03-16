@@ -18,6 +18,4 @@ Blaze.registerHelper('currentCard', () => {
 
 Blaze.registerHelper('getUser', (userId) => Users.findOne(userId));
 
-Blaze.registerHelper('concat', function (...args) {
-  return Array.prototype.slice.call(args, 0, -1).join('');
-});
+Blaze.registerHelper('concat', (...args) => args.slice(0, -1).join(''));
