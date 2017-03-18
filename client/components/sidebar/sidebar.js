@@ -323,7 +323,6 @@ Template.changePermissionsPopup.events({
     const memberId = this.userId;
     const isAdmin = $(event.currentTarget).hasClass('js-set-admin');
     const isCommentOnly = $(event.currentTarget).hasClass('js-set-comment-only');
-    console.log(isCommentOnly)
     currentBoard.setMemberPermission(memberId, isAdmin, isCommentOnly);
     Popup.back(1);
   },
