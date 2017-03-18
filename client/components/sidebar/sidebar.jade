@@ -138,9 +138,15 @@ template(name="changePermissionsPopup")
     li
       a(class="{{#if isLastAdmin}}disabled{{else}}js-set-normal{{/if}}")
         | {{_ 'normal'}}
-        unless isAdmin
+        if isNormal
           i.fa.fa-check
         span.sub-name {{_ 'normal-desc'}}
+    li
+      a(class="{{#if isLastAdmin}}disabled{{else}}js-set-comment-only{{/if}}")
+        | {{_ 'comment-only'}}
+        if isCommentOnly
+          i.fa.fa-check
+        span.sub-name {{_ 'comment-only-desc'}}
   if isLastAdmin
     hr
     p.quiet.bottom {{_ 'last-admin-desc'}}
