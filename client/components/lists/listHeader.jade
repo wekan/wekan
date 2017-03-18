@@ -25,8 +25,8 @@ template(name="editListTitleForm")
 template(name="listActionPopup")
   ul.pop-over-list
     li: a.js-toggle-watch-list {{#if isWatching}}{{_ 'unwatch'}}{{else}}{{_ 'watch'}}{{/if}}
-  hr
   unless currentUser.isCommentOnly
+    hr
     ul.pop-over-list
       li: a.js-add-card {{_ 'add-card'}}
       if cards.count

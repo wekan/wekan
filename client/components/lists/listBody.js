@@ -239,3 +239,10 @@ BlazeComponent.extendComponent({
     });
   },
 }).register('addCardForm');
+
+
+Template.listBody.helpers({
+  canSeeAddCard() {
+    return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
+  },
+});
