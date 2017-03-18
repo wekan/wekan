@@ -77,6 +77,12 @@ BlazeComponent.extendComponent({
   },
 }).register('checklists');
 
+Template.itemDetail.helpers({
+  canModifyCard() {
+    return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
+  },
+});
+
 BlazeComponent.extendComponent({
   toggleItem() {
     const checklist = this.currentData().checklist;

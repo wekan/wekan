@@ -144,6 +144,10 @@ Template.cardDetailsActionsPopup.helpers({
   isWatching() {
     return this.findWatcher(Meteor.userId());
   },
+
+  canModifyCard() {
+    return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
+  },
 });
 
 Template.cardDetailsActionsPopup.events({

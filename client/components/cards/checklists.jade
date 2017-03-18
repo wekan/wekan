@@ -17,9 +17,13 @@ template(name="checklistDetail")
   else
     .checklist-title
       .checkbox.fa.fa-check-square-o
-      a.js-delete-checklist {{_ "delete"}}...
+      if canModifyCard
+        a.js-delete-checklist {{_ "delete"}}...
       span.checklist-stat(class="{{#if checklist.isFinished}}is-finished{{/if}}") {{checklist.finishedCount}}/{{checklist.itemCount}}
-      h2.title.js-open-inlined-form.is-editable  {{checklist.title}}
+      if canModifyCard
+        h2.title.js-open-inlined-form.is-editable  {{checklist.title}}
+      else
+        h2.title  {{checklist.title}}
   +checklistItems(checklist = checklist)
 
 template(name="addChecklistItemForm")
@@ -38,7 +42,7 @@ template(name="editChecklistItemForm")
     button.primary.confirm.js-submit-edit-checklist-item-form(type="submit") {{_ 'save'}}
     a.fa.fa-times-thin.js-close-inlined-form
     span(title=createdAt) {{ moment createdAt }}
-    if currentUser.isBoardMember
+    if canModifyCard
       a.js-delete-checklist-item {{_ "delete"}}...
 
 template(name="checklistItems")
@@ -48,7 +52,7 @@ template(name="checklistItems")
         +editChecklistItemForm(type = 'item' item = item checklist = checklist)
       else
         +itemDetail(item = item checklist = checklist)
-    if currentUser.isBoardMember
+    if canModifyCard
       +inlinedForm(classNames="js-add-checklist-item" checklist = checklist)
         +addChecklistItemForm
       else
@@ -58,5 +62,10 @@ template(name="checklistItems")
 
 template(name='itemDetail')
   .item
-    .check-box.materialCheckBox(class="{{#if item.isFinished }}is-checked{{/if}}")
-    .item-title.js-open-inlined-form.is-editable(class="{{#if item.isFinished }}is-checked{{/if}}") {{item.title}}
+    if canModifyCard
+      .check-box.materialCheckBox(class="{{#if item.isFinished }}is-checked{{/if}}")
+      .item-title.js-open-inlined-form.is-editable(class="{{#if item.isFinished }}is-checked{{/if}}") {{item.title}}
+    else
+      .materialCheckBox(class="{{#if item.isFinished }}is-checked{{/if}}")
+      .item-title(class="{{#if item.isFinished }}is-checked{{/if}}") {{item.title}}
+

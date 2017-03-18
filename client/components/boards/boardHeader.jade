@@ -65,7 +65,7 @@ template(name="boardHeaderBar")
               if $eq watchLevel "muted"
                 i.fa.fa-bell-slash
               span {{_ watchLevel}}
-  
+
           else
             a.board-header-btn.js-log-in(
               title="{{_ 'log-in'}}")
@@ -81,7 +81,7 @@ template(name="boardHeaderBar")
           a.board-header-btn-close.js-filter-reset(title="{{_ 'filter-clear'}}")
             i.fa.fa-times-thin
 
-      if currentUser.isBoardMember
+      if canModifyBoard
         a.board-header-btn.js-multiselection-activate(
             title="{{#if MultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}"
             class="{{#if MultiSelection.isActive}}emphasis{{/if}}")

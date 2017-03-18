@@ -97,6 +97,12 @@ BlazeComponent.extendComponent({
   },
 }).register('boardHeaderBar');
 
+Template.boardHeaderBar.helpers({
+  canModifyBoard() {
+    return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
+  },
+});
+
 BlazeComponent.extendComponent({
   backgroundColors() {
     return Boards.simpleSchema()._schema.color.allowedValues;
