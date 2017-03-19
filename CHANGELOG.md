@@ -1,3 +1,16 @@
+# Upcoming Wekan release
+
+Known bugs:
+
+* https://github.com/wekan/wekan/issues/785
+* https://github.com/wekan/wekan/issues/784
+
+This release fixes the following bug:
+
+* No need for Array.prototype if using rest operator
+
+Thanks to GitHub user vuxor for contributions.
+
 # v0.16 2017-03-15 Wekan release
 
 Added missing changelog updates.
