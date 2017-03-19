@@ -5,11 +5,13 @@ Known bugs:
 * https://github.com/wekan/wekan/issues/785
 * https://github.com/wekan/wekan/issues/784
 
-This release fixes the following bug:
+This release fixes the following bugs:
 
-* No need for Array.prototype if using rest operator
+* No need for Array.prototype if using rest operator;
+* Fix default font so Chinese is shown correctly.
 
-Thanks to GitHub user vuxor for contributions.
+Thanks to GitHub users mo-han and vuxor for
+their contributions.
 
 # v0.16 2017-03-15 Wekan release
 
