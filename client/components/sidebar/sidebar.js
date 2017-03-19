@@ -121,9 +121,9 @@ Template.memberPopup.helpers({
   },
   memberType() {
     const type = Users.findOne(this.userId).isBoardAdmin() ? 'admin' : 'normal';
-    if(type == 'normal'){
+    if(type === 'normal'){
       const currentBoard = Boards.findOne(Session.get('currentBoard'));
-      const commentOnly = currentBoard.hasCommentOnly(this.userId)
+      const commentOnly = currentBoard.hasCommentOnly(this.userId);
       if(commentOnly){
         return TAPi18n.__('comment-only').toLowerCase();
       } else {
