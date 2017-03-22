@@ -180,7 +180,7 @@ with [Meteor](https://www.meteor.com).
 [fork_faq]: https://github.com/wefork/wekan/wiki/FAQ
 [fork_announcement]: https://github.com/wekan/wekan/issues/640#issuecomment-276383458
 [screenshot_wekan]: http://i.imgur.com/cI4jW2h.png
-[screenshot_wefork]: http://i.imgur.com/OCtpqb6.png
+[screenshot_wefork]: http://i.imgur.com/lzvpeS9.png
 [roadmap_wekan]: http://try.wekan.io/b/MeSsFJaSqeuo9M6bs/wekan-roadmap
 [roadmap_wefork]: https://wekan.indie.host/b/t2YaGmyXgNkppcFBq/wekan-fork-roadmap
 [wekan_issues]: https://github.com/wekan/wekan/issues
