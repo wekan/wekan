@@ -4,7 +4,7 @@
   "description": "The open-source Trello-like kanban",
   "private": true,
   "scripts": {
-    "lint": "eslint .",
+    "lint": "eslint --ignore-pattern 'packages/*' .",
     "test": "npm run --silent lint"
   },
   "repository": {
