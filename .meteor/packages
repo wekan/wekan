@@ -50,7 +50,6 @@ arillo:flow-router-helpers
 audit-argument-checks
 kadira:blaze-layout
 kadira:dochead
-kadira:flow-router
 meteorhacks:fast-render
 meteorhacks:picker
 meteorhacks:subs-manager
@@ -76,3 +75,4 @@ templates:tabs
 verron:autosize
 simple:json-routes
 rajit:bootstrap3-datepicker
+kadira:flow-router
