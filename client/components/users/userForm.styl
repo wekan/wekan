@@ -1,60 +1,65 @@
+@import 'nib'
+
 .auth-layout
   .at-form-landing-logo
     width: 249px
     margin: auto
     margin-top: 50px
-    margin-top: 17vh
+    margin-bottom: 20px
 
-  .at-form
-    margin: auto
+  .auth-dialog
     width: 275px
     padding: 25px
-    margin-top: 20px
-    padding-bottom: 10px
+    margin: auto
+    margin-bottom: 20px
     background: #fff
     border-radius: 3px
     border: 1px solid #dbdbdb
     border-bottom-color: #c2c2c2
     box-shadow: 0 1px 6px rgba(0, 0, 0, .3)
 
-    .at-link
-      color: darken(#27AE60, 40%)
+    .at-form
 
-    label
-      margin-bottom: 3px
+      .at-link
+        color: darken(#27AE60, 40%)
 
-    input
-      width: 100%
+      label
+        margin-bottom: 3px
 
-    .at-title
-      background: #F7F7F7
-      margin: -25px
-      padding: 15px 25px 5px
-      margin-bottom: 20px
-      border-bottom: 1px solid #dcdcdc
-      color: darken(white, 70%)
-      font-weight: bold
+      input
+        width: 100%
 
-    .at-signup-link,
-    .at-signin-link,
-    .at-forgotPwd
-      font-size: 0.9em
-      margin-top: 15px
-      color: darken(white, 70%)
+      button
+        width: 100%
+        background: #216694
+        color: #fff
 
-      .at-signUp,
-      .at-signIn
+      .at-title
+        background: #F7F7F7
+        margin: -25px
+        padding: 15px 25px 5px
+        margin-bottom: 20px
+        border-bottom: 1px solid #dcdcdc
+        color: darken(white, 70%)
         font-weight: bold
 
-  .at-form-lang
-    margin: auto
-    width: 275px
-    padding: 25px
-    padding-bottom: 10px
+      .at-signup-link,
+      .at-signin-link,
+      .at-forgotPwd
+        font-size: 0.9em
+        margin-top: 15px
+        color: darken(white, 70%)
 
-    .select-lang
-      width: 275px
-      font-size: 1.0em
+        .at-signUp,
+        .at-signIn
+          font-weight: bold
+
+    .at-form-lang
+      margin-top: 0px
+
+      .select-lang
+        width: 100%
+        margin-top: 10px
 
 @media screen and (max-width: 800px)
   .auth-layout
@@ -64,26 +69,27 @@
     padding: 0px
 
     .at-form-landing-logo
-      margin-top: 20px
-      margin-bottom: 20px
+      width: 125px
+      position: absolute
+      top: 0px
+      right: 20px
+      margin-top: 5px
+      margin-bottom: 5px
 
-    .at-form
+      img
+        width: 125px
+
+    .auth-dialog
       width: calc(100% - 50px)
-      height: calc(100% - 162px)
-      margin: 0px
+      height: calc(100% - 50px)
       padding: 25px
-
-      button
-        width: 100%
-
-    .at-form-lang
-      width: 100%
+      min-height: 380px
       margin: 0px
-      padding: 0px
+      margin-bottom: 0px
+      border: 0px
 
-      .select-lang
-        width: 200px
-        font-size: 1.2em
-        position: absolute
-        left: calc((100% - 200px)/2)
-        bottom: 25px
+      .at-form
+        .at-title
+          h3
+            width: calc(100% - 125px)
+            overflow-x: hidden

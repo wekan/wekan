@@ -1,0 +1,21 @@
+template(name="settingHeaderBar")
+  h1.header-setting-menu
+    span {{_ 'admin-panel'}}
+
+  .setting-header-btns.left
+    unless isMiniScreen
+      unless isSandstorm
+        if currentUser
+          a.setting-header-btn.settings.active
+            i.fa(class="fa-cog")
+            span {{_ 'settings'}}
+//TODO 
+//          a.setting-header-btn.people
+//            i.fa(class="fa-users")
+//            span {{_ 'people'}}
+
+        else
+          a.setting-header-btn.js-log-in(
+            title="{{_ 'log-in'}}")
+            i.fa.fa-sign-in
+            span {{_ 'log-in'}}

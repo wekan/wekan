@@ -17,7 +17,7 @@ template(name="userAvatar")
 
 template(name="userAvatarInitials")
   svg.avatar.avatar-initials(viewBox="0 0 {{viewPortWidth}} 15")
-    text(x="0" y="13")= initials
+    text(x="50%" y="13" text-anchor="middle")= initials
 
 template(name="userPopup")
   .board-member-menu

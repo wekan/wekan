@@ -14,6 +14,11 @@ UnsavedEditCollection.attachSchema(new SimpleSchema({
   },
   userId: {
     type: String,
+    autoValue() { // eslint-disable-line consistent-return
+      if (this.isInsert && !this.isSet) {
+        return this.userId;
+      }
+    },
   },
 }));
 
@@ -21,6 +26,9 @@ if (Meteor.isServer) {
   function isAuthor(userId, doc, fieldNames = []) {
     return userId === doc.userId && fieldNames.indexOf('userId') === -1;
   }
+  Meteor.startup(() => {
+    UnsavedEditCollection._collection._ensureIndex({ userId: 1 });
+  });
   UnsavedEditCollection.allow({
     insert: isAuthor,
     update: isAuthor,
@@ -28,7 +36,3 @@ if (Meteor.isServer) {
     fetch: ['userId'],
   });
 }
-
-UnsavedEditCollection.before.insert((userId, doc) => {
-  doc.userId = userId;
-});

@@ -1,10 +1,6 @@
 const { calculateIndex } = Utils;
 
 BlazeComponent.extendComponent({
-  template() {
-    return 'list';
-  },
-
   // Proxy
   openForm(options) {
     this.childComponents('listBody')[0].openForm(options);
@@ -48,7 +44,7 @@ BlazeComponent.extendComponent({
       placeholder: 'minicard-wrapper placeholder',
       start(evt, ui) {
         ui.placeholder.height(ui.helper.height());
-        EscapeActions.executeUpTo('popup');
+        EscapeActions.executeUpTo('popup-close');
         boardComponent.setIsDragging(true);
       },
       stop(evt, ui) {

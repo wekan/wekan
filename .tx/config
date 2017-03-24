@@ -1,0 +1,55 @@
+# This is the configuration of the Transifex tool that we use to manage the
+# translations on Wekan. Documentation at: http://docs.transifex.com/client.
+#
+# Push
+# ====
+#
+# It is recommended that contributors use the Transifex web UI to create and
+# edit translated strings. However in case a contributor has directly jumped
+# into the code and made its translations in the corresponding i18n.json file
+# we can push it using
+#
+# > tx push -t -l ar
+#
+# Where `ar` is the language identifier. In addition, the project maintainer
+# should push the English source file to Transifex at least before each release
+# candidate using:
+#
+# > tx push -s
+#
+# Pull
+# ====
+#
+# The set of accepted language is directly managed in Transifex, the only
+# restriction we define to bundle a new language in the application, is that its
+# completion is at least at 75%.
+#
+# We use:
+#
+# > tx pull
+#
+# to download new versions of existing translations, and
+#
+# > tx pull -a --minimum-perc=75
+#
+# to download new sufficiently advanced translations.
+
+[main]
+host = https://www.transifex.com
+# tap:i18n requires us to use `-` separator in the language identifiers whereas
+# Transifex uses a `_` separator, without an option to customize it on one side
+# or the other, so we need to do a Manual mapping.
+lang_map = es_ES:es-ES, fa_IR:fa, fi_FI:fi, hu_HU:hu, pt_BR:pt-BR, ro_RO:ro, zh_CN:zh-CN, zh_TW:zh-TW
+
+[wekan.application]
+file_filter = i18n/<lang>.i18n.json
+source_lang = en
+type = KEYVALUEJSON
+
+# We might have a dedicated second resource later to translate the “Welcome
+# Board” data.
+#
+# [wekan.welcomeBoard]
+# file_filter = private/welcomeBoard/<lang>.json
+# source_lang = en
+# type = KEYVALUEJSON

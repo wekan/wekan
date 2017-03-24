@@ -36,6 +36,11 @@
       font-size: 17px
       padding: 10px
 
+    .card-details-watch
+      font-size: 17px
+      padding-left: 7px
+      color: #a6a6a6
+
     .card-details-title
       font-weight: bold
       font-size: 1.33em
@@ -68,8 +73,13 @@
     margin: 15px 0
 
     .card-details-item
+      margin-right: 0.5em
+      &:last-child
+        margin-right: 0
       &.card-details-item-labels,
-      &.card-details-item-members
+      &.card-details-item-members,
+      &.card-details-item-start,
+      &.card-details-item-due
         width: 50%
         flex-shrink: 1
 

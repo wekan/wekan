@@ -2,10 +2,7 @@ template(name="cardDetails")
   section.card-details.js-card-details.js-perfect-scrollbar: .card-details-canvas
     .card-details-header
       +inlinedForm(classNames="js-card-details-title")
-        input.full-line(type="text" value=title autofocus)
-        .edit-controls.clearfix
-          button.primary.confirm(type="submit") {{_ 'save'}}
-          a.fa.fa-times-thin.js-close-inlined-form
+        +editCardTitleForm
       else
         a.fa.fa-times-thin.close-card-details.js-close-card-details
         if currentUser.isBoardMember
@@ -13,6 +10,8 @@ template(name="cardDetails")
         h2.card-details-title.js-card-title(
           class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
             = title
+            if isWatching
+              i.fa.fa-eye.card-details-watch
 
     if archived
       p.warning {{_ 'card-archived'}}
@@ -35,6 +34,17 @@ template(name="cardDetails")
         if currentUser.isBoardMember
           a.card-label.add-label.js-add-labels(title="{{_ 'card-labels-title'}}")
             i.fa.fa-plus
+
+      if startAt
+        .card-details-item.card-details-item-start
+          h3.card-details-item-title {{_ 'card-start'}}
+          +cardStartDate
+
+      if dueAt
+        .card-details-item.card-details-item-due
+          h3.card-details-item-title {{_ 'card-due'}}
+          +cardDueDate
+
 
     //- XXX We should use "editable" to avoid repetiting ourselves
     if currentUser.isBoardMember
@@ -62,6 +72,10 @@ template(name="cardDetails")
       h3.card-details-item-title {{_ 'description'}}
       +viewer
         = description
+
+    hr
+    +checklists(cardId = _id)
+
     if attachments.count
       hr
       h2
@@ -77,11 +91,27 @@ template(name="cardDetails")
     if isLoaded.get
       +activities(card=this mode="card")
 
+template(name="editCardTitleForm")
+  textarea.js-edit-card-title(rows='1' autofocus)
+    = title
+  .edit-controls.clearfix
+    button.primary.confirm.js-submit-edit-card-title-form(type="submit") {{_ 'save'}}
+    a.fa.fa-times-thin.js-close-inlined-form
+
 template(name="cardDetailsActionsPopup")
+  ul.pop-over-list
+    li: a.js-toggle-watch-card {{#if isWatching}}{{_ 'unwatch'}}{{else}}{{_ 'watch'}}{{/if}}
+  hr
   ul.pop-over-list
     li: a.js-members {{_ 'card-edit-members'}}
     li: a.js-labels {{_ 'card-edit-labels'}}
     li: a.js-attachments {{_ 'card-edit-attachments'}}
+    li: a.js-start-date {{_ 'editCardStartDatePopup-title'}}
+    li: a.js-due-date {{_ 'editCardDueDatePopup-title'}}
+  hr
+  ul.pop-over-list
+    li: a.js-move-card-to-top {{_ 'moveCardToTop-title'}}
+    li: a.js-move-card-to-bottom {{_ 'moveCardToBottom-title'}}
   hr
   ul.pop-over-list
     li: a.js-move-card {{_ 'moveCardPopup-title'}}

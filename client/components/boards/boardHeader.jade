@@ -7,55 +7,93 @@ template(name="boardHeaderBar")
   .board-header-btns.left
     unless isMiniScreen
       unless isSandstorm
-        if currentUser
-          a.board-header-btn.js-star-board(class="{{#if isStarred}}is-active{{/if}}"
-            title="{{#if isStarred}}{{_ 'click-to-unstar'}}{{else}}{{_ 'click-to-star'}}{{/if}} {{_ 'starred-boards-description'}}")
-            i.fa(class="fa-star{{#unless isStarred}}-o{{/unless}}")
-            if showStarCounter
-              span
-                = currentBoard.stars
+        if currentBoard
+          if currentUser
+            a.board-header-btn.js-star-board(class="{{#if isStarred}}is-active{{/if}}"
+              title="{{#if isStarred}}{{_ 'click-to-unstar'}}{{else}}{{_ 'click-to-star'}}{{/if}} {{_ 'starred-boards-description'}}")
+              i.fa(class="fa-star{{#unless isStarred}}-o{{/unless}}")
+              if showStarCounter
+                span
+                  = currentBoard.stars
 
-        a.board-header-btn(class="{{#if currentUser.isBoardAdmin}}js-change-visibility{{else}}is-disabled{{/if}}")
-          i.fa(class="{{#if currentBoard.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
-          span {{_ currentBoard.permission}}
+            a.board-header-btn(
+              class="{{#if currentUser.isBoardAdmin}}js-change-visibility{{else}}is-disabled{{/if}}"
+              title="{{_ currentBoard.permission}}")
+              i.fa(class="{{#if currentBoard.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
+              span {{_ currentBoard.permission}}
+
+            a.board-header-btn.js-watch-board(
+              title="{{_ watchLevel }}")
+              if $eq watchLevel "watching"
+                i.fa.fa-eye
+              if $eq watchLevel "tracking"
+                i.fa.fa-bell
+              if $eq watchLevel "muted"
+                i.fa.fa-bell-slash
+              span {{_ watchLevel}}
+
+          else
+            a.board-header-btn.js-log-in(
+              title="{{_ 'log-in'}}")
+              i.fa.fa-sign-in
+              span {{_ 'log-in'}}
 
   .board-header-btns.right
-    if isMiniScreen
-      unless isSandstorm
-        if currentUser
-          a.board-header-btn.js-star-board(class="{{#if isStarred}}is-active{{/if}}"
-            title="{{#if isStarred}}{{_ 'click-to-unstar'}}{{else}}{{_ 'click-to-star'}}{{/if}} {{_ 'starred-boards-description'}}")
-            i.fa(class="fa-star{{#unless isStarred}}-o{{/unless}}")
-            if showStarCounter
-              span
-                = currentBoard.stars
+    if currentBoard
+      if isMiniScreen
+        unless isSandstorm
+          if currentUser
+            a.board-header-btn.js-star-board(class="{{#if isStarred}}is-active{{/if}}"
+              title="{{#if isStarred}}{{_ 'click-to-unstar'}}{{else}}{{_ 'click-to-star'}}{{/if}} {{_ 'starred-boards-description'}}")
+              i.fa(class="fa-star{{#unless isStarred}}-o{{/unless}}")
+              if showStarCounter
+                span
+                  = currentBoard.stars
 
-        a.board-header-btn(class="{{#if currentUser.isBoardAdmin}}js-change-visibility{{else}}is-disabled{{/if}}")
-          i.fa(class="{{#if currentBoard.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
-          span {{_ currentBoard.permission}}
+            a.board-header-btn(
+              class="{{#if currentUser.isBoardAdmin}}js-change-visibility{{else}}is-disabled{{/if}}"
+              title="{{_ currentBoard.permission}}")
+              i.fa(class="{{#if currentBoard.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
+              span {{_ currentBoard.permission}}
 
-    a.board-header-btn.js-open-filter-view(
-        title="{{#if Filter.isActive}}{{_ 'filter-on-desc'}}{{/if}}"
-        class="{{#if Filter.isActive}}emphasis{{/if}}")
-      i.fa.fa-filter
-      span {{#if Filter.isActive}}{{_ 'filter-on'}}{{else}}{{_ 'filter'}}{{/if}}
-      if Filter.isActive
-        a.board-header-btn-close.js-filter-reset(title="{{_ 'filter-clear'}}")
-          i.fa.fa-times-thin
+            a.board-header-btn.js-watch-board(
+              title="{{_ watchLevel }}")
+              if $eq watchLevel "watching"
+                i.fa.fa-eye
+              if $eq watchLevel "tracking"
+                i.fa.fa-bell
+              if $eq watchLevel "muted"
+                i.fa.fa-bell-slash
+              span {{_ watchLevel}}
+  
+          else
+            a.board-header-btn.js-log-in(
+              title="{{_ 'log-in'}}")
+              i.fa.fa-sign-in
+              span {{_ 'log-in'}}
 
-    if currentUser.isBoardMember
-      a.board-header-btn.js-multiselection-activate(
-          title="{{#if MultiSelection.isActive}}{{_ 'filter-on-desc'}}{{/if}}"
-          class="{{#if MultiSelection.isActive}}emphasis{{/if}}")
-        i.fa.fa-check-square-o
-        span {{#if MultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}
-        if MultiSelection.isActive
-          a.board-header-btn-close.js-multiselection-reset(title="{{_ 'filter-clear'}}")
+      a.board-header-btn.js-open-filter-view(
+          title="{{#if Filter.isActive}}{{_ 'filter-on-desc'}}{{else}}{{_ 'filter'}}{{/if}}"
+          class="{{#if Filter.isActive}}emphasis{{/if}}")
+        i.fa.fa-filter
+        span {{#if Filter.isActive}}{{_ 'filter-on'}}{{else}}{{_ 'filter'}}{{/if}}
+        if Filter.isActive
+          a.board-header-btn-close.js-filter-reset(title="{{_ 'filter-clear'}}")
             i.fa.fa-times-thin
 
-    .separator
-    a.board-header-btn.js-open-board-menu
-      i.board-header-btn-icon.fa.fa-navicon
+      if currentUser.isBoardMember
+        a.board-header-btn.js-multiselection-activate(
+            title="{{#if MultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}"
+            class="{{#if MultiSelection.isActive}}emphasis{{/if}}")
+          i.fa.fa-check-square-o
+          span {{#if MultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}
+          if MultiSelection.isActive
+            a.board-header-btn-close.js-multiselection-reset(title="{{_ 'filter-clear'}}")
+              i.fa.fa-times-thin
+
+      .separator
+      a.board-header-btn.js-open-board-menu(title="{{_ 'boardMenuPopup-title'}}")
+        i.board-header-btn-icon.fa.fa-navicon
 
 template(name="boardMenuPopup")
   ul.pop-over-list
@@ -97,6 +135,33 @@ template(name="boardVisibilityList")
 template(name="boardChangeVisibilityPopup")
   +boardVisibilityList
 
+template(name="boardChangeWatchPopup")
+  ul.pop-over-list
+    li
+      with "watching"
+        a.js-select-watch
+          i.fa.fa-eye.colorful
+          | {{_ 'watching'}}
+          if watchCheck
+            i.fa.fa-check
+          span.sub-name {{_ 'watching-info'}}
+    li
+      with "tracking"
+        a.js-select-watch
+          i.fa.fa-bell.colorful
+          | {{_ 'tracking'}}
+          if watchCheck
+            i.fa.fa-check
+          span.sub-name {{_ 'tracking-info'}}
+    li
+      with "muted"
+        a.js-select-watch
+          i.fa.fa-bell-slash.colorful
+          | {{_ 'muted'}}
+          if watchCheck
+            i.fa.fa-check
+          span.sub-name {{_ 'muted-info'}}
+
 template(name="boardChangeColorPopup")
   .board-backgrounds-list.clearfix
     each backgroundColors
@@ -105,7 +170,7 @@ template(name="boardChangeColorPopup")
           if isSelected
             i.fa.fa-check
 
-template(name="createBoardPopup")
+template(name="createBoard")
   form
     label
       | {{_ 'title'}}
@@ -126,7 +191,7 @@ template(name="createBoardPopup")
     input.primary.wide(type="submit" value="{{_ 'create'}}")
     span.quiet
       | {{_ 'or'}}
-      a.js-import {{_ 'import-board'}}
+      a(href="{{pathFor 'import'}}") {{_ 'import-board'}}
 
 
 template(name="boardChangeTitlePopup")

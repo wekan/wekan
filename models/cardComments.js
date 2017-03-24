@@ -16,10 +16,22 @@ CardComments.attachSchema(new SimpleSchema({
   createdAt: {
     type: Date,
     denyUpdate: false,
+    autoValue() { // eslint-disable-line consistent-return
+      if (this.isInsert) {
+        return new Date();
+      } else {
+        this.unset();
+      }
+    },
   },
   // XXX Should probably be called `authorId`
   userId: {
     type: String,
+    autoValue() { // eslint-disable-line consistent-return
+      if (this.isInsert && !this.isSet) {
+        return this.userId;
+      }
+    },
   },
 }));
 
@@ -44,12 +56,13 @@ CardComments.helpers({
 
 CardComments.hookOptions.after.update = { fetchPrevious: false };
 
-CardComments.before.insert((userId, doc) => {
-  doc.createdAt = new Date();
-  doc.userId = userId;
-});
-
 if (Meteor.isServer) {
+  // Comments are often fetched within a card, so we create an index to make these
+  // queries more efficient.
+  Meteor.startup(() => {
+    CardComments._collection._ensureIndex({ cardId: 1, createdAt: -1 });
+  });
+
   CardComments.after.insert((userId, doc) => {
     Activities.insert({
       userId,

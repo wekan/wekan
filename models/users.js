@@ -1,4 +1,106 @@
-Users = Meteor.users; // eslint-disable-line meteor/collections
+// Sandstorm context is detected using the METEOR_SETTINGS environment variable
+// in the package definition.
+const isSandstorm = Meteor.settings && Meteor.settings.public &&
+                    Meteor.settings.public.sandstorm;
+Users = Meteor.users;
+
+Users.attachSchema(new SimpleSchema({
+  username: {
+    type: String,
+    optional: true,
+    autoValue() { // eslint-disable-line consistent-return
+      if (this.isInsert && !this.isSet) {
+        const name = this.field('profile.fullname');
+        if (name.isSet) {
+          return name.value.toLowerCase().replace(/\s/g, '');
+        }
+      }
+    },
+  },
+  emails: {
+    type: [Object],
+    optional: true,
+  },
+  'emails.$.address': {
+    type: String,
+    regEx: SimpleSchema.RegEx.Email,
+  },
+  'emails.$.verified': {
+    type: Boolean,
+  },
+  createdAt: {
+    type: Date,
+    autoValue() { // eslint-disable-line consistent-return
+      if (this.isInsert) {
+        return new Date();
+      } else {
+        this.unset();
+      }
+    },
+  },
+  profile: {
+    type: Object,
+    optional: true,
+    autoValue() { // eslint-disable-line consistent-return
+      if (this.isInsert && !this.isSet) {
+        return {};
+      }
+    },
+  },
+  'profile.avatarUrl': {
+    type: String,
+    optional: true,
+  },
+  'profile.emailBuffer': {
+    type: [String],
+    optional: true,
+  },
+  'profile.fullname': {
+    type: String,
+    optional: true,
+  },
+  'profile.hiddenSystemMessages': {
+    type: Boolean,
+    optional: true,
+  },
+  'profile.initials': {
+    type: String,
+    optional: true,
+  },
+  'profile.invitedBoards': {
+    type: [String],
+    optional: true,
+  },
+  'profile.language': {
+    type: String,
+    optional: true,
+  },
+  'profile.notifications': {
+    type: [String],
+    optional: true,
+  },
+  'profile.showCardsCountAt': {
+    type: Number,
+    optional: true,
+  },
+  'profile.starredBoards': {
+    type: [String],
+    optional: true,
+  },
+  'profile.tags': {
+    type: [String],
+    optional: true,
+  },
+  services: {
+    type: Object,
+    optional: true,
+    blackbox: true,
+  },
+  heartbeat: {
+    type: Date,
+    optional: true,
+  },
+}));
 
 // Search a user in the complete server database by its name or username. This
 // is used for instance to add a new user to a board.
@@ -47,19 +149,44 @@ Users.helpers({
     return _.contains(invitedBoards, boardId);
   },
 
+  hasTag(tag) {
+    const {tags = []} = this.profile;
+    return _.contains(tags, tag);
+  },
+
+  hasNotification(activityId) {
+    const {notifications = []} = this.profile;
+    return _.contains(notifications, activityId);
+  },
+
+  hasHiddenSystemMessages() {
+    const profile = this.profile || {};
+    return profile.hiddenSystemMessages || false;
+  },
+
+  getEmailBuffer() {
+    const {emailBuffer = []} = this.profile;
+    return emailBuffer;
+  },
+
   getInitials() {
     const profile = this.profile || {};
     if (profile.initials)
       return profile.initials;
 
     else if (profile.fullname) {
-      return profile.fullname.split(/\s+/).reduce((memo = '', word) => {
+      return profile.fullname.split(/\s+/).reduce((memo, word) => {
         return memo + word[0];
-      }).toUpperCase();
+      }, '').toUpperCase();
 
     } else {
       return this.username[0].toUpperCase();
     }
+  },
+
+  getLimitToShowCardsCount() {
+    const profile = this.profile || {};
+    return profile.showCardsCountAt;
   },
 
   getName() {
@@ -99,8 +226,75 @@ Users.mutations({
     };
   },
 
+  addTag(tag) {
+    return {
+      $addToSet: {
+        'profile.tags': tag,
+      },
+    };
+  },
+
+  removeTag(tag) {
+    return {
+      $pull: {
+        'profile.tags': tag,
+      },
+    };
+  },
+
+  toggleTag(tag) {
+    if (this.hasTag(tag))
+      this.removeTag(tag);
+    else
+      this.addTag(tag);
+  },
+
+  toggleSystem(value = false) {
+    return {
+      $set: {
+        'profile.hiddenSystemMessages': !value,
+      },
+    };
+  },
+
+  addNotification(activityId) {
+    return {
+      $addToSet: {
+        'profile.notifications': activityId,
+      },
+    };
+  },
+
+  removeNotification(activityId) {
+    return {
+      $pull: {
+        'profile.notifications': activityId,
+      },
+    };
+  },
+
+  addEmailBuffer(text) {
+    return {
+      $addToSet: {
+        'profile.emailBuffer': text,
+      },
+    };
+  },
+
+  clearEmailBuffer() {
+    return {
+      $set: {
+        'profile.emailBuffer': [],
+      },
+    };
+  },
+
   setAvatarUrl(avatarUrl) {
     return { $set: { 'profile.avatarUrl': avatarUrl }};
+  },
+
+  setShowCardsCountAt(limit) {
+    return { $set: { 'profile.showCardsCountAt': limit } };
   },
 });
 
@@ -113,6 +307,14 @@ Meteor.methods({
     } else {
       Users.update(this.userId, {$set: { username }});
     }
+  },
+  toggleSystemMessages() {
+    const user = Meteor.user();
+    user.toggleSystem(user.hasHiddenSystemMessages());
+  },
+  changeLimitToShowCardsCount(limit) {
+    check(limit, Number);
+    Meteor.user().setShowCardsCountAt(limit);
   },
 });
 
@@ -146,8 +348,9 @@ if (Meteor.isServer) {
         if (user._id === inviter._id) throw new Meteor.Error('error-user-notAllowSelf');
       } else {
         if (posAt <= 0) throw new Meteor.Error('error-user-doesNotExist');
-
-        const email = username;
+        if (Settings.findOne().disableRegistration) throw new Meteor.Error('error-user-notCreated');
+        // Set in lowercase email before creating account
+        const email = username.toLowerCase();
         username = email.substring(0, posAt);
         const newUserId = Accounts.createUser({ username, email });
         if (!newUserId) throw new Meteor.Error('error-user-notCreated');
@@ -166,25 +369,19 @@ if (Meteor.isServer) {
       board.addMember(user._id);
       user.addInvite(boardId);
 
-      if (!process.env.MAIL_URL || (!Email)) return { username: user.username };
-
       try {
-        let rootUrl = Meteor.absoluteUrl.defaultOptions.rootUrl || '';
-        if (!rootUrl.endsWith('/')) rootUrl = `${rootUrl}/`;
-        const boardUrl = `${rootUrl}b/${board._id}/${board.slug}`;
-
-        const vars = {
+        const params = {
           user: user.username,
           inviter: inviter.username,
           board: board.title,
-          url: boardUrl,
+          url: board.absoluteUrl(),
         };
         const lang = user.getLanguage();
         Email.send({
-          to: user.emails[0].address,
+          to: user.emails[0].address.toLowerCase(),
           from: Accounts.emailTemplates.from,
-          subject: TAPi18n.__('email-invite-subject', vars, lang),
-          text: TAPi18n.__('email-invite-text', vars, lang),
+          subject: TAPi18n.__('email-invite-subject', params, lang),
+          text: TAPi18n.__('email-invite-text', params, lang),
         });
       } catch (e) {
         throw new Meteor.Error('email-fail', e.message);
@@ -193,15 +390,29 @@ if (Meteor.isServer) {
       return { username: user.username, email: user.emails[0].address };
     },
   });
+  Accounts.onCreateUser((options, user) => {
+    const userCount = Users.find().count();
+    if (userCount === 0){
+      user.isAdmin = true;
+      return user;
+    }
+    const disableRegistration = Settings.findOne().disableRegistration;
+    if (!disableRegistration) {
+      return user;
+    }
+
+    const iCode = options.profile.invitationcode | '';
+
+    const invitationCode = InvitationCodes.findOne({code: iCode, valid:true});
+    if (!invitationCode) {
+      throw new Meteor.Error('error-invitation-code-not-exist');
+    }else{
+      user.profile = {icode: options.profile.invitationcode};
+    }
+
+    return user;
+  });
 }
-
-Users.before.insert((userId, doc) => {
-  doc.profile = doc.profile || {};
-
-  if (!doc.username && doc.profile.name) {
-    doc.username = doc.profile.name.toLowerCase().replace(/\s/g, '');
-  }
-});
 
 if (Meteor.isServer) {
   // Let mongoDB ensure username unicity
@@ -242,33 +453,53 @@ if (Meteor.isServer) {
     incrementBoards(_.difference(newIds, oldIds), +1);
   });
 
-  // XXX i18n
-  Users.after.insert((userId, doc) => {
-    const ExampleBoard = {
-      title: 'Welcome Board',
-      userId: doc._id,
-      permission: 'private',
-    };
+  const fakeUserId = new Meteor.EnvironmentVariable();
+  const getUserId = CollectionHooks.getUserId;
+  CollectionHooks.getUserId = () => {
+    return fakeUserId.get() || getUserId();
+  };
 
-    // Insert the Welcome Board
-    Boards.insert(ExampleBoard, (err, boardId) => {
+  if (!isSandstorm) {
+    Users.after.insert((userId, doc) => {
+      const fakeUser = {
+        extendAutoValueContext: {
+          userId: doc._id,
+        },
+      };
 
-      ['Basics', 'Advanced'].forEach((title) => {
-        const list = {
-          title,
-          boardId,
-          userId: ExampleBoard.userId,
+      fakeUserId.withValue(doc._id, () => {
+        // Insert the Welcome Board
+        Boards.insert({
+          title: TAPi18n.__('welcome-board'),
+          permission: 'private',
+        }, fakeUser, (err, boardId) => {
 
-          // XXX Not certain this is a bug, but we except these fields get
-          // inserted by the Lists.before.insert collection-hook. Since this
-          // hook is not called in this case, we have to dublicate the logic and
-          // set them here.
-          archived: false,
-          createdAt: new Date(),
-        };
-
-        Lists.insert(list);
+          ['welcome-list1', 'welcome-list2'].forEach((title) => {
+            Lists.insert({ title: TAPi18n.__(title), boardId }, fakeUser);
+          });
+        });
       });
     });
+  }
+
+  Users.after.insert((userId, doc) => {
+
+    //invite user to corresponding boards
+    const disableRegistration = Settings.findOne().disableRegistration;
+    if (disableRegistration) {
+      const user = Users.findOne(doc._id);
+      const invitationCode = InvitationCodes.findOne({code: user.profile.icode, valid:true});
+      if (!invitationCode) {
+        throw new Meteor.Error('error-user-notCreated');
+      }else{
+        invitationCode.boardsToBeInvited.forEach((boardId) => {
+          const board = Boards.findOne(boardId);
+          board.addMember(doc._id);
+        });
+        user.profile = {invitedBoards: invitationCode.boardsToBeInvited};
+        InvitationCodes.update(invitationCode._id, {$set: {valid:false}});
+      }
+    }
   });
 }
+

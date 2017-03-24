@@ -109,12 +109,11 @@ MultiSelection = {
 
   toggleRange(cardId) {
     const selectedCards = this._selectedCards.get();
-    let startRange;
     this.reset();
     if (!this.isActive() || selectedCards.length === 0) {
       this.toggle(cardId);
     } else {
-      startRange = selectedCards[selectedCards.length - 1];
+      const startRange = selectedCards[selectedCards.length - 1];
       this.toggle(getCardsBetween(startRange, cardId));
     }
   },

@@ -1,0 +1,25 @@
+#header #header-main-bar .setting-header-btn
+  &.active,
+  &:hover:not(.is-disabled)
+    background: rgba(0, 0, 0, .15)
+  color: darken(white, 5%)
+  margin-left: 20px;
+  padding-right: 10px;
+  height: 28px;
+  font-size: 13px;
+  float: left;
+  overflow: hidden;
+  line-height: @height;
+  margin: 0 2px;
+
+  i.fa
+    float: left
+    display: block
+    line-height: 28px
+    color: darken(white, 5%)
+    margin: 0 10px
+
+  + span
+    display: inline-block
+    margin-top: 1px
+    margin-right: 10px

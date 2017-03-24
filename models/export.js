@@ -2,8 +2,10 @@
 if(Meteor.isServer) {
   // todo XXX once we have a real API in place, move that route there
   // todo XXX also  share the route definition between the client and the server
-  // so that we could use something like ApiRoutes.path('boards/export', boardId)
-  // on the client instead of copy/pasting the route path manually between the client and the server.
+  // so that we could use something like
+  // `ApiRoutes.path('boards/export', boardId)``
+  // on the client instead of copy/pasting the route path manually between the
+  // client and the server.
   /*
    * This route is used to export the board FROM THE APPLICATION.
    * If user is already logged-in, pass loginToken as param "authToken":
@@ -29,8 +31,8 @@ if(Meteor.isServer) {
     if(exporter.canExport(user)) {
       JsonRoutes.sendResult(res, 200, exporter.build());
     } else {
-      // we could send an explicit error message, but on the other hand the only way to
-      // get there is by hacking the UI so let's keep it raw.
+      // we could send an explicit error message, but on the other hand the only
+      // way to get there is by hacking the UI so let's keep it raw.
       JsonRoutes.sendResult(res, 403);
     }
   });
@@ -54,14 +56,16 @@ class Exporter {
     result.comments = CardComments.find(byBoard, noBoardId).fetch();
     result.activities = Activities.find(byBoard, noBoardId).fetch();
     // for attachments we only export IDs and absolute url to original doc
-    result.attachments = Attachments.find(byBoard).fetch().map((attachment) => { return {
-      _id: attachment._id,
-      cardId: attachment.cardId,
-      url: Meteor.absoluteUrl(Utils.stripLeadingSlash(attachment.url())),
-    };});
+    result.attachments = Attachments.find(byBoard).fetch().map((attachment) => {
+      return {
+        _id: attachment._id,
+        cardId: attachment.cardId,
+        url: FlowRouter.url(attachment.url()),
+      };
+    });
 
-    // we also have to export some user data - as the other elements only include id
-    // but we have to be careful:
+    // we also have to export some user data - as the other elements only
+    // include id but we have to be careful:
     // 1- only exports users that are linked somehow to that board
     // 2- do not export any sensitive information
     const users = {};
@@ -88,7 +92,7 @@ class Exporter {
     result.users = Users.find(byUserIds, userFields).fetch().map((user) => {
       // user avatar is stored as a relative url, we export absolute
       if(user.profile.avatarUrl) {
-        user.profile.avatarUrl = Meteor.absoluteUrl(Utils.stripLeadingSlash(user.profile.avatarUrl));
+        user.profile.avatarUrl = FlowRouter.url(user.profile.avatarUrl);
       }
       return user;
     });

@@ -2,6 +2,7 @@ head
   title Wekan
   meta(name="viewport"
    content="maximum-scale=1.0,width=device-width,initial-scale=1.0,user-scalable=0")
+  meta(http-equiv="X-UA-Compatible" content="IE=edge")
   //- XXX We should use pathFor in the following `href` to support the case
     where the application is deployed with a path prefix, but it seems to be
     difficult to do that cleanly with Blaze -- at least without adding extra
@@ -12,14 +13,15 @@ template(name="userFormsLayout")
   section.auth-layout
     h1.at-form-landing-logo
       img(src="{{pathFor '/wekan-logo.png'}}" alt="Wekan")
-    +Template.dynamic(template=content)
-    div.at-form-lang
-      select.select-lang.js-userform-set-language
-        each languages
-          if isCurrentLanguage
-            option(value="{{tag}}" selected="selected") {{name}}
-          else
-            option(value="{{tag}}") {{name}}
+    section.auth-dialog
+      +Template.dynamic(template=content)
+      div.at-form-lang
+        select.select-lang.js-userform-set-language
+          each languages
+            if isCurrentLanguage
+              option(value="{{tag}}" selected="selected") {{name}}
+            else
+              option(value="{{tag}}") {{name}}
 
 template(name="defaultLayout")
   +header

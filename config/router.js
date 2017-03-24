@@ -79,6 +79,46 @@ FlowRouter.route('/shortcuts', {
   },
 });
 
+FlowRouter.route('/import', {
+  name: 'import',
+  triggersEnter: [
+    AccountsTemplates.ensureSignedIn,
+    () => {
+      Session.set('currentBoard', null);
+      Session.set('currentCard', null);
+
+      Filter.reset();
+      EscapeActions.executeAll();
+    },
+  ],
+  action() {
+    BlazeLayout.render('defaultLayout', {
+      headerBar: 'importHeaderBar',
+      content: 'import',
+    });
+  },
+});
+
+FlowRouter.route('/setting', {
+  name: 'setting',
+  triggersEnter: [
+    AccountsTemplates.ensureSignedIn,
+    () => {
+      Session.set('currentBoard', null);
+      Session.set('currentCard', null);
+
+      Filter.reset();
+      EscapeActions.executeAll();
+    },
+  ],
+  action() {
+    BlazeLayout.render('defaultLayout', {
+      headerBar: 'settingHeaderBar',
+      content: 'setting',
+    });
+  },
+});
+
 FlowRouter.notFound = {
   action() {
     BlazeLayout.render('defaultLayout', { content: 'notFound' });
@@ -113,7 +153,7 @@ const appTitle = 'Wekan';
 // that the global variable `Boards` is undefined when this file loads so we
 // wait a bit until hopefully all files are loaded. This will be fixed in a
 // clean way once Meteor will support ES6 modules -- hopefully in Meteor 1.3.
-Meteor.startup(() => {
+Meteor.isClient && Meteor.startup(() => {
   Tracker.autorun(() => {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
     const titleStack = [appTitle];

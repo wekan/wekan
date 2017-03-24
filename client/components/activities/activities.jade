@@ -26,6 +26,12 @@ template(name="boardActivities")
             +viewer
               = comment.text
 
+        if($eq activityType 'addChecklist')
+          | {{{_ 'activity-checklist-added' cardLink}}}.
+          .activity-checklist(href="{{ card.absoluteUrl }}")
+            +viewer
+              = checklist.title
+
         if($eq activityType 'archivedCard')
           | {{{_ 'activity-archived' cardLink}}}.
 
@@ -40,6 +46,9 @@ template(name="boardActivities")
 
         if($eq activityType 'createList')
           | {{_ 'activity-added' list.title boardLabel}}.
+
+        if($eq activityType 'removeList')
+          | {{_ 'activity-removed' title boardLabel}}.
 
         if($eq activityType 'importBoard')
           | {{{_ 'activity-imported-board' boardLabel sourceLink}}}.
@@ -71,7 +80,7 @@ template(name="boardActivities")
           else
             | {{{_ 'activity-removed' memberLink cardLink}}}.
 
-        span.activity-meta {{ moment createdAt }}
+        span(title=createdAt).activity-meta {{ moment createdAt }}
 
 template(name="cardActivities")
   each currentCard.activities
@@ -103,6 +112,11 @@ template(name="cardActivities")
           | {{{_ 'activity-attached' attachmentLink cardLabel}}}.
           if attachment.isImage
             img.attachment-image-preview(src=attachment.url)
+        if($eq activityType 'addChecklist')
+          | {{{_ 'activity-checklist-added' cardLabel}}}.
+          .activity-checklist
+            +viewer
+              = checklist.title
 
         if($eq activityType 'addComment')
           +inlinedForm(classNames='js-edit-comment')
@@ -114,7 +128,7 @@ template(name="cardActivities")
             .activity-comment
               +viewer
                 = comment.text
-            span.activity-meta {{ moment createdAt }}
+            span(title=createdAt).activity-meta {{ moment createdAt }}
               if ($eq currentUser._id comment.userId)
                 = ' - '
                 a.js-open-inlined-form {{_ "edit"}}
@@ -122,4 +136,4 @@ template(name="cardActivities")
                 a.js-delete-comment {{_ "delete"}}
 
         else
-          span.activity-meta {{ moment createdAt }}
+          span(title=createdAt).activity-meta {{ moment createdAt }}

@@ -5,10 +5,6 @@ Template.boardListHeaderBar.events({
 });
 
 BlazeComponent.extendComponent({
-  template() {
-    return 'archivedBoards';
-  },
-
   onCreated() {
     this.subscribe('archivedBoards');
   },

@@ -1,8 +1,4 @@
 BlazeComponent.extendComponent({
-  template() {
-    return 'filterSidebar';
-  },
-
   events() {
     return [{
       'click .js-toggle-label-filter'(evt) {
@@ -37,10 +33,6 @@ function mutateSelectedCards(mutationName, ...args) {
 }
 
 BlazeComponent.extendComponent({
-  template() {
-    return 'multiselectionSidebar';
-  },
-
   mapSelection(kind, _id) {
     return Cards.find(MultiSelection.getMongoSelector()).map((card) => {
       const methodName = kind === 'label' ? 'hasLabel' : 'isAssigned';
@@ -76,7 +68,7 @@ BlazeComponent.extendComponent({
           const popup = Popup.open('disambiguateMultiLabel');
           // XXX We need to have a better integration between the popup and the
           // UI components systems.
-          return popup.call(this.currentData(), evt);
+          popup.call(this.currentData(), evt);
         }
       },
       'click .js-toggle-member-multiselection'(evt) {
@@ -90,7 +82,7 @@ BlazeComponent.extendComponent({
           const popup = Popup.open('disambiguateMultiMember');
           // XXX We need to have a better integration between the popup and the
           // UI components systems.
-          return popup.call(this.currentData(), evt);
+          popup.call(this.currentData(), evt);
         }
       },
       'click .js-move-selection': Popup.open('moveSelection'),

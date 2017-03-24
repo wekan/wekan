@@ -1,13 +1,19 @@
 template(name="minicard")
   .minicard
     if cover
-      .minicard-cover
-        img(src="{{pathFor cover.url}}")
+      .minicard-cover(style="background-image: url('{{pathFor cover.url}}');")
     if labels
       .minicard-labels
         each labels
           .minicard-label(class="card-label-{{color}}" title="{{name}}")
     .minicard-title= title
+    .dates
+      if startAt
+          .date
+            +minicardStartDate
+      if dueAt
+          .date
+            +minicardDueDate
     if members
       .minicard-members.js-minicard-members
         each members
@@ -15,7 +21,7 @@ template(name="minicard")
     .badges
       if comments.count
         .badge(title="{{_ 'card-comments-title' comments.count }}")
-          span.badge-icon.fa.fa-comment-o
+          span.badge-icon.fa.fa-comment-o.badge-comment
           span.badge-text= comments.count
       if description
         .badge.badge-state-image-only(title=description)
@@ -24,3 +30,7 @@ template(name="minicard")
         .badge
           span.badge-icon.fa.fa-paperclip
           span.badge-text= attachments.count
+      if checklists.count
+        .badge(class="{{#if checklistFinished}}is-finished{{/if}}")
+          span.badge-icon.fa.fa-check-square-o
+          span.badge-text.check-list-text {{checklistFinishedCount}}/{{checklistItemCount}}

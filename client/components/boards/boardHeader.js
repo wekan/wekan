@@ -19,7 +19,7 @@ Template.boardMenuPopup.helpers({
   exportUrl() {
     const boardId = Session.get('currentBoard');
     const loginToken = Accounts._storedLoginToken();
-    return Meteor.absoluteUrl(`api/boards/${boardId}?authToken=${loginToken}`);
+    return FlowRouter.url(`api/boards/${boardId}?authToken=${loginToken}`);
   },
   exportFilename() {
     const boardId = Session.get('currentBoard');
@@ -33,7 +33,7 @@ Template.boardChangeTitlePopup.events({
     const newDesc = tpl.$('.js-board-desc').val().trim();
     if (newTitle) {
       this.rename(newTitle);
-      this.setDesciption(newDesc);
+      this.setDescription(newDesc);
       Popup.close();
     }
     evt.preventDefault();
@@ -41,8 +41,9 @@ Template.boardChangeTitlePopup.events({
 });
 
 BlazeComponent.extendComponent({
-  template() {
-    return 'boardHeaderBar';
+  watchLevel() {
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    return currentBoard && currentBoard.getWatchLevel(Meteor.userId());
   },
 
   isStarred() {
@@ -69,6 +70,7 @@ BlazeComponent.extendComponent({
       },
       'click .js-open-board-menu': Popup.open('boardMenu'),
       'click .js-change-visibility': Popup.open('boardChangeVisibility'),
+      'click .js-watch-board': Popup.open('boardChangeWatch'),
       'click .js-open-filter-view'() {
         Sidebar.setView('filter');
       },
@@ -88,15 +90,14 @@ BlazeComponent.extendComponent({
         evt.stopPropagation();
         MultiSelection.disable();
       },
+      'click .js-log-in'() {
+        FlowRouter.go('atSignIn');
+      },
     }];
   },
 }).register('boardHeaderBar');
 
 BlazeComponent.extendComponent({
-  template() {
-    return 'boardChangeColorPopup';
-  },
-
   backgroundColors() {
     return Boards.simpleSchema()._schema.color.allowedValues;
   },
@@ -118,14 +119,15 @@ BlazeComponent.extendComponent({
   },
 }).register('boardChangeColorPopup');
 
-BlazeComponent.extendComponent({
+const CreateBoard = BlazeComponent.extendComponent({
   template() {
-    return 'createBoardPopup';
+    return 'createBoard';
   },
 
   onCreated() {
     this.visibilityMenuIsOpen = new ReactiveVar(false);
     this.visibility = new ReactiveVar('private');
+    this.boardId = new ReactiveVar('');
   },
 
   visibilityCheck() {
@@ -146,15 +148,12 @@ BlazeComponent.extendComponent({
     const title = this.find('.js-new-board-title').value;
     const visibility = this.visibility.get();
 
-    const boardId = Boards.insert({
+    this.boardId.set(Boards.insert({
       title,
       permission: visibility,
-    });
+    }));
 
-    Utils.goBoardId(boardId);
-
-    // Immediately star boards crated with the headerbar popup.
-    Meteor.user().toggleBoardStar(boardId);
+    Utils.goBoardId(this.boardId.get());
   },
 
   events() {
@@ -169,11 +168,15 @@ BlazeComponent.extendComponent({
   },
 }).register('createBoardPopup');
 
-BlazeComponent.extendComponent({
-  template() {
-    return 'boardChangeVisibilityPopup';
-  },
+(class HeaderBarCreateBoard extends CreateBoard {
+  onSubmit(evt) {
+    super.onSubmit(evt);
+    // Immediately star boards crated with the headerbar popup.
+    Meteor.user().toggleBoardStar(this.boardId.get());
+  }
+}).register('headerBarCreateBoardPopup');
 
+BlazeComponent.extendComponent({
   visibilityCheck() {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
     return this.currentData() === currentBoard.permission;
@@ -192,3 +195,25 @@ BlazeComponent.extendComponent({
     }];
   },
 }).register('boardChangeVisibilityPopup');
+
+BlazeComponent.extendComponent({
+  watchLevel() {
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    return currentBoard.getWatchLevel(Meteor.userId());
+  },
+
+  watchCheck() {
+    return this.currentData() === this.watchLevel();
+  },
+
+  events() {
+    return [{
+      'click .js-select-watch'() {
+        const level = this.currentData();
+        Meteor.call('watch', 'board', Session.get('currentBoard'), level, (err, ret) => {
+          if (!err && ret) Popup.close();
+        });
+      },
+    }];
+  },
+}).register('boardChangeWatchPopup');

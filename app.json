@@ -4,7 +4,7 @@
   "repository": "https://github.com/wekan/wekan",
   "logo": "https://raw.githubusercontent.com/wekan/wekan/master/meta/icons/wekan-150.png",
   "keywords": ["productivity", "tool", "team", "kanban"],
-  "website": "http://wekan.io",
+  "website": "https://wekan.io",
   "env": {
     "BUILDPACK_URL": "https://github.com/AdmitHub/meteor-buildpack-horse.git",
     "ROOT_URL": {

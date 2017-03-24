@@ -4,18 +4,12 @@ Meteor.startup(() => {
 });
 
 BlazeComponent.extendComponent({
-  template() {
-    return 'formLabel';
-  },
-
   onCreated() {
     this.currentColor = new ReactiveVar(this.data().color);
   },
 
   labels() {
-    return labelColors.map((color) => {
-      return { color, name: '' };
-    });
+    return labelColors.map((color) => ({ color, name: '' }));
   },
 
   isSelected(color) {

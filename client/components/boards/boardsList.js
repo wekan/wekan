@@ -1,8 +1,4 @@
 BlazeComponent.extendComponent({
-  template() {
-    return 'boardList';
-  },
-
   boards() {
     return Boards.find({
       archived: false,

@@ -45,3 +45,12 @@ template(name="header")
         else
           a.wekan-logo(href="{{pathFor 'home'}}" title="{{_ 'header-logo-title'}}")
             img(src="{{pathFor '/wekan-logo-header.png'}}" alt="Wekan")
+
+  if appIsOffline
+    +offlineWarning
+
+template(name="offlineWarning")
+  .offline-warning
+    p
+      i.fa.fa-warning
+      | {{_ 'app-is-offline'}}

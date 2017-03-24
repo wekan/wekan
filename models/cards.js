@@ -9,6 +9,11 @@ Cards.attachSchema(new SimpleSchema({
   },
   archived: {
     type: Boolean,
+    autoValue() { // eslint-disable-line consistent-return
+      if (this.isInsert && !this.isSet) {
+        return false;
+      }
+    },
   },
   listId: {
     type: String,
@@ -25,10 +30,19 @@ Cards.attachSchema(new SimpleSchema({
   },
   createdAt: {
     type: Date,
-    denyUpdate: true,
+    autoValue() { // eslint-disable-line consistent-return
+      if (this.isInsert) {
+        return new Date();
+      } else {
+        this.unset();
+      }
+    },
   },
   dateLastActivity: {
     type: Date,
+    autoValue() {
+      return new Date();
+    },
   },
   description: {
     type: String,
@@ -42,10 +56,23 @@ Cards.attachSchema(new SimpleSchema({
     type: [String],
     optional: true,
   },
+  startAt: {
+    type: Date,
+    optional: true,
+  },
+  dueAt: {
+    type: Date,
+    optional: true,
+  },
   // XXX Should probably be called `authorId`. Is it even needed since we have
   // the `members` field?
   userId: {
     type: String,
+    autoValue() { // eslint-disable-line consistent-return
+      if (this.isInsert && !this.isSet) {
+        return this.userId;
+      }
+    },
   },
   sort: {
     type: Number,
@@ -114,17 +141,43 @@ Cards.helpers({
     return cover && cover.url() && cover;
   },
 
+  checklists() {
+    return Checklists.find({ cardId: this._id }, { sort: { createdAt: 1 }});
+  },
+
+  checklistItemCount() {
+    const checklists = this.checklists().fetch();
+    return checklists.map((checklist) => {
+      return checklist.itemCount();
+    }).reduce((prev, next) => {
+      return prev + next;
+    }, 0);
+  },
+
+  checklistFinishedCount() {
+    const checklists = this.checklists().fetch();
+    return checklists.map((checklist) => {
+      return checklist.finishedCount();
+    }).reduce((prev, next) => {
+      return prev + next;
+    }, 0);
+  },
+
+  checklistFinished() {
+    return this.hasChecklist() && this.checklistItemCount() === this.checklistFinishedCount();
+  },
+
+  hasChecklist() {
+    return this.checklistItemCount() !== 0;
+  },
+
   absoluteUrl() {
     const board = this.board();
-    return FlowRouter.path('card', {
+    return FlowRouter.url('card', {
       boardId: board._id,
       slug: board.slug,
       cardId: this._id,
     });
-  },
-
-  rootUrl() {
-    return Meteor.absoluteUrl(this.absoluteUrl().replace('/', ''));
   },
 });
 
@@ -192,20 +245,31 @@ Cards.mutations({
   unsetCover() {
     return { $unset: { coverId: '' }};
   },
-});
 
-Cards.before.insert((userId, doc) => {
-  doc.createdAt = new Date();
-  doc.dateLastActivity = new Date();
-  if(!doc.hasOwnProperty('archived')){
-    doc.archived = false;
-  }
-  if (!doc.userId) {
-    doc.userId = userId;
-  }
+  setStart(startAt) {
+    return { $set: { startAt }};
+  },
+
+  unsetStart() {
+    return { $unset: { startAt: '' }};
+  },
+
+  setDue(dueAt) {
+    return { $set: { dueAt }};
+  },
+
+  unsetDue() {
+    return { $unset: { dueAt: '' }};
+  },
 });
 
 if (Meteor.isServer) {
+  // Cards are often fetched within a board, so we create an index to make these
+  // queries more efficient.
+  Meteor.startup(() => {
+    Cards._collection._ensureIndex({ boardId: 1, createdAt: -1 });
+  });
+
   Cards.after.insert((userId, doc) => {
     Activities.insert({
       userId,
@@ -276,19 +340,32 @@ if (Meteor.isServer) {
     // Say goodbye to the former member
     if (modifier.$pull && modifier.$pull.members) {
       memberId = modifier.$pull.members;
-      Activities.insert({
-        userId,
-        memberId,
-        activityType: 'unjoinMember',
-        boardId: doc.boardId,
-        cardId: doc._id,
-      });
+      // Check that the former member is member of the card
+      if (_.contains(doc.members, memberId)) {
+        Activities.insert({
+          userId,
+          memberId,
+          activityType: 'unjoinMember',
+          boardId: doc.boardId,
+          cardId: doc._id,
+        });
+      }
     }
   });
 
   // Remove all activities associated with a card if we remove the card
+  // Remove also card_comments / checklists / attachments
   Cards.after.remove((userId, doc) => {
     Activities.remove({
+      cardId: doc._id,
+    });
+    Checklists.remove({
+      cardId: doc._id,
+    });
+    CardComments.remove({
+      cardId: doc._id,
+    });
+    Attachments.remove({
       cardId: doc._id,
     });
   });

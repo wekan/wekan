@@ -1,7 +1,8 @@
 *~
 *.swp
 .meteor-spk
-.tx/
 *.sublime-workspace
 tmp/
 node_modules/
+.vscode/
+.build/*

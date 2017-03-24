@@ -52,10 +52,6 @@ Template.userAvatarInitials.helpers({
 });
 
 BlazeComponent.extendComponent({
-  template() {
-    return 'changeAvatarPopup';
-  },
-
   onCreated() {
     this.error = new ReactiveVar('');
   },

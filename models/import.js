@@ -25,6 +25,8 @@ class TrelloCreator {
     this.labels = {};
     // Map of lists Trello ID => Wekan ID
     this.lists = {};
+    // Map of cards Trello ID => Wekan ID
+    this.cards = {};
     // The comments, indexed by Trello card id (to map when importing cards)
     this.comments = {};
     // the members, indexed by Trello member id => Wekan user ID
@@ -116,6 +118,18 @@ class TrelloCreator {
     check(trelloLists, [Match.ObjectIncluding({
       closed: Boolean,
       name: String,
+    })]);
+  }
+
+  checkChecklists(trelloChecklists) {
+    check(trelloChecklists, [Match.ObjectIncluding({
+      idBoard: String,
+      idCard: String,
+      name: String,
+      checkItems: [Match.ObjectIncluding({
+        state: String,
+        name: String,
+      })],
     })]);
   }
 
@@ -241,6 +255,8 @@ class TrelloCreator {
       }
       // insert card
       const cardId = Cards.direct.insert(cardToCreate);
+      // keep track of Trello id => WeKan id
+      this.cards[card.id] = cardId;
       // log activity
       Activities.direct.insert({
         activityType: 'importCard',
@@ -280,7 +296,7 @@ class TrelloCreator {
             createdAt: this._now(commentToCreate.createdAt),
             // we attribute the addComment (not the import)
             // to the original author - it is needed by some UI elements.
-            userId: commentToCreate.userId,
+            userId: this._user(commentToCreate.userId),
           });
         });
       }
@@ -365,6 +381,28 @@ class TrelloCreator {
     });
   }
 
+  createChecklists(trelloChecklists) {
+    trelloChecklists.forEach((checklist) => {
+      // Create the checklist
+      const checklistToCreate = {
+        cardId: this.cards[checklist.idCard],
+        title: checklist.name,
+        createdAt: this._now(),
+      };
+      const checklistId = Checklists.direct.insert(checklistToCreate);
+      // Now add the items to the checklist
+      const itemsToCreate = [];
+      checklist.checkItems.forEach((item) => {
+        itemsToCreate.push({
+          _id: checklistId + itemsToCreate.length,
+          title: item.name,
+          isFinished: item.state === 'complete',
+        });
+      });
+      Checklists.direct.update(checklistId, {$set: {items: itemsToCreate}});
+    });
+  }
+
   getAdmin(trelloMemberType) {
     return trelloMemberType === 'admin';
   }
@@ -397,8 +435,7 @@ class TrelloCreator {
 
   parseActions(trelloActions) {
     trelloActions.forEach((action) => {
-      switch (action.type) {
-      case 'addAttachmentToCard':
+      if (action.type === 'addAttachmentToCard') {
         // We have to be cautious, because the attachment could have been removed later.
         // In that case Trello still reports its addition, but removes its 'url' field.
         // So we test for that
@@ -412,30 +449,22 @@ class TrelloCreator {
           }
           this.attachments[trelloCardId].push(trelloAttachment);
         }
-        break;
-      case 'commentCard':
+      } else if (action.type === 'commentCard') {
         const id = action.data.card.id;
         if (this.comments[id]) {
           this.comments[id].push(action);
         } else {
           this.comments[id] = [action];
         }
-        break;
-      case 'createBoard':
+      } else if (action.type === 'createBoard') {
         this.createdAt.board = action.date;
-        break;
-      case 'createCard':
+      } else if (action.type === 'createCard') {
         const cardId = action.data.card.id;
         this.createdAt.cards[cardId] = action.date;
         this.createdBy.cards[cardId] = action.idMemberCreator;
-        break;
-      case 'createList':
+      } else if (action.type === 'createList') {
         const listId = action.data.list.id;
         this.createdAt.lists[listId] = action.date;
-        break;
-      default:
-        // do nothing
-        break;
       }
     });
   }
@@ -455,6 +484,7 @@ Meteor.methods({
       trelloCreator.checkLabels(trelloBoard.labels);
       trelloCreator.checkLists(trelloBoard.lists);
       trelloCreator.checkCards(trelloBoard.cards);
+      trelloCreator.checkChecklists(trelloBoard.checklists);
     } catch (e) {
       throw new Meteor.Error('error-json-schema');
     }
@@ -467,45 +497,8 @@ Meteor.methods({
     const boardId = trelloCreator.createBoardAndLabels(trelloBoard);
     trelloCreator.createLists(trelloBoard.lists, boardId);
     trelloCreator.createCards(trelloBoard.cards, boardId);
+    trelloCreator.createChecklists(trelloBoard.checklists);
     // XXX add members
     return boardId;
-  },
-
-  importTrelloCard(trelloCard, data) {
-    const trelloCreator = new TrelloCreator(data);
-
-    // 1. check parameters are ok from a syntax point of view
-    try {
-      check(data, {
-        listId: String,
-        sortIndex: Number,
-        membersMapping: Match.Optional(Object),
-      });
-      trelloCreator.checkCards([trelloCard]);
-      trelloCreator.checkLabels(trelloCard.labels);
-      trelloCreator.checkActions(trelloCard.actions);
-    } catch(e) {
-      throw new Meteor.Error('error-json-schema');
-    }
-
-    // 2. check parameters are ok from a business point of view (exist &
-    // authorized)
-    const list = Lists.findOne(data.listId);
-    if (!list) {
-      throw new Meteor.Error('error-list-doesNotExist');
-    }
-    if (Meteor.isServer) {
-      if (!allowIsBoardMember(Meteor.userId(), Boards.findOne(list.boardId))) {
-        throw new Meteor.Error('error-board-notAMember');
-      }
-    }
-
-    // 3. create all elements
-    trelloCreator.lists[trelloCard.idList] = data.listId;
-    trelloCreator.parseActions(trelloCard.actions);
-    const board = list.board();
-    trelloCreator.createLabels(trelloCard.labels, board);
-    const cardIds = trelloCreator.createCards([trelloCard], board._id);
-    return cardIds[0];
   },
 });

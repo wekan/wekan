@@ -1,3 +1,5 @@
+@import 'nib'
+
 .minicard-wrapper
   cursor: pointer
   position: relative
@@ -60,16 +62,11 @@
   .minicard-cover
     background-position: center
     background-repeat: no-repeat
-    background-size: cover
+    background-size: contain
     height: 145px
     user-select: none
     margin: -6px -8px 6px -8px
     border-radius: top 2px
-    position: relative
-
-    img
-      height: 100%
-      width: 100%
 
   .minicard-labels
     float: right
@@ -80,7 +77,12 @@
       height: @width
       border-radius: 2px
       margin-left: 3px
-
+  .dates
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  .date
+    margin-right: 3px
   .badges
     float: left
     margin-top: 7px
@@ -94,15 +96,28 @@
       margin-right: 11px
       margin-bottom: 3px
       font-size: 0.9em
+      &.is-finished
+         background: #3cb500
+         padding: 0px 3px
+         border-radius: 3px
+         color: white
+
+      &:last-of-type
+        margin-right: 0
 
       .badge-icon,
       .badge-text
-        vertical-align: top
+        vertical-align: middle
+        &.badge-comment
+           margin-bottom: 0.1rem
 
       .badge-text
         font-size: 0.9em
         padding-left: 2px
         line-height: 14px
+      .check-list-text
+        padding-left: 0px
+        line-height: 12px
 
   .minicard-members
     float: right

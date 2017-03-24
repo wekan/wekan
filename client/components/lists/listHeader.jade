@@ -6,7 +6,13 @@ template(name="listHeader")
       h2.list-header-name(
         class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
         = title
+        if showCardsCountForList cards.count
+          = cards.count
+          span.lowercase
+            |  {{_ 'cards'}}
       if currentUser.isBoardMember
+        if isWatching
+          i.list-header-watch-icon.fa.fa-eye
         a.list-header-menu-icon.fa.fa-navicon.js-open-list-menu
 
 template(name="editListTitleForm")
@@ -18,12 +24,18 @@ template(name="editListTitleForm")
 
 template(name="listActionPopup")
   ul.pop-over-list
+    li: a.js-toggle-watch-list {{#if isWatching}}{{_ 'unwatch'}}{{else}}{{_ 'watch'}}{{/if}}
+  hr
+  ul.pop-over-list
     li: a.js-add-card {{_ 'add-card'}}
     if cards.count
       li: a.js-select-cards {{_ 'list-select-cards'}}
   hr
   ul.pop-over-list
     li: a.js-close-list {{_ 'archive-list'}}
+  hr
+  ul.pop-over-list
+    li: a.js-remove-list {{_ 'remove-list'}}
 
 template(name="boardLists")
   ul.pop-over-list

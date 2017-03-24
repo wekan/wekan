@@ -22,7 +22,7 @@ Template.attachmentsGalery.events({
   },
   'click .js-preview-image'(evt) {
     Popup.open('previewAttachedImage').call(this, evt);
-    // when multiple thumbnails, if click one then another very fast, 
+    // when multiple thumbnails, if click one then another very fast,
     // we might get a wrong width from previous img.
     // when popup reused, onRendered() won't be called, so we cannot get there.
     // here make sure to get correct size when this img fully loaded.

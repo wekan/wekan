@@ -38,7 +38,8 @@ window.Popup = new class {
       if (self.isOpen()) {
         const previousOpenerElement = self._getTopStack().openerElement;
         if (previousOpenerElement === evt.currentTarget) {
-          return self.close();
+          self.close();
+          return;
         } else {
           $(previousOpenerElement).removeClass('is-active');
         }
@@ -74,7 +75,7 @@ window.Popup = new class {
 
       // If there are no popup currently opened we use the Blaze API to render
       // one into the DOM. We use a reactive function as the data parameter that
-      // return the the complete along with its top element and depends on our
+      // return the complete along with its top element and depends on our
       // internal dependency that is being invalidated every time the top
       // element of the stack has changed and we want to update the popup.
       //
@@ -140,6 +141,11 @@ window.Popup = new class {
 
       this._stack = [];
     }
+  }
+
+  getOpenerComponent() {
+    const { openerElement } = Template.parentData(4);
+    return BlazeComponent.getComponentForElement(openerElement);
   }
 
   // An utility fonction that returns the top element of the internal stack
