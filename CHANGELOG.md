@@ -2,7 +2,6 @@
 
 Known bugs:
 
-* https://github.com/wekan/wekan/issues/785
 * https://github.com/wekan/wekan/issues/784
 
 This release fixes the following bugs:
