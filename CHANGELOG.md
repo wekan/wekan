@@ -10,6 +10,8 @@ This release fixes the following bugs:
 * Double slash problem on card pop-ups;
 * No need for Array.prototype if using rest operator;
 * Fix default font so Chinese is shown correctly.
+  Still looking for better solution for #914 although
+  commit had wrong number #707.
 
 Thanks to GitHub users mo-han, Serubin and vuxor for
 their contributions.
