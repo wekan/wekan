@@ -7,10 +7,11 @@ Known bugs:
 
 This release fixes the following bugs:
 
+* Double slash problem on card pop-ups;
 * No need for Array.prototype if using rest operator;
 * Fix default font so Chinese is shown correctly.
 
-Thanks to GitHub users mo-han and vuxor for
+Thanks to GitHub users mo-han, Serubin and vuxor for
 their contributions.
 
 # v0.16 2017-03-15 Wekan release
