@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v0.17 2017-03-25 Wekan release
 
 Known bugs:
 
