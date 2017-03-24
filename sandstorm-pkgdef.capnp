@@ -57,8 +57,8 @@ const pkgdef :Spk.PackageDefinition = (
         market = (svg = embed "meta/icons/wekan-150.svg"),
       ),
 
-      website = "https://wekan.io",
-      codeUrl = "https://github.com/wefork/wekan",
+      website = "https://wekan.github.io",
+      codeUrl = "https://github.com/wekan/wekan",
       license = (openSource = mit),
       categories = [productivity, office],
 
