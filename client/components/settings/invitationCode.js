@@ -1,6 +1,6 @@
 Template.invitationCode.onRendered(() => {
-  const disableRegistration = Settings.findOne().disableRegistration;
-  if(!disableRegistration){
+  const setting = Settings.findOne();
+  if (!setting || !setting.disableRegistration) {
     $('#invitationcode').hide();
   }
 });
