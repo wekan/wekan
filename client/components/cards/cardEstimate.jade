@@ -1,0 +1,15 @@
+template(name="editCardEstimate")
+  .edit-card-estimate
+    form.edit-estimate
+      .fields
+        .left
+          label(for="estimate") {{_ 'estimate'}}
+          input.js-estimate-field#estimate(type="text" name="Hrs" value=showEstimate autofocus)
+      if error.get
+        .warning {{_ error.get}}
+      button.primary.wide.left.js-submit-estimate(type="submit") {{_ 'save'}}
+      button.negate.wide.right.js-delete-estimate {{_ 'delete'}}
+
+template(name="estimateBadge")
+  a.js-edit-estimate.card-estimate(title="{{showTitle}}")
+    | {{showEstimate}} {{_ 'hours'}}

@@ -64,6 +64,15 @@ Cards.attachSchema(new SimpleSchema({
     type: Date,
     optional: true,
   },
+  estimate: {
+    type: Number,
+    optional: true,
+    //jlouzado TODO  : remove autovalue later
+    autoValue() {
+      return 5;
+    },
+    min: 0,
+  },
   // XXX Should probably be called `authorId`. Is it even needed since we have
   // the `members` field?
   userId: {
@@ -260,6 +269,14 @@ Cards.mutations({
 
   unsetDue() {
     return { $unset: { dueAt: '' }};
+  },
+
+  setEstimate(estimate) {
+    return { $set: { estimate }};
+  },
+
+  unsetEstimate() {
+    return { $unset: { estimate: -1 }};
   },
 });
 
