@@ -137,6 +137,8 @@
     "color-yellow": "keltainen",
     "comment": "Kommentti",
     "comment-placeholder": "Kirjoita kommentti",
+    "comment-only": "Limited",
+    "comment-only-desc": "Can comment on cards only.",
     "computer": "Tietokone",
     "create": "Luo",
     "createBoardPopup-title": "Luo taulu",

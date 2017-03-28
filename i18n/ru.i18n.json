@@ -137,6 +137,8 @@
     "color-yellow": "желтый",
     "comment": "Отправить",
     "comment-placeholder": "Написать комментарий",
+    "comment-only": "Limited",
+    "comment-only-desc": "Can comment on cards only.",
     "computer": "Загрузить с компьютера",
     "create": "Создать",
     "createBoardPopup-title": "Создать доску",

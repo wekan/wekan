@@ -137,6 +137,8 @@
     "color-yellow": "amarelo",
     "comment": "Comentário",
     "comment-placeholder": "Escrever um comentário",
+    "comment-only": "Limited",
+    "comment-only-desc": "Can comment on cards only.",
     "computer": "Computador",
     "create": "Criar",
     "createBoardPopup-title": "Criar Quadro",

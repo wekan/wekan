@@ -137,6 +137,8 @@
     "color-yellow": "yellow",
     "comment": "Comentario",
     "comment-placeholder": "Escribe un comentario",
+    "comment-only": "Limited",
+    "comment-only-desc": "Can comment on cards only.",
     "computer": "Ordenador",
     "create": "Crear",
     "createBoardPopup-title": "Crear tablero",

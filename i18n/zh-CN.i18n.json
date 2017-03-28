@@ -137,6 +137,8 @@
     "color-yellow": "黄色",
     "comment": "评论",
     "comment-placeholder": "添加评论",
+    "comment-only": "Limited",
+    "comment-only-desc": "Can comment on cards only.",
     "computer": "从本机上传",
     "create": "创建",
     "createBoardPopup-title": "创建看板",

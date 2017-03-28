@@ -137,6 +137,8 @@
     "color-yellow": "צהוב",
     "comment": "הערה",
     "comment-placeholder": "כתוב הערה",
+    "comment-only": "Limited",
+    "comment-only-desc": "Can comment on cards only.",
     "computer": "מחשב",
     "create": "צור",
     "createBoardPopup-title": "צור לוח",

@@ -137,6 +137,8 @@
     "color-yellow": "黄",
     "comment": "コメント",
     "comment-placeholder": "コメントを書く",
+    "comment-only": "Limited",
+    "comment-only-desc": "Can comment on cards only.",
     "computer": "コンピューター",
     "create": "作成",
     "createBoardPopup-title": "ボードの作成",

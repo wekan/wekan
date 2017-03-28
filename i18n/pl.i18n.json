@@ -137,6 +137,8 @@
     "color-yellow": "żółty",
     "comment": "Komentarz",
     "comment-placeholder": "Napisz komentarz",
+    "comment-only": "Limited",
+    "comment-only-desc": "Can comment on cards only.",
     "computer": "Komputer",
     "create": "Utwórz",
     "createBoardPopup-title": "Utwórz tablicę",

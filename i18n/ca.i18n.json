@@ -137,6 +137,8 @@
     "color-yellow": "groc",
     "comment": "Comentari",
     "comment-placeholder": "Escriu un comentari",
+    "comment-only": "Limited",
+    "comment-only-desc": "Can comment on cards only.",
     "computer": "Ordinador",
     "create": "Crea",
     "createBoardPopup-title": "Crea tauler",

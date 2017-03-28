@@ -137,6 +137,8 @@
     "color-yellow": "黃色",
     "comment": "評論",
     "comment-placeholder": "新增評論",
+    "comment-only": "Limited",
+    "comment-only-desc": "Can comment on cards only.",
     "computer": "從本機上傳",
     "create": "建立",
     "createBoardPopup-title": "建立看板",

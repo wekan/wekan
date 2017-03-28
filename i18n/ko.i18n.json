@@ -137,6 +137,8 @@
     "color-yellow": "옐로우",
     "comment": "댓글",
     "comment-placeholder": "댓글 입력",
+    "comment-only": "Limited",
+    "comment-only-desc": "Can comment on cards only.",
     "computer": "내 컴퓨터",
     "create": "생성",
     "createBoardPopup-title": "보드 생성",

@@ -137,6 +137,8 @@
     "color-yellow": "žlutá",
     "comment": "Komentář",
     "comment-placeholder": "Zapsat komentář",
+    "comment-only": "Limited",
+    "comment-only-desc": "Can comment on cards only.",
     "computer": "Počítač",
     "create": "Vytvořit",
     "createBoardPopup-title": "Vytvořit tablo",

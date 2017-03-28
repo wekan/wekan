@@ -137,6 +137,8 @@
     "color-yellow": "sarı",
     "comment": "Yorum Gönder",
     "comment-placeholder": "Bir yorum yaz",
+    "comment-only": "Limited",
+    "comment-only-desc": "Can comment on cards only.",
     "computer": "Bilgisayar",
     "create": "Oluştur",
     "createBoardPopup-title": "Pano Oluşturma",

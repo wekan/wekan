@@ -137,6 +137,8 @@
     "color-yellow": "زرد",
     "comment": "نظر",
     "comment-placeholder": "ثبت یک نظر",
+    "comment-only": "Limited",
+    "comment-only-desc": "Can comment on cards only.",
     "computer": "کامپیوتر",
     "create": "ایجاد",
     "createBoardPopup-title": "ایجاد برد",
