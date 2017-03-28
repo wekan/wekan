@@ -369,24 +369,25 @@ if (Meteor.isServer) {
       board.addMember(user._id);
       user.addInvite(boardId);
 
-      try {
-        const params = {
-          user: user.username,
-          inviter: inviter.username,
-          board: board.title,
-          url: board.absoluteUrl(),
-        };
-        const lang = user.getLanguage();
-        Email.send({
-          to: user.emails[0].address.toLowerCase(),
-          from: Accounts.emailTemplates.from,
-          subject: TAPi18n.__('email-invite-subject', params, lang),
-          text: TAPi18n.__('email-invite-text', params, lang),
-        });
-      } catch (e) {
-        throw new Meteor.Error('email-fail', e.message);
+      if (Settings.findOne().mailUrl()) {
+        try {
+          const params = {
+            user: user.username,
+            inviter: inviter.username,
+            board: board.title,
+            url: board.absoluteUrl(),
+          };
+          const lang = user.getLanguage();
+          Email.send({
+            to: user.emails[0].address.toLowerCase(),
+            from: Accounts.emailTemplates.from,
+            subject: TAPi18n.__('email-invite-subject', params, lang),
+            text: TAPi18n.__('email-invite-text', params, lang),
+          });
+        } catch (e) {
+          throw new Meteor.Error('email-fail', e.message);
+        }
       }
-
       return { username: user.username, email: user.emails[0].address };
     },
   });
@@ -502,4 +503,3 @@ if (Meteor.isServer) {
     }
   });
 }
-
