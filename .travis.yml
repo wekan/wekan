@@ -1,8 +1,25 @@
-sudo: false
+sudo: required
+
+env:
+  DOCKER_COMPOSE_VERSION: 1.11.2
+
+before_install:
+  - sudo curl -fsSL https://get.docker.com/ | sh
+  - if [ -e /usr/local/bin/docker-compose ]; then sudo rm /usr/local/bin/docker-compose; fi
+  - sudo curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - sudo chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - sudo docker-compose build --no-cache --force-rm
+  - sudo docker-compose up && docker ps -a
+  - sudo docker run wekan-app /bin/sh -c "npm test"
+
 language: node_js
+
 node_js:
   - "0.10.48"
+
 install:
   - "npm install"
+
 script:
   - "npm test"
