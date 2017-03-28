@@ -26,6 +26,10 @@ BlazeComponent.extendComponent({
     checklist.setTitle(title);
   },
 
+  canModifyCard() {
+    return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
+  },
+
   editChecklistItem(event) {
     event.preventDefault();
 
@@ -72,6 +76,12 @@ BlazeComponent.extendComponent({
     }];
   },
 }).register('checklists');
+
+Template.itemDetail.helpers({
+  canModifyCard() {
+    return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
+  },
+});
 
 BlazeComponent.extendComponent({
   toggleItem() {

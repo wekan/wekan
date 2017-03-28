@@ -118,6 +118,7 @@
     "allowIsBoardAdmin": true,
     "allowIsBoardMember": true,
     "allowIsBoardMemberByCard": true,
+    "allowIsBoardMemberNonComment": true,
     "Emoji": true,
     "Checklists": true,
     "Settings": true,

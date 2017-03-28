@@ -60,7 +60,7 @@ template(name="labelsWidget")
     .board-widget-content
       each currentBoard.labels
           a.card-label(class="card-label-{{color}}"
-            class="{{#if currentUser.isBoardMember}}js-label{{/if}}")
+            class="{{#if currentUser.isNotCommentOnly}}js-label{{/if}}")
             span.card-label-name= name
       if currentUser.isBoardAdmin
         a.card-label.add-label.js-add-label
@@ -138,9 +138,15 @@ template(name="changePermissionsPopup")
     li
       a(class="{{#if isLastAdmin}}disabled{{else}}js-set-normal{{/if}}")
         | {{_ 'normal'}}
-        unless isAdmin
+        if isNormal
           i.fa.fa-check
         span.sub-name {{_ 'normal-desc'}}
+    li
+      a(class="{{#if isLastAdmin}}disabled{{else}}js-set-comment-only{{/if}}")
+        | {{_ 'comment-only'}}
+        if isCommentOnly
+          i.fa.fa-check
+        span.sub-name {{_ 'comment-only-desc'}}
   if isLastAdmin
     hr
     p.quiet.bottom {{_ 'last-admin-desc'}}
