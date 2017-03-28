@@ -1,0 +1,18 @@
+template(name="progressBarTemplate")
+  div.meter
+    if ready.get
+      if determinate.get
+        span(style="{{progressCSS}}")
+          | {{progressValue}} %
+      else
+        +progressBarIndeterminate
+    else
+      +progressBarLoading
+
+template(name="progressBarLoading")
+  span#loading
+    | Loading
+
+template(name="progressBarIndeterminate")
+  span#loading
+    | Ready

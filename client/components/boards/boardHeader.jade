@@ -1,4 +1,9 @@
 template(name="boardHeaderBar")
+  if currentUser.isBoardMember
+    if currentBoard
+      div.progress-bar
+        +boardProgressBar(board=currentBoard._id)
+
   h1.header-board-menu
     with currentBoard
       a(class="{{#if currentUser.isBoardAdmin}}js-edit-board-title{{else}}is-disabled{{/if}}")
