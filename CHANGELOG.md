@@ -1,3 +1,18 @@
+# Upcoming Wekan release
+
+Known bugs:
+
+* https://github.com/wekan/wekan/issues/784
+
+This release fixes the following bugs:
+
+* Remove invitation code if email sending failed.
+* Show customized error msg while invitaion code is wrong during registration.
+* Fix "internal error" while registration is done.
+* Fix "cannot access disableRegistration of undefined" error.
+
+Thanks to GitHub user lkisme for contributions.
+
 # v0.17 2017-03-25 Wekan release
 
 Known bugs:
