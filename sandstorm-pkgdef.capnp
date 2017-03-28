@@ -76,11 +76,15 @@ const pkgdef :Spk.PackageDefinition = (
 
       screenshots = [
         (
-          width = 512,
-          height = 330,
-          jpeg = embed "meta/screenshots/board-view.jpg"
+          width = 1920,
+          height = 1133,
+          png = embed "meta/screenshots/board_view_01.png"
         ),
-        # XXX The screenshots should have a standard width and height.
+        (
+          width = 1920,
+          height = 1133,
+          png = embed "meta/screenshots/board_view_02.png"
+        ),
       ],
 
       changeLog = (
