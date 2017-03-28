@@ -77,7 +77,6 @@ RUN \
     gosu wekan:wekan sh ./install_meteor.sh && \
     \
     # Build app
-    source /home/wekan/app/app.env && \
     cd /home/wekan/app && \
     gosu wekan /home/wekan/.meteor/meteor npm install --save xss && \
     gosu wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build && \
