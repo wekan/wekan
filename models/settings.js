@@ -104,6 +104,7 @@ if (Meteor.isServer) {
         text: TAPi18n.__('email-invite-register-text', params, lang),
       });
     } catch (e) {
+      InvitationCodes.remove(_id);
       throw new Meteor.Error('email-fail', e.message);
     }
   }

@@ -13,7 +13,6 @@ AccountsTemplates.addFields([{
   displayName: 'Invitation Code',
   required: false,
   minLength: 6,
-  errStr: 'Invitation code doesn\'t exist',
   template: 'invitationCode',
 }]);
 
@@ -69,4 +68,3 @@ if (Meteor.isServer) {
     };
   });
 }
-
