@@ -314,6 +314,7 @@ Boards.mutations({
           userId: memberId,
           isAdmin: false,
           isActive: true,
+          isCommentOnly: false,
         },
       },
     };
