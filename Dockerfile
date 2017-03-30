@@ -19,6 +19,7 @@ ENV SRC_PATH ${SRC_PATH:-./}
 
 # Copy the app to the image
 COPY ${SRC_PATH} /home/wekan/app
+ENV PACKAGE_DIRS="${SRC_PATH}/packages"
 
 RUN \
     # Add non-root user wekan
@@ -78,7 +79,6 @@ RUN \
     \
     # Build app
     cd /home/wekan/app && \
-    source app.env && \
     gosu wekan /home/wekan/.meteor/meteor npm install --save xss && \
     gosu wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build && \
     cd /home/wekan/app_build/bundle/programs/server/ && \
