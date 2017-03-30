@@ -20,6 +20,8 @@
     "eslint": "^2.0.0"
   },
   "dependencies": {
+    "babel-runtime": "^6.23.0",
+    "meteor-node-stubs": "^0.2.6",
     "xss": "^0.3.3"
   }
 }
