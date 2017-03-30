@@ -21,9 +21,10 @@ and fixes the following bugs:
   to fewer failures on getting the gpg keys leading to some rare build failures;
 * Add a docker build to the .travis.yml - this will help determine if pull
   requests need further review before merging into devel.
+* Use navigator language by default instead of English
 
-Thanks to GitHub users JamborJan, lkisme, rhelsing, Serubi, stephenmoloney
-and Zokormazo for their contributions.
+Thanks to GitHub users JamborJan, lkisme, rhelsing, Serubi, stephenmoloney,
+umbertooo and Zokormazo for their contributions.
 
 # v0.17 2017-03-25 Wekan release
 
