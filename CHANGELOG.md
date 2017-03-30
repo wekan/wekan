@@ -20,8 +20,8 @@ and fixes the following bugs:
 * Add high available server for getting the gpg keys - suppose it should lead
   to fewer failures on getting the gpg keys leading to some rare build failures;
 * Add a docker build to the .travis.yml - this will help determine if pull
-  requests need further review before merging into devel.
-* Use navigator language by default instead of English
+  requests need further review before merging into devel;
+* Use navigator language by default instead of English.
 
 Thanks to GitHub users JamborJan, lkisme, rhelsing, Serubi, stephenmoloney,
 umbertooo and Zokormazo for their contributions.
