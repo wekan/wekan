@@ -86,6 +86,8 @@ ElasticSearch / Kibana (ELK)][wekan_logstash]
 
 [Wekan stats][wekan_stats]
 
+[Enable Admin Panel on Docker and Source installs][enable_adminpanel]
+
 2017-03-31: [Alternative Docker image][docker_alternative] while we are
 fixing official Docker image, fixing may take one or two weeks.
 We are also trying to setup [New Docker image for Wekan team][wekan_newimage]
@@ -227,3 +229,4 @@ with [Meteor](https://www.meteor.com).
 [wekan_stats]: https://github.com/wekan/wekan-stats
 [wekan_dev]: https://github.com/wekan/wekan-dev
 [logstash_issue]: https://github.com/wekan/wekan/issues/855
+[enable_adminpanel]: https://github.com/wekan/wekan/blob/devel/CHANGELOG.md#v0111-rc2-2017-03-05-wekan-prerelease
