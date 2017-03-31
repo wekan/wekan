@@ -90,7 +90,7 @@ ElasticSearch / Kibana (ELK)][wekan_logstash]
 
 2017-03-31: [Alternative Docker image][docker_alternative] while we are
 fixing official Docker image, fixing may take one or two weeks.
-We are also trying to setup [New Docker image for Wekan team][wekan_newimage]
+We are also trying to setup [New Docker image for Wekan team][docker_newimage]
 where it's easier for Wekan team to add tags.
 
 [Import/Export MongoDB data to/from Docker container][importexport_docker]
