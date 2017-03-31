@@ -16,7 +16,7 @@ template(name="setting")
           +general
         else if emailSetting.get
           +email
-        
+
 template(name="general")
   ul#registration-setting.setting-detail
     li
@@ -63,9 +63,17 @@ template(name='email')
       .form-group
         input.form-control#mail-server-password(type="text", placeholder="{{_ 'password'}}" value="{{currentSetting.mailServer.password}}")
     li.smtp-form
+      .title {{_ 'smtp-tls'}}
+      .form-group
+        a.flex.js-toggle-tls
+          .materialCheckBox#mail-server-tls(class="{{#if currentSetting.mailServer.enableTLS}}is-checked{{/if}}")
+
+          span {{_ 'smtp-tls-description'}}
+
+    li.smtp-form
       .title {{_ 'send-from'}}
       .form-group
         input.form-control#mail-server-from(type="email", placeholder="no-reply@domain.com" value="{{currentSetting.mailServer.from}}")
 
     li
-      button.js-save.primary Save              
+      button.js-save.primary Save
