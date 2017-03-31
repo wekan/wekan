@@ -6,6 +6,7 @@ Known bugs:
 
 This release adds the following new features:
 
+* Add TLS toggle option to smtp configuration;
 * [Comment permissions](https://github.com/wekan/wekan/issues/870);
 * Add bigger screenshots for Sandstorm.
 
