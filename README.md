@@ -91,6 +91,8 @@ fixing official Docker image, fixing may take one or two weeks.
 We are also trying to setup [New Docker image for Wekan team][wekan_newimage]
 where it's easier for Wekan team to add tags.
 
+[Import/Export MongoDB data to/from Docker container][importexport_docker]
+
 ### Docker: [Docker image][docker_image], [Docs at wiki][wekan_wiki]
 
 Docker example, running latest Wekan using docker-compose:
@@ -212,6 +214,7 @@ with [Meteor](https://www.meteor.com).
 [docker_image]: https://hub.docker.com/r/mquandalle/wekan/
 [docker_alternative]: https://hub.docker.com/r/rubberduck/wekan/
 [docker_newimage]: https://hub.docker.com/r/wekanteam/wekan/
+[importexport_docker]: https://github.com/wekan/wekan/wiki/Export-Docker-Mongo-Data
 [wekan_wiki]: https://github.com/wekan/wekan/wiki
 [translate_wekan]: https://www.transifex.com/wekan/wekan/
 [autoinstall]: https://github.com/wekan/wekan-autoinstall
