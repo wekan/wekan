@@ -16,17 +16,12 @@ AccountsTemplates.addFields([{
   template: 'invitationCode',
 }]);
 
-let sendVerificationEmail = false;
-if (process.env.MAIL_URL) {
-  sendVerificationEmail = true;
-}
-
 AccountsTemplates.configure({
   defaultLayout: 'userFormsLayout',
   defaultContentRegion: 'content',
   confirmPassword: false,
   enablePasswordChange: true,
-  sendVerificationEmail,
+  sendVerificationEmail: true,
   showForgotPasswordLink: true,
   onLogoutHook() {
     const homePage = 'home';
