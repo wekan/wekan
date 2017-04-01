@@ -46,13 +46,13 @@ Lists.attachSchema(new SimpleSchema({
 
 Lists.allow({
   insert(userId, doc) {
-    return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+    return allowIsBoardMemberNonComment(userId, Boards.findOne(doc.boardId));
   },
   update(userId, doc) {
-    return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+    return allowIsBoardMemberNonComment(userId, Boards.findOne(doc.boardId));
   },
   remove(userId, doc) {
-    return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+    return allowIsBoardMemberNonComment(userId, Boards.findOne(doc.boardId));
   },
   fetch: ['boardId'],
 });

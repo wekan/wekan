@@ -1,3 +1,32 @@
+# Upcoming Wekan release
+
+Known bugs:
+
+* https://github.com/wekan/wekan/issues/784
+
+This release adds the following new features:
+
+* Add TLS toggle option to smtp configuration;
+* [Comment permissions](https://github.com/wekan/wekan/issues/870);
+* Add bigger screenshots for Sandstorm.
+
+and fixes the following bugs:
+
+* Dockerfile fix for local packages;
+* Don't send emails if missing smtp host;
+* Remove invitation code if email sending failed;
+* Show customized error msg while invitaion code is wrong during registration;
+* Fix "internal error" while registration is done;
+* Fix "cannot access disableRegistration of undefined" error;
+* Add high available server for getting the gpg keys - suppose it should lead
+  to fewer failures on getting the gpg keys leading to some rare build failures;
+* Add a docker build to the .travis.yml - this will help determine if pull
+  requests need further review before merging into devel;
+* Use navigator language by default instead of English.
+
+Thanks to GitHub users JamborJan, lkisme, rhelsing, Serubi, stephenmoloney,
+umbertooo and Zokormazo for their contributions.
+
 # v0.17 2017-03-25 Wekan release
 
 Known bugs:

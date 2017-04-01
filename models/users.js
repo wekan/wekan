@@ -91,6 +91,10 @@ Users.attachSchema(new SimpleSchema({
     type: [String],
     optional: true,
   },
+  'profile.icode': {
+    type: String,
+    optional: true,
+  },
   services: {
     type: Object,
     optional: true,
@@ -115,6 +119,16 @@ if (Meteor.isClient) {
     isBoardMember() {
       const board = Boards.findOne(Session.get('currentBoard'));
       return board && board.hasMember(this._id);
+    },
+
+    isNotCommentOnly() {
+      const board = Boards.findOne(Session.get('currentBoard'));
+      return board && board.hasMember(this._id) && !board.hasCommentOnly(this._id);
+    },
+
+    isCommentOnly() {
+      const board = Boards.findOne(Session.get('currentBoard'));
+      return board && board.hasCommentOnly(this._id);
     },
 
     isBoardAdmin() {
@@ -369,24 +383,25 @@ if (Meteor.isServer) {
       board.addMember(user._id);
       user.addInvite(boardId);
 
-      try {
-        const params = {
-          user: user.username,
-          inviter: inviter.username,
-          board: board.title,
-          url: board.absoluteUrl(),
-        };
-        const lang = user.getLanguage();
-        Email.send({
-          to: user.emails[0].address.toLowerCase(),
-          from: Accounts.emailTemplates.from,
-          subject: TAPi18n.__('email-invite-subject', params, lang),
-          text: TAPi18n.__('email-invite-text', params, lang),
-        });
-      } catch (e) {
-        throw new Meteor.Error('email-fail', e.message);
+      if (Settings.findOne().mailUrl()) {
+        try {
+          const params = {
+            user: user.username,
+            inviter: inviter.username,
+            board: board.title,
+            url: board.absoluteUrl(),
+          };
+          const lang = user.getLanguage();
+          Email.send({
+            to: user.emails[0].address.toLowerCase(),
+            from: Accounts.emailTemplates.from,
+            subject: TAPi18n.__('email-invite-subject', params, lang),
+            text: TAPi18n.__('email-invite-text', params, lang),
+          });
+        } catch (e) {
+          throw new Meteor.Error('email-fail', e.message);
+        }
       }
-
       return { username: user.username, email: user.emails[0].address };
     },
   });
@@ -401,11 +416,12 @@ if (Meteor.isServer) {
       return user;
     }
 
-    const iCode = options.profile.invitationcode | '';
-
-    const invitationCode = InvitationCodes.findOne({code: iCode, valid:true});
+    if (!options || !options.profile) {
+      throw new Meteor.Error('error-invitation-code-blank', 'The invitation code is required');
+    }
+    const invitationCode = InvitationCodes.findOne({code: options.profile.invitationcode, email: options.email, valid: true});
     if (!invitationCode) {
-      throw new Meteor.Error('error-invitation-code-not-exist');
+      throw new Meteor.Error('error-invitation-code-not-exist', 'The invitation code doesn\'t exist');
     }else{
       user.profile = {icode: options.profile.invitationcode};
     }
@@ -487,19 +503,21 @@ if (Meteor.isServer) {
     //invite user to corresponding boards
     const disableRegistration = Settings.findOne().disableRegistration;
     if (disableRegistration) {
-      const user = Users.findOne(doc._id);
-      const invitationCode = InvitationCodes.findOne({code: user.profile.icode, valid:true});
+      const invitationCode = InvitationCodes.findOne({code: doc.profile.icode, valid:true});
       if (!invitationCode) {
-        throw new Meteor.Error('error-user-notCreated');
+        throw new Meteor.Error('error-invitation-code-not-exist');
       }else{
         invitationCode.boardsToBeInvited.forEach((boardId) => {
           const board = Boards.findOne(boardId);
           board.addMember(doc._id);
         });
-        user.profile = {invitedBoards: invitationCode.boardsToBeInvited};
+        if (!doc.profile) {
+          doc.profile = {};
+        }
+        doc.profile.invitedBoards = invitationCode.boardsToBeInvited;
+        Users.update(doc._id, {$set:{profile: doc.profile}});
         InvitationCodes.update(invitationCode._id, {$set: {valid:false}});
       }
     }
   });
 }
-

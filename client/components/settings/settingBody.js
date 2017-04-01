@@ -51,7 +51,9 @@ BlazeComponent.extendComponent({
       $('.invite-people').slideDown();
     }
   },
-
+  toggleTLS(){
+    $('#mail-server-tls').toggleClass('is-checked');
+  },
   switchMenu(event){
     const target = $(event.target);
     if(!target.hasClass('active')){
@@ -106,8 +108,9 @@ BlazeComponent.extendComponent({
       const username = $('#mail-server-username').val().trim();
       const password = $('#mail-server-password').val().trim();
       const from = this.checkField('#mail-server-from');
+      const tls = $('#mail-server-tls.is-checked').length > 0;
       Settings.update(Settings.findOne()._id, {$set:{'mailServer.host':host, 'mailServer.port': port, 'mailServer.username': username,
-          'mailServer.password': password, 'mailServer.from': from}});
+          'mailServer.password': password, 'mailServer.enableTLS': tls, 'mailServer.from': from}});
     } catch (e) {
       return;
     } finally {
@@ -119,6 +122,7 @@ BlazeComponent.extendComponent({
   events(){
     return [{
       'click a.js-toggle-registration': this.toggleRegistration,
+      'click a.js-toggle-tls': this.toggleTLS,
       'click a.js-setting-menu': this.switchMenu,
       'click a.js-toggle-board-choose': this.checkBoard,
       'click button.js-email-invite': this.inviteThroughEmail,

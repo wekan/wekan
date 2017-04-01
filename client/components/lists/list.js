@@ -79,10 +79,10 @@ BlazeComponent.extendComponent({
     });
 
     function userIsMember() {
-      return Meteor.user() && Meteor.user().isBoardMember();
+      return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
     }
 
-    // Disable drag-dropping if the current user is not a board member
+    // Disable drag-dropping if the current user is not a board member or is comment only
     this.autorun(() => {
       $cards.sortable('option', 'disabled', !userIsMember());
     });

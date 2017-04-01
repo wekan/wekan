@@ -86,6 +86,15 @@ ElasticSearch / Kibana (ELK)][wekan_logstash]
 
 [Wekan stats][wekan_stats]
 
+[Enable Admin Panel on Docker and Source installs][enable_adminpanel]
+
+2017-03-31: [Alternative Docker image][docker_alternative] while we are
+fixing official Docker image, fixing may take one or two weeks.
+We are also trying to setup [New Docker image for Wekan team][docker_newimage]
+where it's easier for Wekan team to add tags.
+
+[Import/Export MongoDB data to/from Docker container][importexport_docker]
+
 ### Docker: [Docker image][docker_image], [Docs at wiki][wekan_wiki]
 
 Docker example, running latest Wekan using docker-compose:
@@ -205,6 +214,9 @@ with [Meteor](https://www.meteor.com).
 [virtualbox]: https://github.com/wekan/wekan/wiki/virtual-appliance
 [sandstorm_spk]: https://github.com/wekan/wekan/issues/823
 [docker_image]: https://hub.docker.com/r/mquandalle/wekan/
+[docker_alternative]: https://hub.docker.com/r/rubberduck/wekan/
+[docker_newimage]: https://hub.docker.com/r/wekanteam/wekan/
+[importexport_docker]: https://github.com/wekan/wekan/wiki/Export-Docker-Mongo-Data
 [wekan_wiki]: https://github.com/wekan/wekan/wiki
 [translate_wekan]: https://www.transifex.com/wekan/wekan/
 [autoinstall]: https://github.com/wekan/wekan-autoinstall
@@ -217,3 +229,4 @@ with [Meteor](https://www.meteor.com).
 [wekan_stats]: https://github.com/wekan/wekan-stats
 [wekan_dev]: https://github.com/wekan/wekan-dev
 [logstash_issue]: https://github.com/wekan/wekan/issues/855
+[enable_adminpanel]: https://github.com/wekan/wekan/blob/devel/CHANGELOG.md#v0111-rc2-2017-03-05-wekan-prerelease

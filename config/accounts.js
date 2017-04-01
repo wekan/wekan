@@ -13,16 +13,20 @@ AccountsTemplates.addFields([{
   displayName: 'Invitation Code',
   required: false,
   minLength: 6,
-  errStr: 'Invitation code doesn\'t exist',
   template: 'invitationCode',
 }]);
+
+let sendVerificationEmail = false;
+if (process.env.MAIL_URL) {
+  sendVerificationEmail = true;
+}
 
 AccountsTemplates.configure({
   defaultLayout: 'userFormsLayout',
   defaultContentRegion: 'content',
   confirmPassword: false,
   enablePasswordChange: true,
-  sendVerificationEmail: true,
+  sendVerificationEmail,
   showForgotPasswordLink: true,
   onLogoutHook() {
     const homePage = 'home';
@@ -69,4 +73,3 @@ if (Meteor.isServer) {
     };
   });
 }
-
