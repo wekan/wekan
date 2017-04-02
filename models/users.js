@@ -409,7 +409,7 @@ if (Meteor.isServer) {
   });
   Accounts.onCreateUser((options, user) => {
     const userCount = Users.find().count();
-    if (userCount === 0){
+    if (!isSandstorm && userCount === 0 ){
       user.isAdmin = true;
       return user;
     }
