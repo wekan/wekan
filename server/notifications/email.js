@@ -26,17 +26,15 @@ Meteor.startup(() => {
       const text = texts.join('\n\n');
       user.clearEmailBuffer();
 
-      if (Settings.findOne().mailUrl()) {
-        try {
-          Email.send({
-            to: user.emails[0].address.toLowerCase(),
-            from: Accounts.emailTemplates.from,
-            subject: TAPi18n.__('act-activity-notify', {}, user.getLanguage()),
-            text,
-          });
-        } catch (e) {
-          return;
-        }
+      try {
+        Email.send({
+          to: user.emails[0].address.toLowerCase(),
+          from: Accounts.emailTemplates.from,
+          subject: TAPi18n.__('act-activity-notify', {}, user.getLanguage()),
+          text,
+        });
+      } catch (e) {
+        return;
       }
     }, 30000);
   });

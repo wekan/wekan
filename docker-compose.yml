@@ -3,7 +3,7 @@ version: '2'
 services:
 
   wekandb:
-    image: mongo:3.2.11
+    image: mongo:3.2.12
     container_name: wekan-db
     restart: always
     command: mongod --smallfiles --oplogSize 128

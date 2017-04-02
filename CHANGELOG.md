@@ -6,12 +6,33 @@ Known bugs:
 
 This release adds the following new features:
 
+* Set first user as admin, it there is no existing
+  users and Wekan is not running at Sandstorm.
+
+Thanks to GitHub user Zokormazo for contributions.
+
+# v0.18 2017-04-02 Wekan release
+
+Known bugs:
+
+* https://github.com/wekan/wekan/issues/784
+
+This release adds the following new features:
+
 * Add TLS toggle option to smtp configuration;
 * [Comment permissions](https://github.com/wekan/wekan/issues/870);
 * Add bigger screenshots for Sandstorm.
 
 and fixes the following bugs:
 
+* Fix email settings loading:
+  MAIL_URL was overriden with database info all the time.
+  Now if MAIL_URL exists is not overwritten and if neither MAIL_URL nor
+  exists valid admin panel data MAIL_URL is not set.
+  MAIL_FROM was ignored. Same behaviour, env variable has bigger priority
+  than database configuration.
+  On both cases, althrought environment variable is set, updating admin-panel
+  mail settings will load new info and ignore the environment variable;
 * Dockerfile fix for local packages;
 * Don't send emails if missing smtp host;
 * Remove invitation code if email sending failed;
