@@ -29,12 +29,14 @@ interface.
 
 [Integrations][integrations]
 
-Wekan supports many platforms, and plan is to add more. SSO options like LDAP,
-passwordless email, SAML, GitHub and Google Auth are already available on Sandstorm,
-not standalone Wekan. Sandstorm is Enterprise scale highly secure platform with
-grains, logging, admin settings, server clustering, App Market and it's now
-fully Open Source. Sandstorm is preferred platform for Wekan, as it would take
-a lot of work to reimplement everything in standalone Wekan.
+Wekan supports many platforms, and plan is to add more.
+
+SSO options like LDAP, passwordless email, SAML, GitHub and Google Auth are
+already available on [Sandstorm](https://sandstorm.io), not standalone Wekan.
+Sandstorm is Enterprise scale highly secure platform with grains, logging,
+admin settings, server clustering, App Market and it's now fully Open Source.
+Sandstorm is preferred platform for Wekan, as it would take a lot of work to
+reimplement everything in standalone Wekan.
 
 You don’t have to trust us with your data and can install Wekan on your own
 computer or server. In fact we encourage you to do that by providing
