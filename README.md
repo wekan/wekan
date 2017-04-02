@@ -23,15 +23,18 @@ visual overview of the current state of your project, and make you productive by
 allowing you to focus on the few items that matter the most.
 
 Wekan supports most features you would expect of it including a real-time user
-interface, import from Trello (on standalone Wekan), cards comments, checklists,
-member assignations, customizable labels, closing lists, filtered views, and more.
+interface.
 
-SSO options like LDAP, passwordless email, SAML, GitHub and Google Auth are
-already available on Sandstorm, not standalone Wekan. Sandstorm is Enterprise
-scale highly secure platform with grains, logging, admin settings,
-server clustering, App Market and it's now fully Open Source. Sandstorm is
-preferred platform for Wekan, as it would take a lot of work to reimplement
-everything in standalone Wekan.
+[Features][features]
+
+[Integrations][integrations]
+
+Wekan supports many platforms, and plan is to add more. SSO options like LDAP,
+passwordless email, SAML, GitHub and Google Auth are already available on Sandstorm,
+not standalone Wekan. Sandstorm is Enterprise scale highly secure platform with
+grains, logging, admin settings, server clustering, App Market and it's now
+fully Open Source. Sandstorm is preferred platform for Wekan, as it would take
+a lot of work to reimplement everything in standalone Wekan.
 
 You don’t have to trust us with your data and can install Wekan on your own
 computer or server. In fact we encourage you to do that by providing
@@ -40,14 +43,9 @@ one-click installation on various platforms.
 ## Roadmap
 
 Upcoming Wekan App Development Platform will make possible
-many use cases like kanban workflows, dependencies, gantt charts,
-WIP limits, time tracking, managing website, Rocket.Chat support
-and custom apps with themes by providing Teams/Organizations,
-APIs, admin interface, custom fields, calendar view, time tracking,
-vote on cards, move cards to another board and board templates.
-Some of these don't even have feature requests in Wekan issues,
-so we do need detailed descriptions, screenshots and links to
-videos how these should work.
+many use cases. If you don't find your feature or integration in
+GitHub issues and [Features][features] or [Integrations][integrations]
+page at wiki, please add them.
 
 We are very welcoming to new developers and teams to submit new pull
 requests to devel branch to make this Wekan App Development Platform possible
@@ -58,9 +56,10 @@ growing Wekan developer community.
 
 [Roadmap is self-hosted on Wekan][roadmap_wefork]
 
-At roadmap there is links to [Wekan GitHub issues][wekan_issues] where actual
-work happens. If you don't see your feature request at GitHub issues,
-please add it. Not all feature requests have been added to roadmap board yet.
+Roadmaps is not currently as up-to-date. You can find more up-to-date
+info from [Features][features] and [Integrations][integrations] pages,
+where is links to [Wekan GitHub issues][wekan_issues] where actual
+work happens.
 
 ## Screenshot
 
@@ -190,6 +189,8 @@ with [Meteor](https://www.meteor.com).
 [fork_announcement]: https://github.com/wekan/wekan/issues/640#issuecomment-276383458
 [screenshot_wekan]: http://i.imgur.com/cI4jW2h.png
 [screenshot_wefork]: http://i.imgur.com/lzvpeS9.png
+[features]: https://github.com/wekan/wekan/wiki/Features
+[integrations]: https://github.com/wekan/wekan/wiki/Integrations
 [roadmap_wekan]: http://try.wekan.io/b/MeSsFJaSqeuo9M6bs/wekan-roadmap
 [roadmap_wefork]: https://wekan.indie.host/b/t2YaGmyXgNkppcFBq/wekan-fork-roadmap
 [wekan_issues]: https://github.com/wekan/wekan/issues
