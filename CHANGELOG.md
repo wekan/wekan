@@ -12,6 +12,14 @@ This release adds the following new features:
 
 and fixes the following bugs:
 
+* Fix email settings loading:
+  MAIL_URL was overriden with database info all the time.
+  Now if MAIL_URL exists is not overwritten and if neither MAIL_URL nor
+  exists valid admin panel data MAIL_URL is not set.
+  MAIL_FROM was ignored. Same behaviour, env variable has bigger priority
+  than database configuration.
+  On both cases, althrought environment variable is set, updating admin-panel
+  mail settings will load new info and ignore the environment variable;
 * Dockerfile fix for local packages;
 * Don't send emails if missing smtp host;
 * Remove invitation code if email sending failed;
