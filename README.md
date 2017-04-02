@@ -58,7 +58,7 @@ growing Wekan developer community.
 
 [Roadmap is self-hosted on Wekan][roadmap_wefork]
 
-Roadmaps is not currently as up-to-date. You can find more up-to-date
+Roadmaps is not currently up-to-date. You can find more up-to-date
 info from [Features][features] and [Integrations][integrations] pages,
 where is links to [Wekan GitHub issues][wekan_issues] where actual
 work happens.
