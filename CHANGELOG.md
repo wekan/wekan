@@ -1,3 +1,16 @@
+# Upcoming Wekan release
+
+Known bugs:
+
+* https://github.com/wekan/wekan/issues/784
+
+This release adds the following new features:
+
+* Set first user as admin, it there is no existing
+  users and Wekan is not running at Sandstorm.
+
+Thanks to GitHub user Zokormazo for contributions.
+
 # v0.18 2017-04-02 Wekan release
 
 Known bugs:
