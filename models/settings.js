@@ -27,7 +27,6 @@ Settings.attachSchema(new SimpleSchema({
   'mailServer.from': {
     type: String,
     optional: true,
-    defaultValue: 'Wekan',
   },
   createdAt: {
     type: Date,
@@ -66,14 +65,17 @@ if (Meteor.isServer) {
     const setting = Settings.findOne({});
     if(!setting){
       const now = new Date();
+      const domain = process.env.ROOT_URL.match(/\/\/(?:www\.)?(.*)?(?:\/)?/)[1];
+      const from = `Wekan <wekan@${domain}>`;
       const defaultSetting = {disableRegistration: false, mailServer: {
-        username: '', password: '', host: '', port: '', enableTLS: false, from: '',
+        username: '', password: '', host: '', port: '', enableTLS: false, from,
       }, createdAt: now, modifiedAt: now};
       Settings.insert(defaultSetting);
     }
     const newSetting = Settings.findOne();
-    process.env.MAIL_URL = newSetting.mailUrl();
-    Accounts.emailTemplates.from = newSetting.mailServer.from;
+    if (!process.env.MAIL_URL && newSetting.mailUrl())
+      process.env.MAIL_URL = newSetting.mailUrl();
+    Accounts.emailTemplates.from = process.env.MAIL_FROM ? process.env.MAIL_FROM : newSetting.mailServer.from;
   });
   Settings.after.update((userId, doc, fieldNames) => {
     // assign new values to mail-from & MAIL_URL in environment
@@ -106,14 +108,12 @@ if (Meteor.isServer) {
         url: FlowRouter.url('sign-up'),
       };
       const lang = author.getLanguage();
-      if (Settings.findOne().mailUrl()) {
-        Email.send({
-          to: icode.email,
-          from: Accounts.emailTemplates.from,
-          subject: TAPi18n.__('email-invite-register-subject', params, lang),
-          text: TAPi18n.__('email-invite-register-text', params, lang),
-        });
-      }
+      Email.send({
+        to: icode.email,
+        from: Accounts.emailTemplates.from,
+        subject: TAPi18n.__('email-invite-register-subject', params, lang),
+        text: TAPi18n.__('email-invite-register-text', params, lang),
+      });
     } catch (e) {
       InvitationCodes.remove(_id);
       throw new Meteor.Error('email-fail', e.message);
