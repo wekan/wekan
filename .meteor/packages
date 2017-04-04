@@ -3,17 +3,17 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-meteor-base
+meteor-base@1.0.4
 
 # Build system
-ecmascript
-stylus
-standard-minifier-css
-standard-minifier-js
+ecmascript@0.6.3
+stylus@2.513.9
+standard-minifier-css@1.3.4
+standard-minifier-js@1.2.3
 mquandalle:jade
 
 # Polyfills
-es5-shim
+es5-shim@4.6.15
 
 # Collections
 aldeed:collection2
@@ -24,30 +24,30 @@ dburles:collection-helpers
 idmontie:migrations
 matb33:collection-hooks
 matteodem:easy-search
-mongo
+mongo@1.1.16
 mquandalle:collection-mutations
 
 # Account system
-accounts-password
+accounts-password@1.3.4
 kenton:accounts-sandstorm
-service-configuration
+service-configuration@1.0.11
 useraccounts:core
 useraccounts:unstyled
 useraccounts:flow-routing
-email
+email@1.1.18
 
 # Utilities
-check
-jquery
-random
-reactive-dict
-session
-tracker
-underscore
+check@1.2.5
+jquery@1.11.10
+random@1.0.10
+reactive-dict@1.1.8
+session@1.1.7
+tracker@1.1.2
+underscore@1.0.10
 3stack:presence
 alethes:pages
 arillo:flow-router-helpers
-audit-argument-checks
+audit-argument-checks@1.0.7
 kadira:blaze-layout
 kadira:dochead
 meteorhacks:fast-render
@@ -61,7 +61,7 @@ tap:i18n
 
 # UI components
 blaze
-reactive-var
+reactive-var@1.0.11
 fortawesome:fontawesome
 mousetrap:mousetrap
 mquandalle:jquery-textcomplete
@@ -76,3 +76,4 @@ verron:autosize
 simple:json-routes
 rajit:bootstrap3-datepicker
 kadira:flow-router
+shell-server
