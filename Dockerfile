@@ -12,7 +12,7 @@ ARG SRC_PATH
 ENV BUILD_DEPS="wget curl bzip2 build-essential python git ca-certificates"
 ENV GOSU_VERSION=1.10
 ENV NODE_VERSION ${NODE_VERSION:-v6.10.2}
-ENV METEOR_RELEASE ${METEOR_RELEASE:-1.4.3.2}
+ENV METEOR_RELEASE ${METEOR_RELEASE:-1.4.4}
 ENV NPM_VERSION ${NPM_VERSION:-3.10.10}
 ENV ARCHITECTURE ${ARCHITECTURE:-linux-x64}
 ENV SRC_PATH ${SRC_PATH:-./}
@@ -74,10 +74,22 @@ RUN \
     sed -i "s|RELEASE=.*|RELEASE=${METEOR_RELEASE}\"\"|g" ./install_meteor.sh && \
     echo "Starting meteor ${METEOR_RELEASE} installation...   \n" && \
     chown wekan:wekan ./install_meteor.sh && \
-    gosu wekan:wekan sh ./install_meteor.sh && \
+    ###########################
+    ###########################
+    # Temporary fix for https://github.com/wekan/wekan/issues/928 until METEOR releases 1.4.4 +
+    gosu wekan:wekan sh ./install_meteor.sh || \
+    ( \
+      gosu wekan:wekan git clone --recursive git://github.com/meteor/meteor.git /home/wekan/.meteor && \
+      cd /home/wekan/.meteor && \
+      gosu wekan:wekan git checkout release/METEOR@1.4.4-rc.6 && \
+      gosu wekan /home/wekan/.meteor/meteor -- help \
+    ) && \
+    ###########################
+    ###########################
     \
     # Build app
     cd /home/wekan/app && \
+    gosu wekan /home/wekan/.meteor/meteor add standard-minifier-js && \
     gosu wekan /home/wekan/.meteor/meteor npm install && \
     gosu wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build && \
     cd /home/wekan/app_build/bundle/programs/server/ && \
