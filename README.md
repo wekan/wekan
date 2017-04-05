@@ -127,9 +127,9 @@ sudo docker-compose up -d --build
 
 #### Running from locally built dockerhub images and modified `ARG` variables (not recommended)
 ```
-echo 'NODE_VERSION=v6.6.0' >> .env && \
-echo 'METEOR_RELEASE=1.4.2.3' >> .env && \
-echo 'NPM_VERSION=4.1.2' >> .env && \
+echo 'NODE_VERSION=v6.10.2' >> .env && \
+echo 'METEOR_RELEASE=1.4.4' >> .env && \
+echo 'NPM_VERSION=3.10.10' >> .env && \
 echo 'ARCHITECTURE=linux-x64' >> .env && \
 echo 'SRC_PATH=./' >> .env && \
 sudo docker-compose up -d --build

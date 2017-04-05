@@ -10,13 +10,15 @@ before_install:
   - sudo chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
   - sudo docker-compose build --no-cache --force-rm
-  - sudo docker-compose up && docker ps -a
-  - sudo docker run wekan-app /bin/sh -c "npm test"
+  - sudo docker-compose up -d wekandb
+  - sudo docker-compose up -d wekan
+  # ^^ Note - need to come up with some way of checking the output from docker run
+  # that it was a success... perhaps the nodejs server can output a success message?
 
 language: node_js
 
 node_js:
-  - "0.10.48"
+  - "6.10.2"
 
 install:
   - "npm install"
