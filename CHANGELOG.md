@@ -8,8 +8,12 @@ This release adds the following new features:
 
 * Set first user as admin, it there is no existing
   users and Wekan is not running at Sandstorm.
+* New Docker Compose [Wekan-MongoDB](https://github.com/wekan/wekan-mongodb)
+  and [Wekan-PostgreSQL](https://github.com/wekan/wekan-postgresql)
+  that use Meteor v1.4 and Node v4 based Wekan's meteor-1.4 branch.  
 
-Thanks to GitHub user Zokormazo for contributions.
+Thanks to GitHub users brylie, stephenmoloney and Zokormazo for
+contributions.
 
 # v0.18 2017-04-02 Wekan release
 
