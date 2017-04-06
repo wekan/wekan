@@ -106,8 +106,8 @@ Users.attachSchema(new SimpleSchema({
   },
   isAdmin: {
     type: Boolean,
-    optional: true
-  }
+    optional: true,
+  },
 }));
 
 // Search a user in the complete server database by its name or username. This
