@@ -87,12 +87,8 @@ ElasticSearch / Kibana (ELK)][wekan_logstash]
 
 [Wekan stats][wekan_stats]
 
-[Enable Admin Panel on Docker and Source installs][enable_adminpanel]
-
-2017-03-31: [Alternative Docker image][docker_alternative] while we are
-fixing official Docker image, fixing may take one or two weeks.
-We are also trying to setup [New Docker image for Wekan team][docker_newimage]
-where it's easier for Wekan team to add tags.
+First registered Wekan user will get Admin Panel on new Docker and source based
+installs. You can also [enable Admin Panel manually][enable_adminpanel].
 
 [Import/Export MongoDB data to/from Docker container][importexport_docker]
 
@@ -137,9 +133,9 @@ sudo docker-compose up -d --build
 
 Docker example, running latest Wekan using docker run commands alone:
 ```
-docker run -d --restart=always --name wekan-db mongo:3.2.11
+docker run -d --restart=always --name wekan-db mongo:3.4.3
 
-docker run -d --restart=always --name wekan --link "wekan-db:db" -e "MONGO_URL=mongodb://db" -e "ROOT_URL=http://localhost:8080" -p 8080:80 mquandalle/wekan:latest
+docker run -d --restart=always --name wekan --link "wekan-db:db" -e "MONGO_URL=mongodb://db" -e "ROOT_URL=http://localhost:8080" -p 8080:80 wekanteam/wekan:meteor-1.4
 ```
 
 [Docker on SUSE Linux Enterprise Server 12 SP1][sles]
@@ -199,7 +195,7 @@ with [Meteor](https://www.meteor.com).
 [wefork_issues]: https://github.com/wefork/wekan/issues
 [sandstorm_button]: https://img.shields.io/badge/try-Wekan%20on%20Sandstorm-783189.svg
 [sandstorm_appdemo]: https://demo.sandstorm.io/appdemo/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h
-[docker_image]: https://hub.docker.com/r/mquandalle/wekan/
+[docker_image]: https://hub.docker.com/r/wekanteam/wekan/
 [heroku_button]: https://www.herokucdn.com/deploy/button.png
 [heroku_deploy]: https://heroku.com/deploy?template=https://github.com/wekan/wekan/tree/master
 [indiehosters_button]: https://indie.host/signup.png
@@ -209,16 +205,14 @@ with [Meteor](https://www.meteor.com).
 [cloudron_button]: https://cloudron.io/img/button.svg
 [cloudron_install]: https://cloudron.io/button.html?app=io.wekan.cloudronapp
 [debian_wheezy]: https://github.com/soohwa/sps/blob/master/example/docs/1/wekan.md
-[travis_badge]: https://travis-ci.org/wekan/wekan.svg?branch=devel
+[travis_badge]: https://travis-ci.org/wekan/wekan.svg?branch=meteor-1.4
 [travis_status]: https://travis-ci.org/wekan/wekan
 [install_source]: https://github.com/wekan/wekan/wiki/Install-and-Update#install-manually-from-source
 [installsource_windows]: https://github.com/wekan/wekan/wiki/Install-Wekan-from-source-on-Windows
 [sles]: https://github.com/wekan/wekan/wiki/Install-Wekan-Docker-on-SUSE-Linux-Enterprise-Server-12-SP1
 [virtualbox]: https://github.com/wekan/wekan/wiki/virtual-appliance
 [sandstorm_spk]: https://github.com/wekan/wekan/issues/823
-[docker_image]: https://hub.docker.com/r/mquandalle/wekan/
-[docker_alternative]: https://hub.docker.com/r/rubberduck/wekan/
-[docker_newimage]: https://hub.docker.com/r/wekanteam/wekan/
+[docker_image]: https://hub.docker.com/r/wekanteam/wekan/
 [importexport_docker]: https://github.com/wekan/wekan/wiki/Export-Docker-Mongo-Data
 [wekan_wiki]: https://github.com/wekan/wekan/wiki
 [translate_wekan]: https://www.transifex.com/wekan/wekan/
