@@ -24,7 +24,7 @@ Wekan has real-time user interface. Not all features are implemented.
 
 [Integrations][integrations]
 
-[Team][team]
+[Team](https://github.com/wekan/wekan/wiki/Team)
 
 Wekan supports many [Platforms][platforms], and plan is to add more.
 
