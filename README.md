@@ -77,7 +77,7 @@ ElasticSearch / Kibana (ELK)][wekan_logstash]
 
 ## Supported Platforms
 
-Automatic generated newest builds are available for Docker, and some others that
+Automatic generated newest builds are available for Docker, and platforms that
 install directly from this repo. Automatic builds will be added later for more
 platforms.
 
