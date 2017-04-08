@@ -9,7 +9,7 @@
 Please read [FAQ](https://github.com/wekan/wekan/wiki/FAQ).
 Please don't feed the trolls and spammers that are mentioned in the FAQ :)
 
-Wekan is an completely [Open Source][open_source] and [Free softare][free_software]
+Wekan is an completely [Open Source][open_source] and [Free software][free_software]
 collaborative kanban board application with MIT license.
 
 Whether you’re maintaining a personal todo list, planning your holidays with
