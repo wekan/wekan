@@ -9,7 +9,7 @@
 Please read [FAQ](https://github.com/wekan/wekan/wiki/FAQ).
 Please don't feed the trolls and spammers that are mentioned in the FAQ :)
 
-Wekan is an completely [Open Source][open_source] and [Free softare][free_software]
+Wekan is an completely [Open Source][open_source] and [Free software][free_software]
 collaborative kanban board application with MIT license.
 
 Whether you’re maintaining a personal todo list, planning your holidays with
@@ -24,7 +24,7 @@ Wekan has real-time user interface. Not all features are implemented.
 
 [Integrations][integrations]
 
-[Team][team]
+[Team](https://github.com/wekan/wekan/wiki/Team)
 
 Wekan supports many [Platforms][platforms], and plan is to add more.
 
@@ -77,7 +77,7 @@ ElasticSearch / Kibana (ELK)][wekan_logstash]
 
 ## Supported Platforms
 
-Automatic generated newest builds are available for Docker, and some others that
+Automatic generated newest builds are available for Docker, and platforms that
 install directly from this repo. Automatic builds will be added later for more
 platforms.
 
