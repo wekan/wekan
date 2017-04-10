@@ -4,6 +4,7 @@ MAINTAINER wekan
 # Declare Arguments
 ARG NODE_VERSION
 ARG METEOR_RELEASE
+ARG METEOR_EDGE
 ARG NPM_VERSION
 ARG ARCHITECTURE
 ARG SRC_PATH
@@ -13,6 +14,7 @@ ENV BUILD_DEPS="wget curl bzip2 build-essential python git ca-certificates"
 ENV GOSU_VERSION=1.10
 ENV NODE_VERSION ${NODE_VERSION:-v6.10.2}
 ENV METEOR_RELEASE ${METEOR_RELEASE:-1.4.5}
+ENV METEOR_EDGE ${METEOR_EDGE:-1.4.4-rc.9}
 ENV NPM_VERSION ${NPM_VERSION:-3.10.10}
 ENV ARCHITECTURE ${ARCHITECTURE:-linux-x64}
 ENV SRC_PATH ${SRC_PATH:-./}
@@ -81,7 +83,7 @@ RUN \
     ( \
       gosu wekan:wekan git clone --recursive git://github.com/meteor/meteor.git /home/wekan/.meteor && \
       cd /home/wekan/.meteor && \
-      gosu wekan:wekan git checkout release/METEOR@1.4.4-rc.9 && \
+      gosu wekan:wekan git checkout release/METEOR@${METEOR_EDGE} && \
       gosu wekan /home/wekan/.meteor/meteor -- help \
     ) && \
     ###########################
