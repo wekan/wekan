@@ -12,7 +12,7 @@ ARG SRC_PATH
 ENV BUILD_DEPS="wget curl bzip2 build-essential python git ca-certificates"
 ENV GOSU_VERSION=1.10
 ENV NODE_VERSION ${NODE_VERSION:-v6.10.2}
-ENV METEOR_RELEASE ${METEOR_RELEASE:-1.4.4}
+ENV METEOR_RELEASE ${METEOR_RELEASE:-1.4.4.1}
 ENV NPM_VERSION ${NPM_VERSION:-3.10.10}
 ENV ARCHITECTURE ${ARCHITECTURE:-linux-x64}
 ENV SRC_PATH ${SRC_PATH:-./}
@@ -76,7 +76,7 @@ RUN \
     chown wekan:wekan ./install_meteor.sh && \
     ###########################
     ###########################
-    # Temporary fix for https://github.com/wekan/wekan/issues/928 until METEOR releases 1.4.4 +
+    # This block is for installing on release candidates, suppose can be left in place for now.
     gosu wekan:wekan sh ./install_meteor.sh || \
     ( \
       gosu wekan:wekan git clone --recursive git://github.com/meteor/meteor.git /home/wekan/.meteor && \
