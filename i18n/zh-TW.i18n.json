@@ -71,7 +71,7 @@
     "attachment-delete-pop": "刪除附件的操作無法還原。",
     "attachmentDeletePopup-title": "刪除附件？",
     "attachments": "附件",
-    "auto-watch": "新增看板時自動加入觀察",
+    "auto-watch": "Automatically watch boards when they are created",
     "avatar-too-big": "大頭貼太大 (最大 70 Kb)",
     "back": "返回",
     "board-change-color": "更改顏色",

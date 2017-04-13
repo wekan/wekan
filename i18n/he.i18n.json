@@ -71,7 +71,7 @@
     "attachment-delete-pop": "מחיקת קובץ מצורף הינה סופית. אין דרך חזרה.",
     "attachmentDeletePopup-title": "למחוק קובץ מצורף?",
     "attachments": "קבצים מצורפים",
-    "auto-watch": "עקוב באופן אוטומטי אחרי לוחות אחרי שהם נוצרים",
+    "auto-watch": "Automatically watch boards when they are created",
     "avatar-too-big": "האווטאר גדול מידי (מקס 70Kb)",
     "back": "חזור",
     "board-change-color": "שנה צבע",
