@@ -71,7 +71,7 @@
     "attachment-delete-pop": "Brisanje prikačenog dokumenta je trajno. Ne postoji vraćanje obrisanog.",
     "attachmentDeletePopup-title": "Obrisati prikačeni dokument ?",
     "attachments": "Prikačeni dokumenti",
-    "auto-watch": "Automatski prati tablu kad je kreiraš",
+    "auto-watch": "Automatically watch boards when they are created",
     "avatar-too-big": "Avatar je prevelik (maksimum je 70Kb)",
     "back": "Nazad",
     "board-change-color": "Promeni boju",

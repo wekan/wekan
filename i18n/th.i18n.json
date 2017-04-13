@@ -71,7 +71,7 @@
     "attachment-delete-pop": "ลบสิ่งที่แนบมาถาวร ไม่สามารถเลิกทำได้",
     "attachmentDeletePopup-title": "ลบสิ่งที่แนบมาหรือไม่",
     "attachments": "สิ่งที่แนบมา",
-    "auto-watch": "ดูบอร์ดโดยปริยายเมื่อมันถูกสร้าง",
+    "auto-watch": "Automatically watch boards when they are created",
     "avatar-too-big": "ภาพมีขนาดใหญ่เกินไป (สูงสุด 70Kb )",
     "back": "ย้อนกลับ",
     "board-change-color": "เปลี่ยนสี",

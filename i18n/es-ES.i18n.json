@@ -71,7 +71,7 @@
     "attachment-delete-pop": "El borrado de un archivo adjunto es permanente. No se puede deshacer.",
     "attachmentDeletePopup-title": "¿Borrar adjunto?",
     "attachments": "Adjuntos",
-    "auto-watch": "Automatically watch boards when create it",
+    "auto-watch": "Automatically watch boards when they are created",
     "avatar-too-big": "El avatar es demasiado grande (70Kb max)",
     "back": "Atrás",
     "board-change-color": "Cambiar color",
