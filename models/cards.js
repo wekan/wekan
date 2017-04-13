@@ -410,6 +410,7 @@ if (Meteor.isServer) {
       description: req.body.description,
       userId : req.body.authorId,
       sort: 0,
+      members:[ req.body.authorId ],
     });
     JsonRoutes.sendResult(res, {
       code: 200,
