@@ -71,7 +71,7 @@
     "attachment-delete-pop": "영구 첨부파일을 삭제합니다. 되돌릴 수 없습니다.",
     "attachmentDeletePopup-title": "첨부 파일을 삭제합니까?",
     "attachments": "첨부 파일",
-    "auto-watch": "보드 생성 시 자동으로 감시합니다.",
+    "auto-watch": "Automatically watch boards when they are created",
     "avatar-too-big": "아바타 파일이 너무 큽니다. (최대 70Kb)",
     "back": "뒤로",
     "board-change-color": "보드 색 변경",
