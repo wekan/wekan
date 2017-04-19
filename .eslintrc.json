@@ -51,7 +51,8 @@
     "object-shorthand": 2,
     "prefer-const": 2,
     "prefer-spread": 2,
-    "prefer-template": 2
+    "prefer-template": 2,
+    "no-console":"off"
   },
   "globals": {
     "Meteor": false,
@@ -122,6 +123,7 @@
     "Emoji": true,
     "Checklists": true,
     "Settings": true,
-    "InvitationCodes": true
+    "InvitationCodes": true,
+    "Winston":true
   }
 }
