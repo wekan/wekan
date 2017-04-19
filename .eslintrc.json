@@ -52,7 +52,8 @@
     "prefer-const": 2,
     "prefer-spread": 2,
     "prefer-template": 2,
-    "no-console":"off"
+    "no-console":"off",
+    "no-unused-vars":"warn"
   },
   "globals": {
     "Meteor": false,
