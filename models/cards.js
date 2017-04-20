@@ -370,9 +370,6 @@ if (Meteor.isServer) {
     });
   });
 }
-
-
-
 //LISTS REST API
 if (Meteor.isServer) {
   JsonRoutes.add('GET', '/api/boards/:boardId/lists/:listId/cards', function (req, res, next) {

@@ -129,8 +129,6 @@ if (Meteor.isServer) {
   });
 }
 
-
-
 //LISTS REST API
 if (Meteor.isServer) {
   JsonRoutes.add('GET', '/api/boards/:boardId/lists', function (req, res, next) {

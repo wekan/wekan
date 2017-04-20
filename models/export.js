@@ -89,7 +89,7 @@ class Exporter {
         'profile.fullname': 1,
         'profile.initials': 1,
         'profile.avatarUrl': 1,
-      }
+      },
     };
     result.users = Users.find(byUserIds, userFields).fetch().map((user) => {
       // user avatar is stored as a relative url, we export absolute
