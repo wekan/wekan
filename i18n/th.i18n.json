@@ -72,7 +72,7 @@
     "attachmentDeletePopup-title": "ลบสิ่งที่แนบมาหรือไม่",
     "attachments": "สิ่งที่แนบมา",
     "auto-watch": "Automatically watch boards when they are created",
-    "avatar-too-big": "ภาพมีขนาดใหญ่เกินไป (สูงสุด 70Kb )",
+    "avatar-too-big": "The avatar is too large (70KB max)",
     "back": "ย้อนกลับ",
     "board-change-color": "เปลี่ยนสี",
     "board-nb-stars": "ติดดาว %s",

@@ -72,7 +72,7 @@
     "attachmentDeletePopup-title": "첨부 파일을 삭제합니까?",
     "attachments": "첨부 파일",
     "auto-watch": "Automatically watch boards when they are created",
-    "avatar-too-big": "아바타 파일이 너무 큽니다. (최대 70Kb)",
+    "avatar-too-big": "The avatar is too large (70KB max)",
     "back": "뒤로",
     "board-change-color": "보드 색 변경",
     "board-nb-stars": "%s개의 별",

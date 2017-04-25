@@ -72,7 +72,7 @@
     "attachmentDeletePopup-title": "Удалить вложение?",
     "attachments": "Вложения",
     "auto-watch": "Automatically watch boards when they are created",
-    "avatar-too-big": "Аватар слишком большой (максимум 70кб)",
+    "avatar-too-big": "The avatar is too large (70KB max)",
     "back": "Назад",
     "board-change-color": "Изменить цвет",
     "board-nb-stars": "%s избранное",
