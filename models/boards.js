@@ -156,7 +156,7 @@ Boards.helpers({
    * Is supplied user authorized to view this board?
    */
   isVisibleBy(user) {
-    if(this.isPublic()) {
+    if (this.isPublic()) {
       // public boards are visible to everyone
       return true;
     } else {
@@ -172,7 +172,7 @@ Boards.helpers({
    * @returns {boolean} the member that matches, or undefined/false
    */
   isActiveMember(userId) {
-    if(userId) {
+    if (userId) {
       return this.members.find((member) => (member.userId === userId && member.isActive));
     } else {
       return false;
@@ -184,23 +184,23 @@ Boards.helpers({
   },
 
   lists() {
-    return Lists.find({ boardId: this._id, archived: false }, { sort: { sort: 1 }});
+    return Lists.find({ boardId: this._id, archived: false }, { sort: { sort: 1 } });
   },
 
   activities() {
-    return Activities.find({ boardId: this._id }, { sort: { createdAt: -1 }});
+    return Activities.find({ boardId: this._id }, { sort: { createdAt: -1 } });
   },
 
   activeMembers() {
-    return _.where(this.members, {isActive: true});
+    return _.where(this.members, { isActive: true });
   },
 
   activeAdmins() {
-    return _.where(this.members, {isActive: true, isAdmin: true});
+    return _.where(this.members, { isActive: true, isAdmin: true });
   },
 
   memberUsers() {
-    return Users.find({ _id: {$in: _.pluck(this.members, 'userId')} });
+    return Users.find({ _id: { $in: _.pluck(this.members, 'userId') } });
   },
 
   getLabel(name, color) {
@@ -216,15 +216,15 @@ Boards.helpers({
   },
 
   hasMember(memberId) {
-    return !!_.findWhere(this.members, {userId: memberId, isActive: true});
+    return !!_.findWhere(this.members, { userId: memberId, isActive: true });
   },
 
   hasAdmin(memberId) {
-    return !!_.findWhere(this.members, {userId: memberId, isActive: true, isAdmin: true});
+    return !!_.findWhere(this.members, { userId: memberId, isActive: true, isAdmin: true });
   },
 
   hasCommentOnly(memberId) {
-    return !!_.findWhere(this.members, {userId: memberId, isActive: true, isAdmin: false, isCommentOnly: true});
+    return !!_.findWhere(this.members, { userId: memberId, isActive: true, isAdmin: false, isCommentOnly: true });
   },
 
   absoluteUrl() {
@@ -239,34 +239,34 @@ Boards.helpers({
   // XXX waiting on https://github.com/mquandalle/meteor-collection-mutations/issues/1 to remove...
   pushLabel(name, color) {
     const _id = Random.id(6);
-    Boards.direct.update(this._id, { $push: {labels: { _id, name, color }}});
+    Boards.direct.update(this._id, { $push: { labels: { _id, name, color } } });
     return _id;
   },
 });
 
 Boards.mutations({
   archive() {
-    return { $set: { archived: true }};
+    return { $set: { archived: true } };
   },
 
   restore() {
-    return { $set: { archived: false }};
+    return { $set: { archived: false } };
   },
 
   rename(title) {
-    return { $set: { title }};
+    return { $set: { title } };
   },
 
   setDescription(description) {
-    return { $set: {description} };
+    return { $set: { description } };
   },
 
   setColor(color) {
-    return { $set: { color }};
+    return { $set: { color } };
   },
 
   setVisibility(visibility) {
-    return { $set: { permission: visibility }};
+    return { $set: { permission: visibility } };
   },
 
   addLabel(name, color) {
@@ -276,7 +276,7 @@ Boards.mutations({
     // user).
     if (!this.getLabel(name, color)) {
       const _id = Random.id(6);
-      return { $push: {labels: { _id, name, color }}};
+      return { $push: { labels: { _id, name, color } } };
     }
     return {};
   },
@@ -295,7 +295,7 @@ Boards.mutations({
   },
 
   removeLabel(labelId) {
-    return { $pull: { labels: { _id: labelId }}};
+    return { $pull: { labels: { _id: labelId } } };
   },
 
   addMember(memberId) {
@@ -386,7 +386,7 @@ if (Meteor.isServer) {
         return false;
 
       // If there is more than one admin, it's ok to remove anyone
-      const nbAdmins = _.where(doc.members, {isActive: true, isAdmin: true}).length;
+      const nbAdmins = _.where(doc.members, { isActive: true, isAdmin: true }).length;
       if (nbAdmins > 1)
         return false;
 
@@ -408,7 +408,7 @@ if (Meteor.isServer) {
       if (board) {
         const userId = Meteor.userId();
         const index = board.memberIndex(userId);
-        if (index>=0) {
+        if (index >= 0) {
           board.removeMember(userId);
           return true;
         } else throw new Meteor.Error('error-board-notAMember');
@@ -424,7 +424,7 @@ if (Meteor.isServer) {
       _id: 1,
       'members.userId': 1,
     }, { unique: true });
-    Boards._collection._ensureIndex({'members.userId': 1});
+    Boards._collection._ensureIndex({ 'members.userId': 1 });
   });
 
   // Genesis: the first activity of the newly created board
@@ -552,4 +552,61 @@ if (Meteor.isServer) {
       });
     }
   });
+}
+
+//BOARDS REST API
+if (Meteor.isServer) {
+  JsonRoutes.add('GET', '/api/boards', function (req, res, next) {
+    JsonRoutes.sendResult(res, {
+      code: 200,
+      data: Boards.find({ permission: 'public' }).map(function (doc) {
+        return {
+          _id: doc._id,
+          title: doc.title,
+        };
+      }),
+    });
+  });
+
+  JsonRoutes.add('GET', '/api/boards/:id', function (req, res, next) {
+    const id = req.params.id;
+    JsonRoutes.sendResult(res, {
+      code: 200,
+      data: Boards.findOne({ _id: id }),
+    });
+  });
+
+  JsonRoutes.add('POST', '/api/boards', function (req, res, next) {
+    const id = Boards.insert({
+      title: req.body.title,
+      members: [
+        {
+          userId: req.body.owner,
+          isAdmin: true,
+          isActive: true,
+          isCommentOnly: false,
+        },
+      ],
+      permission: 'public',
+      color: 'belize',
+    });
+    JsonRoutes.sendResult(res, {
+      code: 200,
+      data: {
+        _id: id,
+      },
+    });
+  });
+
+  JsonRoutes.add('DELETE', '/api/boards/:id', function (req, res, next) {
+    const id = req.params.id;
+    Boards.remove({ _id: id });
+    JsonRoutes.sendResult(res, {
+      code: 200,
+      data:{
+        _id: id,
+      },
+    });
+  });
+
 }

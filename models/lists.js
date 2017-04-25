@@ -76,15 +76,15 @@ Lists.helpers({
 
 Lists.mutations({
   rename(title) {
-    return { $set: { title }};
+    return { $set: { title } };
   },
 
   archive() {
-    return { $set: { archived: true }};
+    return { $set: { archived: true } };
   },
 
   restore() {
-    return { $set: { archived: false }};
+    return { $set: { archived: false } };
   },
 });
 
@@ -127,4 +127,56 @@ if (Meteor.isServer) {
       });
     }
   });
+}
+
+//LISTS REST API
+if (Meteor.isServer) {
+  JsonRoutes.add('GET', '/api/boards/:boardId/lists', function (req, res, next) {
+    const paramBoardId = req.params.boardId;
+    JsonRoutes.sendResult(res, {
+      code: 200,
+      data: Lists.find({ boardId: paramBoardId, archived: false }).map(function (doc) {
+        return {
+          _id: doc._id,
+          title: doc.title,
+        };
+      }),
+    });
+  });
+
+  JsonRoutes.add('GET', '/api/boards/:boardId/lists/:listId', function (req, res, next) {
+    const paramBoardId = req.params.boardId;
+    const paramListId = req.params.listId;
+    JsonRoutes.sendResult(res, {
+      code: 200,
+      data: Lists.findOne({ _id: paramListId, boardId: paramBoardId, archived: false }),
+    });
+  });
+
+  JsonRoutes.add('POST', '/api/boards/:boardId/lists', function (req, res, next) {
+    const paramBoardId = req.params.boardId;
+    const id = Lists.insert({
+      title: req.body.title,
+      boardId: paramBoardId,
+    });
+    JsonRoutes.sendResult(res, {
+      code: 200,
+      data: {
+        _id: id,
+      },
+    });
+  });
+
+  JsonRoutes.add('DELETE', '/api/boards/:boardId/lists/:listId', function (req, res, next) {
+    const paramBoardId = req.params.boardId;
+    const paramListId = req.params.listId;
+    Lists.remove({ _id: paramListId, boardId: paramBoardId });
+    JsonRoutes.sendResult(res, {
+      code: 200,
+      data: {
+        _id: paramListId,
+      },
+    });
+  });
+
 }

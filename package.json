@@ -7,6 +7,9 @@
     "lint": "eslint --ignore-pattern 'packages/*' .",
     "test": "npm run --silent lint"
   },
+  "eslintConfig": {
+    "extends": "@meteorjs/eslint-config-meteor"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wekan/wekan.git"
