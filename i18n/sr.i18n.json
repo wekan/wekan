@@ -72,7 +72,7 @@
     "attachmentDeletePopup-title": "Obrisati prikačeni dokument ?",
     "attachments": "Prikačeni dokumenti",
     "auto-watch": "Automatically watch boards when they are created",
-    "avatar-too-big": "Avatar je prevelik (maksimum je 70Kb)",
+    "avatar-too-big": "The avatar is too large (70KB max)",
     "back": "Nazad",
     "board-change-color": "Promeni boju",
     "board-nb-stars": "%s zvezdice",

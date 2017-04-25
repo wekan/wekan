@@ -72,7 +72,7 @@
     "attachmentDeletePopup-title": "Poista liitetiedosto?",
     "attachments": "Liitetiedostot",
     "auto-watch": "Automatically watch boards when they are created",
-    "avatar-too-big": "Profiilikuva on liian suuri (70Kb maksimi)",
+    "avatar-too-big": "The avatar is too large (70KB max)",
     "back": "Takaisin",
     "board-change-color": "Muokkaa väriä",
     "board-nb-stars": "%s tähteä",
