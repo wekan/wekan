@@ -72,7 +72,7 @@
     "attachmentDeletePopup-title": "تريد حذف المرفق ?",
     "attachments": "المرفقات",
     "auto-watch": "Automatically watch boards when they are created",
-    "avatar-too-big": "حجم ملف الصورة الخاصة بك كبير . لا يمكن  أن تتجاوز 70 كيلو أكتي",
+    "avatar-too-big": "The avatar is too large (70KB max)",
     "back": "رجوع",
     "board-change-color": "تغيير اللومr",
     "board-nb-stars": "%s نجوم",
