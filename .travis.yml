@@ -18,10 +18,4 @@ before_install:
 language: node_js
 
 node_js:
-  - "6.10.2"
-
-install:
-  - "npm install"
-
-script:
-  - "npm test"
+  - "4.8.1"
