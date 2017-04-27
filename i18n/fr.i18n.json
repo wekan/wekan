@@ -72,7 +72,7 @@
     "attachmentDeletePopup-title": "Supprimer la pièce jointe ?",
     "attachments": "Pièces jointes",
     "auto-watch": "Surveiller automatiquement les tableaux quand ils sont créés",
-    "avatar-too-big": "The avatar is too large (70KB max)",
+    "avatar-too-big": "La taille du fichier de l'avatar est trop importante (70 ko au maximum)",
     "back": "Retour",
     "board-change-color": "Changer la couleur",
     "board-nb-stars": "%s étoiles",
