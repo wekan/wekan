@@ -52,8 +52,8 @@
     "prefer-const": 2,
     "prefer-spread": 2,
     "prefer-template": 2,
-    "no-console":"off",
-    "no-unused-vars":"warn"
+    "no-console": 0,
+    "no-unused-vars" : "warn"
   },
   "globals": {
     "Meteor": false,
@@ -125,6 +125,10 @@
     "Checklists": true,
     "Settings": true,
     "InvitationCodes": true,
+<<<<<<< HEAD
     "Winston":true
+=======
+    "JsonRoutes" : true
+>>>>>>> 3a5150f6eef86816471f7b0134d3d93cf6686413
   }
 }
