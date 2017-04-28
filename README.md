@@ -85,8 +85,6 @@ First registered Wekan user will get [Admin Panel][features] on new
 Docker and source based installs. You can also                            
 [enable Admin Panel manually][enable_adminpanel].
 
-[Docker](https://github.com/wekan/wekan/wiki/Docker)
-
 [![Deploy][heroku_button]][heroku_deploy]
 [![SignUp][indiehosters_button]][indiehosters_saas]
 [![Deploy to Scalingo][scalingo_button]][scalingo_deploy]
@@ -94,6 +92,8 @@ Docker and source based installs. You can also
 [![Try on Sandstorm][sandstorm_button]][sandstorm_appdemo]
 
 [VirtualBox][virtualbox]
+
+[Install via Docker](https://github.com/wekan/wekan/wiki/Docker)
 
 [Install from source][install_source]
 
