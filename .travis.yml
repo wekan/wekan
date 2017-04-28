@@ -15,13 +15,13 @@ before_install:
   # ^^ Note - need to come up with some way of checking the output from docker run
   # that it was a success... perhaps the nodejs server can output a success message?
 
-language: node_js
-
-node_js:
-  - "6.10.2"
-
-install:
-  - "npm install"
-
-script:
-  - "npm test"
+#language: node_js
+#
+#node_js:
+#  - "4.8.1"
+#
+#install:
+#  - "npm install"
+#
+#script:
+#  - "npm test"
