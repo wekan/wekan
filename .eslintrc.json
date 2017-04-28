@@ -125,7 +125,7 @@
     "Checklists": true,
     "Settings": true,
     "InvitationCodes": true,
-    "Winston":true
-    "JsonRoutes" : true
+    "Winston":true,
+    "JsonRoutes": true
   }
 }
