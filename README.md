@@ -85,8 +85,6 @@ First registered Wekan user will get [Admin Panel][features] on new
 Docker and source based installs. You can also                            
 [enable Admin Panel manually][enable_adminpanel].
 
-[Docker](https://github.com/wekan/wekan/wiki/Docker)
-
 [![Deploy][heroku_button]][heroku_deploy]
 [![SignUp][indiehosters_button]][indiehosters_saas]
 [![Deploy to Scalingo][scalingo_button]][scalingo_deploy]
@@ -95,11 +93,13 @@ Docker and source based installs. You can also
 
 [VirtualBox][virtualbox]
 
+[Install via Docker](https://github.com/wekan/wekan/wiki/Docker)
+
 [Install from source][install_source]
 
 [Install from source on Windows][installsource_windows]
 
-[Debian Wheezy 64bit][debian_wheezy]
+[Debian Wheezy 64bit & Devuan Jessie 64 bit][debian_wheezy_devuan_jessie]
 
 [More Platforms, and Upcoming Platforms](https://github.com/wekan/wekan/wiki/Platforms)
 
@@ -129,7 +129,7 @@ with [Meteor](https://www.meteor.com).
 [scalingo_deploy]: https://my.scalingo.com/deploy?source=https://github.com/wekan/wekan#master
 [cloudron_button]: https://cloudron.io/img/button.svg
 [cloudron_install]: https://cloudron.io/button.html?app=io.wekan.cloudronapp
-[debian_wheezy]: https://github.com/soohwa/sps/blob/master/example/docs/1/wekan.md
+[debian_wheezy_devuan_jessie]: https://github.com/soohwa/sps/blob/master/example/docs/1/wekan.md
 [travis_badge]: https://travis-ci.org/wekan/wekan.svg?branch=meteor-1.4
 [travis_status]: https://travis-ci.org/wekan/wekan
 [install_source]: https://github.com/wekan/wekan/wiki/Install-and-Update#install-manually-from-source

@@ -72,7 +72,7 @@
     "attachmentDeletePopup-title": "添付ファイルを削除しますか？",
     "attachments": "添付ファイル",
     "auto-watch": "Automatically watch boards when they are created",
-    "avatar-too-big": "アバターが大きすぎます(最大70KB)",
+    "avatar-too-big": "The avatar is too large (70KB max)",
     "back": "戻る",
     "board-change-color": "色の変更",
     "board-nb-stars": "%s stars",

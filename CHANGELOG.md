@@ -7,13 +7,25 @@ Known bugs:
 This release adds the following new features:
 
 * Set first user as admin, it there is no existing
-  users and Wekan is not running at Sandstorm.
+  users and Wekan is not running at Sandstorm;
 * New Docker Compose [Wekan-MongoDB](https://github.com/wekan/wekan-mongodb)
   and [Wekan-PostgreSQL](https://github.com/wekan/wekan-postgresql)
-  that use Meteor v1.4 and Node v4 based Wekan's meteor-1.4 branch.  
+  that use Meteor v1.4 and Node v4 based Wekan's meteor-1.4 branch;
+* Console, file, and zulip logger on database changes;
+* REST API first step;
+* [Install from source](https://github.com/wekan/wekan/wiki/Install-and-Update#install-manually-from-source)
+  has been updated to new meteor 1.4 version;
+* meteor-1.4 branch has been merged to devel and master branches,
+  where development continues from now on. Previous code has been moved to
+  meteor-1.3-2017-04-27 branch.
 
-Thanks to GitHub users brylie, stephenmoloney and Zokormazo for
-contributions.
+and fixes the following bugs:
+
+* isCommentOnly false fix for Trello import;
+* Node version to 4.8.1 to solve 100% CPU issue.
+
+Thanks to GitHub users brylie, huneau, johnniesong, rhelsing, stephenmoloney,
+xet7 and Zokormazo for contributions.
 
 # v0.18 2017-04-02 Wekan release
 

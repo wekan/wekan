@@ -1,19 +1,23 @@
-FROM debian:wheezy
+FROM debian:8.7
 MAINTAINER wekan
 
 # Declare Arguments
 ARG NODE_VERSION
 ARG METEOR_RELEASE
+ARG METEOR_EDGE
+ARG USE_EDGE
 ARG NPM_VERSION
 ARG ARCHITECTURE
 ARG SRC_PATH
 
 # Set the environment variables (defaults where required)
-ENV BUILD_DEPS="wget curl bzip2 build-essential python git ca-certificates"
+ENV BUILD_DEPS="wget curl bzip2 build-essential python git ca-certificates gcc-4.9"
 ENV GOSU_VERSION=1.10
-ENV NODE_VERSION ${NODE_VERSION:-v0.10.48}
-ENV METEOR_RELEASE ${METEOR_RELEASE:-1.3.5.1}
-ENV NPM_VERSION ${NPM_VERSION:-4.2.0}
+ENV NODE_VERSION ${NODE_VERSION:-v4.8.1}
+ENV METEOR_RELEASE ${METEOR_RELEASE:-1.4.4.1}
+ENV USE_EDGE ${USE_EDGE:-false}
+ENV METEOR_EDGE ${METEOR_EDGE:-1.5-beta.17}
+ENV NPM_VERSION ${NPM_VERSION:-4.5.0}
 ENV ARCHITECTURE ${ARCHITECTURE:-linux-x64}
 ENV SRC_PATH ${SRC_PATH:-./}
 
@@ -63,7 +67,7 @@ RUN \
     ln -s /opt/nodejs/bin/npm /usr/bin/npm && \
     \
     # Install Node dependencies
-    npm install npm@${NPM_VERSION} -g && \
+    npm install -g npm@${NPM_VERSION} && \
     npm install -g node-gyp && \
     npm install -g fibers && \
     \
@@ -74,11 +78,21 @@ RUN \
     sed -i "s|RELEASE=.*|RELEASE=${METEOR_RELEASE}\"\"|g" ./install_meteor.sh && \
     echo "Starting meteor ${METEOR_RELEASE} installation...   \n" && \
     chown wekan:wekan ./install_meteor.sh && \
-    gosu wekan:wekan sh ./install_meteor.sh && \
+    \
+    # Check if opting for a release candidate instead of major release
+    if [ "$USE_EDGE" = false ]; then \
+      gosu wekan:wekan sh ./install_meteor.sh; \
+    else \
+      gosu wekan:wekan git clone --recursive git://github.com/meteor/meteor.git /home/wekan/.meteor && \
+      cd /home/wekan/.meteor && \
+      gosu wekan:wekan git checkout release/METEOR@${METEOR_EDGE} && \
+      gosu wekan /home/wekan/.meteor/meteor -- help; \
+    fi && \
     \
     # Build app
     cd /home/wekan/app && \
-    gosu wekan /home/wekan/.meteor/meteor npm install --save xss && \
+    gosu wekan /home/wekan/.meteor/meteor add standard-minifier-js && \
+    gosu wekan /home/wekan/.meteor/meteor npm install && \
     gosu wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build && \
     cd /home/wekan/app_build/bundle/programs/server/ && \
     gosu wekan npm install && \

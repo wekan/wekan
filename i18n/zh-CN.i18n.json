@@ -72,7 +72,7 @@
     "attachmentDeletePopup-title": "删除附件？",
     "attachments": "附件",
     "auto-watch": "Automatically watch boards when they are created",
-    "avatar-too-big": "头像文件过大 (上限 70 Kb)",
+    "avatar-too-big": "The avatar is too large (70KB max)",
     "back": "返回",
     "board-change-color": "更改颜色",
     "board-nb-stars": "%s 星标",

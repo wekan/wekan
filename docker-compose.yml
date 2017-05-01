@@ -30,6 +30,8 @@ services:
         - NPM_VERSION=${NPM_VERSION}
         - ARCHITECTURE=${ARCHITECTURE}
         - SRC_PATH=${SRC_PATH}
+        - METEOR_EDGE=${METEOR_EDGE}
+        - USE_EDGE=${USE_EDGE}
     ports:
       - 80:80
     environment:
