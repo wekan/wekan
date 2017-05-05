@@ -94,6 +94,10 @@ RUN \
     gosu wekan /home/wekan/.meteor/meteor add standard-minifier-js && \
     gosu wekan /home/wekan/.meteor/meteor npm install && \
     gosu wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build && \
+    gosu wekan sed -i "s|build\/Release\/bson|browser_build\/bson|g" /home/wekan/app_build/bundle/programs/server/npm/node_modules/meteor/cfs_gridfs/node_modules/mongodb/node_modules/bson/ext/index.js && \
+    cd /home/wekan/app_build/bundle/programs/server/npm/node_modules/meteor/npm-bcrypt && \
+    gosu wekan rm -rf node_modules/bcrypt && \
+    gosu wekan npm install bcrypt && \
     cd /home/wekan/app_build/bundle/programs/server/ && \
     gosu wekan npm install && \
     mv /home/wekan/app_build/bundle /build && \
