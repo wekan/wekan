@@ -183,7 +183,7 @@
     "error-json-schema": "Via JSON ne enhavas la ĝustajn informojn en ĝusta formato",
     "error-list-doesNotExist": "Tio listo ne ekzistas",
     "error-user-doesNotExist": "Tio uzanto ne ekzistas",
-    "error-user-notAllowSelf": "This action on self is not allowed",
+    "error-user-notAllowSelf": "You can not invite yourself",
     "error-user-notCreated": "Uzanto ne kreita",
     "error-username-taken": "Uzantnomo jam prenita",
     "export-board": "Export board",

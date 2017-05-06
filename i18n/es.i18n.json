@@ -183,7 +183,7 @@
     "error-json-schema": "Your JSON data does not include the proper information in the correct format",
     "error-list-doesNotExist": "This list does not exist",
     "error-user-doesNotExist": "This user does not exist",
-    "error-user-notAllowSelf": "This action on self is not allowed",
+    "error-user-notAllowSelf": "You can not invite yourself",
     "error-user-notCreated": "This user is not created",
     "error-username-taken": "Este nombre de usuario ya está en uso",
     "export-board": "Export board",

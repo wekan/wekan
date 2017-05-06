@@ -183,7 +183,7 @@
     "error-json-schema": "JSON 数据没有用正确的格式包含合适的信息",
     "error-list-doesNotExist": "不存在此列表",
     "error-user-doesNotExist": "该用户不存在",
-    "error-user-notAllowSelf": "不允许对自己执行此操作",
+    "error-user-notAllowSelf": "You can not invite yourself",
     "error-user-notCreated": "该用户未能成功创建",
     "error-username-taken": "此用户名已存在",
     "export-board": "导出看板",

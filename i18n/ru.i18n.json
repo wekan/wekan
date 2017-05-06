@@ -183,7 +183,7 @@
     "error-json-schema": "Содержимое вашего JSON не содержит информацию в корректном формате",
     "error-list-doesNotExist": "Список не найден",
     "error-user-doesNotExist": "Пользователь не найден",
-    "error-user-notAllowSelf": "Нельзя выполнить это действие на себе",
+    "error-user-notAllowSelf": "You can not invite yourself",
     "error-user-notCreated": "Пользователь не создан",
     "error-username-taken": "This username is already taken",
     "export-board": "Export board",

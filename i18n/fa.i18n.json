@@ -183,7 +183,7 @@
     "error-json-schema": "داده های Json شما، شامل اطلاعات صحیح در غالب درستی نمی باشد.",
     "error-list-doesNotExist": "این لیست موجود نیست",
     "error-user-doesNotExist": "این کاربر وجود ندارد",
-    "error-user-notAllowSelf": "این اقدامبروی خود، مجاز نمی باشد",
+    "error-user-notAllowSelf": "You can not invite yourself",
     "error-user-notCreated": "این کاربر ایجاد نشده است",
     "error-username-taken": "This username is already taken",
     "export-board": "انتقال به بیرون تخته",

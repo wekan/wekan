@@ -183,7 +183,7 @@
     "error-json-schema": "Tato JSON data neobsahují správné informace v platném formátu",
     "error-list-doesNotExist": "Tento seznam neexistuje",
     "error-user-doesNotExist": "Tento uživatel neexistuje",
-    "error-user-notAllowSelf": "Tato akce pro sebe sama není povolena",
+    "error-user-notAllowSelf": "You can not invite yourself",
     "error-user-notCreated": "Tento uživatel není vytvořen",
     "error-username-taken": "This username is already taken",
     "export-board": "Exportovat tablo",

@@ -183,7 +183,7 @@
     "error-json-schema": "Girdiğin JSON metni tüm bilgileri doğru biçimde barındırmıyor",
     "error-list-doesNotExist": "Liste bulunamadı",
     "error-user-doesNotExist": "Kullanıcı bulunamadı",
-    "error-user-notAllowSelf": "Bu işlemi kendi üzerinde yapamazsın",
+    "error-user-notAllowSelf": "You can not invite yourself",
     "error-user-notCreated": "Bu üye oluşturulmadı",
     "error-username-taken": "Kullanıcı adı zaten alınmış",
     "export-board": "Panoyu dışarı aktar",

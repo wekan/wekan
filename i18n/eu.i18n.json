@@ -183,7 +183,7 @@
     "error-json-schema": "Zure JSON datuek ez dute formatu zuzenaren informazio egokia",
     "error-list-doesNotExist": "Zerrenda hau ez da existitzen",
     "error-user-doesNotExist": "Erabiltzaile hau ez da existitzen",
-    "error-user-notAllowSelf": "Ekintza hau zure buruari ez da zilegi",
+    "error-user-notAllowSelf": "You can not invite yourself",
     "error-user-notCreated": "Erabiltzaile hau sortu gabe dago",
     "error-username-taken": "Erabiltzaile-izen hori hartuta dago",
     "export-board": "Esportatu arbela",

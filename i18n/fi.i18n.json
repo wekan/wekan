@@ -183,7 +183,7 @@
     "error-json-schema": "JSON tietosi ei sisällä oikeaa tietoa oikeassa muodossa",
     "error-list-doesNotExist": "Tätä listaa ei ole olemassa",
     "error-user-doesNotExist": "Tätä käyttäjää ei ole olemassa",
-    "error-user-notAllowSelf": "Tämä toiminto itseäsi kohtaan ei ole sallittu",
+    "error-user-notAllowSelf": "Et voi kutsua itseäsi",
     "error-user-notCreated": "Tätä käyttäjää ei ole luotu",
     "error-username-taken": "Tämä käyttäjätunnus on jo käytössä",
     "export-board": "Vie taulu",

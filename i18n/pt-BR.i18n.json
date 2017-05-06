@@ -183,7 +183,7 @@
     "error-json-schema": "Seu JSON não inclui as informações no formato correto",
     "error-list-doesNotExist": "Esta lista não existe",
     "error-user-doesNotExist": "Este usuário não existe",
-    "error-user-notAllowSelf": "Esta ação em você mesmo não é permitida",
+    "error-user-notAllowSelf": "You can not invite yourself",
     "error-user-notCreated": "Este usuário não foi criado",
     "error-username-taken": "Esse username já existe",
     "export-board": "Exportar quadro",

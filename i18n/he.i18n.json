@@ -183,7 +183,7 @@
     "error-json-schema": "נתוני ה־JSON שלך לא כוללים את המידע הנכון בתבנית הנכונה",
     "error-list-doesNotExist": "רשימה זו לא קיימת",
     "error-user-doesNotExist": "משתמש זה לא קיים",
-    "error-user-notAllowSelf": "אין הרשאה לביצוע פעולה זו על עצמך",
+    "error-user-notAllowSelf": "You can not invite yourself",
     "error-user-notCreated": "משתמש זה לא נוצר",
     "error-username-taken": "המשתמש כבר קיים במערכת",
     "export-board": "ייצוא לוח",

@@ -183,7 +183,7 @@
     "error-json-schema": "รูปแบบข้้้อมูล JSON ของคุณไม่ถูกต้อง",
     "error-list-doesNotExist": "รายการนี้ไม่มีอยู่",
     "error-user-doesNotExist": "ผู้ใช้นี้ไม่มีอยู่",
-    "error-user-notAllowSelf": "การดำเนินการเกี่ยวกับเรื่องนี้ด้วยตัวเองไม่ได้รับอนุญาต",
+    "error-user-notAllowSelf": "You can not invite yourself",
     "error-user-notCreated": "ผู้ใช้รายนี้ไม่ได้สร้าง",
     "error-username-taken": "ชื่อนี้ถูกใช้งานแล้ว",
     "export-board": "ส่งออกกระดาน",

@@ -183,7 +183,7 @@
     "error-json-schema": "Il tuo file JSON non contiene le giuste informazioni nel formato corretto",
     "error-list-doesNotExist": "Questa lista non esiste",
     "error-user-doesNotExist": "Questo utente non esiste",
-    "error-user-notAllowSelf": "Questa azione su se stessa non è permessa",
+    "error-user-notAllowSelf": "You can not invite yourself",
     "error-user-notCreated": "L'utente non è stato creato",
     "error-username-taken": "Questo username è già utilizzato",
     "export-board": "Esporta bacheca",

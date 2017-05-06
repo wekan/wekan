@@ -183,7 +183,7 @@
     "error-json-schema": "Din JSON data inkluderar inte korrekt information i rätt format",
     "error-list-doesNotExist": "Denna lista finns inte",
     "error-user-doesNotExist": "Denna användare finns inte",
-    "error-user-notAllowSelf": "Denna åtgärd på egen är inte tillåtet",
+    "error-user-notAllowSelf": "You can not invite yourself",
     "error-user-notCreated": "Den här användaren har inte skapats",
     "error-username-taken": "Detta användarnamn är redan taget",
     "export-board": "Exportera anslagstavla",

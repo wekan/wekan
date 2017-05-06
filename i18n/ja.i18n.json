@@ -183,7 +183,7 @@
     "error-json-schema": "Your JSON data does not include the proper information in the correct format",
     "error-list-doesNotExist": "This list does not exist",
     "error-user-doesNotExist": "ユーザーが存在しません",
-    "error-user-notAllowSelf": "この操作は許可されていません",
+    "error-user-notAllowSelf": "You can not invite yourself",
     "error-user-notCreated": "ユーザーが作成されていません",
     "error-username-taken": "このユーザ名は既に使用されています",
     "export-board": "ボードのエクスポート",
