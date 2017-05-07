@@ -1,3 +1,15 @@
+# v0.20 2017-05-07 Wekan release
+
+Known bugs:
+
+* https://github.com/wekan/wekan/issues/784
+
+This release fixes the following bugs:
+
+* Docker images missing latest Debian updates.
+
+Thanks to GitHub user xet7 for contributions.
+
 # v0.19 2017-05-06 Wekan release
 
 Known bugs:
