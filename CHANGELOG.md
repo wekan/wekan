@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v0.22 2017-05-07 Wekan release
 
 This release fixes the following bugs:
 
@@ -6,7 +6,7 @@ This release fixes the following bugs:
 
 Thanks to GitHub user yatusiter for contributions.
 
-# v0.21 2017-05-05 Wekan release
+# v0.21 2017-05-07 Wekan release
 
 Known bugs:
 
