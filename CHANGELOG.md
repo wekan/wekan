@@ -1,3 +1,15 @@
+# v0.21 2017-05-05 Wekan release
+
+Known bugs:
+
+* https://github.com/wekan/wekan/issues/784
+
+This release fixes the following bugs:
+
+* Update release version number to package.json.
+
+Thanks to GitHub user xet7 for contributions.
+
 # v0.20 2017-05-07 Wekan release
 
 Known bugs:
