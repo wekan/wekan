@@ -3,7 +3,7 @@ version: '2'
 services:
 
   wekandb:
-    image: mongo:3.2.12
+    image: mongo:3.2.13
     container_name: wekan-db
     restart: always
     command: mongod --smallfiles --oplogSize 128
@@ -16,7 +16,7 @@ services:
       - wekan-db-dump:/dump
 
   wekan:
-    image: mquandalle/wekan:latest
+    image: wekanteam/meteor-1.4:latest
     container_name: wekan-app
     restart: always
     networks:

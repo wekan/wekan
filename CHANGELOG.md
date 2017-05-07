@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v0.19 2017-05-06 Wekan release
 
 Known bugs:
 
@@ -11,18 +11,21 @@ This release adds the following new features:
 * New Docker Compose [Wekan-MongoDB](https://github.com/wekan/wekan-mongodb)
   and [Wekan-PostgreSQL](https://github.com/wekan/wekan-postgresql)
   that use Meteor v1.4 and Node v4 based Wekan's meteor-1.4 branch;
-* Console, file, and zulip logger on database changes;
-* REST API first step;
+* [Console, file, and zulip logger on database changes](https://github.com/wekan/wekan/pull/1010);
+* [REST API first step](https://github.com/wekan/wekan/pull/1003);
 * [Install from source](https://github.com/wekan/wekan/wiki/Install-and-Update#install-manually-from-source)
   has been updated to new meteor 1.4 version;
 * meteor-1.4 branch has been merged to devel and master branches,
   where development continues from now on. Previous code has been moved to
-  meteor-1.3-2017-04-27 branch.
+  meteor-1.3-2017-04-27 branch;
+* [VirtualBox image updated](https://wekan.xet7.org).
 
 and fixes the following bugs:
 
 * isCommentOnly false fix for Trello import;
-* Node version to 4.8.1 to solve 100% CPU issue.
+* Node version to 4.8.1 to solve 100% CPU issue;
+* Fix bson error on Docker and install from source;
+* Try other key servers on Dockerfile if ha.pool.sks-keyservers.net is unreachable.
 
 Thanks to GitHub users brylie, huneau, johnniesong, rhelsing, stephenmoloney,
 xet7 and Zokormazo for contributions.
