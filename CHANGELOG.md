@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+* [Download file(unicode filename) cause crash with exception](https://github.com/wekan/wekan/issues/784)
+
+Thanks to GitHub user yatusiter for contributions.
+
 # v0.21 2017-05-05 Wekan release
 
 Known bugs:
