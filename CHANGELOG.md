@@ -1,3 +1,35 @@
+# v0.22 2017-05-07 Wekan release
+
+This release fixes the following bugs:
+
+* [Download file(unicode filename) cause crash with exception](https://github.com/wekan/wekan/issues/784)
+
+Thanks to GitHub user yatusiter for contributions.
+
+# v0.21 2017-05-07 Wekan release
+
+Known bugs:
+
+* https://github.com/wekan/wekan/issues/784
+
+This release fixes the following bugs:
+
+* Update release version number to package.json.
+
+Thanks to GitHub user xet7 for contributions.
+
+# v0.20 2017-05-07 Wekan release
+
+Known bugs:
+
+* https://github.com/wekan/wekan/issues/784
+
+This release fixes the following bugs:
+
+* Docker images missing latest Debian updates.
+
+Thanks to GitHub user xet7 for contributions.
+
 # v0.19 2017-05-06 Wekan release
 
 Known bugs:

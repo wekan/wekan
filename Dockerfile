@@ -29,7 +29,7 @@ RUN \
     useradd --user-group --system --home-dir /home/wekan wekan && \
     \
     # OS dependencies
-    apt-get update -y && apt-get install -y --no-install-recommends ${BUILD_DEPS} && \
+    apt-get update -y && apt-get dist-upgrade -y && apt-get install -y --no-install-recommends ${BUILD_DEPS} && \
     \
     # Gosu installation
     GOSU_ARCHITECTURE="$(dpkg --print-architecture | awk -F- '{ print $NF }')" && \
@@ -104,6 +104,8 @@ RUN \
     gosu wekan /home/wekan/.meteor/meteor add standard-minifier-js && \
     gosu wekan /home/wekan/.meteor/meteor npm install && \
     gosu wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build && \
+    cp /home/wekan/app/fix-download-unicode/cfs_access-point.txt /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
+    chown wekan:wekan /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
     gosu wekan sed -i "s|build\/Release\/bson|browser_build\/bson|g" /home/wekan/app_build/bundle/programs/server/npm/node_modules/meteor/cfs_gridfs/node_modules/mongodb/node_modules/bson/ext/index.js && \
     cd /home/wekan/app_build/bundle/programs/server/npm/node_modules/meteor/npm-bcrypt && \
     gosu wekan rm -rf node_modules/bcrypt && \
