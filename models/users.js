@@ -528,6 +528,7 @@ if (Meteor.isServer) {
 // USERS REST API
 if (Meteor.isServer) {
   JsonRoutes.add('GET', '/api/users', function (req, res, next) {
+    Authentication.checkUserId( req.userId);
     JsonRoutes.sendResult(res, {
       code: 200,
       data: Meteor.users.find({}).map(function (doc) {
@@ -536,6 +537,7 @@ if (Meteor.isServer) {
     });
   });
   JsonRoutes.add('GET', '/api/users/:id', function (req, res, next) {
+    Authentication.checkUserId( req.userId);
     const id = req.params.id;
     JsonRoutes.sendResult(res, {
       code: 200,
@@ -543,6 +545,7 @@ if (Meteor.isServer) {
     });
   });
   JsonRoutes.add('POST', '/api/users/', function (req, res, next) {
+    Authentication.checkUserId( req.userId);
     const id = Accounts.createUser({
       username: req.body.username,
       email: req.body.email,
@@ -558,6 +561,7 @@ if (Meteor.isServer) {
   });
 
   JsonRoutes.add('DELETE', '/api/users/:id', function (req, res, next) {
+    Authentication.checkUserId( req.userId);
     const id = req.params.id;
     Meteor.users.remove({ _id: id });
     JsonRoutes.sendResult(res, {

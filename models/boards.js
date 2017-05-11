@@ -557,6 +557,7 @@ if (Meteor.isServer) {
 //BOARDS REST API
 if (Meteor.isServer) {
   JsonRoutes.add('GET', '/api/boards', function (req, res, next) {
+    Authentication.checkUserId(req.userId);
     JsonRoutes.sendResult(res, {
       code: 200,
       data: Boards.find({ permission: 'public' }).map(function (doc) {
@@ -569,6 +570,7 @@ if (Meteor.isServer) {
   });
 
   JsonRoutes.add('GET', '/api/boards/:id', function (req, res, next) {
+    Authentication.checkUserId( req.userId);
     const id = req.params.id;
     JsonRoutes.sendResult(res, {
       code: 200,
@@ -577,6 +579,7 @@ if (Meteor.isServer) {
   });
 
   JsonRoutes.add('POST', '/api/boards', function (req, res, next) {
+    Authentication.checkUserId( req.userId);
     const id = Boards.insert({
       title: req.body.title,
       members: [
@@ -599,6 +602,7 @@ if (Meteor.isServer) {
   });
 
   JsonRoutes.add('DELETE', '/api/boards/:id', function (req, res, next) {
+    Authentication.checkUserId( req.userId);
     const id = req.params.id;
     Boards.remove({ _id: id });
     JsonRoutes.sendResult(res, {

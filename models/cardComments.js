@@ -84,6 +84,7 @@ if (Meteor.isServer) {
 //CARD COMMENT REST API
 if (Meteor.isServer) {
   JsonRoutes.add('GET', '/api/boards/:boardId/cards/:cardId/comments', function (req, res, next) {
+    Authentication.checkUserId( req.userId);
     const paramBoardId = req.params.boardId;
     const paramCardId = req.params.cardId;
     JsonRoutes.sendResult(res, {
@@ -99,6 +100,7 @@ if (Meteor.isServer) {
   });
 
   JsonRoutes.add('GET', '/api/boards/:boardId/cards/:cardId/comments/:commentId', function (req, res, next) {
+    Authentication.checkUserId( req.userId);
     const paramBoardId = req.params.boardId;
     const paramCommentId = req.params.commentId;
     const paramCardId = req.params.cardId;
@@ -109,6 +111,7 @@ if (Meteor.isServer) {
   });
 
   JsonRoutes.add('POST', '/api/boards/:boardId/cards/:cardId/comments', function (req, res, next) {
+    Authentication.checkUserId( req.userId);
     const paramBoardId = req.params.boardId;
     const paramCardId = req.params.cardId;
     const id = CardComments.insert({
@@ -126,6 +129,7 @@ if (Meteor.isServer) {
   });
 
   JsonRoutes.add('DELETE', '/api/boards/:boardId/cards/:cardId/comments/:commentId', function (req, res, next) {
+    Authentication.checkUserId( req.userId);
     const paramBoardId = req.params.boardId;
     const paramCommentId = req.params.commentId;
     const paramCardId = req.params.cardId;

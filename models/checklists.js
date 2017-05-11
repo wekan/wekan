@@ -177,6 +177,7 @@ if (Meteor.isServer) {
 //CARD COMMENT REST API
 if (Meteor.isServer) {
   JsonRoutes.add('GET', '/api/boards/:boardId/cards/:cardId/checklists', function (req, res, next) {
+    Authentication.checkUserId( req.userId);
     const paramCardId = req.params.cardId;
     JsonRoutes.sendResult(res, {
       code: 200,
@@ -190,6 +191,7 @@ if (Meteor.isServer) {
   });
 
   JsonRoutes.add('GET', '/api/boards/:boardId/cards/:cardId/checklists/:checklistId', function (req, res, next) {
+    Authentication.checkUserId( req.userId);
     const paramChecklistId = req.params.checklistId;
     const paramCardId = req.params.cardId;
     JsonRoutes.sendResult(res, {
@@ -199,6 +201,7 @@ if (Meteor.isServer) {
   });
 
   JsonRoutes.add('POST', '/api/boards/:boardId/cards/:cardId/checklists', function (req, res, next) {
+    Authentication.checkUserId( req.userId);
     const paramCardId = req.params.cardId;
 
     const checklistToSend = {};
@@ -221,6 +224,7 @@ if (Meteor.isServer) {
   });
 
   JsonRoutes.add('DELETE', '/api/boards/:boardId/cards/:cardId/checklists/:checklistId', function (req, res, next) {
+    Authentication.checkUserId( req.userId);
     const paramCommentId = req.params.commentId;
     const paramCardId = req.params.cardId;
     Checklists.remove({ _id: paramCommentId, cardId: paramCardId });
