@@ -1,3 +1,18 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+* [Add checklist and card comment to REST API](https://github.com/wekan/wekan/pull/1033);
+* [Add token authentication to REST API](https://github.com/wekan/wekan/pull/1033), this fixes
+  [Security flaws introduced by REST API](https://github.com/wekan/wekan/issues/1032).
+
+and fixes the following bugs:
+
+* [When Wekan starts, there's "here1 false" messages in
+  console](https://github.com/wekan/wekan/issues/1028).
+
+Thanks to GitHub user huneau for contributions.
+
 # v0.22 2017-05-07 Wekan release
 
 This release fixes the following bugs:
