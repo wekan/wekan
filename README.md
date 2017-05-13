@@ -22,11 +22,11 @@ Wekan has real-time user interface. Not all features are implemented.
 
 [Features][features]
 
+Wekan supports many [Platforms][platforms], and plan is to add more.
+
 [Integrations][integrations]
 
 [Team](https://github.com/wekan/wekan/wiki/Team)
-
-Wekan supports many [Platforms][platforms], and plan is to add more.
 
 You don’t have to trust us with your data and can install Wekan on your own
 computer or server. In fact we encourage you to do that by providing
@@ -64,50 +64,13 @@ Since Wekan is a free software, you don’t have to trust us with your data and 
 install Wekan on your own computer or server. In fact we encourage you to do
 that by providing one-click installation on various platforms.
 
-## Cleanup and stats
-
-[Wekan database cleanup script][wekan_cleanup]
-
-[Docker cleanup](https://github.com/wekan/wekan/issues/985)
-
-[Daily export of Wekan changes as JSON to Logstash and
-ElasticSearch / Kibana (ELK)][wekan_logstash]
-
-[Wekan stats][wekan_stats]
-
-## Supported Platforms
-
-Automatic generated newest builds are available for Docker, and platforms that
-install directly from this repo. Automatic builds will be added later for more
-platforms.
-
-First registered Wekan user will get [Admin Panel][features] on new 
-Docker and source based installs. You can also                            
-[enable Admin Panel manually][enable_adminpanel].
-
-[![Deploy][heroku_button]][heroku_deploy]
-[![SignUp][indiehosters_button]][indiehosters_saas]
-[![Deploy to Scalingo][scalingo_button]][scalingo_deploy]
-[![Install on Cloudron][cloudron_button]][cloudron_install]
-[![Try on Sandstorm][sandstorm_button]][sandstorm_appdemo]
-
-[VirtualBox][virtualbox]
-
-[Install via Docker](https://github.com/wekan/wekan/wiki/Docker)
-
-[Install from source][install_source]
-
-[Install from source on Windows][installsource_windows]
-
-[Debian Wheezy 64bit & Devuan Jessie 64 bit][debian_wheezy_devuan_jessie]
-
-[More Platforms, and Upcoming Platforms](https://github.com/wekan/wekan/wiki/Platforms)
-
 ## License
 
 Wekan is released under the very permissive [MIT license](LICENSE), and made
 with [Meteor](https://www.meteor.com).
 
+[platforms]: https://github.com/wekan/wekan/wiki/Platforms
+[dev_docs]: https://github.com/wekan/wekan/wiki/Developer-Documentation
 [vanila_badge]: https://vanila.io/img/join-chat-button2.png
 [vanila_chat]: https://chat.vanila.io/channel/wekan
 [screenshot_wekan]: http://i.imgur.com/cI4jW2h.png
@@ -118,36 +81,10 @@ with [Meteor](https://www.meteor.com).
 [roadmap_wefork]: https://wekan.indie.host/b/t2YaGmyXgNkppcFBq/wekan-fork-roadmap
 [wekan_issues]: https://github.com/wekan/wekan/issues
 [wefork_issues]: https://github.com/wefork/wekan/issues
-[sandstorm_button]: https://img.shields.io/badge/try-Wekan%20on%20Sandstorm-783189.svg
-[sandstorm_appdemo]: https://demo.sandstorm.io/appdemo/m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h
 [docker_image]: https://hub.docker.com/r/wekanteam/wekan/
-[heroku_button]: https://www.herokucdn.com/deploy/button.png
-[heroku_deploy]: https://heroku.com/deploy?template=https://github.com/wekan/wekan/tree/master
-[indiehosters_button]: https://indie.host/signup.png
-[indiehosters_saas]: https://indiehosters.net/shop/product/wekan-20
-[scalingo_button]: https://cdn.scalingo.com/deploy/button.svg
-[scalingo_deploy]: https://my.scalingo.com/deploy?source=https://github.com/wekan/wekan#master
-[cloudron_button]: https://cloudron.io/img/button.svg
-[cloudron_install]: https://cloudron.io/button.html?app=io.wekan.cloudronapp
-[debian_wheezy_devuan_jessie]: https://github.com/soohwa/sps/blob/master/example/docs/1/wekan.md
 [travis_badge]: https://travis-ci.org/wekan/wekan.svg?branch=meteor-1.4
 [travis_status]: https://travis-ci.org/wekan/wekan
-[install_source]: https://github.com/wekan/wekan/wiki/Install-and-Update#install-manually-from-source
-[installsource_windows]: https://github.com/wekan/wekan/wiki/Install-Wekan-from-source-on-Windows
-[virtualbox]: https://github.com/wekan/wekan/wiki/virtual-appliance
-[docker_image]: https://hub.docker.com/r/wekanteam/wekan/
 [wekan_wiki]: https://github.com/wekan/wekan/wiki
 [translate_wekan]: https://www.transifex.com/wekan/wekan/
-[autoinstall]: https://github.com/wekan/wekan-autoinstall
-[autoinstall_issue]: https://github.com/anselal/wekan/issues/18
-[dev_docs]: https://github.com/wekan/wekan/wiki/Developer-Documentation
-[wekan_mongodb]: https://github.com/wekan/wekan-mongodb
-[wekan_postgresql]: https://github.com/wekan/wekan-postgresql
-[wekan_cleanup]: https://github.com/wekan/wekan-cleanup
-[wekan_logstash]: https://github.com/wekan/wekan-logstash
-[wekan_stats]: https://github.com/wekan/wekan-stats
-[logstash_issue]: https://github.com/wekan/wekan/issues/855
-[enable_adminpanel]: https://github.com/wekan/wekan/blob/devel/CHANGELOG.md#v0111-rc2-2017-03-05-wekan-prerelease
 [open_source]: https://en.wikipedia.org/wiki/Open-source_software
 [free_software]: https://en.wikipedia.org/wiki/Free_software
-[platforms]: https://github.com/wekan/wekan/wiki/Platforms
