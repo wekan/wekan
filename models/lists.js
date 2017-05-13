@@ -132,6 +132,7 @@ if (Meteor.isServer) {
 //LISTS REST API
 if (Meteor.isServer) {
   JsonRoutes.add('GET', '/api/boards/:boardId/lists', function (req, res, next) {
+    Authentication.checkUserId( req.userId);
     const paramBoardId = req.params.boardId;
     JsonRoutes.sendResult(res, {
       code: 200,
@@ -145,6 +146,7 @@ if (Meteor.isServer) {
   });
 
   JsonRoutes.add('GET', '/api/boards/:boardId/lists/:listId', function (req, res, next) {
+    Authentication.checkUserId( req.userId);
     const paramBoardId = req.params.boardId;
     const paramListId = req.params.listId;
     JsonRoutes.sendResult(res, {
@@ -154,6 +156,7 @@ if (Meteor.isServer) {
   });
 
   JsonRoutes.add('POST', '/api/boards/:boardId/lists', function (req, res, next) {
+    Authentication.checkUserId( req.userId);
     const paramBoardId = req.params.boardId;
     const id = Lists.insert({
       title: req.body.title,
@@ -168,6 +171,7 @@ if (Meteor.isServer) {
   });
 
   JsonRoutes.add('DELETE', '/api/boards/:boardId/lists/:listId', function (req, res, next) {
+    Authentication.checkUserId( req.userId);
     const paramBoardId = req.params.boardId;
     const paramListId = req.params.listId;
     Lists.remove({ _id: paramListId, boardId: paramBoardId });
