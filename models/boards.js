@@ -556,6 +556,18 @@ if (Meteor.isServer) {
 
 //BOARDS REST API
 if (Meteor.isServer) {
+  JsonRoutes.add('GET', '/api/user/boards', function (req, res, next) {
+    // TODO: This should be changed to be less restrictive!
+    Authentication.checkUserId(req.userId);
+    
+    return Boards.find({
+      archived: false,
+      'members.userId': req.userId, // TODO: How does the current authentication system work? Can we rely on req.userId to be correct?
+    }, {
+      sort: ['title'],
+    });
+  });
+  
   JsonRoutes.add('GET', '/api/boards', function (req, res, next) {
     Authentication.checkUserId(req.userId);
     JsonRoutes.sendResult(res, {
