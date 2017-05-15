@@ -39,5 +39,14 @@ Meteor.startup(() => {
     }
   }
 
+  // Helper function. Will throw an error if the user does not have read only access to the given board
+  Authentication.checkBoardAccess = function(userId, boardId) {
+    Authentication.checkLoggedIn(userId);
+
+    const board = Boards.findOne({ _id: boardId });
+    const normalAccess = board.permission === 'public' || board.members.some(e => e.userId === userId);
+    Authentication.checkAdminOrCondition(userId, normalAccess);
+  }
+
 });
 

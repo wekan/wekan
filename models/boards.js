@@ -588,11 +588,8 @@ if (Meteor.isServer) {
   });
 
   JsonRoutes.add('GET', '/api/boards/:id', function (req, res, next) {
-    Authentication.checkLoggedIn( req.userId);
     const id = req.params.id;
-    const board = Boards.findOne({ _id: id });
-    const normalAccess = board.permission === 'public' || board.members.some(e => e._id === req.userId);
-    Authentication.checkAdminOrCondition(req.userId, normalAccess);
+    Authentication.checkBoardAccess( req.userId, id);
 
     JsonRoutes.sendResult(res, {
       code: 200,
