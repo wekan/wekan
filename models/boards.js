@@ -560,7 +560,7 @@ if (Meteor.isServer) {
     // TODO: This should be changed to be less restrictive!
     Authentication.checkUserId(req.userId);
 
-    let data = Boards.find({
+    const data = Boards.find({
         archived: false,
         'members.userId': req.userId, // TODO: How does the current authentication system work? Can we rely on req.userId to be correct?
         }, {

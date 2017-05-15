@@ -529,7 +529,7 @@ if (Meteor.isServer) {
 if (Meteor.isServer) {
   JsonRoutes.add('GET', '/api/user', function(req, res, next) {
     Authentication.checkLoggedIn(req.userId);
-    let data = Meteor.users.findOne({ _id: req.userId});
+    const data = Meteor.users.findOne({ _id: req.userId});
     delete data.services;
     JsonRoutes.sendResult(res, {
       code: 200,
