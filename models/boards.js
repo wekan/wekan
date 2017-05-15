@@ -557,7 +557,6 @@ if (Meteor.isServer) {
 //BOARDS REST API
 if (Meteor.isServer) {
   JsonRoutes.add('GET', '/api/user/boards', function (req, res, next) {
-    console.log("Running");
     // TODO: This should be changed to be less restrictive!
     Authentication.checkUserId(req.userId);
 
