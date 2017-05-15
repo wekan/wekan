@@ -557,17 +557,25 @@ if (Meteor.isServer) {
 //BOARDS REST API
 if (Meteor.isServer) {
   JsonRoutes.add('GET', '/api/user/boards', function (req, res, next) {
+    console.log("Running");
     // TODO: This should be changed to be less restrictive!
     Authentication.checkUserId(req.userId);
-    
-    return Boards.find({
-      archived: false,
-      'members.userId': req.userId, // TODO: How does the current authentication system work? Can we rely on req.userId to be correct?
-    }, {
-      sort: ['title'],
+
+    let data = Boards.find({
+        archived: false,
+        'members.userId': req.userId, // TODO: How does the current authentication system work? Can we rely on req.userId to be correct?
+        }, {
+        sort: ['title'],
+      }).map(function(board) {
+        return {
+          _id: board._id,
+          title: board._title
+        }
     });
+
+    JsonRoutes.sendResult(res, {code: 200, data});
   });
-  
+
   JsonRoutes.add('GET', '/api/boards', function (req, res, next) {
     Authentication.checkUserId(req.userId);
     JsonRoutes.sendResult(res, {
@@ -624,5 +632,4 @@ if (Meteor.isServer) {
       },
     });
   });
-
 }
