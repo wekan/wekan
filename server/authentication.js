@@ -17,5 +17,15 @@ Meteor.startup(() => {
 
   };
 
+  // This will only check if the user is logged in.
+  // The authorization checks for the user will have to be done inside each API endpoint
+  Authentication.checkLoggedIn = function(userId) {
+    if(userId === undefined) {
+      const error = new Meteor.Error('Unauthorized', 'Unauthorized');
+      error.statusCode = 401;
+      throw error;
+    }
+  };
+
 });
 
