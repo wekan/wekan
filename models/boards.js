@@ -562,13 +562,13 @@ if (Meteor.isServer) {
 
     const data = Boards.find({
         archived: false,
-        'members.userId': req.userId, // TODO: How does the current authentication system work? Can we rely on req.userId to be correct?
+        'members.userId': req.userId,
         }, {
         sort: ['title'],
       }).map(function(board) {
         return {
           _id: board._id,
-          title: board._title
+          title: board.title
         }
     });
 
