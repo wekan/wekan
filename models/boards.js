@@ -557,7 +557,6 @@ if (Meteor.isServer) {
 //BOARDS REST API
 if (Meteor.isServer) {
   JsonRoutes.add('GET', '/api/user/boards', function (req, res, next) {
-    // TODO: This should be changed to be less restrictive!
     Authentication.checkLoggedIn(req.userId);
 
     const data = Boards.find({
@@ -589,8 +588,12 @@ if (Meteor.isServer) {
   });
 
   JsonRoutes.add('GET', '/api/boards/:id', function (req, res, next) {
-    Authentication.checkUserId( req.userId);
+    Authentication.checkLoggedIn( req.userId);
     const id = req.params.id;
+    const board = Boards.findOne({ _id: id });
+    const normalAccess = board.permission === 'public' || board.members.some(e => e._id === req.userId);
+    Authentication.checkAdminOrCondition(req.userId, normalAccess);
+
     JsonRoutes.sendResult(res, {
       code: 200,
       data: Boards.findOne({ _id: id }),
