@@ -558,7 +558,7 @@ if (Meteor.isServer) {
 if (Meteor.isServer) {
   JsonRoutes.add('GET', '/api/user/boards', function (req, res, next) {
     // TODO: This should be changed to be less restrictive!
-    Authentication.checkUserId(req.userId);
+    Authentication.checkLoggedIn(req.userId);
 
     const data = Boards.find({
         archived: false,
