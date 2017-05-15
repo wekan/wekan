@@ -533,7 +533,7 @@ if (Meteor.isServer) {
     delete data.services;
     JsonRoutes.sendResult(res, {
       code: 200,
-      data
+      data,
     });
   });
 

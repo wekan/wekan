@@ -560,15 +560,15 @@ if (Meteor.isServer) {
     Authentication.checkLoggedIn(req.userId);
 
     const data = Boards.find({
-        archived: false,
-        'members.userId': req.userId,
-        }, {
-        sort: ['title'],
-      }).map(function(board) {
-        return {
-          _id: board._id,
-          title: board.title
-        }
+      archived: false,
+      'members.userId': req.userId,
+    }, {
+      sort: ['title'],
+    }).map(function(board) {
+      return {
+        _id: board._id,
+        title: board.title,
+      };
     });
 
     JsonRoutes.sendResult(res, {code: 200, data});
