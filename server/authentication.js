@@ -27,5 +27,17 @@ Meteor.startup(() => {
     }
   };
 
+  // An admin should be authorized to access everything, so we use a separate check for admins
+  // This throws an error if otherReq is false and the user is not an admin
+  Authentication.checkAdminOrCondition = function(userId, otherReq) {
+    if(otherReq) return;
+    const admin = Users.findOne({ _id: userId, isAdmin: true });
+    if (admin === undefined) {
+      const error = new Meteor.Error('Forbidden', 'Forbidden');
+      error.statusCode = 403;
+      throw error;
+    }
+  }
+
 });
 
