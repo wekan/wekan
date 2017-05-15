@@ -82,7 +82,7 @@ with [Meteor](https://www.meteor.com).
 [wekan_issues]: https://github.com/wekan/wekan/issues
 [wefork_issues]: https://github.com/wefork/wekan/issues
 [docker_image]: https://hub.docker.com/r/wekanteam/wekan/
-[travis_badge]: https://travis-ci.org/wekan/wekan.svg?branch=meteor-1.4
+[travis_badge]: https://travis-ci.org/wekan/wekan.svg?branch=devel
 [travis_status]: https://travis-ci.org/wekan/wekan
 [wekan_wiki]: https://github.com/wekan/wekan/wiki
 [translate_wekan]: https://www.transifex.com/wekan/wekan/
