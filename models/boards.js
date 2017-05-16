@@ -556,7 +556,7 @@ if (Meteor.isServer) {
 
 //BOARDS REST API
 if (Meteor.isServer) {
-  JsonRoutes.add('GET', '/api/user/:userId/boards', function (req, res, next) {
+  JsonRoutes.add('GET', '/api/users/:userId/boards', function (req, res, next) {
     Authentication.checkLoggedIn(req.userId);
     const paramUserId = req.params.userId;
     // A normal user should be able to see their own boards,
