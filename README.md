@@ -4,6 +4,8 @@
 
 Freenode IRC #wekan
 
+[![Wekan chat][vanila_badge]][vanila_chat]
+
 [Translate Wekan at Transifex][translate_wekan]
 
 Please read [FAQ](https://github.com/wekan/wekan/wiki/FAQ).
@@ -86,3 +88,5 @@ with [Meteor](https://www.meteor.com).
 [translate_wekan]: https://www.transifex.com/wekan/wekan/
 [open_source]: https://en.wikipedia.org/wiki/Open-source_software
 [free_software]: https://en.wikipedia.org/wiki/Free_software
+[vanila_badge]: https://vanila.io/img/join-chat-button2.png
+[vanila_chat]: https://chat.vanila.io/channel/wekan
