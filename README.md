@@ -2,7 +2,7 @@
 
 [![Wekan Build Status][travis_badge]][travis_status]
 
-[![Wekan chat][vanila_badge]][vanila_chat]
+Freenode IRC #wekan
 
 [Translate Wekan at Transifex][translate_wekan]
 
@@ -71,8 +71,6 @@ with [Meteor](https://www.meteor.com).
 
 [platforms]: https://github.com/wekan/wekan/wiki/Platforms
 [dev_docs]: https://github.com/wekan/wekan/wiki/Developer-Documentation
-[vanila_badge]: https://vanila.io/img/join-chat-button2.png
-[vanila_chat]: https://chat.vanila.io/channel/wekan
 [screenshot_wekan]: http://i.imgur.com/cI4jW2h.png
 [screenshot_wefork]: http://i.imgur.com/lzvpeS9.png
 [features]: https://github.com/wekan/wekan/wiki/Features
