@@ -10,7 +10,8 @@ This release adds the following new features:
 and fixes the following bugs:
 
 * [When Wekan starts, there's "here1 false" messages in
-  console](https://github.com/wekan/wekan/issues/1028).
+  console](https://github.com/wekan/wekan/issues/1028);
+* [IE11 problem when closing cards, sidebar etc](https://github.com/wekan/wekan/pull/1042).
 
 Thanks to GitHub users huneau and nztqa for their contributions.
 
