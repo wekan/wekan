@@ -5,6 +5,7 @@ This release adds the following new features:
 * [Add checklist and card comment to REST API](https://github.com/wekan/wekan/pull/1033);
 * [Add token authentication to REST API](https://github.com/wekan/wekan/pull/1033), this fixes
   [Security flaws introduced by REST API](https://github.com/wekan/wekan/issues/1032);
+* [Authorization improvements etc to REST API](https://github.com/wekan/wekan/pull/1041);
 * [IE 11 support in unicode filename downloads](https://github.com/wekan/wekan/issues/1031).
 
 and fixes the following bugs:
@@ -13,7 +14,7 @@ and fixes the following bugs:
   console](https://github.com/wekan/wekan/issues/1028);
 * [IE11 problem when closing cards, sidebar etc](https://github.com/wekan/wekan/pull/1042).
 
-Thanks to GitHub users huneau and nztqa for their contributions.
+Thanks to GitHub users huneau, mayjs and nztqa for their contributions.
 
 # v0.22 2017-05-07 Wekan release
 
