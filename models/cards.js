@@ -373,9 +373,9 @@ if (Meteor.isServer) {
 //LISTS REST API
 if (Meteor.isServer) {
   JsonRoutes.add('GET', '/api/boards/:boardId/lists/:listId/cards', function (req, res, next) {
-    Authentication.checkUserId( req.userId);
     const paramBoardId = req.params.boardId;
     const paramListId = req.params.listId;
+    Authentication.checkBoardAccess( req.userId, paramBoardId);
     JsonRoutes.sendResult(res, {
       code: 200,
       data: Cards.find({ boardId: paramBoardId, listId: paramListId, archived: false }).map(function (doc) {
@@ -389,10 +389,10 @@ if (Meteor.isServer) {
   });
 
   JsonRoutes.add('GET', '/api/boards/:boardId/lists/:listId/cards/:cardId', function (req, res, next) {
-    Authentication.checkUserId( req.userId);
     const paramBoardId = req.params.boardId;
     const paramListId = req.params.listId;
     const paramCardId = req.params.cardId;
+    Authentication.checkBoardAccess( req.userId, paramBoardId);
     JsonRoutes.sendResult(res, {
       code: 200,
       data: Cards.findOne({ _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false }),
