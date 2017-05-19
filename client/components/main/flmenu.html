@@ -1,0 +1,121 @@
+<template name="flmenu">
+<div id="fl-menu">
+  <style>
+  /*! normalize.css v3.0.2 | MIT License | git.io/normalize */#fl-menu html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}#fl-menu{margin:0}#fl-menu nav{display:block}#fl-menu a{background-color:transparent}#fl-menu a:active,#fl-menu a:hover{outline:0}#fl-menu button::-moz-focus-inner,#fl-menu input::-moz-focus-inner{border:0;padding:0}#fl-menu html{box-sizing:border-box}#fl-menu *,#fl-menu *:before,#fl-menu *:after{box-sizing:inherit}#fl-menu ul{list-style-type:none}#fl-menu a{color:#dd2c00;text-decoration:none;-webkit-tap-highlight-color:transparent}#fl-menu ul{padding:0}#fl-menu ul li{list-style-type:none}#fl-menu nav,#fl-menu .dropdown-content,#fl-menu .side-nav{-webkit-box-shadow:0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);-moz-box-shadow:0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);box-shadow:0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)}#fl-menu i{line-height:inherit}@media only screen and (max-width: 600px){#fl-menu .hide-on-small-and-down{display:none !important}}@media only screen and (max-width: 992px){#fl-menu .hide-on-med-and-down{display:none !important}}#fl-menu .left{float:left !important}#fl-menu .right{float:right !important}@font-face{font-family:"Material-Design-Icons";src:url("/fonts/material-design-icons/Material-Design-Icons.eot?#iefix") format("embedded-opentype"),url("/fonts/material-design-icons/Material-Design-Icons.woff2") format("woff2"),url("/fonts/material-design-icons/Material-Design-Icons.woff") format("woff"),url("/fonts/material-design-icons/Material-Design-Icons.ttf") format("truetype"),url("/fonts/material-design-icons/Material-Design-Icons.svg#Material-Design-Icons") format("svg");font-weight:normal;font-style:normal}#fl-menu [class^="mdi-"]{font-family:"Material-Design-Icons";speak:none;font-style:normal;font-weight:normal;font-variant:normal;text-transform:none;text-rendering:auto;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}#fl-menu .mdi-action-account-circle:before{content:"\e606"}#fl-menu .mdi-action-event:before{content:"\e625"}#fl-menu .mdi-action-home:before{content:"\e636"}#fl-menu .mdi-action-info:before{content:"\e638"}#fl-menu .mdi-action-list:before{content:"\e640"}#fl-menu .mdi-maps-map:before{content:"\e887"}#fl-menu .mdi-navigation-menu:before{content:"\e8a1"}#fl-menu .mdi-social-mood:before{content:"\e8ce"}#fl-menu .mdi-social-public:before{content:"\e8dd"}#fl-menu nav{color:#fff;background-color:#f57c00;width:100%;height:56px;line-height:56px}#fl-menu nav a{color:#fff}#fl-menu nav .nav-wrapper{position:relative;height:100%}#fl-menu nav .nav-wrapper i{display:block;font-size:2rem}@media only screen and (min-width: 601px){#fl-menu nav a.button-collapse{display:none}}#fl-menu nav .button-collapse{float:left;position:relative;z-index:1;height:56px}#fl-menu nav .button-collapse i{font-size:2.7rem;height:56px;line-height:56px}#fl-menu nav .brand-logo{position:absolute;left:0;color:#fff;display:inline-block;font-size:2.1rem;padding:0 15px}#fl-menu nav ul{margin:0}@media only screen and (min-width: 993px){#fl-menu nav ul.left{margin-left:160px}}#fl-menu nav ul li{-webkit-transition:background-color 0.3s;-moz-transition:background-color 0.3s;-o-transition:background-color 0.3s;-ms-transition:background-color 0.3s;transition:background-color 0.3s;float:left;padding:0}#fl-menu nav ul li:hover,#fl-menu nav ul li.active{background-color:rgba(0,0,0,0.1)}#fl-menu nav ul li.text-icon a>i{text-align:center;height:0 !important;line-height:45px !important;font-size:1.4rem}#fl-menu nav ul li.text-icon a>span{position:relative;top:12px}#fl-menu nav ul a{font-size:1rem;color:#fff;display:block;padding:0 15px}#fl-menu nav ul.left{float:left}@media only screen and (min-width: 601px){#fl-menu nav,#fl-menu nav .nav-wrapper i,#fl-menu nav a.button-collapse,#fl-menu nav a.button-collapse i{height:64px;line-height:64px}}#fl-menu .dropdown-content{background-color:#FFFFFF;margin:0;display:none;min-width:100px;max-height:650px;overflow-y:auto;opacity:0;position:absolute;white-space:nowrap;z-index:2;will-change:width, height}#fl-menu .dropdown-content li{clear:both;color:rgba(0,0,0,0.87);cursor:pointer;line-height:1.5rem;width:100%;text-align:left;text-transform:none}#fl-menu .dropdown-content li:hover{background-color:#eee}#fl-menu .dropdown-content li>a{font-size:1.2rem;color:#e65100;display:block;padding:1rem 1rem}#fl-menu .side-nav{position:fixed;width:240px;left:-105%;top:0;margin:0;height:100%;height:calc(100% + 60px);height:-moz-calc(100%);padding-bottom:60px;background-color:#FFF;z-index:1001;overflow-y:auto;will-change:left}#fl-menu .side-nav li{float:none;padding:0 15px}#fl-menu .side-nav li:hover,#fl-menu .side-nav li.active{background-color:#ddd}#fl-menu .side-nav a{color:#444;display:block;font-size:1rem;height:64px;line-height:64px;padding:0 15px}@font-face{font-family:"Hobo";src:url("/fonts/hobo/hobo.ttf") format("truetype");font-weight:400}#fl-menu .brand-logo{font-family:"Hobo", sans-serif}
+    html, body { margin: 0; padding: 0; }
+  </style>
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.2/js/materialize.min.js"></script>
+  <script>
+   (function($){
+     $(function(){
+
+       $('.dropdown-button').dropdown({
+         inDuration: 300,
+         outDuration: 225,
+         constrain_width: false,
+         hover: false,
+         alignment: 'right',
+         gutter: 0,
+         belowOrigin: true
+       });
+
+       $('.button-collapse').sideNav({menuWidth: 240, activationWidth: 70});
+
+     }); // end of document ready
+   })(jQuery); // end of jQuery name space
+  </script>
+  <nav>
+    <div class="nav-wrapper">
+        <a class="brand-logo hide-on-med-and-down left" href="http://focallocal.org">Focallocal</a>
+        <ul class="hide-on-small-and-down left">
+            <li class="text-icon">
+                <a href="http://focallocal.org/about-us/" title="About">
+                    <i class="mdi-action-info"></i>
+                    <span>About</span>
+                </a>
+            </li>
+            <li class="text-icon">
+                <a href="http://focallocal.org/" title="News">
+                    <i class="mdi-social-public"></i>
+                    <span>News</span>
+                </a>
+            </li>
+            <li class="text-icon">
+                <a href="http://focallocal.org/what-we-do-what-you-can-do/" title="Activities">
+                    <i class="mdi-social-mood"></i>
+                    <span>Activities</span>
+                </a>
+            </li>
+            <li class="text-icon">
+                <a href="http://focallocal.org/events/" title="Events">
+                    <i class="mdi-action-event"></i>
+                    <span>Events</span>
+                </a>
+            </li>
+        </ul>
+
+
+        <ul class="right">
+          <li class="text-icon">
+            <a href="http://focallocal.org/events" title="Home">
+              <i class="mdi-action-home"></i>
+              <span>Home</span>
+            </a>
+          </li>
+          <li class="text-icon">
+            <a href="http://focallocal.org/events/map" title="Map">
+              <i class="mdi-maps-map"></i>
+              <span>Map</span>
+            </a>
+          </li>
+          <li class="text-icon">
+            <a href="http://focallocal.org/events/list" title="Calendar">
+              <i class="mdi-action-list"></i>
+              <span>Calendar</span>
+            </a>
+          </li>
+          <li class="">
+              <a class="dropdown-button" href="#!" data-activates="user-dropdown">
+                  <i class="mdi-action-account-circle"></i>
+              </a>
+          </li>
+        </ul>
+        <ul id="user-dropdown" class="dropdown-content">
+            <!-- @TODO: show 'logout' link if current user is logged in -->
+              <li><a hre="http://focallocal.org/sign-in">Log in</a></li>
+            <li><a href="http://focallocal.org/sign-up">Register</a></li>
+        </ul>
+
+        <a class="button-collapse" href="#" data-activates="nav-mobile"><i class="mdi-navigation-menu"></i></a>
+      </div>
+  </nav>
+
+  <ul id="nav-mobile" class="side-nav">
+      <li class="bold">
+          <a href="http://focallocal.org/about-us/" title="About">
+              <i class="mdi-action-info"></i>
+              <span>About</span>
+          </a>
+      </li>
+      <li class="bold">
+          <a href="http://focallocal.org/" title="News">
+              <i class="mdi-social-public"></i>
+              <span>News</span>
+          </a>
+      </li>
+      <li class="bold">
+          <a href="http://focallocal.org/what-we-do-what-you-can-do/" title="Activities">
+              <i class="mdi-social-mood"></i>
+              <span>Activities</span>
+          </a>
+      </li>
+      <li class="bold active">
+          <a href="http://focalloca.org/events" title="Events">
+              <i class="mdi-action-event"></i>
+              <span>Events</span>
+          </a>
+      </li>
+  </ul>
+</div>
+</template>
