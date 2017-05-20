@@ -134,3 +134,7 @@ $(document).on('click', (evt) => {
     EscapeActions.clickExecute(evt.target, 'multiselection');
   }
 });
+
+$(document).on('click', 'a[href=#]',  (evt) => {
+  evt.preventDefault();
+});

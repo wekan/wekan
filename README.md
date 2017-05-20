@@ -2,6 +2,8 @@
 
 [![Wekan Build Status][travis_badge]][travis_status]
 
+Freenode IRC #wekan
+
 [![Wekan chat][vanila_badge]][vanila_chat]
 
 [Translate Wekan at Transifex][translate_wekan]
@@ -71,8 +73,6 @@ with [Meteor](https://www.meteor.com).
 
 [platforms]: https://github.com/wekan/wekan/wiki/Platforms
 [dev_docs]: https://github.com/wekan/wekan/wiki/Developer-Documentation
-[vanila_badge]: https://vanila.io/img/join-chat-button2.png
-[vanila_chat]: https://chat.vanila.io/channel/wekan
 [screenshot_wekan]: http://i.imgur.com/cI4jW2h.png
 [screenshot_wefork]: http://i.imgur.com/lzvpeS9.png
 [features]: https://github.com/wekan/wekan/wiki/Features
@@ -82,9 +82,11 @@ with [Meteor](https://www.meteor.com).
 [wekan_issues]: https://github.com/wekan/wekan/issues
 [wefork_issues]: https://github.com/wefork/wekan/issues
 [docker_image]: https://hub.docker.com/r/wekanteam/wekan/
-[travis_badge]: https://travis-ci.org/wekan/wekan.svg?branch=meteor-1.4
+[travis_badge]: https://travis-ci.org/wekan/wekan.svg?branch=devel
 [travis_status]: https://travis-ci.org/wekan/wekan
 [wekan_wiki]: https://github.com/wekan/wekan/wiki
 [translate_wekan]: https://www.transifex.com/wekan/wekan/
 [open_source]: https://en.wikipedia.org/wiki/Open-source_software
 [free_software]: https://en.wikipedia.org/wiki/Free_software
+[vanila_badge]: https://vanila.io/img/join-chat-button2.png
+[vanila_chat]: https://chat.vanila.io/channel/wekan
