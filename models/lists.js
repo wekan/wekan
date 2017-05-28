@@ -127,6 +127,45 @@ if (Meteor.isServer) {
       });
     }
   });
+
+  Meteor.methods({
+    cloneList(targetId) {
+      check(targetId, String);
+
+      const targetList = Lists.findOne(targetId);
+      if (!targetList) throw new Meteor.Error('error-board-doesNotExist');
+
+      const board = Boards.findOne(targetList.boardId);
+      const userId = Meteor.userId();
+      if (board.permission === 'private' && !board.hasMember(userId)) throw new Meteor.Error('error-board-notAMember');
+
+      // copy list
+      const copyList = _.omit(targetList, ['_id', 'createdAt', 'updateAt', '__proto__']);
+      copyList.createdAt = new Date();
+      const list = Lists.insert(copyList);
+
+      // copy cards
+      const targetCards = Cards.find({listId: targetId, archived: false}, {sort: ['sort']}).fetch();
+      targetCards.forEach((targetCard) => {
+        const copyCard = _.omit(targetCard, ['_id', 'listId', 'createdAt', 'updateAt', '__proto__']);
+        copyCard.listId = list;
+        copyCard.createdAt = new Date();
+        const card = Cards.insert(copyCard);
+
+        // copy checklists
+        const targetCheckLists = Checklists.find({cardId: targetCard._id}).fetch();
+        targetCheckLists.forEach((targetCheckList) => {
+          const copyCheckList = _.omit(targetCheckList, ['_id', 'createdAt']);
+          copyCheckList.cardId = card;
+          copyCheckList.createdAt = new Date();
+          Checklists.insert(copyCheckList);
+        });
+
+      });
+
+      return true;
+    }
+  })
 }
 
 //LISTS REST API

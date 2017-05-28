@@ -276,6 +276,7 @@
     "remove-from-board": "Remove from Board",
     "remove-label": "Remove the label",
     "remove-list": "Remove the list",
+    "remove-clone": "Clone the list",
     "remove-member": "Remove Member",
     "remove-member-from-card": "Remove from Card",
     "remove-member-pop": "Remove __name__ (__username__) from __boardTitle__? The member will be removed from all cards on this board. They will receive a notification.",
