@@ -276,6 +276,7 @@
     "remove-from-board": "ボードから外す",
     "remove-label": "ラベルを外す",
     "remove-list": "リストの除去",
+    "clone-list": "リストのコピーを作成",
     "remove-member": "メンバーを外す",
     "remove-member-from-card": "カードから外す",
     "remove-member-pop": "__boardTitle__ から __name__ (__username__) を外しますか？メンバーはこのボードのすべてのカードから外れ、通知を受けます。",

@@ -66,4 +66,13 @@ Template.listActionPopup.events({
     Lists.remove(currentList._id);
     Popup.close();
   },
+  'click .js-clone-list'(evt) {
+    const currentList = this;
+    evt.preventDefault();
+    Meteor.call('cloneList', currentList._id, (err, ret) => {
+      if (!err && ret) {
+        Popup.close();
+      }
+    });
+  },
 });
