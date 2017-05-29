@@ -8,7 +8,7 @@ Freenode IRC #wekan
 
 [Translate Wekan at Transifex][translate_wekan]
 
-[Bounty for implementing feature](https://www.bountysource.com/teams/wekanteam)
+[Open Hub analysis of Wekan code](https://www.openhub.net/p/wekan)
 
 Please read [FAQ](https://github.com/wekan/wekan/wiki/FAQ).
 Please don't feed the trolls and spammers that are mentioned in the FAQ :)
