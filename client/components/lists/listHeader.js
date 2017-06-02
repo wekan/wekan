@@ -40,7 +40,7 @@ Template.listActionPopup.events({
     const listDom = document.getElementById(`js-list-${this._id}`);
     const listComponent = BlazeComponent.getComponentForElement(listDom);
     listComponent.openForm({
-      position: 'top'
+      position: 'top',
     });
     Popup.close();
   },
