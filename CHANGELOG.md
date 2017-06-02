@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+* [Change the way to delete a list (card-like)](https://github.com/wekan/wekan/pull/1050)
+
+Thanks to GitHub users BaobabCoder for contributions.
+
 # v0.23 2017-05-21 Wekan release
 
 This release adds the following new features:
