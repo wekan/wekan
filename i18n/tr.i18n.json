@@ -276,7 +276,7 @@
     "remove-cover": "Remove Cover",
     "remove-from-board": "Remove from Board",
     "remove-label": "Remove the label",
-    "remove-list": "Remove the list",
+    "listDeletePopup-title": "Delete the list ?",
     "remove-member": "Üyeyi Çıkar",
     "remove-member-from-card": "Karttan Çıkar",
     "remove-member-pop": "__boardTitle__ panosundan __name__ (__username__) çıkarılsın mı? Üye, bu panodaki tüm kartlardan çıkarılacak ve bir bildirim alacak.",

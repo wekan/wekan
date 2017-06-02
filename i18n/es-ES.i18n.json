@@ -272,7 +272,7 @@
     "remove-cover": "Eliminar cubierta",
     "remove-from-board": "Eliminar del tablero",
     "remove-label": "Eliminar etiqueta",
-    "listDeletePopup-title": "Remove the list",
+    "listDeletePopup-title": "Delete the list ?",
     "remove-member": "Eliminar Miembro",
     "remove-member-from-card": "Eliminar de la Tarjeta",
     "remove-member-pop": "Eliminar  __name__ (__username__) de __boardTitle__? El miembro será eliminado de todas las tarjetas de este tablero. Ellos recibirán una notificación.",

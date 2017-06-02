@@ -276,7 +276,7 @@
     "remove-cover": "Elimina coberta",
     "remove-from-board": "Elimina del tauler",
     "remove-label": "Eliminia etiqueta",
-    "remove-list": "Elimina la llista",
+    "listDeletePopup-title": "Elimina la llista",
     "remove-member": "Elimina membre",
     "remove-member-from-card": "Elimina de la fitxa",
     "remove-member-pop": "Eliminar  __name__ (__username__) de __boardTitle__ ? El membre serà eliminat de totes les fitxes d'aquest tauler. Ells rebran una notificació.",

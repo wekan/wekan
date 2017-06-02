@@ -276,7 +276,7 @@
     "remove-cover": "커버 제거",
     "remove-from-board": "Remove from Board",
     "remove-label": "Remove the label",
-    "remove-list": "Remove the list",
+    "listDeletePopup-title": "Delete the list ?",
     "remove-member": "멤버 제거",
     "remove-member-from-card": "카드에서 제거",
     "remove-member-pop": "__boardTitle__에서 __name__(__username__) 을 제거합니까? 그 멤버는 이 보드의 모든 카드에서 제거됩니다. 그에대한 알람을 받게됩니다.",

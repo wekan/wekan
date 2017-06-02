@@ -276,7 +276,7 @@
     "remove-cover": "Odstranit obal",
     "remove-from-board": "Odstranit z tabla",
     "remove-label": "Odstranit štítek",
-    "remove-list": "Remove the list",
+    "listDeletePopup-title": "Delete the list ?",
     "remove-member": "Odebrat uživatele",
     "remove-member-from-card": "Odstranit z karty",
     "remove-member-pop": "Odstranit __name__ (__username__) z __boardTitle__? Uživatel bude odebrán ze všech karet na tomto tablu. Na tuto skutečnost bude upozorněn.",

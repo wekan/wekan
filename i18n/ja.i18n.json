@@ -276,7 +276,7 @@
     "remove-cover": "カバーの削除",
     "remove-from-board": "Remove from Board",
     "remove-label": "Remove the label",
-    "remove-list": "Remove the list",
+    "listDeletePopup-title": "Delete the list ?",
     "remove-member": "メンバーを外す",
     "remove-member-from-card": "カードから取り除く",
     "remove-member-pop": "__boardTitle__ から __name__ (__username__) を外しますか？メンバーはこのボードのすべてのカードから外れ、通知を受けます。",

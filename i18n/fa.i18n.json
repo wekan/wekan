@@ -276,7 +276,7 @@
     "remove-cover": "حذف کاور",
     "remove-from-board": "حذف از برد",
     "remove-label": "حذف برچسب",
-    "listDeletePopup-title": "Remove the list",
+    "listDeletePopup-title": "Delete the list ?",
     "remove-member": "حذف عضو",
     "remove-member-from-card": "حذف از کارت",
     "remove-member-pop": "آیا می خواهید __Name__ (__username__) را از __boardTitle__ حذف کنید? کاربر از تمام کارت ها در این تخته حذف خواهد شد و به آنها اطلاع رسانی خواهد شد.",

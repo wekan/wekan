@@ -276,7 +276,7 @@
     "remove-cover": "Открепить",
     "remove-from-board": "Удалить с доски",
     "remove-label": "Удалить метку",
-    "remove-list": "Remove the list",
+    "listDeletePopup-title": "Delete the list ?",
     "remove-member": "Удалить участника",
     "remove-member-from-card": "Удалить из карточки",
     "remove-member-pop": "Удалить участника __name__ (__username__) из доски __boardTitle__? Участник будет удален из всех карточек. Также он получит уведомление о совершаемом действии.",
