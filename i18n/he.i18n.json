@@ -228,6 +228,8 @@
     "listActionPopup-title": "פעולות רשימה",
     "listImportCardPopup-title": "ייבא כרטיס מטרלו",
     "listMorePopup-title": "עוד",
+    "list-delete-pop": "All actions will be removed from the activity feed and you won't be able to recover the list. There is no undo.",
+    "list-delete-suggest-archive": "You can archive a list to remove it from the board and preserve the activity.",
     "link-list": "Link to this list",
     "lists": "רשימות",
     "log-out": "התנתק",

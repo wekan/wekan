@@ -229,6 +229,8 @@
     "listImportCardPopup-title": "Import a Trello card",
     "listMorePopup-title": "More",
     "link-list": "Link to this list",
+    "list-delete-pop": "All actions will be removed from the activity feed and you won't be able to recover the list. There is no undo.",
+    "list-delete-suggest-archive": "You can archive a list to remove it from the board and preserve the activity.",
     "lists": "Lists",
     "log-out": "Log Out",
     "log-in": "Log In",

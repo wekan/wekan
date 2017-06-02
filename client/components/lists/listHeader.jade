@@ -55,7 +55,7 @@ template(name="listMorePopup")
       input.inline-input(type="text" readonly value="{{ rootUrl }}")
     | {{_ 'added'}}
     span.date(title=list.createdAt) {{ moment createdAt 'LLL' }}
-    a.js-delete(title="{{_ 'list-delete-notice'}}") {{_ 'delete'}}
+    a.js-delete {{_ 'delete'}}
 
 template(name="listDeletePopup")
   p {{_ "list-delete-pop"}}
