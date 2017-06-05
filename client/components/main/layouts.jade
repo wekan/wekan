@@ -16,6 +16,9 @@ template(name="userFormsLayout")
     section.auth-dialog
       +Template.dynamic(template=content)
       div.at-form-lang
+      
+        | {{> loginButtons}}
+        
         select.select-lang.js-userform-set-language
           each languages
             if isCurrentLanguage
