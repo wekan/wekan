@@ -5,7 +5,11 @@ This release adds the following new features:
 * [Change the way to delete a list (card-like)](https://github.com/wekan/wekan/pull/1050), fixes
   [missing undo button](https://github.com/wekan/wekan/issues/1023).
 
-Thanks to GitHub users BaobabCoder for contributions.
+and fixes the following bugs:
+
+* [Fix IE 11 drag board to scroll](https://github.com/wekan/wekan/pull/1052).
+
+Thanks to GitHub users BaobabCoder and nztqa for their contributions.
 
 # v0.23 2017-05-21 Wekan release
 
