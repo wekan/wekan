@@ -3,7 +3,8 @@
 This release adds the following new features:
 
 * [Change the way to delete a list (card-like)](https://github.com/wekan/wekan/pull/1050), fixes
-  [missing undo button](https://github.com/wekan/wekan/issues/1023).
+  [missing undo button](https://github.com/wekan/wekan/issues/1023);
+* [When deleting list, delete list's cards too](https://github.com/wekan/wekan/pull/1054).
 
 and fixes the following bugs:
 
