@@ -23,6 +23,7 @@ ENV SRC_PATH ${SRC_PATH:-./}
 
 # Copy the app to the image
 COPY ${SRC_PATH} /home/wekan/app
+ENV PACKAGE_DIRS="${SRC_PATH}/packages"
 
 RUN \
     # Add non-root user wekan
