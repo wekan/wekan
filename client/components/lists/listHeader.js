@@ -68,6 +68,7 @@ Template.listActionPopup.events({
 Template.listMorePopup.events({
   'click .js-delete': Popup.afterConfirm('listDelete', function () {
     Popup.close();
+    this.allCards().map((card) => Cards.remove(card._id));
     Lists.remove(this._id);
     Utils.goBoardId(this.boardId);
   }),
