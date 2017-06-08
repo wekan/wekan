@@ -20,7 +20,7 @@
   },
   "homepage": "https://wekan.github.io",
   "devDependencies": {
-    "eslint": "^2.0.0"
+    "eslint": "^3.15.0"
   },
   "dependencies": {
     "babel-runtime": "^6.23.0",
