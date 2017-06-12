@@ -9,33 +9,33 @@ if (Meteor.isServer) {
   /*
    * This route is used to export the board FROM THE APPLICATION.
    * If user is already logged-in, pass loginToken as param "authToken":
-   * '/api/boards/:boardId?authToken=:token'
+   * '/api/boards/:boardId/export?authToken=:token'
    *
    * See https://blog.kayla.com.au/server-side-route-authentication-in-meteor/
    * for detailed explanations
    */
-  // JsonRoutes.add('get', '/api/boards/:boardId', function (req, res) {
-  //   const boardId = req.params.boardId;
-  //   let user = null;
-  //   // todo XXX for real API, first look for token in Authentication: header
-  //   // then fallback to parameter
-  //   const loginToken = req.query.authToken;
-  //   if (loginToken) {
-  //     const hashToken = Accounts._hashLoginToken(loginToken);
-  //     user = Meteor.users.findOne({
-  //       'services.resume.loginTokens.hashedToken': hashToken,
-  //     });
-  //   }
+  JsonRoutes.add('get', '/api/boards/:boardId/export', function (req, res) {
+    const boardId = req.params.boardId;
+    let user = null;
+    // todo XXX for real API, first look for token in Authentication: header
+    // then fallback to parameter
+    const loginToken = req.query.authToken;
+    if (loginToken) {
+      const hashToken = Accounts._hashLoginToken(loginToken);
+      user = Meteor.users.findOne({
+        'services.resume.loginTokens.hashedToken': hashToken,
+      });
+    }
 
-  //   const exporter = new Exporter(boardId);
-  //   if(exporter.canExport(user)) {
-  //     JsonRoutes.sendResult(res, 200, exporter.build());
-  //   } else {
-  //     // we could send an explicit error message, but on the other hand the only
-  //     // way to get there is by hacking the UI so let's keep it raw.
-  //     JsonRoutes.sendResult(res, 403);
-  //   }
-  // });
+    const exporter = new Exporter(boardId);
+    if(exporter.canExport(user)) {
+      JsonRoutes.sendResult(res, { code: 200, data: exporter.build() });
+    } else {
+      // we could send an explicit error message, but on the other hand the only
+      // way to get there is by hacking the UI so let's keep it raw.
+      JsonRoutes.sendResult(res, 403);
+    }
+  });
 }
 
 class Exporter {
