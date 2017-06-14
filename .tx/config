@@ -39,7 +39,7 @@ host = https://www.transifex.com
 # tap:i18n requires us to use `-` separator in the language identifiers whereas
 # Transifex uses a `_` separator, without an option to customize it on one side
 # or the other, so we need to do a Manual mapping.
-lang_map = es_ES:es-ES, fa_IR:fa, fi_FI:fi, hu_HU:hu, pt_BR:pt-BR, ro_RO:ro, zh_CN:zh-CN, zh_TW:zh-TW
+lang_map = en_GB:en-GB, es_ES:es-ES, fa_IR:fa, fi_FI:fi, hu_HU:hu, pt_BR:pt-BR, ro_RO:ro, zh_CN:zh-CN, zh_TW:zh-TW
 
 [wekan.application]
 file_filter = i18n/<lang>.i18n.json
