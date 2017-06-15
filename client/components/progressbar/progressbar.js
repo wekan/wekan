@@ -17,7 +17,7 @@ class ProgressBar extends BlazeComponent {
   }
 
   progressValue() {
-    return ((this.completedItems() / this.totalItems()) * 100).toFixed(2);
+    return ((this.completedItems() / this.totalItems()) * 100).toFixed(0);
   }
 
   progressCSS() {

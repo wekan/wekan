@@ -6,7 +6,7 @@ template(name="header")
     The first link goes to the boards page.
   unless isSandstorm
     if currentUser
-      #header-quick-access(class=currentBoard.colorClass)
+      #header-quick-access(class=currentBoard)
         ul
           li
             a(href="{{pathFor 'home'}}")
@@ -26,7 +26,7 @@ template(name="header")
 
         +headerUserBar
 
-  #header(class=currentBoard.colorClass)
+  #header(class=currentBoard)
     //-
       The main bar is a colorful bar that provide all the meta-data for the
       current page. This bar is contextual based.
@@ -41,10 +41,10 @@ template(name="header")
           the list of all boards.
         if isSandstorm
           .wekan-logo
-            img(src="{{pathFor '/wekan-logo-header.png'}}" alt="Wekan")
+            
         else
           a.wekan-logo(href="{{pathFor 'home'}}" title="{{_ 'header-logo-title'}}")
-            img(src="{{pathFor '/wekan-logo-header.png'}}" alt="Wekan")
+          
 
   if appIsOffline
     +offlineWarning
