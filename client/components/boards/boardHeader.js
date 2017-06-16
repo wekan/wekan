@@ -19,7 +19,13 @@ Template.boardMenuPopup.helpers({
   exportUrl() {
     const boardId = Session.get('currentBoard');
     const loginToken = Accounts._storedLoginToken();
-    return FlowRouter.url(`api/boards/${boardId}/export?authToken=${loginToken}`);
+    var params = {
+      boardId: boardId
+    };
+    var queryParams = {
+      authToken: loginToken
+    }
+    return FlowRouter.path('/api/boards/:boardId/export', params, queryParams);
   },
   exportFilename() {
     const boardId = Session.get('currentBoard');
