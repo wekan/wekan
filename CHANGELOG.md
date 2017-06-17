@@ -9,10 +9,11 @@ This release adds the following new features:
 
 and fixes the following bugs:
 
-* [Fix IE 11 drag board to scroll](https://github.com/wekan/wekan/pull/1052).
+* [Fix IE 11 drag board to scroll](https://github.com/wekan/wekan/pull/1052);
+* [Fix Export Wekan board](https://github.com/wekan/wekan/pull/1067).
 
-Thanks to GitHub users BaobabCoder, nebulade and nztqa for their
-contributions.
+Thanks to GitHub users BaobabCoder, GhassenRjab, nebulade and nztqa
+for their contributions.
 
 # v0.23 2017-05-21 Wekan release
 
