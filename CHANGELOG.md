@@ -132,7 +132,7 @@ and fixes the following bugs:
   requests need further review before merging into devel;
 * Use navigator language by default instead of English.
 
-Thanks to GitHub users JamborJan, lkisme, rhelsing, Serubi, stephenmoloney,
+Thanks to GitHub users JamborJan, lkisme, rhelsing, Serubin, stephenmoloney,
 umbertooo and Zokormazo for their contributions.
 
 # v0.17 2017-03-25 Wekan release
