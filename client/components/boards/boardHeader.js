@@ -17,13 +17,11 @@ Template.boardMenuPopup.events({
 
 Template.boardMenuPopup.helpers({
   exportUrl() {
-    const boardId = Session.get('currentBoard');
-    const loginToken = Accounts._storedLoginToken();
-    let params = {
-      "boardId": boardId,
+    const params = {
+      boardId: Session.get('currentBoard'),
     };
-    let queryParams = {
-      "authToken": loginToken,
+    const queryParams = {
+      authToken: Accounts._storedLoginToken(),
     };
     return FlowRouter.path('/api/boards/:boardId/export', params, queryParams);
   },
