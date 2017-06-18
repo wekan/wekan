@@ -21,8 +21,12 @@ Template.userFormsLayout.onRendered(() => {
 Template.userFormsLayout.helpers({
   languages() {
     return _.map(TAPi18n.getLanguages(), (lang, tag) => {
-      const name = lang.name;
-      return { tag, name };
+      return {
+        tag: tag,
+        name: lang.name
+      };
+    }).sort(function(a, b) {
+      return a.name === b.name ? 0 : a.name > b.name ? 1 : -1;
     });
   },
 
