@@ -6,7 +6,8 @@ This release adds the following new features:
   [missing undo button](https://github.com/wekan/wekan/issues/1023);
 * [When deleting list, delete list's cards too](https://github.com/wekan/wekan/pull/1054);
 * [Re-enable Export Wekan Board](https://github.com/wekan/wekan/pull/1059);
-* [Sort languages by their translated names](https://github.com/wekan/wekan/pull/1070).
+* [Sort languages by their translated names](https://github.com/wekan/wekan/pull/1070);
+* [Add Breton language name](https://github.com/wekan/wekan/pull/1071).
 
 and fixes the following bugs:
 
