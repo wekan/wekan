@@ -1,14 +1,14 @@
 template(name="archivedBoards")
   h2
     i.fa.fa-archive
-    | Archived boards
+    | {{_ 'archived-boards'}}
 
   ul.archived-lists
     each archivedBoards
       li.archived-lists-item
         button.js-restore-board
           i.fa.fa-undo
-          | Restore board
+          | {{_ 'restore-board'}}
         = title
     else
-      li.no-items-message No archived board.
+      li.no-items-message {{_ 'no-archived-board'}}
