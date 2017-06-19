@@ -13,9 +13,10 @@ and fixes the following bugs:
 
 * [Fix IE 11 drag board to scroll](https://github.com/wekan/wekan/pull/1052);
 * [Fix Export Wekan board](https://github.com/wekan/wekan/pull/1067);
-* [Fix "W" shortcut binding](https://github.com/wekan/wekan/pull/1066).
+* [Fix "W" shortcut binding](https://github.com/wekan/wekan/pull/1066);
+* [Fix login url in invitation email](https://github.com/wekan/wekan/issues/993).
 
-Thanks to GitHub users BaobabCoder, GhassenRjab, nebulade and nztqa
+Thanks to GitHub users BaobabCoder, GhassenRjab, nebulade, nztqa and xet7
 for their contributions.
 
 # v0.23 2017-05-21 Wekan release
