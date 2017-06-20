@@ -15,7 +15,8 @@ and fixes the following bugs:
 * [Fix Export Wekan board](https://github.com/wekan/wekan/pull/1067);
 * [Fix "W" shortcut binding](https://github.com/wekan/wekan/pull/1066);
 * [Fix login url in invitation email](https://github.com/wekan/wekan/issues/993);
-* [Edit card description with invalid markdown](https://github.com/wekan/wekan/pull/1073).
+* [Edit card description with invalid markdown](https://github.com/wekan/wekan/pull/1073);
+* [Fix filter reset on moving between starred boards](https://github.com/wekan/wekan/pull/1074).
 
 Thanks to GitHub users BaobabCoder, GhassenRjab, nebulade, nztqa and xet7
 for their contributions.
