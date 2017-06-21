@@ -354,5 +354,6 @@
     "invitation-code": "Invitation Code",
     "email-invite-register-subject": "__inviter__ sent you an invitation",
     "email-invite-register-text": "Dear __user__,\n\n__inviter__ invites you to Wekan for collaboration.\n\nPlease follow the link below:\n__url__\n\nAnd your invitation code is: __icode__\n\nThanks.",
-    "error-invitation-code-not-exist": "Invitation code doesn't exist"
+    "error-invitation-code-not-exist": "Invitation code doesn't exist",
+    "error-notAuthorized": "You are not authorized to view this page."
 }
