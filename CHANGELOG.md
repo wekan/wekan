@@ -11,6 +11,7 @@ This release adds the following new features:
 
 and fixes the following bugs:
 
+* [Fix Admin Panel link available to all users, only link is hidden](https://github.com/wekan/wekan/pull/1076);
 * [Fix IE 11 drag board to scroll](https://github.com/wekan/wekan/pull/1052);
 * [Fix Export Wekan board](https://github.com/wekan/wekan/pull/1067);
 * [Fix "W" shortcut binding](https://github.com/wekan/wekan/pull/1066);
