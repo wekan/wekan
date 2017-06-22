@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+* [Fix importing Trello board: Attribute correct members to their
+   comments](https://github.com/wekan/wekan/pull/1080).
+
+Thanks to GitHub user GhassenRjab for contributions.
+
 # v0.24 2017-06-21 Wekan release
 
 This release adds the following new features:
