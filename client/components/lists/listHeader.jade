@@ -25,17 +25,18 @@ template(name="editListTitleForm")
 template(name="listActionPopup")
   ul.pop-over-list
     li: a.js-toggle-watch-list {{#if isWatching}}{{_ 'unwatch'}}{{else}}{{_ 'watch'}}{{/if}}
-  hr
-  ul.pop-over-list
-    li: a.js-add-card {{_ 'add-card'}}
-    if cards.count
-      li: a.js-select-cards {{_ 'list-select-cards'}}
-  hr
-  ul.pop-over-list
-    li: a.js-close-list {{_ 'archive-list'}}
-  hr
-  ul.pop-over-list
-    li: a.js-remove-list {{_ 'remove-list'}}
+  unless currentUser.isCommentOnly
+    hr
+    ul.pop-over-list
+      li: a.js-add-card {{_ 'add-card'}}
+      if cards.count
+        li: a.js-select-cards {{_ 'list-select-cards'}}
+    hr
+    ul.pop-over-list
+      li: a.js-close-list {{_ 'archive-list'}}
+    hr
+    ul.pop-over-list
+      li: a.js-more {{_ 'listMorePopup-title'}}
 
 template(name="boardLists")
   ul.pop-over-list
@@ -45,3 +46,20 @@ template(name="boardLists")
           a.disabled {{title}} ({{_ 'current'}})
         else
           a.js-select-list= title
+
+template(name="listMorePopup")
+  p.quiet
+    span.clearfix
+      span {{_ 'link-list'}}
+      = ' '
+      i.fa.colorful(class="{{#if board.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
+      input.inline-input(type="text" readonly value="{{ rootUrl }}")
+    | {{_ 'added'}}
+    span.date(title=list.createdAt) {{ moment createdAt 'LLL' }}
+    a.js-delete {{_ 'delete'}}
+
+template(name="listDeletePopup")
+  p {{_ "list-delete-pop"}}
+  unless archived
+   p {{_ "list-delete-suggest-archive"}}
+  button.js-confirm.negate.full(type="submit") {{_ 'delete'}}

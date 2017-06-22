@@ -75,7 +75,7 @@ BlazeComponent.extendComponent({
         // the user will legitimately expect to be able to select some text with
         // his mouse.
         const noDragInside = ['a', 'input', 'textarea', 'p', '.js-list-header'];
-        if ($(evt.target).closest(noDragInside.join(',')).length === 0) {
+        if ($(evt.target).closest(noDragInside.join(',')).length === 0 && $('.lists').prop('clientHeight') > evt.offsetY) {
           this._isDragging = true;
           this._lastDragPositionX = evt.clientX;
         }
@@ -204,3 +204,9 @@ BlazeComponent.extendComponent({
     }];
   },
 }).register('addListForm');
+
+Template.boardBody.helpers({
+  canSeeAddList() {
+    return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
+  },
+});

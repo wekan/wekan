@@ -20,10 +20,13 @@ Settings.attachSchema(new SimpleSchema({
     type: String,
     optional: true,
   },
+  'mailServer.enableTLS': {
+    type: Boolean,
+    optional: true,
+  },
   'mailServer.from': {
     type: String,
     optional: true,
-    defaultValue: 'Wekan',
   },
   createdAt: {
     type: Date,
@@ -35,8 +38,14 @@ Settings.attachSchema(new SimpleSchema({
 }));
 Settings.helpers({
   mailUrl () {
-    const mailUrl = `smtp://${this.mailServer.username}:${this.mailServer.password}@${this.mailServer.host}:${this.mailServer.port}/`;
-    return mailUrl;
+    if (!this.mailServer.host) {
+      return null;
+    }
+    const protocol = this.mailServer.enableTLS ? 'smtps://' : 'smtp://';
+    if (!this.mailServer.username && !this.mailServer.password) {
+      return `${protocol}${this.mailServer.host}:${this.mailServer.port}/`;
+    }
+    return `${protocol}${this.mailServer.username}:${this.mailServer.password}@${this.mailServer.host}:${this.mailServer.port}/`;
   },
 });
 Settings.allow({
@@ -56,14 +65,29 @@ if (Meteor.isServer) {
     const setting = Settings.findOne({});
     if(!setting){
       const now = new Date();
+      const domain = process.env.ROOT_URL.match(/\/\/(?:www\.)?(.*)?(?:\/)?/)[1];
+      const from = `Wekan <wekan@${domain}>`;
       const defaultSetting = {disableRegistration: false, mailServer: {
-        username: '', password:'', host: '', port:'', from: '',
+        username: '', password: '', host: '', port: '', enableTLS: false, from,
       }, createdAt: now, modifiedAt: now};
       Settings.insert(defaultSetting);
     }
     const newSetting = Settings.findOne();
-    process.env.MAIL_URL = newSetting.mailUrl();
-    Accounts.emailTemplates.from = newSetting.mailServer.from;
+    if (!process.env.MAIL_URL && newSetting.mailUrl())
+      process.env.MAIL_URL = newSetting.mailUrl();
+    Accounts.emailTemplates.from = process.env.MAIL_FROM ? process.env.MAIL_FROM : newSetting.mailServer.from;
+  });
+  Settings.after.update((userId, doc, fieldNames) => {
+    // assign new values to mail-from & MAIL_URL in environment
+    if (_.contains(fieldNames, 'mailServer') && doc.mailServer.host) {
+      const protocol = doc.mailServer.enableTLS ? 'smtps://' : 'smtp://';
+      if (!doc.mailServer.username && !doc.mailServer.password) {
+        process.env.MAIL_URL = `${protocol}${doc.mailServer.host}:${doc.mailServer.port}/`;
+      } else {
+        process.env.MAIL_URL = `${protocol}${doc.mailServer.username}:${doc.mailServer.password}@${doc.mailServer.host}:${doc.mailServer.port}/`;
+      }
+      Accounts.emailTemplates.from = doc.mailServer.from;
+    }
   });
 
   function getRandomNum (min, max) {
@@ -81,7 +105,7 @@ if (Meteor.isServer) {
         inviter: Users.findOne(icode.authorId).username,
         user: icode.email.split('@')[0],
         icode: icode.code,
-        url: FlowRouter.url('sign-up'),
+        url: FlowRouter.url('sign-in'),
       };
       const lang = author.getLanguage();
       Email.send({
@@ -91,6 +115,7 @@ if (Meteor.isServer) {
         text: TAPi18n.__('email-invite-register-text', params, lang),
       });
     } catch (e) {
+      InvitationCodes.remove(_id);
       throw new Meteor.Error('email-fail', e.message);
     }
   }
@@ -107,7 +132,11 @@ if (Meteor.isServer) {
         if (email && SimpleSchema.RegEx.Email.test(email)) {
           const code = getRandomNum(100000, 999999);
           InvitationCodes.insert({code, email, boardsToBeInvited: boards, createdAt: new Date(), authorId: Meteor.userId()}, function(err, _id){
-            if(!err && _id) sendInvitationEmail(_id);
+            if (!err && _id) {
+              sendInvitationEmail(_id);
+            } else {
+              throw new Meteor.Error('invitation-generated-fail', err.message);
+            }
           });
         }
       });

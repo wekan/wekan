@@ -8,7 +8,7 @@ template(name="cardDetails")
         if currentUser.isBoardMember
           a.fa.fa-navicon.card-details-menu.js-open-card-details-menu
         h2.card-details-title.js-card-title(
-          class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
+          class="{{#if canModifyCard}}js-open-inlined-form is-editable{{/if}}")
             = title
             if isWatching
               i.fa.fa-eye.card-details-watch
@@ -22,16 +22,16 @@ template(name="cardDetails")
         each members
           +userAvatar(userId=this cardId=../_id)
           | {{! XXX Hack to hide syntaxic coloration /// }}
-        if currentUser.isBoardMember
+        if canModifyCard
           a.member.add-member.card-details-item-add-button.js-add-members(title="{{_ 'card-members-title'}}")
             i.fa.fa-plus
 
       .card-details-item.card-details-item-labels
         h3.card-details-item-title {{_ 'labels'}}
-        a(class="{{#if currentUser.isBoardMember}}js-add-labels{{else}}is-disabled{{/if}}" title="{{_ 'card-labels-title'}}")
+        a(class="{{#if canModifyCard}}js-add-labels{{else}}is-disabled{{/if}}" title="{{_ 'card-labels-title'}}")
           each labels
             span.card-label(class="card-label-{{color}}" title=name)= name
-        if currentUser.isBoardMember
+        if canModifyCard
           a.card-label.add-label.js-add-labels(title="{{_ 'card-labels-title'}}")
             i.fa.fa-plus
 
@@ -51,7 +51,7 @@ template(name="cardDetails")
           +cardEstimate
 
     //- XXX We should use "editable" to avoid repetiting ourselves
-    if currentUser.isBoardMember
+    if canModifyCard
       h3.card-details-item-title {{_ 'description'}}
       +inlinedCardDescription(classNames="card-description js-card-description")
         +editor(autofocus=true)
@@ -111,6 +111,7 @@ template(name="editCardTitleForm")
 template(name="cardDetailsActionsPopup")
   ul.pop-over-list
     li: a.js-toggle-watch-card {{#if isWatching}}{{_ 'unwatch'}}{{else}}{{_ 'watch'}}{{/if}}
+<<<<<<< HEAD
   hr
   ul.pop-over-list
     li: a.js-members {{_ 'card-edit-members'}}
@@ -135,6 +136,26 @@ template(name="cardDetailsActionsPopup")
     unless archived
       li: a.js-archive {{_ 'archive-card'}}
     li: a.js-more {{_ 'cardMorePopup-title'}}
+=======
+  if canModifyCard
+    hr
+    ul.pop-over-list
+      li: a.js-members {{_ 'card-edit-members'}}
+      li: a.js-labels {{_ 'card-edit-labels'}}
+      li: a.js-attachments {{_ 'card-edit-attachments'}}
+      li: a.js-start-date {{_ 'editCardStartDatePopup-title'}}
+      li: a.js-due-date {{_ 'editCardDueDatePopup-title'}}
+    hr
+    ul.pop-over-list
+      li: a.js-move-card-to-top {{_ 'moveCardToTop-title'}}
+      li: a.js-move-card-to-bottom {{_ 'moveCardToBottom-title'}}
+    hr
+    ul.pop-over-list
+      li: a.js-move-card {{_ 'moveCardPopup-title'}}
+      unless archived
+        li: a.js-archive {{_ 'archive-card'}}
+      li: a.js-more {{_ 'cardMorePopup-title'}}
+>>>>>>> 9ae03f30563d8fd5c18a5822f5becd019931898c
 
 template(name="moveCardPopup")
   +boardLists

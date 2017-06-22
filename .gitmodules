@@ -1,0 +1,3 @@
+[submodule "packages/kadira:flow-router"]
+	path = packages/kadira:flow-router
+	url = https://github.com/wekan/flow-router.git

@@ -145,6 +145,7 @@ class TrelloCreator {
         userId: Meteor.userId(),
         isAdmin: true,
         isActive: true,
+        isCommentOnly: false,
       }],
       permission: this.getPermission(trelloBoard.prefs.permissionLevel),
       slug: getSlug(trelloBoard.name) || 'board',
@@ -170,6 +171,7 @@ class TrelloCreator {
               userId: wekanId,
               isAdmin: this.getAdmin(trelloMembership.memberType),
               isActive: true,
+              isCommentOnly: false,
             });
           }
         }

@@ -36,34 +36,40 @@ Template.listActionPopup.helpers({
 });
 
 Template.listActionPopup.events({
-  'click .js-add-card'() {
+  'click .js-add-card' () {
     const listDom = document.getElementById(`js-list-${this._id}`);
     const listComponent = BlazeComponent.getComponentForElement(listDom);
-    listComponent.openForm({ position: 'top' });
+    listComponent.openForm({
+      position: 'top',
+    });
     Popup.close();
   },
-  'click .js-list-subscribe'() {},
-  'click .js-select-cards'() {
+  'click .js-list-subscribe' () {},
+  'click .js-select-cards' () {
     const cardIds = this.allCards().map((card) => card._id);
     MultiSelection.add(cardIds);
     Popup.close();
   },
-  'click .js-toggle-watch-list'() {
+  'click .js-toggle-watch-list' () {
     const currentList = this;
     const level = currentList.findWatcher(Meteor.userId()) ? null : 'watching';
     Meteor.call('watch', 'list', currentList._id, level, (err, ret) => {
       if (!err && ret) Popup.close();
     });
   },
-  'click .js-close-list'(evt) {
+  'click .js-close-list' (evt) {
     evt.preventDefault();
     this.archive();
     Popup.close();
   },
-  'click .js-remove-list'(evt) {
-    const currentList = this;
-    evt.preventDefault();
-    Lists.remove(currentList._id);
+  'click .js-more': Popup.open('listMore'),
+});
+
+Template.listMorePopup.events({
+  'click .js-delete': Popup.afterConfirm('listDelete', function () {
     Popup.close();
-  },
+    this.allCards().map((card) => Cards.remove(card._id));
+    Lists.remove(this._id);
+    Utils.goBoardId(this.boardId);
+  }),
 });
