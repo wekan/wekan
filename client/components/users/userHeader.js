@@ -72,9 +72,17 @@ Template.changePasswordPopup.onRendered(function() {
 
 Template.changeLanguagePopup.helpers({
   languages() {
-    return _.map(TAPi18n.getLanguages(), (lang, tag) => {
-      const name = lang.name;
-      return { tag, name };
+    return _.map(TAPi18n.getLanguages(), (lang, code) => {
+      return {
+        tag: code,
+        name: lang.name === 'br' ? 'Brezhoneg' : lang.name,
+      };
+    }).sort(function(a, b) {
+      if (a.name === b.name) {
+        return 0;
+      } else {
+        return a.name > b.name ? 1 : -1;
+      }
     });
   },
 

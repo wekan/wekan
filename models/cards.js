@@ -137,15 +137,15 @@ Cards.helpers({
   },
 
   activities() {
-    return Activities.find({ cardId: this._id }, { sort: { createdAt: -1 }});
+    return Activities.find({ cardId: this._id }, { sort: { createdAt: -1 } });
   },
 
   comments() {
-    return CardComments.find({ cardId: this._id }, { sort: { createdAt: -1 }});
+    return CardComments.find({ cardId: this._id }, { sort: { createdAt: -1 } });
   },
 
   attachments() {
-    return Attachments.find({ cardId: this._id }, { sort: { uploadedAt: -1 }});
+    return Attachments.find({ cardId: this._id }, { sort: { uploadedAt: -1 } });
   },
 
   cover() {
@@ -156,7 +156,7 @@ Cards.helpers({
   },
 
   checklists() {
-    return Checklists.find({ cardId: this._id }, { sort: { createdAt: 1 }});
+    return Checklists.find({ cardId: this._id }, { sort: { createdAt: 1 } });
   },
 
   checklistItemCount() {
@@ -197,19 +197,19 @@ Cards.helpers({
 
 Cards.mutations({
   archive() {
-    return { $set: { archived: true }};
+    return { $set: { archived: true } };
   },
 
   restore() {
-    return { $set: { archived: false }};
+    return { $set: { archived: false } };
   },
 
   setTitle(title) {
-    return { $set: { title }};
+    return { $set: { title } };
   },
 
   setDescription(description) {
-    return { $set: { description }};
+    return { $set: { description } };
   },
 
   move(listId, sortIndex) {
@@ -221,11 +221,11 @@ Cards.mutations({
   },
 
   addLabel(labelId) {
-    return { $addToSet: { labelIds: labelId }};
+    return { $addToSet: { labelIds: labelId } };
   },
 
   removeLabel(labelId) {
-    return { $pull: { labelIds: labelId }};
+    return { $pull: { labelIds: labelId } };
   },
 
   toggleLabel(labelId) {
@@ -237,11 +237,11 @@ Cards.mutations({
   },
 
   assignMember(memberId) {
-    return { $addToSet: { members: memberId }};
+    return { $addToSet: { members: memberId } };
   },
 
   unassignMember(memberId) {
-    return { $pull: { members: memberId }};
+    return { $pull: { members: memberId } };
   },
 
   toggleMember(memberId) {
@@ -253,27 +253,27 @@ Cards.mutations({
   },
 
   setCover(coverId) {
-    return { $set: { coverId }};
+    return { $set: { coverId } };
   },
 
   unsetCover() {
-    return { $unset: { coverId: '' }};
+    return { $unset: { coverId: '' } };
   },
 
   setStart(startAt) {
-    return { $set: { startAt }};
+    return { $set: { startAt } };
   },
 
   unsetStart() {
-    return { $unset: { startAt: '' }};
+    return { $unset: { startAt: '' } };
   },
 
   setDue(dueAt) {
-    return { $set: { dueAt }};
+    return { $set: { dueAt } };
   },
 
   unsetDue() {
-    return { $unset: { dueAt: '' }};
+    return { $unset: { dueAt: '' } };
   },
 
   setEstimate(estimate) {
@@ -342,7 +342,7 @@ if (Meteor.isServer) {
   });
 
   // New activity for card moves
-  Cards.after.update(function(userId, doc, fieldNames) {
+  Cards.after.update(function (userId, doc, fieldNames) {
     const oldListId = this.previous.listId;
     if (_.contains(fieldNames, 'listId') && doc.listId !== oldListId) {
       Activities.insert({
@@ -405,6 +405,70 @@ if (Meteor.isServer) {
     });
     Attachments.remove({
       cardId: doc._id,
+    });
+  });
+}
+//LISTS REST API
+if (Meteor.isServer) {
+  JsonRoutes.add('GET', '/api/boards/:boardId/lists/:listId/cards', function (req, res, next) {
+    const paramBoardId = req.params.boardId;
+    const paramListId = req.params.listId;
+    Authentication.checkBoardAccess( req.userId, paramBoardId);
+    JsonRoutes.sendResult(res, {
+      code: 200,
+      data: Cards.find({ boardId: paramBoardId, listId: paramListId, archived: false }).map(function (doc) {
+        return {
+          _id: doc._id,
+          title: doc.title,
+          description: doc.description,
+        };
+      }),
+    });
+  });
+
+  JsonRoutes.add('GET', '/api/boards/:boardId/lists/:listId/cards/:cardId', function (req, res, next) {
+    const paramBoardId = req.params.boardId;
+    const paramListId = req.params.listId;
+    const paramCardId = req.params.cardId;
+    Authentication.checkBoardAccess( req.userId, paramBoardId);
+    JsonRoutes.sendResult(res, {
+      code: 200,
+      data: Cards.findOne({ _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false }),
+    });
+  });
+
+  JsonRoutes.add('POST', '/api/boards/:boardId/lists/:listId/cards', function (req, res, next) {
+    Authentication.checkUserId( req.userId);
+    const paramBoardId = req.params.boardId;
+    const paramListId = req.params.listId;
+    const id = Cards.insert({
+      title: req.body.title,
+      boardId: paramBoardId,
+      listId: paramListId,
+      description: req.body.description,
+      userId : req.body.authorId,
+      sort: 0,
+      members:[ req.body.authorId ],
+    });
+    JsonRoutes.sendResult(res, {
+      code: 200,
+      data: {
+        _id: id,
+      },
+    });
+  });
+
+  JsonRoutes.add('DELETE', '/api/boards/:boardId/lists/:listId/cards/:cardId', function (req, res, next) {
+    Authentication.checkUserId( req.userId);
+    const paramBoardId = req.params.boardId;
+    const paramListId = req.params.listId;
+    const paramCardId = req.params.cardId;
+    Cards.remove({ _id: paramCardId, listId: paramListId, boardId: paramBoardId });
+    JsonRoutes.sendResult(res, {
+      code: 200,
+      data: {
+        _id: paramCardId,
+      },
     });
   });
 }

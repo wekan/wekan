@@ -86,6 +86,12 @@ const EditCardDate = BlazeComponent.extendComponent({
   },
 });
 
+Template.dateBadge.helpers({
+  canModifyCard() {
+    return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
+  },
+});
+
 // editCardStartDatePopup
 (class extends EditCardDate {
   onCreated() {

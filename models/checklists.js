@@ -28,22 +28,29 @@ Checklists.attachSchema(new SimpleSchema({
   createdAt: {
     type: Date,
     denyUpdate: false,
+    autoValue() { // eslint-disable-line consistent-return
+      if (this.isInsert) {
+        return new Date();
+      } else {
+        this.unset();
+      }
+    },
   },
 }));
 
 Checklists.helpers({
-  itemCount () {
+  itemCount() {
     return this.items.length;
   },
-  finishedCount () {
+  finishedCount() {
     return this.items.filter((item) => {
       return item.isFinished;
     }).length;
   },
-  isFinished () {
+  isFinished() {
     return 0 !== this.itemCount() && this.itemCount() === this.finishedCount();
   },
-  getItem (_id) {
+  getItem(_id) {
     return _.findWhere(this.items, { _id });
   },
   itemIndex(itemId) {
@@ -73,17 +80,17 @@ Checklists.before.insert((userId, doc) => {
 
 Checklists.mutations({
   //for checklist itself
-  setTitle(title){
-    return { $set: { title }};
+  setTitle(title) {
+    return { $set: { title } };
   },
   //for items in checklist
   addItem(title) {
     const itemCount = this.itemCount();
     const _id = `${this._id}${itemCount}`;
-    return { $addToSet: {items: {_id, title, isFinished: false}} };
+    return { $addToSet: { items: { _id, title, isFinished: false } } };
   },
   removeItem(itemId) {
-    return {$pull: {items: {_id : itemId}}};
+    return { $pull: { items: { _id: itemId } } };
   },
   editItem(itemId, title) {
     if (this.getItem(itemId)) {
@@ -150,13 +157,13 @@ if (Meteor.isServer) {
   //TODO: so there will be no activity for adding item into checklist, maybe will be implemented in the future.
   // Checklists.after.update((userId, doc) => {
   //   console.log('update:', doc)
-    // Activities.insert({
-    //   userId,
-    //   activityType: 'addChecklist',
-    //   boardId: doc.boardId,
-    //   cardId: doc.cardId,
-    //   checklistId: doc._id,
-    // });
+  // Activities.insert({
+  //   userId,
+  //   activityType: 'addChecklist',
+  //   boardId: doc.boardId,
+  //   cardId: doc.cardId,
+  //   checklistId: doc._id,
+  // });
   // });
 
   Checklists.before.remove((userId, doc) => {
@@ -164,5 +171,68 @@ if (Meteor.isServer) {
     if (activity) {
       Activities.remove(activity._id);
     }
+  });
+}
+
+//CARD COMMENT REST API
+if (Meteor.isServer) {
+  JsonRoutes.add('GET', '/api/boards/:boardId/cards/:cardId/checklists', function (req, res, next) {
+    Authentication.checkUserId( req.userId);
+    const paramCardId = req.params.cardId;
+    JsonRoutes.sendResult(res, {
+      code: 200,
+      data: Checklists.find({ cardId: paramCardId }).map(function (doc) {
+        return {
+          _id: doc._id,
+          title: doc.title,
+        };
+      }),
+    });
+  });
+
+  JsonRoutes.add('GET', '/api/boards/:boardId/cards/:cardId/checklists/:checklistId', function (req, res, next) {
+    Authentication.checkUserId( req.userId);
+    const paramChecklistId = req.params.checklistId;
+    const paramCardId = req.params.cardId;
+    JsonRoutes.sendResult(res, {
+      code: 200,
+      data: Checklists.findOne({ _id: paramChecklistId, cardId: paramCardId }),
+    });
+  });
+
+  JsonRoutes.add('POST', '/api/boards/:boardId/cards/:cardId/checklists', function (req, res, next) {
+    Authentication.checkUserId( req.userId);
+    const paramCardId = req.params.cardId;
+
+    const checklistToSend = {};
+    checklistToSend.cardId = paramCardId;
+    checklistToSend.title = req.body.title;
+    checklistToSend.items = [];
+    const id = Checklists.insert(checklistToSend);
+    const checklist = Checklists.findOne({_id: id});
+    req.body.items.forEach(function (item) {
+      checklist.addItem(item);
+    }, this);
+
+
+    JsonRoutes.sendResult(res, {
+      code: 200,
+      data: {
+        _id: id,
+      },
+    });
+  });
+
+  JsonRoutes.add('DELETE', '/api/boards/:boardId/cards/:cardId/checklists/:checklistId', function (req, res, next) {
+    Authentication.checkUserId( req.userId);
+    const paramCommentId = req.params.commentId;
+    const paramCardId = req.params.cardId;
+    Checklists.remove({ _id: paramCommentId, cardId: paramCardId });
+    JsonRoutes.sendResult(res, {
+      code: 200,
+      data: {
+        _id: paramCardId,
+      },
+    });
   });
 }

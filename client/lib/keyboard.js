@@ -6,7 +6,11 @@ Mousetrap.bind('?', () => {
 });
 
 Mousetrap.bind('w', () => {
-  Sidebar.toggle();
+  if (Sidebar.isOpen() && Sidebar.getView() === 'home') {
+    Sidebar.toggle();
+  } else {
+    Sidebar.setView();
+  }
 });
 
 Mousetrap.bind('q', () => {

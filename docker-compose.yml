@@ -3,7 +3,7 @@ version: '2'
 services:
 
   wekandb:
-    image: mongo:3.2.11
+    image: mongo:3.2.13
     container_name: wekan-db
     restart: always
     command: mongod --smallfiles --oplogSize 128
@@ -16,7 +16,7 @@ services:
       - wekan-db-dump:/dump
 
   wekan:
-    image: mquandalle/wekan:latest
+    image: wekanteam/wekan:latest
     container_name: wekan-app
     restart: always
     networks:
@@ -30,6 +30,8 @@ services:
         - NPM_VERSION=${NPM_VERSION}
         - ARCHITECTURE=${ARCHITECTURE}
         - SRC_PATH=${SRC_PATH}
+        - METEOR_EDGE=${METEOR_EDGE}
+        - USE_EDGE=${USE_EDGE}
     ports:
       - 80:80
     environment:

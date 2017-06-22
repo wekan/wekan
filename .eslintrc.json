@@ -51,7 +51,9 @@
     "object-shorthand": 2,
     "prefer-const": 2,
     "prefer-spread": 2,
-    "prefer-template": 2
+    "prefer-template": 2,
+    "no-console": 0,
+    "no-unused-vars" : "warn"
   },
   "globals": {
     "Meteor": false,
@@ -118,9 +120,13 @@
     "allowIsBoardAdmin": true,
     "allowIsBoardMember": true,
     "allowIsBoardMemberByCard": true,
+    "allowIsBoardMemberNonComment": true,
     "Emoji": true,
     "Checklists": true,
     "Settings": true,
-    "InvitationCodes": true
+    "InvitationCodes": true,
+    "Winston":true,
+    "JsonRoutes": true,
+    "Authentication": true
   }
 }

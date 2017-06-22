@@ -1,22 +1,25 @@
 template(name="setting")
   .setting-content
-    .content-title
-      span {{_ 'settings'}}
-    .content-body
-      .side-menu
-        ul
-          li.active
-            a.js-setting-menu(data-id="registration-setting") {{_ 'registration'}}
-          li
-            a.js-setting-menu(data-id="email-setting") {{_ 'email'}}
-      .main-body
-        if loading.get
-          +spinner
-        else if generalSetting.get
-          +general
-        else if emailSetting.get
-          +email
-        
+    unless currentUser.isAdmin
+      | {{_ 'error-notAuthorized'}}
+    else
+      .content-title
+        span {{_ 'settings'}}
+      .content-body
+        .side-menu
+          ul
+            li.active
+              a.js-setting-menu(data-id="registration-setting") {{_ 'registration'}}
+            li
+              a.js-setting-menu(data-id="email-setting") {{_ 'email'}}
+        .main-body
+          if loading.get
+            +spinner
+          else if generalSetting.get
+            +general
+          else if emailSetting.get
+            +email
+
 template(name="general")
   ul#registration-setting.setting-detail
     li
@@ -63,9 +66,17 @@ template(name='email')
       .form-group
         input.form-control#mail-server-password(type="text", placeholder="{{_ 'password'}}" value="{{currentSetting.mailServer.password}}")
     li.smtp-form
+      .title {{_ 'smtp-tls'}}
+      .form-group
+        a.flex.js-toggle-tls
+          .materialCheckBox#mail-server-tls(class="{{#if currentSetting.mailServer.enableTLS}}is-checked{{/if}}")
+
+          span {{_ 'smtp-tls-description'}}
+
+    li.smtp-form
       .title {{_ 'send-from'}}
       .form-group
         input.form-control#mail-server-from(type="email", placeholder="no-reply@domain.com" value="{{currentSetting.mailServer.from}}")
 
     li
-      button.js-save.primary Save              
+      button.js-save.primary {{_ 'save'}}

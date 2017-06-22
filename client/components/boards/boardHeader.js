@@ -17,9 +17,13 @@ Template.boardMenuPopup.events({
 
 Template.boardMenuPopup.helpers({
   exportUrl() {
-    const boardId = Session.get('currentBoard');
-    const loginToken = Accounts._storedLoginToken();
-    return FlowRouter.url(`api/boards/${boardId}?authToken=${loginToken}`);
+    const params = {
+      boardId: Session.get('currentBoard'),
+    };
+    const queryParams = {
+      authToken: Accounts._storedLoginToken(),
+    };
+    return FlowRouter.path('/api/boards/:boardId/export', params, queryParams);
   },
   exportFilename() {
     const boardId = Session.get('currentBoard');
@@ -96,6 +100,12 @@ BlazeComponent.extendComponent({
     }];
   },
 }).register('boardHeaderBar');
+
+Template.boardHeaderBar.helpers({
+  canModifyBoard() {
+    return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
+  },
+});
 
 BlazeComponent.extendComponent({
   backgroundColors() {

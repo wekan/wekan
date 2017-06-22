@@ -22,10 +22,10 @@ const pkgdef :Spk.PackageDefinition = (
     appTitle = (defaultText = "Wekan"),
     # The name of the app as it is displayed to the user.
 
-    appVersion = 17,
+    appVersion = 20,
     # Increment this for every release.
 
-    appMarketingVersion = (defaultText = "0.11.0~2016-11-28"),
+    appMarketingVersion = (defaultText = "0.18.0~2017-04-02"),
     # Human-readable presentation of the app version.
 
     minUpgradableAppVersion = 0,
@@ -57,8 +57,8 @@ const pkgdef :Spk.PackageDefinition = (
         market = (svg = embed "meta/icons/wekan-150.svg"),
       ),
 
-      website = "https://wekan.io",
-      codeUrl = "https://github.com/wefork/wekan",
+      website = "https://wekan.github.io",
+      codeUrl = "https://github.com/wekan/wekan",
       license = (openSource = mit),
       categories = [productivity, office],
 
@@ -76,11 +76,15 @@ const pkgdef :Spk.PackageDefinition = (
 
       screenshots = [
         (
-          width = 512,
-          height = 330,
-          jpeg = embed "meta/screenshots/board-view.jpg"
+          width = 1920,
+          height = 1133,
+          png = embed "meta/screenshots/board_view_01.png"
         ),
-        # XXX The screenshots should have a standard width and height.
+        (
+          width = 1920,
+          height = 1133,
+          png = embed "meta/screenshots/board_view_02.png"
+        ),
       ],
 
       changeLog = (

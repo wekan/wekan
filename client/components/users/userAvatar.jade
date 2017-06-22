@@ -55,7 +55,7 @@ template(name="changeAvatarPopup")
     li: a.js-select-initials
       .member
         +userAvatarInitials(userId=currentUser._id)
-      | Initials
+      | {{_ 'initials' }}
       if noAvatarUrl
         i.fa.fa-check
        p.sub-name {{_ 'default-avatar'}}

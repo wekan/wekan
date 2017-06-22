@@ -28,6 +28,10 @@ BlazeComponent.extendComponent({
     return card.findWatcher(Meteor.userId());
   },
 
+  canModifyCard() {
+    return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
+  },
+
   scrollParentContainer() {
     const cardPanelWidth = 510;
     const bodyBoardComponent = this.parentComponent();
@@ -139,6 +143,10 @@ BlazeComponent.extendComponent({
 Template.cardDetailsActionsPopup.helpers({
   isWatching() {
     return this.findWatcher(Meteor.userId());
+  },
+
+  canModifyCard() {
+    return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
   },
 });
 
