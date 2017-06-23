@@ -94,9 +94,11 @@ RUN \
     if [ "$USE_EDGE" = false ]; then \
       gosu wekan:wekan sh ./install_meteor.sh; \
     else \
-      gosu wekan:wekan git clone --recursive git://github.com/meteor/meteor.git /home/wekan/.meteor && \
+      gosu wekan:wekan git clone --recursive --depth 1 -b release/METEOR@${METEOR_EDGE} git://github.com/meteor/meteor.git /home/wekan/.meteor && \
+      cd /home/wekan/packages && \
+      gosu wekan:wekan git clone --depth 1 -b master git://github.com/wekan/flow-router.git kadira-flow-router && \
+      gosu wekan:wekan git clone --depth 1 -b master git://github.com/meteor-useraccounts/core.git meteor-useraccounts-core && \
       cd /home/wekan/.meteor && \
-      gosu wekan:wekan git checkout release/METEOR@${METEOR_EDGE} && \
       gosu wekan /home/wekan/.meteor/meteor -- help; \
     fi && \
     \
