@@ -7,6 +7,7 @@ ARG METEOR_RELEASE
 ARG METEOR_EDGE
 ARG USE_EDGE
 ARG NPM_VERSION
+ARG FIBERS_VERSION
 ARG ARCHITECTURE
 ARG SRC_PATH
 
@@ -18,7 +19,7 @@ ENV METEOR_RELEASE ${METEOR_RELEASE:-1.4.4.1}
 ENV USE_EDGE ${USE_EDGE:-false}
 ENV METEOR_EDGE ${METEOR_EDGE:-1.5-beta.17}
 ENV NPM_VERSION ${NPM_VERSION:-5.0.3}
-ENV FIBERS_VERSION=1.0.15
+ENV FIBERS_VERSION ${FIBERS_VERSION:-1.0.15}
 ENV ARCHITECTURE ${ARCHITECTURE:-linux-x64}
 ENV SRC_PATH ${SRC_PATH:-./}
 
@@ -80,7 +81,7 @@ RUN \
     # Install Node dependencies
     npm install -g npm@${NPM_VERSION} && \
     npm install -g node-gyp && \
-    npm install -g fibers@{FIBERS_VERSION} && \
+    npm install -g fibers@${FIBERS_VERSION} && \
     \
     # Change user to wekan and install meteor
     cd /home/wekan/ && \
