@@ -8,6 +8,7 @@ env:
 
 before_install:
   - sudo apt-get update -y
+  - sudo apt-get update --fix-mixing
   - npm install -g npm@${TRAVIS_NPM_VERSION}
   - sudo curl -fsSL https://get.docker.com/ | sh
   - if [ -e /usr/local/bin/docker-compose ]; then sudo rm /usr/local/bin/docker-compose; fi
