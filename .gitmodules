@@ -1,7 +1,7 @@
-[submodule "packages/kadira;flow-router"]
+[submodule "packages/kadira:flow-router"]
 	path = packages/kadira:flow-router
 	url = https://github.com/wekan/flow-router.git
 
-[submodule "packages/useraccounts;core"]
+[submodule "packages/useraccounts:core"]
 	path = packages/useraccounts:core
 	url = https://github.com/meteor-useraccounts/core.git
