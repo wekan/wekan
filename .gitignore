@@ -8,3 +8,4 @@ node_modules/
 .build/*
 packages/kadira-flow-router/
 packages/meteor-useraccounts-core/
+package-lock.json
