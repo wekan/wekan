@@ -354,5 +354,6 @@
     "invitation-code": "Gonbidapen kodea",
     "email-invite-register-subject": "__inviter__ erabiltzaileak gonbidapen bat bidali dizu",
     "email-invite-register-text": "Kaixo __user__,\n\n__inviter__ erabiltzaileak Wekanera gonbidatu zaitu elkar-lanean aritzeko.\n\nJarraitu mesedez lotura hau:\n__url__\n\nZure gonbidapen kodea hau da: __icode__\n\nEskerrik asko.",
-    "error-invitation-code-not-exist": "Gonbidapen kodea ez da existitzen"
+    "error-invitation-code-not-exist": "Gonbidapen kodea ez da existitzen",
+    "error-notAuthorized": "You are not authorized to view this page."
 }

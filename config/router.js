@@ -31,6 +31,7 @@ FlowRouter.route('/b/:id/:slug', {
     // If we close a card, we'll execute again this route action but we don't
     // want to excape every current actions (filters, etc.)
     if (previousBoard !== currentBoard) {
+      Filter.reset();
       EscapeActions.executeAll();
     } else {
       EscapeActions.executeUpTo('popup-close');

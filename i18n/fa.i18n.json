@@ -354,5 +354,6 @@
     "invitation-code": "کد دعوت نامه",
     "email-invite-register-subject": "__inviter__ برای شما دعوت نامه ارسال کرده است",
     "email-invite-register-text": "__User__ عزیز \nکاربر __inviter__ شما را به عضویت در Wekan برای همکاری دعوت کرده است.\nلطفا لینک زیر را دنبال کنید،\n __url__\nکد دعوت شما __icode__ می باشد.\n باتشکر",
-    "error-invitation-code-not-exist": "چنین کد دعوتی یافت نشد"
+    "error-invitation-code-not-exist": "چنین کد دعوتی یافت نشد",
+    "error-notAuthorized": "You are not authorized to view this page."
 }

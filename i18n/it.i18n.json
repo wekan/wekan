@@ -354,5 +354,6 @@
     "invitation-code": "Codice d'invito",
     "email-invite-register-subject": "__inviter__ ti ha inviato un invito",
     "email-invite-register-text": "Gentile __user__,\n\n__inviter__ ti ha invitato su Wekan per collaborare.\n\nPer favore segui il link qui sotto:\n__url__\n\nIl tuo codice d'invito è: __icode__\n\nGrazie.",
-    "error-invitation-code-not-exist": "Il codice d'invito non esiste"
+    "error-invitation-code-not-exist": "Il codice d'invito non esiste",
+    "error-notAuthorized": "You are not authorized to view this page."
 }

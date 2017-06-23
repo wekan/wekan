@@ -105,7 +105,7 @@ if (Meteor.isServer) {
         inviter: Users.findOne(icode.authorId).username,
         user: icode.email.split('@')[0],
         icode: icode.code,
-        url: FlowRouter.url('sign-up'),
+        url: FlowRouter.url('sign-in'),
       };
       const lang = author.getLanguage();
       Email.send({

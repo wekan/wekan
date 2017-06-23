@@ -285,7 +285,7 @@ class TrelloCreator {
             createdAt: this._now(comment.date),
             text: comment.data.text,
             // we attribute the comment to the original author, default to current user
-            userId: this._user(comment.memberCreator.id),
+            userId: this._user(comment.idMemberCreator),
           };
           // dateLastActivity will be set from activity insert, no need to
           // update it ourselves
@@ -298,7 +298,7 @@ class TrelloCreator {
             createdAt: this._now(commentToCreate.createdAt),
             // we attribute the addComment (not the import)
             // to the original author - it is needed by some UI elements.
-            userId: this._user(commentToCreate.userId),
+            userId: commentToCreate.userId,
           });
         });
       }

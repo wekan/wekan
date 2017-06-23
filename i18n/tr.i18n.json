@@ -354,5 +354,6 @@
     "invitation-code": "Davetiye kodu",
     "email-invite-register-subject": "__inviter__ size bir davetiye gönderdi",
     "email-invite-register-text": "Sevgili __user__,\n\n__inviter__ Sizi koordine çalışabilmek için Wekan'a davet etti.\n\nLütfen aşağıdaki linke tıklayın:\n__url__\n\nDavetiye kodunuz: __icode__\n\nTeşekkürler.",
-    "error-invitation-code-not-exist": "Davetiye kodu bulunamadı"
+    "error-invitation-code-not-exist": "Davetiye kodu bulunamadı",
+    "error-notAuthorized": "You are not authorized to view this page."
 }

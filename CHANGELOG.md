@@ -1,5 +1,15 @@
 # Upcoming Wekan release
 
+This release fixes the following bugs:
+
+* [Fix importing Trello board: Attribute correct members to their
+   comments](https://github.com/wekan/wekan/pull/1080);
+* [Fix Case-sensitive email handling](https://github.com/wekan/wekan/issues/675).
+
+Thanks to GitHub users GhassenRjab and nztqa for their contributions.
+
+# v0.24 2017-06-21 Wekan release
+
 This release adds the following new features:
 
 * [Change the way to delete a list (card-like)](https://github.com/wekan/wekan/pull/1050), fixes
@@ -11,11 +21,15 @@ This release adds the following new features:
 
 and fixes the following bugs:
 
+* [Fix Admin Panel link available to all users, only link is hidden](https://github.com/wekan/wekan/pull/1076);
 * [Fix IE 11 drag board to scroll](https://github.com/wekan/wekan/pull/1052);
 * [Fix Export Wekan board](https://github.com/wekan/wekan/pull/1067);
-* [Fix "W" shortcut binding](https://github.com/wekan/wekan/pull/1066).
+* [Fix "W" shortcut binding](https://github.com/wekan/wekan/pull/1066);
+* [Fix login url in invitation email](https://github.com/wekan/wekan/issues/993);
+* [Edit card description with invalid markdown](https://github.com/wekan/wekan/pull/1073);
+* [Fix filter reset on moving between starred boards](https://github.com/wekan/wekan/pull/1074).
 
-Thanks to GitHub users BaobabCoder, GhassenRjab, nebulade and nztqa
+Thanks to GitHub users BaobabCoder, GhassenRjab, nebulade, nztqa and xet7
 for their contributions.
 
 # v0.23 2017-05-21 Wekan release

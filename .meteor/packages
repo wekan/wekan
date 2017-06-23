@@ -31,7 +31,6 @@ mquandalle:collection-mutations
 accounts-password@1.3.5
 kenton:accounts-sandstorm
 service-configuration@1.0.11
-useraccounts:core
 useraccounts:unstyled
 useraccounts:flow-routing
 email@1.2.0

@@ -64,9 +64,9 @@
     "archive-selection": "Archiver la selection",
     "archiveBoardPopup-title": "Archiver le tableau ?",
     "archived-items": "Éléments archivés",
-    "archived-boards": "Archived Boards",
-    "restore-board": "Restore Board",
-    "no-archived-boards": "No Archived Boards.",
+    "archived-boards": "Tableaux archivés",
+    "restore-board": "Restaurer le tableau",
+    "no-archived-boards": "Aucun tableau archivé",
     "archives": "Archives",
     "assign-member": "Affecter un membre",
     "attached": "joint",
@@ -354,5 +354,6 @@
     "invitation-code": "Code d'invitation",
     "email-invite-register-subject": "__inviter__ vous a envoyé une invitation",
     "email-invite-register-text": "Cher __user__,\n\n__inviter__ vous invite à le rejoindre sur Wekan pour collaborer.\n\nVeuillez suivre le lien ci-dessous :\n__url__\n\nVotre code d'invitation est : __icode__\n\nMerci.",
-    "error-invitation-code-not-exist": "Ce code d'invitation n'existe pas."
+    "error-invitation-code-not-exist": "Ce code d'invitation n'existe pas.",
+    "error-notAuthorized": "Vous n'êtes pas autorisé à accéder à cette page."
 }

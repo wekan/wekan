@@ -354,5 +354,6 @@
     "invitation-code": "招待コード",
     "email-invite-register-subject": "__inviter__ sent you an invitation",
     "email-invite-register-text": "Dear __user__,\n\n__inviter__ invites you to Wekan for collaborations.\n\nPlease follow the link below:\n__url__\n\nAnd your invitation code is: __icode__\n\nThanks.",
-    "error-invitation-code-not-exist": "招待コードが存在しません"
+    "error-invitation-code-not-exist": "招待コードが存在しません",
+    "error-notAuthorized": "You are not authorized to view this page."
 }
