@@ -3,9 +3,10 @@
 This release fixes the following bugs:
 
 * [Fix importing Trello board: Attribute correct members to their
-   comments](https://github.com/wekan/wekan/pull/1080).
+   comments](https://github.com/wekan/wekan/pull/1080);
+* [Fix Case-sensitive email handling](https://github.com/wekan/wekan/issues/675).
 
-Thanks to GitHub user GhassenRjab for contributions.
+Thanks to GitHub users GhassenRjab and nztqa for their contributions.
 
 # v0.24 2017-06-21 Wekan release
 
