@@ -229,6 +229,7 @@ class TrelloCreator {
         title: card.name,
         // we attribute the card to its creator if available
         userId: this._user(this.createdBy.cards[card.id]),
+        dueAt: card.due ? this._now(card.due) : null,
       };
       // add labels
       if (card.idLabels) {

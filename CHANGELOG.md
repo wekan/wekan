@@ -1,6 +1,10 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+* [Import due date from Trello](https://github.com/wekan/wekan/pull/1082).
+
+and fixes the following bugs:
 
 * [Fix importing Trello board: Attribute correct members to their
    comments](https://github.com/wekan/wekan/pull/1080);
