@@ -1,12 +1,18 @@
-# Upcoming Wekan release
+# v0.25 2017-06-24 Wekan release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+* [Import due date from Trello](https://github.com/wekan/wekan/pull/1082).
+
+and fixes the following bugs:
 
 * [Fix importing Trello board: Attribute correct members to their
    comments](https://github.com/wekan/wekan/pull/1080);
-* [Fix Case-sensitive email handling](https://github.com/wekan/wekan/issues/675).
+* [Fix Case-sensitive email handling](https://github.com/wekan/wekan/issues/675);
+* [Use fibers 1.0.15 because 2.0.0 is broken](https://github.com/wekan/wekan/commit/86e2744c24149c0eacf725b68a186d0bcfae5100);
+* [Remove git submodules, so that git clone of Wekan repo works now on Windows](https://github.com/wekan/wekan/issues/977).
 
-Thanks to GitHub users GhassenRjab and nztqa for their contributions.
+Thanks to GitHub users GhassenRjab, nztqa and xet7 for their contributions.
 
 # v0.24 2017-06-21 Wekan release
 

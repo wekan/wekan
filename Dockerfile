@@ -7,6 +7,7 @@ ARG METEOR_RELEASE
 ARG METEOR_EDGE
 ARG USE_EDGE
 ARG NPM_VERSION
+ARG FIBERS_VERSION
 ARG ARCHITECTURE
 ARG SRC_PATH
 
@@ -18,6 +19,7 @@ ENV METEOR_RELEASE ${METEOR_RELEASE:-1.4.4.1}
 ENV USE_EDGE ${USE_EDGE:-false}
 ENV METEOR_EDGE ${METEOR_EDGE:-1.5-beta.17}
 ENV NPM_VERSION ${NPM_VERSION:-4.6.1}
+ENV FIBERS_VERSION ${FIBERS_VERSION:-1.0.15}
 ENV ARCHITECTURE ${ARCHITECTURE:-linux-x64}
 ENV SRC_PATH ${SRC_PATH:-./}
 
@@ -79,7 +81,7 @@ RUN \
     # Install Node dependencies
     npm install -g npm@${NPM_VERSION} && \
     npm install -g node-gyp && \
-    npm install -g fibers && \
+    npm install -g fibers@${FIBERS_VERSION} && \
     \
     # Change user to wekan and install meteor
     cd /home/wekan/ && \
@@ -93,9 +95,11 @@ RUN \
     if [ "$USE_EDGE" = false ]; then \
       gosu wekan:wekan sh ./install_meteor.sh; \
     else \
-      gosu wekan:wekan git clone --recursive git://github.com/meteor/meteor.git /home/wekan/.meteor && \
+      gosu wekan:wekan git clone --recursive --depth 1 -b release/METEOR@${METEOR_EDGE} git://github.com/meteor/meteor.git /home/wekan/.meteor && \
+      cd /home/wekan/packages && \
+      gosu wekan:wekan git clone --depth 1 -b master git://github.com/wekan/flow-router.git kadira-flow-router && \
+      gosu wekan:wekan git clone --depth 1 -b master git://github.com/meteor-useraccounts/core.git meteor-useraccounts-core && \
       cd /home/wekan/.meteor && \
-      gosu wekan:wekan git checkout release/METEOR@${METEOR_EDGE} && \
       gosu wekan /home/wekan/.meteor/meteor -- help; \
     fi && \
     \
