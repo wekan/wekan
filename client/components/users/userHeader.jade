@@ -18,7 +18,7 @@ template(name="memberMenuPopup")
       li: a.js-change-language {{_ 'changeLanguagePopup-title'}}
       li: a.js-edit-notification {{_ 'editNotificationPopup-title'}}
     if currentUser.isAdmin
-      li: a.js-go-setting(href='/setting') {{_ 'admin-panel'}}
+      li: a.js-go-setting(href="{{pathFor 'setting'}}") {{_ 'admin-panel'}}
   hr
   ul.pop-over-list
     li: a.js-logout {{_ 'log-out'}}
