@@ -3,6 +3,7 @@
 This release fixes the following bugs:
 
 * [Fix admin panel route for subfolder](https://github.com/wekan/wekan/pull/1084);
+* [Fix i18n route for subfolder](https://github.com/wekan/wekan/pull/1085).
 
 Thanks to GitHub user nztqa for contributions.
 
