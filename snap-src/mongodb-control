@@ -1,0 +1,31 @@
+#!/bin/bash
+
+# get wekan/mongo settings
+source $SNAP/bin/wekan-read-settings
+
+if [ "true" == "${DISABLE_MONGODB}" ]; then
+    echo "mongodb is disabled. Not starting it"
+    exit 0
+fi
+
+# make sure we have set minimum env variables for locale
+if [ -z "$LANG" ]; then
+    export LANG=en_US.UTF-8
+fi
+
+export LC_ALL=C
+
+# start mongo deamon
+BIND_OPTIONS=""
+if [ "nill" != "$MONGODB_BIND_UNIX_SOCKET" ] && [ "x" != "x${MONGODB_BIND_UNIX_SOCKET}" ]; then
+    BIND_OPTIONS+=" --unixSocketPrefix  $MONGODB_BIND_UNIX_SOCKET"
+fi
+if [ "x" != "x${MONGODB_BIND_IP}" ]; then
+    BIND_OPTIONS+=" --bind_ip $MONGODB_BIND_IP"
+fi
+if [ "x" != "x${MONGODB_PORT}" ]; then
+    BIND_OPTIONS+=" --port $MONGODB_PORT"
+fi
+echo "mongodb bind options: $BIND_OPTIONS"
+
+mongod --dbpath $SNAP_COMMON --logpath $SNAP_COMMON/mongodb.log --logappend --journal $BIND_OPTIONS
