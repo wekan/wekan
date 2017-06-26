@@ -28,7 +28,7 @@
     "no-unneeded-ternary": 2,
     "radix": 2,
     "semi": [2, "always"],
-    "camelcase": 2,
+    "camelcase": [2, {"properties": "never"}],
     "comma-spacing": 2,
     "comma-style": 2,
     "eol-last": 2,
