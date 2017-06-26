@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+* [Fix admin panel route for subfolder](https://github.com/wekan/wekan/pull/1084);
+
+Thanks to GitHub user nztqa for contributions.
+
 # v0.25 2017-06-24 Wekan release
 
 This release adds the following new features:
