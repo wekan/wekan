@@ -3,6 +3,7 @@
 // information provided by the browser, and default to english.
 
 Meteor.startup(() => {
+  TAPi18n.conf.i18n_files_route = Meteor._relativeToSiteRootUrl('/tap-i18n');
   Tracker.autorun(() => {
     const currentUser = Meteor.user();
     let language;
