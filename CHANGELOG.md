@@ -3,6 +3,7 @@
 This release fixes the following bugs:
 
 * [Fix incorrect attachment link with subfolder in the url](https://github.com/wekan/wekan/pull/1086);
+* [Fix link to card](https://github.com/wekan/wekan/pull/1087).
 
 Thanks to GitHub user nztqa for contributions.
 
