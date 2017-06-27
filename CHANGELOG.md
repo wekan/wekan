@@ -1,11 +1,15 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+* [Snapcraft build support from source](https://github.com/wekan/wekan/pull/1091).
+
+and fixes the following bugs:
 
 * [Fix incorrect attachment link with subfolder in the url](https://github.com/wekan/wekan/pull/1086);
 * [Fix link to card](https://github.com/wekan/wekan/pull/1087).
 
-Thanks to GitHub user nztqa for contributions.
+Thanks to GitHub users kubiko and nztqa for their contributions.
 
 # v0.26 2017-06-26 Wekan release
 

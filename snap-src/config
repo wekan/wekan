@@ -1,0 +1,44 @@
+#!/bin/sh
+
+# store here all configuration options for wekan snap
+# read configured settings first
+SETTINGS_FILE="$SNAP_COMMON/wekan_settings.sh"
+[ -f $SETTINGS_FILE ] && . $SETTINGS_FILE
+
+# list of supported keys
+keys="MONGODB_BIND_UNIX_SOCKET MONGODB_BIND_IP MONGODB_PORT MAIL_URL MAIL_FROM ROOT_URL PORT DISABLE_MONGODB"
+
+# default values
+DESCRIPTION_MONGODB_BIND_UNIX_SOCKET="mongodb binding unix socket:\n"\
+"\t\t\t Default behaviour will preffer binding over unix socket, to disable unix socket binding set value to 'nill' string\n"\
+"\t\t\t To bind to instance of mongo provided through contect interface set to relative path to the socket inside shared directory"
+DEFAULT_MONGODB_BIND_UNIX_SOCKET="$SNAP_DATA/share"
+KEY_MONGODB_BIND_UNIX_SOCKET="mongodb-bind-unix-socket"
+
+DESCRIPTION_MONGODB_PORT="mongodb binding port: eg 27017 when using localhost"
+DEFAULT_MONGODB_PORT="27019"
+KEY_MONGODB_PORT='mongodb-port'
+
+DESCRIPTION_MONGODB_BIND_IP="mongodb binding ip address: eg 127.0.0.1 for localhost\n\t\tIf not defined default unix socket is used instead"
+DEFAULT_MONGODB_BIND_IP=""
+KEY_MONGODB_BIND_IP="mongodb-bind-ip"
+
+DESCRIPTION_MAIL_URL="wekan mail binding"
+DEFAULT_MAIL_URL="smtp://user:pass@mailserver.examples.com:25/"
+KEY_MAIL_URL="mail-url"
+
+DESCRIPTION_MAIL_FROM="wekan's admin mail from name email address"
+DEFAULT_MAIL_FROM="wekan-admin@example.com"
+KEY_MAIL_FROM="mail-from"
+
+DESCRIPTION_ROOT_URL="wekan's root url, eg http://127.0.0.1, https://example.com, https://wekan.example.com, http://example.com/wekan"
+DEFAULT_ROOT_URL="http://127.0.0.1"
+KEY_ROOT_URL="root-url"
+
+DESCRIPTION_PORT="port wekan is exposed at"
+DEFAULT_PORT="8080"
+KEY_PORT="port"
+
+DESCRIPTION_DISABLE_MONGODB="Disable mongodb service: use only if binding to database outside of the snap. Valid values: [true,false]"
+DEFAULT_DISABLE_MONGODB="false"
+KEY_DISABLE_MONGODB="disable-mongodb"
