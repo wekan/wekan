@@ -64,9 +64,9 @@
     "archive-selection": "刪除所選內容",
     "archiveBoardPopup-title": "確定要刪除看板嗎？",
     "archived-items": "封存",
-    "archived-boards": "Archived Boards",
-    "restore-board": "Restore Board",
-    "no-archived-boards": "No Archived Boards.",
+    "archived-boards": "已封存看板",
+    "restore-board": "還原看板",
+    "no-archived-boards": "沒有已封存的看板",
     "archives": "封存",
     "assign-member": "分配成員",
     "attached": "附加",
@@ -235,8 +235,8 @@
     "listImportCardPopup-title": "匯入 Trello 卡片",
     "listMorePopup-title": "更多",
     "link-list": "連結到這個清單",
-    "list-delete-pop": "All actions will be removed from the activity feed and you won't be able to recover the list. There is no undo.",
-    "list-delete-suggest-archive": "You can archive a list to remove it from the board and preserve the activity.",
+    "list-delete-pop": "所有的動作將從活動動態中被移除且您將無法再開啟該清單\b。此操作無法復原。",
+    "list-delete-suggest-archive": "你可以將從清單中刪除至回收筒，但保留相關活動",
     "lists": "清單",
     "log-out": "登出",
     "log-in": "登入",
@@ -355,5 +355,5 @@
     "email-invite-register-subject": "__inviter__ 向您發出邀請",
     "email-invite-register-text": "親愛的 __user__,\n\n__inviter__ 邀請您加入 Wekan 一同協作\n\n請點擊下列連結：\n__url__\n\n您的邀請碼為：__icode__\n\n謝謝。",
     "error-invitation-code-not-exist": "邀請碼不存在",
-    "error-notAuthorized": "You are not authorized to view this page."
+    "error-notAuthorized": "沒有適合的權限觀看"
 }
