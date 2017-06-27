@@ -1,7 +1,7 @@
 template(name="minicard")
   .minicard
     if cover
-      .minicard-cover(style="background-image: url('{{pathFor cover.url}}');")
+      .minicard-cover(style="background-image: url('{{cover.url}}');")
     if labels
       .minicard-labels
         each labels

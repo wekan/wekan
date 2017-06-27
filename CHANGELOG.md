@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+* [Fix incorrect attachment link with subfolder in the url](https://github.com/wekan/wekan/pull/1086);
+
+Thanks to GitHub user nztqa for contributions.
+
 # v0.26 2017-06-26 Wekan release
 
 This release fixes the following bugs:
