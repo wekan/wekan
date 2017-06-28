@@ -86,7 +86,13 @@ Checklists.mutations({
   //for items in checklist
   addItem(title) {
     const itemCount = this.itemCount();
-    const _id = `${this._id}${itemCount}`;
+    let idx = 0;
+    if (itemCount > 0) {
+      const lastId = this.items[itemCount - 1]._id;
+      const lastIdSuffix = lastId.substr(this._id.length);
+      idx = parseInt(lastIdSuffix, 10) + 1;
+    }
+    const _id = `${this._id}${idx}`;
     return { $addToSet: { items: { _id, title, isFinished: false } } };
   },
   removeItem(itemId) {
