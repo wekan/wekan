@@ -7,7 +7,8 @@ This release adds the following new features:
 and fixes the following bugs:
 
 * [Fix incorrect attachment link with subfolder in the url](https://github.com/wekan/wekan/pull/1086);
-* [Fix link to card](https://github.com/wekan/wekan/pull/1087).
+* [Fix link to card](https://github.com/wekan/wekan/pull/1087);
+* [Fix duplicate id generation](https://github.com/wekan/wekan/pull/1093).
 
 Thanks to GitHub users kubiko and nztqa for their contributions.
 
