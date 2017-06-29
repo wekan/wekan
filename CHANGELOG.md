@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+* [REST API: Add PUT method to update a card](https://github.com/wekan/wekan/pull/1095).
+
+Thanks to GitHub user zarnifoulette for contributions!
+
 # v0.27 2017-06-28 Wekan release
 
 This release adds the following new features:
