@@ -425,17 +425,17 @@ if (Meteor.isServer) {
     const paramBoardId = req.params.boardId;
     const paramCardId = req.params.cardId;
     const paramListId = req.params.listId;
-    if(req.body.title !== undefined){
+    if(req.body.hasOwnProperty('title')){
       const newTitle = req.body.title;
       Cards.update({ _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
                 {$set:{title:newTitle}});
     }
-    if(req.body.listId !== undefined){
+    if(req.body.hasOwnProperty('listId')){
       const newParamListId = req.body.listId;
       Cards.update({ _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
                 {$set:{listId:newParamListId}});
     }
-    if(req.body.description !== undefined){
+    if(req.body.hasOwnProperty('description')){
       const newDescription = req.body.description;
       Cards.update({ _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
                 {$set:{description:newDescription}});
