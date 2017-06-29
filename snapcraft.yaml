@@ -1,0 +1,125 @@
+name: wekan
+version: "0.27-SNAPSHOT"
+summary: The open-source Trello-like kanban
+description: |
+   Wekan is an open-source and collaborative kanban board application.
+
+   Whether you’re maintaining a personal todo list, planning your holidays with some friends, or working in a team on your next revolutionary idea, Kanban boards are an unbeatable tool to keep your things organized. They give you a visual overview of the current state of your project, and make you productive by allowing you to focus on the few items that matter the most.
+   Depending on target environment, some configuration settings might need to be adjusted.
+   For full list of configuration options call:
+   $ wekan.help
+
+confinement: strict
+grade: stable
+
+architectures:
+  - amd64
+
+plugs:
+  mongodb-plug:
+    interface: content
+    target: $SNAP_DATA/shared
+
+slots:
+  mongodb-slot:
+    interface: content
+    write:
+      - $SNAP_DATA/share
+
+apps:
+    wekan:
+        command: wekan-control
+        daemon: simple
+        plugs: [network, network-bind]
+
+    mongodb:
+        command: mongodb-control
+        daemon: simple
+        plugs: [network, network-bind]
+
+    help:
+        command: wekan-help
+
+    database-backup:
+        command: mongodb-backup
+        plugs: [network, network-bind]
+
+    database-list-backups:
+        command: ls -ald $SNAP_COMMON/db-backups/*
+
+    database-restore:
+        command: mongodb-restore
+        plugs: [network, network-bind]
+
+parts:
+    mongodb:
+        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-3.2.14.tgz
+        plugin: dump
+        stage-packages: [libssl1.0.0]
+        filesets:
+            mongo:
+                - usr
+                - bin
+                - lib
+        stage:
+            - $mongo
+        prime:
+            - $mongo
+
+    wekan:
+        source: .
+        plugin: nodejs
+        node-engine: 4.8.1
+        node-packages:
+            - npm@4.6.1
+            - node-gyp
+            - node-pre-gyp
+            - fibers@1.0.15
+        build-packages:
+            - python
+            - g++
+            - capnproto
+            - nodejs
+            - nodejs-legacy
+            - curl
+        prepare: |
+            echo "Cleaning environment first"
+            rm -rf ~/.meteor ~/.npm /usr/local/lib/node_modules
+            echo "installing meteor first"
+            curl https://install.meteor.com/ -o install_meteor.sh
+            sed -i "s|RELEASE=.*|RELEASE=\"1.4.4.1\"|g" install_meteor.sh
+            chmod +x install_meteor.sh
+            sh install_meteor.sh
+            rm install_meteor.sh
+            mkdir -p packages
+            git clone https://github.com/wekan/flow-router.git packages/kadira-flow-router
+            git clone https://github.com/meteor-useraccounts/core.git packages/meteor-useraccounts-core
+        build: |
+            rm -rf package-lock.json .build
+            meteor add standard-minifier-js --allow-superuser
+            meteor npm install --allow-superuser
+            meteor build .build --directory --allow-superuser
+            cp -f fix-download-unicode/cfs_access-point.txt .build/bundle/programs/server/packages/cfs_access-point.js
+            sed -i "s|build\/Release\/bson|browser_build\/bson|g" .build/bundle/programs/server/npm/node_modules/meteor/cfs_gridfs/node_modules/mongodb/node_modules/bson/ext/index.js
+            cd .build/bundle/programs/server/npm/node_modules/meteor/npm-bcrypt
+            rm -rf node_modules/bcrypt
+            npm install bcrypt
+            cd ../../../../
+            npm install
+        install: |
+            cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
+            cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
+        organize:
+            README: README.wekan
+
+    helpers:
+        source: snap-src
+        plugin: dump
+        organize:
+            wekan-control: bin/wekan-control
+            mongodb-control: bin/mongodb-control
+            wekan-read-settings: bin/wekan-read-settings
+            wekan-help: bin/wekan-help
+            mongodb-backup: bin/mongodb-backup
+            mongodb-restore: bin/mongodb-restore
+            config: bin/config

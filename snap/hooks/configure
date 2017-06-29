@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# read wekan config
+. $SNAP/bin/config
+
+# create run dir, we're going to use it for unix socket
+mkdir -p $SNAP_DATA/share
+mkdir -p $SNAP_DATA/shared
+
+# settings were altered by user, safest way to get them applied is to restart service
+
+# TODO: remove this workaround once it's not needed
+# for the moment we can't read settings outside of the hook,
+# so store all settings in helpper script which is then picked by main wrapper
+echo -e "#!/bin/sh\n" > $SETTINGS_FILE
+for key in ${keys[@]}
+do
+  # snappy is picky about key syntax, using mapping
+  MAP_KEY="KEY_$key"
+  if value=$(snapctl get ${!MAP_KEY}); then
+      echo "export $key='$value'" >> $SETTINGS_FILE
+  elif [ -d "${!key}" ]; then
+      # store back value from SETTINGS_FILE
+      echo "export $key='${!key}'" >> $SETTINGS_FILE
+  fi
+done
+
+# set file executable
+chmod 755 $SETTINGS_FILE
+# we can't use snapctl to restart service, may be one day ....
+
+echo "Setting has been updated, restart service."

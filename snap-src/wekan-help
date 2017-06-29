@@ -1,0 +1,48 @@
+#!/bin/bash
+
+source $SNAP/bin/config &>/dev/null
+
+echo -e "Wekan: The open-source Trello-like kanban.\n"
+echo -e "Make sure you have connected all interfaces, check more by calling $ snap interfaces"
+echo -e "\n"
+echo -e "${SNAP_NAME} has two services, to check status/restart/stop use systemd commands"
+echo -e "mongodb service:"
+echo -e "\t$ sudo systemctl status/start/stop/restart snap.$SNAP_NAME.mongodb"
+echo -e "wekan service"
+echo -e "\t$ sudo systemctl status/start/stop/restart snap.$SNAP_NAME.wekan"
+echo -e "\n"
+echo -e "To make backup of wekan's database use: $ ${SNAP_NAME}.database-backup [backup file]"
+echo -e "\t backup file is optional parameter, if not passed backup is created in directory:"
+echo -e "\t\t${SNAP_COMMON}/db-backups"
+echo -e "To list existing backups in default directory: $ ${SNAP_NAME}.database-list-backups"
+echo -e "To restore wekan's database use: ${SNAP_NAME}.database-restore <path to backup>"
+echo -e "\n"
+echo -e "wekan can be configured to share mongodb with other services using content interface"
+echo -e "\t-sharing mongodb from $SNAP_NAME to other snap(s):"
+echo -e "\t\t-connect mongodb-slot with plug from corresponding snap(s)"
+echo -e "\t\t-configure corresponding service to use mongodb unix socket in shared directory, socket file name is: mongodb-$MONGODB_PORT.sock"
+echo -e "\t-sharing mongodb from other snap to $SNAP_NAME:"
+echo -e "\t\t-connect mongodb-plug with slot from snap providing mongodb"
+echo -e "\t\t-disable mongodb in $SNAP_NAME by calling: $ snap set $SNAP_NAME set disable-mongodb='true'"
+echo -e "\t\t-set mongodb-bind-unix-socket to point to serving mongodb. Use relative path inside shared directory, e.g run/mongodb-27017.sock"
+echo -e "\n"
+# parse config file for supported settings keys
+echo -e "wekan supports settings keys"
+echo -e "values can be changed by calling\n$ snap set $SNAP_NAME <key name>='<key value>'"
+echo -e "list of supported keys:"
+for key in ${keys[@]}
+do
+    default_value="DEFAULT_$key"
+    description="DESCRIPTION_$key"
+    snappy_key="KEY_$key"
+    echo -e "\t${!snappy_key}:   ${!description}"
+    if [ "x" == "x${!key}" ]; then
+        echo -e "\t\tNo value set, using default value: '${!default_value}'"
+    else
+        echo -e "\t\tCurrent value set to: '${!key}', (default value: '${!default_value}')"
+    fi
+done
+echo -e "\nFor changes to take effect restart wekan service,"
+echo -e "if mongodb key was change also restart mongodb service, before restarting wekan"
+echo -e "to restart mongodb: $ sudo systemctl restart snap.$SNAP_NAME.mongodb"
+echo -e "to restart wekan:   $ sudo systemctl restart snap.$SNAP_NAME.wekan"
