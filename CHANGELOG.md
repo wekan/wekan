@@ -2,7 +2,8 @@
 
 This release adds the following new features:
 
-* [REST API: Add PUT method to update a card](https://github.com/wekan/wekan/pull/1095).
+* [REST API: Add PUT method to update a card](https://github.com/wekan/wekan/pull/1095) and
+  [related fix](https://github.com/wekan/wekan/pull/1097).
 
 Thanks to GitHub user zarnifoulette for contributions!
 
