@@ -420,34 +420,33 @@ if (Meteor.isServer) {
     });
   });
 
-    JsonRoutes.add('PUT', '/api/boards/:boardId/lists/:listId/cards/:cardId', function (req, res, next) {
-        Authentication.checkUserId( req.userId);
-        const paramBoardId = req.params.boardId;
-        const paramCardId = req.params.cardId;
-        const paramListId = req.params.listId;
-        if(req.body.title !== undefined){
-            const newTitle = req.body.title;
-            Cards.update({ _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
+  JsonRoutes.add('PUT', '/api/boards/:boardId/lists/:listId/cards/:cardId', function (req, res, next) {
+    Authentication.checkUserId( req.userId);
+    const paramBoardId = req.params.boardId;
+    const paramCardId = req.params.cardId;
+    const paramListId = req.params.listId;
+    if(req.body.title !== undefined){
+      const newTitle = req.body.title;
+      Cards.update({ _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
                 {$set:{title:newTitle}});
-        }
-        if(req.body.listId !== undefined){
-            const newParamListId = req.body.listId;
-            Cards.update({ _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
+    }
+    if(req.body.listId !== undefined){
+      const newParamListId = req.body.listId;
+      Cards.update({ _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
                 {$set:{listId:newParamListId}});
-        }
-        if(req.body.description !== undefined){
-            const newDescription = req.body.description;
-            Cards.update({ _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
+    }
+    if(req.body.description !== undefined){
+      const newDescription = req.body.description;
+      Cards.update({ _id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false },
                 {$set:{description:newDescription}});
-        }
-        JsonRoutes.sendResult(res, {
-            code: 200,
-            data: {
-                _id: paramCardId,
-            },
-        });
+    }
+    JsonRoutes.sendResult(res, {
+      code: 200,
+      data: {
+        _id: paramCardId,
+      },
     });
-
+  });
 
 
   JsonRoutes.add('DELETE', '/api/boards/:boardId/lists/:listId/cards/:cardId', function (req, res, next) {
