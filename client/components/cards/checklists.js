@@ -8,6 +8,9 @@ BlazeComponent.extendComponent({
       cardId,
       title,
     });
+    setTimeout(() => {
+      this.$('.add-checklist-item').last().click();
+    }, 100);
   },
 
   addChecklistItem(event) {
@@ -16,6 +19,10 @@ BlazeComponent.extendComponent({
     const title = textarea.value.trim();
     const checklist = this.currentData().checklist;
     checklist.addItem(title);
+
+    // We keep the form opened, empty it.
+    textarea.value = '';
+    textarea.focus();
   },
 
   editChecklist(event) {

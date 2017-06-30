@@ -53,7 +53,7 @@ template(name="checklistItems")
       else
         +itemDetail(item = item checklist = checklist)
     if canModifyCard
-      +inlinedForm(classNames="js-add-checklist-item" checklist = checklist)
+      +inlinedForm(autoclose=false classNames="js-add-checklist-item" checklist = checklist)
         +addChecklistItemForm
       else
         a.add-checklist-item.js-open-inlined-form
