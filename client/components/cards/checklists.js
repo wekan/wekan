@@ -4,13 +4,18 @@ BlazeComponent.extendComponent({
     const textarea = this.find('textarea.js-add-checklist-item');
     const title = textarea.value.trim();
     const cardId = this.currentData().cardId;
-    Checklists.insert({
-      cardId,
-      title,
-    });
-    setTimeout(() => {
-      this.$('.add-checklist-item').last().click();
-    }, 100);
+
+    if (title) {
+      Checklists.insert({
+        cardId,
+        title,
+      });
+      setTimeout(() => {
+        this.$('.add-checklist-item').last().click();
+      }, 100);
+    }
+    textarea.value = '';
+    textarea.focus();
   },
 
   addChecklistItem(event) {
@@ -18,8 +23,10 @@ BlazeComponent.extendComponent({
     const textarea = this.find('textarea.js-add-checklist-item');
     const title = textarea.value.trim();
     const checklist = this.currentData().checklist;
-    checklist.addItem(title);
 
+    if (title) {
+      checklist.addItem(title);
+    }
     // We keep the form opened, empty it.
     textarea.value = '';
     textarea.focus();
