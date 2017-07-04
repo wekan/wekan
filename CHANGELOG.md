@@ -5,7 +5,8 @@ This release adds the following new features:
 * [REST API: Add PUT method to update a card](https://github.com/wekan/wekan/pull/1095) and
   [related fix](https://github.com/wekan/wekan/pull/1097);
 * [When finished input of checklist item, open new checklist
-  item](https://github.com/wekan/wekan/pull/1099).
+  item](https://github.com/wekan/wekan/pull/1099);
+* [Improve UI design of checklist items](https://github.com/wekan/wekan/pull/1108).
 
 and fixes the following bugs:
 
