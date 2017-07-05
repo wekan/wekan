@@ -156,6 +156,8 @@ Template.cardDetailsActionsPopup.events({
   'click .js-attachments': Popup.open('cardAttachments'),
   'click .js-start-date': Popup.open('editCardStartDate'),
   'click .js-due-date': Popup.open('editCardDueDate'),
+  'click .js-estimate': Popup.open('editCardEstimate'),
+  'click .js-sub-board': Popup.open('createSubBoard'),
   'click .js-move-card': Popup.open('moveCard'),
   'click .js-move-card-to-top'(evt) {
     evt.preventDefault();

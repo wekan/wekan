@@ -14,6 +14,12 @@ template(name="minicard")
       if dueAt
           .date
             +minicardDueDate
+      if estimate
+          .estimate
+            +minicardEstimate
+      if subBoardId
+        .subBoard
+          +minicardSubBoard
     if members
       .minicard-members.js-minicard-members
         each members

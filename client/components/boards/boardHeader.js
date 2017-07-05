@@ -137,7 +137,9 @@ const CreateBoard = BlazeComponent.extendComponent({
   onCreated() {
     this.visibilityMenuIsOpen = new ReactiveVar(false);
     this.visibility = new ReactiveVar('private');
+    this.hidden = new ReactiveVar(false);
     this.boardId = new ReactiveVar('');
+    const boardTitle = '';
   },
 
   visibilityCheck() {
@@ -155,12 +157,13 @@ const CreateBoard = BlazeComponent.extendComponent({
 
   onSubmit(evt) {
     evt.preventDefault();
-    const title = this.find('.js-new-board-title').value;
+    boardTitle = this.find('.js-new-board-title').value;
     const visibility = this.visibility.get();
 
     this.boardId.set(Boards.insert({
-      title,
+      title: boardTitle,
       permission: visibility,
+      hidden: this.hidden.get(),
     }));
 
     Utils.goBoardId(this.boardId.get());
@@ -177,6 +180,32 @@ const CreateBoard = BlazeComponent.extendComponent({
     }];
   },
 }).register('createBoardPopup');
+
+(class SubBoard extends CreateBoard {
+  onCreated() {
+    super.onCreated();
+    this.hidden.set(true);
+  }
+
+  onSubmit(evt) {
+    super.onSubmit(evt);
+    const card = this.currentData();
+    card.setSubBoard(this.boardId.get());
+    card.setSubBoardSlug(boardTitle);
+  }
+}).register('createSubBoardPopup');
+
+const CardSubBoard = BlazeComponent.extendComponent({
+  template() {
+    return 'subBoardBadge';
+  },
+}).register('cardSubBoard');
+
+(class extends CardSubBoard {
+  template() {
+    return 'subBoardMiniBadge';
+  }
+}).register('minicardSubBoard');
 
 (class HeaderBarCreateBoard extends CreateBoard {
   onSubmit(evt) {

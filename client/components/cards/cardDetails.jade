@@ -45,6 +45,10 @@ template(name="cardDetails")
           h3.card-details-item-title {{_ 'card-due'}}
           +cardDueDate
 
+      if estimate
+        .card-details-item.card-details-item-estimate
+          h3.card-details-item-title {{_ 'estimate'}}
+          +cardEstimate
 
     //- XXX We should use "editable" to avoid repetiting ourselves
     if canModifyCard
@@ -73,6 +77,10 @@ template(name="cardDetails")
       +viewer
         = description
 
+    if subBoardId
+      hr
+      +cardSubBoard
+
     hr
     +checklists(cardId = _id)
 
@@ -91,6 +99,8 @@ template(name="cardDetails")
     if isLoaded.get
       +activities(card=this mode="card")
 
+template(name="")
+
 template(name="editCardTitleForm")
   textarea.js-edit-card-title(rows='1' autofocus)
     = title
@@ -101,6 +111,32 @@ template(name="editCardTitleForm")
 template(name="cardDetailsActionsPopup")
   ul.pop-over-list
     li: a.js-toggle-watch-card {{#if isWatching}}{{_ 'unwatch'}}{{else}}{{_ 'watch'}}{{/if}}
+<<<<<<< HEAD
+  hr
+  ul.pop-over-list
+    li: a.js-members {{_ 'card-edit-members'}}
+    li: a.js-labels {{_ 'card-edit-labels'}}
+    li: a.js-attachments {{_ 'card-edit-attachments'}}
+    li: a.js-start-date {{_ 'editCardStartDatePopup-title'}}
+    li: a.js-due-date {{_ 'editCardDueDatePopup-title'}}
+    li: a.js-estimate {{_ 'editCardEstimate-title'}}
+  hr
+  ul.pop-over-list
+    if subBoardId
+      li: a.js-open-board(href="{{pathFor 'board' id=subBoardId slug=subBoardSlug}}") {{_ 'openSubBoard'}}
+    else
+      li: a.js-sub-board {{_ 'createSubBoardPopup-title'}}
+  hr
+  ul.pop-over-list
+    li: a.js-move-card-to-top {{_ 'moveCardToTop-title'}}
+    li: a.js-move-card-to-bottom {{_ 'moveCardToBottom-title'}}
+  hr
+  ul.pop-over-list
+    li: a.js-move-card {{_ 'moveCardPopup-title'}}
+    unless archived
+      li: a.js-archive {{_ 'archive-card'}}
+    li: a.js-more {{_ 'cardMorePopup-title'}}
+=======
   if canModifyCard
     hr
     ul.pop-over-list
@@ -119,6 +155,7 @@ template(name="cardDetailsActionsPopup")
       unless archived
         li: a.js-archive {{_ 'archive-card'}}
       li: a.js-more {{_ 'cardMorePopup-title'}}
+>>>>>>> 9ae03f30563d8fd5c18a5822f5becd019931898c
 
 template(name="moveCardPopup")
   +boardLists
