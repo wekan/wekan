@@ -405,25 +405,25 @@ if (Meteor.isServer) {
     const paramListId = req.params.listId;
     const check = Users.findOne({_id:req.body.authorId});
     if(typeof  check !== 'undefined') {
-        const id = Cards.insert({
-            title: req.body.title,
-            boardId: paramBoardId,
-            listId: paramListId,
-            description: req.body.description,
-            userId: req.body.authorId,
-            sort: 0,
-            members: [req.body.authorId],
-        });
-        JsonRoutes.sendResult(res, {
-            code: 200,
-            data: {
-                _id: id,
-            },
-        });
+      const id = Cards.insert({
+        title: req.body.title,
+        boardId: paramBoardId,
+        listId: paramListId,
+        description: req.body.description,
+        userId: req.body.authorId,
+        sort: 0,
+        members: [req.body.authorId],
+      });
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: {
+          _id: id,
+        },
+      });
     }else{
-        JsonRoutes.sendResult(res, {
-            code: 401,
-        });
+      JsonRoutes.sendResult(res, {
+        code: 401,
+      });
     }
   });
 
