@@ -1,3 +1,19 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+* [REST API: Add PUT method to update a card](https://github.com/wekan/wekan/pull/1095) and
+  [related fix](https://github.com/wekan/wekan/pull/1097);
+* [When finished input of checklist item, open new checklist
+  item](https://github.com/wekan/wekan/pull/1099);
+* [Improve UI design of checklist items](https://github.com/wekan/wekan/pull/1108).
+
+and fixes the following bugs:
+
+* [Possible to add empty item to checklist](https://github.com/wekan/wekan/pull/1107).
+
+Thanks to GitHub users nztqa and zarnifoulette for their contributions!
+
 # v0.27 2017-06-28 Wekan release
 
 This release adds the following new features:
