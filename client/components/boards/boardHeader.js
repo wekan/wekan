@@ -174,9 +174,16 @@ const CreateBoard = BlazeComponent.extendComponent({
       'click .js-change-visibility': this.toggleVisibilityMenu,
       'click .js-import': Popup.open('boardImportBoard'),
       submit: this.onSubmit,
+      'click .js-import-board': Popup.open('chooseBoardSource'),
     }];
   },
 }).register('createBoardPopup');
+
+BlazeComponent.extendComponent({
+  template() {
+    return 'chooseBoardSource';
+  },
+}).register('chooseBoardSourcePopup');
 
 (class HeaderBarCreateBoard extends CreateBoard {
   onSubmit(evt) {

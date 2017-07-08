@@ -80,19 +80,16 @@ FlowRouter.route('/shortcuts', {
   },
 });
 
-FlowRouter.route('/import', {
+FlowRouter.route('/import/:source', {
   name: 'import',
-  triggersEnter: [
-    AccountsTemplates.ensureSignedIn,
-    () => {
-      Session.set('currentBoard', null);
-      Session.set('currentCard', null);
+  triggersEnter: [AccountsTemplates.ensureSignedIn],
+  action(params) {
+    Session.set('currentBoard', null);
+    Session.set('currentCard', null);
+    Session.set('importSource', params.source);
 
-      Filter.reset();
-      EscapeActions.executeAll();
-    },
-  ],
-  action() {
+    Filter.reset();
+    EscapeActions.executeAll();
     BlazeLayout.render('defaultLayout', {
       headerBar: 'importHeaderBar',
       content: 'import',
@@ -132,6 +129,7 @@ const redirections = {
   '/boards': '/',
   '/boards/:id/:slug': '/b/:id/:slug',
   '/boards/:id/:slug/:cardId': '/b/:id/:slug/:cardId',
+  '/import': '/import/trello',
 };
 
 _.each(redirections, (newPath, oldPath) => {
