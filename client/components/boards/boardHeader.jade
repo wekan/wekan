@@ -194,7 +194,7 @@ template(name="createBoard")
       a.js-import-board {{_ 'import-board'}}
 
 template(name="chooseBoardSource")
-  ul
+  ul.pop-over-list
     li
       a(href="{{pathFor 'import/trello'}}") {{_ 'from-trello'}}
     li
