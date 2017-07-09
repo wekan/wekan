@@ -112,6 +112,7 @@ template(name="boardMenuPopup")
       ul.pop-over-list
         li: a(href="{{exportUrl}}", download="{{exportFilename}}") {{_ 'export-board'}}
         li: a.js-archive-board {{_ 'archive-board'}}
+        li: a.js-outgoing-webhooks {{_ 'outgoing-webhooks'}}
 
 template(name="boardVisibilityList")
   ul.pop-over-list
@@ -207,3 +208,13 @@ template(name="boardChangeTitlePopup")
 template(name="archiveBoardPopup")
   p {{_ 'close-board-pop'}}
   button.js-confirm.negate.full(type="submit") {{_ 'archive'}}
+
+template(name="outgoingWebhooksPopup")
+  form
+    label
+      | URL
+      if integration.enabled
+        input.js-outgoing-webhooks-url(type="text" value=integration.url autofocus)
+      else
+        input.js-outgoing-webhooks-url(type="text" autofocus)
+    input.primary.wide(type="submit" value="{{_ 'save'}}")
