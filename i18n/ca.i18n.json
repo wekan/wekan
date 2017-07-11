@@ -360,5 +360,7 @@
     "email-invite-register-subject": "__inviter__ t'ha convidat",
     "email-invite-register-text": " __user__,\n\n __inviter__  us ha convidat a col·laborar a Wekan.\n\n Clicau l'enllaç següent per acceptar l'invitació:\n __url__\n\n El vostre codi d'invitació és: __icode__\n\n Gràcies",
     "error-invitation-code-not-exist": "El codi d'invitació no existeix",
-    "error-notAuthorized": "You are not authorized to view this page."
+    "error-notAuthorized": "You are not authorized to view this page.",
+    "outgoing-webhooks": "Outgoing Webhooks",
+    "outgoingWebhooksPopup-title": "Outgoing Webhooks"
 }

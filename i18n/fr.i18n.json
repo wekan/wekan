@@ -360,5 +360,7 @@
     "email-invite-register-subject": "__inviter__ vous a envoyé une invitation",
     "email-invite-register-text": "Cher __user__,\n\n__inviter__ vous invite à le rejoindre sur Wekan pour collaborer.\n\nVeuillez suivre le lien ci-dessous :\n__url__\n\nVotre code d'invitation est : __icode__\n\nMerci.",
     "error-invitation-code-not-exist": "Ce code d'invitation n'existe pas.",
-    "error-notAuthorized": "Vous n'êtes pas autorisé à accéder à cette page."
+    "error-notAuthorized": "Vous n'êtes pas autorisé à accéder à cette page.",
+    "outgoing-webhooks": "Outgoing Webhooks",
+    "outgoingWebhooksPopup-title": "Outgoing Webhooks"
 }

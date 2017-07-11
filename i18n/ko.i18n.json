@@ -360,5 +360,7 @@
     "email-invite-register-subject": "\"__inviter__ 님이 당신에게 초대장을 보냈습니다.",
     "email-invite-register-text": "\"__user__ 님, \n\n__inviter__ 님이 Wekan 보드에 협업을 위하여 초대합니다.\n\n아래 링크를 클릭해주세요 : \n__url__\n\n그리고 초대 코드는 __icode__ 입니다.\n\n감사합니다.",
     "error-invitation-code-not-exist": "초대 코드가 존재하지 않습니다.",
-    "error-notAuthorized": "이 페이지를 볼 수있는 권한이 없습니다."
+    "error-notAuthorized": "이 페이지를 볼 수있는 권한이 없습니다.",
+    "outgoing-webhooks": "Outgoing Webhooks",
+    "outgoingWebhooksPopup-title": "Outgoing Webhooks"
 }

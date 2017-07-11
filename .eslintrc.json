@@ -127,6 +127,8 @@
     "InvitationCodes": true,
     "Winston":true,
     "JsonRoutes": true,
-    "Authentication": true
+    "Authentication": true,
+    "Integrations": true,
+    "HTTP": true
   }
 }

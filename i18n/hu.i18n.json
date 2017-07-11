@@ -360,5 +360,7 @@
     "email-invite-register-subject": "__inviter__ küldött neked egy meghívót",
     "email-invite-register-text": "Kedves __user__,\n\n__inviter__ meghívott közreműködésre a Wekanba.\n\nKérlek kövesd az alábbi linket:\n__url__\n\nA meghívókódod: __icode__\n\nKöszönjük.",
     "error-invitation-code-not-exist": "A meghívó kódja nem érvényes",
-    "error-notAuthorized": "You are not authorized to view this page."
+    "error-notAuthorized": "You are not authorized to view this page.",
+    "outgoing-webhooks": "Outgoing Webhooks",
+    "outgoingWebhooksPopup-title": "Outgoing Webhooks"
 }
