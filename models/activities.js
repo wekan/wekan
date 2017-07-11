@@ -131,5 +131,10 @@ if (Meteor.isServer) {
     Notifications.getUsers(participants, watchers).forEach((user) => {
       Notifications.notify(user, title, description, params);
     });
+
+    const integration = Integrations.findOne({ boardId: board._id, type: 'outgoing-webhooks', enabled: true });
+    if (integration) {
+      Meteor.call('outgoingWebhooks', integration, description, params);
+    }
   });
 }
