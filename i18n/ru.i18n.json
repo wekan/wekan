@@ -360,5 +360,7 @@
     "email-invite-register-subject": "__inviter__ прислал вам приглашение",
     "email-invite-register-text": "Уважаемый __user__,\n\n__inviter__ приглашает вас в Wekan для сотрудничества.\n\nПожалуйста, проследуйте по ссылке:\n__url__\n\nВаш код приглашения: __icode__\n\nСпасибо.",
     "error-invitation-code-not-exist": "Код приглашения не существует",
-    "error-notAuthorized": "You are not authorized to view this page."
+    "error-notAuthorized": "You are not authorized to view this page.",
+    "outgoing-webhooks": "Outgoing Webhooks",
+    "outgoingWebhooksPopup-title": "Outgoing Webhooks"
 }

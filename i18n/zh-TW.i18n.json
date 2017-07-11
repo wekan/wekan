@@ -360,5 +360,7 @@
     "email-invite-register-subject": "__inviter__ 向您發出邀請",
     "email-invite-register-text": "親愛的 __user__,\n\n__inviter__ 邀請您加入 Wekan 一同協作\n\n請點擊下列連結：\n__url__\n\n您的邀請碼為：__icode__\n\n謝謝。",
     "error-invitation-code-not-exist": "邀請碼不存在",
-    "error-notAuthorized": "沒有適合的權限觀看"
+    "error-notAuthorized": "沒有適合的權限觀看",
+    "outgoing-webhooks": "Outgoing Webhooks",
+    "outgoingWebhooksPopup-title": "Outgoing Webhooks"
 }

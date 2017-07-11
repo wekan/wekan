@@ -360,5 +360,7 @@
     "email-invite-register-subject": "נשלחה אליך הזמנה מאת __inviter__",
     "email-invite-register-text": "__user__ יקר,\n\nקיבלת הזמנה מאת __inviter__ לשתף פעולה ב־Wekan.\n\nנא ללחוץ על הקישור:\n__url__\n\nקוד ההזמנה שלך הוא: __icode__\n\nתודה.",
     "error-invitation-code-not-exist": "קוד ההזמנה אינו קיים",
-    "error-notAuthorized": "אין לך הרשאה לצפות בעמוד זה."
+    "error-notAuthorized": "אין לך הרשאה לצפות בעמוד זה.",
+    "outgoing-webhooks": "Outgoing Webhooks",
+    "outgoingWebhooksPopup-title": "Outgoing Webhooks"
 }

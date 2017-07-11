@@ -360,5 +360,7 @@
     "email-invite-register-subject": "__inviter__ lähetti sinulle kutsun",
     "email-invite-register-text": "Hei __user__,\n\n__inviter__ kutsuu sinut mukaan Wekan ohjelman käyttöön.\n\nOle hyvä ja seuraa allaolevaa linkkiä:\n__url__\n\nJa kutsukoodisi on: __icode__\n\nKiitos.",
     "error-invitation-code-not-exist": "Kutsukoodi ei ole olemassa",
-    "error-notAuthorized": "Sinulla ei ole oikeutta tarkastella tätä sivua."
+    "error-notAuthorized": "Sinulla ei ole oikeutta tarkastella tätä sivua.",
+    "outgoing-webhooks": "Lähtevät Webkoukut",
+    "outgoingWebhooksPopup-title": "Lähtevät Webkoukut"
 }

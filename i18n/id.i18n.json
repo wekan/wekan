@@ -360,5 +360,7 @@
     "email-invite-register-subject": "__inviter__ mengirim undangan ke Anda",
     "email-invite-register-text": "Halo __user__,\n\n__inviter__ mengundang Anda untuk berkolaborasi menggunakan Wekan.\n\nMohon ikuti tautan berikut:\n__url__\n\nDan kode undangan Anda adalah: __icode__\n\nTerima kasih.",
     "error-invitation-code-not-exist": "Kode undangan tidak ada",
-    "error-notAuthorized": "You are not authorized to view this page."
+    "error-notAuthorized": "You are not authorized to view this page.",
+    "outgoing-webhooks": "Outgoing Webhooks",
+    "outgoingWebhooksPopup-title": "Outgoing Webhooks"
 }

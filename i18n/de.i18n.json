@@ -360,5 +360,7 @@
     "email-invite-register-subject": "__inviter__ hat Ihnen eine Einladung geschickt",
     "email-invite-register-text": "Hallo __user__,\n\n__inviter__ hat Sie für Ihre Zusammenarbeit zu Wekan eingeladen.\n\nBitte klicken Sie auf folgenden Link:\n__url__\n\nIhr Einladungscode lautet: __icode__\n\nDanke.",
     "error-invitation-code-not-exist": "Ungültiger Einladungscode",
-    "error-notAuthorized": "Sie sind nicht berechtigt diese Seite zu sehen."
+    "error-notAuthorized": "Sie sind nicht berechtigt diese Seite zu sehen.",
+    "outgoing-webhooks": "Outgoing Webhooks",
+    "outgoingWebhooksPopup-title": "Outgoing Webhooks"
 }
