@@ -7,7 +7,8 @@ This release adds the following new features:
 * [When finished input of checklist item, open new checklist
   item](https://github.com/wekan/wekan/pull/1099);
 * [Improve UI design of checklist items](https://github.com/wekan/wekan/pull/1108);
-* [Import Wekan board](https://github.com/wekan/wekan/pull/1117).
+* [Import Wekan board](https://github.com/wekan/wekan/pull/1117);
+* [Outgoing Webhooks](https://github.com/wekan/wekan/pull/1119).
 
 and fixes the following bugs:
 
