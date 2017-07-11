@@ -6,13 +6,14 @@ This release adds the following new features:
   [related fix](https://github.com/wekan/wekan/pull/1097);
 * [When finished input of checklist item, open new checklist
   item](https://github.com/wekan/wekan/pull/1099);
-* [Improve UI design of checklist items](https://github.com/wekan/wekan/pull/1108).
+* [Improve UI design of checklist items](https://github.com/wekan/wekan/pull/1108);
+* [Import Wekan board](https://github.com/wekan/wekan/pull/1117).
 
 and fixes the following bugs:
 
 * [Possible to add empty item to checklist](https://github.com/wekan/wekan/pull/1107).
 
-Thanks to GitHub users nztqa and zarnifoulette for their contributions!
+Thanks to GitHub users GhassenRjab, nztqa and zarnifoulette for their contributions.
 
 # v0.27 2017-06-28 Wekan release
 
