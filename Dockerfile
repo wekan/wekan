@@ -96,14 +96,13 @@ RUN \
       gosu wekan:wekan sh ./install_meteor.sh; \
     else \
       gosu wekan:wekan git clone --recursive --depth 1 -b release/METEOR@${METEOR_EDGE} git://github.com/meteor/meteor.git /home/wekan/.meteor && \
-      cd /home/wekan/.meteor/packages && \
-      gosu wekan:wekan git clone --depth 1 -b master git://github.com/wekan/flow-router.git kadira-flow-router && \
-      gosu wekan:wekan git clone --depth 1 -b master git://github.com/meteor-useraccounts/core.git meteor-useraccounts-core && \
-      sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' /home/wekan/.meteor/packages/kadira-flow-router/package.js && \
-      sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' /home/wekan/.meteor/packages/meteor-useraccounts-core/package.js && \
-      cd /home/wekan/.meteor && \
-      gosu wekan /home/wekan/.meteor/meteor -- help; \
     fi && \
+    cd /home/wekan/.meteor/packages && \
+    gosu wekan:wekan git clone --depth 1 -b master git://github.com/wekan/flow-router.git kadira-flow-router && \
+    gosu wekan:wekan git clone --depth 1 -b master git://github.com/meteor-useraccounts/core.git meteor-useraccounts-core && \
+    sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' /home/wekan/.meteor/packages/meteor-useraccounts-core/package.js && \
+    cd /home/wekan/.meteor && \
+    gosu wekan /home/wekan/.meteor/meteor -- help; \
     \
     # Build app
     cd /home/wekan/app && \
