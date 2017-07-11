@@ -11,9 +11,10 @@ This release adds the following new features:
 
 and fixes the following bugs:
 
-* [Possible to add empty item to checklist](https://github.com/wekan/wekan/pull/1107).
+* [Possible to add empty item to checklist](https://github.com/wekan/wekan/pull/1107);
+* [Double-slash issue](https://github.com/wekan/wekan/pull/1114).
 
-Thanks to GitHub users GhassenRjab, nztqa and zarnifoulette for their contributions.
+Thanks to GitHub users GhassenRjab, jtickle, nztqa and zarnifoulette for their contributions.
 
 # v0.27 2017-06-28 Wekan release
 
