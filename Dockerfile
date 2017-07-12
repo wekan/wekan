@@ -96,7 +96,6 @@ RUN \
       gosu wekan:wekan sh ./install_meteor.sh; \
     else \
       gosu wekan:wekan git clone --recursive --depth 1 -b release/METEOR@${METEOR_EDGE} git://github.com/meteor/meteor.git /home/wekan/.meteor; \
-    fi \
     \
     # Get additional packages
     cd /home/wekan/.meteor/packages && \
