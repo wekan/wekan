@@ -55,7 +55,7 @@
     "and-n-other-card": "And __count__ other card",
     "and-n-other-card_plural": "And __count__ other cards",
     "apply": "Apply",
-    "app-is-offline": "The application is currently offline, refreshing the page will cause data loss.",
+    "app-is-offline": "Wekan is loading, please wait. Refreshing the page will cause data loss. If Wekan does not load, please check that Wekan server is not offline.",
     "archive": "Archive",
     "archive-all": "Archive All",
     "archive-board": "Archive Board",
