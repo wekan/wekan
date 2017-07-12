@@ -55,7 +55,7 @@
     "and-n-other-card": "__count__ 개의 다른 카드",
     "and-n-other-card_plural": "__count__ 개의 다른 카드들",
     "apply": "적용",
-    "app-is-offline": "현재 페이지는 오프라인 상태입니다. 저장되지 않은 데이터는 손실됩니다. 새로고침 하세요.",
+    "app-is-offline": "Wekan is loading, please wait. Refreshing the page will cause data loss. If Wekan does not load, please check that Wekan server has not stopped.",
     "archive": "보관",
     "archive-all": "모두 보관",
     "archive-board": "보드 저장소 보관",

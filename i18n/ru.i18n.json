@@ -55,7 +55,7 @@
     "and-n-other-card": "И __count__ другая карточка",
     "and-n-other-card_plural": "И __count__ другие карточки",
     "apply": "Применить",
-    "app-is-offline": "Приложение офлайн, обновление страницы приведет к потере данных.",
+    "app-is-offline": "Wekan is loading, please wait. Refreshing the page will cause data loss. If Wekan does not load, please check that Wekan server has not stopped.",
     "archive": "Архивировать",
     "archive-all": "Архивировать все",
     "archive-board": "Архивировать доску",

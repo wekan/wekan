@@ -55,7 +55,7 @@
     "and-n-other-card": "And __count__ other card",
     "and-n-other-card_plural": "And __count__ other cards",
     "apply": "Primeni",
-    "app-is-offline": "Aplikacija je trenutno van mreže, ponovno učitavanje stranice će dovesti do gubitka podataka.",
+    "app-is-offline": "Wekan is loading, please wait. Refreshing the page will cause data loss. If Wekan does not load, please check that Wekan server has not stopped.",
     "archive": "Arhiviraj",
     "archive-all": "Arhiviraj sve",
     "archive-board": "Arhiviraj tablu",

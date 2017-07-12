@@ -55,7 +55,7 @@
     "and-n-other-card": "Og __count__ andre kort",
     "and-n-other-card_plural": "Og __count__ andre kort",
     "apply": "Lagre",
-    "app-is-offline": "Programmet er ikke på nett, å laste siden på nytt vil medføre tap av data.",
+    "app-is-offline": "Wekan is loading, please wait. Refreshing the page will cause data loss. If Wekan does not load, please check that Wekan server has not stopped.",
     "archive": "Arkiv",
     "archive-all": "Arkiver alle",
     "archive-board": "Arkiver tavle",

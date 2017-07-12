@@ -55,7 +55,7 @@
     "and-n-other-card": "Eta beste txartel __count__",
     "and-n-other-card_plural": "Eta beste  __count__ txartel",
     "apply": "Aplikatu",
-    "app-is-offline": "Aplikazio hau lineaz kanpo dago, orria freskatzeak datuen galera ekarriko du.",
+    "app-is-offline": "Wekan is loading, please wait. Refreshing the page will cause data loss. If Wekan does not load, please check that Wekan server has not stopped.",
     "archive": "Artxibatu",
     "archive-all": "Artxibatu guztiak",
     "archive-board": "Artxibatu arbela",

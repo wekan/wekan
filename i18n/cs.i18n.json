@@ -55,7 +55,7 @@
     "and-n-other-card": "A __count__ další karta(y)",
     "and-n-other-card_plural": "A __count__ dalších karet",
     "apply": "Apply",
-    "app-is-offline": "The application is currently offline, refreshing the page will cause data loss.",
+    "app-is-offline": "Wekan is loading, please wait. Refreshing the page will cause data loss. If Wekan does not load, please check that Wekan server has not stopped.",
     "archive": "Archiv",
     "archive-all": "Archivovat vše",
     "archive-board": "Archivovat tablo",

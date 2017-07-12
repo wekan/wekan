@@ -55,7 +55,7 @@
     "and-n-other-card": "和其他 __count__ 个卡片",
     "and-n-other-card_plural": "和其他 __count__ 个卡片",
     "apply": "应用",
-    "app-is-offline": "处于离线状态，刷新页面将导致数据丢失。",
+    "app-is-offline": "Wekan is loading, please wait. Refreshing the page will cause data loss. If Wekan does not load, please check that Wekan server has not stopped.",
     "archive": "归档",
     "archive-all": "全部归档",
     "archive-board": "归档看板",

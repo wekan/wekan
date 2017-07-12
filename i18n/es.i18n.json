@@ -55,7 +55,7 @@
     "and-n-other-card": "And __count__ other card",
     "and-n-other-card_plural": "And __count__ other cards",
     "apply": "Aplicar",
-    "app-is-offline": "La aplicación esta actualmente fuera de servicio, refrescar la página causará pérdida de datos",
+    "app-is-offline": "Wekan is loading, please wait. Refreshing the page will cause data loss. If Wekan does not load, please check that Wekan server has not stopped.",
     "archive": "Guardar",
     "archive-all": "Guardar Todo",
     "archive-board": "Archive Board",

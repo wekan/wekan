@@ -55,7 +55,7 @@
     "and-n-other-card": "و __count__ کارت دیگر",
     "and-n-other-card_plural": "و __count__ کارت دیگر",
     "apply": "اجرا",
-    "app-is-offline": "برنامه به شبکه متصل نیست، تازه کردن(f5) صفحه اطلاعات نوشته شده را پاک می کند",
+    "app-is-offline": "Wekan is loading, please wait. Refreshing the page will cause data loss. If Wekan does not load, please check that Wekan server has not stopped.",
     "archive": "بایگانی",
     "archive-all": "تمامی بایگانی ها",
     "archive-board": "بایگانی برد",

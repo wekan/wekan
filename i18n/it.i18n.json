@@ -55,7 +55,7 @@
     "and-n-other-card": "E __count__ altra scheda",
     "and-n-other-card_plural": "E __count__ altre schede",
     "apply": "Applica",
-    "app-is-offline": "L'applicazione è al momento offline, ricaricando la pagina perderai i dati.",
+    "app-is-offline": "Wekan is loading, please wait. Refreshing the page will cause data loss. If Wekan does not load, please check that Wekan server has not stopped.",
     "archive": "Archivia",
     "archive-all": "Archivia tutto",
     "archive-board": "Archivia bacheca",

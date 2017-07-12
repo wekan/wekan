@@ -55,7 +55,7 @@
     "and-n-other-card": "And __count__ other card",
     "and-n-other-card_plural": "And __count__ other cards",
     "apply": "適用",
-    "app-is-offline": "現在オフラインです。ページを更新すると保存していないデータは失われます。",
+    "app-is-offline": "Wekan is loading, please wait. Refreshing the page will cause data loss. If Wekan does not load, please check that Wekan server has not stopped.",
     "archive": "アーカイブ",
     "archive-all": "すべてをアーカイブ",
     "archive-board": "ボードをアーカイブ",

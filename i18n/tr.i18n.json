@@ -55,7 +55,7 @@
     "and-n-other-card": "Ve __count__ diğer kart",
     "and-n-other-card_plural": "Ve __count__ diğer kart",
     "apply": "Uygula",
-    "app-is-offline": "Uygulama şu an çevrim dışı, saya yenilemek kaydedilmemiş veri kaybına yol açacaktır.",
+    "app-is-offline": "Wekan is loading, please wait. Refreshing the page will cause data loss. If Wekan does not load, please check that Wekan server has not stopped.",
     "archive": "Arşivle",
     "archive-all": "Tümünü Arşivle",
     "archive-board": "Panoyu Arşivle",

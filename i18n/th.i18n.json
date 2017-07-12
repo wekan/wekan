@@ -55,7 +55,7 @@
     "and-n-other-card": "และการ์ดอื่น __count__",
     "and-n-other-card_plural": "และการ์ดอื่น ๆ  __count__",
     "apply": "นำมาใช้",
-    "app-is-offline": "ตอนนี้เว็บกำลังออฟไลน์, การรีเฟรชหน้าจะทำให้เกิดการสูญเสียข้อมูล",
+    "app-is-offline": "Wekan is loading, please wait. Refreshing the page will cause data loss. If Wekan does not load, please check that Wekan server has not stopped.",
     "archive": "เอกสารที่เก็บไว้",
     "archive-all": "เอกสารที่เก็บไว้ทั้งหมด",
     "archive-board": "เอกสารบอร์ดที่เก็บไว้",

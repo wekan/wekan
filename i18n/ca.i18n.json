@@ -55,7 +55,7 @@
     "and-n-other-card": "And __count__ other card",
     "and-n-other-card_plural": "And __count__ other cards",
     "apply": "Aplica",
-    "app-is-offline": "L'aplicació éstà fora de línia. Si refresca la pàgina perdrà les dades.",
+    "app-is-offline": "Wekan is loading, please wait. Refreshing the page will cause data loss. If Wekan does not load, please check that Wekan server has not stopped.",
     "archive": "Desa",
     "archive-all": "Desa Tot",
     "archive-board": "Arxiva tauler",

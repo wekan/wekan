@@ -55,7 +55,7 @@
     "and-n-other-card": "וכרטיס אחר",
     "and-n-other-card_plural": "ו־__count__ כרטיסים אחרים",
     "apply": "החלה",
-    "app-is-offline": "המערכת מושבתת כרגע, רענון הדף יגרום לאבדן מידע.",
+    "app-is-offline": "Wekan is loading, please wait. Refreshing the page will cause data loss. If Wekan does not load, please check that Wekan server has not stopped.",
     "archive": "להעביר לארכיון",
     "archive-all": "להעביר הכול לארכיון",
     "archive-board": "להעביר לוח לארכיון",

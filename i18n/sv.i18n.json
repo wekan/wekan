@@ -55,7 +55,7 @@
     "and-n-other-card": "Och __count__ annat kort",
     "and-n-other-card_plural": "Och __count__ andra kort",
     "apply": "Tillämpa",
-    "app-is-offline": "Applikationen är för närvarande offline, uppdatera sidan kommer att orsaka dataförlust .",
+    "app-is-offline": "Wekan is loading, please wait. Refreshing the page will cause data loss. If Wekan does not load, please check that Wekan server has not stopped.",
     "archive": "Arkivera",
     "archive-all": "Arkivera",
     "archive-board": "Arkiverad anslagstavla",

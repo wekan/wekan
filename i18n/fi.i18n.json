@@ -55,7 +55,7 @@
     "and-n-other-card": "Ja __count__ muu kortti",
     "and-n-other-card_plural": "Ja __count__ muuta korttia",
     "apply": "Käytä",
-    "app-is-offline": "Sovellus ei ole tällä hetkellä linjoilla, sivun lataaminen uudelleen voi aiheuttaa muutettujen tietojen menettämisen.",
+    "app-is-offline": "Wekan latautuu, odota. Sivun uudelleenlataus aiheuttaa tietojen menettämisen. Jos Wekan ei lataudu, tarkista että Wekan palvelin ei ole pysähtynyt.",
     "archive": "Arkistoi",
     "archive-all": "Arkistoi kaikki",
     "archive-board": "Arkistoi taulu",

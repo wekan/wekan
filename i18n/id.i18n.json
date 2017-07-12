@@ -55,7 +55,7 @@
     "and-n-other-card": "Dan__menghitung__kartu lain",
     "and-n-other-card_plural": "Dan__menghitung__kartu lain",
     "apply": "Terapkan",
-    "app-is-offline": "Aplikasi sedang offline, menyegarkan halaman dapat menyebabkan kehilangan data.",
+    "app-is-offline": "Wekan is loading, please wait. Refreshing the page will cause data loss. If Wekan does not load, please check that Wekan server has not stopped.",
     "archive": "Arsip",
     "archive-all": "Arsipkan Semua",
     "archive-board": "Arsip Panel",
