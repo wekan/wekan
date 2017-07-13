@@ -61,9 +61,6 @@ work happens.
 
 [![Screenshot of Wekan][screenshot_wefork]][roadmap_wefork]
 
-Content is being copied from [old Wekan roadmap][roadmap_wekan] to
-new one in process of merging Wefork back to Wekan.
-
 Since Wekan is a free software, you don’t have to trust us with your data and can
 install Wekan on your own computer or server. In fact we encourage you to do
 that by providing one-click installation on various platforms.
