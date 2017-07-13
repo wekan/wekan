@@ -52,7 +52,7 @@ and new features added by growing Wekan developer community.
 
 Actual work happens at [Wekan GitHub issues][wekan_issues].
 
-See Development links on [Wekan wiki][[wekan_wiki] bottom
+See Development links on [Wekan wiki][wekan_wiki] bottom
 of the page for more info.
 
 ## Demo
