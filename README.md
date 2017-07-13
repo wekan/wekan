@@ -52,8 +52,8 @@ and new features added by growing Wekan developer community.
 
 Actual work happens at [Wekan GitHub issues][wekan_issues].
 
-See Development links on
-[Wekan wiki](https://github.com/wekan/wekan/wiki#Development)
+See [Development links on Wekan
+wiki](https://github.com/wekan/wekan/wiki#Development)
 bottom of the page for more info.
 
 ## Demo
