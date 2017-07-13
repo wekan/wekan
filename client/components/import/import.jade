@@ -2,7 +2,7 @@ template(name="importHeaderBar")
   h1
     a.back-btn(href="{{pathFor 'home'}}")
       i.fa.fa-chevron-left
-    | {{_ 'import-board-title'}}
+    | {{_ title}}
 
 template(name="import")
   .wrapper
@@ -12,7 +12,7 @@ template(name="import")
 
 template(name="importTextarea")
   form
-    p: label(for='import-textarea') {{_ 'import-board-trello-instruction'}}
+    p: label(for='import-textarea') {{_ instruction}}
     textarea.js-import-json(placeholder="{{_ 'import-json-placeholder'}}" autofocus)
       | {{jsonText}}
     input.primary.wide(type="submit" value="{{_ 'import'}}")

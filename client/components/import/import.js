@@ -1,3 +1,12 @@
+import trelloMembersMapper from './trelloMembersMapper';
+import wekanMembersMapper from './wekanMembersMapper';
+
+BlazeComponent.extendComponent({
+  title() {
+    return `import-board-title-${Session.get('importSource')}!`;
+  },
+}).register('importHeaderBar');
+
 BlazeComponent.extendComponent({
   onCreated() {
     this.error = new ReactiveVar('');
@@ -5,6 +14,7 @@ BlazeComponent.extendComponent({
     this._currentStepIndex = new ReactiveVar(0);
     this.importedData = new ReactiveVar();
     this.membersToMap = new ReactiveVar([]);
+    this.importSource = Session.get('importSource');
   },
 
   currentTemplate() {
@@ -27,7 +37,10 @@ BlazeComponent.extendComponent({
       const dataObject = JSON.parse(dataJson);
       this.setError('');
       this.importedData.set(dataObject);
-      this._prepareAdditionalData(dataObject);
+      const membersToMap = this._prepareAdditionalData(dataObject);
+      // store members data and mapping in Session
+      // (we go deep and 2-way, so storing in data context is not a viable option)
+      this.membersToMap.set(membersToMap);
       this.nextStep();
     } catch (e) {
       this.setError('error-json-malformed');
@@ -51,7 +64,10 @@ BlazeComponent.extendComponent({
       additionalData.membersMapping = mappingById;
     }
     this.membersToMap.set([]);
-    Meteor.call('importTrelloBoard', this.importedData.get(), additionalData,
+    Meteor.call('importBoard',
+      this.importedData.get(),
+      additionalData,
+      this.importSource,
       (err, res) => {
         if (err) {
           this.setError(err.error);
@@ -63,20 +79,16 @@ BlazeComponent.extendComponent({
   },
 
   _prepareAdditionalData(dataObject) {
-    // we will work on the list itself (an ordered array of objects) when a
-    // mapping is done, we add a 'wekan' field to the object representing the
-    // imported member
-    const membersToMap = dataObject.members;
-    // auto-map based on username
-    membersToMap.forEach((importedMember) => {
-      const wekanUser = Users.findOne({ username: importedMember.username });
-      if (wekanUser) {
-        importedMember.wekanId = wekanUser._id;
-      }
-    });
-    // store members data and mapping in Session
-    // (we go deep and 2-way, so storing in data context is not a viable option)
-    this.membersToMap.set(membersToMap);
+    const importSource = Session.get('importSource');
+    let membersToMap;
+    switch (importSource) {
+    case 'trello':
+      membersToMap = trelloMembersMapper.getMembersToMap(dataObject);
+      break;
+    case 'wekan':
+      membersToMap = wekanMembersMapper.getMembersToMap(dataObject);
+      break;
+    }
     return membersToMap;
   },
 
@@ -88,6 +100,10 @@ BlazeComponent.extendComponent({
 BlazeComponent.extendComponent({
   template() {
     return 'importTextarea';
+  },
+
+  instruction() {
+    return `import-board-instruction-${Session.get('importSource')}!`;
   },
 
   events() {
