@@ -50,12 +50,14 @@ We also welcome sponsors for features, although we don't have any yet.
 By working directly with Wekan you get the benefit of active maintenance
 and new features added by growing Wekan developer community.
 
-[Roadmap is self-hosted on Wekan][roadmap_wefork]
+Actual work happens at [Wekan GitHub issues][wekan_issues].
 
-Roadmaps is not currently up-to-date. You can find more up-to-date
-info from [Features][features] and [Integrations][integrations] pages,
-where is links to [Wekan GitHub issues][wekan_issues] where actual
-work happens.
+See Development links on [Wekan wiki][[wekan_wiki] bottom
+of the page for more info.
+
+## Demo
+
+[Wekan demo][roadmap_wefork]
 
 ## Screenshot
 
