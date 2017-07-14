@@ -69,7 +69,7 @@ parts:
     wekan:
         source: .
         plugin: nodejs
-        node-engine: 4.8.1
+        node-engine: 4.8.4
         node-packages:
             - npm@4.6.1
             - node-gyp
