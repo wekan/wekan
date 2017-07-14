@@ -1,4 +1,7 @@
-# Upcoming Wekan release
+# v0.28 2017-07-15 Wekan release
+
+SECURITY ISSUE [Files accessible without authentication](https://github.com/wekan/wekan/issues/1105)
+IS NOT FIXED YET.
 
 This release adds the following new features:
 
@@ -8,7 +11,8 @@ This release adds the following new features:
   item](https://github.com/wekan/wekan/pull/1099);
 * [Improve UI design of checklist items](https://github.com/wekan/wekan/pull/1108);
 * [Import Wekan board](https://github.com/wekan/wekan/pull/1117);
-* [Outgoing Webhooks](https://github.com/wekan/wekan/pull/1119).
+* [Outgoing Webhooks](https://github.com/wekan/wekan/pull/1119);
+* [Wekan wiki now has menu with categories](https://github.com/wekan/wekan/wiki).
 
 and fixes the following bugs:
 
