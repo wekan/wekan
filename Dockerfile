@@ -99,26 +99,28 @@ RUN \
     fi; \
     \
     # Get additional packages
+    mkdir -p /home/wekan/.meteor/packages && \
+    chown wekan:wekan --recursive /home/wekan/.meteor && \
     cd /home/wekan/.meteor/packages && \
     gosu wekan:wekan git clone --depth 1 -b master git://github.com/wekan/flow-router.git kadira-flow-router && \
     gosu wekan:wekan git clone --depth 1 -b master git://github.com/meteor-useraccounts/core.git meteor-useraccounts-core && \
     sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' /home/wekan/.meteor/packages/meteor-useraccounts-core/package.js && \
     cd /home/wekan/.meteor && \
-    gosu wekan /home/wekan/.meteor/meteor -- help; \
+    gosu wekan:wekan /home/wekan/.meteor/meteor -- help; \
     \
     # Build app
     cd /home/wekan/app && \
-    gosu wekan /home/wekan/.meteor/meteor add standard-minifier-js && \
-    gosu wekan /home/wekan/.meteor/meteor npm install && \
-    gosu wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build && \
+    gosu wekan:wekan /home/wekan/.meteor/meteor add standard-minifier-js && \
+    gosu wekan:wekan /home/wekan/.meteor/meteor npm install && \
+    gosu wekan:wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build && \
     cp /home/wekan/app/fix-download-unicode/cfs_access-point.txt /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
     chown wekan:wekan /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
-    gosu wekan sed -i "s|build\/Release\/bson|browser_build\/bson|g" /home/wekan/app_build/bundle/programs/server/npm/node_modules/meteor/cfs_gridfs/node_modules/mongodb/node_modules/bson/ext/index.js && \
+    gosu wekan:wekan sed -i "s|build\/Release\/bson|browser_build\/bson|g" /home/wekan/app_build/bundle/programs/server/npm/node_modules/meteor/cfs_gridfs/node_modules/mongodb/node_modules/bson/ext/index.js && \
     cd /home/wekan/app_build/bundle/programs/server/npm/node_modules/meteor/npm-bcrypt && \
-    gosu wekan rm -rf node_modules/bcrypt && \
-    gosu wekan npm install bcrypt && \
+    gosu wekan:wekan rm -rf node_modules/bcrypt && \
+    gosu wekan:wekan npm install bcrypt && \
     cd /home/wekan/app_build/bundle/programs/server/ && \
-    gosu wekan npm install && \
+    gosu wekan:wekan npm install && \
     mv /home/wekan/app_build/bundle /build && \
     \
     # Cleanup
