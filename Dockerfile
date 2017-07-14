@@ -1,4 +1,4 @@
-FROM debian:8.8
+FROM debian:9
 MAINTAINER wekan
 
 # Declare Arguments
