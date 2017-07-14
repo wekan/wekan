@@ -1,5 +1,5 @@
 name: wekan
-version: "0.27-SNAPSHOT"
+version: "0.28-SNAPSHOT"
 summary: The open-source Trello-like kanban
 description: |
    Wekan is an open-source and collaborative kanban board application.
