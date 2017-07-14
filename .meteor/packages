@@ -33,7 +33,6 @@ kenton:accounts-sandstorm
 service-configuration@1.0.11
 useraccounts:unstyled
 useraccounts:flow-routing
-email@1.2.0
 
 # Utilities
 check@1.2.5
@@ -79,3 +78,4 @@ kadira:flow-router
 shell-server@0.2.3
 simple:rest-accounts-password
 useraccounts:core
+email@1.2.3

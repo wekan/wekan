@@ -53,7 +53,7 @@ diff-sequence@1.0.7
 ecmascript@0.7.3
 ecmascript-runtime@0.3.15
 ejson@1.0.13
-email@1.2.1
+email@1.2.3
 es5-shim@4.6.15
 fastclick@1.0.13
 fortawesome:fontawesome@4.7.0

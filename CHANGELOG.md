@@ -12,10 +12,13 @@ This release adds the following new features:
 
 and fixes the following bugs:
 
+* [SECURITY: Upgrade Node.js, MongoDB and Debian on Docker and Ubuntu snap edge](https://github.com/wekan/wekan/pull/1132);
 * [Possible to add empty item to checklist](https://github.com/wekan/wekan/pull/1107);
-* [Double-slash issue](https://github.com/wekan/wekan/pull/1114).
+* [Double-slash issue](https://github.com/wekan/wekan/pull/1114);
+* [Node.js crash when adding new user to board](https://github.com/wekan/wekan/issues/1131).
 
-Thanks to GitHub users GhassenRjab, jtickle, nztqa and zarnifoulette for their contributions.
+Thanks to GitHub users GhassenRjab, johnleeming, jtickle, nztqa, xet7 and zarnifoulette
+for their contributions.
 
 # v0.27 2017-06-28 Wekan release
 
