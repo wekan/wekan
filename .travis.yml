@@ -3,7 +3,7 @@ sudo: required
 
 env:
   TRAVIS_DOCKER_COMPOSE_VERSION: 1.12.0
-  TRAVIS_NODE_VERSION: 4.8.1
+  TRAVIS_NODE_VERSION: 4.8.4
   TRAVIS_NPM_VERSION: 4.4.4
 
 before_install:
