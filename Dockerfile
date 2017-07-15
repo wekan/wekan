@@ -12,7 +12,7 @@ ARG ARCHITECTURE
 ARG SRC_PATH
 
 # Set the environment variables (defaults where required)
-ENV BUILD_DEPS="wget curl bzip2 build-essential python git ca-certificates gcc-4.9"
+ENV BUILD_DEPS="wget curl bzip2 build-essential python git ca-certificates gcc-6"
 ENV GOSU_VERSION=1.10
 ENV NODE_VERSION ${NODE_VERSION:-v4.8.4}
 ENV METEOR_RELEASE ${METEOR_RELEASE:-1.4.4.1}
