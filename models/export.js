@@ -43,6 +43,22 @@ class Exporter {
     this._boardId = boardId;
   }
 
+  getBase64Data(attachment, callback) {
+    let buffer = new Buffer(0);
+    // callback has the form function (err, res) {}
+    const readStream = doc.createReadStream();
+    readStream.on('data', function(chunk) {
+        buffer = Buffer.concat([buffer, chunk]);
+    });
+    readStream.on('error', function(err) {
+        callback(err, null);
+    });
+    readStream.on('end', function() {
+        // done
+        callback(null, buffer.toString('base64'));
+    });
+  }
+
   build() {
     const byBoard = { boardId: this._boardId };
     // we do not want to retrieve boardId in related elements
@@ -55,12 +71,32 @@ class Exporter {
     result.cards = Cards.find(byBoard, noBoardId).fetch();
     result.comments = CardComments.find(byBoard, noBoardId).fetch();
     result.activities = Activities.find(byBoard, noBoardId).fetch();
-    // for attachments we only export IDs and absolute url to original doc
+    // [Old] for attachments we only export IDs and absolute url to original doc
+    // [New] Encode attachment to base64
+    var getBase64Data = function(doc, callback) {
+      var buffer = new Buffer(0);
+      // callback has the form function (err, res) {}
+      var readStream = doc.createReadStream();
+      readStream.on('data', function(chunk) {
+        buffer = Buffer.concat([buffer, chunk]);
+      });
+      readStream.on('error', function(err) {
+        callback(err, null);
+      });
+      readStream.on('end', function() {
+        // done
+        callback(null, buffer.toString('base64'));
+      });
+    };
+    var getBase64DataSync = Meteor.wrapAsync(getBase64Data);
     result.attachments = Attachments.find(byBoard).fetch().map((attachment) => {
       return {
         _id: attachment._id,
         cardId: attachment.cardId,
-        url: FlowRouter.url(attachment.url()),
+        // url: FlowRouter.url(attachment.url()),
+        file: getBase64DataSync(attachment),
+        name: attachment.original.name,
+        type: attachment.original.type,
       };
     });
 
