@@ -96,7 +96,6 @@ export class WekanCreator {
       archived: Boolean,
       dateLastActivity: DateString,
       labelIds: [String],
-      members: [String],
       title: String,
       sort: Number,
     })]);
@@ -107,7 +106,6 @@ export class WekanCreator {
       // XXX refine control by validating 'color' against a list of allowed
       // values (is it worth the maintenance?)
       color: String,
-      name: String,
     })]);
   }
 
@@ -303,21 +301,40 @@ export class WekanCreator {
           // - the template then tries to display the url to the attachment which causes other errors
           // so we make it server only, and let UI catch up once it is done, forget about latency comp.
           if(Meteor.isServer) {
-            file.attachData(att.url, function (error) {
-              file.boardId = boardId;
-              file.cardId = cardId;
-              if (error) {
-                throw(error);
-              } else {
-                const wekanAtt = Attachments.insert(file, () => {
-                  // we do nothing
-                });
-                //
-                if(wekanCoverId === att._id) {
-                  Cards.direct.update(cardId, { $set: {coverId: wekanAtt._id}});
+            if (att.url) {
+              file.attachData(att.url, function (error) {
+                file.boardId = boardId;
+                file.cardId = cardId;
+                if (error) {
+                  throw(error);
+                } else {
+                  const wekanAtt = Attachments.insert(file, () => {
+                    // we do nothing
+                  });
+                  //
+                  if(wekanCoverId === att._id) {
+                    Cards.direct.update(cardId, { $set: {coverId: wekanAtt._id}});
+                  }
                 }
-              }
-            });
+              });
+            } else if (att.file) {
+              file.attachData(new Buffer(att.file, 'base64'), {type: att.type}, (error) => {
+                file.name(att.name);
+                file.boardId = boardId;
+                file.cardId = cardId;
+                if (error) {
+                  throw(error);
+                } else {
+                  const wekanAtt = Attachments.insert(file, () => {
+                    // we do nothing
+                  });
+                  //
+                  if(wekanCoverId === att._id) {
+                    Cards.direct.update(cardId, { $set: {coverId: wekanAtt._id}});
+                  }
+                }
+              });
+            }
           }
           // todo XXX set cover - if need be
         });
@@ -406,7 +423,7 @@ export class WekanCreator {
         const wekanAttachment = wekanBoard.attachments.filter((attachment) => {
           return attachment._id === activity.attachmentId;
         })[0];
-        if(wekanAttachment.url) {
+        if(wekanAttachment.url || wekanAttachment.file) {
           // we cannot actually create the Wekan attachment, because we don't yet
           // have the cards to attach it to, so we store it in the instance variable.
           const wekanCardId = activity.cardId;

@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+* [Export and import attachments as base64 encoded files](https://github.com/wekan/wekan/pull/1134);
+
+Thanks to GitHub user GhassenRjab for contributions.
+
 # v0.28 2017-07-15 Wekan release
 
 SECURITY ISSUE [Files accessible without authentication](https://github.com/wekan/wekan/issues/1105)

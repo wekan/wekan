@@ -3,7 +3,7 @@ import wekanMembersMapper from './wekanMembersMapper';
 
 BlazeComponent.extendComponent({
   title() {
-    return `import-board-title-${Session.get('importSource')}!`;
+    return `import-board-title-${Session.get('importSource')}`;
   },
 }).register('importHeaderBar');
 
@@ -103,7 +103,7 @@ BlazeComponent.extendComponent({
   },
 
   instruction() {
-    return `import-board-instruction-${Session.get('importSource')}!`;
+    return `import-board-instruction-${Session.get('importSource')}`;
   },
 
   events() {
