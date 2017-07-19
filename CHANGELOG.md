@@ -4,7 +4,11 @@ This release adds the following new features:
 
 * [Export and import attachments as base64 encoded files](https://github.com/wekan/wekan/pull/1134);
 
-Thanks to GitHub user GhassenRjab for contributions.
+and fixes the following bugs:
+
+* [Activity user messed up when creating a card using the REST-API](https://github.com/wekan/wekan/pull/1116);
+
+Thanks to GitHub users GhassenRjab and zarnifoulette for their contributions.
 
 # v0.28 2017-07-15 Wekan release
 
