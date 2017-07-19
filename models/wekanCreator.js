@@ -96,7 +96,6 @@ export class WekanCreator {
       archived: Boolean,
       dateLastActivity: DateString,
       labelIds: [String],
-      members: [String],
       title: String,
       sort: Number,
     })]);
@@ -107,7 +106,6 @@ export class WekanCreator {
       // XXX refine control by validating 'color' against a list of allowed
       // values (is it worth the maintenance?)
       color: String,
-      name: String,
     })]);
   }
 
