@@ -55,6 +55,10 @@ class Exporter {
     result.cards = Cards.find(byBoard, noBoardId).fetch();
     result.comments = CardComments.find(byBoard, noBoardId).fetch();
     result.activities = Activities.find(byBoard, noBoardId).fetch();
+    result.checklists = [];
+    result.cards.forEach((card) => {
+      result.checklists.push(...Checklists.find({ cardId: card._id }).fetch());
+    });
     // [Old] for attachments we only export IDs and absolute url to original doc
     // [New] Encode attachment to base64
     const getBase64Data = function(doc, callback) {
@@ -99,6 +103,7 @@ class Exporter {
     });
     result.comments.forEach((comment) => { users[comment.userId] = true; });
     result.activities.forEach((activity) => { users[activity.userId] = true; });
+    result.checklists.forEach((checklist) => { users[checklist.userId] = true; });
     const byUserIds = { _id: { $in: Object.getOwnPropertyNames(users) } };
     // we use whitelist to be sure we do not expose inadvertently
     // some secret fields that gets added to User later.

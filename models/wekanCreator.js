@@ -116,17 +116,16 @@ export class WekanCreator {
     })]);
   }
 
-  // checkChecklists(wekanChecklists) {
-  //   check(wekanChecklists, [Match.ObjectIncluding({
-  //     idBoard: String,
-  //     idCard: String,
-  //     name: String,
-  //     checkItems: [Match.ObjectIncluding({
-  //       state: String,
-  //       name: String,
-  //     })],
-  //   })]);
-  // }
+  checkChecklists(wekanChecklists) {
+    check(wekanChecklists, [Match.ObjectIncluding({
+      cardId: String,
+      title: String,
+      items: [Match.ObjectIncluding({
+        isFinished: Boolean,
+        title: String,
+      })],
+    })]);
+  }
 
   // You must call parseActions before calling this one.
   createBoardAndLabels(wekanBoard) {
@@ -248,7 +247,7 @@ export class WekanCreator {
       // insert card
       const cardId = Cards.direct.insert(cardToCreate);
       // keep track of Wekan id => WeKan id
-      this.cards[card.id] = cardId;
+      this.cards[card._id] = cardId;
       // log activity
       Activities.direct.insert({
         activityType: 'importCard',
@@ -391,27 +390,27 @@ export class WekanCreator {
     });
   }
 
-  // createChecklists(wekanChecklists) {
-  //   wekanChecklists.forEach((checklist) => {
-  //     // Create the checklist
-  //     const checklistToCreate = {
-  //       cardId: this.cards[checklist.cardId],
-  //       title: checklist.title,
-  //       createdAt: this._now(),
-  //     };
-  //     const checklistId = Checklists.direct.insert(checklistToCreate);
-  //     // Now add the items to the checklist
-  //     const itemsToCreate = [];
-  //     checklist.checkItems.forEach((item) => {
-  //       itemsToCreate.push({
-  //         _id: checklistId + itemsToCreate.length,
-  //         title: item.title,
-  //         isFinished: item.isFinished,
-  //       });
-  //     });
-  //     Checklists.direct.update(checklistId, {$set: {items: itemsToCreate}});
-  //   });
-  // }
+  createChecklists(wekanChecklists) {
+    wekanChecklists.forEach((checklist) => {
+      // Create the checklist
+      const checklistToCreate = {
+        cardId: this.cards[checklist.cardId],
+        title: checklist.title,
+        createdAt: checklist.createdAt,
+      };
+      const checklistId = Checklists.direct.insert(checklistToCreate);
+      // Now add the items to the checklist
+      const itemsToCreate = [];
+      checklist.items.forEach((item) => {
+        itemsToCreate.push({
+          _id: checklistId + itemsToCreate.length,
+          title: item.title,
+          isFinished: item.isFinished,
+        });
+      });
+      Checklists.direct.update(checklistId, {$set: {items: itemsToCreate}});
+    });
+  }
 
   parseActivities(wekanBoard) {
     wekanBoard.activities.forEach((activity) => {
@@ -473,8 +472,7 @@ export class WekanCreator {
       this.checkLabels(board.labels);
       this.checkLists(board.lists);
       this.checkCards(board.cards);
-      // Checklists are not exported yet
-      // this.checkChecklists(board.checklists);
+      this.checkChecklists(board.checklists);
     } catch (e) {
       throw new Meteor.Error('error-json-schema');
     }
@@ -485,8 +483,7 @@ export class WekanCreator {
     const boardId = this.createBoardAndLabels(board);
     this.createLists(board.lists, boardId);
     this.createCards(board.cards, boardId);
-    // Checklists are not exported yet
-    // this.createChecklists(board.checklists);
+    this.createChecklists(board.checklists);
     // XXX add members
     return boardId;
   }
