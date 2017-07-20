@@ -3,6 +3,7 @@
 This release adds the following new features:
 
 * [Export and import attachments as base64 encoded files](https://github.com/wekan/wekan/pull/1134);
+* [Export and import checklists](https://github.com/wekan/wekan/pull/1140);
 
 and fixes the following bugs:
 
