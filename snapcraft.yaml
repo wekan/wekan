@@ -1,5 +1,5 @@
 name: wekan
-version: "0.28-SNAPSHOT"
+version: "0.29-SNAPSHOT"
 summary: The open-source Trello-like kanban
 description: |
    Wekan is an open-source and collaborative kanban board application.
@@ -53,7 +53,7 @@ apps:
 
 parts:
     mongodb:
-        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-3.2.14.tgz
+        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-3.2.15.tgz
         plugin: dump
         stage-packages: [libssl1.0.0]
         filesets:
