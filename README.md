@@ -62,7 +62,7 @@ bottom of the page for more info.
 
 ## Screenshot
 
-[More screenshots on Features page](https://github.com/wekan/wekan/wiki/Features)
+[More screenshots at Features page](https://github.com/wekan/wekan/wiki/Features)
 
 [![Screenshot of Wekan][screenshot_wefork]][roadmap_wefork]
 
