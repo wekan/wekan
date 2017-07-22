@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+* [More screenshots at Features page](https://github.com/wekan/wekan/wiki/Features).
+
+Thanks to GitHub user xet7 for contributions.
+
 # v0.29 2017-07-21 Wekan release
 
 SECURITY ISSUE [Files accessible without authentication](https://github.com/wekan/wekan/issues/1105)
@@ -6,11 +14,11 @@ IS NOT FIXED YET.
 This release adds the following new features:
 
 * [Export and import attachments as base64 encoded files](https://github.com/wekan/wekan/pull/1134);
-* [Export and import checklists](https://github.com/wekan/wekan/pull/1140);
+* [Export and import checklists](https://github.com/wekan/wekan/pull/1140).
 
 and fixes the following bugs:
 
-* [Activity user messed up when creating a card using the REST-API](https://github.com/wekan/wekan/pull/1116);
+* [Activity user messed up when creating a card using the REST-API](https://github.com/wekan/wekan/pull/1116).
 
 Thanks to GitHub users GhassenRjab and zarnifoulette for their contributions.
 
