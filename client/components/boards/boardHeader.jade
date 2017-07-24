@@ -113,6 +113,11 @@ template(name="boardMenuPopup")
         li: a(href="{{exportUrl}}", download="{{exportFilename}}") {{_ 'export-board'}}
         li: a.js-archive-board {{_ 'archive-board'}}
         li: a.js-outgoing-webhooks {{_ 'outgoing-webhooks'}}
+  if isSandstorm
+    hr
+    ul.pop-over-list
+      li: a(href="{{exportUrl}}", download="{{exportFilename}}") {{_ 'export-board'}}
+      li: a.js-import-board {{_ 'import-board-c'}}
 
 template(name="boardVisibilityList")
   ul.pop-over-list
