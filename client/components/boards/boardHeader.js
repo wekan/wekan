@@ -14,6 +14,7 @@ Template.boardMenuPopup.events({
     FlowRouter.go('home');
   }),
   'click .js-outgoing-webhooks': Popup.open('outgoingWebhooks'),
+  'click .js-import-board': Popup.open('chooseBoardSource'),
 });
 
 Template.boardMenuPopup.helpers({

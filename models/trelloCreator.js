@@ -488,7 +488,14 @@ export class TrelloCreator {
     }
   }
 
-  create(board) {
+  create(board, currentBoardId) {
+    // TODO : Make isSandstorm variable global
+    const isSandstorm = Meteor.settings && Meteor.settings.public &&
+      Meteor.settings.public.sandstorm;
+    if (isSandstorm && currentBoardId) {
+      const currentBoard = Boards.findOne(currentBoardId);
+      currentBoard.archive();
+    }
     this.parseActions(board.actions);
     const boardId = this.createBoardAndLabels(board);
     this.createLists(board.lists, boardId);

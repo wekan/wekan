@@ -68,10 +68,12 @@ BlazeComponent.extendComponent({
       this.importedData.get(),
       additionalData,
       this.importSource,
+      Session.get('fromBoard'),
       (err, res) => {
         if (err) {
           this.setError(err.error);
         } else {
+          Session.set('fromBoard', null);
           Utils.goBoardId(res);
         }
       }
