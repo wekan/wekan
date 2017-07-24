@@ -71,6 +71,12 @@ template(name="boardHeaderBar")
               title="{{_ 'log-in'}}")
               i.fa.fa-sign-in
               span {{_ 'log-in'}}
+              
+      if isSandstorm
+        if currentUser
+          a.board-header-btn.js-open-archived-board
+            i.fa.fa-archive
+            span {{_ 'archives'}}
 
       a.board-header-btn.js-open-filter-view(
           title="{{#if Filter.isActive}}{{_ 'filter-on-desc'}}{{else}}{{_ 'filter'}}{{/if}}"
