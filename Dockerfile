@@ -99,12 +99,12 @@ RUN \
     fi; \
     \
     # Get additional packages
-    mkdir -p /home/wekan/.meteor/packages && \
-    chown wekan:wekan --recursive /home/wekan/.meteor && \
-    cd /home/wekan/.meteor/packages && \
+    mkdir -p /home/wekan/app/packages && \
+    chown wekan:wekan --recursive /home/wekan && \
+    cd /home/wekan/app/packages && \
     gosu wekan:wekan git clone --depth 1 -b master git://github.com/wekan/flow-router.git kadira-flow-router && \
     gosu wekan:wekan git clone --depth 1 -b master git://github.com/meteor-useraccounts/core.git meteor-useraccounts-core && \
-    sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' /home/wekan/.meteor/packages/meteor-useraccounts-core/package.js && \
+    sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' /home/wekan/app/packages/meteor-useraccounts-core/package.js && \
     cd /home/wekan/.meteor && \
     gosu wekan:wekan /home/wekan/.meteor/meteor -- help; \
     \
