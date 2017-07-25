@@ -3,7 +3,8 @@
 This release adds the following new features:
 
 * [More screenshots at Features page](https://github.com/wekan/wekan/wiki/Features);
-* [Export and import boards in Sandstorm](https://github.com/wekan/wekan/pull/1144).
+* [Export and import boards in Sandstorm](https://github.com/wekan/wekan/pull/1144);
+* [GitHub Issue template](https://github.com/wekan/wekan/pull/1146).
 
 and fixes the following bugs:
 
