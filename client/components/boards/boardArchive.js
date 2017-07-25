@@ -18,6 +18,13 @@ BlazeComponent.extendComponent({
   events() {
     return [{
       'click .js-restore-board'() {
+        // TODO : Make isSandstorm variable global
+        const isSandstorm = Meteor.settings && Meteor.settings.public &&
+          Meteor.settings.public.sandstorm;
+        if (isSandstorm && Session.get('currentBoard')) {
+          const currentBoard = Boards.findOne(Session.get('currentBoard'));
+          currentBoard.archive();
+        }
         const board = this.currentData();
         board.restore();
         Utils.goBoardId(board._id);

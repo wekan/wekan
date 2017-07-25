@@ -71,6 +71,12 @@ template(name="boardHeaderBar")
               title="{{_ 'log-in'}}")
               i.fa.fa-sign-in
               span {{_ 'log-in'}}
+              
+      if isSandstorm
+        if currentUser
+          a.board-header-btn.js-open-archived-board
+            i.fa.fa-archive
+            span {{_ 'archives'}}
 
       a.board-header-btn.js-open-filter-view(
           title="{{#if Filter.isActive}}{{_ 'filter-on-desc'}}{{else}}{{_ 'filter'}}{{/if}}"
@@ -113,6 +119,11 @@ template(name="boardMenuPopup")
         li: a(href="{{exportUrl}}", download="{{exportFilename}}") {{_ 'export-board'}}
         li: a.js-archive-board {{_ 'archive-board'}}
         li: a.js-outgoing-webhooks {{_ 'outgoing-webhooks'}}
+  if isSandstorm
+    hr
+    ul.pop-over-list
+      li: a(href="{{exportUrl}}", download="{{exportFilename}}") {{_ 'export-board'}}
+      li: a.js-import-board {{_ 'import-board-c'}}
 
 template(name="boardVisibilityList")
   ul.pop-over-list
@@ -197,9 +208,9 @@ template(name="createBoard")
 template(name="chooseBoardSource")
   ul.pop-over-list
     li
-      a(href="{{pathFor 'import/trello'}}") {{_ 'from-trello'}}
+      a(href="{{pathFor '/import/trello'}}") {{_ 'from-trello'}}
     li
-      a(href="{{pathFor 'import/wekan'}}") {{_ 'from-wekan'}}
+      a(href="{{pathFor '/import/wekan'}}") {{_ 'from-wekan'}}
 
 template(name="boardChangeTitlePopup")
   form
