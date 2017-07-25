@@ -2,9 +2,14 @@
 
 This release adds the following new features:
 
-* [More screenshots at Features page](https://github.com/wekan/wekan/wiki/Features).
+* [More screenshots at Features page](https://github.com/wekan/wekan/wiki/Features);
+* [Export and import boards in Sandstorm](https://github.com/wekan/wekan/pull/1144).
 
-Thanks to GitHub user xet7 for contributions.
+and fixes the following bugs:
+
+* [Double shashes on ROOT_URL](https://github.com/wekan/wekan/issues/962).
+
+Thanks to GitHub users GhassenRjab, nztqa and xet7 for contributions.
 
 # v0.29 2017-07-21 Wekan release
 
