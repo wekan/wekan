@@ -14,6 +14,7 @@ Template.boardMenuPopup.events({
     FlowRouter.go('home');
   }),
   'click .js-outgoing-webhooks': Popup.open('outgoingWebhooks'),
+  'click .js-import-board': Popup.open('chooseBoardSource'),
 });
 
 Template.boardMenuPopup.helpers({
@@ -76,6 +77,9 @@ BlazeComponent.extendComponent({
       'click .js-open-board-menu': Popup.open('boardMenu'),
       'click .js-change-visibility': Popup.open('boardChangeVisibility'),
       'click .js-watch-board': Popup.open('boardChangeWatch'),
+      'click .js-open-archived-board'() {
+        Modal.open('archivedBoards');
+      },
       'click .js-open-filter-view'() {
         Sidebar.setView('filter');
       },

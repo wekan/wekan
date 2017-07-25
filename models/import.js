@@ -2,10 +2,11 @@ import { TrelloCreator } from './trelloCreator';
 import { WekanCreator } from './wekanCreator';
 
 Meteor.methods({
-  importBoard(board, data, importSource) {
+  importBoard(board, data, importSource, currentBoard) {
     check(board, Object);
     check(data, Object);
     check(importSource, String);
+    check(currentBoard, Match.Maybe(String));
     let creator;
     switch (importSource) {
     case 'trello':
@@ -23,6 +24,6 @@ Meteor.methods({
     // authorized) nothing to check, everyone can import boards in their account
 
     // 3. create all elements
-    return creator.create(board);
+    return creator.create(board, currentBoard);
   },
 });
