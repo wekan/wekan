@@ -37,6 +37,7 @@
     "activity-sent": "sent %s to %s",
     "activity-unjoined": "unjoined %s",
     "activity-checklist-added": "added checklist to %s",
+    "activity-checklist-item-added": "added checklist item to '%s' in %s",
     "add": "Додати",
     "add-attachment": "Add Attachment",
     "add-board": "Add Board",

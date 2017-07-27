@@ -37,6 +37,7 @@
     "activity-sent": "enviado %s a %s",
     "activity-unjoined": "unjoined %s",
     "activity-checklist-added": "añadida lista de tareas a %s",
+    "activity-checklist-item-added": "added checklist item to '%s' in %s",
     "add": "Añadir",
     "add-attachment": "Agregar Adjunto",
     "add-board": "Agregar Tablero",

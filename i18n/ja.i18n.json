@@ -37,6 +37,7 @@
     "activity-sent": "%s を %s に送りました",
     "activity-unjoined": "%s への参加を止めました",
     "activity-checklist-added": "%s にチェックリストを追加しました",
+    "activity-checklist-item-added": "added checklist item to '%s' in %s",
     "add": "追加",
     "add-attachment": "Add Attachment",
     "add-board": "Add Board",

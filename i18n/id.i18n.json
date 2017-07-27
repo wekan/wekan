@@ -37,6 +37,7 @@
     "activity-sent": "terkirim %s ke %s",
     "activity-unjoined": "tidak bergabung %s",
     "activity-checklist-added": "daftar periksa ditambahkan ke %s",
+    "activity-checklist-item-added": "added checklist item to '%s' in %s",
     "add": "Tambah",
     "add-attachment": "Add Attachment",
     "add-board": "Add Board",

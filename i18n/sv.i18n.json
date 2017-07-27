@@ -37,6 +37,7 @@
     "activity-sent": "skickade %s till %s",
     "activity-unjoined": "gick ur %s",
     "activity-checklist-added": "lade kontrollista till %s",
+    "activity-checklist-item-added": "added checklist item to '%s' in %s",
     "add": "Lägg till",
     "add-attachment": "Lägg till bilaga",
     "add-board": "Add Board",

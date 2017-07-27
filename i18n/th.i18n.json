@@ -37,6 +37,7 @@
     "activity-sent": "ส่ง %s ถึง %s",
     "activity-unjoined": "ยกเลิกเข้าร่วม %s",
     "activity-checklist-added": "รายการถูกเพิ่มไป %s",
+    "activity-checklist-item-added": "added checklist item to '%s' in %s",
     "add": "เพิ่ม",
     "add-attachment": "Add Attachment",
     "add-board": "Add Board",

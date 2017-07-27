@@ -37,6 +37,7 @@
     "activity-sent": "%s posláno na %s",
     "activity-unjoined": "odpojen %s",
     "activity-checklist-added": "added checklist to %s",
+    "activity-checklist-item-added": "added checklist item to '%s' in %s",
     "add": "Přidat",
     "add-attachment": "Add Attachment",
     "add-board": "Add Board",

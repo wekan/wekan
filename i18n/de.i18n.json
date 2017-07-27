@@ -37,6 +37,7 @@
     "activity-sent": "hat %s an %s gesendet",
     "activity-unjoined": "hat %s verlassen",
     "activity-checklist-added": "hat Checkliste zu %s hinzugefügt",
+    "activity-checklist-item-added": "added checklist item to '%s' in %s",
     "add": "Hinzufügen",
     "add-attachment": "Datei anhängen",
     "add-board": "neues Board",

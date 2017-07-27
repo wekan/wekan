@@ -37,6 +37,7 @@
     "activity-sent": "gửi %s đến %s",
     "activity-unjoined": "đã rời khỏi %s",
     "activity-checklist-added": "đã thêm checklist vào %s",
+    "activity-checklist-item-added": "added checklist item to '%s' in %s",
     "add": "Thêm",
     "add-attachment": "Thêm Bản Đính Kèm",
     "add-board": "Thêm Bảng",

@@ -38,6 +38,9 @@ Activities.helpers({
   checklist() {
     return Checklists.findOne(this.checklistId);
   },
+  checklistItem() {
+    return Checklists.findOne(this.checklistId).getItem(this.checklistItemId);
+  },
 });
 
 Activities.before.insert((userId, doc) => {

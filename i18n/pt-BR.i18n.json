@@ -37,6 +37,7 @@
     "activity-sent": "enviou %s de %s",
     "activity-unjoined": "saiu de %s",
     "activity-checklist-added": "Adicionado lista de verificação a %s",
+    "activity-checklist-item-added": "added checklist item to '%s' in %s",
     "add": "Novo",
     "add-attachment": "Adicionar Anexos",
     "add-board": "Adiconar Quadro",

@@ -37,6 +37,7 @@
     "activity-sent": "ha enviat %s %s",
     "activity-unjoined": "desassignat %s",
     "activity-checklist-added": "Checklist afegida a %s",
+    "activity-checklist-item-added": "added checklist item to '%s' in %s",
     "add": "Afegeix",
     "add-attachment": "Afegeix adjunt",
     "add-board": "Afegeix Tauler",

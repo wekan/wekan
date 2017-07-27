@@ -37,6 +37,7 @@
     "activity-sent": "отправлено %s в %s",
     "activity-unjoined": "вышел из %s",
     "activity-checklist-added": "добавлен список в %s",
+    "activity-checklist-item-added": "added checklist item to '%s' in %s",
     "add": "Создать",
     "add-attachment": "Добавить вложение",
     "add-board": "Добавить доску",
