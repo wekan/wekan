@@ -37,6 +37,7 @@
     "activity-sent": "%s נשלח ל%s",
     "activity-unjoined": "בטל צירוף %s",
     "activity-checklist-added": "נוספה רשימת משימות אל %s",
+    "activity-checklist-item-added": "added checklist item to '%s' in %s",
     "add": "הוספה",
     "add-attachment": "הוספת קובץ מצורף",
     "add-board": "הוספת לוח",

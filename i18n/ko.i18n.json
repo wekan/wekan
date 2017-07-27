@@ -37,6 +37,7 @@
     "activity-sent": "%s를 %s로 보냄",
     "activity-unjoined": "%s에서 멤버 해제",
     "activity-checklist-added": "%s에 체크리스트를 추가함",
+    "activity-checklist-item-added": "added checklist item to '%s' in %s",
     "add": "추가",
     "add-attachment": "첨부파일 추가",
     "add-board": "보드 추가",

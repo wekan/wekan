@@ -37,6 +37,7 @@
     "activity-sent": "sendte %s til %s",
     "activity-unjoined": "forlot %s",
     "activity-checklist-added": "la til sjekkliste til %s",
+    "activity-checklist-item-added": "added checklist item to '%s' in %s",
     "add": "Legg til",
     "add-attachment": "Add Attachment",
     "add-board": "Add Board",

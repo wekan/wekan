@@ -37,6 +37,7 @@
     "activity-sent": "%s i %s e gönderdi",
     "activity-unjoined": "%s içinden ayrıldı",
     "activity-checklist-added": "%s içine liste ekledi",
+    "activity-checklist-item-added": "added checklist item to '%s' in %s",
     "add": "Ekle",
     "add-attachment": "Ek Ekle",
     "add-board": "Pano Ekle",

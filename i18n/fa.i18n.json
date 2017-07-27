@@ -37,6 +37,7 @@
     "activity-sent": "ارسال %s به %s",
     "activity-unjoined": "قطع اتصال %s",
     "activity-checklist-added": "سیاهه به %s اضافه شد",
+    "activity-checklist-item-added": "added checklist item to '%s' in %s",
     "add": "افزودن",
     "add-attachment": "Add Attachment",
     "add-board": "Add Board",

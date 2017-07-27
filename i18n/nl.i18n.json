@@ -37,6 +37,7 @@
     "activity-sent": "%s gestuurd naar %s",
     "activity-unjoined": "uit %s gegaan",
     "activity-checklist-added": "checklist toegevoegd aan %s",
+    "activity-checklist-item-added": "added checklist item to '%s' in %s",
     "add": "Toevoegen",
     "add-attachment": "Voeg Bijlage Toe",
     "add-board": "Voeg Bord Toe",

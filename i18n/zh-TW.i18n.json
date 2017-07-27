@@ -37,6 +37,7 @@
     "activity-sent": "寄送 %s 至 %s",
     "activity-unjoined": "解除關聯 %s",
     "activity-checklist-added": "新增待辦清單至 %s",
+    "activity-checklist-item-added": "added checklist item to '%s' in %s",
     "add": "新增",
     "add-attachment": "新增附件",
     "add-board": "新增看板",

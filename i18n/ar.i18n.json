@@ -37,6 +37,7 @@
     "activity-sent": "إرسال %s إلى %s",
     "activity-unjoined": "غادر %s",
     "activity-checklist-added": "أضاف قائمة تحقق إلى %s",
+    "activity-checklist-item-added": "added checklist item to '%s' in %s",
     "add": "أضف",
     "add-attachment": "إضافة مرفق",
     "add-board": "إضافة لوحة",

@@ -37,6 +37,7 @@
     "activity-sent": "poslao %s %s-u",
     "activity-unjoined": "rastavio %s",
     "activity-checklist-added": "lista je dodata u %s",
+    "activity-checklist-item-added": "added checklist item to '%s' in %s",
     "add": "Dodaj",
     "add-attachment": "Add Attachment",
     "add-board": "Add Board",
