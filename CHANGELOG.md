@@ -1,4 +1,7 @@
-# Upcoming Wekan release
+# v0.30 2017-07-27 Wekan release
+
+SECURITY ISSUE [Files accessible without authentication](https://github.com/wekan/wekan/issues/1105)
+IS NOT FIXED YET.
 
 This release adds the following new features:
 
@@ -11,7 +14,7 @@ and fixes the following bugs:
 
 * [Double shashes on ROOT_URL](https://github.com/wekan/wekan/issues/962).
 
-Thanks to GitHub users GhassenRjab, nztqa and xet7 for contributions.
+Thanks to GitHub users GhassenRjab, nztqa and xet7 for their contributions.
 
 # v0.29 2017-07-21 Wekan release
 
