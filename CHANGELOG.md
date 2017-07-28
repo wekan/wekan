@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+* [Fix showing card activity history in IE11](https://github.com/wekan/wekan/pull/1152).
+
+Thanks to GitHub user nztqa for contributions.
+
 # v0.30 2017-07-27 Wekan release
 
 SECURITY ISSUE [Files accessible without authentication](https://github.com/wekan/wekan/issues/1105)
