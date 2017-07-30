@@ -50,19 +50,21 @@ We also welcome sponsors for features, although we don't have any yet.
 By working directly with Wekan you get the benefit of active maintenance
 and new features added by growing Wekan developer community.
 
-[Roadmap is self-hosted on Wekan][roadmap_wefork]
+Actual work happens at [Wekan GitHub issues][wekan_issues].
 
-Roadmaps is not currently up-to-date. You can find more up-to-date
-info from [Features][features] and [Integrations][integrations] pages,
-where is links to [Wekan GitHub issues][wekan_issues] where actual
-work happens.
+See [Development links on Wekan
+wiki](https://github.com/wekan/wekan/wiki#Development)
+bottom of the page for more info.
+
+## Demo
+
+[Wekan demo][roadmap_wefork]
 
 ## Screenshot
 
-[![Screenshot of Wekan][screenshot_wefork]][roadmap_wefork]
+[More screenshots at Features page](https://github.com/wekan/wekan/wiki/Features)
 
-Content is being copied from [old Wekan roadmap][roadmap_wekan] to
-new one in process of merging Wefork back to Wekan.
+[![Screenshot of Wekan][screenshot_wefork]][roadmap_wefork]
 
 Since Wekan is a free software, you don’t have to trust us with your data and can
 install Wekan on your own computer or server. In fact we encourage you to do
@@ -76,7 +78,7 @@ with [Meteor](https://www.meteor.com).
 [platforms]: https://github.com/wekan/wekan/wiki/Platforms
 [dev_docs]: https://github.com/wekan/wekan/wiki/Developer-Documentation
 [screenshot_wekan]: http://i.imgur.com/cI4jW2h.png
-[screenshot_wefork]: http://i.imgur.com/lzvpeS9.png
+[screenshot_wefork]: https://wekan.github.io/screenshot.png
 [features]: https://github.com/wekan/wekan/wiki/Features
 [integrations]: https://github.com/wekan/wekan/wiki/Integrations
 [roadmap_wekan]: http://try.wekan.io/b/MeSsFJaSqeuo9M6bs/wekan-roadmap

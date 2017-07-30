@@ -1,4 +1,4 @@
-FROM debian:8.7
+FROM debian:8.8
 MAINTAINER wekan
 
 # Declare Arguments
@@ -14,7 +14,7 @@ ARG SRC_PATH
 # Set the environment variables (defaults where required)
 ENV BUILD_DEPS="wget curl bzip2 build-essential python git ca-certificates gcc-4.9"
 ENV GOSU_VERSION=1.10
-ENV NODE_VERSION ${NODE_VERSION:-v4.8.1}
+ENV NODE_VERSION ${NODE_VERSION:-v4.8.4}
 ENV METEOR_RELEASE ${METEOR_RELEASE:-1.4.4.1}
 ENV USE_EDGE ${USE_EDGE:-false}
 ENV METEOR_EDGE ${METEOR_EDGE:-1.5-beta.17}
@@ -99,26 +99,28 @@ RUN \
     fi; \
     \
     # Get additional packages
-    cd /home/wekan/.meteor/packages && \
+    mkdir -p /home/wekan/app/packages && \
+    chown wekan:wekan --recursive /home/wekan && \
+    cd /home/wekan/app/packages && \
     gosu wekan:wekan git clone --depth 1 -b master git://github.com/wekan/flow-router.git kadira-flow-router && \
     gosu wekan:wekan git clone --depth 1 -b master git://github.com/meteor-useraccounts/core.git meteor-useraccounts-core && \
-    sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' /home/wekan/.meteor/packages/meteor-useraccounts-core/package.js && \
+    sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' /home/wekan/app/packages/meteor-useraccounts-core/package.js && \
     cd /home/wekan/.meteor && \
-    gosu wekan /home/wekan/.meteor/meteor -- help; \
+    gosu wekan:wekan /home/wekan/.meteor/meteor -- help; \
     \
     # Build app
     cd /home/wekan/app && \
-    gosu wekan /home/wekan/.meteor/meteor add standard-minifier-js && \
-    gosu wekan /home/wekan/.meteor/meteor npm install && \
-    gosu wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build && \
+    gosu wekan:wekan /home/wekan/.meteor/meteor add standard-minifier-js && \
+    gosu wekan:wekan /home/wekan/.meteor/meteor npm install && \
+    gosu wekan:wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build && \
     cp /home/wekan/app/fix-download-unicode/cfs_access-point.txt /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
     chown wekan:wekan /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
-    gosu wekan sed -i "s|build\/Release\/bson|browser_build\/bson|g" /home/wekan/app_build/bundle/programs/server/npm/node_modules/meteor/cfs_gridfs/node_modules/mongodb/node_modules/bson/ext/index.js && \
+    gosu wekan:wekan sed -i "s|build\/Release\/bson|browser_build\/bson|g" /home/wekan/app_build/bundle/programs/server/npm/node_modules/meteor/cfs_gridfs/node_modules/mongodb/node_modules/bson/ext/index.js && \
     cd /home/wekan/app_build/bundle/programs/server/npm/node_modules/meteor/npm-bcrypt && \
-    gosu wekan rm -rf node_modules/bcrypt && \
-    gosu wekan npm install bcrypt && \
+    gosu wekan:wekan rm -rf node_modules/bcrypt && \
+    gosu wekan:wekan npm install bcrypt && \
     cd /home/wekan/app_build/bundle/programs/server/ && \
-    gosu wekan npm install && \
+    gosu wekan:wekan npm install && \
     mv /home/wekan/app_build/bundle /build && \
     \
     # Cleanup

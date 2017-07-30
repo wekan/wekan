@@ -84,6 +84,9 @@ FlowRouter.route('/import/:source', {
   name: 'import',
   triggersEnter: [AccountsTemplates.ensureSignedIn],
   action(params) {
+    if (Session.get('currentBoard')) {
+      Session.set('fromBoard', Session.get('currentBoard'));
+    }
     Session.set('currentBoard', null);
     Session.set('currentCard', null);
     Session.set('importSource', params.source);

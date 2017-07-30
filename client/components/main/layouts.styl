@@ -368,7 +368,8 @@ a
 
 @keyframes flexGrowIn
   from
-    flex-basis: 0
+    // Support IE11 https://github.com/wekan/wekan/pull/646
+    height: 100%
 
 @media screen and (max-width: 800px)
   #content

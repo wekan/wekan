@@ -56,6 +56,16 @@ CardComments.helpers({
 
 CardComments.hookOptions.after.update = { fetchPrevious: false };
 
+function commentCreation(userId, doc){
+  Activities.insert({
+    userId,
+    activityType: 'addComment',
+    boardId: doc.boardId,
+    cardId: doc.cardId,
+    commentId: doc._id,
+  });
+}
+
 if (Meteor.isServer) {
   // Comments are often fetched within a card, so we create an index to make these
   // queries more efficient.
@@ -64,13 +74,7 @@ if (Meteor.isServer) {
   });
 
   CardComments.after.insert((userId, doc) => {
-    Activities.insert({
-      userId,
-      activityType: 'addComment',
-      boardId: doc.boardId,
-      cardId: doc.cardId,
-      commentId: doc._id,
-    });
+    commentCreation(userId, doc);
   });
 
   CardComments.after.remove((userId, doc) => {
@@ -114,12 +118,16 @@ if (Meteor.isServer) {
     Authentication.checkUserId( req.userId);
     const paramBoardId = req.params.boardId;
     const paramCardId = req.params.cardId;
-    const id = CardComments.insert({
+    const id = CardComments.direct.insert({
       userId: req.body.authorId,
       text: req.body.comment,
       cardId: paramCardId,
       boardId: paramBoardId,
     });
+
+    const cardComment = CardComments.findOne({_id: id, cardId:paramCardId, boardId: paramBoardId });
+    commentCreation(req.body.authorId, cardComment);
+
     JsonRoutes.sendResult(res, {
       code: 200,
       data: {

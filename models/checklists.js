@@ -161,16 +161,19 @@ if (Meteor.isServer) {
   });
 
   //TODO: so there will be no activity for adding item into checklist, maybe will be implemented in the future.
-  // Checklists.after.update((userId, doc) => {
-  //   console.log('update:', doc)
-  // Activities.insert({
-  //   userId,
-  //   activityType: 'addChecklist',
-  //   boardId: doc.boardId,
-  //   cardId: doc.cardId,
-  //   checklistId: doc._id,
-  // });
-  // });
+  // The future is now
+  Checklists.after.update((userId, doc, fieldNames, modifier) => {
+    if (fieldNames.includes('items')) {
+      Activities.insert({
+        userId,
+        activityType: 'addChecklistItem',
+        cardId: doc.cardId,
+        boardId: Cards.findOne(doc.cardId).boardId,
+        checklistId: doc._id,
+        checklistItemId: modifier.$addToSet.items._id,
+      });
+    }
+  });
 
   Checklists.before.remove((userId, doc) => {
     const activity = Activities.findOne({ checklistId: doc._id });

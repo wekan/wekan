@@ -1,5 +1,5 @@
 name: wekan
-version: "0.27-SNAPSHOT"
+version: "0.31-SNAPSHOT"
 summary: The open-source Trello-like kanban
 description: |
    Wekan is an open-source and collaborative kanban board application.
@@ -53,7 +53,7 @@ apps:
 
 parts:
     mongodb:
-        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-3.2.14.tgz
+        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-3.2.16.tgz
         plugin: dump
         stage-packages: [libssl1.0.0]
         filesets:
@@ -69,7 +69,7 @@ parts:
     wekan:
         source: .
         plugin: nodejs
-        node-engine: 4.8.1
+        node-engine: 4.8.4
         node-packages:
             - npm@4.6.1
             - node-gyp
@@ -91,10 +91,12 @@ parts:
             chmod +x install_meteor.sh
             sh install_meteor.sh
             rm install_meteor.sh
-            cd ~/.meteor/packages
+            mkdir packages
+            cd packages
             git clone --depth 1 -b master https://github.com/wekan/flow-router.git kadira-flow-router
             git clone --depth 1 -b master https://github.com/meteor-useraccounts/core.git meteor-useraccounts-core
             sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' ~/.meteor/packages/meteor-useraccounts-core/package.js
+            cd ..
         build: |
             rm -rf package-lock.json .build
             meteor add standard-minifier-js --allow-superuser

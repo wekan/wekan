@@ -3,7 +3,7 @@ import wekanMembersMapper from './wekanMembersMapper';
 
 BlazeComponent.extendComponent({
   title() {
-    return `import-board-title-${Session.get('importSource')}!`;
+    return `import-board-title-${Session.get('importSource')}`;
   },
 }).register('importHeaderBar');
 
@@ -68,10 +68,12 @@ BlazeComponent.extendComponent({
       this.importedData.get(),
       additionalData,
       this.importSource,
+      Session.get('fromBoard'),
       (err, res) => {
         if (err) {
           this.setError(err.error);
         } else {
+          Session.set('fromBoard', null);
           Utils.goBoardId(res);
         }
       }
@@ -103,7 +105,7 @@ BlazeComponent.extendComponent({
   },
 
   instruction() {
-    return `import-board-instruction-${Session.get('importSource')}!`;
+    return `import-board-instruction-${Session.get('importSource')}`;
   },
 
   events() {

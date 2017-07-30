@@ -31,6 +31,12 @@ template(name="boardActivities")
           .activity-checklist(href="{{ card.absoluteUrl }}")
             +viewer
               = checklist.title
+              
+        if($eq activityType 'addChecklistItem')
+          | {{{_ 'activity-checklist-item-added' checklist.title cardLink}}}.
+          .activity-checklist(href="{{ card.absoluteUrl }}")
+            +viewer
+              = checklistItem.title
 
         if($eq activityType 'archivedCard')
           | {{{_ 'activity-archived' cardLink}}}.
@@ -117,6 +123,11 @@ template(name="cardActivities")
           .activity-checklist
             +viewer
               = checklist.title
+        if($eq activityType 'addChecklistItem')
+          | {{{_ 'activity-checklist-item-added' checklist.title cardLink}}}.
+          .activity-checklist(href="{{ card.absoluteUrl }}")
+            +viewer
+              = checklistItem.title
 
         if($eq activityType 'addComment')
           +inlinedForm(classNames='js-edit-comment')

@@ -55,12 +55,36 @@ class Exporter {
     result.cards = Cards.find(byBoard, noBoardId).fetch();
     result.comments = CardComments.find(byBoard, noBoardId).fetch();
     result.activities = Activities.find(byBoard, noBoardId).fetch();
-    // for attachments we only export IDs and absolute url to original doc
+    result.checklists = [];
+    result.cards.forEach((card) => {
+      result.checklists.push(...Checklists.find({ cardId: card._id }).fetch());
+    });
+    // [Old] for attachments we only export IDs and absolute url to original doc
+    // [New] Encode attachment to base64
+    const getBase64Data = function(doc, callback) {
+      let buffer = new Buffer(0);
+      // callback has the form function (err, res) {}
+      const readStream = doc.createReadStream();
+      readStream.on('data', function(chunk) {
+        buffer = Buffer.concat([buffer, chunk]);
+      });
+      readStream.on('error', function(err) {
+        callback(err, null);
+      });
+      readStream.on('end', function() {
+        // done
+        callback(null, buffer.toString('base64'));
+      });
+    };
+    const getBase64DataSync = Meteor.wrapAsync(getBase64Data);
     result.attachments = Attachments.find(byBoard).fetch().map((attachment) => {
       return {
         _id: attachment._id,
         cardId: attachment.cardId,
-        url: FlowRouter.url(attachment.url()),
+        // url: FlowRouter.url(attachment.url()),
+        file: getBase64DataSync(attachment),
+        name: attachment.original.name,
+        type: attachment.original.type,
       };
     });
 
@@ -79,6 +103,7 @@ class Exporter {
     });
     result.comments.forEach((comment) => { users[comment.userId] = true; });
     result.activities.forEach((activity) => { users[activity.userId] = true; });
+    result.checklists.forEach((checklist) => { users[checklist.userId] = true; });
     const byUserIds = { _id: { $in: Object.getOwnPropertyNames(users) } };
     // we use whitelist to be sure we do not expose inadvertently
     // some secret fields that gets added to User later.

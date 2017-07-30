@@ -96,7 +96,6 @@ export class WekanCreator {
       archived: Boolean,
       dateLastActivity: DateString,
       labelIds: [String],
-      members: [String],
       title: String,
       sort: Number,
     })]);
@@ -107,7 +106,6 @@ export class WekanCreator {
       // XXX refine control by validating 'color' against a list of allowed
       // values (is it worth the maintenance?)
       color: String,
-      name: String,
     })]);
   }
 
@@ -118,17 +116,16 @@ export class WekanCreator {
     })]);
   }
 
-  // checkChecklists(wekanChecklists) {
-  //   check(wekanChecklists, [Match.ObjectIncluding({
-  //     idBoard: String,
-  //     idCard: String,
-  //     name: String,
-  //     checkItems: [Match.ObjectIncluding({
-  //       state: String,
-  //       name: String,
-  //     })],
-  //   })]);
-  // }
+  checkChecklists(wekanChecklists) {
+    check(wekanChecklists, [Match.ObjectIncluding({
+      cardId: String,
+      title: String,
+      items: [Match.ObjectIncluding({
+        isFinished: Boolean,
+        title: String,
+      })],
+    })]);
+  }
 
   // You must call parseActions before calling this one.
   createBoardAndLabels(wekanBoard) {
@@ -250,7 +247,7 @@ export class WekanCreator {
       // insert card
       const cardId = Cards.direct.insert(cardToCreate);
       // keep track of Wekan id => WeKan id
-      this.cards[card.id] = cardId;
+      this.cards[card._id] = cardId;
       // log activity
       Activities.direct.insert({
         activityType: 'importCard',
@@ -303,21 +300,40 @@ export class WekanCreator {
           // - the template then tries to display the url to the attachment which causes other errors
           // so we make it server only, and let UI catch up once it is done, forget about latency comp.
           if(Meteor.isServer) {
-            file.attachData(att.url, function (error) {
-              file.boardId = boardId;
-              file.cardId = cardId;
-              if (error) {
-                throw(error);
-              } else {
-                const wekanAtt = Attachments.insert(file, () => {
-                  // we do nothing
-                });
-                //
-                if(wekanCoverId === att._id) {
-                  Cards.direct.update(cardId, { $set: {coverId: wekanAtt._id}});
+            if (att.url) {
+              file.attachData(att.url, function (error) {
+                file.boardId = boardId;
+                file.cardId = cardId;
+                if (error) {
+                  throw(error);
+                } else {
+                  const wekanAtt = Attachments.insert(file, () => {
+                    // we do nothing
+                  });
+                  //
+                  if(wekanCoverId === att._id) {
+                    Cards.direct.update(cardId, { $set: {coverId: wekanAtt._id}});
+                  }
                 }
-              }
-            });
+              });
+            } else if (att.file) {
+              file.attachData(new Buffer(att.file, 'base64'), {type: att.type}, (error) => {
+                file.name(att.name);
+                file.boardId = boardId;
+                file.cardId = cardId;
+                if (error) {
+                  throw(error);
+                } else {
+                  const wekanAtt = Attachments.insert(file, () => {
+                    // we do nothing
+                  });
+                  //
+                  if(wekanCoverId === att._id) {
+                    Cards.direct.update(cardId, { $set: {coverId: wekanAtt._id}});
+                  }
+                }
+              });
+            }
           }
           // todo XXX set cover - if need be
         });
@@ -374,27 +390,27 @@ export class WekanCreator {
     });
   }
 
-  // createChecklists(wekanChecklists) {
-  //   wekanChecklists.forEach((checklist) => {
-  //     // Create the checklist
-  //     const checklistToCreate = {
-  //       cardId: this.cards[checklist.cardId],
-  //       title: checklist.title,
-  //       createdAt: this._now(),
-  //     };
-  //     const checklistId = Checklists.direct.insert(checklistToCreate);
-  //     // Now add the items to the checklist
-  //     const itemsToCreate = [];
-  //     checklist.checkItems.forEach((item) => {
-  //       itemsToCreate.push({
-  //         _id: checklistId + itemsToCreate.length,
-  //         title: item.title,
-  //         isFinished: item.isFinished,
-  //       });
-  //     });
-  //     Checklists.direct.update(checklistId, {$set: {items: itemsToCreate}});
-  //   });
-  // }
+  createChecklists(wekanChecklists) {
+    wekanChecklists.forEach((checklist) => {
+      // Create the checklist
+      const checklistToCreate = {
+        cardId: this.cards[checklist.cardId],
+        title: checklist.title,
+        createdAt: checklist.createdAt,
+      };
+      const checklistId = Checklists.direct.insert(checklistToCreate);
+      // Now add the items to the checklist
+      const itemsToCreate = [];
+      checklist.items.forEach((item) => {
+        itemsToCreate.push({
+          _id: checklistId + itemsToCreate.length,
+          title: item.title,
+          isFinished: item.isFinished,
+        });
+      });
+      Checklists.direct.update(checklistId, {$set: {items: itemsToCreate}});
+    });
+  }
 
   parseActivities(wekanBoard) {
     wekanBoard.activities.forEach((activity) => {
@@ -406,7 +422,7 @@ export class WekanCreator {
         const wekanAttachment = wekanBoard.attachments.filter((attachment) => {
           return attachment._id === activity.attachmentId;
         })[0];
-        if(wekanAttachment.url) {
+        if(wekanAttachment.url || wekanAttachment.file) {
           // we cannot actually create the Wekan attachment, because we don't yet
           // have the cards to attach it to, so we store it in the instance variable.
           const wekanCardId = activity.cardId;
@@ -456,20 +472,25 @@ export class WekanCreator {
       this.checkLabels(board.labels);
       this.checkLists(board.lists);
       this.checkCards(board.cards);
-      // Checklists are not exported yet
-      // this.checkChecklists(board.checklists);
+      this.checkChecklists(board.checklists);
     } catch (e) {
       throw new Meteor.Error('error-json-schema');
     }
   }
 
-  create(board) {
+  create(board, currentBoardId) {
+    // TODO : Make isSandstorm variable global
+    const isSandstorm = Meteor.settings && Meteor.settings.public &&
+      Meteor.settings.public.sandstorm;
+    if (isSandstorm && currentBoardId) {
+      const currentBoard = Boards.findOne(currentBoardId);
+      currentBoard.archive();
+    }
     this.parseActivities(board);
     const boardId = this.createBoardAndLabels(board);
     this.createLists(board.lists, boardId);
     this.createCards(board.cards, boardId);
-    // Checklists are not exported yet
-    // this.createChecklists(board.checklists);
+    this.createChecklists(board.checklists);
     // XXX add members
     return boardId;
   }
