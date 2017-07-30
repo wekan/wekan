@@ -1,10 +1,16 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following new features:
 
+ * [Add dwrensha's Sandstorm patch to Wekan so it does not need to be maintained
+    separately](https://github.com/wekan/wekan/commit/bda15daa78556223117a5846941aafd1212f14d3).
+
+and fixes the following bugs:
+
+* [FIX SECURITY ISSUE Files accessible without authentication](https://github.com/wekan/wekan/issues/1105);
 * [Fix showing card activity history in IE11](https://github.com/wekan/wekan/pull/1152).
 
-Thanks to GitHub user nztqa for contributions.
+Thanks to GitHub users GhassenRjab and nztqa for their contributions.
 
 # v0.30 2017-07-27 Wekan release
 

@@ -37,7 +37,7 @@
     "activity-sent": "a envoyé %s vers %s",
     "activity-unjoined": "a quitté %s",
     "activity-checklist-added": "a ajouté une checklist à %s",
-    "activity-checklist-item-added": "added checklist item to '%s' in %s",
+    "activity-checklist-item-added": "a ajouté une checklist à '%s' dans %s",
     "add": "Ajouter",
     "add-attachment": "Ajouter une pièce jointe",
     "add-board": "Ajouter un tableau",
@@ -364,6 +364,6 @@
     "email-invite-register-text": "Cher __user__,\n\n__inviter__ vous invite à le rejoindre sur Wekan pour collaborer.\n\nVeuillez suivre le lien ci-dessous :\n__url__\n\nVotre code d'invitation est : __icode__\n\nMerci.",
     "error-invitation-code-not-exist": "Ce code d'invitation n'existe pas.",
     "error-notAuthorized": "Vous n'êtes pas autorisé à accéder à cette page.",
-    "outgoing-webhooks": "Outgoing Webhooks",
-    "outgoingWebhooksPopup-title": "Outgoing Webhooks"
+    "outgoing-webhooks": "Webhooks sortants",
+    "outgoingWebhooksPopup-title": "Webhooks sortants"
 }
