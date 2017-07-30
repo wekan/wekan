@@ -1,4 +1,4 @@
-# v0.31 2017-07-30 Wekan release
+# v0.32 2017-07-30 Wekan release
 
 This release adds the following new features:
 
@@ -11,6 +11,10 @@ and fixes the following bugs:
 * [Fix showing card activity history in IE11](https://github.com/wekan/wekan/pull/1152).
 
 Thanks to GitHub users dwrensha, GhassenRjab and nztqa for their contributions.
+
+# v0.31 2017-07-30 Wekan release
+
+* This was broken, having lint errors.
 
 # v0.30 2017-07-27 Wekan release
 
