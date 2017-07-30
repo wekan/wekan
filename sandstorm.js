@@ -325,7 +325,7 @@ if (isSandstorm && Meteor.isServer) {
       if (newMethods[key].auth) {
         newMethods[key].auth = function() {
           const sandstormID = this.req.headers['x-sandstorm-user-id'];
-          const user = Meteor.users.findOne({"services.sandstorm.id": sandstormID});
+          const user = Meteor.users.findOne({'services.sandstorm.id': sandstormID});
           return user && user._id;
         };
       }
