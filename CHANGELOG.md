@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v0.31 2017-07-30 Wekan release
 
 This release adds the following new features:
 
@@ -10,7 +10,7 @@ and fixes the following bugs:
 * [FIX SECURITY ISSUE Files accessible without authentication](https://github.com/wekan/wekan/issues/1105);
 * [Fix showing card activity history in IE11](https://github.com/wekan/wekan/pull/1152).
 
-Thanks to GitHub users GhassenRjab and nztqa for their contributions.
+Thanks to GitHub users dwrensha, GhassenRjab and nztqa for their contributions.
 
 # v0.30 2017-07-27 Wekan release
 
