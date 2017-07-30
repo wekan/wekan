@@ -21,19 +21,13 @@ if (Meteor.isServer) {
     // We authorize the attachment download either:
     // - if the board is public, everyone (even unconnected) can download it
     // - if the board is private, only board members can download it
-    //
-    // XXX We have a bug with the `userId` verification:
-    //
-    //   https://github.com/CollectionFS/Meteor-CollectionFS/issues/449
-    //
     download(userId, doc) {
-      const query = {
-        $or: [
-          { 'members.userId': userId },
-          { permission: 'public' },
-        ],
-      };
-      return Boolean(Boards.findOne(doc.boardId, query));
+      const board = Boards.findOne(doc.boardId);
+      if (board.isPublic()) {
+        return true;
+      } else {
+        return board.hasMember(userId);
+      }
     },
 
     fetch: ['boardId'],
