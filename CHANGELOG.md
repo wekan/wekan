@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+ * [Add possibility for bounties for feature requests, bugfixes
+    etc](https://github.com/wekan/wekan/wiki/FAQ#will-my-feature-request-be-implemented).
+
+Thanks to GitHub user xet7 for contributions.
+
 # v0.32 2017-07-30 Wekan release
 
 This release adds the following new features:
