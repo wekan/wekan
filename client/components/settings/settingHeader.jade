@@ -6,10 +6,13 @@ template(name="settingHeaderBar")
     unless isMiniScreen
       unless isSandstorm
         if currentUser
-          a.setting-header-btn.settings.active
+          a.setting-header-btn.settings(href="{{pathFor 'setting'}}")
             i.fa(class="fa-cog")
             span {{_ 'settings'}}
-//TODO 
+          a.setting-header-btn.informations(href="{{pathFor 'information'}}")
+            i.fa(class="fa-info-circle")
+            span {{_ 'info'}}
+//TODO
 //          a.setting-header-btn.people
 //            i.fa(class="fa-users")
 //            span {{_ 'people'}}
