@@ -2,8 +2,7 @@
 
 This release adds the following new features:
 
- * [Add possibility for bounties for feature requests, bugfixes
-    etc](https://github.com/wekan/wekan/wiki/FAQ#will-my-feature-request-be-implemented).
+ * [Add Bounties and Commercial Support to wiki](https://github.com/wekan/wekan/wiki).
 
 Thanks to GitHub user xet7 for contributions.
 
