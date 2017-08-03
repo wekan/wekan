@@ -3,7 +3,7 @@
 This release adds the following new features:
 
 * [Add Bounties and Commercial Support to wiki](https://github.com/wekan/wekan/wiki);
-* [Add display wekan version number and runtime
+* [Add display Wekan version number and runtime
    environment](https://github.com/wekan/wekan/pull/1156).
 
 Thanks to GitHub users nztqa and xet7 for their contributions.
