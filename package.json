@@ -28,6 +28,7 @@
     "bson": "^1.0.4",
     "es6-promise": "^4.1.0",
     "meteor-node-stubs": "^0.2.6",
+    "os": "^0.1.1",
     "winston": "^2.3.1",
     "winston-zulip": "0.0.6",
     "xss": "^0.3.3"

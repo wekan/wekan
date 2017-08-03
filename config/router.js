@@ -120,6 +120,26 @@ FlowRouter.route('/setting', {
   },
 });
 
+FlowRouter.route('/information', {
+  name: 'information',
+  triggersEnter: [
+    AccountsTemplates.ensureSignedIn,
+    () => {
+      Session.set('currentBoard', null);
+      Session.set('currentCard', null);
+
+      Filter.reset();
+      EscapeActions.executeAll();
+    },
+  ],
+  action() {
+    BlazeLayout.render('defaultLayout', {
+      headerBar: 'settingHeaderBar',
+      content: 'information',
+    });
+  },
+});
+
 FlowRouter.notFound = {
   action() {
     BlazeLayout.render('defaultLayout', { content: 'notFound' });

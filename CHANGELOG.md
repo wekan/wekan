@@ -2,16 +2,18 @@
 
 This release adds the following new features:
 
- * [Add Bounties and Commercial Support to wiki](https://github.com/wekan/wekan/wiki).
+* [Add Bounties and Commercial Support to wiki](https://github.com/wekan/wekan/wiki);
+* [Add display wekan version number and runtime
+   environment](https://github.com/wekan/wekan/pull/1156).
 
-Thanks to GitHub user xet7 for contributions.
+Thanks to GitHub users nztqa and xet7 for their contributions.
 
 # v0.32 2017-07-30 Wekan release
 
 This release adds the following new features:
 
- * [Add dwrensha's Sandstorm patch to Wekan so it does not need to be maintained
-    separately](https://github.com/wekan/wekan/commit/bda15daa78556223117a5846941aafd1212f14d3).
+* [Add dwrensha's Sandstorm patch to Wekan so it does not need to be maintained
+   separately](https://github.com/wekan/wekan/commit/bda15daa78556223117a5846941aafd1212f14d3).
 
 and fixes the following bugs:
 
