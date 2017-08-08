@@ -1,5 +1,6 @@
 name: wekan
-version: "0.32-SNAPSHOT"
+version: 0
+version-script: git describe --dirty --tags |  cut -c 2-
 summary: The open-source Trello-like kanban
 description: |
    Wekan is an open-source and collaborative kanban board application.
