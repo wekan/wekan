@@ -5,9 +5,10 @@ This release adds the following new features:
 * [Add Bounties and Commercial Support to wiki](https://github.com/wekan/wekan/wiki);
 * [Add display Wekan version number and runtime
    environment to Admin Panel](https://github.com/wekan/wekan/pull/1156);
-* [Change Email address](https://github.com/wekan/wekan/pull/1161).
+* [Change Email address](https://github.com/wekan/wekan/pull/1161);
+* [Ubuntu snap: Use version scriptlet](https://github.com/wekan/wekan/pull/1164).
 
-Thanks to GitHub users nztqa and xet7 for their contributions.
+Thanks to GitHub users kubiko, nztqa and xet7 for their contributions.
 
 # v0.32 2017-07-30 Wekan release
 
