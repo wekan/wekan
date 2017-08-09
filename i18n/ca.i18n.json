@@ -191,6 +191,7 @@
     "error-user-notAllowSelf": "No et pots convidar a tu mateix",
     "error-user-notCreated": "L'usuari no s'ha creat",
     "error-username-taken": "Aquest usuari ja existeix",
+    "error-email-taken": "Email has already been taken",
     "export-board": "Exporta tauler",
     "filter": "Filtre",
     "filter-cards": "Fitxes de filtre",
@@ -379,5 +380,9 @@
     "OS_Uptime": "OS Uptime",
     "hours": "hours",
     "minutes": "minutes",
-    "seconds": "seconds"
+    "seconds": "seconds",
+    "yes": "Yes",
+    "no": "No",
+    "accounts": "Accounts",
+    "accounts-allowEmailChange": "Allow Email Change"
 }

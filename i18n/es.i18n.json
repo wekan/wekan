@@ -191,6 +191,7 @@
     "error-user-notAllowSelf": "No puedes invitarte a ti mismo",
     "error-user-notCreated": "This user is not created",
     "error-username-taken": "Este nombre de usuario ya está en uso",
+    "error-email-taken": "Email has already been taken",
     "export-board": "Export board",
     "filter": "Filter",
     "filter-cards": "Fichas de filtro",
@@ -379,5 +380,9 @@
     "OS_Uptime": "OS Uptime",
     "hours": "hours",
     "minutes": "minutes",
-    "seconds": "seconds"
+    "seconds": "seconds",
+    "yes": "Yes",
+    "no": "No",
+    "accounts": "Accounts",
+    "accounts-allowEmailChange": "Allow Email Change"
 }

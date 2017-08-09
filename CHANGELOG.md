@@ -4,7 +4,8 @@ This release adds the following new features:
 
 * [Add Bounties and Commercial Support to wiki](https://github.com/wekan/wekan/wiki);
 * [Add display Wekan version number and runtime
-   environment to Admin Panel](https://github.com/wekan/wekan/pull/1156).
+   environment to Admin Panel](https://github.com/wekan/wekan/pull/1156);
+* [Change Email address](https://github.com/wekan/wekan/pull/1161).
 
 Thanks to GitHub users nztqa and xet7 for their contributions.
 

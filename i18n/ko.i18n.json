@@ -191,6 +191,7 @@
     "error-user-notAllowSelf": "자기 자신을 초대할 수 없습니다.",
     "error-user-notCreated": "유저가 생성되지 않았습니다.",
     "error-username-taken": "중복된 아이디 입니다.",
+    "error-email-taken": "Email has already been taken",
     "export-board": "보드 내보내기",
     "filter": "필터",
     "filter-cards": "카드 필터",
@@ -379,5 +380,9 @@
     "OS_Uptime": "OS Uptime",
     "hours": "hours",
     "minutes": "minutes",
-    "seconds": "seconds"
+    "seconds": "seconds",
+    "yes": "Yes",
+    "no": "No",
+    "accounts": "Accounts",
+    "accounts-allowEmailChange": "Allow Email Change"
 }

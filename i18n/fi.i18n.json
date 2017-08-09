@@ -191,6 +191,7 @@
     "error-user-notAllowSelf": "Et voi kutsua itseäsi",
     "error-user-notCreated": "Tätä käyttäjää ei ole luotu",
     "error-username-taken": "Tämä käyttäjätunnus on jo käytössä",
+    "error-email-taken": "Sähköpostiosoite on jo käytössä",
     "export-board": "Vie taulu",
     "filter": "Suodata",
     "filter-cards": "Suodata kortit",
@@ -379,5 +380,9 @@
     "OS_Uptime": "Käyttöjärjestelmä ollut käynnissä",
     "hours": "tuntia",
     "minutes": "minuuttia",
-    "seconds": "sekuntia"
+    "seconds": "sekuntia",
+    "yes": "Kyllä",
+    "no": "Ei",
+    "accounts": "Tilit",
+    "accounts-allowEmailChange": "Salli sähköpostiosoitteen muuttaminen"
 }

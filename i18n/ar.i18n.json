@@ -191,6 +191,7 @@
     "error-user-notAllowSelf": "لا يمكنك دعوة نفسك",
     "error-user-notCreated": "This user is not created",
     "error-username-taken": "إسم المستخدم مأخوذ مسبقا",
+    "error-email-taken": "Email has already been taken",
     "export-board": "Export board",
     "filter": "تصفية",
     "filter-cards": "تصفية البطاقات",
@@ -379,5 +380,9 @@
     "OS_Uptime": "OS Uptime",
     "hours": "hours",
     "minutes": "minutes",
-    "seconds": "seconds"
+    "seconds": "seconds",
+    "yes": "Yes",
+    "no": "No",
+    "accounts": "Accounts",
+    "accounts-allowEmailChange": "Allow Email Change"
 }

@@ -191,6 +191,7 @@
     "error-user-notAllowSelf": "Non é posíbel convidarse a un mesmo",
     "error-user-notCreated": "Este usuario non está creado",
     "error-username-taken": "Este nome de usuario xa está collido",
+    "error-email-taken": "Email has already been taken",
     "export-board": "Exportar taboleiro",
     "filter": "Filtro",
     "filter-cards": "Filtrar tarxetas",
@@ -379,5 +380,9 @@
     "OS_Uptime": "OS Uptime",
     "hours": "hours",
     "minutes": "minutes",
-    "seconds": "seconds"
+    "seconds": "seconds",
+    "yes": "Yes",
+    "no": "No",
+    "accounts": "Accounts",
+    "accounts-allowEmailChange": "Allow Email Change"
 }

@@ -191,6 +191,7 @@
     "error-user-notAllowSelf": "不允許對自己執行此操作",
     "error-user-notCreated": "該使用者未能成功建立",
     "error-username-taken": "這個使用者名稱已被使用",
+    "error-email-taken": "Email has already been taken",
     "export-board": "Export board",
     "filter": "過濾",
     "filter-cards": "過濾卡片",
@@ -379,5 +380,9 @@
     "OS_Uptime": "OS Uptime",
     "hours": "hours",
     "minutes": "minutes",
-    "seconds": "seconds"
+    "seconds": "seconds",
+    "yes": "Yes",
+    "no": "No",
+    "accounts": "Accounts",
+    "accounts-allowEmailChange": "Allow Email Change"
 }

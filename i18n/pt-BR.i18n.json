@@ -191,6 +191,7 @@
     "error-user-notAllowSelf": "Você não pode convidar a si mesmo",
     "error-user-notCreated": "Este usuário não foi criado",
     "error-username-taken": "Esse username já existe",
+    "error-email-taken": "Email has already been taken",
     "export-board": "Exportar quadro",
     "filter": "Filtrar",
     "filter-cards": "Filtrar Cartões",
@@ -379,5 +380,9 @@
     "OS_Uptime": "OS Uptime",
     "hours": "hours",
     "minutes": "minutes",
-    "seconds": "seconds"
+    "seconds": "seconds",
+    "yes": "Yes",
+    "no": "No",
+    "accounts": "Accounts",
+    "accounts-allowEmailChange": "Allow Email Change"
 }

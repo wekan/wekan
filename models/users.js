@@ -334,6 +334,28 @@ Meteor.methods({
     check(limit, Number);
     Meteor.user().setShowCardsCountAt(limit);
   },
+  setEmail(email) {
+    check(email, String);
+    const existingUser = Users.findOne({ 'emails.address': email }, { fields: { _id: 1 } });
+    if (existingUser) {
+      throw new Meteor.Error('email-already-taken');
+    } else {
+      Users.update(this.userId, {
+        $set: {
+          emails: [{
+            address: email,
+            verified: false,
+          }],
+        },
+      });
+    }
+  },
+  setUsernameAndEmail(username, email) {
+    check(username, String);
+    check(email, String);
+    Meteor.call('setUsername', username);
+    Meteor.call('setEmail', email);
+  },
 });
 
 if (Meteor.isServer) {

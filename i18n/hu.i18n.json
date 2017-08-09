@@ -191,6 +191,7 @@
     "error-user-notAllowSelf": "You can not invite yourself",
     "error-user-notCreated": "Ez a felhasználó nem jött létre",
     "error-username-taken": "Ez a felhasználónév már foglalt",
+    "error-email-taken": "Email has already been taken",
     "export-board": "Tábla exportálása",
     "filter": "Szűrő",
     "filter-cards": "Kártyák szűrése",
@@ -379,5 +380,9 @@
     "OS_Uptime": "OS Uptime",
     "hours": "hours",
     "minutes": "minutes",
-    "seconds": "seconds"
+    "seconds": "seconds",
+    "yes": "Yes",
+    "no": "No",
+    "accounts": "Accounts",
+    "accounts-allowEmailChange": "Allow Email Change"
 }

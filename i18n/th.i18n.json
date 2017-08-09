@@ -191,6 +191,7 @@
     "error-user-notAllowSelf": "You can not invite yourself",
     "error-user-notCreated": "ผู้ใช้รายนี้ไม่ได้สร้าง",
     "error-username-taken": "ชื่อนี้ถูกใช้งานแล้ว",
+    "error-email-taken": "Email has already been taken",
     "export-board": "ส่งออกกระดาน",
     "filter": "กรอง",
     "filter-cards": "กรองการ์ด",
@@ -379,5 +380,9 @@
     "OS_Uptime": "OS Uptime",
     "hours": "hours",
     "minutes": "minutes",
-    "seconds": "seconds"
+    "seconds": "seconds",
+    "yes": "Yes",
+    "no": "No",
+    "accounts": "Accounts",
+    "accounts-allowEmailChange": "Allow Email Change"
 }
