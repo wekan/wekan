@@ -191,6 +191,7 @@
     "error-user-notAllowSelf": "自分を招待することはできません。",
     "error-user-notCreated": "ユーザーが作成されていません",
     "error-username-taken": "このユーザ名は既に使用されています",
+    "error-email-taken": "Email has already been taken",
     "export-board": "ボードのエクスポート",
     "filter": "フィルター",
     "filter-cards": "カードをフィルターする",
@@ -379,5 +380,9 @@
     "OS_Uptime": "OS Uptime",
     "hours": "hours",
     "minutes": "minutes",
-    "seconds": "seconds"
+    "seconds": "seconds",
+    "yes": "Yes",
+    "no": "No",
+    "accounts": "Accounts",
+    "accounts-allowEmailChange": "Allow Email Change"
 }

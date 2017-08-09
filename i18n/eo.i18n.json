@@ -191,6 +191,7 @@
     "error-user-notAllowSelf": "You can not invite yourself",
     "error-user-notCreated": "Uzanto ne kreita",
     "error-username-taken": "Uzantnomo jam prenita",
+    "error-email-taken": "Email has already been taken",
     "export-board": "Export board",
     "filter": "Filter",
     "filter-cards": "Filter Cards",
@@ -379,5 +380,9 @@
     "OS_Uptime": "OS Uptime",
     "hours": "hours",
     "minutes": "minutes",
-    "seconds": "seconds"
+    "seconds": "seconds",
+    "yes": "Yes",
+    "no": "No",
+    "accounts": "Accounts",
+    "accounts-allowEmailChange": "Allow Email Change"
 }
