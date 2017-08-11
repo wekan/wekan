@@ -8,6 +8,10 @@ This release adds the following new features:
 * [Change Email address](https://github.com/wekan/wekan/pull/1161);
 * [Ubuntu snap: Use version scriptlet](https://github.com/wekan/wekan/pull/1164).
 
+and fixes the following bugs:
+
+* [Fix Squeezed tickbox in Card](https://github.com/wekan/wekan/pull/1171).
+
 Thanks to GitHub users kubiko, nztqa and xet7 for their contributions.
 
 # v0.32 2017-07-30 Wekan release
