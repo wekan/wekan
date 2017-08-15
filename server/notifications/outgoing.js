@@ -28,6 +28,11 @@ Meteor.methods({
       text: `${text}`,
     };
 
+    ['cardId', 'listId', 'oldListId', 'boardId'].forEach((key) => {
+      if (params[key]) value[key] = params[key];
+    });
+    value['description'] = description;
+
     const options = {
       headers: {
         // 'Content-Type': 'application/json',
