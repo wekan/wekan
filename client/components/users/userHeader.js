@@ -20,20 +20,59 @@ Template.memberMenuPopup.events({
   },
 });
 
+Template.editProfilePopup.helpers({
+  allowEmailChange() {
+    return AccountSettings.findOne('accounts-allowEmailChange').booleanValue;
+  },
+});
+
 Template.editProfilePopup.events({
   submit(evt, tpl) {
     evt.preventDefault();
     const fullname = tpl.find('.js-profile-fullname').value.trim();
     const username = tpl.find('.js-profile-username').value.trim();
     const initials = tpl.find('.js-profile-initials').value.trim();
+    const email = tpl.find('.js-profile-email').value.trim();
+    let isChangeUserName = false;
+    let isChangeEmail = false;
     Users.update(Meteor.userId(), {$set: {
       'profile.fullname': fullname,
       'profile.initials': initials,
     }});
-
-    if (username !== Meteor.user().username) {
+    isChangeUserName = username !== Meteor.user().username;
+    isChangeEmail = email.toLowerCase() !== Meteor.user().emails[0].address.toLowerCase();
+    if (isChangeUserName && isChangeEmail) {
+      Meteor.call('setUsernameAndEmail', username, email.toLowerCase(), function(error) {
+        const usernameMessageElement = tpl.$('.username-taken');
+        const emailMessageElement = tpl.$('.email-taken');
+        if (error) {
+          const errorElement = error.error;
+          if (errorElement === 'username-already-taken') {
+            usernameMessageElement.show();
+            emailMessageElement.hide();
+          } else if (errorElement === 'email-already-taken') {
+            usernameMessageElement.hide();
+            emailMessageElement.show();
+          }
+        } else {
+          usernameMessageElement.hide();
+          emailMessageElement.hide();
+          Popup.back();
+        }
+      });
+    } else if (isChangeUserName) {
       Meteor.call('setUsername', username, function(error) {
         const messageElement = tpl.$('.username-taken');
+        if (error) {
+          messageElement.show();
+        } else {
+          messageElement.hide();
+          Popup.back();
+        }
+      });
+    } else if (isChangeEmail) {
+      Meteor.call('setEmail', email.toLowerCase(), function(error) {
+        const messageElement = tpl.$('.email-taken');
         if (error) {
           messageElement.show();
         } else {

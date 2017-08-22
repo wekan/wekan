@@ -129,6 +129,7 @@
     "JsonRoutes": true,
     "Authentication": true,
     "Integrations": true,
-    "HTTP": true
+    "HTTP": true,
+    "AccountSettings": true
   }
 }

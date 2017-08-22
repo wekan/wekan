@@ -1,5 +1,6 @@
 Meteor.subscribe('setting');
 Meteor.subscribe('mailServer');
+Meteor.subscribe('accountSettings');
 
 BlazeComponent.extendComponent({
   onCreated() {
@@ -7,6 +8,7 @@ BlazeComponent.extendComponent({
     this.loading = new ReactiveVar(false);
     this.generalSetting = new ReactiveVar(true);
     this.emailSetting = new ReactiveVar(false);
+    this.accountSetting = new ReactiveVar(false);
   },
 
   setError(error) {
@@ -62,6 +64,7 @@ BlazeComponent.extendComponent({
       const targetID = target.data('id');
       this.generalSetting.set('registration-setting' === targetID);
       this.emailSetting.set('email-setting' === targetID);
+      this.accountSetting.set('account-setting' === targetID);
     }
   },
 
@@ -130,3 +133,22 @@ BlazeComponent.extendComponent({
     }];
   },
 }).register('setting');
+
+BlazeComponent.extendComponent({
+  saveAllowEmailChange() {
+    const allowEmailChange = ($('input[name=allowEmailChange]:checked').val() === 'true');
+    AccountSettings.update('accounts-allowEmailChange', {
+      $set: { 'booleanValue': allowEmailChange },
+    });
+  },
+
+  allowEmailChange() {
+    return AccountSettings.findOne('accounts-allowEmailChange').booleanValue;
+  },
+
+  events() {
+    return [{
+      'click button.js-accounts-save': this.saveAllowEmailChange,
+    }];
+  },
+}).register('accountSettings');

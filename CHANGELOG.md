@@ -1,9 +1,25 @@
-# v0.31 2017-07-30 Wekan release
+# Upcoming Wekan release
 
 This release adds the following new features:
 
- * [Add dwrensha's Sandstorm patch to Wekan so it does not need to be maintained
-    separately](https://github.com/wekan/wekan/commit/bda15daa78556223117a5846941aafd1212f14d3).
+* [Add Bounties and Commercial Support to wiki](https://github.com/wekan/wekan/wiki);
+* [Add display Wekan version number and runtime
+   environment to Admin Panel](https://github.com/wekan/wekan/pull/1156);
+* [Change Email address](https://github.com/wekan/wekan/pull/1161);
+* [Ubuntu snap: Use version scriptlet](https://github.com/wekan/wekan/pull/1164).
+
+and fixes the following bugs:
+
+* [Fix Squeezed tickbox in Card](https://github.com/wekan/wekan/pull/1171).
+
+Thanks to GitHub users kubiko, nztqa and xet7 for their contributions.
+
+# v0.32 2017-07-30 Wekan release
+
+This release adds the following new features:
+
+* [Add dwrensha's Sandstorm patch to Wekan so it does not need to be maintained
+   separately](https://github.com/wekan/wekan/commit/bda15daa78556223117a5846941aafd1212f14d3).
 
 and fixes the following bugs:
 
@@ -11,6 +27,10 @@ and fixes the following bugs:
 * [Fix showing card activity history in IE11](https://github.com/wekan/wekan/pull/1152).
 
 Thanks to GitHub users dwrensha, GhassenRjab and nztqa for their contributions.
+
+# v0.31 2017-07-30 Wekan release
+
+* This was broken, having lint errors.
 
 # v0.30 2017-07-27 Wekan release
 
