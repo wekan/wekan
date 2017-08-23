@@ -7,13 +7,15 @@ This release adds the following new features:
    environment to Admin Panel](https://github.com/wekan/wekan/pull/1156);
 * [Change Email address](https://github.com/wekan/wekan/pull/1161);
 * [Ubuntu snap: Use version scriptlet](https://github.com/wekan/wekan/pull/1164);
-* [Gogs integration part 1](https://github.com/wekan/wekan/pull/1189).
+* [Gogs integration part 1](https://github.com/wekan/wekan/pull/1189);
+* [Add web manifest so Wekan can be used like standalone app on Desktop
+   with Chrome or Firefox](https://github.com/wekan/wekan/pull/1184).
 
 and fixes the following bugs:
 
 * [Fix Squeezed tickbox in Card](https://github.com/wekan/wekan/pull/1171).
 
-Thanks to GitHub users andresmanelli, kubiko, nztqa and xet7
+Thanks to GitHub users andresmanelli, danhawkes, kubiko, nztqa and xet7
 for their contributions.
 
 # v0.32 2017-07-30 Wekan release
