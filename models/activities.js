@@ -73,12 +73,14 @@ if (Meteor.isServer) {
       // No need send notification to user of activity
       // participants = _.union(participants, [activity.userId]);
       params.user = activity.user().getName();
+      params.userId = activity.userId;
     }
     if (activity.boardId) {
       board = activity.board();
       params.board = board.title;
       title = 'act-withBoardTitle';
       params.url = board.absoluteUrl();
+      params.boardId = activity.boardId;
     }
     if (activity.memberId) {
       participants = _.union(participants, [activity.memberId]);
@@ -88,11 +90,13 @@ if (Meteor.isServer) {
       const list = activity.list();
       watchers = _.union(watchers, list.watchers || []);
       params.list = list.title;
+      params.listId = activity.listId;
     }
     if (activity.oldListId) {
       const oldList = activity.oldList();
       watchers = _.union(watchers, oldList.watchers || []);
       params.oldList = oldList.title;
+      params.oldListId = activity.oldListId;
     }
     if (activity.cardId) {
       const card = activity.card();
@@ -101,6 +105,7 @@ if (Meteor.isServer) {
       params.card = card.title;
       title = 'act-withCardTitle';
       params.url = card.absoluteUrl();
+      params.cardId = activity.cardId;
     }
     if (activity.commentId) {
       const comment = activity.comment();
