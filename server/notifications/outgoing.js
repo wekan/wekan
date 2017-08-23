@@ -31,7 +31,7 @@ Meteor.methods({
     ['cardId', 'listId', 'oldListId', 'boardId'].forEach((key) => {
       if (params[key]) value[key] = params[key];
     });
-    value['description'] = description;
+    value.$description = description;
 
     const options = {
       headers: {
