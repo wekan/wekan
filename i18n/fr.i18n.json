@@ -191,7 +191,7 @@
     "error-user-notAllowSelf": "Vous ne pouvez pas vous inviter vous-même",
     "error-user-notCreated": "Cet utilisateur n'a pas encore été créé",
     "error-username-taken": "Ce nom d'utilisateur est déjà utilisé",
-    "error-email-taken": "L'adresse mail est déjà utilisée",
+    "error-email-taken": "Cette adresse mail est déjà utilisée",
     "export-board": "Exporter le tableau",
     "filter": "Filtrer",
     "filter-cards": "Filtrer les cartes",

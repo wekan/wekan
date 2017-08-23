@@ -191,7 +191,7 @@
     "error-user-notAllowSelf": "Sie können sich nicht selbst einladen.",
     "error-user-notCreated": "Dieser Nutzer ist nicht angelegt",
     "error-username-taken": "Dieser Benutzername ist bereits vergeben",
-    "error-email-taken": "Email has already been taken",
+    "error-email-taken": "E-Mail wird schon verwendet",
     "export-board": "Board exportieren",
     "filter": "Filter",
     "filter-cards": "Karten filtern",
@@ -381,8 +381,8 @@
     "hours": "Stunden",
     "minutes": "Minuten",
     "seconds": "Sekunden",
-    "yes": "Yes",
-    "no": "No",
-    "accounts": "Accounts",
-    "accounts-allowEmailChange": "Allow Email Change"
+    "yes": "Ja",
+    "no": "Nein",
+    "accounts": "Konten",
+    "accounts-allowEmailChange": "Zulassen E-Mail ändern"
 }
