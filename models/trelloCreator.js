@@ -302,7 +302,7 @@ export class TrelloCreator {
             boardId: commentToCreate.boardId,
             cardId: commentToCreate.cardId,
             commentId,
-            createdAt: this._now(commentToCreate.createdAt),
+            createdAt: this._now(comment.date),
             // we attribute the addComment (not the import)
             // to the original author - it is needed by some UI elements.
             userId: commentToCreate.userId,
