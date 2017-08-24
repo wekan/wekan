@@ -45,7 +45,7 @@ Settings.helpers({
     if (!this.mailServer.username && !this.mailServer.password) {
       return `${protocol}${this.mailServer.host}:${this.mailServer.port}/`;
     }
-    return `${protocol}${this.mailServer.username}:encodeURIComponent(${this.mailServer.password})@${this.mailServer.host}:${this.mailServer.port}/`;
+    return `${protocol}${this.mailServer.username}:${encodeURIComponent(this.mailServer.password)}@${this.mailServer.host}:${this.mailServer.port}/`;
   },
 });
 Settings.allow({
@@ -84,7 +84,7 @@ if (Meteor.isServer) {
       if (!doc.mailServer.username && !doc.mailServer.password) {
         process.env.MAIL_URL = `${protocol}${doc.mailServer.host}:${doc.mailServer.port}/`;
       } else {
-        process.env.MAIL_URL = `${protocol}${doc.mailServer.username}:encodeURIComponent(${doc.mailServer.password})@${doc.mailServer.host}:${doc.mailServer.port}/`;
+        process.env.MAIL_URL = `${protocol}${doc.mailServer.username}:${encodeURIComponent(doc.mailServer.password)}@${doc.mailServer.host}:${doc.mailServer.port}/`;
       }
       Accounts.emailTemplates.from = doc.mailServer.from;
     }
