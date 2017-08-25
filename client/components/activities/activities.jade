@@ -50,6 +50,9 @@ template(name="boardActivities")
         if($eq activityType 'createCard')
           | {{{_ 'activity-added' cardLink boardLabel}}}.
 
+        if($eq activityType 'createCustomField')
+          | {{_ 'activity-customfield-created' customField}}.
+
         if($eq activityType 'createList')
           | {{_ 'activity-added' list.title boardLabel}}.
 

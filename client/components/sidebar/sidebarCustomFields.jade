@@ -1,0 +1,31 @@
+template(name="customFieldsSidebar")
+    ul.sidebar-list
+        each customsFields
+            li
+                a.name
+                    span.sidebar-list-item-description
+                        {{_ 'some name'}}
+    if currentUser.isBoardMember
+        hr
+        a.sidebar-btn.js-open-create-custom-field
+            i.fa.fa-plus
+            span {{_ 'Create Custom Field'}}
+
+template(name="createCustomFieldPopup")
+    form
+        label
+            | {{_ 'name'}}
+            input.js-field-name(type="text" name="field-name" autofocus)
+        label
+            | {{_ 'type'}}
+            select.js-field-type(name="field-type")
+                option(value="string") String
+                option(value="number") Number
+                option(value="checkbox") Checkbox
+                option(value="date") Date
+                option(value="DropdownList") Dropdown List
+        a.flex.js-field-show-on-card
+            .materialCheckBox(class="{{#if showOnCard}}is-checked{{/if}}")
+
+            span {{_ 'show-field-on-card'}}
+        input.primary.wide(type="submit" value="{{_ 'save'}}")

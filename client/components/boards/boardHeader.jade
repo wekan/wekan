@@ -103,6 +103,7 @@ template(name="boardHeaderBar")
 
 template(name="boardMenuPopup")
   ul.pop-over-list
+    li: a.js-custom-fields {{_ 'custom-fields'}}
     li: a.js-open-archives {{_ 'archived-items'}}
     if currentUser.isBoardAdmin
       li: a.js-change-board-color {{_ 'board-change-color'}}
