@@ -144,6 +144,7 @@
     "comment-only": "Comment only",
     "comment-only-desc": "Can comment on cards only.",
     "computer": "Počítač",
+    "copy-card-link-to-clipboard": "Copy card link to clipboard",
     "create": "Vytvořit",
     "createBoardPopup-title": "Vytvořit tablo",
     "chooseBoardSourcePopup-title": "Import board",

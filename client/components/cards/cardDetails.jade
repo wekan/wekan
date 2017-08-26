@@ -141,7 +141,10 @@ template(name="cardMorePopup")
       span {{_ 'link-card'}}
       = ' '
       i.fa.colorful(class="{{#if board.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
-      input.inline-input(type="text" readonly value="{{ absoluteUrl }}")
+      input.inline-input(type="text" id="cardURL" readonly value="{{ absoluteUrl }}")
+      button.js-copy-card-link-to-clipboard(class="btn") {{_ 'copy-card-link-to-clipboard'}}
+    span.clearfix
+    br
     | {{_ 'added'}}
     span.date(title=card.createdAt) {{ moment createdAt 'LLL' }}
     a.js-delete(title="{{_ 'card-delete-notice'}}") {{_ 'delete'}}

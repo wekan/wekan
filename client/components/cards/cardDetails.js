@@ -47,7 +47,7 @@ BlazeComponent.extendComponent({
     let offset = false;
     if (cardViewStart < 0) {
       offset = cardViewStart;
-    } else if(cardViewEnd > cardContainerWidth) {
+    } else if (cardViewEnd > cardContainerWidth) {
       offset = cardViewEnd - cardContainerWidth;
     }
 
@@ -76,16 +76,16 @@ BlazeComponent.extendComponent({
 
     return [{
       ...events,
-      'click .js-close-card-details'() {
+      'click .js-close-card-details' () {
         Utils.goBoardId(this.data().boardId);
       },
       'click .js-open-card-details-menu': Popup.open('cardDetailsActions'),
-      'submit .js-card-description'(evt) {
+      'submit .js-card-description' (evt) {
         evt.preventDefault();
         const description = this.currentComponent().getValue();
         this.data().setDescription(description);
       },
-      'submit .js-card-details-title'(evt) {
+      'submit .js-card-details-title' (evt) {
         evt.preventDefault();
         const title = this.currentComponent().getValue().trim();
         if (title) {
@@ -95,7 +95,7 @@ BlazeComponent.extendComponent({
       'click .js-member': Popup.open('cardMember'),
       'click .js-add-members': Popup.open('cardMembers'),
       'click .js-add-labels': Popup.open('cardLabels'),
-      'mouseenter .js-card-details'() {
+      'mouseenter .js-card-details' () {
         this.parentComponent().showOverlay.set(true);
         this.parentComponent().mouseHasEnterCardDetails = true;
       },
@@ -157,23 +157,23 @@ Template.cardDetailsActionsPopup.events({
   'click .js-start-date': Popup.open('editCardStartDate'),
   'click .js-due-date': Popup.open('editCardDueDate'),
   'click .js-move-card': Popup.open('moveCard'),
-  'click .js-move-card-to-top'(evt) {
+  'click .js-move-card-to-top' (evt) {
     evt.preventDefault();
     const minOrder = _.min(this.list().cards().map((c) => c.sort));
     this.move(this.listId, minOrder - 1);
   },
-  'click .js-move-card-to-bottom'(evt) {
+  'click .js-move-card-to-bottom' (evt) {
     evt.preventDefault();
     const maxOrder = _.max(this.list().cards().map((c) => c.sort));
     this.move(this.listId, maxOrder + 1);
   },
-  'click .js-archive'(evt) {
+  'click .js-archive' (evt) {
     evt.preventDefault();
     this.archive();
     Popup.close();
   },
   'click .js-more': Popup.open('cardMore'),
-  'click .js-toggle-watch-card'() {
+  'click .js-toggle-watch-card' () {
     const currentCard = this;
     const level = currentCard.findWatcher(Meteor.userId()) ? null : 'watching';
     Meteor.call('watch', 'card', currentCard._id, level, (err, ret) => {
@@ -182,12 +182,12 @@ Template.cardDetailsActionsPopup.events({
   },
 });
 
-Template.editCardTitleForm.onRendered(function() {
+Template.editCardTitleForm.onRendered(function () {
   autosize(this.$('.js-edit-card-title'));
 });
 
 Template.editCardTitleForm.events({
-  'keydown .js-edit-card-title'(evt) {
+  'keydown .js-edit-card-title' (evt) {
     // If enter key was pressed, submit the data
     if (evt.keyCode === 13) {
       $('.js-submit-edit-card-title-form').click();
@@ -196,7 +196,7 @@ Template.editCardTitleForm.events({
 });
 
 Template.moveCardPopup.events({
-  'click .js-select-list'() {
+  'click .js-select-list' () {
     // XXX We should *not* get the currentCard from the global state, but
     // instead from a “component” state.
     const card = Cards.findOne(Session.get('currentCard'));
@@ -207,7 +207,29 @@ Template.moveCardPopup.events({
 });
 
 Template.cardMorePopup.events({
-  'click .js-delete': Popup.afterConfirm('cardDelete', function() {
+  'click .js-copy-card-link-to-clipboard' () {
+    // Clipboard code from:
+    // https://stackoverflow.com/questions/6300213/copy-selected-text-to-the-clipboard-without-using-flash-must-be-cross-browser
+    const StringToCopyElement = document.getElementById('cardURL');
+    StringToCopyElement.select();
+    if (document.execCommand('copy')) {
+      StringToCopyElement.blur();
+    } else {
+      document.getElementById('cardURL').selectionStart = 0;
+      document.getElementById('cardURL').selectionEnd = 999;
+      document.execCommand('copy');
+      if (window.getSelection) {
+        if (window.getSelection().empty) { // Chrome
+          window.getSelection().empty();
+        } else if (window.getSelection().removeAllRanges) { // Firefox
+          window.getSelection().removeAllRanges();
+        }
+      } else if (document.selection) { // IE?
+        document.selection.empty();
+      }
+    }
+  },
+  'click .js-delete': Popup.afterConfirm('cardDelete', function () {
     Popup.close();
     Cards.remove(this._id);
     Utils.goBoardId(this.boardId);
@@ -216,8 +238,12 @@ Template.cardMorePopup.events({
 
 // Close the card details pane by pressing escape
 EscapeActions.register('detailsPane',
-  () => { Utils.goBoardId(Session.get('currentBoard')); },
-  () => { return !Session.equals('currentCard', null); }, {
+  () => {
+    Utils.goBoardId(Session.get('currentBoard'));
+  },
+  () => {
+    return !Session.equals('currentCard', null);
+  }, {
     noClickEscapeOn: '.js-card-details,.board-sidebar,#header',
   }
 );

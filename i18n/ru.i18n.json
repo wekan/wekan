@@ -144,6 +144,7 @@
     "comment-only": "Только комментирование",
     "comment-only-desc": "Может комментировать только карточки.",
     "computer": "Загрузить с компьютера",
+    "copy-card-link-to-clipboard": "Copy card link to clipboard",
     "create": "Создать",
     "createBoardPopup-title": "Создать доску",
     "chooseBoardSourcePopup-title": "Импортировать доску",

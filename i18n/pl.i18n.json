@@ -144,6 +144,7 @@
     "comment-only": "Comment only",
     "comment-only-desc": "Can comment on cards only.",
     "computer": "Komputer",
+    "copy-card-link-to-clipboard": "Copy card link to clipboard",
     "create": "Utwórz",
     "createBoardPopup-title": "Utwórz tablicę",
     "chooseBoardSourcePopup-title": "Import board",

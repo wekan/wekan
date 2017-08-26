@@ -144,6 +144,7 @@
     "comment-only": "Sólo comentario",
     "comment-only-desc": "Can comment on cards only.",
     "computer": "Ordenador",
+    "copy-card-link-to-clipboard": "Copy card link to clipboard",
     "create": "Crear",
     "createBoardPopup-title": "Crear tablero",
     "chooseBoardSourcePopup-title": "Importar tablero",

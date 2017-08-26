@@ -144,6 +144,7 @@
     "comment-only": "Comment only",
     "comment-only-desc": "Can comment on cards only.",
     "computer": "คอมพิวเตอร์",
+    "copy-card-link-to-clipboard": "Copy card link to clipboard",
     "create": "สร้าง",
     "createBoardPopup-title": "สร้างบอร์ด",
     "chooseBoardSourcePopup-title": "Import board",

@@ -9,7 +9,8 @@ This release adds the following new features:
 * [Ubuntu snap: Use version scriptlet](https://github.com/wekan/wekan/pull/1164);
 * [Gogs integration part 1](https://github.com/wekan/wekan/pull/1189);
 * [Add web manifest so Wekan can be used like standalone app on Desktop
-   with Chrome or Firefox](https://github.com/wekan/wekan/pull/1184).
+   with Chrome or Firefox](https://github.com/wekan/wekan/pull/1184);
+* [Copy card link to clipboard](https://github.com/wekan/wekan/issues/1188).
 
 and fixes the following bugs:
 

@@ -144,6 +144,7 @@
     "comment-only": "只可以發表評論",
     "comment-only-desc": "只可以對卡片發表評論",
     "computer": "從本機上傳",
+    "copy-card-link-to-clipboard": "Copy card link to clipboard",
     "create": "建立",
     "createBoardPopup-title": "建立看板",
     "chooseBoardSourcePopup-title": "Import board",
