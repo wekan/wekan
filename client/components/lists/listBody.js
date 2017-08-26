@@ -180,7 +180,7 @@ BlazeComponent.extendComponent({
     $textarea.escapeableTextComplete([
       // User mentions
       {
-        match: /\B@(\w*)$/,
+        match: /\B@([\w.]*)$/,
         search(term, callback) {
           const currentBoard = Boards.findOne(Session.get('currentBoard'));
           callback($.map(currentBoard.activeMembers(), (member) => {

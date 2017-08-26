@@ -25,7 +25,7 @@ Template.editor.onRendered(() => {
 
     // User mentions
     {
-      match: /\B@(\w*)$/,
+      match: /\B@([\w.]*)$/,
       search(term, callback) {
         const currentBoard = Boards.findOne(Session.get('currentBoard'));
         callback(currentBoard.activeMembers().map((member) => {
@@ -60,7 +60,7 @@ Blaze.Template.registerHelper('mentions', new Template('mentions', function() {
     member.username = Users.findOne(member.userId).username;
     return member;
   });
-  const mentionRegex = /\B@(\w*)/gi;
+  const mentionRegex = /\B@([\w.]*)/gi;
   let content = Blaze.toHTML(view.templateContentBlock);
 
   let currentMention;
