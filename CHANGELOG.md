@@ -10,14 +10,15 @@ This release adds the following new features:
 * [Gogs integration part 1](https://github.com/wekan/wekan/pull/1189);
 * [Add web manifest so Wekan can be used like standalone app on Desktop
    with Chrome or Firefox](https://github.com/wekan/wekan/pull/1184);
-* [Copy card link to clipboard](https://github.com/wekan/wekan/issues/1188).
+* [Copy card link to clipboard](https://github.com/wekan/wekan/issues/1188);
+* [Usernames can now include dots (.)](https://github.com/wekan/wekan/pull/1194).
 
 and fixes the following bugs:
 
 * [Fix Squeezed tickbox in Card](https://github.com/wekan/wekan/pull/1171).
 
-Thanks to GitHub users andresmanelli, danhawkes, kubiko, nztqa and xet7
-for their contributions.
+Thanks to GitHub users andresmanelli, danhawkes, jonasob, kubiko, nztqa
+and xet7 for their contributions.
 
 # v0.32 2017-07-30 Wekan release
 
