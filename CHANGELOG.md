@@ -15,10 +15,12 @@ This release adds the following new features:
 
 and fixes the following bugs:
 
-* [Fix Squeezed tickbox in Card](https://github.com/wekan/wekan/pull/1171).
+* [Fix Squeezed tickbox in Card](https://github.com/wekan/wekan/pull/1171);
+* [Percent-encode SMTP password to prevent URI malformed
+   errors](https://github.com/wekan/wekan/pull/1190).
 
-Thanks to GitHub users andresmanelli, danhawkes, jonasob, kubiko, nztqa
-and xet7 for their contributions.
+Thanks to GitHub users andresmanelli, danhawkes, jonasob, kubiko, nztqa,
+pkuhner and xet7 for their contributions.
 
 # v0.32 2017-07-30 Wekan release
 
