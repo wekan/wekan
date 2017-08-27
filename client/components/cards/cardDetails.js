@@ -154,6 +154,7 @@ Template.cardDetailsActionsPopup.events({
   'click .js-members': Popup.open('cardMembers'),
   'click .js-labels': Popup.open('cardLabels'),
   'click .js-attachments': Popup.open('cardAttachments'),
+  'click .js-custom-fields': Popup.open('cardCustomFields'),
   'click .js-start-date': Popup.open('editCardStartDate'),
   'click .js-due-date': Popup.open('editCardDueDate'),
   'click .js-move-card': Popup.open('moveCard'),
@@ -194,6 +195,20 @@ Template.editCardTitleForm.events({
       $('.js-submit-edit-card-title-form').click();
     }
   },
+});
+
+Template.cardCustomFieldsPopup.events({
+  'click .js-select-field'(evt) {
+    const card = Cards.findOne(Session.get('currentCard'));
+    const customFieldId = this.customFieldId;
+    card.toggleCustomField(customFieldId);
+    evt.preventDefault();
+  },
+  'click .js-configure-custom-fields'(evt) {
+    EscapeActions.executeUpTo('detailsPane');
+    Sidebar.setView('customFields');
+    evt.preventDefault();
+  }
 });
 
 Template.moveCardPopup.events({

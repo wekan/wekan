@@ -107,6 +107,7 @@ template(name="cardDetailsActionsPopup")
       li: a.js-members {{_ 'card-edit-members'}}
       li: a.js-labels {{_ 'card-edit-labels'}}
       li: a.js-attachments {{_ 'card-edit-attachments'}}
+      li: a.js-custom-fields {{_ 'card-edit-custom-fields'}}
       li: a.js-start-date {{_ 'editCardStartDatePopup-title'}}
       li: a.js-due-date {{_ 'editCardDueDatePopup-title'}}
     hr
@@ -142,6 +143,20 @@ template(name="cardMembersPopup")
             | (<span class="username">{{ user.username }}</span>)
           if isCardMember
             i.fa.fa-check
+
+template(name="cardCustomFieldsPopup")
+  ul.pop-over-list
+    each board.customFields
+      li.item(class="")
+        a.name.js-select-field(href="#")
+          span.full-name
+            = name
+          if isCardMember
+            i.fa.fa-check
+  hr
+  a.quiet-button.full.js-configure-custom-fields
+    i.fa.fa-cog
+    span {{_ 'configure-custom-fields'}}
 
 template(name="cardMorePopup")
   p.quiet

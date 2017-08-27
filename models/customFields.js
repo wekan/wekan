@@ -25,7 +25,7 @@ CustomFields.allow({
   remove(userId, doc) {
     return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
   },
-  fetch: ['boardId'],
+  fetch: ['userId', 'boardId'],
 });
 
 // not sure if we need this?
@@ -41,21 +41,18 @@ function customFieldCreation(userId, doc){
 }
 
 if (Meteor.isServer) {
-  // Comments are often fetched within a card, so we create an index to make these
-  // queries more efficient.
-  Meteor.startup(() => {
-    CardComments._collection._ensureIndex({ cardId: 1, createdAt: -1 });
-  });
+  /*Meteor.startup(() => {
+    CustomFields._collection._ensureIndex({ boardId: 1});
+  });*/
 
   CustomFields.after.insert((userId, doc) => {
     customFieldCreation(userId, doc);
   });
 
   CustomFields.after.remove((userId, doc) => {
-    const activity = Activities.findOne({ customFieldId: doc._id });
-    if (activity) {
-      Activities.remove(activity._id);
-    }
+    Activities.remove({
+      customFieldId: doc._id,
+    });
   });
 }
 
@@ -70,7 +67,7 @@ if (Meteor.isServer) {
     });
   });
 
-  JsonRoutes.add('GET', '/api/boards/:boardId/comments/:customFieldId', function (req, res, next) {
+  JsonRoutes.add('GET', '/api/boards/:boardId/custom-fields/:customFieldId', function (req, res, next) {
     Authentication.checkUserId( req.userId);
     const paramBoardId = req.params.boardId;
     const paramCustomFieldId = req.params.customFieldId;
@@ -90,7 +87,7 @@ if (Meteor.isServer) {
       boardId: paramBoardId,
     });
 
-    const customField = CustomFields.findOne({_id: id, cardId:paramCardId, boardId: paramBoardId });
+    const customField = CustomFields.findOne({_id: id, boardId: paramBoardId });
     customFieldCreation(req.body.authorId, customField);
 
     JsonRoutes.sendResult(res, {

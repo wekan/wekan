@@ -92,8 +92,8 @@ BlazeComponent.extendComponent({
   },
 
   customField() {
-    const customField = this.currentData().customFieldId;
-    return customField;
+    const customField = this.currentData().customField();
+    return customField.name;
   },
 
   events() {

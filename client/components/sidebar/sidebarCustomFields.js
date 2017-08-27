@@ -9,21 +9,22 @@ BlazeComponent.extendComponent({
   events() {
     return [{
       'click .js-open-create-custom-field': Popup.open('createCustomField'),
-      'click .js-edit-custom-field'() {
-        // todo
-      },
-      'click .js-delete-custom-field': Popup.afterConfirm('customFieldDelete', function() {
-        const customFieldId = this._id;
-        CustomFields.remove(customFieldId);
-        Popup.close();
-      }),
+      'click .js-edit-custom-field': Popup.open('editCustomField'),
     }];
   },
 
 }).register('customFieldsSidebar');
 
 Template.createCustomFieldPopup.helpers({
-
+  types() {
+    var currentType = this.type;
+    return ['text', 'number', 'checkbox', 'date', 'dropdown'].
+      map(type => {return {
+        type: type,
+        name: TAPi18n.__('custom-field-' + type),
+        selected: type == currentType,
+      }});
+  },
 });
 
 Template.createCustomFieldPopup.events({
@@ -41,7 +42,7 @@ Template.createCustomFieldPopup.events({
     const name = tpl.find('.js-field-name').value.trim();
     const type = tpl.find('.js-field-type').value.trim();
     const showOnCard = tpl.find('.js-field-show-on-card.is-checked') != null;
-    //console.log("Create",name,type,showOnCard);
+    //console.log('Create',name,type,showOnCard);
 
     CustomFields.insert({
       boardId: Session.get('currentBoard'),
@@ -52,4 +53,17 @@ Template.createCustomFieldPopup.events({
 
     Popup.back();
   },
+  'click .js-delete-custom-field': Popup.afterConfirm('deleteCustomField', function() {
+    const customFieldId = this._id;
+    CustomFields.remove(customFieldId);
+    Popup.close();
+  }),
 });
+
+/*Template.deleteCustomFieldPopup.events({
+  'submit'(evt) {
+    const customFieldId = this._id;
+    CustomFields.remove(customFieldId);
+    Popup.close();
+  }
+});*/

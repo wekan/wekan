@@ -1,31 +1,49 @@
 template(name="customFieldsSidebar")
     ul.sidebar-list
-        each customsFields
+        each customFields
             li
-                a.name
-                    span.sidebar-list-item-description
-                        {{_ 'some name'}}
+                div.minicard-wrapper.js-minicard
+                    div.minicard
+                        a.fa.fa-pencil.js-edit-custom-field.minicard-edit-button
+                        div.minicard-title
+                            | {{ name }} ({{ type }})
+
     if currentUser.isBoardMember
         hr
         a.sidebar-btn.js-open-create-custom-field
             i.fa.fa-plus
-            span {{_ 'Create Custom Field'}}
+            span {{_ 'createCustomField'}}
 
 template(name="createCustomFieldPopup")
     form
         label
             | {{_ 'name'}}
-            input.js-field-name(type="text" name="field-name" autofocus)
+            unless _id
+                input.js-field-name(type="text" name="field-name" autofocus)
+            else
+                input.js-field-name(type="text" name="field-name" value=name)
+
         label
             | {{_ 'type'}}
-            select.js-field-type(name="field-type")
-                option(value="string") String
-                option(value="number") Number
-                option(value="checkbox") Checkbox
-                option(value="date") Date
-                option(value="DropdownList") Dropdown List
+            select.js-field-type(name="field-type" disabled="{{#if _id}}disabled{{/if}}")
+                each types
+                    if selected
+                        option(value=type selected="selected") {{name}}
+                    else
+                        option(value=type) {{name}}
         a.flex.js-field-show-on-card
             .materialCheckBox(class="{{#if showOnCard}}is-checked{{/if}}")
 
             span {{_ 'show-field-on-card'}}
-        input.primary.wide(type="submit" value="{{_ 'save'}}")
+        button.primary.wide.left(type="submit")
+            | {{_ 'save'}}
+        if _id
+            button.negate.wide.right.js-delete-custom-field
+                | {{_ 'delete'}}
+
+template(name="editCustomFieldPopup")
+    | {{> createCustomFieldPopup}}
+
+template(name="deleteCustomFieldPopup")
+    p {{_ "custom-field-delete-pop"}}
+    button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
