@@ -17,9 +17,10 @@ and fixes the following bugs:
 
 * [Fix Squeezed tickbox in Card](https://github.com/wekan/wekan/pull/1171);
 * [Percent-encode SMTP password to prevent URI malformed
-   errors](https://github.com/wekan/wekan/pull/1190).
+   errors](https://github.com/wekan/wekan/pull/1190);
+* [Fix Wekan Import Export on Standalone and Sandstorm](https://github.com/wekan/wekan/pull/1197).
 
-Thanks to GitHub users andresmanelli, danhawkes, jonasob, kubiko, nztqa,
+Thanks to GitHub users andresmanelli, danhawkes, GhassenRjab, jonasob, kubiko, nztqa,
 pkuhner and xet7 for their contributions.
 
 # v0.32 2017-07-30 Wekan release
