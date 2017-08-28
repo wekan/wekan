@@ -71,7 +71,6 @@ export class WekanCreator {
 
   checkActivities(wekanActivities) {
     check(wekanActivities, [Match.ObjectIncluding({
-      userId: String,
       activityType: String,
       createdAt: DateString,
     })]);
