@@ -71,7 +71,6 @@ export class WekanCreator {
 
   checkActivities(wekanActivities) {
     check(wekanActivities, [Match.ObjectIncluding({
-      userId: String,
       activityType: String,
       createdAt: DateString,
     })]);
@@ -141,6 +140,8 @@ export class WekanCreator {
         isActive: true,
         isCommentOnly: false,
       }],
+      // Standalone Export has modifiedAt missing, adding modifiedAt to fix it
+      modifiedAt: this._now(wekanBoard.modifiedAt),
       permission: wekanBoard.permission,
       slug: getSlug(wekanBoard.title) || 'board',
       stars: 0,
