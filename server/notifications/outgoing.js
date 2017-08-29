@@ -9,8 +9,8 @@ const postCatchError = Meteor.wrapAsync((url, options, resolve) => {
 });
 
 Meteor.methods({
-  outgoingWebhooks(integration, description, params) {
-    check(integration, Object);
+  outgoingWebhooks(integrations, description, params) {
+    check(integrations, Array);
     check(description, String);
     check(params, Object);
 
@@ -19,7 +19,7 @@ Meteor.methods({
       if (quoteParams[key]) quoteParams[key] = `"${params[key]}"`;
     });
 
-    const user = Users.findOne(integration.userId);
+    const user = Users.findOne(params.userId);
     const text = `${params.user} ${TAPi18n.__(description, quoteParams, user.getLanguage())}\n${params.url}`;
 
     if (text.length === 0) return;
@@ -41,12 +41,14 @@ Meteor.methods({
       data: value,
     };
 
-    const response = postCatchError(integration.url, options);
+    integrations.forEach((integration) => {
+      const response = postCatchError(integration.url, options);
 
-    if (response && response.statusCode && response.statusCode === 200) {
-      return true; // eslint-disable-line consistent-return
-    } else {
-      throw new Meteor.Error('error-invalid-webhook-response');
-    }
+      if (response && response.statusCode && response.statusCode === 200) {
+        return true; // eslint-disable-line consistent-return
+      } else {
+        throw new Meteor.Error('error-invalid-webhook-response');
+      }
+    });
   },
 });
