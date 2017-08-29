@@ -1,3 +1,15 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+* [Import Trello and Wekan board times of creation of activities](https://github.com/wekan/wekan/pull/1187).
+
+Known issues:
+
+* [Attachment creation times are not imported to Trello and Wekan](https://github.com/wekan/wekan/issues/1157).
+
+Thanks to GitHub user GhassenRjab for contributions.
+
 # v0.33 2017-08-29 Wekan release
 
 This release adds the following new features:
