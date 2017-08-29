@@ -25,7 +25,7 @@ const pkgdef :Spk.PackageDefinition = (
     appVersion = 20,
     # Increment this for every release.
 
-    appMarketingVersion = (defaultText = "0.32.0~2017-07-30"),
+    appMarketingVersion = (defaultText = "0.33.0~2017-08-29"),
     # Human-readable presentation of the app version.
 
     minUpgradableAppVersion = 0,
@@ -63,9 +63,8 @@ const pkgdef :Spk.PackageDefinition = (
       categories = [productivity, office],
 
       author = (
-        upstreamAuthor = "Maxime Quandalle",
-        contactEmail = "david@sandstorm.io",
-        pgpSignature = embed "meta/dwrensha-pgp-sig",
+        contactEmail = "x@xet7.org",
+        pgpSignature = embed "meta/wekanteam-pgp-sig",
       ),
 
       pgpKeyring = embed "meta/keyring",
