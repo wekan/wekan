@@ -200,7 +200,7 @@ Template.editCardTitleForm.events({
 Template.cardCustomFieldsPopup.events({
   'click .js-select-field'(evt) {
     const card = Cards.findOne(Session.get('currentCard'));
-    const customFieldId = this.customFieldId;
+    const customFieldId = this._id;
     card.toggleCustomField(customFieldId);
     evt.preventDefault();
   },

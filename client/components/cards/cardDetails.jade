@@ -45,6 +45,9 @@ template(name="cardDetails")
           h3.card-details-item-title {{_ 'card-due'}}
           +cardDueDate
 
+      each customFields
+        .card-details-item.card-details-item-customfield
+          h3.card-details-item-title {{_ 'some-title' }}
 
     //- XXX We should use "editable" to avoid repetiting ourselves
     if canModifyCard

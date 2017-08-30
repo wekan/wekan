@@ -35,12 +35,17 @@ BlazeComponent.extendComponent({
 
     const members = formComponent.members.get();
     const labelIds = formComponent.labels.get();
+    const customFields = formComponent.customFields.get();
+    console.log("members", members);
+    console.log("labelIds", labelIds);
+    console.log("customFields", customFields);
 
     if (title) {
       const _id = Cards.insert({
         title,
         members,
         labelIds,
+        customFields,
         listId: this.data()._id,
         boardId: this.data().board()._id,
         sort: sortIndex,
@@ -121,11 +126,13 @@ BlazeComponent.extendComponent({
   onCreated() {
     this.labels = new ReactiveVar([]);
     this.members = new ReactiveVar([]);
+    this.customFields = new ReactiveVar([]);
   },
 
   reset() {
     this.labels.set([]);
     this.members.set([]);
+    this.customFields.set([]);
   },
 
   getLabels() {

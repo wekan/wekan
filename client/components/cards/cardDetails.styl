@@ -70,6 +70,7 @@
 
   .card-details-items
     display: flex
+    flex-wrap: wrap
     margin: 15px 0
 
     .card-details-item
@@ -80,8 +81,8 @@
       &.card-details-item-members,
       &.card-details-item-start,
       &.card-details-item-due
-        width: 50%
-        flex-shrink: 1
+        max-width: 50%
+        flex-grow: 1
 
   .card-details-item-title
     font-size: 14px

@@ -38,6 +38,21 @@ Cards.attachSchema(new SimpleSchema({
       }
     },
   },
+  customFields: {
+    type: [Object],
+    optional: true,
+  },
+  'customFields.$': {
+    type: new SimpleSchema({
+      _id: {
+        type: String,
+      },
+      value: {
+        type: Match.OneOf(String,Number,Boolean,Date),
+        optional: true,
+      },
+    })
+  },
   dateLastActivity: {
     type: Date,
     autoValue() {
@@ -235,6 +250,24 @@ Cards.mutations({
       return this.unassignMember(memberId);
     } else {
       return this.assignMember(memberId);
+    }
+  },
+
+  assignCustomField(customFieldId) {
+    console.log("assignCustomField", customFieldId);
+    return {$push: {customFields: {_id: customFieldId, value: null}}};
+  },
+
+  unassignCustomField(customFieldId) {
+    console.log("unassignCustomField", customFieldId);
+    return {$pull: {customFields: {_id: customFieldId}}};
+  },
+
+  toggleCustomField(customFieldId) {
+    if (this.customFields && this.customFields[customFieldId]) {
+      return this.unassignCustomField(customFieldId);
+    } else {
+      return this.assignCustomField(customFieldId);
     }
   },
 
