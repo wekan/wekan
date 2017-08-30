@@ -50,6 +50,9 @@ Integrations.allow({
   update(userId, doc) {
     return allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
   },
+  remove(userId, doc) {
+    return allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
+  },
   fetch: ['boardId'],
 });
 
