@@ -186,6 +186,10 @@ Cards.helpers({
     return this.checklistItemCount() !== 0;
   },
 
+  customFieldIndex(customFieldId) {
+    return _.pluck(this.customFields, '_id').indexOf(customFieldId);
+  },
+
   absoluteUrl() {
     const board = this.board();
     return FlowRouter.url('card', {
@@ -255,7 +259,7 @@ Cards.mutations({
 
   assignCustomField(customFieldId) {
     console.log("assignCustomField", customFieldId);
-    return {$push: {customFields: {_id: customFieldId, value: null}}};
+    return {$addToSet: {customFields: {_id: customFieldId, value: null}}};
   },
 
   unassignCustomField(customFieldId) {
@@ -264,7 +268,7 @@ Cards.mutations({
   },
 
   toggleCustomField(customFieldId) {
-    if (this.customFields && this.customFields[customFieldId]) {
+    if (this.customFields && this.customFieldIndex(customFieldId) > -1) {
       return this.unassignCustomField(customFieldId);
     } else {
       return this.assignCustomField(customFieldId);
