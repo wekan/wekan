@@ -185,9 +185,11 @@ if (Meteor.isServer) {
   });
 
   Checklists.before.remove((userId, doc) => {
-    const activity = Activities.findOne({ checklistId: doc._id });
-    if (activity) {
-      Activities.remove(activity._id);
+    const activities = Activities.find({ checklistId: doc._id });
+    if (activities) {
+      activities.forEach((activity) => {
+        Activities.remove(activity._id);
+      });
     }
   });
 }
