@@ -322,6 +322,7 @@ export class TrelloCreator {
             file.attachData(att.url, function (error) {
               file.boardId = boardId;
               file.cardId = cardId;
+              file.userId = this._user(att.idMemberCreator);
               if (error) {
                 throw(error);
               } else {

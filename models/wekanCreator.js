@@ -312,6 +312,7 @@ export class WekanCreator {
               file.attachData(att.url, function (error) {
                 file.boardId = boardId;
                 file.cardId = cardId;
+                file.userId = this._user(att.userId);
                 if (error) {
                   throw(error);
                 } else {
@@ -330,6 +331,7 @@ export class WekanCreator {
                 file.name(att.name);
                 file.boardId = boardId;
                 file.cardId = cardId;
+                file.userId = this._user(att.userId);
                 if (error) {
                   throw(error);
                 } else {
