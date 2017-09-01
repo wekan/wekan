@@ -164,21 +164,32 @@ if (Meteor.isServer) {
   // The future is now
   Checklists.after.update((userId, doc, fieldNames, modifier) => {
     if (fieldNames.includes('items')) {
-      Activities.insert({
-        userId,
-        activityType: 'addChecklistItem',
-        cardId: doc.cardId,
-        boardId: Cards.findOne(doc.cardId).boardId,
-        checklistId: doc._id,
-        checklistItemId: modifier.$addToSet.items._id,
-      });
+      if (modifier.$addToSet) {
+        Activities.insert({
+          userId,
+          activityType: 'addChecklistItem',
+          cardId: doc.cardId,
+          boardId: Cards.findOne(doc.cardId).boardId,
+          checklistId: doc._id,
+          checklistItemId: modifier.$addToSet.items._id,
+        });
+      } else if (modifier.$pull) {
+        const activity = Activities.findOne({
+          checklistItemId: modifier.$pull.items._id,
+        });
+        if (activity) {
+          Activities.remove(activity._id);
+        }
+      }
     }
   });
 
   Checklists.before.remove((userId, doc) => {
-    const activity = Activities.findOne({ checklistId: doc._id });
-    if (activity) {
-      Activities.remove(activity._id);
+    const activities = Activities.find({ checklistId: doc._id });
+    if (activities) {
+      activities.forEach((activity) => {
+        Activities.remove(activity._id);
+      });
     }
   });
 }
