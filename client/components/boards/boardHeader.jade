@@ -227,11 +227,21 @@ template(name="archiveBoardPopup")
   button.js-confirm.negate.full(type="submit") {{_ 'archive'}}
 
 template(name="outgoingWebhooksPopup")
-  form
+  each integrations
+    form.integration-form
+      if title
+        h4 {{title}}
+      else
+        h4 {{_ 'no-name'}}
+      label
+        | URL
+        input.js-outgoing-webhooks-url(type="text" name="url" value=url)
+        input(type="hidden" value=_id name="id")
+      input.primary.wide(type="submit" value="{{_ 'save'}}")
+  form.integration-form
+    h4
+      | {{_ 'new-integration'}}
     label
       | URL
-      if integration.enabled
-        input.js-outgoing-webhooks-url(type="text" value=integration.url autofocus)
-      else
-        input.js-outgoing-webhooks-url(type="text" autofocus)
+      input.js-outgoing-webhooks-url(type="text" name="url" autofocus)
     input.primary.wide(type="submit" value="{{_ 'save'}}")
