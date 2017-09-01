@@ -140,9 +140,9 @@ if (Meteor.isServer) {
       Notifications.notify(user, title, description, params);
     });
 
-    const integration = Integrations.findOne({ boardId: board._id, type: 'outgoing-webhooks', enabled: true });
-    if (integration) {
-      Meteor.call('outgoingWebhooks', integration, description, params);
+    const integrations = Integrations.find({ boardId: board._id, type: 'outgoing-webhooks', enabled: true, activities: { '$in': [description, 'all'] } }).fetch();
+    if (integrations.length > 0) {
+      Meteor.call('outgoingWebhooks', integrations, description, params);
     }
   });
 }
