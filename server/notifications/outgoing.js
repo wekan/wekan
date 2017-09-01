@@ -19,7 +19,8 @@ Meteor.methods({
       if (quoteParams[key]) quoteParams[key] = `"${params[key]}"`;
     });
 
-    const user = Users.findOne(params.userId);
+    const userId = (params.userId)?params.userId:integrations[0].userId;
+    const user = Users.findOne(userId);
     const text = `${params.user} ${TAPi18n.__(description, quoteParams, user.getLanguage())}\n${params.url}`;
 
     if (text.length === 0) return;
@@ -31,7 +32,7 @@ Meteor.methods({
     ['cardId', 'listId', 'oldListId', 'boardId'].forEach((key) => {
       if (params[key]) value[key] = params[key];
     });
-    value.$description = description;
+    value.description = description;
 
     const options = {
       headers: {
