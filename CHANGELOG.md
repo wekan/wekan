@@ -1,10 +1,14 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+* [Add more than one Outgoing Webhook](https://github.com/wekan/wekan/pull/1199).
+
+and fixes the following bugs:
 
 * [Fix errors caused by checklist items activities](https://github.com/wekan/wekan/pull/1200).
 
-Thanks to GitHub users GhassenRjab and nztqa for contributions.
+Thanks to GitHub users andresmanelli, GhassenRjab and nztqa for contributions.
 
 # v0.34 2017-08-30 Wekan release
 
