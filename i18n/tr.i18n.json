@@ -368,6 +368,8 @@
     "error-notAuthorized": "Bu sayfayı görmek için yetkiniz yok.",
     "outgoing-webhooks": "Dışarı giden bağlantılar",
     "outgoingWebhooksPopup-title": "Dışarı giden bağlantılar",
+    "new-integration": "New integration",
+    "no-name": "(Unknown)",
     "Wekan_version": "Wekan sürümü",
     "Node_version": "Node sürümü",
     "OS_Arch": "OS Arch",

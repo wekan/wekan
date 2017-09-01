@@ -368,6 +368,8 @@
     "error-notAuthorized": "Sinulla ei ole oikeutta tarkastella tätä sivua.",
     "outgoing-webhooks": "Lähtevät Webkoukut",
     "outgoingWebhooksPopup-title": "Lähtevät Webkoukut",
+    "new-integration": "Uusi integraatio",
+    "no-name": "(Tuntematon)",
     "Wekan_version": "Wekan versio",
     "Node_version": "Node versio",
     "OS_Arch": "Käyttöjärjestelmän arkkitehtuuri",

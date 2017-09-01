@@ -368,6 +368,8 @@
     "error-notAuthorized": "Je bent niet toegestaan om deze pagina te bekijken.",
     "outgoing-webhooks": "Uitgaande Webhooks",
     "outgoingWebhooksPopup-title": "Uitgaande Webhooks",
+    "new-integration": "New integration",
+    "no-name": "(Unknown)",
     "Wekan_version": "Wekan versie",
     "Node_version": "Node versie",
     "OS_Arch": "OS Arch",

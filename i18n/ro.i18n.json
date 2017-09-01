@@ -368,6 +368,8 @@
     "error-notAuthorized": "You are not authorized to view this page.",
     "outgoing-webhooks": "Outgoing Webhooks",
     "outgoingWebhooksPopup-title": "Outgoing Webhooks",
+    "new-integration": "New integration",
+    "no-name": "(Unknown)",
     "Wekan_version": "Wekan version",
     "Node_version": "Node version",
     "OS_Arch": "OS Arch",

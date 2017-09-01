@@ -368,6 +368,8 @@
     "error-notAuthorized": "אין לך הרשאה לצפות בעמוד זה.",
     "outgoing-webhooks": "Outgoing Webhooks",
     "outgoingWebhooksPopup-title": "Outgoing Webhooks",
+    "new-integration": "New integration",
+    "no-name": "(Unknown)",
     "Wekan_version": "גרסת wekan",
     "Node_version": "גרסת Node",
     "OS_Arch": "ארכיטקטורת מערכת הפעלה",
