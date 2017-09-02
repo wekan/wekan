@@ -1,4 +1,29 @@
-# Upcoming Wekan release
+# v0.35 2017-09-02 Wekan release
+
+This release adds the following new features:
+
+* [Add more than one Outgoing Webhook](https://github.com/wekan/wekan/pull/1199).
+
+and fixes the following bugs:
+
+* [Fix errors caused by checklist items activities](https://github.com/wekan/wekan/pull/1200).
+
+Thanks to GitHub users andresmanelli, GhassenRjab and nztqa for contributions.
+
+# v0.34 2017-08-30 Wekan release
+
+This release adds the following new features:
+
+* [Import Trello and Wekan board times of creation of activities](https://github.com/wekan/wekan/pull/1187);
+* Newest Wekan is available at Sandstorm App Market.
+
+Known issues:
+
+* [Attachment creation times are not imported to Trello and Wekan](https://github.com/wekan/wekan/issues/1157).
+
+Thanks to GitHub user GhassenRjab for contributions.
+
+# v0.33 2017-08-29 Wekan release
 
 This release adds the following new features:
 
@@ -6,13 +31,22 @@ This release adds the following new features:
 * [Add display Wekan version number and runtime
    environment to Admin Panel](https://github.com/wekan/wekan/pull/1156);
 * [Change Email address](https://github.com/wekan/wekan/pull/1161);
-* [Ubuntu snap: Use version scriptlet](https://github.com/wekan/wekan/pull/1164).
+* [Ubuntu snap: Use version scriptlet](https://github.com/wekan/wekan/pull/1164);
+* [Gogs integration part 1](https://github.com/wekan/wekan/pull/1189);
+* [Add web manifest so Wekan can be used like standalone app on Desktop
+   with Chrome or Firefox](https://github.com/wekan/wekan/pull/1184);
+* [Copy card link to clipboard](https://github.com/wekan/wekan/issues/1188);
+* [Usernames can now include dots (.)](https://github.com/wekan/wekan/pull/1194).
 
 and fixes the following bugs:
 
-* [Fix Squeezed tickbox in Card](https://github.com/wekan/wekan/pull/1171).
+* [Fix Squeezed tickbox in Card](https://github.com/wekan/wekan/pull/1171);
+* [Percent-encode SMTP password to prevent URI malformed
+   errors](https://github.com/wekan/wekan/pull/1190);
+* [Fix Wekan Import Export on Standalone and Sandstorm](https://github.com/wekan/wekan/pull/1197).
 
-Thanks to GitHub users kubiko, nztqa and xet7 for their contributions.
+Thanks to GitHub users andresmanelli, danhawkes, GhassenRjab, jonasob, kubiko, nztqa,
+pkuhner and xet7 for their contributions.
 
 # v0.32 2017-07-30 Wekan release
 

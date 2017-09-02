@@ -22,10 +22,10 @@ const pkgdef :Spk.PackageDefinition = (
     appTitle = (defaultText = "Wekan"),
     # The name of the app as it is displayed to the user.
 
-    appVersion = 20,
+    appVersion = 22,
     # Increment this for every release.
 
-    appMarketingVersion = (defaultText = "0.32.0~2017-07-30"),
+    appMarketingVersion = (defaultText = "0.35.0~2017-09-02"),
     # Human-readable presentation of the app version.
 
     minUpgradableAppVersion = 0,
@@ -63,9 +63,8 @@ const pkgdef :Spk.PackageDefinition = (
       categories = [productivity, office],
 
       author = (
-        upstreamAuthor = "Maxime Quandalle",
-        contactEmail = "david@sandstorm.io",
-        pgpSignature = embed "meta/dwrensha-pgp-sig",
+        contactEmail = "x@xet7.org",
+        pgpSignature = embed "meta/wekanteam-pgp-sig",
       ),
 
       pgpKeyring = embed "meta/keyring",

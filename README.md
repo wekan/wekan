@@ -38,6 +38,8 @@ one-click installation on various platforms.
 
 ## Roadmap
 
+[Roadmap](https://github.com/wekan/wekan/wiki/Roadmap)
+
 Upcoming Wekan App Development Platform will make possible
 many use cases. If you don't find your feature or integration in
 GitHub issues and [Features][features] or [Integrations][integrations]

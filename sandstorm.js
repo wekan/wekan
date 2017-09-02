@@ -188,7 +188,7 @@ if (isSandstorm && Meteor.isServer) {
             caption = { defaultText: comment.text };
             const activeMembers =
               _.pluck(Boards.findOne(sandstormBoard._id).activeMembers(), 'userId');
-            (comment.text.match(/\B@(\w*)/g) || []).forEach((username) => {
+            (comment.text.match(/\B@([\w.]*)/g) || []).forEach((username) => {
               const user = Meteor.users.findOne({ username: username.slice(1)});
               if (user && activeMembers.indexOf(user._id) !== -1) {
                 mentionedUser(user._id);

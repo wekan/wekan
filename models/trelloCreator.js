@@ -27,6 +27,10 @@ export class TrelloCreator {
     this.lists = {};
     // Map of cards Trello ID => Wekan ID
     this.cards = {};
+    // Map of attachments Wekan ID => Wekan ID
+    this.attachmentIds = {};
+    // Map of checklists Wekan ID => Wekan ID
+    this.checklists = {};
     // The comments, indexed by Trello card id (to map when importing cards)
     this.comments = {};
     // the members, indexed by Trello member id => Wekan user ID
@@ -261,21 +265,21 @@ export class TrelloCreator {
       // keep track of Trello id => WeKan id
       this.cards[card.id] = cardId;
       // log activity
-      Activities.direct.insert({
-        activityType: 'importCard',
-        boardId,
-        cardId,
-        createdAt: this._now(),
-        listId: cardToCreate.listId,
-        source: {
-          id: card.id,
-          system: 'Trello',
-          url: card.url,
-        },
-        // we attribute the import to current user,
-        // not the author of the original card
-        userId: this._user(),
-      });
+      // Activities.direct.insert({
+      //   activityType: 'importCard',
+      //   boardId,
+      //   cardId,
+      //   createdAt: this._now(),
+      //   listId: cardToCreate.listId,
+      //   source: {
+      //     id: card.id,
+      //     system: 'Trello',
+      //     url: card.url,
+      //   },
+      //   // we attribute the import to current user,
+      //   // not the author of the original card
+      //   userId: this._user(),
+      // });
       // add comments
       const comments = this.comments[card.id];
       if (comments) {
@@ -291,12 +295,14 @@ export class TrelloCreator {
           // dateLastActivity will be set from activity insert, no need to
           // update it ourselves
           const commentId = CardComments.direct.insert(commentToCreate);
+          // We need to keep adding comment activities this way with Trello
+          // because it doesn't provide a comment ID
           Activities.direct.insert({
             activityType: 'addComment',
             boardId: commentToCreate.boardId,
             cardId: commentToCreate.cardId,
             commentId,
-            createdAt: this._now(commentToCreate.createdAt),
+            createdAt: this._now(comment.date),
             // we attribute the addComment (not the import)
             // to the original author - it is needed by some UI elements.
             userId: commentToCreate.userId,
@@ -322,6 +328,7 @@ export class TrelloCreator {
                 const wekanAtt = Attachments.insert(file, () => {
                   // we do nothing
                 });
+                this.attachmentIds[att.id] = wekanAtt._id;
                 //
                 if(trelloCoverId === att.id) {
                   Cards.direct.update(cardId, { $set: {coverId: wekanAtt._id}});
@@ -368,19 +375,19 @@ export class TrelloCreator {
       Lists.direct.update(listId, {$set: {'updatedAt': this._now()}});
       this.lists[list.id] = listId;
       // log activity
-      Activities.direct.insert({
-        activityType: 'importList',
-        boardId,
-        createdAt: this._now(),
-        listId,
-        source: {
-          id: list.id,
-          system: 'Trello',
-        },
-        // We attribute the import to current user,
-        // not the creator of the original object
-        userId: this._user(),
-      });
+      // Activities.direct.insert({
+      //   activityType: 'importList',
+      //   boardId,
+      //   createdAt: this._now(),
+      //   listId,
+      //   source: {
+      //     id: list.id,
+      //     system: 'Trello',
+      //   },
+      //   // We attribute the import to current user,
+      //   // not the creator of the original object
+      //   userId: this._user(),
+      // });
     });
   }
 
@@ -393,6 +400,8 @@ export class TrelloCreator {
         createdAt: this._now(),
       };
       const checklistId = Checklists.direct.insert(checklistToCreate);
+      // keep track of Trello id => WeKan id
+      this.checklists[checklist.id] = checklistId;
       // Now add the items to the checklist
       const itemsToCreate = [];
       checklist.checkItems.forEach((item) => {
@@ -472,6 +481,99 @@ export class TrelloCreator {
     });
   }
 
+  importActions(actions, boardId) {
+    actions.forEach((action) => {
+      switch (action.type) {
+      // Board related actions
+      // TODO: addBoardMember, removeBoardMember
+      case 'createBoard': {
+        Activities.direct.insert({
+          userId: this._user(action.idMemberCreator),
+          type: 'board',
+          activityTypeId: boardId,
+          activityType: 'createBoard',
+          boardId,
+          createdAt: this._now(action.date),
+        });
+        break;
+      }
+      // List related activities
+      // TODO: removeList, archivedList
+      case 'createList': {
+        Activities.direct.insert({
+          userId: this._user(action.idMemberCreator),
+          type: 'list',
+          activityType: 'createList',
+          listId: this.lists[action.data.list.id],
+          boardId,
+          createdAt: this._now(action.date),
+        });
+        break;
+      }
+      // Card related activities
+      // TODO: archivedCard, restoredCard, joinMember, unjoinMember
+      case 'createCard': {
+        Activities.direct.insert({
+          userId: this._user(action.idMemberCreator),
+          activityType: 'createCard',
+          listId: this.lists[action.data.list.id],
+          cardId: this.cards[action.data.card.id],
+          boardId,
+          createdAt: this._now(action.date),
+        });
+        break;
+      }
+      case 'updateCard': {
+        if (action.data.old.idList) {
+          Activities.direct.insert({
+            userId: this._user(action.idMemberCreator),
+            oldListId: this.lists[action.data.old.idList],
+            activityType: 'moveCard',
+            listId: this.lists[action.data.listAfter.id],
+            cardId: this.cards[action.data.card.id],
+            boardId,
+            createdAt: this._now(action.date),
+          });
+        }
+        break;
+      }
+      // Comment related activities
+      // Trello doesn't export the comment id
+      // Attachment related activities
+      // TODO: We can't add activities related to adding attachments
+      //       because when we import an attachment, an activity is
+      //       autmatically created. We need to directly insert the attachment
+      //       without calling the "Attachments.files.after.insert" hook first,
+      //       then we can uncomment the code below
+      // case 'addAttachment': {
+      //   console.log(this.attachmentIds);
+      //   Activities.direct.insert({
+      //     userId: this._user(activity.userId),
+      //     type: 'card',
+      //     activityType: activity.activityType,
+      //     attachmentId: this.attachmentIds[activity.attachmentId],
+      //     cardId: this.cards[activity.cardId],
+      //     boardId,
+      //     createdAt: this._now(activity.createdAt),
+      //   });
+      //   break;
+      // }
+      // Checklist related activities
+      case 'addChecklistToCard': {
+        Activities.direct.insert({
+          userId: this._user(action.idMemberCreator),
+          activityType: 'addChecklist',
+          cardId: this.cards[action.data.card.id],
+          checklistId: this.checklists[action.data.checklist.id],
+          boardId,
+          createdAt: this._now(action.date),
+        });
+        break;
+      }}
+      // Trello doesn't have an add checklist item action
+    });
+  }
+
   check(board) {
     try {
       // check(data, {
@@ -501,6 +603,7 @@ export class TrelloCreator {
     this.createLists(board.lists, boardId);
     this.createCards(board.cards, boardId);
     this.createChecklists(board.checklists);
+    this.importActions(board.actions, boardId);
     // XXX add members
     return boardId;
   }

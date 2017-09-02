@@ -27,6 +27,12 @@ export class WekanCreator {
     this.lists = {};
     // Map of cards Wekan ID => Wekan ID
     this.cards = {};
+    // Map of comments Wekan ID => Wekan ID
+    this.commentIds = {};
+    // Map of attachments Wekan ID => Wekan ID
+    this.attachmentIds = {};
+    // Map of checklists Wekan ID => Wekan ID
+    this.checklists = {};
     // The comments, indexed by Wekan card id (to map when importing cards)
     this.comments = {};
     // the members, indexed by Wekan member id => Wekan user ID
@@ -71,7 +77,6 @@ export class WekanCreator {
 
   checkActivities(wekanActivities) {
     check(wekanActivities, [Match.ObjectIncluding({
-      userId: String,
       activityType: String,
       createdAt: DateString,
     })]);
@@ -141,6 +146,8 @@ export class WekanCreator {
         isActive: true,
         isCommentOnly: false,
       }],
+      // Standalone Export has modifiedAt missing, adding modifiedAt to fix it
+      modifiedAt: this._now(wekanBoard.modifiedAt),
       permission: wekanBoard.permission,
       slug: getSlug(wekanBoard.title) || 'board',
       stars: 0,
@@ -248,21 +255,21 @@ export class WekanCreator {
       const cardId = Cards.direct.insert(cardToCreate);
       // keep track of Wekan id => WeKan id
       this.cards[card._id] = cardId;
-      // log activity
-      Activities.direct.insert({
-        activityType: 'importCard',
-        boardId,
-        cardId,
-        createdAt: this._now(),
-        listId: cardToCreate.listId,
-        source: {
-          id: card._id,
-          system: 'Wekan',
-        },
-        // we attribute the import to current user,
-        // not the author of the original card
-        userId: this._user(),
-      });
+      // // log activity
+      // Activities.direct.insert({
+      //   activityType: 'importCard',
+      //   boardId,
+      //   cardId,
+      //   createdAt: this._now(),
+      //   listId: cardToCreate.listId,
+      //   source: {
+      //     id: card._id,
+      //     system: 'Wekan',
+      //   },
+      //   // we attribute the import to current user,
+      //   // not the author of the original card
+      //   userId: this._user(),
+      // });
       // add comments
       const comments = this.comments[card._id];
       if (comments) {
@@ -270,7 +277,7 @@ export class WekanCreator {
           const commentToCreate = {
             boardId,
             cardId,
-            createdAt: this._now(comment.date),
+            createdAt: this._now(comment.createdAt),
             text: comment.text,
             // we attribute the comment to the original author, default to current user
             userId: this._user(comment.userId),
@@ -278,16 +285,17 @@ export class WekanCreator {
           // dateLastActivity will be set from activity insert, no need to
           // update it ourselves
           const commentId = CardComments.direct.insert(commentToCreate);
-          Activities.direct.insert({
-            activityType: 'addComment',
-            boardId: commentToCreate.boardId,
-            cardId: commentToCreate.cardId,
-            commentId,
-            createdAt: this._now(commentToCreate.createdAt),
-            // we attribute the addComment (not the import)
-            // to the original author - it is needed by some UI elements.
-            userId: commentToCreate.userId,
-          });
+          this.commentIds[comment._id] = commentId;
+          // Activities.direct.insert({
+          //   activityType: 'addComment',
+          //   boardId: commentToCreate.boardId,
+          //   cardId: commentToCreate.cardId,
+          //   commentId,
+          //   createdAt: this._now(commentToCreate.createdAt),
+          //   // we attribute the addComment (not the import)
+          //   // to the original author - it is needed by some UI elements.
+          //   userId: commentToCreate.userId,
+          // });
         });
       }
       const attachments = this.attachments[card._id];
@@ -310,6 +318,7 @@ export class WekanCreator {
                   const wekanAtt = Attachments.insert(file, () => {
                     // we do nothing
                   });
+                  this.attachmentIds[att._id] = wekanAtt._id;
                   //
                   if(wekanCoverId === att._id) {
                     Cards.direct.update(cardId, { $set: {coverId: wekanAtt._id}});
@@ -327,6 +336,7 @@ export class WekanCreator {
                   const wekanAtt = Attachments.insert(file, () => {
                     // we do nothing
                   });
+                  this.attachmentIds[att._id] = wekanAtt._id;
                   //
                   if(wekanCoverId === att._id) {
                     Cards.direct.update(cardId, { $set: {coverId: wekanAtt._id}});
@@ -373,20 +383,20 @@ export class WekanCreator {
       const listId = Lists.direct.insert(listToCreate);
       Lists.direct.update(listId, {$set: {'updatedAt': this._now()}});
       this.lists[list._id] = listId;
-      // log activity
-      Activities.direct.insert({
-        activityType: 'importList',
-        boardId,
-        createdAt: this._now(),
-        listId,
-        source: {
-          id: list._id,
-          system: 'Wekan',
-        },
-        // We attribute the import to current user,
-        // not the creator of the original object
-        userId: this._user(),
-      });
+      // // log activity
+      // Activities.direct.insert({
+      //   activityType: 'importList',
+      //   boardId,
+      //   createdAt: this._now(),
+      //   listId,
+      //   source: {
+      //     id: list._id,
+      //     system: 'Wekan',
+      //   },
+      //   // We attribute the import to current user,
+      //   // not the creator of the original object
+      //   userId: this._user(),
+      // });
     });
   }
 
@@ -399,6 +409,8 @@ export class WekanCreator {
         createdAt: checklist.createdAt,
       };
       const checklistId = Checklists.direct.insert(checklistToCreate);
+      // keep track of Wekan id => WeKan id
+      this.checklists[checklist._id] = checklistId;
       // Now add the items to the checklist
       const itemsToCreate = [];
       checklist.items.forEach((item) => {
@@ -462,6 +474,120 @@ export class WekanCreator {
     });
   }
 
+  importActivities(activities, boardId) {
+    activities.forEach((activity) => {
+      switch (activity.activityType) {
+      // Board related activities
+      // TODO: addBoardMember, removeBoardMember
+      case 'createBoard': {
+        Activities.direct.insert({
+          userId: this._user(activity.userId),
+          type: 'board',
+          activityTypeId: boardId,
+          activityType: activity.activityType,
+          boardId,
+          createdAt: this._now(activity.createdAt),
+        });
+        break;
+      }
+      // List related activities
+      // TODO: removeList, archivedList
+      case 'createList': {
+        Activities.direct.insert({
+          userId: this._user(activity.userId),
+          type: 'list',
+          activityType: activity.activityType,
+          listId: this.lists[activity.listId],
+          boardId,
+          createdAt: this._now(activity.createdAt),
+        });
+        break;
+      }
+      // Card related activities
+      // TODO: archivedCard, restoredCard, joinMember, unjoinMember
+      case 'createCard': {
+        Activities.direct.insert({
+          userId: this._user(activity.userId),
+          activityType: activity.activityType,
+          listId: this.lists[activity.listId],
+          cardId: this.cards[activity.cardId],
+          boardId,
+          createdAt: this._now(activity.createdAt),
+        });
+        break;
+      }
+      case 'moveCard': {
+        Activities.direct.insert({
+          userId: this._user(activity.userId),
+          oldListId: this.lists[activity.oldListId],
+          activityType: activity.activityType,
+          listId: this.lists[activity.listId],
+          cardId: this.cards[activity.cardId],
+          boardId,
+          createdAt: this._now(activity.createdAt),
+        });
+        break;
+      }
+      // Comment related activities
+      case 'addComment': {
+        Activities.direct.insert({
+          userId: this._user(activity.userId),
+          activityType: activity.activityType,
+          cardId: this.cards[activity.cardId],
+          commentId: this.commentIds[activity.commentId],
+          boardId,
+          createdAt: this._now(activity.createdAt),
+        });
+        break;
+      }
+      // Attachment related activities
+      // TODO: We can't add activities related to adding attachments
+      //       because when we import an attachment, an activity is
+      //       autmatically created. We need to directly insert the attachment
+      //       without calling the "Attachments.files.after.insert" hook first,
+      //       then we can uncomment the code below
+      // case 'addAttachment': {
+      //   console.log(this.attachmentIds);
+      //   Activities.direct.insert({
+      //     userId: this._user(activity.userId),
+      //     type: 'card',
+      //     activityType: activity.activityType,
+      //     attachmentId: this.attachmentIds[activity.attachmentId],
+      //     cardId: this.cards[activity.cardId],
+      //     boardId,
+      //     createdAt: this._now(activity.createdAt),
+      //   });
+      //   break;
+      // }
+      // Checklist related activities
+      case 'addChecklist': {
+        Activities.direct.insert({
+          userId: this._user(activity.userId),
+          activityType: activity.activityType,
+          cardId: this.cards[activity.cardId],
+          checklistId: this.checklists[activity.checklistId],
+          boardId,
+          createdAt: this._now(activity.createdAt),
+        });
+        break;
+      }
+      case 'addChecklistItem': {
+        Activities.direct.insert({
+          userId: this._user(activity.userId),
+          activityType: activity.activityType,
+          cardId: this.cards[activity.cardId],
+          checklistId: this.checklists[activity.checklistId],
+          checklistItemId: activity.checklistItemId.replace(
+            activity.checklistId,
+            this.checklists[activity.checklistId]),
+          boardId,
+          createdAt: this._now(activity.createdAt),
+        });
+        break;
+      }}
+    });
+  }
+
   check(board) {
     try {
       // check(data, {
@@ -491,6 +617,7 @@ export class WekanCreator {
     this.createLists(board.lists, boardId);
     this.createCards(board.cards, boardId);
     this.createChecklists(board.checklists);
+    this.importActivities(board.activities, boardId);
     // XXX add members
     return boardId;
   }

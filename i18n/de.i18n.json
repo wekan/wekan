@@ -144,6 +144,7 @@
     "comment-only": "Nur kommentierbar",
     "comment-only-desc": "Kann Karten nur Kommentieren",
     "computer": "Computer",
+    "copy-card-link-to-clipboard": "Kopiere die Karte in die Zwischenablage",
     "create": "Erstellen",
     "createBoardPopup-title": "Board erstellen",
     "chooseBoardSourcePopup-title": "Board importieren",
@@ -191,7 +192,7 @@
     "error-user-notAllowSelf": "Sie können sich nicht selbst einladen.",
     "error-user-notCreated": "Dieser Nutzer ist nicht angelegt",
     "error-username-taken": "Dieser Benutzername ist bereits vergeben",
-    "error-email-taken": "Email has already been taken",
+    "error-email-taken": "E-Mail wird schon verwendet",
     "export-board": "Board exportieren",
     "filter": "Filter",
     "filter-cards": "Karten filtern",
@@ -367,6 +368,8 @@
     "error-notAuthorized": "Sie sind nicht berechtigt diese Seite zu sehen.",
     "outgoing-webhooks": "Ausgehende Webhooks",
     "outgoingWebhooksPopup-title": "Ausgehende Webhooks",
+    "new-integration": "New integration",
+    "no-name": "(Unknown)",
     "Wekan_version": "Wekan-Version",
     "Node_version": "Node-Version",
     "OS_Arch": "Betriebssystem-Architektur",
@@ -381,8 +384,8 @@
     "hours": "Stunden",
     "minutes": "Minuten",
     "seconds": "Sekunden",
-    "yes": "Yes",
-    "no": "No",
-    "accounts": "Accounts",
-    "accounts-allowEmailChange": "Allow Email Change"
+    "yes": "Ja",
+    "no": "Nein",
+    "accounts": "Konten",
+    "accounts-allowEmailChange": "Zulassen E-Mail ändern"
 }

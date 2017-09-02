@@ -9,8 +9,8 @@ const postCatchError = Meteor.wrapAsync((url, options, resolve) => {
 });
 
 Meteor.methods({
-  outgoingWebhooks(integration, description, params) {
-    check(integration, Object);
+  outgoingWebhooks(integrations, description, params) {
+    check(integrations, Array);
     check(description, String);
     check(params, Object);
 
@@ -19,7 +19,8 @@ Meteor.methods({
       if (quoteParams[key]) quoteParams[key] = `"${params[key]}"`;
     });
 
-    const user = Users.findOne(integration.userId);
+    const userId = (params.userId)?params.userId:integrations[0].userId;
+    const user = Users.findOne(userId);
     const text = `${params.user} ${TAPi18n.__(description, quoteParams, user.getLanguage())}\n${params.url}`;
 
     if (text.length === 0) return;
@@ -27,6 +28,11 @@ Meteor.methods({
     const value = {
       text: `${text}`,
     };
+
+    ['cardId', 'listId', 'oldListId', 'boardId'].forEach((key) => {
+      if (params[key]) value[key] = params[key];
+    });
+    value.description = description;
 
     const options = {
       headers: {
@@ -36,12 +42,14 @@ Meteor.methods({
       data: value,
     };
 
-    const response = postCatchError(integration.url, options);
+    integrations.forEach((integration) => {
+      const response = postCatchError(integration.url, options);
 
-    if (response && response.statusCode && response.statusCode === 200) {
-      return true; // eslint-disable-line consistent-return
-    } else {
-      throw new Meteor.Error('error-invalid-webhook-response');
-    }
+      if (response && response.statusCode && response.statusCode === 200) {
+        return true; // eslint-disable-line consistent-return
+      } else {
+        throw new Meteor.Error('error-invalid-webhook-response');
+      }
+    });
   },
 });

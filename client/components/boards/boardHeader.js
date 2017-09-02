@@ -241,39 +241,44 @@ BlazeComponent.extendComponent({
 }).register('boardChangeWatchPopup');
 
 BlazeComponent.extendComponent({
-  integration() {
+  integrations() {
     const boardId = Session.get('currentBoard');
-    return Integrations.findOne({ boardId: `${boardId}` });
+    return Integrations.find({ boardId: `${boardId}` }).fetch();
+  },
+
+  integration(id) {
+    const boardId = Session.get('currentBoard');
+    return Integrations.findOne({ _id: id, boardId: `${boardId}` });
   },
 
   events() {
     return [{
       'submit'(evt) {
         evt.preventDefault();
-        const url = this.find('.js-outgoing-webhooks-url').value.trim();
+        const url = evt.target.url.value;
         const boardId = Session.get('currentBoard');
-        const integration = this.integration();
-        if (integration) {
+        let id = null;
+        let integration = null;
+        if (evt.target.id) {
+          id = evt.target.id.value;
+          integration = this.integration(id);
           if (url) {
             Integrations.update(integration._id, {
               $set: {
-                enabled: true,
                 url: `${url}`,
               },
             });
           } else {
-            Integrations.update(integration._id, {
-              $set: {
-                enabled: false,
-              },
-            });
+            Integrations.remove(integration._id);
           }
         } else if (url) {
           Integrations.insert({
+            userId: Meteor.userId(),
             enabled: true,
             type: 'outgoing-webhooks',
             url: `${url}`,
             boardId: `${boardId}`,
+            activities: ['all'],
           });
         }
         Popup.close();
