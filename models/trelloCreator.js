@@ -456,6 +456,8 @@ export class TrelloCreator {
         // In that case Trello still reports its addition, but removes its 'url' field.
         // So we test for that
         const trelloAttachment = action.data.attachment;
+        // We need the idMemberCreator
+        trelloAttachment.idMemberCreator = action.idMemberCreator;
         if(trelloAttachment.url) {
           // we cannot actually create the Wekan attachment, because we don't yet
           // have the cards to attach it to, so we store it in the instance variable.
