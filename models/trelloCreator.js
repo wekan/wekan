@@ -323,6 +323,9 @@ export class TrelloCreator {
               file.boardId = boardId;
               file.cardId = cardId;
               file.userId = this._user(att.idMemberCreator);
+              // The field source will only be used to prevent adding
+              // attachments' related activities automatically
+              file.source = 'import';
               if (error) {
                 throw(error);
               } else {
