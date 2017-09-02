@@ -318,17 +318,22 @@ export class TrelloCreator {
           // - HEAD returns null, which causes exception down the line
           // - the template then tries to display the url to the attachment which causes other errors
           // so we make it server only, and let UI catch up once it is done, forget about latency comp.
+          const self = this;
           if(Meteor.isServer) {
             file.attachData(att.url, function (error) {
               file.boardId = boardId;
               file.cardId = cardId;
+              file.userId = self._user(att.idMemberCreator);
+              // The field source will only be used to prevent adding
+              // attachments' related activities automatically
+              file.source = 'import';
               if (error) {
                 throw(error);
               } else {
                 const wekanAtt = Attachments.insert(file, () => {
                   // we do nothing
                 });
-                this.attachmentIds[att.id] = wekanAtt._id;
+                self.attachmentIds[att.id] = wekanAtt._id;
                 //
                 if(trelloCoverId === att.id) {
                   Cards.direct.update(cardId, { $set: {coverId: wekanAtt._id}});
@@ -452,6 +457,8 @@ export class TrelloCreator {
         // In that case Trello still reports its addition, but removes its 'url' field.
         // So we test for that
         const trelloAttachment = action.data.attachment;
+        // We need the idMemberCreator
+        trelloAttachment.idMemberCreator = action.idMemberCreator;
         if(trelloAttachment.url) {
           // we cannot actually create the Wekan attachment, because we don't yet
           // have the cards to attach it to, so we store it in the instance variable.
@@ -540,24 +547,18 @@ export class TrelloCreator {
       // Comment related activities
       // Trello doesn't export the comment id
       // Attachment related activities
-      // TODO: We can't add activities related to adding attachments
-      //       because when we import an attachment, an activity is
-      //       autmatically created. We need to directly insert the attachment
-      //       without calling the "Attachments.files.after.insert" hook first,
-      //       then we can uncomment the code below
-      // case 'addAttachment': {
-      //   console.log(this.attachmentIds);
-      //   Activities.direct.insert({
-      //     userId: this._user(activity.userId),
-      //     type: 'card',
-      //     activityType: activity.activityType,
-      //     attachmentId: this.attachmentIds[activity.attachmentId],
-      //     cardId: this.cards[activity.cardId],
-      //     boardId,
-      //     createdAt: this._now(activity.createdAt),
-      //   });
-      //   break;
-      // }
+      case 'addAttachmentToCard': {
+        Activities.direct.insert({
+          userId: this._user(action.idMemberCreator),
+          type: 'card',
+          activityType: 'addAttachment',
+          attachmentId: this.attachmentIds[action.data.attachment.id],
+          cardId: this.cards[action.data.card.id],
+          boardId,
+          createdAt: this._now(action.date),
+        });
+        break;
+      }
       // Checklist related activities
       case 'addChecklistToCard': {
         Activities.direct.insert({

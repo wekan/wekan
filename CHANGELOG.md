@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+* [Import attachments related activities from Wekan and
+   Trello](https://github.com/wekan/wekan/pull/1202).
+
+Thanks to GitHub user GhassenRjab for contributions.
+
 # v0.35 2017-09-02 Wekan release
 
 This release adds the following new features:

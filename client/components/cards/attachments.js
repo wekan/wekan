@@ -62,7 +62,7 @@ Template.cardAttachmentsPopup.events({
       const file = new FS.File(f);
       file.boardId = card.boardId;
       file.cardId = card._id;
-
+      file.userId = Meteor.userId();
       Attachments.insert(file);
       Popup.close();
     });
@@ -109,6 +109,7 @@ Template.previewClipboardImagePopup.events({
       file.updatedAt(new Date());
       file.boardId = card.boardId;
       file.cardId = card._id;
+      file.userId = Meteor.userId();
       Attachments.insert(file);
       pastedResults = null;
       $(document.body).pasteImageReader(() => {});
