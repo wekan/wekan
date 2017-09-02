@@ -16,9 +16,10 @@ Attachments = new FS.Collection('attachments', {
       beforeWrite: (fileObj) => {
         if (!fileObj.isImage()) {
           return {
-            type: 'application/octet-stream'
+            type: 'application/octet-stream',
           };
         }
+        return {};
       },
     }),
   ],
@@ -70,7 +71,7 @@ if (Meteor.isServer) {
     } else {
       // Don't add activity about adding the attachment as the activity
       // be imported and delete source field
-      Attachments.update( {_id: doc._id} , {$unset: { source : "" } } );
+      Attachments.update( {_id: doc._id}, {$unset: { source : '' } } );
     }
   });
 
