@@ -318,11 +318,12 @@ export class TrelloCreator {
           // - HEAD returns null, which causes exception down the line
           // - the template then tries to display the url to the attachment which causes other errors
           // so we make it server only, and let UI catch up once it is done, forget about latency comp.
+          const self = this;
           if(Meteor.isServer) {
             file.attachData(att.url, function (error) {
               file.boardId = boardId;
               file.cardId = cardId;
-              file.userId = this._user(att.idMemberCreator);
+              file.userId = self._user(att.idMemberCreator);
               // The field source will only be used to prevent adding
               // attachments' related activities automatically
               file.source = 'import';
@@ -332,7 +333,7 @@ export class TrelloCreator {
                 const wekanAtt = Attachments.insert(file, () => {
                   // we do nothing
                 });
-                this.attachmentIds[att.id] = wekanAtt._id;
+                self.attachmentIds[att.id] = wekanAtt._id;
                 //
                 if(trelloCoverId === att.id) {
                   Cards.direct.update(cardId, { $set: {coverId: wekanAtt._id}});
