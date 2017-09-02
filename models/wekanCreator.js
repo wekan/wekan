@@ -550,24 +550,18 @@ export class WekanCreator {
         break;
       }
       // Attachment related activities
-      // TODO: We can't add activities related to adding attachments
-      //       because when we import an attachment, an activity is
-      //       autmatically created. We need to directly insert the attachment
-      //       without calling the "Attachments.files.after.insert" hook first,
-      //       then we can uncomment the code below
-      // case 'addAttachment': {
-      //   console.log(this.attachmentIds);
-      //   Activities.direct.insert({
-      //     userId: this._user(activity.userId),
-      //     type: 'card',
-      //     activityType: activity.activityType,
-      //     attachmentId: this.attachmentIds[activity.attachmentId],
-      //     cardId: this.cards[activity.cardId],
-      //     boardId,
-      //     createdAt: this._now(activity.createdAt),
-      //   });
-      //   break;
-      // }
+      case 'addAttachment': {
+        Activities.direct.insert({
+          userId: this._user(activity.userId),
+          type: 'card',
+          activityType: activity.activityType,
+          attachmentId: this.attachmentIds[activity.attachmentId],
+          cardId: this.cards[activity.cardId],
+          boardId,
+          createdAt: this._now(activity.createdAt),
+        });
+        break;
+      }
       // Checklist related activities
       case 'addChecklist': {
         Activities.direct.insert({
