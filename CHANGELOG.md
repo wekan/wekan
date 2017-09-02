@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v0.36 2017-09-02 Wekan release
 
 This release adds the following new features:
 
@@ -29,6 +29,7 @@ This release adds the following new features:
 Known issues:
 
 * [Attachment creation times are not imported to Trello and Wekan](https://github.com/wekan/wekan/issues/1157).
+  - This is fixed in v0.36.
 
 Thanks to GitHub user GhassenRjab for contributions.
 
