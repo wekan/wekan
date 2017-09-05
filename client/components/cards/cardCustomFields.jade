@@ -1,0 +1,23 @@
+template(name="cardCustomFieldsPopup")
+    ul.pop-over-list
+        each board.customFields
+            li.item(class="")
+                a.name.js-select-field(href="#")
+                    span.full-name
+                        = name
+                    if isCardMember
+                        i.fa.fa-check
+    hr
+    a.quiet-button.full.js-configure-custom-fields
+        i.fa.fa-cog
+        span {{_ 'configure-custom-fields'}}
+
+template(name="cardCustomFieldText")
+    if canModifyCard
+        .item-title.js-open-inlined-form.is-editable
+            if value
+                = value
+            else
+                | {{_ 'edit'}}
+    else
+        .item-title {{value}}

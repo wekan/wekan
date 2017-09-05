@@ -45,9 +45,11 @@ template(name="cardDetails")
           h3.card-details-item-title {{_ 'card-due'}}
           +cardDueDate
 
-      each customFields
+      each customFieldsWD
         .card-details-item.card-details-item-customfield
-          h3.card-details-item-title {{_ 'some-title' }}
+          h3.card-details-item-title
+            = definition.name
+          +cardCustomField
 
     //- XXX We should use "editable" to avoid repetiting ourselves
     if canModifyCard
@@ -146,20 +148,6 @@ template(name="cardMembersPopup")
             | (<span class="username">{{ user.username }}</span>)
           if isCardMember
             i.fa.fa-check
-
-template(name="cardCustomFieldsPopup")
-  ul.pop-over-list
-    each board.customFields
-      li.item(class="")
-        a.name.js-select-field(href="#")
-          span.full-name
-            = name
-          if isCardMember
-            i.fa.fa-check
-  hr
-  a.quiet-button.full.js-configure-custom-fields
-    i.fa.fa-cog
-    span {{_ 'configure-custom-fields'}}
 
 template(name="cardMorePopup")
   p.quiet

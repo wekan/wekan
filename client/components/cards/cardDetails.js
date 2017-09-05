@@ -197,20 +197,6 @@ Template.editCardTitleForm.events({
   },
 });
 
-Template.cardCustomFieldsPopup.events({
-  'click .js-select-field'(evt) {
-    const card = Cards.findOne(Session.get('currentCard'));
-    const customFieldId = this._id;
-    card.toggleCustomField(customFieldId);
-    evt.preventDefault();
-  },
-  'click .js-configure-custom-fields'(evt) {
-    EscapeActions.executeUpTo('detailsPane');
-    Sidebar.setView('customFields');
-    evt.preventDefault();
-  }
-});
-
 Template.moveCardPopup.events({
   'click .js-select-list' () {
     // XXX We should *not* get the currentCard from the global state, but

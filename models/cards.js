@@ -190,6 +190,27 @@ Cards.helpers({
     return _.pluck(this.customFields, '_id').indexOf(customFieldId);
   },
 
+  // customFields with definitions
+  customFieldsWD() {
+
+    // get all definitions
+    const definitions = CustomFields.find({
+      boardId: this.boardId,
+    }).fetch();
+
+    // match right definition to each field
+    return this.customFields.map((customField) => {
+      return {
+        _id: customField._id,
+        value: customField.value,
+        definition: definitions.find((definition) => {
+          return definition._id == customField._id;
+        })
+      }
+    });
+
+  },
+
   absoluteUrl() {
     const board = this.board();
     return FlowRouter.url('card', {
