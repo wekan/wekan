@@ -307,18 +307,23 @@ export class WekanCreator {
           // - HEAD returns null, which causes exception down the line
           // - the template then tries to display the url to the attachment which causes other errors
           // so we make it server only, and let UI catch up once it is done, forget about latency comp.
+          const self = this;
           if(Meteor.isServer) {
             if (att.url) {
               file.attachData(att.url, function (error) {
                 file.boardId = boardId;
                 file.cardId = cardId;
+                file.userId = self._user(att.userId);
+                // The field source will only be used to prevent adding
+                // attachments' related activities automatically
+                file.source = 'import';
                 if (error) {
                   throw(error);
                 } else {
                   const wekanAtt = Attachments.insert(file, () => {
                     // we do nothing
                   });
-                  this.attachmentIds[att._id] = wekanAtt._id;
+                  self.attachmentIds[att._id] = wekanAtt._id;
                   //
                   if(wekanCoverId === att._id) {
                     Cards.direct.update(cardId, { $set: {coverId: wekanAtt._id}});
@@ -330,6 +335,10 @@ export class WekanCreator {
                 file.name(att.name);
                 file.boardId = boardId;
                 file.cardId = cardId;
+                file.userId = self._user(att.userId);
+                // The field source will only be used to prevent adding
+                // attachments' related activities automatically
+                file.source = 'import';
                 if (error) {
                   throw(error);
                 } else {
@@ -541,24 +550,18 @@ export class WekanCreator {
         break;
       }
       // Attachment related activities
-      // TODO: We can't add activities related to adding attachments
-      //       because when we import an attachment, an activity is
-      //       autmatically created. We need to directly insert the attachment
-      //       without calling the "Attachments.files.after.insert" hook first,
-      //       then we can uncomment the code below
-      // case 'addAttachment': {
-      //   console.log(this.attachmentIds);
-      //   Activities.direct.insert({
-      //     userId: this._user(activity.userId),
-      //     type: 'card',
-      //     activityType: activity.activityType,
-      //     attachmentId: this.attachmentIds[activity.attachmentId],
-      //     cardId: this.cards[activity.cardId],
-      //     boardId,
-      //     createdAt: this._now(activity.createdAt),
-      //   });
-      //   break;
-      // }
+      case 'addAttachment': {
+        Activities.direct.insert({
+          userId: this._user(activity.userId),
+          type: 'card',
+          activityType: activity.activityType,
+          attachmentId: this.attachmentIds[activity.attachmentId],
+          cardId: this.cards[activity.cardId],
+          boardId,
+          createdAt: this._now(activity.createdAt),
+        });
+        break;
+      }
       // Checklist related activities
       case 'addChecklist': {
         Activities.direct.insert({
