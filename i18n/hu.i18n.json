@@ -145,6 +145,7 @@
     "comment-only-desc": "Can comment on cards only.",
     "computer": "Számítógép",
     "copy-card-link-to-clipboard": "Copy card link to clipboard",
+    "copyCardPopup-title": "Copy Card",
     "create": "Létrehoz",
     "createBoardPopup-title": "Új tábla",
     "chooseBoardSourcePopup-title": "Import board",

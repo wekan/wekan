@@ -145,6 +145,7 @@
     "comment-only-desc": "カードにのみコメント可能",
     "computer": "コンピューター",
     "copy-card-link-to-clipboard": "カードへのリンクをクリップボードにコピー",
+    "copyCardPopup-title": "Copy Card",
     "create": "作成",
     "createBoardPopup-title": "ボードの作成",
     "chooseBoardSourcePopup-title": "ボードをインポート",
