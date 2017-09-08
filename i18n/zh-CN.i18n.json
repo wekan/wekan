@@ -145,6 +145,7 @@
     "comment-only-desc": "只能在卡片上评论。",
     "computer": "从本机上传",
     "copy-card-link-to-clipboard": "Copy card link to clipboard",
+    "copyCardPopup-title": "Copy Card",
     "create": "创建",
     "createBoardPopup-title": "创建看板",
     "chooseBoardSourcePopup-title": "导入看板",

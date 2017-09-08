@@ -157,6 +157,7 @@ Template.cardDetailsActionsPopup.events({
   'click .js-start-date': Popup.open('editCardStartDate'),
   'click .js-due-date': Popup.open('editCardDueDate'),
   'click .js-move-card': Popup.open('moveCard'),
+  'click .js-copy-card': Popup.open('copyCard'),
   'click .js-move-card-to-top' (evt) {
     evt.preventDefault();
     const minOrder = _.min(this.list().cards().map((c) => c.sort));
@@ -203,6 +204,50 @@ Template.moveCardPopup.events({
     const newListId = this._id;
     card.move(newListId);
     Popup.close();
+  },
+});
+
+Template.copyCardPopup.events({
+  'click .js-select-list' (evt) {
+    const card = Cards.findOne(Session.get('currentCard'));
+    const oldId = card._id;
+    card._id = null;
+    card.listId = this._id;
+    const textarea = $(evt.currentTarget).parents('.content').find('textarea');
+    const title = textarea.val().trim();
+    // insert new card to the bottom of new list
+    card.sort = Lists.findOne(this._id).cards().count();
+
+    if (title) {
+      card.title = title;
+      const _id = Cards.insert(card);
+      // In case the filter is active we need to add the newly inserted card in
+      // the list of exceptions -- cards that are not filtered. Otherwise the
+      // card will disappear instantly.
+      // See https://github.com/wekan/wekan/issues/80
+      Filter.addException(_id);
+
+      // copy checklists
+      let cursor = Checklists.find({cardId: oldId});
+      cursor.forEach(function() {
+        'use strict';
+        const checklist = arguments[0];
+        checklist.cardId = _id;
+        checklist._id = null;
+        Checklists.insert(checklist);
+      });
+
+      // copy card comments
+      cursor = CardComments.find({cardId: oldId});
+      cursor.forEach(function () {
+        'use strict';
+        const comment = arguments[0];
+        comment.cardId = _id;
+        comment._id = null;
+        CardComments.insert(comment);
+      });
+      Popup.close();
+    }
   },
 });
 

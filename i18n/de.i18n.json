@@ -145,6 +145,7 @@
     "comment-only-desc": "Kann Karten nur Kommentieren",
     "computer": "Computer",
     "copy-card-link-to-clipboard": "Kopiere die Karte in die Zwischenablage",
+    "copyCardPopup-title": "Karte kopieren",
     "create": "Erstellen",
     "createBoardPopup-title": "Board erstellen",
     "chooseBoardSourcePopup-title": "Board importieren",
