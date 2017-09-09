@@ -369,7 +369,7 @@
     "error-notAuthorized": "У вас нет доступа на просмотр этой страницы.",
     "outgoing-webhooks": "Исходящие Веб-хуки",
     "outgoingWebhooksPopup-title": "Исходящие Веб-хуки",
-    "new-integration": "New integration",
+    "new-outgoing-webhook": "New Outgoing Webhook",
     "no-name": "(Unknown)",
     "Wekan_version": "Версия Wekan",
     "Node_version": "Версия NodeJS",

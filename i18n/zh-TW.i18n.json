@@ -369,7 +369,7 @@
     "error-notAuthorized": "沒有適合的權限觀看",
     "outgoing-webhooks": "設定 Webhooks",
     "outgoingWebhooksPopup-title": "設定 Webhooks",
-    "new-integration": "New integration",
+    "new-outgoing-webhook": "New Outgoing Webhook",
     "no-name": "(Unknown)",
     "Wekan_version": "Wekan 版本",
     "Node_version": "Node 版本",

@@ -369,7 +369,7 @@
     "error-notAuthorized": "Je bent niet toegestaan om deze pagina te bekijken.",
     "outgoing-webhooks": "Uitgaande Webhooks",
     "outgoingWebhooksPopup-title": "Uitgaande Webhooks",
-    "new-integration": "Nieuwe integratie",
+    "new-outgoing-webhook": "New Outgoing Webhook",
     "no-name": "(Onbekend)",
     "Wekan_version": "Wekan versie",
     "Node_version": "Node versie",

@@ -369,7 +369,7 @@
     "error-notAuthorized": "이 페이지를 볼 수있는 권한이 없습니다.",
     "outgoing-webhooks": "Outgoing Webhooks",
     "outgoingWebhooksPopup-title": "Outgoing Webhooks",
-    "new-integration": "New integration",
+    "new-outgoing-webhook": "New Outgoing Webhook",
     "no-name": "(Unknown)",
     "Wekan_version": "Wekan version",
     "Node_version": "Node version",

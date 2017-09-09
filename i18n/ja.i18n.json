@@ -369,7 +369,7 @@
     "error-notAuthorized": "このページを参照する権限がありません。",
     "outgoing-webhooks": "Outgoing Webhooks",
     "outgoingWebhooksPopup-title": "Outgoing Webhooks",
-    "new-integration": "New integration",
+    "new-outgoing-webhook": "New Outgoing Webhook",
     "no-name": "(Unknown)",
     "Wekan_version": "Wekanバージョン",
     "Node_version": "Nodeバージョン",

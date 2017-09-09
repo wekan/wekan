@@ -369,7 +369,7 @@
     "error-notAuthorized": "Ez duzu orri hau ikusteko baimenik.",
     "outgoing-webhooks": "Irteerako Webhook-ak",
     "outgoingWebhooksPopup-title": "Irteerako Webhook-ak",
-    "new-integration": "Integrazio berria",
+    "new-outgoing-webhook": "New Outgoing Webhook",
     "no-name": "(Ezezaguna)",
     "Wekan_version": "Wekan bertsioa",
     "Node_version": "Nodo bertsioa",

@@ -369,7 +369,7 @@
     "error-notAuthorized": "Nejste autorizován k prohlížení této stránky.",
     "outgoing-webhooks": "Outgoing Webhooks",
     "outgoingWebhooksPopup-title": "Outgoing Webhooks",
-    "new-integration": "New integration",
+    "new-outgoing-webhook": "New Outgoing Webhook",
     "no-name": "(Neznámé)",
     "Wekan_version": "Wekan verze",
     "Node_version": "Node verze",

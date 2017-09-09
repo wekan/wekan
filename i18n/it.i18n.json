@@ -369,7 +369,7 @@
     "error-notAuthorized": "Non sei autorizzato ad accedere a questa pagina.",
     "outgoing-webhooks": "Server esterni",
     "outgoingWebhooksPopup-title": "Server esterni",
-    "new-integration": "New integration",
+    "new-outgoing-webhook": "New Outgoing Webhook",
     "no-name": "(Unknown)",
     "Wekan_version": "Versione di Wekan",
     "Node_version": "Node version",
