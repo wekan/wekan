@@ -116,11 +116,18 @@ template(name="cardDetailsActionsPopup")
     hr
     ul.pop-over-list
       li: a.js-move-card {{_ 'moveCardPopup-title'}}
+      li: a.js-copy-card {{_ 'copyCardPopup-title'}}
       unless archived
         li: a.js-archive {{_ 'archive-card'}}
       li: a.js-more {{_ 'cardMorePopup-title'}}
 
 template(name="moveCardPopup")
+  +boardLists
+
+template(name="copyCardPopup")
+  label(for='copy-card-title') {{_ 'title'}}:
+  textarea#copy-card-title.minicard-composer-textarea.js-card-title(autofocus)
+  label {{_ 'lists'}}:
   +boardLists
 
 template(name="cardMembersPopup")
