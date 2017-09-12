@@ -127,6 +127,7 @@ template(name="moveCardPopup")
 template(name="copyCardPopup")
   label(for='copy-card-title') {{_ 'title'}}:
   textarea#copy-card-title.minicard-composer-textarea.js-card-title(autofocus)
+    = title
   label {{_ 'lists'}}:
   +boardLists
 
