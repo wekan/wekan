@@ -369,7 +369,7 @@
     "error-notAuthorized": "Vous n'êtes pas autorisé à accéder à cette page.",
     "outgoing-webhooks": "Webhooks sortants",
     "outgoingWebhooksPopup-title": "Webhooks sortants",
-    "new-outgoing-webhook": "New Outgoing Webhook",
+    "new-outgoing-webhook": "Nouveau webhook sortant",
     "no-name": "(Inconnu)",
     "Wekan_version": "Version de Wekan",
     "Node_version": "Version de Node",
