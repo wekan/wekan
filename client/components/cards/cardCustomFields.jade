@@ -5,7 +5,7 @@ template(name="cardCustomFieldsPopup")
                 a.name.js-select-field(href="#")
                     span.full-name
                         = name
-                    if isCardMember
+                    if hasCustomField
                         i.fa.fa-check
     hr
     a.quiet-button.full.js-configure-custom-fields
@@ -14,10 +14,16 @@ template(name="cardCustomFieldsPopup")
 
 template(name="cardCustomFieldText")
     if canModifyCard
-        .item-title.js-open-inlined-form.is-editable
-            if value
+        +inlinedForm(classNames="js-card-customfield-text")
+            +editor(autofocus=true)
                 = value
-            else
-                | {{_ 'edit'}}
-    else
-        .item-title {{value}}
+            .edit-controls.clearfix
+                button.primary(type="submit") {{_ 'save'}}
+                a.fa.fa-times-thin.js-close-inlined-form
+        else
+            a.js-open-inlined-form
+                if value
+                    +viewer
+                        = value
+                else
+                    | {{_ 'edit'}}

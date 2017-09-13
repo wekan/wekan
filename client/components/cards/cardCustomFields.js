@@ -1,3 +1,11 @@
+Template.cardCustomFieldsPopup.helpers({
+    hasCustomField() {
+        const card = Cards.findOne(Session.get('currentCard'));
+        const customFieldId = this._id;
+        return card.customFieldIndex(customFieldId) > -1;
+    },
+});
+
 Template.cardCustomFieldsPopup.events({
     'click .js-select-field'(evt) {
         const card = Cards.findOne(Session.get('currentCard'));
@@ -24,7 +32,7 @@ const CardCustomField = BlazeComponent.extendComponent({
     },
 
     value() {
-        return "this is the value";
+        return this.data().value;
     },
 
     showISODate() {
@@ -33,8 +41,19 @@ const CardCustomField = BlazeComponent.extendComponent({
 
     events() {
         return [{
+            'submit .js-card-customfield-text'(evt) {
+                evt.preventDefault();
+                const card = Cards.findOne(Session.get('currentCard'));
+                const customFieldId = this.data()._id;
+                const value = this.currentComponent().getValue();
+                card.setCustomField(customFieldId,value);
+            },
             'click .js-edit-date': Popup.open('editCardStartDate'),
         }];
+    },
+
+    canModifyCard() {
+        return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
     },
 });
 

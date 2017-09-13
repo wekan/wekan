@@ -279,12 +279,10 @@ Cards.mutations({
   },
 
   assignCustomField(customFieldId) {
-    console.log("assignCustomField", customFieldId);
     return {$addToSet: {customFields: {_id: customFieldId, value: null}}};
   },
 
   unassignCustomField(customFieldId) {
-    console.log("unassignCustomField", customFieldId);
     return {$pull: {customFields: {_id: customFieldId}}};
   },
 
@@ -293,6 +291,16 @@ Cards.mutations({
       return this.unassignCustomField(customFieldId);
     } else {
       return this.assignCustomField(customFieldId);
+    }
+  },
+
+  setCustomField(customFieldId, value) {
+    // todo
+    const index = this.customFieldIndex(customFieldId);
+    if (index > -1) {
+      var update = {$set: {}};
+      update.$set["customFields." + index + ".value"] = value;
+      return update;
     }
   },
 
