@@ -17,6 +17,10 @@ Checklists.attachSchema(new SimpleSchema({
   'items.$.title': {
     type: String,
   },
+  'items.$.sort': {
+    type: Number,
+    decimal: true,
+  },
   'items.$.isFinished': {
     type: Boolean,
     defaultValue: false,
@@ -36,11 +40,33 @@ Checklists.attachSchema(new SimpleSchema({
       }
     },
   },
+  sort: {
+    type: Number,
+    decimal: true,
+  },
+  newItemIndex: {
+    type: Number,
+    decimal: true,
+    defaultValue: 0,
+  },
 }));
+
+const self = Checklists;
 
 Checklists.helpers({
   itemCount() {
     return this.items.length;
+  },
+  getItems() {
+    return this.items.sort(function (itemA, itemB) {
+      if (itemA.sort < itemB.sort) {
+        return -1;
+      }
+      if (itemA.sort > itemB.sort) {
+        return 1;
+      }
+      return 0;
+    });
   },
   finishedCount() {
     return this.items.filter((item) => {
@@ -54,7 +80,8 @@ Checklists.helpers({
     return _.findWhere(this.items, { _id });
   },
   itemIndex(itemId) {
-    return _.pluck(this.items, '_id').indexOf(itemId);
+    const items = self.findOne({_id : this._id}).items;
+    return _.pluck(items, '_id').indexOf(itemId);
   },
 });
 
@@ -86,14 +113,11 @@ Checklists.mutations({
   //for items in checklist
   addItem(title) {
     const itemCount = this.itemCount();
-    let idx = 0;
-    if (itemCount > 0) {
-      const lastId = this.items[itemCount - 1]._id;
-      const lastIdSuffix = lastId.substr(this._id.length);
-      idx = parseInt(lastIdSuffix, 10) + 1;
-    }
-    const _id = `${this._id}${idx}`;
-    return { $addToSet: { items: { _id, title, isFinished: false } } };
+    const _id = `${this._id}${this.newItemIndex}`;
+    return {
+      $addToSet: { items: { _id, title, isFinished: false, sort: itemCount } },
+      $set: { newItemIndex: this.newItemIndex + 1},
+    };
   },
   removeItem(itemId) {
     return { $pull: { items: { _id: itemId } } };
@@ -142,6 +166,21 @@ Checklists.mutations({
       };
     }
     return {};
+  },
+  sortItems(itemIDs) {
+    const validItems = [];
+    for (const itemID of itemIDs) {
+      if (this.getItem(itemID)) {
+        validItems.push(this.itemIndex(itemID));
+      }
+    }
+    const modifiedValues = {};
+    for (let i = 0; i < validItems.length; i++) {
+      modifiedValues[`items.${validItems[i]}.sort`] = i;
+    }
+    return {
+      $set: modifiedValues,
+    };
   },
 });
 

@@ -1,14 +1,81 @@
+function initSorting(items) {
+  items.sortable({
+    tolerance: 'pointer',
+    helper: 'clone',
+    items: '.js-checklist-item:not(.placeholder)',
+    axis: 'y',
+    distance: 7,
+    placeholder: 'placeholder',
+    scroll: false,
+    start(evt, ui) {
+      ui.placeholder.height(ui.helper.height());
+      EscapeActions.executeUpTo('popup-close');
+    },
+    stop(evt, ui) {
+      const parent = ui.item.parents('.js-checklist-items');
+      const orderedItems = [];
+      parent.find('.js-checklist-item').each(function(i, item) {
+        const checklistItem = Blaze.getData(item).item;
+        orderedItems.push(checklistItem._id);
+      });
+      items.sortable('cancel');
+      const formerParent = ui.item.parents('.js-checklist-items');
+      let checklist = Blaze.getData(parent.get(0)).checklist;
+      const oldChecklist = Blaze.getData(formerParent.get(0)).checklist;
+      if (oldChecklist._id !== checklist._id) {
+        const currentItem = Blaze.getData(ui.item.get(0)).item;
+        for (let i = 0; i < orderedItems.length; i++) {
+          let itemId = orderedItems[i];
+          if (itemId !== currentItem._id) continue;
+          checklist.addItem(currentItem.title);
+          checklist = Checklists.findOne({_id: checklist._id});
+          itemId = checklist._id + (checklist.newItemIndex - 1);
+          if (currentItem.finished) {
+            checklist.finishItem(itemId);
+          }
+          orderedItems[i] = itemId;
+          oldChecklist.removeItem(currentItem._id);
+        }
+      }
+      checklist.sortItems(orderedItems);
+    },
+  });
+}
+
+Template.checklists.onRendered(function () {
+  const self = BlazeComponent.getComponentForElement(this.firstNode);
+  self.itemsDom = this.$('.card-checklist-items');
+  initSorting(self.itemsDom);
+  self.itemsDom.mousedown(function(evt) {
+    evt.stopPropagation();
+  });
+
+  function userIsMember() {
+    return Meteor.user() && Meteor.user().isBoardMember();
+  }
+
+  // Disable sorting if the current user is not a board member
+  self.autorun(() => {
+    const $itemsDom = $(self.itemsDom);
+    if ($itemsDom.data('sortable')) {
+      $(self.itemsDom).sortable('option', 'disabled', !userIsMember());
+    }
+  });
+});
+
 BlazeComponent.extendComponent({
   addChecklist(event) {
     event.preventDefault();
     const textarea = this.find('textarea.js-add-checklist-item');
     const title = textarea.value.trim();
     const cardId = this.currentData().cardId;
+    const card = Cards.findOne(cardId);
 
     if (title) {
       Checklists.insert({
         cardId,
         title,
+        sort: card.checklists().count(),
       });
       setTimeout(() => {
         this.$('.add-checklist-item').last().click();

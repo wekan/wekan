@@ -46,8 +46,8 @@ template(name="editChecklistItemForm")
       a.js-delete-checklist-item {{_ "delete"}}...
 
 template(name="checklistItems")
-  .checklist-items
-    each item in checklist.items
+  .checklist-items.js-checklist-items
+    each item in checklist.getItems
       +inlinedForm(classNames="js-edit-checklist-item" item = item checklist = checklist)
         +editChecklistItemForm(type = 'item' item = item checklist = checklist)
       else
@@ -61,11 +61,10 @@ template(name="checklistItems")
           | {{_ 'add-checklist-item'}}...
 
 template(name='itemDetail')
-  .item
+  .item.js-checklist-item
     if canModifyCard
       .check-box.materialCheckBox(class="{{#if item.isFinished }}is-checked{{/if}}")
       .item-title.js-open-inlined-form.is-editable(class="{{#if item.isFinished }}is-checked{{/if}}") {{item.title}}
     else
       .materialCheckBox(class="{{#if item.isFinished }}is-checked{{/if}}")
       .item-title(class="{{#if item.isFinished }}is-checked{{/if}}") {{item.title}}
-

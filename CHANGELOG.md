@@ -1,3 +1,12 @@
+# v0.38 2017-09-14 Wekan release
+
+This release adds the following new features:
+
+* [Reorder checklists. Move checklist item to another checklist.](https://github.com/wekan/wekan/pull/1215)
+* [Card title is now pre-filled in copy card dialog](https://github.com/wekan/wekan/pull/1214).
+
+Thanks to GitHub user frmwrk123 for contributions.
+
 # v0.37 2017-09-09 Wekan release
 
 This release adds the following new features:
