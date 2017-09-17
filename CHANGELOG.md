@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+* [Import checklist sort attributes from Wekan and Trello](https://github.com/wekan/wekan/pull/1226)
+
+Thanks to GitHub user GhassenRjab for contributions.
+
 # v0.38 2017-09-14 Wekan release
 
 This release adds the following new features:
