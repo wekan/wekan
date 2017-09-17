@@ -9,6 +9,24 @@ CustomFields.attachSchema(new SimpleSchema({
   },
   type: {
     type: String,
+    allowedValues: ['text', 'number', 'checkbox', 'date', 'dropdown']
+  },
+  settings: {
+    type: Object,
+  },
+  'settings.dropdownItems': {
+    type: [Object],
+    optional: true
+  },
+  'settings.dropdownItems.$': {
+    type: new SimpleSchema({
+      _id: {
+        type: String,
+      },
+      name: {
+        type: String,
+      },
+    })
   },
   showOnCard: {
     type: Boolean,
@@ -83,6 +101,7 @@ if (Meteor.isServer) {
     const id = CustomFields.direct.insert({
       name: req.body.name,
       type: req.body.type,
+      settings: req.body.settings,
       showOnCard: req.body.showOnCard,
       boardId: paramBoardId,
     });

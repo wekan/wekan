@@ -5,7 +5,7 @@ const defaultView = 'home';
 const viewTitles = {
   filter: 'filter-cards',
   multiselection: 'multi-selection',
-  customFields: 'configure-custom-fields',
+  customFields: 'custom-fields',
   archives: 'archives',
 };
 

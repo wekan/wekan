@@ -8,11 +8,14 @@ template(name="cardCustomFieldsPopup")
                     if hasCustomField
                         i.fa.fa-check
     hr
-    a.quiet-button.full.js-configure-custom-fields
+    a.quiet-button.full.js-settings
         i.fa.fa-cog
-        span {{_ 'configure-custom-fields'}}
+        span {{_ 'settings'}}
 
-template(name="cardCustomFieldText")
+template(name="cardCustomField")
+    +Template.dynamic(template=getTemplate)
+
+template(name="cardCustomField-text")
     if canModifyCard
         +inlinedForm(classNames="js-card-customfield-text")
             +editor(autofocus=true)
@@ -25,5 +28,25 @@ template(name="cardCustomFieldText")
                 if value
                     +viewer
                         = value
+                else
+                    | {{_ 'edit'}}
+
+template(name="cardCustomField-dropdown")
+    if canModifyCard
+        +inlinedForm(classNames="js-card-customfield-dropdown")
+            select.inline
+                each items
+                    if($eq data.value this._id)
+                        option(value=_id selected="selected") {{name}}
+                    else
+                        option(value=_id) {{name}}
+            .edit-controls.clearfix
+                button.primary(type="submit") {{_ 'save'}}
+                a.fa.fa-times-thin.js-close-inlined-form
+        else
+            a.js-open-inlined-form
+                if value
+                    +viewer
+                        = selectedItem
                 else
                     | {{_ 'edit'}}

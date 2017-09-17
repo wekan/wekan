@@ -19,30 +19,33 @@ template(name="createCustomFieldPopup")
         label
             | {{_ 'name'}}
             unless _id
-                input.js-field-name(type="text" name="field-name" autofocus)
+                input.js-field-name(type="text" autofocus)
             else
-                input.js-field-name(type="text" name="field-name" value=name)
+                input.js-field-name(type="text" value=name)
 
         label
             | {{_ 'type'}}
-            select.js-field-type(name="field-type" disabled="{{#if _id}}disabled{{/if}}")
+            select.js-field-type(disabled="{{#if _id}}disabled{{/if}}")
                 each types
                     if selected
-                        option(value=type selected="selected") {{name}}
+                        option(value=value selected="selected") {{name}}
                     else
-                        option(value=type) {{name}}
+                        option(value=value) {{name}}
+        div.js-field-settings.js-field-settings-dropdown(class="{{#if isTypeNotSelected 'dropdown'}}hide{{/if}}")
+            label
+                | {{_ 'custom-field-dropdown-options'}}
+            each dropdownItems.get
+                input.js-dropdown-item(type="text" value=name placeholder="")
+            input.js-dropdown-item.last(type="text" value="" placeholder="{{_ 'custom-field-dropdown-options-placeholder'}}")
         a.flex.js-field-show-on-card
             .materialCheckBox(class="{{#if showOnCard}}is-checked{{/if}}")
 
             span {{_ 'show-field-on-card'}}
-        button.primary.wide.left(type="submit")
+        button.primary.wide.left(type="button")
             | {{_ 'save'}}
         if _id
-            button.negate.wide.right.js-delete-custom-field
+            button.negate.wide.right.js-delete-custom-field(type="button")
                 | {{_ 'delete'}}
-
-template(name="editCustomFieldPopup")
-    | {{> createCustomFieldPopup}}
 
 template(name="deleteCustomFieldPopup")
     p {{_ "custom-field-delete-pop"}}

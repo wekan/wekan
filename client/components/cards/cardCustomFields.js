@@ -13,7 +13,7 @@ Template.cardCustomFieldsPopup.events({
         card.toggleCustomField(customFieldId);
         evt.preventDefault();
     },
-    'click .js-configure-custom-fields'(evt) {
+    'click .js-settings'(evt) {
         EscapeActions.executeUpTo('detailsPane');
         Sidebar.setView('customFields');
         evt.preventDefault();
@@ -21,23 +21,25 @@ Template.cardCustomFieldsPopup.events({
 });
 
 const CardCustomField = BlazeComponent.extendComponent({
-    template() {
-        return 'cardCustomFieldText';
+
+    getTemplate() {
+        return 'cardCustomField-' + this.data().definition.type;
     },
 
     onCreated() {
         const self = this;
-        self.date = ReactiveVar();
-        self.now = ReactiveVar(moment());
     },
 
-    value() {
-        return this.data().value;
+    canModifyCard() {
+        return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
     },
+});
+CardCustomField.register('cardCustomField');
 
-    showISODate() {
-        return this.date.get().toISOString();
-    },
+(class extends CardCustomField {
+
+    onCreated() {
+    }
 
     events() {
         return [{
@@ -48,13 +50,39 @@ const CardCustomField = BlazeComponent.extendComponent({
                 const value = this.currentComponent().getValue();
                 card.setCustomField(customFieldId,value);
             },
-            'click .js-edit-date': Popup.open('editCardStartDate'),
         }];
-    },
+    }
 
-    canModifyCard() {
-        return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
-    },
-});
+}).register('cardCustomField-text');
 
-CardCustomField.register('cardCustomField');
+(class extends CardCustomField {
+
+    onCreated() {
+        this._items = this.data().definition.settings.dropdownItems;
+        this.items = this._items.slice(0);
+        this.items.unshift({
+            _id: "",
+            name: TAPi18n.__('custom-field-dropdown-none')
+        });
+    }
+
+    selectedItem() {
+        const selected = this._items.find((item) => {
+            return item._id == this.data().value;
+        });
+        return (selected) ? selected.name : TAPi18n.__('custom-field-dropdown-unknown');
+    }
+
+    events() {
+        return [{
+            'submit .js-card-customfield-dropdown'(evt) {
+                evt.preventDefault();
+                const card = Cards.findOne(Session.get('currentCard'));
+                const customFieldId = this.data()._id;
+                const value = this.find('select').value;
+                card.setCustomField(customFieldId,value);
+            },
+        }];
+    }
+
+}).register('cardCustomField-dropdown');
