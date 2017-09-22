@@ -2,6 +2,8 @@
     "accept": "接受",
     "act-activity-notify": "[Wekan] 活动通知",
     "act-addAttachment": "添加附件 __attachment__ 至卡片 __card__",
+    "act-addChecklist": "added checklist __checklist__ to __card__",
+    "act-addChecklistItem": "added __checklistItem__ to checklist __checklist__ on __card__",
     "act-addComment": "在 __card__ 发布评论: __comment__",
     "act-createBoard": "创建看板 __board__",
     "act-createCard": "添加卡片 __card__  至列表 __list__",
