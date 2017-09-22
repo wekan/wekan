@@ -130,3 +130,29 @@ Migrations.add('add-member-isactive-field', () => {
     Boards.update(board._id, {$set: {members: newMemberSet}}, noValidate);
   });
 });
+
+Migrations.add('add-sort-checklists', () => {
+  Checklists.find().forEach((checklist, index) => {
+    if (!checklist.hasOwnProperty('sort')) {
+      Checklists.direct.update(
+        checklist._id,
+        {
+          $set: {
+            sort: index,
+            newItemIndex: checklist.items.length,
+          }
+        },
+        noValidate
+      );
+    }
+    checklist.items.forEach(function(item, index) {
+      if (!item.hasOwnProperty('sort')) {
+        Checklists.direct.update(
+          { _id: checklist._id, "items._id": item._id },
+          { $set: { "items.$.sort": index } },
+          noValidate
+        );
+      }
+    });
+  });
+});
