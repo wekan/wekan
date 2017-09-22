@@ -2,6 +2,8 @@
     "accept": "Прийняти",
     "act-activity-notify": "[Wekan] Сповіщення Діяльності",
     "act-addAttachment": "__attachment__ додане до __card__",
+    "act-addChecklist": "added checklist __checklist__ to __card__",
+    "act-addChecklistItem": "added __checklistItem__ to checklist __checklist__ on __card__",
     "act-addComment": "комментар в __card__: __comment__",
     "act-createBoard": "__board__ створенна",
     "act-createCard": "__card__ карта додана до __list__ листа",

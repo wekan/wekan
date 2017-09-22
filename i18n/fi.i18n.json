@@ -2,6 +2,8 @@
     "accept": "Hyväksy",
     "act-activity-notify": "[Wekan] Toimintailmoitus",
     "act-addAttachment": "liitetty __attachment__ kortille __card__",
+    "act-addChecklist": "lisätty tarkistuslista __checklist__ kortille __card__",
+    "act-addChecklistItem": "lisätty kohta __checklistItem__ tarkistuslistaan __checklist__ kortilla __card__",
     "act-addComment": "kommentoitu __card__: __comment__",
     "act-createBoard": "luotu __board__",
     "act-createCard": "lisätty __card__ listalle __list__",

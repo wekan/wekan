@@ -2,6 +2,8 @@
     "accept": "확인",
     "act-activity-notify": "[Wekan] 활동 알림",
     "act-addAttachment": "__attachment__를 __card__에 첨부",
+    "act-addChecklist": "added checklist __checklist__ to __card__",
+    "act-addChecklistItem": "added __checklistItem__ to checklist __checklist__ on __card__",
     "act-addComment": "__card__에 내용 추가 : __comment__",
     "act-createBoard": "__board__ 생성",
     "act-createCard": "__list__에 __card__ 추가",

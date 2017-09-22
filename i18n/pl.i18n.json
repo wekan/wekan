@@ -2,6 +2,8 @@
     "accept": "Akceptuj",
     "act-activity-notify": "[Wekan] Activity Notification",
     "act-addAttachment": "attached __attachment__ to __card__",
+    "act-addChecklist": "added checklist __checklist__ to __card__",
+    "act-addChecklistItem": "added __checklistItem__ to checklist __checklist__ on __card__",
     "act-addComment": "commented on __card__: __comment__",
     "act-createBoard": "created __board__",
     "act-createCard": "added __card__ to __list__",

@@ -2,6 +2,8 @@
     "accept": "Kabul Et",
     "act-activity-notify": "[Wekan] Etkinlik Bildirimi",
     "act-addAttachment": "__card__ kartına __attachment__ dosyasını ekledi",
+    "act-addChecklist": "added checklist __checklist__ to __card__",
+    "act-addChecklistItem": "added __checklistItem__ to checklist __checklist__ on __card__",
     "act-addComment": "__card__ kartına bir yorum bıraktı: __comment__",
     "act-createBoard": "__board__ panosunu oluşturdu",
     "act-createCard": "__card__ kartını ___list__ listesine ekledi.",

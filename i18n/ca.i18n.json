@@ -2,6 +2,8 @@
     "accept": "Accepta",
     "act-activity-notify": "[Wekan] Notificació d'activitat",
     "act-addAttachment": "adjuntat __attachment__ a __card__",
+    "act-addChecklist": "added checklist __checklist__ to __card__",
+    "act-addChecklistItem": "added __checklistItem__ to checklist __checklist__ on __card__",
     "act-addComment": "comentat a __card__: __comment__",
     "act-createBoard": "creat __board__",
     "act-createCard": "afegit/da __card__ a __list__",
