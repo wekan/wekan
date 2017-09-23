@@ -140,7 +140,7 @@ Migrations.add('add-sort-checklists', () => {
           $set: {
             sort: index,
             newItemIndex: checklist.items.length,
-          }
+          },
         },
         noValidate
       );
@@ -148,8 +148,8 @@ Migrations.add('add-sort-checklists', () => {
     checklist.items.forEach(function(item, index) {
       if (!item.hasOwnProperty('sort')) {
         Checklists.direct.update(
-          { _id: checklist._id, "items._id": item._id },
-          { $set: { "items.$.sort": index } },
+          { _id: checklist._id, 'items._id': item._id },
+          { $set: { 'items.$.sort': index } },
           noValidate
         );
       }
