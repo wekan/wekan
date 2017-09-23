@@ -2,6 +2,8 @@
     "accept": "Terima",
     "act-activity-notify": "[Wekan] Pemberitahuan Kegiatan",
     "act-addAttachment": "Lampirkan__attachment__ke__kartu__",
+    "act-addChecklist": "added checklist __checklist__ to __card__",
+    "act-addChecklistItem": "added __checklistItem__ to checklist __checklist__ on __card__",
     "act-addComment": "Dikomentari di__kartu__:__comment__",
     "act-createBoard": "Panel__dibuat__",
     "act-createCard": "Kartu__dilampirkan__ke__Daftar",

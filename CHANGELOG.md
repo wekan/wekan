@@ -1,8 +1,29 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+* [Add translations (en/de/fi) for email notifications regarding checklists and checklist
+   items](https://github.com/wekan/wekan/pull/1238).
+
+and fixes the following bugs:
+
+* [Checklist items are lost when moving items to another checklist](https://github.com/wekan/wekan/pull/1240).
+
+Thanks to GitHub users GhassenRjab, umbertooo and xet7 for their contributions.
+
+# v0.39 2017-09-18 Wekan release
+
+This release adds the following new features:
+
+* [Import checklist sort attributes from Wekan and Trello](https://github.com/wekan/wekan/pull/1226).
+
+Thanks to GitHub user GhassenRjab for contributions.
+
 # v0.38 2017-09-14 Wekan release
 
 This release adds the following new features:
 
-* [Reorder checklists. Move checklist item to another checklist.](https://github.com/wekan/wekan/pull/1215)
+* [Reorder checklists. Move checklist item to another checklist.](https://github.com/wekan/wekan/pull/1215);
 * [Card title is now pre-filled in copy card dialog](https://github.com/wekan/wekan/pull/1214).
 
 Thanks to GitHub user frmwrk123 for contributions.

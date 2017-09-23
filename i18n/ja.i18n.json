@@ -2,6 +2,8 @@
     "accept": "受け入れ",
     "act-activity-notify": "[Wekan] アクティビティ通知",
     "act-addAttachment": "__card__ に __attachment__ を添付しました",
+    "act-addChecklist": "added checklist __checklist__ to __card__",
+    "act-addChecklistItem": "added __checklistItem__ to checklist __checklist__ on __card__",
     "act-addComment": "__card__: __comment__ をコメントしました",
     "act-createBoard": "__board__ を作成しました",
     "act-createCard": "__list__ に __card__ を追加しました",

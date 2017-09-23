@@ -410,23 +410,25 @@ export class WekanCreator {
   }
 
   createChecklists(wekanChecklists) {
-    wekanChecklists.forEach((checklist) => {
+    wekanChecklists.forEach((checklist, checklistIndex) => {
       // Create the checklist
       const checklistToCreate = {
         cardId: this.cards[checklist.cardId],
         title: checklist.title,
         createdAt: checklist.createdAt,
+        sort: checklist.sort ? checklist.sort : checklistIndex,
       };
       const checklistId = Checklists.direct.insert(checklistToCreate);
       // keep track of Wekan id => WeKan id
       this.checklists[checklist._id] = checklistId;
       // Now add the items to the checklist
       const itemsToCreate = [];
-      checklist.items.forEach((item) => {
+      checklist.items.forEach((item, itemIndex) => {
         itemsToCreate.push({
           _id: checklistId + itemsToCreate.length,
           title: item.title,
           isFinished: item.isFinished,
+          sort: item.sort ? item.sort : itemIndex,
         });
       });
       Checklists.direct.update(checklistId, {$set: {items: itemsToCreate}});

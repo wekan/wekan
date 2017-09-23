@@ -403,6 +403,7 @@ export class TrelloCreator {
         cardId: this.cards[checklist.idCard],
         title: checklist.name,
         createdAt: this._now(),
+        sort: checklist.pos,
       };
       const checklistId = Checklists.direct.insert(checklistToCreate);
       // keep track of Trello id => WeKan id
@@ -414,6 +415,7 @@ export class TrelloCreator {
           _id: checklistId + itemsToCreate.length,
           title: item.name,
           isFinished: item.state === 'complete',
+          sort: item.pos,
         });
       });
       Checklists.direct.update(checklistId, {$set: {items: itemsToCreate}});
