@@ -1,9 +1,15 @@
 # Upcoming Wekan release
 
+This release adds the following new features:
+
 * [Add translations (en/de/fi) for email notifications regarding checklists and checklist
    items](https://github.com/wekan/wekan/pull/1238).
 
-Thanks to GitHub users umbertooo and xet7 for their contributions.
+and fixes the following bugs:
+
+* [Checklist items are lost when moving items to another checklist](https://github.com/wekan/wekan/pull/1240).
+
+Thanks to GitHub users GhassenRjab, umbertooo and xet7 for their contributions.
 
 # v0.39 2017-09-18 Wekan release
 
