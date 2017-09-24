@@ -136,12 +136,7 @@ Migrations.add('add-sort-checklists', () => {
     if (!checklist.hasOwnProperty('sort')) {
       Checklists.direct.update(
         checklist._id,
-        {
-          $set: {
-            sort: index,
-            newItemIndex: checklist.items.length,
-          },
-        },
+        { $set: { sort: index } },
         noValidate
       );
     }
