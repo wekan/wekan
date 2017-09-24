@@ -7,7 +7,8 @@ This release adds the following new features:
 
 and fixes the following bugs:
 
-* [Checklist items are lost when moving items to another checklist](https://github.com/wekan/wekan/pull/1240).
+* [Checklist items are lost when moving items to another checklist](https://github.com/wekan/wekan/pull/1240);
+* [Keep state of checklist items when moved to another checklist](https://github.com/wekan/wekan/pull/1242).
 
 Thanks to GitHub users GhassenRjab, umbertooo and xet7 for their contributions.
 
