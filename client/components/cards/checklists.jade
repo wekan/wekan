@@ -47,7 +47,7 @@ template(name="editChecklistItemForm")
 
 template(name="checklistItems")
   .checklist-items.js-checklist-items
-    each item in checklist.getItems
+    each item in checklist.getItemsSorted
       +inlinedForm(classNames="js-edit-checklist-item" item = item checklist = checklist)
         +editChecklistItemForm(type = 'item' item = item checklist = checklist)
       else
