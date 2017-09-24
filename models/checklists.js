@@ -44,11 +44,6 @@ Checklists.attachSchema(new SimpleSchema({
     type: Number,
     decimal: true,
   },
-  newItemIndex: {
-    type: Number,
-    decimal: true,
-    defaultValue: 0,
-  },
 }));
 
 const self = Checklists;
@@ -57,16 +52,8 @@ Checklists.helpers({
   itemCount() {
     return this.items.length;
   },
-  getItems() {
-    return this.items.sort(function (itemA, itemB) {
-      if (itemA.sort < itemB.sort) {
-        return -1;
-      }
-      if (itemA.sort > itemB.sort) {
-        return 1;
-      }
-      return 0;
-    });
+  getItemsSorted() {
+    return _.sortBy(this.items, 'sort');
   },
   finishedCount() {
     return this.items.filter((item) => {
@@ -82,6 +69,16 @@ Checklists.helpers({
   itemIndex(itemId) {
     const items = self.findOne({_id : this._id}).items;
     return _.pluck(items, '_id').indexOf(itemId);
+  },
+  getNewItemId() {
+    const itemCount = this.itemCount();
+    let idx = 0;
+    if (itemCount > 0) {
+      const lastId = this.items[itemCount - 1]._id;
+      const lastIdSuffix = lastId.substr(this._id.length);
+      idx = parseInt(lastIdSuffix, 10) + 1;
+    }
+    return `${this._id}${idx}`;
   },
 });
 
@@ -112,14 +109,40 @@ Checklists.mutations({
   },
   //for items in checklist
   addItem(title) {
-    const itemCount = this.itemCount();
-    const _id = `${this._id}${this.newItemIndex}`;
+    const _id = this.getNewItemId();
     return {
-      $addToSet: { items: { _id, title, isFinished: false, sort: itemCount } },
-      $set: { newItemIndex: this.newItemIndex + 1},
+      $addToSet: {
+        items: {
+          _id, title,
+          isFinished: false,
+          sort: this.itemCount(),
+        },
+      },
     };
   },
+  addFullItem(item) {
+    const itemsUpdate = {};
+    this.items.forEach(function(iterItem, index) {
+      if (iterItem.sort >= item.sort) {
+        itemsUpdate[`items.${index}.sort`] = iterItem.sort + 1;
+      }
+    });
+    if (!_.isEmpty(itemsUpdate)) {
+      self.direct.update({ _id: this._id }, { $set: itemsUpdate });
+    }
+    return { $addToSet: { items: item } };
+  },
   removeItem(itemId) {
+    const item = this.getItem(itemId);
+    const itemsUpdate = {};
+    this.items.forEach(function(iterItem, index) {
+      if (iterItem.sort > item.sort) {
+        itemsUpdate[`items.${index}.sort`] = iterItem.sort - 1;
+      }
+    });
+    if (!_.isEmpty(itemsUpdate)) {
+      self.direct.update({ _id: this._id }, { $set: itemsUpdate });
+    }
     return { $pull: { items: { _id: itemId } } };
   },
   editItem(itemId, title) {
@@ -169,11 +192,11 @@ Checklists.mutations({
   },
   sortItems(itemIDs) {
     const validItems = [];
-    for (const itemID of itemIDs) {
+    itemIDs.forEach((itemID) => {
       if (this.getItem(itemID)) {
         validItems.push(this.itemIndex(itemID));
       }
-    }
+    });
     const modifiedValues = {};
     for (let i = 0; i < validItems.length; i++) {
       modifiedValues[`items.${validItems[i]}.sort`] = i;
