@@ -4,14 +4,15 @@ This release adds the following new features:
 
 * [Add translations (en/de/fi) for email notifications regarding checklists and checklist
    items](https://github.com/wekan/wekan/pull/1238);
-* [Added plus button to add card on top of the list](https://github.com/wekan/wekan/pull/1244).
+* [Added plus button to add card on top of the list](https://github.com/wekan/wekan/pull/1244);
+* [REST API: Create user despite disabling registration](https://github.com/wekan/wekan/issues/1232).
 
 and fixes the following bugs:
 
 * [Checklist items are lost when moving items to another checklist](https://github.com/wekan/wekan/pull/1240);
 * [Keep state of checklist items when moved to another checklist](https://github.com/wekan/wekan/pull/1242).
 
-Thanks to GitHub users GhassenRjab, mario-orlicky, umbertooo and xet7 for their contributions.
+Thanks to GitHub users GhassenRjab, mario-orlicky, soohwa, umbertooo and xet7 for their contributions.
 
 # v0.39 2017-09-18 Wekan release
 
