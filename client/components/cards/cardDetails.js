@@ -220,6 +220,7 @@ Template.copyCardPopup.events({
 
     if (title) {
       card.title = title;
+      card.coverId = '';
       const _id = Cards.insert(card);
       // In case the filter is active we need to add the newly inserted card in
       // the list of exceptions -- cards that are not filtered. Otherwise the
