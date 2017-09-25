@@ -1,3 +1,11 @@
+# v0.41 2017-09-25 Wekan release
+
+This release fixes the following bugs:
+
+* [Can't create user and login after install. Reverting REST API: Create user despite disabling registration](https://github.com/wekan/wekan/issues/1249).
+
+Thanks to GitHub user xet7 for contributions.
+
 # v0.40 2017-09-25 Wekan release
 
 This release adds the following new features:

@@ -108,10 +108,6 @@ Users.attachSchema(new SimpleSchema({
     type: Boolean,
     optional: true,
   },
-  fromAdmin: {
-    type: Boolean,
-    optional: false,
-  },
 }));
 
 // Search a user in the complete server database by its name or username. This
@@ -439,12 +435,6 @@ if (Meteor.isServer) {
       user.isAdmin = true;
       return user;
     }
-
-    if (options.from === 'admin') {
-      user.fromAdmin = true;
-      return user;
-    }
-
     const disableRegistration = Settings.findOne().disableRegistration;
     if (!disableRegistration) {
       return user;
@@ -534,9 +524,6 @@ if (Meteor.isServer) {
 
   Users.after.insert((userId, doc) => {
 
-    if (doc.fromAdmin)
-      return;
-
     //invite user to corresponding boards
     const disableRegistration = Settings.findOne().disableRegistration;
     if (disableRegistration) {
@@ -595,7 +582,6 @@ if (Meteor.isServer) {
       username: req.body.username,
       email: req.body.email,
       password: 'default',
-      from: 'admin',
     });
 
     JsonRoutes.sendResult(res, {
