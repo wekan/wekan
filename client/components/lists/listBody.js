@@ -84,7 +84,9 @@ BlazeComponent.extendComponent({
       evt.preventDefault();
       Utils.goBoardId(Session.get('currentBoard'));
     } else {
-      $('.toggle-switch').prop('checked', false);
+      if (!Meteor.user().hasHiddenSystemMessages()) {
+        $('.toggle-switch').prop('checked', false);
+      }
     }
   },
 

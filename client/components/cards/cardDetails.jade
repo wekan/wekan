@@ -89,7 +89,10 @@ template(name="cardDetails")
       h2 {{ _ 'activity'}}
       .material-toggle-switch
         span.toggle-switch-title {{_ 'hide-system-messages'}}
-        input.toggle-switch(type="checkbox" id="toggleButton")
+        if hiddenSystemMessages
+          input.toggle-switch(type="checkbox" id="toggleButton" checked="checked" disabled)
+        else
+          input.toggle-switch(type="checkbox" id="toggleButton")
         label.toggle-label(for="toggleButton")
     if currentUser.isBoardMember
       +commentForm

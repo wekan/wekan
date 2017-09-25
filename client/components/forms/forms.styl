@@ -668,11 +668,11 @@ button
     left: 20px
     background-color: #179588
 
-.toggle-switch:disabled ~ .toggle-label
+.toggle-switch:checked:disabled ~ .toggle-label
   background-color: #d5d5d5
   pointer-events: none
 
-  &after
+  &:after
     background-color: #bcbdbc
 
 .toggle-switch
@@ -681,6 +681,7 @@ button
 .toggle-switch-title
   margin: 0 0.5em
   display: flex
+
 
 @media screen and (max-width: 800px)
   .edit-controls,

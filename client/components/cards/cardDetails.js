@@ -28,6 +28,11 @@ BlazeComponent.extendComponent({
     return card.findWatcher(Meteor.userId());
   },
 
+  hiddenSystemMessages() {
+    console.log('doo:', Meteor.user().hasHiddenSystemMessages());
+    return Meteor.user().hasHiddenSystemMessages();
+  },
+
   canModifyCard() {
     return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
   },
