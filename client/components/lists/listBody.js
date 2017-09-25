@@ -83,6 +83,8 @@ BlazeComponent.extendComponent({
       evt.stopImmediatePropagation();
       evt.preventDefault();
       Utils.goBoardId(Session.get('currentBoard'));
+    } else {
+      $('.toggle-switch').prop('checked', false);
     }
   },
 

@@ -99,6 +99,9 @@ BlazeComponent.extendComponent({
         this.parentComponent().showOverlay.set(true);
         this.parentComponent().mouseHasEnterCardDetails = true;
       },
+      'click #toggleButton'() {
+        $('div.activity.js-card-activity:not(:has(.activity-comment))').toggle();
+      },
     }];
   },
 }).register('cardDetails');
