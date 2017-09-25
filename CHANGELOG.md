@@ -1,3 +1,11 @@
+# v0.43 2017-09-25 Wekan release
+
+This release fixes the following bugs:
+
+* [Add emojis back, because removing them broke local dev Sandstorm](https://github.com/wekan/wekan/issues/1248).
+
+Thanks to GitHub user xet7 for contributions.
+
 # v0.42 2017-09-25 Wekan release
 
 This release fixes the following bugs:
