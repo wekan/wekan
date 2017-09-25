@@ -440,7 +440,7 @@ if (Meteor.isServer) {
       return user;
     }
 
-    if (options.from == 'admin') {
+    if (options.from === 'admin') {
       user.fromAdmin = true;
       return user;
     }
@@ -535,7 +535,7 @@ if (Meteor.isServer) {
   Users.after.insert((userId, doc) => {
 
     if (doc.fromAdmin)
-        return;
+      return;
 
     //invite user to corresponding boards
     const disableRegistration = Settings.findOne().disableRegistration;
@@ -595,7 +595,7 @@ if (Meteor.isServer) {
       username: req.body.username,
       email: req.body.email,
       password: 'default',
-      from: 'admin'
+      from: 'admin',
     });
 
     JsonRoutes.sendResult(res, {
