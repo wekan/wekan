@@ -1,3 +1,9 @@
+# Upcoming Wekan release
+
+* [Remove emoji support, because it breaks MAC addresses, urls, code etc](https://github.com/wekan/wekan/issues/1248).
+
+Thanks to GitHub user xet7 for contributions.
+
 # v0.41 2017-09-25 Wekan release
 
 This release fixes the following bugs:

@@ -69,7 +69,6 @@ mquandalle:mousetrap-bindglobal
 mquandalle:perfect-scrollbar
 peerlibrary:blaze-components@=0.15.1
 perak:markdown
-seriousm:emoji-continued
 templates:tabs
 verron:autosize
 simple:json-routes
