@@ -1,15 +1,42 @@
-# Upcoming Wekan release
+# v0.43 2017-09-25 Wekan release
+
+This release fixes the following bugs:
+
+* [Add emojis back, because removing them broke local dev Sandstorm](https://github.com/wekan/wekan/issues/1248).
+
+Thanks to GitHub user xet7 for contributions.
+
+# v0.42 2017-09-25 Wekan release
+
+This release fixes the following bugs:
+
+* [Remove emoji support, because it breaks MAC addresses, urls, code etc](https://github.com/wekan/wekan/issues/1248).
+
+Thanks to GitHub user xet7 for contributions.
+
+# v0.41 2017-09-25 Wekan release
+
+This release fixes the following bugs:
+
+* [Can't create user and login after install. Reverting REST API: Create user despite disabling registration](https://github.com/wekan/wekan/issues/1249).
+
+Thanks to GitHub user xet7 for contributions.
+
+# v0.40 2017-09-25 Wekan release
 
 This release adds the following new features:
 
 * [Add translations (en/de/fi) for email notifications regarding checklists and checklist
-   items](https://github.com/wekan/wekan/pull/1238).
+   items](https://github.com/wekan/wekan/pull/1238);
+* [Added plus button to add card on top of the list](https://github.com/wekan/wekan/pull/1244);
+* [REST API: Create user despite disabling registration](https://github.com/wekan/wekan/issues/1232).
 
 and fixes the following bugs:
 
-* [Checklist items are lost when moving items to another checklist](https://github.com/wekan/wekan/pull/1240).
+* [Checklist items are lost when moving items to another checklist](https://github.com/wekan/wekan/pull/1240);
+* [Keep state of checklist items when moved to another checklist](https://github.com/wekan/wekan/pull/1242).
 
-Thanks to GitHub users GhassenRjab, umbertooo and xet7 for their contributions.
+Thanks to GitHub users GhassenRjab, mario-orlicky, soohwa, umbertooo and xet7 for their contributions.
 
 # v0.39 2017-09-18 Wekan release
 

@@ -20,24 +20,26 @@ function initSorting(items) {
       });
       items.sortable('cancel');
       const formerParent = ui.item.parents('.js-checklist-items');
-      let checklist = Blaze.getData(parent.get(0)).checklist;
+      const checklist = Blaze.getData(parent.get(0)).checklist;
       const oldChecklist = Blaze.getData(formerParent.get(0)).checklist;
       if (oldChecklist._id !== checklist._id) {
         const currentItem = Blaze.getData(ui.item.get(0)).item;
         for (let i = 0; i < orderedItems.length; i++) {
-          let itemId = orderedItems[i];
+          const itemId = orderedItems[i];
           if (itemId !== currentItem._id) continue;
-          checklist.addItem(currentItem.title);
-          checklist = Checklists.findOne({_id: checklist._id});
-          itemId = checklist._id + (checklist.newItemIndex - 1);
-          if (currentItem.finished) {
-            checklist.finishItem(itemId);
-          }
-          orderedItems[i] = itemId;
-          oldChecklist.removeItem(currentItem._id);
+          const newItem = {
+            _id: checklist.getNewItemId(),
+            title: currentItem.title,
+            sort: i,
+            isFinished: currentItem.isFinished,
+          };
+          checklist.addFullItem(newItem);
+          orderedItems[i] = currentItem._id;
+          oldChecklist.removeItem(itemId);
         }
+      } else {
+        checklist.sortItems(orderedItems);
       }
-      checklist.sortItems(orderedItems);
     },
   });
 }
