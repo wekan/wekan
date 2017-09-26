@@ -2,6 +2,8 @@
     "accept": "Onartu",
     "act-activity-notify": "[Wekan] Jarduera-jakinarazpena",
     "act-addAttachment": "__attachment__ __card__ txartelera erantsita",
+    "act-addChecklist": "added checklist __checklist__ to __card__",
+    "act-addChecklistItem": "added __checklistItem__ to checklist __checklist__ on __card__",
     "act-addComment": "__card__ txartelean iruzkina: __comment__",
     "act-createBoard": "__board__ sortuta",
     "act-createCard": "__card__ __list__ zerrrendara gehituta",
