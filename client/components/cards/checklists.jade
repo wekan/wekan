@@ -1,8 +1,14 @@
 template(name="checklists")
   h2 {{_ 'checklists'}}
+  if deleteDialog
+    .board-overlay#card-details-overlay
+    +checklistDeleteDialog(checklist = checklistToDelete)
+
+
   .card-checklist-items
     each checklist in currentCard.checklists
-      +checklistDetail(checklist = checklist)
+      +checklistDetail(checklist=checklist)
+
   if canModifyCard
     +inlinedForm(autoclose=false classNames="js-add-checklist" cardId = cardId)
       +addChecklistItemForm
@@ -18,13 +24,26 @@ template(name="checklistDetail")
     .checklist-title
       .checkbox.fa.fa-check-square-o
       if canModifyCard
-        a.js-delete-checklist {{_ "delete"}}...
+        a.js-delete-checklist.toggle-delete-checklist-dialog {{_ "delete"}}...
+
       span.checklist-stat(class="{{#if checklist.isFinished}}is-finished{{/if}}") {{checklist.finishedCount}}/{{checklist.itemCount}}
       if canModifyCard
         h2.title.js-open-inlined-form.is-editable  {{checklist.title}}
       else
         h2.title  {{checklist.title}}
   +checklistItems(checklist = checklist)
+
+template(name="checklistDeleteDialog")
+  .js-confirm-checklist-delete
+    p
+      i(class="fa fa-exclamation-triangle" aria-hidden="true")
+    p
+      | Are you sure you want to delete
+      span {{checklist.title}}
+      | ?
+    .js-checklist-delete-buttons
+      button.confirm-checklist-delete(type="button") {{_ 'delete'}}
+      button.toggle-delete-checklist-dialog(type="button") {{_ 'cancel'}}
 
 template(name="addChecklistItemForm")
   textarea.js-add-checklist-item(rows='1' autofocus)
