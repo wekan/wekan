@@ -2,6 +2,8 @@
     "accept": "Akzeptieren",
     "act-activity-notify": "[Wekan] Aktivitätsbenachrichtigung",
     "act-addAttachment": "hat __attachment__ an __card__ angehängt",
+    "act-addChecklist": "hat die Checklist __checklist__ zu __card__ hinzugefügt",
+    "act-addChecklistItem": "hat __checklistItem__ zur Checkliste __checklist__ in __card__ hinzugefügt",
     "act-addComment": "hat __card__ kommentiert: __comment__",
     "act-createBoard": "hat __board__ erstellt",
     "act-createCard": "hat __card__ zu __list__ hinzugefügt",

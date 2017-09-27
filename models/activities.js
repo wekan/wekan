@@ -119,6 +119,10 @@ if (Meteor.isServer) {
       const checklist = activity.checklist();
       params.checklist = checklist.title;
     }
+    if (activity.checklistItemId) {
+      const checklistItem = activity.checklistItem();
+      params.checklistItem = checklistItem.title;
+    }
     if (board) {
       const watchingUsers = _.pluck(_.where(board.watchers, {level: 'watching'}), 'userId');
       const trackingUsers = _.pluck(_.where(board.watchers, {level: 'tracking'}), 'userId');

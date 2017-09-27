@@ -2,6 +2,8 @@
     "accept": "اقبلboard",
     "act-activity-notify": "[Wekan] اشعار عن نشاط",
     "act-addAttachment": "ربط __attachment__ الى __card__",
+    "act-addChecklist": "added checklist __checklist__ to __card__",
+    "act-addChecklistItem": "added __checklistItem__ to checklist __checklist__ on __card__",
     "act-addComment": "علق على __comment__ : __card__",
     "act-createBoard": "احدث __board__",
     "act-createCard": "اضاف __card__ الى __list__",
