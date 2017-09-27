@@ -113,7 +113,6 @@ export class TrelloCreator {
     check(trelloLabels, [Match.ObjectIncluding({
       // XXX refine control by validating 'color' against a list of allowed
       // values (is it worth the maintenance?)
-      color: String,
       name: String,
     })]);
   }
@@ -184,7 +183,7 @@ export class TrelloCreator {
     trelloBoard.labels.forEach((label) => {
       const labelToCreate = {
         _id: Random.id(6),
-        color: label.color,
+        color: label.color ? label.color : 'black',
         name: label.name,
       };
       // We need to remember them by Trello ID, as this is the only ref we have
