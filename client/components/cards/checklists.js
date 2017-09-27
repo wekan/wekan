@@ -203,17 +203,6 @@ Template.checklistDeleteDialog.onDestroyed(() => {
   $cardDetails.animate( { scrollTop: this.scrollState.position });
 });
 
-BlazeComponent.extendComponent({
-  events() {
-    const handlers = {
-      'click .confirm-checklist-delete'() {
-        console.log(this.scrollState)
-      },
-    }
-
-    return [ handlers ];
-  }
-}).register('checklistDeleteDialog');
 Template.itemDetail.helpers({
   canModifyCard() {
     return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
