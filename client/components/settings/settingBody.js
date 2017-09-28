@@ -1,6 +1,7 @@
 Meteor.subscribe('setting');
 Meteor.subscribe('mailServer');
 Meteor.subscribe('accountSettings');
+Meteor.subscribe('notices');
 
 BlazeComponent.extendComponent({
   onCreated() {
@@ -9,6 +10,7 @@ BlazeComponent.extendComponent({
     this.generalSetting = new ReactiveVar(true);
     this.emailSetting = new ReactiveVar(false);
     this.accountSetting = new ReactiveVar(false);
+    this.noticeSetting = new ReactiveVar(false);
   },
 
   setError(error) {
@@ -65,6 +67,7 @@ BlazeComponent.extendComponent({
       this.generalSetting.set('registration-setting' === targetID);
       this.emailSetting.set('email-setting' === targetID);
       this.accountSetting.set('account-setting' === targetID);
+      this.noticeSetting.set('notice-setting' === targetID);
     }
   },
 
@@ -152,3 +155,45 @@ BlazeComponent.extendComponent({
     }];
   },
 }).register('accountSettings');
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.loading = new ReactiveVar(false);
+  },
+
+  setLoading(w) {
+    this.loading.set(w);
+  },
+
+  currentSetting(){
+    return Notices.findOne();
+  },
+
+  saveMessage() {
+    const message = $('#admin-notice').val().trim();
+    Notices.update(Notices.findOne()._id, {
+      $set: { 'body': message },
+    });
+  },
+
+  toggleActive(){
+    this.setLoading(true);
+    const isActive = this.currentSetting().enabled;
+    Notices.update(Notices.findOne()._id, {
+      $set:{ 'enabled': !isActive},
+    });
+    this.setLoading(false);
+    if(isActive){
+      $('.admin-notice').slideUp();
+    }else{
+      $('.admin-notice').slideDown();
+    }
+  },
+
+  events() {
+    return [{
+      'click a.js-toggle-activemessage': this.toggleActive,
+      'click button.js-notice-save': this.saveMessage,
+    }];
+  },
+}).register('administratorNoticeSettings');

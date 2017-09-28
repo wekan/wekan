@@ -130,6 +130,7 @@
     "Authentication": true,
     "Integrations": true,
     "HTTP": true,
-    "AccountSettings": true
+    "AccountSettings": true,
+    "Notices": true
   }
 }
