@@ -21,6 +21,11 @@ BlazeComponent.extendComponent({
     return count > this.limitToShowCardsCount();
   },
 
+  hasWipLimit() {
+    return null;
+      //return this.currentData().wipLimit ? true : false;
+  },
+
   events() {
     return [{
       'click .js-open-list-menu': Popup.open('listAction'),
@@ -61,6 +66,7 @@ Template.listActionPopup.events({
     this.archive();
     Popup.close();
   },
+  'click .js-set-wip-limit': Popup.open('setWipLimit'),
   'click .js-more': Popup.open('listMore'),
 });
 

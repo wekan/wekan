@@ -6,6 +6,11 @@ template(name="listHeader")
       h2.list-header-name(
         class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
         = title
+        if hasWipLimit
+          span.wip-limit
+            | (
+            = wipLimit
+            | )
         if showCardsCountForList cards.count
           = cards.count
           span.lowercase
@@ -33,6 +38,9 @@ template(name="listActionPopup")
       if cards.count
         li: a.js-select-cards {{_ 'list-select-cards'}}
         hr
+    ul.pop-over-list
+      li: a.js-set-wip-limit {{#if hasWipLimit}}{{_ 'edit-wip-limit'}}{{else}}{{_ 'set-wip-limit'}}{{/if}}
+    hr
     ul.pop-over-list
       li: a.js-close-list {{_ 'archive-list'}}
     hr
@@ -64,3 +72,7 @@ template(name="listDeletePopup")
   unless archived
    p {{_ "list-delete-suggest-archive"}}
   button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
+
+template(name="setWipLimitPopup")
+  p {{_ 'set-wip-limit'}}
+  input(type="number")

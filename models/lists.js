@@ -42,6 +42,11 @@ Lists.attachSchema(new SimpleSchema({
       }
     },
   },
+
+  wipLimit: {
+    type: SimpleSchema.Integer,
+    optional: true,
+  },
 }));
 
 Lists.allow({
