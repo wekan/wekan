@@ -29,7 +29,10 @@ Meteor.methods({
       text: `${text}`,
     };
 
-    ['cardId', 'listId', 'oldListId', 'boardId'].forEach((key) => {
+    [   'cardId', 'listId', 'oldListId',
+        'boardId', 'comment', 'user',
+        'card', 'commentId'
+    ].forEach((key) => {
       if (params[key]) value[key] = params[key];
     });
     value.description = description;
