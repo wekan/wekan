@@ -42,7 +42,6 @@ Lists.attachSchema(new SimpleSchema({
       }
     },
   },
-
   wipLimit: {
     type: SimpleSchema.Integer,
     optional: true,
@@ -90,6 +89,10 @@ Lists.mutations({
 
   restore() {
     return { $set: { archived: false } };
+  },
+
+  setWipLimit(limit) {
+    return { $set: { wipLimit: limit } };
   },
 });
 

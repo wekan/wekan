@@ -7,10 +7,8 @@ template(name="listHeader")
         class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
         = title
         if hasWipLimit
-          span.wip-limit
-            | (
-            = wipLimit
-            | )
+          span
+            | (#{wipLimit})
         if showCardsCountForList cards.count
           = cards.count
           span.lowercase
@@ -39,7 +37,7 @@ template(name="listActionPopup")
         li: a.js-select-cards {{_ 'list-select-cards'}}
         hr
     ul.pop-over-list
-      li: a.js-set-wip-limit {{#if hasWipLimit}}{{_ 'edit-wip-limit'}}{{else}}{{_ 'set-wip-limit'}}{{/if}}
+      li: a.js-set-wip-limit {{#if hasWipLimit}}{{_ 'edit-wip-limit'}}{{else}}{{_ 'setWipLimitPopup-title'}}{{/if}}
     hr
     ul.pop-over-list
       li: a.js-close-list {{_ 'archive-list'}}
@@ -74,5 +72,8 @@ template(name="listDeletePopup")
   button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
 
 template(name="setWipLimitPopup")
-  p {{_ 'set-wip-limit'}}
-  input(type="number")
+  #js-wip-limit-edit
+    lable {{_ 'set-wip-limit-value'}}
+    p
+      input.wip-limit-value(type="number" value="#{wipLimit}" min="0" max="99" onkeydown="return false")
+      input.wip-limit-apply(type="submit" value="{{_ 'apply'}}")

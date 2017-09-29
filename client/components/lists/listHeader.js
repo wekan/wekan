@@ -8,6 +8,10 @@ BlazeComponent.extendComponent({
     }
   },
 
+  hasWipLimit() {
+    return this.currentData().wipLimit > 0 ? true : false;
+  },
+
   isWatching() {
     const list = this.currentData();
     return list.findWatcher(Meteor.userId());
@@ -19,11 +23,6 @@ BlazeComponent.extendComponent({
 
   showCardsCountForList(count) {
     return count > this.limitToShowCardsCount();
-  },
-
-  hasWipLimit() {
-    return null;
-      //return this.currentData().wipLimit ? true : false;
   },
 
   events() {
@@ -42,6 +41,10 @@ BlazeComponent.extendComponent({
 }).register('listHeader');
 
 Template.listActionPopup.helpers({
+  hasWipLimit() {
+    return this.wipLimit > 0 ? true : false;
+  },
+
   isWatching() {
     return this.findWatcher(Meteor.userId());
   },
@@ -68,6 +71,13 @@ Template.listActionPopup.events({
   },
   'click .js-set-wip-limit': Popup.open('setWipLimit'),
   'click .js-more': Popup.open('listMore'),
+});
+
+Template.setWipLimitPopup.events({
+  'click .wip-limit-apply'(_, instance) {
+    const limit = instance.$('.wip-limit-value').val();
+    this.setWipLimit(limit);
+  },
 });
 
 Template.listMorePopup.events({
