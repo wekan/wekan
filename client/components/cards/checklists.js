@@ -113,11 +113,7 @@ BlazeComponent.extendComponent({
       this.toggleDeleteDialog.set(false);
     }
   },
-
-  deleteDialog() {
-    return this.toggleDeleteDialog.get();
-  },
-
+  
   deleteItem() {
     const checklist = this.currentData().checklist;
     const item = this.currentData().item;

@@ -1,6 +1,6 @@
 template(name="checklists")
   h2 {{_ 'checklists'}}
-  if deleteDialog
+  if toggleDeleteDialog.get
     .board-overlay#card-details-overlay
     +checklistDeleteDialog(checklist = checklistToDelete)
 
@@ -38,7 +38,7 @@ template(name="checklistDeleteDialog")
     p
       i(class="fa fa-exclamation-triangle" aria-hidden="true")
     p
-      | Are you sure you want to delete
+      | {{_ 'confirm-checklist-delete-dialog'}}
       span {{checklist.title}}
       | ?
     .js-checklist-delete-buttons
