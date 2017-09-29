@@ -31,7 +31,7 @@ Meteor.methods({
 
     [   'cardId', 'listId', 'oldListId',
         'boardId', 'comment', 'user',
-        'card', 'commentId'
+        'card', 'commentId',
     ].forEach((key) => {
       if (params[key]) value[key] = params[key];
     });
