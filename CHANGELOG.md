@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+* [Fix errors when importing from Trello](https://github.com/wekan/wekan/pull/1259).
+
+Thanks to GitHub user GhassenRjab for contributions.
+
 # v0.43 2017-09-25 Wekan release
 
 This release fixes the following bugs:
