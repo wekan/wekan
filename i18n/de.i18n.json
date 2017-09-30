@@ -146,6 +146,7 @@
     "comment-only": "Nur kommentierbar",
     "comment-only-desc": "Kann Karten nur Kommentieren",
     "computer": "Computer",
+    "confirm-checklist-delete-dialog": "Are you sure you want to delete checklist",
     "copy-card-link-to-clipboard": "Kopiere die Karte in die Zwischenablage",
     "copyCardPopup-title": "Karte kopieren",
     "create": "Erstellen",

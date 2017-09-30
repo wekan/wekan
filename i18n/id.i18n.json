@@ -146,6 +146,7 @@
     "comment-only": "Hanya komentar",
     "comment-only-desc": "Bisa komen hanya di kartu",
     "computer": "Komputer",
+    "confirm-checklist-delete-dialog": "Are you sure you want to delete checklist",
     "copy-card-link-to-clipboard": "Copy card link to clipboard",
     "copyCardPopup-title": "Copy Card",
     "create": "Buat",

@@ -146,6 +146,7 @@
     "comment-only": "Solo commenti",
     "comment-only-desc": "Puoi commentare solo le schede.",
     "computer": "Computer",
+    "confirm-checklist-delete-dialog": "Are you sure you want to delete checklist",
     "copy-card-link-to-clipboard": "Copia link della scheda sulla clipboard",
     "copyCardPopup-title": "Copy Card",
     "create": "Crea",

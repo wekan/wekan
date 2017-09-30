@@ -146,6 +146,7 @@
     "comment-only": "Sólo comentario",
     "comment-only-desc": "Solo se puede comentar en tarjetas.",
     "computer": "Ordenador",
+    "confirm-checklist-delete-dialog": "Are you sure you want to delete checklist",
     "copy-card-link-to-clipboard": "Copiar enlace a la tarjeta al portapapeles",
     "copyCardPopup-title": "Copy Card",
     "create": "Crear",

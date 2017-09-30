@@ -146,6 +146,7 @@
     "comment-only": "التعليق فقط",
     "comment-only-desc": "يمكن التعليق على بطاقات فقط.",
     "computer": "حاسوب",
+    "confirm-checklist-delete-dialog": "Are you sure you want to delete checklist",
     "copy-card-link-to-clipboard": "Copy card link to clipboard",
     "copyCardPopup-title": "Copy Card",
     "create": "إنشاء",

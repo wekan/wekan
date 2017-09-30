@@ -146,6 +146,7 @@
     "comment-only": "Sadece yorum",
     "comment-only-desc": "Sadece kartlara yorum yazabilir.",
     "computer": "Bilgisayar",
+    "confirm-checklist-delete-dialog": "Are you sure you want to delete checklist",
     "copy-card-link-to-clipboard": "Kartın linkini kopyala",
     "copyCardPopup-title": "Kartı Kopyala",
     "create": "Oluştur",

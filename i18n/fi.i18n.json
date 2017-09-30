@@ -146,6 +146,7 @@
     "comment-only": "Vain kommentointi",
     "comment-only-desc": "Voi vain kommentoida kortteja",
     "computer": "Tietokone",
+    "confirm-checklist-delete-dialog": "Haluatko varmasti poistaa tarkistuslistan",
     "copy-card-link-to-clipboard": "Kopioi kortin linkki leikepöydälle",
     "copyCardPopup-title": "Kopioi kortti",
     "create": "Luo",
