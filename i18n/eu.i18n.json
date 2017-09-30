@@ -146,6 +146,7 @@
     "comment-only": "Iruzkinak besterik ez",
     "comment-only-desc": "Iruzkinak txarteletan soilik egin ditzake",
     "computer": "Ordenagailua",
+    "confirm-checklist-delete-dialog": "Are you sure you want to delete checklist",
     "copy-card-link-to-clipboard": "Kopiatu txartela arbelera",
     "copyCardPopup-title": "Copy Card",
     "create": "Sortu",

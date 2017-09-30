@@ -146,6 +146,7 @@
     "comment-only": "Только комментирование",
     "comment-only-desc": "Может комментировать только карточки.",
     "computer": "Загрузить с компьютера",
+    "confirm-checklist-delete-dialog": "Are you sure you want to delete checklist",
     "copy-card-link-to-clipboard": "Copy card link to clipboard",
     "copyCardPopup-title": "Copy Card",
     "create": "Создать",
