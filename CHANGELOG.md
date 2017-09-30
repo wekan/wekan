@@ -1,10 +1,14 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+* [Confirm popup appears before Checklist Delete](https://github.com/wekan/wekan/pull/1257).
+
+and fixes the following bugs:
 
 * [Fix errors when importing from Trello](https://github.com/wekan/wekan/pull/1259).
 
-Thanks to GitHub user GhassenRjab for contributions.
+Thanks to GitHub users amadilsons and GhassenRjab for contributions.
 
 # v0.43 2017-09-25 Wekan release
 
