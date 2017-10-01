@@ -1,4 +1,4 @@
-# Upcoming Wekan relelase
+# v0.45 2017-10-01 Wekan relelase
 
 This release adds the following new features:
 
