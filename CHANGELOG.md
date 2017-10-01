@@ -2,7 +2,8 @@
 
 This release adds the following new features:
 
-* [Slider for Comments only in activity feed](https://github.com/wekan/wekan/issues/1247).
+* [Slider for Comments only in activity feed](https://github.com/wekan/wekan/issues/1247);
+* [Site Wide Announcement](https://github.com/wekan/wekan/pull/1260).
 
 and fixes the following bugs:
 
