@@ -31,7 +31,7 @@ template(name="boardActivities")
           .activity-checklist(href="{{ card.absoluteUrl }}")
             +viewer
               = checklist.title
-              
+
         if($eq activityType 'addChecklistItem')
           | {{{_ 'activity-checklist-item-added' checklist.title cardLink}}}.
           .activity-checklist(href="{{ card.absoluteUrl }}")
@@ -90,7 +90,7 @@ template(name="boardActivities")
 
 template(name="cardActivities")
   each currentCard.activities
-    .activity
+    .activity.js-card-activity
       +userAvatar(userId=user._id)
       p.activity-desc
         +memberName(user=user)
