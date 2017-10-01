@@ -12,14 +12,14 @@ Template.header.helpers({
   },
 
   hasAnnouncement() {
-    const notice =  Notices.findOne();
-    return notice && notice.enabled;
+    const announcements =  Announcements.findOne();
+    return announcements && announcements.enabled;
   },
 
   announcement() {
     $('.announcement').show();
-    const notice =  Notices.findOne();
-    return notice && notice.body;
+    const announcements =  Announcements.findOne();
+    return announcements && announcements.body;
   },
 });
 

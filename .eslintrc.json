@@ -131,6 +131,6 @@
     "Integrations": true,
     "HTTP": true,
     "AccountSettings": true,
-    "Notices": true
+    "Announcements": true
   }
 }

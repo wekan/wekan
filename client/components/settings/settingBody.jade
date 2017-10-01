@@ -15,7 +15,7 @@ template(name="setting")
             li
               a.js-setting-menu(data-id="account-setting") {{_ 'accounts'}}
             li
-              a.js-setting-menu(data-id="notice-setting") {{_ 'admin-notice'}}
+              a.js-setting-menu(data-id="announcement-setting") {{_ 'admin-announcement'}}
         .main-body
           if loading.get
             +spinner
@@ -25,8 +25,8 @@ template(name="setting")
             +email
           else if accountSetting.get
             +accountSettings
-          else if noticeSetting.get
-            +administratorNoticeSettings
+          else if announcementSetting.get
+            +announcementSettings
 
 template(name="general")
   ul#registration-setting.setting-detail
@@ -101,18 +101,18 @@ template(name='accountSettings')
     li
       button.js-accounts-save.primary {{_ 'save'}}
 
-template(name='administratorNoticeSettings')
-  ul#notice-setting.setting-detail
+template(name='announcementSettings')
+  ul#announcement-setting.setting-detail
     li
       a.flex.js-toggle-activemessage
         .materialCheckBox(class="{{#if currentSetting.enabled}}is-checked{{/if}}")
 
-        span {{_ 'admin-notice-active'}}
+        span {{_ 'admin-announcement-active'}}
     li
-      .admin-notice(class="{{#if currentSetting.enabled}}{{else}}hide{{/if}}")
+      .admin-announcement(class="{{#if currentSetting.enabled}}{{else}}hide{{/if}}")
         ul
           li
-            .title {{_ 'admin-notice-title'}}
-            textarea#admin-notice.form-control= currentSetting.body
+            .title {{_ 'admin-announcement-title'}}
+            textarea#admin-announcement.form-control= currentSetting.body
           li
-            button.js-notice-save.primary {{_ 'save'}}
+            button.js-announcement-save.primary {{_ 'save'}}

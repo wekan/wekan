@@ -1,6 +1,6 @@
-Notices = new Mongo.Collection('notices');
+Announcements = new Mongo.Collection('announcements');
 
-Notices.attachSchema(new SimpleSchema({
+Announcements.attachSchema(new SimpleSchema({
   enabled: {
     type: Boolean,
     defaultValue: false,
@@ -19,7 +19,7 @@ Notices.attachSchema(new SimpleSchema({
   },
 }));
 
-Notices.allow({
+Announcements.allow({
   update(userId) {
     const user = Users.findOne(userId);
     return user && user.isAdmin;
@@ -28,9 +28,9 @@ Notices.allow({
 
 if (Meteor.isServer) {
   Meteor.startup(() => {
-    const notices = Notices.findOne({});
-    if(!notices){
-      Notices.insert({enabled: false, sort: 0});
+    const announcements = Announcements.findOne({});
+    if(!announcements){
+      Announcements.insert({enabled: false, sort: 0});
     }
   });
 }

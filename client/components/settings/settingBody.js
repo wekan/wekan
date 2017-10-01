@@ -1,7 +1,7 @@
 Meteor.subscribe('setting');
 Meteor.subscribe('mailServer');
 Meteor.subscribe('accountSettings');
-Meteor.subscribe('notices');
+Meteor.subscribe('announcements');
 
 BlazeComponent.extendComponent({
   onCreated() {
@@ -10,7 +10,7 @@ BlazeComponent.extendComponent({
     this.generalSetting = new ReactiveVar(true);
     this.emailSetting = new ReactiveVar(false);
     this.accountSetting = new ReactiveVar(false);
-    this.noticeSetting = new ReactiveVar(false);
+    this.announcementSetting = new ReactiveVar(false);
   },
 
   setError(error) {
@@ -67,7 +67,7 @@ BlazeComponent.extendComponent({
       this.generalSetting.set('registration-setting' === targetID);
       this.emailSetting.set('email-setting' === targetID);
       this.accountSetting.set('account-setting' === targetID);
-      this.noticeSetting.set('notice-setting' === targetID);
+      this.announcementSetting.set('announcement-setting' === targetID);
     }
   },
 
@@ -166,12 +166,12 @@ BlazeComponent.extendComponent({
   },
 
   currentSetting(){
-    return Notices.findOne();
+    return Announcements.findOne();
   },
 
   saveMessage() {
-    const message = $('#admin-notice').val().trim();
-    Notices.update(Notices.findOne()._id, {
+    const message = $('#admin-announcement').val().trim();
+    Announcements.update(Announcements.findOne()._id, {
       $set: { 'body': message },
     });
   },
@@ -179,21 +179,21 @@ BlazeComponent.extendComponent({
   toggleActive(){
     this.setLoading(true);
     const isActive = this.currentSetting().enabled;
-    Notices.update(Notices.findOne()._id, {
+    Announcements.update(Announcements.findOne()._id, {
       $set:{ 'enabled': !isActive},
     });
     this.setLoading(false);
     if(isActive){
-      $('.admin-notice').slideUp();
+      $('.admin-announcement').slideUp();
     }else{
-      $('.admin-notice').slideDown();
+      $('.admin-announcement').slideDown();
     }
   },
 
   events() {
     return [{
       'click a.js-toggle-activemessage': this.toggleActive,
-      'click button.js-notice-save': this.saveMessage,
+      'click button.js-announcement-save': this.saveMessage,
     }];
   },
-}).register('administratorNoticeSettings');
+}).register('announcementSettings');
