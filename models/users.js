@@ -594,7 +594,7 @@ if (Meteor.isServer) {
     const id = Accounts.createUser({
       username: req.body.username,
       email: req.body.email,
-      password: 'default',
+      password: req.body.password,
       from: 'admin',
     });
 
