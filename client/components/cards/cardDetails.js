@@ -28,6 +28,11 @@ BlazeComponent.extendComponent({
     return card.findWatcher(Meteor.userId());
   },
 
+  hiddenSystemMessages() {
+    console.log('doo:', Meteor.user().hasHiddenSystemMessages());
+    return Meteor.user().hasHiddenSystemMessages();
+  },
+
   canModifyCard() {
     return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
   },
@@ -98,6 +103,9 @@ BlazeComponent.extendComponent({
       'mouseenter .js-card-details' () {
         this.parentComponent().showOverlay.set(true);
         this.parentComponent().mouseHasEnterCardDetails = true;
+      },
+      'click #toggleButton'() {
+        $('div.activity.js-card-activity:not(:has(.activity-comment))').toggle();
       },
     }];
   },

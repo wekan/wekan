@@ -85,7 +85,15 @@ template(name="cardDetails")
       +attachmentsGalery
 
     hr
-    h2 {{ _ 'activity'}}
+    .activity-title
+      h2 {{ _ 'activity'}}
+      .material-toggle-switch
+        span.toggle-switch-title {{_ 'hide-system-messages'}}
+        if hiddenSystemMessages
+          input.toggle-switch(type="checkbox" id="toggleButton" checked="checked" disabled)
+        else
+          input.toggle-switch(type="checkbox" id="toggleButton")
+        label.toggle-label(for="toggleButton")
     if currentUser.isBoardMember
       +commentForm
     if isLoaded.get

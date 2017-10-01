@@ -1,6 +1,10 @@
 # Upcoming Wekan relelase
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+* [Slider for Comments only in activity feed](https://github.com/wekan/wekan/issues/1247).
+
+and fixes the following bugs:
 
 * [Data inconsistency when copying card](https://github.com/wekan/wekan/pull/1246). Note: There is no feature for copying card attachment yet.
 
