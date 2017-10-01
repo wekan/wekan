@@ -6,7 +6,8 @@ This release adds the following new features:
 
 and fixes the following bugs:
 
-* [Data inconsistency when copying card](https://github.com/wekan/wekan/pull/1246). Note: There is no feature for copying card attachment yet.
+* [Data inconsistency when copying card](https://github.com/wekan/wekan/pull/1246). Note: There is no feature for copying card attachment yet;
+* [Hide create label from normal users, because only board admin can create labels](https://github.com/wekan/wekan/pull/1261).
 
 Thanks to Github user nztqa for contributions.
 
