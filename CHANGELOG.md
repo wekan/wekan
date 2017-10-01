@@ -1,3 +1,11 @@
+# Upcoming Wekan relelase
+
+This release fixes the following bugs:
+
+* [Data inconsistency when copying card](https://github.com/wekan/wekan/pull/1246). Note: There is no feature for copying card attachment yet.
+
+Thanks to Github user nztqa for contributions.
+
 # v0.44 2017-09-30 Wekan release
 
 This release adds the following new features:
