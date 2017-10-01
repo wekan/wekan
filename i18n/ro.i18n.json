@@ -146,6 +146,7 @@
     "comment-only": "Comment only",
     "comment-only-desc": "Can comment on cards only.",
     "computer": "Computer",
+    "confirm-checklist-delete-dialog": "Are you sure you want to delete checklist",
     "copy-card-link-to-clipboard": "Copy card link to clipboard",
     "copyCardPopup-title": "Copy Card",
     "create": "Create",

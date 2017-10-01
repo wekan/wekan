@@ -146,6 +146,7 @@
     "comment-only": "Només comentaris",
     "comment-only-desc": "Només pots fer comentaris a les fitxes",
     "computer": "Ordinador",
+    "confirm-checklist-delete-dialog": "Are you sure you want to delete checklist",
     "copy-card-link-to-clipboard": "Copia l'enllaç de la ftixa al porta-retalls",
     "copyCardPopup-title": "Copia la fitxa",
     "create": "Crea",

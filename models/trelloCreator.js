@@ -113,7 +113,6 @@ export class TrelloCreator {
     check(trelloLabels, [Match.ObjectIncluding({
       // XXX refine control by validating 'color' against a list of allowed
       // values (is it worth the maintenance?)
-      color: String,
       name: String,
     })]);
   }
@@ -184,7 +183,7 @@ export class TrelloCreator {
     trelloBoard.labels.forEach((label) => {
       const labelToCreate = {
         _id: Random.id(6),
-        color: label.color,
+        color: label.color ? label.color : 'black',
         name: label.name,
       };
       // We need to remember them by Trello ID, as this is the only ref we have
@@ -398,27 +397,29 @@ export class TrelloCreator {
 
   createChecklists(trelloChecklists) {
     trelloChecklists.forEach((checklist) => {
-      // Create the checklist
-      const checklistToCreate = {
-        cardId: this.cards[checklist.idCard],
-        title: checklist.name,
-        createdAt: this._now(),
-        sort: checklist.pos,
-      };
-      const checklistId = Checklists.direct.insert(checklistToCreate);
-      // keep track of Trello id => WeKan id
-      this.checklists[checklist.id] = checklistId;
-      // Now add the items to the checklist
-      const itemsToCreate = [];
-      checklist.checkItems.forEach((item) => {
-        itemsToCreate.push({
-          _id: checklistId + itemsToCreate.length,
-          title: item.name,
-          isFinished: item.state === 'complete',
-          sort: item.pos,
+      if (this.cards[checklist.idCard]) {
+        // Create the checklist
+        const checklistToCreate = {
+          cardId: this.cards[checklist.idCard],
+          title: checklist.name,
+          createdAt: this._now(),
+          sort: checklist.pos,
+        };
+        const checklistId = Checklists.direct.insert(checklistToCreate);
+        // keep track of Trello id => WeKan id
+        this.checklists[checklist.id] = checklistId;
+        // Now add the items to the checklist
+        const itemsToCreate = [];
+        checklist.checkItems.forEach((item) => {
+          itemsToCreate.push({
+            _id: checklistId + itemsToCreate.length,
+            title: item.name,
+            isFinished: item.state === 'complete',
+            sort: item.pos,
+          });
         });
-      });
-      Checklists.direct.update(checklistId, {$set: {items: itemsToCreate}});
+        Checklists.direct.update(checklistId, {$set: {items: itemsToCreate}});
+      }
     });
   }
 

@@ -146,6 +146,7 @@
     "comment-only": "仅能评论",
     "comment-only-desc": "只能在卡片上评论。",
     "computer": "从本机上传",
+    "confirm-checklist-delete-dialog": "Are you sure you want to delete checklist",
     "copy-card-link-to-clipboard": "复制卡片链接到剪贴板",
     "copyCardPopup-title": "复制卡片",
     "create": "创建",
