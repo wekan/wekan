@@ -1,3 +1,17 @@
+# v0.45 2017-10-01 Wekan release
+
+This release adds the following new features:
+
+* [Slider for Comments only in activity feed](https://github.com/wekan/wekan/issues/1247);
+* [Site Wide Announcement](https://github.com/wekan/wekan/pull/1260).
+
+and fixes the following bugs:
+
+* [Data inconsistency when copying card](https://github.com/wekan/wekan/pull/1246). Note: There is no feature for copying card attachment yet;
+* [Hide create label from normal users, because only board admin can create labels](https://github.com/wekan/wekan/pull/1261).
+
+Thanks to Github user nztqa for contributions.
+
 # v0.44 2017-09-30 Wekan release
 
 This release adds the following new features:
