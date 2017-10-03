@@ -6,6 +6,8 @@ This release adds the following new features:
 
 and fixes the following bugs:
 
+* SECURITY FIX: [Meteor allow/deny](https://blog.meteor.com/meteor-allow-deny-vulnerability-disclosure-baf398f47b25) fixed
+  [here](https://github.com/wekan/wekan/commit/c3804dc0fad0817285460d86dc1b3bdc96361f49);
 * [Fix: Slider for Comments only does not work correctly with over 21 activities](https://github.com/wekan/wekan/pull/1247).
 
 Thanks to Github users andresmanelli and nztqa for their contributions.
