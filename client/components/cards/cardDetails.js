@@ -29,7 +29,6 @@ BlazeComponent.extendComponent({
   },
 
   hiddenSystemMessages() {
-    console.log('doo:', Meteor.user().hasHiddenSystemMessages());
     return Meteor.user().hasHiddenSystemMessages();
   },
 
