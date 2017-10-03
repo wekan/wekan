@@ -1,10 +1,14 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+* [Webhook parameters and response order](https://github.com/wekan/wekan/pull/1263).
+
+and fixes the following bugs:
 
 * [Fix: Slider for Comments only does not work correctly with over 21 activities](https://github.com/wekan/wekan/pull/1247).
 
-Thanks to Github user nztqa for contributions.
+Thanks to Github users andresmanelli and nztqa for their contributions.
 
 # v0.45 2017-10-01 Wekan release
 

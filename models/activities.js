@@ -110,6 +110,7 @@ if (Meteor.isServer) {
     if (activity.commentId) {
       const comment = activity.comment();
       params.comment = comment.text;
+      params.commentId = comment._id;
     }
     if (activity.attachmentId) {
       const attachment = activity.attachment();
