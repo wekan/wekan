@@ -104,7 +104,7 @@ BlazeComponent.extendComponent({
         this.parentComponent().mouseHasEnterCardDetails = true;
       },
       'click #toggleButton'() {
-        $('div.activity.js-card-activity:not(:has(.activity-comment))').toggle();
+        Meteor.call('toggleSystemMessages');
       },
     }];
   },
