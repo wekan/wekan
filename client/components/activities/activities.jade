@@ -90,7 +90,7 @@ template(name="boardActivities")
 
 template(name="cardActivities")
   each currentCard.activities
-    .activity.js-card-activity
+    .activity
       +userAvatar(userId=user._id)
       p.activity-desc
         +memberName(user=user)

@@ -90,7 +90,7 @@ template(name="cardDetails")
       .material-toggle-switch
         span.toggle-switch-title {{_ 'hide-system-messages'}}
         if hiddenSystemMessages
-          input.toggle-switch(type="checkbox" id="toggleButton" checked="checked" disabled)
+          input.toggle-switch(type="checkbox" id="toggleButton" checked="checked")
         else
           input.toggle-switch(type="checkbox" id="toggleButton")
         label.toggle-label(for="toggleButton")
