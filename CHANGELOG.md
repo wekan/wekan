@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+* [Use theme color for Slider for Comments only](https://github.com/wekan/wekan/pull/1275).
+
+Thanks to Github user nztqa for contributions.
+
 # v0.46 2017-10-03 Wekan release
 
 This release adds the following new features:
