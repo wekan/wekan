@@ -51,6 +51,17 @@ setBoardColor(color)
     &:not(.is-checked) + .minicard:hover:not(.minicard-composer)
       background: lighten(color, 97%)
 
+  .toggle-label
+
+    &:after
+      background-color: darken(color, 20%)
+
+  .toggle-switch:checked ~ .toggle-label
+    background-color: lighten(color, 20%)
+
+    &:after
+      background-color: darken(color, 20%)
+
   @media screen and (max-width: 800px)
     &.pop-over .header
       background: color
