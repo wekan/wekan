@@ -6,9 +6,9 @@ template(name="listHeader")
       h2.list-header-name(
         class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
         = title
-        if hasWipLimit
+        if isWipLimitEnabled
           span
-            | (#{wipLimit})
+            | (#{wipLimit.value})
         if showCardsCountForList cards.count
           = cards.count
           span.lowercase
@@ -37,7 +37,7 @@ template(name="listActionPopup")
         li: a.js-select-cards {{_ 'list-select-cards'}}
         hr
     ul.pop-over-list
-      li: a.js-set-wip-limit {{#if hasWipLimit}}{{_ 'edit-wip-limit'}}{{else}}{{_ 'setWipLimitPopup-title'}}{{/if}}
+      li: a.js-set-wip-limit {{#if isWipLimitEnabled }}EDIT{{else}}{{_ 'setWipLimitPopup-title'}}{{/if}}
     hr
     ul.pop-over-list
       li: a.js-close-list {{_ 'archive-list'}}
@@ -74,6 +74,20 @@ template(name="listDeletePopup")
 template(name="setWipLimitPopup")
   #js-wip-limit-edit
     lable {{_ 'set-wip-limit-value'}}
-    p
-      input.wip-limit-value(type="number" value="#{wipLimit}" min="0" max="99" onkeydown="return false")
-      input.wip-limit-apply(type="submit" value="{{_ 'apply'}}")
+    {{one}}
+    ul.pop-over-list
+      li: a.js-enable-wip-limit Enable WIP Limit 
+        if isWipLimitEnabled  
+          i.fa.fa-check
+          
+    if isWipLimitEnabled
+      p
+        input.wip-limit-value(type="number" value="#{wipLimit.value}" min="1" max="99" onkeydown="return false")
+        input.wip-limit-apply(type="submit" value="{{_ 'apply'}}")
+        input.wip-limit-error
+        
+template(name="wipLimitErrorPopup")
+  .wip-limit-invalid
+    p The number of tasks in this list is higher than the WIP limit you've defined.
+    p Please move some tasks out of this list, or set a higher WIP limit.
+    button.full.js-back-view(type="submit") {{_ 'cancel'}}

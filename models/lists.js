@@ -43,7 +43,20 @@ Lists.attachSchema(new SimpleSchema({
     },
   },
   wipLimit: {
+    type: Object,
+    optional: true,
+  },
+  "wipLimit.value": {
     type: SimpleSchema.Integer,
+    optional: true,
+  },
+  "wipLimit.enabled":{
+    type: Boolean,
+    autoValue() {
+      if(this.isInsert){
+        return false;
+      }
+    },
     optional: true,
   },
 }));
@@ -91,8 +104,21 @@ Lists.mutations({
     return { $set: { archived: false } };
   },
 
+  toggleWipLimit(toggle) {
+    console.log("toggle " + this.wipLimit.enabled)
+    return { $set: { "wipLimit.enabled": !this.wipLimit.enabled } };
+  },
+
+  setWipLimitEnabled() {
+    return { $set: { "wipLimit.enabled": true } };
+  },
+
+  setWipLimitDisabled() {
+    return { $set: { "wipLimit.enabled": false } };
+  },
+
   setWipLimit(limit) {
-    return { $set: { wipLimit: limit } };
+    return { $set: { "wipLimit.value": limit } };
   },
 });
 

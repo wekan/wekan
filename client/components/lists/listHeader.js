@@ -8,8 +8,9 @@ BlazeComponent.extendComponent({
     }
   },
 
-  hasWipLimit() {
-    return this.currentData().wipLimit > 0 ? true : false;
+  isWipLimitEnabled() {
+    const limit = this.currentData().wipLimit
+    return limit.enabled && limit.value > 0;
   },
 
   isWatching() {
@@ -41,10 +42,9 @@ BlazeComponent.extendComponent({
 }).register('listHeader');
 
 Template.listActionPopup.helpers({
-  hasWipLimit() {
-    return this.wipLimit > 0 ? true : false;
+  isWipLimitEnabled() {
+    return Lists.findOne(this.data()._id, { 'wipLimit.enabled': 1 }).wipLimit.enabled;
   },
-
   isWatching() {
     return this.findWatcher(Meteor.userId());
   },
@@ -73,12 +73,77 @@ Template.listActionPopup.events({
   'click .js-more': Popup.open('listMore'),
 });
 
-Template.setWipLimitPopup.events({
-  'click .wip-limit-apply'(_, instance) {
-    const limit = instance.$('.wip-limit-value').val();
-    this.setWipLimit(limit);
+Template.setWipLimitPopup.helpers({
+  one() {
+    //console.log(this)
+    //console.log(Template.instance())
+  }
+});
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.wipEnabled = new ReactiveVar(Template.currentData().wipLimit.enabled);
+  },
+
+  toggleWipEnabled() {
+    const list = Lists.findOne(this.data()._id);
+    list.wipLimit.enabled ? list.setWipLimitDisabled() : list.setWipLimitEnabled()
+  },
+
+  isWipLimitEnabled() {
+    return Lists.findOne(this.data()._id, { 'wipLimit.enabled': 1 }).wipLimit.enabled;
+  },
+  events() {
+    return [{
+      'click .js-enable-wip-limit'(_, instance) {
+        //By default wipLimit.enabled is false or undefined. First click will always be to enable wip limiting
+        this.wipEnabled.set(!this.wipEnabled.get());
+        //console.log(Template.parentData(2))
+        //Template.parentData(2).data.toggleWipLimit(!Template.currentData().wipLimit.enabled); //If wipLimit.enabled is not yet definied, the negation of "undefined" is "true"
+        this.toggleWipEnabled()
+      },
+      'click .wip-limit-apply'(_, instance) {
+        const list = Template.currentData();
+        const limit = Template.instance().$('.wip-limit-value').val();
+
+        if(limit < list.allCards().count()){
+          Template.instance().$('.wip-limit-error').click();
+        } else {
+          list.setWipLimit(limit);
+        }
+      },
+      'click .wip-limit-error': Popup.open('wipLimitError'),
+    }];
+  },
+}).register('setWipLimitPopup');
+
+
+/*
+Template.setWipLimitPopup.helpers({
+  isWipLimitEnabled(instance) {
+    console.log(this);
+    console.log(Template.currentData());
+    console.log(instance);
+    return Template.currentData().wipLimit.enabled;
   },
 });
+
+Template.setWipLimitPopup.events({
+  'click .js-enable-wip-limit'(_, instance) {
+    //By default wipLimit.enabled is false or undefined. First click will always be to enable wip limiting
+    instance.wipEnabled.set(!instance.wipEnabled.get())
+  //  list.toggleWipLimit(!list.wipLimit.enabled); //If wipLimit.enabled is not yet definied, the negation of "undefined" is "true"
+  },
+  'click .wip-limit-apply'(_, instance) {
+    const limit = instance.$('.wip-limit-value').val();
+    if(limit < this.allCards().count()){
+      instance.$('.wip-limit-error').click(); //open popup with invisible button click
+      return;
+    }
+    this.setWipLimit(limit);
+  },
+  'click .wip-limit-error': Popup.open('wipLimitError'),
+});*/
 
 Template.listMorePopup.events({
   'click .js-delete': Popup.afterConfirm('listDelete', function () {
