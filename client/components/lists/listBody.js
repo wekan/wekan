@@ -96,6 +96,15 @@ BlazeComponent.extendComponent({
     MultiSelection.toggle(this.currentData()._id);
   },
 
+  canSeeAddCard() {
+    return !this.reachedWipLimit() && Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
+  },
+
+  reachedWipLimit() {
+    const list = Template.currentData();
+    return list.wipLimit.enabled && list.wipLimit.value == list.cards().count();
+  },
+
   events() {
     return [{
       'click .js-minicard': this.clickOnMiniCard,
@@ -239,10 +248,3 @@ BlazeComponent.extendComponent({
     });
   },
 }).register('addCardForm');
-
-
-Template.listBody.helpers({
-  canSeeAddCard() {
-    return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
-  },
-});

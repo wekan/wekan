@@ -22,7 +22,7 @@ BlazeComponent.extendComponent({
     const itemsSelector = '.js-minicard:not(.placeholder, .js-card-composer)';
     const $cards = this.$('.js-minicards');
     $cards.sortable({
-      connectWith: '.js-minicards',
+      connectWith: '.js-minicards:not(.js-list-full)',
       tolerance: 'pointer',
       appendTo: 'body',
       helper(evt, item) {
@@ -81,7 +81,7 @@ BlazeComponent.extendComponent({
     function userIsMember() {
       return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
     }
-
+  
     // Disable drag-dropping if the current user is not a board member or is comment only
     this.autorun(() => {
       $cards.sortable('option', 'disabled', !userIsMember());

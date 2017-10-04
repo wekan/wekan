@@ -32,7 +32,9 @@ BlazeComponent.extendComponent({
     return [{
       'click .js-restore-card'() {
         const card = this.currentData();
-        card.restore();
+        if(card.canBeRestored()){
+          card.restore();
+        }
       },
       'click .js-delete-card': Popup.afterConfirm('cardDelete', function() {
         const cardId = this._id;

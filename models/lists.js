@@ -105,16 +105,7 @@ Lists.mutations({
   },
 
   toggleWipLimit(toggle) {
-    console.log("toggle " + this.wipLimit.enabled)
-    return { $set: { "wipLimit.enabled": !this.wipLimit.enabled } };
-  },
-
-  setWipLimitEnabled() {
-    return { $set: { "wipLimit.enabled": true } };
-  },
-
-  setWipLimitDisabled() {
-    return { $set: { "wipLimit.enabled": false } };
+    return { $set: { "wipLimit.enabled": toggle } };
   },
 
   setWipLimit(limit) {

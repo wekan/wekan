@@ -179,6 +179,14 @@ Cards.helpers({
       cardId: this._id,
     });
   },
+
+  canBeRestored() {
+    const list = Lists.findOne({_id: this.listId});
+    if(list.wipLimit.enabled && list.wipLimit.value == list.cards().count()){
+      return false;
+    }
+    return true;
+  },
 });
 
 Cards.mutations({

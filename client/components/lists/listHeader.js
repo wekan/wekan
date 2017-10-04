@@ -43,8 +43,14 @@ BlazeComponent.extendComponent({
 
 Template.listActionPopup.helpers({
   isWipLimitEnabled() {
-    return Lists.findOne(this.data()._id, { 'wipLimit.enabled': 1 }).wipLimit.enabled;
+    const prevState = Template.parentData(4).stack[0].dataContext.wipEnableState;
+    // If user was already inside setWipLimitPopup, return previous state. Popup stack not reacting to database mutations
+    if(typeof prevState !== "undefined") {
+      return prevState;
+    }
+    return Template.currentData().wipLimit.enabled;
   },
+
   isWatching() {
     return this.findWatcher(Meteor.userId());
   },
@@ -73,77 +79,54 @@ Template.listActionPopup.events({
   'click .js-more': Popup.open('listMore'),
 });
 
-Template.setWipLimitPopup.helpers({
-  one() {
-    //console.log(this)
-    //console.log(Template.instance())
-  }
-});
-
 BlazeComponent.extendComponent({
   onCreated() {
-    this.wipEnabled = new ReactiveVar(Template.currentData().wipLimit.enabled);
+    const prevState = Template.parentData(4).stack[0].dataContext.wipEnableState;
+    // Check if the user as already opened this popup before and retrieve previous state
+    // This check is necessary due to the fact that database mutations inside popups are not reactive inside the popup stack.
+    //The use of ReactiveVar is due to the same reason.
+    if(typeof prevState !== "undefined") {
+      this.wipEnabled = new ReactiveVar(prevState)
+    } else {
+      this.wipEnabled = new ReactiveVar(Template.currentData().wipLimit.enabled);
+    }
   },
 
-  toggleWipEnabled() {
-    const list = Lists.findOne(this.data()._id);
-    list.wipLimit.enabled ? list.setWipLimitDisabled() : list.setWipLimitEnabled()
+  onDestroyed() {
+    // Save current wipEnabled state in the first element of the popup stack to maintain UI coherence if user returns to popup
+    Template.parentData(4).stack[0].dataContext.wipEnableState = this.wipEnabled.get();
   },
 
-  isWipLimitEnabled() {
-    return Lists.findOne(this.data()._id, { 'wipLimit.enabled': 1 }).wipLimit.enabled;
+  applyWipLimit() {
+    const list = Template.currentData();
+    const limit = Template.instance().$('.wip-limit-value').val();
+
+    if(limit < list.cards().count()){
+      Template.instance().$('.wip-limit-error').click();
+    } else {
+      list.setWipLimit(limit);
+    }
   },
+
+  enableWipLimit() {
+    const list = Template.currentData();
+    // Prevent user from using previously stored wipLimit.value if it is less than the current number of cards in the list
+    if(!list.wipLimit.enabled && list.wipLimit.value < list.cards().count()){
+      list.setWipLimit(list.cards().count());
+    }
+
+    this.wipEnabled.set(!this.wipEnabled.get()); //If wipLimit.enabled is not yet definied, the negation of "undefined" is "true"
+    list.toggleWipLimit(this.wipEnabled.get());
+  },
+
   events() {
     return [{
-      'click .js-enable-wip-limit'(_, instance) {
-        //By default wipLimit.enabled is false or undefined. First click will always be to enable wip limiting
-        this.wipEnabled.set(!this.wipEnabled.get());
-        //console.log(Template.parentData(2))
-        //Template.parentData(2).data.toggleWipLimit(!Template.currentData().wipLimit.enabled); //If wipLimit.enabled is not yet definied, the negation of "undefined" is "true"
-        this.toggleWipEnabled()
-      },
-      'click .wip-limit-apply'(_, instance) {
-        const list = Template.currentData();
-        const limit = Template.instance().$('.wip-limit-value').val();
-
-        if(limit < list.allCards().count()){
-          Template.instance().$('.wip-limit-error').click();
-        } else {
-          list.setWipLimit(limit);
-        }
-      },
+      'click .js-enable-wip-limit': this.enableWipLimit,
+      'click .wip-limit-apply': this.applyWipLimit,
       'click .wip-limit-error': Popup.open('wipLimitError'),
     }];
   },
 }).register('setWipLimitPopup');
-
-
-/*
-Template.setWipLimitPopup.helpers({
-  isWipLimitEnabled(instance) {
-    console.log(this);
-    console.log(Template.currentData());
-    console.log(instance);
-    return Template.currentData().wipLimit.enabled;
-  },
-});
-
-Template.setWipLimitPopup.events({
-  'click .js-enable-wip-limit'(_, instance) {
-    //By default wipLimit.enabled is false or undefined. First click will always be to enable wip limiting
-    instance.wipEnabled.set(!instance.wipEnabled.get())
-  //  list.toggleWipLimit(!list.wipLimit.enabled); //If wipLimit.enabled is not yet definied, the negation of "undefined" is "true"
-  },
-  'click .wip-limit-apply'(_, instance) {
-    const limit = instance.$('.wip-limit-value').val();
-    if(limit < this.allCards().count()){
-      instance.$('.wip-limit-error').click(); //open popup with invisible button click
-      return;
-    }
-    this.setWipLimit(limit);
-  },
-  'click .wip-limit-error': Popup.open('wipLimitError'),
-});*/
 
 Template.listMorePopup.events({
   'click .js-delete': Popup.afterConfirm('listDelete', function () {
