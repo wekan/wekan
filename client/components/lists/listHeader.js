@@ -8,14 +8,17 @@ BlazeComponent.extendComponent({
     }
   },
 
-  isWipLimitEnabled() {
-    const limit = this.currentData().wipLimit
-    return limit.enabled && limit.value > 0;
-  },
-
   isWatching() {
     const list = this.currentData();
     return list.findWatcher(Meteor.userId());
+  },
+
+  isWipLimitEnabled() {
+    const wipLimit = this.currentData().getWipLimit();
+    if(!wipLimit) {
+      return 0;
+    }
+    return wipLimit.enabled && wipLimit.value > 0;
   },
 
   limitToShowCardsCount() {
@@ -43,12 +46,7 @@ BlazeComponent.extendComponent({
 
 Template.listActionPopup.helpers({
   isWipLimitEnabled() {
-    const prevState = Template.parentData(4).stack[0].dataContext.wipEnableState;
-    // If user was already inside setWipLimitPopup, return previous state. Popup stack not reacting to database mutations
-    if(typeof prevState !== "undefined") {
-      return prevState;
-    }
-    return Template.currentData().wipLimit.enabled;
+    return Template.currentData().getWipLimit('enabled');
   },
 
   isWatching() {
@@ -80,43 +78,33 @@ Template.listActionPopup.events({
 });
 
 BlazeComponent.extendComponent({
-  onCreated() {
-    const prevState = Template.parentData(4).stack[0].dataContext.wipEnableState;
-    // Check if the user as already opened this popup before and retrieve previous state
-    // This check is necessary due to the fact that database mutations inside popups are not reactive inside the popup stack.
-    //The use of ReactiveVar is due to the same reason.
-    if(typeof prevState !== "undefined") {
-      this.wipEnabled = new ReactiveVar(prevState)
-    } else {
-      this.wipEnabled = new ReactiveVar(Template.currentData().wipLimit.enabled);
-    }
-  },
-
-  onDestroyed() {
-    // Save current wipEnabled state in the first element of the popup stack to maintain UI coherence if user returns to popup
-    Template.parentData(4).stack[0].dataContext.wipEnableState = this.wipEnabled.get();
-  },
-
   applyWipLimit() {
     const list = Template.currentData();
-    const limit = Template.instance().$('.wip-limit-value').val();
+    const limit = parseInt(Template.instance().$('.wip-limit-value').val(), 10);
 
     if(limit < list.cards().count()){
       Template.instance().$('.wip-limit-error').click();
     } else {
-      list.setWipLimit(limit);
+      Meteor.call('applyWipLimit', list._id, limit);
+      Popup.back();
     }
   },
 
   enableWipLimit() {
     const list = Template.currentData();
     // Prevent user from using previously stored wipLimit.value if it is less than the current number of cards in the list
-    if(!list.wipLimit.enabled && list.wipLimit.value < list.cards().count()){
+    if(list.getWipLimit() && !list.wipLimit.enabled && list.wipLimit.value < list.cards().count()){
       list.setWipLimit(list.cards().count());
     }
+    Meteor.call('enableWipLimit', Template.currentData()._id);
+  },
 
-    this.wipEnabled.set(!this.wipEnabled.get()); //If wipLimit.enabled is not yet definied, the negation of "undefined" is "true"
-    list.toggleWipLimit(this.wipEnabled.get());
+  isWipLimitEnabled() {
+    return Template.currentData().getWipLimit('enabled');
+  },
+
+  wipLimitValue(){
+    return Template.currentData().getWipLimit('value');
   },
 
   events() {

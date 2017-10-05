@@ -102,7 +102,8 @@ BlazeComponent.extendComponent({
 
   reachedWipLimit() {
     const list = Template.currentData();
-    return list.wipLimit.enabled && list.wipLimit.value == list.cards().count();
+    if( !list.getWipLimit() ) { return false; }
+    return list.getWipLimit('enabled') && list.getWipLimit('value') === list.cards().count();
   },
 
   events() {

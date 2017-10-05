@@ -182,7 +182,7 @@ Cards.helpers({
 
   canBeRestored() {
     const list = Lists.findOne({_id: this.listId});
-    if(list.wipLimit.enabled && list.wipLimit.value == list.cards().count()){
+    if(list.getWipLimit() && list.getWipLimit('enabled') && list.getWipLimit('value') === list.cards().count()){
       return false;
     }
     return true;
