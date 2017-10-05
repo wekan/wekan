@@ -534,8 +534,10 @@ if (Meteor.isServer) {
 
   Users.after.insert((userId, doc) => {
 
-    if (doc.fromAdmin)
+    if (doc.fromAdmin) {
+      Users.update(doc._id, { $set: { fromAdmin: '' } });
       return;
+    }
 
     //invite user to corresponding boards
     const disableRegistration = Settings.findOne().disableRegistration;
