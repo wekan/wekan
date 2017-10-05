@@ -142,8 +142,8 @@ Meteor.methods({
   enableWipLimit(listId) {
     check(listId, String);
     const list = Lists.findOne({ _id: listId });
-    if( list.getWipLimit() ){ // Necessary check to avoid exceptions for the case where the doc doesn't have the wipLimit field yet set
-      list.toggleWipLimit(!list.wipLimit.enabled);
+    if(list.getWipLimit()){ // Necessary check to avoid exceptions for the case where the doc doesn't have the wipLimit field yet set
+      list.toggleWipLimit(!list.getWipLimit('enabled'));
     } else {
       list.toggleWipLimit(true); // First time toggle is always to 'true' because default is 'false'
     }

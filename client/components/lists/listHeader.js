@@ -93,10 +93,10 @@ BlazeComponent.extendComponent({
   enableWipLimit() {
     const list = Template.currentData();
     // Prevent user from using previously stored wipLimit.value if it is less than the current number of cards in the list
-    if(list.getWipLimit() && !list.wipLimit.enabled && list.wipLimit.value < list.cards().count()){
+    if(list.getWipLimit() && !list.getWipLimit('enabled') && list.getWipLimit('value') < list.cards().count()){
       list.setWipLimit(list.cards().count());
     }
-    Meteor.call('enableWipLimit', Template.currentData()._id);
+    Meteor.call('enableWipLimit', list._id);
   },
 
   isWipLimitEnabled() {

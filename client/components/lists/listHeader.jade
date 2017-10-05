@@ -76,7 +76,7 @@ template(name="setWipLimitPopup")
   #js-wip-limit-edit
     lable {{_ 'set-wip-limit-value'}}
     ul.pop-over-list
-      li: a.js-enable-wip-limit Enable WIP Limit 
+      li: a.js-enable-wip-limit {{_ 'enable-wip-limit'}} 
         if isWipLimitEnabled  
           i.fa.fa-check
     if isWipLimitEnabled
@@ -87,6 +87,6 @@ template(name="setWipLimitPopup")
         
 template(name="wipLimitErrorPopup")
   .wip-limit-invalid
-    p The number of tasks in this list is higher than the WIP limit you've defined.
-    p Please move some tasks out of this list, or set a higher WIP limit.
+    p {{_ 'wipLimitErrorPopup-dialog-pt1'}}
+    p {{_ 'wipLimitErrorPopup-dialog-pt2'}}
     button.full.js-back-view(type="submit") {{_ 'cancel'}}
