@@ -29,7 +29,6 @@ BlazeComponent.extendComponent({
   },
 
   hiddenSystemMessages() {
-    console.log('doo:', Meteor.user().hasHiddenSystemMessages());
     return Meteor.user().hasHiddenSystemMessages();
   },
 
@@ -105,7 +104,7 @@ BlazeComponent.extendComponent({
         this.parentComponent().mouseHasEnterCardDetails = true;
       },
       'click #toggleButton'() {
-        $('div.activity.js-card-activity:not(:has(.activity-comment))').toggle();
+        Meteor.call('toggleSystemMessages');
       },
     }];
   },

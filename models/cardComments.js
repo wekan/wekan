@@ -125,15 +125,15 @@ if (Meteor.isServer) {
       boardId: paramBoardId,
     });
 
-    const cardComment = CardComments.findOne({_id: id, cardId:paramCardId, boardId: paramBoardId });
-    commentCreation(req.body.authorId, cardComment);
-
     JsonRoutes.sendResult(res, {
       code: 200,
       data: {
         _id: id,
       },
     });
+
+    const cardComment = CardComments.findOne({_id: id, cardId:paramCardId, boardId: paramBoardId });
+    commentCreation(req.body.authorId, cardComment);
   });
 
   JsonRoutes.add('DELETE', '/api/boards/:boardId/cards/:cardId/comments/:commentId', function (req, res, next) {
