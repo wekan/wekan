@@ -108,7 +108,7 @@ Users.attachSchema(new SimpleSchema({
     type: Boolean,
     optional: true,
   },
-  fromAdmin: {
+  createdThroughApi: {
     type: Boolean,
     optional: true,
   },
@@ -441,7 +441,7 @@ if (Meteor.isServer) {
     }
 
     if (options.from === 'admin') {
-      user.fromAdmin = true;
+      user.createdThroughApi = true;
       return user;
     }
 
@@ -534,8 +534,8 @@ if (Meteor.isServer) {
 
   Users.after.insert((userId, doc) => {
 
-    if (doc.fromAdmin) {
-      Users.update(doc._id, { $set: { fromAdmin: '' } });
+    if (doc.createdThroughApi) {
+      Users.update(doc._id, { $set: { createdThroughApi: '' } });
       return;
     }
 
