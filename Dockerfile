@@ -1,4 +1,4 @@
-FROM bitnami/minideb:jessie
+FROM debian:jessie-slim
 MAINTAINER wekan
 
 # Declare Arguments
@@ -31,7 +31,7 @@ RUN \
     useradd --user-group --system --home-dir /home/wekan wekan && \
     \
     # OS dependencies
-    install_packages ${BUILD_DEPS} && \
+    apt-get update -y && apt-get dist-upgrade -y && apt-get install -y --no-install-recommends ${BUILD_DEPS} && \
     \
     # Gosu installation
     GOSU_ARCHITECTURE="$(dpkg --print-architecture | awk -F- '{ print $NF }')" && \
@@ -124,6 +124,9 @@ RUN \
     mv /home/wekan/app_build/bundle /build && \
     \
     # Cleanup
+    apt-get remove --purge -y ${BUILD_DEPS} && \
+    apt-get autoremove -y && \
+    rm -R /var/lib/apt/lists/* && \
     rm -R /home/wekan/.meteor && \
     rm -R /home/wekan/app && \
     rm -R /home/wekan/app_build && \
