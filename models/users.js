@@ -535,6 +535,12 @@ if (Meteor.isServer) {
   Users.after.insert((userId, doc) => {
 
     if (doc.createdThroughApi) {
+      // The admin user should be able to create a user despite disabling registration because
+      // it is two different things (registration and creation).
+      // So, when a new user is created via the api (only admin user can do that) one must avoid 
+      // the disableRegistration check.
+      // Issue : https://github.com/wekan/wekan/issues/1232
+      // PR    : https://github.com/wekan/wekan/pull/1251
       Users.update(doc._id, { $set: { createdThroughApi: '' } });
       return;
     }
