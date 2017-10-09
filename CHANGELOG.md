@@ -1,10 +1,14 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+* [WIP Limits](https://github.com/wekan/wekan/pull/1278).
+
+and fixes the following bugs:
 
 * [Admin announcement can be viewed without signing in](https://github.com/wekan/wekan/issues/1281).
 
-Thanks to Github user nztqa for contributions.
+Thanks to Github users amadilsons and nztqa for their contributions.
 
 # v0.47 2017-10-04 Wekan release
 
