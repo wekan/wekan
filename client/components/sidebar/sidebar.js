@@ -153,21 +153,25 @@ Template.memberPopup.events({
     Boards.findOne(boardId).removeMember(memberId);
     Popup.close();
   }),
-  'click .js-leave-member'() {
+  'click .js-leave-member': Popup.afterConfirm('leaveBoard', () => {
     const boardId = Session.get('currentBoard');
     Meteor.call('quitBoard', boardId, (err, ret) => {
-      if (!ret && ret) {
-        Popup.close();
-        FlowRouter.go('home');
-      }
+      Popup.close();
+      FlowRouter.go('home');
     });
-  },
+  }),
 });
 
 Template.removeMemberPopup.helpers({
   user() {
     return Users.findOne(this.userId);
   },
+  board() {
+    return Boards.findOne(Session.get('currentBoard'));
+  },
+});
+
+Template.leaveBoardPopup.helpers({
   board() {
     return Boards.findOne(Session.get('currentBoard'));
   },
