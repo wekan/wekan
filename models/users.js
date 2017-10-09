@@ -108,6 +108,10 @@ Users.attachSchema(new SimpleSchema({
     type: Boolean,
     optional: true,
   },
+  createdThroughApi: {
+    type: Boolean,
+    optional: true,
+  },
 }));
 
 // Search a user in the complete server database by its name or username. This
@@ -435,6 +439,12 @@ if (Meteor.isServer) {
       user.isAdmin = true;
       return user;
     }
+
+    if (options.from === 'admin') {
+      user.createdThroughApi = true;
+      return user;
+    }
+
     const disableRegistration = Settings.findOne().disableRegistration;
     if (!disableRegistration) {
       return user;
@@ -524,6 +534,17 @@ if (Meteor.isServer) {
 
   Users.after.insert((userId, doc) => {
 
+    if (doc.createdThroughApi) {
+      // The admin user should be able to create a user despite disabling registration because
+      // it is two different things (registration and creation).
+      // So, when a new user is created via the api (only admin user can do that) one must avoid
+      // the disableRegistration check.
+      // Issue : https://github.com/wekan/wekan/issues/1232
+      // PR    : https://github.com/wekan/wekan/pull/1251
+      Users.update(doc._id, { $set: { createdThroughApi: '' } });
+      return;
+    }
+
     //invite user to corresponding boards
     const disableRegistration = Settings.findOne().disableRegistration;
     if (disableRegistration) {
@@ -581,7 +602,8 @@ if (Meteor.isServer) {
     const id = Accounts.createUser({
       username: req.body.username,
       email: req.body.email,
-      password: 'default',
+      password: req.body.password,
+      from: 'admin',
     });
 
     JsonRoutes.sendResult(res, {
