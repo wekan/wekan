@@ -42,6 +42,31 @@ Lists.attachSchema(new SimpleSchema({
       }
     },
   },
+  wipLimit: {
+    type: Object,
+    optional: true,
+  },
+  'wipLimit.value': {
+    type: Number,
+    decimal: false,
+    autoValue() {
+      if(this.isInsert){
+        return 0;
+      }
+      return this.value;
+    },
+    optional: true,
+  },
+  'wipLimit.enabled':{
+    type: Boolean,
+    autoValue() {
+      if(this.isInsert){
+        return false;
+      }
+      return this.value;
+    },
+    optional: true,
+  },
 }));
 
 Lists.allow({
@@ -72,6 +97,17 @@ Lists.helpers({
   board() {
     return Boards.findOne(this.boardId);
   },
+
+  getWipLimit(option){
+    const list = Lists.findOne({ _id: this._id });
+    if(!list.wipLimit) { // Necessary check to avoid exceptions for the case where the doc doesn't have the wipLimit field yet set
+      return 0;
+    } else if(!option) {
+      return list.wipLimit;
+    } else {
+      return list.wipLimit[option] ? list.wipLimit[option] : 0; // Necessary check to avoid exceptions for the case where the doc doesn't have the wipLimit field yet set
+    }
+  },
 });
 
 Lists.mutations({
@@ -85,6 +121,32 @@ Lists.mutations({
 
   restore() {
     return { $set: { archived: false } };
+  },
+
+  toggleWipLimit(toggle) {
+    return { $set: { 'wipLimit.enabled': toggle } };
+  },
+
+  setWipLimit(limit) {
+    return { $set: { 'wipLimit.value': limit } };
+  },
+});
+
+Meteor.methods({
+  applyWipLimit(listId, limit){
+    check(listId, String);
+    check(limit, Number);
+    Lists.findOne({ _id: listId }).setWipLimit(limit);
+  },
+
+  enableWipLimit(listId) {
+    check(listId, String);
+    const list = Lists.findOne({ _id: listId });
+    if(list.getWipLimit()){ // Necessary check to avoid exceptions for the case where the doc doesn't have the wipLimit field yet set
+      list.toggleWipLimit(!list.getWipLimit('enabled'));
+    } else {
+      list.toggleWipLimit(true); // First time toggle is always to 'true' because default is 'false'
+    }
   },
 });
 

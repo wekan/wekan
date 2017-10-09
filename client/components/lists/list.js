@@ -22,7 +22,7 @@ BlazeComponent.extendComponent({
     const itemsSelector = '.js-minicard:not(.placeholder, .js-card-composer)';
     const $cards = this.$('.js-minicards');
     $cards.sortable({
-      connectWith: '.js-minicards',
+      connectWith: '.js-minicards:not(.js-list-full)',
       tolerance: 'pointer',
       appendTo: 'body',
       helper(evt, item) {
