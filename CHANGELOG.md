@@ -1,3 +1,11 @@
+# v0.49 2017-10-09 Wekan release
+
+This release fixes the following bugs:
+
+* [When WIP limit in use, hide also add card + button at top of list](https://github.com/wekan/wekan/commit/a5daf5dc29278b82e133fbe4db09a91ffc0c0d3b).
+
+Thanks to GitHub user xet7 for contributions.
+
 # v0.48 2017-10-09 Wekan release
 
 This release adds the following new features:
@@ -10,7 +18,7 @@ and fixes the following bugs:
 
 * [Admin announcement can be viewed without signing in](https://github.com/wekan/wekan/issues/1281).
 
-Thanks to Github users amadilsons, nztqa and soohwa for their contributions.
+Thanks to GitHub users amadilsons, nztqa and soohwa for their contributions.
 
 # v0.47 2017-10-04 Wekan release
 
@@ -18,7 +26,7 @@ This release adds the following new features:
 
 * [Use theme color for Slider for Comments only](https://github.com/wekan/wekan/pull/1275).
 
-Thanks to Github user nztqa for contributions.
+Thanks to GitHub user nztqa for contributions.
 
 # v0.46 2017-10-03 Wekan release
 
@@ -32,7 +40,7 @@ and fixes the following bugs:
   [here](https://github.com/wekan/wekan/commit/c3804dc0fad0817285460d86dc1b3bdc96361f49);
 * [Fix: Slider for Comments only does not work correctly with over 21 activities](https://github.com/wekan/wekan/pull/1247).
 
-Thanks to Github users andresmanelli and nztqa for their contributions.
+Thanks to GitHub users andresmanelli and nztqa for their contributions.
 
 # v0.45 2017-10-01 Wekan release
 
@@ -46,7 +54,7 @@ and fixes the following bugs:
 * [Data inconsistency when copying card](https://github.com/wekan/wekan/pull/1246). Note: There is no feature for copying card attachment yet;
 * [Hide create label from normal users, because only board admin can create labels](https://github.com/wekan/wekan/pull/1261).
 
-Thanks to Github user nztqa for contributions.
+Thanks to GitHub user nztqa for contributions.
 
 # v0.44 2017-09-30 Wekan release
 
