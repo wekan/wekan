@@ -245,6 +245,8 @@
     "language": "Lingua",
     "last-admin-desc": "Non puoi cambiare i ruoli perché deve esserci almeno un admin.",
     "leave-board": "Abbandona bacheca",
+    "leave-board-pop": "Are you sure you want to leave __boardTitle__? You will be removed from all cards on this board.",
+    "leaveBoardPopup-title": "Leave Board ?",
     "link-card": "Link a questa scheda",
     "list-archive-cards": "Archivia tutte le schede in questa lista",
     "list-archive-cards-pop": "Questo rimuoverà dalla bacheca tutte le schede in questa lista. Per vedere le schede archiviate e portarle indietro alla bacheca, clicca “Menu” > “Elementi archiviati”",

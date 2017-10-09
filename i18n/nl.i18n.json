@@ -245,6 +245,8 @@
     "language": "Taal",
     "last-admin-desc": "Je kan de permissies niet veranderen omdat er maar een administrator is.",
     "leave-board": "Verlaat bord",
+    "leave-board-pop": "Are you sure you want to leave __boardTitle__? You will be removed from all cards on this board.",
+    "leaveBoardPopup-title": "Leave Board ?",
     "link-card": "Link naar deze kaart",
     "list-archive-cards": "Achiveer alle kaarten in deze lijst",
     "list-archive-cards-pop": "Deze actie zal alle kaarten in deze lijst archiveren. Om de gearchiveerde kaarten te bekijken, klik \"Menu\" > \"Gearchiveerde Items\"",

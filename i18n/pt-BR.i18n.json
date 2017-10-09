@@ -245,7 +245,7 @@
     "language": "Idioma",
     "last-admin-desc": "Você não pode alterar funções porque deve existir pelo menos um administrador.",
     "leave-board": "Sair do Quadro",
-    "leave-board-pop": "Tem a certeza de que pretende sair de __boardTitle__? Você será removido de todos os cartões neste quadro. ",
+    "leave-board-pop": "Tem a certeza de que pretende sair de __boardTitle__? Você será removido de todos os cartões neste quadro.",
     "leaveBoardPopup-title": "Sair do Quadro ?",
     "link-card": "Vincular a este cartão",
     "list-archive-cards": "Arquivar todos os cartões nesta lista",

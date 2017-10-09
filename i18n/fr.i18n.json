@@ -245,6 +245,8 @@
     "language": "Langue",
     "last-admin-desc": "Vous ne pouvez pas changer les rôles car il doit y avoir au moins un administrateur.",
     "leave-board": "Quitter le tableau",
+    "leave-board-pop": "Are you sure you want to leave __boardTitle__? You will be removed from all cards on this board.",
+    "leaveBoardPopup-title": "Leave Board ?",
     "link-card": "Lier à cette carte",
     "list-archive-cards": "Archiver toutes les cartes de cette liste",
     "list-archive-cards-pop": "Cela archivera toutes les cartes de cette liste. Pour voir les cartes archivées et les ramener vers le tableau, cliquez sur « Menu » puis sur « Éléments archivés ».",

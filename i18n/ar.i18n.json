@@ -245,6 +245,8 @@
     "language": "لغة",
     "last-admin-desc": "لا يمكن تعديل الأدوار لأن ذلك يتطلب  صلاحيات المدير.",
     "leave-board": "مغادرة اللوحة",
+    "leave-board-pop": "Are you sure you want to leave __boardTitle__? You will be removed from all cards on this board.",
+    "leaveBoardPopup-title": "Leave Board ?",
     "link-card": "ربط هذه البطاقة",
     "list-archive-cards": "أرضفت بطاقات هذه القائمة",
     "list-archive-cards-pop": "سيقتضي هذا أرشفة جميع بطاقات هذه القائمة. لمشاهدة أرشيف البطاقات أو إعادتها إلى اللوحة، اضغط على -القائمة- ثم - أرشيف العناصر-",

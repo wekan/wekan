@@ -245,6 +245,8 @@
     "language": "Jazyk",
     "last-admin-desc": "Nelze změnit role, protože musí existovat alespoň jeden administrátor.",
     "leave-board": "Opustit tablo",
+    "leave-board-pop": "Are you sure you want to leave __boardTitle__? You will be removed from all cards on this board.",
+    "leaveBoardPopup-title": "Leave Board ?",
     "link-card": "Odkázat na tuto kartu",
     "list-archive-cards": "Archivovat všechny karty na tomto seznamu",
     "list-archive-cards-pop": "Toto odstraní z tabla všechny karty z tohoto seznamu. Pro zobrazení archivovaných karet a jejich opětovné obnovení, klikni v \"Menu\" > \"Archivované položky\".",

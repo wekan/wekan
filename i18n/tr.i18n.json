@@ -245,6 +245,8 @@
     "language": "Dil",
     "last-admin-desc": "En az bir yönetici olması gerektiğinden rolleri değiştiremezsiniz.",
     "leave-board": "Panodan ayrıl",
+    "leave-board-pop": "Are you sure you want to leave __boardTitle__? You will be removed from all cards on this board.",
+    "leaveBoardPopup-title": "Leave Board ?",
     "link-card": "Bu kartın bağlantısı",
     "list-archive-cards": "Bu liste içindeki tüm kartları arşivle",
     "list-archive-cards-pop": "Bu işlem bu listedeki tüm kartları kaldıracak ve arşivleyecek. Arşivlenmiş kartları görmek ve panoya geri yüklemek için \"Menü\" altından \"Arşivlenmiş Öğeler\"e gidebilirsiniz.",

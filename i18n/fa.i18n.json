@@ -245,6 +245,8 @@
     "language": "زبان",
     "last-admin-desc": "شما نمی توانید نقش ـroleـ را تغییر دهید چراکه باید حداقل یک مدیری وجود داشته باشد.",
     "leave-board": "خروج از تخته",
+    "leave-board-pop": "Are you sure you want to leave __boardTitle__? You will be removed from all cards on this board.",
+    "leaveBoardPopup-title": "Leave Board ?",
     "link-card": "ارجاع به این کارت",
     "list-archive-cards": "بایگانی تمامی کارتهای این لیست",
     "list-archive-cards-pop": "این اقدام، همه کارت های این لیست از تخته راحذف خواهد کرد. جهت مشاهده کارت های بایگانی و بازگرداندن آنها ، \"Menu\",\"Archived Item\" را کلیک کنید.",

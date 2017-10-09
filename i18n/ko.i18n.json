@@ -245,6 +245,8 @@
     "language": "언어",
     "last-admin-desc": "적어도 하나의 관리자가 필요하기에 이 역할을 변경할 수 없습니다.",
     "leave-board": "보드 멤버에서 나가기",
+    "leave-board-pop": "Are you sure you want to leave __boardTitle__? You will be removed from all cards on this board.",
+    "leaveBoardPopup-title": "Leave Board ?",
     "link-card": "카드에대한 링크",
     "list-archive-cards": "목록에 있는 모든 카드를 저장소에 보관",
     "list-archive-cards-pop": "보드의 목록에서 모든 카드를 삭제합니다. 보관된 카드를 보거나 그것들을 보드로 되돌릴려면, \"메뉴\" > \"보관된 아이템\"을 클릭합니다.",

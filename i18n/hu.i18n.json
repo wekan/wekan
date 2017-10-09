@@ -245,6 +245,8 @@
     "language": "Nyelv",
     "last-admin-desc": "You can’t change roles because there must be at least one admin.",
     "leave-board": "Tábla elhagyása",
+    "leave-board-pop": "Are you sure you want to leave __boardTitle__? You will be removed from all cards on this board.",
+    "leaveBoardPopup-title": "Leave Board ?",
     "link-card": "Kapcsolja ehhez a kártyához",
     "list-archive-cards": "Archiváld az összes kártyát ezen a listán.",
     "list-archive-cards-pop": "This will remove all the cards in this list from the board. To view archived cards and bring them back to the board, click “Menu” > “Archived Items”.",

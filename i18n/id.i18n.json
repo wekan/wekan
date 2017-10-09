@@ -245,6 +245,8 @@
     "language": "Bahasa",
     "last-admin-desc": "Anda tidak dapat mengubah aturan karena harus ada minimal seorang Admin.",
     "leave-board": "Tingalkan Panel",
+    "leave-board-pop": "Are you sure you want to leave __boardTitle__? You will be removed from all cards on this board.",
+    "leaveBoardPopup-title": "Leave Board ?",
     "link-card": "Link ke kartu ini",
     "list-archive-cards": "Arsipkan semua kartu ke daftar ini",
     "list-archive-cards-pop": "Ini akan menghapus semua kartu di daftar inidari panel. Untuk menampilkan arsip kartu dan membawa mereka kembali ke panel, klik \"Menu\" > \"Arsip item\"",

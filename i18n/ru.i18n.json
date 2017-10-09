@@ -245,6 +245,8 @@
     "language": "Язык",
     "last-admin-desc": "Вы не можете изменять роли, для этого требуются права администратора.",
     "leave-board": "Покинуть доску",
+    "leave-board-pop": "Are you sure you want to leave __boardTitle__? You will be removed from all cards on this board.",
+    "leaveBoardPopup-title": "Leave Board ?",
     "link-card": "Доступна по ссылке",
     "list-archive-cards": "Архивировать все карточки в этом списке",
     "list-archive-cards-pop": "Это действие переместит все карточки в архив и они перестанут быть видимым на доске. Для просмотра карточек в архиве нажмите “Меню” > “Объекты в архиве”.",

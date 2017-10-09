@@ -245,6 +245,8 @@
     "language": "Idioma",
     "last-admin-desc": "No podeu canviar rols perquè ha d'haver-hi almenys un administrador.",
     "leave-board": "Abandona tauler",
+    "leave-board-pop": "Are you sure you want to leave __boardTitle__? You will be removed from all cards on this board.",
+    "leaveBoardPopup-title": "Leave Board ?",
     "link-card": "Enllaç a aquesta fitxa",
     "list-archive-cards": "Arxiva totes les fitxes d'aquesta llista",
     "list-archive-cards-pop": "Això eliminarà totes les fitxes d'aquesta llista del tauler. Per veure les fitxes arxivades i recuperar-les en el tauler, feu clic a \" Menú \"/ \" Articles Arxivat \".",

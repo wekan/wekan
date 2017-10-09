@@ -245,6 +245,8 @@
     "language": "Hizkuntza",
     "last-admin-desc": "Ezin duzu rola aldatu gutxienez kudeatzaile bat behar delako.",
     "leave-board": "Utzi arbela",
+    "leave-board-pop": "Are you sure you want to leave __boardTitle__? You will be removed from all cards on this board.",
+    "leaveBoardPopup-title": "Leave Board ?",
     "link-card": "Lotura txartel honetara",
     "list-archive-cards": "Artxibatu zerrendako txartel guztiak",
     "list-archive-cards-pop": "Honek zerrenda honetako txartel guztiak arbeletik ezabatuko ditu. Artxibatutako txartelak ikusteko eta arbelera berreskuratzeko, zoaz \"Menua > Artxibatutako elementuak\" atalera.",
