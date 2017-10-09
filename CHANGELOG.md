@@ -3,7 +3,8 @@
 This release adds the following new features:
 
 * [WIP Limits](https://github.com/wekan/wekan/pull/1278);
-* [REST API: Create user despite disabling registration](https://github.com/wekan/wekan/issues/1232).
+* [REST API: Create user despite disabling registration](https://github.com/wekan/wekan/issues/1232);
+* [User can leave board on Standalone Wekan](https://github.com/wekan/wekan/pull/1283).
 
 and fixes the following bugs:
 
