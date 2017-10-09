@@ -6,6 +6,9 @@ template(name="listHeader")
       h2.list-header-name(
         class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
         = title
+        if isWipLimitEnabled
+          span
+            | ({{cards.count}}/#{wipLimit.value})
         if showCardsCountForList cards.count
           = cards.count
           span.lowercase
@@ -33,6 +36,10 @@ template(name="listActionPopup")
       if cards.count
         li: a.js-select-cards {{_ 'list-select-cards'}}
         hr
+    if currentUser.isBoardAdmin
+      ul.pop-over-list
+        li: a.js-set-wip-limit {{#if isWipLimitEnabled }}{{_ 'edit-wip-limit'}}{{else}}{{_ 'setWipLimitPopup-title'}}{{/if}}
+      hr
     ul.pop-over-list
       li: a.js-close-list {{_ 'archive-list'}}
     hr
@@ -64,3 +71,22 @@ template(name="listDeletePopup")
   unless archived
    p {{_ "list-delete-suggest-archive"}}
   button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
+
+template(name="setWipLimitPopup")
+  #js-wip-limit-edit
+    lable {{_ 'set-wip-limit-value'}}
+    ul.pop-over-list
+      li: a.js-enable-wip-limit {{_ 'enable-wip-limit'}} 
+        if isWipLimitEnabled  
+          i.fa.fa-check
+    if isWipLimitEnabled
+      p
+        input.wip-limit-value(type="number" value="{{ wipLimitValue }}" min="1" max="99" onkeydown="return false")
+        input.wip-limit-apply(type="submit" value="{{_ 'apply'}}")
+        input.wip-limit-error
+        
+template(name="wipLimitErrorPopup")
+  .wip-limit-invalid
+    p {{_ 'wipLimitErrorPopup-dialog-pt1'}}
+    p {{_ 'wipLimitErrorPopup-dialog-pt2'}}
+    button.full.js-back-view(type="submit") {{_ 'cancel'}}

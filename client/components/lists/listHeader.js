@@ -13,6 +13,14 @@ BlazeComponent.extendComponent({
     return list.findWatcher(Meteor.userId());
   },
 
+  isWipLimitEnabled() {
+    const wipLimit = this.currentData().getWipLimit();
+    if(!wipLimit) {
+      return 0;
+    }
+    return wipLimit.enabled && wipLimit.value > 0;
+  },
+
   limitToShowCardsCount() {
     return Meteor.user().getLimitToShowCardsCount();
   },
@@ -37,6 +45,10 @@ BlazeComponent.extendComponent({
 }).register('listHeader');
 
 Template.listActionPopup.helpers({
+  isWipLimitEnabled() {
+    return Template.currentData().getWipLimit('enabled');
+  },
+
   isWatching() {
     return this.findWatcher(Meteor.userId());
   },
@@ -61,8 +73,48 @@ Template.listActionPopup.events({
     this.archive();
     Popup.close();
   },
+  'click .js-set-wip-limit': Popup.open('setWipLimit'),
   'click .js-more': Popup.open('listMore'),
 });
+
+BlazeComponent.extendComponent({
+  applyWipLimit() {
+    const list = Template.currentData();
+    const limit = parseInt(Template.instance().$('.wip-limit-value').val(), 10);
+
+    if(limit < list.cards().count()){
+      Template.instance().$('.wip-limit-error').click();
+    } else {
+      Meteor.call('applyWipLimit', list._id, limit);
+      Popup.back();
+    }
+  },
+
+  enableWipLimit() {
+    const list = Template.currentData();
+    // Prevent user from using previously stored wipLimit.value if it is less than the current number of cards in the list
+    if(list.getWipLimit() && !list.getWipLimit('enabled') && list.getWipLimit('value') < list.cards().count()){
+      list.setWipLimit(list.cards().count());
+    }
+    Meteor.call('enableWipLimit', list._id);
+  },
+
+  isWipLimitEnabled() {
+    return Template.currentData().getWipLimit('enabled');
+  },
+
+  wipLimitValue(){
+    return Template.currentData().getWipLimit('value');
+  },
+
+  events() {
+    return [{
+      'click .js-enable-wip-limit': this.enableWipLimit,
+      'click .wip-limit-apply': this.applyWipLimit,
+      'click .wip-limit-error': Popup.open('wipLimitError'),
+    }];
+  },
+}).register('setWipLimitPopup');
 
 Template.listMorePopup.events({
   'click .js-delete': Popup.afterConfirm('listDelete', function () {

@@ -1,6 +1,6 @@
 template(name="listBody")
   .list-body.js-perfect-scrollbar
-    .minicards.clearfix.js-minicards
+    .minicards.clearfix.js-minicards(class="{{#if reachedWipLimit}}js-list-full{{/if}}")
       if cards.count
         +inlinedForm(autoclose=false position="top")
           +addCardForm(listId=_id position="top")
