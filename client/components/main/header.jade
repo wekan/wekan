@@ -49,12 +49,13 @@ template(name="header")
   if appIsOffline
     +offlineWarning
 
-  if hasAnnouncement
-    .announcement
-      p
-        i.fa.fa-bullhorn
-        | #{announcement}
-        i.fa.fa-times-circle.js-close-announcement
+  if currentUser.isBoardMember
+    if hasAnnouncement
+      .announcement
+        p
+          i.fa.fa-bullhorn
+          | #{announcement}
+          i.fa.fa-times-circle.js-close-announcement
 
 template(name="offlineWarning")
   .offline-warning

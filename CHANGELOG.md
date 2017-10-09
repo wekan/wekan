@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+* [Admin announcement can be viewed without signing in](https://github.com/wekan/wekan/issues/1281).
+
+Thanks to Github user nztqa for contributions.
+
 # v0.47 2017-10-04 Wekan release
 
 This release adds the following new features:
