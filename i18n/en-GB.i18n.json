@@ -312,7 +312,7 @@
     "save": "Save",
     "search": "Search",
     "select-color": "Select Color",
-    "set-wip-limit-value": "Set a limit for the maximum number of tasks in this list:",
+    "set-wip-limit-value": "Set a limit for the maximum number of tasks in this list",
     "setWipLimitPopup-title": "Set WIP Limit",
     "shortcut-assign-self": "Assign yourself to current card",
     "shortcut-autocomplete-emoji": "Autocomplete emoji",
