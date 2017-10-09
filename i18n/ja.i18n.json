@@ -245,6 +245,8 @@
     "language": "言語",
     "last-admin-desc": "最低でも1人以上の管理者が必要なためロールを変更できません。",
     "leave-board": "ボードから退出する",
+    "leave-board-pop": "Are you sure you want to leave __boardTitle__? You will be removed from all cards on this board.",
+    "leaveBoardPopup-title": "Leave Board ?",
     "link-card": "このカードへのリンク",
     "list-archive-cards": "リストの全カードをアーカイブする",
     "list-archive-cards-pop": "ボードのこのリスト内のすべてのカードを取り除きます。アーカイブされたカードの確認やそれをボードに戻すには、メニューをクリックし、\"アーカイブされたアイテム\"をクリックしてください。",

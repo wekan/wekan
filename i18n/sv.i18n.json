@@ -245,6 +245,8 @@
     "language": "Språk",
     "last-admin-desc": "Du kan inte ändra roller för det måste finnas minst en administratör.",
     "leave-board": "Lämna anslagstavla",
+    "leave-board-pop": "Are you sure you want to leave __boardTitle__? You will be removed from all cards on this board.",
+    "leaveBoardPopup-title": "Leave Board ?",
     "link-card": "Länka till detta kort",
     "list-archive-cards": "Arkivera alla kort i denna lista",
     "list-archive-cards-pop": "Detta tar bort alla kort i denna lista från anslagstavlan. Om du se arkiverade kort och få dem tillbaka till anslagstavlan, klicka på ”Meny” > ”Arkiverade objekt”.",

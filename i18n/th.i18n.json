@@ -245,6 +245,8 @@
     "language": "ภาษา",
     "last-admin-desc": "คุณไม่สามารถเปลี่ยนบทบาทเพราะต้องมีผู้ดูแลระบบหนึ่งคนเป็นอย่างน้อย",
     "leave-board": "ทิ้งบอร์ด",
+    "leave-board-pop": "Are you sure you want to leave __boardTitle__? You will be removed from all cards on this board.",
+    "leaveBoardPopup-title": "Leave Board ?",
     "link-card": "เชื่อมโยงไปยังการ์ดใบนี้",
     "list-archive-cards": "เก็บการ์ดทั้งหมดไว้ในรายการนี้",
     "list-archive-cards-pop": "ลบการ์ดทั้งหมดในบอร์ด มันจะถูกนำไปเก็บไว้ที่เอกสารสำคัญ สามารถนำกลับมาใหม่ได้ด้วยการคลิก “เมนูบอร์ด” > “เก็บไว้ถาวร”.",

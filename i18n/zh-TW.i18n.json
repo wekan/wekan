@@ -245,6 +245,8 @@
     "language": "語言",
     "last-admin-desc": "你不能更改角色，因為至少需要一名管理員。",
     "leave-board": "離開看板",
+    "leave-board-pop": "Are you sure you want to leave __boardTitle__? You will be removed from all cards on this board.",
+    "leaveBoardPopup-title": "Leave Board ?",
     "link-card": "關聯至該卡片",
     "list-archive-cards": "刪除清單中的所有卡片",
     "list-archive-cards-pop": "這將會從本看板中移除該清單中的所有卡片。如果需要瀏覽已刪除的卡片並且將其回復至看板，請點選\"選單\">\"回收筒\"",

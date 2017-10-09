@@ -245,6 +245,8 @@
     "language": "Sprache",
     "last-admin-desc": "Sie können keine Rollen ändern, weil es mindestens einen Administrator geben muss.",
     "leave-board": "Board verlassen",
+    "leave-board-pop": "Are you sure you want to leave __boardTitle__? You will be removed from all cards on this board.",
+    "leaveBoardPopup-title": "Leave Board ?",
     "link-card": "Link zu dieser Karte",
     "list-archive-cards": "Alle Karten in dieser Liste archivieren",
     "list-archive-cards-pop": "Alle Karten von dieser Liste werden vom Board entfernt. Um archivierte Karten anzuzeigen und wiederherzustellen, klicken Sie auf \"Menü\" > \"Archivierte Einträge\".",

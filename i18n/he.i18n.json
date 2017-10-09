@@ -245,6 +245,8 @@
     "language": "שפה",
     "last-admin-desc": "אין אפשרות לשנות תפקידים כיוון שחייב להיות מנהל אחד לפחות.",
     "leave-board": "עזיבת הלוח",
+    "leave-board-pop": "Are you sure you want to leave __boardTitle__? You will be removed from all cards on this board.",
+    "leaveBoardPopup-title": "Leave Board ?",
     "link-card": "קישור לכרטיס זה",
     "list-archive-cards": "העברת כל הכרטיסים שברשימה זו לארכיון",
     "list-archive-cards-pop": "פעולה זו תסיר את כל הכרטיסים שברשימה הזו מהלוח. כדי לצפות בכרטיסים שבארכיון ולהחזיר אותם בחזרה ללוח, יש ללחוץ על „תפריט“ > „פריטים בארכיון“.",

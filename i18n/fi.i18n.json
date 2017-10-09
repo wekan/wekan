@@ -245,6 +245,8 @@
     "language": "Kieli",
     "last-admin-desc": "Et voi vaihtaa rooleja koska täytyy olla olemassa ainakin yksi ylläpitäjä.",
     "leave-board": "Jää pois taululta",
+    "leave-board-pop": "Haluatko varmasti poistua taululta __boardTitle__? Sinut poistetaan kaikista tämän taulun korteista.",
+    "leaveBoardPopup-title": "Jää pois taululta ?",
     "link-card": "Linkki tähän korttiin",
     "list-archive-cards": "Arkistoi kaikki kortit tässä listassa",
     "list-archive-cards-pop": "Tämä poistaa kaikki tämän listan kortit tältä taululta. Nähdäksesi arkistoidut kortit ja tuodaksesi ne takaisin taululle, klikkaa “Valikko” > “Arkistoidut kohteet”.",

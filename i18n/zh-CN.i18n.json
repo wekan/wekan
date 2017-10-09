@@ -245,6 +245,8 @@
     "language": "语言",
     "last-admin-desc": "你不能更改角色，因为至少需要一名管理员。",
     "leave-board": "离开看板",
+    "leave-board-pop": "Are you sure you want to leave __boardTitle__? You will be removed from all cards on this board.",
+    "leaveBoardPopup-title": "Leave Board ?",
     "link-card": "关联至该卡片",
     "list-archive-cards": "归档列表中的所有卡片",
     "list-archive-cards-pop": "这将会从本看板中移除该列表中的所有卡片。如果需要浏览已归档的卡片并且将其恢复至看板，请点击 \"菜单\" > \"回收箱\"",
