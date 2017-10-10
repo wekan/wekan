@@ -59,7 +59,7 @@ template(name="multiselectionSidebar")
             if name
               = name
             else
-              span.quiet {{_ "label-default" color}}
+              span.quiet {{_ "label-default" (_ (concat "color-" color))}}
           if allSelectedElementHave 'label' _id
             i.fa.fa-check
           else if someSelectedElementHave 'label' _id
