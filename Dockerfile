@@ -1,4 +1,4 @@
-FROM debian:8.9
+FROM debian:jessie-slim
 MAINTAINER wekan
 
 # Declare Arguments
