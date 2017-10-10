@@ -1,3 +1,11 @@
+# v0.50 2017-10-10 Wekan release
+
+This release fixes the following bugs:
+
+* [Fix and update translations](https://github.com/wekan/wekan/issues/1286).
+
+Thanks to GitHub user xet7 for contributions.
+
 # v0.49 2017-10-09 Wekan release
 
 This release fixes the following bugs:
