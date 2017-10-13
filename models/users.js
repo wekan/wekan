@@ -605,24 +605,24 @@ if (Meteor.isServer) {
     Authentication.checkUserId( req.userId);
     const id = req.params.id;
     const action = req.body.action;
-    var data = Meteor.users.findOne({ _id: id });
-    if (data != undefined) {
+    let data = Meteor.users.findOne({ _id: id });
+    if (data !== undefined) {
       if (action === 'takeOwnership') {
         data = Boards.find({
           'members.userId': id,
           'members.isAdmin': true,
-          }).map(function(board) {
-            if (board.hasMember(req.userId)) {
-              board.removeMember(req.userId);
-            }
-            board.changeOwnership(id, req.userId);
-            return {
-              _id: board._id,
-              title: board.title,
-            };
-          });
+        }).map(function(board) {
+          if (board.hasMember(req.userId)) {
+            board.removeMember(req.userId);
+          }
+          board.changeOwnership(id, req.userId);
+          return {
+            _id: board._id,
+            title: board.title,
+          };
+        });
       } else {
-        if ((action === 'disableLogin') && (id != req.userId)) {
+        if ((action === 'disableLogin') && (id !== req.userId)) {
           Users.update({ _id: id }, { $set: { loginDisabled: true, 'services.resume.loginTokens': '' } });
         } else if (action === 'enableLogin') {
           Users.update({ _id: id }, { $set: { loginDisabled: '' } });
