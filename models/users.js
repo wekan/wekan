@@ -632,7 +632,7 @@ if (Meteor.isServer) {
     }
     JsonRoutes.sendResult(res, {
       code: 200,
-      data
+      data,
     });
   });
   JsonRoutes.add('POST', '/api/users/', function (req, res, next) {
