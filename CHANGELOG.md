@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+* [REST API: Disable and enable user login. Take ownership boards of a user. List boards of user.](https://github.com/wekan/wekan/pull/1296)
+
+Thanks to GitHub user soohwa for contributions.
+
 # v0.50 2017-10-10 Wekan release
 
 This release fixes the following bugs:
