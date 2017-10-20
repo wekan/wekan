@@ -17,9 +17,10 @@ template(name="listHeader")
         if isWatching
           i.list-header-watch-icon.fa.fa-eye
         div.list-header-menu
-          unless isWipLimitEnabled
-            a.js-add-card.fa.fa-plus.list-header-plus-icon
-          a.fa.fa-navicon.js-open-list-menu
+          unless currentUser.isCommentOnly
+            unless isWipLimitEnabled
+              a.js-add-card.fa.fa-plus.list-header-plus-icon
+            a.fa.fa-navicon.js-open-list-menu
 
 template(name="editListTitleForm")
   .list-composer
