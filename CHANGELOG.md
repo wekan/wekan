@@ -2,9 +2,15 @@
 
 This release adds the following new features:
 
-* [REST API: Disable and enable user login. Take ownership boards of a user. List boards of user.](https://github.com/wekan/wekan/pull/1296)
+* [REST API: Disable and enable user login. Take ownership boards of a user. List boards of user.](https://github.com/wekan/wekan/pull/1296);
+* [Add translation: Spanish of Argentina](https://github.com/wekan/wekan/commit/b105f0e2e72c49a2f1ba3f6c87532a5418192386).
 
-Thanks to GitHub user soohwa for contributions.
+and fixes the following bugs:
+
+* [Segfault on Alpine Linux](https://github.com/wekan/wekan/issues/1303);
+* [Change invitation link from sign-in to sign-up](https://github.com/wekan/wekan/issues/1300).
+
+Thanks to GitHub users soohwa, wenerme and xet7 for their contributions.
 
 # v0.50 2017-10-10 Wekan release
 
