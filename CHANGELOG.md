@@ -8,7 +8,8 @@ This release adds the following new features:
 and fixes the following bugs:
 
 * [Segfault on Alpine Linux](https://github.com/wekan/wekan/issues/1303);
-* [Change invitation link from sign-in to sign-up](https://github.com/wekan/wekan/issues/1300).
+* [Change invitation link from sign-in to sign-up](https://github.com/wekan/wekan/issues/1300);
+* [User with comment only permission can add cards](https://github.com/wekan/wekan/issues/1301).
 
 Thanks to GitHub users soohwa, wenerme and xet7 for their contributions.
 
