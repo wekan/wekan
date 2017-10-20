@@ -12,7 +12,8 @@ ARG ARCHITECTURE
 ARG SRC_PATH
 
 # Set the environment variables (defaults where required)
-ENV BUILD_DEPS="wget curl bzip2 build-essential python git ca-certificates gcc-4.9"
+# paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
+ENV BUILD_DEPS="wget curl bzip2 build-essential python git ca-certificates gcc-4.9 paxctl"
 ENV GOSU_VERSION=1.10
 ENV NODE_VERSION ${NODE_VERSION:-v4.8.4}
 ENV METEOR_RELEASE ${METEOR_RELEASE:-1.4.4.1}
@@ -77,6 +78,9 @@ RUN \
     mv node-${NODE_VERSION}-${ARCHITECTURE} /opt/nodejs && \
     ln -s /opt/nodejs/bin/node /usr/bin/node && \
     ln -s /opt/nodejs/bin/npm /usr/bin/npm && \
+    \
+    # paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
+    paxctl -mC `which node` && \
     \
     # Install Node dependencies
     npm install -g npm@${NPM_VERSION} && \
