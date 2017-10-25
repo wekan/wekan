@@ -112,6 +112,10 @@ Users.attachSchema(new SimpleSchema({
     type: Boolean,
     optional: true,
   },
+  loginDisabled: {
+    type: Boolean,
+    optional: true,
+  },
 }));
 
 // Search a user in the complete server database by its name or username. This
@@ -595,6 +599,40 @@ if (Meteor.isServer) {
     JsonRoutes.sendResult(res, {
       code: 200,
       data: Meteor.users.findOne({ _id: id }),
+    });
+  });
+  JsonRoutes.add('PUT', '/api/users/:id', function (req, res, next) {
+    Authentication.checkUserId( req.userId);
+    const id = req.params.id;
+    const action = req.body.action;
+    let data = Meteor.users.findOne({ _id: id });
+    if (data !== undefined) {
+      if (action === 'takeOwnership') {
+        data = Boards.find({
+          'members.userId': id,
+          'members.isAdmin': true,
+        }).map(function(board) {
+          if (board.hasMember(req.userId)) {
+            board.removeMember(req.userId);
+          }
+          board.changeOwnership(id, req.userId);
+          return {
+            _id: board._id,
+            title: board.title,
+          };
+        });
+      } else {
+        if ((action === 'disableLogin') && (id !== req.userId)) {
+          Users.update({ _id: id }, { $set: { loginDisabled: true, 'services.resume.loginTokens': '' } });
+        } else if (action === 'enableLogin') {
+          Users.update({ _id: id }, { $set: { loginDisabled: '' } });
+        }
+        data = Meteor.users.findOne({ _id: id });
+      }
+    }
+    JsonRoutes.sendResult(res, {
+      code: 200,
+      data,
     });
   });
   JsonRoutes.add('POST', '/api/users/', function (req, res, next) {

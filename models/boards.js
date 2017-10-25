@@ -298,6 +298,15 @@ Boards.mutations({
     return { $pull: { labels: { _id: labelId } } };
   },
 
+  changeOwnership(fromId, toId) {
+    const memberIndex = this.memberIndex(fromId);
+    return {
+      $set: {
+        [`members.${memberIndex}.userId`]: toId,
+      },
+    };
+  },
+
   addMember(memberId) {
     const memberIndex = this.memberIndex(memberId);
     if (memberIndex >= 0) {
@@ -565,7 +574,7 @@ if (Meteor.isServer) {
 
     const data = Boards.find({
       archived: false,
-      'members.userId': req.userId,
+      'members.userId': paramUserId,
     }, {
       sort: ['title'],
     }).map(function(board) {
