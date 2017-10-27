@@ -76,14 +76,14 @@ template(name="listDeletePopup")
 
 template(name="setWipLimitPopup")
   #js-wip-limit-edit
-    lable {{_ 'set-wip-limit-value'}}
+    label {{_ 'set-wip-limit-value'}}
     ul.pop-over-list
       li: a.js-enable-wip-limit {{_ 'enable-wip-limit'}} 
         if isWipLimitEnabled  
           i.fa.fa-check
     if isWipLimitEnabled
       p
-        input.wip-limit-value(type="number" value="{{ wipLimitValue }}" min="1" max="99" onkeydown="return false")
+        input.wip-limit-value(type="number" value="{{ wipLimitValue }}" min="1" max="99")
         input.wip-limit-apply(type="submit" value="{{_ 'apply'}}")
         input.wip-limit-error
         
