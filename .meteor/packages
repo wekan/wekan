@@ -79,3 +79,4 @@ shell-server@0.2.3
 simple:rest-accounts-password
 useraccounts:core
 email@1.2.3
+horka:swipebox
