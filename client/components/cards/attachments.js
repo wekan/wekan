@@ -11,9 +11,6 @@ Template.attachmentsGalery.events({
   'click .js-download'(event) {
     event.stopPropagation();
   },
-  'click .js-open-viewer'() {
-    // XXX Not implemented!
-  },
   'click .js-add-cover'() {
     Cards.findOne(this.cardId).setCover(this._id);
   },
