@@ -140,7 +140,13 @@ export class WekanCreator {
       // very old boards won't have a creation activity so no creation date
       createdAt: this._now(boardToImport.createdAt),
       labels: [],
-      members: [],
+      members: [{
+        userId: Meteor.userId(),
+        wekanId: Meteor.userId(),
+        isActive: true,
+        isAdmin: true,
+        isCommentOnly: false,
+      }],
       // Standalone Export has modifiedAt missing, adding modifiedAt to fix it
       modifiedAt: this._now(boardToImport.modifiedAt),
       permission: boardToImport.permission,
@@ -152,12 +158,10 @@ export class WekanCreator {
     if(boardToImport.members) {
       boardToImport.members.forEach((wekanMember) => {
         // do we already have it in our list?
-        const foundWekanMember = boardToCreate.members.find((member) => member.wekanId === wekanMember.wekanId);
-        if(!foundWekanMember)
+        if(!boardToCreate.members.some((member) => member.wekanId === wekanMember.wekanId))
           boardToCreate.members.push({
             ... wekanMember,
             userId: wekanMember.wekanId,
-            ...Meteor.userId() === wekanMember.wekanId ? {isAdmin: true} : {}, // make impoter admin
           });
       });
     }
