@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+* [Permit editing WIP limit](https://github.com/wekan/wekan/pull/1312).
+
+Thanks to GitHub users nztqa and ocdtrekkie for their contributions.
+
 # v0.51 2017-10-25 Wekan release
 
 This release adds the following new features:
