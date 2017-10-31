@@ -133,47 +133,39 @@ export class WekanCreator {
   }
 
   // You must call parseActions before calling this one.
-  createBoardAndLabels(wekanBoard) {
+  createBoardAndLabels(boardToImport) {
     const boardToCreate = {
-      archived: wekanBoard.archived,
-      color: wekanBoard.color,
+      archived: boardToImport.archived,
+      color: boardToImport.color,
       // very old boards won't have a creation activity so no creation date
-      createdAt: this._now(wekanBoard.createdAt),
+      createdAt: this._now(boardToImport.createdAt),
       labels: [],
       members: [{
         userId: Meteor.userId(),
-        isAdmin: true,
+        wekanId: Meteor.userId(),
         isActive: true,
+        isAdmin: true,
         isCommentOnly: false,
       }],
       // Standalone Export has modifiedAt missing, adding modifiedAt to fix it
-      modifiedAt: this._now(wekanBoard.modifiedAt),
-      permission: wekanBoard.permission,
-      slug: getSlug(wekanBoard.title) || 'board',
+      modifiedAt: this._now(boardToImport.modifiedAt),
+      permission: boardToImport.permission,
+      slug: getSlug(boardToImport.title) || 'board',
       stars: 0,
-      title: wekanBoard.title,
+      title: boardToImport.title,
     };
     // now add other members
-    if(wekanBoard.members) {
-      wekanBoard.members.forEach((wekanMember) => {
-        const wekanId = wekanMember.userId;
-        // do we have a mapping?
-        if(this.members[wekanId]) {
-          const wekanId = this.members[wekanId];
-          // do we already have it in our list?
-          const wekanMember = boardToCreate.members.find((wekanMember) => wekanMember.userId === wekanId);
-          if(!wekanMember) {
-            boardToCreate.members.push({
-              userId: wekanId,
-              isAdmin: wekanMember.isAdmin,
-              isActive: true,
-              isCommentOnly: false,
-            });
-          }
-        }
+    if(boardToImport.members) {
+      boardToImport.members.forEach((wekanMember) => {
+        // do we already have it in our list?
+        if(!boardToCreate.members.some((member) => member.wekanId === wekanMember.wekanId))
+          boardToCreate.members.push({
+            ... wekanMember,
+            userId: wekanMember.wekanId,
+          });
       });
     }
-    wekanBoard.labels.forEach((label) => {
+    boardToImport.labels.forEach((label) => {
       const labelToCreate = {
         _id: Random.id(6),
         color: label.color,
@@ -192,7 +184,7 @@ export class WekanCreator {
       boardId,
       createdAt: this._now(),
       source: {
-        id: wekanBoard.id,
+        id: boardToImport.id,
         system: 'Wekan',
       },
       // We attribute the import to current user,

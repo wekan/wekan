@@ -21,11 +21,11 @@ template(name="attachmentDeletePopup")
 template(name="attachmentsGalery")
   .attachments-galery
     each attachments
-      a.attachment-item.js-open-viewer(title="{{_ 'added'}} {{ moment uploadedAt }}")
+      a.attachment-item.swipebox(href="{{url}}" title="{{name}}")
         .attachment-thumbnail
           if isUploaded
             if isImage
-              img.attachment-thumbnail-img.js-preview-image(src="{{url}}")
+              img.attachment-thumbnail-img(src="{{url}}")
             else
               span.attachment-thumbnail-ext= extension
           else
