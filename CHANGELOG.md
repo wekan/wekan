@@ -3,13 +3,14 @@
 This release adds the following new features:
 
 * [Permit editing WIP limit](https://github.com/wekan/wekan/pull/1312);
-* [Image attachment resize on smaller screens and swipebox](https://github.com/wekan/wekan/pull/1315).
+* [Image attachment resize on smaller screens and swipebox](https://github.com/wekan/wekan/pull/1315);
+* [Add iPhone favicon for Wekan](https://github.com/wekan/wekan/issues/1317).
 
 and fixes the following bugs:
 
 * [Members do not get included on board import from Wekan](https://github.com/wekan/wekan/pull/1316).
 
-Thanks to GitHub users brooksbecton, nztqa, ocdtrekkie and Tentoe for their contributions.
+Thanks to GitHub users brooksbecton, guillaumebriday, nztqa, ocdtrekkie and Tentoe for their contributions.
 
 # v0.51 2017-10-25 Wekan release
 
