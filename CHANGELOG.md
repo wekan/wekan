@@ -1,10 +1,14 @@
-# Upcoming Wekan release
+# v0.54 2017-11-02 Wekan release
 
 This release adds the following new features:
 
 * [Soft WIP Limit](https://github.com/wekan/wekan/pull/1319).
 
 Thanks to GitHub users amadilsons and xet7 for their contributions.
+
+# v0.53 2017-11-02 Wekan release
+
+(This was canceled, it had some missing version numbers).
 
 # v0.52 2017-10-31 Wekan release
 
