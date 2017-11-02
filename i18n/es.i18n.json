@@ -172,6 +172,7 @@
     "edit-avatar": "Cambiar el avatar",
     "edit-profile": "Editar el perfil",
     "edit-wip-limit": "Cambiar el límite del WIP",
+    "soft-wip-limit": "Soft WIP Limit",
     "editCardStartDatePopup-title": "Cambiar la fecha de inicio",
     "editCardDueDatePopup-title": "Cambiar la fecha de vencimiento",
     "editLabelPopup-title": "Cambiar la etiqueta",
