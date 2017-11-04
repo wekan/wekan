@@ -20,3 +20,6 @@ else
     snapctl stop caddy-service 2>&1 || true
 fi
 
+# restart mongo and wekan service
+snapctl restart mongodb 2>&1 || true
+snapctl restart wekan 2>&1 || true
