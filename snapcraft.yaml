@@ -124,11 +124,3 @@ parts:
     helpers:
         source: snap-src
         plugin: dump
-        organize:
-            wekan-control: bin/wekan-control
-            mongodb-control: bin/mongodb-control
-            wekan-read-settings: bin/wekan-read-settings
-            wekan-help: bin/wekan-help
-            mongodb-backup: bin/mongodb-backup
-            mongodb-restore: bin/mongodb-restore
-            config: bin/config
