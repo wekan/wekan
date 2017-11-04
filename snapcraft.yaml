@@ -130,11 +130,27 @@ parts:
         source: snap-src
         plugin: dump
 
+    go:
+        plugin: nil
+        prepare: |
+          gov=$(echo "$(go version | awk '{ print $3}' | sed 's/^..//') 1.7" | awk '{if ($1 < $2) print "old";}')
+          echo "$(go version)"
+          if [ "${gov}" = "old" ]; then \
+              echo "updating to new go"; \
+              curl https://storage.googleapis.com/golang/go1.9.2.linux-amd64.tar.gz -o go1.9.2.linux-amd64.tar.gz; \
+              tar -xvf go1.9.2.linux-amd64.tar.gz; \
+              rm -rf /usr/lib/go; \
+              mv go /usr/lib/; \
+              ln -sf ../lib/go/bin/go /usr/bin/go; \
+          fi
+
     caddy:
         plugin: go
         go-importpath: github.com/mholt/caddy
         source: https://github.com/mholt/caddy.git
         source-type: git
         source-commit: 53e117802fedd5915eeb32907873d8786a4b2936
+        after:
+            - go
         prime:
             - bin/caddy
