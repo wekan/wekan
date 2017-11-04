@@ -38,6 +38,11 @@ apps:
         daemon: simple
         plugs: [network, network-bind]
 
+    caddy-service:
+        command: caddy-control
+        daemon: simple
+        plugs: [network, network-bind]
+
     help:
         command: wekan-help
 
@@ -124,3 +129,12 @@ parts:
     helpers:
         source: snap-src
         plugin: dump
+
+    caddy:
+        plugin: go
+        go-importpath: github.com/mholt/caddy
+        source: https://github.com/mholt/caddy.git
+        source-type: git
+        source-commit: 53e117802fedd5915eeb32907873d8786a4b2936
+        prime:
+            - bin/caddy

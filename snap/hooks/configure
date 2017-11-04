@@ -7,4 +7,16 @@ echo "$(date '+%Y-%m-%d %H:%M:%S') $0: Entering hook"
 . $SNAP/bin/config
 
 # settings were altered by user, safest way to get them applied is to restart service
+# first check if caddy service is enabled
+value=$(snapctl get caddy-enabled)
+if [ "$value" = "true" ]; then
+    # update caddy file
+    bind_port=$(snapctl get caddy-bind-port)
+    port=$(snapctl get port)
+    [ "x" != "x${bind_port}" ] && sed -i 's|proxy / localhost:.* {|proxy / localhost:'"${bind_port}"' {|g' $SNAP_COMMON/Caddyfile
+    [ "x" != "x$port" ] && sed -i 's|http://:.*|http://:'"${port}"'|g' $SNAP_COMMON/Caddyfile
+    snapctl start caddy-service 2>&1 || true
+else
+    snapctl stop caddy-service 2>&1 || true
+fi
 

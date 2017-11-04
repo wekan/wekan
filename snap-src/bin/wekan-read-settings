@@ -18,3 +18,12 @@ do
         export $key=$value
     fi
 done
+
+# if caddy is enabled, do update port settings based on caddy file
+if [ "$CADDY_ENABLED" = "true" ]; then
+    echo "caddy is enabled, adjusting ports"
+    export CADDY_PORT=${PORT}
+    echo -e "CADDY_PORT=$CADDY_PORT"
+    export PORT=${CADDY_BIND_PORT}
+    echo -e "PORT=$PORT"
+fi

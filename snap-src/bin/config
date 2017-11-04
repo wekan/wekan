@@ -1,12 +1,14 @@
 #!/bin/sh
 
 # store here all configuration options for wekan snap
+SNAP_NAME="wekan"
+
 # read configured settings first
 SETTINGS_FILE="$SNAP_COMMON/wekan_settings.sh"
 [ -f $SETTINGS_FILE ] && . $SETTINGS_FILE
 
 # list of supported keys
-keys="MONGODB_BIND_UNIX_SOCKET MONGODB_BIND_IP MONGODB_PORT MAIL_URL MAIL_FROM ROOT_URL PORT DISABLE_MONGODB"
+keys="MONGODB_BIND_UNIX_SOCKET MONGODB_BIND_IP MONGODB_PORT MAIL_URL MAIL_FROM ROOT_URL PORT DISABLE_MONGODB CADDY_ENABLED CADDY_BIND_PORT"
 
 # default values
 DESCRIPTION_MONGODB_BIND_UNIX_SOCKET="mongodb binding unix socket:\n"\
@@ -42,3 +44,11 @@ KEY_PORT="port"
 DESCRIPTION_DISABLE_MONGODB="Disable mongodb service: use only if binding to database outside of the snap. Valid values: [true,false]"
 DEFAULT_DISABLE_MONGODB="false"
 KEY_DISABLE_MONGODB="disable-mongodb"
+
+DESCRIPTION_CADDY_ENABLED="Enable caddy service (caddy - Every Site on HTTPS). Set to 'true' to enable caddy\n caddy settings are handled through $SNAP_COMMON/Caddyfile"
+DEFAULT_CADDY_ENABLED="false"
+KEY_CADDY_ENABLED="caddy-enabled"
+
+DESCRIPTION_CADDY_BIND_PORT="Port on which caddy will expect proxy, value set here will be set in $SNAP_COMMON/Caddyfile"
+DEFAULT_CADDY_BIND_PORT="3001"
+KEY_CADDY_BIND_PORT="caddy-bind-port"
