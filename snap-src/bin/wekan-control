@@ -1,8 +1,5 @@
 #!/bin/bash
 
-SYSTEMD_WEKAN_SERVICE="snap.${SNAP_NAME}.wekan"
-SYSTEMD_MONGODB_SERVICE="snap.${SNAP_NAME}.mongodb"
-
 # get wekan/mongo settings
 source $SNAP/bin/wekan-read-settings
 
