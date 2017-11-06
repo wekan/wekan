@@ -38,7 +38,7 @@ apps:
         daemon: simple
         plugs: [network, network-bind]
 
-    caddy-service:
+    caddy:
         command: caddy-control
         daemon: simple
         plugs: [network, network-bind]
