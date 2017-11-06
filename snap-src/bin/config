@@ -45,7 +45,7 @@ DESCRIPTION_DISABLE_MONGODB="Disable mongodb service: use only if binding to dat
 DEFAULT_DISABLE_MONGODB="false"
 KEY_DISABLE_MONGODB="disable-mongodb"
 
-DESCRIPTION_CADDY_ENABLED="Enable caddy service (caddy - Every Site on HTTPS). Set to 'true' to enable caddy\n caddy settings are handled through $SNAP_COMMON/Caddyfile"
+DESCRIPTION_CADDY_ENABLED="Enable caddy service (caddy - Every Site on HTTPS). Set to 'true' to enable caddy\n\t\tcaddy settings are handled through $SNAP_COMMON/Caddyfile"
 DEFAULT_CADDY_ENABLED="false"
 KEY_CADDY_ENABLED="caddy-enabled"
 
