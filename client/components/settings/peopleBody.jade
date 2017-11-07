@@ -19,18 +19,66 @@ template(name="people")
 template(name="peopleGeneral")
   table
     tbody
+      tr
+        th {{_ 'username'}}
+        th {{_ 'fullname'}}
+        th {{_ 'isAdmin'}}
+        th {{_ 'email'}}
+        th {{_ 'verified'}}
+        th {{_ 'createdAt'}}
+        th {{_ 'active'}}
+        th
       each user in peopleList
-        tr
-          th {{_ 'username'}}
-          th {{_ 'fullname'}}
-          th {{_ 'isAdmin'}}
-          th {{_ 'email'}}
-          th {{_ 'verified'}}
-          th {{_ 'createdAt'}}
-        tr
-          td {{ user.username }}
-          td {{ user.profile.fullname }}
-          td {{ user.isAdmin }}
-          td {{ user.emails.[0].address }}
-          td {{ user.emails.[0].verified }}
-          td {{ user.createdAt }}
+        +peopleRow(userId=user._id)
+
+template(name="peopleRow")
+  tr
+    td.username {{ userData.username }}
+    td {{ userData.profile.fullname }}
+    td
+      if userData.isAdmin
+        | true
+      else
+        | false
+    td {{ userData.emails.[0].address }}
+    td
+      if userData.emails.[0].verified
+        | true
+      else
+        | false
+    td {{ userData.createdAt }}
+    td
+      if userData.active
+        | true
+      else
+        | false
+    td
+      a.edit-user
+        | edit
+
+template(name="editUserPopup")
+  form
+    label.hide.userId(type="text" value=user._id)
+    label
+      | {{_ 'fullname'}}
+      input.js-profile-fullname(type="text" value=user.profile.fullname autofocus)
+    label
+      | {{_ 'username'}}
+      span.error.hide.username-taken
+        | {{_ 'error-username-taken'}}
+      input.js-profile-username(type="text" value=user.username)
+    label
+      | {{_ 'initials'}}
+      input.js-profile-initials(type="text" value=user.profile.initials)
+    label
+      | {{_ 'email'}}
+      span.error.hide.email-taken
+        | {{_ 'error-email-taken'}}
+      input.js-profile-email(type="email" value="{{user.emails.[0].address}}")
+    label
+      | {{_ 'isAdmin'}}
+      select.select-role.js-profile-isadmin
+        option(value="false") No
+        option(value="true" selected="{{user.isAdmin}}") Yes
+
+    input.primary.wide(type="submit" value="{{_ 'save'}}")
