@@ -1,0 +1,36 @@
+template(name="people")
+  .setting-content
+    unless currentUser.isAdmin
+      | {{_ 'error-notAuthorized'}}
+    else
+      .content-title
+        span {{_ 'people'}}
+      .content-body
+        .side-menu
+          ul
+            li.active
+              a.js-setting-menu(data-id="people-setting") {{_ 'people'}}
+        .main-body
+          if loading.get
+            +spinner
+          else if people.get
+            +peopleGeneral
+
+template(name="peopleGeneral")
+  table
+    tbody
+      each user in peopleList
+        tr
+          th {{_ 'username'}}
+          th {{_ 'fullname'}}
+          th {{_ 'isAdmin'}}
+          th {{_ 'email'}}
+          th {{_ 'verified'}}
+          th {{_ 'createdAt'}}
+        tr
+          td {{ user.username }}
+          td {{ user.profile.fullname }}
+          td {{ user.isAdmin }}
+          td {{ user.emails.[0].address }}
+          td {{ user.emails.[0].verified }}
+          td {{ user.createdAt }}
