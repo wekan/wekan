@@ -46,12 +46,12 @@ template(name="peopleRow")
         | true
       else
         | false
-    td {{ userData.createdAt }}
+    td {{ moment userData.createdAt 'LLL' }}
     td
-      if userData.active
-        | true
-      else
+      if userData.loginDisabled
         | false
+      else
+        | true
     td
       a.edit-user
         | edit
@@ -80,5 +80,10 @@ template(name="editUserPopup")
       select.select-role.js-profile-isadmin
         option(value="false") No
         option(value="true" selected="{{user.isAdmin}}") Yes
+    label
+      | {{_ 'isActive'}}
+      select.select-active.js-profile-isactive
+        option(value="false") Yes
+        option(value="true" selected="{{user.loginDisabled}}") No
 
     input.primary.wide(type="submit" value="{{_ 'save'}}")

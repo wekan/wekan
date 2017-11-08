@@ -1,3 +1,7 @@
-Meteor.publish('people', function () {
-  return Meteor.users.find({}, {fields:{}});
+Meteor.publish('people', (limit) => {
+  check(limit, Number);
+  return Users.find({}, {
+    limit,
+    sort: {createdAt: -1},
+  });
 });

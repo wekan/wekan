@@ -1,10 +1,46 @@
-Meteor.subscribe('people');
+const usersPerPage = 25;
 
 BlazeComponent.extendComponent({
+  mixins() {
+    return [Mixins.InfiniteScrolling];
+  },
   onCreated() {
     this.error = new ReactiveVar('');
     this.loading = new ReactiveVar(false);
     this.people = new ReactiveVar(true);
+
+    this.page = new ReactiveVar(1);
+    this.loadNextPageLocked = false;
+    this.callFirstWith(null, 'resetNextPeak');
+    this.autorun(() => {
+      const limit = this.page.get() * usersPerPage;
+
+      this.subscribe('people', limit, () => {
+        this.loadNextPageLocked = false;
+        const nextPeakBefore = this.callFirstWith(null, 'getNextPeak');
+        this.calculateNextPeak();
+        const nextPeakAfter = this.callFirstWith(null, 'getNextPeak');
+        if (nextPeakBefore === nextPeakAfter) {
+          this.callFirstWith(null, 'resetNextPeak');
+        }
+      });
+    });
+  },
+  loadNextPage() {
+    if (this.loadNextPageLocked === false) {
+      this.page.set(this.page.get() + 1);
+      this.loadNextPageLocked = true;
+    }
+  },
+  calculateNextPeak() {
+    const element = this.find('.main-body');
+    if (element) {
+      const altitude = element.scrollHeight;
+      this.callFirstWith(this, 'setNextPeak', altitude);
+    }
+  },
+  reachNextPeak() {
+    this.loadNextPage();
   },
   setError(error) {
     this.error.set(error);
