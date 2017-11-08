@@ -325,13 +325,13 @@ Users.mutations({
 });
 
 Meteor.methods({
-  setUsername(username) {
+  setUsername(username, userId) {
     check(username, String);
     const nUsersWithUsername = Users.find({ username }).count();
     if (nUsersWithUsername > 0) {
       throw new Meteor.Error('username-already-taken');
     } else {
-      Users.update(this.userId, { $set: { username } });
+      Users.update(userId, {$set: {username}});
     }
   },
   toggleSystemMessages() {
@@ -342,13 +342,13 @@ Meteor.methods({
     check(limit, Number);
     Meteor.user().setShowCardsCountAt(limit);
   },
-  setEmail(email) {
+  setEmail(email, userId) {
     check(email, String);
     const existingUser = Users.findOne({ 'emails.address': email }, { fields: { _id: 1 } });
     if (existingUser) {
       throw new Meteor.Error('email-already-taken');
     } else {
-      Users.update(this.userId, {
+      Users.update(userId, {
         $set: {
           emails: [{
             address: email,
@@ -358,11 +358,12 @@ Meteor.methods({
       });
     }
   },
-  setUsernameAndEmail(username, email) {
+  setUsernameAndEmail(username, email, userId) {
     check(username, String);
     check(email, String);
-    Meteor.call('setUsername', username);
-    Meteor.call('setEmail', email);
+    check(userId, String);
+    Meteor.call('setUsername', username, userId);
+    Meteor.call('setEmail', email, userId);
   },
 });
 
