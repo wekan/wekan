@@ -89,22 +89,25 @@ Template.editUserPopup.events({
     const username = tpl.find('.js-profile-username').value.trim();
     const initials = tpl.find('.js-profile-initials').value.trim();
     const isAdmin = tpl.find('.js-profile-isadmin').value.trim();
+    const isActive = tpl.find('.js-profile-isactive').value.trim();
     const email = tpl.find('.js-profile-email').value.trim();
-    console.log('isAdmin', isAdmin);
     let isChangeUserName = false;
     let isChangeEmail = false;
+
     Users.update(this.userId, {
       $set: {
         'profile.fullname': fullname,
         'profile.initials': initials,
-        'isAdmin': true,
+        'isAdmin': isAdmin === 'true',
+        'loginDisabled': isActive === 'true',
       },
     });
 
     isChangeUserName = username !== user.username;
     isChangeEmail = email.toLowerCase() !== user.emails[0].address.toLowerCase();
+
     if (isChangeUserName && isChangeEmail) {
-      Meteor.call('setUsernameAndEmail', username, email.toLowerCase(), function (error) {
+      Meteor.call('setUsernameAndEmail', username, email.toLowerCase(), this.userId, function (error) {
         const usernameMessageElement = tpl.$('.username-taken');
         const emailMessageElement = tpl.$('.email-taken');
         if (error) {
@@ -119,29 +122,35 @@ Template.editUserPopup.events({
         } else {
           usernameMessageElement.hide();
           emailMessageElement.hide();
-          Popup.back();
+          Popup.close();
         }
       });
     } else if (isChangeUserName) {
-      Meteor.call('setUsername', username, function (error) {
-        const messageElement = tpl.$('.username-taken');
+      Meteor.call('setUsername', username, this.userId, function (error) {
+        const usernameMessageElement = tpl.$('.username-taken');
         if (error) {
-          messageElement.show();
+          const errorElement = error.error;
+          if (errorElement === 'username-already-taken') {
+            usernameMessageElement.show();
+          }
         } else {
-          messageElement.hide();
-          Popup.back();
+          usernameMessageElement.hide();
+          Popup.close();
         }
       });
     } else if (isChangeEmail) {
-      Meteor.call('setEmail', email.toLowerCase(), function (error) {
-        const messageElement = tpl.$('.email-taken');
+      Meteor.call('setEmail', email.toLowerCase(), this.userId, function (error) {
+        const emailMessageElement = tpl.$('.email-taken');
         if (error) {
-          messageElement.show();
+          const errorElement = error.error;
+          if (errorElement === 'email-already-taken') {
+            emailMessageElement.show();
+          }
         } else {
-          messageElement.hide();
-          Popup.back();
+          emailMessageElement.hide();
+          Popup.close();
         }
       });
-    } else Popup.back();
+    } else Popup.close();
   },
 });
