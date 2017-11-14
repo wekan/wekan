@@ -131,13 +131,19 @@ template(name="cardDetailsActionsPopup")
       li: a.js-more {{_ 'cardMorePopup-title'}}
 
 template(name="moveCardPopup")
-  +boardsAndLists
+  if isSandstorm
+    +boardLists
+  else
+    +boardsAndLists
 
 template(name="copyCardPopup")
   label(for='copy-card-title') {{_ 'title'}}:
   textarea#copy-card-title.minicard-composer-textarea.js-card-title(autofocus)
     = title
-  +boardsAndLists
+  if isSandstorm
+    +boardLists
+  else
+    +boardsAndLists
 
 template(name="boardsAndLists")
   select.js-select-boards
