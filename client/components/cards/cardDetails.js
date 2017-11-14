@@ -214,12 +214,43 @@ Template.moveCardPopup.events({
   },
 });
 
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.selectedBoard = new ReactiveVar(Session.get('currentBoard'));
+  },
+
+  boards() {
+    const boards = Boards.find({
+      archived: false,
+      'members.userId': Meteor.userId(),
+    }, {
+      sort: ['title'],
+    });
+    return boards;
+  },
+
+  aBoardLists() {
+    const board = Boards.findOne(this.selectedBoard.get());
+    return board.lists();
+  },
+
+  events() {
+    return [{
+      'change .js-select-boards' (evt) {
+        this.selectedBoard.set($(evt.currentTarget).val());
+      },
+    }];
+  },
+}).register('boardsAndLists');
+
 Template.copyCardPopup.events({
   'click .js-select-list' (evt) {
     const card = Cards.findOne(Session.get('currentCard'));
     const oldId = card._id;
     card._id = null;
     card.listId = this._id;
+    const list = Lists.findOne(card.listId);
+    card.boardId = list.boardId;
     const textarea = $(evt.currentTarget).parents('.content').find('textarea');
     const title = textarea.val().trim();
     // insert new card to the bottom of new list
