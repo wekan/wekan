@@ -147,7 +147,7 @@ BlazeComponent.extendComponent({
 
   pressKey(event) {
     //If user press enter key inside a form, submit it, so user doesn't have to leave keyboard to submit a form.
-    if (event.keyCode === 13) {
+    if (event.keyCode === 13 && !event.shiftKey) {
       event.preventDefault();
       const $form = $(event.currentTarget).closest('form');
       $form.find('button[type=submit]').click();

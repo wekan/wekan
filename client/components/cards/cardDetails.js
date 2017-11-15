@@ -197,7 +197,7 @@ Template.editCardTitleForm.onRendered(function () {
 Template.editCardTitleForm.events({
   'keydown .js-edit-card-title' (evt) {
     // If enter key was pressed, submit the data
-    if (evt.keyCode === 13) {
+    if (evt.keyCode === 13 && !event.shiftKey) {
       $('.js-submit-edit-card-title-form').click();
     }
   },
