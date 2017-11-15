@@ -366,6 +366,7 @@
     "registration": "Регистрация",
     "general": "General",
     "disable-card-deleting": "Disable Card Deleting",
+    "disable-card-restoring": "Disable Card Restoring",
     "disable-self-registration": "Отключить \"Само-Регистрацию\"",
     "invite": "Пригласить",
     "invite-people": "Пригласить людей",

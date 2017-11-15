@@ -7,9 +7,11 @@ template(name="archivesSidebar")
         +minicard(this)
       if currentUser.isBoardMember
         p.quiet
-          a.js-restore-card {{_ 'restore'}}
+          if canRestoreCard
+            a.js-restore-card {{_ 'restore'}}
           if canDeleteCard
-            | -
+            if canRestoreCard
+              | -
             a.js-delete-card {{_ 'delete'}}
         if cardIsInArchivedList
           p.quiet.small ({{_ 'warn-list-archived'}})

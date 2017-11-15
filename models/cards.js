@@ -182,10 +182,11 @@ Cards.helpers({
 
   canBeRestored() {
     const list = Lists.findOne({_id: this.listId});
+    const canRestore = !Settings.findOne().disableCardRestoring;
     if(!list.getWipLimit('soft') && list.getWipLimit('enabled') && list.getWipLimit('value') === list.cards().count()){
       return false;
     }
-    return true;
+    return true && (canRestore || this.user.isBoardAdmin);
   },
 });
 

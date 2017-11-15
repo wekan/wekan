@@ -10,6 +10,9 @@ BlazeComponent.extendComponent({
   canDeleteCard() {
     return !Settings.findOne().disableCardDeleting || Users.findOne(Meteor.userId()).isBoardAdmin();
   },
+  canRestoreCard() {
+    return !Settings.findOne().disableCardRestoring || Users.findOne(Meteor.userId()).isBoardAdmin();
+  },
   archivedCards() {
     return Cards.find({
       archived: true,

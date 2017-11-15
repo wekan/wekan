@@ -7,6 +7,9 @@ Settings.attachSchema(new SimpleSchema({
   disableCardDeleting: {
     type: Boolean,
   },
+  disableCardRestoring: {
+    type: Boolean,
+  },
   'mailServer.username': {
     type: String,
     optional: true,
@@ -71,7 +74,7 @@ if (Meteor.isServer) {
       const domain = process.env.ROOT_URL.match(/\/\/(?:www\.)?(.*)?(?:\/)?/)[1];
       const from = `Wekan <wekan@${domain}>`;
       const defaultSetting = {
-        disableRegistration: false, disableCardDeleting: false, mailServer: {
+        disableRegistration: false, disableCardDeleting: false, disableCardRestoring: false, mailServer: {
           username: '', password: '', host: '', port: '', enableTLS: false, from,
         }, createdAt: now, modifiedAt: now
       };

@@ -366,6 +366,7 @@
     "registration": "회원가입",
     "general": "General",
     "disable-card-deleting": "Disable Card Deleting",
+    "disable-card-restoring": "Disable Card Restoring",
     "disable-self-registration": "일반 유저의 회원 가입 막기",
     "invite": "초대",
     "invite-people": "사람 초대",

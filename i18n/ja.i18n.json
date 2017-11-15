@@ -366,6 +366,7 @@
     "registration": "登録",
     "general": "General",
     "disable-card-deleting": "Disable Card Deleting",
+    "disable-card-restoring": "Disable Card Restoring",
     "disable-self-registration": "自己登録を無効化",
     "invite": "招待",
     "invite-people": "メンバーを招待",

@@ -29,11 +29,17 @@ template(name="setting")
             +announcementSettings
 
 template(name="general")
-  ul#board-setting.setting-detail
+  ul.setting-detail
     li
       a.flex.js-toggle-card-deleting
         .materialCheckBox(class="{{#if currentSetting.disableCardDeleting}}is-checked{{/if}}")
         span {{_ 'disable-card-deleting'}}
+
+  ul.setting-detail
+    li
+      a.flex.js-toggle-card-restoring
+        .materialCheckBox(class="{{#if currentSetting.disableCardRestoring}}is-checked{{/if}}")
+        span {{_ 'disable-card-restoring'}}
 
   ul#registration-setting.setting-detail
     li
