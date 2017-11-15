@@ -364,6 +364,8 @@
     "settings": "设置",
     "people": "人员",
     "registration": "注册",
+    "general": "General",
+    "disable-card-deleting": "Disable Card Deleting",
     "disable-self-registration": "禁止自助注册",
     "invite": "邀请",
     "invite-people": "邀请人员",

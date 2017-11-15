@@ -364,6 +364,8 @@
     "settings": "설정",
     "people": "사람",
     "registration": "회원가입",
+    "general": "General",
+    "disable-card-deleting": "Disable Card Deleting",
     "disable-self-registration": "일반 유저의 회원 가입 막기",
     "invite": "초대",
     "invite-people": "사람 초대",

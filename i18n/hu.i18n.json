@@ -364,6 +364,8 @@
     "settings": "Beállítások",
     "people": "Ember",
     "registration": "Regisztráció",
+    "general": "General",
+    "disable-card-deleting": "Disable Card Deleting",
     "disable-self-registration": "Egyéni regisztráció kikapcsolva",
     "invite": "Meghívás",
     "invite-people": "Emberek meghívása",

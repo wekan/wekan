@@ -364,6 +364,8 @@
     "settings": "Configuración",
     "people": "Persoas",
     "registration": "Rexistro",
+    "general": "General",
+    "disable-card-deleting": "Disable Card Deleting",
     "disable-self-registration": "Desactivar o auto-rexistro",
     "invite": "Convidar",
     "invite-people": "Convidar persoas",

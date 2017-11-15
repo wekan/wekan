@@ -364,6 +364,8 @@
     "settings": "Nastavení",
     "people": "Lidé",
     "registration": "Registrace",
+    "general": "General",
+    "disable-card-deleting": "Disable Card Deleting",
     "disable-self-registration": "Disable Self-Registration",
     "invite": "Pozvánka",
     "invite-people": "Invite People",

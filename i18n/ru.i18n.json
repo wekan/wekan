@@ -364,6 +364,8 @@
     "settings": "Настройки",
     "people": "Люди",
     "registration": "Регистрация",
+    "general": "General",
+    "disable-card-deleting": "Disable Card Deleting",
     "disable-self-registration": "Отключить \"Само-Регистрацию\"",
     "invite": "Пригласить",
     "invite-people": "Пригласить людей",
