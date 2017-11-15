@@ -88,7 +88,7 @@ Cards.allow({
     return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
   },
   remove(userId, doc) {
-    return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+    return allowIsBoardMember(userId, Boards.findOne(doc.boardId)) && (!Settings.findOne().disableCardDeleting || this.user.isBoardAdmin());
   },
   fetch: ['boardId'],
 });
