@@ -468,7 +468,7 @@ if (Meteor.isServer) {
     const invitationCode = InvitationCodes.findOne({
       code: options.profile.invitationcode,
       email: options.email,
-      valid: true
+      valid: true,
     });
     if (!invitationCode) {
       throw new Meteor.Error('error-invitation-code-not-exist', 'The invitation code doesn\'t exist');
