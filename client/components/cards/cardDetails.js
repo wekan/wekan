@@ -163,6 +163,7 @@ Template.cardDetailsActionsPopup.events({
   'click .js-attachments': Popup.open('cardAttachments'),
   'click .js-start-date': Popup.open('editCardStartDate'),
   'click .js-due-date': Popup.open('editCardDueDate'),
+  'click .js-spent-time': Popup.open('editCardSpentTime'),
   'click .js-move-card': Popup.open('moveCard'),
   'click .js-copy-card': Popup.open('copyCard'),
   'click .js-move-card-to-top' (evt) {

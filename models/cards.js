@@ -18,9 +18,9 @@ Cards.attachSchema(new SimpleSchema({
   listId: {
     type: String,
   },
-    // The system could work without this `boardId` information (we could deduce
-    // the board identifier from the card), but it would make the system more
-    // difficult to manage and less efficient.
+  // The system could work without this `boardId` information (we could deduce
+  // the board identifier from the card), but it would make the system more
+  // difficult to manage and less efficient.
   boardId: {
     type: String,
   },
@@ -64,8 +64,18 @@ Cards.attachSchema(new SimpleSchema({
     type: Date,
     optional: true,
   },
-    // XXX Should probably be called `authorId`. Is it even needed since we have
-    // the `members` field?
+  spentTime: {
+    type: Number,
+    decimal: true,
+    optional: true,
+  },
+  isOvertime: {
+    type: Boolean,
+    defaultValue: false,
+    optional: true,
+  },
+  // XXX Should probably be called `authorId`. Is it even needed since we have
+  // the `members` field?
   userId: {
     type: String,
     autoValue() { // eslint-disable-line consistent-return
@@ -136,8 +146,8 @@ Cards.helpers({
 
   cover() {
     const cover = Attachments.findOne(this.coverId);
-        // if we return a cover before it is fully stored, we will get errors when we try to display it
-        // todo XXX we could return a default "upload pending" image in the meantime?
+    // if we return a cover before it is fully stored, we will get errors when we try to display it
+    // todo XXX we could return a default "upload pending" image in the meantime?
     return cover && cover.url() && cover;
   },
 
@@ -182,7 +192,7 @@ Cards.helpers({
 
   canBeRestored() {
     const list = Lists.findOne({_id: this.listId});
-    if(!list.getWipLimit('soft') && list.getWipLimit('enabled') && list.getWipLimit('value') === list.cards().count()){
+    if (!list.getWipLimit('soft') && list.getWipLimit('enabled') && list.getWipLimit('value') === list.cards().count()) {
       return false;
     }
     return true;
@@ -269,6 +279,18 @@ Cards.mutations({
   unsetDue() {
     return {$unset: {dueAt: ''}};
   },
+
+  setOvertime(isOvertime) {
+    return {$set: {isOvertime}};
+  },
+
+  setSpentTime(spentTime) {
+    return {$set: {spentTime}};
+  },
+
+  unsetSpentTime() {
+    return {$unset: {spentTime: '', isOvertime: false}};
+  },
 });
 
 
@@ -313,7 +335,7 @@ function cardMembers(userId, doc, fieldNames, modifier) {
   if (!_.contains(fieldNames, 'members'))
     return;
   let memberId;
-    // Say hello to the new member
+  // Say hello to the new member
   if (modifier.$addToSet && modifier.$addToSet.members) {
     memberId = modifier.$addToSet.members;
     if (!_.contains(doc.members, memberId)) {
@@ -327,10 +349,10 @@ function cardMembers(userId, doc, fieldNames, modifier) {
     }
   }
 
-    // Say goodbye to the former member
+  // Say goodbye to the former member
   if (modifier.$pull && modifier.$pull.members) {
     memberId = modifier.$pull.members;
-        // Check that the former member is member of the card
+    // Check that the former member is member of the card
     if (_.contains(doc.members, memberId)) {
       Activities.insert({
         userId,
@@ -370,8 +392,8 @@ function cardRemover(userId, doc) {
 
 
 if (Meteor.isServer) {
-    // Cards are often fetched within a board, so we create an index to make these
-    // queries more efficient.
+  // Cards are often fetched within a board, so we create an index to make these
+  // queries more efficient.
   Meteor.startup(() => {
     Cards._collection._ensureIndex({boardId: 1, createdAt: -1});
   });
@@ -380,24 +402,24 @@ if (Meteor.isServer) {
     cardCreation(userId, doc);
   });
 
-    // New activity for card (un)archivage
+  // New activity for card (un)archivage
   Cards.after.update((userId, doc, fieldNames) => {
     cardState(userId, doc, fieldNames);
   });
 
-    //New activity for card moves
+  //New activity for card moves
   Cards.after.update(function (userId, doc, fieldNames) {
     const oldListId = this.previous.listId;
     cardMove(userId, doc, fieldNames, oldListId);
   });
 
-    // Add a new activity if we add or remove a member to the card
+  // Add a new activity if we add or remove a member to the card
   Cards.before.update((userId, doc, fieldNames, modifier) => {
     cardMembers(userId, doc, fieldNames, modifier);
   });
 
-    // Remove all activities associated with a card if we remove the card
-    // Remove also card_comments / checklists / attachments
+  // Remove all activities associated with a card if we remove the card
+  // Remove also card_comments / checklists / attachments
   Cards.after.remove((userId, doc) => {
     cardRemover(userId, doc);
   });
@@ -453,7 +475,7 @@ if (Meteor.isServer) {
         },
       });
 
-      const card = Cards.findOne({_id:id});
+      const card = Cards.findOne({_id: id});
       cardCreation(req.body.authorId, card);
 
     } else {
@@ -472,21 +494,21 @@ if (Meteor.isServer) {
     if (req.body.hasOwnProperty('title')) {
       const newTitle = req.body.title;
       Cards.direct.update({_id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false},
-                {$set: {title: newTitle}});
+        {$set: {title: newTitle}});
     }
     if (req.body.hasOwnProperty('listId')) {
       const newParamListId = req.body.listId;
       Cards.direct.update({_id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false},
-                {$set: {listId: newParamListId}});
+        {$set: {listId: newParamListId}});
 
-      const card = Cards.findOne({_id: paramCardId} );
+      const card = Cards.findOne({_id: paramCardId});
       cardMove(req.body.authorId, card, {fieldName: 'listId'}, paramListId);
 
     }
     if (req.body.hasOwnProperty('description')) {
       const newDescription = req.body.description;
       Cards.direct.update({_id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false},
-                {$set: {description: newDescription}});
+        {$set: {description: newDescription}});
     }
     JsonRoutes.sendResult(res, {
       code: 200,
@@ -504,7 +526,7 @@ if (Meteor.isServer) {
     const paramCardId = req.params.cardId;
 
     Cards.direct.remove({_id: paramCardId, listId: paramListId, boardId: paramBoardId});
-    const card = Cards.find({_id: paramCardId} );
+    const card = Cards.find({_id: paramCardId});
     cardRemover(req.body.authorId, card);
     JsonRoutes.sendResult(res, {
       code: 200,
