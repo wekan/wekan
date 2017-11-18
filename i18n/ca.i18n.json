@@ -404,5 +404,8 @@
     "yes": "Si",
     "no": "No",
     "accounts": "Comptes",
-    "accounts-allowEmailChange": "Permet modificar correu electrònic"
+    "accounts-allowEmailChange": "Permet modificar correu electrònic",
+    "createdAt": "Created at",
+    "verified": "Verified",
+    "active": "Active"
 }
