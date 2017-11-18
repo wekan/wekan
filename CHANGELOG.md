@@ -1,3 +1,17 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+* [Markdown in card/minicard/checlist titles and checklist items. Next line: Shift+Enter. Submit: Enter.](https://github.com/wekan/wekan/pull/1334);
+
+and fixes the following bugs:
+
+* [Fix: Emoji detection breaks MAC addresses](https://github.com/wekan/wekan/issues/1248);
+* [Fix: Codeblocks should not be scanned for emoji](https://github.com/wekan/wekan/issues/643);
+* [Fix: Whitespace trimming breaks Markdown code block indentation](https://github.com/wekan/wekan/issues/1288).
+
+Thanks to Github user brooksbecton for contributions.
+
 # v0.54 2017-11-02 Wekan release
 
 This release adds the following new features:
