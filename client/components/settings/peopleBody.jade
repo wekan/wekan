@@ -1,0 +1,89 @@
+template(name="people")
+  .setting-content
+    unless currentUser.isAdmin
+      | {{_ 'error-notAuthorized'}}
+    else
+      .content-title
+        span {{_ 'people'}}
+      .content-body
+        .side-menu
+          ul
+            li.active
+              a.js-setting-menu(data-id="people-setting") {{_ 'people'}}
+        .main-body
+          if loading.get
+            +spinner
+          else if people.get
+            +peopleGeneral
+
+template(name="peopleGeneral")
+  table
+    tbody
+      tr
+        th {{_ 'username'}}
+        th {{_ 'fullname'}}
+        th {{_ 'isAdmin'}}
+        th {{_ 'email'}}
+        th {{_ 'verified'}}
+        th {{_ 'createdAt'}}
+        th {{_ 'active'}}
+        th
+      each user in peopleList
+        +peopleRow(userId=user._id)
+
+template(name="peopleRow")
+  tr
+    td.username {{ userData.username }}
+    td {{ userData.profile.fullname }}
+    td
+      if userData.isAdmin
+        | true
+      else
+        | false
+    td {{ userData.emails.[0].address }}
+    td
+      if userData.emails.[0].verified
+        | true
+      else
+        | false
+    td {{ moment userData.createdAt 'LLL' }}
+    td
+      if userData.loginDisabled
+        | false
+      else
+        | true
+    td
+      a.edit-user
+        | edit
+
+template(name="editUserPopup")
+  form
+    label.hide.userId(type="text" value=user._id)
+    label
+      | {{_ 'fullname'}}
+      input.js-profile-fullname(type="text" value=user.profile.fullname autofocus)
+    label
+      | {{_ 'username'}}
+      span.error.hide.username-taken
+        | {{_ 'error-username-taken'}}
+      input.js-profile-username(type="text" value=user.username)
+    label
+      | {{_ 'initials'}}
+      input.js-profile-initials(type="text" value=user.profile.initials)
+    label
+      | {{_ 'email'}}
+      span.error.hide.email-taken
+        | {{_ 'error-email-taken'}}
+      input.js-profile-email(type="email" value="{{user.emails.[0].address}}")
+    label
+      | {{_ 'isAdmin'}}
+      select.select-role.js-profile-isadmin
+        option(value="false") No
+        option(value="true" selected="{{user.isAdmin}}") Yes
+    label
+      | {{_ 'isActive'}}
+      select.select-active.js-profile-isactive
+        option(value="false") Yes
+        option(value="true" selected="{{user.loginDisabled}}") No
+
+    input.primary.wide(type="submit" value="{{_ 'save'}}")

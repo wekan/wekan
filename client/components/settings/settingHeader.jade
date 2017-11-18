@@ -9,13 +9,14 @@ template(name="settingHeaderBar")
           a.setting-header-btn.settings(href="{{pathFor 'setting'}}")
             i.fa(class="fa-cog")
             span {{_ 'settings'}}
+
           a.setting-header-btn.informations(href="{{pathFor 'information'}}")
             i.fa(class="fa-info-circle")
             span {{_ 'info'}}
-//TODO
-//          a.setting-header-btn.people
-//            i.fa(class="fa-users")
-//            span {{_ 'people'}}
+
+          a.setting-header-btn.people(href="{{pathFor 'people'}}")
+            i.fa(class="fa-users")
+            span {{_ 'people'}}
 
         else
           a.setting-header-btn.js-log-in(
