@@ -22,7 +22,7 @@ template(name="peopleGeneral")
       tr
         th {{_ 'username'}}
         th {{_ 'fullname'}}
-        th {{_ 'isAdmin'}}
+        th {{_ 'admin'}}
         th {{_ 'email'}}
         th {{_ 'verified'}}
         th {{_ 'createdAt'}}
@@ -37,24 +37,24 @@ template(name="peopleRow")
     td {{ userData.profile.fullname }}
     td
       if userData.isAdmin
-        | true
+        | {{_ 'yes'}}
       else
-        | false
+        | {{_ 'no'}}
     td {{ userData.emails.[0].address }}
     td
       if userData.emails.[0].verified
-        | true
+        | {{_ 'yes'}}
       else
-        | false
+        | {{_ 'no'}}
     td {{ moment userData.createdAt 'LLL' }}
     td
       if userData.loginDisabled
-        | false
+        | {{_ 'no'}}
       else
-        | true
+        | {{_ 'yes'}}
     td
       a.edit-user
-        | edit
+        | {{_ 'edit'}}
 
 template(name="editUserPopup")
   form
@@ -76,14 +76,14 @@ template(name="editUserPopup")
         | {{_ 'error-email-taken'}}
       input.js-profile-email(type="email" value="{{user.emails.[0].address}}")
     label
-      | {{_ 'isAdmin'}}
+      | {{_ 'admin'}}
       select.select-role.js-profile-isadmin
-        option(value="false") No
-        option(value="true" selected="{{user.isAdmin}}") Yes
+        option(value="false") {{_ 'no'}}
+        option(value="true" selected="{{user.isAdmin}}") {{_ 'yes'}}
     label
-      | {{_ 'isActive'}}
+      | {{_ 'active'}}
       select.select-active.js-profile-isactive
-        option(value="false") Yes
-        option(value="true" selected="{{user.loginDisabled}}") No
+        option(value="false") {{_ 'yes'}}
+        option(value="true" selected="{{user.loginDisabled}}") {{_ 'no'}}
 
     input.primary.wide(type="submit" value="{{_ 'save'}}")
