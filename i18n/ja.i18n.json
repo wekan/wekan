@@ -404,5 +404,8 @@
     "yes": "はい",
     "no": "いいえ",
     "accounts": "アカウント",
-    "accounts-allowEmailChange": "メールアドレスの変更を許可"
+    "accounts-allowEmailChange": "メールアドレスの変更を許可",
+    "createdAt": "Created at",
+    "verified": "Verified",
+    "active": "Active"
 }

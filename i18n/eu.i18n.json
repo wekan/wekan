@@ -404,5 +404,8 @@
     "yes": "Bai",
     "no": "Ez",
     "accounts": "Kontuak",
-    "accounts-allowEmailChange": "Baimendu e-mail aldaketa"
+    "accounts-allowEmailChange": "Baimendu e-mail aldaketa",
+    "createdAt": "Created at",
+    "verified": "Verified",
+    "active": "Active"
 }
