@@ -42,7 +42,7 @@ Template.editProfilePopup.events({
     isChangeUserName = username !== Meteor.user().username;
     isChangeEmail = email.toLowerCase() !== Meteor.user().emails[0].address.toLowerCase();
     if (isChangeUserName && isChangeEmail) {
-      Meteor.call('setUsernameAndEmail', username, email.toLowerCase(), function(error) {
+      Meteor.call('setUsernameAndEmail', username, email.toLowerCase(), Meteor.userId(), function (error) {
         const usernameMessageElement = tpl.$('.username-taken');
         const emailMessageElement = tpl.$('.email-taken');
         if (error) {
@@ -61,7 +61,7 @@ Template.editProfilePopup.events({
         }
       });
     } else if (isChangeUserName) {
-      Meteor.call('setUsername', username, function(error) {
+      Meteor.call('setUsername', username, Meteor.userId(), function (error) {
         const messageElement = tpl.$('.username-taken');
         if (error) {
           messageElement.show();
@@ -71,7 +71,7 @@ Template.editProfilePopup.events({
         }
       });
     } else if (isChangeEmail) {
-      Meteor.call('setEmail', email.toLowerCase(), function(error) {
+      Meteor.call('setEmail', email.toLowerCase(), Meteor.userId(), function (error) {
         const messageElement = tpl.$('.email-taken');
         if (error) {
           messageElement.show();
@@ -105,7 +105,7 @@ Template.editNotificationPopup.events({
 
 // XXX For some reason the useraccounts autofocus isnt working in this case.
 // See https://github.com/meteor-useraccounts/core/issues/384
-Template.changePasswordPopup.onRendered(function() {
+Template.changePasswordPopup.onRendered(function () {
   this.find('#at-field-current_password').focus();
 });
 
@@ -116,7 +116,7 @@ Template.changeLanguagePopup.helpers({
         tag: code,
         name: lang.name === 'br' ? 'Brezhoneg' : lang.name,
       };
-    }).sort(function(a, b) {
+    }).sort(function (a, b) {
       if (a.name === b.name) {
         return 0;
       } else {

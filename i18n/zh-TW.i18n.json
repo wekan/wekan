@@ -404,5 +404,8 @@
     "yes": "是",
     "no": "否",
     "accounts": "帳號",
-    "accounts-allowEmailChange": "准許變更電子信箱"
+    "accounts-allowEmailChange": "准許變更電子信箱",
+    "createdAt": "Created at",
+    "verified": "Verified",
+    "active": "Active"
 }

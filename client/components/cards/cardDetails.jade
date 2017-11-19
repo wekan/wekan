@@ -9,9 +9,10 @@ template(name="cardDetails")
           a.fa.fa-navicon.card-details-menu.js-open-card-details-menu
         h2.card-details-title.js-card-title(
           class="{{#if canModifyCard}}js-open-inlined-form is-editable{{/if}}")
-            = title
-            if isWatching
-              i.fa.fa-eye.card-details-watch
+            +viewer
+              = title
+              if isWatching
+                i.fa.fa-eye.card-details-watch
 
     if archived
       p.warning {{_ 'card-archived'}}

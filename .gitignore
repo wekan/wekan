@@ -5,6 +5,7 @@
 tmp/
 node_modules/
 .vscode/
+.idea/
 .build/*
 packages/kadira-flow-router/
 packages/meteor-useraccounts-core/

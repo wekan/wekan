@@ -404,5 +404,8 @@
     "yes": "Kyllä",
     "no": "Ei",
     "accounts": "Tilit",
-    "accounts-allowEmailChange": "Salli sähköpostiosoitteen muuttaminen"
+    "accounts-allowEmailChange": "Salli sähköpostiosoitteen muuttaminen",
+    "createdAt": "Luotu",
+    "verified": "Varmistettu",
+    "active": "Aktiivinen"
 }

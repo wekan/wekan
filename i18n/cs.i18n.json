@@ -404,5 +404,8 @@
     "yes": "Ano",
     "no": "Ne",
     "accounts": "Účty",
-    "accounts-allowEmailChange": "Povolit změnu Emailu"
+    "accounts-allowEmailChange": "Povolit změnu Emailu",
+    "createdAt": "Created at",
+    "verified": "Verified",
+    "active": "Active"
 }
