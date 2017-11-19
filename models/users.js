@@ -588,94 +588,144 @@ if (Meteor.isServer) {
 
 // USERS REST API
 if (Meteor.isServer) {
-  JsonRoutes.add('GET', '/api/user', function (req, res, next) {
-    Authentication.checkLoggedIn(req.userId);
-    const data = Meteor.users.findOne({_id: req.userId});
-    delete data.services;
-    JsonRoutes.sendResult(res, {
-      code: 200,
-      data,
-    });
+  JsonRoutes.add('GET', '/api/user', function(req, res, next) {
+    try {
+      Authentication.checkLoggedIn(req.userId);
+      const data = Meteor.users.findOne({ _id: req.userId});
+      delete data.services;
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data,
+      });
+    }
+    catch (error) {
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: error,
+      });
+    }
   });
 
   JsonRoutes.add('GET', '/api/users', function (req, res, next) {
-    Authentication.checkUserId(req.userId);
-    JsonRoutes.sendResult(res, {
-      code: 200,
-      data: Meteor.users.find({}).map(function (doc) {
-        return {_id: doc._id, username: doc.username};
-      }),
-    });
-  });
-  JsonRoutes.add('GET', '/api/users/:id', function (req, res, next) {
-    Authentication.checkUserId(req.userId);
-    const id = req.params.id;
-    JsonRoutes.sendResult(res, {
-      code: 200,
-      data: Meteor.users.findOne({_id: id}),
-    });
-  });
-  JsonRoutes.add('PUT', '/api/users/:id', function (req, res, next) {
-    Authentication.checkUserId(req.userId);
-    const id = req.params.id;
-    const action = req.body.action;
-    let data = Meteor.users.findOne({_id: id});
-    if (data !== undefined) {
-      if (action === 'takeOwnership') {
-        data = Boards.find({
-          'members.userId': id,
-          'members.isAdmin': true,
-        }).map(function (board) {
-          if (board.hasMember(req.userId)) {
-            board.removeMember(req.userId);
-          }
-          board.changeOwnership(id, req.userId);
-          return {
-            _id: board._id,
-            title: board.title,
-          };
-        });
-      } else {
-        if ((action === 'disableLogin') && (id !== req.userId)) {
-          Users.update({_id: id}, {$set: {loginDisabled: true, 'services.resume.loginTokens': ''}});
-        } else if (action === 'enableLogin') {
-          Users.update({_id: id}, {$set: {loginDisabled: ''}});
-        }
-        data = Meteor.users.findOne({_id: id});
-      }
+    try {
+      Authentication.checkUserId(req.userId);
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: Meteor.users.find({}).map(function (doc) {
+          return { _id: doc._id, username: doc.username };
+        }),
+      });
     }
-    JsonRoutes.sendResult(res, {
-      code: 200,
-      data,
-    });
+    catch (error) {
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: error,
+      });
+    }
   });
-  JsonRoutes.add('POST', '/api/users/', function (req, res, next) {
-    Authentication.checkUserId(req.userId);
-    const id = Accounts.createUser({
-      username: req.body.username,
-      email: req.body.email,
-      password: req.body.password,
-      from: 'admin',
-    });
 
-    JsonRoutes.sendResult(res, {
-      code: 200,
-      data: {
-        _id: id,
-      },
-    });
+  JsonRoutes.add('GET', '/api/users/:id', function (req, res, next) {
+    try {
+      Authentication.checkUserId(req.userId);
+      const id = req.params.id;
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: Meteor.users.findOne({ _id: id }),
+      });
+    }
+    catch (error) {
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: error,
+      });
+    }
+  });
+
+  JsonRoutes.add('PUT', '/api/users/:id', function (req, res, next) {
+    try {
+      Authentication.checkUserId(req.userId);
+      const id = req.params.id;
+      const action = req.body.action;
+      let data = Meteor.users.findOne({ _id: id });
+      if (data !== undefined) {
+        if (action === 'takeOwnership') {
+          data = Boards.find({
+            'members.userId': id,
+            'members.isAdmin': true,
+          }).map(function(board) {
+            if (board.hasMember(req.userId)) {
+              board.removeMember(req.userId);
+            }
+            board.changeOwnership(id, req.userId);
+            return {
+              _id: board._id,
+              title: board.title,
+            };
+          });
+        } else {
+          if ((action === 'disableLogin') && (id !== req.userId)) {
+            Users.update({ _id: id }, { $set: { loginDisabled: true, 'services.resume.loginTokens': '' } });
+          } else if (action === 'enableLogin') {
+            Users.update({ _id: id }, { $set: { loginDisabled: '' } });
+          }
+          data = Meteor.users.findOne({ _id: id });
+        }
+      }
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data,
+      });
+    }
+    catch (error) {
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: error,
+      });
+    }
+  });
+
+  JsonRoutes.add('POST', '/api/users/', function (req, res, next) {
+    try {
+      Authentication.checkUserId(req.userId);
+      const id = Accounts.createUser({
+        username: req.body.username,
+        email: req.body.email,
+        password: req.body.password,
+        from: 'admin',
+      });
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: {
+          _id: id,
+        },
+      });
+    }
+    catch (error) {
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: error,
+      });
+    }
   });
 
   JsonRoutes.add('DELETE', '/api/users/:id', function (req, res, next) {
-    Authentication.checkUserId(req.userId);
-    const id = req.params.id;
-    Meteor.users.remove({_id: id});
-    JsonRoutes.sendResult(res, {
-      code: 200,
-      data: {
-        _id: id,
-      },
-    });
+    try {
+      Authentication.checkUserId(req.userId);
+      const id = req.params.id;
+      Meteor.users.remove({ _id: id });
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: {
+          _id: id,
+        },
+      });
+    }
+    catch (error) {
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: error,
+      });
+    }
   });
 }
 
