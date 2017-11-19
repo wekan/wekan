@@ -1,3 +1,22 @@
+# v0.55 2017-11-19 Wekan release
+
+This release adds the following new features:
+
+* [Markdown in card/minicard/checlist titles and checklist items. Next line: Shift+Enter. Submit: Enter.](https://github.com/wekan/wekan/pull/1334);
+* [User Admin to Admin Panel: List users. Change: is user admin, name, fullname, email address, is user active. Not changing password yet.](https://github.com/wekan/wekan/pull/1325);
+* [REST API better error output](https://github.com/wekan/wekan/pull/1323).
+
+and fixes the following bugs:
+
+* [Emoji detection breaks MAC addresses](https://github.com/wekan/wekan/issues/1248);
+* [Codeblocks should not be scanned for emoji](https://github.com/wekan/wekan/issues/643);
+* [Whitespace trimming breaks Markdown code block indentation](https://github.com/wekan/wekan/issues/1288):
+* [Helper to list boards for user](https://github.com/wekan/wekan/pull/1327);
+* [Error after sending invitation and joining board: Exception while invoking method 'login' TypeError: Cannot read property 'loginDisabled' of undefined](https://github.com/wekan/wekan/issues/1331);
+* [Invitation /sign-up page did not show input for invitation code](https://github.com/wekan/wekan/commit/99be745f0299b32a8a7b30204b43bff7fd5ba638).
+
+Thanks to Github users brooksbecton, milesibastos, nztqa, soohwa, thuanpq and xet7 for their contributions.
+
 # v0.54 2017-11-02 Wekan release
 
 This release adds the following new features:

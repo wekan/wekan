@@ -28,9 +28,13 @@ template(name="checklistDetail")
 
       span.checklist-stat(class="{{#if checklist.isFinished}}is-finished{{/if}}") {{checklist.finishedCount}}/{{checklist.itemCount}}
       if canModifyCard
-        h2.title.js-open-inlined-form.is-editable  {{checklist.title}}
+        h2.title.js-open-inlined-form.is-editable
+          +viewer
+            = checklist.title
       else
-        h2.title  {{checklist.title}}
+        h2.title
+          +viewer
+              = checklist.title
   +checklistItems(checklist = checklist)
 
 template(name="checklistDeleteDialog")
@@ -83,7 +87,11 @@ template(name='itemDetail')
   .item.js-checklist-item
     if canModifyCard
       .check-box.materialCheckBox(class="{{#if item.isFinished }}is-checked{{/if}}")
-      .item-title.js-open-inlined-form.is-editable(class="{{#if item.isFinished }}is-checked{{/if}}") {{item.title}}
+      .item-title.js-open-inlined-form.is-editable(class="{{#if item.isFinished }}is-checked{{/if}}")
+        +viewer
+          = item.title
     else
       .materialCheckBox(class="{{#if item.isFinished }}is-checked{{/if}}")
-      .item-title(class="{{#if item.isFinished }}is-checked{{/if}}") {{item.title}}
+      .item-title(class="{{#if item.isFinished }}is-checked{{/if}}")
+        +viewer
+          = item.title

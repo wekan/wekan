@@ -404,5 +404,8 @@
     "yes": "نعم",
     "no": "لا",
     "accounts": "الحسابات",
-    "accounts-allowEmailChange": "السماح بتغيير البريد الإلكتروني"
+    "accounts-allowEmailChange": "السماح بتغيير البريد الإلكتروني",
+    "createdAt": "Created at",
+    "verified": "Verified",
+    "active": "Active"
 }

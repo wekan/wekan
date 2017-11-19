@@ -172,7 +172,7 @@
     "edit-avatar": "Cambia avatar",
     "edit-profile": "Modifica profilo",
     "edit-wip-limit": "Modifica limite di work in progress",
-    "soft-wip-limit": "Soft WIP Limit",
+    "soft-wip-limit": "Limite Work in progress soft",
     "editCardStartDatePopup-title": "Cambia data di inizio",
     "editCardDueDatePopup-title": "Cambia data di scadenza",
     "editLabelPopup-title": "Cambia etichetta",
@@ -404,5 +404,8 @@
     "yes": "Sì",
     "no": "No",
     "accounts": "Profili",
-    "accounts-allowEmailChange": "Permetti modifica dell'email"
+    "accounts-allowEmailChange": "Permetti modifica dell'email",
+    "createdAt": "Created at",
+    "verified": "Verified",
+    "active": "Active"
 }

@@ -6,7 +6,9 @@ template(name="minicard")
       .minicard-labels
         each labels
           .minicard-label(class="card-label-{{color}}" title="{{name}}")
-    .minicard-title= title
+    .minicard-title
+      +viewer
+        = title
     .dates
       if startAt
           .date
