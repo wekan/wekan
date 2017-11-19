@@ -159,7 +159,7 @@ if (Meteor.isClient) {
 
 Users.helpers({
   boards() {
-    return Boards.find({userId: this._id});
+    return Boards.find({ 'members.userId': this._id });
   },
 
   starredBoards() {

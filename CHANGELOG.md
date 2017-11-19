@@ -7,11 +7,12 @@ This release adds the following new features:
 
 and fixes the following bugs:
 
-* [Fix: Emoji detection breaks MAC addresses](https://github.com/wekan/wekan/issues/1248);
-* [Fix: Codeblocks should not be scanned for emoji](https://github.com/wekan/wekan/issues/643);
-* [Fix: Whitespace trimming breaks Markdown code block indentation](https://github.com/wekan/wekan/issues/1288).
+* [Emoji detection breaks MAC addresses](https://github.com/wekan/wekan/issues/1248);
+* [Codeblocks should not be scanned for emoji](https://github.com/wekan/wekan/issues/643);
+* [Whitespace trimming breaks Markdown code block indentation](https://github.com/wekan/wekan/issues/1288):
+* [Helper to list boards for user](https://github.com/wekan/wekan/pull/1327).
 
-Thanks to Github users brooksbecton, thuanpq and xet7 for their contributions.
+Thanks to Github users brooksbecton, milesibastos, thuanpq and xet7 for their contributions.
 
 # v0.54 2017-11-02 Wekan release
 
