@@ -12,7 +12,8 @@ and fixes the following bugs:
 * [Codeblocks should not be scanned for emoji](https://github.com/wekan/wekan/issues/643);
 * [Whitespace trimming breaks Markdown code block indentation](https://github.com/wekan/wekan/issues/1288):
 * [Helper to list boards for user](https://github.com/wekan/wekan/pull/1327);
-* [Error after sending invitation and joining board: Exception while invoking method 'login' TypeError: Cannot read property 'loginDisabled' of undefined](https://github.com/wekan/wekan/issues/1331).
+* [Error after sending invitation and joining board: Exception while invoking method 'login' TypeError: Cannot read property 'loginDisabled' of undefined](https://github.com/wekan/wekan/issues/1331);
+* Invitation /sign-up page did not show input for invitation code.
 
 Thanks to Github users brooksbecton, milesibastos, nztqa, soohwa, thuanpq and xet7 for their contributions.
 
