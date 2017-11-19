@@ -172,7 +172,7 @@
     "edit-avatar": "החלפת תמונת משתמש",
     "edit-profile": "עריכת פרופיל",
     "edit-wip-limit": "עריכת מגבלת „בעבודה”",
-    "soft-wip-limit": "Soft WIP Limit",
+    "soft-wip-limit": "מגבלת „בעבודה” רכה",
     "editCardStartDatePopup-title": "שינוי מועד התחלה",
     "editCardDueDatePopup-title": "שינוי מועד סיום",
     "editLabelPopup-title": "שינוי תווית",
@@ -404,5 +404,8 @@
     "yes": "כן",
     "no": "לא",
     "accounts": "חשבונות",
-    "accounts-allowEmailChange": "אפשר שינוי דוא\"ל"
+    "accounts-allowEmailChange": "אפשר שינוי דוא\"ל",
+    "createdAt": "Created at",
+    "verified": "Verified",
+    "active": "Active"
 }

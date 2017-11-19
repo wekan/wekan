@@ -259,62 +259,94 @@ if (Meteor.isServer) {
 //CARD COMMENT REST API
 if (Meteor.isServer) {
   JsonRoutes.add('GET', '/api/boards/:boardId/cards/:cardId/checklists', function (req, res, next) {
-    Authentication.checkUserId( req.userId);
-    const paramCardId = req.params.cardId;
-    JsonRoutes.sendResult(res, {
-      code: 200,
-      data: Checklists.find({ cardId: paramCardId }).map(function (doc) {
-        return {
-          _id: doc._id,
-          title: doc.title,
-        };
-      }),
-    });
+    try {
+      Authentication.checkUserId( req.userId);
+      const paramCardId = req.params.cardId;
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: Checklists.find({ cardId: paramCardId }).map(function (doc) {
+          return {
+            _id: doc._id,
+            title: doc.title,
+          };
+        }),
+      });
+    }
+    catch (error) {
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: error,
+      });
+    }
   });
 
   JsonRoutes.add('GET', '/api/boards/:boardId/cards/:cardId/checklists/:checklistId', function (req, res, next) {
-    Authentication.checkUserId( req.userId);
-    const paramChecklistId = req.params.checklistId;
-    const paramCardId = req.params.cardId;
-    JsonRoutes.sendResult(res, {
-      code: 200,
-      data: Checklists.findOne({ _id: paramChecklistId, cardId: paramCardId }),
-    });
+    try {
+      Authentication.checkUserId( req.userId);
+      const paramChecklistId = req.params.checklistId;
+      const paramCardId = req.params.cardId;
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: Checklists.findOne({ _id: paramChecklistId, cardId: paramCardId }),
+      });
+    }
+    catch (error) {
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: error,
+      });
+    }
   });
 
   JsonRoutes.add('POST', '/api/boards/:boardId/cards/:cardId/checklists', function (req, res, next) {
-    Authentication.checkUserId( req.userId);
-    const paramCardId = req.params.cardId;
+    try {
+      Authentication.checkUserId( req.userId);
+      const paramCardId = req.params.cardId;
 
-    const checklistToSend = {};
-    checklistToSend.cardId = paramCardId;
-    checklistToSend.title = req.body.title;
-    checklistToSend.items = [];
-    const id = Checklists.insert(checklistToSend);
-    const checklist = Checklists.findOne({_id: id});
-    req.body.items.forEach(function (item) {
-      checklist.addItem(item);
-    }, this);
+      const checklistToSend = {};
+      checklistToSend.cardId = paramCardId;
+      checklistToSend.title = req.body.title;
+      checklistToSend.items = [];
+      const id = Checklists.insert(checklistToSend);
+      const checklist = Checklists.findOne({_id: id});
+      req.body.items.forEach(function (item) {
+        checklist.addItem(item);
+      }, this);
 
 
-    JsonRoutes.sendResult(res, {
-      code: 200,
-      data: {
-        _id: id,
-      },
-    });
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: {
+          _id: id,
+        },
+      });
+    }
+    catch (error) {
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: error,
+      });
+    }
   });
 
   JsonRoutes.add('DELETE', '/api/boards/:boardId/cards/:cardId/checklists/:checklistId', function (req, res, next) {
-    Authentication.checkUserId( req.userId);
-    const paramCommentId = req.params.commentId;
-    const paramCardId = req.params.cardId;
-    Checklists.remove({ _id: paramCommentId, cardId: paramCardId });
-    JsonRoutes.sendResult(res, {
-      code: 200,
-      data: {
-        _id: paramCardId,
-      },
-    });
+    try {
+      Authentication.checkUserId( req.userId);
+      const paramCommentId = req.params.commentId;
+      const paramCardId = req.params.cardId;
+      Checklists.remove({ _id: paramCommentId, cardId: paramCardId });
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: {
+          _id: paramCardId,
+        },
+      });
+    }
+    catch (error) {
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: error,
+      });
+    }
   });
 }

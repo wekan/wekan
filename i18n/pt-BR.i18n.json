@@ -404,5 +404,8 @@
     "yes": "Sim",
     "no": "Não",
     "accounts": "Contas",
-    "accounts-allowEmailChange": "Permitir Mudança de Email"
+    "accounts-allowEmailChange": "Permitir Mudança de Email",
+    "createdAt": "Created at",
+    "verified": "Verified",
+    "active": "Active"
 }

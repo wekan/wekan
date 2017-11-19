@@ -404,5 +404,8 @@
     "yes": "Ja",
     "no": "Nee",
     "accounts": "Accounts",
-    "accounts-allowEmailChange": "Sta E-mailadres wijzigingen toe"
+    "accounts-allowEmailChange": "Sta E-mailadres wijzigingen toe",
+    "createdAt": "Created at",
+    "verified": "Verified",
+    "active": "Active"
 }

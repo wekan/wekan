@@ -404,5 +404,8 @@
     "yes": "Tak",
     "no": "Nie",
     "accounts": "Konto",
-    "accounts-allowEmailChange": "Zezwól na zmianę adresu email"
+    "accounts-allowEmailChange": "Zezwól na zmianę adresu email",
+    "createdAt": "Created at",
+    "verified": "Verified",
+    "active": "Active"
 }
