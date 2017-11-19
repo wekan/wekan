@@ -364,9 +364,6 @@
     "settings": "設定",
     "people": "成員",
     "registration": "註冊",
-    "general": "General",
-    "disable-card-deleting": "Disable Card Deleting",
-    "disable-card-restoring": "Disable Card Restoring",
     "disable-self-registration": "關閉自我註冊",
     "invite": "邀請",
     "invite-people": "邀請成員",
@@ -407,5 +404,8 @@
     "yes": "是",
     "no": "否",
     "accounts": "帳號",
-    "accounts-allowEmailChange": "准許變更電子信箱"
+    "accounts-allowEmailChange": "准許變更電子信箱",
+    "createdAt": "Created at",
+    "verified": "Verified",
+    "active": "Active"
 }

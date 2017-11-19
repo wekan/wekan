@@ -364,9 +364,6 @@
     "settings": "Ezarpenak",
     "people": "Jendea",
     "registration": "Izen-ematea",
-    "general": "General",
-    "disable-card-deleting": "Disable Card Deleting",
-    "disable-card-restoring": "Disable Card Restoring",
     "disable-self-registration": "Desgaitu nork bere burua erregistratzea",
     "invite": "Gonbidatu",
     "invite-people": "Gonbidatu jendea",
@@ -407,5 +404,8 @@
     "yes": "Bai",
     "no": "Ez",
     "accounts": "Kontuak",
-    "accounts-allowEmailChange": "Baimendu e-mail aldaketa"
+    "accounts-allowEmailChange": "Baimendu e-mail aldaketa",
+    "createdAt": "Created at",
+    "verified": "Verified",
+    "active": "Active"
 }

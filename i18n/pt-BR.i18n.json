@@ -363,9 +363,6 @@
     "admin-panel": "Painel Administrativo",
     "settings": "Configurações",
     "people": "Pessoas",
-    "general": "General",
-    "disable-card-deleting": "Disable Card Deleting",
-    "disable-card-restoring": "Disable Card Restoring",
     "registration": "Registro",
     "disable-self-registration": "Desabilitar Cadastrar-se",
     "invite": "Convite",
@@ -407,5 +404,8 @@
     "yes": "Sim",
     "no": "Não",
     "accounts": "Contas",
-    "accounts-allowEmailChange": "Permitir Mudança de Email"
+    "accounts-allowEmailChange": "Permitir Mudança de Email",
+    "createdAt": "Created at",
+    "verified": "Verified",
+    "active": "Active"
 }

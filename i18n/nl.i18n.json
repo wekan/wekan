@@ -364,9 +364,6 @@
     "settings": "Instellingen",
     "people": "Mensen",
     "registration": "Registratie",
-    "general": "General",
-    "disable-card-deleting": "Disable Card Deleting",
-    "disable-card-restoring": "Disable Card Restoring",
     "disable-self-registration": "Schakel zelf-registratie uit",
     "invite": "Uitnodigen",
     "invite-people": "Nodig mensen uit",
@@ -407,5 +404,8 @@
     "yes": "Ja",
     "no": "Nee",
     "accounts": "Accounts",
-    "accounts-allowEmailChange": "Sta E-mailadres wijzigingen toe"
+    "accounts-allowEmailChange": "Sta E-mailadres wijzigingen toe",
+    "createdAt": "Created at",
+    "verified": "Verified",
+    "active": "Active"
 }

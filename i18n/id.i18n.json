@@ -364,9 +364,6 @@
     "settings": "Setelan",
     "people": "Orang-orang",
     "registration": "Registrasi",
-    "general": "General",
-    "disable-card-deleting": "Disable Card Deleting",
-    "disable-card-restoring": "Disable Card Restoring",
     "disable-self-registration": "Nonaktifkan Swa Registrasi",
     "invite": "Undang",
     "invite-people": "Undang Orang-orang",
@@ -407,5 +404,8 @@
     "yes": "Yes",
     "no": "No",
     "accounts": "Accounts",
-    "accounts-allowEmailChange": "Allow Email Change"
+    "accounts-allowEmailChange": "Allow Email Change",
+    "createdAt": "Created at",
+    "verified": "Verified",
+    "active": "Active"
 }

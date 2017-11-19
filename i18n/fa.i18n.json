@@ -364,9 +364,6 @@
     "settings": "تنظمات",
     "people": "افراد",
     "registration": "ثبت نام",
-    "general": "General",
-    "disable-card-deleting": "Disable Card Deleting",
-    "disable-card-restoring": "Disable Card Restoring",
     "disable-self-registration": "غیرفعالسازی خودثبت نامی",
     "invite": "دعوت",
     "invite-people": "دعوت از افراد",
@@ -407,5 +404,8 @@
     "yes": "Yes",
     "no": "No",
     "accounts": "Accounts",
-    "accounts-allowEmailChange": "Allow Email Change"
+    "accounts-allowEmailChange": "Allow Email Change",
+    "createdAt": "Created at",
+    "verified": "Verified",
+    "active": "Active"
 }

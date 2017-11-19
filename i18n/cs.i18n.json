@@ -364,9 +364,6 @@
     "settings": "Nastavení",
     "people": "Lidé",
     "registration": "Registrace",
-    "general": "General",
-    "disable-card-deleting": "Disable Card Deleting",
-    "disable-card-restoring": "Disable Card Restoring",
     "disable-self-registration": "Disable Self-Registration",
     "invite": "Pozvánka",
     "invite-people": "Invite People",
@@ -407,5 +404,8 @@
     "yes": "Ano",
     "no": "Ne",
     "accounts": "Účty",
-    "accounts-allowEmailChange": "Povolit změnu Emailu"
+    "accounts-allowEmailChange": "Povolit změnu Emailu",
+    "createdAt": "Created at",
+    "verified": "Verified",
+    "active": "Active"
 }

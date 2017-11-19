@@ -172,7 +172,7 @@
     "edit-avatar": "Cambia avatar",
     "edit-profile": "Modifica profilo",
     "edit-wip-limit": "Modifica limite di work in progress",
-    "soft-wip-limit": "Soft WIP Limit",
+    "soft-wip-limit": "Limite Work in progress soft",
     "editCardStartDatePopup-title": "Cambia data di inizio",
     "editCardDueDatePopup-title": "Cambia data di scadenza",
     "editLabelPopup-title": "Cambia etichetta",
@@ -364,9 +364,6 @@
     "settings": "Impostazioni",
     "people": "Persone",
     "registration": "Registrazione",
-    "general": "General",
-    "disable-card-deleting": "Disable Card Deleting",
-    "disable-card-restoring": "Disable Card Restoring",
     "disable-self-registration": "Disabilita Auto-registrazione",
     "invite": "Invita",
     "invite-people": "Invita persone",
@@ -407,5 +404,8 @@
     "yes": "Sì",
     "no": "No",
     "accounts": "Profili",
-    "accounts-allowEmailChange": "Permetti modifica dell'email"
+    "accounts-allowEmailChange": "Permetti modifica dell'email",
+    "createdAt": "Created at",
+    "verified": "Verified",
+    "active": "Active"
 }

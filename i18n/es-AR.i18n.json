@@ -364,9 +364,6 @@
     "settings": "Opciones",
     "people": "Gente",
     "registration": "Registro",
-    "general": "General",
-    "disable-card-deleting": "Disable Card Deleting",
-    "disable-card-restoring": "Disable Card Restoring",
     "disable-self-registration": "Desactivar auto-registro",
     "invite": "Invitar",
     "invite-people": "Invitar Gente",
@@ -407,5 +404,8 @@
     "yes": "Si",
     "no": "No",
     "accounts": "Cuentas",
-    "accounts-allowEmailChange": "Permitir Cambio de Email"
+    "accounts-allowEmailChange": "Permitir Cambio de Email",
+    "createdAt": "Created at",
+    "verified": "Verified",
+    "active": "Active"
 }

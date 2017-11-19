@@ -363,9 +363,6 @@
     "admin-panel": "لوحة التحكم",
     "settings": "الإعدادات",
     "people": "الناس",
-    "general": "General",
-    "disable-card-deleting": "Disable Card Deleting",
-    "disable-card-restoring": "Disable Card Restoring",
     "registration": "تسجيل",
     "disable-self-registration": "Disable Self-Registration",
     "invite": "دعوة",
@@ -407,5 +404,8 @@
     "yes": "نعم",
     "no": "لا",
     "accounts": "الحسابات",
-    "accounts-allowEmailChange": "السماح بتغيير البريد الإلكتروني"
+    "accounts-allowEmailChange": "السماح بتغيير البريد الإلكتروني",
+    "createdAt": "Created at",
+    "verified": "Verified",
+    "active": "Active"
 }

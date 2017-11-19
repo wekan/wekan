@@ -364,9 +364,6 @@
     "settings": "Configuració",
     "people": "Persones",
     "registration": "Registre",
-    "general": "General",
-    "disable-card-deleting": "Disable Card Deleting",
-    "disable-card-restoring": "Disable Card Restoring",
     "disable-self-registration": "Deshabilita Auto-Registre",
     "invite": "Convida",
     "invite-people": "Convida a persones",
@@ -407,5 +404,8 @@
     "yes": "Si",
     "no": "No",
     "accounts": "Comptes",
-    "accounts-allowEmailChange": "Permet modificar correu electrònic"
+    "accounts-allowEmailChange": "Permet modificar correu electrònic",
+    "createdAt": "Created at",
+    "verified": "Verified",
+    "active": "Active"
 }
