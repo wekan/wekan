@@ -207,7 +207,11 @@ Cards.mutations({
   },
 
   move(listId, sortIndex) {
-    const mutatedFields = {listId};
+    const list = Lists.findOne(listId);
+    const mutatedFields = {
+      listId,
+      boardId: list.boardId,
+    };
     if (sortIndex) {
       mutatedFields.sort = sortIndex;
     }
