@@ -343,6 +343,8 @@
     "spent-time-hours": "Spent time (hours)",
     "overtime-hours": "Overtime (hours)",
     "overtime": "Overtime",
+    "has-overtime-cards": "Has overtime cards",
+    "has-spenttime-cards": "Has spenttime cards",
     "time": "Time",
     "title": "Title",
     "tracking": "Tracking",

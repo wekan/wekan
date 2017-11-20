@@ -1,3 +1,5 @@
+const subManager = new SubsManager();
+
 BlazeComponent.extendComponent({
   boards() {
     return Boards.find({
@@ -11,6 +13,16 @@ BlazeComponent.extendComponent({
   isStarred() {
     const user = Meteor.user();
     return user && user.hasStarred(this.currentData()._id);
+  },
+
+  hasOvertimeCards() {
+    subManager.subscribe('board', this.currentData()._id);
+    return this.currentData().hasOvertimeCards();
+  },
+
+  hasSpentTimeCards() {
+    subManager.subscribe('board', this.currentData()._id);
+    return this.currentData().hasSpentTimeCards();
   },
 
   isInvited() {
