@@ -55,7 +55,11 @@ BlazeComponent.extendComponent({
     self.time = ReactiveVar();
   },
   showTitle() {
-    return `${TAPi18n.__('card-spent')} ${this.data().spentTime}`;
+    if (this.data().isOvertime) {
+      return `${TAPi18n.__('overtime')} ${this.data().spentTime} ${TAPi18n.__('hours')}`;
+    } else {
+      return `${TAPi18n.__('card-spent')} ${this.data().spentTime} ${TAPi18n.__('hours')}`;
+    }
   },
   showTime() {
     return this.data().spentTime;
