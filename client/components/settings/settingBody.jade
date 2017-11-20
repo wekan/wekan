@@ -9,7 +9,7 @@ template(name="setting")
         .side-menu
           ul
             li.active
-              a.js-setting-menu(data-id="registration-setting") {{_ 'registration'}}
+              a.js-setting-menu(data-id="registration-setting") {{_ 'general'}}
             li
               a.js-setting-menu(data-id="email-setting") {{_ 'email'}}
             li
@@ -29,11 +29,22 @@ template(name="setting")
             +announcementSettings
 
 template(name="general")
+  ul.setting-detail
+    li
+      a.flex.js-toggle-card-deleting
+        .materialCheckBox(class="{{#if currentSetting.disableCardDeleting}}is-checked{{/if}}")
+        span {{_ 'disable-card-deleting'}}
+
+  ul.setting-detail
+    li
+      a.flex.js-toggle-card-restoring
+        .materialCheckBox(class="{{#if currentSetting.disableCardRestoring}}is-checked{{/if}}")
+        span {{_ 'disable-card-restoring'}}
+
   ul#registration-setting.setting-detail
     li
       a.flex.js-toggle-registration
         .materialCheckBox(class="{{#if currentSetting.disableRegistration}}is-checked{{/if}}")
-
         span {{_ 'disable-self-registration'}}
     li
       .invite-people(class="{{#if currentSetting.disableRegistration}}{{else}}hide{{/if}}")
@@ -47,7 +58,6 @@ template(name="general")
               each boards
                 a.option.flex.js-toggle-board-choose(id= _id)
                   .materialCheckBox(data-id= _id)
-
                   span= title
 
           li

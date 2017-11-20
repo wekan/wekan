@@ -55,6 +55,24 @@ BlazeComponent.extendComponent({
       $('.invite-people').slideDown();
     }
   },
+  toggleCardDeleting(){
+    this.setLoading(true);
+    let disableCardDeleting = this.currentSetting().disableCardDeleting;
+    if(typeof disableCardDeleting === 'undefined') {
+      disableCardDeleting = false;
+    }
+    Settings.update(Settings.findOne()._id, {$set:{disableCardDeleting: !disableCardDeleting}});
+    this.setLoading(false);
+  },
+  toggleCardRestoring(){
+    this.setLoading(true);
+    let disableCardRestoring = this.currentSetting().disableCardRestoring;
+    if(typeof disableCardRestoring === 'undefined') {
+      disableCardRestoring = false;
+    }
+    Settings.update(Settings.findOne()._id, {$set:{disableCardRestoring: !disableCardRestoring}});
+    this.setLoading(false);
+  },
   toggleTLS(){
     $('#mail-server-tls').toggleClass('is-checked');
   },
@@ -128,6 +146,8 @@ BlazeComponent.extendComponent({
   events(){
     return [{
       'click a.js-toggle-registration': this.toggleRegistration,
+      'click a.js-toggle-card-deleting': this.toggleCardDeleting,
+      'click a.js-toggle-card-restoring': this.toggleCardRestoring,
       'click a.js-toggle-tls': this.toggleTLS,
       'click a.js-setting-menu': this.switchMenu,
       'click a.js-toggle-board-choose': this.checkBoard,

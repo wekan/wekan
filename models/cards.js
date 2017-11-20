@@ -88,7 +88,7 @@ Cards.allow({
     return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
   },
   remove(userId, doc) {
-    return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+    return allowIsBoardMember(userId, Boards.findOne(doc.boardId)) && (!Settings.findOne().disableCardDeleting || this.user.isBoardAdmin());
   },
   fetch: ['boardId'],
 });
@@ -182,10 +182,11 @@ Cards.helpers({
 
   canBeRestored() {
     const list = Lists.findOne({_id: this.listId});
+    const canRestore = !Settings.findOne().disableCardRestoring;
     if(!list.getWipLimit('soft') && list.getWipLimit('enabled') && list.getWipLimit('value') === list.cards().count()){
       return false;
     }
-    return true;
+    return true && (canRestore || this.user.isBoardAdmin);
   },
 });
 
