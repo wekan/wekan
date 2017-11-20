@@ -76,7 +76,7 @@ if (Meteor.isServer) {
       const defaultSetting = {
         disableRegistration: false, disableCardDeleting: false, disableCardRestoring: false, mailServer: {
           username: '', password: '', host: '', port: '', enableTLS: false, from,
-        }, createdAt: now, modifiedAt: now
+        }, createdAt: now, modifiedAt: now,
       };
       Settings.insert(defaultSetting);
     }
