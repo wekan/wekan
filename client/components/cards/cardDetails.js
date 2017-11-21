@@ -1,3 +1,5 @@
+const subManager = new SubsManager();
+
 BlazeComponent.extendComponent({
   mixins() {
     return [Mixins.InfiniteScrolling, Mixins.PerfectScrollbar];
@@ -231,13 +233,13 @@ BlazeComponent.extendComponent({
   },
 
   aBoardLists() {
+    subManager.subscribe('board', this.selectedBoard.get());
     const board = Boards.findOne(this.selectedBoard.get());
     return board.lists();
   },
-
   events() {
     return [{
-      'change .js-select-boards' (evt) {
+      'change .js-select-boards'(evt) {
         this.selectedBoard.set($(evt.currentTarget).val());
       },
     }];

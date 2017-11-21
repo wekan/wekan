@@ -153,11 +153,12 @@ template(name="boardsAndLists")
         option(value="{{_id}}" selected) {{_ 'current'}}
       else
         option(value="{{_id}}") {{title}}
+
   label {{_ 'lists'}}:
   ul.pop-over-list
     each aBoardLists
       li
-        if($eq ../_id _id)
+        if $eq ../_id _id
           a.disabled {{title}} ({{_ 'current'}})
         else
           a.js-select-list= title
