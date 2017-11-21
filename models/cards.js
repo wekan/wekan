@@ -64,8 +64,18 @@ Cards.attachSchema(new SimpleSchema({
     type: Date,
     optional: true,
   },
-    // XXX Should probably be called `authorId`. Is it even needed since we have
-    // the `members` field?
+  spentTime: {
+    type: Number,
+    decimal: true,
+    optional: true,
+  },
+  isOvertime: {
+    type: Boolean,
+    defaultValue: false,
+    optional: true,
+  },
+  // XXX Should probably be called `authorId`. Is it even needed since we have
+  // the `members` field?
   userId: {
     type: String,
     autoValue() { // eslint-disable-line consistent-return
@@ -207,7 +217,11 @@ Cards.mutations({
   },
 
   move(listId, sortIndex) {
-    const mutatedFields = {listId};
+    const list = Lists.findOne(listId);
+    const mutatedFields = {
+      listId,
+      boardId: list.boardId,
+    };
     if (sortIndex) {
       mutatedFields.sort = sortIndex;
     }
@@ -268,6 +282,18 @@ Cards.mutations({
 
   unsetDue() {
     return {$unset: {dueAt: ''}};
+  },
+
+  setOvertime(isOvertime) {
+    return {$set: {isOvertime}};
+  },
+
+  setSpentTime(spentTime) {
+    return {$set: {spentTime}};
+  },
+
+  unsetSpentTime() {
+    return {$unset: {spentTime: '', isOvertime: false}};
   },
 });
 

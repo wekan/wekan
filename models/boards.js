@@ -187,6 +187,16 @@ Boards.helpers({
     return Lists.find({ boardId: this._id, archived: false }, { sort: { sort: 1 } });
   },
 
+  hasOvertimeCards(){
+    const card = Cards.findOne({isOvertime: true, boardId: this._id, archived: false} );
+    return card !== undefined;
+  },
+
+  hasSpentTimeCards(){
+    const card = Cards.findOne({spentTime: { $gt: 0 }, boardId: this._id, archived: false} );
+    return card !== undefined;
+  },
+
   activities() {
     return Activities.find({ boardId: this._id }, { sort: { createdAt: -1 } });
   },

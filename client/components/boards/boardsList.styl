@@ -17,6 +17,7 @@ $spaceBetweenTiles = 16px
         opacity: 1
 
   .board-list-item
+    overflow: hidden;
     background-color: #999
     color: #f6f6f6
     height: 90px
@@ -72,6 +73,23 @@ $spaceBetweenTiles = 16px
     top: 0
     transition-duration: .15s
     transition-property: color, font-size, background
+
+  .fa-circle
+    bottom: 0;
+    font-size: 10px;
+    height: 10px;
+    line-height: 10px;
+    padding: 9px 9px;
+    position: absolute;
+    right: 0;
+    transition-duration: .15s
+    transition-property: color, font-size, background
+
+  .has-overtime-card-active
+    color: #eb4646 !important
+
+  .no-overtime-card-active
+    color: #3cb500 !important
 
   .is-star-active
     color: white

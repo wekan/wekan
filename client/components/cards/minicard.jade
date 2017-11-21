@@ -11,11 +11,15 @@ template(name="minicard")
         = title
     .dates
       if startAt
-          .date
-            +minicardStartDate
+        .date
+          +minicardStartDate
       if dueAt
-          .date
-            +minicardDueDate
+        .date
+          +minicardDueDate
+      if spentTime
+        .date
+          +cardSpentTime
+
     if members
       .minicard-members.js-minicard-members
         each members

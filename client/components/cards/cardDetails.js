@@ -1,3 +1,5 @@
+const subManager = new SubsManager();
+
 BlazeComponent.extendComponent({
   mixins() {
     return [Mixins.InfiniteScrolling, Mixins.PerfectScrollbar];
@@ -163,6 +165,7 @@ Template.cardDetailsActionsPopup.events({
   'click .js-attachments': Popup.open('cardAttachments'),
   'click .js-start-date': Popup.open('editCardStartDate'),
   'click .js-due-date': Popup.open('editCardDueDate'),
+  'click .js-spent-time': Popup.open('editCardSpentTime'),
   'click .js-move-card': Popup.open('moveCard'),
   'click .js-copy-card': Popup.open('copyCard'),
   'click .js-move-card-to-top' (evt) {
@@ -198,7 +201,7 @@ Template.editCardTitleForm.events({
   'keydown .js-edit-card-title' (evt) {
     // If enter key was pressed, submit the data
     // Unless the shift key is also being pressed
-    if (evt.keyCode === 13 && !event.shiftKey) {
+    if (evt.keyCode === 13 && !evt.shiftKey) {
       $('.js-submit-edit-card-title-form').click();
     }
   },
@@ -215,12 +218,43 @@ Template.moveCardPopup.events({
   },
 });
 
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.selectedBoard = new ReactiveVar(Session.get('currentBoard'));
+  },
+
+  boards() {
+    const boards = Boards.find({
+      archived: false,
+      'members.userId': Meteor.userId(),
+    }, {
+      sort: ['title'],
+    });
+    return boards;
+  },
+
+  aBoardLists() {
+    subManager.subscribe('board', this.selectedBoard.get());
+    const board = Boards.findOne(this.selectedBoard.get());
+    return board.lists();
+  },
+  events() {
+    return [{
+      'change .js-select-boards'(evt) {
+        this.selectedBoard.set($(evt.currentTarget).val());
+      },
+    }];
+  },
+}).register('boardsAndLists');
+
 Template.copyCardPopup.events({
   'click .js-select-list' (evt) {
     const card = Cards.findOne(Session.get('currentCard'));
     const oldId = card._id;
     card._id = null;
     card.listId = this._id;
+    const list = Lists.findOne(card.listId);
+    card.boardId = list.boardId;
     const textarea = $(evt.currentTarget).parents('.content').find('textarea');
     const title = textarea.val().trim();
     // insert new card to the bottom of new list
