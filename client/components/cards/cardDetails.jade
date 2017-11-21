@@ -132,14 +132,36 @@ template(name="cardDetailsActionsPopup")
       li: a.js-more {{_ 'cardMorePopup-title'}}
 
 template(name="moveCardPopup")
-  +boardLists
+  if isSandstorm
+    +boardLists
+  else
+    +boardsAndLists
 
 template(name="copyCardPopup")
   label(for='copy-card-title') {{_ 'title'}}:
   textarea#copy-card-title.minicard-composer-textarea.js-card-title(autofocus)
     = title
+  if isSandstorm
+    +boardLists
+  else
+    +boardsAndLists
+
+template(name="boardsAndLists")
+  select.js-select-boards
+    each boards
+      if $eq _id currentBoard._id
+        option(value="{{_id}}" selected) {{_ 'current'}}
+      else
+        option(value="{{_id}}") {{title}}
+
   label {{_ 'lists'}}:
-  +boardLists
+  ul.pop-over-list
+    each aBoardLists
+      li
+        if $eq ../_id _id
+          a.disabled {{title}} ({{_ 'current'}})
+        else
+          a.js-select-list= title
 
 template(name="cardMembersPopup")
   ul.pop-over-list.js-card-member-list
