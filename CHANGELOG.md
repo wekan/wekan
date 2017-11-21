@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+* [Copy/Move cards to other board in Standalone Wekan](https://github.com/wekan/wekan/pull/1330).
+
+Thanks to GitHub users GhassenRjab and thuanpq for their contributions.
+
 # v0.55 2017-11-19 Wekan release
 
 This release adds the following new features:
