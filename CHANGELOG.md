@@ -4,6 +4,10 @@ This release adds the following new features:
 
 * [Copy/Move cards to other board in Standalone Wekan](https://github.com/wekan/wekan/pull/1330).
 
+and fixes the following bugs:
+
+* [Board list with long-description boards not visible](https://github.com/wekan/wekan/pull/1346).
+
 Thanks to GitHub users GhassenRjab and thuanpq for their contributions.
 
 # v0.55 2017-11-19 Wekan release
