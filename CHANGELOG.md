@@ -2,7 +2,9 @@
 
 This release adds the following new features:
 
-* [Copy/Move cards to other board in Standalone Wekan](https://github.com/wekan/wekan/pull/1330).
+* [Copy/Move cards to other board in Standalone Wekan](https://github.com/wekan/wekan/pull/1330);
+* [Spent time/Overtime on card](https://github.com/wekan/wekan/pull/1344);
+* New translation: Greek.
 
 and fixes the following bugs:
 
