@@ -6,9 +6,10 @@ This release adds the following new features:
 
 and fixes the following bugs:
 
-* [Board list with long-description boards not visible](https://github.com/wekan/wekan/pull/1346).
+* [Board list with long-description boards not visible](https://github.com/wekan/wekan/pull/1346);
+* [Remove erroneous minicard title whitespace](https://github.com/wekan/wekan/pull/1347).
 
-Thanks to GitHub users GhassenRjab and thuanpq for their contributions.
+Thanks to GitHub users couscous3, GhassenRjab and thuanpq for their contributions.
 
 # v0.55 2017-11-19 Wekan release
 
