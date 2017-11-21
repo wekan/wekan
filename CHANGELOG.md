@@ -7,7 +7,8 @@ This release adds the following new features:
 and fixes the following bugs:
 
 * [Board list with long-description boards not visible](https://github.com/wekan/wekan/pull/1346);
-* [Remove erroneous minicard title whitespace](https://github.com/wekan/wekan/pull/1347).
+* [Remove erroneous minicard title whitespace](https://github.com/wekan/wekan/pull/1347);
+* [Card details: fix title editing with shift key](https://github.com/wekan/wekan/pull/1348).
 
 Thanks to GitHub users couscous3, GhassenRjab and thuanpq for their contributions.
 
