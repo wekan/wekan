@@ -125,6 +125,7 @@ RUN \
     gosu wekan:wekan npm install bcrypt && \
     cd /home/wekan/app_build/bundle/programs/server/ && \
     gosu wekan:wekan npm install && \
+    gosu wekan:wekan npm install bcrypt && \
     mv /home/wekan/app_build/bundle /build && \
     \
     # Cleanup
