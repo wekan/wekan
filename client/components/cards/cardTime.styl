@@ -1,0 +1,17 @@
+.card-time
+  display: block
+  border-radius: 4px
+  padding: 1px 3px
+  color: #fff
+
+  background-color: #dbdbdb
+  &:hover, &.is-active
+    background-color: #b3b3b3
+
+  time
+    &::before
+      font: normal normal normal 14px/1 FontAwesome
+      font-size: inherit
+      -webkit-font-smoothing: antialiased
+      content: "\f017"  // clock symbol
+      margin-right: 0.3em
