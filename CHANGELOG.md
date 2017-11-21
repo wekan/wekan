@@ -2,15 +2,19 @@
 
 This release adds the following new features:
 
-- [Copy/Move cards to other board in Standalone Wekan](https://github.com/wekan/wekan/pull/1330);
-- [Spent time/Overtime on card](https://github.com/wekan/wekan/pull/1344);
-- New translation: Greek.
+* [Copy/Move cards to other board in Standalone Wekan](https://github.com/wekan/wekan/pull/1330);
+
+* [Spent time/Overtime on card](https://github.com/wekan/wekan/pull/1344);
+
+* New translation: Greek.
 
 and fixes the following bugs:
 
-- [Board list with long-description boards not visible](https://github.com/wekan/wekan/pull/1346);
-- [Remove erroneous minicard title whitespace](https://github.com/wekan/wekan/pull/1347);
-- [Card details: fix title editing with shift key](https://github.com/wekan/wekan/pull/1348).
+* [Board list with long-description boards not visible](https://github.com/wekan/wekan/pull/1346);
+
+* [Remove erroneous minicard title whitespace](https://github.com/wekan/wekan/pull/1347)
+
+* [Card details: fix title editing with shift key](https://github.com/wekan/wekan/pull/1348).
 
 Thanks to GitHub users couscous3, GhassenRjab, thuanpq and xet7 for their contributions.
 
