@@ -12,7 +12,7 @@ and fixes the following bugs:
 * [Remove erroneous minicard title whitespace](https://github.com/wekan/wekan/pull/1347);
 * [Card details: fix title editing with shift key](https://github.com/wekan/wekan/pull/1348).
 
-Thanks to GitHub users couscous3, GhassenRjab and thuanpq for their contributions.
+Thanks to GitHub users couscous3, GhassenRjab, thuanpq and xet7 for their contributions.
 
 # v0.55 2017-11-19 Wekan release
 
