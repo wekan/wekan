@@ -1,3 +1,9 @@
+# Upcoming Wekan release
+
+* [Gogs Integration](https://github.com/wekan/wekan-gogs) as separate project. It can already be tested, fixes welcome as pull requests.
+
+Thanks to GitHub user andresmanelli for contributions.
+
 # v0.56 2017-11-21 Wekan release
 
 This release adds the following new features:
