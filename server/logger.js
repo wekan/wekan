@@ -5,7 +5,8 @@ Meteor.startup(() => {
 
   //remove default logger
   Winston.remove(Winston.transports.Console);
-  const loggerEnable = process.env.LOGGER_ENABLE || false;
+
+  const loggerEnable = process.env.LOGGER_ENABLE || true;
   if (loggerEnable) {
 
     Winston.log('info', 'logger is enable');
