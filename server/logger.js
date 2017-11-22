@@ -10,8 +10,12 @@ Meteor.startup(() => {
   if (loggerEnable) {
 
     Winston.log('info', 'logger is enable');
-    const loggers = process.env.LOGGERS.split(',') || 'console';
-    Winston.log('info',  `Loggers selected : ${ process.env.LOGGERS }, if empty default is console`);
+    if (process.env.LOGGERS) {
+      const loggers = process.env.LOGGERS.split(',') || 'console';
+      Winston.log('info',  `Loggers selected : ${ process.env.LOGGERS }, if empty default is console`);
+    } else {
+      const loggers = 'console';
+    }
 
     if (loggers.includes('console')) {
       Winston.add(Winston.transports.Console, {
@@ -58,6 +62,7 @@ Meteor.startup(() => {
     }
 
   }
+
   Winston.log('info', 'Logger is completly instanciate');
 });
 
