@@ -1,8 +1,14 @@
-# Upcoming Wekan release
+# v0.57 2017-11-23 Wekan release
+
+This release adds the following new features:
 
 * [Gogs Integration](https://github.com/wekan/wekan-gogs) as separate project. It can already be tested, fixes welcome as pull requests.
 
-Thanks to GitHub user andresmanelli for contributions.
+and fixes the following bugs:
+
+* [Fix Winston logger](https://github.com/wekan/wekan/pull/1350).
+
+Thanks to GitHub users andresmanelli and pierreozoux for their contributions.
 
 # v0.56 2017-11-21 Wekan release
 
