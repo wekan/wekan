@@ -10,7 +10,7 @@ Meteor.startup(() => {
   if (loggerEnable) {
 
     Winston.log('info', 'logger is enable');
-    const loggers = process.env.LOGGERS ? process.env.LOGGERS.split(',') : 'console'
+    const loggers = process.env.LOGGERS ? process.env.LOGGERS.split(',') : 'console';
 
     if (loggers.includes('console')) {
       Winston.add(Winston.transports.Console, {
