@@ -1,3 +1,11 @@
+# v0.59 2017-11-23 Wekan release.
+
+This release fixes the following bugs:
+
+* [Fix not working stdout logging by removing Winston logger](https://github.com/wekan/wekan/pull/1352).
+
+Thanks to GitHub user pierreozoux for contributions.
+
 # v0.58 2017-11-23 Wekan release
 
 This release adds the following new features:
