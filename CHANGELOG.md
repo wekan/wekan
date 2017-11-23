@@ -1,3 +1,15 @@
+# v0.57 2017-11-23 Wekan release
+
+This release adds the following new features:
+
+* [Gogs Integration](https://github.com/wekan/wekan-gogs) as separate project. Please test and submit issues and pull requests to that project.
+
+and fixes the following bugs:
+
+* [Fix Winston logger](https://github.com/wekan/wekan/pull/1350).
+
+Thanks to GitHub users andresmanelli and pierreozoux for their contributions.
+
 # v0.56 2017-11-21 Wekan release
 
 This release adds the following new features:
@@ -10,9 +22,9 @@ and fixes the following bugs:
 
 * [Board list with long-description boards not visible](https://github.com/wekan/wekan/pull/1346);
 * [Remove erroneous minicard title whitespace](https://github.com/wekan/wekan/pull/1347);
-* [Card details: fix title editing with shift key](https://github.com/wekan/wekan/pull/1348).
+* [Fix title editing with shift key at card details](https://github.com/wekan/wekan/pull/1348).
 
-Thanks to GitHub users couscous3, GhassenRjab and thuanpq for their contributions.
+Thanks to GitHub users couscous3, GhassenRjab, thuanpq and xet7 for their contributions.
 
 # v0.55 2017-11-19 Wekan release
 
