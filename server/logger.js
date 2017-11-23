@@ -3,21 +3,20 @@ Meteor.startup(() => {
   require('winston-zulip');
   const fs = require('fs');
 
-  const loggerEnable = process.env.LOGGER_ENABLE || false;
+  //remove default logger
+  Winston.remove(Winston.transports.Console);
+
+  const loggerEnable = process.env.LOGGER_ENABLE || true;
   if (loggerEnable) {
 
     Winston.log('info', 'logger is enable');
-    const loggers = process.env.LOGGERS.split(',') || 'console';
-    Winston.log('info',  `Loggers selected : ${ process.env.LOGGERS }, if empty default is console`);
+    const loggers = process.env.LOGGERS ? process.env.LOGGERS.split(',') : 'console'
 
     if (loggers.includes('console')) {
       Winston.add(Winston.transports.Console, {
         json: true,
         timestamp: true,
       });
-    } else {
-      //remove default logger
-      Winston.remove(Winston.transports.Console);
     }
 
     if (loggers.includes('file')) {
@@ -57,10 +56,8 @@ Meteor.startup(() => {
       Winston.log('info', `zulipconfig ${zulipConfig}`);
     }
 
-  } else {
-    //remove default logger
-    Winston.remove(Winston.transports.Console);
   }
+
   Winston.log('info', 'Logger is completly instanciate');
 });
 
