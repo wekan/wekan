@@ -2,7 +2,7 @@
 
 This release adds the following new features:
 
-* [Gogs Integration](https://github.com/wekan/wekan-gogs) as separate project. It can already be tested, fixes welcome as pull requests.
+* [Gogs Integration](https://github.com/wekan/wekan-gogs) as separate project. Please test and submit issues and pull requests to that project.
 
 and fixes the following bugs:
 
