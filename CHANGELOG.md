@@ -1,3 +1,11 @@
+# v0.58 2017-11-23 Wekan release
+
+This release adds the following new features:
+
+* Updated translations.
+
+Thanks to all translators.
+
 # v0.57 2017-11-23 Wekan release
 
 This release adds the following new features:
