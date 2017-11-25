@@ -16,7 +16,7 @@ services:
       - wekan-db-dump:/dump
 
   wekan:
-    image: dpoznyak/wekan:latest
+    image: dpoz/wekan:latest
     container_name: wekan-app
     restart: always
     networks:
