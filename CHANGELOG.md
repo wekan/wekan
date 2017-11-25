@@ -549,12 +549,12 @@ and fixes the following bugs:
   exists valid admin panel data MAIL_URL is not set.
   MAIL_FROM was ignored. Same behaviour, env variable has bigger priority
   than database configuration.
-  On both cases, althrought environment variable is set, updating admin-panel
+  On both cases, althought environment variable is set, updating admin-panel
   mail settings will load new info and ignore the environment variable;
 * Dockerfile fix for local packages;
 * Don't send emails if missing smtp host;
 * Remove invitation code if email sending failed;
-* Show customized error msg while invitaion code is wrong during registration;
+* Show customized error msg while invitation code is wrong during registration;
 * Fix "internal error" while registration is done;
 * Fix "cannot access disableRegistration of undefined" error;
 * Add high available server for getting the gpg keys - suppose it should lead
@@ -659,7 +659,7 @@ and adds the following new features:
 ```
   1) Disable Self-Registration and invite users
   2) SMTP settings.
-    
+
   Adding Admin user in mongo cli:
   1) Use database that has wekan data, for example:
      use admin;
@@ -840,7 +840,7 @@ performance and security. It also features the following improvements:
   password, to change the password, or to enable email confirmation (all of
   which were previously impossible);
 * Avatar customization, including the possibility to upload images and to choose
-  one from Gravatar or the user initials (on Sandstrom we use the avatar exposed
+  one from Gravatar or the user initials (on Sandstorm we use the avatar exposed
   by Sandstorm);
 * Cards multi-selection to facilitate batch actions such as moving all the cards
   of selection, or attaching a label or a member to them;
