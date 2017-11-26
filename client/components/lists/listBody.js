@@ -189,7 +189,7 @@ BlazeComponent.extendComponent({
     $textarea.escapeableTextComplete([
       // User mentions
       {
-        match: /\B@([\w.]*)$/,
+        match: /\B@([\w.]*)$/i,
         search(term, callback) {
           const currentBoard = Boards.findOne(Session.get('currentBoard'));
           callback($.map(currentBoard.activeMembers(), (member) => {
@@ -209,7 +209,7 @@ BlazeComponent.extendComponent({
 
       // Labels
       {
-        match: /\B#(\w*)$/,
+        match: /\B[#№]([\S]*)$/i,
         search(term, callback) {
           const currentBoard = Boards.findOne(Session.get('currentBoard'));
           callback($.map(currentBoard.labels, (label) => {
