@@ -141,5 +141,30 @@ if (Meteor.isServer) {
         }
       });
     },
+
+    sendSMTPTestEmail() {
+      if (!Meteor.userId()) {
+        throw new Meteor.Error('error-invalid-user', 'Invalid user');
+      }
+      const user = Meteor.user();
+      if (!user.emails && !user.emails[0] && user.emails[0].address) {
+        throw new Meteor.Error('error-invalid-email', 'Invalid email');
+      }
+      this.unblock();
+      try {
+        Email.send({
+          to: user.emails[0].address,
+          from: Accounts.emailTemplates.from,
+          subject: 'SMTP Test Email From Wekan',
+          text: 'You have successfully sent an email',
+        });
+      } catch ({message}) {
+        throw new Meteor.Error('error-email-send-failed', `Error trying to send email: ${ message }`, message);
+      }
+      return {
+        message: 'email-sent',
+        email: user.emails[0].address,
+      };
+    },
   });
 }

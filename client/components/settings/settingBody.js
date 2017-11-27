@@ -125,6 +125,16 @@ BlazeComponent.extendComponent({
 
   },
 
+  sendSMTPTestEmail() {
+    Meteor.call('sendSMTPTestEmail', (err, ret) => {
+      if (!err && ret) { /* eslint-disable no-console */
+        console.log('Success:', ret.message, ret.email);
+      } else {
+        console.log('Error: Sending test email', err);
+      }  /* eslint-enable no-console */
+    });
+  },
+
   events(){
     return [{
       'click a.js-toggle-registration': this.toggleRegistration,
@@ -133,6 +143,7 @@ BlazeComponent.extendComponent({
       'click a.js-toggle-board-choose': this.checkBoard,
       'click button.js-email-invite': this.inviteThroughEmail,
       'click button.js-save': this.saveMailServerInfo,
+      'click button.js-send-smtp-test-email': this.sendSMTPTestEmail,
     }];
   },
 }).register('setting');
