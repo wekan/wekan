@@ -1,8 +1,16 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+* [Fix: User with comment only permissions can remove another user from a card](https://github.com/wekan/wekan/pull/1352).
+
+Thanks to GitHub user nztqa for contributions.
+
 # v0.59 2017-11-23 Wekan release.
 
 This release fixes the following bugs:
 
-* [Fix not working stdout logging by removing Winston logger](https://github.com/wekan/wekan/pull/1352).
+* [Remove incomplete logger fix](https://github.com/wekan/wekan/pull/1352).
 
 Thanks to GitHub user pierreozoux for contributions.
 
