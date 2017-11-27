@@ -23,7 +23,7 @@ BlazeComponent.extendComponent({
 
   checkField(selector) {
     const value = $(selector).val();
-    if(!value || value.trim() === ''){
+    if (!value || value.trim() === '') {
       $(selector).parents('li.smtp-form').addClass('has-error');
       throw Error('blank field');
     } else {
@@ -31,7 +31,7 @@ BlazeComponent.extendComponent({
     }
   },
 
-  currentSetting(){
+  currentSetting() {
     return Settings.findOne();
   },
 
@@ -44,23 +44,23 @@ BlazeComponent.extendComponent({
       sort: ['title'],
     });
   },
-  toggleRegistration(){
+  toggleRegistration() {
     this.setLoading(true);
     const registrationClosed = this.currentSetting().disableRegistration;
-    Settings.update(Settings.findOne()._id, {$set:{disableRegistration: !registrationClosed}});
+    Settings.update(Settings.findOne()._id, {$set: {disableRegistration: !registrationClosed}});
     this.setLoading(false);
-    if(registrationClosed){
+    if (registrationClosed) {
       $('.invite-people').slideUp();
-    }else{
+    } else {
       $('.invite-people').slideDown();
     }
   },
-  toggleTLS(){
+  toggleTLS() {
     $('#mail-server-tls').toggleClass('is-checked');
   },
-  switchMenu(event){
+  switchMenu(event) {
     const target = $(event.target);
-    if(!target.hasClass('active')){
+    if (!target.hasClass('active')) {
       $('.side-menu li.active').removeClass('active');
       target.parent().addClass('active');
       const targetID = target.data('id');
@@ -71,9 +71,9 @@ BlazeComponent.extendComponent({
     }
   },
 
-  checkBoard(event){
+  checkBoard(event) {
     let target = $(event.target);
-    if(!target.hasClass('js-toggle-board-choose')){
+    if (!target.hasClass('js-toggle-board-choose')) {
       target = target.parent();
     }
     const checkboxId = target.attr('id');
@@ -81,7 +81,7 @@ BlazeComponent.extendComponent({
     $(`#${checkboxId}`).toggleClass('is-checked');
   },
 
-  inviteThroughEmail(){
+  inviteThroughEmail() {
     const emails = $('#email-to-invite').val().trim().split('\n').join(',').split(',');
     const boardsToInvite = [];
     $('.js-toggle-board-choose .materialCheckBox.is-checked').each(function () {
@@ -104,28 +104,31 @@ BlazeComponent.extendComponent({
     }
   },
 
-  saveMailServerInfo(){
+  saveMailServerInfo() {
     this.setLoading(true);
     $('li').removeClass('has-error');
 
-    try{
+    try {
       const host = this.checkField('#mail-server-host');
       const port = this.checkField('#mail-server-port');
       const username = $('#mail-server-username').val().trim();
       const password = $('#mail-server-password').val().trim();
       const from = this.checkField('#mail-server-from');
       const tls = $('#mail-server-tls.is-checked').length > 0;
-      Settings.update(Settings.findOne()._id, {$set:{'mailServer.host':host, 'mailServer.port': port, 'mailServer.username': username,
-          'mailServer.password': password, 'mailServer.enableTLS': tls, 'mailServer.from': from}});
+      Settings.update(Settings.findOne()._id, {
+        $set: {
+          'mailServer.host': host, 'mailServer.port': port, 'mailServer.username': username,
+          'mailServer.password': password, 'mailServer.enableTLS': tls, 'mailServer.from': from,
+        },
+      });
     } catch (e) {
       return;
     } finally {
       this.setLoading(false);
     }
-
   },
 
-  events(){
+  events() {
     return [{
       'click a.js-toggle-registration': this.toggleRegistration,
       'click a.js-toggle-tls': this.toggleTLS,
@@ -141,7 +144,7 @@ BlazeComponent.extendComponent({
   saveAllowEmailChange() {
     const allowEmailChange = ($('input[name=allowEmailChange]:checked').val() === 'true');
     AccountSettings.update('accounts-allowEmailChange', {
-      $set: { 'booleanValue': allowEmailChange },
+      $set: {'booleanValue': allowEmailChange},
     });
   },
 
@@ -149,9 +152,31 @@ BlazeComponent.extendComponent({
     return AccountSettings.findOne('accounts-allowEmailChange').booleanValue;
   },
 
+  currentSetting() {
+    return Settings.findOne();
+  },
+
+  toggleCardDeleting() {
+    let disableCardDeleting = this.currentSetting().disableCardDeleting;
+    if (typeof disableCardDeleting === 'undefined') {
+      disableCardDeleting = false;
+    }
+    Settings.update(Settings.findOne()._id, {$set: {disableCardDeleting: !disableCardDeleting}});
+  },
+
+  toggleCardRestoring() {
+    let disableCardRestoring = this.currentSetting().disableCardRestoring;
+    if (typeof disableCardRestoring === 'undefined') {
+      disableCardRestoring = false;
+    }
+    Settings.update(Settings.findOne()._id, {$set: {disableCardRestoring: !disableCardRestoring}});
+  },
+
   events() {
     return [{
       'click button.js-accounts-save': this.saveAllowEmailChange,
+      'click a.js-toggle-card-deleting': this.toggleCardDeleting,
+      'click a.js-toggle-card-restoring': this.toggleCardRestoring,
     }];
   },
 }).register('accountSettings');
@@ -165,27 +190,27 @@ BlazeComponent.extendComponent({
     this.loading.set(w);
   },
 
-  currentSetting(){
+  currentSetting() {
     return Announcements.findOne();
   },
 
   saveMessage() {
     const message = $('#admin-announcement').val().trim();
     Announcements.update(Announcements.findOne()._id, {
-      $set: { 'body': message },
+      $set: {'body': message},
     });
   },
 
-  toggleActive(){
+  toggleActive() {
     this.setLoading(true);
     const isActive = this.currentSetting().enabled;
     Announcements.update(Announcements.findOne()._id, {
-      $set:{ 'enabled': !isActive},
+      $set: {'enabled': !isActive},
     });
     this.setLoading(false);
-    if(isActive){
+    if (isActive) {
       $('.admin-announcement').slideUp();
-    }else{
+    } else {
       $('.admin-announcement').slideDown();
     }
   },

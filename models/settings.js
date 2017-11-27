@@ -4,6 +4,12 @@ Settings.attachSchema(new SimpleSchema({
   disableRegistration: {
     type: Boolean,
   },
+  disableCardDeleting: {
+    type: Boolean,
+  },
+  disableCardRestoring: {
+    type: Boolean,
+  },
   'mailServer.username': {
     type: String,
     optional: true,
@@ -37,7 +43,7 @@ Settings.attachSchema(new SimpleSchema({
   },
 }));
 Settings.helpers({
-  mailUrl () {
+  mailUrl() {
     if (!this.mailServer.host) {
       return null;
     }
@@ -63,13 +69,20 @@ Settings.before.update((userId, doc, fieldNames, modifier) => {
 if (Meteor.isServer) {
   Meteor.startup(() => {
     const setting = Settings.findOne({});
-    if(!setting){
+    if (!setting) {
       const now = new Date();
       const domain = process.env.ROOT_URL.match(/\/\/(?:www\.)?(.*)?(?:\/)?/)[1];
       const from = `Wekan <wekan@${domain}>`;
-      const defaultSetting = {disableRegistration: false, mailServer: {
-        username: '', password: '', host: '', port: '', enableTLS: false, from,
-      }, createdAt: now, modifiedAt: now};
+      const defaultSetting = {
+        disableRegistration: false,
+        disableCardDeleting: false,
+        disableCardRestoring: false,
+        mailServer: {
+          username: '', password: '', host: '', port: '', enableTLS: false, from,
+        },
+        createdAt: now,
+        modifiedAt: now,
+      };
       Settings.insert(defaultSetting);
     }
     const newSetting = Settings.findOne();
@@ -90,13 +103,13 @@ if (Meteor.isServer) {
     }
   });
 
-  function getRandomNum (min, max) {
+  function getRandomNum(min, max) {
     const range = max - min;
     const rand = Math.random();
     return (min + Math.round(rand * range));
   }
 
-  function sendInvitationEmail (_id){
+  function sendInvitationEmail(_id) {
     const icode = InvitationCodes.findOne(_id);
     const author = Users.findOne(Meteor.userId());
     try {
@@ -125,13 +138,19 @@ if (Meteor.isServer) {
       check(emails, [String]);
       check(boards, [String]);
       const user = Users.findOne(Meteor.userId());
-      if(!user.isAdmin){
+      if (!user.isAdmin) {
         throw new Meteor.Error('not-allowed');
       }
       emails.forEach((email) => {
         if (email && SimpleSchema.RegEx.Email.test(email)) {
           const code = getRandomNum(100000, 999999);
-          InvitationCodes.insert({code, email, boardsToBeInvited: boards, createdAt: new Date(), authorId: Meteor.userId()}, function(err, _id){
+          InvitationCodes.insert({
+            code,
+            email,
+            boardsToBeInvited: boards,
+            createdAt: new Date(),
+            authorId: Meteor.userId(),
+          }, function (err, _id) {
             if (!err && _id) {
               sendInvitationEmail(_id);
             } else {

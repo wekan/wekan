@@ -20,7 +20,7 @@ template(name="setting")
           if loading.get
             +spinner
           else if generalSetting.get
-            +general
+            +registration
           else if emailSetting.get
             +email
           else if accountSetting.get
@@ -28,7 +28,7 @@ template(name="setting")
           else if announcementSetting.get
             +announcementSettings
 
-template(name="general")
+template(name="registration")
   ul#registration-setting.setting-detail
     li
       a.flex.js-toggle-registration
@@ -90,6 +90,18 @@ template(name='email')
       button.js-save.primary {{_ 'save'}}
 
 template(name='accountSettings')
+  ul.setting-detail
+    li
+      a.flex.js-toggle-card-deleting
+        .materialCheckBox(class="{{#if currentSetting.disableCardDeleting}}is-checked{{/if}}")
+        span {{_ 'disable-card-deleting'}}
+
+  ul.setting-detail
+    li
+      a.flex.js-toggle-card-restoring
+        .materialCheckBox(class="{{#if currentSetting.disableCardRestoring}}is-checked{{/if}}")
+        span {{_ 'disable-card-restoring'}}
+
   ul#account-setting.setting-detail
     li.smtp-form
       .title {{_ 'accounts-allowEmailChange'}}

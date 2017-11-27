@@ -1,9 +1,17 @@
 BlazeComponent.extendComponent({
   tabs() {
     return [
-      { name: TAPi18n.__('cards'), slug: 'cards' },
-      { name: TAPi18n.__('lists'), slug: 'lists' },
+      {name: TAPi18n.__('cards'), slug: 'cards'},
+      {name: TAPi18n.__('lists'), slug: 'lists'},
     ];
+  },
+
+  canDeleteCard() {
+    return !Settings.findOne().disableCardDeleting || Users.findOne(Meteor.userId()).isBoardAdmin();
+  },
+
+  canRestoreCard() {
+    return !Settings.findOne().disableCardRestoring || Users.findOne(Meteor.userId()).isBoardAdmin();
   },
 
   archivedCards() {
@@ -32,11 +40,11 @@ BlazeComponent.extendComponent({
     return [{
       'click .js-restore-card'() {
         const card = this.currentData();
-        if(card.canBeRestored()){
+        if (card.canBeRestored()) {
           card.restore();
         }
       },
-      'click .js-delete-card': Popup.afterConfirm('cardDelete', function() {
+      'click .js-delete-card': Popup.afterConfirm('cardDelete', function () {
         const cardId = this._id;
         Cards.remove(cardId);
         Popup.close();
