@@ -388,7 +388,7 @@
     "smtp-password": "Password",
     "smtp-tls": "TLS support",
     "send-from": "From",
-    "send-smtp-test": "Send a test mail to my user",
+    "send-smtp-test": "Send a test email to my user",
     "invitation-code": "Invitation Code",
     "email-invite-register-subject": "__inviter__ sent you an invitation",
     "email-invite-register-text": "Dear __user__,\n\n__inviter__ invites you to Wekan for collaborations.\n\nPlease follow the link below:\n__url__\n\nAnd your invitation code is: __icode__\n\nThanks.",
