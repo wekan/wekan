@@ -189,12 +189,12 @@ BlazeComponent.extendComponent({
     $textarea.escapeableTextComplete([
       // User mentions
       {
-        match: /\B@([\w.]*)$/i,
+        match: /\B@([\w.]*)$/,
         search(term, callback) {
           const currentBoard = Boards.findOne(Session.get('currentBoard'));
           callback($.map(currentBoard.activeMembers(), (member) => {
             const user = Users.findOne(member.userId);
-            return user.username.indexOf(term) === 0 ? user : null;
+            return user.username.toLowerCase().indexOf(term.toLowerCase()) === 0 ? user : null;
           }));
         },
         template(user) {
@@ -213,8 +213,9 @@ BlazeComponent.extendComponent({
         search(term, callback) {
           const currentBoard = Boards.findOne(Session.get('currentBoard'));
           callback($.map(currentBoard.labels, (label) => {
-            if (label.name.indexOf(term) > -1 ||
-                label.color.indexOf(term) > -1) {
+            lterm = term.toLowerCase();
+            if (label.name.toLowerCase().indexOf(lterm) > -1 ||
+                label.color.toLowerCase().indexOf(lterm) > -1) {
               return label;
             }
             return null;
