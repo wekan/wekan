@@ -144,22 +144,23 @@ if (Meteor.isServer) {
 
     sendSMTPTestEmail() {
       if (!Meteor.userId()) {
-        throw new Meteor.Error('error-invalid-user', 'Invalid user');
+        throw new Meteor.Error('invalid-user');
       }
       const user = Meteor.user();
       if (!user.emails && !user.emails[0] && user.emails[0].address) {
-        throw new Meteor.Error('error-invalid-email', 'Invalid email');
+        throw new Meteor.Error('email-invalid');
       }
       this.unblock();
+      const lang = user.getLanguage();
       try {
         Email.send({
           to: user.emails[0].address,
           from: Accounts.emailTemplates.from,
-          subject: 'SMTP Test Email From Wekan',
-          text: 'You have successfully sent an email',
+          subject: TAPi18n.__('email-smtp-test-subject', {lng: lang}),
+          text: TAPi18n.__('email-smtp-test-text', {lng: lang}),
         });
       } catch ({message}) {
-        throw new Meteor.Error('error-email-send-failed', `Error trying to send email: ${ message }`, message);
+        throw new Meteor.Error('email-fail', `${TAPi18n.__('email-fail-text', {lng: lang})}: ${ message }`, message);
       }
       return {
         message: 'email-sent',

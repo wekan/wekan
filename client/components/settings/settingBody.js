@@ -128,11 +128,14 @@ BlazeComponent.extendComponent({
   sendSMTPTestEmail() {
     Meteor.call('sendSMTPTestEmail', (err, ret) => {
       if (!err && ret) { /* eslint-disable no-console */
-        console.log('Success:', ret.message, ret.email);
-        alert('Success');
+        const message = `${TAPi18n.__(ret.message)}: ${ret.email}`;
+        console.log(message);
+        alert(message);
       } else {
-        console.log('Error: Sending test email', err);
-        alert(err);
+        const reason = err.reason || '';
+        const message = `${TAPi18n.__(err.error)}\n${reason}`;
+        console.log(message, err);
+        alert(message);
       }  /* eslint-enable no-console */
     });
   },
