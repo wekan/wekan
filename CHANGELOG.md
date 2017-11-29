@@ -1,6 +1,10 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+* [Add SMTP test email button to Admin Panel](https://github.com/wekan/wekan/pull/1359).
+
+and fixes the following bugs:
 
 * [Fix: User with comment only permissions can remove another user from a card](https://github.com/wekan/wekan/pull/1352).
 
