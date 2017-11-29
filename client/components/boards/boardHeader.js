@@ -58,10 +58,6 @@ BlazeComponent.extendComponent({
     return user && user.hasStarred(boardId);
   },
 
-  isMiniScreen() {
-    return Utils.isMiniScreen();
-  },
-
   // Only show the star counter if the number of star is greater than 2
   showStarCounter() {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));

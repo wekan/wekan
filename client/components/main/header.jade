@@ -7,19 +7,31 @@ template(name="header")
   unless isSandstorm
     if currentUser
       #header-quick-access(class=currentBoard.colorClass)
-        ul
-          li
-            a(href="{{pathFor 'home'}}")
-              span.fa.fa-home
-              | {{_ 'all-boards'}}
-          each currentUser.starredBoards
-            li.separator -
-            li(class="{{#if $.Session.equals 'currentBoard' _id}}current{{/if}}")
-              a(href="{{pathFor 'board' id=_id slug=slug}}")
-                = title
-          else
-            li.current {{_ 'quick-access-description'}}
+        if isMiniScreen
+          ul
+            li
+              a(href="{{pathFor 'home'}}")
+                span.fa.fa-home
 
+            if currentList
+              each currentBoard.lists
+                li(class="{{#if $.Session.equals 'currentList' _id}}current{{/if}}")
+                  a.js-select-list
+                    = title
+          #header-new-board-icon
+        else
+          ul
+            li
+              a(href="{{pathFor 'home'}}")
+                span.fa.fa-home
+                | {{_ 'all-boards'}}
+            each currentUser.starredBoards
+              li.separator -
+              li(class="{{#if $.Session.equals 'currentBoard' _id}}current{{/if}}")
+                a(href="{{pathFor 'board' id=_id slug=slug}}")
+                  = title
+            else
+              li.current {{_ 'quick-access-description'}}
 
         a#header-new-board-icon.js-create-board
           i.fa.fa-plus(title="Create a new board")
