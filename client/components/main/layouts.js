@@ -1,7 +1,3 @@
-Meteor.subscribe('boards');
-Meteor.subscribe('setting');
-Meteor.subscribe('user-admin');
-
 BlazeLayout.setRoot('body');
 
 const i18nTagToT9n = (i18nTag) => {
