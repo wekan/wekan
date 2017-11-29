@@ -1,8 +1,8 @@
-# Upcoming Wekan release
+# v0.60 2017-11-29 Wekan release
 
 This release adds the following new features:
 
-* [Add SMTP test email button to Admin Panel](https://github.com/wekan/wekan/pull/1359);
+* [Add SMTP test email button to Standalone Wekan Admin Panel](https://github.com/wekan/wekan/pull/1359);
 * [Optimize for mobile web, show single list per page with navigate bar](https://github.com/wekan/wekan/pull/1365).
 
 and fixes the following bugs:
