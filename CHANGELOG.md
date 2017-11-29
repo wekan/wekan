@@ -2,14 +2,15 @@
 
 This release adds the following new features:
 
-* [Add SMTP test email button to Admin Panel](https://github.com/wekan/wekan/pull/1359).
+* [Add SMTP test email button to Admin Panel](https://github.com/wekan/wekan/pull/1359);
+* [Optimize for mobile web, show single list per page with navigate bar](https://github.com/wekan/wekan/pull/1365).
 
 and fixes the following bugs:
 
 * [User with comment only permissions can remove another user from a card](https://github.com/wekan/wekan/pull/1352);
 * [Frequent Subscriptions problem that make Excessive CPU usage](https://github.com/wekan/wekan/pull/1363).
 
-Thanks to GitHub users mfshiu and nztqa for their contributions.
+Thanks to GitHub users floatinghotpot, mfshiu and nztqa for their contributions.
 
 # v0.59 2017-11-23 Wekan release.
 
