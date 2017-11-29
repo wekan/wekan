@@ -41,6 +41,9 @@ BlazeComponent.extendComponent({
           position: 'top',
         });
       },
+      'click .js-unselect-list'() {
+        Session.set('currentList', null);
+      },
       submit: this.editTitle,
     }];
   },
