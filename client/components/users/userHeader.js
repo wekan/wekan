@@ -3,6 +3,12 @@ Template.headerUserBar.events({
   'click .js-change-avatar': Popup.open('changeAvatar'),
 });
 
+BlazeComponent.extendComponent({
+  onCreated() {
+    Meteor.subscribe('user-admin');
+  },
+}).register('memberMenuPopup');
+
 Template.memberMenuPopup.events({
   'click .js-edit-profile': Popup.open('editProfile'),
   'click .js-change-settings': Popup.open('changeSettings'),
@@ -35,10 +41,12 @@ Template.editProfilePopup.events({
     const email = tpl.find('.js-profile-email').value.trim();
     let isChangeUserName = false;
     let isChangeEmail = false;
-    Users.update(Meteor.userId(), {$set: {
-      'profile.fullname': fullname,
-      'profile.initials': initials,
-    }});
+    Users.update(Meteor.userId(), {
+      $set: {
+        'profile.fullname': fullname,
+        'profile.initials': initials,
+      }
+    });
     isChangeUserName = username !== Meteor.user().username;
     isChangeEmail = email.toLowerCase() !== Meteor.user().emails[0].address.toLowerCase();
     if (isChangeUserName && isChangeEmail) {
