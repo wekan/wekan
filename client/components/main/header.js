@@ -1,3 +1,5 @@
+Meteor.subscribe('user-admin');
+
 Template.header.helpers({
   wrappedHeader() {
     return !Session.get('currentBoard');

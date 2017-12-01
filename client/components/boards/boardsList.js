@@ -5,7 +5,6 @@ BlazeComponent.extendComponent({
     // Here is the only place that boards data needed, all boards data will stop sync when leaving this template.
     Meteor.subscribe('boards');
     Meteor.subscribe('setting');
-    Meteor.subscribe('user-admin');
   },
 
   boards() {

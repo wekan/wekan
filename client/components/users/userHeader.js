@@ -3,12 +3,6 @@ Template.headerUserBar.events({
   'click .js-change-avatar': Popup.open('changeAvatar'),
 });
 
-BlazeComponent.extendComponent({
-  onCreated() {
-    Meteor.subscribe('user-admin');
-  },
-}).register('memberMenuPopup');
-
 Template.memberMenuPopup.events({
   'click .js-edit-profile': Popup.open('editProfile'),
   'click .js-change-settings': Popup.open('changeSettings'),
