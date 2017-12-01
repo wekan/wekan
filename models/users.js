@@ -372,6 +372,13 @@ Meteor.methods({
     Meteor.call('setUsername', username, userId);
     Meteor.call('setEmail', email, userId);
   },
+  setPassword(newPassword, userId) {
+    check(userId, String);
+    check(newPassword, String);
+    if(Meteor.user().isAdmin){
+      Accounts.setPassword(userId, newPassword);
+    }
+  },
 });
 
 if (Meteor.isServer) {

@@ -87,24 +87,26 @@ Template.editUserPopup.events({
     const user = Users.findOne(this.userId);
     const fullname = tpl.find('.js-profile-fullname').value.trim();
     const username = tpl.find('.js-profile-username').value.trim();
-    const initials = tpl.find('.js-profile-initials').value.trim();
+    const password = tpl.find('.js-profile-password').value;
     const isAdmin = tpl.find('.js-profile-isadmin').value.trim();
     const isActive = tpl.find('.js-profile-isactive').value.trim();
     const email = tpl.find('.js-profile-email').value.trim();
-    let isChangeUserName = false;
-    let isChangeEmail = false;
+
+    const isChangePassword = password.length > 0;
+    const isChangeUserName = username !== user.username;
+    const isChangeEmail = email.toLowerCase() !== user.emails[0].address.toLowerCase();
 
     Users.update(this.userId, {
       $set: {
         'profile.fullname': fullname,
-        'profile.initials': initials,
         'isAdmin': isAdmin === 'true',
         'loginDisabled': isActive === 'true',
       },
     });
 
-    isChangeUserName = username !== user.username;
-    isChangeEmail = email.toLowerCase() !== user.emails[0].address.toLowerCase();
+    if(isChangePassword){
+      Meteor.call('setPassword', password, this.userId);
+    }
 
     if (isChangeUserName && isChangeEmail) {
       Meteor.call('setUsernameAndEmail', username, email.toLowerCase(), this.userId, function (error) {
