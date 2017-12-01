@@ -45,7 +45,7 @@ Template.editProfilePopup.events({
       $set: {
         'profile.fullname': fullname,
         'profile.initials': initials,
-      }
+      },
     });
     isChangeUserName = username !== Meteor.user().username;
     isChangeEmail = email.toLowerCase() !== Meteor.user().emails[0].address.toLowerCase();
