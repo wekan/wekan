@@ -1,8 +1,3 @@
-Meteor.subscribe('setting');
-Meteor.subscribe('mailServer');
-Meteor.subscribe('accountSettings');
-Meteor.subscribe('announcements');
-
 BlazeComponent.extendComponent({
   onCreated() {
     this.error = new ReactiveVar('');
@@ -11,6 +6,11 @@ BlazeComponent.extendComponent({
     this.emailSetting = new ReactiveVar(false);
     this.accountSetting = new ReactiveVar(false);
     this.announcementSetting = new ReactiveVar(false);
+
+    Meteor.subscribe('setting');
+    Meteor.subscribe('mailServer');
+    Meteor.subscribe('accountSettings');
+    Meteor.subscribe('announcements');
   },
 
   setError(error) {
