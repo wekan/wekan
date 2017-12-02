@@ -23,7 +23,11 @@ BlazeComponent.extendComponent({
     this.parentComponent().showOverlay.set(true);
     this.parentComponent().mouseHasEnterCardDetails = false;
     this.calculateNextPeak();
+
+    Meteor.subscribe('unsaved-edits');
   },
+
+
 
   isWatching() {
     const card = this.currentData();

@@ -2,10 +2,11 @@
 
 This release adds the following new features:
 
-* [Change password of any user in Standalone Wekan Admin Panel](https://github.com/wekan/wekan/pull/1372).
+* [Change password of any user in Standalone Wekan Admin Panel](https://github.com/wekan/wekan/pull/1372);
+* [Performance optimization: Move more global subscriptions to template subscription](https://github.com/wekan/wekan/pull/1373);
 * Update tranlations. Add Latvian language.
 
-Thanks to GitHub user thuanpq for contributions. Thanks to translators for their translations.
+Thanks to GitHub users mfshiu and thuanpq for their contributions. Thanks to translators for their translations.
 
 # v0.60 2017-11-29 Wekan release
 
