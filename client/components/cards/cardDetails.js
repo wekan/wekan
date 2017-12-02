@@ -27,8 +27,6 @@ BlazeComponent.extendComponent({
     Meteor.subscribe('unsaved-edits');
   },
 
-
-
   isWatching() {
     const card = this.currentData();
     return card.findWatcher(Meteor.userId());
