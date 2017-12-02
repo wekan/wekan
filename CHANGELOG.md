@@ -4,7 +4,8 @@ This release adds the following new features:
 
 * [Change password of any user in Standalone Wekan Admin Panel](https://github.com/wekan/wekan/pull/1372);
 * [Performance optimization: Move more global subscriptions to template subscription](https://github.com/wekan/wekan/pull/1373);
-* Update tranlations. Add Latvian language.
+* Update tranlations. Add Latvian language;
+* Update Node to 4.8.6 and MongoDB to 3.2.18.
 
 and fixes the following bugs:
 
