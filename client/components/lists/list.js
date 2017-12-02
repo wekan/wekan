@@ -114,3 +114,10 @@ BlazeComponent.extendComponent({
     });
   },
 }).register('list');
+
+Template.miniList.events({
+  'click .js-select-list'() {
+    const listId = this._id;
+    Session.set('currentList', listId);
+  },
+});

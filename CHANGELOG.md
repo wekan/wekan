@@ -1,10 +1,16 @@
-# Upcoming Wekan release
+# v0.60 2017-11-29 Wekan release
 
-This release fixes the following bugs:
+This release adds the following new features:
 
-* [Fix: User with comment only permissions can remove another user from a card](https://github.com/wekan/wekan/pull/1352).
+* [Add SMTP test email button to Standalone Wekan Admin Panel](https://github.com/wekan/wekan/pull/1359);
+* [Optimize for mobile web, show single list per page with navigate bar](https://github.com/wekan/wekan/pull/1365).
 
-Thanks to GitHub user nztqa for contributions.
+and fixes the following bugs:
+
+* [User with comment only permissions can remove another user from a card](https://github.com/wekan/wekan/pull/1352);
+* [Frequent Subscriptions problem that make Excessive CPU usage](https://github.com/wekan/wekan/pull/1363).
+
+Thanks to GitHub users floatinghotpot, mfshiu and nztqa for their contributions.
 
 # v0.59 2017-11-23 Wekan release.
 
@@ -60,7 +66,7 @@ This release adds the following new features:
 
 and fixes the following bugs:
 
-* [Emoji detection breaks MAC addresses](https://github.com/wekan/wekan/issues/1248);
+* [Emoji detection breaks MAC addresses](https://github.com/wekan/wekan/issues/1248); - this has not yet fixed all cases.
 * [Codeblocks should not be scanned for emoji](https://github.com/wekan/wekan/issues/643);
 * [Whitespace trimming breaks Markdown code block indentation](https://github.com/wekan/wekan/issues/1288):
 * [Helper to list boards for user](https://github.com/wekan/wekan/pull/1327);

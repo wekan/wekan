@@ -125,6 +125,21 @@ BlazeComponent.extendComponent({
 
   },
 
+  sendSMTPTestEmail() {
+    Meteor.call('sendSMTPTestEmail', (err, ret) => {
+      if (!err && ret) { /* eslint-disable no-console */
+        const message = `${TAPi18n.__(ret.message)}: ${ret.email}`;
+        console.log(message);
+        alert(message);
+      } else {
+        const reason = err.reason || '';
+        const message = `${TAPi18n.__(err.error)}\n${reason}`;
+        console.log(message, err);
+        alert(message);
+      }  /* eslint-enable no-console */
+    });
+  },
+
   events(){
     return [{
       'click a.js-toggle-registration': this.toggleRegistration,
@@ -133,6 +148,7 @@ BlazeComponent.extendComponent({
       'click a.js-toggle-board-choose': this.checkBoard,
       'click button.js-email-invite': this.inviteThroughEmail,
       'click button.js-save': this.saveMailServerInfo,
+      'click button.js-send-smtp-test-email': this.sendSMTPTestEmail,
     }];
   },
 }).register('setting');
