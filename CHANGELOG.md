@@ -6,6 +6,10 @@ This release adds the following new features:
 * [Performance optimization: Move more global subscriptions to template subscription](https://github.com/wekan/wekan/pull/1373);
 * Update tranlations. Add Latvian language.
 
+and fixes the following bugs:
+
+* [Bug on not being able to see Admin Panel if not having access to Board List](https://github.com/wekan/wekan/pull/1371).
+
 Thanks to GitHub users mfshiu and thuanpq for their contributions. Thanks to translators for their translations.
 
 # v0.60 2017-11-29 Wekan release
