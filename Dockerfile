@@ -15,12 +15,12 @@ ARG SRC_PATH
 # paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
 ENV BUILD_DEPS="wget curl bzip2 build-essential python git ca-certificates gcc-4.9 paxctl"
 ENV GOSU_VERSION=1.10
-ENV NODE_VERSION ${NODE_VERSION:-v4.8.6}
-ENV METEOR_RELEASE ${METEOR_RELEASE:-1.4.4.1}
+ENV NODE_VERSION ${NODE_VERSION:-v6.12.0}
+ENV METEOR_RELEASE ${METEOR_RELEASE:-1.6}
 ENV USE_EDGE ${USE_EDGE:-false}
 ENV METEOR_EDGE ${METEOR_EDGE:-1.5-beta.17}
-ENV NPM_VERSION ${NPM_VERSION:-4.6.1}
-ENV FIBERS_VERSION ${FIBERS_VERSION:-1.0.15}
+ENV NPM_VERSION ${NPM_VERSION:-5.6.0}
+ENV FIBERS_VERSION ${FIBERS_VERSION:-2.0.0}
 ENV ARCHITECTURE ${ARCHITECTURE:-linux-x64}
 ENV SRC_PATH ${SRC_PATH:-./}
 
@@ -106,7 +106,6 @@ RUN \
     mkdir -p /home/wekan/app/packages && \
     chown wekan:wekan --recursive /home/wekan && \
     cd /home/wekan/app/packages && \
-    gosu wekan:wekan git clone --depth 1 -b master git://github.com/wekan/flow-router.git kadira-flow-router && \
     gosu wekan:wekan git clone --depth 1 -b master git://github.com/meteor-useraccounts/core.git meteor-useraccounts-core && \
     sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' /home/wekan/app/packages/meteor-useraccounts-core/package.js && \
     cd /home/wekan/.meteor && \
