@@ -20,15 +20,17 @@
   },
   "homepage": "https://wekan.github.io",
   "devDependencies": {
-    "eslint": "^2.0.0"
+    "eslint": "^4.11.0"
   },
   "dependencies": {
-    "babel-runtime": "^6.23.0",
-    "bcrypt": "^1.0.2",
+    "babel-runtime": "^6.26.0",
+    "bcrypt": "^1.0.3",
     "bson": "^1.0.4",
-    "es6-promise": "^4.1.0",
-    "meteor-node-stubs": "^0.2.6",
+    "es6-promise": "^4.1.1",
+    "fibers": "^2.0.0",
+    "meteor-node-stubs": "^0.3.2",
     "os": "^0.1.1",
-    "xss": "^0.3.3"
+    "phantomjs-prebuilt": "^2.1.16",
+    "xss": "^0.3.4"
   }
 }
