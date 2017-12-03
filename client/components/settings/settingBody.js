@@ -116,7 +116,7 @@ BlazeComponent.extendComponent({
       const from = this.checkField('#mail-server-from');
       const tls = $('#mail-server-tls.is-checked').length > 0;
       Settings.update(Settings.findOne()._id, {$set:{'mailServer.host':host, 'mailServer.port': port, 'mailServer.username': username,
-          'mailServer.password': password, 'mailServer.enableTLS': tls, 'mailServer.from': from}});
+        'mailServer.password': password, 'mailServer.enableTLS': tls, 'mailServer.from': from}});
     } catch (e) {
       return;
     } finally {

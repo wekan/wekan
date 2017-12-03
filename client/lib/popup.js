@@ -190,7 +190,7 @@ window.Popup = new class {
       return title !== translationKey ? title : defaultTitle;
     };
   }
-};
+}();
 
 // We close a potential opened popup on any left click on the document, or go
 // one step back by pressing escape.

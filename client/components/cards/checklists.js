@@ -181,8 +181,8 @@ BlazeComponent.extendComponent({
 Template.checklistDeleteDialog.onCreated(() => {
   const $cardDetails = this.$('.card-details');
   this.scrollState = { position: $cardDetails.scrollTop(), //save current scroll position
-                       top: false, //required for smooth scroll animation
-                     };
+    top: false, //required for smooth scroll animation
+  };
   //Callback's purpose is to only prevent scrolling after animation is complete
   $cardDetails.animate({ scrollTop: 0 }, 500, () => { this.scrollState.top = true; });
 
