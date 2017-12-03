@@ -93,7 +93,7 @@ meteorspark:util@0.2.0
 minifier-css@1.2.16
 minifier-js@2.2.2
 minifiers@1.1.8-faster-rebuild.0
-minimongo@1.4.2
+minimongo@1.4.3
 mobile-status-bar@1.0.14
 modules@0.11.0
 modules-runtime@0.9.1
@@ -119,7 +119,7 @@ ordered-dict@1.0.9
 peerlibrary:assert@0.2.5
 peerlibrary:base-component@0.16.0
 peerlibrary:blaze-components@0.15.1
-peerlibrary:computed-field@0.6.1
+peerlibrary:computed-field@0.7.0
 peerlibrary:reactive-field@0.3.0
 perak:markdown@1.0.5
 promise@0.10.0
@@ -137,7 +137,7 @@ seriousm:emoji-continued@1.4.0
 service-configuration@1.0.11
 session@1.1.7
 sha@1.0.9
-shell-server@0.3.0
+shell-server@0.3.1
 simple:authenticate-user-by-token@1.0.1
 simple:json-routes@2.1.0
 simple:rest-accounts-password@1.1.2
