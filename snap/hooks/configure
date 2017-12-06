@@ -3,6 +3,8 @@
 exec >> $SNAP_COMMON/hook.log 2>&1
 echo "$(date '+%Y-%m-%d %H:%M:%S') $0: Entering hook"
 
+set -x
+
 # read wekan config
 . $SNAP/bin/config
 
