@@ -1,3 +1,25 @@
+# v0.60 2017-11-29 Wekan release
+
+This release adds the following new features:
+
+* [Add SMTP test email button to Standalone Wekan Admin Panel](https://github.com/wekan/wekan/pull/1359);
+* [Optimize for mobile web, show single list per page with navigate bar](https://github.com/wekan/wekan/pull/1365).
+
+and fixes the following bugs:
+
+* [User with comment only permissions can remove another user from a card](https://github.com/wekan/wekan/pull/1352);
+* [Frequent Subscriptions problem that make Excessive CPU usage](https://github.com/wekan/wekan/pull/1363).
+
+Thanks to GitHub users floatinghotpot, mfshiu and nztqa for their contributions.
+
+# v0.59 2017-11-23 Wekan release.
+
+This release fixes the following bugs:
+
+* [Remove incomplete logger fix](https://github.com/wekan/wekan/pull/1352).
+
+Thanks to GitHub user pierreozoux for contributions.
+
 # v0.58 2017-11-23 Wekan release
 
 This release adds the following new features:
@@ -44,7 +66,7 @@ This release adds the following new features:
 
 and fixes the following bugs:
 
-* [Emoji detection breaks MAC addresses](https://github.com/wekan/wekan/issues/1248);
+* [Emoji detection breaks MAC addresses](https://github.com/wekan/wekan/issues/1248); - this has not yet fixed all cases.
 * [Codeblocks should not be scanned for emoji](https://github.com/wekan/wekan/issues/643);
 * [Whitespace trimming breaks Markdown code block indentation](https://github.com/wekan/wekan/issues/1288):
 * [Helper to list boards for user](https://github.com/wekan/wekan/pull/1327);
@@ -541,12 +563,12 @@ and fixes the following bugs:
   exists valid admin panel data MAIL_URL is not set.
   MAIL_FROM was ignored. Same behaviour, env variable has bigger priority
   than database configuration.
-  On both cases, althrought environment variable is set, updating admin-panel
+  On both cases, althought environment variable is set, updating admin-panel
   mail settings will load new info and ignore the environment variable;
 * Dockerfile fix for local packages;
 * Don't send emails if missing smtp host;
 * Remove invitation code if email sending failed;
-* Show customized error msg while invitaion code is wrong during registration;
+* Show customized error msg while invitation code is wrong during registration;
 * Fix "internal error" while registration is done;
 * Fix "cannot access disableRegistration of undefined" error;
 * Add high available server for getting the gpg keys - suppose it should lead
@@ -651,7 +673,7 @@ and adds the following new features:
 ```
   1) Disable Self-Registration and invite users
   2) SMTP settings.
-    
+
   Adding Admin user in mongo cli:
   1) Use database that has wekan data, for example:
      use admin;
@@ -832,7 +854,7 @@ performance and security. It also features the following improvements:
   password, to change the password, or to enable email confirmation (all of
   which were previously impossible);
 * Avatar customization, including the possibility to upload images and to choose
-  one from Gravatar or the user initials (on Sandstrom we use the avatar exposed
+  one from Gravatar or the user initials (on Sandstorm we use the avatar exposed
   by Sandstorm);
 * Cards multi-selection to facilitate batch actions such as moving all the cards
   of selection, or attaching a label or a member to them;

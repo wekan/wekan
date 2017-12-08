@@ -71,10 +71,10 @@ template(name="cardMemberPopup")
       .info
         h3= user.profile.fullname
         p.quiet @{{ user.username }}
-    if currentUser.isBoardMember
-      ul.pop-over-list
-        li: a.js-remove-member {{_ 'remove-member-from-card'}}
+    ul.pop-over-list
+      if currentUser.isNotCommentOnly
+          li: a.js-remove-member {{_ 'remove-member-from-card'}}
 
-        if $eq currentUser._id user._id
-          with currentUser
-            li: a.js-edit-profile {{_ 'edit-profile'}}
+      if $eq currentUser._id user._id
+        with currentUser
+          li: a.js-edit-profile {{_ 'edit-profile'}}

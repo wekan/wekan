@@ -3,19 +3,33 @@ template(name="listHeader")
     +inlinedForm
       +editListTitleForm
     else
+      if isMiniScreen
+        if currentList
+          a.list-header-left-icon.fa.fa-angle-left.js-unselect-list
       h2.list-header-name(
         class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
-        = title 
+        = title
         if wipLimit.enabled
          |&nbsp;(
          span(class="{{#if reachedWipLimit}}highlight{{/if}}") {{cards.count}}
          |/#{wipLimit.value})
-        
+
         if showCardsCountForList cards.count
           = cards.count
           span.lowercase
             |  {{_ 'cards'}}
-      if currentUser.isBoardMember
+      if isMiniScreen
+        if currentList
+          if isWatching
+            i.list-header-watch-icon.fa.fa-eye
+          div.list-header-menu
+            unless currentUser.isCommentOnly
+              if canSeeAddCard
+                a.js-add-card.fa.fa-plus.list-header-plus-icon
+              a.fa.fa-navicon.js-open-list-menu
+        else
+          a.list-header-menu-icon.fa.fa-angle-right.js-select-list
+      else if currentUser.isBoardMember
         if isWatching
           i.list-header-watch-icon.fa.fa-eye
         div.list-header-menu
@@ -80,8 +94,8 @@ template(name="setWipLimitPopup")
   #js-wip-limit-edit
     label {{_ 'set-wip-limit-value'}}
     ul.pop-over-list
-      li: a.js-enable-wip-limit {{_ 'enable-wip-limit'}} 
-        if isWipLimitEnabled  
+      li: a.js-enable-wip-limit {{_ 'enable-wip-limit'}}
+        if isWipLimitEnabled
           i.fa.fa-check
     if isWipLimitEnabled
       p
@@ -92,7 +106,7 @@ template(name="setWipLimitPopup")
         .soft-wip-limit
           .materialCheckBox(class="{{#if isWipLimitSoft}}is-checked{{/if}}")
         label {{_ 'soft-wip-limit'}}
-        
+
 template(name="wipLimitErrorPopup")
   .wip-limit-invalid
     p {{_ 'wipLimitErrorPopup-dialog-pt1'}}

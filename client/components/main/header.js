@@ -28,4 +28,8 @@ Template.header.events({
   'click .js-close-announcement'() {
     $('.announcement').hide();
   },
+  'click .js-select-list'() {
+    Session.set('currentList', this._id);
+    Session.set('currentCard', null);
+  },
 });
