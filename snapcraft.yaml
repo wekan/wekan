@@ -70,7 +70,7 @@ parts:
     wekan:
         source: .
         plugin: nodejs
-        node-engine: 6.12
+        node-engine: 6.12.2
         node-packages:
             - npm@5.6.0
             - node-gyp
