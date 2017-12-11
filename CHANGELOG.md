@@ -13,7 +13,8 @@ and fixes the following bugs:
 * [Bug on not being able to see Admin Panel if not having access to Board List](https://github.com/wekan/wekan/pull/1371);
 * [Bug on not able to see member avatar on sidebar activity](https://github.com/wekan/wekan/pull/1380);
 * [Don't open swipebox on update card cover / download file / delete file](https://github.com/wekan/wekan/pull/1386);
-* [Boards subscription should be placed at header for all other component can be used](https://github.com/wekan/wekan/pull/1381).
+* [Boards subscription should be placed at header for all other component can be used](https://github.com/wekan/wekan/pull/1381);
+* [bug on long url of attachment in card activity log](https://github.com/wekan/wekan/pull/1388).
 
 Thanks to GitHub users mfshiu, thuanpq and xet7 for their contributions.
 Thanks to translators for their translations.
