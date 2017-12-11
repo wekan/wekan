@@ -85,13 +85,12 @@ template(name="cardDetails")
     hr
     +checklists(cardId = _id)
 
-    if attachments.count
-      hr
-      h2
-        i.fa.fa-paperclip
-        | {{_ 'attachments'}}
+    hr
+    h2
+      i.fa.fa-paperclip
+      | {{_ 'attachments'}}
 
-      +attachmentsGalery
+    +attachmentsGalery
 
     hr
     .activity-title
