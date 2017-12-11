@@ -5,13 +5,15 @@ This release adds the following new features:
 * [Change password of any user in Standalone Wekan Admin Panel](https://github.com/wekan/wekan/pull/1372);
 * [Performance optimization: Move more global subscriptions to template subscription](https://github.com/wekan/wekan/pull/1373);
 * Update tranlations. Add Latvian language;
-* Update Node to 4.8.6 and MongoDB to 3.2.18.
+* Update to Meteor 1.6.0, Node 6.12.2 and MongoDB 3.2.18.
 
 and fixes the following bugs:
 
-* [Bug on not being able to see Admin Panel if not having access to Board List](https://github.com/wekan/wekan/pull/1371).
+* [Bug on not being able to see Admin Panel if not having access to Board List](https://github.com/wekan/wekan/pull/1371);
+* [Bug on not able to see member avatar on sidebar activity](https://github.com/wekan/wekan/pull/1380).
 
-Thanks to GitHub users mfshiu and thuanpq for their contributions. Thanks to translators for their translations.
+Thanks to GitHub users mfshiu, thuanpq and xet7 for their contributions.
+Thanks to translators for their translations.
 
 # v0.60 2017-11-29 Wekan release
 
