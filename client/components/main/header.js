@@ -1,4 +1,5 @@
 Meteor.subscribe('user-admin');
+Meteor.subscribe('boards');
 
 Template.header.helpers({
   wrappedHeader() {
