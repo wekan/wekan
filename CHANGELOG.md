@@ -10,7 +10,8 @@ This release adds the following new features:
 and fixes the following bugs:
 
 * [Bug on not being able to see Admin Panel if not having access to Board List](https://github.com/wekan/wekan/pull/1371);
-* [Bug on not able to see member avatar on sidebar activity](https://github.com/wekan/wekan/pull/1380).
+* [Bug on not able to see member avatar on sidebar activity](https://github.com/wekan/wekan/pull/1380);
+* [Don't open swipebox on update card cover / download file / delete file](https://github.com/wekan/wekan/pull/1386).
 
 Thanks to GitHub users mfshiu, thuanpq and xet7 for their contributions.
 Thanks to translators for their translations.
