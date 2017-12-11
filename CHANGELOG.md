@@ -4,6 +4,7 @@ This release adds the following new features:
 
 * [Change password of any user in Standalone Wekan Admin Panel](https://github.com/wekan/wekan/pull/1372);
 * [Performance optimization: Move more global subscriptions to template subscription](https://github.com/wekan/wekan/pull/1373);
+* [Auto update card cover with latest uploaded image attachment](https://github.com/wekan/wekan/pull/1387).
 * Update tranlations. Add Latvian language;
 * Update to Meteor 1.6.0, Node 6.12.2 and MongoDB 3.2.18.
 
