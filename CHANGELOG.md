@@ -1,3 +1,11 @@
+# v0.62 2017-12-12 Wekan release
+
+This release fixes the following bugs:
+
+* Added missing packages to build script.
+
+Thanks to GitHub user xet7 for contributions.
+
 # v0.61 2017-12-12 Wekan release
 
 This release adds the following new features:
