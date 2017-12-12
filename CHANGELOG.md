@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v0.61 2017-12-12 Wekan release
 
 This release adds the following new features:
 
@@ -9,7 +9,7 @@ This release adds the following new features:
 * [Make it easier to see the Add Card button at top of list](https://github.com/wekan/wekan/pull/1392);
 * [Add mixmax:smart-disconnect to lower CPU usage when browser tab is not selected](https://github.com/wekan/wekan-mongodb/issues/2);
 * Update tranlations. Add Latvian language;
-* Update to Meteor 1.6.0, Node 6.12.2 and MongoDB 3.2.18.
+* Update to Node 4.8.4 and MongoDB 3.2.18.
 
 and fixes the following bugs:
 
