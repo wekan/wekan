@@ -6,7 +6,8 @@ This release adds the following new features:
 * [Performance optimization: Move more global subscriptions to template subscription](https://github.com/wekan/wekan/pull/1373);
 * [Auto update card cover with latest uploaded image attachment](https://github.com/wekan/wekan/pull/1387);
 * [Always display attachment section for uploading file quickly](https://github.com/wekan/wekan/pull/1391);
-* [Make it easier to see the Add Card button at top of list](https://github.com/wekan/wekan/pull/1392).
+* [Make it easier to see the Add Card button at top of list](https://github.com/wekan/wekan/pull/1392);
+* [Add mixmax:smart-disconnect to lower CPU usage when browser tab is not selected](https://github.com/wekan/wekan-mongodb/issues/2);
 * Update tranlations. Add Latvian language;
 * Update to Meteor 1.6.0, Node 6.12.2 and MongoDB 3.2.18.
 
