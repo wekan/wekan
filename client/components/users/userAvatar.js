@@ -1,5 +1,3 @@
-Meteor.subscribe('my-avatars');
-
 Template.userAvatar.helpers({
   userData() {
     // We need to handle a special case for the search results provided by the
@@ -54,6 +52,8 @@ Template.userAvatarInitials.helpers({
 BlazeComponent.extendComponent({
   onCreated() {
     this.error = new ReactiveVar('');
+
+    Meteor.subscribe('my-avatars');
   },
 
   avatarUrlOptions() {
