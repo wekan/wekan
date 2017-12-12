@@ -1,5 +1,3 @@
-Meteor.subscribe('unsaved-edits');
-
 // `UnsavedEdits` is a global key-value store used to save drafts of user
 // inputs. We used to have the notion of a `cachedValue` that was local to a
 // component but the global store has multiple advantages:

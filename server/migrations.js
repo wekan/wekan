@@ -109,9 +109,9 @@ Migrations.add('add-member-isactive-field', () => {
   Boards.find({}, {fields: {members: 1}}).forEach((board) => {
     const allUsersWithSomeActivity = _.chain(
       Activities.find({ boardId: board._id }, { fields:{ userId:1 }}).fetch())
-        .pluck('userId')
-        .uniq()
-        .value();
+      .pluck('userId')
+      .uniq()
+      .value();
     const currentUsers = _.pluck(board.members, 'userId');
     const formerUsers = _.difference(allUsersWithSomeActivity, currentUsers);
 

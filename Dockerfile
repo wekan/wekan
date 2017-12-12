@@ -15,7 +15,7 @@ ARG SRC_PATH
 # paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
 ENV BUILD_DEPS="wget curl bzip2 build-essential python git ca-certificates gcc-4.9 paxctl"
 ENV GOSU_VERSION=1.10
-ENV NODE_VERSION ${NODE_VERSION:-v4.8.4}
+ENV NODE_VERSION ${NODE_VERSION:-v4.8.6}
 ENV METEOR_RELEASE ${METEOR_RELEASE:-1.4.4.1}
 ENV USE_EDGE ${USE_EDGE:-false}
 ENV METEOR_EDGE ${METEOR_EDGE:-1.5-beta.17}

@@ -68,9 +68,6 @@ template(name="editUserPopup")
         | {{_ 'error-username-taken'}}
       input.js-profile-username(type="text" value=user.username)
     label
-      | {{_ 'initials'}}
-      input.js-profile-initials(type="text" value=user.profile.initials)
-    label
       | {{_ 'email'}}
       span.error.hide.email-taken
         | {{_ 'error-email-taken'}}
@@ -85,5 +82,9 @@ template(name="editUserPopup")
       select.select-active.js-profile-isactive
         option(value="false") {{_ 'yes'}}
         option(value="true" selected="{{user.loginDisabled}}") {{_ 'no'}}
+    hr
+    label
+      | {{_ 'password'}}
+      input.js-profile-password(type="password")
 
     input.primary.wide(type="submit" value="{{_ 'save'}}")
