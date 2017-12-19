@@ -54,7 +54,7 @@ apps:
 
 parts:
     mongodb:
-        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-3.2.16.tgz
+        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-3.2.18.tgz
         plugin: dump
         stage-packages: [libssl1.0.0]
         filesets:
@@ -70,23 +70,26 @@ parts:
     wekan:
         source: .
         plugin: nodejs
-        node-engine: 4.8.4
+        node-engine: 4.8.6
         node-packages:
+            - n
             - npm@4.6.1
             - node-gyp
             - node-pre-gyp
             - fibers@1.0.15
         build-packages:
+            - ca-certificates
             - python
             - g++
             - capnproto
-            - nodejs
-            - nodejs-legacy
+            - npm
             - curl
         prepare: |
             echo "Cleaning environment first"
             rm -rf ~/.meteor ~/.npm /usr/local/lib/node_modules
-            echo "installing meteor first"
+            echo "Installing node"
+            n 4.8.6
+            echo "Installing meteor"
             curl https://install.meteor.com/ -o install_meteor.sh
             sed -i "s|RELEASE=.*|RELEASE=\"1.4.4.1\"|g" install_meteor.sh
             chmod +x install_meteor.sh
