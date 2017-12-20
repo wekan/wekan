@@ -70,7 +70,7 @@ parts:
     wekan:
         source: .
         plugin: nodejs
-        node-engine: 4.8.6
+        node-engine: 4.8.7
         node-packages:
             - n
             - npm@4.6.1
@@ -84,11 +84,14 @@ parts:
             - capnproto
             - npm
             - curl
+            - paxctl
         prepare: |
             echo "Cleaning environment first"
             rm -rf ~/.meteor ~/.npm /usr/local/lib/node_modules
             echo "Installing node"
-            n 4.8.6
+            n 4.8.7
+            echo "Applying paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303"
+            paxctl -mC `which node`
             echo "Installing meteor"
             curl https://install.meteor.com/ -o install_meteor.sh
             sed -i "s|RELEASE=.*|RELEASE=\"1.4.4.1\"|g" install_meteor.sh
