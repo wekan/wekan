@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+* Update to Node 4.8.7
+
+Thanks to GitHub user xet7 for contributions.
+
 # v0.62 2017-12-12 Wekan release
 
 This release fixes the following bugs:
@@ -17,7 +25,7 @@ This release adds the following new features:
 * [Make it easier to see the Add Card button at top of list](https://github.com/wekan/wekan/pull/1392);
 * [Add mixmax:smart-disconnect to lower CPU usage when browser tab is not selected](https://github.com/wekan/wekan-mongodb/issues/2);
 * Update tranlations. Add Latvian language;
-* Update to Node 4.8.4 and MongoDB 3.2.18.
+* Update to Node 4.8.6 and MongoDB 3.2.18.
 
 and fixes the following bugs:
 
