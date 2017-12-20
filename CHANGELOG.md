@@ -2,9 +2,10 @@
 
 This release adds the following new features:
 
-* Update to Node 4.8.7
+* [Auto update card cover with new image uploaded via drag&drop](https://github.com/wekan/wekan/pull/1401);
+* Update to Node 4.8.7.
 
-Thanks to GitHub user xet7 for contributions.
+Thanks to GitHub users thuanpq and xet7 for their contributions.
 
 # v0.62 2017-12-12 Wekan release
 
