@@ -239,7 +239,7 @@
     "info": "Versione",
     "initials": "Iniziali",
     "invalid-date": "Data non valida",
-    "invalid-time": "Invalid time",
+    "invalid-time": "Tempo non valido",
     "invalid-user": "User non valido",
     "joined": "si è unito a",
     "just-invited": "Sei stato appena invitato a questa bacheca",
@@ -418,7 +418,7 @@
     "no": "No",
     "accounts": "Profili",
     "accounts-allowEmailChange": "Permetti modifica dell'email",
-    "createdAt": "Created at",
+    "createdAt": "creato alle",
     "verified": "Verificato",
     "active": "Attivo"
 }
