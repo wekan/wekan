@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v0.63 2017-12-20 Wekan release
 
 This release adds the following new features:
 
