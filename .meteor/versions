@@ -92,6 +92,7 @@ minifier-css@1.2.16
 minifier-js@2.0.0
 minifiers@1.1.8-faster-rebuild.0
 minimongo@1.0.21
+mixmax:smart-disconnect@0.0.4
 mobile-status-bar@1.0.14
 modules@0.8.2
 modules-runtime@0.7.10

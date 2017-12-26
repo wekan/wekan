@@ -31,7 +31,7 @@ window.Modal = new class {
     this._currentModal.set({ header, modalName });
     this._onCloseGoTo = onCloseGoTo;
   }
-};
+}();
 
 Blaze.registerHelper('Modal', Modal);
 
