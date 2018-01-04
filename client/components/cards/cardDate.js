@@ -171,11 +171,12 @@ class CardStartDate extends CardDate {
   }
 
   classes() {
+    let classes = 'start-date' + ' ';
     if (this.date.get().isBefore(this.now.get(), 'minute') &&
         this.now.get().isBefore(this.data().dueAt)) {
-      return 'current';
+      classes += 'current';
     }
-    return '';
+    return classes;
   }
 
   showTitle() {
@@ -200,13 +201,14 @@ class CardDueDate extends CardDate {
   }
 
   classes() {
+    let classes = 'due-date' + ' ';
     if (this.now.get().diff(this.date.get(), 'days') >= 2)
-      return 'long-overdue';
+      classes += 'long-overdue';
     else if (this.now.get().diff(this.date.get(), 'minute') >= 0)
-      return 'due';
+      classes += 'due';
     else if (this.now.get().diff(this.date.get(), 'days') >= -1)
-      return 'almost-due';
-    return '';
+      classes += 'almost-due';
+    return classes;
   }
 
   showTitle() {
