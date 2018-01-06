@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+* [Different icons for start and due date](https://github.com/wekan/wekan/pull/1420).
+
+Thanks to GitHub user mmarschall for contributions.
+
 # v0.63 2017-12-20 Wekan release
 
 This release adds the following new features:
