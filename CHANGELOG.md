@@ -4,7 +4,11 @@ This release adds the following new features:
 
 * [Different icons for start and due date](https://github.com/wekan/wekan/pull/1420).
 
-Thanks to GitHub user mmarschall for contributions.
+and fixes the following bugs:
+
+* [Fix for dragging into scrolled-down list](https://github.com/wekan/wekan/pull/1424).
+
+Thanks to GitHub users dpoznyak and mmarschall for their contributions.
 
 # v0.63 2017-12-20 Wekan release
 
