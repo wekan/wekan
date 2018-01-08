@@ -87,11 +87,15 @@
     color: #ce1414
 
 .list-body
+  flex: 1
+  flex-direction: column
+  display: flex
   overflow-y: auto
   padding: 5px 11px
 
   .minicards
-    flex: 1
+    flex-grow: 1
+    flex-shrink: 0
 
     form
       margin-bottom: 9px
