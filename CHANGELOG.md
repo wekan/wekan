@@ -3,6 +3,7 @@
 This release adds the following new features:
 
 * [Different icons for start and due date](https://github.com/wekan/wekan/pull/1420).
+* Added new languages: Mongolian and Portuguese.
 
 and fixes the following bugs:
 
