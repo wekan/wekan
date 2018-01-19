@@ -164,6 +164,11 @@ const CreateBoard = BlazeComponent.extendComponent({
       permission: visibility,
     }));
 
+    Swimlanes.insert({
+      title: 'Default',
+      boardId: this.boardId.get(),
+    });
+
     Utils.goBoardId(this.boardId.get());
   },
 

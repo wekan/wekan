@@ -187,6 +187,10 @@ Boards.helpers({
     return Lists.find({ boardId: this._id, archived: false }, { sort: { sort: 1 } });
   },
 
+  swimlanes() {
+    return Swimlanes.find({ boardId: this._id, archived: false }, { sort: { sort: 1 } });
+  },
+
   hasOvertimeCards(){
     const card = Cards.findOne({isOvertime: true, boardId: this._id, archived: false} );
     return card !== undefined;

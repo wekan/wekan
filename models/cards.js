@@ -18,6 +18,9 @@ Cards.attachSchema(new SimpleSchema({
   listId: {
     type: String,
   },
+  swimlaneId: {
+    type: String,
+  },
   // The system could work without this `boardId` information (we could deduce
   // the board identifier from the card), but it would make the system more
   // difficult to manage and less efficient.

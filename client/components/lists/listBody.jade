@@ -4,7 +4,7 @@ template(name="listBody")
       if cards.count
         +inlinedForm(autoclose=false position="top")
           +addCardForm(listId=_id position="top")
-      each cards
+      each cards ../../_id
         a.minicard-wrapper.js-minicard(href=absoluteUrl
           class="{{#if cardIsSelected}}is-selected{{/if}}"
           class="{{#if MultiSelection.isSelected _id}}is-checked{{/if}}")

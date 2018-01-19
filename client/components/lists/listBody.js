@@ -36,6 +36,7 @@ BlazeComponent.extendComponent({
     const members = formComponent.members.get();
     const labelIds = formComponent.labels.get();
 
+    const swimlaneId = this.parentComponent().parentComponent().data()._id;
     if (title) {
       const _id = Cards.insert({
         title,
@@ -44,6 +45,7 @@ BlazeComponent.extendComponent({
         listId: this.data()._id,
         boardId: this.data().board()._id,
         sort: sortIndex,
+        swimlaneId: swimlaneId,
       });
       // In case the filter is active we need to add the newly inserted card in
       // the list of exceptions -- cards that are not filtered. Otherwise the

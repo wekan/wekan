@@ -1,0 +1,20 @@
+template(name="swimlane")
+  .swimlane.js-lists
+    .swimlane-header-wrap
+      .swimlane-header
+        = title
+    if isMiniScreen
+      if currentList
+        +list(currentList)
+      else
+        each currentBoard.lists
+          +miniList(this)
+        if currentUser.isBoardMember
+          +addListForm
+    else
+      each currentBoard.lists
+        +list(this)
+        if currentCardIsInThisList
+          +cardDetails(currentCard)
+      if currentUser.isBoardMember
+        +addListForm

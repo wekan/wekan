@@ -20,22 +20,10 @@ template(name="boardBody")
       class="{{#if draggingActive.get}}is-dragging-active{{/if}}")
       if showOverlay.get
         .board-overlay
-      .lists.js-lists
-        if isMiniScreen
-          if currentList
-            +list(currentList)
-          else
-            each currentBoard.lists
-              +miniList(this)
-            if currentUser.isBoardMember
-              +addListForm
-        else
-          each currentBoard.lists
-            +list(this)
-            if currentCardIsInThisList
-              +cardDetails(currentCard)
-          if currentUser.isBoardMember
-            +addListForm
+      each currentBoard.swimlanes
+        +swimlane(this)
+//      if currentUser.isBoardMember
+//        +addSwimlaneForm
 
 template(name="addListForm")
   .list.js-list.list-composer.js-list-composer
