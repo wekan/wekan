@@ -18,3 +18,43 @@ template(name="swimlane")
           +cardDetails(currentCard)
       if currentUser.isBoardMember
         +addListForm
+        +addListAndSwimlaneForm
+
+template(name="addListAndSwimlaneForm")
+  .list.js-list.list-composer.js-list-composer
+    .list-header
+      +inlinedForm(autoclose=false)
+        input.list-name-input.full-line(type="text" placeholder="{{_ 'add-list'}}"
+          autocomplete="off" autofocus)
+        .edit-controls.clearfix
+          button.primary.confirm(type="submit") {{_ 'save'}}
+          a.fa.fa-times-thin.js-close-inlined-form
+      else
+        a.open-list-composer.js-open-inlined-form
+          i.fa.fa-plus
+          | {{_ 'add-list'}}
+    .list-header
+      +inlinedForm(autoclose=false)
+        input.swimlane-name-input.full-line(type="text" placeholder="{{_ 'add-swimlane'}}"
+          autocomplete="off" autofocus)
+        .edit-controls.clearfix
+          button.primary.confirm(type="submit") {{_ 'save'}}
+          a.fa.fa-times-thin.js-close-inlined-form
+      else
+        a.open-list-composer.js-open-inlined-form
+          i.fa.fa-plus
+          | {{_ 'add-swimlane'}}
+
+template(name="addListForm")
+  .list.js-list.list-composer.js-list-composer
+    .list-header
+      +inlinedForm(autoclose=false)
+        input.list-name-input.full-line(type="text" placeholder="{{_ 'add-list'}}"
+          autocomplete="off" autofocus)
+        .edit-controls.clearfix
+          button.primary.confirm(type="submit") {{_ 'save'}}
+          a.fa.fa-times-thin.js-close-inlined-form
+      else
+        a.open-list-composer.js-open-inlined-form
+          i.fa.fa-plus
+          | {{_ 'add-list'}}

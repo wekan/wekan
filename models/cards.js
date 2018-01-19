@@ -219,9 +219,10 @@ Cards.mutations({
     return {$set: {description}};
   },
 
-  move(listId, sortIndex) {
+  move(swimlaneId, listId, sortIndex) {
     const list = Lists.findOne(listId);
     const mutatedFields = {
+      swimlaneId,
       listId,
       boardId: list.boardId,
     };
