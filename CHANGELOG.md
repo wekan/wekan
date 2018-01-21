@@ -1,9 +1,10 @@
-# Upcoming Wekan release
+# v0.64 2018-01-22 Wekan release
 
 This release adds the following new features:
 
 * [Different icons for start and due date](https://github.com/wekan/wekan/pull/1420).
-* Added new languages: Mongolian and Portuguese.
+* Added new languages: Mongolian and Portuguese;
+* Upgraded to Meteor 1.6.0.1, Node 8.9.3, NPM 5.5.1 and fibers 2.0.0.
 
 and fixes the following bugs:
 
