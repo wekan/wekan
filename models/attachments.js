@@ -1,3 +1,5 @@
+try {
+
 Attachments = new FS.Collection('attachments', {
   stores: [
 
@@ -24,6 +26,8 @@ Attachments = new FS.Collection('attachments', {
     }),
   ],
 });
+
+} catch (err) { console.log(err); throw err; }
 
 if (Meteor.isServer) {
   Attachments.allow({
