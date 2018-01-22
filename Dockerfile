@@ -13,7 +13,7 @@ ARG SRC_PATH
 
 # Set the environment variables (defaults where required)
 # paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
-ENV BUILD_DEPS="wget curl bzip2 build-essential python git ca-certificates gcc-4.9 paxctl"
+ENV BUILD_DEPS="apt-utils wget curl bzip2 build-essential python git ca-certificates gcc-4.9 paxctl"
 ENV GOSU_VERSION=1.10
 ENV NODE_VERSION ${NODE_VERSION:-v8.9.3}
 ENV METEOR_RELEASE ${METEOR_RELEASE:-1.6.0.1}
@@ -119,7 +119,6 @@ RUN \
     gosu wekan:wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build && \
     cp /home/wekan/app/fix-download-unicode/cfs_access-point.txt /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
     chown wekan:wekan /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
-    gosu wekan:wekan sed -i "s|build\/Release\/bson|browser_build\/bson|g" /home/wekan/app_build/bundle/programs/server/npm/node_modules/meteor/cfs_gridfs/node_modules/mongodb/node_modules/bson/ext/index.js && \
     cd /home/wekan/app_build/bundle/programs/server/npm/node_modules/meteor/npm-bcrypt && \
     gosu wekan:wekan rm -rf node_modules/bcrypt && \
     gosu wekan:wekan npm install bcrypt && \
