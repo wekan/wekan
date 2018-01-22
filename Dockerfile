@@ -1,4 +1,4 @@
-FROM debian:experimental
+FROM debian:buster-slim
 MAINTAINER wekan
 
 # Declare Arguments
