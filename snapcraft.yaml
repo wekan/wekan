@@ -76,9 +76,10 @@ parts:
             - node-gyp
             - node-pre-gyp
             - fibers@2.0.0
+        stage-packages:
+            - ca-certificates
         build-packages:
             - apt-utils
-            - ca-certificates
             - python
             - g++
             - capnproto
