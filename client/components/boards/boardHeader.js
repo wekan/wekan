@@ -76,6 +76,22 @@ BlazeComponent.extendComponent({
       'click .js-open-archived-board'() {
         Modal.open('archivedBoards');
       },
+      'click .js-toggle-board-view'() {
+        const currentBoard = Boards.findOne(Session.get('currentBoard'));
+        if (currentBoard.view === 'board-view-swimlanes') {
+          Boards.update(currentBoard._id, {
+            $set: {
+              view: 'board-view-lists',
+            }
+          });
+        } else if (currentBoard.view === 'board-view-lists') {
+          Boards.update(currentBoard._id, {
+            $set: {
+              view: 'board-view-swimlanes',
+            }
+          });
+        }
+      },
       'click .js-open-filter-view'() {
         Sidebar.setView('filter');
       },

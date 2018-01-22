@@ -175,3 +175,15 @@ Migrations.add('add-swimlanes', () => {
     });
   });
 });
+
+Migrations.add('add-views', () => {
+  Boards.find().forEach((board) => {
+    if (!board.hasOwnProperty('view')) {
+      Boards.direct.update(
+          { _id: board._id },
+          { $set: { view: 'board-view-swimlanes' } },
+          noValidate
+      );
+    }
+  });
+});
