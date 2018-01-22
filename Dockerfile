@@ -32,7 +32,7 @@ RUN \
     useradd --user-group --system --home-dir /home/wekan wekan && \
     \
     # OS dependencies
-    apt update -y && apt install -y --no-install-recommends ${BUILD_DEPS} && \
+    apt-get update -y && apt-get install -y --no-install-recommends ${BUILD_DEPS} && \
     \
     # Gosu installation
     GOSU_ARCHITECTURE="$(dpkg --print-architecture | awk -F- '{ print $NF }')" && \
