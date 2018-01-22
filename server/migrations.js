@@ -157,11 +157,11 @@ Migrations.add('add-swimlanes', () => {
     const swimlane = Swimlanes.findOne({ boardId: board._id });
     let swimlaneId = '';
     if (swimlane)
-        swimlaneId = swimlane._id
+      swimlaneId = swimlane._id;
     else
       swimlaneId = Swimlanes.direct.insert({
-          boardId: board._id,
-          title: 'Default'
+        boardId: board._id,
+        title: 'Default',
       });
 
     Cards.find({ boardId: board._id }).forEach((card) => {
