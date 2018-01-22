@@ -13,8 +13,7 @@ ARG SRC_PATH
 
 # Set the environment variables (defaults where required)
 # paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
-ENV BUILD_DEPS="apt-utils gnupg wget curl bzip2 build-essential python git ca-certificates gcc-7 paxctl"
-ENV GOSU_VERSION=1.10
+ENV BUILD_DEPS="apt-utils gnupg gosu wget curl bzip2 build-essential python git ca-certificates gcc-7 paxctl"
 ENV NODE_VERSION ${NODE_VERSION:-v8.9.3}
 ENV METEOR_RELEASE ${METEOR_RELEASE:-1.6.0.1}
 ENV USE_EDGE ${USE_EDGE:-false}
@@ -33,16 +32,6 @@ RUN \
     \
     # OS dependencies
     apt-get update -y && apt-get install -y --no-install-recommends ${BUILD_DEPS} && \
-    \
-    # Gosu installation
-    GOSU_ARCHITECTURE="$(dpkg --print-architecture | awk -F- '{ print $NF }')" && \
-    wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-${GOSU_ARCHITECTURE}" && \
-    wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-${GOSU_ARCHITECTURE}.asc" && \
-    export GNUPGHOME="$(mktemp -d)" && \
-    gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 && \
-    gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu && \
-    rm -R "$GNUPGHOME" /usr/local/bin/gosu.asc && \
-    chmod +x /usr/local/bin/gosu && \
     \
     # Download nodejs
     wget https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
