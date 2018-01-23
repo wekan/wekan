@@ -36,7 +36,14 @@ BlazeComponent.extendComponent({
     const members = formComponent.members.get();
     const labelIds = formComponent.labels.get();
 
-    const swimlaneId = this.parentComponent().parentComponent().data()._id;
+    const boardId = this.data().board()._id;
+    const board = Boards.findOne(boardId);
+    let swimlaneId = '';
+    if (board.view === 'board-view-swimlanes')
+      swimlaneId = this.parentComponent().parentComponent().data()._id;
+    else
+      swimlaneId = Swimlanes.findOne({boardId})._id;
+
     if (title) {
       const _id = Cards.insert({
         title,
