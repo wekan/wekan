@@ -20,6 +20,24 @@ template(name="swimlane")
         +addListForm
         +addListAndSwimlaneForm
 
+template(name="listsGroup")
+  .swimlane.js-lists
+    if isMiniScreen
+      if currentList
+        +list(currentList)
+      else
+        each currentBoard.lists
+          +miniList(this)
+        if currentUser.isBoardMember
+          +addListForm
+    else
+      each currentBoard.lists
+        +list(this)
+        if currentCardIsInThisList
+          +cardDetails(currentCard)
+      if currentUser.isBoardMember
+        +addListForm
+
 template(name="addListAndSwimlaneForm")
   .list.js-list.list-composer.js-list-composer
     .list-header

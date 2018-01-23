@@ -98,6 +98,13 @@ BlazeComponent.extendComponent({
     MultiSelection.toggle(this.currentData()._id);
   },
 
+  idOrNull(swimlaneId) {
+    const board = Boards.findOne(Session.get('currentBoard'));
+    if (board.view === 'board-view-swimlanes')
+      return swimlaneId;
+    return undefined;
+  },
+
   canSeeAddCard() {
     return !this.reachedWipLimit() && Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
   },

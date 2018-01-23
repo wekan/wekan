@@ -47,6 +47,18 @@ BlazeComponent.extendComponent({
     return Utils.isMiniScreen() && Session.get('currentCard');
   },
 
+  isViewSwimlanes() {
+    const currentBoardId = Session.get('currentBoard');
+    const board = Boards.findOne(currentBoardId);
+    return (board.view === 'board-view-swimlanes');
+  },
+
+  isViewLists() {
+    const currentBoardId = Session.get('currentBoard');
+    const board = Boards.findOne(currentBoardId);
+    return (board.view === 'board-view-lists');
+  },
+
   events() {
     return [{
       // XXX The board-overlay div should probably be moved to the parent

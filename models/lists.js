@@ -76,11 +76,14 @@ Lists.allow({
 
 Lists.helpers({
   cards(swimlaneId) {
-    return Cards.find(Filter.mongoSelector({
+    const selector = {
       listId: this._id,
       archived: false,
-      swimlaneId: swimlaneId,
-    }), { sort: ['sort'] });
+    };
+    if (swimlaneId)
+      selector.swimlaneId = swimlaneId;
+    return Cards.find(Filter.mongoSelector(selector,
+      { sort: ['sort'] }));
   },
 
   allCards() {

@@ -20,5 +20,8 @@ template(name="boardBody")
       class="{{#if draggingActive.get}}is-dragging-active{{/if}}")
       if showOverlay.get
         .board-overlay
-      each currentBoard.swimlanes
-        +swimlane(this)
+      if isViewSwimlanes
+        each currentBoard.swimlanes
+          +swimlane(this)
+      if isViewLists
+        +listsGroup

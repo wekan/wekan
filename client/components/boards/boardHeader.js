@@ -82,13 +82,13 @@ BlazeComponent.extendComponent({
           Boards.update(currentBoard._id, {
             $set: {
               view: 'board-view-lists',
-            }
+            },
           });
         } else if (currentBoard.view === 'board-view-lists') {
           Boards.update(currentBoard._id, {
             $set: {
               view: 'board-view-swimlanes',
-            }
+            },
           });
         }
       },
