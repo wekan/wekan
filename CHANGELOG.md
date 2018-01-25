@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+* [Swimlanes](https://github.com/wekan/wekan/issues/955);
+* Added new language: Igbo.
+
+Thanks to GitHub users andresmanelli for contributions.
+
 # v0.64 2018-01-22 Wekan release
 
 This release adds the following new features:
