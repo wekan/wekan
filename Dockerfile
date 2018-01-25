@@ -1,4 +1,4 @@
-FROM debian:jessie-slim
+FROM debian:buster-slim
 MAINTAINER wekan
 
 # Declare Arguments
@@ -13,14 +13,13 @@ ARG SRC_PATH
 
 # Set the environment variables (defaults where required)
 # paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
-ENV BUILD_DEPS="wget curl bzip2 build-essential python git ca-certificates gcc-4.9 paxctl"
-ENV GOSU_VERSION=1.10
-ENV NODE_VERSION ${NODE_VERSION:-v4.8.7}
-ENV METEOR_RELEASE ${METEOR_RELEASE:-1.4.4.1}
+ENV BUILD_DEPS="apt-utils gnupg gosu wget curl bzip2 build-essential python git ca-certificates gcc-7 paxctl"
+ENV NODE_VERSION ${NODE_VERSION:-v8.9.3}
+ENV METEOR_RELEASE ${METEOR_RELEASE:-1.6.0.1}
 ENV USE_EDGE ${USE_EDGE:-false}
 ENV METEOR_EDGE ${METEOR_EDGE:-1.5-beta.17}
-ENV NPM_VERSION ${NPM_VERSION:-4.6.1}
-ENV FIBERS_VERSION ${FIBERS_VERSION:-1.0.15}
+ENV NPM_VERSION ${NPM_VERSION:-5.5.1}
+ENV FIBERS_VERSION ${FIBERS_VERSION:-2.0.0}
 ENV ARCHITECTURE ${ARCHITECTURE:-linux-x64}
 ENV SRC_PATH ${SRC_PATH:-./}
 
@@ -32,17 +31,7 @@ RUN \
     useradd --user-group --system --home-dir /home/wekan wekan && \
     \
     # OS dependencies
-    apt-get update -y && apt-get dist-upgrade -y && apt-get install -y --no-install-recommends ${BUILD_DEPS} && \
-    \
-    # Gosu installation
-    GOSU_ARCHITECTURE="$(dpkg --print-architecture | awk -F- '{ print $NF }')" && \
-    wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-${GOSU_ARCHITECTURE}" && \
-    wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-${GOSU_ARCHITECTURE}.asc" && \
-    export GNUPGHOME="$(mktemp -d)" && \
-    gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 && \
-    gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu && \
-    rm -R "$GNUPGHOME" /usr/local/bin/gosu.asc && \
-    chmod +x /usr/local/bin/gosu && \
+    apt-get update -y && apt-get install -y --no-install-recommends ${BUILD_DEPS} && \
     \
     # Download nodejs
     wget https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
@@ -119,7 +108,6 @@ RUN \
     gosu wekan:wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build && \
     cp /home/wekan/app/fix-download-unicode/cfs_access-point.txt /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
     chown wekan:wekan /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
-    gosu wekan:wekan sed -i "s|build\/Release\/bson|browser_build\/bson|g" /home/wekan/app_build/bundle/programs/server/npm/node_modules/meteor/cfs_gridfs/node_modules/mongodb/node_modules/bson/ext/index.js && \
     cd /home/wekan/app_build/bundle/programs/server/npm/node_modules/meteor/npm-bcrypt && \
     gosu wekan:wekan rm -rf node_modules/bcrypt && \
     gosu wekan:wekan npm install bcrypt && \
