@@ -79,14 +79,14 @@ RUN \
     # Change user to wekan and install meteor
     cd /home/wekan/ && \
     chown wekan:wekan --recursive /home/wekan && \
-    curl https://install.meteor.com -o ./install_meteor.sh && \
+    curl https://install.meteor.com -o /home/wekan/install_meteor.sh && \
     sed -i "s|RELEASE=.*|RELEASE=${METEOR_RELEASE}\"\"|g" ./install_meteor.sh && \
     echo "Starting meteor ${METEOR_RELEASE} installation...   \n" && \
-    chown wekan:wekan ./install_meteor.sh && \
+    chown wekan:wekan /home/wekan/install_meteor.sh && \
     \
     # Check if opting for a release candidate instead of major release
     if [ "$USE_EDGE" = false ]; then \
-      gosu wekan:wekan sh ./install_meteor.sh; \
+      gosu wekan:wekan sh /home/wekan/install_meteor.sh; \
     else \
       gosu wekan:wekan git clone --recursive --depth 1 -b release/METEOR@${METEOR_EDGE} git://github.com/meteor/meteor.git /home/wekan/.meteor; \
     fi; \
