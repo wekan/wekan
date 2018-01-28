@@ -40,7 +40,7 @@ RUN \
     # Verify nodejs authenticity
     grep ${NODE_VERSION}-${ARCHITECTURE}.tar.gz SHASUMS256.txt.asc | shasum -a 256 -c - && \
     export GNUPGHOME="$(mktemp -d)" && \
-
+    \
     # Try other key servers if ha.pool.sks-keyservers.net is unreachable
     # Code from https://github.com/chorrell/docker-node/commit/2b673e17547c34f17f24553db02beefbac98d23c
     # gpg keys listed at https://github.com/nodejs/node#release-team
@@ -59,7 +59,10 @@ RUN \
     gpg --keyserver keyserver.pgp.com --recv-keys "$key" ; \
     done && \
     gpg --verify SHASUMS256.txt.asc && \
-    rm -R "$GNUPGHOME" SHASUMS256.txt.asc && \
+    # Ignore socket files then delete files then delete directories
+    find "$GNUPGHOME" -type f | xargs rm -f && \
+    find "$GNUPGHOME" -type d | xargs rm -fR && \
+    rm -f SHASUMS256.txt.asc && \
     \
     # Install Node
     tar xvzf node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
