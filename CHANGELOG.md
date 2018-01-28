@@ -1,3 +1,11 @@
+# v0.66 2018-01-28 Wekan release
+
+This release fixes the following bugs:
+
+* [Fix Dockerfile for Debian](https://github.com/wekan/wekan/pull/1439).
+
+Thanks to GitHub user soohwa for contributions.
+
 # v0.65 2018-01-28 Wekan release
 
 This release adds the following new features:
