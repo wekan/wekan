@@ -9,7 +9,6 @@
   // Even if this background color is the same as the body we can't leave it
   // transparent, because that won't work during a list drag.
   background: darken(white, 13%)
-  height: 100%
   border-left: 1px solid darken(white, 20%)
   padding: 0
   float: left
@@ -88,12 +87,14 @@
 
 .list-body
   flex: 1
+  flex-direction: column
   display: flex
   overflow-y: auto
   padding: 5px 11px
 
   .minicards
-    flex: 1
+    flex-grow: 1
+    flex-shrink: 0
 
     form
       margin-bottom: 9px

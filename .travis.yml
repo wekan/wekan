@@ -2,9 +2,9 @@ dist: trusty
 sudo: required
 
 env:
-  TRAVIS_DOCKER_COMPOSE_VERSION: 1.12.0
-  TRAVIS_NODE_VERSION: 4.8.4
-  TRAVIS_NPM_VERSION: 4.6.1
+  TRAVIS_DOCKER_COMPOSE_VERSION: 1.17.0
+  TRAVIS_NODE_VERSION: 8.9.3
+  TRAVIS_NPM_VERSION: 5.5.1
 
 before_install:
   - sudo apt-get update -y

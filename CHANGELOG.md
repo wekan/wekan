@@ -1,3 +1,27 @@
+# v0.65 2018-01-28 Wekan release
+
+This release adds the following new features:
+
+* [Swimlanes, part 1](https://github.com/wekan/wekan/issues/955);
+* Added new language: Igbo.
+
+Thanks to GitHub user andresmanelli for contributions.
+
+# v0.64 2018-01-22 Wekan release
+
+This release adds the following new features:
+
+* [Different icons for start and due date](https://github.com/wekan/wekan/pull/1420).
+* Added new languages: Mongolian and Portuguese;
+* Upgraded to Meteor 1.6.0.1, Node 8.9.3, NPM 5.5.1 and fibers 2.0.0.
+
+and fixes the following bugs:
+
+* [Fix for dragging into scrolled-down list](https://github.com/wekan/wekan/pull/1424).
+* [Fix double slash bug on snap](https://github.com/wekan/wekan/issues/962#issuecomment-357785748).
+
+Thanks to GitHub users dpoznyak, mmarschall and xet7 for their contributions.
+
 # v0.63 2017-12-20 Wekan release
 
 This release adds the following new features:
