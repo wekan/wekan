@@ -146,6 +146,7 @@ export class WekanCreator {
         isActive: true,
         isAdmin: true,
         isCommentOnly: false,
+        swimlaneId: false,
       }],
       // Standalone Export has modifiedAt missing, adding modifiedAt to fix it
       modifiedAt: this._now(boardToImport.modifiedAt),

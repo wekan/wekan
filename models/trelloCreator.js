@@ -149,6 +149,7 @@ export class TrelloCreator {
         isAdmin: true,
         isActive: true,
         isCommentOnly: false,
+        swimlaneId: false,
       }],
       permission: this.getPermission(trelloBoard.prefs.permissionLevel),
       slug: getSlug(trelloBoard.name) || 'board',
@@ -175,6 +176,7 @@ export class TrelloCreator {
               isAdmin: this.getAdmin(trelloMembership.memberType),
               isActive: true,
               isCommentOnly: false,
+              swimlaneId: false,
             });
           }
         }
