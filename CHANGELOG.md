@@ -1,3 +1,19 @@
+# v0.68 Wekan release
+
+This release fixes the following bugs:
+
+* [Fix: Trello board import fails because of missing "Swimlane id"](https://github.com/wekan/wekan/issues/1442).
+
+Thanks to GitHub user xet7 for contributions.
+
+# v0.67 2018-01-28 Wekan release
+
+This release fixes the following bugs:
+
+* [Fix Igbo language name at menu](https://github.com/wekan/wekan/commit/9d7ff75d3fed1285273245fbe6f6a757b6180039).
+
+Thanks to GitHub user xet7 for contributions.
+
 # v0.66 2018-01-28 Wekan release
 
 This release fixes the following bugs:
