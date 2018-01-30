@@ -1,8 +1,8 @@
-# v0.68 Wekan release
+# v0.68 2018-01-30 Wekan release
 
 This release fixes the following bugs:
 
-* [Fix: Trello board import fails because of missing "Swimlane id"](https://github.com/wekan/wekan/issues/1442).
+* [Partial fix: Trello board import fails because of missing "Swimlane id"](https://github.com/wekan/wekan/issues/1442), still needs some work.
 
 Thanks to GitHub user xet7 for contributions.
 
