@@ -33,7 +33,13 @@ BlazeComponent.extendComponent({
       sortIndex = Utils.calculateIndex(lastCardDom, null).base;
     }
 
-    const members = formComponent.members.get();
+    var members = formComponent.members.get();
+    if (Features.opinions.assignToFocusedUser) {
+      if (!members.length && Filter.members._selectedElements.length == 1) {
+        members = Filter.members._selectedElements;
+      }
+    }
+
     const labelIds = formComponent.labels.get();
 
     if (title) {
