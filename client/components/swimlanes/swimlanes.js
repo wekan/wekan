@@ -28,10 +28,9 @@ BlazeComponent.extendComponent({
     });
   },
 
-  currentCardIsInThisList() {
+  currentCardIsInThisList(listId, swimlaneId) {
     const currentCard = Cards.findOne(Session.get('currentCard'));
-    const listId = this.currentData()._id;
-    return currentCard && currentCard.listId === listId; //TODO: AND IN THIS SWIMLANE
+    return currentCard && currentCard.listId === listId && currentCard.swimlaneId === swimlaneId;
   },
 
   events() {
