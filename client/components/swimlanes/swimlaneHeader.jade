@@ -1,0 +1,15 @@
+template(name="swimlaneHeader")
+  .swimlane-header-wrap
+    +inlinedForm
+      +editSwimlaneTitleForm
+    else
+      .swimlane-header(
+        class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
+        = title
+
+template(name="editSwimlaneTitleForm")
+  .list-composer
+    input.list-name-input.full-line(type="text" value=title autofocus)
+    .edit-controls.clearfix
+      button.primary.confirm(type="submit") {{_ 'save'}}
+      a.fa.fa-times-thin.js-close-inlined-form
