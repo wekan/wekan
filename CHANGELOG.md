@@ -7,7 +7,7 @@ This release fixes the following bugs:
 - [Fix swimlanes details view in lists only mode](https://github.com/wekan/wekan/commit/ff9ca755f338e3c45a1bd726dfbce1c607f2ff4c).
 - [Fix typo in issue template](https://github.com/wekan/wekan/pull/1451).
 
-Thanks to GitHub user andresmanelli and d-Rickyy-b for their contributions.
+Thanks to GitHub users andresmanelli and d-Rickyy-b for their contributions.
 
 # v0.68 2018-01-30 Wekan release
 
