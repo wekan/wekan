@@ -18,7 +18,7 @@ BlazeComponent.extendComponent({
   // callback, we basically solve all issues related to reactive updates. A
   // comment below provides further details.
   onRendered() {
-    const boardComponent = this.parentComponent().parentComponent();
+    const boardComponent = this.parentComponent();
     const itemsSelector = '.js-minicard:not(.placeholder, .js-card-composer)';
     const $cards = this.$('.js-minicards');
     $cards.sortable({
