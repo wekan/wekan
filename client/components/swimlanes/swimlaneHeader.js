@@ -10,7 +10,16 @@ BlazeComponent.extendComponent({
 
   events() {
     return [{
+      'click .js-open-swimlane-menu': Popup.open('swimlaneAction'),
       submit: this.editTitle,
     }];
   },
 }).register('swimlaneHeader');
+
+Template.swimlaneActionPopup.events({
+  'click .js-close-swimlane' (evt) {
+    evt.preventDefault();
+    this.archive();
+    Popup.close();
+  },
+});
