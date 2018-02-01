@@ -10,7 +10,7 @@
 * ROOT_URL environment variable (Is there a subfolder?):
 
 **Problem description**:
-- *be as explicit has you can*
+- *be as explicit as you can*
 - *describe the problem and its symptoms*
 - *explain how to reproduce*
 - *attach whatever information that can help understanding the context (screen capture, log files)*
