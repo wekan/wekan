@@ -131,6 +131,20 @@ Template.boardBody.onRendered(function() {
     },
   };
 
+  // feature: focus on me if focus=me query param is there
+  if (Features.queryParamExtensions.focus) {
+    const focus = FlowRouter.current().queryParams.focus;
+    if (focus) {
+      if (focus === "me") {
+        const currentBoardId = Session.get('currentBoard');
+        const currentUserId = Meteor.userId();
+        if (currentBoardId && currentUserId) {
+          Filter.members.toggle(currentUserId);
+        }
+      }
+    }
+  }
+
   $(self.listsDom).sortable({
     tolerance: 'pointer',
     helper: 'clone',
