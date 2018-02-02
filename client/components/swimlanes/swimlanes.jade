@@ -1,8 +1,6 @@
 template(name="swimlane")
   .swimlane.js-lists
-    .swimlane-header-wrap
-      .swimlane-header
-        = title
+    +swimlaneHeader
     if isMiniScreen
       if currentList
         +list(currentList)
@@ -17,7 +15,6 @@ template(name="swimlane")
         if currentCardIsInThisList _id ../_id
           +cardDetails(currentCard)
       if currentUser.isBoardMember
-        +addListForm
         +addListAndSwimlaneForm
 
 template(name="listsGroup")
