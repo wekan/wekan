@@ -1,3 +1,16 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Add ability to edit swimlane name](https://github.com/wekan/wekan/commit/3414cb84ad8ac800e23bbda6ce12822f40d1bd19);
+- [Add popup menu and archive icon](https://github.com/wekan/wekan/commit/5953fb8a44a3582ed0d8816ffb32a5b7f41f50a3).
+
+and fixes following bugs:
+
+- [Two empty columns in swimlane view](https://github.com/wekan/wekan/issues/1459).
+
+Thanks to GitHub user andresmanelli for contributions.
+
 # v0.69 2018-02-01 Wekan release
 
 This release fixes the following bugs:
