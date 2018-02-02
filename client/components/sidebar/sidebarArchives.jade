@@ -25,3 +25,14 @@ template(name="archivesSidebar")
           = title
       else
         li.no-items-message {{_ 'no-archived-lists'}}
+
+   +tabContent(slug="swimlanes")
+    ul.archived-lists
+      each archivedSwimlanes
+        li.archived-lists-item
+          if currentUser.isBoardMember
+            button.js-restore-swimlane
+              i.fa.fa-undo
+          = title
+      else
+        li.no-items-message {{_ 'no-archived-swimlanes'}}
