@@ -1,6 +1,6 @@
-# Upcoming Wekan release
+# v0.71 2018-02-03 Wekan release
 
-This release fixes following bugs:
+This release fixes the following bugs:
 
 - [Fix Welcome board is not editable: Added default swimlane to Welcome board](https://github.com/wekan/wekan/commit/9df3e3d26bffb2268cdcc7fa768eda60e4f0975c).
 - [Fix Import Wekan board with swimlanes](https://github.com/wekan/wekan/commit/ec0a8449ba98aea708e484d386e5a209e2be8fff).
@@ -14,7 +14,7 @@ This release adds the following new features:
 - [Add ability to edit swimlane name](https://github.com/wekan/wekan/commit/3414cb84ad8ac800e23bbda6ce12822f40d1bd19);
 - [Add swimlane popup menu and archive icon](https://github.com/wekan/wekan/commit/5953fb8a44a3582ed0d8816ffb32a5b7f41f50a3).
 
-and fixes following bugs:
+and fixes the following bugs:
 
 - [Two empty columns in swimlane view](https://github.com/wekan/wekan/issues/1459).
 
