@@ -549,6 +549,11 @@ if (Meteor.isServer) {
           permission: 'private',
         }, fakeUser, (err, boardId) => {
 
+          Swimlanes.insert({
+            title: TAPi18n.__('welcome-swimlane'),
+            boardId
+          }, fakeUser);
+
           ['welcome-list1', 'welcome-list2'].forEach((title) => {
             Lists.insert({title: TAPi18n.__(title), boardId}, fakeUser);
           });
