@@ -53,6 +53,7 @@ class Exporter {
     _.extend(result, Boards.findOne(this._boardId, { fields: { stars: 0 } }));
     result.lists = Lists.find(byBoard, noBoardId).fetch();
     result.cards = Cards.find(byBoard, noBoardId).fetch();
+    result.swimlanes = Swimlanes.find(byBoard, noBoardId).fetch();
     result.comments = CardComments.find(byBoard, noBoardId).fetch();
     result.activities = Activities.find(byBoard, noBoardId).fetch();
     result.checklists = [];
