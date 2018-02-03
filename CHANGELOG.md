@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes following bugs:
+
+- [Fix Welcome board is not editable: Added default swimlane to Welcome board](https://github.com/wekan/wekan/commit/9df3e3d26bffb2268cdcc7fa768eda60e4f0975c).
+- [Fix Import Wekan board with swimlanes](https://github.com/wekan/wekan/commit/ec0a8449ba98aea708e484d386e5a209e2be8fff).
+
+Thanks to GitHub user andresmanelli for contributions.
+
 # v0.70 2018-02-02 Wekan release
 
 This release adds the following new features:
