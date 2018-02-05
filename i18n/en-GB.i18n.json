@@ -159,6 +159,7 @@
     "confirm-checklist-delete-dialog": "Are you sure you want to delete checklist",
     "copy-card-link-to-clipboard": "Copy card link to clipboard",
     "copyCardPopup-title": "Copy Card",
+    "copyManyCardPopup-title": "Copy Multiple Cards",
     "create": "Create",
     "createBoardPopup-title": "Create Board",
     "chooseBoardSourcePopup-title": "Import board",
