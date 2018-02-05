@@ -314,7 +314,7 @@ Template.copyManyCardPopup.events({
     if (titleEntry) {
       var title, titleList;
       
-      for (let title of titleList.split(",") {
+      for (let title of titleList.split(",")) {
 
 	      card.title = title;
 	      card.coverId = '';
