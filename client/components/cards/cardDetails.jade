@@ -135,6 +135,7 @@ template(name="cardDetailsActionsPopup")
     ul.pop-over-list
       li: a.js-move-card {{_ 'moveCardPopup-title'}}
       li: a.js-copy-card {{_ 'copyCardPopup-title'}}
+      li: a.js-copy-many-card {{_ 'copyManyCardPopup-title'}}
       unless archived
         li: a.js-archive {{_ 'archive-card'}}
       li: a.js-more {{_ 'cardMorePopup-title'}}
@@ -153,6 +154,19 @@ template(name="copyCardPopup")
     +boardLists
   else
     +boardsAndLists
+
+
+template(name="copyManyCardPopup")
+  label(for='copy-many-card-title') {{_ 'title'}}:
+  textarea#copy-card-title.minicard-composer-textarea.js-card-title(autofocus)
+    = title
+  if isSandstorm
+    +boardLists
+  else
+    +boardsAndLists
+
+template(name="boardsAndLists")
+
 
 template(name="boardsAndLists")
   select.js-select-boards
