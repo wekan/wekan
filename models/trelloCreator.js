@@ -23,6 +23,8 @@ export class TrelloCreator {
 
     // Map of labels Trello ID => Wekan ID
     this.labels = {};
+    // Default swimlane
+    this.swimlane = null;
     // Map of lists Trello ID => Wekan ID
     this.lists = {};
     // Map of cards Trello ID => Wekan ID
@@ -230,6 +232,7 @@ export class TrelloCreator {
         dateLastActivity: this._now(),
         description: card.desc,
         listId: this.lists[card.idList],
+        swimlaneId: this.swimlane,
         sort: card.pos,
         title: card.name,
         // we attribute the card to its creator if available
@@ -395,6 +398,22 @@ export class TrelloCreator {
       //   userId: this._user(),
       // });
     });
+  }
+
+  createSwimlanes(boardId) {
+      const swimlaneToCreate = {
+        archived: false,
+        boardId,
+        // We are being defensing here by providing a default date (now) if the
+        // creation date wasn't found on the action log. This happen on old
+        // Wekan boards (eg from 2013) that didn't log the 'createList' action
+        // we require.
+        createdAt: this._now(),
+        title: 'Default',
+      };
+      const swimlaneId = Swimlanes.direct.insert(swimlaneToCreate);
+      Swimlanes.direct.update(swimlaneId, {$set: {'updatedAt': this._now()}});
+      this.swimlane = swimlaneId;
   }
 
   createChecklists(trelloChecklists) {
@@ -607,6 +626,7 @@ export class TrelloCreator {
     this.parseActions(board.actions);
     const boardId = this.createBoardAndLabels(board);
     this.createLists(board.lists, boardId);
+    this.createSwimlanes(boardId);
     this.createCards(board.cards, boardId);
     this.createChecklists(board.checklists);
     this.importActions(board.actions, boardId);
