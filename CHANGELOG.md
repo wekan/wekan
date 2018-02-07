@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix card sorting](https://github.com/wekan/wekan/pull/1465).
+
+Thanks to GitHub user ViViDboarder for contributions.
+
 # v0.71 2018-02-03 Wekan release
 
 This release fixes the following bugs:
