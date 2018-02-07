@@ -225,10 +225,9 @@ Cards.mutations({
       swimlaneId,
       listId,
       boardId: list.boardId,
+      sort: sortIndex,
     };
-    if (sortIndex) {
-      mutatedFields.sort = sortIndex;
-    }
+
     return {$set: mutatedFields};
   },
 

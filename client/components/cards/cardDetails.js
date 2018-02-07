@@ -172,13 +172,13 @@ Template.cardDetailsActionsPopup.events({
   'click .js-copy-card': Popup.open('copyCard'),
   'click .js-move-card-to-top' (evt) {
     evt.preventDefault();
-    const minOrder = _.min(this.list().cards().map((c) => c.sort));
-    this.move(this.listId, minOrder - 1);
+    const minOrder = _.min(this.list().cards(this.swimlaneId).map((c) => c.sort));
+    this.move(this.swimlaneId, this.listId, minOrder - 1);
   },
   'click .js-move-card-to-bottom' (evt) {
     evt.preventDefault();
-    const maxOrder = _.max(this.list().cards().map((c) => c.sort));
-    this.move(this.listId, maxOrder + 1);
+    const maxOrder = _.max(this.list().cards(this.swimlaneId).map((c) => c.sort));
+    this.move(this.swimlaneId, this.listId, maxOrder + 1);
   },
   'click .js-archive' (evt) {
     evt.preventDefault();
@@ -215,7 +215,7 @@ Template.moveCardPopup.events({
     // instead from a “component” state.
     const card = Cards.findOne(Session.get('currentCard'));
     const newListId = this._id;
-    card.move(newListId);
+    card.move(card.swimlaneId, newListId, 0);
     Popup.close();
   },
 });
