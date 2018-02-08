@@ -313,10 +313,20 @@ Template.copyManyCardPopup.events({
 
     if (titleEntry) {
       var title, titleList;
+      console.log(titleEntry);
+      console.log(titleEntry.length);
+      var titleList = JSON.parse(titleEntry);
+      console.log(titleList);
+      console.log(titleList[0]);
+      console.log(titleList[0].title);
+	
       
-      for (let title of titleList.split(",")) {
+      for (var i = 0; i < titleList.length; i++){
+	      var obj = titleList[i];
+              console.log(obj.title);
 
-	      card.title = title;
+	      card.title = obj.title;
+	      card.description = obj.description;
 	      card.coverId = '';
 	      const _id = Cards.insert(card);
 // In case the filter is active we need to add the newly inserted card in
@@ -344,8 +354,8 @@ Template.copyManyCardPopup.events({
 		comment._id = null;
 		CardComments.insert(comment);
 	      });
+	}
       Popup.close();
-    }
     }
   },
 });
