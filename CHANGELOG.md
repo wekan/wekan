@@ -1,8 +1,26 @@
+# v0.73 2018-02-08 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix Ubuntu snap build](https://github.com/wekan/wekan/pull/1469).
+
+Thanks to GitHub user kubiko for contributions.
+
+# v0.72 2018-02-07 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix card sorting](https://github.com/wekan/wekan/pull/1465);
+- [Fix import Trello board without swimlanes](https://github.com/wekan/wekan/commit/5871a478e1280818f12fcb7250b7cbccf6907cf0);
+- [Fix swimlane move parameters](https://github.com/wekan/wekan/commit/fcebb2a5373d6dea41b98b530c176cbee31bee4b).
+
+Thanks to GitHub users andresmanelli and ViViDboarder for their contributions.
+
 # v0.71 2018-02-03 Wekan release
 
 This release fixes the following bugs:
 
-- [Fix Welcome board is not editable: Added default swimlane to Welcome board](https://github.com/wekan/wekan/commit/9df3e3d26bffb2268cdcc7fa768eda60e4f0975c).
+- [Fix Welcome board is not editable: Added default swimlane to Welcome board](https://github.com/wekan/wekan/commit/9df3e3d26bffb2268cdcc7fa768eda60e4f0975c);
 - [Fix Import Wekan board with swimlanes](https://github.com/wekan/wekan/commit/ec0a8449ba98aea708e484d386e5a209e2be8fff).
 
 Thanks to GitHub user andresmanelli for contributions.

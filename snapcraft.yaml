@@ -76,9 +76,8 @@ parts:
             - node-gyp
             - node-pre-gyp
             - fibers@2.0.0
-        stage-packages:
-            - ca-certificates
         build-packages:
+            - ca-certificates
             - apt-utils
             - python
             - g++
@@ -118,6 +117,7 @@ parts:
         install: |
             cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
             cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
+            rm $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan
         organize:
             README: README.wekan
 
