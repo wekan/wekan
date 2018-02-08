@@ -1,3 +1,11 @@
+# v0.73 2018-02-08 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix Ubuntu snap build](https://github.com/wekan/wekan/pull/1469).
+
+Thanks to GitHub user kubiko for contributions.
+
 # v0.72 2018-02-07 Wekan release
 
 This release fixes the following bugs:
