@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v0.73 2018-02-08 Wekan release
 
 This release fixes the following bugs:
 
