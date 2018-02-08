@@ -333,7 +333,7 @@ Template.copyManyCardPopup.events({
           checklist.cardId = _id;
           checklist._id = null;
           Checklists.insert(checklist);
-	});
+        });
 
         // copy card comments
         cursor = CardComments.find({cardId: oldId});
@@ -343,7 +343,7 @@ Template.copyManyCardPopup.events({
           comment.cardId = _id;
           comment._id = null;
           CardComments.insert(comment);
-	});
+        });
       }
       Popup.close();
     }
