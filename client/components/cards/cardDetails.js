@@ -312,43 +312,39 @@ Template.copyManyCardPopup.events({
     card.sort = Lists.findOne(this._id).cards().count();
 
     if (titleEntry) {
-      var titleList;
-      var titleList = JSON.parse(titleEntry);
-	
-      
+      const titleList = JSON.parse(titleEntry);
       for (var i = 0; i < titleList.length; i++){
-	      var obj = titleList[i];
+        let obj = titleList[i];
+        card.title = obj.title;
+	card.description = obj.description;
+	card.coverId = '';
+	const _id = Cards.insert(card);
+        // In case the filter is active we need to add the newly inserted card in
+        // the list of exceptions -- cards that are not filtered. Otherwise the
+        // card will disappear instantly.
+        // See https://github.com/wekan/wekan/issues/80
+	Filter.addException(_id);
 
-	      card.title = obj.title;
-	      card.description = obj.description;
-	      card.coverId = '';
-	      const _id = Cards.insert(card);
-// In case the filter is active we need to add the newly inserted card in
-      // the list of exceptions -- cards that are not filtered. Otherwise the
-      // card will disappear instantly.
-      // See https://github.com/wekan/wekan/issues/80
-	      Filter.addException(_id);
+        // copy checklists
+	let cursor = Checklists.find({cardId: oldId});
+	cursor.forEach(function() {
+	  'use strict';
+	  const checklist = arguments[0];
+	  checklist.cardId = _id;
+	  checklist._id = null;
+	  Checklists.insert(checklist);
+	});
 
-      // copy checklists
-	      let cursor = Checklists.find({cardId: oldId});
-	      cursor.forEach(function() {
-		'use strict';
-		const checklist = arguments[0];
-		checklist.cardId = _id;
-		checklist._id = null;
-		Checklists.insert(checklist);
-	      });
-
-      // copy card comments
-	      cursor = CardComments.find({cardId: oldId});
-	      cursor.forEach(function () {
-		'use strict';
-		const comment = arguments[0];
-		comment.cardId = _id;
-		comment._id = null;
-		CardComments.insert(comment);
-	      });
-	}
+        // copy card comments
+	cursor = CardComments.find({cardId: oldId});
+	cursor.forEach(function () {
+	  'use strict';
+	  const comment = arguments[0];
+	  comment.cardId = _id;
+	  comment._id = null;
+	  CardComments.insert(comment);
+	});
+      }
       Popup.close();
     }
   },
