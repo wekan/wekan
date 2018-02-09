@@ -1,11 +1,6 @@
 #!/bin/sh
 
-# store here all configuration options for wekan snap
-SNAP_NAME="wekan"
-
-# read configured settings first
-SETTINGS_FILE="$SNAP_COMMON/wekan_settings.sh"
-[ -f $SETTINGS_FILE ] && . $SETTINGS_FILE
+# All supported keys are defined here together with descriptions and default values
 
 # list of supported keys
 keys="MONGODB_BIND_UNIX_SOCKET MONGODB_BIND_IP MONGODB_PORT MAIL_URL MAIL_FROM ROOT_URL PORT DISABLE_MONGODB CADDY_ENABLED CADDY_BIND_PORT"
