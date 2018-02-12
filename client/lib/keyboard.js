@@ -91,9 +91,6 @@ Template.keyboardShortcuts.helpers({
     keys: ['@'],
     action: 'shortcut-autocomplete-members',
   }, {
-    keys: [':'],
-    action: 'shortcut-autocomplete-emoji',
-  }, {
     keys: ['SPACE'],
     action: 'shortcut-assign-self',
   }],
