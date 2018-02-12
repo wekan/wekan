@@ -1,6 +1,10 @@
 # Wekan
 
+[![Docker Repository on Quay](https://quay.io/repository/wekan/wekan/status "Docker Repository on Quay")](https://quay.io/repository/wekan/wekan)
+
+<!--
 [![Wekan Build Status][travis_badge]][travis_status]
+-->
 
 Freenode IRC #wekan
 
