@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Remove Emoji support, so MAC addresses etc show correctly](https://github.com/wekan/wekan/commit/056843d66c361594d5d4478cfe86e2e405333b91).
+
+Thanks to GitHub user xet7 for contributions.
+
 # v0.73 2018-02-08 Wekan release
 
 This release fixes the following bugs:
