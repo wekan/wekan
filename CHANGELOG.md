@@ -3,6 +3,7 @@
 This release fixes the following bugs:
 
 - [Remove Emoji support, so MAC addresses etc show correctly](https://github.com/wekan/wekan/commit/056843d66c361594d5d4478cfe86e2e405333b91).
+  NOTE: You can still add Unicode Emojis, this only removes broken autoconversion to Emojis.
 
 Thanks to GitHub user xet7 for contributions.
 
