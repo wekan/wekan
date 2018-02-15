@@ -170,6 +170,7 @@ Template.cardDetailsActionsPopup.events({
   'click .js-spent-time': Popup.open('editCardSpentTime'),
   'click .js-move-card': Popup.open('moveCard'),
   'click .js-copy-card': Popup.open('copyCard'),
+  'click .js-copy-checklist-cards': Popup.open('copyChecklistToManyCards'),
   'click .js-move-card-to-top' (evt) {
     evt.preventDefault();
     const minOrder = _.min(this.list().cards(this.swimlaneId).map((c) => c.sort));
@@ -295,6 +296,60 @@ Template.copyCardPopup.events({
     }
   },
 });
+
+
+Template.copyChecklistToManyCardsPopup.events({
+  'click .js-select-list' (evt) {
+    const card = Cards.findOne(Session.get('currentCard'));
+    const oldId = card._id;
+    card._id = null;
+    card.listId = this._id;
+    const list = Lists.findOne(card.listId);
+    card.boardId = list.boardId;
+    const textarea = $(evt.currentTarget).parents('.content').find('textarea');
+    const titleEntry = textarea.val().trim();
+    // insert new card to the bottom of new list
+    card.sort = Lists.findOne(this._id).cards().count();
+
+    if (titleEntry) {
+      const titleList = JSON.parse(titleEntry);
+      for (let i = 0; i < titleList.length; i++){
+        const obj = titleList[i];
+        card.title = obj.title;
+        card.description = obj.description;
+        card.coverId = '';
+        const _id = Cards.insert(card);
+        // In case the filter is active we need to add the newly inserted card in
+        // the list of exceptions -- cards that are not filtered. Otherwise the
+        // card will disappear instantly.
+        // See https://github.com/wekan/wekan/issues/80
+        Filter.addException(_id);
+
+        // copy checklists
+        let cursor = Checklists.find({cardId: oldId});
+        cursor.forEach(function() {
+          'use strict';
+          const checklist = arguments[0];
+          checklist.cardId = _id;
+          checklist._id = null;
+          Checklists.insert(checklist);
+        });
+
+        // copy card comments
+        cursor = CardComments.find({cardId: oldId});
+        cursor.forEach(function () {
+          'use strict';
+          const comment = arguments[0];
+          comment.cardId = _id;
+          comment._id = null;
+          CardComments.insert(comment);
+        });
+      }
+      Popup.close();
+    }
+  },
+});
+
 
 Template.cardMorePopup.events({
   'click .js-copy-card-link-to-clipboard' () {

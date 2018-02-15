@@ -1,3 +1,14 @@
+# v0.75 2018-02-16 Wekan release
+
+This release adds the following new features:
+
+- [Checklist templates](https://github.com/wekan/wekan/pull/1470);
+- Added [Finnish language changelog](https://github.com/wekan/wekan/tree/devel/meta/t9n-changelog)
+  and [more Finnish traslations](https://github.com/wekan/wekan/blob/devel/sandstorm-pkgdef.capnp)
+  to Sandstorm.
+
+Thanks to GitHub users erikturk and xet7 for their contributions.
+
 # v0.74 2018-02-13 Wekan release
 
 This release fixes the following bugs:
