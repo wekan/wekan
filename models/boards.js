@@ -31,6 +31,14 @@ Boards.attachSchema(new SimpleSchema({
       }
     },
   },
+  view: {
+    type: String,
+    autoValue() { // eslint-disable-line consistent-return
+      if (this.isInsert) {
+        return 'board-view-swimlanes';
+      }
+    },
+  },
   createdAt: {
     type: Date,
     autoValue() { // eslint-disable-line consistent-return
@@ -185,6 +193,10 @@ Boards.helpers({
 
   lists() {
     return Lists.find({ boardId: this._id, archived: false }, { sort: { sort: 1 } });
+  },
+
+  swimlanes() {
+    return Swimlanes.find({ boardId: this._id, archived: false }, { sort: { sort: 1 } });
   },
 
   hasOvertimeCards(){

@@ -14,6 +14,7 @@ export class WekanCreator {
       board: null,
       cards: {},
       lists: {},
+      swimlanes: {},
     };
     // The object creator Wekan Id, indexed by the object Wekan id
     // (so we only parse actions once!)
@@ -23,6 +24,8 @@ export class WekanCreator {
 
     // Map of labels Wekan ID => Wekan ID
     this.labels = {};
+    // Map of swimlanes Wekan ID => Wekan ID
+    this.swimlanes = {};
     // Map of lists Wekan ID => Wekan ID
     this.lists = {};
     // Map of cards Wekan ID => Wekan ID
@@ -121,6 +124,13 @@ export class WekanCreator {
     })]);
   }
 
+  checkSwimlanes(wekanSwimlanes) {
+    check(wekanSwimlanes, [Match.ObjectIncluding({
+      archived: Boolean,
+      title: String,
+    })]);
+  }
+
   checkChecklists(wekanChecklists) {
     check(wekanChecklists, [Match.ObjectIncluding({
       cardId: String,
@@ -146,6 +156,7 @@ export class WekanCreator {
         isActive: true,
         isAdmin: true,
         isCommentOnly: false,
+        swimlaneId: false,
       }],
       // Standalone Export has modifiedAt missing, adding modifiedAt to fix it
       modifiedAt: this._now(boardToImport.modifiedAt),
@@ -212,6 +223,7 @@ export class WekanCreator {
         dateLastActivity: this._now(),
         description: card.description,
         listId: this.lists[card.listId],
+        swimlaneId: this.swimlanes[card.swimlaneId],
         sort: card.sort,
         title: card.title,
         // we attribute the card to its creator if available
@@ -401,6 +413,24 @@ export class WekanCreator {
     });
   }
 
+  createSwimlanes(wekanSwimlanes, boardId) {
+    wekanSwimlanes.forEach((swimlane) => {
+      const swimlaneToCreate = {
+        archived: swimlane.archived,
+        boardId,
+        // We are being defensing here by providing a default date (now) if the
+        // creation date wasn't found on the action log. This happen on old
+        // Wekan boards (eg from 2013) that didn't log the 'createList' action
+        // we require.
+        createdAt: this._now(this.createdAt.swimlanes[swimlane._id]),
+        title: swimlane.title,
+      };
+      const swimlaneId = Swimlanes.direct.insert(swimlaneToCreate);
+      Swimlanes.direct.update(swimlaneId, {$set: {'updatedAt': this._now()}});
+      this.swimlanes[swimlane._id] = swimlaneId;
+    });
+  }
+
   createChecklists(wekanChecklists) {
     wekanChecklists.forEach((checklist, checklistIndex) => {
       // Create the checklist
@@ -472,6 +502,11 @@ export class WekanCreator {
       case 'createList': {
         const listId = activity.listId;
         this.createdAt.lists[listId] = activity.createdAt;
+        break;
+      }
+      case 'createSwimlane': {
+        const swimlaneId = activity.swimlaneId;
+        this.createdAt.swimlanes[swimlaneId] = activity.createdAt;
         break;
       }}
     });
@@ -594,6 +629,7 @@ export class WekanCreator {
       this.checkBoard(board);
       this.checkLabels(board.labels);
       this.checkLists(board.lists);
+      this.checkSwimlanes(board.swimlanes);
       this.checkCards(board.cards);
       this.checkChecklists(board.checklists);
     } catch (e) {
@@ -612,6 +648,7 @@ export class WekanCreator {
     this.parseActivities(board);
     const boardId = this.createBoardAndLabels(board);
     this.createLists(board.lists, boardId);
+    this.createSwimlanes(board.swimlanes, boardId);
     this.createCards(board.cards, boardId);
     this.createChecklists(board.checklists);
     this.importActivities(board.activities, boardId);
