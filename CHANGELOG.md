@@ -1,3 +1,111 @@
+# v0.74 2018-02-13 Wekan release
+
+This release fixes the following bugs:
+
+- [Remove Emoji support, so MAC addresses etc show correctly](https://github.com/wekan/wekan/commit/056843d66c361594d5d4478cfe86e2e405333b91).
+  NOTE: You can still add Unicode Emojis, this only removes broken autoconversion to Emojis.
+
+Thanks to GitHub user xet7 for contributions.
+
+# v0.73 2018-02-08 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix Ubuntu snap build](https://github.com/wekan/wekan/pull/1469).
+
+Thanks to GitHub user kubiko for contributions.
+
+# v0.72 2018-02-07 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix card sorting](https://github.com/wekan/wekan/pull/1465);
+- [Fix import Trello board without swimlanes](https://github.com/wekan/wekan/commit/5871a478e1280818f12fcb7250b7cbccf6907cf0);
+- [Fix swimlane move parameters](https://github.com/wekan/wekan/commit/fcebb2a5373d6dea41b98b530c176cbee31bee4b).
+
+Thanks to GitHub users andresmanelli and ViViDboarder for their contributions.
+
+# v0.71 2018-02-03 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix Welcome board is not editable: Added default swimlane to Welcome board](https://github.com/wekan/wekan/commit/9df3e3d26bffb2268cdcc7fa768eda60e4f0975c);
+- [Fix Import Wekan board with swimlanes](https://github.com/wekan/wekan/commit/ec0a8449ba98aea708e484d386e5a209e2be8fff).
+
+Thanks to GitHub user andresmanelli for contributions.
+
+# v0.70 2018-02-02 Wekan release
+
+This release adds the following new features:
+
+- [Add ability to edit swimlane name](https://github.com/wekan/wekan/commit/3414cb84ad8ac800e23bbda6ce12822f40d1bd19);
+- [Add swimlane popup menu and archive icon](https://github.com/wekan/wekan/commit/5953fb8a44a3582ed0d8816ffb32a5b7f41f50a3).
+
+and fixes the following bugs:
+
+- [Two empty columns in swimlane view](https://github.com/wekan/wekan/issues/1459).
+
+Thanks to GitHub user andresmanelli for contributions.
+
+# v0.69 2018-02-01 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix swimlanes card details bug](https://github.com/wekan/wekan/commit/f6fb05d3f49c656e9890351f5d7c0827bf2605c1);
+- [Workaround to avoid swimlanes drag bug](https://github.com/wekan/wekan/commit/d3c110cd8f3ad16a4ced5520c27ab542cc79b548);
+- [Fix swimlanes details view in lists only mode](https://github.com/wekan/wekan/commit/ff9ca755f338e3c45a1bd726dfbce1c607f2ff4c).
+- [Fix typo in issue template](https://github.com/wekan/wekan/pull/1451).
+
+Thanks to GitHub users andresmanelli and d-Rickyy-b for their contributions.
+
+# v0.68 2018-01-30 Wekan release
+
+This release fixes the following bugs:
+
+* [Partial fix: Trello board import fails because of missing "Swimlane id"](https://github.com/wekan/wekan/issues/1442), still needs some work.
+
+Thanks to GitHub user xet7 for contributions.
+
+# v0.67 2018-01-28 Wekan release
+
+This release fixes the following bugs:
+
+* [Fix Igbo language name at menu](https://github.com/wekan/wekan/commit/9d7ff75d3fed1285273245fbe6f6a757b6180039).
+
+Thanks to GitHub user xet7 for contributions.
+
+# v0.66 2018-01-28 Wekan release
+
+This release fixes the following bugs:
+
+* [Fix Dockerfile for Debian](https://github.com/wekan/wekan/pull/1439).
+
+Thanks to GitHub user soohwa for contributions.
+
+# v0.65 2018-01-28 Wekan release
+
+This release adds the following new features:
+
+* [Swimlanes, part 1](https://github.com/wekan/wekan/issues/955);
+* Added new language: Igbo.
+
+Thanks to GitHub user andresmanelli for contributions.
+
+# v0.64 2018-01-22 Wekan release
+
+This release adds the following new features:
+
+* [Different icons for start and due date](https://github.com/wekan/wekan/pull/1420).
+* Added new languages: Mongolian and Portuguese;
+* Upgraded to Meteor 1.6.0.1, Node 8.9.3, NPM 5.5.1 and fibers 2.0.0.
+
+and fixes the following bugs:
+
+* [Fix for dragging into scrolled-down list](https://github.com/wekan/wekan/pull/1424).
+* [Fix double slash bug on snap](https://github.com/wekan/wekan/issues/962#issuecomment-357785748).
+
+Thanks to GitHub users dpoznyak, mmarschall and xet7 for their contributions.
+
 # v0.63 2017-12-20 Wekan release
 
 This release adds the following new features:

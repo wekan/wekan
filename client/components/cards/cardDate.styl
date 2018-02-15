@@ -49,10 +49,20 @@
     &:hover, &.is-active
       background-color: darken(#fd5d47, 7)
 
+  &.due-date
+    time
+      &::before
+        content: "\f090"  // symbol: fa-sign-in
+
+  &.start-date
+    time
+      &::before
+        content: "\f08b"  // symbol: fa-sign-out
+
   time
     &::before
       font: normal normal normal 14px/1 FontAwesome
       font-size: inherit
       -webkit-font-smoothing: antialiased
-      content: "\f017"  // clock symbol
       margin-right: 0.3em
+

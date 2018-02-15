@@ -151,3 +151,39 @@ Migrations.add('add-sort-checklists', () => {
     });
   });
 });
+
+Migrations.add('add-swimlanes', () => {
+  Boards.find().forEach((board) => {
+    const swimlane = Swimlanes.findOne({ boardId: board._id });
+    let swimlaneId = '';
+    if (swimlane)
+      swimlaneId = swimlane._id;
+    else
+      swimlaneId = Swimlanes.direct.insert({
+        boardId: board._id,
+        title: 'Default',
+      });
+
+    Cards.find({ boardId: board._id }).forEach((card) => {
+      if (!card.hasOwnProperty('swimlaneId')) {
+        Cards.direct.update(
+            { _id: card._id },
+            { $set: { swimlaneId } },
+            noValidate
+        );
+      }
+    });
+  });
+});
+
+Migrations.add('add-views', () => {
+  Boards.find().forEach((board) => {
+    if (!board.hasOwnProperty('view')) {
+      Boards.direct.update(
+          { _id: board._id },
+          { $set: { view: 'board-view-swimlanes' } },
+          noValidate
+      );
+    }
+  });
+});

@@ -20,8 +20,8 @@ BlazeComponent.extendComponent({
 
   onCreated() {
     this.isLoaded = new ReactiveVar(false);
-    this.parentComponent().showOverlay.set(true);
-    this.parentComponent().mouseHasEnterCardDetails = false;
+    this.parentComponent().parentComponent().showOverlay.set(true);
+    this.parentComponent().parentComponent().mouseHasEnterCardDetails = false;
     this.calculateNextPeak();
 
     Meteor.subscribe('unsaved-edits');
@@ -42,7 +42,7 @@ BlazeComponent.extendComponent({
 
   scrollParentContainer() {
     const cardPanelWidth = 510;
-    const bodyBoardComponent = this.parentComponent();
+    const bodyBoardComponent = this.parentComponent().parentComponent();
 
     const $cardContainer = bodyBoardComponent.$('.js-lists');
     const $cardView = this.$(this.firstNode());
@@ -69,7 +69,7 @@ BlazeComponent.extendComponent({
   },
 
   onDestroyed() {
-    this.parentComponent().showOverlay.set(false);
+    this.parentComponent().parentComponent().showOverlay.set(false);
   },
 
   events() {
@@ -104,8 +104,8 @@ BlazeComponent.extendComponent({
       'click .js-add-members': Popup.open('cardMembers'),
       'click .js-add-labels': Popup.open('cardLabels'),
       'mouseenter .js-card-details' () {
-        this.parentComponent().showOverlay.set(true);
-        this.parentComponent().mouseHasEnterCardDetails = true;
+        this.parentComponent().parentComponent().showOverlay.set(true);
+        this.parentComponent().parentComponent().mouseHasEnterCardDetails = true;
       },
       'click #toggleButton'() {
         Meteor.call('toggleSystemMessages');
@@ -172,13 +172,13 @@ Template.cardDetailsActionsPopup.events({
   'click .js-copy-card': Popup.open('copyCard'),
   'click .js-move-card-to-top' (evt) {
     evt.preventDefault();
-    const minOrder = _.min(this.list().cards().map((c) => c.sort));
-    this.move(this.listId, minOrder - 1);
+    const minOrder = _.min(this.list().cards(this.swimlaneId).map((c) => c.sort));
+    this.move(this.swimlaneId, this.listId, minOrder - 1);
   },
   'click .js-move-card-to-bottom' (evt) {
     evt.preventDefault();
-    const maxOrder = _.max(this.list().cards().map((c) => c.sort));
-    this.move(this.listId, maxOrder + 1);
+    const maxOrder = _.max(this.list().cards(this.swimlaneId).map((c) => c.sort));
+    this.move(this.swimlaneId, this.listId, maxOrder + 1);
   },
   'click .js-archive' (evt) {
     evt.preventDefault();
@@ -215,7 +215,7 @@ Template.moveCardPopup.events({
     // instead from a “component” state.
     const card = Cards.findOne(Session.get('currentCard'));
     const newListId = this._id;
-    card.move(newListId);
+    card.move(card.swimlaneId, newListId, 0);
     Popup.close();
   },
 });

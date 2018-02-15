@@ -3,6 +3,7 @@ BlazeComponent.extendComponent({
     return [
       { name: TAPi18n.__('cards'), slug: 'cards' },
       { name: TAPi18n.__('lists'), slug: 'lists' },
+      { name: TAPi18n.__('swimlanes'), slug: 'swimlanes' },
     ];
   },
 
@@ -15,6 +16,13 @@ BlazeComponent.extendComponent({
 
   archivedLists() {
     return Lists.find({
+      archived: true,
+      boardId: Session.get('currentBoard'),
+    });
+  },
+
+  archivedSwimlanes() {
+    return Swimlanes.find({
       archived: true,
       boardId: Session.get('currentBoard'),
     });
@@ -44,6 +52,10 @@ BlazeComponent.extendComponent({
       'click .js-restore-list'() {
         const list = this.currentData();
         list.restore();
+      },
+      'click .js-restore-swimlane'() {
+        const swimlane = this.currentData();
+        swimlane.restore();
       },
     }];
   },

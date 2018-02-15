@@ -44,6 +44,9 @@ template(name="boardActivities")
         if($eq activityType 'archivedList')
           | {{_ 'activity-archived' list.title}}.
 
+        if($eq activityType 'archivedSwimlane')
+          | {{_ 'activity-archived' swimlane.title}}.
+
         if($eq activityType 'createBoard')
           | {{_ 'activity-created' boardLabel}}.
 
@@ -52,6 +55,9 @@ template(name="boardActivities")
 
         if($eq activityType 'createList')
           | {{_ 'activity-added' list.title boardLabel}}.
+
+        if($eq activityType 'createSwimlane')
+          | {{_ 'activity-added' swimlane.title boardLabel}}.
 
         if($eq activityType 'removeList')
           | {{_ 'activity-removed' title boardLabel}}.

@@ -1,6 +1,10 @@
 # Wekan
 
+[![Docker Repository on Quay](https://quay.io/repository/wekan/wekan/status "Docker Repository on Quay")](https://quay.io/repository/wekan/wekan)
+
+<!--
 [![Wekan Build Status][travis_badge]][travis_status]
+-->
 
 Freenode IRC #wekan
 
@@ -80,7 +84,7 @@ with [Meteor](https://www.meteor.com).
 [platforms]: https://github.com/wekan/wekan/wiki/Platforms
 [dev_docs]: https://github.com/wekan/wekan/wiki/Developer-Documentation
 [screenshot_wekan]: http://i.imgur.com/cI4jW2h.png
-[screenshot_wefork]: https://wekan.github.io/screenshot.png
+[screenshot_wefork]: https://wekan.github.io/wekan-markdown.png
 [features]: https://github.com/wekan/wekan/wiki/Features
 [integrations]: https://github.com/wekan/wekan/wiki/Integrations
 [roadmap_wekan]: http://try.wekan.io/b/MeSsFJaSqeuo9M6bs/wekan-roadmap

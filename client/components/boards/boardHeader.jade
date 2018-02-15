@@ -87,6 +87,11 @@ template(name="boardHeaderBar")
           a.board-header-btn-close.js-filter-reset(title="{{_ 'filter-clear'}}")
             i.fa.fa-times-thin
 
+      a.board-header-btn.js-toggle-board-view(
+        title="{{_ 'board-view'}}")
+        i.fa.fa-th-large
+        span {{_ currentBoard.view}}
+
       if canModifyBoard
         a.board-header-btn.js-multiselection-activate(
             title="{{#if MultiSelection.isActive}}{{_ 'multi-selection-on'}}{{else}}{{_ 'multi-selection'}}{{/if}}"

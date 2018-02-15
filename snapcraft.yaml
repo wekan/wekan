@@ -70,15 +70,15 @@ parts:
     wekan:
         source: .
         plugin: nodejs
-        node-engine: 4.8.7
+        node-engine: 8.9.3
         node-packages:
-            - n
-            - npm@4.6.1
+            - npm@5.5.1
             - node-gyp
             - node-pre-gyp
-            - fibers@1.0.15
+            - fibers@2.0.0
         build-packages:
             - ca-certificates
+            - apt-utils
             - python
             - g++
             - capnproto
@@ -88,21 +88,19 @@ parts:
         prepare: |
             echo "Cleaning environment first"
             rm -rf ~/.meteor ~/.npm /usr/local/lib/node_modules
-            echo "Installing node"
-            n 4.8.7
             echo "Applying paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303"
             paxctl -mC `which node`
             echo "Installing meteor"
             curl https://install.meteor.com/ -o install_meteor.sh
-            sed -i "s|RELEASE=.*|RELEASE=\"1.4.4.1\"|g" install_meteor.sh
+            sed -i "s|RELEASE=.*|RELEASE=\"1.6.0.1\"|g" install_meteor.sh
             chmod +x install_meteor.sh
             sh install_meteor.sh
             rm install_meteor.sh
-            mkdir -p ~/.meteor/packages
-            cd ~/.meteor/packages
+            mkdir packages
+            cd packages
             git clone --depth 1 -b master https://github.com/wekan/flow-router.git kadira-flow-router
             git clone --depth 1 -b master https://github.com/meteor-useraccounts/core.git meteor-useraccounts-core
-            sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' ~/.meteor/packages/meteor-useraccounts-core/package.js
+            sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' meteor-useraccounts-core/package.js
             cd ..
         build: |
             rm -rf package-lock.json .build
@@ -110,15 +108,16 @@ parts:
             meteor npm install --allow-superuser
             meteor build .build --directory --allow-superuser
             cp -f fix-download-unicode/cfs_access-point.txt .build/bundle/programs/server/packages/cfs_access-point.js
-            sed -i "s|build\/Release\/bson|browser_build\/bson|g" .build/bundle/programs/server/npm/node_modules/meteor/cfs_gridfs/node_modules/mongodb/node_modules/bson/ext/index.js
             cd .build/bundle/programs/server/npm/node_modules/meteor/npm-bcrypt
             rm -rf node_modules/bcrypt
-            npm install bcrypt
+            meteor npm install --save bcrypt
             cd ../../../../
             npm install
+            meteor npm install --save bcrypt
         install: |
             cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
             cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
+            rm $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan
         organize:
             README: README.wekan
 
