@@ -170,7 +170,7 @@ Template.cardDetailsActionsPopup.events({
   'click .js-spent-time': Popup.open('editCardSpentTime'),
   'click .js-move-card': Popup.open('moveCard'),
   'click .js-copy-card': Popup.open('copyCard'),
-  'click .js-copy-many-card': Popup.open('copyManyCard'),
+  'click .js-copy-checklist-cards': Popup.open('copyChecklistToManyCards'),
   'click .js-move-card-to-top' (evt) {
     evt.preventDefault();
     const minOrder = _.min(this.list().cards(this.swimlaneId).map((c) => c.sort));
@@ -298,7 +298,7 @@ Template.copyCardPopup.events({
 });
 
 
-Template.copyManyCardPopup.events({
+Template.copyChecklistToManyCardsPopup.events({
   'click .js-select-list' (evt) {
     const card = Cards.findOne(Session.get('currentCard'));
     const oldId = card._id;
