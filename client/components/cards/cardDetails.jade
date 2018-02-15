@@ -157,9 +157,9 @@ template(name="copyCardPopup")
 
 
 template(name="copyManyCardPopup")
-  label(for='copy-many-card-title') {{_ 'copyManyCardPopup-instructions'}}:
+  label(for='copy-many-card-title') {{_ 'copyChecklistToManyCardsPopup-instructions'}}:
   textarea#copy-card-title.minicard-composer-textarea.js-card-title(autofocus)
-    {{_ 'copyManyCardPopup-format'}}
+    | {{_ 'copyChecklistToManyCardsPopup-format'}}
   if isSandstorm
     +boardLists
   else
