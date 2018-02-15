@@ -22,10 +22,10 @@ const pkgdef :Spk.PackageDefinition = (
     appTitle = (defaultText = "Wekan"),
     # The name of the app as it is displayed to the user.
 
-    appVersion = 59,
+    appVersion = 60,
     # Increment this for every release.
 
-    appMarketingVersion = (defaultText = "0.74.0~2018-02-13"),
+    appMarketingVersion = (defaultText = "0.75.0~2018-02-16"),
     # Human-readable presentation of the app version.
 
     minUpgradableAppVersion = 0,
@@ -118,12 +118,14 @@ const pkgdef :Spk.PackageDefinition = (
           defaultText = "participate",
           localizations = [
             (locale = "fr", text = "participer"),
+            (locale = "fi", text = "osallistu"),
           ],
         ),
         description = (
           defaultText = "allows participating in the board",
           localizations = [
             (locale = "fr", text = "permet de participer dans le tableau"),
+            (locale = "fi", text = "mahdollistaa taululle osallistumisen"),
           ],
         )
       ), (
@@ -132,12 +134,14 @@ const pkgdef :Spk.PackageDefinition = (
           defaultText = "configure",
           localizations = [
             (locale = "fr", text = "configurer"),
+            (locale = "fi", text = "asetukset"),
           ],
         ),
         description = (
           defaultText = "allows configuring the board",
           localizations = [
             (locale = "fr", text = "permet de configurer le tableau"),
+            (locale = "fi", text = "mahdollistaa taulun asetusten määrittämisen"),
           ],
         )
       )],
@@ -147,6 +151,7 @@ const pkgdef :Spk.PackageDefinition = (
           defaultText = "observer",
           localizations = [
             (locale = "fr", text = "observateur"),
+            (locale = "fi", text = "tarkkailija"),
           ],
         ),
         permissions = [false, false],
@@ -154,6 +159,7 @@ const pkgdef :Spk.PackageDefinition = (
           defaultText = "can read",
           localizations = [
             (locale = "fr", text = "peut lire"),
+            (locale = "fi", text = "voi lukea"),
           ],
         )
       ), (
@@ -161,6 +167,7 @@ const pkgdef :Spk.PackageDefinition = (
           defaultText = "member",
           localizations = [
             (locale = "fr", text = "membre"),
+            (locale = "fi", text = "jäsen"),
           ],
         ),
         permissions = [true, false],
@@ -168,6 +175,7 @@ const pkgdef :Spk.PackageDefinition = (
           defaultText = "can edit",
           localizations = [
             (locale = "fr", text = "peut éditer"),
+            (locale = "fi", text = "voi muokata"),
           ],
         ),
         default = true,

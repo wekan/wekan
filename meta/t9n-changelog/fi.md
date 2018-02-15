@@ -1,9 +1,14 @@
-# Tuleva Wekan julkaisu
+# v0.75 2018-02-16 Wekan julkaisu
 
 Tämä julkaisu lisää seuraavat ominaisuudet:
 
 - [Tarkistuslista mallit](https://github.com/wekan/wekan/pull/1470);
-- [Suomenkielisen muutoslokin lisäys Sandstormiin]().
+- Lisätty [Suomenkielinen muutosloki](https://github.com/wekan/wekan/tree/devel/meta/t9n-changelog) 
+  ja [lisää suomennoksia](https://github.com/wekan/wekan/blob/devel/sandstorm-pkgdef.capnp)
+  Sandstormiin.
+
+
+Kiitos GitHub käyttäjille erikturk ja xet7 heidän osallistumisistaan.
 
 # v0.74 2018-02-13 Wekan julkaisu
 
