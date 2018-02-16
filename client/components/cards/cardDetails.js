@@ -172,13 +172,11 @@ Template.cardDetailsActionsPopup.events({
   'click .js-copy-card': Popup.open('copyCard'),
   'click .js-move-card-to-top' (evt) {
     evt.preventDefault();
-    const minOrder = _.min(this.list().cards(this.swimlaneId).map((c) => c.sort));
-    this.move(this.swimlaneId, this.listId, minOrder - 1);
+    this.moveToTop();
   },
   'click .js-move-card-to-bottom' (evt) {
     evt.preventDefault();
-    const maxOrder = _.max(this.list().cards(this.swimlaneId).map((c) => c.sort));
-    this.move(this.swimlaneId, this.listId, maxOrder + 1);
+    this.moveToBottom();
   },
   'click .js-archive' (evt) {
     evt.preventDefault();

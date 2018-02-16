@@ -68,6 +68,17 @@ Mousetrap.bind('space', (evt) => {
   }
 });
 
+function forCurrentCard(f) {
+  const card = Session.get('currentCard')
+  if (!card) {
+    return;
+  }
+  f(Cards.findOne(card));
+}
+
+Mousetrap.bind('b', (evt) => forCurrentCard(card => card.moveToBottom()));
+Mousetrap.bind('t', (evt) => forCurrentCard(card => card.moveToTop()));
+
 Template.keyboardShortcuts.helpers({
   mapping: [{
     keys: ['W'],
