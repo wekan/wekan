@@ -33,7 +33,13 @@ BlazeComponent.extendComponent({
       sortIndex = Utils.calculateIndex(lastCardDom, null).base;
     }
 
-    const members = formComponent.members.get();
+    var members = formComponent.members.get();
+    if (Features.opinions.assignToFocusedUser) {
+      if (!members.length && Filter.members._selectedElements.length == 1) {
+        members = Filter.members._selectedElements;
+      }
+    }
+
     const labelIds = formComponent.labels.get();
 
     const boardId = this.data().board()._id;
@@ -210,7 +216,7 @@ BlazeComponent.extendComponent({
           const currentBoard = Boards.findOne(Session.get('currentBoard'));
           callback($.map(currentBoard.activeMembers(), (member) => {
             const user = Users.findOne(member.userId);
-            return user.username.indexOf(term) === 0 ? user : null;
+            return user.username.toLowerCase().indexOf(term.toLowerCase()) === 0 ? user : null;
           }));
         },
         template(user) {
@@ -225,12 +231,13 @@ BlazeComponent.extendComponent({
 
       // Labels
       {
-        match: /\B#(\w*)$/,
+        match: /\B[#№]([\S]*)$/i,
         search(term, callback) {
           const currentBoard = Boards.findOne(Session.get('currentBoard'));
           callback($.map(currentBoard.labels, (label) => {
-            if (label.name.indexOf(term) > -1 ||
-                label.color.indexOf(term) > -1) {
+            lterm = term.toLowerCase();
+            if (label.name.toLowerCase().indexOf(lterm) > -1 ||
+                label.color.toLowerCase().indexOf(lterm) > -1) {
               return label;
             }
             return null;
