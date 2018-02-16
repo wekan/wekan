@@ -104,6 +104,14 @@ Lists.helpers({
       return list.wipLimit[option] ? list.wipLimit[option] : 0; // Necessary check to avoid exceptions for the case where the doc doesn't have the wipLimit field yet set
     }
   },
+
+  getSpecialListTag() {
+    const specials = Features.opinions.specialLists;
+    if (specials) {
+      if (specials.now && specials.now.test(this.title)) return "special-list-now";
+      if (specials.done && specials.done.test(this.title)) return "special-list-done";
+    }
+  }
 });
 
 Lists.mutations({

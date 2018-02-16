@@ -1,5 +1,19 @@
 @import 'nib'
 
+.list-separator ~ .minicard-wrapper
+  .minicard:not(.special-card):not(:hover)
+    background-color: #f6f6f6
+
+.list.special-list-done
+  .minicard:not(:hover)
+    background-color: #f6f6f6
+  .minicard
+    .minicard-title
+      p
+        text-decoration: line-through
+
+
+
 .list
   box-sizing: border-box
   display: flex

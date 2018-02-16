@@ -1,11 +1,12 @@
 template(name="minicard")
-  .minicard
+  .minicard(class="{{#if isSpecialCard}}special-card filter-exempt{{/if}}")
     if cover
       .minicard-cover(style="background-image: url('{{cover.url}}');")
     if labels
       .minicard-labels
         each labels
           .minicard-label(class="card-label-{{color}}" title="{{name}}")
+            = name
     .minicard-title
       +viewer
         = title

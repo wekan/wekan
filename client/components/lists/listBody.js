@@ -209,6 +209,25 @@ BlazeComponent.extendComponent({
     autosize($textarea);
 
     $textarea.escapeableTextComplete([
+      // Emoji
+      {
+        match: /\B:([-+\w]*)$/,
+        search(term, callback) {
+          callback(Emoji.values.map((emoji) => {
+            return emoji.includes(term) ? emoji : null;
+          }).filter(Boolean));
+        },
+        template(value) {
+          const imgSrc = Emoji.baseImagePath + value;
+          const image = `<img alt="${value}" class="emoji" src="${imgSrc}.png" />`;
+          return image + value;
+        },
+        replace(value) {
+          return `:${value}:`;
+        },
+        index: 1,
+      },
+
       // User mentions
       {
         match: /\B@([\w.]*)$/,

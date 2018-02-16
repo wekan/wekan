@@ -200,6 +200,10 @@ Cards.helpers({
     }
     return true;
   },
+
+  isSpecialCard() {
+    return  Features.opinions.specialCards && this.title  && /[-]{3}/.test(this.title);
+  }
 });
 
 Cards.mutations({

@@ -1,5 +1,6 @@
 template(name='list')
-  .list.js-list(id="js-list-{{_id}}")
+  .list.js-list(id="js-list-{{_id}}"
+  class="{{getSpecialListTag}}")
     +listHeader
     +listBody
 
