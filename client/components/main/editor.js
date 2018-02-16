@@ -14,7 +14,7 @@ Template.editor.onRendered(() => {
       },
       template(value) {
         const imgSrc = Emoji.baseImagePath + value;
-        const image = `<img src="${imgSrc}.png" />`;
+        const image = `<img alt="${value}" class="emoji" src="${imgSrc}.png" />`;
         return image + value;
       },
       replace(value) {
