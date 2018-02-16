@@ -95,6 +95,8 @@ Filter = {
   _exceptions: [],
   _exceptionsDep: new Tracker.Dependency(),
 
+  _isFocused: false,
+
   isActive() {
     return _.any(this._fields, (fieldName) => {
       return this[fieldName]._isActive();
@@ -142,6 +144,7 @@ Filter = {
       filter.reset();
     });
     this.resetExceptions();
+    this._isFocused = false;
   },
 
   addException(_id) {
@@ -156,6 +159,16 @@ Filter = {
     this._exceptions = [];
     this._exceptionsDep.changed();
   },
+
+  isFocused() {
+    return  this._isFocused;
+  },
+
+  focus( user) {
+    this._isFocused = true;
+    Filter.members.toggle(user);
+    Sidebar.hide();
+  }
 };
 
 Blaze.registerHelper('Filter', Filter);

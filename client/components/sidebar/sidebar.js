@@ -14,7 +14,9 @@ BlazeComponent.extendComponent({
   },
 
   onCreated() {
-    const initOpen = Utils.isMiniScreen() ? false : (!Session.get('currentCard'));
+    const initOpen = Features.opinions.preferHideFilter ?
+      Filter.isActive()  :
+      (Utils.isMiniScreen() ? false : (!Session.get('currentCard')));
     this._isOpen = new ReactiveVar(initOpen);
     this._view = new ReactiveVar(defaultView);
     Sidebar = this;

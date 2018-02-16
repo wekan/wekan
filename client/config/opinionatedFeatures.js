@@ -1,6 +1,7 @@
 Features = {
   opinions : {
-    assignToFocusedUser : true
+    assignToFocusedUser : true,
+    preferHideFilter: true
   },
   queryParamExtensions : {
     focus: true

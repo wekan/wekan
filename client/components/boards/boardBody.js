@@ -86,7 +86,7 @@ Template.boardBody.onRendered(function() {
         const currentBoardId = Session.get('currentBoard');
         const currentUserId = Meteor.userId();
         if (currentBoardId && currentUserId) {
-          Filter.members.toggle(currentUserId);
+          Filter.focus(currentUserId);
         }
       }
     }
