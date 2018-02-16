@@ -116,7 +116,7 @@ Template.changeLanguagePopup.helpers({
     return _.map(TAPi18n.getLanguages(), (lang, code) => {
       return {
         tag: code,
-        name: lang.name === 'br' ? 'Brezhoneg' : lang.name,
+        name: lang.name === 'br' ? 'Brezhoneg' : lang.name === 'ig' ? 'Igbo' : lang.name,
       };
     }).sort(function (a, b) {
       if (a.name === b.name) {

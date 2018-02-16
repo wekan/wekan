@@ -20,33 +20,8 @@ template(name="boardBody")
       class="{{#if draggingActive.get}}is-dragging-active{{/if}}")
       if showOverlay.get
         .board-overlay
-      .lists.js-lists
-        if isMiniScreen
-          if currentList
-            +list(currentList)
-          else
-            each currentBoard.lists
-              +miniList(this)
-            if currentUser.isBoardMember
-              +addListForm
-        else
-          each currentBoard.lists
-            +list(this)
-            if currentCardIsInThisList
-              +cardDetails(currentCard)
-          if currentUser.isBoardMember
-            +addListForm
-
-template(name="addListForm")
-  .list.js-list.list-composer.js-list-composer
-    .list-header
-      +inlinedForm(autoclose=false)
-        input.list-name-input.full-line(type="text" placeholder="{{_ 'add-list'}}"
-          autocomplete="off" autofocus)
-        .edit-controls.clearfix
-          button.primary.confirm(type="submit") {{_ 'save'}}
-          a.fa.fa-times-thin.js-close-inlined-form
-      else
-        a.open-list-composer.js-open-inlined-form
-          i.fa.fa-plus
-          | {{_ 'add-list'}}
+      if isViewSwimlanes
+        each currentBoard.swimlanes
+          +swimlane(this)
+      if isViewLists
+        +listsGroup

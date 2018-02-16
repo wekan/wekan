@@ -42,6 +42,14 @@ BlazeComponent.extendComponent({
 
     const labelIds = formComponent.labels.get();
 
+    const boardId = this.data().board()._id;
+    const board = Boards.findOne(boardId);
+    let swimlaneId = '';
+    if (board.view === 'board-view-swimlanes')
+      swimlaneId = this.parentComponent().parentComponent().data()._id;
+    else
+      swimlaneId = Swimlanes.findOne({boardId})._id;
+
     if (title) {
       const _id = Cards.insert({
         title,
@@ -50,6 +58,7 @@ BlazeComponent.extendComponent({
         listId: this.data()._id,
         boardId: this.data().board()._id,
         sort: sortIndex,
+        swimlaneId,
       });
       // In case the filter is active we need to add the newly inserted card in
       // the list of exceptions -- cards that are not filtered. Otherwise the
@@ -100,6 +109,13 @@ BlazeComponent.extendComponent({
     evt.stopPropagation();
     evt.preventDefault();
     MultiSelection.toggle(this.currentData()._id);
+  },
+
+  idOrNull(swimlaneId) {
+    const board = Boards.findOne(Session.get('currentBoard'));
+    if (board.view === 'board-view-swimlanes')
+      return swimlaneId;
+    return undefined;
   },
 
   canSeeAddCard() {
