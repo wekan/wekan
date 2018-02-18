@@ -1,3 +1,31 @@
+# v0.75 2018-02-16 Wekan release
+
+This release adds the following new features:
+
+- [Checklist templates](https://github.com/wekan/wekan/pull/1470);
+- Added [Finnish language changelog](https://github.com/wekan/wekan/tree/devel/meta/t9n-changelog)
+  and [more Finnish traslations](https://github.com/wekan/wekan/blob/devel/sandstorm-pkgdef.capnp)
+  to Sandstorm.
+
+Thanks to GitHub users erikturk and xet7 for their contributions.
+
+# v0.74 2018-02-13 Wekan release
+
+This release fixes the following bugs:
+
+- [Remove Emoji support, so MAC addresses etc show correctly](https://github.com/wekan/wekan/commit/056843d66c361594d5d4478cfe86e2e405333b91).
+  NOTE: You can still add Unicode Emojis, this only removes broken autoconversion to Emojis.
+
+Thanks to GitHub user xet7 for contributions.
+
+# v0.73 2018-02-08 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix Ubuntu snap build](https://github.com/wekan/wekan/pull/1469).
+
+Thanks to GitHub user kubiko for contributions.
+
 # v0.72 2018-02-07 Wekan release
 
 This release fixes the following bugs:
