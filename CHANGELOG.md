@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Add swimlaneId to POST /api/boards/:boardId/lists/:listId/cards route](https://github.com/wekan/wekan/commit/ee0f42eeb1b10107bd8fc38cdefbdbc4f3fde108).
+
+Thanks to GitHub user couscous3 for contributions.
+
 # v0.75 2018-02-16 Wekan release
 
 This release adds the following new features:
