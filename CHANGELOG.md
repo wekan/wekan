@@ -1,10 +1,16 @@
-# Upcoming Wekan release
+# v0.76 2018-02-21 Wekan release
 
 This release adds the following new features:
 
-- [Add swimlaneId to POST /api/boards/:boardId/lists/:listId/cards route](https://github.com/wekan/wekan/commit/ee0f42eeb1b10107bd8fc38cdefbdbc4f3fde108).
+- [Add swimlaneId to POST /api/boards/:boardId/lists/:listId/cards route](https://github.com/wekan/wekan/commit/ee0f42eeb1b10107bd8fc38cdefbdbc4f3fde108);
+- [Added path to capnp.js to make Wekan work on Sandstorm](https://github.com/wekan/wekan/commit/11e9811f82858a3d98036e142b0da69d867adebc).
 
-Thanks to GitHub user couscous3 for contributions.
+Known bugs:
+
+- [Disabled Import temporarily on Sandstorm because of data loss bug](https://github.com/wekan/wekan/commit/e30f6515c623de7a48f25e0b2fc75313ae5d187c);
+- [Swimlane not visible at Sandstorm](https://github.com/wekan/wekan/issues/1494).
+
+Thanks to GitHub users couscous3 and xet7 for their contributions.
 
 # v0.75 2018-02-16 Wekan release
 
