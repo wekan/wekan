@@ -2,6 +2,10 @@
 
 # first read settings
 source $SNAP/bin/wekan-read-settings &>/dev/null
+if [ "$CADDY_ENABLED" = "true" ]; then
+    # tweak port nunmber as it has been remapped
+    export PORT=${CADDY_PORT} &>/dev/null
+fi
 
 echo -e "Wekan: The open-source Trello-like kanban.\n"
 echo -e "Make sure you have connected all interfaces, check more by calling $ snap interfaces"
