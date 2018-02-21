@@ -11,13 +11,17 @@ template(name="import")
     +Template.dynamic(template=currentTemplate)
 
 template(name="importTextarea")
-  form
-    p: label(for='import-textarea') {{_ instruction}}
-    textarea.js-import-json(placeholder="{{_ 'import-json-placeholder'}}" autofocus)
-      | {{jsonText}}
-    if isSandstorm
-      p.warning {{_ 'import-sandstorm-warning'}}
-    input.primary.wide(type="submit" value="{{_ 'import'}}")
+  unless isSandstorm
+    form
+      p: label(for='import-textarea') {{_ instruction}}
+      textarea.js-import-json(placeholder="{{_ 'import-json-placeholder'}}" autofocus)
+        | {{jsonText}}
+      if isSandstorm
+        p.warning {{_ 'import-sandstorm-warning'}}
+      input.primary.wide(type="submit" value="{{_ 'import'}}")
+  if isSandstorm
+    p.warning 'Import disabled because of data loss bug https://github.com/wekan/wekan/issues/1430'
+
 
 template(name="importMapMembers")
   h2 {{_ 'import-map-members'}}
