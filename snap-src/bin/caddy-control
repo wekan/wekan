@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# get wekan/mongo settings
+source $SNAP/bin/wekan-read-settings
+
+if [ "$CADDY_ENABLED" = "true" ]; then
+    env LC_ALL=C caddy -conf=$SNAP_COMMON/Caddyfile -host=localhost:${CADDY_PORT}
+else
+    snapctl stop caddy-service 2>&1 || true
+    # sleep here, in case snapctl fails to stop service so we do not restart too often
+    sleep 60
+fi

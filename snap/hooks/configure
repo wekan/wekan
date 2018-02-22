@@ -1,32 +1,26 @@
 #!/bin/bash
 
+exec >> $SNAP_COMMON/hook.log 2>&1
+echo "$(date '+%Y-%m-%d %H:%M:%S') $0: Entering hook"
+
+set -x
+
 # read wekan config
 . $SNAP/bin/config
 
-# create run dir, we're going to use it for unix socket
-mkdir -p $SNAP_DATA/share
-mkdir -p $SNAP_DATA/shared
-
 # settings were altered by user, safest way to get them applied is to restart service
+# first check if caddy service is enabled
+value=$(snapctl get caddy-enabled)
+if [ "$value" = "true" ]; then
+    # update caddy file
+    bind_port=$(snapctl get caddy-bind-port)
+    port=$(snapctl get port)
+    [ "x" != "x${bind_port}" ] && sed -i 's|proxy / localhost:.* {|proxy / localhost:'"${bind_port}"' {|g' $SNAP_COMMON/Caddyfile
+    [ "x" != "x$port" ] && sed -i 's|http://:.*|http://:'"${port}"'|g' $SNAP_COMMON/Caddyfile
+    snapctl start --enable ${SNAP_NAME}.caddy 2>&1 || true
+else
+    snapctl stop --disable ${SNAP_NAME}.caddy 2>&1 || true
+fi
 
-# TODO: remove this workaround once it's not needed
-# for the moment we can't read settings outside of the hook,
-# so store all settings in helpper script which is then picked by main wrapper
-echo -e "#!/bin/sh\n" > $SETTINGS_FILE
-for key in ${keys[@]}
-do
-  # snappy is picky about key syntax, using mapping
-  MAP_KEY="KEY_$key"
-  if value=$(snapctl get ${!MAP_KEY}); then
-      echo "export $key='$value'" >> $SETTINGS_FILE
-  elif [ -d "${!key}" ]; then
-      # store back value from SETTINGS_FILE
-      echo "export $key='${!key}'" >> $SETTINGS_FILE
-  fi
-done
-
-# set file executable
-chmod 755 $SETTINGS_FILE
-# we can't use snapctl to restart service, may be one day ....
-
-echo "Setting has been updated, restart service."
+# restart all services
+snapctl restart ${SNAP_NAME} 2>&1 || true

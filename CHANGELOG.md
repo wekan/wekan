@@ -1,3 +1,18 @@
+# Upcoming Wekan release
+
+[Snap updates](https://github.com/wekan/wekan/pull/1495):
+
+- cleanup of snap helper scripts
+- cleanup and snapctl settings handling
+- fix for snap store auto review refusal
+- adding support for automatic restart of services when setting(s) are changed.
+  No need to call systemctl restart anymore.....
+- fixing snap set functionality
+- adding optional caddy service support ( by default caddy service is disabled),
+  it can be enabled by calling: snap set wekan caddy-enabled=true
+
+Thanks to GitHub user kubiko for contributions.
+
 # v0.76 2018-02-21 Wekan release
 
 This release adds the following new features:
