@@ -4,7 +4,8 @@
 source $SNAP/bin/wekan-read-settings
 
 if [ "true" == "${DISABLE_MONGODB}" ]; then
-    echo "mongodb is disabled. Not starting it"
+    echo "mongodb is disabled. Stop service"
+    snapctl stop --disable ${SNAP_NAME}.mongodb
     exit 0
 fi
 
