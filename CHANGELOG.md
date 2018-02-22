@@ -1,6 +1,6 @@
 # Upcoming Wekan release
 
-[Snap updates](https://github.com/wekan/wekan/pull/1495):
+This release adds following [Snap updates](https://github.com/wekan/wekan/pull/1495):
 
 - cleanup of snap helper scripts
 - cleanup and snapctl settings handling
@@ -11,7 +11,11 @@
 - adding optional caddy service support ( by default caddy service is disabled),
   it can be enabled by calling: snap set wekan caddy-enabled=true
 
-Thanks to GitHub user kubiko for contributions.
+and fixes the following bugs:
+
+- [Fix: card-shadow no longer covered the page if you scroll down](https://github.com/wekan/wekan/pull/1496).
+
+Thanks to GitHub users kubiko and stefano-pogliani for their contributions.
 
 # v0.76 2018-02-21 Wekan release
 
