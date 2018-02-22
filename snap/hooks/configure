@@ -17,6 +17,7 @@ if [ "$value" = "true" ]; then
     port=$(snapctl get port)
     [ "x" != "x${bind_port}" ] && sed -i 's|proxy / localhost:.* {|proxy / localhost:'"${bind_port}"' {|g' $SNAP_COMMON/Caddyfile
     [ "x" != "x$port" ] && sed -i 's|http://:.*|http://:'"${port}"'|g' $SNAP_COMMON/Caddyfile
+    snapctl stop ${SNAP_NAME}.caddy 2>&1 || true
     snapctl start --enable ${SNAP_NAME}.caddy 2>&1 || true
 else
     snapctl stop --disable ${SNAP_NAME}.caddy 2>&1 || true
@@ -26,8 +27,9 @@ value=$(snapctl get disable-mongodb)
 if [ "$value" = "true" ]; then
     snapctl stop --disable ${SNAP_NAME}.mongodb 2>&1 || true
 else
+    snapctl stop ${SNAP_NAME}.mongodb 2>&1 || true
     snapctl start --enable ${SNAP_NAME}.mongodb 2>&1 || true
 fi
 
 # restart all services
-snapctl restart ${SNAP_NAME} 2>&1 || true
+snapctl restart ${SNAP_NAME}.wekan 2>&1 || true
