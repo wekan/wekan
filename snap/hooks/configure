@@ -22,5 +22,12 @@ else
     snapctl stop --disable ${SNAP_NAME}.caddy 2>&1 || true
 fi
 
+value=$(snapctl get disable-mongodb)
+if [ "$value" = "true" ]; then
+    snapctl stop --disable ${SNAP_NAME}.mongodb 2>&1 || true
+else
+    snapctl start --enable ${SNAP_NAME}.mongodb 2>&1 || true
+fi
+
 # restart all services
 snapctl restart ${SNAP_NAME} 2>&1 || true
