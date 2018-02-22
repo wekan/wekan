@@ -1,8 +1,11 @@
 @import 'nib'
 
 position()
-  if arguments[0] == cover
-    position: absolute
+  if arguments[0] == cover || arguments[0] == fixed-cover
+    if arguments[0] == cover
+      position: absolute
+    else
+      position: fixed
     left: 0
     right: 0
     top: 0
@@ -30,7 +33,7 @@ position()
       overflow-y: hidden
 
     .board-overlay
-      position: cover
+      position: fixed-cover
       top: -100px
       right: -400px
       background: black
