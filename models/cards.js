@@ -472,6 +472,7 @@ if (Meteor.isServer) {
         listId: paramListId,
         description: req.body.description,
         userId: req.body.authorId,
+        swimlaneId: req.body.swimlaneId,
         sort: 0,
         members: [req.body.authorId],
       });
