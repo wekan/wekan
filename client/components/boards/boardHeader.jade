@@ -87,6 +87,10 @@ template(name="boardHeaderBar")
           a.board-header-btn-close.js-filter-reset(title="{{_ 'filter-clear'}}")
             i.fa.fa-times-thin
 
+      a.board-header-btn.js-open-search-view(title="{{_ 'search'}}")
+        i.fa.fa-search
+        span {{_ 'search'}}
+
       a.board-header-btn.js-toggle-board-view(
         title="{{_ 'board-view'}}")
         i.fa.fa-th-large
