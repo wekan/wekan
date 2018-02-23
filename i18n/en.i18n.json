@@ -331,6 +331,8 @@
     "restore": "Restore",
     "save": "Save",
     "search": "Search",
+    "search-cards": "Search Cards",
+    "search-example": "Like “Magic Card“ for example",
     "select-color": "Select Color",
     "set-wip-limit-value": "Set a limit for the maximum number of tasks in this list",
     "setWipLimitPopup-title": "Set WIP Limit",
