@@ -1,8 +1,9 @@
 # Upcoming Wekan release
 
-This release add the following new features:
+This release adds the following new features:
 
 - [Search from card titles and descriptions on this board](https://github.com/wekan/wekan/pull/1503).
+- Add Bulgarian language.
 
 and adds the following [Snap updates](https://github.com/wekan/wekan/pull/1495):
 
