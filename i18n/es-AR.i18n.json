@@ -331,6 +331,8 @@
     "restore": "Restaurar",
     "save": "Grabar",
     "search": "Buscar",
+    "search-cards": "Search from card titles and descriptions on this board",
+    "search-example": "Text to search for?",
     "select-color": "Seleccionar Color",
     "set-wip-limit-value": "Fijar un límite para el número máximo de tareas en esta lista",
     "setWipLimitPopup-title": "Establecer Límite TEP",

@@ -331,6 +331,8 @@
     "restore": "Restaurer",
     "save": "Enregistrer",
     "search": "Chercher",
+    "search-cards": "Search from card titles and descriptions on this board",
+    "search-example": "Text to search for?",
     "select-color": "Sélectionner une couleur",
     "set-wip-limit-value": "Définit une limite maximale au nombre de cartes de cette liste",
     "setWipLimitPopup-title": "Définir la limite WIP",

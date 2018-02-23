@@ -331,6 +331,8 @@
     "restore": "Berrezarri",
     "save": "Gorde",
     "search": "Bilatu",
+    "search-cards": "Search from card titles and descriptions on this board",
+    "search-example": "Text to search for?",
     "select-color": "Aukeratu kolorea",
     "set-wip-limit-value": "Zerrenda honetako atazen muga maximoa ezarri",
     "setWipLimitPopup-title": "WIP muga ezarri",

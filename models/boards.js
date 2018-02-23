@@ -264,6 +264,27 @@ Boards.helpers({
     Boards.direct.update(this._id, { $push: { labels: { _id, name, color } } });
     return _id;
   },
+
+  searchCards(term) {
+    check(term, Match.OneOf(String, null, undefined));
+
+    let query = { boardId: this._id };
+    const projection = { limit: 10, sort: { createdAt: -1 } };
+
+    if (term) {
+      const regex = new RegExp(term, 'i');
+
+      query = {
+        boardId: this._id,
+        $or: [
+          { title: regex },
+          { description: regex },
+        ],
+      };
+    }
+
+    return Cards.find(query, projection);
+  },
 });
 
 Boards.mutations({

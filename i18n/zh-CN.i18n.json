@@ -331,6 +331,8 @@
     "restore": "还原",
     "save": "保存",
     "search": "搜索",
+    "search-cards": "Search from card titles and descriptions on this board",
+    "search-example": "Text to search for?",
     "select-color": "选择颜色",
     "set-wip-limit-value": "设置此列表中的最大任务数",
     "setWipLimitPopup-title": "设置最大任务数",

@@ -1,6 +1,11 @@
 # Upcoming Wekan release
 
-This release adds following [Snap updates](https://github.com/wekan/wekan/pull/1495):
+This release adds the following new features:
+
+- [Search from card titles and descriptions on this board](https://github.com/wekan/wekan/pull/1503).
+- Add Bulgarian language.
+
+and adds the following [Snap updates](https://github.com/wekan/wekan/pull/1495):
 
 - Cleanup of snap helper scripts
 - Cleanup and snapctl settings handling
@@ -17,7 +22,7 @@ and fixes the following bugs:
 
 - [Fix: card-shadow no longer covered the page if you scroll down](https://github.com/wekan/wekan/pull/1496).
 
-Thanks to GitHub users kubiko and stefano-pogliani for their contributions.
+Thanks to GitHub users GhassenRjab, kubiko and stefano-pogliani for their contributions.
 
 # v0.76 2018-02-21 Wekan release
 
