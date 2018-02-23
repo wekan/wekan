@@ -272,7 +272,7 @@ Boards.helpers({
     const projection = { limit: 10, sort: { createdAt: -1 } };
 
     if (term) {
-      let regex = new RegExp(term, 'i');
+      const regex = new RegExp(term, 'i');
 
       query = {
         boardId: this._id,
