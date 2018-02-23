@@ -331,6 +331,8 @@
     "restore": "Восстановить",
     "save": "Сохранить",
     "search": "Поиск",
+    "search-cards": "Search from card titles and descriptions on this board",
+    "search-example": "Text to search for?",
     "select-color": "Выбрать цвет",
     "set-wip-limit-value": "Устанавливает ограничение на максимальное количество задач в этом списке",
     "setWipLimitPopup-title": "Задать лимит на кол-во задач",

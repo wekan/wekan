@@ -331,6 +331,8 @@
     "restore": "Palauta",
     "save": "Tallenna",
     "search": "Etsi",
+    "search-cards": "Etsi korttien otsikoista ja kuvauksista tällä taululla",
+    "search-example": "Teksti jota etsitään?",
     "select-color": "Valitse väri",
     "set-wip-limit-value": "Aseta tämän listan tehtävien enimmäismäärä",
     "setWipLimitPopup-title": "Aseta WIP-raja",

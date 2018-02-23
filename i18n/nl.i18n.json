@@ -331,6 +331,8 @@
     "restore": "Herstel",
     "save": "Opslaan",
     "search": "Zoek",
+    "search-cards": "Search from card titles and descriptions on this board",
+    "search-example": "Text to search for?",
     "select-color": "Selecteer kleur",
     "set-wip-limit-value": "Zet een limiet voor het maximaal aantal taken in deze lijst",
     "setWipLimitPopup-title": "Zet een WIP limiet",

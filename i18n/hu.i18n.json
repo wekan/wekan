@@ -331,6 +331,8 @@
     "restore": "Visszaállítás",
     "save": "Mentés",
     "search": "Keresés",
+    "search-cards": "Search from card titles and descriptions on this board",
+    "search-example": "Text to search for?",
     "select-color": "Szín kiválasztása",
     "set-wip-limit-value": "Korlát beállítása a listán lévő feladatok legnagyobb számához",
     "setWipLimitPopup-title": "WIP korlát beállítása",

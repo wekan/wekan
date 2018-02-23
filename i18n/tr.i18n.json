@@ -331,6 +331,8 @@
     "restore": "Geri Getir",
     "save": "Kaydet",
     "search": "Arama",
+    "search-cards": "Search from card titles and descriptions on this board",
+    "search-example": "Text to search for?",
     "select-color": "Renk Seç",
     "set-wip-limit-value": "Bu listedeki en fazla öğe sayısı için bir sınır belirleyin",
     "setWipLimitPopup-title": "Devam Eden İş Sınırı Belirle",
