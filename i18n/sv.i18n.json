@@ -331,6 +331,8 @@
     "restore": "Återställ",
     "save": "Spara",
     "search": "Sök",
+    "search-cards": "Search from card titles and descriptions on this board",
+    "search-example": "Text to search for?",
     "select-color": "Välj färg",
     "set-wip-limit-value": "Ange en gräns för det maximala antalet uppgifter i den här listan",
     "setWipLimitPopup-title": "Ställ in WIP-gräns",

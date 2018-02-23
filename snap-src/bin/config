@@ -1,17 +1,14 @@
 #!/bin/sh
 
-# store here all configuration options for wekan snap
-# read configured settings first
-SETTINGS_FILE="$SNAP_COMMON/wekan_settings.sh"
-[ -f $SETTINGS_FILE ] && . $SETTINGS_FILE
+# All supported keys are defined here together with descriptions and default values
 
 # list of supported keys
-keys="MONGODB_BIND_UNIX_SOCKET MONGODB_BIND_IP MONGODB_PORT MAIL_URL MAIL_FROM ROOT_URL PORT DISABLE_MONGODB"
+keys="MONGODB_BIND_UNIX_SOCKET MONGODB_BIND_IP MONGODB_PORT MAIL_URL MAIL_FROM ROOT_URL PORT DISABLE_MONGODB CADDY_ENABLED CADDY_BIND_PORT"
 
 # default values
 DESCRIPTION_MONGODB_BIND_UNIX_SOCKET="mongodb binding unix socket:\n"\
 "\t\t\t Default behaviour will preffer binding over unix socket, to disable unix socket binding set value to 'nill' string\n"\
-"\t\t\t To bind to instance of mongo provided through contect interface set to relative path to the socket inside shared directory"
+"\t\t\t To bind to instance of mongodb provided through content interface,set value to relative path to the socket inside '$SNAP_DATA/shared' directory"
 DEFAULT_MONGODB_BIND_UNIX_SOCKET="$SNAP_DATA/share"
 KEY_MONGODB_BIND_UNIX_SOCKET="mongodb-bind-unix-socket"
 
@@ -39,6 +36,14 @@ DESCRIPTION_PORT="port wekan is exposed at"
 DEFAULT_PORT="8080"
 KEY_PORT="port"
 
-DESCRIPTION_DISABLE_MONGODB="Disable mongodb service: use only if binding to database outside of the snap. Valid values: [true,false]"
+DESCRIPTION_DISABLE_MONGODB="Disable mongodb service: use only if binding to database outside of the ${SNAP_NAME} snap. Valid values: [true,false]"
 DEFAULT_DISABLE_MONGODB="false"
 KEY_DISABLE_MONGODB="disable-mongodb"
+
+DESCRIPTION_CADDY_ENABLED="Enable caddy service (caddy - Every Site on HTTPS). Set to 'true' to enable caddy\n\t\tcaddy settings are handled through $SNAP_COMMON/Caddyfile"
+DEFAULT_CADDY_ENABLED="false"
+KEY_CADDY_ENABLED="caddy-enabled"
+
+DESCRIPTION_CADDY_BIND_PORT="Port on which caddy will expect proxy, value set here will be set in $SNAP_COMMON/Caddyfile"
+DEFAULT_CADDY_BIND_PORT="3001"
+KEY_CADDY_BIND_PORT="caddy-bind-port"

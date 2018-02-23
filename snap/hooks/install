@@ -1,0 +1,12 @@
+#!/bin/bash
+
+exec >> $SNAP_COMMON/hook.log 2>&1
+echo "$(date '+%Y-%m-%d %H:%M:%S') $0: Entering hook"
+
+# coppy caddy file in place
+[ ! -e $SNAP_COMMON/Caddyfile ] && cp $SNAP/Caddyfile $SNAP_COMMON/Caddyfile
+
+# create run dir, we're going to use it for unix socket
+mkdir -p $SNAP_DATA/share
+mkdir -p $SNAP_DATA/shared
+

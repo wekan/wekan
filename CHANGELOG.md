@@ -1,3 +1,29 @@
+# v0.77 2018-02-23 Wekan release
+
+This release adds the following new features:
+
+- [Search from card titles and descriptions on this board](https://github.com/wekan/wekan/pull/1503).
+- Add Bulgarian language.
+
+and adds the following [Snap updates](https://github.com/wekan/wekan/pull/1495):
+
+- Cleanup of snap helper scripts
+- Cleanup and snapctl settings handling
+- Fix for snap store auto review refusal
+- Adding support for automatic restart of services when setting(s) are changed.
+  No need to call systemctl restart anymore
+- Fixing snap set functionality
+- Adding optional caddy service support (by default caddy service is disabled),
+  it can be enabled by calling: snap set wekan caddy-enabled=true
+- [Service life cycle improvements](https://github.com/wekan/wekan/pull/1495)
+- [Wekan help text changes and tweaks](https://github.com/wekan/wekan/pull/1495).
+
+and fixes the following bugs:
+
+- [Fix: card-shadow no longer covered the page if you scroll down](https://github.com/wekan/wekan/pull/1496).
+
+Thanks to GitHub users GhassenRjab, kubiko and stefano-pogliani for their contributions.
+
 # v0.76 2018-02-21 Wekan release
 
 This release adds the following new features:

@@ -331,6 +331,8 @@
     "restore": "복구",
     "save": "저장",
     "search": "검색",
+    "search-cards": "Search from card titles and descriptions on this board",
+    "search-example": "Text to search for?",
     "select-color": "색 선택",
     "set-wip-limit-value": "Set a limit for the maximum number of tasks in this list",
     "setWipLimitPopup-title": "Set WIP Limit",

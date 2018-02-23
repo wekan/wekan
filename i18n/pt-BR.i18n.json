@@ -331,6 +331,8 @@
     "restore": "Restaurar",
     "save": "Salvar",
     "search": "Buscar",
+    "search-cards": "Search from card titles and descriptions on this board",
+    "search-example": "Text to search for?",
     "select-color": "Selecionar Cor",
     "set-wip-limit-value": "Defina um limite máximo para o número de tarefas nesta lista",
     "setWipLimitPopup-title": "Definir Limite WIP",

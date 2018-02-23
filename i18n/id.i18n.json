@@ -331,6 +331,8 @@
     "restore": "Pulihkan",
     "save": "Simpan",
     "search": "Cari",
+    "search-cards": "Search from card titles and descriptions on this board",
+    "search-example": "Text to search for?",
     "select-color": "Select Color",
     "set-wip-limit-value": "Set a limit for the maximum number of tasks in this list",
     "setWipLimitPopup-title": "Set WIP Limit",

@@ -331,6 +331,8 @@
     "restore": "שחזור",
     "save": "שמירה",
     "search": "חיפוש",
+    "search-cards": "Search from card titles and descriptions on this board",
+    "search-example": "Text to search for?",
     "select-color": "בחירת צבע",
     "set-wip-limit-value": "הגדרת מגבלה למספר המרבי של משימות ברשימה זו",
     "setWipLimitPopup-title": "הגדרת מגבלת „בעבודה”",

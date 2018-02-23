@@ -1,0 +1,8 @@
+template(name="searchSidebar")
+  form.js-search-term-form
+    input(type="text" name="searchTerm" placeholder="{{_ 'search-example'}}" autofocus)
+  .list-body.js-perfect-scrollbar
+    .minicards.clearfix.js-minicards
+      each (results)
+        a.minicard-wrapper.js-minicard(href=absoluteUrl)
+          +minicard(this)
