@@ -4,6 +4,7 @@ const defaultView = 'home';
 
 const viewTitles = {
   filter: 'filter-cards',
+  search: 'search-cards',
   multiselection: 'multi-selection',
   archives: 'archives',
 };

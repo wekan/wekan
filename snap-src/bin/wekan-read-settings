@@ -1,0 +1,29 @@
+#!/bin/sh
+
+# read wekan config
+source $SNAP/bin/config
+
+
+for key in ${keys[@]}
+do
+    default_value="DEFAULT_$key"
+    description="DESCRIPTION_$key"
+    snappy_key="KEY_$key"
+    value=$(snapctl get ${!snappy_key})
+    if [ "x$value" == "x" ]; then
+        echo -e "$key=${!default_value} (default value)"
+        export $key=${!default_value}
+    else
+        echo -e "$key=$value"
+        export $key=$value
+    fi
+done
+
+# if caddy is enabled, do update port settings based on caddy file
+if [ "$CADDY_ENABLED" = "true" ]; then
+    echo "caddy is enabled, adjusting ports"
+    export CADDY_PORT=${PORT}
+    echo -e "CADDY_PORT=$CADDY_PORT"
+    export PORT=${CADDY_BIND_PORT}
+    echo -e "PORT=$PORT"
+fi

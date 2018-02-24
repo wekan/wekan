@@ -100,6 +100,9 @@ BlazeComponent.extendComponent({
         Sidebar.setView();
         Filter.reset();
       },
+      'click .js-open-search-view'() {
+        Sidebar.setView('search');
+      },
       'click .js-multiselection-activate'() {
         const currentCard = Session.get('currentCard');
         MultiSelection.activate();
