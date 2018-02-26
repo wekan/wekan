@@ -130,6 +130,7 @@
     "HTTP": true,
     "AccountSettings": true,
     "Announcements": true,
-    "Swimlanes": true
+    "Swimlanes": true,
+    "Npm": true
   }
 }
