@@ -201,7 +201,7 @@ if (Meteor.isServer) {
 
 //LISTS REST API
 if (Meteor.isServer) {
-  JsonRoutes.add('GET', '/api/boards/:boardId/lists', function (req, res, next) {
+  JsonRoutes.add('GET', '/api/boards/:boardId/lists', function (req, res) {
     try {
       const paramBoardId = req.params.boardId;
       Authentication.checkBoardAccess( req.userId, paramBoardId);
@@ -224,7 +224,7 @@ if (Meteor.isServer) {
     }
   });
 
-  JsonRoutes.add('GET', '/api/boards/:boardId/lists/:listId', function (req, res, next) {
+  JsonRoutes.add('GET', '/api/boards/:boardId/lists/:listId', function (req, res) {
     try {
       const paramBoardId = req.params.boardId;
       const paramListId = req.params.listId;
@@ -242,7 +242,7 @@ if (Meteor.isServer) {
     }
   });
 
-  JsonRoutes.add('POST', '/api/boards/:boardId/lists', function (req, res, next) {
+  JsonRoutes.add('POST', '/api/boards/:boardId/lists', function (req, res) {
     try {
       Authentication.checkUserId( req.userId);
       const paramBoardId = req.params.boardId;
@@ -265,7 +265,7 @@ if (Meteor.isServer) {
     }
   });
 
-  JsonRoutes.add('DELETE', '/api/boards/:boardId/lists/:listId', function (req, res, next) {
+  JsonRoutes.add('DELETE', '/api/boards/:boardId/lists/:listId', function (req, res) {
     try {
       Authentication.checkUserId( req.userId);
       const paramBoardId = req.params.boardId;

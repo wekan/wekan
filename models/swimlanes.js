@@ -131,7 +131,7 @@ if (Meteor.isServer) {
 
 //SWIMLANE REST API
 if (Meteor.isServer) {
-  JsonRoutes.add('GET', '/api/boards/:boardId/swimlanes', function (req, res, next) {
+  JsonRoutes.add('GET', '/api/boards/:boardId/swimlanes', function (req, res) {
     try {
       const paramBoardId = req.params.boardId;
       Authentication.checkBoardAccess( req.userId, paramBoardId);
@@ -154,7 +154,7 @@ if (Meteor.isServer) {
     }
   });
 
-  JsonRoutes.add('GET', '/api/boards/:boardId/swimlanes/:swimlaneId', function (req, res, next) {
+  JsonRoutes.add('GET', '/api/boards/:boardId/swimlanes/:swimlaneId', function (req, res) {
     try {
       const paramBoardId = req.params.boardId;
       const paramSwimlaneId = req.params.swimlaneId;
@@ -172,7 +172,7 @@ if (Meteor.isServer) {
     }
   });
 
-  JsonRoutes.add('POST', '/api/boards/:boardId/swimlanes', function (req, res, next) {
+  JsonRoutes.add('POST', '/api/boards/:boardId/swimlanes', function (req, res) {
     try {
       Authentication.checkUserId( req.userId);
       const paramBoardId = req.params.boardId;
@@ -195,7 +195,7 @@ if (Meteor.isServer) {
     }
   });
 
-  JsonRoutes.add('DELETE', '/api/boards/:boardId/swimlanes/:swimlaneId', function (req, res, next) {
+  JsonRoutes.add('DELETE', '/api/boards/:boardId/swimlanes/:swimlaneId', function (req, res) {
     try {
       Authentication.checkUserId( req.userId);
       const paramBoardId = req.params.boardId;
