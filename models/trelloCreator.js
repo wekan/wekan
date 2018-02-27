@@ -401,19 +401,19 @@ export class TrelloCreator {
   }
 
   createSwimlanes(boardId) {
-      const swimlaneToCreate = {
-        archived: false,
-        boardId,
-        // We are being defensing here by providing a default date (now) if the
-        // creation date wasn't found on the action log. This happen on old
-        // Wekan boards (eg from 2013) that didn't log the 'createList' action
-        // we require.
-        createdAt: this._now(),
-        title: 'Default',
-      };
-      const swimlaneId = Swimlanes.direct.insert(swimlaneToCreate);
-      Swimlanes.direct.update(swimlaneId, {$set: {'updatedAt': this._now()}});
-      this.swimlane = swimlaneId;
+    const swimlaneToCreate = {
+      archived: false,
+      boardId,
+      // We are being defensing here by providing a default date (now) if the
+      // creation date wasn't found on the action log. This happen on old
+      // Wekan boards (eg from 2013) that didn't log the 'createList' action
+      // we require.
+      createdAt: this._now(),
+      title: 'Default',
+    };
+    const swimlaneId = Swimlanes.direct.insert(swimlaneToCreate);
+    Swimlanes.direct.update(swimlaneId, {$set: {'updatedAt': this._now()}});
+    this.swimlane = swimlaneId;
   }
 
   createChecklists(trelloChecklists) {

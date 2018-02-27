@@ -608,7 +608,7 @@ if (Meteor.isServer) {
 
 //BOARDS REST API
 if (Meteor.isServer) {
-  JsonRoutes.add('GET', '/api/users/:userId/boards', function (req, res, next) {
+  JsonRoutes.add('GET', '/api/users/:userId/boards', function (req, res) {
     try {
       Authentication.checkLoggedIn(req.userId);
       const paramUserId = req.params.userId;
@@ -638,7 +638,7 @@ if (Meteor.isServer) {
     }
   });
 
-  JsonRoutes.add('GET', '/api/boards', function (req, res, next) {
+  JsonRoutes.add('GET', '/api/boards', function (req, res) {
     try {
       Authentication.checkUserId(req.userId);
       JsonRoutes.sendResult(res, {
@@ -659,7 +659,7 @@ if (Meteor.isServer) {
     }
   });
 
-  JsonRoutes.add('GET', '/api/boards/:id', function (req, res, next) {
+  JsonRoutes.add('GET', '/api/boards/:id', function (req, res) {
     try {
       const id = req.params.id;
       Authentication.checkBoardAccess(req.userId, id);
@@ -677,7 +677,7 @@ if (Meteor.isServer) {
     }
   });
 
-  JsonRoutes.add('POST', '/api/boards', function (req, res, next) {
+  JsonRoutes.add('POST', '/api/boards', function (req, res) {
     try {
       Authentication.checkUserId(req.userId);
       const id = Boards.insert({
@@ -708,7 +708,7 @@ if (Meteor.isServer) {
     }
   });
 
-  JsonRoutes.add('DELETE', '/api/boards/:id', function (req, res, next) {
+  JsonRoutes.add('DELETE', '/api/boards/:id', function (req, res) {
     try {
       Authentication.checkUserId(req.userId);
       const id = req.params.id;

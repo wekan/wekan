@@ -433,7 +433,7 @@ if (Meteor.isServer) {
 }
 //LISTS REST API
 if (Meteor.isServer) {
-  JsonRoutes.add('GET', '/api/boards/:boardId/lists/:listId/cards', function (req, res, next) {
+  JsonRoutes.add('GET', '/api/boards/:boardId/lists/:listId/cards', function (req, res) {
     const paramBoardId = req.params.boardId;
     const paramListId = req.params.listId;
     Authentication.checkBoardAccess(req.userId, paramBoardId);
@@ -449,7 +449,7 @@ if (Meteor.isServer) {
     });
   });
 
-  JsonRoutes.add('GET', '/api/boards/:boardId/lists/:listId/cards/:cardId', function (req, res, next) {
+  JsonRoutes.add('GET', '/api/boards/:boardId/lists/:listId/cards/:cardId', function (req, res) {
     const paramBoardId = req.params.boardId;
     const paramListId = req.params.listId;
     const paramCardId = req.params.cardId;
@@ -460,7 +460,7 @@ if (Meteor.isServer) {
     });
   });
 
-  JsonRoutes.add('POST', '/api/boards/:boardId/lists/:listId/cards', function (req, res, next) {
+  JsonRoutes.add('POST', '/api/boards/:boardId/lists/:listId/cards', function (req, res) {
     Authentication.checkUserId(req.userId);
     const paramBoardId = req.params.boardId;
     const paramListId = req.params.listId;
@@ -493,7 +493,7 @@ if (Meteor.isServer) {
     }
   });
 
-  JsonRoutes.add('PUT', '/api/boards/:boardId/lists/:listId/cards/:cardId', function (req, res, next) {
+  JsonRoutes.add('PUT', '/api/boards/:boardId/lists/:listId/cards/:cardId', function (req, res) {
     Authentication.checkUserId(req.userId);
     const paramBoardId = req.params.boardId;
     const paramCardId = req.params.cardId;
@@ -527,7 +527,7 @@ if (Meteor.isServer) {
   });
 
 
-  JsonRoutes.add('DELETE', '/api/boards/:boardId/lists/:listId/cards/:cardId', function (req, res, next) {
+  JsonRoutes.add('DELETE', '/api/boards/:boardId/lists/:listId/cards/:cardId', function (req, res) {
     Authentication.checkUserId(req.userId);
     const paramBoardId = req.params.boardId;
     const paramListId = req.params.listId;

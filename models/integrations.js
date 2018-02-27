@@ -59,7 +59,7 @@ Integrations.allow({
 //INTEGRATIONS REST API
 if (Meteor.isServer) {
   // Get all integrations in board
-  JsonRoutes.add('GET', '/api/boards/:boardId/integrations', function(req, res, next) {
+  JsonRoutes.add('GET', '/api/boards/:boardId/integrations', function(req, res) {
     try {
       const paramBoardId = req.params.boardId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
@@ -79,7 +79,7 @@ if (Meteor.isServer) {
   });
 
   // Get a single integration in board
-  JsonRoutes.add('GET', '/api/boards/:boardId/integrations/:intId', function(req, res, next) {
+  JsonRoutes.add('GET', '/api/boards/:boardId/integrations/:intId', function(req, res) {
     try {
       const paramBoardId = req.params.boardId;
       const paramIntId = req.params.intId;
@@ -99,7 +99,7 @@ if (Meteor.isServer) {
   });
 
   // Create a new integration
-  JsonRoutes.add('POST', '/api/boards/:boardId/integrations', function(req, res, next) {
+  JsonRoutes.add('POST', '/api/boards/:boardId/integrations', function(req, res) {
     try {
       const paramBoardId = req.params.boardId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
@@ -126,7 +126,7 @@ if (Meteor.isServer) {
   });
 
   // Edit integration data
-  JsonRoutes.add('PUT', '/api/boards/:boardId/integrations/:intId', function (req, res, next) {
+  JsonRoutes.add('PUT', '/api/boards/:boardId/integrations/:intId', function (req, res) {
     try {
       const paramBoardId = req.params.boardId;
       const paramIntId = req.params.intId;
@@ -174,7 +174,7 @@ if (Meteor.isServer) {
   });
 
   // Delete subscribed activities
-  JsonRoutes.add('DELETE', '/api/boards/:boardId/integrations/:intId/activities', function (req, res, next) {
+  JsonRoutes.add('DELETE', '/api/boards/:boardId/integrations/:intId/activities', function (req, res) {
     try {
       const paramBoardId = req.params.boardId;
       const paramIntId = req.params.intId;
@@ -198,7 +198,7 @@ if (Meteor.isServer) {
   });
 
   // Add subscribed activities
-  JsonRoutes.add('POST', '/api/boards/:boardId/integrations/:intId/activities', function (req, res, next) {
+  JsonRoutes.add('POST', '/api/boards/:boardId/integrations/:intId/activities', function (req, res) {
     try {
       const paramBoardId = req.params.boardId;
       const paramIntId = req.params.intId;
@@ -222,7 +222,7 @@ if (Meteor.isServer) {
   });
 
   // Delete integration
-  JsonRoutes.add('DELETE', '/api/boards/:boardId/integrations/:intId', function (req, res, next) {
+  JsonRoutes.add('DELETE', '/api/boards/:boardId/integrations/:intId', function (req, res) {
     try {
       const paramBoardId = req.params.boardId;
       const paramIntId = req.params.intId;

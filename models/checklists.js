@@ -258,7 +258,7 @@ if (Meteor.isServer) {
 
 //CARD COMMENT REST API
 if (Meteor.isServer) {
-  JsonRoutes.add('GET', '/api/boards/:boardId/cards/:cardId/checklists', function (req, res, next) {
+  JsonRoutes.add('GET', '/api/boards/:boardId/cards/:cardId/checklists', function (req, res) {
     try {
       Authentication.checkUserId( req.userId);
       const paramCardId = req.params.cardId;
@@ -280,7 +280,7 @@ if (Meteor.isServer) {
     }
   });
 
-  JsonRoutes.add('GET', '/api/boards/:boardId/cards/:cardId/checklists/:checklistId', function (req, res, next) {
+  JsonRoutes.add('GET', '/api/boards/:boardId/cards/:cardId/checklists/:checklistId', function (req, res) {
     try {
       Authentication.checkUserId( req.userId);
       const paramChecklistId = req.params.checklistId;
@@ -298,7 +298,7 @@ if (Meteor.isServer) {
     }
   });
 
-  JsonRoutes.add('POST', '/api/boards/:boardId/cards/:cardId/checklists', function (req, res, next) {
+  JsonRoutes.add('POST', '/api/boards/:boardId/cards/:cardId/checklists', function (req, res) {
     try {
       Authentication.checkUserId( req.userId);
       const paramCardId = req.params.cardId;
@@ -329,7 +329,7 @@ if (Meteor.isServer) {
     }
   });
 
-  JsonRoutes.add('DELETE', '/api/boards/:boardId/cards/:cardId/checklists/:checklistId', function (req, res, next) {
+  JsonRoutes.add('DELETE', '/api/boards/:boardId/cards/:cardId/checklists/:checklistId', function (req, res) {
     try {
       Authentication.checkUserId( req.userId);
       const paramCommentId = req.params.commentId;
