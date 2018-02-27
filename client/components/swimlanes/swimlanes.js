@@ -1,4 +1,43 @@
+const { calculateIndex } = Utils;
+
 BlazeComponent.extendComponent({
+  onRendered() {
+    const boardComponent = this.parentComponent();
+    const $swimlanesDom = boardComponent.$('.js-swimlanes');
+
+    $swimlanesDom.sortable({
+      tolerance: 'pointer',
+      appendTo: 'body',
+      helper: 'clone',
+      handle: '.js-swimlane-header',
+      items: '.js-swimlane:not(.placeholder)',
+      placeholder: 'swimlane placeholder',
+      distance: 7,
+      start(evt, ui) {
+        ui.placeholder.height(ui.helper.height());
+        EscapeActions.executeUpTo('popup-close');
+        boardComponent.setIsDragging(true);
+      },
+      stop(evt, ui) {
+        // To attribute the new index number, we need to get the DOM element
+        // of the previous and the following card -- if any.
+        const prevSwimlaneDom = ui.item.prev('.js-swimlane').get(0);
+        const nextSwimlaneDom = ui.item.next('.js-swimlane').get(0);
+        const sortIndex = calculateIndex(prevSwimlaneDom, nextSwimlaneDom, 1);
+
+        $swimlanesDom.sortable('cancel');
+        const swimlaneDomElement = ui.item.get(0);
+        const swimlane = Blaze.getData(swimlaneDomElement);
+
+        console.log(swimlane._id);
+        Swimlanes.update(swimlane._id, {
+          $set: {
+            sort: sortIndex.base,
+          },
+        });
+      },
+    });
+  },
   onCreated() {
     this.draggingActive = new ReactiveVar(false);
 

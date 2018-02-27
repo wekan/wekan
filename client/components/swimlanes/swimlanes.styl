@@ -1,25 +1,52 @@
 @import 'nib'
 
-.swimlane-header-wrap
-  display: flex;
-  flex-direction: row;
-  flex: 0 0 50px;
-  padding-bottom: 30px;
+.swimlane
+  // Even if this background color is the same as the body we can't leave it
+  // transparent, because that won't work during a swimlane drag.
+  background: darken(white, 13%)
+  border-bottom: 1px solid #CCC
+  display: flex
+  flex-direction: row
+  margin: 0 0 10px
+  padding: 0 40px 5px 0
+  overflow-x: auto
+  overflow-y: hidden
 
-  .swimlane-header
-    writing-mode: sideways-lr;
-    font-size: 14px;
-    line-height: 50px;
-    margin-top: 50px;
-    font-weight: bold;
-    min-height: 9px;
-    min-width: 30px;
-    overflow: hidden;
-    -o-text-overflow: ellipsis;
-    text-overflow: ellipsis;
-    word-wrap: break-word;
-    text-align: center;
+  &.placeholder
+    background-color: rgba(0, 0, 0, .2)
+    border-color: transparent
+    box-shadow: none
+    height: 100px
 
-  .swimlane-header-menu
-    position: absolute
-    padding: 20px 20px
+  &.ui-sortable-helper
+    box-shadow: -2px 2px 8px rgba(0, 0, 0, .3),
+                0 0 1px rgba(0, 0, 0, .5)
+    transform: rotate(2deg)
+    cursor: grabbing
+
+    .swimlane-header.ui-sortable-handle
+      cursor: grabbing
+
+  .swimlane-header-wrap
+    display: flex;
+    flex-direction: row;
+    flex: 0 0 50px;
+    padding-bottom: 30px;
+
+    .swimlane-header
+      writing-mode: sideways-lr;
+      font-size: 14px;
+      line-height: 50px;
+      margin-top: 50px;
+      font-weight: bold;
+      min-height: 9px;
+      min-width: 30px;
+      overflow: hidden;
+      -o-text-overflow: ellipsis;
+      text-overflow: ellipsis;
+      word-wrap: break-word;
+      text-align: center;
+
+    .swimlane-header-menu
+      position: absolute
+      padding: 20px 20px
