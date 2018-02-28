@@ -29,7 +29,6 @@ BlazeComponent.extendComponent({
         const swimlaneDomElement = ui.item.get(0);
         const swimlane = Blaze.getData(swimlaneDomElement);
 
-        console.log(swimlane._id);
         Swimlanes.update(swimlane._id, {
           $set: {
             sort: sortIndex.base,
@@ -43,10 +42,6 @@ BlazeComponent.extendComponent({
 
     this._isDragging = false;
     this._lastDragPositionX = 0;
-  },
-
-  openNewListForm() {
-    this.childComponents('addListForm')[0].open();
   },
 
   id() {
@@ -116,81 +111,6 @@ BlazeComponent.extendComponent({
     }];
   },
 }).register('swimlane');
-
-Template.swimlane.onRendered(function() {
-  const self = BlazeComponent.getComponentForElement(this.firstNode);
-
-  self.listsDom = this.find('.js-lists');
-
-  if (!Session.get('currentCard')) {
-    self.scrollLeft();
-  }
-
-  // We want to animate the card details window closing. We rely on CSS
-  // transition for the actual animation.
-  self.listsDom._uihooks = {
-    removeElement(node) {
-      const removeNode = _.once(() => {
-        node.parentNode.removeChild(node);
-      });
-      if ($(node).hasClass('js-card-details')) {
-        $(node).css({
-          flexBasis: 0,
-          padding: 0,
-        });
-        $(self.listsDom).one(CSSEvents.transitionend, removeNode);
-      } else {
-        removeNode();
-      }
-    },
-  };
-
-  $(self.listsDom).sortable({
-    tolerance: 'pointer',
-    helper: 'clone',
-    handle: '.js-list-header',
-    items: '.js-list:not(.js-list-composer)',
-    placeholder: 'list placeholder',
-    distance: 7,
-    start(evt, ui) {
-      ui.placeholder.height(ui.helper.height());
-      Popup.close();
-    },
-    stop() {
-      $(self.listsDom).find('.js-list:not(.js-list-composer)').each(
-        (i, list) => {
-          const data = Blaze.getData(list);
-          Lists.update(data._id, {
-            $set: {
-              sort: i,
-            },
-          });
-        }
-      );
-    },
-  });
-
-  function userIsMember() {
-    return Meteor.user() && Meteor.user().isBoardMember();
-  }
-
-  // Disable drag-dropping while in multi-selection mode, or if the current user
-  // is not a board member
-  self.autorun(() => {
-    const $listDom = $(self.listsDom);
-    if ($listDom.data('sortable')) {
-      $(self.listsDom).sortable('option', 'disabled',
-        MultiSelection.isActive() || !userIsMember());
-    }
-  });
-
-  // If there is no data in the board (ie, no lists) we autofocus the list
-  // creation form by clicking on the corresponding element.
-  const currentBoard = Boards.findOne(Session.get('currentBoard'));
-  if (userIsMember() && currentBoard.lists().count() === 0) {
-    self.openNewListForm();
-  }
-});
 
 BlazeComponent.extendComponent({
   // Proxy
