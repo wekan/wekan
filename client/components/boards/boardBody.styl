@@ -15,10 +15,12 @@ position()
 
 .board-wrapper
   position: cover
+  overflow-y: hidden;
 
   .board-canvas
     position: cover
     transition: margin .1s
+    overflow-y: auto;
 
     &.is-sibling-sidebar-open
       margin-right: 248px
