@@ -1,5 +1,5 @@
 template(name="swimlaneHeader")
-  .swimlane-header-wrap
+  .swimlane-header-wrap.js-swimlane-header
     +inlinedForm
       +editSwimlaneTitleForm
     else
@@ -9,7 +9,7 @@ template(name="swimlaneHeader")
       .swimlane-header-menu
         unless currentUser.isCommentOnly
           a.fa.fa-navicon.js-open-swimlane-menu
-  
+
 template(name="editSwimlaneTitleForm")
   .list-composer
     input.list-name-input.full-line(type="text" value=title autofocus)
