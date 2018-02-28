@@ -1,6 +1,9 @@
 const subManager = new SubsManager();
 
 BlazeComponent.extendComponent({
+  openNewListForm() {
+    this.childComponents('addListForm')[0].open();
+  },
   onCreated() {
     this.draggingActive = new ReactiveVar(false);
     this.showOverlay = new ReactiveVar(false);
