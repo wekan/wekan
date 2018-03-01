@@ -1,6 +1,6 @@
 #!/bin/bash
 
-exec >> $SNAP_COMMON/hook.log 2>&1
+exec >> $SNAP_DATA/hook.log 2>&1
 echo "$(date '+%Y-%m-%d %H:%M:%S') $0: Entering hook"
 
 # coppy caddy file in place

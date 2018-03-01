@@ -21,6 +21,12 @@ plugs:
     interface: content
     target: $SNAP_DATA/shared
 
+hooks:
+  configure:
+    plugs:
+      - network
+      - network-bind
+
 slots:
   mongodb-slot:
     interface: content
