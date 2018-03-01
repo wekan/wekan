@@ -228,7 +228,10 @@ export class WekanCreator {
         title: card.title,
         // we attribute the card to its creator if available
         userId: this._user(this.createdBy.cards[card._id]),
+        isOvertime: card.isOvertime || false,
+        startAt: card.startAt ? this._now(card.startAt) : null,
         dueAt: card.dueAt ? this._now(card.dueAt) : null,
+        spentTime: card.spentTime || null,
       };
       // add labels
       if (card.labelIds) {
