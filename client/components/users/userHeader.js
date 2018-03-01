@@ -114,10 +114,16 @@ Template.changePasswordPopup.onRendered(function () {
 Template.changeLanguagePopup.helpers({
   languages() {
     return _.map(TAPi18n.getLanguages(), (lang, code) => {
-      return {
-        tag: code,
-        name: lang.name === 'br' ? 'Brezhoneg' : lang.name === 'ig' ? 'Igbo' : lang.name,
-      };
+      // Same code in /client/components/main/layouts.js
+      // TODO : Make code reusable
+      const tag = code;
+      let name = lang.name;
+      if (lang.name === 'br') {
+        name = 'Brezhoneg';
+      } else if (lang.name === 'ig') {
+        name = 'Igbo';
+      }
+      return { tag, name };
     }).sort(function (a, b) {
       if (a.name === b.name) {
         return 0;

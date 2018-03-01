@@ -1,5 +1,5 @@
 template(name="swimlane")
-  .swimlane.js-lists
+  .swimlane.js-lists.js-swimlane
     +swimlaneHeader
     if isMiniScreen
       if currentList
@@ -36,7 +36,7 @@ template(name="listsGroup")
         +addListForm
 
 template(name="addListAndSwimlaneForm")
-  .list.js-list.list-composer.js-list-composer
+  .list.list-composer.js-list-composer
     .list-header
       +inlinedForm(autoclose=false)
         input.list-name-input.full-line(type="text" placeholder="{{_ 'add-list'}}"
@@ -61,7 +61,7 @@ template(name="addListAndSwimlaneForm")
           | {{_ 'add-swimlane'}}
 
 template(name="addListForm")
-  .list.js-list.list-composer.js-list-composer
+  .list.list-composer.js-list-composer
     .list-header
       +inlinedForm(autoclose=false)
         input.list-name-input.full-line(type="text" placeholder="{{_ 'add-list'}}"

@@ -1,3 +1,20 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix lint errors related to sandstorm](https://github.com/wekan/wekan/commit/0a16147470246c8f49bb918f5ddc7bb2e54fba14);
+- [Add Swimlanes to globals](https://github.com/wekan/wekan/commit/373e9782dcf87a9c1169b5d1f8175ce14e4898c9);
+- [Fix lint errors related to trello creator](https://github.com/wekan/wekan/commit/951a0db380d60f3d948ae38d50b85a54983a51de);
+- [Fix lint errors related to language names](https://github.com/wekan/wekan/commit/c0d33d97f2c8d4e9371a03d4ad3022df3ed64d3d);
+- [Allow swimlanes reordering](https://github.com/wekan/wekan/commit/37c94622e476f50bf2387bc8b140454d66200e78);
+- [Avoid swimlane title overlap](https://github.com/wekan/wekan/commit/c4fa9010f34966b633c7bf7e46ad49fc101127c9);
+- [Fix scrollbar inside list and outer scroll](https://github.com/wekan/wekan/commit/a033c35a3411902b9bf8f62a40cd68f641e573d3);
+- [Remove list max-height 350px](https://github.com/wekan/wekan/commit/b6d3e79548d1e88c93fa2965a936595176a95565);
+- [Snap: Adding network hooks for configure hook to fix security denials](https://github.com/wekan/wekan/commit/9084158aece8a642dc49bf7ecc2196bf9d1af63e);
+- [Snap: Fixing problem when mongodb was not started at install/refresh](https://github.com/wekan/wekan/commit/1be8e5625fd20797910009a8221ca706fd52ab11).
+
+Thanks to GitHub users andresmanelli, GhassenRjab, kubiko and xet7 for their contributions.
+
 # v0.77 2018-02-23 Wekan release
 
 This release adds the following new features:

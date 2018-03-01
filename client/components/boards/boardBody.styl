@@ -15,22 +15,15 @@ position()
 
 .board-wrapper
   position: cover
+  overflow-y: hidden;
 
   .board-canvas
     position: cover
     transition: margin .1s
+    overflow-y: auto;
 
     &.is-sibling-sidebar-open
       margin-right: 248px
-
-    .swimlane
-      border-bottom: 1px solid #CCC
-      display: flex
-      flex-direction: row
-      margin: 0 0 10px
-      padding: 0 40px 5px 0
-      overflow-x: auto
-      overflow-y: hidden
 
     .board-overlay
       position: fixed-cover

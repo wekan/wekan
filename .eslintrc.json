@@ -129,6 +129,8 @@
     "Integrations": true,
     "HTTP": true,
     "AccountSettings": true,
-    "Announcements": true
+    "Announcements": true,
+    "Swimlanes": true,
+    "Npm": true
   }
 }

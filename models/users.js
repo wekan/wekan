@@ -600,7 +600,7 @@ if (Meteor.isServer) {
 
 // USERS REST API
 if (Meteor.isServer) {
-  JsonRoutes.add('GET', '/api/user', function(req, res, next) {
+  JsonRoutes.add('GET', '/api/user', function(req, res) {
     try {
       Authentication.checkLoggedIn(req.userId);
       const data = Meteor.users.findOne({ _id: req.userId});
@@ -618,7 +618,7 @@ if (Meteor.isServer) {
     }
   });
 
-  JsonRoutes.add('GET', '/api/users', function (req, res, next) {
+  JsonRoutes.add('GET', '/api/users', function (req, res) {
     try {
       Authentication.checkUserId(req.userId);
       JsonRoutes.sendResult(res, {
@@ -636,7 +636,7 @@ if (Meteor.isServer) {
     }
   });
 
-  JsonRoutes.add('GET', '/api/users/:id', function (req, res, next) {
+  JsonRoutes.add('GET', '/api/users/:id', function (req, res) {
     try {
       Authentication.checkUserId(req.userId);
       const id = req.params.id;
@@ -653,7 +653,7 @@ if (Meteor.isServer) {
     }
   });
 
-  JsonRoutes.add('PUT', '/api/users/:id', function (req, res, next) {
+  JsonRoutes.add('PUT', '/api/users/:id', function (req, res) {
     try {
       Authentication.checkUserId(req.userId);
       const id = req.params.id;
@@ -696,7 +696,7 @@ if (Meteor.isServer) {
     }
   });
 
-  JsonRoutes.add('POST', '/api/users/', function (req, res, next) {
+  JsonRoutes.add('POST', '/api/users/', function (req, res) {
     try {
       Authentication.checkUserId(req.userId);
       const id = Accounts.createUser({
@@ -720,7 +720,7 @@ if (Meteor.isServer) {
     }
   });
 
-  JsonRoutes.add('DELETE', '/api/users/:id', function (req, res, next) {
+  JsonRoutes.add('DELETE', '/api/users/:id', function (req, res) {
     try {
       Authentication.checkUserId(req.userId);
       const id = req.params.id;
