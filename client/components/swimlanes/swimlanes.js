@@ -34,6 +34,8 @@ BlazeComponent.extendComponent({
             sort: sortIndex.base,
           },
         });
+
+        boardComponent.setIsDragging(false);
       },
     });
   },
