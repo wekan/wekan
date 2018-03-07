@@ -22,7 +22,8 @@ and fixes the following bugs:
 - [Fix scroll when dragging elements. Remove scrollbars from swimlanes.](https://github.com/wekan/wekan/commit/ed8471be9b79243b016a275e5b11a6912717fbb9);
 - [Partial fix for scroll bar inside cardDetails](https://github.com/wekan/wekan/commit/ac7d44f8a8d809cd94ed5ef3640473f34c72403b);
 - [Fix swimlane header rotation on Google Chrome. After this change both Firefox 58 and Google Chrome 64
-   have properly rotated swimlane header.](https://github.com/wekan/wekan/commit/9a1b1a5bedbe44827de109731a3c3b1a07790d3e).
+   have properly rotated swimlane header.](https://github.com/wekan/wekan/commit/9a1b1a5bedbe44827de109731a3c3b1a07790d3e);
+- [Fix card copy and move with swimlanes](https://github.com/wekan/wekan/commit/4b53b0c90a57593c0fe2d808d2298e85f488bfa9).
 
 Thanks to GitHub users andresmanelli, GhassenRjab, kubiko, lumatijev, lunatic4ever and xet7 for their contributions.
 
