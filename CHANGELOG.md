@@ -18,7 +18,9 @@ and fixes the following bugs:
 - [Snap: Adding network hooks for configure hook to fix security denials](https://github.com/wekan/wekan/commit/9084158aece8a642dc49bf7ecc2196bf9d1af63e);
 - [Snap: Fixing problem when mongodb was not started at install/refresh](https://github.com/wekan/wekan/commit/1be8e5625fd20797910009a8221ca706fd52ab11);
 - [Fix Add Card Button dissapearing when dragging](https://github.com/wekan/wekan/commit/58e5e9b308113e5a8af5166328a68a0aafcc2558);
-- [Fix Scrollbar near top of screen when using internet explorer on Win7](https://github.com/wekan/wekan/commit/128a356b9222fa0ed824b477c2d0e1e6a0368021).
+- [Fix Scrollbar near top of screen when using internet explorer on Win7](https://github.com/wekan/wekan/commit/128a356b9222fa0ed824b477c2d0e1e6a0368021);
+- [Fix scroll when dragging elements. Remove scrollbars from swimlanes.](https://github.com/wekan/wekan/commit/ed8471be9b79243b016a275e5b11a6912717fbb9);
+- [Partial fix for scroll bar inside cardDetails](https://github.com/wekan/wekan/commit/ac7d44f8a8d809cd94ed5ef3640473f34c72403b).
 
 Thanks to GitHub users andresmanelli, GhassenRjab, kubiko, lunatic4ever and xet7 for their contributions.
 
