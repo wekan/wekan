@@ -72,6 +72,8 @@ BlazeComponent.extendComponent({
             sort: sortIndex.base,
           },
         });
+
+        boardComponent.setIsDragging(false);
       },
     });
 
@@ -101,7 +103,7 @@ BlazeComponent.extendComponent({
     $cards.sortable({
       connectWith: '.js-minicards:not(.js-list-full)',
       tolerance: 'pointer',
-      appendTo: 'body',
+      appendTo: '.board-canvas',
       helper(evt, item) {
         const helper = item.clone();
         if (MultiSelection.isActive()) {
@@ -117,7 +119,6 @@ BlazeComponent.extendComponent({
       },
       distance: 7,
       items: itemsSelector,
-      scroll: false,
       placeholder: 'minicard-wrapper placeholder',
       start(evt, ui) {
         ui.placeholder.height(ui.helper.height());

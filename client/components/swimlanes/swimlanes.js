@@ -7,7 +7,7 @@ BlazeComponent.extendComponent({
 
     $swimlanesDom.sortable({
       tolerance: 'pointer',
-      appendTo: 'body',
+      appendTo: '.board-canvas',
       helper: 'clone',
       handle: '.js-swimlane-header',
       items: '.js-swimlane:not(.placeholder)',
@@ -34,6 +34,8 @@ BlazeComponent.extendComponent({
             sort: sortIndex.base,
           },
         });
+
+        boardComponent.setIsDragging(false);
       },
     });
   },

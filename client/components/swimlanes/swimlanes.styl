@@ -4,13 +4,10 @@
   // Even if this background color is the same as the body we can't leave it
   // transparent, because that won't work during a swimlane drag.
   background: darken(white, 13%)
-  border-bottom: 1px solid #CCC
   display: flex
   flex-direction: row
-  margin: 0 0 10px
-  padding: 0 40px 5px 0
-  overflow-x: auto
-  overflow-y: hidden
+  overflow: 0;
+  max-height: 100%
 
   &.placeholder
     background-color: rgba(0, 0, 0, .2)
@@ -32,6 +29,7 @@
     flex-direction: row;
     flex: 0 0 50px;
     padding-bottom: 30px;
+    border-bottom: 1px solid #CCC
 
     .swimlane-header
       writing-mode: sideways-lr;
