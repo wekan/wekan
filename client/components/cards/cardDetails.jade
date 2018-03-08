@@ -40,12 +40,16 @@ template(name="cardDetails")
         h3.card-details-item-title {{_ 'card-start'}}
         if startAt 
           +cardStartDate
+        else
+          'Not Set'
 
       .card-details-item.card-details-item-due
         h3.card-details-item-title {{_ 'card-due'}}
         if dueAt 
           +cardDueDate
-
+        else
+          'Not Set'
+          
     .card-details-items
       if spentTime
         .card-details-item.card-details-item-spent
