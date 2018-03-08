@@ -38,11 +38,13 @@ template(name="cardDetails")
 
       .card-details-item.card-details-item-start
         h3.card-details-item-title {{_ 'card-start'}}
-        if startAt +cardStartDate
+        if startAt 
+          +cardStartDate
 
       .card-details-item.card-details-item-due
         h3.card-details-item-title {{_ 'card-due'}}
-        if dueAt +cardDueDate
+        if dueAt 
+          +cardDueDate
 
     .card-details-items
       if spentTime
