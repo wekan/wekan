@@ -41,14 +41,14 @@ template(name="cardDetails")
         if startAt 
           +cardStartDate
         else
-          Not Set: Popup.open('editCardStartDate')
+          'click .js-edit-date': Popup.open('editCardStartDate')
 
       .card-details-item.card-details-item-due
         h3.card-details-item-title {{_ 'card-due'}}
         if dueAt 
           +cardDueDate
         else
-          Not Set: Popup.open('editCardStartDate')
+          'click .js-edit-date': Popup.open('editCardDueDate')
           
     .card-details-items
       if spentTime
