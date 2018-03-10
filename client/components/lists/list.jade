@@ -1,6 +1,7 @@
 template(name='list')
   .list.js-list(id="js-list-{{_id}}")
-    +listHeader
+    if board.view === 'board-view-lists'
+      +listHeader
     +listBody
 
 template(name='miniList')
