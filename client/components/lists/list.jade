@@ -1,6 +1,8 @@
 template(name='list')
   .list.js-list(id="js-list-{{_id}}")
-    +listHeader
+     if (board.view === 'board-view-swimlanes')
+       if swimlaneId = 1
+         +listHeader
     +listBody
 
 template(name='miniList')
