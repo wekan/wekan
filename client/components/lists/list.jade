@@ -1,10 +1,11 @@
 template(name='list')
-  .list.js-list(id="js-list-{{_id}}")
-    if !isViewSwimlanes
-      +listHeader
-      +listBody
-    else
-      +listBody  
+  if !isViewSwimlanes
+    .list.js-list(id="js-list-{{_id}}")
+    +listHeader
+    +listBody
+  else
+    .list.js-list(id="js-list-{{_id}}")
+    +listBody  
 
 template(name='miniList')
   a.mini-list.js-select-list.js-list(id="js-list-{{_id}}")
