@@ -211,11 +211,14 @@ Template.editCardTitleForm.events({
 });
 
 Template.moveCardPopup.events({
-  'click .js-select-list' () {
+  'click .js-done' () {
     // XXX We should *not* get the currentCard from the global state, but
     // instead from a “component” state.
     const card = Cards.findOne(Session.get('currentCard'));
-    const newListId = this._id;
+    const lSelect = $('.js-select-lists')[0];
+    const newListId = lSelect.options[lSelect.selectedIndex].value;
+    const slSelect = $('.js-select-swimlanes')[0];
+    card.swimlaneId = slSelect.options[slSelect.selectedIndex].value;
     card.move(card.swimlaneId, newListId, 0);
     Popup.close();
   },
@@ -223,7 +226,8 @@ Template.moveCardPopup.events({
 
 BlazeComponent.extendComponent({
   onCreated() {
-    this.selectedBoard = new ReactiveVar(Session.get('currentBoard'));
+    subManager.subscribe('board', Session.get('currentBoard'));
+    this.selectedBoardId = new ReactiveVar(Session.get('currentBoard'));
   },
 
   boards() {
@@ -236,32 +240,41 @@ BlazeComponent.extendComponent({
     return boards;
   },
 
+  swimlanes() {
+    const board = Boards.findOne(this.selectedBoardId.get());
+    return board.swimlanes();
+  },
+
   aBoardLists() {
-    subManager.subscribe('board', this.selectedBoard.get());
-    const board = Boards.findOne(this.selectedBoard.get());
+    const board = Boards.findOne(this.selectedBoardId.get());
     return board.lists();
   },
+
   events() {
     return [{
       'change .js-select-boards'(evt) {
-        this.selectedBoard.set($(evt.currentTarget).val());
+        this.selectedBoardId.set($(evt.currentTarget).val());
+        subManager.subscribe('board', this.selectedBoardId.get());
       },
     }];
   },
 }).register('boardsAndLists');
 
 Template.copyCardPopup.events({
-  'click .js-select-list' (evt) {
+  'click .js-done'() {
     const card = Cards.findOne(Session.get('currentCard'));
     const oldId = card._id;
     card._id = null;
-    card.listId = this._id;
-    const list = Lists.findOne(card.listId);
-    card.boardId = list.boardId;
-    const textarea = $(evt.currentTarget).parents('.content').find('textarea');
+    const lSelect = $('.js-select-lists')[0];
+    card.listId = lSelect.options[lSelect.selectedIndex].value;
+    const slSelect = $('.js-select-swimlanes')[0];
+    card.swimlaneId = slSelect.options[slSelect.selectedIndex].value;
+    const bSelect = $('.js-select-boards')[0];
+    card.boardId = bSelect.options[bSelect.selectedIndex].value;
+    const textarea = $('#copy-card-title');
     const title = textarea.val().trim();
     // insert new card to the bottom of new list
-    card.sort = Lists.findOne(this._id).cards().count();
+    card.sort = Lists.findOne(card.listId).cards().count();
 
     if (title) {
       card.title = title;
@@ -296,7 +309,6 @@ Template.copyCardPopup.events({
     }
   },
 });
-
 
 Template.copyChecklistToManyCardsPopup.events({
   'click .js-select-list' (evt) {
