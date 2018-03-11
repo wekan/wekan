@@ -21,7 +21,29 @@ template(name="boardBody")
       if showOverlay.get
         .board-overlay
       if isViewSwimlanes
-        +listHeader
+        if isMiniScreen
+        if currentList
+          a.list-header-left-icon.fa.fa-angle-left.js-unselect-list
+      h2.list-header-name(
+        class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
+        = title
+        if wipLimit.enabled
+         |&nbsp;(
+         span(class="{{#if reachedWipLimit}}highlight{{/if}}") {{cards.count}}
+         |/#{wipLimit.value})
+
+        if showCardsCountForList cards.count
+          = cards.count
+          span.lowercase
+            |  {{_ 'cards'}}
+        if currentList
+          if isWatching
+            i.list-header-watch-icon.fa.fa-eye
+          div.list-header-menu
+            unless currentUser.isCommentOnly
+              if canSeeAddCard
+                a.js-add-card.fa.fa-plus.list-header-plus-icon
+              a.fa.fa-navicon.js-open-list-menu
         each currentBoard.swimlanes
           +swimlane(this)
       if isViewLists
