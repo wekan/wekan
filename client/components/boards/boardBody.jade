@@ -21,6 +21,8 @@ template(name="boardBody")
       if showOverlay.get
         .board-overlay
       if isViewSwimlanes
+        each currentBoard.lists
+          +listHeader(this)
         each currentBoard.swimlanes
           +swimlane(this)
       if isViewLists
