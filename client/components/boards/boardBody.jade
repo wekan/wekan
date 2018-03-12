@@ -23,6 +23,7 @@ template(name="boardBody")
       if isViewSwimlanes
         .swimlanetop
         each currentBoard.lists
+          .div
           +listHeader(this)
         each currentBoard.swimlanes
           +swimlane(this)
