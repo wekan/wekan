@@ -133,8 +133,8 @@ BlazeComponent.extendComponent({
   },
 
   scrollLeft(position = 0) {
-    const lists = this.$('.js-lists');
-    lists && lists.animate({
+    const swimlanes = this.$('.js-swimlanes');
+    swimlanes && swimlanes.animate({
       scrollLeft: position,
     });
   },
