@@ -1,12 +1,8 @@
 const subManager = new SubsManager();
+const { calculateIndex } = Utils;
 
 BlazeComponent.extendComponent({
-  openNewListForm() {
-    this.childComponents('addListForm')[0].open();
-  },
   onCreated() {
-    this.draggingActive = new ReactiveVar(false);
-    this.showOverlay = new ReactiveVar(false);
     this.isBoardReady = new ReactiveVar(false);
 
     // The pattern we use to manually handle data loading is described here:
@@ -24,30 +20,70 @@ BlazeComponent.extendComponent({
         });
       });
     });
-
-    this._isDragging = false;
-    this._lastDragPositionX = 0;
-
-    // Used to set the overlay
-    this.mouseHasEnterCardDetails = false;
-  },
-
-  // XXX Flow components allow us to avoid creating these two setter methods by
-  // exposing a public API to modify the component state. We need to investigate
-  // best practices here.
-  setIsDragging(bool) {
-    this.draggingActive.set(bool);
-  },
-
-  scrollLeft(position = 0) {
-    const lists = this.$('.js-lists');
-    lists && lists.animate({
-      scrollLeft: position,
-    });
   },
 
   onlyShowCurrentCard() {
     return Utils.isMiniScreen() && Session.get('currentCard');
+  },
+
+}).register('board');
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.showOverlay = new ReactiveVar(false);
+    this.draggingActive = new ReactiveVar(false);
+    this._isDragging = false;
+    // Used to set the overlay
+    this.mouseHasEnterCardDetails = false;
+  },
+  onRendered() {
+    const boardComponent = this;
+    const $swimlanesDom = boardComponent.$('.js-swimlanes');
+
+    $swimlanesDom.sortable({
+      tolerance: 'pointer',
+      appendTo: '.board-canvas',
+      helper: 'clone',
+      handle: '.js-swimlane-header',
+      items: '.js-swimlane:not(.placeholder)',
+      placeholder: 'swimlane placeholder',
+      distance: 7,
+      start(evt, ui) {
+        ui.placeholder.height(ui.helper.height());
+        EscapeActions.executeUpTo('popup-close');
+        boardComponent.setIsDragging(true);
+      },
+      stop(evt, ui) {
+        // To attribute the new index number, we need to get the DOM element
+        // of the previous and the following card -- if any.
+        const prevSwimlaneDom = ui.item.prev('.js-swimlane').get(0);
+        const nextSwimlaneDom = ui.item.next('.js-swimlane').get(0);
+        const sortIndex = calculateIndex(prevSwimlaneDom, nextSwimlaneDom, 1);
+
+        $swimlanesDom.sortable('cancel');
+        const swimlaneDomElement = ui.item.get(0);
+        const swimlane = Blaze.getData(swimlaneDomElement);
+
+        Swimlanes.update(swimlane._id, {
+          $set: {
+            sort: sortIndex.base,
+          },
+        });
+
+        boardComponent.setIsDragging(false);
+      },
+    });
+
+    function userIsMember() {
+      return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
+    }
+
+    // If there is no data in the board (ie, no lists) we autofocus the list
+    // creation form by clicking on the corresponding element.
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    if (userIsMember() && currentBoard.lists().count() === 0) {
+      boardComponent.openNewListForm();
+    }
   },
 
   isViewSwimlanes() {
@@ -60,6 +96,16 @@ BlazeComponent.extendComponent({
     const currentBoardId = Session.get('currentBoard');
     const board = Boards.findOne(currentBoardId);
     return (board.view === 'board-view-lists');
+  },
+
+  openNewListForm() {
+    if (this.isViewSwimlanes()) {
+      this.childComponents('swimlane')[0]
+        .childComponents('addListAndSwimlaneForm')[0].open();
+    } else if (this.isViewLists()) {
+      this.childComponents('listsGroup')[0]
+        .childComponents('addListForm')[0].open();
+    }
   },
 
   events() {
@@ -78,4 +124,19 @@ BlazeComponent.extendComponent({
       },
     }];
   },
-}).register('board');
+
+  // XXX Flow components allow us to avoid creating these two setter methods by
+  // exposing a public API to modify the component state. We need to investigate
+  // best practices here.
+  setIsDragging(bool) {
+    this.draggingActive.set(bool);
+  },
+
+  scrollLeft(position = 0) {
+    const lists = this.$('.js-lists');
+    lists && lists.animate({
+      scrollLeft: position,
+    });
+  },
+
+}).register('boardBody');
