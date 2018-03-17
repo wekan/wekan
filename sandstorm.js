@@ -252,6 +252,10 @@ if (isSandstorm && Meteor.isServer) {
   Users.after.insert((userId, doc) => {
     if (!Boards.findOne(sandstormBoard._id)) {
       Boards.insert(sandstormBoard, { validate: false });
+      Swimlanes.insert({
+        title: 'Default',
+        boardId: sandstormBoard._id,
+      });
       Activities.update(
         { activityTypeId: sandstormBoard._id },
         { $set: { userId: doc._id }}
