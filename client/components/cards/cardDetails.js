@@ -44,8 +44,8 @@ BlazeComponent.extendComponent({
     const cardPanelWidth = 510;
     const bodyBoardComponent = this.parentComponent().parentComponent();
 
-    const $cardContainer = bodyBoardComponent.$('.js-lists');
     const $cardView = this.$(this.firstNode());
+    const $cardContainer = bodyBoardComponent.$('.js-swimlanes');
     const cardContainerScroll = $cardContainer.scrollLeft();
     const cardContainerWidth = $cardContainer.width();
 

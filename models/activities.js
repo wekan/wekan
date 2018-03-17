@@ -23,6 +23,9 @@ Activities.helpers({
   list() {
     return Lists.findOne(this.listId);
   },
+  swimlane() {
+    return Swimlanes.findOne(this.swimlaneId);
+  },
   oldList() {
     return Lists.findOne(this.oldListId);
   },
