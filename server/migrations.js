@@ -191,10 +191,10 @@ Migrations.add('add-views', () => {
 Migrations.add('add-checklist-items', () => {
   Checklists.find().forEach((checklist) => {
     // Create new items
-    _.sortBy(checklist.items, 'sort').forEach((item) => {
+    _.sortBy(checklist.items, 'sort').forEach((item, index) => {
       ChecklistItems.direct.insert({
         title: item.title,
-        sort: item.sort,
+        sort: index,
         isFinished: item.isFinished,
         checklistId: checklist._id,
         cardId: checklist.cardId,

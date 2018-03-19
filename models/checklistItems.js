@@ -47,6 +47,16 @@ ChecklistItems.mutations({
   toggleItem() {
     return { $set: { isFinished: !this.isFinished } };
   },
+  move(checklistId, sortIndex) {
+    const cardId = Checklists.findOne(checklistId).cardId;
+    const mutatedFields = {
+      cardId,
+      checklistId,
+      sort: sortIndex,
+    };
+
+    return {$set: mutatedFields};
+  }
 });
 
 // Activities helper

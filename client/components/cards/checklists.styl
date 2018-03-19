@@ -78,34 +78,45 @@ textarea.js-add-checklist-item, textarea.js-edit-checklist-item
   bottom: -600px
   right: 0
 
-.checklist-items
+.checklist-item
   margin: 0 0 0.5em 1.33em
+  line-height: 25px
+  font-size: 1.1em
+  margin-top: 3px
+  display: flex
 
-  .item
-    line-height: 25px
-    font-size: 1.1em
-    margin-top: 3px
-    display: flex
-    &:hover
-      background-color: darken(white, 8%)
+  &.placeholder
+    background: darken(white, 20%)
+    border-radius: 2px
 
-    .check-box
-      margin-top: 5px
-      &.is-checked
-        border-bottom: 2px solid #3cb500
-        border-right: 2px solid #3cb500
+  &.ui-sortable-helper
+    box-shadow: -2px 2px 8px rgba(0, 0, 0, .3),
+                0 0 1px rgba(0, 0, 0, .5)
+    transform: rotate(4deg)
+    cursor: grabbing
 
-    .item-title
-      flex: 1
-      padding-left: 10px;
-      &.is-checked
-        color: #8c8c8c
-        font-style: italic
+  &:hover
+    background-color: darken(white, 8%)
 
-  .js-delete-checklist-item
-    @extends .delete-text
-    padding: 12px 0 0 0
+  .check-box
+    margin-top: 5px
+    &.is-checked
+      border-bottom: 2px solid #3cb500
+      border-right: 2px solid #3cb500
 
-  .add-checklist-item
-    padding-top: 0.5em
-    display: inline-block
+  .item-title
+    flex: 1
+    padding-left: 10px;
+    &.is-checked
+      color: #8c8c8c
+      font-style: italic
+
+.js-delete-checklist-item
+  margin: 0 0 0.5em 1.33em
+  @extends .delete-text
+  padding: 12px 0 0 0
+
+.add-checklist-item
+  margin: 0 0 0.5em 1.33em
+  padding-top: 0.5em
+  display: inline-block
