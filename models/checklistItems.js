@@ -56,7 +56,7 @@ ChecklistItems.mutations({
     };
 
     return {$set: mutatedFields};
-  }
+  },
 });
 
 // Activities helper
