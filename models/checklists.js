@@ -7,24 +7,6 @@ Checklists.attachSchema(new SimpleSchema({
   title: {
     type: String,
   },
-  items: {
-    type: [Object],
-    defaultValue: [],
-  },
-  'items.$._id': {
-    type: String,
-  },
-  'items.$.title': {
-    type: String,
-  },
-  'items.$.sort': {
-    type: Number,
-    decimal: true,
-  },
-  'items.$.isFinished': {
-    type: Boolean,
-    defaultValue: false,
-  },
   finishedAt: {
     type: Date,
     optional: true,
@@ -46,19 +28,20 @@ Checklists.attachSchema(new SimpleSchema({
   },
 }));
 
-const self = Checklists;
-
 Checklists.helpers({
   itemCount() {
-    return this.items.length;
+    return ChecklistItems.find({ checklistId: this._id }).count();
   },
-  getItemsSorted() {
-    return _.sortBy(this.items, 'sort');
+  items() {
+    return ChecklistItems.find(Filter.mongoSelector({
+      checklistId: this._id,
+    }), { sort: ['sort'] });
   },
   finishedCount() {
-    return this.items.filter((item) => {
-      return item.isFinished;
-    }).length;
+    return ChecklistItems.find({
+      checklistId: this._id,
+      isFinished: true,
+    }).count();
   },
   isFinished() {
     return 0 !== this.itemCount() && this.itemCount() === this.finishedCount();

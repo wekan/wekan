@@ -187,3 +187,24 @@ Migrations.add('add-views', () => {
     }
   });
 });
+
+Migrations.add('add-checklist-items', () => {
+  Checklists.find().forEach((checklist) => {
+    // Create new items
+    _.sortBy(checklist.items, 'sort').forEach((item) => {
+      ChecklistItems.direct.insert({
+        title: item.title,
+        sort: item.sort,
+        isFinished: item.isFinished,
+        checklistId: checklist._id,
+        cardId: checklist.cardId,
+      });
+    });
+
+    // Delete old ones
+    Checklists.direct.update({ _id: checklist._id },
+      { $unset: { items : 1 } },
+      noValidate
+    );
+  });
+});
