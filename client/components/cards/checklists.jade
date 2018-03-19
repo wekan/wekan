@@ -18,24 +18,25 @@ template(name="checklists")
         | {{_ 'add-checklist'}}...
 
 template(name="checklistDetail")
-  +inlinedForm(classNames="js-edit-checklist-title" checklist = checklist)
-    +editChecklistItemForm(checklist = checklist)
-  else
-    .checklist-title
-      .checkbox.fa.fa-check-square-o
-      if canModifyCard
-        a.js-delete-checklist.toggle-delete-checklist-dialog {{_ "delete"}}...
-
-      span.checklist-stat(class="{{#if checklist.isFinished}}is-finished{{/if}}") {{checklist.finishedCount}}/{{checklist.itemCount}}
-      if canModifyCard
-        h2.title.js-open-inlined-form.is-editable
-          +viewer
-            = checklist.title
-      else
-        h2.title
-          +viewer
+  .js-checklist
+    +inlinedForm(classNames="js-edit-checklist-title" checklist = checklist)
+      +editChecklistItemForm(checklist = checklist)
+    else
+      .checklist-title
+        .checkbox.fa.fa-check-square-o
+        if canModifyCard
+          a.js-delete-checklist.toggle-delete-checklist-dialog {{_ "delete"}}...
+  
+        span.checklist-stat(class="{{#if checklist.isFinished}}is-finished{{/if}}") {{checklist.finishedCount}}/{{checklist.itemCount}}
+        if canModifyCard
+          h2.title.js-open-inlined-form.is-editable
+            +viewer
               = checklist.title
-  +checklistItems(checklist = checklist)
+        else
+          h2.title
+            +viewer
+                = checklist.title
+    +checklistItems(checklist = checklist)
 
 template(name="checklistDeleteDialog")
   .js-confirm-checklist-delete

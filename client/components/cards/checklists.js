@@ -38,26 +38,32 @@ function initSorting(items) {
   });
 }
 
-Template.checklists.onRendered(function () {
-  const self = BlazeComponent.getComponentForElement(this.firstNode);
-  self.itemsDom = this.$('.card-checklist-items');
-  initSorting(self.itemsDom);
-  self.itemsDom.mousedown(function(evt) {
-    evt.stopPropagation();
-  });
+BlazeComponent.extendComponent({
+  onRendered() {
+    const self = this;
+    self.itemsDom = this.$('.js-checklist-items');
+    initSorting(self.itemsDom);
+    self.itemsDom.mousedown(function(evt) {
+      evt.stopPropagation();
+    });
 
-  function userIsMember() {
-    return Meteor.user() && Meteor.user().isBoardMember();
-  }
-
-  // Disable sorting if the current user is not a board member
-  self.autorun(() => {
-    const $itemsDom = $(self.itemsDom);
-    if ($itemsDom.data('sortable')) {
-      $(self.itemsDom).sortable('option', 'disabled', !userIsMember());
+    function userIsMember() {
+      return Meteor.user() && Meteor.user().isBoardMember();
     }
-  });
-});
+
+    // Disable sorting if the current user is not a board member
+    self.autorun(() => {
+      const $itemsDom = $(self.itemsDom);
+      if ($itemsDom.data('sortable')) {
+        $(self.itemsDom).sortable('option', 'disabled', !userIsMember());
+      }
+    });
+  },
+
+  canModifyCard() {
+    return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
+  },
+}).register('checklistDetail');
 
 BlazeComponent.extendComponent({
 
