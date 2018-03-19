@@ -74,7 +74,7 @@ BlazeComponent.extendComponent({
       helper: 'clone',
       handle: '.checklist-title',
       items: '.js-checklist',
-      placeholder: 'js-checklist placeholder',
+      placeholder: 'checklist placeholder',
       distance: 7,
       start(evt, ui) {
         ui.placeholder.height(ui.helper.height());

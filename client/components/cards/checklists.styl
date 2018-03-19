@@ -78,12 +78,27 @@ textarea.js-add-checklist-item, textarea.js-edit-checklist-item
   bottom: -600px
   right: 0
 
+.checklist
+  background: darken(white, 3%)
+
+  &.placeholder
+    background: darken(white, 20%)
+    border-radius: 2px
+
+  &.ui-sortable-helper
+    box-shadow: -2px 2px 8px rgba(0, 0, 0, .3),
+                0 0 1px rgba(0, 0, 0, .5)
+    transform: rotate(4deg)
+    cursor: grabbing
+
+
 .checklist-item
   margin: 0 0 0.5em 1.33em
   line-height: 25px
   font-size: 1.1em
   margin-top: 3px
   display: flex
+  background: darken(white, 3%)
 
   &.placeholder
     background: darken(white, 20%)
