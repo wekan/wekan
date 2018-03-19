@@ -17,35 +17,35 @@ template(name='statistics')
     table
       tbody
         tr
-          th {{_ 'Wekan_version'}}
+          th {{_ 'wekan_version'}}
           td {{statistics.version}}
         tr
-          th {{_ 'Node_version'}}
+          th {{_ 'node_version'}}
           td {{statistics.process.nodeVersion}}
         tr
-          th {{_ 'OS_Type'}}
+          th {{_ 'os_type'}}
           td {{statistics.os.type}}
         tr
-          th {{_ 'OS_Platform'}}
+          th {{_ 'os_platform'}}
           td {{statistics.os.platform}}
         tr
-          th {{_ 'OS_Arch'}}
+          th {{_ 'os_arch'}}
           td {{statistics.os.arch}}
         tr
-          th {{_ 'OS_Release'}}
+          th {{_ 'os_release'}}
           td {{statistics.os.release}}
         tr
-          th {{_ 'OS_Uptime'}}
+          th {{_ 'os_uptime'}}
           td {{humanReadableTime statistics.os.uptime}}
         tr
-          th {{_ 'OS_Loadavg'}}
+          th {{_ 'os_loadavg'}}
           td {{numFormat statistics.os.loadavg.[0]}}, {{numFormat statistics.os.loadavg.[1]}}, {{numFormat statistics.os.loadavg.[2]}}
         tr
-          th {{_ 'OS_Totalmem'}}
+          th {{_ 'os_totalmem'}}
           td {{bytesToSize statistics.os.totalmem}}
         tr
-          th {{_ 'OS_Freemem'}}
+          th {{_ 'os_freemem'}}
           td {{bytesToSize statistics.os.freemem}}
         tr
-          th {{_ 'OS_Cpus'}}
+          th {{_ 'os_cpus'}}
           td {{statistics.os.cpus.length}}
