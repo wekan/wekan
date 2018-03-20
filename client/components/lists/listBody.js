@@ -201,6 +201,7 @@ BlazeComponent.extendComponent({
     return [{
       keydown: this.pressKey,
       'click .js-import': Popup.open('importCard'),
+      'click .js-search': Popup.open('searchCard'),
     }];
   },
 
@@ -275,14 +276,39 @@ BlazeComponent.extendComponent({
 
 BlazeComponent.extendComponent({
   onCreated() {
-    subManager.subscribe('board', Session.get('currentBoard'));
-    this.selectedBoardId = new ReactiveVar(Session.get('currentBoard'));
+    // Prefetch first non-current board id
+    const boardId = Boards.findOne({
+      archived: false,
+      'members.userId': Meteor.userId(),
+      _id: {$ne: Session.get('currentBoard')},
+    })._id;
+    // Subscribe to this board
+    subManager.subscribe('board', boardId);
+    this.selectedBoardId = new ReactiveVar(boardId);
+    this.selectedSwimlaneId = new ReactiveVar('');
+    this.selectedListId = new ReactiveVar('');
+
+    this.boardId = Session.get('currentBoard');
+    // In order to get current board info
+    subManager.subscribe('board', this.boardId);
+    const board = Boards.findOne(this.boardId);
+    // List where to insert card
+    const list = $(Popup._getTopStack().openerElement).closest('.js-list');
+    this.listId = Blaze.getData(list[0])._id;
+    // Swimlane where to insert card
+    const swimlane = $(Popup._getTopStack().openerElement).closest('.js-swimlane');
+    this.swimlaneId = '';
+    if (board.view === 'board-view-swimlanes')
+      this.swimlaneId = Blaze.getData(swimlane[0])._id;
+    else
+      this.swimlaneId = Swimlanes.findOne({boardId: this.boardId})._id;
   },
 
   boards() {
     const boards = Boards.find({
       archived: false,
       'members.userId': Meteor.userId(),
+      _id: {$ne: Session.get('currentBoard')},
     }, {
       sort: ['title'],
     });
@@ -290,18 +316,26 @@ BlazeComponent.extendComponent({
   },
 
   swimlanes() {
-    const board = Boards.findOne(this.selectedBoardId.get());
-    return board.swimlanes();
+    const swimlanes = Swimlanes.find({boardId: this.selectedBoardId.get()});
+    if (swimlanes.count())
+      this.selectedSwimlaneId.set(swimlanes.fetch()[0]._id);
+    return swimlanes;
   },
 
   lists() {
-    const board = Boards.findOne(this.selectedBoardId.get());
-    return board.lists();
+    const lists = Lists.find({boardId: this.selectedBoardId.get()});
+    if (lists.count())
+      this.selectedListId.set(lists.fetch()[0]._id);
+    return lists;
   },
 
   cards() {
-    const board = Boards.findOne(this.selectedBoardId.get());
-    return board.cards();
+    return Cards.find({
+      boardId: this.selectedBoardId.get(),
+      swimlaneId: this.selectedSwimlaneId.get(),
+      listId: this.selectedListId.get(),
+      archived: false,
+    });
   },
 
   events() {
@@ -310,24 +344,44 @@ BlazeComponent.extendComponent({
         this.selectedBoardId.set($(evt.currentTarget).val());
         subManager.subscribe('board', this.selectedBoardId.get());
       },
-      'submit .js-done' (evt) {
+      'change .js-select-swimlanes'(evt) {
+        this.selectedSwimlaneId.set($(evt.currentTarget).val());
+      },
+      'change .js-select-lists'(evt) {
+        this.selectedListId.set($(evt.currentTarget).val());
+      },
+      'click .js-done' (evt) {
         // IMPORT CARD
+        evt.stopPropagation();
         evt.preventDefault();
-        // XXX We should *not* get the currentCard from the global state, but
-        // instead from a “component” state.
-        const card = Cards.findOne(Session.get('currentCard'));
-        const lSelect = $('.js-select-lists')[0];
-        const newListId = lSelect.options[lSelect.selectedIndex].value;
-        const slSelect = $('.js-select-swimlanes')[0];
-        card.swimlaneId = slSelect.options[slSelect.selectedIndex].value;
+        const _id = Cards.insert({
+          title: $('.js-select-cards option:selected').text(), //dummy
+          listId: this.listId,
+          swimlaneId: this.swimlaneId,
+          boardId: this.boardId,
+          sort: Lists.findOne(this.listId).cards().count(),
+          type: 'cardType-importedCard',
+          importedId: $('.js-select-cards option:selected').val(),
+        });
+        Filter.addException(_id);
         Popup.close();
       },
-      'submit .js-import-board' (evt) {
+      'click .js-import-board' (evt) {
         //IMPORT BOARD
+        evt.stopPropagation();
         evt.preventDefault();
+        const _id = Cards.insert({
+          title: $('.js-select-boards option:selected').text(), //dummy
+          listId: this.listId,
+          swimlaneId: this.swimlaneId,
+          boardId: this.boardId,
+          sort: Lists.findOne(this.listId).cards().count(),
+          type: 'cardType-importedBoard',
+          importedId: $('.js-select-boards option:selected').val(),
+        });
+        Filter.addException(_id);
         Popup.close();
       },
-      'click .js-search': Popup.open('searchCard'),
     }];
   },
 }).register('importCardPopup');
@@ -338,13 +392,30 @@ BlazeComponent.extendComponent({
   },
 
   onCreated() {
+    // Prefetch first non-current board id
     const boardId = Boards.findOne({
       archived: false,
       'members.userId': Meteor.userId(),
       _id: {$ne: Session.get('currentBoard')},
     })._id;
+    // Subscribe to this board
     subManager.subscribe('board', boardId);
     this.selectedBoardId = new ReactiveVar(boardId);
+
+    this.boardId = Session.get('currentBoard');
+    // In order to get current board info
+    subManager.subscribe('board', this.boardId);
+    const board = Boards.findOne(this.boardId);
+    // List where to insert card
+    const list = $(Popup._getTopStack().openerElement).closest('.js-list');
+    this.listId = Blaze.getData(list[0])._id;
+    // Swimlane where to insert card
+    const swimlane = $(Popup._getTopStack().openerElement).closest('.js-swimlane');
+    this.swimlaneId = '';
+    if (board.view === 'board-view-swimlanes')
+      this.swimlaneId = Blaze.getData(swimlane[0])._id;
+    else
+      this.swimlaneId = Swimlanes.findOne({boardId: this.boardId})._id;
     this.term = new ReactiveVar('');
   },
 
@@ -376,6 +447,18 @@ BlazeComponent.extendComponent({
       },
       'click .js-minicard'(evt) {
         // IMPORT CARD
+        const card = Blaze.getData(evt.currentTarget);
+        const _id = Cards.insert({
+          title: card.title, //dummy
+          listId: this.listId,
+          swimlaneId: this.swimlaneId,
+          boardId: this.boardId,
+          sort: Lists.findOne(this.listId).cards().count(),
+          type: 'cardType-importedCard',
+          importedId: card._id,
+        });
+        Filter.addException(_id);
+        Popup.close();
       },
     }];
   },

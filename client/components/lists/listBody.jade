@@ -37,6 +37,10 @@ template(name="addCardForm")
     span.quiet
       | {{_ 'or'}}
       a.js-import {{_ 'import'}}
+    span.quiet
+      | &nbsp;
+      | /
+      a.js-search {{_ 'search'}}
 
 template(name="autocompleteLabelLine")
   .minicard-label(class="card-label-{{colorName}}" title=labelName)
@@ -51,7 +55,7 @@ template(name="importCardPopup")
           option(value="{{_id}}" selected) {{_ 'current'}}
         else
           option(value="{{_id}}") {{title}}
-    input.primary.confirm.js-import-board(type="submit" value="{{_ 'add'}}")
+    input.primary.confirm.js-import-board(type="button" value="{{_ 'import'}}")
 
   label {{_ 'swimlanes'}}:
   select.js-select-swimlanes
@@ -64,15 +68,12 @@ template(name="importCardPopup")
       option(value="{{_id}}") {{title}}
 
   label {{_ 'cards'}}:
-  select.js-select-lists
+  select.js-select-cards
     each cards
       option(value="{{_id}}") {{title}}
 
   .edit-controls.clearfix
-    input.primary.confirm.js-done(type="submit" value="{{_ 'done'}}")
-    span.quiet
-      | {{_ 'or'}}
-      a.js-search {{_ 'search'}}
+    input.primary.confirm.js-done(type="button" value="{{_ 'import'}}")
 
 template(name="searchCardPopup")
   label {{_ 'boards'}}:
