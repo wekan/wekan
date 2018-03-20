@@ -183,6 +183,10 @@ Boards.helpers({
     return this.permission === 'public';
   },
 
+  cards() {
+    return Cards.find({ boardId: this._id, archived: false }, { sort: { title: 1 } });
+  },
+
   lists() {
     return Lists.find({ boardId: this._id, archived: false }, { sort: { sort: 1 } });
   },

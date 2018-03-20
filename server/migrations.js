@@ -219,3 +219,15 @@ Migrations.add('add-profile-view', () => {
     );
   });
 });
+
+Migrations.add('add-card-types', () => {
+  Cards.find().forEach((card) => {
+    Cards.direct.update(
+      { _id: card._id },
+      { $set: {
+        type: 'cardType-card',
+        importedId: null } },
+      noValidate
+    );
+  });
+});

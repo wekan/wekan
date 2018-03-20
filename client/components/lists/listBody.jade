@@ -34,8 +34,59 @@ template(name="addCardForm")
 
   .add-controls.clearfix
     button.primary.confirm(type="submit") {{_ 'add'}}
-    a.fa.fa-times-thin.js-close-inlined-form
+    span.quiet
+      | {{_ 'or'}}
+      a.js-import {{_ 'import'}}
 
 template(name="autocompleteLabelLine")
   .minicard-label(class="card-label-{{colorName}}" title=labelName)
   span(class="{{#if hasNoName}}quiet{{/if}}")= labelName
+
+template(name="importCardPopup")
+  label {{_ 'boards'}}:
+  .import-board-wrapper
+    select.js-select-boards
+      each boards
+        if $eq _id currentBoard._id
+          option(value="{{_id}}" selected) {{_ 'current'}}
+        else
+          option(value="{{_id}}") {{title}}
+    input.primary.confirm.js-import-board(type="submit" value="{{_ 'add'}}")
+
+  label {{_ 'swimlanes'}}:
+  select.js-select-swimlanes
+    each swimlanes
+      option(value="{{_id}}") {{title}}
+
+  label {{_ 'lists'}}:
+  select.js-select-lists
+    each lists
+      option(value="{{_id}}") {{title}}
+
+  label {{_ 'cards'}}:
+  select.js-select-lists
+    each cards
+      option(value="{{_id}}") {{title}}
+
+  .edit-controls.clearfix
+    input.primary.confirm.js-done(type="submit" value="{{_ 'done'}}")
+    span.quiet
+      | {{_ 'or'}}
+      a.js-search {{_ 'search'}}
+
+template(name="searchCardPopup")
+  label {{_ 'boards'}}:
+  .import-board-wrapper
+    select.js-select-boards
+      each boards
+        if $eq _id currentBoard._id
+          option(value="{{_id}}" selected) {{_ 'current'}}
+        else
+          option(value="{{_id}}") {{title}}
+  form.js-search-term-form
+    input(type="text" name="searchTerm" placeholder="{{_ 'search-example'}}" autofocus)
+  .list-body.js-perfect-scrollbar.search-card-results
+    .minicards.clearfix.js-minicards
+      each results
+        a.minicard-wrapper.js-minicard
+          +minicard(this)

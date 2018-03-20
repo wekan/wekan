@@ -99,6 +99,13 @@ Cards.attachSchema(new SimpleSchema({
     type: Number,
     decimal: true,
   },
+  type: {
+    type: String,
+  },
+  importedId: {
+    type: String,
+    optional: true,
+  },
 }));
 
 Cards.allow({
