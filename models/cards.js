@@ -155,7 +155,7 @@ Cards.helpers({
   },
 
   checklists() {
-    return Checklists.find({cardId: this._id}, {sort: {createdAt: 1}});
+    return Checklists.find({cardId: this._id}, {sort: { sort: 1 } });
   },
 
   checklistItemCount() {

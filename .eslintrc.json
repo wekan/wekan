@@ -131,6 +131,7 @@
     "AccountSettings": true,
     "Announcements": true,
     "Swimlanes": true,
+    "ChecklistItems": true,
     "Npm": true
   }
 }

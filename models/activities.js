@@ -42,7 +42,7 @@ Activities.helpers({
     return Checklists.findOne(this.checklistId);
   },
   checklistItem() {
-    return Checklists.findOne(this.checklistId).getItem(this.checklistItemId);
+    return ChecklistItems.findOne(this.checklistItemId);
   },
 });
 
