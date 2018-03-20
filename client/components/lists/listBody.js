@@ -334,8 +334,13 @@ BlazeComponent.extendComponent({
   },
 
   onCreated() {
-    subManager.subscribe('board', Session.get('currentBoard'));
-    this.selectedBoardId = new ReactiveVar(Session.get('currentBoard'));
+    const boardId = Boards.findOne({
+      archived: false,
+      'members.userId': Meteor.userId(),
+      _id: {$ne: Session.get('currentBoard')},
+    })._id;
+    subManager.subscribe('board', boardId);
+    this.selectedBoardId = new ReactiveVar(boardId);
     this.term = new ReactiveVar('');
   },
 
@@ -343,6 +348,7 @@ BlazeComponent.extendComponent({
     const boards = Boards.find({
       archived: false,
       'members.userId': Meteor.userId(),
+      _id: {$ne: Session.get('currentBoard')},
     }, {
       sort: ['title'],
     });
@@ -364,7 +370,7 @@ BlazeComponent.extendComponent({
         evt.preventDefault();
         this.term.set(evt.target.searchTerm.value);
       },
-      'click .js-minicard'() {
+      'click .js-minicard'(evt) {
         // IMPORT CARD
       },
     }];
