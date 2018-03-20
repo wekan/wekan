@@ -133,6 +133,13 @@ Cards.attachSchema(new SimpleSchema({
     defaultValue: -1,
     optional: true,
   },
+  type: {
+    type: String,
+  },
+  importedId: {
+    type: String,
+    optional: true,
+  },
 }));
 
 Cards.allow({

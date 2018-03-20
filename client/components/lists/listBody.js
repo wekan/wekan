@@ -1,3 +1,5 @@
+const subManager = new SubsManager();
+
 BlazeComponent.extendComponent({
   mixins() {
     return [Mixins.PerfectScrollbar];
@@ -55,6 +57,7 @@ BlazeComponent.extendComponent({
         boardId: boardId._id,
         sort: sortIndex,
         swimlaneId,
+        type: 'cardType-card',
       });
       // In case the filter is active we need to add the newly inserted card in
       // the list of exceptions -- cards that are not filtered. Otherwise the
@@ -197,6 +200,7 @@ BlazeComponent.extendComponent({
   events() {
     return [{
       keydown: this.pressKey,
+      'click .js-import': Popup.open('importCard'),
     }];
   },
 
@@ -268,3 +272,105 @@ BlazeComponent.extendComponent({
     });
   },
 }).register('addCardForm');
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    subManager.subscribe('board', Session.get('currentBoard'));
+    this.selectedBoardId = new ReactiveVar(Session.get('currentBoard'));
+  },
+
+  boards() {
+    const boards = Boards.find({
+      archived: false,
+      'members.userId': Meteor.userId(),
+    }, {
+      sort: ['title'],
+    });
+    return boards;
+  },
+
+  swimlanes() {
+    const board = Boards.findOne(this.selectedBoardId.get());
+    return board.swimlanes();
+  },
+
+  lists() {
+    const board = Boards.findOne(this.selectedBoardId.get());
+    return board.lists();
+  },
+
+  cards() {
+    const board = Boards.findOne(this.selectedBoardId.get());
+    return board.cards();
+  },
+
+  events() {
+    return [{
+      'change .js-select-boards'(evt) {
+        this.selectedBoardId.set($(evt.currentTarget).val());
+        subManager.subscribe('board', this.selectedBoardId.get());
+      },
+      'submit .js-done' (evt) {
+        // IMPORT CARD
+        evt.preventDefault();
+        // XXX We should *not* get the currentCard from the global state, but
+        // instead from a “component” state.
+        const card = Cards.findOne(Session.get('currentCard'));
+        const lSelect = $('.js-select-lists')[0];
+        const newListId = lSelect.options[lSelect.selectedIndex].value;
+        const slSelect = $('.js-select-swimlanes')[0];
+        card.swimlaneId = slSelect.options[slSelect.selectedIndex].value;
+        Popup.close();
+      },
+      'submit .js-import-board' (evt) {
+        //IMPORT BOARD
+        evt.preventDefault();
+        Popup.close();
+      },
+      'click .js-search': Popup.open('searchCard'),
+    }];
+  },
+}).register('importCardPopup');
+
+BlazeComponent.extendComponent({
+  mixins() {
+    return [Mixins.PerfectScrollbar];
+  },
+
+  onCreated() {
+    subManager.subscribe('board', Session.get('currentBoard'));
+    this.selectedBoardId = new ReactiveVar(Session.get('currentBoard'));
+    this.term = new ReactiveVar('');
+  },
+
+  boards() {
+    const boards = Boards.find({
+      archived: false,
+      'members.userId': Meteor.userId(),
+    }, {
+      sort: ['title'],
+    });
+    return boards;
+  },
+
+  results() {
+    const board = Boards.findOne(this.selectedBoardId.get());
+    return board.searchCards(this.term.get());
+  },
+
+  events() {
+    return [{
+      'change .js-select-boards'(evt) {
+        this.selectedBoardId.set($(evt.currentTarget).val());
+        subManager.subscribe('board', this.selectedBoardId.get());
+      },
+      'submit .js-search-term-form'(evt) {
+        evt.preventDefault();
+        this.term.set(evt.target.searchTerm.value);
+      },
+      'click .js-minicard'() {
+        // IMPORT CARD
+      },
+    }];
+  },
+}).register('searchCardPopup');
