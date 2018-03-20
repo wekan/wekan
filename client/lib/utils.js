@@ -33,6 +33,37 @@ Utils = {
     return $(window).width() <= 800;
   },
 
+  calculateIndexData(prevData, nextData, nItems = 1) {
+    let base, increment;
+    // If we drop the card to an empty column
+    if (!prevData && !nextData) {
+      base = 0;
+      increment = 1;
+    // If we drop the card in the first position
+    } else if (!prevData) {
+      base = nextData.sort - 1;
+      increment = -1;
+    // If we drop the card in the last position
+    } else if (!nextData) {
+      base = prevData.sort + 1;
+      increment = 1;
+    }
+    // In the general case take the average of the previous and next element
+    // sort indexes.
+    else {
+      const prevSortIndex = prevData.sort;
+      const nextSortIndex = nextData.sort;
+      increment = (nextSortIndex - prevSortIndex) / (nItems + 1);
+      base = prevSortIndex + increment;
+    }
+    // XXX Return a generator that yield values instead of a base with a
+    // increment number.
+    return {
+      base,
+      increment,
+    };
+  },
+
   // Determine the new sort index
   calculateIndex(prevCardDomElement, nextCardDomElement, nCards = 1) {
     let base, increment;

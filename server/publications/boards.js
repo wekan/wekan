@@ -101,6 +101,7 @@ Meteor.publishRelations('board', function(boardId) {
       this.cursor(CardComments.find({ cardId }));
       this.cursor(Attachments.find({ cardId }));
       this.cursor(Checklists.find({ cardId }));
+      this.cursor(ChecklistItems.find({ cardId }));
     });
 
     if (board.members) {

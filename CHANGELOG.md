@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Checklist items sort fix, and checklist sort capability](https://github.com/wekan/wekan/pull/1543).
+
+Thanks to GitHub user andresmanelli for contributions.
+
 # v0.78 2018-03-17 Wekan release
 
 This release adds the following new features:
