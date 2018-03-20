@@ -1,5 +1,7 @@
 template(name="minicard")
-  .minicard
+  .minicard(
+    class="{{#if importedCard}}imported-card{{/if}}"
+    class="{{#if importedBoard}}imported-board{{/if}}")
     if cover
       .minicard-cover(style="background-image: url('{{cover.url}}');")
     if labels
@@ -7,6 +9,8 @@ template(name="minicard")
         each labels
           .minicard-label(class="card-label-{{color}}" title="{{name}}")
     .minicard-title
+      if imported
+        span.imported-icon.fa.fa-share-alt
       +viewer
         = title
     .dates

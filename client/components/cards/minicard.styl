@@ -44,6 +44,41 @@
   transition: transform 0.2s,
               border-radius 0.2s
 
+  &.imported-board
+    background-color: #efd8e6
+    &:hover:not(.minicard-composer),
+    .is-selected &,
+    .draggable-hover-card &
+      background: darken(#efd8e6, 3%)
+
+    .is-selected &
+      border-left: 3px solid darken(#efd8e6, 50%)
+
+    .minicard-title
+      font-style: italic
+      font-weight: bold
+
+  &.imported-card
+    background-color: #d5e4bd
+    &:hover:not(.minicard-composer),
+    .is-selected &,
+    .draggable-hover-card &
+      background: darken(#d5e4bd, 3%)
+
+    .is-selected &
+      border-left: 3px solid darken(#d5e4bd, 50%)
+
+    .minicard-title
+      font-style: italic
+
+  &.imported-board
+  &.imported-card
+    .imported-icon
+      display: inline-block
+      margin-right: 11px
+      vertical-align: baseline
+      font-size: 0.9em
+
   .is-selected &
     transform: translateX(11px)
     border-bottom-right-radius: 0
@@ -80,6 +115,8 @@
   .minicard-title
     p:last-child
       margin-bottom: 0
+    .viewer
+      display: inline-block
   .dates
     display: flex;
     flex-direction: row;
