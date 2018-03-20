@@ -7,24 +7,6 @@ Checklists.attachSchema(new SimpleSchema({
   title: {
     type: String,
   },
-  items: {
-    type: [Object],
-    defaultValue: [],
-  },
-  'items.$._id': {
-    type: String,
-  },
-  'items.$.title': {
-    type: String,
-  },
-  'items.$.sort': {
-    type: Number,
-    decimal: true,
-  },
-  'items.$.isFinished': {
-    type: Boolean,
-    defaultValue: false,
-  },
   finishedAt: {
     type: Date,
     optional: true,
@@ -46,39 +28,27 @@ Checklists.attachSchema(new SimpleSchema({
   },
 }));
 
-const self = Checklists;
-
 Checklists.helpers({
   itemCount() {
-    return this.items.length;
+    return ChecklistItems.find({ checklistId: this._id }).count();
   },
-  getItemsSorted() {
-    return _.sortBy(this.items, 'sort');
+  items() {
+    return ChecklistItems.find(Filter.mongoSelector({
+      checklistId: this._id,
+    }), { sort: ['sort'] });
   },
   finishedCount() {
-    return this.items.filter((item) => {
-      return item.isFinished;
-    }).length;
+    return ChecklistItems.find({
+      checklistId: this._id,
+      isFinished: true,
+    }).count();
   },
   isFinished() {
     return 0 !== this.itemCount() && this.itemCount() === this.finishedCount();
   },
-  getItem(_id) {
-    return _.findWhere(this.items, { _id });
-  },
   itemIndex(itemId) {
     const items = self.findOne({_id : this._id}).items;
     return _.pluck(items, '_id').indexOf(itemId);
-  },
-  getNewItemId() {
-    const itemCount = this.itemCount();
-    let idx = 0;
-    if (itemCount > 0) {
-      const lastId = this.items[itemCount - 1]._id;
-      const lastIdSuffix = lastId.substr(this._id.length);
-      idx = parseInt(lastIdSuffix, 10) + 1;
-    }
-    return `${this._id}${idx}`;
   },
 });
 
@@ -103,107 +73,8 @@ Checklists.before.insert((userId, doc) => {
 });
 
 Checklists.mutations({
-  //for checklist itself
   setTitle(title) {
     return { $set: { title } };
-  },
-  //for items in checklist
-  addItem(title) {
-    const _id = this.getNewItemId();
-    return {
-      $addToSet: {
-        items: {
-          _id, title,
-          isFinished: false,
-          sort: this.itemCount(),
-        },
-      },
-    };
-  },
-  addFullItem(item) {
-    const itemsUpdate = {};
-    this.items.forEach(function(iterItem, index) {
-      if (iterItem.sort >= item.sort) {
-        itemsUpdate[`items.${index}.sort`] = iterItem.sort + 1;
-      }
-    });
-    if (!_.isEmpty(itemsUpdate)) {
-      self.direct.update({ _id: this._id }, { $set: itemsUpdate });
-    }
-    return { $addToSet: { items: item } };
-  },
-  removeItem(itemId) {
-    const item = this.getItem(itemId);
-    const itemsUpdate = {};
-    this.items.forEach(function(iterItem, index) {
-      if (iterItem.sort > item.sort) {
-        itemsUpdate[`items.${index}.sort`] = iterItem.sort - 1;
-      }
-    });
-    if (!_.isEmpty(itemsUpdate)) {
-      self.direct.update({ _id: this._id }, { $set: itemsUpdate });
-    }
-    return { $pull: { items: { _id: itemId } } };
-  },
-  editItem(itemId, title) {
-    if (this.getItem(itemId)) {
-      const itemIndex = this.itemIndex(itemId);
-      return {
-        $set: {
-          [`items.${itemIndex}.title`]: title,
-        },
-      };
-    }
-    return {};
-  },
-  finishItem(itemId) {
-    if (this.getItem(itemId)) {
-      const itemIndex = this.itemIndex(itemId);
-      return {
-        $set: {
-          [`items.${itemIndex}.isFinished`]: true,
-        },
-      };
-    }
-    return {};
-  },
-  resumeItem(itemId) {
-    if (this.getItem(itemId)) {
-      const itemIndex = this.itemIndex(itemId);
-      return {
-        $set: {
-          [`items.${itemIndex}.isFinished`]: false,
-        },
-      };
-    }
-    return {};
-  },
-  toggleItem(itemId) {
-    const item = this.getItem(itemId);
-    if (item) {
-      const itemIndex = this.itemIndex(itemId);
-      return {
-        $set: {
-          [`items.${itemIndex}.isFinished`]: !item.isFinished,
-        },
-      };
-    }
-    return {};
-  },
-  sortItems(itemIDs) {
-    const validItems = [];
-    itemIDs.forEach((itemID) => {
-      if (this.getItem(itemID)) {
-        validItems.push(this.itemIndex(itemID));
-      }
-    });
-    const modifiedValues = {};
-    for (let i = 0; i < validItems.length; i++) {
-      modifiedValues[`items.${validItems[i]}.sort`] = i;
-    }
-    return {
-      $set: modifiedValues,
-    };
   },
 });
 
@@ -222,30 +93,6 @@ if (Meteor.isServer) {
     });
   });
 
-  //TODO: so there will be no activity for adding item into checklist, maybe will be implemented in the future.
-  // The future is now
-  Checklists.after.update((userId, doc, fieldNames, modifier) => {
-    if (fieldNames.includes('items')) {
-      if (modifier.$addToSet) {
-        Activities.insert({
-          userId,
-          activityType: 'addChecklistItem',
-          cardId: doc.cardId,
-          boardId: Cards.findOne(doc.cardId).boardId,
-          checklistId: doc._id,
-          checklistItemId: modifier.$addToSet.items._id,
-        });
-      } else if (modifier.$pull) {
-        const activity = Activities.findOne({
-          checklistItemId: modifier.$pull.items._id,
-        });
-        if (activity) {
-          Activities.remove(activity._id);
-        }
-      }
-    }
-  });
-
   Checklists.before.remove((userId, doc) => {
     const activities = Activities.find({ checklistId: doc._id });
     if (activities) {
@@ -256,7 +103,6 @@ if (Meteor.isServer) {
   });
 }
 
-//CARD COMMENT REST API
 if (Meteor.isServer) {
   JsonRoutes.add('GET', '/api/boards/:boardId/cards/:cardId/checklists', function (req, res) {
     try {
