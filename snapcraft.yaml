@@ -140,7 +140,7 @@ parts:
 
     caddy:
         plugin: dump
-        source: https://caddyserver.com/download/linux/amd64?plugins=
+        source: https://caddyserver.com/download/linux/amd64?license=personal&plugins=
         source-type: tar
         organize:
           caddy: bin/caddy
