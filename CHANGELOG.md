@@ -2,9 +2,10 @@
 
 This release adds the following new features:
 
-- [Checklist items sort fix, and checklist sort capability](https://github.com/wekan/wekan/pull/1543).
+- [Checklist items sort fix, and checklist sort capability](https://github.com/wekan/wekan/pull/1543);
+- [Add Received Date and End Date. Between them is already existing Start and Due Date](https://github.com/wekan/wekan/pull/1550).
 
-Thanks to GitHub user andresmanelli for contributions.
+Thanks to GitHub users andresmanelli and rjevnikar for their contributions.
 
 # v0.78 2018-03-17 Wekan release
 
