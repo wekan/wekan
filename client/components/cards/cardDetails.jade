@@ -36,13 +36,16 @@ template(name="cardDetails")
           a.card-label.add-label.js-add-labels(title="{{_ 'card-labels-title'}}")
             i.fa.fa-plus
 
-      .card-details-item.card-details-item-start
-        h3.card-details-item-title {{_ 'card-start'}}
-          +cardStartDate
-  
-      .card-details-item.card-details-item-due
-        h3.card-details-item-title {{_ 'card-due'}}
-          +cardDueDate
+
+      if startAt
+        .card-details-item.card-details-item-start
+          h3.card-details-item-title {{_ 'card-start'}}
+            +cardStartDate
+
+      if dueAt
+        .card-details-item.card-details-item-due
+          h3.card-details-item-title {{_ 'card-due'}}
+            +cardDueDate
             
     .card-details-items
       if spentTime
