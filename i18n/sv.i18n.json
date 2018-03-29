@@ -435,5 +435,11 @@
     "accounts-allowEmailChange": "Tillåt e-poständring",
     "createdAt": "Skapad vid",
     "verified": "Verifierad",
-    "active": "Aktiv"
+    "active": "Aktiv",
+    "card-received": "Received",
+    "card-received-on": "Received on",
+    "card-end": "End",
+    "card-end-on": "Ends on",
+    "editCardReceivedDatePopup-title": "Change received date",
+    "editCardEndDatePopup-title": "Change end date"
 }

@@ -149,6 +149,10 @@ BlazeComponent.extendComponent({
       'click .js-member': Popup.open('cardMember'),
       'click .js-add-members': Popup.open('cardMembers'),
       'click .js-add-labels': Popup.open('cardLabels'),
+      'click .js-received-date': Popup.open('editCardReceivedDate'),
+      'click .js-start-date': Popup.open('editCardStartDate'),
+      'click .js-due-date': Popup.open('editCardDueDate'),
+      'click .js-end-date': Popup.open('editCardEndDate'),
       'mouseenter .js-card-details' () {
         this.parentComponent().parentComponent().showOverlay.set(true);
         this.parentComponent().parentComponent().mouseHasEnterCardDetails = true;
@@ -211,8 +215,10 @@ Template.cardDetailsActionsPopup.events({
   'click .js-members': Popup.open('cardMembers'),
   'click .js-labels': Popup.open('cardLabels'),
   'click .js-attachments': Popup.open('cardAttachments'),
+  'click .js-received-date': Popup.open('editCardReceivedDate'),
   'click .js-start-date': Popup.open('editCardStartDate'),
   'click .js-due-date': Popup.open('editCardDueDate'),
+  'click .js-end-date': Popup.open('editCardEndDate'),
   'click .js-spent-time': Popup.open('editCardSpentTime'),
   'click .js-move-card': Popup.open('moveCard'),
   'click .js-copy-card': Popup.open('copyCard'),
