@@ -18,6 +18,35 @@ template(name="cardDetails")
       p.warning {{_ 'card-archived'}}
 
     .card-details-items
+      .card-details-item.card-details-item-received
+        h3.card-details-item-title {{_ 'card-received'}}
+        if receivedAt
+          +cardReceivedDate
+        else
+          a.js-received-date {{_ 'add'}}
+
+      .card-details-item.card-details-item-start
+        h3.card-details-item-title {{_ 'card-start'}}
+        if startAt
+          +cardStartDate
+        else
+          a.js-start-date {{_ 'add'}}
+
+      .card-details-item.card-details-item-due
+        h3.card-details-item-title {{_ 'card-due'}}
+        if dueAt
+          +cardDueDate
+        else
+          a.js-due-date {{_ 'add'}}
+
+      .card-details-item.card-details-item-end
+        h3.card-details-item-title {{_ 'card-end'}}
+        if endAt
+          +cardEndDate
+        else
+          a.js-end-date {{_ 'add'}}
+
+    .card-details-items
       .card-details-item.card-details-item-members
         h3.card-details-item-title {{_ 'members'}}
         each members
@@ -35,16 +64,6 @@ template(name="cardDetails")
         if canModifyCard
           a.card-label.add-label.js-add-labels(title="{{_ 'card-labels-title'}}")
             i.fa.fa-plus
-
-      if startAt
-        .card-details-item.card-details-item-start
-          h3.card-details-item-title {{_ 'card-start'}}
-          +cardStartDate
-
-      if dueAt
-        .card-details-item.card-details-item-due
-          h3.card-details-item-title {{_ 'card-due'}}
-          +cardDueDate
 
     .card-details-items
       if spentTime
@@ -86,7 +105,7 @@ template(name="cardDetails")
     +checklists(cardId = _id)
 
     hr
-    h2
+    h3
       i.fa.fa-paperclip
       | {{_ 'attachments'}}
 
@@ -94,7 +113,7 @@ template(name="cardDetails")
 
     hr
     .activity-title
-      h2 {{ _ 'activity'}}
+      h3 {{ _ 'activity'}}
       if currentUser.isBoardMember
         .material-toggle-switch
           span.toggle-switch-title {{_ 'hide-system-messages'}}
@@ -124,8 +143,10 @@ template(name="cardDetailsActionsPopup")
       li: a.js-members {{_ 'card-edit-members'}}
       li: a.js-labels {{_ 'card-edit-labels'}}
       li: a.js-attachments {{_ 'card-edit-attachments'}}
+      li: a.js-received-date {{_ 'editCardReceivedDatePopup-title'}}
       li: a.js-start-date {{_ 'editCardStartDatePopup-title'}}
       li: a.js-due-date {{_ 'editCardDueDatePopup-title'}}
+      li: a.js-end-date {{_ 'editCardEndDatePopup-title'}}
       li: a.js-spent-time {{_ 'editCardSpentTimePopup-title'}}
     hr
     ul.pop-over-list
