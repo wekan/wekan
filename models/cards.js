@@ -59,11 +59,19 @@ Cards.attachSchema(new SimpleSchema({
     type: [String],
     optional: true,
   },
+  receivedAt: {
+    type: Date,
+    optional: true,
+  },
   startAt: {
     type: Date,
     optional: true,
   },
   dueAt: {
+    type: Date,
+    optional: true,
+  },
+  endAt: {
     type: Date,
     optional: true,
   },
@@ -271,6 +279,14 @@ Cards.mutations({
     return {$unset: {coverId: ''}};
   },
 
+  setReceived(receivedAt) {
+    return {$set: {receivedAt}};
+  },
+
+  unsetReceived() {
+    return {$unset: {receivedAt: ''}};
+  },
+
   setStart(startAt) {
     return {$set: {startAt}};
   },
@@ -285,6 +301,14 @@ Cards.mutations({
 
   unsetDue() {
     return {$unset: {dueAt: ''}};
+  },
+
+  setEnd(endAt) {
+    return {$set: {endAt}};
+  },
+
+  unsetEnd() {
+    return {$unset: {endAt: ''}};
   },
 
   setOvertime(isOvertime) {

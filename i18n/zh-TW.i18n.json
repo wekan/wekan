@@ -435,5 +435,11 @@
     "accounts-allowEmailChange": "准許變更電子信箱",
     "createdAt": "Created at",
     "verified": "Verified",
-    "active": "Active"
+    "active": "Active",
+    "card-received": "Received",
+    "card-received-on": "Received on",
+    "card-end": "End",
+    "card-end-on": "Ends on",
+    "editCardReceivedDatePopup-title": "Change received date",
+    "editCardEndDatePopup-title": "Change end date"
 }
