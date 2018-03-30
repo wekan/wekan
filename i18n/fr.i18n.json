@@ -40,7 +40,7 @@
     "activity-sent": "a envoyé %s vers %s",
     "activity-unjoined": "a quitté %s",
     "activity-checklist-added": "a ajouté une checklist à %s",
-    "activity-checklist-item-added": "a ajouté une checklist à '%s' dans %s",
+    "activity-checklist-item-added": "a ajouté un élément à la checklist '%s' dans %s",
     "add": "Ajouter",
     "add-attachment": "Ajouter une pièce jointe",
     "add-board": "Ajouter un tableau",
@@ -156,7 +156,7 @@
     "comment-only": "Commentaire uniquement",
     "comment-only-desc": "Ne peut que commenter des cartes.",
     "computer": "Ordinateur",
-    "confirm-checklist-delete-dialog": "Êtes-vous sûr de vouloir supprimer cette checklist ?",
+    "confirm-checklist-delete-dialog": "Êtes-vous sûr de vouloir supprimer la checklist",
     "copy-card-link-to-clipboard": "Copier le lien vers la carte dans le presse-papier",
     "copyCardPopup-title": "Copier la carte",
     "copyChecklistToManyCardsPopup-title": "Copier le modèle de checklist vers plusieurs cartes",
@@ -435,5 +435,11 @@
     "accounts-allowEmailChange": "Autoriser le changement d'adresse mail",
     "createdAt": "Créé à",
     "verified": "Vérifié",
-    "active": "Actif"
+    "active": "Actif",
+    "card-received": "Received",
+    "card-received-on": "Received on",
+    "card-end": "End",
+    "card-end-on": "Ends on",
+    "editCardReceivedDatePopup-title": "Change received date",
+    "editCardEndDatePopup-title": "Change end date"
 }

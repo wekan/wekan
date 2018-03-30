@@ -49,6 +49,11 @@
     &:hover, &.is-active
       background-color: darken(#fd5d47, 7)
 
+  &.end-date
+    time
+      &::before
+        content: "\f253"  // symbol: fa-hourglass-end
+
   &.due-date
     time
       &::before
@@ -58,6 +63,11 @@
     time
       &::before
         content: "\f08b"  // symbol: fa-sign-out
+
+  &.received-date
+    time
+      &::before
+        content: "\f251"  // symbol: fa-hourglass-start
 
   time
     &::before

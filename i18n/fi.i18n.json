@@ -435,5 +435,11 @@
     "accounts-allowEmailChange": "Salli sähköpostiosoitteen muuttaminen",
     "createdAt": "Luotu",
     "verified": "Varmistettu",
-    "active": "Aktiivinen"
+    "active": "Aktiivinen",
+    "card-received": "Vastaanotettu",
+    "card-received-on": "Vastaanotettu",
+    "card-end": "Loppuu",
+    "card-end-on": "Loppuu",
+    "editCardReceivedDatePopup-title": "Vaihda vastaanottamispäivää",
+    "editCardEndDatePopup-title": "Vaihda loppumispäivää"
 }
