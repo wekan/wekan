@@ -435,5 +435,11 @@
     "accounts-allowEmailChange": "E-posta Değiştirmeye İzin Ver",
     "createdAt": "Oluşturulma tarihi",
     "verified": "Doğrulanmış",
-    "active": "Aktif"
+    "active": "Aktif",
+    "card-received": "Received",
+    "card-received-on": "Received on",
+    "card-end": "End",
+    "card-end-on": "Ends on",
+    "editCardReceivedDatePopup-title": "Change received date",
+    "editCardEndDatePopup-title": "Change end date"
 }
