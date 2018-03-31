@@ -436,10 +436,10 @@
     "createdAt": "Créé à",
     "verified": "Vérifié",
     "active": "Actif",
-    "card-received": "Received",
-    "card-received-on": "Received on",
-    "card-end": "End",
-    "card-end-on": "Ends on",
-    "editCardReceivedDatePopup-title": "Change received date",
-    "editCardEndDatePopup-title": "Change end date"
+    "card-received": "Reçue",
+    "card-received-on": "Reçue le",
+    "card-end": "Fin",
+    "card-end-on": "Se termine le",
+    "editCardReceivedDatePopup-title": "Changer la date de réception",
+    "editCardEndDatePopup-title": "Changer la date de fin"
 }
