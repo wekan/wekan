@@ -3,9 +3,14 @@
 This release adds the following new features:
 
 - [Checklist items sort fix, and checklist sort capability](https://github.com/wekan/wekan/pull/1543);
-- [Add Received Date and End Date. Between them is already existing Start and Due Date](https://github.com/wekan/wekan/pull/1550).
+- [Add Received Date and End Date. Between them is already existing Start and Due Date](https://github.com/wekan/wekan/pull/1550);
 
-Thanks to GitHub users andresmanelli and rjevnikar for their contributions.
+and fixes the following bugs:
+
+- [Fix drag in lists view](https://github.com/wekan/wekan/pull/1559/commits/679e50af6449a680f958256570e8b9f1944a3a92);
+- [Set fixed width for swimlane header](https://github.com/wekan/wekan/pull/1559/commits/2e8f8924dd0d985ae4634450cfbef04e88e5d954).
+
+Thanks to GitHub users andresmanelli, rjevnikar and xet7 for their contributions.
 
 # v0.78 2018-03-17 Wekan release
 
