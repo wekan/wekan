@@ -10,7 +10,7 @@ function currentCardIsInThisList(listId, swimlaneId) {
     return currentCard && currentCard.listId === listId && currentCard.swimlaneId === swimlaneId;
   else
     return false;
-};
+}
 
 function initSortable(boardComponent, $listsDom) {
   // We want to animate the card details window closing. We rely on CSS
@@ -78,7 +78,7 @@ function initSortable(boardComponent, $listsDom) {
         MultiSelection.isActive() || !userIsMember());
     }
   });
-};
+}
 
 BlazeComponent.extendComponent({
   onRendered() {
