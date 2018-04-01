@@ -436,10 +436,10 @@
     "createdAt": "ساخته شده در",
     "verified": "معتبر",
     "active": "فعال",
-    "card-received": "Received",
-    "card-received-on": "Received on",
-    "card-end": "End",
-    "card-end-on": "Ends on",
-    "editCardReceivedDatePopup-title": "Change received date",
-    "editCardEndDatePopup-title": "Change end date"
+    "card-received": "رسیده",
+    "card-received-on": "رسیده در",
+    "card-end": "پایان",
+    "card-end-on": "پایان در",
+    "editCardReceivedDatePopup-title": "تغییر تاریخ رسید",
+    "editCardEndDatePopup-title": "تغییر تاریخ پایان"
 }
