@@ -23,7 +23,7 @@ template(name="checklistDetail")
       +editChecklistItemForm(checklist = checklist)
     else
       .checklist-title
-        .checkbox.fa.fa-check-square-o
+        .checkbox.fa.fa-square-o
         if canModifyCard
           a.js-delete-checklist.toggle-delete-checklist-dialog {{_ "delete"}}...
   
