@@ -2,8 +2,43 @@ version: '2'
 
 services:
 
+  # 1) Create a dedicated user for Wekan, for example:
+  #      sudo useradd -d /home/wekan -m -s /bin/bash wekan
+  # 2) Add this user to the docker group, then logout+login or reboot:
+  #      sudo usermod -aG docker wekan
+  # 3) Then login as user wekan.
+  # 4) Create this file /home/wekan/docker-compose.yml with your modifications.
+  # 5a) Running Docker as service, on Systemd like Debian 9, Ubuntu 16.04, CentOS 7:
+  #      sudo systemctl enable docker
+  #      sudo systemctl start docker
+  # 5b) Running Docker as service, on init.d like Debian 8, Ubuntu 14.04, CentOS 6:
+  #      sudo update-rc.d docker defaults
+  #      sudo service docker start
+  # 6) For seeing does Wekan work, try this and check with your webbroser:
+  #      docker-compose up
+  # 7) Stop Wekan and start Wekan in background:
+  #     docker-compose stop
+  #     docker-compose up -d
+  # 8) See running Docker containers:
+  #     docker ps
+  # 9) See stopped Docker containers:
+  #     docker ps -a
+
+  # Upgrading Wekan to new version:
+  # 1) Stop Wekan:
+  #      docker-compose stop
+  # 2) Download new version:
+  #      docker-compose pull wekan
+  # 3) If you have more networks for VPN etc as described at bottom of
+  #    this config, download for them too:
+  #      docker-compose pull wekan2
+  # 4) Start Wekan:
+  #      docker-compose start
+
   wekandb:
-    image: mongo:3.2.18
+    # All Wekan data is stored in MongoDB. For backup and restore, see:
+    #   https://github.com/wekan/wekan/wiki/Export-Docker-Mongo-Data
+    image: mongo:3.2.19
     container_name: wekan-db
     restart: always
     command: mongod --smallfiles --oplogSize 128
@@ -16,11 +51,21 @@ services:
       - wekan-db-dump:/dump
 
   wekan:
-    image: wekanteam/wekan:latest
+    # Wekan container only has Node.js and related code,
+    # there is no data stored here.
+    #
+    # Docker Hub, usually broken:
+    #image: wekanteam/wekan:latest
+    #
+    # Quay, usually works, updates faster:
+    image: quay.io/wekan/wekan
     container_name: wekan-app
     restart: always
     networks:
       - wekan-tier
+    #---------------------------------------------------------------
+    # == BUILDING WEKAN FROM SOURCE IN DOCKER ==
+    # docker-compose up -d --build
     build:
       context: .
       dockerfile: Dockerfile
@@ -32,13 +77,75 @@ services:
         - SRC_PATH=${SRC_PATH}
         - METEOR_EDGE=${METEOR_EDGE}
         - USE_EDGE=${USE_EDGE}
+    #---------------------------------------------------------------
+    # For running Wekan in different port like 3000, use: 3000:80
     ports:
       - 80:80
     environment:
+      #---------------------------------------------------------------
+      # == ROOT_URL SETTING ==
+      # Change ROOT_URL to your real Wekan URL, for example:
+      #   http://example.com
+      #   http://example.com/wekan
+      #   http://192.168.1.100
+      #---------------------------------------------------------------
+      - ROOT_URL=http://example.com
+      #---------------------------------------------------------------
+      # == PORT SETTING ==
+      # Not needed on Docker, but if you had installed from source,
+      #   you could also have setup Wekan Node.js port at localhost
+      #   with setting: PORT=3001
+      #   and have Nginx proxy to port 3001, see Wekan wiki.
+      #---------------------------------------------------------------
+      # - PORT=3001
+      #---------------------------------------------------------------
+      # == MONGO URL AND OPLOG SETTINGS ==
+      # https://github.com/wekan/wekan-mongodb/issues/2#issuecomment-378343587
+      # We've fixed our CPU usage problem today with an environment
+      # change around Wekan. I wasn't aware during implementation
+      # that if you're using more than 1 instance of Wekan
+      # (or any MeteorJS based tool) you're supposed to set
+      # MONGO_OPLOG_URL as an environment variable.
+      # Without setting it, Meteor will perform a pull-and-diff
+      # update of it's dataset. With it, Meteor will update from
+      # the OPLOG. See here
+      #   https://blog.meteor.com/tuning-meteor-mongo-livedata-for-scalability-13fe9deb8908
+      # After setting
+      # MONGO_OPLOG_URL=mongodb://<username>:<password>@<mongoDbURL>/local?authSource=admin&replicaSet=rsWekan
+      # the CPU usage for all Wekan instances dropped to an average
+      # of less than 10% with only occasional spikes to high usage
+      # (I guess when someone is doing a lot of work)
+      #---------------------------------------------------------------
       - MONGO_URL=mongodb://wekandb:27017/wekan
-      - ROOT_URL=http://localhost
+      #---------------------------------------------------------------
+      # - MONGO_OPLOG_URL=mongodb://<username>:<password>@<mongoDbURL>/local?authSource=admin&replicaSet=rsWekan
+      #---------------------------------------------------------------
+      # == EMAIL SETTINGS ==
+      # Email settings are required in both MAIL_URL and Admin Panel,
+      #   see https://github.com/wekan/wekan/wiki/Troubleshooting-Mail
+      #   For SSL in email, change smtp:// to smtps://
+      # NOTE: Special characters need to be url-encoded in MAIL_URL.
+      #---------------------------------------------------------------
+      - MAIL_URL=smtp://user:pass@mailserver.example.com:25/
+      - MAIL_FROM='Example Wekan Support <support@example.com>'
     depends_on:
       - wekandb
+
+#------------------------------------------------------------------
+#  When using Wekan both at office LAN and remote VPN:
+#    1) Have above Wekan docker container config with LAN IP address
+#    2) Copy all of above Wekan config below, change name to different
+#       like wekan2 or wekanvpn, and change ROOT_URL to server VPN IP
+#       address.
+#    3) This way both Wekan containers can use same MongoDB database
+#       and see the same Wekan boards.
+#    4) You could also add 3rd Wekan container for 3rd network etc.
+#------------------------------------------------------------------
+#  wekan2:
+#    ....COPY CONFIG FROM ABOVE TO HERE...
+#    environment:
+#      - ROOT_URL='http://10.10.10.10'
+#      ...COPY CONFIG FROM ABOVE TO HERE...
 
 volumes:
   wekan-db:
