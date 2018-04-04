@@ -1,3 +1,14 @@
+# v0.80 2018-04-04 Wekan release
+
+This release adds the following new features:
+
+- [Changed icon of checklist name to unchecked](https://github.com/wekan/wekan/pull/1559/commits/f9539aa2a8d806e5a158d1c32f74788d051d40cb);
+- [Added meteor packages](https://github.com/wekan/wekan/commit/40d438a517f0d807894e04873358aecf44fa7c4d)
+  for security: [browser-policy](https://atmospherejs.com/meteor/browser-policy) and
+  [eluck:accounts-lockout](https://atmospherejs.com/eluck/accounts-lockout).
+
+Thanks to GitHub users quantazelle and xet7 for their contributions.
+
 # v0.79 2018-03-31 Wekan release
 
 This release adds the following new features:
