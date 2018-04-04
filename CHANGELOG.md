@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Changed icon of checklist name to unchecked](https://github.com/wekan/wekan/pull/1559/commits/f9539aa2a8d806e5a158d1c32f74788d051d40cb).
+
+Thanks to GitHub user quantazelle for contributions.
+
 # v0.79 2018-03-31 Wekan release
 
 This release adds the following new features:
