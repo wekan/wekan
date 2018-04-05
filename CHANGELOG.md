@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Removed forcing "cards" translations to lowercase in count of cards](https://github.com/wekan/wekan/issues/1571).
+
+Thanks to GitHub users Chartman123 and xet7 for their contributions.
+
 # v0.80 2018-04-04 Wekan release
 
 This release adds the following new features:
