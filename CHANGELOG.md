@@ -2,13 +2,15 @@
 
 This release adds the following new features:
 
-- [Removed checkbox from checklist name to have more of material design look](https://github.com/wekan/wekan/issues/1568).
+- [Removed checkbox from checklist name to have more of material design look](https://github.com/wekan/wekan/issues/1568);
+- [Renamed Archives to Recycle Bin](https://github.com/wekan/wekan/issues/1429);
+- [Separate translations for cards in Recycle Bin and cards count](https://github.com/wekan/wekan/pull/1559/commits/49c7a6c223061b9c1769143fea32fecc7d0f3c3e).
 
 and fixes the following bugs:
 
 - [Removed forcing "cards" translations to lowercase in count of cards](https://github.com/wekan/wekan/issues/1571).
 
-Thanks to GitHub users Chartman123, quantazelle and xet7 for their contributions.
+Thanks to GitHub users BruceZCQ, Chartman123, quantazelle and xet7 for their contributions.
 
 # v0.80 2018-04-04 Wekan release
 
