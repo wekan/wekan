@@ -2,7 +2,8 @@ template(name="boardHeaderBar")
   h1.header-board-menu
     with currentBoard
       a(class="{{#if currentUser.isBoardAdmin}}js-edit-board-title{{else}}is-disabled{{/if}}")
-        = title
+        +viewer
+          = title
 
   .board-header-btns.left
     unless isMiniScreen
@@ -71,7 +72,7 @@ template(name="boardHeaderBar")
               title="{{_ 'log-in'}}")
               i.fa.fa-sign-in
               span {{_ 'log-in'}}
-              
+
       if isSandstorm
         if currentUser
           a.board-header-btn.js-open-archived-board
