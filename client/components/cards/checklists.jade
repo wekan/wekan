@@ -23,10 +23,10 @@ template(name="checklistDetail")
       +editChecklistItemForm(checklist = checklist)
     else
       .checklist-title
-        .checkbox.fa.fa-check-square-o
+        span
         if canModifyCard
           a.js-delete-checklist.toggle-delete-checklist-dialog {{_ "delete"}}...
-  
+
         span.checklist-stat(class="{{#if checklist.isFinished}}is-finished{{/if}}") {{checklist.finishedCount}}/{{checklist.itemCount}}
         if canModifyCard
           h2.title.js-open-inlined-form.is-editable

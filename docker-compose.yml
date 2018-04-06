@@ -3,7 +3,7 @@ version: '2'
 services:
 
   wekandb:
-    image: mongo:3.2.18
+    image: mongo:3.2.19
     container_name: wekan-db
     restart: always
     command: mongod --smallfiles --oplogSize 128
@@ -16,7 +16,7 @@ services:
       - wekan-db-dump:/dump
 
   wekan:
-    image: wekanteam/wekan:latest
+    image: quay.io/wekan/wekan
     container_name: wekan-app
     restart: always
     networks:

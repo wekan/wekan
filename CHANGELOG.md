@@ -1,3 +1,30 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Removed checkbox from checklist name to have more of material design look](https://github.com/wekan/wekan/issues/1568);
+- [Renamed Archives to Recycle Bin](https://github.com/wekan/wekan/issues/1429);
+- [Separate translations for cards in Recycle Bin and cards count](https://github.com/wekan/wekan/commit/49c7a6c223061b9c1769143fea32fecc7d0f3c3e);
+- [Use lighter and smaller font sizes](https://github.com/wekan/wekan/commit/7b94b0470198bc22b6a52db6661f35076f7c6388);
+- [Board title as markdown in board view](https://github.com/wekan/wekan/commit/7b94b0470198bc22b6a52db6661f35076f7c6388).
+
+and fixes the following bugs:
+
+- [Removed forcing "cards" translations to lowercase in count of cards](https://github.com/wekan/wekan/issues/1571).
+
+Thanks to GitHub users BruceZCQ, Chartman123, quantazelle and xet7 for their contributions.
+
+# v0.80 2018-04-04 Wekan release
+
+This release adds the following new features:
+
+- [Changed icon of checklist name to unchecked](https://github.com/wekan/wekan/pull/1559/commits/f9539aa2a8d806e5a158d1c32f74788d051d40cb);
+- [Added meteor packages](https://github.com/wekan/wekan/commit/40d438a517f0d807894e04873358aecf44fa7c4d)
+  for security: [browser-policy](https://atmospherejs.com/meteor/browser-policy) and
+  [eluck:accounts-lockout](https://atmospherejs.com/eluck/accounts-lockout).
+
+Thanks to GitHub users quantazelle and xet7 for their contributions.
+
 # v0.79 2018-03-31 Wekan release
 
 This release adds the following new features:
