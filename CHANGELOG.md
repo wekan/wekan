@@ -5,7 +5,8 @@ This release adds the following new features:
 - [Removed checkbox from checklist name to have more of material design look](https://github.com/wekan/wekan/issues/1568);
 - [Renamed Archives to Recycle Bin](https://github.com/wekan/wekan/issues/1429);
 - [Separate translations for cards in Recycle Bin and cards count](https://github.com/wekan/wekan/commit/49c7a6c223061b9c1769143fea32fecc7d0f3c3e);
-- [Use lighter and smaller font sizes](https://github.com/wekan/wekan/commit/7b94b0470198bc22b6a52db6661f35076f7c6388).
+- [Use lighter and smaller font sizes](https://github.com/wekan/wekan/commit/7b94b0470198bc22b6a52db6661f35076f7c6388);
+- [Board title as markdown in board view](https://github.com/wekan/wekan/commit/7b94b0470198bc22b6a52db6661f35076f7c6388).
 
 and fixes the following bugs:
 
