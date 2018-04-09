@@ -459,6 +459,17 @@ if (Meteor.isServer) {
       return user;
     }
 
+    if (user.services.oidc) {
+      user.username = user.services.oidc.username;
+      user.emails = [{
+                               address: user.services.oidc.email.toLowerCase(),
+                               verified: false,
+                             }];
+      const initials = user.services.oidc.fullname.match(/\b[a-zA-Z]/g).join('').toUpperCase();
+      user.profile = { initials: initials, fullname: user.services.oidc.fullname };
+    }
+
+
     if (options.from === 'admin') {
       user.createdThroughApi = true;
       return user;
