@@ -27,6 +27,8 @@ template(name="boardList")
                     title="{{#if hasOvertimeCards}}{{_ 'has-overtime-cards'}}{{else}}{{_ 'has-spenttime-cards'}}{{/if}}")
 
                 p.board-list-item-desc= description
+                cards.count
+                
       li.js-add-board
         a.board-list-item.label {{_ 'add-board'}}
 
