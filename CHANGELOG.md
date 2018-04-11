@@ -1,3 +1,10 @@
+# v0.82 2018-04-11 Wekan release
+
+- [Restore original font and font sizes. Admin panel people and version texts
+  to darker](https://github.com/wekan/wekan/commit/db74c86e555f45a5aaaef84d2f3d4128cec77782).
+
+Thanks to GitHub users apn3a and xet7 for their contributions.
+
 # v0.81 2018-04-10 Wekan release
 
 This release adds the following new features:
