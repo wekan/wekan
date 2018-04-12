@@ -1,3 +1,9 @@
+# v0.83 2018-04-12 Wekan release
+
+- Updated translations: Czech and French.
+
+Thanks to translators!
+
 # v0.82 2018-04-11 Wekan release
 
 - [Restore original font and font sizes. Admin panel people and version texts
