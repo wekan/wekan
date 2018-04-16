@@ -102,7 +102,7 @@
     "board-view-lists": "Listas",
     "bucket-example": "Como “Cosas por hacer” por ejemplo",
     "cancel": "Cancelar",
-    "card-archived": "Esta tarjeta se envió a la papelera de reciclaje",
+    "card-archived": "Esta tarjeta se ha enviado a la papelera de reciclaje.",
     "card-comments-title": "Esta tarjeta tiene %s comentarios.",
     "card-delete-notice": "la eliminación es permanente. Perderás todas las acciones asociadas a esta tarjeta.",
     "card-delete-pop": "Se eliminarán todas las acciones del historial de actividades y no se podrá volver a abrir la tarjeta. Esta acción no puede deshacerse.",
