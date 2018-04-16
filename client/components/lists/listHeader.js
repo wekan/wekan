@@ -34,8 +34,8 @@ BlazeComponent.extendComponent({
   events() {
     return [{
       'click .js-open-list-menu': Popup.open('listAction'),
-      'click .js-add-card' () {
-        const listDom = document.getElementById(`js-list-${this.currentData()._id}`);
+      'click .js-add-card' (evt) {
+        const listDom = $(evt.target).parents(`#js-list-${this.currentData()._id}`)[0];
         const listComponent = BlazeComponent.getComponentForElement(listDom);
         listComponent.openForm({
           position: 'top',
