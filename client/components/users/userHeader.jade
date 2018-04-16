@@ -86,5 +86,5 @@ template(name="changeSettingsPopup")
     li
       label.bold
         | {{_ 'show-cards-minimum-count'}}
-      input#show-cards-count-at.inline-input.left(type="number" value="#{showCardsCountAt}" min="1" max="99" onkeydown="return false")
+      input#show-cards-count-at.inline-input.left(type="number" value="#{showCardsCountAt}" min="0" max="99" onkeydown="return false")
       input.js-apply-show-cards-at.left(type="submit" value="{{_ 'apply'}}")

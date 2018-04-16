@@ -1,3 +1,20 @@
+# v0.84 2018-04-16 Wekan release
+
+This release adds the following new features:
+
+- [Add Checklist Items REST API](https://github.com/wekan/wekan/commit/9eef5112dc1c1c30590d19fbfd2f615714112a3f).
+
+and fixes the following bugs:
+
+- [Fix Node Fibers 100% CPU issue](https://github.com/wekan/wekan/commit/e26a4824cfb119a15767c4827190a6b9ab65b904);
+- [Plus button on a Swimlane row, always add an element on the first row](https://github.com/wekan/wekan/issues/1577);
+- [Fix Checklist REST API](https://github.com/wekan/wekan/commit/9eef5112dc1c1c30590d19fbfd2f615714112a3f);
+- [Fix Disabling "show cards count" not possible, now zero means disable](https://github.com/wekan/wekan/issues/1570);
+- [Fix Checklist not copied when copied a card and Copy Checklist Template to Many Cards](https://github.com/wekan/wekan/issues/1565);
+- [Fix Filter cards hides checklist items](https://github.com/wekan/wekan/issues/1561).
+
+Thanks to GitHub users andresmanelli, kentonv and xet7 for their contributions.
+
 # v0.83 2018-04-12 Wekan release
 
 - Updated translations: Czech and French.

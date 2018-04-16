@@ -343,9 +343,16 @@ Template.copyCardPopup.events({
       cursor.forEach(function() {
         'use strict';
         const checklist = arguments[0];
+        const checklistId = checklist._id;
         checklist.cardId = _id;
         checklist._id = null;
-        Checklists.insert(checklist);
+        const newChecklistId = Checklists.insert(checklist);
+        ChecklistItems.find({checklistId}).forEach(function(item) {
+          item._id = null;
+          item.checklistId = newChecklistId;
+          item.cardId = _id;
+          ChecklistItems.insert(item);
+        });
       });
 
       // copy card comments
@@ -363,17 +370,20 @@ Template.copyCardPopup.events({
 });
 
 Template.copyChecklistToManyCardsPopup.events({
-  'click .js-select-list' (evt) {
+  'click .js-done' () {
     const card = Cards.findOne(Session.get('currentCard'));
     const oldId = card._id;
     card._id = null;
-    card.listId = this._id;
-    const list = Lists.findOne(card.listId);
-    card.boardId = list.boardId;
-    const textarea = $(evt.currentTarget).parents('.content').find('textarea');
+    const lSelect = $('.js-select-lists')[0];
+    card.listId = lSelect.options[lSelect.selectedIndex].value;
+    const slSelect = $('.js-select-swimlanes')[0];
+    card.swimlaneId = slSelect.options[slSelect.selectedIndex].value;
+    const bSelect = $('.js-select-boards')[0];
+    card.boardId = bSelect.options[bSelect.selectedIndex].value;
+    const textarea = $('#copy-card-title');
     const titleEntry = textarea.val().trim();
     // insert new card to the bottom of new list
-    card.sort = Lists.findOne(this._id).cards().count();
+    card.sort = Lists.findOne(card.listId).cards().count();
 
     if (titleEntry) {
       const titleList = JSON.parse(titleEntry);
@@ -394,9 +404,16 @@ Template.copyChecklistToManyCardsPopup.events({
         cursor.forEach(function() {
           'use strict';
           const checklist = arguments[0];
+          const checklistId = checklist._id;
           checklist.cardId = _id;
           checklist._id = null;
-          Checklists.insert(checklist);
+          const newChecklistId = Checklists.insert(checklist);
+          ChecklistItems.find({checklistId}).forEach(function(item) {
+            item._id = null;
+            item.checklistId = newChecklistId;
+            item.cardId = _id;
+            ChecklistItems.insert(item);
+          });
         });
 
         // copy card comments
