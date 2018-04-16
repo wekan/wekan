@@ -96,10 +96,10 @@ template(name="cardDetails")
             a.js-open-inlined-form {{_ 'view-it'}}
             = ' - '
             a.js-close-inlined-form {{_ 'discard'}}
-    else if description
+    else if getDescription
       h3.card-details-item-title {{_ 'description'}}
       +viewer
-        = description
+        = getDescription
 
     hr
     +checklists(cardId = _id)
