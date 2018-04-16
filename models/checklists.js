@@ -148,7 +148,7 @@ if (Meteor.isServer) {
         code: 500,
       });
     }
-});
+  });
 
   JsonRoutes.add('POST', '/api/boards/:boardId/cards/:cardId/checklists', function (req, res) {
     Authentication.checkUserId( req.userId);
@@ -160,7 +160,6 @@ if (Meteor.isServer) {
       sort: 0,
     });
     if (id) {
-      const checklist = Checklists.findOne({_id: id});
       req.body.items.forEach(function (item, idx) {
         ChecklistItems.insert({
           cardId: paramCardId,
