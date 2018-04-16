@@ -333,6 +333,7 @@ BlazeComponent.extendComponent({
       swimlaneId: this.selectedSwimlaneId.get(),
       listId: this.selectedListId.get(),
       archived: false,
+      importedId: null,
     });
   },
 
@@ -432,7 +433,7 @@ BlazeComponent.extendComponent({
 
   results() {
     const board = Boards.findOne(this.selectedBoardId.get());
-    return board.searchCards(this.term.get());
+    return board.searchCards(this.term.get(), true);
   },
 
   events() {
