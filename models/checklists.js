@@ -106,94 +106,90 @@ if (Meteor.isServer) {
 
 if (Meteor.isServer) {
   JsonRoutes.add('GET', '/api/boards/:boardId/cards/:cardId/checklists', function (req, res) {
-    try {
-      Authentication.checkUserId( req.userId);
-      const paramCardId = req.params.cardId;
+    Authentication.checkUserId( req.userId);
+    const paramCardId = req.params.cardId;
+    const checklists = Checklists.find({ cardId: paramCardId }).map(function (doc) {
+      return {
+        _id: doc._id,
+        title: doc.title,
+      };
+    });
+    if (checklists) {
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: Checklists.find({ cardId: paramCardId }).map(function (doc) {
-          return {
-            _id: doc._id,
-            title: doc.title,
-          };
-        }),
+        data: checklists,
       });
-    }
-    catch (error) {
+    } else {
       JsonRoutes.sendResult(res, {
-        code: 200,
-        data: error,
+        code: 500,
       });
     }
   });
 
   JsonRoutes.add('GET', '/api/boards/:boardId/cards/:cardId/checklists/:checklistId', function (req, res) {
-    try {
-      Authentication.checkUserId( req.userId);
-      const paramChecklistId = req.params.checklistId;
-      const paramCardId = req.params.cardId;
+    Authentication.checkUserId( req.userId);
+    const paramChecklistId = req.params.checklistId;
+    const paramCardId = req.params.cardId;
+    const checklist = Checklists.findOne({ _id: paramChecklistId, cardId: paramCardId });
+    if (checklist) {
+      checklist.items = ChecklistItems.find({checklistId: checklist._id}).map(function (doc) {
+        return {
+          _id: doc._id,
+          title: doc.title,
+        };
+      });
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: Checklists.findOne({ _id: paramChecklistId, cardId: paramCardId }),
+        data: checklist,
       });
-    }
-    catch (error) {
+    } else {
       JsonRoutes.sendResult(res, {
-        code: 200,
-        data: error,
+        code: 500,
       });
     }
-  });
+});
 
   JsonRoutes.add('POST', '/api/boards/:boardId/cards/:cardId/checklists', function (req, res) {
-    try {
-      Authentication.checkUserId( req.userId);
-      const paramCardId = req.params.cardId;
+    Authentication.checkUserId( req.userId);
 
-      const checklistToSend = {};
-      checklistToSend.cardId = paramCardId;
-      checklistToSend.title = req.body.title;
-      checklistToSend.items = [];
-      const id = Checklists.insert(checklistToSend);
+    const paramCardId = req.params.cardId;
+    const id = Checklists.insert({
+      title: req.body.title,
+      cardId: paramCardId,
+      sort: 0,
+    });
+    if (id) {
       const checklist = Checklists.findOne({_id: id});
-      req.body.items.forEach(function (item) {
-        checklist.addItem(item);
-      }, this);
-
-
+      req.body.items.forEach(function (item, idx) {
+        ChecklistItems.insert({
+          cardId: paramCardId,
+          checklistId: id,
+          title: item.title,
+          sort: idx,
+        });
+      });
       JsonRoutes.sendResult(res, {
         code: 200,
         data: {
           _id: id,
         },
       });
-    }
-    catch (error) {
+    } else {
       JsonRoutes.sendResult(res, {
-        code: 200,
-        data: error,
+        code: 400,
       });
     }
   });
 
   JsonRoutes.add('DELETE', '/api/boards/:boardId/cards/:cardId/checklists/:checklistId', function (req, res) {
-    try {
-      Authentication.checkUserId( req.userId);
-      const paramCommentId = req.params.commentId;
-      const paramCardId = req.params.cardId;
-      Checklists.remove({ _id: paramCommentId, cardId: paramCardId });
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: {
-          _id: paramCardId,
-        },
-      });
-    }
-    catch (error) {
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: error,
-      });
-    }
+    Authentication.checkUserId( req.userId);
+    const paramChecklistId = req.params.checklistId;
+    Checklists.remove({ _id: paramChecklistId });
+    JsonRoutes.sendResult(res, {
+      code: 200,
+      data: {
+        _id: paramChecklistId,
+      },
+    });
   });
 }
