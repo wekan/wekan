@@ -88,14 +88,14 @@ RUN \
     grep node node-SHASUMS256.txt.asc | shasum -a 256 -c - && \
     rm -f node-SHASUMS256.txt.asc && \
     chmod +x node && \
-    mv node /opt/nodejs/bin/ && \
+    mv node /opt/nodejs/bin/node && \
     \
     # Create symlinks
     ln -s /opt/nodejs/bin/node /usr/bin/node && \
     ln -s /opt/nodejs/bin/npm /usr/bin/npm && \
     \
     # paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
-    paxctl -mC `which node` && \
+    paxctl -mC /opt/nodejs/bin/node && \
     \
     # Install Node dependencies
     npm install -g npm@${NPM_VERSION} && \
