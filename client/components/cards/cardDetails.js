@@ -347,7 +347,7 @@ Template.copyCardPopup.events({
         checklist.cardId = _id;
         checklist._id = null;
         const newChecklistId = Checklists.insert(checklist);
-        ChecklistItems.find({checklistId: checklistId}).forEach(function(item) {
+        ChecklistItems.find({checklistId}).forEach(function(item) {
           item._id = null;
           item.checklistId = newChecklistId;
           item.cardId = _id;
@@ -370,7 +370,7 @@ Template.copyCardPopup.events({
 });
 
 Template.copyChecklistToManyCardsPopup.events({
-  'click .js-done' (evt) {
+  'click .js-done' () {
     const card = Cards.findOne(Session.get('currentCard'));
     const oldId = card._id;
     card._id = null;
@@ -408,7 +408,7 @@ Template.copyChecklistToManyCardsPopup.events({
           checklist.cardId = _id;
           checklist._id = null;
           const newChecklistId = Checklists.insert(checklist);
-          ChecklistItems.find({checklistId: checklistId}).forEach(function(item) {
+          ChecklistItems.find({checklistId}).forEach(function(item) {
             item._id = null;
             item.checklistId = newChecklistId;
             item.cardId = _id;
