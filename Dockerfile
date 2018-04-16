@@ -14,7 +14,7 @@ ARG SRC_PATH
 # Set the environment variables (defaults where required)
 # paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
 ENV BUILD_DEPS="apt-utils gnupg gosu wget curl bzip2 build-essential python git ca-certificates gcc-7 paxctl"
-ENV NODE_VERSION ${NODE_VERSION:-v8.9.3}
+ENV NODE_VERSION ${NODE_VERSION:-v8.11.1}
 ENV METEOR_RELEASE ${METEOR_RELEASE:-1.6.0.1}
 ENV USE_EDGE ${USE_EDGE:-false}
 ENV METEOR_EDGE ${METEOR_EDGE:-1.5-beta.17}
@@ -68,6 +68,29 @@ RUN \
     tar xvzf node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
     rm node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
     mv node-${NODE_VERSION}-${ARCHITECTURE} /opt/nodejs && \
+    \
+    # Remove original node, use Fibers 100% CPU usage issue patched node
+    rm /opt/nodejs/bin/node && \
+    # Node Fibers 100% CPU usage issue:
+    # https://github.com/wekan/wekan-mongodb/issues/2#issuecomment-381453161
+    # https://github.com/meteor/meteor/issues/9796#issuecomment-381676326
+    # https://github.com/sandstorm-io/sandstorm/blob/0f1fec013fe7208ed0fd97eb88b31b77e3c61f42/shell/server/00-startup.js#L99-L129
+    # Also see beginning of wekan/server/authentication.js
+    #   import Fiber from "fibers";
+    #   Fiber.poolSize = 1e9;
+    # Download node version 8.11.1 that has fix included, node binary copied from Sandstorm
+    # Description at https://releases.wekan.team/node.txt
+    # SHA256SUM: 18c99d5e79e2fe91e75157a31be30e5420787213684d4048eb91e602e092725d
+    echo "18c99d5e79e2fe91e75157a31be30e5420787213684d4048eb91e602e092725d  node" >> node-SHASUMS256.txt.asc && \
+    wget https://releases.wekan.team/node && \
+    # Verify Fibers patched node authenticity
+    echo "Fibers patched node authenticity:" && \
+    grep node node-SHASUMS256.txt.asc | shasum -a 256 -c - && \
+    rm -f node-SHASUMS256.txt.asc && \
+    chmod +x node && \
+    mv node /opt/nodejs/bin/ && \
+    \
+    # Create symlinks
     ln -s /opt/nodejs/bin/node /usr/bin/node && \
     ln -s /opt/nodejs/bin/npm /usr/bin/npm && \
     \

@@ -81,7 +81,7 @@ parts:
     wekan:
         source: .
         plugin: nodejs
-        node-engine: 8.9.3
+        node-engine: 8.11.1
         node-packages:
             - npm@5.5.1
             - node-gyp
@@ -100,6 +100,24 @@ parts:
         prepare: |
             echo "Cleaning environment first"
             rm -rf ~/.meteor ~/.npm /usr/local/lib/node_modules
+            # Node Fibers 100% CPU usage issue:
+            # https://github.com/wekan/wekan-mongodb/issues/2#issuecomment-381453161
+            # https://github.com/meteor/meteor/issues/9796#issuecomment-381676326
+            # https://github.com/sandstorm-io/sandstorm/blob/0f1fec013fe7208ed0fd97eb88b31b77e3c61f42/shell/server/00-startup.js#L99-L129
+            # Also see beginning of wekan/server/authentication.js
+            #   import Fiber from "fibers";
+            #   Fiber.poolSize = 1e9;
+            # Download node version 8.11.1 that has fix included, node binary copied from Sandstorm
+            # Description at https://releases.wekan.team/node.txt
+            # SHA256SUM: 18c99d5e79e2fe91e75157a31be30e5420787213684d4048eb91e602e092725d
+            echo "18c99d5e79e2fe91e75157a31be30e5420787213684d4048eb91e602e092725d  node" >> node-SHASUMS256.txt.asc
+            wget https://releases.wekan.team/node
+            # Verify Fibers patched node authenticity
+            echo "Fibers 100% CPU issue patched node authenticity:"
+            grep node node-SHASUMS256.txt.asc | shasum -a 256 -c -
+            rm -f node-SHASUMS256.txt.asc
+            chmod +x node
+            mv node `which node`
             echo "Applying paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303"
             paxctl -mC `which node`
             echo "Installing meteor"
