@@ -77,19 +77,11 @@ BlazeComponent.extendComponent({
         Modal.open('archivedBoards');
       },
       'click .js-toggle-board-view'() {
-        const currentBoard = Boards.findOne(Session.get('currentBoard'));
-        if (currentBoard.view === 'board-view-swimlanes') {
-          Boards.update(currentBoard._id, {
-            $set: {
-              view: 'board-view-lists',
-            },
-          });
-        } else if (currentBoard.view === 'board-view-lists') {
-          Boards.update(currentBoard._id, {
-            $set: {
-              view: 'board-view-swimlanes',
-            },
-          });
+        const currentUser = Meteor.user();
+        if (currentUser.profile.boardView === 'board-view-swimlanes') {
+          currentUser.setBoardView('board-view-lists');
+        } else if (currentUser.profile.boardView === 'board-view-lists') {
+          currentUser.setBoardView('board-view-swimlanes');
         }
       },
       'click .js-open-filter-view'() {
