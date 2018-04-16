@@ -298,22 +298,22 @@ Boards.helpers({
     return _id;
   },
 
-  searchCards(term) {
+  searchCards(term, excludeImported) {
     check(term, Match.OneOf(String, null, undefined));
 
     let query = { boardId: this._id };
+    if (excludeImported) {
+      query.importedId = null;
+    }
     const projection = { limit: 10, sort: { createdAt: -1 } };
 
     if (term) {
       const regex = new RegExp(term, 'i');
 
-      query = {
-        boardId: this._id,
-        $or: [
+      query.$or = [
           { title: regex },
           { description: regex },
-        ],
-      };
+        ];
     }
 
     return Cards.find(query, projection);
