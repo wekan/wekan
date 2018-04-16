@@ -34,9 +34,9 @@ Checklists.helpers({
     return ChecklistItems.find({ checklistId: this._id }).count();
   },
   items() {
-    return ChecklistItems.find(Filter.mongoSelector({
+    return ChecklistItems.find({
       checklistId: this._id,
-    }), { sort: ['sort'] });
+    }, { sort: ['sort'] });
   },
   finishedCount() {
     return ChecklistItems.find({
