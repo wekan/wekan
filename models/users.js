@@ -43,7 +43,9 @@ Users.attachSchema(new SimpleSchema({
     optional: true,
     autoValue() { // eslint-disable-line consistent-return
       if (this.isInsert && !this.isSet) {
-        return {};
+        return {
+          boardView: 'board-view-lists',
+        };
       }
     },
   },
@@ -92,6 +94,10 @@ Users.attachSchema(new SimpleSchema({
     optional: true,
   },
   'profile.icode': {
+    type: String,
+    optional: true,
+  },
+  'profile.boardView': {
     type: String,
     optional: true,
   },
@@ -328,6 +334,14 @@ Users.mutations({
 
   setShowCardsCountAt(limit) {
     return {$set: {'profile.showCardsCountAt': limit}};
+  },
+
+  setBoardView(view) {
+    return {
+      $set : {
+        'profile.boardView': view,
+      },
+    };
   },
 });
 

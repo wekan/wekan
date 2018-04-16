@@ -95,7 +95,7 @@ template(name="boardHeaderBar")
       a.board-header-btn.js-toggle-board-view(
         title="{{_ 'board-view'}}")
         i.fa.fa-th-large
-        span {{_ currentBoard.view}}
+        span {{_ currentUser.profile.boardView}}
 
       if canModifyBoard
         a.board-header-btn.js-multiselection-activate(

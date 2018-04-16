@@ -87,15 +87,13 @@ BlazeComponent.extendComponent({
   },
 
   isViewSwimlanes() {
-    const currentBoardId = Session.get('currentBoard');
-    const board = Boards.findOne(currentBoardId);
-    return (board.view === 'board-view-swimlanes');
+    const currentUser = Meteor.user();
+    return (currentUser.profile.boardView === 'board-view-swimlanes');
   },
 
   isViewLists() {
-    const currentBoardId = Session.get('currentBoard');
-    const board = Boards.findOne(currentBoardId);
-    return (board.view === 'board-view-lists');
+    const currentUser = Meteor.user();
+    return (currentUser.profile.boardView === 'board-view-lists');
   },
 
   openNewListForm() {
