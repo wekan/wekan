@@ -43,7 +43,8 @@ BlazeComponent.extendComponent({
   },
 
   canModifyCard() {
-    return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
+    return Meteor.user() && Meteor.user().isBoardMember() &&
+      !Meteor.user().isCommentOnly() && !this.currentData().isImported();
   },
 
   scrollParentContainer() {

@@ -393,6 +393,39 @@ Cards.helpers({
   isTopLevel() {
     return this.parentId === '';
   },
+
+  isImportedCard() {
+    return this.type === 'cardType-importedCard';
+  },
+
+  isImportedBoard() {
+    return this.type === 'cardType-importedBoard';
+  },
+
+  isImported() {
+    return this.isImportedCard() || this.isImportedBoard();
+  },
+
+  getDescription() {
+    if (this.isImportedCard()) {
+      const card = Cards.findOne({_id: this.importedId});
+      if (card && card.description)
+        return card.description;
+      else
+        return null;
+    } else if (this.isImportedBoard()) {
+      const board = Boards.findOne({_id: this.importedId});
+      if (board && board.description)
+        return board.description;
+      else
+        return null;
+    } else {
+      if (this.description)
+        return this.description;
+      else
+        return null;
+    }
+  },
 });
 
 Cards.mutations({

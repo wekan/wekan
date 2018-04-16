@@ -281,6 +281,8 @@ BlazeComponent.extendComponent({
       archived: false,
       'members.userId': Meteor.userId(),
       _id: {$ne: Session.get('currentBoard')},
+    }, {
+      sort: ['title'],
     })._id;
     // Subscribe to this board
     subManager.subscribe('board', boardId);
@@ -370,6 +372,7 @@ BlazeComponent.extendComponent({
         //IMPORT BOARD
         evt.stopPropagation();
         evt.preventDefault();
+        const impBoardId = $('.js-select-boards option:selected').val();
         const _id = Cards.insert({
           title: $('.js-select-boards option:selected').text(), //dummy
           listId: this.listId,
@@ -377,7 +380,8 @@ BlazeComponent.extendComponent({
           boardId: this.boardId,
           sort: Lists.findOne(this.listId).cards().count(),
           type: 'cardType-importedBoard',
-          importedId: $('.js-select-boards option:selected').val(),
+          importedId: impBoardId,
+          description: Boards.findOne({_id: impBoardId}).description,
         });
         Filter.addException(_id);
         Popup.close();

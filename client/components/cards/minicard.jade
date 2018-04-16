@@ -1,7 +1,7 @@
 template(name="minicard")
   .minicard(
-    class="{{#if importedCard}}imported-card{{/if}}"
-    class="{{#if importedBoard}}imported-board{{/if}}")
+    class="{{#if isImportedCard}}imported-card{{/if}}"
+    class="{{#if isImportedBoard}}imported-board{{/if}}")
     if cover
       .minicard-cover(style="background-image: url('{{cover.url}}');")
     if labels
@@ -15,7 +15,7 @@ template(name="minicard")
       if $eq 'prefix-with-parent' currentBoard.presentParentTask
         .parent-prefix
           | {{ parentCardName }}
-      if imported
+      if isImported
         span.imported-icon.fa.fa-share-alt
       +viewer
         | {{ title }}
@@ -67,8 +67,8 @@ template(name="minicard")
         .badge(title="{{_ 'card-comments-title' comments.count }}")
           span.badge-icon.fa.fa-comment-o.badge-comment
           span.badge-text= comments.count
-      if description
-        .badge.badge-state-image-only(title=description)
+      if getDescription
+        .badge.badge-state-image-only(title=getDescription)
           span.badge-icon.fa.fa-align-left
       if attachments.count
         .badge
