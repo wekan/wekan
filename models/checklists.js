@@ -136,6 +136,7 @@ if (Meteor.isServer) {
         return {
           _id: doc._id,
           title: doc.title,
+          isFinished: doc.isFinished,
         };
       });
       JsonRoutes.sendResult(res, {
