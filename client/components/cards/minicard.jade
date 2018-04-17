@@ -24,9 +24,9 @@ template(name="minicard")
         .date
           +cardSpentTime
 
-    if members
+    if getMembers
       .minicard-members.js-minicard-members
-        each members
+        each getMembers
           +userAvatar(userId=this)
     .badges
       if comments.count
