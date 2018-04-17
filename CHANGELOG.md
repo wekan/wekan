@@ -2,9 +2,10 @@
 
 This release fixes the following bugs:
 
-- [Fix Switch List/swimlane view only working with admin privileges](https://github.com/wekan/wekan/issues/1567).
+- [Fix Switch List/swimlane view only working with admin privileges](https://github.com/wekan/wekan/issues/1567);
+- [Fix Wekan logo positioning](https://github.com/wekan/wekan/issues/1378).
 
-Thanks to GitHub user andresmanelli for contributions.
+Thanks to GitHub users andresmanelli, iwkse and xet for their contributions.
 
 # v0.84 2018-04-16 Wekan release
 
