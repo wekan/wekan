@@ -300,9 +300,10 @@ BlazeComponent.extendComponent({
     // Swimlane where to insert card
     const swimlane = $(Popup._getTopStack().openerElement).closest('.js-swimlane');
     this.swimlaneId = '';
-    if (board.view === 'board-view-swimlanes')
+    const boardView = Meteor.user().profile.boardView;
+    if (boardView === 'board-view-swimlanes')
       this.swimlaneId = Blaze.getData(swimlane[0])._id;
-    else
+    else if (boardView === 'board-view-lists')
       this.swimlaneId = Swimlanes.findOne({boardId: this.boardId})._id;
   },
 
@@ -382,7 +383,6 @@ BlazeComponent.extendComponent({
           sort: Lists.findOne(this.listId).cards().count(),
           type: 'cardType-importedBoard',
           importedId: impBoardId,
-          description: Boards.findOne({_id: impBoardId}).description,
         });
         Filter.addException(_id);
         Popup.close();

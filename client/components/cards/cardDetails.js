@@ -43,8 +43,7 @@ BlazeComponent.extendComponent({
   },
 
   canModifyCard() {
-    return Meteor.user() && Meteor.user().isBoardMember() &&
-      !Meteor.user().isCommentOnly() && !this.currentData().isImported();
+    return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
   },
 
   scrollParentContainer() {
@@ -275,7 +274,7 @@ BlazeComponent.extendComponent({
   close(isReset = false) {
     if (this.isOpen.get() && !isReset) {
       const draft = this.getValue().trim();
-      if (draft !== Cards.findOne(Session.get('currentCard')).description) {
+      if (draft !== Cards.findOne(Session.get('currentCard')).getDescription()) {
         UnsavedEdits.set(this._getUnsavedEditKey(), this.getValue());
       }
     }

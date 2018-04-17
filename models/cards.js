@@ -406,6 +406,18 @@ Cards.helpers({
     return this.isImportedCard() || this.isImportedBoard();
   },
 
+  setDescription(description) {
+    if (this.isImportedCard()) {
+      const card = Cards.findOne({_id: this.importedId});
+      return Cards.update({_id: this.importedId}, {$set: {description}});
+    } else if (this.isImportedBoard()) {
+      const board = Boards.findOne({_id: this.importedId});
+      return Boards.update({_id: this.importedId}, {$set: {description}});
+    } else {
+      return {$set: {description}};
+    }
+  },
+
   getDescription() {
     if (this.isImportedCard()) {
       const card = Cards.findOne({_id: this.importedId});
@@ -424,6 +436,62 @@ Cards.helpers({
         return this.description;
       else
         return null;
+    }
+  },
+
+  getMembers() {
+    if (this.isImportedCard()) {
+      const card = Cards.findOne({_id: this.importedId});
+      return card.members;
+    } else if (this.isImportedBoard()) {
+      const board = Boards.findOne({_id: this.importedId});
+      return board.activeMembers().map((member) => {
+        return member.userId;
+      });
+    } else {
+      return this.members;
+    }
+  },
+
+  assignMember(memberId) {
+    if (this.isImportedCard()) {
+      return Cards.update(
+        { _id: this.importedId },
+        { $addToSet: { members: memberId }}
+      );
+    } else if (this.isImportedBoard()) {
+      const board = Boards.findOne({_id: this.importedId});
+      return board.addMember(memberId);
+    } else {
+      return Cards.update(
+        { _id: this._id },
+        { $addToSet: { members: memberId}}
+      );
+    }
+  },
+
+  unassignMember(memberId) {
+    if (this.isImportedCard()) {
+      return Cards.update(
+        { _id: this.importedId },
+        { $pull: { members: memberId }}
+      );
+    } else if (this.isImportedBoard()) {
+      const board = Boards.findOne({_id: this.importedId});
+      return board.removeMember(memberId);
+    } else {
+      return Cards.update(
+        { _id: this._id },
+        { $pull: { members: memberId}}
+      );
+    }
+  },
+
+  toggleMember(memberId) {
+    if (this.getMembers() && this.getMembers().indexOf(memberId) > -1) {
+      return this.unassignMember(memberId);
+    } else {
+      return this.assignMember(memberId);
     }
   },
 });
