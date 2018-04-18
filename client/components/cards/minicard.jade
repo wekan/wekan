@@ -18,7 +18,7 @@ template(name="minicard")
       if isImported
         span.imported-icon.fa.fa-share-alt
       +viewer
-        | {{ title }}
+        = getTitle
       if $eq 'subtext-with-full-path' currentBoard.presentParentTask
         .parent-subtext
           | {{ parentString ' > ' }}

@@ -693,6 +693,37 @@ Cards.helpers({
       );
     }
   },
+
+  getTitle() {
+    if (this.isImportedCard()) {
+      const card = Cards.findOne({ _id: this.importedId });
+      return card.title;
+    } else if (this.isImportedBoard()) {
+      const board = Boards.findOne({ _id: this.importedId});
+      return board.title;
+    } else {
+      return this.title;
+    }
+  },
+
+  setTitle(title) {
+    if (this.isImportedCard()) {
+      return Cards.update(
+        { _id: this.importedId },
+        {$set: {title}}
+      );
+    } else if (this.isImportedBoard()) {
+      return Boards.update(
+        {_id: this.importedId},
+        {$set: {title}}
+      );
+    } else {
+      return Cards.update(
+        {_id: this._id},
+        {$set: {title}}
+      );
+    }
+  },
 });
 
 Cards.mutations({
@@ -710,22 +741,6 @@ Cards.mutations({
   restore() {
     this.applyToChildren((card) => { return card.restore(); });
     return {$set: {archived: false}};
-  },
-
-  setTitle(title) {
-    return {$set: {title}};
-  },
-
-  setDescription(description) {
-    return {$set: {description}};
-  },
-
-  setRequestedBy(requestedBy) {
-    return {$set: {requestedBy}};
-  },
-
-  setAssignedBy(assignedBy) {
-    return {$set: {assignedBy}};
   },
 
   move(swimlaneId, listId, sortIndex) {
@@ -753,22 +768,6 @@ Cards.mutations({
       return this.removeLabel(labelId);
     } else {
       return this.addLabel(labelId);
-    }
-  },
-
-  assignMember(memberId) {
-    return {$addToSet: {members: memberId}};
-  },
-
-  unassignMember(memberId) {
-    return {$pull: {members: memberId}};
-  },
-
-  toggleMember(memberId) {
-    if (this.members && this.members.indexOf(memberId) > -1) {
-      return this.unassignMember(memberId);
-    } else {
-      return this.assignMember(memberId);
     }
   },
 
@@ -807,50 +806,6 @@ Cards.mutations({
 
   unsetCover() {
     return {$unset: {coverId: ''}};
-  },
-
-  setReceived(receivedAt) {
-    return {$set: {receivedAt}};
-  },
-
-  unsetReceived() {
-    return {$unset: {receivedAt: ''}};
-  },
-
-  setStart(startAt) {
-    return {$set: {startAt}};
-  },
-
-  unsetStart() {
-    return {$unset: {startAt: ''}};
-  },
-
-  setDue(dueAt) {
-    return {$set: {dueAt}};
-  },
-
-  unsetDue() {
-    return {$unset: {dueAt: ''}};
-  },
-
-  setEnd(endAt) {
-    return {$set: {endAt}};
-  },
-
-  unsetEnd() {
-    return {$unset: {endAt: ''}};
-  },
-
-  setOvertime(isOvertime) {
-    return {$set: {isOvertime}};
-  },
-
-  setSpentTime(spentTime) {
-    return {$set: {spentTime}};
-  },
-
-  unsetSpentTime() {
-    return {$unset: {spentTime: '', isOvertime: false}};
   },
 
   setParentId(parentId) {
