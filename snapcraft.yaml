@@ -95,7 +95,6 @@ parts:
             - capnproto
             - npm
             - curl
-            - paxctl
             - execstack
         prepare: |
             echo "Cleaning environment first"
@@ -111,7 +110,7 @@ parts:
             # Description at https://releases.wekan.team/node.txt
             # SHA256SUM: 18c99d5e79e2fe91e75157a31be30e5420787213684d4048eb91e602e092725d
             echo "18c99d5e79e2fe91e75157a31be30e5420787213684d4048eb91e602e092725d  node" >> node-SHASUMS256.txt.asc
-            wget https://releases.wekan.team/node
+            curl https://releases.wekan.team/node -o node
             # Verify Fibers patched node authenticity
             echo "Fibers 100% CPU issue patched node authenticity:"
             grep node node-SHASUMS256.txt.asc | shasum -a 256 -c -
@@ -119,6 +118,7 @@ parts:
             chmod +x node
             mv node `which node`
             # DOES NOT WORK: paxctl fix.
+            # Removed from build-packages: - paxctl
             #echo "Applying paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303"
             #paxctl -mC `which node`
             echo "Installing meteor"
