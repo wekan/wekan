@@ -14,13 +14,13 @@ template(name="minicard")
       +viewer
         = title
     .dates
-      if startAt
+      if getStart
         .date
           +minicardStartDate
-      if dueAt
+      if getDue
         .date
           +minicardDueDate
-      if spentTime
+      if getSpentTime
         .date
           +cardSpentTime
 

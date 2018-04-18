@@ -148,6 +148,28 @@ Boards.attachSchema(new SimpleSchema({
     type: String,
     optional: true,
   },
+  startAt: {
+    type: Date,
+    optional: true,
+  },
+  dueAt: {
+    type: Date,
+    optional: true,
+  },
+  endAt: {
+    type: Date,
+    optional: true,
+  },
+  spentTime: {
+    type: Number,
+    decimal: true,
+    optional: true,
+  },
+  isOvertime: {
+    type: Boolean,
+    defaultValue: false,
+    optional: true,
+  },
 }));
 
 

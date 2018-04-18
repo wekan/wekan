@@ -96,7 +96,7 @@ Template.dateBadge.helpers({
 (class extends EditCardDate {
   onCreated() {
     super.onCreated();
-    this.data().receivedAt && this.date.set(moment(this.data().receivedAt));
+    this.data().getReceived() && this.date.set(moment(this.data().getReceived()));
   }
 
   _storeDate(date) {
@@ -104,7 +104,7 @@ Template.dateBadge.helpers({
   }
 
   _deleteDate() {
-    this.card.unsetReceived();
+    this.card.setReceived(null);
   }
 }).register('editCardReceivedDatePopup');
 
@@ -113,13 +113,13 @@ Template.dateBadge.helpers({
 (class extends EditCardDate {
   onCreated() {
     super.onCreated();
-    this.data().startAt && this.date.set(moment(this.data().startAt));
+    this.data().getStart() && this.date.set(moment(this.data().getStart()));
   }
 
   onRendered() {
     super.onRendered();
-    if (moment.isDate(this.card.receivedAt)) {
-      this.$('.js-datepicker').datepicker('setStartDate', this.card.receivedAt);
+    if (moment.isDate(this.card.getReceived())) {
+      this.$('.js-datepicker').datepicker('setStartDate', this.card.getReceived());
     }
   }
 
@@ -128,7 +128,7 @@ Template.dateBadge.helpers({
   }
 
   _deleteDate() {
-    this.card.unsetStart();
+    this.card.setStart(null);
   }
 }).register('editCardStartDatePopup');
 
@@ -136,13 +136,13 @@ Template.dateBadge.helpers({
 (class extends EditCardDate {
   onCreated() {
     super.onCreated();
-    this.data().dueAt && this.date.set(moment(this.data().dueAt));
+    this.data().getDue() && this.date.set(moment(this.data().getDue()));
   }
 
   onRendered() {
     super.onRendered();
-    if (moment.isDate(this.card.startAt)) {
-      this.$('.js-datepicker').datepicker('setStartDate', this.card.startAt);
+    if (moment.isDate(this.card.getStart())) {
+      this.$('.js-datepicker').datepicker('setStartDate', this.card.getStart());
     }
   }
 
@@ -151,7 +151,7 @@ Template.dateBadge.helpers({
   }
 
   _deleteDate() {
-    this.card.unsetDue();
+    this.card.setDue(null);
   }
 }).register('editCardDueDatePopup');
 
@@ -159,13 +159,13 @@ Template.dateBadge.helpers({
 (class extends EditCardDate {
   onCreated() {
     super.onCreated();
-    this.data().endAt && this.date.set(moment(this.data().endAt));
+    this.data().getEnd() && this.date.set(moment(this.data().getEnd()));
   }
 
   onRendered() {
     super.onRendered();
-    if (moment.isDate(this.card.startAt)) {
-      this.$('.js-datepicker').datepicker('setStartDate', this.card.startAt);
+    if (moment.isDate(this.card.getStart())) {
+      this.$('.js-datepicker').datepicker('setStartDate', this.card.getStart());
     }
   }
 
@@ -174,7 +174,7 @@ Template.dateBadge.helpers({
   }
 
   _deleteDate() {
-    this.card.unsetEnd();
+    this.card.setEnd(null);
   }
 }).register('editCardEndDatePopup');
 
@@ -213,14 +213,14 @@ class CardReceivedDate extends CardDate {
     super.onCreated();
     const self = this;
     self.autorun(() => {
-      self.date.set(moment(self.data().receivedAt));
+      self.date.set(moment(self.data().getReceived()));
     });
   }
 
   classes() {
     let classes = 'received-date' + ' ';
     if (this.date.get().isBefore(this.now.get(), 'minute') &&
-        this.now.get().isBefore(this.data().dueAt)) {
+        this.now.get().isBefore(this.data().getDue())) {
       classes += 'current';
     }
     return classes;
@@ -243,14 +243,14 @@ class CardStartDate extends CardDate {
     super.onCreated();
     const self = this;
     self.autorun(() => {
-      self.date.set(moment(self.data().startAt));
+      self.date.set(moment(self.data().getStart()));
     });
   }
 
   classes() {
     let classes = 'start-date' + ' ';
     if (this.date.get().isBefore(this.now.get(), 'minute') &&
-        this.now.get().isBefore(this.data().dueAt)) {
+        this.now.get().isBefore(this.data().getDue())) {
       classes += 'current';
     }
     return classes;
@@ -273,7 +273,7 @@ class CardDueDate extends CardDate {
     super.onCreated();
     const self = this;
     self.autorun(() => {
-      self.date.set(moment(self.data().dueAt));
+      self.date.set(moment(self.data().getDue()));
     });
   }
 
@@ -305,17 +305,17 @@ class CardEndDate extends CardDate {
     super.onCreated();
     const self = this;
     self.autorun(() => {
-      self.date.set(moment(self.data().endAt));
+      self.date.set(moment(self.data().getEnd()));
     });
   }
 
   classes() {
     let classes = 'end-date' + ' ';
-    if (this.data.dueAt.diff(this.date.get(), 'days') >= 2)
+    if (this.date.get().diff(this.data().getDue(), 'days') >= 2)
       classes += 'long-overdue';
-    else if (this.data.dueAt.diff(this.date.get(), 'days') >= 0)
+    else if (this.date.get().diff(this.data().getDue(), 'days') >= 0)
       classes += 'due';
-    else if (this.data.dueAt.diff(this.date.get(), 'days') >= -2)
+    else if (this.date.get().diff(this.data().getDue(), 'days') >= -2)
       classes += 'almost-due';
     return classes;
   }

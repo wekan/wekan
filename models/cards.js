@@ -316,6 +316,166 @@ Cards.helpers({
       return this.assignMember(memberId);
     }
   },
+
+  getReceived() {
+    if (this.isImportedCard()) {
+      const card = Cards.findOne({_id: this.importedId});
+      return card.receivedAt;
+    } else {
+      return this.receivedAt;
+    }
+  },
+
+  setReceived(receivedAt) {
+    if (this.isImportedCard()) {
+      return Cards.update(
+        {_id: this.importedId},
+        {$set: {receivedAt}}
+      );
+    } else {
+      return {$set: {receivedAt}};
+    }
+  },
+
+  getStart() {
+    if (this.isImportedCard()) {
+      const card = Cards.findOne({_id: this.importedId});
+      return card.startAt;
+    } else if (this.isImportedBoard()) {
+      const board = Boards.findOne({_id: this.importedId});
+      return board.startAt
+    } else {
+      return this.startAt;
+    }
+  },
+
+  setStart(startAt) {
+    if (this.isImportedCard()) {
+      return Cards.update(
+        { _id: this.importedId },
+        {$set: {startAt}}
+      );
+    } else if (this.isImportedBoard()) {
+      return Boards.update(
+        {_id: this.importedId},
+        {$set: {startAt}}
+      );
+    } else {
+      return {$set: {startAt}};
+    }
+  },
+
+  getDue() {
+    if (this.isImportedCard()) {
+      const card = Cards.findOne({_id: this.importedId});
+      return card.dueAt;
+    } else if (this.isImportedBoard()) {
+      const board = Boards.findOne({_id: this.importedId});
+      return board.dueAt
+    } else {
+      return this.dueAt;
+    }
+  },
+
+  setDue(dueAt) {
+    if (this.isImportedCard()) {
+      return Cards.update(
+        { _id: this.importedId },
+        {$set: {dueAt}}
+      );
+    } else if (this.isImportedBoard()) {
+      return Boards.update(
+        {_id: this.importedId},
+        {$set: {dueAt}}
+      );
+    } else {
+      return {$set: {dueAt}};
+    }
+  },
+
+  getEnd() {
+    if (this.isImportedCard()) {
+      const card = Cards.findOne({_id: this.importedId});
+      return card.endAt;
+    } else if (this.isImportedBoard()) {
+      const board = Boards.findOne({_id: this.importedId});
+      return board.endAt;
+    } else {
+      return this.endAt;
+    }
+  },
+
+  setEnd(endAt) {
+    if (this.isImportedCard()) {
+      return Cards.update(
+        { _id: this.importedId },
+        {$set: {endAt}}
+      );
+    } else if (this.isImportedBoard()) {
+      return Boards.update(
+        {_id: this.importedId},
+        {$set: {endAt}}
+      );
+    } else {
+      return {$set: {endAt}};
+    }
+  },
+
+  getIsOvertime() {
+    if (this.isImportedCard()) {
+      const card = Cards.findOne({ _id: this.importedId });
+      return card.isOvertime;
+    } else if (this.isImportedBoard()) {
+      const board = Boards.findOne({ _id: this.importedId});
+      return board.isOvertime;
+    } else {
+      return this.isOvertime;
+    }
+  },
+
+  setIsOvertime(isOvertime) {
+    if (this.isImportedCard()) {
+      return Cards.update(
+        { _id: this.importedId },
+        {$set: {isOvertime}}
+      );
+    } else if (this.isImportedBoard()) {
+      return Boards.update(
+        {_id: this.importedId},
+        {$set: {isOvertime}}
+      );
+    } else {
+      return {$set: {isOvertime}};
+    }
+  },
+
+  getSpentTime() {
+    if (this.isImportedCard()) {
+      const card = Cards.findOne({ _id: this.importedId });
+      return card.spentTime;
+    } else if (this.isImportedBoard()) {
+      const board = Boards.findOne({ _id: this.importedId});
+      return board.spentTime;
+    } else {
+      return this.spentTime;
+    }
+  },
+
+  setSpentTime(spentTime) {
+    if (this.isImportedCard()) {
+      return Cards.update(
+        { _id: this.importedId },
+        {$set: {spentTime}}
+      );
+    } else if (this.isImportedBoard()) {
+      return Boards.update(
+        {_id: this.importedId},
+        {$set: {spentTime}}
+      );
+    } else {
+      return {$set: {spentTime}};
+    }
+  },
 });
 
 Cards.mutations({
@@ -365,50 +525,6 @@ Cards.mutations({
 
   unsetCover() {
     return {$unset: {coverId: ''}};
-  },
-
-  setReceived(receivedAt) {
-    return {$set: {receivedAt}};
-  },
-
-  unsetReceived() {
-    return {$unset: {receivedAt: ''}};
-  },
-
-  setStart(startAt) {
-    return {$set: {startAt}};
-  },
-
-  unsetStart() {
-    return {$unset: {startAt: ''}};
-  },
-
-  setDue(dueAt) {
-    return {$set: {dueAt}};
-  },
-
-  unsetDue() {
-    return {$unset: {dueAt: ''}};
-  },
-
-  setEnd(endAt) {
-    return {$set: {endAt}};
-  },
-
-  unsetEnd() {
-    return {$unset: {endAt: ''}};
-  },
-
-  setOvertime(isOvertime) {
-    return {$set: {isOvertime}};
-  },
-
-  setSpentTime(spentTime) {
-    return {$set: {spentTime}};
-  },
-
-  unsetSpentTime() {
-    return {$unset: {spentTime: '', isOvertime: false}};
   },
 });
 
