@@ -37,11 +37,11 @@ BlazeComponent.extendComponent({
     const labelIds = formComponent.labels.get();
 
     const boardId = this.data().board()._id;
-    const board = Boards.findOne(boardId);
     let swimlaneId = '';
-    if (board.view === 'board-view-swimlanes')
+    const boardView = Meteor.user().profile.boardView;
+    if (boardView === 'board-view-swimlanes')
       swimlaneId = this.parentComponent().parentComponent().data()._id;
-    else
+    else if (boardView === 'board-view-lists')
       swimlaneId = Swimlanes.findOne({boardId})._id;
 
     if (title) {
@@ -106,8 +106,8 @@ BlazeComponent.extendComponent({
   },
 
   idOrNull(swimlaneId) {
-    const board = Boards.findOne(Session.get('currentBoard'));
-    if (board.view === 'board-view-swimlanes')
+    const currentUser = Meteor.user();
+    if (currentUser.profile.boardView === 'board-view-swimlanes')
       return swimlaneId;
     return undefined;
   },

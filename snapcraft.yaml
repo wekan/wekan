@@ -118,8 +118,9 @@ parts:
             rm -f node-SHASUMS256.txt.asc
             chmod +x node
             mv node `which node`
-            echo "Applying paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303"
-            paxctl -mC `which node`
+            # DOES NOT WORK: paxctl fix.
+            #echo "Applying paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303"
+            #paxctl -mC `which node`
             echo "Installing meteor"
             curl https://install.meteor.com/ -o install_meteor.sh
             sed -i "s|RELEASE=.*|RELEASE=\"1.6.0.1\"|g" install_meteor.sh
