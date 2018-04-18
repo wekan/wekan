@@ -293,7 +293,7 @@ BlazeComponent.extendComponent({
     this.boardId = Session.get('currentBoard');
     // In order to get current board info
     subManager.subscribe('board', this.boardId);
-    const board = Boards.findOne(this.boardId);
+    this.board = Boards.findOne(this.boardId);
     // List where to insert card
     const list = $(Popup._getTopStack().openerElement).closest('.js-list');
     this.listId = Blaze.getData(list[0])._id;
@@ -339,6 +339,7 @@ BlazeComponent.extendComponent({
       listId: this.selectedListId.get(),
       archived: false,
       importedId: null,
+      _id: {$nin: this.board.cards().map((card) => { return card.importedId || card._id})},
     });
   },
 
