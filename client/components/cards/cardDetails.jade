@@ -10,7 +10,7 @@ template(name="cardDetails")
         h2.card-details-title.js-card-title(
           class="{{#if canModifyCard}}js-open-inlined-form is-editable{{/if}}")
             +viewer
-              = title
+              = getTitle
               if isWatching
                 i.fa.fa-eye.card-details-watch
 
@@ -129,7 +129,7 @@ template(name="cardDetails")
 
 template(name="editCardTitleForm")
   textarea.js-edit-card-title(rows='1' autofocus)
-    = title
+    = getTitle
   .edit-controls.clearfix
     button.primary.confirm.js-submit-edit-card-title-form(type="submit") {{_ 'save'}}
     a.fa.fa-times-thin.js-close-inlined-form
@@ -167,9 +167,8 @@ template(name="moveCardPopup")
 template(name="copyCardPopup")
   label(for='copy-card-title') {{_ 'title'}}:
   textarea#copy-card-title.minicard-composer-textarea.js-card-title(autofocus)
-    = title
+    = getTitle
   +boardsAndLists
-
 
 template(name="copyChecklistToManyCardsPopup")
   label(for='copy-checklist-cards-title') {{_ 'copyChecklistToManyCardsPopup-instructions'}}:

@@ -515,6 +515,37 @@ Cards.helpers({
       );
     }
   },
+
+  getTitle() {
+    if (this.isImportedCard()) {
+      const card = Cards.findOne({ _id: this.importedId });
+      return card.title;
+    } else if (this.isImportedBoard()) {
+      const board = Boards.findOne({ _id: this.importedId});
+      return board.title;
+    } else {
+      return this.title;
+    }
+  },
+
+  setTitle(title) {
+    if (this.isImportedCard()) {
+      return Cards.update(
+        { _id: this.importedId },
+        {$set: {title}}
+      );
+    } else if (this.isImportedBoard()) {
+      return Boards.update(
+        {_id: this.importedId},
+        {$set: {title}}
+      );
+    } else {
+      return Cards.update(
+        {_id: this._id},
+        {$set: {title}}
+      );
+    }
+  },
 });
 
 Cards.mutations({
@@ -524,10 +555,6 @@ Cards.mutations({
 
   restore() {
     return {$set: {archived: false}};
-  },
-
-  setTitle(title) {
-    return {$set: {title}};
   },
 
   move(swimlaneId, listId, sortIndex) {
