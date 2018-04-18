@@ -74,8 +74,10 @@ BlazeComponent.extendComponent({
     event.preventDefault();
     const textarea = this.find('textarea.js-add-checklist-item');
     const title = textarea.value.trim();
-    const cardId = this.currentData().cardId;
+    let cardId = this.currentData().cardId;
     const card = Cards.findOne(cardId);
+    if (card.isImported())
+      cardId = card.importedId;
 
     if (title) {
       Checklists.insert({
