@@ -170,7 +170,11 @@ Cards.helpers({
   },
 
   checklists() {
-    return Checklists.find({cardId: this._id}, {sort: { sort: 1 } });
+    if (this.isImportedCard()) {
+      return Checklists.find({cardId: this.importedId}, {sort: { sort: 1 } });
+    } else {
+      return Checklists.find({cardId: this._id}, {sort: { sort: 1 } });
+    }
   },
 
   checklistItemCount() {
@@ -236,7 +240,10 @@ Cards.helpers({
       const board = Boards.findOne({_id: this.importedId});
       return Boards.update({_id: this.importedId}, {$set: {description}});
     } else {
-      return {$set: {description}};
+      return Cards.update(
+        {_id: this._id},
+        {$set: {description}}
+      );
     }
   },
 
@@ -333,7 +340,10 @@ Cards.helpers({
         {$set: {receivedAt}}
       );
     } else {
-      return {$set: {receivedAt}};
+      return Cards.update(
+        {_id: this._id},
+        {$set: {receivedAt}}
+      );
     }
   },
 
@@ -361,7 +371,10 @@ Cards.helpers({
         {$set: {startAt}}
       );
     } else {
-      return {$set: {startAt}};
+      return Cards.update(
+        {_id: this._id},
+        {$set: {startAt}}
+      );
     }
   },
 
@@ -389,7 +402,10 @@ Cards.helpers({
         {$set: {dueAt}}
       );
     } else {
-      return {$set: {dueAt}};
+      return Cards.update(
+        {_id: this._id},
+        {$set: {dueAt}}
+      );
     }
   },
 
@@ -417,7 +433,10 @@ Cards.helpers({
         {$set: {endAt}}
       );
     } else {
-      return {$set: {endAt}};
+      return Cards.update(
+        {_id: this._id},
+        {$set: {endAt}}
+      );
     }
   },
 
@@ -445,7 +464,10 @@ Cards.helpers({
         {$set: {isOvertime}}
       );
     } else {
-      return {$set: {isOvertime}};
+      return Cards.update(
+        {_id: this._id},
+        {$set: {isOvertime}}
+      );
     }
   },
 
@@ -473,7 +495,10 @@ Cards.helpers({
         {$set: {spentTime}}
       );
     } else {
-      return {$set: {spentTime}};
+      return Cards.update(
+        {_id: this._id},
+        {$set: {spentTime}}
+      );
     }
   },
 });

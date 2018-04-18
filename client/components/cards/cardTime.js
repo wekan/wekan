@@ -64,9 +64,6 @@ BlazeComponent.extendComponent({
   showTime() {
     return this.data().getSpentTime();
   },
-  isOvertime() {
-    return this.data().getIsOvertime();
-  },
   events() {
     return [{
       'click .js-edit-time': Popup.open('editCardSpentTime'),
