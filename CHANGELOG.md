@@ -8,7 +8,7 @@ This release fixes the following bugs:
 - [Removed paxctl alpine fix #1303 , because it did not work anymore, so Docker container
    did not build correctly](https://github.com/wekan/wekan/commit/ce659632174ba25ca9b5e85b053fde02fd9c3928).
 
-Thanks to GitHub users andresmanelli, iwkse and xet for their contributions.
+Thanks to GitHub users andresmanelli, iwkse and xet7 for their contributions.
 
 # v0.84 2018-04-16 Wekan release
 
