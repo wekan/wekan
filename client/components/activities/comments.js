@@ -21,11 +21,18 @@ BlazeComponent.extendComponent({
       'submit .js-new-comment-form'(evt) {
         const input = this.getInput();
         const text = input.val().trim();
+        const card = this.currentData();
+        let boardId = card.boardId;
+        let cardId = card._id;
+        if (card.isImportedCard()) {
+          boardId = Cards.findOne(card.importedId).boardId;
+          cardId = card.importedId;
+        }
         if (text) {
           CardComments.insert({
             text,
-            boardId: this.currentData().boardId,
-            cardId: this.currentData()._id,
+            boardId,
+            cardId,
           });
           resetCommentInput(input);
           Tracker.flush();

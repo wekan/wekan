@@ -57,8 +57,13 @@ Template.cardAttachmentsPopup.events({
     const card = this;
     FS.Utility.eachFile(evt, (f) => {
       const file = new FS.File(f);
-      file.boardId = card.boardId;
-      file.cardId = card._id;
+      if (card.isImportedCard()) {
+        file.boardId = Cards.findOne(card.importedId).boardId;
+        file.cardId = card.importedId;
+      } else {
+        file.boardId = card.boardId;
+        file.cardId = card._id;
+      }
       file.userId = Meteor.userId();
 
       const attachment = Attachments.insert(file);
