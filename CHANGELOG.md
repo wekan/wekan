@@ -3,7 +3,8 @@
 This release fixes the following bugs:
 
 - [Fix Switch List/swimlane view only working with admin privileges](https://github.com/wekan/wekan/issues/1567);
-- [Fix Wekan logo positioning](https://github.com/wekan/wekan/issues/1378).
+- [Fix Wekan logo positioning](https://github.com/wekan/wekan/issues/1378);
+- [Fix checklists items migration error "title is required"](https://github.com/wekan/wekan/issues/1576).
 
 Thanks to GitHub users andresmanelli, iwkse and xet for their contributions.
 
