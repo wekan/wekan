@@ -26,21 +26,28 @@ template(name="cardDetails")
     .card-details-items
       .card-details-item.card-details-item-received
         h3.card-details-item-title {{_ 'card-received'}}
-        if receivedAt
+        if getReceived
           +cardReceivedDate
         else
           a.js-received-date {{_ 'add'}}
 
       .card-details-item.card-details-item-start
         h3.card-details-item-title {{_ 'card-start'}}
-        if startAt
+        if getStart
           +cardStartDate
         else
           a.js-start-date {{_ 'add'}}
 
+      .card-details-item.card-details-item-due
+        h3.card-details-item-title {{_ 'card-due'}}
+        if getDue
+          +cardDueDate
+        else
+          a.js-due-date {{_ 'add'}}
+
       .card-details-item.card-details-item-end
         h3.card-details-item-title {{_ 'card-end'}}
-        if endAt
+        if getEnd
           +cardEndDate
         else
           a.js-end-date {{_ 'add'}}
@@ -79,9 +86,9 @@ template(name="cardDetails")
           +cardCustomField
 
     .card-details-items
-      if spentTime
+      if getSpentTime
         .card-details-item.card-details-item-spent
-          if isOvertime
+          if getIsOvertime
             h3.card-details-item-title {{_ 'overtime-hours'}}
           else
             h3.card-details-item-title {{_ 'spent-time-hours'}}

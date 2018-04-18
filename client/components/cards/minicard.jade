@@ -27,23 +27,19 @@ template(name="minicard")
           | {{ parentCardName }}
 
     .dates
-      if receivedAt
-        unless startAt
-          unless dueAt
-            unless endAt
+      if getReceived
+        unless getStart
+          unless getDue
+            unless getEnd
               .date
                 +minicardReceivedDate
-      if startAt
+      if getStart
         .date
           +minicardStartDate
-      if dueAt
-        unless endAt
-          .date
-            +minicardDueDate
-      if endAt
+      if getDue
         .date
-          +minicardEndDate
-      if spentTime
+          +minicardDueDate
+      if getSpentTime
         .date
           +cardSpentTime
 
