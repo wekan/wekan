@@ -99,8 +99,18 @@ Meteor.publishRelations('board', function(boardId) {
     // And in the meantime our code below works pretty well -- it's not even a
     // hack!
     this.cursor(Cards.find({ boardId }), function(cardId, card) {
-      this.cursor(Cards.find({_id: card.importedId}));
-      this.cursor(Boards.find({_id: card.importedId}));
+      if (card.type === 'cardType-importedCard') {
+        const impCardId = card.importedId;
+        this.cursor(Cards.find({ _id: impCardId }));
+        this.cursor(CardComments.find({ cardId: impCardId }));
+        this.cursor(Activities.find({ cardId: impCardId }));
+        this.cursor(Attachments.find({ cardId: impCardId }));
+        this.cursor(Checklists.find({ cardId: impCardId }));
+        this.cursor(ChecklistItems.find({ cardId: impCardId }));
+      } else if (card.type === 'cardType-importedBoard') {
+        this.cursor(Boards.find({ _id: card.importedId}));
+      }
+      this.cursor(Activities.find({ cardId }));
       this.cursor(CardComments.find({ cardId }));
       this.cursor(Attachments.find({ cardId }));
       this.cursor(Checklists.find({ cardId }));

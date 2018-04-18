@@ -181,19 +181,33 @@ Cards.helpers({
   },
 
   isAssigned(memberId) {
-    return _.contains(this.members, memberId);
+    return _.contains(this.getMembers(), memberId);
   },
 
   activities() {
-    return Activities.find({cardId: this._id}, {sort: {createdAt: -1}});
+    if (this.isImportedCard()) {
+      return Activities.find({cardId: this.importedId}, {sort: {createdAt: -1}});
+    } else if (this.isImportedBoard()) {
+      return Activities.find({boardId: this.importedId}, {sort: {createdAt: -1}});
+    } else {
+      return Activities.find({cardId: this._id}, {sort: {createdAt: -1}});
+    }
   },
 
   comments() {
-    return CardComments.find({cardId: this._id}, {sort: {createdAt: -1}});
+    if (this.isImportedCard()) {
+      return CardComments.find({cardId: this.importedId}, {sort: {createdAt: -1}});
+    } else {
+      return CardComments.find({cardId: this._id}, {sort: {createdAt: -1}});
+    }
   },
 
   attachments() {
-    return Attachments.find({cardId: this._id}, {sort: {uploadedAt: -1}});
+    if (this.isImportedCard()) {
+      return Attachments.find({cardId: this.importedId}, {sort: {uploadedAt: -1}});
+    } else {
+      return Attachments.find({cardId: this._id}, {sort: {uploadedAt: -1}});
+    }
   },
 
   cover() {
