@@ -426,10 +426,8 @@ Cards.helpers({
 
   setDescription(description) {
     if (this.isImportedCard()) {
-      const card = Cards.findOne({_id: this.importedId});
       return Cards.update({_id: this.importedId}, {$set: {description}});
     } else if (this.isImportedBoard()) {
-      const board = Boards.findOne({_id: this.importedId});
       return Boards.update({_id: this.importedId}, {$set: {description}});
     } else {
       return Cards.update(
@@ -452,11 +450,10 @@ Cards.helpers({
         return board.description;
       else
         return null;
+    } else if (this.description) {
+      return this.description;
     } else {
-      if (this.description)
-        return this.description;
-      else
-        return null;
+      return null;
     }
   },
 
@@ -545,7 +542,7 @@ Cards.helpers({
       return card.startAt;
     } else if (this.isImportedBoard()) {
       const board = Boards.findOne({_id: this.importedId});
-      return board.startAt
+      return board.startAt;
     } else {
       return this.startAt;
     }
@@ -576,7 +573,7 @@ Cards.helpers({
       return card.dueAt;
     } else if (this.isImportedBoard()) {
       const board = Boards.findOne({_id: this.importedId});
-      return board.dueAt
+      return board.dueAt;
     } else {
       return this.dueAt;
     }

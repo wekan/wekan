@@ -339,7 +339,7 @@ BlazeComponent.extendComponent({
       listId: this.selectedListId.get(),
       archived: false,
       importedId: null,
-      _id: {$nin: this.board.cards().map((card) => { return card.importedId || card._id})},
+      _id: {$nin: this.board.cards().map((card) => { return card.importedId || card._id; })},
     });
   },
 

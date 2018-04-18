@@ -323,7 +323,7 @@ Boards.helpers({
   searchCards(term, excludeImported) {
     check(term, Match.OneOf(String, null, undefined));
 
-    let query = { boardId: this._id };
+    const query = { boardId: this._id };
     if (excludeImported) {
       query.importedId = null;
     }
@@ -333,9 +333,9 @@ Boards.helpers({
       const regex = new RegExp(term, 'i');
 
       query.$or = [
-          { title: regex },
-          { description: regex },
-        ];
+        { title: regex },
+        { description: regex },
+      ];
     }
 
     return Cards.find(query, projection);
