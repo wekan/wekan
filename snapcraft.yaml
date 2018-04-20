@@ -96,7 +96,7 @@ parts:
             - npm
             - curl
             - execstack
-        prepare: |
+        override-build: |
             echo "Cleaning environment first"
             rm -rf ~/.meteor ~/.npm /usr/local/lib/node_modules
             # Node Fibers 100% CPU usage issue:
@@ -133,7 +133,6 @@ parts:
             git clone --depth 1 -b master https://github.com/meteor-useraccounts/core.git meteor-useraccounts-core
             sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' meteor-useraccounts-core/package.js
             cd ..
-        build: |
             rm -rf package-lock.json .build
             meteor add standard-minifier-js --allow-superuser
             meteor npm install --allow-superuser
@@ -145,7 +144,6 @@ parts:
             cd ../../../../
             npm install
             meteor npm install --save bcrypt
-        install: |
             cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
             cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
             rm $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan
