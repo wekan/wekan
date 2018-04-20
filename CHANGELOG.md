@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Snap: Use override-build instead of old deprecated
+   prepare/build/install](https://github.com/wekan/wekan/commit/075ea1c43d827099e0030c750a4c156bd3340fed).
+
+Thanks to GitHub user kyrofa for contributions.
+
 # v0.86 2018-04-20 Wekan release
 
 This release adds the following new features:
@@ -5,7 +14,7 @@ This release adds the following new features:
 - Updated translations: German and Turkish;
 - Updated Caddy to newest version for Snap.
 
-Thanks to translators and Caddy developers !
+Thanks to translators and Caddy developers.
 
 # v0.85 2018-04-18 Wekan release
 
