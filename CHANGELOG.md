@@ -3,9 +3,11 @@
 This release fixes the following bugs:
 
 - [Snap: Use override-build instead of old deprecated
-   prepare/build/install](https://github.com/wekan/wekan/commit/075ea1c43d827099e0030c750a4c156bd3340fed).
+   prepare/build/install](https://github.com/wekan/wekan/commit/075ea1c43d827099e0030c750a4c156bd3340fed);
+- [Removed not-used plugins part of Caddy download
+   URL](https://github.com/wekan/wekan/commit/7b91b341fe9c0cde42f91bf14d228820653c883d).
 
-Thanks to GitHub user kyrofa for contributions.
+Thanks to GitHub users kyrofa and xet7 for their contributions.
 
 # v0.86 2018-04-20 Wekan release
 
