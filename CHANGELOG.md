@@ -1,3 +1,12 @@
+# v0.86 2018-04-20 Wekan release
+
+This release adds the following new features:
+
+- Updated translations: German and Turkish;
+- Updated Caddy to newest version for Snap.
+
+Thanks to translators and Caddy developers !
+
 # v0.85 2018-04-18 Wekan release
 
 This release fixes the following bugs:
