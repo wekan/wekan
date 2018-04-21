@@ -6,7 +6,7 @@ template(name="minicard")
       .minicard-labels
         each labels
           .minicard-label(class="card-label-{{color}}" title="{{name}}")
-            = name
+            = makeCompactLabelName(name)
     .minicard-title
       +viewer
         = title
