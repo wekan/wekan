@@ -703,6 +703,20 @@ Cards.helpers({
     }
   },
 
+  getBoardTitle() {
+    if (this.isImportedCard()) {
+      const card = Cards.findOne({ _id: this.importedId });
+      const board = Boards.findOne({ _id: card.boardId });
+      return board.title;
+    } else if (this.isImportedBoard()) {
+      const board = Boards.findOne({ _id: this.importedId});
+      return board.title;
+    } else {
+      const board = Boards.findOne({ _id: this.boardId });
+      return board.title;
+    }
+  },
+
   setTitle(title) {
     if (this.isImportedCard()) {
       return Cards.update(

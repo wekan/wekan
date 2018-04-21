@@ -19,6 +19,10 @@ template(name="cardDetails")
             a.js-parent-card(href=linkForCard) {{title}}
           // else
             {{_ 'top-level-card'}}
+        if isImportedCard
+          h3.imported-card-location
+            +viewer
+              | {{getBoardTitle}} > {{getTitle}}
 
     if getArchived
       if isImportedBoard
