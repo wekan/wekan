@@ -15,8 +15,15 @@ template(name="minicard")
       if $eq 'prefix-with-parent' currentBoard.presentParentTask
         .parent-prefix
           | {{ parentCardName }}
-      if isImported
-        span.imported-icon.fa.fa-share-alt
+      if isImportedBoard
+        a.js-imported-link
+          span.imported-icon.fa.fa-folder
+      else if isImportedCard
+        a.js-imported-link
+          span.imported-icon.fa.fa-id-card
+      if getArchived
+        span.imported-icon.imported-archived.fa.fa-archive
+
       +viewer
         = getTitle
       if $eq 'subtext-with-full-path' currentBoard.presentParentTask

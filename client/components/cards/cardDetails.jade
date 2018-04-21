@@ -20,8 +20,11 @@ template(name="cardDetails")
           // else
             {{_ 'top-level-card'}}
 
-    if archived
-      p.warning {{_ 'card-archived'}}
+    if getArchived
+      if isImportedBoard
+        p.warning {{_ 'board-archived'}}
+      else
+        p.warning {{_ 'card-archived'}}
 
     .card-details-items
       .card-details-item.card-details-item-received
