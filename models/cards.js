@@ -543,6 +543,18 @@ Cards.helpers({
       );
     }
   },
+
+  getArchived() {
+    if (this.isImportedCard()) {
+      const card = Cards.findOne({ _id: this.importedId });
+      return card.archived;
+    } else if (this.isImportedBoard()) {
+      const board = Boards.findOne({ _id: this.importedId});
+      return board.archived;
+    } else {
+      return this.archived;
+    }
+  },
 });
 
 Cards.mutations({

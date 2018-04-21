@@ -9,8 +9,14 @@ template(name="minicard")
         each labels
           .minicard-label(class="card-label-{{color}}" title="{{name}}")
     .minicard-title
-      if isImported
-        span.imported-icon.fa.fa-share-alt
+      if isImportedBoard
+        a.js-imported-link
+          span.imported-icon.fa.fa-folder
+      else if isImportedCard
+        a.js-imported-link
+          span.imported-icon.fa.fa-id-card
+      if getArchived
+        span.imported-icon.imported-archived.fa.fa-archive
       +viewer
         = getTitle
     .dates

@@ -14,8 +14,11 @@ template(name="cardDetails")
               if isWatching
                 i.fa.fa-eye.card-details-watch
 
-    if archived
-      p.warning {{_ 'card-archived'}}
+    if getArchived
+      if isImportedBoard
+        p.warning {{_ 'board-archived'}}
+      else
+        p.warning {{_ 'card-archived'}}
 
     .card-details-items
       .card-details-item.card-details-item-received
