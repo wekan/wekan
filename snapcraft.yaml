@@ -96,7 +96,7 @@ parts:
             - npm
             - curl
             - execstack
-        prepare: |
+        override-build: |
             echo "Cleaning environment first"
             rm -rf ~/.meteor ~/.npm /usr/local/lib/node_modules
             # Node Fibers 100% CPU usage issue:
@@ -133,19 +133,18 @@ parts:
             git clone --depth 1 -b master https://github.com/meteor-useraccounts/core.git meteor-useraccounts-core
             sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' meteor-useraccounts-core/package.js
             cd ..
-        build: |
             rm -rf package-lock.json .build
             meteor add standard-minifier-js --allow-superuser
             meteor npm install --allow-superuser
             meteor build .build --directory --allow-superuser
             cp -f fix-download-unicode/cfs_access-point.txt .build/bundle/programs/server/packages/cfs_access-point.js
+            oldpath=`pwd`
             cd .build/bundle/programs/server/npm/node_modules/meteor/npm-bcrypt
             rm -rf node_modules/bcrypt
             meteor npm install --save bcrypt
-            cd ../../../../
+            cd $oldpath
             npm install
             meteor npm install --save bcrypt
-        install: |
             cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
             cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
             rm $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan
@@ -159,7 +158,7 @@ parts:
 
     caddy:
         plugin: dump
-        source: https://caddyserver.com/download/linux/amd64?license=personal&plugins=
+        source: https://caddyserver.com/download/linux/amd64?license=personal
         source-type: tar
         organize:
           caddy: bin/caddy
