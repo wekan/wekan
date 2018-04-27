@@ -430,8 +430,7 @@ export class TrelloCreator {
         // keep track of Trello id => WeKan id
         this.checklists[checklist.id] = checklistId;
         // Now add the items to the checklistItems
-        var counter = 0;
-        const itemsToCreate = [];
+        let counter = 0;
         checklist.checkItems.forEach((item) => {
           counter++;
           const checklistItemTocreate = {
