@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix Trello import of ChecklistItems](https://github.com/wekan/wekan/pull/1611).
+
+Thanks to Github user zebby76 for contributions.
+
 # v0.87 2018-04-27 Wekan release
 
 This release fixes the following bugs:
