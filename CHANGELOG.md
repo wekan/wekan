@@ -2,6 +2,8 @@
 
 This release fixes the following bugs:
 
+- [Sandstorm: Copy Card, Move Card and Copy Checklist Template to Many Cards - No longer works in
+   menu](https://github.com/wekan/wekan/commit/db80e738048e2729917c5e8fc18cf8ee44df7992);
 - [Snap: Use override-build instead of old deprecated
    prepare/build/install](https://github.com/wekan/wekan/commit/075ea1c43d827099e0030c750a4c156bd3340fed);
 - [Removed not-used plugins part of Caddy download
