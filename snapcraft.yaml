@@ -138,10 +138,11 @@ parts:
             meteor npm install --allow-superuser
             meteor build .build --directory --allow-superuser
             cp -f fix-download-unicode/cfs_access-point.txt .build/bundle/programs/server/packages/cfs_access-point.js
-            pushd .build/bundle/programs/server/npm/node_modules/meteor/npm-bcrypt
+            oldpath=`pwd`
+            cd .build/bundle/programs/server/npm/node_modules/meteor/npm-bcrypt
             rm -rf node_modules/bcrypt
             meteor npm install --save bcrypt
-            popd
+            cd $oldpath
             npm install
             meteor npm install --save bcrypt
             cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
