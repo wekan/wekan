@@ -162,29 +162,20 @@ template(name="cardDetailsActionsPopup")
       li: a.js-more {{_ 'cardMorePopup-title'}}
 
 template(name="moveCardPopup")
-  if isSandstorm
-    +boardLists
-  else
-    +boardsAndLists
+  +boardsAndLists
 
 template(name="copyCardPopup")
   label(for='copy-card-title') {{_ 'title'}}:
   textarea#copy-card-title.minicard-composer-textarea.js-card-title(autofocus)
     = title
-  if isSandstorm
-    +boardLists
-  else
-    +boardsAndLists
+  +boardsAndLists
 
 
 template(name="copyChecklistToManyCardsPopup")
   label(for='copy-checklist-cards-title') {{_ 'copyChecklistToManyCardsPopup-instructions'}}:
   textarea#copy-card-title.minicard-composer-textarea.js-card-title(autofocus)
     | {{_ 'copyChecklistToManyCardsPopup-format'}}
-  if isSandstorm
-    +boardLists
-  else
-    +boardsAndLists
+  +boardsAndLists
 
 template(name="boardsAndLists")
   label {{_ 'boards'}}:
