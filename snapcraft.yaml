@@ -138,13 +138,15 @@ parts:
             meteor npm install --allow-superuser
             meteor build .build --directory --allow-superuser
             cp -f fix-download-unicode/cfs_access-point.txt .build/bundle/programs/server/packages/cfs_access-point.js
-            oldpath=`pwd`
             cd .build/bundle/programs/server/npm/node_modules/meteor/npm-bcrypt
             rm -rf node_modules/bcrypt
             meteor npm install --save bcrypt
-            cd $oldpath
+            # Change to directory .build/bundle/programs/server
+            cd ../../../../
             npm install
             meteor npm install --save bcrypt
+            # Change back to Wekan source directory
+            cd ../../../..
             cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
             cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
             rm $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan

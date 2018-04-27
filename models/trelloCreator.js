@@ -429,17 +429,20 @@ export class TrelloCreator {
         const checklistId = Checklists.direct.insert(checklistToCreate);
         // keep track of Trello id => WeKan id
         this.checklists[checklist.id] = checklistId;
-        // Now add the items to the checklist
-        const itemsToCreate = [];
+        // Now add the items to the checklistItems
+        let counter = 0;
         checklist.checkItems.forEach((item) => {
-          itemsToCreate.push({
-            _id: checklistId + itemsToCreate.length,
+          counter++;
+          const checklistItemTocreate = {
+            _id: checklistId + counter,
             title: item.name,
-            isFinished: item.state === 'complete',
+            checklistId: this.checklists[checklist.id],
+            cardId: this.cards[checklist.idCard],
             sort: item.pos,
-          });
+            isFinished: item.state === 'complete',
+          };
+          ChecklistItems.direct.insert(checklistItemTocreate);
         });
-        Checklists.direct.update(checklistId, {$set: {items: itemsToCreate}});
       }
     });
   }
