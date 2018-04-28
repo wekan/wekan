@@ -6,6 +6,15 @@ Features = {
     specialLists: {
       done: /done/i,
       now: /today/i
+    },
+    focus: {
+      labelSelectors: {
+        private: /-/i,
+        shared: /\+/i,
+      },
+      cardSelectors: {
+        waiting: /^\.\./i
+      }
     }
   },
   queryParamExtensions : {

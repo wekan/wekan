@@ -1,5 +1,6 @@
 template(name="minicard")
-  .minicard(class="{{#if isSpecialCard}}special-card filter-exempt{{/if}}")
+  .minicard(
+    class="{{#if isSpecialCard}}special-card filter-exempt{{/if}}")
     if cover
       .minicard-cover(style="background-image: url('{{cover.url}}');")
     if labels
