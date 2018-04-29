@@ -36,6 +36,8 @@ export class WekanCreator {
     this.attachmentIds = {};
     // Map of checklists Wekan ID => Wekan ID
     this.checklists = {};
+    // Map of checklistItems Wekan ID => Wekan ID
+    this.checklistItems = {};
     // The comments, indexed by Wekan card id (to map when importing cards)
     this.comments = {};
     // the members, indexed by Wekan member id => Wekan user ID
@@ -135,10 +137,13 @@ export class WekanCreator {
     check(wekanChecklists, [Match.ObjectIncluding({
       cardId: String,
       title: String,
-      items: [Match.ObjectIncluding({
-        isFinished: Boolean,
-        title: String,
-      })],
+    })]);
+  }
+
+  checkChecklistItems(wekanChecklistItems) {
+    check(wekanChecklistItems, [Match.ObjectIncluding({
+      cardId: String,
+      title: String,
     })]);
   }
 
@@ -435,6 +440,7 @@ export class WekanCreator {
   }
 
   createChecklists(wekanChecklists) {
+    const result = [];
     wekanChecklists.forEach((checklist, checklistIndex) => {
       // Create the checklist
       const checklistToCreate = {
@@ -444,19 +450,24 @@ export class WekanCreator {
         sort: checklist.sort ? checklist.sort : checklistIndex,
       };
       const checklistId = Checklists.direct.insert(checklistToCreate);
-      // keep track of Wekan id => WeKan id
       this.checklists[checklist._id] = checklistId;
-      // Now add the items to the checklist
-      const itemsToCreate = [];
-      checklist.items.forEach((item, itemIndex) => {
-        itemsToCreate.push({
-          _id: checklistId + itemsToCreate.length,
-          title: item.title,
-          isFinished: item.isFinished,
-          sort: item.sort ? item.sort : itemIndex,
-        });
-      });
-      Checklists.direct.update(checklistId, {$set: {items: itemsToCreate}});
+      result.push(checklistId);
+    });
+    return result;
+  }
+
+  createChecklistItems(wekanChecklistItems) {
+    wekanChecklistItems.forEach((checklistitem, checklistitemIndex) => {
+      // Create the checklistItem
+      const checklistItemTocreate = {
+        title: checklistitem.title,
+        checklistId: this.checklists[checklistitem.checklistId],
+        cardId: this.cards[checklistitem.cardId],
+        sort: checklistitem.sort ? checklistitem.sort : checklistitemIndex,
+        isFinished: checklistitem.isFinished,
+      };
+      const checklistItemId = ChecklistItems.direct.insert(checklistItemTocreate);
+      this.checklistItems[checklistitem._id] = checklistItemId;
     });
   }
 
@@ -470,14 +481,17 @@ export class WekanCreator {
         const wekanAttachment = wekanBoard.attachments.filter((attachment) => {
           return attachment._id === activity.attachmentId;
         })[0];
-        if(wekanAttachment.url || wekanAttachment.file) {
+
+        if ( typeof wekanAttachment !== 'undefined' && wekanAttachment ) {
+          if(wekanAttachment.url || wekanAttachment.file) {
           // we cannot actually create the Wekan attachment, because we don't yet
           // have the cards to attach it to, so we store it in the instance variable.
-          const wekanCardId = activity.cardId;
-          if(!this.attachments[wekanCardId]) {
-            this.attachments[wekanCardId] = [];
+            const wekanCardId = activity.cardId;
+            if(!this.attachments[wekanCardId]) {
+              this.attachments[wekanCardId] = [];
+            }
+            this.attachments[wekanCardId].push(wekanAttachment);
           }
-          this.attachments[wekanCardId].push(wekanAttachment);
         }
         break;
       }
@@ -635,6 +649,7 @@ export class WekanCreator {
       this.checkSwimlanes(board.swimlanes);
       this.checkCards(board.cards);
       this.checkChecklists(board.checklists);
+      this.checkChecklistItems(board.checklistItems);
     } catch (e) {
       throw new Meteor.Error('error-json-schema');
     }
@@ -654,6 +669,7 @@ export class WekanCreator {
     this.createSwimlanes(board.swimlanes, boardId);
     this.createCards(board.cards, boardId);
     this.createChecklists(board.checklists);
+    this.createChecklistItems(board.checklistItems);
     this.importActivities(board.activities, boardId);
     // XXX add members
     return boardId;

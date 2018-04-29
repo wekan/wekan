@@ -57,9 +57,12 @@ class Exporter {
     result.comments = CardComments.find(byBoard, noBoardId).fetch();
     result.activities = Activities.find(byBoard, noBoardId).fetch();
     result.checklists = [];
+    result.checklistItems = [];
     result.cards.forEach((card) => {
       result.checklists.push(...Checklists.find({ cardId: card._id }).fetch());
+      result.checklistItems.push(...ChecklistItems.find({ cardId: card._id }).fetch());
     });
+
     // [Old] for attachments we only export IDs and absolute url to original doc
     // [New] Encode attachment to base64
     const getBase64Data = function(doc, callback) {

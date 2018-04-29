@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix Wekan import / Export for
+   ChecklistItems](https://github.com/wekan/wekan/commit/30b17ff6c92df07922f875071e864cf688902293).
+
+Thanks to Github user zebby76 for contributions.
+
 # v0.88 2018-04-27 Wekan release
 
 This release fixes the following bugs:
