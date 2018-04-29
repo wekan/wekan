@@ -64,6 +64,13 @@ Utils = {
       increment,
     };
   },
+
+  getBoardComponent(component) {
+    const p = component.parentComponent();
+    const gp  = p.parentComponent();
+    if (gp) return gp;
+    return p;
+  }
 };
 
 // A simple tracker dependency that we invalidate every time the window is

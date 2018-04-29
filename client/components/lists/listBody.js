@@ -41,7 +41,7 @@ BlazeComponent.extendComponent({
     const board = Boards.findOne(boardId);
     let swimlaneId = '';
     if (board.view === 'board-view-swimlanes')
-      swimlaneId = this.parentComponent().parentComponent().data()._id;
+      swimlaneId = Utils.getBoardComponent(this).data()._id;
     else
       swimlaneId = Swimlanes.findOne({boardId})._id;
 
