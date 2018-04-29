@@ -1,5 +1,5 @@
 
-CardsDecorator = {
+Lens = {
 
   _focusLevel: null,
   _currentUserId: Meteor.userId(),
@@ -81,10 +81,17 @@ CardsDecorator = {
 
 
 
-  }
+  },
 
+  prepareNewCard(card) {
+    if (Features.opinions.focus.assignToFocusedUser) {
+      if (!card.members.length && this._focusLevel !== "none") {
+        card.members = [this._currentUserId];
+      }
+    }
+  }
 
 
 };
 
-Blaze.registerHelper('CardsDecorator', CardsDecorator);
+Blaze.registerHelper('Lens', Lens);

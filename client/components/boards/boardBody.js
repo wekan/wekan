@@ -30,11 +30,11 @@ BlazeComponent.extendComponent({
 
      // feature: focus on me if focus=me query param is there
     const currentBoardId = Session.get('currentBoard');
-    CardsDecorator.init(currentBoardId);
+    Lens.init(currentBoardId);
     if (Features.queryParamExtensions.focus) {
       const focus = FlowRouter.current().queryParams.focus;
       if (focus) {
-        CardsDecorator.setFocusLevel(focus);
+        Lens.setFocusLevel(focus);
       }
     }
 

@@ -1,6 +1,5 @@
 Features = {
   opinions : {
-    assignToFocusedUser : true,
     preferHideFilter: true,
     specialCards: true,
     specialLists: {
@@ -8,6 +7,7 @@ Features = {
       now: /today/i
     },
     focus: {
+      assignToFocusedUser : true,
       labelSelectors: {
         private: /-/i,
         shared: /\+/i,

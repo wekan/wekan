@@ -206,7 +206,7 @@ Cards.helpers({
   },
 
   decorationClasses() {
-    const decoration = CardsDecorator.decorateCard(this);
+    const decoration = Lens.decorateCard(this);
     if (!decoration) return "";
     var classes = [];
     if (decoration.dimmed) classes.push("card-dimmed");
