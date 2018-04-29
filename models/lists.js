@@ -82,8 +82,10 @@ Lists.helpers({
     };
     if (swimlaneId)
       selector.swimlaneId = swimlaneId;
-    return Cards.find(Filter.mongoSelector(selector),
+    const cards = Cards.find(Filter.mongoSelector(selector),
       { sort: ['sort'] });
+//    cards.forEach(c => Lens.decorateCard(c))
+    return cards;
   },
 
   allCards() {

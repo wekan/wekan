@@ -203,6 +203,15 @@ Cards.helpers({
 
   isSpecialCard() {
     return  Features.opinions.specialCards && this.title  && /[-]{3}/.test(this.title);
+  },
+
+  decorationClasses() {
+    const decoration = Lens.decorateCard(this);
+    if (!decoration) return "";
+    var classes = [];
+    if (decoration.dimmed) classes.push("card-dimmed");
+    if (decoration.hidden) classes.push("card-hidden");
+    return classes;
   }
 });
 

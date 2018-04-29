@@ -27,6 +27,17 @@ BlazeComponent.extendComponent({
 
     // Used to set the overlay
     this.mouseHasEnterCardDetails = false;
+
+     // feature: focus on me if focus=me query param is there
+    const currentBoardId = Session.get('currentBoard');
+    Lens.init(currentBoardId);
+    if (Features.queryParamExtensions.focus) {
+      const focus = FlowRouter.current().queryParams.focus;
+      if (focus) {
+        Lens.setFocusLevel(focus);
+      }
+    }
+
   },
 
   // XXX Flow components allow us to avoid creating these two setter methods by
@@ -77,18 +88,3 @@ BlazeComponent.extendComponent({
   },
 }).register('board');
 
-Template.boardBody.onRendered(function() {
- // feature: focus on me if focus=me query param is there
-  if (Features.queryParamExtensions.focus) {
-    const focus = FlowRouter.current().queryParams.focus;
-    if (focus) {
-      if (focus === "me") {
-        const currentBoardId = Session.get('currentBoard');
-        const currentUserId = Meteor.userId();
-        if (currentBoardId && currentUserId) {
-          Filter.focus(currentUserId);
-        }
-      }
-    }
-  }
-});

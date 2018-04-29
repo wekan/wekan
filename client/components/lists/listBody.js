@@ -34,11 +34,6 @@ BlazeComponent.extendComponent({
     }
 
     var members = formComponent.members.get();
-    if (Features.opinions.assignToFocusedUser) {
-      if (!members.length && Filter.members._selectedElements.length == 1) {
-        members = Filter.members._selectedElements;
-      }
-    }
 
     const labelIds = formComponent.labels.get();
 
@@ -51,7 +46,8 @@ BlazeComponent.extendComponent({
       swimlaneId = Swimlanes.findOne({boardId})._id;
 
     if (title) {
-      const _id = Cards.insert({
+
+      card = {
         title,
         members,
         labelIds,
@@ -59,7 +55,9 @@ BlazeComponent.extendComponent({
         boardId: this.data().board()._id,
         sort: sortIndex,
         swimlaneId,
-      });
+      };
+      Lens.prepareNewCard(card);
+      const _id = Cards.insert(card);
       // In case the filter is active we need to add the newly inserted card in
       // the list of exceptions -- cards that are not filtered. Otherwise the
       // card will disappear instantly.

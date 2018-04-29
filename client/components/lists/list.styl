@@ -1,18 +1,23 @@
 @import 'nib'
 
+dimmedCardColod = #eaeaea
+
 .list-separator ~ .minicard-wrapper
   .minicard:not(.special-card):not(:hover)
-    background-color: #f6f6f6
+    background-color: dimmedCardColod
 
 .list.special-list-done
   .minicard:not(:hover)
-    background-color: #f6f6f6
+    background-color: dimmedCardColod
   .minicard
     .minicard-title
       p
         text-decoration: line-through
+.minicard-wrapper.card-dimmed .minicard
+  background-color: dimmedCardColod
 
-
+.minicard-wrapper.card-hidden
+  display: none
 
 .list
   box-sizing: border-box
