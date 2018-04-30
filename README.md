@@ -1,9 +1,9 @@
 # Wekan
 
-[![Translate Wekan at Transifex](https://img.shields.io/badge/Translate%20Wekan-at%20Transifex-brightgreen.svg "Freenode IRC")](irc://freenode/wekan)
+[![Translate Wekan at Transifex](https://img.shields.io/badge/Translate%20Wekan-at%20Transifex-brightgreen.svg "Freenode IRC")](https://transifex.com/wekan/wekan)
 
 [![Wekan Vanila Chat][vanila_badge]][vanila_chat] 
-[![IRC #wekan](https://img.shields.io/badge/IRC%20%23wekan-on%20Freenode-brightgreen.svg "Freenode IRC")](irc://freenode/wekan)
+[![IRC #wekan](https://img.shields.io/badge/IRC%20%23wekan-on%20Freenode-brightgreen.svg "Freenode IRC")](http://webchat.freenode.net?channels=%23wekan&uio=d4)
 
 [![Contributors](https://img.shields.io/github/contributors/wekan/wekan.svg "Contributors")](https://github.com/wekan/wekan/graphs/contributors)
 [![Docker Repository on Quay](https://quay.io/repository/wekan/wekan/status "Docker Repository on Quay")](https://quay.io/repository/wekan/wekan)
