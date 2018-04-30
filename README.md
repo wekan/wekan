@@ -1,18 +1,28 @@
 # Wekan
 
-[![Docker Repository on Quay](https://quay.io/repository/wekan/wekan/status "Docker Repository on Quay")](https://quay.io/repository/wekan/wekan)
-
-<!--
-[![Wekan Build Status][travis_badge]][travis_status]
--->
-
-Freenode IRC #wekan
+[![Translate Wekan at Transifex](https://img.shields.io/badge/Translate%20Wekan-at%20Transifex-brightgreen.svg "Freenode IRC")](irc://freenode/wekan)
 
 [![Wekan chat][vanila_badge]][vanila_chat]
 
-[Translate Wekan at Transifex][translate_wekan]
+[![IRC #wekan](https://img.shields.io/badge/IRC%20%23wekan-on%20Freenode-brightgreen.svg "Freenode IRC")](irc://freenode/wekan)
 
-[Open Hub analysis of Wekan code](https://www.openhub.net/p/wekan)
+[![Contributors](https://img.shields.io/github/contributors/wekan/wekan.svg "Contributors")](https://github.com/wekan/wekan/graphs/contributors)
+
+[![Docker Repository on Quay](https://quay.io/repository/wekan/wekan/status "Docker Repository on Quay")](https://quay.io/repository/wekan/wekan)
+
+[![Docker Hub container status](https://img.shields.io/docker/build/wekanteam/wekan.svg "Docker Hub container status")](https://hub.docker.com/r/wekanteam/wekan)
+
+[![Docker Hub pulls](https://img.shields.io/docker/pulls/wekanteam/wekan.svg "Docker Hub Pulls")](https://hub.docker.com/r/wekanteam/wekan)
+
+[![Wekan Build Status][travis_badge]][travis_status]
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/02137ecec4e34c5aa303f57637196a93 "Codacy Badge")](https://www.codacy.com/app/xet7/wekan?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=wekan/wekan&amp;utm_campaign=Badge_Grade)
+
+[![Code Climate](https://codeclimate.com/github/wekan/wekan/badges/gpa.svg "Code Climate")](https://codeclimate.com/github/wekan/wekan)
+
+[![Project Dependencies](https://david-dm.org/wekan/wekan.svg "Project Dependencies")](https://david-dm.org/wekan/wekan)
+
+[![Open Hub](https://img.shields.io/badge/Analysis%20of%20Wekan%20code-at%20Open%20Hub-brightgreen.svg "Freenode IRC")](irc://freenode/wekan)
 
 Please read [FAQ](https://github.com/wekan/wekan/wiki/FAQ).
 Please don't feed the trolls and spammers that are mentioned in the FAQ :)
