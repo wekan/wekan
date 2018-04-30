@@ -1,3 +1,10 @@
+# Upcoming Wekan release
+
+- [Remove space from between checklist items, so longer checklists can be seen
+   at once](https://github.com/wekan/wekan/commit/1124f4120cd77622c0a6313e228e1a00690ff566).
+
+Thanks to GitHub user xet7 for contributions.
+
 # v0.89 2018-04-29 Wekan release
 
 This release fixes the following bugs:
@@ -5,7 +12,7 @@ This release fixes the following bugs:
 - [Fix Wekan import / Export for
    ChecklistItems](https://github.com/wekan/wekan/commit/30b17ff6c92df07922f875071e864cf688902293).
 
-Thanks to Github user zebby76 for contributions.
+Thanks to GitHub user zebby76 for contributions.
 
 # v0.88 2018-04-27 Wekan release
 
@@ -13,7 +20,7 @@ This release fixes the following bugs:
 
 - [Fix Trello import of ChecklistItems](https://github.com/wekan/wekan/pull/1611).
 
-Thanks to Github user zebby76 for contributions.
+Thanks to GitHub user zebby76 for contributions.
 
 # v0.87 2018-04-27 Wekan release
 
