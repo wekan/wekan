@@ -13,7 +13,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/02137ecec4e34c5aa303f57637196a93 "Codacy Badge")](https://www.codacy.com/app/xet7/wekan?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=wekan/wekan&amp;utm_campaign=Badge_Grade)
 [![Code Climate](https://codeclimate.com/github/wekan/wekan/badges/gpa.svg "Code Climate")](https://codeclimate.com/github/wekan/wekan)
 [![Project Dependencies](https://david-dm.org/wekan/wekan.svg "Project Dependencies")](https://david-dm.org/wekan/wekan)
-[![Open Hub Analysis of Wekan code](https://img.shields.io/badge/Analysis%20of%20Wekan%20code-at%20Open%20Hub-brightgreen.svg "Open Hub Analysis of Wekan code")](https://www.openhub.net/p/wekan)
+[![Code Analysis at Open Hub](https://img.shields.io/badge/Code%20analysis-at%20Open%20Hub-brightgreen.svg "Code Analysis at Open Hub")](https://www.openhub.net/p/wekan)
 
 Please read [FAQ](https://github.com/wekan/wekan/wiki/FAQ).
 Please don't feed the trolls and spammers that are mentioned in the FAQ :)
