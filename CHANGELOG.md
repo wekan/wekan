@@ -1,4 +1,6 @@
-# Upcoming Wekan release
+# v0.90 2018-05-01 Wekan release
+
+This release adds the following new features:
 
 - [Remove space from between checklist items, so longer checklists can be seen
    at once](https://github.com/wekan/wekan/commit/1124f4120cd77622c0a6313e228e1a00690ff566).
