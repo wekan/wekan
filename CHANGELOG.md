@@ -1,3 +1,10 @@
+# Upcoming Wekan release
+
+* [Try to fix: Users who register with an invitation code can't see
+   lists/cards. Please test](https://github.com/wekan/wekan/issues/1610).
+
+Thanks to GitHub user andresmanelli for contributions.
+
 # v0.91 2018-05-01 Wekan release
 
 This release fixes the following bugs:
