@@ -566,10 +566,11 @@ if (Meteor.isServer) {
           Swimlanes.insert({
             title: TAPi18n.__('welcome-swimlane'),
             boardId,
+            sort: 1,
           }, fakeUser);
 
-          ['welcome-list1', 'welcome-list2'].forEach((title) => {
-            Lists.insert({title: TAPi18n.__(title), boardId}, fakeUser);
+          ['welcome-list1', 'welcome-list2'].forEach((title, titleIndex) => {
+            Lists.insert({title: TAPi18n.__(title), boardId, sort: titleIndex}, fakeUser);
           });
         });
       });
@@ -754,4 +755,3 @@ if (Meteor.isServer) {
     }
   });
 }
-

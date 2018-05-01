@@ -1,3 +1,11 @@
+# v0.91 2018-05-01 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix Wekan Import / Export lists not being sortable](https://github.com/wekan/wekan/commit/539c1ab87a098a7ddfd23cdbd663441bd609b73d).
+
+Thanks to GitHub user zebby76 for contributions.
+
 # v0.90 2018-05-01 Wekan release
 
 This release adds the following new features:

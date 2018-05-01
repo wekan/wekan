@@ -379,6 +379,7 @@ export class TrelloCreator {
         // we require.
         createdAt: this._now(this.createdAt.lists[list.id]),
         title: list.name,
+        sort: list.pos,
       };
       const listId = Lists.direct.insert(listToCreate);
       Lists.direct.update(listId, {$set: {'updatedAt': this._now()}});
@@ -410,6 +411,7 @@ export class TrelloCreator {
       // we require.
       createdAt: this._now(),
       title: 'Default',
+      sort: 1,
     };
     const swimlaneId = Swimlanes.direct.insert(swimlaneToCreate);
     Swimlanes.direct.update(swimlaneId, {$set: {'updatedAt': this._now()}});
