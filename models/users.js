@@ -495,6 +495,7 @@ if (Meteor.isServer) {
       throw new Meteor.Error('error-invitation-code-not-exist', 'The invitation code doesn\'t exist');
     } else {
       user.profile = {icode: options.profile.invitationcode};
+      user.profile.boardView = 'board-view-lists';
     }
 
     return user;
