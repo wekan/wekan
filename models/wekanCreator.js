@@ -390,7 +390,7 @@ export class WekanCreator {
   }
 
   createLists(wekanLists, boardId) {
-    wekanLists.forEach((list) => {
+    wekanLists.forEach((list, listIndex) => {
       const listToCreate = {
         archived: list.archived,
         boardId,
@@ -400,6 +400,7 @@ export class WekanCreator {
         // we require.
         createdAt: this._now(this.createdAt.lists[list.id]),
         title: list.title,
+        sort: list.sort ? list.sort : listIndex,
       };
       const listId = Lists.direct.insert(listToCreate);
       Lists.direct.update(listId, {$set: {'updatedAt': this._now()}});
@@ -422,7 +423,7 @@ export class WekanCreator {
   }
 
   createSwimlanes(wekanSwimlanes, boardId) {
-    wekanSwimlanes.forEach((swimlane) => {
+    wekanSwimlanes.forEach((swimlane, swimlaneIndex) => {
       const swimlaneToCreate = {
         archived: swimlane.archived,
         boardId,
@@ -432,6 +433,7 @@ export class WekanCreator {
         // we require.
         createdAt: this._now(this.createdAt.swimlanes[swimlane._id]),
         title: swimlane.title,
+        sort: swimlane.sort ? swimlane.sort : swimlaneIndex,
       };
       const swimlaneId = Swimlanes.direct.insert(swimlaneToCreate);
       Swimlanes.direct.update(swimlaneId, {$set: {'updatedAt': this._now()}});
