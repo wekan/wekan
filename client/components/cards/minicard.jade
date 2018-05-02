@@ -1,7 +1,7 @@
 template(name="minicard")
   .minicard(
-    class="{{#if isImportedCard}}imported-card{{/if}}"
-    class="{{#if isImportedBoard}}imported-board{{/if}}")
+    class="{{#if isLinkedCard}}linked-card{{/if}}"
+    class="{{#if isLinkedBoard}}linked-board{{/if}}")
     if cover
       .minicard-cover(style="background-image: url('{{cover.url}}');")
     if labels
@@ -15,15 +15,14 @@ template(name="minicard")
       if $eq 'prefix-with-parent' currentBoard.presentParentTask
         .parent-prefix
           | {{ parentCardName }}
-      if isImportedBoard
-        a.js-imported-link
-          span.imported-icon.fa.fa-folder
-      else if isImportedCard
-        a.js-imported-link
-          span.imported-icon.fa.fa-id-card
+      if isLinkedBoard
+        a.js-linked-link
+          span.linked-icon.fa.fa-folder
+      else if isLinkedCard
+        a.js-linked-link
+          span.linked-icon.fa.fa-id-card
       if getArchived
-        span.imported-icon.imported-archived.fa.fa-archive
-
+        span.linked-icon.linked-archived.fa.fa-archive
       +viewer
         = getTitle
       if $eq 'subtext-with-full-path' currentBoard.presentParentTask

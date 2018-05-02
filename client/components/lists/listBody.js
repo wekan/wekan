@@ -200,7 +200,7 @@ BlazeComponent.extendComponent({
   events() {
     return [{
       keydown: this.pressKey,
-      'click .js-import': Popup.open('importCard'),
+      'click .js-link': Popup.open('linkCard'),
       'click .js-search': Popup.open('searchCard'),
     }];
   },
@@ -338,8 +338,8 @@ BlazeComponent.extendComponent({
       swimlaneId: this.selectedSwimlaneId.get(),
       listId: this.selectedListId.get(),
       archived: false,
-      importedId: null,
-      _id: {$nin: this.board.cards().map((card) => { return card.importedId || card._id; })},
+      linkedId: null,
+      _id: {$nin: this.board.cards().map((card) => { return card.linkedId || card._id; })},
     });
   },
 
@@ -356,7 +356,7 @@ BlazeComponent.extendComponent({
         this.selectedListId.set($(evt.currentTarget).val());
       },
       'click .js-done' (evt) {
-        // IMPORT CARD
+        // LINK CARD
         evt.stopPropagation();
         evt.preventDefault();
         const _id = Cards.insert({
@@ -365,14 +365,14 @@ BlazeComponent.extendComponent({
           swimlaneId: this.swimlaneId,
           boardId: this.boardId,
           sort: Lists.findOne(this.listId).cards().count(),
-          type: 'cardType-importedCard',
-          importedId: $('.js-select-cards option:selected').val(),
+          type: 'cardType-linkedCard',
+          linkedId: $('.js-select-cards option:selected').val(),
         });
         Filter.addException(_id);
         Popup.close();
       },
-      'click .js-import-board' (evt) {
-        //IMPORT BOARD
+      'click .js-link-board' (evt) {
+        //LINK BOARD
         evt.stopPropagation();
         evt.preventDefault();
         const impBoardId = $('.js-select-boards option:selected').val();
@@ -382,15 +382,15 @@ BlazeComponent.extendComponent({
           swimlaneId: this.swimlaneId,
           boardId: this.boardId,
           sort: Lists.findOne(this.listId).cards().count(),
-          type: 'cardType-importedBoard',
-          importedId: impBoardId,
+          type: 'cardType-linkedBoard',
+          linkedId: impBoardId,
         });
         Filter.addException(_id);
         Popup.close();
       },
     }];
   },
-}).register('importCardPopup');
+}).register('linkCardPopup');
 
 BlazeComponent.extendComponent({
   mixins() {
@@ -452,7 +452,7 @@ BlazeComponent.extendComponent({
         this.term.set(evt.target.searchTerm.value);
       },
       'click .js-minicard'(evt) {
-        // IMPORT CARD
+        // LINK CARD
         const card = Blaze.getData(evt.currentTarget);
         const _id = Cards.insert({
           title: card.title, //dummy
@@ -460,8 +460,8 @@ BlazeComponent.extendComponent({
           swimlaneId: this.swimlaneId,
           boardId: this.boardId,
           sort: Lists.findOne(this.listId).cards().count(),
-          type: 'cardType-importedCard',
-          importedId: card._id,
+          type: 'cardType-linkedCard',
+          linkedId: card._id,
         });
         Filter.addException(_id);
         Popup.close();

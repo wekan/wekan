@@ -36,7 +36,7 @@ template(name="addCardForm")
     button.primary.confirm(type="submit") {{_ 'add'}}
     span.quiet
       | {{_ 'or'}}
-      a.js-import {{_ 'import'}}
+      a.js-link {{_ 'link'}}
     span.quiet
       | &nbsp;
       | /
@@ -46,16 +46,16 @@ template(name="autocompleteLabelLine")
   .minicard-label(class="card-label-{{colorName}}" title=labelName)
   span(class="{{#if hasNoName}}quiet{{/if}}")= labelName
 
-template(name="importCardPopup")
+template(name="linkCardPopup")
   label {{_ 'boards'}}:
-  .import-board-wrapper
+  .link-board-wrapper
     select.js-select-boards
       each boards
         if $eq _id currentBoard._id
           option(value="{{_id}}" selected) {{_ 'current'}}
         else
           option(value="{{_id}}") {{title}}
-    input.primary.confirm.js-import-board(type="button" value="{{_ 'import'}}")
+    input.primary.confirm.js-link-board(type="button" value="{{_ 'link'}}")
 
   label {{_ 'swimlanes'}}:
   select.js-select-swimlanes
@@ -73,11 +73,11 @@ template(name="importCardPopup")
       option(value="{{_id}}") {{title}}
 
   .edit-controls.clearfix
-    input.primary.confirm.js-done(type="button" value="{{_ 'import'}}")
+    input.primary.confirm.js-done(type="button" value="{{_ 'link'}}")
 
 template(name="searchCardPopup")
   label {{_ 'boards'}}:
-  .import-board-wrapper
+  .link-board-wrapper
     select.js-select-boards
       each boards
         if $eq _id currentBoard._id

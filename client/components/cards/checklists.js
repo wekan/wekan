@@ -76,8 +76,8 @@ BlazeComponent.extendComponent({
     const title = textarea.value.trim();
     let cardId = this.currentData().cardId;
     const card = Cards.findOne(cardId);
-    if (card.isImported())
-      cardId = card.importedId;
+    if (card.isLinked())
+      cardId = card.linkedId;
 
     if (title) {
       Checklists.insert({
