@@ -45,7 +45,7 @@ class Exporter {
 
   build() {
     const byBoard = { boardId: this._boardId };
-    const byBoardNoImported = { boardId: this._boardId, importedId: null };
+    const byBoardNoLinked = { boardId: this._boardId, linkedId: null };
     // we do not want to retrieve boardId in related elements
     const noBoardId = { fields: { boardId: 0 } };
     const result = {
@@ -53,7 +53,7 @@ class Exporter {
     };
     _.extend(result, Boards.findOne(this._boardId, { fields: { stars: 0 } }));
     result.lists = Lists.find(byBoard, noBoardId).fetch();
-    result.cards = Cards.find(byBoardNoImported, noBoardId).fetch();
+    result.cards = Cards.find(byBoardNoLinked, noBoardId).fetch();
     result.swimlanes = Swimlanes.find(byBoard, noBoardId).fetch();
     result.comments = CardComments.find(byBoard, noBoardId).fetch();
     result.activities = Activities.find(byBoard, noBoardId).fetch();
