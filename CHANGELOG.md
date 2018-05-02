@@ -1,3 +1,12 @@
+# v0.93 2018-05-02 Wekan release
+
+This release adds the following new features:
+
+* [Checklist items lineheight to 18px, and positioning
+   improvements](https://github.com/wekan/wekan/issues/1619).
+
+Thanks to GitHub user lichtamberg for contributions.
+
 # v0.92 2018-05-01 Wekan release
 
 This release tries to fix the following bugs, please test:

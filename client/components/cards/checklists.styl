@@ -94,7 +94,7 @@ textarea.js-add-checklist-item, textarea.js-edit-checklist-item
 
 .checklist-item
   margin: 0 0 0 0.1em
-  line-height: 14px
+  line-height: 18px
   font-size: 1.1em
   margin-top: 3px
   display: flex
@@ -114,7 +114,7 @@ textarea.js-add-checklist-item, textarea.js-edit-checklist-item
     background-color: darken(white, 8%)
 
   .check-box
-    margin-top: 0px
+    margin: 0.1em 0 0 0;
     &.is-checked
       border-bottom: 2px solid #3cb500
       border-right: 2px solid #3cb500
@@ -125,6 +125,9 @@ textarea.js-add-checklist-item, textarea.js-edit-checklist-item
     &.is-checked
       color: #8c8c8c
       font-style: italic
+    & .viewer
+      p
+        margin-bottom: 2px
 
 .js-delete-checklist-item
   margin: 0 0 0.5em 1.33em
@@ -132,5 +135,5 @@ textarea.js-add-checklist-item, textarea.js-edit-checklist-item
   padding: 12px 0 0 0
 
 .add-checklist-item
-  margin: 0 0 0.5em 1.33em
+  margin: 0.2em 0 0.5em 1.33em
   display: inline-block
