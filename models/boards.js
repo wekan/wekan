@@ -283,12 +283,12 @@ Boards.helpers({
     return _id;
   },
 
-  searchCards(term, excludeImported) {
+  searchCards(term, excludeLinked) {
     check(term, Match.OneOf(String, null, undefined));
 
     const query = { boardId: this._id };
-    if (excludeImported) {
-      query.importedId = null;
+    if (excludeLinked) {
+      query.linkedId = null;
     }
     const projection = { limit: 10, sort: { createdAt: -1 } };
 

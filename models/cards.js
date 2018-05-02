@@ -102,7 +102,7 @@ Cards.attachSchema(new SimpleSchema({
   type: {
     type: String,
   },
-  importedId: {
+  linkedId: {
     type: String,
     optional: true,
   },
@@ -151,26 +151,26 @@ Cards.helpers({
   },
 
   activities() {
-    if (this.isImportedCard()) {
-      return Activities.find({cardId: this.importedId}, {sort: {createdAt: -1}});
-    } else if (this.isImportedBoard()) {
-      return Activities.find({boardId: this.importedId}, {sort: {createdAt: -1}});
+    if (this.isLinkedCard()) {
+      return Activities.find({cardId: this.linkedId}, {sort: {createdAt: -1}});
+    } else if (this.isLinkedBoard()) {
+      return Activities.find({boardId: this.linkedId}, {sort: {createdAt: -1}});
     } else {
       return Activities.find({cardId: this._id}, {sort: {createdAt: -1}});
     }
   },
 
   comments() {
-    if (this.isImportedCard()) {
-      return CardComments.find({cardId: this.importedId}, {sort: {createdAt: -1}});
+    if (this.isLinkedCard()) {
+      return CardComments.find({cardId: this.linkedId}, {sort: {createdAt: -1}});
     } else {
       return CardComments.find({cardId: this._id}, {sort: {createdAt: -1}});
     }
   },
 
   attachments() {
-    if (this.isImportedCard()) {
-      return Attachments.find({cardId: this.importedId}, {sort: {uploadedAt: -1}});
+    if (this.isLinkedCard()) {
+      return Attachments.find({cardId: this.linkedId}, {sort: {uploadedAt: -1}});
     } else {
       return Attachments.find({cardId: this._id}, {sort: {uploadedAt: -1}});
     }
@@ -184,8 +184,8 @@ Cards.helpers({
   },
 
   checklists() {
-    if (this.isImportedCard()) {
-      return Checklists.find({cardId: this.importedId}, {sort: { sort: 1 } });
+    if (this.isLinkedCard()) {
+      return Checklists.find({cardId: this.linkedId}, {sort: { sort: 1 } });
     } else {
       return Checklists.find({cardId: this._id}, {sort: { sort: 1 } });
     }
@@ -234,23 +234,23 @@ Cards.helpers({
     return true;
   },
 
-  isImportedCard() {
-    return this.type === 'cardType-importedCard';
+  isLinkedCard() {
+    return this.type === 'cardType-linkedCard';
   },
 
-  isImportedBoard() {
-    return this.type === 'cardType-importedBoard';
+  isLinkedBoard() {
+    return this.type === 'cardType-linkedBoard';
   },
 
-  isImported() {
-    return this.isImportedCard() || this.isImportedBoard();
+  isLinked() {
+    return this.isLinkedCard() || this.isLinkedBoard();
   },
 
   setDescription(description) {
-    if (this.isImportedCard()) {
-      return Cards.update({_id: this.importedId}, {$set: {description}});
-    } else if (this.isImportedBoard()) {
-      return Boards.update({_id: this.importedId}, {$set: {description}});
+    if (this.isLinkedCard()) {
+      return Cards.update({_id: this.linkedId}, {$set: {description}});
+    } else if (this.isLinkedBoard()) {
+      return Boards.update({_id: this.linkedId}, {$set: {description}});
     } else {
       return Cards.update(
         {_id: this._id},
@@ -260,14 +260,14 @@ Cards.helpers({
   },
 
   getDescription() {
-    if (this.isImportedCard()) {
-      const card = Cards.findOne({_id: this.importedId});
+    if (this.isLinkedCard()) {
+      const card = Cards.findOne({_id: this.linkedId});
       if (card && card.description)
         return card.description;
       else
         return null;
-    } else if (this.isImportedBoard()) {
-      const board = Boards.findOne({_id: this.importedId});
+    } else if (this.isLinkedBoard()) {
+      const board = Boards.findOne({_id: this.linkedId});
       if (board && board.description)
         return board.description;
       else
@@ -280,11 +280,11 @@ Cards.helpers({
   },
 
   getMembers() {
-    if (this.isImportedCard()) {
-      const card = Cards.findOne({_id: this.importedId});
+    if (this.isLinkedCard()) {
+      const card = Cards.findOne({_id: this.linkedId});
       return card.members;
-    } else if (this.isImportedBoard()) {
-      const board = Boards.findOne({_id: this.importedId});
+    } else if (this.isLinkedBoard()) {
+      const board = Boards.findOne({_id: this.linkedId});
       return board.activeMembers().map((member) => {
         return member.userId;
       });
@@ -294,13 +294,13 @@ Cards.helpers({
   },
 
   assignMember(memberId) {
-    if (this.isImportedCard()) {
+    if (this.isLinkedCard()) {
       return Cards.update(
-        { _id: this.importedId },
+        { _id: this.linkedId },
         { $addToSet: { members: memberId }}
       );
-    } else if (this.isImportedBoard()) {
-      const board = Boards.findOne({_id: this.importedId});
+    } else if (this.isLinkedBoard()) {
+      const board = Boards.findOne({_id: this.linkedId});
       return board.addMember(memberId);
     } else {
       return Cards.update(
@@ -311,13 +311,13 @@ Cards.helpers({
   },
 
   unassignMember(memberId) {
-    if (this.isImportedCard()) {
+    if (this.isLinkedCard()) {
       return Cards.update(
-        { _id: this.importedId },
+        { _id: this.linkedId },
         { $pull: { members: memberId }}
       );
-    } else if (this.isImportedBoard()) {
-      const board = Boards.findOne({_id: this.importedId});
+    } else if (this.isLinkedBoard()) {
+      const board = Boards.findOne({_id: this.linkedId});
       return board.removeMember(memberId);
     } else {
       return Cards.update(
@@ -336,8 +336,8 @@ Cards.helpers({
   },
 
   getReceived() {
-    if (this.isImportedCard()) {
-      const card = Cards.findOne({_id: this.importedId});
+    if (this.isLinkedCard()) {
+      const card = Cards.findOne({_id: this.linkedId});
       return card.receivedAt;
     } else {
       return this.receivedAt;
@@ -345,9 +345,9 @@ Cards.helpers({
   },
 
   setReceived(receivedAt) {
-    if (this.isImportedCard()) {
+    if (this.isLinkedCard()) {
       return Cards.update(
-        {_id: this.importedId},
+        {_id: this.linkedId},
         {$set: {receivedAt}}
       );
     } else {
@@ -359,11 +359,11 @@ Cards.helpers({
   },
 
   getStart() {
-    if (this.isImportedCard()) {
-      const card = Cards.findOne({_id: this.importedId});
+    if (this.isLinkedCard()) {
+      const card = Cards.findOne({_id: this.linkedId});
       return card.startAt;
-    } else if (this.isImportedBoard()) {
-      const board = Boards.findOne({_id: this.importedId});
+    } else if (this.isLinkedBoard()) {
+      const board = Boards.findOne({_id: this.linkedId});
       return board.startAt;
     } else {
       return this.startAt;
@@ -371,14 +371,14 @@ Cards.helpers({
   },
 
   setStart(startAt) {
-    if (this.isImportedCard()) {
+    if (this.isLinkedCard()) {
       return Cards.update(
-        { _id: this.importedId },
+        { _id: this.linkedId },
         {$set: {startAt}}
       );
-    } else if (this.isImportedBoard()) {
+    } else if (this.isLinkedBoard()) {
       return Boards.update(
-        {_id: this.importedId},
+        {_id: this.linkedId},
         {$set: {startAt}}
       );
     } else {
@@ -390,11 +390,11 @@ Cards.helpers({
   },
 
   getDue() {
-    if (this.isImportedCard()) {
-      const card = Cards.findOne({_id: this.importedId});
+    if (this.isLinkedCard()) {
+      const card = Cards.findOne({_id: this.linkedId});
       return card.dueAt;
-    } else if (this.isImportedBoard()) {
-      const board = Boards.findOne({_id: this.importedId});
+    } else if (this.isLinkedBoard()) {
+      const board = Boards.findOne({_id: this.linkedId});
       return board.dueAt;
     } else {
       return this.dueAt;
@@ -402,14 +402,14 @@ Cards.helpers({
   },
 
   setDue(dueAt) {
-    if (this.isImportedCard()) {
+    if (this.isLinkedCard()) {
       return Cards.update(
-        { _id: this.importedId },
+        { _id: this.linkedId },
         {$set: {dueAt}}
       );
-    } else if (this.isImportedBoard()) {
+    } else if (this.isLinkedBoard()) {
       return Boards.update(
-        {_id: this.importedId},
+        {_id: this.linkedId},
         {$set: {dueAt}}
       );
     } else {
@@ -421,11 +421,11 @@ Cards.helpers({
   },
 
   getEnd() {
-    if (this.isImportedCard()) {
-      const card = Cards.findOne({_id: this.importedId});
+    if (this.isLinkedCard()) {
+      const card = Cards.findOne({_id: this.linkedId});
       return card.endAt;
-    } else if (this.isImportedBoard()) {
-      const board = Boards.findOne({_id: this.importedId});
+    } else if (this.isLinkedBoard()) {
+      const board = Boards.findOne({_id: this.linkedId});
       return board.endAt;
     } else {
       return this.endAt;
@@ -433,14 +433,14 @@ Cards.helpers({
   },
 
   setEnd(endAt) {
-    if (this.isImportedCard()) {
+    if (this.isLinkedCard()) {
       return Cards.update(
-        { _id: this.importedId },
+        { _id: this.linkedId },
         {$set: {endAt}}
       );
-    } else if (this.isImportedBoard()) {
+    } else if (this.isLinkedBoard()) {
       return Boards.update(
-        {_id: this.importedId},
+        {_id: this.linkedId},
         {$set: {endAt}}
       );
     } else {
@@ -452,11 +452,11 @@ Cards.helpers({
   },
 
   getIsOvertime() {
-    if (this.isImportedCard()) {
-      const card = Cards.findOne({ _id: this.importedId });
+    if (this.isLinkedCard()) {
+      const card = Cards.findOne({ _id: this.linkedId });
       return card.isOvertime;
-    } else if (this.isImportedBoard()) {
-      const board = Boards.findOne({ _id: this.importedId});
+    } else if (this.isLinkedBoard()) {
+      const board = Boards.findOne({ _id: this.linkedId});
       return board.isOvertime;
     } else {
       return this.isOvertime;
@@ -464,14 +464,14 @@ Cards.helpers({
   },
 
   setIsOvertime(isOvertime) {
-    if (this.isImportedCard()) {
+    if (this.isLinkedCard()) {
       return Cards.update(
-        { _id: this.importedId },
+        { _id: this.linkedId },
         {$set: {isOvertime}}
       );
-    } else if (this.isImportedBoard()) {
+    } else if (this.isLinkedBoard()) {
       return Boards.update(
-        {_id: this.importedId},
+        {_id: this.linkedId},
         {$set: {isOvertime}}
       );
     } else {
@@ -483,11 +483,11 @@ Cards.helpers({
   },
 
   getSpentTime() {
-    if (this.isImportedCard()) {
-      const card = Cards.findOne({ _id: this.importedId });
+    if (this.isLinkedCard()) {
+      const card = Cards.findOne({ _id: this.linkedId });
       return card.spentTime;
-    } else if (this.isImportedBoard()) {
-      const board = Boards.findOne({ _id: this.importedId});
+    } else if (this.isLinkedBoard()) {
+      const board = Boards.findOne({ _id: this.linkedId});
       return board.spentTime;
     } else {
       return this.spentTime;
@@ -495,14 +495,14 @@ Cards.helpers({
   },
 
   setSpentTime(spentTime) {
-    if (this.isImportedCard()) {
+    if (this.isLinkedCard()) {
       return Cards.update(
-        { _id: this.importedId },
+        { _id: this.linkedId },
         {$set: {spentTime}}
       );
-    } else if (this.isImportedBoard()) {
+    } else if (this.isLinkedBoard()) {
       return Boards.update(
-        {_id: this.importedId},
+        {_id: this.linkedId},
         {$set: {spentTime}}
       );
     } else {
@@ -514,11 +514,11 @@ Cards.helpers({
   },
 
   getTitle() {
-    if (this.isImportedCard()) {
-      const card = Cards.findOne({ _id: this.importedId });
+    if (this.isLinkedCard()) {
+      const card = Cards.findOne({ _id: this.linkedId });
       return card.title;
-    } else if (this.isImportedBoard()) {
-      const board = Boards.findOne({ _id: this.importedId});
+    } else if (this.isLinkedBoard()) {
+      const board = Boards.findOne({ _id: this.linkedId});
       return board.title;
     } else {
       return this.title;
@@ -526,12 +526,12 @@ Cards.helpers({
   },
 
   getBoardTitle() {
-    if (this.isImportedCard()) {
-      const card = Cards.findOne({ _id: this.importedId });
+    if (this.isLinkedCard()) {
+      const card = Cards.findOne({ _id: this.linkedId });
       const board = Boards.findOne({ _id: card.boardId });
       return board.title;
-    } else if (this.isImportedBoard()) {
-      const board = Boards.findOne({ _id: this.importedId});
+    } else if (this.isLinkedBoard()) {
+      const board = Boards.findOne({ _id: this.linkedId});
       return board.title;
     } else {
       const board = Boards.findOne({ _id: this.boardId });
@@ -540,14 +540,14 @@ Cards.helpers({
   },
 
   setTitle(title) {
-    if (this.isImportedCard()) {
+    if (this.isLinkedCard()) {
       return Cards.update(
-        { _id: this.importedId },
+        { _id: this.linkedId },
         {$set: {title}}
       );
-    } else if (this.isImportedBoard()) {
+    } else if (this.isLinkedBoard()) {
       return Boards.update(
-        {_id: this.importedId},
+        {_id: this.linkedId},
         {$set: {title}}
       );
     } else {
@@ -559,11 +559,11 @@ Cards.helpers({
   },
 
   getArchived() {
-    if (this.isImportedCard()) {
-      const card = Cards.findOne({ _id: this.importedId });
+    if (this.isLinkedCard()) {
+      const card = Cards.findOne({ _id: this.linkedId });
       return card.archived;
-    } else if (this.isImportedBoard()) {
-      const board = Boards.findOne({ _id: this.importedId});
+    } else if (this.isLinkedBoard()) {
+      const board = Boards.findOne({ _id: this.linkedId});
       return board.archived;
     } else {
       return this.archived;
