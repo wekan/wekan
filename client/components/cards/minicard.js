@@ -9,7 +9,7 @@ BlazeComponent.extendComponent({
 
   events() {
     return [{
-      'click .js-linked-link' (evt) {
+      'click .js-linked-link' () {
         if (this.data().isLinkedCard())
           Utils.goCardId(this.data().linkedId);
         else if (this.data().isLinkedBoard())
