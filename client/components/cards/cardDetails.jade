@@ -13,13 +13,13 @@ template(name="cardDetails")
               = getTitle
               if isWatching
                 i.fa.fa-eye.card-details-watch
-        if isImportedCard
-          h3.imported-card-location
+        if isLinkedCard
+          h3.linked-card-location
             +viewer
               | {{getBoardTitle}} > {{getTitle}}
 
     if getArchived
-      if isImportedBoard
+      if isLinkedBoard
         p.warning {{_ 'board-archived'}}
       else
         p.warning {{_ 'card-archived'}}

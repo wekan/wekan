@@ -57,9 +57,9 @@ Template.cardAttachmentsPopup.events({
     const card = this;
     FS.Utility.eachFile(evt, (f) => {
       const file = new FS.File(f);
-      if (card.isImportedCard()) {
-        file.boardId = Cards.findOne(card.importedId).boardId;
-        file.cardId = card.importedId;
+      if (card.isLinkedCard()) {
+        file.boardId = Cards.findOne(card.linkedId).boardId;
+        file.cardId = card.linkedId;
       } else {
         file.boardId = card.boardId;
         file.cardId = card._id;

@@ -24,9 +24,9 @@ BlazeComponent.extendComponent({
         const card = this.currentData();
         let boardId = card.boardId;
         let cardId = card._id;
-        if (card.isImportedCard()) {
-          boardId = Cards.findOne(card.importedId).boardId;
-          cardId = card.importedId;
+        if (card.isLinkedCard()) {
+          boardId = Cards.findOne(card.linkedId).boardId;
+          cardId = card.linkedId;
         }
         if (text) {
           CardComments.insert({

@@ -9,11 +9,11 @@ BlazeComponent.extendComponent({
 
   events() {
     return [{
-      'click .js-imported-link' (evt) {
-        if (this.data().isImportedCard())
-          Utils.goCardId(this.data().importedId);
-        else if (this.data().isImportedBoard())
-          Utils.goBoardId(this.data().importedId);
+      'click .js-linked-link' (evt) {
+        if (this.data().isLinkedCard())
+          Utils.goCardId(this.data().linkedId);
+        else if (this.data().isLinkedBoard())
+          Utils.goBoardId(this.data().linkedId);
       },
     }];
   },
