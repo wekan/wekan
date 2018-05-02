@@ -219,7 +219,7 @@ Migrations.add('add-card-types', () => {
       { _id: card._id },
       { $set: {
         type: 'cardType-card',
-        importedId: null } },
+        linkedId: null } },
       noValidate
     );
   });
