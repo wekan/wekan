@@ -6,7 +6,12 @@ Lens = {
   _board: null,
 
   init(currentBoardId)  {
+
+    if (!currentBoardId) return;
+
     this._board = Boards.findOne(currentBoardId);
+    if (!this._board) return;
+
     this.setFocusLevel("none");
 
     const labels = this._board.labels;
