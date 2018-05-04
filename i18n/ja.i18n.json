@@ -434,7 +434,6 @@
     "no": "いいえ",
     "accounts": "アカウント",
     "accounts-allowEmailChange": "メールアドレスの変更を許可",
-    "accounts-allowUserNameChange": "ユーザー名変更を許可する",
     "createdAt": "Created at",
     "verified": "Verified",
     "active": "Active",
