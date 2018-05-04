@@ -499,7 +499,7 @@ if (Meteor.isServer) {
         userId: req.body.authorId,
         swimlaneId: req.body.swimlaneId,
         sort: 0,
-        members: members,
+        members,
       });
       JsonRoutes.sendResult(res, {
         code: 200,
