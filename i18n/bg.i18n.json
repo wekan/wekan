@@ -434,6 +434,7 @@
     "no": "Не",
     "accounts": "Профили",
     "accounts-allowEmailChange": "Разреши промяна на имейла",
+    "accounts-allowUserNameChange": "Разрешаване на Промяна на Потребителско име",
     "createdAt": "Създаден на",
     "verified": "Потвърден",
     "active": "Активен",

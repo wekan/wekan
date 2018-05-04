@@ -434,6 +434,7 @@
     "no": "Nej",
     "accounts": "Konton",
     "accounts-allowEmailChange": "Tillåt e-poständring",
+    "accounts-allowUserNameChange": "Tillåt användarnamnändring",
     "createdAt": "Skapad vid",
     "verified": "Verifierad",
     "active": "Aktiv",

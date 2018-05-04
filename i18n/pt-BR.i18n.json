@@ -434,6 +434,7 @@
     "no": "Não",
     "accounts": "Contas",
     "accounts-allowEmailChange": "Permitir Mudança de Email",
+    "accounts-allowUserNameChange": "Permitir Mudança de Username",
     "createdAt": "Criado em",
     "verified": "Verificado",
     "active": "Ativo",

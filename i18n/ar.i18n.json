@@ -434,6 +434,7 @@
     "no": "لا",
     "accounts": "الحسابات",
     "accounts-allowEmailChange": "السماح بتغيير البريد الإلكتروني",
+    "accounts-allowUserNameChange": "اسمح بتغيير اسم المستخدم",
     "createdAt": "Created at",
     "verified": "Verified",
     "active": "Active",

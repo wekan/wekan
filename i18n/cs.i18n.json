@@ -434,6 +434,7 @@
     "no": "Ne",
     "accounts": "Účty",
     "accounts-allowEmailChange": "Povolit změnu Emailu",
+    "accounts-allowUserNameChange": "Povolit změnu jména uživatele",
     "createdAt": "Vytvořeno v",
     "verified": "Ověřen",
     "active": "Aktivní",

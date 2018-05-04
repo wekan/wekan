@@ -434,6 +434,7 @@
     "no": "לא",
     "accounts": "חשבונות",
     "accounts-allowEmailChange": "אפשר שינוי דוא\"ל",
+    "accounts-allowUserNameChange": "אפשר שינוי שם משתמש",
     "createdAt": "נוצר ב",
     "verified": "עבר אימות",
     "active": "פעיל",
