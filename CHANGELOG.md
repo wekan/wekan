@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+* [REST API Edit Card Labels](https://github.com/wekan/wekan/commit/2da157dbb06a415d2ceadf574de1c4bc73d6c024).
+
+Thanks to GitHub user ThisNeko for contributions.
+
 # v0.94 2018-05-03 Wekan release
 
 This release adds the following new features:
