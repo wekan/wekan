@@ -111,10 +111,11 @@ BlazeComponent.extendComponent({
         Meteor.call('toggleSystemMessages');
       },
       'click .js-select-list' () {
-        const listId = this._id;
+        const listId = this.data().listId;
         Session.set('currentCard', null);
         Session.set('currentList', listId);
-      }
+      },
+      'click .js-move-card': Popup.open('moveCard'),
     }];
   },
 }).register('cardDetails');
