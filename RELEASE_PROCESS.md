@@ -1,6 +1,6 @@
 1. Merge PR
 ```
-$version=1.0x-0.yy
+version=1.0x-0.yy
 
 docker-compose build && \
 git tag v$version && \

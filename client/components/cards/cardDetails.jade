@@ -50,6 +50,8 @@ template(name="cardDetails")
         h3.card-details-item-title In
         a.mini-list.js-select-list.js-list(id="js-list-{{_id}}")
           = listName
+        a.move-card.js-move-card(title="Move")
+          i.fa.fa-angle-double-right
 
     if spentTime
       .card-details-items
