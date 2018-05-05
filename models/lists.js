@@ -113,7 +113,16 @@ Lists.helpers({
       if (specials.now && specials.now.test(this.title)) return "special-list-now";
       if (specials.done && specials.done.test(this.title)) return "special-list-done";
     }
-  }
+  },
+
+  absoluteUrl() {
+    const board = this.board();
+    return FlowRouter.url('list', {
+      boardId: board._id,
+      slug: board.slug,
+      listId: this._id,
+    });
+  },
 });
 
 Lists.mutations({

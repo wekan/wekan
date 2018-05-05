@@ -1,7 +1,10 @@
 Features = {
   opinions : {
     preferHideFilter: true,
-    specialCards: true,
+    specialCards: {
+      special: /[-]{3}/,
+      listSeparator: /[-]{4}/
+    },
     specialLists: {
       done: /done/i,
       now: /today/i

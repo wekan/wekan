@@ -8,7 +8,7 @@ template(name="listBody")
         a.minicard-wrapper.js-minicard(href=absoluteUrl
           class="{{#if cardIsSelected}}is-selected{{/if}}"
           class="{{#if MultiSelection.isSelected _id}}is-checked{{/if}}"
-          class="{{#if isSpecialCard}}list-separator{{/if}}"
+          class="{{#if isListSeparator}}list-separator{{/if}}"
           class=decorationClasses)
           if MultiSelection.isActive
             .materialCheckBox.multi-selection-checkbox.js-toggle-multi-selection(

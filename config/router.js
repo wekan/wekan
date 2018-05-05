@@ -45,6 +45,21 @@ FlowRouter.route('/b/:id/:slug', {
   },
 });
 
+FlowRouter.route('/b/:boardId/:slug/l/:listId', {
+  name: 'list',
+  action(params) {
+    Session.set('currentBoard', params.boardId);
+    Session.set('currentList', params.listId);
+    Session.set('currentCard', null);
+
+    BlazeLayout.render('defaultLayout', {
+      headerBar: 'boardHeaderBar',
+      content: 'board',
+    });
+  },
+});
+
+
 FlowRouter.route('/b/:boardId/:slug/:cardId', {
   name: 'card',
   action(params) {

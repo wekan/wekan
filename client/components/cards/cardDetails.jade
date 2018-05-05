@@ -46,8 +46,13 @@ template(name="cardDetails")
           h3.card-details-item-title {{_ 'card-due'}}
           +cardDueDate
 
-    .card-details-items
-      if spentTime
+      .card-details-item
+        h3.card-details-item-title In
+        a.mini-list.js-select-list.js-list(id="js-list-{{_id}}")
+          = listName
+
+    if spentTime
+      .card-details-items
         .card-details-item.card-details-item-spent
           if isOvertime
             h3.card-details-item-title {{_ 'overtime-hours'}}

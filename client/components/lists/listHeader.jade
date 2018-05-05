@@ -79,7 +79,7 @@ template(name="listMorePopup")
       span {{_ 'link-list'}}
       = ' '
       i.fa.colorful(class="{{#if board.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
-      input.inline-input(type="text" readonly value="{{ rootUrl }}")
+      input.inline-input(type="text" readonly value="{{ absoluteUrl }}")
     | {{_ 'added'}}
     span.date(title=list.createdAt) {{ moment createdAt 'LLL' }}
     a.js-delete {{_ 'delete'}}
