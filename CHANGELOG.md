@@ -10,7 +10,7 @@ Thanks to GitHub user ThisNeko for contributions.
 
 This release adds the following new features:
 
-* [REST API POST /cards: allow setting card members](https://github.com/wekan/wekan/commit/e576e0f9cfc4f61e54da8920a8e29fe43227c266).
+* [REST API POST /cards: allow setting card members](https://github.com/wekan/wekan/pull/1622).
 
 Thanks to GitHub user couscous3 for contributions.
 
