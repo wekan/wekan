@@ -93,7 +93,7 @@ This release fixes the following bugs:
 
 - [Fix Switch List/swimlane view only working with admin privileges](https://github.com/wekan/wekan/issues/1567);
 - [Fix Wekan logo positioning](https://github.com/wekan/wekan/issues/1378);
-- [Fix checklists items migration error "title is required"](https://github.com/wekan/wekan/issues/1576);
+- [Tried to fix, but fix did not work: Fix checklists items migration error "title is required"](https://github.com/wekan/wekan/issues/1576);
 - [Removed paxctl alpine fix #1303 , because it did not work anymore, so Docker container
    did not build correctly](https://github.com/wekan/wekan/commit/ce659632174ba25ca9b5e85b053fde02fd9c3928);
 - [Use curl to download 100% CPU fibers fixed node in snap, and remove paxctl from
