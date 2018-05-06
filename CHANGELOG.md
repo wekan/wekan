@@ -2,7 +2,7 @@
 
 This release adds the following new features:
 
-* [REST API Edit Card Labels](https://github.com/wekan/wekan/commit/2da157dbb06a415d2ceadf574de1c4bc73d6c024).
+* [REST API Edit Card Labels](https://github.com/wekan/wekan/pull/1626).
 
 Thanks to GitHub user ThisNeko for contributions.
 
