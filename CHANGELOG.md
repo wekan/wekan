@@ -52,8 +52,7 @@ Thanks to GitHub user xet7 for contributions.
 
 This release fixes the following bugs:
 
-- [Fix Wekan import / Export for
-   ChecklistItems](https://github.com/wekan/wekan/commit/30b17ff6c92df07922f875071e864cf688902293).
+- [Fix Wekan import / Export for ChecklistItems](https://github.com/wekan/wekan/pull/1613).
 
 Thanks to GitHub user zebby76 for contributions.
 
