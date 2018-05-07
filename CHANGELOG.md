@@ -3,13 +3,14 @@
 This release adds the following new features:
 
 * [REST API Edit Card Labels](https://github.com/wekan/wekan/pull/1626);
-* [Add a new API route to create a new label in a given board](https://github.com/wekan/wekan/pull/1630).
+* [Add a new API route to create a new label in a given board](https://github.com/wekan/wekan/pull/1630);
+* [Admin Panel: Option to block username change](https://github.com/wekan/wekan/pull/1627).
 
 and fixed the following bugs:
 
 * [Error: title is required](https://github.com/wekan/wekan/issues/1576).
     
-Thanks to GitHub users Shahar-Y and ThisNeko for their contributions.
+Thanks to GitHub users Shahar-Y, thiagofernando and ThisNeko for their contributions.
 
 # v0.94 2018-05-03 Wekan release
 
