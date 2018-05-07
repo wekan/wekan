@@ -719,4 +719,33 @@ if (Meteor.isServer) {
       });
     }
   });
+
+  JsonRoutes.add('PUT', '/api/boards/:id/labels', function (req, res) {
+    Authentication.checkUserId(req.userId);
+    const id = req.params.id;
+    try {
+      if (req.body.hasOwnProperty('label')) {
+        const board = Boards.findOne({ _id: id });
+        const color = req.body.label.color;
+        const name = req.body.label.name;
+        const labelId = Random.id(6);
+        if (!board.getLabel(name, color)) {
+          Boards.direct.update({ _id: id }, { $push: { labels: { "_id": labelId, "name": name, "color": color } } });
+          JsonRoutes.sendResult(res, {
+            code: 200,
+            data: labelId,
+          });
+        } else {
+          JsonRoutes.sendResult(res, {
+            code: 200,
+          });
+        }
+      }
+    }
+    catch (error) {
+      JsonRoutes.sendResult(res, {
+        data: error,
+      });
+    }
+  });
 }
