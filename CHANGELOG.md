@@ -4,7 +4,11 @@ This release adds the following new features:
 
 * [REST API Edit Card Labels](https://github.com/wekan/wekan/pull/1626).
 
-Thanks to GitHub user ThisNeko for contributions.
+and fixed the following bugs:
+
+* [Error: title is required](https://github.com/wekan/wekan/issues/1576).
+    
+Thanks to GitHub users Shahar-Y and ThisNeko for their contributions.
 
 # v0.94 2018-05-03 Wekan release
 
