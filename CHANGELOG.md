@@ -2,7 +2,8 @@
 
 This release adds the following new features:
 
-* [REST API Edit Card Labels](https://github.com/wekan/wekan/pull/1626).
+* [REST API Edit Card Labels](https://github.com/wekan/wekan/pull/1626);
+* [Add a new API route to create a new label in a given board](https://github.com/wekan/wekan/pull/1630).
 
 and fixed the following bugs:
 
