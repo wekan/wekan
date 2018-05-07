@@ -730,7 +730,7 @@ if (Meteor.isServer) {
         const name = req.body.label.name;
         const labelId = Random.id(6);
         if (!board.getLabel(name, color)) {
-          Boards.direct.update({ _id: id }, { $push: { labels: { "_id": labelId, "name": name, "color": color } } });
+          Boards.direct.update({ _id: id }, { $push: { labels: { _id: labelId,  name,  color } } });
           JsonRoutes.sendResult(res, {
             code: 200,
             data: labelId,
