@@ -434,6 +434,7 @@
     "no": "Ez",
     "accounts": "Kontuak",
     "accounts-allowEmailChange": "Baimendu e-mail aldaketa",
+    "accounts-allowUserNameChange": "Allow Username Change",
     "createdAt": "Noiz sortua",
     "verified": "Egiaztatuta",
     "active": "Gaituta",

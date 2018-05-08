@@ -434,6 +434,7 @@
     "no": "Mba",
     "accounts": "Accounts",
     "accounts-allowEmailChange": "Allow Email Change",
+    "accounts-allowUserNameChange": "Allow Username Change",
     "createdAt": "Ekere na",
     "verified": "Verified",
     "active": "Active",

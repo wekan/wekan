@@ -434,6 +434,7 @@
     "no": "خیر",
     "accounts": "حساب‌ها",
     "accounts-allowEmailChange": "اجازه تغییر رایانامه",
+    "accounts-allowUserNameChange": "Allow Username Change",
     "createdAt": "ساخته شده در",
     "verified": "معتبر",
     "active": "فعال",

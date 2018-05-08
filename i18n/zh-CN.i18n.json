@@ -434,6 +434,7 @@
     "no": "否",
     "accounts": "账号",
     "accounts-allowEmailChange": "允许邮箱变更",
+    "accounts-allowUserNameChange": "Allow Username Change",
     "createdAt": "创建于",
     "verified": "已验证",
     "active": "活跃",
