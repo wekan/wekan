@@ -193,7 +193,7 @@ Migrations.add('add-checklist-items', () => {
     // Create new items
     _.sortBy(checklist.items, 'sort').forEach((item, index) => {
       ChecklistItems.direct.insert({
-        title: item.title,
+        title: checklist.title,
         sort: index,
         isFinished: item.isFinished,
         checklistId: checklist._id,

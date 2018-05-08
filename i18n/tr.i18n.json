@@ -434,6 +434,7 @@
     "no": "Hayır",
     "accounts": "Hesaplar",
     "accounts-allowEmailChange": "E-posta Değiştirmeye İzin Ver",
+    "accounts-allowUserNameChange": "Allow Username Change",
     "createdAt": "Oluşturulma tarihi",
     "verified": "Doğrulanmış",
     "active": "Aktif",

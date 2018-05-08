@@ -434,6 +434,7 @@
     "no": "Nem",
     "accounts": "Fiókok",
     "accounts-allowEmailChange": "E-mail megváltoztatásának engedélyezése",
+    "accounts-allowUserNameChange": "Allow Username Change",
     "createdAt": "Létrehozva",
     "verified": "Ellenőrizve",
     "active": "Aktív",

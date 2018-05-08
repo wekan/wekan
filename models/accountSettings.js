@@ -23,10 +23,16 @@ AccountSettings.allow({
 
 if (Meteor.isServer) {
   Meteor.startup(() => {
-    AccountSettings.upsert({ _id: 'accounts-allowEmailChange' }, {
+    AccountSettings.upsert({_id: 'accounts-allowEmailChange'}, {
       $setOnInsert: {
         booleanValue: false,
         sort: 0,
+      },
+    });
+    AccountSettings.upsert({_id: 'accounts-allowUserNameChange'}, {
+      $setOnInsert: {
+        booleanValue: false,
+        sort: 1,
       },
     });
   });

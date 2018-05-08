@@ -33,7 +33,10 @@ template(name="editProfilePopup")
       | {{_ 'username'}}
       span.error.hide.username-taken
         | {{_ 'error-username-taken'}}
-      input.js-profile-username(type="text" value=username)
+      if allowUserNameChange
+        input.js-profile-username(type="text" value=username)
+      else
+        input.js-profile-username(type="text" value=username readonly)
     label
       | {{_ 'initials'}}
       input.js-profile-initials(type="text" value=profile.initials)

@@ -434,6 +434,7 @@
     "no": "No",
     "accounts": "Comptes",
     "accounts-allowEmailChange": "Permet modificar correu electrònic",
+    "accounts-allowUserNameChange": "Allow Username Change",
     "createdAt": "Creat ",
     "verified": "Verificat",
     "active": "Actiu",

@@ -499,7 +499,7 @@ if (Meteor.isServer) {
         userId: req.body.authorId,
         swimlaneId: req.body.swimlaneId,
         sort: 0,
-        members: members,
+        members,
       });
       JsonRoutes.sendResult(res, {
         code: 200,
@@ -542,6 +542,11 @@ if (Meteor.isServer) {
       const newDescription = req.body.description;
       Cards.direct.update({_id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false},
         {$set: {description: newDescription}});
+    }
+    if (req.body.hasOwnProperty('labelIds')) {
+      const newlabelIds = req.body.labelIds;
+      Cards.direct.update({_id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false},
+        {$set: {labelIds: newlabelIds}});
     }
     JsonRoutes.sendResult(res, {
       code: 200,

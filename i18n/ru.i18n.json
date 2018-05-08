@@ -434,6 +434,7 @@
     "no": "Нет",
     "accounts": "Учетные записи",
     "accounts-allowEmailChange": "Разрешить изменение электронной почты",
+    "accounts-allowUserNameChange": "Allow Username Change",
     "createdAt": "Создано на",
     "verified": "Проверено",
     "active": "Действующий",

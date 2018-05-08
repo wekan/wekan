@@ -1,8 +1,22 @@
+# v0.95 2018-05-08 Wekan release
+
+This release adds the following new features:
+
+* [REST API Edit Card Labels](https://github.com/wekan/wekan/pull/1626);
+* [Add a new API route to create a new label in a given board](https://github.com/wekan/wekan/pull/1630);
+* [Admin Panel: Option to block username change](https://github.com/wekan/wekan/pull/1627).
+
+and fixed the following bugs:
+
+* [Error: title is required](https://github.com/wekan/wekan/issues/1576).
+    
+Thanks to GitHub users Shahar-Y, thiagofernando and ThisNeko for their contributions.
+
 # v0.94 2018-05-03 Wekan release
 
 This release adds the following new features:
 
-* [REST API POST /cards: allow setting card members](https://github.com/wekan/wekan/commit/e576e0f9cfc4f61e54da8920a8e29fe43227c266).
+* [REST API POST /cards: allow setting card members](https://github.com/wekan/wekan/pull/1622).
 
 Thanks to GitHub user couscous3 for contributions.
 
@@ -44,8 +58,7 @@ Thanks to GitHub user xet7 for contributions.
 
 This release fixes the following bugs:
 
-- [Fix Wekan import / Export for
-   ChecklistItems](https://github.com/wekan/wekan/commit/30b17ff6c92df07922f875071e864cf688902293).
+- [Fix Wekan import / Export for ChecklistItems](https://github.com/wekan/wekan/pull/1613).
 
 Thanks to GitHub user zebby76 for contributions.
 
@@ -85,7 +98,7 @@ This release fixes the following bugs:
 
 - [Fix Switch List/swimlane view only working with admin privileges](https://github.com/wekan/wekan/issues/1567);
 - [Fix Wekan logo positioning](https://github.com/wekan/wekan/issues/1378);
-- [Fix checklists items migration error "title is required"](https://github.com/wekan/wekan/issues/1576);
+- [Tried to fix, but fix did not work: Fix checklists items migration error "title is required"](https://github.com/wekan/wekan/issues/1576);
 - [Removed paxctl alpine fix #1303 , because it did not work anymore, so Docker container
    did not build correctly](https://github.com/wekan/wekan/commit/ce659632174ba25ca9b5e85b053fde02fd9c3928);
 - [Use curl to download 100% CPU fibers fixed node in snap, and remove paxctl from

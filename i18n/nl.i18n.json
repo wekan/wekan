@@ -434,6 +434,7 @@
     "no": "Nee",
     "accounts": "Accounts",
     "accounts-allowEmailChange": "Sta E-mailadres wijzigingen toe",
+    "accounts-allowUserNameChange": "Allow Username Change",
     "createdAt": "Gemaakt op",
     "verified": "Geverifieerd",
     "active": "Actief",
