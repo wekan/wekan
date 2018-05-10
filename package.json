@@ -23,12 +23,12 @@
     "eslint": "^2.0.0"
   },
   "dependencies": {
-    "babel-runtime": "^6.23.0",
-    "bcrypt": "^1.0.3",
-    "bson-ext": "^1.0.5",
-    "es6-promise": "^4.1.0",
-    "meteor-node-stubs": "^0.2.6",
+    "babel-runtime": "^6.26.0",
+    "bcrypt": "^2.0.1",
+    "bson-ext": "^2.0.0",
+    "es6-promise": "^4.2.4",
+    "meteor-node-stubs": "^0.4.1",
     "os": "^0.1.1",
-    "xss": "^0.3.3"
+    "xss": "^0.3.8"
   }
 }
