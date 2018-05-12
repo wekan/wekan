@@ -8,11 +8,18 @@ Lens = {
   init(currentBoardId)  {
 
     if (!currentBoardId) return;
-
-    this._board = Boards.findOne(currentBoardId);
-    if (!this._board) return;
+    this._currentBoardId = currentBoardId;
 
     this.setFocusLevel("none");
+
+    this.initLabelsIfNeeded();
+  },
+
+  initLabelsIfNeeded()  {
+    if (this._privateLabels) return;
+
+    this._board = Boards.findOne(this._currentBoardId);
+    if (!this._board) return;
 
     const labels = this._board.labels;
     if (labels) {
@@ -64,6 +71,8 @@ Lens = {
 
     if (!force && card._decorated)
       return;
+
+    this.initLabelsIfNeeded();
     card._decorated = true;
 
     if (this._focusStrategy) {
