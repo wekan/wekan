@@ -434,7 +434,7 @@
     "no": "Non",
     "accounts": "Comptes",
     "accounts-allowEmailChange": "Autoriser le changement d'adresse mail",
-    "accounts-allowUserNameChange": "Allow Username Change",
+    "accounts-allowUserNameChange": "Permettre la modification de l'identifiant",
     "createdAt": "Créé le",
     "verified": "Vérifié",
     "active": "Actif",
