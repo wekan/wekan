@@ -9,7 +9,7 @@ CustomFields.attachSchema(new SimpleSchema({
   },
   type: {
     type: String,
-    allowedValues: ['text', 'number', 'checkbox', 'date', 'dropdown']
+    allowedValues: ['text', 'number', 'date', 'dropdown']
   },
   settings: {
     type: Object,
