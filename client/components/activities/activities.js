@@ -91,6 +91,11 @@ BlazeComponent.extendComponent({
     }, attachment.name()));
   },
 
+  customField() {
+    const customField = this.currentData().customField();
+    return customField.name;
+  },
+
   events() {
     return [{
       // XXX We should use Popup.afterConfirmation here

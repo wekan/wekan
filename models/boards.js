@@ -249,6 +249,10 @@ Boards.helpers({
     return `board-color-${this.color}`;
   },
 
+  customFields() {
+    return CustomFields.find({ boardId: this._id }, { sort: { name: 1 } });
+  },
+
   // XXX currently mutations return no value so we have an issue when using addLabel in import
   // XXX waiting on https://github.com/mquandalle/meteor-collection-mutations/issues/1 to remove...
   pushLabel(name, color) {

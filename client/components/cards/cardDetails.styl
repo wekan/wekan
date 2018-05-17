@@ -69,10 +69,11 @@
 
   .card-details-items
     display: flex
-    margin: 15px 0
+    flex-wrap: wrap
+    margin: 0 0 15px
 
     .card-details-item
-      margin-right: 0.5em
+      margin: 15px 0.5em 0 0
       &:last-child
         margin-right: 0
       &.card-details-item-labels,
@@ -83,6 +84,9 @@
       &.card-details-item-end
         width: 50%
         flex-shrink: 1
+      &.card-details-item-customfield
+        max-width: 50%
+        flex-grow: 1
 
   .card-details-item-title
     font-size: 16px
