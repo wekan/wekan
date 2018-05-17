@@ -17,7 +17,7 @@ BlazeComponent.extendComponent({
 
 const CreateCustomFieldPopup = BlazeComponent.extendComponent({
 
-  _types: ['text', 'number', 'checkbox', 'date', 'dropdown'],
+  _types: ['text', 'number', 'date', 'dropdown'],
 
   onCreated() {
     this.type = new ReactiveVar((this.data().type) ? this.data().type : this._types[0]);
