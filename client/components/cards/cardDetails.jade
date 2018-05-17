@@ -65,16 +65,6 @@ template(name="cardDetails")
           a.card-label.add-label.js-add-labels(title="{{_ 'card-labels-title'}}")
             i.fa.fa-plus
 
-      if startAt
-        .card-details-item.card-details-item-start
-          h3.card-details-item-title {{_ 'card-start'}}
-          +cardStartDate
-
-      if dueAt
-        .card-details-item.card-details-item-due
-          h3.card-details-item-title {{_ 'card-due'}}
-          +cardDueDate
-
       each customFieldsWD
         .card-details-item.card-details-item-customfield
           h3.card-details-item-title
