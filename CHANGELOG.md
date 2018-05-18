@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+* [Custom Fields](https://github.com/wekan/wekan/issues/807).
+
+Thanks to GitHub users feuerball11, papoola and xet7 for their contributions.
+
 # v0.95 2018-05-08 Wekan release
 
 This release adds the following new features:
