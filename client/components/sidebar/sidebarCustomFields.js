@@ -27,11 +27,11 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
   types() {
     const currentType = this.data().type;
     return this._types.
-        map((type) => {return {
-          value: type,
-          name: TAPi18n.__(`custom-field-${type}`),
-          selected: type === currentType,
-        };});
+      map((type) => {return {
+        value: type,
+        name: TAPi18n.__(`custom-field-${type}`),
+        selected: type === currentType,
+      };});
   },
 
   isTypeNotSelected(type) {

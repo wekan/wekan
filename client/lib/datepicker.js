@@ -45,7 +45,7 @@ DatePicker = BlazeComponent.extendComponent({
   events() {
     return [{
       'keyup .js-date-field'() {
-                // parse for localized date format in strict mode
+        // parse for localized date format in strict mode
         const dateMoment = moment(this.find('#date').value, 'L', true);
         if (dateMoment.isValid()) {
           this.error.set('');
@@ -53,7 +53,7 @@ DatePicker = BlazeComponent.extendComponent({
         }
       },
       'keyup .js-time-field'() {
-                // parse for localized time format in strict mode
+        // parse for localized time format in strict mode
         const dateMoment = moment(this.find('#time').value, 'LT', true);
         if (dateMoment.isValid()) {
           this.error.set('');
@@ -62,7 +62,7 @@ DatePicker = BlazeComponent.extendComponent({
       'submit .edit-date'(evt) {
         evt.preventDefault();
 
-                // if no time was given, init with 12:00
+        // if no time was given, init with 12:00
         const time = evt.target.time.value || moment(new Date().setHours(12, 0, 0)).format('LT');
 
         const dateString = `${evt.target.date.value} ${time}`;
