@@ -4,7 +4,11 @@ This release adds the following new features:
 
 * [Custom Fields](https://github.com/wekan/wekan/issues/807).
 
-Thanks to GitHub users feuerball11, papoola and xet7 for their contributions.
+and fixes the following bugs:
+
+* [Fix: checklistItems broken after upgrade](https://github.com/wekan/wekan/issues/1636).
+
+Thanks to GitHub users feuerball11, franksiler, papoola and xet7 for their contributions.
 
 # v0.95 2018-05-08 Wekan release
 
@@ -14,7 +18,7 @@ This release adds the following new features:
 * [Add a new API route to create a new label in a given board](https://github.com/wekan/wekan/pull/1630);
 * [Admin Panel: Option to block username change](https://github.com/wekan/wekan/pull/1627).
 
-and fixed the following bugs:
+and fixes the following bugs:
 
 * [Error: title is required](https://github.com/wekan/wekan/issues/1576).
     
