@@ -110,7 +110,7 @@ Template.dateBadge.helpers({
 
 
 // editCardStartDatePopup
-(class extends EditCardDate {
+(class extends DatePicker {
   onCreated() {
     super.onCreated();
     this.data().startAt && this.date.set(moment(this.data().startAt));
@@ -133,7 +133,7 @@ Template.dateBadge.helpers({
 }).register('editCardStartDatePopup');
 
 // editCardDueDatePopup
-(class extends EditCardDate {
+(class extends DatePicker {
   onCreated() {
     super.onCreated();
     this.data().dueAt && this.date.set(moment(this.data().dueAt));

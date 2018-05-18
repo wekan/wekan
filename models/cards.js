@@ -41,6 +41,21 @@ Cards.attachSchema(new SimpleSchema({
       }
     },
   },
+  customFields: {
+    type: [Object],
+    optional: true,
+  },
+  'customFields.$': {
+    type: new SimpleSchema({
+      _id: {
+        type: String,
+      },
+      value: {
+        type: Match.OneOf(String, Number, Boolean, Date),
+        optional: true,
+      },
+    }),
+  },
   dateLastActivity: {
     type: Date,
     autoValue() {
@@ -192,6 +207,31 @@ Cards.helpers({
     return this.checklistItemCount() !== 0;
   },
 
+  customFieldIndex(customFieldId) {
+    return _.pluck(this.customFields, '_id').indexOf(customFieldId);
+  },
+
+  // customFields with definitions
+  customFieldsWD() {
+
+    // get all definitions
+    const definitions = CustomFields.find({
+      boardId: this.boardId,
+    }).fetch();
+
+    // match right definition to each field
+    return this.customFields.map((customField) => {
+      return {
+        _id: customField._id,
+        value: customField.value,
+        definition: definitions.find((definition) => {
+          return definition._id === customField._id;
+        }),
+      };
+    });
+
+  },
+
   absoluteUrl() {
     const board = this.board();
     return FlowRouter.url('card', {
@@ -269,6 +309,35 @@ Cards.mutations({
     } else {
       return this.assignMember(memberId);
     }
+  },
+
+  assignCustomField(customFieldId) {
+    return {$addToSet: {customFields: {_id: customFieldId, value: null}}};
+  },
+
+  unassignCustomField(customFieldId) {
+    return {$pull: {customFields: {_id: customFieldId}}};
+  },
+
+  toggleCustomField(customFieldId) {
+    if (this.customFields && this.customFieldIndex(customFieldId) > -1) {
+      return this.unassignCustomField(customFieldId);
+    } else {
+      return this.assignCustomField(customFieldId);
+    }
+  },
+
+  setCustomField(customFieldId, value) {
+    // todo
+    const index = this.customFieldIndex(customFieldId);
+    if (index > -1) {
+      const update = {$set: {}};
+      update.$set[`customFields.${index}.value`] = value;
+      return update;
+    }
+    // TODO
+    // Ignatz 18.05.2018: Return null to silence ESLint. No Idea if that is correct
+    return null;
   },
 
   setCover(coverId) {

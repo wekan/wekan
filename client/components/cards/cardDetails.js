@@ -216,6 +216,7 @@ Template.cardDetailsActionsPopup.events({
   'click .js-labels': Popup.open('cardLabels'),
   'click .js-attachments': Popup.open('cardAttachments'),
   'click .js-received-date': Popup.open('editCardReceivedDate'),
+  'click .js-custom-fields': Popup.open('cardCustomFields'),
   'click .js-start-date': Popup.open('editCardStartDate'),
   'click .js-due-date': Popup.open('editCardDueDate'),
   'click .js-end-date': Popup.open('editCardEndDate'),
