@@ -332,7 +332,7 @@ Cards.mutations({
     const index = this.customFieldIndex(customFieldId);
     if (index > -1) {
       const update = {$set: {}};
-      update.$set['customFields.${index}.value'] = value;
+      update.$set[`customFields.${index}.value`] = value;
       return update;
     }
     // TODO

@@ -24,7 +24,7 @@ Template.cardCustomFieldsPopup.events({
 const CardCustomField = BlazeComponent.extendComponent({
 
   getTemplate() {
-    return 'cardCustomField-${this.data().definition.type}';
+    return `cardCustomField-${this.data().definition.type}`;
   },
 
   onCreated() {
