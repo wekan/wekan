@@ -1,5 +1,7 @@
 # Wekan
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/wekan/wekan.svg)](https://greenkeeper.io/)
+
 [![Translate Wekan at Transifex](https://img.shields.io/badge/Translate%20Wekan-at%20Transifex-brightgreen.svg "Freenode IRC")](https://transifex.com/wekan/wekan)
 
 [![Wekan Vanila Chat][vanila_badge]][vanila_chat] 
