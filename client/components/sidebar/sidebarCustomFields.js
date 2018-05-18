@@ -27,11 +27,11 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
   types() {
     const currentType = this.data().type;
     return this._types.
-        map(type => {return {
+        map((type) => {return {
           value: type,
-          name: TAPi18n.__('custom-field-' + type),
-          selected: type == currentType,
-        }});
+          name: TAPi18n.__('custom-field-${type}'),
+          selected: type === currentType,
+        };});
   },
 
   isTypeNotSelected(type) {
@@ -39,7 +39,7 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
   },
 
   getDropdownItems() {
-    var items = this.dropdownItems.get();
+    const items = this.dropdownItems.get();
     Array.from(this.findAll('.js-field-settings-dropdown input')).forEach((el, index) => {
       //console.log('each item!', index, el.value);
       if (!items[index]) items[index] = {
@@ -51,12 +51,13 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
   },
 
   getSettings() {
-    let settings = {};
+    const settings = {};
     switch (this.type.get()) {
-      case 'dropdown':
-        let dropdownItems = this.getDropdownItems().filter(item => !!item.name.trim());
-        settings.dropdownItems = dropdownItems;
-        break;
+    case 'dropdown': {
+      const dropdownItems = this.getDropdownItems().filter((item) => !!item.name.trim());
+      settings.dropdownItems = dropdownItems;
+      break;
+    }
     }
     return settings;
   },
@@ -69,7 +70,7 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
       },
       'keydown .js-dropdown-item.last'(evt) {
         if (evt.target.value.trim() && evt.keyCode === 13) {
-          let items = this.getDropdownItems();
+          const items = this.getDropdownItems();
           this.dropdownItems.set(items);
           evt.target.value = '';
         }
@@ -90,8 +91,8 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
           name: this.find('.js-field-name').value.trim(),
           type: this.type.get(),
           settings: this.getSettings(),
-          showOnCard: this.find('.js-field-show-on-card.is-checked') != null
-        }
+          showOnCard: this.find('.js-field-show-on-card.is-checked') !== null,
+        };
 
         // insert or update
         if (!this.data()._id) {

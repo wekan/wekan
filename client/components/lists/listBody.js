@@ -36,9 +36,9 @@ BlazeComponent.extendComponent({
     const members = formComponent.members.get();
     const labelIds = formComponent.labels.get();
     const customFields = formComponent.customFields.get();
-    console.log("members", members);
-    console.log("labelIds", labelIds);
-    console.log("customFields", customFields);
+    //console.log('members', members);
+    //console.log('labelIds', labelIds);
+    //console.log('customFields', customFields);
 
     const boardId = this.data().board()._id;
     let swimlaneId = '';

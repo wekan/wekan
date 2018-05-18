@@ -51,10 +51,10 @@ Cards.attachSchema(new SimpleSchema({
         type: String,
       },
       value: {
-        type: Match.OneOf(String,Number,Boolean,Date),
+        type: Match.OneOf(String, Number, Boolean, Date),
         optional: true,
       },
-    })
+    }),
   },
   dateLastActivity: {
     type: Date,
@@ -225,9 +225,9 @@ Cards.helpers({
         _id: customField._id,
         value: customField.value,
         definition: definitions.find((definition) => {
-          return definition._id == customField._id;
-        })
-      }
+          return definition._id === customField._id;
+        }),
+      };
     });
 
   },
@@ -331,10 +331,13 @@ Cards.mutations({
     // todo
     const index = this.customFieldIndex(customFieldId);
     if (index > -1) {
-      var update = {$set: {}};
-      update.$set["customFields." + index + ".value"] = value;
+      const update = {$set: {}};
+      update.$set['customFields.${index}.value'] = value;
       return update;
     }
+    // TODO
+    // Ignatz 18.05.2018: Return null to silence ESLint. No Idea if that is correct
+    return null;
   },
 
   setCover(coverId) {

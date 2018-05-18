@@ -9,14 +9,14 @@ CustomFields.attachSchema(new SimpleSchema({
   },
   type: {
     type: String,
-    allowedValues: ['text', 'number', 'date', 'dropdown']
+    allowedValues: ['text', 'number', 'date', 'dropdown'],
   },
   settings: {
     type: Object,
   },
   'settings.dropdownItems': {
     type: [Object],
-    optional: true
+    optional: true,
   },
   'settings.dropdownItems.$': {
     type: new SimpleSchema({
@@ -26,11 +26,11 @@ CustomFields.attachSchema(new SimpleSchema({
       name: {
         type: String,
       },
-    })
+    }),
   },
   showOnCard: {
     type: Boolean,
-  }
+  },
 }));
 
 CustomFields.allow({
@@ -76,16 +76,16 @@ if (Meteor.isServer) {
 
 //CUSTOM FIELD REST API
 if (Meteor.isServer) {
-  JsonRoutes.add('GET', '/api/boards/:boardId/custom-fields', function (req, res, next) {
+  JsonRoutes.add('GET', '/api/boards/:boardId/custom-fields', function (req, res) {
     Authentication.checkUserId( req.userId);
     const paramBoardId = req.params.boardId;
     JsonRoutes.sendResult(res, {
       code: 200,
-      data: CustomFields.find({ boardId: paramBoardId })
+      data: CustomFields.find({ boardId: paramBoardId }),
     });
   });
 
-  JsonRoutes.add('GET', '/api/boards/:boardId/custom-fields/:customFieldId', function (req, res, next) {
+  JsonRoutes.add('GET', '/api/boards/:boardId/custom-fields/:customFieldId', function (req, res) {
     Authentication.checkUserId( req.userId);
     const paramBoardId = req.params.boardId;
     const paramCustomFieldId = req.params.customFieldId;
@@ -95,7 +95,7 @@ if (Meteor.isServer) {
     });
   });
 
-  JsonRoutes.add('POST', '/api/boards/:boardId/custom-fields', function (req, res, next) {
+  JsonRoutes.add('POST', '/api/boards/:boardId/custom-fields', function (req, res) {
     Authentication.checkUserId( req.userId);
     const paramBoardId = req.params.boardId;
     const id = CustomFields.direct.insert({
@@ -117,7 +117,7 @@ if (Meteor.isServer) {
     });
   });
 
-  JsonRoutes.add('DELETE', '/api/boards/:boardId/custom-fields/:customFieldId', function (req, res, next) {
+  JsonRoutes.add('DELETE', '/api/boards/:boardId/custom-fields/:customFieldId', function (req, res) {
     Authentication.checkUserId( req.userId);
     const paramBoardId = req.params.boardId;
     const id = req.params.customFieldId;
