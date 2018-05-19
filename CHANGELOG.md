@@ -1,8 +1,8 @@
-# Upcoming Wekan release
+# v0.96 2018-05-19 Wekan release
 
 This release adds the following new features:
 
-* [Custom Fields](https://github.com/wekan/wekan/issues/807).
+* [Custom Fields](https://github.com/wekan/wekan/issues/807). Note: Import/Export is not implemented yet.
 
 and fixes the following bugs:
 
