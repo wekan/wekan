@@ -143,6 +143,11 @@ class AdvancedFilter {
     return commands;
   }
 
+  _fieldNameToId(name)
+  {
+    CustomFields.find({name})._id;
+  }
+
   _arrayToSelector(commands)
   {
     try {
@@ -159,7 +164,7 @@ class AdvancedFilter {
           {
             const field = commands[i-1].cmd;
             const str = commands[i+1].cmd;
-            commands[i] = {[field]:str};
+            commands[i] = {'customFields._id':this._fieldNameToId(field), 'customFields.value':str};
             commands.splice(i-1, 1);
             commands.splice(i, 1);
             //changed = true;
@@ -207,7 +212,7 @@ Filter = {
   isActive() {
     return _.any(this._fields, (fieldName) => {
       return this[fieldName]._isActive();
-    });
+    }) || this.advanced._isActive();
   },
 
   _getMongoSelector() {
