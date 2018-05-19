@@ -148,7 +148,7 @@ class AdvancedFilter {
   _fieldNameToId(field)
   {
     console.log("searching: "+field);
-    const found = CustomFields.find({'name':field});
+    const found = CustomFields.findOne({'name':field});
     console.log(found);
     return found._id;
   }
