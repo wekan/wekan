@@ -119,7 +119,7 @@ class AdvancedFilter {
       }
       if (char === '\'')
       {
-        string = true;
+        string = !string;
         continue;
       }
       if (char === '\\')
@@ -130,7 +130,6 @@ class AdvancedFilter {
       if (char === ' ' && !string)
       {
         commands.push({'cmd':current, string});
-        string = false;
         current = '';
         continue;
       }
