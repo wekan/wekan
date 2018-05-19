@@ -150,6 +150,7 @@ class AdvancedFilter {
 
   _arrayToSelector(commands)
   {
+    console.log(commands);
     try {
       //let changed = false;
       for (let i = 0; i < commands.length; i++)
