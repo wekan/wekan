@@ -242,6 +242,7 @@
     "filter-clear": "Poista suodatin",
     "filter-no-label": "Ei tunnistetta",
     "filter-no-member": "Ei jäseniä",
+    "filter-no-custom-fields": "Ei mukautettuja kenttiä",
     "filter-on": "Suodatus on päällä",
     "filter-on-desc": "Suodatat kortteja tällä taululla. Klikkaa tästä muokataksesi suodatinta.",
     "filter-to-selection": "Suodata valintaan",
