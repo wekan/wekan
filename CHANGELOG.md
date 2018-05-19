@@ -1,3 +1,12 @@
+# v0.98 2018-05-19 Wekan release
+
+This release adds the following new features:
+
+* [Filtering by Custom Field](https://github.com/wekan/wekan/pull/1645);
+* Update to NPM 6.0.1 and MongoDB 3.2.20.
+
+Thanks to GitHub users feuerball11 and xet7 for their contributions.
+
 # v0.97 2018-05-19 Wekan release
 
 Updated translations.

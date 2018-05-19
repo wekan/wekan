@@ -65,7 +65,7 @@ apps:
 
 parts:
     mongodb:
-        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-3.2.19.tgz
+        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-3.2.20.tgz
         plugin: dump
         stage-packages: [libssl1.0.0]
         filesets:
@@ -83,7 +83,7 @@ parts:
         plugin: nodejs
         node-engine: 8.11.1
         node-packages:
-            - npm@5.5.1
+            - npm@6.0.1
             - node-gyp
             - node-pre-gyp
             - fibers@2.0.0
