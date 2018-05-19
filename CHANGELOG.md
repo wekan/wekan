@@ -1,4 +1,4 @@
-# v0.97 2018-06-19 Wekan release
+# v0.97 2018-05-19 Wekan release
 
 Updated translations.
 
