@@ -159,7 +159,7 @@ class AdvancedFilter {
           {
             const field = commands[i-1].cmd;
             const str = commands[i+1].cmd;
-            commands[i] = {}[field]=str;
+            commands[i] = {[field]:str};
             commands.splice(i-1, 1);
             commands.splice(i, 1);
             //changed = true;
