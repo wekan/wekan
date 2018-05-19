@@ -7,7 +7,7 @@
     "act-addComment": "hat __card__ kommentiert: __comment__",
     "act-createBoard": "hat __board__ erstellt",
     "act-createCard": "hat __card__ zu __list__ hinzugefügt",
-    "act-createCustomField": "hat ein benutzerdefiniertes Feld angelegt ",
+    "act-createCustomField": "benutzerdefiniertes Feld __customField__ angelegt ",
     "act-createList": "hat __list__ zu __board__ hinzugefügt",
     "act-addBoardMember": "hat __member__ zu __board__ hinzugefügt",
     "act-archivedBoard": "__board__ in den Papierkorb verschoben",
