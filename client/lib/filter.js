@@ -145,9 +145,9 @@ class AdvancedFilter {
     return commands;
   }
 
-  _fieldNameToId(name)
+  _fieldNameToId(field)
   {
-    CustomFields.find({name})._id;
+    CustomFields.find({'name':field})[0]._id;
   }
 
   _arrayToSelector(commands)
