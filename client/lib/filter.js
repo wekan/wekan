@@ -10,10 +10,13 @@ function showFilterSidebar() {
 
 // Use a "set" filter for a field that is a set of documents uniquely
 // identified. For instance `{ labels: ['labelA', 'labelC', 'labelD'] }`.
+// use "subField" for searching inside object Fields.
+// For instance '{ customFields: [{_id : 'field1'}]} (subField would be: _id)
 class SetFilter {
-  constructor() {
+  constructor(subField = '') {
     this._dep = new Tracker.Dependency();
     this._selectedElements = [];
+    this.subField = subField;
   }
 
   isSelected(val) {
@@ -61,7 +64,21 @@ class SetFilter {
 
   _getMongoSelector() {
     this._dep.depend();
-    return { $in: this._selectedElements };
+    if (this.subField !== '')
+    {
+
+      const selector = [];
+      this._selectedElements.forEach((element) => {
+        const item = [];
+        item[this.subField] = element;
+        selector.push(item);
+      });
+      return {$in: selector};
+    }
+    else
+    {
+      return { $in: this._selectedElements };
+    }
   }
 
   _getEmptySelector() {
@@ -86,7 +103,7 @@ Filter = {
   // before changing the schema.
   labelIds: new SetFilter(),
   members: new SetFilter(),
-  customFields: new SetFilter(),
+  customFields: new SetFilter('_id'),
 
   _fields: ['labelIds', 'members', 'customFields'],
 
@@ -112,13 +129,7 @@ Filter = {
     this._fields.forEach((fieldName) => {
       const filter = this[fieldName];
       if (filter._isActive()) {
-        if (fieldName === 'customFields'){
-          filterSelector[fieldName] = {_id: filter._getMongoSelector()};
-        }
-        else
-        {
-          filterSelector[fieldName] = filter._getMongoSelector();
-        }
+        filterSelector[fieldName] = filter._getMongoSelector();
         emptySelector[fieldName] = filter._getEmptySelector();
         if (emptySelector[fieldName] !== null) {
           includeEmptySelectors = true;
