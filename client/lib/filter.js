@@ -237,7 +237,7 @@ Filter = {
 
     const exceptionsSelector = {_id: {$in: this._exceptions}};
     this._exceptionsDep.depend();
-
+    console.log(this.advanced._getMongoSelector());
     if (includeEmptySelectors)
       return {
         $or: [filterSelector, exceptionsSelector, this.advanced._getMongoSelector(), emptySelector],
