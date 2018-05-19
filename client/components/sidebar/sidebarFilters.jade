@@ -40,12 +40,15 @@ template(name="filterSidebar")
               | (<span class="username">{{ username }}</span>)
             if Filter.members.isSelected _id
               i.fa.fa-check
+  hr
   ul.sidebar-list
     each currentBoard.customFields
       li
-        a.name.js-toggle-label-filter
+        a.name.js-toggle-custom-fields-filter
           span.sidebar-list-item-description
             {{ name }}
+          if Filter.customFields.isSelected _id
+              i.fa.fa-check
   if Filter.isActive
     hr
     a.sidebar-btn.js-clear-all

@@ -86,8 +86,9 @@ Filter = {
   // before changing the schema.
   labelIds: new SetFilter(),
   members: new SetFilter(),
+  customFields: new SetFilter(),
 
-  _fields: ['labelIds', 'members'],
+  _fields: ['labelIds', 'members', 'customFields'],
 
   // We don't filter cards that have been added after the last filter change. To
   // implement this we keep the id of these cards in this `_exceptions` fields
@@ -111,7 +112,13 @@ Filter = {
     this._fields.forEach((fieldName) => {
       const filter = this[fieldName];
       if (filter._isActive()) {
-        filterSelector[fieldName] = filter._getMongoSelector();
+        if (fieldName === 'customFields'){
+          filterSelector[fieldName] = {_id: filter._getMongoSelector()};
+        }
+        else
+        {
+          filterSelector[fieldName] = filter._getMongoSelector();
+        }
         emptySelector[fieldName] = filter._getEmptySelector();
         if (emptySelector[fieldName] !== null) {
           includeEmptySelectors = true;
