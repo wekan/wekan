@@ -1,3 +1,7 @@
+# v0.97 2018-06-19 Wekan release
+
+Updated translations.
+
 # v0.96 2018-05-19 Wekan release
 
 This release adds the following new features:
