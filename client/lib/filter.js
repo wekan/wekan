@@ -10,10 +10,13 @@ function showFilterSidebar() {
 
 // Use a "set" filter for a field that is a set of documents uniquely
 // identified. For instance `{ labels: ['labelA', 'labelC', 'labelD'] }`.
+// use "subField" for searching inside object Fields.
+// For instance '{ 'customFields._id': ['field1','field2']} (subField would be: _id)
 class SetFilter {
-  constructor() {
+  constructor(subField = '') {
     this._dep = new Tracker.Dependency();
     this._selectedElements = [];
+    this.subField = subField;
   }
 
   isSelected(val) {
@@ -86,8 +89,9 @@ Filter = {
   // before changing the schema.
   labelIds: new SetFilter(),
   members: new SetFilter(),
+  customFields: new SetFilter('_id'),
 
-  _fields: ['labelIds', 'members'],
+  _fields: ['labelIds', 'members', 'customFields'],
 
   // We don't filter cards that have been added after the last filter change. To
   // implement this we keep the id of these cards in this `_exceptions` fields
@@ -111,7 +115,14 @@ Filter = {
     this._fields.forEach((fieldName) => {
       const filter = this[fieldName];
       if (filter._isActive()) {
-        filterSelector[fieldName] = filter._getMongoSelector();
+        if (filter.subField !== '')
+        {
+          filterSelector[`${fieldName}.${filter.subField}`] = filter._getMongoSelector();
+        }
+        else
+        {
+          filterSelector[fieldName] = filter._getMongoSelector();
+        }
         emptySelector[fieldName] = filter._getEmptySelector();
         if (emptySelector[fieldName] !== null) {
           includeEmptySelectors = true;

@@ -11,6 +11,11 @@ BlazeComponent.extendComponent({
         Filter.members.toggle(this.currentData()._id);
         Filter.resetExceptions();
       },
+      'click .js-toggle-custom-fields-filter'(evt) {
+        evt.preventDefault();
+        Filter.customFields.toggle(this.currentData()._id);
+        Filter.resetExceptions();
+      },
       'click .js-clear-all'(evt) {
         evt.preventDefault();
         Filter.reset();
