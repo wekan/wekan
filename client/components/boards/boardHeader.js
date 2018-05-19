@@ -1,5 +1,9 @@
 Template.boardMenuPopup.events({
   'click .js-rename-board': Popup.open('boardChangeTitle'),
+  'click .js-custom-fields'() {
+    Sidebar.setView('customFields');
+    Popup.close();
+  },
   'click .js-open-archives'() {
     Sidebar.setView('archives');
     Popup.close();
