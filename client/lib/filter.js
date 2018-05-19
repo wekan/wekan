@@ -11,7 +11,7 @@ function showFilterSidebar() {
 // Use a "set" filter for a field that is a set of documents uniquely
 // identified. For instance `{ labels: ['labelA', 'labelC', 'labelD'] }`.
 // use "subField" for searching inside object Fields.
-// For instance '{ customFields: [{_id : { $in: ['field1']}}]} (subField would be: _id)
+// For instance '{ 'customFields._id': ['field1','field2']} (subField would be: _id)
 class SetFilter {
   constructor(subField = '') {
     this._dep = new Tracker.Dependency();
@@ -64,21 +64,7 @@ class SetFilter {
 
   _getMongoSelector() {
     this._dep.depend();
-    if (this.subField !== '')
-    {
-
-      const selector = [];
-      this._selectedElements.forEach((element) => {
-        const item = [];
-        item[this.subField] = {$in: [element]};
-        selector.push(item);
-      });
-      return {$in: selector};
-    }
-    else
-    {
-      return { $in: this._selectedElements };
-    }
+    return { $in: this._selectedElements };
   }
 
   _getEmptySelector() {
@@ -128,6 +114,7 @@ Filter = {
     let includeEmptySelectors = false;
     this._fields.forEach((fieldName) => {
       const filter = this[fieldName];
+      if (filter.subField !== '') fieldName = `${fieldName}.${filter.subField}`;
       if (filter._isActive()) {
         filterSelector[fieldName] = filter._getMongoSelector();
         emptySelector[fieldName] = filter._getEmptySelector();
