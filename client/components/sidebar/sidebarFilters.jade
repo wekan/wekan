@@ -42,8 +42,14 @@ template(name="filterSidebar")
               i.fa.fa-check
   hr
   ul.sidebar-list
+    li(class="{{#if Filter.customFields.isSelected undefined}}active{{/if}}")
+          a.name.js-toggle-custom-fields-filter
+            span.sidebar-list-item-description
+              | {{_ 'filter-no-custom-fields'}}
+            if Filter.customFields.isSelected undefined
+              i.fa.fa-check
     each currentBoard.customFields
-      li
+      li(class="{{#if Filter.customFields.isSelected _id}}active{{/if}}")
         a.name.js-toggle-custom-fields-filter
           span.sidebar-list-item-description
             {{ name }}
