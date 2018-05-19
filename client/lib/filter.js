@@ -108,6 +108,7 @@ class AdvancedFilter {
     const commands = [];
     let current = '';
     let string = false;
+    let wasString = false;
     let ignore = false;
     for (let i = 0; i < this._filter.length; i++)
     {
@@ -120,6 +121,7 @@ class AdvancedFilter {
       if (char === '\'')
       {
         string = !string;
+        if (string) wasString = true;
         continue;
       }
       if (char === '\\')
@@ -129,7 +131,8 @@ class AdvancedFilter {
       }
       if (char === ' ' && !string)
       {
-        commands.push({'cmd':current, string});
+        commands.push({'cmd':current, 'string':wasString});
+        wasString = false;
         current = '';
         continue;
       }
@@ -137,7 +140,7 @@ class AdvancedFilter {
     }
     if (current !== '')
     {
-      commands.push(current);
+      commands.push({'cmd':current, 'string':wasString});
     }
     return commands;
   }
