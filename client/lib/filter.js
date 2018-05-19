@@ -79,6 +79,110 @@ class SetFilter {
   }
 }
 
+
+// Advanced filter forms a MongoSelector from a users String.
+// Build by: Ignatz 19.05.2018 (github feuerball11)
+class AdvancedFilter {
+  constructor() {
+    this._dep = new Tracker.Dependency();
+    this._filter = '';
+  }
+
+  set(str)
+  {
+    this._filter = str;
+    this._dep.changed();
+  }
+
+  reset() {
+    this._filter = '';
+    this._dep.changed();
+  }
+
+  _isActive() {
+    this._dep.depend();
+    return this._filter !== '';
+  }
+
+  _filterToCommands(){
+    const commands = [];
+    let current = '';
+    let string = false;
+    let ignore = false;
+    for (let i = 0; i < this._filter.length; i++)
+    {
+      const char = this._filter.charAt(i);
+      if (ignore)
+      {
+        ignore = false;
+        continue;
+      }
+      if (char === '\'')
+      {
+        string = true;
+        continue;
+      }
+      if (char === '\\')
+      {
+        ignore = true;
+        continue;
+      }
+      if (char === ' ' && !string)
+      {
+        commands.push({'cmd':current, string});
+        string = false;
+        current = '';
+        continue;
+      }
+      current.push(char);
+    }
+    if (current !== '')
+    {
+      commands.push(current);
+    }
+    return commands;
+  }
+
+  _arrayToSelector(commands)
+  {
+    try {
+      //let changed = false;
+      for (let i = 0; i < commands.length; i++)
+      {
+        if (!commands[i].string && commands[i].cmd)
+        {
+          switch (commands[i].cmd)
+          {
+          case '=':
+          case '==':
+          case '===':
+          {
+            const field = commands[i-1];
+            const str = commands[i+1];
+            commands[i] = {}[field]=str;
+            commands.splice(i-1, 1);
+            commands.splice(i, 1);
+            //changed = true;
+            i--;
+            break;
+          }
+
+          }
+        }
+      }
+    }
+    catch (e){return { $in: [] };}
+    return commands;
+  }
+
+  _getMongoSelector() {
+    this._dep.depend();
+    const commands = this._filterToCommands();
+    return this._arrayToSelector(commands);
+  }
+
+}
+
 // The global Filter object.
 // XXX It would be possible to re-write this object more elegantly, and removing
 // the need to provide a list of `_fields`. We also should move methods into the
@@ -90,6 +194,7 @@ Filter = {
   labelIds: new SetFilter(),
   members: new SetFilter(),
   customFields: new SetFilter('_id'),
+  advanced: new AdvancedFilter(),
 
   _fields: ['labelIds', 'members', 'customFields'],
 
@@ -134,9 +239,13 @@ Filter = {
     this._exceptionsDep.depend();
 
     if (includeEmptySelectors)
-      return {$or: [filterSelector, exceptionsSelector, emptySelector]};
+      return {
+        $or: [filterSelector, exceptionsSelector, this.advanced._getMongoSelector(), emptySelector],
+      };
     else
-      return {$or: [filterSelector, exceptionsSelector]};
+      return {
+        $or: [filterSelector, exceptionsSelector, this.advanced._getMongoSelector()],
+      };
   },
 
   mongoSelector(additionalSelector) {

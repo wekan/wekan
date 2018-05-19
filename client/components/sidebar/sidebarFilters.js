@@ -16,6 +16,11 @@ BlazeComponent.extendComponent({
         Filter.customFields.toggle(this.currentData()._id);
         Filter.resetExceptions();
       },
+      'input .js-field-advanced-filter'(evt) {
+        evt.preventDefault();
+        Filter.advanced.set(this.find('.js-field-advanced-filter').value.trim());
+        Filter.resetExceptions();
+      },
       'click .js-clear-all'(evt) {
         evt.preventDefault();
         Filter.reset();

@@ -55,6 +55,8 @@ template(name="filterSidebar")
             {{ name }}
           if Filter.customFields.isSelected _id
               i.fa.fa-check
+  hr
+  input.js-field-advanced-filter(type="text")
   if Filter.isActive
     hr
     a.sidebar-btn.js-clear-all
