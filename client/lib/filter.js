@@ -114,9 +114,15 @@ Filter = {
     let includeEmptySelectors = false;
     this._fields.forEach((fieldName) => {
       const filter = this[fieldName];
-      if (filter.subField !== '') fieldName = `${fieldName}.${filter.subField}`;
       if (filter._isActive()) {
-        filterSelector[fieldName] = filter._getMongoSelector();
+        if (filter.subField !== '')
+        {
+          filterSelector[`${fieldName}.${filter.subField}`] = filter._getMongoSelector();
+        }
+        else
+        {
+          filterSelector[fieldName] = filter._getMongoSelector();
+        }
         emptySelector[fieldName] = filter._getEmptySelector();
         if (emptySelector[fieldName] !== null) {
           includeEmptySelectors = true;
