@@ -219,3 +219,15 @@ Migrations.add('add-profile-view', () => {
     );
   });
 });
+
+Migrations.add('add-custom-fields-to-cards', () => {
+  Cards.update({
+    customFields: {
+      $exists: false,
+    },
+  }, {
+    $set: {
+      customFields:[],
+    },
+  }, noValidateMulti);
+});
