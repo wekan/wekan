@@ -172,7 +172,7 @@ class AdvancedFilter {
       }
     }
     catch (e){return { $in: [] };}
-    return commands;
+    return {$or: commands};
   }
 
   _getMongoSelector() {
