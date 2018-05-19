@@ -134,7 +134,7 @@ class AdvancedFilter {
         current = '';
         continue;
       }
-      current.push(char);
+      current += char;
     }
     if (current !== '')
     {
