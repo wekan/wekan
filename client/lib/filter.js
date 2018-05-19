@@ -11,7 +11,7 @@ function showFilterSidebar() {
 // Use a "set" filter for a field that is a set of documents uniquely
 // identified. For instance `{ labels: ['labelA', 'labelC', 'labelD'] }`.
 // use "subField" for searching inside object Fields.
-// For instance '{ customFields: [{_id : 'field1'}]} (subField would be: _id)
+// For instance '{ customFields: [{_id : { $in: ['field1']}}]} (subField would be: _id)
 class SetFilter {
   constructor(subField = '') {
     this._dep = new Tracker.Dependency();
@@ -70,7 +70,7 @@ class SetFilter {
       const selector = [];
       this._selectedElements.forEach((element) => {
         const item = [];
-        item[this.subField] = element;
+        item[this.subField] = {$in: [element]};
         selector.push(item);
       });
       return {$in: selector};
