@@ -24,10 +24,10 @@ template(name="minicard")
       each customFieldsWD
         if definition.showOnCard
           .minicard-custom-field
-            h3.minicard-custom-field-item
+            .minicard-custom-field-item
               = definition.name
             .minicard-custom-field-item
-              +cardCustomField
+              = value
 
     if members
       .minicard-members.js-minicard-members
