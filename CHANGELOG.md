@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+* [Advanced Filter for Custom Fields](https://github.com/wekan/wekan/pull/1646).
+
+Thanks to GitHub users feuerball11 and xet7 for their contributions.
+
 # v0.98 2018-05-19 Wekan release
 
 This release adds the following new features:
