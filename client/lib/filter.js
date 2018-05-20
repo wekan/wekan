@@ -205,7 +205,11 @@ class AdvancedFilter {
     if (start !== -1)
     {
       this._processSubCommands(subcommands);
-      commands.splice(start, 0, subcommands);
+      console.log ('subcommands: ', subcommands.length);
+      if (subcommands.length === 1)
+        commands.splice(start, 0, subcommands[0]);
+      else
+        commands.splice(start, 0, subcommands);
     }
     this._processConditions(commands);
     console.log('Conditions: ', JSON.stringify(commands));
