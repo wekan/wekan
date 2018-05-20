@@ -28,10 +28,10 @@ template(name="minicard")
     .card-details-items
       each customFieldsWD
         if definition.showOnCard
-        .card-details-item.card-details-item-customfield
-          h3.card-details-item-title
-            = definition.name
-          +cardCustomField
+          .card-details-item.card-details-item-customfield
+            h3.card-details-item-title
+              = definition.name
+            +cardCustomField
 
     .badges
       if comments.count
