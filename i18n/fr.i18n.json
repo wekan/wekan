@@ -242,6 +242,7 @@
     "filter-clear": "Supprimer les filtres",
     "filter-no-label": "Aucune étiquette",
     "filter-no-member": "Aucun membre",
+    "filter-no-custom-fields": "No Custom Fields",
     "filter-on": "Le filtre est actif",
     "filter-on-desc": "Vous êtes en train de filtrer les cartes sur ce tableau. Cliquez ici pour modifier les filtres.",
     "filter-to-selection": "Filtre vers la sélection",

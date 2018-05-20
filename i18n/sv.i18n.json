@@ -242,6 +242,7 @@
     "filter-clear": "Rensa filter",
     "filter-no-label": "Ingen etikett",
     "filter-no-member": "Ingen medlem",
+    "filter-no-custom-fields": "No Custom Fields",
     "filter-on": "Filter är på",
     "filter-on-desc": "Du filtrerar kort på denna anslagstavla. Klicka här för att redigera filter.",
     "filter-to-selection": "Filter till val",

@@ -242,6 +242,7 @@
     "filter-clear": "필터 초기화",
     "filter-no-label": "라벨 없음",
     "filter-no-member": "멤버 없음",
+    "filter-no-custom-fields": "No Custom Fields",
     "filter-on": "필터 사용",
     "filter-on-desc": "보드에서 카드를 필터링합니다. 여기를 클릭하여 필터를 수정합니다.",
     "filter-to-selection": "선택 항목으로 필터링",

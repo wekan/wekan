@@ -242,6 +242,7 @@
     "filter-clear": "مسح التصفية",
     "filter-no-label": "لا يوجد ملصق",
     "filter-no-member": "ليس هناك أي عضو",
+    "filter-no-custom-fields": "No Custom Fields",
     "filter-on": "التصفية تشتغل",
     "filter-on-desc": "أنت بصدد تصفية بطاقات هذه اللوحة. اضغط هنا لتعديل التصفية.",
     "filter-to-selection": "تصفية بالتحديد",

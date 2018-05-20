@@ -242,6 +242,7 @@
     "filter-clear": "Limpar filtro",
     "filter-no-label": "Sem labels",
     "filter-no-member": "Sem membros",
+    "filter-no-custom-fields": "No Custom Fields",
     "filter-on": "Filtro está ativo",
     "filter-on-desc": "Você está filtrando cartões neste quadro. Clique aqui para editar o filtro.",
     "filter-to-selection": "Filtrar esta seleção",

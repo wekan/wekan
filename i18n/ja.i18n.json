@@ -242,6 +242,7 @@
     "filter-clear": "フィルターの解除",
     "filter-no-label": "ラベルなし",
     "filter-no-member": "メンバーなし",
+    "filter-no-custom-fields": "No Custom Fields",
     "filter-on": "フィルター有効",
     "filter-on-desc": "このボードのカードをフィルターしています。フィルターを編集するにはこちらをクリックしてください。",
     "filter-to-selection": "フィルターした項目を全選択",
