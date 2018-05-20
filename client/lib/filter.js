@@ -243,7 +243,7 @@ class AdvancedFilter {
         {
           const field = commands[i-1].cmd;
           const str = commands[i+1].cmd;
-          commands[i] = {$not: {'customFields._id':this._fieldNameToId(field), 'customFields.value':str}};
+          commands[i] = {'customFields._id':this._fieldNameToId(field), 'customFields.value': { $not: str }};
           commands.splice(i-1, 1);
           commands.splice(i, 1);
           //changed = true;
