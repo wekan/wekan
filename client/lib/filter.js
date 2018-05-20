@@ -86,6 +86,7 @@ class AdvancedFilter {
   constructor() {
     this._dep = new Tracker.Dependency();
     this._filter = '';
+    this._lastValide={};
   }
 
   set(str)
@@ -96,6 +97,7 @@ class AdvancedFilter {
 
   reset() {
     this._filter = '';
+    this._lastValide={};
     this._dep.changed();
   }
 
@@ -147,26 +149,23 @@ class AdvancedFilter {
 
   _fieldNameToId(field)
   {
-    console.log(`searching: ${field}`);
     const found = CustomFields.findOne({'name':field});
-    console.log(found);
     return found._id;
   }
 
   _arrayToSelector(commands)
   {
-    console.log('Parts: ', JSON.stringify(commands));
     try {
       //let changed = false;
       this._processSubCommands(commands);
     }
-    catch (e){return { $in: [] };}
+    catch (e){return this._lastValide;}
+    this._lastValide = {$or: commands};
     return {$or: commands};
   }
 
   _processSubCommands(commands)
   {
-    console.log('SubCommands: ', JSON.stringify(commands));
     const subcommands = [];
     let level = 0;
     let start = -1;
@@ -205,16 +204,13 @@ class AdvancedFilter {
     if (start !== -1)
     {
       this._processSubCommands(subcommands);
-      console.log ('subcommands: ', subcommands.length);
       if (subcommands.length === 1)
         commands.splice(start, 0, subcommands[0]);
       else
         commands.splice(start, 0, subcommands);
     }
     this._processConditions(commands);
-    console.log('Conditions: ', JSON.stringify(commands));
     this._processLogicalOperators(commands);
-    console.log('Operator: ', JSON.stringify(commands));
   }
 
   _processConditions(commands)
@@ -458,6 +454,7 @@ Filter = {
       const filter = this[fieldName];
       filter.reset();
     });
+    this.advanced.reset();
     this.resetExceptions();
   },
 
