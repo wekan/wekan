@@ -25,13 +25,14 @@ template(name="minicard")
         each members
           +userAvatar(userId=this)
 
-    .card-details-items
+    .minicard-custom-fields
       each customFieldsWD
         if definition.showOnCard
-          .card-details-item.card-details-item-customfield
-            h3.card-details-item-title
+          .minicard-custom-field
+            h3.minicard-custom-field-item
               = definition.name
-            +cardCustomField
+            .minicard-custom-field-item
+              +cardCustomField
 
     .badges
       if comments.count
