@@ -242,6 +242,7 @@
     "filter-clear": "清空過濾條件",
     "filter-no-label": "沒有標籤",
     "filter-no-member": "沒有成員",
+    "filter-no-custom-fields": "No Custom Fields",
     "filter-on": "過濾條件啟用",
     "filter-on-desc": "你正在過濾該看板上的卡片，點此編輯過濾條件。",
     "filter-to-selection": "要選擇的過濾條件",

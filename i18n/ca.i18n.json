@@ -242,6 +242,7 @@
     "filter-clear": "Elimina filtre",
     "filter-no-label": "Sense etiqueta",
     "filter-no-member": "Sense membres",
+    "filter-no-custom-fields": "No Custom Fields",
     "filter-on": "Filtra per",
     "filter-on-desc": "Estau filtrant fitxes en aquest tauler. Feu clic aquí per editar el filtre.",
     "filter-to-selection": "Filtra selecció",

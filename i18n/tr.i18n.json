@@ -242,6 +242,7 @@
     "filter-clear": "Filtreyi temizle",
     "filter-no-label": "Etiket yok",
     "filter-no-member": "Üye yok",
+    "filter-no-custom-fields": "No Custom Fields",
     "filter-on": "Filtre aktif",
     "filter-on-desc": "Bu panodaki kartları filtreliyorsunuz. Fitreyi düzenlemek için tıklayın.",
     "filter-to-selection": "Seçime göre filtreleme yap",

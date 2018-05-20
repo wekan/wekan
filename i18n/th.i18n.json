@@ -242,6 +242,7 @@
     "filter-clear": "ล้างตัวกรอง",
     "filter-no-label": "ไม่มีฉลาก",
     "filter-no-member": "ไม่มีสมาชิก",
+    "filter-no-custom-fields": "No Custom Fields",
     "filter-on": "กรองบน",
     "filter-on-desc": "คุณกำลังกรองการ์ดในบอร์ดนี้ คลิกที่นี่เพื่อแก้ไขตัวกรอง",
     "filter-to-selection": "กรองตัวเลือก",

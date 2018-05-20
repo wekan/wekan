@@ -242,6 +242,7 @@
     "filter-clear": "Usuń filter",
     "filter-no-label": "Brak etykiety",
     "filter-no-member": "No member",
+    "filter-no-custom-fields": "No Custom Fields",
     "filter-on": "Filtr jest włączony",
     "filter-on-desc": "Filtrujesz karty na tej tablicy. Kliknij tutaj by edytować filtr.",
     "filter-to-selection": "Odfiltruj zaznaczenie",

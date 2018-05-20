@@ -242,6 +242,7 @@
     "filter-clear": "Pulisci filtri",
     "filter-no-label": "Nessuna etichetta",
     "filter-no-member": "Nessun membro",
+    "filter-no-custom-fields": "No Custom Fields",
     "filter-on": "Il filtro è attivo",
     "filter-on-desc": "Stai filtrando le schede su questa bacheca. Clicca qui per modificare il filtro,",
     "filter-to-selection": "Seleziona",

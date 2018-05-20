@@ -242,6 +242,7 @@
     "filter-clear": "Limpar filtro",
     "filter-no-label": "Non hai etiquetas",
     "filter-no-member": "Non hai membros",
+    "filter-no-custom-fields": "No Custom Fields",
     "filter-on": "O filtro está activado",
     "filter-on-desc": "You are filtering cards on this board. Click here to edit filter.",
     "filter-to-selection": "Filter to selection",

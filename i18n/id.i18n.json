@@ -242,6 +242,7 @@
     "filter-clear": "Bersihkan penyaringan",
     "filter-no-label": "Tidak ada label",
     "filter-no-member": "Tidak ada anggota",
+    "filter-no-custom-fields": "No Custom Fields",
     "filter-on": "Penyaring aktif",
     "filter-on-desc": "Anda memfilter kartu di panel ini. Klik di sini untuk menyunting filter",
     "filter-to-selection": "Saring berdasarkan yang dipilih",

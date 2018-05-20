@@ -242,6 +242,7 @@
     "filter-clear": "Очистить фильтр",
     "filter-no-label": "Нет метки",
     "filter-no-member": "Нет участников",
+    "filter-no-custom-fields": "No Custom Fields",
     "filter-on": "Включен фильтр",
     "filter-on-desc": "Показываются карточки, соответствующие настройкам фильтра. Нажмите для редактирования.",
     "filter-to-selection": "Filter to selection",
