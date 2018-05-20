@@ -158,13 +158,59 @@ class AdvancedFilter {
     console.log('Parts: ', JSON.stringify(commands));
     try {
       //let changed = false;
-      this._processConditions(commands);
-      console.log('Conditions: ', JSON.stringify(commands));
-      this._processLogicalOperators(commands);
-      console.log('Operator: ', JSON.stringify(commands));
+      this._processSubCommands(commands);
     }
     catch (e){return { $in: [] };}
     return {$or: commands};
+  }
+
+  _processSubCommands(commands)
+  {
+    console.log('SubCommands: ', JSON.stringify(commands));
+    const subcommands = [];
+    let level = 0;
+    let start = -1;
+    for (let i = 0; i < commands.length; i++)
+    {
+      if (!commands[i].string && commands[i].cmd)
+      {
+        switch (commands[i].cmd)
+        {
+        case '(':
+        {
+          level++;
+          if (start === -1) start = i;
+          continue;
+        }
+        case ')':
+        {
+          level--;
+          commands.splice(i, 1);
+          i--;
+          continue;
+        }
+        default:
+        {
+          if (level > 0)
+          {
+            subcommands.push(commands[i]);
+            commands.splice(i, 1);
+            i--;
+            continue;
+          }
+        }
+        }
+      }
+    }
+    if (start !== -1)
+    {
+      this._processSubCommands(subcommands);
+      commands.splice(start, 0, subcommands);
+    }
+    this._processConditions(commands);
+    console.log('Conditions: ', JSON.stringify(commands));
+    this._processLogicalOperators(commands);
+    console.log('Operator: ', JSON.stringify(commands));
   }
 
   _processConditions(commands)
@@ -182,6 +228,76 @@ class AdvancedFilter {
           const field = commands[i-1].cmd;
           const str = commands[i+1].cmd;
           commands[i] = {'customFields._id':this._fieldNameToId(field), 'customFields.value':str};
+          commands.splice(i-1, 1);
+          commands.splice(i, 1);
+          //changed = true;
+          i--;
+          break;
+        }
+        case '!=':
+        case '!==':
+        {
+          const field = commands[i-1].cmd;
+          const str = commands[i+1].cmd;
+          commands[i] = {$not: {'customFields._id':this._fieldNameToId(field), 'customFields.value':str}};
+          commands.splice(i-1, 1);
+          commands.splice(i, 1);
+          //changed = true;
+          i--;
+          break;
+        }
+        case '>':
+        case 'gt':
+        case 'Gt':
+        case 'GT':
+        {
+          const field = commands[i-1].cmd;
+          const str = commands[i+1].cmd;
+          commands[i] = {'customFields._id':this._fieldNameToId(field), 'customFields.value': { $gt: str } };
+          commands.splice(i-1, 1);
+          commands.splice(i, 1);
+          //changed = true;
+          i--;
+          break;
+        }
+        case '>=':
+        case '>==':
+        case 'gte':
+        case 'Gte':
+        case 'GTE':
+        {
+          const field = commands[i-1].cmd;
+          const str = commands[i+1].cmd;
+          commands[i] = {'customFields._id':this._fieldNameToId(field), 'customFields.value': { $gte: str } };
+          commands.splice(i-1, 1);
+          commands.splice(i, 1);
+          //changed = true;
+          i--;
+          break;
+        }
+        case '<':
+        case 'lt':
+        case 'Lt':
+        case 'LT':
+        {
+          const field = commands[i-1].cmd;
+          const str = commands[i+1].cmd;
+          commands[i] = {'customFields._id':this._fieldNameToId(field), 'customFields.value': { $lt: str } };
+          commands.splice(i-1, 1);
+          commands.splice(i, 1);
+          //changed = true;
+          i--;
+          break;
+        }
+        case '<=':
+        case '<==':
+        case 'lte':
+        case 'Lte':
+        case 'LTE':
+        {
+          const field = commands[i-1].cmd;
+          const str = commands[i+1].cmd;
+          commands[i] = {'customFields._id':this._fieldNameToId(field), 'customFields.value': { $lte: str } };
           commands.splice(i-1, 1);
           commands.splice(i, 1);
           //changed = true;
@@ -213,6 +329,34 @@ class AdvancedFilter {
           commands[i] = {$or: [op1, op2]};
           commands.splice(i-1, 1);
           commands.splice(i, 1);
+          //changed = true;
+          i--;
+          break;
+        }
+        case 'and':
+        case 'And':
+        case 'AND':
+        case '&':
+        case '&&':
+        {
+          const op1 = commands[i-1];
+          const op2 = commands[i+1];
+          commands[i] = {$and: [op1, op2]};
+          commands.splice(i-1, 1);
+          commands.splice(i, 1);
+          //changed = true;
+          i--;
+          break;
+        }
+
+        case 'not':
+        case 'Not':
+        case 'NOT':
+        case '!':
+        {
+          const op1 = commands[i+1];
+          commands[i] = {$not: op1};
+          commands.splice(i+1, 1);
           //changed = true;
           i--;
           break;
