@@ -246,6 +246,8 @@
     "filter-on": "필터 사용",
     "filter-on-desc": "보드에서 카드를 필터링합니다. 여기를 클릭하여 필터를 수정합니다.",
     "filter-to-selection": "선택 항목으로 필터링",
+    "advanced-filter-label": "Advanced Filter",
+    "advanced-filter-description": "Advanced Filter allows to write a string containing following operators: == != <= >= && || ( ) A Space is used as seperator between the operators. You can filter for all custom fields by simply typing there names and values. For example: Field1 == Value1  Note: If fields or values contains spaces, you need to encapsulate them into single quetes. For example: 'Field 1' == 'Value 1' Also you can combine multiple Conditions. For Example: F1 == V1 || F1 = V2  Normaly all Operators are interpreted from left to right. You can change the order of that by placing brakets. For Example: F1 == V1 and ( F2 == V2 || F2 == V3 )",
     "fullname": "실명",
     "header-logo-title": "보드 페이지로 돌아가기.",
     "hide-system-messages": "시스템 메시지 숨기기",

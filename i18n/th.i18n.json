@@ -246,6 +246,8 @@
     "filter-on": "กรองบน",
     "filter-on-desc": "คุณกำลังกรองการ์ดในบอร์ดนี้ คลิกที่นี่เพื่อแก้ไขตัวกรอง",
     "filter-to-selection": "กรองตัวเลือก",
+    "advanced-filter-label": "Advanced Filter",
+    "advanced-filter-description": "Advanced Filter allows to write a string containing following operators: == != <= >= && || ( ) A Space is used as seperator between the operators. You can filter for all custom fields by simply typing there names and values. For example: Field1 == Value1  Note: If fields or values contains spaces, you need to encapsulate them into single quetes. For example: 'Field 1' == 'Value 1' Also you can combine multiple Conditions. For Example: F1 == V1 || F1 = V2  Normaly all Operators are interpreted from left to right. You can change the order of that by placing brakets. For Example: F1 == V1 and ( F2 == V2 || F2 == V3 )",
     "fullname": "ชื่อ นามสกุล",
     "header-logo-title": "ย้อนกลับไปที่หน้าบอร์ดของคุณ",
     "hide-system-messages": "ซ่อนข้อความของระบบ",

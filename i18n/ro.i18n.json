@@ -246,6 +246,8 @@
     "filter-on": "Filter is on",
     "filter-on-desc": "You are filtering cards on this board. Click here to edit filter.",
     "filter-to-selection": "Filter to selection",
+    "advanced-filter-label": "Advanced Filter",
+    "advanced-filter-description": "Advanced Filter allows to write a string containing following operators: == != <= >= && || ( ) A Space is used as seperator between the operators. You can filter for all custom fields by simply typing there names and values. For example: Field1 == Value1  Note: If fields or values contains spaces, you need to encapsulate them into single quetes. For example: 'Field 1' == 'Value 1' Also you can combine multiple Conditions. For Example: F1 == V1 || F1 = V2  Normaly all Operators are interpreted from left to right. You can change the order of that by placing brakets. For Example: F1 == V1 and ( F2 == V2 || F2 == V3 )",
     "fullname": "Full Name",
     "header-logo-title": "Go back to your boards page.",
     "hide-system-messages": "Hide system messages",
