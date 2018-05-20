@@ -20,11 +20,6 @@ template(name="minicard")
         .date
           +cardSpentTime
 
-    if members
-      .minicard-members.js-minicard-members
-        each members
-          +userAvatar(userId=this)
-
     .minicard-custom-fields
       each customFieldsWD
         if definition.showOnCard
@@ -33,6 +28,11 @@ template(name="minicard")
               = definition.name
             .minicard-custom-field-item
               +cardCustomField
+
+    if members
+      .minicard-members.js-minicard-members
+        each members
+          +userAvatar(userId=this)
 
     .badges
       if comments.count
