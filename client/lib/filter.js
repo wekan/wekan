@@ -155,11 +155,13 @@ class AdvancedFilter {
 
   _arrayToSelector(commands)
   {
-    console.log(commands);
+    console.log('Parts: ', commands);
     try {
       //let changed = false;
       this._processConditions(commands);
+      console.log('Conditions: ', commands);
       this._processLogicalOperators(commands);
+      console.log('Operator: ', commands);
     }
     catch (e){return { $in: [] };}
     return {$or: commands};
