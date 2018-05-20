@@ -172,7 +172,7 @@ class AdvancedFilter {
     let start = -1;
     for (let i = 0; i < commands.length; i++)
     {
-      if (!commands[i].string && commands[i].cmd)
+      if (commands[i].cmd)
       {
         switch (commands[i].cmd)
         {
