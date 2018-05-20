@@ -24,6 +24,15 @@ template(name="minicard")
       .minicard-members.js-minicard-members
         each members
           +userAvatar(userId=this)
+
+    .card-details-items
+      each customFieldsWD
+        if definition.showOnCard
+        .card-details-item.card-details-item-customfield
+          h3.card-details-item-title
+            = definition.name
+          +cardCustomField
+
     .badges
       if comments.count
         .badge(title="{{_ 'card-comments-title' comments.count }}")
