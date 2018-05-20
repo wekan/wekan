@@ -147,7 +147,7 @@ class AdvancedFilter {
 
   _fieldNameToId(field)
   {
-    console.log("searching: "+field);
+    console.log(`searching: ${field}`);
     const found = CustomFields.findOne({'name':field});
     console.log(found);
     return found._id;
@@ -158,32 +158,67 @@ class AdvancedFilter {
     console.log(commands);
     try {
       //let changed = false;
-      for (let i = 0; i < commands.length; i++)
-      {
-        if (!commands[i].string && commands[i].cmd)
-        {
-          switch (commands[i].cmd)
-          {
-          case '=':
-          case '==':
-          case '===':
-          {
-            const field = commands[i-1].cmd;
-            const str = commands[i+1].cmd;
-            commands[i] = {'customFields._id':this._fieldNameToId(field), 'customFields.value':str};
-            commands.splice(i-1, 1);
-            commands.splice(i, 1);
-            //changed = true;
-            i--;
-            break;
-          }
-
-          }
-        }
-      }
+      this._processConditions(commands);
+      this._processLogicalOperators(commands);
     }
     catch (e){return { $in: [] };}
     return {$or: commands};
+  }
+
+  _processConditions(commands)
+  {
+    for (let i = 0; i < commands.length; i++)
+    {
+      if (!commands[i].string && commands[i].cmd)
+      {
+        switch (commands[i].cmd)
+        {
+        case '=':
+        case '==':
+        case '===':
+        {
+          const field = commands[i-1].cmd;
+          const str = commands[i+1].cmd;
+          commands[i] = {'customFields._id':this._fieldNameToId(field), 'customFields.value':str};
+          commands.splice(i-1, 1);
+          commands.splice(i, 1);
+          //changed = true;
+          i--;
+          break;
+        }
+
+        }
+      }
+    }
+  }
+
+  _processLogicalOperators(commands)
+  {
+    for (let i = 0; i < commands.length; i++)
+    {
+      if (!commands[i].string && commands[i].cmd)
+      {
+        switch (commands[i].cmd)
+        {
+        case 'or':
+        case 'Or':
+        case 'OR':
+        case '|':
+        case '||':
+        {
+          const op1 = commands[i-1].cmd;
+          const op2 = commands[i+1].cmd;
+          commands[i] = {$or: [op1, op2]};
+          commands.splice(i-1, 1);
+          commands.splice(i, 1);
+          //changed = true;
+          i--;
+          break;
+        }
+
+        }
+      }
+    }
   }
 
   _getMongoSelector() {
