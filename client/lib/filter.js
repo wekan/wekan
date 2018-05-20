@@ -208,8 +208,8 @@ class AdvancedFilter {
         case '|':
         case '||':
         {
-          const op1 = commands[i-1].cmd;
-          const op2 = commands[i+1].cmd;
+          const op1 = commands[i-1];
+          const op2 = commands[i+1];
           commands[i] = {$or: [op1, op2]};
           commands.splice(i-1, 1);
           commands.splice(i, 1);
