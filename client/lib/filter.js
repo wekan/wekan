@@ -248,18 +248,16 @@ Filter = {
 
     const exceptionsSelector = {_id: {$in: this._exceptions}};
     this._exceptionsDep.depend();
-    console.log("Final Filter:");
-    console.log({
-      $or: [filterSelector, exceptionsSelector, this.advanced._getMongoSelector()],
-    });
-    if (includeEmptySelectors)
-      return {
-        $or: [filterSelector, exceptionsSelector, this.advanced._getMongoSelector(), emptySelector],
-      };
-    else
-      return {
-        $or: [filterSelector, exceptionsSelector, this.advanced._getMongoSelector()],
-      };
+
+    const selectors = [exceptionsSelector];
+
+    if (_.any(this._fields, (fieldName) => {
+      return this[fieldName]._isActive();
+    })) selectors.push(filterSelector);
+    if (includeEmptySelectors) selectors.push(emptySelector);
+    if (this.advanced._isActive()) selectors.push(this.advanced._getMongoSelector());
+
+    return {$or: selectors};
   },
 
   mongoSelector(additionalSelector) {
