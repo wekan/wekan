@@ -1,6 +1,6 @@
 {
   "name": "wekan",
-  "version": "0.99.0",
+  "version": "1.00.0",
   "description": "The open-source Trello-like kanban",
   "private": true,
   "scripts": {
