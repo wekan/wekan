@@ -20,10 +20,20 @@ template(name="minicard")
         .date
           +cardSpentTime
 
+    .minicard-custom-fields
+      each customFieldsWD
+        if definition.showOnCard
+          .minicard-custom-field
+            .minicard-custom-field-item
+              = definition.name
+            .minicard-custom-field-item
+              = value
+
     if members
       .minicard-members.js-minicard-members
         each members
           +userAvatar(userId=this)
+
     .badges
       if comments.count
         .badge(title="{{_ 'card-comments-title' comments.count }}")

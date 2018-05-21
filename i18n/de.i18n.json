@@ -246,6 +246,8 @@
     "filter-on": "Filter ist aktiv",
     "filter-on-desc": "Sie filtern die Karten in diesem Board. Klicken Sie, um den Filter zu bearbeiten.",
     "filter-to-selection": "Ergebnisse auswählen",
+    "advanced-filter-label": "Erweiterter Filter",
+    "advanced-filter-description": "Der erweiterte Filter erlaubt die Eingabe von Zeichenfolgen, die folgende Operatoren enthalten: == != <= >= && || ( ). Ein Leerzeichen wird als Trennzeichen zwischen den Operatoren verwendet. Sie können nach allen benutzerdefinierten Feldern filtern, indem Sie deren Namen und Werte eingeben. Zum Beispiel: Feld1 == Wert1. Beachten Sie: Wenn Felder oder Werte Leerzeichen enthalten, müssen Sie sie in einfache Anführungszeichen setzen. Zum Beispiel: 'Feld 1' == 'Wert 1'. Sie können außerdem mehrere Bedingungen kombinieren. Zum Beispiel: F1 == W1 || F1 == W2. Normalerweise werden alle Operatoren von links nach rechts interpretiert. Sie können die Reihenfolge ändern, indem Sie Klammern setzen. Zum Beispiel: F1 == W1 && ( F2 == W2 || F2 == W3 ) ",
     "fullname": "Vollständiger Name",
     "header-logo-title": "Zurück zur Board Seite.",
     "hide-system-messages": "Systemmeldungen ausblenden",
