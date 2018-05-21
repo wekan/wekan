@@ -1,3 +1,11 @@
+# v1.00 2018-05-21 Wekan release
+
+This release fixes the following bugs:
+
+* [Typo in English translation: brakets to brackets](https://github.com/wekan/wekan/issues/1647).
+
+Thanks to GitHub user yarons for contributions.
+
 # v0.99 2018-05-21 Wekan release
 
 This release adds the following new features:
