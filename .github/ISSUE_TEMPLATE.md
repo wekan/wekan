@@ -10,7 +10,6 @@
 * ROOT_URL environment variable http(s)://(subdomain).example.com(/suburl):
 
 **Problem description**:
-- *be as explicit as you can*
-- *describe the problem and its symptoms*
-- *explain how to reproduce*
-- *attach whatever information that can help understanding the context (screen capture, log files in .zip file)*
+- *add recorded animated gif about how it works currently, and screenshot mockups how it should work*
+- *explain steps how to reproduce*
+- *attach log files in .zip file)*
