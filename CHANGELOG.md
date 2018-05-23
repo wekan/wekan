@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release possibly fixes the following bugs, please test:
+
+* [Possible quickfix for all customFields Import errors, please test](https://github.com/wekan/wekan/pull/1653).
+
+Thanks to GitHub users feuerball11 and xet7 for their contributions.
+
 # v1.00 2018-05-21 Wekan release
 
 This release fixes the following bugs:
