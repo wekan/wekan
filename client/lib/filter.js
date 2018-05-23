@@ -86,18 +86,17 @@ class AdvancedFilter {
   constructor() {
     this._dep = new Tracker.Dependency();
     this._filter = '';
-    this._lastValide={};
+    this._lastValide = {};
   }
 
-  set(str)
-  {
+  set(str) {
     this._filter = str;
     this._dep.changed();
   }
 
   reset() {
     this._filter = '';
-    this._lastValide={};
+    this._lastValide = {};
     this._dep.changed();
   }
 
@@ -106,75 +105,63 @@ class AdvancedFilter {
     return this._filter !== '';
   }
 
-  _filterToCommands(){
+  _filterToCommands() {
     const commands = [];
     let current = '';
     let string = false;
     let wasString = false;
     let ignore = false;
-    for (let i = 0; i < this._filter.length; i++)
-    {
+    for (let i = 0; i < this._filter.length; i++) {
       const char = this._filter.charAt(i);
-      if (ignore)
-      {
+      if (ignore) {
         ignore = false;
         continue;
       }
-      if (char === '\'')
-      {
+      if (char === '\'') {
         string = !string;
         if (string) wasString = true;
         continue;
       }
-      if (char === '\\')
-      {
+      if (char === '\\') {
         ignore = true;
         continue;
       }
-      if (char === ' ' && !string)
-      {
-        commands.push({'cmd':current, 'string':wasString});
+      if (char === ' ' && !string) {
+        commands.push({ 'cmd': current, 'string': wasString });
         wasString = false;
         current = '';
         continue;
       }
       current += char;
     }
-    if (current !== '')
-    {
-      commands.push({'cmd':current, 'string':wasString});
+    if (current !== '') {
+      commands.push({ 'cmd': current, 'string': wasString });
     }
     return commands;
   }
 
-  _fieldNameToId(field)
-  {
-    const found = CustomFields.findOne({'name':field});
+  _fieldNameToId(field) {
+    const found = CustomFields.findOne({ 'name': field });
     return found._id;
   }
 
-  _arrayToSelector(commands)
-  {
+  _arrayToSelector(commands) {
     try {
       //let changed = false;
       this._processSubCommands(commands);
     }
-    catch (e){return this._lastValide;}
-    this._lastValide = {$or: commands};
-    return {$or: commands};
+    catch (e) { return this._lastValide; }
+    this._lastValide = { $or: commands };
+    return { $or: commands };
   }
 
-  _processSubCommands(commands)
-  {
+  _processSubCommands(commands) {
     const subcommands = [];
     let level = 0;
     let start = -1;
-    for (let i = 0; i < commands.length; i++)
-    {
-      if (commands[i].cmd)
-      {
-        switch (commands[i].cmd)
-        {
+    for (let i = 0; i < commands.length; i++) {
+      if (commands[i].cmd) {
+        switch (commands[i].cmd) {
         case '(':
         {
           level++;
@@ -190,8 +177,7 @@ class AdvancedFilter {
         }
         default:
         {
-          if (level > 0)
-          {
+          if (level > 0) {
             subcommands.push(commands[i]);
             commands.splice(i, 1);
             i--;
@@ -201,8 +187,7 @@ class AdvancedFilter {
         }
       }
     }
-    if (start !== -1)
-    {
+    if (start !== -1) {
       this._processSubCommands(subcommands);
       if (subcommands.length === 1)
         commands.splice(start, 0, subcommands[0]);
@@ -213,22 +198,18 @@ class AdvancedFilter {
     this._processLogicalOperators(commands);
   }
 
-  _processConditions(commands)
-  {
-    for (let i = 0; i < commands.length; i++)
-    {
-      if (!commands[i].string && commands[i].cmd)
-      {
-        switch (commands[i].cmd)
-        {
+  _processConditions(commands) {
+    for (let i = 0; i < commands.length; i++) {
+      if (!commands[i].string && commands[i].cmd) {
+        switch (commands[i].cmd) {
         case '=':
         case '==':
         case '===':
         {
-          const field = commands[i-1].cmd;
-          const str = commands[i+1].cmd;
-          commands[i] = {'customFields._id':this._fieldNameToId(field), 'customFields.value':str};
-          commands.splice(i-1, 1);
+          const field = commands[i - 1].cmd;
+          const str = commands[i + 1].cmd;
+          commands[i] = { 'customFields._id': this._fieldNameToId(field), 'customFields.value': str };
+          commands.splice(i - 1, 1);
           commands.splice(i, 1);
           //changed = true;
           i--;
@@ -237,10 +218,10 @@ class AdvancedFilter {
         case '!=':
         case '!==':
         {
-          const field = commands[i-1].cmd;
-          const str = commands[i+1].cmd;
-          commands[i] = {'customFields._id':this._fieldNameToId(field), 'customFields.value': { $not: str }};
-          commands.splice(i-1, 1);
+          const field = commands[i - 1].cmd;
+          const str = commands[i + 1].cmd;
+          commands[i] = { 'customFields._id': this._fieldNameToId(field), 'customFields.value': { $not: str } };
+          commands.splice(i - 1, 1);
           commands.splice(i, 1);
           //changed = true;
           i--;
@@ -251,10 +232,10 @@ class AdvancedFilter {
         case 'Gt':
         case 'GT':
         {
-          const field = commands[i-1].cmd;
-          const str = commands[i+1].cmd;
-          commands[i] = {'customFields._id':this._fieldNameToId(field), 'customFields.value': { $gt: str } };
-          commands.splice(i-1, 1);
+          const field = commands[i - 1].cmd;
+          const str = commands[i + 1].cmd;
+          commands[i] = { 'customFields._id': this._fieldNameToId(field), 'customFields.value': { $gt: str } };
+          commands.splice(i - 1, 1);
           commands.splice(i, 1);
           //changed = true;
           i--;
@@ -266,10 +247,10 @@ class AdvancedFilter {
         case 'Gte':
         case 'GTE':
         {
-          const field = commands[i-1].cmd;
-          const str = commands[i+1].cmd;
-          commands[i] = {'customFields._id':this._fieldNameToId(field), 'customFields.value': { $gte: str } };
-          commands.splice(i-1, 1);
+          const field = commands[i - 1].cmd;
+          const str = commands[i + 1].cmd;
+          commands[i] = { 'customFields._id': this._fieldNameToId(field), 'customFields.value': { $gte: str } };
+          commands.splice(i - 1, 1);
           commands.splice(i, 1);
           //changed = true;
           i--;
@@ -280,10 +261,10 @@ class AdvancedFilter {
         case 'Lt':
         case 'LT':
         {
-          const field = commands[i-1].cmd;
-          const str = commands[i+1].cmd;
-          commands[i] = {'customFields._id':this._fieldNameToId(field), 'customFields.value': { $lt: str } };
-          commands.splice(i-1, 1);
+          const field = commands[i - 1].cmd;
+          const str = commands[i + 1].cmd;
+          commands[i] = { 'customFields._id': this._fieldNameToId(field), 'customFields.value': { $lt: str } };
+          commands.splice(i - 1, 1);
           commands.splice(i, 1);
           //changed = true;
           i--;
@@ -295,10 +276,10 @@ class AdvancedFilter {
         case 'Lte':
         case 'LTE':
         {
-          const field = commands[i-1].cmd;
-          const str = commands[i+1].cmd;
-          commands[i] = {'customFields._id':this._fieldNameToId(field), 'customFields.value': { $lte: str } };
-          commands.splice(i-1, 1);
+          const field = commands[i - 1].cmd;
+          const str = commands[i + 1].cmd;
+          commands[i] = { 'customFields._id': this._fieldNameToId(field), 'customFields.value': { $lte: str } };
+          commands.splice(i - 1, 1);
           commands.splice(i, 1);
           //changed = true;
           i--;
@@ -310,24 +291,20 @@ class AdvancedFilter {
     }
   }
 
-  _processLogicalOperators(commands)
-  {
-    for (let i = 0; i < commands.length; i++)
-    {
-      if (!commands[i].string && commands[i].cmd)
-      {
-        switch (commands[i].cmd)
-        {
+  _processLogicalOperators(commands) {
+    for (let i = 0; i < commands.length; i++) {
+      if (!commands[i].string && commands[i].cmd) {
+        switch (commands[i].cmd) {
         case 'or':
         case 'Or':
         case 'OR':
         case '|':
         case '||':
         {
-          const op1 = commands[i-1];
-          const op2 = commands[i+1];
-          commands[i] = {$or: [op1, op2]};
-          commands.splice(i-1, 1);
+          const op1 = commands[i - 1];
+          const op2 = commands[i + 1];
+          commands[i] = { $or: [op1, op2] };
+          commands.splice(i - 1, 1);
           commands.splice(i, 1);
           //changed = true;
           i--;
@@ -339,10 +316,10 @@ class AdvancedFilter {
         case '&':
         case '&&':
         {
-          const op1 = commands[i-1];
-          const op2 = commands[i+1];
-          commands[i] = {$and: [op1, op2]};
-          commands.splice(i-1, 1);
+          const op1 = commands[i - 1];
+          const op2 = commands[i + 1];
+          commands[i] = { $and: [op1, op2] };
+          commands.splice(i - 1, 1);
           commands.splice(i, 1);
           //changed = true;
           i--;
@@ -354,9 +331,9 @@ class AdvancedFilter {
         case 'NOT':
         case '!':
         {
-          const op1 = commands[i+1];
-          commands[i] = {$not: op1};
-          commands.splice(i+1, 1);
+          const op1 = commands[i + 1];
+          commands[i] = { $not: op1 };
+          commands.splice(i + 1, 1);
           //changed = true;
           i--;
           break;
@@ -412,12 +389,10 @@ Filter = {
     this._fields.forEach((fieldName) => {
       const filter = this[fieldName];
       if (filter._isActive()) {
-        if (filter.subField !== '')
-        {
+        if (filter.subField !== '') {
           filterSelector[`${fieldName}.${filter.subField}`] = filter._getMongoSelector();
         }
-        else
-        {
+        else {
           filterSelector[fieldName] = filter._getMongoSelector();
         }
         emptySelector[fieldName] = filter._getEmptySelector();
@@ -427,7 +402,7 @@ Filter = {
       }
     });
 
-    const exceptionsSelector = {_id: {$in: this._exceptions}};
+    const exceptionsSelector = { _id: { $in: this._exceptions } };
     this._exceptionsDep.depend();
 
     const selectors = [exceptionsSelector];
@@ -438,7 +413,7 @@ Filter = {
     if (includeEmptySelectors) selectors.push(emptySelector);
     if (this.advanced._isActive()) selectors.push(this.advanced._getMongoSelector());
 
-    return {$or: selectors};
+    return { $or: selectors };
   },
 
   mongoSelector(additionalSelector) {
@@ -446,7 +421,7 @@ Filter = {
     if (_.isUndefined(additionalSelector))
       return filterSelector;
     else
-      return {$and: [filterSelector, additionalSelector]};
+      return { $and: [filterSelector, additionalSelector] };
   },
 
   reset() {
