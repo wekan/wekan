@@ -220,6 +220,7 @@ Cards.helpers({
     }).fetch();
 
     // match right definition to each field
+    if (!this.customFields) return [];
     return this.customFields.map((customField) => {
       return {
         _id: customField._id,
