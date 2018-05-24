@@ -1,6 +1,6 @@
 {
   "name": "wekan",
-  "version": "0.98.0",
+  "version": "1.01.0",
   "description": "The open-source Trello-like kanban",
   "private": true,
   "scripts": {
@@ -29,6 +29,6 @@
     "es6-promise": "^4.2.4",
     "meteor-node-stubs": "^0.4.1",
     "os": "^0.1.1",
-    "xss": "^0.3.8"
+    "xss": "^1.0.0"
   }
 }
