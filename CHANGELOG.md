@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+* [Update xss to version 1.00](https://github.com/wekan/wekan/commit/5b4d75a976244652d3c86e6d46c23d7c11e9ae8e).
+
+Thanks to GitHub user xet7 for contributions.
+
 # v1.01 2018-05-23 Wekan release
 
 This release possibly fixes the following bugs, please test:
