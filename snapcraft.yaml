@@ -96,6 +96,8 @@ parts:
             - npm
             - curl
             - execstack
+        stage-packages:
+            - libfontconfig1
         override-build: |
             echo "Cleaning environment first"
             rm -rf ~/.meteor ~/.npm /usr/local/lib/node_modules
@@ -153,6 +155,8 @@ parts:
             execstack --clear-execstack $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/meteor/rajit_bootstrap3-datepicker/lib/bootstrap-datepicker/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
         organize:
             README: README.wekan
+        prime:
+            - -lib/node_modules/node-pre-gyp/node_modules/tar/lib/.unpack.js.swp
 
     helpers:
         source: snap-src
