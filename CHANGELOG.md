@@ -1,12 +1,15 @@
 # Upcoming Wekan release
 
+This release fixes the following bugs:
+
 * [Remove binary version of bcrypt](https://github.com/wekan/wekan/commit/4b2010213907c61b0e0482ab55abb06f6a668eac)
   because of [vulnerability](https://nodesecurity.io/advisories/612) that has [issue that is not fixed
   yet](https://github.com/kelektiv/node.bcrypt.js/issues/604) and
   and [not yet merged pull request](https://github.com/kelektiv/node.bcrypt.js/pull/606).
-  This may cause some slowdown.
+  This may cause some slowdown;
+* [Snap: Filtering out swap file created at build time, adding stage package](https://github.com/wekan/wekan/pull/1660).
 
-Thanks to GitHub user xet7 for contributions.
+Thanks to GitHub users kubiko and xet7 for their contributions.
 
 # v1.01 2018-05-23 Wekan release
 
