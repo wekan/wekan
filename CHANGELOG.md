@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+* [Remove binary version of bcrypt](https://github.com/wekan/wekan/commit/4b2010213907c61b0e0482ab55abb06f6a668eac)
+  because of [vulnerability that is not fixed yet](https://github.com/kelektiv/node.bcrypt.js/issues/604) that
+  [is not fixed yet](https://github.com/kelektiv/node.bcrypt.js/pull/606).
+
+Thanks to GitHub user xet7 for contributions.
+
 # v1.01 2018-05-23 Wekan release
 
 This release possibly fixes the following bugs, please test:
