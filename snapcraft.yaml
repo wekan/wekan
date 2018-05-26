@@ -83,7 +83,7 @@ parts:
         plugin: nodejs
         node-engine: 8.11.1
         node-packages:
-            - npm@6.0.1
+            - npm@latest
             - node-gyp
             - node-pre-gyp
             - fibers@2.0.0
