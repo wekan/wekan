@@ -4,7 +4,7 @@ This release fixes the following bugs:
 
 * [Remove binary version of bcrypt](https://github.com/wekan/wekan/commit/4b2010213907c61b0e0482ab55abb06f6a668eac)
   because of [vulnerability](https://nodesecurity.io/advisories/612) that has [issue that is not fixed
-  yet](https://github.com/kelektiv/node.bcrypt.js/issues/604) and
+  yet](https://github.com/kelektiv/node.bcrypt.js/issues/604)
   and [not yet merged pull request](https://github.com/kelektiv/node.bcrypt.js/pull/606).
   This may cause some slowdown;
 * [Snap: Filtering out swap file created at build time, adding stage package](https://github.com/wekan/wekan/pull/1660);
