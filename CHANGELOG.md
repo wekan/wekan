@@ -7,9 +7,10 @@ This release fixes the following bugs:
   yet](https://github.com/kelektiv/node.bcrypt.js/issues/604) and
   and [not yet merged pull request](https://github.com/kelektiv/node.bcrypt.js/pull/606).
   This may cause some slowdown;
-* [Snap: Filtering out swap file created at build time, adding stage package](https://github.com/wekan/wekan/pull/1660).
+* [Snap: Filtering out swap file created at build time, adding stage package](https://github.com/wekan/wekan/pull/1660);
+* [Fix Received Date and End Date on Cards](https://github.com/wekan/wekan/issues/1654).
 
-Thanks to GitHub users kubiko and xet7 for their contributions.
+Thanks to GitHub users kubiko, xadagaras and xet7 for their contributions.
 
 # v1.01 2018-05-23 Wekan release
 
