@@ -19,7 +19,7 @@ ENV NODE_VERSION ${NODE_VERSION:-v8.11.1}
 ENV METEOR_RELEASE ${METEOR_RELEASE:-1.6.0.1}
 ENV USE_EDGE ${USE_EDGE:-false}
 ENV METEOR_EDGE ${METEOR_EDGE:-1.5-beta.17}
-ENV NPM_VERSION ${NPM_VERSION:-6.0.1}
+ENV NPM_VERSION ${NPM_VERSION:-latest}
 ENV FIBERS_VERSION ${FIBERS_VERSION:-2.0.0}
 ENV ARCHITECTURE ${ARCHITECTURE:-linux-x64}
 ENV SRC_PATH ${SRC_PATH:-./}
@@ -125,12 +125,15 @@ RUN \
     gosu wekan:wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build && \
     cp /home/wekan/app/fix-download-unicode/cfs_access-point.txt /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
     chown wekan:wekan /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
-    cd /home/wekan/app_build/bundle/programs/server/npm/node_modules/meteor/npm-bcrypt && \
-    gosu wekan:wekan rm -rf node_modules/bcrypt && \
-    gosu wekan:wekan npm install bcrypt && \
+    #Removed binary version of bcrypt because of security vulnerability that is not fixed yet.
+    #https://github.com/wekan/wekan/commit/4b2010213907c61b0e0482ab55abb06f6a668eac
+    #https://github.com/wekan/wekan/commit/7eeabf14be3c63fae2226e561ef8a0c1390c8d3c
+    #cd /home/wekan/app_build/bundle/programs/server/npm/node_modules/meteor/npm-bcrypt && \
+    #gosu wekan:wekan rm -rf node_modules/bcrypt && \
+    #gosu wekan:wekan npm install bcrypt && \
     cd /home/wekan/app_build/bundle/programs/server/ && \
     gosu wekan:wekan npm install && \
-    gosu wekan:wekan npm install bcrypt && \
+    #gosu wekan:wekan npm install bcrypt && \
     mv /home/wekan/app_build/bundle /build && \
     \
     # Cleanup

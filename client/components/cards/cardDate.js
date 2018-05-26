@@ -93,7 +93,7 @@ Template.dateBadge.helpers({
 });
 
 // editCardReceivedDatePopup
-(class extends EditCardDate {
+(class extends DatePicker {
   onCreated() {
     super.onCreated();
     this.data().receivedAt && this.date.set(moment(this.data().receivedAt));
@@ -156,7 +156,7 @@ Template.dateBadge.helpers({
 }).register('editCardDueDatePopup');
 
 // editCardEndDatePopup
-(class extends EditCardDate {
+(class extends DatePicker {
   onCreated() {
     super.onCreated();
     this.data().endAt && this.date.set(moment(this.data().endAt));
@@ -355,4 +355,3 @@ CardEndDate.register('cardEndDate');
     return this.date.get().format('l');
   }
 }).register('minicardEndDate');
-
