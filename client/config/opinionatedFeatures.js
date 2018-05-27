@@ -18,6 +18,12 @@ Features = {
       cardSelectors: {
         waiting: /^\.\./i
       }
+    },
+    dates: {
+      formats: {
+        date: 'D.M',
+        time: 'H:mm'
+      }
     }
   },
   queryParamExtensions : {
