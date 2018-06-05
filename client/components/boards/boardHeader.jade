@@ -240,6 +240,8 @@ template(name="archiveBoardPopup")
 
 template(name="deleteBoardPopup")
   p {{_ 'delete-board-pop'}}
+  unless archived
+    p {{_ 'board-delete-suggest-archive'}}
   button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
 
 template(name="outgoingWebhooksPopup")
