@@ -156,7 +156,7 @@ BlazeComponent.extendComponent({
       'submit .js-card-details-requester'(evt) {
         evt.preventDefault();
         const requester = this.currentComponent().getValue().trim();
-        if (requestor) {
+        if (requester) {
           this.data().setRequestedBy(requester);
         }
       },

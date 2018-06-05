@@ -68,7 +68,7 @@ Cards.attachSchema(new SimpleSchema({
   },
   requestedBy: {
     type: String,
-    optional: true
+    optional: true,
   },
   assignedBy: {
     type: String,

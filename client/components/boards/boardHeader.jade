@@ -129,6 +129,7 @@ template(name="boardMenuPopup")
       ul.pop-over-list
         li: a(href="{{exportUrl}}", download="{{exportFilename}}") {{_ 'export-board'}}
         li: a.js-archive-board {{_ 'archive-board'}}
+        li: a.js-delete-board {{_ 'delete-board'}}
         li: a.js-outgoing-webhooks {{_ 'outgoing-webhooks'}}
   if isSandstorm
     hr
@@ -236,6 +237,10 @@ template(name="boardChangeTitlePopup")
 template(name="archiveBoardPopup")
   p {{_ 'close-board-pop'}}
   button.js-confirm.negate.full(type="submit") {{_ 'archive'}}
+
+template(name="deleteBoardPopup")
+  p {{_ 'delete-board-pop'}}
+  button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
 
 template(name="outgoingWebhooksPopup")
   each integrations
