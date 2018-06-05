@@ -468,5 +468,7 @@
     "card-end": "End",
     "card-end-on": "Ends on",
     "editCardReceivedDatePopup-title": "Change received date",
-    "editCardEndDatePopup-title": "Change end date"
+    "editCardEndDatePopup-title": "Change end date",
+    "assigned-by": "Assigned By",
+    "requested-by": "Requested By"
 }

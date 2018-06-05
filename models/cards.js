@@ -66,6 +66,14 @@ Cards.attachSchema(new SimpleSchema({
     type: String,
     optional: true,
   },
+  requestedBy: {
+    type: String,
+    optional: true
+  },
+  assignedBy: {
+    type: String,
+    optional: true
+  },
   labelIds: {
     type: [String],
     optional: true,
@@ -266,6 +274,14 @@ Cards.mutations({
 
   setDescription(description) {
     return {$set: {description}};
+  },
+
+  setRequestedBy(requestedBy) {
+    return {$set: {requestedBy}};
+  },
+
+  setAssignedBy(assignedBy) {
+    return {$set: {assignedBy}};
   },
 
   move(swimlaneId, listId, sortIndex) {

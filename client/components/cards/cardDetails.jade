@@ -108,6 +108,39 @@ template(name="cardDetails")
       +viewer
         = description
 
+    .card-details-items
+      .card-details-item.card-details-item-name
+        h3.card-details-item-title {{_ 'requested-by'}}
+        if canModifyCard
+          +inlinedForm(classNames="js-card-details-requester")
+            +editCardRequesterForm
+          else
+            a.js-open-inlined-form
+           if requestedBy
+             +viewer
+               = requestedBy
+           else
+             | {{_ 'add'}}
+        else if requestedBy
+          +viewer
+            = requestedBy
+
+      .card-details-item.card-details-item-name
+        h3.card-details-item-title {{_ 'assigned-by'}}
+        if canModifyCard
+          +inlinedForm(classNames="js-card-details-assigner")
+            +editCardAssignerForm
+          else
+            a.js-open-inlined-form
+           if assignedBy
+             +viewer
+               = assignedBy
+           else
+             | {{_ 'add'}}
+        else if requestedBy
+          +viewer
+            = assignedBy
+
     hr
     +checklists(cardId = _id)
 
@@ -141,6 +174,20 @@ template(name="editCardTitleForm")
     button.primary.confirm.js-submit-edit-card-title-form(type="submit") {{_ 'save'}}
     a.fa.fa-times-thin.js-close-inlined-form
 
+template(name="editCardRequesterForm")
+  textarea.js-edit-card-requester(rows='1' autofocus)
+    = requestedBy
+  .edit-controls.clearfix
+    button.primary.confirm.js-submit-edit-card-requestor-form(type="submit") {{_ 'save'}}
+    a.fa.fa-times-thin.js-close-inlined-form
+
+template(name="editCardAssignerForm")
+  textarea.js-edit-card-assigner(rows='1' autofocus)
+    = assignedBy
+  .edit-controls.clearfix
+    button.primary.confirm.js-submit-edit-card-assigner-form(type="submit") {{_ 'save'}}
+    a.fa.fa-times-thin.js-close-inlined-form
+
 template(name="cardDetailsActionsPopup")
   ul.pop-over-list
     li: a.js-toggle-watch-card {{#if isWatching}}{{_ 'unwatch'}}{{else}}{{_ 'watch'}}{{/if}}
@@ -150,8 +197,8 @@ template(name="cardDetailsActionsPopup")
       li: a.js-members {{_ 'card-edit-members'}}
       li: a.js-labels {{_ 'card-edit-labels'}}
       li: a.js-attachments {{_ 'card-edit-attachments'}}
-      li: a.js-received-date {{_ 'editCardReceivedDatePopup-title'}}
       li: a.js-custom-fields {{_ 'card-edit-custom-fields'}}
+      li: a.js-received-date {{_ 'editCardReceivedDatePopup-title'}}
       li: a.js-start-date {{_ 'editCardStartDatePopup-title'}}
       li: a.js-due-date {{_ 'editCardDueDatePopup-title'}}
       li: a.js-end-date {{_ 'editCardEndDatePopup-title'}}
@@ -177,7 +224,6 @@ template(name="copyCardPopup")
   textarea#copy-card-title.minicard-composer-textarea.js-card-title(autofocus)
     = title
   +boardsAndLists
-
 
 template(name="copyChecklistToManyCardsPopup")
   label(for='copy-checklist-cards-title') {{_ 'copyChecklistToManyCardsPopup-instructions'}}:
