@@ -9,6 +9,16 @@ template(name="archivedBoards")
         button.js-restore-board
           i.fa.fa-undo
           | {{_ 'restore-board'}}
+        button.js-delete-board
+          i.fa.fa-trash-o
+          | {{_ 'delete-board'}}
         = title
     else
       li.no-items-message {{_ 'no-archived-boards'}}
+
+template(name="deleteBoardPopup")
+  p {{_ 'delete-board-pop'}}
+  unless archived
+    p {{_ 'board-delete-suggest-archive'}}
+  button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
+
