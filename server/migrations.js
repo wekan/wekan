@@ -211,12 +211,14 @@ Migrations.add('add-checklist-items', () => {
 
 Migrations.add('add-profile-view', () => {
   Users.find().forEach((user) => {
-    // Set default view
-    Users.direct.update(
-      { _id: user._id },
-      { $set: { 'profile.boardView': 'board-view-lists' } },
-      noValidate
-    );
+    if (!user.hasOwnProperty('profile.boardView')) {
+      // Set default view
+      Users.direct.update(
+        { _id: user._id },
+        { $set: { 'profile.boardView': 'board-view-lists' } },
+        noValidate
+      );
+    }
   });
 });
 
