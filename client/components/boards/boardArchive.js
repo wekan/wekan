@@ -29,7 +29,7 @@ BlazeComponent.extendComponent({
         board.restore();
         Utils.goBoardId(board._id);
       },
-      'click .js-delete': Popup.afterConfirm('cardDelete', function() {
+      'click .js-delete-board': Popup.afterConfirm('boardDelete', function() {
         Popup.close();
         const isSandstorm = Meteor.settings && Meteor.settings.public &&
           Meteor.settings.public.sandstorm;

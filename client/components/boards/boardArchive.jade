@@ -16,3 +16,6 @@ template(name="archivedBoards")
     else
       li.no-items-message {{_ 'no-archived-boards'}}
 
+template(name="deleteBoardPopup")
+  p {{_ 'delete-board-pop'}}
+  button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
