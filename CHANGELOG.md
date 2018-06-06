@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release possibly fixes the following bugs, please test:
+
+* [Try to fix: Missing board-view-lists Field after DB updated to Wekan 1.02](https://github.com/wekan/wekan/issues/1675).
+
+Thanks to GitHub user rjevnikar for contributions.
+
 # v1.02 2018-05-26 Wekan release
 
 This release fixes the following bugs:
