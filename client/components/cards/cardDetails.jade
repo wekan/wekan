@@ -116,11 +116,11 @@ template(name="cardDetails")
             +editCardRequesterForm
           else
             a.js-open-inlined-form
-           if requestedBy
-             +viewer
-               = requestedBy
-           else
-             | {{_ 'add'}}
+              if requestedBy
+                +viewer
+                  = requestedBy
+              else
+                | {{_ 'add'}}
         else if requestedBy
           +viewer
             = requestedBy
@@ -132,11 +132,11 @@ template(name="cardDetails")
             +editCardAssignerForm
           else
             a.js-open-inlined-form
-           if assignedBy
-             +viewer
-               = assignedBy
-           else
-             | {{_ 'add'}}
+              if assignedBy
+                +viewer
+                  = assignedBy
+              else
+                | {{_ 'add'}}
         else if requestedBy
           +viewer
             = assignedBy
