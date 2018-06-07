@@ -7,16 +7,16 @@ template(name="archivedBoards")
     each archivedBoards
       li.archived-lists-item
         div.board-header-btns
-          button.board-header-btn.js-restore-board
-            i.fa.fa-undo
-            | {{_ 'restore-board'}}
           button.board-header-btn.js-delete-board
             i.fa.fa-trash-o
             | {{_ 'delete-board'}}
+          button.board-header-btn.js-restore-board
+            i.fa.fa-undo
+            | {{_ 'restore-board'}}
           = title
     else
       li.no-items-message {{_ 'no-archived-boards'}}
 
 template(name="boardDeletePopup")
-  p {{_ 'delete-board-pop'}}
+  p {{_ 'delete-board-confirm-popup'}}
   button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
