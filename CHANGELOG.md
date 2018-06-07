@@ -1,10 +1,15 @@
 # Upcoming Wekan release
 
-This release possibly fixes the following bugs, please test:
+This release adds the following new features:
+
+* [Update to newest Sandstorm fork of Node.js that includes performance
+   etc fixes](https://github.com/wekan/wekan/commit/90d55777f7298d243ed0de03c934cea239a31272).
+
+and possibly fixes the following bugs, please test:
 
 * [Try to fix: Missing board-view-lists Field after DB updated to Wekan 1.02](https://github.com/wekan/wekan/issues/1675).
 
-Thanks to GitHub user rjevnikar for contributions.
+Thanks to GitHub users rjevnikar and xet7 for their contributions.
 
 # v1.02 2018-05-26 Wekan release
 
