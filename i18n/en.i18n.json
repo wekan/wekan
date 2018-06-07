@@ -472,8 +472,7 @@
     "assigned-by": "Assigned By",
     "requested-by": "Requested By",
     "board-delete-notice": "Deleting is permanent. You will lose all lists, cards and actions associated with this board.",
-    "board-delete-pop": "All lists, cards, labels, and activities will be removed and you won't be able to recover the board contents. There is no undo.",
-    "board-delete-suggest-archive": "You can archive a board to remove it from the the active boards and preserve the activity.",
-    "deleteBoardPopup": "Delete Board?",
+    "board-delete-pop": "All lists, cards, labels, and activities will be removed and you won't be able to recover the board contents. There is no undo.",,
+    "boardDeletePopup-title": "Delete Board?",
     "delete-board": "Delete Board"
 }
