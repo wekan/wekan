@@ -468,5 +468,11 @@
     "card-end": "Loppuu",
     "card-end-on": "Loppuu",
     "editCardReceivedDatePopup-title": "Vaihda vastaanottamispäivää",
-    "editCardEndDatePopup-title": "Vaihda loppumispäivää"
+    "editCardEndDatePopup-title": "Vaihda loppumispäivää",
+    "assigned-by": "Tehtävänantaja",
+    "requested-by": "Pyytäjä",
+    "board-delete-notice": "Poistaminen on lopullista. Menetät kaikki listat, kortit ja toimet tällä taululla.",
+    "delete-board-confirm-popup": "Kaikki listat, kortit, tunnisteet ja toimet poistetaan ja et pysty palauttamaan taulun sisältöä. Tätä ei voi peruuttaa.",
+    "boardDeletePopup-title": "Poista taulu?",
+    "delete-board": "Poista taulu"
 }

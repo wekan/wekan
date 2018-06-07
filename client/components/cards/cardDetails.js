@@ -146,6 +146,20 @@ BlazeComponent.extendComponent({
           this.data().setTitle(title);
         }
       },
+      'submit .js-card-details-assigner'(evt) {
+        evt.preventDefault();
+        const assigner = this.currentComponent().getValue().trim();
+        if (assigner) {
+          this.data().setAssignedBy(assigner);
+        }
+      },
+      'submit .js-card-details-requester'(evt) {
+        evt.preventDefault();
+        const requester = this.currentComponent().getValue().trim();
+        if (requester) {
+          this.data().setRequestedBy(requester);
+        }
+      },
       'click .js-member': Popup.open('cardMember'),
       'click .js-add-members': Popup.open('cardMembers'),
       'click .js-add-labels': Popup.open('cardLabels'),
@@ -215,8 +229,8 @@ Template.cardDetailsActionsPopup.events({
   'click .js-members': Popup.open('cardMembers'),
   'click .js-labels': Popup.open('cardLabels'),
   'click .js-attachments': Popup.open('cardAttachments'),
-  'click .js-received-date': Popup.open('editCardReceivedDate'),
   'click .js-custom-fields': Popup.open('cardCustomFields'),
+  'click .js-received-date': Popup.open('editCardReceivedDate'),
   'click .js-start-date': Popup.open('editCardStartDate'),
   'click .js-due-date': Popup.open('editCardDueDate'),
   'click .js-end-date': Popup.open('editCardEndDate'),
@@ -259,6 +273,32 @@ Template.editCardTitleForm.events({
     // Unless the shift key is also being pressed
     if (evt.keyCode === 13 && !evt.shiftKey) {
       $('.js-submit-edit-card-title-form').click();
+    }
+  },
+});
+
+Template.editCardRequesterForm.onRendered(function() {
+  autosize(this.$('.js-edit-card-requester'));
+});
+
+Template.editCardRequesterForm.events({
+  'keydown .js-edit-card-requester'(evt) {
+    // If enter key was pressed, submit the data
+    if (evt.keyCode === 13) {
+      $('.js-submit-edit-card-requester-form').click();
+    }
+  },
+});
+
+Template.editCardAssignerForm.onRendered(function() {
+  autosize(this.$('.js-edit-card-assigner'));
+});
+
+Template.editCardAssignerForm.events({
+  'keydown .js-edit-card-assigner'(evt) {
+    // If enter key was pressed, submit the data
+    if (evt.keyCode === 13) {
+      $('.js-submit-edit-card-assigner-form').click();
     }
   },
 });

@@ -468,5 +468,11 @@
     "card-end": "Fin",
     "card-end-on": "Se termine le",
     "editCardReceivedDatePopup-title": "Changer la date de réception",
-    "editCardEndDatePopup-title": "Changer la date de fin"
+    "editCardEndDatePopup-title": "Changer la date de fin",
+    "assigned-by": "Assigned By",
+    "requested-by": "Requested By",
+    "board-delete-notice": "Deleting is permanent. You will lose all lists, cards and actions associated with this board.",
+    "delete-board-confirm-popup": "All lists, cards, labels, and activities will be deleted and you won't be able to recover the board contents. There is no undo.",
+    "boardDeletePopup-title": "Delete Board?",
+    "delete-board": "Delete Board"
 }
