@@ -468,5 +468,11 @@
     "card-end": "Finalizado",
     "card-end-on": "Finalizado el",
     "editCardReceivedDatePopup-title": "Cambiar la fecha de recepción",
-    "editCardEndDatePopup-title": "Cambiar la fecha de finalización"
+    "editCardEndDatePopup-title": "Cambiar la fecha de finalización",
+    "assigned-by": "Asignado por",
+    "requested-by": "Solicitado por",
+    "board-delete-notice": "Se eliminarán todas las listas, tarjetas y acciones asociadas a este tablero. Esta acción no puede deshacerse.",
+    "delete-board-confirm-popup": "Se eliminarán todas las listas, tarjetas, etiquetas y actividades, y no podrás recuperar los contenidos del tablero. Esta acción no puede deshacerse.",
+    "boardDeletePopup-title": "¿Borrar el tablero?",
+    "delete-board": "Borrar el tablero"
 }

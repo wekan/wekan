@@ -211,12 +211,14 @@ Migrations.add('add-checklist-items', () => {
 
 Migrations.add('add-profile-view', () => {
   Users.find().forEach((user) => {
-    // Set default view
-    Users.direct.update(
-      { _id: user._id },
-      { $set: { 'profile.boardView': 'board-view-lists' } },
-      noValidate
-    );
+    if (!user.hasOwnProperty('profile.boardView')) {
+      // Set default view
+      Users.direct.update(
+        { _id: user._id },
+        { $set: { 'profile.boardView': 'board-view-lists' } },
+        noValidate
+      );
+    }
   });
 });
 
@@ -231,3 +233,28 @@ Migrations.add('add-custom-fields-to-cards', () => {
     },
   }, noValidateMulti);
 });
+
+Migrations.add('add-requester-field', () => {
+  Cards.update({
+    requestedBy: {
+      $exists: false,
+    },
+  }, {
+    $set: {
+      requestedBy:'',
+    },
+  }, noValidateMulti);
+});
+
+Migrations.add('add-assigner-field', () => {
+  Cards.update({
+    assignedBy: {
+      $exists: false,
+    },
+  }, {
+    $set: {
+      assignedBy:'',
+    },
+  }, noValidateMulti);
+});
+

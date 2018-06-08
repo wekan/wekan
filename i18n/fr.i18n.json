@@ -468,5 +468,11 @@
     "card-end": "Fin",
     "card-end-on": "Se termine le",
     "editCardReceivedDatePopup-title": "Changer la date de réception",
-    "editCardEndDatePopup-title": "Changer la date de fin"
+    "editCardEndDatePopup-title": "Changer la date de fin",
+    "assigned-by": "Assigné par",
+    "requested-by": "Demandé par",
+    "board-delete-notice": "La suppression est définitive. Vous perdrez toutes vos listes, cartes et actions associées à ce tableau.",
+    "delete-board-confirm-popup": "Toutes les listes, cartes, étiquettes et activités seront supprimées et vous ne pourrez pas retrouver le contenu du tableau. Il n'y a pas d'annulation possible.",
+    "boardDeletePopup-title": "Supprimer le tableau ?",
+    "delete-board": "Supprimer le tableau"
 }

@@ -468,5 +468,11 @@
     "card-end": "Дата окончания",
     "card-end-on": "Завершится до",
     "editCardReceivedDatePopup-title": "Изменить дату получения",
-    "editCardEndDatePopup-title": "Изменить дату завершения"
+    "editCardEndDatePopup-title": "Изменить дату завершения",
+    "assigned-by": "Assigned By",
+    "requested-by": "Requested By",
+    "board-delete-notice": "Deleting is permanent. You will lose all lists, cards and actions associated with this board.",
+    "delete-board-confirm-popup": "All lists, cards, labels, and activities will be deleted and you won't be able to recover the board contents. There is no undo.",
+    "boardDeletePopup-title": "Delete Board?",
+    "delete-board": "Delete Board"
 }

@@ -1,3 +1,19 @@
+# v1.03 2018-06-08 Wekan release
+
+This release adds the following new features:
+
+* [Update to newest Sandstorm fork of Node.js that includes performance
+   etc fixes](https://github.com/wekan/wekan/commit/90d55777f7298d243ed0de03c934cea239a31272);
+* [Additional label colors. Assigned By and Requested By text fields
+   on card. Delete board from Recycle Bin](https://github.com/wekan/wekan/pull/1679).
+
+and possibly fixes the following bugs, please test:
+
+* [Try to fix: Missing board-view-lists Field after DB updated to
+   Wekan 1.02](https://github.com/wekan/wekan/issues/1675).
+
+Thanks to GitHub users JamesLavin, rjevnikar and xet7 for their contributions.
+
 # v1.02 2018-05-26 Wekan release
 
 This release fixes the following bugs:
