@@ -25,6 +25,8 @@ const EditCardDate = BlazeComponent.extendComponent({
     if (this.date.get().isValid()) {
       $picker.datepicker('update', this.date.get().toDate());
     }
+
+    this.find('#date').select();
   },
 
   showDate() {
