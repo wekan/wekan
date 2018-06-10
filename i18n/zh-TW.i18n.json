@@ -108,7 +108,7 @@
     "card-comments-title": "該卡片有 %s 則評論",
     "card-delete-notice": "徹底刪除的操作不可復原，你將會遺失該卡片相關的所有操作記錄。",
     "card-delete-pop": "所有的動作將從活動動態中被移除且您將無法重新打開該卡片。此操作無法復原。",
-    "card-delete-suggest-archive": "You can move a card Recycle Bin to remove it from the board and preserve the activity.",
+    "card-delete-suggest-archive": "You can move a card to Recycle Bin to remove it from the board and preserve the activity.",
     "card-due": "到期",
     "card-due-on": "到期",
     "card-spent": "Spent Time",

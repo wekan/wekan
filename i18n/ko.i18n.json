@@ -108,7 +108,7 @@
     "card-comments-title": "이 카드에 %s 코멘트가 있습니다.",
     "card-delete-notice": "영구 삭제입니다. 이 카드와 관련된 모든 작업들을 잃게됩니다.",
     "card-delete-pop": "모든 작업이 활동 내역에서 제거되며 카드를 다시 열 수 없습니다. 복구가 안되니 주의하시기 바랍니다.",
-    "card-delete-suggest-archive": "You can move a card Recycle Bin to remove it from the board and preserve the activity.",
+    "card-delete-suggest-archive": "You can move a card to Recycle Bin to remove it from the board and preserve the activity.",
     "card-due": "종료일",
     "card-due-on": "종료일",
     "card-spent": "Spent Time",

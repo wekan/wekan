@@ -108,7 +108,7 @@
     "card-comments-title": "Ez a kártya %s hozzászólást tartalmaz.",
     "card-delete-notice": "A törlés végleges. Az összes műveletet elveszíti, amely ehhez a kártyához tartozik.",
     "card-delete-pop": "Az összes művelet el lesz távolítva a tevékenységlistából, és nem lesz képes többé újra megnyitni a kártyát. Nincs visszaállítási lehetőség.",
-    "card-delete-suggest-archive": "You can move a card Recycle Bin to remove it from the board and preserve the activity.",
+    "card-delete-suggest-archive": "You can move a card to Recycle Bin to remove it from the board and preserve the activity.",
     "card-due": "Esedékes",
     "card-due-on": "Esedékes ekkor",
     "card-spent": "Eltöltött idő",
