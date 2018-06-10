@@ -108,7 +108,7 @@
     "card-comments-title": "%s تعليقات لهذه البطاقة",
     "card-delete-notice": "هذا حذف أبديّ . سوف تفقد كل الإجراءات المنوطة بهذه البطاقة",
     "card-delete-pop": "سيتم إزالة جميع الإجراءات من تبعات النشاط، وأنك لن تكون قادرا على إعادة فتح البطاقة. لا يوجد التراجع.",
-    "card-delete-suggest-archive": "You can move a card Recycle Bin to remove it from the board and preserve the activity.",
+    "card-delete-suggest-archive": "You can move a card to Recycle Bin to remove it from the board and preserve the activity.",
     "card-due": "مستحق",
     "card-due-on": "مستحق في",
     "card-spent": "Spent Time",

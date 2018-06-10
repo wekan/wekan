@@ -108,7 +108,7 @@
     "card-comments-title": "%s 件のコメントがあります。",
     "card-delete-notice": "削除は取り消しできません。このカードに関係するすべてのアクションがなくなります。",
     "card-delete-pop": "すべての内容がアクティビティから削除されます。この削除は元に戻すことができません。",
-    "card-delete-suggest-archive": "You can move a card Recycle Bin to remove it from the board and preserve the activity.",
+    "card-delete-suggest-archive": "You can move a card to Recycle Bin to remove it from the board and preserve the activity.",
     "card-due": "期限",
     "card-due-on": "期限日",
     "card-spent": "Spent Time",

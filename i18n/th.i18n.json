@@ -108,7 +108,7 @@
     "card-comments-title": "การ์ดนี้มี %s ความเห็น.",
     "card-delete-notice": "เป็นการลบถาวร คุณจะสูญเสียข้อมูลที่เกี่ยวข้องกับการ์ดนี้ทั้งหมด",
     "card-delete-pop": "การดำเนินการทั้งหมดจะถูกลบจาก feed กิจกรรมและคุณไม่สามารถเปิดได้อีกครั้งหรือยกเลิกการทำ",
-    "card-delete-suggest-archive": "You can move a card Recycle Bin to remove it from the board and preserve the activity.",
+    "card-delete-suggest-archive": "You can move a card to Recycle Bin to remove it from the board and preserve the activity.",
     "card-due": "ครบกำหนด",
     "card-due-on": "ครบกำหนดเมื่อ",
     "card-spent": "Spent Time",

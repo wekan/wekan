@@ -108,7 +108,7 @@
     "card-comments-title": "This card has %s comment.",
     "card-delete-notice": "Deleting is permanent. You will lose all actions associated with this card.",
     "card-delete-pop": "All actions will be removed from the activity feed and you won't be able to re-open the card. There is no undo.",
-    "card-delete-suggest-archive": "You can move a card to Recycle Bin to remove it from the board and preserve the activity.",
+    "card-delete-suggest-archive": "You can move a card Recycle Bin to remove it from the board and preserve the activity.",
     "card-due": "Due",
     "card-due-on": "Due on",
     "card-spent": "Spent Time",
