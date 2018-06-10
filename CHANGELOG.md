@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+* [Add Khmer language](https://github.com/wekan/wekan/commit/2156e458690d0dc34a761a48fd7fa3b54af79031).
+
+Thanks to GitHub user xet7 for contributions.
+Thanks to translators.
+
 # v1.03 2018-06-08 Wekan release
 
 This release adds the following new features:
