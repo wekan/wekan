@@ -469,10 +469,10 @@
     "card-end-on": "Endet am",
     "editCardReceivedDatePopup-title": "Empfangsdatum ändern",
     "editCardEndDatePopup-title": "Enddatum ändern",
-    "assigned-by": "Zugeteilt von",
+    "assigned-by": "Zugewiesen von",
     "requested-by": "Angefordert von",
-    "board-delete-notice": "Löschen ist dauerhaft. Du verlierst alle Listen, Karten und Aktionen, welche mit diesem Board verbunden sind.",
-    "delete-board-confirm-popup": "Alle Listen, Karten, Beschriftungen und Akivitäten werden gelöscht, das Board kann nicht wiederhergestellt werden! Es gibt kein Rückgängig.",
+    "board-delete-notice": "Löschen kann nicht rückgängig gemacht werden. Sie werden alle Listen, Karten und Aktionen, die mit diesem Board verbunden sind, verlieren.",
+    "delete-board-confirm-popup": "Alle Listen, Karten, Labels und Akivitäten werden gelöscht und Sie können die Inhalte des Boards nicht wiederherstellen! Die Aktion kann nicht rückgängig gemacht werden.",
     "boardDeletePopup-title": "Board löschen?",
     "delete-board": "Board löschen"
 }
