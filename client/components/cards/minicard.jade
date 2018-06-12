@@ -10,12 +10,22 @@ template(name="minicard")
       +viewer
         = title
     .dates
+      if receivedAt
+        unless startAt
+          unless dueAt
+            unless endAt
+              .date
+                +miniCardReceivedDate
       if startAt
         .date
           +minicardStartDate
       if dueAt
+        unless endAt
+          .date
+            +minicardDueDate
+      if endAt
         .date
-          +minicardDueDate
+          +minicardEndDate
       if spentTime
         .date
           +cardSpentTime
