@@ -1,10 +1,22 @@
-# Upcoming Wekan release
+# v1.04 2018-06-12 Wekan release
 
 This release adds the following new features:
 
-* [Add Khmer language](https://github.com/wekan/wekan/commit/2156e458690d0dc34a761a48fd7fa3b54af79031).
+* [Add Khmer language](https://github.com/wekan/wekan/commit/2156e458690d0dc34a761a48fd7fa3b54af79031);
+* [Modify card covers/mini-cards so that: 1) received date is shown unless there is a start date
+   2) due date is shown, unless there is an end date](https://github.com/wekan/wekan/pull/1685);
+* [Change label text colour to black for specific label colours for better
+   visibility](https://github.com/wekan/wekan/pull/1689).
 
-Thanks to GitHub user xet7 for contributions.
+and fixes the following bugs:
+
+* [SECURITY FIX: Do not publish all of people collection. This bug has probably been present
+   since addition of Admin Panel](https://github.com/wekan/wekan/commit/dda49d2f07f9c50d5d57acfd5c7eee6492f93b33);
+* [Modify card covers/mini-cards so that: 1) received date is shown unless there is a start date
+   2) due date is shown, unless there is an end date](https://github.com/wekan/wekan/pull/1685).
+
+Thanks to GitHub users rjevnikar and xet7 for their contributions.
+Thanks to Adrian Genaid for security fix, he's now added to [Hall of Fame](https://wekan.github.io/hall-of-fame/).
 Thanks to translators.
 
 # v1.03 2018-06-08 Wekan release
