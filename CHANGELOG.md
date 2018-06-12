@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v1.04 2018-06-12 Wekan release
 
 This release adds the following new features:
 
@@ -16,7 +16,7 @@ and fixes the following bugs:
    2) due date is shown, unless there is an end date](https://github.com/wekan/wekan/pull/1685).
 
 Thanks to GitHub users rjevnikar and xet7 for their contributions.
-Thanks to Adrian Genaid for security fix.
+Thanks to Adrian Genaid for security fix, he's now added to [Hall of Fame](https://wekan.github.io/hall-of-fame/).
 Thanks to translators.
 
 # v1.03 2018-06-08 Wekan release
