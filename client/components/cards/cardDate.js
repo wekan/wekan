@@ -279,11 +279,14 @@ class CardDueDate extends CardDate {
 
   classes() {
     let classes = 'due-date' + ' ';
-    if (this.now.get().diff(this.date.get(), 'days') >= 2)
+    if ((this.now.get().diff(this.date.get(), 'days') >= 2) &&
+       (this.date.get().isBefore(this.data().endAt)))
       classes += 'long-overdue';
-    else if (this.now.get().diff(this.date.get(), 'minute') >= 0)
+    else if ((this.now.get().diff(this.date.get(), 'minute') >= 0) &&
+       (this.date.get().isBefore(this.data().endAt)))
       classes += 'due';
-    else if (this.now.get().diff(this.date.get(), 'days') >= -1)
+    else if ((this.now.get().diff(this.date.get(), 'days') >= -1) &&
+       (this.date.get().isBefore(this.data().endAt)))
       classes += 'almost-due';
     return classes;
   }
