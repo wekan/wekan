@@ -279,11 +279,11 @@ class CardDueDate extends CardDate {
 
   classes() {
     let classes = 'due-date' + ' ';
-    // if endAt exists & is < dueAt, dueAt doesn't need to be flagged 
-    if ((this.data().endAt != 0) &&
-       (this.data().endAt != null) &&
-       (this.data().endAt != '') &&
-       (this.data().endAt != undefined) &&
+    // if endAt exists & is < dueAt, dueAt doesn't need to be flagged
+    if ((this.data().endAt !== 0) &&
+       (this.data().endAt !== null) &&
+       (this.data().endAt !== '') &&
+       (this.data().endAt !== undefined) &&
        (this.date.get().isBefore(this.data().endAt)))
       classes += 'current';
     else if (this.now.get().diff(this.date.get(), 'days') >= 2)
