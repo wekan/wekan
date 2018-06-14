@@ -21,6 +21,10 @@ BlazeComponent.extendComponent({
 
   onCreated() {
     this.isLoaded = new ReactiveVar(false);
+    console.log(this.parentComponent());
+    console.log(this.parentComponent().parentComponent());
+    console.log(JSON.stringify(this.parentComponent()));
+    console.log(JSON.stringify(this.parentComponent().parentComponent()));
     let parentComponent =  this.parentComponent().parentComponent();
     if (parentComponent === null) parentComponent =  this.parentComponent();
     parentComponent.showOverlay.set(true);
