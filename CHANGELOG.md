@@ -13,9 +13,11 @@ and fixes the following bugs:
    Sandstorm Wekan](https://github.com/wekan/wekan/commit/8d5cbf1e6c2b6d467fe1c0708cd794fd11b98a2e#commitcomment-29362180);
 * [Fix Issue with custom fields shown on card](https://github.com/wekan/wekan/issues/1659);
 * [Fix showing public board in list mode](https://github.com/wekan/wekan/issues/1623);
-* [Fix for not able to remove Custom Field "Show on Card"](https://github.com/wekan/wekan/pull/1699).
+* [Fix for not able to remove Custom Field "Show on Card"](https://github.com/wekan/wekan/pull/1699);
+* [Fix minicardReceivedDate typo in 1.04 regression: Socket connection error and boards
+   not loading](https://github.com/wekan/wekan/issues/1694).
 
-Thanks to GitHub users feuerball11, oec and xet7 for their contributions.
+Thanks to GitHub users feuerball11, Fran-KTA, oec, rjevnikar and xet7 for their contributions.
 
 # v1.04 2018-06-12 Wekan release
 
