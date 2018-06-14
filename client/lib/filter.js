@@ -149,11 +149,11 @@ class AdvancedFilter {
   {
     const found = CustomFields.findOne({ 'name': field });
     if (found.settings.dropdownItems && found.settings.dropdownItems.length > 0)
-      {
+    {
       for (let i = 0; i < found.settings.dropdownItems.length; i++)
-        {
+      {
         if (found.settings.dropdownItems[i].name === value)
-          {
+        {
           return found.settings.dropdownItems[i]._id;
         }
       }
@@ -179,27 +179,27 @@ class AdvancedFilter {
       if (commands[i].cmd) {
         switch (commands[i].cmd) {
         case '(':
-          {
-            level++;
-            if (start === -1) start = i;
-            continue;
-          }
+        {
+          level++;
+          if (start === -1) start = i;
+          continue;
+        }
         case ')':
-          {
-            level--;
+        {
+          level--;
+          commands.splice(i, 1);
+          i--;
+          continue;
+        }
+        default:
+        {
+          if (level > 0) {
+            subcommands.push(commands[i]);
             commands.splice(i, 1);
             i--;
             continue;
           }
-        default:
-          {
-            if (level > 0) {
-              subcommands.push(commands[i]);
-              commands.splice(i, 1);
-              i--;
-              continue;
-            }
-          }
+        }
         }
       }
     }
@@ -221,86 +221,86 @@ class AdvancedFilter {
         case '=':
         case '==':
         case '===':
-          {
-            const field = commands[i - 1].cmd;
-            const str = commands[i + 1].cmd;
-            commands[i] = { 'customFields._id': this._fieldNameToId(field), 'customFields.value': {$in: [this._fieldValueToId(field, str), parseInt(str, 10)]} };
-            commands.splice(i - 1, 1);
-            commands.splice(i, 1);
+        {
+          const field = commands[i - 1].cmd;
+          const str = commands[i + 1].cmd;
+          commands[i] = { 'customFields._id': this._fieldNameToId(field), 'customFields.value': {$in: [this._fieldValueToId(field, str), parseInt(str, 10)]} };
+          commands.splice(i - 1, 1);
+          commands.splice(i, 1);
           //changed = true;
-            i--;
-            break;
-          }
+          i--;
+          break;
+        }
         case '!=':
         case '!==':
-          {
-            const field = commands[i - 1].cmd;
-            const str = commands[i + 1].cmd;
-            commands[i] = { 'customFields._id': this._fieldNameToId(field), 'customFields.value': { $not: {$in: [this._fieldValueToId(field, str), parseInt(str, 10)]} } };
-            commands.splice(i - 1, 1);
-            commands.splice(i, 1);
+        {
+          const field = commands[i - 1].cmd;
+          const str = commands[i + 1].cmd;
+          commands[i] = { 'customFields._id': this._fieldNameToId(field), 'customFields.value': { $not: {$in: [this._fieldValueToId(field, str), parseInt(str, 10)]} } };
+          commands.splice(i - 1, 1);
+          commands.splice(i, 1);
           //changed = true;
-            i--;
-            break;
-          }
+          i--;
+          break;
+        }
         case '>':
         case 'gt':
         case 'Gt':
         case 'GT':
-          {
-            const field = commands[i - 1].cmd;
-            const str = commands[i + 1].cmd;
-            commands[i] = { 'customFields._id': this._fieldNameToId(field), 'customFields.value': { $gt: parseInt(str, 10) } };
-            commands.splice(i - 1, 1);
-            commands.splice(i, 1);
+        {
+          const field = commands[i - 1].cmd;
+          const str = commands[i + 1].cmd;
+          commands[i] = { 'customFields._id': this._fieldNameToId(field), 'customFields.value': { $gt: parseInt(str, 10) } };
+          commands.splice(i - 1, 1);
+          commands.splice(i, 1);
           //changed = true;
-            i--;
-            break;
-          }
+          i--;
+          break;
+        }
         case '>=':
         case '>==':
         case 'gte':
         case 'Gte':
         case 'GTE':
-          {
-            const field = commands[i - 1].cmd;
-            const str = commands[i + 1].cmd;
-            commands[i] = { 'customFields._id': this._fieldNameToId(field), 'customFields.value': { $gte:  parseInt(str, 10) } };
-            commands.splice(i - 1, 1);
-            commands.splice(i, 1);
+        {
+          const field = commands[i - 1].cmd;
+          const str = commands[i + 1].cmd;
+          commands[i] = { 'customFields._id': this._fieldNameToId(field), 'customFields.value': { $gte:  parseInt(str, 10) } };
+          commands.splice(i - 1, 1);
+          commands.splice(i, 1);
           //changed = true;
-            i--;
-            break;
-          }
+          i--;
+          break;
+        }
         case '<':
         case 'lt':
         case 'Lt':
         case 'LT':
-          {
-            const field = commands[i - 1].cmd;
-            const str = commands[i + 1].cmd;
-            commands[i] = { 'customFields._id': this._fieldNameToId(field), 'customFields.value': { $lt:  parseInt(str, 10) } };
-            commands.splice(i - 1, 1);
-            commands.splice(i, 1);
+        {
+          const field = commands[i - 1].cmd;
+          const str = commands[i + 1].cmd;
+          commands[i] = { 'customFields._id': this._fieldNameToId(field), 'customFields.value': { $lt:  parseInt(str, 10) } };
+          commands.splice(i - 1, 1);
+          commands.splice(i, 1);
           //changed = true;
-            i--;
-            break;
-          }
+          i--;
+          break;
+        }
         case '<=':
         case '<==':
         case 'lte':
         case 'Lte':
         case 'LTE':
-          {
-            const field = commands[i - 1].cmd;
-            const str = commands[i + 1].cmd;
-            commands[i] = { 'customFields._id': this._fieldNameToId(field), 'customFields.value': { $lte:  parseInt(str, 10) } };
-            commands.splice(i - 1, 1);
-            commands.splice(i, 1);
+        {
+          const field = commands[i - 1].cmd;
+          const str = commands[i + 1].cmd;
+          commands[i] = { 'customFields._id': this._fieldNameToId(field), 'customFields.value': { $lte:  parseInt(str, 10) } };
+          commands.splice(i - 1, 1);
+          commands.splice(i, 1);
           //changed = true;
-            i--;
-            break;
-          }
+          i--;
+          break;
+        }
 
         }
       }
@@ -316,44 +316,44 @@ class AdvancedFilter {
         case 'OR':
         case '|':
         case '||':
-          {
-            const op1 = commands[i - 1];
-            const op2 = commands[i + 1];
-            commands[i] = { $or: [op1, op2] };
-            commands.splice(i - 1, 1);
-            commands.splice(i, 1);
+        {
+          const op1 = commands[i - 1];
+          const op2 = commands[i + 1];
+          commands[i] = { $or: [op1, op2] };
+          commands.splice(i - 1, 1);
+          commands.splice(i, 1);
           //changed = true;
-            i--;
-            break;
-          }
+          i--;
+          break;
+        }
         case 'and':
         case 'And':
         case 'AND':
         case '&':
         case '&&':
-          {
-            const op1 = commands[i - 1];
-            const op2 = commands[i + 1];
-            commands[i] = { $and: [op1, op2] };
-            commands.splice(i - 1, 1);
-            commands.splice(i, 1);
+        {
+          const op1 = commands[i - 1];
+          const op2 = commands[i + 1];
+          commands[i] = { $and: [op1, op2] };
+          commands.splice(i - 1, 1);
+          commands.splice(i, 1);
           //changed = true;
-            i--;
-            break;
-          }
+          i--;
+          break;
+        }
 
         case 'not':
         case 'Not':
         case 'NOT':
         case '!':
-          {
-            const op1 = commands[i + 1];
-            commands[i] = { $not: op1 };
-            commands.splice(i + 1, 1);
+        {
+          const op1 = commands[i + 1];
+          commands[i] = { $not: op1 };
+          commands.splice(i + 1, 1);
           //changed = true;
-            i--;
-            break;
-          }
+          i--;
+          break;
+        }
 
         }
       }
