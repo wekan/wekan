@@ -1,3 +1,11 @@
+# v1.06 2018-06-14 Wekan release
+
+This release fixes the following bugs:
+
+* [Fix CardDetail of Mobile View](https://github.com/wekan/wekan/pull/1701).
+
+Thanks to GitHub users feuerball11 and xet7 for their contributions.
+
 # v1.05 2018-06-14 Wekan release
 
 This release adds the following new features:

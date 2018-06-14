@@ -21,8 +21,12 @@ BlazeComponent.extendComponent({
 
   onCreated() {
     this.isLoaded = new ReactiveVar(false);
-    this.parentComponent().parentComponent().showOverlay.set(true);
-    this.parentComponent().parentComponent().mouseHasEnterCardDetails = false;
+    const boardBody =  this.parentComponent().parentComponent();
+    //in Miniview parent is Board, not BoardBody.
+    if (boardBody !== null){
+      boardBody.showOverlay.set(true);
+      boardBody.mouseHasEnterCardDetails = false;
+    }
     this.calculateNextPeak();
 
     Meteor.subscribe('unsaved-edits');
@@ -44,7 +48,8 @@ BlazeComponent.extendComponent({
   scrollParentContainer() {
     const cardPanelWidth = 510;
     const bodyBoardComponent = this.parentComponent().parentComponent();
-
+    //On Mobile View Parent is Board, Not Board Body. I cant see how this funciton should work then.
+    if (bodyBoardComponent === null) return;
     const $cardView = this.$(this.firstNode());
     const $cardContainer = bodyBoardComponent.$('.js-swimlanes');
     const cardContainerScroll = $cardContainer.scrollLeft();
@@ -115,7 +120,10 @@ BlazeComponent.extendComponent({
   },
 
   onDestroyed() {
-    this.parentComponent().parentComponent().showOverlay.set(false);
+    const parentComponent =  this.parentComponent().parentComponent();
+    //on mobile view parent is Board, not board body.
+    if (parentComponent === null) return;
+    parentComponent.showOverlay.set(false);
   },
 
   events() {
@@ -168,8 +176,11 @@ BlazeComponent.extendComponent({
       'click .js-due-date': Popup.open('editCardDueDate'),
       'click .js-end-date': Popup.open('editCardEndDate'),
       'mouseenter .js-card-details' () {
-        this.parentComponent().parentComponent().showOverlay.set(true);
-        this.parentComponent().parentComponent().mouseHasEnterCardDetails = true;
+        const parentComponent =  this.parentComponent().parentComponent();
+        //on mobile view parent is Board, not BoardBody.
+        if (parentComponent === null) return;
+        parentComponent.showOverlay.set(true);
+        parentComponent.mouseHasEnterCardDetails = true;
       },
       'click #toggleButton'() {
         Meteor.call('toggleSystemMessages');
