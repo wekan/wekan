@@ -224,7 +224,7 @@ class AdvancedFilter {
           {
             const field = commands[i - 1].cmd;
             const str = commands[i + 1].cmd;
-            commands[i] = { 'customFields._id': this._fieldNameToId(field), 'customFields.value': {$in: [this._fieldValueToId(str), parseInt(str, 10)]} };
+            commands[i] = { 'customFields._id': this._fieldNameToId(field), 'customFields.value': {$in: [this._fieldValueToId(field, str), parseInt(str, 10)]} };
             commands.splice(i - 1, 1);
             commands.splice(i, 1);
           //changed = true;
@@ -236,7 +236,7 @@ class AdvancedFilter {
           {
             const field = commands[i - 1].cmd;
             const str = commands[i + 1].cmd;
-            commands[i] = { 'customFields._id': this._fieldNameToId(field), 'customFields.value': { $not: {$in: [this._fieldValueToId(str), parseInt(str, 10)]} } };
+            commands[i] = { 'customFields._id': this._fieldNameToId(field), 'customFields.value': { $not: {$in: [this._fieldValueToId(field, str), parseInt(str, 10)]} } };
             commands.splice(i - 1, 1);
             commands.splice(i, 1);
           //changed = true;
