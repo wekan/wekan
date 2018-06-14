@@ -230,16 +230,16 @@ Cards.helpers({
     // match right definition to each field
     if (!this.customFields) return [];
     return this.customFields.map((customField) => {
-      var definition = definitions.find((definition) => {
+      const definition = definitions.find((definition) => {
         return definition._id === customField._id;
       });
       //search for "True Value" which is for DropDowns other then the Value (which is the id)
-      var trueValue = customField.value;
-      if (definition.settings.dropdownItems.length > 0)
+      let trueValue = customField.value;
+      if (definition.settings.dropdownItems && definition.settings.dropdownItems.length > 0)
       {
-        for (var i = 0; i < definition.settings.dropdownItems.length;i++)
+        for (let i = 0; i < definition.settings.dropdownItems.length; i++)
         {
-          if (definition.settings.dropdownItems[i]._id == customField.value)
+          if (definition.settings.dropdownItems[i]._id === customField.value)
           {
             trueValue = definition.settings.dropdownItems[i].name;
           }
