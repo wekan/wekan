@@ -21,14 +21,12 @@ BlazeComponent.extendComponent({
 
   onCreated() {
     this.isLoaded = new ReactiveVar(false);
-    console.log(this.parentComponent());
-    console.log(this.parentComponent().parentComponent());
-    console.log(JSON.stringify(this.parentComponent()));
-    console.log(JSON.stringify(this.parentComponent().parentComponent()));
-    let parentComponent =  this.parentComponent().parentComponent();
-    if (parentComponent === null) parentComponent =  this.parentComponent();
-    parentComponent.showOverlay.set(true);
-    parentComponent.mouseHasEnterCardDetails = false;
+    const boardBody =  this.parentComponent().parentComponent();
+    //in Miniview parent is Board, not BoardBody.
+    if (boardBody !== null){
+      boardBody.showOverlay.set(true);
+      boardBody.mouseHasEnterCardDetails = false;
+    }
     this.calculateNextPeak();
 
     Meteor.subscribe('unsaved-edits');
@@ -49,8 +47,9 @@ BlazeComponent.extendComponent({
 
   scrollParentContainer() {
     const cardPanelWidth = 510;
-    let bodyBoardComponent = this.parentComponent().parentComponent();
-    if (bodyBoardComponent === null) bodyBoardComponent = this.parentComponent();
+    const bodyBoardComponent = this.parentComponent().parentComponent();
+    //On Mobile View Parent is Board, Not Board Body. I cant see how this funciton should work then.
+    if (bodyBoardComponent === null) return;
     const $cardView = this.$(this.firstNode());
     const $cardContainer = bodyBoardComponent.$('.js-swimlanes');
     const cardContainerScroll = $cardContainer.scrollLeft();
@@ -121,8 +120,9 @@ BlazeComponent.extendComponent({
   },
 
   onDestroyed() {
-    let parentComponent =  this.parentComponent().parentComponent();
-    if (parentComponent === null) parentComponent =  this.parentComponent();
+    const parentComponent =  this.parentComponent().parentComponent();
+    //on mobile view parent is Board, not board body.
+    if (parentComponent === null) return;
     parentComponent.showOverlay.set(false);
   },
 
@@ -176,8 +176,9 @@ BlazeComponent.extendComponent({
       'click .js-due-date': Popup.open('editCardDueDate'),
       'click .js-end-date': Popup.open('editCardEndDate'),
       'mouseenter .js-card-details' () {
-        let parentComponent =  this.parentComponent().parentComponent();
-        if (parentComponent === null) parentComponent =  this.parentComponent();
+        const parentComponent =  this.parentComponent().parentComponent();
+        //on mobile view parent is Board, not BoardBody.
+        if (parentComponent === null) return;
         parentComponent.showOverlay.set(true);
         parentComponent.mouseHasEnterCardDetails = true;
       },
