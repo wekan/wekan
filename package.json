@@ -1,6 +1,6 @@
 {
   "name": "wekan",
-  "version": "0.95.0",
+  "version": "1.04.0",
   "description": "The open-source Trello-like kanban",
   "private": true,
   "scripts": {
@@ -20,11 +20,10 @@
   },
   "homepage": "https://wekan.github.io",
   "devDependencies": {
-    "eslint": "^2.0.0"
+    "eslint": "^4.19.1"
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",
-    "bcrypt": "^2.0.1",
     "bson-ext": "^2.0.0",
     "es6-promise": "^4.2.4",
     "meteor-node-stubs": "^0.4.1",

@@ -1,3 +1,101 @@
+# v1.04 2018-06-12 Wekan release
+
+This release adds the following new features:
+
+* [Add Khmer language](https://github.com/wekan/wekan/commit/2156e458690d0dc34a761a48fd7fa3b54af79031);
+* [Change label text colour to black for specific label colours for better
+   visibility](https://github.com/wekan/wekan/pull/1689).
+
+and fixes the following bugs:
+
+* [SECURITY FIX: Do not publish all of people collection. This bug has probably been present
+   since addition of Admin Panel](https://github.com/wekan/wekan/commit/dda49d2f07f9c50d5d57acfd5c7eee6492f93b33);
+* [Modify card covers/mini-cards so that: 1) received date is shown unless there is a start date
+   2) due date is shown, unless there is an end date](https://github.com/wekan/wekan/pull/1685).
+
+Thanks to GitHub users rjevnikar and xet7 for their contributions.
+Thanks to Adrian Genaid for security fix, he's now added to [Hall of Fame](https://wekan.github.io/hall-of-fame/).
+Thanks to translators.
+
+# v1.03 2018-06-08 Wekan release
+
+This release adds the following new features:
+
+* [Update to newest Sandstorm fork of Node.js that includes performance
+   etc fixes](https://github.com/wekan/wekan/commit/90d55777f7298d243ed0de03c934cea239a31272);
+* [Additional label colors. Assigned By and Requested By text fields
+   on card. Delete board from Recycle Bin](https://github.com/wekan/wekan/pull/1679).
+
+and possibly fixes the following bugs, please test:
+
+* [Try to fix: Missing board-view-lists Field after DB updated to
+   Wekan 1.02](https://github.com/wekan/wekan/issues/1675).
+
+Thanks to GitHub users JamesLavin, rjevnikar and xet7 for their contributions.
+
+# v1.02 2018-05-26 Wekan release
+
+This release fixes the following bugs:
+
+* [Remove binary version of bcrypt](https://github.com/wekan/wekan/commit/4b2010213907c61b0e0482ab55abb06f6a668eac)
+  because of [vulnerability](https://nodesecurity.io/advisories/612) that has [issue that is not fixed
+  yet](https://github.com/kelektiv/node.bcrypt.js/issues/604)
+  and [not yet merged pull request](https://github.com/kelektiv/node.bcrypt.js/pull/606).
+  This may cause some slowdown;
+* [Snap: Filtering out swap file created at build time, adding stage package](https://github.com/wekan/wekan/pull/1660);
+* [Fix Received Date and End Date on Cards](https://github.com/wekan/wekan/issues/1654).
+
+Thanks to GitHub users kubiko, xadagaras and xet7 for their contributions.
+
+# v1.01 2018-05-23 Wekan release
+
+This release possibly fixes the following bugs, please test:
+
+* [Possible quickfix for all customFields Import errors, please test](https://github.com/wekan/wekan/pull/1653).
+
+Thanks to GitHub users feuerball11 and xet7 for their contributions.
+
+# v1.00 2018-05-21 Wekan release
+
+This release fixes the following bugs:
+
+* [Typo in English translation: brakets to brackets](https://github.com/wekan/wekan/issues/1647).
+
+Thanks to GitHub user yarons for contributions.
+
+# v0.99 2018-05-21 Wekan release
+
+This release adds the following new features:
+
+* [Advanced Filter for Custom Fields](https://github.com/wekan/wekan/pull/1646).
+
+Thanks to GitHub users feuerball11 and xet7 for their contributions.
+
+# v0.98 2018-05-19 Wekan release
+
+This release adds the following new features:
+
+* [Filtering by Custom Field](https://github.com/wekan/wekan/pull/1645);
+* Update to NPM 6.0.1 and MongoDB 3.2.20.
+
+Thanks to GitHub users feuerball11 and xet7 for their contributions.
+
+# v0.97 2018-05-19 Wekan release
+
+Updated translations.
+
+# v0.96 2018-05-19 Wekan release
+
+This release adds the following new features:
+
+* [Custom Fields](https://github.com/wekan/wekan/issues/807). Note: Import/Export is not implemented yet.
+
+and fixes the following bugs:
+
+* [Fix: checklistItems broken after upgrade](https://github.com/wekan/wekan/issues/1636).
+
+Thanks to GitHub users feuerball11, franksiler, papoola and xet7 for their contributions.
+
 # v0.95 2018-05-08 Wekan release
 
 This release adds the following new features:
@@ -6,7 +104,7 @@ This release adds the following new features:
 * [Add a new API route to create a new label in a given board](https://github.com/wekan/wekan/pull/1630);
 * [Admin Panel: Option to block username change](https://github.com/wekan/wekan/pull/1627).
 
-and fixed the following bugs:
+and fixes the following bugs:
 
 * [Error: title is required](https://github.com/wekan/wekan/issues/1576).
     

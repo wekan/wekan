@@ -167,9 +167,9 @@ Migrations.add('add-swimlanes', () => {
     Cards.find({ boardId: board._id }).forEach((card) => {
       if (!card.hasOwnProperty('swimlaneId')) {
         Cards.direct.update(
-            { _id: card._id },
-            { $set: { swimlaneId } },
-            noValidate
+          { _id: card._id },
+          { $set: { swimlaneId } },
+          noValidate
         );
       }
     });
@@ -180,9 +180,9 @@ Migrations.add('add-views', () => {
   Boards.find().forEach((board) => {
     if (!board.hasOwnProperty('view')) {
       Boards.direct.update(
-          { _id: board._id },
-          { $set: { view: 'board-view-swimlanes' } },
-          noValidate
+        { _id: board._id },
+        { $set: { view: 'board-view-swimlanes' } },
+        noValidate
       );
     }
   });
@@ -193,7 +193,7 @@ Migrations.add('add-checklist-items', () => {
     // Create new items
     _.sortBy(checklist.items, 'sort').forEach((item, index) => {
       ChecklistItems.direct.insert({
-        title: checklist.title,
+        title: item.title,
         sort: index,
         isFinished: item.isFinished,
         checklistId: checklist._id,
@@ -211,12 +211,14 @@ Migrations.add('add-checklist-items', () => {
 
 Migrations.add('add-profile-view', () => {
   Users.find().forEach((user) => {
-    // Set default view
-    Users.direct.update(
-      { _id: user._id },
-      { $set: { 'profile.boardView': 'board-view-lists' } },
-      noValidate
-    );
+    if (!user.hasOwnProperty('profile.boardView')) {
+      // Set default view
+      Users.direct.update(
+        { _id: user._id },
+        { $set: { 'profile.boardView': 'board-view-lists' } },
+        noValidate
+      );
+    }
   });
 });
 
@@ -231,3 +233,28 @@ Migrations.add('add-custom-fields-to-cards', () => {
     },
   }, noValidateMulti);
 });
+
+Migrations.add('add-requester-field', () => {
+  Cards.update({
+    requestedBy: {
+      $exists: false,
+    },
+  }, {
+    $set: {
+      requestedBy:'',
+    },
+  }, noValidateMulti);
+});
+
+Migrations.add('add-assigner-field', () => {
+  Cards.update({
+    assignedBy: {
+      $exists: false,
+    },
+  }, {
+    $set: {
+      assignedBy:'',
+    },
+  }, noValidateMulti);
+});
+

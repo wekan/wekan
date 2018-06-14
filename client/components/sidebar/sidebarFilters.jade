@@ -40,6 +40,25 @@ template(name="filterSidebar")
               | (<span class="username">{{ username }}</span>)
             if Filter.members.isSelected _id
               i.fa.fa-check
+  hr
+  ul.sidebar-list
+    li(class="{{#if Filter.customFields.isSelected undefined}}active{{/if}}")
+          a.name.js-toggle-custom-fields-filter
+            span.sidebar-list-item-description
+              | {{_ 'filter-no-custom-fields'}}
+            if Filter.customFields.isSelected undefined
+              i.fa.fa-check
+    each currentBoard.customFields
+      li(class="{{#if Filter.customFields.isSelected _id}}active{{/if}}")
+        a.name.js-toggle-custom-fields-filter
+          span.sidebar-list-item-description
+            {{ name }}
+          if Filter.customFields.isSelected _id
+              i.fa.fa-check
+  hr
+  span {{_ 'advanced-filter-label'}}
+  input.js-field-advanced-filter(type="text")
+  span {{_ 'advanced-filter-description'}}
   if Filter.isActive
     hr
     a.sidebar-btn.js-clear-all

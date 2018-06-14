@@ -66,6 +66,14 @@ Cards.attachSchema(new SimpleSchema({
     type: String,
     optional: true,
   },
+  requestedBy: {
+    type: String,
+    optional: true,
+  },
+  assignedBy: {
+    type: String,
+    optional: true,
+  },
   labelIds: {
     type: [String],
     optional: true,
@@ -220,13 +228,28 @@ Cards.helpers({
     }).fetch();
 
     // match right definition to each field
+    if (!this.customFields) return [];
     return this.customFields.map((customField) => {
+      const definition = definitions.find((definition) => {
+        return definition._id === customField._id;
+      });
+      //search for "True Value" which is for DropDowns other then the Value (which is the id)
+      let trueValue = customField.value;
+      if (definition.settings.dropdownItems && definition.settings.dropdownItems.length > 0)
+      {
+        for (let i = 0; i < definition.settings.dropdownItems.length; i++)
+        {
+          if (definition.settings.dropdownItems[i]._id === customField.value)
+          {
+            trueValue = definition.settings.dropdownItems[i].name;
+          }
+        }
+      }
       return {
         _id: customField._id,
         value: customField.value,
-        definition: definitions.find((definition) => {
-          return definition._id === customField._id;
-        }),
+        trueValue,
+        definition,
       };
     });
 
@@ -265,6 +288,14 @@ Cards.mutations({
 
   setDescription(description) {
     return {$set: {description}};
+  },
+
+  setRequestedBy(requestedBy) {
+    return {$set: {requestedBy}};
+  },
+
+  setAssignedBy(assignedBy) {
+    return {$set: {assignedBy}};
   },
 
   move(swimlaneId, listId, sortIndex) {

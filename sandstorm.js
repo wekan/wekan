@@ -75,7 +75,7 @@ if (isSandstorm && Meteor.isServer) {
         session.claimRequest(token).then((response) => {
           const identity = response.cap.castAs(Identity.Identity);
           const promises = [api.getIdentityId(identity), identity.getProfile(),
-                            httpBridge.saveIdentity(identity)];
+            httpBridge.saveIdentity(identity)];
           return Promise.all(promises).then((responses) => {
             const identityId = responses[0].id.toString('hex').slice(0, 32);
             const profile = responses[1].profile;
@@ -115,9 +115,9 @@ if (isSandstorm && Meteor.isServer) {
           const identity = response.identity;
           return identity.getProfile().then(() => {
             return { identity,
-                     mentioned: !!user.mentioned,
-                     subscribed: !!user.subscribed,
-                   };
+              mentioned: !!user.mentioned,
+              subscribed: !!user.subscribed,
+            };
           });
         }).catch(() => {
           // Ignore identities that fail to restore. Either they were added before we set
@@ -132,7 +132,7 @@ if (isSandstorm && Meteor.isServer) {
 
         return session.activity(event);
       }).then(() => done(),
-              (e) => done(e));
+        (e) => done(e));
     })();
   }
 

@@ -93,7 +93,7 @@ Template.dateBadge.helpers({
 });
 
 // editCardReceivedDatePopup
-(class extends EditCardDate {
+(class extends DatePicker {
   onCreated() {
     super.onCreated();
     this.data().receivedAt && this.date.set(moment(this.data().receivedAt));
@@ -156,7 +156,7 @@ Template.dateBadge.helpers({
 }).register('editCardDueDatePopup');
 
 // editCardEndDatePopup
-(class extends EditCardDate {
+(class extends DatePicker {
   onCreated() {
     super.onCreated();
     this.data().endAt && this.date.set(moment(this.data().endAt));
@@ -279,11 +279,14 @@ class CardDueDate extends CardDate {
 
   classes() {
     let classes = 'due-date' + ' ';
-    if (this.now.get().diff(this.date.get(), 'days') >= 2)
+    if ((this.now.get().diff(this.date.get(), 'days') >= 2) &&
+       (this.date.get().isBefore(this.data().endAt)))
       classes += 'long-overdue';
-    else if (this.now.get().diff(this.date.get(), 'minute') >= 0)
+    else if ((this.now.get().diff(this.date.get(), 'minute') >= 0) &&
+       (this.date.get().isBefore(this.data().endAt)))
       classes += 'due';
-    else if (this.now.get().diff(this.date.get(), 'days') >= -1)
+    else if ((this.now.get().diff(this.date.get(), 'days') >= -1) &&
+       (this.date.get().isBefore(this.data().endAt)))
       classes += 'almost-due';
     return classes;
   }
@@ -355,4 +358,3 @@ CardEndDate.register('cardEndDate');
     return this.date.get().format('l');
   }
 }).register('minicardEndDate');
-

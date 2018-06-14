@@ -10,20 +10,41 @@ template(name="minicard")
       +viewer
         = title
     .dates
+      if receivedAt
+        unless startAt
+          unless dueAt
+            unless endAt
+              .date
+                +miniCardReceivedDate
       if startAt
         .date
           +minicardStartDate
       if dueAt
+        unless endAt
+          .date
+            +minicardDueDate
+      if endAt
         .date
-          +minicardDueDate
+          +minicardEndDate
       if spentTime
         .date
           +cardSpentTime
+
+    .minicard-custom-fields
+      each customFieldsWD
+        if definition.showOnCard
+          .minicard-custom-field
+            .minicard-custom-field-item
+              = definition.name
+            .minicard-custom-field-item
+              +viewer
+                = trueValue
 
     if members
       .minicard-members.js-minicard-members
         each members
           +userAvatar(userId=this)
+
     .badges
       if comments.count
         .badge(title="{{_ 'card-comments-title' comments.count }}")
