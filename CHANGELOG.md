@@ -1,3 +1,22 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+* [Markdown support in Custom Fields, and view on minicard](https://github.com/wekan/wekan/pull/1699);
+* [Fixes to Advanced Filter, you are now able to filter for Dropdown and Numbers,
+   also Dropdown are now correctly displayed on minicard](https://github.com/wekan/wekan/pull/1699).
+
+and fixes the following bugs:
+
+* [Fix data colour changes on cards](https://github.com/wekan/wekan/pull/1698);
+* [Fix for migration error "title is required" and breaking of Standalone and
+   Sandstorm Wekan](https://github.com/wekan/wekan/commit/8d5cbf1e6c2b6d467fe1c0708cd794fd11b98a2e#commitcomment-29362180);
+* [Fix Issue with custom fields shown on card](https://github.com/wekan/wekan/issues/1659);
+* [Fix showing public board in list mode](https://github.com/wekan/wekan/issues/1623);
+* [Fix for not able to remove Custom Field "Show on Card"](https://github.com/wekan/wekan/pull/1699).
+
+Thanks to GitHub users feuerball11, oec and xet7 for their contributions.
+
 # v1.04 2018-06-12 Wekan release
 
 This release adds the following new features:

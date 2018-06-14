@@ -88,11 +88,13 @@ BlazeComponent.extendComponent({
 
   isViewSwimlanes() {
     const currentUser = Meteor.user();
+    if (!currentUser) return false;
     return (currentUser.profile.boardView === 'board-view-swimlanes');
   },
 
   isViewLists() {
     const currentUser = Meteor.user();
+    if (!currentUser) return true;
     return (currentUser.profile.boardView === 'board-view-lists');
   },
 

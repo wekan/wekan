@@ -37,7 +37,7 @@ template(name="createCustomFieldPopup")
             each dropdownItems.get
                 input.js-dropdown-item(type="text" value=name placeholder="")
             input.js-dropdown-item.last(type="text" value="" placeholder="{{_ 'custom-field-dropdown-options-placeholder'}}")
-        a.flex.js-field-show-on-card
+        a.flex.js-field-show-on-card(class="{{#if showOnCard}}is-checked{{/if}}")
             .materialCheckBox(class="{{#if showOnCard}}is-checked{{/if}}")
 
             span {{_ 'show-field-on-card'}}
