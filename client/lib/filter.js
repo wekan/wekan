@@ -145,6 +145,22 @@ class AdvancedFilter {
     return found._id;
   }
 
+  _fieldValueToId(field, value)
+  {
+    const found = CustomFields.findOne({ 'name': field });
+    if (found.settings.dropdownItems && found.settings.dropdownItems.length > 0)
+    {
+      for (let i = 0; i < found.settings.dropdownItems.length; i++)
+      {
+        if (found.settings.dropdownItems[i].name === value)
+        {
+          return found.settings.dropdownItems[i]._id;
+        }
+      }
+    }
+    return value;
+  }
+
   _arrayToSelector(commands) {
     try {
       //let changed = false;
@@ -208,7 +224,7 @@ class AdvancedFilter {
         {
           const field = commands[i - 1].cmd;
           const str = commands[i + 1].cmd;
-          commands[i] = { 'customFields._id': this._fieldNameToId(field), 'customFields.value': str };
+          commands[i] = { 'customFields._id': this._fieldNameToId(field), 'customFields.value': {$in: [this._fieldValueToId(field, str), parseInt(str, 10)]} };
           commands.splice(i - 1, 1);
           commands.splice(i, 1);
           //changed = true;
@@ -220,7 +236,7 @@ class AdvancedFilter {
         {
           const field = commands[i - 1].cmd;
           const str = commands[i + 1].cmd;
-          commands[i] = { 'customFields._id': this._fieldNameToId(field), 'customFields.value': { $not: str } };
+          commands[i] = { 'customFields._id': this._fieldNameToId(field), 'customFields.value': { $not: {$in: [this._fieldValueToId(field, str), parseInt(str, 10)]} } };
           commands.splice(i - 1, 1);
           commands.splice(i, 1);
           //changed = true;
@@ -234,7 +250,7 @@ class AdvancedFilter {
         {
           const field = commands[i - 1].cmd;
           const str = commands[i + 1].cmd;
-          commands[i] = { 'customFields._id': this._fieldNameToId(field), 'customFields.value': { $gt: str } };
+          commands[i] = { 'customFields._id': this._fieldNameToId(field), 'customFields.value': { $gt: parseInt(str, 10) } };
           commands.splice(i - 1, 1);
           commands.splice(i, 1);
           //changed = true;
@@ -249,7 +265,7 @@ class AdvancedFilter {
         {
           const field = commands[i - 1].cmd;
           const str = commands[i + 1].cmd;
-          commands[i] = { 'customFields._id': this._fieldNameToId(field), 'customFields.value': { $gte: str } };
+          commands[i] = { 'customFields._id': this._fieldNameToId(field), 'customFields.value': { $gte:  parseInt(str, 10) } };
           commands.splice(i - 1, 1);
           commands.splice(i, 1);
           //changed = true;
@@ -263,7 +279,7 @@ class AdvancedFilter {
         {
           const field = commands[i - 1].cmd;
           const str = commands[i + 1].cmd;
-          commands[i] = { 'customFields._id': this._fieldNameToId(field), 'customFields.value': { $lt: str } };
+          commands[i] = { 'customFields._id': this._fieldNameToId(field), 'customFields.value': { $lt:  parseInt(str, 10) } };
           commands.splice(i - 1, 1);
           commands.splice(i, 1);
           //changed = true;
@@ -278,7 +294,7 @@ class AdvancedFilter {
         {
           const field = commands[i - 1].cmd;
           const str = commands[i + 1].cmd;
-          commands[i] = { 'customFields._id': this._fieldNameToId(field), 'customFields.value': { $lte: str } };
+          commands[i] = { 'customFields._id': this._fieldNameToId(field), 'customFields.value': { $lte:  parseInt(str, 10) } };
           commands.splice(i - 1, 1);
           commands.splice(i, 1);
           //changed = true;

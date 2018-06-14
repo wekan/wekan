@@ -140,7 +140,7 @@ Migrations.add('add-sort-checklists', () => {
         noValidate
       );
     }
-    checklist.items.find().forEach((item, index) => {
+    checklist.items.forEach((item, index) => {
       if (!item.hasOwnProperty('sort')) {
         Checklists.direct.update(
           { _id: checklist._id, 'items._id': item._id },
