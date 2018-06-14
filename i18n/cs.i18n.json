@@ -247,7 +247,7 @@
     "filter-on-desc": "Filtrujete karty tohoto tabla. Pro úpravu filtru klikni sem.",
     "filter-to-selection": "Filtrovat výběr",
     "advanced-filter-label": "Pokročilý filtr",
-    "advanced-filter-description": "Pokročilý filtr dovoluje zapsat řetězec následujících operátorů: == != <= >= && || () Operátory jsou odděleny mezerou. Můžete filtrovat všechny vlastní pole zadáním jejich názvů nebo hodnot. Například: Pole1 == Hodnota1. Poznámka: Pokud pole nebo hodnoty obsahují mezery, je potřeba je obalit v jednoduchých uvozovkách. Například: 'Pole 1' == 'Hodnota 1'. Můžete také kombinovat více podmínek. Například P1 == H1 || P1 == H2. Obvykle jsou operátory interpretovány zleva doprava. Jejich pořadí můžete měnit pomocí závorek. Například: P1 == H1 && (P2 == H2 || P2 == H3 )",
+    "advanced-filter-description": "Advanced Filter allows to write a string containing following operators: == != <= >= && || ( ) A space is used as a separator between the Operators. You can filter for all Custom Fields by typing their names and values. For Example: Field1 == Value1. Note: If fields or values contains spaces, you need to encapsulate them into single quotes. For Example: 'Field 1' == 'Value 1'. For single control characters (' \\/) to be skipped, you can use \\. For example: Field1 = I\\'m. Also you can combine multiple conditions. For Example: F1 == V1 || F1 = V2. Normally all operators are interpreted from left to right. You can change the order by placing brackets. For Example: F1 == V1 && ( F2 == V2 || F2 == V3 ). Also you can search text fields using regex: F1 == /Tes.*/i",
     "fullname": "Celé jméno",
     "header-logo-title": "Jit zpět na stránku s tably.",
     "hide-system-messages": "Skrýt systémové zprávy",
