@@ -1,3 +1,13 @@
+# v1.07 2018-06-14 Wekan release
+
+This release adds the following new features:
+
+* [Regex for Advanced filter. It aims to solve search in bigger text fields, and using wildcards.
+   A change to translations was made for adding info about regex and escaping characters
+   with \](https://github.com/wekan/wekan/pull/1702).
+
+Thanks to GitHub users feuerball11 and xet7 for their contributions.
+
 # v1.06 2018-06-14 Wekan release
 
 This release fixes the following bugs:
