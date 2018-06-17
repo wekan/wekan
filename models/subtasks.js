@@ -4,6 +4,29 @@ Subtasks.attachSchema(new SimpleSchema({
   title: {
     type: String,
   },
+  startAt: { // this is a predicted time
+    type: Date,
+    optional: true,
+  },
+  endAt: { // this is a predicted time
+    type: Date,
+    optional: true,
+  },
+  finishedAt: { // The date & time when it is marked as being done
+    type: Date,
+    optional: true,
+  },
+  createdAt: {
+    type: Date,
+    denyUpdate: false,
+    autoValue() { // eslint-disable-line consistent-return
+      if (this.isInsert) {
+        return new Date();
+      } else {
+        this.unset();
+      }
+    },
+  },
   sort: {
     type: Number,
     decimal: true,
@@ -16,6 +39,16 @@ Subtasks.attachSchema(new SimpleSchema({
     type: String,
   },
 }));
+
+Subtasks.helpers({
+  isFinished() {
+    return 0 !== this.itemCount() && this.itemCount() === this.finishedCount();
+  },
+  itemIndex(itemId) {
+    const items = self.findOne({_id : this._id}).items;
+    return _.pluck(items, '_id').indexOf(itemId);
+  },
+});
 
 Subtasks.allow({
   insert(userId, doc) {
@@ -31,6 +64,7 @@ Subtasks.allow({
 });
 
 Subtasks.before.insert((userId, doc) => {
+  doc.createdAt = new Date();
   if (!doc.userId) {
     doc.userId = userId;
   }
