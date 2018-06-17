@@ -56,7 +56,20 @@ Lens = {
         return d;
       },
     },
-    mePlus: {
+    me_us: {
+      decorateCard(card, a) {
+        var d = {};
+        if (a.atMe && !a.waiting) {
+          //highlight
+        } else if (!a.atMe && (!a.shared || a.private )) {
+          d.hidden = true;
+        } else {
+          d.dimmed = true;
+        }
+        return d;
+      },
+    },
+    all: {
       decorateCard(card, a) {
         var d = {};
         if (a.waiting || (!a.atMe && a.atOthers )) {
