@@ -15,6 +15,11 @@ Cards.attachSchema(new SimpleSchema({
       }
     },
   },
+  parentId: {
+    type: String,
+    optional: true,
+    defaultValue: '',
+  },
   listId: {
     type: String,
   },

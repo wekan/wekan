@@ -258,3 +258,15 @@ Migrations.add('add-assigner-field', () => {
   }, noValidateMulti);
 });
 
+
+Migrations.add('add-parent-field-to-cards', () => {
+  Cards.update({
+    parentId: {
+      $exists: false,
+    },
+  }, {
+    $set: {
+      parentId:'',
+    },
+  }, noValidateMulti);
+});
