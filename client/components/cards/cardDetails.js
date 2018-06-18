@@ -364,6 +364,20 @@ BlazeComponent.extendComponent({
   },
 }).register('boardsAndLists');
 
+function cloneCheckList(_id, checklist) {
+  'use strict';
+  const checklistId = checklist._id;
+  checklist.cardId = _id;
+  checklist._id = null;
+  const newChecklistId = Checklists.insert(checklist);
+  ChecklistItems.find({checklistId}).forEach(function(item) {
+    item._id = null;
+    item.checklistId = newChecklistId;
+    item.cardId = _id;
+    ChecklistItems.insert(item);
+  });
+}
+
 Template.copyCardPopup.events({
   'click .js-done'() {
     const card = Cards.findOne(Session.get('currentCard'));
@@ -393,18 +407,17 @@ Template.copyCardPopup.events({
       // copy checklists
       let cursor = Checklists.find({cardId: oldId});
       cursor.forEach(function() {
+        cloneCheckList(_id, arguments[0]);
+      });
+
+      // copy subtasks
+      cursor = Subtasks.find({cardId: oldId});
+      cursor.forEach(function() {
         'use strict';
-        const checklist = arguments[0];
-        const checklistId = checklist._id;
-        checklist.cardId = _id;
-        checklist._id = null;
-        const newChecklistId = Checklists.insert(checklist);
-        ChecklistItems.find({checklistId}).forEach(function(item) {
-          item._id = null;
-          item.checklistId = newChecklistId;
-          item.cardId = _id;
-          ChecklistItems.insert(item);
-        });
+        const subtask = arguments[0];
+        subtask.cardId = _id;
+        subtask._id = null;
+        /* const newSubtaskId = */ Subtasks.insert(subtask);
       });
 
       // copy card comments
@@ -454,18 +467,17 @@ Template.copyChecklistToManyCardsPopup.events({
         // copy checklists
         let cursor = Checklists.find({cardId: oldId});
         cursor.forEach(function() {
+          cloneCheckList(_id, arguments[0]);
+        });
+
+        // copy subtasks
+        cursor = Subtasks.find({cardId: oldId});
+        cursor.forEach(function() {
           'use strict';
-          const checklist = arguments[0];
-          const checklistId = checklist._id;
-          checklist.cardId = _id;
-          checklist._id = null;
-          const newChecklistId = Checklists.insert(checklist);
-          ChecklistItems.find({checklistId}).forEach(function(item) {
-            item._id = null;
-            item.checklistId = newChecklistId;
-            item.cardId = _id;
-            ChecklistItems.insert(item);
-          });
+          const subtask = arguments[0];
+          subtask.cardId = _id;
+          subtask._id = null;
+          /* const newSubtaskId = */ Subtasks.insert(subtask);
         });
 
         // copy card comments

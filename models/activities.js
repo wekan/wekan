@@ -44,6 +44,9 @@ Activities.helpers({
   checklistItem() {
     return ChecklistItems.findOne(this.checklistItemId);
   },
+  subtasks() {
+    return Subtasks.findOne(this.subtaskId);
+  },
   customField() {
     return CustomFields.findOne(this.customFieldId);
   },
