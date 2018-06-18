@@ -1,7 +1,7 @@
 .js-add-subtask
   color: #8c8c8c
 
-textarea.js-add-subtask-item, textarea.js-edit-subtasks-item
+textarea.js-add-subtask-item, textarea.js-edit-subtask-item
   overflow: hidden
   word-wrap: break-word
   resize: none
@@ -16,7 +16,7 @@ textarea.js-add-subtask-item, textarea.js-edit-subtasks-item
   &:hover
     color: inherit
 
-.subtasks-title
+.subtask-title
   .checkbox
     float: left
     width: 30px
@@ -35,11 +35,11 @@ textarea.js-add-subtask-item, textarea.js-edit-subtasks-item
     &.is-finished
       color: #3cb500
 
-  .js-delete-subtasks
+  .js-delete-subtask
     @extends .delete-text
 
 
-.js-confirm-subtasks-delete
+.js-confirm-subtask-delete
   background-color: darken(white, 3%)
   position: absolute
   float: left;
@@ -63,13 +63,13 @@ textarea.js-add-subtask-item, textarea.js-edit-subtasks-item
     i
       font-size: 2em
 
-  .js-subtasks-delete-buttons
+  .js-subtask-delete-buttons
     position: relative
     padding: left 2% right 2%
-    .confirm-subtasks-delete
+    .confirm-subtask-delete
       margin-left: 12%
       float: left
-    .toggle-delete-subtasks-dialog
+    .toggle-delete-subtask-dialog
       margin-right: 12%
       float: right
 
@@ -129,7 +129,7 @@ textarea.js-add-subtask-item, textarea.js-edit-subtasks-item
       p
         margin-bottom: 2px
 
-.js-delete-subtasks-item
+.js-delete-subtask-item
   margin: 0 0 0.5em 1.33em
   @extends .delete-text
   padding: 12px 0 0 0

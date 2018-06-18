@@ -2,7 +2,7 @@ BlazeComponent.extendComponent({
   canModifyCard() {
     return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
   },
-}).register('subtasksDetail');
+}).register('subtaskDetail');
 
 BlazeComponent.extendComponent({
 
@@ -32,24 +32,24 @@ BlazeComponent.extendComponent({
   },
 
   deleteSubtask() {
-    const subtasks = this.currentData().subtasks;
-    if (subtasks && subtasks._id) {
-      Subtasks.remove(subtasks._id);
+    const subtask = this.currentData().subtask;
+    if (subtask && subtask._id) {
+      Subtasks.remove(subtask._id);
       this.toggleDeleteDialog.set(false);
     }
   },
 
   editSubtask(event) {
     event.preventDefault();
-    const textarea = this.find('textarea.js-edit-subtasks-item');
+    const textarea = this.find('textarea.js-edit-subtask-item');
     const title = textarea.value.trim();
-    const subtasks = this.currentData().subtasks;
-    subtasks.setTitle(title);
+    const subtask = this.currentData().subtask;
+    subtask.setTitle(title);
   },
 
   onCreated() {
     this.toggleDeleteDialog = new ReactiveVar(false);
-    this.subtasksToDelete = null; //Store data context to pass to subtaskDeleteDialog template
+    this.subtaskToDelete = null; //Store data context to pass to subtaskDeleteDialog template
   },
 
   pressKey(event) {
@@ -64,9 +64,9 @@ BlazeComponent.extendComponent({
 
   events() {
     const events = {
-      'click .toggle-delete-subtasks-dialog'(event) {
-        if($(event.target).hasClass('js-delete-subtasks')){
-          this.subtasksToDelete = this.currentData().subtasks; //Store data context
+      'click .toggle-delete-subtask-dialog'(event) {
+        if($(event.target).hasClass('js-delete-subtask')){
+          this.subtaskToDelete = this.currentData().subtask; //Store data context
         }
         this.toggleDeleteDialog.set(!this.toggleDeleteDialog.get());
       },
@@ -75,8 +75,8 @@ BlazeComponent.extendComponent({
     return [{
       ...events,
       'submit .js-add-subtask': this.addSubtask,
-      'submit .js-edit-subtasks-title': this.editSubtask,
-      'click .confirm-subtasks-delete': this.deleteSubtask,
+      'submit .js-edit-subtask-title': this.editSubtask,
+      'click .confirm-subtask-delete': this.deleteSubtask,
       keydown: this.pressKey,
     }];
   },
