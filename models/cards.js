@@ -215,6 +215,27 @@ Cards.helpers({
     return this.checklistItemCount() !== 0;
   },
 
+  subtasks() {
+    return Subtasks.find({cardId: this._id}, {sort: { sort: 1 } });
+  },
+
+  subtasksCount() {
+    return Subtasks.find({cardId: this._id}).count();
+  },
+
+  subtasksFinishedCount() {
+    return Subtasks.find({cardId: this._id, isFinished: true}).count();
+  },
+
+  subtasksFinished() {
+    const finishCount = this.subtasksFinishedCount();
+    return finishCount > 0 && this.subtasksCount() === finishCount;
+  },
+
+  hasSubtasks() {
+    return this.subtasksCount() !== 0;
+  },
+
   customFieldIndex(customFieldId) {
     return _.pluck(this.customFields, '_id').indexOf(customFieldId);
   },
@@ -511,6 +532,9 @@ function cardRemover(userId, doc) {
     cardId: doc._id,
   });
   Checklists.remove({
+    cardId: doc._id,
+  });
+  Subtasks.remove({
     cardId: doc._id,
   });
   CardComments.remove({

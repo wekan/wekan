@@ -204,7 +204,7 @@ Template.checklistDeleteDialog.onDestroyed(() => {
   $cardDetails.animate( { scrollTop: this.scrollState.position });
 });
 
-Template.itemDetail.helpers({
+Template.cjecklistItemDetail.helpers({
   canModifyCard() {
     return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
   },
@@ -223,4 +223,4 @@ BlazeComponent.extendComponent({
       'click .js-checklist-item .check-box': this.toggleItem,
     }];
   },
-}).register('itemDetail');
+}).register('cjecklistItemDetail');

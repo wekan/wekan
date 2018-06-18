@@ -1,0 +1,96 @@
+template(name="subtasks")
+  h3 {{_ 'subtasks'}}
+  if toggleDeleteDialog.get
+    .board-overlay#card-details-overlay
+    +subtaskDeleteDialog(subtasks = subtasksToDelete)
+
+
+  .card-subtasks-items
+    each subtasks in currentCard.subtasks
+      +subtasksDetail(subtasks = subtasks)
+
+  if canModifyCard
+    +inlinedForm(autoclose=false classNames="js-add-subtask" cardId = cardId)
+      +addSubtaskItemForm
+    else
+      a.js-open-inlined-form
+        i.fa.fa-plus
+        | {{_ 'add-subtask'}}...
+
+template(name="subtasksDetail")
+  .js-subtasks.subtasks
+    +inlinedForm(classNames="js-edit-subtasks-title" subtasks = subtasks)
+      +editsubtasksItemForm(subtasks = subtasks)
+    else
+      .subtasks-title
+        span
+        if canModifyCard
+          a.js-delete-subtasks.toggle-delete-subtasks-dialog {{_ "delete"}}...
+
+        if canModifyCard
+          h2.title.js-open-inlined-form.is-editable
+            +viewer
+              = subtasks.title
+        else
+          h2.title
+            +viewer
+                = subtasks.title
+
+template(name="subtaskDeleteDialog")
+  .js-confirm-subtasks-delete
+    p
+      i(class="fa fa-exclamation-triangle" aria-hidden="true")
+    p
+      | {{_ 'confirm-subtask-delete-dialog'}}
+      span {{subtasks.title}}
+      | ?
+    .js-subtasks-delete-buttons
+      button.confirm-subtasks-delete(type="button") {{_ 'delete'}}
+      button.toggle-delete-subtasks-dialog(type="button") {{_ 'cancel'}}
+
+template(name="addSubtaskItemForm")
+  textarea.js-add-subtask-item(rows='1' autofocus)
+  .edit-controls.clearfix
+    button.primary.confirm.js-submit-add-subtask-item-form(type="submit") {{_ 'save'}}
+    a.fa.fa-times-thin.js-close-inlined-form
+
+template(name="editsubtasksItemForm")
+  textarea.js-edit-subtasks-item(rows='1' autofocus)
+    if $eq type 'item'
+      = item.title
+    else
+      = subtasks.title
+  .edit-controls.clearfix
+    button.primary.confirm.js-submit-edit-subtasks-item-form(type="submit") {{_ 'save'}}
+    a.fa.fa-times-thin.js-close-inlined-form
+    span(title=createdAt) {{ moment createdAt }}
+    if canModifyCard
+      a.js-delete-subtasks-item {{_ "delete"}}...
+
+template(name="subtasksItems")
+  .subtasks-items.js-subtasks-items
+    each item in subtasks.items
+      +inlinedForm(classNames="js-edit-subtasks-item" item = item subtasks = subtasks)
+        +editsubtasksItemForm(type = 'item' item = item subtasks = subtasks)
+      else
+        +subtaskItemDetail(item = item subtasks = subtasks)
+    if canModifyCard
+      +inlinedForm(autoclose=false classNames="js-add-subtask-item" subtasks = subtasks)
+        +addSubtaskItemForm
+      else
+        a.add-subtask-item.js-open-inlined-form
+          i.fa.fa-plus
+          | {{_ 'add-subtask-item'}}...
+
+template(name='subtaskItemDetail')
+  .js-subtasks-item.subtasks-item
+    if canModifyCard
+      .check-box.materialCheckBox(class="{{#if item.isFinished }}is-checked{{/if}}")
+      .item-title.js-open-inlined-form.is-editable(class="{{#if item.isFinished }}is-checked{{/if}}")
+        +viewer
+          = item.title
+    else
+      .materialCheckBox(class="{{#if item.isFinished }}is-checked{{/if}}")
+      .item-title(class="{{#if item.isFinished }}is-checked{{/if}}")
+        +viewer
+          = item.title

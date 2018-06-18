@@ -41,13 +41,7 @@ Subtasks.attachSchema(new SimpleSchema({
 }));
 
 Subtasks.helpers({
-  isFinished() {
-    return 0 !== this.itemCount() && this.itemCount() === this.finishedCount();
-  },
-  itemIndex(itemId) {
-    const items = self.findOne({_id : this._id}).items;
-    return _.pluck(items, '_id').indexOf(itemId);
-  },
+  // ...
 });
 
 Subtasks.allow({
