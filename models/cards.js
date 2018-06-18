@@ -297,14 +297,33 @@ Cards.helpers({
     }
     return true;
   },
+
+  parentCard() {
+    if (this.parentId === '') {
+      return null;
+    }
+    return Cards.findOne(this.parentId);
+  },
+
+  isTopLevel() {
+    return this.parentId === '';
+  },
 });
 
 Cards.mutations({
+  applyToKids(funct) {
+    Cards.find({ parentId: this._id }).forEach((card) => {
+      funct(card);
+    });
+  },
+
   archive() {
+    this.applyToKids((card) => { return card.archive(); });
     return {$set: {archived: true}};
   },
 
   restore() {
+    this.applyToKids((card) => { return card.restore(); });
     return {$set: {archived: false}};
   },
 
