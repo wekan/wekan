@@ -1,43 +1,3 @@
-const { calculateIndexData } = Utils;
-
-function initSorting(items) {
-  items.sortable({
-    tolerance: 'pointer',
-    helper: 'clone',
-    items: '.js-subtasks-item:not(.placeholder)',
-    connectWith: '.js-subtasks-items',
-    appendTo: '.board-canvas',
-    distance: 7,
-    placeholder: 'subtasks-item placeholder',
-    scroll: false,
-    start(evt, ui) {
-      ui.placeholder.height(ui.helper.height());
-      EscapeActions.executeUpTo('popup-close');
-    },
-    stop(evt, ui) {
-      const parent = ui.item.parents('.js-subtasks-items');
-      const subtasksId = Blaze.getData(parent.get(0)).subtasks._id;
-      let prevItem = ui.item.prev('.js-subtasks-item').get(0);
-      if (prevItem) {
-        prevItem = Blaze.getData(prevItem).item;
-      }
-      let nextItem = ui.item.next('.js-subtasks-item').get(0);
-      if (nextItem) {
-        nextItem = Blaze.getData(nextItem).item;
-      }
-      const nItems = 1;
-      const sortIndex = calculateIndexData(prevItem, nextItem, nItems);
-      const subtasksDomElement = ui.item.get(0);
-      const subtasksData = Blaze.getData(subtasksDomElement);
-      const subtasksItem = subtasksData.item;
-
-      items.sortable('cancel');
-
-      subtasksItem.move(subtasksId, sortIndex.base);
-    },
-  });
-}
-
 BlazeComponent.extendComponent({
   canModifyCard() {
     return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
@@ -151,16 +111,5 @@ Template.subtaskItemDetail.helpers({
 });
 
 BlazeComponent.extendComponent({
-  toggleItem() {
-    const subtasks = this.currentData().subtasks;
-    const item = this.currentData().item;
-    if (subtasks && item && item._id) {
-      item.toggleItem();
-    }
-  },
-  events() {
-    return [{
-      'click .js-subtasks-item .check-box': this.toggleItem,
-    }];
-  },
+  // ...
 }).register('subtaskItemDetail');
