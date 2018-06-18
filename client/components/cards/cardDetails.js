@@ -107,6 +107,41 @@ BlazeComponent.extendComponent({
       },
     });
 
+    const $subtasksDom = this.$('.card-subtasks-items');
+
+    $subtasksDom.sortable({
+      tolerance: 'pointer',
+      helper: 'clone',
+      handle: '.subtask-title',
+      items: '.js-subtasks',
+      placeholder: 'subtasks placeholder',
+      distance: 7,
+      start(evt, ui) {
+        ui.placeholder.height(ui.helper.height());
+        EscapeActions.executeUpTo('popup-close');
+      },
+      stop(evt, ui) {
+        let prevChecklist = ui.item.prev('.js-subtasks').get(0);
+        if (prevChecklist) {
+          prevChecklist = Blaze.getData(prevChecklist).subtask;
+        }
+        let nextChecklist = ui.item.next('.js-subtasks').get(0);
+        if (nextChecklist) {
+          nextChecklist = Blaze.getData(nextChecklist).subtask;
+        }
+        const sortIndex = calculateIndexData(prevChecklist, nextChecklist, 1);
+
+        $subtasksDom.sortable('cancel');
+        const subtask = Blaze.getData(ui.item.get(0)).subtask;
+
+        Subtasks.update(subtask._id, {
+          $set: {
+            sort: sortIndex.base,
+          },
+        });
+      },
+    });
+
     function userIsMember() {
       return Meteor.user() && Meteor.user().isBoardMember();
     }
@@ -115,6 +150,9 @@ BlazeComponent.extendComponent({
     this.autorun(() => {
       if ($checklistsDom.data('sortable')) {
         $checklistsDom.sortable('option', 'disabled', !userIsMember());
+      }
+      if ($subtasksDom.data('sortable')) {
+        $subtasksDom.sortable('option', 'disabled', !userIsMember());
       }
     });
   },
