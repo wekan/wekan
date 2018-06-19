@@ -6,6 +6,7 @@ template(name="listHeader")
       if isMiniScreen
         if currentList
           a.list-header-left-icon.fa.fa-angle-left.js-unselect-list
+      // show list-header-name only for first lane
       h2.list-header-name(
         class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
         = title
