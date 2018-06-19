@@ -40,7 +40,7 @@ BlazeComponent.extendComponent({
       },
       distance: 7,
       items: itemsSelector,
-      scroll: false,
+      scroll: true,
       placeholder: 'minicard-wrapper placeholder',
       start(evt, ui) {
         ui.placeholder.height(ui.helper.height());

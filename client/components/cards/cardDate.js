@@ -75,7 +75,10 @@ const EditCardDate = BlazeComponent.extendComponent({
           this._storeDate(newDate.toDate());
           Popup.close();
         }
-        else {
+        else if (dateString === "") {
+          this._deleteDate();
+          Popup.close();
+        } else {
           this.error.set('invalid-date');
           evt.target.date.focus();
         }
