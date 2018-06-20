@@ -102,8 +102,8 @@ Boards.attachSchema(new SimpleSchema({
     allowedValues: [
       'green', 'yellow', 'orange', 'red', 'purple',
       'blue', 'sky', 'lime', 'pink', 'black',
-      '#d1e5e1', '#1D1075', '#C0D3C5', '#FA7A55', '#907A70',
-      '#FACADE', '#91553D', '#200', '#716E25', '#007'
+      'xd1e5e1', 'x1D1075', 'xC0D3C5', 'xFA7A55', 'x907A70',
+      'xFACADE', 'x91553D', 'x200', 'x716E25', 'x007'
     ],
   },
   // XXX We might want to maintain more informations under the member sub-

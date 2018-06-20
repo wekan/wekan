@@ -75,7 +75,7 @@ const EditCardDate = BlazeComponent.extendComponent({
           this._storeDate(newDate.toDate());
           Popup.close();
         }
-        else if (dateString === "") {
+        else if (evt.target.date.value === "") {
           this._deleteDate();
           Popup.close();
         } else {
@@ -161,7 +161,7 @@ const CardDate = BlazeComponent.extendComponent({
     //   sameElse: 'llll',
     // });
 
-    this.date.get().format(Features.opinions.dates.formats.date);
+    return this.date.get().format(Features.opinions.dates.formats.date);
   },
 
   showISODate() {
@@ -188,7 +188,7 @@ class CardStartDate extends CardDate {
   }
 
   showTitle() {
-    return `${TAPi18n.__('card-start-on')} ${this.date.get().format('LLLL')}`;
+    return `${TAPi18n.__('card-start-on')} ${this.date.get().format(Features.opinions.dates.formats.date)}`;
   }
 
   events() {
@@ -220,7 +220,7 @@ class CardDueDate extends CardDate {
   }
 
   showTitle() {
-    return `${TAPi18n.__('card-due-on')} ${this.date.get().format('LLLL')}`;
+    return `${TAPi18n.__('card-due-on')} ${this.date.get().format(Features.opinions.dates.formats.date)}`;
   }
 
   events() {
