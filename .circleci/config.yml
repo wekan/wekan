@@ -1,0 +1,22 @@
+version: 1
+jobs:
+  build:
+    machine: true
+    steps:
+      # - setup_remote_docker
+      - checkout
+      - run: |
+          if [ -z $CI_PULL_REQUEST ]
+          then
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+          fi
+      - run: docker-compose build
+      - run: |
+          if [ -z $CI_PULL_REQUEST ]
+          then
+            version=1.$CIRCLE_BUILD_NUM-0.74-ci
+            docker tag dpoz/wekan:latest dpoz/wekan:$version
+            docker push dpoz/wekan
+          fi
+
+      #https://circleci.com/docs/2.0/building-docker-images/
