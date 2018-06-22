@@ -1,4 +1,4 @@
-FROM debian:buster-slim
+FROM dpoz/debian:wekan-compat
 MAINTAINER dpoz
 
 # Declare Arguments
