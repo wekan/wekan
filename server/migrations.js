@@ -269,3 +269,16 @@ Migrations.add('add-parent-field-to-cards', () => {
     },
   }, noValidateMulti);
 });
+
+Migrations.add('add-subtasks-boards', () => {
+  Boards.update({
+    subtasksDefaultBoardId: {
+      $exists: false,
+    },
+  }, {
+    $set: {
+      subtasksDefaultBoardId: null,
+      subtasksDefaultListId: null,
+    },
+  }, noValidateMulti);
+});
