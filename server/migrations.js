@@ -282,3 +282,16 @@ Migrations.add('add-subtasks-boards', () => {
     },
   }, noValidateMulti);
 });
+
+Migrations.add('add-subtasks-sort', () => {
+  Boards.update({
+    subtaskSort: {
+      $exists: false,
+    },
+  }, {
+    $set: {
+      subtaskSort: -1,
+    },
+  }, noValidateMulti);
+});
+
