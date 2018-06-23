@@ -221,15 +221,15 @@ Cards.helpers({
   },
 
   subtasks() {
-    return Subtasks.find({cardId: this._id}, {sort: { sort: 1 } });
+    return Cards.find({parentId: this._id}, {sort: { sort: 1 } });
   },
 
   subtasksCount() {
-    return Subtasks.find({cardId: this._id}).count();
+    return Cards.find({parentId: this._id}).count();
   },
 
   subtasksFinishedCount() {
-    return Subtasks.find({cardId: this._id, isFinished: true}).count();
+    return Cards.find({parentId: this._id, archived: true}).count();
   },
 
   subtasksFinished() {
