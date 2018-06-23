@@ -221,15 +221,30 @@ Cards.helpers({
   },
 
   subtasks() {
-    return Cards.find({parentId: this._id}, {sort: { sort: 1 } });
+    return Cards.find({
+      parentId: this._id,
+      archived: false,
+    }, {sort: { sort: 1 } });
+  },
+
+  allSubtasks() {
+    return Cards.find({
+      parentId: this._id,
+      archived: false,
+    }, {sort: { sort: 1 } });
   },
 
   subtasksCount() {
-    return Cards.find({parentId: this._id}).count();
+    return Cards.find({
+      parentId: this._id,
+      archived: false,
+    }).count();
   },
 
   subtasksFinishedCount() {
-    return Cards.find({parentId: this._id, archived: true}).count();
+    return Cards.find({
+      parentId: this._id,
+      archived: true}).count();
   },
 
   subtasksFinished() {
