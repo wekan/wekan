@@ -12,13 +12,31 @@ BlazeComponent.extendComponent({
     const title = textarea.value.trim();
     const cardId = this.currentData().cardId;
     const card = Cards.findOne(cardId);
+    const sortIndex = -1;
+    const crtBoard = Boards.findOne(card.boardId);
+    const targetBoard = crtBoard.getDefaultSubtasksBoard();
+    const listId = targetBoard.getDefaultSubtasksListId();
+    const swimlaneId = Swimlanes.findOne({boardId: targetBoard._id})._id;
 
     if (title) {
-      Subtasks.insert({
-        cardId,
+      const _id = Cards.insert({
         title,
-        sort: card.subtasks().count(),
+        parentId: cardId,
+        members: [],
+        labelIds: [],
+        customFields: [],
+        listId,
+        boardId: targetBoard._id,
+        sort: sortIndex,
+        swimlaneId,
       });
+      // In case the filter is active we need to add the newly inserted card in
+      // the list of exceptions -- cards that are not filtered. Otherwise the
+      // card will disappear instantly.
+      // See https://github.com/wekan/wekan/issues/80
+      Filter.addException(_id);
+
+
       setTimeout(() => {
         this.$('.add-subtask-item').last().click();
       }, 100);
@@ -34,7 +52,7 @@ BlazeComponent.extendComponent({
   deleteSubtask() {
     const subtask = this.currentData().subtask;
     if (subtask && subtask._id) {
-      Subtasks.remove(subtask._id);
+      Cards.remove(subtask._id);
       this.toggleDeleteDialog.set(false);
     }
   },

@@ -151,6 +151,16 @@ Boards.attachSchema(new SimpleSchema({
     type: String,
     optional: true,
   },
+  subtasksDefaultBoardId: {
+    type: String,
+    optional: true,
+    defaultValue: null,
+  },
+  subtasksDefaultListId: {
+    type: String,
+    optional: true,
+    defaultValue: null,
+  },
 }));
 
 
@@ -284,7 +294,51 @@ Boards.helpers({
 
     return Cards.find(query, projection);
   },
+  // A board alwasy has another board where it deposits subtasks of thasks
+  // that belong to itself.
+  getDefaultSubtasksBoardId() {
+    if (this.subtasksDefaultBoardId === null) {
+      this.subtasksDefaultBoardId = Boards.insert({
+        title: `^${this.title}^`,
+        permission: this.permission,
+        members: this.members,
+        color: this.color,
+        description: TAPi18n.__('default-subtasks-board', {board: this.title}),
+      });
+
+      Swimlanes.insert({
+        title: TAPi18n.__('default'),
+        boardId: this.subtasksDefaultBoardId,
+      });
+      Boards.update(this._id, {$set: {
+        subtasksDefaultBoardId: this.subtasksDefaultBoardId,
+      }});
+    }
+    return this.subtasksDefaultBoardId;
+  },
+
+  getDefaultSubtasksBoard() {
+    return Boards.findOne(this.getDefaultSubtasksBoardId());
+  },
+
+  getDefaultSubtasksListId() {
+    if (this.subtasksDefaultListId === null) {
+      this.subtasksDefaultListId = Lists.insert({
+        title: TAPi18n.__('new'),
+        boardId: this._id,
+      });
+      Boards.update(this._id, {$set: {
+        subtasksDefaultListId: this.subtasksDefaultListId,
+      }});
+    }
+    return this.subtasksDefaultListId;
+  },
+
+  getDefaultSubtasksList() {
+    return Lists.findOne(this.getDefaultSubtasksListId());
+  },
 });
+
 
 Boards.mutations({
   archive() {
