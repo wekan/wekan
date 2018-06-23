@@ -14,7 +14,7 @@ jobs:
       - run: |
           if [ -z $CI_PULL_REQUEST ]
           then
-            version=1.$CIRCLE_BUILD_NUM-0.74-ci
+            version=2.$CIRCLE_BUILD_NUM-0.74-ci
             docker tag dpoz/wekan:latest dpoz/wekan:$version
             docker push dpoz/wekan
           fi

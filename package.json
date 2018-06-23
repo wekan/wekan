@@ -23,6 +23,7 @@
     "eslint": "^2.0.0"
   },
   "dependencies": {
+    "@babel/runtime": "^7.0.0-beta.51",
     "babel-runtime": "^6.23.0",
     "bcrypt": "^1.0.3",
     "bson-ext": "^1.0.5",
