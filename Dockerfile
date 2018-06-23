@@ -104,7 +104,7 @@ RUN \
     cd /home/wekan/.meteor && \
     gosu wekan:wekan /home/wekan/.meteor/meteor -- help; \
     # Reset docker-friendly version of meteor files
-    cp /home/wekan/app/.meteor/docker/* /home/wekan/app/.meteor && \
+    cp /home/wekan/app/.meteor/docker/* /home/wekan/app/.meteor -v && \
     # Build app
     cd /home/wekan/app && \
     gosu wekan:wekan /home/wekan/.meteor/meteor add standard-minifier-js && \
