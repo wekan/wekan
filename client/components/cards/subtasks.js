@@ -52,7 +52,7 @@ BlazeComponent.extendComponent({
   deleteSubtask() {
     const subtask = this.currentData().subtask;
     if (subtask && subtask._id) {
-      Cards.remove(subtask._id);
+      subtask.archive();
       this.toggleDeleteDialog.set(false);
     }
   },
