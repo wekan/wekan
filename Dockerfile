@@ -103,7 +103,8 @@ RUN \
     sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' /home/wekan/app/packages/meteor-useraccounts-core/package.js && \
     cd /home/wekan/.meteor && \
     gosu wekan:wekan /home/wekan/.meteor/meteor -- help; \
-    \
+    # Reset docker-friendly version of meteor files
+    cp /home/wekan/app/.meteor/docker/* /home/wekan/app/.meteor && \
     # Build app
     cd /home/wekan/app && \
     gosu wekan:wekan /home/wekan/.meteor/meteor add standard-minifier-js && \
