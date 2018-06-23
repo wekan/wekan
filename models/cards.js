@@ -127,6 +127,12 @@ Cards.attachSchema(new SimpleSchema({
     type: Number,
     decimal: true,
   },
+  subtaskSort: {
+    type: Number,
+    decimal: true,
+    defaultValue: -1,
+    optional: true,
+  },
 }));
 
 Cards.allow({

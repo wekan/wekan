@@ -62,7 +62,7 @@ class Exporter {
     result.cards.forEach((card) => {
       result.checklists.push(...Checklists.find({ cardId: card._id }).fetch());
       result.checklistItems.push(...ChecklistItems.find({ cardId: card._id }).fetch());
-      result.subtaskItems.push(...Subtasks.find({ cardId: card._id }).fetch());
+      result.subtaskItems.push(...Cards.find({ parentid: card._id }).fetch());
     });
 
     // [Old] for attachments we only export IDs and absolute url to original doc

@@ -136,7 +136,7 @@ BlazeComponent.extendComponent({
 
         Subtasks.update(subtask._id, {
           $set: {
-            sort: sortIndex.base,
+            subtaskSort: sortIndex.base,
           },
         });
       },
@@ -449,13 +449,13 @@ Template.copyCardPopup.events({
       });
 
       // copy subtasks
-      cursor = Subtasks.find({cardId: oldId});
+      cursor = Cards.find({parentId: oldId});
       cursor.forEach(function() {
         'use strict';
         const subtask = arguments[0];
-        subtask.cardId = _id;
+        subtask.parentId = _id;
         subtask._id = null;
-        /* const newSubtaskId = */ Subtasks.insert(subtask);
+        /* const newSubtaskId = */ Cards.insert(subtask);
       });
 
       // copy card comments
@@ -509,13 +509,13 @@ Template.copyChecklistToManyCardsPopup.events({
         });
 
         // copy subtasks
-        cursor = Subtasks.find({cardId: oldId});
+        cursor = Cards.find({parentId: oldId});
         cursor.forEach(function() {
           'use strict';
           const subtask = arguments[0];
-          subtask.cardId = _id;
+          subtask.parentId = _id;
           subtask._id = null;
-          /* const newSubtaskId = */ Subtasks.insert(subtask);
+          /* const newSubtaskId = */ Cards.insert(subtask);
         });
 
         // copy card comments
