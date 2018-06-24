@@ -88,6 +88,17 @@ BlazeComponent.extendComponent({
         }
         this.toggleDeleteDialog.set(!this.toggleDeleteDialog.get());
       },
+      'click .js-view-subtask'(event) {
+        if($(event.target).hasClass('js-view-subtask')){
+          const subtask = this.currentData().subtask;
+          const board = subtask.board();
+          FlowRouter.go('card', {
+            boardId: board._id,
+            slug: board.slug,
+            cardId: subtask._id,
+          });
+        }
+      },
     };
 
     return [{

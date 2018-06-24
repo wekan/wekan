@@ -24,6 +24,7 @@ template(name="subtaskDetail")
     else
       .subtask-title
         span
+        a.js-view-subtask(title="{{ subtask.title }}") {{_ "view-it"}}
         if canModifyCard
           a.js-delete-subtask.toggle-delete-subtask-dialog {{_ "delete"}}...
 
