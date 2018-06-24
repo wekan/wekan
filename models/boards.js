@@ -324,7 +324,7 @@ Boards.helpers({
   getDefaultSubtasksListId() {
     if (this.subtasksDefaultListId === null) {
       this.subtasksDefaultListId = Lists.insert({
-        title: TAPi18n.__('new'),
+        title: TAPi18n.__('queue'),
         boardId: this._id,
       });
       Boards.update(this._id, {$set: {
