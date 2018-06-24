@@ -481,5 +481,6 @@
     "boardDeletePopup-title": "Delete Board?",
     "delete-board": "Delete Board",
     "default-subtasks-board": "Subtasks for __board__ board",
-    "default": "Default"
+    "default": "Default",
+    "queue": "Queue"
 }
