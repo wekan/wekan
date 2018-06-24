@@ -74,7 +74,7 @@ template(name="checklistItems")
       +inlinedForm(classNames="js-edit-checklist-item" item = item checklist = checklist)
         +editChecklistItemForm(type = 'item' item = item checklist = checklist)
       else
-        +cjecklistItemDetail(item = item checklist = checklist)
+        +checklistItemDetail(item = item checklist = checklist)
     if canModifyCard
       +inlinedForm(autoclose=false classNames="js-add-checklist-item" checklist = checklist)
         +addChecklistItemForm
@@ -83,7 +83,7 @@ template(name="checklistItems")
           i.fa.fa-plus
           | {{_ 'add-checklist-item'}}...
 
-template(name='cjecklistItemDetail')
+template(name='checklistItemDetail')
   .js-checklist-item.checklist-item
     if canModifyCard
       .check-box.materialCheckBox(class="{{#if item.isFinished }}is-checked{{/if}}")
