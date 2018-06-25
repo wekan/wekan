@@ -297,7 +297,7 @@ Boards.helpers({
   // A board alwasy has another board where it deposits subtasks of thasks
   // that belong to itself.
   getDefaultSubtasksBoardId() {
-    if (this.subtasksDefaultBoardId === null) {
+    if ((this.subtasksDefaultBoardId === null) || (this.subtasksDefaultBoardId === undefined)) {
       this.subtasksDefaultBoardId = Boards.insert({
         title: `^${this.title}^`,
         permission: this.permission,
@@ -322,7 +322,7 @@ Boards.helpers({
   },
 
   getDefaultSubtasksListId() {
-    if (this.subtasksDefaultListId === null) {
+    if ((this.subtasksDefaultListId === null) || (this.subtasksDefaultListId === undefined)) {
       this.subtasksDefaultListId = Lists.insert({
         title: TAPi18n.__('queue'),
         boardId: this._id,
