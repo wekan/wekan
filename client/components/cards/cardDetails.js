@@ -70,6 +70,14 @@ BlazeComponent.extendComponent({
     }
   },
 
+  presentParentTask() {
+    let result = this.currentBoard.presentParentTask;
+    if ((result === null) || (result === undefined)) {
+      result = 'no-parent';
+    }
+    return result;
+  },
+
   onRendered() {
     if (!Utils.isMiniScreen()) this.scrollParentContainer();
     const $checklistsDom = this.$('.card-checklist-items');

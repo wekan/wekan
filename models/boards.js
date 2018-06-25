@@ -165,6 +165,18 @@ Boards.attachSchema(new SimpleSchema({
     type: Boolean,
     defaultValue: true,
   },
+  presentParentTask: {
+    type: String,
+    allowedValues: [
+      'prefix-with-full-path',
+      'prefix-with-parent',
+      'subtext-with-full-path',
+      'subtext-with-parent',
+      'no-parent',
+    ],
+    optional: true,
+    defaultValue: 'no-parent',
+  },
 }));
 
 
@@ -488,6 +500,10 @@ Boards.mutations({
 
   setSubtasksDefaultListId(subtasksDefaultListId) {
     return { $set: { subtasksDefaultListId } };
+  },
+
+  setPresentParentTask(presentParentTask) {
+    return { $set: { presentParentTask } };
   },
 });
 

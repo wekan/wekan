@@ -326,6 +326,59 @@ Cards.helpers({
     return Cards.findOne(this.parentId);
   },
 
+  parentCardName() {
+    if (this.parentId === '') {
+      return '';
+    }
+    return Cards.findOne(this.parentId).title;
+  },
+
+  parentListId() {
+    const result = [];
+    let crtParentId = this.parentId;
+    while (crtParentId !== '') {
+      const crt = Cards.findOne(crtParentId);
+      if ((crt === null) || (crt === undefined)) {
+        // maybe it has been deleted
+        break;
+      }
+      if (crtParentId in result) {
+        // circular reference
+        break;
+      }
+      result.unshift(crtParentId);
+      crtParentId = crt.parentId;
+    }
+    return result;
+  },
+
+  parentList() {
+    const resultId = [];
+    const result = [];
+    let crtParentId = this.parentId;
+    while (crtParentId !== '') {
+      const crt = Cards.findOne(crtParentId);
+      if ((crt === null) || (crt === undefined)) {
+        // maybe it has been deleted
+        break;
+      }
+      if (crtParentId in resultId) {
+        // circular reference
+        break;
+      }
+      resultId.unshift(crtParentId);
+      result.unshift(crt);
+      crtParentId = crt.parentId;
+    }
+    return result;
+  },
+
+  parentString(sep) {
+    return this.parentList().map(function(elem){
+      return elem.title;
+    }).join(sep);
+  },
+
   isTopLevel() {
     return this.parentId === '';
   },

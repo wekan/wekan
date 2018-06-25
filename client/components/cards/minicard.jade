@@ -8,7 +8,21 @@ template(name="minicard")
           .minicard-label(class="card-label-{{color}}" title="{{name}}")
     .minicard-title
       +viewer
-        = title
+        if isTopLevel
+          = title
+        else
+          if $eq 'prefix-with-full-path' currentBoard.presentParentTask
+            [{{ parentString ' &gt; ' }}] {{ title }}
+          else
+            if $eq 'prefix-with-parent' currentBoard.presentParentTask
+              [{{ parentCardName }}] {{ title }}
+            else
+              = title
+    if $eq 'subtext-with-full-path' currentBoard.presentParentTask
+      .small {{ parentString ' &gt; ' }}
+    if $eq 'subtext-with-parent' currentBoard.presentParentTask
+      .small {{ parentCardName }}
+
     .dates
       if receivedAt
         unless startAt

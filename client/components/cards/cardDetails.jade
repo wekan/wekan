@@ -13,6 +13,12 @@ template(name="cardDetails")
               = title
               if isWatching
                 i.fa.fa-eye.card-details-watch
+        .card-details-path
+          each parentList
+            | &nbsp; &gt; &nbsp;
+            a.js-parent-card {{title}}
+          // else
+            {{_ 'top-level-card'}}
 
     if archived
       p.warning {{_ 'card-archived'}}

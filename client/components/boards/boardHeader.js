@@ -195,6 +195,14 @@ BlazeComponent.extendComponent({
     return this.currentBoard.subtasksDefaultBoardId === this.currentData()._id;
   },
 
+  presentParentTask() {
+    let result = this.currentBoard.presentParentTask;
+    if ((result === null) || (result === undefined)) {
+      result = 'no-parent';
+    }
+    return result;
+  },
+
   events() {
     return [{
       'click .js-field-has-subtasks'(evt) {
@@ -215,6 +223,25 @@ BlazeComponent.extendComponent({
       },
       'change .js-field-deposit-list'(evt) {
         this.currentBoard.setSubtasksDefaultListId(evt.target.value);
+        evt.preventDefault();
+      },
+      'click .js-field-show-parent-in-minicard'(evt) {
+        const value = evt.target.id || $(evt.target).parent()[0].id ||  $(evt.target).parent()[0].parent()[0].id;
+        const options = [
+          'prefix-with-full-path',
+          'prefix-with-parent',
+          'subtext-with-full-path',
+          'subtext-with-parent',
+          'no-parent'];
+        options.forEach(function(element) {
+          if (element !== value) {
+            $(`#${element} .materialCheckBox`).toggleClass('is-checked', false);
+            $(`#${element}`).toggleClass('is-checked', false);
+          }
+        });
+        $(`#${value} .materialCheckBox`).toggleClass('is-checked', true);
+        $(`#${value}`).toggleClass('is-checked', true);
+        this.currentBoard.setPresentParentTask(value);
         evt.preventDefault();
       },
     }];

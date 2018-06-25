@@ -294,7 +294,19 @@ Migrations.add('add-subtasks-allowed', () => {
     },
   }, {
     $set: {
-      allowsSubtasks: -1,
+      allowsSubtasks: true,
+    },
+  }, noValidateMulti);
+});
+
+Migrations.add('add-subtasks-allowed', () => {
+  Boards.update({
+    presentParentTask: {
+      $exists: false,
+    },
+  }, {
+    $set: {
+      presentParentTask: 'no-parent',
     },
   }, noValidateMulti);
 });
