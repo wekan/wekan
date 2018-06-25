@@ -337,6 +337,18 @@ Boards.helpers({
   getDefaultSubtasksList() {
     return Lists.findOne(this.getDefaultSubtasksListId());
   },
+
+  getDefaultSwimline() {
+    let result = Swimlanes.findOne({boardId: this._id});
+    if (result === undefined) {
+      Swimlanes.insert({
+        title: TAPi18n.__('default'),
+        boardId: this._id,
+      });
+      result = Swimlanes.findOne({boardId: this._id});
+    }
+    return result;
+  },
 });
 
 

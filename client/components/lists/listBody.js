@@ -46,7 +46,7 @@ BlazeComponent.extendComponent({
     if (boardView === 'board-view-swimlanes')
       swimlaneId = this.parentComponent().parentComponent().data()._id;
     else if (boardView === 'board-view-lists')
-      swimlaneId = Swimlanes.findOne({boardId})._id;
+      swimlaneId = this.data().board().getDefaultSwimline()._id;
 
     if (title) {
       const _id = Cards.insert({
