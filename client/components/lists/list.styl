@@ -9,17 +9,13 @@
   // Even if this background color is the same as the body we can't leave it
   // transparent, because that won't work during a list drag.
   background: darken(white, 13%)
-  border-left: 1px solid darken(white, 20%)
-  border-bottom: 1px solid #CCC
   padding: 0
   float: left
 
   &:first-child
     margin-left: 5px
-    border-left: none
 
   .card-details + &
-    border-left: none
 
   &.ui-sortable-helper
     box-shadow: -2px 2px 8px rgba(0, 0, 0, .3),
@@ -32,7 +28,6 @@
 
   &.placeholder
     background-color: rgba(0, 0, 0, .2)
-    border-color: transparent
     box-shadow: none
     height: 100px
 
@@ -147,20 +142,15 @@
     flex: 0 0 60px
     height: 60px
     width: 100%
-    border-left: 0px
-    border-bottom: 1px solid darken(white, 20%)
 
   .list
     display: block
     width: 100%
-    border-left: 0px
 
     &.ui-sortable-helper
       flex: 0 0 60px
       height: 60px
       width: 100%
-      border-left: 0px
-      border-bottom: 1px solid darken(white, 20%)
 
       .list-header.ui-sortable-handle
         cursor: grabbing
@@ -169,8 +159,6 @@
       flex: 0 0 60px
       height: 60px
       width: 100%
-      border-left: 0px
-      border-bottom: 1px solid darken(white, 20%)
 
   .list-header
 
