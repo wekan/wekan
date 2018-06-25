@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+* [Fix typo in English translation](https://github.com/wekan/wekan/commit/c94edb6bb01933f6dae2cfb61bef0d43d7588414).
+
+Thanks to GitHub user zypA13510 for contributions.
+
 # v1.07 2018-06-14 Wekan release
 
 This release adds the following new features:
