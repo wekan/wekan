@@ -1,3 +1,20 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+* [Add more card inner shadow](https://github.com/wekan/wekan/commit/6a587299b80a49fce0789628ff65885b5ed2c837);
+* [Less margin-bottom after minicard](https://github.com/wekan/wekan/pull/1713);
+
+and fixes the following bugs:
+
+* [Fix typo in English translation](https://github.com/wekan/wekan/pull/1710);
+* [Fix vertical align of user avatar initials](https://github.com/wekan/wekan/pull/1714);
+* [Submit inline form on click outside]https://github.com/wekan/wekan/pull/1717), fixes
+  ["You have an unsaved description" doesn't go away after saving](https://github.com/wekan/wekan/issues/1287);
+* [Fix "Error: title is required" by removing find() from all of migrations](https://github.com/wekan/wekan/commit/97922c90cb42be6c6615639bb164173748982f56).
+
+Thanks to GitHub users pravdomil, xet7 and zypA13510 for their contributions.
+
 # v1.07 2018-06-14 Wekan release
 
 This release adds the following new features:
