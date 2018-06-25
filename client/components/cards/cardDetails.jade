@@ -144,8 +144,9 @@ template(name="cardDetails")
     hr
     +checklists(cardId = _id)
 
-    hr
-    +subtasks(cardId = _id)
+    if currentBoard.allowsSubtasks
+      hr
+      +subtasks(cardId = _id)
 
     hr
     h3

@@ -30,6 +30,7 @@ BlazeComponent.extendComponent({
         sort: sortIndex,
         swimlaneId,
       });
+
       // In case the filter is active we need to add the newly inserted card in
       // the list of exceptions -- cards that are not filtered. Otherwise the
       // card will disappear instantly.

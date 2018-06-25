@@ -161,6 +161,10 @@ Boards.attachSchema(new SimpleSchema({
     optional: true,
     defaultValue: null,
   },
+  allowsSubtasks: {
+    type: Boolean,
+    defaultValue: true,
+  },
 }));
 
 
@@ -472,6 +476,18 @@ Boards.mutations({
         [`members.${memberIndex}.isCommentOnly`]: isCommentOnly,
       },
     };
+  },
+
+  setAllowsSubtasks(allowsSubtasks) {
+    return { $set: { allowsSubtasks } };
+  },
+
+  setSubtasksDefaultBoardId(subtasksDefaultBoardId) {
+    return { $set: { subtasksDefaultBoardId } };
+  },
+
+  setSubtasksDefaultListId(subtasksDefaultListId) {
+    return { $set: { subtasksDefaultListId } };
   },
 });
 

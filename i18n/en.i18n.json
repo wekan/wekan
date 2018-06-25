@@ -482,5 +482,10 @@
     "delete-board": "Delete Board",
     "default-subtasks-board": "Subtasks for __board__ board",
     "default": "Default",
-    "queue": "Queue"
+    "queue": "Queue",
+    "subtask-settings": "Subtasks Settings",
+    "boardSubtaskSettingsPopup-title": "Board Subtasks Settings",
+    "show-subtasks-field": "Cards can have subtasks:",
+    "deposit-subtasks-board": "Deposit subtasks to this board:",
+    "deposit-subtasks-list": "Landing list for subtasks deposited here:"
 }

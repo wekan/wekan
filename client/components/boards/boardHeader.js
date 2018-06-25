@@ -25,6 +25,7 @@ Template.boardMenuPopup.events({
   }),
   'click .js-outgoing-webhooks': Popup.open('outgoingWebhooks'),
   'click .js-import-board': Popup.open('chooseBoardSource'),
+  'click .js-subtask-settings': Popup.open('boardSubtaskSettings'),
 });
 
 Template.boardMenuPopup.helpers({
@@ -150,6 +151,75 @@ BlazeComponent.extendComponent({
     }];
   },
 }).register('boardChangeColorPopup');
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.currentBoard = Boards.findOne(Session.get('currentBoard'));
+  },
+
+  allowsSubtasks() {
+    return this.currentBoard.allowsSubtasks;
+  },
+
+  isBoardSelected() {
+    return this.currentBoard.subtasksDefaultBoardId === this.currentData()._id;
+  },
+
+  isNullBoardSelected() {
+    return (this.currentBoard.subtasksDefaultBoardId === null) || (this.currentBoard.subtasksDefaultBoardId === undefined);
+  },
+
+  boards() {
+    return Boards.find({
+      archived: false,
+      'members.userId': Meteor.userId(),
+    }, {
+      sort: ['title'],
+    });
+  },
+
+  lists() {
+    return Lists.find({
+      boardId: this.currentBoard._id,
+      archived: false,
+    }, {
+      sort: ['title'],
+    });
+  },
+
+  hasLists() {
+    return this.lists().count() > 0;
+  },
+
+  isListSelected() {
+    return this.currentBoard.subtasksDefaultBoardId === this.currentData()._id;
+  },
+
+  events() {
+    return [{
+      'click .js-field-has-subtasks'(evt) {
+        evt.preventDefault();
+        this.currentBoard.allowsSubtasks = !this.currentBoard.allowsSubtasks;
+        this.currentBoard.setAllowsSubtasks(this.currentBoard.allowsSubtasks);
+        $('.js-field-has-subtasks .materialCheckBox').toggleClass('is-checked', this.currentBoard.allowsSubtasks);
+        $('.js-field-has-subtasks').toggleClass('is-checked', this.currentBoard.allowsSubtasks);
+        $('.js-field-deposit-board').prop('disabled', !this.currentBoard.allowsSubtasks);
+      },
+      'change .js-field-deposit-board'(evt) {
+        let value = evt.target.value;
+        if (value === 'null') {
+          value = null;
+        }
+        this.currentBoard.setSubtasksDefaultBoardId(value);
+        evt.preventDefault();
+      },
+      'change .js-field-deposit-list'(evt) {
+        this.currentBoard.setSubtasksDefaultListId(evt.target.value);
+        evt.preventDefault();
+      },
+    }];
+  },
+}).register('boardSubtaskSettingsPopup');
 
 const CreateBoard = BlazeComponent.extendComponent({
   template() {

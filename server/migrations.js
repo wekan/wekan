@@ -287,3 +287,15 @@ Migrations.add('add-subtasks-sort', () => {
   }, noValidateMulti);
 });
 
+Migrations.add('add-subtasks-allowed', () => {
+  Boards.update({
+    allowsSubtasks: {
+      $exists: false,
+    },
+  }, {
+    $set: {
+      allowsSubtasks: -1,
+    },
+  }, noValidateMulti);
+});
+

@@ -258,7 +258,7 @@ Cards.helpers({
     return finishCount > 0 && this.subtasksCount() === finishCount;
   },
 
-  hasSubtasks() {
+  allowsSubtasks() {
     return this.subtasksCount() !== 0;
   },
 

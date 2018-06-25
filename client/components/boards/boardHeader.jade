@@ -130,6 +130,10 @@ template(name="boardMenuPopup")
         li: a(href="{{exportUrl}}", download="{{exportFilename}}") {{_ 'export-board'}}
         li: a.js-archive-board {{_ 'archive-board'}}
         li: a.js-outgoing-webhooks {{_ 'outgoing-webhooks'}}
+      hr
+      ul.pop-over-list
+        li: a.js-subtask-settings {{_ 'subtask-settings'}}
+
   if isSandstorm
     hr
     ul.pop-over-list
@@ -192,6 +196,33 @@ template(name="boardChangeColorPopup")
         span.background-box(class="board-color-{{this}}")
           if isSelected
             i.fa.fa-check
+
+template(name="boardSubtaskSettingsPopup")
+  form.board-subtask-settings
+    a.flex.js-field-has-subtasks(class="{{#if allowsSubtasks}}is-checked{{/if}}")
+      .materialCheckBox(class="{{#if allowsSubtasks}}is-checked{{/if}}")
+      span {{_ 'show-subtasks-field'}}
+    label
+      | {{_ 'deposit-subtasks-board'}}
+      select.js-field-deposit-board(disabled="{{#unless allowsSubtasks}}disabled{{/unless}}")
+          each boards
+            if isBoardSelected
+              option(value=_id selected="selected") {{title}}
+            else
+              option(value=_id) {{title}}
+          if isNullBoardSelected
+            option(value='null' selected="selected") {{_ 'custom-field-dropdown-none'}}
+          else
+            option(value='null') {{_ 'custom-field-dropdown-none'}}
+    hr
+    label
+      | {{_ 'deposit-subtasks-list'}}
+      select.js-field-deposit-list(disabled="{{#unless hasLists}}disabled{{/unless}}")
+          each lists
+            if isListSelected
+              option(value=_id selected="selected") {{title}}
+            else
+              option(value=_id) {{title}}
 
 template(name="createBoard")
   form
