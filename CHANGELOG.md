@@ -1,11 +1,16 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+* [Add more card inner shadow](https://github.com/wekan/wekan/commit/6a587299b80a49fce0789628ff65885b5ed2c837);
+* [Less margin-bottom after minicard](https://github.com/wekan/wekan/pull/1713);
+
+and fixes the following bugs:
 
 * [Fix typo in English translation](https://github.com/wekan/wekan/pull/1710);
 * [Fix vertical align of user avatar initials](https://github.com/wekan/wekan/pull/1714).
 
-Thanks to GitHub users pravdomil and zypA13510 for their contributions.
+Thanks to GitHub users pravdomil, xet7 and zypA13510 for their contributions.
 
 # v1.07 2018-06-14 Wekan release
 
