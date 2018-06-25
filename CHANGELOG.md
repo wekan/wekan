@@ -2,9 +2,10 @@
 
 This release fixes the following bugs:
 
-* [Fix typo in English translation](https://github.com/wekan/wekan/commit/c94edb6bb01933f6dae2cfb61bef0d43d7588414).
+* [Fix typo in English translation](https://github.com/wekan/wekan/pull/1710);
+* [Fix vertical align of user avatar initials](https://github.com/wekan/wekan/pull/1714).
 
-Thanks to GitHub user zypA13510 for contributions.
+Thanks to GitHub users pravdomil and zypA13510 for their contributions.
 
 # v1.07 2018-06-14 Wekan release
 
