@@ -823,9 +823,9 @@ if (Meteor.isServer) {
     }
   });
 
-  JsonRoutes.add('GET', '/api/boards/:id', function (req, res) {
+  JsonRoutes.add('GET', '/api/boards/:boardId', function (req, res) {
     try {
-      const id = req.params.id;
+      const id = req.params.boardId;
       Authentication.checkBoardAccess(req.userId, id);
 
       JsonRoutes.sendResult(res, {
@@ -878,10 +878,10 @@ if (Meteor.isServer) {
     }
   });
 
-  JsonRoutes.add('DELETE', '/api/boards/:id', function (req, res) {
+  JsonRoutes.add('DELETE', '/api/boards/:boardId', function (req, res) {
     try {
       Authentication.checkUserId(req.userId);
-      const id = req.params.id;
+      const id = req.params.boardId;
       Boards.remove({ _id: id });
       JsonRoutes.sendResult(res, {
         code: 200,
@@ -898,9 +898,9 @@ if (Meteor.isServer) {
     }
   });
 
-  JsonRoutes.add('PUT', '/api/boards/:id/labels', function (req, res) {
+  JsonRoutes.add('PUT', '/api/boards/:boardId/labels', function (req, res) {
     Authentication.checkUserId(req.userId);
-    const id = req.params.id;
+    const id = req.params.boardId;
     try {
       if (req.body.hasOwnProperty('label')) {
         const board = Boards.findOne({ _id: id });
