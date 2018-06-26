@@ -98,6 +98,12 @@ BlazeComponent.extendComponent({
     return (currentUser.profile.boardView === 'board-view-lists');
   },
 
+  isViewCalendar() {
+    const currentUser = Meteor.user();
+    if (!currentUser) return true;
+    return (currentUser.profile.boardView === 'board-view-cal');
+  },
+
   openNewListForm() {
     if (this.isViewSwimlanes()) {
       this.childComponents('swimlane')[0]

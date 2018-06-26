@@ -45,7 +45,7 @@ BlazeComponent.extendComponent({
     const boardView = Meteor.user().profile.boardView;
     if (boardView === 'board-view-swimlanes')
       swimlaneId = this.parentComponent().parentComponent().data()._id;
-    else if (boardView === 'board-view-lists')
+    else if ((boardView === 'board-view-lists') || (boardView === 'board-view-cal'))
       swimlaneId = Swimlanes.findOne({boardId})._id;
 
     if (title) {

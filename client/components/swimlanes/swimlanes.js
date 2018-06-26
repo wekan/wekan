@@ -7,6 +7,8 @@ function currentCardIsInThisList(listId, swimlaneId) {
     return currentCard && currentCard.listId === listId;
   else if (currentUser.profile.boardView === 'board-view-swimlanes')
     return currentCard && currentCard.listId === listId && currentCard.swimlaneId === swimlaneId;
+  else if (currentUser.profile.boardView === 'board-view-cal')
+    return currentCard;
   else
     return false;
 }
