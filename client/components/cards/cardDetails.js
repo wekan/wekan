@@ -20,10 +20,11 @@ BlazeComponent.extendComponent({
   },
 
   onCreated() {
+    this.currentBoard = Boards.findOne(Session.get('currentBoard'));
     this.isLoaded = new ReactiveVar(false);
     const boardBody =  this.parentComponent().parentComponent();
     //in Miniview parent is Board, not BoardBody.
-    if (boardBody !== null){
+    if (boardBody !== null) {
       boardBody.showOverlay.set(true);
       boardBody.mouseHasEnterCardDetails = false;
     }
@@ -74,6 +75,22 @@ BlazeComponent.extendComponent({
     let result = this.currentBoard.presentParentTask;
     if ((result === null) || (result === undefined)) {
       result = 'no-parent';
+    }
+    return result;
+  },
+
+  linkForCard() {
+    const card = this.currentData();
+    let result = '#';
+    if (card) {
+      const board = Boards.findOne(card.boardId);
+      if (board) {
+        result = FlowRouter.url('card', {
+          boardId: card.boardId,
+          slug: board.slug,
+          cardId: card._id,
+        });
+      }
     }
     return result;
   },

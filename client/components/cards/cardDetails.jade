@@ -16,7 +16,7 @@ template(name="cardDetails")
         .card-details-path
           each parentList
             | &nbsp; &gt; &nbsp;
-            a.js-parent-card {{title}}
+            a.js-parent-card(href=linkForCard) {{title}}
           // else
             {{_ 'top-level-card'}}
 
