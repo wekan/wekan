@@ -114,6 +114,62 @@ BlazeComponent.extendComponent({
     }
   },
 
+  calendarOptions() {
+    return {
+      id: 'calendar-view',
+      defaultView: 'basicWeek',
+      header: {
+        left: 'title',
+        center: 'agendaDay,listDay,timelineDay agendaWeek,listWeek,timelineWeek month,timelineMonth timelineYear',
+        right: 'today prev,next',
+      },
+      views: {
+        basic: {
+          // options apply to basicWeek and basicDay views
+        },
+        agenda: {
+          // options apply to agendaWeek and agendaDay views
+        },
+        week: {
+          // options apply to basicWeek and agendaWeek views
+        },
+        day: {
+          // options apply to basicDay and agendaDay views
+        },
+      },
+      themeSystem: 'jquery-ui',
+      height: 'parent',
+      /* TODO: lists as resources: https://fullcalendar.io/docs/vertical-resource-view */
+      navLinks: true,
+      nowIndicator: true,
+      businessHours: {
+        // days of week. an array of zero-based day of week integers (0=Sunday)
+        dow: [ 1, 2, 3, 4, 5 ], // Monday - Thursday
+        start: '8:00',
+        end: '18:00',
+      },
+      locale: TAPi18n.getLanguage(),
+      events(start, end, timezone, callback) {
+        const currentBoard = Boards.findOne(Session.get('currentBoard'));
+        const events = [];
+        currentBoard.cardsInInterval(start.toDate(), end.toDate()).forEach(function(card){
+          events.push({
+            id: card.id,
+            title: card.title,
+            start: card.startAt,
+            end: card.endAt,
+            url: FlowRouter.url('card', {
+              boardId: currentBoard._id,
+              slug: currentBoard.slug,
+              cardId: card._id,
+            }),
+          });
+        });
+        callback(events);
+      },
+    };
+  },
+
   events() {
     return [{
       // XXX The board-overlay div should probably be moved to the parent
