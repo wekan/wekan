@@ -9,7 +9,7 @@ and fixes the following bugs:
 
 * [Fix typo in English translation](https://github.com/wekan/wekan/pull/1710);
 * [Fix vertical align of user avatar initials](https://github.com/wekan/wekan/pull/1714);
-* [Submit inline form on click outside]https://github.com/wekan/wekan/pull/1717), fixes
+* [Submit inline form on click outside](https://github.com/wekan/wekan/pull/1717), fixes
   ["You have an unsaved description" doesn't go away after saving](https://github.com/wekan/wekan/issues/1287);
 * [Fix "Error: title is required" by removing find() from all of migrations](https://github.com/wekan/wekan/commit/97922c90cb42be6c6615639bb164173748982f56).
 
