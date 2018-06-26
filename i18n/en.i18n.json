@@ -492,7 +492,7 @@
     "prefix-with-full-path": "Prefix with full path",
     "prefix-with-parent": "Prefix with parent",
     "subtext-with-full-path": "Subtext with full path",
-    "subtext-with-parent": "Subtext with full parent",
+    "subtext-with-parent": "Subtext with parent",
     "no-parent": "Don't show parent"
 
 }

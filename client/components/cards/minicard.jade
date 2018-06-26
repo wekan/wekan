@@ -7,21 +7,20 @@ template(name="minicard")
         each labels
           .minicard-label(class="card-label-{{color}}" title="{{name}}")
     .minicard-title
+      if $eq 'prefix-with-full-path' currentBoard.presentParentTask
+        .parent-prefix
+          | {{ parentString ' > ' }}
+      if $eq 'prefix-with-parent' currentBoard.presentParentTask
+        .parent-prefix
+          | {{ parentCardName }}
       +viewer
-        if isTopLevel
-          = title
-        else
-          if $eq 'prefix-with-full-path' currentBoard.presentParentTask
-            [{{ parentString ' &gt; ' }}] {{ title }}
-          else
-            if $eq 'prefix-with-parent' currentBoard.presentParentTask
-              [{{ parentCardName }}] {{ title }}
-            else
-              = title
-    if $eq 'subtext-with-full-path' currentBoard.presentParentTask
-      .small {{ parentString ' &gt; ' }}
-    if $eq 'subtext-with-parent' currentBoard.presentParentTask
-      .small {{ parentCardName }}
+        {{ title }}
+      if $eq 'subtext-with-full-path' currentBoard.presentParentTask
+        .parent-subtext
+          | {{ parentString ' > ' }}
+      if $eq 'subtext-with-parent' currentBoard.presentParentTask
+        .parent-subtext
+          | {{ parentCardName }}
 
     .dates
       if receivedAt
