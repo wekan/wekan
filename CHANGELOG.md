@@ -3,7 +3,7 @@
 This release adds the following new features:
 
 * [Add more card inner shadow](https://github.com/wekan/wekan/commit/6a587299b80a49fce0789628ff65885b5ed2c837);
-* [Less margin-bottom after minicard](https://github.com/wekan/wekan/pull/1713);
+* [Less margin-bottom after minicard](https://github.com/wekan/wekan/pull/1713).
 
 and fixes the following bugs:
 
