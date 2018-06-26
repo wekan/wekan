@@ -493,6 +493,9 @@
     "prefix-with-parent": "Prefix with parent",
     "subtext-with-full-path": "Subtext with full path",
     "subtext-with-parent": "Subtext with parent",
+    "change-card-parent": "Change card's parent",
+    "parent-card": "Parent card",
+    "source-board": "Source board",
     "no-parent": "Don't show parent"
 
 }

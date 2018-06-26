@@ -283,9 +283,36 @@ template(name="cardMorePopup")
       button.js-copy-card-link-to-clipboard(class="btn") {{_ 'copy-card-link-to-clipboard'}}
     span.clearfix
     br
+    h2 {{_ 'change-card-parent'}}
+    label {{_ 'source-board'}}:
+      select.js-field-parent-board
+        each boards
+          if isParentBoard
+            option(value="{{_id}}" selected) {{title}}
+          else
+            option(value="{{_id}}") {{title}}
+        if isTopLevel
+          option(value="none" selected) {{_ 'custom-field-dropdown-none'}}
+        else
+          option(value="none") {{_ 'custom-field-dropdown-none'}}
+
+    label {{_ 'parent-card'}}:
+      select.js-field-parent-card
+        if isTopLevel
+          option(value="none" selected) {{_ 'custom-field-dropdown-none'}}
+        else
+          each cards
+            if isParentCard
+              option(value="{{_id}}" selected) {{title}}
+            else
+              option(value="{{_id}}") {{title}}
+          option(value="none") {{_ 'custom-field-dropdown-none'}}
+    br
     | {{_ 'added'}}
     span.date(title=card.createdAt) {{ moment createdAt 'LLL' }}
     a.js-delete(title="{{_ 'card-delete-notice'}}") {{_ 'delete'}}
+
+
 
 template(name="cardDeletePopup")
   p {{_ "card-delete-pop"}}

@@ -327,10 +327,14 @@ Cards.helpers({
   },
 
   parentCardName() {
-    if (this.parentId === '') {
-      return '';
+    let result = '';
+    if (this.parentId !== '') {
+      const card = Cards.findOne(this.parentId);
+      if (card) {
+        result = card.title;
+      }
     }
-    return Cards.findOne(this.parentId).title;
+    return result;
   },
 
   parentListId() {
@@ -541,6 +545,11 @@ Cards.mutations({
   unsetSpentTime() {
     return {$unset: {spentTime: '', isOvertime: false}};
   },
+
+  setParentId(parentId) {
+    return {$set: {parentId}};
+  },
+
 });
 
 

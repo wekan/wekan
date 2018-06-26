@@ -390,7 +390,6 @@ Template.moveCardPopup.events({
     Popup.close();
   },
 });
-
 BlazeComponent.extendComponent({
   onCreated() {
     subManager.subscribe('board', Session.get('currentBoard'));
@@ -426,6 +425,7 @@ BlazeComponent.extendComponent({
     }];
   },
 }).register('boardsAndLists');
+
 
 function cloneCheckList(_id, checklist) {
   'use strict';
@@ -558,36 +558,119 @@ Template.copyChecklistToManyCardsPopup.events({
   },
 });
 
-
-Template.cardMorePopup.events({
-  'click .js-copy-card-link-to-clipboard' () {
-    // Clipboard code from:
-    // https://stackoverflow.com/questions/6300213/copy-selected-text-to-the-clipboard-without-using-flash-must-be-cross-browser
-    const StringToCopyElement = document.getElementById('cardURL');
-    StringToCopyElement.select();
-    if (document.execCommand('copy')) {
-      StringToCopyElement.blur();
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.currentCard = this.currentData();
+    this.parentCard = this.currentCard.parentCard();
+    if (this.parentCard) {
+      this.parentBoard = this.parentCard.board();
     } else {
-      document.getElementById('cardURL').selectionStart = 0;
-      document.getElementById('cardURL').selectionEnd = 999;
-      document.execCommand('copy');
-      if (window.getSelection) {
-        if (window.getSelection().empty) { // Chrome
-          window.getSelection().empty();
-        } else if (window.getSelection().removeAllRanges) { // Firefox
-          window.getSelection().removeAllRanges();
-        }
-      } else if (document.selection) { // IE?
-        document.selection.empty();
-      }
+      this.parentBoard = null;
     }
   },
-  'click .js-delete': Popup.afterConfirm('cardDelete', function () {
-    Popup.close();
-    Cards.remove(this._id);
-    Utils.goBoardId(this.boardId);
-  }),
-});
+
+  boards() {
+    const boards = Boards.find({
+      archived: false,
+      'members.userId': Meteor.userId(),
+    }, {
+      sort: ['title'],
+    });
+    return boards;
+  },
+
+  cards() {
+    if (this.parentBoard) {
+      return this.parentBoard.cards();
+    } else {
+      return [];
+    }
+  },
+
+  isParentBoard() {
+    const board = this.currentData();
+    if (this.parentBoard) {
+      return board._id === this.parentBoard;
+    }
+    return false;
+  },
+
+  isParentCard() {
+    const card = this.currentData();
+    if (this.parentCard) {
+      return card._id === this.parentCard;
+    }
+    return false;
+  },
+
+  setParentCardId(cardId) {
+    if (cardId === 'null') {
+      cardId = null;
+      this.parentCard = null;
+    } else {
+      this.parentCard = Cards.findOne(cardId);
+    }
+    this.currentCard.setParentId(cardId);
+  },
+
+  events() {
+    return [{
+      'click .js-copy-card-link-to-clipboard' () {
+        // Clipboard code from:
+        // https://stackoverflow.com/questions/6300213/copy-selected-text-to-the-clipboard-without-using-flash-must-be-cross-browser
+        const StringToCopyElement = document.getElementById('cardURL');
+        StringToCopyElement.select();
+        if (document.execCommand('copy')) {
+          StringToCopyElement.blur();
+        } else {
+          document.getElementById('cardURL').selectionStart = 0;
+          document.getElementById('cardURL').selectionEnd = 999;
+          document.execCommand('copy');
+          if (window.getSelection) {
+            if (window.getSelection().empty) { // Chrome
+              window.getSelection().empty();
+            } else if (window.getSelection().removeAllRanges) { // Firefox
+              window.getSelection().removeAllRanges();
+            }
+          } else if (document.selection) { // IE?
+            document.selection.empty();
+          }
+        }
+      },
+      'click .js-delete': Popup.afterConfirm('cardDelete', function () {
+        Popup.close();
+        Cards.remove(this._id);
+        Utils.goBoardId(this.boardId);
+      }),
+      'change .js-field-parent-board'(evt) {
+        const selection = $(evt.currentTarget).val();
+        const list = $('.js-field-parent-card');
+        list.empty();
+        if (selection === 'none') {
+          this.parentBoard = null;
+          list.prop('disabled', true);
+        } else {
+          this.parentBoard = Boards.findOne(selection);
+          this.parentBoard.cards().forEach(function(card) {
+            list.append(
+              $('<option></option>').val(card._id).html(card.title)
+            );
+          });
+          list.prop('disabled', false);
+        }
+        list.append(
+          `<option value='none' selected='selected'>${TAPi18n.__('custom-field-dropdown-none')}</option>`
+        );
+        this.setParentCardId('null');
+      },
+      'change .js-field-parent-card'(evt) {
+        const selection = $(evt.currentTarget).val();
+        this.setParentCardId(selection);
+      },
+    }];
+  },
+}).register('cardMorePopup');
+
 
 // Close the card details pane by pressing escape
 EscapeActions.register('detailsPane',
