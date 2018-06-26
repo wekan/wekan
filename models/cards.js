@@ -1457,7 +1457,10 @@ if (Meteor.isServer) {
       });
     }
     if (req.body.hasOwnProperty('labelIds')) {
-      const newlabelIds = req.body.labelIds;
+      let newlabelIds = req.body.labelIds;
+      if (_.isString(newlabelIds)) {
+        newlabelIds = [newlabelIds];
+      }
       Cards.direct.update({
         _id: paramCardId,
         listId: paramListId,
@@ -1515,7 +1518,10 @@ if (Meteor.isServer) {
         {$set: {customFields: newcustomFields}});
     }
     if (req.body.hasOwnProperty('members')) {
-      const newmembers = req.body.members;
+      let newmembers = req.body.members;
+      if (_.isString(newmembers)) {
+        newmembers = [newmembers];
+      }
       Cards.direct.update({_id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false},
         {$set: {members: newmembers}});
     }
