@@ -1,15 +1,17 @@
-# Upcoming Wekan release
+# v1.08 2018-06-27 Wekan release
 
 This release adds the following new features:
 
 * [Add more card inner shadow](https://github.com/wekan/wekan/commit/6a587299b80a49fce0789628ff65885b5ed2c837);
 * [Less margin-bottom after minicard](https://github.com/wekan/wekan/pull/1713);
+* Updated newest node fork binary from Sandstorm to Wekan, see https://releases.wekan.team/node.txt
+* Add Georgian language.
 
 and fixes the following bugs:
 
 * [Fix typo in English translation](https://github.com/wekan/wekan/pull/1710);
 * [Fix vertical align of user avatar initials](https://github.com/wekan/wekan/pull/1714);
-* [Submit inline form on click outside]https://github.com/wekan/wekan/pull/1717), fixes
+* [Submit inline form on click outside](https://github.com/wekan/wekan/pull/1717), fixes
   ["You have an unsaved description" doesn't go away after saving](https://github.com/wekan/wekan/issues/1287);
 * [Fix "Error: title is required" by removing find() from all of migrations](https://github.com/wekan/wekan/commit/97922c90cb42be6c6615639bb164173748982f56).
 
