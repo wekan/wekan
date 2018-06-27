@@ -7,7 +7,7 @@ This release adds the following new features:
 and fixes the following bugs:
 
 * To fix ["title is required"](https://github.com/wekan/wekan/issues/1576) fix only
-  add-checklist-items and revert all other migration changes](https://github.com/wekan/wekan/issues/1734);
+  [add-checklist-items and revert all other migration changes](https://github.com/wekan/wekan/issues/1734);
 * [Restore invitation code logic](https://github.com/wekan/wekan/pull/1732). Please test and add comment
   to those invitation code issues that this fixes. 
 
