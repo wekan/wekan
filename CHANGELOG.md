@@ -1,8 +1,8 @@
-# Upcoming Wekan release
+# v1.09 2018-06-28 Wekan release
 
 This release adds the following new features:
 
-* [Calendar](https://github.com/wekan/wekan/pull/1728).
+* [Calendar](https://github.com/wekan/wekan/pull/1728). Click Lists / Swimlanes / Calendar.
 
 and fixes the following bugs:
 
