@@ -26,4 +26,10 @@ template(name="boardBody")
       if isViewLists
         +listsGroup
       if isViewCalendar
-        +fullcalendar(calendarOptions)
+        +calendarView
+
+template(name="calendarView")
+  .swimlane.list-group.js-lists
+    if currentCard
+      +cardDetails(currentCard)
+    +fullcalendar
