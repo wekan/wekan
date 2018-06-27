@@ -150,4 +150,28 @@ BlazeComponent.extendComponent({
   onRendered() {
 
   },
+  calendarOptions() {
+    return {
+      id: 'calendar-view',
+      defaultView: 'basicWeek',
+      events(start, end, timezone, callback) {
+        const currentBoard = Boards.findOne(Session.get('currentBoard'));
+        const events = [];
+        currentBoard.cardsInInterval(start.toDate(), end.toDate()).forEach(function(card){
+          events.push({
+            id: card.id,
+            title: card.title,
+            start: card.startAt,
+            end: card.endAt,
+            url: FlowRouter.url('card', {
+              boardId: currentBoard._id,
+              slug: currentBoard.slug,
+              cardId: card._id,
+            }),
+          });
+        });
+        callback(events);
+      },
+    };
+  },
 }).register('calendarView');

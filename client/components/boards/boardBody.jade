@@ -29,7 +29,7 @@ template(name="boardBody")
         +calendarView
 
 template(name="calendarView")
-  .swimlane.list-group.js-lists
+  .calendar-view.swimlane
     if currentCard
       +cardDetails(currentCard)
-    +fullcalendar
+    +fullcalendar(calendarOptions)
