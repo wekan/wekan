@@ -156,6 +156,8 @@ BlazeComponent.extendComponent({
     return {
       id: 'calendar-view',
       defaultView: 'agendaDay',
+      editable: true,
+      timezone: 'local',
       header: {
         left: 'title   today prev,next',
         center: 'agendaDay,listDay,timelineDay agendaWeek,listWeek,timelineWeek month,timelineMonth timelineYear',
@@ -178,10 +180,11 @@ BlazeComponent.extendComponent({
         const events = [];
         currentBoard.cardsInInterval(start.toDate(), end.toDate()).forEach(function(card){
           events.push({
-            id: card.id,
+            id: card._id,
             title: card.title,
             start: card.startAt,
             end: card.endAt,
+            allDay: Math.abs(card.endAt.getTime() - card.startAt.getTime()) / 1000 === 24*3600,
             url: FlowRouter.url('card', {
               boardId: currentBoard._id,
               slug: currentBoard.slug,
@@ -190,6 +193,33 @@ BlazeComponent.extendComponent({
           });
         });
         callback(events);
+      },
+      eventResize(event, delta, revertFunc) {
+        let isOk = false;
+        const card = Cards.findOne(event.id);
+
+        if (card) {
+          card.setEnd(event.end.toDate());
+          isOk = true;
+        }
+        if (!isOk) {
+          revertFunc();
+        }
+      },
+      eventDrop(event, delta, revertFunc) {
+        let isOk = false;
+        const card = Cards.findOne(event.id);
+        if (card) {
+          // TODO: add a flag for allDay events
+          if (!event.allDay) {
+            card.setStart(event.start.toDate());
+            card.setEnd(event.end.toDate());
+            isOk = true;
+          }
+        }
+        if (!isOk) {
+          revertFunc();
+        }
       },
     };
   },
