@@ -47,9 +47,8 @@ RUN \
     #   Fiber.poolSize = 1e9;
     # Download node version 8.11.1 that has fix included, node binary copied from Sandstorm
     # Description at https://releases.wekan.team/node.txt
-    # SHA256SUM: 18c99d5e79e2fe91e75157a31be30e5420787213684d4048eb91e602e092725d
     wget https://releases.wekan.team/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
-    echo "509e79f1bfccc849b65bd3f207a56095dfa608f17502997e844fa9c9d01e6c20  node-v8.11.1-linux-x64.tar.gz" >> SHASUMS256.txt.asc && \
+    echo "308d0caaef0a1da3e98d1a1615016aad9659b3caf31d0f09ced20cabedb8acbf  node-v8.11.1-linux-x64.tar.gz" >> SHASUMS256.txt.asc && \
     \
     # Verify nodejs authenticity
     grep ${NODE_VERSION}-${ARCHITECTURE}.tar.gz SHASUMS256.txt.asc | shasum -a 256 -c - && \

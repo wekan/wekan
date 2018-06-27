@@ -1,9 +1,10 @@
-# Upcoming Wekan release
+# v1.08 2018-06-27 Wekan release
 
 This release adds the following new features:
 
 * [Add more card inner shadow](https://github.com/wekan/wekan/commit/6a587299b80a49fce0789628ff65885b5ed2c837);
 * [Less margin-bottom after minicard](https://github.com/wekan/wekan/pull/1713);
+* Updated newest node fork binary from Sandstorm to Wekan, see https://releases.wekan.team/node.txt
 * Add Georgian language.
 
 and fixes the following bugs:
