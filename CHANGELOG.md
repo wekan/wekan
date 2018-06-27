@@ -1,6 +1,10 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+* [Calendar](https://github.com/wekan/wekan/pull/1728).
+
+and fixes the following bugs:
 
 * To fix ["title is required"](https://github.com/wekan/wekan/issues/1576) fix only
   add-checklist-items and revert all other migration changes](https://github.com/wekan/wekan/issues/1734);
