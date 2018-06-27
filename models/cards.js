@@ -1459,7 +1459,12 @@ if (Meteor.isServer) {
     if (req.body.hasOwnProperty('labelIds')) {
       let newlabelIds = req.body.labelIds;
       if (_.isString(newlabelIds)) {
-        newlabelIds = [newlabelIds];
+        if (newlabelIds === '') {
+          newlabelIds = null;
+        }
+        else {
+          newlabelIds = [newlabelIds];
+        }
       }
       Cards.direct.update({
         _id: paramCardId,
@@ -1520,7 +1525,12 @@ if (Meteor.isServer) {
     if (req.body.hasOwnProperty('members')) {
       let newmembers = req.body.members;
       if (_.isString(newmembers)) {
-        newmembers = [newmembers];
+        if (newmembers === '') {
+          newmembers = null;
+        }
+        else {
+          newmembers = [newmembers];
+        }
       }
       Cards.direct.update({_id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false},
         {$set: {members: newmembers}});
