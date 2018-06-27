@@ -148,12 +148,31 @@ BlazeComponent.extendComponent({
 
 BlazeComponent.extendComponent({
   onRendered() {
-
+    this.autorun(function(){
+      $('#calendar-view').fullCalendar('refetchEvents');
+    });
   },
   calendarOptions() {
     return {
       id: 'calendar-view',
-      defaultView: 'basicWeek',
+      defaultView: 'agendaDay',
+      header: {
+        left: 'title   today prev,next',
+        center: 'agendaDay,listDay,timelineDay agendaWeek,listWeek,timelineWeek month,timelineMonth timelineYear',
+        right: '',
+      },
+      // height: 'parent', nope, doesn't work as the parent might be small
+      height: 'auto',
+      /* TODO: lists as resources: https://fullcalendar.io/docs/vertical-resource-view */
+      navLinks: true,
+      nowIndicator: true,
+      businessHours: {
+        // days of week. an array of zero-based day of week integers (0=Sunday)
+        dow: [ 1, 2, 3, 4, 5 ], // Monday - Friday
+        start: '8:00',
+        end: '18:00',
+      },
+      locale: TAPi18n.getLanguage(),
       events(start, end, timezone, callback) {
         const currentBoard = Boards.findOne(Session.get('currentBoard'));
         const events = [];
