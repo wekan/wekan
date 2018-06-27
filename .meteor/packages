@@ -77,7 +77,6 @@ email@1.2.3
 horka:swipebox
 dynamic-import@0.2.0
 staringatlights:fast-render
-staringatlights:flow-router
 
 mixmax:smart-disconnect
 accounts-password@1.5.0
