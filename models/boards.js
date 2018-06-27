@@ -284,6 +284,33 @@ Boards.helpers({
 
     return Cards.find(query, projection);
   },
+
+  cardsInInterval(start, end) {
+    return Cards.find({
+      $or: [
+        {
+          startAt: {
+            $lte: start,
+          }, endAt: {
+            $gte: start,
+          },
+        }, {
+          startAt: {
+            $lte: end,
+          }, endAt: {
+            $gte: end,
+          },
+        }, {
+          startAt: {
+            $gte: start,
+          }, endAt: {
+            $lte: end,
+          },
+        },
+      ],
+    });
+  },
+
 });
 
 Boards.mutations({

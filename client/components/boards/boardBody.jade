@@ -25,3 +25,5 @@ template(name="boardBody")
           +swimlane(this)
       if isViewLists
         +listsGroup
+      if isViewCalendar
+        +fullcalendar(calendarOptions)
