@@ -100,6 +100,11 @@ Users.attachSchema(new SimpleSchema({
   'profile.boardView': {
     type: String,
     optional: true,
+    allowedValues: [
+      'board-view-lists',
+      'board-view-swimlanes',
+      'board-view-cal',
+    ],
   },
   services: {
     type: Object,

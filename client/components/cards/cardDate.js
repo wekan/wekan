@@ -218,10 +218,13 @@ class CardReceivedDate extends CardDate {
   }
 
   classes() {
-    let classes = 'received-date' + ' ';
-    if (this.date.get().isBefore(this.now.get(), 'minute') &&
-        this.now.get().isBefore(this.data().dueAt)) {
-      classes += 'current';
+    let classes = 'received-date ';
+    const dueAt = this.data().dueAt;
+    if (dueAt) {
+      if (this.date.get().isBefore(this.now.get(), 'minute') &&
+          this.now.get().isBefore(dueAt)) {
+        classes += 'current';
+      }
     }
     return classes;
   }
@@ -249,9 +252,12 @@ class CardStartDate extends CardDate {
 
   classes() {
     let classes = 'start-date' + ' ';
-    if (this.date.get().isBefore(this.now.get(), 'minute') &&
-        this.now.get().isBefore(this.data().dueAt)) {
-      classes += 'current';
+    const dueAt = this.data().dueAt;
+    if (dueAt) {
+      if (this.date.get().isBefore(this.now.get(), 'minute') &&
+          this.now.get().isBefore(dueAt)) {
+        classes += 'current';
+      }
     }
     return classes;
   }
@@ -279,18 +285,23 @@ class CardDueDate extends CardDate {
 
   classes() {
     let classes = 'due-date' + ' ';
+
     // if endAt exists & is < dueAt, dueAt doesn't need to be flagged
-    if ((this.data().endAt !== 0) &&
-       (this.data().endAt !== null) &&
-       (this.data().endAt !== '') &&
-       (this.data().endAt !== undefined) &&
-       (this.date.get().isBefore(this.data().endAt)))
+    const endAt = this.data().endAt;
+    const theDate = this.date.get();
+    const now = this.now.get();
+
+    if ((endAt !== 0) &&
+       (endAt !== null) &&
+       (endAt !== '') &&
+       (endAt !== undefined) &&
+       (theDate.isBefore(endAt)))
       classes += 'current';
-    else if (this.now.get().diff(this.date.get(), 'days') >= 2)
+    else if (now.diff(theDate, 'days') >= 2)
       classes += 'long-overdue';
-    else if (this.now.get().diff(this.date.get(), 'minute') >= 0)
+    else if (now.diff(theDate, 'minute') >= 0)
       classes += 'due';
-    else if (this.now.get().diff(this.date.get(), 'days') >= -1)
+    else if (now.diff(theDate, 'days') >= -1)
       classes += 'almost-due';
     return classes;
   }
@@ -318,12 +329,16 @@ class CardEndDate extends CardDate {
 
   classes() {
     let classes = 'end-date' + ' ';
-    if (this.data.dueAt.diff(this.date.get(), 'days') >= 2)
-      classes += 'long-overdue';
-    else if (this.data.dueAt.diff(this.date.get(), 'days') > 0)
-      classes += 'due';
-    else if (this.data.dueAt.diff(this.date.get(), 'days') <= 0)
-      classes += 'current';
+    const dueAt = this.data.dueAt;
+    if (dueAt) {
+      const diff = dueAt.diff(this.date.get(), 'days');
+      if (diff >= 2)
+        classes += 'long-overdue';
+      else if (diff > 0)
+        classes += 'due';
+      else if (diff <= 0)
+        classes += 'current';
+    }
     return classes;
   }
 

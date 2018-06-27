@@ -55,7 +55,7 @@ Migrations.add('lowercase-board-permission', () => {
 // Security migration: see https://github.com/wekan/wekan/issues/99
 Migrations.add('change-attachments-type-for-non-images', () => {
   const newTypeForNonImage = 'application/octet-stream';
-  Attachments.forEach((file) => {
+  Attachments.find().forEach((file) => {
     if (!file.isImage()) {
       Attachments.update(file._id, {
         $set: {
@@ -68,7 +68,7 @@ Migrations.add('change-attachments-type-for-non-images', () => {
 });
 
 Migrations.add('card-covers', () => {
-  Cards.forEach((card) => {
+  Cards.find().forEach((card) => {
     const cover =  Attachments.findOne({ cardId: card._id, cover: true });
     if (cover) {
       Cards.update(card._id, {$set: {coverId: cover._id}}, noValidate);
@@ -86,7 +86,7 @@ Migrations.add('use-css-class-for-boards-colors', () => {
     '#2C3E50': 'midnight',
     '#E67E22': 'pumpkin',
   };
-  Boards.forEach((board) => {
+  Boards.find().forEach((board) => {
     const oldBoardColor = board.background.color;
     const newBoardColor = associationTable[oldBoardColor];
     Boards.update(board._id, {
@@ -97,7 +97,7 @@ Migrations.add('use-css-class-for-boards-colors', () => {
 });
 
 Migrations.add('denormalize-star-number-per-board', () => {
-  Boards.forEach((board) => {
+  Boards.find().forEach((board) => {
     const nStars = Users.find({'profile.starredBoards': board._id}).count();
     Boards.update(board._id, {$set: {stars: nStars}}, noValidate);
   });
@@ -132,7 +132,7 @@ Migrations.add('add-member-isactive-field', () => {
 });
 
 Migrations.add('add-sort-checklists', () => {
-  Checklists.forEach((checklist, index) => {
+  Checklists.find().forEach((checklist, index) => {
     if (!checklist.hasOwnProperty('sort')) {
       Checklists.direct.update(
         checklist._id,
@@ -153,7 +153,7 @@ Migrations.add('add-sort-checklists', () => {
 });
 
 Migrations.add('add-swimlanes', () => {
-  Boards.forEach((board) => {
+  Boards.find().forEach((board) => {
     const swimlane = Swimlanes.findOne({ boardId: board._id });
     let swimlaneId = '';
     if (swimlane)
@@ -177,7 +177,7 @@ Migrations.add('add-swimlanes', () => {
 });
 
 Migrations.add('add-views', () => {
-  Boards.forEach((board) => {
+  Boards.find().forEach((board) => {
     if (!board.hasOwnProperty('view')) {
       Boards.direct.update(
         { _id: board._id },
@@ -210,7 +210,7 @@ Migrations.add('add-checklist-items', () => {
 });
 
 Migrations.add('add-profile-view', () => {
-  Users.forEach((user) => {
+  Users.find().forEach((user) => {
     if (!user.hasOwnProperty('profile.boardView')) {
       // Set default view
       Users.direct.update(

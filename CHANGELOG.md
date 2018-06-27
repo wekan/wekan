@@ -1,3 +1,18 @@
+# v1.09 2018-06-28 Wekan release
+
+This release adds the following new features:
+
+* [Calendar](https://github.com/wekan/wekan/pull/1728). Click Lists / Swimlanes / Calendar.
+
+and fixes the following bugs:
+
+* To fix ["title is required"](https://github.com/wekan/wekan/issues/1576) fix only
+  add-checklist-items and revert all other migration changes](https://github.com/wekan/wekan/issues/1734);
+* [Restore invitation code logic](https://github.com/wekan/wekan/pull/1732). Please test and add comment
+  to those invitation code issues that this fixes. 
+
+Thanks to GitHub users TNick and xet7 for their contributions.
+
 # v1.08 2018-06-27 Wekan release
 
 This release adds the following new features:
