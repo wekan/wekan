@@ -1,3 +1,46 @@
+# v1.10 2018-06-28 Wekan release
+
+This release fixes the following bugs:
+
+* Fix migration error "TypeError: Checklists.foreach" at [Snap](https://github.com/wekan/wekan-snap/issues/51),
+  [Docker](https://github.com/wekan/wekan/issues/1736) etc.
+
+Thanks to GitHub users Jubi94, kestrelhawk and xet7 for their contributions.
+
+# v1.09 2018-06-28 Wekan release
+
+This release adds the following new features:
+
+* [Calendar](https://github.com/wekan/wekan/pull/1728). Click Lists / Swimlanes / Calendar.
+
+and fixes the following bugs:
+
+* To fix ["title is required"](https://github.com/wekan/wekan/issues/1576) fix only
+  [add-checklist-items and revert all other migration changes](https://github.com/wekan/wekan/issues/1734);
+* [Restore invitation code logic](https://github.com/wekan/wekan/pull/1732). Please test and add comment
+  to those invitation code issues that this fixes. 
+
+Thanks to GitHub users TNick and xet7 for their contributions.
+
+# v1.08 2018-06-27 Wekan release
+
+This release adds the following new features:
+
+* [Add more card inner shadow](https://github.com/wekan/wekan/commit/6a587299b80a49fce0789628ff65885b5ed2c837);
+* [Less margin-bottom after minicard](https://github.com/wekan/wekan/pull/1713);
+* Updated newest node fork binary from Sandstorm to Wekan, see https://releases.wekan.team/node.txt
+* Add Georgian language.
+
+and fixes the following bugs:
+
+* [Fix typo in English translation](https://github.com/wekan/wekan/pull/1710);
+* [Fix vertical align of user avatar initials](https://github.com/wekan/wekan/pull/1714);
+* [Submit inline form on click outside](https://github.com/wekan/wekan/pull/1717), fixes
+  ["You have an unsaved description" doesn't go away after saving](https://github.com/wekan/wekan/issues/1287);
+* [Fix "Error: title is required" by removing find() from all of migrations](https://github.com/wekan/wekan/commit/97922c90cb42be6c6615639bb164173748982f56).
+
+Thanks to GitHub users pravdomil, xet7 and zypA13510 for their contributions.
+
 # v1.07 2018-06-14 Wekan release
 
 This release adds the following new features:
