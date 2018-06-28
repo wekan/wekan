@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+* Fix migration error "TypeError: Checklists.foreach" at [Snap](https://github.com/wekan/wekan-snap/issues/51),
+  [Docker](https://github.com/wekan/wekan/issues/1736) etc.
+
+Thanks to Jubi94, kestrelhawk and xet7 !
+
 # v1.09 2018-06-28 Wekan release
 
 This release adds the following new features:
