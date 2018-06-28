@@ -1,3 +1,12 @@
+# v1.10 2018-06-28 Wekan release
+
+This release fixes the following bugs:
+
+* Fix migration error "TypeError: Checklists.foreach" at [Snap](https://github.com/wekan/wekan-snap/issues/51),
+  [Docker](https://github.com/wekan/wekan/issues/1736) etc.
+
+Thanks to GitHub users Jubi94, kestrelhawk and xet7 for their contributions.
+
 # v1.09 2018-06-28 Wekan release
 
 This release adds the following new features:
@@ -7,7 +16,7 @@ This release adds the following new features:
 and fixes the following bugs:
 
 * To fix ["title is required"](https://github.com/wekan/wekan/issues/1576) fix only
-  add-checklist-items and revert all other migration changes](https://github.com/wekan/wekan/issues/1734);
+  [add-checklist-items and revert all other migration changes](https://github.com/wekan/wekan/issues/1734);
 * [Restore invitation code logic](https://github.com/wekan/wekan/pull/1732). Please test and add comment
   to those invitation code issues that this fixes. 
 

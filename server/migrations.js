@@ -189,7 +189,7 @@ Migrations.add('add-views', () => {
 });
 
 Migrations.add('add-checklist-items', () => {
-  Checklists.forEach((checklist) => {
+  Checklists.find().forEach((checklist) => {
     // Create new items
     _.sortBy(checklist.items, 'sort').forEach((item, index) => {
       ChecklistItems.direct.insert({
