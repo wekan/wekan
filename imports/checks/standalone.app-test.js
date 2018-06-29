@@ -4,7 +4,7 @@
 import { expect, should as shouldFunc } from 'meteor/practicalmeteor:chai';
 import { Meteor } from 'meteor/meteor';
 
-const should = shouldFunc();
+/*const should = */shouldFunc();
 
 describe('Initial state', () => {
   it('has settings on server', () => {

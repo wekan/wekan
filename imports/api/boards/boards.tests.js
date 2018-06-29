@@ -36,7 +36,7 @@ import '../../../i18n/en.i18n.json';
 
 if (Meteor.isServer) {
 
-  const should = shouldFunc();
+  /*const should = */shouldFunc();
   let crtUserId = undefined;
 
   describe('Boards collection', () => {
