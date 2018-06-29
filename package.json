@@ -6,8 +6,10 @@
   "scripts": {
     "lint": "eslint --ignore-pattern 'packages/*' .",
     "test": "npm run --silent lint",
-    "tmocha": "meteor test --debug-port 5858 --driver-package practicalmeteor:mocha",
-    "tfull": "meteor test --full-app --debug-port 5858 --driver-package practicalmeteor:mocha"
+    "tmocha": "meteor test --port 3011 --driver-package practicalmeteor:mocha",
+    "tfull": "meteor test --full-app --port 3021 --driver-package practicalmeteor:mocha",
+    "dtmocha": "meteor test --port 3031 --debug-port 3035 --driver-package practicalmeteor:mocha",
+    "dtfull": "meteor test --full-app --port 3042 --debug-port 3045 --driver-package practicalmeteor:mocha"
   },
   "eslintConfig": {
     "extends": "@meteorjs/eslint-config-meteor"
