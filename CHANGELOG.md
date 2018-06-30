@@ -1,3 +1,13 @@
+# v1.11 2018-06-30 Wekan release
+
+This release fixes the following bugs:
+
+* [Remove card shadow](https://github.com/wekan/wekan/pull/1726), Wekan users now prefer not to have it;
+* [Revert](https://github.com/wekan/wekan/commit/928d88cfe1da4187797519c929cd2fdd9ffe9c2e) previous
+  [Less margin-bottom after minicard](https://github.com/wekan/wekan/pull/1713).
+
+Thanks to GitHub users pravdomil and xet7 for their contributions.
+
 # v1.10 2018-06-28 Wekan release
 
 This release fixes the following bugs:
