@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+* [Remove card shadow, Wekan users now prefer not to have it](https://github.com/wekan/wekan/pull/1726).
+
+Thanks to GitHub users pravdomil and xet7 for their contributions.
+
 # v1.10 2018-06-28 Wekan release
 
 This release fixes the following bugs:
