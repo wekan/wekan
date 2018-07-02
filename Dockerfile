@@ -28,10 +28,10 @@ ENV SRC_PATH ${SRC_PATH:-./}
 COPY ${SRC_PATH} /home/wekan/app
 
 RUN \
-    # Add non-root user wekan
+    echo "=== Add non-root user wekan" && \
     useradd --user-group --system --home-dir /home/wekan wekan && \
     \
-    # OS dependencies
+    echo "=== OS dependencies" && \
     apt-get update -y && apt-get install -y --no-install-recommends ${BUILD_DEPS} && \
     \
     # Download nodejs
@@ -45,13 +45,65 @@ RUN \
     # Also see beginning of wekan/server/authentication.js
     #   import Fiber from "fibers";
     #   Fiber.poolSize = 1e9;
+    echo "=== Getting newest Node from Sandstorm fork of Node" && \
+    echo "=== Source: https://github.com/sandstorm-io/node ===" && \
+    \
+    # From https://github.com/sandstorm-io/sandstorm/blob/master/branch.conf
+    SANDSTORM_BRANCH_NUMBER=0 && \
+    \
+    # From https://github.com/sandstorm-io/sandstorm/blob/master/release.sh
+    SANDSTORM_CHANNEL=dev && \
+    SANDSTORM_LAST_BUILD=$(curl -fs https://install.sandstorm.io/$SANDSTORM_CHANNEL) && \
+    \
+    echo "=== Latest Sandstorm Release: ${SANDSTORM_LAST_BUILD}===" && \
+    if (( SANDSTORM_LAST_BUILD / 1000 > SANDSTORM_BRANCH_NUMBER )); && \
+    then && \
+      echo "SANDSTORM BRANCH ERROR: $CHANNEL has already moved past this branch!" >&2 && \
+      echo "  I refuse to replace it with an older branch." >&2 && \
+      exit 1 && \
+    fi && \
+    BASE_BUILD=$(( BRANCH_NUMBER * 1000 )) && \
+    BUILD=$(( BASE_BUILD > LAST_BUILD ? BASE_BUILD : LAST_BUILD + 1 )) && \
+    BUILD_MINOR="$(( $BUILD % 1000 ))" && \
+    DISPLAY_VERSION="${BRANCH_NUMBER}.${BUILD_MINOR}" && \
+    TAG_NAME="v${DISPLAY_VERSION}" && \
+    SIGNING_KEY_ID=160D2D577518B58D94C9800B63F227499DA8CCBD && \
+    TARBALL=sandstorm-$SANDSTORM_LAST_BUILD.tar.xz && \
+    NODE_EXE=sandstorm-$SANDSTORM_LAST_BUILD/bin/node && \
+    echo "=== Downloading Sandstorm GPG keys to verify Sandstorm release" && \
+    # Do verification in custom GPG workspace
+    # https://docs.sandstorm.io/en/latest/install/#option-3-pgp-verified-install
+    export GNUPGHOME=$(mktemp -d) && \
+    curl https://raw.githubusercontent.com/sandstorm-io/sandstorm/master/keys/release-keyring.gpg | gpg --import && \
+    wget https://raw.githubusercontent.com/sandstorm-io/sandstorm/master/keys/release-certificate.kentonv.sig && \
+    gpg --decrypt release-certificate.kentonv.sig && \
+    echo "=== Downloading Sandstorm release from https://dl.sandstorm.io/${TARBALL} ===" && \
+    wget https://dl.sandstorm.io/$TARBALL && \
+    echo "=== Downloading signature for Sandstorm release from https://dl.sandstorm.io/${TARBALL}.sig ===" && \
+    wget https://dl.sandstorm.io/$TARBALL.sig && \
+    echo "=== Verifying signature of Sandstorm release" && \
+    gpg --verify $TARBALL.sig $TARBALL && \
+    \
+    if [ $? -eq 0 ] && \
+    then && \
+      echo "=== All is well. Good signature in Sandstorm." && \
+    else && \
+      echo "=== PROBLEM WITH SANDSTORM SIGNATURE." && \
+      exit 1 && \
+    fi && \
+    echo "=== Extracting Node from Sandstorm release tarball" && \
+    # --strip 2 removes path of 2 subdirectories
+    tar -xf $TARBALL $NODE_EXE --strip=2 && \
+    echo "=== Deleting Sandstorm release tarball and signature" && \
+    rm $TARBALL $TARBALL.sig release-certificate.kentonv.si* && \
+    # == OLD ==
     # Download node version 8.11.1 that has fix included, node binary copied from Sandstorm
     # Description at https://releases.wekan.team/node.txt
-    wget https://releases.wekan.team/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
-    echo "308d0caaef0a1da3e98d1a1615016aad9659b3caf31d0f09ced20cabedb8acbf  node-v8.11.1-linux-x64.tar.gz" >> SHASUMS256.txt.asc && \
-    \
+    ##wget https://releases.wekan.team/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
+    ##echo "308d0caaef0a1da3e98d1a1615016aad9659b3caf31d0f09ced20cabedb8acbf  node-v8.11.1-linux-x64.tar.gz" >> SHASUMS256.txt.asc && \
+    ##\
     # Verify nodejs authenticity
-    grep ${NODE_VERSION}-${ARCHITECTURE}.tar.gz SHASUMS256.txt.asc | shasum -a 256 -c - && \
+    ##grep ${NODE_VERSION}-${ARCHITECTURE}.tar.gz SHASUMS256.txt.asc | shasum -a 256 -c - && \
     #export GNUPGHOME="$(mktemp -d)" && \
     #\
     # Try other key servers if ha.pool.sks-keyservers.net is unreachable
@@ -75,24 +127,25 @@ RUN \
     # Ignore socket files then delete files then delete directories
     #find "$GNUPGHOME" -type f | xargs rm -f && \
     #find "$GNUPGHOME" -type d | xargs rm -fR && \
-    rm -f SHASUMS256.txt.asc && \
+    ##rm -f SHASUMS256.txt.asc && \
     \
     # Install Node
-    tar xvzf node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
-    rm node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
-    mv node-${NODE_VERSION}-${ARCHITECTURE} /opt/nodejs && \
+    #tar xvzf node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
+    #rm node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
+    #mv node-${NODE_VERSION}-${ARCHITECTURE} /opt/nodejs && \
+    mv node /opt/nodejs && \
     ln -s /opt/nodejs/bin/node /usr/bin/node && \
     ln -s /opt/nodejs/bin/npm /usr/bin/npm && \
     \
     #DOES NOT WORK: paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
     #paxctl -mC `which node` && \
     \
-    # Install Node dependencies
+    echo "=== Install Node dependencies" && \
     npm install -g npm@${NPM_VERSION} && \
     npm install -g node-gyp && \
     npm install -g fibers@${FIBERS_VERSION} && \
     \
-    # Change user to wekan and install meteor
+    echo "=== Change user to wekan and install meteor" && \
     cd /home/wekan/ && \
     chown wekan:wekan --recursive /home/wekan && \
     curl https://install.meteor.com -o /home/wekan/install_meteor.sh && \
@@ -107,7 +160,7 @@ RUN \
       gosu wekan:wekan git clone --recursive --depth 1 -b release/METEOR@${METEOR_EDGE} git://github.com/meteor/meteor.git /home/wekan/.meteor; \
     fi; \
     \
-    # Get additional packages
+    echo "=== Get additional packages" && \
     mkdir -p /home/wekan/app/packages && \
     chown wekan:wekan --recursive /home/wekan && \
     cd /home/wekan/app/packages && \
@@ -117,7 +170,7 @@ RUN \
     cd /home/wekan/.meteor && \
     gosu wekan:wekan /home/wekan/.meteor/meteor -- help; \
     \
-    # Build app
+    echo "=== Build app" && \
     cd /home/wekan/app && \
     gosu wekan:wekan /home/wekan/.meteor/meteor add standard-minifier-js && \
     gosu wekan:wekan /home/wekan/.meteor/meteor npm install && \
@@ -135,7 +188,7 @@ RUN \
     #gosu wekan:wekan npm install bcrypt && \
     mv /home/wekan/app_build/bundle /build && \
     \
-    # Cleanup
+    echo "=== Cleanup" && \
     apt-get remove --purge -y ${BUILD_DEPS} && \
     apt-get autoremove -y && \
     rm -R /var/lib/apt/lists/* && \
