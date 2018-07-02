@@ -47,7 +47,7 @@ RUN \
     #   Fiber.poolSize = 1e9;
     # Getting newest Node from Sandstorm fork of Node
     # Source: https://github.com/sandstorm-io/node
-    wget https://github.com/wekan/wekan/blob/devel/download-sandstorm-node.sh && \
+    wget https://raw.githubusercontent.com/wekan/wekan/devel/download-sandstorm-node.sh && \
     bash download-sandstorm-node.sh && \
     rm download-sandstorm-node.sh && \
     # == OLD ==
