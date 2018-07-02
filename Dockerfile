@@ -84,12 +84,12 @@ RUN \
     # Verifying signature of Sandstorm release
     gpg --verify $TARBALL.sig $TARBALL && \
     \
-    if [ $? -eq 0 ] && \
-    then && \
-      echo "=== All is well. Good signature in Sandstorm." && \
-    else && \
-      echo "=== PROBLEM WITH SANDSTORM SIGNATURE." && \
-      exit 1 && \
+    if [ $? -eq 0 ] \
+    then \
+      echo "=== All is well. Good signature in Sandstorm." \
+    else \
+      echo "=== PROBLEM WITH SANDSTORM SIGNATURE." \
+      exit 1 \
     fi && \
     echo "=== Extracting Node from Sandstorm release tarball" && \
     # --strip 2 removes path of 2 subdirectories
