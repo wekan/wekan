@@ -39,6 +39,16 @@ Template.userFormsLayout.helpers({
     const curLang = T9n.getLanguage() || 'en';
     return t9nTag === curLang;
   },
+
+  isCas() {
+    return Meteor.settings.public 
+      && Meteor.settings.public.cas 
+      && Meteor.settings.public.cas.loginUrl
+  },
+
+  casSignInLabel() {
+    return TAPi18n.__('casSignIn', {}, T9n.getLanguage() || 'en');
+  }
 });
 
 Template.userFormsLayout.events({
@@ -47,6 +57,14 @@ Template.userFormsLayout.events({
     T9n.setLanguage(i18nTagToT9n(i18nTag));
     evt.preventDefault();
   },
+  'click button#cas'(event, instance) {
+    Meteor.loginWithCas(function() {
+      console.log('Logged in with CAS ');
+      if (FlowRouter.getRouteName() == 'atSignIn') {
+        FlowRouter.go('/');
+      }
+    });
+  }
 });
 
 Template.defaultLayout.events({
