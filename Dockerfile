@@ -87,7 +87,7 @@ RUN \
     #tar xvzf node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
     #rm node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
     #mv node-${NODE_VERSION}-${ARCHITECTURE} /opt/nodejs && \
-    mkdir -p /opt/nodejs/bin &&
+    mkdir -p /opt/nodejs/bin && \
     mv node /opt/nodejs/bin/ && \
     mv npm /opt/nodejs/bin/ && \
     ln -s /opt/nodejs/bin/node /usr/bin/node && \
