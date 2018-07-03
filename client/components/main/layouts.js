@@ -59,7 +59,7 @@ Template.userFormsLayout.events({
   },
   'click button#cas'() {
     Meteor.loginWithCas(function() {
-      if (FlowRouter.getRouteName() ==== 'atSignIn') {
+      if (FlowRouter.getRouteName() === 'atSignIn') {
         FlowRouter.go('/');
       }
     });
