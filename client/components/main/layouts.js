@@ -57,13 +57,13 @@ Template.userFormsLayout.events({
     T9n.setLanguage(i18nTagToT9n(i18nTag));
     evt.preventDefault();
   },
-  'click button#cas'(event) {
+  'click button#cas'() {
     Meteor.loginWithCas(function() {
       if (FlowRouter.getRouteName() === 'atSignIn') {
         FlowRouter.go('/');
       }
     });
-  }
+  },
 });
 
 Template.defaultLayout.events({
