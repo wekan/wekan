@@ -2,9 +2,11 @@
 
 This release fixes the following bugs:
 
-* [Fix warning about missing space in jade file](https://github.com/wekan/wekan/commit/067aef9de948ef0cb6037d52602100b00d214706);
-* [Revert "[Fix vertical align of user avatar initials](https://github.com/wekan/wekan/pull/1714)", so that [initials are again
-   visible](https://github.com/wekan/wekan/commit/122a61b3333fb77c0f08bbdc6fe0d3c2f6db97df).
+- [Fix warning about missing space in jade file](https://github.com/wekan/wekan/commit/067aef9de948ef0cb6037d52602100b00d214706);
+- Revert [Fix vertical align of user avatar initials](https://github.com/wekan/wekan/pull/1714), so that [initials are again
+  visible](https://github.com/wekan/wekan/commit/122a61b3333fb77c0f08bbdc6fe0d3c2f6db97df);
+- Fix lint warning: [EditCardDate is assigned a value but never used
+  no-unused-vars](https://github.com/wekan/wekan/commit/dd324aa581bed7ea31f20968c6b596f373e7054f).
 
 Thanks to GitHub users pravdomil and xet7 for their contributions.
 
