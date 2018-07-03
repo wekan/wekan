@@ -45,19 +45,13 @@ RUN \
     # Also see beginning of wekan/server/authentication.js
     #   import Fiber from "fibers";
     #   Fiber.poolSize = 1e9;
-    # Getting newest Node from Sandstorm fork of Node
-    # Source: https://github.com/sandstorm-io/node
-    wget https://raw.githubusercontent.com/wekan/wekan/devel/download-sandstorm-node.sh && \
-    bash download-sandstorm-node.sh && \
-    rm download-sandstorm-node.sh && \
-    # == OLD ==
     # Download node version 8.11.1 that has fix included, node binary copied from Sandstorm
     # Description at https://releases.wekan.team/node.txt
-    ##wget https://releases.wekan.team/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
-    ##echo "308d0caaef0a1da3e98d1a1615016aad9659b3caf31d0f09ced20cabedb8acbf  node-v8.11.1-linux-x64.tar.gz" >> SHASUMS256.txt.asc && \
-    ##\
+    wget https://releases.wekan.team/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
+    echo "308d0caaef0a1da3e98d1a1615016aad9659b3caf31d0f09ced20cabedb8acbf  node-v8.11.1-linux-x64.tar.gz" >> SHASUMS256.txt.asc && \
+    \
     # Verify nodejs authenticity
-    ##grep ${NODE_VERSION}-${ARCHITECTURE}.tar.gz SHASUMS256.txt.asc | shasum -a 256 -c - && \
+    grep ${NODE_VERSION}-${ARCHITECTURE}.tar.gz SHASUMS256.txt.asc | shasum -a 256 -c - && \
     #export GNUPGHOME="$(mktemp -d)" && \
     #\
     # Try other key servers if ha.pool.sks-keyservers.net is unreachable
@@ -81,13 +75,12 @@ RUN \
     # Ignore socket files then delete files then delete directories
     #find "$GNUPGHOME" -type f | xargs rm -f && \
     #find "$GNUPGHOME" -type d | xargs rm -fR && \
-    ##rm -f SHASUMS256.txt.asc && \
+    rm -f SHASUMS256.txt.asc && \
     \
     # Install Node
-    #tar xvzf node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
-    #rm node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
-    #mv node-${NODE_VERSION}-${ARCHITECTURE} /opt/nodejs && \
-    mv node /opt/nodejs && \
+    tar xvzf node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
+    rm node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
+    mv node-${NODE_VERSION}-${ARCHITECTURE} /opt/nodejs && \
     ln -s /opt/nodejs/bin/node /usr/bin/node && \
     ln -s /opt/nodejs/bin/npm /usr/bin/npm && \
     \
