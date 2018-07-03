@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+* [Fix warning about missing space in jade file](https://github.com/wekan/wekan/commit/067aef9de948ef0cb6037d52602100b00d214706);
+* [Revert "[Fix vertical align of user avatar initials](https://github.com/wekan/wekan/pull/1714)", so that [initials are again
+   visible](https://github.com/wekan/wekan/commit/122a61b3333fb77c0f08bbdc6fe0d3c2f6db97df).
+
+Thanks to GitHub users pravdomil and xet7 for their contributions.
+
 # v1.11 2018-06-30 Wekan release
 
 This release fixes the following bugs:
