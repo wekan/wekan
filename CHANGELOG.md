@@ -2,7 +2,8 @@
 
 This release adds the following new features:
 
-- [Nested tasks](https://github.com/wekan/wekan/pull/1723).
+- [Nested tasks](https://github.com/wekan/wekan/pull/1723);
+- [Calendar improvements](https://github.com/wekan/wekan/pull/1752).
 
 and fixes the following bugs:
 
