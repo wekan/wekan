@@ -14,7 +14,7 @@ template(name="minicard")
         .parent-prefix
           | {{ parentCardName }}
       +viewer
-        {{ title }}
+        | {{ title }}
       if $eq 'subtext-with-full-path' currentBoard.presentParentTask
         .parent-subtext
           | {{ parentString ' > ' }}
