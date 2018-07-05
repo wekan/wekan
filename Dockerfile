@@ -15,7 +15,7 @@ ARG SRC_PATH
 # DOES NOT WORK: paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
 # ENV BUILD_DEPS="paxctl"
 ENV BUILD_DEPS="apt-utils gnupg gosu wget curl bzip2 build-essential python git ca-certificates gcc-7"
-ENV NODE_VERSION ${NODE_VERSION:-v8.11.1}
+ENV NODE_VERSION ${NODE_VERSION:-v8.11.3}
 ENV METEOR_RELEASE ${METEOR_RELEASE:-1.6.0.1}
 ENV USE_EDGE ${USE_EDGE:-false}
 ENV METEOR_EDGE ${METEOR_EDGE:-1.5-beta.17}
@@ -48,7 +48,7 @@ RUN \
     # Download node version 8.11.1 that has fix included, node binary copied from Sandstorm
     # Description at https://releases.wekan.team/node.txt
     wget https://releases.wekan.team/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
-    echo "308d0caaef0a1da3e98d1a1615016aad9659b3caf31d0f09ced20cabedb8acbf  node-v8.11.1-linux-x64.tar.gz" >> SHASUMS256.txt.asc && \
+    echo "40e7990489c13a1ed1173d8fe03af258c6ed964b92a4bd59a0927ac5931054aa  node-v8.11.3-linux-x64.tar.gz" >> SHASUMS256.txt.asc && \
     \
     # Verify nodejs authenticity
     grep ${NODE_VERSION}-${ARCHITECTURE}.tar.gz SHASUMS256.txt.asc | shasum -a 256 -c - && \

@@ -1,5 +1,5 @@
 // Edit received, start, due & end dates
-const EditCardDate = BlazeComponent.extendComponent({
+BlazeComponent.extendComponent({
   template() {
     return 'editCardDate';
   },

@@ -1,3 +1,30 @@
+# v1.13 2018-07-06 Wekan release
+
+This release adds the following new features:
+
+- Added snapcraft.yml new node version changes, that were missing from v1.12.
+
+Thanks to GitHub user xet7 for contibutions.
+
+# v1.12 2018-07-06 Wekan release
+
+This release adds the following new features:
+
+- [Nested tasks](https://github.com/wekan/wekan/pull/1723);
+- [Calendar improvements](https://github.com/wekan/wekan/pull/1752);
+- [SSO CAS](https://github.com/wekan/wekan/pull/1742).
+
+and fixes the following bugs:
+
+- [Fix warning about missing space in jade file](https://github.com/wekan/wekan/commit/067aef9de948ef0cb6037d52602100b00d214706);
+- Revert [Fix vertical align of user avatar initials](https://github.com/wekan/wekan/pull/1714), so that [initials are again
+  visible](https://github.com/wekan/wekan/commit/122a61b3333fb77c0f08bbdc6fe0d3c2f6db97df);
+- Fix lint warning: [EditCardDate is assigned a value but never used
+  no-unused-vars](https://github.com/wekan/wekan/commit/dd324aa581bed7ea31f20968c6b596f373e7054f);
+- Fix [Minimize board sidebar actually just moves it over](https://github.com/wekan/wekan/issues/1589).
+
+Thanks to GitHub users dagomar, ppoulard, pravdomil, TNick and xet7 for their contributions.
+
 # v1.11 2018-06-30 Wekan release
 
 This release fixes the following bugs:
