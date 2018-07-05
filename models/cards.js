@@ -15,6 +15,11 @@ Cards.attachSchema(new SimpleSchema({
       }
     },
   },
+  parentId: {
+    type: String,
+    optional: true,
+    defaultValue: '',
+  },
   listId: {
     type: String,
   },
@@ -122,6 +127,12 @@ Cards.attachSchema(new SimpleSchema({
     type: Number,
     decimal: true,
   },
+  subtaskSort: {
+    type: Number,
+    decimal: true,
+    defaultValue: -1,
+    optional: true,
+  },
 }));
 
 Cards.allow({
@@ -215,6 +226,42 @@ Cards.helpers({
     return this.checklistItemCount() !== 0;
   },
 
+  subtasks() {
+    return Cards.find({
+      parentId: this._id,
+      archived: false,
+    }, {sort: { sort: 1 } });
+  },
+
+  allSubtasks() {
+    return Cards.find({
+      parentId: this._id,
+      archived: false,
+    }, {sort: { sort: 1 } });
+  },
+
+  subtasksCount() {
+    return Cards.find({
+      parentId: this._id,
+      archived: false,
+    }).count();
+  },
+
+  subtasksFinishedCount() {
+    return Cards.find({
+      parentId: this._id,
+      archived: true}).count();
+  },
+
+  subtasksFinished() {
+    const finishCount = this.subtasksFinishedCount();
+    return finishCount > 0 && this.subtasksCount() === finishCount;
+  },
+
+  allowsSubtasks() {
+    return this.subtasksCount() !== 0;
+  },
+
   customFieldIndex(customFieldId) {
     return _.pluck(this.customFields, '_id').indexOf(customFieldId);
   },
@@ -271,14 +318,90 @@ Cards.helpers({
     }
     return true;
   },
+
+  parentCard() {
+    if (this.parentId === '') {
+      return null;
+    }
+    return Cards.findOne(this.parentId);
+  },
+
+  parentCardName() {
+    let result = '';
+    if (this.parentId !== '') {
+      const card = Cards.findOne(this.parentId);
+      if (card) {
+        result = card.title;
+      }
+    }
+    return result;
+  },
+
+  parentListId() {
+    const result = [];
+    let crtParentId = this.parentId;
+    while (crtParentId !== '') {
+      const crt = Cards.findOne(crtParentId);
+      if ((crt === null) || (crt === undefined)) {
+        // maybe it has been deleted
+        break;
+      }
+      if (crtParentId in result) {
+        // circular reference
+        break;
+      }
+      result.unshift(crtParentId);
+      crtParentId = crt.parentId;
+    }
+    return result;
+  },
+
+  parentList() {
+    const resultId = [];
+    const result = [];
+    let crtParentId = this.parentId;
+    while (crtParentId !== '') {
+      const crt = Cards.findOne(crtParentId);
+      if ((crt === null) || (crt === undefined)) {
+        // maybe it has been deleted
+        break;
+      }
+      if (crtParentId in resultId) {
+        // circular reference
+        break;
+      }
+      resultId.unshift(crtParentId);
+      result.unshift(crt);
+      crtParentId = crt.parentId;
+    }
+    return result;
+  },
+
+  parentString(sep) {
+    return this.parentList().map(function(elem){
+      return elem.title;
+    }).join(sep);
+  },
+
+  isTopLevel() {
+    return this.parentId === '';
+  },
 });
 
 Cards.mutations({
+  applyToChildren(funct) {
+    Cards.find({ parentId: this._id }).forEach((card) => {
+      funct(card);
+    });
+  },
+
   archive() {
+    this.applyToChildren((card) => { return card.archive(); });
     return {$set: {archived: true}};
   },
 
   restore() {
+    this.applyToChildren((card) => { return card.restore(); });
     return {$set: {archived: false}};
   },
 
@@ -422,6 +545,11 @@ Cards.mutations({
   unsetSpentTime() {
     return {$unset: {spentTime: '', isOvertime: false}};
   },
+
+  setParentId(parentId) {
+    return {$set: {parentId}};
+  },
+
 });
 
 
@@ -511,6 +639,9 @@ function cardRemover(userId, doc) {
     cardId: doc._id,
   });
   Checklists.remove({
+    cardId: doc._id,
+  });
+  Subtasks.remove({
     cardId: doc._id,
   });
   CardComments.remove({

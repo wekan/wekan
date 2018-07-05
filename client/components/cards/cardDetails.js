@@ -20,10 +20,11 @@ BlazeComponent.extendComponent({
   },
 
   onCreated() {
+    this.currentBoard = Boards.findOne(Session.get('currentBoard'));
     this.isLoaded = new ReactiveVar(false);
     const boardBody =  this.parentComponent().parentComponent();
     //in Miniview parent is Board, not BoardBody.
-    if (boardBody !== null){
+    if (boardBody !== null) {
       boardBody.showOverlay.set(true);
       boardBody.mouseHasEnterCardDetails = false;
     }
@@ -70,6 +71,30 @@ BlazeComponent.extendComponent({
     }
   },
 
+  presentParentTask() {
+    let result = this.currentBoard.presentParentTask;
+    if ((result === null) || (result === undefined)) {
+      result = 'no-parent';
+    }
+    return result;
+  },
+
+  linkForCard() {
+    const card = this.currentData();
+    let result = '#';
+    if (card) {
+      const board = Boards.findOne(card.boardId);
+      if (board) {
+        result = FlowRouter.url('card', {
+          boardId: card.boardId,
+          slug: board.slug,
+          cardId: card._id,
+        });
+      }
+    }
+    return result;
+  },
+
   onRendered() {
     if (!Utils.isMiniScreen()) this.scrollParentContainer();
     const $checklistsDom = this.$('.card-checklist-items');
@@ -107,6 +132,41 @@ BlazeComponent.extendComponent({
       },
     });
 
+    const $subtasksDom = this.$('.card-subtasks-items');
+
+    $subtasksDom.sortable({
+      tolerance: 'pointer',
+      helper: 'clone',
+      handle: '.subtask-title',
+      items: '.js-subtasks',
+      placeholder: 'subtasks placeholder',
+      distance: 7,
+      start(evt, ui) {
+        ui.placeholder.height(ui.helper.height());
+        EscapeActions.executeUpTo('popup-close');
+      },
+      stop(evt, ui) {
+        let prevChecklist = ui.item.prev('.js-subtasks').get(0);
+        if (prevChecklist) {
+          prevChecklist = Blaze.getData(prevChecklist).subtask;
+        }
+        let nextChecklist = ui.item.next('.js-subtasks').get(0);
+        if (nextChecklist) {
+          nextChecklist = Blaze.getData(nextChecklist).subtask;
+        }
+        const sortIndex = calculateIndexData(prevChecklist, nextChecklist, 1);
+
+        $subtasksDom.sortable('cancel');
+        const subtask = Blaze.getData(ui.item.get(0)).subtask;
+
+        Subtasks.update(subtask._id, {
+          $set: {
+            subtaskSort: sortIndex.base,
+          },
+        });
+      },
+    });
+
     function userIsMember() {
       return Meteor.user() && Meteor.user().isBoardMember();
     }
@@ -115,6 +175,9 @@ BlazeComponent.extendComponent({
     this.autorun(() => {
       if ($checklistsDom.data('sortable')) {
         $checklistsDom.sortable('option', 'disabled', !userIsMember());
+      }
+      if ($subtasksDom.data('sortable')) {
+        $subtasksDom.sortable('option', 'disabled', !userIsMember());
       }
     });
   },
@@ -327,7 +390,6 @@ Template.moveCardPopup.events({
     Popup.close();
   },
 });
-
 BlazeComponent.extendComponent({
   onCreated() {
     subManager.subscribe('board', Session.get('currentBoard'));
@@ -364,6 +426,21 @@ BlazeComponent.extendComponent({
   },
 }).register('boardsAndLists');
 
+
+function cloneCheckList(_id, checklist) {
+  'use strict';
+  const checklistId = checklist._id;
+  checklist.cardId = _id;
+  checklist._id = null;
+  const newChecklistId = Checklists.insert(checklist);
+  ChecklistItems.find({checklistId}).forEach(function(item) {
+    item._id = null;
+    item.checklistId = newChecklistId;
+    item.cardId = _id;
+    ChecklistItems.insert(item);
+  });
+}
+
 Template.copyCardPopup.events({
   'click .js-done'() {
     const card = Cards.findOne(Session.get('currentCard'));
@@ -393,18 +470,17 @@ Template.copyCardPopup.events({
       // copy checklists
       let cursor = Checklists.find({cardId: oldId});
       cursor.forEach(function() {
+        cloneCheckList(_id, arguments[0]);
+      });
+
+      // copy subtasks
+      cursor = Cards.find({parentId: oldId});
+      cursor.forEach(function() {
         'use strict';
-        const checklist = arguments[0];
-        const checklistId = checklist._id;
-        checklist.cardId = _id;
-        checklist._id = null;
-        const newChecklistId = Checklists.insert(checklist);
-        ChecklistItems.find({checklistId}).forEach(function(item) {
-          item._id = null;
-          item.checklistId = newChecklistId;
-          item.cardId = _id;
-          ChecklistItems.insert(item);
-        });
+        const subtask = arguments[0];
+        subtask.parentId = _id;
+        subtask._id = null;
+        /* const newSubtaskId = */ Cards.insert(subtask);
       });
 
       // copy card comments
@@ -454,18 +530,17 @@ Template.copyChecklistToManyCardsPopup.events({
         // copy checklists
         let cursor = Checklists.find({cardId: oldId});
         cursor.forEach(function() {
+          cloneCheckList(_id, arguments[0]);
+        });
+
+        // copy subtasks
+        cursor = Cards.find({parentId: oldId});
+        cursor.forEach(function() {
           'use strict';
-          const checklist = arguments[0];
-          const checklistId = checklist._id;
-          checklist.cardId = _id;
-          checklist._id = null;
-          const newChecklistId = Checklists.insert(checklist);
-          ChecklistItems.find({checklistId}).forEach(function(item) {
-            item._id = null;
-            item.checklistId = newChecklistId;
-            item.cardId = _id;
-            ChecklistItems.insert(item);
-          });
+          const subtask = arguments[0];
+          subtask.parentId = _id;
+          subtask._id = null;
+          /* const newSubtaskId = */ Cards.insert(subtask);
         });
 
         // copy card comments
@@ -483,36 +558,119 @@ Template.copyChecklistToManyCardsPopup.events({
   },
 });
 
-
-Template.cardMorePopup.events({
-  'click .js-copy-card-link-to-clipboard' () {
-    // Clipboard code from:
-    // https://stackoverflow.com/questions/6300213/copy-selected-text-to-the-clipboard-without-using-flash-must-be-cross-browser
-    const StringToCopyElement = document.getElementById('cardURL');
-    StringToCopyElement.select();
-    if (document.execCommand('copy')) {
-      StringToCopyElement.blur();
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.currentCard = this.currentData();
+    this.parentCard = this.currentCard.parentCard();
+    if (this.parentCard) {
+      this.parentBoard = this.parentCard.board();
     } else {
-      document.getElementById('cardURL').selectionStart = 0;
-      document.getElementById('cardURL').selectionEnd = 999;
-      document.execCommand('copy');
-      if (window.getSelection) {
-        if (window.getSelection().empty) { // Chrome
-          window.getSelection().empty();
-        } else if (window.getSelection().removeAllRanges) { // Firefox
-          window.getSelection().removeAllRanges();
-        }
-      } else if (document.selection) { // IE?
-        document.selection.empty();
-      }
+      this.parentBoard = null;
     }
   },
-  'click .js-delete': Popup.afterConfirm('cardDelete', function () {
-    Popup.close();
-    Cards.remove(this._id);
-    Utils.goBoardId(this.boardId);
-  }),
-});
+
+  boards() {
+    const boards = Boards.find({
+      archived: false,
+      'members.userId': Meteor.userId(),
+    }, {
+      sort: ['title'],
+    });
+    return boards;
+  },
+
+  cards() {
+    if (this.parentBoard) {
+      return this.parentBoard.cards();
+    } else {
+      return [];
+    }
+  },
+
+  isParentBoard() {
+    const board = this.currentData();
+    if (this.parentBoard) {
+      return board._id === this.parentBoard;
+    }
+    return false;
+  },
+
+  isParentCard() {
+    const card = this.currentData();
+    if (this.parentCard) {
+      return card._id === this.parentCard;
+    }
+    return false;
+  },
+
+  setParentCardId(cardId) {
+    if (cardId === 'null') {
+      cardId = null;
+      this.parentCard = null;
+    } else {
+      this.parentCard = Cards.findOne(cardId);
+    }
+    this.currentCard.setParentId(cardId);
+  },
+
+  events() {
+    return [{
+      'click .js-copy-card-link-to-clipboard' () {
+        // Clipboard code from:
+        // https://stackoverflow.com/questions/6300213/copy-selected-text-to-the-clipboard-without-using-flash-must-be-cross-browser
+        const StringToCopyElement = document.getElementById('cardURL');
+        StringToCopyElement.select();
+        if (document.execCommand('copy')) {
+          StringToCopyElement.blur();
+        } else {
+          document.getElementById('cardURL').selectionStart = 0;
+          document.getElementById('cardURL').selectionEnd = 999;
+          document.execCommand('copy');
+          if (window.getSelection) {
+            if (window.getSelection().empty) { // Chrome
+              window.getSelection().empty();
+            } else if (window.getSelection().removeAllRanges) { // Firefox
+              window.getSelection().removeAllRanges();
+            }
+          } else if (document.selection) { // IE?
+            document.selection.empty();
+          }
+        }
+      },
+      'click .js-delete': Popup.afterConfirm('cardDelete', function () {
+        Popup.close();
+        Cards.remove(this._id);
+        Utils.goBoardId(this.boardId);
+      }),
+      'change .js-field-parent-board'(evt) {
+        const selection = $(evt.currentTarget).val();
+        const list = $('.js-field-parent-card');
+        list.empty();
+        if (selection === 'none') {
+          this.parentBoard = null;
+          list.prop('disabled', true);
+        } else {
+          this.parentBoard = Boards.findOne(selection);
+          this.parentBoard.cards().forEach(function(card) {
+            list.append(
+              $('<option></option>').val(card._id).html(card.title)
+            );
+          });
+          list.prop('disabled', false);
+        }
+        list.append(
+          `<option value='none' selected='selected'>${TAPi18n.__('custom-field-dropdown-none')}</option>`
+        );
+        this.setParentCardId('null');
+      },
+      'change .js-field-parent-card'(evt) {
+        const selection = $(evt.currentTarget).val();
+        this.setParentCardId(selection);
+      },
+    }];
+  },
+}).register('cardMorePopup');
+
 
 // Close the card details pane by pressing escape
 EscapeActions.register('detailsPane',

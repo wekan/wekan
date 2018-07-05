@@ -134,6 +134,7 @@
     "Announcements": true,
     "Swimlanes": true,
     "ChecklistItems": true,
+    "Subtasks": true,
     "Npm": true
   }
 }
