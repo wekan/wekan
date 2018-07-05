@@ -1,3 +1,11 @@
+# v1.13 2018-07-06 Wekan release
+
+This release adds the following new features:
+
+- Added snapcraft.yml new node version changes, that were missing from v1.12.
+
+Thanks to GitHub user xet7 for contibutions.
+
 # v1.12 2018-07-06 Wekan release
 
 This release adds the following new features:

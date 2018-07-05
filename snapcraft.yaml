@@ -110,7 +110,7 @@ parts:
             #   Fiber.poolSize = 1e9;
             # Download node version 8.11.1 that has fix included, node binary copied from Sandstorm
             # Description at https://releases.wekan.team/node.txt
-            echo "13baa1b3114a5ea3248875e0f36cb46fcf8acd212de1fb74ba68ef4c9a4e1d93  node" >> node-SHASUMS256.txt.asc
+            echo "5263dc1c571885921179b11a1c6eb9ca82a95a89b69c15b366f885e9b5a32d66  node" >> node-SHASUMS256.txt.asc
             curl https://releases.wekan.team/node -o node
             # Verify Fibers patched node authenticity
             echo "Fibers 100% CPU issue patched node authenticity:"
