@@ -68,30 +68,32 @@ Mousetrap.bind('space', (evt) => {
   }
 });
 
-Template.keyboardShortcuts.helpers({
-  mapping: [{
-    keys: ['W'],
-    action: 'shortcut-toggle-sidebar',
-  }, {
-    keys: ['Q'],
-    action: 'shortcut-filter-my-cards',
-  }, {
-    keys: ['F'],
-    action: 'shortcut-toggle-filterbar',
-  }, {
-    keys: ['X'],
-    action: 'shortcut-clear-filters',
-  }, {
-    keys: ['?'],
-    action: 'shortcut-show-shortcuts',
-  }, {
-    keys: ['ESC'],
-    action: 'shortcut-close-dialog',
-  }, {
-    keys: ['@'],
-    action: 'shortcut-autocomplete-members',
-  }, {
-    keys: ['SPACE'],
-    action: 'shortcut-assign-self',
-  }],
-});
+BlazeComponent.extendComponent({
+  mapping(){
+    return [{
+      keys: ['W'],
+      action: 'shortcut-toggle-sidebar',
+    }, {
+      keys: ['Q'],
+      action: 'shortcut-filter-my-cards',
+    }, {
+      keys: ['F'],
+      action: 'shortcut-toggle-filterbar',
+    }, {
+      keys: ['X'],
+      action: 'shortcut-clear-filters',
+    }, {
+      keys: ['?'],
+      action: 'shortcut-show-shortcuts',
+    }, {
+      keys: ['ESC'],
+      action: 'shortcut-close-dialog',
+    }, {
+      keys: ['@'],
+      action: 'shortcut-autocomplete-members',
+    }, {
+      keys: ['SPACE'],
+      action: 'shortcut-assign-self',
+    }];
+  },
+}).register('keyboardShortcuts');

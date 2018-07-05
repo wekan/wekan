@@ -17,7 +17,7 @@ describe('Initial state', () => {
       expect(stgs.mailServer.host).to.be.empty;
       expect(stgs.mailServer.port).to.be.empty;
       expect(stgs.mailServer.enableTLS).to.be.false;
-      expect(stgs.mailServer.from).to.equal('Wekan <wekan@localhost:3000/>');
+      expect(stgs.mailServer.from).to.startsWith('Wekan <wekan@');
       stgs.createdAt.should.be.a('date');
       stgs.modifiedAt.should.be.a('date');
     }

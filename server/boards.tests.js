@@ -6,37 +6,37 @@ import { stubs } from 'meteor/practicalmeteor:sinon';
 import { Meteor } from 'meteor/meteor';
 import { resetDatabase } from 'meteor/xolvio:cleaner';
 import 'meteor/tap:i18n';
-import '../../../server/lib/utils';
-import '../../../server/notifications/notifications';
+import './lib/utils';
+import './notifications/notifications';
 
-import '../../../models/accountSettings';
-import '../../../models/activities';
-import '../../../models/announcements';
-import '../../../models/attachments';
-import '../../../models/avatars';
-import '../../../models/boards';
-import '../../../models/cardComments';
-import '../../../models/cards';
-import '../../../models/checklistItems';
-import '../../../models/checklists';
-import '../../../models/customFields';
-import '../../../models/export';
-import '../../../models/import';
-import '../../../models/integrations';
-import '../../../models/invitationCodes';
-import '../../../models/lists';
-import '../../../models/settings';
-import '../../../models/swimlanes';
-import '../../../models/trelloCreator';
-import '../../../models/unsavedEdits';
-import '../../../models/users';
-import '../../../models/watchable';
-import '../../../models/wekanCreator';
-import '../../../i18n/en.i18n.json';
+import '../models/accountSettings';
+import '../models/activities';
+import '../models/announcements';
+import '../models/attachments';
+import '../models/avatars';
+import '../models/boards';
+import '../models/cardComments';
+import '../models/cards';
+import '../models/checklistItems';
+import '../models/checklists';
+import '../models/customFields';
+import '../models/export';
+import '../models/import';
+import '../models/integrations';
+import '../models/invitationCodes';
+import '../models/lists';
+import '../models/settings';
+import '../models/swimlanes';
+import '../models/trelloCreator';
+import '../models/unsavedEdits';
+import '../models/users';
+import '../models/watchable';
+import '../models/wekanCreator';
+import '../i18n/en.i18n.json';
 
 if (Meteor.isServer) {
 
-  /*const should = */shouldFunc();
+  /*const should = */ shouldFunc();
   let crtUserId = undefined;
 
   describe('Boards collection', () => {
