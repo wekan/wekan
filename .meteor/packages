@@ -85,3 +85,12 @@ browser-policy
 eluck:accounts-lockout
 rzymek:fullcalendar
 momentjs:moment@2.22.2
+
+# Testing
+practicalmeteor:chai
+practicalmeteor:mocha
+xolvio:cleaner
+dburles:factory
+hwillson:stub-collections
+
+# Others

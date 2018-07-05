@@ -5,7 +5,11 @@
   "private": true,
   "scripts": {
     "lint": "eslint --ignore-pattern 'packages/*' .",
-    "test": "npm run --silent lint"
+    "test": "npm run --silent lint",
+    "tmocha": "meteor test --port 3011 --driver-package practicalmeteor:mocha",
+    "tfull": "meteor test --full-app --port 3021 --driver-package practicalmeteor:mocha",
+    "dtmocha": "meteor test --port 3031 --debug-port 3035 --driver-package practicalmeteor:mocha",
+    "dtfull": "meteor test --full-app --port 3042 --debug-port 3045 --driver-package practicalmeteor:mocha"
   },
   "eslintConfig": {
     "extends": "@meteorjs/eslint-config-meteor"
@@ -20,10 +24,12 @@
   },
   "homepage": "https://wekan.github.io",
   "devDependencies": {
-    "eslint": "^4.19.1"
+    "eslint": "^4.19.1",
+    "fibers": "^2.0.2"
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",
+    "bcrypt": "^2.0.1",
     "bson-ext": "^2.0.0",
     "es6-promise": "^4.2.4",
     "meteor-node-stubs": "^0.4.1",

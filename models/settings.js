@@ -31,9 +31,23 @@ Settings.attachSchema(new SimpleSchema({
   createdAt: {
     type: Date,
     denyUpdate: true,
+    autoValue() { // eslint-disable-line consistent-return
+      if (this.isInsert) {
+        return new Date();
+      } else {
+        this.unset();
+      }
+    },
   },
   modifiedAt: {
     type: Date,
+    autoValue() { // eslint-disable-line consistent-return
+      if (this.isInsert) {
+        return new Date();
+      } else {
+        this.unset();
+      }
+    },
   },
 }));
 Settings.helpers({
