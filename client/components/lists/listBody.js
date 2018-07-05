@@ -36,17 +36,14 @@ BlazeComponent.extendComponent({
     const members = formComponent.members.get();
     const labelIds = formComponent.labels.get();
     const customFields = formComponent.customFields.get();
-    //console.log('members', members);
-    //console.log('labelIds', labelIds);
-    //console.log('customFields', customFields);
 
-    const boardId = this.data().board()._id;
+    const boardId = this.data().board();
     let swimlaneId = '';
     const boardView = Meteor.user().profile.boardView;
     if (boardView === 'board-view-swimlanes')
       swimlaneId = this.parentComponent().parentComponent().data()._id;
     else if ((boardView === 'board-view-lists') || (boardView === 'board-view-cal'))
-      swimlaneId = Swimlanes.findOne({boardId})._id;
+      swimlaneId = boardId.getDefaultSwimline()._id;
 
     if (title) {
       const _id = Cards.insert({
@@ -55,7 +52,7 @@ BlazeComponent.extendComponent({
         labelIds,
         customFields,
         listId: this.data()._id,
-        boardId: this.data().board()._id,
+        boardId: boardId._id,
         sort: sortIndex,
         swimlaneId,
       });

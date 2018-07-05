@@ -1,6 +1,10 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+- [Nested tasks](https://github.com/wekan/wekan/pull/1723).
+
+and fixes the following bugs:
 
 - [Fix warning about missing space in jade file](https://github.com/wekan/wekan/commit/067aef9de948ef0cb6037d52602100b00d214706);
 - Revert [Fix vertical align of user avatar initials](https://github.com/wekan/wekan/pull/1714), so that [initials are again
@@ -9,7 +13,7 @@ This release fixes the following bugs:
   no-unused-vars](https://github.com/wekan/wekan/commit/dd324aa581bed7ea31f20968c6b596f373e7054f);
 - Fix [Minimize board sidebar actually just moves it over](https://github.com/wekan/wekan/issues/1589).
 
-Thanks to GitHub users dagomar, pravdomil and xet7 for their contributions.
+Thanks to GitHub users dagomar, pravdomil, TNick and xet7 for their contributions.
 
 # v1.11 2018-06-30 Wekan release
 

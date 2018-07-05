@@ -130,6 +130,10 @@ template(name="boardMenuPopup")
         li: a(href="{{exportUrl}}", download="{{exportFilename}}") {{_ 'export-board'}}
         li: a.js-archive-board {{_ 'archive-board'}}
         li: a.js-outgoing-webhooks {{_ 'outgoing-webhooks'}}
+      hr
+      ul.pop-over-list
+        li: a.js-subtask-settings {{_ 'subtask-settings'}}
+
   if isSandstorm
     hr
     ul.pop-over-list
@@ -192,6 +196,56 @@ template(name="boardChangeColorPopup")
         span.background-box(class="board-color-{{this}}")
           if isSelected
             i.fa.fa-check
+
+template(name="boardSubtaskSettingsPopup")
+  form.board-subtask-settings
+    h3 {{_ 'show-parent-in-minicard'}}
+      a#prefix-with-full-path.flex.js-field-show-parent-in-minicard(class="{{#if $eq presentParentTask 'prefix-with-full-path'}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if $eq presentParentTask 'prefix-with-full-path'}}is-checked{{/if}}")
+        span {{_ 'prefix-with-full-path'}}
+      a#prefix-with-parent.flex.js-field-show-parent-in-minicard(class="{{#if $eq presentParentTask 'prefix-with-parent'}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if $eq presentParentTask 'prefix-with-parent'}}is-checked{{/if}}")
+        span {{_ 'prefix-with-parent'}}
+      a#subtext-with-full-path.flex.js-field-show-parent-in-minicard(class="{{#if $eq presentParentTask 'subtext-with-full-path'}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if $eq presentParentTask 'subtext-with-full-path'}}is-checked{{/if}}")
+        span {{_ 'subtext-with-full-path'}}
+      a#subtext-with-parent.flex.js-field-show-parent-in-minicard(class="{{#if $eq presentParentTask 'subtext-with-parent'}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if $eq presentParentTask 'subtext-with-parent'}}is-checked{{/if}}")
+        span {{_ 'subtext-with-parent'}}
+      a#no-parent.flex.js-field-show-parent-in-minicard(class="{{#if $eq presentParentTask 'no-parent'}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if $eq presentParentTask 'no-parent'}}is-checked{{/if}}")
+        span {{_ 'no-parent'}}
+    div
+      hr
+
+    div.check-div
+      a.flex.js-field-has-subtasks(class="{{#if allowsSubtasks}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsSubtasks}}is-checked{{/if}}")
+        span {{_ 'show-subtasks-field'}}
+
+    label
+      | {{_ 'deposit-subtasks-board'}}
+      select.js-field-deposit-board(disabled="{{#unless allowsSubtasks}}disabled{{/unless}}")
+          each boards
+            if isBoardSelected
+              option(value=_id selected="selected") {{title}}
+            else
+              option(value=_id) {{title}}
+          if isNullBoardSelected
+            option(value='null' selected="selected") {{_ 'custom-field-dropdown-none'}}
+          else
+            option(value='null') {{_ 'custom-field-dropdown-none'}}
+    div
+      hr
+
+    label
+      | {{_ 'deposit-subtasks-list'}}
+      select.js-field-deposit-list(disabled="{{#unless hasLists}}disabled{{/unless}}")
+          each lists
+            if isListSelected
+              option(value=_id selected="selected") {{title}}
+            else
+              option(value=_id) {{title}}
 
 template(name="createBoard")
   form
