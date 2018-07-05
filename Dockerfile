@@ -136,6 +136,7 @@ ENV BUILD_DEPS="apt-utils bsdtar gnupg gosu wget curl bzip2 build-essential pyth
 COPY ${SRC_PATH} /home/wekan/app
 
 RUN \
+    set -o xtrace && \
     # Add non-root user wekan
     useradd --user-group --system --home-dir /home/wekan wekan && \
     \
