@@ -52,9 +52,9 @@ template(name="filterSidebar")
       li(class="{{#if Filter.customFields.isSelected _id}}active{{/if}}")
         a.name.js-toggle-custom-fields-filter
           span.sidebar-list-item-description
-            {{ name }}
+            | {{ name }}
           if Filter.customFields.isSelected _id
-              i.fa.fa-check
+            i.fa.fa-check
   hr
   span {{_ 'advanced-filter-label'}}
   input.js-field-advanced-filter(type="text")
