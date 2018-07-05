@@ -3,7 +3,8 @@
 This release adds the following new features:
 
 - [Nested tasks](https://github.com/wekan/wekan/pull/1723);
-- [Calendar improvements](https://github.com/wekan/wekan/pull/1752).
+- [Calendar improvements](https://github.com/wekan/wekan/pull/1752);
+- [SSO CAS](https://github.com/wekan/wekan/pull/1742).
 
 and fixes the following bugs:
 
@@ -14,7 +15,7 @@ and fixes the following bugs:
   no-unused-vars](https://github.com/wekan/wekan/commit/dd324aa581bed7ea31f20968c6b596f373e7054f);
 - Fix [Minimize board sidebar actually just moves it over](https://github.com/wekan/wekan/issues/1589).
 
-Thanks to GitHub users dagomar, pravdomil, TNick and xet7 for their contributions.
+Thanks to GitHub users dagomar, ppoulard, pravdomil, TNick and xet7 for their contributions.
 
 # v1.11 2018-06-30 Wekan release
 
