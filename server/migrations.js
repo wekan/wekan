@@ -153,7 +153,7 @@ Migrations.add('add-sort-checklists', () => {
 });
 
 Migrations.add('add-swimlanes', () => {
-  Boards.forEach((board) => {
+  Boards.find().forEach((board) => {
     const swimlaneId = board.getDefaultSwimline()._id;
     Cards.find({ boardId: board._id }).forEach((card) => {
       if (!card.hasOwnProperty('swimlaneId')) {
