@@ -136,6 +136,7 @@ Utils = {
     });
     $(document).on('touchend', selector, function(e) {
       if (touchStart && lastTouch && Utils.calculateTouchDistance(touchStart, lastTouch) <= 20) {
+        e.preventDefault();
         const clickEvent = document.createEvent('MouseEvents');
         clickEvent.initEvent('click', true, true);
         e.target.dispatchEvent(clickEvent);
