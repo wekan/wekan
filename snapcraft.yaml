@@ -81,7 +81,7 @@ parts:
     wekan:
         source: .
         plugin: nodejs
-        node-engine: 8.11.1
+        node-engine: 8.11.3
         node-packages:
             - npm
             - node-gyp
@@ -108,7 +108,7 @@ parts:
             # Also see beginning of wekan/server/authentication.js
             #   import Fiber from "fibers";
             #   Fiber.poolSize = 1e9;
-            # Download node version 8.11.1 that has fix included, node binary copied from Sandstorm
+            # Download node version 8.11.3 that has fix included, node binary copied from Sandstorm
             # Description at https://releases.wekan.team/node.txt
             echo "5263dc1c571885921179b11a1c6eb9ca82a95a89b69c15b366f885e9b5a32d66  node" >> node-SHASUMS256.txt.asc
             curl https://releases.wekan.team/node -o node

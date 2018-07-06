@@ -1,3 +1,11 @@
+# v1.14 2018-07-06 Wekan release
+
+This release fixes the following bugs:
+
+- Fix [Checklists.forEach is not a function](https://github.com/wekan/wekan/issues/1753).
+
+Thanks to GitHub user xet7 for contributions.
+
 # v1.13 2018-07-06 Wekan release
 
 This release adds the following new features:
