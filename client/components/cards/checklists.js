@@ -38,9 +38,7 @@ function initSorting(items) {
   });
 
   // ugly touch event hotfix
-  $('.js-checklist-item:not(.placeholder)').each(function() {
-    enableClickOnTouch(this);
-  });
+  enableClickOnTouch('.js-checklist-item:not(.placeholder)');
 }
 
 BlazeComponent.extendComponent({

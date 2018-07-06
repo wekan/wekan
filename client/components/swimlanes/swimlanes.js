@@ -67,9 +67,7 @@ function initSortable(boardComponent, $listsDom) {
   });
 
   // ugly touch event hotfix
-  $('.js-list:not(.js-list-composer)').each(function() {
-    enableClickOnTouch(this);
-  });
+  enableClickOnTouch('.js-list:not(.js-list-composer)');
 
   function userIsMember() {
     return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();

@@ -123,23 +123,24 @@ Utils = {
     );
   },
 
-  enableClickOnTouch(element) {
+  enableClickOnTouch(selector) {
     let touchStart = null;
     let lastTouch = null;
-    element.addEventListener('touchstart', function(e) {
-      touchStart = e.touches[0];
-    }, false);
-    element.addEventListener('touchmove', function(e) {
-      const touches = e.touches;
+
+    $(document).on('touchstart', selector, function(e) {
+      touchStart = e.originalEvent.touches[0];
+    });
+    $(document).on('touchmove', selector, function(e) {
+      const touches = e.originalEvent.touches;
       lastTouch = touches[touches.length - 1];
-    }, true);
-    element.addEventListener('touchend', function() {
+    });
+    $(document).on('touchend', selector, function(e) {
       if (touchStart && lastTouch && Utils.calculateTouchDistance(touchStart, lastTouch) <= 20) {
         const clickEvent = document.createEvent('MouseEvents');
         clickEvent.initEvent('click', true, true);
-        this.dispatchEvent(clickEvent);
+        e.target.dispatchEvent(clickEvent);
       }
-    }, false);
+    });
   },
 };
 

@@ -75,9 +75,7 @@ BlazeComponent.extendComponent({
     });
 
     // ugly touch event hotfix
-    $('.js-swimlane:not(.placeholder)').each(function() {
-      enableClickOnTouch(this);
-    });
+    enableClickOnTouch('.js-swimlane:not(.placeholder)');
 
     function userIsMember() {
       return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
