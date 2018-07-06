@@ -1,4 +1,14 @@
+# v1.17 2018-07-06 Wekan release
+
+This release adds the following new features:
+
+- [Made Subtask Settings visible at Board menu at Sandstorm](https://github.com/wekan/wekan/commit/884cd0e6b888edc9752cbed80e7ac75e2ce232de).
+
+Thanks to GitHub user xet7 for contributions.
+
 # v1.16 2018-07-06 Wekan release
+
+This release fixes the following bugs:
 
 - Fix: [Boards.forEach is not function](https://github.com/wekan/wekan/commit/a41190cdf024df65ad1c9931b3065c6ababeaf25).
 

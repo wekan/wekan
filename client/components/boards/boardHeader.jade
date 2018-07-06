@@ -139,6 +139,9 @@ template(name="boardMenuPopup")
     ul.pop-over-list
       li: a(href="{{exportUrl}}", download="{{exportFilename}}") {{_ 'export-board'}}
       li: a.js-import-board {{_ 'import-board-c'}}
+    hr
+    ul.pop-over-list
+      li: a.js-subtask-settings {{_ 'subtask-settings'}}
 
 template(name="boardVisibilityList")
   ul.pop-over-list
