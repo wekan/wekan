@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- Fix [Title is required](https://github.com/wekan/wekan/issues/1576)
+  by [setting Checklist title during migration](https://github.com/wekan/wekan/issues/1753).
+
+Thanks to GitHub users centigrade-kdk and xet7 for their contributions.
+
 # v1.17 2018-07-06 Wekan release
 
 This release adds the following new features:
