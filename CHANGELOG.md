@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v1.16 2018-07-06 Wekan release
 
 - Fix: [Boards.forEach is not function](https://github.com/wekan/wekan/commit/a41190cdf024df65ad1c9931b3065c6ababeaf25).
 
