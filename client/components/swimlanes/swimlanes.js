@@ -1,4 +1,4 @@
-const { calculateIndex } = Utils;
+const { calculateIndex, enableClickOnTouch } = Utils;
 
 function currentCardIsInThisList(listId, swimlaneId) {
   const currentCard = Cards.findOne(Session.get('currentCard'));
@@ -64,6 +64,11 @@ function initSortable(boardComponent, $listsDom) {
 
       boardComponent.setIsDragging(false);
     },
+  });
+
+  // ugly touch event hotfix
+  $('.js-list:not(.js-list-composer)').each(function() {
+    enableClickOnTouch(this);
   });
 
   function userIsMember() {

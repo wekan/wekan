@@ -1,5 +1,5 @@
 const subManager = new SubsManager();
-const { calculateIndex } = Utils;
+const { calculateIndex, enableClickOnTouch } = Utils;
 
 BlazeComponent.extendComponent({
   onCreated() {
@@ -72,6 +72,11 @@ BlazeComponent.extendComponent({
 
         boardComponent.setIsDragging(false);
       },
+    });
+
+    // ugly touch event hotfix
+    $('.js-swimlane:not(.placeholder)').each(function() {
+      enableClickOnTouch(this);
     });
 
     function userIsMember() {

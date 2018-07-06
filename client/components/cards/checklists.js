@@ -1,4 +1,4 @@
-const { calculateIndexData } = Utils;
+const { calculateIndexData, enableClickOnTouch } = Utils;
 
 function initSorting(items) {
   items.sortable({
@@ -35,6 +35,11 @@ function initSorting(items) {
 
       checklistItem.move(checklistId, sortIndex.base);
     },
+  });
+
+  // ugly touch event hotfix
+  $('.js-checklist-item:not(.placeholder)').each(function() {
+    enableClickOnTouch(this);
   });
 }
 
