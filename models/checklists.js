@@ -7,7 +7,6 @@ Checklists.attachSchema(new SimpleSchema({
   title: {
     type: String,
     defaultValue: 'Checklist',
-    optional: true,
   },
   finishedAt: {
     type: Date,
