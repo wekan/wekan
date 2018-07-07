@@ -95,6 +95,55 @@ Utils = {
       increment,
     };
   },
+
+  // Detect touch device
+  isTouchDevice() {
+    const isTouchable = (() => {
+      const prefixes = ' -webkit- -moz- -o- -ms- '.split(' ');
+      const mq = function(query) {
+        return window.matchMedia(query).matches;
+      };
+
+      if (('ontouchstart' in window) || window.DocumentTouch && document instanceof window.DocumentTouch) {
+        return true;
+      }
+
+      // include the 'heartz' as a way to have a non matching MQ to help terminate the join
+      // https://git.io/vznFH
+      const query = ['(', prefixes.join('touch-enabled),('), 'heartz', ')'].join('');
+      return mq(query);
+    })();
+    Utils.isTouchDevice = () => isTouchable;
+    return isTouchable;
+  },
+
+  calculateTouchDistance(touchA, touchB) {
+    return Math.sqrt(
+      Math.pow(touchA.screenX - touchB.screenX, 2) +
+      Math.pow(touchA.screenY - touchB.screenY, 2)
+    );
+  },
+
+  enableClickOnTouch(selector) {
+    let touchStart = null;
+    let lastTouch = null;
+
+    $(document).on('touchstart', selector, function(e) {
+      touchStart = e.originalEvent.touches[0];
+    });
+    $(document).on('touchmove', selector, function(e) {
+      const touches = e.originalEvent.touches;
+      lastTouch = touches[touches.length - 1];
+    });
+    $(document).on('touchend', selector, function(e) {
+      if (touchStart && lastTouch && Utils.calculateTouchDistance(touchStart, lastTouch) <= 20) {
+        e.preventDefault();
+        const clickEvent = document.createEvent('MouseEvents');
+        clickEvent.initEvent('click', true, true);
+        e.target.dispatchEvent(clickEvent);
+      }
+    });
+  },
 };
 
 // A simple tracker dependency that we invalidate every time the window is
