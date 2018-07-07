@@ -113,6 +113,7 @@ Utils = {
       const query = ['(', prefixes.join('touch-enabled),('), 'heartz', ')'].join('');
       return mq(query);
     })();
+    Utils.isTouchDevice = () => isTouchable;
     return isTouchable;
   },
 

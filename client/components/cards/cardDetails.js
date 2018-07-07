@@ -1,5 +1,5 @@
 const subManager = new SubsManager();
-const { calculateIndexData } = Utils;
+const { calculateIndexData, enableClickOnTouch } = Utils;
 
 BlazeComponent.extendComponent({
   mixins() {
