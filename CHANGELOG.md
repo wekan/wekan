@@ -1,6 +1,10 @@
 # Upcoming Wekan release
 
-This release fixes the following mobile bugs:
+This release adds the following new features:
+
+- [Build from source on macOS](https://github.com/wekan/wekan/wiki/Mac)
+
+and fixes the following mobile bugs:
 
 - [Fix missing utility function](https://github.com/wekan/wekan/commit/5c774070617357c25c7bb35b43f4b122eb4b3e34);
 - [Avoid default behavior](https://github.com/wekan/wekan/commit/9c204d9bbe4845bc3e352e839615dfb782a753f4);
