@@ -14,7 +14,6 @@
 [![Code Climate](https://codeclimate.com/github/wekan/wekan/badges/gpa.svg "Code Climate")](https://codeclimate.com/github/wekan/wekan)
 [![Project Dependencies](https://david-dm.org/wekan/wekan.svg "Project Dependencies")](https://david-dm.org/wekan/wekan)
 [![Code analysis at Open Hub](https://img.shields.io/badge/code%20analysis-at%20Open%20Hub-brightgreen.svg "Code analysis at Open Hub")](https://www.openhub.net/p/wekan)
-[![Greenkeeper badge](https://badges.greenkeeper.io/wekan/wekan.svg)](https://greenkeeper.io/)
 
 Please read [FAQ](https://github.com/wekan/wekan/wiki/FAQ).
 Please don't feed the trolls and spammers that are mentioned in the FAQ :)
