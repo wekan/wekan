@@ -2,7 +2,8 @@
 
 This release adds the following new features:
 
-- [Build from source on macOS](https://github.com/wekan/wekan/wiki/Mac)
+- [Build from source on macOS](https://github.com/wekan/wekan/wiki/Mac);
+- [Wekan integration with OpenShift](https://github.com/wekan/wekan/pull/1765).
 
 and fixes the following mobile bugs:
 
@@ -11,7 +12,7 @@ and fixes the following mobile bugs:
 - [Hotfix more sortable elements](https://github.com/wekan/wekan/commit/616dade81c25b10fc409aee1bcc9a93ddbfee81b);
 - [Hotfix for mobile device](https://github.com/wekan/wekan/commit/43d86d7d5d3f3b34b0500f6d5d3afe7bd86b0060).
 
-Thanks to GitHub user Haocen for contributions.
+Thanks to GitHub users adyachok and Haocen for their contributions.
 
 # v1.18 2018-07-06 Wekan release
 
