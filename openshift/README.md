@@ -1,6 +1,6 @@
-# WeKan on OpenShift
+# Wekan on OpenShift
  
-Openshift Template for WeKan backed by MongoDB
+OpenShift Template for Wekan backed by MongoDB
  
 #### Create Template
 ```sh

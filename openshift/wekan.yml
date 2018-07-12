@@ -8,13 +8,13 @@ message: |-
 metadata:
   annotations:
     description: |-
-      This template provides a WeKan instance backed by a standalone MongoDB
+      This template provides a Wekan instance backed by a standalone MongoDB
       server. The database is stored on persistent storage.
     iconClass: pficon-trend-up
-    openshift.io/display-name: WEKAN backed by MongoDB
+    openshift.io/display-name: Wekan backed by MongoDB
     openshift.io/documentation-url: https://wekan.github.io/
-    openshift.io/long-description: This template provides a WeKan platphorm
-      with a MongoDB database created.  The database is stored on persistent storage.  The
+    openshift.io/long-description: This template provides a Wekan platform
+      with a MongoDB database created. The database is stored on persistent storage. The
       database name, username, and password are chosen via parameters when provisioning
       this service.
     tags: wekan,kanban,mongodb
