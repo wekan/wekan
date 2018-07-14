@@ -4,7 +4,7 @@
 source $SNAP/bin/wekan-read-settings
 
 if [ "$CADDY_ENABLED" = "true" ]; then
-    env LC_ALL=C caddy -conf=$SNAP_COMMON/Caddyfile -host=localhost:${CADDY_PORT}
+    env LC_ALL=C caddy -conf=$SNAP_COMMON/Caddyfile -host=localhost:${CADDY_PORT} -agree
 else
     echo "caddy is disabled. Stop service"
     snapctl stop --disable ${SNAP_NAME}.caddy
