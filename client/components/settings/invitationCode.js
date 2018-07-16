@@ -1,6 +1,6 @@
 Template.invitationCode.onRendered(function() {
   Meteor.subscribe('setting', {
-    onReady : function() {
+    onReady() {
       const setting = Settings.findOne();
 
       if (!setting || !setting.disableRegistration) {
@@ -8,6 +8,6 @@ Template.invitationCode.onRendered(function() {
       }
 
       return this.stop();
-    }
+    },
   });
 });
