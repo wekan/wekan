@@ -503,6 +503,9 @@ if (Meteor.isServer) {
       user.profile.boardView = 'board-view-lists';
     }
 
+    // Deletes the invitation.
+    InvitationCodes.remove(invitationCode._id);
+
     return user;
   });
 }

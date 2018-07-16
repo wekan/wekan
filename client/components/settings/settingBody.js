@@ -82,6 +82,7 @@ BlazeComponent.extendComponent({
   },
 
   inviteThroughEmail() {
+    /* eslint-disable no-console */
     const emails = $('#email-to-invite').val().trim().split('\n').join(',').split(',');
     const boardsToInvite = [];
     $('.js-toggle-board-choose .materialCheckBox.is-checked').each(function () {
@@ -99,9 +100,11 @@ BlazeComponent.extendComponent({
         // if (!err) {
         //   TODO - show more info to user
         // }
+
         this.setLoading(false);
       });
     }
+    /* eslint-enable no-console */
   },
 
   saveMailServerInfo() {
