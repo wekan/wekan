@@ -1,5 +1,5 @@
 const subManager = new SubsManager();
-const { calculateIndexData } = Utils;
+const { calculateIndexData, enableClickOnTouch } = Utils;
 
 BlazeComponent.extendComponent({
   mixins() {
@@ -132,6 +132,9 @@ BlazeComponent.extendComponent({
       },
     });
 
+    // ugly touch event hotfix
+    enableClickOnTouch('.card-checklist-items .js-checklist');
+
     const $subtasksDom = this.$('.card-subtasks-items');
 
     $subtasksDom.sortable({
@@ -166,6 +169,9 @@ BlazeComponent.extendComponent({
         });
       },
     });
+
+    // ugly touch event hotfix
+    enableClickOnTouch('.card-subtasks-items .js-subtasks');
 
     function userIsMember() {
       return Meteor.user() && Meteor.user().isBoardMember();

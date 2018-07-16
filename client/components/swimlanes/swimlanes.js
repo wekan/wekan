@@ -1,4 +1,4 @@
-const { calculateIndex } = Utils;
+const { calculateIndex, enableClickOnTouch } = Utils;
 
 function currentCardIsInThisList(listId, swimlaneId) {
   const currentCard = Cards.findOne(Session.get('currentCard'));
@@ -65,6 +65,9 @@ function initSortable(boardComponent, $listsDom) {
       boardComponent.setIsDragging(false);
     },
   });
+
+  // ugly touch event hotfix
+  enableClickOnTouch('.js-list:not(.js-list-composer)');
 
   function userIsMember() {
     return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();

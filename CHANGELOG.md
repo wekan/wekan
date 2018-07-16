@@ -1,3 +1,24 @@
+# v1.19 2018-07-16 Wekan release
+
+This release adds the following new features:
+
+- [Build from source on macOS](https://github.com/wekan/wekan/wiki/Mac);
+- [Wekan integration with OpenShift](https://github.com/wekan/wekan/pull/1765);
+- [Snap Caddy: set -agree flag for Let's Encrypt](https://github.com/wekan/wekan-snap/issues/54).
+
+and fixes the following mobile bugs:
+
+- [Fix missing utility function](https://github.com/wekan/wekan/commit/5c774070617357c25c7bb35b43f4b122eb4b3e34);
+- [Avoid default behavior](https://github.com/wekan/wekan/commit/9c204d9bbe4845bc3e352e839615dfb782a753f4);
+- [Hotfix more sortable elements](https://github.com/wekan/wekan/commit/616dade81c25b10fc409aee1bcc9a93ddbfee81b);
+- [Hotfix for mobile device](https://github.com/wekan/wekan/commit/43d86d7d5d3f3b34b0500f6d5d3afe7bd86b0060).
+
+and fixes the following bugs:
+
+- [Fix invitation code](https://github.com/wekan/wekan/pull/1777).
+
+Thanks to GitHub users adyachok, Akuket, halunk3, Haocen and xet7 for their contributions.
+
 # v1.18 2018-07-06 Wekan release
 
 This release fixes the following bugs:
