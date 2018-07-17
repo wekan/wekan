@@ -1,3 +1,15 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Remove SMTP settings from Admin Panel, because they are set in environment
+   variable settings like source/snap/docker already, and password was
+   exposed in plain text](https://github.com/wekan/wekan/issues/1783);
+- [Added info how to limit snap to root
+   user](https://github.com/wekan/wekan-snap/wiki/Limit-snap-to-root-user-only).
+
+Thanks to GitHub users LyR33x and xet7 for their contributions.
+
 # v1.19 2018-07-16 Wekan release
 
 This release adds the following new features:
