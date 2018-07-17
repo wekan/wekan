@@ -6,9 +6,10 @@ This release fixes the following bugs:
    variable settings like source/snap/docker already, and password was
    exposed in plain text](https://github.com/wekan/wekan/issues/1783);
 - [Added info how to limit snap to root
-   user](https://github.com/wekan/wekan-snap/wiki/Limit-snap-to-root-user-only).
+   user](https://github.com/wekan/wekan-snap/wiki/Limit-snap-to-root-user-only);
+- [Add scrolling to long cards](https://github.com/wekan/wekan/pull/1782).
 
-Thanks to GitHub users LyR33x and xet7 for their contributions.
+Thanks to GitHub users jnso, LyR33x and xet7 for their contributions.
 
 # v1.19 2018-07-16 Wekan release
 
