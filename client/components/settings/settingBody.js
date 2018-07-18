@@ -101,6 +101,7 @@ BlazeComponent.extendComponent({
         // if (!err) {
         //   TODO - show more info to user
         // }
+
         this.setLoading(false);
       });
     }

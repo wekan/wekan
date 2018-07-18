@@ -1,3 +1,15 @@
+# v1.21 2018-07-18 Wekan release
+
+This release adds the following new features:
+
+- [Add logo from Wekan website to login logo](https://github.com/wekan/wekan/commit/4eed23afe06d5fab8d45ba3decc7c1d3b85efbd8).
+
+This release fixes the following bugs:
+
+- [Allow to resend invites](https://github.com/wekan/wekan/pull/1785).
+
+Thanks to GitHub users Akuket and xet7 for their contributions.
+
 # v1.20 2018-07-18 Wekan release
 
 This release fixes the following bugs:
