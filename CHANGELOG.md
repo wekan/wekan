@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Backup script now uses mongodump from snap to
+   do backups](https://github.com/wekan/wekan/wiki/Backup).
+
+Thanks to GitHub user Akuket for contributions.
+
 # v1.21 2018-07-18 Wekan release
 
 This release adds the following new features:
