@@ -501,12 +501,13 @@ if (Meteor.isServer) {
     } else {
       user.profile = {icode: options.profile.invitationcode};
       user.profile.boardView = 'board-view-lists';
+
+      // Deletes the invitation code after the user was created successfully.
+      setTimeout(Meteor.bindEnvironment(() => {
+        InvitationCodes.remove({'_id': invitationCode._id});
+      }), 200);
+      return user;
     }
-
-    // Deletes the invitation.
-    InvitationCodes.remove(invitationCode._id);
-
-    return user;
   });
 }
 
