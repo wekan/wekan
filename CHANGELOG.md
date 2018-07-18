@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Allow to resend invites](https://github.com/wekan/wekan/pull/1785).
+
+Thanks to GitHub users Akuket and xet7 for their contributions.
+
 # v1.20 2018-07-18 Wekan release
 
 This release fixes the following bugs:
