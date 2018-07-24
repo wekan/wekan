@@ -202,3 +202,86 @@
       border-top-right-radius: 0
       z-index: 15
       box-shadow: 0 1px 2px rgba(0,0,0,.15)
+
+minicard-color(background, color...)
+  background-color: background
+  if color
+    color: color //overwrite text for better visibility
+  &:hover:not(.minicard-composer),
+  .is-selected &,
+  .draggable-hover-card &
+    background: darken(background, 3%)
+  .draggable-hover-card &
+    background: darken(background, 7%)
+
+.minicard-green
+  minicard-color(#3cb500, #ffffff) //White text for better visibility
+
+.minicard-yellow
+  minicard-color(#fad900)
+
+.minicard-orange
+  minicard-color(#ff9f19)
+
+.minicard-red
+  minicard-color(#eb4646, #ffffff) //White text for better visibility
+
+.minicard-purple
+  minicard-color(#a632db, #ffffff) //White text for better visibility
+
+.minicard-blue
+  minicard-color(#0079bf, #ffffff) //White text for better visibility
+
+.minicard-pink
+  minicard-color(#ff78cb)
+
+.minicard-sky
+  minicard-color(#00c2e0, #ffffff) //White text for better visibility
+
+.minicard-black
+  minicard-color(#4d4d4d, #ffffff) //White text for better visibility
+
+.minicard-lime
+  minicard-color(#51e898)
+
+.minicard-silver
+  minicard-color(#c0c0c0)
+
+.minicard-peachpuff
+  minicard-color(#ffdab9)
+
+.minicard-crimson
+  minicard-color(#dc143c, #ffffff) //White text for better visibility
+
+.minicard-plum
+  minicard-color(#dda0dd)
+
+.minicard-darkgreen
+  minicard-color(#006400, #ffffff) //White text for better visibility
+
+.minicard-slateblue
+  minicard-color(#6a5acd, #ffffff) //White text for better visibility
+
+.minicard-magenta
+  minicard-color(#ff00ff, #ffffff) //White text for better visibility
+
+.minicard-gold
+  minicard-color(#ffd700)
+
+.minicard-navy
+  minicard-color(#000080, #ffffff) //White text for better visibility
+
+.minicard-gray
+  minicard-color(#808080, #ffffff) //White text for better visibility
+
+.minicard-saddlebrown
+  minicard-color(#8b4513, #ffffff) //White text for better visibility
+
+.minicard-paleturquoise
+  minicard-color(#afeeee)
+
+.minicard-mistyrose
+  minicard-color(#ffe4e1)
+
+.minicard-indigo
+  minicard-color(#4b0082, #ffffff) //White text for better visibility

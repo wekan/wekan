@@ -3,6 +3,10 @@
 // });
 
 BlazeComponent.extendComponent({
+  onCreated() {
+    this.currentColor = new ReactiveVar(this.data().color);
+  },
+
   template() {
     return 'minicard';
   },
