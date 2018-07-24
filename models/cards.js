@@ -65,6 +65,17 @@ Cards.attachSchema(new SimpleSchema({
     defaultValue: '',
 
   },
+  color: {
+    type: String,
+    optional: true,
+    allowedValues: [
+      'green', 'yellow', 'orange', 'red', 'purple',
+      'blue', 'sky', 'lime', 'pink', 'black',
+      'silver', 'peachpuff', 'crimson', 'plum', 'darkgreen',
+      'slateblue', 'magenta', 'gold', 'navy', 'gray',
+      'saddlebrown', 'paleturquoise', 'mistyrose', 'indigo',
+    ],
+  },
   createdAt: {
     /**
      * creation date
@@ -435,7 +446,12 @@ Cards.helpers({
         definition,
       };
     });
+  },
 
+  colorClass() {
+    if (this.color)
+      return this.color;
+    return '';
   },
 
   absoluteUrl() {
@@ -1542,6 +1558,15 @@ if (Meteor.isServer) {
    * @operation edit_card
    * @summary Edit Fields in a Card
    *
+   * @description Edit a card
+   *
+   * The color has to be chosen between `green`, `yellow`, `orange`, `red`,
+   * `purple`, `blue`, `sky`, `lime`, `pink`, `black`, `silver`, `peachpuff`,
+   * `crimson`, `plum`, `darkgreen`, `slateblue`, `magenta`, `gold`, `navy`,
+   * `gray`, `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`:
+   *
+   * <img src="/card-colors.png" width="40%" alt="Wekan card colors" />
+   *
    * @param {string} boardId the board ID of the card
    * @param {string} list the list ID of the card
    * @param {string} cardId the ID of the card
@@ -1562,6 +1587,8 @@ if (Meteor.isServer) {
    * @param {string} [spentTime] the new spentTime field of the card
    * @param {boolean} [isOverTime] the new isOverTime field of the card
    * @param {string} [customFields] the new customFields value of the card
+   * @param {string} [color] the new color of the card
+   * @return_type {_id: string}
    */
   JsonRoutes.add('PUT', '/api/boards/:boardId/lists/:listId/cards/:cardId', function(req, res) {
     Authentication.checkUserId(req.userId);
@@ -1615,6 +1642,11 @@ if (Meteor.isServer) {
           description: newDescription,
         },
       });
+    }
+    if (req.body.hasOwnProperty('color')) {
+      const newColor = req.body.color;
+      Cards.direct.update({_id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false},
+        {$set: {color: newColor}});
     }
     if (req.body.hasOwnProperty('labelIds')) {
       let newlabelIds = req.body.labelIds;
