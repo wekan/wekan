@@ -3,7 +3,7 @@
 # All supported keys are defined here together with descriptions and default values
 
 # list of supported keys
-keys="MONGODB_BIND_UNIX_SOCKET MONGODB_BIND_IP MONGODB_PORT MAIL_URL MAIL_FROM ROOT_URL PORT DISABLE_MONGODB CADDY_ENABLED CADDY_BIND_PORT"
+keys="MONGODB_BIND_UNIX_SOCKET MONGODB_BIND_IP MONGODB_PORT MAIL_URL MAIL_FROM ROOT_URL PORT DISABLE_MONGODB CADDY_ENABLED CADDY_BIND_PORT WITH_API"
 
 # default values
 DESCRIPTION_MONGODB_BIND_UNIX_SOCKET="mongodb binding unix socket:\n"\
@@ -47,3 +47,7 @@ KEY_CADDY_ENABLED="caddy-enabled"
 DESCRIPTION_CADDY_BIND_PORT="Port on which caddy will expect proxy, value set here will be set in $SNAP_COMMON/Caddyfile"
 DEFAULT_CADDY_BIND_PORT="3001"
 KEY_CADDY_BIND_PORT="caddy-bind-port"
+
+DESCRIPTION_WITH_API="Enable/disable the api of wekan"
+DEFAULT_WITH_API="false"
+KEY_WITH_API="with-api"
