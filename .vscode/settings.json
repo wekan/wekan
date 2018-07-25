@@ -7,6 +7,6 @@
     "**/.git": true,
     "**/.DS_Store": true,
     "node_modules": true,
-    ".meteor/local": true
+    ".meteor/local": false
   }
 }
