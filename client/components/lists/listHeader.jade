@@ -11,11 +11,11 @@ template(name="listHeader")
         = title
         if wipLimit.enabled
          |&nbsp;(
-         span(class="{{#if reachedWipLimit}}highlight{{/if}}") {{cards.count}}
+         span(class="{{#if reachedWipLimit}}highlight{{/if}}") {{cardsCount}}
          |/#{wipLimit.value})
 
-        else if showCardsCountForList cards.count
-          &nbsp;({{cards.count}}
+        else if showCardsCountForList cardsCount
+          &nbsp;({{cardsCount}}
           span
             |  {{_ 'cards-count'}})
       if isMiniScreen
