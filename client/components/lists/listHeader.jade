@@ -14,7 +14,7 @@ template(name="listHeader")
          span(class="{{#if reachedWipLimit}}highlight{{/if}}") {{cards.count}}
          |/#{wipLimit.value})
 
-        if showCardsCountForList cards.count
+        else if showCardsCountForList cards.count
           = cards.count
           span
             |  {{_ 'cards-count'}}
