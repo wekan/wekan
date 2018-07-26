@@ -22,6 +22,16 @@ BlazeComponent.extendComponent({
     return Meteor.user().getLimitToShowCardsCount();
   },
 
+  cardsCount() {
+    const list = Template.currentData();
+    let swimlaneId = '';
+    const boardView = Meteor.user().profile.boardView;
+    if (boardView === 'board-view-swimlanes')
+      swimlaneId = this.parentComponent().parentComponent().data()._id;
+
+    return list.cards(swimlaneId).count();
+  },
+
   reachedWipLimit() {
     const list = Template.currentData();
     return list.getWipLimit('enabled') && list.getWipLimit('value') <= list.cards().count();

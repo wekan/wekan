@@ -16,7 +16,7 @@ template(name="listHeader")
 
         if showCardsCountForList cards.count
           |&nbsp;
-          p.quiet.small {{cards.count}} {{_ 'cards-count'}}
+          p.quiet.small {{cardsCount}} {{_ 'cards-count'}}
       if isMiniScreen
         if currentList
           if isWatching
