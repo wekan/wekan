@@ -39,6 +39,8 @@ FlowRouter.route('/b/:id/:slug', {
       EscapeActions.executeUpTo('popup-close');
     }
 
+    window._paq.push(['trackPageView']);
+
     BlazeLayout.render('defaultLayout', {
       headerBar: 'boardHeaderBar',
       content: 'board',
@@ -53,6 +55,8 @@ FlowRouter.route('/b/:boardId/:slug/:cardId', {
 
     Session.set('currentBoard', params.boardId);
     Session.set('currentCard', params.cardId);
+
+    window._paq.push(['trackPageView']);
 
     BlazeLayout.render('defaultLayout', {
       headerBar: 'boardHeaderBar',

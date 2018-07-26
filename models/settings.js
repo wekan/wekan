@@ -101,7 +101,7 @@ if (Meteor.isServer) {
     if (value){
       return value;
     }
-    throw new Meteor.Error('var-not-exist', `The environment variable ${name} does not exist`);
+    throw new Meteor.Error(['var-not-exist', `The environment variable ${name} does not exist`]);
   }
 
   function sendInvitationEmail (_id){
@@ -193,8 +193,10 @@ if (Meteor.isServer) {
       // if ()
       //   throw new Meteor.Error('no-matomo', 'Matomo is not conf for this server');
       return {
-        address: getEnvVar('MATOMO_ADDRESS'),
-        siteId: getEnvVar('MATOMO_SITE_ID'),
+        address: 'https://piwik.sii.fr/', //getEnvVar('MATOMO_ADDRESS'),
+        siteId: '25', //getEnvVar('MATOMO_SITE_ID'),
+        doNotTrack: process.env.MATOMO_DO_NOT_TRACK || false,
+        userName: Meteor.user().username,
       };
     },
   });

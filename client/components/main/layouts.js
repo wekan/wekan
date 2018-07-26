@@ -74,14 +74,15 @@ Template.defaultLayout.events({
 
 Template.defaultLayout.onRendered(function() {
   // Matomo integration
-  Meteor.call('getMatomoConf', (err, data) => {
-    if (err){
-      console.error(err);
-      return;
-    }
-    if (!document.getElementById('scriptMatomo')){
+  if (!document.getElementById('scriptMatomo')){
+    Meteor.call('getMatomoConf', (err, data) => {
+      if (err){
+        console.error(err.message);
+        return;
+      }
       window._paq = window._paq || [];
-      window._paq.push(['setDoNotTrack', true]);
+      window._paq.push(['setDoNotTrack', data.doNotTrack]);
+      window._paq.push(['setUserId', data.userName]);
       window._paq.push(['trackPageView']);
       window._paq.push(['enableLinkTracking']);
       (function() {
@@ -99,6 +100,8 @@ Template.defaultLayout.onRendered(function() {
         const s = document.getElementsByTagName('script')[0];
         s.parentNode.insertBefore(script, s);
       })();
-    }
-  });
+    });
+  } else {
+    window._paq.push(['trackPageView']);
+  }
 });
