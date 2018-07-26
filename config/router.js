@@ -15,6 +15,7 @@ FlowRouter.route('/', {
     EscapeActions.executeAll();
 
     BlazeLayout.render('defaultLayout', {
+      defaultLayout: 'userFormsLayout',
       headerBar: 'boardListHeaderBar',
       content: 'boardList',
     });
