@@ -15,9 +15,9 @@ template(name="listHeader")
          |/#{wipLimit.value})
 
         else if showCardsCountForList cards.count
-          = cards.count
+          &nbsp;({{cards.count}}
           span
-            |  {{_ 'cards-count'}}
+            |  {{_ 'cards-count'}})
       if isMiniScreen
         if currentList
           if isWatching
