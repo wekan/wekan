@@ -622,9 +622,20 @@ if (Meteor.isServer) {
   });
 }
 
-
 // USERS REST API
 if (Meteor.isServer) {
+  // Middleware which checks that API is enabled.
+  JsonRoutes.Middleware.use(function (req, res, next) {
+    const api = req.url.search('api');
+    if (api === 1 && process.env.WITH_API === 'true' || api === -1){
+      return next();
+    }
+    else {
+      res.writeHead(301, {Location: '/'});
+      return res.end();
+    }
+  });
+
   JsonRoutes.add('GET', '/api/user', function(req, res) {
     try {
       Authentication.checkLoggedIn(req.userId);
