@@ -489,14 +489,14 @@
     "boardSubtaskSettingsPopup-title": "Boardeinstellungen für Teilaufgaben",
     "show-subtasks-field": "Karten können Teilaufgaben haben",
     "deposit-subtasks-board": "Teilaufgaben in diesem Board ablegen:",
-    "deposit-subtasks-list": "Zielliste für die dort abgelegten Teilaufgaben:",
-    "show-parent-in-minicard": "Zeige übergeordnetes Element auf Minikarte",
-    "prefix-with-full-path": "Prefix mit vollständigem Pfad",
-    "prefix-with-parent": "Präfix mit übergeordneten Element",
-    "subtext-with-full-path": "Subtext mit vollständigem Pfad",
-    "subtext-with-parent": "Subtext mit übergeordneten Element",
+    "deposit-subtasks-list": "Zielliste für hier abgelegte Teilaufgaben:",
+    "show-parent-in-minicard": "Übergeordnetes Element auf Minikarte anzeigen:",
+    "prefix-with-full-path": "Vollständiger Pfad über Titel",
+    "prefix-with-parent": "Über Titel",
+    "subtext-with-full-path": "Vollständiger Pfad unter Titel",
+    "subtext-with-parent": "Unter Titel",
     "change-card-parent": "Übergeordnete Karte ändern",
     "parent-card": "Übergeordnete Karte",
     "source-board": "Quellboard",
-    "no-parent": "Eltern nicht zeigen"
+    "no-parent": "Nicht anzeigen"
 }
