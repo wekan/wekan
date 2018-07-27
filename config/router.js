@@ -17,7 +17,6 @@ FlowRouter.route('/', {
     Utils.manageMatomo();
 
     BlazeLayout.render('defaultLayout', {
-      defaultLayout: 'userFormsLayout',
       headerBar: 'boardListHeaderBar',
       content: 'boardList',
     });
