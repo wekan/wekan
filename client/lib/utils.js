@@ -144,6 +144,51 @@ Utils = {
       }
     });
   },
+
+  setMatomo(data){
+    window._paq = window._paq || [];
+    window._paq.push(['setDoNotTrack', data.doNotTrack]);
+    if (data.withUserName){
+      window._paq.push(['setUserId', Meteor.user().username]);
+    }
+    window._paq.push(['trackPageView']);
+    window._paq.push(['enableLinkTracking']);
+
+    (function() {
+      window._paq.push(['setTrackerUrl', `${data.address}piwik.php`]);
+      window._paq.push(['setSiteId', data.siteId]);
+
+      const script = document.createElement('script');
+      Object.assign(script, {
+        id: 'scriptMatomo',
+        type: 'text/javascript',
+        async: 'true',
+        defer: 'true',
+        src: `${data.address}piwik.js`,
+      });
+
+      const s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(script, s);
+    })();
+
+    Session.set('matomo', true);
+  },
+
+  manageMatomo() {
+    const matomo = Session.get('matomo');
+    if (matomo === undefined){
+      Meteor.call('getMatomoConf', (err, data) => {
+        if (err && err.error[0] === 'var-not-exist'){
+          Session.set('matomo', false); // siteId || address server not defined
+        }
+        if (!err){
+          Utils.setMatomo(data);
+        }
+      });
+    } else if (matomo) {
+      window._paq.push(['trackPageView']);
+    }
+  },
 };
 
 // A simple tracker dependency that we invalidate every time the window is

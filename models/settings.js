@@ -96,6 +96,14 @@ if (Meteor.isServer) {
     return (min + Math.round(rand * range));
   }
 
+  function getEnvVar(name){
+    const value = process.env[name];
+    if (value){
+      return value;
+    }
+    throw new Meteor.Error(['var-not-exist', `The environment variable ${name} does not exist`]);
+  }
+
   function sendInvitationEmail (_id){
     const icode = InvitationCodes.findOne(_id);
     const author = Users.findOne(Meteor.userId());
@@ -178,6 +186,15 @@ if (Meteor.isServer) {
       return {
         message: 'email-sent',
         email: user.emails[0].address,
+      };
+    },
+
+    getMatomoConf(){
+      return {
+        address: getEnvVar('MATOMO_ADDRESS'),
+        siteId: getEnvVar('MATOMO_SITE_ID'),
+        doNotTrack: process.env.MATOMO_DO_NOT_TRACK || false,
+        withUserName: process.env.MATOMO_WITH_USERNAME || false,
       };
     },
   });
