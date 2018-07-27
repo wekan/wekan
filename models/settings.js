@@ -190,13 +190,11 @@ if (Meteor.isServer) {
     },
 
     getMatomoConf(){
-      // if ()
-      //   throw new Meteor.Error('no-matomo', 'Matomo is not conf for this server');
       return {
-        address: 'https://piwik.sii.fr/', //getEnvVar('MATOMO_ADDRESS'),
-        siteId: '25', //getEnvVar('MATOMO_SITE_ID'),
+        address: getEnvVar('MATOMO_ADDRESS'),
+        siteId: getEnvVar('MATOMO_SITE_ID'),
         doNotTrack: process.env.MATOMO_DO_NOT_TRACK || false,
-        userName: Meteor.user().username,
+        withUserName: process.env.MATOMO_WITH_USERNAME || false,
       };
     },
   });

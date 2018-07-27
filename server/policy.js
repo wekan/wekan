@@ -1,6 +1,9 @@
 import { BrowserPolicy } from 'meteor/browser-policy-common';
 
 Meteor.startup(() => {
-  BrowserPolicy.content.allowScriptOrigin('https://piwik.sii.fr/');
-  BrowserPolicy.content.allowImageOrigin('https://piwik.sii.fr/');
+  const matomoUrl = process.env.MATOMO_ADDRESS;
+  if (matomoUrl){
+    BrowserPolicy.content.allowScriptOrigin(matomoUrl);
+    BrowserPolicy.content.allowImageOrigin(matomoUrl);
+  }
 });

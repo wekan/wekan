@@ -14,6 +14,8 @@ FlowRouter.route('/', {
     Filter.reset();
     EscapeActions.executeAll();
 
+    Utils.manageMatomo();
+
     BlazeLayout.render('defaultLayout', {
       defaultLayout: 'userFormsLayout',
       headerBar: 'boardListHeaderBar',
@@ -39,7 +41,7 @@ FlowRouter.route('/b/:id/:slug', {
       EscapeActions.executeUpTo('popup-close');
     }
 
-    window._paq.push(['trackPageView']);
+    Utils.manageMatomo();
 
     BlazeLayout.render('defaultLayout', {
       headerBar: 'boardHeaderBar',
@@ -56,7 +58,7 @@ FlowRouter.route('/b/:boardId/:slug/:cardId', {
     Session.set('currentBoard', params.boardId);
     Session.set('currentCard', params.cardId);
 
-    window._paq.push(['trackPageView']);
+    Utils.manageMatomo();
 
     BlazeLayout.render('defaultLayout', {
       headerBar: 'boardHeaderBar',

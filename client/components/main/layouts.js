@@ -71,37 +71,3 @@ Template.defaultLayout.events({
     Modal.close();
   },
 });
-
-Template.defaultLayout.onRendered(function() {
-  // Matomo integration
-  if (!document.getElementById('scriptMatomo')){
-    Meteor.call('getMatomoConf', (err, data) => {
-      if (err){
-        console.error(err.message);
-        return;
-      }
-      window._paq = window._paq || [];
-      window._paq.push(['setDoNotTrack', data.doNotTrack]);
-      window._paq.push(['setUserId', data.userName]);
-      window._paq.push(['trackPageView']);
-      window._paq.push(['enableLinkTracking']);
-      (function() {
-        window._paq.push(['setTrackerUrl', `${data.address}piwik.php`]);
-        window._paq.push(['setSiteId', data.siteId]);
-
-        const script = document.createElement('script');
-        Object.assign(script, {
-          id: 'scriptMatomo',
-          type: 'text/javascript',
-          async: 'true',
-          defer: 'true',
-          src: `${data.address}piwik.js`,
-        });
-        const s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(script, s);
-      })();
-    });
-  } else {
-    window._paq.push(['trackPageView']);
-  }
-});

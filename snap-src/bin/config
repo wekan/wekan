@@ -3,7 +3,7 @@
 # All supported keys are defined here together with descriptions and default values
 
 # list of supported keys
-keys="MONGODB_BIND_UNIX_SOCKET MONGODB_BIND_IP MONGODB_PORT MAIL_URL MAIL_FROM ROOT_URL PORT DISABLE_MONGODB CADDY_ENABLED CADDY_BIND_PORT"
+keys="MONGODB_BIND_UNIX_SOCKET MONGODB_BIND_IP MONGODB_PORT MAIL_URL MAIL_FROM ROOT_URL PORT DISABLE_MONGODB CADDY_ENABLED CADDY_BIND_PORT, MATOMO_ADDRESS, MATOMO_SITE_ID, MATOMO_DO_NOT_TRACK, MATOMO_WITH_USERNAME"
 
 # default values
 DESCRIPTION_MONGODB_BIND_UNIX_SOCKET="mongodb binding unix socket:\n"\
@@ -47,3 +47,17 @@ KEY_CADDY_ENABLED="caddy-enabled"
 DESCRIPTION_CADDY_BIND_PORT="Port on which caddy will expect proxy, value set here will be set in $SNAP_COMMON/Caddyfile"
 DEFAULT_CADDY_BIND_PORT="3001"
 KEY_CADDY_BIND_PORT="caddy-bind-port"
+
+DESCRIPTION_MATOMO_ADDRESS="The address of the server where matomo is hosted"
+KEY_MATOMO_ADDRESS="matomo-address"
+
+DESCRIPTION_MATOMO_SITE_ID="The value of the site ID given in matomo server for wekan"
+KEY_MATOMO_SITE_ID="matomo-site-id"
+
+DESCRIPTION_MATOMO_DO_NOT_TRACK="The option do not track which enables users to not be tracked by matomo"
+DEFAULT_CADDY_BIND_PORT="false"
+KEY_MATOMO_DO_NOT_TRACK="matomo-do-not-track"
+
+DESCRIPTION_MATOMO_WITH_USERNAME="The option that allows matomo to retrieve the username"
+DEFAULT_CADDY_BIND_PORT="false"
+KEY_MATOMO_WITH_USERNAME="matomo-with-username"
