@@ -1,5 +1,5 @@
 FROM debian:buster-slim
-MAINTAINER wekan
+LABEL maintainer="wekan"
 
 # Declare Arguments
 ARG NODE_VERSION
