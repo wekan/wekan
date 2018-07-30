@@ -14,7 +14,7 @@ ARG SRC_PATH
 # Set the environment variables (defaults where required)
 # DOES NOT WORK: paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
 # ENV BUILD_DEPS="paxctl"
-ENV BUILD_DEPS="apt-utils gnupg gosu wget curl bzip2 build-essential python git ca-certificates gcc-7"
+ENV BUILD_DEPS="glibc apt-utils gnupg gosu wget curl bzip2 build-essential python git ca-certificates gcc-7"
 ENV NODE_VERSION ${NODE_VERSION:-v8.11.3}
 ENV METEOR_RELEASE ${METEOR_RELEASE:-1.6.0.1}
 ENV USE_EDGE ${USE_EDGE:-false}
