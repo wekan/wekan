@@ -14,6 +14,8 @@ FlowRouter.route('/', {
     Filter.reset();
     EscapeActions.executeAll();
 
+    Utils.manageMatomo();
+
     BlazeLayout.render('defaultLayout', {
       headerBar: 'boardListHeaderBar',
       content: 'boardList',
@@ -38,6 +40,8 @@ FlowRouter.route('/b/:id/:slug', {
       EscapeActions.executeUpTo('popup-close');
     }
 
+    Utils.manageMatomo();
+
     BlazeLayout.render('defaultLayout', {
       headerBar: 'boardHeaderBar',
       content: 'board',
@@ -52,6 +56,8 @@ FlowRouter.route('/b/:boardId/:slug/:cardId', {
 
     Session.set('currentBoard', params.boardId);
     Session.set('currentCard', params.cardId);
+
+    Utils.manageMatomo();
 
     BlazeLayout.render('defaultLayout', {
       headerBar: 'boardHeaderBar',

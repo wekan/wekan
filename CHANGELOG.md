@@ -1,10 +1,32 @@
+# v1.23 2018-07-30
+
+This release tries to fix the following bugs:
+
+- Checking for [existing](https://github.com/wekan/wekan/commit/a48f560a85860451914dbaad8cae6ff5120a0c38)
+  [directories](https://github.com/wekan/wekan/commit/5bfb6c6411c928bfffa7ed6fe829f030e3ea57da) when
+  building snap etc, trying to [get snap to build somehow](https://github.com/wekan/wekan-snap/issues/58).
+  This is just a test, does it build this time correctly.
+
+Thanks to GitHub user xet7 for contributions.
+
+# v1.22 2018-07-30 Wekan release
+
+This release adds the following new features:
+
+- [Backup script now uses mongodump from snap to
+   do backups](https://github.com/wekan/wekan/wiki/Backup);
+- [Integration of Matomo](https://github.com/wekan/wekan/pull/1806);
+- [Enable/Disable API with env var](https://github.com/wekan/wekan/pull/1799).
+
+Thanks to GitHub user Akuket and xet7 for their contributions.
+
 # v1.21 2018-07-18 Wekan release
 
 This release adds the following new features:
 
 - [Add logo from Wekan website to login logo](https://github.com/wekan/wekan/commit/4eed23afe06d5fab8d45ba3decc7c1d3b85efbd8).
 
-This release fixes the following bugs:
+and fixes the following bugs:
 
 - [Allow to resend invites](https://github.com/wekan/wekan/pull/1785).
 
