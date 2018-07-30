@@ -1,11 +1,13 @@
-# Upcoming Wekan release
+# v1.22 2018-07-30 Wekan release
 
 This release adds the following new features:
 
 - [Backup script now uses mongodump from snap to
-   do backups](https://github.com/wekan/wekan/wiki/Backup).
+   do backups](https://github.com/wekan/wekan/wiki/Backup);
+- [Integration of Matomo](https://github.com/wekan/wekan/pull/1806);
+- [Enable/Disable API with env var](https://github.com/wekan/wekan/pull/1799).
 
-Thanks to GitHub user Akuket for contributions.
+Thanks to GitHub user Akuket and xet7 for their contributions.
 
 # v1.21 2018-07-18 Wekan release
 
