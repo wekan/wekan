@@ -128,7 +128,7 @@ parts:
             chmod +x install_meteor.sh
             sh install_meteor.sh
             rm install_meteor.sh
-            mkdir packages
+            mkdir -p packages
             cd packages
             git clone --depth 1 -b master https://github.com/wekan/flow-router.git kadira-flow-router
             git clone --depth 1 -b master https://github.com/meteor-useraccounts/core.git meteor-useraccounts-core
