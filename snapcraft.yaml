@@ -128,12 +128,20 @@ parts:
             chmod +x install_meteor.sh
             sh install_meteor.sh
             rm install_meteor.sh
-            mkdir -p packages
-            cd packages
-            git clone --depth 1 -b master https://github.com/wekan/flow-router.git kadira-flow-router
-            git clone --depth 1 -b master https://github.com/meteor-useraccounts/core.git meteor-useraccounts-core
-            sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' meteor-useraccounts-core/package.js
-            cd ..
+            if [ ! -d "packages" ]; then
+              mkdir packages
+            fi
+            if [ ! -d "packages/kadira-flow-router" ]; then
+              cd packages
+              git clone --depth 1 -b master https://github.com/wekan/flow-router.git kadira-flow-router
+              cd ..
+            fi
+            if [ ! -d "packages/meteor-useraccounts-core" ]; then
+              cd packages
+              git clone --depth 1 -b master https://github.com/meteor-useraccounts/core.git meteor-useraccounts-core
+              sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' meteor-useraccounts-core/package.js
+              cd ..
+            fi
             rm -rf package-lock.json .build
             meteor add standard-minifier-js --allow-superuser
             meteor npm install --allow-superuser
