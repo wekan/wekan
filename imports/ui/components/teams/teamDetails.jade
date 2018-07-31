@@ -1,0 +1,26 @@
+template(name='teamDetails')
+  section.team-details
+    .team-details-header
+      +inlinedForm(classNames='js-edit-team-title-form')
+        +teamTitleEditForm(title=name)
+      else
+        a.fa.fa-navicon.team-details-menu.js-open-team-details-menu
+        h3.team-details-title.js-open-inlined-form.is-editable {{ name }}
+
+    .team-details-body.grid
+      each user in members
+        +teamMember(teamId=teamId memberId=user._id)
+      .row.js-manage-team-members
+        .column.avatar
+          a.member.add-member
+            i.fa.fa-plus
+        .column.user-details
+          a {{_ 'add-team-member'}}
+
+
+template(name='teamTitleEditForm')
+  textarea.js-edit-team-title(rows='1' autofocus)
+    = title
+  .edit-controls.clearfix
+    button.primary.confirm.js-submit-edit-team-title-form(type='submit') {{_ 'save'}}
+    a.fa.fa-times-thin.js-close-inlined-form

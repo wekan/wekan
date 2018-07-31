@@ -1,0 +1,29 @@
+template(name="addTeamPopup")
+  .js-search-member
+    +esInput(index="teams")
+
+  if loading.get
+    +spinner
+  else if error.get
+    .warning {{_ error.get}}
+  else
+    ul.pop-over-list
+      +esEach(index="teams")
+        li.item.js-team-item(class="{{#if isMember}}disabled{{/if}}")
+          a.name.js-select-member(title="{{name}}")
+            //+userAvatar(userId=_id esSearch=true)
+            span.full-name
+              //= profile.fullname
+              //|
+              <span class="username">{{name}}</span>
+            if isMember
+              i.fa.fa-check
+              //.quiet ({{_ 'joined'}})
+
+      +ifEsIsSearching(index='teams')
+        +spinner
+
+      +ifEsHasNoResults(index="teams")
+        .manage-member-section
+          p.quiet {{_ 'no-results'}}
+    //button.js-email-invite.primary.full {{_ 'email-invite'}}

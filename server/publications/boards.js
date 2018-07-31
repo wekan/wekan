@@ -1,3 +1,5 @@
+import { Teams } from '/imports/model/teams';
+
 // This is the publication used to display the board list. We publish all the
 // non-archived boards:
 // 1. that the user is a member of
@@ -13,6 +15,8 @@ Meteor.publish('boards', function() {
   const {starredBoards = []} = Users.findOne(this.userId).profile;
   check(starredBoards, [String]);
 
+  const memberIds = getMembers.call(this);
+
   return Boards.find({
     archived: false,
     $or: [
@@ -20,7 +24,7 @@ Meteor.publish('boards', function() {
         _id: { $in: starredBoards },
         permission: 'public',
       },
-      { members: { $elemMatch: { userId: this.userId, isActive: true }}},
+      { members: { $elemMatch: { userId: { $in: memberIds }, isActive: true }}},
     ],
   }, {
     fields: {
@@ -40,11 +44,13 @@ Meteor.publish('archivedBoards', function() {
   if (!Match.test(this.userId, String))
     return [];
 
+  const memberIds = getMembers.call(this);
+
   return Boards.find({
     archived: true,
     members: {
       $elemMatch: {
-        userId: this.userId,
+        userId: { $in: memberIds },
         isAdmin: true,
       },
     },
@@ -62,6 +68,8 @@ Meteor.publishRelations('board', function(boardId) {
   check(boardId, String);
   const thisUserId = this.userId;
 
+  const memberIds = getMembers.call(this);
+
   this.cursor(Boards.find({
     _id: boardId,
     archived: false,
@@ -69,7 +77,7 @@ Meteor.publishRelations('board', function(boardId) {
     // it.
     $or: [
       { permission: 'public' },
-      { members: { $elemMatch: { userId: this.userId, isActive: true }}},
+      { members: { $elemMatch: { userId: { $in: memberIds }, isActive: true }}},
     ],
   }, { limit: 1 }), function(boardId, board) {
     this.cursor(Lists.find({ boardId }));
@@ -106,26 +114,70 @@ Meteor.publishRelations('board', function(boardId) {
       this.cursor(Cards.find({ parentId: cardId }));
     });
 
-    if (board.members) {
-      // Board members. This publication also includes former board members that
-      // aren't members anymore but may have some activities attached to them in
-      // the history.
-      const memberIds = _.pluck(board.members, 'userId');
+    // Board members. This publication also includes former board members that
+    // aren't members anymore but may have some activities attached to them in
+    // the history.
+    //
+    // In case of update board contains only the changes not the whole board document so be error tolerant!
+    //
+    // In contrast to the board helper organizationMembers(), which is not available at this stage,
+    // we only care about userIds, so we leave the memberTeams from organizationMembers.
+    const memberUsers = _.filter(board.members, (member) => !member.isTeam);
+    const memberTeams = _.filter(board.members, (member) => member.isTeam);
+    const teamMembers = Teams
+      .find({ _id: { $in: _.pluck(memberTeams, 'userId') }})
+      .map((team) => team.members)
+      .reduce((result, members) => result.concat(members), []);
 
-      // We omit the current user because the client should already have that data,
-      // and sending it triggers a subtle bug:
-      // https://github.com/wefork/wekan/issues/15
-      this.cursor(Users.find({
-        _id: { $in: _.without(memberIds, thisUserId)},
-      }, { fields: {
-        'username': 1,
-        'profile.fullname': 1,
-        'profile.avatarUrl': 1,
-      }}));
+    const organizationMembers = [].concat(_.pluck(teamMembers, 'members'), ..._.pluck(memberUsers, 'userId'));
 
-      this.cursor(presences.find({ userId: { $in: memberIds } }));
-    }
+    this.cursor(Users.find({
+      _id: { $in: organizationMembers },
+    }, { fields: {
+      'username': 1,
+      'profile.fullname': 1,
+      'profile.avatarUrl': 1,
+    }}), function(userId) {
+      // Presence indicators
+      this.cursor(presences.find({ userId }));
+    });
+    // if (board.members) {
+    //   // Board members. This publication also includes former board members that
+    //   // aren't members anymore but may have some activities attached to them in
+    //   // the history.
+    //   const memberIds = _.pluck(board.members, 'userId');
+    //
+    //   // We omit the current user because the client should already have that data,
+    //   // and sending it triggers a subtle bug:
+    //   // https://github.com/wefork/wekan/issues/15
+    //   this.cursor(Users.find({
+    //     _id: { $in: _.without(memberIds, thisUserId)},
+    //   }, { fields: {
+    //     'username': 1,
+    //     'profile.fullname': 1,
+    //     'profile.avatarUrl': 1,
+    //   }}));
+    //
+    //   this.cursor(presences.find({ userId: { $in: memberIds } }));
+    // }
   });
 
   return this.ready();
 });
+
+
+// list IDs of all teams of user + ID of the user himself
+function getMembers() {
+  // teamMembers of currentUser
+  const teams = Teams.find({
+    members: this.userId,
+  }, {
+    fields: {
+      _id: 1,
+    },
+  }).fetch();
+  const memberIds = _.pluck(teams, '_id');
+  // current user as single member
+  memberIds.push(this.userId);
+  return memberIds;
+}

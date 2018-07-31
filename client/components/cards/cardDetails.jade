@@ -263,13 +263,13 @@ template(name="boardsAndLists")
 
 template(name="cardMembersPopup")
   ul.pop-over-list.js-card-member-list
-    each board.activeMembers
+    each board.memberUsers
       li.item(class="{{#if isCardMember}}active{{/if}}")
         a.name.js-select-member(href="#")
-          +userAvatar(userId=user._id)
+          +userAvatar(userId=this._id)
           span.full-name
-            = user.profile.fullname
-            | (<span class="username">{{ user.username }}</span>)
+            = this.profile.fullname
+            | (<span class="username">{{ this.username }}</span>)
           if isCardMember
             i.fa.fa-check
 

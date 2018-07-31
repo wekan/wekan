@@ -1,3 +1,12 @@
+import { Meteor } from 'meteor/meteor';
+import { BoardsRestrictions } from '/imports/model/boards-restrictions';
+import { BoardsHooks } from '/imports/model/boards-hooks';
+import { Teams } from '/imports/model/teams';
+
+if (Meteor.isServer) {
+  require('/server/lib/utils');
+}
+
 Boards = new Mongo.Collection('boards');
 
 Boards.attachSchema(new SimpleSchema({
@@ -124,6 +133,10 @@ Boards.attachSchema(new SimpleSchema({
   'members.$.isActive': {
     type: Boolean,
   },
+  'members.$.isTeam': {
+    type: Boolean,
+    optional: true,
+  },
   'members.$.isCommentOnly': {
     type: Boolean,
   },
@@ -202,10 +215,9 @@ Boards.helpers({
    */
   isActiveMember(userId) {
     if (userId) {
-      return this.members.find((member) => (member.userId === userId && member.isActive));
-    } else {
-      return false;
+      return this.organizationMembers().find((member) => (member.userId === userId && member.isActive));
     }
+    return false;
   },
 
   isPublic() {
@@ -239,15 +251,26 @@ Boards.helpers({
   },
 
   activeMembers() {
+    return _.where(this.organizationMembers(), { isActive: true });
+  },
+
+  activeMembersTeams() {
     return _.where(this.members, { isActive: true });
   },
 
   activeAdmins() {
-    return _.where(this.members, { isActive: true, isAdmin: true });
+    return _.where(this.organizationMembers(), { isActive: true, isAdmin: true });
   },
 
+  // Team-Documents of the Board Member
+  memberTeams() {
+    return Teams.find({ _id: { $in: _.pluck(this.members.filter((member) => member.isTeam), 'userId') } });
+  },
+
+  // User-Documents of the Board Member
   memberUsers() {
-    return Users.find({ _id: { $in: _.pluck(this.members, 'userId') } });
+    const userIds = _.pluck(this.organizationMembers().filter((member) => !member.isTeam), 'userId');
+    return Users.find({ _id: { $in: userIds } });
   },
 
   getLabel(name, color) {
@@ -262,12 +285,43 @@ Boards.helpers({
     return _.pluck(this.members, 'userId').indexOf(memberId);
   },
 
+  // For each member of each linked team, generates a member object that inherits the attributes of the team
+  // If User is assigned directly, and additionally a group to which he is a member, the direct assignment has higher priority (with respect to isAdmin/isActive)
+  organizationMembers() {
+    const memberUsers = [].concat(_.filter(this.members, (member) => !member.isTeam && member.isActive));
+    const memberTeams = _.filter(this.members, (member) => member.isTeam && member.isActive);
+
+    const teamMembers = Teams.find({ _id: { $in: _.pluck(memberTeams, 'userId') }})
+      .map((team) => {
+
+        return team.members
+          // Users assigned directly to the board have priority
+          .filter((userId) => !_.findWhere(memberUsers, { userId }))
+          // Create user memberships for team members
+          .map((userId) => {
+            const membership = _.findWhere(memberTeams, { userId: team._id });
+            return {
+              userId,
+              isTeam: false,
+              isActive: membership.isActive,
+              isAdmin: membership.isAdmin,
+            };
+          });
+      })
+      .reduce((result, current) => {
+        return result.concat(current);
+      }, []);
+
+    // Remove duplicates
+    return _.unique(memberUsers.concat(...memberTeams, ...teamMembers), false, (member) => member.userId);
+  },
+
   hasMember(memberId) {
-    return !!_.findWhere(this.members, { userId: memberId, isActive: true });
+    return !!_.findWhere(this.organizationMembers(), { userId: memberId, isActive: true });
   },
 
   hasAdmin(memberId) {
-    return !!_.findWhere(this.members, { userId: memberId, isActive: true, isAdmin: true });
+    return !!_.findWhere(this.organizationMembers(), { userId: memberId, isActive: true, isAdmin: true });
   },
 
   hasCommentOnly(memberId) {
@@ -462,7 +516,7 @@ Boards.mutations({
     };
   },
 
-  addMember(memberId) {
+  addMember(memberId, isTeam = false) {
     const memberIndex = this.memberIndex(memberId);
     if (memberIndex >= 0) {
       return {
@@ -479,6 +533,30 @@ Boards.mutations({
           isAdmin: false,
           isActive: true,
           isCommentOnly: false,
+          isTeam,
+        },
+      },
+    };
+  },
+
+  addTeam(teamId, isTeam = true) {
+    const memberIndex = this.memberIndex(teamId);
+    if (memberIndex >= 0) {
+      return {
+        $set: {
+          [`members.${memberIndex}.isActive`]: true,
+        },
+      };
+    }
+
+    return {
+      $push: {
+        members: {
+          userId: teamId,
+          isAdmin: false,
+          isActive: true,
+          isCommentOnly: false,
+          isTeam,
         },
       },
     };
@@ -549,35 +627,13 @@ if (Meteor.isServer) {
   // The number of users that have starred this board is managed by trusted code
   // and the user is not allowed to update it
   Boards.deny({
-    update(userId, board, fieldNames) {
-      return _.contains(fieldNames, 'stars');
-    },
+    update: BoardsRestrictions.fieldNamesContainStars,
     fetch: [],
   });
 
   // We can't remove a member if it is the last administrator
   Boards.deny({
-    update(userId, doc, fieldNames, modifier) {
-      if (!_.contains(fieldNames, 'members'))
-        return false;
-
-      // We only care in case of a $pull operation, ie remove a member
-      if (!_.isObject(modifier.$pull && modifier.$pull.members))
-        return false;
-
-      // If there is more than one admin, it's ok to remove anyone
-      const nbAdmins = _.where(doc.members, { isActive: true, isAdmin: true }).length;
-      if (nbAdmins > 1)
-        return false;
-
-      // If all the previous conditions were verified, we can't remove
-      // a user if it's an admin
-      const removedMemberId = modifier.$pull.members.userId;
-      return Boolean(_.findWhere(doc.members, {
-        userId: removedMemberId,
-        isAdmin: true,
-      }));
-    },
+    update: BoardsRestrictions.denyUserIsLastAdmin,
     fetch: ['members'],
   });
 
@@ -608,130 +664,17 @@ if (Meteor.isServer) {
   });
 
   // Genesis: the first activity of the newly created board
-  Boards.after.insert((userId, doc) => {
-    Activities.insert({
-      userId,
-      type: 'board',
-      activityTypeId: doc._id,
-      activityType: 'createBoard',
-      boardId: doc._id,
-    });
-  });
+  Boards.after.insert(BoardsHooks.addActivityForBoardCreated);
 
   // If the user remove one label from a board, we cant to remove reference of
   // this label in any card of this board.
-  Boards.after.update((userId, doc, fieldNames, modifier) => {
-    if (!_.contains(fieldNames, 'labels') ||
-      !modifier.$pull ||
-      !modifier.$pull.labels ||
-      !modifier.$pull.labels._id) {
-      return;
-    }
-
-    const removedLabelId = modifier.$pull.labels._id;
-    Cards.update(
-      { boardId: doc._id },
-      {
-        $pull: {
-          labelIds: removedLabelId,
-        },
-      },
-      { multi: true }
-    );
-  });
-
-  const foreachRemovedMember = (doc, modifier, callback) => {
-    Object.keys(modifier).forEach((set) => {
-      if (modifier[set] !== false) {
-        return;
-      }
-
-      const parts = set.split('.');
-      if (parts.length === 3 && parts[0] === 'members' && parts[2] === 'isActive') {
-        callback(doc.members[parts[1]].userId);
-      }
-    });
-  };
+  Boards.after.update(BoardsHooks.removeLabelFromCardsInBoard);
 
   // Remove a member from all objects of the board before leaving the board
-  Boards.before.update((userId, doc, fieldNames, modifier) => {
-    if (!_.contains(fieldNames, 'members')) {
-      return;
-    }
-
-    if (modifier.$set) {
-      const boardId = doc._id;
-      foreachRemovedMember(doc, modifier.$set, (memberId) => {
-        Cards.update(
-          { boardId },
-          {
-            $pull: {
-              members: memberId,
-              watchers: memberId,
-            },
-          },
-          { multi: true }
-        );
-
-        Lists.update(
-          { boardId },
-          {
-            $pull: {
-              watchers: memberId,
-            },
-          },
-          { multi: true }
-        );
-
-        const board = Boards._transform(doc);
-        board.setWatcher(memberId, false);
-
-        // Remove board from users starred list
-        if (!board.isPublic()) {
-          Users.update(
-            memberId,
-            {
-              $pull: {
-                'profile.starredBoards': boardId,
-              },
-            }
-          );
-        }
-      });
-    }
-  });
+  Boards.before.update(BoardsHooks.removeUserFromBoardObjects);
 
   // Add a new activity if we add or remove a member to the board
-  Boards.after.update((userId, doc, fieldNames, modifier) => {
-    if (!_.contains(fieldNames, 'members')) {
-      return;
-    }
-
-    // Say hello to the new member
-    if (modifier.$push && modifier.$push.members) {
-      const memberId = modifier.$push.members.userId;
-      Activities.insert({
-        userId,
-        memberId,
-        type: 'member',
-        activityType: 'addBoardMember',
-        boardId: doc._id,
-      });
-    }
-
-    // Say goodbye to the former member
-    if (modifier.$set) {
-      foreachRemovedMember(doc, modifier.$set, (memberId) => {
-        Activities.insert({
-          userId,
-          memberId,
-          type: 'member',
-          activityType: 'removeBoardMember',
-          boardId: doc._id,
-        });
-      });
-    }
-  });
+  Boards.after.update(BoardsHooks.addActivityWhenMemberAddedOrRemoved);
 }
 
 //BOARDS REST API

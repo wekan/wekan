@@ -498,6 +498,26 @@
     "change-card-parent": "Change card's parent",
     "parent-card": "Parent card",
     "source-board": "Source board",
-    "no-parent": "Don't show parent"
-
+    "no-parent": "Don't show parent",
+    "team": "Team",
+    "teams": "Teams",
+    "addTeamPopup-title": "Teams",
+    "manage-teams": "Manage Teams",
+    "add-team": "Add Team",
+    "add-user": "Add User",
+    "team-members": "Members",
+    "addTeamMemberPopup-title": "Members",
+    "add-team-member": "Add Team Member",
+    "remove-from-team": "Remove",
+    "remove-team-member-pop": "Remove __name__ (__username__) from __teamName__?",
+    "removeTeamMemberPopup-title": "Remove Member?",
+    "error-team-notAAdmin": "You need to be Admin of this Team to do that.",
+    "pending-team-invited": "Pending Team invites",
+    "teamDetailsMenuPopup-title": "Actions",
+    "delete-team": "Delete Team",
+    "teamDeletePopup-title": "Delete Team",
+    "delete-team-popup-message": "This Team and all its Members will be removed from all cards, lists and boards. Deleting is permanent.",
+    "email-invite-to-team-subject": "Invitation to Team \"__team__\"",
+    "email-invite-to-team-text": "Dear __username__,\n\n__inviter__ invites you join the \"__team__\" for collaborations.\n\nPlease follow the link below to accept or decline it:\n\n__url__\n\nThanks.",
+    "error-teamname-already-taken": "This teamname is already in use."
 }

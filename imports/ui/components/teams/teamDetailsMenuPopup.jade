@@ -1,0 +1,8 @@
+template(name='teamDetailsMenuPopup')
+  ul.pop-over-list
+    li
+      a.js-delete-team {{_ 'delete-team'}}
+
+template(name='teamDeletePopup')
+  p {{_ 'delete-team-popup-message'}}
+  button.js-confirm.full(type='submit') {{_ 'delete'}}

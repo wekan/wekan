@@ -1,3 +1,6 @@
+import { Teams } from '/imports/model/teams';
+Meteor.subscribe('team');
+
 Template.userAvatar.helpers({
   userData() {
     // We need to handle a special case for the search results provided by the
@@ -12,6 +15,14 @@ Template.userAvatar.helpers({
         username: 1,
       },
     });
+  },
+
+  isTeam() {
+    return this.isTeam;
+  },
+
+  team() {
+    return Teams.findOne(this.userId);
   },
 
   memberType() {
@@ -136,18 +147,14 @@ Template.cardMembersPopup.helpers({
   isCardMember() {
     const cardId = Template.parentData()._id;
     const cardMembers = Cards.findOne(cardId).members || [];
-    return _.contains(cardMembers, this.userId);
-  },
-
-  user() {
-    return Users.findOne(this.userId);
+    return _.contains(cardMembers, this._id);
   },
 });
 
 Template.cardMembersPopup.events({
   'click .js-select-member'(evt) {
     const card = Cards.findOne(Session.get('currentCard'));
-    const memberId = this.userId;
+    const memberId = this._id;
     card.toggleMember(memberId);
     evt.preventDefault();
   },

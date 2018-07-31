@@ -1,0 +1,9 @@
+template(name="teamMember")
+  .row
+    .column.avatar
+      +userAvatar(userId=memberId)
+    .column.user-details {{ name }}
+    .column.action
+      //button {{_ 'change-permissions'}}
+    .column.action
+      button.js-remove-team-member {{_ 'remove-from-team'}}

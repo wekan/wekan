@@ -17,6 +17,7 @@
 //
 // To prevent this bug we always have to disable the schema validation and
 // argument transformations. We generally use the shorthandlers defined below.
+
 const noValidate = {
   validate: false,
   filter: false,
@@ -149,6 +150,17 @@ Migrations.add('add-sort-checklists', () => {
         );
       }
     });
+  });
+});
+
+Migrations.add('add-board-member-isteam-flag', () => {
+  Boards.find({}).forEach((board) => {
+    const replaceMembers = [];
+    board.members.forEach((member) => {
+      member.isTeam = false;
+      replaceMembers.push(member);
+    });
+    Boards.update(board._id, { $set: { members: replaceMembers } }, noValidate);
   });
 });
 

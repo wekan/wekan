@@ -1,0 +1,89 @@
+@import 'nib'
+
+$border-color=darken(white, 14%)
+
+.team-details
+  padding 0 20px
+  height 100%
+  flex-shrink 0
+  flex-basis 670px
+  will-change flex-basis
+  background darken(white, 3%)
+  border-radius bottom 3px
+  z-index 20 !important
+  animation flexGrowIn 0.3s
+  box-shadow 0 0 7px 0 darken(white, 30%)
+  transition flex-basis 0.3s
+
+  .team-details-header
+    margin 0 -20px 5px
+    padding 7px 16px
+    background darken(white, 7%)
+    border-bottom 1px solid $border-color
+
+    .team-details-title
+      font-weight bold
+      font-size 1.33em
+      margin 7px 0 0
+      padding 0
+
+    .team-details-menu
+      float right
+      font-size 17px
+      padding 10px
+
+  .team-details-body
+    margin 15px 0
+
+.grid
+
+  .row
+    display flex
+    flex-flow row nowrap
+    padding 5px
+    justify-content space-between
+    align-items center
+    height 34px
+
+    &:not(:last-child)
+      border-bottom 1px solid $border-color
+
+    &:nth-child(odd)
+      background-color darken(white, 10%)
+
+.column
+  padding 0 5px
+  overflow hidden
+
+& .avatar
+  padding 0
+  margin 0
+  width 30px
+  height 30px
+
+
+& .user-details
+  flex-grow 1
+
+& .action
+  flex-shrink 0
+
+& button
+  margin 0
+
+.board-wrapper
+  .board-canvas
+    .lists
+      align-items: flex-start
+      display: flex
+      flex-direction: row
+      margin: 0 0 10px
+      padding: 0 40px 5px 0
+      overflow-x: auto
+      overflow-y: hidden
+      position: cover
+
+@media screen and (max-width: 800px)
+  .is-selected .minicard
+    z-index: 25
+    transform: translateX(11px)

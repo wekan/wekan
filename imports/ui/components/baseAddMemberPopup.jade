@@ -1,0 +1,28 @@
+template(name="baseAddMemberPopup")
+  .js-search-member
+    +esInput(index="users")
+
+  if loading.get
+    +spinner
+  else if error.get
+    .warning {{_ error.get}}
+  else
+    ul.pop-over-list
+      +esEach(index="users")
+        li.item.js-member-item(class="{{#if isMember}}disabled{{/if}}")
+          a.name.js-select-member(title="{{profile.fullname}} ({{username}})")
+            +userAvatar(userId=_id esSearch=true)
+            span.full-name
+              = profile.fullname
+              | (<span class="username">{{username}}</span>)
+            if isMember
+              i.fa.fa-check
+              //.quiet ({{_ 'joined'}})
+
+      +ifEsIsSearching(index='users')
+        +spinner
+
+      +ifEsHasNoResults(index="users")
+        .manage-member-section
+          p.quiet {{_ 'no-results'}}
+    //button.js-email-invite.primary.full {{_ 'email-invite'}}

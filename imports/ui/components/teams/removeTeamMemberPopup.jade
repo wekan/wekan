@@ -1,0 +1,3 @@
+template(name="removeTeamMemberPopup")
+  p {{_ 'remove-team-member-pop' name=user.profile.fullname username=user.username teamName=team.name}}
+  button.js-confirm.negate.full(type="submit") {{_ 'remove-member'}}

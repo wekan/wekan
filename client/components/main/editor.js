@@ -9,7 +9,7 @@ Template.editor.onRendered(() => {
       match: /\B@([\w.]*)$/,
       search(term, callback) {
         const currentBoard = Boards.findOne(Session.get('currentBoard'));
-        callback(currentBoard.activeMembers().map((member) => {
+        callback(currentBoard.activeMembers().filter((member) => !member.isTeam).map((member) => {
           const username = Users.findOne(member.userId).username;
           return username.includes(term) ? username : null;
         }).filter(Boolean));
@@ -37,10 +37,13 @@ const at = HTML.CharRef({html: '&commat;', str: '@'});
 Blaze.Template.registerHelper('mentions', new Template('mentions', function() {
   const view = this;
   const currentBoard = Boards.findOne(Session.get('currentBoard'));
-  const knowedUsers = currentBoard.members.map((member) => {
-    member.username = Users.findOne(member.userId).username;
-    return member;
-  });
+  const knowedUsers = currentBoard.members
+    .filter((member) => !member.isTeam)
+    .map((member) => {
+      member.username = Users.findOne(member.userId).username;
+      return member;
+    });
+
   const mentionRegex = /\B@([\w.]*)/gi;
   let content = Blaze.toHTML(view.templateContentBlock);
 

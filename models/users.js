@@ -1,3 +1,5 @@
+import { EasySearch } from 'meteor/matteodem:easy-search';
+
 // Sandstorm context is detected using the METEOR_SETTINGS environment variable
 // in the package definition.
 const isSandstorm = Meteor.settings && Meteor.settings.public &&
@@ -23,9 +25,11 @@ Users.attachSchema(new SimpleSchema({
   },
   'emails.$.address': {
     type: String,
+    optional: true,
     regEx: SimpleSchema.RegEx.Email,
   },
   'emails.$.verified': {
+    optional: true,
     type: Boolean,
   },
   createdAt: {
@@ -42,8 +46,9 @@ Users.attachSchema(new SimpleSchema({
     type: Object,
     optional: true,
     autoValue() { // eslint-disable-line consistent-return
-      if (this.isInsert && !this.isSet) {
+      if (this.isInsert) {
         return {
+          ...this.value,
           boardView: 'board-view-lists',
         };
       }
@@ -139,9 +144,22 @@ Users.allow({
 // Search a user in the complete server database by its name or username. This
 // is used for instance to add a new user to a board.
 const searchInFields = ['username', 'profile.fullname'];
-Users.initEasySearch(searchInFields, {
+EasySearch.createSearchIndex('users', {
+  collection: Meteor.users,
   use: 'mongo-db',
+  field: searchInFields,
   returnFields: [...searchInFields, 'profile.avatarUrl'],
+  query(searchString) {
+    const query = EasySearch.getSearcher(this.use).defaultQuery(this, searchString);
+
+    if(!_.isArray(query.$and)) {
+      query.$and = [];
+    }
+
+    // exclude deactivated user accounts from search
+    query.$and.push({ 'services.status': { $ne: 'deactivated' }});
+    return query;
+  },
 });
 
 if (Meteor.isClient) {
@@ -353,6 +371,7 @@ Users.mutations({
 Meteor.methods({
   setUsername(username, userId) {
     check(username, String);
+    check(userId, String);
     const nUsersWithUsername = Users.find({username}).count();
     if (nUsersWithUsername > 0) {
       throw new Meteor.Error('username-already-taken');
@@ -370,6 +389,7 @@ Meteor.methods({
   },
   setEmail(email, userId) {
     check(email, String);
+    check(userId, String);
     const existingUser = Users.findOne({'emails.address': email}, {fields: {_id: 1}});
     if (existingUser) {
       throw new Meteor.Error('email-already-taken');
@@ -401,6 +421,36 @@ Meteor.methods({
 });
 
 if (Meteor.isServer) {
+  Users.findForInvite = function(username) {
+    const posAt = username.indexOf('@');
+    if (posAt>=0) {
+      return Users.findOne({emails: {$elemMatch: {address: username}}});
+    } else {
+      return Users.findOne(username) || Users.findOne({ username });
+    }
+  };
+
+  Users.inviteNewUser = function(email, language) {
+    const posAt = email.indexOf('@');
+    if (posAt <= 0) throw new Meteor.Error('error-user-doesNotExist');
+    if (Settings.findOne().disableRegistration) throw new Meteor.Error('error-user-notCreated');
+    // Set in lowercase email before creating account
+    const username = email.substring(0, posAt).toLowerCase();
+
+    const newUserId = Accounts.createUser({ username, email });
+    if (!newUserId) throw new Meteor.Error('error-user-notCreated');
+    // assume new user speak same language with inviter
+    if (language) {
+      Users.update(newUserId, {
+        $set: {
+          'profile.language': language,
+        },
+      });
+    }
+    Accounts.sendEnrollmentEmail(newUserId);
+    return Users.findOne(newUserId);
+  };
+
   Meteor.methods({
     // we accept userId, username, email
     inviteUserToBoard(username, boardId) {
@@ -419,33 +469,12 @@ if (Meteor.isServer) {
 
       this.unblock();
 
-      const posAt = username.indexOf('@');
-      let user = null;
-      if (posAt >= 0) {
-        user = Users.findOne({emails: {$elemMatch: {address: username}}});
-      } else {
-        user = Users.findOne(username) || Users.findOne({username});
-      }
+      let user = Users.findForInvite(username);
       if (user) {
         if (user._id === inviter._id) throw new Meteor.Error('error-user-notAllowSelf');
+        if (user.services && user.services.status === 'deactivated') throw new Meteor.Error('error-user-deactivated');
       } else {
-        if (posAt <= 0) throw new Meteor.Error('error-user-doesNotExist');
-        if (Settings.findOne().disableRegistration) throw new Meteor.Error('error-user-notCreated');
-        // Set in lowercase email before creating account
-        const email = username.toLowerCase();
-        username = email.substring(0, posAt);
-        const newUserId = Accounts.createUser({username, email});
-        if (!newUserId) throw new Meteor.Error('error-user-notCreated');
-        // assume new user speak same language with inviter
-        if (inviter.profile && inviter.profile.language) {
-          Users.update(newUserId, {
-            $set: {
-              'profile.language': inviter.profile.language,
-            },
-          });
-        }
-        Accounts.sendEnrollmentEmail(newUserId);
-        user = Users.findOne(newUserId);
+        user = Users.inviteNewUser(username, inviter.profile && inviter.profile.language);
       }
 
       board.addMember(user._id);

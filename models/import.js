@@ -9,13 +9,21 @@ Meteor.methods({
     check(currentBoard, Match.Maybe(String));
     let creator;
     switch (importSource) {
-    case 'trello':
+    case 'trello': {
       creator = new TrelloCreator(data);
       break;
-    case 'wekan':
+    }
+    case 'wekan': {
+      // When importing from Wekan, don't import teams.
+      const membersToMap = board.members.filter((importedMember) => {
+        return importedMember.isTeam !== true;
+      });
+      board.members = membersToMap;
       creator = new WekanCreator(data);
       break;
     }
+    }
+
 
     // 1. check all parameters are ok from a syntax point of view
     creator.check(board);

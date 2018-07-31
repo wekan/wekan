@@ -19,6 +19,7 @@ BlazeComponent.extendComponent({
           this.isBoardReady.set(handle.ready());
         });
       });
+      Meteor.subscribe('board-team-members', currentBoardId);
     });
   },
 

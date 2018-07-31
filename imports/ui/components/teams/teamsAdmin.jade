@@ -1,0 +1,34 @@
+template(name='teamsAdmin')
+  .board-wrapper
+    .board-canvas
+      if showOverlay.get
+        .board-overlay
+      .lists
+        .list
+          .list-header
+            h2.list-header-name {{_ 'teams'}}
+
+          .list-body
+            .minicards
+              each team in teams
+                a.minicard-wrapper(
+                  class="{{#if teamIsSelected team}}is-selected{{/if}}"
+                  href="/admin/team/{{team._id}}")
+                  .minicard
+                    .minicard-title
+                    | {{team.name}}
+
+              +inlinedForm(classNames='js-add-team-form')
+                .minicard.minicard-composer
+                  textarea.minicard-composer-textarea(autofocus)
+                .add-controls.clearfix
+                  button.primary.confirm(type='submit') {{_ 'add'}}
+                  a.fa.fa-times-thin.js-close-inlined-form
+
+              else
+                a.open-minicard-composer.js-open-inlined-form
+                    i.fa.fa-plus
+                    | {{_ 'add-team'}}
+
+        if selectedTeamId
+          +teamDetails(teamId=selectedTeamId)

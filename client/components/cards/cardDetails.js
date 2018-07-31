@@ -399,13 +399,26 @@ Template.moveCardPopup.events({
 BlazeComponent.extendComponent({
   onCreated() {
     subManager.subscribe('board', Session.get('currentBoard'));
+    subManager.subscribe('teams');
     this.selectedBoardId = new ReactiveVar(Session.get('currentBoard'));
   },
 
+  getIds() {
+    const teams = Users.findOne(Meteor.userId()).teams();
+    const ids = teams.map((team) => {
+      return team._id;
+    });
+    ids.push(Meteor.userId());
+    return ids;
+  },
+
   boards() {
+    const ids = this.getIds();
     const boards = Boards.find({
       archived: false,
-      'members.userId': Meteor.userId(),
+      'members.userId': {
+        $in: ids,
+      },
     }, {
       sort: ['title'],
     });

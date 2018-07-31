@@ -28,6 +28,10 @@ avatar-radius = 50%
       color: #444444
       position: absolute
 
+      .team-avatar
+        padding-top 1px
+        padding-left 2px
+
     &.avatar-image
       height: 100%
       width: @height
@@ -59,6 +63,22 @@ avatar-radius = 50%
     &.pending
       background: #e44242
       border-color: #f1dada
+
+  .member-type
+    &.admin
+      font-family: FontAwesome;
+      font-size: 12px;
+      font-style: normal;
+      position: absolute
+      bottom: -1px
+      text-align: center;
+      background-color: #cccccc;
+      border-radius: 6px;
+      height: 10px;
+      width: 10px;
+
+    &.admin:before
+      content: '\f013'
 
   .edit-avatar
     position: absolute

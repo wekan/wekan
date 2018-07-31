@@ -1,9 +1,12 @@
 template(name="userAvatar")
-  a.member.js-member(title="{{userData.profile.fullname}} ({{userData.username}})")
+  a.member.js-member(title="{{#if isTeam}} {{team.name}} {{else}} {{userData.profile.fullname}} ({{userData.username}}) {{/if}}")
     if userData.profile.avatarUrl
       img.avatar.avatar-image(src=userData.profile.avatarUrl)
     else
-      +userAvatarInitials(userId=userData._id)
+      if isTeam
+        +teamAvatar
+      else
+        +userAvatarInitials(userId=userData._id)
 
     if showStatus
       span.member-presence-status(class=presenceStatusClassName)
@@ -14,6 +17,11 @@ template(name="userAvatar")
         if $eq currentUser._id userData._id
           a.edit-avatar.js-change-avatar
             i.fa.fa-pencil
+
+template(name="teamAvatar")
+  .avatar.avatar-initials
+    .team-avatar
+      .fa.fa-users
 
 template(name="userAvatarInitials")
   svg.avatar.avatar-initials(viewBox="0 0 {{viewPortWidth}} 15")

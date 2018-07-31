@@ -34,15 +34,22 @@ template(name="membersWidget")
       i.fa.fa-user
       | {{_ 'members'}}
     .board-widget-content
-      each currentBoard.activeMembers
-        +userAvatar(userId=this.userId showStatus=true)
+      each currentBoard.activeMembersTeams
+        if isTeam
+          +userAvatar(userId=this.userId showStatus=false isTeam=this.isTeam)
+        else
+          +userAvatar(userId=this.userId showStatus=true isTeam=this.isTeam)
       if isSandstorm
         if currentUser.isBoardMember
           a.member.add-member.sandstorm-powerbox-request-identity
             i.fa.fa-plus
       else if currentUser.isBoardAdmin
-        a.member.add-member.js-manage-board-members
+        a.member.add-member.js-manage-board-members(title="{{_ 'add-user'}}")
           i.fa.fa-plus
+          i.fa.fa-user
+        a.member.add-member.js-manage-board-team(title="{{_ 'add-team'}}")
+          i.fa.fa-plus
+          i.fa.fa-users
       .clearfix
   if isInvited
     hr
@@ -59,9 +66,9 @@ template(name="labelsWidget")
       | {{_ 'labels'}}
     .board-widget-content
       each currentBoard.labels
-          a.card-label(class="card-label-{{color}}"
-            class="{{#if currentUser.isNotCommentOnly}}js-label{{/if}}")
-            span.card-label-name= name
+        a.card-label(class="card-label-{{color}}"
+          class="{{#if currentUser.isNotCommentOnly}}js-label{{/if}}")
+          span.card-label-name= name
       if currentUser.isBoardAdmin
         a.card-label.add-label.js-add-label
           i.fa.fa-plus
@@ -69,67 +76,53 @@ template(name="labelsWidget")
 template(name="memberPopup")
   .board-member-menu
     .miniprofile-header
-      +userAvatar(userId=user._id showEdit=true)
+      if isTeam
+        +userAvatar(userId=team._id showEdit=true isTeam=this.isTeam)
+      else
+        +userAvatar(userId=user._id showEdit=true isTeam=this.isTeam)
       .info
-        h3
-          .js-profile= user.profile.fullname
-        p.quiet @#{user.username}
-        if isInvited
-          p
-            i.fa.fa-exclamation-circle
-            | {{_ 'not-accepted-yet'}}
+        if isTeam
+          h3
+            .js-profile= team.name
+        else
+          h3
+            .js-profile= user.profile.fullname
+          p.quiet @#{user.username}
+          if isInvited
+            p
+              i.fa.fa-exclamation-circle
+              | {{_ 'not-accepted-yet'}}
 
     ul.pop-over-list
-      li
-        a.js-filter-member {{_ 'filter-cards'}}
-      unless isSandstorm
-        if currentUser.isBoardAdmin
-          li
-            a.js-change-role
-              | {{_ 'change-permissions'}}
-              span.quiet (#{memberType})
+      unless isTeam
         li
-          if $eq currentUser._id userId
-            a.js-leave-member {{_ 'leave-board'}}
-          else if currentUser.isBoardAdmin
-            a.js-remove-member {{_ 'remove-from-board'}}
+          a.js-filter-member {{_ 'filter-cards'}}
+      else
+        li
+          ul
+            each item in members
+              li {{#if item.profile.fullname}} #{item.profile.fullname} {{else}} #{item.username} {{/if}}
 
+      if currentUser.isBoardAdmin
+        unless isSandstorm
+          unless isTeam
+            li
+              a.js-change-role
+                | {{_ 'change-permissions'}}
+                span.quiet (#{memberType})
+          li
+            if $eq currentUser._id userId
+              a.js-leave-member {{_ 'leave-board'}}
+            else
+              a.js-remove-member {{_ 'remove-from-board'}}
 
 template(name="removeMemberPopup")
-  p {{_ 'remove-member-pop' name=user.profile.fullname username=user.username boardTitle=board.title}}
+  p {{_ 'remove-member-pop' name=fullname username=username boardTitle=board.title}}
   button.js-confirm.negate.full(type="submit") {{_ 'remove-member'}}
 
 template(name="leaveBoardPopup")
   p {{_ 'leave-board-pop' boardTitle=board.title}}
   button.js-confirm.negate.full(type="submit") {{_ 'leave-board'}}
-
-template(name="addMemberPopup")
-  .js-search-member
-    +esInput(index="users")
-
-  if loading.get
-    +spinner
-  else if error.get
-    .warning {{_ error.get}}
-  else
-    ul.pop-over-list
-      +esEach(index="users")
-        li.item.js-member-item(class="{{#if isBoardMember}}disabled{{/if}}")
-          a.name.js-select-member(title="{{profile.fullname}} ({{username}})")
-            +userAvatar(userId=_id esSearch=true)
-            span.full-name
-              = profile.fullname
-              | (<span class="username">{{username}}</span>)
-            if isBoardMember
-              .quiet ({{_ 'joined'}})
-
-      +ifEsIsSearching(index='users')
-        +spinner
-
-      +ifEsHasNoResults(index="users")
-        .manage-member-section
-          p.quiet {{_ 'no-results'}}
-    button.js-email-invite.primary.full {{_ 'email-invite'}}
 
 template(name="changePermissionsPopup")
   ul.pop-over-list

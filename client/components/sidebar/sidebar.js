@@ -1,3 +1,5 @@
+import { Teams } from '/imports/model/teams';
+
 Sidebar = null;
 
 const defaultView = 'home';
@@ -19,6 +21,7 @@ BlazeComponent.extendComponent({
     const initOpen = Utils.isMiniScreen() ? false : (!Session.get('currentCard'));
     this._isOpen = new ReactiveVar(initOpen);
     this._view = new ReactiveVar(defaultView);
+    Meteor.subscribe('allteams');
     Sidebar = this;
   },
 
@@ -138,6 +141,14 @@ Template.memberPopup.helpers({
   isInvited() {
     return Users.findOne(this.userId).isInvitedTo(Session.get('currentBoard'));
   },
+  team() {
+    return Teams.findOne(this.userId);
+  },
+  members() {
+    const team = Teams.findOne(this.userId);
+    Meteor.subscribe('team-members', team.members);
+    return team.memberUsers();
+  },
 });
 
 Template.memberPopup.events({
@@ -149,9 +160,23 @@ Template.memberPopup.events({
   'click .js-remove-member': Popup.afterConfirm('removeMember', function() {
     const boardId = Session.get('currentBoard');
     const memberId = this.userId;
-    Cards.find({ boardId, members: memberId }).forEach((card) => {
-      card.unassignMember(memberId);
-    });
+    const board = Boards.findOne(Session.get('currentBoard'));
+
+    if (this.isTeam) {
+      const team = Teams.findOne(memberId);
+      team.members.forEach((teamMemberId) => {
+        if (board.members.filter((boardMember) => boardMember.userId === teamMemberId && boardMember.isActive).length === 0) {
+          Cards.find({ boardId, members: teamMemberId }).forEach((card) => {
+            card.unassignMember(teamMemberId);
+          });
+        }
+      });
+    } else {
+      Cards.find({ boardId, members: memberId }).forEach((card) => {
+        card.unassignMember(memberId);
+      });
+    }
+
     Boards.findOne(boardId).removeMember(memberId);
     Popup.close();
   }),
@@ -164,9 +189,19 @@ Template.memberPopup.events({
   }),
 });
 
+
 Template.removeMemberPopup.helpers({
-  user() {
-    return Users.findOne(this.userId);
+  fullname() {
+    if(this.isTeam) {
+      return Teams.findOne(this.userId).name;
+    }
+    return Users.findOne(this.userId).profile.fullname;
+  },
+  username() {
+    if(this.isTeam) {
+      return TAPi18n.__('team');
+    }
+    return Users.findOne(this.userId).username;
   },
   board() {
     return Boards.findOne(Session.get('currentBoard'));
@@ -189,6 +224,7 @@ Template.membersWidget.helpers({
 Template.membersWidget.events({
   'click .js-member': Popup.open('member'),
   'click .js-manage-board-members': Popup.open('addMember'),
+  'click .js-manage-board-team': Popup.open('addTeam'),
   'click .sandstorm-powerbox-request-identity'() {
     window.sandstormRequestIdentity();
   },
@@ -255,73 +291,6 @@ function draggableMembersLabelsWidgets() {
 
 Template.membersWidget.onRendered(draggableMembersLabelsWidgets);
 Template.labelsWidget.onRendered(draggableMembersLabelsWidgets);
-
-BlazeComponent.extendComponent({
-  onCreated() {
-    this.error = new ReactiveVar('');
-    this.loading = new ReactiveVar(false);
-  },
-
-  onRendered() {
-    this.find('.js-search-member input').focus();
-    this.setLoading(false);
-  },
-
-  isBoardMember() {
-    const userId = this.currentData()._id;
-    const user = Users.findOne(userId);
-    return user && user.isBoardMember();
-  },
-
-  isValidEmail(email) {
-    return SimpleSchema.RegEx.Email.test(email);
-  },
-
-  setError(error) {
-    this.error.set(error);
-  },
-
-  setLoading(w) {
-    this.loading.set(w);
-  },
-
-  isLoading() {
-    return this.loading.get();
-  },
-
-  inviteUser(idNameEmail) {
-    const boardId = Session.get('currentBoard');
-    this.setLoading(true);
-    const self = this;
-    Meteor.call('inviteUserToBoard', idNameEmail, boardId, (err, ret) => {
-      self.setLoading(false);
-      if (err) self.setError(err.error);
-      else if (ret.email) self.setError('email-sent');
-      else Popup.close();
-    });
-  },
-
-  events() {
-    return [{
-      'keyup input'() {
-        this.setError('');
-      },
-      'click .js-select-member'() {
-        const userId = this.currentData()._id;
-        const currentBoard = Boards.findOne(Session.get('currentBoard'));
-        if (!currentBoard.hasMember(userId)) {
-          this.inviteUser(userId);
-        }
-      },
-      'click .js-email-invite'() {
-        const idNameEmail = $('.js-search-member input').val();
-        if (idNameEmail.indexOf('@')<0 || this.isValidEmail(idNameEmail)) {
-          this.inviteUser(idNameEmail);
-        } else this.setError('email-invalid');
-      },
-    }];
-  },
-}).register('addMemberPopup');
 
 Template.changePermissionsPopup.events({
   'click .js-set-admin, click .js-set-normal, click .js-set-comment-only'(event) {

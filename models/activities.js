@@ -1,3 +1,5 @@
+import { Teams } from '/imports/model/teams';
+
 // Activities don't need a schema because they are always set from the a trusted
 // environment - the server - and there is no risk that a user change the logic
 // we use with this collection. Moreover using a schema for this collection
@@ -19,6 +21,9 @@ Activities.helpers({
   },
   member() {
     return Users.findOne(this.memberId);
+  },
+  team() {
+    return Teams.findOne(this.memberId);
   },
   list() {
     return Lists.findOne(this.listId);
@@ -94,7 +99,11 @@ if (Meteor.isServer) {
     }
     if (activity.memberId) {
       participants = _.union(participants, [activity.memberId]);
-      params.member = activity.member().getName();
+      if (activity.member()) {
+        params.member = activity.member().getName();
+      } else {
+        params.member = activity.team().getName();
+      }
     }
     if (activity.listId) {
       const list = activity.list();

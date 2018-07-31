@@ -1,14 +1,28 @@
+import '/imports/model/users-teams-extension';
 const subManager = new SubsManager();
 
 BlazeComponent.extendComponent({
   onCreated() {
     Meteor.subscribe('setting');
+    Meteor.subscribe('teams');
+    Meteor.subscribe('user-policies');
+    Meteor.subscribe('user-last-visited-boards');
+  },
+
+  getIds() {
+    const teams = Users.findOne(Meteor.userId()).teams();
+    const ids = teams.map((team) => {
+      return team._id;
+    });
+    ids.push(Meteor.userId());
+    return ids;
   },
 
   boards() {
+    const ids = this.getIds();
     return Boards.find({
       archived: false,
-      'members.userId': Meteor.userId(),
+      'members.userId': { $in: ids },
     }, {
       sort: ['title'],
     });
