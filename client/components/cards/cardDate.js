@@ -220,12 +220,16 @@ class CardReceivedDate extends CardDate {
   classes() {
     let classes = 'received-date ';
     const dueAt = this.data().dueAt;
-    if (dueAt) {
-      if (this.date.get().isBefore(this.now.get(), 'minute') &&
-          this.now.get().isBefore(dueAt)) {
-        classes += 'current';
-      }
-    }
+    const endAt = this.data().endAt;
+    const startAt = this.data().startAt;
+    const theDate = this.date.get();
+    // if dueAt, endAt and startAt exist & are > receivedAt, receivedAt doesn't need to be flagged
+    if (((startAt) && (theDate.isAfter(dueAt))) ||
+       ((endAt) && (theDate.isAfter(endAt))) ||
+       ((dueAt) && (theDate.isAfter(dueAt))))
+      classes += 'long-overdue';
+    else
+      classes += 'current';
     return classes;
   }
 
@@ -253,12 +257,17 @@ class CardStartDate extends CardDate {
   classes() {
     let classes = 'start-date' + ' ';
     const dueAt = this.data().dueAt;
-    if (dueAt) {
-      if (this.date.get().isBefore(this.now.get(), 'minute') &&
-          this.now.get().isBefore(dueAt)) {
-        classes += 'current';
-      }
-    }
+    const endAt = this.data().endAt;
+    const theDate = this.date.get();
+    const now = this.now.get();
+    // if dueAt or endAt exist & are > startAt, startAt doesn't need to be flagged
+    if (((endAt) && (theDate.isAfter(endAt))) ||
+       ((dueAt) && (theDate.isAfter(dueAt))))
+      classes += 'long-overdue';
+    else if (theDate.isBefore(now, 'minute'))
+      classes += 'almost-due';
+    else
+      classes += 'current';
     return classes;
   }
 
@@ -286,17 +295,15 @@ class CardDueDate extends CardDate {
   classes() {
     let classes = 'due-date' + ' ';
 
-    // if endAt exists & is < dueAt, dueAt doesn't need to be flagged
     const endAt = this.data().endAt;
     const theDate = this.date.get();
     const now = this.now.get();
-
-    if ((endAt !== 0) &&
-       (endAt !== null) &&
-       (endAt !== '') &&
-       (endAt !== undefined) &&
-       (theDate.isBefore(endAt)))
+    // if the due date is after the end date, green - done early
+    if ((endAt) && (theDate.isAfter(endAt)))
       classes += 'current';
+    // if there is an end date, don't need to flag the due date
+    else if (endAt)
+      classes += '';
     else if (now.diff(theDate, 'days') >= 2)
       classes += 'long-overdue';
     else if (now.diff(theDate, 'minute') >= 0)
@@ -330,15 +337,12 @@ class CardEndDate extends CardDate {
   classes() {
     let classes = 'end-date' + ' ';
     const dueAt = this.data.dueAt;
-    if (dueAt) {
-      const diff = dueAt.diff(this.date.get(), 'days');
-      if (diff >= 2)
-        classes += 'long-overdue';
-      else if (diff > 0)
-        classes += 'due';
-      else if (diff <= 0)
-        classes += 'current';
-    }
+    const theDate = this.date.get();
+    // if dueAt exists & is after endAt, endAt doesn't need to be flagged
+    if ((dueAt) && (theDate.isAfter(dueAt, 'minute')))
+      classes += 'long-overdue';
+    else
+      classes += 'current';
     return classes;
   }
 
