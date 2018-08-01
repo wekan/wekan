@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Enable Wekan API by default, so that Export Board to JSON works](https://github.com/wekan/wekan/commit/b2eeff96977592deaeb23a8171fc3b13f8c6c5dc).
+
+Thanks to GitHub user xet7 for contributions.
+
 # v1.23 2018-07-30
 
 This release tries to fix the following bugs:
