@@ -40,6 +40,10 @@ services:
       # Wekan Export Board works when WITH_API='true'.
       # If you disable Wekan API with 'false', Export Board does not work.
       - WITH_API=true
+      # Optional: Integration with Matomo https://matomo.org that is installed to your server
+      # - MATOMO_ADDRESS='https://example.com/matomo'
+      # - MATOMO_SITE_ID='123456789'
+
     depends_on:
       - wekandb
 
