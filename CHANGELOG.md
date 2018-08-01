@@ -2,11 +2,12 @@
 
 This release fixes the following bugs:
 
-- [Enable Wekan API by default, so that Export Board to JSON works](https://github.com/wekan/wekan/commit/b2eeff96977592deaeb23a8171fc3b13f8c6c5dc).
+- [Enable Wekan API by default, so that Export Board to JSON works](https://github.com/wekan/wekan/commit/b2eeff96977592deaeb23a8171fc3b13f8c6c5dc);
+- [Fix the flagging of dates](https://github.com/wekan/wekan/pull/1814).
 
-Thanks to GitHub user xet7 for contributions.
+Thanks to GitHub users rjevnikar and xet7 for their contributions.
 
-# v1.23 2018-07-30
+# v1.23 2018-07-30 Wekan release
 
 This release tries to fix the following bugs:
 
