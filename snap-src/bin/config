@@ -49,7 +49,7 @@ DEFAULT_CADDY_BIND_PORT="3001"
 KEY_CADDY_BIND_PORT="caddy-bind-port"
 
 DESCRIPTION_WITH_API="Enable/disable the api of wekan"
-DEFAULT_WITH_API="false"
+DEFAULT_WITH_API="true"
 KEY_WITH_API="with-api"
 
 DESCRIPTION_MATOMO_ADDRESS="The address of the server where matomo is hosted"
