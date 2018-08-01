@@ -38,19 +38,19 @@ template(name="cardDetails")
         else
           a.js-start-date {{_ 'add'}}
 
-      .card-details-item.card-details-item-due
-        h3.card-details-item-title {{_ 'card-due'}}
-        if dueAt
-          +cardDueDate
-        else
-          a.js-due-date {{_ 'add'}}
-
       .card-details-item.card-details-item-end
         h3.card-details-item-title {{_ 'card-end'}}
         if endAt
           +cardEndDate
         else
           a.js-end-date {{_ 'add'}}
+
+      .card-details-item.card-details-item-due
+        h3.card-details-item-title {{_ 'card-due'}}
+        if dueAt
+          +cardDueDate
+        else
+          a.js-due-date {{_ 'add'}}
 
     .card-details-items
       .card-details-item.card-details-item-members
