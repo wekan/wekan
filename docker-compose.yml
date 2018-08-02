@@ -33,7 +33,7 @@ services:
         - METEOR_EDGE=${METEOR_EDGE}
         - USE_EDGE=${USE_EDGE}
     ports:
-      - 8080:80
+      - 80:8080
     environment:
       - MONGO_URL=mongodb://wekandb:27017/wekan
       - ROOT_URL=http://localhost
