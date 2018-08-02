@@ -144,7 +144,8 @@ RUN \
     rm -R /home/wekan/app_build && \
     rm /home/wekan/install_meteor.sh
 
-ENV PORT=80
+ENV PORT=8080
 EXPOSE $PORT
+USER wekan
 
 CMD ["node", "/build/main.js"]
