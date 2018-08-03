@@ -5,23 +5,23 @@ template(name="rules")
       | Project rules
 
     ul.rules-lists
-      each triggers
+      each rules
         li.rules-lists-item
           p 
-            = toId
+            = title
           div.rules-btns-group
             button
               i.fa.fa-eye
               | View rule
-            button
+            button.js-delete-rule
               i.fa.fa-trash-o
               | Delete rule
       else
         li.no-items-message No rules
     div.rules-add
-      button
+      button.js-add-rule
         i.fa.fa-plus
         | Add rule
-      input(type=text)
+      input(type=text,placeholder="New rule name",id="ruleTitle")
 
 

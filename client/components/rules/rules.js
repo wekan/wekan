@@ -1,25 +1,25 @@
 
 BlazeComponent.extendComponent({
   onCreated() {
-    this.subscribe('allTriggers');
+    this.subscribe('allRules');
   },
 
-  triggers() {
-    return Triggers.find({});
+  rules() {
+    return Rules.find({});
   },
   events() {
-    return [{'click .js-add-trigger'(event) {
+    return [{'click .js-delete-rule'(event) {
+          const rule = this.currentData();
+          Rules.remove(rule._id);
+          
+        },
+        'click .js-add-rule'(event) {
 
           event.preventDefault();
-          const toName = this.find('#toName').value;
-          const fromName = this.find('#fromName').value;
-          const toId = Triggers.findOne().findList(toName)._id;
-          const fromId = Triggers.findOne().findList(fromName)._id;
-          console.log(toId);
-          console.log(fromId);
-          Triggers.insert({group: "cards", activityType: "moveCard","fromId":fromId,"toId":toId });
-
+          const ruleTitle = this.find('#ruleTitle').value;
+          Rules.insert({title: ruleTitle});
+          this.find('#ruleTitle').value = "";
           
-      },}];
-  },
-}).register('rules');
+        }}];
+      },
+    }).register('rules');

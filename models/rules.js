@@ -5,7 +5,11 @@ Rules.attachSchema(new SimpleSchema({
     type: String,
     optional: true,
   },
-  description: {
+  triggerId: {
+    type: String,
+    optional: true,
+  },
+  actionId: {
     type: String,
     optional: true,
   },
@@ -17,8 +21,19 @@ Rules.mutations({
   },
 });
 
+
+
+
 Rules.allow({
     update: function () {
+    // add custom authentication code here
+    return true;
+  },
+    remove: function () {
+    // add custom authentication code here
+    return true;
+  },
+    insert: function () {
     // add custom authentication code here
     return true;
   },
