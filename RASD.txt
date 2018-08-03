@@ -1,0 +1,22 @@
+Rules
+	
+	Triggers
+
+		Board: create card, card moved to, card moved from
+		Card: [label, attachement, person ] added/removed, name starts with
+		Checklists : checklist added/removed, check item checked/unchecked, checklist completed
+
+	Actions
+		Board: move card to list, move to top/bottom, archive/unarchive
+		Card: [label, attachement, person ] add/remove, set title/description
+		Checklists : checklist add/remove, check/uncheck item 
+		Mail: send email to
+		
+Calendar
+	
+	Triggers
+		Recurrent day/month/year/day of the week
+
+	Actions
+		Board: create card with [title, description, label, checklist, person, date]
+		

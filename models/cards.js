@@ -806,3 +806,4 @@ if (Meteor.isServer) {
 
   });
 }
+

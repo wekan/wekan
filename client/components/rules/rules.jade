@@ -1,0 +1,27 @@
+template(name="rules")
+  .rules
+    h2
+      i.fa.fa-cutlery
+      | Project rules
+
+    ul.rules-lists
+      each triggers
+        li.rules-lists-item
+          p 
+            = toId
+          div.rules-btns-group
+            button
+              i.fa.fa-eye
+              | View rule
+            button
+              i.fa.fa-trash-o
+              | Delete rule
+      else
+        li.no-items-message No rules
+    div.rules-add
+      button
+        i.fa.fa-plus
+        | Add rule
+      input(type=text)
+
+
