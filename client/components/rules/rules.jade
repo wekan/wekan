@@ -1,10 +1,16 @@
 template(name="rules")
+  if rulesListVar.get
+    +rulesList
+  else if rulesTriggerVar.get
+    +rulesTrigger
+
+template(name="rulesList")
   .rules
     h2
       i.fa.fa-cutlery
       | Project rules
 
-    ul.rules-lists
+    ul.rules-list
       each rules
         li.rules-lists-item
           p 
@@ -23,5 +29,37 @@ template(name="rules")
         i.fa.fa-plus
         | Add rule
       input(type=text,placeholder="New rule name",id="ruleTitle")
+
+template(name="rulesTrigger")
+  h2
+    i.fa.fa-cutlery
+    | Rule "#{ruleName.get}"" - Add triggers
+  .triggers-content
+    .triggers-body
+      .triggers-side-menu
+        ul
+          li.active
+            i.fa.fa-columns
+          li
+            i.fa.fa-sticky-note
+          li
+            i.fa.fa-check
+      .triggers-main-body
+        +boardTriggers
+
+template(name="boardTriggers")
+  div.trigger-item
+    div.trigger-content
+      div.trigger-text 
+        | When a card is
+      div.trigger-dropdown
+        select
+    div.trigger-button
+      i.fa.fa-plus
+
+
+   
+  
+
 
 

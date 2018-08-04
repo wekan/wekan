@@ -1,12 +1,15 @@
-
 BlazeComponent.extendComponent({
   onCreated() {
-    this.subscribe('allRules');
+    this.rulesListVar = new ReactiveVar(true);
+    this.rulesTriggerVar = new ReactiveVar(false);
+    this.ruleName = new ReactiveVar("");
   },
 
-  rules() {
-    return Rules.find({});
+  setTrigger() {
+    this.rulesListVar.set(false);
+    this.rulesTriggerVar.set(true);
   },
+
   events() {
     return [{'click .js-delete-rule'(event) {
           const rule = this.currentData();
@@ -19,7 +22,26 @@ BlazeComponent.extendComponent({
           const ruleTitle = this.find('#ruleTitle').value;
           Rules.insert({title: ruleTitle});
           this.find('#ruleTitle').value = "";
-          
+          this.ruleName.set(ruleTitle)
+          this.setTrigger();
+
         }}];
+  },
+
+}).register('rules');
+
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.subscribe('allRules');
+  },
+
+  rules() {
+    return Rules.find({});
+  },
+  events() {
+    return [{}];
       },
-    }).register('rules');
+}).register('rulesList');
+
+
