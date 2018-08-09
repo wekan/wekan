@@ -22,10 +22,10 @@ const pkgdef :Spk.PackageDefinition = (
     appTitle = (defaultText = "Wekan"),
     # The name of the app as it is displayed to the user.
 
-    appVersion = 110,
+    appVersion = 111,
     # Increment this for every release.
 
-    appMarketingVersion = (defaultText = "1.25.0~2018-08-09"),
+    appMarketingVersion = (defaultText = "1.26.0~2018-08-09"),
     # Human-readable presentation of the app version.
 
     minUpgradableAppVersion = 0,
@@ -237,6 +237,11 @@ const myCommand :Spk.Manifest.Command = (
   environ = [
     # Note that this defines the *entire* environment seen by your app.
     (key = "PATH", value = "/usr/local/bin:/usr/bin:/bin"),
+    (key = "WITH_API", value = "true"),
+    (key = "MATOMO_ADDRESS", value=""),
+    (key = "MATOMO_SITE_ID", value=""),
+    (key = "MATOMO_DO_NOT_TRACK", value="false"),
+    (key = "MATOMO_WITH_USERNAME", value="true"),
     (key = "SANDSTORM", value = "1"),
     (key = "METEOR_SETTINGS", value = "{\"public\": {\"sandstorm\": true}}")
   ]
