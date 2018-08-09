@@ -2,7 +2,8 @@
 
 This release fixes the following bugs:
 
-- [Set WITH_API=true on Sandstorm, so that export works]((https://github.com/wekan/wekan/commit/a300b73d56750a1a5645767d375be60839314e84).
+- [Set WITH_API=true setting on Sandstorm, and so that export works](https://github.com/wekan/wekan/commit/a300b73d56750a1a5645767d375be60839314e84);
+- [Set Matomo blank settings on Sandstorm](https://github.com/wekan/wekan/commit/acd105e61b9dca5a78354047bbc23b0a01e71d8c).
 
 Thanks to GitHub user xet7 for contributions.
 
