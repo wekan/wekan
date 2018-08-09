@@ -1,3 +1,11 @@
+# v1.25 2018-08-09 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix showing only the cards of the current board in calendar view](https://github.com/wekan/wekan/pull/1822).
+
+Thanks to GitHub user Yanonix for contributions.
+
 # v1.24 2018-08-09 Wekan release
 
 This release add the following new features:
