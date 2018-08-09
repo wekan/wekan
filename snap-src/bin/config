@@ -49,19 +49,21 @@ DEFAULT_CADDY_BIND_PORT="3001"
 KEY_CADDY_BIND_PORT="caddy-bind-port"
 
 DESCRIPTION_WITH_API="Enable/disable the api of wekan"
-DEFAULT_WITH_API="false"
+DEFAULT_WITH_API="true"
 KEY_WITH_API="with-api"
 
 DESCRIPTION_MATOMO_ADDRESS="The address of the server where matomo is hosted"
+DEFAULT_MATOMO_ADDRESS=""
 KEY_MATOMO_ADDRESS="matomo-address"
 
 DESCRIPTION_MATOMO_SITE_ID="The value of the site ID given in matomo server for wekan"
+DEFAULT_MATOMO_SITE_ID=""
 KEY_MATOMO_SITE_ID="matomo-site-id"
 
 DESCRIPTION_MATOMO_DO_NOT_TRACK="The option do not track which enables users to not be tracked by matomo"
-DEFAULT_CADDY_BIND_PORT="false"
+DEFAULT_MATOMO_DO_NOT_TRACK="false"
 KEY_MATOMO_DO_NOT_TRACK="matomo-do-not-track"
 
 DESCRIPTION_MATOMO_WITH_USERNAME="The option that allows matomo to retrieve the username"
-DEFAULT_CADDY_BIND_PORT="false"
+DEFAULT_MATOMO_WITH_USERNAME="false"
 KEY_MATOMO_WITH_USERNAME="matomo-with-username"
