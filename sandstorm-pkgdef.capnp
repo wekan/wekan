@@ -238,6 +238,10 @@ const myCommand :Spk.Manifest.Command = (
     # Note that this defines the *entire* environment seen by your app.
     (key = "PATH", value = "/usr/local/bin:/usr/bin:/bin"),
     (key = "WITH_API", value = "true"),
+    (key = "MATOMO_ADDRESS", value=""),
+    (key = "MATOMO_SITE_ID", value=""),
+    (key = "MATOMO_DO_NOT_TRACK", value="false"),
+    (key = "MATOMO_WITH_USERNAME", value="true"),
     (key = "SANDSTORM", value = "1"),
     (key = "METEOR_SETTINGS", value = "{\"public\": {\"sandstorm\": true}}")
   ]

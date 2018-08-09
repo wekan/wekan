@@ -1,3 +1,11 @@
+# v1.26 2018-08-09 Wekan release
+
+This release fixes the following bugs:
+
+- [Set WITH_API=true on Sandstorm, so that export works]((https://github.com/wekan/wekan/commit/a300b73d56750a1a5645767d375be60839314e84).
+
+Thanks to GitHub user xet7 for contributions.
+
 # v1.25 2018-08-09 Wekan release
 
 This release fixes the following bugs:
