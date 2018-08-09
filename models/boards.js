@@ -372,6 +372,7 @@ Boards.helpers({
 
   cardsInInterval(start, end) {
     return Cards.find({
+      boardId: this._id,
       $or: [
         {
           startAt: {
