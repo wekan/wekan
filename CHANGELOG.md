@@ -1,12 +1,19 @@
-# Upcoming Wekan release
+# v1.24 2018-08-09 Wekan release
 
-This release fixes the following bugs:
+This release add the following new features:
+
+- [Update node to v8.12.0 prerelease build](https://github.com/wekan/wekan/commit/04d7c47f4ca990311079be8dd6dc383448ee342f).
+
+and fixes the following bugs:
 
 - [Enable Wekan API by default, so that Export Board to JSON works](https://github.com/wekan/wekan/commit/b2eeff96977592deaeb23a8171fc3b13f8c6c5dc);
 - [Fix the flagging of dates](https://github.com/wekan/wekan/pull/1814);
-- [Use new WITH_API and Matomo env variables at Dockerfile](https://github.com/wekan/wekan/issues/1820).
+- [Use new WITH_API and Matomo env variables at Dockerfile](https://github.com/wekan/wekan/issues/1820);
+- For OpenShift compliance, [change](https://github.com/wekan/wekan/commit/53d545eeef7e796bd910f7cce666686ca05de544)
+  [run user](https://github.com/wekan/wekan/pull/1816)
+  and [Docker internal port to 8080](https://github.com/wekan/wekan/commit/95b21943ee7a9fa5a27efe5276307febc2fbad94).
 
-Thanks to GitHub users rjevnikar, xadagaras and xet7 for their contributions.
+Thanks to GitHub users rjevnikar, tdemaret, xadagaras and xet7 for their contributions.
 
 # v1.23 2018-07-30 Wekan release
 
