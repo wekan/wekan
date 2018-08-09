@@ -3,7 +3,8 @@
 This release fixes the following bugs:
 
 - [Enable Wekan API by default, so that Export Board to JSON works](https://github.com/wekan/wekan/commit/b2eeff96977592deaeb23a8171fc3b13f8c6c5dc);
-- [Fix the flagging of dates](https://github.com/wekan/wekan/pull/1814).
+- [Fix the flagging of dates](https://github.com/wekan/wekan/pull/1814);
+- [Use new WITH_API and Matomo env variables at Dockerfile](https://github.com/wekan/wekan/issues/1820).
 
 Thanks to GitHub users rjevnikar and xet7 for their contributions.
 
