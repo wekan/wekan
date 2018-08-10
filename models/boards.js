@@ -246,10 +246,6 @@ Boards.helpers({
     return Swimlanes.find({ boardId: this._id, archived: false }, { sort: { sort: 1 } });
   },
 
-  cards() {
-    return Cards.find({ boardId: this._id, archived: false }, { sort: { sort: 1 } });
-  },
-
   hasOvertimeCards(){
     const card = Cards.findOne({isOvertime: true, boardId: this._id, archived: false} );
     return card !== undefined;
