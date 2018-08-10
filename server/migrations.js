@@ -223,6 +223,7 @@ Migrations.add('add-card-types', () => {
       noValidate
     );
   });
+});
 
 Migrations.add('add-custom-fields-to-cards', () => {
   Cards.update({

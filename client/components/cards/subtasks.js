@@ -29,6 +29,7 @@ BlazeComponent.extendComponent({
         boardId: targetBoard._id,
         sort: sortIndex,
         swimlaneId,
+        type: 'cardType-card',
       });
 
       // In case the filter is active we need to add the newly inserted card in

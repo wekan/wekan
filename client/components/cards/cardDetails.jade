@@ -59,13 +59,6 @@ template(name="cardDetails")
         else
           a.js-end-date {{_ 'add'}}
 
-      .card-details-item.card-details-item-due
-        h3.card-details-item-title {{_ 'card-due'}}
-        if dueAt
-          +cardDueDate
-        else
-          a.js-due-date {{_ 'add'}}
-
     .card-details-items
       .card-details-item.card-details-item-members
         h3.card-details-item-title {{_ 'members'}}
