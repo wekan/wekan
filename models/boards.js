@@ -97,6 +97,15 @@ Boards.attachSchema(new SimpleSchema({
     type: String,
     optional: true,
   },
+  'labels.$.archived': {
+    type: Boolean,
+    autoValue() { // eslint-disable-line consistent-return
+      if (this.isInsert && !this.isSet) {
+        return false;
+      }
+    },
+
+  },
   'labels.$.color': {
     type: String,
     allowedValues: [

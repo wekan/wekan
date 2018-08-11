@@ -7,6 +7,14 @@ template(name="formLabel")
     span.card-label.palette-color.js-palette-color(class="card-label-{{color}}")
       if(isSelected color)
         i.fa.fa-check
+  .material-toggle-switch
+    span.toggle-switch-title {{_ 'archive'}}
+    if archived
+      input.toggle-switch(type="checkbox" id="toggleButton" checked="checked")
+    else
+      input.toggle-switch(type="checkbox" id="toggleButton")
+    label.toggle-label(for="toggleButton")
+
 
 template(name="createLabelPopup")
   form.create-label
