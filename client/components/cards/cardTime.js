@@ -7,17 +7,17 @@ BlazeComponent.extendComponent({
     this.card = this.data();
   },
   toggleOvertime() {
-    this.card.isOvertime = !this.card.isOvertime;
+    this.card.setIsOvertime(!this.card.getIsOvertime());
     $('#overtime .materialCheckBox').toggleClass('is-checked');
 
     $('#overtime').toggleClass('is-checked');
   },
   storeTime(spentTime, isOvertime) {
     this.card.setSpentTime(spentTime);
-    this.card.setOvertime(isOvertime);
+    this.card.setIsOvertime(isOvertime);
   },
   deleteTime() {
-    this.card.unsetSpentTime();
+    this.card.setSpentTime(null);
   },
   events() {
     return [{
@@ -26,7 +26,7 @@ BlazeComponent.extendComponent({
         evt.preventDefault();
 
         const spentTime = parseFloat(evt.target.time.value);
-        const isOvertime = this.card.isOvertime;
+        const isOvertime = this.card.getIsOvertime();
 
         if (spentTime >= 0) {
           this.storeTime(spentTime, isOvertime);
@@ -55,17 +55,14 @@ BlazeComponent.extendComponent({
     self.time = ReactiveVar();
   },
   showTitle() {
-    if (this.data().isOvertime) {
-      return `${TAPi18n.__('overtime')} ${this.data().spentTime} ${TAPi18n.__('hours')}`;
+    if (this.data().getIsOvertime()) {
+      return `${TAPi18n.__('overtime')} ${this.data().getSpentTime()} ${TAPi18n.__('hours')}`;
     } else {
-      return `${TAPi18n.__('card-spent')} ${this.data().spentTime} ${TAPi18n.__('hours')}`;
+      return `${TAPi18n.__('card-spent')} ${this.data().getSpentTime()} ${TAPi18n.__('hours')}`;
     }
   },
   showTime() {
-    return this.data().spentTime;
-  },
-  isOvertime() {
-    return this.data().isOvertime;
+    return this.data().getSpentTime();
   },
   events() {
     return [{

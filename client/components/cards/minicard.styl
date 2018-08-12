@@ -44,6 +44,16 @@
   transition: transform 0.2s,
               border-radius 0.2s
 
+  &.linked-board
+  &.linked-card
+    .linked-icon
+      display: inline-block
+      margin-right: 11px
+      vertical-align: baseline
+      font-size: 0.9em
+    .linked-archived
+      color: #937760
+
   .is-selected &
     transform: translateX(11px)
     border-bottom-right-radius: 0
@@ -87,6 +97,8 @@
   .minicard-title
     p:last-child
       margin-bottom: 0
+    .viewer
+      display: inline-block
   .dates
     display: flex;
     flex-direction: row;

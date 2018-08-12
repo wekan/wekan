@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release add the following new features:
+
+- [Linked Cards and Linked Boards](https://github.com/wekan/wekan/pull/1592).
+
+Thanks to GitHub user andresmanelli for contributions.
+
 # v1.26 2018-08-09 Wekan release
 
 This release fixes the following bugs:
