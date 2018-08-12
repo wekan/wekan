@@ -1,3 +1,19 @@
+# v1.29 2018-08-12 Wekan release
+
+This release fixes the following bugs:
+
+- [Revert Fix lint errors, that caused breakage](https://github.com/wekan/wekan/commit/b015b5b7240f5fb5a715843dce5d35907345eb4a).
+
+Thanks to GitHub user xet7 for contributions.
+
+# v1.28 2018-08-12 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix lint errors](https://github.com/wekan/wekan/commit/f5515cb95fc93882e5e1098d6043267b9260b9d7).
+
+Thanks to GitHub user xet7 for contributions.
+
 # v1.27 2018-08-12 Wekan release
 
 This release add the following new features:
