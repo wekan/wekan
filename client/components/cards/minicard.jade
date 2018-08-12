@@ -1,5 +1,7 @@
 template(name="minicard")
-  .minicard
+  .minicard(
+    class="{{#if isLinkedCard}}linked-card{{/if}}"
+    class="{{#if isLinkedBoard}}linked-board{{/if}}")
     if cover
       .minicard-cover(style="background-image: url('{{cover.url}}');")
     if labels
@@ -13,8 +15,16 @@ template(name="minicard")
       if $eq 'prefix-with-parent' currentBoard.presentParentTask
         .parent-prefix
           | {{ parentCardName }}
+      if isLinkedBoard
+        a.js-linked-link
+          span.linked-icon.fa.fa-folder
+      else if isLinkedCard
+        a.js-linked-link
+          span.linked-icon.fa.fa-id-card
+      if getArchived
+        span.linked-icon.linked-archived.fa.fa-archive
       +viewer
-        | {{ title }}
+        = getTitle
       if $eq 'subtext-with-full-path' currentBoard.presentParentTask
         .parent-subtext
           | {{ parentString ' > ' }}
@@ -23,23 +33,19 @@ template(name="minicard")
           | {{ parentCardName }}
 
     .dates
-      if receivedAt
-        unless startAt
-          unless dueAt
-            unless endAt
+      if getReceived
+        unless getStart
+          unless getDue
+            unless getEnd
               .date
                 +minicardReceivedDate
-      if startAt
+      if getStart
         .date
           +minicardStartDate
-      if dueAt
-        unless endAt
-          .date
-            +minicardDueDate
-      if endAt
+      if getDue
         .date
-          +minicardEndDate
-      if spentTime
+          +minicardDueDate
+      if getSpentTime
         .date
           +cardSpentTime
 
@@ -53,9 +59,9 @@ template(name="minicard")
               +viewer
                 = trueValue
 
-    if members
+    if getMembers
       .minicard-members.js-minicard-members
-        each members
+        each getMembers
           +userAvatar(userId=this)
 
     .badges
@@ -63,8 +69,8 @@ template(name="minicard")
         .badge(title="{{_ 'card-comments-title' comments.count }}")
           span.badge-icon.fa.fa-comment-o.badge-comment
           span.badge-text= comments.count
-      if description
-        .badge.badge-state-image-only(title=description)
+      if getDescription
+        .badge.badge-state-image-only(title=getDescription)
           span.badge-icon.fa.fa-align-left
       if attachments.count
         .badge

@@ -133,6 +133,13 @@ Cards.attachSchema(new SimpleSchema({
     defaultValue: -1,
     optional: true,
   },
+  type: {
+    type: String,
+  },
+  linkedId: {
+    type: String,
+    optional: true,
+  },
 }));
 
 Cards.allow({
@@ -174,19 +181,33 @@ Cards.helpers({
   },
 
   isAssigned(memberId) {
-    return _.contains(this.members, memberId);
+    return _.contains(this.getMembers(), memberId);
   },
 
   activities() {
-    return Activities.find({cardId: this._id}, {sort: {createdAt: -1}});
+    if (this.isLinkedCard()) {
+      return Activities.find({cardId: this.linkedId}, {sort: {createdAt: -1}});
+    } else if (this.isLinkedBoard()) {
+      return Activities.find({boardId: this.linkedId}, {sort: {createdAt: -1}});
+    } else {
+      return Activities.find({cardId: this._id}, {sort: {createdAt: -1}});
+    }
   },
 
   comments() {
-    return CardComments.find({cardId: this._id}, {sort: {createdAt: -1}});
+    if (this.isLinkedCard()) {
+      return CardComments.find({cardId: this.linkedId}, {sort: {createdAt: -1}});
+    } else {
+      return CardComments.find({cardId: this._id}, {sort: {createdAt: -1}});
+    }
   },
 
   attachments() {
-    return Attachments.find({cardId: this._id}, {sort: {uploadedAt: -1}});
+    if (this.isLinkedCard()) {
+      return Attachments.find({cardId: this.linkedId}, {sort: {uploadedAt: -1}});
+    } else {
+      return Attachments.find({cardId: this._id}, {sort: {uploadedAt: -1}});
+    }
   },
 
   cover() {
@@ -197,7 +218,11 @@ Cards.helpers({
   },
 
   checklists() {
-    return Checklists.find({cardId: this._id}, {sort: { sort: 1 } });
+    if (this.isLinkedCard()) {
+      return Checklists.find({cardId: this.linkedId}, {sort: { sort: 1 } });
+    } else {
+      return Checklists.find({cardId: this._id}, {sort: { sort: 1 } });
+    }
   },
 
   checklistItemCount() {
@@ -386,6 +411,342 @@ Cards.helpers({
   isTopLevel() {
     return this.parentId === '';
   },
+
+  isLinkedCard() {
+    return this.type === 'cardType-linkedCard';
+  },
+
+  isLinkedBoard() {
+    return this.type === 'cardType-linkedBoard';
+  },
+
+  isLinked() {
+    return this.isLinkedCard() || this.isLinkedBoard();
+  },
+
+  setDescription(description) {
+    if (this.isLinkedCard()) {
+      return Cards.update({_id: this.linkedId}, {$set: {description}});
+    } else if (this.isLinkedBoard()) {
+      return Boards.update({_id: this.linkedId}, {$set: {description}});
+    } else {
+      return Cards.update(
+        {_id: this._id},
+        {$set: {description}}
+      );
+    }
+  },
+
+  getDescription() {
+    if (this.isLinkedCard()) {
+      const card = Cards.findOne({_id: this.linkedId});
+      if (card && card.description)
+        return card.description;
+      else
+        return null;
+    } else if (this.isLinkedBoard()) {
+      const board = Boards.findOne({_id: this.linkedId});
+      if (board && board.description)
+        return board.description;
+      else
+        return null;
+    } else if (this.description) {
+      return this.description;
+    } else {
+      return null;
+    }
+  },
+
+  getMembers() {
+    if (this.isLinkedCard()) {
+      const card = Cards.findOne({_id: this.linkedId});
+      return card.members;
+    } else if (this.isLinkedBoard()) {
+      const board = Boards.findOne({_id: this.linkedId});
+      return board.activeMembers().map((member) => {
+        return member.userId;
+      });
+    } else {
+      return this.members;
+    }
+  },
+
+  assignMember(memberId) {
+    if (this.isLinkedCard()) {
+      return Cards.update(
+        { _id: this.linkedId },
+        { $addToSet: { members: memberId }}
+      );
+    } else if (this.isLinkedBoard()) {
+      const board = Boards.findOne({_id: this.linkedId});
+      return board.addMember(memberId);
+    } else {
+      return Cards.update(
+        { _id: this._id },
+        { $addToSet: { members: memberId}}
+      );
+    }
+  },
+
+  unassignMember(memberId) {
+    if (this.isLinkedCard()) {
+      return Cards.update(
+        { _id: this.linkedId },
+        { $pull: { members: memberId }}
+      );
+    } else if (this.isLinkedBoard()) {
+      const board = Boards.findOne({_id: this.linkedId});
+      return board.removeMember(memberId);
+    } else {
+      return Cards.update(
+        { _id: this._id },
+        { $pull: { members: memberId}}
+      );
+    }
+  },
+
+  toggleMember(memberId) {
+    if (this.getMembers() && this.getMembers().indexOf(memberId) > -1) {
+      return this.unassignMember(memberId);
+    } else {
+      return this.assignMember(memberId);
+    }
+  },
+
+  getReceived() {
+    if (this.isLinkedCard()) {
+      const card = Cards.findOne({_id: this.linkedId});
+      return card.receivedAt;
+    } else {
+      return this.receivedAt;
+    }
+  },
+
+  setReceived(receivedAt) {
+    if (this.isLinkedCard()) {
+      return Cards.update(
+        {_id: this.linkedId},
+        {$set: {receivedAt}}
+      );
+    } else {
+      return Cards.update(
+        {_id: this._id},
+        {$set: {receivedAt}}
+      );
+    }
+  },
+
+  getStart() {
+    if (this.isLinkedCard()) {
+      const card = Cards.findOne({_id: this.linkedId});
+      return card.startAt;
+    } else if (this.isLinkedBoard()) {
+      const board = Boards.findOne({_id: this.linkedId});
+      return board.startAt;
+    } else {
+      return this.startAt;
+    }
+  },
+
+  setStart(startAt) {
+    if (this.isLinkedCard()) {
+      return Cards.update(
+        { _id: this.linkedId },
+        {$set: {startAt}}
+      );
+    } else if (this.isLinkedBoard()) {
+      return Boards.update(
+        {_id: this.linkedId},
+        {$set: {startAt}}
+      );
+    } else {
+      return Cards.update(
+        {_id: this._id},
+        {$set: {startAt}}
+      );
+    }
+  },
+
+  getDue() {
+    if (this.isLinkedCard()) {
+      const card = Cards.findOne({_id: this.linkedId});
+      return card.dueAt;
+    } else if (this.isLinkedBoard()) {
+      const board = Boards.findOne({_id: this.linkedId});
+      return board.dueAt;
+    } else {
+      return this.dueAt;
+    }
+  },
+
+  setDue(dueAt) {
+    if (this.isLinkedCard()) {
+      return Cards.update(
+        { _id: this.linkedId },
+        {$set: {dueAt}}
+      );
+    } else if (this.isLinkedBoard()) {
+      return Boards.update(
+        {_id: this.linkedId},
+        {$set: {dueAt}}
+      );
+    } else {
+      return Cards.update(
+        {_id: this._id},
+        {$set: {dueAt}}
+      );
+    }
+  },
+
+  getEnd() {
+    if (this.isLinkedCard()) {
+      const card = Cards.findOne({_id: this.linkedId});
+      return card.endAt;
+    } else if (this.isLinkedBoard()) {
+      const board = Boards.findOne({_id: this.linkedId});
+      return board.endAt;
+    } else {
+      return this.endAt;
+    }
+  },
+
+  setEnd(endAt) {
+    if (this.isLinkedCard()) {
+      return Cards.update(
+        { _id: this.linkedId },
+        {$set: {endAt}}
+      );
+    } else if (this.isLinkedBoard()) {
+      return Boards.update(
+        {_id: this.linkedId},
+        {$set: {endAt}}
+      );
+    } else {
+      return Cards.update(
+        {_id: this._id},
+        {$set: {endAt}}
+      );
+    }
+  },
+
+  getIsOvertime() {
+    if (this.isLinkedCard()) {
+      const card = Cards.findOne({ _id: this.linkedId });
+      return card.isOvertime;
+    } else if (this.isLinkedBoard()) {
+      const board = Boards.findOne({ _id: this.linkedId});
+      return board.isOvertime;
+    } else {
+      return this.isOvertime;
+    }
+  },
+
+  setIsOvertime(isOvertime) {
+    if (this.isLinkedCard()) {
+      return Cards.update(
+        { _id: this.linkedId },
+        {$set: {isOvertime}}
+      );
+    } else if (this.isLinkedBoard()) {
+      return Boards.update(
+        {_id: this.linkedId},
+        {$set: {isOvertime}}
+      );
+    } else {
+      return Cards.update(
+        {_id: this._id},
+        {$set: {isOvertime}}
+      );
+    }
+  },
+
+  getSpentTime() {
+    if (this.isLinkedCard()) {
+      const card = Cards.findOne({ _id: this.linkedId });
+      return card.spentTime;
+    } else if (this.isLinkedBoard()) {
+      const board = Boards.findOne({ _id: this.linkedId});
+      return board.spentTime;
+    } else {
+      return this.spentTime;
+    }
+  },
+
+  setSpentTime(spentTime) {
+    if (this.isLinkedCard()) {
+      return Cards.update(
+        { _id: this.linkedId },
+        {$set: {spentTime}}
+      );
+    } else if (this.isLinkedBoard()) {
+      return Boards.update(
+        {_id: this.linkedId},
+        {$set: {spentTime}}
+      );
+    } else {
+      return Cards.update(
+        {_id: this._id},
+        {$set: {spentTime}}
+      );
+    }
+  },
+
+  getTitle() {
+    if (this.isLinkedCard()) {
+      const card = Cards.findOne({ _id: this.linkedId });
+      return card.title;
+    } else if (this.isLinkedBoard()) {
+      const board = Boards.findOne({ _id: this.linkedId});
+      return board.title;
+    } else {
+      return this.title;
+    }
+  },
+
+  getBoardTitle() {
+    if (this.isLinkedCard()) {
+      const card = Cards.findOne({ _id: this.linkedId });
+      const board = Boards.findOne({ _id: card.boardId });
+      return board.title;
+    } else if (this.isLinkedBoard()) {
+      const board = Boards.findOne({ _id: this.linkedId});
+      return board.title;
+    } else {
+      const board = Boards.findOne({ _id: this.boardId });
+      return board.title;
+    }
+  },
+
+  setTitle(title) {
+    if (this.isLinkedCard()) {
+      return Cards.update(
+        { _id: this.linkedId },
+        {$set: {title}}
+      );
+    } else if (this.isLinkedBoard()) {
+      return Boards.update(
+        {_id: this.linkedId},
+        {$set: {title}}
+      );
+    } else {
+      return Cards.update(
+        {_id: this._id},
+        {$set: {title}}
+      );
+    }
+  },
+
+  getArchived() {
+    if (this.isLinkedCard()) {
+      const card = Cards.findOne({ _id: this.linkedId });
+      return card.archived;
+    } else if (this.isLinkedBoard()) {
+      const board = Boards.findOne({ _id: this.linkedId});
+      return board.archived;
+    } else {
+      return this.archived;
+    }
+  },
 });
 
 Cards.mutations({
@@ -403,22 +764,6 @@ Cards.mutations({
   restore() {
     this.applyToChildren((card) => { return card.restore(); });
     return {$set: {archived: false}};
-  },
-
-  setTitle(title) {
-    return {$set: {title}};
-  },
-
-  setDescription(description) {
-    return {$set: {description}};
-  },
-
-  setRequestedBy(requestedBy) {
-    return {$set: {requestedBy}};
-  },
-
-  setAssignedBy(assignedBy) {
-    return {$set: {assignedBy}};
   },
 
   move(swimlaneId, listId, sortIndex) {
@@ -446,22 +791,6 @@ Cards.mutations({
       return this.removeLabel(labelId);
     } else {
       return this.addLabel(labelId);
-    }
-  },
-
-  assignMember(memberId) {
-    return {$addToSet: {members: memberId}};
-  },
-
-  unassignMember(memberId) {
-    return {$pull: {members: memberId}};
-  },
-
-  toggleMember(memberId) {
-    if (this.members && this.members.indexOf(memberId) > -1) {
-      return this.unassignMember(memberId);
-    } else {
-      return this.assignMember(memberId);
     }
   },
 
@@ -502,54 +831,9 @@ Cards.mutations({
     return {$unset: {coverId: ''}};
   },
 
-  setReceived(receivedAt) {
-    return {$set: {receivedAt}};
-  },
-
-  unsetReceived() {
-    return {$unset: {receivedAt: ''}};
-  },
-
-  setStart(startAt) {
-    return {$set: {startAt}};
-  },
-
-  unsetStart() {
-    return {$unset: {startAt: ''}};
-  },
-
-  setDue(dueAt) {
-    return {$set: {dueAt}};
-  },
-
-  unsetDue() {
-    return {$unset: {dueAt: ''}};
-  },
-
-  setEnd(endAt) {
-    return {$set: {endAt}};
-  },
-
-  unsetEnd() {
-    return {$unset: {endAt: ''}};
-  },
-
-  setOvertime(isOvertime) {
-    return {$set: {isOvertime}};
-  },
-
-  setSpentTime(spentTime) {
-    return {$set: {spentTime}};
-  },
-
-  unsetSpentTime() {
-    return {$unset: {spentTime: '', isOvertime: false}};
-  },
-
   setParentId(parentId) {
     return {$set: {parentId}};
   },
-
 });
 
 

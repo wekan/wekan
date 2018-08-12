@@ -10,7 +10,7 @@ template(name="cardDetails")
         h2.card-details-title.js-card-title(
           class="{{#if canModifyCard}}js-open-inlined-form is-editable{{/if}}")
             +viewer
-              = title
+              = getTitle
               if isWatching
                 i.fa.fa-eye.card-details-watch
         .card-details-path
@@ -19,43 +19,50 @@ template(name="cardDetails")
             a.js-parent-card(href=linkForCard) {{title}}
           // else
             {{_ 'top-level-card'}}
+        if isLinkedCard
+          h3.linked-card-location
+            +viewer
+              | {{getBoardTitle}} > {{getTitle}}
 
-    if archived
-      p.warning {{_ 'card-archived'}}
+    if getArchived
+      if isLinkedBoard
+        p.warning {{_ 'board-archived'}}
+      else
+        p.warning {{_ 'card-archived'}}
 
     .card-details-items
       .card-details-item.card-details-item-received
         h3.card-details-item-title {{_ 'card-received'}}
-        if receivedAt
+        if getReceived
           +cardReceivedDate
         else
           a.js-received-date {{_ 'add'}}
 
       .card-details-item.card-details-item-start
         h3.card-details-item-title {{_ 'card-start'}}
-        if startAt
+        if getStart
           +cardStartDate
         else
           a.js-start-date {{_ 'add'}}
 
-      .card-details-item.card-details-item-end
-        h3.card-details-item-title {{_ 'card-end'}}
-        if endAt
-          +cardEndDate
-        else
-          a.js-end-date {{_ 'add'}}
-
       .card-details-item.card-details-item-due
         h3.card-details-item-title {{_ 'card-due'}}
-        if dueAt
+        if getDue
           +cardDueDate
         else
           a.js-due-date {{_ 'add'}}
 
+      .card-details-item.card-details-item-end
+        h3.card-details-item-title {{_ 'card-end'}}
+        if getEnd
+          +cardEndDate
+        else
+          a.js-end-date {{_ 'add'}}
+
     .card-details-items
       .card-details-item.card-details-item-members
         h3.card-details-item-title {{_ 'members'}}
-        each members
+        each getMembers
           +userAvatar(userId=this cardId=../_id)
           | {{! XXX Hack to hide syntaxic coloration /// }}
         if canModifyCard
@@ -79,9 +86,9 @@ template(name="cardDetails")
           +cardCustomField
 
     .card-details-items
-      if spentTime
+      if getSpentTime
         .card-details-item.card-details-item-spent
-          if isOvertime
+          if getIsOvertime
             h3.card-details-item-title {{_ 'overtime-hours'}}
           else
             h3.card-details-item-title {{_ 'spent-time-hours'}}
@@ -92,15 +99,15 @@ template(name="cardDetails")
       h3.card-details-item-title {{_ 'description'}}
       +inlinedCardDescription(classNames="card-description js-card-description")
         +editor(autofocus=true)
-          | {{getUnsavedValue 'cardDescription' _id description}}
+          | {{getUnsavedValue 'cardDescription' _id getDescription}}
         .edit-controls.clearfix
           button.primary(type="submit") {{_ 'save'}}
           a.fa.fa-times-thin.js-close-inlined-form
       else
         a.js-open-inlined-form
-          if description
+          if getDescription
             +viewer
-              = description
+              = getDescription
           else
             | {{_ 'edit'}}
         if (hasUnsavedValue 'cardDescription' _id)
@@ -109,10 +116,10 @@ template(name="cardDetails")
             a.js-open-inlined-form {{_ 'view-it'}}
             = ' - '
             a.js-close-inlined-form {{_ 'discard'}}
-    else if description
+    else if getDescription
       h3.card-details-item-title {{_ 'description'}}
       +viewer
-        = description
+        = getDescription
 
     .card-details-items
       .card-details-item.card-details-item-name
@@ -179,7 +186,7 @@ template(name="cardDetails")
 
 template(name="editCardTitleForm")
   textarea.js-edit-card-title(rows='1' autofocus)
-    = title
+    = getTitle
   .edit-controls.clearfix
     button.primary.confirm.js-submit-edit-card-title-form(type="submit") {{_ 'save'}}
     a.fa.fa-times-thin.js-close-inlined-form
@@ -230,7 +237,7 @@ template(name="moveCardPopup")
 template(name="copyCardPopup")
   label(for='copy-card-title') {{_ 'title'}}:
   textarea#copy-card-title.minicard-composer-textarea.js-card-title(autofocus)
-    = title
+    = getTitle
   +boardsAndLists
 
 template(name="copyChecklistToManyCardsPopup")

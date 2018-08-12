@@ -177,6 +177,28 @@ Boards.attachSchema(new SimpleSchema({
     optional: true,
     defaultValue: 'no-parent',
   },
+  startAt: {
+    type: Date,
+    optional: true,
+  },
+  dueAt: {
+    type: Date,
+    optional: true,
+  },
+  endAt: {
+    type: Date,
+    optional: true,
+  },
+  spentTime: {
+    type: Number,
+    decimal: true,
+    optional: true,
+  },
+  isOvertime: {
+    type: Boolean,
+    defaultValue: false,
+    optional: true,
+  },
 }));
 
 
@@ -212,16 +234,16 @@ Boards.helpers({
     return this.permission === 'public';
   },
 
+  cards() {
+    return Cards.find({ boardId: this._id, archived: false }, { sort: { title: 1 } });
+  },
+
   lists() {
     return Lists.find({ boardId: this._id, archived: false }, { sort: { sort: 1 } });
   },
 
   swimlanes() {
     return Swimlanes.find({ boardId: this._id, archived: false }, { sort: { sort: 1 } });
-  },
-
-  cards() {
-    return Cards.find({ boardId: this._id, archived: false }, { sort: { sort: 1 } });
   },
 
   hasOvertimeCards(){
@@ -294,22 +316,22 @@ Boards.helpers({
     return _id;
   },
 
-  searchCards(term) {
+  searchCards(term, excludeLinked) {
     check(term, Match.OneOf(String, null, undefined));
 
-    let query = { boardId: this._id };
+    const query = { boardId: this._id };
+    if (excludeLinked) {
+      query.linkedId = null;
+    }
     const projection = { limit: 10, sort: { createdAt: -1 } };
 
     if (term) {
       const regex = new RegExp(term, 'i');
 
-      query = {
-        boardId: this._id,
-        $or: [
-          { title: regex },
-          { description: regex },
-        ],
-      };
+      query.$or = [
+        { title: regex },
+        { description: regex },
+      ];
     }
 
     return Cards.find(query, projection);

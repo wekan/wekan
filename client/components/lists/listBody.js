@@ -1,3 +1,5 @@
+const subManager = new SubsManager();
+
 BlazeComponent.extendComponent({
   mixins() {
     return [Mixins.PerfectScrollbar];
@@ -55,6 +57,7 @@ BlazeComponent.extendComponent({
         boardId: boardId._id,
         sort: sortIndex,
         swimlaneId,
+        type: 'cardType-card',
       });
       // In case the filter is active we need to add the newly inserted card in
       // the list of exceptions -- cards that are not filtered. Otherwise the
@@ -197,6 +200,8 @@ BlazeComponent.extendComponent({
   events() {
     return [{
       keydown: this.pressKey,
+      'click .js-link': Popup.open('linkCard'),
+      'click .js-search': Popup.open('searchCard'),
     }];
   },
 
@@ -268,3 +273,199 @@ BlazeComponent.extendComponent({
     });
   },
 }).register('addCardForm');
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    // Prefetch first non-current board id
+    const boardId = Boards.findOne({
+      archived: false,
+      'members.userId': Meteor.userId(),
+      _id: {$ne: Session.get('currentBoard')},
+    }, {
+      sort: ['title'],
+    })._id;
+    // Subscribe to this board
+    subManager.subscribe('board', boardId);
+    this.selectedBoardId = new ReactiveVar(boardId);
+    this.selectedSwimlaneId = new ReactiveVar('');
+    this.selectedListId = new ReactiveVar('');
+
+    this.boardId = Session.get('currentBoard');
+    // In order to get current board info
+    subManager.subscribe('board', this.boardId);
+    this.board = Boards.findOne(this.boardId);
+    // List where to insert card
+    const list = $(Popup._getTopStack().openerElement).closest('.js-list');
+    this.listId = Blaze.getData(list[0])._id;
+    // Swimlane where to insert card
+    const swimlane = $(Popup._getTopStack().openerElement).closest('.js-swimlane');
+    this.swimlaneId = '';
+    const boardView = Meteor.user().profile.boardView;
+    if (boardView === 'board-view-swimlanes')
+      this.swimlaneId = Blaze.getData(swimlane[0])._id;
+    else if (boardView === 'board-view-lists')
+      this.swimlaneId = Swimlanes.findOne({boardId: this.boardId})._id;
+  },
+
+  boards() {
+    const boards = Boards.find({
+      archived: false,
+      'members.userId': Meteor.userId(),
+      _id: {$ne: Session.get('currentBoard')},
+    }, {
+      sort: ['title'],
+    });
+    return boards;
+  },
+
+  swimlanes() {
+    const swimlanes = Swimlanes.find({boardId: this.selectedBoardId.get()});
+    if (swimlanes.count())
+      this.selectedSwimlaneId.set(swimlanes.fetch()[0]._id);
+    return swimlanes;
+  },
+
+  lists() {
+    const lists = Lists.find({boardId: this.selectedBoardId.get()});
+    if (lists.count())
+      this.selectedListId.set(lists.fetch()[0]._id);
+    return lists;
+  },
+
+  cards() {
+    return Cards.find({
+      boardId: this.selectedBoardId.get(),
+      swimlaneId: this.selectedSwimlaneId.get(),
+      listId: this.selectedListId.get(),
+      archived: false,
+      linkedId: null,
+      _id: {$nin: this.board.cards().map((card) => { return card.linkedId || card._id; })},
+    });
+  },
+
+  events() {
+    return [{
+      'change .js-select-boards'(evt) {
+        this.selectedBoardId.set($(evt.currentTarget).val());
+        subManager.subscribe('board', this.selectedBoardId.get());
+      },
+      'change .js-select-swimlanes'(evt) {
+        this.selectedSwimlaneId.set($(evt.currentTarget).val());
+      },
+      'change .js-select-lists'(evt) {
+        this.selectedListId.set($(evt.currentTarget).val());
+      },
+      'click .js-done' (evt) {
+        // LINK CARD
+        evt.stopPropagation();
+        evt.preventDefault();
+        const _id = Cards.insert({
+          title: $('.js-select-cards option:selected').text(), //dummy
+          listId: this.listId,
+          swimlaneId: this.swimlaneId,
+          boardId: this.boardId,
+          sort: Lists.findOne(this.listId).cards().count(),
+          type: 'cardType-linkedCard',
+          linkedId: $('.js-select-cards option:selected').val(),
+        });
+        Filter.addException(_id);
+        Popup.close();
+      },
+      'click .js-link-board' (evt) {
+        //LINK BOARD
+        evt.stopPropagation();
+        evt.preventDefault();
+        const impBoardId = $('.js-select-boards option:selected').val();
+        const _id = Cards.insert({
+          title: $('.js-select-boards option:selected').text(), //dummy
+          listId: this.listId,
+          swimlaneId: this.swimlaneId,
+          boardId: this.boardId,
+          sort: Lists.findOne(this.listId).cards().count(),
+          type: 'cardType-linkedBoard',
+          linkedId: impBoardId,
+        });
+        Filter.addException(_id);
+        Popup.close();
+      },
+    }];
+  },
+}).register('linkCardPopup');
+
+BlazeComponent.extendComponent({
+  mixins() {
+    return [Mixins.PerfectScrollbar];
+  },
+
+  onCreated() {
+    // Prefetch first non-current board id
+    const boardId = Boards.findOne({
+      archived: false,
+      'members.userId': Meteor.userId(),
+      _id: {$ne: Session.get('currentBoard')},
+    })._id;
+    // Subscribe to this board
+    subManager.subscribe('board', boardId);
+    this.selectedBoardId = new ReactiveVar(boardId);
+
+    this.boardId = Session.get('currentBoard');
+    // In order to get current board info
+    subManager.subscribe('board', this.boardId);
+    const board = Boards.findOne(this.boardId);
+    // List where to insert card
+    const list = $(Popup._getTopStack().openerElement).closest('.js-list');
+    this.listId = Blaze.getData(list[0])._id;
+    // Swimlane where to insert card
+    const swimlane = $(Popup._getTopStack().openerElement).closest('.js-swimlane');
+    this.swimlaneId = '';
+    if (board.view === 'board-view-swimlanes')
+      this.swimlaneId = Blaze.getData(swimlane[0])._id;
+    else
+      this.swimlaneId = Swimlanes.findOne({boardId: this.boardId})._id;
+    this.term = new ReactiveVar('');
+  },
+
+  boards() {
+    const boards = Boards.find({
+      archived: false,
+      'members.userId': Meteor.userId(),
+      _id: {$ne: Session.get('currentBoard')},
+    }, {
+      sort: ['title'],
+    });
+    return boards;
+  },
+
+  results() {
+    const board = Boards.findOne(this.selectedBoardId.get());
+    return board.searchCards(this.term.get(), true);
+  },
+
+  events() {
+    return [{
+      'change .js-select-boards'(evt) {
+        this.selectedBoardId.set($(evt.currentTarget).val());
+        subManager.subscribe('board', this.selectedBoardId.get());
+      },
+      'submit .js-search-term-form'(evt) {
+        evt.preventDefault();
+        this.term.set(evt.target.searchTerm.value);
+      },
+      'click .js-minicard'(evt) {
+        // LINK CARD
+        const card = Blaze.getData(evt.currentTarget);
+        const _id = Cards.insert({
+          title: card.title, //dummy
+          listId: this.listId,
+          swimlaneId: this.swimlaneId,
+          boardId: this.boardId,
+          sort: Lists.findOne(this.listId).cards().count(),
+          type: 'cardType-linkedCard',
+          linkedId: card._id,
+        });
+        Filter.addException(_id);
+        Popup.close();
+      },
+    }];
+  },
+}).register('searchCardPopup');
