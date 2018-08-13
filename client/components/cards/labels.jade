@@ -7,6 +7,8 @@ template(name="formLabel")
     span.card-label.palette-color.js-palette-color(class="card-label-{{color}}")
       if(isSelected color)
         i.fa.fa-check
+  label(for="labelRank") {{_ 'rank'}}
+  input.js-label-rank#labelRank(type="number" name="rank" value=rank autofocus)
   .material-toggle-switch
     span.toggle-switch-title {{_ 'archive'}}
     if archived

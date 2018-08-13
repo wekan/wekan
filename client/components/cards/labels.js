@@ -65,7 +65,8 @@ function getLabelDataFromTemplate(tpl) {
   const name = tpl.$('#labelName').val().trim();
   const color = Blaze.getData(tpl.find('.fa-check')).color;
   const archived =  tpl.$('#labelArchived').is(":checked");
-  return {board, name, color, archived};
+  const rank = parseInt( tpl.$('#labelRank').val());
+  return {board, name, color, archived, rank};
 }
 
 Template.createLabelPopup.events({
@@ -73,7 +74,7 @@ Template.createLabelPopup.events({
   'submit .create-label'(evt, tpl) {
     evt.preventDefault();
     const label = getLabelDataFromTemplate(tpl);
-    label.board.addLabel(label.name, label.color, label.archived);
+    label.board.addLabel(label);
     Popup.back();
   },
 });
@@ -87,7 +88,7 @@ Template.editLabelPopup.events({
   'submit .edit-label'(evt, tpl) {
     evt.preventDefault();
     const label = getLabelDataFromTemplate(tpl);
-    label.board.editLabel(this._id, label.name, label.color, label.archived);
+    label.board.editLabel(this._id, label);
     Popup.back();
   },
 });

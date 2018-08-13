@@ -97,6 +97,10 @@ Boards.attachSchema(new SimpleSchema({
     type: String,
     optional: true,
   },
+  'labels.$.rank': {
+    type: Number,
+    optional: true,
+  },
   'labels.$.archived': {
     type: Boolean,
     autoValue() { // eslint-disable-line consistent-return
@@ -236,8 +240,9 @@ Boards.helpers({
     return Users.find({ _id: { $in: _.pluck(this.members, 'userId') } });
   },
 
-  getLabel(name, color, archived) {
-    return _.findWhere(this.labels, { name, color, archived });
+  getLabel(label) {
+    label.archived = label.archived || false;
+    return _.findWhere(this.labels, label);
   },
 
   labelIndex(labelId) {
@@ -269,7 +274,7 @@ Boards.helpers({
   },
 
   allLabels() {
-    return _.sortBy(this.labels, l => l.name);
+    return _.chain(this.labels).sortBy(l => l.name).sortBy(l => l.rank || 0).value();
   },
 
   activeLabels() {
@@ -311,26 +316,28 @@ Boards.mutations({
     return { $set: { permission: visibility } };
   },
 
-  addLabel(name, color, archived) {
+  addLabel(label) {
     // If label with the same name and color already exists we don't want to
     // create another one because they would be indistinguishable in the UI
     // (they would still have different `_id` but that is not exposed to the
     // user).
-    if (!this.getLabel(name, color, archived)) {
+    if (!this.getLabel(label)) {
       const _id = Random.id(6);
-      return { $push: { labels: { _id, name, color, archived } } };
+      label._id = _id;
+      return { $push: { labels: label } };
     }
     return {};
   },
 
-  editLabel(labelId, name, color, archived) {
-    if (!this.getLabel(name, color, archived)) {
+  editLabel(labelId, label) {
+    if (!this.getLabel(label)) {
       const labelIndex = this.labelIndex(labelId);
       return {
         $set: {
-          [`labels.${labelIndex}.name`]: name,
-          [`labels.${labelIndex}.color`]: color,
-          [`labels.${labelIndex}.archived`]: archived
+          [`labels.${labelIndex}.name`]: label.name,
+          [`labels.${labelIndex}.color`]: label.color,
+          [`labels.${labelIndex}.archived`]: label.archived,
+          [`labels.${labelIndex}.rank`]: label.rank
         },
       };
     }
