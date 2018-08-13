@@ -60,14 +60,20 @@ Template.formLabel.events({
   },
 });
 
+function getLabelDataFromTemplate(tpl) {
+  const board = Boards.findOne(Session.get('currentBoard'));
+  const name = tpl.$('#labelName').val().trim();
+  const color = Blaze.getData(tpl.find('.fa-check')).color;
+  const archived =  tpl.$('#labelArchived').is(":checked");
+  return {board, name, color, archived};
+}
+
 Template.createLabelPopup.events({
   // Create the new label
   'submit .create-label'(evt, tpl) {
     evt.preventDefault();
-    const board = Boards.findOne(Session.get('currentBoard'));
-    const name = tpl.$('#labelName').val().trim();
-    const color = Blaze.getData(tpl.find('.fa-check')).color;
-    board.addLabel(name, color);
+    const label = getLabelDataFromTemplate(tpl);
+    label.board.addLabel(label.name, label.color, label.archived);
     Popup.back();
   },
 });
@@ -80,10 +86,8 @@ Template.editLabelPopup.events({
   }),
   'submit .edit-label'(evt, tpl) {
     evt.preventDefault();
-    const board = Boards.findOne(Session.get('currentBoard'));
-    const name = tpl.$('#labelName').val().trim();
-    const color = Blaze.getData(tpl.find('.fa-check')).color;
-    board.editLabel(this._id, name, color);
+    const label = getLabelDataFromTemplate(tpl);
+    label.board.editLabel(this._id, label.name, label.color, label.archived);
     Popup.back();
   },
 });

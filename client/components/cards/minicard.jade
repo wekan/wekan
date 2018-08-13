@@ -6,8 +6,8 @@ template(name="minicard")
     if labels
       .minicard-labels
         each labels
-          .minicard-label(class="card-label-{{color}}" class="{{#if archived}}card-label--archived{{/if}}" title="{{name}}")
-            = makeCompactLabelName(name)
+          .minicard-label(class="card-label-{{color}}" title="{{name}}")
+            span(class="{{#if archived}}card-label--archived{{/if}}")= makeCompactLabelName(name)
     if members
       .minicard-members.js-minicard-members
         each members

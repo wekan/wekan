@@ -100,11 +100,11 @@ Boards.attachSchema(new SimpleSchema({
   'labels.$.archived': {
     type: Boolean,
     autoValue() { // eslint-disable-line consistent-return
-      if (this.isInsert && !this.isSet) {
+      if (!this.isSet) {
         return false;
       }
     },
-
+    optional: true
   },
   'labels.$.color': {
     type: String,
@@ -236,8 +236,8 @@ Boards.helpers({
     return Users.find({ _id: { $in: _.pluck(this.members, 'userId') } });
   },
 
-  getLabel(name, color) {
-    return _.findWhere(this.labels, { name, color });
+  getLabel(name, color, archived) {
+    return _.findWhere(this.labels, { name, color, archived });
   },
 
   labelIndex(labelId) {
@@ -302,25 +302,26 @@ Boards.mutations({
     return { $set: { permission: visibility } };
   },
 
-  addLabel(name, color) {
+  addLabel(name, color, archived) {
     // If label with the same name and color already exists we don't want to
     // create another one because they would be indistinguishable in the UI
     // (they would still have different `_id` but that is not exposed to the
     // user).
-    if (!this.getLabel(name, color)) {
+    if (!this.getLabel(name, color, archived)) {
       const _id = Random.id(6);
-      return { $push: { labels: { _id, name, color } } };
+      return { $push: { labels: { _id, name, color, archived } } };
     }
     return {};
   },
 
-  editLabel(labelId, name, color) {
-    if (!this.getLabel(name, color)) {
+  editLabel(labelId, name, color, archived) {
+    if (!this.getLabel(name, color, archived)) {
       const labelIndex = this.labelIndex(labelId);
       return {
         $set: {
           [`labels.${labelIndex}.name`]: name,
           [`labels.${labelIndex}.color`]: color,
+          [`labels.${labelIndex}.archived`]: archived
         },
       };
     }

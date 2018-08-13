@@ -10,10 +10,10 @@ template(name="formLabel")
   .material-toggle-switch
     span.toggle-switch-title {{_ 'archive'}}
     if archived
-      input.toggle-switch(type="checkbox" id="toggleButton" checked="checked")
+      input.toggle-switch(type="checkbox" id="labelArchived" checked="checked")
     else
-      input.toggle-switch(type="checkbox" id="toggleButton")
-    label.toggle-label(for="toggleButton")
+      input.toggle-switch(type="checkbox" id="labelArchived")
+    label.toggle-label(for="labelArchived")
 
 
 template(name="createLabelPopup")

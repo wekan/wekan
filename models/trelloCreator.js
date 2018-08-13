@@ -358,7 +358,7 @@ export class TrelloCreator {
     trelloLabels.forEach((label) => {
       const color = label.color;
       const name = label.name;
-      const existingLabel = board.getLabel(name, color);
+      const existingLabel = board.getLabel(name, color, false);
       if (existingLabel) {
         this.labels[label.id] = existingLabel._id;
       } else {
