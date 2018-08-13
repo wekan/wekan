@@ -7,6 +7,16 @@ template(name="formLabel")
     span.card-label.palette-color.js-palette-color(class="card-label-{{color}}")
       if(isSelected color)
         i.fa.fa-check
+  label(for="labelRank") {{_ 'rank'}}
+  input.js-label-rank#labelRank(type="number" name="rank" value=rank autofocus)
+  .material-toggle-switch
+    span.toggle-switch-title {{_ 'archive'}}
+    if archived
+      input.toggle-switch(type="checkbox" id="labelArchived" checked="checked")
+    else
+      input.toggle-switch(type="checkbox" id="labelArchived")
+    label.toggle-label(for="labelArchived")
+
 
 template(name="createLabelPopup")
   form.create-label
@@ -26,7 +36,7 @@ template(name="deleteLabelPopup")
 
 template(name="cardLabelsPopup")
   ul.edit-labels-pop-over
-    each board.labels
+    each labels board
       li
         a.card-label-edit-button.fa.fa-pencil.js-edit-label
         span.card-label.card-label-selectable.js-select-label(class="card-label-{{color}}"

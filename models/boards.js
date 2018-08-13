@@ -97,6 +97,19 @@ Boards.attachSchema(new SimpleSchema({
     type: String,
     optional: true,
   },
+  'labels.$.rank': {
+    type: Number,
+    optional: true,
+  },
+  'labels.$.archived': {
+    type: Boolean,
+    autoValue() { // eslint-disable-line consistent-return
+      if (!this.isSet) {
+        return false;
+      }
+    },
+    optional: true
+  },
   'labels.$.color': {
     type: String,
     allowedValues: [
@@ -227,8 +240,9 @@ Boards.helpers({
     return Users.find({ _id: { $in: _.pluck(this.members, 'userId') } });
   },
 
-  getLabel(name, color) {
-    return _.findWhere(this.labels, { name, color });
+  getLabel(label) {
+    label.archived = label.archived || false;
+    return _.findWhere(this.labels, label);
   },
 
   labelIndex(labelId) {
@@ -258,6 +272,15 @@ Boards.helpers({
   colorClass() {
     return `board-color-${this.color}`;
   },
+
+  allLabels() {
+    return _.chain(this.labels).sortBy(l => l.name).sortBy(l => l.rank || 0).value();
+  },
+
+  activeLabels() {
+    return _.filter(this.allLabels(), l => !l.archived);
+  },
+
 
   // XXX currently mutations return no value so we have an issue when using addLabel in import
   // XXX waiting on https://github.com/mquandalle/meteor-collection-mutations/issues/1 to remove...
@@ -293,25 +316,28 @@ Boards.mutations({
     return { $set: { permission: visibility } };
   },
 
-  addLabel(name, color) {
+  addLabel(label) {
     // If label with the same name and color already exists we don't want to
     // create another one because they would be indistinguishable in the UI
     // (they would still have different `_id` but that is not exposed to the
     // user).
-    if (!this.getLabel(name, color)) {
+    if (!this.getLabel(label)) {
       const _id = Random.id(6);
-      return { $push: { labels: { _id, name, color } } };
+      label._id = _id;
+      return { $push: { labels: label } };
     }
     return {};
   },
 
-  editLabel(labelId, name, color) {
-    if (!this.getLabel(name, color)) {
+  editLabel(labelId, label) {
+    if (!this.getLabel(label)) {
       const labelIndex = this.labelIndex(labelId);
       return {
         $set: {
-          [`labels.${labelIndex}.name`]: name,
-          [`labels.${labelIndex}.color`]: color,
+          [`labels.${labelIndex}.name`]: label.name,
+          [`labels.${labelIndex}.color`]: label.color,
+          [`labels.${labelIndex}.archived`]: label.archived,
+          [`labels.${labelIndex}.rank`]: label.rank
         },
       };
     }

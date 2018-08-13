@@ -30,7 +30,7 @@ Template.createLabelPopup.helpers({
   // is not already used in the board (although it's not a problem if two
   // labels have the same color).
   defaultColor() {
-    const labels = Boards.findOne(Session.get('currentBoard')).labels;
+    const labels = Boards.findOne(Session.get('currentBoard')).activeLabels();
     const usedColors = _.pluck(labels, 'color');
     const availableColors = _.difference(labelColors, usedColors);
     return availableColors.length > 1 ? availableColors[0] : labelColors[0];
@@ -60,14 +60,21 @@ Template.formLabel.events({
   },
 });
 
+function getLabelDataFromTemplate(tpl) {
+  const board = Boards.findOne(Session.get('currentBoard'));
+  const name = tpl.$('#labelName').val().trim();
+  const color = Blaze.getData(tpl.find('.fa-check')).color;
+  const archived =  tpl.$('#labelArchived').is(":checked");
+  const rank = parseInt( tpl.$('#labelRank').val());
+  return {board, name, color, archived, rank};
+}
+
 Template.createLabelPopup.events({
   // Create the new label
   'submit .create-label'(evt, tpl) {
     evt.preventDefault();
-    const board = Boards.findOne(Session.get('currentBoard'));
-    const name = tpl.$('#labelName').val().trim();
-    const color = Blaze.getData(tpl.find('.fa-check')).color;
-    board.addLabel(name, color);
+    const label = getLabelDataFromTemplate(tpl);
+    label.board.addLabel(label);
     Popup.back();
   },
 });
@@ -80,10 +87,8 @@ Template.editLabelPopup.events({
   }),
   'submit .edit-label'(evt, tpl) {
     evt.preventDefault();
-    const board = Boards.findOne(Session.get('currentBoard'));
-    const name = tpl.$('#labelName').val().trim();
-    const color = Blaze.getData(tpl.find('.fa-check')).color;
-    board.editLabel(this._id, name, color);
+    const label = getLabelDataFromTemplate(tpl);
+    label.board.editLabel(this._id, label);
     Popup.back();
   },
 });
@@ -92,4 +97,9 @@ Template.cardLabelsPopup.helpers({
   isLabelSelected(cardId) {
     return _.contains(Cards.findOne(cardId).labelIds, this._id);
   },
+
+  labels(board) {
+    const cardLabelIds = this.labelIds;
+    return _.filter(board.allLabels(), l => !l.archived || _.contains(cardLabelIds, l._id));
+  }
 });
