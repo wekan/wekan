@@ -242,6 +242,8 @@ const myCommand :Spk.Manifest.Command = (
     (key = "MATOMO_SITE_ID", value=""),
     (key = "MATOMO_DO_NOT_TRACK", value="false"),
     (key = "MATOMO_WITH_USERNAME", value="true"),
+    (key = "BROWSER_POLICY_ENABLED", value="true"),
+    (key = "TRUSTED_URL", value=""),
     (key = "SANDSTORM", value = "1"),
     (key = "METEOR_SETTINGS", value = "{\"public\": {\"sandstorm\": true}}")
   ]
