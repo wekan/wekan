@@ -159,7 +159,7 @@ BlazeComponent.extendComponent({
 
   getLabels() {
     const currentBoardId = Session.get('currentBoard');
-    return Boards.findOne(currentBoardId).labels.filter((label) => {
+    return Boards.findOne(currentBoardId).allLabels().filter((label) => {
       return this.labels.get().indexOf(label._id) > -1;
     });
   },
@@ -251,7 +251,7 @@ BlazeComponent.extendComponent({
         match: /\B[#№]([\S]*)$/i,
         search(term, callback) {
           const currentBoard = Boards.findOne(Session.get('currentBoard'));
-          callback($.map(currentBoard.labels, (label) => {
+          callback($.map(currentBoard.activeLabels(), (label) => {
             lterm = term.toLowerCase();
             if (label.name.toLowerCase().indexOf(lterm) > -1 ||
                 label.color.toLowerCase().indexOf(lterm) > -1) {

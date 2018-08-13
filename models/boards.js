@@ -268,6 +268,15 @@ Boards.helpers({
     return `board-color-${this.color}`;
   },
 
+  allLabels() {
+    return _.sortBy(this.labels, l => l.name);
+  },
+
+  activeLabels() {
+    return _.filter(this.allLabels(), l => !l.archived);
+  },
+
+
   // XXX currently mutations return no value so we have an issue when using addLabel in import
   // XXX waiting on https://github.com/mquandalle/meteor-collection-mutations/issues/1 to remove...
   pushLabel(name, color) {

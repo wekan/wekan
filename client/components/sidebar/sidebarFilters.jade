@@ -11,7 +11,7 @@ template(name="filterSidebar")
               | {{_ 'filter-no-label'}}
             if Filter.labelIds.isSelected undefined
               i.fa.fa-check
-    each currentBoard.labels
+    each currentBoard.activeLabels
       li
         a.name.js-toggle-label-filter
           span.card-label.square(class="card-label-{{color}}")
@@ -51,7 +51,7 @@ template(name="filterSidebar")
 
 template(name="multiselectionSidebar")
   ul.sidebar-list
-    each currentBoard.labels
+    each currentBoard.activeLabels
       li
         a.name.js-toggle-label-multiselection
           span.card-label.square(class="card-label-{{color}}")
