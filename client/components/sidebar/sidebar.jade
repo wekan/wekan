@@ -61,7 +61,9 @@ template(name="labelsWidget")
       each currentBoard.allLabels
           a.card-label(class="card-label-{{color}}"
                       class="{{#if currentUser.isNotCommentOnly}}js-label{{/if}}")
-            span.card-label-name(class="{{#if archived}}card-label--archived{{/if}}")= name
+            span.card-label-name(class="{{#if archived}}card-label--archived{{/if}}")
+             +viewerInline
+              = name
       if currentUser.isBoardAdmin
         a.card-label.add-label.js-add-label
           i.fa.fa-plus
