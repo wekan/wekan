@@ -6,6 +6,10 @@ This release add the following new features:
 - [Add option to turn off Content Policy](https://github.com/wekan/wekan/commit/b9929dc68297539a94d21950995e26e06745a263);
 - [Allow always in Wekan markdown `<img src="any-image-url-here">`](https://github.com/wekan/wekan/commit/b9929dc68297539a94d21950995e26e06745a263).
 
+and fixes the following bugs:
+
+- [Fix Import from Trello error 400](https://github.com/wekan/wekan/commit/2f557ae3a558c654cc6f3befff22f5ee4ea6c3d9).
+
 Thanks to GitHub user xet7 for contributions.
 
 # v1.29 2018-08-12 Wekan release
