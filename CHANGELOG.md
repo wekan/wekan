@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release add the following new features:
+
+- [When Content Policy is enabled, allow one URL to have iframe that embeds Wekan](https://github.com/wekan/wekan/commit/b9929dc68297539a94d21950995e26e06745a263);
+- [Add option to turn off Content Policy](https://github.com/wekan/wekan/commit/b9929dc68297539a94d21950995e26e06745a263);
+- [Allow always in Wekan markdown `<img src="any-image-url-here">`](https://github.com/wekan/wekan/commit/b9929dc68297539a94d21950995e26e06745a263).
+
+Thanks to GitHub user xet7 for contributions.
+
 # v1.29 2018-08-12 Wekan release
 
 This release fixes the following bugs:
