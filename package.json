@@ -1,7 +1,7 @@
 {
   "name": "wekan",
   "version": "1.31.0",
-  "description": "The open-source Trello-like kanban",
+  "description": "The open-source kanban",
   "private": true,
   "scripts": {
     "lint": "eslint --ignore-pattern 'packages/*' .",

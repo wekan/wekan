@@ -7,7 +7,7 @@ if [ "$CADDY_ENABLED" = "true" ]; then
     export PORT=${CADDY_PORT} &>/dev/null
 fi
 
-echo -e "Wekan: The open-source Trello-like kanban.\n"
+echo -e "Wekan: The open-source kanban.\n"
 echo -e "Make sure you have connected all interfaces, check more by calling $ snap interfaces ${SNAP_NAME}"
 echo -e "\n"
 echo -e "${SNAP_NAME} has multiple services, to check status use systemctl"
