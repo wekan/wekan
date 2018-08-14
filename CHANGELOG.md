@@ -1,3 +1,11 @@
+# v1.31 2018-08-14 Wekan release
+
+This release fixes the following bugs:
+
+- [Export of Board does not work on Docker](https://github.com/wekan/wekan/issues/1820).
+
+Thanks to GitHub user xet7 for contributions.
+
 # v1.30 2018-08-14 Wekan release
 
 This release add the following new features:
