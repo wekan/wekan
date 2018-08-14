@@ -39,20 +39,20 @@ services:
       - ROOT_URL=http://localhost
       # Wekan Export Board works when WITH_API='true'.
       # If you disable Wekan API with 'false', Export Board does not work.
-      - WITH_API='true'
+      - WITH_API=true
       # Optional: Integration with Matomo https://matomo.org that is installed to your server
       # The address of the server where Matomo is hosted:
-      # - MATOMO_ADDRESS='https://example.com/matomo'
+      # - MATOMO_ADDRESS=https://example.com/matomo
       # The value of the site ID given in Matomo server for Wekan
-      # - MATOMO_SITE_ID='123456789'
+      # - MATOMO_SITE_ID=123456789
       # The option do not track which enables users to not be tracked by matomo"
-      # - MATOMO_DO_NOT_TRACK='false'
+      # - MATOMO_DO_NOT_TRACK=false
       # The option that allows matomo to retrieve the username:
-      # - MATOMO_WITH_USERNAME='true'
+      # - MATOMO_WITH_USERNAME=true
       # Enable browser policy and allow one trusted URL that can have iframe that has Wekan embedded inside.
       # Setting this to false is not recommended, it also disables all other browser policy protections
       # and allows all iframing etc. See wekan/server/policy.js
-      - BROWSER_POLICY_ENABLED='true'
+      - BROWSER_POLICY_ENABLED=true
       # When browser policy is enabled, HTML code at this Trusted URL can have iframe that embeds Wekan inside.
       - TRUSTED_URL=''
     depends_on:
