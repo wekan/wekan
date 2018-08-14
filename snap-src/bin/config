@@ -3,7 +3,7 @@
 # All supported keys are defined here together with descriptions and default values
 
 # list of supported keys
-keys="MONGODB_BIND_UNIX_SOCKET MONGODB_BIND_IP MONGODB_PORT MAIL_URL MAIL_FROM ROOT_URL PORT DISABLE_MONGODB CADDY_ENABLED CADDY_BIND_PORT WITH_API MATOMO_ADDRESS MATOMO_SITE_ID MATOMO_DO_NOT_TRACK MATOMO_WITH_USERNAME"
+keys="MONGODB_BIND_UNIX_SOCKET MONGODB_BIND_IP MONGODB_PORT MAIL_URL MAIL_FROM ROOT_URL PORT DISABLE_MONGODB CADDY_ENABLED CADDY_BIND_PORT WITH_API MATOMO_ADDRESS MATOMO_SITE_ID MATOMO_DO_NOT_TRACK MATOMO_WITH_USERNAME BROWSER_POLICY_ENABLED TRUSTED_URL"
 
 # default values
 DESCRIPTION_MONGODB_BIND_UNIX_SOCKET="mongodb binding unix socket:\n"\
@@ -67,3 +67,13 @@ KEY_MATOMO_DO_NOT_TRACK="matomo-do-not-track"
 DESCRIPTION_MATOMO_WITH_USERNAME="The option that allows matomo to retrieve the username"
 DEFAULT_MATOMO_WITH_USERNAME="false"
 KEY_MATOMO_WITH_USERNAME="matomo-with-username"
+
+DESCRIPTION_BROWSER_POLICY_ENABLED="Enable browser policy and allow one trusted URL that can have iframe that has Wekan embedded inside.\n"\
+"\t\t\t Setting this to false is not recommended, it also disables all other browser policy protections\n"\
+"\t\t\t and allows all iframing etc. See wekan/server/policy.js"
+DEFAULT_BROWSER_POLICY_ENABLED="true"
+KEY_BROWSER_POLICY_ENABLED="browser-policy-enabled"
+
+DESCRIPTION_TRUSTED_URL="When browser policy is enabled, HTML code at this Trusted URL can have iframe that embeds Wekan inside."
+DEFAULT_TRUSTED_URL=""
+KEY_TRUSTED_URL="trusted-url"

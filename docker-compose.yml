@@ -49,6 +49,12 @@ services:
       # - MATOMO_DO_NOT_TRACK='false'
       # The option that allows matomo to retrieve the username:
       # - MATOMO_WITH_USERNAME='true'
+      # Enable browser policy and allow one trusted URL that can have iframe that has Wekan embedded inside.
+      # Setting this to false is not recommended, it also disables all other browser policy protections
+      # and allows all iframing etc. See wekan/server/policy.js
+      - BROWSER_POLICY_ENABLED=true
+      # When browser policy is enabled, HTML code at this Trusted URL can have iframe that embeds Wekan inside.
+      - TRUSTED_URL=
     depends_on:
       - wekandb
 
