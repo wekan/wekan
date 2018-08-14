@@ -65,7 +65,7 @@ function getLabelDataFromTemplate(tpl) {
   const name = tpl.$('#labelName').val().trim();
   const color = Blaze.getData(tpl.find('.fa-check')).color;
   const archived =  tpl.$('#labelArchived').is(":checked");
-  const rank = parseInt( tpl.$('#labelRank').val());
+  const rank = parseInt( tpl.$('#labelRank').val()) || 0;
   return {board, name, color, archived, rank};
 }
 
