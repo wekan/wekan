@@ -3,7 +3,9 @@ RulesHelper = {
 
 	executeRules(activity){
 		const matchingRules = this.findMatchingRules(activity);
+		console.log(matchingRules);
 		for(let i = 0;i< matchingRules.length;i++){
+			console.log(matchingRules[i]);
 			const actionType = matchingRules[i].getAction().actionType;
 			this.performAction(activity,actionType);
 		}
