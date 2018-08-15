@@ -17,6 +17,9 @@ template(name="userFormsLayout")
       img(src="{{pathFor '/wekan-logo.png'}}" alt="Wekan")
     section.auth-dialog
       +Template.dynamic(template=content)
+      if isLdap
+        .at-form
+        button#ldap(class='at-btn submit') {{ldapSignInLabel}}
       if isCas
         .at-form
           button#cas(class='at-btn submit' type='submit') {{casSignInLabel}}
