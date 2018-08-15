@@ -1,0 +1,17 @@
+template(name="rulesActions")
+  h2
+    i.fa.fa-cutlery
+    | Rule "#{data.ruleName}" - Add action
+  .triggers-content
+    .triggers-body
+      .triggers-side-menu
+        ul
+          li.active.js-set-board-triggers
+            i.fa.fa-columns
+          li.js-set-card-triggers
+            i.fa.fa-sticky-note
+          li.js-set-checklist-triggers
+            i.fa.fa-check
+      .triggers-main-body
+        if showBoardActions.get
+          +boardActions(ruleName=data.ruleName triggerIdVar=data.triggerIdVar)

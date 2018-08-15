@@ -1,0 +1,25 @@
+template(name="rulesList")
+  .rules
+    h2
+      i.fa.fa-cutlery
+      | Project rules
+
+    ul.rules-list
+      each rules
+        li.rules-lists-item
+          p 
+            = title
+          div.rules-btns-group
+            button
+              i.fa.fa-eye
+              | View rule
+            button.js-delete-rule
+              i.fa.fa-trash-o
+              | Delete rule
+      else
+        li.no-items-message No rules
+    div.rules-add
+      button.js-goto-trigger
+        i.fa.fa-plus
+        | Add rule
+      input(type=text,placeholder="New rule name",id="ruleTitle")

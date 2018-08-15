@@ -1,0 +1,7 @@
+template(name="rulesMain")
+  if rulesListVar.get
+    +rulesList
+  else if rulesTriggerVar.get
+    +rulesTriggers(ruleName=ruleName triggerIdVar=triggerIdVar)
+  else if rulesActionVar.get
+    +rulesActions(ruleName=ruleName triggerIdVar=triggerIdVar)

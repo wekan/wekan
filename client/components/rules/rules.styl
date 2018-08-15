@@ -49,10 +49,11 @@
     height 100%
 
     .triggers-side-menu
-      background-color: #f7f7f7;
-      border: 1px solid #f0f0f0;
-      border-radius: 4px;
-      box-shadow: inset -1px -1px 3px rgba(0,0,0,.05);
+      background-color: #f7f7f7
+      border: 1px solid #f0f0f0
+      border-radius: 4px
+      height: intrinsic
+      box-shadow: inset -1px -1px 3px rgba(0,0,0,.05)
 
       ul
 
@@ -93,7 +94,8 @@
       .trigger-item
         overflow:auto
         padding:10px
-        height:30px
+        height:40px
+        margin-bottom:5px
         border-radius: 3px
         position: relative
         background-color: white
@@ -111,24 +113,31 @@
                 width:100px
                 height:30px
                 margin:0px
+                margin-left:5px
+              input
+                display: inline-block
+                width: 80px;
+                margin: 0;
         .trigger-button
           position:absolute
           top:50%
           transform: translateY(-50%)
           width:30px
           height:30px
-          border: 1px solid #eee;
-          border-radius: 4px;
-          box-shadow: inset -1px -1px 3px rgba(0,0,0,.05);
+          border: 1px solid #eee
+          border-radius: 4px
+          box-shadow: inset -1px -1px 3px rgba(0,0,0,.05)
           text-align:center
           font-size: 20px
           right:10px
           i
-            position: absolute;
-            top: 50%;
-            left: 50%;
+            position: absolute
+            top: 50%
+            left: 50%
             box-shadow: none
-            transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%)
+          &:hover, &.is-active
+            box-shadow: 0 0 0 2px darken(white, 60%) inset
               
 
 

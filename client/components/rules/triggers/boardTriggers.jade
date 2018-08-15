@@ -1,0 +1,45 @@
+template(name="boardTriggers")
+  div.trigger-item
+    div.trigger-content
+      div.trigger-text 
+        | When a card is
+      div.trigger-dropdown
+        select(id="action")
+          option(value="created") Added to
+          option(value="removed") Removed from
+      div.trigger-text 
+        | the board
+    div.trigger-button.js-add-gen-trigger.js-goto-action
+      i.fa.fa-plus
+
+  div.trigger-item
+    div.trigger-content
+      div.trigger-text 
+        | When a card is
+      div.trigger-dropdown
+        select
+          option Moved to
+      div.trigger-text 
+        | to list
+      div.trigger-dropdown
+        input(type=text,placeholder="List Name")  
+    div.trigger-button.js-add-spec-trigger.js-goto-action
+      i.fa.fa-plus
+
+  div.trigger-item
+    div.trigger-content
+      div.trigger-text 
+        | When a card is
+      div.trigger-dropdown
+        select
+          option Archived
+          option Unarchived
+    div.trigger-button.js-add-arc-trigger.js-goto-action
+      i.fa.fa-plus
+
+
+   
+  
+
+
+

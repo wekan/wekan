@@ -39,15 +39,3 @@ Rules.allow({
   },
 });
 
-
-
-
-if (Meteor.isServer) {
-  Meteor.startup(() => {
-    const rules = Rules.findOne({});
-    if(!rules){
-      Rules.insert({title: "regola1", description: "bella"});
-      Rules.insert({title: "regola2", description: "bella2"});
-    }
-  });
-}

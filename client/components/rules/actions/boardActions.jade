@@ -1,0 +1,22 @@
+template(name="boardActions")
+  div.trigger-item
+    div.trigger-content
+      div.trigger-text 
+        | Move card to 
+      div.trigger-dropdown
+        select(id="action")
+          option(value="top") Top of
+          option(value="bottom") Bottom of
+      div.trigger-text 
+        | list
+      div.trigger-dropdown
+        input(type=text,placeholder="List Name")  
+    div.trigger-button.js-add-move-action.js-goto-rules
+      i.fa.fa-plus
+
+
+   
+  
+
+
+

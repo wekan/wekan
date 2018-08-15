@@ -1,14 +1,14 @@
-Triggers = new Mongo.Collection('triggers');
+Actions = new Mongo.Collection('actions');
 
 
 
-Triggers.mutations({
+Actions.mutations({
   rename(description) {
     return { $set: { description } };
   },
 });
 
-Triggers.allow({
+Actions.allow({
   update: function () {
     // add custom authentication code here
     return true;
@@ -20,7 +20,7 @@ Triggers.allow({
 });
 
 
-Triggers.helpers({
+Actions.helpers({
   fromList() {
     return Lists.findOne(this.fromId);
   },
@@ -39,7 +39,22 @@ Triggers.helpers({
       return _.contains(this.labelIds, label._id);
     });
     return cardLabels;
-}});
+  }});
+
+
+
+if (Meteor.isServer) {
+  Meteor.startup(() => {
+    const rules = Triggers.findOne({});
+    if(!rules){
+       Actions.insert({actionType: "moveCardToTop"});
+    }
+  });
+}
+
+
+
+
 
 
 
