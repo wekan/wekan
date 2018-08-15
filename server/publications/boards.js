@@ -103,14 +103,12 @@ Meteor.publishRelations('board', function(boardId) {
         const impCardId = card.linkedId;
         this.cursor(Cards.find({ _id: impCardId }));
         this.cursor(CardComments.find({ cardId: impCardId }));
-        this.cursor(Activities.find({ cardId: impCardId }));
         this.cursor(Attachments.find({ cardId: impCardId }));
         this.cursor(Checklists.find({ cardId: impCardId }));
         this.cursor(ChecklistItems.find({ cardId: impCardId }));
       } else if (card.type === 'cardType-linkedBoard') {
         this.cursor(Boards.find({ _id: card.linkedId}));
       }
-      this.cursor(Activities.find({ cardId }));
       this.cursor(CardComments.find({ cardId }));
       this.cursor(Attachments.find({ cardId }));
       this.cursor(Checklists.find({ cardId }));

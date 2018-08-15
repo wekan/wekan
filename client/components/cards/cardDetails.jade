@@ -182,7 +182,12 @@ template(name="cardDetails")
     if currentUser.isBoardMember
       +commentForm
     if isLoaded.get
-      +activities(card=this mode="card")
+      if isLinkedCard
+        +activities(card=this mode="linkedcard")
+      else if isLinkedBoard
+        +activities(card=this mode="linkedboard")
+      else
+        +activities(card=this mode="card")
 
 template(name="editCardTitleForm")
   textarea.js-edit-card-title(rows='1' autofocus)
