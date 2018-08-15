@@ -82,7 +82,7 @@ Lists.helpers({
     };
     if (swimlaneId)
       selector.swimlaneId = swimlaneId;
-    return Cards.find(Filter.mongoSelector(selector),
+    return Cards.find(selector,
       { sort: ['sort'] });
   },
 

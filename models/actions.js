@@ -43,14 +43,6 @@ Actions.helpers({
 
 
 
-if (Meteor.isServer) {
-  Meteor.startup(() => {
-    const rules = Triggers.findOne({});
-    if(!rules){
-       Actions.insert({actionType: "moveCardToTop"});
-    }
-  });
-}
 
 
 

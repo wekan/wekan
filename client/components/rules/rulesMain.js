@@ -29,6 +29,8 @@ BlazeComponent.extendComponent({
     return [{'click .js-delete-rule'(event) {
       const rule = this.currentData();
       Rules.remove(rule._id);
+      Actions.remove(rule.actionId);
+      Triggers.remove(rule.triggerId);
 
     },
     'click .js-goto-trigger'(event) {

@@ -60,12 +60,12 @@ Activities.before.insert((userId, doc) => {
 
 Activities.after.insert((userId, doc) => {
    const activity = Activities._transform(doc);
-   const matchedTriggers = Triggers.find(activity);
-   if(matchedTriggers.count() > 0){
-     const card = activity.card();
-     Cards.direct.update({_id: card._id},{$set: {title: "ciaooo"}});
-   }
+   RulesHelper.executeRules(activity);
+
 });
+
+
+
 
 if (Meteor.isServer) {
   // For efficiency create indexes on the date of creation, and on the date of

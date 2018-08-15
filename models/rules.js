@@ -21,6 +21,11 @@ Rules.mutations({
   },
 });
 
+Rules.helpers({
+  getAction(){
+    return Actions.findOne({_id:this.actionId});
+  },
+});
 
 
 

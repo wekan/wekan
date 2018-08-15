@@ -11,7 +11,7 @@ BlazeComponent.extendComponent({
       const actionSelected = this.find('#action').value;
       const boardId = Session.get('currentBoard')
       if(actionSelected == "created"){
-        Triggers.insert({activityType: "createCard","boardId":boardId},function(error,id){
+        Triggers.insert({activityType: "createCard","boardId":boardId,"listId":"*"},function(error,id){
           datas.triggerIdVar.set(id);
         });
       }
