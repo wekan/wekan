@@ -88,7 +88,6 @@ Cards.attachSchema(new SimpleSchema({
     type: String,
     optional: true,
     defaultValue: '',
-
   },
   assignedBy: {
     type: String,
@@ -767,6 +766,52 @@ Cards.helpers({
       return board.archived;
     } else {
       return this.archived;
+    }
+  },
+
+  setRequestedBy(requestedBy) {
+    if (this.isLinkedCard()) {
+      return Cards.update(
+        { _id: this.linkedId },
+        {$set: {requestedBy}}
+      );
+    } else {
+      return Cards.update(
+        {_id: this._id},
+        {$set: {requestedBy}}
+      );
+    }
+  },
+
+  getRequestedBy() {
+    if (this.isLinkedCard()) {
+      const card = Cards.findOne({ _id: this.linkedId });
+      return card.requestedBy;
+    } else  {
+      return this.requestedBy;
+    }
+  },
+
+  setAssignedBy(assignedBy) {
+    if (this.isLinkedCard()) {
+      return Cards.update(
+        { _id: this.linkedId },
+        {$set: {assignedBy}}
+      );
+    } else {
+      return Cards.update(
+        {_id: this._id},
+        {$set: {assignedBy}}
+      );
+    }
+  },
+
+  getAssignedBy() {
+    if (this.isLinkedCard()) {
+      const card = Cards.findOne({ _id: this.linkedId });
+      return card.assignedBy;
+    } else  {
+      return this.assignedBy;
     }
   },
 });

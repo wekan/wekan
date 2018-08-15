@@ -129,14 +129,14 @@ template(name="cardDetails")
             +editCardRequesterForm
           else
             a.js-open-inlined-form
-              if requestedBy
+              if getRequestedBy
                 +viewer
-                  = requestedBy
+                  = getRequestedBy
               else
                 | {{_ 'add'}}
-        else if requestedBy
+        else if getRequestedBy
           +viewer
-            = requestedBy
+            = getRequestedBy
 
       .card-details-item.card-details-item-name
         h3.card-details-item-title {{_ 'assigned-by'}}
@@ -145,14 +145,14 @@ template(name="cardDetails")
             +editCardAssignerForm
           else
             a.js-open-inlined-form
-              if assignedBy
+              if getAssignedBy
                 +viewer
-                  = assignedBy
+                  = getAssignedBy
               else
                 | {{_ 'add'}}
-        else if requestedBy
+        else if getRequestedBy
           +viewer
-            = assignedBy
+            = getAssignedBy
 
     hr
     +checklists(cardId = _id)
@@ -192,13 +192,13 @@ template(name="editCardTitleForm")
     a.fa.fa-times-thin.js-close-inlined-form
 
 template(name="editCardRequesterForm")
-  input.js-edit-card-requester(type='text' autofocus value=requestedBy)
+  input.js-edit-card-requester(type='text' autofocus value=getRequestedBy)
   .edit-controls.clearfix
     button.primary.confirm.js-submit-edit-card-requester-form(type="submit") {{_ 'save'}}
     a.fa.fa-times-thin.js-close-inlined-form
 
 template(name="editCardAssignerForm")
-  input.js-edit-card-assigner(type='text' autofocus value=assignedBy)
+  input.js-edit-card-assigner(type='text' autofocus value=getAssignedBy)
   .edit-controls.clearfix
     button.primary.confirm.js-submit-edit-card-assigner-form(type="submit") {{_ 'save'}}
     a.fa.fa-times-thin.js-close-inlined-form
