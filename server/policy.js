@@ -6,7 +6,8 @@ Meteor.startup(() => {
     // Trusted URL that can embed Wekan in iFrame.
     const trusted = process.env.TRUSTED_URL;
     BrowserPolicy.framing.disallow();
-    BrowserPolicy.content.disallowInlineScripts();
+    //Allow inline scripts, otherwise there is errors in browser/inspect/console
+    //BrowserPolicy.content.disallowInlineScripts();
     BrowserPolicy.content.disallowEval();
     BrowserPolicy.content.allowInlineStyles();
     BrowserPolicy.content.allowFontDataUrl();

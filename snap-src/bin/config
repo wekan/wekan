@@ -61,7 +61,7 @@ DEFAULT_MATOMO_SITE_ID=""
 KEY_MATOMO_SITE_ID="matomo-site-id"
 
 DESCRIPTION_MATOMO_DO_NOT_TRACK="The option do not track which enables users to not be tracked by matomo"
-DEFAULT_MATOMO_DO_NOT_TRACK="false"
+DEFAULT_MATOMO_DO_NOT_TRACK="true"
 KEY_MATOMO_DO_NOT_TRACK="matomo-do-not-track"
 
 DESCRIPTION_MATOMO_WITH_USERNAME="The option that allows matomo to retrieve the username"

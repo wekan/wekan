@@ -33,6 +33,7 @@ services:
         - METEOR_EDGE=${METEOR_EDGE}
         - USE_EDGE=${USE_EDGE}
     ports:
+      # Docker outsideport:insideport
       - 80:8080
     environment:
       - MONGO_URL=mongodb://wekandb:27017/wekan
@@ -41,14 +42,18 @@ services:
       # If you disable Wekan API with 'false', Export Board does not work.
       - WITH_API=true
       # Optional: Integration with Matomo https://matomo.org that is installed to your server
-      # The address of the server where Matomo is hosted:
-      # - MATOMO_ADDRESS=https://example.com/matomo
+      # The address of the server where Matomo is hosted. 
+      # example: - MATOMO_ADDRESS=https://example.com/matomo
+      - MATOMO_ADDRESS=''
       # The value of the site ID given in Matomo server for Wekan
-      # - MATOMO_SITE_ID=123456789
-      # The option do not track which enables users to not be tracked by matomo"
-      # - MATOMO_DO_NOT_TRACK=false
+      # example: - MATOMO_SITE_ID=12345
+      - MATOMO_SITE_ID=''
+      # The option do not track which enables users to not be tracked by matomo
+      # example:  - MATOMO_DO_NOT_TRACK=false
+      - MATOMO_DO_NOT_TRACK=true
       # The option that allows matomo to retrieve the username:
-      # - MATOMO_WITH_USERNAME=true
+      # example: MATOMO_WITH_USERNAME=true
+      - MATOMO_WITH_USERNAME=false
       # Enable browser policy and allow one trusted URL that can have iframe that has Wekan embedded inside.
       # Setting this to false is not recommended, it also disables all other browser policy protections
       # and allows all iframing etc. See wekan/server/policy.js

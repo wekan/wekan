@@ -33,8 +33,8 @@ ENV BUILD_DEPS="apt-utils gnupg gosu wget curl bzip2 build-essential python git 
     WITH_API=true \
     MATOMO_ADDRESS="" \
     MATOMO_SITE_ID="" \
-    MATOMO_DO_NOT_TRACK=false \
-    MATOMO_WITH_USERNAME=true \
+    MATOMO_DO_NOT_TRACK=true \
+    MATOMO_WITH_USERNAME=false \
     BROWSER_POLICY_ENABLED=true \
     TRUSTED_URL=""
 
