@@ -20,7 +20,16 @@ TriggersDef = {
 	addChecklist:{
 		matchingFields: ["boardId","checklistId"]
 	},
+	removeChecklist:{
+		matchingFields: ["boardId","checklistId"]
+	},
 	addChecklistItem:{
+		matchingFields: ["boardId","checklistItemId"]
+	},
+	checkedItem:{
+		matchingFields: ["boardId","checklistId"]
+	},
+	uncheckedItem:{
 		matchingFields: ["boardId","checklistItemId"]
 	},
 	addAttachment:{

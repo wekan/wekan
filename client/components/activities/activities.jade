@@ -34,12 +34,30 @@ template(name="boardActivities")
           .activity-checklist(href="{{ card.absoluteUrl }}")
             +viewer
               = checklist.title
+        if($eq activityType 'removeChecklist')
+          | {{{_ 'activity-checklist-removed' cardLink}}}
+
+        if($eq activityType 'checkedItem')
+          | {{{_ 'activity-checked-item' checkItem checklist.title cardLink}}}
+
+        if($eq activityType 'uncheckedItem')
+          | {{{_ 'activity-unchecked-item' checkItem checklist.title cardLink}}}
+
+        if($eq activityType 'checklistCompleted')
+          | {{{_ 'activity-checklist-completed' checklist.title cardLink}}}
+
+        if($eq activityType 'checklistUncompleted')
+          | {{{_ 'activity-checklist-uncompleted' checklist.title cardLink}}}
+
+
 
         if($eq activityType 'addChecklistItem')
           | {{{_ 'activity-checklist-item-added' checklist.title cardLink}}}.
           .activity-checklist(href="{{ card.absoluteUrl }}")
             +viewer
               = checklistItem.title
+        if($eq activityType 'removedChecklistItem')
+          | {{{_ 'activity-checklist-item-removed' checklist.title cardLink}}}
 
         if($eq activityType 'archivedCard')
           | {{{_ 'activity-archived' cardLink}}}.

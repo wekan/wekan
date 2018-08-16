@@ -101,6 +101,15 @@ if (Meteor.isServer) {
         Activities.remove(activity._id);
       });
     }
+    Activities.insert({
+      userId,
+      activityType: 'removeChecklist',
+      cardId: doc.cardId,
+      boardId: Cards.findOne(doc.cardId).boardId,
+      checklistId: doc._id,
+    });
+
+
   });
 }
 

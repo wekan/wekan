@@ -74,9 +74,74 @@ function itemCreation(userId, doc) {
 }
 
 function itemRemover(userId, doc) {
+  const card = Cards.findOne(doc.cardId);
+  const boardId = card.boardId;
+  Activities.insert({
+    userId,
+    activityType: 'removedChecklistItem',
+    cardId: doc.cardId,
+    boardId,
+    checklistId: doc.checklistId,
+    checklistItemId: doc._id,
+  });
   Activities.remove({
     checklistItemId: doc._id,
   });
+}
+
+function publishCheckActivity(userId,doc){
+  const card = Cards.findOne(doc.cardId);
+  const boardId = card.boardId;
+  let activityType;
+  if(doc.isFinished){
+    activityType = "checkedItem";
+  }else{
+    activityType = "uncheckedItem";
+  }
+  let act = {
+    userId,
+    activityType: activityType,
+    cardId: doc.cardId,
+    boardId,
+    checklistId: doc.checklistId,
+    checklistItemId: doc._id,
+  }
+  console.log(act);
+  Activities.insert(act);
+}
+
+function publishChekListCompleted(userId,doc,fieldNames,modifier){
+  const card = Cards.findOne(doc.cardId);
+  const boardId = card.boardId;
+  const checklistId = doc.checklistId;
+  const checkList = Checklists.findOne({_id:checklistId});
+  if(checkList.isFinished()){
+    let act = {
+      userId,
+      activityType: "checklistCompleted",
+      cardId: doc.cardId,
+      boardId,
+      checklistId: doc.checklistId,
+    }
+    Activities.insert(act);
+  }
+}
+
+function publishChekListUncompleted(userId,doc,fieldNames,modifier){
+  const card = Cards.findOne(doc.cardId);
+  const boardId = card.boardId;
+  const checklistId = doc.checklistId;
+  const checkList = Checklists.findOne({_id:checklistId});
+  if(checkList.isFinished()){
+    let act = {
+      userId,
+      activityType: "checklistUncompleted",
+      cardId: doc.cardId,
+      boardId,
+      checklistId: doc.checklistId,
+    }
+    Activities.insert(act);
+  }
 }
 
 // Activities
@@ -84,6 +149,17 @@ if (Meteor.isServer) {
   Meteor.startup(() => {
     ChecklistItems._collection._ensureIndex({ checklistId: 1 });
   });
+
+  ChecklistItems.after.update((userId, doc, fieldNames, modifier) => {
+    publishCheckActivity(userId,doc);
+    publishChekListCompleted(userId,doc,fieldNames,modifier)
+  });
+
+  ChecklistItems.before.update((userId, doc, fieldNames, modifier) => {
+    publishChekListUncompleted(userId,doc,fieldNames,modifier)
+  });
+
+
 
   ChecklistItems.after.insert((userId, doc) => {
     itemCreation(userId, doc);
