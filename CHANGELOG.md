@@ -1,3 +1,11 @@
+# v1.33 2018-08-16 Wekan release
+
+This release fixes the following bugs:
+
+- [Change default value of label ids](https://github.com/wekan/wekan/pull/1837).
+
+Thanks to GitHub user omarsy for contributions.
+
 # v1.32 2018-08-16 Wekan release
 
 This release fixes the following bugs:
