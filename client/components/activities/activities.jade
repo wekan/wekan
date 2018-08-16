@@ -34,7 +34,7 @@ template(name="boardActivities")
           .activity-checklist(href="{{ card.absoluteUrl }}")
             +viewer
               = checklist.title
-        if($eq activityType 'removedChecklist')
+        if($eq activityType 'removeChecklist')
           | {{{_ 'activity-checklist-removed' cardLink}}}.
 
         if($eq activityType 'checkedItem')
@@ -150,6 +150,9 @@ template(name="cardActivities")
 
         if($eq activityType 'removedLabel')
           | {{{_ 'activity-removed-label-card' lastLabel }}}.
+
+        if($eq activityType 'removeChecklist')
+          | {{{_ 'activity-checklist-removed' cardLabel}}}.
 
         if($eq activityType 'checkedItem')
           | {{{_ 'activity-checked-item-card' checkItem checklist.title }}}.

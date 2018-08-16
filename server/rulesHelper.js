@@ -1,6 +1,4 @@
 RulesHelper = {
-
-
 	executeRules(activity){
 		const matchingRules = this.findMatchingRules(activity);
 		console.log(matchingRules);
@@ -33,7 +31,7 @@ RulesHelper = {
 		return matchingRules;
 	},
 	buildMatchingFieldsMap(activity, matchingFields){
-		let matchingMap = {};
+		let matchingMap = {"activityType":activity.activityType};
 		for(let i = 0;i< matchingFields.length;i++){
 			// Creating a matching map with the actual field of the activity
 			// and with the wildcard (for example: trigger when a card is added

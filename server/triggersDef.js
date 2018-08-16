@@ -14,7 +14,7 @@ TriggersDef = {
 	joinMember:{
 		matchingFields: ["boardId","memberId"]
 	},
-	unJoinMember:{
+	unjoinMember:{
 		matchingFields: ["boardId","memberId"]
 	},
 	addChecklist:{
@@ -23,23 +23,36 @@ TriggersDef = {
 	removeChecklist:{
 		matchingFields: ["boardId","checklistId"]
 	},
-	addChecklistItem:{
+	completeChecklist:{
+		matchingFields: ["boardId","checklistId"]
+	},
+	uncompleteChecklist:{
+		matchingFields: ["boardId","checklistId"]
+	},
+	addedChecklistItem:{
+		matchingFields: ["boardId","checklistItemId"]
+	},
+	removedChecklistItem:{
 		matchingFields: ["boardId","checklistItemId"]
 	},
 	checkedItem:{
-		matchingFields: ["boardId","checklistId"]
+		matchingFields: ["boardId","checklistItemId"]
 	},
 	uncheckedItem:{
 		matchingFields: ["boardId","checklistItemId"]
 	},
 	addAttachment:{
-		matchingFields: ["boardId","checklistId"]
+		matchingFields: ["boardId"]
 	},
 	deleteAttachment:{
-		matchingFields: ["boardId","checklistItemId"]
+		matchingFields: ["boardId"]
+	},
+	addedLabel:{
+		matchingFields: ["boardId","labelId"]
+	},
+	removedLabel:{
+		matchingFields: ["boardId","labelId"]
 	}
-
-
 }
 
 

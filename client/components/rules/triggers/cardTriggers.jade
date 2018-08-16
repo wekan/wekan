@@ -4,8 +4,8 @@ template(name="cardTriggers")
       div.trigger-text 
         | When a label is
       div.trigger-dropdown
-        select(id="create-action")
-          option(value="created") Added to
+        select(id="label-action")
+          option(value="added") Added to
           option(value="removed") Removed from
       div.trigger-text 
         | a card 
@@ -17,19 +17,19 @@ template(name="cardTriggers")
       div.trigger-text 
         | When the label
       div.trigger-dropdown
-        select(id="label")
+        select(id="spec-label")
           each labels
-            option
+            option(value="#{_id}")
               = name
       div.trigger-text 
         | is
       div.trigger-dropdown
-        select(id="create-action")
-          option(value="created") Added to
+        select(id="spec-label-action")
+          option(value="added") Added to
           option(value="removed") Removed from
       div.trigger-text 
         | a card 
-    div.trigger-button.js-add-label-trigger.js-goto-action
+    div.trigger-button.js-add-spec-label-trigger.js-goto-action
       i.fa.fa-plus
 
   div.trigger-item
@@ -37,12 +37,12 @@ template(name="cardTriggers")
       div.trigger-text 
         | When a member is
       div.trigger-dropdown
-        select(id="create-action")
-          option(value="created") Added to
+        select(id="gen-member-action")
+          option(value="added") Added to
           option(value="removed") Removed from
       div.trigger-text 
         | a card 
-    div.trigger-button.js-add-gen.member-trigger.js-goto-action
+    div.trigger-button.js-add-gen-member-trigger.js-goto-action
       i.fa.fa-plus
 
 
@@ -51,16 +51,16 @@ template(name="cardTriggers")
       div.trigger-text 
         | When the member
       div.trigger-dropdown
-        input(id="create-list-name",type=text,placeholder="name") 
+        input(id="spec-member",type=text,placeholder="name") 
       div.trigger-text 
         | is
       div.trigger-dropdown
-        select(id="create-action")
-          option(value="created") Added to
+        select(id="spec-member-action")
+          option(value="added") Added to
           option(value="removed") Removed from
       div.trigger-text 
         | a card 
-    div.trigger-button.js-add-member-trigger.js-goto-action
+    div.trigger-button.js-add-spec-member-trigger.js-goto-action
       i.fa.fa-plus
 
   div.trigger-item
@@ -70,8 +70,8 @@ template(name="cardTriggers")
       div.trigger-text 
         | is
       div.trigger-dropdown
-        select(id="create-action")
-          option(value="created") Added to
+        select(id="attach-action")
+          option(value="added") Added to
           option(value="removed") Removed from
       div.trigger-text 
         | a card 
