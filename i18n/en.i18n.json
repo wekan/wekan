@@ -52,6 +52,10 @@
     "activity-checklist-item-added": "added checklist item to '%s' in %s",
     "activity-checklist-item-removed": "removed a checklist item from '%s' in %s",
     "add": "Add",
+    "activity-checked-item-card": "checked %s in checklist %s",
+    "activity-unchecked-item-card": "unchecked %s in checklist %s",
+    "activity-checklist-completed-card": "completed the checklist %s",
+    "activity-checklist-uncompleted-card": "uncompleted the checklist %s",
     "add-attachment": "Add Attachment",
     "add-board": "Add Board",
     "add-card": "Add Card",
@@ -508,6 +512,9 @@
     "no-parent": "Don't show parent",
     "activity-added-label": "added label '%s' to %s",
     "activity-removed-label": "removed label '%s' from %s",
-    "activity-delete-attach": "deleted an attachment from %s"
+    "activity-delete-attach": "deleted an attachment from %s",
+    "activity-added-label-card": "added label '%s'",
+    "activity-removed-label-card": "removed label '%s'",
+    "activity-delete-attach-card": "deleted an attachment"
 
 }
