@@ -49,7 +49,6 @@ kadira:dochead
 meteorhacks:picker
 meteorhacks:subs-manager
 mquandalle:autofocus
-mquandalle:moment
 ongoworks:speakingurl
 raix:handlebar-helpers
 tap:i18n
@@ -81,8 +80,9 @@ staringatlights:fast-render
 mixmax:smart-disconnect
 accounts-password@1.5.0
 cfs:gridfs
-browser-policy
 eluck:accounts-lockout
 rzymek:fullcalendar
 momentjs:moment@2.22.2
 atoy40:accounts-cas
+browser-policy-framing
+mquandalle:moment
