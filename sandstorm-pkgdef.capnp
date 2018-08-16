@@ -22,10 +22,10 @@ const pkgdef :Spk.PackageDefinition = (
     appTitle = (defaultText = "Wekan"),
     # The name of the app as it is displayed to the user.
 
-    appVersion = 116,
+    appVersion = 117,
     # Increment this for every release.
 
-    appMarketingVersion = (defaultText = "1.31.0~2018-08-14"),
+    appMarketingVersion = (defaultText = "1.32.0~2018-08-16"),
     # Human-readable presentation of the app version.
 
     minUpgradableAppVersion = 0,
@@ -240,8 +240,8 @@ const myCommand :Spk.Manifest.Command = (
     (key = "WITH_API", value = "true"),
     (key = "MATOMO_ADDRESS", value=""),
     (key = "MATOMO_SITE_ID", value=""),
-    (key = "MATOMO_DO_NOT_TRACK", value="false"),
-    (key = "MATOMO_WITH_USERNAME", value="true"),
+    (key = "MATOMO_DO_NOT_TRACK", value="true"),
+    (key = "MATOMO_WITH_USERNAME", value="false"),
     (key = "BROWSER_POLICY_ENABLED", value="true"),
     (key = "TRUSTED_URL", value=""),
     (key = "SANDSTORM", value = "1"),
