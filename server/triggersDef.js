@@ -1,39 +1,29 @@
 TriggersDef = {
 	createCard:{
-		matchingFields: ["boardId","listId"]
+		matchingFields: ["boardId", "listId"]
 	},
 	moveCard:{
-		matchingFields: ["boardId","listId","oldListId"]
+		matchingFields: ["boardId", "listId", "oldListId"]
 	},
 	archivedCard:{
 		matchingFields: ["boardId"]
+	},
+	restoredCard:{
+		matchingFields: ["boardId"]
+	},
+	joinMember:{
+		matchingFields: ["boardId","memberId"]
+	},
+	unJoinMember:{
+		matchingFields: ["boardId","memberId"]
+	},
+	addChecklist:{
+		matchingFields: ["boardId","checklistId"]
+	},
+	addChecklistItem:{
+		matchingFields: ["boardId","checklistItemId"]
 	}
 }
 
-
-		// if(activityType == "createCard"){
-
-		// }
-		// if(activityType == "moveCard"){
-
-		// }
-		// if(activityType == "archivedCard"){
-
-		// }
-		// if(activityType == "restoredCard"){
-			
-		// }
-		// if(activityType == "joinMember"){
-
-		// }
-		// if(activityType == "unJoinMember"){
-			
-		// }
-		// if(activityType == "addChecklist"){
-			
-		// }
-		// if(activityType == "addChecklistItem"){
-			
-		// }
 
 

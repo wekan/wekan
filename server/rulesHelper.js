@@ -20,6 +20,9 @@ RulesHelper = {
 	},
 	findMatchingRules(activity){
 		const activityType = activity.activityType;
+		if(TriggersDef[activityType] == undefined){
+			return [];
+		}
 		const matchingFields = TriggersDef[activityType].matchingFields;
 		const matchingMap = this.buildMatchingFieldsMap(activity,matchingFields);
 		let matchingTriggers = Triggers.find(matchingMap);

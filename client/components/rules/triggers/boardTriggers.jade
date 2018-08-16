@@ -4,7 +4,7 @@ template(name="boardTriggers")
       div.trigger-text 
         | When a card is
       div.trigger-dropdown
-        select(id="action")
+        select(id="gen-action")
           option(value="created") Added to
           option(value="removed") Removed from
       div.trigger-text 
@@ -17,13 +17,14 @@ template(name="boardTriggers")
       div.trigger-text 
         | When a card is
       div.trigger-dropdown
-        select
-          option Moved to
+        select(id="create-action")
+          option(value="created") Added to
+          option(value="removed") Removed from
       div.trigger-text 
-        | to list
+        | list
       div.trigger-dropdown
-        input(type=text,placeholder="List Name")  
-    div.trigger-button.js-add-spec-trigger.js-goto-action
+        input(id="create-list-name",type=text,placeholder="List Name")  
+    div.trigger-button.js-add-create-trigger.js-goto-action
       i.fa.fa-plus
 
   div.trigger-item
@@ -31,10 +32,25 @@ template(name="boardTriggers")
       div.trigger-text 
         | When a card is
       div.trigger-dropdown
-        select
-          option Archived
-          option Unarchived
-    div.trigger-button.js-add-arc-trigger.js-goto-action
+        select(id="move-action")
+          option(value="moved-to") Moved to
+          option(value="moved-from") Moved from
+      div.trigger-text 
+        | list
+      div.trigger-dropdown
+        input(id="move-list-name",type=text,placeholder="List Name")  
+    div.trigger-button.js-add-moved-trigger.js-goto-action
+      i.fa.fa-plus
+
+  div.trigger-item
+    div.trigger-content
+      div.trigger-text 
+        | When a card is
+      div.trigger-dropdown
+        select(id="arch-action")
+          option(value="archived") Archived
+          option(value="unarchived") Unarchived
+    div.trigger-button.js-add-arch-trigger.js-goto-action
       i.fa.fa-plus
 
 

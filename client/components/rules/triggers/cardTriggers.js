@@ -1,8 +1,19 @@
 BlazeComponent.extendComponent({
   onCreated() {
-
+    this.subscribe('allRules');
   },
 
+  labels(){
+    const labels = Boards.findOne(Session.get('currentBoard')).labels;
+    console.log(labels);
+    for(let i = 0;i<labels.length;i++){
+      if(labels[i].name == "" || labels[i].name == undefined){
+        labels[i].name = labels[i].color.toUpperCase();
+      }
+    }
+    console.log(labels);
+    return labels;
+  },
   events() {
     return [
     {'click .js-add-gen-trigger'(event) {
@@ -89,4 +100,6 @@ BlazeComponent.extendComponent({
     }];
   },
 
-}).register('boardTriggers');
+}).register('cardTriggers');
+
+

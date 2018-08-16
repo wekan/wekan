@@ -254,6 +254,10 @@ Boards.helpers({
     return _.findWhere(this.labels, { name, color });
   },
 
+  getLabelById(labelId){
+    return _.findWhere(this.labels, { _id: labelId });
+  },
+
   labelIndex(labelId) {
     return _.pluck(this.labels, '_id').indexOf(labelId);
   },

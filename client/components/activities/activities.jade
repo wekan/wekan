@@ -89,6 +89,13 @@ template(name="boardActivities")
         if($eq activityType 'restoredCard')
           | {{{_ 'activity-sent' cardLink boardLabel}}}.
 
+        if($eq activityType 'addedLabel')
+          | {{{_ 'activity-added-label' lastLabel cardLink}}}.
+
+        if($eq activityType 'removedLabel')
+          | {{{_ 'activity-removed-label' lastLabel cardLink}}}.
+
+
         if($eq activityType 'unjoinMember')
           if($eq user._id member._id)
             | {{{_ 'activity-unjoined' cardLink}}}.

@@ -109,7 +109,7 @@ BlazeComponent.extendComponent({
         Sidebar.setView('search');
       },
       'click .js-open-rules-view'() {
-        Modal.open('rulesMain');
+        Modal.openWide('rulesMain');
       },
       'click .js-multiselection-activate'() {
         const currentCard = Session.get('currentCard');

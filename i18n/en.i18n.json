@@ -499,6 +499,8 @@
     "change-card-parent": "Change card's parent",
     "parent-card": "Parent card",
     "source-board": "Source board",
-    "no-parent": "Don't show parent"
+    "no-parent": "Don't show parent",
+    "activity-added-label": "added label '%s' to %s",
+    "activity-removed-label": "removed label '%s' from %s"
 
 }

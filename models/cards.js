@@ -624,6 +624,41 @@ function cardMembers(userId, doc, fieldNames, modifier) {
   }
 }
 
+function cardLabels(userId, doc, fieldNames, modifier) {
+  if (!_.contains(fieldNames, 'labelIds'))
+    return;
+  let labelId;
+  // Say hello to the new label
+  if (modifier.$addToSet && modifier.$addToSet.labelIds) {
+    labelId = modifier.$addToSet.labelIds;
+    if (!_.contains(doc.labelIds, labelId)) {
+      const act = {
+        userId,
+        labelId,
+        activityType: 'addedLabel',
+        boardId: doc.boardId,
+        cardId: doc._id,
+      }
+      Activities.insert(act);
+    }
+  }
+
+  // Say goodbye to the label
+  if (modifier.$pull && modifier.$pull.labelIds) {
+    labelId = modifier.$pull.labelIds;
+    // Check that the former member is member of the card
+    if (_.contains(doc.labelIds, labelId)) {
+      Activities.insert({
+        userId,
+        labelId,
+        activityType: 'removedLabel',
+        boardId: doc.boardId,
+        cardId: doc._id,
+      });
+    }
+  }
+}
+
 function cardCreation(userId, doc) {
   Activities.insert({
     userId,
@@ -679,6 +714,12 @@ if (Meteor.isServer) {
   Cards.before.update((userId, doc, fieldNames, modifier) => {
     cardMembers(userId, doc, fieldNames, modifier);
   });
+
+  // Add a new activity if we add or remove a label to the card
+  Cards.before.update((userId, doc, fieldNames, modifier) => {
+    cardLabels(userId, doc, fieldNames, modifier);
+  });
+
 
   // Remove all activities associated with a card if we remove the card
   // Remove also card_comments / checklists / attachments
