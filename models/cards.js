@@ -97,7 +97,7 @@ Cards.attachSchema(new SimpleSchema({
   labelIds: {
     type: [String],
     optional: true,
-    defaultValue: '',
+    defaultValue: [],
   },
   members: {
     type: [String],
