@@ -22,7 +22,15 @@ TriggersDef = {
 	},
 	addChecklistItem:{
 		matchingFields: ["boardId","checklistItemId"]
+	},
+	addAttachment:{
+		matchingFields: ["boardId","checklistId"]
+	},
+	deleteAttachment:{
+		matchingFields: ["boardId","checklistItemId"]
 	}
+
+
 }
 
 

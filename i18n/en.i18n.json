@@ -501,6 +501,7 @@
     "source-board": "Source board",
     "no-parent": "Don't show parent",
     "activity-added-label": "added label '%s' to %s",
-    "activity-removed-label": "removed label '%s' from %s"
+    "activity-removed-label": "removed label '%s' from %s",
+    "activity-delete-attach": "deleted an attachment from %s"
 
 }
