@@ -1,9 +1,9 @@
 TriggersDef = {
 	createCard:{
-		matchingFields: ["boardId", "listId"]
+		matchingFields: ["boardId", "listName"]
 	},
 	moveCard:{
-		matchingFields: ["boardId", "listId", "oldListId"]
+		matchingFields: ["boardId", "listName", "oldListName"]
 	},
 	archivedCard:{
 		matchingFields: ["boardId"]
@@ -18,28 +18,28 @@ TriggersDef = {
 		matchingFields: ["boardId","memberId"]
 	},
 	addChecklist:{
-		matchingFields: ["boardId","checklistId"]
+		matchingFields: ["boardId","checklistName"]
 	},
 	removeChecklist:{
-		matchingFields: ["boardId","checklistId"]
+		matchingFields: ["boardId","checklistName"]
 	},
 	completeChecklist:{
-		matchingFields: ["boardId","checklistId"]
+		matchingFields: ["boardId","checklistName"]
 	},
 	uncompleteChecklist:{
-		matchingFields: ["boardId","checklistId"]
+		matchingFields: ["boardId","checklistName"]
 	},
 	addedChecklistItem:{
-		matchingFields: ["boardId","checklistItemId"]
+		matchingFields: ["boardId","checklistItemName"]
 	},
 	removedChecklistItem:{
-		matchingFields: ["boardId","checklistItemId"]
+		matchingFields: ["boardId","checklistItemName"]
 	},
 	checkedItem:{
-		matchingFields: ["boardId","checklistItemId"]
+		matchingFields: ["boardId","checklistItemName"]
 	},
 	uncheckedItem:{
-		matchingFields: ["boardId","checklistItemId"]
+		matchingFields: ["boardId","checklistItemName"]
 	},
 	addAttachment:{
 		matchingFields: ["boardId"]

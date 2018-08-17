@@ -561,6 +561,7 @@ function cardMove(userId, doc, fieldNames, oldListId) {
       userId,
       oldListId,
       activityType: 'moveCard',
+      listName: doc.title,
       listId: doc.listId,
       boardId: doc.boardId,
       cardId: doc._id,
@@ -574,6 +575,7 @@ function cardState(userId, doc, fieldNames) {
       Activities.insert({
         userId,
         activityType: 'archivedCard',
+        listName: doc.title,
         boardId: doc.boardId,
         listId: doc.listId,
         cardId: doc._id,
@@ -583,6 +585,7 @@ function cardState(userId, doc, fieldNames) {
         userId,
         activityType: 'restoredCard',
         boardId: doc.boardId,
+        listName: doc.title,
         listId: doc.listId,
         cardId: doc._id,
       });
@@ -664,6 +667,7 @@ function cardCreation(userId, doc) {
     userId,
     activityType: 'createCard',
     boardId: doc.boardId,
+    listName: doc.title,
     listId: doc.listId,
     cardId: doc._id,
   });

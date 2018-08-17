@@ -4,12 +4,12 @@ template(name="checklistTriggers")
       div.trigger-text 
         | When a checklist is
       div.trigger-dropdown
-        select(id="create-action")
+        select(id="gen-check-action")
           option(value="created") Added to
           option(value="removed") Removed from
       div.trigger-text 
         | a card 
-    div.trigger-button.js-add-gen.member-trigger.js-goto-action
+    div.trigger-button.js-add-gen-check-trigger.js-goto-action
       i.fa.fa-plus
 
 
@@ -18,16 +18,16 @@ template(name="checklistTriggers")
       div.trigger-text 
         | When the checklist
       div.trigger-dropdown
-        input(id="create-list-name",type=text,placeholder="Name") 
+        input(id="check-name",type=text,placeholder="Name") 
       div.trigger-text 
         | is
       div.trigger-dropdown
-        select(id="create-action")
+        select(id="spec-check-action")
           option(value="created") Added to
           option(value="removed") Removed from
       div.trigger-text 
         | a card 
-    div.trigger-button.js-add-checklist-trigger.js-goto-action
+    div.trigger-button.js-add-spec-check-trigger.js-goto-action
       i.fa.fa-plus
 
   div.trigger-item
@@ -35,10 +35,10 @@ template(name="checklistTriggers")
       div.trigger-text 
         | When a checklist is
       div.trigger-dropdown
-        select(id="create-action")
-          option(value="created") Completed
-          option(value="removed") Made incomplete
-    div.trigger-button.js-add-gen.member-trigger.js-goto-action
+        select(id="gen-comp-check-action")
+          option(value="completed") Completed
+          option(value="uncompleted") Made incomplete
+    div.trigger-button.js-add-gen-comp-trigger.js-goto-action
       i.fa.fa-plus
 
   div.trigger-item
@@ -46,14 +46,14 @@ template(name="checklistTriggers")
       div.trigger-text 
         | When the checklist
       div.trigger-dropdown
-        input(id="create-list-name",type=text,placeholder="Name") 
+        input(id="spec-comp-check-name",type=text,placeholder="Name") 
       div.trigger-text 
         | is
       div.trigger-dropdown
-        select(id="create-action")
-          option(value="created") Completed
-          option(value="removed") Made incomplete
-    div.trigger-button.js-add-checklist-trigger.js-goto-action
+        select(id="spec-comp-check-action")
+          option(value="completed") Completed
+          option(value="uncompleted") Made incomplete
+    div.trigger-button.js-add-spec-comp-trigger.js-goto-action
       i.fa.fa-plus
 
   div.trigger-item
@@ -61,10 +61,10 @@ template(name="checklistTriggers")
       div.trigger-text 
         | When a checklist item is
       div.trigger-dropdown
-        select(id="create-action")
-          option(value="created") Checked
-          option(value="removed") Unchecked
-    div.trigger-button.js-add-gen.member-trigger.js-goto-action
+        select(id="check-item-gen-action")
+          option(value="checked") Checked
+          option(value="unchecked") Unchecked
+    div.trigger-button.js-add-gen-check-item-trigger.js-goto-action
       i.fa.fa-plus
 
   div.trigger-item
@@ -72,12 +72,12 @@ template(name="checklistTriggers")
       div.trigger-text 
         | When the checklist item 
       div.trigger-dropdown
-        input(id="create-list-name",type=text,placeholder="Name") 
+        input(id="check-item-name",type=text,placeholder="Name") 
       div.trigger-text 
         | is
       div.trigger-dropdown
-        select(id="create-action")
-          option(value="created") Checked
-          option(value="removed") Unchecked
-    div.trigger-button.js-add-checklist-trigger.js-goto-action
+        select(id="check-item-spec-action")
+          option(value="checked") Checked
+          option(value="unchecked") Unchecked
+    div.trigger-button.js-add-spec-check-item-trigger.js-goto-action
       i.fa.fa-plus

@@ -11,7 +11,7 @@ BlazeComponent.extendComponent({
       const actionSelected = this.find('#gen-action').value;
       const boardId = Session.get('currentBoard')
       if(actionSelected == "created"){
-        Triggers.insert({activityType: "createCard","boardId":boardId,"listId":"*"},function(error,id){
+        Triggers.insert({activityType: "createCard","boardId":boardId,"listName":"*"},function(error,id){
           datas.triggerIdVar.set(id);
         });
       }
@@ -27,20 +27,13 @@ BlazeComponent.extendComponent({
       const actionSelected = this.find('#create-action').value;
       const listName = this.find('#create-list-name').value;
       const boardId = Session.get('currentBoard')
-      const list = Lists.findOne({title:listName});
-      let listId;
-      if(list == undefined){
-        listId = "*"
-      }else{
-        listId = list._id;
-      }
       if(actionSelected == "created"){
-        Triggers.insert({activityType: "createCard","boardId":boardId,"listId":listId},function(error,id){
+        Triggers.insert({activityType: "createCard","boardId":boardId,"listName":listName},function(error,id){
           datas.triggerIdVar.set(id);
         });
       }
       if(actionSelected == "removed"){
-        Triggers.insert({activityType: "removeCard","boardId":boardId,"listId":listId},function(error,id){
+        Triggers.insert({activityType: "removeCard","boardId":boardId,"listName":listName},function(error,id){
           datas.triggerIdVar.set(id);
         });
       }
@@ -50,22 +43,13 @@ BlazeComponent.extendComponent({
       const actionSelected = this.find('#move-action').value;
       const listName = this.find('#move-list-name').value;
       const boardId = Session.get('currentBoard')
-      const list = Lists.findOne({title:listName});
-      console.log(list);
-      let listId;
-      if(list == undefined){
-        listId = "*"
-      }else{
-        listId = list._id;
-      }
-      console.log(listId);
       if(actionSelected == "moved-to"){
-        Triggers.insert({activityType: "moveCard","boardId":boardId,"listId":listId,"oldListId":"*"},function(error,id){
+        Triggers.insert({activityType: "moveCard","boardId":boardId,"listName":listName,"oldListName":"*"},function(error,id){
           datas.triggerIdVar.set(id);
         });
       }
       if(actionSelected == "moved-from"){
-        Triggers.insert({activityType: "moveCard","boardId":boardId,"listId":"*","oldListId":listId},function(error,id){
+        Triggers.insert({activityType: "moveCard","boardId":boardId,"listName":"*","oldListName":listName},function(error,id){
           datas.triggerIdVar.set(id);
         });
       }

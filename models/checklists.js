@@ -91,6 +91,7 @@ if (Meteor.isServer) {
       cardId: doc.cardId,
       boardId: Cards.findOne(doc.cardId).boardId,
       checklistId: doc._id,
+      checklistName:doc.title
     });
   });
 
@@ -107,6 +108,7 @@ if (Meteor.isServer) {
       cardId: doc.cardId,
       boardId: Cards.findOne(doc.cardId).boardId,
       checklistId: doc._id,
+      checklistName:doc.title
     });
 
 

@@ -70,6 +70,7 @@ function itemCreation(userId, doc) {
     boardId,
     checklistId: doc.checklistId,
     checklistItemId: doc._id,
+    checklistItemName:doc.title
   });
 }
 
@@ -83,6 +84,7 @@ function itemRemover(userId, doc) {
     boardId,
     checklistId: doc.checklistId,
     checklistItemId: doc._id,
+    checklistItemName:doc.title
   });
   Activities.remove({
     checklistItemId: doc._id,
@@ -105,6 +107,7 @@ function publishCheckActivity(userId,doc){
     boardId,
     checklistId: doc.checklistId,
     checklistItemId: doc._id,
+    checklistItemName:doc.title
   }
   console.log(act);
   Activities.insert(act);
@@ -122,6 +125,7 @@ function publishChekListCompleted(userId,doc,fieldNames,modifier){
       cardId: doc.cardId,
       boardId,
       checklistId: doc.checklistId,
+      checklistName:doc.title
     }
     Activities.insert(act);
   }
@@ -139,6 +143,7 @@ function publishChekListUncompleted(userId,doc,fieldNames,modifier){
       cardId: doc.cardId,
       boardId,
       checklistId: doc.checklistId,
+      checklistName:doc.title
     }
     Activities.insert(act);
   }
