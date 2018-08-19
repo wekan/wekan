@@ -1,0 +1,43 @@
+template(name="cardActions")
+  div.trigger-item
+    div.trigger-content
+      div.trigger-dropdown
+        select(id="label-action")
+          option(value="add") Add
+          option(value="remove") Remove
+      div.trigger-text 
+        | label
+      div.trigger-dropdown
+        select(id="label-id")
+          each labels
+            option(value="#{_id}")
+              = name
+    div.trigger-button.js-add-label-action.js-goto-rules
+      i.fa.fa-plus
+
+  div.trigger-item
+    div.trigger-content
+      div.trigger-dropdown
+        select(id="member-action")
+          option(value="add") Add
+          option(value="remove") Removed
+      div.trigger-text 
+        | member
+      div.trigger-dropdown
+        input(id="member-name",type=text,placeholder="Member name")  
+    div.trigger-button.js-add-member-action.js-goto-rules
+      i.fa.fa-plus
+
+  div.trigger-item
+    div.trigger-content
+      div.trigger-text 
+        | Remove all member from the card 
+    div.trigger-button.js-add-removeall-action.js-goto-rules
+      i.fa.fa-plus
+
+
+   
+  
+
+
+

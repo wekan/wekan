@@ -6,12 +6,20 @@ template(name="rulesActions")
     .triggers-body
       .triggers-side-menu
         ul
-          li.active.js-set-board-triggers
+          li.active.js-set-board-actions
             i.fa.fa-columns
-          li.js-set-card-triggers
+          li.js-set-card-actions
             i.fa.fa-sticky-note
-          li.js-set-checklist-triggers
+          li.js-set-checklist-actions
             i.fa.fa-check
+          li.js-set-mail-actions
+            i.fa.fa-at
       .triggers-main-body
-        if showBoardActions.get
-          +boardActions(ruleName=data.ruleName triggerIdVar=data.triggerIdVar)
+        if ($eq currentActions.get 'board')
+          +boardActions(ruleName=data.ruleName triggerVar=data.triggerVar)
+        else if ($eq currentActions.get 'card')
+          +cardActions(ruleName=data.ruleName triggerVar=data.triggerVar)
+        else if ($eq currentActions.get 'checklist')
+          +checklistActions(ruleName=data.ruleName triggerVar=data.triggerVar)
+        else if ($eq currentActions.get 'mail')
+          +mailActions(ruleName=data.ruleName triggerVar=data.triggerVar)  

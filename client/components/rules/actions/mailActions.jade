@@ -1,0 +1,11 @@
+template(name="mailActions")
+  div.trigger-item.trigger-item-mail
+    div.trigger-content.trigger-content-mail
+      div.trigger-text.trigger-text-email
+        | Send an email
+      div.trigger-dropdown-mail
+        input(id="email-to",type=text,placeholder="to")
+      input(id="email-subject",type=text,placeholder="subject")
+      textarea(id="email-msg")  
+    div.trigger-button.trigger-button-email.js-mail-action.js-goto-rules
+      i.fa.fa-plus  

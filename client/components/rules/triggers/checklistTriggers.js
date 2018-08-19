@@ -10,14 +10,10 @@ BlazeComponent.extendComponent({
       const actionSelected = this.find('#gen-check-action').value;
       const boardId = Session.get('currentBoard')
       if(actionSelected == "created"){
-        Triggers.insert({activityType: "addChecklist","boardId":boardId,"checklistName":"*"},function(error,id){
-          datas.triggerIdVar.set(id);
-        });
+        datas.triggerVar.set({activityType: "addChecklist","boardId":boardId,"checklistName":"*"});
       }
       if(actionSelected == "removed"){
-        Triggers.insert({activityType: "removeChecklist","boardId":boardId,"checklistName":"*"},function(error,id){
-          datas.triggerIdVar.set(id);
-        });
+        datas.triggerVar.set({activityType: "removeChecklist","boardId":boardId,"checklistName":"*"});
       }
     },
     'click .js-add-spec-check-trigger'(event) {
@@ -26,14 +22,10 @@ BlazeComponent.extendComponent({
       const checklistId = this.find('#check-name').value;
       const boardId = Session.get('currentBoard')
       if(actionSelected == "created"){
-        Triggers.insert({activityType: "addChecklist","boardId":boardId,"checklistName":checklistId},function(error,id){
-          datas.triggerIdVar.set(id);
-        });
+        datas.triggerVar.set({activityType: "addChecklist","boardId":boardId,"checklistName":checklistId});
       }
       if(actionSelected == "removed"){
-        Triggers.insert({activityType: "removeChecklist","boardId":boardId,"checklistName":checklistId},function(error,id){
-          datas.triggerIdVar.set(id);
-        });
+        datas.triggerVar.set({activityType: "removeChecklist","boardId":boardId,"checklistName":checklistId});
       }
     },
     'click .js-add-gen-comp-trigger'(event) {
@@ -42,14 +34,10 @@ BlazeComponent.extendComponent({
       const actionSelected = this.find('#gen-comp-check-action').value;
       const boardId = Session.get('currentBoard')
       if(actionSelected == "completed"){
-        Triggers.insert({activityType: "completeChecklist","boardId":boardId,"checklistName":"*"},function(error,id){
-          datas.triggerIdVar.set(id);
-        });
+        datas.triggerVar.set({activityType: "completeChecklist","boardId":boardId,"checklistName":"*"});
       }
       if(actionSelected == "uncompleted"){
-        Triggers.insert({activityType: "uncompleteChecklist","boardId":boardId,"checklistName":"*"},function(error,id){
-          datas.triggerIdVar.set(id);
-        });
+        datas.triggerVar.set({activityType: "uncompleteChecklist","boardId":boardId,"checklistName":"*"});
       }
     },
     'click .js-add-spec-comp-trigger'(event) {
@@ -58,14 +46,10 @@ BlazeComponent.extendComponent({
       const checklistId = this.find('#spec-comp-check-name').value;
       const boardId = Session.get('currentBoard')
       if(actionSelected == "added"){
-        Triggers.insert({activityType: "joinMember","boardId":boardId,"checklistName":checklistId},function(error,id){
-          datas.triggerIdVar.set(id);
-        });
+        datas.triggerVar.set({activityType: "completeChecklist","boardId":boardId,"checklistName":checklistId});
       }
       if(actionSelected == "removed"){
-        Triggers.insert({activityType: "unjoinMember","boardId":boardId,"checklistName":checklistId},function(error,id){
-          datas.triggerIdVar.set(id);
-        });
+        datas.triggerVar.set({activityType: "uncompleteChecklist","boardId":boardId,"checklistName":checklistId});
       }
     },
     'click .js-add-gen-check-item-trigger'(event) {
@@ -74,14 +58,10 @@ BlazeComponent.extendComponent({
       const actionSelected = this.find('#check-item-gen-action').value;
       const boardId = Session.get('currentBoard')
       if(actionSelected == "checked"){
-        Triggers.insert({activityType: "checkedItem","boardId":boardId,"checklistItemName":"*"},function(error,id){
-          datas.triggerIdVar.set(id);
-        });
+        datas.triggerVar.set({activityType: "checkedItem","boardId":boardId,"checklistItemName":"*"});
       }
       if(actionSelected == "unchecked"){
-        Triggers.insert({activityType: "uncheckedItem","boardId":boardId,"checklistItemName":"*"},function(error,id){
-          datas.triggerIdVar.set(id);
-        });
+        datas.triggerVar.set({activityType: "uncheckedItem","boardId":boardId,"checklistItemName":"*"});
       }
     },
     'click .js-add-spec-check-item-trigger'(event) {
@@ -89,15 +69,11 @@ BlazeComponent.extendComponent({
       const actionSelected = this.find('#check-item-spec-action').value;
       const checklistItemId = this.find('#check-item-name').value;
       const boardId = Session.get('currentBoard')
-      if(actionSelected == "added"){
-        Triggers.insert({activityType: "joinMember","boardId":boardId,"checklistItemName":checklistItemId},function(error,id){
-          datas.triggerIdVar.set(id);
-        });
+      if(actionSelected == "checked"){
+        datas.triggerVar.set({activityType: "checkedItem","boardId":boardId,"checklistItemName":checklistItemId});
       }
-      if(actionSelected == "removed"){
-        Triggers.insert({activityType: "unjoinMember","boardId":boardId,"checklistItemName":checklistItemId},function(error,id){
-          datas.triggerIdVar.set(id);
-        });
+      if(actionSelected == "unchecked"){
+        datas.triggerVar.set({activityType: "uncheckedItem","boardId":boardId,"checklistItemName":checklistItemId});
       }
     },
     }];

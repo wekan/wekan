@@ -2,6 +2,6 @@ template(name="rulesMain")
   if rulesListVar.get
     +rulesList
   else if rulesTriggerVar.get
-    +rulesTriggers(ruleName=ruleName triggerIdVar=triggerIdVar)
+    +rulesTriggers(ruleName=ruleName triggerVar=triggerVar)
   else if rulesActionVar.get
-    +rulesActions(ruleName=ruleName triggerIdVar=triggerIdVar)
+    +rulesActions(ruleName=ruleName triggerVar=triggerVar)

@@ -22,14 +22,10 @@ BlazeComponent.extendComponent({
       const actionSelected = this.find('#label-action').value;
       const boardId = Session.get('currentBoard')
       if(actionSelected == "added"){
-        Triggers.insert({activityType: "addedLabel","boardId":boardId,"labelId":"*"},function(error,id){
-          datas.triggerIdVar.set(id);
-        });
+        datas.triggerVar.set({activityType: "addedLabel","boardId":boardId,"labelId":"*"});
       }
       if(actionSelected == "removed"){
-        Triggers.insert({activityType: "removedLabel","boardId":boardId,"labelId":"*"},function(error,id){
-          datas.triggerIdVar.set(id);
-        });
+        datas.triggerVar.set({activityType: "removedLabel","boardId":boardId,"labelId":"*"});
       }
     },
     'click .js-add-spec-label-trigger'(event) {
@@ -38,14 +34,10 @@ BlazeComponent.extendComponent({
       const labelId = this.find('#spec-label').value;
       const boardId = Session.get('currentBoard')
       if(actionSelected == "added"){
-        Triggers.insert({activityType: "addedLabel","boardId":boardId,"labelId":labelId},function(error,id){
-          datas.triggerIdVar.set(id);
-        });
+        datas.triggerVar.set({activityType: "addedLabel","boardId":boardId,"labelId":labelId});
       }
       if(actionSelected == "removed"){
-        Triggers.insert({activityType: "removedLabel","boardId":boardId,"labelId":labelId},function(error,id){
-          datas.triggerIdVar.set(id);
-        });
+        datas.triggerVar.set({activityType: "removedLabel","boardId":boardId,"labelId":labelId});
       }
     },
     'click .js-add-gen-member-trigger'(event) {
@@ -54,14 +46,10 @@ BlazeComponent.extendComponent({
       const actionSelected = this.find('#gen-member-action').value;
       const boardId = Session.get('currentBoard')
       if(actionSelected == "added"){
-        Triggers.insert({activityType: "joinMember","boardId":boardId,"memberId":"*"},function(error,id){
-          datas.triggerIdVar.set(id);
-        });
+        datas.triggerVar.set({activityType: "joinMember","boardId":boardId,"memberId":"*"});
       }
       if(actionSelected == "removed"){
-        Triggers.insert({activityType: "unjoinMember","boardId":boardId,"memberId":"*"},function(error,id){
-          datas.triggerIdVar.set(id);
-        });
+        datas.triggerVar.set({activityType: "unjoinMember","boardId":boardId,"memberId":"*"});
       }
     },
     'click .js-add-spec-member-trigger'(event) {
@@ -70,14 +58,10 @@ BlazeComponent.extendComponent({
       const memberId = this.find('#spec-member').value;
       const boardId = Session.get('currentBoard')
       if(actionSelected == "added"){
-        Triggers.insert({activityType: "joinMember","boardId":boardId,"memberId":memberId},function(error,id){
-          datas.triggerIdVar.set(id);
-        });
+        datas.triggerVar.set({activityType: "joinMember","boardId":boardId,"memberId":memberId});
       }
       if(actionSelected == "removed"){
-        Triggers.insert({activityType: "unjoinMember","boardId":boardId,"memberId":memberId},function(error,id){
-          datas.triggerIdVar.set(id);
-        });
+        datas.triggerVar.set({activityType: "unjoinMember","boardId":boardId,"memberId":memberId});
       }
     },
     'click .js-add-attachment-trigger'(event) {
@@ -86,14 +70,10 @@ BlazeComponent.extendComponent({
       const actionSelected = this.find('#attach-action').value;
       const boardId = Session.get('currentBoard')
       if(actionSelected == "added"){
-        Triggers.insert({activityType: "addAttachment","boardId":boardId},function(error,id){
-          datas.triggerIdVar.set(id);
-        });
+        datas.triggerVar.set({activityType: "addAttachment","boardId":boardId});
       }
       if(actionSelected == "removed"){
-        Triggers.insert({activityType: "deleteAttachment","boardId":boardId},function(error,id){
-          datas.triggerIdVar.set(id);
-        });
+        datas.triggerVar.set({activityType: "deleteAttachment","boardId":boardId});
       }
     },
     }];

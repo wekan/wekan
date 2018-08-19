@@ -4,7 +4,7 @@ BlazeComponent.extendComponent({
     this.rulesTriggerVar = new ReactiveVar(false);
     this.rulesActionVar = new ReactiveVar(false);
     this.ruleName = new ReactiveVar("");
-    this.triggerIdVar = new ReactiveVar("");
+    this.triggerVar = new ReactiveVar();
   },
 
   setTrigger() {

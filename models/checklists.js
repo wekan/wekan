@@ -47,6 +47,18 @@ Checklists.helpers({
   isFinished() {
     return 0 !== this.itemCount() && this.itemCount() === this.finishedCount();
   },
+  checkAllItems(){
+    const checkItems = ChecklistItems.find({checklistId: this._id});
+    checkItems.forEach(function(item){
+      item.check();
+    });
+  },
+  uncheckAllItems(){
+    const checkItems = ChecklistItems.find({checklistId: this._id});
+    checkItems.forEach(function(item){
+      item.uncheck();
+    });
+  },
   itemIndex(itemId) {
     const items = self.findOne({_id : this._id}).items;
     return _.pluck(items, '_id').indexOf(itemId);

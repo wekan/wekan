@@ -44,6 +44,12 @@ ChecklistItems.mutations({
   setTitle(title) {
     return { $set: { title } };
   },
+  check(){
+    return { $set: { isFinished: true } };
+  },
+  uncheck(){
+    return { $set: { isFinished: false } };
+  },
   toggleItem() {
     return { $set: { isFinished: !this.isFinished } };
   },

@@ -40,6 +40,8 @@
   display: -ms-flexbox
   display: flex
 
+
+
 .triggers-content
   color: #727479
   background: #dedede
@@ -107,6 +109,10 @@
             .trigger-text
               font-size: 16px
               display:inline-block
+            .trigger-text.trigger-text-email
+              margin-left: 5px;
+              margin-top: 10px;
+              margin-bottom: 10px;
             .trigger-dropdown
               display:inline-block
               select
@@ -118,6 +124,9 @@
                 display: inline-block
                 width: 80px;
                 margin: 0;
+        .trigger-content-mail
+          left:20px
+          right:100px
         .trigger-button
           position:absolute
           top:50%
@@ -138,3 +147,10 @@
             transform: translate(-50%,-50%)
           &:hover, &.is-active
             box-shadow: 0 0 0 2px darken(white, 60%) inset
+        .trigger-button.trigger-button-email
+          top:30px
+      .trigger-item.trigger-item-mail
+        height:300px
+  
+
+

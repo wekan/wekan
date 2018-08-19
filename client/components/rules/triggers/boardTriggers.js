@@ -11,14 +11,10 @@ BlazeComponent.extendComponent({
       const actionSelected = this.find('#gen-action').value;
       const boardId = Session.get('currentBoard')
       if(actionSelected == "created"){
-        Triggers.insert({activityType: "createCard","boardId":boardId,"listName":"*"},function(error,id){
-          datas.triggerIdVar.set(id);
-        });
+        datas.triggerVar.set({activityType: "createCard","boardId":boardId,"listName":"*"});
       }
       if(actionSelected == "removed"){
-        Triggers.insert({activityType: "removeCard","boardId":boardId},function(error,id){
-          datas.triggerIdVar.set(id);
-        });
+        datas.triggerVar.set({activityType: "removeCard","boardId":boardId});
       }
     },
     'click .js-add-create-trigger'(event) {
@@ -28,14 +24,10 @@ BlazeComponent.extendComponent({
       const listName = this.find('#create-list-name').value;
       const boardId = Session.get('currentBoard')
       if(actionSelected == "created"){
-        Triggers.insert({activityType: "createCard","boardId":boardId,"listName":listName},function(error,id){
-          datas.triggerIdVar.set(id);
-        });
+        datas.triggerVar.set({activityType: "createCard","boardId":boardId,"listName":listName});
       }
       if(actionSelected == "removed"){
-        Triggers.insert({activityType: "removeCard","boardId":boardId,"listName":listName},function(error,id){
-          datas.triggerIdVar.set(id);
-        });
+        datas.triggerVar.set({activityType: "removeCard","boardId":boardId,"listName":listName});
       }
     },
     'click .js-add-moved-trigger'(event) {
@@ -44,14 +36,10 @@ BlazeComponent.extendComponent({
       const listName = this.find('#move-list-name').value;
       const boardId = Session.get('currentBoard')
       if(actionSelected == "moved-to"){
-        Triggers.insert({activityType: "moveCard","boardId":boardId,"listName":listName,"oldListName":"*"},function(error,id){
-          datas.triggerIdVar.set(id);
-        });
+        datas.triggerVar.set({activityType: "moveCard","boardId":boardId,"listName":listName,"oldListName":"*"});
       }
       if(actionSelected == "moved-from"){
-        Triggers.insert({activityType: "moveCard","boardId":boardId,"listName":"*","oldListName":listName},function(error,id){
-          datas.triggerIdVar.set(id);
-        });
+        datas.triggerVar.set({activityType: "moveCard","boardId":boardId,"listName":"*","oldListName":listName});
       }
     },
     'click .js-add-arc-trigger'(event) {
@@ -59,14 +47,10 @@ BlazeComponent.extendComponent({
       const actionSelected = this.find('#arch-action').value;
       const boardId = Session.get('currentBoard')
       if(actionSelected == "archived"){
-        Triggers.insert({activityType: "archivedCard","boardId":boardId},function(error,id){
-          datas.triggerIdVar.set(id);
-        });
+        datas.triggerVar.set({activityType: "archivedCard","boardId":boardId});
       }
       if(actionSelected == "unarchived"){
-        Triggers.insert({activityType: "restoredCard","boardId":boardId},function(error,id){
-          datas.triggerIdVar.set(id);
-        });
+        datas.triggerVar.set({activityType: "restoredCard","boardId":boardId});
       }
     }
 

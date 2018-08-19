@@ -1,0 +1,51 @@
+template(name="checklistActions")
+  div.trigger-item
+    div.trigger-content
+      div.trigger-dropdown
+        select(id="check-action")
+          option(value="add") Add
+          option(value="remove") Remove
+      div.trigger-text 
+        | checklist
+      div.trigger-dropdown
+        input(id="checklist-name",type=text,placeholder="name")  
+    div.trigger-button.js-add-checklist-action.js-goto-rules
+      i.fa.fa-plus  
+
+  div.trigger-item
+    div.trigger-content
+      div.trigger-dropdown
+        select(id="checkall-action")
+          option(value="check") Check all
+          option(value="uncheck") Unchek all
+      div.trigger-text 
+        | items of checklist
+      div.trigger-dropdown
+        input(id="checklist-name2",type=text,placeholder="name")  
+    div.trigger-button.js-add-checkall-action.js-goto-rules
+      i.fa.fa-plus
+
+
+  div.trigger-item
+    div.trigger-content
+      div.trigger-dropdown
+        select(id="check-item-action")
+          option(value="check") Check 
+          option(value="uncheck") Unchek
+      div.trigger-text 
+        | item
+      div.trigger-dropdown
+        input(id="checkitem-name",type=text,placeholder="name")
+      div.trigger-text 
+        | of checklist
+      div.trigger-dropdown
+        input(id="checklist-name3",type=text,placeholder="name")  
+    div.trigger-button.js-add-check-item-action.js-goto-rules
+      i.fa.fa-plus
+
+
+   
+  
+
+
+

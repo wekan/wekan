@@ -4,15 +4,39 @@ template(name="boardActions")
       div.trigger-text 
         | Move card to 
       div.trigger-dropdown
-        select(id="action")
+        select(id="move-gen-action")
+          option(value="top") Top of
+          option(value="bottom") Bottom of
+      div.trigger-text 
+        | its list
+    div.trigger-button.js-add-gen-move-action.js-goto-rules
+      i.fa.fa-plus
+
+  div.trigger-item
+    div.trigger-content
+      div.trigger-text 
+        | Move card to 
+      div.trigger-dropdown
+        select(id="move-spec-action")
           option(value="top") Top of
           option(value="bottom") Bottom of
       div.trigger-text 
         | list
       div.trigger-dropdown
-        input(type=text,placeholder="List Name")  
-    div.trigger-button.js-add-move-action.js-goto-rules
+        input(id="listName",type=text,placeholder="List Name")  
+    div.trigger-button.js-add-spec-move-action.js-goto-rules
       i.fa.fa-plus
+
+  div.trigger-item
+    div.trigger-content
+      div.trigger-dropdown
+        select(id="arch-action")
+          option(value="archive") Archive
+          option(value="unarchive") Unarchive
+      div.trigger-text 
+        | card
+    div.trigger-button.js-add-arch-action.js-goto-rules
+      i.fa.fa-plus  
 
 
    
