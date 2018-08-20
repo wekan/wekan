@@ -55,6 +55,40 @@ template(name="general")
 
 template(name='email')
   ul#email-setting.setting-detail
+    li.smtp-form
+      .title {{_ 'smtp-host'}}
+      .description {{_ 'smtp-host-description'}}
+      .form-group
+        input.form-control#mail-server-host(type="text", placeholder="smtp.domain.com" value="{{currentSetting.mailServer.host}}")
+    li.smtp-form
+      .title {{_ 'smtp-port'}}
+      .description {{_ 'smtp-port-description'}}
+      .form-group
+        input.form-control#mail-server-port(type="text", placeholder="25" value="{{currentSetting.mailServer.port}}")
+    li.smtp-form
+      .title {{_ 'smtp-username'}}
+      .form-group
+        input.form-control#mail-server-username(type="text", placeholder="{{_ 'username'}}" value="{{currentSetting.mailServer.username}}")
+    li.smtp-form
+      .title {{_ 'smtp-password'}}
+      .form-group
+        input.form-control#mail-server-password(type="text", placeholder="{{_ 'password'}}" value="")
+    li.smtp-form
+      .title {{_ 'smtp-tls'}}
+      .form-group
+        a.flex.js-toggle-tls
+          .materialCheckBox#mail-server-tls(class="{{#if currentSetting.mailServer.enableTLS}}is-checked{{/if}}")
+
+          span {{_ 'smtp-tls-description'}}
+
+    li.smtp-form
+      .title {{_ 'send-from'}}
+      .form-group
+        input.form-control#mail-server-from(type="email", placeholder="no-reply@domain.com" value="{{currentSetting.mailServer.from}}")
+
+    li
+      button.js-save.primary {{_ 'save'}}
+
     li
       button.js-send-smtp-test-email.primary {{_ 'send-smtp-test'}}
 
