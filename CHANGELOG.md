@@ -2,9 +2,10 @@
 
 This release fixes the following bugs:
 
-- [Restored SMTP settings at Admin Panel, and disabled showing password](https://github.com/wekan/wekan/issues/1790).
+- [Restored SMTP settings at Admin Panel, and disabled showing password](https://github.com/wekan/wekan/issues/1790);
+- [Move color labels on minicard to bottom of minicard](https://github.com/wekan/wekan/issues/1842).
 
-Thanks to GitHub user xet7 for contributions.
+Thanks to GitHub users therampagerado and xet7 for their contributions.
 
 # v1.33 2018-08-16 Wekan release
 
