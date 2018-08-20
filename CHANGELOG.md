@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Restored SMTP settings at Admin Panel, and disabled showing password](https://github.com/wekan/wekan/issues/1790).
+
+Thanks to GitHub user xet7 for contributions.
+
 # v1.33 2018-08-16 Wekan release
 
 This release fixes the following bugs:
