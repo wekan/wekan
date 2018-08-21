@@ -1,0 +1,17 @@
+{
+  "name": "Mosss",
+  "short_name": "Mosss",
+  "description": "Kanban for Mosss",
+  "lang": "en-US",
+  "icons": [
+    {
+      "src": "/mosss-150.png",
+      "type": "image/png",
+      "sizes": "150x150"
+    }
+  ],
+  "display": "standalone",
+  "background_color": "#dedede",
+  "theme_color": "#dedede",
+  "start_url": "/"
+}

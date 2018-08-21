@@ -7,14 +7,14 @@ head
     where the application is deployed with a path prefix, but it seems to be
     difficult to do that cleanly with Blaze -- at least without adding extra
     packages.
-  link(rel="shortcut icon" href="/wekan-favicon.png")
-  link(rel="apple-touch-icon" href="/wekan-favicon.png")
-  link(rel="manifest" href="/wekan-manifest.json")
+  link(rel="shortcut icon" href="/mosss-favicon.png")
+  link(rel="apple-touch-icon" href="/mosss-favicon.png")
+  link(rel="manifest" href="/mosss-manifest.json")
 
 template(name="userFormsLayout")
   section.auth-layout
     h1.at-form-landing-logo
-      img(src="{{pathFor '/wekan-logo.png'}}" alt="Wekan")
+      img(src="{{pathFor '/mosss-logo.png'}}" alt="Mosss")
     section.auth-dialog
       +Template.dynamic(template=content)
       if isCas
