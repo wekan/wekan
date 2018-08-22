@@ -12,6 +12,14 @@ Add Caddy plugins:
   for showing real X-Forwarded-For IP to behind proxy;
 - Turn off Caddy telemetry.
 
+and fixes the following bugs:
+
+- [Remove suburl from beginning of avatar file path](https://github.com/wekan/wekan/issues/1776),
+  so that avatar images don't get broken when root-url changes
+  to different sub-url. This does not change avatar urls
+  in database, instead this [fixes url on the fly after
+  loading avatar url from database](https://github.com/wekan/wekan/commit/7e0bc1e33aef6dc0de11a595b81854623b417572).
+
 Thanks to Caddy contributors and Github user xet7 for their contributions!
 
 # v1.34 2018-08-22 Wekan release
