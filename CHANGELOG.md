@@ -1,3 +1,19 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+Add Caddy plugins:
+- [http.filter](https://caddyserver.com/docs/http.filter) 
+  for changing Wekan UI on the fly, for example custom logo,
+  or changing to all different CSS file to have custom theme;
+- [http.ipfilter](https://caddyserver.com/docs/http.ipfilter) 
+  to block requests by ip address;
+- [http.realip](https://caddyserver.com/docs/http.realip)
+  for showing real X-Forwarded-For IP to behind proxy;
+- Turn off Caddy telemetry.
+
+Thanks to Caddy contributors and Github user xet7 for their contributions!
+
 # v1.34 2018-08-22 Wekan release
 
 This release fixes the following bugs:
