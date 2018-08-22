@@ -70,7 +70,7 @@ template(name="linkCardPopup")
   label {{_ 'cards'}}:
   select.js-select-cards
     each cards
-      option(value="{{_id}}") {{title}}
+      option(value="{{getId}}") {{getTitle}}
 
   .edit-controls.clearfix
     input.primary.confirm.js-done(type="button" value="{{_ 'link'}}")

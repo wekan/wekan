@@ -712,6 +712,14 @@ Cards.helpers({
     }
   },
 
+  getId() {
+    if (this.isLinked()) {
+      return this.linkedId;
+    } else {
+      return this._id;
+    }
+  },
+
   getTitle() {
     if (this.isLinkedCard()) {
       const card = Cards.findOne({ _id: this.linkedId });
