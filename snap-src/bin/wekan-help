@@ -50,7 +50,7 @@ echo -e "\n"
 echo -e "What to send to Outgoing Webhook, or leave out. Example, that includes all that are default: cardId,listId,oldListId,boardId,comment,user,card,commentId ."
 echo -e "To enable the Webhooks Attributes of Wekan:"
 echo -e "\t$ snap set $SNAP_NAME WEBHOOKS_ATTRIBUTES='cardId,listId,oldListId,boardId,comment,user,card,commentId'"
-echo -e "\t-Disable the Webhooks Attributest of Wekan to send all default ones:"
+echo -e "\t-Disable the Webhooks Attributes of Wekan to send all default ones:"
 echo -e "\t$ snap set $SNAP_NAME WEBHOOKS_ATTRIBUTES=''"
 echo -e "\n"
 # parse config file for supported settings keys
