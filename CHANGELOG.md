@@ -27,13 +27,16 @@ Thanks to Caddy contributors, and Github users omarsy and xet7 for their contrib
 
 # v1.34 2018-08-22 Wekan release
 
-This release fixes the following bugs:
+This release add the following new features:
+
+- [Add Favicon for pinned tab on Safari browser](https://github.com/wekan/wekan/issues/1795).
+
+and fixes the following bugs:
 
 - [Restored SMTP settings at Admin Panel, and disabled showing password](https://github.com/wekan/wekan/issues/1790);
 - [Move color labels on minicard to bottom of minicard](https://github.com/wekan/wekan/issues/1842);
 - [Fix and improve linked cards](https://github.com/wekan/wekan/pull/1849);
 - [Allow Sandstorm to serve Wekan HTTP API](https://github.com/wekan/wekan/pull/1851);
-- [Add Favicon for pinned tab on Safari browser](https://github.com/wekan/wekan/issues/1795).
 
 Thanks to GitHub users andresmanelli, ocdtrekkie, therampagerado, woodyart and xet7 for their contributions.
 
