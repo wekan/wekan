@@ -14,6 +14,13 @@ Template.userAvatar.helpers({
     });
   },
 
+  fixAvatarUrl(avatarUrl) {
+    // Remove suburl from beginning of avatar file path,
+    // so that avatar images don't get broken when root-url changes to different sub-url.
+    avatarUrl = '/' + avatarUrl.substring(avatarUrl.indexOf('/cfs/files/avatars/')+1);
+    return avatarUrl;
+  },
+
   memberType() {
     const user = Users.findOne(this.userId);
     return user && user.isBoardAdmin() ? 'admin' : 'normal';
