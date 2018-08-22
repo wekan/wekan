@@ -20,7 +20,7 @@ BlazeComponent.extendComponent({
   setLoading(w) {
     this.loading.set(w);
   },
-  /*
+
   checkField(selector) {
     const value = $(selector).val();
     if (!value || value.trim() === '') {
@@ -30,7 +30,7 @@ BlazeComponent.extendComponent({
       return value;
     }
   },
-*/
+
   currentSetting() {
     return Settings.findOne();
   },
@@ -55,11 +55,9 @@ BlazeComponent.extendComponent({
       $('.invite-people').slideDown();
     }
   },
-  /*
   toggleTLS() {
     $('#mail-server-tls').toggleClass('is-checked');
   },
-*/
   switchMenu(event) {
     const target = $(event.target);
     if (!target.hasClass('active')) {
@@ -101,13 +99,11 @@ BlazeComponent.extendComponent({
         // if (!err) {
         //   TODO - show more info to user
         // }
-
         this.setLoading(false);
       });
     }
   },
 
-  /*
   saveMailServerInfo() {
     this.setLoading(true);
     $('li').removeClass('has-error');
@@ -132,7 +128,7 @@ BlazeComponent.extendComponent({
     }
 
   },
-*/
+
   sendSMTPTestEmail() {
     Meteor.call('sendSMTPTestEmail', (err, ret) => {
       if (!err && ret) { /* eslint-disable no-console */
@@ -152,15 +148,11 @@ BlazeComponent.extendComponent({
   events() {
     return [{
       'click a.js-toggle-registration': this.toggleRegistration,
-      /*
       'click a.js-toggle-tls': this.toggleTLS,
-*/
       'click a.js-setting-menu': this.switchMenu,
       'click a.js-toggle-board-choose': this.checkBoard,
       'click button.js-email-invite': this.inviteThroughEmail,
-      /*
       'click button.js-save': this.saveMailServerInfo,
-*/
       'click button.js-send-smtp-test-email': this.sendSMTPTestEmail,
     }];
   },

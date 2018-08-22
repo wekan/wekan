@@ -333,21 +333,22 @@ BlazeComponent.extendComponent({
   },
 
   cards() {
+    const ownCardsIds = this.board.cards().map((card) => { return card.linkedId || card._id; });
     return Cards.find({
       boardId: this.selectedBoardId.get(),
       swimlaneId: this.selectedSwimlaneId.get(),
       listId: this.selectedListId.get(),
       archived: false,
-      linkedId: null,
-      _id: {$nin: this.board.cards().map((card) => { return card.linkedId || card._id; })},
+      linkedId: {$nin: ownCardsIds},
+      _id: {$nin: ownCardsIds},
     });
   },
 
   events() {
     return [{
       'change .js-select-boards'(evt) {
+        subManager.subscribe('board', $(evt.currentTarget).val());
         this.selectedBoardId.set($(evt.currentTarget).val());
-        subManager.subscribe('board', this.selectedBoardId.get());
       },
       'change .js-select-swimlanes'(evt) {
         this.selectedSwimlaneId.set($(evt.currentTarget).val());
@@ -438,14 +439,14 @@ BlazeComponent.extendComponent({
 
   results() {
     const board = Boards.findOne(this.selectedBoardId.get());
-    return board.searchCards(this.term.get(), true);
+    return board.searchCards(this.term.get(), false);
   },
 
   events() {
     return [{
       'change .js-select-boards'(evt) {
+        subManager.subscribe('board', $(evt.currentTarget).val());
         this.selectedBoardId.set($(evt.currentTarget).val());
-        subManager.subscribe('board', this.selectedBoardId.get());
       },
       'submit .js-search-term-form'(evt) {
         evt.preventDefault();
@@ -461,7 +462,7 @@ BlazeComponent.extendComponent({
           boardId: this.boardId,
           sort: Lists.findOne(this.listId).cards().count(),
           type: 'cardType-linkedCard',
-          linkedId: card._id,
+          linkedId: card.linkedId || card._id,
         });
         Filter.addException(_id);
         Popup.close();

@@ -4,10 +4,6 @@ template(name="minicard")
     class="{{#if isLinkedBoard}}linked-board{{/if}}")
     if cover
       .minicard-cover(style="background-image: url('{{cover.url}}');")
-    if labels
-      .minicard-labels
-        each labels
-          .minicard-label(class="card-label-{{color}}" title="{{name}}")
     .minicard-title
       if $eq 'prefix-with-full-path' currentBoard.presentParentTask
         .parent-prefix
@@ -80,3 +76,8 @@ template(name="minicard")
         .badge(class="{{#if checklistFinished}}is-finished{{/if}}")
           span.badge-icon.fa.fa-check-square-o
           span.badge-text.check-list-text {{checklistFinishedCount}}/{{checklistItemCount}}
+
+    if labels
+      .minicard-labels
+        each labels
+          .minicard-label(class="card-label-{{color}}" title="{{name}}")
