@@ -60,6 +60,9 @@ services:
       - BROWSER_POLICY_ENABLED=true
       # When browser policy is enabled, HTML code at this Trusted URL can have iframe that embeds Wekan inside.
       - TRUSTED_URL=''
+      # What to send to Outgoing Webhook, or leave out. Example, that includes all that are default: cardId,listId,oldListId,boardId,comment,user,card,commentId .
+      # example: WEBHOOKS_ATTRIBUTES=cardId,listId,oldListId,boardId,comment,user,card,commentId
+      - WEBHOOKS_ATTRIBUTES=''
     depends_on:
       - wekandb
 
