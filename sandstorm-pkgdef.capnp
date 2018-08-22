@@ -22,10 +22,10 @@ const pkgdef :Spk.PackageDefinition = (
     appTitle = (defaultText = "Wekan"),
     # The name of the app as it is displayed to the user.
 
-    appVersion = 119,
+    appVersion = 120,
     # Increment this for every release.
 
-    appMarketingVersion = (defaultText = "1.34.0~2018-08-22"),
+    appMarketingVersion = (defaultText = "1.35.0~2018-08-23"),
     # Human-readable presentation of the app version.
 
     minUpgradableAppVersion = 0,
@@ -244,6 +244,7 @@ const myCommand :Spk.Manifest.Command = (
     (key = "MATOMO_WITH_USERNAME", value="false"),
     (key = "BROWSER_POLICY_ENABLED", value="true"),
     (key = "TRUSTED_URL", value=""),
+    (key = "WEBHOOKS_ATTRIBUTES", value=""),
     (key = "SANDSTORM", value = "1"),
     (key = "METEOR_SETTINGS", value = "{\"public\": {\"sandstorm\": true}}")
   ]

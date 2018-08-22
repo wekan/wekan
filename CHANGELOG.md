@@ -1,12 +1,34 @@
+# v1.35 2018-08-23 Wekan release
+
+This release adds the following new features:
+
+Add Caddy plugins:
+- [http.filter](https://caddyserver.com/docs/http.filter) 
+  for changing Wekan UI on the fly, for example custom logo,
+  or changing to all different CSS file to have custom theme;
+- [http.ipfilter](https://caddyserver.com/docs/http.ipfilter) 
+  to block requests by ip address;
+- [http.realip](https://caddyserver.com/docs/http.realip)
+  for showing real X-Forwarded-For IP to behind proxy;
+- Turn off Caddy telemetry.
+
+Add configuring webhooks:
+- [Make the attributes that the webhook sends configurable](https://github.com/wekan/wekan/pull/1852).
+
+Thanks to Caddy contributors, and Github users omarsy and xet7 for their contributions.
+
 # v1.34 2018-08-22 Wekan release
 
-This release fixes the following bugs:
+This release add the following new features:
+
+- [Add Favicon for pinned tab on Safari browser](https://github.com/wekan/wekan/issues/1795).
+
+and fixes the following bugs:
 
 - [Restored SMTP settings at Admin Panel, and disabled showing password](https://github.com/wekan/wekan/issues/1790);
 - [Move color labels on minicard to bottom of minicard](https://github.com/wekan/wekan/issues/1842);
 - [Fix and improve linked cards](https://github.com/wekan/wekan/pull/1849);
 - [Allow Sandstorm to serve Wekan HTTP API](https://github.com/wekan/wekan/pull/1851);
-- [Add Favicon for pinned tab on Safari browser](https://github.com/wekan/wekan/issues/1795).
 
 Thanks to GitHub users andresmanelli, ocdtrekkie, therampagerado, woodyart and xet7 for their contributions.
 
