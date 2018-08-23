@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Move labels back to original place at minicard](https://github.com/wekan/wekan/issues/1842).
+
+Thanks to GitHub users hever and xet7 for their contributions.
+
 # v1.35 2018-08-23 Wekan release
 
 This release adds the following new features:
