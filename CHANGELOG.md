@@ -8,9 +8,10 @@ This release adds the following new features:
 
 and fixes the following bugs:
 
-- [Move labels back to original place at minicard](https://github.com/wekan/wekan/issues/1842).
+- [Move labels back to original place at minicard](https://github.com/wekan/wekan/issues/1842);
+- [Fix typos in security documentation](https://github.com/wekan/wekan/pull/1857).
 
-Thanks to GitHub users hever, salleman33 and xet7 for their contributions.
+Thanks to GitHub users hever, salleman33, tlevine and xet7 for their contributions.
 
 # v1.35 2018-08-23 Wekan release
 
