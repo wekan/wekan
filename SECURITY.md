@@ -1,4 +1,4 @@
-Security is very important to us. If discover any issue regarding security, please disclose
+Security is very important to us. If you discover any issue regarding security, please disclose
 the information responsibly by sending an email to security (at) wekan.team and not by
 creating a GitHub issue. We will respond swiftly to fix verifiable security issues.
 
@@ -28,7 +28,7 @@ added to the Wekan Hall of Fame.
 
 ## Which domains are in scope?
 
-No any public domains, because all those are donated to Wekan Open Source project,
+No public domains, because all those are donated to Wekan Open Source project,
 and we don't have any permissions to do security scans on those donated servers.
 
 Please don't perform research that could impact other users. Secondly, please keep
@@ -39,7 +39,7 @@ and scan it's vulnerabilities there.
 
 ## About Wekan versions
 
-There is only 2 versions of Wekan: Standalone Wekan, and Sandstorm Wekan.
+There are only 2 versions of Wekan: Standalone Wekan, and Sandstorm Wekan.
 
 ### Standalone Wekan Security
 
