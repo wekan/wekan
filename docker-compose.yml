@@ -63,6 +63,25 @@ services:
       # What to send to Outgoing Webhook, or leave out. Example, that includes all that are default: cardId,listId,oldListId,boardId,comment,user,card,commentId .
       # example: WEBHOOKS_ATTRIBUTES=cardId,listId,oldListId,boardId,comment,user,card,commentId
       - WEBHOOKS_ATTRIBUTES=''
+      # OAuth2 docs: https://github.com/wekan/wekan/wiki/OAuth2
+      # OAuth2 Client ID, for example from Rocket.Chat. Example: abcde12345
+      # example: OAUTH2_CLIENT_ID=abcde12345
+      - OAUTH2_CLIENT_ID=''
+      # OAuth2 Secret, for example from Rocket.Chat: Example: 54321abcde
+      # example: OAUTH2_SECRET=54321abcde
+      - OAUTH2_SECRET=''
+      # OAuth2 Server URL, for example Rocket.Chat. Example: https://chat.example.com
+      # example: OAUTH2_SERVER_URL=https://chat.example.com
+      - OAUTH2_SERVER_URL=''
+      # OAuth2 Authorization Endpoint. Example: /oauth/authorize
+      # example: OAUTH2_AUTH_ENDPOINT=/oauth/authorize
+      - OAUTH2_AUTH_ENDPOINT=''
+      # OAuth2 Userinfo Endpoint. Example: /oauth/userinfo
+      # example: OAUTH2_USERINFO_ENDPOINT=/oauth/userinfo
+      - OAUTH2_USERINFO_ENDPOINT=''
+      # OAuth2 Token Endpoint. Example: /oauth/token
+      # example: OAUTH2_TOKEN_ENDPOINT=/oauth/token
+      - OAUTH2_TOKEN_ENDPOINT=''
     depends_on:
       - wekandb
 
