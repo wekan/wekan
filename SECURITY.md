@@ -29,7 +29,7 @@ added to the Wekan Hall of Fame.
 ## Which domains are in scope?
 
 No public domains, because all those are donated to Wekan Open Source project,
-and we don't have any permissions to do security scans on those donated servers.
+and we don't have any permissions to do security scans on those donated servers
 
 Please don't perform research that could impact other users. Secondly, please keep
 the reports short and succinct. If we fail to understand the logics of your bug, we will tell you.
