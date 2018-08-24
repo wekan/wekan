@@ -62,5 +62,24 @@ Meteor.startup(() => {
     Authentication.checkAdminOrCondition(userId, normalAccess);
   };
 
+  if (Meteor.isServer) {
+    ServiceConfiguration.configurations.upsert(
+      { service: 'oidc' },
+      {
+        $set: {
+          loginStyle: 'redirect',
+          clientId: 'CLIENT_ID',
+          secret: 'SECRET',
+          serverUrl: 'https://my-server',
+          authorizationEndpoint: '/oauth/authorize',
+          userinfoEndpoint: '/oauth/userinfo',
+          tokenEndpoint: '/oauth/token',
+          idTokenWhitelistFields: [],
+          requestPermissions: ['openid']
+        }
+      }
+    );
+    }
+
 });
 
