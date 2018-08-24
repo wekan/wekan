@@ -479,23 +479,20 @@ if (Meteor.isServer) {
     }
 
     if (user.services.oidc) {
-      var email = user.services.oidc.email.toLowerCase();
-      
+      const email = user.services.oidc.email.toLowerCase();
+
       user.username = user.services.oidc.username;
-      user.emails = [{ address: email,
-		       verified: true }];
-      var initials = user.services.oidc.fullname.match(/\b[a-zA-Z]/g).join('').toUpperCase();
-      user.profile = { initials: initials, fullname: user.services.oidc.fullname };
+      user.emails = [{ address: email, verified: true }];
+      const initials = user.services.oidc.fullname.match(/\b[a-zA-Z]/g).join('').toUpperCase();
+      user.profile = { initials, fullname: user.services.oidc.fullname };
 
       // see if any existing user has this email address or username, otherwise create new
-      var existingUser = Meteor.users.findOne({$or: [{'emails.address': email}, {'username':user.username}]});
-	    console.log("user to create : ");
-	    console.log(user);
+      const existingUser = Meteor.users.findOne({$or: [{'emails.address': email}, {'username':user.username}]});
       if (!existingUser)
         return user;
 
       // copy across new service info
-      var service = _.keys(user.services)[0];
+      const service = _.keys(user.services)[0];
       existingUser.services[service] = user.services[service];
       existingUser.emails = user.emails;
       existingUser.username = user.username;

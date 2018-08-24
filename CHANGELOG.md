@@ -1,10 +1,16 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+- [OAuth2 Login on Standalone Wekan](https://github.com/wekan/wekan/wiki/OAuth2). For example, Rocket.Chat can provide OAuth2 login to Wekan.
+  Also, if you have Rocket.Chat using LDAP/SAML/Google/etc for logging into Rocket.Chat, then same users can login to Wekan when
+  Rocket.Chat is providing OAuth2 login to Wekan.
+
+and fixes the following bugs:
 
 - [Move labels back to original place at minicard](https://github.com/wekan/wekan/issues/1842).
 
-Thanks to GitHub users hever and xet7 for their contributions.
+Thanks to GitHub users hever, salleman33 and xet7 for their contributions.
 
 # v1.35 2018-08-23 Wekan release
 
