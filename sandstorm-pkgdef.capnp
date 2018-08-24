@@ -22,10 +22,10 @@ const pkgdef :Spk.PackageDefinition = (
     appTitle = (defaultText = "Wekan"),
     # The name of the app as it is displayed to the user.
 
-    appVersion = 120,
+    appVersion = 121,
     # Increment this for every release.
 
-    appMarketingVersion = (defaultText = "1.35.0~2018-08-23"),
+    appMarketingVersion = (defaultText = "1.36.0~2018-08-25"),
     # Human-readable presentation of the app version.
 
     minUpgradableAppVersion = 0,
@@ -245,6 +245,12 @@ const myCommand :Spk.Manifest.Command = (
     (key = "BROWSER_POLICY_ENABLED", value="true"),
     (key = "TRUSTED_URL", value=""),
     (key = "WEBHOOKS_ATTRIBUTES", value=""),
+    (key = "OAUTH2_CLIENT_ID", value=""),
+    (key = "OAUTH2_SECRET", value=""),
+    (key = "OAUTH2_SERVER_URL", value=""),
+    (key = "OAUTH2_AUTH_ENDPOINT", value=""),
+    (key = "OAUTH2_USERINFO_ENDPOINT", value=""),
+    (key = "OAUTH2_TOKEN_ENDPOINT", value=""),
     (key = "SANDSTORM", value = "1"),
     (key = "METEOR_SETTINGS", value = "{\"public\": {\"sandstorm\": true}}")
   ]
