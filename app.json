@@ -1,8 +1,8 @@
 {
   "name": "Wekan",
   "description": "The open-source kanban",
-  "repository": "https://github.com/wekan/wekan",
-  "logo": "https://raw.githubusercontent.com/wekan/wekan/master/meta/icons/wekan-150.png",
+  "repository": "https://github.com/mosssdesign/wekan",
+  "logo": "https://raw.githubusercontent.com/mosssdesign/wekan/devel/public/mosss-150.png",
   "keywords": ["productivity", "tool", "team", "kanban"],
   "website": "https://wekan.github.io",
   "env": {
