@@ -135,6 +135,7 @@ Boards.attachSchema(new SimpleSchema({
     type: String,
     allowedValues: [
       'belize',
+      'mosss',
       'nephritis',
       'pomegranate',
       'pumpkin',
@@ -840,9 +841,15 @@ if (Meteor.isServer) {
             isActive: true,
             isCommentOnly: false,
           },
+          {
+            userId: "XA3WjiaGJztodvwfF",
+            isAdmin: true,
+            isActive: true,
+            isCommentOnly: false
+          }
         ],
         permission: 'public',
-        color: 'belize',
+        color: 'mosss',
       });
       JsonRoutes.sendResult(res, {
         code: 200,
