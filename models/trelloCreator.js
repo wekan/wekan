@@ -463,6 +463,7 @@ export class TrelloCreator {
       'purple': 'wisteria',
       'pink': 'pomegranate',
       'lime': 'nephritis',
+      'black': 'mosss',
       'sky': 'belize',
       'grey': 'midnight',
     };
