@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Only allow ifCanModify users to add dates on cards](https://github.com/wekan/wekan/pull/1867).
+
+Thanks to GitHub user rjevnikar for contributions.
+
 # v1.38 2018-08-29 Wekan release
 
 This release adds the following new features:
