@@ -37,8 +37,7 @@ BlazeComponent.extendComponent({
           const currentBoard = Boards.findOne(Session.get('currentBoard'));
           Boards.remove(currentBoard._id);
         }
-        const board = this.currentData();
-        Boards.remove(board._id);
+        Boards.remove(this._id);
         FlowRouter.go('home');
       }),
     }];
