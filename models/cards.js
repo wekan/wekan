@@ -1017,6 +1017,12 @@ if (Meteor.isServer) {
   // queries more efficient.
   Meteor.startup(() => {
     Cards._collection._ensureIndex({boardId: 1, createdAt: -1});
+    // https://github.com/wekan/wekan/issues/1863
+    // Swimlane added a new field in the cards collection of mongodb named parentId.
+    // When loading a board, mongodb is searching for every cards, the id of the parent (in the swinglanes collection).
+    // With a huge database, this result in a very slow app and high CPU on the mongodb side.
+    // To correct it, add Index to parentId:
+    Cards._collection._ensureIndex({parentId: 1});
   });
 
   Cards.after.insert((userId, doc) => {

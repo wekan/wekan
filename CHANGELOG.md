@@ -1,3 +1,14 @@
+# v1.37 2018-08-28 Wekan release
+
+This release fixes the following bugs:
+
+- [Add Missing Index on cards.parentId since Swimlane integration
+  to speedup Wekan](https://github.com/wekan/wekan/issues/1863);
+- [Update OpenShift template to add Route and parameterize](https://github.com/wekan/wekan/pull/1865);
+- [Fix typos in Wekan snap help](https://github.com/wekan/wekan/commit/0c5fc6d7fd899a6bc67a446ab43e53290d8571e4).
+
+Thanks to GitHub users Clement87, InfoSec812 and xet7 for their contributions.
+
 # v1.36 2018-08-25 Wekan release
 
 This release adds the following new features:
