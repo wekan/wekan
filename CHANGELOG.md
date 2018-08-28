@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix Delete Board](https://github.com/wekan/wekan/commit/534b20fedac9162d2d316bd74eff743d636f2b3d).
+
+Thanks to GitHub users rjevnikar and xet7 for their contributions.
+
 # v1.37 2018-08-28 Wekan release
 
 This release fixes the following bugs:
