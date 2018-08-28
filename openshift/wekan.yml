@@ -147,7 +147,7 @@ objects:
           - name: MONGO_URL
             value: mongodb://${MONGODB_USER}:${MONGODB_PASSWORD}@${DATABASE_SERVICE_NAME}:27017/${MONGODB_DATABASE}
           - name: ROOT_URL
-            value: http://localhost
+            value: https://${FQDN}/
           - name: PORT
             value: "8080"
           ports:
@@ -277,7 +277,40 @@ objects:
       type: ImageChange
     - type: ConfigChange
   status: {}
+- apiVersion: route.openshift.io/v1
+  kind: Route
+  metadata:
+    labels:
+      app: wekan
+      service: wekan
+      template: wekan-mongodb-persistent-template
+    name: wekan
+    namespace: ${NAMESPACE}
+  spec:
+    host: wekan-labs-ci-cd.apps.d1.casl.rht-labs.com
+    port:
+      targetPort: wekan
+    tls:
+      termination: edge
+    to:
+      kind: Service
+      name: wekan
+      weight: 100
+    wildcardPolicy: None
+  status:
+    ingress:
+      - conditions:
+          - lastTransitionTime: '2018-08-28T14:45:21Z'
+            status: 'True'
+            type: Admitted
+        host: ${FQDN}
+        routerName: router
+        wildcardPolicy: None
 parameters:
+- description: The Fully Qualified Hostname (FQDN) of the application
+  displayName: FQDN
+  name: FQDN
+  required: true
 - description: Maximum amount of memory the container can use.
   displayName: Memory Limit
   name: MEMORY_LIMIT
