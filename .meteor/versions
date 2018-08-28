@@ -118,6 +118,7 @@ mquandalle:jquery-ui-drag-drop-sort@0.2.0
 mquandalle:moment@1.0.1
 mquandalle:mousetrap-bindglobal@0.0.1
 mquandalle:perfect-scrollbar@0.6.5_2
+msavin:usercache@1.0.0
 npm-bcrypt@0.9.3
 npm-mongo@2.2.33
 oauth@1.2.1
