@@ -1,10 +1,15 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+- Add [msavin:userCache](https://github.com/msavin/userCache) to speedup Wekan.
+  See [meteor forums post](https://forums.meteor.com/t/introducing-a-new-approach-to-meteor-user-this-simple-trick-can-save-you-millions-of-database-requests/45336/7).
+
+and fixes the following bugs:
 
 - [Fix Delete Board](https://github.com/wekan/wekan/commit/534b20fedac9162d2d316bd74eff743d636f2b3d).
 
-Thanks to GitHub users rjevnikar and xet7 for their contributions.
+Thanks to GitHub users msavin, rjevnikar and xet7 for their contributions.
 
 # v1.37 2018-08-28 Wekan release
 
