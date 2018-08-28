@@ -36,28 +36,32 @@ template(name="cardDetails")
         if getReceived
           +cardReceivedDate
         else
-          a.js-received-date {{_ 'add'}}
+          if canModifyCard
+            a.js-received-date {{_ 'add'}}
 
       .card-details-item.card-details-item-start
         h3.card-details-item-title {{_ 'card-start'}}
         if getStart
           +cardStartDate
         else
-          a.js-start-date {{_ 'add'}}
+          if canModifyCard
+            a.js-start-date {{_ 'add'}}
 
       .card-details-item.card-details-item-due
         h3.card-details-item-title {{_ 'card-due'}}
         if getDue
           +cardDueDate
         else
-          a.js-due-date {{_ 'add'}}
+          if canModifyCard
+            a.js-due-date {{_ 'add'}}
 
       .card-details-item.card-details-item-end
         h3.card-details-item-title {{_ 'card-end'}}
         if getEnd
           +cardEndDate
         else
-          a.js-end-date {{_ 'add'}}
+          if canModifyCard
+            a.js-end-date {{_ 'add'}}
 
     .card-details-items
       .card-details-item.card-details-item-members
