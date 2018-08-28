@@ -272,7 +272,7 @@ objects:
         from:
           kind: ImageStreamTag
           name: mongodb:${MONGODB_VERSION}
-          namespace: "${NAMESPACE}"
+          namespace: "openshift"
         lastTriggeredImage: ''
       type: ImageChange
     - type: ConfigChange
@@ -287,7 +287,7 @@ objects:
     name: wekan
     namespace: ${NAMESPACE}
   spec:
-    host: wekan-labs-ci-cd.apps.d1.casl.rht-labs.com
+    host: ${FQDN}
     port:
       targetPort: wekan
     tls:
