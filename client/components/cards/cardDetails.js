@@ -200,7 +200,31 @@ Template.cardDetailsActionsPopup.events({
 });
 
 Template.editCardTitleForm.onRendered(function () {
-  autosize(this.$('.js-edit-card-title'));
+  const $textarea = this.$('.js-edit-card-title');
+  autosize($textarea);
+  const card = this.data;
+  this.touchedMembers = false;
+  CardAutocompletion.autocomplete($textarea, {
+    label: label => {
+      card.toggleLabel(label._id);
+      return "";
+    },
+    user: user => {
+      if (!this.touchedMembers) {
+        if (card.members) {
+          card.members.map(m => m).forEach(m => card.unassignMember(m));
+          card.members.length = 0;
+        }
+        this.touchedMembers = true;
+      }
+      card.toggleMember(user._id);
+      return "";
+    },
+    dueDate: due => {
+      card.setDue(due);
+      return "";
+    }
+  });
 });
 
 Template.editCardTitleForm.events({
