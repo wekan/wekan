@@ -33,7 +33,7 @@ template(name="cardDetails")
           each labels
             span.card-label(class="card-label-{{color}}" title=name)
               +viewerInline
-                = name
+                = shortName
         if canModifyCard
           a.card-label.add-label.js-add-labels(title="{{_ 'card-labels-title'}}")
             i.fa.fa-plus

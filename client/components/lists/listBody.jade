@@ -43,3 +43,8 @@ template(name="addCardForm")
 template(name="autocompleteLabelLine")
   .minicard-label(class="card-label-{{colorName}}" title=labelName)
   span(class="{{#if hasNoName}}quiet{{/if}}")= labelName
+  if label.altName
+    with label
+      span.altName
+        = " "
+        | {{altName}}
