@@ -97,6 +97,14 @@ Boards.attachSchema(new SimpleSchema({
     type: String,
     optional: true,
   },
+  'labels.$.shortName': {
+    type: String,
+    optional: true,
+  },
+  'labels.$.altName': {
+    type: String,
+    optional: true,
+  },
   'labels.$.rank': {
     type: Number,
     optional: true,
@@ -332,13 +340,22 @@ Boards.mutations({
   editLabel(labelId, label) {
     if (!this.getLabel(label)) {
       const labelIndex = this.labelIndex(labelId);
+
+      var setObj = {};
+      Object.keys(label).forEach( field => {
+        setObj[`labels.${labelIndex}.${field}`] = label[field]
+      } );
+
       return {
-        $set: {
-          [`labels.${labelIndex}.name`]: label.name,
-          [`labels.${labelIndex}.color`]: label.color,
-          [`labels.${labelIndex}.archived`]: label.archived,
-          [`labels.${labelIndex}.rank`]: label.rank
-        },
+        $set: setObj
+        // $set: {
+        //   [`labels.${labelIndex}.name`]: label.name,
+        //   [`labels.${labelIndex}.color`]: label.color,
+        //   [`labels.${labelIndex}.archived`]: label.archived,
+        //   [`labels.${labelIndex}.rank`]: label.rank,
+        //   [`labels.${labelIndex}.shortName`]: label.shortName,
+        //   [`labels.${labelIndex}.altName`]: label.shortName
+        // },
       };
     }
     return {};

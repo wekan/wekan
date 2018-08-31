@@ -1,5 +1,5 @@
 template(name="listBody")
-  .list-body.js-perfect-scrollbar
+  .list-body
     .minicards.clearfix.js-minicards(class="{{#if reachedWipLimit}}js-list-full{{/if}}")
       if cards.count
         +inlinedForm(autoclose=false position="top")
@@ -28,12 +28,18 @@ template(name="addCardForm")
       .minicard-labels
         each getLabels
           .minicard-label(class="card-label-{{color}}" title="{{name}}")
-            = name
+            +viewerInline
+              = name
     textarea.minicard-composer-textarea.js-card-title(autofocus)
     if members.get
       .minicard-members.js-minicard-composer-members
         each members.get
           +userAvatar(userId=this)
+    if dueDate.get
+      .dates
+        .date
+          .card-date.due-date
+              time= showDueDate
 
   .add-controls.clearfix
     button.primary.confirm(type="submit") {{_ 'add'}}
@@ -42,3 +48,8 @@ template(name="addCardForm")
 template(name="autocompleteLabelLine")
   .minicard-label(class="card-label-{{colorName}}" title=labelName)
   span(class="{{#if hasNoName}}quiet{{/if}}")= labelName
+  if label.altName
+    with label
+      span.altName
+        = " "
+        | {{altName}}

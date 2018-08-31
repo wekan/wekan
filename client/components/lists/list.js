@@ -24,7 +24,7 @@ BlazeComponent.extendComponent({
     $cards.sortable({
       connectWith: '.js-minicards:not(.js-list-full)',
       tolerance: 'pointer',
-      appendTo: 'body',
+      //appendTo: 'body',
       helper(evt, item) {
         const helper = item.clone();
         if (MultiSelection.isActive()) {

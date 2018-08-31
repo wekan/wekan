@@ -37,6 +37,8 @@ BlazeComponent.extendComponent({
 
     const labelIds = formComponent.labels.get();
 
+    const dueAt = formComponent.dueDate.get();
+
     const boardId = this.data().board()._id;
     const board = Boards.findOne(boardId);
     let swimlaneId = '';
@@ -55,6 +57,7 @@ BlazeComponent.extendComponent({
         boardId: this.data().board()._id,
         sort: sortIndex,
         swimlaneId,
+        dueAt
       };
       Lens.prepareNewCard(card);
       const _id = Cards.insert(card);
@@ -150,11 +153,13 @@ BlazeComponent.extendComponent({
   onCreated() {
     this.labels = new ReactiveVar([]);
     this.members = new ReactiveVar([]);
+    this.dueDate = new ReactiveVar();
   },
 
   reset() {
     this.labels.set([]);
     this.members.set([]);
+    this.dueDate.set();
   },
 
   getLabels() {
@@ -162,6 +167,10 @@ BlazeComponent.extendComponent({
     return Boards.findOne(currentBoardId).allLabels().filter((label) => {
       return this.labels.get().indexOf(label._id) > -1;
     });
+  },
+
+  showDueDate() {
+    return moment(this.dueDate).format(Features.opinions.dates.formats.date);
   },
 
   pressKey(evt) {
@@ -206,85 +215,20 @@ BlazeComponent.extendComponent({
 
     autosize($textarea);
 
-    $textarea.escapeableTextComplete([
-      // Emoji
-      {
-        match: /\B:([-+\w]*)$/,
-        search(term, callback) {
-          callback(Emoji.values.map((emoji) => {
-            return emoji.includes(term) ? emoji : null;
-          }).filter(Boolean));
-        },
-        template(value) {
-          const imgSrc = Emoji.baseImagePath + value;
-          const image = `<img alt="${value}" class="emoji" src="${imgSrc}.png" />`;
-          return image + value;
-        },
-        replace(value) {
-          return `:${value}:`;
-        },
-        index: 1,
+    CardAutocompletion.autocomplete($textarea, {
+      user: user=> {
+        toggleValueInReactiveArray(editor.members, user._id);
+        return '';
       },
+      label: label => {
+        toggleValueInReactiveArray(editor.labels, label._id);
+        return '';
+      },
+      date: due => {
+        editor.dueDate.set(due);
+        return '';
+      }
 
-      // User mentions
-      {
-        match: /\B@([\w.]*)$/,
-        search(term, callback) {
-          const currentBoard = Boards.findOne(Session.get('currentBoard'));
-          callback($.map(currentBoard.activeMembers(), (member) => {
-            const user = Users.findOne(member.userId);
-            return user.username.toLowerCase().indexOf(term.toLowerCase()) === 0 ? user : null;
-          }));
-        },
-        template(user) {
-          return user.username;
-        },
-        replace(user) {
-          toggleValueInReactiveArray(editor.members, user._id);
-          return '';
-        },
-        index: 1,
-      },
-
-      // Labels
-      {
-        match: /\B[#№]([\S]*)$/i,
-        search(term, callback) {
-          const currentBoard = Boards.findOne(Session.get('currentBoard'));
-          callback($.map(currentBoard.activeLabels(), (label) => {
-            lterm = term.toLowerCase();
-            if (label.name.toLowerCase().indexOf(lterm) > -1 ||
-                label.color.toLowerCase().indexOf(lterm) > -1) {
-              return label;
-            }
-            return null;
-          }));
-        },
-        template(label) {
-          return Blaze.toHTMLWithData(Template.autocompleteLabelLine, {
-            hasNoName: !label.name,
-            colorName: label.color,
-            labelName: label.name || label.color,
-          });
-        },
-        replace(label) {
-          toggleValueInReactiveArray(editor.labels, label._id);
-          return '';
-        },
-        index: 1,
-      },
-    ], {
-      // When the autocomplete menu is shown we want both a press of both `Tab`
-      // or `Enter` to validation the auto-completion. We also need to stop the
-      // event propagation to prevent the card from submitting (on `Enter`) or
-      // going on the next column (on `Tab`).
-      onKeydown(evt, commands) {
-        if (evt.keyCode === 9 || evt.keyCode === 13) {
-          evt.stopPropagation();
-          return commands.KEY_ENTER;
-        }
-        return null;
-      },
     });
   },
 }).register('addCardForm');
