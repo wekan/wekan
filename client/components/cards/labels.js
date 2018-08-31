@@ -66,8 +66,19 @@ function getLabelDataFromTemplate(tpl) {
   const color = Blaze.getData(tpl.find('.fa-check')).color;
   const archived =  tpl.$('#labelArchived').is(":checked");
   const rank = parseInt( tpl.$('#labelRank').val()) || 0;
-  return {board, name, color, archived, rank};
+  const nameParsed = splitLabelName(name);
+  return {board, name, color, archived, rank, shortName: nameParsed.shortName, altName: nameParsed.altName};
 }
+
+function splitLabelName(name) {
+  const parsed = /(.+?)\s*\((.*)\)/g.exec(name);
+  if (parsed !== null) {
+    const [_, shortName, altName ] = parsed;
+    return {shortName, altName};
+  }
+  return { shortName: name};
+}
+
 
 Template.createLabelPopup.events({
   // Create the new label

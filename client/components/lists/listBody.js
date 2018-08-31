@@ -262,9 +262,10 @@ BlazeComponent.extendComponent({
         },
         template(label) {
           return Blaze.toHTMLWithData(Template.autocompleteLabelLine, {
+            label,
             hasNoName: !label.name,
             colorName: label.color,
-            labelName: label.name || label.color,
+            labelName: label.shortName || label.color,
           });
         },
         replace(label) {

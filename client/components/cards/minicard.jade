@@ -9,7 +9,7 @@ template(name="minicard")
           .minicard-label(class="card-label-{{color}}" title="{{name}}")
             span(class="{{#if archived}}card-label--archived{{/if}}")
               +viewerInline
-                = makeCompactLabelName(name)
+                = shortName
     if members
       .minicard-members.js-minicard-members
         each members
