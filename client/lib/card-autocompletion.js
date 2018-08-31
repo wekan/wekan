@@ -44,7 +44,40 @@ CardAutocompletion = {
         },
         index: 1,
       },
+      // DueDate
+      {
+        match: /\B\/([\d+\.]*)$/i,
+        search(term, callback) {
+          var moments = [];
+          if (term.length > 0) {
+            const m = moment(term, Features.opinions.dates.formats.date, true);
+            if (m.isValid()) {
+              moments.push(m);
+            }
+            const justDate = moment().date(term.trim('.'));
+            const monthsOffset = moment().date() < justDate.date() ? 0 : 1;
+            if (justDate.isValid()) {
+              for (var i = 0; i < 2; i++) {
+                var d = justDate.clone().month(moment().month()+i + monthsOffset)
+                if (d != m) {
+                  moments.push(d);
+                }
+              }
+            }
+          }
+          callback(moments);
+        },
+        template(date) {
+          return `<span>${date.format(Features.opinions.dates.formats.date)}&nbsp</span><span class="altName">${date.fromNow()}</span>`;
+        },
 
+        replace(date) {
+          if (handlers.date)
+            return handlers.date(date.toDate());
+          return `/${date.format(Features.opinions.dates.formats.date)}`;
+        },
+        index: 1
+      },
       // Labels
       {
         match: /\B[#№]([\S]*)$/i,

@@ -220,7 +220,7 @@ Template.editCardTitleForm.onRendered(function () {
       card.toggleMember(user._id);
       return "";
     },
-    dueDate: due => {
+    date: due => {
       card.setDue(due);
       return "";
     }

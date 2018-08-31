@@ -37,6 +37,8 @@ BlazeComponent.extendComponent({
 
     const labelIds = formComponent.labels.get();
 
+    const dueAt = formComponent.dueDate.get();
+
     const boardId = this.data().board()._id;
     const board = Boards.findOne(boardId);
     let swimlaneId = '';
@@ -55,6 +57,7 @@ BlazeComponent.extendComponent({
         boardId: this.data().board()._id,
         sort: sortIndex,
         swimlaneId,
+        dueAt
       };
       Lens.prepareNewCard(card);
       const _id = Cards.insert(card);
@@ -150,11 +153,13 @@ BlazeComponent.extendComponent({
   onCreated() {
     this.labels = new ReactiveVar([]);
     this.members = new ReactiveVar([]);
+    this.dueDate = new ReactiveVar();
   },
 
   reset() {
     this.labels.set([]);
     this.members.set([]);
+    this.dueDate.set();
   },
 
   getLabels() {
@@ -162,6 +167,10 @@ BlazeComponent.extendComponent({
     return Boards.findOne(currentBoardId).allLabels().filter((label) => {
       return this.labels.get().indexOf(label._id) > -1;
     });
+  },
+
+  showDueDate() {
+    return moment(this.dueDate).format(Features.opinions.dates.formats.date);
   },
 
   pressKey(evt) {
@@ -213,6 +222,10 @@ BlazeComponent.extendComponent({
       },
       label: label => {
         toggleValueInReactiveArray(editor.labels, label._id);
+        return '';
+      },
+      date: due => {
+        editor.dueDate.set(due);
         return '';
       }
 

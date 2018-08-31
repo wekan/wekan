@@ -35,6 +35,11 @@ template(name="addCardForm")
       .minicard-members.js-minicard-composer-members
         each members.get
           +userAvatar(userId=this)
+    if dueDate.get
+      .dates
+        .date
+          .card-date.due-date
+              time= showDueDate
 
   .add-controls.clearfix
     button.primary.confirm(type="submit") {{_ 'add'}}
