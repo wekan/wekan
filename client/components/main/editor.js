@@ -3,45 +3,7 @@ Template.editor.onRendered(() => {
 
   autosize($textarea);
 
-  $textarea.escapeableTextComplete([
-    // Emoji
-    {
-      match: /\B:([-+\w]*)$/,
-      search(term, callback) {
-        callback(Emoji.values.map((emoji) => {
-          return emoji.includes(term) ? emoji : null;
-        }).filter(Boolean));
-      },
-      template(value) {
-        const imgSrc = Emoji.baseImagePath + value;
-        const image = `<img alt="${value}" class="emoji" src="${imgSrc}.png" />`;
-        return image + value;
-      },
-      replace(value) {
-        return `:${value}:`;
-      },
-      index: 1,
-    },
-
-    // User mentions
-    {
-      match: /\B@([\w.]*)$/,
-      search(term, callback) {
-        const currentBoard = Boards.findOne(Session.get('currentBoard'));
-        callback(currentBoard.activeMembers().map((member) => {
-          const username = Users.findOne(member.userId).username;
-          return username.includes(term) ? username : null;
-        }).filter(Boolean));
-      },
-      template(value) {
-        return value;
-      },
-      replace(username) {
-        return `@${username} `;
-      },
-      index: 1,
-    },
-  ]);
+  CardAutocompletion.autocomplete($textarea);
 });
 
 import sanitizeXss from 'xss';
