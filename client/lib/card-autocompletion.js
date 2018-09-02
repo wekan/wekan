@@ -64,11 +64,20 @@ CardAutocompletion = {
                 }
               }
             }
+          } else {
+            moments = [ moment(), moment().add(1, 'd'), moment().day(5), moment().day(7) ];
           }
           callback(moments);
         },
         template(date) {
-          return `<span>${date.format(Features.opinions.dates.formats.date)}&nbsp</span><span class="altName">${date.fromNow()}</span>`;
+          return `<span>${date.format(Features.opinions.dates.formats.date)}&nbsp</span><span class="altName">${date.calendar(null, {
+            sameDay: '[today]',
+            nextDay: '[tomorrow]',
+            nextWeek: 'dddd',
+            lastDay: '[yesterday]',
+            lastWeek: '[last] dddd',
+            sameElse: 'DD/MM/YYYY'
+          })}, ${date.endOf('day').fromNow()}</span>`;
         },
 
         replace(date) {
@@ -124,3 +133,4 @@ CardAutocompletion = {
 };
 
 Blaze.registerHelper('CardAutocompletion', CardAutocompletion);
+

@@ -49,7 +49,6 @@ kadira:dochead
 meteorhacks:picker
 meteorhacks:subs-manager
 mquandalle:autofocus
-mquandalle:moment
 ongoworks:speakingurl
 raix:handlebar-helpers
 tap:i18n
@@ -83,3 +82,4 @@ staringatlights:flow-router
 mixmax:smart-disconnect
 accounts-password@1.5.0
 cfs:gridfs
+momentjs:moment
