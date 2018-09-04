@@ -22,10 +22,10 @@ const pkgdef :Spk.PackageDefinition = (
     appTitle = (defaultText = "Wekan"),
     # The name of the app as it is displayed to the user.
 
-    appVersion = 125,
+    appVersion = 126,
     # Increment this for every release.
 
-    appMarketingVersion = (defaultText = "1.40.0~2018-09-04"),
+    appMarketingVersion = (defaultText = "1.41.0~2018-09-05"),
     # Human-readable presentation of the app version.
 
     minUpgradableAppVersion = 0,
@@ -226,7 +226,7 @@ const pkgdef :Spk.PackageDefinition = (
         verbPhrase = (defaultText = "removed from card"),
       ), ],
     ),
-    apiPath = "/api",
+    apiPath = "/",
     saveIdentityCaps = true,
   ),
 );

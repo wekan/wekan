@@ -1,3 +1,11 @@
+# v1.41 2018-09-05 Wekan release
+
+This release tries to fix the following bugs:
+
+- [Try to fix Wekan Sandstorm API](https://github.com/wekan/wekan/issues/1279#issuecomment-418440401).
+
+Thanks to GitHub users ocdtrekkie and xet7 for their contributions.
+
 # v1.40 2018-09-04 Wekan release
 
 This release adds the following new features:
