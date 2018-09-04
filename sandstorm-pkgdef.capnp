@@ -226,7 +226,7 @@ const pkgdef :Spk.PackageDefinition = (
         verbPhrase = (defaultText = "removed from card"),
       ), ],
     ),
-    apiPath = "/api",
+    apiPath = "/",
     saveIdentityCaps = true,
   ),
 );
