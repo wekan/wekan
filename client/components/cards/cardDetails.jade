@@ -173,25 +173,28 @@ template(name="cardDetails")
     +attachmentsGalery
 
     hr
-    .activity-title
-      h3 {{ _ 'activity'}}
-      if currentUser.isBoardMember
-        .material-toggle-switch
-          span.toggle-switch-title {{_ 'hide-system-messages'}}
-          if hiddenSystemMessages
-            input.toggle-switch(type="checkbox" id="toggleButton" checked="checked")
-          else
-            input.toggle-switch(type="checkbox" id="toggleButton")
-          label.toggle-label(for="toggleButton")
+    unless currentUser.isNoComments
+      .activity-title
+        h3 {{ _ 'activity'}}
+        if currentUser.isBoardMember
+          .material-toggle-switch
+            span.toggle-switch-title {{_ 'hide-system-messages'}}
+            if hiddenSystemMessages
+              input.toggle-switch(type="checkbox" id="toggleButton" checked="checked")
+            else
+              input.toggle-switch(type="checkbox" id="toggleButton")
+            label.toggle-label(for="toggleButton")
     if currentUser.isBoardMember
-      +commentForm
-    if isLoaded.get
-      if isLinkedCard
-        +activities(card=this mode="linkedcard")
-      else if isLinkedBoard
-        +activities(card=this mode="linkedboard")
-      else
-        +activities(card=this mode="card")
+      unless currentUser.isNoComments
+        +commentForm
+    unless currentUser.isNoComments
+      if isLoaded.get
+        if isLinkedCard
+          +activities(card=this mode="linkedcard")
+        else if isLinkedBoard
+          +activities(card=this mode="linkedboard")
+        else
+          +activities(card=this mode="card")
 
 template(name="editCardTitleForm")
   textarea.js-edit-card-title(rows='1' autofocus)

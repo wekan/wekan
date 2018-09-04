@@ -151,6 +151,16 @@ if (Meteor.isClient) {
       return board && board.hasMember(this._id);
     },
 
+    isNotNoComments() {
+      const board = Boards.findOne(Session.get('currentBoard'));
+      return board && board.hasMember(this._id) && !board.hasNoComments(this._id);
+    },
+
+    isNoComments() {
+      const board = Boards.findOne(Session.get('currentBoard'));
+      return board && board.hasNoComments(this._id);
+    },
+
     isNotCommentOnly() {
       const board = Boards.findOne(Session.get('currentBoard'));
       return board && board.hasMember(this._id) && !board.hasCommentOnly(this._id);

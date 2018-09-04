@@ -208,7 +208,8 @@ if (isSandstorm && Meteor.isServer) {
     const isActive = permissions.indexOf('participate') > -1;
     const isAdmin = permissions.indexOf('configure') > -1;
     const isCommentOnly = false;
-    const permissionDoc = { userId, isActive, isAdmin, isCommentOnly };
+    const isNoComments = false;
+    const permissionDoc = { userId, isActive, isAdmin, isNoComments, isCommentOnly };
 
     const boardMembers = Boards.findOne(sandstormBoard._id).members;
     const memberIndex = _.pluck(boardMembers, 'userId').indexOf(userId);
