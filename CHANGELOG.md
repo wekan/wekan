@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Add permission "No comments"](https://github.com/wekan/wekan/commit/77efcf71376d3da6c19ad1a4910567263e83c0ca).
+  It is like normal user, but [does not show comments and activities](https://github.com/wekan/wekan/issues/1861).
+
+Thanks to GitHub user xet7 for contributions.
+
 # v1.39 2018-08-29 Wekan release
 
 This release fixes the following bugs:
