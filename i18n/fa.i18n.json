@@ -171,6 +171,8 @@
     "comment-placeholder": "درج نظر",
     "comment-only": "فقط نظر",
     "comment-only-desc": "فقط می‌تواند روی کارت‌ها نظر دهد.",
+    "no-comments": "No comments",
+    "no-comments-desc": "Can not see comments and activities.",
     "computer": "رایانه",
     "confirm-subtask-delete-dialog": "از حذف این زیر وظیفه اطمینان دارید؟",
     "confirm-checklist-delete-dialog": "مطمئنا چک لیست پاک شود؟",

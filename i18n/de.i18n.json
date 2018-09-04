@@ -171,6 +171,8 @@
     "comment-placeholder": "Kommentar schreiben",
     "comment-only": "Nur kommentierbar",
     "comment-only-desc": "Kann Karten nur Kommentieren",
+    "no-comments": "No comments",
+    "no-comments-desc": "Can not see comments and activities.",
     "computer": "Computer",
     "confirm-subtask-delete-dialog": "Wollen Sie die Teilaufgabe wirklich löschen?",
     "confirm-checklist-delete-dialog": "Wollen Sie die Checkliste wirklich löschen?",

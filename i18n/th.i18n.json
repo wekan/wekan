@@ -171,6 +171,8 @@
     "comment-placeholder": "Write Comment",
     "comment-only": "Comment only",
     "comment-only-desc": "Can comment on cards only.",
+    "no-comments": "No comments",
+    "no-comments-desc": "Can not see comments and activities.",
     "computer": "คอมพิวเตอร์",
     "confirm-subtask-delete-dialog": "Are you sure you want to delete subtask?",
     "confirm-checklist-delete-dialog": "Are you sure you want to delete checklist?",

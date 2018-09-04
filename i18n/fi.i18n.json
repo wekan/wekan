@@ -171,6 +171,8 @@
     "comment-placeholder": "Kirjoita kommentti",
     "comment-only": "Vain kommentointi",
     "comment-only-desc": "Voi vain kommentoida kortteja",
+    "no-comments": "Ei kommentteja",
+    "no-comments-desc": "Ei voi nähdä kommentteja ja toimintaa.",
     "computer": "Tietokone",
     "confirm-subtask-delete-dialog": "Oletko varma että haluat poistaa alitehtävän?",
     "confirm-checklist-delete-dialog": "Oletko varma että haluat poistaa tarkistuslistan?",

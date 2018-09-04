@@ -171,6 +171,8 @@
     "comment-placeholder": "כתיבת הערה",
     "comment-only": "הערה בלבד",
     "comment-only-desc": "ניתן להעיר על כרטיסים בלבד.",
+    "no-comments": "No comments",
+    "no-comments-desc": "Can not see comments and activities.",
     "computer": "מחשב",
     "confirm-subtask-delete-dialog": "האם למחוק את תת המשימה?",
     "confirm-checklist-delete-dialog": "האם אתה בטוח שברצונך למחוק את רשימת המשימות?",

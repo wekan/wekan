@@ -23,10 +23,11 @@ template(name='homeSidebar')
   hr
   +labelsWidget
   hr
-  h3
-    i.fa.fa-comments-o
-    | {{_ 'activities'}}
-  +activities(mode="board")
+  unless currentUser.isNoComments
+    h3
+      i.fa.fa-comments-o
+      | {{_ 'activities'}}
+    +activities(mode="board")
 
 template(name="membersWidget")
   .board-widget.board-widget-members
@@ -145,6 +146,12 @@ template(name="changePermissionsPopup")
         if isNormal
           i.fa.fa-check
         span.sub-name {{_ 'normal-desc'}}
+    li
+      a(class="{{#if isLastAdmin}}disabled{{else}}js-set-no-comments{{/if}}")
+        | {{_ 'no-comments'}}
+        if isNoComments
+          i.fa.fa-check
+        span.sub-name {{_ 'no-comments-desc'}}
     li
       a(class="{{#if isLastAdmin}}disabled{{else}}js-set-comment-only{{/if}}")
         | {{_ 'comment-only'}}
