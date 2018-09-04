@@ -171,6 +171,8 @@
     "comment-placeholder": "Escrever Comentário",
     "comment-only": "Somente comentários",
     "comment-only-desc": "Pode comentar apenas em cartões.",
+    "no-comments": "No comments",
+    "no-comments-desc": "Can not see comments and activities.",
     "computer": "Computador",
     "confirm-subtask-delete-dialog": "Tem certeza que deseja deletar a subtarefa?",
     "confirm-checklist-delete-dialog": "Tem certeza que quer deletar o checklist?",

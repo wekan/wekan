@@ -171,6 +171,8 @@
     "comment-placeholder": "Skriv kommentar",
     "comment-only": "Kommentera endast",
     "comment-only-desc": "Kan endast kommentera kort.",
+    "no-comments": "No comments",
+    "no-comments-desc": "Can not see comments and activities.",
     "computer": "Dator",
     "confirm-subtask-delete-dialog": "Är du säker på att du vill radera deluppgift?",
     "confirm-checklist-delete-dialog": "Är du säker på att du vill radera checklista?",

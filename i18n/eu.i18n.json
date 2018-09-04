@@ -171,6 +171,8 @@
     "comment-placeholder": "Idatzi iruzkin bat",
     "comment-only": "Iruzkinak besterik ez",
     "comment-only-desc": "Iruzkinak txarteletan soilik egin ditzake",
+    "no-comments": "No comments",
+    "no-comments-desc": "Can not see comments and activities.",
     "computer": "Ordenagailua",
     "confirm-subtask-delete-dialog": "Are you sure you want to delete subtask?",
     "confirm-checklist-delete-dialog": "Are you sure you want to delete checklist?",

@@ -171,6 +171,8 @@
     "comment-placeholder": "添加评论",
     "comment-only": "仅能评论",
     "comment-only-desc": "只能在卡片上评论。",
+    "no-comments": "No comments",
+    "no-comments-desc": "Can not see comments and activities.",
     "computer": "从本机上传",
     "confirm-subtask-delete-dialog": "确定要删除子任务吗？",
     "confirm-checklist-delete-dialog": "确定要删除清单吗？",

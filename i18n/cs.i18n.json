@@ -171,6 +171,8 @@
     "comment-placeholder": "Text komentáře",
     "comment-only": "Pouze komentáře",
     "comment-only-desc": "Může přidávat komentáře pouze do karet.",
+    "no-comments": "No comments",
+    "no-comments-desc": "Can not see comments and activities.",
     "computer": "Počítač",
     "confirm-subtask-delete-dialog": "Are you sure you want to delete subtask?",
     "confirm-checklist-delete-dialog": "Are you sure you want to delete checklist?",

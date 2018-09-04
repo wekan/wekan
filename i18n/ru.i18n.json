@@ -171,6 +171,8 @@
     "comment-placeholder": "Написать комментарий",
     "comment-only": "Только комментирование",
     "comment-only-desc": "Может комментировать только карточки.",
+    "no-comments": "No comments",
+    "no-comments-desc": "Can not see comments and activities.",
     "computer": "Загрузить с компьютера",
     "confirm-subtask-delete-dialog": "Вы уверены, что хотите удалить подзадачу?",
     "confirm-checklist-delete-dialog": "Вы уверены, что хотите удалить чеклист?",

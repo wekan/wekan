@@ -171,6 +171,8 @@
     "comment-placeholder": "Schrijf reactie",
     "comment-only": "Alleen reageren",
     "comment-only-desc": "Kan alleen op kaarten reageren.",
+    "no-comments": "No comments",
+    "no-comments-desc": "Can not see comments and activities.",
     "computer": "Computer",
     "confirm-subtask-delete-dialog": "Are you sure you want to delete subtask?",
     "confirm-checklist-delete-dialog": "Are you sure you want to delete checklist?",
