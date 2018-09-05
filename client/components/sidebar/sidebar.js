@@ -126,8 +126,11 @@ Template.memberPopup.helpers({
     if(type === 'normal'){
       const currentBoard = Boards.findOne(Session.get('currentBoard'));
       const commentOnly = currentBoard.hasCommentOnly(this.userId);
+      const noComments = currentBoard.hasNoComments(this.userId);
       if(commentOnly){
         return TAPi18n.__('comment-only').toLowerCase();
+      } else if(noComments) {
+        return TAPi18n.__('no-comments').toLowerCase();
       } else {
         return TAPi18n.__(type).toLowerCase();
       }
@@ -324,12 +327,13 @@ BlazeComponent.extendComponent({
 }).register('addMemberPopup');
 
 Template.changePermissionsPopup.events({
-  'click .js-set-admin, click .js-set-normal, click .js-set-comment-only'(event) {
+  'click .js-set-admin, click .js-set-normal, click .js-set-no-comments, click .js-set-comment-only'(event) {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
     const memberId = this.userId;
     const isAdmin = $(event.currentTarget).hasClass('js-set-admin');
     const isCommentOnly = $(event.currentTarget).hasClass('js-set-comment-only');
-    currentBoard.setMemberPermission(memberId, isAdmin, isCommentOnly);
+    const isNoComments = $(event.currentTarget).hasClass('js-set-no-comments');
+    currentBoard.setMemberPermission(memberId, isAdmin, isNoComments, isCommentOnly);
     Popup.back(1);
   },
 });
@@ -342,7 +346,12 @@ Template.changePermissionsPopup.helpers({
 
   isNormal() {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
-    return !currentBoard.hasAdmin(this.userId) && !currentBoard.hasCommentOnly(this.userId);
+    return !currentBoard.hasAdmin(this.userId) && !currentBoard.hasNoComments(this.userId) && !currentBoard.hasCommentOnly(this.userId);
+  },
+
+  isNoComments() {
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    return !currentBoard.hasAdmin(this.userId) && currentBoard.hasNoComments(this.userId);
   },
 
   isCommentOnly() {

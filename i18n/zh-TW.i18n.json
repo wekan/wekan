@@ -171,6 +171,8 @@
     "comment-placeholder": "新增評論",
     "comment-only": "只可以發表評論",
     "comment-only-desc": "只可以對卡片發表評論",
+    "no-comments": "No comments",
+    "no-comments-desc": "Can not see comments and activities.",
     "computer": "從本機上傳",
     "confirm-subtask-delete-dialog": "Are you sure you want to delete subtask?",
     "confirm-checklist-delete-dialog": "Are you sure you want to delete checklist?",

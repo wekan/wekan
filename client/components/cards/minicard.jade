@@ -65,10 +65,11 @@ template(name="minicard")
           +userAvatar(userId=this)
 
     .badges
-      if comments.count
-        .badge(title="{{_ 'card-comments-title' comments.count }}")
-          span.badge-icon.fa.fa-comment-o.badge-comment
-          span.badge-text= comments.count
+      unless currentUser.isNoComments
+        if comments.count
+          .badge(title="{{_ 'card-comments-title' comments.count }}")
+            span.badge-icon.fa.fa-comment-o.badge-comment
+            span.badge-text= comments.count
       if getDescription
         .badge.badge-state-image-only(title=getDescription)
           span.badge-icon.fa.fa-align-left

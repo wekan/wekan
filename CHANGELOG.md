@@ -1,3 +1,20 @@
+# v1.41 2018-09-05 Wekan release
+
+This release tries to fix the following bugs:
+
+- [Try to fix Wekan Sandstorm API](https://github.com/wekan/wekan/issues/1279#issuecomment-418440401).
+
+Thanks to GitHub users ocdtrekkie and xet7 for their contributions.
+
+# v1.40 2018-09-04 Wekan release
+
+This release adds the following new features:
+
+- [Add permission "No comments"](https://github.com/wekan/wekan/commit/77efcf71376d3da6c19ad1a4910567263e83c0ca).
+  It is like normal user, but [does not show comments and activities](https://github.com/wekan/wekan/issues/1861).
+
+Thanks to GitHub user xet7 for contributions.
+
 # v1.39 2018-08-29 Wekan release
 
 This release fixes the following bugs:

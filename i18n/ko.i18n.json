@@ -171,6 +171,8 @@
     "comment-placeholder": "댓글 입력",
     "comment-only": "댓글만 입력 가능",
     "comment-only-desc": "카드에 댓글만 달수 있습니다.",
+    "no-comments": "No comments",
+    "no-comments-desc": "Can not see comments and activities.",
     "computer": "내 컴퓨터",
     "confirm-subtask-delete-dialog": "Are you sure you want to delete subtask?",
     "confirm-checklist-delete-dialog": "Are you sure you want to delete checklist?",

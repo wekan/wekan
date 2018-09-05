@@ -171,6 +171,8 @@
     "comment-placeholder": "Escriu un comentari",
     "comment-only": "Només comentaris",
     "comment-only-desc": "Només pots fer comentaris a les fitxes",
+    "no-comments": "No comments",
+    "no-comments-desc": "Can not see comments and activities.",
     "computer": "Ordinador",
     "confirm-subtask-delete-dialog": "Are you sure you want to delete subtask?",
     "confirm-checklist-delete-dialog": "Are you sure you want to delete checklist?",

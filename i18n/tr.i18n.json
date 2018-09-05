@@ -171,6 +171,8 @@
     "comment-placeholder": "Yorum Yaz",
     "comment-only": "Sadece yorum",
     "comment-only-desc": "Sadece kartlara yorum yazabilir.",
+    "no-comments": "No comments",
+    "no-comments-desc": "Can not see comments and activities.",
     "computer": "Bilgisayar",
     "confirm-subtask-delete-dialog": "Are you sure you want to delete subtask?",
     "confirm-checklist-delete-dialog": "Are you sure you want to delete checklist?",

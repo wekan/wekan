@@ -171,6 +171,8 @@
     "comment-placeholder": "Écrire un commentaire",
     "comment-only": "Commentaire uniquement",
     "comment-only-desc": "Ne peut que commenter des cartes.",
+    "no-comments": "No comments",
+    "no-comments-desc": "Can not see comments and activities.",
     "computer": "Ordinateur",
     "confirm-subtask-delete-dialog": "Êtes-vous sûr de vouloir supprimer la sous-tâche ?",
     "confirm-checklist-delete-dialog": "Êtes-vous sûr de vouloir supprimer la checklist ?",

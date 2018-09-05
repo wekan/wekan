@@ -171,6 +171,8 @@
     "comment-placeholder": "Scrivi Commento",
     "comment-only": "Solo commenti",
     "comment-only-desc": "Puoi commentare solo le schede.",
+    "no-comments": "No comments",
+    "no-comments-desc": "Can not see comments and activities.",
     "computer": "Computer",
     "confirm-subtask-delete-dialog": "Sei sicuro di voler eliminare il sotto-compito?",
     "confirm-checklist-delete-dialog": "Sei sicuro di voler eliminare la checklist?",
