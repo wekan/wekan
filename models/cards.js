@@ -914,8 +914,9 @@ Cards.mutations({
 
 //FUNCTIONS FOR creation of Activities
 
-function cardMove(userId, doc, fieldNames, oldListId) {
-  if (_.contains(fieldNames, 'listId') && doc.listId !== oldListId) {
+function cardMove(userId, doc, fieldNames, oldListId, oldSwimlaneId) {
+  if ((_.contains(fieldNames, 'listId') && doc.listId !== oldListId) ||
+      (_.contains(fieldNames, 'swimlaneId') && doc.swimlaneId !== oldSwimlaneId)){
     Activities.insert({
       userId,
       oldListId,
@@ -923,6 +924,8 @@ function cardMove(userId, doc, fieldNames, oldListId) {
       listId: doc.listId,
       boardId: doc.boardId,
       cardId: doc._id,
+      swimlaneId: doc.swimlaneId,
+      oldSwimlaneId,
     });
   }
 }
@@ -990,6 +993,7 @@ function cardCreation(userId, doc) {
     boardId: doc.boardId,
     listId: doc.listId,
     cardId: doc._id,
+    swimlaneId: doc.swimlaneId,
   });
 }
 
@@ -1037,7 +1041,8 @@ if (Meteor.isServer) {
   //New activity for card moves
   Cards.after.update(function (userId, doc, fieldNames) {
     const oldListId = this.previous.listId;
-    cardMove(userId, doc, fieldNames, oldListId);
+    const oldSwimlaneId = this.previous.swimlaneId;
+    cardMove(userId, doc, fieldNames, oldListId, oldSwimlaneId);
   });
 
   // Add a new activity if we add or remove a member to the card
