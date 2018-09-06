@@ -160,6 +160,7 @@ export class WekanCreator {
         wekanId: Meteor.userId(),
         isActive: true,
         isAdmin: true,
+        isNoComments: false,
         isCommentOnly: false,
         swimlaneId: false,
       }],
