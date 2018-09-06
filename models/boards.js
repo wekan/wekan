@@ -846,14 +846,14 @@ if (Meteor.isServer) {
         members: [
           {
             userId: req.body.owner,
-            isAdmin: true,
-            isActive: true,
-            isNoComments: false,
-            isCommentOnly: false,
+            isAdmin: req.body.isAdmin || true,
+            isActive: req.body.isActive || true,
+            isNoComments: req.body.isNoComments || false,
+            isCommentOnly: req.body.isCommentOnly || false,
           },
         ],
-        permission: 'public',
-        color: 'belize',
+        permission: req.body.permission || 'private',
+        color: req.body.color || 'belize',
       });
       JsonRoutes.sendResult(res, {
         code: 200,
