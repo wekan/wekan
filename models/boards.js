@@ -855,10 +855,15 @@ if (Meteor.isServer) {
         permission: req.body.permission || 'private',
         color: req.body.color || 'belize',
       });
+      const swimlaneId = Swimlanes.insert({
+        title: TAPi18n.__('default'),
+        boardId: id,
+      });
       JsonRoutes.sendResult(res, {
         code: 200,
         data: {
           _id: id,
+          defaultSwimlaneId: swimlaneId,
         },
       });
     }
