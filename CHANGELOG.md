@@ -1,3 +1,11 @@
+# v1.43 2018-09-06 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix "No Comments" permission on Wekan and Trello import](https://github.com/wekan/wekan/commit/0a001d505d81961e6bd6715d885fffee0adb702d).
+
+Thanks to GitHub user xet7 for contributions.
+
 # v1.42 2018-09-06 Wekan release
 
 This release adds the following new features:
