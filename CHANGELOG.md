@@ -1,3 +1,14 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- REST API: [Create board options to be modifiable](https://github.com/wekan/wekan/commit/9cea76e4efaacaebcb2e9f0690dfeb4ef6d62527),
+  like permissions, public/private board - now private by default,
+  and board background color.
+  Docs at https://github.com/wekan/wekan/wiki/REST-API-Boards
+
+Thanks to GitHub user xet7 for contributions.
+
 # v1.41 2018-09-05 Wekan release
 
 This release tries to fix the following bugs:
