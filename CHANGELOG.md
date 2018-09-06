@@ -6,8 +6,9 @@ This release adds the following new features:
   like permissions, public/private board - now private by default,
   and board background color.
   Docs at https://github.com/wekan/wekan/wiki/REST-API-Boards
+- [Add swimlaneId in activity. Create default swimlaneId in API](https://github.com/wekan/wekan/pull/1876).
 
-Thanks to GitHub user xet7 for contributions.
+Thanks to GitHub users andresmanelli and xet7 for their contributions.
 
 # v1.41 2018-09-05 Wekan release
 
