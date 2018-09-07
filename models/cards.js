@@ -1149,6 +1149,51 @@ if (Meteor.isServer) {
       Cards.direct.update({_id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false},
         {$set: {labelIds: newlabelIds}});
     }
+    if (req.body.hasOwnProperty('requestedBy')) {
+      const newrequestedBy = req.body.requestedBy;
+      Cards.direct.update({_id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false},
+        {$set: {requestedBy: newrequestedBy}});
+    }
+    if (req.body.hasOwnProperty('assignedBy')) {
+      const newassignedBy = req.body.assignedBy;
+      Cards.direct.update({_id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false},
+        {$set: {assignedBy: newassignedBy}});
+    }
+    if (req.body.hasOwnProperty('receivedAt')) {
+      const newreceivedAt = req.body.receivedAt;
+      Cards.direct.update({_id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false},
+        {$set: {receivedAt: newreceivedAt}});
+    }
+    if (req.body.hasOwnProperty('startAt')) {
+      const newstartAt = req.body.startAt;
+      Cards.direct.update({_id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false},
+        {$set: {startAt: newstartAt}});
+    }
+    if (req.body.hasOwnProperty('dueAt')) {
+      const newdueAt = req.body.dueAt;
+      Cards.direct.update({_id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false},
+        {$set: {dueAt: newdueAt}});
+    }
+    if (req.body.hasOwnProperty('endAt')) {
+      const newendAt = req.body.endAt;
+      Cards.direct.update({_id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false},
+        {$set: {endAt: newendAt}});
+    }
+    if (req.body.hasOwnProperty('spentTime')) {
+      const newspentTime = req.body.spentTime;
+      Cards.direct.update({_id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false},
+        {$set: {spentTime: newspentTime}});
+    }
+    if (req.body.hasOwnProperty('isOverTime')) {
+      const newisOverTime = req.body.isOverTime;
+      Cards.direct.update({_id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false},
+        {$set: {isOverTime: newisOverTime}});
+    }
+    if (req.body.hasOwnProperty('customFields')) {
+      const newcustomFields = req.body.customFields;
+      Cards.direct.update({_id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false},
+        {$set: {customFields: newcustomFields}});
+    }
     JsonRoutes.sendResult(res, {
       code: 200,
       data: {
