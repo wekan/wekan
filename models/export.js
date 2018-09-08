@@ -55,6 +55,7 @@ class Exporter {
     result.lists = Lists.find(byBoard, noBoardId).fetch();
     result.cards = Cards.find(byBoardNoLinked, noBoardId).fetch();
     result.swimlanes = Swimlanes.find(byBoard, noBoardId).fetch();
+    result.customFields = CustomFields.find(byBoard, noBoardId).fetch();
     result.comments = CardComments.find(byBoard, noBoardId).fetch();
     result.activities = Activities.find(byBoard, noBoardId).fetch();
     result.checklists = [];
