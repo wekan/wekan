@@ -150,6 +150,7 @@ export class TrelloCreator {
         userId: Meteor.userId(),
         isAdmin: true,
         isActive: true,
+        isNoComments: false,
         isCommentOnly: false,
         swimlaneId: false,
       }],
@@ -177,6 +178,7 @@ export class TrelloCreator {
               userId: wekanId,
               isAdmin: this.getAdmin(trelloMembership.memberType),
               isActive: true,
+              isNoComments: false,
               isCommentOnly: false,
               swimlaneId: false,
             });

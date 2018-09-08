@@ -8,7 +8,7 @@ const postCatchError = Meteor.wrapAsync((url, options, resolve) => {
   });
 });
 
-const webhooksAtbts = ( (process.env.WEBHOOKS_ATTRIBUTES && process.env.WEBHOOKS_ATTRIBUTES.split(',') ) || ['cardId', 'listId', 'oldListId', 'boardId', 'comment', 'user', 'card', 'commentId']);
+const webhooksAtbts = ( (process.env.WEBHOOKS_ATTRIBUTES && process.env.WEBHOOKS_ATTRIBUTES.split(',') ) || ['cardId', 'listId', 'oldListId', 'boardId', 'comment', 'user', 'card', 'commentId', 'swimlaneId']);
 
 Meteor.methods({
   outgoingWebhooks(integrations, description, params) {

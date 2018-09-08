@@ -117,6 +117,9 @@ if (Meteor.isServer) {
       params.url = card.absoluteUrl();
       params.cardId = activity.cardId;
     }
+    if (activity.swimlaneId) {
+      params.swimlaneId = activity.swimlaneId;
+    }
     if (activity.commentId) {
       const comment = activity.comment();
       params.comment = comment.text;
