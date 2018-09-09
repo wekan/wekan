@@ -109,6 +109,7 @@ mquandalle:jade@0.4.9
 mquandalle:jade-compiler@0.4.5
 mquandalle:jquery-textcomplete@0.8.0_1
 mquandalle:jquery-ui-drag-drop-sort@0.2.0
+mquandalle:moment@1.0.1
 mquandalle:mousetrap-bindglobal@0.0.1
 mquandalle:perfect-scrollbar@0.6.5_2
 npm-bcrypt@0.9.3

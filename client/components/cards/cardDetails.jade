@@ -1,7 +1,7 @@
 template(name="cardDetails")
   section.card-details.js-card-details.js-perfect-scrollbar: .card-details-canvas
     .card-details-header
-      +inlinedForm(classNames="js-card-details-title")
+      +inlinedForm(classNames="js-card-details-title" autofocus="true")
         +editCardTitleForm
       else
         a.fa.fa-times-thin.close-card-details.js-close-card-details

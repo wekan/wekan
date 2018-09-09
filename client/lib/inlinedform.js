@@ -21,7 +21,7 @@ InlinedForm = BlazeComponent.extendComponent({
   },
 
   onCreated() {
-    this.isOpen = new ReactiveVar(false);
+    this.isOpen = new ReactiveVar(this.autofocus || false);
   },
 
   onDestroyed() {

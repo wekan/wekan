@@ -1,8 +1,4 @@
 BlazeComponent.extendComponent({
-  mixins() {
-    return [Mixins.PerfectScrollbar];
-  },
-
   openForm(options) {
     options = options || {};
     options.position = options.position || 'top';
