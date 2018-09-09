@@ -4,8 +4,9 @@ This release adds the following new features:
 
 - REST API: [Add startAt/dueAt/endAt etc](https://github.com/wekan/wekan/commit/1e0fdf8abc10130ea3c50b13ae97396223ce7fa9).
   Docs at https://github.com/wekan/wekan/wiki/REST-API-Cards
+- [Fix cards export and add customFields export](https://github.com/wekan/wekan/pull/1886).
 
-Thanks to GitHub user xet7 for contributions.
+Thanks to GitHub users ymeramees and xet7 for their contributions.
 
 # v1.43 2018-09-06 Wekan release
 
