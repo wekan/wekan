@@ -1,3 +1,11 @@
+# v1.45 2018-09-09 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix lint error](https://github.com/wekan/wekan/commit/45c0343f45b4cfc06d83cf357ffb50d6fca2f23b).
+
+Thanks to GitHub user xet7 for contributions.
+
 # v1.44 2018-09-09 Wekan release
 
 This release adds the following new features:
