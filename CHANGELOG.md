@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Upgrade MongoDB to 3.2.21](https://github.com/wekan/wekan/commit/0cb3aee803781e4241c38a3e1e700703d063035a).
+
+Thanks to GitHub user xet7 for contributions.
+
 # v1.45 2018-09-09 Wekan release
 
 This release fixes the following bugs:
