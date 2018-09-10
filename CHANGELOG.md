@@ -3,6 +3,10 @@
 This release adds the following new features:
 
 - [Upgrade MongoDB to 3.2.21](https://github.com/wekan/wekan/commit/0cb3aee803781e4241c38a3e1e700703d063035a).
+- [Turn of http/2 in Caddyfile](https://github.com/wekan/wekan/commit/f1ab46d5178b6fb7e9c4e43628eec358026d287a)
+  so that Firefox Inspect Console does not [show errors about wss](https://github.com/wekan/wekan/issues/934)
+  websocket config. Chrome web console supports http/2.
+  Note: If you are already using Caddy and have modified your Caddyfile, you need to edit your Caddyfile manually.
 
 Thanks to GitHub user xet7 for contributions.
 
