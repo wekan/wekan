@@ -3,3 +3,16 @@ proxy / localhost:3001 {
   websocket
   transparent
 }
+
+## SSL/TLS example. Firefox Inspect Console does not support http/2, so turning it off
+## so that Firefox would not show wss websocket errors. Chrome console supports http/2.
+#
+#wekan.example.com {
+#  tls {
+#    alpn http/1.1
+#  }
+#   proxy / localhost:3001 {
+#     websocket
+#     transparent
+#  }
+#}
