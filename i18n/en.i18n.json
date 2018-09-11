@@ -515,6 +515,77 @@
     "activity-delete-attach": "deleted an attachment from %s",
     "activity-added-label-card": "added label '%s'",
     "activity-removed-label-card": "removed label '%s'",
-    "activity-delete-attach-card": "deleted an attachment"
+    "activity-delete-attach-card": "deleted an attachment",
+    "r-rule": "Rule",
+    "r-add-trigger": "Add trigger",
+    "r-add-action": "Add action",
+    "r-board-rules": "Board rules",
+    "r-add-rule": "Add rule",
+    "r-view-rule": "View rule",
+    "r-delete-rule": "Delete rule",
+    "r-new-rule-name": "Add new rule",
+    "r-no-rules": "No rules",
+    "r-when-a-card-is": "When a card is",
+    "r-added-to": "Added to",
+    "r-removed-from": "Removed from",
+    "r-the-board": "the board",
+    "r-list": "list",
+    "r-moved-to": "Moved to",
+    "r-moved-from": "Moved from",
+    "r-archived": "Archived",
+    "r-unarchived": "Unarchived",
+    "r-a-card": "a card",
+    "r-when-a-label-is": "When a label is",
+    "r-when-the-label-is": "When the label is",
+    "r-list-name": "List name",
+    "r-when-a-member": "When a member is",
+    "r-when-the-member": "When the member is",
+    "r-name": "name",
+    "r-is": "is",
+    "r-when-a-attach": "When an attachment",
+    "r-when-a-checklist": "When a checklist is",
+    "r-when-the-checklist": "When the checklist",
+    "r-completed": "Completed",
+    "r-made-incomplete": "Made incomplete",
+    "r-when-a-item": "When a checklist item is",
+    "r-when-the-item": "When the checklist item is",
+    "r-checked": "Checked",
+    "r-unchecked": "Unchecked",
+    "r-move-card-to": "Move card to",
+    "r-top-of": "Top of",
+    "r-bottom-of": "Bottom of",
+    "r-its-list": "its list",
+    "r-list": "list",
+    "r-archive": "Archive",
+    "r-unarchive": "Unarchive",
+    "r-card": "card",
+    "r-add": "Add",
+    "r-remove": "Remove",
+    "r-label": "label",
+    "r-member": "member",
+    "r-remove-all": "Remove all members from the card",
+    "r-checklist": "checklist",
+    "r-check-all": "Check all",
+    "r-uncheck-all": "Uncheck all",
+    "r-item-check": "Items of checklist",
+    "r-check": "Check",
+    "r-uncheck": "Uncheck",
+    "r-item": "item",
+    "r-of-checklist": "of checlist",
+    "r-send-email": "Send an email",
+    "r-to": "to",
+    "r-subject": "subject",
+    "r-rule-details": "Rule details"
+
+
+
+
+
+
+
+
+
+
+
 
 }

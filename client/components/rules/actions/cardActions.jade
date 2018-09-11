@@ -3,10 +3,10 @@ template(name="cardActions")
     div.trigger-content
       div.trigger-dropdown
         select(id="label-action")
-          option(value="add") Add
-          option(value="remove") Remove
+          option(value="add") {{{_'r-add'}}}
+          option(value="remove") {{{_'r-remove'}}}
       div.trigger-text 
-        | label
+        | {{{_'r-label'}}}
       div.trigger-dropdown
         select(id="label-id")
           each labels
@@ -19,19 +19,19 @@ template(name="cardActions")
     div.trigger-content
       div.trigger-dropdown
         select(id="member-action")
-          option(value="add") Add
-          option(value="remove") Removed
+          option(value="add") {{{_'r-add'}}}
+          option(value="remove") {{{_'r-remove'}}}
       div.trigger-text 
-        | member
+        | {{{_'r-member'}}}
       div.trigger-dropdown
-        input(id="member-name",type=text,placeholder="Member name")  
+        input(id="member-name",type=text,placeholder="{{{_'r-name'}}}")  
     div.trigger-button.js-add-member-action.js-goto-rules
       i.fa.fa-plus
 
   div.trigger-item
     div.trigger-content
       div.trigger-text 
-        | Remove all member from the card 
+        | {{{_'r-remove-all'}}}
     div.trigger-button.js-add-removeall-action.js-goto-rules
       i.fa.fa-plus
 

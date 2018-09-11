@@ -9,17 +9,14 @@ Triggers.mutations({
 });
 
 Triggers.allow({
-  update: function () {
-    // add custom authentication code here
-    return true;
+  insert(userId, doc) {
+    return allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
   },
-  insert: function () {
-    // add custom authentication code here
-    return true;
+  update(userId, doc) {
+    return allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
   },
-  remove: function () {
-    // add custom authentication code here
-    return true;
+  remove(userId, doc) {
+    return allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
   }
 });
 

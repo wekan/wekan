@@ -3,12 +3,12 @@ template(name="checklistActions")
     div.trigger-content
       div.trigger-dropdown
         select(id="check-action")
-          option(value="add") Add
-          option(value="remove") Remove
+          option(value="add") {{{_'r-add'}}}
+          option(value="remove") {{{_'r-remove'}}}
       div.trigger-text 
-        | checklist
+        | {{{_'r-checklist'}}}
       div.trigger-dropdown
-        input(id="checklist-name",type=text,placeholder="name")  
+        input(id="checklist-name",type=text,placeholder="{{{_'r-name'}}}")  
     div.trigger-button.js-add-checklist-action.js-goto-rules
       i.fa.fa-plus  
 
@@ -16,12 +16,12 @@ template(name="checklistActions")
     div.trigger-content
       div.trigger-dropdown
         select(id="checkall-action")
-          option(value="check") Check all
-          option(value="uncheck") Unchek all
+          option(value="check") {{{_'r-check-all'}}}
+          option(value="uncheck") {{{_'r-uncheck-all'}}}
       div.trigger-text 
-        | items of checklist
+        | {{{_'r-items-check'}}}
       div.trigger-dropdown
-        input(id="checklist-name2",type=text,placeholder="name")  
+        input(id="checklist-name2",type=text,placeholder="{{{_'r-name'}}}")  
     div.trigger-button.js-add-checkall-action.js-goto-rules
       i.fa.fa-plus
 
@@ -30,16 +30,16 @@ template(name="checklistActions")
     div.trigger-content
       div.trigger-dropdown
         select(id="check-item-action")
-          option(value="check") Check 
-          option(value="uncheck") Unchek
+          option(value="check") {{{_'r-check'}}}
+          option(value="uncheck") {{{_'r-uncheck'}}}
       div.trigger-text 
-        | item
+        | {{{_'r-item'}}}
       div.trigger-dropdown
-        input(id="checkitem-name",type=text,placeholder="name")
+        input(id="checkitem-name",type=text,placeholder="{{{_'r-name'}}}")
       div.trigger-text 
-        | of checklist
+        | {{{_'r-of-checklist'}}}
       div.trigger-dropdown
-        input(id="checklist-name3",type=text,placeholder="name")  
+        input(id="checklist-name3",type=text,placeholder="{{{_'r-name'}}}")  
     div.trigger-button.js-add-check-item-action.js-goto-rules
       i.fa.fa-plus
 

@@ -1,7 +1,7 @@
 template(name="rulesMain")
-  if rulesListVar.get
+  if($eq rulesCurrentTab.get 'rulesList')
     +rulesList
-  else if rulesTriggerVar.get
+  if($eq rulesCurrentTab.get 'trigger')
     +rulesTriggers(ruleName=ruleName triggerVar=triggerVar)
-  else if rulesActionVar.get
+  if($eq rulesCurrentTab.get 'action')
     +rulesActions(ruleName=ruleName triggerVar=triggerVar)

@@ -3,15 +3,19 @@ Rules = new Mongo.Collection('rules');
 Rules.attachSchema(new SimpleSchema({
   title: {
     type: String,
-    optional: true,
+    optional: false,
   },
   triggerId: {
     type: String,
-    optional: true,
+    optional: false,
   },
   actionId: {
     type: String,
-    optional: true,
+    optional: false,
+  },
+  boardId: {
+    type: String,
+    optional: false,
   },
 }));
 
@@ -25,22 +29,21 @@ Rules.helpers({
   getAction(){
     return Actions.findOne({_id:this.actionId});
   },
+  getTrigger(){
+    return Triggers.findOne({_id:this.triggerId});
+  }
 });
 
 
 
 Rules.allow({
-    update: function () {
-    // add custom authentication code here
-    return true;
+  insert(userId, doc) {
+    return allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
   },
-    remove: function () {
-    // add custom authentication code here
-    return true;
+  update(userId, doc) {
+    return allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
   },
-    insert: function () {
-    // add custom authentication code here
-    return true;
-  },
+  remove(userId, doc) {
+    return allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
+  }
 });
-
