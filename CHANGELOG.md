@@ -7,8 +7,9 @@ This release adds the following new features:
   so that Firefox Inspect Console does not [show errors about wss](https://github.com/wekan/wekan/issues/934)
   websocket config. Chrome web console supports http/2.
   Note: If you are already using Caddy and have modified your Caddyfile, you need to edit your Caddyfile manually.
+- [Add source-map-support](https://github.com/wekan/wekan/issues/1889).
 
-Thanks to GitHub user xet7 for contributions.
+Thanks to GitHub users HLFH and xet7 for their contributions.
 
 # v1.45 2018-09-09 Wekan release
 
