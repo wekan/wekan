@@ -40,6 +40,7 @@ RulesHelper = {
 		console.log("Performing action - Action");
 		console.log(action);
 		const card = Cards.findOne({_id:activity.cardId});
+		const boardId = activity.boardId;
 		if(action.actionType == "moveCardToTop"){
 			let listId;
 			let list;
@@ -47,7 +48,7 @@ RulesHelper = {
 				listId = card.swimlaneId;
 				list = card.list();
 			}else{
-				list = Lists.findOne({title: action.listTitle});
+				list = Lists.findOne({title: action.listTitle, boardId:boardId });;
 				listId = list._id;
 			}
 			const minOrder = _.min(list.cards(card.swimlaneId).map((c) => c.sort));
@@ -60,7 +61,7 @@ RulesHelper = {
 				listId = card.swimlaneId;
 				list = card.list();
 			}else{
-				list = Lists.findOne({title: action.listTitle});
+				list = Lists.findOne({title: action.listTitle, boardId:boardId});
 				listId = list._id;
 			}
 			const maxOrder = _.max(list.cards(card.swimlaneId).map((c) => c.sort));
