@@ -319,6 +319,9 @@ BlazeComponent.extendComponent({
   },
 
   swimlanes() {
+    if (!this.selectedBoardId) {
+      return [];
+    }
     const swimlanes = Swimlanes.find({boardId: this.selectedBoardId.get()});
     if (swimlanes.count())
       this.selectedSwimlaneId.set(swimlanes.fetch()[0]._id);
@@ -326,6 +329,9 @@ BlazeComponent.extendComponent({
   },
 
   lists() {
+    if (!this.selectedBoardId) {
+      return [];
+    }
     const lists = Lists.find({boardId: this.selectedBoardId.get()});
     if (lists.count())
       this.selectedListId.set(lists.fetch()[0]._id);
@@ -333,6 +339,9 @@ BlazeComponent.extendComponent({
   },
 
   cards() {
+    if (!this.board) {
+      return [];
+    }
     const ownCardsIds = this.board.cards().map((card) => { return card.linkedId || card._id; });
     return Cards.find({
       boardId: this.selectedBoardId.get(),
@@ -360,6 +369,11 @@ BlazeComponent.extendComponent({
         // LINK CARD
         evt.stopPropagation();
         evt.preventDefault();
+        const linkedId = $('.js-select-cards option:selected').val();
+        if (!linkedId) {
+          Popup.close();
+          return;
+        }
         const _id = Cards.insert({
           title: $('.js-select-cards option:selected').text(), //dummy
           listId: this.listId,
@@ -367,7 +381,7 @@ BlazeComponent.extendComponent({
           boardId: this.boardId,
           sort: Lists.findOne(this.listId).cards().count(),
           type: 'cardType-linkedCard',
-          linkedId: $('.js-select-cards option:selected').val(),
+          linkedId,
         });
         Filter.addException(_id);
         Popup.close();
@@ -377,6 +391,10 @@ BlazeComponent.extendComponent({
         evt.stopPropagation();
         evt.preventDefault();
         const impBoardId = $('.js-select-boards option:selected').val();
+        if (!impBoardId || Cards.findOne({linkedId: impBoardId, archived: false})) {
+          Popup.close();
+          return;
+        }
         const _id = Cards.insert({
           title: $('.js-select-boards option:selected').text(), //dummy
           listId: this.listId,
@@ -400,11 +418,16 @@ BlazeComponent.extendComponent({
 
   onCreated() {
     // Prefetch first non-current board id
-    const boardId = Boards.findOne({
+    let board = Boards.findOne({
       archived: false,
       'members.userId': Meteor.userId(),
       _id: {$ne: Session.get('currentBoard')},
-    })._id;
+    });
+    if (!board) {
+      Popup.close();
+      return;
+    }
+    const boardId = board._id;
     // Subscribe to this board
     subManager.subscribe('board', boardId);
     this.selectedBoardId = new ReactiveVar(boardId);
@@ -412,7 +435,7 @@ BlazeComponent.extendComponent({
     this.boardId = Session.get('currentBoard');
     // In order to get current board info
     subManager.subscribe('board', this.boardId);
-    const board = Boards.findOne(this.boardId);
+    board = Boards.findOne(this.boardId);
     // List where to insert card
     const list = $(Popup._getTopStack().openerElement).closest('.js-list');
     this.listId = Blaze.getData(list[0])._id;
@@ -438,6 +461,9 @@ BlazeComponent.extendComponent({
   },
 
   results() {
+    if (!this.selectedBoardId) {
+      return [];
+    }
     const board = Boards.findOne(this.selectedBoardId.get());
     return board.searchCards(this.term.get(), false);
   },
