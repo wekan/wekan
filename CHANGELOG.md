@@ -3,13 +3,18 @@
 This release adds the following new features:
 
 - [Upgrade MongoDB to 3.2.21](https://github.com/wekan/wekan/commit/0cb3aee803781e4241c38a3e1e700703d063035a).
+- [Add source-map-support](https://github.com/wekan/wekan/issues/1889).
+
+and fixes the following bugs:
+
 - [Turn of http/2 in Caddyfile](https://github.com/wekan/wekan/commit/f1ab46d5178b6fb7e9c4e43628eec358026d287a)
   so that Firefox Inspect Console does not [show errors about wss](https://github.com/wekan/wekan/issues/934)
   websocket config. Chrome web console supports http/2.
   Note: If you are already using Caddy and have modified your Caddyfile, you need to edit your Caddyfile manually.
-- [Add source-map-support](https://github.com/wekan/wekan/issues/1889).
+- [Partially fix: Cannot move card from one swimline to the other if moving in the same list](https://github.com/wekan/wekan/issues/1887);
+- [Fix: Linking cards from empty board is possible and makes current board not load anymore](https://github.com/wekan/wekan/issues/1885).
 
-Thanks to GitHub users HLFH and xet7 for their contributions.
+Thanks to GitHub users andresmanelli, HLFH and xet7 for their contributions.
 
 # v1.45 2018-09-09 Wekan release
 
