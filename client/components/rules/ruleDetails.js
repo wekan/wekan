@@ -1,15 +1,24 @@
 BlazeComponent.extendComponent({
   onCreated() {
     this.subscribe('allRules');
+    this.subscribe('allTriggers');
+    this.subscribe('allActions');
+
   },
 
   trigger(){
-    const rule = Rules.findOne({_id:ruleId});
-    return Triggers.findOne({_id:rule.triggerId});
+    const ruleId = this.data().ruleId;
+    const rule = Rules.findOne({_id: ruleId.get()});
+    const trigger = Triggers.findOne({_id:rule.triggerId});
+    console.log(trigger);
+    return trigger.description();
   },
   action(){
-    const rule = Rules.findOne({_id:ruleId});
-    return Triggers.findOne({_id:rule.actionId});
+    const ruleId = this.data().ruleId;
+    const rule = Rules.findOne({_id: ruleId.get()});
+    const action = Actions.findOne({_id:rule.actionId});
+    console.log(action);
+    return action.description();
   },
 
   events() {

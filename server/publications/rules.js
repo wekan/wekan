@@ -12,3 +12,7 @@ Meteor.publish('allRules', () => {
 Meteor.publish('allTriggers', () => {
   return Triggers.find({});
 });
+
+Meteor.publish('allActions', () => {
+  return Actions.find({});
+});

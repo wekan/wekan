@@ -40,14 +40,14 @@ Utils = {
       base = 0;
       increment = 1;
     // If we drop the card in the first position
-    } else if (!prevData) {
-      base = nextData.sort - 1;
-      increment = -1;
+  } else if (!prevData) {
+    base = nextData.sort - 1;
+    increment = -1;
     // If we drop the card in the last position
-    } else if (!nextData) {
-      base = prevData.sort + 1;
-      increment = 1;
-    }
+  } else if (!nextData) {
+    base = prevData.sort + 1;
+    increment = 1;
+  }
     // In the general case take the average of the previous and next element
     // sort indexes.
     else {
@@ -72,14 +72,14 @@ Utils = {
       base = 0;
       increment = 1;
     // If we drop the card in the first position
-    } else if (!prevCardDomElement) {
-      base = Blaze.getData(nextCardDomElement).sort - 1;
-      increment = -1;
+  } else if (!prevCardDomElement) {
+    base = Blaze.getData(nextCardDomElement).sort - 1;
+    increment = -1;
     // If we drop the card in the last position
-    } else if (!nextCardDomElement) {
-      base = Blaze.getData(prevCardDomElement).sort + 1;
-      increment = 1;
-    }
+  } else if (!nextCardDomElement) {
+    base = Blaze.getData(prevCardDomElement).sort + 1;
+    increment = 1;
+  }
     // In the general case take the average of the previous and next element
     // sort indexes.
     else {
@@ -121,7 +121,7 @@ Utils = {
     return Math.sqrt(
       Math.pow(touchA.screenX - touchB.screenX, 2) +
       Math.pow(touchA.screenY - touchB.screenY, 2)
-    );
+      );
   },
 
   enableClickOnTouch(selector) {
@@ -143,6 +143,27 @@ Utils = {
         e.target.dispatchEvent(clickEvent);
       }
     });
+  },
+
+  getTriggerActionDesc(event,tempInstance){
+    const jqueryEl = tempInstance.$(event.currentTarget.parentNode);
+    const triggerEls = jqueryEl.find(".trigger-content").children();
+    let finalString = "";
+    for(let i = 0;i< triggerEls.length;i++){
+      const element = tempInstance.$(triggerEls[i]);
+      if(element.hasClass("trigger-text")){
+        finalString += element.text();
+      }else if(element.find("select").length > 0){
+        finalString += element.find("select option:selected").text();
+      }else if(element.find("input").length > 0){
+        finalString += element.find("input").val();
+      }
+      // Add space
+      if(i != length - 1){
+        finalString += " ";
+      }
+    }
+    return finalString.toLowerCase();
   },
 };
 

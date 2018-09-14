@@ -575,7 +575,31 @@
     "r-send-email": "Send an email",
     "r-to": "to",
     "r-subject": "subject",
-    "r-rule-details": "Rule details"
+    "r-rule-details": "Rule details",
+    "r-d-move-to-top-gen": "Move card to top of its list",
+    "r-d-move-to-top-spec": "Move card to top of list",
+    "r-d-move-to-bottom-gen": "Move card to bottom of its list",
+    "r-d-move-to-bottom-spec": "Move card to bottom of list",
+    "r-d-send-email": "Send email",
+    "r-d-send-email-to": "to",
+    "r-d-send-email-subject": "subject",
+    "r-d-send-email-message": "message",
+    "r-d-archive": "Archive the card",
+    "r-d-unarchive": "Unarchive the card",
+    "r-d-add-label": "Add label",
+    "r-d-remove-label": "Remove label",
+    "r-d-add-member": "Add member",
+    "r-d-remove-member": "Remove member",
+    "r-d-remove-all-member": "Remove all member",
+    "r-d-check-all": "Check all item of list",
+    "r-d-uncheck-all": "Uncheck all item of list",
+    "r-d-check-one": "Check item",
+    "r-d-uncheck-one": "Uncheck item",
+    "r-d-check-of-list": "of checklist",
+    "r-d-add-checklist": "Add checklist",
+    "r-d-remove-checklist": "Remove checklist"
+
+
 
 
 

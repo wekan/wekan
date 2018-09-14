@@ -5,7 +5,6 @@ BlazeComponent.extendComponent({
 
   labels(){
     const labels = Boards.findOne(Session.get('currentBoard')).labels;
-    console.log(labels);
     for(let i = 0;i<labels.length;i++){
       if(labels[i].name == "" || labels[i].name == undefined){
         labels[i].name = labels[i].color.toUpperCase();

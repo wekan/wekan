@@ -22,7 +22,7 @@ template(name="cardTriggers")
             option(value="#{_id}")
               = name
       div.trigger-text 
-        | is
+        | {{{_'r-is'}}}
       div.trigger-dropdown
         select(id="spec-label-action")
           option(value="added") {{{_'r-added-to'}}}

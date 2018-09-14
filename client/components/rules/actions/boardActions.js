@@ -17,7 +17,6 @@ BlazeComponent.extendComponent({
       if(actionSelected == "top"){
        const triggerId = Triggers.insert(trigger);
        const actionId = Actions.insert({actionType: "moveCardToTop","listTitle":listTitle,"boardId":boardId});
-       console.log("Action inserted");
        Rules.insert({title: ruleName, triggerId: triggerId, actionId: actionId,"boardId":boardId});  
      }
      if(actionSelected == "bottom"){
@@ -49,12 +48,12 @@ BlazeComponent.extendComponent({
   const actionSelected = this.find('#arch-action').value;
   if(actionSelected == "archive"){
    const triggerId = Triggers.insert(trigger);
-   const actionId = Actions.insert({actionType: "archive"});
+   const actionId = Actions.insert({actionType: "archive","boardId":boardId});
    Rules.insert({title: ruleName, triggerId: triggerId, actionId: actionId,"boardId":boardId});  
  }
  if(actionSelected == "unarchive"){
    const triggerId = Triggers.insert(trigger);
-   const actionId = Actions.insert({actionType: "unarchive"});
+   const actionId = Actions.insert({actionType: "unarchive","boardId":boardId});
    Rules.insert({title: ruleName, triggerId: triggerId, actionId: actionId,"boardId":boardId});  
  }
 },

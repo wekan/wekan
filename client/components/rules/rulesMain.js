@@ -46,6 +46,8 @@ BlazeComponent.extendComponent({
     },
     'click .js-goto-details'(event) {
       event.preventDefault();
+      const rule = this.currentData();
+      this.ruleId.set(rule._id)
       this.setRuleDetails();
     },
 

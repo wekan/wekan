@@ -10,7 +10,7 @@ template(name="rulesList")
           p 
             = title
           div.rules-btns-group
-            button
+            button.js-goto-details
               i.fa.fa-eye
               | {{{_ 'r-view-rule'}}}
             if currentUser.isAdmin
