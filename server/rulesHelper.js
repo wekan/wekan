@@ -1,10 +1,7 @@
 RulesHelper = {
 	executeRules(activity){
 		const matchingRules = this.findMatchingRules(activity);
-		console.log("Matching rules:")
-		console.log(matchingRules);
 		for(let i = 0;i< matchingRules.length;i++){
-			console.log(matchingRules[i]);
 			const action = matchingRules[i].getAction();
 			this.performAction(activity,action);
 		}
@@ -34,11 +31,6 @@ RulesHelper = {
 		return matchingMap;
 	},
 	performAction(activity,action){
-
-		console.log("Performing action - Activity");
-		console.log(activity);
-		console.log("Performing action - Action");
-		console.log(action);
 		const card = Cards.findOne({_id:activity.cardId});
 		const boardId = activity.boardId;
 		if(action.actionType == "moveCardToTop"){
@@ -96,14 +88,11 @@ RulesHelper = {
 		}
 		if(action.actionType == "addMember"){
 			const memberId = Users.findOne({username:action.memberName})._id;
-			console.log(memberId);
 			card.assignMember(memberId);
 		}
 		if(action.actionType == "removeMember"){
 			if(action.memberName == "*"){
-				console.log(card);
 				const members = card.members;
-				console.log(members);
 				for(let i = 0;i< members.length;i++){
 					card.unassignMember(members[i]);
 				}

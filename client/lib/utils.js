@@ -152,9 +152,9 @@ Utils = {
     for(let i = 0;i< triggerEls.length;i++){
       const element = tempInstance.$(triggerEls[i]);
       if(element.hasClass("trigger-text")){
-        finalString += element.text();
+        finalString += element.text().toLowerCase();
       }else if(element.find("select").length > 0){
-        finalString += element.find("select option:selected").text();
+        finalString += element.find("select option:selected").text().toLowerCase();
       }else if(element.find("input").length > 0){
         finalString += element.find("input").val();
       }
@@ -163,7 +163,7 @@ Utils = {
         finalString += " ";
       }
     }
-    return finalString.toLowerCase();
+    return finalString;
   },
 };
 

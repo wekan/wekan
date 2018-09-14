@@ -13,7 +13,8 @@ BlazeComponent.extendComponent({
       const ruleName = this.data().ruleName.get();
       const triggerId = Triggers.insert(trigger);
       const boardId = Session.get('currentBoard');
-      const actionId = Actions.insert({actionType: "sendEmail","emailTo":emailTo,"emailSubject":emailSubject,"emailMsg":emailMsg,"boardId":boardId});
+      const desc = Utils.getTriggerActionDesc(event,this);
+      const actionId = Actions.insert({actionType: "sendEmail","emailTo":emailTo,"emailSubject":emailSubject,"emailMsg":emailMsg,"boardId":boardId,"desc":desc});
       Rules.insert({title: ruleName, triggerId: triggerId, actionId: actionId,"boardId":boardId});  
     },
   }];

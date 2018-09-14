@@ -3,5 +3,16 @@ template(name="ruleDetails")
     h2
       i.fa.fa-magic
       | {{{_ 'r-rule-details' }}}
-    = trigger 
-    = action 
+    .triggers-content
+        .triggers-body
+            .triggers-main-body
+                div.trigger-item
+                    div.trigger-content
+                        div.trigger-text 
+                        = trigger 
+                div.trigger-item
+                    div.trigger-content
+                        div.trigger-text 
+                        = action 
+    
+    
