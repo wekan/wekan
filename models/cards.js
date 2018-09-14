@@ -178,15 +178,33 @@ Cards.helpers({
   },
 
   activities() {
-    return Activities.find({cardId: this._id}, {sort: {createdAt: -1}});
+    return Activities.find({
+      cardId: this._id
+    }, {
+      sort: {
+        createdAt: -1
+      }
+    });
   },
 
   comments() {
-    return CardComments.find({cardId: this._id}, {sort: {createdAt: -1}});
+    return CardComments.find({
+      cardId: this._id
+    }, {
+      sort: {
+        createdAt: -1
+      }
+    });
   },
 
   attachments() {
-    return Attachments.find({cardId: this._id}, {sort: {uploadedAt: -1}});
+    return Attachments.find({
+      cardId: this._id
+    }, {
+      sort: {
+        uploadedAt: -1
+      }
+    });
   },
 
   cover() {
@@ -197,7 +215,13 @@ Cards.helpers({
   },
 
   checklists() {
-    return Checklists.find({cardId: this._id}, {sort: { sort: 1 } });
+    return Checklists.find({
+      cardId: this._id
+    }, {
+      sort: {
+        sort: 1
+      }
+    });
   },
 
   checklistItemCount() {
@@ -230,14 +254,22 @@ Cards.helpers({
     return Cards.find({
       parentId: this._id,
       archived: false,
-    }, {sort: { sort: 1 } });
+    }, {
+      sort: {
+        sort: 1
+      }
+    });
   },
 
   allSubtasks() {
     return Cards.find({
       parentId: this._id,
       archived: false,
-    }, {sort: { sort: 1 } });
+    }, {
+      sort: {
+        sort: 1
+      }
+    });
   },
 
   subtasksCount() {
@@ -250,7 +282,8 @@ Cards.helpers({
   subtasksFinishedCount() {
     return Cards.find({
       parentId: this._id,
-      archived: true}).count();
+      archived: true
+    }).count();
   },
 
   subtasksFinished() {
@@ -282,12 +315,9 @@ Cards.helpers({
       });
       //search for "True Value" which is for DropDowns other then the Value (which is the id)
       let trueValue = customField.value;
-      if (definition.settings.dropdownItems && definition.settings.dropdownItems.length > 0)
-      {
-        for (let i = 0; i < definition.settings.dropdownItems.length; i++)
-        {
-          if (definition.settings.dropdownItems[i]._id === customField.value)
-          {
+      if (definition.settings.dropdownItems && definition.settings.dropdownItems.length > 0) {
+        for (let i = 0; i < definition.settings.dropdownItems.length; i++) {
+          if (definition.settings.dropdownItems[i]._id === customField.value) {
             trueValue = definition.settings.dropdownItems[i].name;
           }
         }
@@ -312,8 +342,10 @@ Cards.helpers({
   },
 
   canBeRestored() {
-    const list = Lists.findOne({_id: this.listId});
-    if(!list.getWipLimit('soft') && list.getWipLimit('enabled') && list.getWipLimit('value') === list.cards().count()){
+    const list = Lists.findOne({
+      _id: this.listId
+    });
+    if (!list.getWipLimit('soft') && list.getWipLimit('enabled') && list.getWipLimit('value') === list.cards().count()) {
       return false;
     }
     return true;
@@ -378,7 +410,7 @@ Cards.helpers({
   },
 
   parentString(sep) {
-    return this.parentList().map(function(elem){
+    return this.parentList().map(function(elem) {
       return elem.title;
     }).join(sep);
   },
@@ -390,35 +422,65 @@ Cards.helpers({
 
 Cards.mutations({
   applyToChildren(funct) {
-    Cards.find({ parentId: this._id }).forEach((card) => {
+    Cards.find({
+      parentId: this._id
+    }).forEach((card) => {
       funct(card);
     });
   },
 
   archive() {
-    this.applyToChildren((card) => { return card.archive(); });
-    return {$set: {archived: true}};
+    this.applyToChildren((card) => {
+      return card.archive();
+    });
+    return {
+      $set: {
+        archived: true
+      }
+    };
   },
 
   restore() {
-    this.applyToChildren((card) => { return card.restore(); });
-    return {$set: {archived: false}};
+    this.applyToChildren((card) => {
+      return card.restore();
+    });
+    return {
+      $set: {
+        archived: false
+      }
+    };
   },
 
   setTitle(title) {
-    return {$set: {title}};
+    return {
+      $set: {
+        title
+      }
+    };
   },
 
   setDescription(description) {
-    return {$set: {description}};
+    return {
+      $set: {
+        description
+      }
+    };
   },
 
   setRequestedBy(requestedBy) {
-    return {$set: {requestedBy}};
+    return {
+      $set: {
+        requestedBy
+      }
+    };
   },
 
   setAssignedBy(assignedBy) {
-    return {$set: {assignedBy}};
+    return {
+      $set: {
+        assignedBy
+      }
+    };
   },
 
   move(swimlaneId, listId, sortIndex) {
@@ -430,15 +492,25 @@ Cards.mutations({
       sort: sortIndex,
     };
 
-    return {$set: mutatedFields};
+    return {
+      $set: mutatedFields
+    };
   },
 
   addLabel(labelId) {
-    return {$addToSet: {labelIds: labelId}};
+    return {
+      $addToSet: {
+        labelIds: labelId
+      }
+    };
   },
 
   removeLabel(labelId) {
-    return {$pull: {labelIds: labelId}};
+    return {
+      $pull: {
+        labelIds: labelId
+      }
+    };
   },
 
   toggleLabel(labelId) {
@@ -450,11 +522,19 @@ Cards.mutations({
   },
 
   assignMember(memberId) {
-    return {$addToSet: {members: memberId}};
+    return {
+      $addToSet: {
+        members: memberId
+      }
+    };
   },
 
   unassignMember(memberId) {
-    return {$pull: {members: memberId}};
+    return {
+      $pull: {
+        members: memberId
+      }
+    };
   },
 
   toggleMember(memberId) {
@@ -466,11 +546,24 @@ Cards.mutations({
   },
 
   assignCustomField(customFieldId) {
-    return {$addToSet: {customFields: {_id: customFieldId, value: null}}};
+    return {
+      $addToSet: {
+        customFields: {
+          _id: customFieldId,
+          value: null
+        }
+      }
+    };
   },
 
   unassignCustomField(customFieldId) {
-    return {$pull: {customFields: {_id: customFieldId}}};
+    return {
+      $pull: {
+        customFields: {
+          _id: customFieldId
+        }
+      }
+    };
   },
 
   toggleCustomField(customFieldId) {
@@ -485,7 +578,9 @@ Cards.mutations({
     // todo
     const index = this.customFieldIndex(customFieldId);
     if (index > -1) {
-      const update = {$set: {}};
+      const update = {
+        $set: {}
+      };
       update.$set[`customFields.${index}.value`] = value;
       return update;
     }
@@ -495,63 +590,119 @@ Cards.mutations({
   },
 
   setCover(coverId) {
-    return {$set: {coverId}};
+    return {
+      $set: {
+        coverId
+      }
+    };
   },
 
   unsetCover() {
-    return {$unset: {coverId: ''}};
+    return {
+      $unset: {
+        coverId: ''
+      }
+    };
   },
 
   setReceived(receivedAt) {
-    return {$set: {receivedAt}};
+    return {
+      $set: {
+        receivedAt
+      }
+    };
   },
 
   unsetReceived() {
-    return {$unset: {receivedAt: ''}};
+    return {
+      $unset: {
+        receivedAt: ''
+      }
+    };
   },
 
   setStart(startAt) {
-    return {$set: {startAt}};
+    return {
+      $set: {
+        startAt
+      }
+    };
   },
 
   unsetStart() {
-    return {$unset: {startAt: ''}};
+    return {
+      $unset: {
+        startAt: ''
+      }
+    };
   },
 
   setDue(dueAt) {
-    return {$set: {dueAt}};
+    return {
+      $set: {
+        dueAt
+      }
+    };
   },
 
   unsetDue() {
-    return {$unset: {dueAt: ''}};
+    return {
+      $unset: {
+        dueAt: ''
+      }
+    };
   },
 
   setEnd(endAt) {
-    return {$set: {endAt}};
+    return {
+      $set: {
+        endAt
+      }
+    };
   },
 
   unsetEnd() {
-    return {$unset: {endAt: ''}};
+    return {
+      $unset: {
+        endAt: ''
+      }
+    };
   },
 
   setOvertime(isOvertime) {
-    return {$set: {isOvertime}};
+    return {
+      $set: {
+        isOvertime
+      }
+    };
   },
 
   setSpentTime(spentTime) {
-    return {$set: {spentTime}};
+    return {
+      $set: {
+        spentTime
+      }
+    };
   },
 
   unsetSpentTime() {
-    return {$unset: {spentTime: '', isOvertime: false}};
+    return {
+      $unset: {
+        spentTime: '',
+        isOvertime: false
+      }
+    };
   },
 
   setParentId(parentId) {
-    return {$set: {parentId}};
+    return {
+      $set: {
+        parentId
+      }
+    };
   },
 
 });
-
 
 //FUNCTIONS FOR creation of Activities
 
@@ -561,7 +712,7 @@ function cardMove(userId, doc, fieldNames, oldListId) {
       userId,
       oldListId,
       activityType: 'moveCard',
-      listName: doc.title,
+      listName: Lists.findOne(doc.listId).title,
       listId: doc.listId,
       boardId: doc.boardId,
       cardId: doc._id,
@@ -575,7 +726,7 @@ function cardState(userId, doc, fieldNames) {
       Activities.insert({
         userId,
         activityType: 'archivedCard',
-        listName: doc.title,
+        listName: Lists.findOne(doc.listId).title,
         boardId: doc.boardId,
         listId: doc.listId,
         cardId: doc._id,
@@ -585,7 +736,7 @@ function cardState(userId, doc, fieldNames) {
         userId,
         activityType: 'restoredCard',
         boardId: doc.boardId,
-        listName: doc.title,
+        listName: Lists.findOne(doc.listId).title,
         listId: doc.listId,
         cardId: doc._id,
       });
@@ -667,7 +818,7 @@ function cardCreation(userId, doc) {
     userId,
     activityType: 'createCard',
     boardId: doc.boardId,
-    listName: doc.title,
+    listName: Lists.findOne(doc.listId).title,
     listId: doc.listId,
     cardId: doc._id,
   });
@@ -691,12 +842,14 @@ function cardRemover(userId, doc) {
   });
 }
 
-
 if (Meteor.isServer) {
   // Cards are often fetched within a board, so we create an index to make these
   // queries more efficient.
   Meteor.startup(() => {
-    Cards._collection._ensureIndex({boardId: 1, createdAt: -1});
+    Cards._collection._ensureIndex({
+      boardId: 1,
+      createdAt: -1
+    });
   });
 
   Cards.after.insert((userId, doc) => {
@@ -709,7 +862,7 @@ if (Meteor.isServer) {
   });
 
   //New activity for card moves
-  Cards.after.update(function (userId, doc, fieldNames) {
+  Cards.after.update(function(userId, doc, fieldNames) {
     const oldListId = this.previous.listId;
     cardMove(userId, doc, fieldNames, oldListId);
   });
@@ -724,7 +877,6 @@ if (Meteor.isServer) {
     cardLabels(userId, doc, fieldNames, modifier);
   });
 
-
   // Remove all activities associated with a card if we remove the card
   // Remove also card_comments / checklists / attachments
   Cards.after.remove((userId, doc) => {
@@ -733,13 +885,17 @@ if (Meteor.isServer) {
 }
 //LISTS REST API
 if (Meteor.isServer) {
-  JsonRoutes.add('GET', '/api/boards/:boardId/lists/:listId/cards', function (req, res) {
+  JsonRoutes.add('GET', '/api/boards/:boardId/lists/:listId/cards', function(req, res) {
     const paramBoardId = req.params.boardId;
     const paramListId = req.params.listId;
     Authentication.checkBoardAccess(req.userId, paramBoardId);
     JsonRoutes.sendResult(res, {
       code: 200,
-      data: Cards.find({boardId: paramBoardId, listId: paramListId, archived: false}).map(function (doc) {
+      data: Cards.find({
+        boardId: paramBoardId,
+        listId: paramListId,
+        archived: false
+      }).map(function(doc) {
         return {
           _id: doc._id,
           title: doc.title,
@@ -749,24 +905,31 @@ if (Meteor.isServer) {
     });
   });
 
-  JsonRoutes.add('GET', '/api/boards/:boardId/lists/:listId/cards/:cardId', function (req, res) {
+  JsonRoutes.add('GET', '/api/boards/:boardId/lists/:listId/cards/:cardId', function(req, res) {
     const paramBoardId = req.params.boardId;
     const paramListId = req.params.listId;
     const paramCardId = req.params.cardId;
     Authentication.checkBoardAccess(req.userId, paramBoardId);
     JsonRoutes.sendResult(res, {
       code: 200,
-      data: Cards.findOne({_id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false}),
+      data: Cards.findOne({
+        _id: paramCardId,
+        listId: paramListId,
+        boardId: paramBoardId,
+        archived: false
+      }),
     });
   });
 
-  JsonRoutes.add('POST', '/api/boards/:boardId/lists/:listId/cards', function (req, res) {
+  JsonRoutes.add('POST', '/api/boards/:boardId/lists/:listId/cards', function(req, res) {
     Authentication.checkUserId(req.userId);
     const paramBoardId = req.params.boardId;
     const paramListId = req.params.listId;
-    const check = Users.findOne({_id: req.body.authorId});
+    const check = Users.findOne({
+      _id: req.body.authorId
+    });
     const members = req.body.members || [req.body.authorId];
-    if (typeof  check !== 'undefined') {
+    if (typeof check !== 'undefined') {
       const id = Cards.direct.insert({
         title: req.body.title,
         boardId: paramBoardId,
@@ -784,7 +947,9 @@ if (Meteor.isServer) {
         },
       });
 
-      const card = Cards.findOne({_id:id});
+      const card = Cards.findOne({
+        _id: id
+      });
       cardCreation(req.body.authorId, card);
 
     } else {
@@ -794,7 +959,7 @@ if (Meteor.isServer) {
     }
   });
 
-  JsonRoutes.add('PUT', '/api/boards/:boardId/lists/:listId/cards/:cardId', function (req, res) {
+  JsonRoutes.add('PUT', '/api/boards/:boardId/lists/:listId/cards/:cardId', function(req, res) {
     Authentication.checkUserId(req.userId);
     const paramBoardId = req.params.boardId;
     const paramCardId = req.params.cardId;
@@ -802,27 +967,63 @@ if (Meteor.isServer) {
 
     if (req.body.hasOwnProperty('title')) {
       const newTitle = req.body.title;
-      Cards.direct.update({_id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false},
-        {$set: {title: newTitle}});
+      Cards.direct.update({
+        _id: paramCardId,
+        listId: paramListId,
+        boardId: paramBoardId,
+        archived: false
+      }, {
+        $set: {
+          title: newTitle
+        }
+      });
     }
     if (req.body.hasOwnProperty('listId')) {
       const newParamListId = req.body.listId;
-      Cards.direct.update({_id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false},
-        {$set: {listId: newParamListId}});
+      Cards.direct.update({
+        _id: paramCardId,
+        listId: paramListId,
+        boardId: paramBoardId,
+        archived: false
+      }, {
+        $set: {
+          listId: newParamListId
+        }
+      });
 
-      const card = Cards.findOne({_id: paramCardId} );
-      cardMove(req.body.authorId, card, {fieldName: 'listId'}, paramListId);
+      const card = Cards.findOne({
+        _id: paramCardId
+      });
+      cardMove(req.body.authorId, card, {
+        fieldName: 'listId'
+      }, paramListId);
 
     }
     if (req.body.hasOwnProperty('description')) {
       const newDescription = req.body.description;
-      Cards.direct.update({_id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false},
-        {$set: {description: newDescription}});
+      Cards.direct.update({
+        _id: paramCardId,
+        listId: paramListId,
+        boardId: paramBoardId,
+        archived: false
+      }, {
+        $set: {
+          description: newDescription
+        }
+      });
     }
     if (req.body.hasOwnProperty('labelIds')) {
       const newlabelIds = req.body.labelIds;
-      Cards.direct.update({_id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false},
-        {$set: {labelIds: newlabelIds}});
+      Cards.direct.update({
+        _id: paramCardId,
+        listId: paramListId,
+        boardId: paramBoardId,
+        archived: false
+      }, {
+        $set: {
+          labelIds: newlabelIds
+        }
+      });
     }
     JsonRoutes.sendResult(res, {
       code: 200,
@@ -832,15 +1033,20 @@ if (Meteor.isServer) {
     });
   });
 
-
-  JsonRoutes.add('DELETE', '/api/boards/:boardId/lists/:listId/cards/:cardId', function (req, res) {
+  JsonRoutes.add('DELETE', '/api/boards/:boardId/lists/:listId/cards/:cardId', function(req, res) {
     Authentication.checkUserId(req.userId);
     const paramBoardId = req.params.boardId;
     const paramListId = req.params.listId;
     const paramCardId = req.params.cardId;
 
-    Cards.direct.remove({_id: paramCardId, listId: paramListId, boardId: paramBoardId});
-    const card = Cards.find({_id: paramCardId} );
+    Cards.direct.remove({
+      _id: paramCardId,
+      listId: paramListId,
+      boardId: paramBoardId
+    });
+    const card = Cards.find({
+      _id: paramCardId
+    });
     cardRemover(req.body.authorId, card);
     JsonRoutes.sendResult(res, {
       code: 200,
@@ -851,4 +1057,3 @@ if (Meteor.isServer) {
 
   });
 }
-
