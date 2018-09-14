@@ -1,18 +1,18 @@
 Meteor.publish('rules', (ruleId) => {
-  check(ruleId, String);
-  return Rules.find({ _id: ruleId });
+	check(ruleId, String);
+	return Rules.find({
+		_id: ruleId
+	});
 });
-
 
 Meteor.publish('allRules', () => {
-  return Rules.find({});
+	return Rules.find({});
 });
 
-
 Meteor.publish('allTriggers', () => {
-  return Triggers.find({});
+	return Triggers.find({});
 });
 
 Meteor.publish('allActions', () => {
-  return Actions.find({});
+	return Actions.find({});
 });

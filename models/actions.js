@@ -1,6 +1,5 @@
 Actions = new Mongo.Collection('actions');
 
-
 Actions.allow({
 	insert(userId, doc) {
 		return allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
@@ -13,20 +12,8 @@ Actions.allow({
 	}
 });
 
-
 Actions.helpers({
 	description() {
 		return this.desc;
 	}
 });
-
-
-
-
-
-
-
-
-
-
-

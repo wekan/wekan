@@ -4,8 +4,10 @@ BlazeComponent.extendComponent({
   },
 
   rules() {
-  	const boardId = Session.get('currentBoard');
-    return Rules.find({"boardId":boardId});
+    const boardId = Session.get('currentBoard');
+    return Rules.find({
+      "boardId": boardId
+    });
   },
   events() {
     return [{}];

@@ -5,8 +5,7 @@ BlazeComponent.extendComponent({
     this.showChecklistTrigger = new ReactiveVar(false);
   },
 
-
-  setBoardTriggers(){
+  setBoardTriggers() {
     this.showBoardTrigger.set(true);
     this.showCardTrigger.set(false);
     this.showChecklistTrigger.set(false);
@@ -14,7 +13,7 @@ BlazeComponent.extendComponent({
     $('.js-set-board-triggers').addClass('active');
     $('.js-set-checklist-triggers').removeClass('active');
   },
-  setCardTriggers(){
+  setCardTriggers() {
     this.showBoardTrigger.set(false);
     this.showCardTrigger.set(true);
     this.showChecklistTrigger.set(false);
@@ -22,7 +21,7 @@ BlazeComponent.extendComponent({
     $('.js-set-board-triggers').removeClass('active');
     $('.js-set-checklist-triggers').removeClass('active');
   },
-  setChecklistTriggers(){
+  setChecklistTriggers() {
     this.showBoardTrigger.set(false);
     this.showCardTrigger.set(false);
     this.showChecklistTrigger.set(true);
@@ -35,18 +34,20 @@ BlazeComponent.extendComponent({
     return Rules.find({});
   },
 
-  name(){
+  name() {
     console.log(this.data());
   },
   events() {
-    return [{'click .js-set-board-triggers'(event) {
-      this.setBoardTriggers();
-    },
-    'click .js-set-card-triggers'(event) {
-      this.setCardTriggers();
-    },
-    'click .js-set-checklist-triggers'(event) {
-      this.setChecklistTriggers();
-    },}];
+    return [{
+      'click .js-set-board-triggers' (event) {
+        this.setBoardTriggers();
+      },
+      'click .js-set-card-triggers' (event) {
+        this.setCardTriggers();
+      },
+      'click .js-set-checklist-triggers' (event) {
+        this.setChecklistTriggers();
+      },
+    }];
   },
 }).register('rulesTriggers');
