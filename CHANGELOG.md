@@ -2,8 +2,11 @@
 
 This release adds the following new features:
 
-- [Upgrade MongoDB to 3.2.21](https://github.com/wekan/wekan/commit/0cb3aee803781e4241c38a3e1e700703d063035a).
-- [Add source-map-support](https://github.com/wekan/wekan/issues/1889).
+- [Upgrade MongoDB to 3.2.21](https://github.com/wekan/wekan/commit/0cb3aee803781e4241c38a3e1e700703d063035a);
+- [Add source-map-support](https://github.com/wekan/wekan/issues/1889);
+- [Allow Announcement to be markdown](https://github.com/wekan/wekan/issues/1892).
+  Note: xet7 did not yet figure out how to keep announcement on one line
+  when markdown was added, so now Font Awesome icons are above and below.
 
 and fixes the following bugs:
 
