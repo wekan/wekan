@@ -49,6 +49,12 @@ BlazeComponent.extendComponent({
       this.loadNextPageLocked = true;
     }
   },
+  
+  checkItem(){
+    const checkItemId = this.currentData().checklistItemId;
+    const checkItem = ChecklistItems.findOne({_id:checkItemId});
+    return checkItem.title;
+  },
 
   boardLabel() {
     return TAPi18n.__('this-board');
@@ -64,6 +70,16 @@ BlazeComponent.extendComponent({
       href: card.absoluteUrl(),
       'class': 'action-card',
     }, card.title));
+  },
+
+  lastLabel(){
+    const lastLabelId = this.currentData().labelId;
+    const lastLabel = Boards.findOne(Session.get('currentBoard')).getLabelById(lastLabelId);
+    if(lastLabel.name == undefined || lastLabel.name == ""){
+      return lastLabel.color;
+    }else{
+      return lastLabel.name;
+    }
   },
 
   listLabel() {

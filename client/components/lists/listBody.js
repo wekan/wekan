@@ -98,6 +98,8 @@ BlazeComponent.extendComponent({
       evt.preventDefault();
       Utils.goBoardId(Session.get('currentBoard'));
     }
+    console.log(evt)
+
   },
 
   cardIsSelected() {

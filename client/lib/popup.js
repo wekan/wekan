@@ -83,6 +83,7 @@ window.Popup = new class {
       // our internal dependency, and since we just changed the top element of
       // our internal stack, the popup will be updated with the new data.
       if (!self.isOpen()) {
+        console.log(self.template)
         self.current = Blaze.renderWithData(self.template, () => {
           self._dep.depend();
           return { ...self._getTopStack(), stack: self._stack };
