@@ -594,7 +594,7 @@
     "r-d-send-email-subject": "subject",
     "r-d-send-email-message": "message",
     "r-d-archive": "Move card to Recycle Bin",
-    "r-d-unarchive": "Unarchive the card",
+    "r-d-unarchive": "Restore card from Recycle Bin",
     "r-d-add-label": "Add label",
     "r-d-remove-label": "Remove label",
     "r-d-add-member": "Add member",
