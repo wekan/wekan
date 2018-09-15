@@ -15,53 +15,40 @@
 [![Project Dependencies](https://david-dm.org/wekan/wekan.svg "Project Dependencies")](https://david-dm.org/wekan/wekan)
 [![Code analysis at Open Hub](https://img.shields.io/badge/code%20analysis-at%20Open%20Hub-brightgreen.svg "Code analysis at Open Hub")](https://www.openhub.net/p/wekan)
 
-Please read [FAQ](https://github.com/wekan/wekan/wiki/FAQ).
-Please don't feed the trolls and spammers that are mentioned in the FAQ :)
+**NOTE**: 
+- Please read the [FAQ](https://github.com/wekan/wekan/wiki/FAQ) first
+- Please don't feed the trolls and spammers that are mentioned in the FAQ :)
 
 Wekan is an completely [Open Source][open_source] and [Free software][free_software]
 collaborative kanban board application with MIT license.
 
-Whether you’re maintaining a personal todo list, planning your holidays with
-some friends, or working in a team on your next revolutionary idea, Kanban
-boards are an unbeatable tool to keep your things organized. They give you a
-visual overview of the current state of your project, and make you productive by
-allowing you to focus on the few items that matter the most.
+Whether you’re maintaining a personal todo list, planning your holidays with some friends, or working in a team on your next revolutionary idea, Kanban boards are an unbeatable tool to keep your things organized. They give you a visual overview of the current state of your project, and make you productive by allowing you to focus on the few items that matter the most.
 
-Wekan has real-time user interface. Not all features are implemented.
+Since Wekan is a free software, you don’t have to trust us with your data and can
+install Wekan on your own computer or server. In fact we encourage you to do
+that by providing one-click installation on various platforms.
 
-[Features][features]
-
-Wekan supports many [Platforms][platforms], and plan is to add more.
-
-[Integrations][integrations]
-
-[Team](https://github.com/wekan/wekan/wiki/Team)
-
-You don’t have to trust us with your data and can install Wekan on your own
-computer or server. In fact we encourage you to do that by providing
-one-click installation on various platforms.
+- [Features][features]: Wekan has real-time user interface. Not all features are implemented, yet.
+- [Platforms][platforms]: Wekan supports many platforms and plan is to add more. This will be the first place to look if you want to **install** it, test out and learn more in depth.
+- [Integrations][integrations]: Current possible integrations and future plans.
+- [Team](https://github.com/wekan/wekan/wiki/Team): The people who spends their time and make wekan into what it is right now.
 
 ## Roadmap
 
 [Roadmap](https://github.com/wekan/wekan/wiki/Roadmap)
 
-Upcoming Wekan App Development Platform will make possible
-many use cases. If you don't find your feature or integration in
-GitHub issues and [Features][features] or [Integrations][integrations]
-page at wiki, please add them.
+Upcoming Wekan App Development Platform will make possible many use cases. If you don't find your feature or integration in
+GitHub issues and [Features][features] or [Integrations][integrations] page at wiki, please add them.
 
-We are very welcoming to new developers and teams to submit new pull
-requests to devel branch to make this Wekan App Development Platform possible
-faster. Please see [Developer Documentation][dev_docs] to get started.
-We also welcome sponsors for features, although we don't have any yet.
-By working directly with Wekan you get the benefit of active maintenance
-and new features added by growing Wekan developer community.
+We are very welcoming to new developers and teams to submit new pull requests to devel branch to make this Wekan App Development Platform possible faster. Please see [Developer Documentation][dev_docs] to get started.
+
+We also welcome sponsors for features, although we don't have any yet. By working directly with Wekan you get the benefit of active maintenance and new features added by growing Wekan developer community.
 
 Actual work happens at [Wekan GitHub issues][wekan_issues].
 
-See [Development links on Wekan
-wiki](https://github.com/wekan/wekan/wiki#Development)
-bottom of the page for more info.
+See [Development links on Wekan wiki](https://github.com/wekan/wekan/wiki#Development) bottom of the page for more info.
+
+If you want to know what is going on exactly this moment, you can check out the [project page](https://github.com/wekan/wekan/projects/2).
 
 ## Demo
 
@@ -72,10 +59,6 @@ bottom of the page for more info.
 [More screenshots at Features page](https://github.com/wekan/wekan/wiki/Features)
 
 [![Screenshot of Wekan][screenshot_wefork]][roadmap_wefork]
-
-Since Wekan is a free software, you don’t have to trust us with your data and can
-install Wekan on your own computer or server. In fact we encourage you to do
-that by providing one-click installation on various platforms.
 
 ## License
 
