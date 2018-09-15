@@ -42,7 +42,7 @@ GitHub issues and [Features][features] or [Integrations][integrations] page at w
 
 We are very welcoming to new developers and teams to submit new pull requests to devel branch to make this Wekan App Development Platform possible faster. Please see [Developer Documentation][dev_docs] to get started.
 
-We also welcome sponsors for features, although we don't have any yet. By working directly with Wekan you get the benefit of active maintenance and new features added by growing Wekan developer community.
+We also welcome sponsors for features and bugfixes. By working directly with Wekan you get the benefit of active maintenance and new features added by growing Wekan developer community.
 
 Actual work happens at [Wekan GitHub issues][wekan_issues].
 
