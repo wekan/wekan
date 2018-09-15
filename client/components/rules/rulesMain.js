@@ -1,24 +1,25 @@
 BlazeComponent.extendComponent({
   onCreated() {
-    this.rulesCurrentTab = new ReactiveVar("rulesList")
-    this.ruleName = new ReactiveVar("");
+    this.rulesCurrentTab = new ReactiveVar('rulesList');
+    this.ruleName = new ReactiveVar('');
     this.triggerVar = new ReactiveVar();
     this.ruleId = new ReactiveVar();
   },
 
   setTrigger() {
-    this.rulesCurrentTab.set("trigger")
+    this.rulesCurrentTab.set('trigger');
   },
 
   setRulesList() {
-    this.rulesCurrentTab.set("rulesList")
+    this.rulesCurrentTab.set('rulesList');
   },
 
   setAction() {
-    this.rulesCurrentTab.set("action")
+    this.rulesCurrentTab.set('action');
   },
+
   setRuleDetails() {
-    this.rulesCurrentTab.set("ruleDetails")
+    this.rulesCurrentTab.set('ruleDetails');
   },
 
   events() {
@@ -33,8 +34,8 @@ BlazeComponent.extendComponent({
       'click .js-goto-trigger' (event) {
         event.preventDefault();
         const ruleTitle = this.find('#ruleTitle').value;
-        this.find('#ruleTitle').value = "";
-        this.ruleName.set(ruleTitle)
+        this.find('#ruleTitle').value = '';
+        this.ruleName.set(ruleTitle);
         this.setTrigger();
       },
       'click .js-goto-action' (event) {
@@ -48,7 +49,7 @@ BlazeComponent.extendComponent({
       'click .js-goto-details' (event) {
         event.preventDefault();
         const rule = this.currentData();
-        this.ruleId.set(rule._id)
+        this.ruleId.set(rule._id);
         this.setRuleDetails();
       },
 

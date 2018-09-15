@@ -278,8 +278,8 @@ Cards.helpers({
       archived: false,
     }, {
       sort: {
-        sort: 1
-      }
+        sort: 1,
+      },
     });
   },
 
@@ -289,8 +289,8 @@ Cards.helpers({
       archived: false,
     }, {
       sort: {
-        sort: 1
-      }
+        sort: 1,
+      },
     });
   },
 
@@ -304,7 +304,7 @@ Cards.helpers({
   subtasksFinishedCount() {
     return Cards.find({
       parentId: this._id,
-      archived: true
+      archived: true,
     }).count();
   },
 
@@ -365,7 +365,7 @@ Cards.helpers({
 
   canBeRestored() {
     const list = Lists.findOne({
-      _id: this.listId
+      _id: this.listId,
     });
     if (!list.getWipLimit('soft') && list.getWipLimit('enabled') && list.getWipLimit('value') === list.cards().count()) {
       return false;
@@ -835,7 +835,7 @@ Cards.helpers({
 Cards.mutations({
   applyToChildren(funct) {
     Cards.find({
-      parentId: this._id
+      parentId: this._id,
     }).forEach((card) => {
       funct(card);
     });
@@ -847,8 +847,8 @@ Cards.mutations({
     });
     return {
       $set: {
-        archived: true
-      }
+        archived: true,
+      },
     };
   },
 
@@ -858,40 +858,40 @@ Cards.mutations({
     });
     return {
       $set: {
-        archived: false
-      }
+        archived: false,
+      },
     };
   },
 
   setTitle(title) {
     return {
       $set: {
-        title
-      }
+        title,
+      },
     };
   },
 
   setDescription(description) {
     return {
       $set: {
-        description
-      }
+        description,
+      },
     };
   },
 
   setRequestedBy(requestedBy) {
     return {
       $set: {
-        requestedBy
-      }
+        requestedBy,
+      },
     };
   },
 
   setAssignedBy(assignedBy) {
     return {
       $set: {
-        assignedBy
-      }
+        assignedBy,
+      },
     };
   },
 
@@ -905,23 +905,23 @@ Cards.mutations({
     };
 
     return {
-      $set: mutatedFields
+      $set: mutatedFields,
     };
   },
 
   addLabel(labelId) {
     return {
       $addToSet: {
-        labelIds: labelId
-      }
+        labelIds: labelId,
+      },
     };
   },
 
   removeLabel(labelId) {
     return {
       $pull: {
-        labelIds: labelId
-      }
+        labelIds: labelId,
+      },
     };
   },
 
@@ -936,16 +936,16 @@ Cards.mutations({
   assignMember(memberId) {
     return {
       $addToSet: {
-        members: memberId
-      }
+        members: memberId,
+      },
     };
   },
 
   unassignMember(memberId) {
     return {
       $pull: {
-        members: memberId
-      }
+        members: memberId,
+      },
     };
   },
 
@@ -962,9 +962,9 @@ Cards.mutations({
       $addToSet: {
         customFields: {
           _id: customFieldId,
-          value: null
-        }
-      }
+          value: null,
+        },
+      },
     };
   },
 
@@ -972,9 +972,9 @@ Cards.mutations({
     return {
       $pull: {
         customFields: {
-          _id: customFieldId
-        }
-      }
+          _id: customFieldId,
+        },
+      },
     };
   },
 
@@ -991,7 +991,7 @@ Cards.mutations({
     const index = this.customFieldIndex(customFieldId);
     if (index > -1) {
       const update = {
-        $set: {}
+        $set: {},
       };
       update.$set[`customFields.${index}.value`] = value;
       return update;
@@ -1004,96 +1004,96 @@ Cards.mutations({
   setCover(coverId) {
     return {
       $set: {
-        coverId
-      }
+        coverId,
+      },
     };
   },
 
   unsetCover() {
     return {
       $unset: {
-        coverId: ''
-      }
+        coverId: '',
+      },
     };
   },
 
   setReceived(receivedAt) {
     return {
       $set: {
-        receivedAt
-      }
+        receivedAt,
+      },
     };
   },
 
   unsetReceived() {
     return {
       $unset: {
-        receivedAt: ''
-      }
+        receivedAt: '',
+      },
     };
   },
 
   setStart(startAt) {
     return {
       $set: {
-        startAt
-      }
+        startAt,
+      },
     };
   },
 
   unsetStart() {
     return {
       $unset: {
-        startAt: ''
-      }
+        startAt: '',
+      },
     };
   },
 
   setDue(dueAt) {
     return {
       $set: {
-        dueAt
-      }
+        dueAt,
+      },
     };
   },
 
   unsetDue() {
     return {
       $unset: {
-        dueAt: ''
-      }
+        dueAt: '',
+      },
     };
   },
 
   setEnd(endAt) {
     return {
       $set: {
-        endAt
-      }
+        endAt,
+      },
     };
   },
 
   unsetEnd() {
     return {
       $unset: {
-        endAt: ''
-      }
+        endAt: '',
+      },
     };
   },
 
   setOvertime(isOvertime) {
     return {
       $set: {
-        isOvertime
-      }
+        isOvertime,
+      },
     };
   },
 
   setSpentTime(spentTime) {
     return {
       $set: {
-        spentTime
-      }
+        spentTime,
+      },
     };
   },
 
@@ -1101,16 +1101,16 @@ Cards.mutations({
     return {
       $unset: {
         spentTime: '',
-        isOvertime: false
-      }
+        isOvertime: false,
+      },
     };
   },
 
   setParentId(parentId) {
     return {
       $set: {
-        parentId
-      }
+        parentId,
+      },
     };
   },
 });
@@ -1206,7 +1206,7 @@ function cardLabels(userId, doc, fieldNames, modifier) {
         activityType: 'addedLabel',
         boardId: doc.boardId,
         cardId: doc._id,
-      }
+      };
       Activities.insert(act);
     }
   }
@@ -1313,7 +1313,7 @@ if (Meteor.isServer) {
       data: Cards.find({
         boardId: paramBoardId,
         listId: paramListId,
-        archived: false
+        archived: false,
       }).map(function(doc) {
         return {
           _id: doc._id,
@@ -1335,7 +1335,7 @@ if (Meteor.isServer) {
         _id: paramCardId,
         listId: paramListId,
         boardId: paramBoardId,
-        archived: false
+        archived: false,
       }),
     });
   });
@@ -1345,7 +1345,7 @@ if (Meteor.isServer) {
     const paramBoardId = req.params.boardId;
     const paramListId = req.params.listId;
     const check = Users.findOne({
-      _id: req.body.authorId
+      _id: req.body.authorId,
     });
     const members = req.body.members || [req.body.authorId];
     if (typeof check !== 'undefined') {
@@ -1367,7 +1367,7 @@ if (Meteor.isServer) {
       });
 
       const card = Cards.findOne({
-        _id: id
+        _id: id,
       });
       cardCreation(req.body.authorId, card);
 
@@ -1390,11 +1390,11 @@ if (Meteor.isServer) {
         _id: paramCardId,
         listId: paramListId,
         boardId: paramBoardId,
-        archived: false
+        archived: false,
       }, {
         $set: {
-          title: newTitle
-        }
+          title: newTitle,
+        },
       });
     }
     if (req.body.hasOwnProperty('listId')) {
@@ -1403,18 +1403,18 @@ if (Meteor.isServer) {
         _id: paramCardId,
         listId: paramListId,
         boardId: paramBoardId,
-        archived: false
+        archived: false,
       }, {
         $set: {
-          listId: newParamListId
-        }
+          listId: newParamListId,
+        },
       });
 
       const card = Cards.findOne({
-        _id: paramCardId
+        _id: paramCardId,
       });
       cardMove(req.body.authorId, card, {
-        fieldName: 'listId'
+        fieldName: 'listId',
       }, paramListId);
 
     }
@@ -1424,11 +1424,11 @@ if (Meteor.isServer) {
         _id: paramCardId,
         listId: paramListId,
         boardId: paramBoardId,
-        archived: false
+        archived: false,
       }, {
         $set: {
-          description: newDescription
-        }
+          description: newDescription,
+        },
       });
     }
     if (req.body.hasOwnProperty('labelIds')) {
@@ -1437,11 +1437,11 @@ if (Meteor.isServer) {
         _id: paramCardId,
         listId: paramListId,
         boardId: paramBoardId,
-        archived: false
+        archived: false,
       }, {
         $set: {
-          labelIds: newlabelIds
-        }
+          labelIds: newlabelIds,
+        },
       });
     }
     if (req.body.hasOwnProperty('requestedBy')) {
@@ -1506,10 +1506,10 @@ if (Meteor.isServer) {
     Cards.direct.remove({
       _id: paramCardId,
       listId: paramListId,
-      boardId: paramBoardId
+      boardId: paramBoardId,
     });
     const card = Cards.find({
-      _id: paramCardId
+      _id: paramCardId,
     });
     cardRemover(req.body.authorId, card);
     JsonRoutes.sendResult(res, {

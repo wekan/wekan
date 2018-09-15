@@ -31,7 +31,7 @@ if (Meteor.isServer) {
     if (exporter.canExport(user)) {
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: exporter.build()
+        data: exporter.build(),
       });
     } else {
       // we could send an explicit error message, but on the other hand the only
@@ -52,16 +52,16 @@ class Exporter {
     // we do not want to retrieve boardId in related elements
     const noBoardId = {
       fields: {
-        boardId: 0
-      }
+        boardId: 0,
+      },
     };
     const result = {
       _format: 'wekan-board-1.0.0',
     };
     _.extend(result, Boards.findOne(this._boardId, {
       fields: {
-        stars: 0
-      }
+        stars: 0,
+      },
     }));
     result.lists = Lists.find(byBoard, noBoardId).fetch();
     result.cards = Cards.find(byBoardNoLinked, noBoardId).fetch();
@@ -77,21 +77,21 @@ class Exporter {
     result.actions = [];
     result.cards.forEach((card) => {
       result.checklists.push(...Checklists.find({
-        cardId: card._id
+        cardId: card._id,
       }).fetch());
       result.checklistItems.push(...ChecklistItems.find({
-        cardId: card._id
+        cardId: card._id,
       }).fetch());
       result.subtaskItems.push(...Cards.find({
-        parentid: card._id
+        parentid: card._id,
       }).fetch());
     });
     result.rules.forEach((rule) => {
       result.triggers.push(...Triggers.find({
-        _id: rule.triggerId
+        _id: rule.triggerId,
       }, noBoardId).fetch());
       result.actions.push(...Actions.find({
-        _id: rule.actionId
+        _id: rule.actionId,
       }, noBoardId).fetch());
     });
 
@@ -154,8 +154,8 @@ class Exporter {
     });
     const byUserIds = {
       _id: {
-        $in: Object.getOwnPropertyNames(users)
-      }
+        $in: Object.getOwnPropertyNames(users),
+      },
     };
     // we use whitelist to be sure we do not expose inadvertently
     // some secret fields that gets added to User later.

@@ -7,95 +7,95 @@ BlazeComponent.extendComponent({
     return [{
       'click .js-add-gen-trigger' (event) {
         const desc = Utils.getTriggerActionDesc(event, this);
-        let datas = this.data();
+        const datas = this.data();
         const actionSelected = this.find('#gen-action').value;
-        const boardId = Session.get('currentBoard')
-        if (actionSelected == "created") {
+        const boardId = Session.get('currentBoard');
+        if (actionSelected === 'created') {
           datas.triggerVar.set({
-            activityType: "createCard",
-            "boardId": boardId,
-            "listName": "*",
-            "desc": desc
+            activityType: 'createCard',
+            boardId,
+            'listName': '*',
+            desc,
           });
         }
-        if (actionSelected == "removed") {
+        if (actionSelected === 'removed') {
           datas.triggerVar.set({
-            activityType: "removeCard",
-            "boardId": boardId,
-            "desc": desc
+            activityType: 'removeCard',
+            boardId,
+            desc,
           });
         }
 
       },
       'click .js-add-create-trigger' (event) {
         const desc = Utils.getTriggerActionDesc(event, this);
-        let datas = this.data();
+        const datas = this.data();
         const actionSelected = this.find('#create-action').value;
         const listName = this.find('#create-list-name').value;
-        const boardId = Session.get('currentBoard')
-        if (actionSelected == "created") {
+        const boardId = Session.get('currentBoard');
+        if (actionSelected === 'created') {
           datas.triggerVar.set({
-            activityType: "createCard",
-            "boardId": boardId,
-            "listName": listName,
-            "desc": desc
+            activityType: 'createCard',
+            boardId,
+            listName,
+            desc,
           });
         }
-        if (actionSelected == "removed") {
+        if (actionSelected === 'removed') {
           datas.triggerVar.set({
-            activityType: "removeCard",
-            "boardId": boardId,
-            "listName": listName,
-            "desc": desc
+            activityType: 'removeCard',
+            boardId,
+            listName,
+            desc,
           });
         }
       },
       'click .js-add-moved-trigger' (event) {
-        let datas = this.data();
+        const datas = this.data();
         const desc = Utils.getTriggerActionDesc(event, this);
 
         const actionSelected = this.find('#move-action').value;
         const listName = this.find('#move-list-name').value;
-        const boardId = Session.get('currentBoard')
-        if (actionSelected == "moved-to") {
+        const boardId = Session.get('currentBoard');
+        if (actionSelected === 'moved-to') {
           datas.triggerVar.set({
-            activityType: "moveCard",
-            "boardId": boardId,
-            "listName": listName,
-            "oldListName": "*",
-            "desc": desc
+            activityType: 'moveCard',
+            boardId,
+            listName,
+            'oldListName': '*',
+            desc,
           });
         }
-        if (actionSelected == "moved-from") {
+        if (actionSelected === 'moved-from') {
           datas.triggerVar.set({
-            activityType: "moveCard",
-            "boardId": boardId,
-            "listName": "*",
-            "oldListName": listName,
-            "desc": desc
+            activityType: 'moveCard',
+            boardId,
+            'listName': '*',
+            'oldListName': listName,
+            desc,
           });
         }
       },
       'click .js-add-arc-trigger' (event) {
-        let datas = this.data();
+        const datas = this.data();
         const desc = Utils.getTriggerActionDesc(event, this);
         const actionSelected = this.find('#arch-action').value;
-        const boardId = Session.get('currentBoard')
-        if (actionSelected == "archived") {
+        const boardId = Session.get('currentBoard');
+        if (actionSelected === 'archived') {
           datas.triggerVar.set({
-            activityType: "archivedCard",
-            "boardId": boardId,
-            "desc": desc
+            activityType: 'archivedCard',
+            boardId,
+            desc,
           });
         }
-        if (actionSelected == "unarchived") {
+        if (actionSelected === 'unarchived') {
           datas.triggerVar.set({
-            activityType: "restoredCard",
-            "boardId": boardId,
-            "desc": desc
+            activityType: 'restoredCard',
+            boardId,
+            desc,
           });
         }
-      }
+      },
 
     }];
   },

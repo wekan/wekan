@@ -4,8 +4,8 @@ Triggers.mutations({
   rename(description) {
     return {
       $set: {
-        description
-      }
+        description,
+      },
     };
   },
 });
@@ -19,7 +19,7 @@ Triggers.allow({
   },
   remove(userId, doc) {
     return allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
-  }
+  },
 });
 
 Triggers.helpers({
@@ -30,7 +30,7 @@ Triggers.helpers({
 
   getRule() {
     return Rules.findOne({
-      triggerId: this._id
+      triggerId: this._id,
     });
   },
 
@@ -44,7 +44,7 @@ Triggers.helpers({
 
   findList(title) {
     return Lists.findOne({
-      title: title
+      title,
     });
   },
 
@@ -54,5 +54,5 @@ Triggers.helpers({
       return _.contains(this.labelIds, label._id);
     });
     return cardLabels;
-  }
+  },
 });

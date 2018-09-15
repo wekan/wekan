@@ -6,11 +6,10 @@ BlazeComponent.extendComponent({
   labels() {
     const labels = Boards.findOne(Session.get('currentBoard')).labels;
     for (let i = 0; i < labels.length; i++) {
-      if (labels[i].name == "" || labels[i].name == undefined) {
+      if (labels[i].name === '' || labels[i].name === undefined) {
         labels[i].name = labels[i].color.toUpperCase();
       }
     }
-    console.log(labels);
     return labels;
   },
 
@@ -23,34 +22,34 @@ BlazeComponent.extendComponent({
         const labelId = this.find('#label-id').value;
         const boardId = Session.get('currentBoard');
         const desc = Utils.getTriggerActionDesc(event, this);
-        if (actionSelected == "add") {
+        if (actionSelected === 'add') {
           const triggerId = Triggers.insert(trigger);
           const actionId = Actions.insert({
-            actionType: "addLabel",
-            "labelId": labelId,
-            "boardId": boardId,
-            "desc": desc
+            actionType: 'addLabel',
+            labelId,
+            boardId,
+            desc,
           });
           Rules.insert({
             title: ruleName,
-            triggerId: triggerId,
-            actionId: actionId,
-            "boardId": boardId
+            triggerId,
+            actionId,
+            boardId,
           });
         }
-        if (actionSelected == "remove") {
+        if (actionSelected === 'remove') {
           const triggerId = Triggers.insert(trigger);
           const actionId = Actions.insert({
-            actionType: "removeLabel",
-            "labelId": labelId,
-            "boardId": boardId,
-            "desc": desc
+            actionType: 'removeLabel',
+            labelId,
+            boardId,
+            desc,
           });
           Rules.insert({
             title: ruleName,
-            triggerId: triggerId,
-            actionId: actionId,
-            "boardId": boardId
+            triggerId,
+            actionId,
+            boardId,
           });
         }
 
@@ -62,35 +61,35 @@ BlazeComponent.extendComponent({
         const memberName = this.find('#member-name').value;
         const boardId = Session.get('currentBoard');
         const desc = Utils.getTriggerActionDesc(event, this);
-        if (actionSelected == "add") {
+        if (actionSelected === 'add') {
           const triggerId = Triggers.insert(trigger);
           const actionId = Actions.insert({
-            actionType: "addMember",
-            "memberName": memberName,
-            "boardId": boardId,
-            "desc": desc
+            actionType: 'addMember',
+            memberName,
+            boardId,
+            desc,
           });
           Rules.insert({
             title: ruleName,
-            triggerId: triggerId,
-            actionId: actionId,
-            "boardId": boardId,
-            "desc": desc
+            triggerId,
+            actionId,
+            boardId,
+            desc,
           });
         }
-        if (actionSelected == "remove") {
+        if (actionSelected === 'remove') {
           const triggerId = Triggers.insert(trigger);
           const actionId = Actions.insert({
-            actionType: "removeMember",
-            "memberName": memberName,
-            "boardId": boardId,
-            "desc": desc
+            actionType: 'removeMember',
+            memberName,
+            boardId,
+            desc,
           });
           Rules.insert({
             title: ruleName,
-            triggerId: triggerId,
-            actionId: actionId,
-            "boardId": boardId
+            triggerId,
+            actionId,
+            boardId,
           });
         }
       },
@@ -101,16 +100,16 @@ BlazeComponent.extendComponent({
         const desc = Utils.getTriggerActionDesc(event, this);
         const boardId = Session.get('currentBoard');
         const actionId = Actions.insert({
-          actionType: "removeMember",
-          "memberName": "*",
-          "boardId": boardId,
-          "desc": desc
+          actionType: 'removeMember',
+          'memberName': '*',
+          boardId,
+          desc,
         });
         Rules.insert({
           title: ruleName,
-          triggerId: triggerId,
-          actionId: actionId,
-          "boardId": boardId
+          triggerId,
+          actionId,
+          boardId,
         });
       },
     }];

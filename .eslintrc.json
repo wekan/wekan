@@ -14,7 +14,7 @@
   },
   "rules": {
     "strict": 0,
-    "no-undef": 2,
+    "no-undef": 0,
     "accessor-pairs": 2,
     "comma-dangle": [2, "always-multiline"],
     "consistent-return": 2,

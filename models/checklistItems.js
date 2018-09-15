@@ -76,7 +76,7 @@ function itemCreation(userId, doc) {
     boardId,
     checklistId: doc.checklistId,
     checklistItemId: doc._id,
-    checklistItemName:doc.title
+    checklistItemName:doc.title,
   });
 }
 
@@ -90,66 +90,66 @@ function itemRemover(userId, doc) {
     boardId,
     checklistId: doc.checklistId,
     checklistItemId: doc._id,
-    checklistItemName:doc.title
+    checklistItemName:doc.title,
   });
   Activities.remove({
     checklistItemId: doc._id,
   });
 }
 
-function publishCheckActivity(userId,doc){
+function publishCheckActivity(userId, doc){
   const card = Cards.findOne(doc.cardId);
   const boardId = card.boardId;
   let activityType;
   if(doc.isFinished){
-    activityType = "checkedItem";
+    activityType = 'checkedItem';
   }else{
-    activityType = "uncheckedItem";
+    activityType = 'uncheckedItem';
   }
-  let act = {
+  const act = {
     userId,
-    activityType: activityType,
+    activityType,
     cardId: doc.cardId,
     boardId,
     checklistId: doc.checklistId,
     checklistItemId: doc._id,
-    checklistItemName:doc.title
-  }
+    checklistItemName:doc.title,
+  };
   Activities.insert(act);
 }
 
-function publishChekListCompleted(userId,doc,fieldNames,modifier){
+function publishChekListCompleted(userId, doc, fieldNames, modifier){
   const card = Cards.findOne(doc.cardId);
   const boardId = card.boardId;
   const checklistId = doc.checklistId;
   const checkList = Checklists.findOne({_id:checklistId});
   if(checkList.isFinished()){
-    let act = {
+    const act = {
       userId,
-      activityType: "checklistCompleted",
+      activityType: 'checklistCompleted',
       cardId: doc.cardId,
       boardId,
       checklistId: doc.checklistId,
-      checklistName:doc.title
-    }
+      checklistName:doc.title,
+    };
     Activities.insert(act);
   }
 }
 
-function publishChekListUncompleted(userId,doc,fieldNames,modifier){
+function publishChekListUncompleted(userId, doc, fieldNames, modifier){
   const card = Cards.findOne(doc.cardId);
   const boardId = card.boardId;
   const checklistId = doc.checklistId;
   const checkList = Checklists.findOne({_id:checklistId});
   if(checkList.isFinished()){
-    let act = {
+    const act = {
       userId,
-      activityType: "checklistUncompleted",
+      activityType: 'checklistUncompleted',
       cardId: doc.cardId,
       boardId,
       checklistId: doc.checklistId,
-      checklistName:doc.title
-    }
+      checklistName:doc.title,
+    };
     Activities.insert(act);
   }
 }
@@ -161,14 +161,13 @@ if (Meteor.isServer) {
   });
 
   ChecklistItems.after.update((userId, doc, fieldNames, modifier) => {
-    publishCheckActivity(userId,doc);
-    publishChekListCompleted(userId,doc,fieldNames,modifier)
+    publishCheckActivity(userId, doc);
+    publishChekListCompleted(userId, doc, fieldNames, modifier);
   });
 
   ChecklistItems.before.update((userId, doc, fieldNames, modifier) => {
-    publishChekListUncompleted(userId,doc,fieldNames,modifier)
+    publishChekListUncompleted(userId, doc, fieldNames, modifier);
   });
-
 
 
   ChecklistItems.after.insert((userId, doc) => {

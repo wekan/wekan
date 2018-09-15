@@ -35,7 +35,7 @@ BlazeComponent.extendComponent({
   },
 
   name() {
-    console.log(this.data());
+    // console.log(this.data());
   },
   events() {
     return [{

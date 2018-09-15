@@ -57,14 +57,11 @@ Activities.before.insert((userId, doc) => {
 });
 
 
-
 Activities.after.insert((userId, doc) => {
-   const activity = Activities._transform(doc);
-   RulesHelper.executeRules(activity);
+  const activity = Activities._transform(doc);
+  RulesHelper.executeRules(activity);
 
 });
-
-
 
 
 if (Meteor.isServer) {

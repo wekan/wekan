@@ -2,54 +2,54 @@ template(name="boardTriggers")
   div.trigger-item
     div.trigger-content
       div.trigger-text 
-        | {{{_'r-when-a-card-is'}}}
+        | {{_'r-when-a-card-is'}}
       div.trigger-dropdown
         select(id="gen-action")
-          option(value="created") {{{_'r-added-to'}}}
-          option(value="removed") {{{_'r-removed-from'}}}
+          option(value="created") {{_'r-added-to'}}
+          option(value="removed") {{_'r-removed-from'}}
       div.trigger-text 
-        | {{{_'r-the-board'}}}
+        | {{_'r-the-board'}}
     div.trigger-button.js-add-gen-trigger.js-goto-action
       i.fa.fa-plus
 
   div.trigger-item
     div.trigger-content
       div.trigger-text 
-        | {{{_'r-when-a-card-is'}}}
+        | {{_'r-when-a-card-is'}}
       div.trigger-dropdown
         select(id="create-action")
-          option(value="created") {{{_'r-added-to'}}}
-          option(value="removed") {{{_'r-removed-from'}}}
+          option(value="created") {{_'r-added-to'}}
+          option(value="removed") {{_'r-removed-from'}}
       div.trigger-text 
-        | {{{_'r-list'}}}
+        | {{_'r-list'}}
       div.trigger-dropdown
-        input(id="create-list-name",type=text,placeholder="{{{_'r-list-name'}}}")  
+        input(id="create-list-name",type=text,placeholder="{{_'r-list-name'}}")  
     div.trigger-button.js-add-create-trigger.js-goto-action
       i.fa.fa-plus
 
   div.trigger-item
     div.trigger-content
       div.trigger-text 
-        | {{{_'r-when-a-card-is'}}}
+        | {{_'r-when-a-card-is'}}
       div.trigger-dropdown
         select(id="move-action")
-          option(value="moved-to") {{{_'r-moved-to'}}}
-          option(value="moved-from") {{{_'r-moved-from'}}}
+          option(value="moved-to") {{_'r-moved-to'}}
+          option(value="moved-from") {{_'r-moved-from'}}
       div.trigger-text 
-        | {{{_'r-list'}}}
+        | {{_'r-list'}}
       div.trigger-dropdown
-        input(id="move-list-name",type=text,placeholder="{{{_'r-list-name'}}}")  
+        input(id="move-list-name",type=text,placeholder="{{_'r-list-name'}}")  
     div.trigger-button.js-add-moved-trigger.js-goto-action
       i.fa.fa-plus
 
   div.trigger-item
     div.trigger-content
       div.trigger-text 
-        | {{{_'r-when-a-card-is'}}}
+        | {{_'r-when-a-card-is'}}
       div.trigger-dropdown
         select(id="arch-action")
-          option(value="archived") {{{_'r-archived'}}}
-          option(value="unarchived") {{{_'r-unarchived'}}}
+          option(value="archived") {{_'r-archived'}}
+          option(value="unarchived") {{_'r-unarchived'}}
     div.trigger-button.js-add-arch-trigger.js-goto-action
       i.fa.fa-plus
 

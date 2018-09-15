@@ -6,7 +6,7 @@ BlazeComponent.extendComponent({
   rules() {
     const boardId = Session.get('currentBoard');
     return Rules.find({
-      "boardId": boardId
+      boardId,
     });
   },
   events() {

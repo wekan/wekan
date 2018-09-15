@@ -31,9 +31,8 @@ Rules.helpers({
   },
   getTrigger(){
     return Triggers.findOne({_id:this.triggerId});
-  }
+  },
 });
-
 
 
 Rules.allow({
@@ -45,5 +44,5 @@ Rules.allow({
   },
   remove(userId, doc) {
     return allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
-  }
+  },
 });

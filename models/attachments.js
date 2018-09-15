@@ -87,11 +87,11 @@ if (Meteor.isServer) {
       attachmentId: doc._id,
     });
     Activities.insert({
-        userId,
-        type: 'card',
-        activityType: 'deleteAttachment',
-        boardId: doc.boardId,
-        cardId: doc.cardId,
-      });
+      userId,
+      type: 'card',
+      activityType: 'deleteAttachment',
+      boardId: doc.boardId,
+      cardId: doc.cardId,
+    });
   });
 }

@@ -2,13 +2,13 @@ template(name="checklistTriggers")
   div.trigger-item
     div.trigger-content
       div.trigger-text 
-        | {{{_'r-when-a-checklist'}}}
+        | {{_'r-when-a-checklist'}}
       div.trigger-dropdown
         select(id="gen-check-action")
-          option(value="created") {{{_'r-added-to'}}}
-          option(value="removed") {{{_'r-removed-from'}}}
+          option(value="created") {{_'r-added-to'}}
+          option(value="removed") {{_'r-removed-from'}}
       div.trigger-text 
-        | {{{_'r-a-card'}}}
+        | {{_'r-a-card'}}
     div.trigger-button.js-add-gen-check-trigger.js-goto-action
       i.fa.fa-plus
 
@@ -16,68 +16,68 @@ template(name="checklistTriggers")
   div.trigger-item
     div.trigger-content
       div.trigger-text 
-        | {{{_'r-when-the-checklist'}}}
+        | {{_'r-when-the-checklist'}}
       div.trigger-dropdown
-        input(id="check-name",type=text,placeholder="{{{_'r-name'}}}") 
+        input(id="check-name",type=text,placeholder="{{_'r-name'}}") 
       div.trigger-text 
-        | {{{_'r-is'}}}
+        | {{_'r-is'}}
       div.trigger-dropdown
         select(id="spec-check-action")
-          option(value="created") {{{_'r-added-to'}}}
-          option(value="removed") {{{_'r-removed-from'}}}
+          option(value="created") {{_'r-added-to'}}
+          option(value="removed") {{_'r-removed-from'}}
       div.trigger-text 
-        | {{{_'r-a-card'}}}
+        | {{_'r-a-card'}}
     div.trigger-button.js-add-spec-check-trigger.js-goto-action
       i.fa.fa-plus
 
   div.trigger-item
     div.trigger-content
       div.trigger-text 
-        | {{{_'r-when-a-checklist'}}}
+        | {{_'r-when-a-checklist'}}
       div.trigger-dropdown
         select(id="gen-comp-check-action")
-          option(value="completed") {{{_'r-completed'}}}
-          option(value="uncompleted") {{{_'r-made-incomplete'}}}
+          option(value="completed") {{_'r-completed'}}
+          option(value="uncompleted") {{_'r-made-incomplete'}}
     div.trigger-button.js-add-gen-comp-trigger.js-goto-action
       i.fa.fa-plus
 
   div.trigger-item
     div.trigger-content
       div.trigger-text 
-        | {{{_'r-when-the-checklist'}}}
+        | {{_'r-when-the-checklist'}}
       div.trigger-dropdown
-        input(id="spec-comp-check-name",type=text,placeholder="{{{_'r-name'}}}") 
+        input(id="spec-comp-check-name",type=text,placeholder="{{_'r-name'}}") 
       div.trigger-text 
-        | {{{_'r-is'}}}
+        | {{_'r-is'}}
       div.trigger-dropdown
         select(id="spec-comp-check-action")
-          option(value="completed") {{{_'r-completed'}}}
-          option(value="uncompleted") {{{_'r-made-incomplete'}}}
+          option(value="completed") {{_'r-completed'}}
+          option(value="uncompleted") {{_'r-made-incomplete'}}
     div.trigger-button.js-add-spec-comp-trigger.js-goto-action
       i.fa.fa-plus
 
   div.trigger-item
     div.trigger-content
       div.trigger-text 
-        | {{{_'r-when-a-item'}}}
+        | {{_'r-when-a-item'}}
       div.trigger-dropdown
         select(id="check-item-gen-action")
-          option(value="checked") {{{_'r-checked'}}}
-          option(value="unchecked") {{{_'r-unchecked'}}}
+          option(value="checked") {{_'r-checked'}}
+          option(value="unchecked") {{_'r-unchecked'}}
     div.trigger-button.js-add-gen-check-item-trigger.js-goto-action
       i.fa.fa-plus
 
   div.trigger-item
     div.trigger-content
       div.trigger-text 
-        | {{{_'r-when-the-item'}}}
+        | {{_'r-when-the-item'}}
       div.trigger-dropdown
-        input(id="check-item-name",type=text,placeholder="{{{_'r-name'}}}") 
+        input(id="check-item-name",type=text,placeholder="{{_'r-name'}}") 
       div.trigger-text 
-        | {{{_'r-is'}}}
+        | {{_'r-is'}}
       div.trigger-dropdown
         select(id="check-item-spec-action")
-          option(value="checked") {{{_'r-checked'}}}
-          option(value="unchecked") {{{_'r-unchecked'}}}
+          option(value="checked") {{_'r-checked'}}
+          option(value="unchecked") {{_'r-unchecked'}}
     div.trigger-button.js-add-spec-check-item-trigger.js-goto-action
       i.fa.fa-plus
