@@ -541,8 +541,8 @@
     "r-list": "list",
     "r-moved-to": "Moved to",
     "r-moved-from": "Moved from",
-    "r-archived": "Archived",
-    "r-unarchived": "Unarchived",
+    "r-archived": "Moved to Recycle Bin",
+    "r-unarchived": "Restored from Recycle Bin",
     "r-a-card": "a card",
     "r-when-a-label-is": "When a label is",
     "r-when-the-label-is": "When the label is",
@@ -607,18 +607,4 @@
     "r-d-check-of-list": "of checklist",
     "r-d-add-checklist": "Add checklist",
     "r-d-remove-checklist": "Remove checklist"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
