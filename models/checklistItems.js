@@ -115,7 +115,6 @@ function publishCheckActivity(userId,doc){
     checklistItemId: doc._id,
     checklistItemName:doc.title
   }
-  console.log(act);
   Activities.insert(act);
 }
 

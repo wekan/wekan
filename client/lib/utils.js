@@ -145,7 +145,6 @@ Utils = {
     });
   },
 
-<<<<<<< HEAD
   setMatomo(data){
     window._paq = window._paq || [];
     window._paq.push(['setDoNotTrack', data.doNotTrack]);

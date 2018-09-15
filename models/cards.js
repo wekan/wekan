@@ -933,8 +933,6 @@ Cards.mutations({
     }
   },
 
-<<<<<<< HEAD
-=======
   assignMember(memberId) {
     return {
       $addToSet: {
@@ -959,7 +957,6 @@ Cards.mutations({
     }
   },
 
->>>>>>> 36c04edb9f7cf16fb450b76598c4957968d4674b
   assignCustomField(customFieldId) {
     return {
       $addToSet: {
@@ -1020,8 +1017,6 @@ Cards.mutations({
     };
   },
 
-<<<<<<< HEAD
-=======
   setReceived(receivedAt) {
     return {
       $set: {
@@ -1111,7 +1106,6 @@ Cards.mutations({
     };
   },
 
->>>>>>> 36c04edb9f7cf16fb450b76598c4957968d4674b
   setParentId(parentId) {
     return {
       $set: {
