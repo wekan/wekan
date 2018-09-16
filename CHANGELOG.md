@@ -1,8 +1,9 @@
-# Upcoming Wekan release
+# v1.47 2018-09-16 Wekan release
 
 This release adds the following new features:
 
-- [IFTTT Rules](https://github.com/wekan/wekan/pull/1896). Useful to automate things like [adding labels, members, moving card, archiving them, checking checklists etc](https://github.com/wekan/wekan/issues/1160).
+- [IFTTT Rules](https://github.com/wekan/wekan/pull/1896). Useful to automate things like
+  [adding labels, members, moving card, archiving them, checking checklists etc](https://github.com/wekan/wekan/issues/1160).
   Please test and report bugs. Later colors need to be made translatable.
 
 Thanks to GitHub users Angtrim and xet7 for their contributions.
