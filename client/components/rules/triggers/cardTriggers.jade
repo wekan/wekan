@@ -1,0 +1,79 @@
+template(name="cardTriggers")
+  div.trigger-item
+    div.trigger-content
+      div.trigger-text 
+        | {{_'r-when-a-label-is'}}
+      div.trigger-dropdown
+        select(id="label-action")
+          option(value="added") {{_'r-added-to'}}
+          option(value="removed") {{_'r-removed-from'}}
+      div.trigger-text 
+        | {{_'r-a-card'}}
+    div.trigger-button.js-add-gen-label-trigger.js-goto-action
+      i.fa.fa-plus
+
+  div.trigger-item
+    div.trigger-content
+      div.trigger-text 
+        | {{_'r-when-the-label-is'}}
+      div.trigger-dropdown
+        select(id="spec-label")
+          each labels
+            option(value="#{_id}")
+              = name
+      div.trigger-text 
+        | {{_'r-is'}}
+      div.trigger-dropdown
+        select(id="spec-label-action")
+          option(value="added") {{_'r-added-to'}}
+          option(value="removed") {{_'r-removed-from'}}
+      div.trigger-text 
+        | {{_'r-a-card'}}
+    div.trigger-button.js-add-spec-label-trigger.js-goto-action
+      i.fa.fa-plus
+
+  div.trigger-item
+    div.trigger-content
+      div.trigger-text 
+        | {{_'r-when-a-member'}}
+      div.trigger-dropdown
+        select(id="gen-member-action")
+          option(value="added") {{_'r-added-to'}}
+          option(value="removed") {{_'r-removed-from'}}
+      div.trigger-text 
+        | {{_'r-a-card'}}
+    div.trigger-button.js-add-gen-member-trigger.js-goto-action
+      i.fa.fa-plus
+
+
+  div.trigger-item
+    div.trigger-content
+      div.trigger-text 
+        | {{_'r-when-the-member'}}
+      div.trigger-dropdown
+        input(id="spec-member",type=text,placeholder="{{_'r-name'}}") 
+      div.trigger-text 
+        | {{_'r-is'}}
+      div.trigger-dropdown
+        select(id="spec-member-action")
+          option(value="added") {{_'r-added-to'}}
+          option(value="removed") {{_'r-removed-from'}}
+      div.trigger-text 
+        | {{_'r-a-card'}}
+    div.trigger-button.js-add-spec-member-trigger.js-goto-action
+      i.fa.fa-plus
+
+  div.trigger-item
+    div.trigger-content
+      div.trigger-text 
+        | {{_'r-when-a-attach'}}
+      div.trigger-text 
+        | {{_'r-is'}}
+      div.trigger-dropdown
+        select(id="attach-action")
+          option(value="added") {{_'r-added-to'}}
+          option(value="removed") {{_'r-removed-from'}}
+      div.trigger-text 
+        | {{_'r-a-card'}}
+    div.trigger-button.js-add-attachment-trigger.js-goto-action
+      i.fa.fa-plus

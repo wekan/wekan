@@ -88,6 +88,10 @@ template(name="boardHeaderBar")
           a.board-header-btn-close.js-filter-reset(title="{{_ 'filter-clear'}}")
             i.fa.fa-times-thin
 
+      a.board-header-btn.js-open-rules-view(title="{{_ 'rules'}}")
+        i.fa.fa-magic
+        span {{_ 'rules'}}
+
       a.board-header-btn.js-open-search-view(title="{{_ 'search'}}")
         i.fa.fa-search
         span {{_ 'search'}}
@@ -289,6 +293,11 @@ template(name="boardChangeTitlePopup")
       | {{_ 'description'}}
       textarea.js-board-desc= description
     input.primary.wide(type="submit" value="{{_ 'rename'}}")
+
+template(name="boardCreateRulePopup")
+  p {{_ 'close-board-pop'}}
+  button.js-confirm.negate.full(type="submit") {{_ 'archive'}}
+
 
 template(name="archiveBoardPopup")
   p {{_ 'close-board-pop'}}
