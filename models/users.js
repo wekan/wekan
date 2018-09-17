@@ -488,29 +488,29 @@ if (Meteor.isServer) {
       return user;
     }
 
-//    if (user.services.oidc) {
-//      const email = user.services.oidc.email.toLowerCase();
-//
-//      user.username = user.services.oidc.username;
-//      user.emails = [{ address: email, verified: true }];
-//      const initials = user.services.oidc.fullname.match(/\b[a-zA-Z]/g).join('').toUpperCase();
-//      user.profile = { initials, fullname: user.services.oidc.fullname };
-//
-//      // see if any existing user has this email address or username, otherwise create new
-//      const existingUser = Meteor.users.findOne({$or: [{'emails.address': email}, {'username':user.username}]});
-//      if (!existingUser)
-//        return user;
-//
-//      // copy across new service info
-//      const service = _.keys(user.services)[0];
-//      existingUser.services[service] = user.services[service];
-//      existingUser.emails = user.emails;
-//      existingUser.username = user.username;
-//      existingUser.profile = user.profile;
-//
-//      Meteor.users.remove({_id: existingUser._id}); // remove existing record
-//      return existingUser;
-//    }
+    //    if (user.services.oidc) {
+    //      const email = user.services.oidc.email.toLowerCase();
+    //
+    //      user.username = user.services.oidc.username;
+    //      user.emails = [{ address: email, verified: true }];
+    //      const initials = user.services.oidc.fullname.match(/\b[a-zA-Z]/g).join('').toUpperCase();
+    //      user.profile = { initials, fullname: user.services.oidc.fullname };
+    //
+    //      // see if any existing user has this email address or username, otherwise create new
+    //      const existingUser = Meteor.users.findOne({$or: [{'emails.address': email}, {'username':user.username}]});
+    //      if (!existingUser)
+    //        return user;
+    //
+    //      // copy across new service info
+    //      const service = _.keys(user.services)[0];
+    //      existingUser.services[service] = user.services[service];
+    //      existingUser.emails = user.emails;
+    //      existingUser.username = user.username;
+    //      existingUser.profile = user.profile;
+    //
+    //      Meteor.users.remove({_id: existingUser._id}); // remove existing record
+    //      return existingUser;
+    //    }
 
     if (options.from === 'admin') {
       user.createdThroughApi = true;
