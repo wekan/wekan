@@ -1,4 +1,4 @@
-# v1.49-edge-1 2018-09-17 Wekan release
+# v1.49.1 2018-09-17 Wekan release
 
 This release adds the following new features:
 
