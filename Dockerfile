@@ -63,8 +63,8 @@ RUN \
     apt-get update -y && apt-get install -y --no-install-recommends ${BUILD_DEPS} && \
     \
     # Download nodejs
-    #wget https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
-    #wget https://nodejs.org/dist/${NODE_VERSION}/SHASUMS256.txt.asc && \
+    wget https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
+    wget https://nodejs.org/dist/${NODE_VERSION}/SHASUMS256.txt.asc && \
     #---------------------------------------------------------------------------------------------
     # Node Fibers 100% CPU usage issue:
     # https://github.com/wekan/wekan-mongodb/issues/2#issuecomment-381453161
@@ -73,10 +73,10 @@ RUN \
     # Also see beginning of wekan/server/authentication.js
     #   import Fiber from "fibers";
     #   Fiber.poolSize = 1e9;
-    # Download node version 8.12.0 prerelease that has fix included,
+    # OLD: Download node version 8.12.0 prerelease that has fix included, => Official 8.12.0 has been released 
     # Description at https://releases.wekan.team/node.txt
-    wget https://releases.wekan.team/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
-    echo "1ed54adb8497ad8967075a0b5d03dd5d0a502be43d4a4d84e5af489c613d7795  node-v8.12.0-linux-x64.tar.gz" >> SHASUMS256.txt.asc && \
+    #wget https://releases.wekan.team/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
+    #echo "1ed54adb8497ad8967075a0b5d03dd5d0a502be43d4a4d84e5af489c613d7795  node-v8.12.0-linux-x64.tar.gz" >> SHASUMS256.txt.asc && \
     \
     # Verify nodejs authenticity
     grep ${NODE_VERSION}-${ARCHITECTURE}.tar.gz SHASUMS256.txt.asc | shasum -a 256 -c - && \
