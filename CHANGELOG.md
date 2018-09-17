@@ -1,3 +1,11 @@
+# v1.49 2018-09-17 Wekan release
+
+This release fixes the following bugs:
+
+- Fix lint errors.
+
+Thanks to GitHub user xet7 for contributions.
+
 # v1.48 2018-09-17 Wekan release
 
 This release removes the following new features:
