@@ -62,28 +62,27 @@ Meteor.startup(() => {
     Authentication.checkAdminOrCondition(userId, normalAccess);
   };
 
-  if (Meteor.isServer) {
-
-    if(process.env.OAUTH2_CLIENT_ID !== '') {
-
-      ServiceConfiguration.configurations.upsert( // eslint-disable-line no-undef
-        { service: 'oidc' },
-        {
-          $set: {
-            loginStyle: 'redirect',
-            clientId: process.env.OAUTH2_CLIENT_ID,
-            secret: process.env.OAUTH2_SECRET,
-            serverUrl: process.env.OAUTH2_SERVER_URL,
-            authorizationEndpoint: process.env.OAUTH2_AUTH_ENDPOINT,
-            userinfoEndpoint: process.env.OAUTH2_USERINFO_ENDPOINT,
-            tokenEndpoint: process.env.OAUTH2_TOKEN_ENDPOINT,
-            idTokenWhitelistFields: [],
-            requestPermissions: ['openid'],
-          },
-        }
-      );
-    }
-  }
+//  if (Meteor.isServer) {
+//
+//    if(process.env.OAUTH2_CLIENT_ID !== '') {
+//
+//      ServiceConfiguration.configurations.upsert( // eslint-disable-line no-undef
+//        { service: 'oidc' },
+//        {
+//          $set: {
+//            loginStyle: 'redirect',
+//            clientId: process.env.OAUTH2_CLIENT_ID,
+//            secret: process.env.OAUTH2_SECRET,
+//            serverUrl: process.env.OAUTH2_SERVER_URL,
+//            authorizationEndpoint: process.env.OAUTH2_AUTH_ENDPOINT,
+//            userinfoEndpoint: process.env.OAUTH2_USERINFO_ENDPOINT,
+//            tokenEndpoint: process.env.OAUTH2_TOKEN_ENDPOINT,
+//            idTokenWhitelistFields: [],
+//            requestPermissions: ['openid'],
+//          },
+//        }
+//      );
+//    }
+//  }
 
 });
-

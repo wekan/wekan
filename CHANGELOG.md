@@ -3,6 +3,7 @@
 This release removes the following new features:
 
 - Remove IFTTT rules, until they are fixed.
+- Remove OAuth2, until it is fixed.
 
 Thanks to GitHub user xet7 for contributions.
 
