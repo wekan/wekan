@@ -81,7 +81,7 @@ parts:
     wekan:
         source: .
         plugin: nodejs
-        node-engine: 8.11.3
+        node-engine: 8.12.0
         node-packages:
             - npm
             - node-gyp
@@ -108,16 +108,16 @@ parts:
             # Also see beginning of wekan/server/authentication.js
             #   import Fiber from "fibers";
             #   Fiber.poolSize = 1e9;
-            # Download node version 8.12.0 prerelease build,
+            # OLD: Download node version 8.12.0 prerelease build => Official node 8.12.0 has been released
             # Description at https://releases.wekan.team/node.txt
-            echo "375bd8db50b9c692c0bbba6e96d4114cd29bee3770f901c1ff2249d1038f1348  node" >> node-SHASUMS256.txt.asc
-            curl https://releases.wekan.team/node -o node
+            ##echo "375bd8db50b9c692c0bbba6e96d4114cd29bee3770f901c1ff2249d1038f1348  node" >> node-SHASUMS256.txt.asc
+            ##curl https://releases.wekan.team/node -o node
             # Verify Fibers patched node authenticity
-            echo "Fibers 100% CPU issue patched node authenticity:"
-            grep node node-SHASUMS256.txt.asc | shasum -a 256 -c -
-            rm -f node-SHASUMS256.txt.asc
-            chmod +x node
-            mv node `which node`
+            ##echo "Fibers 100% CPU issue patched node authenticity:"
+            ##grep node node-SHASUMS256.txt.asc | shasum -a 256 -c -
+            ##rm -f node-SHASUMS256.txt.asc
+            ##chmod +x node
+            ##mv node `which node`
             # DOES NOT WORK: paxctl fix.
             # Removed from build-packages: - paxctl
             #echo "Applying paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303"
