@@ -524,7 +524,7 @@
     "activity-delete-attach": "löschte ein Anhang von %s",
     "activity-added-label-card": "Label hinzugefügt '%s'",
     "activity-removed-label-card": "Label entfernt '%s'",
-    "activity-delete-attach-card": "ein Anhang löschen",
+    "activity-delete-attach-card": "hat einen Anhang gelöscht",
     "r-rule": "Regel",
     "r-add-trigger": "Auslöser hinzufügen",
     "r-add-action": "Aktion hinzufügen",
