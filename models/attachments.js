@@ -86,12 +86,5 @@ if (Meteor.isServer) {
     Activities.remove({
       attachmentId: doc._id,
     });
-    Activities.insert({
-      userId,
-      type: 'card',
-      activityType: 'deleteAttachment',
-      boardId: doc.boardId,
-      cardId: doc.cardId,
-    });
   });
 }

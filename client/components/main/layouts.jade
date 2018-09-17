@@ -36,18 +36,11 @@ template(name="defaultLayout")
   if (Modal.isOpen)
     #modal
       .overlay
-      if (Modal.isWide)
-        .modal-content-wide.modal-container
-          a.modal-close-btn.js-close-modal
-            i.fa.fa-times-thin
-          +Template.dynamic(template=Modal.getHeaderName)
-          +Template.dynamic(template=Modal.getTemplateName)
-      else
-        .modal-content.modal-container
-          a.modal-close-btn.js-close-modal
-            i.fa.fa-times-thin
-          +Template.dynamic(template=Modal.getHeaderName)
-          +Template.dynamic(template=Modal.getTemplateName)
+      .modal-content
+        a.modal-close-btn.js-close-modal
+          i.fa.fa-times-thin
+        +Template.dynamic(template=Modal.getHeaderName)
+        +Template.dynamic(template=Modal.getTemplateName)
 
 template(name="notFound")
   +message(label='page-not-found')

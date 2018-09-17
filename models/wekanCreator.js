@@ -1,4 +1,4 @@
-const DateString = Match.Where(function(dateAsString) {
+const DateString = Match.Where(function (dateAsString) {
   check(dateAsString, String);
   return moment(dateAsString, moment.ISO_8601).isValid();
 });
@@ -42,10 +42,6 @@ export class WekanCreator {
     this.comments = {};
     // the members, indexed by Wekan member id => Wekan user ID
     this.members = data.membersMapping ? data.membersMapping : {};
-    // Map of triggers Wekan ID => Wekan ID
-    this.triggers = {};
-    // Map of actions Wekan ID => Wekan ID
-    this.actions = {};
 
     // maps a wekanCardId to an array of wekanAttachments
     this.attachments = {};
@@ -61,10 +57,10 @@ export class WekanCreator {
    * @param {String} dateString a properly formatted Date
    */
   _now(dateString) {
-    if (dateString) {
+    if(dateString) {
       return new Date(dateString);
     }
-    if (!this._nowDate) {
+    if(!this._nowDate) {
       this._nowDate = new Date();
     }
     return this._nowDate;
@@ -76,9 +72,9 @@ export class WekanCreator {
    * Otherwise return current logged user.
    * @param wekanUserId
    * @private
-   */
+     */
   _user(wekanUserId) {
-    if (wekanUserId && this.members[wekanUserId]) {
+    if(wekanUserId && this.members[wekanUserId]) {
       return this.members[wekanUserId];
     }
     return Meteor.userId();
@@ -100,7 +96,7 @@ export class WekanCreator {
       // allowed values (is it worth the maintenance?)
       color: String,
       permission: Match.Where((value) => {
-        return ['private', 'public'].indexOf(value) >= 0;
+        return ['private', 'public'].indexOf(value)>= 0;
       }),
     }));
   }
@@ -151,30 +147,6 @@ export class WekanCreator {
     })]);
   }
 
-  checkRules(wekanRules) {
-    check(wekanRules, [Match.ObjectIncluding({
-      triggerId: String,
-      actionId: String,
-      title: String,
-    })]);
-  }
-
-  checkTriggers(wekanTriggers) {
-    // XXX More check based on trigger type
-    check(wekanTriggers, [Match.ObjectIncluding({
-      activityType: String,
-      desc: String,
-    })]);
-  }
-
-  checkActions(wekanActions) {
-    // XXX More check based on action type
-    check(wekanActions, [Match.ObjectIncluding({
-      actionType: String,
-      desc: String,
-    })]);
-  }
-
   // You must call parseActions before calling this one.
   createBoardAndLabels(boardToImport) {
     const boardToCreate = {
@@ -200,12 +172,12 @@ export class WekanCreator {
       title: boardToImport.title,
     };
     // now add other members
-    if (boardToImport.members) {
+    if(boardToImport.members) {
       boardToImport.members.forEach((wekanMember) => {
         // do we already have it in our list?
-        if (!boardToCreate.members.some((member) => member.wekanId === wekanMember.wekanId))
+        if(!boardToCreate.members.some((member) => member.wekanId === wekanMember.wekanId))
           boardToCreate.members.push({
-            ...wekanMember,
+            ... wekanMember,
             userId: wekanMember.wekanId,
           });
       });
@@ -222,11 +194,7 @@ export class WekanCreator {
       boardToCreate.labels.push(labelToCreate);
     });
     const boardId = Boards.direct.insert(boardToCreate);
-    Boards.direct.update(boardId, {
-      $set: {
-        modifiedAt: this._now(),
-      },
-    });
+    Boards.direct.update(boardId, {$set: {modifiedAt: this._now()}});
     // log activity
     Activities.direct.insert({
       activityType: 'importBoard',
@@ -278,21 +246,21 @@ export class WekanCreator {
         });
       }
       // add members {
-      if (card.members) {
+      if(card.members) {
         const wekanMembers = [];
         // we can't just map, as some members may not have been mapped
         card.members.forEach((sourceMemberId) => {
-          if (this.members[sourceMemberId]) {
+          if(this.members[sourceMemberId]) {
             const wekanId = this.members[sourceMemberId];
             // we may map multiple Wekan members to the same wekan user
             // in which case we risk adding the same user multiple times
-            if (!wekanMembers.find((wId) => wId === wekanId)) {
+            if(!wekanMembers.find((wId) => wId === wekanId)){
               wekanMembers.push(wekanId);
             }
           }
           return true;
         });
-        if (wekanMembers.length > 0) {
+        if(wekanMembers.length>0) {
           cardToCreate.members = wekanMembers;
         }
       }
@@ -353,9 +321,9 @@ export class WekanCreator {
           // - the template then tries to display the url to the attachment which causes other errors
           // so we make it server only, and let UI catch up once it is done, forget about latency comp.
           const self = this;
-          if (Meteor.isServer) {
+          if(Meteor.isServer) {
             if (att.url) {
-              file.attachData(att.url, function(error) {
+              file.attachData(att.url, function (error) {
                 file.boardId = boardId;
                 file.cardId = cardId;
                 file.userId = self._user(att.userId);
@@ -363,26 +331,20 @@ export class WekanCreator {
                 // attachments' related activities automatically
                 file.source = 'import';
                 if (error) {
-                  throw (error);
+                  throw(error);
                 } else {
                   const wekanAtt = Attachments.insert(file, () => {
                     // we do nothing
                   });
                   self.attachmentIds[att._id] = wekanAtt._id;
                   //
-                  if (wekanCoverId === att._id) {
-                    Cards.direct.update(cardId, {
-                      $set: {
-                        coverId: wekanAtt._id,
-                      },
-                    });
+                  if(wekanCoverId === att._id) {
+                    Cards.direct.update(cardId, { $set: {coverId: wekanAtt._id}});
                   }
                 }
               });
             } else if (att.file) {
-              file.attachData(new Buffer(att.file, 'base64'), {
-                type: att.type,
-              }, (error) => {
+              file.attachData(new Buffer(att.file, 'base64'), {type: att.type}, (error) => {
                 file.name(att.name);
                 file.boardId = boardId;
                 file.cardId = cardId;
@@ -391,19 +353,15 @@ export class WekanCreator {
                 // attachments' related activities automatically
                 file.source = 'import';
                 if (error) {
-                  throw (error);
+                  throw(error);
                 } else {
                   const wekanAtt = Attachments.insert(file, () => {
                     // we do nothing
                   });
                   this.attachmentIds[att._id] = wekanAtt._id;
                   //
-                  if (wekanCoverId === att._id) {
-                    Cards.direct.update(cardId, {
-                      $set: {
-                        coverId: wekanAtt._id,
-                      },
-                    });
+                  if(wekanCoverId === att._id) {
+                    Cards.direct.update(cardId, { $set: {coverId: wekanAtt._id}});
                   }
                 }
               });
@@ -446,11 +404,7 @@ export class WekanCreator {
         sort: list.sort ? list.sort : listIndex,
       };
       const listId = Lists.direct.insert(listToCreate);
-      Lists.direct.update(listId, {
-        $set: {
-          'updatedAt': this._now(),
-        },
-      });
+      Lists.direct.update(listId, {$set: {'updatedAt': this._now()}});
       this.lists[list._id] = listId;
       // // log activity
       // Activities.direct.insert({
@@ -483,11 +437,7 @@ export class WekanCreator {
         sort: swimlane.sort ? swimlane.sort : swimlaneIndex,
       };
       const swimlaneId = Swimlanes.direct.insert(swimlaneToCreate);
-      Swimlanes.direct.update(swimlaneId, {
-        $set: {
-          'updatedAt': this._now(),
-        },
-      });
+      Swimlanes.direct.update(swimlaneId, {$set: {'updatedAt': this._now()}});
       this.swimlanes[swimlane._id] = swimlaneId;
     });
   }
@@ -509,47 +459,6 @@ export class WekanCreator {
     return result;
   }
 
-  createTriggers(wekanTriggers, boardId) {
-    wekanTriggers.forEach((trigger, ruleIndex) => {
-      if (trigger.hasOwnProperty('labelId')) {
-        trigger.labelId = this.labels[trigger.labelId];
-      }
-      if (trigger.hasOwnProperty('memberId')) {
-        trigger.memberId = this.members[trigger.memberId];
-      }
-      trigger.boardId = boardId;
-      const oldId = trigger._id;
-      delete trigger._id;
-      this.triggers[oldId] = Triggers.direct.insert(trigger);
-    });
-  }
-
-  createActions(wekanActions, boardId) {
-    wekanActions.forEach((action, ruleIndex) => {
-      if (action.hasOwnProperty('labelId')) {
-        action.labelId = this.labels[action.labelId];
-      }
-      if (action.hasOwnProperty('memberId')) {
-        action.memberId = this.members[action.memberId];
-      }
-      action.boardId = boardId;
-      const oldId = action._id;
-      delete action._id;
-      this.actions[oldId] = Actions.direct.insert(action);
-    });
-  }
-
-  createRules(wekanRules, boardId) {
-    wekanRules.forEach((rule, ruleIndex) => {
-      // Create the rule
-      rule.boardId = boardId;
-      rule.triggerId = this.triggers[rule.triggerId];
-      rule.actionId = this.actions[rule.actionId];
-      delete rule._id;
-      Rules.direct.insert(rule);
-    });
-  }
-
   createChecklistItems(wekanChecklistItems) {
     wekanChecklistItems.forEach((checklistitem, checklistitemIndex) => {
       // Create the checklistItem
@@ -568,8 +477,7 @@ export class WekanCreator {
   parseActivities(wekanBoard) {
     wekanBoard.activities.forEach((activity) => {
       switch (activity.activityType) {
-      case 'addAttachment':
-      {
+      case 'addAttachment': {
         // We have to be cautious, because the attachment could have been removed later.
         // In that case Wekan still reports its addition, but removes its 'url' field.
         // So we test for that
@@ -577,12 +485,12 @@ export class WekanCreator {
           return attachment._id === activity.attachmentId;
         })[0];
 
-        if (typeof wekanAttachment !== 'undefined' && wekanAttachment) {
-          if (wekanAttachment.url || wekanAttachment.file) {
-            // we cannot actually create the Wekan attachment, because we don't yet
-            // have the cards to attach it to, so we store it in the instance variable.
+        if ( typeof wekanAttachment !== 'undefined' && wekanAttachment ) {
+          if(wekanAttachment.url || wekanAttachment.file) {
+          // we cannot actually create the Wekan attachment, because we don't yet
+          // have the cards to attach it to, so we store it in the instance variable.
             const wekanCardId = activity.cardId;
-            if (!this.attachments[wekanCardId]) {
+            if(!this.attachments[wekanCardId]) {
               this.attachments[wekanCardId] = [];
             }
             this.attachments[wekanCardId].push(wekanAttachment);
@@ -590,8 +498,7 @@ export class WekanCreator {
         }
         break;
       }
-      case 'addComment':
-      {
+      case 'addComment': {
         const wekanComment = wekanBoard.comments.filter((comment) => {
           return comment._id === activity.commentId;
         })[0];
@@ -602,31 +509,26 @@ export class WekanCreator {
         this.comments[id].push(wekanComment);
         break;
       }
-      case 'createBoard':
-      {
+      case 'createBoard': {
         this.createdAt.board = activity.createdAt;
         break;
       }
-      case 'createCard':
-      {
+      case 'createCard': {
         const cardId = activity.cardId;
         this.createdAt.cards[cardId] = activity.createdAt;
         this.createdBy.cards[cardId] = activity.userId;
         break;
       }
-      case 'createList':
-      {
+      case 'createList': {
         const listId = activity.listId;
         this.createdAt.lists[listId] = activity.createdAt;
         break;
       }
-      case 'createSwimlane':
-      {
+      case 'createSwimlane': {
         const swimlaneId = activity.swimlaneId;
         this.createdAt.swimlanes[swimlaneId] = activity.createdAt;
         break;
-      }
-      }
+      }}
     });
   }
 
@@ -635,8 +537,7 @@ export class WekanCreator {
       switch (activity.activityType) {
       // Board related activities
       // TODO: addBoardMember, removeBoardMember
-      case 'createBoard':
-      {
+      case 'createBoard': {
         Activities.direct.insert({
           userId: this._user(activity.userId),
           type: 'board',
@@ -649,8 +550,7 @@ export class WekanCreator {
       }
       // List related activities
       // TODO: removeList, archivedList
-      case 'createList':
-      {
+      case 'createList': {
         Activities.direct.insert({
           userId: this._user(activity.userId),
           type: 'list',
@@ -663,8 +563,7 @@ export class WekanCreator {
       }
       // Card related activities
       // TODO: archivedCard, restoredCard, joinMember, unjoinMember
-      case 'createCard':
-      {
+      case 'createCard': {
         Activities.direct.insert({
           userId: this._user(activity.userId),
           activityType: activity.activityType,
@@ -675,8 +574,7 @@ export class WekanCreator {
         });
         break;
       }
-      case 'moveCard':
-      {
+      case 'moveCard': {
         Activities.direct.insert({
           userId: this._user(activity.userId),
           oldListId: this.lists[activity.oldListId],
@@ -689,8 +587,7 @@ export class WekanCreator {
         break;
       }
       // Comment related activities
-      case 'addComment':
-      {
+      case 'addComment': {
         Activities.direct.insert({
           userId: this._user(activity.userId),
           activityType: activity.activityType,
@@ -702,8 +599,7 @@ export class WekanCreator {
         break;
       }
       // Attachment related activities
-      case 'addAttachment':
-      {
+      case 'addAttachment': {
         Activities.direct.insert({
           userId: this._user(activity.userId),
           type: 'card',
@@ -716,8 +612,7 @@ export class WekanCreator {
         break;
       }
       // Checklist related activities
-      case 'addChecklist':
-      {
+      case 'addChecklist': {
         Activities.direct.insert({
           userId: this._user(activity.userId),
           activityType: activity.activityType,
@@ -728,8 +623,7 @@ export class WekanCreator {
         });
         break;
       }
-      case 'addChecklistItem':
-      {
+      case 'addChecklistItem': {
         Activities.direct.insert({
           userId: this._user(activity.userId),
           activityType: activity.activityType,
@@ -742,8 +636,7 @@ export class WekanCreator {
           createdAt: this._now(activity.createdAt),
         });
         break;
-      }
-      }
+      }}
     });
   }
 
@@ -759,9 +652,6 @@ export class WekanCreator {
       this.checkSwimlanes(board.swimlanes);
       this.checkCards(board.cards);
       this.checkChecklists(board.checklists);
-      this.checkRules(board.rules);
-      this.checkActions(board.actions);
-      this.checkTriggers(board.triggers);
       this.checkChecklistItems(board.checklistItems);
     } catch (e) {
       throw new Meteor.Error('error-json-schema');
@@ -784,9 +674,6 @@ export class WekanCreator {
     this.createChecklists(board.checklists);
     this.createChecklistItems(board.checklistItems);
     this.importActivities(board.activities, boardId);
-    this.createTriggers(board.triggers, boardId);
-    this.createActions(board.actions, boardId);
-    this.createRules(board.rules, boardId);
     // XXX add members
     return boardId;
   }
