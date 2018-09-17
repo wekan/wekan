@@ -1,3 +1,28 @@
+# v1.49-edge-1 2018-09-17 Wekan release
+
+This release adds the following new features:
+
+- Change from Node v8.12.0 prerelease to use official Node v8.12.0.
+    
+Thanks to GitHub user xet7 for contributions.
+
+# v1.49 2018-09-17 Wekan release
+
+This release fixes the following bugs:
+
+- Fix lint errors.
+
+Thanks to GitHub user xet7 for contributions.
+
+# v1.48 2018-09-17 Wekan release
+
+This release removes the following new features:
+
+- Remove IFTTT rules, until they are fixed.
+- Remove OAuth2, until it is fixed.
+
+Thanks to GitHub user xet7 for contributions.
+
 # v1.47 2018-09-16 Wekan release
 
 This release adds the following new features:
