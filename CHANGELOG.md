@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- Change from Node v8.12.0 prerelease to use official Node v8.12.0.
+
+Thanks to GitHub user xet7 for contributions.
+
 # v1.49 2018-09-17 Wekan release
 
 This release fixes the following bugs:
