@@ -181,6 +181,9 @@ export class WekanCreator {
         _id: Random.id(6),
         color: label.color,
         name: label.name,
+        shortName: label.shortName,
+        altName: label.altName,
+        archived: label.archived
       };
       // We need to remember them by Wekan ID, as this is the only ref we have
       // when importing cards.
