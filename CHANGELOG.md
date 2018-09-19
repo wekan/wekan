@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix Dockerfile Meteor install by changing tar to bsdtar](https://github.com/wekan/wekan/commit/1bad81ca86ca87c02148764cc03a3070882a8a33).
+        
+Thanks to GitHub users maurice-schleussinger and xet7 for contributions.
+
 # v1.49.1 2018-09-17 Wekan release
 
 This release adds the following new features:
