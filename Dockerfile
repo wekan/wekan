@@ -28,7 +28,7 @@ ARG OAUTH2_TOKEN_ENDPOINT
 # Set the environment variables (defaults where required)
 # DOES NOT WORK: paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
 # ENV BUILD_DEPS="paxctl"
-ENV BUILD_DEPS="apt-utils gnupg gosu wget curl bzip2 build-essential python git ca-certificates gcc-7" \
+ENV BUILD_DEPS="apt-utils bsdtar gnupg gosu wget curl bzip2 build-essential python git ca-certificates gcc-7" \
     NODE_VERSION=v8.12.0 \
     METEOR_RELEASE=1.6.0.1 \
     USE_EDGE=false \
@@ -61,6 +61,11 @@ RUN \
     \
     # OS dependencies
     apt-get update -y && apt-get install -y --no-install-recommends ${BUILD_DEPS} && \
+    \
+    # Meteor installer doesn't work with the default tar binary, so using bsdtar while installing.
+    # https://github.com/coreos/bugs/issues/1095#issuecomment-350574389
+    cp $(which tar) $(which tar)~ && \
+    ln -sf $(which bsdtar) $(which tar) && \
     \
     # Download nodejs
     wget https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
@@ -123,8 +128,10 @@ RUN \
     # Change user to wekan and install meteor
     cd /home/wekan/ && \
     chown wekan:wekan --recursive /home/wekan && \
-    curl https://install.meteor.com -o /home/wekan/install_meteor.sh && \
-    sed -i "s|RELEASE=.*|RELEASE=${METEOR_RELEASE}\"\"|g" ./install_meteor.sh && \
+    curl "https://install.meteor.com/?release=${METEOR_RELEASE}" -o /home/wekan/install_meteor.sh && \
+    # OLD: sed -i "s|RELEASE=.*|RELEASE=${METEOR_RELEASE}\"\"|g" ./install_meteor.sh && \
+    # Install Meteor forcing its progress
+    sed -i 's/VERBOSITY="--silent"/VERBOSITY="--progress-bar"/' ./install_meteor.sh && \
     echo "Starting meteor ${METEOR_RELEASE} installation...   \n" && \
     chown wekan:wekan /home/wekan/install_meteor.sh && \
     \
@@ -162,6 +169,9 @@ RUN \
     gosu wekan:wekan npm install && \
     #gosu wekan:wekan npm install bcrypt && \
     mv /home/wekan/app_build/bundle /build && \
+    \
+    # Put back the original tar
+    mv $(which tar)~ $(which tar) && \
     \
     # Cleanup
     apt-get remove --purge -y ${BUILD_DEPS} && \
