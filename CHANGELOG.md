@@ -2,9 +2,10 @@
 
 This release adds the following new features:
 
-- Change from Node v8.12.0 prerelease to use official Node v8.12.0.
+- [Change from Node v8.12.0 prerelease to use official Node v8.12.0](https://github.com/wekan/wekan/commit/bfabd6346033c3d3887a4693de8f13bc1705b582);
+- [Fix Dockerfile Meteor install by changing tar to bsdtar](https://github.com/wekan/wekan/commit/352e9033b6efb212e65e34bb9c407bb1d7dce824).
 
-Thanks to GitHub user xet7 for contributions.
+Thanks to GitHub users maurice-schleussinger and xet7 for their contributions.
 
 # v1.49 2018-09-17 Wekan release
 
