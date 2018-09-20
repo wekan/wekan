@@ -4,6 +4,7 @@
 *.sublime-workspace
 tmp/
 node_modules/
+npm-debug.log
 .vscode/
 .idea/
 .build/*
@@ -16,3 +17,4 @@ package-lock.json
 **/*.snap
 snap/.snapcraft/
 .idea
+.DS_Store
