@@ -2,8 +2,14 @@
 
 This release adds the following new features:
 
-- [Change from Node v8.12.0 prerelease to use official Node v8.12.0](https://github.com/wekan/wekan/commit/bfabd6346033c3d3887a4693de8f13bc1705b582);
-- [Fix Dockerfile Meteor install by changing tar to bsdtar](https://github.com/wekan/wekan/commit/352e9033b6efb212e65e34bb9c407bb1d7dce824).
+- [Change from Node v8.12.0 prerelease to use official Node v8.12.0](https://github.com/wekan/wekan/commit/bfabd6346033c3d3887a4693de8f13bc1705b582).
+
+and fixes the following bugs:
+
+- [Fix Dockerfile Meteor install by changing tar to bsdtar](https://github.com/wekan/wekan/commit/352e9033b6efb212e65e34bb9c407bb1d7dce824);
+- Add [npm-debug.log](https://github.com/wekan/wekan/commit/f7731f4f5ec27e63e74a3265d105427ef3c0985a) and
+  [.DS_Store](https://github.com/wekan/wekan/commit/d652eb5cee3fd648a6023e38db444ad460ddef7e) to .gitignore;
+- [Add more debug log requirements to GitHub issue template](https://github.com/wekan/wekan/commit/94cd2ce69098f02e4ac4bebb1a2b5eaf919f1020).
 
 Thanks to GitHub users maurice-schleussinger and xet7 for their contributions.
 
