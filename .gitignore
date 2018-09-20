@@ -17,3 +17,4 @@ package-lock.json
 **/*.snap
 snap/.snapcraft/
 .idea
+.DS_Store
