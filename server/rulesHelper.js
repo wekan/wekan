@@ -36,8 +36,8 @@ RulesHelper = {
     if(action.actionType === 'moveCardToTop'){
       let listId;
       let list;
-      if(activity.listTitle === '*'){
-        listId = card.swimlaneId;
+      if(action.listTitle === '*'){
+        listId = card.listId;
         list = card.list();
       }else{
         list = Lists.findOne({title: action.listTitle, boardId });
@@ -49,8 +49,8 @@ RulesHelper = {
     if(action.actionType === 'moveCardToBottom'){
       let listId;
       let list;
-      if(activity.listTitle === '*'){
-        listId = card.swimlaneId;
+      if(action.listTitle === '*'){
+        listId = card.listId;
         list = card.list();
       }else{
         list = Lists.findOne({title: action.listTitle, boardId});

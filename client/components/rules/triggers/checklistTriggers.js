@@ -78,7 +78,7 @@ BlazeComponent.extendComponent({
         const actionSelected = this.find('#spec-comp-check-action').value;
         const checklistId = this.find('#spec-comp-check-name').value;
         const boardId = Session.get('currentBoard');
-        if (actionSelected === 'added') {
+        if (actionSelected === 'completed') {
           datas.triggerVar.set({
             activityType: 'completeChecklist',
             boardId,
@@ -86,7 +86,7 @@ BlazeComponent.extendComponent({
             desc,
           });
         }
-        if (actionSelected === 'removed') {
+        if (actionSelected === 'uncompleted') {
           datas.triggerVar.set({
             activityType: 'uncompleteChecklist',
             boardId,
