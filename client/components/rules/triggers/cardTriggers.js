@@ -67,7 +67,7 @@ BlazeComponent.extendComponent({
           datas.triggerVar.set({
             activityType: 'joinMember',
             boardId,
-            'memberId': '*',
+            'username': '*',
             desc,
           });
         }
@@ -75,7 +75,7 @@ BlazeComponent.extendComponent({
           datas.triggerVar.set({
             activityType: 'unjoinMember',
             boardId,
-            'memberId': '*',
+            'username': '*',
             desc,
           });
         }
@@ -84,13 +84,13 @@ BlazeComponent.extendComponent({
         const desc = Utils.getTriggerActionDesc(event, this);
         const datas = this.data();
         const actionSelected = this.find('#spec-member-action').value;
-        const memberId = this.find('#spec-member').value;
+        const username = this.find('#spec-member').value;
         const boardId = Session.get('currentBoard');
         if (actionSelected === 'added') {
           datas.triggerVar.set({
             activityType: 'joinMember',
             boardId,
-            memberId,
+            username,
             desc,
           });
         }
@@ -98,7 +98,7 @@ BlazeComponent.extendComponent({
           datas.triggerVar.set({
             activityType: 'unjoinMember',
             boardId,
-            memberId,
+            username,
             desc,
           });
         }

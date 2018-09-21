@@ -12,10 +12,10 @@ TriggersDef = {
     matchingFields: ['boardId'],
   },
   joinMember:{
-    matchingFields: ['boardId', 'memberId'],
+    matchingFields: ['boardId', 'username'],
   },
   unjoinMember:{
-    matchingFields: ['boardId', 'memberId'],
+    matchingFields: ['boardId', 'username'],
   },
   addChecklist:{
     matchingFields: ['boardId', 'checklistName'],

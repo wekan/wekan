@@ -87,7 +87,7 @@ RulesHelper = {
       card.removeLabel(action.labelId);
     }
     if(action.actionType === 'addMember'){
-      const memberId = Users.findOne({username:action.memberName})._id;
+      const memberId = Users.findOne({username:action.username})._id;
       card.assignMember(memberId);
     }
     if(action.actionType === 'removeMember'){
@@ -97,7 +97,7 @@ RulesHelper = {
           card.unassignMember(members[i]);
         }
       }else{
-        const memberId = Users.findOne({username:action.memberName})._id;
+        const memberId = Users.findOne({username:action.username})._id;
         card.unassignMember(memberId);
       }
     }
