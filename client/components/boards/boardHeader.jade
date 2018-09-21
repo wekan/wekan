@@ -87,10 +87,10 @@ template(name="boardHeaderBar")
         if Filter.isActive
           a.board-header-btn-close.js-filter-reset(title="{{_ 'filter-clear'}}")
             i.fa.fa-times-thin
-
-      a.board-header-btn.js-open-rules-view(title="{{_ 'rules'}}")
-        i.fa.fa-magic
-        span {{_ 'rules'}}
+      if currentUser.isAdmin
+        a.board-header-btn.js-open-rules-view(title="{{_ 'rules'}}")
+          i.fa.fa-magic
+          span {{_ 'rules'}}
 
       a.board-header-btn.js-open-search-view(title="{{_ 'search'}}")
         i.fa.fa-search
