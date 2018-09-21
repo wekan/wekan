@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v1.50 2018-09-22 Wekan release
 
 This release adds the following new features:
 
@@ -9,7 +9,8 @@ and fixes the following bugs:
 - [Fix Dockerfile Meteor install by changing tar to bsdtar](https://github.com/wekan/wekan/commit/352e9033b6efb212e65e34bb9c407bb1d7dce824);
 - Add [npm-debug.log](https://github.com/wekan/wekan/commit/f7731f4f5ec27e63e74a3265d105427ef3c0985a) and
   [.DS_Store](https://github.com/wekan/wekan/commit/d652eb5cee3fd648a6023e38db444ad460ddef7e) to .gitignore;
-- [Add more debug log requirements to GitHub issue template](https://github.com/wekan/wekan/commit/94cd2ce69098f02e4ac4bebb1a2b5eaf919f1020).
+- [Add more debug log requirements to GitHub issue template](https://github.com/wekan/wekan/commit/94cd2ce69098f02e4ac4bebb1a2b5eaf919f1020);
+- [Add default Wekan Snap MongoDB bind IP 127.0.0.1](https://github.com/wekan/wekan/commit/12656ee9a13d2464cdc183590c76d3e09486c607).
 
 Thanks to GitHub users maurice-schleussinger and xet7 for their contributions.
 
