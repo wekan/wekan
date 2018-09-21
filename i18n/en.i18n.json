@@ -606,5 +606,6 @@
     "r-d-uncheck-one": "Uncheck item",
     "r-d-check-of-list": "of checklist",
     "r-d-add-checklist": "Add checklist",
-    "r-d-remove-checklist": "Remove checklist"
+    "r-d-remove-checklist": "Remove checklist",
+    "r-when-a-card-is-moved": "When a card is moved to another list"
 }

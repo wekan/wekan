@@ -76,6 +76,19 @@ BlazeComponent.extendComponent({
           });
         }
       },
+      'click .js-add-gen-moved-trigger' (event){
+        const datas = this.data();
+        const desc = Utils.getTriggerActionDesc(event, this);
+        const boardId = Session.get('currentBoard');
+
+          datas.triggerVar.set({
+            activityType: 'moveCard',
+            boardId,
+            'listName':'*',
+            'oldListName': '*',
+            desc,
+          });
+      },
       'click .js-add-arc-trigger' (event) {
         const datas = this.data();
         const desc = Utils.getTriggerActionDesc(event, this);
