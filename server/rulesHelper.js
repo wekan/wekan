@@ -43,7 +43,7 @@ RulesHelper = {
         list = Lists.findOne({title: action.listTitle, boardId });
         listId = list._id;
       }
-      const minOrder = _.min(list.cards(card.swimlaneId).map((c) => c.sort));
+      const minOrder = _.min(list.cardsUnfiltered(card.swimlaneId).map((c) => c.sort));
       card.move(card.swimlaneId, listId, minOrder - 1);
     }
     if(action.actionType === 'moveCardToBottom'){
@@ -56,7 +56,7 @@ RulesHelper = {
         list = Lists.findOne({title: action.listTitle, boardId});
         listId = list._id;
       }
-      const maxOrder = _.max(list.cards(card.swimlaneId).map((c) => c.sort));
+      const maxOrder = _.max(list.cardsUnfiltered(card.swimlaneId).map((c) => c.sort));
       card.move(card.swimlaneId, listId, maxOrder + 1);
     }
     if(action.actionType === 'sendEmail'){

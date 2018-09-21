@@ -86,6 +86,17 @@ Lists.helpers({
       { sort: ['sort'] });
   },
 
+  cardsUnfiltered(swimlaneId) {
+    const selector = {
+      listId: this._id,
+      archived: false,
+    };
+    if (swimlaneId)
+      selector.swimlaneId = swimlaneId;
+    return Cards.find(selector,
+      { sort: ['sort'] });
+  },
+
   allCards() {
     return Cards.find({ listId: this._id });
   },
