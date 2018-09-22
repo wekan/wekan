@@ -130,7 +130,7 @@ function publishChekListCompleted(userId, doc, fieldNames, modifier){
       cardId: doc.cardId,
       boardId,
       checklistId: doc.checklistId,
-      checklistName:doc.title,
+      checklistName:checkList.title,
     };
     Activities.insert(act);
   }
@@ -148,7 +148,7 @@ function publishChekListUncompleted(userId, doc, fieldNames, modifier){
       cardId: doc.cardId,
       boardId,
       checklistId: doc.checklistId,
-      checklistName:doc.title,
+      checklistName:checkList.title,
     };
     Activities.insert(act);
   }

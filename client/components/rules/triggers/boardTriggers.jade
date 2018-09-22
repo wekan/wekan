@@ -30,6 +30,13 @@ template(name="boardTriggers")
   div.trigger-item
     div.trigger-content
       div.trigger-text 
+        | {{_'r-when-a-card-is-moved'}}
+    div.trigger-button.js-add-gen-moved-trigger.js-goto-action
+      i.fa.fa-plus
+
+  div.trigger-item
+    div.trigger-content
+      div.trigger-text 
         | {{_'r-when-a-card-is'}}
       div.trigger-dropdown
         select(id="move-action")

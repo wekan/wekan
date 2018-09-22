@@ -36,27 +36,27 @@ RulesHelper = {
     if(action.actionType === 'moveCardToTop'){
       let listId;
       let list;
-      if(activity.listTitle === '*'){
-        listId = card.swimlaneId;
+      if(action.listTitle === '*'){
+        listId = card.listId;
         list = card.list();
       }else{
         list = Lists.findOne({title: action.listTitle, boardId });
         listId = list._id;
       }
-      const minOrder = _.min(list.cards(card.swimlaneId).map((c) => c.sort));
+      const minOrder = _.min(list.cardsUnfiltered(card.swimlaneId).map((c) => c.sort));
       card.move(card.swimlaneId, listId, minOrder - 1);
     }
     if(action.actionType === 'moveCardToBottom'){
       let listId;
       let list;
-      if(activity.listTitle === '*'){
-        listId = card.swimlaneId;
+      if(action.listTitle === '*'){
+        listId = card.listId;
         list = card.list();
       }else{
         list = Lists.findOne({title: action.listTitle, boardId});
         listId = list._id;
       }
-      const maxOrder = _.max(list.cards(card.swimlaneId).map((c) => c.sort));
+      const maxOrder = _.max(list.cardsUnfiltered(card.swimlaneId).map((c) => c.sort));
       card.move(card.swimlaneId, listId, maxOrder + 1);
     }
     if(action.actionType === 'sendEmail'){
@@ -87,7 +87,7 @@ RulesHelper = {
       card.removeLabel(action.labelId);
     }
     if(action.actionType === 'addMember'){
-      const memberId = Users.findOne({username:action.memberName})._id;
+      const memberId = Users.findOne({username:action.username})._id;
       card.assignMember(memberId);
     }
     if(action.actionType === 'removeMember'){
@@ -97,7 +97,7 @@ RulesHelper = {
           card.unassignMember(members[i]);
         }
       }else{
-        const memberId = Users.findOne({username:action.memberName})._id;
+        const memberId = Users.findOne({username:action.username})._id;
         card.unassignMember(memberId);
       }
     }
