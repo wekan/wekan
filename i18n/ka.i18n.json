@@ -548,7 +548,7 @@
     "r-when-the-label-is": "When the label is",
     "r-list-name": "List name",
     "r-when-a-member": "When a member is",
-    "r-when-the-member": "When the member is",
+    "r-when-the-member": "When the member",
     "r-name": "name",
     "r-is": "is",
     "r-when-a-attach": "When an attachment",
@@ -605,5 +605,6 @@
     "r-d-uncheck-one": "Uncheck item",
     "r-d-check-of-list": "of checklist",
     "r-d-add-checklist": "Add checklist",
-    "r-d-remove-checklist": "Remove checklist"
+    "r-d-remove-checklist": "Remove checklist",
+    "r-when-a-card-is-moved": "When a card is moved to another list"
 }

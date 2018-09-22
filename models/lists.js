@@ -82,6 +82,17 @@ Lists.helpers({
     };
     if (swimlaneId)
       selector.swimlaneId = swimlaneId;
+    return Cards.find(Filter.mongoSelector(selector),
+      { sort: ['sort'] });
+  },
+
+  cardsUnfiltered(swimlaneId) {
+    const selector = {
+      listId: this._id,
+      archived: false,
+    };
+    if (swimlaneId)
+      selector.swimlaneId = swimlaneId;
     return Cards.find(selector,
       { sort: ['sort'] });
   },

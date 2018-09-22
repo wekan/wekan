@@ -58,14 +58,14 @@ BlazeComponent.extendComponent({
         const ruleName = this.data().ruleName.get();
         const trigger = this.data().triggerVar.get();
         const actionSelected = this.find('#member-action').value;
-        const memberName = this.find('#member-name').value;
+        const username = this.find('#member-name').value;
         const boardId = Session.get('currentBoard');
         const desc = Utils.getTriggerActionDesc(event, this);
         if (actionSelected === 'add') {
           const triggerId = Triggers.insert(trigger);
           const actionId = Actions.insert({
             actionType: 'addMember',
-            memberName,
+            username,
             boardId,
             desc,
           });
@@ -81,7 +81,7 @@ BlazeComponent.extendComponent({
           const triggerId = Triggers.insert(trigger);
           const actionId = Actions.insert({
             actionType: 'removeMember',
-            memberName,
+            username,
             boardId,
             desc,
           });
@@ -101,7 +101,7 @@ BlazeComponent.extendComponent({
         const boardId = Session.get('currentBoard');
         const actionId = Actions.insert({
           actionType: 'removeMember',
-          'memberName': '*',
+          'username': '*',
           boardId,
           desc,
         });
