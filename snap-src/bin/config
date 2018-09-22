@@ -17,7 +17,7 @@ DEFAULT_MONGODB_PORT="27019"
 KEY_MONGODB_PORT='mongodb-port'
 
 DESCRIPTION_MONGODB_BIND_IP="mongodb binding ip address: eg 127.0.0.1 for localhost\n\t\tIf not defined default unix socket is used instead"
-DEFAULT_MONGODB_BIND_IP=""
+DEFAULT_MONGODB_BIND_IP="127.0.0.1"
 KEY_MONGODB_BIND_IP="mongodb-bind-ip"
 
 DESCRIPTION_MAIL_URL="wekan mail binding"
