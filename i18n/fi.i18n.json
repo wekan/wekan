@@ -548,7 +548,7 @@
     "r-when-the-label-is": "Kun tunniste on",
     "r-list-name": "Listan nimi",
     "r-when-a-member": "Kun jäsen on",
-    "r-when-the-member": "Kun jäsen on",
+    "r-when-the-member": "Kun käyttäjä",
     "r-name": "nimi",
     "r-is": "on",
     "r-when-a-attach": "Kun liitetiedosto",
@@ -605,5 +605,6 @@
     "r-d-uncheck-one": "Poista ruksi kohdasta",
     "r-d-check-of-list": "tarkistuslistasta",
     "r-d-add-checklist": "Lisää tarkistuslista",
-    "r-d-remove-checklist": "Poista tarkistuslista"
+    "r-d-remove-checklist": "Poista tarkistuslista",
+    "r-when-a-card-is-moved": "Kun kortti on siirretty toiseen listaan"
 }

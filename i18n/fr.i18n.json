@@ -548,7 +548,7 @@
     "r-when-the-label-is": "Quand l'étiquette est",
     "r-list-name": "Nom de la liste",
     "r-when-a-member": "Quand un membre est",
-    "r-when-the-member": "Quand le membre est",
+    "r-when-the-member": "When the member",
     "r-name": "nom",
     "r-is": "est",
     "r-when-a-attach": "Quand une pièce jointe",
@@ -605,5 +605,6 @@
     "r-d-uncheck-one": "Décocher l'élément",
     "r-d-check-of-list": "de la checklist",
     "r-d-add-checklist": "Ajouter une checklist",
-    "r-d-remove-checklist": "Supprimer la checklist"
+    "r-d-remove-checklist": "Supprimer la checklist",
+    "r-when-a-card-is-moved": "When a card is moved to another list"
 }
