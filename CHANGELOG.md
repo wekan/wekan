@@ -11,7 +11,8 @@ and fixes the following bugs:
 - [Add more debug log requirements to GitHub issue template](https://github.com/wekan/wekan/commit/1c4ce56b0f18e00e01b54c7059cbbf8d3e196154);
 - [Add default Wekan Snap MongoDB bind IP 127.0.0.1](https://github.com/wekan/wekan/commit/6ac726e198933ee41c129d22a7118fcfbf4ca9a2);
 - [Fix Feature Rules](https://github.com/wekan/wekan/pull/1909);
-- [Fix Cannot setup mail server via snap variables](https://github.com/wekan/wekan/issues/1906).
+- [Fix Cannot setup mail server via snap variables](https://github.com/wekan/wekan/issues/1906);
+- [Try to fix OAuth2: Change oidc username to preferred_username](https://github.com/wekan/wekan/commit/734e4e5f3ff2c3dabf94c0fbfca561db066c4565).
 
 Thanks to GitHub users Angtrim, maurice-schleussinger, suprovsky and xet7 for their contributions.
 
