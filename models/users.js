@@ -491,7 +491,7 @@ if (Meteor.isServer) {
     if (user.services.oidc) {
       const email = user.services.oidc.email.toLowerCase();
 
-      user.username = user.services.oidc.username;
+      user.username = user.services.oidc.preferred_username;
       user.emails = [{ address: email, verified: true }];
       const initials = user.services.oidc.fullname.match(/\b[a-zA-Z]/g).join('').toUpperCase();
       user.profile = { initials, fullname: user.services.oidc.fullname };
