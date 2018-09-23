@@ -1,3 +1,11 @@
+# v1.50.2 2018-09-23 Wekan release
+
+This release tried to fix the following bugs:
+
+- Build Wekan and release again, to see does it work.
+
+Thanks to GitHub user xet7 for contributions.
+
 # v1.50.1 2018-09-22 Wekan release
 
 This release adds the following new features:
