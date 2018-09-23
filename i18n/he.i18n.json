@@ -548,7 +548,7 @@
     "r-when-the-label-is": "כאשר התווית היא",
     "r-list-name": "שם הרשימה",
     "r-when-a-member": "כאשר חבר הוא",
-    "r-when-the-member": "כאשר החבר הוא",
+    "r-when-the-member": "When the member",
     "r-name": "שם",
     "r-is": "הוא",
     "r-when-a-attach": "כאשר קובץ מצורף",
@@ -605,5 +605,6 @@
     "r-d-uncheck-one": "ביטול סימון פריט",
     "r-d-check-of-list": "של רשימת משימות",
     "r-d-add-checklist": "הוספת רשימת משימות",
-    "r-d-remove-checklist": "הסרת רשימת משימות"
+    "r-d-remove-checklist": "הסרת רשימת משימות",
+    "r-when-a-card-is-moved": "When a card is moved to another list"
 }

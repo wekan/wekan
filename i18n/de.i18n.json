@@ -548,7 +548,7 @@
     "r-when-the-label-is": " Wenn das Label ist",
     "r-list-name": "Listennamen",
     "r-when-a-member": "Wenn ein Mitglied ist",
-    "r-when-the-member": "Wenn das Mitglied ist",
+    "r-when-the-member": "Wenn das Mitglied",
     "r-name": "Name",
     "r-is": "ist",
     "r-when-a-attach": "Wenn ein Anhang",
@@ -605,5 +605,6 @@
     "r-d-uncheck-one": "Element demarkieren",
     "r-d-check-of-list": "der Checkliste",
     "r-d-add-checklist": "Checkliste hinzufügen",
-    "r-d-remove-checklist": "Checkliste entfernen"
+    "r-d-remove-checklist": "Checkliste entfernen",
+    "r-when-a-card-is-moved": "Wenn eine Karte in eine andere Liste verschoben wird"
 }
