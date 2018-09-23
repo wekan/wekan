@@ -12,10 +12,10 @@ do
     value=$(snapctl get ${!snappy_key})
     if [ "x$value" == "x" ]; then
         echo -e "$key=${!default_value} (default value)"
-        export key=${!default_value}
+        export $key=${!default_value}
     else
         echo -e "$key=$value"
-        export key=$value
+        export $key=$value
     fi
 done
 
