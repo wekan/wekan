@@ -1,6 +1,15 @@
+# Upcoming Wekan release
+
+This release tries to fix the following bugs:
+
+- [Remove "Fix Cannot setup mail server via snap variables"](https://github.com/wekan/wekan/commit/6d88baebc7e297ffdbbd5bb6971190b18f79d21f)
+  to see does Wekan Snap start correctly after removing it.
+
+Thanks to GitHub user xet7 for contributions.
+
 # v1.50.2 2018-09-23 Wekan release
 
-This release tried to fix the following bugs:
+This release tries to fix the following bugs:
 
 - Build Wekan and release again, to see does it work.
 
