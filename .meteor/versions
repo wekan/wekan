@@ -9,7 +9,6 @@ aldeed:simple-schema@1.5.3
 alethes:pages@1.8.6
 allow-deny@1.1.0
 arillo:flow-router-helpers@0.5.2
-atoy40:accounts-cas@0.0.2
 audit-argument-checks@1.0.7
 autoupdate@1.3.12
 babel-compiler@6.24.7
@@ -129,6 +128,7 @@ peerlibrary:blaze-components@0.15.1
 peerlibrary:computed-field@0.7.0
 peerlibrary:reactive-field@0.3.0
 perak:markdown@1.0.5
+ppoulard:accounts-cas@0.1.0
 promise@0.10.0
 raix:eventemitter@0.1.3
 raix:handlebar-helpers@0.2.5
