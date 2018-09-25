@@ -21,7 +21,7 @@ dimmedCardColod = #eaeaea
 
 .list
   box-sizing: border-box
-  display: flex
+  display: block
   flex-direction: column
   flex: 0 0 270px
   position: relative
@@ -39,14 +39,7 @@ dimmedCardColod = #eaeaea
   .card-details + &
     border-left: none
 
-  &.ui-sortable-helper
-    box-shadow: -2px 2px 8px rgba(0, 0, 0, .3),
-                0 0 1px rgba(0, 0, 0, .5)
-    transform: rotate(4deg)
-    cursor: grabbing
 
-    .list-header.ui-sortable-handle
-      cursor: grabbing
 
   &.placeholder
     background-color: rgba(0, 0, 0, .2)
@@ -68,8 +61,6 @@ dimmedCardColod = #eaeaea
   position: relative
   min-height: 20px
 
-  &.ui-sortable-handle
-    cursor: grab
 
   .list-header-left-icon
     display: none
@@ -175,15 +166,6 @@ dimmedCardColod = #eaeaea
     width: 100%
     border-left: 0px
 
-    &.ui-sortable-helper
-      flex: 0 0 60px
-      height: 60px
-      width: 100%
-      border-left: 0px
-      border-bottom: 1px solid darken(white, 20%)
-
-      .list-header.ui-sortable-handle
-        cursor: grabbing
 
     &.placeholder
       flex: 0 0 60px
