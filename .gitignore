@@ -10,6 +10,7 @@ npm-debug.log
 .build/*
 packages/kadira-flow-router/
 packages/meteor-useraccounts-core/
+packages/meteor-accounts-cas/
 package-lock.json
 **/parts/
 **/stage

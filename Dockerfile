@@ -148,7 +148,7 @@ RUN \
     cd /home/wekan/app/packages && \
     gosu wekan:wekan git clone --depth 1 -b master git://github.com/wekan/flow-router.git kadira-flow-router && \
     gosu wekan:wekan git clone --depth 1 -b master git://github.com/meteor-useraccounts/core.git meteor-useraccounts-core && \
-    gosu wekan:wekan git clone --depth 1 -b master git://github.com/ppoulard/meteor-accounts-cas.git meteor-accounts-cas && \
+    gosu wekan:wekan git clone --depth 1 -b master git://github.com/wekan/meteor-accounts-cas.git meteor-accounts-cas && \
     sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' /home/wekan/app/packages/meteor-useraccounts-core/package.js && \
     cd /home/wekan/.meteor && \
     gosu wekan:wekan /home/wekan/.meteor/meteor -- help; \
@@ -156,8 +156,6 @@ RUN \
     # Build app
     cd /home/wekan/app && \
     gosu wekan:wekan /home/wekan/.meteor/meteor add standard-minifier-js && \
-    # adding CAS
-    gosu wekan:wekan /home/wekan/.meteor/meteor add ppoulard:accounts-cas && \
     gosu wekan:wekan /home/wekan/.meteor/meteor npm install && \
     gosu wekan:wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build && \
     cp /home/wekan/app/fix-download-unicode/cfs_access-point.txt /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \

@@ -31,7 +31,6 @@ kenton:accounts-sandstorm
 service-configuration@1.0.11
 useraccounts:unstyled
 useraccounts:flow-routing
-#salleman:accounts-oidc
 
 # Utilities
 check@1.2.5
@@ -87,4 +86,4 @@ momentjs:moment@2.22.2
 browser-policy-framing
 mquandalle:moment
 msavin:usercache
-ppoulard:accounts-cas
+wekan:accounts-cas
