@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Add CAS with attributes](https://github.com/wekan/wekan/commit/c6cea2fb4e9e17403fe0ce2ba5bf2d20dcf81a8f).
+
+Thanks to GitHub user ppoulard for contributions.
+
 # v1.50 2018-09-22 Wekan release
 
 This release adds the following new features:
