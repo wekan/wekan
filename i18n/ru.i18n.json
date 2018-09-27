@@ -46,7 +46,7 @@
     "activity-checked-item": "checked %s in checklist %s of %s",
     "activity-unchecked-item": "unchecked %s in checklist %s of %s",
     "activity-checklist-added": "добавил контрольный список в %s",
-    "activity-checklist-removed": "removed a checklist from %s",
+    "activity-checklist-removed": "удалил контрольный список из %s",
     "activity-checklist-completed": "completed the checklist %s of %s",
     "activity-checklist-uncompleted": "uncompleted the checklist %s of %s",
     "activity-checklist-item-added": "добавил пункт контрольного списка в '%s' в карточке %s",
