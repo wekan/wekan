@@ -3,8 +3,9 @@
 This release adds the following new features:
 
 - [Add CAS with attributes](https://github.com/wekan/wekan/commit/c6cea2fb4e9e17403fe0ce2ba5bf2d20dcf81a8f).
+- [Move Add Board button to top left, so there is no need to scroll to bottom when there is a lot of boards]((https://github.com/wekan/wekan/commit/a10b6fb173d529220861668cfb1c341ec45e2a53).
 
-Thanks to GitHub user ppoulard for contributions.
+Thanks to GitHub users ppoulard and xet7 for their contributions.
 
 # v1.50 2018-09-22 Wekan release
 
