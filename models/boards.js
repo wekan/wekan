@@ -541,11 +541,10 @@ Boards.mutations({
     };
   },
 
-  setMemberPermission(memberId, isAdmin, isNoComments, isCommentOnly) {
+  setMemberPermission(memberId, isAdmin, isNoComments, isCommentOnly, currentUserId = Meteor.userId()) {
     const memberIndex = this.memberIndex(memberId);
-
     // do not allow change permission of self
-    if (memberId === Meteor.userId()) {
+    if (memberId === currentUserId) {
       isAdmin = this.members[memberIndex].isAdmin;
     }
 
@@ -923,6 +922,31 @@ if (Meteor.isServer) {
     }
     catch (error) {
       JsonRoutes.sendResult(res, {
+        data: error,
+      });
+    }
+  });
+
+  JsonRoutes.add('POST', '/api/boards/:boardId/members/:memberId', function (req, res) {
+    try {
+      const boardId = req.params.boardId;
+      const memberId = req.params.memberId;
+      const {isAdmin, isNoComments, isCommentOnly} = req.body;
+      Authentication.checkBoardAccess(req.userId, boardId);
+      const board = Boards.findOne({ _id: boardId });
+      function isTrue(data){
+        return data.toLowerCase() === 'true';
+      }
+      board.setMemberPermission(memberId, isTrue(isAdmin), isTrue(isNoComments), isTrue(isCommentOnly), req.userId);
+
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: query,
+      });
+    }
+    catch (error) {
+      JsonRoutes.sendResult(res, {
+        code: 200,
         data: error,
       });
     }
