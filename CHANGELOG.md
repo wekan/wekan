@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [REST API: Change role of board member](https://github.com/wekan/wekan/commit/51ac6c839ecf2226b2a81b0d4f985d3b942f0938).
+  Docs: https://github.com/wekan/wekan/wiki/REST-API-Role
+
+Thanks to GitHub users entrptaher and xet7 for their contributions.
+
 # v1.51.1 2018-09-28 Wekan release
 
 This release adds the following new features:
