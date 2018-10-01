@@ -142,11 +142,6 @@ parts:
               sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' meteor-useraccounts-core/package.js
               cd ..
             fi
-            if [ ! -d "packages/meteor-accounts-cas" ]; then
-              cd packages
-              git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-cas.git meteor-accounts-cas
-              cd ..
-            fi
             rm -rf package-lock.json .build
             meteor add standard-minifier-js --allow-superuser
             meteor npm install --allow-superuser
