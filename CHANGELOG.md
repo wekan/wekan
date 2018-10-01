@@ -1,3 +1,18 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- REST API: [Add member with role to board. Remove member from board](https://github.com/wekan/wekan/commit/33caf1809a459b136b671f7061f08eb5e8d5e920).
+  [Docs](https://github.com/wekan/wekan/wiki/REST-API-Role). Related to [role issue](https://github.com/wekan/wekan/issues/1861).
+
+and reverts previous change:
+
+- OAuth2: [Revert Oidc preferred_username back to username](https://github.com/wekan/wekan/commit/33caf1809a459b136b671f7061f08eb5e8d5e920).
+  This [does not fix or break anything](https://github.com/wekan/wekan/issues/1874#issuecomment-425179291),
+  Oidc already works with [doorkeeper](https://github.com/doorkeeper-gem/doorkeeper-provider-app).
+
+Thanks to GitHub user xet7 for contributions.
+    
 # v1.51.2 2018-09-30 Wekan release
 
 This release adds the following new features:
