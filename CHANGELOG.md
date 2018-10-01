@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release removes the following new features:
+
+- [Removed CAS from Wekan stable](https://github.com/wekan/wekan/commit/5923585584f9cb8121476bf5e5d0abf7891e86f6),
+  because [it does not work correctly](https://github.com/wekan/wekan/issues/1925).
+  CAS developent continues at edge.
+
+Thanks to GitHub user xet7 for contributions.
+
 # v1.51 2018-09-28 Wekan release
 
 This release adds the following new features:
