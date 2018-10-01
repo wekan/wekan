@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# Upcoming Wekan Edge release
 
 This release adds the following new features:
 
@@ -13,7 +13,7 @@ and reverts previous change:
 
 Thanks to GitHub user xet7 for contributions.
     
-# v1.51.2 2018-09-30 Wekan release
+# v1.51.2 2018-09-30 Wekan Edge release
 
 This release adds the following new features:
 
@@ -22,7 +22,7 @@ This release adds the following new features:
 
 Thanks to GitHub users entrptaher and xet7 for their contributions.
 
-# v1.51.1 2018-09-28 Wekan release
+# v1.51.1 2018-09-28 Wekan Edge release
 
 This release adds the following new features:
 
@@ -31,7 +31,7 @@ This release adds the following new features:
 
 Thanks to GitHub users ppoulard and xet7 for their contributions.
 
-# v1.50.3 2018-09-23 Wekan release
+# v1.50.3 2018-09-23 Wekan Edge release
 
 This release tries to fix the following bugs:
 
@@ -40,7 +40,7 @@ This release tries to fix the following bugs:
 
 Thanks to GitHub user xet7 for contributions.
 
-# v1.50.2 2018-09-23 Wekan release
+# v1.50.2 2018-09-23 Wekan Edge release
 
 This release tries to fix the following bugs:
 
@@ -48,7 +48,7 @@ This release tries to fix the following bugs:
 
 Thanks to GitHub user xet7 for contributions.
 
-# v1.50.1 2018-09-22 Wekan release
+# v1.50.1 2018-09-22 Wekan Edge release
 
 This release adds the following new features:
 
@@ -66,7 +66,7 @@ and fixes the following bugs:
 
 Thanks to GitHub users Angtrim, maurice-schleussinger, suprovsky and xet7 for their contributions.
 
-# v1.49.1 2018-09-17 Wekan release
+# v1.49.1 2018-09-17 Wekan Edge release
 
 This release adds the following new features:
 
