@@ -491,7 +491,7 @@ if (Meteor.isServer) {
     if (user.services.oidc) {
       const email = user.services.oidc.email.toLowerCase();
 
-      user.username = user.services.oidc.preferred_username;
+      user.username = user.services.oidc.username;
       user.emails = [{ address: email, verified: true }];
       const initials = user.services.oidc.fullname.match(/\b[a-zA-Z]/g).join('').toUpperCase();
       user.profile = { initials, fullname: user.services.oidc.fullname };
@@ -756,6 +756,81 @@ if (Meteor.isServer) {
       JsonRoutes.sendResult(res, {
         code: 200,
         data,
+      });
+    }
+    catch (error) {
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: error,
+      });
+    }
+  });
+
+  JsonRoutes.add('POST', '/api/boards/:boardId/members/:userId/add', function (req, res) {
+    try {
+      Authentication.checkUserId(req.userId);
+      const userId = req.params.userId;
+      const boardId = req.params.boardId;
+      const action = req.body.action;
+      const {isAdmin, isNoComments, isCommentOnly} = req.body;
+      let data = Meteor.users.findOne({ _id: userId });
+      if (data !== undefined) {
+        if (action === 'add') {
+          data = Boards.find({
+            _id: boardId,
+          }).map(function(board) {
+            if (!board.hasMember(userId)) {
+              board.addMember(userId);
+              function isTrue(data){
+                return data.toLowerCase() === 'true';
+              }
+              board.setMemberPermission(userId, isTrue(isAdmin), isTrue(isNoComments), isTrue(isCommentOnly), userId);
+            }
+            return {
+              _id: board._id,
+              title: board.title,
+            };
+          });
+        }
+      }
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: query,
+      });
+    }
+    catch (error) {
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: error,
+      });
+    }
+  });
+
+  JsonRoutes.add('POST', '/api/boards/:boardId/members/:userId/remove', function (req, res) {
+    try {
+      Authentication.checkUserId(req.userId);
+      const userId = req.params.userId;
+      const boardId = req.params.boardId;
+      const action = req.body.action;
+      let data = Meteor.users.findOne({ _id: userId });
+      if (data !== undefined) {
+        if (action === 'remove') {
+          data = Boards.find({
+            _id: boardId,
+          }).map(function(board) {
+            if (board.hasMember(userId)) {
+              board.removeMember(userId);
+            }
+            return {
+              _id: board._id,
+              title: board.title,
+            };
+          });
+        }
+      }
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: query,
       });
     }
     catch (error) {
