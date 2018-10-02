@@ -18,6 +18,7 @@ template(name="userFormsLayout")
       img(src="{{pathFor '/wekan-logo.png'}}" alt="Wekan")
     section.auth-dialog
       +Template.dynamic(template=content)
+      +connectionMethod
       div.at-form-lang
         select.select-lang.js-userform-set-language
           each languages

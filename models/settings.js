@@ -128,6 +128,18 @@ if (Meteor.isServer) {
     }
   }
 
+  function isLdapEnabled() {
+    return process.env.LDAP_ENABLE === 'true';
+  }
+
+  function isOauth2Enabled() {
+    return process.env.OAUTH2_ENABLED === 'true';
+  }
+
+  function isCasEnabled() {
+    return process.env.CAS_ENABLED === 'true';
+  }
+
   Meteor.methods({
     sendInvitation(emails, boards) {
       check(emails, [String]);
@@ -195,6 +207,27 @@ if (Meteor.isServer) {
         siteId: getEnvVar('MATOMO_SITE_ID'),
         doNotTrack: process.env.MATOMO_DO_NOT_TRACK || false,
         withUserName: process.env.MATOMO_WITH_USERNAME || false,
+      };
+    },
+
+    _isLdapEnabled() {
+      return isLdapEnabled();
+    },
+
+    _isOauth2Enabled() {
+      return isOauth2Enabled();
+    },
+
+    _isCasEnabled() {
+      return isCasEnabled();
+    },
+    
+    // Gets all connection methods to use it in the Template
+    getConnectionsEnabled() {
+      return {
+        ldap: isLdapEnabled(),
+        oauth2: isOauth2Enabled(),
+        cas: isCasEnabled(),
       };
     },
   });
