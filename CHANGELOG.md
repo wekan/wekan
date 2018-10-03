@@ -3,7 +3,7 @@
 - [LDAP](https://github.com/wekan/wekan/commit/288800eafc91d07f859c4f59588e0b646137ccb9). In progress.
   Please test and [add info about bugs](https://github.com/wekan/wekan/issues/119).
     
-Thanks to GitHub users maximest-pierre, Akuket and xet for their contributions.
+Thanks to GitHub users maximest-pierre, Akuket and xet7 for their contributions.
     
 # v1.52.1 2018-10-02 Wekan Edge release
 
