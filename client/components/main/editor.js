@@ -42,7 +42,7 @@ Blaze.Template.registerHelper('mentions', new Template('mentions', function() {
     if(u){
       member.username = u.username;
     }
-    return member;    
+    return member;
   });
   const mentionRegex = /\B@([\w.]*)/gi;
   let content = Blaze.toHTML(view.templateContentBlock);
