@@ -38,8 +38,11 @@ Blaze.Template.registerHelper('mentions', new Template('mentions', function() {
   const view = this;
   const currentBoard = Boards.findOne(Session.get('currentBoard'));
   const knowedUsers = currentBoard.members.map((member) => {
-    member.username = Users.findOne(member.userId).username;
-    return member;
+    const u = Users.findOne(member.userId);
+    if(u){
+      member.username = u.username;
+    }
+    return member;    
   });
   const mentionRegex = /\B@([\w.]*)/gi;
   let content = Blaze.toHTML(view.templateContentBlock);
