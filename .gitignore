@@ -8,9 +8,7 @@ npm-debug.log
 .vscode/
 .idea/
 .build/*
-packages/kadira-flow-router/
-packages/meteor-useraccounts-core/
-packages/meteor-accounts-cas/
+packages/
 package-lock.json
 **/parts/
 **/stage
