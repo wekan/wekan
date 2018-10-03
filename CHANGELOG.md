@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix Card URL](https://github.com/wekan/wekan/pull/1932).
+
+Thanks to GitHub user schulz for contributions.
+
 # v1.52 2018-10-01 Wekan release
 
 This release removes the following new features:
