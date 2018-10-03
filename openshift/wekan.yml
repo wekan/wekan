@@ -319,7 +319,6 @@ parameters:
 - description: The OpenShift Namespace where the ImageStream resides.
   displayName: Namespace
   name: NAMESPACE
-  value: openshift
 - description: The name of the OpenShift Service exposed for the database.
   displayName: Database Service Name
   name: DATABASE_SERVICE_NAME
@@ -359,7 +358,7 @@ parameters:
   required: true
   value: '3.2'
 - name: WEKAN_SERVICE_NAME
-  displayName: WeKan Service Name
+  displayName: Wekan Service Name
   value: wekan
   required: true
 - name: WEKAN_IMAGE
@@ -367,8 +366,3 @@ parameters:
   value: quay.io/wekan/wekan:latest
   description: The metabase docker image to use
   required: true
-- name: WEKAN_SERVICE_NAME
-  displayName: WeKan Service Name
-  value: wekan
-  required: true
-
