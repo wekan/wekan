@@ -127,6 +127,11 @@ Users.attachSchema(new SimpleSchema({
     type: Boolean,
     optional: true,
   },
+  // TODO : write a migration and check if using a ldap parameter is better than a connection_type parameter
+  ldap: {
+    type: Boolean,
+    optional: true,
+  },
 }));
 
 Users.allow({
@@ -490,7 +495,6 @@ if (Meteor.isServer) {
 
     if (user.services.oidc) {
       const email = user.services.oidc.email.toLowerCase();
-
       user.username = user.services.oidc.username;
       user.emails = [{ address: email, verified: true }];
       const initials = user.services.oidc.fullname.match(/\b[a-zA-Z]/g).join('').toUpperCase();
@@ -518,7 +522,10 @@ if (Meteor.isServer) {
     }
 
     const disableRegistration = Settings.findOne().disableRegistration;
-    if (!disableRegistration) {
+    // If ldap, bypass the inviation code if the self registration isn't allowed.
+    // TODO : pay attention if ldap field in the user model change to another content ex : ldap field to connection_type
+    if (options.ldap || !disableRegistration) {
+      user.ldap = true;
       return user;
     }
 
@@ -636,7 +643,9 @@ if (Meteor.isServer) {
 
     //invite user to corresponding boards
     const disableRegistration = Settings.findOne().disableRegistration;
-    if (disableRegistration) {
+    // If ldap, bypass the inviation code if the self registration isn't allowed.
+    // TODO : pay attention if ldap field in the user model change to another content ex : ldap field to connection_type
+    if (!doc.ldap && disableRegistration) {
       const invitationCode = InvitationCodes.findOne({code: doc.profile.icode, valid: true});
       if (!invitationCode) {
         throw new Meteor.Error('error-invitation-code-not-exist');

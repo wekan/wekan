@@ -39,7 +39,7 @@ Template.userFormsLayout.helpers({
     const curLang = T9n.getLanguage() || 'en';
     return t9nTag === curLang;
   },
-
+/*
   isCas() {
     return Meteor.settings.public &&
       Meteor.settings.public.cas &&
@@ -49,6 +49,7 @@ Template.userFormsLayout.helpers({
   casSignInLabel() {
     return TAPi18n.__('casSignIn', {}, T9n.getLanguage() || 'en');
   },
+*/
 });
 
 Template.userFormsLayout.events({
@@ -63,6 +64,44 @@ Template.userFormsLayout.events({
         FlowRouter.go('/');
       }
     });
+  },
+  'submit form'(event) {
+    const connectionMethod = $('.select-connection').val();
+
+    // Local account
+    if (connectionMethod === 'default') {
+      return;
+    }
+
+    // TODO : find a way to block "submit #at-pwd-form" of the at_pwd_form.js
+
+    const inputs = event.target.getElementsByTagName('input');
+
+    const email = inputs.namedItem('at-field-username_and_email').value;
+    const password = inputs.namedItem('at-field-password').value;
+
+    // Ldap account
+    if (connectionMethod === 'ldap') {
+      // Check if the user can use the ldap connection
+      Meteor.subscribe('user-connection-method', email, {
+        onReady() {
+          const ldap = Users.findOne();
+
+          if (ldap) {
+            // Use the ldap connection package
+            Meteor.loginWithLDAP(email, password, function(error) {
+              if (!error) {
+                // Connection
+                return FlowRouter.go('/');
+              } else {
+                return error;
+              }
+            });
+          }
+          return this.stop();
+        },
+      });
+    }
   },
 });
 

@@ -1,0 +1,6 @@
+template(name='connectionMethod')
+  div.at-form-connection
+    label Authentication method
+    select.select-connection
+        each connections
+            option(value="{{value}}") {{_ value}}

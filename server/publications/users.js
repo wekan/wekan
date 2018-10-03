@@ -17,3 +17,13 @@ Meteor.publish('user-admin', function() {
     },
   });
 });
+
+Meteor.publish('user-connection-method', function(match) {
+  check(match, String);
+
+  return Users.find({$or: [{email: match}, {username: match}]}, {
+    fields: {
+      ldap: 1,
+    },
+  });
+});
