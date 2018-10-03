@@ -1,9 +1,10 @@
 # Upcoming Wekan release.
 
 - [LDAP](https://github.com/wekan/wekan/commit/288800eafc91d07f859c4f59588e0b646137ccb9). In progress.
-  Please test and [add info about bugs](https://github.com/wekan/wekan/issues/119).
-    
-Thanks to GitHub users maximest-pierre, Akuket and xet7 for their contributions.
+  Please test and [add info about bugs](https://github.com/wekan/wekan/issues/119);
+- [Fix Card URL](https://github.com/wekan/wekan/pull/1932).
+
+Thanks to GitHub users Akuket, maximest-pierre, schulz and xet7 for their contributions.
     
 # v1.52.1 2018-10-02 Wekan Edge release
 
