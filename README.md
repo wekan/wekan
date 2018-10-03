@@ -1,5 +1,16 @@
 # Wekan
 
+## Stable
+
+- master+devel branch. At release, devel is merged to master.
+- Receives fixes and features that have been tested at edge that they work.
+- If you want automatic updates, [use Snap](https://github.com/wekan/wekan-snap/wiki/Install).
+- If you want to test before update, [use Docker quay.io release tags](https://github.com/wekan/wekan/wiki/Docker).
+
+## Edge
+
+- edge branch. All new fixes and features are added to here first. [Testing Edge](https://github.com/wekan/wekan-snap/wiki/Snap-Developer-Docs).
+
 [![Translate Wekan at Transifex](https://img.shields.io/badge/Translate%20Wekan-at%20Transifex-brightgreen.svg "Freenode IRC")](https://transifex.com/wekan/wekan)
 
 [![Wekan Vanila Chat][vanila_badge]][vanila_chat] 
