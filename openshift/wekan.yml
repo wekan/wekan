@@ -358,7 +358,7 @@ parameters:
   required: true
   value: '3.2'
 - name: WEKAN_SERVICE_NAME
-  displayName: WeKan Service Name
+  displayName: Wekan Service Name
   value: wekan
   required: true
 - name: WEKAN_IMAGE
