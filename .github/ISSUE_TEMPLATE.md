@@ -3,6 +3,7 @@
 **Server Setup Information**:
 
 * Did you test in newest Wekan?:
+* For new Wekan install, did you configure root-url correctly https://github.com/wekan/wekan/wiki/Settings ?
 * Wekan version:
 * If this is about old version of Wekan, what upgrade problem you have?:
 * Operating System:
