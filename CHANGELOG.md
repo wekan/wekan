@@ -7,10 +7,11 @@ This release adds the following new features:
 
 and fixes the following bugs:
 
+- [OpenShift: Drop default namespace value and duplicate WEKAN_SERVICE_NAME parameter.commit](https://github.com/wekan/wekan/commit/fcc3560df4dbcc418c63470776376238af4f6ddc);
 - [Fix Card URL](https://github.com/wekan/wekan/pull/1932);
 - [Add info about root-url to GitHub issue template](https://github.com/wekan/wekan/commit/4c0eb7dcc19ca9ae8c5d2d0276e0d024269de236).
 
-Thanks to GitHub users Akuket, maximest-pierre, schulz and xet7 for their contributions.
+Thanks to GitHub users Akuket, lberk, maximest-pierre, InfoSec812, schulz and xet7 for their contributions.
     
 # v1.52.1 2018-10-02 Wekan Edge release
 
