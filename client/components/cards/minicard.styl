@@ -9,7 +9,7 @@
 
   &.placeholder
     background: darken(white, 20%)
-    border-radius: 2px
+    border-radius: 9px
 
   &.ui-sortable-helper
     cursor: grabbing
@@ -44,6 +44,16 @@
   transition: transform 0.2s,
               border-radius 0.2s
 
+  &.linked-board
+  &.linked-card
+    .linked-icon
+      display: inline-block
+      margin-right: 11px
+      vertical-align: baseline
+      font-size: 0.9em
+    .linked-archived
+      color: #937760
+
   .is-selected &
     transform: translateX(11px)
     border-bottom-right-radius: 0
@@ -77,9 +87,18 @@
       height: @width
       border-radius: 2px
       margin-left: 3px
+  .minicard-custom-fields
+    display:block;
+  .minicard-custom-field
+    display:flex;
+  .minicard-custom-field-item
+    max-width:50%;
+    flex-grow:1;
   .minicard-title
     p:last-child
       margin-bottom: 0
+    .viewer
+      display: inline-block
   .dates
     display: flex;
     flex-direction: row;
@@ -154,6 +173,13 @@
       min-height: 36px
       margin-bottom: 20px
       overflow-y: auto
+
+.parent-prefix
+  color: darken(white, 30%)
+  font-size: 0.9em
+.parent-subtext
+  color: darken(white, 30%)
+  font-size: 0.9em
 
 @media screen and (max-width: 800px)
   .minicard

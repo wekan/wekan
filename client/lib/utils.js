@@ -33,6 +33,37 @@ Utils = {
     return $(window).width() <= 800;
   },
 
+  calculateIndexData(prevData, nextData, nItems = 1) {
+    let base, increment;
+    // If we drop the card to an empty column
+    if (!prevData && !nextData) {
+      base = 0;
+      increment = 1;
+    // If we drop the card in the first position
+    } else if (!prevData) {
+      base = nextData.sort - 1;
+      increment = -1;
+    // If we drop the card in the last position
+    } else if (!nextData) {
+      base = prevData.sort + 1;
+      increment = 1;
+    }
+    // In the general case take the average of the previous and next element
+    // sort indexes.
+    else {
+      const prevSortIndex = prevData.sort;
+      const nextSortIndex = nextData.sort;
+      increment = (nextSortIndex - prevSortIndex) / (nItems + 1);
+      base = prevSortIndex + increment;
+    }
+    // XXX Return a generator that yield values instead of a base with a
+    // increment number.
+    return {
+      base,
+      increment,
+    };
+  },
+
   // Determine the new sort index
   calculateIndex(prevCardDomElement, nextCardDomElement, nCards = 1) {
     let base, increment;
@@ -63,6 +94,100 @@ Utils = {
       base,
       increment,
     };
+  },
+
+  // Detect touch device
+  isTouchDevice() {
+    const isTouchable = (() => {
+      const prefixes = ' -webkit- -moz- -o- -ms- '.split(' ');
+      const mq = function(query) {
+        return window.matchMedia(query).matches;
+      };
+
+      if (('ontouchstart' in window) || window.DocumentTouch && document instanceof window.DocumentTouch) {
+        return true;
+      }
+
+      // include the 'heartz' as a way to have a non matching MQ to help terminate the join
+      // https://git.io/vznFH
+      const query = ['(', prefixes.join('touch-enabled),('), 'heartz', ')'].join('');
+      return mq(query);
+    })();
+    Utils.isTouchDevice = () => isTouchable;
+    return isTouchable;
+  },
+
+  calculateTouchDistance(touchA, touchB) {
+    return Math.sqrt(
+      Math.pow(touchA.screenX - touchB.screenX, 2) +
+      Math.pow(touchA.screenY - touchB.screenY, 2)
+    );
+  },
+
+  enableClickOnTouch(selector) {
+    let touchStart = null;
+    let lastTouch = null;
+
+    $(document).on('touchstart', selector, function(e) {
+      touchStart = e.originalEvent.touches[0];
+    });
+    $(document).on('touchmove', selector, function(e) {
+      const touches = e.originalEvent.touches;
+      lastTouch = touches[touches.length - 1];
+    });
+    $(document).on('touchend', selector, function(e) {
+      if (touchStart && lastTouch && Utils.calculateTouchDistance(touchStart, lastTouch) <= 20) {
+        e.preventDefault();
+        const clickEvent = document.createEvent('MouseEvents');
+        clickEvent.initEvent('click', true, true);
+        e.target.dispatchEvent(clickEvent);
+      }
+    });
+  },
+
+  setMatomo(data){
+    window._paq = window._paq || [];
+    window._paq.push(['setDoNotTrack', data.doNotTrack]);
+    if (data.withUserName){
+      window._paq.push(['setUserId', Meteor.user().username]);
+    }
+    window._paq.push(['trackPageView']);
+    window._paq.push(['enableLinkTracking']);
+
+    (function() {
+      window._paq.push(['setTrackerUrl', `${data.address}piwik.php`]);
+      window._paq.push(['setSiteId', data.siteId]);
+
+      const script = document.createElement('script');
+      Object.assign(script, {
+        id: 'scriptMatomo',
+        type: 'text/javascript',
+        async: 'true',
+        defer: 'true',
+        src: `${data.address}piwik.js`,
+      });
+
+      const s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(script, s);
+    })();
+
+    Session.set('matomo', true);
+  },
+
+  manageMatomo() {
+    const matomo = Session.get('matomo');
+    if (matomo === undefined){
+      Meteor.call('getMatomoConf', (err, data) => {
+        if (err && err.error[0] === 'var-not-exist'){
+          Session.set('matomo', false); // siteId || address server not defined
+        }
+        if (!err){
+          Utils.setMatomo(data);
+        }
+      });
+    } else if (matomo) {
+      window._paq.push(['trackPageView']);
+    }
   },
 };
 

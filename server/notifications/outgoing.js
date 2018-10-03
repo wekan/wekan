@@ -8,6 +8,8 @@ const postCatchError = Meteor.wrapAsync((url, options, resolve) => {
   });
 });
 
+const webhooksAtbts = ( (process.env.WEBHOOKS_ATTRIBUTES && process.env.WEBHOOKS_ATTRIBUTES.split(',') ) || ['cardId', 'listId', 'oldListId', 'boardId', 'comment', 'user', 'card', 'commentId', 'swimlaneId']);
+
 Meteor.methods({
   outgoingWebhooks(integrations, description, params) {
     check(integrations, Array);
@@ -19,7 +21,7 @@ Meteor.methods({
       if (quoteParams[key]) quoteParams[key] = `"${params[key]}"`;
     });
 
-    const userId = (params.userId)?params.userId:integrations[0].userId;
+    const userId = (params.userId) ? params.userId : integrations[0].userId;
     const user = Users.findOne(userId);
     const text = `${params.user} ${TAPi18n.__(description, quoteParams, user.getLanguage())}\n${params.url}`;
 
@@ -29,10 +31,7 @@ Meteor.methods({
       text: `${text}`,
     };
 
-    [   'cardId', 'listId', 'oldListId',
-      'boardId', 'comment', 'user',
-      'card', 'commentId',
-    ].forEach((key) => {
+    webhooksAtbts.forEach((key) => {
       if (params[key]) value[key] = params[key];
     });
     value.description = description;

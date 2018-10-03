@@ -1,7 +1,7 @@
 name: wekan
 version: 0
 version-script: git describe --dirty --tags |  cut -c 2-
-summary: The open-source Trello-like kanban
+summary: The open-source kanban
 description: |
    Wekan is an open-source and collaborative kanban board application.
 
@@ -65,7 +65,7 @@ apps:
 
 parts:
     mongodb:
-        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-3.2.18.tgz
+        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-3.2.21.tgz
         plugin: dump
         stage-packages: [libssl1.0.0]
         filesets:
@@ -81,9 +81,9 @@ parts:
     wekan:
         source: .
         plugin: nodejs
-        node-engine: 8.9.3
+        node-engine: 8.12.0
         node-packages:
-            - npm@5.5.1
+            - npm
             - node-gyp
             - node-pre-gyp
             - fibers@2.0.0
@@ -95,44 +95,80 @@ parts:
             - capnproto
             - npm
             - curl
-            - paxctl
             - execstack
-        prepare: |
+        stage-packages:
+            - libfontconfig1
+        override-build: |
             echo "Cleaning environment first"
             rm -rf ~/.meteor ~/.npm /usr/local/lib/node_modules
-            echo "Applying paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303"
-            paxctl -mC `which node`
+            # Node Fibers 100% CPU usage issue:
+            # https://github.com/wekan/wekan-mongodb/issues/2#issuecomment-381453161
+            # https://github.com/meteor/meteor/issues/9796#issuecomment-381676326
+            # https://github.com/sandstorm-io/sandstorm/blob/0f1fec013fe7208ed0fd97eb88b31b77e3c61f42/shell/server/00-startup.js#L99-L129
+            # Also see beginning of wekan/server/authentication.js
+            #   import Fiber from "fibers";
+            #   Fiber.poolSize = 1e9;
+            # OLD: Download node version 8.12.0 prerelease build => Official node 8.12.0 has been released
+            # Description at https://releases.wekan.team/node.txt
+            ##echo "375bd8db50b9c692c0bbba6e96d4114cd29bee3770f901c1ff2249d1038f1348  node" >> node-SHASUMS256.txt.asc
+            ##curl https://releases.wekan.team/node -o node
+            # Verify Fibers patched node authenticity
+            ##echo "Fibers 100% CPU issue patched node authenticity:"
+            ##grep node node-SHASUMS256.txt.asc | shasum -a 256 -c -
+            ##rm -f node-SHASUMS256.txt.asc
+            ##chmod +x node
+            ##mv node `which node`
+            # DOES NOT WORK: paxctl fix.
+            # Removed from build-packages: - paxctl
+            #echo "Applying paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303"
+            #paxctl -mC `which node`
             echo "Installing meteor"
             curl https://install.meteor.com/ -o install_meteor.sh
             sed -i "s|RELEASE=.*|RELEASE=\"1.6.0.1\"|g" install_meteor.sh
             chmod +x install_meteor.sh
             sh install_meteor.sh
             rm install_meteor.sh
-            mkdir packages
-            cd packages
-            git clone --depth 1 -b master https://github.com/wekan/flow-router.git kadira-flow-router
-            git clone --depth 1 -b master https://github.com/meteor-useraccounts/core.git meteor-useraccounts-core
-            sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' meteor-useraccounts-core/package.js
-            cd ..
-        build: |
+            if [ ! -d "packages" ]; then
+              mkdir packages
+            fi
+            if [ ! -d "packages/kadira-flow-router" ]; then
+              cd packages
+              git clone --depth 1 -b master https://github.com/wekan/flow-router.git kadira-flow-router
+              cd ..
+            fi
+            if [ ! -d "packages/meteor-useraccounts-core" ]; then
+              cd packages
+              git clone --depth 1 -b master https://github.com/meteor-useraccounts/core.git meteor-useraccounts-core
+              sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' meteor-useraccounts-core/package.js
+              cd ..
+            fi
             rm -rf package-lock.json .build
             meteor add standard-minifier-js --allow-superuser
             meteor npm install --allow-superuser
             meteor build .build --directory --allow-superuser
             cp -f fix-download-unicode/cfs_access-point.txt .build/bundle/programs/server/packages/cfs_access-point.js
-            cd .build/bundle/programs/server/npm/node_modules/meteor/npm-bcrypt
-            rm -rf node_modules/bcrypt
-            meteor npm install --save bcrypt
-            cd ../../../../
+            #Removed binary version of bcrypt because of security vulnerability that is not fixed yet.
+            #https://github.com/wekan/wekan/commit/4b2010213907c61b0e0482ab55abb06f6a668eac
+            #https://github.com/wekan/wekan/commit/7eeabf14be3c63fae2226e561ef8a0c1390c8d3c
+            #cd .build/bundle/programs/server/npm/node_modules/meteor/npm-bcrypt
+            #rm -rf node_modules/bcrypt
+            #meteor npm install --save bcrypt
+            # Change from npm-bcrypt directory back to .build/bundle/programs/server directory.
+            #cd ../../../../
+            # Change to directory .build/bundle/programs/server
+            cd .build/bundle/programs/server
             npm install
-            meteor npm install --save bcrypt
-        install: |
+            #meteor npm install --save bcrypt
+            # Change back to Wekan source directory
+            cd ../../../..
             cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
             cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
             rm $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan
             execstack --clear-execstack $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/meteor/rajit_bootstrap3-datepicker/lib/bootstrap-datepicker/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
         organize:
             README: README.wekan
+        prime:
+            - -lib/node_modules/node-pre-gyp/node_modules/tar/lib/.unpack.js.swp
 
     helpers:
         source: snap-src
@@ -140,7 +176,7 @@ parts:
 
     caddy:
         plugin: dump
-        source: https://caddyserver.com/download/linux/amd64?plugins=
+        source: https://caddyserver.com/download/linux/amd64?plugins=http.filter,http.ipfilter,http.realip&license=personal&telemetry=off
         source-type: tar
         organize:
           caddy: bin/caddy

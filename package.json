@@ -1,7 +1,7 @@
 {
   "name": "wekan",
-  "version": "0.77.0",
-  "description": "The open-source Trello-like kanban",
+  "version": "1.52.0",
+  "description": "The open-source kanban",
   "private": true,
   "scripts": {
     "lint": "eslint --ignore-pattern 'packages/*' .",
@@ -20,15 +20,17 @@
   },
   "homepage": "https://wekan.github.io",
   "devDependencies": {
-    "eslint": "^2.0.0"
+    "eslint": "^4.19.1"
   },
   "dependencies": {
-    "babel-runtime": "^6.23.0",
-    "bcrypt": "^1.0.3",
-    "bson-ext": "^1.0.5",
-    "es6-promise": "^4.1.0",
-    "meteor-node-stubs": "^0.2.6",
+    "babel-runtime": "^6.26.0",
+    "bson-ext": "^2.0.0",
+    "es6-promise": "^4.2.4",
+    "meteor-node-stubs": "^0.4.1",
     "os": "^0.1.1",
-    "xss": "^0.3.3"
+    "page": "^1.8.6",
+    "qs": "^6.5.2",
+    "source-map-support": "^0.5.9",
+    "xss": "^1.0.3"
   }
 }

@@ -1,5 +1,7 @@
 template(name="minicard")
-  .minicard
+  .minicard(
+    class="{{#if isLinkedCard}}linked-card{{/if}}"
+    class="{{#if isLinkedBoard}}linked-board{{/if}}")
     if cover
       .minicard-cover(style="background-image: url('{{cover.url}}');")
     if labels
@@ -7,30 +9,69 @@ template(name="minicard")
         each labels
           .minicard-label(class="card-label-{{color}}" title="{{name}}")
     .minicard-title
+      if $eq 'prefix-with-full-path' currentBoard.presentParentTask
+        .parent-prefix
+          | {{ parentString ' > ' }}
+      if $eq 'prefix-with-parent' currentBoard.presentParentTask
+        .parent-prefix
+          | {{ parentCardName }}
+      if isLinkedBoard
+        a.js-linked-link
+          span.linked-icon.fa.fa-folder
+      else if isLinkedCard
+        a.js-linked-link
+          span.linked-icon.fa.fa-id-card
+      if getArchived
+        span.linked-icon.linked-archived.fa.fa-archive
       +viewer
-        = title
+        = getTitle
+      if $eq 'subtext-with-full-path' currentBoard.presentParentTask
+        .parent-subtext
+          | {{ parentString ' > ' }}
+      if $eq 'subtext-with-parent' currentBoard.presentParentTask
+        .parent-subtext
+          | {{ parentCardName }}
+
     .dates
-      if startAt
+      if getReceived
+        unless getStart
+          unless getDue
+            unless getEnd
+              .date
+                +minicardReceivedDate
+      if getStart
         .date
           +minicardStartDate
-      if dueAt
+      if getDue
         .date
           +minicardDueDate
-      if spentTime
+      if getSpentTime
         .date
           +cardSpentTime
 
-    if members
+    .minicard-custom-fields
+      each customFieldsWD
+        if definition.showOnCard
+          .minicard-custom-field
+            .minicard-custom-field-item
+              = definition.name
+            .minicard-custom-field-item
+              +viewer
+                = trueValue
+
+    if getMembers
       .minicard-members.js-minicard-members
-        each members
+        each getMembers
           +userAvatar(userId=this)
+
     .badges
-      if comments.count
-        .badge(title="{{_ 'card-comments-title' comments.count }}")
-          span.badge-icon.fa.fa-comment-o.badge-comment
-          span.badge-text= comments.count
-      if description
-        .badge.badge-state-image-only(title=description)
+      unless currentUser.isNoComments
+        if comments.count
+          .badge(title="{{_ 'card-comments-title' comments.count }}")
+            span.badge-icon.fa.fa-comment-o.badge-comment
+            span.badge-text= comments.count
+      if getDescription
+        .badge.badge-state-image-only(title=getDescription)
           span.badge-icon.fa.fa-align-left
       if attachments.count
         .badge

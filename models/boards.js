@@ -31,14 +31,6 @@ Boards.attachSchema(new SimpleSchema({
       }
     },
   },
-  view: {
-    type: String,
-    autoValue() { // eslint-disable-line consistent-return
-      if (this.isInsert) {
-        return 'board-view-lists';
-      }
-    },
-  },
   createdAt: {
     type: Date,
     autoValue() { // eslint-disable-line consistent-return
@@ -102,6 +94,9 @@ Boards.attachSchema(new SimpleSchema({
     allowedValues: [
       'green', 'yellow', 'orange', 'red', 'purple',
       'blue', 'sky', 'lime', 'pink', 'black',
+      'silver', 'peachpuff', 'crimson', 'plum', 'darkgreen',
+      'slateblue', 'magenta', 'gold', 'navy', 'gray',
+      'saddlebrown', 'paleturquoise', 'mistyrose', 'indigo',
     ],
   },
   // XXX We might want to maintain more informations under the member sub-
@@ -115,6 +110,7 @@ Boards.attachSchema(new SimpleSchema({
           userId: this.userId,
           isAdmin: true,
           isActive: true,
+          isNoComments: false,
           isCommentOnly: false,
         }];
       }
@@ -127,6 +123,9 @@ Boards.attachSchema(new SimpleSchema({
     type: Boolean,
   },
   'members.$.isActive': {
+    type: Boolean,
+  },
+  'members.$.isNoComments': {
     type: Boolean,
   },
   'members.$.isCommentOnly': {
@@ -154,6 +153,54 @@ Boards.attachSchema(new SimpleSchema({
   },
   description: {
     type: String,
+    optional: true,
+  },
+  subtasksDefaultBoardId: {
+    type: String,
+    optional: true,
+    defaultValue: null,
+  },
+  subtasksDefaultListId: {
+    type: String,
+    optional: true,
+    defaultValue: null,
+  },
+  allowsSubtasks: {
+    type: Boolean,
+    defaultValue: true,
+  },
+  presentParentTask: {
+    type: String,
+    allowedValues: [
+      'prefix-with-full-path',
+      'prefix-with-parent',
+      'subtext-with-full-path',
+      'subtext-with-parent',
+      'no-parent',
+    ],
+    optional: true,
+    defaultValue: 'no-parent',
+  },
+  startAt: {
+    type: Date,
+    optional: true,
+  },
+  dueAt: {
+    type: Date,
+    optional: true,
+  },
+  endAt: {
+    type: Date,
+    optional: true,
+  },
+  spentTime: {
+    type: Number,
+    decimal: true,
+    optional: true,
+  },
+  isOvertime: {
+    type: Boolean,
+    defaultValue: false,
     optional: true,
   },
 }));
@@ -189,6 +236,10 @@ Boards.helpers({
 
   isPublic() {
     return this.permission === 'public';
+  },
+
+  cards() {
+    return Cards.find({ boardId: this._id, archived: false }, { sort: { title: 1 } });
   },
 
   lists() {
@@ -245,6 +296,10 @@ Boards.helpers({
     return !!_.findWhere(this.members, { userId: memberId, isActive: true, isAdmin: true });
   },
 
+  hasNoComments(memberId) {
+    return !!_.findWhere(this.members, { userId: memberId, isActive: true, isAdmin: false, isNoComments: true });
+  },
+
   hasCommentOnly(memberId) {
     return !!_.findWhere(this.members, { userId: memberId, isActive: true, isAdmin: false, isCommentOnly: true });
   },
@@ -257,6 +312,10 @@ Boards.helpers({
     return `board-color-${this.color}`;
   },
 
+  customFields() {
+    return CustomFields.find({ boardId: this._id }, { sort: { name: 1 } });
+  },
+
   // XXX currently mutations return no value so we have an issue when using addLabel in import
   // XXX waiting on https://github.com/mquandalle/meteor-collection-mutations/issues/1 to remove...
   pushLabel(name, color) {
@@ -265,27 +324,111 @@ Boards.helpers({
     return _id;
   },
 
-  searchCards(term) {
+  searchCards(term, excludeLinked) {
     check(term, Match.OneOf(String, null, undefined));
 
-    let query = { boardId: this._id };
+    const query = { boardId: this._id };
+    if (excludeLinked) {
+      query.linkedId = null;
+    }
     const projection = { limit: 10, sort: { createdAt: -1 } };
 
     if (term) {
       const regex = new RegExp(term, 'i');
 
-      query = {
-        boardId: this._id,
-        $or: [
-          { title: regex },
-          { description: regex },
-        ],
-      };
+      query.$or = [
+        { title: regex },
+        { description: regex },
+      ];
     }
 
     return Cards.find(query, projection);
   },
+  // A board alwasy has another board where it deposits subtasks of thasks
+  // that belong to itself.
+  getDefaultSubtasksBoardId() {
+    if ((this.subtasksDefaultBoardId === null) || (this.subtasksDefaultBoardId === undefined)) {
+      this.subtasksDefaultBoardId = Boards.insert({
+        title: `^${this.title}^`,
+        permission: this.permission,
+        members: this.members,
+        color: this.color,
+        description: TAPi18n.__('default-subtasks-board', {board: this.title}),
+      });
+
+      Swimlanes.insert({
+        title: TAPi18n.__('default'),
+        boardId: this.subtasksDefaultBoardId,
+      });
+      Boards.update(this._id, {$set: {
+        subtasksDefaultBoardId: this.subtasksDefaultBoardId,
+      }});
+    }
+    return this.subtasksDefaultBoardId;
+  },
+
+  getDefaultSubtasksBoard() {
+    return Boards.findOne(this.getDefaultSubtasksBoardId());
+  },
+
+  getDefaultSubtasksListId() {
+    if ((this.subtasksDefaultListId === null) || (this.subtasksDefaultListId === undefined)) {
+      this.subtasksDefaultListId = Lists.insert({
+        title: TAPi18n.__('queue'),
+        boardId: this._id,
+      });
+      Boards.update(this._id, {$set: {
+        subtasksDefaultListId: this.subtasksDefaultListId,
+      }});
+    }
+    return this.subtasksDefaultListId;
+  },
+
+  getDefaultSubtasksList() {
+    return Lists.findOne(this.getDefaultSubtasksListId());
+  },
+
+  getDefaultSwimline() {
+    let result = Swimlanes.findOne({boardId: this._id});
+    if (result === undefined) {
+      Swimlanes.insert({
+        title: TAPi18n.__('default'),
+        boardId: this._id,
+      });
+      result = Swimlanes.findOne({boardId: this._id});
+    }
+    return result;
+  },
+
+  cardsInInterval(start, end) {
+    return Cards.find({
+      boardId: this._id,
+      $or: [
+        {
+          startAt: {
+            $lte: start,
+          }, endAt: {
+            $gte: start,
+          },
+        }, {
+          startAt: {
+            $lte: end,
+          }, endAt: {
+            $gte: end,
+          },
+        }, {
+          startAt: {
+            $gte: start,
+          }, endAt: {
+            $lte: end,
+          },
+        },
+      ],
+    });
+  },
+
 });
+
 
 Boards.mutations({
   archive() {
@@ -366,6 +509,7 @@ Boards.mutations({
           userId: memberId,
           isAdmin: false,
           isActive: true,
+          isNoComments: false,
           isCommentOnly: false,
         },
       },
@@ -393,7 +537,7 @@ Boards.mutations({
     };
   },
 
-  setMemberPermission(memberId, isAdmin, isCommentOnly) {
+  setMemberPermission(memberId, isAdmin, isNoComments, isCommentOnly) {
     const memberIndex = this.memberIndex(memberId);
 
     // do not allow change permission of self
@@ -404,9 +548,26 @@ Boards.mutations({
     return {
       $set: {
         [`members.${memberIndex}.isAdmin`]: isAdmin,
+        [`members.${memberIndex}.isNoComments`]: isNoComments,
         [`members.${memberIndex}.isCommentOnly`]: isCommentOnly,
       },
     };
+  },
+
+  setAllowsSubtasks(allowsSubtasks) {
+    return { $set: { allowsSubtasks } };
+  },
+
+  setSubtasksDefaultBoardId(subtasksDefaultBoardId) {
+    return { $set: { subtasksDefaultBoardId } };
+  },
+
+  setSubtasksDefaultListId(subtasksDefaultListId) {
+    return { $set: { subtasksDefaultListId } };
+  },
+
+  setPresentParentTask(presentParentTask) {
+    return { $set: { presentParentTask } };
   },
 });
 
@@ -685,18 +846,24 @@ if (Meteor.isServer) {
         members: [
           {
             userId: req.body.owner,
-            isAdmin: true,
-            isActive: true,
-            isCommentOnly: false,
+            isAdmin: req.body.isAdmin || true,
+            isActive: req.body.isActive || true,
+            isNoComments: req.body.isNoComments || false,
+            isCommentOnly: req.body.isCommentOnly || false,
           },
         ],
-        permission: 'public',
-        color: 'belize',
+        permission: req.body.permission || 'private',
+        color: req.body.color || 'belize',
+      });
+      const swimlaneId = Swimlanes.insert({
+        title: TAPi18n.__('default'),
+        boardId: id,
       });
       JsonRoutes.sendResult(res, {
         code: 200,
         data: {
           _id: id,
+          defaultSwimlaneId: swimlaneId,
         },
       });
     }
@@ -723,6 +890,35 @@ if (Meteor.isServer) {
     catch (error) {
       JsonRoutes.sendResult(res, {
         code: 200,
+        data: error,
+      });
+    }
+  });
+
+  JsonRoutes.add('PUT', '/api/boards/:id/labels', function (req, res) {
+    Authentication.checkUserId(req.userId);
+    const id = req.params.id;
+    try {
+      if (req.body.hasOwnProperty('label')) {
+        const board = Boards.findOne({ _id: id });
+        const color = req.body.label.color;
+        const name = req.body.label.name;
+        const labelId = Random.id(6);
+        if (!board.getLabel(name, color)) {
+          Boards.direct.update({ _id: id }, { $push: { labels: { _id: labelId,  name,  color } } });
+          JsonRoutes.sendResult(res, {
+            code: 200,
+            data: labelId,
+          });
+        } else {
+          JsonRoutes.sendResult(res, {
+            code: 200,
+          });
+        }
+      }
+    }
+    catch (error) {
+      JsonRoutes.sendResult(res, {
         data: error,
       });
     }

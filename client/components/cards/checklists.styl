@@ -26,7 +26,7 @@ textarea.js-add-checklist-item, textarea.js-edit-checklist-item
 
   .title
     font-size: 18px
-    line-height: 30px
+    line-height: 25px
 
   .checklist-stat
     margin: 0 0.5em
@@ -78,34 +78,62 @@ textarea.js-add-checklist-item, textarea.js-edit-checklist-item
   bottom: -600px
   right: 0
 
-.checklist-items
+.checklist
+  background: darken(white, 3%)
+
+  &.placeholder
+    background: darken(white, 20%)
+    border-radius: 2px
+
+  &.ui-sortable-helper
+    box-shadow: -2px 2px 8px rgba(0, 0, 0, .3),
+                0 0 1px rgba(0, 0, 0, .5)
+    transform: rotate(4deg)
+    cursor: grabbing
+
+
+.checklist-item
+  margin: 0 0 0 0.1em
+  line-height: 18px
+  font-size: 1.1em
+  margin-top: 3px
+  display: flex
+  background: darken(white, 3%)
+
+  &.placeholder
+    background: darken(white, 20%)
+    border-radius: 2px
+
+  &.ui-sortable-helper
+    box-shadow: -2px 2px 8px rgba(0, 0, 0, .3),
+                0 0 1px rgba(0, 0, 0, .5)
+    transform: rotate(4deg)
+    cursor: grabbing
+
+  &:hover
+    background-color: darken(white, 8%)
+
+  .check-box
+    margin: 0.1em 0 0 0;
+    &.is-checked
+      border-bottom: 2px solid #3cb500
+      border-right: 2px solid #3cb500
+
+  .item-title
+    flex: 1
+    padding-left: 10px;
+    &.is-checked
+      color: #8c8c8c
+      font-style: italic
+    & .viewer
+      p
+        margin-bottom: 2px
+
+.js-delete-checklist-item
   margin: 0 0 0.5em 1.33em
+  @extends .delete-text
+  padding: 12px 0 0 0
 
-  .item
-    line-height: 25px
-    font-size: 1.1em
-    margin-top: 3px
-    display: flex
-    &:hover
-      background-color: darken(white, 8%)
-
-    .check-box
-      margin-top: 5px
-      &.is-checked
-        border-bottom: 2px solid #3cb500
-        border-right: 2px solid #3cb500
-
-    .item-title
-      flex: 1
-      padding-left: 10px;
-      &.is-checked
-        color: #8c8c8c
-        font-style: italic
-
-  .js-delete-checklist-item
-    @extends .delete-text
-    padding: 12px 0 0 0
-
-  .add-checklist-item
-    padding-top: 0.5em
-    display: inline-block
+.add-checklist-item
+  margin: 0.2em 0 0.5em 1.33em
+  display: inline-block

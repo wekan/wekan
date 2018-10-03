@@ -8,16 +8,24 @@ BlazeComponent.extendComponent({
     const sidebar = this.parentComponent(); // XXX for some reason not working
     sidebar.callFirstWith(null, 'resetNextPeak');
     this.autorun(() => {
-      const mode = this.data().mode;
+      let mode = this.data().mode;
       const capitalizedMode = Utils.capitalize(mode);
-      const id = Session.get(`current${capitalizedMode}`);
+      let thisId, searchId;
+      if (mode === 'linkedcard' || mode === 'linkedboard') {
+        thisId = Session.get('currentCard');
+        searchId = Cards.findOne({_id: thisId}).linkedId;
+        mode = mode.replace('linked', '');
+      } else {
+        thisId = Session.get(`current${capitalizedMode}`);
+        searchId = thisId;
+      }
       const limit = this.page.get() * activitiesPerPage;
       const user = Meteor.user();
       const hideSystem = user ? user.hasHiddenSystemMessages() : false;
-      if (id === null)
+      if (searchId === null)
         return;
 
-      this.subscribe('activities', mode, id, limit, hideSystem, () => {
+      this.subscribe('activities', mode, searchId, limit, hideSystem, () => {
         this.loadNextPageLocked = false;
 
         // If the sibear peak hasn't increased, that mean that there are no more
@@ -89,6 +97,11 @@ BlazeComponent.extendComponent({
       href: attachment.url({ download: true }),
       target: '_blank',
     }, attachment.name()));
+  },
+
+  customField() {
+    const customField = this.currentData().customField();
+    return customField.name;
   },
 
   events() {

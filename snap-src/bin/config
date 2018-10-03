@@ -3,7 +3,7 @@
 # All supported keys are defined here together with descriptions and default values
 
 # list of supported keys
-keys="MONGODB_BIND_UNIX_SOCKET MONGODB_BIND_IP MONGODB_PORT MAIL_URL MAIL_FROM ROOT_URL PORT DISABLE_MONGODB CADDY_ENABLED CADDY_BIND_PORT"
+keys="MONGODB_BIND_UNIX_SOCKET MONGODB_BIND_IP MONGODB_PORT MAIL_URL MAIL_FROM ROOT_URL PORT DISABLE_MONGODB CADDY_ENABLED CADDY_BIND_PORT WITH_API MATOMO_ADDRESS MATOMO_SITE_ID MATOMO_DO_NOT_TRACK MATOMO_WITH_USERNAME BROWSER_POLICY_ENABLED TRUSTED_URL WEBHOOKS_ATTRIBUTES OAUTH2_CLIENT_ID OAUTH2_SECRET OAUTH2_SERVER_URL OAUTH2_AUTH_ENDPOINT OAUTH2_USERINFO_ENDPOINT OAUTH2_TOKEN_ENDPOINT"
 
 # default values
 DESCRIPTION_MONGODB_BIND_UNIX_SOCKET="mongodb binding unix socket:\n"\
@@ -17,7 +17,7 @@ DEFAULT_MONGODB_PORT="27019"
 KEY_MONGODB_PORT='mongodb-port'
 
 DESCRIPTION_MONGODB_BIND_IP="mongodb binding ip address: eg 127.0.0.1 for localhost\n\t\tIf not defined default unix socket is used instead"
-DEFAULT_MONGODB_BIND_IP=""
+DEFAULT_MONGODB_BIND_IP="127.0.0.1"
 KEY_MONGODB_BIND_IP="mongodb-bind-ip"
 
 DESCRIPTION_MAIL_URL="wekan mail binding"
@@ -40,10 +40,69 @@ DESCRIPTION_DISABLE_MONGODB="Disable mongodb service: use only if binding to dat
 DEFAULT_DISABLE_MONGODB="false"
 KEY_DISABLE_MONGODB="disable-mongodb"
 
-DESCRIPTION_CADDY_ENABLED="Enable caddy service (caddy - Every Site on HTTPS). Set to 'true' to enable caddy\n\t\tcaddy settings are handled through $SNAP_COMMON/Caddyfile"
+DESCRIPTION_CADDY_ENABLED="Enable caddy service (caddy - Every Site on HTTPS) personal license for non-commercial use only, see https://caddyserver.com/products/licenses . Set to 'true' to enable caddy\n\t\tcaddy settings are handled through $SNAP_COMMON/Caddyfile"
 DEFAULT_CADDY_ENABLED="false"
 KEY_CADDY_ENABLED="caddy-enabled"
 
 DESCRIPTION_CADDY_BIND_PORT="Port on which caddy will expect proxy, value set here will be set in $SNAP_COMMON/Caddyfile"
 DEFAULT_CADDY_BIND_PORT="3001"
 KEY_CADDY_BIND_PORT="caddy-bind-port"
+
+DESCRIPTION_WITH_API="Enable/disable the api of wekan"
+DEFAULT_WITH_API="true"
+KEY_WITH_API="with-api"
+
+DESCRIPTION_MATOMO_ADDRESS="The address of the server where matomo is hosted"
+DEFAULT_MATOMO_ADDRESS=""
+KEY_MATOMO_ADDRESS="matomo-address"
+
+DESCRIPTION_MATOMO_SITE_ID="The value of the site ID given in matomo server for wekan"
+DEFAULT_MATOMO_SITE_ID=""
+KEY_MATOMO_SITE_ID="matomo-site-id"
+
+DESCRIPTION_MATOMO_DO_NOT_TRACK="The option do not track which enables users to not be tracked by matomo"
+DEFAULT_MATOMO_DO_NOT_TRACK="true"
+KEY_MATOMO_DO_NOT_TRACK="matomo-do-not-track"
+
+DESCRIPTION_MATOMO_WITH_USERNAME="The option that allows matomo to retrieve the username"
+DEFAULT_MATOMO_WITH_USERNAME="false"
+KEY_MATOMO_WITH_USERNAME="matomo-with-username"
+
+DESCRIPTION_BROWSER_POLICY_ENABLED="Enable browser policy and allow one trusted URL that can have iframe that has Wekan embedded inside.\n"\
+"\t\t\t Setting this to false is not recommended, it also disables all other browser policy protections\n"\
+"\t\t\t and allows all iframing etc. See wekan/server/policy.js"
+DEFAULT_BROWSER_POLICY_ENABLED="true"
+KEY_BROWSER_POLICY_ENABLED="browser-policy-enabled"
+
+DESCRIPTION_TRUSTED_URL="When browser policy is enabled, HTML code at this Trusted URL can have iframe that embeds Wekan inside."
+DEFAULT_TRUSTED_URL=""
+KEY_TRUSTED_URL="trusted-url"
+
+DESCRIPTION_WEBHOOKS_ATTRIBUTES="What to send to Outgoing Webhook, or leave out. Example, that includes all that are default: cardId,listId,oldListId,boardId,comment,user,card,commentId ."
+DEFAULT_WEBHOOKS_ATTRIBUTES=""
+KEY_WEBHOOKS_ATTRIBUTES="webhooks-attributes"
+
+DESCRIPTION_OAUTH2_CLIENT_ID="OAuth2 Client ID, for example from Rocket.Chat. Example: abcde12345"
+DEFAULT_OAUTH2_CLIENT_ID=""
+KEY_OAUTH2_CLIENT_ID="oauth2-client-id"
+
+DESCRIPTION_OAUTH2_SECRET="OAuth2 Secret, for example from Rocket.Chat: Example: 54321abcde"
+DEFAULT_OAUTH2_SECRET=""
+KEY_OAUTH2_SECRET="oauth2-secret"
+
+DESCRIPTION_OAUTH2_SERVER_URL="OAuth2 Server URL, for example Rocket.Chat. Example: https://chat.example.com"
+DEFAULT_OAUTH2_SERVER_URL=""
+KEY_OAUTH2_SERVER_URL="oauth2-server-url"
+
+DESCRIPTION_OAUTH2_AUTH_ENDPOINT="OAuth2 authorization endpoint. Example: /oauth/authorize"
+DEFAULT_OAUTH2_AUTH_ENDPOINT=""
+KEY_OAUTH2_AUTH_ENDPOINT="oauth2-auth-endpoint"
+
+DESCRIPTION_OAUTH2_USERINFO_ENDPOINT="OAuth2 userinfo endpoint. Example: /oauth/userinfo"
+DEFAULT_OAUTH2_USERINFO_ENDPOINT=""
+KEY_OAUTH2_USERINFO_ENDPOINT="oauth2-userinfo-endpoint"
+
+DESCRIPTION_OAUTH2_TOKEN_ENDPOINT="OAuth2 token endpoint. Example: /oauth/token"
+DEFAULT_OAUTH2_TOKEN_ENDPOINT=""
+KEY_OAUTH2_TOKEN_ENDPOINT="oauth2-token-endpoint"
+

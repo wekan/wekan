@@ -45,6 +45,7 @@ class Exporter {
 
   build() {
     const byBoard = { boardId: this._boardId };
+    const byBoardNoLinked = { boardId: this._boardId, linkedId: '' };
     // we do not want to retrieve boardId in related elements
     const noBoardId = { fields: { boardId: 0 } };
     const result = {
@@ -52,14 +53,20 @@ class Exporter {
     };
     _.extend(result, Boards.findOne(this._boardId, { fields: { stars: 0 } }));
     result.lists = Lists.find(byBoard, noBoardId).fetch();
-    result.cards = Cards.find(byBoard, noBoardId).fetch();
+    result.cards = Cards.find(byBoardNoLinked, noBoardId).fetch();
     result.swimlanes = Swimlanes.find(byBoard, noBoardId).fetch();
+    result.customFields = CustomFields.find(byBoard, noBoardId).fetch();
     result.comments = CardComments.find(byBoard, noBoardId).fetch();
     result.activities = Activities.find(byBoard, noBoardId).fetch();
     result.checklists = [];
+    result.checklistItems = [];
+    result.subtaskItems = [];
     result.cards.forEach((card) => {
       result.checklists.push(...Checklists.find({ cardId: card._id }).fetch());
+      result.checklistItems.push(...ChecklistItems.find({ cardId: card._id }).fetch());
+      result.subtaskItems.push(...Cards.find({ parentid: card._id }).fetch());
     });
+
     // [Old] for attachments we only export IDs and absolute url to original doc
     // [New] Encode attachment to base64
     const getBase64Data = function(doc, callback) {

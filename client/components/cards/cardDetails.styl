@@ -2,11 +2,11 @@
 
 .card-details
   padding: 0 20px
-  height: 100%
   flex-shrink: 0
   flex-basis: 470px
   will-change: flex-basis
-  overflow: hidden
+  overflow-y: scroll
+  overflow-x: hidden
   background: darken(white, 3%)
   border-radius: bottom 3px
   z-index: 20 !important
@@ -47,6 +47,12 @@
       margin: 7px 0 0
       padding: 0
 
+    .linked-card-location
+      font-style: italic
+      font-size: 1em
+      margin-bottom: 0
+      & p
+        margin-bottom: 0
 
     form.inlined-form
       margin-top: 5px
@@ -70,6 +76,7 @@
 
   .card-details-items
     display: flex
+    flex-wrap: wrap
     margin: 15px 0
 
     .card-details-item
@@ -78,14 +85,18 @@
         margin-right: 0
       &.card-details-item-labels,
       &.card-details-item-members,
+      &.card-details-item-received,
       &.card-details-item-start,
-      &.card-details-item-due
-        width: 50%
-        flex-shrink: 1
+      &.card-details-item-due,
+      &.card-details-item-end,
+      &.card-details-item-customfield,
+      &.card-details-item-name
+        max-width: 50%
+        flex-grow: 1
 
   .card-details-item-title
-    font-size: 14px
-    color: darken(white, 45%)
+    font-size: 16px
+    color: #000
 
   .card-label
     padding-top: 5px

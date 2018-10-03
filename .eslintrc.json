@@ -14,7 +14,7 @@
   },
   "rules": {
     "strict": 0,
-    "no-undef": 2,
+    "no-undef": 0,
     "accessor-pairs": 2,
     "comma-dangle": [2, "always-multiline"],
     "consistent-return": 2,
@@ -100,7 +100,9 @@
     "Attachments": true,
     "Boards": true,
     "CardComments": true,
+    "DatePicker" : true,
     "Cards": true,
+    "CustomFields": true,
     "Lists": true,
     "UnsavedEditCollection": true,
     "Users": true,
@@ -119,7 +121,8 @@
     "allowIsBoardAdmin": true,
     "allowIsBoardMember": true,
     "allowIsBoardMemberByCard": true,
-    "allowIsBoardMemberNonComment": true,
+    "allowIsBoardMemberCommentOnly": true,
+    "allowIsBoardMemberNoComments": true,
     "Emoji": true,
     "Checklists": true,
     "Settings": true,
@@ -131,6 +134,8 @@
     "AccountSettings": true,
     "Announcements": true,
     "Swimlanes": true,
+    "ChecklistItems": true,
+    "Subtasks": true,
     "Npm": true
   }
 }

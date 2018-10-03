@@ -24,6 +24,9 @@ Template.editProfilePopup.helpers({
   allowEmailChange() {
     return AccountSettings.findOne('accounts-allowEmailChange').booleanValue;
   },
+  allowUserNameChange() {
+    return AccountSettings.findOne('accounts-allowUserNameChange').booleanValue;
+  },
 });
 
 Template.editProfilePopup.events({

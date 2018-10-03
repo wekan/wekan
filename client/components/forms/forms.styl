@@ -85,6 +85,9 @@ select
   width: 256px
   margin-bottom: 8px
 
+  &.inline
+  	width: 100%
+
 option[disabled]
   color: #8c8c8c
 
@@ -222,9 +225,12 @@ textarea
 
 .edit-controls,
 .add-controls
+  display: flex
+  align-items: baseline
   margin-top: 0
 
   button[type=submit]
+  input[type=button]
     float: left
     height: 32px
     margin-top: -2px

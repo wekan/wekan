@@ -1,22 +1,3 @@
-.edit-card-date
-  .fields
-    .left
-      width: 56%
-    .right
-      width: 38%
-  .datepicker
-    width: 100%
-    table
-      width: 100%
-      border: none
-      border-spacing: 0
-      border-collapse: collapse
-      thead
-        background: none
-      td, th
-        box-sizing: border-box
-
-
 .card-date
   display: block
   border-radius: 4px
@@ -49,12 +30,22 @@
     &:hover, &.is-active
       background-color: darken(#fd5d47, 7)
 
+  &.end-date
+    time
+      &::before
+        content: "\f253"  // symbol: fa-hourglass-end
+
   &.due-date
     time
       &::before
         content: "\f090"  // symbol: fa-sign-in
 
   &.start-date
+    time
+      &::before
+        content: "\f251"  // symbol: fa-hourglass-start
+
+  &.received-date
     time
       &::before
         content: "\f08b"  // symbol: fa-sign-out

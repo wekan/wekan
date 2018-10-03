@@ -1,11 +1,14 @@
+const { calculateIndexData, enableClickOnTouch } = Utils;
+
 function initSorting(items) {
   items.sortable({
     tolerance: 'pointer',
     helper: 'clone',
     items: '.js-checklist-item:not(.placeholder)',
-    axis: 'y',
+    connectWith: '.js-checklist-items',
+    appendTo: '.board-canvas',
     distance: 7,
-    placeholder: 'placeholder',
+    placeholder: 'checklist-item placeholder',
     scroll: false,
     start(evt, ui) {
       ui.placeholder.height(ui.helper.height());
@@ -13,57 +16,57 @@ function initSorting(items) {
     },
     stop(evt, ui) {
       const parent = ui.item.parents('.js-checklist-items');
-      const orderedItems = [];
-      parent.find('.js-checklist-item').each(function(i, item) {
-        const checklistItem = Blaze.getData(item).item;
-        orderedItems.push(checklistItem._id);
-      });
-      items.sortable('cancel');
-      const formerParent = ui.item.parents('.js-checklist-items');
-      const checklist = Blaze.getData(parent.get(0)).checklist;
-      const oldChecklist = Blaze.getData(formerParent.get(0)).checklist;
-      if (oldChecklist._id !== checklist._id) {
-        const currentItem = Blaze.getData(ui.item.get(0)).item;
-        for (let i = 0; i < orderedItems.length; i++) {
-          const itemId = orderedItems[i];
-          if (itemId !== currentItem._id) continue;
-          const newItem = {
-            _id: checklist.getNewItemId(),
-            title: currentItem.title,
-            sort: i,
-            isFinished: currentItem.isFinished,
-          };
-          checklist.addFullItem(newItem);
-          orderedItems[i] = currentItem._id;
-          oldChecklist.removeItem(itemId);
-        }
-      } else {
-        checklist.sortItems(orderedItems);
+      const checklistId = Blaze.getData(parent.get(0)).checklist._id;
+      let prevItem = ui.item.prev('.js-checklist-item').get(0);
+      if (prevItem) {
+        prevItem = Blaze.getData(prevItem).item;
       }
+      let nextItem = ui.item.next('.js-checklist-item').get(0);
+      if (nextItem) {
+        nextItem = Blaze.getData(nextItem).item;
+      }
+      const nItems = 1;
+      const sortIndex = calculateIndexData(prevItem, nextItem, nItems);
+      const checklistDomElement = ui.item.get(0);
+      const checklistData = Blaze.getData(checklistDomElement);
+      const checklistItem = checklistData.item;
+
+      items.sortable('cancel');
+
+      checklistItem.move(checklistId, sortIndex.base);
     },
   });
+
+  // ugly touch event hotfix
+  enableClickOnTouch('.js-checklist-item:not(.placeholder)');
 }
 
-Template.checklists.onRendered(function () {
-  const self = BlazeComponent.getComponentForElement(this.firstNode);
-  self.itemsDom = this.$('.card-checklist-items');
-  initSorting(self.itemsDom);
-  self.itemsDom.mousedown(function(evt) {
-    evt.stopPropagation();
-  });
+BlazeComponent.extendComponent({
+  onRendered() {
+    const self = this;
+    self.itemsDom = this.$('.js-checklist-items');
+    initSorting(self.itemsDom);
+    self.itemsDom.mousedown(function(evt) {
+      evt.stopPropagation();
+    });
 
-  function userIsMember() {
-    return Meteor.user() && Meteor.user().isBoardMember();
-  }
-
-  // Disable sorting if the current user is not a board member
-  self.autorun(() => {
-    const $itemsDom = $(self.itemsDom);
-    if ($itemsDom.data('sortable')) {
-      $(self.itemsDom).sortable('option', 'disabled', !userIsMember());
+    function userIsMember() {
+      return Meteor.user() && Meteor.user().isBoardMember();
     }
-  });
-});
+
+    // Disable sorting if the current user is not a board member
+    self.autorun(() => {
+      const $itemsDom = $(self.itemsDom);
+      if ($itemsDom.data('sortable')) {
+        $(self.itemsDom).sortable('option', 'disabled', !userIsMember());
+      }
+    });
+  },
+
+  canModifyCard() {
+    return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
+  },
+}).register('checklistDetail');
 
 BlazeComponent.extendComponent({
 
@@ -71,8 +74,10 @@ BlazeComponent.extendComponent({
     event.preventDefault();
     const textarea = this.find('textarea.js-add-checklist-item');
     const title = textarea.value.trim();
-    const cardId = this.currentData().cardId;
+    let cardId = this.currentData().cardId;
     const card = Cards.findOne(cardId);
+    if (card.isLinked())
+      cardId = card.linkedId;
 
     if (title) {
       Checklists.insert({
@@ -95,7 +100,12 @@ BlazeComponent.extendComponent({
     const checklist = this.currentData().checklist;
 
     if (title) {
-      checklist.addItem(title);
+      ChecklistItems.insert({
+        title,
+        checklistId: checklist._id,
+        cardId: checklist.cardId,
+        sort: checklist.itemCount(),
+      });
     }
     // We keep the form opened, empty it.
     textarea.value = '';
@@ -118,7 +128,7 @@ BlazeComponent.extendComponent({
     const checklist = this.currentData().checklist;
     const item = this.currentData().item;
     if (checklist && item && item._id) {
-      checklist.removeItem(item._id);
+      ChecklistItems.remove(item._id);
     }
   },
 
@@ -135,9 +145,8 @@ BlazeComponent.extendComponent({
 
     const textarea = this.find('textarea.js-edit-checklist-item');
     const title = textarea.value.trim();
-    const itemId = this.currentData().item._id;
-    const checklist = this.currentData().checklist;
-    checklist.editItem(itemId, title);
+    const item = this.currentData().item;
+    item.setTitle(title);
   },
 
   onCreated() {
@@ -200,7 +209,7 @@ Template.checklistDeleteDialog.onDestroyed(() => {
   $cardDetails.animate( { scrollTop: this.scrollState.position });
 });
 
-Template.itemDetail.helpers({
+Template.checklistItemDetail.helpers({
   canModifyCard() {
     return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
   },
@@ -211,12 +220,12 @@ BlazeComponent.extendComponent({
     const checklist = this.currentData().checklist;
     const item = this.currentData().item;
     if (checklist && item && item._id) {
-      checklist.toggleItem(item._id);
+      item.toggleItem();
     }
   },
   events() {
     return [{
-      'click .item .check-box': this.toggleItem,
+      'click .js-checklist-item .check-box': this.toggleItem,
     }];
   },
-}).register('itemDetail');
+}).register('checklistItemDetail');

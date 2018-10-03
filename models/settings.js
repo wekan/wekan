@@ -96,6 +96,14 @@ if (Meteor.isServer) {
     return (min + Math.round(rand * range));
   }
 
+  function getEnvVar(name){
+    const value = process.env[name];
+    if (value){
+      return value;
+    }
+    throw new Meteor.Error(['var-not-exist', `The environment variable ${name} does not exist`]);
+  }
+
   function sendInvitationEmail (_id){
     const icode = InvitationCodes.findOne(_id);
     const author = Users.findOne(Meteor.userId());
@@ -124,20 +132,33 @@ if (Meteor.isServer) {
     sendInvitation(emails, boards) {
       check(emails, [String]);
       check(boards, [String]);
+
       const user = Users.findOne(Meteor.userId());
       if(!user.isAdmin){
         throw new Meteor.Error('not-allowed');
       }
       emails.forEach((email) => {
         if (email && SimpleSchema.RegEx.Email.test(email)) {
-          const code = getRandomNum(100000, 999999);
-          InvitationCodes.insert({code, email, boardsToBeInvited: boards, createdAt: new Date(), authorId: Meteor.userId()}, function(err, _id){
-            if (!err && _id) {
-              sendInvitationEmail(_id);
-            } else {
-              throw new Meteor.Error('invitation-generated-fail', err.message);
-            }
-          });
+          // Checks if the email is already link to an account.
+          const userExist = Users.findOne({email});
+          if (userExist){
+            throw new Meteor.Error('user-exist', `The user with the email ${email} has already an account.`);
+          }
+          // Checks if the email is already link to an invitation.
+          const invitation = InvitationCodes.findOne({email});
+          if (invitation){
+            InvitationCodes.update(invitation, {$set : {boardsToBeInvited: boards}});
+            sendInvitationEmail(invitation._id);
+          }else {
+            const code = getRandomNum(100000, 999999);
+            InvitationCodes.insert({code, email, boardsToBeInvited: boards, createdAt: new Date(), authorId: Meteor.userId()}, function(err, _id){
+              if (!err && _id) {
+                sendInvitationEmail(_id);
+              } else {
+                throw new Meteor.Error('invitation-generated-fail', err.message);
+              }
+            });
+          }
         }
       });
     },
@@ -165,6 +186,15 @@ if (Meteor.isServer) {
       return {
         message: 'email-sent',
         email: user.emails[0].address,
+      };
+    },
+
+    getMatomoConf(){
+      return {
+        address: getEnvVar('MATOMO_ADDRESS'),
+        siteId: getEnvVar('MATOMO_SITE_ID'),
+        doNotTrack: process.env.MATOMO_DO_NOT_TRACK || false,
+        withUserName: process.env.MATOMO_WITH_USERNAME || false,
       };
     },
   });

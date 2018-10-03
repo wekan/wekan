@@ -1,0 +1,52 @@
+template(name="customFieldsSidebar")
+    ul.sidebar-list
+        each customFields
+            li
+                div.minicard-wrapper.js-minicard
+                    div.minicard
+                        a.fa.fa-pencil.js-edit-custom-field.minicard-edit-button
+                        div.minicard-title
+                            | {{ name }} ({{ type }})
+
+    if currentUser.isBoardMember
+        hr
+        a.sidebar-btn.js-open-create-custom-field
+            i.fa.fa-plus
+            span {{_ 'createCustomField'}}
+
+template(name="createCustomFieldPopup")
+    form
+        label
+            | {{_ 'name'}}
+            unless _id
+                input.js-field-name(type="text" autofocus)
+            else
+                input.js-field-name(type="text" value=name)
+
+        label
+            | {{_ 'type'}}
+            select.js-field-type(disabled="{{#if _id}}disabled{{/if}}")
+                each types
+                    if selected
+                        option(value=value selected="selected") {{name}}
+                    else
+                        option(value=value) {{name}}
+        div.js-field-settings.js-field-settings-dropdown(class="{{#if isTypeNotSelected 'dropdown'}}hide{{/if}}")
+            label
+                | {{_ 'custom-field-dropdown-options'}}
+            each dropdownItems.get
+                input.js-dropdown-item(type="text" value=name placeholder="")
+            input.js-dropdown-item.last(type="text" value="" placeholder="{{_ 'custom-field-dropdown-options-placeholder'}}")
+        a.flex.js-field-show-on-card(class="{{#if showOnCard}}is-checked{{/if}}")
+            .materialCheckBox(class="{{#if showOnCard}}is-checked{{/if}}")
+
+            span {{_ 'show-field-on-card'}}
+        button.primary.wide.left(type="button")
+            | {{_ 'save'}}
+        if _id
+            button.negate.wide.right.js-delete-custom-field(type="button")
+                | {{_ 'delete'}}
+
+template(name="deleteCustomFieldPopup")
+    p {{_ "custom-field-delete-pop"}}
+    button.js-confirm.negate.full(type="submit") {{_ 'delete'}}

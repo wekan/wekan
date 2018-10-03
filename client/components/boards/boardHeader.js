@@ -1,5 +1,9 @@
 Template.boardMenuPopup.events({
   'click .js-rename-board': Popup.open('boardChangeTitle'),
+  'click .js-custom-fields'() {
+    Sidebar.setView('customFields');
+    Popup.close();
+  },
   'click .js-open-archives'() {
     Sidebar.setView('archives');
     Popup.close();
@@ -13,8 +17,15 @@ Template.boardMenuPopup.events({
     // confirm that the board was successfully archived.
     FlowRouter.go('home');
   }),
+  'click .js-delete-board': Popup.afterConfirm('deleteBoard', function() {
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    Popup.close();
+    Boards.remove(currentBoard._id);
+    FlowRouter.go('home');
+  }),
   'click .js-outgoing-webhooks': Popup.open('outgoingWebhooks'),
   'click .js-import-board': Popup.open('chooseBoardSource'),
+  'click .js-subtask-settings': Popup.open('boardSubtaskSettings'),
 });
 
 Template.boardMenuPopup.helpers({
@@ -77,19 +88,13 @@ BlazeComponent.extendComponent({
         Modal.open('archivedBoards');
       },
       'click .js-toggle-board-view'() {
-        const currentBoard = Boards.findOne(Session.get('currentBoard'));
-        if (currentBoard.view === 'board-view-swimlanes') {
-          Boards.update(currentBoard._id, {
-            $set: {
-              view: 'board-view-lists',
-            },
-          });
-        } else if (currentBoard.view === 'board-view-lists') {
-          Boards.update(currentBoard._id, {
-            $set: {
-              view: 'board-view-swimlanes',
-            },
-          });
+        const currentUser = Meteor.user();
+        if (currentUser.profile.boardView === 'board-view-swimlanes') {
+          currentUser.setBoardView('board-view-cal');
+        } else if (currentUser.profile.boardView === 'board-view-lists') {
+          currentUser.setBoardView('board-view-swimlanes');
+        } else if (currentUser.profile.boardView === 'board-view-cal') {
+          currentUser.setBoardView('board-view-lists');
         }
       },
       'click .js-open-filter-view'() {
@@ -148,6 +153,102 @@ BlazeComponent.extendComponent({
     }];
   },
 }).register('boardChangeColorPopup');
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.currentBoard = Boards.findOne(Session.get('currentBoard'));
+  },
+
+  allowsSubtasks() {
+    return this.currentBoard.allowsSubtasks;
+  },
+
+  isBoardSelected() {
+    return this.currentBoard.subtasksDefaultBoardId === this.currentData()._id;
+  },
+
+  isNullBoardSelected() {
+    return (this.currentBoard.subtasksDefaultBoardId === null) || (this.currentBoard.subtasksDefaultBoardId === undefined);
+  },
+
+  boards() {
+    return Boards.find({
+      archived: false,
+      'members.userId': Meteor.userId(),
+    }, {
+      sort: ['title'],
+    });
+  },
+
+  lists() {
+    return Lists.find({
+      boardId: this.currentBoard._id,
+      archived: false,
+    }, {
+      sort: ['title'],
+    });
+  },
+
+  hasLists() {
+    return this.lists().count() > 0;
+  },
+
+  isListSelected() {
+    return this.currentBoard.subtasksDefaultBoardId === this.currentData()._id;
+  },
+
+  presentParentTask() {
+    let result = this.currentBoard.presentParentTask;
+    if ((result === null) || (result === undefined)) {
+      result = 'no-parent';
+    }
+    return result;
+  },
+
+  events() {
+    return [{
+      'click .js-field-has-subtasks'(evt) {
+        evt.preventDefault();
+        this.currentBoard.allowsSubtasks = !this.currentBoard.allowsSubtasks;
+        this.currentBoard.setAllowsSubtasks(this.currentBoard.allowsSubtasks);
+        $('.js-field-has-subtasks .materialCheckBox').toggleClass('is-checked', this.currentBoard.allowsSubtasks);
+        $('.js-field-has-subtasks').toggleClass('is-checked', this.currentBoard.allowsSubtasks);
+        $('.js-field-deposit-board').prop('disabled', !this.currentBoard.allowsSubtasks);
+      },
+      'change .js-field-deposit-board'(evt) {
+        let value = evt.target.value;
+        if (value === 'null') {
+          value = null;
+        }
+        this.currentBoard.setSubtasksDefaultBoardId(value);
+        evt.preventDefault();
+      },
+      'change .js-field-deposit-list'(evt) {
+        this.currentBoard.setSubtasksDefaultListId(evt.target.value);
+        evt.preventDefault();
+      },
+      'click .js-field-show-parent-in-minicard'(evt) {
+        const value = evt.target.id || $(evt.target).parent()[0].id ||  $(evt.target).parent()[0].parent()[0].id;
+        const options = [
+          'prefix-with-full-path',
+          'prefix-with-parent',
+          'subtext-with-full-path',
+          'subtext-with-parent',
+          'no-parent'];
+        options.forEach(function(element) {
+          if (element !== value) {
+            $(`#${element} .materialCheckBox`).toggleClass('is-checked', false);
+            $(`#${element}`).toggleClass('is-checked', false);
+          }
+        });
+        $(`#${value} .materialCheckBox`).toggleClass('is-checked', true);
+        $(`#${value}`).toggleClass('is-checked', true);
+        this.currentBoard.setPresentParentTask(value);
+        evt.preventDefault();
+      },
+    }];
+  },
+}).register('boardSubtaskSettingsPopup');
 
 const CreateBoard = BlazeComponent.extendComponent({
   template() {

@@ -72,7 +72,7 @@ template(name='email')
     li.smtp-form
       .title {{_ 'smtp-password'}}
       .form-group
-        input.form-control#mail-server-password(type="text", placeholder="{{_ 'password'}}" value="{{currentSetting.mailServer.password}}")
+        input.form-control#mail-server-password(type="text", placeholder="{{_ 'password'}}" value="")
     li.smtp-form
       .title {{_ 'smtp-tls'}}
       .form-group
@@ -94,12 +94,20 @@ template(name='email')
 
 template(name='accountSettings')
   ul#account-setting.setting-detail
-    li.smtp-form
+    li.accounts-form
       .title {{_ 'accounts-allowEmailChange'}}
       .form-group.flex
         input.form-control#accounts-allowEmailChange(type="radio" name="allowEmailChange" value="true" checked="{{#if allowEmailChange}}checked{{/if}}")
         span {{_ 'yes'}}
         input.form-control#accounts-allowEmailChange(type="radio" name="allowEmailChange" value="false" checked="{{#unless allowEmailChange}}checked{{/unless}}")
+        span {{_ 'no'}}
+    li
+    li.accounts-form
+      .title {{_ 'accounts-allowUserNameChange'}}
+      .form-group.flex
+        input.form-control#accounts-allowUserNameChange(type="radio" name="allowUserNameChange" value="true" checked="{{#if allowUserNameChange}}checked{{/if}}")
+        span {{_ 'yes'}}
+        input.form-control#accounts-allowUserNameChange(type="radio" name="allowUserNameChange" value="false" checked="{{#unless allowUserNameChange}}checked{{/unless}}")
         span {{_ 'no'}}
     li
       button.js-accounts-save.primary {{_ 'save'}}
