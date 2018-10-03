@@ -1,8 +1,14 @@
 # Upcoming Wekan release.
 
+This release adds the following new features:
+
 - [LDAP](https://github.com/wekan/wekan/commit/288800eafc91d07f859c4f59588e0b646137ccb9). In progress.
-  Please test and [add info about bugs](https://github.com/wekan/wekan/issues/119);
-- [Fix Card URL](https://github.com/wekan/wekan/pull/1932).
+  Please test and [add info about bugs](https://github.com/wekan/wekan/issues/119).
+
+and fixes the following bugs:
+
+- [Fix Card URL](https://github.com/wekan/wekan/pull/1932);
+- [Add info about root-url to GitHub issue template](https://github.com/wekan/wekan/commit/4c0eb7dcc19ca9ae8c5d2d0276e0d024269de236).
 
 Thanks to GitHub users Akuket, maximest-pierre, schulz and xet7 for their contributions.
     
