@@ -2,9 +2,10 @@
 
 This release fixes the following bugs:
 
-- [Fix Card URL](https://github.com/wekan/wekan/pull/1932).
+- [Fix Card URL](https://github.com/wekan/wekan/pull/1932);
+- [OpenShift: Drop default namespace value and duplicate WEKAN_SERVICE_NAME parameter](https://github.com/wekan/wekan/pull/1930).
 
-Thanks to GitHub user schulz for contributions.
+Thanks to GitHub users lberk and schulz for their contributions.
 
 # v1.52 2018-10-01 Wekan release
 
