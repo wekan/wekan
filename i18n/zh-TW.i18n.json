@@ -532,7 +532,7 @@
     "r-add-rule": "Add rule",
     "r-view-rule": "View rule",
     "r-delete-rule": "Delete rule",
-    "r-new-rule-name": "Add new rule",
+    "r-new-rule-name": "New rule title",
     "r-no-rules": "No rules",
     "r-when-a-card-is": "When a card is",
     "r-added-to": "Added to",
@@ -575,7 +575,7 @@
     "r-checklist": "checklist",
     "r-check-all": "Check all",
     "r-uncheck-all": "Uncheck all",
-    "r-item-check": "Items of checklist",
+    "r-items-check": "items of checklist",
     "r-check": "Check",
     "r-uncheck": "Uncheck",
     "r-item": "item",
@@ -606,5 +606,6 @@
     "r-d-check-of-list": "of checklist",
     "r-d-add-checklist": "Add checklist",
     "r-d-remove-checklist": "Remove checklist",
-    "r-when-a-card-is-moved": "When a card is moved to another list"
+    "r-when-a-card-is-moved": "When a card is moved to another list",
+    "r-back": "返回"
 }

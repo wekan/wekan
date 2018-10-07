@@ -532,7 +532,7 @@
     "r-add-rule": "Lisää sääntö",
     "r-view-rule": "Näytä sääntö",
     "r-delete-rule": "Poista sääntö",
-    "r-new-rule-name": "Lisää uusi sääntö",
+    "r-new-rule-name": "Uuden säännön otsikko",
     "r-no-rules": "Ei sääntöjä",
     "r-when-a-card-is": "Kun kortti on",
     "r-added-to": "Lisätty kohteeseen",
@@ -575,7 +575,7 @@
     "r-checklist": "tarkistuslista",
     "r-check-all": "Ruksaa kaikki",
     "r-uncheck-all": "Poista ruksi kaikista",
-    "r-item-check": "Kohtaa tarkistuslistassa",
+    "r-items-check": "kohtaa tarkistuslistassa",
     "r-check": "Ruksaa",
     "r-uncheck": "Poista ruksi",
     "r-item": "kohta",
@@ -606,5 +606,6 @@
     "r-d-check-of-list": "tarkistuslistasta",
     "r-d-add-checklist": "Lisää tarkistuslista",
     "r-d-remove-checklist": "Poista tarkistuslista",
-    "r-when-a-card-is-moved": "Kun kortti on siirretty toiseen listaan"
+    "r-when-a-card-is-moved": "Kun kortti on siirretty toiseen listaan",
+    "r-back": "Takaisin"
 }
