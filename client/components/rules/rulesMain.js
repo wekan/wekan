@@ -46,6 +46,15 @@ BlazeComponent.extendComponent({
         event.preventDefault();
         this.setRulesList();
       },
+      'click .js-goback' (event) {
+        event.preventDefault();
+        if(this.rulesCurrentTab.get() === 'trigger' || this.rulesCurrentTab.get() === 'ruleDetails' ){
+          this.setRulesList();
+        }
+        if(this.rulesCurrentTab.get() === 'action'){
+          this.setTrigger();
+        }
+      },
       'click .js-goto-details' (event) {
         event.preventDefault();
         const rule = this.currentData();
