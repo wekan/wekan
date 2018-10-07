@@ -24,7 +24,7 @@ BlazeComponent.extendComponent({
 
   events() {
     return [{
-      'click .js-delete-rule' (event) {
+      'click .js-delete-rule' () {
         const rule = this.currentData();
         Rules.remove(rule._id);
         Actions.remove(rule.actionId);
@@ -34,9 +34,11 @@ BlazeComponent.extendComponent({
       'click .js-goto-trigger' (event) {
         event.preventDefault();
         const ruleTitle = this.find('#ruleTitle').value;
-        this.find('#ruleTitle').value = '';
-        this.ruleName.set(ruleTitle);
-        this.setTrigger();
+        if(ruleTitle != undefined && ruleTitle != ''){
+          this.find('#ruleTitle').value = '';
+          this.ruleName.set(ruleTitle);
+          this.setTrigger();
+        }
       },
       'click .js-goto-action' (event) {
         event.preventDefault();
@@ -45,6 +47,15 @@ BlazeComponent.extendComponent({
       'click .js-goto-rules' (event) {
         event.preventDefault();
         this.setRulesList();
+      },
+      'click .js-goback' (event) {
+        event.preventDefault();
+        if(this.rulesCurrentTab.get() === 'trigger' || this.rulesCurrentTab.get() === 'ruleDetails' ){
+          this.setRulesList();
+        }
+        if(this.rulesCurrentTab.get() === 'action'){
+          this.setTrigger();
+        }
       },
       'click .js-goto-details' (event) {
         event.preventDefault();

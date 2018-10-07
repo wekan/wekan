@@ -41,16 +41,16 @@ BlazeComponent.extendComponent({
   },
   events() {
     return [{
-      'click .js-set-board-actions' (event) {
+      'click .js-set-board-actions'(){
         this.setBoardActions();
       },
-      'click .js-set-card-actions' (event) {
+      'click .js-set-card-actions'() {
         this.setCardActions();
       },
-      'click .js-set-mail-actions' (event) {
+      'click .js-set-mail-actions'() {
         this.setMailActions();
       },
-      'click .js-set-checklist-actions' (event) {
+      'click .js-set-checklist-actions'() {
         this.setChecklistActions();
       },
     }];

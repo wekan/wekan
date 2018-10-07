@@ -510,7 +510,7 @@ export class WekanCreator {
   }
 
   createTriggers(wekanTriggers, boardId) {
-    wekanTriggers.forEach((trigger, ruleIndex) => {
+    wekanTriggers.forEach((trigger) => {
       if (trigger.hasOwnProperty('labelId')) {
         trigger.labelId = this.labels[trigger.labelId];
       }
@@ -525,7 +525,7 @@ export class WekanCreator {
   }
 
   createActions(wekanActions, boardId) {
-    wekanActions.forEach((action, ruleIndex) => {
+    wekanActions.forEach((action) => {
       if (action.hasOwnProperty('labelId')) {
         action.labelId = this.labels[action.labelId];
       }
@@ -540,7 +540,7 @@ export class WekanCreator {
   }
 
   createRules(wekanRules, boardId) {
-    wekanRules.forEach((rule, ruleIndex) => {
+    wekanRules.forEach((rule) => {
       // Create the rule
       rule.boardId = boardId;
       rule.triggerId = this.triggers[rule.triggerId];
