@@ -34,7 +34,7 @@ BlazeComponent.extendComponent({
       'click .js-goto-trigger' (event) {
         event.preventDefault();
         const ruleTitle = this.find('#ruleTitle').value;
-        if(ruleTitle != undefined && ruleTitle != ''){
+        if(ruleTitle !== undefined && ruleTitle !== ''){
           this.find('#ruleTitle').value = '';
           this.ruleName.set(ruleTitle);
           this.setTrigger();

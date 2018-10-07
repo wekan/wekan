@@ -118,7 +118,7 @@ function publishCheckActivity(userId, doc){
   Activities.insert(act);
 }
 
-function publishChekListCompleted(userId, doc, fieldNames){
+function publishChekListCompleted(userId, doc){
   const card = Cards.findOne(doc.cardId);
   const boardId = card.boardId;
   const checklistId = doc.checklistId;
@@ -130,13 +130,13 @@ function publishChekListCompleted(userId, doc, fieldNames){
       cardId: doc.cardId,
       boardId,
       checklistId: doc.checklistId,
-      checklistName:checkList.title,
+      checklistName: checkList.title,
     };
     Activities.insert(act);
   }
 }
 
-function publishChekListUncompleted(userId, doc, fieldNames){
+function publishChekListUncompleted(userId, doc){
   const card = Cards.findOne(doc.cardId);
   const boardId = card.boardId;
   const checklistId = doc.checklistId;
@@ -148,7 +148,7 @@ function publishChekListUncompleted(userId, doc, fieldNames){
       cardId: doc.cardId,
       boardId,
       checklistId: doc.checklistId,
-      checklistName:checkList.title,
+      checklistName: checkList.title,
     };
     Activities.insert(act);
   }
@@ -160,12 +160,12 @@ if (Meteor.isServer) {
     ChecklistItems._collection._ensureIndex({ checklistId: 1 });
   });
 
-  ChecklistItems.after.update((userId, doc, fieldNames, modifier) => {
+  ChecklistItems.after.update((userId, doc, fieldNames) => {
     publishCheckActivity(userId, doc);
     publishChekListCompleted(userId, doc, fieldNames);
   });
 
-  ChecklistItems.before.update((userId, doc, fieldNames, modifier) => {
+  ChecklistItems.before.update((userId, doc, fieldNames) => {
     publishChekListUncompleted(userId, doc, fieldNames);
   });
 
