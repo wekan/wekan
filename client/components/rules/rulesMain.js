@@ -24,7 +24,7 @@ BlazeComponent.extendComponent({
 
   events() {
     return [{
-      'click .js-delete-rule' (event) {
+      'click .js-delete-rule' () {
         const rule = this.currentData();
         Rules.remove(rule._id);
         Actions.remove(rule.actionId);

@@ -65,10 +65,10 @@ RulesHelper = {
       const emailSubject = action.emailSubject;
       try {
         Email.send({
-          to,
+          emailTo,
           from: Accounts.emailTemplates.from,
-          subject,
-          text,
+          emailSubject,
+          emailMsg,
         });
       } catch (e) {
         return;
