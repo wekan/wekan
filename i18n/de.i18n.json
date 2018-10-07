@@ -532,7 +532,7 @@
     "r-add-rule": "Regel hinzufügen",
     "r-view-rule": "Regel anzeigen",
     "r-delete-rule": "Regel löschen",
-    "r-new-rule-name": "Neue Regel hinzufügen",
+    "r-new-rule-name": "New rule title",
     "r-no-rules": "Keine Regeln",
     "r-when-a-card-is": "Wenn eine Karte ist",
     "r-added-to": "Hinzugefügt zu",
@@ -575,7 +575,7 @@
     "r-checklist": "Checkliste",
     "r-check-all": "Alle markieren",
     "r-uncheck-all": "Alle demarkieren",
-    "r-item-check": "Elemente der Checkliste",
+    "r-items-check": "items of checklist",
     "r-check": "Markieren",
     "r-uncheck": "Demarkieren",
     "r-item": "Element",
@@ -606,5 +606,6 @@
     "r-d-check-of-list": "der Checkliste",
     "r-d-add-checklist": "Checkliste hinzufügen",
     "r-d-remove-checklist": "Checkliste entfernen",
-    "r-when-a-card-is-moved": "Wenn eine Karte in eine andere Liste verschoben wird"
+    "r-when-a-card-is-moved": "Wenn eine Karte in eine andere Liste verschoben wird",
+    "r-back": "Zurück"
 }

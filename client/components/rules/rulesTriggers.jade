@@ -19,3 +19,7 @@ template(name="rulesTriggers")
           +cardTriggers
         else if showChecklistTrigger.get
           +checklistTriggers
+  div.rules-back
+        button.js-goback
+          i.fa.fa-chevron-left
+          | {{{_ 'r-back'}}}

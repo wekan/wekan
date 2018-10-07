@@ -22,4 +22,8 @@ template(name="rulesActions")
         else if ($eq currentActions.get 'checklist')
           +checklistActions(ruleName=data.ruleName triggerVar=data.triggerVar)
         else if ($eq currentActions.get 'mail')
-          +mailActions(ruleName=data.ruleName triggerVar=data.triggerVar)  
+          +mailActions(ruleName=data.ruleName triggerVar=data.triggerVar)
+  div.rules-back
+        button.js-goback
+          i.fa.fa-chevron-left
+          | {{{_ 'r-back'}}}

@@ -532,7 +532,7 @@
     "r-add-rule": "Add rule",
     "r-view-rule": "View rule",
     "r-delete-rule": "Delete rule",
-    "r-new-rule-name": "Add new rule",
+    "r-new-rule-name": "New rule title",
     "r-no-rules": "No rules",
     "r-when-a-card-is": "When a card is",
     "r-added-to": "Added to",
@@ -575,7 +575,7 @@
     "r-checklist": "checklist",
     "r-check-all": "Marcar todos",
     "r-uncheck-all": "Desmarcar todos",
-    "r-item-check": "itens do checklist",
+    "r-items-check": "items of checklist",
     "r-check": "Marcar",
     "r-uncheck": "Desmarcar",
     "r-item": "item",
@@ -606,5 +606,6 @@
     "r-d-check-of-list": "do checklist",
     "r-d-add-checklist": "Adicionar checklist",
     "r-d-remove-checklist": "Remover checklist",
-    "r-when-a-card-is-moved": "Quando um cartão é movido de outra lista"
+    "r-when-a-card-is-moved": "Quando um cartão é movido de outra lista",
+    "r-back": "Voltar"
 }

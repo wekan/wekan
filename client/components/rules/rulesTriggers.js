@@ -39,13 +39,13 @@ BlazeComponent.extendComponent({
   },
   events() {
     return [{
-      'click .js-set-board-triggers' (event) {
+      'click .js-set-board-triggers' () {
         this.setBoardTriggers();
       },
-      'click .js-set-card-triggers' (event) {
+      'click .js-set-card-triggers' () {
         this.setCardTriggers();
       },
-      'click .js-set-checklist-triggers' (event) {
+      'click .js-set-checklist-triggers' () {
         this.setChecklistTriggers();
       },
     }];
