@@ -34,9 +34,11 @@ BlazeComponent.extendComponent({
       'click .js-goto-trigger' (event) {
         event.preventDefault();
         const ruleTitle = this.find('#ruleTitle').value;
-        this.find('#ruleTitle').value = '';
-        this.ruleName.set(ruleTitle);
-        this.setTrigger();
+        if(ruleTitle != undefined && ruleTitle != ''){
+          this.find('#ruleTitle').value = '';
+          this.ruleName.set(ruleTitle);
+          this.setTrigger();
+        }
       },
       'click .js-goto-action' (event) {
         event.preventDefault();
