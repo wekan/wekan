@@ -14,7 +14,9 @@ BlazeComponent.extendComponent({
     const trigger = Triggers.findOne({
       _id: rule.triggerId,
     });
-    return trigger.description();
+    const desc = trigger.description();
+    const upperdesc = desc.charAt(0).toUpperCase() + desc.substr(1);
+    return upperdesc;
   },
   action() {
     const ruleId = this.data().ruleId;
@@ -24,7 +26,9 @@ BlazeComponent.extendComponent({
     const action = Actions.findOne({
       _id: rule.actionId,
     });
-    return action.description();
+    const desc = action.description();
+    const upperdesc = desc.charAt(0).toUpperCase() + desc.substr(1);
+    return upperdesc;
   },
 
   events() {
