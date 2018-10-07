@@ -3,7 +3,9 @@ RulesHelper = {
     const matchingRules = this.findMatchingRules(activity);
     for(let i = 0; i< matchingRules.length; i++){
       const action = matchingRules[i].getAction();
-      this.performAction(activity, action);
+      if(action != undefined){
+        this.performAction(activity, action);
+      }
     }
   },
   findMatchingRules(activity){
@@ -16,7 +18,12 @@ RulesHelper = {
     const matchingTriggers = Triggers.find(matchingMap);
     const matchingRules = [];
     matchingTriggers.forEach(function(trigger){
-      matchingRules.push(trigger.getRule());
+      const rule = trigger.getRule();
+      // Check that for some unknown reason there are some leftover triggers
+      // not connected to any rules
+      if(rule != undefined){
+        matchingRules.push(trigger.getRule());
+      }
     });
     return matchingRules;
   },
