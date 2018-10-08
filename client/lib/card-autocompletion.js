@@ -140,6 +140,19 @@ CardAutocompletion = {
         },
         index: 1,
       },
+
+      // Link
+      {
+        match: /\b(http[s]?:\/\/\S*)$/i,
+        index: 1,
+        search(term, callback) {
+          callback(
+            [{md: `[ TITLE ](${term})`, title: 'Insert as link'}]
+          )
+        },
+        template: term => term.title,
+        replace: term => term.md
+      }
     ], {
       // When the autocomplete menu is shown we want both a press of both `Tab`
       // or `Enter` to validation the auto-completion. We also need to stop the
