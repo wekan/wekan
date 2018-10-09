@@ -223,7 +223,7 @@ if (Meteor.isServer) {
     },
 
     // Gets all connection methods to use it in the Template
-    getConnectionsEnabled() {
+    getAuthenticationsEnabled() {
       return {
         ldap: isLdapEnabled(),
         oauth2: isOauth2Enabled(),

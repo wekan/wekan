@@ -321,3 +321,15 @@ Migrations.add('add-subtasks-allowed', () => {
     },
   }, noValidateMulti);
 });
+
+Migrations.add('add-authenticationMethod', () => {
+  Users.update({
+    'authenticationMethod': {
+      $exists: false,
+    },
+  }, {
+    $set: {
+      'authenticationMethod': 'password',
+    },
+  }, noValidateMulti);
+});
