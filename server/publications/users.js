@@ -18,12 +18,11 @@ Meteor.publish('user-admin', function() {
   });
 });
 
-Meteor.publish('user-connection-method', function(match) {
+Meteor.publish('user-authenticationMethod', function(match) {
   check(match, String);
-
-  return Users.find({$or: [{email: match}, {username: match}]}, {
+  return Users.find({$or: [{_id: match}, {email: match}, {username: match}]}, {
     fields: {
-      ldap: 1,
+      'authenticationMethod': 1,
     },
   });
 });

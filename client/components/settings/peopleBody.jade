@@ -27,6 +27,7 @@ template(name="peopleGeneral")
         th {{_ 'verified'}}
         th {{_ 'createdAt'}}
         th {{_ 'active'}}
+        th {{_ 'authentication-method'}}
         th
       each user in peopleList
         +peopleRow(userId=user._id)
@@ -52,6 +53,7 @@ template(name="peopleRow")
         | {{_ 'no'}}
       else
         | {{_ 'yes'}}
+    td {{_ userData.authenticationMethod }}
     td
       a.edit-user
         | {{_ 'edit'}}
@@ -66,12 +68,18 @@ template(name="editUserPopup")
       | {{_ 'username'}}
       span.error.hide.username-taken
         | {{_ 'error-username-taken'}}
-      input.js-profile-username(type="text" value=user.username)
+      if isLdap
+        input.js-profile-username(type="text" value=user.username readonly)
+      else
+        input.js-profile-username(type="text" value=user.username)
     label
       | {{_ 'email'}}
       span.error.hide.email-taken
         | {{_ 'error-email-taken'}}
-      input.js-profile-email(type="email" value="{{user.emails.[0].address}}")
+      if isLdap
+        input.js-profile-email(type="email" value="{{user.emails.[0].address}}" readonly)
+      else
+        input.js-profile-email(type="email" value="{{user.emails.[0].address}}")
     label
       | {{_ 'admin'}}
       select.select-role.js-profile-isadmin
@@ -82,6 +90,14 @@ template(name="editUserPopup")
       select.select-active.js-profile-isactive
         option(value="false") {{_ 'yes'}}
         option(value="true" selected="{{user.loginDisabled}}") {{_ 'no'}}
+    label
+      | {{_ 'authentication-type'}}
+      select.select-authenticationMethod.js-authenticationMethod
+        each authentications
+          if isSelected value
+            option(value="{{value}}" selected) {{_ value}}
+          else
+            option(value="{{value}}") {{_ value}}
     hr
     label
       | {{_ 'password'}}

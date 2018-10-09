@@ -62,9 +62,38 @@ Template.peopleRow.helpers({
   },
 });
 
+Template.editUserPopup.onCreated(function() {
+  this.authenticationMethods = new ReactiveVar([]);
+
+  Meteor.call('getAuthenticationsEnabled', (_, result) => {
+    if (result) {
+      // TODO : add a management of different languages
+      // (ex {value: ldap, text: TAPi18n.__('ldap', {}, T9n.getLanguage() || 'en')})
+      this.authenticationMethods.set([
+        {value: 'password'},
+        // Gets only the authentication methods availables
+        ...Object.entries(result).filter((e) => e[1]).map((e) => ({value: e[0]})),
+      ]);
+    }
+  });
+});
+
 Template.editUserPopup.helpers({
   user() {
     return Users.findOne(this.userId);
+  },
+  authentications() {
+    return Template.instance().authenticationMethods.get();
+  },
+  isSelected(match) {
+    const userId = Template.instance().data.userId;
+    const selected = Users.findOne(userId).authenticationMethod;
+    return selected === match;
+  },
+  isLdap() {
+    const userId = Template.instance().data.userId;
+    const selected = Users.findOne(userId).authenticationMethod;
+    return selected === 'ldap';
   },
 });
 
@@ -91,6 +120,7 @@ Template.editUserPopup.events({
     const isAdmin = tpl.find('.js-profile-isadmin').value.trim();
     const isActive = tpl.find('.js-profile-isactive').value.trim();
     const email = tpl.find('.js-profile-email').value.trim();
+    const authentication = tpl.find('.js-authenticationMethod').value.trim();
 
     const isChangePassword = password.length > 0;
     const isChangeUserName = username !== user.username;
@@ -101,6 +131,7 @@ Template.editUserPopup.events({
         'profile.fullname': fullname,
         'isAdmin': isAdmin === 'true',
         'loginDisabled': isActive === 'true',
+        'authenticationMethod': authentication,
       },
     });
 
