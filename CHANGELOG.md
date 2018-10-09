@@ -3,7 +3,8 @@
 This release adds the following new features:
 
 - [LDAP](https://github.com/wekan/wekan/commit/288800eafc91d07f859c4f59588e0b646137ccb9). In progress.
-  Please test and [add info about bugs](https://github.com/wekan/wekan/issues/119).
+  Please test and [add info about bugs](https://github.com/wekan/wekan/issues/119);
+- [Add LDAP support and authentications dropdown menu on login page](https://github.com/wekan/wekan/pull/1943).
 
 and fixes the following bugs:
 
