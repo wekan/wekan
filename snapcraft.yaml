@@ -147,6 +147,11 @@ parts:
               git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-cas.git meteor-accounts-cas
               cd ..
             fi
+            if [ ! -d "packages/wekan-ldap" ]; then
+              cd packages
+              git clone --depth 1 -b master https://github.com/wekan/wekan-ldap.git
+              cd ..
+            fi
             rm -rf package-lock.json .build
             meteor add standard-minifier-js --allow-superuser
             meteor npm install --allow-superuser
