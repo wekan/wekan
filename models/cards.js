@@ -1321,7 +1321,7 @@ if (Meteor.isServer) {
           _id: doc._id,
           title: doc.title,
           description: doc.description,
-	  listId: doc.listId,
+          listId: doc.listId,
         };
       }),
     });
