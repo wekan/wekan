@@ -607,5 +607,9 @@
     "r-d-add-checklist": "Lisää tarkistuslista",
     "r-d-remove-checklist": "Poista tarkistuslista",
     "r-when-a-card-is-moved": "Kun kortti on siirretty toiseen listaan",
-    "r-back": "Takaisin"
+    "ldap": "LDAP",
+    "oauth2": "OAuth2",
+    "cas": "CAS",
+    "authentication-method": "Kirjautumistapa",
+    "authentication-type": "Kirjautumistyyppi"
 }
