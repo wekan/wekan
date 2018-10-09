@@ -147,6 +147,13 @@ BlazeComponent.extendComponent({
     });
   },
 
+  scrollTop(position = 0) {
+    const swimlanes = this.$('.js-swimlanes');
+    swimlanes && swimlanes.animate({
+      scrollTop: position,
+    });
+  },
+
 }).register('boardBody');
 
 BlazeComponent.extendComponent({

@@ -69,6 +69,20 @@ BlazeComponent.extendComponent({
     if (offset) {
       bodyBoardComponent.scrollLeft(cardContainerScroll + offset);
     }
+
+    //Scroll top
+    const cardViewStartTop = $cardView.offset().top;
+    const cardContainerScrollTop = $cardContainer.scrollTop();
+    let topOffset = false;
+    if(cardViewStartTop < 0){
+      topOffset = 0;
+    } else if(cardViewStartTop - cardContainerScrollTop > 100) {
+      topOffset = cardViewStartTop - cardContainerScrollTop - 100;
+    }
+    if(topOffset !== false) {
+      bodyBoardComponent.scrollTop(topOffset);
+    }
+
   },
 
   presentParentTask() {
@@ -96,7 +110,11 @@ BlazeComponent.extendComponent({
   },
 
   onRendered() {
-    if (!Utils.isMiniScreen()) this.scrollParentContainer();
+    if (!Utils.isMiniScreen()) {
+      Meteor.setTimeout(() => {
+        this.scrollParentContainer();
+      }, 500);
+    }
     const $checklistsDom = this.$('.card-checklist-items');
 
     $checklistsDom.sortable({
