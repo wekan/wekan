@@ -1,3 +1,11 @@
+# v1.53.2 2018-10-10 Wekan Edge release
+
+This release adds the following new features:
+
+- [Add LDAP package to Docker and Snap](https://github.com/wekan/wekan/commit/f599391419bc7422a6ead52cdefc7d380e787897).
+    
+Thanks to GitHub user xet7 for contributions.
+
 # v1.53.1 2018-10-10 Wekan Edge release
 
 This release adds the following new features:
