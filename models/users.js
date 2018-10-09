@@ -499,7 +499,7 @@ if (Meteor.isServer) {
       user.emails = [{ address: email, verified: true }];
       const initials = user.services.oidc.fullname.match(/\b[a-zA-Z]/g).join('').toUpperCase();
       user.profile = { initials, fullname: user.services.oidc.fullname };
-      user['authenticationMethod'] = 'oauth2';
+      user.authenticationMethod = 'oauth2';
 
       // see if any existing user has this email address or username, otherwise create new
       const existingUser = Meteor.users.findOne({$or: [{'emails.address': email}, {'username':user.username}]});
@@ -512,7 +512,7 @@ if (Meteor.isServer) {
       existingUser.emails = user.emails;
       existingUser.username = user.username;
       existingUser.profile = user.profile;
-      existingUser['authenticationMethod'] = user['authenticationMethod'];
+      existingUser.authenticationMethod = user.authenticationMethod;
 
       Meteor.users.remove({_id: existingUser._id}); // remove existing record
       return existingUser;
@@ -527,7 +527,7 @@ if (Meteor.isServer) {
     // If ldap, bypass the inviation code if the self registration isn't allowed.
     // TODO : pay attention if ldap field in the user model change to another content ex : ldap field to connection_type
     if (options.ldap || !disableRegistration) {
-      user['authenticationMethod'] = 'ldap';
+      user.authenticationMethod = 'ldap';
       return user;
     }
 
@@ -647,7 +647,7 @@ if (Meteor.isServer) {
     const disableRegistration = Settings.findOne().disableRegistration;
     // If ldap, bypass the inviation code if the self registration isn't allowed.
     // TODO : pay attention if ldap field in the user model change to another content ex : ldap field to connection_type
-    if (doc['authenticationMethod'] !== 'ldap' && disableRegistration) {
+    if (doc.authenticationMethod !== 'ldap' && disableRegistration) {
       const invitationCode = InvitationCodes.findOne({code: doc.profile.icode, valid: true});
       if (!invitationCode) {
         throw new Meteor.Error('error-invitation-code-not-exist');

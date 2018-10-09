@@ -17,7 +17,7 @@ Meteor.publish('people', function(limit) {
         'emails': 1,
         'createdAt': 1,
         'loginDisabled': 1,
-        'authenticationMethod': 1
+        'authenticationMethod': 1,
       },
     });
   } else {
