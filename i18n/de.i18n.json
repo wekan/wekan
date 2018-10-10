@@ -610,6 +610,6 @@
     "ldap": "LDAP",
     "oauth2": "OAuth2",
     "cas": "CAS",
-    "authentication-method": "Authentication method",
-    "authentication-type": "Authentication type"
+    "authentication-method": "Authentifizierungsmethode",
+    "authentication-type": "Authentifizierungstyp"
 }
