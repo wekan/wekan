@@ -124,7 +124,7 @@ parts:
             #paxctl -mC `which node`
             echo "Installing meteor"
             curl https://install.meteor.com/ -o install_meteor.sh
-            sed -i "s|RELEASE=.*|RELEASE=\"1.6.0.1\"|g" install_meteor.sh
+            sed -i "s|RELEASE=.*|RELEASE=\"1.8.1-beta.0\"|g" install_meteor.sh
             chmod +x install_meteor.sh
             sh install_meteor.sh
             rm install_meteor.sh
