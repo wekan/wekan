@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v1.53.3 2018-10-10 Wekan Edge release
 
 This release adds the following new features:
 
