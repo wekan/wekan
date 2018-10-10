@@ -1,3 +1,11 @@
+# v1.53.4 2018-10-10 Wekan Edge release
+
+This release adds the following new features:
+
+- [Upgrade Hoek](https://github.com/wekan/wekan/commit/0b971b6ddb1ffc4adad6b6b09ae7f42dd376fe2c).
+
+Thanks to GitHub user xet7 for contributions.
+
 # v1.53.3 2018-10-10 Wekan Edge release
 
 This release adds the following new features:
