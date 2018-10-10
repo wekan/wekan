@@ -1,3 +1,9 @@
+# Upcoming Wekan release
+
+- [Add LDAP to Snap Help](https://github.com/wekan/wekan/commit/809c8f64f69721d51b7d963248a77585867fac53).
+    
+Thanks to GitHub user Akuket for contributions.
+    
 # v1.53.5 2018-10-10 Wekan Edge relase
 
 This release tries to fix the following bugs:
