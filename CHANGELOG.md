@@ -1,6 +1,15 @@
+# v1.53.9 2018-10-11 Wekan Edge release
+
+This release adds the following new features:
+
+- docker-compose.yml in this Edge branch now works with Wekan Edge + Meteor 1.8.1-beta.0 + MongoDB 4.0.3;
+- [Snap is still broken](https://forum.snapcraft.io/t/how-to-connect-to-localhost-mongodb-in-snap-apparmor-prevents/7793/2). Please use latest Snap release on Edge branch, until this is fixed.
+
+Thanks to GitHub user xet7 for contributions.
+
 # v1.53.8 2018-10-10 Wekan Edge release
 
-This release tries to fix the followin bugs:
+This release tries to fix the following bugs:
 
 - Try to fix Docker.
 
