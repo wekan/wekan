@@ -1,3 +1,11 @@
+# v1.53.8 2018-10-10 Wekan Edge release
+
+This release tries to fix the followin bugs:
+
+- Try to fix Docker.
+
+Thanks to GitHub user xet7 for contributions.
+
 # v1.53.7 2018-10-10 Wekan Edge release
 
 This release adds the following new features:
