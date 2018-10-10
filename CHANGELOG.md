@@ -1,4 +1,12 @@
-# v1.53.6 2018-10-10 Wekan release
+# v1.53.7 2018-10-10 Wekan Edge release
+
+This release adds the following new features:
+
+- Try MongoDB 4.0.3
+
+Thanks to GitHub user xet7 for contributions.
+
+# v1.53.6 2018-10-10 Wekan Edge release
 
 This release adds the following new features:
 
