@@ -93,7 +93,6 @@ parts:
             - python
             - g++
             - capnproto
-            - npm
             - curl
             - execstack
         stage-packages:
