@@ -120,8 +120,8 @@ parts:
             # Removed from build-packages: - paxctl
             #echo "Applying paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303"
             #paxctl -mC `which node`
-            echo "Installing npm"
-            curl -L https://www.npmjs.com/install.sh | sh
+            #echo "Installing npm"
+            #curl -L https://www.npmjs.com/install.sh | sh
             echo "Installing meteor"
             curl https://install.meteor.com/ -o install_meteor.sh
             #sed -i "s|RELEASE=.*|RELEASE=\"1.8.1-beta.0\"|g" install_meteor.sh
