@@ -1,3 +1,11 @@
+# v1.53.5 2018-10-10 Wekan Edge relase
+
+This release tries to fix the following bugs:
+
+- Try to fix snap.
+
+Thanks to GitHub user xet7 for contributions.
+
 # v1.53.4 2018-10-10 Wekan Edge release
 
 This release adds the following new features:
