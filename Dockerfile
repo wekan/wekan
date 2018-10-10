@@ -130,7 +130,7 @@ ENV BUILD_DEPS="apt-utils bsdtar gnupg gosu wget curl bzip2 build-essential pyth
     LDAP_SYNC_USER_DATA=false \
     LDAP_SYNC_USER_DATA_FIELDMAP="" \
     LDAP_SYNC_GROUP_ROLES="" \
-    LDAP_DEFAULT_DOMAIN="" \
+    LDAP_DEFAULT_DOMAIN=""
 
 # Copy the app to the image
 COPY ${SRC_PATH} /home/wekan/app
