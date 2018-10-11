@@ -333,3 +333,12 @@ Migrations.add('add-authenticationMethod', () => {
     },
   }, noValidateMulti);
 });
+
+Migrations.add('remove-tag', () => {
+  Users.update({
+  }, {
+    $unset: {
+      'profile.tags':1,
+    },
+  }, noValidateMulti);
+});

@@ -1,3 +1,11 @@
+# Upcoming Wekan Edge release
+
+This release fixes the following bugs:
+
+- [Improve notifications](https://github.com/wekan/wekan/pull/1948).
+
+Thanks to GitHub user Akuket for contributions.
+
 # v1.53.9 2018-10-11 Wekan Edge release
 
 This release adds the following new features:
