@@ -151,7 +151,6 @@ if (Meteor.isServer) {
     }
     if (board) {
       const watchingUsers = _.pluck(_.where(board.watchers, {level: 'watching'}), 'userId');
-      const trackingUsers = _.pluck(_.where(board.watchers, {level: 'tracking'}), 'userId');
       watchers = _.union(watchers, watchingUsers || []);
     }
 
