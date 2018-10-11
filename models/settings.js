@@ -116,6 +116,7 @@ if (Meteor.isServer) {
         url: FlowRouter.url('sign-up'),
       };
       const lang = author.getLanguage();
+
       Email.send({
         to: icode.email,
         from: Accounts.emailTemplates.from,

@@ -152,17 +152,6 @@ if (Meteor.isServer) {
     if (board) {
       const watchingUsers = _.pluck(_.where(board.watchers, {level: 'watching'}), 'userId');
       const trackingUsers = _.pluck(_.where(board.watchers, {level: 'tracking'}), 'userId');
-      const mutedUsers = _.pluck(_.where(board.watchers, {level: 'muted'}), 'userId');
-      switch(board.getWatchDefault()) {
-      case 'muted':
-        participants = _.intersection(participants, trackingUsers);
-        watchers = _.intersection(watchers, trackingUsers);
-        break;
-      case 'tracking':
-        participants = _.difference(participants, mutedUsers);
-        watchers = _.difference(watchers, mutedUsers);
-        break;
-      }
       watchers = _.union(watchers, watchingUsers || []);
     }
 

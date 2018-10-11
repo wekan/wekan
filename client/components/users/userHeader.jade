@@ -17,7 +17,6 @@ template(name="memberMenuPopup")
       li: a.js-change-avatar {{_ 'edit-avatar'}}
       li: a.js-change-password {{_ 'changePasswordPopup-title'}}
       li: a.js-change-language {{_ 'changeLanguagePopup-title'}}
-      li: a.js-edit-notification {{_ 'editNotificationPopup-title'}}
     if currentUser.isAdmin
       li: a.js-go-setting(href="{{pathFor 'setting'}}") {{_ 'admin-panel'}}
   hr
@@ -49,23 +48,6 @@ template(name="editProfilePopup")
       else
         input.js-profile-email(type="email" value="{{emails.[0].address}}" readonly)
     input.primary.wide(type="submit" value="{{_ 'save'}}")
-
-template(name="editNotificationPopup")
-  ul.pop-over-list
-    li
-      a.js-toggle-tag-notify-watch
-        i.fa.fa-eye.colorful
-        | {{_ 'watching'}}
-        if hasTag "notify-watch"
-          i.fa.fa-check
-        span.sub-name {{_ 'notify-watch'}}
-    li
-      a.js-toggle-tag-notify-participate
-        i.fa.fa-bell.colorful
-        | {{_ 'tracking'}}
-        if hasTag "notify-participate"
-          i.fa.fa-check
-        span.sub-name {{_ 'notify-participate'}}
 
 template(name="changePasswordPopup")
   +atForm(state='changePwd')

@@ -25,16 +25,12 @@ Notifications = {
     participants.forEach((userId) => {
       if (userMap[userId]) return;
       const user = Users.findOne(userId);
-      if (user && user.hasTag('notify-participate')) {
-        userMap[userId] = user;
-      }
+      userMap[userId] = user;
     });
     watchers.forEach((userId) => {
       if (userMap[userId]) return;
       const user = Users.findOne(userId);
-      if (user && user.hasTag('notify-watch')) {
-        userMap[userId] = user;
-      }
+      userMap[userId] = user;
     });
     return _.map(userMap, (v) => v);
   },

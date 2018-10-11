@@ -89,10 +89,6 @@ Users.attachSchema(new SimpleSchema({
     type: [String],
     optional: true,
   },
-  'profile.tags': {
-    type: [String],
-    optional: true,
-  },
   'profile.icode': {
     type: String,
     optional: true,
