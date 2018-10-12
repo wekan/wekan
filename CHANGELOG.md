@@ -2,9 +2,10 @@
 
 This release fixes the following bugs:
 
-- [Improve notifications](https://github.com/wekan/wekan/pull/1948).
+- [Improve notifications](https://github.com/wekan/wekan/pull/1948);
+- [Fix deleting Custom Fields, removing broken references](https://github.com/wekan/wekan/issues/1872).
 
-Thanks to GitHub user Akuket for contributions.
+Thanks to GitHub users Akuket and Clement87 for their contributions.
 
 # v1.53.9 2018-10-11 Wekan Edge release
 
