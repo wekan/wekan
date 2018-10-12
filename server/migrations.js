@@ -344,9 +344,9 @@ Migrations.add('remove-tag', () => {
 });
 
 Migrations.add('remove-customFields-references-broken', () => {
-  Cards.update(
-    {'customFields.$value': null},
-    {$pull: {customFields: {value: null}}},
-    noValidateMulti,
-  );
+  Cards.update({'customFields.$value': null},
+    { $pull: {
+      customFields: {value: null},
+    },
+    }, noValidateMulti);
 });
