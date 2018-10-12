@@ -342,3 +342,11 @@ Migrations.add('remove-tag', () => {
     },
   }, noValidateMulti);
 });
+
+Migrations.add('remove-customFields-references-broken', () => {
+  Cards.update(
+    {'customFields.$value': null},
+    {$pull: {customFields: {value: null}}},
+    noValidateMulti,
+  );
+});
