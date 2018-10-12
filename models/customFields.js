@@ -71,6 +71,12 @@ if (Meteor.isServer) {
     Activities.remove({
       customFieldId: doc._id,
     });
+
+    Cards.update(
+      {'boardId': doc.boardId, 'customFields._id': doc._id},
+      {$pull: {'customFields': {'_id': doc._id}}},
+      {multi: true}
+    );
   });
 }
 
