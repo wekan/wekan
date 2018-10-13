@@ -321,3 +321,21 @@ Migrations.add('add-subtasks-allowed', () => {
     },
   }, noValidateMulti);
 });
+
+Migrations.add('remove-tag', () => {
+  Users.update({
+  }, {
+    $unset: {
+      'profile.tags':1,
+    },
+  }, noValidateMulti);
+});
+
+Migrations.add('remove-customFields-references-broken', () => {
+  Cards.update({'customFields.$value': null},
+    { $pull: {
+      customFields: {value: null},
+    },
+    }, noValidateMulti);
+});
+
