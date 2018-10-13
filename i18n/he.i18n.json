@@ -532,7 +532,7 @@
     "r-add-rule": "הוספת כלל",
     "r-view-rule": "הצגת כלל",
     "r-delete-rule": "מחיקת כל",
-    "r-new-rule-name": "הוספת כלל חדש",
+    "r-new-rule-name": "New rule title",
     "r-no-rules": "אין כללים",
     "r-when-a-card-is": "כאשר כרטיס",
     "r-added-to": "נוסף אל",
@@ -575,7 +575,7 @@
     "r-checklist": "רשימת משימות",
     "r-check-all": "לסמן הכול",
     "r-uncheck-all": "לבטל את הסימון",
-    "r-item-check": "פריטים לרשימת משימות",
+    "r-items-check": "items of checklist",
     "r-check": "סימון",
     "r-uncheck": "ביטול סימון",
     "r-item": "פריט",
@@ -606,5 +606,10 @@
     "r-d-check-of-list": "של רשימת משימות",
     "r-d-add-checklist": "הוספת רשימת משימות",
     "r-d-remove-checklist": "הסרת רשימת משימות",
-    "r-when-a-card-is-moved": "כאשר כרטיס מועבר לרשימה אחרת"
+    "r-when-a-card-is-moved": "כאשר כרטיס מועבר לרשימה אחרת",
+    "ldap": "LDAP",
+    "oauth2": "OAuth2",
+    "cas": "CAS",
+    "authentication-method": "Authentication method",
+    "authentication-type": "Authentication type"
 }

@@ -532,7 +532,7 @@
     "r-add-rule": "Přidat pravidlo",
     "r-view-rule": "Zobrazit pravidlo",
     "r-delete-rule": "Smazat pravidlo",
-    "r-new-rule-name": "Přidat nové pravidlo",
+    "r-new-rule-name": "New rule title",
     "r-no-rules": "Žádná pravidla",
     "r-when-a-card-is": "Pokud je karta",
     "r-added-to": "Přidáno do",
@@ -575,7 +575,7 @@
     "r-checklist": "checklist",
     "r-check-all": "Check all",
     "r-uncheck-all": "Uncheck all",
-    "r-item-check": "Items of checklist",
+    "r-items-check": "items of checklist",
     "r-check": "Check",
     "r-uncheck": "Uncheck",
     "r-item": "item",
@@ -606,5 +606,10 @@
     "r-d-check-of-list": "of checklist",
     "r-d-add-checklist": "Přidat checklist",
     "r-d-remove-checklist": "Odstranit checklist",
-    "r-when-a-card-is-moved": "When a card is moved to another list"
+    "r-when-a-card-is-moved": "When a card is moved to another list",
+    "ldap": "LDAP",
+    "oauth2": "OAuth2",
+    "cas": "CAS",
+    "authentication-method": "Authentication method",
+    "authentication-type": "Authentication type"
 }
