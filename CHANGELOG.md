@@ -5,8 +5,9 @@ This release fixes the following bugs:
 - [Fix vertical text for swimlanes in IE11](https://github.com/wekan/wekan/issues/1798).
 - [Fix deleting Custom Fields, removing broken references](https://github.com/wekan/wekan/issues/1872).
 - [Improve notifications](https://github.com/wekan/wekan/pull/1948).
+- [REST API: Get cards by swimlane id](https://github.com/wekan/wekan/pull/1944). Please [add docs](https://github.com/wekan/wekan/wiki/REST-API-Swimlanes).
 
-Thanks to GitHub users Akuket, Clement87 and tomodwyer for their contributions.
+Thanks to GitHub users Akuket, Clement87, dcmcand and tomodwyer for their contributions.
 
 # v1.53 2018-10-03 Wekan release
 
