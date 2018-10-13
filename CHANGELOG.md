@@ -3,9 +3,10 @@
 This release fixes the following bugs:
 
 - [Improve notifications](https://github.com/wekan/wekan/pull/1948);
-- [Fix deleting Custom Fields, removing broken references](https://github.com/wekan/wekan/issues/1872).
+- [Fix deleting Custom Fields, removing broken references](https://github.com/wekan/wekan/issues/1872);
+- [Fix vertical text for swimlanes in IE11](https://github.com/wekan/wekan/issues/1798).
 
-Thanks to GitHub users Akuket and Clement87 for their contributions.
+Thanks to GitHub users Akuket, Clement87 and tomodwyer for their contributions.
 
 # v1.53.9 2018-10-11 Wekan Edge release
 
