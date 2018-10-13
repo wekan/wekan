@@ -4,6 +4,7 @@ This release fixes the following bugs:
 
 - [Fix vertical text for swimlanes in IE11](https://github.com/wekan/wekan/issues/1798).
 - [Fix deleting Custom Fields, removing broken references](https://github.com/wekan/wekan/issues/1872).
+- [Improve notifications](https://github.com/wekan/wekan/pull/1948).
 
 Thanks to GitHub users Akuket, Clement87 and tomodwyer for their contributions.
 
