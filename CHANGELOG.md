@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix vertical text for swimlanes in IE11](https://github.com/wekan/wekan/issues/1798).
+
+Thanks to GitHub user tomodwyer for contributions.
+
 # v1.53 2018-10-03 Wekan release
 
 This release fixes the following bugs:
