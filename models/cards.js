@@ -1056,6 +1056,29 @@ if (Meteor.isServer) {
     cardRemover(userId, doc);
   });
 }
+//SWIMLANES REST API
+if (Meteor.isServer) {
+  JsonRoutes.add('GET', '/api/boards/:boardId/swimlanes/:swimlaneId/cards', function(req, res) {
+    const paramBoardId = req.params.boardId;
+    const paramSwimlaneId = req.params.swimlaneId;
+    Authentication.checkBoardAccess(req.userId, paramBoardId);
+    JsonRoutes.sendResult(res, {
+      code: 200,
+      data: Cards.find({
+        boardId: paramBoardId,
+        swimlaneId: paramSwimlaneId,
+        archived: false,
+      }).map(function(doc) {
+        return {
+          _id: doc._id,
+          title: doc.title,
+          description: doc.description,
+          listId: doc.listId,
+        };
+      }),
+    });
+  });
+}
 //LISTS REST API
 if (Meteor.isServer) {
   JsonRoutes.add('GET', '/api/boards/:boardId/lists/:listId/cards', function (req, res) {
