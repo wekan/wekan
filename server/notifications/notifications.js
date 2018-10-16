@@ -20,19 +20,13 @@ Notifications = {
   },
 
   // filter recipients according to user settings for notification
-  getUsers: (participants, watchers) => {
-    const userMap = {};
-    participants.forEach((userId) => {
-      if (userMap[userId]) return;
-      const user = Users.findOne(userId);
-      userMap[userId] = user;
-    });
+  getUsers: (watchers) => {
+    const users = [];
     watchers.forEach((userId) => {
-      if (userMap[userId]) return;
       const user = Users.findOne(userId);
-      userMap[userId] = user;
+      if (user) users.push(user);
     });
-    return _.map(userMap, (v) => v);
+    return users;
   },
 
   notify: (user, title, description, params) => {
