@@ -1,4 +1,4 @@
-# Upcoming Wekan Edge release
+# v1.55.1 2018-10-16 Wekan Edge release
 
 This release adds the following new features:
 
@@ -6,6 +6,7 @@ This release adds the following new features:
 
 and fixes the following bugs:
 
+- [LDAP: Include missing LDAP PR so that LDAP works](https://github.com/wekan/wekan-ldap/pull/6);
 - [Improve notifications](https://github.com/wekan/wekan/pull/1948);
 - [Fix deleting Custom Fields, removing broken references](https://github.com/wekan/wekan/issues/1872);
 - [Fix vertical text for swimlanes in IE11](https://github.com/wekan/wekan/issues/1798);
