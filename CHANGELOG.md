@@ -1,3 +1,15 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Automatically close the sidebar](https://github.com/wekan/wekan/pull/1954).
+
+and fixes the following bugs:
+
+- [Update broke the ability to mute notifications](https://github.com/wekan/wekan/issues/1952).
+
+Thanks to GitHub user Akuket for contributions.
+
 # v1.54 2018-10-14 Wekan release
 
 This release fixes the following bugs:
