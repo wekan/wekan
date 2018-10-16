@@ -16,8 +16,7 @@ BlazeComponent.extendComponent({
   },
 
   onCreated() {
-    const initOpen = Utils.isMiniScreen() ? false : (!Session.get('currentCard'));
-    this._isOpen = new ReactiveVar(initOpen);
+    this._isOpen = new ReactiveVar(false);
     this._view = new ReactiveVar(defaultView);
     Sidebar = this;
   },
