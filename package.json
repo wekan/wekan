@@ -1,7 +1,7 @@
 {
   "name": "wekan",
-  "version": "1.54.0",
-  "description": "The open-source kanban",
+  "version": "1.55.0",
+  "description": "Open-Source kanban",
   "private": true,
   "scripts": {
     "lint": "eslint --ignore-pattern 'packages/*' .",
