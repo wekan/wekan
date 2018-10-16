@@ -532,7 +532,7 @@
     "r-add-rule": "Dodaj regułę",
     "r-view-rule": "Zobacz regułę",
     "r-delete-rule": "Usuń regułę",
-    "r-new-rule-name": "New rule title",
+    "r-new-rule-name": "Nowa nazwa reguły",
     "r-no-rules": "Brak regułę",
     "r-when-a-card-is": "Gdy karta jest",
     "r-added-to": "Dodano do",
@@ -575,7 +575,7 @@
     "r-checklist": "lista zadań",
     "r-check-all": "Zaznacz wszystkie",
     "r-uncheck-all": "Odznacz wszystkie",
-    "r-items-check": "items of checklist",
+    "r-items-check": "elementy listy",
     "r-check": "Zaznacz",
     "r-uncheck": "Odznacz",
     "r-item": "element",
@@ -610,6 +610,6 @@
     "ldap": "LDAP",
     "oauth2": "OAuth2",
     "cas": "CAS",
-    "authentication-method": "Authentication method",
-    "authentication-type": "Authentication type"
+    "authentication-method": "Sposób autoryzacji",
+    "authentication-type": "Typ autoryzacji"
 }
