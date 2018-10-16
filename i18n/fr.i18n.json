@@ -532,7 +532,7 @@
     "r-add-rule": "Ajouter une règle",
     "r-view-rule": "Voir la règle",
     "r-delete-rule": "Supprimer la règle",
-    "r-new-rule-name": "New rule title",
+    "r-new-rule-name": "Titre de la nouvelle règle",
     "r-no-rules": "Pas de règles",
     "r-when-a-card-is": "Quand une carte est",
     "r-added-to": "Ajouté à",
@@ -575,7 +575,7 @@
     "r-checklist": "checklist",
     "r-check-all": "Tout cocher",
     "r-uncheck-all": "Tout décocher",
-    "r-items-check": "items of checklist",
+    "r-items-check": "Élément de checklist",
     "r-check": "Cocher",
     "r-uncheck": "Décocher",
     "r-item": "élément",
@@ -607,5 +607,9 @@
     "r-d-add-checklist": "Ajouter une checklist",
     "r-d-remove-checklist": "Supprimer la checklist",
     "r-when-a-card-is-moved": "Quand une carte est déplacée vers une autre liste",
-    "r-back": "Retour"
+    "ldap": "LDAP",
+    "oauth2": "OAuth2",
+    "cas": "CAS",
+    "authentication-method": "Méthode d'authentification",
+    "authentication-type": "Type d'authentification"
 }

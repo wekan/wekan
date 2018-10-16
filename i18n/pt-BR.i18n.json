@@ -181,7 +181,7 @@
     "comment-placeholder": "Escrever Comentário",
     "comment-only": "Somente comentários",
     "comment-only-desc": "Pode comentar apenas em cartões.",
-    "no-comments": "No comments",
+    "no-comments": "Sem comentários",
     "no-comments-desc": "Can not see comments and activities.",
     "computer": "Computador",
     "confirm-subtask-delete-dialog": "Tem certeza que deseja deletar a subtarefa?",
@@ -565,7 +565,7 @@
     "r-bottom-of": "Bottom of",
     "r-its-list": "its list",
     "r-archive": "Mover para a lixeira",
-    "r-unarchive": "Restore from Recycle Bin",
+    "r-unarchive": "Restaurar da Lixeira",
     "r-card": "cartão",
     "r-add": "Novo",
     "r-remove": "Remover",
@@ -607,5 +607,9 @@
     "r-d-add-checklist": "Adicionar checklist",
     "r-d-remove-checklist": "Remover checklist",
     "r-when-a-card-is-moved": "Quando um cartão é movido de outra lista",
-    "r-back": "Voltar"
+    "ldap": "LDAP",
+    "oauth2": "OAuth2",
+    "cas": "CAS",
+    "authentication-method": "Authentication method",
+    "authentication-type": "Authentication type"
 }

@@ -607,5 +607,9 @@
     "r-d-add-checklist": "Add checklist",
     "r-d-remove-checklist": "Remove checklist",
     "r-when-a-card-is-moved": "When a card is moved to another list",
-    "r-back": "بازگشت"
+    "ldap": "LDAP",
+    "oauth2": "OAuth2",
+    "cas": "CAS",
+    "authentication-method": "Authentication method",
+    "authentication-type": "Authentication type"
 }

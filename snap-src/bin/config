@@ -13,11 +13,11 @@ DEFAULT_MONGODB_BIND_UNIX_SOCKET="$SNAP_DATA/share"
 KEY_MONGODB_BIND_UNIX_SOCKET="mongodb-bind-unix-socket"
 
 DESCRIPTION_MONGODB_PORT="mongodb binding port: eg 27017 when using localhost"
-DEFAULT_MONGODB_PORT="27019"
+DEFAULT_MONGODB_PORT=""
 KEY_MONGODB_PORT='mongodb-port'
 
 DESCRIPTION_MONGODB_BIND_IP="mongodb binding ip address: eg 127.0.0.1 for localhost\n\t\tIf not defined default unix socket is used instead"
-DEFAULT_MONGODB_BIND_IP="127.0.0.1"
+DEFAULT_MONGODB_BIND_IP=""
 KEY_MONGODB_BIND_IP="mongodb-bind-ip"
 
 DESCRIPTION_MAIL_URL="wekan mail binding"

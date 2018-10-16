@@ -70,7 +70,7 @@ ARG LDAP_DEFAULT_DOMAIN
 # ENV BUILD_DEPS="paxctl"
 ENV BUILD_DEPS="apt-utils bsdtar gnupg gosu wget curl bzip2 build-essential python git ca-certificates gcc-7" \
     NODE_VERSION=v8.12.0 \
-    METEOR_RELEASE=1.6.0.1 \
+    METEOR_RELEASE=1.8.1-beta.0 \
     USE_EDGE=false \
     METEOR_EDGE=1.5-beta.17 \
     NPM_VERSION=latest \
@@ -130,7 +130,7 @@ ENV BUILD_DEPS="apt-utils bsdtar gnupg gosu wget curl bzip2 build-essential pyth
     LDAP_SYNC_USER_DATA=false \
     LDAP_SYNC_USER_DATA_FIELDMAP="" \
     LDAP_SYNC_GROUP_ROLES="" \
-    LDAP_DEFAULT_DOMAIN="" \
+    LDAP_DEFAULT_DOMAIN=""
 
 # Copy the app to the image
 COPY ${SRC_PATH} /home/wekan/app
@@ -208,7 +208,8 @@ RUN \
     # Change user to wekan and install meteor
     cd /home/wekan/ && \
     chown wekan:wekan --recursive /home/wekan && \
-    curl "https://install.meteor.com/?release=${METEOR_RELEASE}" -o /home/wekan/install_meteor.sh && \
+    curl "https://install.meteor.com" -o /home/wekan/install_meteor.sh && \
+    #curl "https://install.meteor.com/?release=${METEOR_RELEASE}" -o /home/wekan/install_meteor.sh && \
     # OLD: sed -i "s|RELEASE=.*|RELEASE=${METEOR_RELEASE}\"\"|g" ./install_meteor.sh && \
     # Install Meteor forcing its progress
     sed -i 's/VERBOSITY="--silent"/VERBOSITY="--progress-bar"/' ./install_meteor.sh && \
@@ -228,7 +229,8 @@ RUN \
     cd /home/wekan/app/packages && \
     gosu wekan:wekan git clone --depth 1 -b master git://github.com/wekan/flow-router.git kadira-flow-router && \
     gosu wekan:wekan git clone --depth 1 -b master git://github.com/meteor-useraccounts/core.git meteor-useraccounts-core && \
-    gosu wekan:wekan git clone --depth 1 -b master git://github.com/wekan/meteor-accounts-cas.git meteor-accounts-cas && \
+    gosu wekan:wekan git clone --depth 1 -b master git://github.com/wekan/meteor-accounts-cas.git && \
+    gosu wekan:wekan git clone --depth 1 -b master git://github.com/wekan/wekan-ldap.git && \
     sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' /home/wekan/app/packages/meteor-useraccounts-core/package.js && \
     cd /home/wekan/.meteor && \
     gosu wekan:wekan /home/wekan/.meteor/meteor -- help; \

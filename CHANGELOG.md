@@ -1,9 +1,92 @@
-# Upcoming Wekan release.
+# Upcoming Wekan Edge release
+
+This release fixes the following bugs:
+
+- [Improve notifications](https://github.com/wekan/wekan/pull/1948);
+- [Fix deleting Custom Fields, removing broken references](https://github.com/wekan/wekan/issues/1872);
+- [Fix vertical text for swimlanes in IE11](https://github.com/wekan/wekan/issues/1798).
+
+Thanks to GitHub users Akuket, Clement87 and tomodwyer for their contributions.
+
+# v1.53.9 2018-10-11 Wekan Edge release
 
 This release adds the following new features:
 
-- [LDAP](https://github.com/wekan/wekan/commit/288800eafc91d07f859c4f59588e0b646137ccb9). In progress.
-  Please test and [add info about bugs](https://github.com/wekan/wekan/issues/119).
+- docker-compose.yml in this Edge branch now works with Wekan Edge + Meteor 1.8.1-beta.0 + MongoDB 4.0.3;
+- [Snap is still broken](https://forum.snapcraft.io/t/how-to-connect-to-localhost-mongodb-in-snap-apparmor-prevents/7793/2). Please use latest Snap release on Edge branch, until this is fixed.
+
+Thanks to GitHub user xet7 for contributions.
+
+# v1.53.8 2018-10-10 Wekan Edge release
+
+This release tries to fix the following bugs:
+
+- Try to fix Docker.
+
+Thanks to GitHub user xet7 for contributions.
+
+# v1.53.7 2018-10-10 Wekan Edge release
+
+This release adds the following new features:
+
+- Try MongoDB 4.0.3
+
+Thanks to GitHub user xet7 for contributions.
+
+# v1.53.6 2018-10-10 Wekan Edge release
+
+This release adds the following new features:
+
+- [Add LDAP to Snap Help](https://github.com/wekan/wekan/commit/809c8f64f69721d51b7d963248a77585867fac53).
+
+and tries to fix the following bugs:
+
+- Try to fix snap.
+
+Thanks to GitHub users Akuket and xet7 for their contributions.
+    
+# v1.53.5 2018-10-10 Wekan Edge relase
+
+This release tries to fix the following bugs:
+
+- Try to fix snap.
+
+Thanks to GitHub user xet7 for contributions.
+
+# v1.53.4 2018-10-10 Wekan Edge release
+
+This release adds the following new features:
+
+- [Upgrade Hoek](https://github.com/wekan/wekan/commit/0b971b6ddb1ffc4adad6b6b09ae7f42dd376fe2c).
+
+Thanks to GitHub user xet7 for contributions.
+
+# v1.53.3 2018-10-10 Wekan Edge release
+
+This release adds the following new features:
+
+- [Upgrade](https://github.com/wekan/wekan/issues/1522) to [Meteor](https://blog.meteor.com/meteor-1-8-erases-the-debts-of-1-7-77af4c931fe3) [1.8.1-beta.0](https://github.com/meteor/meteor/issues/10216).
+  with [these](https://github.com/wekan/wekan/commit/079e45eb52a0f62ddb6051bf2ea80fac8860d3d5)
+  [commits](https://github.com/wekan/wekan/commit/dd47d46f4341a8c4ced05749633f783e88623e1b). So now it's possible to use MongoDB 2.6 - 4.0.
+  
+Thanks to GitHub user xet7 for contributions.
+
+# v1.53.2 2018-10-10 Wekan Edge release
+
+This release adds the following new features:
+
+- [Add LDAP package to Docker and Snap](https://github.com/wekan/wekan/commit/f599391419bc7422a6ead52cdefc7d380e787897).
+
+Thanks to GitHub user xet7 for contributions.
+
+# v1.53.1 2018-10-10 Wekan Edge release
+
+This release adds the following new features:
+
+- [LDAP](https://github.com/wekan/wekan/commit/288800eafc91d07f859c4f59588e0b646137ccb9).
+  Please test and [add info about bugs](https://github.com/wekan/wekan/issues/119);
+- [Add LDAP support and authentications dropdown menu on login page](https://github.com/wekan/wekan/pull/1943);
+- [REST API: Get cards by swimlane id](https://github.com/wekan/wekan/pull/1944). Please [add docs](https://github.com/wekan/wekan/wiki/REST-API-Swimlanes).
 
 and fixes the following bugs:
 
@@ -12,7 +95,7 @@ and fixes the following bugs:
 - [Add info about root-url to GitHub issue template](https://github.com/wekan/wekan/commit/4c0eb7dcc19ca9ae8c5d2d0276e0d024269de236);
 - [Feature rules: fixes and enhancements](https://github.com/wekan/wekan/pull/1936).
 
-Thanks to GitHub users Akuket, Angtrim, lberk, maximest-pierre, InfoSec812, schulz and xet7 for their contributions.
+Thanks to GitHub users Akuket, Angtrim, dcmcand, lberk, maximest-pierre, InfoSec812, schulz and xet7 for their contributions.
     
 # v1.52.1 2018-10-02 Wekan Edge release
 

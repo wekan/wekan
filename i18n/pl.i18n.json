@@ -607,5 +607,9 @@
     "r-d-add-checklist": "Dodaj listę zadań",
     "r-d-remove-checklist": "Usuń listę zadań",
     "r-when-a-card-is-moved": "Gdy karta jest przeniesiona do innej listy",
-    "r-back": "Wstecz"
+    "ldap": "LDAP",
+    "oauth2": "OAuth2",
+    "cas": "CAS",
+    "authentication-method": "Authentication method",
+    "authentication-type": "Authentication type"
 }

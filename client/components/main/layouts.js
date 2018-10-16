@@ -7,7 +7,7 @@ const i18nTagToT9n = (i18nTag) => {
 };
 
 const validator = {
-  set: function(obj, prop, value) {
+  set(obj, prop, value) {
     if (prop === 'state' && value !== 'signIn') {
       $('.at-form-authentication').hide();
     } else if (prop === 'state' && value === 'signIn') {
@@ -17,7 +17,7 @@ const validator = {
     obj[prop] = value;
     // Indicate success
     return true;
-  }
+  },
 };
 
 Template.userFormsLayout.onRendered(() => {
@@ -82,7 +82,7 @@ Template.userFormsLayout.events({
     });
   },
   'click #at-btn'(event) {
-    /* All authentication method can be managed/called here. 
+    /* All authentication method can be managed/called here.
        !! DON'T FORGET to correctly fill the fields of the user during its creation if necessary authenticationMethod : String !!
     */
     const authenticationMethodSelected = $('.select-authentication').val();

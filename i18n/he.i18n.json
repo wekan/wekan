@@ -607,5 +607,9 @@
     "r-d-add-checklist": "הוספת רשימת משימות",
     "r-d-remove-checklist": "הסרת רשימת משימות",
     "r-when-a-card-is-moved": "כאשר כרטיס מועבר לרשימה אחרת",
-    "r-back": "חזרה"
+    "ldap": "LDAP",
+    "oauth2": "OAuth2",
+    "cas": "CAS",
+    "authentication-method": "Authentication method",
+    "authentication-type": "Authentication type"
 }
