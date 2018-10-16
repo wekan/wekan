@@ -1,10 +1,15 @@
 # Upcoming Wekan Edge release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+- [Automatically close the sidebar](https://github.com/wekan/wekan/pull/1954).
+
+and fixes the following bugs:
 
 - [Improve notifications](https://github.com/wekan/wekan/pull/1948);
 - [Fix deleting Custom Fields, removing broken references](https://github.com/wekan/wekan/issues/1872);
-- [Fix vertical text for swimlanes in IE11](https://github.com/wekan/wekan/issues/1798).
+- [Fix vertical text for swimlanes in IE11](https://github.com/wekan/wekan/issues/1798);
+- [Update broke the ability to mute notifications](https://github.com/wekan/wekan/pull/1954).
 
 Thanks to GitHub users Akuket, Clement87 and tomodwyer for their contributions.
 
