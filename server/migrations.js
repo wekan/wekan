@@ -350,3 +350,15 @@ Migrations.add('remove-customFields-references-broken', () => {
     },
     }, noValidateMulti);
 });
+
+Migrations.add('add-product-name', () => {
+  Settings.update({
+    productName: {
+      $exists: false,
+    },
+  }, {
+    $set: {
+      productName:'',
+    },
+  }, noValidateMulti);
+});

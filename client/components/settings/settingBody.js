@@ -6,6 +6,7 @@ BlazeComponent.extendComponent({
     this.emailSetting = new ReactiveVar(false);
     this.accountSetting = new ReactiveVar(false);
     this.announcementSetting = new ReactiveVar(false);
+    this.layoutSetting = new ReactiveVar(false);
 
     Meteor.subscribe('setting');
     Meteor.subscribe('mailServer');
@@ -68,6 +69,7 @@ BlazeComponent.extendComponent({
       this.emailSetting.set('email-setting' === targetID);
       this.accountSetting.set('account-setting' === targetID);
       this.announcementSetting.set('announcement-setting' === targetID);
+      this.layoutSetting.set('layout-setting' === targetID);
     }
   },
 
@@ -129,6 +131,25 @@ BlazeComponent.extendComponent({
 
   },
 
+  saveLayout() {
+    this.setLoading(true);
+    $('li').removeClass('has-error');
+
+    try {
+      const productName = $('#product-name').val().trim();
+      Settings.update(Settings.findOne()._id, {
+        $set: {
+          'productName': productName,
+        },
+      });
+    } catch (e) {
+      return;
+    } finally {
+      this.setLoading(false);
+    }
+
+  },
+
   sendSMTPTestEmail() {
     Meteor.call('sendSMTPTestEmail', (err, ret) => {
       if (!err && ret) { /* eslint-disable no-console */
@@ -154,6 +175,7 @@ BlazeComponent.extendComponent({
       'click button.js-email-invite': this.inviteThroughEmail,
       'click button.js-save': this.saveMailServerInfo,
       'click button.js-send-smtp-test-email': this.sendSMTPTestEmail,
+      'click button.js-save-layout': this.saveLayout,
     }];
   },
 }).register('setting');
