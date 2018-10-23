@@ -70,7 +70,7 @@ ARG LDAP_DEFAULT_DOMAIN
 # ENV BUILD_DEPS="paxctl"
 ENV BUILD_DEPS="apt-utils bsdtar gnupg gosu wget curl bzip2 build-essential python git ca-certificates gcc-7" \
     NODE_VERSION=v8.12.0 \
-    METEOR_RELEASE=1.8.1-beta.0 \
+    METEOR_RELEASE=1.6.0.1 \
     USE_EDGE=false \
     METEOR_EDGE=1.5-beta.17 \
     NPM_VERSION=latest \

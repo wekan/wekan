@@ -9,15 +9,15 @@ keys="MONGODB_BIND_UNIX_SOCKET MONGODB_BIND_IP MONGODB_PORT MAIL_URL MAIL_FROM R
 DESCRIPTION_MONGODB_BIND_UNIX_SOCKET="mongodb binding unix socket:\n"\
 "\t\t\t Default behaviour will preffer binding over unix socket, to disable unix socket binding set value to 'nill' string\n"\
 "\t\t\t To bind to instance of mongodb provided through content interface,set value to relative path to the socket inside '$SNAP_DATA/shared' directory"
-DEFAULT_MONGODB_BIND_UNIX_SOCKET="$SNAP_DATA/share"
+DEFAULT_MONGODB_BIND_UNIX_SOCKET="/var/snap/wekan/current/share"
 KEY_MONGODB_BIND_UNIX_SOCKET="mongodb-bind-unix-socket"
 
 DESCRIPTION_MONGODB_PORT="mongodb binding port: eg 27017 when using localhost"
-DEFAULT_MONGODB_PORT=""
+DEFAULT_MONGODB_PORT="27019"
 KEY_MONGODB_PORT='mongodb-port'
 
 DESCRIPTION_MONGODB_BIND_IP="mongodb binding ip address: eg 127.0.0.1 for localhost\n\t\tIf not defined default unix socket is used instead"
-DEFAULT_MONGODB_BIND_IP=""
+DEFAULT_MONGODB_BIND_IP="127.0.0.1"
 KEY_MONGODB_BIND_IP="mongodb-bind-ip"
 
 DESCRIPTION_MAIL_URL="wekan mail binding"

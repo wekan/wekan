@@ -5,7 +5,7 @@ version: '2'
 services:
 
   wekandb:
-    image: mongo:4.0.3
+    image: mongo:3.2.21
     container_name: wekan-db
     restart: always
     command: mongod --smallfiles --oplogSize 128
@@ -18,22 +18,11 @@ services:
       - wekan-db-dump:/dump
 
   wekan:
-    image: quay.io/wekan/wekan:edge
+    image: quay.io/wekan/wekan
     container_name: wekan-app
     restart: always
     networks:
       - wekan-tier
-    build:
-      context: .
-      dockerfile: Dockerfile
-      args:
-        - NODE_VERSION=${NODE_VERSION}
-        - METEOR_RELEASE=${METEOR_RELEASE}
-        - NPM_VERSION=${NPM_VERSION}
-        - ARCHITECTURE=${ARCHITECTURE}
-        - SRC_PATH=${SRC_PATH}
-        - METEOR_EDGE=${METEOR_EDGE}
-        - USE_EDGE=${USE_EDGE}
     ports:
       # Docker outsideport:insideport
       - 80:8080
