@@ -1,7 +1,5 @@
 version: '2'
 
-# Using prebuilt image: docker-compose up -d --no-build
-
 services:
 
   wekandb:
