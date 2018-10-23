@@ -18,7 +18,7 @@
     "act-importBoard": "zaimportowano __board__",
     "act-importCard": "zaimportowano __card__",
     "act-importList": "zaimportowano __list__",
-    "act-joinMember": "dodał(a) __member_ do __card__",
+    "act-joinMember": "dodał(a) __member__ do __card__",
     "act-moveCard": "przeniósł/przeniosła __card__ z __oldList__ do __list__",
     "act-removeBoardMember": "usunął/usunęła __member__ z __board__",
     "act-restoredCard": "przywrócono __card__ do __board__",
