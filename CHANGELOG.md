@@ -1,3 +1,14 @@
+# Upcoming Wekan release
+
+This release adds the [following new features and fixes](https://github.com/wekan/wekan/pull/1962), with Apache I-CLA:
+
+- Also export the cards created with an older wekan instance (without linked cards) (related to #1873);
+- Fix the GET customFields API that was failing;
+- Allow to directly overwrite the members of cards and boards with a PUT call (this avoids to do multiple calls to add and remove users);
+- Allow to change the swimlane of a card from the API.
+
+Thanks to GitHub user bentiss for contributions.
+
 # v1.57 2018-10-23 Wekan release
 
 This release adds the following new features:
