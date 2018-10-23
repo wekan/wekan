@@ -1,4 +1,4 @@
-# v1.56 2018-10-23 Wekan release
+# v1.57 2018-10-23 Wekan release
 
 This release adds the following new features:
 
