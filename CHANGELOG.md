@@ -1,3 +1,12 @@
+# v1.56 2018-10-23 Wekan release
+
+This release adds the following new features:
+
+- Merge edge into stable. This brings LDAP, Rules, Role "No Comments", etc.
+- Go back to Meteor 1.6.x and MongoDB 3.2.21 that works in Snap etc.
+
+Thanks to GitHub user xet7 for contributions.
+
 # v1.55.1 2018-10-16 Wekan Edge release
 
 This release adds the following new features:
