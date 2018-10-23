@@ -713,10 +713,10 @@ if (Meteor.isServer) {
     }
   });
 
-  JsonRoutes.add('GET', '/api/users/:id', function (req, res) {
+  JsonRoutes.add('GET', '/api/users/:userId', function (req, res) {
     try {
       Authentication.checkUserId(req.userId);
-      const id = req.params.id;
+      const id = req.params.userId;
       JsonRoutes.sendResult(res, {
         code: 200,
         data: Meteor.users.findOne({ _id: id }),
@@ -730,10 +730,10 @@ if (Meteor.isServer) {
     }
   });
 
-  JsonRoutes.add('PUT', '/api/users/:id', function (req, res) {
+  JsonRoutes.add('PUT', '/api/users/:userId', function (req, res) {
     try {
       Authentication.checkUserId(req.userId);
-      const id = req.params.id;
+      const id = req.params.userId;
       const action = req.body.action;
       let data = Meteor.users.findOne({ _id: id });
       if (data !== undefined) {
@@ -872,10 +872,10 @@ if (Meteor.isServer) {
     }
   });
 
-  JsonRoutes.add('DELETE', '/api/users/:id', function (req, res) {
+  JsonRoutes.add('DELETE', '/api/users/:userId', function (req, res) {
     try {
       Authentication.checkUserId(req.userId);
-      const id = req.params.id;
+      const id = req.params.userId;
       Meteor.users.remove({ _id: id });
       JsonRoutes.sendResult(res, {
         code: 200,

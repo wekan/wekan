@@ -1514,6 +1514,16 @@ if (Meteor.isServer) {
       Cards.direct.update({_id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false},
         {$set: {customFields: newcustomFields}});
     }
+    if (req.body.hasOwnProperty('members')) {
+      const newmembers = req.body.members;
+      Cards.direct.update({_id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false},
+        {$set: {members: newmembers}});
+    }
+    if (req.body.hasOwnProperty('swimlaneId')) {
+      const newParamSwimlaneId = req.body.swimlaneId;
+      Cards.direct.update({_id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false},
+        {$set: {swimlaneId: newParamSwimlaneId}});
+    }
     JsonRoutes.sendResult(res, {
       code: 200,
       data: {
