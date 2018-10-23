@@ -48,7 +48,7 @@ class Exporter {
 
   build() {
     const byBoard = { boardId: this._boardId };
-    const byBoardNoLinked = { boardId: this._boardId, linkedId: '' };
+    const byBoardNoLinked = { boardId: this._boardId, linkedId: {$in: ['', null] } };
     // we do not want to retrieve boardId in related elements
     const noBoardId = {
       fields: {
