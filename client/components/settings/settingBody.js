@@ -139,7 +139,7 @@ BlazeComponent.extendComponent({
       const productName = $('#product-name').val().trim();
       Settings.update(Settings.findOne()._id, {
         $set: {
-          'productName': productName,
+          productName,
         },
       });
     } catch (e) {
