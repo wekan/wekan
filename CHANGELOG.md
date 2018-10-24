@@ -1,3 +1,7 @@
+# v1.60 2018-10-24 Wekan release
+
+- Update translations.
+
 # v1.59 2018-10-24 Wekan release
 
 This release adds the beginning of following new features:
