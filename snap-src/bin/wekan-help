@@ -180,7 +180,7 @@ echo -e "Optional extra LDAP filters. Don't forget the outmost enclosing parenth
 echo -e "\t$ snap set $SNAP_NAME LDAP_USER_SEARCH_FILTER=''"
 echo -e "\n"
 echo -e "Ldap User Search Scope."
-echo -e "Base (search only in the provided DN), one (search only in the provided DN and one level deep), or subtree (search the whole subtree):"
+echo -e "base (search only in the provided DN), one (search only in the provided DN and one level deep), or sub (search the whole subtree). Example: one"
 echo -e "\t$ snap set $SNAP_NAME LDAP_USER_SEARCH_SCOPE=one"
 echo -e "\n"
 echo -e "Ldap User Search Field."

@@ -28,6 +28,10 @@ Settings.attachSchema(new SimpleSchema({
     type: String,
     optional: true,
   },
+  productName: {
+    type: String,
+    optional: true,
+  },
   createdAt: {
     type: Date,
     denyUpdate: true,

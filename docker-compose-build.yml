@@ -44,7 +44,7 @@ services:
       # If you disable Wekan API with 'false', Export Board does not work.
       - WITH_API=true
       # Optional: Integration with Matomo https://matomo.org that is installed to your server
-      # The address of the server where Matomo is hosted. 
+      # The address of the server where Matomo is hosted.
       # example: - MATOMO_ADDRESS=https://example.com/matomo
       - MATOMO_ADDRESS=''
       # The value of the site ID given in Matomo server for Wekan
@@ -132,10 +132,10 @@ services:
       # LDAP_BACKGROUND_SYNC_INTERVAL : At which interval does the background task sync in milliseconds
       # example : LDAP_BACKGROUND_SYNC_INTERVAL=12345
       - LDAP_BACKGROUND_SYNC_INTERVAL=100
-      # LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED : 
+      # LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED :
       # example : LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED=true
       - LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED=false
-      # LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS : 
+      # LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS :
       # example : LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS=true
       - LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS=false
       # LDAP_ENCRYPTION : If using LDAPS
@@ -150,7 +150,7 @@ services:
       # LDAP_USER_SEARCH_FILTER : Optional extra LDAP filters. Don't forget the outmost enclosing parentheses if needed
       # example : LDAP_USER_SEARCH_FILTER=
       - LDAP_USER_SEARCH_FILTER=''
-      # LDAP_USER_SEARCH_SCOPE : Base (search only in the provided DN), one (search only in the provided DN and one level deep), or subtree (search the whole subtree)
+      # LDAP_USER_SEARCH_SCOPE : base (search only in the provided DN), one (search only in the provided DN and one level deep), or sub (search the whole subtree).
       # example : LDAP_USER_SEARCH_SCOPE=one
       - LDAP_USER_SEARCH_SCOPE=''
       # LDAP_USER_SEARCH_FIELD : Which field is used to find the user
@@ -168,17 +168,17 @@ services:
       # LDAP_GROUP_FILTER_OBJECTCLASS : The object class for filtering
       # example : LDAP_GROUP_FILTER_OBJECTCLASS=group
       - LDAP_GROUP_FILTER_OBJECTCLASS=''
-      # LDAP_GROUP_FILTER_GROUP_ID_ATTRIBUTE : 
-      # example : 
+      # LDAP_GROUP_FILTER_GROUP_ID_ATTRIBUTE :
+      # example :
       - LDAP_GROUP_FILTER_GROUP_ID_ATTRIBUTE=''
-      # LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE : 
-      # example : 
+      # LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE :
+      # example :
       - LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE=''
-      # LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT : 
-      # example : 
+      # LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT :
+      # example :
       - LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT=''
-      # LDAP_GROUP_FILTER_GROUP_NAME : 
-      # example : 
+      # LDAP_GROUP_FILTER_GROUP_NAME :
+      # example :
       - LDAP_GROUP_FILTER_GROUP_NAME=''
       # LDAP_UNIQUE_IDENTIFIER_FIELD : This field is sometimes class GUID (Globally Unique Identifier)
       # example : LDAP_UNIQUE_IDENTIFIER_FIELD=guid
@@ -189,20 +189,20 @@ services:
       # LDAP_USERNAME_FIELD : Which field contains the ldap username
       # example : LDAP_USERNAME_FIELD=username
       - LDAP_USERNAME_FIELD=''
-      # LDAP_MERGE_EXISTING_USERS : 
+      # LDAP_MERGE_EXISTING_USERS :
       # example : LDAP_MERGE_EXISTING_USERS=true
       - LDAP_MERGE_EXISTING_USERS=false
-      # LDAP_SYNC_USER_DATA : 
+      # LDAP_SYNC_USER_DATA :
       # example : LDAP_SYNC_USER_DATA=true
       - LDAP_SYNC_USER_DATA=false
-      # LDAP_SYNC_USER_DATA_FIELDMAP : 
+      # LDAP_SYNC_USER_DATA_FIELDMAP :
       # example : LDAP_SYNC_USER_DATA_FIELDMAP={\"cn\":\"name\", \"mail\":\"email\"}
       - LDAP_SYNC_USER_DATA_FIELDMAP=''
-      # LDAP_SYNC_GROUP_ROLES : 
-      # example : 
+      # LDAP_SYNC_GROUP_ROLES :
+      # example :
       - LDAP_SYNC_GROUP_ROLES=''
       # LDAP_DEFAULT_DOMAIN : The default domain of the ldap it is used to create email if the field is not map correctly with the LDAP_SYNC_USER_DATA_FIELDMAP
-      # example : 
+      # example :
       - LDAP_DEFAULT_DOMAIN=''
 
     depends_on:

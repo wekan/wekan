@@ -176,7 +176,7 @@ KEY_LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED="ldap-background-sync-keep-
 
 DESCRIPTION_LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS=""
 DEFAULT_LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS="false"
-KEY_LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS="ldap-background-sync-import-new-users" 
+KEY_LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS="ldap-background-sync-import-new-users"
 
 DESCRIPTION_LDAP_ENCRYPTION="If using LDAPS"
 DEFAULT_LDAP_ENCRYPTION="false"
@@ -194,7 +194,7 @@ DESCRIPTION_LDAP_USER_SEARCH_FILTER="Optional extra LDAP filters. Don't forget t
 DEFAULT_LDAP_USER_SEARCH_FILTER=""
 KEY_LDAP_USER_SEARCH_FILTER="ldap-user-search-filter"
 
-DESCRIPTION_LDAP_USER_SEARCH_SCOPE="Base (search only in the provided DN), one (search only in the provided DN and one level deep), or subtree (search the whole subtree)."
+DESCRIPTION_LDAP_USER_SEARCH_SCOPE="base (search only in the provided DN), one (search only in the provided DN and one level deep), or sub (search the whole subtree). Example: one"
 DEFAULT_LDAP_USER_SEARCH_SCOPE=""
 KEY_LDAP_USER_SEARCH_SCOPE="ldap-user-search-scope"
 

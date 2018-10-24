@@ -16,6 +16,8 @@ template(name="setting")
               a.js-setting-menu(data-id="account-setting") {{_ 'accounts'}}
             li
               a.js-setting-menu(data-id="announcement-setting") {{_ 'admin-announcement'}}
+            li
+              a.js-setting-menu(data-id="layout-setting") {{_ 'layout'}}
         .main-body
           if loading.get
             +spinner
@@ -27,6 +29,8 @@ template(name="setting")
             +accountSettings
           else if announcementSetting.get
             +announcementSettings
+          else if layoutSetting.get
+            +layoutSettings
 
 template(name="general")
   ul#registration-setting.setting-detail
@@ -72,7 +76,7 @@ template(name='email')
     li.smtp-form
       .title {{_ 'smtp-password'}}
       .form-group
-        input.form-control#mail-server-password(type="text", placeholder="{{_ 'password'}}" value="")
+        input.form-control#mail-server-password(type="password", placeholder="{{_ 'password'}}" value="{{currentSetting.mailServer.password}}")
     li.smtp-form
       .title {{_ 'smtp-tls'}}
       .form-group
@@ -127,3 +131,13 @@ template(name='announcementSettings')
             textarea#admin-announcement.form-control= currentSetting.body
           li
             button.js-announcement-save.primary {{_ 'save'}}
+
+template(name='layoutSettings')
+  ul#layout-setting.setting-detail
+    li.layout-form
+      .title {{_ 'custom-product-name'}}
+      .form-group
+        input.form-control#product-name(type="text", placeholder="Wekan" value="{{currentSetting.productName}}")
+
+    li
+      button.js-save-layout.primary {{_ 'save'}}
