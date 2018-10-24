@@ -1,3 +1,20 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+REST API: [Allow to remove the full list of labels/members through the API](https://github.com/wekan/wekan/pull/1968), with Apache I-CLA:
+
+- [Models: Cards: an empty string in members or label deletes the list](https://github.com/wekan/wekan/commit/e5949504b7ed42ad59742d2a0aa001fe6c762873).
+  There is currently no way to remove all members or all labels attached
+  to a card. If an empty string is provided, we can consider as a hint to
+  remove the list from the card.
+- [Models: Cards: allow singletons to be assigned to members and labelIds](https://github.com/wekan/wekan/commit/2ce1ba37a1d0a09f8b3d2a1db4c8a11d1f98caa0).
+  If we need to set only one member or one label, the data provided will
+  not give us an array, but the only element as a string.
+  We need to detect that and convert the parameter into an array.
+
+Thanks to GitHub user bentiss for contributions.
+
 # v1.62 2018-20-24 Wekan release
 
 - Fix missing dropdown arrow on Chrome. Thanks to xet7. Closes #1964
