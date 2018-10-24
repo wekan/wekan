@@ -1,3 +1,7 @@
+# v1.62 2018-20-24 Wekan release
+
+- Fix missing dropdown arrow on Chrome. Thanks to xet7. Closes #1964
+
 # v1.61 2018-20-24 Wekan release
 
 - Fix lint error. Thanks to xet7.
