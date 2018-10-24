@@ -1,3 +1,7 @@
+# v1.61 2018-20-24 Wekan release
+
+- Fix lint error. Thanks to xet7.
+
 # v1.60 2018-10-24 Wekan release
 
 - Update translations.
