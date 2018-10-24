@@ -72,7 +72,7 @@ template(name='email')
     li.smtp-form
       .title {{_ 'smtp-password'}}
       .form-group
-        input.form-control#mail-server-password(type="text", placeholder="{{_ 'password'}}" value="")
+        input.form-control#mail-server-password(type="password", placeholder="{{_ 'password'}}" value="{{currentSetting.mailServer.username}}")
     li.smtp-form
       .title {{_ 'smtp-tls'}}
       .form-group
