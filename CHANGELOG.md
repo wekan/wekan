@@ -1,3 +1,16 @@
+# Upcoming Wekan release
+
+This release adds the beginning of following new features:
+
+- Custom Product Name in Admin Panel / Layout. In Progress, setting does not affect change UI yet. Thanks to xet7.
+
+and fixes the following bugs:
+
+- Fix LDAP User Search Scope. Thanks to Vnimos and Akuket. Related #119
+- Fix Save Admin Panel STMP password. Thanks to saurabharch and xet7. Closes #1856
+
+Thanks to above mentioned GitHub users for contributions.
+
 # v1.58 2018-10-23 Wekan release
 
 This release adds the [following new features and fixes](https://github.com/wekan/wekan/pull/1962), with Apache I-CLA:
