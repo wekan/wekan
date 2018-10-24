@@ -611,5 +611,7 @@
     "oauth2": "Oauth2",
     "cas": "CAS",
     "authentication-method": "Metodo di Autenticazione",
-    "authentication-type": "Tipo Autenticazione"
+    "authentication-type": "Tipo Autenticazione",
+    "custom-product-name": "Custom Product Name",
+    "layout": "Layout"
 }
