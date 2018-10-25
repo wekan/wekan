@@ -1,3 +1,11 @@
+# v1.64.2 2018-20-25 Wekan Edge release
+
+This release fixes the following bugs:
+
+- Additional fix to [Impossible to connect to LDAP if UserDN contain space(s)](https://github.com/wekan/wekan/issues/1970).
+
+Thanks to GitHub users Akuket and xet7 for their contributions.
+
 # v1.64.1 2018-20-25 Wekan Edge release
 
 This release fixes the following bugs:
