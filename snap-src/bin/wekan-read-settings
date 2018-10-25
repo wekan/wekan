@@ -15,7 +15,7 @@ do
         export $key=${!default_value}
     else
         echo -e "$key=$value"
-        export $key=$value
+        export $key="$value"
     fi
 done
 
