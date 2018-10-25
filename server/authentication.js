@@ -63,7 +63,6 @@ Meteor.startup(() => {
   };
 
   if (Meteor.isServer) {
-    console.log(process.env.LDAP_AUTHENTIFICATION_USERDN);
     if(process.env.OAUTH2_CLIENT_ID !== '') {
 
       ServiceConfiguration.configurations.upsert( // eslint-disable-line no-undef
