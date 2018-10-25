@@ -1,3 +1,12 @@
+# Upcoming Wekan reelase
+
+This release adds the [following new features](https://github.com/wekan/wekan/pull/1967), with Apache I-CLA:
+
+- UI: list headers: show the card count smaller in grey color below list name
+- UI: lists: only output the number of cards for each swimlane
+
+Thanks to GitHub user bentiss for contributions.
+
 # v1.64.2 2018-20-25 Wekan Edge release
 
 This release fixes the following bugs:
