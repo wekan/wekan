@@ -1,4 +1,4 @@
-# Upcoming Wekan reelase
+# v1.65 2018-20-25 Wekan release
 
 This release adds the [following new features](https://github.com/wekan/wekan/pull/1967), with Apache I-CLA:
 
