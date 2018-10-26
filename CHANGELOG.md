@@ -65,7 +65,7 @@ This release adds the beginning of following new features:
 and fixes the following bugs:
 
 - Fix LDAP User Search Scope. Thanks to Vnimos and Akuket. Related #119
-- Fix Save Admin Panel STMP password. Thanks to saurabharch and xet7. Closes #1856
+- Fix Save Admin Panel SMTP password. Thanks to saurabharch and xet7. Closes #1856
 
 Thanks to above mentioned GitHub users for contributions.
 
