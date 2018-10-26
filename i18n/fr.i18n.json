@@ -612,6 +612,6 @@
     "cas": "CAS",
     "authentication-method": "Méthode d'authentification",
     "authentication-type": "Type d'authentification",
-    "custom-product-name": "Custom Product Name",
-    "layout": "Layout"
+    "custom-product-name": "Nom personnalisé",
+    "layout": "Interface"
 }
