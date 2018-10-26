@@ -1,3 +1,14 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- docker-compose.yml and docker-compose-build.yml, thanks to xet7:
+  - Remove single quotes, because settings are quoted automatically.
+  - Comment out most settings that have default values.
+- Fix typo in CHANGELOG.md, thanks to Hillside502.
+
+Thanks to above mentioned GitHub users for their contributions.
+
 # v1.65 2018-20-25 Wekan release
 
 This release adds the [following new features](https://github.com/wekan/wekan/pull/1967), with Apache I-CLA:
