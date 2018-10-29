@@ -5,7 +5,7 @@ This release fixes the following bugs:
 - docker-compose.yml and docker-compose-build.yml, thanks to xet7:
   - Remove single quotes, because settings are quoted automatically.
   - Comment out most settings that have default values.
-- Fix typo in CHANGELOG.md, thanks to Hillside502.
+- Fix typos in CHANGELOG.md, thanks to Hillside502 and loginKing.
 
 Thanks to above mentioned GitHub users for their contributions.
 
