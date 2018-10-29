@@ -9,7 +9,7 @@ This release fixes the following bugs:
 
 Thanks to above mentioned GitHub users for their contributions.
 
-# v1.65 2018-20-25 Wekan release
+# v1.65 2018-10-25 Wekan release
 
 This release adds the [following new features](https://github.com/wekan/wekan/pull/1967), with Apache I-CLA:
 
@@ -18,7 +18,7 @@ This release adds the [following new features](https://github.com/wekan/wekan/pu
 
 Thanks to GitHub user bentiss for contributions.
 
-# v1.64.2 2018-20-25 Wekan Edge release
+# v1.64.2 2018-10-25 Wekan Edge release
 
 This release fixes the following bugs:
 
@@ -26,7 +26,7 @@ This release fixes the following bugs:
 
 Thanks to GitHub users Akuket and xet7 for their contributions.
 
-# v1.64.1 2018-20-25 Wekan Edge release
+# v1.64.1 2018-10-25 Wekan Edge release
 
 This release fixes the following bugs:
 
@@ -34,7 +34,7 @@ This release fixes the following bugs:
 
 Thanks to GitHub users Akuket and xet7 for their contributions.
 
-# v1.64 2018-20-24 Wekan release
+# v1.64 2018-10-24 Wekan release
 
 - Update translations.
 
