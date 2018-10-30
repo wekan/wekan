@@ -187,7 +187,7 @@ services:
       # example : LDAP_SYNC_USER_DATA=true
       #- LDAP_SYNC_USER_DATA=false
       # LDAP_SYNC_USER_DATA_FIELDMAP :
-      # example : LDAP_SYNC_USER_DATA_FIELDMAP={\"cn\":\"name\", \"mail\":\"email\"}
+      # example : LDAP_SYNC_USER_DATA_FIELDMAP={"cn":"name", "mail":"email"}
       #- LDAP_SYNC_USER_DATA_FIELDMAP=
       # LDAP_SYNC_GROUP_ROLES :
       # example :
