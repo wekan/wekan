@@ -141,7 +141,7 @@ services:
       # example : LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS=true
       #- LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS=false
       # LDAP_ENCRYPTION : If using LDAPS
-      # example : LDAP_ENCRYPTION=true
+      # example : LDAP_ENCRYPTION=ssl
       #- LDAP_ENCRYPTION=false
       # LDAP_CA_CERT : The certification for the LDAPS server. Certificate needs to be included in this docker-compose.yml file.
       # example : LDAP_CA_CERT=-----BEGIN CERTIFICATE-----MIIE+zCCA+OgAwIBAgIkAhwR/6TVLmdRY6hHxvUFWc0+Enmu/Hu6cj+G2FIdAgIC...-----END CERTIFICATE-----
