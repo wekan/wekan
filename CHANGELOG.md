@@ -6,7 +6,7 @@ This release fixes the following bugs:
   - Remove single quotes, because settings are quoted automatically.
   - Comment out most settings that have default values.
 - Fix typos in CHANGELOG.md, thanks to Hillside502 and loginKing.
-- Fix typo about ldaps.
+- [Fix typo about ldaps](https://github.com/wekan/wekan/pull/1980).
   Documentation said to set LDAP_ENCRYPTION to true if we want to use
   ldaps, but the code in wekan-ldap does not check if it is set to true,
   but if the value equals to 'ssl' instead. Thanks to imkwx.
