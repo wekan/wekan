@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- Add Hindi language. Thanks to saurabharch.
+
+Thanks to above mentioned GitHub users for their contributions.
+
 # v1.66 2018-10-31 Wekan release
 
 This release fixes the following bugs:
