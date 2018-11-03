@@ -1,3 +1,7 @@
+# v1.69 2018-11-03 Wekan release
+
+- Update translations.
+
 # v1.68 2018-11-03 Wekan release
 
 - Update translations.
