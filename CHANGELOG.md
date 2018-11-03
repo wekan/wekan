@@ -1,4 +1,8 @@
-# v1.67 2018-11-03 Upcoming Wekan release
+# v1.68 2018-11-03 Wekan release
+
+- Update translations.
+
+# v1.67 2018-11-03 Wekan release
 
 This release adds the following new features to all Wekan platforms:
 
