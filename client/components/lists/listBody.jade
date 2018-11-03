@@ -34,13 +34,14 @@ template(name="addCardForm")
 
   .add-controls.clearfix
     button.primary.confirm(type="submit") {{_ 'add'}}
-    span.quiet
-      | {{_ 'or'}}
-      a.js-link {{_ 'link'}}
-    span.quiet
-      | &nbsp;
-      | /
-      a.js-search {{_ 'search'}}
+    unless isSandstorm
+      span.quiet
+        | {{_ 'or'}}
+        a.js-link {{_ 'link'}}
+      span.quiet
+        | &nbsp;
+        | /
+        a.js-search {{_ 'search'}}
 
 template(name="autocompleteLabelLine")
   .minicard-label(class="card-label-{{colorName}}" title=labelName)
@@ -73,7 +74,8 @@ template(name="linkCardPopup")
       option(value="{{getId}}") {{getTitle}}
 
   .edit-controls.clearfix
-    input.primary.confirm.js-done(type="button" value="{{_ 'link'}}")
+    unless isSandstorm
+      input.primary.confirm.js-done(type="button" value="{{_ 'link'}}")
 
 template(name="searchCardPopup")
   label {{_ 'boards'}}:

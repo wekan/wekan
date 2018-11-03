@@ -19,14 +19,16 @@ template(name="cardDetails")
             a.js-parent-card(href=linkForCard) {{title}}
           // else
             {{_ 'top-level-card'}}
-        if isLinkedCard
-          h3.linked-card-location
-            +viewer
-              | {{getBoardTitle}} > {{getTitle}}
+        unless isSandstorm
+          if isLinkedCard
+            h3.linked-card-location
+              +viewer
+                | {{getBoardTitle}} > {{getTitle}}
 
     if getArchived
       if isLinkedBoard
-        p.warning {{_ 'board-archived'}}
+        unless isSandstorm
+          p.warning {{_ 'board-archived'}}
       else
         p.warning {{_ 'card-archived'}}
 
@@ -190,9 +192,11 @@ template(name="cardDetails")
     unless currentUser.isNoComments
       if isLoaded.get
         if isLinkedCard
-          +activities(card=this mode="linkedcard")
+          unless isSandstorm
+            +activities(card=this mode="linkedcard")
         else if isLinkedBoard
-          +activities(card=this mode="linkedboard")
+          unless isSandstorm
+            +activities(card=this mode="linkedboard")
         else
           +activities(card=this mode="card")
 
