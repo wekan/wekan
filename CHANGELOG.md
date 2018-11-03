@@ -1,8 +1,14 @@
 # Upcoming Wekan release
 
-This release adds the following new features:
+This release adds the following new features to all Wekan platforms:
 
 - Add Hindi language. Thanks to saurabharch.
+
+and hides the following features at Sandstorm:
+
+- Hide Linked Card and Linked Board on Sandstorm, because they are only
+  useful when having multiple boards, and at Sandstorm
+  there is only one board per grain. Thanks to ocdtrekkie and xet7. Closes #1982 
 
 Thanks to above mentioned GitHub users for their contributions.
 
