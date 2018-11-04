@@ -1,0 +1,1 @@
+snapcraft push $1
