@@ -1,3 +1,12 @@
+# v1.69.2 2018-11-05 Wekan Edge release
+
+This release adds the following new features:
+
+- Upgrade Meteor to 1.8.x;
+- Add build scripts.
+
+Thanks to xet7 !
+
 # v1.69 2018-11-03 Wekan release
 
 - Update translations.
