@@ -31,6 +31,12 @@ CustomFields.attachSchema(new SimpleSchema({
   showOnCard: {
     type: Boolean,
   },
+  automaticallyOnCard: {
+    type: Boolean,
+  },
+  showLabelOnMiniCard: {
+    type: Boolean,
+  },
 }));
 
 CustomFields.allow({
@@ -115,6 +121,8 @@ if (Meteor.isServer) {
       type: req.body.type,
       settings: req.body.settings,
       showOnCard: req.body.showOnCard,
+      automaticallyOnCard: req.body.automaticallyOnCard,
+      showLabelOnMiniCard: req.body.showLabelOnMiniCard,
       boardId: paramBoardId,
     });
 

@@ -53,8 +53,9 @@ template(name="minicard")
       each customFieldsWD
         if definition.showOnCard
           .minicard-custom-field
-            .minicard-custom-field-item
-              = definition.name
+            if definition.showLabelOnMiniCard
+              .minicard-custom-field-item
+                = definition.name
             .minicard-custom-field-item
               +viewer
                 = trueValue

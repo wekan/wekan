@@ -59,6 +59,8 @@ BlazeComponent.extendComponent({
         swimlaneId,
         type: 'cardType-card',
       });
+
+
       // In case the filter is active we need to add the newly inserted card in
       // the list of exceptions -- cards that are not filtered. Otherwise the
       // card will disappear instantly.
@@ -152,6 +154,14 @@ BlazeComponent.extendComponent({
     this.labels = new ReactiveVar([]);
     this.members = new ReactiveVar([]);
     this.customFields = new ReactiveVar([]);
+
+    const currentBoardId = Session.get('currentBoard');
+    arr = []
+    _.forEach(Boards.findOne(currentBoardId).customFields().fetch(), function(field){
+      if(field.automaticallyOnCard)
+        arr.push({_id: field._id, value: null,})
+    })
+    this.customFields.set(arr);
   },
 
   reset() {

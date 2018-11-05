@@ -41,6 +41,16 @@ template(name="createCustomFieldPopup")
             .materialCheckBox(class="{{#if showOnCard}}is-checked{{/if}}")
 
             span {{_ 'show-field-on-card'}}
+        a.flex.js-field-automatically-on-card(class="{{#if automaticallyOnCard}}is-checked{{/if}}")
+            .materialCheckBox(class="{{#if automaticallyOnCard}}is-checked{{/if}}")
+
+            span {{_ 'automatically-field-on-card'}}
+
+        a.flex.js-field-showLabel-on-card(class="{{#if showLabelOnMiniCard}}is-checked{{/if}}")
+            .materialCheckBox(class="{{#if showLabelOnMiniCard}}is-checked{{/if}}")
+
+            span {{_ 'showLabel-field-on-card'}}
+
         button.primary.wide.left(type="button")
             | {{_ 'save'}}
         if _id
