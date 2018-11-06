@@ -235,5 +235,28 @@ if (Meteor.isServer) {
         cas: isCasEnabled(),
       };
     },
+    logoutWithTimer(userId) {
+      if (process.env.LOGOUT_WITH_TIMER) {
+        Jobs.run('logOut', userId, {
+          in: {
+            days: process.env.LOGOUT_IN,
+          },
+          on: {
+            hour: process.env.LOGOUT_ON_HOURS,
+            minute: process.env.LOGOUT_ON_MINUTES,
+          },
+          priority: 1,
+        });
+      }
+    },
+  });
+
+  Jobs.register({
+    logOut(userId) {
+      Meteor.users.update(
+        {_id: userId},
+        {$set: {'services.resume.loginTokens': []}}
+      );
+    },
   });
 }

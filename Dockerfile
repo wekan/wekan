@@ -64,6 +64,10 @@ ARG LDAP_SYNC_USER_DATA
 ARG LDAP_SYNC_USER_DATA_FIELDMAP
 ARG LDAP_SYNC_GROUP_ROLES
 ARG LDAP_DEFAULT_DOMAIN
+ARG LOGOUT_WITH_TIMER
+ARG LOGOUT_IN
+ARG LOGOUT_ON_HOURS
+ARG LOGOUT_ON_MINUTES
 
 # Set the environment variables (defaults where required)
 # DOES NOT WORK: paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
@@ -130,7 +134,11 @@ ENV BUILD_DEPS="apt-utils bsdtar gnupg gosu wget curl bzip2 build-essential pyth
     LDAP_SYNC_USER_DATA=false \
     LDAP_SYNC_USER_DATA_FIELDMAP="" \
     LDAP_SYNC_GROUP_ROLES="" \
-    LDAP_DEFAULT_DOMAIN=""
+    LDAP_DEFAULT_DOMAIN="" \
+    LOGOUT_WITH_TIMER="false" \
+    LOGOUT_IN="" \
+    LOGOUT_ON_HOURS="" \
+    LOGOUT_ON_MINUTES=""
 
 # Copy the app to the image
 COPY ${SRC_PATH} /home/wekan/app
@@ -159,7 +167,7 @@ RUN \
     # Also see beginning of wekan/server/authentication.js
     #   import Fiber from "fibers";
     #   Fiber.poolSize = 1e9;
-    # OLD: Download node version 8.12.0 prerelease that has fix included, => Official 8.12.0 has been released 
+    # OLD: Download node version 8.12.0 prerelease that has fix included, => Official 8.12.0 has been released
     # Description at https://releases.wekan.team/node.txt
     #wget https://releases.wekan.team/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
     #echo "1ed54adb8497ad8967075a0b5d03dd5d0a502be43d4a4d84e5af489c613d7795  node-v8.12.0-linux-x64.tar.gz" >> SHASUMS256.txt.asc && \

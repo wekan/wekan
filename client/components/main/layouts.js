@@ -80,6 +80,7 @@ Template.userFormsLayout.events({
         const user = Users.findOne();
 
         if (user && user.authenticationMethod === 'password') {
+          logoutWithTimer(user._id);
           return this.stop();
         }
 
@@ -93,6 +94,7 @@ Template.userFormsLayout.events({
           // Use the ldap connection package
           Meteor.loginWithLDAP(email, password, function(error) {
             if (!error) {
+              logoutWithTimer(user._id);
               // Connection
               return FlowRouter.go('/');
             }
