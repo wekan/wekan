@@ -156,11 +156,11 @@ BlazeComponent.extendComponent({
     this.customFields = new ReactiveVar([]);
 
     const currentBoardId = Session.get('currentBoard');
-    arr = []
+    arr = [];
     _.forEach(Boards.findOne(currentBoardId).customFields().fetch(), function(field){
       if(field.automaticallyOnCard)
-        arr.push({_id: field._id, value: null,})
-    })
+        arr.push({_id: field._id, value: null});
+    });
     this.customFields.set(arr);
   },
 
