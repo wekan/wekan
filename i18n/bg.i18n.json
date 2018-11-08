@@ -484,6 +484,8 @@
     "minutes": "минути",
     "seconds": "секунди",
     "show-field-on-card": "Покажи това поле в картата",
+    "automatically-field-on-card": "Auto create field to all cards",
+    "showLabel-field-on-card": "Show field label on minicard",
     "yes": "Да",
     "no": "Не",
     "accounts": "Профили",

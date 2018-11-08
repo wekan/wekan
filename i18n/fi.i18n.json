@@ -484,6 +484,8 @@
     "minutes": "minuuttia",
     "seconds": "sekuntia",
     "show-field-on-card": "Näytä tämä kenttä kortilla",
+    "automatically-field-on-card": "Luo kenttä automaattisesti kaikille korteille",
+    "showLabel-field-on-card": "Näytä kentän tunniste minikortilla",
     "yes": "Kyllä",
     "no": "Ei",
     "accounts": "Tilit",

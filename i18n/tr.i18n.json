@@ -484,6 +484,8 @@
     "minutes": "dakika",
     "seconds": "saniye",
     "show-field-on-card": "Bu alanı kartta göster",
+    "automatically-field-on-card": "Auto create field to all cards",
+    "showLabel-field-on-card": "Show field label on minicard",
     "yes": "Evet",
     "no": "Hayır",
     "accounts": "Hesaplar",

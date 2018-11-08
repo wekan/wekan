@@ -484,6 +484,8 @@
     "minutes": "minuten",
     "seconds": "seconden",
     "show-field-on-card": "Show this field on card",
+    "automatically-field-on-card": "Auto create field to all cards",
+    "showLabel-field-on-card": "Show field label on minicard",
     "yes": "Ja",
     "no": "Nee",
     "accounts": "Accounts",

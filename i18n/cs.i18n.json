@@ -484,6 +484,8 @@
     "minutes": "minut",
     "seconds": "sekund",
     "show-field-on-card": "Ukázat toto pole na kartě",
+    "automatically-field-on-card": "Auto create field to all cards",
+    "showLabel-field-on-card": "Show field label on minicard",
     "yes": "Ano",
     "no": "Ne",
     "accounts": "Účty",

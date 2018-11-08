@@ -484,6 +484,8 @@
     "minutes": "minut",
     "seconds": "sekund",
     "show-field-on-card": "Pokaż te pole na karcie",
+    "automatically-field-on-card": "Auto create field to all cards",
+    "showLabel-field-on-card": "Show field label on minicard",
     "yes": "Tak",
     "no": "Nie",
     "accounts": "Konto",
