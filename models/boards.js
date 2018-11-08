@@ -127,9 +127,11 @@ Boards.attachSchema(new SimpleSchema({
   },
   'members.$.isNoComments': {
     type: Boolean,
+    optional: true,
   },
   'members.$.isCommentOnly': {
     type: Boolean,
+    optional: true,
   },
   permission: {
     type: String,
