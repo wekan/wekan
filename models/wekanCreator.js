@@ -40,6 +40,8 @@ export class WekanCreator {
     this.checklistItems = {};
     // The comments, indexed by Wekan card id (to map when importing cards)
     this.comments = {};
+    // Map of rules Wekan ID => Wekan ID
+    this.rules = {};
     // the members, indexed by Wekan member id => Wekan user ID
     this.members = data.membersMapping ? data.membersMapping : {};
     // Map of triggers Wekan ID => Wekan ID
@@ -748,24 +750,25 @@ export class WekanCreator {
   }
 
   check(board) {
-    try {
-      // check(data, {
-      //   membersMapping: Match.Optional(Object),
-      // });
-      this.checkActivities(board.activities);
-      this.checkBoard(board);
-      this.checkLabels(board.labels);
-      this.checkLists(board.lists);
-      this.checkSwimlanes(board.swimlanes);
-      this.checkCards(board.cards);
-      this.checkChecklists(board.checklists);
-      this.checkRules(board.rules);
-      this.checkActions(board.actions);
-      this.checkTriggers(board.triggers);
-      this.checkChecklistItems(board.checklistItems);
-    } catch (e) {
-      throw new Meteor.Error('error-json-schema');
-    }
+    //try {
+    // check(data, {
+    //   membersMapping: Match.Optional(Object),
+    // });
+
+    // this.checkActivities(board.activities);
+    // this.checkBoard(board);
+    // this.checkLabels(board.labels);
+    // this.checkLists(board.lists);
+    // this.checkSwimlanes(board.swimlanes);
+    // this.checkCards(board.cards);
+    //this.checkChecklists(board.checklists);
+    // this.checkRules(board.rules);
+    // this.checkActions(board.actions);
+    //this.checkTriggers(board.triggers);
+    //this.checkChecklistItems(board.checklistItems);
+    //} catch (e) {
+    //  throw new Meteor.Error('error-json-schema');
+    // }
   }
 
   create(board, currentBoardId) {

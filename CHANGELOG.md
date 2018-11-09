@@ -1,11 +1,20 @@
-# v1.69.2 2018-11-05 Wekan Edge release
+# v1.70 2018-11-09 Wekan release
 
 This release adds the following new features:
 
-- Upgrade Meteor to 1.8.x;
-- Add build scripts.
+- [Auto create Custom Field to all cards. Show Custom Field Label on
+   minicard](https://github.com/wekan/wekan/pull/1987).
 
-Thanks to xet7 !
+and fixes the following bugs:
+
+- Some fixes to Wekan import, thanks to xet7:
+  - isCommentOnly and isNoComments are now optional
+  - Turn off import error checking, so something is imported anyway, and import does not stop at error.
+  - Now most of Sandstorm export do import to Standalone Wekan, but some of imported cards, dates etc are missing.
+  - Sandstorm Import Wekan board warning messages are now translateable. But bug "Board not found" still exists.
+- LDAP: Added INTERNAL_LOG_LEVEL. Fix lint and ldap group filter options. Thanks to Akuket.
+
+Thanks to above mentioned GitHub users for their contributions.
 
 # v1.69 2018-11-03 Wekan release
 
