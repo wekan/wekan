@@ -3,10 +3,10 @@ import { WekanCreator } from './wekanCreator';
 
 Meteor.methods({
   importBoard(board, data, importSource, currentBoard) {
-    check(board, Object);
-    check(data, Object);
-    check(importSource, String);
-    check(currentBoard, Match.Maybe(String));
+    //check(board, Object);
+    //check(data, Object);
+    //check(importSource, String);
+    //check(currentBoard, Match.Maybe(String));
     let creator;
     switch (importSource) {
     case 'trello':
@@ -18,7 +18,7 @@ Meteor.methods({
     }
 
     // 1. check all parameters are ok from a syntax point of view
-    creator.check(board);
+    //creator.check(board);
 
     // 2. check parameters are ok from a business point of view (exist &
     // authorized) nothing to check, everyone can import boards in their account
