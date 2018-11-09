@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v1.70 2018-11-09 Wekan release
 
 This release adds the following new features:
 
@@ -11,7 +11,7 @@ and fixes the following bugs:
   - isCommentOnly and isNoComments are now optional
   - Turn off import error checking, so something is imported anyway, and import does not stop at error.
   - Now most of Sandstorm export do import to Standalone Wekan, but some of imported cards, dates etc are missing.
-  - Sandstorm Import Wekan board warning messages are now translateable.
+  - Sandstorm Import Wekan board warning messages are now translateable. But bug "Board not found" still exists.
 - LDAP: Added INTERNAL_LOG_LEVEL. Fix lint and ldap group filter options. Thanks to Akuket.
 
 Thanks to above mentioned GitHub users for their contributions.
