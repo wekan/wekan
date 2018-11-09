@@ -278,10 +278,6 @@ Boards.helpers({
     return Users.find({ _id: { $in: _.pluck(this.members, 'userId') } });
   },
 
-  getMember(id) {
-    return _.findWhere(this.members, { userId: id });
-  },
-
   getLabel(name, color) {
     return _.findWhere(this.labels, { name, color });
   },
@@ -842,34 +838,6 @@ if (Meteor.isServer) {
     catch (error) {
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: error,
-      });
-    }
-  });
-
-  JsonRoutes.add('PUT', '/api/boards/:boardId/members', function (req, res) {
-    Authentication.checkUserId(req.userId);
-    try {
-      const boardId = req.params.boardId;
-      const board = Boards.findOne({ _id: boardId });
-      const userId = req.body.userId;
-      const user = Users.findOne({ _id: userId });
-
-      if (!board.getMember(userId)) {
-        user.addInvite(boardId);
-        board.addMember(userId);
-        JsonRoutes.sendResult(res, {
-          code: 200,
-          data: id,
-        });
-      } else {
-        JsonRoutes.sendResult(res, {
-          code: 200,
-        });
-      }
-    }
-    catch (error) {
-      JsonRoutes.sendResult(res, {
         data: error,
       });
     }
