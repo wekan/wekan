@@ -76,6 +76,7 @@ if (Meteor.isServer) {
       }, createdAt: now, modifiedAt: now};
       Settings.insert(defaultSetting);
     }
+
     const newSetting = Settings.findOne();
     if (!process.env.MAIL_URL && newSetting.mailUrl())
       process.env.MAIL_URL = newSetting.mailUrl();
@@ -235,6 +236,12 @@ if (Meteor.isServer) {
         cas: isCasEnabled(),
       };
     },
+
+    getDefaultAuthenticationMethod() {
+      return process.env.DEFAULT_AUTHENTICATION_METHOD;
+    },
+
+    // TODO: patch error : did not check all arguments during call
     logoutWithTimer(userId) {
       if (process.env.LOGOUT_WITH_TIMER) {
         Jobs.run('logOut', userId, {
@@ -257,6 +264,7 @@ if (Meteor.isServer) {
         {_id: userId},
         {$set: {'services.resume.loginTokens': []}}
       );
+      this.success();
     },
   });
 }
