@@ -26,7 +26,7 @@ It's better than at chat where details get lost when chat scrolls up.
 Use webbrowser to register, and after that you can also alternatively use mobile app Rocket.Chat by Rocket.Chat with
 address https://chat.vanila.io and same username and password.
 
-[Wekan IRC](https://github.com/wekan/wekan/wiki/IRC-FAQ)
+[Wekan IRC FAQ](https://github.com/wekan/wekan/wiki/IRC-FAQ)
 
 ## FAQ
 
