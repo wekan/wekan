@@ -26,8 +26,7 @@ It's better than at chat where details get lost when chat scrolls up.
 Use webbrowser to register, and after that you can also alternatively use mobile app Rocket.Chat by Rocket.Chat with
 address https://chat.vanila.io and same username and password.
 
-[IRC FAQ - ANSWERS TO IRC QUESTIONS, READ BEFORE ASKING ANYTHING AT IRC](https://github.com/wekan/wekan/wiki/IRC-FAQ)
-[![IRC #wekan](https://img.shields.io/badge/IRC%20%23wekan-on%20Freenode-brightgreen.svg "Freenode IRC")](http://webchat.freenode.net?channels=%23wekan&uio=d4)
+[Wekan IRC](https://github.com/wekan/wekan/wiki/IRC-FAQ)
 
 ## FAQ
 
