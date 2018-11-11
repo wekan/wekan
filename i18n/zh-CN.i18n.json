@@ -616,6 +616,6 @@
     "cas": "CAS",
     "authentication-method": "认证方式",
     "authentication-type": "认证类型",
-    "custom-product-name": "Custom Product Name",
-    "layout": "Layout"
+    "custom-product-name": "自定义产品名称",
+    "layout": "布局"
 }
