@@ -10,6 +10,55 @@ function pause(){
 	read -p "$*"
 }
 
+function cprec(){
+	if [[ -d "$1" ]]; then
+		if [[ ! -d "$2" ]]; then
+			sudo mkdir -p "$2"
+		fi
+
+		for i in $(ls -A "$1"); do
+			cprec "$1/$i" "$2/$i"
+		done
+	else
+		sudo cp "$1" "$2"
+	fi
+}
+
+# sudo npm doesn't work right, so this is a workaround
+function npm_call(){
+	TMPDIR="/tmp/tmp_npm_prefix"
+	if [[ -d "$TMPDIR" ]]; then
+		rm -rf $TMPDIR
+	fi
+	mkdir $TMPDIR
+	NPM_PREFIX="$(npm config get prefix)"
+	npm config set prefix $TMPDIR
+	npm "$@"
+	npm config set prefix "$NPM_PREFIX"
+
+	echo "Moving files to $NPM_PREFIX"
+	for i in $(ls -A $TMPDIR); do
+		cprec "$TMPDIR/$i" "$NPM_PREFIX/$i"
+	done
+	rm -rf $TMPDIR
+}
+
+function wekan_repo_check(){
+	git_remotes="$(git remote show 2>/dev/null)"
+	res=""
+	for i in $git_remotes; do
+		res="$(git remote get-url $i | sed 's/.*wekan\/wekan.*/wekan\/wekan/')"
+		if [[ "$res" == "wekan/wekan" ]]; then
+		    break
+		fi
+	done
+
+	if [[ "$res" != "wekan/wekan" ]]; then
+		echo "$PWD is not a wekan repository"
+		exit;
+	fi
+}
+
 echo
 PS3='Please enter your choice: '
 options=("Install Wekan dependencies" "Build Wekan" "Quit")
@@ -24,7 +73,7 @@ do
 			if [ "$(grep -Ei 'buntu|mint' /etc/*release)" ]; then
 				sudo apt install -y build-essential git curl wget
 #				sudo apt -y install nodejs npm
-#				sudo npm -g install n
+#				npm_call -g install n
 #				sudo n 8.12.0
 			fi
 
@@ -70,10 +119,10 @@ do
 		fi
 
 	        ## Latest npm with Meteor 1.6
-	        sudo npm -g install npm
-	        sudo npm -g install node-gyp
+	        npm_call -g install npm
+	        npm_call -g install node-gyp
 	        # Latest fibers for Meteor 1.6
-	        sudo npm -g install fibers@2.0.0
+	        npm_call -g install fibers@2.0.0
 	        # Install Meteor, if it's not yet installed
 	        curl https://install.meteor.com | bash
 #	        mkdir ~/repos
