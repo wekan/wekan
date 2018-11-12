@@ -134,10 +134,10 @@ do
 		;;
         "Build Wekan")
 		echo "Building Wekan."
-		cd ~/repos/wekan
+		wekan_repo_check
 		rm -rf packages
-		mkdir -p ~/repos/wekan/packages
-		cd ~/repos/wekan/packages
+		mkdir packages
+		cd packages
 		git clone --depth 1 -b master https://github.com/wekan/flow-router.git kadira-flow-router
 		git clone --depth 1 -b master https://github.com/meteor-useraccounts/core.git meteor-useraccounts-core
 		git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-cas.git
@@ -150,7 +150,7 @@ do
 			sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' ~/repos/wekan/packages/meteor-useraccounts-core/package.js
 		fi
 
-		cd ~/repos/wekan
+		cd ..
 		rm -rf node_modules
 		meteor npm install
 		rm -rf .build
@@ -162,11 +162,11 @@ do
 		#cd ~/repos/wekan/.build/bundle/programs/server/npm/node_modules/meteor/npm-bcrypt
 		#rm -rf node_modules/bcrypt
 		#meteor npm install bcrypt
-		cd ~/repos/wekan/.build/bundle/programs/server
+		cd .build/bundle/programs/server
 		rm -rf node_modules
 		meteor npm install
 		#meteor npm install bcrypt
-		cd ~/repos
+		cd ../../../..
 		echo Done.
 		break
 		;;
