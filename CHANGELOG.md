@@ -2,6 +2,7 @@
 
 This release adds the following new features:
 
+- Add language: Danish.
 - Add language: Swahili / Kiswahili.
 
 Thanks to translators.
