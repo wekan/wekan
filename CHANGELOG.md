@@ -4,7 +4,7 @@ This release adds the following new features:
 
 - Add languages, thanks to translators:
   - Danish
-  - Swahili / Kiswahili;
+  - Swahili / Kiswahili
 - Rename Recycle Bin to Archive. Thanks to xet7.
 - Update readme for clarity. Thanks to xet7.
 
