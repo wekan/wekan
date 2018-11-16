@@ -4,8 +4,9 @@ This release adds the following new features:
 
 - Add language: Danish.
 - Add language: Swahili / Kiswahili.
+- Rename Recycle Bin to Archive.
 
-Thanks to translators.
+Thanks to GitHub user xet7 and translators.
 
 # v1.70 2018-11-09 Wekan release
 
