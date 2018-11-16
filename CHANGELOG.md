@@ -12,6 +12,7 @@ This release adds the following new features and bugfixes:
   - Adding an option to choose the default authentication method with env var.
   - Bug fix that allowed a user to connect with the password method while his user.authenticationMethod is "ldap" for example.
   - Adding a server-side method which allows disconnecting a user after a delay defined by env vars.
+- [Improve shell scripts](https://github.com/wekan/wekan/pull/2002). Thanks to warnerjon12.
 
 Thanks to above GitHub users and translators for their contributions.
 
