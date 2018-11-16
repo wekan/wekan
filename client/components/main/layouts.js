@@ -87,7 +87,7 @@ Template.userFormsLayout.events({
     event.stopImmediatePropagation();
 
     Meteor.subscribe('user-authenticationMethod', email, {
-      onReady() { 
+      onReady() {
         return authentication.call(this, instance, email, password);
       },
     });
@@ -112,7 +112,7 @@ function authentication(instance, email, password) {
   // If user doesn't exist, uses the default authentication method if it defined
   if (user === undefined) {
     user = {
-      "authenticationMethod": instance.data.defaultAuthenticationMethod.get()
+      'authenticationMethod': instance.data.defaultAuthenticationMethod.get(),
     };
   }
 
