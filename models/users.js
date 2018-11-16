@@ -520,10 +520,10 @@ if (Meteor.isServer) {
     }
 
     const disableRegistration = Settings.findOne().disableRegistration;
-    // If ldap, bypass the inviation code if the self registration isn't allowed.
-    // TODO : pay attention if ldap field in the user model change to another content ex : ldap field to connection_type
-    if (options.ldap || !disableRegistration) {
-      user.authenticationMethod = 'ldap';
+    if (!disableRegistration) {
+      if (options.ldap) {
+        user.authenticationMethod = 'ldap';
+      }
       return user;
     }
 
