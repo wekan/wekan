@@ -1,12 +1,17 @@
 # Upcoming Wekan release
 
-This release adds the following new features:
+This release adds the following new features and bugfixes:
 
 - Add languages, thanks to translators:
   - Danish
   - Swahili / Kiswahili
 - Rename Recycle Bin to Archive. Thanks to xet7.
 - Update readme for clarity. Thanks to xet7.
+- [Improve authentication](https://github.com/wekan/wekan/pull/2003), thanks to Akuket:
+  - Removing the select box: Now it just checks the user.authenticationMethod value to choose the authentication method.
+  - Adding an option to choose the default authentication method with env var.
+  - Bug fix that allowed a user to connect with the password method while his user.authenticationMethod is "ldap" for example.
+  - Adding a server-side method which allows disconnecting a user after a delay defined by env vars.
 
 Thanks to above GitHub users and translators for their contributions.
 
