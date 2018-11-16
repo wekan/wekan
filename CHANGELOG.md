@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- Add language: Swahili / Kiswahili.
+
+Thanks to translators.
+
 # v1.70 2018-11-09 Wekan release
 
 This release adds the following new features:

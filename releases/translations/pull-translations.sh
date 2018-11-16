@@ -111,6 +111,9 @@ tx pull -f -l ru
 echo "Serbian:"
 tx pull -f -l sr
 
+echo "Swahili:"
+tx pull -f -l sw
+
 echo "Swedish:"
 tx pull -f -l sv
 
