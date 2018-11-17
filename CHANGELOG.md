@@ -1,3 +1,7 @@
+# v1.72 2018-11-17 Wekan release
+
+- Update translations (fi).
+
 # v1.71 2018-11-17 Wekan release
 
 This release adds the following new features and bugfixes:
