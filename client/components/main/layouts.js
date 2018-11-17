@@ -6,13 +6,23 @@ const i18nTagToT9n = (i18nTag) => {
   return i18nTag;
 };
 
-Template.userFormsLayout.onCreated(function() {
-  Meteor.call('getDefaultAuthenticationMethod', (error, result) => {
-    this.data.defaultAuthenticationMethod = new ReactiveVar(error ? undefined : result);
-  });
-});
+const validator = {
+  set(obj, prop, value) {
+    if (prop === 'state' && value !== 'signIn') {
+      $('.at-form-authentication').hide();
+    } else if (prop === 'state' && value === 'signIn') {
+      $('.at-form-authentication').show();
+    }
+    // The default behavior to store the value
+    obj[prop] = value;
+    // Indicate success
+    return true;
+  },
+};
 
 Template.userFormsLayout.onRendered(() => {
+  AccountsTemplates.state.form.keys = new Proxy(AccountsTemplates.state.form.keys, validator);
+
   const i18nTag = navigator.language;
   if (i18nTag) {
     T9n.setLanguage(i18nTagToT9n(i18nTag));
@@ -71,14 +81,13 @@ Template.userFormsLayout.events({
       }
     });
   },
-  'click #at-btn'(event, instance) {
+  'click #at-btn'(event) {
     /* All authentication method can be managed/called here.
        !! DON'T FORGET to correctly fill the fields of the user during its creation if necessary authenticationMethod : String !!
     */
-    const email = $('#at-field-username_and_email').val();
-    const password = $('#at-field-password').val();
-
-    if (FlowRouter.getRouteName() !== 'atSignIn' || password === '') {
+    const authenticationMethodSelected = $('.select-authentication').val();
+    // Local account
+    if (authenticationMethodSelected === 'password') {
       return;
     }
 
@@ -86,11 +95,29 @@ Template.userFormsLayout.events({
     event.preventDefault();
     event.stopImmediatePropagation();
 
-    Meteor.subscribe('user-authenticationMethod', email, {
-      onReady() {
-        return authentication.call(this, instance, email, password);
-      },
-    });
+    const email = $('#at-field-username_and_email').val();
+    const password = $('#at-field-password').val();
+
+    // Ldap account
+    if (authenticationMethodSelected === 'ldap') {
+      // Check if the user can use the ldap connection
+      Meteor.subscribe('user-authenticationMethod', email, {
+        onReady() {
+          const user = Users.findOne();
+          if (user === undefined || user.authenticationMethod === 'ldap') {
+            // Use the ldap connection package
+            Meteor.loginWithLDAP(email, password, function(error) {
+              if (!error) {
+                // Connection
+                return FlowRouter.go('/');
+              }
+              return error;
+            });
+          }
+          return this.stop();
+        },
+      });
+    }
   },
 });
 
@@ -99,33 +126,3 @@ Template.defaultLayout.events({
     Modal.close();
   },
 });
-
-function authentication(instance, email, password) {
-  let user = Users.findOne();
-  // Authentication with password
-  if (user && user.authenticationMethod === 'password') {
-    $('#at-pwd-form').submit();
-    // Meteor.call('logoutWithTimer', user._id, () => {});
-    return this.stop();
-  }
-
-  // If user doesn't exist, uses the default authentication method if it defined
-  if (user === undefined) {
-    user = {
-      'authenticationMethod': instance.data.defaultAuthenticationMethod.get(),
-    };
-  }
-
-  // Authentication with LDAP
-  if (user.authenticationMethod === 'ldap') {
-    // Use the ldap connection package
-    Meteor.loginWithLDAP(email, password, function(error) {
-      if (!error) {
-        // Meteor.call('logoutWithTimer', Users.findOne()._id, () => {});
-        return FlowRouter.go('/');
-      }
-      return error;
-    });
-  }
-  return this.stop();
-}

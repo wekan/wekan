@@ -76,7 +76,6 @@ if (Meteor.isServer) {
       }, createdAt: now, modifiedAt: now};
       Settings.insert(defaultSetting);
     }
-
     const newSetting = Settings.findOne();
     if (!process.env.MAIL_URL && newSetting.mailUrl())
       process.env.MAIL_URL = newSetting.mailUrl();
@@ -235,36 +234,6 @@ if (Meteor.isServer) {
         oauth2: isOauth2Enabled(),
         cas: isCasEnabled(),
       };
-    },
-
-    getDefaultAuthenticationMethod() {
-      return process.env.DEFAULT_AUTHENTICATION_METHOD;
-    },
-
-    // TODO: patch error : did not check all arguments during call
-    logoutWithTimer(userId) {
-      if (process.env.LOGOUT_WITH_TIMER) {
-        Jobs.run('logOut', userId, {
-          in: {
-            days: process.env.LOGOUT_IN,
-          },
-          on: {
-            hour: process.env.LOGOUT_ON_HOURS,
-            minute: process.env.LOGOUT_ON_MINUTES,
-          },
-          priority: 1,
-        });
-      }
-    },
-  });
-
-  Jobs.register({
-    logOut(userId) {
-      Meteor.users.update(
-        {_id: userId},
-        {$set: {'services.resume.loginTokens': []}}
-      );
-      this.success();
     },
   });
 }
