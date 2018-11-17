@@ -1,6 +1,6 @@
 {
   "name": "wekan",
-  "version": "v1.73.0",
+  "version": "v1.74.0",
   "description": "Open-Source kanban",
   "private": true,
   "scripts": {

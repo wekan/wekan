@@ -1,3 +1,7 @@
+# v1.74 2018-11-17 Wekan release
+
+- Update version number to get this released to snap. Thanks to xet7.
+
 # v1.73 2018-11-17 Wekan release
 
 This release fixes the following bugs:
