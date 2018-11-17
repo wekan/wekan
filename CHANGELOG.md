@@ -1,3 +1,11 @@
+# v1.73 2018-11-17 Wekan release
+
+This release fixes the following bugs:
+
+- Revert Improve authentication to [fix Login failure](https://github.com/wekan/wekan/issues/2004).
+
+Thanks to GitHub users Broxxx3 and xet7 for their contributions.
+
 # v1.72 2018-11-17 Wekan release
 
 - Update translations (fi).
