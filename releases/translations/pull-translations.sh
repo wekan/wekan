@@ -15,6 +15,9 @@ tx pull -f -l ca
 echo "Czech:"
 tx pull -f -l cs
 
+echo "Danish:"
+tx pull -f -l da
+
 echo "Georgian:"
 tx pull -f -l ka
 
@@ -110,6 +113,9 @@ tx pull -f -l ru
 
 echo "Serbian:"
 tx pull -f -l sr
+
+echo "Swahili:"
+tx pull -f -l sw
 
 echo "Swedish:"
 tx pull -f -l sv

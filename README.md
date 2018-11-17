@@ -1,20 +1,4 @@
-# Wekan
-
-## Stable
-
-- master+devel branch. At release, devel is merged to master.
-- Receives fixes and features that have been tested at edge that they work.
-- If you want automatic updates, [use Snap](https://github.com/wekan/wekan-snap/wiki/Install).
-- If you want to test before update, [use Docker quay.io release tags](https://github.com/wekan/wekan/wiki/Docker).
-
-## Edge
-
-- edge branch. All new fixes and features are added to here first. [Testing Edge](https://github.com/wekan/wekan-snap/wiki/Snap-Developer-Docs).
-
-[![Translate Wekan at Transifex](https://img.shields.io/badge/Translate%20Wekan-at%20Transifex-brightgreen.svg "Freenode IRC")](https://transifex.com/wekan/wekan)
-
-[![Wekan Vanila Chat][vanila_badge]][vanila_chat] 
-[![IRC #wekan](https://img.shields.io/badge/IRC%20%23wekan-on%20Freenode-brightgreen.svg "Freenode IRC")](http://webchat.freenode.net?channels=%23wekan&uio=d4)
+# Wekan - Open Source kanban
 
 [![Contributors](https://img.shields.io/github/contributors/wekan/wekan.svg "Contributors")](https://github.com/wekan/wekan/graphs/contributors)
 [![Docker Repository on Quay](https://quay.io/repository/wekan/wekan/status "Docker Repository on Quay")](https://quay.io/repository/wekan/wekan)
@@ -26,9 +10,31 @@
 [![Project Dependencies](https://david-dm.org/wekan/wekan.svg "Project Dependencies")](https://david-dm.org/wekan/wekan)
 [![Code analysis at Open Hub](https://img.shields.io/badge/code%20analysis-at%20Open%20Hub-brightgreen.svg "Code analysis at Open Hub")](https://www.openhub.net/p/wekan)
 
+## [Translate Wekan at Transifex](https://transifex.com/wekan/wekan)
+
+Translations to non-English languages are accepted only at [Transifex](https://transifex.com/wekan/wekan) using webbrowser.
+New English strings of new features can be added as PRs to edge branch file wekan/i18n/en.i18n.json .
+
+## [Wekan feature requests and bugs](https://github.com/wekan/wekan/issues)
+
+Please add most of your questions as GitHub issue: [Wekan feature requests and bugs](https://github.com/wekan/wekan/issues).
+It's better than at chat where details get lost when chat scrolls up.
+
+## Chat
+
+[![Wekan Vanila Chat][vanila_badge]][vanila_chat] - Most Wekan community and developers are here at #wekan chat channel.
+Use webbrowser to register, and after that you can also alternatively use mobile app Rocket.Chat by Rocket.Chat with
+address https://chat.vanila.io and same username and password.
+
+[Wekan IRC FAQ](https://github.com/wekan/wekan/wiki/IRC-FAQ)
+
+## FAQ
+
 **NOTE**: 
 - Please read the [FAQ](https://github.com/wekan/wekan/wiki/FAQ) first
 - Please don't feed the trolls and spammers that are mentioned in the FAQ :)
+
+## About Wekan
 
 Wekan is an completely [Open Source][open_source] and [Free software][free_software]
 collaborative kanban board application with MIT license.
@@ -42,7 +48,7 @@ that by providing one-click installation on various platforms.
 - [Features][features]: Wekan has real-time user interface. Not all features are implemented, yet.
 - [Platforms][platforms]: Wekan supports many platforms and plan is to add more. This will be the first place to look if you want to **install** it, test out and learn more in depth.
 - [Integrations][integrations]: Current possible integrations and future plans.
-- [Team](https://github.com/wekan/wekan/wiki/Team): The people who spends their time and make wekan into what it is right now.
+- [Team](https://github.com/wekan/wekan/wiki/Team): The people who spends their time and make Wekan into what it is right now.
 
 ## Roadmap
 
@@ -70,6 +76,17 @@ If you want to know what is going on exactly this moment, you can check out the 
 [More screenshots at Features page](https://github.com/wekan/wekan/wiki/Features)
 
 [![Screenshot of Wekan][screenshot_wefork]][roadmap_wefork]
+
+## Stable
+
+- master+devel branch. At release, devel is merged to master.
+- Receives fixes and features that have been tested at edge that they work.
+- If you want automatic updates, [use Snap](https://github.com/wekan/wekan-snap/wiki/Install).
+- If you want to test before update, [use Docker quay.io release tags](https://github.com/wekan/wekan/wiki/Docker).
+
+## Edge
+
+- edge branch. All new fixes and features are added to here first. [Testing Edge](https://github.com/wekan/wekan-snap/wiki/Snap-Developer-Docs).
 
 ## License
 
