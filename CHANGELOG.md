@@ -1,3 +1,11 @@
+# v1.74.1 2018-11-18 Wekan Edge release
+
+This release adds the following new features:
+
+- [Full Name from LDAP server via environment variable](https://github.com/wekan/wekan-ldap/pull/18).
+
+Thanks to GitHub user alkemyst for contributions.
+
 # v1.74 2018-11-17 Wekan release
 
 - Update version number to get this released to snap. Thanks to xet7.
