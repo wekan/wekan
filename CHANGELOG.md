@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix Snap database-list-backups command](https://github.com/wekan/wekan-snap/issues/26). Thanks to WaryWolf.
+
+Thanks to above GitHub users for their contributions.
+
 # v1.74.1 2018-11-18 Wekan Edge release
 
 This release adds the following new features:
