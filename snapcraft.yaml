@@ -57,7 +57,7 @@ apps:
         plugs: [network, network-bind]
 
     database-list-backups:
-        command: ls -ald $SNAP_COMMON/db-backups/*
+        command: ls -al $SNAP_COMMON/db-backups/
 
     database-restore:
         command: mongodb-restore
