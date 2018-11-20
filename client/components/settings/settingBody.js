@@ -59,6 +59,9 @@ BlazeComponent.extendComponent({
   toggleTLS() {
     $('#mail-server-tls').toggleClass('is-checked');
   },
+  toggleHideLogo() {
+    $('#hide-logo').toggleClass('is-checked');
+  },
   switchMenu(event) {
     const target = $(event.target);
     if (!target.hasClass('active')) {
@@ -135,11 +138,15 @@ BlazeComponent.extendComponent({
     this.setLoading(true);
     $('li').removeClass('has-error');
 
+    const productName = $('#product-name').val().trim();
+    const hideLogoChange = ($('input[name=hideLogo]:checked').val() === 'true');
+
     try {
-      const productName = $('#product-name').val().trim();
+
       Settings.update(Settings.findOne()._id, {
         $set: {
           productName,
+          hideLogo: hideLogoChange,
         },
       });
     } catch (e) {
@@ -175,6 +182,7 @@ BlazeComponent.extendComponent({
       'click button.js-email-invite': this.inviteThroughEmail,
       'click button.js-save': this.saveMailServerInfo,
       'click button.js-send-smtp-test-email': this.sendSMTPTestEmail,
+      'click a.js-toggle-hide-logo': this.toggleHideLogo,
       'click button.js-save-layout': this.saveLayout,
     }];
   },

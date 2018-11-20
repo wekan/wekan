@@ -135,9 +135,15 @@ template(name='announcementSettings')
 template(name='layoutSettings')
   ul#layout-setting.setting-detail
     li.layout-form
+      .title {{_ 'hide-logo'}}
+      .form-group.flex
+        input.form-control#hide-logo(type="radio" name="hideLogo" value="true" checked="{{#if currentSetting.hideLogo}}checked{{/if}}")
+        span {{_ 'yes'}}
+        input.form-control#hide-logo(type="radio" name="hideLogo" value="false" checked="{{#unless currentSetting.hideLogo}}checked{{/unless}}")
+        span {{_ 'no'}}
+    li.layout-form
       .title {{_ 'custom-product-name'}}
       .form-group
         input.form-control#product-name(type="text", placeholder="Wekan" value="{{currentSetting.productName}}")
-
     li
       button.js-save-layout.primary {{_ 'save'}}
