@@ -41,15 +41,15 @@ services:
       - /bin/bash
       - "-c"
       - mongo --nodb --eval '
-            var db; 
-            while (!db) { 
-                try { 
-                  db = new Mongo("mongodb:27017").getDB("local"); 
-                } catch(ex) {} 
-                sleep(3000); 
-            }; 
+            var db;
+            while (!db) {
+                try {
+                  db = new Mongo("mongodb:27017").getDB("local");
+                } catch(ex) {}
+                sleep(3000);
+            };
             rs.initiate({_id:"rs1",members:[{_id:0,host:"mongodb:27017"}]});
-        ' 1>/dev/null 2>&1 & 
+        ' 1>/dev/null 2>&1 &
         mongod --replSet rs1
   wekan:
     image: quay.io/wekan/wekan
@@ -213,6 +213,9 @@ services:
       # LDAP_USERNAME_FIELD : Which field contains the ldap username
       # example : LDAP_USERNAME_FIELD=username
       #- LDAP_USERNAME_FIELD=
+      # LDAP_FULLNAME_FIELD : Which field contains the ldap fullname
+      # example : LDAP_FULLNAME_FIELD=fullname
+      #- LDAP_FULLNAME_FIELD=
       # LDAP_MERGE_EXISTING_USERS :
       # example : LDAP_MERGE_EXISTING_USERS=true
       #- LDAP_MERGE_EXISTING_USERS=false
