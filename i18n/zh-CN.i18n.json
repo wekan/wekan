@@ -617,5 +617,6 @@
     "authentication-method": "认证方式",
     "authentication-type": "认证类型",
     "custom-product-name": "自定义产品名称",
-    "layout": "布局"
+    "layout": "布局",
+    "hide-logo": "Hide Logo"
 }

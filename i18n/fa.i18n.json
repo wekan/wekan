@@ -617,5 +617,6 @@
     "authentication-method": "متد اعتبارسنجی",
     "authentication-type": "نوع اعتبارسنجی",
     "custom-product-name": "نام سفارشی محصول",
-    "layout": "لایه"
+    "layout": "لایه",
+    "hide-logo": "Hide Logo"
 }

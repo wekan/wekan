@@ -617,5 +617,6 @@
     "authentication-method": "Kirjautumistapa",
     "authentication-type": "Kirjautumistyyppi",
     "custom-product-name": "Mukautettu tuotenimi",
-    "layout": "Ulkoasu"
+    "layout": "Ulkoasu",
+    "hide-logo": "Piilota Logo"
 }

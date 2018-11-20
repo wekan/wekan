@@ -617,5 +617,6 @@
     "authentication-method": "Sposób autoryzacji",
     "authentication-type": "Typ autoryzacji",
     "custom-product-name": "Niestandardowa nazwa produktu",
-    "layout": "Układ strony"
+    "layout": "Układ strony",
+    "hide-logo": "Hide Logo"
 }
