@@ -32,6 +32,10 @@ Settings.attachSchema(new SimpleSchema({
     type: String,
     optional: true,
   },
+  hideLogo: {
+    type: Boolean,
+    optional: true,
+  },
   createdAt: {
     type: Date,
     denyUpdate: true,

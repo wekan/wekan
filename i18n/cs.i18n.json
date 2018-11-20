@@ -617,5 +617,6 @@
     "authentication-method": "Metoda autentizace",
     "authentication-type": "Typ autentizace",
     "custom-product-name": "Custom Product Name",
-    "layout": "Layout"
+    "layout": "Layout",
+    "hide-logo": "Hide Logo"
 }

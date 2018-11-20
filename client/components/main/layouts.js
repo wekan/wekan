@@ -20,7 +20,13 @@ const validator = {
   },
 };
 
+Template.userFormsLayout.onCreated(() => {
+  Meteor.subscribe('setting');
+
+});
+
 Template.userFormsLayout.onRendered(() => {
+
   AccountsTemplates.state.form.keys = new Proxy(AccountsTemplates.state.form.keys, validator);
 
   const i18nTag = navigator.language;
@@ -31,6 +37,11 @@ Template.userFormsLayout.onRendered(() => {
 });
 
 Template.userFormsLayout.helpers({
+
+  currentSetting() {
+    return Settings.findOne();
+  },
+
   languages() {
     return _.map(TAPi18n.getLanguages(), (lang, code) => {
       const tag = code;

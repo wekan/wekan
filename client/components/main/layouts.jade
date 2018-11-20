@@ -14,8 +14,13 @@ head
 
 template(name="userFormsLayout")
   section.auth-layout
-    h1.at-form-landing-logo
-      img(src="{{pathFor '/wekan-logo.png'}}" alt="Wekan")
+    unless currentSetting.hideLogo
+      h1.at-form-landing-logo
+        img(src="{{pathFor '/wekan-logo.png'}}" alt="Wekan")
+    if currentSetting.hideLogo
+      h1
+        br
+        br
     section.auth-dialog
       +Template.dynamic(template=content)
       +connectionMethod

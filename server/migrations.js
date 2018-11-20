@@ -362,3 +362,15 @@ Migrations.add('add-product-name', () => {
     },
   }, noValidateMulti);
 });
+
+Migrations.add('add-hide-logo', () => {
+  Settings.update({
+    hideLogo: {
+      $exists: false,
+    },
+  }, {
+    $set: {
+      hideLogo: false,
+    },
+  }, noValidateMulti);
+});

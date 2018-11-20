@@ -617,5 +617,6 @@
     "authentication-method": "Méthode d'authentification",
     "authentication-type": "Type d'authentification",
     "custom-product-name": "Nom personnalisé",
-    "layout": "Interface"
+    "layout": "Interface",
+    "hide-logo": "Hide Logo"
 }
