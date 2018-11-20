@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- Fix: When saving Custom Layout, save also SMTP settings. Thanks to xet7.
+
+Thanks to above GitHub users for their contributions.
+
 # v1.75 2018-11-20 Wekan release
 
 This release adds the following new features:
