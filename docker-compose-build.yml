@@ -191,6 +191,9 @@ services:
       # LDAP_USERNAME_FIELD : Which field contains the ldap username
       # example : LDAP_USERNAME_FIELD=username
       #- LDAP_USERNAME_FIELD=
+      # LDAP_FULLNAME_FIELD : Which field contains the ldap fullname
+      # example : LDAP_FULLNAME_FIELD=fullname
+      #- LDAP_FULLNAME_FIELD=
       # LDAP_MERGE_EXISTING_USERS :
       # example : LDAP_MERGE_EXISTING_USERS=true
       #- LDAP_MERGE_EXISTING_USERS=false

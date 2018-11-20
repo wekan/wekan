@@ -1,3 +1,17 @@
+# v1.76 2018-11-20 Wekan release
+
+This release adds the following new features:
+
+- Add [LDAP_FULLNAME_FIELD](https://github.com/wekan/wekan-ldap/issues/10) to
+  [configs](https://github.com/wekan/wekan/commit/8e3f53021775069dba125efd4b7200d0d70a1ed1)
+  and other options that were not in all config files. Thanks to alkemyst and xet7.
+
+and fixes the following bugs:
+
+- Fix: When saving Custom Layout, save also SMTP settings. Thanks to xet7.
+
+Thanks to above GitHub users for their contributions.
+
 # v1.75 2018-11-20 Wekan release
 
 This release adds the following new features:
