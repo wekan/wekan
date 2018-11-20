@@ -1,3 +1,7 @@
+# v1.78 2018-11-20 Wekan release
+
+- Update translations (de).
+
 # v1.77 2018-11-20 Wekan release
 
 - Update version number. Trying to get Snap automatic review working, so that
