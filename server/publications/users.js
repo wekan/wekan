@@ -22,6 +22,7 @@ Meteor.publish('user-authenticationMethod', function(match) {
   check(match, String);
   return Users.find({$or: [{_id: match}, {email: match}, {username: match}]}, {
     fields: {
+      '_id': 1,
       'authenticationMethod': 1,
     },
   });

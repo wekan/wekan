@@ -65,6 +65,10 @@ ARG LDAP_SYNC_USER_DATA
 ARG LDAP_SYNC_USER_DATA_FIELDMAP
 ARG LDAP_SYNC_GROUP_ROLES
 ARG LDAP_DEFAULT_DOMAIN
+ARG LOGOUT_WITH_TIMER
+ARG LOGOUT_IN
+ARG LOGOUT_ON_HOURS
+ARG LOGOUT_ON_MINUTES
 
 # Set the environment variables (defaults where required)
 # DOES NOT WORK: paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
@@ -133,6 +137,10 @@ ENV BUILD_DEPS="apt-utils bsdtar gnupg gosu wget curl bzip2 build-essential pyth
     LDAP_SYNC_USER_DATA_FIELDMAP="" \
     LDAP_SYNC_GROUP_ROLES="" \
     LDAP_DEFAULT_DOMAIN=""
+    LOGOUT_WITH_TIMER="false" \
+    LOGOUT_IN="" \
+    LOGOUT_ON_HOURS="" \
+    LOGOUT_ON_MINUTES=""
 
 # Copy the app to the image
 COPY ${SRC_PATH} /home/wekan/app
