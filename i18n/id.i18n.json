@@ -598,7 +598,7 @@
     "r-d-send-email-message": "message",
     "r-d-archive": "Move card to Archive",
     "r-d-unarchive": "Restore card from Archive",
-    "r-d-add-label": "Add label",
+    "r-d-add-label": "Tambahkan label",
     "r-d-remove-label": "Remove label",
     "r-d-add-member": "Add member",
     "r-d-remove-member": "Remove member",
@@ -614,9 +614,9 @@
     "ldap": "LDAP",
     "oauth2": "OAuth2",
     "cas": "CAS",
-    "authentication-method": "Authentication method",
-    "authentication-type": "Authentication type",
+    "authentication-method": "Metode Autentikasi",
+    "authentication-type": "Tipe Autentikasi",
     "custom-product-name": "Custom Product Name",
     "layout": "Layout",
-    "hide-logo": "Hide Logo"
+    "hide-logo": "Sembunyikan Logo"
 }
