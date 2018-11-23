@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- Fix: Message box for deleting subtask unreachable.
+  Thanks to hupptechnologies. Closes #1800
+
+Thanks to above GitHub users for their contributions.
+
 # v1.78 2018-11-20 Wekan release
 
 - Update translations (de).
