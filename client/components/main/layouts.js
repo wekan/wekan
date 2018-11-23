@@ -6,11 +6,11 @@ const i18nTagToT9n = (i18nTag) => {
   return i18nTag;
 };
 
-Template.userFormsLayout.onCreated(() => {
-  Meteor.subscribe('setting');
+Template.userFormsLayout.onCreated(function() {
   Meteor.call('getDefaultAuthenticationMethod', (error, result) => {
     this.data.defaultAuthenticationMethod = new ReactiveVar(error ? undefined : result);
   });
+  Meteor.subscribe('setting');
 });
 
 Template.userFormsLayout.onRendered(() => {
@@ -83,7 +83,7 @@ Template.userFormsLayout.events({
     const email = $('#at-field-username_and_email').val();
     const password = $('#at-field-password').val();
 
-    if (FlowRouter.getRouteName() !== 'atSignIn' || password === '') {
+    if (FlowRouter.getRouteName() !== 'atSignIn' || password === '' || email === '') {
       return;
     }
 
@@ -132,5 +132,10 @@ function authentication(instance, email, password) {
       return error;
     });
   }
+
+  /* else {
+    process.env.DEFAULT_AUTHENTICATION_METHOD is not defined
+  } */
+
   return this.stop();
 }
