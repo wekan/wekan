@@ -14,7 +14,20 @@ confinement: strict
 grade: stable
 
 architectures:
-  - amd64
+  - build-on: amd64
+    run-on: amd64
+
+  - build-on: i386
+    run-on: i386
+    build-error: ignore
+
+  - build-on: armhf
+    run-on: armhf
+    build-error: ignore
+
+  - build-on: arm64
+    run-on: arm64
+    build-error: ignore
 
 plugs:
   mongodb-plug:
