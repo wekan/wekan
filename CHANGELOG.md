@@ -9,6 +9,7 @@ and fixes the following bugs:
 
 - Fix: Message box for deleting subtask unreachable.
   Thanks to hupptechnologies. Closes #1800
+- Fix wrong dates in ChangeLog. Thanks to kelvinhammond.
 
 Thanks to above GitHub users for their contributions.
 
