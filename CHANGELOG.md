@@ -185,11 +185,11 @@ REST API: [Allow to remove the full list of labels/members through the API](http
 
 Thanks to GitHub user bentiss for contributions.
 
-# v1.62 2018-20-24 Wekan release
+# v1.62 2018-10-24 Wekan release
 
 - Fix missing dropdown arrow on Chrome. Thanks to xet7. Closes #1964
 
-# v1.61 2018-20-24 Wekan release
+# v1.61 2018-10-24 Wekan release
 
 - Fix lint error. Thanks to xet7.
 
