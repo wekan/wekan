@@ -1,6 +1,11 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+- Build snap also on i386, armhf and arm64. Ignore if it fails. 
+  Most likely armhf and arm64 does not build yet, I will add fixes later. Thanks to xet7.
+
+and fixes the following bugs:
 
 - Fix: Message box for deleting subtask unreachable.
   Thanks to hupptechnologies. Closes #1800
