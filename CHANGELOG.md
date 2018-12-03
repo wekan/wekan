@@ -1,9 +1,20 @@
-# Upcoming Wekan release
+# v1.79 2018-12-03 Wekan release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+- [Improve authentication, removing Login password/LDAP dropdown](https://github.com/wekan/wekan/issues/2016).
+  NOTE: This was added in v1.71, then reverted at v1.73 because login did not work, and after fix added back at v1.79.
+  Thanks to Akuket.
+- Thanks to xet7:
+  - Build snap also on i386, armhf and arm64. Ignore if it fails. More fixes will be added later.
+  - Add CORS https://enable-cors.org/server_meteor.html to Standalone Wekan settings.
+  - Add missing LDAP and TIMER environment variables.
+
+and fixes the following bugs:
 
 - Fix: Message box for deleting subtask unreachable.
   Thanks to hupptechnologies. Closes #1800
+- Fix wrong dates in ChangeLog. Thanks to kelvinhammond.
 
 Thanks to above GitHub users for their contributions.
 
@@ -59,6 +70,7 @@ Thanks to GitHub user alkemyst for contributions.
 This release fixes the following bugs:
 
 - Revert Improve authentication to [fix Login failure](https://github.com/wekan/wekan/issues/2004).
+  NOTE: This was added in v1.71, then reverted at v1.73 because login did not work, and after fix added back at v1.79.
 
 Thanks to GitHub users Broxxx3 and xet7 for their contributions.
 
@@ -80,6 +92,7 @@ This release adds the following new features and bugfixes:
   - Adding an option to choose the default authentication method with env var.
   - Bug fix that allowed a user to connect with the password method while his user.authenticationMethod is "ldap" for example.
   - Adding a server-side method which allows disconnecting a user after a delay defined by env vars.
+  - NOTE: This was added in v1.71, then reverted at v1.73 because login did not work, and after fix added back at v1.79.
 - [Improve shell scripts](https://github.com/wekan/wekan/pull/2002). Thanks to warnerjon12.
 
 Thanks to above GitHub users and translators for their contributions.
@@ -185,11 +198,11 @@ REST API: [Allow to remove the full list of labels/members through the API](http
 
 Thanks to GitHub user bentiss for contributions.
 
-# v1.62 2018-20-24 Wekan release
+# v1.62 2018-10-24 Wekan release
 
 - Fix missing dropdown arrow on Chrome. Thanks to xet7. Closes #1964
 
-# v1.61 2018-20-24 Wekan release
+# v1.61 2018-10-24 Wekan release
 
 - Fix lint error. Thanks to xet7.
 

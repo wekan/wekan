@@ -22,6 +22,9 @@
         # If you disable Wekan API, Export Board does not work.
 	export WITH_API='true'
         #---------------------------------------------
+        # CORS: Set Access-Control-Allow-Origin header. Example: *
+        #- CORS=*
+        #---------------------------------------------
         ## Optional: Integration with Matomo https://matomo.org that is installed to your server
         ## The address of the server where Matomo is hosted:
         ##export MATOMO_ADDRESS=https://example.com/matomo
@@ -187,6 +190,17 @@
         # LDAP_DEFAULT_DOMAIN : The default domain of the ldap it is used to create email if the field is not map correctly with the LDAP_SYNC_USER_DATA_FIELDMAP
         # example :
         #export LDAP_DEFAULT_DOMAIN=
+        # LOGOUT_WITH_TIMER : Enables or not the option logout with timer
+        # example : LOGOUT_WITH_TIMER=true
+        #- LOGOUT_WITH_TIMER=
+        # LOGOUT_IN : The number of days
+        # example : LOGOUT_IN=1
+        #- LOGOUT_IN=
+        #- LOGOUT_ON_HOURS=
+        # LOGOUT_ON_MINUTES : The number of minutes
+        # example : LOGOUT_ON_MINUTES=55
+        #- LOGOUT_ON_MINUTES=
+
 	node main.js & >> ~/repos/wekan.log
 	cd ~/repos
 #done
