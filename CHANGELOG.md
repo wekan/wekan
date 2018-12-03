@@ -2,11 +2,13 @@
 
 This release adds the following new features:
 
-- Build snap also on i386, armhf and arm64. Ignore if it fails. 
-  Most likely armhf and arm64 does not build yet, I will add fixes later. Thanks to xet7.
 - [Improve authentication, removing Login password/LDAP dropdown](https://github.com/wekan/wekan/issues/2016).
   NOTE: This was added in v1.71, then reverted at v1.73 because login did not work, and after fix added back at v1.79.
   Thanks to Akuket.
+- Thanks to xet7:
+  - Build snap also on i386, armhf and arm64. Ignore if it fails. More fixes will be added later.
+  - Add CORS https://enable-cors.org/server_meteor.html to Standalone Wekan settings.
+  - Add missing LDAP and TIMER environment variables.
 
 and fixes the following bugs:
 
