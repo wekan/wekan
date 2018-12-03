@@ -4,6 +4,9 @@ This release adds the following new features:
 
 - Build snap also on i386, armhf and arm64. Ignore if it fails. 
   Most likely armhf and arm64 does not build yet, I will add fixes later. Thanks to xet7.
+- [Improve authentication, removing Login password/LDAP dropdown](https://github.com/wekan/wekan/issues/2016).
+  NOTE: This was added in v1.71, then reverted at v1.73 because login did not work, and after fix added back at v1.79.
+  Thanks to Akuket.
 
 and fixes the following bugs:
 
@@ -65,6 +68,7 @@ Thanks to GitHub user alkemyst for contributions.
 This release fixes the following bugs:
 
 - Revert Improve authentication to [fix Login failure](https://github.com/wekan/wekan/issues/2004).
+  NOTE: This was added in v1.71, then reverted at v1.73 because login did not work, and after fix added back at v1.79.
 
 Thanks to GitHub users Broxxx3 and xet7 for their contributions.
 
@@ -86,6 +90,7 @@ This release adds the following new features and bugfixes:
   - Adding an option to choose the default authentication method with env var.
   - Bug fix that allowed a user to connect with the password method while his user.authenticationMethod is "ldap" for example.
   - Adding a server-side method which allows disconnecting a user after a delay defined by env vars.
+  - NOTE: This was added in v1.71, then reverted at v1.73 because login did not work, and after fix added back at v1.79.
 - [Improve shell scripts](https://github.com/wekan/wekan/pull/2002). Thanks to warnerjon12.
 
 Thanks to above GitHub users and translators for their contributions.
