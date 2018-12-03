@@ -260,7 +260,7 @@ if (Meteor.isServer) {
       }
     },
   });
-  
+
   Jobs.register({
     logOut(userId) {
       Meteor.users.update(

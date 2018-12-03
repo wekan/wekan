@@ -92,7 +92,7 @@ Template.userFormsLayout.events({
     event.stopImmediatePropagation();
 
     Meteor.subscribe('user-authenticationMethod', email, {
-      onReady() { 
+      onReady() {
         return authentication.call(this, instance, email, password);
       },
     });
