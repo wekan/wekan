@@ -4,7 +4,7 @@ echo "Note: If you use other locale than en_US.UTF-8 , you need to additionally 
 echo "      with 'sudo dpkg-reconfigure locales' , so that MongoDB works correctly."
 echo "      You can still use any other locale as your main locale."
 
-X64NODE="https://nodejs.org/dist/v8.12.0/node-v8.12.0-linux-x64.tar.gz"
+X64NODE="https://nodejs.org/dist/v8.14.0/node-v8.14.0-linux-x64.tar.gz"
 
 function pause(){
 	read -p "$*"
@@ -74,7 +74,7 @@ do
 				sudo apt install -y build-essential git curl wget
 #				sudo apt -y install nodejs npm
 #				npm_call -g install n
-#				sudo n 8.12.0
+#				sudo n 8.14.0
 			fi
 
 #			if [ "$(grep -Ei 'debian' /etc/*release)" ]; then
