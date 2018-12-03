@@ -1,3 +1,15 @@
+# v1.80 2018-12-03 Wekan release
+
+This release adds the following new features:
+
+- Upgrade Node from v8.12 to v8.14
+
+and fixes the following bugs:
+
+- Revert non-working architectures that were added at v1.79, so now Wekan is just amd64 as before.
+
+Thanks to GitHub user xet7 for contributions.
+
 # v1.79 2018-12-03 Wekan release
 
 This release adds the following new features:

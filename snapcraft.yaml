@@ -14,20 +14,7 @@ confinement: strict
 grade: stable
 
 architectures:
-  - build-on: amd64
-    run-on: amd64
-
-  - build-on: i386
-    run-on: i386
-    build-error: ignore
-
-  - build-on: armhf
-    run-on: armhf
-    build-error: ignore
-
-  - build-on: arm64
-    run-on: arm64
-    build-error: ignore
+  - amd64
 
 plugs:
   mongodb-plug:
@@ -94,7 +81,7 @@ parts:
     wekan:
         source: .
         plugin: nodejs
-        node-engine: 8.12.0
+        node-engine: 8.14.0
         node-packages:
             - node-gyp
             - node-pre-gyp
