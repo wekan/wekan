@@ -34,6 +34,8 @@ services:
       # Wekan Export Board works when WITH_API=true.
       # If you disable Wekan API with false, Export Board does not work.
       - WITH_API=true
+      # CORS: Set Access-Control-Allow-Origin header. Example: *
+      #- CORS=*
       # Optional: Integration with Matomo https://matomo.org that is installed to your server
       # The address of the server where Matomo is hosted.
       # example: - MATOMO_ADDRESS=https://example.com/matomo

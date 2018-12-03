@@ -69,6 +69,7 @@ ARG LOGOUT_WITH_TIMER
 ARG LOGOUT_IN
 ARG LOGOUT_ON_HOURS
 ARG LOGOUT_ON_MINUTES
+ARG CORS
 
 # Set the environment variables (defaults where required)
 # DOES NOT WORK: paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
@@ -140,7 +141,8 @@ ENV BUILD_DEPS="apt-utils bsdtar gnupg gosu wget curl bzip2 build-essential pyth
     LOGOUT_WITH_TIMER="false" \
     LOGOUT_IN="" \
     LOGOUT_ON_HOURS="" \
-    LOGOUT_ON_MINUTES=""
+    LOGOUT_ON_MINUTES="" \
+    CORS=""
 
 # Copy the app to the image
 COPY ${SRC_PATH} /home/wekan/app
