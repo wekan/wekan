@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v1.81 2018-12-04 Wekan release
 
 - Remove extra commas `,` and add missing backslash `\`. 
   Maybe after that login, logout and CORS works.
