@@ -126,7 +126,7 @@ function publishChekListCompleted(userId, doc){
   if(checkList.isFinished()){
     const act = {
       userId,
-      activityType: 'checklistCompleted',
+      activityType: 'completeChecklist',
       cardId: doc.cardId,
       boardId,
       checklistId: doc.checklistId,
