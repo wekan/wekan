@@ -1,3 +1,15 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- Partially #2045 revert [Improve authentication](https://github.com/wekan/wekan/issues/2016),
+  adding back password/LDAP dropdown, because login did now work.
+  NOTE: This was added in v1.71, reverted at v1.73 because login did not work, added back at v1.79,
+  and then reverted partially at v1.82 because login did not work.
+  Related LDAP logout timer does not work yet.
+
+Thanks to GitHub user xet7 for contributions.
+
 # v1.81 2018-12-04 Wekan release
 
 This release fixes the following bugs:
