@@ -2,10 +2,10 @@
 
 This release fixes the following bugs:
 
-- Fix IFTTT Rule action/trigger part 1 of 7: [When a checklist is completed/made
-  incomplete](https://github.com/wekan/wekan/issues/1972).
+- Fix IFTTT Rule action/trigger part 1 of 7: [When a checklist is completed](https://github.com/wekan/wekan/issues/1972).
+  And partial incomplete fix to when all of checklist is set as uncompleted. Help in fixing welcome.
 
-Thanks to GitHub user BurakTuran9 for contributions.
+Thanks to GitHub users BurakTuran9 and xet7 for their contributions.
 
 # v1.82 2018-12-05 Wekan release
 
