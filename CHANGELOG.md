@@ -1,8 +1,8 @@
-# Upcoming Wekan release
+# v1.83 2018-12-06 Wekan release
 
 This release fixes the following bugs:
 
-- Fix IFTTT Rule action/trigger part 1 of 7: [When a checklist is completed](https://github.com/wekan/wekan/issues/1972).
+- Fix IFTTT Rule action/trigger part 1 of 8: [When a checklist is completed](https://github.com/wekan/wekan/issues/1972).
   And partial incomplete fix to when all of checklist is set as uncompleted. Help in fixing welcome.
 
 Thanks to GitHub users BurakTuran9 and xet7 for their contributions.
