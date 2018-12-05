@@ -141,10 +141,23 @@ function publishChekListUncompleted(userId, doc){
   const boardId = card.boardId;
   const checklistId = doc.checklistId;
   const checkList = Checklists.findOne({_id:checklistId});
+  // BUGS in IFTTT Rules: https://github.com/wekan/wekan/issues/1972
+  //       Currently in checklist all are set as uncompleted/not checked,
+  //       IFTTT Rule does not move card to other list.
+  //       If following line is negated/changed to:
+  //         if(!checkList.isFinished()){
+  //       then unchecking of any checkbox will move card to other list,
+  //       even when all checkboxes are not yet unchecked.
+  //       What is correct code for only moving when all in list is unchecked?
+  // TIPS: Finding  files, ignoring some directories with grep -v:
+  //         cd wekan
+  //         find . | xargs grep 'count' -sl | grep -v .meteor | grep -v node_modules | grep -v .build
+  //       Maybe something related here?
+  //         wekan/client/components/rules/triggers/checklistTriggers.js
   if(checkList.isFinished()){
     const act = {
       userId,
-      activityType: 'checklistUncompleted',
+      activityType: 'uncompleteChecklist',
       cardId: doc.cardId,
       boardId,
       checklistId: doc.checklistId,
