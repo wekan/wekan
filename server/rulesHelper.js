@@ -98,7 +98,7 @@ RulesHelper = {
       card.assignMember(memberId);
     }
     if(action.actionType === 'removeMember'){
-      if(action.memberName === '*'){
+      if(action.username === '*'){
         const members = card.members;
         for(let i = 0; i< members.length; i++){
           card.unassignMember(members[i]);
