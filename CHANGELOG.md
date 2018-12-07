@@ -1,4 +1,6 @@
-# Upcoming Wekan release
+# v1.84 2018-12-07 Wekan release
+
+This release fixes the following bugs:
 
 - Fix 2/8: IFTTT Rule action/trigger ["Remove all members from the card"](https://github.com/wekan/wekan/issues/1972).
 
