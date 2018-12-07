@@ -749,7 +749,8 @@ export class WekanCreator {
     });
   }
 
-  check(board) {
+  //check(board) {
+  check() {
     //try {
     // check(data, {
     //   membersMapping: Match.Optional(Object),
