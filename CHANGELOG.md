@@ -1,8 +1,14 @@
+# Upcoming Wekan release
+
+- Fix 2/8: IFTTT Rule action/trigger ["Remove all members from the card"](https://github.com/wekan/wekan/issues/1972).
+
+Thanks to GitHub user BurakTuran9 for contributions.
+
 # v1.83 2018-12-06 Wekan release
 
 This release fixes the following bugs:
 
-- Fix IFTTT Rule action/trigger part 1 of 8: [When a checklist is completed](https://github.com/wekan/wekan/issues/1972).
+- Fix 1/8: IFTTT Rule action/trigger [When a checklist is completed](https://github.com/wekan/wekan/issues/1972).
   And partial incomplete fix to when all of checklist is set as uncompleted. Help in fixing welcome.
 
 Thanks to GitHub users BurakTuran9 and xet7 for their contributions.
