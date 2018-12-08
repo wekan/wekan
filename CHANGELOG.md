@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v1.85 2018-12-09 Wekan release
 
 - Fix [Clicking the scrollbar closes the card on Chrome](https://github.com/wekan/wekan/issues/1404)
   by changing [mquandalle:perfect-scrollbar to malihu-jquery-custom-scrollbar](https://github.com/wekan/wekan/pull/2050).
