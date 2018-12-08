@@ -82,6 +82,7 @@ launch-screen@1.1.1
 livedata@1.0.18
 localstorage@1.2.0
 logging@1.1.19
+maazalik:malihu-jquery-custom-scrollbar@3.0.6
 matb33:collection-hooks@0.8.4
 matteodem:easy-search@1.6.4
 mdg:validation-error@0.5.1
@@ -116,7 +117,6 @@ mquandalle:jquery-textcomplete@0.8.0_1
 mquandalle:jquery-ui-drag-drop-sort@0.2.0
 mquandalle:moment@1.0.1
 mquandalle:mousetrap-bindglobal@0.0.1
-mquandalle:perfect-scrollbar@0.6.5_2
 msavin:usercache@1.0.0
 npm-bcrypt@0.9.3
 npm-mongo@2.2.33
@@ -179,4 +179,7 @@ useraccounts:unstyled@1.14.2
 verron:autosize@3.0.8
 webapp@1.4.0
 webapp-hashing@1.0.9
+wekan:accounts-cas@0.1.0
+wekan:wekan-ldap@0.0.2
+yasaricli:slugify@0.0.7
 zimme:active-route@2.3.2
