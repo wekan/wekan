@@ -63,7 +63,6 @@ mousetrap:mousetrap
 mquandalle:jquery-textcomplete
 mquandalle:jquery-ui-drag-drop-sort
 mquandalle:mousetrap-bindglobal
-mquandalle:perfect-scrollbar
 peerlibrary:blaze-components@=0.15.1
 perak:markdown
 templates:tabs
@@ -89,3 +88,4 @@ mquandalle:moment
 msavin:usercache
 wekan:wekan-ldap
 wekan:accounts-cas
+maazalik:malihu-jquery-custom-scrollbar
