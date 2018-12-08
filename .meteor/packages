@@ -87,3 +87,6 @@ momentjs:moment@2.22.2
 browser-policy-framing
 mquandalle:moment
 msavin:usercache
+wekan:wekan-ldap
+wekan:accounts-cas
+maazalik:malihu-jquery-custom-scrollbar
