@@ -521,7 +521,7 @@ if (Meteor.isServer) {
 
     const disableRegistration = Settings.findOne().disableRegistration;
     // If this is the first Authentication by the ldap and self registration disabled
-    if (disableRegistration && options.ldap) {
+    if (disableRegistration && options && options.ldap) {
       user.authenticationMethod = 'ldap';
       return user;
     }
