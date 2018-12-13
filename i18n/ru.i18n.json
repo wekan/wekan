@@ -12,7 +12,7 @@
     "act-createList": "добавил __list__ на __board__",
     "act-addBoardMember": "добавил __member__ на __board__",
     "act-archivedBoard": "Доска __board__ перемещена в архив",
-    "act-archivedCard": "Карточка __card__ перемещена в архив",
+    "act-archivedCard": "Карточка __card__ перемещена в Архив",
     "act-archivedList": "Список __list__ перемещён в архив",
     "act-archivedSwimlane": "Дорожка __swimlane__ перемещена в архив",
     "act-importBoard": "__board__ импортирована",

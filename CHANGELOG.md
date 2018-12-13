@@ -1,3 +1,12 @@
+# v1.86 2018-12-13 Wekan release
+
+This release fixes the following bugs:
+
+- Fix [Cannot login with new LDAP account when auto-registration disabled (request invitation code)](https://github.com/wekan/wekan-ldap/issues/29);
+- Fix [Unable to create new account from LDAP](https://github.com/wekan/wekan-ldap/issues/32).
+
+Thanks to GitHub user Akuket for contributions.
+
 # v1.85 2018-12-09 Wekan release
 
 This release fixes the following bugs:
