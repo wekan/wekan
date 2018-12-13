@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- Fix Reference error.
+
+Thanks to GitHub user Akuket for contributions.
+
 # v1.86 2018-12-13 Wekan release
 
 This release fixes the following bugs:
