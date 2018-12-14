@@ -152,6 +152,11 @@ parts:
               git clone --depth 1 -b master https://github.com/wekan/wekan-ldap.git
               cd ..
             fi
+            if [ ! -d "packages/wekan-scrollbar" ]; then
+              cd packages
+              git clone --depth 1 -b master https://github.com/wekan/wekan-scrollbar.git
+              cd ..
+            fi
             rm -rf package-lock.json .build
             meteor add standard-minifier-js --allow-superuser
             meteor npm install --allow-superuser

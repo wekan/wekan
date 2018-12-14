@@ -1,3 +1,15 @@
+# v1.88 2018-12-14 Wekan release
+
+This release fixes the following bugs:
+
+- Fix: [Scrollbar used](https://github.com/wekan/wekan/issues/2056) [remote file from CDN](https://github.com/MaazAli/Meteor-Malihu-Custom-Scrollbar/blob/master/jquery.mCustomScrollbar.js#L50),
+  so forked package to https://github.com/wekan/wekan-scrollbar and included
+  non-minified file locally to Wekan, so that using scrollbar works without direct connection
+  to Internet. Wekan should not load any external files by default, as was case before
+  new scrollbar, and is again now [after this fix](https://github.com/wekan/wekan/commit/c546464d9f56117a8bf580512cd62fc1102559c3).
+
+Thanks to GitHub user xet7 for contributions.
+
 # v1.87 2018-12-13 Wekan release
 
 This release fixes the following bugs:

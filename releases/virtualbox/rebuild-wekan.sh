@@ -88,8 +88,11 @@ do
 		cd ~/repos/wekan
 		mkdir -p ~/repos/wekan/packages
 		cd ~/repos/wekan/packages
-		git clone https://github.com/wekan/flow-router.git kadira-flow-router
-		git clone https://github.com/meteor-useraccounts/core.git meteor-useraccounts-core
+		git clone --depth 1 -b master https://github.com/wekan/flow-router.git kadira-flow-router
+		git clone --depth 1 -b master https://github.com/meteor-useraccounts/core.git meteor-useraccounts-core
+		git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-cas.git
+		git clone --depth 1 -b master https://github.com/wekan/wekan-ldap.git
+		git clone --depth 1 -b master https://github.com/wekan/wekan-scrollbar.git
 
 		if [[ "$OSTYPE" == "darwin"* ]]; then
 			echo "sed at macOS";
