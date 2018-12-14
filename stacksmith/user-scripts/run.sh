@@ -1,4 +1,5 @@
 #!/bin/bash
+set -euxo pipefail
 
 readonly CONF=/build/env.config
 

@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eux
+set -euxo pipefail
 
 #!/bin/bash
 
@@ -7,6 +7,9 @@ set -euo pipefail
 
 # This file will store the config env variables needed by the app
 readonly CONF=/build/env.config
+
+# EMAIL_URL can also be set here by injecting another env variable in the template
+# ROOT_URL can also be set at runtime, by querying AWS api or by using ingress annotations in the template for k8s.
 
 cat >"${CONF}" <<'EOF'
 export MONGO_URL=mongodb://{{DATABASE_USER}}:{{DATABASE_PASSWORD}}@{{DATABASE_HOST}}:{{DATABASE_PORT}}/{{DATABASE_NAME}}
