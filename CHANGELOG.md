@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Add back mquandalle:perfect-scrollbar package so that Firefox and Chrome
+  stop complaning in browser dev tools console](https://github.com/wekan/wekan/issues/2057).
+
+Thanks to GitHub users uusijani and xet7 for their contributions.
+
 # v1.90 2018-12-15 Wekan release
 
 This release fixes the following bugs:
