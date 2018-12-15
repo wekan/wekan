@@ -300,7 +300,7 @@ export class WekanCreator {
       }
       // insert card
       const cardId = Cards.direct.insert(cardToCreate);
-      // keep track of Wekan id => WeKan id
+      // keep track of Wekan id => Wekan id
       this.cards[card._id] = cardId;
       // // log activity
       // Activities.direct.insert({

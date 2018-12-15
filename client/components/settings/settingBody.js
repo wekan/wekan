@@ -155,6 +155,8 @@ BlazeComponent.extendComponent({
       this.setLoading(false);
     }
 
+    DocHead.setTitle(productName);
+
     saveMailServerInfo();
 
   },

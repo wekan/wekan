@@ -145,6 +145,26 @@ Utils = {
     });
   },
 
+  manageCustomUI(){
+    Meteor.call('getCustomUI', (err, data) => {
+      if (err && err.error[0] === 'var-not-exist'){
+        Session.set('customUI', false); // siteId || address server not defined
+      }
+      if (!err){
+        Utils.setCustomUI(data);
+      }
+    });
+  },
+
+  setCustomUI(data){
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    if (currentBoard) {
+      DocHead.setTitle(`${currentBoard.title  } - ${  data.productName}`);
+    } else {
+      DocHead.setTitle(`${data.productName}`);
+    }
+  },
+
   setMatomo(data){
     window._paq = window._paq || [];
     window._paq.push(['setDoNotTrack', data.doNotTrack]);
