@@ -2,8 +2,8 @@
 
 This release fixes the following bugs:
 
-- [Add back mquandalle:perfect-scrollbar package so that Firefox and Chrome
-  stop complaning in browser dev tools console](https://github.com/wekan/wekan/issues/2057).
+- [Add back mquandalle:perfect-scrollbar package](https://github.com/wekan/wekan/issues/2057)
+  so that Firefox and Chrome stop complaining in browser dev tools console.
 
 Thanks to GitHub users uusijani and xet7 for their contributions.
 
