@@ -74,7 +74,7 @@ if (Meteor.isServer) {
     if(!setting){
       const now = new Date();
       const domain = process.env.ROOT_URL.match(/\/\/(?:www\.)?(.*)?(?:\/)?/)[1];
-      const from = `Wekan <wekan@${domain}>`;
+      const from = `Boards Support <support@${domain}>`;
       const defaultSetting = {disableRegistration: false, mailServer: {
         username: '', password: '', host: '', port: '', enableTLS: false, from,
       }, createdAt: now, modifiedAt: now};
@@ -208,6 +208,19 @@ if (Meteor.isServer) {
         message: 'email-sent',
         email: user.emails[0].address,
       };
+    },
+
+    getCustomUI(){
+      const setting = Settings.findOne({});
+      if (!setting.productName) {
+        return {
+          productName: 'Wekan',
+        };
+      } else {
+        return {
+          productName: `${setting.productName}`,
+        };
+      }
     },
 
     getMatomoConf(){
