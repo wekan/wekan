@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- Admin Panel / Layout / Custom Product Name [now changes webpage title](https://github.com/wekan/wekan/commit/dbb1a86ca377e551063cc04c5189fad4aa9148c0).
+  Related #1196
+
+Thanks to GitHub user xet7 for contributions.
+
 # v1.88 2018-12-14 Wekan release
 
 This release fixes the following bugs:
