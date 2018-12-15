@@ -157,8 +157,6 @@ BlazeComponent.extendComponent({
 
     DocHead.setTitle(productName);
 
-    saveMailServerInfo();
-
   },
 
   sendSMTPTestEmail() {
