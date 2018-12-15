@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Remove not working duplicate saveMailServerInfo](https://github.com/wekan/wekan/commit/ab031d9da134aa13490a26dbe97ad2d7d01d534a),
+  to remove error from browser dev tools console.
+
+Thanks to GitHub user xet7 for contributions.
+
 # v1.89 2018-12-15 Wekan release
 
 This release adds the following new features:
