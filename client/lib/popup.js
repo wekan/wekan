@@ -4,9 +4,9 @@ window.Popup = new class {
     this.template = Template.popup;
 
     // We only want to display one popup at a time and we keep the view object
-    // in this `Popup._current` variable. If there is no popup currently opened
+    // in this `Popup.current` variable. If there is no popup currently opened
     // the value is `null`.
-    this._current = null;
+    this.current = null;
 
     // It's possible to open a sub-popup B from a popup A. In that case we keep
     // the data of popup A so we can return back to it. Every time we open a new
