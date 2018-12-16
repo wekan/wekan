@@ -4,6 +4,7 @@ This release fixes the following bugs:
 
 - Fix [Popup class declares member name _current but use current instead](https://github.com/wekan/wekan/issues/2059). Thanks to peishaofeng.
 - Fix [Card scrollbar ignores mousewheel](https://github.com/wekan/wekan-scrollbar/commit/94a40da51627c6322afca50a5b1f4aa55c7ce7bf). Thanks to rinnaz and xet7. Closes #2058
+- Fix [favicon paths for non-suburl cases](https://github.com/wekan/wekan/commit/c1733fc89c4c73a1ab3f4054d0a9ebff7741a804). Thanks to xet7. Related #1692
 
 Thanks to above GitHub users for their contributions.
 
