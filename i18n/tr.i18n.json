@@ -617,5 +617,7 @@
     "authentication-type": "Kimlik doğrulama türü",
     "custom-product-name": "Özel Ürün Adı",
     "layout": "Düzen",
-    "hide-logo": "Logoyu Gizle"
+    "hide-logo": "Logoyu Gizle",
+    "add-custom-html-after-body-start": "Add Custom HTML after <body> start",
+    "add-custom-html-before-body-end": "Add Custom HTML before </body> end"
 }

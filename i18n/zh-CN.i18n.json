@@ -617,5 +617,7 @@
     "authentication-type": "认证类型",
     "custom-product-name": "自定义产品名称",
     "layout": "布局",
-    "hide-logo": "Hide Logo"
+    "hide-logo": "Hide Logo",
+    "add-custom-html-after-body-start": "Add Custom HTML after <body> start",
+    "add-custom-html-before-body-end": "Add Custom HTML before </body> end"
 }

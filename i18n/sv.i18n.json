@@ -617,5 +617,7 @@
     "authentication-type": "Autentiseringstyp",
     "custom-product-name": "Anpassat produktnamn",
     "layout": "Layout",
-    "hide-logo": "Dölj logotypen"
+    "hide-logo": "Dölj logotypen",
+    "add-custom-html-after-body-start": "Add Custom HTML after <body> start",
+    "add-custom-html-before-body-end": "Add Custom HTML before </body> end"
 }

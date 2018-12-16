@@ -1,8 +1,8 @@
 {
     "accept": "Aceitar",
-    "act-activity-notify": "Activity Notification",
+    "act-activity-notify": "Notificação de atividade",
     "act-addAttachment": "anexo __attachment__ de __card__",
-    "act-addSubtask": "Subtarefa adicionada__checklist__ao__cartão",
+    "act-addSubtask": "Subtarefa adicionada __checklist__ ao __cartão",
     "act-addChecklist": "added checklist __checklist__ no __card__",
     "act-addChecklistItem": "adicionado __checklistitem__ para a lista de checagem __checklist__ em __card__",
     "act-addComment": "comentou em __card__: __comment__",
@@ -11,10 +11,10 @@
     "act-createCustomField": "criado campo customizado __customField__",
     "act-createList": "__list__ adicionada à __board__",
     "act-addBoardMember": "__member__ adicionado à __board__",
-    "act-archivedBoard": "__board__ moved to Archive",
-    "act-archivedCard": "__card__ moved to Archive",
-    "act-archivedList": "__list__ moved to Archive",
-    "act-archivedSwimlane": "__swimlane__ moved to Archive",
+    "act-archivedBoard": "__board__ foi arquivada",
+    "act-archivedCard": "__card__ foi Arquivado",
+    "act-archivedList": "__list__ foi Arquivado",
+    "act-archivedSwimlane": "__swimlane__ foi Arquivado",
     "act-importBoard": "__board__ importado",
     "act-importCard": "__card__ importado",
     "act-importList": "__list__ importada",
@@ -29,7 +29,7 @@
     "activities": "Atividades",
     "activity": "Atividade",
     "activity-added": "adicionou %s a %s",
-    "activity-archived": "%s moved to Archive",
+    "activity-archived": "%s foi Arquivado",
     "activity-attached": "anexou %s a %s",
     "activity-created": "criou %s",
     "activity-customfield-created": "criado campo customizado %s",
@@ -617,5 +617,7 @@
     "authentication-type": "Authentication type",
     "custom-product-name": "Custom Product Name",
     "layout": "Layout",
-    "hide-logo": "Hide Logo"
+    "hide-logo": "Hide Logo",
+    "add-custom-html-after-body-start": "Add Custom HTML after <body> start",
+    "add-custom-html-before-body-end": "Add Custom HTML before </body> end"
 }

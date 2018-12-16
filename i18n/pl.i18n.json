@@ -617,5 +617,7 @@
     "authentication-type": "Typ autoryzacji",
     "custom-product-name": "Niestandardowa nazwa produktu",
     "layout": "Układ strony",
-    "hide-logo": "Ukryj logo"
+    "hide-logo": "Ukryj logo",
+    "add-custom-html-after-body-start": "Add Custom HTML after <body> start",
+    "add-custom-html-before-body-end": "Add Custom HTML before </body> end"
 }

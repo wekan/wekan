@@ -617,5 +617,7 @@
     "authentication-type": "Authentifizierungstyp",
     "custom-product-name": "Benutzerdefinierter Produktname",
     "layout": "Layout",
-    "hide-logo": "Verstecke Logo"
+    "hide-logo": "Verstecke Logo",
+    "add-custom-html-after-body-start": "Add Custom HTML after <body> start",
+    "add-custom-html-before-body-end": "Add Custom HTML before </body> end"
 }

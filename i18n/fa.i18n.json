@@ -617,5 +617,7 @@
     "authentication-type": "نوع اعتبارسنجی",
     "custom-product-name": "نام سفارشی محصول",
     "layout": "لایه",
-    "hide-logo": "Hide Logo"
+    "hide-logo": "Hide Logo",
+    "add-custom-html-after-body-start": "Add Custom HTML after <body> start",
+    "add-custom-html-before-body-end": "Add Custom HTML before </body> end"
 }
