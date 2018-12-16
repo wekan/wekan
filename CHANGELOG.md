@@ -1,6 +1,8 @@
 # Upcoming Wekan release
 
-- In tranlations, only show name "Wekan" in Admin Panel Wekan version.
+This release adds the following new features:
+
+- In translations, only show name "Wekan" in Admin Panel Wekan version.
   Elsewhere use general descriptions for whitelabeling.
 
 Thanks to GitHub user xet7 for contributions.
