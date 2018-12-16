@@ -32,6 +32,14 @@ Settings.attachSchema(new SimpleSchema({
     type: String,
     optional: true,
   },
+  customHTMLafterBodyStart: {
+    type: String,
+    optional: true,
+  },
+  customHTMLbeforeBodyEnd: {
+    type: String,
+    optional: true,
+  },
   hideLogo: {
     type: Boolean,
     optional: true,
