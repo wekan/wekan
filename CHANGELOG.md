@@ -1,3 +1,10 @@
+# Upcoming Wekan release
+
+- In tranlations, only show name "Wekan" in Admin Panel Wekan version.
+  Elsewhere use general descriptions for whitelabeling.
+
+Thanks to GitHub user xet7 for contributions.
+
 # v1.92 2018-12-16 Wekan release
 
 This release fixes the following bugs:
