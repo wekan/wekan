@@ -12,7 +12,6 @@ template(name="board")
     +spinner
 
 template(name="boardBody")
-  | {{currentSetting.customHTMLafterBodyStart}}
   .board-wrapper(class=currentBoard.colorClass)
     +sidebar
     .board-canvas.js-swimlanes.js-perfect-scrollbar(
@@ -28,7 +27,6 @@ template(name="boardBody")
         +listsGroup
       if isViewCalendar
         +calendarView
-  | {{currentSetting.customHTMLbeforeBodyEnd}}
 
 template(name="calendarView")
   .calendar-view.swimlane

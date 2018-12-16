@@ -38,7 +38,9 @@ template(name="userFormsLayout")
 template(name="defaultLayout")
   +header
   #content
+    | {{{currentSetting.customHTMLafterBodyStart}}}
     +Template.dynamic(template=content)
+    | {{{currentSetting.customHTMLbeforeBodyEnd}}}
   if (Modal.isOpen)
     #modal
       .overlay
