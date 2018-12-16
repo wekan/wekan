@@ -42,6 +42,15 @@ Template.userFormsLayout.helpers({
     return Settings.findOne();
   },
 
+
+  afterBodyStart() {
+    return currentSetting.customHTMLafterBodyStart;
+  },
+
+  beforeBodyEnd() {
+    return currentSetting.customHTMLbeforeBodyEnd;
+  },
+
   languages() {
     return _.map(TAPi18n.getLanguages(), (lang, code) => {
       const tag = code;
