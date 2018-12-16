@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- Fix [Popup class declares member name _current but use current instead](https://github.com/wekan/wekan/issues/2059). Thanks to peishaofeng.
+
+Thanks to above GitHub users for their contributions.
+
 # v1.91 2018-12-15 Wekan release
 
 This release fixes the following bugs:
