@@ -1,10 +1,6 @@
 #!/bin/bash
 set -euxo pipefail
 
-#!/bin/bash
-
-set -euo pipefail
-
 # This file will store the config env variables needed by the app
 readonly CONF=/build/env.config
 
