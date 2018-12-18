@@ -9,7 +9,7 @@ METEOR_EDGE=1.5-beta.17
 NPM_VERSION=latest
 FIBERS_VERSION=2.0.0
 ARCHITECTURE=linux-x64
-NODE_VERSION=v10.14.1
+#NODE_VERSION=v10.14.1
 
 sudo yum groupinstall -y 'Development Tools'
 sudo yum install -y http://opensource.wandisco.com/centos/7/git/x86_64/wandisco-git-release-7-2.noarch.rpm
