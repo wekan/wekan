@@ -1,0 +1,9 @@
+appId: wekan-public/apps/77b94f60-dec9-0136-304e-16ff53095928
+appVersion: "v1.85.0"
+files:
+  userUploads:
+    - README.md
+  userScripts:
+    build: stacksmith/user-scripts/build.sh
+    boot: stacksmith/user-scripts/boot.sh
+    run: stacksmith/user-scripts/run.sh
