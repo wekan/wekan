@@ -1,3 +1,13 @@
+# v1.94 2018-12-18 Wekan version
+
+This release adds the following new features:
+
+- Admin Panel / Layout / Custom HTML after `<body>` start, and Custom HTML before `</body>` end.
+  In progress, does not work yet. Thanks to xet7.
+- Add Bitnami Stacksmith. In progress test version, that does work, but is not released yet. Thanks to j-fuentes.
+
+Thanks to above GitHub users for their contributions.
+
 # v1.93 2018-12-16 Wekan release
 
 This release adds the following new features:
@@ -5,7 +15,7 @@ This release adds the following new features:
 - In translations, only show name "Wekan" in Admin Panel Wekan version.
   Elsewhere use general descriptions for whitelabeling.
 
-Thanks to GitHub user xet7 for contributions.
+Thanks to GitHub user xet7 and translators for their contributions.
 
 # v1.92 2018-12-16 Wekan release
 
