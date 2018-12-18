@@ -617,5 +617,7 @@
     "authentication-type": "Kirjautumistyyppi",
     "custom-product-name": "Mukautettu tuotenimi",
     "layout": "Ulkoasu",
-    "hide-logo": "Piilota Logo"
+    "hide-logo": "Piilota Logo",
+    "add-custom-html-after-body-start": "Lisää HTML <body> alun jälkeen",
+    "add-custom-html-before-body-end": "Lisä HTML ennen </body> loppua"
 }

@@ -617,5 +617,7 @@
     "authentication-type": "Typ autentizace",
     "custom-product-name": "Custom Product Name",
     "layout": "Layout",
-    "hide-logo": "Hide Logo"
+    "hide-logo": "Hide Logo",
+    "add-custom-html-after-body-start": "Add Custom HTML after <body> start",
+    "add-custom-html-before-body-end": "Add Custom HTML before </body> end"
 }

@@ -140,6 +140,8 @@ BlazeComponent.extendComponent({
 
     const productName = $('#product-name').val().trim();
     const hideLogoChange = ($('input[name=hideLogo]:checked').val() === 'true');
+    const customHTMLafterBodyStart = $('#customHTMLafterBodyStart').val().trim();
+    const customHTMLbeforeBodyEnd = $('#customHTMLbeforeBodyEnd').val().trim();
 
     try {
 
@@ -147,6 +149,8 @@ BlazeComponent.extendComponent({
         $set: {
           productName,
           hideLogo: hideLogoChange,
+          customHTMLafterBodyStart,
+          customHTMLbeforeBodyEnd,
         },
       });
     } catch (e) {

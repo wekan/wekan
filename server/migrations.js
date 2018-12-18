@@ -374,3 +374,27 @@ Migrations.add('add-hide-logo', () => {
     },
   }, noValidateMulti);
 });
+
+Migrations.add('add-custom-html-after-body-start', () => {
+  Settings.update({
+    customHTMLafterBodyStart: {
+      $exists: false,
+    },
+  }, {
+    $set: {
+      customHTMLafterBodyStart:'',
+    },
+  }, noValidateMulti);
+});
+
+Migrations.add('add-custom-html-before-body-end', () => {
+  Settings.update({
+    customHTMLbeforeBodyEnd: {
+      $exists: false,
+    },
+  }, {
+    $set: {
+      customHTMLbeforeBodyEnd:'',
+    },
+  }, noValidateMulti);
+});

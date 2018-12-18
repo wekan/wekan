@@ -145,5 +145,11 @@ template(name='layoutSettings')
       .title {{_ 'custom-product-name'}}
       .form-group
         input.form-control#product-name(type="text", placeholder="Wekan" value="{{currentSetting.productName}}")
+    li.layout-form
+      .title {{_ 'add-custom-html-after-body-start'}}
+      textarea#customHTMLafterBodyStart.form-control= currentSetting.customHTMLafterBodyStart
+    li.layout-form
+      .title {{_ 'add-custom-html-before-body-end'}}
+      textarea#customHTMLbeforeBodyEnd.form-control= currentSetting.customHTMLbeforeBodyEnd
     li
       button.js-save-layout.primary {{_ 'save'}}
