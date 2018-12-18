@@ -618,6 +618,6 @@
     "custom-product-name": "Собственное наименование",
     "layout": "Внешний вид",
     "hide-logo": "Скрыть логотип",
-    "add-custom-html-after-body-start": "Add Custom HTML after <body> start",
-    "add-custom-html-before-body-end": "Add Custom HTML before </body> end"
+    "add-custom-html-after-body-start": "Добавить HTML после начала <body> ",
+    "add-custom-html-before-body-end": "Добавить HTML до завершения </body>"
 }

@@ -296,7 +296,7 @@
     "import-members-map": "Your imported board has some members. Please map the members you want to import to your users",
     "import-show-user-mapping": "Przejrzyj wybranych członków",
     "import-user-select": "Pick your existing user you want to use as this member",
-    "importMapMembersAddPopup-title": "Select member",
+    "importMapMembersAddPopup-title": "Wybierz użytkownika",
     "info": "Wersja",
     "initials": "Inicjały",
     "invalid-date": "Błędna data",
