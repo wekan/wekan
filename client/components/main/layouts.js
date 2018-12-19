@@ -121,20 +121,35 @@ function authentication(instance, email, password) {
     return this.stop();
   }
 
-  const authenticationMethod = user ? 
-    user.authenticationMethod :
-    instance.data.defaultAuthenticationMethod.get();
+  const authenticationMethod = user
+    ? user.authenticationMethod
+    : instance.data.defaultAuthenticationMethod.get();
 
-  // Authentication with LDAP
-  if (authenticationMethod === 'ldap') {
-    // Use the ldap connection package
-    Meteor.loginWithLDAP(email, password, function(error) {
-      if (!error) {
-        return FlowRouter.go('/');
-      }
-      return error;
-    });
+  switch (authenticationMethod) {
+    case 'ldap':
+      // Use the ldap connection package
+      Meteor.loginWithLDAP(email, password, function(error) {
+        if (!error) return FlowRouter.go('/');
+        displayError('error-ldap-login');
+      });
+      break;
+
+    default:
+      displayError('error-undefined');
   }
 
   return this.stop();
+}
+
+function displayError(code) {
+  const translated = TAPi18n.__(code);
+
+  if (translated === code) {
+    return;
+  }
+
+  if(!$('.at-error').length) {
+    $('.at-pwd-form').before('<div class="at-error"><p></p></div>');
+  }
+  $('.at-error p').text(translated);
 }

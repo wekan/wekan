@@ -619,5 +619,7 @@
     "layout": "Interface",
     "hide-logo": "Cacher le logo",
     "add-custom-html-after-body-start": "Add Custom HTML after <body> start",
-    "add-custom-html-before-body-end": "Add Custom HTML before </body> end"
+    "add-custom-html-before-body-end": "Add Custom HTML before </body> end",
+    "error-undefined": "Une erreur inconnue s'est produite",
+    "error-ldap-login": "Une erreur s'est produite lors de la tentative de connexion"
 }
