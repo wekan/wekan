@@ -254,6 +254,7 @@ const myCommand :Spk.Manifest.Command = (
     (key = "OAUTH2_TOKEN_ENDPOINT", value=""),
     (key = "LDAP_ENABLE", value="false"),
     (key = "SANDSTORM", value = "1"),
-    (key = "METEOR_SETTINGS", value = "{\"public\": {\"sandstorm\": true}}")
+    (key = "METEOR_SETTINGS", value = "{\"public\": {\"sandstorm\": true}}"),
+    (key = "DEFAULT_AUTHENTICATION_METHOD", value = "")
   ]
 );

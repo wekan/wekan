@@ -260,5 +260,9 @@ if (Meteor.isServer) {
         cas: isCasEnabled(),
       };
     },
+
+    getDefaultAuthenticationMethod() {
+      return process.env.DEFAULT_AUTHENTICATION_METHOD;
+    }
   });
 }
