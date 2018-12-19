@@ -19,7 +19,7 @@ sudo useradd --user-group --system --home-dir /home/wekan wekan
 sudo mkdir -p /home/wekan
 sudo chown wekan:wekan /home/wekan/
 
-sudo -u wekan git clone https://github.com/wekan/wekan.git /home/wekan/app
+sudo -u wekan git clone -b meteor-1.8 https://github.com/wekan/wekan.git /home/wekan/app
 
 sudo yum install -y ${BUILD_DEPS}
 
