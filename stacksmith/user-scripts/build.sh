@@ -3,7 +3,7 @@ set -euxo pipefail
 
 BUILD_DEPS="bsdtar gnupg wget curl bzip2 python git ca-certificates perl-Digest-SHA"
 NODE_VERSION=v8.14.0
-METEOR_RELEASE=1.6.0.1
+#METEOR_RELEASE=1.6.0.1 - for Stacksmith, meteor-1.8 branch that could have METEOR@1.8.1-beta.8 or newer
 USE_EDGE=false
 METEOR_EDGE=1.5-beta.17
 NPM_VERSION=latest
@@ -19,6 +19,7 @@ sudo useradd --user-group --system --home-dir /home/wekan wekan
 sudo mkdir -p /home/wekan
 sudo chown wekan:wekan /home/wekan/
 
+# Using meteor-1.8 branch that has newer Meteor that is compatible with MongoDB 4.x
 sudo -u wekan git clone -b meteor-1.8 https://github.com/wekan/wekan.git /home/wekan/app
 
 sudo yum install -y ${BUILD_DEPS}
@@ -52,7 +53,9 @@ cd /home/wekan
 sudo curl "https://install.meteor.com" -o /home/wekan/install_meteor.sh
 sudo chmod +x /home/wekan/install_meteor.sh
 sudo sed -i 's/VERBOSITY="--silent"/VERBOSITY="--progress-bar"/' ./install_meteor.sh
-echo "Starting meteor ${METEOR_RELEASE} installation...   \n"
+echo "Starting installation of "
+sudo cat /home/wekan/app/.meteor/release
+echo " ...\n"
 
 # Check if opting for a release candidate instead of major release
 if [ "$USE_EDGE" = false ]; then
