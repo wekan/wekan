@@ -179,8 +179,4 @@ useraccounts:unstyled@1.14.2
 verron:autosize@3.0.8
 webapp@1.4.0
 webapp-hashing@1.0.9
-wekan-scrollbar@3.1.3
-wekan:accounts-cas@0.1.0
-wekan:wekan-ldap@0.0.2
-yasaricli:slugify@0.0.7
 zimme:active-route@2.3.2

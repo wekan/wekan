@@ -9,6 +9,8 @@ template(name="minicard")
         each labels
           .minicard-label(class="card-label-{{color}}" title="{{name}}")
     .minicard-title
+      .handle
+        .fa.fa-arrows
       if $eq 'prefix-with-full-path' currentBoard.presentParentTask
         .parent-prefix
           | {{ parentString ' > ' }}
