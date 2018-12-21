@@ -291,6 +291,6 @@ DEFAULT_LOGOUT_ON_MINUTES=""
 KEY_LOGOUT_ON_MINUTES="logout-on-minutes"
 
 
-DESCRIPTION_DEFAULT_AUTHENTICATION_METHOD="The default authentication method used if a user does not exist to create and authenticate him"
+DESCRIPTION_DEFAULT_AUTHENTICATION_METHOD="The default authentication method used if a user does not exist to create and authenticate. Method can be password or ldap."
 DEFAULT_DEFAULT_AUTHENTICATION_METHOD=""
 KEY_DEFAULT_AUTHENTICATION_METHOD="default-authentication-method"

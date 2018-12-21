@@ -271,7 +271,7 @@ echo -e "\n"
 # echo -e "\t$ snap set $SNAP_NAME LOGOUT_ON_MINUTES='5'"
 # echo -e "\n"
 echo -e "Default authentication method."
-echo -e "The default authentication method used if a user does not exist to create and authenticate him"
+echo -e "The default authentication method used if a user does not exist to create and authenticate. Method can be password or ldap."
 echo -e "\t$ snap set $SNAP_NAME DEFAULT_AUTHENTICATION_METHOD='ldap'"
 echo -e "\n"
 # parse config file for supported settings keys
