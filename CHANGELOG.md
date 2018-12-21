@@ -7,6 +7,7 @@ This release adds the following new features:
   `sudo snap set wekan default-authentication-method='ldap'`. Thanks to Akuket. Closes wekan/wekan-ldap#31
 - [Drag handles and long press on mobile when using desktop mode of mobile
   browser](https://github.com/wekan/wekan/pull/2067). Thanks to hupptechnologies.
+- Upgrade to node v8.14.1 . Thanks to xet7.
 
 Thanks to above GitHub users for their contributions.
 
