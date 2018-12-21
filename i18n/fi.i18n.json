@@ -619,5 +619,7 @@
     "layout": "Ulkoasu",
     "hide-logo": "Piilota Logo",
     "add-custom-html-after-body-start": "Lisää HTML <body> alun jälkeen",
-    "add-custom-html-before-body-end": "Lisä HTML ennen </body> loppua"
+    "add-custom-html-before-body-end": "Lisä HTML ennen </body> loppua",
+    "error-undefined": "Jotain meni pieleen",
+    "error-ldap-login": "Virhe tapahtui yrittäessä kirjautua sisään"
 }
