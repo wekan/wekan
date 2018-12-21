@@ -212,6 +212,9 @@ services:
       # LOGOUT_ON_MINUTES : The number of minutes
       # example : LOGOUT_ON_MINUTES=55
       #- LOGOUT_ON_MINUTES=
+      # DEFAULT_AUTHENTICATION_METHOD : The default authentication method used if a user does not exist to create and authenticate him
+      # example : DEFAULT_AUTHENTICATION_METHOD=ldap
+      #- DEFAULT_AUTHENTICATION_METHOD=
 
     depends_on:
       - wekandb
