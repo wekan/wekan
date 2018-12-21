@@ -22,10 +22,10 @@ const pkgdef :Spk.PackageDefinition = (
     appTitle = (defaultText = "Wekan"),
     # The name of the app as it is displayed to the user.
 
-    appVersion = 196,
+    appVersion = 197,
     # Increment this for every release.
 
-    appMarketingVersion = (defaultText = "1.94.0~2018-12-18"),
+    appMarketingVersion = (defaultText = "1.95.0~2018-12-21"),
     # Human-readable presentation of the app version.
 
     minUpgradableAppVersion = 0,
@@ -254,6 +254,7 @@ const myCommand :Spk.Manifest.Command = (
     (key = "OAUTH2_TOKEN_ENDPOINT", value=""),
     (key = "LDAP_ENABLE", value="false"),
     (key = "SANDSTORM", value = "1"),
-    (key = "METEOR_SETTINGS", value = "{\"public\": {\"sandstorm\": true}}")
+    (key = "METEOR_SETTINGS", value = "{\"public\": {\"sandstorm\": true}}"),
+    (key = "DEFAULT_AUTHENTICATION_METHOD", value = "")
   ]
 );

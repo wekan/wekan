@@ -70,12 +70,13 @@ ARG LOGOUT_IN
 ARG LOGOUT_ON_HOURS
 ARG LOGOUT_ON_MINUTES
 ARG CORS
+ARG DEFAULT_AUTHENTICATION_METHOD
 
 # Set the environment variables (defaults where required)
 # DOES NOT WORK: paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
 # ENV BUILD_DEPS="paxctl"
 ENV BUILD_DEPS="apt-utils bsdtar gnupg gosu wget curl bzip2 build-essential python git ca-certificates gcc-7" \
-    NODE_VERSION=v8.14.0 \
+    NODE_VERSION=v8.14.1 \
     METEOR_RELEASE=1.6.0.1 \
     USE_EDGE=false \
     METEOR_EDGE=1.5-beta.17 \
@@ -142,7 +143,8 @@ ENV BUILD_DEPS="apt-utils bsdtar gnupg gosu wget curl bzip2 build-essential pyth
     LOGOUT_IN="" \
     LOGOUT_ON_HOURS="" \
     LOGOUT_ON_MINUTES="" \
-    CORS=""
+    CORS="" \
+    DEFAULT_AUTHENTICATION_METHOD=""
 
 # Copy the app to the image
 COPY ${SRC_PATH} /home/wekan/app

@@ -619,5 +619,7 @@
     "layout": "Disñeo",
     "hide-logo": "Ocultar logo",
     "add-custom-html-after-body-start": "Añade HTML personalizado después de <body> ",
-    "add-custom-html-before-body-end": "Añade HTML personalizado después de </body>"
+    "add-custom-html-before-body-end": "Añade HTML personalizado después de </body>",
+    "error-undefined": "Something went wrong",
+    "error-ldap-login": "An error occurred while trying to login"
 }
