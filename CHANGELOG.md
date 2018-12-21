@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v1.95 2018-12-21 Wekan release
 
 This release adds the following new features:
 
@@ -11,7 +11,7 @@ This release adds the following new features:
 
 Thanks to above GitHub users for their contributions.
 
-# v1.94 2018-12-18 Wekan version
+# v1.94 2018-12-18 Wekan release
 
 This release adds the following new features:
 
