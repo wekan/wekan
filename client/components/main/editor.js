@@ -40,7 +40,7 @@ Blaze.Template.registerHelper('mentions', new Template('mentions', function() {
   const view = this;
   const currentBoard = Boards.findOne(Session.get('currentBoard'));
   if (!currentBoard) {
-    return HTML.Raw("");
+    return HTML.Raw('');
   }
   const knowedUsers = currentBoard.members.map((member) => {
     const u = Users.findOne(member.userId);

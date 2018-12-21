@@ -263,6 +263,6 @@ if (Meteor.isServer) {
 
     getDefaultAuthenticationMethod() {
       return process.env.DEFAULT_AUTHENTICATION_METHOD;
-    }
+    },
   });
 }

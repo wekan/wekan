@@ -126,16 +126,20 @@ function authentication(instance, email, password) {
     : instance.data.defaultAuthenticationMethod.get();
 
   switch (authenticationMethod) {
-    case 'ldap':
-      // Use the ldap connection package
-      Meteor.loginWithLDAP(email, password, function(error) {
-        if (!error) return FlowRouter.go('/');
+  case 'ldap':
+    // Use the ldap connection package
+    Meteor.loginWithLDAP(email, password, function(error) {
+      if (error) {
         displayError('error-ldap-login');
-      });
-      break;
+        return this.stop();
+      } else {
+        return FlowRouter.go('/');
+      }
+    });
+    break;
 
-    default:
-      displayError('error-undefined');
+  default:
+    displayError('error-undefined');
   }
 
   return this.stop();
