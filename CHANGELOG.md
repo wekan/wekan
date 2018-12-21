@@ -5,6 +5,8 @@ This release adds the following new features:
 - [Improve authentication](https://github.com/wekan/wekan/pull/2065): remove login dropdown,
   and add setting `DEFAULT_AUTHENTICATION_METHOD=ldap` or
   `sudo snap set wekan default-authentication-method='ldap'`. Thanks to Akuket. Closes wekan/wekan-ldap#31
+- [Drag handles and long press on mobile when using desktop mode of mobile
+  browser](https://github.com/wekan/wekan/pull/2067). Thanks to hupptechnologies.
 
 Thanks to above GitHub users for their contributions.
 
