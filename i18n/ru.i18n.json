@@ -109,7 +109,7 @@
     "boardChangeColorPopup-title": "Изменить фон доски",
     "boardChangeTitlePopup-title": "Переименовать доску",
     "boardChangeVisibilityPopup-title": "Изменить настройки видимости",
-    "boardChangeWatchPopup-title": "Изменить Отслеживание",
+    "boardChangeWatchPopup-title": "Режимы оповещения",
     "boardMenuPopup-title": "Меню доски",
     "boards": "Доски",
     "board-view": "Вид доски",
@@ -341,7 +341,7 @@
     "moveSelectionPopup-title": "Переместить выделение",
     "multi-selection": "Выбрать несколько",
     "multi-selection-on": "Выбрать несколько из",
-    "muted": "Заглушен",
+    "muted": "Не беспокоить",
     "muted-info": "Вы НИКОГДА не будете уведомлены ни о каких изменениях в этой доске.",
     "my-boards": "Мои доски",
     "name": "Имя",
@@ -429,7 +429,7 @@
     "view-it": "Просмотреть",
     "warn-list-archived": "внимание: эта карточка из списка, который находится в Архиве",
     "watch": "Следить",
-    "watching": "Отслеживается",
+    "watching": "Полный контроль",
     "watching-info": "Вы будете уведомлены об любых изменениях в этой доске.",
     "welcome-board": "Приветственная Доска",
     "welcome-swimlane": "Этап 1",
@@ -619,5 +619,7 @@
     "layout": "Внешний вид",
     "hide-logo": "Скрыть логотип",
     "add-custom-html-after-body-start": "Добавить HTML после начала <body> ",
-    "add-custom-html-before-body-end": "Добавить HTML до завершения </body>"
+    "add-custom-html-before-body-end": "Добавить HTML до завершения </body>",
+    "error-undefined": "Что-то пошло не так",
+    "error-ldap-login": "Ошибка при попытке авторизации"
 }
