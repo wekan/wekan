@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Combine all docker-compose.yml files](https://github.com/wekan/wekan/commit/3f948ba49ba7266c436ff138716bdcae9e879903). Thanks to xet7.
+
+Thanks to above GitHub users for their contributions.
+
 # v1.95 2018-12-21 Wekan release
 
 This release adds the following new features:
