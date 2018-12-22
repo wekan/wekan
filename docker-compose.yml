@@ -140,7 +140,7 @@ services:
   #      mongod --replSet rs1
   #---------------------------------------------------------------------------------------
   #  === FOR ABOVE ToroDB, UNCOMMENT all of above with wekandb: mongo:3.2 that is only  ===
-  #  === compatible with ToroDB, and COMMENT OUF all of below wekandb: with mongo:4.0.4 ===
+  #  === compatible with ToroDB, and COMMENT OUT all of below wekandb: with mongo:4.0.4 ===
   #  === and mongo:3.2.21 ===
   #-----------------------:::--------------------------------------------------------------
 
