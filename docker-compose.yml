@@ -87,63 +87,6 @@ version: '2'
 
 services:
 
-  #-----------------------------------------------------------------------------------
-  # ==== OPTIONAL Wekan <=> MongoDB <=> ToroDB => PostgreSQL read-only mirroring ====
-  # For reporting with SQL, and accessing with any programming language,
-  # reporting package and Office suite that can connect to PostgreSQL.
-  # https://github.com/wekan/wekan-postgresql
-  #
-  #torodb-stampede:
-  #  image: torodb/stampede:1.0.0-SNAPSHOT
-  #  networks:
-  #    - wekan-tier
-  #  links:
-  #    - postgres
-  #    - wekandb
-  #  environment:
-  #    - POSTGRES_PASSWORD
-  #    - TORODB_SETUP=true
-  #    - TORODB_SYNC_SOURCE=mongodb:27017
-  #    - TORODB_BACKEND_HOST=postgres
-  #    - TORODB_BACKEND_PORT=5432
-  #    - TORODB_BACKEND_DATABASE=wekan
-  #    - TORODB_BACKEND_USER=wekan
-  #    - TORODB_BACKEND_PASSWORD=wekan
-  #    - DEBUG
-  #postgres:
-  #  image: postgres:9.6
-  #  networks:
-  #    - wekan-tier
-  #  environment:
-  #    - POSTGRES_PASSWORD
-  #  ports:
-  #    - "15432:5432"
-  #wekandb:
-  #  image: mongo:3.2
-  #  networks:
-  #    - wekan-tier
-  #  ports:
-  #    - "28017:27017"
-  #  entrypoint:
-  #    - /bin/bash
-  #    - "-c"
-  #    - mongo --nodb --eval '
-  #          var db;
-  #          while (!db) {
-  #              try {
-  #                db = new Mongo("mongodb:27017").getDB("local");
-  #              } catch(ex) {}
-  #              sleep(3000);
-  #          };
-  #          rs.initiate({_id:"rs1",members:[{_id:0,host:"mongodb:27017"}]});
-  #      ' 1>/dev/null 2>&1 &
-  #      mongod --replSet rs1
-  #---------------------------------------------------------------------------------------
-  #  === FOR ABOVE ToroDB, UNCOMMENT all of above with wekandb: mongo:3.2 that is only  ===
-  #  === compatible with ToroDB, and COMMENT OUT all of below wekandb: with mongo:4.0.4 ===
-  #  === and mongo:3.2.21 ===
-  #-----------------------:::--------------------------------------------------------------
-
   wekandb:
     #-------------------------------------------------------------------------------------
     # ==== MONGODB AND METEOR VERSION ====
