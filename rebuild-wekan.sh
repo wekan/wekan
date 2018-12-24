@@ -4,7 +4,9 @@ echo "Note: If you use other locale than en_US.UTF-8 , you need to additionally 
 echo "      with 'sudo dpkg-reconfigure locales' , so that MongoDB works correctly."
 echo "      You can still use any other locale as your main locale."
 
-X64NODE="https://nodejs.org/dist/v8.14.1/node-v8.14.1-linux-x64.tar.gz"
+#Below script installs newest node 8.x for Debian/Ubuntu/Mint.
+#NODE_VERSION=8.14.1
+#X64NODE="https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz"
 
 function pause(){
 	read -p "$*"
@@ -69,31 +71,9 @@ do
 
 		if [[ "$OSTYPE" == "linux-gnu" ]]; then
 	                echo "Linux";
-
-			if [ "$(grep -Ei 'buntu|mint' /etc/*release)" ]; then
-				sudo apt install -y build-essential git curl wget
-#				sudo apt -y install nodejs npm
-#				npm_call -g install n
-#				sudo n 8.14.1
-			fi
-
-#			if [ "$(grep -Ei 'debian' /etc/*release)" ]; then
-#				sudo apt install -y build-essential git curl wget
-#				echo "Debian, or Debian on Windows Subsystem for Linux"
-#				curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-#				sudo apt install -y nodejs
-#			fi
-
-			# TODO: Add Sandstorm for version of Node.js install
-			#MACHINE_TYPE=`uname -m`
-			#if [ ${MACHINE_TYPE} == 'x86_64' ]; then
-			#	# 64-bit stuff here
-			#	wget ${X64NODE}
-			#	sudo tar -C /usr/local --strip-components 1 -xzf ${X64NODE}
-			#elif [ ${MACHINE_TYPE} == '32bit' ]; then
-			#	echo "TODO: 32-bit Linux install here"
-			#	exit
-			#fi
+			# Debian, Ubuntu, Mint
+			sudo apt-get install -y build-essential git curl wget
+			curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
 		        echo "macOS";
 			pause '1) Install XCode 2) Install Node 8.x from https://nodejs.org/en/ 3) Press [Enter] key to continue.'
@@ -125,11 +105,6 @@ do
 	        npm_call -g install fibers@2.0.0
 	        # Install Meteor, if it's not yet installed
 	        curl https://install.meteor.com | bash
-#	        mkdir ~/repos
-#	        cd ~/repos
-#	        git clone https://github.com/wekan/wekan.git
-#	        cd wekan
-#	        git checkout devel
 		break
 		;;
         "Build Wekan")
