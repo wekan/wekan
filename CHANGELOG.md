@@ -2,9 +2,16 @@
 
 This release adds the following new features:
 
-- [Combine all docker-compose.yml files](https://github.com/wekan/wekan/commit/3f948ba49ba7266c436ff138716bdcae9e879903). Thanks to xet7.
+- [Combine all docker-compose.yml files](https://github.com/wekan/wekan/commit/3f948ba49ba7266c436ff138716bdcae9e879903).
 
-Thanks to above GitHub users for their contributions.
+and tries to fix following bugs:
+
+- Revert "Improve authentication" and "Default Authentication Method"
+  to make login work again.
+- Fixes to docker-compose.yml so that Wekan Meteor 1.6.x version would work.
+  Most likely Meteor 1.8.x version is still broken.
+
+Thanks to GitHub user xet7 contributions.
 
 # v1.95 2018-12-21 Wekan release
 
