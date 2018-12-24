@@ -90,11 +90,11 @@ services:
   wekandb:
     #-------------------------------------------------------------------------------------
     # ==== MONGODB AND METEOR VERSION ====
-    # a) For Wekan Meteor 1.8.x version at meteor-1.8 branch, use mongo 4.x
-    image: mongo:4.0.4
+    # a) CURRENTLY BROKEN: For Wekan Meteor 1.8.x version at meteor-1.8 branch, use mongo 4.x
+    # image: mongo:4.0.4
     # b) For Wekan Meteor 1.6.x version at master/devel/edge branches.
     # Only for Snap and Sandstorm while they are not upgraded yet to Meteor 1.8.x
-    # image: mongo:3.2.21
+    image: mongo:3.2.21
     #-------------------------------------------------------------------------------------
     container_name: wekan-db
     restart: always
@@ -110,12 +110,12 @@ services:
   wekan:
     #-------------------------------------------------------------------------------------
     # ==== MONGODB AND METEOR VERSION ====
-    # a) For Wekan Meteor 1.8.x version at meteor-1.8 branch,
+    # a) CURRENTLY BROKEN: For Wekan Meteor 1.8.x version at meteor-1.8 branch,
     #    using https://quay.io/wekan/wekan automatic builds
-    image: quay.io/wekan/wekan:meteor-1.8
+    # image: quay.io/wekan/wekan:meteor-1.8
     # b) For Wekan Meteor 1.6.x version at master/devel/edge branches.
     # Only for Snap and Sandstorm while they are not upgraded yet to Meteor 1.8.x
-    # image: quay.io/wekan/wekan
+    image: quay.io/wekan/wekan
     # c) Using specific Meteor 1.6.x version tag:
     # image: quay.io/wekan/wekan:v1.95
     # c) Using Docker Hub automatic builds https://hub.docker.com/r/wekanteam/wekan
