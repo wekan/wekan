@@ -128,17 +128,18 @@ services:
       - wekan-tier
     #-------------------------------------------------------------------------------------
     # ==== BUILD wekan-app DOCKER CONTAINER FROM SOURCE, if you uncomment these ====
-    #build:
-    #  context: .
-    #  dockerfile: Dockerfile
-    #  args:
-    #    - NODE_VERSION=${NODE_VERSION}
-    #    - METEOR_RELEASE=${METEOR_RELEASE}
-    #    - NPM_VERSION=${NPM_VERSION}
-    #    - ARCHITECTURE=${ARCHITECTURE}
-    #    - SRC_PATH=${SRC_PATH}
-    #    - METEOR_EDGE=${METEOR_EDGE}
-    #    - USE_EDGE=${USE_EDGE}
+    # ==== and use commands: docker-compose up -d --build
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - NODE_VERSION=${NODE_VERSION}
+        - METEOR_RELEASE=${METEOR_RELEASE}
+        - NPM_VERSION=${NPM_VERSION}
+        - ARCHITECTURE=${ARCHITECTURE}
+        - SRC_PATH=${SRC_PATH}
+        - METEOR_EDGE=${METEOR_EDGE}
+        - USE_EDGE=${USE_EDGE}
     #-------------------------------------------------------------------------------------
     ports:
       # Docker outsideport:insideport. Do not add anything extra here.
