@@ -1,8 +1,8 @@
-# Upcoming Wekan release
+# v1.97 2018-12-26 Wekan release
 
 This release adds the following new features:
 
-- Use Node 8.15.0 and MongoDB 3.2.22.
+- Upgrade to Node 8.15.0 and MongoDB 3.2.22.
 - Stacksmith: back to Meteor 1.6.x based Wekan, because Meteor 1.8.x based is currently broken.
     
 Thanks to GitHub user xet7 contributions.
