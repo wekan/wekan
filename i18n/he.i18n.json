@@ -283,13 +283,13 @@
     "import-board": "ייבוא לוח",
     "import-board-c": "יבוא לוח",
     "import-board-title-trello": "ייבוא לוח מטרלו",
-    "import-board-title-wekan": "Import board from previous export",
-    "import-sandstorm-backup-warning": "Do not delete data you import from original exported board or Trello before checking does this grain close and open again, or do you get Board not found error, that means data loss.",
+    "import-board-title-wekan": "ייבוא לוח מייצוא קודם",
+    "import-sandstorm-backup-warning": "עדיף לא למחוק נתונים שייובאו מייצוא מקורי או מ־Trello בטרם בדיקה האם הגרעין הזה נסגר ונפתח שוב או אם מתקבלת שגיאה על כך שהלוח לא נמצא, משמעות הדבר היא אבדן מידע.",
     "import-sandstorm-warning": "הלוח שייובא ימחק את כל הנתונים הקיימים בלוח ויחליף אותם בלוח שייובא.",
     "from-trello": "מ־Trello",
     "from-wekan": "מייצוא קודם",
     "import-board-instruction-trello": "בלוח הטרלו שלך, עליך ללחוץ על ‚תפריט‘, ואז על ‚עוד‘, ‚הדפסה וייצוא‘, ‚יצוא JSON‘ ולהעתיק את הטקסט שנוצר.",
-    "import-board-instruction-wekan": "In your board, go to 'Menu', then 'Export board', and copy the text in the downloaded file.",
+    "import-board-instruction-wekan": "בלוח שלך עליך לגשת אל ‚תפריט’, לאחר מכן ‚ייצוא לוח’ ואז להעתיק את הטקסט מהקובץ שהתקבל.",
     "import-board-instruction-about-errors": "גם אם התקבלו שגיאות בעת ייבוא לוח, ייתכן שהייבוא עבד. כדי לבדוק זאת, יש להיכנס ל„כל הלוחות”.",
     "import-json-placeholder": "יש להדביק את נתוני ה־JSON התקינים לכאן",
     "import-map-members": "מיפוי חברים",
@@ -620,6 +620,6 @@
     "hide-logo": "הסתרת לוגו",
     "add-custom-html-after-body-start": "הוספת קוד HTML מותאם אישית בתחילת ה <body>.",
     "add-custom-html-before-body-end": "הוספת קוד HTML מותאם אישית בסוף ה</body>.",
-    "error-undefined": "Something went wrong",
-    "error-ldap-login": "An error occurred while trying to login"
+    "error-undefined": "מהו השתבש",
+    "error-ldap-login": "אירעה שגיאה בעת ניסיון הכניסה"
 }
