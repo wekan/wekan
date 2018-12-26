@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- docker-compose.yml back to MongoDB 3.2.21 because 3.2.22 MongoDB container does not exist yet.
+    
+Thanks to GitHub user xet7 for contributions.
+
 # v1.97 2018-12-26 Wekan release
 
 This release adds the following new features:
@@ -5,7 +13,7 @@ This release adds the following new features:
 - Upgrade to Node 8.15.0 and MongoDB 3.2.22.
 - Stacksmith: back to Meteor 1.6.x based Wekan, because Meteor 1.8.x based is currently broken.
     
-Thanks to GitHub user xet7 contributions.
+Thanks to GitHub user xet7 for contributions.
 
 # v1.96 2018-12-24 Wekan release
 
