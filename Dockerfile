@@ -76,7 +76,7 @@ ARG DEFAULT_AUTHENTICATION_METHOD
 # DOES NOT WORK: paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
 # ENV BUILD_DEPS="paxctl"
 ENV BUILD_DEPS="apt-utils bsdtar gnupg gosu wget curl bzip2 build-essential python git ca-certificates gcc-7" \
-    NODE_VERSION=v8.14.1 \
+    NODE_VERSION=v8.15.0 \
     METEOR_RELEASE=1.6.0.1 \
     USE_EDGE=false \
     METEOR_EDGE=1.5-beta.17 \

@@ -94,7 +94,7 @@ services:
     # image: mongo:4.0.4
     # b) For Wekan Meteor 1.6.x version at master/devel/edge branches.
     # Only for Snap and Sandstorm while they are not upgraded yet to Meteor 1.8.x
-    image: mongo:3.2.21
+    image: mongo:3.2.22
     #-------------------------------------------------------------------------------------
     container_name: wekan-db
     restart: always
