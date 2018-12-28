@@ -1,10 +1,14 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following new features:
 
-- docker-compose.yml back to MongoDB 3.2.21 because 3.2.22 MongoDB container does not exist yet.
+- Add optional Nginx reverse proxy config to docker-compose.yml and nginx directory. Thanks to MyTheValentinus.
+
+and fixes the following bugs:
+
+- docker-compose.yml back to MongoDB 3.2.21 because 3.2.22 MongoDB container does not exist yet. Thanks to xet7.
     
-Thanks to GitHub user xet7 for contributions.
+Thanks to above GitHub users for their contributions.
 
 # v1.97 2018-12-26 Wekan release
 
