@@ -102,7 +102,7 @@ do
 	        npm_call -g install npm
 	        npm_call -g install node-gyp
 	        # Latest fibers for Meteor 1.6
-	        npm_call -g install fibers@2.0.0
+	        npm_call -g install fibers@3.1.1
 	        # Install Meteor, if it's not yet installed
 	        curl https://install.meteor.com | bash
 		break

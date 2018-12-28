@@ -20,12 +20,12 @@
   },
   "homepage": "https://wekan.github.io",
   "devDependencies": {
-    "eslint": "^4.19.1"
+    "eslint": "^5.9.0"
   },
   "dependencies": {
-    "@babel/runtime": "^7.1.2",
-    "babel-runtime": "^6.26.0",
-    "bson-ext": "^2.0.0",
+    "@babel/runtime": "^7.2.0",
+    "bcrypt": "^3.0.2",
+    "bson": "^4.0.0",
     "es6-promise": "^4.2.4",
     "hoek": "^5.0.4",
     "meteor-node-stubs": "^0.4.1",
