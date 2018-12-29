@@ -218,11 +218,14 @@ Utils = {
       const element = tempInstance.$(triggerEls[i]);
       if (element.hasClass('trigger-text')) {
         finalString += element.text().toLowerCase();
+      } else if (element.hasClass('user-details')) {
+        console.log(element);
+        finalString += element.find('.trigger-text').text().toLowerCase()+ " " + element.find('input').val();
       } else if (element.find('select').length > 0) {
         finalString += element.find('select option:selected').text().toLowerCase();
       } else if (element.find('input').length > 0) {
         finalString += element.find('input').val();
-      }
+      } 
       // Add space
       if (i !== length - 1) {
         finalString += ' ';
