@@ -9,6 +9,13 @@ template(name="boardTriggers")
           option(value="removed") {{_'r-removed-from'}}
       div.trigger-text 
         | {{_'r-the-board'}}
+      div.trigger-button.trigger-button-person.js-show-user-field
+        i.fa.fa-user
+      div.user-details.hide-element
+        div.trigger-text
+          | {{_'r-by'}}
+        div.trigger-dropdown
+          input(class="user-name",id="create-list-name",type=text,placeholder="{{_'r-user-name'}}") 
     div.trigger-button.js-add-gen-trigger.js-goto-action
       i.fa.fa-plus
 
@@ -23,7 +30,14 @@ template(name="boardTriggers")
       div.trigger-text 
         | {{_'r-list'}}
       div.trigger-dropdown
-        input(id="create-list-name",type=text,placeholder="{{_'r-list-name'}}")  
+        input(id="create-list-name",type=text,placeholder="{{_'r-list-name'}}") 
+      div.trigger-button.trigger-button-person.js-show-user-field
+        i.fa.fa-user
+      div.user-details.hide-element
+        div.trigger-text
+          | {{_'r-by'}}
+        div.trigger-dropdown
+          input(class="user-name",id="create-list-name",type=text,placeholder="{{_'r-user-name'}}")     
     div.trigger-button.js-add-create-trigger.js-goto-action
       i.fa.fa-plus
 
@@ -31,6 +45,13 @@ template(name="boardTriggers")
     div.trigger-content
       div.trigger-text 
         | {{_'r-when-a-card-is-moved'}}
+      div.trigger-button.trigger-button-person.js-show-user-field
+        i.fa.fa-user
+      div.user-details.hide-element
+        div.trigger-text
+          | {{_'r-by'}}
+        div.trigger-dropdown
+          input(class="user-name",id="create-list-name",type=text,placeholder="{{_'r-user-name'}}")
     div.trigger-button.js-add-gen-moved-trigger.js-goto-action
       i.fa.fa-plus
 
@@ -46,6 +67,13 @@ template(name="boardTriggers")
         | {{_'r-list'}}
       div.trigger-dropdown
         input(id="move-list-name",type=text,placeholder="{{_'r-list-name'}}")  
+      div.trigger-button.trigger-button-person.js-show-user-field
+        i.fa.fa-user
+      div.user-details.hide-element
+        div.trigger-text
+          | {{_'r-by'}}
+        div.trigger-dropdown
+          input(class="user-name",id="create-list-name",type=text,placeholder="{{_'r-user-name'}}")
     div.trigger-button.js-add-moved-trigger.js-goto-action
       i.fa.fa-plus
 
@@ -57,6 +85,13 @@ template(name="boardTriggers")
         select(id="arch-action")
           option(value="archived") {{_'r-archived'}}
           option(value="unarchived") {{_'r-unarchived'}}
+      div.trigger-button.trigger-button-person.js-show-user-field
+        i.fa.fa-user
+      div.user-details.hide-element
+        div.trigger-text
+          | {{_'r-by'}}
+        div.trigger-dropdown
+          input(class="user-name",id="create-list-name",type=text,placeholder="{{_'r-user-name'}}")
     div.trigger-button.js-add-arch-trigger.js-goto-action
       i.fa.fa-plus
 

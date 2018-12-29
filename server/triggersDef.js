@@ -1,57 +1,57 @@
 TriggersDef = {
   createCard:{
-    matchingFields: ['boardId', 'listName'],
+    matchingFields: ['boardId', 'listName','userId'],
   },
   moveCard:{
-    matchingFields: ['boardId', 'listName', 'oldListName'],
+    matchingFields: ['boardId', 'listName', 'oldListName','userId'],
   },
   archivedCard:{
-    matchingFields: ['boardId'],
+    matchingFields: ['boardId','userId'],
   },
   restoredCard:{
-    matchingFields: ['boardId'],
+    matchingFields: ['boardId','userId'],
   },
   joinMember:{
-    matchingFields: ['boardId', 'username'],
+    matchingFields: ['boardId', 'username','userId'],
   },
   unjoinMember:{
-    matchingFields: ['boardId', 'username'],
+    matchingFields: ['boardId', 'username','userId'],
   },
   addChecklist:{
-    matchingFields: ['boardId', 'checklistName'],
+    matchingFields: ['boardId', 'checklistName','userId'],
   },
   removeChecklist:{
-    matchingFields: ['boardId', 'checklistName'],
+    matchingFields: ['boardId', 'checklistName','userId'],
   },
   completeChecklist:{
-    matchingFields: ['boardId', 'checklistName'],
+    matchingFields: ['boardId', 'checklistName','userId'],
   },
   uncompleteChecklist:{
-    matchingFields: ['boardId', 'checklistName'],
+    matchingFields: ['boardId', 'checklistName','userId'],
   },
   addedChecklistItem:{
-    matchingFields: ['boardId', 'checklistItemName'],
+    matchingFields: ['boardId', 'checklistItemName','userId'],
   },
   removedChecklistItem:{
-    matchingFields: ['boardId', 'checklistItemName'],
+    matchingFields: ['boardId', 'checklistItemName','userId'],
   },
   checkedItem:{
-    matchingFields: ['boardId', 'checklistItemName'],
+    matchingFields: ['boardId', 'checklistItemName','userId'],
   },
   uncheckedItem:{
-    matchingFields: ['boardId', 'checklistItemName'],
+    matchingFields: ['boardId', 'checklistItemName','userId'],
   },
   addAttachment:{
-    matchingFields: ['boardId'],
+    matchingFields: ['boardId','userId'],
   },
   deleteAttachment:{
-    matchingFields: ['boardId'],
+    matchingFields: ['boardId','userId'],
   },
   addedLabel:{
-    matchingFields: ['boardId', 'labelId'],
+    matchingFields: ['boardId', 'labelId','userId'],
   },
   removedLabel:{
-    matchingFields: ['boardId', 'labelId'],
+    matchingFields: ['boardId', 'labelId','userId'],
   },
 };
 

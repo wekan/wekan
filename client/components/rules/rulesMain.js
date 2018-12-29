@@ -42,7 +42,26 @@ BlazeComponent.extendComponent({
       },
       'click .js-goto-action' (event) {
         event.preventDefault();
+        // Add user to the trigger
+        const username = $(event.currentTarget.offsetParent).find(".user-name").val();
+        let trigger = this.triggerVar.get();
+        const user = Users.findOne({"username":username});
+        if(user != undefined){
+          trigger["userId"] = user._id;
+        }else{
+          trigger["userId"] = "*";
+        }
+        this.triggerVar.set(trigger);
         this.setAction();
+      },
+      'click .js-show-user-field' (event) {
+        event.preventDefault();
+        console.log(event);
+        console.log(event.currentTarget.offsetParent);
+        console.log($(event.currentTarget.offsetParent));
+        $(event.currentTarget.offsetParent).find(".user-details").removeClass("hide-element");
+
+
       },
       'click .js-goto-rules' (event) {
         event.preventDefault();
