@@ -467,6 +467,7 @@
     "error-notAuthorized": "You are not authorized to view this page.",
     "outgoing-webhooks": "Outgoing Webhooks",
     "outgoingWebhooksPopup-title": "Outgoing Webhooks",
+    "boardCardTitlePopup-title": "Card Title Filter",
     "new-outgoing-webhook": "New Outgoing Webhook",
     "no-name": "(Unknown)",
     "Node_version": "Node version",

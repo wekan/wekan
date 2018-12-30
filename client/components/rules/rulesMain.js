@@ -31,6 +31,7 @@ BlazeComponent.extendComponent({
         Triggers.remove(rule.triggerId);
 
       },
+      'click .js-open-card-title-popup': Popup.open('boardCardTitle'),
       'click .js-goto-trigger' (event) {
         event.preventDefault();
         const ruleTitle = this.find('#ruleTitle').value;
