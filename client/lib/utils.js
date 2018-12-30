@@ -219,12 +219,19 @@ Utils = {
       if (element.hasClass('trigger-text')) {
         finalString += element.text().toLowerCase();
       } else if (element.hasClass('user-details')) {
-        console.log(element);
-        finalString += element.find('.trigger-text').text().toLowerCase()+ " " + element.find('input').val();
+        let username = element.find('input').val();
+        if(username == undefined || username == ""){
+          username = "*";
+        }
+        finalString += element.find('.trigger-text').text().toLowerCase()+ " " + username ;
       } else if (element.find('select').length > 0) {
         finalString += element.find('select option:selected').text().toLowerCase();
       } else if (element.find('input').length > 0) {
-        finalString += element.find('input').val();
+        let inputvalue = element.find('input').val();
+        if(inputvalue == undefined || inputvalue == ""){
+          inputvalue = "*";
+        }
+        finalString += inputvalue;
       } 
       // Add space
       if (i !== length - 1) {

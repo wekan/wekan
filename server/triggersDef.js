@@ -1,9 +1,9 @@
 TriggersDef = {
   createCard:{
-    matchingFields: ['boardId', 'listName','userId'],
+    matchingFields: ['boardId', 'listName','userId','swimlaneName'],
   },
   moveCard:{
-    matchingFields: ['boardId', 'listName', 'oldListName','userId'],
+    matchingFields: ['boardId', 'listName', 'oldListName','userId','swimlaneName'],
   },
   archivedCard:{
     matchingFields: ['boardId','userId'],
