@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v1.98 2019-01-01 Wekan release
 
 This release adds the following new features:
 
@@ -7,6 +7,11 @@ This release adds the following new features:
 and fixes the following bugs:
 
 - docker-compose.yml back to MongoDB 3.2.21 because 3.2.22 MongoDB container does not exist yet. Thanks to xet7.
+- [Mobile fixes](https://github.com/wekan/wekan/pull/2084), thanks to hupptechnologies:
+  - Move home button / avatar bar from bottom to top. So at top first is home button / avatar, then others.
+  - When clicking Move Card, go to correct page position. Currently it's at empty page position, and there is
+    need to scroll page up to see Move Card options. It should work similarly like Copy Card, that is visible.
+  - Also check that other buttons go to visible page.
     
 Thanks to above GitHub users for their contributions.
 
