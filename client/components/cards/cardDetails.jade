@@ -264,7 +264,7 @@ template(name="copyChecklistToManyCardsPopup")
 
 template(name="boardsAndLists")
   label {{_ 'boards'}}:
-  select.js-select-boards
+  select.js-select-boards(autofocus)
     each boards
       if $eq _id currentBoard._id
         option(value="{{_id}}" selected) {{_ 'current'}}
@@ -302,7 +302,7 @@ template(name="cardMorePopup")
       span {{_ 'link-card'}}
       = ' '
       i.fa.colorful(class="{{#if board.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
-      input.inline-input(type="text" id="cardURL" readonly value="{{ absoluteUrl }}")
+      input.inline-input(type="text" id="cardURL" readonly value="{{ absoluteUrl }}" autofocus="autofocus")
       button.js-copy-card-link-to-clipboard(class="btn") {{_ 'copy-card-link-to-clipboard'}}
     span.clearfix
     br
