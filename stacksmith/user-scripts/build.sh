@@ -19,11 +19,11 @@ sudo useradd --user-group --system --home-dir /home/wekan wekan
 sudo mkdir -p /home/wekan
 sudo chown wekan:wekan /home/wekan/
 
-# CURRENTLY BROKEN: meteor-1.8 branch that has newer Meteor that is compatible with MongoDB 4.x
-# sudo -u wekan git clone -b meteor-1.8 https://github.com/wekan/wekan.git /home/wekan/app
+# meteor-1.8 branch that has newer Meteor that is compatible with MongoDB 4.x
+sudo -u wekan git clone -b meteor-1.8 https://github.com/wekan/wekan.git /home/wekan/app
 
-# Using Meteor 1.6.x version of Wekan
-sudo -u wekan git clone https://github.com/wekan/wekan.git /home/wekan/app
+# OLD: Using Meteor 1.6.x version of Wekan
+#sudo -u wekan git clone https://github.com/wekan/wekan.git /home/wekan/app
 
 sudo yum install -y ${BUILD_DEPS}
 
