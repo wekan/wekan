@@ -132,6 +132,19 @@ RulesHelper = {
     if(action.actionType === 'removeChecklist'){
       Checklists.remove({'title':action.checklistName, 'cardId':card._id, 'sort':0});
     }
+    if(action.actionType === 'addSwimlane'){
+      Swimlanes.insert({
+        title: action.swimlaneName,
+        boardId
+      });
+    }
+    if(action.actionType === 'addChecklistWithItems'){
+       const checkListId = Checklists.insert({'title':action.checklistName, 'cardId':card._id, 'sort':0});
+       const itemsArray = action.checklistItems.split(',');
+       for(let i = 0;i <itemsArray.length;i++){
+        ChecklistItems.insert({title:itemsArray[i],checklistId:checkListId,cardId:card._id,'sort':0});
+       }
+    }
 
   },
 

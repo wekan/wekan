@@ -4,6 +4,29 @@ BlazeComponent.extendComponent({
   },
   events() {
     return [{
+      'click .js-add-checklist-items-action' (event) {
+        const ruleName = this.data().ruleName.get();
+        const trigger = this.data().triggerVar.get();
+        const checklistName = this.find('#checklist-name-3').value;
+        const checklistItems = this.find('#checklist-items').value;
+        const boardId = Session.get('currentBoard');
+        const desc = Utils.getTriggerActionDesc(event, this);
+        const triggerId = Triggers.insert(trigger);
+        const actionId = Actions.insert({
+          actionType: 'addChecklistWithItems',
+          checklistName,
+          checklistItems,
+          boardId,
+          desc,
+        });
+        Rules.insert({
+          title: ruleName,
+          triggerId,
+          actionId,
+          boardId,
+        });
+        
+      },
       'click .js-add-checklist-action' (event) {
         const ruleName = this.data().ruleName.get();
         const trigger = this.data().triggerVar.get();
