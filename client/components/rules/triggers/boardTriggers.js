@@ -1,7 +1,7 @@
 BlazeComponent.extendComponent({
   onCreated() {
     this.provaVar = new ReactiveVar('');
-    this.currentPopupTriggerId = "def";
+    this.currentPopupTriggerId = 'def';
     this.cardTitleFilters = {};
   },
   setNameFilter(name){
@@ -11,12 +11,12 @@ BlazeComponent.extendComponent({
   events() {
     return [{
       'click .js-open-card-title-popup'(event){
-        var funct = Popup.open('boardCardTitle');
-        let divId = $(event.currentTarget.parentNode.parentNode).attr("id");
-        console.log("current popup");
+        const funct = Popup.open('boardCardTitle');
+        const divId = $(event.currentTarget.parentNode.parentNode).attr('id');
+        console.log('current popup');
         console.log(this.currentPopupTriggerId);
         this.currentPopupTriggerId = divId;
-        funct.call(this,event);
+        funct.call(this, event);
       },
       'click .js-add-create-trigger' (event) {
         const desc = Utils.getTriggerActionDesc(event, this);
@@ -24,17 +24,17 @@ BlazeComponent.extendComponent({
         const listName = this.find('#create-list-name').value;
         const swimlaneName = this.find('#create-swimlane-name').value;
         const boardId = Session.get('currentBoard');
-        const divId = $(event.currentTarget.parentNode).attr("id");
+        const divId = $(event.currentTarget.parentNode).attr('id');
         const cardTitle = this.cardTitleFilters[divId];
         // move to generic funciont
         datas.triggerVar.set({
-            activityType: 'createCard',
-            boardId,
-            cardTitle,
-            swimlaneName,
-            listName,
-            desc,
-          });
+          activityType: 'createCard',
+          boardId,
+          cardTitle,
+          swimlaneName,
+          listName,
+          desc,
+        });
       },
       'click .js-add-moved-trigger' (event) {
         const datas = this.data();
@@ -103,9 +103,6 @@ BlazeComponent.extendComponent({
   },
 
 }).register('boardTriggers');
-
-
-
 
 
 Template.boardCardTitlePopup.events({

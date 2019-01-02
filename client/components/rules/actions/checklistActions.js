@@ -25,7 +25,7 @@ BlazeComponent.extendComponent({
           actionId,
           boardId,
         });
-        
+
       },
       'click .js-add-checklist-action' (event) {
         const ruleName = this.data().ruleName.get();

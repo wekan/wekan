@@ -220,19 +220,19 @@ Utils = {
         finalString += element.text().toLowerCase();
       } else if (element.hasClass('user-details')) {
         let username = element.find('input').val();
-        if(username == undefined || username == ""){
-          username = "*";
+        if(username == undefined || username == ''){
+          username = '*';
         }
-        finalString += element.find('.trigger-text').text().toLowerCase()+ " " + username ;
+        finalString += `${element.find('.trigger-text').text().toLowerCase() } ${  username}`;
       } else if (element.find('select').length > 0) {
         finalString += element.find('select option:selected').text().toLowerCase();
       } else if (element.find('input').length > 0) {
         let inputvalue = element.find('input').val();
-        if(inputvalue == undefined || inputvalue == ""){
-          inputvalue = "*";
+        if(inputvalue == undefined || inputvalue == ''){
+          inputvalue = '*';
         }
         finalString += inputvalue;
-      } 
+      }
       // Add space
       if (i !== length - 1) {
         finalString += ' ';

@@ -28,7 +28,7 @@ BlazeComponent.extendComponent({
           actionId,
           boardId,
         });
-        
+
       },
       'click .js-add-swimlane-action' (event) {
         const ruleName = this.data().ruleName.get();
@@ -49,7 +49,7 @@ BlazeComponent.extendComponent({
           actionId,
           boardId,
         });
-        
+
       },
       'click .js-add-spec-move-action' (event) {
         const ruleName = this.data().ruleName.get();
