@@ -1,34 +1,36 @@
 BlazeComponent.extendComponent({
   onCreated() {
-
+    this.provaVar = new ReactiveVar('');
+    this.currentPopupTriggerId = "def";
+    this.cardTitleFilters = {};
+  },
+  setNameFilter(name){
+    this.cardTitleFilters[this.currentPopupTriggerId] =  name;
   },
 
   events() {
     return [{
-      'click .js-add-gen-trigger' (event) {
-        const desc = Utils.getTriggerActionDesc(event, this);
-        const datas = this.data();
-        const boardId = Session.get('currentBoard');
-        datas.triggerVar.set({
-            activityType: 'createCard',
-            boardId,
-            'listName': '*',
-            desc,
-          });
-
+      'click .js-open-card-title-popup'(event){
+        var funct = Popup.open('boardCardTitle');
+        let divId = $(event.currentTarget.parentNode.parentNode).attr("id");
+        console.log("current popup");
+        console.log(this.currentPopupTriggerId);
+        this.currentPopupTriggerId = divId;
+        funct.call(this,event);
       },
       'click .js-add-create-trigger' (event) {
         const desc = Utils.getTriggerActionDesc(event, this);
         const datas = this.data();
         const listName = this.find('#create-list-name').value;
         const swimlaneName = this.find('#create-swimlane-name').value;
-        if(swimlaneName == undefined || swimlaneName == ""){
-          swimlaneName = "*";
-        }
         const boardId = Session.get('currentBoard');
+        const divId = $(event.currentTarget.parentNode).attr("id");
+        const cardTitle = this.cardTitleFilters[divId];
+        // move to generic funciont
         datas.triggerVar.set({
             activityType: 'createCard',
             boardId,
+            cardTitle,
             swimlaneName,
             listName,
             desc,
@@ -41,9 +43,6 @@ BlazeComponent.extendComponent({
         const actionSelected = this.find('#move-action').value;
         const listName = this.find('#move-list-name').value;
         const boardId = Session.get('currentBoard');
-        if(swimlaneName == undefined || swimlaneName == ""){
-          swimlaneName = "*";
-        }
         if (actionSelected === 'moved-to') {
           datas.triggerVar.set({
             activityType: 'moveCard',
@@ -71,8 +70,9 @@ BlazeComponent.extendComponent({
         const boardId = Session.get('currentBoard');
 
         datas.triggerVar.set({
-          activityType: 'moveCard',
+          'activityType': 'moveCard',
           boardId,
+          'swimlaneName': '*',
           'listName':'*',
           'oldListName': '*',
           desc,
@@ -103,3 +103,16 @@ BlazeComponent.extendComponent({
   },
 
 }).register('boardTriggers');
+
+
+
+
+
+Template.boardCardTitlePopup.events({
+  submit(evt, tpl) {
+    const title = tpl.$('.js-card-filter-name').val().trim();
+    Popup.getOpenerComponent().setNameFilter(title);
+    evt.preventDefault();
+    Popup.close();
+  },
+});

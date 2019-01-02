@@ -7,9 +7,3 @@ template(name="rulesMain")
     +rulesActions(ruleName=ruleName triggerVar=triggerVar)
   if($eq rulesCurrentTab.get 'ruleDetails')
     +ruleDetails(ruleId=ruleId)
-
-template(name="boardCardTitlePopup")
-    form
-      label
-        | Card Title Filter
-        input.js-board-name(type="text" value=title autofocus)

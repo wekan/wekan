@@ -1,4 +1,4 @@
-BlazeComponent.extendComponent({
+let rulesMainComponent = BlazeComponent.extendComponent({
   onCreated() {
     this.rulesCurrentTab = new ReactiveVar('rulesList');
     this.ruleName = new ReactiveVar('');
@@ -9,7 +9,13 @@ BlazeComponent.extendComponent({
   setTrigger() {
     this.rulesCurrentTab.set('trigger');
   },
-
+  sanitizeObject(obj){
+    Object.keys(obj).forEach(key =>{
+      if(obj[key] == "" || obj[key] == undefined){
+        obj[key] = "*";
+      }}
+    );
+  },
   setRulesList() {
     this.rulesCurrentTab.set('rulesList');
   },
@@ -31,7 +37,6 @@ BlazeComponent.extendComponent({
         Triggers.remove(rule.triggerId);
 
       },
-      'click .js-open-card-title-popup': Popup.open('boardCardTitle'),
       'click .js-goto-trigger' (event) {
         event.preventDefault();
         const ruleTitle = this.find('#ruleTitle').value;
@@ -46,23 +51,23 @@ BlazeComponent.extendComponent({
         // Add user to the trigger
         const username = $(event.currentTarget.offsetParent).find(".user-name").val();
         let trigger = this.triggerVar.get();
-        const user = Users.findOne({"username":username});
-        if(user != undefined){
-          trigger["userId"] = user._id;
-        }else{
-          trigger["userId"] = "*";
+        trigger["userId"] = "*";
+        if(username != undefined ){
+          const userFound = Users.findOne({"username":username});
+          if(userFound != undefined){
+            trigger["userId"] = userFound._id;
+            this.triggerVar.set(trigger);
+          }
         }
+        // Sanitize trigger
+        trigger = this.triggerVar.get();
+        this.sanitizeObject(trigger)
         this.triggerVar.set(trigger);
         this.setAction();
       },
       'click .js-show-user-field' (event) {
         event.preventDefault();
-        console.log(event);
-        console.log(event.currentTarget.offsetParent);
-        console.log($(event.currentTarget.offsetParent));
         $(event.currentTarget.offsetParent).find(".user-details").removeClass("hide-element");
-
-
       },
       'click .js-goto-rules' (event) {
         event.preventDefault();
@@ -88,3 +93,6 @@ BlazeComponent.extendComponent({
   },
 
 }).register('rulesMain');
+
+
+

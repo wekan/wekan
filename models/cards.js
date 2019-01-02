@@ -1238,6 +1238,7 @@ function cardCreation(userId, doc) {
     listName: Lists.findOne(doc.listId).title,
     listId: doc.listId,
     cardId: doc._id,
+    cardTitle:doc.title,
     swimlaneName: Swimlanes.findOne(doc.swimlaneId).title,
     swimlaneId: doc.swimlaneId,
   });

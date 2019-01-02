@@ -1,28 +1,12 @@
 template(name="boardTriggers")
-  div.trigger-item
+  div.trigger-item#trigger-two
     div.trigger-content
       div.trigger-text 
-        | {{_'r-when-a-card-is'}}
-      div.trigger-text 
-        | {{_'r-added-to'}}
-      div.trigger-text 
-        | {{_'r-the-board'}}
-      div.trigger-button.trigger-button-person.js-show-user-field
-        i.fa.fa-user
-      div.user-details.hide-element
-        div.trigger-text
-          | {{_'r-by'}}
-        div.trigger-dropdown
-          input(class="user-name",type=text,placeholder="{{_'r-user-name'}}") 
-    div.trigger-button.js-add-gen-trigger.js-goto-action
-      i.fa.fa-plus
-
-  div.trigger-item
-    div.trigger-content
-      div.trigger-text 
-        | {{_'r-when-a-card-is'}}
+        | {{_'r-when-a-card'}}
       div.trigger-inline-button.js-open-card-title-popup 
         i.fa.fa-filter
+      div.trigger-text 
+        | {{_'r-is'}}
       div.trigger-text 
         | {{_'r-added-to'}}
       div.trigger-text 
@@ -43,10 +27,14 @@ template(name="boardTriggers")
     div.trigger-button.js-add-create-trigger.js-goto-action
       i.fa.fa-plus
 
-  div.trigger-item
+  div.trigger-item#trigger-three
     div.trigger-content
       div.trigger-text 
-        | {{_'r-when-a-card-is-moved'}}
+        | {{_'r-when-a-card'}}
+      div.trigger-inline-button.js-open-card-title-popup 
+        i.fa.fa-filter
+      div.trigger-text 
+        | {{_'r-is-moved'}}
       div.trigger-button.trigger-button-person.js-show-user-field
         i.fa.fa-user
       div.user-details.hide-element
@@ -57,10 +45,14 @@ template(name="boardTriggers")
     div.trigger-button.js-add-gen-moved-trigger.js-goto-action
       i.fa.fa-plus
 
-  div.trigger-item
+  div.trigger-item#trigger-four
     div.trigger-content
       div.trigger-text 
-        | {{_'r-when-a-card-is'}}
+        | {{_'r-when-a-card'}}
+      div.trigger-inline-button.js-open-card-title-popup 
+        i.fa.fa-filter
+      div.trigger-text 
+        | {{_'r-is'}}
       div.trigger-dropdown
         select(id="move-action")
           option(value="moved-to") {{_'r-moved-to'}}
@@ -84,10 +76,14 @@ template(name="boardTriggers")
     div.trigger-button.js-add-moved-trigger.js-goto-action
       i.fa.fa-plus
 
-  div.trigger-item
+  div.trigger-item#trigger-five
     div.trigger-content
       div.trigger-text 
-        | {{_'r-when-a-card-is'}}
+        | {{_'r-when-a-card'}}
+      div.trigger-inline-button.js-open-card-title-popup 
+        i.fa.fa-filter
+      div.trigger-text 
+        | {{_'r-is'}}
       div.trigger-dropdown
         select(id="arch-action")
           option(value="archived") {{_'r-archived'}}
@@ -102,6 +98,12 @@ template(name="boardTriggers")
     div.trigger-button.js-add-arch-trigger.js-goto-action
       i.fa.fa-plus
 
+template(name="boardCardTitlePopup")
+    form
+      label
+        | Card Title Filter
+        input.js-card-filter-name(type="text" value=title autofocus)
+      input.js-card-filter-button.primary.wide(type="submit" value="{{_ 'set-filter'}}")
 
    
   
