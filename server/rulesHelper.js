@@ -145,6 +145,23 @@ RulesHelper = {
         ChecklistItems.insert({title:itemsArray[i],checklistId:checkListId,cardId:card._id,'sort':0});
        }
     }
+    if(action.actionType === 'createCard'){
+      let list = Lists.findOne({title:action.listName,boardId});
+      let listId = '';
+      let swimlaneId = '';
+      let swimlane = Swimlanes.findOne({title:action.swimlaneName,boardId});
+      if(list == undefined){
+        listId = '';
+      }else{
+        listId = list._id;
+      }
+      if(swimlane == undefined){
+        swimlaneId = Swimlanes.findOne({title:"Default",boardId})._id;
+      }else{
+        swimlaneId = swimlane._id;
+      }
+      Cards.insert({title:action.cardName,listId,swimlaneId,sort:0,boardId});
+    }
 
   },
 
