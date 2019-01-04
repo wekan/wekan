@@ -23,7 +23,7 @@
     "act-removeBoardMember": "tog bort __member__ från __board__",
     "act-restoredCard": "återställde __card__ to __board__",
     "act-unjoinMember": "tog bort __member__ from __card__",
-    "act-withBoardTitle": "__board__",
+    "act-withBoardTitle": "_tavla_",
     "act-withCardTitle": "[__board__] __card__",
     "actions": "Åtgärder",
     "activities": "Aktiviteter",
