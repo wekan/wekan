@@ -1,59 +1,45 @@
 BlazeComponent.extendComponent({
   onCreated() {
-
+    this.provaVar = new ReactiveVar('');
+    this.currentPopupTriggerId = 'def';
+    this.cardTitleFilters = {};
+  },
+  setNameFilter(name){
+    this.cardTitleFilters[this.currentPopupTriggerId] =  name;
   },
 
   events() {
     return [{
-      'click .js-add-gen-trigger' (event) {
-        const desc = Utils.getTriggerActionDesc(event, this);
-        const datas = this.data();
-        const actionSelected = this.find('#gen-action').value;
-        const boardId = Session.get('currentBoard');
-        if (actionSelected === 'created') {
-          datas.triggerVar.set({
-            activityType: 'createCard',
-            boardId,
-            'listName': '*',
-            desc,
-          });
-        }
-        if (actionSelected === 'removed') {
-          datas.triggerVar.set({
-            activityType: 'removeCard',
-            boardId,
-            desc,
-          });
-        }
-
+      'click .js-open-card-title-popup'(event){
+        const funct = Popup.open('boardCardTitle');
+        const divId = $(event.currentTarget.parentNode.parentNode).attr('id');
+        //console.log('current popup');
+        //console.log(this.currentPopupTriggerId);
+        this.currentPopupTriggerId = divId;
+        funct.call(this, event);
       },
       'click .js-add-create-trigger' (event) {
         const desc = Utils.getTriggerActionDesc(event, this);
         const datas = this.data();
-        const actionSelected = this.find('#create-action').value;
         const listName = this.find('#create-list-name').value;
+        const swimlaneName = this.find('#create-swimlane-name').value;
         const boardId = Session.get('currentBoard');
-        if (actionSelected === 'created') {
-          datas.triggerVar.set({
-            activityType: 'createCard',
-            boardId,
-            listName,
-            desc,
-          });
-        }
-        if (actionSelected === 'removed') {
-          datas.triggerVar.set({
-            activityType: 'removeCard',
-            boardId,
-            listName,
-            desc,
-          });
-        }
+        const divId = $(event.currentTarget.parentNode).attr('id');
+        const cardTitle = this.cardTitleFilters[divId];
+        // move to generic funciont
+        datas.triggerVar.set({
+          activityType: 'createCard',
+          boardId,
+          cardTitle,
+          swimlaneName,
+          listName,
+          desc,
+        });
       },
       'click .js-add-moved-trigger' (event) {
         const datas = this.data();
         const desc = Utils.getTriggerActionDesc(event, this);
-
+        const swimlaneName = this.find('#create-swimlane-name').value;
         const actionSelected = this.find('#move-action').value;
         const listName = this.find('#move-list-name').value;
         const boardId = Session.get('currentBoard');
@@ -62,6 +48,7 @@ BlazeComponent.extendComponent({
             activityType: 'moveCard',
             boardId,
             listName,
+            swimlaneName,
             'oldListName': '*',
             desc,
           });
@@ -70,6 +57,7 @@ BlazeComponent.extendComponent({
           datas.triggerVar.set({
             activityType: 'moveCard',
             boardId,
+            swimlaneName,
             'listName': '*',
             'oldListName': listName,
             desc,
@@ -82,8 +70,9 @@ BlazeComponent.extendComponent({
         const boardId = Session.get('currentBoard');
 
         datas.triggerVar.set({
-          activityType: 'moveCard',
+          'activityType': 'moveCard',
           boardId,
+          'swimlaneName': '*',
           'listName':'*',
           'oldListName': '*',
           desc,
@@ -114,3 +103,13 @@ BlazeComponent.extendComponent({
   },
 
 }).register('boardTriggers');
+
+
+Template.boardCardTitlePopup.events({
+  submit(evt, tpl) {
+    const title = tpl.$('.js-card-filter-name').val().trim();
+    Popup.getOpenerComponent().setNameFilter(title);
+    evt.preventDefault();
+    Popup.close();
+  },
+});

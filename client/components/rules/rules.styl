@@ -10,7 +10,10 @@
   	display: inline-block
   	float: left
   	margin: revert
-
+.hide-element
+  display:none !important
+.user-details
+  display:inline-block 
 .rules-btns-group
   position: absolute
   right: 0
@@ -120,6 +123,15 @@
             .trigger-text
               font-size: 16px
               display:inline-block
+            .trigger-inline-button
+              font-size: 16px
+              display: inline;
+              padding: 6px;
+              border: 1px solid #eee
+              border-radius: 4px
+              box-shadow: inset -1px -1px 3px rgba(0,0,0,.05) 
+              &:hover, &.is-active
+                box-shadow: 0 0 0 2px darken(white, 60%) inset
             .trigger-text.trigger-text-email
               margin-left: 5px;
               margin-top: 10px;
@@ -160,6 +172,8 @@
             box-shadow: 0 0 0 2px darken(white, 60%) inset
         .trigger-button.trigger-button-email
           top:30px
+        .trigger-button.trigger-button-person
+          right:-40px
       .trigger-item.trigger-item-mail
         height:300px
   
