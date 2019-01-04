@@ -1,3 +1,13 @@
+# v1.99 2019-01-04 Wekan release
+
+This release adds the following new features:
+
+- [IFTTT Rules improvements](https://github.com/wekan/wekan/pull/2088). Thanks to Angtrim.
+- Add [find.sh](https://github.com/wekan/wekan/blob/devel/find.sh) bash script that ignores
+  extra directories when searching. xet7 uses this a lot when developing. Thanks to xet7.
+
+Thanks to above GitHub users for their contributions.
+
 # v1.98 2019-01-01 Wekan release
 
 This release adds the following new features:
@@ -32,8 +42,9 @@ This release adds the following new features:
 
 and tries to fix following bugs:
 
-- Revert "Improve authentication" and "Default Authentication Method"
-  to make login work again.
+- Revert "Improve authentication", remove login dropdown and "Default Authentication Method" that were added
+  in Wekan v1.95 because login did not work with email address.
+  It was later found that login did work with username, so later this could be fixed and added back.
 - Fixes to docker-compose.yml so that Wekan Meteor 1.6.x version would work.
   Most likely Meteor 1.8.x version is still broken.
 
@@ -46,6 +57,8 @@ This release adds the following new features:
 - [Improve authentication](https://github.com/wekan/wekan/pull/2065): remove login dropdown,
   and add setting `DEFAULT_AUTHENTICATION_METHOD=ldap` or
   `sudo snap set wekan default-authentication-method='ldap'`. Thanks to Akuket. Closes wekan/wekan-ldap#31
+  NOTE: This was reverted in Wekan v1.96 because login did not work with email address.
+  It was later found that login did work with username, so later this could be fixed and added back.
 - [Drag handles and long press on mobile when using desktop mode of mobile
   browser](https://github.com/wekan/wekan/pull/2067). Thanks to hupptechnologies.
 - Upgrade to node v8.14.1 . Thanks to xet7.
