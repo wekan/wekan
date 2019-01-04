@@ -623,7 +623,6 @@
     "r-items-list": "item1,item2,item3",
     "r-add-swimlane": "Add swimlane",
     "r-swimlane-name": "swimlane name",
-    "r-user-name": "username",
     "r-board-note": "Note: leave a field empty to match every possible value. ",
     "r-checklist-note": "Note: checklist's items have to be written as comma separated values.",
     "r-added-to": "added to",
