@@ -1,8 +1,8 @@
 {
     "accept": "Aceptar",
-    "act-activity-notify": "Activity Notification",
+    "act-activity-notify": "Notificación de Actividad",
     "act-addAttachment": "adjunto __attachment__ a __card__",
-    "act-addSubtask": "added subtask __checklist__ to __card__",
+    "act-addSubtask": "lista de ítems __checklist__ agregada a __card__",
     "act-addChecklist": "lista de ítems __checklist__ agregada a __card__",
     "act-addChecklistItem": " __checklistItem__ agregada a lista de ítems __checklist__ en __card__",
     "act-addComment": "comentado en __card__: __comment__",
