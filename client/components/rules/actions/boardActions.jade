@@ -36,7 +36,33 @@ template(name="boardActions")
       div.trigger-text 
         | {{_'r-card'}}
     div.trigger-button.js-add-arch-action.js-goto-rules
-      i.fa.fa-plus  
+      i.fa.fa-plus
+
+  div.trigger-item
+    div.trigger-content
+      div.trigger-text 
+        | {{_'r-add-swimlane'}}
+      div.trigger-dropdown
+        input(id="swimlane-name",type=text,placeholder="{{_'r-name'}}")
+    div.trigger-button.js-add-swimlane-action.js-goto-rules
+      i.fa.fa-plus
+
+  div.trigger-item
+    div.trigger-content
+      div.trigger-text 
+        | {{_'r-create-card'}}
+      div.trigger-dropdown
+        input(id="card-name",type=text,placeholder="{{_'r-name'}}")
+      div.trigger-text 
+        | {{_'r-in-list'}}
+      div.trigger-dropdown
+        input(id="list-name",type=text,placeholder="{{_'r-name'}}")
+      div.trigger-text 
+        | {{_'r-in-swimlane'}}
+      div.trigger-dropdown
+        input(id="swimlane-name2",type=text,placeholder="{{_'r-name'}}")
+    div.trigger-button.js-create-card-action.js-goto-rules
+      i.fa.fa-plus
 
 
    

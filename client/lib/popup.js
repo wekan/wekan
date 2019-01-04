@@ -27,11 +27,9 @@ window.Popup = new class {
   open(name) {
     const self = this;
     const popupName = `${name}Popup`;
-
     function clickFromPopup(evt) {
       return $(evt.target).closest('.js-pop-over').length !== 0;
     }
-
     return function(evt) {
       // If a popup is already opened, clicking again on the opener element
       // should close it -- and interrupt the current `open` function.
@@ -57,7 +55,6 @@ window.Popup = new class {
         self._stack = [];
         openerElement = evt.currentTarget;
       }
-
       $(openerElement).addClass('is-active');
       evt.preventDefault();
 
@@ -139,6 +136,7 @@ window.Popup = new class {
       const openerElement = this._getTopStack().openerElement;
       $(openerElement).removeClass('is-active');
 
+
       this._stack = [];
     }
   }
@@ -200,7 +198,7 @@ escapeActions.forEach((actionName) => {
     () => Popup[actionName](),
     () => Popup.isOpen(),
     {
-      noClickEscapeOn: '.js-pop-over',
+      noClickEscapeOn: '.js-pop-over,.js-open-card-title-popup',
       enabledOnClick: actionName === 'close',
     }
   );
