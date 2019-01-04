@@ -13,8 +13,8 @@ BlazeComponent.extendComponent({
       'click .js-open-card-title-popup'(event){
         const funct = Popup.open('boardCardTitle');
         const divId = $(event.currentTarget.parentNode.parentNode).attr('id');
-        console.log('current popup');
-        console.log(this.currentPopupTriggerId);
+        //console.log('current popup');
+        //console.log(this.currentPopupTriggerId);
         this.currentPopupTriggerId = divId;
         funct.call(this, event);
       },

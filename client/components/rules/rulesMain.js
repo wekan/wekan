@@ -1,4 +1,4 @@
-const rulesMainComponent = BlazeComponent.extendComponent({
+BlazeComponent.extendComponent({
   onCreated() {
     this.rulesCurrentTab = new ReactiveVar('rulesList');
     this.ruleName = new ReactiveVar('');
@@ -11,7 +11,7 @@ const rulesMainComponent = BlazeComponent.extendComponent({
   },
   sanitizeObject(obj){
     Object.keys(obj).forEach((key) => {
-      if(obj[key] == '' || obj[key] == undefined){
+      if(obj[key] === '' || obj[key] === undefined){
         obj[key] = '*';
       }}
     );
@@ -52,9 +52,9 @@ const rulesMainComponent = BlazeComponent.extendComponent({
         const username = $(event.currentTarget.offsetParent).find('.user-name').val();
         let trigger = this.triggerVar.get();
         trigger.userId = '*';
-        if(username != undefined ){
+        if(username !== undefined ){
           const userFound = Users.findOne({username});
-          if(userFound != undefined){
+          if(userFound !== undefined){
             trigger.userId = userFound._id;
             this.triggerVar.set(trigger);
           }

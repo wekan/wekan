@@ -150,12 +150,12 @@ RulesHelper = {
       let listId = '';
       let swimlaneId = '';
       const swimlane = Swimlanes.findOne({title:action.swimlaneName, boardId});
-      if(list == undefined){
+      if(list === undefined){
         listId = '';
       }else{
         listId = list._id;
       }
-      if(swimlane == undefined){
+      if(swimlane === undefined){
         swimlaneId = Swimlanes.findOne({title:'Default', boardId})._id;
       }else{
         swimlaneId = swimlane._id;

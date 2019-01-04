@@ -220,7 +220,7 @@ Utils = {
         finalString += element.text().toLowerCase();
       } else if (element.hasClass('user-details')) {
         let username = element.find('input').val();
-        if(username == undefined || username == ''){
+        if(username === undefined || username === ''){
           username = '*';
         }
         finalString += `${element.find('.trigger-text').text().toLowerCase() } ${  username}`;
@@ -228,7 +228,7 @@ Utils = {
         finalString += element.find('select option:selected').text().toLowerCase();
       } else if (element.find('input').length > 0) {
         let inputvalue = element.find('input').val();
-        if(inputvalue == undefined || inputvalue == ''){
+        if(inputvalue === undefined || inputvalue === ''){
           inputvalue = '*';
         }
         finalString += inputvalue;
