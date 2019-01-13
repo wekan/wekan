@@ -1,3 +1,8 @@
+# Upcoming Wekan release
+
+- Update translations.
+- Fix typo, changelog year to 2019. Thanks to xorander00 !
+
 # v2.01 2019-01-06 Wekan release
 
 Update translations. Thanks to translators.
