@@ -23,12 +23,12 @@ def get_req_body_elems(obj, elems):
         right = obj.property.name
         if left == 'req.body' and right not in elems:
             elems.append(right)
-        return f'{left}.{right}'
+        return '{}.{}'.format(left, right)
     elif obj.type == 'VariableDeclaration':
         for s in obj.declarations:
             get_req_body_elems(s, elems)
     elif obj.type == 'VariableDeclarator':
-        if obj.id.type == "ObjectPattern":
+        if obj.id.type == 'ObjectPattern':
             # get_req_body_elems() can't be called directly here:
             # const {isAdmin, isNoComments, isCommentOnly} = req.body;
             right = get_req_body_elems(obj.init, elems)
@@ -158,12 +158,14 @@ class EntryPoint(object):
 
     def error(self, message):
         if self._raw_doc is None:
-            sys.stderr.write(f'in {self.schema.name},\n')
-            sys.stderr.write(f'{message}\n')
+            sys.stderr.write('in {},\n'.format(self.schema.name))
+            sys.stderr.write('{}\n'.format(message))
             return
-        sys.stderr.write(f'in {self.schema.name}, lines {self._raw_doc.loc.start.line}-{self._raw_doc.loc.end.line}\n')
-        sys.stderr.write(f'{self._raw_doc.value}\n')
-        sys.stderr.write(f'{message}\n')
+        sys.stderr.write('in {}, lines {}-{}\n'.format(self.schema.name,
+                                                       self._raw_doc.loc.start.line,
+                                                       self._raw_doc.loc.end.line))
+        sys.stderr.write('{}\n'.format(self._raw_doc.value))
+        sys.stderr.write('{}\n'.format(message))
 
     @property
     def doc(self):
@@ -233,7 +235,7 @@ class EntryPoint(object):
                 if name.startswith('{'):
                     param_type = name.strip('{}')
                     if param_type not in ['string', 'number', 'boolean', 'integer', 'array', 'file']:
-                        self.error(f'Warning, unknown type {param_type}\n allowed values: string, number, boolean, integer, array, file')
+                        self.error('Warning, unknown type {}\n allowed values: string, number, boolean, integer, array, file'.format(param_type))
                     try:
                         name, desc = desc.split(maxsplit=1)
                     except ValueError:
@@ -246,7 +248,7 @@ class EntryPoint(object):
 
                 # we should not have 2 identical parameter names
                 if tag in params:
-                    self.error(f'Warning, overwriting parameter {name}')
+                    self.error('Warning, overwriting parameter {}'.format(name))
 
                 params[name] = (param_type, optional, desc)
 
@@ -276,7 +278,7 @@ class EntryPoint(object):
 
             # we should not have 2 identical tags but @param or @tag
             if tag in self._doc:
-                self.error(f'Warning, overwriting tag {tag}')
+                self.error('Warning, overwriting tag {}'.format(tag))
 
             self._doc[tag] = data
 
@@ -299,7 +301,7 @@ class EntryPoint(object):
                     current_data = ''
                     line = data
                 else:
-                    self.error(f'Unknown tag {tag}, ignoring')
+                    self.error('Unknown tag {}, ignoring'.format(tag))
 
             current_data += line + '\n'
 
@@ -321,24 +323,24 @@ class EntryPoint(object):
     def print_openapi_param(self, name, indent):
         ptype, poptional, pdesc = self.doc_param(name)
         if pdesc is not None:
-            print(f'{" " * indent}description: |')
-            print(f'{" " * (indent + 2)}{pdesc}')
+            print('{}description: |'.format(' ' * indent))
+            print('{}{}'.format(' ' * (indent + 2), pdesc))
         else:
-            print(f'{" " * indent}description: the {name} value')
+            print('{}description: the {} value'.format(' ' * indent, name))
         if ptype is not None:
-            print(f'{" " * indent}type: {ptype}')
+            print('{}type: {}'.format(' ' * indent, ptype))
         else:
-            print(f'{" " * indent}type: string')
+            print('{}type: string'.format(' ' * indent))
         if poptional:
-            print(f'{" " * indent}required: false')
+            print('{}required: false'.format(' ' * indent))
         else:
-            print(f'{" " * indent}required: true')
+            print('{}required: true'.format(' ' * indent))
 
     @property
     def operationId(self):
         if 'operation' in self._doc:
             return self._doc['operation']
-        return f'{self.method_name}_{self.reduced_function_name}'
+        return '{}_{}'.format(self.method_name, self.reduced_function_name)
 
     @property
     def description(self):
@@ -363,49 +365,49 @@ class EntryPoint(object):
 
     def print_openapi_return(self, obj, indent):
         if isinstance(obj, dict):
-            print(f'{" " * indent}type: object')
-            print(f'{" " * indent}properties:')
+            print('{}type: object'.format(' ' * indent))
+            print('{}properties:'.format(' ' * indent))
             for k, v in obj.items():
-                print(f'{" " * (indent + 2)}{k}:')
+                print('{}{}:'.format(' ' * (indent + 2), k))
                 self.print_openapi_return(v, indent + 4)
 
         elif isinstance(obj, list):
             if len(obj) > 1:
                 self.error('Error while parsing @return tag, an array should have only one type')
-            print(f'{" " * indent}type: array')
-            print(f'{" " * indent}items:')
+            print('{}type: array'.format(' ' * indent))
+            print('{}items:'.format(' ' * indent))
             self.print_openapi_return(obj[0], indent + 2)
 
         elif isinstance(obj, str) or isinstance(obj, unicode):
             rtype = 'type: ' + obj
             if obj == self.schema.name:
-                rtype = f'$ref: "#/definitions/{obj}"'
-            print(f'{" " * indent}{rtype}')
+                rtype = '$ref: "#/definitions/{}"'.format(obj)
+            print('{}{}'.format(' ' * indent, rtype))
 
     def print_openapi(self):
         parameters = [token[1:-2] if token.endswith('Id') else token[1:]
                       for token in self.path.split('/')
                       if token.startswith(':')]
 
-        print(f'    {self.method_name}:')
+        print('    {}:'.format(self.method_name))
 
-        print(f'      operationId: {self.operationId}')
+        print('      operationId: {}'.format(self.operationId))
 
         if self.summary is not None:
-            print(f'      summary: {self.summary}')
+            print('      summary: {}'.format(self.summary))
 
         if self.description is not None:
-            print(f'      description: |')
+            print('      description: |')
             for line in self.description.split('\n'):
                 if line.strip():
-                    print(f'        {line}')
+                    print('        {}'.format(line))
                 else:
                     print('')
 
         if len(self.tags) > 0:
-            print(f'      tags:')
+            print('      tags:')
             for tag in self.tags:
-                print(f'        - {tag}')
+                print('        - {}'.format(tag))
 
         # export the parameters
         if self.method_name in ('post', 'put'):
@@ -416,14 +418,14 @@ class EntryPoint(object):
             print('      parameters:')
         if self.method_name in ('post', 'put'):
             for f in self.body_params:
-                print(f'''        - name: {f}
-          in: formData''')
+                print('''        - name: {}
+          in: formData'''.format(f))
                 self.print_openapi_param(f, 10)
         for p in parameters:
             if p in self.body_params:
                 self.error(' '.join((p, self.path, self.method_name)))
-            print(f'''        - name: {p}
-          in: path''')
+            print('''        - name: {}
+          in: path'''.format(p))
             self.print_openapi_param(p, 10)
         print('''      produces:
         - application/json
@@ -485,7 +487,9 @@ class SchemaProperty(object):
                 return
 
     def __repr__(self):
-        return f'SchemaProperty({self.name}{"*" if self.required else ""}, {self.doc})'
+        return 'SchemaProperty({}{}, {})'.format(self.name,
+                                                 '*' if self.required else '',
+                                                 self.doc)
 
     def print_openapi(self, indent, current_schema, required_properties):
         schema_name = self.schema.name
@@ -501,11 +505,11 @@ class SchemaProperty(object):
                     if required_properties is not None and required_properties:
                         print('    required:')
                         for f in required_properties:
-                            print(f'      - {f}')
+                            print('      - {}'.format(f))
                         required_properties.clear()
 
-                    print(f'''  {subschema}:
-    type: object''')
+                    print('''  {}:
+    type: object'''.format(subschema))
                     return current_schema
 
             subschema = name.split('.')[0]
@@ -516,23 +520,23 @@ class SchemaProperty(object):
                 if required_properties is not None and required_properties:
                     print('    required:')
                     for f in required_properties:
-                        print(f'      - {f}')
+                        print('      - {}'.format(f))
                     required_properties.clear()
 
-                print(f'''  {schema_name}:
+                print('''  {}:
     type: object
-    properties:''')
+    properties:'''.format(schema_name))
 
         if required_properties is not None and self.required:
             required_properties.append(name)
 
-        print(f'{" "*indent}{name}:')
+        print('{}{}:'.format(' ' * indent, name))
 
         if self.doc is not None:
-            print(f'{" "*indent}  description: |')
+            print('{}  description: |'.format(' ' * indent))
             for line in self.doc:
                 if line.strip():
-                    print(f'{" "*indent}    {line}')
+                    print('{}    {}'.format(' ' * indent, line))
                 else:
                     print('')
 
@@ -540,31 +544,31 @@ class SchemaProperty(object):
         if ptype in ('enum', 'date'):
             ptype = 'string'
         if ptype != 'object':
-            print(f'{" "*indent}  type: {ptype}')
+            print('{}  type: {}'.format(' ' * indent, ptype))
 
         if self.type == 'array':
-            print(f'{" "*indent}  items:')
+            print('{}  items:'.format(' ' * indent))
             for elem in self.elements:
                 if elem == 'object':
-                    print(f'{" "*indent}    $ref: "#/definitions/{schema_name + name.capitalize()}"')
+                    print('{}    $ref: "#/definitions/{}"'.format(' ' * indent, schema_name + name.capitalize()))
                 else:
-                    print(f'{" "*indent}    type: {elem}')
+                    print('{}    type: {}'.format(' ' * indent, elem))
                     if not self.required:
-                        print(f'{" "*indent}    x-nullable: true')
+                        print('{}    x-nullable: true'.format(' ' * indent))
 
         elif self.type == 'object':
             if self.blackbox:
-                print(f'{" "*indent}  type: object')
+                print('{}  type: object'.format(' ' * indent))
             else:
-                print(f'{" "*indent}  $ref: "#/definitions/{schema_name + name.capitalize()}"')
+                print('{}  $ref: "#/definitions/{}"'.format(' ' * indent, schema_name + name.capitalize()))
 
         elif self.type == 'enum':
-            print(f'{" "*indent}  enum:')
+            print('{}  enum:'.format(' ' * indent))
             for enum in self.enum:
-                print(f'{" "*indent}    - {enum}')
+                print('{}    - {}'.format(' ' * indent, enum))
 
         if '.' not in self.name and not self.required:
-            print(f'{" "*indent}  x-nullable: true')
+            print('{}  x-nullable: true'.format(' ' * indent))
 
         return schema_name
 
@@ -620,10 +624,10 @@ class Schemas(object):
         if self.fields is None:
             return
 
-        print(f'  {self.name}:')
+        print('  {}:'.format(self.name))
         print('    type: object')
         if self.doc is not None:
-            print(f'    description: {self.doc}')
+            print('    description: {}'.format(self.doc))
 
         print('    properties:')
 
@@ -636,7 +640,7 @@ class Schemas(object):
         if required_properties:
             print('    required:')
             for f in required_properties:
-                print(f'      - {f}')
+                print('      - {}'.format(f))
 
         # then print the references
         current = None
@@ -648,7 +652,7 @@ class Schemas(object):
         if required_properties:
             print('    required:')
             for f in required_properties:
-                print(f'      - {f}')
+                print('      - {}'.format(f))
 
         required_properties = []
         # then print the references in the references
@@ -658,7 +662,7 @@ class Schemas(object):
         if required_properties:
             print('    required:')
             for f in required_properties:
-                print(f'      - {f}')
+                print('      - {}'.format(f))
 
 
 def parse_schemas(schemas_dir):
@@ -731,10 +735,10 @@ def parse_schemas(schemas_dir):
 
 
 def generate_openapi(schemas, entry_points, version):
-    print(f'''swagger: '2.0'
+    print('''swagger: '2.0'
 info:
   title: Wekan REST API
-  version: {version}
+  version: {0}
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -866,7 +870,7 @@ paths:
         default:
           description: |
             Error in registration
-''')
+'''.format(version))
 
     # GET and POST on the same path are valid, we need to reshuffle the paths
     # with the path as the sorting key
@@ -880,7 +884,7 @@ paths:
     sorted_paths.sort()
 
     for path in sorted_paths:
-        print(f'  {methods[path][0].url}:')
+        print('  {}:'.format(methods[path][0].url))
 
         for ep in methods[path]:
             ep.print_openapi()
@@ -897,9 +901,9 @@ paths:
 def main():
     parser = argparse.ArgumentParser(description='Generate an OpenAPI 2.0 from the given JS schemas.')
     script_dir = os.path.dirname(os.path.realpath(__file__))
-    parser.add_argument('--release', default=f'git-master', nargs=1,
+    parser.add_argument('--release', default='git-master', nargs=1,
                         help='the current version of the API, can be retrieved by running `git describe --tags --abbrev=0`')
-    parser.add_argument('dir', default=f'{script_dir}/../models', nargs='?',
+    parser.add_argument('dir', default='{}/../models'.format(script_dir), nargs='?',
                         help='the directory where to look for schemas')
 
     args = parser.parse_args()
