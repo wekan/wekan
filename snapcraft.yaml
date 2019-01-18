@@ -112,6 +112,12 @@ parts:
             cd ../../..
             mkdir -p ./public/api
             python3 ./openapi/generate_openapi.py --release $(git describe --tags --abbrev=0) > ./public/api/wekan.yml
+            # we temporary need api2html and mkdirp
+            npm install -g api2html
+            npm install -g mkdirp
+            api2html -c ./public/wekan-logo-header.png -o ./public/api/wekan.html ./public/api/wekan.yml
+            npm uninstall -g mkdirp
+            npm uninstall -g api2html
             # Node Fibers 100% CPU usage issue:
             # https://github.com/wekan/wekan-mongodb/issues/2#issuecomment-381453161
             # https://github.com/meteor/meteor/issues/9796#issuecomment-381676326
