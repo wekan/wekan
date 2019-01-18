@@ -90,6 +90,7 @@ parts:
             - ca-certificates
             - apt-utils
             - python
+            - python3
             - g++
             - capnproto
             - curl
@@ -101,6 +102,16 @@ parts:
         override-build: |
             echo "Cleaning environment first"
             rm -rf ~/.meteor ~/.npm /usr/local/lib/node_modules
+            # Create the OpenAPI specification
+            rm -rf .build
+            mkdir -p .build/python
+            cd .build/python
+            git clone --depth 1 -b master git://github.com/Kronuz/esprima-python
+            cd esprima-python
+            python3 setup.py install
+            cd ../../..
+            mkdir -p ./public/api
+            python3 ./openapi/generate_openapi.py --release $(git describe --tags --abbrev=0) > ./public/api/wekan.yml
             # Node Fibers 100% CPU usage issue:
             # https://github.com/wekan/wekan-mongodb/issues/2#issuecomment-381453161
             # https://github.com/meteor/meteor/issues/9796#issuecomment-381676326
