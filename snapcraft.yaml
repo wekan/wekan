@@ -94,6 +94,8 @@ parts:
             - capnproto
             - curl
             - execstack
+            - nodejs
+            - npm
         stage-packages:
             - libfontconfig1
         override-build: |
