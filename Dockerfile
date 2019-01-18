@@ -252,6 +252,7 @@ RUN \
     gosu wekan:wekan /home/wekan/.meteor/meteor -- help; \
     \
     # extract the OpenAPI specification
+    npm install -g api2html && \
     mkdir -p /home/wekan/python && \
     chown wekan:wekan --recursive /home/wekan/python && \
     cd /home/wekan/python && \
@@ -260,7 +261,8 @@ RUN \
     python3 setup.py install --record files.txt && \
     cd /home/wekan/app &&\
     mkdir -p ./public/api && \
-    python3 ./openapi/generate_openapi.py --release $(git describe --tags --abbrev=0) > ./public/api/wekan.yml; \
+    python3 ./openapi/generate_openapi.py --release $(git describe --tags --abbrev=0) > ./public/api/wekan.yml && \
+    /opt/nodejs/bin/api2html -c ./public/wekan-logo-header.png -o ./public/api/wekan.html ./public/api/wekan.yml; \
     # Build app
     cd /home/wekan/app && \
     gosu wekan:wekan /home/wekan/.meteor/meteor add standard-minifier-js && \
@@ -285,6 +287,7 @@ RUN \
     # Cleanup
     apt-get remove --purge -y ${BUILD_DEPS} && \
     apt-get autoremove -y && \
+    npm uninstall -g api2html &&\
     rm -R /var/lib/apt/lists/* && \
     rm -R /home/wekan/.meteor && \
     rm -R /home/wekan/app && \
