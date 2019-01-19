@@ -2,6 +2,7 @@
 
 - Update translations.
 - Fix typo, changelog year to 2019. Thanks to xorander00 !
+- Fix License to 2019. Thanks to ajRiverav !
 
 # v2.01 2019-01-06 Wekan release
 
