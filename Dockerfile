@@ -75,7 +75,7 @@ ARG DEFAULT_AUTHENTICATION_METHOD
 # Set the environment variables (defaults where required)
 # DOES NOT WORK: paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
 # ENV BUILD_DEPS="paxctl"
-ENV BUILD_DEPS="apt-utils bsdtar gnupg gosu wget curl bzip2 build-essential python git ca-certificates gcc-7" \
+ENV BUILD_DEPS="apt-utils bsdtar gnupg gosu wget curl bzip2 build-essential python python3 python3-distutils git ca-certificates gcc-7" \
     NODE_VERSION=v8.15.0 \
     METEOR_RELEASE=1.6.0.1 \
     USE_EDGE=false \
@@ -251,6 +251,18 @@ RUN \
     cd /home/wekan/.meteor && \
     gosu wekan:wekan /home/wekan/.meteor/meteor -- help; \
     \
+    # extract the OpenAPI specification
+    npm install -g api2html && \
+    mkdir -p /home/wekan/python && \
+    chown wekan:wekan --recursive /home/wekan/python && \
+    cd /home/wekan/python && \
+    gosu wekan:wekan git clone --depth 1 -b master git://github.com/Kronuz/esprima-python && \
+    cd /home/wekan/python/esprima-python && \
+    python3 setup.py install --record files.txt && \
+    cd /home/wekan/app &&\
+    mkdir -p ./public/api && \
+    python3 ./openapi/generate_openapi.py --release $(git describe --tags --abbrev=0) > ./public/api/wekan.yml && \
+    /opt/nodejs/bin/api2html -c ./public/wekan-logo-header.png -o ./public/api/wekan.html ./public/api/wekan.yml; \
     # Build app
     cd /home/wekan/app && \
     gosu wekan:wekan /home/wekan/.meteor/meteor add standard-minifier-js && \
@@ -275,10 +287,13 @@ RUN \
     # Cleanup
     apt-get remove --purge -y ${BUILD_DEPS} && \
     apt-get autoremove -y && \
+    npm uninstall -g api2html &&\
     rm -R /var/lib/apt/lists/* && \
     rm -R /home/wekan/.meteor && \
     rm -R /home/wekan/app && \
     rm -R /home/wekan/app_build && \
+    cat /home/wekan/python/esprima-python/files.txt | xargs rm -R && \
+    rm -R /home/wekan/python && \
     rm /home/wekan/install_meteor.sh
 
 ENV PORT=8080
