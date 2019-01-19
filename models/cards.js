@@ -1429,7 +1429,7 @@ if (Meteor.isServer) {
 if (Meteor.isServer) {
   /**
    * @operation get_all_cards
-   * @summary get all cards attached to a list
+   * @summary Get all Cards attached to a List
    *
    * @param {string} boardId the board ID
    * @param {string} listId the list ID
@@ -1459,7 +1459,7 @@ if (Meteor.isServer) {
 
   /**
    * @operation get_card
-   * @summary get a card
+   * @summary Get a Card
    *
    * @param {string} boardId the board ID
    * @param {string} listId the list ID of the card
@@ -1484,7 +1484,7 @@ if (Meteor.isServer) {
 
   /**
    * @operation new_card
-   * @summary creates a new card
+   * @summary Create a new Card
    *
    * @param {string} boardId the board ID of the new card
    * @param {string} listId the list ID of the new card
@@ -1540,7 +1540,7 @@ if (Meteor.isServer) {
    */
   /**
    * @operation edit_card
-   * @summary edit fields in a card
+   * @summary Edit Fields in a Card
    *
    * @param {string} boardId the board ID of the card
    * @param {string} list the list ID of the card
