@@ -1,8 +1,19 @@
 # Upcoming Wekan release
 
-- Update translations.
-- Fix typo, changelog year to 2019. Thanks to xorander00 !
-- Fix License to 2019. Thanks to ajRiverav !
+This release adds the following new features:
+
+- [OpenAPI and generating of REST API Docs](https://github.com/wekan/wekan/pull/1965). Thanks to bentiss.
+
+and adds these updates:
+
+- Update translations. Thanks to translators.
+
+and fixes these typos;
+
+- Fix typo, changelog year to 2019. Thanks to xorander00.
+- Fix License to 2019. Thanks to ajRiverav.
+
+Thanks to above GitHub users for their contributions.
 
 # v2.01 2019-01-06 Wekan release
 
