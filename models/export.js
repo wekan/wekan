@@ -6,13 +6,20 @@ if (Meteor.isServer) {
   // `ApiRoutes.path('boards/export', boardId)``
   // on the client instead of copy/pasting the route path manually between the
   // client and the server.
-  /*
-   * This route is used to export the board FROM THE APPLICATION.
-   * If user is already logged-in, pass loginToken as param "authToken":
-   * '/api/boards/:boardId/export?authToken=:token'
+  /**
+   * @operation export
+   * @tag Boards
+   *
+   * @summary This route is used to export the board **FROM THE APPLICATION**.
+   *
+   * @description If user is already logged-in, pass loginToken as param
+   * "authToken": '/api/boards/:boardId/export?authToken=:token'
    *
    * See https://blog.kayla.com.au/server-side-route-authentication-in-meteor/
    * for detailed explanations
+   *
+   * @param {string} boardId the ID of the board we are exporting
+   * @param {string} authToken the loginToken
    */
   JsonRoutes.add('get', '/api/boards/:boardId/export', function(req, res) {
     const boardId = req.params.boardId;

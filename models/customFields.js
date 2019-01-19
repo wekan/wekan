@@ -1,40 +1,73 @@
 CustomFields = new Mongo.Collection('customFields');
 
+/**
+ * A custom field on a card in the board
+ */
 CustomFields.attachSchema(new SimpleSchema({
   boardId: {
+    /**
+     * the ID of the board
+     */
     type: String,
   },
   name: {
+    /**
+     * name of the custom field
+     */
     type: String,
   },
   type: {
+    /**
+     * type of the custom field
+     */
     type: String,
     allowedValues: ['text', 'number', 'date', 'dropdown'],
   },
   settings: {
+    /**
+     * settings of the custom field
+     */
     type: Object,
   },
   'settings.dropdownItems': {
+    /**
+     * list of drop down items objects
+     */
     type: [Object],
     optional: true,
   },
   'settings.dropdownItems.$': {
     type: new SimpleSchema({
       _id: {
+        /**
+         * ID of the drop down item
+         */
         type: String,
       },
       name: {
+        /**
+         * name of the drop down item
+         */
         type: String,
       },
     }),
   },
   showOnCard: {
+    /**
+     * should we show on the cards this custom field
+     */
     type: Boolean,
   },
   automaticallyOnCard: {
+    /**
+     * should the custom fields automatically be added on cards?
+     */
     type: Boolean,
   },
   showLabelOnMiniCard: {
+    /**
+     * should the label of the custom field be shown on minicards?
+     */
     type: Boolean,
   },
 }));
@@ -88,6 +121,15 @@ if (Meteor.isServer) {
 
 //CUSTOM FIELD REST API
 if (Meteor.isServer) {
+  /**
+   * @operation get_all_custom_fields
+   * @summary Get the list of Custom Fields attached to a board
+   *
+   * @param {string} boardID the ID of the board
+   * @return_type [{_id: string,
+   *                name: string,
+   *                type: string}]
+   */
   JsonRoutes.add('GET', '/api/boards/:boardId/custom-fields', function (req, res) {
     Authentication.checkUserId( req.userId);
     const paramBoardId = req.params.boardId;
@@ -103,6 +145,14 @@ if (Meteor.isServer) {
     });
   });
 
+  /**
+   * @operation get_custom_field
+   * @summary Get a Custom Fields attached to a board
+   *
+   * @param {string} boardID the ID of the board
+   * @param {string} customFieldId the ID of the custom field
+   * @return_type CustomFields
+   */
   JsonRoutes.add('GET', '/api/boards/:boardId/custom-fields/:customFieldId', function (req, res) {
     Authentication.checkUserId( req.userId);
     const paramBoardId = req.params.boardId;
@@ -113,6 +163,19 @@ if (Meteor.isServer) {
     });
   });
 
+  /**
+   * @operation new_custom_field
+   * @summary Create a Custom Field
+   *
+   * @param {string} boardID the ID of the board
+   * @param {string} name the name of the custom field
+   * @param {string} type the type of the custom field
+   * @param {string} settings the settings object of the custom field
+   * @param {boolean} showOnCard should we show the custom field on cards?
+   * @param {boolean} automaticallyOnCard should the custom fields automatically be added on cards?
+   * @param {boolean} showLabelOnMiniCard should the label of the custom field be shown on minicards?
+   * @return_type {_id: string}
+   */
   JsonRoutes.add('POST', '/api/boards/:boardId/custom-fields', function (req, res) {
     Authentication.checkUserId( req.userId);
     const paramBoardId = req.params.boardId;
@@ -137,6 +200,16 @@ if (Meteor.isServer) {
     });
   });
 
+  /**
+   * @operation delete_custom_field
+   * @summary Delete a Custom Fields attached to a board
+   *
+   * @description The Custom Field can't be retrieved after this operation
+   *
+   * @param {string} boardID the ID of the board
+   * @param {string} customFieldId the ID of the custom field
+   * @return_type {_id: string}
+   */
   JsonRoutes.add('DELETE', '/api/boards/:boardId/custom-fields/:customFieldId', function (req, res) {
     Authentication.checkUserId( req.userId);
     const paramBoardId = req.params.boardId;

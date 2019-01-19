@@ -4,8 +4,14 @@ const isSandstorm = Meteor.settings && Meteor.settings.public &&
   Meteor.settings.public.sandstorm;
 Users = Meteor.users;
 
+/**
+ * A User in wekan
+ */
 Users.attachSchema(new SimpleSchema({
   username: {
+    /**
+     * the username of the user
+     */
     type: String,
     optional: true,
     autoValue() { // eslint-disable-line consistent-return
@@ -18,17 +24,29 @@ Users.attachSchema(new SimpleSchema({
     },
   },
   emails: {
+    /**
+     * the list of emails attached to a user
+     */
     type: [Object],
     optional: true,
   },
   'emails.$.address': {
+    /**
+     * The email address
+     */
     type: String,
     regEx: SimpleSchema.RegEx.Email,
   },
   'emails.$.verified': {
+    /**
+     * Has the email been verified
+     */
     type: Boolean,
   },
   createdAt: {
+    /**
+     * creation date of the user
+     */
     type: Date,
     autoValue() { // eslint-disable-line consistent-return
       if (this.isInsert) {
@@ -39,6 +57,9 @@ Users.attachSchema(new SimpleSchema({
     },
   },
   profile: {
+    /**
+     * profile settings
+     */
     type: Object,
     optional: true,
     autoValue() { // eslint-disable-line consistent-return
@@ -50,50 +71,86 @@ Users.attachSchema(new SimpleSchema({
     },
   },
   'profile.avatarUrl': {
+    /**
+     * URL of the avatar of the user
+     */
     type: String,
     optional: true,
   },
   'profile.emailBuffer': {
+    /**
+     * list of email buffers of the user
+     */
     type: [String],
     optional: true,
   },
   'profile.fullname': {
+    /**
+     * full name of the user
+     */
     type: String,
     optional: true,
   },
   'profile.hiddenSystemMessages': {
+    /**
+     * does the user wants to hide system messages?
+     */
     type: Boolean,
     optional: true,
   },
   'profile.initials': {
+    /**
+     * initials of the user
+     */
     type: String,
     optional: true,
   },
   'profile.invitedBoards': {
+    /**
+     * board IDs the user has been invited to
+     */
     type: [String],
     optional: true,
   },
   'profile.language': {
+    /**
+     * language of the user
+     */
     type: String,
     optional: true,
   },
   'profile.notifications': {
+    /**
+     * enabled notifications for the user
+     */
     type: [String],
     optional: true,
   },
   'profile.showCardsCountAt': {
+    /**
+     * showCardCountAt field of the user
+     */
     type: Number,
     optional: true,
   },
   'profile.starredBoards': {
+    /**
+     * list of starred board IDs
+     */
     type: [String],
     optional: true,
   },
   'profile.icode': {
+    /**
+     * icode
+     */
     type: String,
     optional: true,
   },
   'profile.boardView': {
+    /**
+     * boardView field of the user
+     */
     type: String,
     optional: true,
     allowedValues: [
@@ -103,27 +160,45 @@ Users.attachSchema(new SimpleSchema({
     ],
   },
   services: {
+    /**
+     * services field of the user
+     */
     type: Object,
     optional: true,
     blackbox: true,
   },
   heartbeat: {
+    /**
+     * last time the user has been seen
+     */
     type: Date,
     optional: true,
   },
   isAdmin: {
+    /**
+     * is the user an admin of the board?
+     */
     type: Boolean,
     optional: true,
   },
   createdThroughApi: {
+    /**
+     * was the user created through the API?
+     */
     type: Boolean,
     optional: true,
   },
   loginDisabled: {
+    /**
+     * loginDisabled field of the user
+     */
     type: Boolean,
     optional: true,
   },
   'authenticationMethod': {
+    /**
+     * authentication method of the user
+     */
     type: String,
     optional: false,
     defaultValue: 'password',
@@ -681,6 +756,12 @@ if (Meteor.isServer) {
     }
   });
 
+  /**
+   * @operation get_current_user
+   *
+   * @summary returns the current user
+   * @return_type Users
+   */
   JsonRoutes.add('GET', '/api/user', function(req, res) {
     try {
       Authentication.checkLoggedIn(req.userId);
@@ -699,6 +780,15 @@ if (Meteor.isServer) {
     }
   });
 
+  /**
+   * @operation get_all_users
+   *
+   * @summary return all the users
+   *
+   * @description Only the admin user (the first user) can call the REST API.
+   * @return_type [{ _id: string,
+   *                 username: string}]
+   */
   JsonRoutes.add('GET', '/api/users', function (req, res) {
     try {
       Authentication.checkUserId(req.userId);
@@ -717,6 +807,16 @@ if (Meteor.isServer) {
     }
   });
 
+  /**
+   * @operation get_user
+   *
+   * @summary get a given user
+   *
+   * @description Only the admin user (the first user) can call the REST API.
+   *
+   * @param {string} userId the user ID
+   * @return_type Users
+   */
   JsonRoutes.add('GET', '/api/users/:userId', function (req, res) {
     try {
       Authentication.checkUserId(req.userId);
@@ -734,6 +834,23 @@ if (Meteor.isServer) {
     }
   });
 
+  /**
+   * @operation edit_user
+   *
+   * @summary edit a given user
+   *
+   * @description Only the admin user (the first user) can call the REST API.
+   *
+   * Possible values for *action*:
+   * - `takeOwnership`: The admin takes the ownership of ALL boards of the user (archived and not archived) where the user is admin on.
+   * - `disableLogin`: Disable a user (the user is not allowed to login and his login tokens are purged)
+   * - `enableLogin`: Enable a user
+   *
+   * @param {string} userId the user ID
+   * @param {string} action the action
+   * @return_type {_id: string,
+   *               title: string}
+   */
   JsonRoutes.add('PUT', '/api/users/:userId', function (req, res) {
     try {
       Authentication.checkUserId(req.userId);
@@ -777,6 +894,25 @@ if (Meteor.isServer) {
     }
   });
 
+  /**
+   * @operation add_board_member
+   * @tag Boards
+   *
+   * @summary Add New Board Member with Role
+   *
+   * @description Only the admin user (the first user) can call the REST API.
+   *
+   * **Note**: see [Boards.set_board_member_permission](#set_board_member_permission)
+   * to later change the permissions.
+   *
+   * @param {string} boardId the board ID
+   * @param {string} userId the user ID
+   * @param {boolean} isAdmin is the user an admin of the board
+   * @param {boolean} isNoComments disable comments
+   * @param {boolean} isCommentOnly only enable comments
+   * @return_type {_id: string,
+   *               title: string}
+   */
   JsonRoutes.add('POST', '/api/boards/:boardId/members/:userId/add', function (req, res) {
     try {
       Authentication.checkUserId(req.userId);
@@ -817,6 +953,20 @@ if (Meteor.isServer) {
     }
   });
 
+  /**
+   * @operation remove_board_member
+   * @tag Boards
+   *
+   * @summary Remove Member from Board
+   *
+   * @description Only the admin user (the first user) can call the REST API.
+   *
+   * @param {string} boardId the board ID
+   * @param {string} userId the user ID
+   * @param {string} action the action (needs to be `remove`)
+   * @return_type {_id: string,
+   *               title: string}
+   */
   JsonRoutes.add('POST', '/api/boards/:boardId/members/:userId/remove', function (req, res) {
     try {
       Authentication.checkUserId(req.userId);
@@ -852,6 +1002,18 @@ if (Meteor.isServer) {
     }
   });
 
+  /**
+   * @operation new_user
+   *
+   * @summary Create a new user
+   *
+   * @description Only the admin user (the first user) can call the REST API.
+   *
+   * @param {string} username the new username
+   * @param {string} email the email of the new user
+   * @param {string} password the password of the new user
+   * @return_type {_id: string}
+   */
   JsonRoutes.add('POST', '/api/users/', function (req, res) {
     try {
       Authentication.checkUserId(req.userId);
@@ -876,6 +1038,16 @@ if (Meteor.isServer) {
     }
   });
 
+  /**
+   * @operation delete_user
+   *
+   * @summary Delete a user
+   *
+   * @description Only the admin user (the first user) can call the REST API.
+   *
+   * @param {string} userId the ID of the user to delete
+   * @return_type {_id: string}
+   */
   JsonRoutes.add('DELETE', '/api/users/:userId', function (req, res) {
     try {
       Authentication.checkUserId(req.userId);
