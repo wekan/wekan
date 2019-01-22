@@ -1,6 +1,11 @@
 const subManager = new SubsManager();
 const { calculateIndexData, enableClickOnTouch } = Utils;
 
+let cardColors;
+Meteor.startup(() => {
+  cardColors = Cards.simpleSchema()._schema['color'].allowedValues;
+});
+
 BlazeComponent.extendComponent({
   mixins() {
     return [Mixins.InfiniteScrolling, Mixins.PerfectScrollbar];
@@ -585,17 +590,36 @@ Template.copyChecklistToManyCardsPopup.events({
   },
 });
 
-Template.setCardColorPopup.events({
-  'click .js-submit' () {
-    // XXX We should *not* get the currentCard from the global state, but
-    // instead from a “component” state.
-    const card = Cards.findOne(Session.get('currentCard'));
-    const colorSelect = $('.js-select-colors')[0];
-    newColor = colorSelect.options[colorSelect.selectedIndex].value;
-    card.setColor(newColor);
-    Popup.close();
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.currentCard = this.currentData();
+    this.currentColor = new ReactiveVar(this.currentCard.color);
   },
-});
+
+  colors() {
+    return cardColors.map((color) => ({ color, name: '' }));
+  },
+
+  isSelected(color) {
+    return this.currentColor.get() === color;
+  },
+
+  events() {
+    return [{
+      'click .js-palette-color'() {
+        this.currentColor.set(this.currentData().color);
+      },
+      'click .js-submit' () {
+        this.currentCard.setColor(this.currentColor.get());
+        Popup.close();
+      },
+      'click .js-remove-color'() {
+        this.currentCard.setColor(null);
+        Popup.close();
+      },
+    }];
+  },
+}).register('setCardColorPopup');
 
 BlazeComponent.extendComponent({
   onCreated() {
