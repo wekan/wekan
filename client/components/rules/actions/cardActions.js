@@ -112,6 +112,26 @@ BlazeComponent.extendComponent({
           boardId,
         });
       },
+      'click .js-set-color-action' (event) {
+        const ruleName = this.data().ruleName.get();
+        const trigger = this.data().triggerVar.get();
+        const selectedColor = this.find('#color-action').value;
+        const boardId = Session.get('currentBoard');
+        const desc = Utils.getTriggerActionDesc(event, this);
+        const triggerId = Triggers.insert(trigger);
+        const actionId = Actions.insert({
+          actionType: 'setColor',
+          selectedColor,
+          boardId,
+          desc,
+        });
+        Rules.insert({
+          title: ruleName,
+          triggerId,
+          actionId,
+          boardId,
+        });
+      },
     }];
   },
 

@@ -597,6 +597,7 @@
     "r-label": "label",
     "r-member": "member",
     "r-remove-all": "Remove all members from the card",
+    "r-set-color": "Set color to",
     "r-checklist": "checklist",
     "r-check-all": "Check all",
     "r-uncheck-all": "Uncheck all",
