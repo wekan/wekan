@@ -480,6 +480,7 @@
     "OS_Totalmem": "Operációs rendszer összes memóriája",
     "OS_Type": "Operációs rendszer típusa",
     "OS_Uptime": "Operációs rendszer üzemideje",
+    "days": "days",
     "hours": "óra",
     "minutes": "perc",
     "seconds": "másodperc",

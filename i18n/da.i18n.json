@@ -480,6 +480,7 @@
     "OS_Totalmem": "OS Total Memory",
     "OS_Type": "OS Type",
     "OS_Uptime": "OS Uptime",
+    "days": "days",
     "hours": "hours",
     "minutes": "minutes",
     "seconds": "seconds",

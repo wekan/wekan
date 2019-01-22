@@ -480,6 +480,7 @@
     "OS_Totalmem": "Memoria totale del sistema operativo ",
     "OS_Type": "Tipo di sistema operativo ",
     "OS_Uptime": "Tempo di attività del sistema operativo. ",
+    "days": "days",
     "hours": "ore",
     "minutes": "minuti",
     "seconds": "secondi",

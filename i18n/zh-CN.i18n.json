@@ -480,6 +480,7 @@
     "OS_Totalmem": "系统全部内存",
     "OS_Type": "系统类型",
     "OS_Uptime": "系统运行时间",
+    "days": "天",
     "hours": "小时",
     "minutes": "分钟",
     "seconds": "秒",

@@ -480,6 +480,7 @@
     "OS_Totalmem": "系統總記憶體",
     "OS_Type": "系統類型",
     "OS_Uptime": "系統運行時間",
+    "days": "days",
     "hours": "小時",
     "minutes": "分鐘",
     "seconds": "秒",

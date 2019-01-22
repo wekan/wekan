@@ -480,6 +480,7 @@
     "OS_Totalmem": "OS Celková paměť",
     "OS_Type": "Typ OS",
     "OS_Uptime": "OS Doba běhu systému",
+    "days": "days",
     "hours": "hodin",
     "minutes": "minut",
     "seconds": "sekund",

@@ -480,6 +480,7 @@
     "OS_Totalmem": "OS totalt minne",
     "OS_Type": "OS Typ",
     "OS_Uptime": "OS drifttid",
+    "days": "days",
     "hours": "timmar",
     "minutes": "minuter",
     "seconds": "sekunder",
