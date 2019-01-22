@@ -22,6 +22,7 @@ BlazeComponent.extendComponent({
   onCreated() {
     this.currentBoard = Boards.findOne(Session.get('currentBoard'));
     this.isLoaded = new ReactiveVar(false);
+    this.currentColor = new ReactiveVar(this.data().color);
     const boardBody =  this.parentComponent().parentComponent();
     //in Miniview parent is Board, not BoardBody.
     if (boardBody !== null) {
@@ -337,6 +338,7 @@ Template.cardDetailsActionsPopup.events({
   'click .js-move-card': Popup.open('moveCard'),
   'click .js-copy-card': Popup.open('copyCard'),
   'click .js-copy-checklist-cards': Popup.open('copyChecklistToManyCards'),
+  'click .js-set-card-color': Popup.open('setCardColor'),
   'click .js-move-card-to-top' (evt) {
     evt.preventDefault();
     const minOrder = _.min(this.list().cards(this.swimlaneId).map((c) => c.sort));
@@ -580,6 +582,18 @@ Template.copyChecklistToManyCardsPopup.events({
       }
       Popup.close();
     }
+  },
+});
+
+Template.setCardColorPopup.events({
+  'click .js-submit' () {
+    // XXX We should *not* get the currentCard from the global state, but
+    // instead from a “component” state.
+    const card = Cards.findOne(Session.get('currentCard'));
+    const colorSelect = $('.js-select-colors')[0];
+    newColor = colorSelect.options[colorSelect.selectedIndex].value;
+    card.setColor(newColor);
+    Popup.close();
   },
 });
 

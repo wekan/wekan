@@ -1,7 +1,8 @@
 template(name="minicard")
   .minicard(
     class="{{#if isLinkedCard}}linked-card{{/if}}"
-    class="{{#if isLinkedBoard}}linked-board{{/if}}")
+    class="{{#if isLinkedBoard}}linked-board{{/if}}"
+    class="minicard-{{colorClass}}")
     if cover
       .minicard-cover(style="background-image: url('{{cover.url}}');")
     if labels
