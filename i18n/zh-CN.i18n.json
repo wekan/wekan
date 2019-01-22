@@ -192,6 +192,7 @@
     "color-slateblue": "slateblue",
     "color-white": "white",
     "color-yellow": "黄色",
+    "unset-color": "Unset",
     "comment": "评论",
     "comment-placeholder": "添加评论",
     "comment-only": "仅能评论",

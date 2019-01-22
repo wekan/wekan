@@ -192,6 +192,7 @@
     "color-slateblue": "liuskekivi sininen",
     "color-white": "valkoinen",
     "color-yellow": "keltainen",
+    "unset-color": "Peru väri",
     "comment": "Kommentti",
     "comment-placeholder": "Kirjoita kommentti",
     "comment-only": "Vain kommentointi",

@@ -192,6 +192,7 @@
     "color-slateblue": "slateblue",
     "color-white": "white",
     "color-yellow": "옐로우",
+    "unset-color": "Unset",
     "comment": "댓글",
     "comment-placeholder": "댓글 입력",
     "comment-only": "댓글만 입력 가능",

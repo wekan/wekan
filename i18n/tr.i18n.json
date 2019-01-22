@@ -192,6 +192,7 @@
     "color-slateblue": "slateblue",
     "color-white": "white",
     "color-yellow": "sarı",
+    "unset-color": "Unset",
     "comment": "Yorum",
     "comment-placeholder": "Yorum Yaz",
     "comment-only": "Sadece yorum",

@@ -192,6 +192,7 @@
     "color-slateblue": "slateblue",
     "color-white": "white",
     "color-yellow": "زرد",
+    "unset-color": "Unset",
     "comment": "نظر",
     "comment-placeholder": "درج نظر",
     "comment-only": "فقط نظر",

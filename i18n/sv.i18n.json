@@ -192,6 +192,7 @@
     "color-slateblue": "slateblue",
     "color-white": "white",
     "color-yellow": "gul",
+    "unset-color": "Unset",
     "comment": "Kommentera",
     "comment-placeholder": "Skriv kommentar",
     "comment-only": "Kommentera endast",

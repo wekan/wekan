@@ -192,6 +192,7 @@
     "color-slateblue": "slateblue",
     "color-white": "white",
     "color-yellow": "黃色",
+    "unset-color": "Unset",
     "comment": "留言",
     "comment-placeholder": "新增評論",
     "comment-only": "只可以發表評論",
