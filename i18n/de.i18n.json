@@ -480,6 +480,7 @@
     "OS_Totalmem": "Gesamter Arbeitsspeicher",
     "OS_Type": "Typ des Betriebssystems",
     "OS_Uptime": "Laufzeit des Systems",
+    "days": "Tage",
     "hours": "Stunden",
     "minutes": "Minuten",
     "seconds": "Sekunden",

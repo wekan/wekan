@@ -480,6 +480,7 @@
     "OS_Totalmem": "Käyttöjärjestelmän muistin kokonaismäärä",
     "OS_Type": "Käyttöjärjestelmän tyyppi",
     "OS_Uptime": "Käyttöjärjestelmä ollut käynnissä",
+    "days": "päivää",
     "hours": "tuntia",
     "minutes": "minuuttia",
     "seconds": "sekuntia",

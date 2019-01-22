@@ -480,6 +480,7 @@
     "OS_Totalmem": "Dostępna pamięć RAM",
     "OS_Type": "Typ systemu",
     "OS_Uptime": "Czas działania systemu",
+    "days": "days",
     "hours": "godzin",
     "minutes": "minut",
     "seconds": "sekund",

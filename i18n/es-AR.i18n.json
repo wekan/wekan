@@ -480,6 +480,7 @@
     "OS_Totalmem": "Memoria Total del SO",
     "OS_Type": "Tipo de SO",
     "OS_Uptime": "Tiempo encendido del SO",
+    "days": "days",
     "hours": "horas",
     "minutes": "minutos",
     "seconds": "segundos",

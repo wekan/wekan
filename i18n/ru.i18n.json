@@ -480,6 +480,7 @@
     "OS_Totalmem": "Общая память",
     "OS_Type": "Тип ОС",
     "OS_Uptime": "Время работы",
+    "days": "days",
     "hours": "часы",
     "minutes": "минуты",
     "seconds": "секунды",

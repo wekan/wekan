@@ -480,6 +480,7 @@
     "OS_Totalmem": "OSトータルメモリ",
     "OS_Type": "OS種類",
     "OS_Uptime": "OSアップタイム",
+    "days": "days",
     "hours": "時",
     "minutes": "分",
     "seconds": "秒",
