@@ -10,7 +10,7 @@ if (Meteor.isServer) {
    * @operation export
    * @tag Boards
    *
-   * @summary This route is used to export the board **FROM THE APPLICATION**.
+   * @summary This route is used to export the board.
    *
    * @description If user is already logged-in, pass loginToken as param
    * "authToken": '/api/boards/:boardId/export?authToken=:token'
@@ -24,14 +24,16 @@ if (Meteor.isServer) {
   JsonRoutes.add('get', '/api/boards/:boardId/export', function(req, res) {
     const boardId = req.params.boardId;
     let user = null;
-    // todo XXX for real API, first look for token in Authentication: header
-    // then fallback to parameter
+
     const loginToken = req.query.authToken;
     if (loginToken) {
       const hashToken = Accounts._hashLoginToken(loginToken);
       user = Meteor.users.findOne({
         'services.resume.loginTokens.hashedToken': hashToken,
       });
+    } else {
+      Authentication.checkUserId(req.userId);
+      user = Users.findOne({ _id: req.userId, isAdmin: true });
     }
 
     const exporter = new Exporter(boardId);
