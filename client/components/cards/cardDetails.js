@@ -601,6 +601,9 @@ BlazeComponent.extendComponent({
   },
 
   isSelected(color) {
+    if (this.currentColor.get() === null) {
+      return color === 'white';
+    }
     return this.currentColor.get() === color;
   },
 

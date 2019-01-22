@@ -146,6 +146,10 @@ card-details-color(background, color...)
   if color
     color: color !important //overwrite text for better visibility
 
+.card-details-white
+  card-details-color(unset, #000) //Black text for better visibility
+  border: 1px solid #eee
+
 .card-details-green
   card-details-color(#3cb500, #ffffff) //White text for better visibility
 

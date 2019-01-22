@@ -69,7 +69,7 @@ Cards.attachSchema(new SimpleSchema({
     type: String,
     optional: true,
     allowedValues: [
-      'green', 'yellow', 'orange', 'red', 'purple',
+      'white', 'green', 'yellow', 'orange', 'red', 'purple',
       'blue', 'sky', 'lime', 'pink', 'black',
       'silver', 'peachpuff', 'crimson', 'plum', 'darkgreen',
       'slateblue', 'magenta', 'gold', 'navy', 'gray',
@@ -1571,12 +1571,15 @@ if (Meteor.isServer) {
    *
    * @description Edit a card
    *
-   * The color has to be chosen between `green`, `yellow`, `orange`, `red`,
-   * `purple`, `blue`, `sky`, `lime`, `pink`, `black`, `silver`, `peachpuff`,
-   * `crimson`, `plum`, `darkgreen`, `slateblue`, `magenta`, `gold`, `navy`,
-   * `gray`, `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`:
+   * The color has to be chosen between `white`, `green`, `yellow`, `orange`,
+   * `red`, `purple`, `blue`, `sky`, `lime`, `pink`, `black`, `silver`,
+   * `peachpuff`, `crimson`, `plum`, `darkgreen`, `slateblue`, `magenta`,
+   * `gold`, `navy`, `gray`, `saddlebrown`, `paleturquoise`, `mistyrose`,
+   * `indigo`:
    *
    * <img src="/card-colors.png" width="40%" alt="Wekan card colors" />
+   *
+   * Note: setting the color to white has the same effect than removing it.
    *
    * @param {string} boardId the board ID of the card
    * @param {string} list the list ID of the card
