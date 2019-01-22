@@ -1,12 +1,22 @@
 # Upcoming Wekan release
 
-This release adds the following new features:
+This release adds the following new features with Apache I-CLA, thanks to bentiss:
 
-- [OpenAPI and generating of REST API Docs](https://github.com/wekan/wekan/pull/1965). Thanks to bentiss.
+- [Add per card color: Card / Hamburger menu / Set Color](https://github.com/wekan/wekan/pull/2116) with [color picker](https://github.com/wekan/wekan/pull/2117);
+- [OpenAPI and generating of REST API Docs](https://github.com/wekan/wekan/pull/1965);
+- [Allow to retrieve full export of board from the REST API](https://github.com/wekan/wekan/pull/2118) through generic authentication.
+  When the board is big, retrieving individual cards is heavy for both the server and the number of requests.
+  Allowing the API to directly call on export and then treat the data makes the whole process smoother.
+
+and adds the following new features with Apache I-CLA, thanks to xet7 and bentiss:
+
+- [Translate and add color names to IFTTT Rules dropdown](https://github.com/wekan/wekan/commit/44e4df2492b95226f1297e7f556d61b1afaab714), thanks to xet7.
+  [Fix to this feature blank item](https://github.com/wekan/wekan/pull/2119), thanks to bentiss.
 
 and adds these updates:
 
 - Update translations. Thanks to translators.
+- Added missing translation for 'days'. Thanks to Chartman123.
 
 and fixes these typos;
 
