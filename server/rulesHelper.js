@@ -87,6 +87,9 @@ RulesHelper = {
     if(action.actionType === 'unarchive'){
       card.restore();
     }
+    if(action.actionType === 'setColor'){
+      card.setColor(action.selectedColor);
+    }
     if(action.actionType === 'addLabel'){
       card.addLabel(action.labelId);
     }
