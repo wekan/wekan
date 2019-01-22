@@ -192,6 +192,7 @@
     "color-slateblue": "slateblue",
     "color-white": "white",
     "color-yellow": "เหลือง",
+    "unset-color": "Unset",
     "comment": "คอมเม็นต์",
     "comment-placeholder": "Write Comment",
     "comment-only": "Comment only",

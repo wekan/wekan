@@ -192,6 +192,7 @@
     "color-slateblue": "slateblue",
     "color-white": "white",
     "color-yellow": "sárga",
+    "unset-color": "Unset",
     "comment": "Megjegyzés",
     "comment-placeholder": "Megjegyzés írása",
     "comment-only": "Csak megjegyzés",

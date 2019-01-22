@@ -192,6 +192,7 @@
     "color-slateblue": "slateblue",
     "color-white": "white",
     "color-yellow": "κίτρινο",
+    "unset-color": "Unset",
     "comment": "Comment",
     "comment-placeholder": "Write Comment",
     "comment-only": "Comment only",

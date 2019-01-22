@@ -192,6 +192,7 @@
     "color-slateblue": "slateblue",
     "color-white": "white",
     "color-yellow": "žlutá",
+    "unset-color": "Unset",
     "comment": "Komentář",
     "comment-placeholder": "Text komentáře",
     "comment-only": "Pouze komentáře",

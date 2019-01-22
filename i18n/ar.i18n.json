@@ -192,6 +192,7 @@
     "color-slateblue": "slateblue",
     "color-white": "white",
     "color-yellow": "yellow",
+    "unset-color": "Unset",
     "comment": "تعليق",
     "comment-placeholder": "أكتب تعليق",
     "comment-only": "التعليق فقط",

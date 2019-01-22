@@ -192,6 +192,7 @@
     "color-slateblue": "slateblue",
     "color-white": "white",
     "color-yellow": "ყვითელი",
+    "unset-color": "Unset",
     "comment": "კომენტარი",
     "comment-placeholder": "დაწერეთ კომენტარი",
     "comment-only": "მხოლოდ კომენტარები",

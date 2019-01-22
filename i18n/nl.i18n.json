@@ -192,6 +192,7 @@
     "color-slateblue": "slateblue",
     "color-white": "white",
     "color-yellow": "Geel",
+    "unset-color": "Unset",
     "comment": "Reageer",
     "comment-placeholder": "Schrijf reactie",
     "comment-only": "Alleen reageren",

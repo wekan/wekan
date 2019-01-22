@@ -192,6 +192,7 @@
     "color-slateblue": "slateblue",
     "color-white": "white",
     "color-yellow": "желтый",
+    "unset-color": "Unset",
     "comment": "Добавить комментарий",
     "comment-placeholder": "Написать комментарий",
     "comment-only": "Только комментирование",

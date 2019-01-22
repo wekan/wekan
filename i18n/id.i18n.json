@@ -192,6 +192,7 @@
     "color-slateblue": "slateblue",
     "color-white": "white",
     "color-yellow": "kuning",
+    "unset-color": "Unset",
     "comment": "Komentar",
     "comment-placeholder": "Write Comment",
     "comment-only": "Hanya komentar",

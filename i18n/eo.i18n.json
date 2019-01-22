@@ -192,6 +192,7 @@
     "color-slateblue": "slateblue",
     "color-white": "white",
     "color-yellow": "flava",
+    "unset-color": "Unset",
     "comment": "Komento",
     "comment-placeholder": "Write Comment",
     "comment-only": "Comment only",

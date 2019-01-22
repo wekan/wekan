@@ -192,6 +192,7 @@
     "color-slateblue": "slateblue",
     "color-white": "white",
     "color-yellow": "amarillo",
+    "unset-color": "Unset",
     "comment": "Comentario",
     "comment-placeholder": "Comentar",
     "comment-only": "Comentar solamente",
