@@ -8,6 +8,8 @@ BlazeComponent.extendComponent({
       if (labels[i].name === '' || labels[i].name === undefined) {
         labels[i].name = labels[i].color;
         labels[i].translatedname = `${TAPi18n.__(`color-${  labels[i].color}`)}`;
+      } else {
+        labels[i].translatedname = labels[i].name;
       }
     }
     return labels;
