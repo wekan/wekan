@@ -339,9 +339,10 @@ template(name="cardMorePopup")
 template(name="setCardColorPopup")
   form.edit-label
     .palette-colors: each colors
-      span.card-label.palette-color.js-palette-color(class="card-details-{{color}}")
-        if(isSelected color)
-          i.fa.fa-check
+      unless $eq color 'white'
+        span.card-label.palette-color.js-palette-color(class="card-details-{{color}}")
+          if(isSelected color)
+            i.fa.fa-check
     button.primary.confirm.js-submit {{_ 'save'}}
     button.js-remove-color.negate.wide.right {{_ 'unset-color'}}
 
