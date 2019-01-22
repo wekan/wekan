@@ -3,7 +3,7 @@ const { calculateIndexData, enableClickOnTouch } = Utils;
 
 let cardColors;
 Meteor.startup(() => {
-  cardColors = Cards.simpleSchema()._schema['color'].allowedValues;
+  cardColors = Cards.simpleSchema()._schema.color.allowedValues;
 });
 
 BlazeComponent.extendComponent({
