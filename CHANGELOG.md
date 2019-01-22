@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v2.02 2019-01-22 Wekan release
 
 This release adds the following new features with Apache I-CLA, thanks to bentiss:
 
