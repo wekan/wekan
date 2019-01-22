@@ -1033,6 +1033,17 @@ Cards.mutations({
     }
   },
 
+  setColor(newColor) {
+    if (newColor === 'white') {
+      newColor = null;
+    }
+    return {
+      $set: {
+        color: newColor,
+      },
+    };
+  },
+
   assignMember(memberId) {
     return {
       $addToSet: {
