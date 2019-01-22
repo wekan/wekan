@@ -6,25 +6,34 @@ if (Meteor.isServer) {
   // `ApiRoutes.path('boards/export', boardId)``
   // on the client instead of copy/pasting the route path manually between the
   // client and the server.
-  /*
-   * This route is used to export the board FROM THE APPLICATION.
-   * If user is already logged-in, pass loginToken as param "authToken":
-   * '/api/boards/:boardId/export?authToken=:token'
+  /**
+   * @operation export
+   * @tag Boards
+   *
+   * @summary This route is used to export the board.
+   *
+   * @description If user is already logged-in, pass loginToken as param
+   * "authToken": '/api/boards/:boardId/export?authToken=:token'
    *
    * See https://blog.kayla.com.au/server-side-route-authentication-in-meteor/
    * for detailed explanations
+   *
+   * @param {string} boardId the ID of the board we are exporting
+   * @param {string} authToken the loginToken
    */
   JsonRoutes.add('get', '/api/boards/:boardId/export', function(req, res) {
     const boardId = req.params.boardId;
     let user = null;
-    // todo XXX for real API, first look for token in Authentication: header
-    // then fallback to parameter
+
     const loginToken = req.query.authToken;
     if (loginToken) {
       const hashToken = Accounts._hashLoginToken(loginToken);
       user = Meteor.users.findOne({
         'services.resume.loginTokens.hashedToken': hashToken,
       });
+    } else {
+      Authentication.checkUserId(req.userId);
+      user = Users.findOne({ _id: req.userId, isAdmin: true });
     }
 
     const exporter = new Exporter(boardId);

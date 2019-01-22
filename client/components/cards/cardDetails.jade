@@ -1,6 +1,6 @@
 template(name="cardDetails")
   section.card-details.js-card-details.js-perfect-scrollbar: .card-details-canvas
-    .card-details-header
+    .card-details-header(class='{{#if colorClass}}card-details-{{colorClass}}{{/if}}')
       +inlinedForm(classNames="js-card-details-title")
         +editCardTitleForm
       else
@@ -234,6 +234,7 @@ template(name="cardDetailsActionsPopup")
       li: a.js-due-date {{_ 'editCardDueDatePopup-title'}}
       li: a.js-end-date {{_ 'editCardEndDatePopup-title'}}
       li: a.js-spent-time {{_ 'editCardSpentTimePopup-title'}}
+      li: a.js-set-card-color {{_ 'setCardColor-title'}}
     hr
     ul.pop-over-list
       li: a.js-move-card-to-top {{_ 'moveCardToTop-title'}}
@@ -335,7 +336,17 @@ template(name="cardMorePopup")
     span.date(title=card.createdAt) {{ moment createdAt 'LLL' }}
     a.js-delete(title="{{_ 'card-delete-notice'}}") {{_ 'delete'}}
 
-
+template(name="setCardColorPopup")
+  p.quiet
+    span.clearfix
+  label {{_ "select-color"}}
+  form.edit-label
+    .palette-colors: each colors
+      span.card-label.palette-color.js-palette-color(class="card-details-{{color}}")
+        if(isSelected color)
+          i.fa.fa-check
+    button.primary.confirm.js-submit {{_ 'save'}}
+    button.js-remove-color.negate.wide.right {{_ 'unset-color'}}
 
 template(name="cardDeletePopup")
   p {{_ "card-delete-pop"}}

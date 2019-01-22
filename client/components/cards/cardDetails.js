@@ -1,6 +1,11 @@
 const subManager = new SubsManager();
 const { calculateIndexData, enableClickOnTouch } = Utils;
 
+let cardColors;
+Meteor.startup(() => {
+  cardColors = Cards.simpleSchema()._schema.color.allowedValues;
+});
+
 BlazeComponent.extendComponent({
   mixins() {
     return [Mixins.InfiniteScrolling, Mixins.PerfectScrollbar];
@@ -22,6 +27,7 @@ BlazeComponent.extendComponent({
   onCreated() {
     this.currentBoard = Boards.findOne(Session.get('currentBoard'));
     this.isLoaded = new ReactiveVar(false);
+    this.currentColor = new ReactiveVar(this.data().color);
     const boardBody =  this.parentComponent().parentComponent();
     //in Miniview parent is Board, not BoardBody.
     if (boardBody !== null) {
@@ -337,6 +343,7 @@ Template.cardDetailsActionsPopup.events({
   'click .js-move-card': Popup.open('moveCard'),
   'click .js-copy-card': Popup.open('copyCard'),
   'click .js-copy-checklist-cards': Popup.open('copyChecklistToManyCards'),
+  'click .js-set-card-color': Popup.open('setCardColor'),
   'click .js-move-card-to-top' (evt) {
     evt.preventDefault();
     const minOrder = _.min(this.list().cards(this.swimlaneId).map((c) => c.sort));
@@ -582,6 +589,37 @@ Template.copyChecklistToManyCardsPopup.events({
     }
   },
 });
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.currentCard = this.currentData();
+    this.currentColor = new ReactiveVar(this.currentCard.color);
+  },
+
+  colors() {
+    return cardColors.map((color) => ({ color, name: '' }));
+  },
+
+  isSelected(color) {
+    return this.currentColor.get() === color;
+  },
+
+  events() {
+    return [{
+      'click .js-palette-color'() {
+        this.currentColor.set(this.currentData().color);
+      },
+      'click .js-submit' () {
+        this.currentCard.setColor(this.currentColor.get());
+        Popup.close();
+      },
+      'click .js-remove-color'() {
+        this.currentCard.setColor(null);
+        Popup.close();
+      },
+    }];
+  },
+}).register('setCardColorPopup');
 
 BlazeComponent.extendComponent({
   onCreated() {

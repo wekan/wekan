@@ -5,11 +5,17 @@ Cards = new Mongo.Collection('cards');
 // of comments just to display the number of them in the board view.
 Cards.attachSchema(new SimpleSchema({
   title: {
+    /**
+     * the title of the card
+     */
     type: String,
     optional: true,
     defaultValue: '',
   },
   archived: {
+    /**
+     * is the card archived
+     */
     type: Boolean,
     autoValue() { // eslint-disable-line consistent-return
       if (this.isInsert && !this.isSet) {
@@ -18,33 +24,62 @@ Cards.attachSchema(new SimpleSchema({
     },
   },
   parentId: {
+    /**
+     * ID of the parent card
+     */
     type: String,
     optional: true,
     defaultValue: '',
   },
   listId: {
+    /**
+     * List ID where the card is
+     */
     type: String,
     optional: true,
     defaultValue: '',
   },
   swimlaneId: {
+    /**
+     * Swimlane ID where the card is
+     */
     type: String,
   },
   // The system could work without this `boardId` information (we could deduce
   // the board identifier from the card), but it would make the system more
   // difficult to manage and less efficient.
   boardId: {
+    /**
+     * Board ID of the card
+     */
     type: String,
     optional: true,
     defaultValue: '',
   },
   coverId: {
+    /**
+     * Cover ID of the card
+     */
     type: String,
     optional: true,
     defaultValue: '',
 
   },
+  color: {
+    type: String,
+    optional: true,
+    allowedValues: [
+      'green', 'yellow', 'orange', 'red', 'purple',
+      'blue', 'sky', 'lime', 'pink', 'black',
+      'silver', 'peachpuff', 'crimson', 'plum', 'darkgreen',
+      'slateblue', 'magenta', 'gold', 'navy', 'gray',
+      'saddlebrown', 'paleturquoise', 'mistyrose', 'indigo',
+    ],
+  },
   createdAt: {
+    /**
+     * creation date
+     */
     type: Date,
     autoValue() { // eslint-disable-line consistent-return
       if (this.isInsert) {
@@ -55,6 +90,9 @@ Cards.attachSchema(new SimpleSchema({
     },
   },
   customFields: {
+    /**
+     * list of custom fields
+     */
     type: [Object],
     optional: true,
     defaultValue: [],
@@ -62,11 +100,17 @@ Cards.attachSchema(new SimpleSchema({
   'customFields.$': {
     type: new SimpleSchema({
       _id: {
+        /**
+         * the ID of the related custom field
+         */
         type: String,
         optional: true,
         defaultValue: '',
       },
       value: {
+        /**
+         * value attached to the custom field
+         */
         type: Match.OneOf(String, Number, Boolean, Date),
         optional: true,
         defaultValue: '',
@@ -74,59 +118,95 @@ Cards.attachSchema(new SimpleSchema({
     }),
   },
   dateLastActivity: {
+    /**
+     * Date of last activity
+     */
     type: Date,
     autoValue() {
       return new Date();
     },
   },
   description: {
+    /**
+     * description of the card
+     */
     type: String,
     optional: true,
     defaultValue: '',
   },
   requestedBy: {
+    /**
+     * who requested the card (ID of the user)
+     */
     type: String,
     optional: true,
     defaultValue: '',
   },
   assignedBy: {
+    /**
+     * who assigned the card (ID of the user)
+     */
     type: String,
     optional: true,
     defaultValue: '',
   },
   labelIds: {
+    /**
+     * list of labels ID the card has
+     */
     type: [String],
     optional: true,
     defaultValue: [],
   },
   members: {
+    /**
+     * list of members (user IDs)
+     */
     type: [String],
     optional: true,
     defaultValue: [],
   },
   receivedAt: {
+    /**
+     * Date the card was received
+     */
     type: Date,
     optional: true,
   },
   startAt: {
+    /**
+     * Date the card was started to be worked on
+     */
     type: Date,
     optional: true,
   },
   dueAt: {
+    /**
+     * Date the card is due
+     */
     type: Date,
     optional: true,
   },
   endAt: {
+    /**
+     * Date the card ended
+     */
     type: Date,
     optional: true,
   },
   spentTime: {
+    /**
+     * How much time has been spent on this
+     */
     type: Number,
     decimal: true,
     optional: true,
     defaultValue: 0,
   },
   isOvertime: {
+    /**
+     * is the card over time?
+     */
     type: Boolean,
     defaultValue: false,
     optional: true,
@@ -134,6 +214,9 @@ Cards.attachSchema(new SimpleSchema({
   // XXX Should probably be called `authorId`. Is it even needed since we have
   // the `members` field?
   userId: {
+    /**
+     * user ID of the author of the card
+     */
     type: String,
     autoValue() { // eslint-disable-line consistent-return
       if (this.isInsert && !this.isSet) {
@@ -142,21 +225,33 @@ Cards.attachSchema(new SimpleSchema({
     },
   },
   sort: {
+    /**
+     * Sort value
+     */
     type: Number,
     decimal: true,
     defaultValue: '',
   },
   subtaskSort: {
+    /**
+     * subtask sort value
+     */
     type: Number,
     decimal: true,
     defaultValue: -1,
     optional: true,
   },
   type: {
+    /**
+     * type of the card
+     */
     type: String,
     defaultValue: '',
   },
   linkedId: {
+    /**
+     * ID of the linked card
+     */
     type: String,
     optional: true,
     defaultValue: '',
@@ -351,7 +446,12 @@ Cards.helpers({
         definition,
       };
     });
+  },
 
+  colorClass() {
+    if (this.color)
+      return this.color;
+    return '';
   },
 
   absoluteUrl() {
@@ -933,6 +1033,17 @@ Cards.mutations({
     }
   },
 
+  setColor(newColor) {
+    if (newColor === 'white') {
+      newColor = null;
+    }
+    return {
+      $set: {
+        color: newColor,
+      },
+    };
+  },
+
   assignMember(memberId) {
     return {
       $addToSet: {
@@ -1309,6 +1420,17 @@ if (Meteor.isServer) {
 }
 //SWIMLANES REST API
 if (Meteor.isServer) {
+  /**
+   * @operation get_swimlane_cards
+   * @summary get all cards attached to a swimlane
+   *
+   * @param {string} boardId the board ID
+   * @param {string} swimlaneId the swimlane ID
+   * @return_type [{_id: string,
+   *                title: string,
+   *                description: string,
+   *                listId: string}]
+   */
   JsonRoutes.add('GET', '/api/boards/:boardId/swimlanes/:swimlaneId/cards', function(req, res) {
     const paramBoardId = req.params.boardId;
     const paramSwimlaneId = req.params.swimlaneId;
@@ -1332,6 +1454,16 @@ if (Meteor.isServer) {
 }
 //LISTS REST API
 if (Meteor.isServer) {
+  /**
+   * @operation get_all_cards
+   * @summary Get all Cards attached to a List
+   *
+   * @param {string} boardId the board ID
+   * @param {string} listId the list ID
+   * @return_type [{_id: string,
+   *                title: string,
+   *                description: string}]
+   */
   JsonRoutes.add('GET', '/api/boards/:boardId/lists/:listId/cards', function(req, res) {
     const paramBoardId = req.params.boardId;
     const paramListId = req.params.listId;
@@ -1352,6 +1484,15 @@ if (Meteor.isServer) {
     });
   });
 
+  /**
+   * @operation get_card
+   * @summary Get a Card
+   *
+   * @param {string} boardId the board ID
+   * @param {string} listId the list ID of the card
+   * @param {string} cardId the card ID
+   * @return_type Cards
+   */
   JsonRoutes.add('GET', '/api/boards/:boardId/lists/:listId/cards/:cardId', function(req, res) {
     const paramBoardId = req.params.boardId;
     const paramListId = req.params.listId;
@@ -1368,6 +1509,19 @@ if (Meteor.isServer) {
     });
   });
 
+  /**
+   * @operation new_card
+   * @summary Create a new Card
+   *
+   * @param {string} boardId the board ID of the new card
+   * @param {string} listId the list ID of the new card
+   * @param {string} authorID the user ID of the person owning the card
+   * @param {string} title the title of the new card
+   * @param {string} description the description of the new card
+   * @param {string} swimlaneId the swimlane ID of the new card
+   * @param {string} [members] the member IDs list of the new card
+   * @return_type {_id: string}
+   */
   JsonRoutes.add('POST', '/api/boards/:boardId/lists/:listId/cards', function(req, res) {
     Authentication.checkUserId(req.userId);
     const paramBoardId = req.params.boardId;
@@ -1406,6 +1560,47 @@ if (Meteor.isServer) {
     }
   });
 
+  /*
+   * Note for the JSDoc:
+   * 'list' will be interpreted as the path parameter
+   * 'listID' will be interpreted as the body parameter
+   */
+  /**
+   * @operation edit_card
+   * @summary Edit Fields in a Card
+   *
+   * @description Edit a card
+   *
+   * The color has to be chosen between `green`, `yellow`, `orange`, `red`,
+   * `purple`, `blue`, `sky`, `lime`, `pink`, `black`, `silver`, `peachpuff`,
+   * `crimson`, `plum`, `darkgreen`, `slateblue`, `magenta`, `gold`, `navy`,
+   * `gray`, `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`:
+   *
+   * <img src="/card-colors.png" width="40%" alt="Wekan card colors" />
+   *
+   * @param {string} boardId the board ID of the card
+   * @param {string} list the list ID of the card
+   * @param {string} cardId the ID of the card
+   * @param {string} [title] the new title of the card
+   * @param {string} [listId] the new list ID of the card (move operation)
+   * @param {string} [description] the new description of the card
+   * @param {string} [authorId] change the owner of the card
+   * @param {string} [labelIds] the new list of label IDs attached to the card
+   * @param {string} [swimlaneId] the new swimlane ID of the card
+   * @param {string} [members] the new list of member IDs attached to the card
+   * @param {string} [requestedBy] the new requestedBy field of the card
+   * @param {string} [assignedBy] the new assignedBy field of the card
+   * @param {string} [receivedAt] the new receivedAt field of the card
+   * @param {string} [assignBy] the new assignBy field of the card
+   * @param {string} [startAt] the new startAt field of the card
+   * @param {string} [dueAt] the new dueAt field of the card
+   * @param {string} [endAt] the new endAt field of the card
+   * @param {string} [spentTime] the new spentTime field of the card
+   * @param {boolean} [isOverTime] the new isOverTime field of the card
+   * @param {string} [customFields] the new customFields value of the card
+   * @param {string} [color] the new color of the card
+   * @return_type {_id: string}
+   */
   JsonRoutes.add('PUT', '/api/boards/:boardId/lists/:listId/cards/:cardId', function(req, res) {
     Authentication.checkUserId(req.userId);
     const paramBoardId = req.params.boardId;
@@ -1458,6 +1653,11 @@ if (Meteor.isServer) {
           description: newDescription,
         },
       });
+    }
+    if (req.body.hasOwnProperty('color')) {
+      const newColor = req.body.color;
+      Cards.direct.update({_id: paramCardId, listId: paramListId, boardId: paramBoardId, archived: false},
+        {$set: {color: newColor}});
     }
     if (req.body.hasOwnProperty('labelIds')) {
       let newlabelIds = req.body.labelIds;
@@ -1551,6 +1751,18 @@ if (Meteor.isServer) {
     });
   });
 
+  /**
+   * @operation delete_card
+   * @summary Delete a card from a board
+   *
+   * @description This operation **deletes** a card, and therefore the card
+   * is not put in the recycle bin.
+   *
+   * @param {string} boardId the board ID of the card
+   * @param {string} list the list ID of the card
+   * @param {string} cardId the ID of the card
+   * @return_type {_id: string}
+   */
   JsonRoutes.add('DELETE', '/api/boards/:boardId/lists/:listId/cards/:cardId', function(req, res) {
     Authentication.checkUserId(req.userId);
     const paramBoardId = req.params.boardId;
