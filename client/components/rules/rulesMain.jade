@@ -1,9 +1,0 @@
-template(name="rulesMain")
-  if($eq rulesCurrentTab.get 'rulesList')
-    +rulesList
-  if($eq rulesCurrentTab.get 'trigger')
-    +rulesTriggers(ruleName=ruleName triggerVar=triggerVar)
-  if($eq rulesCurrentTab.get 'action')
-    +rulesActions(ruleName=ruleName triggerVar=triggerVar)
-  if($eq rulesCurrentTab.get 'ruleDetails')
-    +ruleDetails(ruleId=ruleId)

@@ -1,0 +1,38 @@
+{
+    "debugModeOn": false,
+    "public": {
+        "dictionary":{
+            "defaultLanguage": "en",
+            "userDefaultLanguage": "es",
+            "googletranslateapikey": "",
+            "debug": false
+        },
+        "project": {
+            "name": "Wekan System",
+            "abrev": "DS",
+            "url": "wekan.rafaelrglima.com"
+        },
+        "base":{
+            "url": "../../"
+        },
+        "os": "linux",
+        "amazon": {
+            "url": "https://s3-us-west-2.amazonaws.com",
+            "bucket": "rafaelrglima-s3",
+            "imageStorage": "production"
+        }
+    },
+    "private": {
+        "storage":{
+            "production": "/tmp"
+        },
+        "mailgun":{
+            "apiKey": "mailgunapikey",
+            "domain": "wekandomain.co,"
+        },
+        "slack": {
+            "enabled": true,
+            "hookUrl":  ""
+        }
+    }
+}

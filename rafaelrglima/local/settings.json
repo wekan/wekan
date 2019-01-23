@@ -1,0 +1,38 @@
+{
+    "debugModeOn": true,
+    "public": {
+        "dictionary":{
+            "defaultLanguage": "en",
+            "userDefaultLanguage": "es",
+            "googletranslateapikey": "AIzaSyAwUuiiV3DUs4g0vWCY_TVjJevYnerraY0",
+            "debug": true
+        },
+        "project": {
+            "name": "rafaelrglima System",
+            "abrev": "DS",
+            "url": "localhost:3000"
+        },
+        "base":{
+            "url": "../../"
+        },
+        "os": "linux",
+        "amazon": {
+            "url": "https://s3-us-west-2.amazonaws.com",
+            "bucket": "rafaelrglima-s3",
+            "imageStorage": "localhost"
+        }
+    },
+    "private": {
+        "storage":{
+            "production": "/tmp"
+        },
+        "mailgun":{
+            "apiKey": "key-c9aec0821c458557b26895145f3c4591",
+            "domain": "app.rafaelrglima.com"
+        },
+        "slack": {
+            "enabled": false,
+            "hookUrl":  ""
+        }
+    }
+}

@@ -1,9 +1,0 @@
-template(name="commentForm")
-  .new-comment.js-new-comment(
-    class="{{#if commentFormIsOpen}}is-open{{/if}}")
-    +userAvatar(userId=currentUser._id)
-    form.js-new-comment-form
-      +editor(class="js-new-comment-input")
-        | {{getUnsavedValue 'cardComment' currentCard._id}}
-      .add-controls
-        button.primary.confirm.clear.js-add-comment(type="submit") {{_ 'comment'}}
