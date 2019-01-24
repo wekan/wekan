@@ -234,7 +234,7 @@ template(name="cardDetailsActionsPopup")
       li: a.js-due-date {{_ 'editCardDueDatePopup-title'}}
       li: a.js-end-date {{_ 'editCardEndDatePopup-title'}}
       li: a.js-spent-time {{_ 'editCardSpentTimePopup-title'}}
-      li: a.js-set-card-color {{_ 'setCardColor-title'}}
+      li: a.js-set-card-color {{_ 'setCardColorPopup-title'}}
     hr
     ul.pop-over-list
       li: a.js-move-card-to-top {{_ 'moveCardToTop-title'}}
@@ -337,9 +337,6 @@ template(name="cardMorePopup")
     a.js-delete(title="{{_ 'card-delete-notice'}}") {{_ 'delete'}}
 
 template(name="setCardColorPopup")
-  p.quiet
-    span.clearfix
-  label {{_ "select-color"}}
   form.edit-label
     .palette-colors: each colors
       span.card-label.palette-color.js-palette-color(class="card-details-{{color}}")
