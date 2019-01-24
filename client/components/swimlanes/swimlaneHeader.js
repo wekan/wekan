@@ -11,6 +11,7 @@ BlazeComponent.extendComponent({
   events() {
     return [{
       'click .js-open-swimlane-menu': Popup.open('swimlaneAction'),
+      'click .js-open-add-swimlane-menu': Popup.open('swimlaneAdd'),
       submit: this.editTitle,
     }];
   },
@@ -23,3 +24,30 @@ Template.swimlaneActionPopup.events({
     Popup.close();
   },
 });
+
+BlazeComponent.extendComponent({
+  events() {
+    return [{
+      submit(evt) {
+        evt.preventDefault();
+        const titleInput = this.find('.swimlane-name-input');
+        const title = titleInput.value.trim();
+        if (title) {
+          Swimlanes.insert({
+            title,
+            boardId: Session.get('currentBoard'),
+            // XXX we should insert the swimlane right after the caller
+            sort: $('.swimlane').length,
+          });
+
+          titleInput.value = '';
+          titleInput.focus();
+        }
+        // XXX ideally, we should move the popup to the newly
+        // created swimlane so a user can add more than one swimlane
+        // with a minimum of interactions
+        Popup.close();
+      },
+    }];
+  },
+}).register('swimlaneAddPopup');

@@ -337,6 +337,7 @@
     "list-select-cards": "Select all cards in this list",
     "listActionPopup-title": "List Actions",
     "swimlaneActionPopup-title": "Swimlane Actions",
+    "swimlaneAddPopup-title": "Add a Swimlane below",
     "listImportCardPopup-title": "Import a Trello card",
     "listMorePopup-title": "More",
     "link-list": "Link to this list",

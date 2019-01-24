@@ -23,8 +23,6 @@ template(name="boardBody")
       if isViewSwimlanes
         each currentBoard.swimlanes
           +swimlane(this)
-        if currentUser.isBoardMember
-          +addSwimlaneForm
       if isViewLists
         +listsGroup
       if isViewCalendar
