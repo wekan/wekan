@@ -5,7 +5,7 @@
   // transparent, because that won't work during a swimlane drag.
   background: darken(white, 13%)
   display: flex
-  flex-direction: row
+  flex-direction: column
   overflow: 0;
   max-height: 100%
 
@@ -27,20 +27,15 @@
   .swimlane-header-wrap
     display: flex;
     flex-direction: row;
-    flex: 0 0 50px;
-    padding-bottom: 30px;
-    border-bottom: 1px solid #CCC
+    flex: 0 0 24px;
+    background-color: #ccc;
 
     .swimlane-header
-      -ms-writing-mode: tb-rl;
-      writing-mode: vertical-rl;
-      transform: rotate(180deg);
       font-size: 14px;
-      line-height: 50px;
-      margin-top: 50px;
+      padding: 5px 5px
       font-weight: bold;
       min-height: 9px;
-      width: 50px;
+      width: 100%;
       overflow: hidden;
       -o-text-overflow: ellipsis;
       text-overflow: ellipsis;
@@ -49,7 +44,8 @@
 
     .swimlane-header-menu
       position: absolute
-      padding: 20px 20px
+      padding: 5px 5px
 
 .list-group
+  flex-direction: row
   height: 100%
