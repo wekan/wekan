@@ -1,3 +1,5 @@
+const { calculateIndexData } = Utils;
+
 BlazeComponent.extendComponent({
   editTitle(evt) {
     evt.preventDefault();
@@ -26,18 +28,25 @@ Template.swimlaneActionPopup.events({
 });
 
 BlazeComponent.extendComponent({
+  onCreated() {
+    this.currentSwimlane = this.currentData();
+  },
+
   events() {
     return [{
       submit(evt) {
         evt.preventDefault();
+        const currentBoard = Boards.findOne(Session.get('currentBoard'));
+        const nextSwimlane = currentBoard.nextSwimlane(this.currentSwimlane);
         const titleInput = this.find('.swimlane-name-input');
         const title = titleInput.value.trim();
+        const sortValue = calculateIndexData(this.currentSwimlane, nextSwimlane, 1);
+
         if (title) {
           Swimlanes.insert({
             title,
             boardId: Session.get('currentBoard'),
-            // XXX we should insert the swimlane right after the caller
-            sort: $('.swimlane').length,
+            sort: sortValue.base,
           });
 
           titleInput.value = '';
