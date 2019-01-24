@@ -517,7 +517,7 @@
     "card-end-on": "Ends on",
     "editCardReceivedDatePopup-title": "Change received date",
     "editCardEndDatePopup-title": "Change end date",
-    "setCardColor-title": "Set color",
+    "setCardColorPopup-title": "Set color",
     "assigned-by": "Assigned By",
     "requested-by": "Requested By",
     "board-delete-notice": "Deleting is permanent. You will lose all lists, cards and actions associated with this board.",
