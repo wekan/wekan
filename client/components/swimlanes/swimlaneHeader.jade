@@ -8,6 +8,7 @@ template(name="swimlaneHeader")
         = title
       .swimlane-header-menu
         unless currentUser.isCommentOnly
+          a.fa.fa-plus.js-open-add-swimlane-menu.swimlane-header-plus-icon
           a.fa.fa-navicon.js-open-swimlane-menu
 
 template(name="editSwimlaneTitleForm")
@@ -21,3 +22,11 @@ template(name="swimlaneActionPopup")
   unless currentUser.isCommentOnly
     ul.pop-over-list
       li: a.js-close-swimlane {{_ 'archive-swimlane'}}
+
+template(name="swimlaneAddPopup")
+  unless currentUser.isCommentOnly
+    form
+      input.swimlane-name-input.full-line(type="text" placeholder="{{_ 'add-swimlane'}}"
+        autocomplete="off" autofocus)
+      .edit-controls.clearfix
+        button.primary.confirm(type="submit") {{_ 'add'}}
