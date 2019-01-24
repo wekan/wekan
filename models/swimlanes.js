@@ -49,6 +49,21 @@ Swimlanes.attachSchema(new SimpleSchema({
     // XXX We should probably provide a default
     optional: true,
   },
+  color: {
+    /**
+     * the color of the swimlane
+     */
+    type: String,
+    optional: true,
+    // silver is the default, so it is left out
+    allowedValues: [
+      'white', 'green', 'yellow', 'orange', 'red', 'purple',
+      'blue', 'sky', 'lime', 'pink', 'black',
+      'peachpuff', 'crimson', 'plum', 'darkgreen',
+      'slateblue', 'magenta', 'gold', 'navy', 'gray',
+      'saddlebrown', 'paleturquoise', 'mistyrose', 'indigo',
+    ],
+  },
   updatedAt: {
     /**
      * when was the swimlane last edited
@@ -93,6 +108,12 @@ Swimlanes.helpers({
   board() {
     return Boards.findOne(this.boardId);
   },
+
+  colorClass() {
+    if (this.color)
+      return this.color;
+    return '';
+  },
 });
 
 Swimlanes.mutations({
@@ -106,6 +127,17 @@ Swimlanes.mutations({
 
   restore() {
     return { $set: { archived: false } };
+  },
+
+  setColor(newColor) {
+    if (newColor === 'silver') {
+      newColor = null;
+    }
+    return {
+      $set: {
+        color: newColor,
+      },
+    };
   },
 });
 

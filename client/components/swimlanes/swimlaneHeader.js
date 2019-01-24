@@ -1,5 +1,10 @@
 const { calculateIndexData } = Utils;
 
+let swimlaneColors;
+Meteor.startup(() => {
+  swimlaneColors = Swimlanes.simpleSchema()._schema.color.allowedValues;
+});
+
 BlazeComponent.extendComponent({
   editTitle(evt) {
     evt.preventDefault();
@@ -20,6 +25,7 @@ BlazeComponent.extendComponent({
 }).register('swimlaneHeader');
 
 Template.swimlaneActionPopup.events({
+  'click .js-set-swimlane-color': Popup.open('setSwimlaneColor'),
   'click .js-close-swimlane' (evt) {
     evt.preventDefault();
     this.archive();
@@ -60,3 +66,34 @@ BlazeComponent.extendComponent({
     }];
   },
 }).register('swimlaneAddPopup');
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.currentSwimlane = this.currentData();
+    this.currentColor = new ReactiveVar(this.currentSwimlane.color);
+  },
+
+  colors() {
+    return swimlaneColors.map((color) => ({ color, name: '' }));
+  },
+
+  isSelected(color) {
+    return this.currentColor.get() === color;
+  },
+
+  events() {
+    return [{
+      'click .js-palette-color'() {
+        this.currentColor.set(this.currentData().color);
+      },
+      'click .js-submit' () {
+        this.currentSwimlane.setColor(this.currentColor.get());
+        Popup.close();
+      },
+      'click .js-remove-color'() {
+        this.currentSwimlane.setColor(null);
+        Popup.close();
+      },
+    }];
+  },
+}).register('setSwimlaneColorPopup');
