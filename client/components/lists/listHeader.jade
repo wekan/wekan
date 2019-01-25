@@ -120,7 +120,8 @@ template(name="wipLimitErrorPopup")
 template(name="setListColorPopup")
   form.edit-label
     .palette-colors: each colors
-      span.card-label.palette-color.js-palette-color(class="list-header-{{color}}")
+      // note: we use the swimlane palette to have more than just the border
+      span.card-label.palette-color.js-palette-color(class="swimlane-{{color}}")
         if(isSelected color)
           i.fa.fa-check
     button.primary.confirm.js-submit {{_ 'save'}}
