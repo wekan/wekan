@@ -1140,9 +1140,14 @@ if (Meteor.isServer) {
       Authentication.checkBoardAccess(req.userId, boardId);
       const board = Boards.findOne({ _id: boardId });
       function isTrue(data){
-        return data.toLowerCase() === 'true';
+        try {
+          return data.toLowerCase() === 'true';
+        }
+        catch (error) {
+          return data;
+        }
       }
-      board.setMemberPermission(memberId, isTrue(isAdmin), isTrue(isNoComments), isTrue(isCommentOnly), req.userId);
+      const query = board.setMemberPermission(memberId, isTrue(isAdmin), isTrue(isNoComments), isTrue(isCommentOnly), req.userId);
 
       JsonRoutes.sendResult(res, {
         code: 200,
