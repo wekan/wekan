@@ -347,8 +347,35 @@ Boards.helpers({
     return Lists.find({ boardId: this._id, archived: false }, { sort: { sort: 1 } });
   },
 
+  nullSortLists() {
+    return Lists.find({
+      boardId: this._id,
+      archived: false,
+      sort: { $eq: null },
+    });
+  },
+
   swimlanes() {
     return Swimlanes.find({ boardId: this._id, archived: false }, { sort: { sort: 1 } });
+  },
+
+  nextSwimlane(swimlane) {
+    return Swimlanes.findOne({
+      boardId: this._id,
+      archived: false,
+      sort: { $gte: swimlane.sort },
+      _id: { $ne: swimlane._id },
+    }, {
+      sort: { sort: 1 },
+    });
+  },
+
+  nullSortSwimlanes() {
+    return Swimlanes.find({
+      boardId: this._id,
+      archived: false,
+      sort: { $eq: null },
+    });
   },
 
   hasOvertimeCards(){
@@ -1113,9 +1140,14 @@ if (Meteor.isServer) {
       Authentication.checkBoardAccess(req.userId, boardId);
       const board = Boards.findOne({ _id: boardId });
       function isTrue(data){
-        return data.toLowerCase() === 'true';
+        try {
+          return data.toLowerCase() === 'true';
+        }
+        catch (error) {
+          return data;
+        }
       }
-      board.setMemberPermission(memberId, isTrue(isAdmin), isTrue(isNoComments), isTrue(isCommentOnly), req.userId);
+      const query = board.setMemberPermission(memberId, isTrue(isAdmin), isTrue(isNoComments), isTrue(isCommentOnly), req.userId);
 
       JsonRoutes.sendResult(res, {
         code: 200,

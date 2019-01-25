@@ -1,5 +1,7 @@
 template(name="listHeader")
-  .list-header.js-list-header
+  .list-header.js-list-header(
+    class="{{#if limitToShowCardsCount}}list-header-card-count{{/if}}"
+    class="{{#if colorClass}}list-header-{{colorClass}}{{/if}}")
     +inlinedForm
       +editListTitleForm
     else
@@ -48,6 +50,9 @@ template(name="listActionPopup")
   ul.pop-over-list
     li: a.js-toggle-watch-list {{#if isWatching}}{{_ 'unwatch'}}{{else}}{{_ 'watch'}}{{/if}}
   unless currentUser.isCommentOnly
+    hr
+    ul.pop-over-list
+      li: a.js-set-color-list {{_ 'set-color-list'}}
     hr
     ul.pop-over-list
       if cards.count
@@ -111,3 +116,13 @@ template(name="wipLimitErrorPopup")
     p {{_ 'wipLimitErrorPopup-dialog-pt1'}}
     p {{_ 'wipLimitErrorPopup-dialog-pt2'}}
     button.full.js-back-view(type="submit") {{_ 'cancel'}}
+
+template(name="setListColorPopup")
+  form.edit-label
+    .palette-colors: each colors
+      // note: we use the swimlane palette to have more than just the border
+      span.card-label.palette-color.js-palette-color(class="swimlane-{{color}}")
+        if(isSelected color)
+          i.fa.fa-check
+    button.primary.confirm.js-submit {{_ 'save'}}
+    button.js-remove-color.negate.wide.right {{_ 'unset-color'}}

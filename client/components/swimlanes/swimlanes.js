@@ -175,48 +175,6 @@ BlazeComponent.extendComponent({
   },
 }).register('addListForm');
 
-BlazeComponent.extendComponent({
-  // Proxy
-  open() {
-    this.childComponents('inlinedForm')[0].open();
-  },
-
-  events() {
-    return [{
-      submit(evt) {
-        evt.preventDefault();
-        let titleInput = this.find('.list-name-input');
-        if (titleInput) {
-          const title = titleInput.value.trim();
-          if (title) {
-            Lists.insert({
-              title,
-              boardId: Session.get('currentBoard'),
-              sort: $('.list').length,
-            });
-
-            titleInput.value = '';
-            titleInput.focus();
-          }
-        } else {
-          titleInput = this.find('.swimlane-name-input');
-          const title = titleInput.value.trim();
-          if (title) {
-            Swimlanes.insert({
-              title,
-              boardId: Session.get('currentBoard'),
-              sort: $('.swimlane').length,
-            });
-
-            titleInput.value = '';
-            titleInput.focus();
-          }
-        }
-      },
-    }];
-  },
-}).register('addListAndSwimlaneForm');
-
 Template.swimlane.helpers({
   canSeeAddList() {
     return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();

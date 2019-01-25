@@ -144,16 +144,20 @@ input[type="submit"].attachment-add-link-submit
 card-details-color(background, color...)
   background: background !important
   if color
-    color: color //overwrite text for better visibility
+    color: color !important //overwrite text for better visibility
+
+.card-details-white
+  card-details-color(unset, #000) //Black text for better visibility
+  border: 1px solid #eee
 
 .card-details-green
   card-details-color(#3cb500, #ffffff) //White text for better visibility
 
 .card-details-yellow
-  card-details-color(#fad900)
+  card-details-color(#fad900, #000) //Black text for better visibility
 
 .card-details-orange
-  card-details-color(#ff9f19)
+  card-details-color(#ff9f19, #000) //Black text for better visibility
 
 .card-details-red
   card-details-color(#eb4646, #ffffff) //White text for better visibility
@@ -165,7 +169,7 @@ card-details-color(background, color...)
   card-details-color(#0079bf, #ffffff) //White text for better visibility
 
 .card-details-pink
-  card-details-color(#ff78cb)
+  card-details-color(#ff78cb, #000) //Black text for better visibility
 
 .card-details-sky
   card-details-color(#00c2e0, #ffffff) //White text for better visibility
@@ -174,19 +178,19 @@ card-details-color(background, color...)
   card-details-color(#4d4d4d, #ffffff) //White text for better visibility
 
 .card-details-lime
-  card-details-color(#51e898)
+  card-details-color(#51e898, #000) //Black text for better visibility
 
 .card-details-silver
-  card-details-color(#c0c0c0)
+  card-details-color(#c0c0c0, #000) //Black text for better visibility
 
 .card-details-peachpuff
-  card-details-color(#ffdab9)
+  card-details-color(#ffdab9, #000) //Black text for better visibility
 
 .card-details-crimson
   card-details-color(#dc143c, #ffffff) //White text for better visibility
 
 .card-details-plum
-  card-details-color(#dda0dd)
+  card-details-color(#dda0dd, #000) //Black text for better visibility
 
 .card-details-darkgreen
   card-details-color(#006400, #ffffff) //White text for better visibility
@@ -198,7 +202,7 @@ card-details-color(background, color...)
   card-details-color(#ff00ff, #ffffff) //White text for better visibility
 
 .card-details-gold
-  card-details-color(#ffd700)
+  card-details-color(#ffd700, #000) //Black text for better visibility
 
 .card-details-navy
   card-details-color(#000080, #ffffff) //White text for better visibility
@@ -210,10 +214,10 @@ card-details-color(background, color...)
   card-details-color(#8b4513, #ffffff) //White text for better visibility
 
 .card-details-paleturquoise
-  card-details-color(#afeeee)
+  card-details-color(#afeeee, #000) //Black text for better visibility
 
 .card-details-mistyrose
-  card-details-color(#ffe4e1)
+  card-details-color(#ffe4e1, #000) //Black text for better visibility
 
 .card-details-indigo
   card-details-color(#4b0082, #ffffff) //White text for better visibility

@@ -1,5 +1,5 @@
 template(name="swimlaneHeader")
-  .swimlane-header-wrap.js-swimlane-header
+  .swimlane-header-wrap.js-swimlane-header(class='{{#if colorClass}}swimlane-{{colorClass}}{{/if}}')
     +inlinedForm
       +editSwimlaneTitleForm
     else
@@ -8,6 +8,7 @@ template(name="swimlaneHeader")
         = title
       .swimlane-header-menu
         unless currentUser.isCommentOnly
+          a.fa.fa-plus.js-open-add-swimlane-menu.swimlane-header-plus-icon
           a.fa.fa-navicon.js-open-swimlane-menu
 
 template(name="editSwimlaneTitleForm")
@@ -20,4 +21,24 @@ template(name="editSwimlaneTitleForm")
 template(name="swimlaneActionPopup")
   unless currentUser.isCommentOnly
     ul.pop-over-list
+       li: a.js-set-swimlane-color {{_ 'select-color'}}
+    hr
+    ul.pop-over-list
       li: a.js-close-swimlane {{_ 'archive-swimlane'}}
+
+template(name="swimlaneAddPopup")
+  unless currentUser.isCommentOnly
+    form
+      input.swimlane-name-input.full-line(type="text" placeholder="{{_ 'add-swimlane'}}"
+        autocomplete="off" autofocus)
+      .edit-controls.clearfix
+        button.primary.confirm(type="submit") {{_ 'add'}}
+
+template(name="setSwimlaneColorPopup")
+  form.edit-label
+    .palette-colors: each colors
+      span.card-label.palette-color.js-palette-color(class="card-details-{{color}}")
+        if(isSelected color)
+          i.fa.fa-check
+    button.primary.confirm.js-submit {{_ 'save'}}
+    button.js-remove-color.negate.wide.right {{_ 'unset-color'}}
