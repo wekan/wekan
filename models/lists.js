@@ -92,6 +92,21 @@ Lists.attachSchema(new SimpleSchema({
     type: Boolean,
     defaultValue: false,
   },
+  color: {
+    /**
+     * the color of the list
+     */
+    type: String,
+    optional: true,
+    // silver is the default, so it is left out
+    allowedValues: [
+      'white', 'green', 'yellow', 'orange', 'red', 'purple',
+      'blue', 'sky', 'lime', 'pink', 'black',
+      'peachpuff', 'crimson', 'plum', 'darkgreen',
+      'slateblue', 'magenta', 'gold', 'navy', 'gray',
+      'saddlebrown', 'paleturquoise', 'mistyrose', 'indigo',
+    ],
+  },
 }));
 
 Lists.allow({
@@ -148,6 +163,12 @@ Lists.helpers({
       return list.wipLimit[option] ? list.wipLimit[option] : 0; // Necessary check to avoid exceptions for the case where the doc doesn't have the wipLimit field yet set
     }
   },
+
+  colorClass() {
+    if (this.color)
+      return this.color;
+    return '';
+  },
 });
 
 Lists.mutations({
@@ -173,6 +194,17 @@ Lists.mutations({
 
   setWipLimit(limit) {
     return { $set: { 'wipLimit.value': limit } };
+  },
+
+  setColor(newColor) {
+    if (newColor === 'silver') {
+      newColor = null;
+    }
+    return {
+      $set: {
+        color: newColor,
+      },
+    };
   },
 });
 
@@ -314,9 +346,11 @@ if (Meteor.isServer) {
     try {
       Authentication.checkUserId( req.userId);
       const paramBoardId = req.params.boardId;
+      const board = Boards.findOne(paramBoardId);
       const id = Lists.insert({
         title: req.body.title,
         boardId: paramBoardId,
+        sort: board.lists().count(),
       });
       JsonRoutes.sendResult(res, {
         code: 200,

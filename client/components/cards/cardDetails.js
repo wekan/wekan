@@ -27,7 +27,6 @@ BlazeComponent.extendComponent({
   onCreated() {
     this.currentBoard = Boards.findOne(Session.get('currentBoard'));
     this.isLoaded = new ReactiveVar(false);
-    this.currentColor = new ReactiveVar(this.data().color);
     const boardBody =  this.parentComponent().parentComponent();
     //in Miniview parent is Board, not BoardBody.
     if (boardBody !== null) {

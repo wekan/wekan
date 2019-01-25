@@ -35,6 +35,37 @@ BlazeComponent.extendComponent({
     this._isDragging = false;
     // Used to set the overlay
     this.mouseHasEnterCardDetails = false;
+
+    // fix swimlanes sort field if there are null values
+    const currentBoardData = Boards.findOne(Session.get('currentBoard'));
+    const nullSortSwimlanes = currentBoardData.nullSortSwimlanes();
+    if (nullSortSwimlanes.count() > 0) {
+      const swimlanes = currentBoardData.swimlanes();
+      let count = 0;
+      swimlanes.forEach((s) => {
+        Swimlanes.update(s._id, {
+          $set: {
+            sort: count,
+          },
+        });
+        count += 1;
+      });
+    }
+
+    // fix lists sort field if there are null values
+    const nullSortLists = currentBoardData.nullSortLists();
+    if (nullSortLists.count() > 0) {
+      const lists = currentBoardData.lists();
+      let count = 0;
+      lists.forEach((l) => {
+        Lists.update(l._id, {
+          $set: {
+            sort: count,
+          },
+        });
+        count += 1;
+      });
+    }
   },
   onRendered() {
     const boardComponent = this;

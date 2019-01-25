@@ -10,7 +10,6 @@
   // transparent, because that won't work during a list drag.
   background: darken(white, 13%)
   border-left: 1px solid darken(white, 20%)
-  border-bottom: 1px solid #CCC
   padding: 0
   float: left
 
@@ -44,11 +43,15 @@
       background: white
       margin: -3px 0 8px
 
+.list-header-card-count
+  height: 35px
+
 .list-header
   flex: 0 0 auto
-  margin: 20px 12px 4px
+  padding: 20px 12px 4px
   position: relative
   min-height: 20px
+
 
   &.ui-sortable-handle
     cursor: grab
@@ -68,16 +71,17 @@
     text-overflow: ellipsis
     word-wrap: break-word
 
+
   .list-header-watch-icon
     padding-left: 10px
     color: #a6a6a6
 
   .list-header-menu
     position: absolute
-    padding: 7px
+    padding: 27px 19px
     margin-top: 1px
-    top: -@padding
-    right: -@padding
+    top: -7px
+    right: -7px
 
   .list-header-plus-icon
     color: #a6a6a6
@@ -198,3 +202,84 @@
 .search-card-results
   max-height: 250px
   overflow: hidden
+
+list-header-color(background, color...)
+  background: background !important
+  if color
+    color: color !important //overwrite text for better visibility
+
+.list-header-white
+  list-header-color(#ffffff, #4d4d4d) //Black text for better visibility
+  border: 1px solid #eee
+
+.list-header-green
+  list-header-color(#3cb500, #ffffff) //White text for better visibility
+
+.list-header-yellow
+  list-header-color(#fad900, #4d4d4d) //Black text for better visibility
+
+.list-header-orange
+  list-header-color(#ff9f19, #4d4d4d) //Black text for better visibility
+
+.list-header-red
+  list-header-color(#eb4646, #ffffff) //White text for better visibility
+
+.list-header-purple
+  list-header-color(#a632db, #ffffff) //White text for better visibility
+
+.list-header-blue
+  list-header-color(#0079bf, #ffffff) //White text for better visibility
+
+.list-header-pink
+  list-header-color(#ff78cb, #4d4d4d) //Black text for better visibility
+
+.list-header-sky
+  list-header-color(#00c2e0, #ffffff) //White text for better visibility
+
+.list-header-black
+  list-header-color(#4d4d4d, #ffffff) //White text for better visibility
+
+.list-header-lime
+  list-header-color(#51e898, #4d4d4d) //Black text for better visibility
+
+.list-header-silver
+  list-header-color(unset, #4d4d4d) //Black text for better visibility
+
+.list-header-peachpuff
+  list-header-color(#ffdab9, #4d4d4d) //Black text for better visibility
+
+.list-header-crimson
+  list-header-color(#dc143c, #ffffff) //White text for better visibility
+
+.list-header-plum
+  list-header-color(#dda0dd, #4d4d4d) //Black text for better visibility
+
+.list-header-darkgreen
+  list-header-color(#006400, #ffffff) //White text for better visibility
+
+.list-header-slateblue
+  list-header-color(#6a5acd, #ffffff) //White text for better visibility
+
+.list-header-magenta
+  list-header-color(#ff00ff, #ffffff) //White text for better visibility
+
+.list-header-gold
+  list-header-color(#ffd700, #4d4d4d) //Black text for better visibility
+
+.list-header-navy
+  list-header-color(#000080, #ffffff) //White text for better visibility
+
+.list-header-gray
+  list-header-color(#808080, #ffffff) //White text for better visibility
+
+.list-header-saddlebrown
+  list-header-color(#8b4513, #ffffff) //White text for better visibility
+
+.list-header-paleturquoise
+  list-header-color(#afeeee, #4d4d4d) //Black text for better visibility
+
+.list-header-mistyrose
+  list-header-color(#ffe4e1, #4d4d4d) //Black text for better visibility
+
+.list-header-indigo
+  list-header-color(#4b0082, #ffffff) //White text for better visibility
