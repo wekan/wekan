@@ -1526,6 +1526,10 @@ if (Meteor.isServer) {
     Authentication.checkUserId(req.userId);
     const paramBoardId = req.params.boardId;
     const paramListId = req.params.listId;
+    const currentCards = Cards.find({
+      listId: paramListId,
+      archived: false,
+    }, { sort: ['sort'] });
     const check = Users.findOne({
       _id: req.body.authorId,
     });
@@ -1538,7 +1542,7 @@ if (Meteor.isServer) {
         description: req.body.description,
         userId: req.body.authorId,
         swimlaneId: req.body.swimlaneId,
-        sort: 0,
+        sort: currentCards.count(),
         members,
       });
       JsonRoutes.sendResult(res, {
