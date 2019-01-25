@@ -1,4 +1,4 @@
-# Upcoming Wekan release:
+# v2.03 2019-01-25 Wekan release
 
 This release adds the following new features with Apache I-CLA, thanks to bentiss:
 
@@ -29,7 +29,7 @@ and fixes the following bugs with Apache I-CLA, thanks to bentiss:
   This results in the box around the list headers are not of the same size
   and this is visible when setting a color to the list.
 
-Thanks to above GitHub user for contributions, and translators for their translations.
+Thanks to GitHub user bentiss for contributions, and translators for their translations.
 
 # v2.02 2019-01-22 Wekan release
 
