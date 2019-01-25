@@ -1,4 +1,10 @@
-# v2.03 2019-01-25 Wekan release
+# Upcoming Wekan release
+
+WAITING FOR BUGFIX:
+
+- [Bugfix to swimlanes](https://github.com/wekan/wekan/pull/2126#issuecomment-457723923), IN PROGRESS, NOT READY YET.
+
+# ON HOLD, WAITING FOR BUGFIX IN v2.04. (was: v2.03 2019-01-25 Wekan release)
 
 This release adds the following new features with Apache I-CLA, thanks to bentiss:
 
