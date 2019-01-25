@@ -1,3 +1,8 @@
+let listsColors;
+Meteor.startup(() => {
+  listsColors = Lists.simpleSchema()._schema.color.allowedValues;
+});
+
 BlazeComponent.extendComponent({
   canSeeAddCard() {
     const list = Template.currentData();
@@ -72,6 +77,7 @@ Template.listActionPopup.helpers({
 
 Template.listActionPopup.events({
   'click .js-list-subscribe' () {},
+  'click .js-set-color-list': Popup.open('setListColor'),
   'click .js-select-cards' () {
     const cardIds = this.allCards().map((card) => card._id);
     MultiSelection.add(cardIds);
@@ -154,3 +160,34 @@ Template.listMorePopup.events({
     Utils.goBoardId(this.boardId);
   }),
 });
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.currentList = this.currentData();
+    this.currentColor = new ReactiveVar(this.currentList.color);
+  },
+
+  colors() {
+    return listsColors.map((color) => ({ color, name: '' }));
+  },
+
+  isSelected(color) {
+    return this.currentColor.get() === color;
+  },
+
+  events() {
+    return [{
+      'click .js-palette-color'() {
+        this.currentColor.set(this.currentData().color);
+      },
+      'click .js-submit' () {
+        this.currentList.setColor(this.currentColor.get());
+        Popup.close();
+      },
+      'click .js-remove-color'() {
+        this.currentList.setColor(null);
+        Popup.close();
+      },
+    }];
+  },
+}).register('setListColorPopup');
