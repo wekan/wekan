@@ -39,32 +39,15 @@ template(name="cardActions")
     div.trigger-content
       div.trigger-text
         | {{{_'r-set-color'}}}
-      div.trigger-dropdown
-        select(id="color-action")
-          option(value="white")         {{{_'color-white'}}}
-          option(value="green")         {{{_'color-green'}}}
-          option(value="yellow")        {{{_'color-yellow'}}}
-          option(value="orange")        {{{_'color-orange'}}}
-          option(value="red")           {{{_'color-red'}}}
-          option(value="purple")        {{{_'color-purple'}}}
-          option(value="blue")          {{{_'color-blue'}}}
-          option(value="sky")           {{{_'color-sky'}}}
-          option(value="lime")          {{{_'color-lime'}}}
-          option(value="pink")          {{{_'color-pink'}}}
-          option(value="black")         {{{_'color-black'}}}
-          option(value="silver")        {{{_'color-silver'}}}
-          option(value="peachpuff")     {{{_'color-peachpuff'}}}
-          option(value="crimson")       {{{_'color-crimson'}}}
-          option(value="plum")          {{{_'color-plum'}}}
-          option(value="darkgreen")     {{{_'color-darkgreen'}}}
-          option(value="slateblue")     {{{_'color-slateblue'}}}
-          option(value="magenta")       {{{_'color-magenta'}}}
-          option(value="gold")          {{{_'color-gold'}}}
-          option(value="navy")          {{{_'color-navy'}}}
-          option(value="gray")          {{{_'color-gray'}}}
-          option(value="saddlebrown")   {{{_'color-saddlebrown'}}}
-          option(value="paleturquoise") {{{_'color-paleturquoise'}}}
-          option(value="mistyrose")     {{{_'color-mistyrose'}}}
-          option(value="indigo")        {{{_'color-indigo'}}}
+        button.trigger-button.trigger-button-color.card-details-green.js-show-color-palette(id="color-action")
+          | {{{_'color-green'}}}
     div.trigger-button.js-set-color-action.js-goto-rules
       i.fa.fa-plus
+
+template(name="setCardActionsColorPopup")
+  form.edit-label
+    .palette-colors: each colors
+      span.card-label.palette-color.js-palette-color(class="card-details-{{color}}")
+        if(isSelected color)
+          i.fa.fa-check
+    button.primary.confirm.js-submit {{_ 'save'}}

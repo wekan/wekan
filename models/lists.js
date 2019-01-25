@@ -314,9 +314,11 @@ if (Meteor.isServer) {
     try {
       Authentication.checkUserId( req.userId);
       const paramBoardId = req.params.boardId;
+      const board = Boards.findOne(paramBoardId);
       const id = Lists.insert({
         title: req.body.title,
         boardId: paramBoardId,
+        sort: board.lists().count(),
       });
       JsonRoutes.sendResult(res, {
         code: 200,

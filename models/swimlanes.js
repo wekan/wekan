@@ -49,6 +49,21 @@ Swimlanes.attachSchema(new SimpleSchema({
     // XXX We should probably provide a default
     optional: true,
   },
+  color: {
+    /**
+     * the color of the swimlane
+     */
+    type: String,
+    optional: true,
+    // silver is the default, so it is left out
+    allowedValues: [
+      'white', 'green', 'yellow', 'orange', 'red', 'purple',
+      'blue', 'sky', 'lime', 'pink', 'black',
+      'peachpuff', 'crimson', 'plum', 'darkgreen',
+      'slateblue', 'magenta', 'gold', 'navy', 'gray',
+      'saddlebrown', 'paleturquoise', 'mistyrose', 'indigo',
+    ],
+  },
   updatedAt: {
     /**
      * when was the swimlane last edited
@@ -93,6 +108,12 @@ Swimlanes.helpers({
   board() {
     return Boards.findOne(this.boardId);
   },
+
+  colorClass() {
+    if (this.color)
+      return this.color;
+    return '';
+  },
 });
 
 Swimlanes.mutations({
@@ -106,6 +127,17 @@ Swimlanes.mutations({
 
   restore() {
     return { $set: { archived: false } };
+  },
+
+  setColor(newColor) {
+    if (newColor === 'silver') {
+      newColor = null;
+    }
+    return {
+      $set: {
+        color: newColor,
+      },
+    };
   },
 });
 
@@ -224,9 +256,11 @@ if (Meteor.isServer) {
     try {
       Authentication.checkUserId( req.userId);
       const paramBoardId = req.params.boardId;
+      const board = Boards.findOne(paramBoardId);
       const id = Swimlanes.insert({
         title: req.body.title,
         boardId: paramBoardId,
+        sort: board.swimlanes().count(),
       });
       JsonRoutes.sendResult(res, {
         code: 200,
