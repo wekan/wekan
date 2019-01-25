@@ -1,5 +1,6 @@
 template(name="listHeader")
   .list-header.js-list-header(
+    class="{{#if limitToShowCardsCount}}list-header-card-count{{/if}}"
     class="{{#if colorClass}}list-header-{{colorClass}}{{/if}}")
     +inlinedForm
       +editListTitleForm
