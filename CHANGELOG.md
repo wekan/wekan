@@ -1,10 +1,12 @@
-# Upcoming Wekan release
+# v2.04 2019-01-26 Wekan release
 
-WAITING FOR BUGFIX:
+This release fixes the following bugs with Apache I-CLA, thanks to bentiss:
 
-- [Bugfix to swimlanes](https://github.com/wekan/wekan/pull/2126#issuecomment-457723923), IN PROGRESS, NOT READY YET.
+- [Bugfix for swimlanes, simplify setting color, fix rendering on Firefox](https://github.com/wekan/wekan/pull/2132).
 
-# ON HOLD, WAITING FOR BUGFIX IN v2.04. (was: v2.03 2019-01-25 Wekan release)
+Thanks to GitHub user bentiss for contributions, and translators for their translations.
+
+# Not released because of [bug](https://github.com/wekan/wekan/pull/2126#issuecomment-457723923): v2.03 2019-01-25 Wekan
 
 This release adds the following new features with Apache I-CLA, thanks to bentiss:
 
