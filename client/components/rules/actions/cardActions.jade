@@ -39,8 +39,10 @@ template(name="cardActions")
     div.trigger-content
       div.trigger-text
         | {{{_'r-set-color'}}}
-        button.trigger-button.trigger-button-color.card-details-green.js-show-color-palette(id="color-action")
-          | {{{_'color-green'}}}
+        button.trigger-button.trigger-button-color.js-show-color-palette(
+          id="color-action"
+          class="card-details-{{cardColorButton}}")
+          | {{{_ cardColorButtonText }}}
     div.trigger-button.js-set-color-action.js-goto-rules
       i.fa.fa-plus
 
