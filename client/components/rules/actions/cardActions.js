@@ -6,6 +6,15 @@ Meteor.startup(() => {
 BlazeComponent.extendComponent({
   onCreated() {
     this.subscribe('allRules');
+    this.cardColorButtonValue = new ReactiveVar('green');
+  },
+
+  cardColorButton() {
+    return this.cardColorButtonValue.get();
+  },
+
+  cardColorButtonText() {
+    return `color-${ this.cardColorButtonValue.get() }`;
   },
 
   labels() {
@@ -128,11 +137,7 @@ BlazeComponent.extendComponent({
       'click .js-set-color-action' (event) {
         const ruleName = this.data().ruleName.get();
         const trigger = this.data().triggerVar.get();
-        const colorButton = this.find('#color-action');
-        if (colorButton.value === '') {
-          colorButton.value = 'green';
-        }
-        const selectedColor = colorButton.value;
+        const selectedColor = this.cardColorButtonValue.get();
         const boardId = Session.get('currentBoard');
         const desc = Utils.getTriggerActionDesc(event, this);
         const triggerId = Triggers.insert(trigger);
@@ -157,8 +162,8 @@ BlazeComponent.extendComponent({
 BlazeComponent.extendComponent({
   onCreated() {
     this.currentAction = this.currentData();
-    this.colorButton = Popup.getOpenerComponent().find('#color-action');
-    this.currentColor = new ReactiveVar(this.colorButton.value);
+    this.colorButtonValue = Popup.getOpenerComponent().cardColorButtonValue;
+    this.currentColor = new ReactiveVar(this.colorButtonValue.get());
   },
 
   colors() {
@@ -175,10 +180,7 @@ BlazeComponent.extendComponent({
         this.currentColor.set(this.currentData().color);
       },
       'click .js-submit' () {
-        this.colorButton.classList.remove(`card-details-${ this.colorButton.value }`);
-        this.colorButton.value = this.currentColor.get();
-        this.colorButton.innerText = `${TAPi18n.__(`color-${ this.currentColor.get() }`)}`;
-        this.colorButton.classList.add(`card-details-${ this.colorButton.value }`);
+        this.colorButtonValue.set(this.currentColor.get());
         Popup.close();
       },
     }];
