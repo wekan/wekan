@@ -1,3 +1,13 @@
+# v2.06 2019-01-27 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix cards below swimlane title in Firefox](https://github.com/wekan/wekan/commit/9dd8216dfb80855999998ed76d8a3c06a954a002)
+  by making [previous fix](https://github.com/wekan/wekan/pull/2132/commits/f7c6b7fce237a6dbdbbd6d728cfb11ad3f4378eb)
+  Firefox-only.
+
+Thanks to GitHub user xet7 for contributions.
+
 # v2.05 2019-01-27 Wekan release
 
 This release fixes the following bugs partially:
@@ -5,7 +15,7 @@ This release fixes the following bugs partially:
 - Add back scrollbars that [were hidden when trying to fix another
   bug](https://github.com/wekan/wekan/pull/2132/commits/f7c6b7fce237a6dbdbbd6d728cfb11ad3f4378eb).
   This makes scrollbars work in Chromium/Chrome, but adds back bug to Firefox
-  that cards are below of swimlane title.
+  that cards are below of swimlane title - this Firefox bug is fixed in Wekan v2.06.
 - [Try to have some progress on Wekan Sandstorm API](https://github.com/wekan/wekan/commit/be03a191c4321c2f80116c0ee1ae6c826d882535).
   I did not get it fully working yet.
 
@@ -19,7 +29,7 @@ This release fixes the following bugs with Apache I-CLA, thanks to bentiss:
 
 Thanks to GitHub user bentiss for contributions, and translators for their translations.
 
-# Not released because of [bug](https://github.com/wekan/wekan/pull/2126#issuecomment-457723923): v2.03 2019-01-25 Wekan
+# v2.03 2019-01-25 Wekan NOT RELEASED because of [bug](https://github.com/wekan/wekan/pull/2126#issuecomment-457723923) that was fixed in v2.04 above
 
 This release adds the following new features with Apache I-CLA, thanks to bentiss:
 
