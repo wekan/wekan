@@ -54,6 +54,12 @@
   flex-direction: row
   height: 100%
 
+@-moz-document url-prefix() {
+  .list-group {
+    overflow: hidden;
+  }
+}
+
 swimlane-color(background, color...)
   background: background !important
   if color
