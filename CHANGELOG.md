@@ -1,3 +1,25 @@
+# v2.08 2019-01-28 Wekan release
+
+This release fixes the following bugs with Apache I-CLA, thanks to bentiss:
+
+- Make the max height of the swimlane not too big](https://github.com/wekan/wekan/commit/ae82f43078546902e199d985a922ebf7041a4917).
+  We take a full screen minus the header height;
+- [Properly fix horizontal rendering on Chrome and Firefox](https://github.com/wekan/wekan/commit/7cc185ac57c77be85178f92b1d01d46e20218948).
+  This reverts [commit 74cf9e2573](https://github.com/wekan/wekan/commit/74cf9e2573) "- Fix Firefox left-rigth scrollbar."
+  This reverts [commit 9dd8216dfb](https://github.com/wekan/wekan/commit/9dd8216dfb)
+  "- Fix cards below swimlane title in Firefox" by making
+  [previous fix](https://github.com/wekan/wekan/pull/2132/commits/f7c6b7fce237a6dbdbbd6d728cfb11ad3f4378eb)"
+  And this partially reverts [commit dd88eb4cc](https://github.com/wekan/wekan/commit/dd88eb4cc).
+  The root of the issue was that I was adding a new div and nesting
+  the list of lists in this new list. This resulted in some
+  weird behavior that Firefox could not handled properly
+  Revert to a code colser to v2.02, by just having the
+  swimlane header in a separate line, and keep only one
+  flex element.
+  Fixes #2137
+
+Thanks to GitHub user bentiss for contributions, and translators for their translations.
+
 # v2.07 2019-01-28 Wekan release
 
 This release fixes the following bugs:
