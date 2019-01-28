@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs with Apache I-CLA, thanks to bentiss:
+
+- [Fix vertical automatic scrolling when opening a card](https://github.com/wekan/wekan/commit/820d3270935dc89f046144a7bbf2c8277e2484bc).
+
+Thanks to GitHub user bentiss for contributions.
+
 # v2.08 2019-01-28 Wekan release
 
 This release fixes the following bugs with Apache I-CLA, thanks to bentiss:
