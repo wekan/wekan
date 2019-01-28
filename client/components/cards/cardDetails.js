@@ -78,14 +78,13 @@ BlazeComponent.extendComponent({
     //Scroll top
     const cardViewStartTop = $cardView.offset().top;
     const cardContainerScrollTop = $cardContainer.scrollTop();
+
     let topOffset = false;
-    if(cardViewStartTop < 0){
-      topOffset = 0;
-    } else if(cardViewStartTop - cardContainerScrollTop > 100) {
-      topOffset = cardViewStartTop - cardContainerScrollTop - 100;
+    if(cardViewStartTop !== 100){
+      topOffset = cardViewStartTop - 100;
     }
     if(topOffset !== false) {
-      bodyBoardComponent.scrollTop(topOffset);
+      bodyBoardComponent.scrollTop(cardContainerScrollTop + topOffset);
     }
 
   },
