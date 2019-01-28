@@ -54,9 +54,13 @@
   flex-direction: row
   height: 100%
 
+// Firefox fix for cards behind swimlane to overflow-y
+// https://github.com/wekan/wekan/pull/2132/commits/f7c6b7fce237a6dbdbbd6d728cfb11ad3f4378eb
+// and enable Firefox left-right scroll https://github.com/wekan/wekan/issues/2137
 @-moz-document url-prefix() {
   .list-group {
-    overflow: hidden;
+    overflow-y: hidden;
+    overflow: -moz-scrollbars-vertical;
   }
 }
 
