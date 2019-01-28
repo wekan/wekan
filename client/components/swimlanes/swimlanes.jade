@@ -1,22 +1,22 @@
 template(name="swimlane")
-  .swimlane.js-lists.js-swimlane
+  .swimlane
     +swimlaneHeader
-    .swimlane.list-group.js-lists
-      if isMiniScreen
-        if currentList
-          +list(currentList)
-        else
-          each currentBoard.lists
-            +miniList(this)
-          if currentUser.isBoardMember
-            +addListForm
+  .swimlane.js-lists.js-swimlane
+    if isMiniScreen
+      if currentList
+        +list(currentList)
       else
         each currentBoard.lists
-          +list(this)
-          if currentCardIsInThisList _id ../_id
-            +cardDetails(currentCard)
+          +miniList(this)
         if currentUser.isBoardMember
           +addListForm
+    else
+      each currentBoard.lists
+        +list(this)
+        if currentCardIsInThisList _id ../_id
+          +cardDetails(currentCard)
+      if currentUser.isBoardMember
+        +addListForm
 
 template(name="listsGroup")
   .swimlane.list-group.js-lists

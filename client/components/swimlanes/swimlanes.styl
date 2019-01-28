@@ -5,9 +5,9 @@
   // transparent, because that won't work during a swimlane drag.
   background: darken(white, 13%)
   display: flex
-  flex-direction: column
+  flex-direction: row
   overflow: 0;
-  max-height: 100%
+  max-height: calc(100% - 26px)
 
   &.placeholder
     background-color: rgba(0, 0, 0, .2)
@@ -27,7 +27,7 @@
   .swimlane-header-wrap
     display: flex;
     flex-direction: row;
-    flex: 0 0 24px;
+    flex: 1 0 100%;
     background-color: #ccc;
 
     .swimlane-header
@@ -51,18 +51,7 @@
       margin-right: 10px
 
 .list-group
-  flex-direction: row
   height: 100%
-
-// Firefox fix for cards behind swimlane to overflow-y
-// https://github.com/wekan/wekan/pull/2132/commits/f7c6b7fce237a6dbdbbd6d728cfb11ad3f4378eb
-// and enable Firefox left-right scroll https://github.com/wekan/wekan/issues/2137
-@-moz-document url-prefix() {
-  .list-group {
-    overflow-y: hidden;
-    overflow: -moz-scrollbars-vertical;
-  }
-}
 
 swimlane-color(background, color...)
   background: background !important
