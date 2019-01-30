@@ -3,7 +3,7 @@
 This release adds the following new features:
 
 - Translations: Add Macedonian. [Copied Bulgarian to Macedonian](https://github.com/wekan/wekan/commit/6e4a6515e00fe68b8615d850cfb3cb290418e176)
-  so that required changes will be faster to add. Thanks to translators and therampagerado.
+  so that required changes will be faster to add. Thanks to translators and therampagerado;
 
 and fixes the following bugs:
 
