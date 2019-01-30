@@ -17,27 +17,6 @@ Meteor.startup(() => {
 
   Authentication.checkUserId = function (userId) {
     if (userId === undefined) {
-      // Monkey patch to work around the problem described in
-      // https://github.com/sandstorm-io/meteor-accounts-sandstorm/pull/31
-      const _httpMethods = HTTP.methods;
-      HTTP.methods = (newMethods) => {
-        Object.keys(newMethods).forEach((key) =>  {
-          if (newMethods[key].auth) {
-            newMethods[key].auth = function() {
-              const sandstormID = this.req.headers['x-sandstorm-user-id'];
-              const user = Meteor.users.findOne({'services.sandstorm.id': sandstormID});
-              if (user) {
-                userId = user._id;
-              }
-              //return user && user._id;
-            };
-          }
-        });
-        _httpMethods(newMethods);
-      };
-    }
-
-    if (userId === undefined) {
       const error = new Meteor.Error('Unauthorized', 'Unauthorized');
       error.statusCode = 401;
       throw error;
