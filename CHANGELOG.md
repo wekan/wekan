@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- Translations: Add Macedonian.
+
+Thanks to translators.
+
 # v2.09 2019-01-28 Wekan release
 
 This release fixes the following bugs with Apache I-CLA, thanks to bentiss:
