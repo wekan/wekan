@@ -87,6 +87,9 @@ tx pull -f -l ko
 echo "Latvian (Latvia):"
 tx pull -f -l lv_LV
 
+echo "Macedonian:"
+tx pull -f -l mk
+
 echo "Mongolian (Mongolia):"
 tx pull -f -l mn_MN
 
