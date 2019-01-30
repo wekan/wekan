@@ -1,6 +1,34 @@
 const subManager = new SubsManager();
+const InfiniteScrollIter = 10;
 
 BlazeComponent.extendComponent({
+  onCreated() {
+    // for infinite scrolling
+    this.cardlimit = new ReactiveVar(InfiniteScrollIter);
+  },
+
+  onRendered() {
+    const domElement = this.find('.js-perfect-scrollbar');
+
+    this.$(domElement).on('scroll', () => this.updateList(domElement));
+    $(window).on(`resize.${this.data().listId}`, () => this.updateList(domElement));
+
+    // we add a Mutation Observer to allow propagations of cardlimit
+    // when the spinner stays in the current view (infinite scrolling)
+    this.mutationObserver = new MutationObserver(() => this.updateList(domElement));
+
+    this.mutationObserver.observe(domElement, {
+      childList: true,
+    });
+
+    this.updateList(domElement);
+  },
+
+  onDestroyed() {
+    $(window).off(`resize.${this.data().listId}`);
+    this.mutationObserver.disconnect();
+  },
+
   mixins() {
     return [Mixins.PerfectScrollbar];
   },
@@ -60,6 +88,13 @@ BlazeComponent.extendComponent({
         type: 'cardType-card',
       });
 
+      // if the displayed card count is less than the total cards in the list,
+      // we need to increment the displayed card count to prevent the spinner
+      // to appear
+      const cardCount = this.data().cards(this.idOrNull(swimlaneId)).count();
+      if (pthis.cardlimit.get() < cardCount) {
+        this.cardlimit.set(this.cardlimit.get() + InfiniteScrollIter);
+      }
 
       // In case the filter is active we need to add the newly inserted card in
       // the list of exceptions -- cards that are not filtered. Otherwise the
@@ -117,6 +152,52 @@ BlazeComponent.extendComponent({
     if (currentUser.profile.boardView === 'board-view-swimlanes')
       return swimlaneId;
     return undefined;
+  },
+
+  cardsWithLimit(swimlaneId) {
+    const limit = this.cardlimit.get();
+    const selector = {
+      listId: this.currentData()._id,
+      archived: false,
+    };
+    if (swimlaneId)
+      selector.swimlaneId = swimlaneId;
+    return Cards.find(Filter.mongoSelector(selector), {
+      sort: ['sort'],
+      limit,
+    });
+  },
+
+  spinnerInView(container) {
+    const parentViewHeight = container.clientHeight;
+    const bottomViewPosition = container.scrollTop + parentViewHeight;
+
+    const spinner = this.find('.sk-spinner-list');
+
+    const threshold = spinner.offsetTop;
+
+    return bottomViewPosition > threshold;
+  },
+
+  showSpinner(swimlaneId) {
+    const list = Template.currentData();
+    return list.cards(swimlaneId).count() > this.cardlimit.get();
+  },
+
+  updateList(container) {
+    // first, if the spinner is not rendered, we have reached the end of
+    // the list of cards, so skip and disable firing the events
+    const target = this.find('.sk-spinner-list');
+    if (!target) {
+      this.$(container).off('scroll');
+      $(window).off(`resize.${this.data().listId}`);
+      return;
+    }
+
+    if (this.spinnerInView(container)) {
+      this.cardlimit.set(this.cardlimit.get() + InfiniteScrollIter);
+      Ps.update(container);
+    }
   },
 
   canSeeAddCard() {
