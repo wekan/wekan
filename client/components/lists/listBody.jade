@@ -4,7 +4,7 @@ template(name="listBody")
       if cards.count
         +inlinedForm(autoclose=false position="top")
           +addCardForm(listId=_id position="top")
-      each (cards (idOrNull ../../_id))
+      each (cardsWithLimit (idOrNull ../../_id))
         a.minicard-wrapper.js-minicard(href=absoluteUrl
           class="{{#if cardIsSelected}}is-selected{{/if}}"
           class="{{#if MultiSelection.isSelected _id}}is-checked{{/if}}")
@@ -12,6 +12,16 @@ template(name="listBody")
             .materialCheckBox.multi-selection-checkbox.js-toggle-multi-selection(
               class="{{#if MultiSelection.isSelected _id}}is-checked{{/if}}")
           +minicard(this)
+      if (showSpinner (idOrNull ../../_id))
+        .sk-spinner.sk-spinner-wave.sk-spinner-list(
+          class=currentBoard.colorClass
+          id="showMoreResults")
+          .sk-rect1
+          .sk-rect2
+          .sk-rect3
+          .sk-rect4
+          .sk-rect5
+
       if canSeeAddCard
         +inlinedForm(autoclose=false position="bottom")
           +addCardForm(listId=_id position="bottom")
