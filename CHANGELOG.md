@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix: Bug: Not logged in public board page has calendar](https://github.com/wekan/wekan/issues/2061). Thanks to xet7.
+
+Thanks to above GitHub users and translators for contributions.
+
 # v2.10 2019-01-30 Wekan release
 
 This release adds the following new features:
