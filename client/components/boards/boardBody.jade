@@ -29,7 +29,8 @@ template(name="boardBody")
         +calendarView
 
 template(name="calendarView")
-  .calendar-view.swimlane
-    if currentCard
-      +cardDetails(currentCard)
-    +fullcalendar(calendarOptions)
+  if isViewCalendar
+    .calendar-view.swimlane
+      if currentCard
+        +cardDetails(currentCard)
+      +fullcalendar(calendarOptions)
