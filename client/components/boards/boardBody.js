@@ -134,7 +134,7 @@ BlazeComponent.extendComponent({
 
   isViewCalendar() {
     const currentUser = Meteor.user();
-    if (!currentUser) return true;
+    if (!currentUser) return false;
     return (currentUser.profile.boardView === 'board-view-cal');
   },
 
@@ -263,5 +263,10 @@ BlazeComponent.extendComponent({
         }
       },
     };
+  },
+  isViewCalendar() {
+    const currentUser = Meteor.user();
+    if (!currentUser) return false;
+    return (currentUser.profile.boardView === 'board-view-cal');
   },
 }).register('calendarView');
