@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Bumped the salleman oidc packages versions to include an upstream bug fix](https://github.com/wekan/wekan/commit/361faa6646556de68ad78dc90d9eb9f78956ce0f).
+
+Thanks to GitHub user danpatdav for contributions.
+
 # v2.11 2019-01-31 Wekan release
 
 This release fixes the following bugs:
