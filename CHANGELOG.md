@@ -1,3 +1,20 @@
+# Upcoming Wekan release
+
+This release adds the following new features with Apache I-CLA, thanks to bentiss:
+
+- [Use infinite-scrolling on lists](https://github.com/wekan/wekan/pull/2144).
+  This allows to reduce the loading time of a big board.
+  Note that there is an infinite scroll implementation in the mixins,
+  but this doesn't fit well as the cards in the list can have arbitrary
+  height.
+  The idea to rely on the visibility of a spinner is based on
+  http://www.meteorpedia.com/read/Infinite_Scrolling
+- [When writing to minicard, press Shift-Enter on minicard to go to next line
+  below](https://github.com/wekan/wekan/commit/7a35099fb9778d5f3656a57c74af426cfb20fba3),
+  to continue writing on same minicard 2nd line.
+    
+Thanks to above GitHub users and translators for contributions.
+
 # v2.12 2019-01-31 Wekan release
 
 This release fixes the following bugs:
