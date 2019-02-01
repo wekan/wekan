@@ -62,6 +62,9 @@ BlazeComponent.extendComponent({
   toggleHideLogo() {
     $('#hide-logo').toggleClass('is-checked');
   },
+  toggleDisplayAuthenticationMethod() {
+    $('#display-authentication-method').toggleClass('is-checked');
+  },
   switchMenu(event) {
     const target = $(event.target);
     if (!target.hasClass('active')) {
@@ -140,17 +143,20 @@ BlazeComponent.extendComponent({
 
     const productName = $('#product-name').val().trim();
     const hideLogoChange = ($('input[name=hideLogo]:checked').val() === 'true');
+    const displayAuthenticationMethod = ($('input[name=displayAuthenticationMethod]:checked').val() === 'true');
+    const defaultAuthenticationMethod = $('#defaultAuthenticationMethod').val();
     const customHTMLafterBodyStart = $('#customHTMLafterBodyStart').val().trim();
     const customHTMLbeforeBodyEnd = $('#customHTMLbeforeBodyEnd').val().trim();
 
     try {
-
       Settings.update(Settings.findOne()._id, {
         $set: {
           productName,
           hideLogo: hideLogoChange,
           customHTMLafterBodyStart,
           customHTMLbeforeBodyEnd,
+          displayAuthenticationMethod,
+          defaultAuthenticationMethod
         },
       });
     } catch (e) {
@@ -190,6 +196,7 @@ BlazeComponent.extendComponent({
       'click button.js-send-smtp-test-email': this.sendSMTPTestEmail,
       'click a.js-toggle-hide-logo': this.toggleHideLogo,
       'click button.js-save-layout': this.saveLayout,
+      'click a.js-toggle-display-authentication-method': this.toggleDisplayAuthenticationMethod
     }];
   },
 }).register('setting');
@@ -262,3 +269,31 @@ BlazeComponent.extendComponent({
     }];
   },
 }).register('announcementSettings');
+
+
+Template.selectAuthenticationMethod.onCreated(function() {
+  this.authenticationMethods = new ReactiveVar([]);
+
+  Meteor.call('getAuthenticationsEnabled', (_, result) => {
+    if (result) {
+      // TODO : add a management of different languages
+      // (ex {value: ldap, text: TAPi18n.__('ldap', {}, T9n.getLanguage() || 'en')})
+      this.authenticationMethods.set([
+        {value: 'password'},
+        // Gets only the authentication methods availables
+        ...Object.entries(result).filter((e) => e[1]).map((e) => ({value: e[0]})),
+      ]);
+    }
+  });
+});
+
+Template.selectAuthenticationMethod.helpers({
+  authentications() {
+    return Template.instance().authenticationMethods.get();
+  },
+  isSelected(match) {
+    console.log('this : ', this);
+    console.log('instance : ', Template.instance());
+    return Template.instance().data.authenticationMethod === match;
+  }
+});
