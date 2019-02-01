@@ -28,7 +28,7 @@ Template.userFormsLayout.onCreated(function() {
     onReady() {
       instance.currentSetting.set(Settings.findOne());
       return this.stop();
-    }
+    },
   });
 });
 
@@ -140,16 +140,16 @@ function getUserAuthenticationMethod(defaultAuthenticationMethod, match) {
       Meteor.subscribe('user-authenticationMethod', match, {
         onReady() {
           const user = Users.findOne();
-  
+
           const authenticationMethod = user
             ? user.authenticationMethod
             : defaultAuthenticationMethod;
-          
+
           resolve(authenticationMethod);
         },
       });
     } catch(error) {
       resolve(defaultAuthenticationMethod);
     }
-  })
+  });
 }

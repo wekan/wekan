@@ -408,7 +408,7 @@ Migrations.add('add-displayAuthenticationMethod', () => {
     $set: {
       displayAuthenticationMethod: true,
     },
-  }, noValidateMulti)
+  }, noValidateMulti);
 });
 
 Migrations.add('add-defaultAuthenticationMethod', () => {
@@ -420,5 +420,5 @@ Migrations.add('add-defaultAuthenticationMethod', () => {
     $set: {
       defaultAuthenticationMethod: 'password',
     },
-  }, noValidateMulti)
+  }, noValidateMulti);
 });

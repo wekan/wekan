@@ -7,8 +7,8 @@ Meteor.publish('setting', () => {
       customHTMLafterBodyStart: 1,
       customHTMLbeforeBodyEnd: 1,
       displayAuthenticationMethod: 1,
-      defaultAuthenticationMethod: 1
-    }
+      defaultAuthenticationMethod: 1,
+    },
   });
 });
 

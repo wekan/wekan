@@ -156,7 +156,7 @@ BlazeComponent.extendComponent({
           customHTMLafterBodyStart,
           customHTMLbeforeBodyEnd,
           displayAuthenticationMethod,
-          defaultAuthenticationMethod
+          defaultAuthenticationMethod,
         },
       });
     } catch (e) {
@@ -171,17 +171,14 @@ BlazeComponent.extendComponent({
 
   sendSMTPTestEmail() {
     Meteor.call('sendSMTPTestEmail', (err, ret) => {
-      if (!err && ret) { /* eslint-disable no-console */
+      if (!err && ret) {
         const message = `${TAPi18n.__(ret.message)}: ${ret.email}`;
-        console.log(message);
         alert(message);
       } else {
         const reason = err.reason || '';
         const message = `${TAPi18n.__(err.error)}\n${reason}`;
-        console.log(message, err);
         alert(message);
       }
-      /* eslint-enable no-console */
     });
   },
 
@@ -196,7 +193,7 @@ BlazeComponent.extendComponent({
       'click button.js-send-smtp-test-email': this.sendSMTPTestEmail,
       'click a.js-toggle-hide-logo': this.toggleHideLogo,
       'click button.js-save-layout': this.saveLayout,
-      'click a.js-toggle-display-authentication-method': this.toggleDisplayAuthenticationMethod
+      'click a.js-toggle-display-authentication-method': this.toggleDisplayAuthenticationMethod,
     }];
   },
 }).register('setting');
@@ -292,8 +289,6 @@ Template.selectAuthenticationMethod.helpers({
     return Template.instance().authenticationMethods.get();
   },
   isSelected(match) {
-    console.log('this : ', this);
-    console.log('instance : ', Template.instance());
     return Template.instance().data.authenticationMethod === match;
-  }
+  },
 });

@@ -93,7 +93,7 @@ if (Meteor.isServer) {
       const from = `Boards Support <support@${domain}>`;
       const defaultSetting = {disableRegistration: false, mailServer: {
         username: '', password: '', host: '', port: '', enableTLS: false, from,
-      }, createdAt: now, modifiedAt: now, displayAuthenticationMethod: true, 
+      }, createdAt: now, modifiedAt: now, displayAuthenticationMethod: true,
       defaultAuthenticationMethod: 'password'};
       Settings.insert(defaultSetting);
     }
