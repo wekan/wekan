@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v2.13 2019-02-01 Wekan release
 
 This release adds the following new features with Apache I-CLA, thanks to bentiss:
 
@@ -13,7 +13,7 @@ This release adds the following new features with Apache I-CLA, thanks to bentis
   below](https://github.com/wekan/wekan/commit/7a35099fb9778d5f3656a57c74af426cfb20fba3),
   to continue writing on same minicard 2nd line.
     
-Thanks to above GitHub users and translators for contributions.
+Thanks to GitHub user bentiss for contributions.
 
 # v2.12 2019-01-31 Wekan release
 
