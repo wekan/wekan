@@ -260,7 +260,7 @@ BlazeComponent.extendComponent({
 
   pressKey(evt) {
     // Pressing Enter should submit the card
-    if (evt.keyCode === 13) {
+    if (evt.keyCode === 13 && !evt.shiftKey) {
       evt.preventDefault();
       const $form = $(evt.currentTarget).closest('form');
       // XXX For some reason $form.submit() does not work (it's probably a bug
