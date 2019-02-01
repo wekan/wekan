@@ -92,7 +92,7 @@ BlazeComponent.extendComponent({
       // we need to increment the displayed card count to prevent the spinner
       // to appear
       const cardCount = this.data().cards(this.idOrNull(swimlaneId)).count();
-      if (pthis.cardlimit.get() < cardCount) {
+      if (this.cardlimit.get() < cardCount) {
         this.cardlimit.set(this.cardlimit.get() + InfiniteScrollIter);
       }
 
