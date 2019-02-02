@@ -31,7 +31,7 @@ if (Meteor.isServer) {
       user = Meteor.users.findOne({
         'services.resume.loginTokens.hashedToken': hashToken,
       });
-    } else {
+    } else if (!Meteor.settings.public.sandstorm) {
       Authentication.checkUserId(req.userId);
       user = Users.findOne({ _id: req.userId, isAdmin: true });
     }

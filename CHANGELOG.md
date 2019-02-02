@@ -1,3 +1,13 @@
+# v2.14 2019-02-02 Wekan release
+
+- [Fix Sandstorm export board from web](https://github.com/wekan/wekan/issues/2157).
+- [Fix Error when logging in to Wekan REST API when using Sandstorm Wekan](https://github.com/wekan/wekan/issues/1279).
+  Sandstorm API works this way: Make API key, and from that key copy API URL and API KEY to below. It saves Wekan board to file.
+  `curl http://Bearer:APIKEY@api-12345.local.sandstorm.io:6080/api/boards/sandstorm/export?authToken=#APIKEY > wekanboard.json`
+  If later API key does not work, you need to remove it and make a new one.
+
+Thanks to GitHub user xet7 for contributions.
+
 # v2.13 2019-02-01 Wekan release
 
 This release adds the following new features with Apache I-CLA, thanks to bentiss:
