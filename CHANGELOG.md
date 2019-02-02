@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v2.14 2019-02-02 Wekan release
 
 - [Fix Sandstorm export board from web](https://github.com/wekan/wekan/issues/2157).
 - [Fix Error when logging in to Wekan REST API when using Sandstorm Wekan](https://github.com/wekan/wekan/issues/1279).
