@@ -494,7 +494,7 @@
     "OS_Freemem": "Свободная память",
     "OS_Loadavg": "Средняя загрузка",
     "OS_Platform": "Платформа",
-    "OS_Release": "Релиз",
+    "OS_Release": "Версия ядра",
     "OS_Totalmem": "Общая память",
     "OS_Type": "Тип ОС",
     "OS_Uptime": "Время работы",
