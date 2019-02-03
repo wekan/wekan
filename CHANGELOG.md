@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v2.15 2019-02-03 Wekan release
 
 - [Fix: Not displaying card content of public board: Snap, Docker and Sandstorm Shared Wekan Board 
   Link](https://github.com/wekan/wekan/issues/1623) with
