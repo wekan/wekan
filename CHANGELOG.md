@@ -1,5 +1,7 @@
 # v2.15 2019-02-03 Wekan release
 
+This release fixes the following bugs:
+
 - [Fix: Not displaying card content of public board: Snap, Docker and Sandstorm Shared Wekan Board 
   Link](https://github.com/wekan/wekan/issues/1623) with
   [code from ChronikEwok](https://github.com/ChronikEwok/wekan/commit/cad9b20451bb6149bfb527a99b5001873b06c3de).
