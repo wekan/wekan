@@ -5,8 +5,6 @@ function currentCardIsInThisList(listId, swimlaneId) {
   const currentUser = Meteor.user();
   if (currentUser && currentUser.profile.boardView === 'board-view-swimlanes')
     return currentCard && currentCard.listId === listId && currentCard.swimlaneId === swimlaneId;
-  else if (currentUser.profile.boardView === 'board-view-cal')
-    return currentCard;
   else // Default view: board-view-lists
     return currentCard && currentCard.listId === listId;
   // https://github.com/wekan/wekan/issues/1623
