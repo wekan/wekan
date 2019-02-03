@@ -3,14 +3,20 @@ const { calculateIndex, enableClickOnTouch } = Utils;
 function currentCardIsInThisList(listId, swimlaneId) {
   const currentCard = Cards.findOne(Session.get('currentCard'));
   const currentUser = Meteor.user();
-  if (currentUser.profile.boardView === 'board-view-lists')
-    return currentCard && currentCard.listId === listId;
-  else if (currentUser.profile.boardView === 'board-view-swimlanes')
+  if (currentUser && currentUser.profile.boardView === 'board-view-swimlanes')
     return currentCard && currentCard.listId === listId && currentCard.swimlaneId === swimlaneId;
   else if (currentUser.profile.boardView === 'board-view-cal')
     return currentCard;
-  else
-    return false;
+  else // Default view: board-view-lists
+    return currentCard && currentCard.listId === listId;
+  // https://github.com/wekan/wekan/issues/1623
+  // https://github.com/ChronikEwok/wekan/commit/cad9b20451bb6149bfb527a99b5001873b06c3de
+  // TODO: In public board, if you would like to switch between List/Swimlane view, you could
+  //       1) If there is no view cookie, save to cookie board-view-lists
+  //          board-view-lists / board-view-swimlanes / board-view-cal
+  //       2) If public user changes clicks board-view-lists then change view and
+  //          then change view and save cookie with view value
+  //          without using currentuser above, because currentuser is null.
 }
 
 function initSortable(boardComponent, $listsDom) {
