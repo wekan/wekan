@@ -1,4 +1,12 @@
-# 2.16 2019-02-03 Wekan release
+# v2.17 2019-02-04 Wekan release
+
+This release fixes the following bugs:
+
+- [OIDC/OAuth2 BoardView Fix](https://github.com/wekan/wekan/issues/1874).
+
+Thanks to GitHub gil0109 for contributions, and translator for their translations.
+
+# v2.16 2019-02-03 Wekan release
 
 This release fixes the following bugs:
 
@@ -7,7 +15,7 @@ This release fixes the following bugs:
   Link](https://github.com/wekan/wekan/issues/1623) with
   [code from ChronikEwok](https://github.com/ChronikEwok/wekan/commit/cad9b20451bb6149bfb527a99b5001873b06c3de).
 
-Thanks to ChronikEwok for contributions.
+Thanks to GitHub user ChronikEwok for contributions.
 
 # v2.15 2019-02-03 Wekan release
 
@@ -17,7 +25,7 @@ This release fixes the following bugs:
   Link](https://github.com/wekan/wekan/issues/1623) with
   [code from ChronikEwok](https://github.com/ChronikEwok/wekan/commit/cad9b20451bb6149bfb527a99b5001873b06c3de).
 
-Thanks to ChronikEwok for contributions.
+Thanks to GitHub user ChronikEwok for contributions.
 
 # v2.14 2019-02-02 Wekan release
 

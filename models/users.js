@@ -569,7 +569,7 @@ if (Meteor.isServer) {
       user.username = user.services.oidc.username;
       user.emails = [{ address: email, verified: true }];
       const initials = user.services.oidc.fullname.match(/\b[a-zA-Z]/g).join('').toUpperCase();
-      user.profile = { initials, fullname: user.services.oidc.fullname };
+      user.profile = { initials, fullname: user.services.oidc.fullname, boardView: 'board-view-lists' };
       user.authenticationMethod = 'oauth2';
 
       // see if any existing user has this email address or username, otherwise create new
