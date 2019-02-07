@@ -114,16 +114,21 @@ async function authentication(event, instance) {
   event.preventDefault();
   event.stopImmediatePropagation();
 
-  if (result === 'ldap') {
-    return Meteor.loginWithLDAP(match, password, function() {
+  switch (result) {
+  case 'ldap':
+    Meteor.loginWithLDAP(match, password, function() {
       FlowRouter.go('/');
     });
-  }
+    break;
 
-  if (result === 'cas') {
-    return Meteor.loginWithCas(function() {
+  case 'cas':
+    Meteor.loginWithCas(function() {
       FlowRouter.go('/');
     });
+    break;
+
+  default:
+    break;
   }
 }
 
@@ -135,7 +140,7 @@ function getAuthenticationMethod({displayAuthenticationMethod, defaultAuthentica
 }
 
 function getUserAuthenticationMethod(defaultAuthenticationMethod, match) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     try {
       Meteor.subscribe('user-authenticationMethod', match, {
         onReady() {
