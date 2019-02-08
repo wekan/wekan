@@ -28,7 +28,7 @@ and fixes the following bugs with Apache I-CLA, thanks to bentiss:
     drag or drop the swimlanea. I tried to remedy that by computing the new
     scroll value. Still not ideal however, as there are still some jumps when
     dropping.    
-    Fixes #2159
+    Fixes [#2159](https://github.com/wekan/wekan/issues/2159).
 
 Thanks to above GitHub users and translators for contributions.
 
