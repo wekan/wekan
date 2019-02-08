@@ -660,6 +660,6 @@
     "add-custom-html-before-body-end": "Añade HTML personalizado después de </body>",
     "error-undefined": "Algo no está bien",
     "error-ldap-login": "Ocurrió un error al intentar acceder",
-    "display-authentication-method": "Display Authentication Method",
-    "default-authentication-method": "Default Authentication Method"
+    "display-authentication-method": "Visualizar método de autentificación",
+    "default-authentication-method": "Método de autentificación por defecto"
 }
