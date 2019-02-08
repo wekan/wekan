@@ -14,8 +14,8 @@ and fixes the following bugs with Apache I-CLA, thanks to bentiss:
   the same level than the lists of cards makes the whole sortable
   pattern fail.
   - 2 solutions:
-    - revert to only have 1 div per swimlane. But this introduces the firefox
-      bug mentioned in 7cc185ac, so not ideal
+    - revert to only have 1 div per swimlane. But this introduces [the firefox
+      bug mentioned](https://github.com/wekan/wekan/commit/7cc185ac), so not ideal
     - force the sortable pattern to do what we want.
   - To force the sortable pattern, we need:
     - add in the helper a clone of the list of cards (to not just move the
