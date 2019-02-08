@@ -1,5 +1,6 @@
 const subManager = new SubsManager();
 const { calculateIndex, enableClickOnTouch } = Utils;
+const swimlaneWhileSortingHeight = 150;
 
 BlazeComponent.extendComponent({
   onCreated() {
@@ -74,21 +75,64 @@ BlazeComponent.extendComponent({
     $swimlanesDom.sortable({
       tolerance: 'pointer',
       appendTo: '.board-canvas',
-      helper: 'clone',
+      helper(evt, item) {
+        const helper = $(`<div class="swimlane"
+                               style="flex-direction: column;
+                                      height: ${swimlaneWhileSortingHeight}px;
+                                      width: $(boardComponent.width)px;
+                                      overflow: hidden;"/>`);
+        helper.append(item.clone());
+        // Also grab the list of lists of cards
+        const list = item.next();
+        helper.append(list.clone());
+        return helper;
+      },
       handle: '.js-swimlane-header',
-      items: '.js-swimlane:not(.placeholder)',
+      items: '.swimlane:not(.placeholder)',
       placeholder: 'swimlane placeholder',
       distance: 7,
       start(evt, ui) {
+        const listDom = ui.placeholder.next('.js-swimlane');
+        const parentOffset = ui.item.parent().offset();
+
         ui.placeholder.height(ui.helper.height());
         EscapeActions.executeUpTo('popup-close');
+        listDom.addClass('moving-swimlane');
         boardComponent.setIsDragging(true);
+
+        ui.placeholder.insertAfter(ui.placeholder.next());
+        boardComponent.origPlaceholderIndex = ui.placeholder.index();
+
+        // resize all swimlanes + headers to be a total of 150 px per row
+        // this could be achieved by setIsDragging(true) but we want immediate
+        // result
+        ui.item.siblings('.js-swimlane').css('height', `${swimlaneWhileSortingHeight - 26}px`);
+
+        // set the new scroll height after the resize and insertion of
+        // the placeholder. We want the element under the cursor to stay
+        // at the same place on the screen
+        ui.item.parent().get(0).scrollTop = ui.placeholder.get(0).offsetTop + parentOffset.top - evt.pageY;
+      },
+      beforeStop(evt, ui) {
+        const parentOffset = ui.item.parent().offset();
+        const siblings = ui.item.siblings('.js-swimlane');
+        siblings.css('height', '');
+
+        // compute the new scroll height after the resize and removal of
+        // the placeholder
+        const scrollTop = ui.placeholder.get(0).offsetTop + parentOffset.top - evt.pageY;
+
+        // then reset the original view of the swimlane
+        siblings.removeClass('moving-swimlane');
+
+        // and apply the computed scrollheight
+        ui.item.parent().get(0).scrollTop = scrollTop;
       },
       stop(evt, ui) {
         // To attribute the new index number, we need to get the DOM element
         // of the previous and the following card -- if any.
-        const prevSwimlaneDom = ui.item.prev('.js-swimlane').get(0);
-        const nextSwimlaneDom = ui.item.next('.js-swimlane').get(0);
+        const prevSwimlaneDom = ui.item.prevAll('.js-swimlane').get(0);
+        const nextSwimlaneDom = ui.item.nextAll('.js-swimlane').get(0);
         const sortIndex = calculateIndex(prevSwimlaneDom, nextSwimlaneDom, 1);
 
         $swimlanesDom.sortable('cancel');
@@ -102,6 +146,30 @@ BlazeComponent.extendComponent({
         });
 
         boardComponent.setIsDragging(false);
+      },
+      sort(evt, ui) {
+        // get the mouse position in the sortable
+        const parentOffset = ui.item.parent().offset();
+        const cursorY = evt.pageY - parentOffset.top + ui.item.parent().scrollTop();
+
+        // compute the intended index of the placeholder (we need to skip the
+        // slots between the headers and the list of cards)
+        const newplaceholderIndex = Math.floor(cursorY / swimlaneWhileSortingHeight);
+        let destPlaceholderIndex = (newplaceholderIndex + 1) * 2;
+
+        // if we are scrolling far away from the bottom of the list
+        if (destPlaceholderIndex >= ui.item.parent().get(0).childElementCount) {
+          destPlaceholderIndex = ui.item.parent().get(0).childElementCount - 1;
+        }
+
+        // update the placeholder position in the DOM tree
+        if (destPlaceholderIndex !== ui.placeholder.index()) {
+          if (destPlaceholderIndex < boardComponent.origPlaceholderIndex) {
+            ui.placeholder.insertBefore(ui.placeholder.siblings().slice(destPlaceholderIndex - 2, destPlaceholderIndex - 1));
+          } else {
+            ui.placeholder.insertAfter(ui.placeholder.siblings().slice(destPlaceholderIndex - 1, destPlaceholderIndex));
+          }
+        }
       },
     });
 
