@@ -659,5 +659,7 @@
     "add-custom-html-after-body-start": "Add Custom HTML after <body> start",
     "add-custom-html-before-body-end": "Add Custom HTML before </body> end",
     "error-undefined": "Något gick fel",
-    "error-ldap-login": "Ett fel uppstod när du försökte logga in"
+    "error-ldap-login": "Ett fel uppstod när du försökte logga in",
+    "display-authentication-method": "Display Authentication Method",
+    "default-authentication-method": "Default Authentication Method"
 }

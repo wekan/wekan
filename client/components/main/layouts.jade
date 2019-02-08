@@ -23,10 +23,8 @@ template(name="userFormsLayout")
         br
     section.auth-dialog
       +Template.dynamic(template=content)
-      +connectionMethod
-      if isCas
-        .at-form
-          button#cas(class='at-btn submit' type='submit') {{casSignInLabel}}
+      if currentSetting.displayAuthenticationMethod
+        +connectionMethod
       div.at-form-lang
         select.select-lang.js-userform-set-language
           each languages

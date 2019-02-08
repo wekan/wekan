@@ -1,3 +1,37 @@
+# v2.18 2019-02-08 Wekan release
+
+This release adds the folloging new features:
+
+- [Improve Authentication: Admin Panel / Layout / Set Default Authentication / Password/LDAP](https://github.com/wekan/wekan/pull/2172). Thanks to Akuket.
+- [Add oplog to snap mongodb](https://github.com/wekan/wekan/commit/79ffb7d50202471c7b7f297286f13e66ce30922e). Thanks to xet7.
+
+and fixes the following bugs with Apache I-CLA, thanks to bentiss:
+
+- [Fix swimlanes sorting](https://github.com/wekan/wekan/pull/2174)
+  since "[Properly fix horizontal rendering on Chrome and Firefox](https://github.com/wekan/wekan/commit/7cc185ac)".
+  The rendering of the new design of the swimlanes was correct, but this
+  commit broke the reordering capability. Having the swimlane header at
+  the same level than the lists of cards makes the whole sortable
+  pattern fail.
+  - 2 solutions:
+    - revert to only have 1 div per swimlane. But this introduces [the firefox
+      bug mentioned](https://github.com/wekan/wekan/commit/7cc185ac), so not ideal
+    - force the sortable pattern to do what we want.
+  - To force the sortable pattern, we need:
+    - add in the helper a clone of the list of cards (to not just move the
+      header)
+    - make sure the placeholder never get placed between the header and the
+      list of cards in a swimlane
+    - fix the finding of the next and previous list of cards. 
+    For all of this to be successful, we need to resize the swimlanes to a
+    known value. This can lead to some visual jumps with scrolling when you
+    drag or drop the swimlanea. I tried to remedy that by computing the new
+    scroll value. Still not ideal however, as there are still some jumps when
+    dropping.    
+    Fixes [#2159](https://github.com/wekan/wekan/issues/2159).
+
+Thanks to above GitHub users and translators for contributions.
+
 # v2.17 2019-02-04 Wekan release
 
 This release fixes the following bugs:

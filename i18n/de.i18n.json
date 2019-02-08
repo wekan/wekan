@@ -659,5 +659,7 @@
     "add-custom-html-after-body-start": "Füge benutzerdefiniertes HTML nach <body> Anfang hinzu",
     "add-custom-html-before-body-end": "Füge benutzerdefiniertes HTML vor </body>Ende hinzu",
     "error-undefined": "Etwas ist schief gelaufen",
-    "error-ldap-login": "Es ist ein Fehler beim Anmelden aufgetreten"
+    "error-ldap-login": "Es ist ein Fehler beim Anmelden aufgetreten",
+    "display-authentication-method": "Anzeige Authentifizierungsverfahren",
+    "default-authentication-method": "Standardauthentifizierungsverfahren"
 }
