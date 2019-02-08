@@ -1,3 +1,11 @@
+# v2.19 2019-02-09 Wekan release
+
+This release removes the following new features:
+
+- [Remove oplog from snap](https://github.com/wekan/wekan/commit/f1bd36a3b87f97927dfe60572646a457e1f7ef66). Need to think how to do it properly.
+
+Thanks to GitHub user xet7 for conrtibutions.
+
 # v2.18 2019-02-08 Wekan release
 
 This release adds the folloging new features:
