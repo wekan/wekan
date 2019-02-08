@@ -142,6 +142,16 @@ template(name='layoutSettings')
         input.form-control#hide-logo(type="radio" name="hideLogo" value="false" checked="{{#unless currentSetting.hideLogo}}checked{{/unless}}")
         span {{_ 'no'}}
     li.layout-form
+      .title {{_ 'display-authentication-method'}}
+      .form-group.flex
+        input.form-control#display-authentication-method(type="radio" name="displayAuthenticationMethod" value="true" checked="{{#if currentSetting.displayAuthenticationMethod}}checked{{/if}}")
+        span {{_ 'yes'}}
+        input.form-control#display-authentication-method(type="radio" name="displayAuthenticationMethod" value="false" checked="{{#unless currentSetting.displayAuthenticationMethod}}checked{{/unless}}")
+        span {{_ 'no'}}
+    li.layout-form
+      .title {{_ 'default-authentication-method'}}
+      +selectAuthenticationMethod(authenticationMethod=currentSetting.defaultAuthenticationMethod)
+    li.layout-form
       .title {{_ 'custom-product-name'}}
       .form-group
         input.form-control#product-name(type="text", placeholder="Wekan" value="{{currentSetting.productName}}")
@@ -153,3 +163,12 @@ template(name='layoutSettings')
       textarea#customHTMLbeforeBodyEnd.form-control= currentSetting.customHTMLbeforeBodyEnd
     li
       button.js-save-layout.primary {{_ 'save'}}
+
+
+template(name='selectAuthenticationMethod')
+  select#defaultAuthenticationMethod
+    each authentications
+      if isSelected value
+        option(value="{{value}}" selected) {{_ value}}
+      else
+        option(value="{{value}}") {{_ value}}
