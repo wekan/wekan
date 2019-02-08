@@ -659,5 +659,7 @@
     "add-custom-html-after-body-start": "Adicionar HTML Customizado depois do início do <body>",
     "add-custom-html-before-body-end": "Adicionar HTML Customizado antes do fim do </body>",
     "error-undefined": "Algo deu errado",
-    "error-ldap-login": "Um erro ocorreu enquanto tentava entrar"
+    "error-ldap-login": "Um erro ocorreu enquanto tentava entrar",
+    "display-authentication-method": "Display Authentication Method",
+    "default-authentication-method": "Default Authentication Method"
 }

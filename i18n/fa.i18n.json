@@ -659,5 +659,7 @@
     "add-custom-html-after-body-start": "افزودن کد های HTML بعد از  <body> شروع",
     "add-custom-html-before-body-end": "افزودن کد های HTML قبل از  </body> پایان",
     "error-undefined": "یک اشتباه رخ داده شده است",
-    "error-ldap-login": "هنگام تلاش برای ورود به یک خطا رخ داد"
+    "error-ldap-login": "هنگام تلاش برای ورود به یک خطا رخ داد",
+    "display-authentication-method": "Display Authentication Method",
+    "default-authentication-method": "Default Authentication Method"
 }

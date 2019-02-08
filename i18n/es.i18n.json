@@ -659,5 +659,7 @@
     "add-custom-html-after-body-start": "Añade HTML personalizado después de <body> ",
     "add-custom-html-before-body-end": "Añade HTML personalizado después de </body>",
     "error-undefined": "Algo no está bien",
-    "error-ldap-login": "Ocurrió un error al intentar acceder"
+    "error-ldap-login": "Ocurrió un error al intentar acceder",
+    "display-authentication-method": "Display Authentication Method",
+    "default-authentication-method": "Default Authentication Method"
 }

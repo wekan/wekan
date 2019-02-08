@@ -659,5 +659,7 @@
     "add-custom-html-after-body-start": "הוספת קוד HTML מותאם אישית לאחר ה־<body> הפותח.",
     "add-custom-html-before-body-end": "הוספת קוד HTML מותאם אישית לפני ה־</body> הסוגר.",
     "error-undefined": "מהו השתבש",
-    "error-ldap-login": "אירעה שגיאה בעת ניסיון הכניסה"
+    "error-ldap-login": "אירעה שגיאה בעת ניסיון הכניסה",
+    "display-authentication-method": "Display Authentication Method",
+    "default-authentication-method": "Default Authentication Method"
 }
