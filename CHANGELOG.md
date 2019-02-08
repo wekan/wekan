@@ -8,7 +8,7 @@ This release adds the folloging new features:
 and fixes the following bugs with Apache I-CLA, thanks to bentiss:
 
 - [Fix swimlanes sorting](https://github.com/wekan/wekan/pull/2174)
-  since 7cc185ac "Properly fix horizontal rendering on Chrome and Firefox".
+  since "[Properly fix horizontal rendering on Chrome and Firefox](https://github.com/wekan/wekan/commit/7cc185ac)".
   The rendering of the new design of the swimlanes was correct, but this
   commit broke the reordering capability. Having the swimlane header at
   the same level than the lists of cards makes the whole sortable
