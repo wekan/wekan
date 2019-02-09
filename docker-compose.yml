@@ -98,7 +98,7 @@ services:
     #-------------------------------------------------------------------------------------
     container_name: wekan-db
     restart: always
-    command: mongod --smallfiles --oplogSize 128
+    command: mongod --smallfiles --replSet kadira --oplogSize 128
     networks:
       - wekan-tier
     expose:
@@ -129,26 +129,26 @@ services:
     #-------------------------------------------------------------------------------------
     # ==== BUILD wekan-app DOCKER CONTAINER FROM SOURCE, if you uncomment these ====
     # ==== and use commands: docker-compose up -d --build
-    #build:
-    #  context: .
-    #  dockerfile: Dockerfile
-    #  args:
-    #    - NODE_VERSION=${NODE_VERSION}
-    #    - METEOR_RELEASE=${METEOR_RELEASE}
-    #    - NPM_VERSION=${NPM_VERSION}
-    #    - ARCHITECTURE=${ARCHITECTURE}
-    #    - SRC_PATH=${SRC_PATH}
-    #    - METEOR_EDGE=${METEOR_EDGE}
-    #    - USE_EDGE=${USE_EDGE}
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - NODE_VERSION=${NODE_VERSION}
+        - METEOR_RELEASE=${METEOR_RELEASE}
+        - NPM_VERSION=${NPM_VERSION}
+        - ARCHITECTURE=${ARCHITECTURE}
+        - SRC_PATH=${SRC_PATH}
+        - METEOR_EDGE=${METEOR_EDGE}
+        - USE_EDGE=${USE_EDGE}
     #-------------------------------------------------------------------------------------
     ports:
       # Docker outsideport:insideport. Do not add anything extra here.
       # For example, if you want to have wekan on port 3001,
       # use 3001:8080 . Do not add any extra address etc here, that way it does not work.
       # remove port mapping if you use nginx reverse proxy, port 8080 is already exposed to wekan-tier network
-      - 80:8080
+      - 3000:8080
     environment:
-      - MONGO_URL=mongodb://wekandb:27017/wekan
+      - MONGO_URL=mongodb://wekandb:27017/wekan?replicaSet=kadira
       #---------------------------------------------------------------
       # ==== ROOT_URL SETTING ====
       # Change ROOT_URL to your real Wekan URL, for example:
@@ -161,7 +161,7 @@ services:
       #  - http://example.com
       #  - http://boards.example.com
       #  - http://192.168.1.100    <=== using at local LAN
-      - ROOT_URL=http://localhost  #   <=== using only at same laptop/desktop where Wekan is installed
+      - ROOT_URL=http://frigg:3000  #   <=== using only at same laptop/desktop where Wekan is installed
       #---------------------------------------------------------------
       # ==== EMAIL SETTINGS ====
       # Email settings are required in both MAIL_URL and Admin Panel,
@@ -169,8 +169,8 @@ services:
       #   For SSL in email, change smtp:// to smtps://
       # NOTE: Special characters need to be url-encoded in MAIL_URL.
       #       You can encode those characters for example at: https://www.urlencoder.org
-      - MAIL_URL=smtp://user:pass@mailserver.example.com:25/
-      - MAIL_FROM='Example Wekan Support <support@example.com>'
+      #- MAIL_URL=smtp://user:pass@mailserver.example.com:25/
+      #- MAIL_FROM='Example Wekan Support <support@example.com>'
       #---------------------------------------------------------------
       # ==== OPTIONAL: MONGO OPLOG SETTINGS =====
       # https://github.com/wekan/wekan-mongodb/issues/2#issuecomment-378343587
@@ -193,7 +193,9 @@ services:
       # ==== OPTIONAL: KADIRA PERFORMANCE MONITORING FOR METEOR ====
       # https://github.com/smeijer/kadira
       # https://blog.meteor.com/kadira-apm-is-now-open-source-490469ffc85f
-      # - export KADIRA_OPTIONS_ENDPOINT=http://127.0.0.1:11011
+      - KADIRA_OPTIONS_ENDPOINT=http://kadira-engine:11011
+      - KADIRA_APP_ID=iYpPgq6rXRrZJty4A 
+      - KADIRA_APP_SECRET=9de2728b-320d-46c1-9352-0084435411f0
       #---------------------------------------------------------------
       # ==== OPTIONAL: LOGS AND STATS ====
       # https://github.com/wekan/wekan/wiki/Logs
@@ -509,6 +511,41 @@ services:
 #      - ./nginx/ssl:/etc/nginx/ssl/
 #      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
 
+
+  kadira-engine:
+    ## This is the endpoint where Meteor app sends performance data
+    image: vladgolubev/kadira-engine
+    ports:
+      - "11011:11011"
+    environment:
+      - PORT=11011
+      - MONGO_URL=mongodb://wekandb:27017/kadira?replicaSet=kadira
+      - MONGO_SHARD_URL_one=mongodb://wekandb:27017/kadira?replicaSet=kadira
+    networks:
+      - wekan-tier
+    restart: always
+
+  kadira-rma:
+    ## This computes statistics databases every minute.
+    image: vladgolubev/kadira-rma
+    environment:
+      - MONGO_URL=mongodb://wekandb:27017/kadira
+    networks:
+      - wekan-tier
+    restart: always
+
+  kadira-ui:
+    ## Meteor app that presents the Kadira user interface.
+    image: vladgolubev/kadira-ui
+    ports:
+      #- "80:4000"
+      - "4000:4000"
+    environment:
+      - MONGO_URL=mongodb://wekandb:27017/kadira
+      - MONGO_SHARD_URL_one=mongodb://wekandb:27017/kadira
+    networks:
+      - wekan-tier
+    restart: always
 
 volumes:
   wekan-db:
