@@ -660,6 +660,6 @@
     "add-custom-html-before-body-end": "Добавить HTML до завершения </body>",
     "error-undefined": "Что-то пошло не так",
     "error-ldap-login": "Ошибка при попытке авторизации",
-    "display-authentication-method": "Display Authentication Method",
-    "default-authentication-method": "Default Authentication Method"
+    "display-authentication-method": "Показывать способ авторизации",
+    "default-authentication-method": "Способ авторизации по умолчанию"
 }
