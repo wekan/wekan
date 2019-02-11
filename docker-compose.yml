@@ -123,7 +123,7 @@ services:
     # image: wekanteam/wekan:v1.95
     #-------------------------------------------------------------------------------------
     container_name: wekan-app
-    restart: always
+    restart: "no"
     networks:
       - wekan-tier
     #-------------------------------------------------------------------------------------
@@ -148,7 +148,7 @@ services:
       # remove port mapping if you use nginx reverse proxy, port 8080 is already exposed to wekan-tier network
       - 3000:8080
     environment:
-      - MONGO_URL=mongodb://wekandb:27017/wekan?replicaSet=kadira
+      - MONGO_URL=mongodb://wekandb:27017/wekan
       #---------------------------------------------------------------
       # ==== ROOT_URL SETTING ====
       # Change ROOT_URL to your real Wekan URL, for example:
@@ -193,9 +193,9 @@ services:
       # ==== OPTIONAL: KADIRA PERFORMANCE MONITORING FOR METEOR ====
       # https://github.com/smeijer/kadira
       # https://blog.meteor.com/kadira-apm-is-now-open-source-490469ffc85f
-      - KADIRA_OPTIONS_ENDPOINT=http://kadira-engine:11011
-      - KADIRA_APP_ID=iYpPgq6rXRrZJty4A 
-      - KADIRA_APP_SECRET=9de2728b-320d-46c1-9352-0084435411f0
+      - APM_OPTIONS_ENDPOINT=http://kadira-engine:11011
+      - APM_APP_ID=iYpPgq6rXRrZJty4A 
+      - APM_APP_SECRET=9de2728b-320d-46c1-9352-0084435411f0
       #---------------------------------------------------------------
       # ==== OPTIONAL: LOGS AND STATS ====
       # https://github.com/wekan/wekan/wiki/Logs
