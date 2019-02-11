@@ -1,3 +1,14 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Add OIDC / OAuth2 optional setting DEBUG=true to salleman-oidc and Dockerfile](https://github.com/wekan/wekan/pull/2181).
+  Thanks to danpatdav.
+- [Add OIDC / OAuth2 optional setting DEBUG=true to docker-compose.yml/Snap/Source](https://github.com/wekan/wekan/commits/8e02170dd1d5a638ba47dcca910e6eecbfd03baf).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.19 2019-02-09 Wekan release
 
 This release removes the following new features:
