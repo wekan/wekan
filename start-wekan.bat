@@ -69,6 +69,11 @@ REM SET OAUTH2_TOKEN_ENDPOINT=
 
 REM ------------------------------------------------------------
 
+REM # Debug OIDC OAuth2 etc.
+REM SET DEBUG=true
+
+REM ------------------------------------------------------------
+
 REM # LDAP_ENABLE : Enable or not the connection by the LDAP
 REM # example : LDAP_ENABLE=true
 REM SET LDAP_ENABLE=false

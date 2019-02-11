@@ -660,6 +660,6 @@
     "add-custom-html-before-body-end": "添加定制的HTML在结束</body>之后",
     "error-undefined": "出了点问题",
     "error-ldap-login": "尝试登陆时出错",
-    "display-authentication-method": "Display Authentication Method",
-    "default-authentication-method": "Default Authentication Method"
+    "display-authentication-method": "显示认证方式",
+    "default-authentication-method": "缺省认证方式"
 }
