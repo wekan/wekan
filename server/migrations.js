@@ -398,3 +398,27 @@ Migrations.add('add-custom-html-before-body-end', () => {
     },
   }, noValidateMulti);
 });
+
+Migrations.add('add-displayAuthenticationMethod', () => {
+  Settings.update({
+    displayAuthenticationMethod: {
+      $exists: false,
+    },
+  }, {
+    $set: {
+      displayAuthenticationMethod: true,
+    },
+  }, noValidateMulti);
+});
+
+Migrations.add('add-defaultAuthenticationMethod', () => {
+  Settings.update({
+    defaultAuthenticationMethod: {
+      $exists: false,
+    },
+  }, {
+    $set: {
+      defaultAuthenticationMethod: 'password',
+    },
+  }, noValidateMulti);
+});

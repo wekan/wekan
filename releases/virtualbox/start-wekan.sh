@@ -70,6 +70,9 @@
         # example: export OAUTH2_TOKEN_ENDPOINT=/oauth/token
         #export OAUTH2_TOKEN_ENDPOINT=''
         #---------------------------------------------
+        # Debug OIDC OAuth2 etc.
+        #export DEBUG=true
+        #---------------------------------------------
         # LDAP_ENABLE : Enable or not the connection by the LDAP
         # example :  export LDAP_ENABLE=true
         #export LDAP_ENABLE=false

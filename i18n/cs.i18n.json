@@ -659,5 +659,7 @@
     "add-custom-html-after-body-start": "Add Custom HTML after <body> start",
     "add-custom-html-before-body-end": "Add Custom HTML before </body> end",
     "error-undefined": "Něco se pokazilo",
-    "error-ldap-login": "Během přihlašování nastala chyba"
+    "error-ldap-login": "Během přihlašování nastala chyba",
+    "display-authentication-method": "Display Authentication Method",
+    "default-authentication-method": "Default Authentication Method"
 }

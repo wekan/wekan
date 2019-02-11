@@ -40,6 +40,14 @@ Settings.attachSchema(new SimpleSchema({
     type: String,
     optional: true,
   },
+  displayAuthenticationMethod: {
+    type: Boolean,
+    optional: true,
+  },
+  defaultAuthenticationMethod: {
+    type: String,
+    optional: false,
+  },
   hideLogo: {
     type: Boolean,
     optional: true,
@@ -85,7 +93,8 @@ if (Meteor.isServer) {
       const from = `Boards Support <support@${domain}>`;
       const defaultSetting = {disableRegistration: false, mailServer: {
         username: '', password: '', host: '', port: '', enableTLS: false, from,
-      }, createdAt: now, modifiedAt: now};
+      }, createdAt: now, modifiedAt: now, displayAuthenticationMethod: true,
+      defaultAuthenticationMethod: 'password'};
       Settings.insert(defaultSetting);
     }
     const newSetting = Settings.findOne();

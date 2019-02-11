@@ -278,6 +278,9 @@ services:
       # example: OAUTH2_TOKEN_ENDPOINT=/oauth/token
       #- OAUTH2_TOKEN_ENDPOINT=
       #-----------------------------------------------------------------
+      # Debug OIDC OAuth2 etc
+      #- DEBUG=true
+      #-----------------------------------------------------------------
       # ==== LDAP ====
       # https://github.com/wekan/wekan/wiki/LDAP
       # For Snap settings see https://github.com/wekan/wekan-snap/wiki/Supported-settings-keys
