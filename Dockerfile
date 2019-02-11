@@ -2,6 +2,7 @@ FROM debian:buster-slim
 LABEL maintainer="wekan"
 
 # Declare Arguments
+ARG DEBUG
 ARG NODE_VERSION
 ARG METEOR_RELEASE
 ARG METEOR_EDGE
@@ -76,6 +77,7 @@ ARG DEFAULT_AUTHENTICATION_METHOD
 # DOES NOT WORK: paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
 # ENV BUILD_DEPS="paxctl"
 ENV BUILD_DEPS="apt-utils bsdtar gnupg gosu wget curl bzip2 build-essential python python3 python3-distutils git ca-certificates gcc-7" \
+    DEBUG=false \
     NODE_VERSION=v8.15.0 \
     METEOR_RELEASE=1.6.0.1 \
     USE_EDGE=false \
