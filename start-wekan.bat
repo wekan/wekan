@@ -1,3 +1,10 @@
+REM ------------------------------------------------------------
+
+REM # Debug OIDC OAuth2 etc.
+REM SET DEBUG=true
+
+REM ------------------------------------------------------------
+
 SET MONGO_URL=mongodb://127.0.0.1:27017/wekan
 SET ROOT_URL=http://127.0.0.1:2000/
 SET MAIL_URL=smtp://user:pass@mailserver.example.com:25/
@@ -66,11 +73,6 @@ REM SET OAUTH2_USERINFO_ENDPOINT=
 REM # OAuth2 Token Endpoint. Example: /oauth/token
 REM # example: OAUTH2_TOKEN_ENDPOINT=/oauth/token
 REM SET OAUTH2_TOKEN_ENDPOINT=
-
-REM ------------------------------------------------------------
-
-REM # Debug OIDC OAuth2 etc.
-REM SET DEBUG=true
 
 REM ------------------------------------------------------------
 
