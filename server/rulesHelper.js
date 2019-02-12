@@ -139,13 +139,15 @@ RulesHelper = {
       Swimlanes.insert({
         title: action.swimlaneName,
         boardId,
+        sort: 0
       });
     }
     if(action.actionType === 'addChecklistWithItems'){
       const checkListId = Checklists.insert({'title':action.checklistName, 'cardId':card._id, 'sort':0});
       const itemsArray = action.checklistItems.split(',');
+      const checkList = Checklists.findOne({_id:checkListId});
       for(let i = 0; i <itemsArray.length; i++){
-        ChecklistItems.insert({title:itemsArray[i], checklistId:checkListId, cardId:card._id, 'sort':0});
+        ChecklistItems.insert({title:itemsArray[i], checklistId:checkListId, cardId:card._id, 'sort':checkList.itemCount()});
       }
     }
     if(action.actionType === 'createCard'){

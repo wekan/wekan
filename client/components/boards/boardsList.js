@@ -42,6 +42,21 @@ BlazeComponent.extendComponent({
         Meteor.user().toggleBoardStar(boardId);
         evt.preventDefault();
       },
+      'click .js-clone-board'(evt) {
+        Meteor.call('cloneBoard',
+          this.currentData()._id,
+          Session.get('fromBoard'),
+          (err, res) => {
+            if (err) {
+              this.setError(err.error);
+            } else {
+              Session.set('fromBoard', null);
+              Utils.goBoardId(res);
+            }
+          }
+          );
+        evt.preventDefault();
+      },
       'click .js-accept-invite'() {
         const boardId = this.currentData()._id;
         Meteor.user().removeInvite(boardId);

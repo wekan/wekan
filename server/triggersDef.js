@@ -3,13 +3,13 @@ TriggersDef = {
     matchingFields: ['boardId', 'listName', 'userId', 'swimlaneName', 'cardTitle'],
   },
   moveCard:{
-    matchingFields: ['boardId', 'listName', 'oldListName', 'userId', 'swimlaneName'],
+    matchingFields: ['boardId', 'listName', 'oldListName', 'userId', 'swimlaneName', 'cardTitle'],
   },
   archivedCard:{
-    matchingFields: ['boardId', 'userId'],
+    matchingFields: ['boardId', 'userId', 'cardTitle'],
   },
   restoredCard:{
-    matchingFields: ['boardId', 'userId'],
+    matchingFields: ['boardId', 'userId', 'cardTitle'],
   },
   joinMember:{
     matchingFields: ['boardId', 'username', 'userId'],

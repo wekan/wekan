@@ -1239,6 +1239,7 @@ function cardMove(userId, doc, fieldNames, oldListId, oldSwimlaneId) {
       listId: doc.listId,
       boardId: doc.boardId,
       cardId: doc._id,
+      cardTitle:doc.title,
       swimlaneName: Swimlanes.findOne(doc.swimlaneId).title,
       swimlaneId: doc.swimlaneId,
       oldSwimlaneId,
