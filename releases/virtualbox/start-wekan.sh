@@ -1,29 +1,33 @@
 # If you want to restart even on crash, uncomment while and done lines.
 
 #while true; do
-	cd ~/repos/wekan/.build/bundle
-	export MONGO_URL='mongodb://127.0.0.1:27017/admin'
+        cd ~/repos/wekan/.build/bundle
+        #---------------------------------------------
+        # Debug OIDC OAuth2 etc.
+        #export export DEBUG=true
+        #---------------------------------------------
+        export MONGO_URL='mongodb://127.0.0.1:27017/admin'
         # ROOT_URL EXAMPLES FOR WEBSERVERS: https://github.com/wekan/wekan/wiki/Settings
-	# Production: https://example.com/wekan
-	# Local: http://localhost:3000
-	#export ipaddress=$(ifdata -pa eth0)
-	export ROOT_URL='http://localhost'
+        # Production: https://example.com/wekan
+        # Local: http://localhost:3000
+        #export ipaddress=$(ifdata -pa eth0)
+        export ROOT_URL='http://localhost'
         #---------------------------------------------
         # Working email IS NOT REQUIRED to use Wekan.
         # https://github.com/wekan/wekan/wiki/Adding-users
-	# https://github.com/wekan/wekan/wiki/Troubleshooting-Mail
-	# https://github.com/wekan/wekan-mongodb/blob/master/docker-compose.yml
-	export MAIL_URL='smtp://user:pass@mailserver.example.com:25/'
-	export MAIL_FROM='Wekan Support <support@example.com>'
-	# This is local port where Wekan Node.js runs, same as below on Caddyfile settings.
-	export PORT=80
+        # https://github.com/wekan/wekan/wiki/Troubleshooting-Mail
+        # https://github.com/wekan/wekan-mongodb/blob/master/docker-compose.yml
+        export MAIL_URL='smtp://user:pass@mailserver.example.com:25/'
+        export MAIL_FROM='Wekan Support <support@example.com>'
+        # This is local port where Wekan Node.js runs, same as below on Caddyfile settings.
+        export PORT=80
         #---------------------------------------------
-	# Wekan Export Board works when WITH_API='true'.
+        # Wekan Export Board works when WITH_API='true'.
         # If you disable Wekan API, Export Board does not work.
-	export WITH_API='true'
+        export WITH_API='true'
         #---------------------------------------------
         # CORS: Set Access-Control-Allow-Origin header. Example: *
-        #- CORS=*
+        #export CORS=*
         #---------------------------------------------
         ## Optional: Integration with Matomo https://matomo.org that is installed to your server
         ## The address of the server where Matomo is hosted:
@@ -39,39 +43,77 @@
         # Example: export MATOMO_WITH_USERNAME=true
         #export MATOMO_WITH_USERNAME='false'
         # Enable browser policy and allow one trusted URL that can have iframe that has Wekan embedded inside.
-	# Setting this to false is not recommended, it also disables all other browser policy protections
-	# and allows all iframing etc. See wekan/server/policy.js
-	# Default value: true
-	export BROWSER_POLICY_ENABLED=true
+        # Setting this to false is not recommended, it also disables all other browser policy protections
+        # and allows all iframing etc. See wekan/server/policy.js
+        # Default value: true
+        export BROWSER_POLICY_ENABLED=true
         # When browser policy is enabled, HTML code at this Trusted URL can have iframe that embeds Wekan inside.
-	# Example: export TRUSTED_URL=http://example.com
+        # Example: export TRUSTED_URL=http://example.com
         export TRUSTED_URL=''
         # What to send to Outgoing Webhook, or leave out. Example, that includes all that are default: cardId,listId,oldListId,boardId,comment,user,card,commentId .
         # Example: export WEBHOOKS_ATTRIBUTES=cardId,listId,oldListId,boardId,comment,user,card,commentId
-	export WEBHOOKS_ATTRIBUTES=''
+        export WEBHOOKS_ATTRIBUTES=''
         #---------------------------------------------
+        # ==== OAUTH2 AZURE ====
+        # https://github.com/wekan/wekan/wiki/Azure
+        # 1) Register the application with Azure. Make sure you capture
+        #    the application ID as well as generate a secret key.
+        # 2) Configure the environment variables. This differs slightly
+        #     by installation type, but make sure you have the following:
+        #export OAUTH2_ENABLED=true
+        # Application GUID captured during app registration:
+        #export OAUTH2_CLIENT_ID=xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx
+        # Secret key generated during app registration:
+        #export OAUTH2_SECRET=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        #export OAUTH2_SERVER_URL=https://login.microsoftonline.com/
+        #export OAUTH2_AUTH_ENDPOINT=/oauth2/v2.0/authorize
+        #export OAUTH2_USERINFO_ENDPOINT=https://graph.microsoft.com/oidc/userinfo
+        #export OAUTH2_TOKEN_ENDPOINT=/oauth2/v2.0/token
+        # The claim name you want to map to the unique ID field:
+        #export OAUTH2_ID_MAP=email
+        # The claim name you want to map to the username field:
+        #export OAUTH2_USERNAME_MAP=email
+        # The claim name you want to map to the full name field:
+        #export OAUTH2_FULLNAME_MAP=name
+        # Tthe claim name you want to map to the email field:
+        #export OAUTH2_EMAIL_MAP=email
+        #-----------------------------------------------------------------
+        # ==== OAUTH2 KEYCLOAK ====
+        # https://github.com/wekan/wekan/wiki/Keycloak  <== MAPPING INFO, REQUIRED
+        #export OAUTH2_ENABLED=true
+        #export OAUTH2_CLIENT_ID=<Keycloak create Client ID>
+        #export OAUTH2_SERVER_URL=<Keycloak server name>/auth
+        #export OAUTH2_AUTH_ENDPOINT=/realms/<keycloak realm>/protocol/openid-connect/auth
+        #export OAUTH2_USERINFO_ENDPOINT=/realms/<keycloak realm>/protocol/openid-connect/userinfo
+        #export OAUTH2_TOKEN_ENDPOINT=/realms/<keycloak realm>/protocol/openid-connect/token
+        #export OAUTH2_SECRET=<keycloak client secret>
+        #-----------------------------------------------------------------
+        # ==== OAUTH2 DOORKEEPER ====
+        # https://github.com/wekan/wekan/issues/1874
+        # https://github.com/wekan/wekan/wiki/OAuth2
+        # Enable the OAuth2 connection
+        #export OAUTH2_ENABLED=true
         # OAuth2 docs: https://github.com/wekan/wekan/wiki/OAuth2
-        # OAuth2 Client ID, for example from Rocket.Chat. Example: abcde12345
-        # example: export OAUTH2_CLIENT_ID=abcde12345
-        #export OAUTH2_CLIENT_ID=''
-        # OAuth2 Secret, for example from Rocket.Chat: Example: 54321abcde
-        # example: export OAUTH2_SECRET=54321abcde
-        #export OAUTH2_SECRET=''
-        # OAuth2 Server URL, for example Rocket.Chat. Example: https://chat.example.com
-        # example: export OAUTH2_SERVER_URL=https://chat.example.com
-        #export OAUTH2_SERVER_URL=''
-        # OAuth2 Authorization Endpoint. Example: /oauth/authorize
-        # example: export OAUTH2_AUTH_ENDPOINT=/oauth/authorize
-        #export OAUTH2_AUTH_ENDPOINT=''
-        # OAuth2 Userinfo Endpoint. Example: /oauth/userinfo
-        # example: export OAUTH2_USERINFO_ENDPOINT=/oauth/userinfo
-        #export OAUTH2_USERINFO_ENDPOINT=''
-        # OAuth2 Token Endpoint. Example: /oauth/token
-        # example: export OAUTH2_TOKEN_ENDPOINT=/oauth/token
-        #export OAUTH2_TOKEN_ENDPOINT=''
-        #---------------------------------------------
-        # Debug OIDC OAuth2 etc.
-        #export DEBUG=true
+        # OAuth2 Client ID.
+        #export OAUTH2_CLIENT_ID=abcde12345
+        # OAuth2 Secret.
+        #export OAUTH2_SECRET=54321abcde
+        # OAuth2 Server URL.
+        #export OAUTH2_SERVER_URL=https://chat.example.com
+        # OAuth2 Authorization Endpoint.
+        #export OAUTH2_AUTH_ENDPOINT=/oauth/authorize
+        # OAuth2 Userinfo Endpoint.
+        #export OAUTH2_USERINFO_ENDPOINT=/oauth/userinfo
+        # OAuth2 Token Endpoint.
+        #export OAUTH2_TOKEN_ENDPOINT=/oauth/token
+        # OAuth2 ID Mapping
+        #export OAUTH2_ID_MAP=
+        # OAuth2 Username Mapping
+        #export OAUTH2_USERNAME_MAP=
+        # OAuth2 Fullname Mapping
+        #export OAUTH2_FULLNAME_MAP=
+        # OAuth2 Email Mapping
+        #export OAUTH2_EMAIL_MAP=
         #---------------------------------------------
         # LDAP_ENABLE : Enable or not the connection by the LDAP
         # example :  export LDAP_ENABLE=true
@@ -195,15 +237,15 @@
         #export LDAP_DEFAULT_DOMAIN=
         # LOGOUT_WITH_TIMER : Enables or not the option logout with timer
         # example : LOGOUT_WITH_TIMER=true
-        #- LOGOUT_WITH_TIMER=
+        #export LOGOUT_WITH_TIMER=
         # LOGOUT_IN : The number of days
         # example : LOGOUT_IN=1
-        #- LOGOUT_IN=
-        #- LOGOUT_ON_HOURS=
+        #export LOGOUT_IN=
+        #export LOGOUT_ON_HOURS=
         # LOGOUT_ON_MINUTES : The number of minutes
         # example : LOGOUT_ON_MINUTES=55
-        #- LOGOUT_ON_MINUTES=
+        #export LOGOUT_ON_MINUTES=
 
-	node main.js & >> ~/repos/wekan.log
-	cd ~/repos
+        node main.js & >> ~/repos/wekan.log
+        cd ~/repos
 #done

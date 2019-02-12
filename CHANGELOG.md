@@ -1,3 +1,16 @@
+# v2.21 2019-02-12 Wekan release
+
+This release adds the following new features:
+
+- [Bump salleman-oidc to 1.0.12](https://github.com/wekan/wekan/commit/352e5c6cb07b1a09ef692af6f6c49c3b1f3e91c1). Thanks to danpatdav.
+- [Added parameters for OIDC claim mapping](https://github.com/wekan/wekan/commit/bdbbb12f967f7e4f605e6c3310290180f6c8c6d1).
+  These mapping parameters take advantage of new code in salleman-oidc 1.0.12 to override the default claim names provided by the userinfo endpoint.
+  Thanks to danpatdav.
+- [Add OIDC claim mapping parameters to docker-compose.yml/Snap/Source](https://github.com/wekan/wekan/commit/59314ab17d65e9579d2f29b32685b7777f2a06a1).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions.
+
 # v2.20 2019-02-11 Wekan release
 
 This release adds the following new features:

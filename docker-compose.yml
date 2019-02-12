@@ -219,23 +219,19 @@ services:
       - WITH_API=true
       #-----------------------------------------------------------------
       # ==== CORS =====
-      # CORS: Set Access-Control-Allow-Origin header. Example: *
+      # CORS: Set Access-Control-Allow-Origin header.
       #- CORS=*
       #-----------------------------------------------------------------
       # ==== MATOMO INTEGRATION ====
       # Optional: Integration with Matomo https://matomo.org that is installed to your server
       # The address of the server where Matomo is hosted.
-      # example: - MATOMO_ADDRESS=https://example.com/matomo
-      #- MATOMO_ADDRESS=
+      #- MATOMO_ADDRESS=https://example.com/matomo
       # The value of the site ID given in Matomo server for Wekan
-      # example: - MATOMO_SITE_ID=12345
-      #- MATOMO_SITE_ID=
+      #- MATOMO_SITE_ID=1
       # The option do not track which enables users to not be tracked by matomo
-      # example:  - MATOMO_DO_NOT_TRACK=false
-      #- MATOMO_DO_NOT_TRACK=
+      #- MATOMO_DO_NOT_TRACK=true
       # The option that allows matomo to retrieve the username:
-      # example: MATOMO_WITH_USERNAME=true
-      #- MATOMO_WITH_USERNAME=false
+      #- MATOMO_WITH_USERNAME=true
       #-----------------------------------------------------------------
       # ==== BROWSER POLICY AND TRUSTED IFRAME URL ====
       # Enable browser policy and allow one trusted URL that can have iframe that has Wekan embedded inside.
@@ -243,41 +239,75 @@ services:
       # and allows all iframing etc. See wekan/server/policy.js
       - BROWSER_POLICY_ENABLED=true
       # When browser policy is enabled, HTML code at this Trusted URL can have iframe that embeds Wekan inside.
-      #- TRUSTED_URL=
+      #- TRUSTED_URL=https://intra.example.com
       #-----------------------------------------------------------------
       # ==== OUTGOING WEBHOOKS ====
       # What to send to Outgoing Webhook, or leave out. Example, that includes all that are default: cardId,listId,oldListId,boardId,comment,user,card,commentId .
-      # example: WEBHOOKS_ATTRIBUTES=cardId,listId,oldListId,boardId,comment,user,card,commentId
-      #- WEBHOOKS_ATTRIBUTES=
+      #- WEBHOOKS_ATTRIBUTES=cardId,listId,oldListId,boardId,comment,user,card,commentId
       #-----------------------------------------------------------------
-      # ==== OAUTH2 ONLY WITH OIDC AND DOORKEEPER AS INDENTITY PROVIDER
+      # ==== Debug OIDC OAuth2 etc ====
+      #- DEBUG=true
+      #-----------------------------------------------------------------
+      # ==== OAUTH2 AZURE ====
+      # https://github.com/wekan/wekan/wiki/Azure
+      # 1) Register the application with Azure. Make sure you capture
+      #    the application ID as well as generate a secret key.
+      # 2) Configure the environment variables. This differs slightly
+      #     by installation type, but make sure you have the following:
+      #- OAUTH2_ENABLED=true
+      # Application GUID captured during app registration:
+      #- OAUTH2_CLIENT_ID=xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx
+      # Secret key generated during app registration:
+      #- OAUTH2_SECRET=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      #- OAUTH2_SERVER_URL=https://login.microsoftonline.com/
+      #- OAUTH2_AUTH_ENDPOINT=/oauth2/v2.0/authorize
+      #- OAUTH2_USERINFO_ENDPOINT=https://graph.microsoft.com/oidc/userinfo
+      #- OAUTH2_TOKEN_ENDPOINT=/oauth2/v2.0/token
+      # The claim name you want to map to the unique ID field:
+      #- OAUTH2_ID_MAP=email
+      # The claim name you want to map to the username field:
+      #- OAUTH2_USERNAME_MAP=email
+      # The claim name you want to map to the full name field:
+      #- OAUTH2_FULLNAME_MAP=name
+      # Tthe claim name you want to map to the email field:
+      #- OAUTH2_EMAIL_MAP=email
+      #-----------------------------------------------------------------
+      # ==== OAUTH2 KEYCLOAK ====
+      # https://github.com/wekan/wekan/wiki/Keycloak  <== MAPPING INFO, REQUIRED
+      #- OAUTH2_ENABLED=true
+      #- OAUTH2_CLIENT_ID=<Keycloak create Client ID>
+      #- OAUTH2_SERVER_URL=<Keycloak server name>/auth
+      #- OAUTH2_AUTH_ENDPOINT=/realms/<keycloak realm>/protocol/openid-connect/auth
+      #- OAUTH2_USERINFO_ENDPOINT=/realms/<keycloak realm>/protocol/openid-connect/userinfo
+      #- OAUTH2_TOKEN_ENDPOINT=/realms/<keycloak realm>/protocol/openid-connect/token
+      #- OAUTH2_SECRET=<keycloak client secret>
+      #-----------------------------------------------------------------
+      # ==== OAUTH2 DOORKEEPER ====
       # https://github.com/wekan/wekan/issues/1874
       # https://github.com/wekan/wekan/wiki/OAuth2
       # Enable the OAuth2 connection
-      # example: OAUTH2_ENABLED=true
-      #- OAUTH2_ENABLED=false
+      #- OAUTH2_ENABLED=true
       # OAuth2 docs: https://github.com/wekan/wekan/wiki/OAuth2
-      # OAuth2 Client ID, for example from Rocket.Chat. Example: abcde12345
-      # example: OAUTH2_CLIENT_ID=abcde12345
-      #- OAUTH2_CLIENT_ID=
-      # OAuth2 Secret, for example from Rocket.Chat: Example: 54321abcde
-      # example: OAUTH2_SECRET=54321abcde
-      #- OAUTH2_SECRET=
-      # OAuth2 Server URL, for example Rocket.Chat. Example: https://chat.example.com
-      # example: OAUTH2_SERVER_URL=https://chat.example.com
-      #- OAUTH2_SERVER_URL=
-      # OAuth2 Authorization Endpoint. Example: /oauth/authorize
-      # example: OAUTH2_AUTH_ENDPOINT=/oauth/authorize
-      #- OAUTH2_AUTH_ENDPOINT=
-      # OAuth2 Userinfo Endpoint. Example: /oauth/userinfo
-      # example: OAUTH2_USERINFO_ENDPOINT=/oauth/userinfo
-      #- OAUTH2_USERINFO_ENDPOINT=
-      # OAuth2 Token Endpoint. Example: /oauth/token
-      # example: OAUTH2_TOKEN_ENDPOINT=/oauth/token
-      #- OAUTH2_TOKEN_ENDPOINT=
-      #-----------------------------------------------------------------
-      # Debug OIDC OAuth2 etc
-      #- DEBUG=true
+      # OAuth2 Client ID.
+      #- OAUTH2_CLIENT_ID=abcde12345
+      # OAuth2 Secret.
+      #- OAUTH2_SECRET=54321abcde
+      # OAuth2 Server URL.
+      #- OAUTH2_SERVER_URL=https://chat.example.com
+      # OAuth2 Authorization Endpoint.
+      #- OAUTH2_AUTH_ENDPOINT=/oauth/authorize
+      # OAuth2 Userinfo Endpoint.
+      #- OAUTH2_USERINFO_ENDPOINT=/oauth/userinfo
+      # OAuth2 Token Endpoint.
+      #- OAUTH2_TOKEN_ENDPOINT=/oauth/token
+      # OAuth2 ID Mapping
+      #- OAUTH2_ID_MAP=
+      # OAuth2 Username Mapping
+      #- OAUTH2_USERNAME_MAP=
+      # OAuth2 Fullname Mapping
+      #- OAUTH2_FULLNAME_MAP=
+      # OAuth2 Email Mapping
+      #- OAUTH2_EMAIL_MAP=
       #-----------------------------------------------------------------
       # ==== LDAP ====
       # https://github.com/wekan/wekan/wiki/LDAP
