@@ -74,6 +74,11 @@ REM # OAuth2 Token Endpoint. Example: /oauth/token
 REM # example: OAUTH2_TOKEN_ENDPOINT=/oauth/token
 REM SET OAUTH2_TOKEN_ENDPOINT=
 
+REM # OAUTH2 ID Token Whitelist Fields.
+REM SET OAUTH2_ID_TOKEN_WHITELIST_FIELDS=[]
+REM # OAUTH2 Request Permissions.
+REM SET OAUTH2_REQUEST_PERMISSIONS=[openid email profile]
+
 REM ------------------------------------------------------------
 
 REM # LDAP_ENABLE : Enable or not the connection by the LDAP
