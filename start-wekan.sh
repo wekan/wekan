@@ -72,7 +72,7 @@ function wekan_repo_check(){
       # Example: export WEBHOOKS_ATTRIBUTES=cardId,listId,oldListId,boardId,comment,user,card,commentId
       export WEBHOOKS_ATTRIBUTES=''
       #---------------------------------------------
-            # ==== OAUTH2 AZURE ====
+      # ==== OAUTH2 AZURE ====
       # https://github.com/wekan/wekan/wiki/Azure
       # 1) Register the application with Azure. Make sure you capture
       #    the application ID as well as generate a secret key.
