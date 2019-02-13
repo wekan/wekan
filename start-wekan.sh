@@ -72,7 +72,7 @@ function wekan_repo_check(){
       # Example: export WEBHOOKS_ATTRIBUTES=cardId,listId,oldListId,boardId,comment,user,card,commentId
       export WEBHOOKS_ATTRIBUTES=''
       #---------------------------------------------
-            # ==== OAUTH2 AZURE ====
+      # ==== OAUTH2 AZURE ====
       # https://github.com/wekan/wekan/wiki/Azure
       # 1) Register the application with Azure. Make sure you capture
       #    the application ID as well as generate a secret key.
@@ -93,8 +93,12 @@ function wekan_repo_check(){
       #export OAUTH2_USERNAME_MAP=email
       # The claim name you want to map to the full name field:
       #export OAUTH2_FULLNAME_MAP=name
-      # Tthe claim name you want to map to the email field:
+      # The claim name you want to map to the email field:
       #export OAUTH2_EMAIL_MAP=email
+      # OAUTH2 ID Token Whitelist Fields.
+      #export OAUTH2_ID_TOKEN_WHITELIST_FIELDS=[]
+      # OAUTH2 Request Permissions.
+      #export OAUTH2_REQUEST_PERMISSIONS=[openid profile email]
       #-----------------------------------------------------------------
       # ==== OAUTH2 KEYCLOAK ====
       # https://github.com/wekan/wekan/wiki/Keycloak  <== MAPPING INFO, REQUIRED

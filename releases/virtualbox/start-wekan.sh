@@ -114,6 +114,10 @@
         #export OAUTH2_FULLNAME_MAP=
         # OAuth2 Email Mapping
         #export OAUTH2_EMAIL_MAP=
+        # OAUTH2 ID Token Whitelist Fields.
+        #export OAUTH2_ID_TOKEN_WHITELIST_FIELDS=[]
+        # OAUTH2 Request Permissions.
+        #export OAUTH2_REQUEST_PERMISSIONS=[openid profile email]
         #---------------------------------------------
         # LDAP_ENABLE : Enable or not the connection by the LDAP
         # example :  export LDAP_ENABLE=true

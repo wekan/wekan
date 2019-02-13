@@ -85,6 +85,7 @@ localstorage@1.2.0
 logging@1.1.20
 matb33:collection-hooks@0.8.4
 matteodem:easy-search@1.6.4
+mdg:meteor-apm-agent@3.1.2
 mdg:validation-error@0.5.1
 meteor@1.9.2
 meteor-base@1.4.0

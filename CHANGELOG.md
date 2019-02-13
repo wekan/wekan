@@ -1,3 +1,20 @@
+# v2.22 2019-02-13 Wekan release
+
+This release adds the following new features:
+
+- [Kadira integration](https://github.com/wekan/wekan/issues/2152). Thanks to GavinLilly.
+- Add [configurable](https://github.com/wekan/wekan/issues/1874#issuecomment-462759627)
+  settings [OAUTH2_ID_TOKEN_WHITELIST_FIELDS and
+  OAUTH2_REQUEST_PERMISSIONS](https://github.com/wekan/wekan/commit/b66f471e530d41a3f12e4bfc29548313e9a73c35).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Fix: Remove overlap of side bar button with card/list menu button on
+   mobile browser](https://github.com/wekan/wekan/issues/2183). Thanks to xet7.
+
+Thanks to above GitHub users for their contributions, and translators for their translations.
+    
 # v2.21 2019-02-12 Wekan release
 
 This release adds the following new features:
