@@ -191,9 +191,12 @@ services:
       # - MONGO_OPLOG_URL=mongodb://<username>:<password>@<mongoDbURL>/local?authSource=admin&replicaSet=rsWekan
       #---------------------------------------------------------------
       # ==== OPTIONAL: KADIRA PERFORMANCE MONITORING FOR METEOR ====
-      # https://github.com/smeijer/kadira
+      # https://github.com/edemaine/kadira-compose
+      # https://github.com/meteor/meteor-apm-agent
       # https://blog.meteor.com/kadira-apm-is-now-open-source-490469ffc85f
-      # - export KADIRA_OPTIONS_ENDPOINT=http://127.0.0.1:11011
+      #- APM_OPTIONS_ENDPOINT=http://<kadira-ip>:11011
+      #- APM_APP_ID=
+      #- APM_APP_SECRET=
       #---------------------------------------------------------------
       # ==== OPTIONAL: LOGS AND STATS ====
       # https://github.com/wekan/wekan/wiki/Logs
