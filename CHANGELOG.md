@@ -1,3 +1,12 @@
+# Upcoming Wekan relase
+
+This release fixes the following bugs:
+
+- [Fix authentication dropdown](https://github.com/wekan/wekan/pull/2191).
+  Thanks to Akuket.
+
+Thanks to above GitHub users for their contributions, and translators for their translations.
+
 # v2.22 2019-02-13 Wekan release
 
 This release adds the following new features:
