@@ -31,4 +31,7 @@ Template.connectionMethod.helpers({
   authentications() {
     return Template.instance().authenticationMethods.get();
   },
+  isSelected(match) {
+    return Template.instance().data.authenticationMethod === match;
+  },
 });
