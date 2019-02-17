@@ -24,7 +24,7 @@ template(name="userFormsLayout")
     section.auth-dialog
       +Template.dynamic(template=content)
       if currentSetting.displayAuthenticationMethod
-        +connectionMethod
+        +connectionMethod(authenticationMethod=currentSetting.defaultAuthenticationMethod)
       div.at-form-lang
         select.select-lang.js-userform-set-language
           each languages
