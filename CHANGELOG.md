@@ -1,4 +1,4 @@
-# Upcoming Wekan relase
+# v2.23 2019-02-17 Wekan relase
 
 This release fixes the following bugs:
 
