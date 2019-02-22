@@ -569,6 +569,10 @@ Boards.helpers({
   isTemplateBoard() {
     return this.type === 'template-board';
   },
+
+  isTemplatesBoard() {
+    return this.type === 'template-container';
+  },
 });
 
 

@@ -8,10 +8,10 @@ Template.boardListHeaderBar.events({
 
 Template.boardListHeaderBar.helpers({
   templatesBoardId() {
-      return Meteor.user().getTemplatesBoard().id;
+      return Meteor.user().getTemplatesBoardId();
   },
   templatesBoardSlug() {
-      return Meteor.user().getTemplatesBoard().slug;
+      return Meteor.user().getTemplatesBoardSlug();
   },
 });
 

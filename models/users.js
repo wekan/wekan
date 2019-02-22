@@ -166,6 +166,27 @@ Users.attachSchema(new SimpleSchema({
     type: String,
     defaultValue: '',
   },
+  'profile.cardTemplatesSwimlaneId': {
+    /**
+     * Reference to the card templates swimlane Id
+     */
+    type: String,
+    defaultValue: '',
+  },
+  'profile.listTemplatesSwimlaneId': {
+    /**
+     * Reference to the list templates swimlane Id
+     */
+    type: String,
+    defaultValue: '',
+  },
+  'profile.boardTemplatesSwimlaneId': {
+    /**
+     * Reference to the board templates swimlane Id
+     */
+    type: String,
+    defaultValue: '',
+  },
   services: {
     /**
      * services field of the user
@@ -336,11 +357,12 @@ Users.helpers({
     return profile.language || 'en';
   },
 
-  getTemplatesBoard() {
-      return {
-          id: this.profile.templatesBoardId,
-          slug: Boards.findOne(this.profile.templatesBoardId).slug,
-      };
+  getTemplatesBoardId() {
+      return this.profile.templatesBoardId;
+  },
+
+  getTemplatesBoardSlug() {
+      return Boards.findOne(this.profile.templatesBoardId).slug;
   },
 });
 
@@ -731,7 +753,11 @@ if (Meteor.isServer) {
                 boardId,
                 sort: 1,
                 type: 'template-container',
-            }, fakeUser);
+            }, fakeUser, (err, swimlaneId) => {
+
+                // Insert the reference to out card templates swimlane
+                Users.update(fakeUserId.get(), {$set: {'profile.cardTemplatesSwimlaneId': swimlaneId}});
+            });
 
             // Insert the list templates swimlane
             Swimlanes.insert({
@@ -739,7 +765,11 @@ if (Meteor.isServer) {
                 boardId,
                 sort: 2,
                 type: 'template-container',
-            }, fakeUser);
+            }, fakeUser, (err, swimlaneId) => {
+
+                // Insert the reference to out list templates swimlane
+                Users.update(fakeUserId.get(), {$set: {'profile.listTemplatesSwimlaneId': swimlaneId}});
+            });
 
             // Insert the board templates swimlane
             Swimlanes.insert({
@@ -747,7 +777,11 @@ if (Meteor.isServer) {
                 boardId,
                 sort: 3,
                 type: 'template-container',
-            }, fakeUser);
+            }, fakeUser, (err, swimlaneId) => {
+
+                // Insert the reference to out board templates swimlane
+                Users.update(fakeUserId.get(), {$set: {'profile.boardTemplatesSwimlaneId': swimlaneId}});
+            });
         });
       });
     });

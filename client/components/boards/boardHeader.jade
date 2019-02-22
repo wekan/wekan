@@ -96,10 +96,11 @@ template(name="boardHeaderBar")
         i.fa.fa-search
         span {{_ 'search'}}
 
-      a.board-header-btn.js-toggle-board-view(
-        title="{{_ 'board-view'}}")
-        i.fa.fa-th-large
-        span {{_ currentUser.profile.boardView}}
+      unless currentBoard.isTemplatesBoard
+        a.board-header-btn.js-toggle-board-view(
+          title="{{_ 'board-view'}}")
+          i.fa.fa-th-large
+          span {{_ currentUser.profile.boardView}}
 
       if canModifyBoard
         a.board-header-btn.js-multiselection-activate(
@@ -132,7 +133,8 @@ template(name="boardMenuPopup")
       hr
       ul.pop-over-list
         li: a(href="{{exportUrl}}", download="{{exportFilename}}") {{_ 'export-board'}}
-        li: a.js-archive-board {{_ 'archive-board'}}
+        unless currentBoard.isTemplatesBoard
+          li: a.js-archive-board {{_ 'archive-board'}}
         li: a.js-outgoing-webhooks {{_ 'outgoing-webhooks'}}
       hr
       ul.pop-over-list

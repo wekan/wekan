@@ -22,9 +22,10 @@ template(name="swimlaneActionPopup")
   unless currentUser.isCommentOnly
     ul.pop-over-list
        li: a.js-set-swimlane-color {{_ 'select-color'}}
-    hr
-    ul.pop-over-list
-      li: a.js-close-swimlane {{_ 'archive-swimlane'}}
+    unless this.isTemplateContainer
+      hr
+      ul.pop-over-list
+        li: a.js-close-swimlane {{_ 'archive-swimlane'}}
 
 template(name="swimlaneAddPopup")
   unless currentUser.isCommentOnly

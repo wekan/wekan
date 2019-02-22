@@ -125,6 +125,10 @@ Swimlanes.helpers({
   isTemplateSwimlane() {
     return this.type === 'template-swimlane';
   },
+
+  isTemplateContainer() {
+      return this.type === 'template-container';
+  },
 });
 
 Swimlanes.mutations({
