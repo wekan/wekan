@@ -304,6 +304,13 @@ Boards.attachSchema(new SimpleSchema({
     defaultValue: false,
     optional: true,
   },
+  type: {
+    /**
+     * The type of board
+     */
+    type: String,
+    defaultValue: 'board',
+  },
 }));
 
 
@@ -559,6 +566,9 @@ Boards.helpers({
     });
   },
 
+  isTemplateBoard() {
+    return this.type === 'template-board';
+  },
 });
 
 

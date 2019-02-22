@@ -246,7 +246,7 @@ Cards.attachSchema(new SimpleSchema({
      * type of the card
      */
     type: String,
-    defaultValue: '',
+    defaultValue: 'cardType-card',
   },
   linkedId: {
     /**
@@ -929,6 +929,10 @@ Cards.helpers({
     } else  {
       return this.assignedBy;
     }
+  },
+
+  isTemplateCard() {
+    return this.type === 'template-card';
   },
 });
 

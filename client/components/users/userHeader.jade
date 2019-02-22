@@ -21,6 +21,9 @@ template(name="memberMenuPopup")
       li: a.js-go-setting(href="{{pathFor 'setting'}}") {{_ 'admin-panel'}}
   hr
   ul.pop-over-list
+    li: a(href="{{pathFor 'board' id=templatesBoardId slug=templatesBoardSlug}}") {{_ 'templates'}}
+  hr
+  ul.pop-over-list
     li: a.js-logout {{_ 'log-out'}}
 
 template(name="editProfilePopup")

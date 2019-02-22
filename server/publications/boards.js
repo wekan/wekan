@@ -32,6 +32,7 @@ Meteor.publish('boards', function() {
       color: 1,
       members: 1,
       permission: 1,
+      type: 1,
     },
   });
 });

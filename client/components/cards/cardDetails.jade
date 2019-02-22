@@ -247,6 +247,9 @@ template(name="cardDetailsActionsPopup")
       unless archived
         li: a.js-archive {{_ 'archive-card'}}
       li: a.js-more {{_ 'cardMorePopup-title'}}
+    hr
+    ul.pop-over-list
+      li: a.js-template-card {{_ 'cardTemplatePopup-title'}}
 
 template(name="moveCardPopup")
   +boardsAndLists

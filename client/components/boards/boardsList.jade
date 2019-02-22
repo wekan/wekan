@@ -36,3 +36,6 @@ template(name="boardListHeaderBar")
     a.board-header-btn.js-open-archived-board
       i.fa.fa-archive
       span {{_ 'archives'}}
+    a.board-header-btn(href="{{pathFor 'board' id=templatesBoardId slug=templatesBoardSlug}}")
+      i.fa.fa-clone
+      span {{_ 'templates'}}

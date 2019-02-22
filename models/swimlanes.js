@@ -78,6 +78,13 @@ Swimlanes.attachSchema(new SimpleSchema({
       }
     },
   },
+  type: {
+    /**
+     * The type of swimlane
+     */
+    type: String,
+    defaultValue: 'swimlane',
+  },
 }));
 
 Swimlanes.allow({
@@ -113,6 +120,10 @@ Swimlanes.helpers({
     if (this.color)
       return this.color;
     return '';
+  },
+
+  isTemplateSwimlane() {
+    return this.type === 'template-swimlane';
   },
 });
 

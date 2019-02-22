@@ -159,6 +159,13 @@ Users.attachSchema(new SimpleSchema({
       'board-view-cal',
     ],
   },
+  'profile.templatesBoardId': {
+    /**
+     * Reference to the templates board
+     */
+    type: String,
+    defaultValue: '',
+  },
   services: {
     /**
      * services field of the user
@@ -327,6 +334,13 @@ Users.helpers({
   getLanguage() {
     const profile = this.profile || {};
     return profile.language || 'en';
+  },
+
+  getTemplatesBoard() {
+      return {
+          id: this.profile.templatesBoardId,
+          slug: Boards.findOne(this.profile.templatesBoardId).slug,
+      };
   },
 });
 
@@ -700,6 +714,40 @@ if (Meteor.isServer) {
           ['welcome-list1', 'welcome-list2'].forEach((title, titleIndex) => {
             Lists.insert({title: TAPi18n.__(title), boardId, sort: titleIndex}, fakeUser);
           });
+        });
+
+        Boards.insert({
+          title: TAPi18n.__('templates-board'),
+          permission: 'private',
+          type: 'template-container'
+        }, fakeUser, (err, boardId) => {
+
+            // Insert the reference to our templates board
+            Users.update(fakeUserId.get(), {$set: {'profile.templatesBoardId': boardId}});
+
+            // Insert the card templates swimlane
+            Swimlanes.insert({
+                title: TAPi18n.__('card-templates-swimlane'),
+                boardId,
+                sort: 1,
+                type: 'template-container',
+            }, fakeUser);
+
+            // Insert the list templates swimlane
+            Swimlanes.insert({
+                title: TAPi18n.__('list-templates-swimlane'),
+                boardId,
+                sort: 2,
+                type: 'template-container',
+            }, fakeUser);
+
+            // Insert the board templates swimlane
+            Swimlanes.insert({
+                title: TAPi18n.__('board-templates-swimlane'),
+                boardId,
+                sort: 3,
+                type: 'template-container',
+            }, fakeUser);
         });
       });
     });

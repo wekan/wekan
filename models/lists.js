@@ -107,6 +107,13 @@ Lists.attachSchema(new SimpleSchema({
       'saddlebrown', 'paleturquoise', 'mistyrose', 'indigo',
     ],
   },
+  type: {
+    /**
+     * The type of list
+     */
+    type: String,
+    defaultValue: 'list',
+  },
 }));
 
 Lists.allow({
@@ -168,6 +175,10 @@ Lists.helpers({
     if (this.color)
       return this.color;
     return '';
+  },
+
+  isTemplateList() {
+    return this.type === 'template-list';
   },
 });
 
