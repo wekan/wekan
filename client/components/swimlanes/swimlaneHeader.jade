@@ -40,6 +40,11 @@ template(name="swimlaneAddPopup")
         autocomplete="off" autofocus)
       .edit-controls.clearfix
         button.primary.confirm(type="submit") {{_ 'add'}}
+        unless currentBoard.isTemplatesBoard
+          unless currentBoard.isTemplateBoard
+            span.quiet
+              | {{_ 'or'}}
+              a.js-swimlane-template {{_ 'template'}}
 
 template(name="setSwimlaneColorPopup")
   form.edit-label

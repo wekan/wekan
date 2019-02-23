@@ -365,9 +365,6 @@ Template.cardDetailsActionsPopup.events({
       if (!err && ret) Popup.close();
     });
   },
-  'click .js-template-card' () {
-      console.log('REMOVE Creating template card');
-  },
 });
 
 Template.editCardTitleForm.onRendered(function () {

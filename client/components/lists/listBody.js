@@ -315,8 +315,8 @@ BlazeComponent.extendComponent({
     return [{
       keydown: this.pressKey,
       'click .js-link': Popup.open('linkCard'),
-      'click .js-search': Popup.open('searchCard'),
-      'click .js-search-template': Popup.open('searchCard'),
+      'click .js-search': Popup.open('searchElement'),
+      'click .js-card-template': Popup.open('searchElement'),
     }];
   },
 
@@ -526,7 +526,7 @@ BlazeComponent.extendComponent({
   onCreated() {
     this.isCardTemplateSearch = $(Popup._getTopStack().openerElement).hasClass('js-card-template');
     this.isListTemplateSearch = $(Popup._getTopStack().openerElement).hasClass('js-list-template');
-    this.isSwimlaneTemplateSearch = $(Popup._getTopStack().openerElement).hasClass('js-swimlane-template');
+    this.isSwimlaneTemplateSearch = $(Popup._getTopStack().openerElement).hasClass('js-open-add-swimlane-menu');
     this.isTemplateSearch = this.isCardTemplateSearch || this.isListTemplateSearch || this.isSwimlaneTemplateSearch;
     let board = {};
     if (this.isTemplateSearch) {
@@ -551,14 +551,13 @@ BlazeComponent.extendComponent({
     this.boardId = Session.get('currentBoard');
     // In order to get current board info
     subManager.subscribe('board', this.boardId);
-    board = Boards.findOne(this.boardId);
     // List where to insert card
     const list = $(Popup._getTopStack().openerElement).closest('.js-list');
     this.listId = Blaze.getData(list[0])._id;
     // Swimlane where to insert card
-    const swimlane = $(Popup._getTopStack().openerElement).closest('.js-swimlane');
+    const swimlane = $(Popup._getTopStack().openerElement).parents('.js-swimlane');
     this.swimlaneId = '';
-    if (board.view === 'board-view-swimlanes')
+    if (Meteor.user().profile.boardView === 'board-view-swimlanes')
       this.swimlaneId = Blaze.getData(swimlane[0])._id;
     else
       this.swimlaneId = Swimlanes.findOne({boardId: this.boardId})._id;
@@ -606,7 +605,6 @@ BlazeComponent.extendComponent({
       'click .js-minicard'(evt) {
         // 0. Common
         let element = Blaze.getData(evt.currentTarget);
-        console.log(element);
         element.boardId = this.boardId;
         let _id = '';
         if (!this.isTemplateSearch || this.isCardTemplateSearch) {
@@ -630,14 +628,17 @@ BlazeComponent.extendComponent({
           Filter.addException(_id);
         // List insertion
         } else if (this.isListTemplateSearch) {
-            element.swimlaneId = '';
             element.sort = Swimlanes.findOne(this.swimlaneId).lists().count();
             element.type = 'list';
             element.swimlaneId = this.swimlaneId;
+            _id = element.copy();
+        } else if (this.isSwimlaneTemplateSearch) {
+            element.sort = Boards.findOne(this.boardId).swimlanes().count();
+            element.type = 'swimlalne';
             _id = element.copy();
         }
         Popup.close();
       },
     }];
   },
-}).register('searchCardPopup');
+}).register('searchElementPopup');

@@ -101,6 +101,23 @@ Swimlanes.allow({
 });
 
 Swimlanes.helpers({
+  copy() {
+      const oldId = this._id;
+      this._id = null;
+      const _id = Swimlanes.insert(this);
+
+      // Copy all lists in swimlane
+      Lists.find({
+          swimlaneId: oldId,
+          archived: false,
+      }).forEach((list) => {
+          list.type = 'list';
+          list.swimlaneId = _id;
+          list.boardId = this.boardId;
+          list.copy();
+      });
+  },
+
   cards() {
     return Cards.find(Filter.mongoSelector({
       swimlaneId: this._id,
@@ -113,6 +130,10 @@ Swimlanes.helpers({
         swimlaneId: this._id,
         archived: false,
     }), { sort: ['sort'] });
+  },
+
+  allLists() {
+    return Lists.find({ swimlaneId: this._id });
   },
 
   allCards() {
@@ -159,10 +180,20 @@ Swimlanes.mutations({
   },
 
   archive() {
+    if (this.isTemplateSwimlane()) {
+      this.lists().forEach((list) => {
+          return list.archive();
+      });
+    }
     return { $set: { archived: true } };
   },
 
   restore() {
+    if (this.isTemplateSwimlane()) {
+      this.allLists().forEach((list) => {
+          return list.restore();
+      });
+    }
     return { $set: { archived: false } };
   },
 

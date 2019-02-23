@@ -154,8 +154,8 @@ BlazeComponent.extendComponent({
 
 BlazeComponent.extendComponent({
   onCreated() {
-    currentBoard = Boards.findOne(Session.get('currentBoard'));
-    this.isListTemplatesSwimlane = currentBoard.isTemplatesBoard() && this.currentData().isListTemplatesSwimlane();
+    this.currentBoard = Boards.findOne(Session.get('currentBoard'));
+    this.isListTemplatesSwimlane = this.currentBoard.isTemplatesBoard() && this.currentData().isListTemplatesSwimlane();
     this.currentSwimlane = this.currentData();
   },
 
@@ -176,14 +176,14 @@ BlazeComponent.extendComponent({
             boardId: Session.get('currentBoard'),
             sort: $('.list').length,
             type: (this.isListTemplatesSwimlane)?'template-list':'list',
-            swimlaneId: (this.isListTemplatesSwimlane)?this.currentSwimlane._id:'',
+            swimlaneId: (this.currentBoard.isTemplatesBoard())?this.currentSwimlane._id:'',
           });
 
           titleInput.value = '';
           titleInput.focus();
         }
       },
-      'click .js-list-template': Popup.open('searchCard'),
+      'click .js-list-template': Popup.open('searchElement'),
     }];
   },
 }).register('addListForm');

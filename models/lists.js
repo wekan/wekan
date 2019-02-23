@@ -139,8 +139,17 @@ Lists.allow({
 Lists.helpers({
   copy() {
       const oldId = this._id;
-      this._id = null;
-      const _id = Lists.insert(this);
+      let _id = null;
+      existingListWithSameName = Lists.findOne({
+          boardId: this.boardId,
+          title: this.title,
+      });
+      if (existingListWithSameName) {
+          _id = existingListWithSameName._id;
+      } else {
+        this._id = null;
+        _id = Lists.insert(this);
+      }
 
       // Copy all cards in list
       Cards.find({
@@ -213,23 +222,20 @@ Lists.mutations({
   },
 
   archive() {
-    Cards.find({
-        listId: this._id,
-        archived: false,
-    }).forEach((card) => {
-        return card.archive();
-    });
+    if (this.isTemplateList()) {
+      this.cards().forEach((card) => {
+          return card.archive();
+      });
+    }
     return { $set: { archived: true } };
   },
 
   restore() {
-    cardsToRestore = Cards.find({
-        listId: this._id,
-        archived: true,
-    });
-    cardsToRestore.forEach((card) => {
-        card.restore();
-    });
+    if (this.isTemplateList()) {
+      this.allCards().forEach((card) => {
+          return card.restore();
+      });
+    }
     return { $set: { archived: false } };
   },
 

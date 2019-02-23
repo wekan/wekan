@@ -91,7 +91,7 @@ template(name="linkCardPopup")
     unless isSandstorm
       input.primary.confirm.js-done(type="button" value="{{_ 'link'}}")
 
-template(name="searchCardPopup")
+template(name="searchElementPopup")
   unless isTemplateSearch
     label {{_ 'boards'}}:
     .link-board-wrapper
@@ -110,6 +110,9 @@ template(name="searchCardPopup")
         if isSwimlaneTemplateSearch
           a.minicard-wrapper.js-minicard
             +miniswimlane(this)
+        if isCardTemplateSearch
+          a.minicard-wrapper.js-minicard
+            +minicard(this)
         unless isTemplateSearch
           a.minicard-wrapper.js-minicard
             +minicard(this)

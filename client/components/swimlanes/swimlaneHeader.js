@@ -65,6 +65,7 @@ BlazeComponent.extendComponent({
         // with a minimum of interactions
         Popup.close();
       },
+      'click .js-swimlane-template': Popup.open('searchElement'),
     }];
   },
 }).register('swimlaneAddPopup');

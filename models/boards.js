@@ -463,6 +463,30 @@ Boards.helpers({
     return _id;
   },
 
+  searchSwimlanes(term) {
+    check(term, Match.OneOf(String, null, undefined));
+
+    const query = { boardId: this._id };
+    if (this.isTemplatesBoard()) {
+      query.type = 'template-swimlane';
+      query.archived = false;
+    } else {
+        query.type = {$nin: ['template-swimlane']};
+    }
+    const projection = { limit: 10, sort: { createdAt: -1 } };
+
+    if (term) {
+      const regex = new RegExp(term, 'i');
+
+      query.$or = [
+        { title: regex },
+        { description: regex },
+      ];
+    }
+
+    return Swimlanes.find(query, projection);
+  },
+
   searchLists(term) {
     check(term, Match.OneOf(String, null, undefined));
 
