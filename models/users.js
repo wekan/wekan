@@ -739,7 +739,7 @@ if (Meteor.isServer) {
         });
 
         Boards.insert({
-          title: TAPi18n.__('templates-board'),
+          title: TAPi18n.__('templates'),
           permission: 'private',
           type: 'template-container'
         }, fakeUser, (err, boardId) => {

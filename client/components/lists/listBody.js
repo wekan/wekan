@@ -67,29 +67,47 @@ BlazeComponent.extendComponent({
     const labelIds = formComponent.labels.get();
     const customFields = formComponent.customFields.get();
 
-    const boardId = this.data().board();
+    const board = this.data().board();
+    let linkedId = '';
     let swimlaneId = '';
     const boardView = Meteor.user().profile.boardView;
     let cardType = 'cardType-card';
-    if (this.data().board().isTemplatesBoard()) {
-      swimlaneId = this.parentComponent().parentComponent().data()._id; // Always swimlanes view
-      cardType = (Swimlanes.findOne(swimlaneId).isCardTemplatesSwimlane())?'template-card':'cardType-card';
-    } else if (boardView === 'board-view-swimlanes')
-      swimlaneId = this.parentComponent().parentComponent().data()._id;
-    else if ((boardView === 'board-view-lists') || (boardView === 'board-view-cal'))
-      swimlaneId = boardId.getDefaultSwimline()._id;
-
     if (title) {
+      if (board.isTemplatesBoard()) {
+        swimlaneId = this.parentComponent().parentComponent().data()._id; // Always swimlanes view
+        const swimlane = Swimlanes.findOne(swimlaneId);
+        // If this is the card templates swimlane, insert a card template
+        if (swimlane.isCardTemplatesSwimlane())
+          cardType = 'template-card';
+        // If this is the board templates swimlane, insert a board template and a linked card
+        else if (swimlane.isBoardTemplatesSwimlane()) {
+            linkedId = Boards.insert({
+                title,
+                permission: 'private',
+                type: 'template-board',
+            });
+            Swimlanes.insert({
+                title: TAPi18n.__('default'),
+                boardId: linkedId,
+            });
+            cardType = 'cardType-linkedBoard';
+        }
+      } else if (boardView === 'board-view-swimlanes')
+        swimlaneId = this.parentComponent().parentComponent().data()._id;
+      else if ((boardView === 'board-view-lists') || (boardView === 'board-view-cal'))
+        swimlaneId = board.getDefaultSwimline()._id;
+
       const _id = Cards.insert({
         title,
         members,
         labelIds,
         customFields,
         listId: this.data()._id,
-        boardId: boardId._id,
+        boardId: board._id,
         sort: sortIndex,
         swimlaneId,
         type: cardType,
+        linkedId,
       });
 
       // if the displayed card count is less than the total cards in the list,

@@ -1,15 +1,21 @@
 template(name="swimlaneHeader")
   .swimlane-header-wrap.js-swimlane-header(class='{{#if colorClass}}swimlane-{{colorClass}}{{/if}}')
-    +inlinedForm
-      +editSwimlaneTitleForm
+    if this.isTemplateContainer
+        +swimlaneFixedHeader(this)
     else
-      .swimlane-header(
-        class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
-        = title
-      .swimlane-header-menu
-        unless currentUser.isCommentOnly
-          a.fa.fa-plus.js-open-add-swimlane-menu.swimlane-header-plus-icon
-          a.fa.fa-navicon.js-open-swimlane-menu
+      +inlinedForm
+        +editSwimlaneTitleForm
+      else
+        +swimlaneFixedHeader(this)
+
+template(name="swimlaneFixedHeader")
+  .swimlane-header(
+    class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
+    = title
+  .swimlane-header-menu
+    unless currentUser.isCommentOnly
+      a.fa.fa-plus.js-open-add-swimlane-menu.swimlane-header-plus-icon
+      a.fa.fa-navicon.js-open-swimlane-menu
 
 template(name="editSwimlaneTitleForm")
   .list-composer

@@ -46,13 +46,14 @@ template(name="addCardForm")
     button.primary.confirm(type="submit") {{_ 'add'}}
     unless isSandstorm
       unless currentBoard.isTemplatesBoard
-        span.quiet
-          | {{_ 'or'}}
-          a.js-link {{_ 'link'}}
-        span.quiet
-          | &nbsp;
-          | /
-          a.js-search {{_ 'search'}}
+        unless currentBoard.isTemplateBoard
+          span.quiet
+            | {{_ 'or'}}
+            a.js-link {{_ 'link'}}
+          span.quiet
+            | &nbsp;
+            | /
+            a.js-search {{_ 'search'}}
 
 template(name="autocompleteLabelLine")
   .minicard-label(class="card-label-{{colorName}}" title=labelName)

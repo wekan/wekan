@@ -168,8 +168,8 @@ BlazeComponent.extendComponent({
         evt.preventDefault();
         const titleInput = this.find('.list-name-input');
         const title = titleInput.value.trim();
-        const listType = (this.currentSwimlane.isListTemplatesSwimlane())?'template-list':'list';
         if (title) {
+          const listType = (this.currentSwimlane.isListTemplatesSwimlane())?'template-list':'list';
           Lists.insert({
             title,
             boardId: Session.get('currentBoard'),

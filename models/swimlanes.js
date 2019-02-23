@@ -149,7 +149,7 @@ Swimlanes.helpers({
 
   isBoardTemplatesSwimlane() {
       const user = Users.findOne(Meteor.userId());
-      return user.profile.boardsTemplatesSwimlaneId === this._id;
+      return user.profile.boardTemplatesSwimlaneId === this._id;
   },
 });
 
