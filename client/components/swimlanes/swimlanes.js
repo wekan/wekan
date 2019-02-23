@@ -153,6 +153,10 @@ BlazeComponent.extendComponent({
 }).register('swimlane');
 
 BlazeComponent.extendComponent({
+  onCreated() {
+    this.currentSwimlane = this.currentData();
+  },
+
   // Proxy
   open() {
     this.childComponents('inlinedForm')[0].open();
@@ -164,11 +168,14 @@ BlazeComponent.extendComponent({
         evt.preventDefault();
         const titleInput = this.find('.list-name-input');
         const title = titleInput.value.trim();
+        const listType = (this.currentSwimlane.isListTemplatesSwimlane())?'template-list':'list';
         if (title) {
           Lists.insert({
             title,
             boardId: Session.get('currentBoard'),
             sort: $('.list').length,
+            type: listType,
+            swimlaneId: this.currentSwimlane._id,
           });
 
           titleInput.value = '';

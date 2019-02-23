@@ -70,7 +70,11 @@ BlazeComponent.extendComponent({
     const boardId = this.data().board();
     let swimlaneId = '';
     const boardView = Meteor.user().profile.boardView;
-    if (boardView === 'board-view-swimlanes')
+    let cardType = 'cardType-card';
+    if (this.data().board().isTemplatesBoard()) {
+      swimlaneId = this.parentComponent().parentComponent().data()._id; // Always swimlanes view
+      cardType = (Swimlanes.findOne(swimlaneId).isCardTemplatesSwimlane())?'template-card':'cardType-card';
+    } else if (boardView === 'board-view-swimlanes')
       swimlaneId = this.parentComponent().parentComponent().data()._id;
     else if ((boardView === 'board-view-lists') || (boardView === 'board-view-cal'))
       swimlaneId = boardId.getDefaultSwimline()._id;
@@ -85,7 +89,7 @@ BlazeComponent.extendComponent({
         boardId: boardId._id,
         sort: sortIndex,
         swimlaneId,
-        type: 'cardType-card',
+        type: cardType,
       });
 
       // if the displayed card count is less than the total cards in the list,
@@ -149,7 +153,8 @@ BlazeComponent.extendComponent({
 
   idOrNull(swimlaneId) {
     const currentUser = Meteor.user();
-    if (currentUser.profile.boardView === 'board-view-swimlanes')
+    if (currentUser.profile.boardView === 'board-view-swimlanes'
+        || this.data().board().isTemplatesBoard())
       return swimlaneId;
     return undefined;
   },

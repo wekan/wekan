@@ -27,6 +27,13 @@ Lists.attachSchema(new SimpleSchema({
      */
     type: String,
   },
+  swimlaneId: {
+    /**
+     * the swimalen associated to this list. Used for templates
+     */
+    type: String,
+    defaultValue: '',
+  },
   createdAt: {
     /**
      * creation date

@@ -10,6 +10,13 @@ template(name="swimlane")
           +miniList(this)
         if currentUser.isBoardMember
           +addListForm
+    else if currentBoard.isTemplatesBoard
+      each lists
+        +list(this)
+        if currentCardIsInThisList _id ../_id
+          +cardDetails(currentCard)
+      if currentUser.isBoardMember
+        +addListForm
     else
       each currentBoard.lists
         +list(this)

@@ -108,6 +108,13 @@ Swimlanes.helpers({
     }), { sort: ['sort'] });
   },
 
+  lists() {
+    return Lists.find(Filter.mongoSelector({
+        swimlaneId: this._id,
+        archived: false,
+    }), { sort: ['sort'] });
+  },
+
   allCards() {
     return Cards.find({ swimlaneId: this._id });
   },
@@ -128,6 +135,21 @@ Swimlanes.helpers({
 
   isTemplateContainer() {
       return this.type === 'template-container';
+  },
+
+  isListTemplatesSwimlane() {
+      const user = Users.findOne(Meteor.userId());
+      return user.profile.listTemplatesSwimlaneId === this._id;
+  },
+
+  isCardTemplatesSwimlane() {
+      const user = Users.findOne(Meteor.userId());
+      return user.profile.cardTemplatesSwimlaneId === this._id;
+  },
+
+  isBoardTemplatesSwimlane() {
+      const user = Users.findOne(Meteor.userId());
+      return user.profile.boardsTemplatesSwimlaneId === this._id;
   },
 });
 
