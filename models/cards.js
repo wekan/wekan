@@ -273,28 +273,28 @@ Cards.allow({
 
 Cards.helpers({
   copy() {
-      const oldId = this._id;
-      this._id = null;
-      const _id = Cards.insert(this);
+    const oldId = this._id;
+    this._id = null;
+    const _id = Cards.insert(this);
 
-      // copy checklists
-      Checklists.find({cardId: oldId}).forEach((ch) => {
-          ch.copy(_id);
-      });
+    // copy checklists
+    Checklists.find({cardId: oldId}).forEach((ch) => {
+      ch.copy(_id);
+    });
 
-      // copy subtasks
-      Cards.find({parentId: oldId}).forEach((subtask) => {
-        subtask.parentId = _id;
-        subtask._id = null;
-        Cards.insert(subtask);
-      });
+    // copy subtasks
+    Cards.find({parentId: oldId}).forEach((subtask) => {
+      subtask.parentId = _id;
+      subtask._id = null;
+      Cards.insert(subtask);
+    });
 
-      // copy card comments
-      CardComments.find({cardId: oldId}).forEach((cmt) => {
-          cmt.copy(_id);
-      });
+    // copy card comments
+    CardComments.find({cardId: oldId}).forEach((cmt) => {
+      cmt.copy(_id);
+    });
 
-      return _id;
+    return _id;
   },
 
   list() {
@@ -1259,7 +1259,7 @@ Cards.mutations({
 
 function cardMove(userId, doc, fieldNames, oldListId, oldSwimlaneId) {
   if ((_.contains(fieldNames, 'listId') && doc.listId !== oldListId) ||
-      (_.contains(fieldNames, 'swimlaneId') && doc.swimlaneId !== oldSwimlaneId)){
+    (_.contains(fieldNames, 'swimlaneId') && doc.swimlaneId !== oldSwimlaneId)){
     Activities.insert({
       userId,
       oldListId,

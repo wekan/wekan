@@ -471,7 +471,7 @@ Boards.helpers({
       query.type = 'template-swimlane';
       query.archived = false;
     } else {
-        query.type = {$nin: ['template-swimlane']};
+      query.type = {$nin: ['template-swimlane']};
     }
     const projection = { limit: 10, sort: { createdAt: -1 } };
 
@@ -495,7 +495,7 @@ Boards.helpers({
       query.type = 'template-list';
       query.archived = false;
     } else {
-        query.type = {$nin: ['template-list']};
+      query.type = {$nin: ['template-list']};
     }
     const projection = { limit: 10, sort: { createdAt: -1 } };
 
@@ -522,7 +522,7 @@ Boards.helpers({
       query.type = 'template-card';
       query.archived = false;
     } else {
-        query.type = {$nin: ['template-card']};
+      query.type = {$nin: ['template-card']};
     }
     const projection = { limit: 10, sort: { createdAt: -1 } };
 
@@ -975,7 +975,7 @@ if (Meteor.isServer) {
    * @param {string} userId the ID of the user to retrieve the data
    * @return_type [{_id: string,
                     title: string}]
-   */
+                    */
   JsonRoutes.add('GET', '/api/users/:userId/boards', function (req, res) {
     try {
       Authentication.checkLoggedIn(req.userId);
@@ -1012,7 +1012,7 @@ if (Meteor.isServer) {
    *
    * @return_type [{_id: string,
                     title: string}]
-   */
+                    */
   JsonRoutes.add('GET', '/api/boards', function (req, res) {
     try {
       Authentication.checkUserId(req.userId);
@@ -1083,7 +1083,7 @@ if (Meteor.isServer) {
    *
    * @return_type {_id: string,
                    defaultSwimlaneId: string}
-   */
+                   */
   JsonRoutes.add('POST', '/api/boards', function (req, res) {
     try {
       Authentication.checkUserId(req.userId);

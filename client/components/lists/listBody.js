@@ -81,16 +81,16 @@ BlazeComponent.extendComponent({
           cardType = 'template-card';
         // If this is the board templates swimlane, insert a board template and a linked card
         else if (swimlane.isBoardTemplatesSwimlane()) {
-            linkedId = Boards.insert({
-                title,
-                permission: 'private',
-                type: 'template-board',
-            });
-            Swimlanes.insert({
-                title: TAPi18n.__('default'),
-                boardId: linkedId,
-            });
-            cardType = 'cardType-linkedBoard';
+          linkedId = Boards.insert({
+            title,
+            permission: 'private',
+            type: 'template-board',
+          });
+          Swimlanes.insert({
+            title: TAPi18n.__('default'),
+            boardId: linkedId,
+          });
+          cardType = 'cardType-linkedBoard';
         }
       } else if (boardView === 'board-view-swimlanes')
         swimlaneId = this.parentComponent().parentComponent().data()._id;
@@ -149,9 +149,9 @@ BlazeComponent.extendComponent({
       const methodName = evt.shiftKey ? 'toggleRange' : 'toggle';
       MultiSelection[methodName](this.currentData()._id);
 
-    // If the card is already selected, we want to de-select it.
-    // XXX We should probably modify the minicard href attribute instead of
-    // overwriting the event in case the card is already selected.
+      // If the card is already selected, we want to de-select it.
+      // XXX We should probably modify the minicard href attribute instead of
+      // overwriting the event in case the card is already selected.
     } else if (Session.equals('currentCard', this.currentData()._id)) {
       evt.stopImmediatePropagation();
       evt.preventDefault();
@@ -171,8 +171,8 @@ BlazeComponent.extendComponent({
 
   idOrNull(swimlaneId) {
     const currentUser = Meteor.user();
-    if (currentUser.profile.boardView === 'board-view-swimlanes'
-        || this.data().board().isTemplatesBoard())
+    if (currentUser.profile.boardView === 'board-view-swimlanes' ||
+        this.data().board().isTemplatesBoard())
       return swimlaneId;
     return undefined;
   },
@@ -292,8 +292,8 @@ BlazeComponent.extendComponent({
       // work.
       $form.find('button[type=submit]').click();
 
-    // Pressing Tab should open the form of the next column, and Maj+Tab go
-    // in the reverse order
+      // Pressing Tab should open the form of the next column, and Maj+Tab go
+      // in the reverse order
     } else if (evt.keyCode === 9) {
       evt.preventDefault();
       const isReverse = evt.shiftKey;
@@ -354,7 +354,7 @@ BlazeComponent.extendComponent({
           const currentBoard = Boards.findOne(Session.get('currentBoard'));
           callback($.map(currentBoard.labels, (label) => {
             if (label.name.indexOf(term) > -1 ||
-                label.color.indexOf(term) > -1) {
+              label.color.indexOf(term) > -1) {
               return label;
             }
             return null;
@@ -530,7 +530,7 @@ BlazeComponent.extendComponent({
     this.isTemplateSearch = this.isCardTemplateSearch || this.isListTemplateSearch || this.isSwimlaneTemplateSearch;
     let board = {};
     if (this.isTemplateSearch) {
-        board = Boards.findOne(Meteor.user().profile.templatesBoardId);
+      board = Boards.findOne(Meteor.user().profile.templatesBoardId);
     } else {
       // Prefetch first non-current board id
       board = Boards.findOne({
@@ -582,13 +582,13 @@ BlazeComponent.extendComponent({
     }
     const board = Boards.findOne(this.selectedBoardId.get());
     if (!this.isTemplateSearch || this.isCardTemplateSearch) {
-        return board.searchCards(this.term.get(), false);
+      return board.searchCards(this.term.get(), false);
     } else if (this.isListTemplateSearch) {
-        return board.searchLists(this.term.get());
+      return board.searchLists(this.term.get());
     } else if (this.isSwimlaneTemplateSearch) {
-        return board.searchSwimlanes(this.term.get());
+      return board.searchSwimlanes(this.term.get());
     } else {
-        return [];
+      return [];
     }
   },
 
@@ -604,7 +604,7 @@ BlazeComponent.extendComponent({
       },
       'click .js-minicard'(evt) {
         // 0. Common
-        let element = Blaze.getData(evt.currentTarget);
+        const element = Blaze.getData(evt.currentTarget);
         element.boardId = this.boardId;
         let _id = '';
         if (!this.isTemplateSearch || this.isCardTemplateSearch) {
@@ -615,27 +615,27 @@ BlazeComponent.extendComponent({
           element.sort = Lists.findOne(this.listId).cards().count();
           // 1.A From template
           if (this.isTemplateSearch) {
-              element.type = 'cardType-card';
-              element.linkedId = '';
-              _id = element.copy();
-          // 1.B Linked card
+            element.type = 'cardType-card';
+            element.linkedId = '';
+            _id = element.copy();
+            // 1.B Linked card
           } else {
-              element._id = null;
-              element.type = 'cardType-linkedCard';
-              element.linkedId = element.linkedId || element._id;
-              _id = Cards.insert(element);
+            element._id = null;
+            element.type = 'cardType-linkedCard';
+            element.linkedId = element.linkedId || element._id;
+            _id = Cards.insert(element);
           }
           Filter.addException(_id);
-        // List insertion
+          // List insertion
         } else if (this.isListTemplateSearch) {
-            element.sort = Swimlanes.findOne(this.swimlaneId).lists().count();
-            element.type = 'list';
-            element.swimlaneId = this.swimlaneId;
-            _id = element.copy();
+          element.sort = Swimlanes.findOne(this.swimlaneId).lists().count();
+          element.type = 'list';
+          element.swimlaneId = this.swimlaneId;
+          _id = element.copy();
         } else if (this.isSwimlaneTemplateSearch) {
-            element.sort = Boards.findOne(this.boardId).swimlanes().count();
-            element.type = 'swimlalne';
-            _id = element.copy();
+          element.sort = Boards.findOne(this.boardId).swimlanes().count();
+          element.type = 'swimlalne';
+          _id = element.copy();
         }
         Popup.close();
       },

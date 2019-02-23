@@ -138,30 +138,30 @@ Lists.allow({
 
 Lists.helpers({
   copy() {
-      const oldId = this._id;
-      let _id = null;
-      existingListWithSameName = Lists.findOne({
-          boardId: this.boardId,
-          title: this.title,
-      });
-      if (existingListWithSameName) {
-          _id = existingListWithSameName._id;
-      } else {
-        this._id = null;
-        _id = Lists.insert(this);
-      }
+    const oldId = this._id;
+    let _id = null;
+    existingListWithSameName = Lists.findOne({
+      boardId: this.boardId,
+      title: this.title,
+    });
+    if (existingListWithSameName) {
+      _id = existingListWithSameName._id;
+    } else {
+      this._id = null;
+      _id = Lists.insert(this);
+    }
 
-      // Copy all cards in list
-      Cards.find({
-          listId: oldId,
-          archived: false,
-      }).forEach((card) => {
-          card.type = 'cardType-card';
-          card.listId = _id;
-          card.boardId = this.boardId;
-          card.swimlaneId = this.swimlaneId;
-          card.copy();
-      });
+    // Copy all cards in list
+    Cards.find({
+      listId: oldId,
+      archived: false,
+    }).forEach((card) => {
+      card.type = 'cardType-card';
+      card.listId = _id;
+      card.boardId = this.boardId;
+      card.swimlaneId = this.swimlaneId;
+      card.copy();
+    });
   },
 
   cards(swimlaneId) {
@@ -224,7 +224,7 @@ Lists.mutations({
   archive() {
     if (this.isTemplateList()) {
       this.cards().forEach((card) => {
-          return card.archive();
+        return card.archive();
       });
     }
     return { $set: { archived: true } };
@@ -233,7 +233,7 @@ Lists.mutations({
   restore() {
     if (this.isTemplateList()) {
       this.allCards().forEach((card) => {
-          return card.restore();
+        return card.restore();
       });
     }
     return { $set: { archived: false } };

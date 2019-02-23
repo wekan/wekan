@@ -358,11 +358,11 @@ Users.helpers({
   },
 
   getTemplatesBoardId() {
-      return this.profile.templatesBoardId;
+    return this.profile.templatesBoardId;
   },
 
   getTemplatesBoardSlug() {
-      return Boards.findOne(this.profile.templatesBoardId).slug;
+    return Boards.findOne(this.profile.templatesBoardId).slug;
   },
 });
 
@@ -741,47 +741,47 @@ if (Meteor.isServer) {
         Boards.insert({
           title: TAPi18n.__('templates'),
           permission: 'private',
-          type: 'template-container'
+          type: 'template-container',
         }, fakeUser, (err, boardId) => {
 
-            // Insert the reference to our templates board
-            Users.update(fakeUserId.get(), {$set: {'profile.templatesBoardId': boardId}});
+          // Insert the reference to our templates board
+          Users.update(fakeUserId.get(), {$set: {'profile.templatesBoardId': boardId}});
 
-            // Insert the card templates swimlane
-            Swimlanes.insert({
-                title: TAPi18n.__('card-templates-swimlane'),
-                boardId,
-                sort: 1,
-                type: 'template-container',
-            }, fakeUser, (err, swimlaneId) => {
+          // Insert the card templates swimlane
+          Swimlanes.insert({
+            title: TAPi18n.__('card-templates-swimlane'),
+            boardId,
+            sort: 1,
+            type: 'template-container',
+          }, fakeUser, (err, swimlaneId) => {
 
-                // Insert the reference to out card templates swimlane
-                Users.update(fakeUserId.get(), {$set: {'profile.cardTemplatesSwimlaneId': swimlaneId}});
-            });
+            // Insert the reference to out card templates swimlane
+            Users.update(fakeUserId.get(), {$set: {'profile.cardTemplatesSwimlaneId': swimlaneId}});
+          });
 
-            // Insert the list templates swimlane
-            Swimlanes.insert({
-                title: TAPi18n.__('list-templates-swimlane'),
-                boardId,
-                sort: 2,
-                type: 'template-container',
-            }, fakeUser, (err, swimlaneId) => {
+          // Insert the list templates swimlane
+          Swimlanes.insert({
+            title: TAPi18n.__('list-templates-swimlane'),
+            boardId,
+            sort: 2,
+            type: 'template-container',
+          }, fakeUser, (err, swimlaneId) => {
 
-                // Insert the reference to out list templates swimlane
-                Users.update(fakeUserId.get(), {$set: {'profile.listTemplatesSwimlaneId': swimlaneId}});
-            });
+            // Insert the reference to out list templates swimlane
+            Users.update(fakeUserId.get(), {$set: {'profile.listTemplatesSwimlaneId': swimlaneId}});
+          });
 
-            // Insert the board templates swimlane
-            Swimlanes.insert({
-                title: TAPi18n.__('board-templates-swimlane'),
-                boardId,
-                sort: 3,
-                type: 'template-container',
-            }, fakeUser, (err, swimlaneId) => {
+          // Insert the board templates swimlane
+          Swimlanes.insert({
+            title: TAPi18n.__('board-templates-swimlane'),
+            boardId,
+            sort: 3,
+            type: 'template-container',
+          }, fakeUser, (err, swimlaneId) => {
 
-                // Insert the reference to out board templates swimlane
-                Users.update(fakeUserId.get(), {$set: {'profile.boardTemplatesSwimlaneId': swimlaneId}});
-            });
+            // Insert the reference to out board templates swimlane
+            Users.update(fakeUserId.get(), {$set: {'profile.boardTemplatesSwimlaneId': swimlaneId}});
+          });
         });
       });
     });

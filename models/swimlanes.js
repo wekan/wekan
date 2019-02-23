@@ -102,20 +102,20 @@ Swimlanes.allow({
 
 Swimlanes.helpers({
   copy() {
-      const oldId = this._id;
-      this._id = null;
-      const _id = Swimlanes.insert(this);
+    const oldId = this._id;
+    this._id = null;
+    const _id = Swimlanes.insert(this);
 
-      // Copy all lists in swimlane
-      Lists.find({
-          swimlaneId: oldId,
-          archived: false,
-      }).forEach((list) => {
-          list.type = 'list';
-          list.swimlaneId = _id;
-          list.boardId = this.boardId;
-          list.copy();
-      });
+    // Copy all lists in swimlane
+    Lists.find({
+      swimlaneId: oldId,
+      archived: false,
+    }).forEach((list) => {
+      list.type = 'list';
+      list.swimlaneId = _id;
+      list.boardId = this.boardId;
+      list.copy();
+    });
   },
 
   cards() {
@@ -127,8 +127,8 @@ Swimlanes.helpers({
 
   lists() {
     return Lists.find(Filter.mongoSelector({
-        swimlaneId: this._id,
-        archived: false,
+      swimlaneId: this._id,
+      archived: false,
     }), { sort: ['sort'] });
   },
 
@@ -155,22 +155,22 @@ Swimlanes.helpers({
   },
 
   isTemplateContainer() {
-      return this.type === 'template-container';
+    return this.type === 'template-container';
   },
 
   isListTemplatesSwimlane() {
-      const user = Users.findOne(Meteor.userId());
-      return user.profile.listTemplatesSwimlaneId === this._id;
+    const user = Users.findOne(Meteor.userId());
+    return user.profile.listTemplatesSwimlaneId === this._id;
   },
 
   isCardTemplatesSwimlane() {
-      const user = Users.findOne(Meteor.userId());
-      return user.profile.cardTemplatesSwimlaneId === this._id;
+    const user = Users.findOne(Meteor.userId());
+    return user.profile.cardTemplatesSwimlaneId === this._id;
   },
 
   isBoardTemplatesSwimlane() {
-      const user = Users.findOne(Meteor.userId());
-      return user.profile.boardTemplatesSwimlaneId === this._id;
+    const user = Users.findOne(Meteor.userId());
+    return user.profile.boardTemplatesSwimlaneId === this._id;
   },
 });
 
@@ -182,7 +182,7 @@ Swimlanes.mutations({
   archive() {
     if (this.isTemplateSwimlane()) {
       this.lists().forEach((list) => {
-          return list.archive();
+        return list.archive();
       });
     }
     return { $set: { archived: true } };
@@ -191,7 +191,7 @@ Swimlanes.mutations({
   restore() {
     if (this.isTemplateSwimlane()) {
       this.allLists().forEach((list) => {
-          return list.restore();
+        return list.restore();
       });
     }
     return { $set: { archived: false } };

@@ -5,10 +5,10 @@ Template.headerUserBar.events({
 
 Template.memberMenuPopup.helpers({
   templatesBoardId() {
-      return Meteor.user().getTemplatesBoardId();
+    return Meteor.user().getTemplatesBoardId();
   },
   templatesBoardSlug() {
-      return Meteor.user().getTemplatesBoardSlug();
+    return Meteor.user().getTemplatesBoardSlug();
   },
 });
 
