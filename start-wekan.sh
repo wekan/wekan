@@ -245,6 +245,18 @@ function wekan_repo_check(){
       # LDAP_MERGE_EXISTING_USERS :
       # example :  export LDAP_MERGE_EXISTING_USERS=true
       #export LDAP_MERGE_EXISTING_USERS=false
+      # LDAP_EMAIL_MATCH_ENABLE : allow existing account matching by e-mail address when username does not match
+      # example: LDAP_EMAIL_MATCH_ENABLE=true
+      #export LDAP_EMAIL_MATCH_ENABLE=false
+      # LDAP_EMAIL_MATCH_REQUIRE : require existing account matching by e-mail address when username does match
+      # example: LDAP_EMAIL_MATCH_REQUIRE=true
+      #export LDAP_EMAIL_MATCH_REQUIRE=false
+      # LDAP_EMAIL_MATCH_VERIFIED : require existing account email address to be verified for matching
+      # example: LDAP_EMAIL_MATCH_VERIFIED=true
+      #export LDAP_EMAIL_MATCH_VERIFIED=false
+      # LDAP_EMAIL_FIELD : which field contains the LDAP e-mail address
+      # example: LDAP_EMAIL_FIELD=mail
+      #export LDAP_EMAIL_FIELD=
       # LDAP_SYNC_USER_DATA :
       # example :  export LDAP_SYNC_USER_DATA=true
       #export LDAP_SYNC_USER_DATA=false

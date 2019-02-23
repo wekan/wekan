@@ -221,6 +221,22 @@ REM # LDAP_MERGE_EXISTING_USERS :
 REM # example : LDAP_MERGE_EXISTING_USERS=true
 REM SET LDAP_MERGE_EXISTING_USERS=false
 
+REM # LDAP_EMAIL_MATCH_ENABLE : allow existing account matching by e-mail address when username does not match
+REM # example: LDAP_EMAIL_MATCH_ENABLE=true
+REM SET LDAP_EMAIL_MATCH_ENABLE=false
+
+REM # LDAP_EMAIL_MATCH_REQUIRE : require existing account matching by e-mail address when username does match
+REM # example: LDAP_EMAIL_MATCH_REQUIRE=true
+REM SET LDAP_EMAIL_MATCH_REQUIRE=false
+
+REM # LDAP_EMAIL_MATCH_VERIFIED : require existing account email address to be verified for matching
+REM # example: LDAP_EMAIL_MATCH_VERIFIED=true
+REM SET LDAP_EMAIL_MATCH_VERIFIED=false
+
+REM # LDAP_EMAIL_FIELD : which field contains the LDAP e-mail address
+REM # example: LDAP_EMAIL_FIELD=mail
+REM SET LDAP_EMAIL_FIELD=
+
 REM # LDAP_SYNC_USER_DATA :
 REM # example : LDAP_SYNC_USER_DATA=true
 REM SET LDAP_SYNC_USER_DATA=false
