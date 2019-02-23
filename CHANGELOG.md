@@ -1,3 +1,12 @@
+# v2.25 2019-02-23 Wekan release
+
+This release fixes the following bugs:
+
+- Revert file permission changes from v2.24 LDAP changes that
+  caused snap version to not build.
+
+Thanks to GitHub user xet7 for contributions.
+
 # v2.24 2019-02-23 Wekan release
 
 This release adds the following new features:
