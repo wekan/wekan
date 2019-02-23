@@ -470,6 +470,10 @@ Boards.helpers({
     if (excludeLinked) {
       query.linkedId = null;
     }
+    if (this.isTemplatesBoard()) {
+      query.type = 'template-card';
+      query.archived = false;
+    }
     const projection = { limit: 10, sort: { createdAt: -1 } };
 
     if (term) {

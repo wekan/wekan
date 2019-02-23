@@ -316,6 +316,7 @@ BlazeComponent.extendComponent({
       keydown: this.pressKey,
       'click .js-link': Popup.open('linkCard'),
       'click .js-search': Popup.open('searchCard'),
+      'click .js-search-template': Popup.open('searchCard'),
     }];
   },
 
@@ -390,17 +391,7 @@ BlazeComponent.extendComponent({
 
 BlazeComponent.extendComponent({
   onCreated() {
-    // Prefetch first non-current board id
-    const boardId = Boards.findOne({
-      archived: false,
-      'members.userId': Meteor.userId(),
-      _id: {$ne: Session.get('currentBoard')},
-    }, {
-      sort: ['title'],
-    })._id;
-    // Subscribe to this board
-    subManager.subscribe('board', boardId);
-    this.selectedBoardId = new ReactiveVar(boardId);
+    this.selectedBoardId = new ReactiveVar('');
     this.selectedSwimlaneId = new ReactiveVar('');
     this.selectedListId = new ReactiveVar('');
 
@@ -426,6 +417,7 @@ BlazeComponent.extendComponent({
       archived: false,
       'members.userId': Meteor.userId(),
       _id: {$ne: Session.get('currentBoard')},
+      type: 'board',
     }, {
       sort: ['title'],
     });
@@ -433,7 +425,7 @@ BlazeComponent.extendComponent({
   },
 
   swimlanes() {
-    if (!this.selectedBoardId) {
+    if (!this.selectedBoardId.get()) {
       return [];
     }
     const swimlanes = Swimlanes.find({boardId: this.selectedBoardId.get()});
@@ -443,7 +435,7 @@ BlazeComponent.extendComponent({
   },
 
   lists() {
-    if (!this.selectedBoardId) {
+    if (!this.selectedBoardId.get()) {
       return [];
     }
     const lists = Lists.find({boardId: this.selectedBoardId.get()});
@@ -531,12 +523,18 @@ BlazeComponent.extendComponent({
   },
 
   onCreated() {
-    // Prefetch first non-current board id
-    let board = Boards.findOne({
-      archived: false,
-      'members.userId': Meteor.userId(),
-      _id: {$ne: Session.get('currentBoard')},
-    });
+    const isTemplateSearch = $(Popup._getTopStack().openerElement).hasClass('js-search-template');
+    let board = {};
+    if (isTemplateSearch) {
+        board = Boards.findOne(Meteor.user().profile.templatesBoardId);
+    } else {
+      // Prefetch first non-current board id
+      board = Boards.findOne({
+        archived: false,
+        'members.userId': Meteor.userId(),
+        _id: {$ne: Session.get('currentBoard')},
+      });
+    }
     if (!board) {
       Popup.close();
       return;
@@ -568,6 +566,7 @@ BlazeComponent.extendComponent({
       archived: false,
       'members.userId': Meteor.userId(),
       _id: {$ne: Session.get('currentBoard')},
+      type: 'board',
     }, {
       sort: ['title'],
     });
@@ -610,3 +609,9 @@ BlazeComponent.extendComponent({
     }];
   },
 }).register('searchCardPopup');
+
+Template.searchCardPopup.helpers({
+    isTemplateSearch() {
+        return $(Popup._getTopStack().openerElement).hasClass('js-search-template');
+    },
+});

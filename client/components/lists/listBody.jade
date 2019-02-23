@@ -54,6 +54,10 @@ template(name="addCardForm")
             | &nbsp;
             | /
             a.js-search {{_ 'search'}}
+          span.quiet
+            | &nbsp;
+            | /
+            a.js-search-template {{_ 'template'}}
 
 template(name="autocompleteLabelLine")
   .minicard-label(class="card-label-{{colorName}}" title=labelName)
@@ -63,11 +67,9 @@ template(name="linkCardPopup")
   label {{_ 'boards'}}:
   .link-board-wrapper
     select.js-select-boards
+      option(value="")
       each boards
-        if $eq _id currentBoard._id
-          option(value="{{_id}}" selected) {{_ 'current'}}
-        else
-          option(value="{{_id}}") {{title}}
+        option(value="{{_id}}") {{title}}
     input.primary.confirm.js-link-board(type="button" value="{{_ 'link'}}")
 
   label {{_ 'swimlanes'}}:
@@ -90,14 +92,15 @@ template(name="linkCardPopup")
       input.primary.confirm.js-done(type="button" value="{{_ 'link'}}")
 
 template(name="searchCardPopup")
-  label {{_ 'boards'}}:
-  .link-board-wrapper
-    select.js-select-boards
-      each boards
-        if $eq _id currentBoard._id
-          option(value="{{_id}}" selected) {{_ 'current'}}
-        else
-          option(value="{{_id}}") {{title}}
+  unless isTemplateSearch
+    label {{_ 'boards'}}:
+    .link-board-wrapper
+      select.js-select-boards
+        each boards
+          if $eq _id currentBoard._id
+            option(value="{{_id}}" selected) {{_ 'current'}}
+          else
+            option(value="{{_id}}") {{title}}
   form.js-search-term-form
     input(type="text" name="searchTerm" placeholder="{{_ 'search-example'}}" autofocus)
   .list-body.js-perfect-scrollbar.search-card-results

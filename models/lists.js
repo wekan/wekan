@@ -195,10 +195,23 @@ Lists.mutations({
   },
 
   archive() {
+    Cards.find({
+        listId: this._id,
+        archived: false,
+    }).forEach((card) => {
+        return card.archive();
+    });
     return { $set: { archived: true } };
   },
 
   restore() {
+    cardsToRestore = Cards.find({
+        listId: this._id,
+        archived: true,
+    });
+    cardsToRestore.forEach((card) => {
+        card.restore();
+    });
     return { $set: { archived: false } };
   },
 
