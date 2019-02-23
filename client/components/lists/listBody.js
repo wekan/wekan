@@ -593,26 +593,27 @@ BlazeComponent.extendComponent({
         this.term.set(evt.target.searchTerm.value);
       },
       'click .js-minicard'(evt) {
-        // LINK CARD
-        const card = Blaze.getData(evt.currentTarget);
-        const _id = Cards.insert({
-          title: card.title, //dummy
-          listId: this.listId,
-          swimlaneId: this.swimlaneId,
-          boardId: this.boardId,
-          sort: Lists.findOne(this.listId).cards().count(),
-          type: 'cardType-linkedCard',
-          linkedId: card.linkedId || card._id,
-        });
+        let card = Blaze.getData(evt.currentTarget);
+        let _id = '';
+        // Common
+        card.listId = this.listId;
+        card.swimlaneId = this.swimlaneId;
+        card.boardId = this.boardId;
+        card.sort = Lists.findOne(this.listId).cards().count();
+        // From template
+        if (this.isTemplateSearch) {
+            card.type = 'cardType-card';
+            card.linkedId = '';
+            _id = card.copy();
+        } else { // Linked
+            card._id = null;
+            card.type = 'cardType-linkedCard';
+            card.linkedId = card.linkedId || card._id;
+            _id = Cards.insert(card);
+        }
         Filter.addException(_id);
         Popup.close();
       },
     }];
   },
 }).register('searchCardPopup');
-
-Template.searchCardPopup.helpers({
-    isTemplateSearch() {
-        return $(Popup._getTopStack().openerElement).hasClass('js-search-template');
-    },
-});
