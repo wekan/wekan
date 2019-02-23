@@ -459,26 +459,9 @@ BlazeComponent.extendComponent({
   },
 }).register('boardsAndLists');
 
-
-function cloneCheckList(_id, checklist) {
-  'use strict';
-  const checklistId = checklist._id;
-  checklist.cardId = _id;
-  checklist._id = null;
-  const newChecklistId = Checklists.insert(checklist);
-  ChecklistItems.find({checklistId}).forEach(function(item) {
-    item._id = null;
-    item.checklistId = newChecklistId;
-    item.cardId = _id;
-    ChecklistItems.insert(item);
-  });
-}
-
 Template.copyCardPopup.events({
   'click .js-done'() {
     const card = Cards.findOne(Session.get('currentCard'));
-    const oldId = card._id;
-    card._id = null;
     const lSelect = $('.js-select-lists')[0];
     card.listId = lSelect.options[lSelect.selectedIndex].value;
     const slSelect = $('.js-select-swimlanes')[0];
@@ -493,38 +476,13 @@ Template.copyCardPopup.events({
     if (title) {
       card.title = title;
       card.coverId = '';
-      const _id = Cards.insert(card);
+      const _id = card.copy();
       // In case the filter is active we need to add the newly inserted card in
       // the list of exceptions -- cards that are not filtered. Otherwise the
       // card will disappear instantly.
       // See https://github.com/wekan/wekan/issues/80
       Filter.addException(_id);
 
-      // copy checklists
-      let cursor = Checklists.find({cardId: oldId});
-      cursor.forEach(function() {
-        cloneCheckList(_id, arguments[0]);
-      });
-
-      // copy subtasks
-      cursor = Cards.find({parentId: oldId});
-      cursor.forEach(function() {
-        'use strict';
-        const subtask = arguments[0];
-        subtask.parentId = _id;
-        subtask._id = null;
-        /* const newSubtaskId = */ Cards.insert(subtask);
-      });
-
-      // copy card comments
-      cursor = CardComments.find({cardId: oldId});
-      cursor.forEach(function () {
-        'use strict';
-        const comment = arguments[0];
-        comment.cardId = _id;
-        comment._id = null;
-        CardComments.insert(comment);
-      });
       Popup.close();
     }
   },
@@ -561,9 +519,8 @@ Template.copyChecklistToManyCardsPopup.events({
         Filter.addException(_id);
 
         // copy checklists
-        let cursor = Checklists.find({cardId: oldId});
-        cursor.forEach(function() {
-          cloneCheckList(_id, arguments[0]);
+        Checklists.find({cardId: oldId}).forEach((ch) => {
+          ch.copy(_id);
         });
 
         // copy subtasks
@@ -577,13 +534,8 @@ Template.copyChecklistToManyCardsPopup.events({
         });
 
         // copy card comments
-        cursor = CardComments.find({cardId: oldId});
-        cursor.forEach(function () {
-          'use strict';
-          const comment = arguments[0];
-          comment.cardId = _id;
-          comment._id = null;
-          CardComments.insert(comment);
+        CardComments.find({cardId: oldId}).forEach((cmt) => {
+          cmt.copy(_id);
         });
       }
       Popup.close();

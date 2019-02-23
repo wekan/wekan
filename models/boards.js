@@ -473,6 +473,8 @@ Boards.helpers({
     if (this.isTemplatesBoard()) {
       query.type = 'template-card';
       query.archived = false;
+    } else {
+        query.type = {$nin: ['template-card']};
     }
     const projection = { limit: 10, sort: { createdAt: -1 } };
 

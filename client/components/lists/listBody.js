@@ -456,6 +456,7 @@ BlazeComponent.extendComponent({
       archived: false,
       linkedId: {$nin: ownCardsIds},
       _id: {$nin: ownCardsIds},
+      type: {$nin: ['template-card']},
     });
   },
 
@@ -523,16 +524,16 @@ BlazeComponent.extendComponent({
   },
 
   onCreated() {
-    const isTemplateSearch = $(Popup._getTopStack().openerElement).hasClass('js-search-template');
+    this.isTemplateSearch = $(Popup._getTopStack().openerElement).hasClass('js-search-template');
     let board = {};
-    if (isTemplateSearch) {
+    if (this.isTemplateSearch) {
         board = Boards.findOne(Meteor.user().profile.templatesBoardId);
     } else {
       // Prefetch first non-current board id
       board = Boards.findOne({
         archived: false,
         'members.userId': Meteor.userId(),
-        _id: {$ne: Session.get('currentBoard')},
+        _id: {$nin: [Session.get('currentBoard'), Meteor.user().profile.templatesBoardId]},
       });
     }
     if (!board) {

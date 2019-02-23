@@ -96,11 +96,9 @@ template(name="searchCardPopup")
     label {{_ 'boards'}}:
     .link-board-wrapper
       select.js-select-boards
+        option(value="")
         each boards
-          if $eq _id currentBoard._id
-            option(value="{{_id}}" selected) {{_ 'current'}}
-          else
-            option(value="{{_id}}") {{title}}
+          option(value="{{_id}}") {{title}}
   form.js-search-term-form
     input(type="text" name="searchTerm" placeholder="{{_ 'search-example'}}" autofocus)
   .list-body.js-perfect-scrollbar.search-card-results
