@@ -463,6 +463,30 @@ Boards.helpers({
     return _id;
   },
 
+  searchLists(term) {
+    check(term, Match.OneOf(String, null, undefined));
+
+    const query = { boardId: this._id };
+    if (this.isTemplatesBoard()) {
+      query.type = 'template-list';
+      query.archived = false;
+    } else {
+        query.type = {$nin: ['template-list']};
+    }
+    const projection = { limit: 10, sort: { createdAt: -1 } };
+
+    if (term) {
+      const regex = new RegExp(term, 'i');
+
+      query.$or = [
+        { title: regex },
+        { description: regex },
+      ];
+    }
+
+    return Lists.find(query, projection);
+  },
+
   searchCards(term, excludeLinked) {
     check(term, Match.OneOf(String, null, undefined));
 

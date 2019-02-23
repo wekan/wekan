@@ -137,6 +137,24 @@ Lists.allow({
 });
 
 Lists.helpers({
+  copy() {
+      const oldId = this._id;
+      this._id = null;
+      const _id = Lists.insert(this);
+
+      // Copy all cards in list
+      Cards.find({
+          listId: oldId,
+          archived: false,
+      }).forEach((card) => {
+          card.type = 'cardType-card';
+          card.listId = _id;
+          card.boardId = this.boardId;
+          card.swimlaneId = this.swimlaneId;
+          card.copy();
+      });
+  },
+
   cards(swimlaneId) {
     const selector = {
       listId: this._id,

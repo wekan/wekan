@@ -524,7 +524,10 @@ BlazeComponent.extendComponent({
   },
 
   onCreated() {
-    this.isTemplateSearch = $(Popup._getTopStack().openerElement).hasClass('js-search-template');
+    this.isCardTemplateSearch = $(Popup._getTopStack().openerElement).hasClass('js-card-template');
+    this.isListTemplateSearch = $(Popup._getTopStack().openerElement).hasClass('js-list-template');
+    this.isSwimlaneTemplateSearch = $(Popup._getTopStack().openerElement).hasClass('js-swimlane-template');
+    this.isTemplateSearch = this.isCardTemplateSearch || this.isListTemplateSearch || this.isSwimlaneTemplateSearch;
     let board = {};
     if (this.isTemplateSearch) {
         board = Boards.findOne(Meteor.user().profile.templatesBoardId);
@@ -579,7 +582,15 @@ BlazeComponent.extendComponent({
       return [];
     }
     const board = Boards.findOne(this.selectedBoardId.get());
-    return board.searchCards(this.term.get(), false);
+    if (!this.isTemplateSearch || this.isCardTemplateSearch) {
+        return board.searchCards(this.term.get(), false);
+    } else if (this.isListTemplateSearch) {
+        return board.searchLists(this.term.get());
+    } else if (this.isSwimlaneTemplateSearch) {
+        return board.searchSwimlanes(this.term.get());
+    } else {
+        return [];
+    }
   },
 
   events() {
@@ -593,25 +604,38 @@ BlazeComponent.extendComponent({
         this.term.set(evt.target.searchTerm.value);
       },
       'click .js-minicard'(evt) {
-        let card = Blaze.getData(evt.currentTarget);
+        // 0. Common
+        let element = Blaze.getData(evt.currentTarget);
+        console.log(element);
+        element.boardId = this.boardId;
         let _id = '';
-        // Common
-        card.listId = this.listId;
-        card.swimlaneId = this.swimlaneId;
-        card.boardId = this.boardId;
-        card.sort = Lists.findOne(this.listId).cards().count();
-        // From template
-        if (this.isTemplateSearch) {
-            card.type = 'cardType-card';
-            card.linkedId = '';
-            _id = card.copy();
-        } else { // Linked
-            card._id = null;
-            card.type = 'cardType-linkedCard';
-            card.linkedId = card.linkedId || card._id;
-            _id = Cards.insert(card);
+        if (!this.isTemplateSearch || this.isCardTemplateSearch) {
+          // Card insertion
+          // 1. Common
+          element.listId = this.listId;
+          element.swimlaneId = this.swimlaneId;
+          element.sort = Lists.findOne(this.listId).cards().count();
+          // 1.A From template
+          if (this.isTemplateSearch) {
+              element.type = 'cardType-card';
+              element.linkedId = '';
+              _id = element.copy();
+          // 1.B Linked card
+          } else {
+              element._id = null;
+              element.type = 'cardType-linkedCard';
+              element.linkedId = element.linkedId || element._id;
+              _id = Cards.insert(element);
+          }
+          Filter.addException(_id);
+        // List insertion
+        } else if (this.isListTemplateSearch) {
+            element.swimlaneId = '';
+            element.sort = Swimlanes.findOne(this.swimlaneId).lists().count();
+            element.type = 'list';
+            element.swimlaneId = this.swimlaneId;
+            _id = element.copy();
         }
-        Filter.addException(_id);
         Popup.close();
       },
     }];

@@ -51,7 +51,11 @@ template(name="addListForm")
           autocomplete="off" autofocus)
         .edit-controls.clearfix
           button.primary.confirm(type="submit") {{_ 'save'}}
-          a.fa.fa-times-thin.js-close-inlined-form
+          unless currentBoard.isTemplatesBoard
+            unless currentBoard.isTemplateBoard
+              span.quiet
+                | {{_ 'or'}}
+                a.js-list-template {{_ 'template'}}
       else
         a.open-list-composer.js-open-inlined-form
           i.fa.fa-plus

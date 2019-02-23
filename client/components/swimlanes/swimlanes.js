@@ -154,6 +154,8 @@ BlazeComponent.extendComponent({
 
 BlazeComponent.extendComponent({
   onCreated() {
+    currentBoard = Boards.findOne(Session.get('currentBoard'));
+    this.isListTemplatesSwimlane = currentBoard.isTemplatesBoard() && this.currentData().isListTemplatesSwimlane();
     this.currentSwimlane = this.currentData();
   },
 
@@ -169,19 +171,19 @@ BlazeComponent.extendComponent({
         const titleInput = this.find('.list-name-input');
         const title = titleInput.value.trim();
         if (title) {
-          const listType = (this.currentSwimlane.isListTemplatesSwimlane())?'template-list':'list';
           Lists.insert({
             title,
             boardId: Session.get('currentBoard'),
             sort: $('.list').length,
-            type: listType,
-            swimlaneId: this.currentSwimlane._id,
+            type: (this.isListTemplatesSwimlane)?'template-list':'list',
+            swimlaneId: (this.isListTemplatesSwimlane)?this.currentSwimlane._id:'',
           });
 
           titleInput.value = '';
           titleInput.focus();
         }
       },
+      'click .js-list-template': Popup.open('searchCard'),
     }];
   },
 }).register('addListForm');

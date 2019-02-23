@@ -57,7 +57,7 @@ template(name="addCardForm")
           span.quiet
             | &nbsp;
             | /
-            a.js-search-template {{_ 'template'}}
+            a.js-card-template {{_ 'template'}}
 
 template(name="autocompleteLabelLine")
   .minicard-label(class="card-label-{{colorName}}" title=labelName)
@@ -104,5 +104,12 @@ template(name="searchCardPopup")
   .list-body.js-perfect-scrollbar.search-card-results
     .minicards.clearfix.js-minicards
       each results
-        a.minicard-wrapper.js-minicard
-          +minicard(this)
+        if isListTemplateSearch
+          a.minicard-wrapper.js-minicard
+            +minilist(this)
+        if isSwimlaneTemplateSearch
+          a.minicard-wrapper.js-minicard
+            +miniswimlane(this)
+        unless isTemplateSearch
+          a.minicard-wrapper.js-minicard
+            +minicard(this)
