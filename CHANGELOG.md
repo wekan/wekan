@@ -1,6 +1,12 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+- [Add LDAP email] matching support](https://github.com/wekan/wekan-ldap/pull/39) and
+  [related env variables](https://github.com/wekan/wekan/pull/2198).
+  Thanks to GitHub user stevenpwaters.
+
+and fixes the following bugs:
 
 - [Add missing text .env to wekan/server/authentication.js](https://github.com/wekan/wekan/commit/4e6e78ccd216045e6ad41bcdab4e524f715a7eb5).
   Thanks to Vanila Chat user .gitignore.
