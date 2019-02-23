@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v2.24 2019-02-23 Wekan release
 
 This release adds the following new features:
 
@@ -10,6 +10,8 @@ and fixes the following bugs:
 
 - [Add missing text .env to wekan/server/authentication.js](https://github.com/wekan/wekan/commit/4e6e78ccd216045e6ad41bcdab4e524f715a7eb5).
   Thanks to Vanila Chat user .gitignore.
+
+Thanks to above contributors, and translators for their translation.
 
 # v2.23 2019-02-17 Wekan relase
 
