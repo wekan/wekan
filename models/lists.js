@@ -29,7 +29,7 @@ Lists.attachSchema(new SimpleSchema({
   },
   swimlaneId: {
     /**
-     * the swimalen associated to this list. Used for templates
+     * the swimlane associated to this list. Used for templates
      */
     type: String,
     defaultValue: '',
@@ -137,7 +137,7 @@ Lists.allow({
 });
 
 Lists.helpers({
-  copy() {
+  copy(swimlaneId) {
     const oldId = this._id;
     let _id = null;
     existingListWithSameName = Lists.findOne({
@@ -159,7 +159,7 @@ Lists.helpers({
       card.type = 'cardType-card';
       card.listId = _id;
       card.boardId = this.boardId;
-      card.swimlaneId = this.swimlaneId;
+      card.swimlaneId = swimlaneId;
       card.copy();
     });
   },

@@ -112,9 +112,9 @@ Swimlanes.helpers({
       archived: false,
     }).forEach((list) => {
       list.type = 'list';
-      list.swimlaneId = _id;
+      list.swimlaneId = '';
       list.boardId = this.boardId;
-      list.copy();
+      list.copy(_id);
     });
   },
 
@@ -127,7 +127,8 @@ Swimlanes.helpers({
 
   lists() {
     return Lists.find(Filter.mongoSelector({
-      swimlaneId: this._id,
+      boardId: this.boardId,
+      swimlaneId: {$in: [this._id, '']},
       archived: false,
     }), { sort: ['sort'] });
   },

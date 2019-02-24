@@ -1,5 +1,10 @@
 const { calculateIndex, enableClickOnTouch } = Utils;
 
+function currentListIsInThisSwimlane(swimlaneId) {
+  const currentList = Lists.findOne(Session.get('currentList'));
+  return currentList && (currentList.swimlaneId === swimlaneId || currentList.swimlaneId === '');
+}
+
 function currentCardIsInThisList(listId, swimlaneId) {
   const currentCard = Cards.findOne(Session.get('currentCard'));
   const currentUser = Meteor.user();
@@ -112,6 +117,10 @@ BlazeComponent.extendComponent({
 
   currentCardIsInThisList(listId, swimlaneId) {
     return currentCardIsInThisList(listId, swimlaneId);
+  },
+
+  currentListIsInThisSwimlane(swimlaneId) {
+    return currentListIsInThisSwimlane(swimlaneId);
   },
 
   events() {

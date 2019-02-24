@@ -630,8 +630,8 @@ BlazeComponent.extendComponent({
         } else if (this.isListTemplateSearch) {
           element.sort = Swimlanes.findOne(this.swimlaneId).lists().count();
           element.type = 'list';
-          element.swimlaneId = this.swimlaneId;
-          _id = element.copy();
+          element.swimlaneId = '';
+          _id = element.copy(this.swimlaneId);
         } else if (this.isSwimlaneTemplateSearch) {
           element.sort = Boards.findOne(this.boardId).swimlanes().count();
           element.type = 'swimlalne';
