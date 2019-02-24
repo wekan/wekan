@@ -422,3 +422,98 @@ Migrations.add('add-defaultAuthenticationMethod', () => {
     },
   }, noValidateMulti);
 });
+
+Migrations.add('add-templates', () => {
+  Boards.update({
+    type: {
+      $exists: false,
+    },
+  }, {
+    $set: {
+      type: 'board',
+    },
+  }, noValidateMulti);
+  Swimlanes.update({
+    type: {
+      $exists: false,
+    },
+  }, {
+    $set: {
+      type: 'swimlane',
+    },
+  }, noValidateMulti);
+  Lists.update({
+    type: {
+      $exists: false,
+    },
+    swimlaneId: {
+      $exists: false,
+    },
+  }, {
+    $set: {
+      type: 'list',
+      swimlaneId: '',
+    },
+  }, noValidateMulti);
+  Users.find({
+    'profile.templatesBoardId': {
+      $exists: false,
+    },
+  }).forEach((user) => {
+    // Create board and swimlanes
+    Boards.insert({
+      title: TAPi18n.__('templates'),
+      permission: 'private',
+      type: 'template-container',
+      members: [
+        {
+          userId: user._id,
+          isAdmin: true,
+          isActive: true,
+          isNoComments: false,
+          isCommentOnly: false,
+        },
+      ],
+    }, (err, boardId) => {
+
+      // Insert the reference to our templates board
+      Users.update(user._id, {$set: {'profile.templatesBoardId': boardId}});
+
+      // Insert the card templates swimlane
+      Swimlanes.insert({
+        title: TAPi18n.__('card-templates-swimlane'),
+        boardId,
+        sort: 1,
+        type: 'template-container',
+      }, (err, swimlaneId) => {
+
+        // Insert the reference to out card templates swimlane
+        Users.update(user._id, {$set: {'profile.cardTemplatesSwimlaneId': swimlaneId}});
+      });
+
+      // Insert the list templates swimlane
+      Swimlanes.insert({
+        title: TAPi18n.__('list-templates-swimlane'),
+        boardId,
+        sort: 2,
+        type: 'template-container',
+      }, (err, swimlaneId) => {
+
+        // Insert the reference to out list templates swimlane
+        Users.update(user._id, {$set: {'profile.listTemplatesSwimlaneId': swimlaneId}});
+      });
+
+      // Insert the board templates swimlane
+      Swimlanes.insert({
+        title: TAPi18n.__('board-templates-swimlane'),
+        boardId,
+        sort: 3,
+        type: 'template-container',
+      }, (err, swimlaneId) => {
+
+        // Insert the reference to out board templates swimlane
+        Users.update(user._id, {$set: {'profile.boardTemplatesSwimlaneId': swimlaneId}});
+      });
+    });
+  });
+});
