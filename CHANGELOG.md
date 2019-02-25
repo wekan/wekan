@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v2.26 2019-02-25 Wekan release
 
 This release adds the following new features:
 
@@ -8,7 +8,8 @@ This release adds the following new features:
 and fixes the following bugs:
 
 - [Fix OAuth2 requestPermissions](https://github.com/wekan/wekan/commit/5e238bfbfea16940ae29647ae347bbdc0d78efb0).
-  This maybe makes [Auth0 login possible](https://github.com/wekan/wekan/issues/1722) with OIDC.
+  This makes [Auth0 login possible](https://github.com/wekan/wekan/issues/1722)
+  with [OIDC](https://github.com/wekan/wekan/wiki/OAuth2#auth0). Needs testing.
   Thanks to GitHub user xet7.
 
 # v2.25 2019-02-23 Wekan release
