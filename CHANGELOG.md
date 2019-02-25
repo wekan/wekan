@@ -1,3 +1,10 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- Add setting [EMAIL_NOTIFICATION_TIMEOUT](https://github.com/wekan/wekan/issues/2203).
+  Defaut 30000 ms (30s). Thanks to GitHub users ngru and xet7.
+
 # v2.25 2019-02-23 Wekan release
 
 This release fixes the following bugs:
