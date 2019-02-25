@@ -139,20 +139,24 @@ Lists.allow({
 Lists.helpers({
   copy(swimlaneId) {
     const oldId = this._id;
+    const oldSwimlaneId = this.swimlaneId || null;
     let _id = null;
     existingListWithSameName = Lists.findOne({
       boardId: this.boardId,
       title: this.title,
+      archived: false,
     });
     if (existingListWithSameName) {
       _id = existingListWithSameName._id;
     } else {
-      this._id = null;
+      delete this._id;
+      delete this.swimlaneId;
       _id = Lists.insert(this);
     }
 
     // Copy all cards in list
     Cards.find({
+      swimlaneId: oldSwimlaneId,
       listId: oldId,
       archived: false,
     }).forEach((card) => {

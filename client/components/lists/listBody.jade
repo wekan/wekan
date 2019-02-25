@@ -103,16 +103,23 @@ template(name="searchElementPopup")
     input(type="text" name="searchTerm" placeholder="{{_ 'search-example'}}" autofocus)
   .list-body.js-perfect-scrollbar.search-card-results
     .minicards.clearfix.js-minicards
-      each results
-        if isListTemplateSearch
+      if isBoardTemplateSearch
+        each results
+          a.minicard-wrapper.js-minicard
+            +miniboard(this)
+      if isListTemplateSearch
+        each results
           a.minicard-wrapper.js-minicard
             +minilist(this)
-        if isSwimlaneTemplateSearch
+      if isSwimlaneTemplateSearch
+        each results
           a.minicard-wrapper.js-minicard
             +miniswimlane(this)
-        if isCardTemplateSearch
+      if isCardTemplateSearch
+        each results
           a.minicard-wrapper.js-minicard
             +minicard(this)
-        unless isTemplateSearch
+      unless isTemplateSearch
+        each results
           a.minicard-wrapper.js-minicard
             +minicard(this)

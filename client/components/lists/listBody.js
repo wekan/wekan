@@ -527,7 +527,11 @@ BlazeComponent.extendComponent({
     this.isCardTemplateSearch = $(Popup._getTopStack().openerElement).hasClass('js-card-template');
     this.isListTemplateSearch = $(Popup._getTopStack().openerElement).hasClass('js-list-template');
     this.isSwimlaneTemplateSearch = $(Popup._getTopStack().openerElement).hasClass('js-open-add-swimlane-menu');
-    this.isTemplateSearch = this.isCardTemplateSearch || this.isListTemplateSearch || this.isSwimlaneTemplateSearch;
+    this.isBoardTemplateSearch = $(Popup._getTopStack().openerElement).hasClass('js-add-board');
+    this.isTemplateSearch = this.isCardTemplateSearch ||
+      this.isListTemplateSearch ||
+      this.isSwimlaneTemplateSearch ||
+      this.isBoardTemplateSearch;
     let board = {};
     if (this.isTemplateSearch) {
       board = Boards.findOne(Meteor.user().profile.templatesBoardId);
@@ -548,23 +552,26 @@ BlazeComponent.extendComponent({
     subManager.subscribe('board', boardId);
     this.selectedBoardId = new ReactiveVar(boardId);
 
-    this.boardId = Session.get('currentBoard');
-    // In order to get current board info
-    subManager.subscribe('board', this.boardId);
-    // List where to insert card
-    const list = $(Popup._getTopStack().openerElement).closest('.js-list');
-    this.listId = Blaze.getData(list[0])._id;
-    // Swimlane where to insert card
-    const swimlane = $(Popup._getTopStack().openerElement).parents('.js-swimlane');
-    this.swimlaneId = '';
-    if (Meteor.user().profile.boardView === 'board-view-swimlanes')
-      this.swimlaneId = Blaze.getData(swimlane[0])._id;
-    else
-      this.swimlaneId = Swimlanes.findOne({boardId: this.boardId})._id;
+    if (!this.isBoardTemplateSearch) {
+      this.boardId = Session.get('currentBoard');
+      // In order to get current board info
+      subManager.subscribe('board', this.boardId);
+      this.swimlaneId = '';
+      // Swimlane where to insert card
+      const swimlane = $(Popup._getTopStack().openerElement).parents('.js-swimlane');
+      if (Meteor.user().profile.boardView === 'board-view-swimlanes')
+        this.swimlaneId = Blaze.getData(swimlane[0])._id;
+      else
+        this.swimlaneId = Swimlanes.findOne({boardId: this.boardId})._id;
+      // List where to insert card
+      const list = $(Popup._getTopStack().openerElement).closest('.js-list');
+      this.listId = Blaze.getData(list[0])._id;
+    }
     this.term = new ReactiveVar('');
   },
 
   boards() {
+    console.log('booom');
     const boards = Boards.find({
       archived: false,
       'members.userId': Meteor.userId(),
@@ -587,6 +594,12 @@ BlazeComponent.extendComponent({
       return board.searchLists(this.term.get());
     } else if (this.isSwimlaneTemplateSearch) {
       return board.searchSwimlanes(this.term.get());
+    } else if (this.isBoardTemplateSearch) {
+      const boards = board.searchBoards(this.term.get());
+      boards.forEach((board) => {
+        subManager.subscribe('board', board.linkedId);
+      });
+      return boards;
     } else {
       return [];
     }
@@ -605,11 +618,11 @@ BlazeComponent.extendComponent({
       'click .js-minicard'(evt) {
         // 0. Common
         const element = Blaze.getData(evt.currentTarget);
-        element.boardId = this.boardId;
         let _id = '';
         if (!this.isTemplateSearch || this.isCardTemplateSearch) {
           // Card insertion
           // 1. Common
+          element.boardId = this.boardId;
           element.listId = this.listId;
           element.swimlaneId = this.swimlaneId;
           element.sort = Lists.findOne(this.listId).cards().count();
@@ -620,7 +633,7 @@ BlazeComponent.extendComponent({
             _id = element.copy();
             // 1.B Linked card
           } else {
-            element._id = null;
+            delete element._id;
             element.type = 'cardType-linkedCard';
             element.linkedId = element.linkedId || element._id;
             _id = Cards.insert(element);
@@ -628,14 +641,22 @@ BlazeComponent.extendComponent({
           Filter.addException(_id);
           // List insertion
         } else if (this.isListTemplateSearch) {
+          element.boardId = this.boardId;
           element.sort = Swimlanes.findOne(this.swimlaneId).lists().count();
           element.type = 'list';
-          element.swimlaneId = '';
           _id = element.copy(this.swimlaneId);
         } else if (this.isSwimlaneTemplateSearch) {
+          element.boardId = this.boardId;
           element.sort = Boards.findOne(this.boardId).swimlanes().count();
           element.type = 'swimlalne';
           _id = element.copy();
+        } else if (this.isBoardTemplateSearch) {
+          board = Boards.findOne(element.linkedId);
+          board.sort = Boards.find({archived: false}).count();
+          board.type = 'board';
+          delete board.slug;
+          delete board.members;
+          _id = board.copy();
         }
         Popup.close();
       },

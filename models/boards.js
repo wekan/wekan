@@ -315,6 +315,21 @@ Boards.attachSchema(new SimpleSchema({
 
 
 Boards.helpers({
+  copy() {
+    const oldId = this._id;
+    delete this._id;
+    const _id = Boards.insert(this);
+
+    // Copy all swimlanes in board
+    Swimlanes.find({
+      boardId: oldId,
+      archived: false,
+    }).forEach((swimlane) => {
+      swimlane.type = 'swimlane';
+      swimlane.boardId = _id;
+      swimlane.copy(oldId);
+    });
+  },
   /**
    * Is supplied user authorized to view this board?
    */
@@ -461,6 +476,27 @@ Boards.helpers({
     const _id = Random.id(6);
     Boards.direct.update(this._id, { $push: { labels: { _id, name, color } } });
     return _id;
+  },
+
+  searchBoards(term) {
+    check(term, Match.OneOf(String, null, undefined));
+
+    const query = { boardId: this._id };
+    query.type = 'cardType-linkedBoard';
+    query.archived = false;
+
+    const projection = { limit: 10, sort: { createdAt: -1 } };
+
+    if (term) {
+      const regex = new RegExp(term, 'i');
+
+      query.$or = [
+        { title: regex },
+        { description: regex },
+      ];
+    }
+
+    return Cards.find(query, projection);
   },
 
   searchSwimlanes(term) {

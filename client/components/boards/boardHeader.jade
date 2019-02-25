@@ -277,7 +277,10 @@ template(name="createBoard")
     input.primary.wide(type="submit" value="{{_ 'create'}}")
     span.quiet
       | {{_ 'or'}}
-      a.js-import-board {{_ 'import-board'}}
+      a.js-import-board {{_ 'import'}}
+    span.quiet
+      | /
+      a.js-board-template {{_ 'template'}}
 
 template(name="chooseBoardSource")
   ul.pop-over-list

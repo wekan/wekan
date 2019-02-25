@@ -27,7 +27,7 @@ template(name="boardBody")
         each currentBoard.swimlanes
           +swimlane(this)
       else if isViewLists
-        +listsGroup
+        +listsGroup(currentBoard)
       else if isViewCalendar
         +calendarView
 

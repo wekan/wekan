@@ -101,18 +101,23 @@ Swimlanes.allow({
 });
 
 Swimlanes.helpers({
-  copy() {
+  copy(oldBoardId) {
     const oldId = this._id;
-    this._id = null;
+    delete this._id;
     const _id = Swimlanes.insert(this);
 
-    // Copy all lists in swimlane
-    Lists.find({
-      swimlaneId: oldId,
+    const query = {
+      swimlaneId: {$in: [oldId, '']},
       archived: false,
-    }).forEach((list) => {
+    };
+    if (oldBoardId) {
+      query.boardId = oldBoardId;
+    }
+
+    // Copy all lists in swimlane
+    Lists.find(query).forEach((list) => {
       list.type = 'list';
-      list.swimlaneId = '';
+      list.swimlaneId = oldId;
       list.boardId = this.boardId;
       list.copy(_id);
     });

@@ -304,6 +304,7 @@ const CreateBoard = BlazeComponent.extendComponent({
       'click .js-import': Popup.open('boardImportBoard'),
       submit: this.onSubmit,
       'click .js-import-board': Popup.open('chooseBoardSource'),
+      'click .js-board-template': Popup.open('searchElement'),
     }];
   },
 }).register('createBoardPopup');

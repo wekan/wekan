@@ -69,7 +69,7 @@ CardComments.allow({
 CardComments.helpers({
   copy(newCardId) {
     this.cardId = newCardId;
-    this._id = null;
+    delete this._id;
     CardComments.insert(this);
   },
 

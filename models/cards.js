@@ -274,7 +274,7 @@ Cards.allow({
 Cards.helpers({
   copy() {
     const oldId = this._id;
-    this._id = null;
+    delete this._id;
     const _id = Cards.insert(this);
 
     // copy checklists
