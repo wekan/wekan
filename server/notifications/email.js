@@ -36,7 +36,7 @@ Meteor.startup(() => {
       } catch (e) {
         return;
       }
-    }, 30000);
+    }, process.env.EMAIL_NOTIFICATION_TIMEOUT || 30000);
   });
 });
 
