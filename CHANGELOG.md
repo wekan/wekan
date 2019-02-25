@@ -5,6 +5,12 @@ This release adds the following new features:
 - Add setting [EMAIL_NOTIFICATION_TIMEOUT](https://github.com/wekan/wekan/issues/2203).
   Defaut 30000 ms (30s). Thanks to GitHub users ngru and xet7.
 
+and fixes the following bugs:
+
+- [Fix OAuth2 requestPermissions](https://github.com/wekan/wekan/commit/5e238bfbfea16940ae29647ae347bbdc0d78efb0).
+  This maybe makes [Auth0 login possible](https://github.com/wekan/wekan/issues/1722) with OIDC.
+  Thanks to GitHub user xet7.
+
 # v2.25 2019-02-23 Wekan release
 
 This release fixes the following bugs:
