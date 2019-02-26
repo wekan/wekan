@@ -571,7 +571,6 @@ BlazeComponent.extendComponent({
   },
 
   boards() {
-    console.log('booom');
     const boards = Boards.find({
       archived: false,
       'members.userId': Meteor.userId(),
