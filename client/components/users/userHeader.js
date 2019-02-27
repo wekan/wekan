@@ -3,6 +3,15 @@ Template.headerUserBar.events({
   'click .js-change-avatar': Popup.open('changeAvatar'),
 });
 
+Template.memberMenuPopup.helpers({
+  templatesBoardId() {
+    return Meteor.user().getTemplatesBoardId();
+  },
+  templatesBoardSlug() {
+    return Meteor.user().getTemplatesBoardSlug();
+  },
+});
+
 Template.memberMenuPopup.events({
   'click .js-edit-profile': Popup.open('editProfile'),
   'click .js-change-settings': Popup.open('changeSettings'),

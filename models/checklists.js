@@ -48,6 +48,19 @@ Checklists.attachSchema(new SimpleSchema({
 }));
 
 Checklists.helpers({
+  copy(newCardId) {
+    const oldChecklistId = this._id;
+    this._id = null;
+    this.cardId = newCardId;
+    const newChecklistId = Checklists.insert(this);
+    ChecklistItems.find({checklistId: oldChecklistId}).forEach((item) => {
+      item._id = null;
+      item.checklistId = newChecklistId;
+      item.cardId = newCardId;
+      ChecklistItems.insert(item);
+    });
+  },
+
   itemCount() {
     return ChecklistItems.find({ checklistId: this._id }).count();
   },

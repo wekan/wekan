@@ -20,12 +20,15 @@ template(name="boardBody")
       class="{{#if draggingActive.get}}is-dragging-active{{/if}}")
       if showOverlay.get
         .board-overlay
-      if isViewSwimlanes
+      if currentBoard.isTemplatesBoard
         each currentBoard.swimlanes
           +swimlane(this)
-      if isViewLists
-        +listsGroup
-      if isViewCalendar
+      else if isViewSwimlanes
+        each currentBoard.swimlanes
+          +swimlane(this)
+      else if isViewLists
+        +listsGroup(currentBoard)
+      else if isViewCalendar
         +calendarView
 
 template(name="calendarView")

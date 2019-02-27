@@ -67,6 +67,12 @@ CardComments.allow({
 });
 
 CardComments.helpers({
+  copy(newCardId) {
+    this.cardId = newCardId;
+    delete this._id;
+    CardComments.insert(this);
+  },
+
   user() {
     return Users.findOne(this.userId);
   },

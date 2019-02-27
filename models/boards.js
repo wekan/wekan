@@ -304,10 +304,32 @@ Boards.attachSchema(new SimpleSchema({
     defaultValue: false,
     optional: true,
   },
+  type: {
+    /**
+     * The type of board
+     */
+    type: String,
+    defaultValue: 'board',
+  },
 }));
 
 
 Boards.helpers({
+  copy() {
+    const oldId = this._id;
+    delete this._id;
+    const _id = Boards.insert(this);
+
+    // Copy all swimlanes in board
+    Swimlanes.find({
+      boardId: oldId,
+      archived: false,
+    }).forEach((swimlane) => {
+      swimlane.type = 'swimlane';
+      swimlane.boardId = _id;
+      swimlane.copy(oldId);
+    });
+  },
   /**
    * Is supplied user authorized to view this board?
    */
@@ -456,12 +478,87 @@ Boards.helpers({
     return _id;
   },
 
+  searchBoards(term) {
+    check(term, Match.OneOf(String, null, undefined));
+
+    const query = { boardId: this._id };
+    query.type = 'cardType-linkedBoard';
+    query.archived = false;
+
+    const projection = { limit: 10, sort: { createdAt: -1 } };
+
+    if (term) {
+      const regex = new RegExp(term, 'i');
+
+      query.$or = [
+        { title: regex },
+        { description: regex },
+      ];
+    }
+
+    return Cards.find(query, projection);
+  },
+
+  searchSwimlanes(term) {
+    check(term, Match.OneOf(String, null, undefined));
+
+    const query = { boardId: this._id };
+    if (this.isTemplatesBoard()) {
+      query.type = 'template-swimlane';
+      query.archived = false;
+    } else {
+      query.type = {$nin: ['template-swimlane']};
+    }
+    const projection = { limit: 10, sort: { createdAt: -1 } };
+
+    if (term) {
+      const regex = new RegExp(term, 'i');
+
+      query.$or = [
+        { title: regex },
+        { description: regex },
+      ];
+    }
+
+    return Swimlanes.find(query, projection);
+  },
+
+  searchLists(term) {
+    check(term, Match.OneOf(String, null, undefined));
+
+    const query = { boardId: this._id };
+    if (this.isTemplatesBoard()) {
+      query.type = 'template-list';
+      query.archived = false;
+    } else {
+      query.type = {$nin: ['template-list']};
+    }
+    const projection = { limit: 10, sort: { createdAt: -1 } };
+
+    if (term) {
+      const regex = new RegExp(term, 'i');
+
+      query.$or = [
+        { title: regex },
+        { description: regex },
+      ];
+    }
+
+    return Lists.find(query, projection);
+  },
+
   searchCards(term, excludeLinked) {
     check(term, Match.OneOf(String, null, undefined));
 
     const query = { boardId: this._id };
     if (excludeLinked) {
       query.linkedId = null;
+    }
+    if (this.isTemplatesBoard()) {
+      query.type = 'template-card';
+      query.archived = false;
+    } else {
+      query.type = {$nin: ['template-card']};
     }
     const projection = { limit: 10, sort: { createdAt: -1 } };
 
@@ -559,6 +656,13 @@ Boards.helpers({
     });
   },
 
+  isTemplateBoard() {
+    return this.type === 'template-board';
+  },
+
+  isTemplatesBoard() {
+    return this.type === 'template-container';
+  },
 });
 
 
@@ -907,7 +1011,7 @@ if (Meteor.isServer) {
    * @param {string} userId the ID of the user to retrieve the data
    * @return_type [{_id: string,
                     title: string}]
-   */
+                    */
   JsonRoutes.add('GET', '/api/users/:userId/boards', function (req, res) {
     try {
       Authentication.checkLoggedIn(req.userId);
@@ -944,7 +1048,7 @@ if (Meteor.isServer) {
    *
    * @return_type [{_id: string,
                     title: string}]
-   */
+                    */
   JsonRoutes.add('GET', '/api/boards', function (req, res) {
     try {
       Authentication.checkUserId(req.userId);
@@ -1015,7 +1119,7 @@ if (Meteor.isServer) {
    *
    * @return_type {_id: string,
                    defaultSwimlaneId: string}
-   */
+                   */
   JsonRoutes.add('POST', '/api/boards', function (req, res) {
     try {
       Authentication.checkUserId(req.userId);

@@ -78,6 +78,13 @@ Swimlanes.attachSchema(new SimpleSchema({
       }
     },
   },
+  type: {
+    /**
+     * The type of swimlane
+     */
+    type: String,
+    defaultValue: 'swimlane',
+  },
 }));
 
 Swimlanes.allow({
@@ -94,11 +101,45 @@ Swimlanes.allow({
 });
 
 Swimlanes.helpers({
+  copy(oldBoardId) {
+    const oldId = this._id;
+    delete this._id;
+    const _id = Swimlanes.insert(this);
+
+    const query = {
+      swimlaneId: {$in: [oldId, '']},
+      archived: false,
+    };
+    if (oldBoardId) {
+      query.boardId = oldBoardId;
+    }
+
+    // Copy all lists in swimlane
+    Lists.find(query).forEach((list) => {
+      list.type = 'list';
+      list.swimlaneId = oldId;
+      list.boardId = this.boardId;
+      list.copy(_id);
+    });
+  },
+
   cards() {
     return Cards.find(Filter.mongoSelector({
       swimlaneId: this._id,
       archived: false,
     }), { sort: ['sort'] });
+  },
+
+  lists() {
+    return Lists.find(Filter.mongoSelector({
+      boardId: this.boardId,
+      swimlaneId: {$in: [this._id, '']},
+      archived: false,
+    }), { sort: ['sort'] });
+  },
+
+  allLists() {
+    return Lists.find({ swimlaneId: this._id });
   },
 
   allCards() {
@@ -114,6 +155,29 @@ Swimlanes.helpers({
       return this.color;
     return '';
   },
+
+  isTemplateSwimlane() {
+    return this.type === 'template-swimlane';
+  },
+
+  isTemplateContainer() {
+    return this.type === 'template-container';
+  },
+
+  isListTemplatesSwimlane() {
+    const user = Users.findOne(Meteor.userId());
+    return user.profile.listTemplatesSwimlaneId === this._id;
+  },
+
+  isCardTemplatesSwimlane() {
+    const user = Users.findOne(Meteor.userId());
+    return user.profile.cardTemplatesSwimlaneId === this._id;
+  },
+
+  isBoardTemplatesSwimlane() {
+    const user = Users.findOne(Meteor.userId());
+    return user.profile.boardTemplatesSwimlaneId === this._id;
+  },
 });
 
 Swimlanes.mutations({
@@ -122,10 +186,20 @@ Swimlanes.mutations({
   },
 
   archive() {
+    if (this.isTemplateSwimlane()) {
+      this.lists().forEach((list) => {
+        return list.archive();
+      });
+    }
     return { $set: { archived: true } };
   },
 
   restore() {
+    if (this.isTemplateSwimlane()) {
+      this.allLists().forEach((list) => {
+        return list.restore();
+      });
+    }
     return { $set: { archived: false } };
   },
 

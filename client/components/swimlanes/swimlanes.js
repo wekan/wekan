@@ -1,5 +1,10 @@
 const { calculateIndex, enableClickOnTouch } = Utils;
 
+function currentListIsInThisSwimlane(swimlaneId) {
+  const currentList = Lists.findOne(Session.get('currentList'));
+  return currentList && (currentList.swimlaneId === swimlaneId || currentList.swimlaneId === '');
+}
+
 function currentCardIsInThisList(listId, swimlaneId) {
   const currentCard = Cards.findOne(Session.get('currentCard'));
   const currentUser = Meteor.user();
@@ -114,6 +119,10 @@ BlazeComponent.extendComponent({
     return currentCardIsInThisList(listId, swimlaneId);
   },
 
+  currentListIsInThisSwimlane(swimlaneId) {
+    return currentListIsInThisSwimlane(swimlaneId);
+  },
+
   events() {
     return [{
       // Click-and-drag action
@@ -153,6 +162,12 @@ BlazeComponent.extendComponent({
 }).register('swimlane');
 
 BlazeComponent.extendComponent({
+  onCreated() {
+    this.currentBoard = Boards.findOne(Session.get('currentBoard'));
+    this.isListTemplatesSwimlane = this.currentBoard.isTemplatesBoard() && this.currentData().isListTemplatesSwimlane();
+    this.currentSwimlane = this.currentData();
+  },
+
   // Proxy
   open() {
     this.childComponents('inlinedForm')[0].open();
@@ -169,12 +184,15 @@ BlazeComponent.extendComponent({
             title,
             boardId: Session.get('currentBoard'),
             sort: $('.list').length,
+            type: (this.isListTemplatesSwimlane)?'template-list':'list',
+            swimlaneId: (this.currentBoard.isTemplatesBoard())?this.currentSwimlane._id:'',
           });
 
           titleInput.value = '';
           titleInput.focus();
         }
       },
+      'click .js-list-template': Popup.open('searchElement'),
     }];
   },
 }).register('addListForm');

@@ -1,3 +1,10 @@
+# v2.29 2019-02-27 Wekan release
+
+This release adds the following new features:
+
+- Swimlane/List/Board/Card templates. In Progress, please test and [add comment if you find not listed bugs](https://github.com/wekan/wekan/issues/2165).
+  Thanks to GitHub user andresmanelli.
+
 # v2.28 2019-02-27 Wekan release
 
 This release adds the following new Sandstorm features and fixes:

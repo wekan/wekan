@@ -27,6 +27,13 @@ Lists.attachSchema(new SimpleSchema({
      */
     type: String,
   },
+  swimlaneId: {
+    /**
+     * the swimlane associated to this list. Used for templates
+     */
+    type: String,
+    defaultValue: '',
+  },
   createdAt: {
     /**
      * creation date
@@ -107,6 +114,13 @@ Lists.attachSchema(new SimpleSchema({
       'saddlebrown', 'paleturquoise', 'mistyrose', 'indigo',
     ],
   },
+  type: {
+    /**
+     * The type of list
+     */
+    type: String,
+    defaultValue: 'list',
+  },
 }));
 
 Lists.allow({
@@ -123,6 +137,37 @@ Lists.allow({
 });
 
 Lists.helpers({
+  copy(swimlaneId) {
+    const oldId = this._id;
+    const oldSwimlaneId = this.swimlaneId || null;
+    let _id = null;
+    existingListWithSameName = Lists.findOne({
+      boardId: this.boardId,
+      title: this.title,
+      archived: false,
+    });
+    if (existingListWithSameName) {
+      _id = existingListWithSameName._id;
+    } else {
+      delete this._id;
+      delete this.swimlaneId;
+      _id = Lists.insert(this);
+    }
+
+    // Copy all cards in list
+    Cards.find({
+      swimlaneId: oldSwimlaneId,
+      listId: oldId,
+      archived: false,
+    }).forEach((card) => {
+      card.type = 'cardType-card';
+      card.listId = _id;
+      card.boardId = this.boardId;
+      card.swimlaneId = swimlaneId;
+      card.copy();
+    });
+  },
+
   cards(swimlaneId) {
     const selector = {
       listId: this._id,
@@ -169,6 +214,10 @@ Lists.helpers({
       return this.color;
     return '';
   },
+
+  isTemplateList() {
+    return this.type === 'template-list';
+  },
 });
 
 Lists.mutations({
@@ -177,10 +226,20 @@ Lists.mutations({
   },
 
   archive() {
+    if (this.isTemplateList()) {
+      this.cards().forEach((card) => {
+        return card.archive();
+      });
+    }
     return { $set: { archived: true } };
   },
 
   restore() {
+    if (this.isTemplateList()) {
+      this.allCards().forEach((card) => {
+        return card.restore();
+      });
+    }
     return { $set: { archived: false } };
   },
 

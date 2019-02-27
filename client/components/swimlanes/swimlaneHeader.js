@@ -47,12 +47,14 @@ BlazeComponent.extendComponent({
         const titleInput = this.find('.swimlane-name-input');
         const title = titleInput.value.trim();
         const sortValue = calculateIndexData(this.currentSwimlane, nextSwimlane, 1);
+        const swimlaneType = (currentBoard.isTemplatesBoard())?'template-swimlane':'swimlane';
 
         if (title) {
           Swimlanes.insert({
             title,
             boardId: Session.get('currentBoard'),
             sort: sortValue.base,
+            type: swimlaneType,
           });
 
           titleInput.value = '';
@@ -63,6 +65,7 @@ BlazeComponent.extendComponent({
         // with a minimum of interactions
         Popup.close();
       },
+      'click .js-swimlane-template': Popup.open('searchElement'),
     }];
   },
 }).register('swimlaneAddPopup');

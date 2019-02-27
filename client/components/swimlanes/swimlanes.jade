@@ -3,15 +3,15 @@ template(name="swimlane")
     +swimlaneHeader
   .swimlane.js-lists.js-swimlane
     if isMiniScreen
-      if currentList
+      if currentListIsInThisSwimlane _id
         +list(currentList)
-      else
-        each currentBoard.lists
+      unless currentList
+        each lists
           +miniList(this)
         if currentUser.isBoardMember
           +addListForm
     else
-      each currentBoard.lists
+      each lists
         +list(this)
         if currentCardIsInThisList _id ../_id
           +cardDetails(currentCard)
@@ -24,12 +24,12 @@ template(name="listsGroup")
       if currentList
         +list(currentList)
       else
-        each currentBoard.lists
+        each lists
           +miniList(this)
         if currentUser.isBoardMember
           +addListForm
     else
-      each currentBoard.lists
+      each lists
         +list(this)
         if currentCardIsInThisList _id null
           +cardDetails(currentCard)
@@ -44,7 +44,11 @@ template(name="addListForm")
           autocomplete="off" autofocus)
         .edit-controls.clearfix
           button.primary.confirm(type="submit") {{_ 'save'}}
-          a.fa.fa-times-thin.js-close-inlined-form
+          unless currentBoard.isTemplatesBoard
+            unless currentBoard.isTemplateBoard
+              span.quiet
+                | {{_ 'or'}}
+                a.js-list-template {{_ 'template'}}
       else
         a.open-list-composer.js-open-inlined-form
           i.fa.fa-plus

@@ -1,15 +1,21 @@
 template(name="swimlaneHeader")
   .swimlane-header-wrap.js-swimlane-header(class='{{#if colorClass}}swimlane-{{colorClass}}{{/if}}')
-    +inlinedForm
-      +editSwimlaneTitleForm
+    if this.isTemplateContainer
+        +swimlaneFixedHeader(this)
     else
-      .swimlane-header(
-        class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
-        = title
-      .swimlane-header-menu
-        unless currentUser.isCommentOnly
-          a.fa.fa-plus.js-open-add-swimlane-menu.swimlane-header-plus-icon
-          a.fa.fa-navicon.js-open-swimlane-menu
+      +inlinedForm
+        +editSwimlaneTitleForm
+      else
+        +swimlaneFixedHeader(this)
+
+template(name="swimlaneFixedHeader")
+  .swimlane-header(
+    class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
+    = title
+  .swimlane-header-menu
+    unless currentUser.isCommentOnly
+      a.fa.fa-plus.js-open-add-swimlane-menu.swimlane-header-plus-icon
+      a.fa.fa-navicon.js-open-swimlane-menu
 
 template(name="editSwimlaneTitleForm")
   .list-composer
@@ -22,9 +28,10 @@ template(name="swimlaneActionPopup")
   unless currentUser.isCommentOnly
     ul.pop-over-list
        li: a.js-set-swimlane-color {{_ 'select-color'}}
-    hr
-    ul.pop-over-list
-      li: a.js-close-swimlane {{_ 'archive-swimlane'}}
+    unless this.isTemplateContainer
+      hr
+      ul.pop-over-list
+        li: a.js-close-swimlane {{_ 'archive-swimlane'}}
 
 template(name="swimlaneAddPopup")
   unless currentUser.isCommentOnly
@@ -33,6 +40,11 @@ template(name="swimlaneAddPopup")
         autocomplete="off" autofocus)
       .edit-controls.clearfix
         button.primary.confirm(type="submit") {{_ 'add'}}
+        unless currentBoard.isTemplatesBoard
+          unless currentBoard.isTemplateBoard
+            span.quiet
+              | {{_ 'or'}}
+              a.js-swimlane-template {{_ 'template'}}
 
 template(name="setSwimlaneColorPopup")
   form.edit-label
