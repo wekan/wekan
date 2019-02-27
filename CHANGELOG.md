@@ -1,3 +1,12 @@
+# v2.27 2019-02-27 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix OIDC error "a.join is not a function"](https://github.com/wekan/wekan/issues/2206)
+  by reverting configurable OAUTH2_ID_TOKEN_WHITELIST_FIELDS and
+  OAUTH2_REQUEST_PERMISSIONS from Wekan v2.22-2.26.
+  Thanks to GitHub user xet7.
+
 # v2.26 2019-02-25 Wekan release
 
 This release adds the following new features:
@@ -7,10 +16,10 @@ This release adds the following new features:
 
 and fixes the following bugs:
 
-- [Fix OAuth2 requestPermissions](https://github.com/wekan/wekan/commit/5e238bfbfea16940ae29647ae347bbdc0d78efb0).
+- REVERTED in v2.27 ([Fix OAuth2 requestPermissions](https://github.com/wekan/wekan/commit/5e238bfbfea16940ae29647ae347bbdc0d78efb0).
   This makes [Auth0 login possible](https://github.com/wekan/wekan/issues/1722)
   with [OIDC](https://github.com/wekan/wekan/wiki/OAuth2#auth0). Needs testing.
-  Thanks to GitHub user xet7.
+  Thanks to GitHub user xet7.)
 
 # v2.25 2019-02-23 Wekan release
 
@@ -31,8 +40,8 @@ This release adds the following new features:
 
 and fixes the following bugs:
 
-- [Add missing text .env to wekan/server/authentication.js](https://github.com/wekan/wekan/commit/4e6e78ccd216045e6ad41bcdab4e524f715a7eb5).
-  Thanks to Vanila Chat user .gitignore.
+- REVERTED in v2.27 ([Add missing text .env to wekan/server/authentication.js](https://github.com/wekan/wekan/commit/4e6e78ccd216045e6ad41bcdab4e524f715a7eb5).
+  Thanks to Vanila Chat user .gitignore.)
 
 Thanks to above contributors, and translators for their translation.
 
@@ -50,10 +59,10 @@ Thanks to above GitHub users for their contributions, and translators for their 
 This release adds the following new features:
 
 - [Kadira integration](https://github.com/wekan/wekan/issues/2152). Thanks to GavinLilly.
-- Add [configurable](https://github.com/wekan/wekan/issues/1874#issuecomment-462759627)
+- REVERTED in v2.27 (Add [configurable](https://github.com/wekan/wekan/issues/1874#issuecomment-462759627)
   settings [OAUTH2_ID_TOKEN_WHITELIST_FIELDS and
   OAUTH2_REQUEST_PERMISSIONS](https://github.com/wekan/wekan/commit/b66f471e530d41a3f12e4bfc29548313e9a73c35).
-  Thanks to xet7.
+  Thanks to xet7.)
 
 and fixes the following bugs:
 

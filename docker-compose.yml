@@ -315,10 +315,6 @@ services:
       #- OAUTH2_FULLNAME_MAP=
       # OAuth2 Email Mapping
       #- OAUTH2_EMAIL_MAP=
-      # OAUTH2 ID Token Whitelist Fields.
-      #- OAUTH2_ID_TOKEN_WHITELIST_FIELDS=[]
-      # OAUTH2 Request Permissions.
-      #- OAUTH2_REQUEST_PERMISSIONS=[openid email profile]
       #-----------------------------------------------------------------
       # ==== LDAP ====
       # https://github.com/wekan/wekan/wiki/LDAP
