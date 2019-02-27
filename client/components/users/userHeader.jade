@@ -4,10 +4,11 @@ template(name="headerUserBar")
       .header-user-bar-avatar
         +userAvatar(userId=currentUser._id)
       unless isMiniScreen
-        if currentUser.profile.fullname
-          = currentUser.profile.fullname
-        else
-          = currentUser.username
+        unless isSandstorm
+          if currentUser.profile.fullname
+            = currentUser.profile.fullname
+          else
+            = currentUser.username
 
 template(name="memberMenuPopup")
   ul.pop-over-list
@@ -15,13 +16,15 @@ template(name="memberMenuPopup")
       li: a.js-edit-profile {{_ 'edit-profile'}}
       li: a.js-change-settings {{_ 'change-settings'}}
       li: a.js-change-avatar {{_ 'edit-avatar'}}
-      li: a.js-change-password {{_ 'changePasswordPopup-title'}}
-      li: a.js-change-language {{_ 'changeLanguagePopup-title'}}
+      unless isSandstorm
+        li: a.js-change-password {{_ 'changePasswordPopup-title'}}
+        li: a.js-change-language {{_ 'changeLanguagePopup-title'}}
     if currentUser.isAdmin
       li: a.js-go-setting(href="{{pathFor 'setting'}}") {{_ 'admin-panel'}}
-  hr
-  ul.pop-over-list
-    li: a.js-logout {{_ 'log-out'}}
+  unless isSandstorm
+    hr
+    ul.pop-over-list
+      li: a.js-logout {{_ 'log-out'}}
 
 template(name="editProfilePopup")
   form
