@@ -101,8 +101,10 @@ Swimlanes.allow({
 });
 
 Swimlanes.helpers({
-  copy(oldBoardId) {
+  copy(boardId) {
     const oldId = this._id;
+    const oldBoardId = this.boardId;
+    this.boardId = boardId;
     delete this._id;
     const _id = Swimlanes.insert(this);
 
@@ -118,8 +120,8 @@ Swimlanes.helpers({
     Lists.find(query).forEach((list) => {
       list.type = 'list';
       list.swimlaneId = oldId;
-      list.boardId = this.boardId;
-      list.copy(_id);
+      list.boardId = boardId;
+      list.copy(boardId, _id);
     });
   },
 

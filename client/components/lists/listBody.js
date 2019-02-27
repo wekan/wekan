@@ -621,15 +621,12 @@ BlazeComponent.extendComponent({
         if (!this.isTemplateSearch || this.isCardTemplateSearch) {
           // Card insertion
           // 1. Common
-          element.boardId = this.boardId;
-          element.listId = this.listId;
-          element.swimlaneId = this.swimlaneId;
           element.sort = Lists.findOne(this.listId).cards().count();
           // 1.A From template
           if (this.isTemplateSearch) {
             element.type = 'cardType-card';
             element.linkedId = '';
-            _id = element.copy();
+            _id = element.copy(this.boardId, this.swimlaneId, this.listId);
             // 1.B Linked card
           } else {
             delete element._id;
@@ -640,21 +637,18 @@ BlazeComponent.extendComponent({
           Filter.addException(_id);
           // List insertion
         } else if (this.isListTemplateSearch) {
-          element.boardId = this.boardId;
           element.sort = Swimlanes.findOne(this.swimlaneId).lists().count();
           element.type = 'list';
-          _id = element.copy(this.swimlaneId);
+          _id = element.copy(this.boardId, this.swimlaneId);
         } else if (this.isSwimlaneTemplateSearch) {
-          element.boardId = this.boardId;
           element.sort = Boards.findOne(this.boardId).swimlanes().count();
           element.type = 'swimlalne';
-          _id = element.copy();
+          _id = element.copy(this.boardId);
         } else if (this.isBoardTemplateSearch) {
           board = Boards.findOne(element.linkedId);
           board.sort = Boards.find({archived: false}).count();
           board.type = 'board';
           delete board.slug;
-          delete board.members;
           _id = board.copy();
         }
         Popup.close();
