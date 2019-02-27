@@ -1,3 +1,22 @@
+# Upcoming Wekan release
+
+This release adds the following new Sandstorm features and fixes:
+
+- All Boards page [so it's possible to go back from subtask board](https://github.com/wekan/wekan/issues/2082).
+- Board favorites.
+- New Sandstorm board first user is Admin and [has IFTTT Rules](https://github.com/wekan/wekan/issues/2125) and Standalone Wekan Admin Panel.
+  Probably some Admin Panel features do not work yet. Please keep backup of your grains before testig Admin Panel.
+- Linked Cards and Linked Boards.
+- Some not needed options like Logout etc have been hidden from top bar right menu. 
+- [Import board now works. "Board not found" is not problem anymore](https://github.com/wekan/wekan/issues/1430), because you can go to All Boards page to change to imported board.
+
+and removes the following features:
+
+- Remove Welcome Board from Standalone Wekan, [to fix Welcome board not translated](https://github.com/wekan/wekan/issues/1601).
+  Sandstorm Wekan does not have Welcome Board.
+
+Thanks to GitHub user xet7 for contributions.
+
 # v2.27 2019-02-27 Wekan release
 
 This release fixes the following bugs:
