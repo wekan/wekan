@@ -95,10 +95,6 @@ function wekan_repo_check(){
       #export OAUTH2_FULLNAME_MAP=name
       # The claim name you want to map to the email field:
       #export OAUTH2_EMAIL_MAP=email
-      # OAUTH2 ID Token Whitelist Fields.
-      #export OAUTH2_ID_TOKEN_WHITELIST_FIELDS=[]
-      # OAUTH2 Request Permissions.
-      #export OAUTH2_REQUEST_PERMISSIONS=[openid profile email]
       #-----------------------------------------------------------------
       # ==== OAUTH2 KEYCLOAK ====
       # https://github.com/wekan/wekan/wiki/Keycloak  <== MAPPING INFO, REQUIRED

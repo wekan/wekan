@@ -220,6 +220,10 @@ services:
       # https://github.com/wekan/wekan-gogs
       # If you disable Wekan API with false, Export Board does not work.
       - WITH_API=true
+      #---------------------------------------------------------------
+      # ==== EMAIL NOTIFICATION TIMEOUT, ms =====
+      # Defaut: 30000 ms = 30s
+      #- EMAIL_NOTIFICATION_TIMEOUT=30000
       #-----------------------------------------------------------------
       # ==== CORS =====
       # CORS: Set Access-Control-Allow-Origin header.
@@ -311,10 +315,6 @@ services:
       #- OAUTH2_FULLNAME_MAP=
       # OAuth2 Email Mapping
       #- OAUTH2_EMAIL_MAP=
-      # OAUTH2 ID Token Whitelist Fields.
-      #- OAUTH2_ID_TOKEN_WHITELIST_FIELDS=[]
-      # OAUTH2 Request Permissions.
-      #- OAUTH2_REQUEST_PERMISSIONS=[openid email profile]
       #-----------------------------------------------------------------
       # ==== LDAP ====
       # https://github.com/wekan/wekan/wiki/LDAP

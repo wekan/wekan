@@ -76,8 +76,8 @@ Meteor.startup(() => {
             authorizationEndpoint: process.env.OAUTH2_AUTH_ENDPOINT,
             userinfoEndpoint: process.env.OAUTH2_USERINFO_ENDPOINT,
             tokenEndpoint: process.env.OAUTH2_TOKEN_ENDPOINT,
-            idTokenWhitelistFields: process.env.OAUTH2_ID_TOKEN_WHITELIST_FIELDS || [],
-            requestPermissions: process.env.OAUTH2_REQUEST_PERMISSIONS || ['openid'],
+            idTokenWhitelistFields: [],
+            requestPermissions: ['openid'],
           },
         }
       );
