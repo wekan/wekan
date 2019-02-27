@@ -326,8 +326,7 @@ Boards.helpers({
       archived: false,
     }).forEach((swimlane) => {
       swimlane.type = 'swimlane';
-      swimlane.boardId = _id;
-      swimlane.copy(oldId);
+      swimlane.copy(_id);
     });
   },
   /**

@@ -90,6 +90,10 @@ template(name="linkCardPopup")
     input.primary.confirm.js-done(type="button" value="{{_ 'link'}}")
 
 template(name="searchElementPopup")
+  form
+    label
+      | {{_ 'title'}}
+      input.js-element-title(type="text" placeholder="{{_ 'title'}}" autofocus required)
   unless isTemplateSearch
     label {{_ 'boards'}}:
     .link-board-wrapper

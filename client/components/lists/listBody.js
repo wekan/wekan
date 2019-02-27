@@ -616,7 +616,11 @@ BlazeComponent.extendComponent({
       },
       'click .js-minicard'(evt) {
         // 0. Common
+        const title = $('.js-element-title').val().trim();
+        if (!title)
+          return;
         const element = Blaze.getData(evt.currentTarget);
+        element.title = title;
         let _id = '';
         if (!this.isTemplateSearch || this.isCardTemplateSearch) {
           // Card insertion
@@ -648,6 +652,7 @@ BlazeComponent.extendComponent({
           board = Boards.findOne(element.linkedId);
           board.sort = Boards.find({archived: false}).count();
           board.type = 'board';
+          board.title = element.title;
           delete board.slug;
           _id = board.copy();
         }
