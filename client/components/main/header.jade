@@ -4,39 +4,38 @@ template(name="header")
     list all starred boards with a link to go there. This is inspired by the
     Reddit "subreddit" bar.
     The first link goes to the boards page.
-  unless isSandstorm
-    if currentUser
-      #header-quick-access(class=currentBoard.colorClass)
-        if isMiniScreen
-          ul
-            li
-              a(href="{{pathFor 'home'}}")
-                span.fa.fa-home
+  if currentUser
+    #header-quick-access(class=currentBoard.colorClass)
+      if isMiniScreen
+        ul
+          li
+            a(href="{{pathFor 'home'}}")
+              span.fa.fa-home
 
-            if currentList
-              each currentBoard.lists
-                li(class="{{#if $.Session.equals 'currentList' _id}}current{{/if}}")
-                  a.js-select-list
-                    = title
-          #header-new-board-icon
-        else
-          ul
-            li
-              a(href="{{pathFor 'home'}}")
-                span.fa.fa-home
-                | {{_ 'all-boards'}}
-            each currentUser.starredBoards
-              li.separator -
-              li(class="{{#if $.Session.equals 'currentBoard' _id}}current{{/if}}")
-                a(href="{{pathFor 'board' id=_id slug=slug}}")
+          if currentList
+            each currentBoard.lists
+              li(class="{{#if $.Session.equals 'currentList' _id}}current{{/if}}")
+                a.js-select-list
                   = title
-            else
-              li.current {{_ 'quick-access-description'}}
+        #header-new-board-icon
+      else
+        ul
+          li
+            a(href="{{pathFor 'home'}}")
+              span.fa.fa-home
+              | {{_ 'all-boards'}}
+          each currentUser.starredBoards
+            li.separator -
+            li(class="{{#if $.Session.equals 'currentBoard' _id}}current{{/if}}")
+              a(href="{{pathFor 'board' id=_id slug=slug}}")
+                = title
+          else
+            li.current {{_ 'quick-access-description'}}
 
-        a#header-new-board-icon.js-create-board
-          i.fa.fa-plus(title="Create a new board")
+      a#header-new-board-icon.js-create-board
+        i.fa.fa-plus(title="Create a new board")
 
-        +headerUserBar
+      +headerUserBar
 
   #header(class=currentBoard.colorClass)
     //-
@@ -52,13 +51,9 @@ template(name="header")
           On sandstorm, the logo shouldn't be clickable, because we only have one
           page/document on it, and we don't want to see the home page containing
           the list of all boards.
-        if isSandstorm
-          .wekan-logo
+        unless currentSetting.hideLogo
+          a.wekan-logo(href="{{pathFor 'home'}}" title="{{_ 'header-logo-title'}}")
             img(src="{{pathFor '/wekan-logo-header.png'}}" alt="Wekan")
-        else
-          unless currentSetting.hideLogo
-            a.wekan-logo(href="{{pathFor 'home'}}" title="{{_ 'header-logo-title'}}")
-              img(src="{{pathFor '/wekan-logo-header.png'}}" alt="Wekan")
 
   if appIsOffline
     +offlineWarning

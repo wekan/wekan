@@ -83,17 +83,16 @@ template(name="memberPopup")
     ul.pop-over-list
       li
         a.js-filter-member {{_ 'filter-cards'}}
-      unless isSandstorm
-        if currentUser.isBoardAdmin
-          li
-            a.js-change-role
-              | {{_ 'change-permissions'}}
-              span.quiet (#{memberType})
+      if currentUser.isBoardAdmin
         li
-          if $eq currentUser._id userId
-            a.js-leave-member {{_ 'leave-board'}}
-          else if currentUser.isBoardAdmin
-            a.js-remove-member {{_ 'remove-from-board'}}
+          a.js-change-role
+            | {{_ 'change-permissions'}}
+            span.quiet (#{memberType})
+      li
+        if $eq currentUser._id userId
+          a.js-leave-member {{_ 'leave-board'}}
+        else if currentUser.isBoardAdmin
+          a.js-remove-member {{_ 'remove-from-board'}}
 
 
 template(name="removeMemberPopup")
