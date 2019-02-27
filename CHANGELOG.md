@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v2.28 2019-02-27 Wekan release
 
 This release adds the following new Sandstorm features and fixes:
 
