@@ -1,5 +1,5 @@
 appId: wekan-public/apps/77b94f60-dec9-0136-304e-16ff53095928
-appVersion: "v2.29.0"
+appVersion: "v2.30.0"
 files:
   userUploads:
     - README.md
