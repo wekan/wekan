@@ -1,3 +1,11 @@
+# v2.30 2019-02-28 Wekan release
+
+This release adds the following new [Template features](https://github.com/wekan/wekan/issues/2209), thanks to GitHub user andresmanelli:
+
+- [Fix popup title. Add element title modification](https://github.com/wekan/wekan/commit/888e1ad5d3e32be53283aa32198057f669f3d706);
+- [Copy template attachments](https://github.com/wekan/wekan/commit/abb71083215462d91b084c4de13af0b130638e4d);
+- [Standarize copy functions. Match labels by name](https://github.com/wekan/wekan/commit/da21a2a410c9b905de89d66236748e0c8f5357ea).
+
 # v2.29 2019-02-27 Wekan release
 
 This release adds the following new features:

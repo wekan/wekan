@@ -272,13 +272,41 @@ Cards.allow({
 });
 
 Cards.helpers({
-  copy() {
+  copy(boardId, swimlaneId, listId) {
+    const oldBoard = Boards.findOne(this.boardId);
+    const oldBoardLabels = oldBoard.labels;
+    // Get old label names
+    const oldCardLabels = _.pluck(_.filter(oldBoardLabels, (label) => {
+      return _.contains(this.labelIds, label._id);
+    }), 'name');
+
+    const newBoard = Boards.findOne(boardId);
+    const newBoardLabels = newBoard.labels;
+    const newCardLabels = _.pluck(_.filter(newBoardLabels, (label) => {
+      return _.contains(oldCardLabels, label.name);
+    }), '_id');
+
     const oldId = this._id;
+    const oldCard = Cards.findOne(oldId);
+
     delete this._id;
+    delete this.labelIds;
+    this.labelIds= newCardLabels;
+    this.boardId = boardId;
+    this.swimlaneId = swimlaneId;
+    this.listId = listId;
     const _id = Cards.insert(this);
+
+    // Copy attachments
+    oldCard.attachments().forEach((att) => {
+      att.cardId = _id;
+      delete att._id;
+      return Attachments.insert(att);
+    });
 
     // copy checklists
     Checklists.find({cardId: oldId}).forEach((ch) => {
+      // REMOVE verify copy with arguments
       ch.copy(_id);
     });
 
@@ -286,11 +314,13 @@ Cards.helpers({
     Cards.find({parentId: oldId}).forEach((subtask) => {
       subtask.parentId = _id;
       subtask._id = null;
+      // REMOVE verify copy with arguments instead of insert?
       Cards.insert(subtask);
     });
 
     // copy card comments
     CardComments.find({cardId: oldId}).forEach((cmt) => {
+      // REMOVE verify copy with arguments
       cmt.copy(_id);
     });
 

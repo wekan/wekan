@@ -137,12 +137,15 @@ Lists.allow({
 });
 
 Lists.helpers({
-  copy(swimlaneId) {
+  copy(boardId, swimlaneId) {
     const oldId = this._id;
     const oldSwimlaneId = this.swimlaneId || null;
+    this.boardId = boardId;
+    this.swimlaneId = swimlaneId;
+
     let _id = null;
     existingListWithSameName = Lists.findOne({
-      boardId: this.boardId,
+      boardId,
       title: this.title,
       archived: false,
     });
@@ -160,11 +163,7 @@ Lists.helpers({
       listId: oldId,
       archived: false,
     }).forEach((card) => {
-      card.type = 'cardType-card';
-      card.listId = _id;
-      card.boardId = this.boardId;
-      card.swimlaneId = swimlaneId;
-      card.copy();
+      card.copy(boardId, swimlaneId, _id);
     });
   },
 
