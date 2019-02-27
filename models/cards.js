@@ -287,6 +287,8 @@ Cards.helpers({
     }), '_id');
 
     const oldId = this._id;
+    const oldCard = Cards.findOne(oldId);
+
     delete this._id;
     delete this.labelIds;
     this.labelIds= newCardLabels;
@@ -294,6 +296,13 @@ Cards.helpers({
     this.swimlaneId = swimlaneId;
     this.listId = listId;
     const _id = Cards.insert(this);
+
+    // Copy attachments
+    oldCard.attachments().forEach((att) => {
+      att.cardId = _id;
+      delete att._id;
+      return Attachments.insert(att);
+    });
 
     // copy checklists
     Checklists.find({cardId: oldId}).forEach((ch) => {
