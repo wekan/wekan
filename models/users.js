@@ -711,7 +711,6 @@ if (Meteor.isServer) {
   CollectionHooks.getUserId = () => {
     return fakeUserId.get() || getUserId();
   };
-  /*
   if (!isSandstorm) {
     Users.after.insert((userId, doc) => {
       const fakeUser = {
@@ -721,6 +720,7 @@ if (Meteor.isServer) {
       };
 
       fakeUserId.withValue(doc._id, () => {
+      /*
         // Insert the Welcome Board
         Boards.insert({
           title: TAPi18n.__('welcome-board'),
@@ -737,6 +737,7 @@ if (Meteor.isServer) {
             Lists.insert({title: TAPi18n.__(title), boardId, sort: titleIndex}, fakeUser);
           });
         });
+        */
 
         Boards.insert({
           title: TAPi18n.__('templates'),
@@ -786,7 +787,6 @@ if (Meteor.isServer) {
       });
     });
   }
-  */
 
   Users.after.insert((userId, doc) => {
 
