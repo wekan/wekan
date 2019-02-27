@@ -435,12 +435,12 @@ if (isSandstorm && Meteor.isClient) {
   //
   // XXX Hack. The home route is already defined at this point so we need to
   // add the redirection trigger to the internal route object.
-  FlowRouter._routesMap.home._triggersEnter.push((context, redirect) => {
-    redirect(FlowRouter.path('board', {
-      id: sandstormBoard._id,
-      slug: sandstormBoard.slug,
-    }));
-  });
+  //FlowRouter._routesMap.home._triggersEnter.push((context, redirect) => {
+  //  redirect(FlowRouter.path('board', {
+  //    id: sandstormBoard._id,
+  //    slug: sandstormBoard.slug,
+  //  }));
+  //});
 
   // XXX Hack. `Meteor.absoluteUrl` doesn't work in Sandstorm, since every
   // session has a different URL whereas Meteor computes absoluteUrl based on
@@ -457,9 +457,9 @@ if (isSandstorm && Meteor.isClient) {
   // XXX Hack to fix https://github.com/wefork/wekan/issues/27
   // Sandstorm Wekan instances only ever have a single board, so there is no need
   // to cache per-board subscriptions.
-  SubsManager.prototype.subscribe = function(...params) {
-    return Meteor.subscribe(...params);
-  };
+  //SubsManager.prototype.subscribe = function(...params) {
+  //  return Meteor.subscribe(...params);
+  //};
 }
 
 // We use this blaze helper in the UI to hide some templates that does not make

@@ -44,20 +44,19 @@ template(name="addCardForm")
 
   .add-controls.clearfix
     button.primary.confirm(type="submit") {{_ 'add'}}
-    unless isSandstorm
-      unless currentBoard.isTemplatesBoard
-        unless currentBoard.isTemplateBoard
-          span.quiet
-            | {{_ 'or'}}
-            a.js-link {{_ 'link'}}
-          span.quiet
-            | &nbsp;
-            | /
-            a.js-search {{_ 'search'}}
-          span.quiet
-            | &nbsp;
-            | /
-            a.js-card-template {{_ 'template'}}
+    unless currentBoard.isTemplatesBoard
+      unless currentBoard.isTemplateBoard
+        span.quiet
+          | {{_ 'or'}}
+          a.js-link {{_ 'link'}}
+        span.quiet
+          | &nbsp;
+          | /
+          a.js-search {{_ 'search'}}
+        span.quiet
+          | &nbsp;
+          | /
+          a.js-card-template {{_ 'template'}}
 
 template(name="autocompleteLabelLine")
   .minicard-label(class="card-label-{{colorName}}" title=labelName)
@@ -88,8 +87,7 @@ template(name="linkCardPopup")
       option(value="{{getId}}") {{getTitle}}
 
   .edit-controls.clearfix
-    unless isSandstorm
-      input.primary.confirm.js-done(type="button" value="{{_ 'link'}}")
+    input.primary.confirm.js-done(type="button" value="{{_ 'link'}}")
 
 template(name="searchElementPopup")
   unless isTemplateSearch

@@ -7,71 +7,69 @@ template(name="boardHeaderBar")
 
   .board-header-btns.left
     unless isMiniScreen
-      unless isSandstorm
-        if currentBoard
-          if currentUser
-            a.board-header-btn.js-star-board(class="{{#if isStarred}}is-active{{/if}}"
-              title="{{#if isStarred}}{{_ 'click-to-unstar'}}{{else}}{{_ 'click-to-star'}}{{/if}} {{_ 'starred-boards-description'}}")
-              i.fa(class="fa-star{{#unless isStarred}}-o{{/unless}}")
-              if showStarCounter
-                span
-                  = currentBoard.stars
+      if currentBoard
+        if currentUser
+          a.board-header-btn.js-star-board(class="{{#if isStarred}}is-active{{/if}}"
+            title="{{#if isStarred}}{{_ 'click-to-unstar'}}{{else}}{{_ 'click-to-star'}}{{/if}} {{_ 'starred-boards-description'}}")
+            i.fa(class="fa-star{{#unless isStarred}}-o{{/unless}}")
+            if showStarCounter
+              span
+                = currentBoard.stars
 
-            a.board-header-btn(
-              class="{{#if currentUser.isBoardAdmin}}js-change-visibility{{else}}is-disabled{{/if}}"
-              title="{{_ currentBoard.permission}}")
-              i.fa(class="{{#if currentBoard.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
-              span {{_ currentBoard.permission}}
+          a.board-header-btn(
+            class="{{#if currentUser.isBoardAdmin}}js-change-visibility{{else}}is-disabled{{/if}}"
+            title="{{_ currentBoard.permission}}")
+            i.fa(class="{{#if currentBoard.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
+            span {{_ currentBoard.permission}}
 
-            a.board-header-btn.js-watch-board(
-              title="{{_ watchLevel }}")
-              if $eq watchLevel "watching"
-                i.fa.fa-eye
-              if $eq watchLevel "tracking"
-                i.fa.fa-bell
-              if $eq watchLevel "muted"
-                i.fa.fa-bell-slash
-              span {{_ watchLevel}}
+          a.board-header-btn.js-watch-board(
+            title="{{_ watchLevel }}")
+            if $eq watchLevel "watching"
+              i.fa.fa-eye
+            if $eq watchLevel "tracking"
+              i.fa.fa-bell
+            if $eq watchLevel "muted"
+              i.fa.fa-bell-slash
+            span {{_ watchLevel}}
 
-          else
-            a.board-header-btn.js-log-in(
-              title="{{_ 'log-in'}}")
-              i.fa.fa-sign-in
-              span {{_ 'log-in'}}
+        else
+          a.board-header-btn.js-log-in(
+            title="{{_ 'log-in'}}")
+            i.fa.fa-sign-in
+            span {{_ 'log-in'}}
 
   .board-header-btns.right
     if currentBoard
       if isMiniScreen
-        unless isSandstorm
-          if currentUser
-            a.board-header-btn.js-star-board(class="{{#if isStarred}}is-active{{/if}}"
-              title="{{#if isStarred}}{{_ 'click-to-unstar'}}{{else}}{{_ 'click-to-star'}}{{/if}} {{_ 'starred-boards-description'}}")
-              i.fa(class="fa-star{{#unless isStarred}}-o{{/unless}}")
-              if showStarCounter
-                span
-                  = currentBoard.stars
+        if currentUser
+          a.board-header-btn.js-star-board(class="{{#if isStarred}}is-active{{/if}}"
+            title="{{#if isStarred}}{{_ 'click-to-unstar'}}{{else}}{{_ 'click-to-star'}}{{/if}} {{_ 'starred-boards-description'}}")
+            i.fa(class="fa-star{{#unless isStarred}}-o{{/unless}}")
+            if showStarCounter
+              span
+                = currentBoard.stars
 
-            a.board-header-btn(
-              class="{{#if currentUser.isBoardAdmin}}js-change-visibility{{else}}is-disabled{{/if}}"
-              title="{{_ currentBoard.permission}}")
-              i.fa(class="{{#if currentBoard.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
-              span {{_ currentBoard.permission}}
+          a.board-header-btn(
+            class="{{#if currentUser.isBoardAdmin}}js-change-visibility{{else}}is-disabled{{/if}}"
+            title="{{_ currentBoard.permission}}")
+            i.fa(class="{{#if currentBoard.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
+            span {{_ currentBoard.permission}}
 
-            a.board-header-btn.js-watch-board(
-              title="{{_ watchLevel }}")
-              if $eq watchLevel "watching"
-                i.fa.fa-eye
-              if $eq watchLevel "tracking"
-                i.fa.fa-bell
-              if $eq watchLevel "muted"
-                i.fa.fa-bell-slash
-              span {{_ watchLevel}}
+          a.board-header-btn.js-watch-board(
+            title="{{_ watchLevel }}")
+            if $eq watchLevel "watching"
+              i.fa.fa-eye
+            if $eq watchLevel "tracking"
+              i.fa.fa-bell
+            if $eq watchLevel "muted"
+              i.fa.fa-bell-slash
+            span {{_ watchLevel}}
 
-          else
-            a.board-header-btn.js-log-in(
-              title="{{_ 'log-in'}}")
-              i.fa.fa-sign-in
-              span {{_ 'log-in'}}
+        else
+          a.board-header-btn.js-log-in(
+            title="{{_ 'log-in'}}")
+            i.fa.fa-sign-in
+            span {{_ 'log-in'}}
 
       if isSandstorm
         if currentUser
@@ -145,6 +143,8 @@ template(name="boardMenuPopup")
     ul.pop-over-list
       li: a(href="{{exportUrl}}", download="{{exportFilename}}") {{_ 'export-board'}}
       li: a.js-import-board {{_ 'import-board-c'}}
+      li: a.js-archive-board {{_ 'archive-board'}}
+      li: a.js-outgoing-webhooks {{_ 'outgoing-webhooks'}}
     hr
     ul.pop-over-list
       li: a.js-subtask-settings {{_ 'subtask-settings'}}

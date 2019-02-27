@@ -595,7 +595,7 @@ if (Meteor.isServer) {
   });
   Accounts.onCreateUser((options, user) => {
     const userCount = Users.find().count();
-    if (!isSandstorm && userCount === 0) {
+    if (userCount === 0) {
       user.isAdmin = true;
       return user;
     }
@@ -711,7 +711,7 @@ if (Meteor.isServer) {
   CollectionHooks.getUserId = () => {
     return fakeUserId.get() || getUserId();
   };
-
+  /*
   if (!isSandstorm) {
     Users.after.insert((userId, doc) => {
       const fakeUser = {
@@ -786,6 +786,7 @@ if (Meteor.isServer) {
       });
     });
   }
+  */
 
   Users.after.insert((userId, doc) => {
 
