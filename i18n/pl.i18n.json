@@ -207,7 +207,7 @@
     "confirm-checklist-delete-dialog": "Czy jesteś pewien, że chcesz usunąć listę zadań?",
     "copy-card-link-to-clipboard": "Skopiuj łącze karty do schowka",
     "linkCardPopup-title": "Podepnij kartę",
-    "searchCardPopup-title": "Znajdź kartę",
+    "searchElementPopup-title": "Wyszukaj",
     "copyCardPopup-title": "Skopiuj kartę",
     "copyChecklistToManyCardsPopup-title": "Kopiuj szablon listy zadań do wielu kart",
     "copyChecklistToManyCardsPopup-instructions": "Docelowe tytuły i opisy kart są w formacie JSON",

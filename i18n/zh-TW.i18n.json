@@ -207,7 +207,7 @@
     "confirm-checklist-delete-dialog": "你確定要刪除待辦清單嗎？",
     "copy-card-link-to-clipboard": "將卡片連結複製到剪貼簿",
     "linkCardPopup-title": "連結卡片",
-    "searchCardPopup-title": "搜尋卡片",
+    "searchElementPopup-title": "搜尋",
     "copyCardPopup-title": "複製卡片",
     "copyChecklistToManyCardsPopup-title": "複製待辦清單的樣板到多個卡片",
     "copyChecklistToManyCardsPopup-instructions": "使用此 JSON 格式來表示目標卡片的標題和描述",

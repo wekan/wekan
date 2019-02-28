@@ -207,7 +207,7 @@
     "confirm-checklist-delete-dialog": "Kontrol listesini silmek istediğinden emin misin?",
     "copy-card-link-to-clipboard": "Kartın linkini kopyala",
     "linkCardPopup-title": "Bağlantı kartı",
-    "searchCardPopup-title": "Kart Ara",
+    "searchElementPopup-title": "Arama",
     "copyCardPopup-title": "Kartı Kopyala",
     "copyChecklistToManyCardsPopup-title": "Yapılacaklar Listesi şemasını birden çok karta kopyala",
     "copyChecklistToManyCardsPopup-instructions": "Hedef Kart Başlıkları ve Açıklamaları bu JSON formatında",

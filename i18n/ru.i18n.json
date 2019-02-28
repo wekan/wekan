@@ -207,7 +207,7 @@
     "confirm-checklist-delete-dialog": "Вы уверены, что хотите удалить контрольный список?",
     "copy-card-link-to-clipboard": "Копировать ссылку на карточку в буфер обмена",
     "linkCardPopup-title": "Карточка-ссылка",
-    "searchCardPopup-title": "Найти карточку",
+    "searchElementPopup-title": "Поиск",
     "copyCardPopup-title": "Копировать карточку",
     "copyChecklistToManyCardsPopup-title": "Копировать шаблон контрольного списка в несколько карточек",
     "copyChecklistToManyCardsPopup-instructions": "Названия и описания целевых карт в формате JSON",

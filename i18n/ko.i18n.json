@@ -207,7 +207,7 @@
     "confirm-checklist-delete-dialog": "Are you sure you want to delete checklist?",
     "copy-card-link-to-clipboard": "클립보드에 카드의 링크가 복사되었습니다.",
     "linkCardPopup-title": "Link Card",
-    "searchCardPopup-title": "Search Card",
+    "searchElementPopup-title": "검색",
     "copyCardPopup-title": "카드 복사",
     "copyChecklistToManyCardsPopup-title": "Copy Checklist Template to Many Cards",
     "copyChecklistToManyCardsPopup-instructions": "Destination Card Titles and Descriptions in this JSON format",

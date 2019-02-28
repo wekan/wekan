@@ -207,7 +207,7 @@
     "confirm-checklist-delete-dialog": "Are you sure you want to delete checklist?",
     "copy-card-link-to-clipboard": "Copia l'enllaç de la ftixa al porta-retalls",
     "linkCardPopup-title": "Link Card",
-    "searchCardPopup-title": "Buscar Fitxa",
+    "searchElementPopup-title": "Cerca",
     "copyCardPopup-title": "Copia la fitxa",
     "copyChecklistToManyCardsPopup-title": "Copy Checklist Template to Many Cards",
     "copyChecklistToManyCardsPopup-instructions": "Títols de fitxa i Descripcions de destí en aquest format JSON",

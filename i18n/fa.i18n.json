@@ -207,7 +207,7 @@
     "confirm-checklist-delete-dialog": "مطمئنا چک لیست پاک شود؟",
     "copy-card-link-to-clipboard": "درج پیوند کارت در حافظه",
     "linkCardPopup-title": "ارتباط دادن کارت",
-    "searchCardPopup-title": "جستجوی کارت",
+    "searchElementPopup-title": "جستجو",
     "copyCardPopup-title": "کپی کارت",
     "copyChecklistToManyCardsPopup-title": "کپی قالب کارت به کارت‌های متعدد",
     "copyChecklistToManyCardsPopup-instructions": "عنوان و توضیحات کارت مقصد در این قالب JSON",
