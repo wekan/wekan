@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v2.31 2019-02-28 Wekan release
 
 This release fixes the following bugs related to [Template features](https://github.com/wekan/wekan/issues/2209), thanks to GitHub user andresmanelli:
 
