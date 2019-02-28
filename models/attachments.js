@@ -27,6 +27,10 @@ Attachments = new FS.Collection('attachments', {
 
 
 if (Meteor.isServer) {
+  Meteor.startup(() => {
+    Attachments.files._ensureIndex({ cardId: 1 });
+  });
+
   Attachments.allow({
     insert(userId, doc) {
       return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
