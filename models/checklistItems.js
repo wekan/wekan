@@ -189,6 +189,7 @@ function publishChekListUncompleted(userId, doc){
 if (Meteor.isServer) {
   Meteor.startup(() => {
     ChecklistItems._collection._ensureIndex({ checklistId: 1 });
+    ChecklistItems._collection._ensureIndex({ cardId: 1 });
   });
 
   ChecklistItems.after.update((userId, doc, fieldNames) => {

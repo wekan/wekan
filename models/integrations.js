@@ -88,6 +88,10 @@ Integrations.allow({
 
 //INTEGRATIONS REST API
 if (Meteor.isServer) {
+  Meteor.startup(() => {
+    Integrations._collection._ensureIndex({ boardId: 1 });
+  });
+
   /**
    * @operation get_all_integrations
    * @summary Get all integrations in board
