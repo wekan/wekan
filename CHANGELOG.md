@@ -1,3 +1,9 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs related to [Template features](https://github.com/wekan/wekan/issues/2209), thanks to GitHub user andresmanelli:
+
+- [Fix copy card](https://github.com/wekan/wekan/issues/2210).
+
 # v2.30 2019-02-28 Wekan release
 
 This release adds the following new [Template features](https://github.com/wekan/wekan/issues/2209), thanks to GitHub user andresmanelli:
