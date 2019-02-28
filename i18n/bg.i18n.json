@@ -207,7 +207,7 @@
     "confirm-checklist-delete-dialog": "Сигурни ли сте, че искате да изтриете този чеклист?",
     "copy-card-link-to-clipboard": "Копирай връзката на картата в клипборда",
     "linkCardPopup-title": "Свържи картата",
-    "searchCardPopup-title": "Търсене на карта",
+    "searchElementPopup-title": "Търсене",
     "copyCardPopup-title": "Копирай картата",
     "copyChecklistToManyCardsPopup-title": "Копирай чеклисти в други карти",
     "copyChecklistToManyCardsPopup-instructions": "Destination Card Titles and Descriptions in this JSON format",

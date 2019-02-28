@@ -207,7 +207,7 @@
     "confirm-checklist-delete-dialog": "确定要删除清单吗？",
     "copy-card-link-to-clipboard": "复制卡片链接到剪贴板",
     "linkCardPopup-title": "链接卡片",
-    "searchCardPopup-title": "搜索卡片",
+    "searchElementPopup-title": "搜索",
     "copyCardPopup-title": "复制卡片",
     "copyChecklistToManyCardsPopup-title": "复制清单模板至多个卡片",
     "copyChecklistToManyCardsPopup-instructions": "以JSON格式表示目标卡片的标题和描述",

@@ -207,7 +207,7 @@
     "confirm-checklist-delete-dialog": "למחוק את רשימת המשימות?",
     "copy-card-link-to-clipboard": "העתקת קישור הכרטיס ללוח הגזירים",
     "linkCardPopup-title": "קישור כרטיס",
-    "searchCardPopup-title": "חיפוש כרטיס",
+    "searchElementPopup-title": "חיפוש",
     "copyCardPopup-title": "העתק כרטיס",
     "copyChecklistToManyCardsPopup-title": "העתקת תבנית רשימת מטלות למגוון כרטיסים",
     "copyChecklistToManyCardsPopup-instructions": "כותרות ותיאורים של כרטיסי יעד בתצורת JSON זו",

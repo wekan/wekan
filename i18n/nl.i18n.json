@@ -207,7 +207,7 @@
     "confirm-checklist-delete-dialog": "Are you sure you want to delete checklist?",
     "copy-card-link-to-clipboard": "Kopieer kaart link naar klembord",
     "linkCardPopup-title": "Link Card",
-    "searchCardPopup-title": "Search Card",
+    "searchElementPopup-title": "Zoek",
     "copyCardPopup-title": "Kopieer kaart",
     "copyChecklistToManyCardsPopup-title": "Checklist sjabloon kopiëren naar meerdere kaarten",
     "copyChecklistToManyCardsPopup-instructions": "Doel kaart titels en omschrijvingen in dit JSON formaat",

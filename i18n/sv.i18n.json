@@ -207,7 +207,7 @@
     "confirm-checklist-delete-dialog": "Är du säker på att du vill radera checklista?",
     "copy-card-link-to-clipboard": "Kopiera kortlänk till urklipp",
     "linkCardPopup-title": "Länka kort",
-    "searchCardPopup-title": "Sök kort",
+    "searchElementPopup-title": "Sök",
     "copyCardPopup-title": "Kopiera kort",
     "copyChecklistToManyCardsPopup-title": "Kopiera checklist-mallen till flera kort",
     "copyChecklistToManyCardsPopup-instructions": "Destinationskorttitlar och beskrivningar i detta JSON-format",

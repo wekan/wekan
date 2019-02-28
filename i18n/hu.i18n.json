@@ -207,7 +207,7 @@
     "confirm-checklist-delete-dialog": "Are you sure you want to delete checklist?",
     "copy-card-link-to-clipboard": "Kártya hivatkozásának másolása a vágólapra",
     "linkCardPopup-title": "Link Card",
-    "searchCardPopup-title": "Search Card",
+    "searchElementPopup-title": "Keresés",
     "copyCardPopup-title": "Kártya másolása",
     "copyChecklistToManyCardsPopup-title": "Ellenőrzőlista sablon másolása több kártyára",
     "copyChecklistToManyCardsPopup-instructions": "A célkártyák címe és a leírások ebben a JSON formátumban",

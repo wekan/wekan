@@ -207,7 +207,7 @@
     "confirm-checklist-delete-dialog": "क्या आप वाकई जांचसूची हटाना चाहते हैं?",
     "copy-card-link-to-clipboard": "कॉपी कार्ड क्लिपबोर्ड करने के लिए लिंक",
     "linkCardPopup-title": "कार्ड कड़ी",
-    "searchCardPopup-title": "कार्ड खोज",
+    "searchElementPopup-title": "Search",
     "copyCardPopup-title": "कार्ड प्रतिलिपि",
     "copyChecklistToManyCardsPopup-title": "कई कार्ड के लिए जांचसूची खाके की प्रतिलिपि बनाएँ",
     "copyChecklistToManyCardsPopup-instructions": "इस JSON प्रारूप में गंतव्य कार्ड शीर्षक और विवरण",

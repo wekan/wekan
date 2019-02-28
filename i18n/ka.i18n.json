@@ -207,7 +207,7 @@
     "confirm-checklist-delete-dialog": "დარწმუნებული ხართ, რომ გსურთ კატალოგის წაშლა ? ",
     "copy-card-link-to-clipboard": "დააკოპირეთ ბარათის ბმული clipboard-ზე",
     "linkCardPopup-title": "Link Card",
-    "searchCardPopup-title": "Search Card",
+    "searchElementPopup-title": "ძებნა",
     "copyCardPopup-title": "ბარათის ასლი",
     "copyChecklistToManyCardsPopup-title": "Copy Checklist Template to Many Cards",
     "copyChecklistToManyCardsPopup-instructions": "Destination Card Titles and Descriptions in this JSON format",

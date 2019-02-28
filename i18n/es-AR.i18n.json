@@ -207,7 +207,7 @@
     "confirm-checklist-delete-dialog": "Are you sure you want to delete checklist?",
     "copy-card-link-to-clipboard": "Copiar enlace a tarjeta en el portapapeles",
     "linkCardPopup-title": "Link Card",
-    "searchCardPopup-title": "Search Card",
+    "searchElementPopup-title": "Buscar",
     "copyCardPopup-title": "Copiar Tarjeta",
     "copyChecklistToManyCardsPopup-title": "Copiar Plantilla Checklist a Muchas Tarjetas",
     "copyChecklistToManyCardsPopup-instructions": "Títulos y Descripciones de la Tarjeta Destino en este formato JSON",

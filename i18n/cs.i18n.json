@@ -207,7 +207,7 @@
     "confirm-checklist-delete-dialog": "Opravdu chcete smazat tento checklist?",
     "copy-card-link-to-clipboard": "Kopírovat adresu karty do mezipaměti",
     "linkCardPopup-title": "Propojit kartu",
-    "searchCardPopup-title": "Hledat Kartu",
+    "searchElementPopup-title": "Hledat",
     "copyCardPopup-title": "Kopírovat kartu",
     "copyChecklistToManyCardsPopup-title": "Kopírovat checklist do více karet",
     "copyChecklistToManyCardsPopup-instructions": "Názvy a popisy cílové karty v tomto formátu JSON",

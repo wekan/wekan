@@ -207,7 +207,7 @@
     "confirm-checklist-delete-dialog": "Oletko varma että haluat poistaa tarkistuslistan?",
     "copy-card-link-to-clipboard": "Kopioi kortin linkki leikepöydälle",
     "linkCardPopup-title": "Linkitä kortti",
-    "searchCardPopup-title": "Etsi kortti",
+    "searchElementPopup-title": "Etsi",
     "copyCardPopup-title": "Kopioi kortti",
     "copyChecklistToManyCardsPopup-title": "Kopioi tarkistuslistan malli monille korteille",
     "copyChecklistToManyCardsPopup-instructions": "Kohde korttien otsikot ja kuvaukset JSON muodossa",

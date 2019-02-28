@@ -207,7 +207,7 @@
     "confirm-checklist-delete-dialog": "Tem certeza que quer excluir a lista de verificação?",
     "copy-card-link-to-clipboard": "Copiar link do cartão para a área de transferência",
     "linkCardPopup-title": "Ligar Cartão",
-    "searchCardPopup-title": "Procurar Cartão",
+    "searchElementPopup-title": "Buscar",
     "copyCardPopup-title": "Copiar o cartão",
     "copyChecklistToManyCardsPopup-title": "Copiar modelo de lista de verificação para vários cartões",
     "copyChecklistToManyCardsPopup-instructions": "Títulos e descrições do cartão de destino neste formato JSON",

@@ -207,7 +207,7 @@
     "confirm-checklist-delete-dialog": "Sei sicuro di voler eliminare la checklist?",
     "copy-card-link-to-clipboard": "Copia link della scheda sulla clipboard",
     "linkCardPopup-title": "Collega scheda",
-    "searchCardPopup-title": "Cerca scheda",
+    "searchElementPopup-title": "Cerca",
     "copyCardPopup-title": "Copia Scheda",
     "copyChecklistToManyCardsPopup-title": "Copia template checklist su più schede",
     "copyChecklistToManyCardsPopup-instructions": "Titolo e la descrizione della scheda di destinazione in questo formato JSON",

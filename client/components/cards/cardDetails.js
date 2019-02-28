@@ -460,11 +460,11 @@ Template.copyCardPopup.events({
   'click .js-done'() {
     const card = Cards.findOne(Session.get('currentCard'));
     const lSelect = $('.js-select-lists')[0];
-    card.listId = lSelect.options[lSelect.selectedIndex].value;
+    listId = lSelect.options[lSelect.selectedIndex].value;
     const slSelect = $('.js-select-swimlanes')[0];
-    card.swimlaneId = slSelect.options[slSelect.selectedIndex].value;
+    const swimlaneId = slSelect.options[slSelect.selectedIndex].value;
     const bSelect = $('.js-select-boards')[0];
-    card.boardId = bSelect.options[bSelect.selectedIndex].value;
+    const boardId = bSelect.options[bSelect.selectedIndex].value;
     const textarea = $('#copy-card-title');
     const title = textarea.val().trim();
     // insert new card to the bottom of new list
@@ -473,7 +473,7 @@ Template.copyCardPopup.events({
     if (title) {
       card.title = title;
       card.coverId = '';
-      const _id = card.copy();
+      const _id = card.copy(boardId, swimlaneId, listId);
       // In case the filter is active we need to add the newly inserted card in
       // the list of exceptions -- cards that are not filtered. Otherwise the
       // card will disappear instantly.

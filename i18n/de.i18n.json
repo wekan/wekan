@@ -207,7 +207,7 @@
     "confirm-checklist-delete-dialog": "Wollen Sie die Checkliste wirklich löschen?",
     "copy-card-link-to-clipboard": "Kopiere Link zur Karte in die Zwischenablage",
     "linkCardPopup-title": "Karte verknüpfen",
-    "searchCardPopup-title": "Karte suchen",
+    "searchElementPopup-title": "Suche",
     "copyCardPopup-title": "Karte kopieren",
     "copyChecklistToManyCardsPopup-title": "Checklistenvorlage in mehrere Karten kopieren",
     "copyChecklistToManyCardsPopup-instructions": "Titel und Beschreibungen der Zielkarten im folgenden JSON-Format",
