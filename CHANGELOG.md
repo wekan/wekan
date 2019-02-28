@@ -1,3 +1,17 @@
+# v2.32 2019-02-28 Wekan release
+
+This release adds the following [performance improvements](https://github.com/wekan/wekan/pull/2214), thanks to justinr1234:
+
+- New indexes for queries that were missing an index;
+- Bulk querying documents to reduce the number of mongo queries when loading a board;
+- Ensure oplog is being used to query the database by providing a `sort` key when `limit` is used querying the `boards` collection.
+
+and fixes the following bugs related to [Template features](https://github.com/wekan/wekan/issues/2209), thanks to andresmanelli:
+
+- [Fix filtering in swimlane view](https://github.com/wekan/wekan/commit/49229e1723de14cdc66dc6480624bba426d35e36) that was [broken since v2.29](https://github.com/wekan/wekan/issues/2213).
+
+Thanks to above GitHub users for their contributions.
+
 # v2.31 2019-02-28 Wekan release
 
 This release fixes the following bugs related to [Template features](https://github.com/wekan/wekan/issues/2209), thanks to GitHub user andresmanelli:

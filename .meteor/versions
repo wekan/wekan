@@ -95,6 +95,7 @@ meteorhacks:collection-utils@1.2.0
 meteorhacks:meteorx@1.4.1
 meteorhacks:picker@1.0.3
 meteorhacks:subs-manager@1.6.4
+meteorhacks:unblock@1.1.0
 meteorspark:util@0.2.0
 minifier-css@1.4.1
 minifier-js@2.4.0
