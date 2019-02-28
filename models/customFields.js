@@ -98,9 +98,9 @@ function customFieldCreation(userId, doc){
 }
 
 if (Meteor.isServer) {
-  /*Meteor.startup(() => {
-    CustomFields._collection._ensureIndex({ boardId: 1});
-  });*/
+  Meteor.startup(() => {
+    CustomFields._collection._ensureIndex({ boardId: 1 });
+  });
 
   CustomFields.after.insert((userId, doc) => {
     customFieldCreation(userId, doc);

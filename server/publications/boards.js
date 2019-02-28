@@ -60,6 +60,7 @@ Meteor.publish('archivedBoards', function() {
 });
 
 Meteor.publishRelations('board', function(boardId) {
+  this.unblock();
   check(boardId, String);
   const thisUserId = this.userId;
 
@@ -72,7 +73,8 @@ Meteor.publishRelations('board', function(boardId) {
       { permission: 'public' },
       { members: { $elemMatch: { userId: this.userId, isActive: true }}},
     ],
-  }, { limit: 1 }), function(boardId, board) {
+  // Sort required to ensure oplog usage
+  }, { limit: 1, sort: { _id: 1 } }), function(boardId, board) {
     this.cursor(Lists.find({ boardId }));
     this.cursor(Swimlanes.find({ boardId }));
     this.cursor(Integrations.find({ boardId }));
@@ -99,23 +101,46 @@ Meteor.publishRelations('board', function(boardId) {
     //
     // And in the meantime our code below works pretty well -- it's not even a
     // hack!
+
+    // Gather queries and send in bulk
+    const cardComments = this.join(CardComments);
+    cardComments.selector = (_ids) => ({ cardId: _ids });
+    const attachments = this.join(Attachments);
+    attachments.selector = (_ids) => ({ cardId: _ids });
+    const checklists = this.join(Checklists);
+    checklists.selector = (_ids) => ({ cardId: _ids });
+    const checklistItems = this.join(ChecklistItems);
+    checklistItems.selector = (_ids) => ({ cardId: _ids });
+    const parentCards = this.join(Cards);
+    parentCards.selector = (_ids) => ({ parentId: _ids });
+    const boards = this.join(Boards);
+    const subCards = this.join(Cards);
+
     this.cursor(Cards.find({ boardId }), function(cardId, card) {
       if (card.type === 'cardType-linkedCard') {
         const impCardId = card.linkedId;
-        this.cursor(Cards.find({ _id: impCardId }));
-        this.cursor(CardComments.find({ cardId: impCardId }));
-        this.cursor(Attachments.find({ cardId: impCardId }));
-        this.cursor(Checklists.find({ cardId: impCardId }));
-        this.cursor(ChecklistItems.find({ cardId: impCardId }));
+        subCards.push(impCardId);
+        cardComments.push(impCardId);
+        attachments.push(impCardId);
+        checklists.push(impCardId);
+        checklistItems.push(impCardId);
       } else if (card.type === 'cardType-linkedBoard') {
-        this.cursor(Boards.find({ _id: card.linkedId}));
+        boards.push(card.linkedId);
       }
-      this.cursor(CardComments.find({ cardId }));
-      this.cursor(Attachments.find({ cardId }));
-      this.cursor(Checklists.find({ cardId }));
-      this.cursor(ChecklistItems.find({ cardId }));
-      this.cursor(Cards.find({ parentId: cardId }));
+      cardComments.push(cardId);
+      attachments.push(cardId);
+      checklists.push(cardId);
+      checklistItems.push(cardId);
+      parentCards.push(cardId);
     });
+
+    // Send bulk queries for all found ids
+    subCards.send();
+    cardComments.send();
+    attachments.send();
+    checklists.send();
+    checklistItems.send();
+    boards.send();
 
     if (board.members) {
       // Board members. This publication also includes former board members that
