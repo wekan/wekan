@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v2.33 2019-02-28 Wekan release
 
 This release adds the following upgrades:
 
