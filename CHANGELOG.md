@@ -1,3 +1,11 @@
+# v2.33 2019-02-28 Wekan release
+
+This release adds the following upgrades:
+
+- [Upgrade Node.js to v8.15.1](https://github.com/wekan/wekan/commit/5cafdd9878ab4b6123024ec33279ccdae75f554f).
+
+Thanks to Node.js developers and GitHub user xet7 for contributions.
+
 # v2.32 2019-02-28 Wekan release
 
 This release adds the following [performance improvements](https://github.com/wekan/wekan/pull/2214), thanks to justinr1234:
