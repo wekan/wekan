@@ -1,9 +1,19 @@
+# v2.35 2019-03-01 Wekan release
+
+This release fixes the following bugs:
+
+- [Add Filter fix back](https://github.com/wekan/wekan/issues/2213), 
+  because there was no bug in filter fix.              
+
+Thanks to GitHub user xet7 for contributions.
+
 # v2.34 2019-03-01 Wekan release
 
-This release tries to fix following bugs:
+This release tried to fix following bugs, but did not fix anything:
 
 - Revert [Filter fix](https://github.com/wekan/wekan/issues/2213) because of
   [mongodb data tampered](https://github.com/wekan/wekan-snap/issues/83).
+  This was added back at Wekan v2.35.
 
 Thanks to GitHub user xet7 for contributions.
 
