@@ -133,14 +133,14 @@ Swimlanes.helpers({
   },
 
   lists() {
-    return Lists.find({
+    return Lists.find(Filter.mongoSelector({
       boardId: this.boardId,
       swimlaneId: {$in: [this._id, '']},
       archived: false,
-    }, { sort: ['sort'] });
+    }), { sort: ['sort'] });
   },
 
-  myLists() {
+  allLists() {
     return Lists.find({ swimlaneId: this._id });
   },
 
@@ -189,7 +189,7 @@ Swimlanes.mutations({
 
   archive() {
     if (this.isTemplateSwimlane()) {
-      this.myLists().forEach((list) => {
+      this.lists().forEach((list) => {
         return list.archive();
       });
     }
@@ -198,7 +198,7 @@ Swimlanes.mutations({
 
   restore() {
     if (this.isTemplateSwimlane()) {
-      this.myLists().forEach((list) => {
+      this.allLists().forEach((list) => {
         return list.restore();
       });
     }
