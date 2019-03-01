@@ -1,3 +1,12 @@
+# v2.34 2019-03-01 Wekan release
+
+This release tries to fix following bugs:
+
+- Revert [Filter fix](https://github.com/wekan/wekan/issues/2213) because of
+  [mongodb data tampered](https://github.com/wekan/wekan-snap/issues/83).
+
+Thanks to GitHub user xet7 for contributions.
+
 # v2.33 2019-02-28 Wekan release
 
 This release adds the following upgrades:
