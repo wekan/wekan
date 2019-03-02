@@ -43,7 +43,7 @@
     "activity-sent": "hat %s an %s gesendet",
     "activity-unjoined": "hat %s verlassen",
     "activity-subtask-added": "Teilaufgabe zu %s hinzugefügt",
-    "activity-checked-item": "markierte %s in Checkliste %svon %s",
+    "activity-checked-item": "markierte %s in Checkliste %s von %s",
     "activity-unchecked-item": "hat %s in Checkliste %s von %s abgewählt",
     "activity-checklist-added": "hat eine Checkliste zu %s hinzugefügt",
     "activity-checklist-removed": "entfernte eine Checkliste von %s",
