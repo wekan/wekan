@@ -39,33 +39,53 @@ address https://chat.vanila.io and same username and password.
 Wekan is an completely [Open Source][open_source] and [Free software][free_software]
 collaborative kanban board application with MIT license.
 
-Whether you’re maintaining a personal todo list, planning your holidays with some friends, or working in a team on your next revolutionary idea, Kanban boards are an unbeatable tool to keep your things organized. They give you a visual overview of the current state of your project, and make you productive by allowing you to focus on the few items that matter the most.
+Whether you’re maintaining a personal todo list, planning your holidays with some friends,
+or working in a team on your next revolutionary idea, Kanban boards are an unbeatable tool
+to keep your things organized. They give you a visual overview of the current state of your project,
+and make you productive by allowing you to focus on the few items that matter the most.
 
 Since Wekan is a free software, you don’t have to trust us with your data and can
 install Wekan on your own computer or server. In fact we encourage you to do
 that by providing one-click installation on various platforms.
 
-- [Features][features]: Wekan has real-time user interface. Not all features are implemented, yet.
-- [Platforms][platforms]: Wekan supports many platforms and plan is to add more. This will be the first place to look if you want to **install** it, test out and learn more in depth.
+- Wekan is used in [most countries of the world](https://snapcraft.io/wekan).
+- Wekan largest user has 13k users using Wekan in their company.
+- Wekan has been [translated](https://transifex.com/wekan/wekan) to about 50 languages.
+- [Features][features]: Wekan has real-time user interface.
+- [Platforms][platforms]: Wekan supports many platforms.
+  Wekan is critical part of new platforms Wekan is currently being integrated to.
 - [Integrations][integrations]: Current possible integrations and future plans.
 - [Team](https://github.com/wekan/wekan/wiki/Team): The people who spends their time and make Wekan into what it is right now.
 
+## Requirements
+
+- 64bit: Linux / Mac / Windows.
+- 1 GB RAM minimum free for Wekan. Production server should have miminum total 4 GB RAM.
+  For thousands of users, for example with Docker: 3 frontend servers, each having 2 CPU and 2 wekan-app containers. One backend wekan-db server with many CPUs.  
+- Enough disk space and alerts about low disk space. If you run out disk space, MongoDB database gets corrupted.
+- SECURITY: Updating to newest Wekan version very often. Please check you do not have automatic updates of Sandstorm or Snap turned off.
+  Old versions have security issues because of old versions Node.js etc. Only newest Wekan is supported.
+  Wekan on Sandstorm is not usually affected by any Standalone Wekan (Snap/Docker/Source) security issues.
+- [Reporting all new bugs immediately](https://github.com/wekan/wekan/issues).
+  New features and fixes are added to Wekan [many times a day](https://github.com/wekan/wekan/blob/devel/CHANGELOG.md).
+- [Backups](https://github.com/wekan/wekan/wiki/Backup) of Wekan database once a day miminum.
+  Bugs, updates, users deleting list or card, harddrive full, harddrive crash etc can eat your data. There is no undo yet.
+  Some bug can cause Wekan board to not load at all, requiring manual fixing of database content.
+
 ## Roadmap
 
-[Roadmap](https://github.com/wekan/wekan/wiki/Roadmap)
+[Roadmap Milestones](https://github.com/wekan/wekan/milestones)
 
-Upcoming Wekan App Development Platform will make possible many use cases. If you don't find your feature or integration in
-GitHub issues and [Features][features] or [Integrations][integrations] page at wiki, please add them.
+[Developer Documentation][dev_docs]
 
-We are very welcoming to new developers and teams to submit new pull requests to devel branch to make this Wekan App Development Platform possible faster. Please see [Developer Documentation][dev_docs] to get started.
+- There is many companies and individuals contributing code to Wekan, to add features and bugfixes
+  [many times a day](https://github.com/wekan/wekan/blob/devel/CHANGELOG.md).
+- [Please add Add new Feature Requests and Bug Reports immediately](https://github.com/wekan/wekan/issues).
+- [Commercial Support](https://wekan.team).
+- [Bounties](https://wekan.team/bounties/index.html).
 
-We also welcome sponsors for features and bugfixes. By working directly with Wekan you get the benefit of active maintenance and new features added by growing Wekan developer community.
-
-Actual work happens at [Wekan GitHub issues][wekan_issues].
-
-See [Development links on Wekan wiki](https://github.com/wekan/wekan/wiki#Development) bottom of the page for more info.
-
-If you want to know what is going on exactly this moment, you can check out the [project page](https://github.com/wekan/wekan/projects/2).
+We also welcome sponsors for features and bugfixes.
+By working directly with Wekan you get the benefit of active maintenance and new features added by growing Wekan developer community.
 
 ## Demo
 
