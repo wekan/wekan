@@ -55,7 +55,6 @@ that by providing one-click installation on various platforms.
 - [Platforms][platforms]: Wekan supports many platforms.
   Wekan is critical part of new platforms Wekan is currently being integrated to.
 - [Integrations][integrations]: Current possible integrations and future plans.
-- [Team](https://github.com/wekan/wekan/wiki/Team): The people who spends their time and make Wekan into what it is right now.
 
 ## Requirements
 
