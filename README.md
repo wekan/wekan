@@ -58,9 +58,11 @@ that by providing one-click installation on various platforms.
 
 ## Requirements
 
-- 64bit: Linux / Mac / Windows.
+- 64bit: Linux [Snap](https://github.com/wekan/wekan-snap/wiki/Install) or [Sandstorm](https://sandstorm.io) /
+  [Mac](https://github.com/wekan/wekan/wiki/Mac) / [Windows](https://github.com/wekan/wekan/wiki/Install-Wekan-from-source-on-Windows).
 - 1 GB RAM minimum free for Wekan. Production server should have miminum total 4 GB RAM.
-  For thousands of users, for example with Docker: 3 frontend servers, each having 2 CPU and 2 wekan-app containers. One backend wekan-db server with many CPUs.  
+  For thousands of users, for example with [Docker](https://github.com/wekan/wekan/blob/devel/docker-compose.yml): 3 frontend servers,
+  each having 2 CPU and 2 wekan-app containers. One backend wekan-db server with many CPUs.  
 - Enough disk space and alerts about low disk space. If you run out disk space, MongoDB database gets corrupted.
 - SECURITY: Updating to newest Wekan version very often. Please check you do not have automatic updates of Sandstorm or Snap turned off.
   Old versions have security issues because of old versions Node.js etc. Only newest Wekan is supported.
