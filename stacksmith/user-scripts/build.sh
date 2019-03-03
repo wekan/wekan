@@ -75,6 +75,12 @@ sudo -u wekan git clone --depth 1 -b master git://github.com/wekan/flow-router.g
 sudo -u wekan git clone --depth 1 -b master git://github.com/meteor-useraccounts/core.git meteor-useraccounts-core
 sudo -u wekan git clone --depth 1 -b master git://github.com/wekan/meteor-accounts-cas.git
 sudo -u wekan git clone --depth 1 -b master git://github.com/wekan/wekan-ldap.git
+sudo -u wekan git clone --depth 1 -b master git://github.com/wekan/wekan-scrollbar.git
+sudo -u wekan git clone --depth 1 -b master git://github.com/wekan/meteor-accounts-oidc.git
+sudo -u wekan mv meteor-accounts-oidc/packages/switch_accounts-oidc wekan_accounts-oidc
+sudo -u wekan mv meteor-accounts-oidc/packages/switch_oidc wekan_oidc
+sudo -u wekan rm -rf meteor-accounts-oidc
+
 sudo sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' /home/wekan/app/packages/meteor-useraccounts-core/package.js
 sudo -u wekan /home/wekan/.meteor/meteor -- help
 

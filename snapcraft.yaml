@@ -176,6 +176,14 @@ parts:
               git clone --depth 1 -b master https://github.com/wekan/wekan-scrollbar.git
               cd ..
             fi
+            if [ ! -d "packages/wekan_accounts-oidc" ]; then
+              cd packages
+              git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-oidc.git
+              mv meteor-accounts-oidc/packages/switch_accounts-oidc wekan_accounts-oidc
+              mv meteor-accounts-oidc/packages/switch_oidc wekan_oidc
+              rm -rf meteor-accounts-oidc
+              cd ..
+            fi
             rm -rf package-lock.json .build
             meteor add standard-minifier-js --allow-superuser
             meteor npm install --allow-superuser
