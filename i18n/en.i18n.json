@@ -7,7 +7,7 @@
     "act-addLabel": "Added label __label__ to card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
     "act-removeLabel": "Removed label __label__ from card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
     "act-addChecklist": "added checklist __checklist__ to card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
-    "act-addChecklistItem": "added checklist item __checklistItem__ to checklist __checklist__ on __card__ at list __list__ at swimlane __swimlane__ at board __board__",
+    "act-addChecklistItem": "added checklist item __checklistItem__ to checklist __checklist__ at card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
     "act-removeChecklist": "removed checklist __checklist__ from card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
     "act-removeChecklistItem": "removed checklist item __checklistItem__ from checklist __checkList__ at card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
     "act-checkedItem": "checked __checklistItem__ in checklist __checklist__ of card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
