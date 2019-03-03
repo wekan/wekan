@@ -2,9 +2,10 @@
 
 This release adds the following UI changes:
 
-- [Change board menu icons and text](https://github.com/wekan/wekan/issues/2219):
-  - Board menu (hamburger icon) to Board Settings (Cog icon)
-  - Sidebar arrows icons to hamburger icon
+- [Combine hamburger menus at right](https://github.com/wekan/wekan/issues/2219):
+  - Hamburger button open sidebar;
+  - Sidebar has at top right Cog icon that opens Board Settings;
+  - Hide sidebar arrows.
 
 and fixes the following bugs:
 
