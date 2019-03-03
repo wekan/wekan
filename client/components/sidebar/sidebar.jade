@@ -3,7 +3,7 @@ template(name="sidebar")
     a.sidebar-tongue.js-toggle-sidebar(
       class="{{#if isTongueHidden}}is-hidden{{/if}}",
       title="{{showTongueTitle}}")
-      i.fa.fa-angle-left
+      i.fa.fa-navicon
     .sidebar-shadow
       .sidebar-content.sidebar-shortcuts
         a.board-header-btn.js-shortcuts
@@ -11,7 +11,7 @@ template(name="sidebar")
           span {{_ 'keyboard-shortcuts' }}
       .sidebar-content.js-board-sidebar-content.js-perfect-scrollbar
         a.hide-btn.js-hide-sidebar
-          i.fa.fa-angle-right
+          i.fa.fa-navicon
         unless isDefaultView
           h2
             a.fa.fa-chevron-left.js-back-home
