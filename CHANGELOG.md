@@ -6,6 +6,11 @@ This release adds the following UI changes:
   - Board menu (hamburger icon) to Board Settings (Cog icon)
   - Sidebar arrows icons to hamburger icon
 
+and fixes the following bugs:
+
+- [Add more Webhook translations](https://github.com/wekan/wekan/issues/1969).
+  In progress.
+
 Thanks to GitHub user xet7 for contributions.
     
 # v2.35 2019-03-01 Wekan release
