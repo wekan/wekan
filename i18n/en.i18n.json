@@ -14,7 +14,7 @@
     "act-uncheckedItem": "unchecked __checklistItem__ of checklist __checklist__ at card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
     "act-completeChecklist": "completed checklist __checklist__ at card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
     "act-uncompleteChecklist": "uncompleted checklist __checklist__ at card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
-    "act-addComment": "commented on __card__: __comment__ at list __list__ at swimlane __swimlane__ at board __board__",
+    "act-addComment": "commented on card __card__: __comment__ at list __list__ at swimlane __swimlane__ at board __board__",
     "act-createBoard": "created board __board__",
     "act-createCard": "created card __card__ to __list__ at swimlane __swimlane__ at board __board__",
     "act-createCustomField": "created custom field __customField__ to card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
