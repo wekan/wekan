@@ -63,7 +63,7 @@
     "add": "Add",
     "activity-checked-item-card": "checked %s in checklist %s",
     "activity-unchecked-item-card": "unchecked %s in checklist %s",
-    "activity-checklist-completed-card": "completed checklist __checklist__ at card __card__ at swimlane __swimlane__ at board __board__",
+    "activity-checklist-completed-card": "completed checklist __checklist__ at card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
     "activity-checklist-uncompleted-card": "uncompleted the checklist %s",
     "add-attachment": "Add Attachment",
     "add-board": "Add Board",
