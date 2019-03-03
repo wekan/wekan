@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v2.36 2019-03-03 Wekan release
 
 This release adds the following UI changes:
 
