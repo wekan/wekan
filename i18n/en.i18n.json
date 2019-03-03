@@ -3,7 +3,7 @@
     "act-activity-notify": "Activity Notification",
     "act-addAttachment": "added attachment __attachment__ to card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
     "act-deleteAttachment": "deleted attachment __attachment__ at card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
-    "act-addSubtask": "added subtask __checklist__ to __card__ at list __list__ at swimlane __swimlane__ at board __board__",
+    "act-addSubtask": "added subtask __subtask__ to __card__ at list __list__ at swimlane __swimlane__ at board __board__",
     "act-addLabel": "Added label __label__ to __card__ at list __list__ at swimlane __swimlane__ at board __board__",
     "act-removeLabel": "Removed label __label__ from __card__ at list __list__ at swimlane __swimlane__ at board __board__",
     "act-addChecklist": "added checklist __checklist__ to __card__ at list __list__ at swimlane __swimlane__ at board __board__",
