@@ -56,7 +56,7 @@
     "activity-unchecked-item": "unchecked %s in checklist %s of %s",
     "activity-checklist-added": "added checklist to %s",
     "activity-checklist-removed": "removed a checklist from %s",
-    "activity-checklist-completed": "completed checklist __checklist__ at card __card__ at swimlane __swimlane__ at board __board__",
+    "activity-checklist-completed": "completed checklist __checklist__ at card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
     "activity-checklist-uncompleted": "uncompleted the checklist %s of %s",
     "activity-checklist-item-added": "added checklist item to '%s' in %s",
     "activity-checklist-item-removed": "removed a checklist item from '%s' in %s",
