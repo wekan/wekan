@@ -142,6 +142,52 @@ Template.memberPopup.helpers({
   },
 });
 
+Template.boardMenuPopup.events({
+  'click .js-rename-board': Popup.open('boardChangeTitle'),
+  'click .js-custom-fields'() {
+    Sidebar.setView('customFields');
+    Popup.close();
+  },
+  'click .js-open-archives'() {
+    Sidebar.setView('archives');
+    Popup.close();
+  },
+  'click .js-change-board-color': Popup.open('boardChangeColor'),
+  'click .js-change-language': Popup.open('changeLanguage'),
+  'click .js-archive-board ': Popup.afterConfirm('archiveBoard', function() {
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    currentBoard.archive();
+    // XXX We should have some kind of notification on top of the page to
+    // confirm that the board was successfully archived.
+    FlowRouter.go('home');
+  }),
+  'click .js-delete-board': Popup.afterConfirm('deleteBoard', function() {
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    Popup.close();
+    Boards.remove(currentBoard._id);
+    FlowRouter.go('home');
+  }),
+  'click .js-outgoing-webhooks': Popup.open('outgoingWebhooks'),
+  'click .js-import-board': Popup.open('chooseBoardSource'),
+  'click .js-subtask-settings': Popup.open('boardSubtaskSettings'),
+});
+
+Template.boardMenuPopup.helpers({
+  exportUrl() {
+    const params = {
+      boardId: Session.get('currentBoard'),
+    };
+    const queryParams = {
+      authToken: Accounts._storedLoginToken(),
+    };
+    return FlowRouter.path('/api/boards/:boardId/export', params, queryParams);
+  },
+  exportFilename() {
+    const boardId = Session.get('currentBoard');
+    return `wekan-export-board-${boardId}.json`;
+  },
+});
+
 Template.memberPopup.events({
   'click .js-filter-member'() {
     Filter.members.toggle(this.userId);
@@ -190,7 +236,14 @@ Template.membersWidget.helpers({
 
 Template.membersWidget.events({
   'click .js-member': Popup.open('member'),
+  'click .js-open-board-menu': Popup.open('boardMenu'),
   'click .js-manage-board-members': Popup.open('addMember'),
+  'click .js-import': Popup.open('boardImportBoard'),
+  submit: this.onSubmit,
+  'click .js-import-board': Popup.open('chooseBoardSource'),
+  'click .js-open-archived-board'() {
+    Modal.open('archivedBoards');
+  },
   'click .sandstorm-powerbox-request-identity'() {
     window.sandstormRequestIdentity();
   },
@@ -208,6 +261,59 @@ Template.membersWidget.events({
     });
   },
 });
+
+BlazeComponent.extendComponent({
+  integrations() {
+    const boardId = Session.get('currentBoard');
+    return Integrations.find({ boardId: `${boardId}` }).fetch();
+  },
+
+  integration(id) {
+    const boardId = Session.get('currentBoard');
+    return Integrations.findOne({ _id: id, boardId: `${boardId}` });
+  },
+
+  events() {
+    return [{
+      'submit'(evt) {
+        evt.preventDefault();
+        const url = evt.target.url.value;
+        const boardId = Session.get('currentBoard');
+        let id = null;
+        let integration = null;
+        if (evt.target.id) {
+          id = evt.target.id.value;
+          integration = this.integration(id);
+          if (url) {
+            Integrations.update(integration._id, {
+              $set: {
+                url: `${url}`,
+              },
+            });
+          } else {
+            Integrations.remove(integration._id);
+          }
+        } else if (url) {
+          Integrations.insert({
+            userId: Meteor.userId(),
+            enabled: true,
+            type: 'outgoing-webhooks',
+            url: `${url}`,
+            boardId: `${boardId}`,
+            activities: ['all'],
+          });
+        }
+        Popup.close();
+      },
+    }];
+  },
+}).register('outgoingWebhooksPopup');
+
+BlazeComponent.extendComponent({
+  template() {
+    return 'chooseBoardSource';
+  },
+}).register('chooseBoardSourcePopup');
 
 Template.labelsWidget.events({
   'click .js-label': Popup.open('editLabel'),
@@ -257,6 +363,124 @@ function draggableMembersLabelsWidgets() {
 
 Template.membersWidget.onRendered(draggableMembersLabelsWidgets);
 Template.labelsWidget.onRendered(draggableMembersLabelsWidgets);
+
+BlazeComponent.extendComponent({
+  backgroundColors() {
+    return Boards.simpleSchema()._schema.color.allowedValues;
+  },
+
+  isSelected() {
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    return currentBoard.color === this.currentData().toString();
+  },
+
+  events() {
+    return [{
+      'click .js-select-background'(evt) {
+        const currentBoard = Boards.findOne(Session.get('currentBoard'));
+        const newColor = this.currentData().toString();
+        currentBoard.setColor(newColor);
+        evt.preventDefault();
+      },
+    }];
+  },
+}).register('boardChangeColorPopup');
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.currentBoard = Boards.findOne(Session.get('currentBoard'));
+  },
+
+  allowsSubtasks() {
+    return this.currentBoard.allowsSubtasks;
+  },
+
+  isBoardSelected() {
+    return this.currentBoard.subtasksDefaultBoardId === this.currentData()._id;
+  },
+
+  isNullBoardSelected() {
+    return (this.currentBoard.subtasksDefaultBoardId === null) || (this.currentBoard.subtasksDefaultBoardId === undefined);
+  },
+
+  boards() {
+    return Boards.find({
+      archived: false,
+      'members.userId': Meteor.userId(),
+    }, {
+      sort: ['title'],
+    });
+  },
+
+  lists() {
+    return Lists.find({
+      boardId: this.currentBoard._id,
+      archived: false,
+    }, {
+      sort: ['title'],
+    });
+  },
+
+  hasLists() {
+    return this.lists().count() > 0;
+  },
+
+  isListSelected() {
+    return this.currentBoard.subtasksDefaultBoardId === this.currentData()._id;
+  },
+
+  presentParentTask() {
+    let result = this.currentBoard.presentParentTask;
+    if ((result === null) || (result === undefined)) {
+      result = 'no-parent';
+    }
+    return result;
+  },
+
+  events() {
+    return [{
+      'click .js-field-has-subtasks'(evt) {
+        evt.preventDefault();
+        this.currentBoard.allowsSubtasks = !this.currentBoard.allowsSubtasks;
+        this.currentBoard.setAllowsSubtasks(this.currentBoard.allowsSubtasks);
+        $('.js-field-has-subtasks .materialCheckBox').toggleClass('is-checked', this.currentBoard.allowsSubtasks);
+        $('.js-field-has-subtasks').toggleClass('is-checked', this.currentBoard.allowsSubtasks);
+        $('.js-field-deposit-board').prop('disabled', !this.currentBoard.allowsSubtasks);
+      },
+      'change .js-field-deposit-board'(evt) {
+        let value = evt.target.value;
+        if (value === 'null') {
+          value = null;
+        }
+        this.currentBoard.setSubtasksDefaultBoardId(value);
+        evt.preventDefault();
+      },
+      'change .js-field-deposit-list'(evt) {
+        this.currentBoard.setSubtasksDefaultListId(evt.target.value);
+        evt.preventDefault();
+      },
+      'click .js-field-show-parent-in-minicard'(evt) {
+        const value = evt.target.id || $(evt.target).parent()[0].id ||  $(evt.target).parent()[0].parent()[0].id;
+        const options = [
+          'prefix-with-full-path',
+          'prefix-with-parent',
+          'subtext-with-full-path',
+          'subtext-with-parent',
+          'no-parent'];
+        options.forEach(function(element) {
+          if (element !== value) {
+            $(`#${element} .materialCheckBox`).toggleClass('is-checked', false);
+            $(`#${element}`).toggleClass('is-checked', false);
+          }
+        });
+        $(`#${value} .materialCheckBox`).toggleClass('is-checked', true);
+        $(`#${value}`).toggleClass('is-checked', true);
+        this.currentBoard.setPresentParentTask(value);
+        evt.preventDefault();
+      },
+    }];
+  },
+}).register('boardSubtaskSettingsPopup');
 
 BlazeComponent.extendComponent({
   onCreated() {

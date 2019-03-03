@@ -148,8 +148,8 @@ reload@1.2.0
 retry@1.1.0
 routepolicy@1.1.0
 rzymek:fullcalendar@3.8.0
-salleman:accounts-oidc@1.0.10
-salleman:oidc@1.0.12
+wekan-accounts-oidc@1.0.10
+wekan-oidc@1.0.12
 service-configuration@1.0.11
 session@1.2.0
 sha@1.0.9

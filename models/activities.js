@@ -14,6 +14,9 @@ Activities.helpers({
   board() {
     return Boards.findOne(this.boardId);
   },
+  oldBoard() {
+    return Boards.findOne(this.oldBoardId);
+  },
   user() {
     return Users.findOne(this.userId);
   },
@@ -25,6 +28,9 @@ Activities.helpers({
   },
   swimlane() {
     return Swimlanes.findOne(this.swimlaneId);
+  },
+  oldSwimlane() {
+    return Swimlanes.findOne(this.oldSwimlaneId);
   },
   oldList() {
     return Lists.findOne(this.oldListId);
@@ -49,6 +55,9 @@ Activities.helpers({
   },
   customField() {
     return CustomFields.findOne(this.customFieldId);
+  },
+  label() {
+    return Labels.findOne(this.labelId);
   },
 });
 
@@ -75,6 +84,7 @@ if (Meteor.isServer) {
     Activities._collection._ensureIndex({ commentId: 1 }, { partialFilterExpression: { commentId: { $exists: true } } });
     Activities._collection._ensureIndex({ attachmentId: 1 }, { partialFilterExpression: { attachmentId: { $exists: true } } });
     Activities._collection._ensureIndex({ customFieldId: 1 }, { partialFilterExpression: { customFieldId: { $exists: true } } });
+    Activities._collection._ensureIndex({ labelId: 1 }, { partialFilterExpression: { labelId: { $exists: true } } });
   });
 
   Activities.after.insert((userId, doc) => {
@@ -100,6 +110,12 @@ if (Meteor.isServer) {
       params.url = board.absoluteUrl();
       params.boardId = activity.boardId;
     }
+    if (activity.oldBoardId) {
+      const oldBoard = activity.oldBoard();
+      watchers = _.union(watchers, oldBoard.watchers || []);
+      params.oldBoard = oldBoard.title;
+      params.oldBoardId = activity.oldBoardId;
+    }
     if (activity.memberId) {
       participants = _.union(participants, [activity.memberId]);
       params.member = activity.member().getName();
@@ -116,6 +132,12 @@ if (Meteor.isServer) {
       params.oldList = oldList.title;
       params.oldListId = activity.oldListId;
     }
+    if (activity.oldSwimlaneId) {
+      const oldSwimlane = activity.oldSwimlane();
+      watchers = _.union(watchers, oldSwimlane.watchers || []);
+      params.oldSwimlane = oldSwimlane.title;
+      params.oldSwimlaneId = activity.oldSwimlaneId;
+    }
     if (activity.cardId) {
       const card = activity.card();
       participants = _.union(participants, [card.userId], card.members || []);
@@ -126,6 +148,8 @@ if (Meteor.isServer) {
       params.cardId = activity.cardId;
     }
     if (activity.swimlaneId) {
+      const swimlane = activity.swimlane();
+      params.swimlane = swimlane.title;
       params.swimlaneId = activity.swimlaneId;
     }
     if (activity.commentId) {
@@ -148,6 +172,11 @@ if (Meteor.isServer) {
     if (activity.customFieldId) {
       const customField = activity.customField();
       params.customField = customField.name;
+    }
+    if (activity.labelId) {
+      const label = activity.label();
+      params.label = label.name;
+      params.labelId = activity.labelId;
     }
     if (board) {
       const watchingUsers = _.pluck(_.where(board.watchers, {level: 'watching'}), 'userId');

@@ -1,3 +1,25 @@
+# v2.36 2019-03-03 Wekan release
+
+This release adds the following UI changes:
+
+- [Combine hamburger menus at right](https://github.com/wekan/wekan/issues/2219):
+  - Hamburger button open sidebar;
+  - Sidebar has at top right Cog icon that opens Board Settings;
+  - Hide sidebar arrows.
+
+and fixes the following bugs:
+
+- [Add more Webhook translations](https://github.com/wekan/wekan/issues/1969).
+  In progress.
+
+and moved the following code around:
+
+- [Forked salleman-oidc](https://github.com/wekan/wekan/commit/8867bec8e65f1ef6be0c731918e8eefcacb7acb0)
+  to https://github.com/wekan/meteor-accounts-oidc where salleman also has write access,
+  xet7 can make changes directly and GitHub issues are enabled.
+
+Thanks to GitHub user xet7 for contributions.
+    
 # v2.35 2019-03-01 Wekan release
 
 This release fixes the following bugs:

@@ -17,7 +17,7 @@ Meteor.methods({
     check(params, Object);
 
     const quoteParams = _.clone(params);
-    ['card', 'list', 'oldList', 'board', 'comment'].forEach((key) => {
+    ['card', 'list', 'oldList', 'board', 'oldBoard', 'comment', 'checklist', 'label', 'swimlane', 'oldSwimlane'].forEach((key) => {
       if (quoteParams[key]) quoteParams[key] = `"${params[key]}"`;
     });
 
