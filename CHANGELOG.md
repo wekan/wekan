@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release adds the following UI changes:
+
+- [Change board menu icons and text](https://github.com/wekan/wekan/issues/2219):
+  - Board menu (hamburger icon) to Board Settings (Cog icon)
+  - Sidebar arrows icons to hamburger icon
+
+Thanks to GitHub user xet7 for contributions.
+    
 # v2.35 2019-03-01 Wekan release
 
 This release fixes the following bugs:
