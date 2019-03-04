@@ -1,3 +1,11 @@
+# v2.37 2019-03-04 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix Adding Labels to cards is not possible anymore](https://github.com/wekan/wekan/issues/2223).
+
+Thanks to GitHub user xet7 for contributions.
+
 # v2.36 2019-03-03 Wekan release
 
 This release adds the following UI changes:
