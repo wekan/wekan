@@ -1,3 +1,49 @@
+Template.boardMenuPopup.events({
+  'click .js-rename-board': Popup.open('boardChangeTitle'),
+  'click .js-custom-fields'() {
+    Sidebar.setView('customFields');
+    Popup.close();
+  },
+  'click .js-open-archives'() {
+    Sidebar.setView('archives');
+    Popup.close();
+  },
+  'click .js-change-board-color': Popup.open('boardChangeColor'),
+  'click .js-change-language': Popup.open('changeLanguage'),
+  'click .js-archive-board ': Popup.afterConfirm('archiveBoard', function() {
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    currentBoard.archive();
+    // XXX We should have some kind of notification on top of the page to
+    // confirm that the board was successfully archived.
+    FlowRouter.go('home');
+  }),
+  'click .js-delete-board': Popup.afterConfirm('deleteBoard', function() {
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    Popup.close();
+    Boards.remove(currentBoard._id);
+    FlowRouter.go('home');
+  }),
+  'click .js-outgoing-webhooks': Popup.open('outgoingWebhooks'),
+  'click .js-import-board': Popup.open('chooseBoardSource'),
+  'click .js-subtask-settings': Popup.open('boardSubtaskSettings'),
+});
+
+Template.boardMenuPopup.helpers({
+  exportUrl() {
+    const params = {
+      boardId: Session.get('currentBoard'),
+    };
+    const queryParams = {
+      authToken: Accounts._storedLoginToken(),
+    };
+    return FlowRouter.path('/api/boards/:boardId/export', params, queryParams);
+  },
+  exportFilename() {
+    const boardId = Session.get('currentBoard');
+    return `wekan-export-board-${boardId}.json`;
+  },
+});
+
 Template.boardChangeTitlePopup.events({
   submit(evt, tpl) {
     const newTitle = tpl.$('.js-board-name').val().trim();
@@ -35,8 +81,12 @@ BlazeComponent.extendComponent({
       'click .js-star-board'() {
         Meteor.user().toggleBoardStar(Session.get('currentBoard'));
       },
+      'click .js-open-board-menu': Popup.open('boardMenu'),
       'click .js-change-visibility': Popup.open('boardChangeVisibility'),
       'click .js-watch-board': Popup.open('boardChangeWatch'),
+      'click .js-open-archived-board'() {
+        Modal.open('archivedBoards');
+      },
       'click .js-toggle-board-view'() {
         const currentUser = Meteor.user();
         if (currentUser.profile.boardView === 'board-view-swimlanes') {
@@ -136,6 +186,9 @@ const CreateBoard = BlazeComponent.extendComponent({
         this.setVisibility(this.currentData());
       },
       'click .js-change-visibility': this.toggleVisibilityMenu,
+      'click .js-import': Popup.open('boardImportBoard'),
+      submit: this.onSubmit,
+      'click .js-import-board': Popup.open('chooseBoardSource'),
       'click .js-board-template': Popup.open('searchElement'),
     }];
   },

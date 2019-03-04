@@ -56,22 +56,21 @@ Activities.helpers({
   customField() {
     return CustomFields.findOne(this.customFieldId);
   },
-  label() {
-    return Labels.findOne(this.labelId);
-  },
+  // Label activity did not work yet, unable to edit labels when tried this.
+  //label() {
+  //  return Cards.findOne(this.labelId);
+  //},
 });
 
 Activities.before.insert((userId, doc) => {
   doc.createdAt = new Date();
 });
 
-
 Activities.after.insert((userId, doc) => {
   const activity = Activities._transform(doc);
   RulesHelper.executeRules(activity);
 
 });
-
 
 if (Meteor.isServer) {
   // For efficiency create indexes on the date of creation, and on the date of
@@ -84,7 +83,9 @@ if (Meteor.isServer) {
     Activities._collection._ensureIndex({ commentId: 1 }, { partialFilterExpression: { commentId: { $exists: true } } });
     Activities._collection._ensureIndex({ attachmentId: 1 }, { partialFilterExpression: { attachmentId: { $exists: true } } });
     Activities._collection._ensureIndex({ customFieldId: 1 }, { partialFilterExpression: { customFieldId: { $exists: true } } });
-    Activities._collection._ensureIndex({ labelId: 1 }, { partialFilterExpression: { labelId: { $exists: true } } });
+    // Label activity did not work yet, unable to edit labels when tried this.
+    //Activities._collection._dropIndex({ labelId: 1 }, { "indexKey": -1 });
+    //Activities._collection._dropIndex({ labelId: 1 }, { partialFilterExpression: { labelId: { $exists: true } } });
   });
 
   Activities.after.insert((userId, doc) => {
@@ -173,11 +174,12 @@ if (Meteor.isServer) {
       const customField = activity.customField();
       params.customField = customField.name;
     }
-    if (activity.labelId) {
-      const label = activity.label();
-      params.label = label.name;
-      params.labelId = activity.labelId;
-    }
+    // Label activity did not work yet, unable to edit labels when tried this.
+    //if (activity.labelId) {
+    //  const label = activity.label();
+    //  params.label = label.name;
+    //  params.labelId = activity.labelId;
+    //}
     if (board) {
       const watchingUsers = _.pluck(_.where(board.watchers, {level: 'watching'}), 'userId');
       const trackingUsers = _.pluck(_.where(board.watchers, {level: 'tracking'}), 'userId');
