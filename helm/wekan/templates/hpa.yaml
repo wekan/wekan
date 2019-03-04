@@ -1,0 +1,18 @@
+{{- if .Values.autoscaling.enabled -}}
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ template "wekan.fullname" . }}
+  labels:
+    app: {{ template "wekan.name" . }}
+    chart: {{ template "wekan.chart" . }}
+    component: wekan
+    heritage: {{ .Release.Service }}
+    release: {{ .Release.Name }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ template "wekan.fullname" . }}
+{{ toYaml .Values.autoscaling.config | indent 2 }}
+{{- end -}}
