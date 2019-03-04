@@ -1,0 +1,5 @@
+dependencies:
+- name: mongodb-replicaset
+  version: 3.6.x
+  repository: "https://kubernetes-charts.storage.googleapis.com/"
+  condition: mongodb-replicaset.enabled

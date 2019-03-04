@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: {{ template "wekan.fullname" . }}-test
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+  - name: {{ template "wekan.fullname" . }}-test
+    imagePullPolicy: IfNotPresent
+    image: "docker.io/mesosphere/aws-cli:1.14.5"
+    command:
+      - sh
+      - -c
+      - aws s3 --endpoint-url=http://{{ include "wekan.fullname" . }} --region=us-east-1 ls
+    env:
+      - name: AWS_ACCESS_KEY_ID
+        valueFrom:
+          secretKeyRef:
+            name: {{ template "wekan.fullname" . }}
+            key: accessKey
+      - name: AWS_SECRET_ACCESS_KEY
+        valueFrom:
+          secretKeyRef:
+            name: {{ template "wekan.fullname" . }}
+            key: secretKey
+  restartPolicy: Never
