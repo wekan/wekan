@@ -27,10 +27,6 @@ credentials:
   accessKey: access-key
   secretKey: secret-key
 
-## Specify log level (info, debug or trace)
-##
-logLevel: info
-
 ## Specify additional environmental variables for the Deployment
 ##
 env: {}
