@@ -1,4 +1,4 @@
-FROM debian:buster-slim
+FROM ubuntu:cosmic
 LABEL maintainer="wekan"
 
 # Declare Arguments
