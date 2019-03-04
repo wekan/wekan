@@ -7,7 +7,6 @@ meteor-base@1.4.0
 
 # Build system
 ecmascript@0.12.4
-stylus@2.513.13
 standard-minifier-css@1.5.2
 standard-minifier-js@2.4.0
 mquandalle:jade
@@ -92,3 +91,4 @@ wekan-scrollbar
 mquandalle:perfect-scrollbar
 mdg:meteor-apm-agent
 meteorhacks:unblock
+coagmano:stylus
