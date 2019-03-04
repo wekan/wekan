@@ -56,36 +56,6 @@ template(name="membersWidget")
     button.js-member-invite-accept.primary {{_ 'accept'}}
     button.js-member-invite-decline {{_ 'decline'}}
 
-template(name="boardChangeVisibilityPopup")
-  +boardVisibilityList
-
-template(name="boardChangeWatchPopup")
-  ul.pop-over-list
-    li
-      with "watching"
-        a.js-select-watch
-          i.fa.fa-eye.colorful
-          | {{_ 'watching'}}
-          if watchCheck
-            i.fa.fa-check
-          span.sub-name {{_ 'watching-info'}}
-    li
-      with "tracking"
-        a.js-select-watch
-          i.fa.fa-bell.colorful
-          | {{_ 'tracking'}}
-          if watchCheck
-            i.fa.fa-check
-          span.sub-name {{_ 'tracking-info'}}
-    li
-      with "muted"
-        a.js-select-watch
-          i.fa.fa-bell-slash.colorful
-          | {{_ 'muted'}}
-          if watchCheck
-            i.fa.fa-check
-          span.sub-name {{_ 'muted-info'}}
-
 template(name="boardChangeColorPopup")
   .board-backgrounds-list.clearfix
     each backgroundColors
