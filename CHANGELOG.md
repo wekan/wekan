@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Added a Helm Chart to the project](https://github.com/wekan/wekan/pull/2227).
+  Thanks to TechnoTaff.
+
+Thanks to above GitHub users for their contributions.
+
 # v2.37 2019-03-04 Wekan release
 
 This release fixes the following bugs:
