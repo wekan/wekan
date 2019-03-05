@@ -1,9 +1,14 @@
 # Upcoming Wekan release
 
-This release adds the following new features:
+This release adds the following new features,  thanks to TechnoTaff:
 
 - [Added a Helm Chart to the project](https://github.com/wekan/wekan/pull/2227).
-  Thanks to TechnoTaff.
+
+and fixes the following bugs, thanks to andresmanelli:
+
+- [Fix card deletion from archive](https://github.com/wekan/wekan/commit/77754cf32f28498e550a46325d90eb41f08f8552).
+- [Fix card move with wrong swimlaneId](https://github.com/wekan/wekan/commit/1bef3a3f8ff4eac43bf97cc8b86d85e618b0e2ef).
+  NOTE: This does not yet fix card move with Custom Field, it will be fixed later.
 
 Thanks to above GitHub users for their contributions.
 
