@@ -67,7 +67,13 @@ BlazeComponent.extendComponent({
         const nCards = MultiSelection.isActive() ? MultiSelection.count() : 1;
         const sortIndex = calculateIndex(prevCardDom, nextCardDom, nCards);
         const listId = Blaze.getData(ui.item.parents('.list').get(0))._id;
-        const swimlaneId = Blaze.getData(ui.item.parents('.swimlane').get(0))._id;
+        const currentBoard = Boards.findOne(Session.get('currentBoard'));
+        let swimlaneId = '';
+        const boardView = Meteor.user().profile.boardView;
+        if (boardView === 'board-view-swimlanes')
+          swimlaneId = Blaze.getData(ui.item.parents('.swimlane').get(0))._id;
+        else if ((boardView === 'board-view-lists') || (boardView === 'board-view-cal'))
+          swimlaneId = currentBoard.getDefaultSwimline()._id;
 
         // Normally the jquery-ui sortable library moves the dragged DOM element
         // to its new position, which disrupts Blaze reactive updates mechanism
