@@ -10,6 +10,7 @@ and fixes the following bugs:
 - [Fix card move with wrong swimlaneId](https://github.com/wekan/wekan/commit/1bef3a3f8ff4eac43bf97cc8b86d85e618b0e2ef). Thanks to andresmanelli.
   NOTE: This does not yet fix card move [with Custom Field](https://github.com/wekan/wekan/issues/2233), it will be fixed later.
 - [Fix: LDAP Authentication with Recursive Group Filtering Does Not Work on Snap](https://github.com/wekan/wekan/issues/2228). Thanks to apages2.
+- [Use ubuntu:cosmic base in Dockerfile](https://github.com/wekan/wekan/commit/df00776e6ca47080435eca9a31a16fd24c0770ed). Thanks to xet7.
 
 Thanks to above GitHub users for their contributions.
 
