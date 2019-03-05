@@ -1421,8 +1421,8 @@ function cardRemover(userId, doc) {
   Checklists.remove({
     cardId: doc._id,
   });
-  Subtasks.remove({
-    cardId: doc._id,
+  Cards.remove({
+    parentId: doc._id,
   });
   CardComments.remove({
     cardId: doc._id,
