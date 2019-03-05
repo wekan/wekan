@@ -92,6 +92,7 @@ sudo -u wekan ${meteor} npm install
 sudo -u wekan ${meteor} build --directory /home/wekan/app_build
 sudo cp /home/wekan/app/fix-download-unicode/cfs_access-point.txt /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js
 sudo chown wekan:wekan /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js
+sudo rm /home/wekan/app_build/bundle/programs/server/npm/node_modules/meteor/rajit_bootstrap3-datepicker/lib/bootstrap-datepicker/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
 cd /home/wekan/app_build/bundle/programs/server/
 sudo npm install
 sudo chown -R wekan:wekan ./node_modules
