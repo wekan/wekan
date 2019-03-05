@@ -4,11 +4,12 @@ This release adds the following new features,  thanks to TechnoTaff:
 
 - [Added a Helm Chart to the project](https://github.com/wekan/wekan/pull/2227).
 
-and fixes the following bugs, thanks to andresmanelli:
+and fixes the following bugs:
 
-- [Fix card deletion from archive](https://github.com/wekan/wekan/commit/77754cf32f28498e550a46325d90eb41f08f8552).
-- [Fix card move with wrong swimlaneId](https://github.com/wekan/wekan/commit/1bef3a3f8ff4eac43bf97cc8b86d85e618b0e2ef).
-  NOTE: This does not yet fix card move with Custom Field, it will be fixed later.
+- [Fix card deletion from archive](https://github.com/wekan/wekan/commit/77754cf32f28498e550a46325d90eb41f08f8552). Thanks to andresmanelli.
+- [Fix card move with wrong swimlaneId](https://github.com/wekan/wekan/commit/1bef3a3f8ff4eac43bf97cc8b86d85e618b0e2ef). Thanks to andresmanelli.
+  NOTE: This does not yet fix card move [with Custom Field](https://github.com/wekan/wekan/issues/2233), it will be fixed later.
+- [Fix: LDAP Authentication with Recursive Group Filtering Does Not Work on Snap](https://github.com/wekan/wekan/issues/2228). Thanks to apages2.
 
 Thanks to above GitHub users for their contributions.
 
