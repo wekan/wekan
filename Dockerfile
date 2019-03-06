@@ -75,6 +75,8 @@ ARG LDAP_SYNC_USER_DATA
 ARG LDAP_SYNC_USER_DATA_FIELDMAP
 ARG LDAP_SYNC_GROUP_ROLES
 ARG LDAP_DEFAULT_DOMAIN
+ARG LDAP_SYNC_ADMIN_STATUS
+ARG LDAP_SYNC_ADMIN_GROUPS
 ARG LOGOUT_WITH_TIMER
 ARG LOGOUT_IN
 ARG LOGOUT_ON_HOURS
@@ -159,6 +161,8 @@ ENV BUILD_DEPS="apt-utils bsdtar gnupg gosu wget curl bzip2 build-essential pyth
     LDAP_SYNC_USER_DATA_FIELDMAP="" \
     LDAP_SYNC_GROUP_ROLES="" \
     LDAP_DEFAULT_DOMAIN="" \
+    LDAP_SYNC_ADMIN_STATUS="" \
+    LDAP_SYNC_ADMIN_GROUPS="" \
     LOGOUT_WITH_TIMER=false \
     LOGOUT_IN="" \
     LOGOUT_ON_HOURS="" \
@@ -293,6 +297,7 @@ RUN \
     gosu wekan:wekan /home/wekan/.meteor/meteor npm install && \
     gosu wekan:wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build && \
     cp /home/wekan/app/fix-download-unicode/cfs_access-point.txt /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
+    rm /home/wekan/app_build/bundle/programs/server/npm/node_modules/meteor/rajit_bootstrap3-datepicker/lib/bootstrap-datepicker/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs && \
     chown wekan:wekan /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
     #Removed binary version of bcrypt because of security vulnerability that is not fixed yet.
     #https://github.com/wekan/wekan/commit/4b2010213907c61b0e0482ab55abb06f6a668eac

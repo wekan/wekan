@@ -5,11 +5,14 @@
 		rm -rf packages
 		mkdir -p ~/repos/wekan/packages
 		cd ~/repos/wekan/packages
-		git clone --depth 1 -b master https://github.com/wekan/flow-router.git kadira-flow-router
-		git clone --depth 1 -b master https://github.com/meteor-useraccounts/core.git meteor-useraccounts-core
-		git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-cas.git
-		git clone --depth 1 -b master https://github.com/wekan/wekan-ldap.git
-		git clone --depth 1 -b master https://github.com/wekan/wekan-scrollbar.git
+                git clone --depth 1 -b master https://github.com/wekan/flow-router.git kadira-flow-router
+                git clone --depth 1 -b master https://github.com/meteor-useraccounts/core.git meteor-useraccounts-core
+                git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-cas.git
+                git clone --depth 1 -b master https://github.com/wekan/wekan-ldap.git
+                git clone --depth 1 -b master https://github.com/wekan/wekan-scrollbar.git
+                git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-oidc.git
+                mv meteor-accounts-oidc/packages/switch_accounts-oidc wekan_accounts-oidc
+                mv meteor-accounts-oidc/packages/switch_oidc wekan_oidc
 
 		if [[ "$OSTYPE" == "darwin"* ]]; then
 			echo "sed at macOS";

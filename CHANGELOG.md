@@ -1,11 +1,22 @@
-# Upcoming Wekan release
+# v2.38 2019-03-06 Wekan release
 
 This release adds the following new features:
 
-- [Added a Helm Chart to the project](https://github.com/wekan/wekan/pull/2227).
-  Thanks to TechnoTaff.
+- [Added a Helm Chart to the project](https://github.com/wekan/wekan/pull/2227), thanks to TechnoTaff.
+- [Added support for LDAP admin status sync](https://github.com/wekan/wekan-ldap/pull/40).
+  Examples: LDAP_SYNC_ADMIN_STATUS=true, LDAP_SYNC_ADMIN_GROUP=group1,group2 (https://github.com/wekan/wekan/commit/7e451d9033eb6162cd37de3e5ffabdc22e272948).
+  Thanks to JulianJacobi and xet7.
 
-Thanks to above GitHub users for their contributions.
+and fixes the following bugs:
+
+- [Fix card deletion from archive](https://github.com/wekan/wekan/commit/77754cf32f28498e550a46325d90eb41f08f8552). Thanks to andresmanelli.
+- [Fix card move with wrong swimlaneId](https://github.com/wekan/wekan/commit/1bef3a3f8ff4eac43bf97cc8b86d85e618b0e2ef). Thanks to andresmanelli.
+  NOTE: This does not yet fix card move [with Custom Field](https://github.com/wekan/wekan/issues/2233), it will be fixed later.
+- [Fix: LDAP Authentication with Recursive Group Filtering Does Not Work on Snap](https://github.com/wekan/wekan/issues/2228). Thanks to apages2.
+- [Use ubuntu:cosmic base in Dockerfile](https://github.com/wekan/wekan/commit/df00776e6ca47080435eca9a31a16fd24c0770ed). Thanks to xet7.
+- [Remove phantomjs binary from Docker/Snap/Stackerfile to reduce size](https://github.com/wekan/wekan/issues/2229). Thanks to soohwa.
+
+Thanks to above GitHub users for their contributions, and translators for their translations.
 
 # v2.37 2019-03-04 Wekan release
 
