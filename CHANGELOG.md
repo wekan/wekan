@@ -1,4 +1,4 @@
-# v2.40 2019-03-06 Wekan erlease
+# v2.40 2019-03-06 Wekan release
 
 - Part 2: [Fix](https://github.com/wekan/wekan/commit/e845fe3e7130d111be4c3a73e2551738c980ff7b)
   [manifest](https://github.com/wekan/wekan/issues/2168) and
@@ -22,7 +22,7 @@ This release adds the following new features:
 
 - [Added a Helm Chart to the project](https://github.com/wekan/wekan/pull/2227), thanks to TechnoTaff.
 - [Added support for LDAP admin status sync](https://github.com/wekan/wekan-ldap/pull/40).
-  Examples: LDAP_SYNC_ADMIN_STATUS=true, LDAP_SYNC_ADMIN_GROUP=group1,group2 (https://github.com/wekan/wekan/commit/7e451d9033eb6162cd37de3e5ffabdc22e272948).
+  Examples: [LDAP_SYNC_ADMIN_STATUS=true, LDAP_SYNC_ADMIN_GROUP=group1,group2](https://github.com/wekan/wekan/commit/7e451d9033eb6162cd37de3e5ffabdc22e272948).
   Thanks to JulianJacobi and xet7.
 
 and fixes the following bugs:
