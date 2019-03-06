@@ -1,4 +1,16 @@
+# v2.41 2019-03-07 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix: Card was selected as parent card (circular reference) and now board can be not opened anymore](https://github.com/wekan/wekan/issues/2202)
+  with [Avoid setting same card as parentCard. Avoid listing templates board in copy/move/more menus](https://github.com/wekan/wekan/commit/745f39ed20169f56b99c0339f2043f8c4ed43873).
+  Thanks to andresmanelli.
+
+Thanks to above GitHub users for their contributions, and translators for their translations.
+
 # v2.40 2019-03-06 Wekan release
+
+This release fixes the following bugs:
 
 - Part 2: [Fix](https://github.com/wekan/wekan/commit/e845fe3e7130d111be4c3a73e2551738c980ff7b)
   [manifest](https://github.com/wekan/wekan/issues/2168) and
