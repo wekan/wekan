@@ -11,6 +11,7 @@ and fixes the following bugs:
   NOTE: This does not yet fix card move [with Custom Field](https://github.com/wekan/wekan/issues/2233), it will be fixed later.
 - [Fix: LDAP Authentication with Recursive Group Filtering Does Not Work on Snap](https://github.com/wekan/wekan/issues/2228). Thanks to apages2.
 - [Use ubuntu:cosmic base in Dockerfile](https://github.com/wekan/wekan/commit/df00776e6ca47080435eca9a31a16fd24c0770ed). Thanks to xet7.
+- [Remove phantomjs binary from Docker/Snap/Stackerfile to reduce size](https://github.com/wekan/wekan/issues/2229). Thanks to soohwa.
 
 Thanks to above GitHub users for their contributions.
 
