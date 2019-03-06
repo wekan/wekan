@@ -29,4 +29,4 @@ if [ "x" != "x${MONGODB_PORT}" ]; then
 fi
 echo "mongodb bind options: $BIND_OPTIONS"
 
-mongod --dbpath $SNAP_COMMON --logpath $SNAP_COMMON/mongodb.log --logappend --journal $BIND_OPTIONS --smallfiles
+mongod --dbpath $SNAP_COMMON --logpath $SNAP_COMMON/mongodb.log --logappend --journal $BIND_OPTIONS
