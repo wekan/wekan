@@ -1,8 +1,11 @@
 # Upcoming Wekan release
 
-This release adds the following new features,  thanks to TechnoTaff:
+This release adds the following new features:
 
-- [Added a Helm Chart to the project](https://github.com/wekan/wekan/pull/2227).
+- [Added a Helm Chart to the project](https://github.com/wekan/wekan/pull/2227), thanks to TechnoTaff.
+- [Added support for LDAP admin status sync](https://github.com/wekan/wekan-ldap/pull/40).
+  Examples: LDAP_SYNC_ADMIN_STATUS=true, LDAP_SYNC_ADMIN_GROUP=group1,group2 (https://github.com/wekan/wekan/commit/7e451d9033eb6162cd37de3e5ffabdc22e272948).
+  Thanks to JulianJacobi and xet7.
 
 and fixes the following bugs:
 
@@ -13,7 +16,7 @@ and fixes the following bugs:
 - [Use ubuntu:cosmic base in Dockerfile](https://github.com/wekan/wekan/commit/df00776e6ca47080435eca9a31a16fd24c0770ed). Thanks to xet7.
 - [Remove phantomjs binary from Docker/Snap/Stackerfile to reduce size](https://github.com/wekan/wekan/issues/2229). Thanks to soohwa.
 
-Thanks to above GitHub users for their contributions.
+Thanks to above GitHub users for their contributions, and translators for their translations.
 
 # v2.37 2019-03-04 Wekan release
 
