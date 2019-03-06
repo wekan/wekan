@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix](https://github.com/wekan/wekan/commit/e845fe3e7130d111be4c3a73e2551738c980ff7b)
+  [manifest](https://github.com/wekan/wekan/issues/2168) and
+  [icon](https://github.com/wekan/wekan/issues/1692) paths. Thanks to xet7.
+    
+Thanks to above GitHub users for their contributions, and translators for their translations.
+
 # v2.38 2019-03-06 Wekan release
 
 This release adds the following new features:
