@@ -247,6 +247,10 @@
         # LDAP_DEFAULT_DOMAIN : The default domain of the ldap it is used to create email if the field is not map correctly with the LDAP_SYNC_USER_DATA_FIELDMAP
         # example :
         #export LDAP_DEFAULT_DOMAIN=
+        # Enable/Disable syncing of admin status based on ldap groups:
+        #export LDAP_SYNC_ADMIN_STATUS=true
+        # Comma separated list of admin group names.
+        #export LDAP_SYNC_ADMIN_GROUPS=group1,group2
         # LOGOUT_WITH_TIMER : Enables or not the option logout with timer
         # example : LOGOUT_WITH_TIMER=true
         #export LOGOUT_WITH_TIMER=

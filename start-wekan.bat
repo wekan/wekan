@@ -248,6 +248,12 @@ REM # LDAP_DEFAULT_DOMAIN : The default domain of the ldap it is used to create 
 REM # example :
 REM SET LDAP_DEFAULT_DOMAIN=
 
+REM # Enable/Disable syncing of admin status based on ldap groups:
+REM SET LDAP_SYNC_ADMIN_STATUS=true
+
+REM # Comma separated list of admin group names to sync.
+REM SET LDAP_SYNC_ADMIN_GROUPS=group1,group2
+
 REM ------------------------------------------------
 
 REM # LOGOUT_WITH_TIMER : Enables or not the option logout with timer
