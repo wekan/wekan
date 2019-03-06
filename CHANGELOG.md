@@ -1,3 +1,10 @@
+# v2.42 2019-03-07 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix snap mongodb-control not starting database](https://github.com/wekan/wekan/commit/2c5628b5fbcc25427021d0b22e74577a71149c21).
+  Thanks to xet7 and qurqar[m] at IRC #wekan.
+
 # v2.41 2019-03-07 Wekan release
 
 This release fixes the following bugs:
