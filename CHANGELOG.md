@@ -1,16 +1,34 @@
+# Upcoming Wekan release
+
+This release adds the following partial fix:
+
+- [Add migration to fix circular references](https://github.com/wekan/wekan/commit/a338e937e508568d1f6a15c5464126d30ef69a7d).
+  Thanks to andresmanelli. This [runs only once](https://github.com/wekan/wekan/issues/2209#issuecomment-470445989),
+  so later there will be another fix to make it run every time.
+
+and reverts the following change of v2.42, because they did not fix anything:
+
+- [Tried to fix snap mongodb-control not starting database](https://github.com/wekan/wekan/commit/2c5628b5fbcc25427021d0b22e74577a71149c21).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions, and translators for their translations.  
+
 # v2.42 2019-03-07 Wekan release
 
-This release fixes the following bugs:
+This release tried to fix the following bugs:
 
-- [Fix snap mongodb-control not starting database](https://github.com/wekan/wekan/commit/2c5628b5fbcc25427021d0b22e74577a71149c21).
-  Thanks to xet7 and qurqar[m] at IRC #wekan.
+- [Tried to fix snap mongodb-control not starting database](https://github.com/wekan/wekan/commit/2c5628b5fbcc25427021d0b22e74577a71149c21).
+  Reverted in v2.43, because it did not fix anything.
+
+Thanks to xet7 and qurqar[m] at IRC #wekan.
 
 # v2.41 2019-03-07 Wekan release
 
-This release fixes the following bugs:
+This release tried to fix the following bugs:
 
-- [Fix: Card was selected as parent card (circular reference) and now board can be not opened anymore](https://github.com/wekan/wekan/issues/2202)
+- [Partial Fix: Card was selected as parent card (circular reference) and now board can be not opened anymore](https://github.com/wekan/wekan/issues/2202)
   with [Avoid setting same card as parentCard. Avoid listing templates board in copy/move/more menus](https://github.com/wekan/wekan/commit/745f39ed20169f56b99c0339f2043f8c4ed43873).
+  This does not fully work yet, it will be fixed later.
   Thanks to andresmanelli.
 
 Thanks to above GitHub users for their contributions, and translators for their translations.
