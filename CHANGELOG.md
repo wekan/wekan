@@ -8,7 +8,7 @@ This release adds the following partial fix:
 
 and reverts the following change of v2.42, because they did not fix anything:
 
-- [Tried to fix snap mongodb-control not starting database](https://github.com/wekan/wekan/commit/2c5628b5fbcc25427021d0b22e74577a71149c21).
+- [Revert: Tried to fix snap mongodb-control not starting database](https://github.com/wekan/wekan/commit/4055f451fdadfbfdef9a10be29a0eb6aed91182c).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions, and translators for their translations.  
