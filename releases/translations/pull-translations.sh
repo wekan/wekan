@@ -99,6 +99,9 @@ tx pull -f -l nl
 echo "Norwegian:"
 tx pull -f -l no
 
+echo "Occitan:"
+tx pull -f -l oc
+
 echo "Polish:"
 tx pull -f -l pl
 
