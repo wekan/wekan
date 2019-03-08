@@ -1,9 +1,9 @@
-# Upcoming Wekan release
+# v2.43 2019-03-08 Wekan release
 
-This release [adds](https://github.com/wekan/wekan/commit/856872815292590e0c4eff2848ea1b857a318dc4) the following new features, thanks to xet7:
+This release adds the following new features, thanks to xet7:
 
 - [Hide Subtask boards from All Boards](https://github.com/wekan/wekan/issues/1990).
-- Order All Boards by Starred, Color, Title and Description.
+- [Order All Boards by Starred, Color, Title and Description](https://github.com/wekan/wekan/commit/856872815292590e0c4eff2848ea1b857a318dc4).
 - [HTTP header automatic login](https://github.com/wekan/wekan/commit/ff825d6123ecfd033ccb08ce97c11cefee676104)
   for [3rd party authentication server method](https://github.com/wekan/wekan/issues/2019) like siteminder, and any webserver that
   handles authentication and based on it adds HTTP headers to be used for login. Please test.
