@@ -102,18 +102,13 @@ Template.defaultLayout.events({
 
 async function authentication(event, instance) {
 
-  // If header login id is set, use it for login
-  if (process.env.HEADER_LOGIN_ID) {
-    // Header username = Email address
-    const match = req.headers[process.env.HEADER_LOGIN_EMAIL];
-    // Header password = Login ID
-    const password = req.headers[process.env.HEADER_LOGIN_ID];
-    //const headerLoginFirstname = req.headers[process.env.HEADER_LOGIN_FIRSTNAME];
-    //const headerLoginLastname = req.headers[process.env.HEADER_LOGIN_LASTNAME];
-  } else {
-    const match = $('#at-field-username_and_email').val();
-    const password = $('#at-field-password').val();
-  }
+  // If header login id is set, use it for login.
+  // Header username = Email address
+  // Header password = Login ID
+  // Not user currently: req.headers[process.env.HEADER_LOGIN_FIRSTNAME]
+  //                and  req.headers[process.env.HEADER_LOGIN_LASTNAME]
+  const match = req.headers[process.env.HEADER_LOGIN_EMAIL] || $('#at-field-username_and_email').val();
+  const password = req.headers[process.env.HEADER_LOGIN_ID] || $('#at-field-password').val();
 
   if (!match || !password) return;
 
