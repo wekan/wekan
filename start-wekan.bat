@@ -254,6 +254,13 @@ REM SET LDAP_SYNC_ADMIN_STATUS=true
 REM # Comma separated list of admin group names to sync.
 REM SET LDAP_SYNC_ADMIN_GROUPS=group1,group2
 
+REM # Login to LDAP automatically with HTTP header.
+REM # In below example for siteminder, at right side of = is header name.
+REM SET HEADER_LOGIN_ID=BNPPUID
+REM SET HEADER_LOGIN_FIRSTNAME=BNPPFIRSTNAME
+REM SET HEADER_LOGIN_LASTNAME=BNPPLASTNAME
+REM SET HEADER_LOGIN_EMAIL=BNPPEMAILADDRESS
+
 REM ------------------------------------------------
 
 REM # LOGOUT_WITH_TIMER : Enables or not the option logout with timer

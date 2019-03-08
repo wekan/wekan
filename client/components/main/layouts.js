@@ -101,8 +101,19 @@ Template.defaultLayout.events({
 });
 
 async function authentication(event, instance) {
-  const match = $('#at-field-username_and_email').val();
-  const password = $('#at-field-password').val();
+
+  // If header login id is set, use it for login
+  if (process.env.HEADER_LOGIN_ID) {
+    // Header username = Email address
+    const match = req.headers[process.env.HEADER_LOGIN_EMAIL];
+    // Header password = Login ID
+    const password = req.headers[process.env.HEADER_LOGIN_ID];
+    //const headerLoginFirstname = req.headers[process.env.HEADER_LOGIN_FIRSTNAME];
+    //const headerLoginLastname = req.headers[process.env.HEADER_LOGIN_LASTNAME];
+  } else {
+    const match = $('#at-field-username_and_email').val();
+    const password = $('#at-field-password').val();
+  }
 
   if (!match || !password) return;
 
@@ -110,9 +121,12 @@ async function authentication(event, instance) {
 
   if (result === 'password') return;
 
-  // Stop submit #at-pwd-form
-  event.preventDefault();
-  event.stopImmediatePropagation();
+  // If header login id is not set, don't try to login automatically.
+  if (!process.env.HEADER_LOGIN_ID) {
+    // Stop submit #at-pwd-form
+    event.preventDefault();
+    event.stopImmediatePropagation();
+  }
 
   switch (result) {
   case 'ldap':
