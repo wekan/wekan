@@ -25,8 +25,9 @@ BlazeComponent.extendComponent({
       archived: false,
       'members.userId': Meteor.userId(),
       type: 'board',
+      subtasksDefaultListId: null,
     }, {
-      sort: ['title'],
+      sort: { stars: -1, color: 1, title: 1, description: 1 },
     });
   },
 

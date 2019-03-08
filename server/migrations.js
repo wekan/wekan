@@ -517,3 +517,11 @@ Migrations.add('add-templates', () => {
     });
   });
 });
+
+Migrations.add('fix-circular-reference', () => {
+  Cards.find().forEach((card) => {
+    if (card.parentId === card._id) {
+      Cards.update(card._id, {$set: {parentId: ''}}, noValidateMulti);
+    }
+  });
+});

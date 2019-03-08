@@ -1,16 +1,41 @@
+# v2.43 2019-03-08 Wekan release
+
+This release adds the following new features, thanks to xet7:
+
+- [Hide Subtask boards from All Boards](https://github.com/wekan/wekan/issues/1990).
+- [Order All Boards by Starred, Color, Title and Description](https://github.com/wekan/wekan/commit/856872815292590e0c4eff2848ea1b857a318dc4).
+- [HTTP header automatic login](https://github.com/wekan/wekan/commit/ff825d6123ecfd033ccb08ce97c11cefee676104)
+  for [3rd party authentication server method](https://github.com/wekan/wekan/issues/2019) like siteminder, and any webserver that
+  handles authentication and based on it adds HTTP headers to be used for login. Please test.
+
+and adds the following partial fix, thanks to andresmanelli:
+
+- [Add migration to fix circular references](https://github.com/wekan/wekan/commit/a338e937e508568d1f6a15c5464126d30ef69a7d).
+  This [runs only once](https://github.com/wekan/wekan/issues/2209#issuecomment-470445989),
+  so later there will be another fix to make it run every time.
+
+and reverts the following change of v2.42, because they did not fix anything, thanks to xet7:
+
+- [Revert: Tried to fix snap mongodb-control not starting database](https://github.com/wekan/wekan/commit/4055f451fdadfbfdef9a10be29a0eb6aed91182c).
+
+Thanks to above GitHub users for their contributions, and translators for their translations.  
+
 # v2.42 2019-03-07 Wekan release
 
-This release fixes the following bugs:
+This release tried to fix the following bugs:
 
-- [Fix snap mongodb-control not starting database](https://github.com/wekan/wekan/commit/2c5628b5fbcc25427021d0b22e74577a71149c21).
-  Thanks to xet7 and qurqar[m] at IRC #wekan.
+- [Tried to fix snap mongodb-control not starting database](https://github.com/wekan/wekan/commit/2c5628b5fbcc25427021d0b22e74577a71149c21).
+  Reverted in v2.43, because it did not fix anything.
+
+Thanks to xet7 and qurqar[m] at IRC #wekan.
 
 # v2.41 2019-03-07 Wekan release
 
-This release fixes the following bugs:
+This release tried to fix the following bugs:
 
-- [Fix: Card was selected as parent card (circular reference) and now board can be not opened anymore](https://github.com/wekan/wekan/issues/2202)
+- [Partial Fix: Card was selected as parent card (circular reference) and now board can be not opened anymore](https://github.com/wekan/wekan/issues/2202)
   with [Avoid setting same card as parentCard. Avoid listing templates board in copy/move/more menus](https://github.com/wekan/wekan/commit/745f39ed20169f56b99c0339f2043f8c4ed43873).
+  This does not fully work yet, it will be fixed later.
   Thanks to andresmanelli.
 
 Thanks to above GitHub users for their contributions, and translators for their translations.
