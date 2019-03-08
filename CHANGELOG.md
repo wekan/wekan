@@ -1,15 +1,19 @@
 # Upcoming Wekan release
 
-This release adds the following partial fix:
+This release [adds](https://github.com/wekan/wekan/commit/856872815292590e0c4eff2848ea1b857a318dc4) the following new features, thanks to xet7:
+
+- [Hide Subtask boards from All Boards](https://github.com/wekan/wekan/issues/1990).
+- Order All Boards by Starred, Color, Title and Description.
+
+and adds the following partial fix, thanks to andresmanelli:
 
 - [Add migration to fix circular references](https://github.com/wekan/wekan/commit/a338e937e508568d1f6a15c5464126d30ef69a7d).
-  Thanks to andresmanelli. This [runs only once](https://github.com/wekan/wekan/issues/2209#issuecomment-470445989),
+  This [runs only once](https://github.com/wekan/wekan/issues/2209#issuecomment-470445989),
   so later there will be another fix to make it run every time.
 
-and reverts the following change of v2.42, because they did not fix anything:
+and reverts the following change of v2.42, because they did not fix anything, thanks to xet7:
 
 - [Revert: Tried to fix snap mongodb-control not starting database](https://github.com/wekan/wekan/commit/4055f451fdadfbfdef9a10be29a0eb6aed91182c).
-  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions, and translators for their translations.  
 

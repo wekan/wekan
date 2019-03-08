@@ -27,7 +27,7 @@ BlazeComponent.extendComponent({
       type: 'board',
       subtasksDefaultListId: null,
     }, {
-      sort: { stars: -1, color: 1, title: 1 },
+      sort: { stars: -1, color: 1, title: 1, description: 1 },
     });
   },
 
