@@ -4,6 +4,9 @@ This release [adds](https://github.com/wekan/wekan/commit/856872815292590e0c4eff
 
 - [Hide Subtask boards from All Boards](https://github.com/wekan/wekan/issues/1990).
 - Order All Boards by Starred, Color, Title and Description.
+- [HTTP header automatic login](https://github.com/wekan/wekan/commit/ff825d6123ecfd033ccb08ce97c11cefee676104)
+  for [3rd party authentication server method](https://github.com/wekan/wekan/issues/2019) like siteminder, and any webserver that
+  handles authentication and based on it adds HTTP headers to be used for login. Please test.
 
 and adds the following partial fix, thanks to andresmanelli:
 
