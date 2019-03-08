@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- Add language: Occitan.
+
+Thanks to translators for their translations.
+
 # v2.43 2019-03-08 Wekan release
 
 This release adds the following new features, thanks to xet7:
