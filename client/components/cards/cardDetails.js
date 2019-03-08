@@ -578,11 +578,14 @@ BlazeComponent.extendComponent({
 BlazeComponent.extendComponent({
   onCreated() {
     this.currentCard = this.currentData();
+    this.parentBoard = new ReactiveVar(null);
     this.parentCard = this.currentCard.parentCard();
     if (this.parentCard) {
-      this.parentBoard = this.parentCard.board();
+      const list = $('.js-field-parent-card');
+      list.val(this.parentCard._id);
+      this.parentBoard.set(this.parentCard.board()._id);
     } else {
-      this.parentBoard = null;
+      this.parentBoard.set(null);
     }
   },
 
@@ -601,9 +604,9 @@ BlazeComponent.extendComponent({
 
   cards() {
     const currentId = Session.get('currentCard');
-    if (this.parentBoard) {
+    if (this.parentBoard.get()) {
       return Cards.find({
-        boardId: this.parentBoard,
+        boardId: this.parentBoard.get(),
         _id: {$ne: currentId},
       });
     } else {
@@ -613,8 +616,8 @@ BlazeComponent.extendComponent({
 
   isParentBoard() {
     const board = this.currentData();
-    if (this.parentBoard) {
-      return board._id === this.parentBoard;
+    if (this.parentBoard.get()) {
+      return board._id === this.parentBoard.get();
     }
     return false;
   },
@@ -628,11 +631,10 @@ BlazeComponent.extendComponent({
   },
 
   setParentCardId(cardId) {
-    if (cardId === 'null') {
-      cardId = null;
-      this.parentCard = null;
-    } else {
+    if (cardId) {
       this.parentCard = Cards.findOne(cardId);
+    } else {
+      this.parentCard = null;
     }
     this.currentCard.setParentId(cardId);
   },
@@ -669,23 +671,14 @@ BlazeComponent.extendComponent({
       'change .js-field-parent-board'(evt) {
         const selection = $(evt.currentTarget).val();
         const list = $('.js-field-parent-card');
-        list.empty();
         if (selection === 'none') {
-          this.parentBoard = null;
-          list.prop('disabled', true);
+          this.parentBoard.set(null);
         } else {
-          this.parentBoard = Boards.findOne(selection);
-          this.parentBoard.cards().forEach(function(card) {
-            list.append(
-              $('<option></option>').val(card._id).html(card.title)
-            );
-          });
+          subManager.subscribe('board', $(evt.currentTarget).val());
+          this.parentBoard.set(selection);
           list.prop('disabled', false);
         }
-        list.append(
-          `<option value='none' selected='selected'>${TAPi18n.__('custom-field-dropdown-none')}</option>`
-        );
-        this.setParentCardId('null');
+        this.setParentCardId(null);
       },
       'change .js-field-parent-card'(evt) {
         const selection = $(evt.currentTarget).val();
