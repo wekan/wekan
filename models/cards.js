@@ -1400,6 +1400,56 @@ function cardLabels(userId, doc, fieldNames, modifier) {
   }
 }
 
+function cardCustomFields(userId, doc, fieldNames, modifier) {
+  if (!_.contains(fieldNames, 'customFields'))
+    return;
+
+  // Say hello to the new customField value
+  if (modifier.$set) {
+    _.each(modifier.$set, (value, key) => {
+      if (key.startsWith('customFields')) {
+        const dotNotation = key.split('.');
+
+        // only individual changes are registered
+        if (dotNotation.length > 1) {
+          const customFieldId = doc.customFields[dot_notation[1]]._id;
+          const act = {
+            userId,
+            customFieldId,
+            value,
+            activityType: 'setCustomField',
+            boardId: doc.boardId,
+            cardId: doc._id,
+          };
+          Activities.insert(act);
+        }
+      }
+    });
+  }
+
+  // Say goodbye to the former customField value
+  if (modifier.$unset) {
+    _.each(modifier.$unset, (value, key) => {
+      if (key.startsWith('customFields')) {
+        const dotNotation = key.split('.');
+
+        // only individual changes are registered
+        if (dotNotation.length > 1) {
+          const customFieldId = doc.customFields[dot_notation[1]]._id;
+          const act = {
+            userId,
+            customFieldId,
+            activityType: 'unsetCustomField',
+            boardId: doc.boardId,
+            cardId: doc._id,
+          };
+          Activities.insert(act);
+        }
+      }
+    });
+  }
+}
+
 function cardCreation(userId, doc) {
   Activities.insert({
     userId,
@@ -1469,6 +1519,11 @@ if (Meteor.isServer) {
   // Add a new activity if we add or remove a label to the card
   Cards.before.update((userId, doc, fieldNames, modifier) => {
     cardLabels(userId, doc, fieldNames, modifier);
+  });
+
+  // Add a new activity if we edit a custom field
+  Cards.before.update((userId, doc, fieldNames, modifier) => {
+    cardCustomFields(userId, doc, fieldNames, modifier);
   });
 
   // Remove all activities associated with a card if we remove the card
