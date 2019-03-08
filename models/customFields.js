@@ -4,11 +4,11 @@ CustomFields = new Mongo.Collection('customFields');
  * A custom field on a card in the board
  */
 CustomFields.attachSchema(new SimpleSchema({
-  boardId: {
+  boardIds: {
     /**
      * the ID of the board
      */
-    type: String,
+    type: [String],
   },
   name: {
     /**
@@ -135,7 +135,7 @@ if (Meteor.isServer) {
     const paramBoardId = req.params.boardId;
     JsonRoutes.sendResult(res, {
       code: 200,
-      data: CustomFields.find({ boardId: paramBoardId }).map(function (cf) {
+      data: CustomFields.find({ boardIds: {$in: [paramBoardId]} }).map(function (cf) {
         return {
           _id: cf._id,
           name: cf.name,
@@ -159,7 +159,7 @@ if (Meteor.isServer) {
     const paramCustomFieldId = req.params.customFieldId;
     JsonRoutes.sendResult(res, {
       code: 200,
-      data: CustomFields.findOne({ _id: paramCustomFieldId, boardId: paramBoardId }),
+      data: CustomFields.findOne({ _id: paramCustomFieldId, boardIds: {$in: [paramBoardId]} }),
     });
   });
 
@@ -189,7 +189,7 @@ if (Meteor.isServer) {
       boardId: paramBoardId,
     });
 
-    const customField = CustomFields.findOne({_id: id, boardId: paramBoardId });
+    const customField = CustomFields.findOne({_id: id, boardIds: {$in: [paramBoardId]} });
     customFieldCreation(req.body.authorId, customField);
 
     JsonRoutes.sendResult(res, {

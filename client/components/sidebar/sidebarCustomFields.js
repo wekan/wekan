@@ -2,7 +2,7 @@ BlazeComponent.extendComponent({
 
   customFields() {
     return CustomFields.find({
-      boardId: Session.get('currentBoard'),
+      boardIds: {$in: [Session.get('currentBoard')]},
     });
   },
 
@@ -103,7 +103,6 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
         evt.preventDefault();
 
         const data = {
-          boardId: Session.get('currentBoard'),
           name: this.find('.js-field-name').value.trim(),
           type: this.type.get(),
           settings: this.getSettings(),
@@ -114,8 +113,10 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
 
         // insert or update
         if (!this.data()._id) {
+          data.boardIds = [Session.get('currentBoard')];
           CustomFields.insert(data);
         } else {
+          data.boardIds = {$in: [Session.get('currentBoard')]};
           CustomFields.update(this.data()._id, {$set: data});
         }
 

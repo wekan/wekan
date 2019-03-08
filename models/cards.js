@@ -476,7 +476,7 @@ Cards.helpers({
 
     // get all definitions
     const definitions = CustomFields.find({
-      boardId: this.boardId,
+      boardIds: {$in: [this.boardId]},
     }).fetch();
 
     // match right definition to each field
