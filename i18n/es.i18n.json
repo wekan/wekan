@@ -567,6 +567,8 @@
     "activity-added-label-card": "añadida etiqueta '%s'",
     "activity-removed-label-card": "eliminada etiqueta '%s'",
     "activity-delete-attach-card": "eliminado un adjunto",
+    "activity-set-customfield": "set custom field '%s' to '%s' in %s",
+    "activity-unset-customfield": "unset custom field '%s' in %s",
     "r-rule": "Regla",
     "r-add-trigger": "Añadir disparador",
     "r-add-action": "Añadir acción",

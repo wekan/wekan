@@ -567,6 +567,8 @@
     "activity-added-label-card": "добави етикет '%s'",
     "activity-removed-label-card": "премахна етикет '%s'",
     "activity-delete-attach-card": "изтри прикачения файл",
+    "activity-set-customfield": "set custom field '%s' to '%s' in %s",
+    "activity-unset-customfield": "unset custom field '%s' in %s",
     "r-rule": "Правило",
     "r-add-trigger": "Добави спусък",
     "r-add-action": "Добави действие",

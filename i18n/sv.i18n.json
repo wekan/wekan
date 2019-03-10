@@ -567,6 +567,8 @@
     "activity-added-label-card": "lade till etiketten \"%s\"",
     "activity-removed-label-card": "tog bort etiketten \"%s\"",
     "activity-delete-attach-card": "tog bort en bilaga",
+    "activity-set-customfield": "set custom field '%s' to '%s' in %s",
+    "activity-unset-customfield": "unset custom field '%s' in %s",
     "r-rule": "Regel",
     "r-add-trigger": "Add trigger",
     "r-add-action": "Lägg till åtgärd",

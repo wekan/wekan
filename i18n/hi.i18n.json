@@ -567,6 +567,8 @@
     "activity-added-label-card": "संकलित label '%s'",
     "activity-removed-label-card": "हटा दिया label '%s'",
     "activity-delete-attach-card": "deleted an संलग्नक",
+    "activity-set-customfield": "set custom field '%s' to '%s' in %s",
+    "activity-unset-customfield": "unset custom field '%s' in %s",
     "r-rule": "Rule",
     "r-add-trigger": "जोड़ें trigger",
     "r-add-action": "जोड़ें action",

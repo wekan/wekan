@@ -567,6 +567,8 @@
     "activity-added-label-card": "добавил метку '%s'",
     "activity-removed-label-card": "удалил метку '%s'",
     "activity-delete-attach-card": "удалил вложение",
+    "activity-set-customfield": "set custom field '%s' to '%s' in %s",
+    "activity-unset-customfield": "unset custom field '%s' in %s",
     "r-rule": "Правило",
     "r-add-trigger": "Задать условие",
     "r-add-action": "Задать действие",

@@ -567,6 +567,8 @@
     "activity-added-label-card": "Label hinzugefügt '%s'",
     "activity-removed-label-card": "Label entfernt '%s'",
     "activity-delete-attach-card": "hat einen Anhang gelöscht",
+    "activity-set-customfield": "setze benutzerdefiniertes Feld '%s' zu '%s' in %s",
+    "activity-unset-customfield": "entferne benutzerdefiniertes Feld '%s' in %s",
     "r-rule": "Regel",
     "r-add-trigger": "Auslöser hinzufügen",
     "r-add-action": "Aktion hinzufügen",

@@ -567,6 +567,8 @@
     "activity-added-label-card": "added label '%s'",
     "activity-removed-label-card": "removed label '%s'",
     "activity-delete-attach-card": "deleted an attachment",
+    "activity-set-customfield": "set custom field '%s' to '%s' in %s",
+    "activity-unset-customfield": "unset custom field '%s' in %s",
     "r-rule": "Rule",
     "r-add-trigger": "Add trigger",
     "r-add-action": "Add action",

@@ -567,6 +567,8 @@
     "activity-added-label-card": "已添加标签 '%s'",
     "activity-removed-label-card": "已移除标签 '%s'",
     "activity-delete-attach-card": "已删除附件",
+    "activity-set-customfield": "set custom field '%s' to '%s' in %s",
+    "activity-unset-customfield": "unset custom field '%s' in %s",
     "r-rule": "规则",
     "r-add-trigger": "添加触发器",
     "r-add-action": "添加行动",

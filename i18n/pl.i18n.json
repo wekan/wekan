@@ -567,6 +567,8 @@
     "activity-added-label-card": "dodał(a) etykietę '%s'",
     "activity-removed-label-card": "usunięto etykietę '%s'",
     "activity-delete-attach-card": "usunięto załącznik",
+    "activity-set-customfield": "set custom field '%s' to '%s' in %s",
+    "activity-unset-customfield": "unset custom field '%s' in %s",
     "r-rule": "Reguła",
     "r-add-trigger": "Dodaj przełącznik",
     "r-add-action": "Dodaj czynność",

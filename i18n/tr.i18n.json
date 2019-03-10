@@ -567,6 +567,8 @@
     "activity-added-label-card": "etiket eklendi '%s'",
     "activity-removed-label-card": "removed label '%s'",
     "activity-delete-attach-card": "Ek silindi",
+    "activity-set-customfield": "set custom field '%s' to '%s' in %s",
+    "activity-unset-customfield": "unset custom field '%s' in %s",
     "r-rule": "Kural",
     "r-add-trigger": "Tetikleyici ekle",
     "r-add-action": "Eylem ekle",
