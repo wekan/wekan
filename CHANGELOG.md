@@ -8,6 +8,12 @@ and adds the following new features:
 
 - Add language: Occitan. Thanks to translators.
 
+and fixes the following bugs, thanks to andresmanelli:
+
+- [Fix removed checklistItem activity => dangling activities created](https://github.com/wekan/wekan/commit/2ec1664408d9515b5ca77fbb46ef99208eb8cff0).
+  Closes #2240.
+- [Avoid set self as parent card to cause circular reference, for real](https://github.com/wekan/commit/97822f35fd6365e5631c5488e8ee595f76ab4e34).
+
 Thanks to above Wekan contributors for their contributions.
 
 # v2.43 2019-03-08 Wekan release
