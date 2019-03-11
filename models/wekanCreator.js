@@ -298,6 +298,10 @@ export class WekanCreator {
           cardToCreate.members = wekanMembers;
         }
       }
+      // set color
+      if (card.color) {
+        cardToCreate.color = card.color;
+      }
       // insert card
       const cardId = Cards.direct.insert(cardToCreate);
       // keep track of Wekan id => Wekan id
