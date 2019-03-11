@@ -82,6 +82,24 @@ BlazeComponent.extendComponent({
     }
   },
 
+  lastCustomField(){
+    const lastCustomField = CustomFields.findOne(this.currentData().customFieldId);
+    return lastCustomField.name;
+  },
+
+  lastCustomFieldValue(){
+    const lastCustomField = CustomFields.findOne(this.currentData().customFieldId);
+    const value = this.currentData().value;
+    if (lastCustomField.settings.dropdownItems && lastCustomField.settings.dropdownItems.length > 0) {
+      const dropDownValue = _.find(lastCustomField.settings.dropdownItems, (item) => {
+        return item._id === value;
+      });
+      if (dropDownValue)
+        return dropDownValue.name;
+    }
+    return value;
+  },
+
   listLabel() {
     return this.currentData().list().title;
   },

@@ -114,6 +114,12 @@ template(name="boardActivities")
         if($eq activityType 'removedLabel')
           | {{{_ 'activity-removed-label' lastLabel cardLink}}}.
 
+        if($eq activityType 'setCustomField')
+          | {{{_ 'activity-set-customfield' lastCustomField lastCustomFieldValue cardLink}}}.
+
+        if($eq activityType 'unsetCustomField')
+          | {{{_ 'activity-unset-customfield' lastCustomField cardLink}}}.
+
         if($eq activityType 'unjoinMember')
           if($eq user._id member._id)
             | {{{_ 'activity-unjoined' cardLink}}}.

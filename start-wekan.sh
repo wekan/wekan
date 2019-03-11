@@ -43,6 +43,16 @@ function wekan_repo_check(){
       # Wekan Export Board works when WITH_API=true.
       # If you disable Wekan API with false, Export Board does not work.
       export WITH_API='true'
+      #---------------------------------------------------------------
+      # ==== PASSWORD BRUTE FORCE PROTECTION ====
+      #https://atmospherejs.com/lucasantoniassi/accounts-lockout
+      #Defaults below. Uncomment to change. wekan/server/accounts-lockout.js
+      #export ACCOUNTS_LOCKOUT_KNOWN_USERS_FAILURES_BEFORE=3
+      #export ACCOUNTS_LOCKOUT_KNOWN_USERS_PERIOD=60
+      #export ACCOUNTS_LOCKOUT_KNOWN_USERS_FAILURE_WINDOW=15
+      #export ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURES_BERORE=3
+      #export ACCOUNTS_LOCKOUT_UNKNOWN_USERS_LOCKOUT_PERIOD=60
+      #export ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURE_WINDOW=15
       #---------------------------------------------
       # CORS: Set Access-Control-Allow-Origin header. Example: *
       #export CORS=*

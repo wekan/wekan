@@ -99,17 +99,6 @@ function itemCreation(userId, doc) {
 }
 
 function itemRemover(userId, doc) {
-  const card = Cards.findOne(doc.cardId);
-  const boardId = card.boardId;
-  Activities.insert({
-    userId,
-    activityType: 'removedChecklistItem',
-    cardId: doc.cardId,
-    boardId,
-    checklistId: doc.checklistId,
-    checklistItemId: doc._id,
-    checklistItemName:doc.title,
-  });
   Activities.remove({
     checklistItemId: doc._id,
   });
@@ -206,8 +195,19 @@ if (Meteor.isServer) {
     itemCreation(userId, doc);
   });
 
-  ChecklistItems.after.remove((userId, doc) => {
+  ChecklistItems.before.remove((userId, doc) => {
     itemRemover(userId, doc);
+    const card = Cards.findOne(doc.cardId);
+    const boardId = card.boardId;
+    Activities.insert({
+      userId,
+      activityType: 'removedChecklistItem',
+      cardId: doc.cardId,
+      boardId,
+      checklistId: doc.checklistId,
+      checklistItemId: doc._id,
+      checklistItemName:doc.title,
+    });
   });
 }
 

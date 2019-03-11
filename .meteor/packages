@@ -81,7 +81,6 @@ staringatlights:fast-render
 mixmax:smart-disconnect
 accounts-password@1.5.1
 cfs:gridfs
-eluck:accounts-lockout
 rzymek:fullcalendar
 momentjs:moment@2.22.2
 browser-policy-framing@1.1.0
@@ -92,3 +91,4 @@ mquandalle:perfect-scrollbar
 mdg:meteor-apm-agent
 meteorhacks:unblock
 coagmano:stylus
+lucasantoniassi:accounts-lockout

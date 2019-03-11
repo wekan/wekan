@@ -567,6 +567,8 @@
     "activity-added-label-card": "افزودن لیبل '%s'",
     "activity-removed-label-card": "حذف لیبل '%s'",
     "activity-delete-attach-card": "حذف ضمیمه",
+    "activity-set-customfield": "set custom field '%s' to '%s' in %s",
+    "activity-unset-customfield": "unset custom field '%s' in %s",
     "r-rule": "نقش",
     "r-add-trigger": "افزودن گیره",
     "r-add-action": "افزودن عملیات",

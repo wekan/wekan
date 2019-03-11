@@ -567,6 +567,8 @@
     "activity-added-label-card": "přidán štítek '%s'",
     "activity-removed-label-card": "odstraněn štítek '%s'",
     "activity-delete-attach-card": "odstraněna příloha",
+    "activity-set-customfield": "set custom field '%s' to '%s' in %s",
+    "activity-unset-customfield": "unset custom field '%s' in %s",
     "r-rule": "Pravidlo",
     "r-add-trigger": "Přidat spoštěč",
     "r-add-action": "Přidat akci",

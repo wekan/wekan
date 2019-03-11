@@ -26,11 +26,8 @@ BlazeComponent.extendComponent({
       'members.userId': Meteor.userId(),
       type: 'board',
       subtasksDefaultListId: null,
-    }, {
-      sort: { stars: -1, color: 1, title: 1, description: 1 },
-    });
+    }, { sort: [['stars', 'desc'], ['color', 'asc'], ['title', 'asc'], ['description', 'asc'], ['_id', 'asc']] });
   },
-
   isStarred() {
     const user = Meteor.user();
     return user && user.hasStarred(this.currentData()._id);

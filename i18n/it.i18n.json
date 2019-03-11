@@ -567,6 +567,8 @@
     "activity-added-label-card": "aggiunta etichetta '%s'",
     "activity-removed-label-card": "L' etichetta '%s' è stata rimossa.",
     "activity-delete-attach-card": "Cancella un allegato",
+    "activity-set-customfield": "set custom field '%s' to '%s' in %s",
+    "activity-unset-customfield": "unset custom field '%s' in %s",
     "r-rule": "Ruolo",
     "r-add-trigger": "Aggiungi trigger",
     "r-add-action": "Aggiungi azione",

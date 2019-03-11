@@ -567,6 +567,8 @@
     "activity-added-label-card": "lisätty tunniste '%s'",
     "activity-removed-label-card": "poistettu tunniste '%s'",
     "activity-delete-attach-card": "poistettu liitetiedosto",
+    "activity-set-customfield": "asetettu mukautettu kentän '%s' sisällöksi '%s' kortilla %s",
+    "activity-unset-customfield": "poistettu mukautettu kenttä '%s' kortilla %s",
     "r-rule": "Sääntö",
     "r-add-trigger": "Lisää liipaisin",
     "r-add-action": "Lisää toimi",
