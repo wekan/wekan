@@ -488,6 +488,10 @@ export class WekanCreator {
         title: swimlane.title,
         sort: swimlane.sort ? swimlane.sort : swimlaneIndex,
       };
+      // set color
+      if (swimlane.color) {
+        swimlaneToCreate.color = swimlane.color;
+      }
       const swimlaneId = Swimlanes.direct.insert(swimlaneToCreate);
       Swimlanes.direct.update(swimlaneId, {
         $set: {
