@@ -16,6 +16,11 @@ and fixes the following bugs, thanks to andresmanelli:
   Closes #2240.
 - [Avoid set self as parent card to cause circular reference, for real](https://github.com/wekan/commit/97822f35fd6365e5631c5488e8ee595f76ab4e34).
 
+and tries to fix the following bugs, thanks to xet7:
+
+- [Order All Boards by starred, color, board name and board description. Part 2](https://github.com/wekan/wekan/commit/8f337f17e45f8af8d96b6043d54466e5878b7e0b).
+  Works on new Wekan install. Could still have boards keeping reording happening all the time on old Wekan installs.
+
 Thanks to above Wekan contributors for their contributions.
 
 # v2.43 2019-03-08 Wekan release
