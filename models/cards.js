@@ -1412,7 +1412,7 @@ function cardCustomFields(userId, doc, fieldNames, modifier) {
 
         // only individual changes are registered
         if (dotNotation.length > 1) {
-          const customFieldId = doc.customFields[dot_notation[1]]._id;
+          const customFieldId = doc.customFields[dotNotation[1]]._id;
           const act = {
             userId,
             customFieldId,
