@@ -3,10 +3,10 @@ import { WekanCreator } from './wekanCreator';
 
 Meteor.methods({
   importBoard(board, data, importSource, currentBoard) {
-    //check(board, Object);
-    //check(data, Object);
-    //check(importSource, String);
-    //check(currentBoard, Match.Maybe(String));
+    check(board, Object);
+    check(data, Object);
+    check(importSource, String);
+    check(currentBoard, Match.Maybe(String));
     let creator;
     switch (importSource) {
     case 'trello':
