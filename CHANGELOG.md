@@ -1,3 +1,9 @@
+# v2.45 2019-03-11 Wekan release
+
+This release fixes the following bugs, thanks to andresmanelli:
+
+- [Rename circular card migration to re run the fix](https://github.com/wekan/wekan/commit/a347ae367654258b7768e7571831ed8f75fb5b84).
+
 # v2.44 2019-03-11 Wekan release
 
 This release adds the following new features and fixes with Apache I-CLA, thanks to bentiss:
