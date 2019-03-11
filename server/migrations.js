@@ -518,7 +518,7 @@ Migrations.add('add-templates', () => {
   });
 });
 
-Migrations.add('fix-circular-reference', () => {
+Migrations.add('fix-circular-reference_', () => {
   Cards.find().forEach((card) => {
     if (card.parentId === card._id) {
       Cards.update(card._id, {$set: {parentId: ''}}, noValidateMulti);
