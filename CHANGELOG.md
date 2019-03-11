@@ -1,8 +1,10 @@
 # Upcoming Wekan release
 
-This release adds the following new features with Apache I-CLA, thanks to bentiss:
+This release adds the following new features and fixes with Apache I-CLA, thanks to bentiss:
 
 - [Activities: register customFields changes in the activities](https://github.com/wekan/wekan/pull/2239).
+- [customFields: fix leftover from lint](https://github.com/wekan/wekan/commit/4c72479d1206850d436261dc5c6a4127f246f6da).
+  Looks like I forgot to use the camelCase notation here, and this leads to an exception while updating a custom field.
 
 and adds the following new features:
 
