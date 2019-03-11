@@ -11,16 +11,18 @@ and adds the following new features:
 
 - Add language: Occitan. Thanks to translators.
 
-and fixes the following bugs, thanks to andresmanelli:
+and fixes the following bugs:
 
 - [Fix removed checklistItem activity => dangling activities created](https://github.com/wekan/wekan/commit/2ec1664408d9515b5ca77fbb46ef99208eb8cff0).
-  Closes #2240.
+  Closes #2240. Thanks to andresmanelli.
 - [Avoid set self as parent card to cause circular reference, for real](https://github.com/wekan/commit/97822f35fd6365e5631c5488e8ee595f76ab4e34).
-
-and tries to fix the following bugs, thanks to xet7:
-
-- [Order All Boards by starred, color, board name and board description. Part 2](https://github.com/wekan/wekan/commit/8f337f17e45f8af8d96b6043d54466e5878b7e0b).
+  Thanks to andresmanelli.
+- Try to fix [Order All Boards by starred, color, board name and board description. Part 2](https://github.com/wekan/wekan/commit/8f337f17e45f8af8d96b6043d54466e5878b7e0b).
   Works on new Wekan install. Could still have boards keeping reording happening all the time on old Wekan installs.
+  Thanks to xet7.
+- [Changed brute force protection package from eluck:accounts-lockout to lucasantoniassi:accounts-lockout that is maintained and works.
+  Added Snap/Docker/Source settings](https://github.com/wekan/wekan/commit/b7c000b78b9af253fb115bbfa5ef0d4c0681abbb).
+  Thanks to xet7.
 
 Thanks to above Wekan contributors for their contributions.
 
