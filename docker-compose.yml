@@ -221,6 +221,16 @@ services:
       # If you disable Wekan API with false, Export Board does not work.
       - WITH_API=true
       #---------------------------------------------------------------
+      # ==== PASSWORD BRUTE FORCE PROTECTION ====
+      #https://atmospherejs.com/lucasantoniassi/accounts-lockout
+      #Defaults below. Uncomment to change. wekan/server/accounts-lockout.js
+      #- ACCOUNTS_LOCKOUT_KNOWN_USERS_FAILURES_BEFORE=3
+      #- ACCOUNTS_LOCKOUT_KNOWN_USERS_PERIOD=60
+      #- ACCOUNTS_LOCKOUT_KNOWN_USERS_FAILURE_WINDOW=15
+      #- ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURES_BERORE=3
+      #- ACCOUNTS_LOCKOUT_UNKNOWN_USERS_LOCKOUT_PERIOD=60
+      #- ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURE_WINDOW=15
+      #---------------------------------------------------------------
       # ==== EMAIL NOTIFICATION TIMEOUT, ms =====
       # Defaut: 30000 ms = 30s
       #- EMAIL_NOTIFICATION_TIMEOUT=30000

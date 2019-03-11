@@ -14,6 +14,16 @@ SET PORT=2000
 REM # If you disable Wekan API with false, Export Board does not work.
 SET WITH_API=true
 
+REM # ==== PASSWORD BRUTE FORCE PROTECTION ====
+REM #https://atmospherejs.com/lucasantoniassi/accounts-lockout
+REM #Defaults below. Uncomment to change. wekan/server/accounts-lockout.js
+REM SET ACCOUNTS_LOCKOUT_KNOWN_USERS_FAILURES_BEFORE=3
+REM SET ACCOUNTS_LOCKOUT_KNOWN_USERS_PERIOD=60
+REM SET ACCOUNTS_LOCKOUT_KNOWN_USERS_FAILURE_WINDOW=15
+REM SET ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURES_BERORE=3
+REM SET ACCOUNTS_LOCKOUT_UNKNOWN_USERS_LOCKOUT_PERIOD=60
+REM SET ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURE_WINDOW=15
+
 REM # Optional: Integration with Matomo https://matomo.org that is installed to your server
 REM # The address of the server where Matomo is hosted.
 REM # example: - MATOMO_ADDRESS=https://example.com/matomo
