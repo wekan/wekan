@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix watchers undefined](https://github.com/wekan/wekan/pull/2253).
+  Thanks to justinr1234.
+
+Thanks to above GitHub users and translators for their translations.
+
 # v2.45 2019-03-11 Wekan release
 
 This release fixes the following bugs, thanks to andresmanelli:
