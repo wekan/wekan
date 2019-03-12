@@ -113,9 +113,11 @@ if (Meteor.isServer) {
     }
     if (activity.oldBoardId) {
       const oldBoard = activity.oldBoard();
-      watchers = _.union(watchers, oldBoard.watchers || []);
-      params.oldBoard = oldBoard.title;
-      params.oldBoardId = activity.oldBoardId;
+      if (oldBoard) {
+        watchers = _.union(watchers, oldBoard.watchers || []);
+        params.oldBoard = oldBoard.title;
+        params.oldBoardId = activity.oldBoardId;
+      }
     }
     if (activity.memberId) {
       participants = _.union(participants, [activity.memberId]);
@@ -129,15 +131,19 @@ if (Meteor.isServer) {
     }
     if (activity.oldListId) {
       const oldList = activity.oldList();
-      watchers = _.union(watchers, oldList.watchers || []);
-      params.oldList = oldList.title;
-      params.oldListId = activity.oldListId;
+      if (oldList) {
+        watchers = _.union(watchers, oldList.watchers || []);
+        params.oldList = oldList.title;
+        params.oldListId = activity.oldListId;
+      }
     }
     if (activity.oldSwimlaneId) {
       const oldSwimlane = activity.oldSwimlane();
-      watchers = _.union(watchers, oldSwimlane.watchers || []);
-      params.oldSwimlane = oldSwimlane.title;
-      params.oldSwimlaneId = activity.oldSwimlaneId;
+      if (oldSwimlane) {
+        watchers = _.union(watchers, oldSwimlane.watchers || []);
+        params.oldSwimlane = oldSwimlane.title;
+        params.oldSwimlaneId = activity.oldSwimlaneId;
+      }
     }
     if (activity.cardId) {
       const card = activity.card();
