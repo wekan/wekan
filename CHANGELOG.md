@@ -1,11 +1,9 @@
-# Upcoming Wekan release
+# v2.47 2019-03-14 Wekan release
 
-This release fixes the following bugs, thanks to xet7:
+This release fixes the following bugs, thanks to GitHub user xet7:
 
 - [Remove ordering of cards by starred/color/description, so that cards would not reorder all the time](https://github.com/wekan/wekan/issues/2241).
 - Try to fix [LDAP Login: "Login forbidden", ReferenceError: req is not defined](https://github.com/wekan/wekan-ldap/44).
-
-Thanks to above GitHub users and translators for their translations.
 
 # v2.46 2019-03-13 Wekan release
 
@@ -17,7 +15,7 @@ This release fixes the following bugs:
   because of feedback from Wekan users, that need Subtask boards to be visible.
   Thanks to xet7.
 
-Thanks to above GitHub users and translators for their translations.
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v2.45 2019-03-11 Wekan release
 
