@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs, thanks to xet7:
+
+- [Remove ordering of cards by starred/color/description, so that cards would not reorder all the time](https://github.com/wekan/wekan/issues/2241).
+- Try to fix [LDAP Login: "Login forbidden", ReferenceError: req is not defined](https://github.com/wekan/wekan-ldap/44).
+
+Thanks to above GitHub users and translators for their translations.
+
 # v2.46 2019-03-13 Wekan release
 
 This release fixes the following bugs:
@@ -37,7 +46,7 @@ and fixes the following bugs:
   Thanks to andresmanelli.
 - Try to fix [Order All Boards by starred, color, board name and board description. Part 2](https://github.com/wekan/wekan/commit/8f337f17e45f8af8d96b6043d54466e5878b7e0b).
   Works on new Wekan install. Could still have boards keeping reording happening all the time on old Wekan installs.
-  Thanks to xet7.
+  Thanks to xet7. Note: Ordering by starred/color/description was removed at Wekan v2.47.
 - [Changed brute force protection package from eluck:accounts-lockout to lucasantoniassi:accounts-lockout that is maintained and works.
   Added Snap/Docker/Source settings](https://github.com/wekan/wekan/commit/b7c000b78b9af253fb115bbfa5ef0d4c0681abbb).
   Thanks to xet7.
@@ -50,6 +59,7 @@ This release adds the following new features, thanks to xet7:
 
 - [Hide Subtask boards from All Boards](https://github.com/wekan/wekan/issues/1990). This was reverted in Wekan v2.46 to make Subtask boards visible again.
 - [Order All Boards by Starred, Color, Title and Description](https://github.com/wekan/wekan/commit/856872815292590e0c4eff2848ea1b857a318dc4).
+  This was removed at Wekan v2.47.
 - [HTTP header automatic login](https://github.com/wekan/wekan/commit/ff825d6123ecfd033ccb08ce97c11cefee676104)
   for [3rd party authentication server method](https://github.com/wekan/wekan/issues/2019) like siteminder, and any webserver that
   handles authentication and based on it adds HTTP headers to be used for login. Please test.
