@@ -4,6 +4,9 @@ This release fixes the following bugs:
 
 - [Fix watchers undefined](https://github.com/wekan/wekan/pull/2253).
   Thanks to justinr1234.
+- [Revert hiding of Subtask boards](https://github.com/wekan/wekan/commit/1968b7da31d75757fd6383417d729ff6af6bbc5b)
+  because of feedback from Wekan users, that need Subtask boards to be visible.
+  Thanks to xet7.
 
 Thanks to above GitHub users and translators for their translations.
 
@@ -45,7 +48,7 @@ Thanks to above Wekan contributors for their contributions.
 
 This release adds the following new features, thanks to xet7:
 
-- [Hide Subtask boards from All Boards](https://github.com/wekan/wekan/issues/1990).
+- [Hide Subtask boards from All Boards](https://github.com/wekan/wekan/issues/1990). This was reverted in Wekan v2.46 to make Subtask boards visible again.
 - [Order All Boards by Starred, Color, Title and Description](https://github.com/wekan/wekan/commit/856872815292590e0c4eff2848ea1b857a318dc4).
 - [HTTP header automatic login](https://github.com/wekan/wekan/commit/ff825d6123ecfd033ccb08ce97c11cefee676104)
   for [3rd party authentication server method](https://github.com/wekan/wekan/issues/2019) like siteminder, and any webserver that
