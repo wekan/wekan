@@ -105,10 +105,10 @@ async function authentication(event, instance) {
   // If header login id is set, use it for login.
   // Header username = Email address
   // Header password = Login ID
-  // Not user currently: req.headers[process.env.HEADER_LOGIN_FIRSTNAME]
-  //                and  req.headers[process.env.HEADER_LOGIN_LASTNAME]
-  const match = req.headers[process.env.HEADER_LOGIN_EMAIL] || $('#at-field-username_and_email').val();
-  const password = req.headers[process.env.HEADER_LOGIN_ID] || $('#at-field-password').val();
+  // Not user currently: request.headers[Meteor.settings.public.headerLoginFirstname]
+  //                and  request.headers[Meteor.settings.public.headerLoginLastname]
+  const match = request.headers[Meteor.settings.public.headerLoginEmail] || $('#at-field-username_and_email').val();
+  const password = request.headers[Meteor.settings.public.headerLoginId] || $('#at-field-password').val();
 
   if (!match || !password) return;
 
@@ -117,7 +117,7 @@ async function authentication(event, instance) {
   if (result === 'password') return;
 
   // If header login id is not set, don't try to login automatically.
-  if (!process.env.HEADER_LOGIN_ID) {
+  if (!Meteor.settings.public.headerLoginId) {
     // Stop submit #at-pwd-form
     event.preventDefault();
     event.stopImmediatePropagation();

@@ -25,7 +25,7 @@ BlazeComponent.extendComponent({
       archived: false,
       'members.userId': Meteor.userId(),
       type: 'board',
-    }, { sort: [['stars', 'desc'], ['color', 'asc'], ['title', 'asc'], ['description', 'asc'], ['_id', 'asc']] });
+    }, { sort: ['title'] });
   },
   isStarred() {
     const user = Meteor.user();
