@@ -1,3 +1,11 @@
+# v2.48 2019-03-15 Wekan release
+
+This release fixes the following bugs, thanks to GitHub user xet7:
+
+- [Fix LDAP login](https://github.com/wekan/wekan/commit/216b3cfe0121aa026139536c383aa27db0353411).
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.47 2019-03-14 Wekan release
 
 This release fixes the following bugs, thanks to GitHub user xet7:
