@@ -6,6 +6,12 @@ allowIsBoardMember = function(userId, board) {
   return board && board.hasMember(userId);
 };
 
+allowIsAnyBoardMember = function(userId, boards) {
+  return _.some(boards, (board) => {
+    return board && board.hasMember(userId);
+  });
+};
+
 allowIsBoardMemberCommentOnly = function(userId, board) {
   return board && board.hasMember(userId) && !board.hasCommentOnly(userId);
 };

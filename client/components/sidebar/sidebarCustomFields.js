@@ -116,15 +116,22 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
           data.boardIds = [Session.get('currentBoard')];
           CustomFields.insert(data);
         } else {
-          data.boardIds = {$in: [Session.get('currentBoard')]};
           CustomFields.update(this.data()._id, {$set: data});
         }
 
         Popup.back();
       },
       'click .js-delete-custom-field': Popup.afterConfirm('deleteCustomField', function() {
-        const customFieldId = this._id;
-        CustomFields.remove(customFieldId);
+        const customField = CustomFields.findOne(this._id);
+        if (customField.boardIds.length > 1) {
+          CustomFields.update(customField._id, {
+            $pull: {
+              boardIds: Session.get('currentBoard')
+            }
+          });
+        } else {
+          CustomFields.remove(customField._id);
+        }
         Popup.close();
       }),
     }];

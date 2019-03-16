@@ -72,17 +72,37 @@ CustomFields.attachSchema(new SimpleSchema({
   },
 }));
 
+CustomFields.mutations({
+  addBoard(boardId) {
+    if (boardId) {
+      return {
+        $push: {
+          boardIds: boardId,
+        },
+      };
+    } else {
+      return null;
+    }
+  },
+});
+
 CustomFields.allow({
   insert(userId, doc) {
-    return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+    return allowIsAnyBoardMember(userId, Boards.find({
+      _id: {$in: doc.boardIds},
+    }).fetch());
   },
   update(userId, doc) {
-    return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+    return allowIsAnyBoardMember(userId, Boards.find({
+      _id: {$in: doc.boardIds},
+    }).fetch());
   },
   remove(userId, doc) {
-    return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+    return allowIsAnyBoardMember(userId, Boards.find({
+      _id: {$in: doc.boardIds},
+    }).fetch());
   },
-  fetch: ['userId', 'boardId'],
+  fetch: ['userId', 'boardIds'],
 });
 
 // not sure if we need this?
@@ -92,27 +112,48 @@ function customFieldCreation(userId, doc){
   Activities.insert({
     userId,
     activityType: 'createCustomField',
-    boardId: doc.boardId,
+    boardId: doc.boardIds[0], // We are creating a customField, it has only one boardId
     customFieldId: doc._id,
   });
 }
 
 if (Meteor.isServer) {
   Meteor.startup(() => {
-    CustomFields._collection._ensureIndex({ boardId: 1 });
+    CustomFields._collection._ensureIndex({ boardIds: 1 });
   });
 
   CustomFields.after.insert((userId, doc) => {
     customFieldCreation(userId, doc);
   });
 
-  CustomFields.after.remove((userId, doc) => {
+  CustomFields.before.update((userId, doc, fieldNames, modifier) => {
+    if (_.contains(fieldNames, 'boardIds') && modifier.$pull) {
+      Cards.update(
+        {boardId: modifier.$pull.boardIds, 'customFields._id': doc._id},
+        {$pull: {'customFields': {'_id': doc._id}}},
+        {multi: true}
+      );
+      Activities.remove({
+        customFieldId: doc._id,
+        boardId: modifier.$pull.boardIds,
+      });
+    } else if (_.contains(fieldNames, 'boardIds') && modifier.$push) {
+      Activities.insert({
+        userId,
+        activityType: 'createCustomField',
+        boardId: modifier.$push.boardIds,
+        customFieldId: doc._id,
+      });
+    }
+  });
+
+  CustomFields.before.remove((userId, doc) => {
     Activities.remove({
       customFieldId: doc._id,
     });
 
     Cards.update(
-      {'boardId': doc.boardId, 'customFields._id': doc._id},
+      {boardId: {$in: doc.boardIds}, 'customFields._id': doc._id},
       {$pull: {'customFields': {'_id': doc._id}}},
       {multi: true}
     );
@@ -186,7 +227,7 @@ if (Meteor.isServer) {
       showOnCard: req.body.showOnCard,
       automaticallyOnCard: req.body.automaticallyOnCard,
       showLabelOnMiniCard: req.body.showLabelOnMiniCard,
-      boardId: paramBoardId,
+      boardIds: {$in: [paramBoardId]},
     });
 
     const customField = CustomFields.findOne({_id: id, boardIds: {$in: [paramBoardId]} });
@@ -214,7 +255,7 @@ if (Meteor.isServer) {
     Authentication.checkUserId( req.userId);
     const paramBoardId = req.params.boardId;
     const id = req.params.customFieldId;
-    CustomFields.remove({ _id: id, boardId: paramBoardId });
+    CustomFields.remove({ _id: id, boardIds: {$in: [paramBoardId]} });
     JsonRoutes.sendResult(res, {
       code: 200,
       data: {

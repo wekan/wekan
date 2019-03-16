@@ -466,7 +466,7 @@ Boards.helpers({
   },
 
   customFields() {
-    return CustomFields.find({ boardId: this._id }, { sort: { name: 1 } });
+    return CustomFields.find({ boardIds: {$in: [this._id]} }, { sort: { name: 1 } });
   },
 
   // XXX currently mutations return no value so we have an issue when using addLabel in import
