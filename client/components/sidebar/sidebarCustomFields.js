@@ -126,8 +126,8 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
         if (customField.boardIds.length > 1) {
           CustomFields.update(customField._id, {
             $pull: {
-              boardIds: Session.get('currentBoard')
-            }
+              boardIds: Session.get('currentBoard'),
+            },
           });
         } else {
           CustomFields.remove(customField._id);

@@ -1332,7 +1332,7 @@ function updateActivities(doc, fieldNames, modifier) {
           $set: {
             labelId: modifier.$set.labelIds[doc.labelIds.indexOf(a.labelId)],
             boardId: modifier.$set.boardId,
-          }
+          },
         });
       } else {
         Activities.remove(a._id);

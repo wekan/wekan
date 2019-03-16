@@ -533,7 +533,7 @@ Migrations.add('mutate-boardIds-in-customfields', () => {
         boardIds: [cf.boardId],
       },
       $unset: {
-        boardId: "",
+        boardId: '',
       },
     }, noValidateMulti);
   });
