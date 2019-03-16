@@ -90,7 +90,7 @@ BlazeComponent.extendComponent({
   },
 
   inviteThroughEmail() {
-    const emails = $('#email-to-invite').val().trim().split('\n').join(',').split(',');
+    const emails = $('#email-to-invite').val().toLowerCase().trim().split('\n').join(',').split(',');
     const boardsToInvite = [];
     $('.js-toggle-board-choose .materialCheckBox.is-checked').each(function () {
       boardsToInvite.push($(this).data('id'));
