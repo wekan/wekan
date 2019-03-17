@@ -116,7 +116,7 @@ Meteor.publishRelations('board', function(boardId) {
     const boards = this.join(Boards);
     const subCards = this.join(Cards);
 
-    this.cursor(Cards.find({ boardId }), function(cardId, card) {
+    this.cursor(Cards.find({ boardId: {$in: [boardId,  board.subtasksDefaultBoardId]}}), function(cardId, card) {
       if (card.type === 'cardType-linkedCard') {
         const impCardId = card.linkedId;
         subCards.push(impCardId);
@@ -141,6 +141,7 @@ Meteor.publishRelations('board', function(boardId) {
     checklists.send();
     checklistItems.send();
     boards.send();
+    parentCards.send();
 
     if (board.members) {
       // Board members. This publication also includes former board members that
