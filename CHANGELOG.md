@@ -1,8 +1,9 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs, thanks to GitHub user neurolabs:
+This release fixes the following bugs:
 
-- [The invitation code doesn't exist - case-sensitive eMail](https://github.com/wekan/wekan/issues/1384).
+- [The invitation code doesn't exist - case-sensitive eMail](https://github.com/wekan/wekan/issues/1384). Thanks to neurolabs.
+- [Don't swallow email errors](https://github.com/wekan/wekan/pull/2272). Thanks to justinr1234.
 
 # v2.48 2019-03-15 Wekan release
 
