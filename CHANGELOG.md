@@ -1,3 +1,13 @@
+# v2.51 2019-03-21 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix Unable to change board card title (=Board name) at Templates page](https://github.com/wekan/wekan/issues/2275).
+  and [Unable to change card title in Template](https://github.com/wekan/wekan/issues/2268) part 2.
+  Thanks to andresmanelli.
+
+Thanks to above GitHub users for their contributions.
+
 # v2.50 2019-03-21 Wekan release
 
 This release fixes the following bugs:
