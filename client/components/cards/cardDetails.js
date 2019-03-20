@@ -412,11 +412,13 @@ Template.moveCardPopup.events({
     // XXX We should *not* get the currentCard from the global state, but
     // instead from a “component” state.
     const card = Cards.findOne(Session.get('currentCard'));
+    const bSelect = $('.js-select-boards')[0];
+    const boardId = bSelect.options[bSelect.selectedIndex].value;
     const lSelect = $('.js-select-lists')[0];
-    const newListId = lSelect.options[lSelect.selectedIndex].value;
+    const listId = lSelect.options[lSelect.selectedIndex].value;
     const slSelect = $('.js-select-swimlanes')[0];
-    card.swimlaneId = slSelect.options[slSelect.selectedIndex].value;
-    card.move(card.swimlaneId, newListId, 0);
+    const swimlaneId = slSelect.options[slSelect.selectedIndex].value;
+    card.move(boardId, swimlaneId, listId, 0);
     Popup.close();
   },
 });

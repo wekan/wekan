@@ -86,12 +86,12 @@ BlazeComponent.extendComponent({
 
         if (MultiSelection.isActive()) {
           Cards.find(MultiSelection.getMongoSelector()).forEach((card, i) => {
-            card.move(swimlaneId, listId, sortIndex.base + i * sortIndex.increment);
+            card.move(currentBoard._id, swimlaneId, listId, sortIndex.base + i * sortIndex.increment);
           });
         } else {
           const cardDomElement = ui.item.get(0);
           const card = Blaze.getData(cardDomElement);
-          card.move(swimlaneId, listId, sortIndex.base);
+          card.move(currentBoard._id, swimlaneId, listId, sortIndex.base);
         }
         boardComponent.setIsDragging(false);
       },

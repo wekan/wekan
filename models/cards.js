@@ -289,9 +289,19 @@ Cards.helpers({
     const oldId = this._id;
     const oldCard = Cards.findOne(oldId);
 
+    // Copy Custom Fields
+    if (oldBoard._id !== boardId) {
+      CustomFields.find({
+        _id: {$in: oldCard.customFields.map((cf) => { return cf._id; })},
+      }).forEach((cf) => {
+        if (!_.contains(cf.boardIds, boardId))
+          cf.addBoard(boardId);
+      });
+    }
+
     delete this._id;
     delete this.labelIds;
-    this.labelIds= newCardLabels;
+    this.labelIds = newCardLabels;
     this.boardId = boardId;
     this.swimlaneId = swimlaneId;
     this.listId = listId;
@@ -306,7 +316,6 @@ Cards.helpers({
 
     // copy checklists
     Checklists.find({cardId: oldId}).forEach((ch) => {
-      // REMOVE verify copy with arguments
       ch.copy(_id);
     });
 
@@ -314,13 +323,11 @@ Cards.helpers({
     Cards.find({parentId: oldId}).forEach((subtask) => {
       subtask.parentId = _id;
       subtask._id = null;
-      // REMOVE verify copy with arguments instead of insert?
       Cards.insert(subtask);
     });
 
     // copy card comments
     CardComments.find({cardId: oldId}).forEach((cmt) => {
-      // REMOVE verify copy with arguments
       cmt.copy(_id);
     });
 
@@ -476,7 +483,7 @@ Cards.helpers({
 
     // get all definitions
     const definitions = CustomFields.find({
-      boardId: this.boardId,
+      boardIds: {$in: [this.boardId]},
     }).fetch();
 
     // match right definition to each field
@@ -485,6 +492,9 @@ Cards.helpers({
       const definition = definitions.find((definition) => {
         return definition._id === customField._id;
       });
+      if (!definition) {
+        return {};
+      }
       //search for "True Value" which is for DropDowns other then the Value (which is the id)
       let trueValue = customField.value;
       if (definition.settings.dropdownItems && definition.settings.dropdownItems.length > 0) {
@@ -1054,18 +1064,41 @@ Cards.mutations({
     };
   },
 
-  move(swimlaneId, listId, sortIndex) {
-    const list = Lists.findOne(listId);
+  move(boardId, swimlaneId, listId, sort) {
+    // Copy Custom Fields
+    if (this.boardId !== boardId) {
+      CustomFields.find({
+        _id: {$in: this.customFields.map((cf) => { return cf._id; })},
+      }).forEach((cf) => {
+        if (!_.contains(cf.boardIds, boardId))
+          cf.addBoard(boardId);
+      });
+    }
+
+    // Get label names
+    const oldBoard = Boards.findOne(this.boardId);
+    const oldBoardLabels = oldBoard.labels;
+    const oldCardLabels = _.pluck(_.filter(oldBoardLabels, (label) => {
+      return _.contains(this.labelIds, label._id);
+    }), 'name');
+
+    const newBoard = Boards.findOne(boardId);
+    const newBoardLabels = newBoard.labels;
+    const newCardLabelIds = _.pluck(_.filter(newBoardLabels, (label) => {
+      return label.name && _.contains(oldCardLabels, label.name);
+    }), '_id');
+
     const mutatedFields = {
+      boardId,
       swimlaneId,
       listId,
-      boardId: list.boardId,
-      sort: sortIndex,
+      sort,
+      labelIds: newCardLabelIds,
     };
 
-    return {
+    Cards.update(this._id, {
       $set: mutatedFields,
-    };
+    });
   },
 
   addLabel(labelId) {
@@ -1287,8 +1320,47 @@ Cards.mutations({
 
 //FUNCTIONS FOR creation of Activities
 
-function cardMove(userId, doc, fieldNames, oldListId, oldSwimlaneId) {
-  if ((_.contains(fieldNames, 'listId') && doc.listId !== oldListId) ||
+function updateActivities(doc, fieldNames, modifier) {
+  if (_.contains(fieldNames, 'labelIds') && _.contains(fieldNames, 'boardId')) {
+    Activities.find({
+      activityType: 'addedLabel',
+      cardId: doc._id,
+    }).forEach((a) => {
+      const lidx = doc.labelIds.indexOf(a.labelId);
+      if (lidx !== -1 && modifier.$set.labelIds.length > lidx) {
+        Activities.update(a._id, {
+          $set: {
+            labelId: modifier.$set.labelIds[doc.labelIds.indexOf(a.labelId)],
+            boardId: modifier.$set.boardId,
+          },
+        });
+      } else {
+        Activities.remove(a._id);
+      }
+    });
+  } else if (_.contains(fieldNames, 'boardId')) {
+    Activities.remove({
+      activityType: 'addedLabel',
+      cardId: doc._id,
+    });
+  }
+}
+
+function cardMove(userId, doc, fieldNames, oldListId, oldSwimlaneId, oldBoardId) {
+  if (_.contains(fieldNames, 'boardId') && (doc.boardId !== oldBoardId)) {
+    Activities.insert({
+      userId,
+      activityType: 'moveCardBoard',
+      boardName: Boards.findOne(doc.boardId).title,
+      boardId: doc.boardId,
+      oldBoardId,
+      oldBoardName: Boards.findOne(oldBoardId).title,
+      cardId: doc._id,
+      swimlaneName: Swimlanes.findOne(doc.swimlaneId).title,
+      swimlaneId: doc.swimlaneId,
+      oldSwimlaneId,
+    });
+  } else if ((_.contains(fieldNames, 'listId') && doc.listId !== oldListId) ||
     (_.contains(fieldNames, 'swimlaneId') && doc.swimlaneId !== oldSwimlaneId)){
     Activities.insert({
       userId,
@@ -1435,7 +1507,7 @@ function cardCustomFields(userId, doc, fieldNames, modifier) {
 
         // only individual changes are registered
         if (dotNotation.length > 1) {
-          const customFieldId = doc.customFields[dot_notation[1]]._id;
+          const customFieldId = doc.customFields[dotNotation[1]]._id;
           const act = {
             userId,
             customFieldId,
@@ -1508,12 +1580,14 @@ if (Meteor.isServer) {
   Cards.after.update(function(userId, doc, fieldNames) {
     const oldListId = this.previous.listId;
     const oldSwimlaneId = this.previous.swimlaneId;
-    cardMove(userId, doc, fieldNames, oldListId, oldSwimlaneId);
+    const oldBoardId = this.previous.boardId;
+    cardMove(userId, doc, fieldNames, oldListId, oldSwimlaneId, oldBoardId);
   });
 
   // Add a new activity if we add or remove a member to the card
   Cards.before.update((userId, doc, fieldNames, modifier) => {
     cardMembers(userId, doc, fieldNames, modifier);
+    updateActivities(doc, fieldNames, modifier);
   });
 
   // Add a new activity if we add or remove a label to the card
