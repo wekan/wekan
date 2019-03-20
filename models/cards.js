@@ -1032,38 +1032,6 @@ Cards.mutations({
     };
   },
 
-  setTitle(title) {
-    return {
-      $set: {
-        title,
-      },
-    };
-  },
-
-  setDescription(description) {
-    return {
-      $set: {
-        description,
-      },
-    };
-  },
-
-  setRequestedBy(requestedBy) {
-    return {
-      $set: {
-        requestedBy,
-      },
-    };
-  },
-
-  setAssignedBy(assignedBy) {
-    return {
-      $set: {
-        assignedBy,
-      },
-    };
-  },
-
   move(boardId, swimlaneId, listId, sort) {
     // Copy Custom Fields
     if (this.boardId !== boardId) {
