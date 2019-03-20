@@ -1,3 +1,13 @@
+# v2.50 2019-03-21 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix](https://github.com/wekan/wekan/pull/2269) [Unable to change card title in Template](https://github.com/wekan/wekan/issues/2268)
+  and [Fix Unable to create a new board from a template](https://github.com/wekan/wekan/issues/2267).
+  Thanks to andresmanelli.
+
+Thanks to above GitHub users for their contributions.
+
 # v2.49 2019-03-21 Wekan release
 
 This release fixes the following bugs:
