@@ -74,6 +74,8 @@ BlazeComponent.extendComponent({
 
   lastLabel(){
     const lastLabelId = this.currentData().labelId;
+    if (!lastLabelId)
+      return null;
     const lastLabel = Boards.findOne(Session.get('currentBoard')).getLabelById(lastLabelId);
     if(lastLabel.name === undefined || lastLabel.name === ''){
       return lastLabel.color;
@@ -84,11 +86,15 @@ BlazeComponent.extendComponent({
 
   lastCustomField(){
     const lastCustomField = CustomFields.findOne(this.currentData().customFieldId);
+    if (!lastCustomField)
+      return null;
     return lastCustomField.name;
   },
 
   lastCustomFieldValue(){
     const lastCustomField = CustomFields.findOne(this.currentData().customFieldId);
+    if (!lastCustomField)
+      return null;
     const value = this.currentData().value;
     if (lastCustomField.settings.dropdownItems && lastCustomField.settings.dropdownItems.length > 0) {
       const dropDownValue = _.find(lastCustomField.settings.dropdownItems, (item) => {
@@ -135,6 +141,8 @@ BlazeComponent.extendComponent({
 
   customField() {
     const customField = this.currentData().customField();
+    if (!customField)
+      return null;
     return customField.name;
   },
 

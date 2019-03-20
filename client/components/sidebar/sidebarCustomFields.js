@@ -2,7 +2,7 @@ BlazeComponent.extendComponent({
 
   customFields() {
     return CustomFields.find({
-      boardId: Session.get('currentBoard'),
+      boardIds: {$in: [Session.get('currentBoard')]},
     });
   },
 
@@ -103,7 +103,6 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
         evt.preventDefault();
 
         const data = {
-          boardId: Session.get('currentBoard'),
           name: this.find('.js-field-name').value.trim(),
           type: this.type.get(),
           settings: this.getSettings(),
@@ -114,6 +113,7 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
 
         // insert or update
         if (!this.data()._id) {
+          data.boardIds = [Session.get('currentBoard')];
           CustomFields.insert(data);
         } else {
           CustomFields.update(this.data()._id, {$set: data});
@@ -122,8 +122,16 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
         Popup.back();
       },
       'click .js-delete-custom-field': Popup.afterConfirm('deleteCustomField', function() {
-        const customFieldId = this._id;
-        CustomFields.remove(customFieldId);
+        const customField = CustomFields.findOne(this._id);
+        if (customField.boardIds.length > 1) {
+          CustomFields.update(customField._id, {
+            $pull: {
+              boardIds: Session.get('currentBoard'),
+            },
+          });
+        } else {
+          CustomFields.remove(customField._id);
+        }
         Popup.close();
       }),
     }];

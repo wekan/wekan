@@ -75,7 +75,7 @@ class Exporter {
     result.lists = Lists.find(byBoard, noBoardId).fetch();
     result.cards = Cards.find(byBoardNoLinked, noBoardId).fetch();
     result.swimlanes = Swimlanes.find(byBoard, noBoardId).fetch();
-    result.customFields = CustomFields.find(byBoard, noBoardId).fetch();
+    result.customFields = CustomFields.find({boardIds: {$in: [this.boardId]}}, {fields: {boardId: 0}}).fetch();
     result.comments = CardComments.find(byBoard, noBoardId).fetch();
     result.activities = Activities.find(byBoard, noBoardId).fetch();
     result.rules = Rules.find(byBoard, noBoardId).fetch();

@@ -99,6 +99,9 @@ template(name="boardActivities")
           else
             | {{{_ 'activity-added' memberLink cardLink}}}.
 
+        if($eq activityType 'moveCardBoard')
+          | {{{_ 'activity-moved' cardLink oldBoardName boardName}}}.
+
         if($eq activityType 'moveCard')
           | {{{_ 'activity-moved' cardLink oldList.title list.title}}}.
 
@@ -135,7 +138,7 @@ template(name="cardActivities")
       p.activity-desc
         +memberName(user=user)
         if($eq activityType 'createCard')
-          | {{_ 'activity-added' cardLabel list.title}}.
+          | {{_ 'activity-added' cardLabel listName}}.
         if($eq activityType 'importCard')
           | {{{_ 'activity-imported' cardLabel list.title sourceLink}}}.
         if($eq activityType 'joinMember')
@@ -176,6 +179,10 @@ template(name="cardActivities")
           | {{_ 'activity-sent' cardLabel boardLabel}}.
         if($eq activityType 'moveCard')
           | {{_ 'activity-moved' cardLabel oldList.title list.title}}.
+
+        if($eq activityType 'moveCardBoard')
+          | {{{_ 'activity-moved' cardLink oldBoardName boardName}}}.
+
         if($eq activityType 'addAttachment')
           | {{{_ 'activity-attached' attachmentLink cardLabel}}}.
           if attachment.isImage
