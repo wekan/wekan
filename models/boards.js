@@ -466,7 +466,7 @@ Boards.helpers({
   },
 
   customFields() {
-    return CustomFields.find({ boardId: this._id }, { sort: { name: 1 } });
+    return CustomFields.find({ boardIds: {$in: [this._id]} }, { sort: { name: 1 } });
   },
 
   // XXX currently mutations return no value so we have an issue when using addLabel in import
@@ -605,9 +605,7 @@ Boards.helpers({
         title: TAPi18n.__('queue'),
         boardId: this._id,
       });
-      Boards.update(this._id, {$set: {
-        subtasksDefaultListId: this.subtasksDefaultListId,
-      }});
+      this.setSubtasksDefaultListId(this.subtasksDefaultListId);
     }
     return this.subtasksDefaultListId;
   },

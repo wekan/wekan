@@ -525,3 +525,16 @@ Migrations.add('fix-circular-reference_', () => {
     }
   });
 });
+
+Migrations.add('mutate-boardIds-in-customfields', () => {
+  CustomFields.find().forEach((cf) => {
+    CustomFields.update(cf, {
+      $set: {
+        boardIds: [cf.boardId],
+      },
+      $unset: {
+        boardId: '',
+      },
+    }, noValidateMulti);
+  });
+});

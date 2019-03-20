@@ -78,7 +78,7 @@ Meteor.publishRelations('board', function(boardId) {
     this.cursor(Lists.find({ boardId }));
     this.cursor(Swimlanes.find({ boardId }));
     this.cursor(Integrations.find({ boardId }));
-    this.cursor(CustomFields.find({ boardId }, { sort: { name: 1 } }));
+    this.cursor(CustomFields.find({ boardIds: {$in: [boardId]} }, { sort: { name: 1 } }));
 
     // Cards and cards comments
     // XXX Originally we were publishing the card documents as a child of the
@@ -116,7 +116,7 @@ Meteor.publishRelations('board', function(boardId) {
     const boards = this.join(Boards);
     const subCards = this.join(Cards);
 
-    this.cursor(Cards.find({ boardId }), function(cardId, card) {
+    this.cursor(Cards.find({ boardId: {$in: [boardId,  board.subtasksDefaultBoardId]}}), function(cardId, card) {
       if (card.type === 'cardType-linkedCard') {
         const impCardId = card.linkedId;
         subCards.push(impCardId);
@@ -141,6 +141,7 @@ Meteor.publishRelations('board', function(boardId) {
     checklists.send();
     checklistItems.send();
     boards.send();
+    parentCards.send();
 
     if (board.members) {
       // Board members. This publication also includes former board members that
