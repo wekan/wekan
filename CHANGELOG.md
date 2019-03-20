@@ -9,6 +9,7 @@ This release fixes the following bugs:
   Adds name matching for labels when copying/moving cards between boards.
   This way, customFields are not lost when copying/moving a card. Particularly useful when templates have customFields or labels with specific names (not tested for templates yet).
   Thanks to andresmanelli.
+- [Fix dissapearing subtasks](https://github.com/wekan/wekan/pull/2265). Thanks to andresmanelli.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
