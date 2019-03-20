@@ -605,9 +605,7 @@ Boards.helpers({
         title: TAPi18n.__('queue'),
         boardId: this._id,
       });
-      Boards.update(this._id, {$set: {
-        subtasksDefaultListId: this.subtasksDefaultListId,
-      }});
+      this.setSubtasksDefaultListId(this.subtasksDefaultListId);
     }
     return this.subtasksDefaultListId;
   },
