@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [More whitelabeling: Hide Wekan logo and title by default, and don't show separate option to hide logo at
+  Admin Panel/Layout](https://github.com/wekan/wekan/commit/2969161afbe60a1aa2e7da6cedc3ab48941faf3e).
+  Thanks to xet7.
+    
+Thanks to above GitHub users for their contributions.
+
 # v2.51 2019-03-21 Wekan release
 
 This release fixes the following bugs:
