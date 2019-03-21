@@ -9,6 +9,8 @@ This release adds the following new features:
   [part 2](https://github.com/wekan/wekan-ldap/commit/36900cc360d0d406f8fba5e43378f85c92747870) and
   [part3](https://github.com/wekan/wekan/commit/7919ae362866c0cacf2a486bf91b12e4d25807d7).
   Thanks to xet7.
+- [Add LDAP config example, remove extra text](https://github.com/wekan/wekan/commit/506acda70b5e78737c52455e5eee9c8758243196).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
