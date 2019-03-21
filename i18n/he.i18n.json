@@ -28,7 +28,7 @@
     "act-importCard": "הייבוא של הכרטיס __card__ לרשימה __list__ למסלול __swimlane__ ללוח __board__ הושלם",
     "act-importList": "imported list __list__ to swimlane __swimlane__ at board __board__",
     "act-joinMember": "החבר __member__ נוסף לכרטיס __card__ לרשימה __list__ במסלול __swimlane__ בלוח __board__",
-    "act-moveCard": "At board __board__ member __member__ moved card __card__ from list __oldList__ at swimlane __oldSwimlane__ to list __list__ at swimlane __swimlane__",
+    "act-moveCard": "moved card __card__ at board __board__ from list __oldList__ at swimlane __oldSwimlane__ to list __list__ at swimlane __swimlane__",
     "act-moveCardToOtherBoard": "הכרטיס __card__ הועבר מהרשימה __oldList__ במסלול __oldSwimlane__ בלוח __oldBoard__ לרשימה __list__ במסלול __swimlane__ בלוח __board__",
     "act-removeBoardMember": "החבר __member__ הוסר מהלוח __board__",
     "act-restoredCard": "הכרטיס __card__ שוחזר לרשימה __list__ למסלול __swimlane__ ללוח __board__",

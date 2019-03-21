@@ -28,7 +28,7 @@
     "act-importCard": "as importat la carta __card__ de la tièra __list__ del corredor __swimlane__ del tablèu __board__",
     "act-importList": "as importat la tièra __list__ del corredor __swimlane__ del tablèu __board__",
     "act-joinMember": "as apondut un participant __member__ a la carta __card__ de la tièra __list__ del corredor __swimlane__ del tablèu __board__",
-    "act-moveCard": "At board __board__ member __member__ moved card __card__ from list __oldList__ at swimlane __oldSwimlane__ to list __list__ at swimlane __swimlane__",
+    "act-moveCard": "moved card __card__ at board __board__ from list __oldList__ at swimlane __oldSwimlane__ to list __list__ at swimlane __swimlane__",
     "act-moveCardToOtherBoard": "as desplaçat la carta __card__ de la tièra __oldList__ del corredor __oldSwimlane__ del tablèu __oldBoard__ cap a la tièra __list__ del corredor __swimlane__ del tablèu __board__",
     "act-removeBoardMember": "as tirat lo participant __member__ del tablèu __board__",
     "act-restoredCard": "as restorat la carta __card__ de la tièra __list__ del corredor __swimlane__ del tablèu __board__",

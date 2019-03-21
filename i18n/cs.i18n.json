@@ -28,7 +28,7 @@
     "act-importCard": "importoval(a) karta __card__ do sloupce __list__ ve swimlane __swimlane__ na tablu __board__",
     "act-importList": "importoval(a) sloupec __list__ do swimlane __swimlane__ na tablu __board__",
     "act-joinMember": "přidal(a) člena __member__ na kartu __card__ v seznamu __list__ ve swimlane __swimlane__ na tablu __board__",
-    "act-moveCard": "At board __board__ member __member__ moved card __card__ from list __oldList__ at swimlane __oldSwimlane__ to list __list__ at swimlane __swimlane__",
+    "act-moveCard": "moved card __card__ at board __board__ from list __oldList__ at swimlane __oldSwimlane__ to list __list__ at swimlane __swimlane__",
     "act-moveCardToOtherBoard": "přesunul(a) kartu __card__ ze sloupce __oldList__ ve swimlane __oldSwimlane__ na tablu __oldBoard__ do sloupce __list__ ve swimlane __swimlane__ na tablu __board__",
     "act-removeBoardMember": "odstranil(a) člena __member__ z tabla __board__",
     "act-restoredCard": "obnovil(a) kartu __card__ do sloupce __list__ ve swimlane __swimlane__ na tablu __board__",

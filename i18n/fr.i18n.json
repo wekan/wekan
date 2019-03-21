@@ -28,7 +28,7 @@
     "act-importCard": "a importé la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
     "act-importList": "a importé la liste __list__ du couloir __swimlane__ du tableau __board__",
     "act-joinMember": "a ajouté le participant __member__ à la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
-    "act-moveCard": "At board __board__ member __member__ moved card __card__ from list __oldList__ at swimlane __oldSwimlane__ to list __list__ at swimlane __swimlane__",
+    "act-moveCard": "moved card __card__ at board __board__ from list __oldList__ at swimlane __oldSwimlane__ to list __list__ at swimlane __swimlane__",
     "act-moveCardToOtherBoard": "a déplacé la carte __card__ de la liste __oldList__ du couloir __oldSwimlane__ du tableau __oldBoard__ vers la liste __list__ du couloir __swimlane__ du tableau __board__",
     "act-removeBoardMember": "a supprimé le participant __member__ du tableau __board__",
     "act-restoredCard": "a restauré la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
