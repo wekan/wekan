@@ -272,6 +272,8 @@ services:
       # 2) Configure the environment variables. This differs slightly
       #     by installation type, but make sure you have the following:
       #- OAUTH2_ENABLED=true
+      # OAuth2 login style: popup or redirect.
+      #- OAUTH2_LOGIN_STYLE=redirect
       # Application GUID captured during app registration:
       #- OAUTH2_CLIENT_ID=xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx
       # Secret key generated during app registration:
@@ -292,6 +294,8 @@ services:
       # ==== OAUTH2 KEYCLOAK ====
       # https://github.com/wekan/wekan/wiki/Keycloak  <== MAPPING INFO, REQUIRED
       #- OAUTH2_ENABLED=true
+      # OAuth2 login style: popup or redirect.
+      #- OAUTH2_LOGIN_STYLE=redirect
       #- OAUTH2_CLIENT_ID=<Keycloak create Client ID>
       #- OAUTH2_SERVER_URL=<Keycloak server name>/auth
       #- OAUTH2_AUTH_ENDPOINT=/realms/<keycloak realm>/protocol/openid-connect/auth
@@ -305,6 +309,8 @@ services:
       # Enable the OAuth2 connection
       #- OAUTH2_ENABLED=true
       # OAuth2 docs: https://github.com/wekan/wekan/wiki/OAuth2
+      # OAuth2 login style: popup or redirect.
+      #- OAUTH2_LOGIN_STYLE=redirect
       # OAuth2 Client ID.
       #- OAUTH2_CLIENT_ID=abcde12345
       # OAuth2 Secret.
