@@ -67,15 +67,15 @@ RulesHelper = {
       card.move(card.swimlaneId, listId, maxOrder + 1);
     }
     if(action.actionType === 'sendEmail'){
-      const emailTo = action.emailTo;
-      const emailMsg = action.emailMsg;
-      const emailSubject = action.emailSubject;
+      const to = action.emailTo;
+      const text = action.emailMsg || '';
+      const subject = action.emailSubject || '';
       try {
         Email.send({
-          emailTo,
+          to,
           from: Accounts.emailTemplates.from,
-          emailSubject,
-          emailMsg,
+          subject,
+          text,
         });
       } catch (e) {
         // eslint-disable-next-line no-console
