@@ -1,16 +1,16 @@
 {
-  "name": "Wekan",
-  "short_name": "Wekan",
-  "description": "The open-source Trello-like kanban",
+  "name": "Kanban",
+  "short_name": "Kanban",
+  "description": "The open-source kanban",
   "lang": "en-US",
   "icons": [
     {
-      "src": "/wekan-150.png",
+      "src": "/logo-150.png",
       "type": "image/png",
       "sizes": "150x150"
     },
     {
-      "src": "/wekan-150.svg",
+      "src": "/logo-150.svg",
       "type": "image/svg+xml",
       "sizes": "150x150"
     }

@@ -20,7 +20,7 @@ Now that we have the OpenAPI, it's easy enough to convert the YAML file into som
 [shins](https://github.com/Mermade/shins) and [api2html](https://github.com/tobilg/api2html),
 or even [ReDoc](https://github.com/Rebilly/ReDoc):
 
-    api2html -c ../public/wekan-logo-header.png -o api.html ../public/wekan_api.yml
+    api2html -c ../public/logo-header.png -o api.html ../public/wekan_api.yml
 
 or
 
