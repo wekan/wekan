@@ -5,6 +5,11 @@ This release adds the following new features:
 - [More whitelabeling: Hide Wekan logo and title by default, and don't show separate option to hide logo at
   Admin Panel/Layout](https://github.com/wekan/wekan/commit/2969161afbe60a1aa2e7da6cedc3ab48941faf3e).
   Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Fix IFTTT email sending](https://github.com/wekan/wekan/pull/2279).
+  Thanks to justinr1234.
     
 Thanks to above GitHub users for their contributions.
 
