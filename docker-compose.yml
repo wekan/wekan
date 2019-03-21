@@ -90,11 +90,11 @@ services:
   wekandb:
     #-------------------------------------------------------------------------------------
     # ==== MONGODB AND METEOR VERSION ====
-    # a) CURRENTLY BROKEN: For Wekan Meteor 1.8.x version at meteor-1.8 branch, use mongo 4.x
-    # image: mongo:4.0.4
+    # a) For Wekan Meteor 1.8.x version at meteor-1.8 branch, use mongo 4.x
+    image: mongo:4.0.4
     # b) For Wekan Meteor 1.6.x version at master/devel/edge branches.
     # Only for Snap and Sandstorm while they are not upgraded yet to Meteor 1.8.x
-    image: mongo:3.2.21
+    #image: mongo:3.2.21
     #-------------------------------------------------------------------------------------
     container_name: wekan-db
     restart: always
@@ -110,12 +110,12 @@ services:
   wekan:
     #-------------------------------------------------------------------------------------
     # ==== MONGODB AND METEOR VERSION ====
-    # a) CURRENTLY BROKEN: For Wekan Meteor 1.8.x version at meteor-1.8 branch,
+    # a) For Wekan Meteor 1.8.x version at meteor-1.8 branch,
     #    using https://quay.io/wekan/wekan automatic builds
-    # image: quay.io/wekan/wekan:meteor-1.8
+    image: quay.io/wekan/wekan:meteor-1.8
     # b) For Wekan Meteor 1.6.x version at master/devel/edge branches.
     # Only for Snap and Sandstorm while they are not upgraded yet to Meteor 1.8.x
-    image: quay.io/wekan/wekan
+    #image: quay.io/wekan/wekan
     # c) Using specific Meteor 1.6.x version tag:
     # image: quay.io/wekan/wekan:v1.95
     # c) Using Docker Hub automatic builds https://hub.docker.com/r/wekanteam/wekan
@@ -169,8 +169,9 @@ services:
       #   For SSL in email, change smtp:// to smtps://
       # NOTE: Special characters need to be url-encoded in MAIL_URL.
       #       You can encode those characters for example at: https://www.urlencoder.org
-      - MAIL_URL=smtp://user:pass@mailserver.example.com:25/
-      - MAIL_FROM='Example Wekan Support <support@example.com>'
+      #- MAIL_URL=smtp://user:pass@mailserver.example.com:25/
+      - MAIL_URL='smtp://<mail_url>:25/?ignoreTLS=true&tls={rejectUnauthorized:false}'
+      - MAIL_FROM='Wekan Notifications <noreply.wekan@mydomain.com>'
       #---------------------------------------------------------------
       # ==== OPTIONAL: MONGO OPLOG SETTINGS =====
       # https://github.com/wekan/wekan-mongodb/issues/2#issuecomment-378343587
@@ -332,191 +333,137 @@ services:
       # OAuth2 Email Mapping
       #- OAUTH2_EMAIL_MAP=
       #-----------------------------------------------------------------
-      # ==== LDAP ====
+      # ==== LDAP: UNCOMMENT ALL TO ENABLE LDAP ====
       # https://github.com/wekan/wekan/wiki/LDAP
       # For Snap settings see https://github.com/wekan/wekan-snap/wiki/Supported-settings-keys
       # Most settings work both on Snap and Docker below.
       # Note: Do not add single quotes '' to variables. Having spaces still works without quotes where required.
       #
-      # DEFAULT_AUTHENTICATION_METHOD : The default authentication method used if a user does not exist to create and authenticate. Can be set as ldap.
-      # example : DEFAULT_AUTHENTICATION_METHOD=ldap
-      #- DEFAULT_AUTHENTICATION_METHOD=
+      # The default authentication method used if a user does not exist to create and authenticate. Can be set as ldap.
+      #- DEFAULT_AUTHENTICATION_METHOD=ldap
       #
-      # LDAP_ENABLE : Enable or not the connection by the LDAP
-      # example : LDAP_ENABLE=true
-      #- LDAP_ENABLE=false
+      # Enable or not the connection by the LDAP
+      #- LDAP_ENABLE=true
       #
-      # LDAP_PORT : The port of the LDAP server
-      # example : LDAP_PORT=389
+      # The port of the LDAP server
       #- LDAP_PORT=389
       #
-      # LDAP_HOST : The host server for the LDAP server
-      # example : LDAP_HOST=localhost
-      #- LDAP_HOST=
+      # The host server for the LDAP server
+      #- LDAP_HOST=localhost
       #
-      # LDAP_BASEDN : The base DN for the LDAP Tree
-      # example : LDAP_BASEDN=ou=user,dc=example,dc=org
-      #- LDAP_BASEDN=
+      # The base DN for the LDAP Tree
+      #- LDAP_BASEDN=ou=user,dc=example,dc=org
       #
-      # LDAP_LOGIN_FALLBACK : Fallback on the default authentication method
-      # example : LDAP_LOGIN_FALLBACK=true
+      # Fallback on the default authentication method
       #- LDAP_LOGIN_FALLBACK=false
       #
-      # LDAP_RECONNECT : Reconnect to the server if the connection is lost
-      # example : LDAP_RECONNECT=false
+      # Reconnect to the server if the connection is lost
       #- LDAP_RECONNECT=true
       #
-      # LDAP_TIMEOUT : Overall timeout, in milliseconds
-      # example : LDAP_TIMEOUT=12345
+      # Overall timeout, in milliseconds
       #- LDAP_TIMEOUT=10000
       #
-      # LDAP_IDLE_TIMEOUT : Specifies the timeout for idle LDAP connections in milliseconds
-      # example : LDAP_IDLE_TIMEOUT=12345
+      # Specifies the timeout for idle LDAP connections in milliseconds
       #- LDAP_IDLE_TIMEOUT=10000
       #
-      # LDAP_CONNECT_TIMEOUT : Connection timeout, in milliseconds
-      # example : LDAP_CONNECT_TIMEOUT=12345
+      # Connection timeout, in milliseconds
       #- LDAP_CONNECT_TIMEOUT=10000
       #
-      # LDAP_AUTHENTIFICATION : If the LDAP needs a user account to search
-      # example : LDAP_AUTHENTIFICATION=true
-      #- LDAP_AUTHENTIFICATION=false
+      # If the LDAP needs a user account to search
+      #- LDAP_AUTHENTIFICATION=true
       #
-      # LDAP_AUTHENTIFICATION_USERDN : The search user DN
-      # example : LDAP_AUTHENTIFICATION_USERDN=cn=admin,dc=example,dc=org
-      #- LDAP_AUTHENTIFICATION_USERDN=
+      # The search user DN
+      #- LDAP_AUTHENTIFICATION_USERDN=cn=wekan_adm,ou=serviceaccounts,ou=admin,ou=prod,dc=mydomain,dc=com
       #
-      # LDAP_AUTHENTIFICATION_PASSWORD : The password for the search user
-      # example : AUTHENTIFICATION_PASSWORD=admin
-      #- LDAP_AUTHENTIFICATION_PASSWORD=
+      # The password for the search user
+      #- LDAP_AUTHENTIFICATION_PASSWORD=pwd
       #
-      # LDAP_LOG_ENABLED : Enable logs for the module
-      # example : LDAP_LOG_ENABLED=true
-      #- LDAP_LOG_ENABLED=false
+      # Enable logs for the module
+      #- LDAP_LOG_ENABLED=true
       #
-      # LDAP_BACKGROUND_SYNC : If the sync of the users should be done in the background
-      # example : LDAP_BACKGROUND_SYNC=true
+      # If the sync of the users should be done in the background
       #- LDAP_BACKGROUND_SYNC=false
       #
-      # LDAP_BACKGROUND_SYNC_INTERVAL : At which interval does the background task sync in milliseconds
-      # example : LDAP_BACKGROUND_SYNC_INTERVAL=12345
+      # At which interval does the background task sync in milliseconds
       #- LDAP_BACKGROUND_SYNC_INTERVAL=100
       #
-      # LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED :
-      # example : LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED=true
       #- LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED=false
       #
-      # LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS :
-      # example : LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS=true
       #- LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS=false
       #
-      # LDAP_ENCRYPTION : If using LDAPS
-      # example : LDAP_ENCRYPTION=ssl
+      # If using LDAPS: LDAP_ENCRYPTION=ssl
       #- LDAP_ENCRYPTION=false
       #
-      # LDAP_CA_CERT : The certification for the LDAPS server. Certificate needs to be included in this docker-compose.yml file.
-      # example : LDAP_CA_CERT=-----BEGIN CERTIFICATE-----MIIE+zCCA+OgAwIBAgIkAhwR/6TVLmdRY6hHxvUFWc0+Enmu/Hu6cj+G2FIdAgIC...-----END CERTIFICATE-----
-      #- LDAP_CA_CERT=
+      # The certification for the LDAPS server. Certificate needs to be included in this docker-compose.yml file.
+      #- LDAP_CA_CERT=-----BEGIN CERTIFICATE-----MIIE+G2FIdAgIC...-----END CERTIFICATE-----
       #
-      # LDAP_REJECT_UNAUTHORIZED : Reject Unauthorized Certificate
-      # example : LDAP_REJECT_UNAUTHORIZED=true
+      # Reject Unauthorized Certificate
       #- LDAP_REJECT_UNAUTHORIZED=false
       #
-      # LDAP_USER_SEARCH_FILTER : Optional extra LDAP filters. Don't forget the outmost enclosing parentheses if needed
-      # example : LDAP_USER_SEARCH_FILTER=
+      # Optional extra LDAP filters. Don't forget the outmost enclosing parentheses if needed
       #- LDAP_USER_SEARCH_FILTER=
       #
-      # LDAP_USER_SEARCH_SCOPE : base (search only in the provided DN), one (search only in the provided DN and one level deep), or sub (search the whole subtree)
-      # example : LDAP_USER_SEARCH_SCOPE=one
-      #- LDAP_USER_SEARCH_SCOPE=
+      # base (search only in the provided DN), one (search only in the provided DN and one level deep), or sub (search the whole subtree)
+      #- LDAP_USER_SEARCH_SCOPE=one
       #
-      # LDAP_USER_SEARCH_FIELD : Which field is used to find the user
-      # example : LDAP_USER_SEARCH_FIELD=uid
-      #- LDAP_USER_SEARCH_FIELD=
+      # Which field is used to find the user, like uid / sAMAccountName
+      #- LDAP_USER_SEARCH_FIELD=sAMAccountName
       #
-      # LDAP_SEARCH_PAGE_SIZE : Used for pagination (0=unlimited)
-      # example : LDAP_SEARCH_PAGE_SIZE=12345
+      # Used for pagination (0=unlimited)
       #- LDAP_SEARCH_PAGE_SIZE=0
       #
-      # LDAP_SEARCH_SIZE_LIMIT : The limit number of entries (0=unlimited)
-      # example : LDAP_SEARCH_SIZE_LIMIT=12345
+      # The limit number of entries (0=unlimited)
       #- LDAP_SEARCH_SIZE_LIMIT=0
       #
-      # LDAP_GROUP_FILTER_ENABLE : Enable group filtering
-      # example : LDAP_GROUP_FILTER_ENABLE=true
+      # Enable group filtering
       #- LDAP_GROUP_FILTER_ENABLE=false
       #
-      # LDAP_GROUP_FILTER_OBJECTCLASS : The object class for filtering
-      # example : LDAP_GROUP_FILTER_OBJECTCLASS=group
+      # The object class for filtering. Example: group
       #- LDAP_GROUP_FILTER_OBJECTCLASS=
       #
-      # LDAP_GROUP_FILTER_GROUP_ID_ATTRIBUTE :
-      # example :
       #- LDAP_GROUP_FILTER_GROUP_ID_ATTRIBUTE=
       #
-      # LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE :
-      # example :
       #- LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE=
       #
-      # LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT :
-      # example :
       #- LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT=
       #
-      # LDAP_GROUP_FILTER_GROUP_NAME :
-      # example :
       #- LDAP_GROUP_FILTER_GROUP_NAME=
       #
-      # LDAP_UNIQUE_IDENTIFIER_FIELD : This field is sometimes class GUID (Globally Unique Identifier)
-      # example : LDAP_UNIQUE_IDENTIFIER_FIELD=guid
+      # LDAP_UNIQUE_IDENTIFIER_FIELD : This field is sometimes class GUID (Globally Unique Identifier). Example: guid
       #- LDAP_UNIQUE_IDENTIFIER_FIELD=
       #
       # LDAP_UTF8_NAMES_SLUGIFY : Convert the username to utf8
-      # example : LDAP_UTF8_NAMES_SLUGIFY=false
       #- LDAP_UTF8_NAMES_SLUGIFY=true
       #
-      # LDAP_USERNAME_FIELD : Which field contains the ldap username
-      # example : LDAP_USERNAME_FIELD=username
-      #- LDAP_USERNAME_FIELD=
+      # LDAP_USERNAME_FIELD : Which field contains the ldap username. username / sAMAccountName
+      #- LDAP_USERNAME_FIELD=sAMAccountName
       #
-      # LDAP_FULLNAME_FIELD : Which field contains the ldap fullname
-      # example : LDAP_FULLNAME_FIELD=fullname
-      #- LDAP_FULLNAME_FIELD=
+      # LDAP_FULLNAME_FIELD : Which field contains the ldap fullname. fullname / sAMAccountName
+      #- LDAP_FULLNAME_FIELD=fullname
       #
-      # LDAP_MERGE_EXISTING_USERS :
-      # example : LDAP_MERGE_EXISTING_USERS=true
       #- LDAP_MERGE_EXISTING_USERS=false
       #
-      # LDAP_EMAIL_MATCH_ENABLE : allow existing account matching by e-mail address when username does not match
-      # example: LDAP_EMAIL_MATCH_ENABLE=true
-      #- LDAP_EMAIL_MATCH_ENABLE=false
+      # Allow existing account matching by e-mail address when username does not match
+      #- LDAP_EMAIL_MATCH_ENABLE=true
       #
       # LDAP_EMAIL_MATCH_REQUIRE : require existing account matching by e-mail address when username does match
-      # example: LDAP_EMAIL_MATCH_REQUIRE=true
-      #- LDAP_EMAIL_MATCH_REQUIRE=false
+      #- LDAP_EMAIL_MATCH_REQUIRE=true
       #
       # LDAP_EMAIL_MATCH_VERIFIED : require existing account email address to be verified for matching
-      # example: LDAP_EMAIL_MATCH_VERIFIED=true
-      #- LDAP_EMAIL_MATCH_VERIFIED=false
+      #- LDAP_EMAIL_MATCH_VERIFIED=true
       #
       # LDAP_EMAIL_FIELD : which field contains the LDAP e-mail address
-      # example: LDAP_EMAIL_FIELD=mail
-      #- LDAP_EMAIL_FIELD=
+      #- LDAP_EMAIL_FIELD=mail
       #-----------------------------------------------------------------
-      # LDAP_SYNC_USER_DATA :
-      # example : LDAP_SYNC_USER_DATA=true
       #- LDAP_SYNC_USER_DATA=false
       #
-      # LDAP_SYNC_USER_DATA_FIELDMAP :
-      # example : LDAP_SYNC_USER_DATA_FIELDMAP={"cn":"name", "mail":"email"}
-      #- LDAP_SYNC_USER_DATA_FIELDMAP=
+      #- LDAP_SYNC_USER_DATA_FIELDMAP={"cn":"name", "mail":"email"}
       #
-      # LDAP_SYNC_GROUP_ROLES :
-      # example :
-      #- LDAP_SYNC_GROUP_ROLES=
+      #- LDAP_SYNC_GROUP_ROLES=''
       #
-      # LDAP_DEFAULT_DOMAIN : The default domain of the ldap it is used to create email if the field is not map correctly with the LDAP_SYNC_USER_DATA_FIELDMAP
+      # The default domain of the ldap it is used to create email if the field is not map correctly with the LDAP_SYNC_USER_DATA_FIELDMAP
       # example :
-      #- LDAP_DEFAULT_DOMAIN=
+      #- LDAP_DEFAULT_DOMAIN=mydomain.com
       #
       # Enable/Disable syncing of admin status based on ldap groups:
       #- LDAP_SYNC_ADMIN_STATUS=true
@@ -591,9 +538,15 @@ services:
 #      - 80:80
 #      - 443:443
 #    volumes:
-#      - ./nginx/ssl:/etc/nginx/ssl/
-#      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-
+#      - ./nginx/ssl:/etc/nginx/ssl/:ro
+#      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+## Alternative volume config:
+##   volumes:
+##     - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+##     - ./nginx/ssl/ssl.conf:/etc/nginx/conf.d/ssl/ssl.conf:ro
+##     - ./nginx/ssl/testvm-ehu.crt:/etc/nginx/conf.d/ssl/certs/mycert.crt:ro
+##     - ./nginx/ssl/testvm-ehu.key:/etc/nginx/conf.d/ssl/certs/mykey.key:ro
+##     - ./nginx/ssl/pphrase:/etc/nginx/conf.d/ssl/pphrase:ro
 
 volumes:
   wekan-db:
