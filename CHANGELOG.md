@@ -5,6 +5,8 @@ This release adds the following new features:
 - [More whitelabeling: Hide Wekan logo and title by default, and don't show separate option to hide logo at
   Admin Panel/Layout](https://github.com/wekan/wekan/commit/2969161afbe60a1aa2e7da6cedc3ab48941faf3e).
   Thanks to xet7.
+- [Add option to redirect OIDC OAuth2 login](https://github.com/wekan/wekan-ldap/commit/82a894ac20ba9e7c6fdf053cff1721cab709bf8a).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
