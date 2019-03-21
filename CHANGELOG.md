@@ -24,7 +24,7 @@ This release fixes the following bugs:
 
 - [The invitation code doesn't exist - case-sensitive eMail](https://github.com/wekan/wekan/issues/1384). Thanks to neurolabs.
 - [Don't swallow email errors](https://github.com/wekan/wekan/pull/2272). Thanks to justinr1234.
-- [Migrate customFields model](https://github.com/wekan/wekan/pull/2264].
+- [Migrate customFields model](https://github.com/wekan/wekan/pull/2264).
   Modifies the customFields model to keep an array of boardIds where the customField can be used.
   Adds name matching for labels when copying/moving cards between boards.
   This way, customFields are not lost when copying/moving a card. Particularly useful when templates have customFields or labels with specific names (not tested for templates yet).
