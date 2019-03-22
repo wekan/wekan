@@ -94,6 +94,11 @@ do
 		git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-cas.git
 		git clone --depth 1 -b master https://github.com/wekan/wekan-ldap.git
 		git clone --depth 1 -b master https://github.com/wekan/wekan-scrollbar.git
+                git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-oidc.git
+                mv meteor-accounts-oidc/packages/switch_accounts-oidc wekan_accounts-oidc
+                mv meteor-accounts-oidc/packages/switch_oidc wekan_oidc
+                rm -rf meteor-accounts-oidc
+
 		if [[ "$OSTYPE" == "darwin"* ]]; then
 			echo "sed at macOS";
 			sed -i '' 's/api\.versionsFrom/\/\/api.versionsFrom/' ~/repos/wekan/packages/meteor-useraccounts-core/package.js

@@ -22,9 +22,8 @@ It's better than at chat where details get lost when chat scrolls up.
 
 ## Chat
 
-[![Wekan Vanila Chat][vanila_badge]][vanila_chat] - Most Wekan community and developers are here at #wekan chat channel.
-Use webbrowser to register, and after that you can also alternatively use mobile app Rocket.Chat by Rocket.Chat with
-address https://chat.vanila.io and same username and password.
+[![Wekan Chat][vanila_badge]][wekan_chat] - Most Wekan community and developers are here. Works on webbrowser
+and PWA app that can be added as icon on Android and bookmark on iOS, used like native app.
 
 [Wekan IRC FAQ](https://github.com/wekan/wekan/wiki/IRC-FAQ)
 
@@ -133,4 +132,4 @@ with [Meteor](https://www.meteor.com).
 [open_source]: https://en.wikipedia.org/wiki/Open-source_software
 [free_software]: https://en.wikipedia.org/wiki/Free_software
 [vanila_badge]: https://vanila.io/img/join-chat-button2.png
-[vanila_chat]: https://chat.vanila.io/channel/wekan
+[wekan_chat]: https://community.vanila.io/wekan

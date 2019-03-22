@@ -45,15 +45,16 @@ template(name="header")
     #header-main-bar(class="{{#if wrappedHeader}}wrapper{{/if}}")
       +Template.dynamic(template=headerBar)
 
-      unless hideLogo
+      //unless hideLogo
 
         //-
           On sandstorm, the logo shouldn't be clickable, because we only have one
           page/document on it, and we don't want to see the home page containing
           the list of all boards.
-        unless currentSetting.hideLogo
-          a.wekan-logo(href="{{pathFor 'home'}}" title="{{_ 'header-logo-title'}}")
-            img(src="{{pathFor '/wekan-logo-header.png'}}" alt="Wekan")
+
+      //  unless currentSetting.hideLogo
+      //    a.wekan-logo(href="{{pathFor 'home'}}" title="{{_ 'header-logo-title'}}")
+      //    img(src="{{pathFor '/logo-header.png'}}" alt="")
 
   if appIsOffline
     +offlineWarning

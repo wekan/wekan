@@ -1,6 +1,7 @@
 @ECHO OFF
 
-REM IN PROGRESS: Build on Windows.
+REM NOTE: THIS .BAT DOES NOT WORK !!
+REM Use instead this webpage instructions to build on Windows:
 REM https://github.com/wekan/wekan/wiki/Install-Wekan-from-source-on-Windows
 REM Please add fix PRs, like config of MongoDB etc.
 

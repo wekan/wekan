@@ -231,7 +231,7 @@ if (Meteor.isServer) {
       const setting = Settings.findOne({});
       if (!setting.productName) {
         return {
-          productName: 'Wekan',
+          productName: '',
         };
       } else {
         return {

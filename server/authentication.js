@@ -69,7 +69,7 @@ Meteor.startup(() => {
         { service: 'oidc' },
         {
           $set: {
-            loginStyle: 'redirect',
+            loginStyle: process.env.OAUTH2_LOGIN_STYLE,
             clientId: process.env.OAUTH2_CLIENT_ID,
             secret: process.env.OAUTH2_SECRET,
             serverUrl: process.env.OAUTH2_SERVER_URL,

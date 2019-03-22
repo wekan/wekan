@@ -27,6 +27,7 @@ ARG BROWSER_POLICY_ENABLED
 ARG TRUSTED_URL
 ARG WEBHOOKS_ATTRIBUTES
 ARG OAUTH2_ENABLED
+ARG OAUTH2_LOGIN_STYLE
 ARG OAUTH2_CLIENT_ID
 ARG OAUTH2_SECRET
 ARG OAUTH2_SERVER_URL
@@ -123,6 +124,7 @@ ENV BUILD_DEPS="apt-utils bsdtar gnupg gosu wget curl bzip2 build-essential pyth
     TRUSTED_URL="" \
     WEBHOOKS_ATTRIBUTES="" \
     OAUTH2_ENABLED=false \
+    OAUTH2_LOGIN_STYLE=redirect \
     OAUTH2_CLIENT_ID="" \
     OAUTH2_SECRET="" \
     OAUTH2_SERVER_URL="" \
@@ -310,7 +312,7 @@ RUN \
     cd /home/wekan/app &&\
     mkdir -p ./public/api && \
     python3 ./openapi/generate_openapi.py --release $(git describe --tags --abbrev=0) > ./public/api/wekan.yml && \
-    /opt/nodejs/bin/api2html -c ./public/wekan-logo-header.png -o ./public/api/wekan.html ./public/api/wekan.yml; \
+    /opt/nodejs/bin/api2html -c ./public/logo-header.png -o ./public/api/wekan.html ./public/api/wekan.yml; \
     # Build app
     cd /home/wekan/app && \
     gosu wekan:wekan /home/wekan/.meteor/meteor add standard-minifier-js && \

@@ -1,5 +1,5 @@
 head
-  title Wekan
+  title
   meta(name="viewport"
    content="maximum-scale=1.0,width=device-width,initial-scale=1.0,user-scalable=0")
   meta(http-equiv="X-UA-Compatible" content="IE=edge")
@@ -7,20 +7,20 @@ head
     where the application is deployed with a path prefix, but it seems to be
     difficult to do that cleanly with Blaze -- at least without adding extra
     packages.
-  link(rel="shortcut icon" href="/wekan-favicon.png")
-  link(rel="apple-touch-icon" href="/wekan-favicon.png")
-  link(rel="mask-icon" href="/wekan-150.svg")
-  link(rel="manifest" href="/wekan-manifest.json")
+  link(rel="shortcut icon" href="/favicon.png")
+  link(rel="apple-touch-icon" href="/favicon.png")
+  link(rel="mask-icon" href="/logo-150.svg")
+  link(rel="manifest" href="/manifest.json")
 
 template(name="userFormsLayout")
   section.auth-layout
-    if currentSetting.hideLogo
-      h1
-        br
-        br
-    else
-      h1.at-form-landing-logo
-        img(src="{{pathFor '/wekan-logo.png'}}" alt="Wekan")
+    //if currentSetting.hideLogo
+    h1
+      br
+      br
+    //else
+    //  h1.at-form-landing-logo
+    //    img(src="{{pathFor '/logo.png'}}" alt="")
     section.auth-dialog
       +Template.dynamic(template=content)
       if currentSetting.displayAuthenticationMethod

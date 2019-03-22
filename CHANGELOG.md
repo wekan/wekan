@@ -1,3 +1,25 @@
+# v2.52 2019-03-22 Wekan release
+
+This release adds the following new features:
+
+- [More whitelabeling: Hide Wekan logo and title by default, and don't show separate option to hide logo at
+  Admin Panel/Layout](https://github.com/wekan/wekan/commit/2969161afbe60a1aa2e7da6cedc3ab48941faf3e).
+  Thanks to xet7.
+- Added and then reverted option to redirect OIDC OAuth2 login [part1](https://github.com/wekan/wekan-ldap/commit/82a894ac20ba9e7c6fdf053cff1721cab709bf8a),
+  [part 2](https://github.com/wekan/wekan-ldap/commit/36900cc360d0d406f8fba5e43378f85c92747870) and
+  [part3](https://github.com/wekan/wekan/commit/7919ae362866c0cacf2a486bf91b12e4d25807d7).
+  This does not work yet. In Progress.
+  Thanks to xet7.
+- [Add LDAP config example, remove extra text](https://github.com/wekan/wekan/commit/506acda70b5e78737c52455e5eee9c8758243196).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Fix IFTTT email sending](https://github.com/wekan/wekan/pull/2279).
+  Thanks to justinr1234.
+    
+Thanks to above GitHub users for their contributions.
+
 # v2.51 2019-03-21 Wekan release
 
 This release fixes the following bugs:
