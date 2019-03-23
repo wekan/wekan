@@ -1,3 +1,12 @@
+# v2.53 2019-03-23 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix filename and URLs](https://github.com/wekan/wekan/ccommit/994314cfa339e52a2ad124194af4e89f57ddd213).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.52 2019-03-22 Wekan release
 
 This release adds the following new features:
