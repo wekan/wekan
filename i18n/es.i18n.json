@@ -28,7 +28,7 @@
     "act-importCard": "importada la tarjeta __card__ a la lista __list__ del carrril __swimlane__ del tablero __board__",
     "act-importList": "importada la lista __list__ al carril __swimlane__ del tablero __board__",
     "act-joinMember": "añadido el miembro __member__ a la tarjeta __card__ de la lista __list__ del carril __swimlane__ del tablero __board__",
-    "act-moveCard": "moved card __card__ at board __board__ from list __oldList__ at swimlane __oldSwimlane__ to list __list__ at swimlane __swimlane__",
+    "act-moveCard": "movida la tarjeta __card__ del tablero __board__ de la lista __oldList__ del carril __oldSwimlane__ a la lista __list__ del carril __swimlane__",
     "act-moveCardToOtherBoard": "movida la tarjeta __card__ de la lista __oldList__ del carril __oldSwimlane__ del tablero __oldBoard__ a la lista __list__ del carril __swimlane__ del tablero __board__",
     "act-removeBoardMember": "eliminado el miembro __member__ del tablero __board__",
     "act-restoredCard": "restaurada la tarjeta __card__ a la lista __list__ del carril __swimlane__ del tablero __board__",
