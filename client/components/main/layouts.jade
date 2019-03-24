@@ -14,13 +14,9 @@ head
 
 template(name="userFormsLayout")
   section.auth-layout
-    //if currentSetting.hideLogo
     h1
       br
       br
-    //else
-    //  h1.at-form-landing-logo
-    //    img(src="{{pathFor '/wekan-logo.png'}}" alt="")
     section.auth-dialog
       +Template.dynamic(template=content)
       if currentSetting.displayAuthenticationMethod
