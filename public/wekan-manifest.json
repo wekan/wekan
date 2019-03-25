@@ -1,16 +1,16 @@
 {
-  "name": "Kanban",
-  "short_name": "Kanban",
+  "name": "Wekan",
+  "short_name": "Wekan",
   "description": "The open-source kanban",
   "lang": "en-US",
   "icons": [
     {
-      "src": "/logo-150.png",
+      "src": "/wekan-logo-150.png",
       "type": "image/png",
       "sizes": "150x150"
     },
     {
-      "src": "/logo-150.svg",
+      "src": "/wekan-logo-150.svg",
       "type": "image/svg+xml",
       "sizes": "150x150"
     }
