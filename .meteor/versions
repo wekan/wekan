@@ -108,7 +108,7 @@ modern-browsers@0.1.3
 modules@0.13.0
 modules-runtime@0.10.3
 momentjs:moment@2.24.0
-mongo@1.6.0
+mongo@1.6.1
 mongo-decimal@0.1.1
 mongo-dev-server@1.1.0
 mongo-id@1.0.7
@@ -126,7 +126,7 @@ mquandalle:perfect-scrollbar@0.6.5_2
 msavin:usercache@1.0.0
 npm-bcrypt@0.9.3
 npm-mongo@3.1.1
-oauth@1.2.7
+oauth@1.2.8
 oauth2@1.2.1
 observe-sequence@1.0.16
 ongoworks:speakingurl@1.1.0
