@@ -1,3 +1,15 @@
+# v2.55 2019-03-25 Wekan release
+
+This release fixes the following bugs, thanks to bentiss with Apache I-CLA:
+
+- [Use older api2html@0.3.0](https://github.com/wekan/wekan/commit/625682a4dab43c525494af10121edbfd547786d7)
+  to fix [broken snap and docker build](https://github.com/wekan/wekan/issues/2286),
+  because newer api2html caused
+  [breaking change](https://github.com/tobilg/api2html/commit/a9a41bca18db3f9ec61395d7262eff071a995783)
+  at api2html/bin/api2html.js:23 has error about "php": "PHP".
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.54 2019-03-25 Wekan release
 
 This release fixes the following bugs:
