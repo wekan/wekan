@@ -113,7 +113,7 @@ parts:
             mkdir -p ./public/api
             python3 ./openapi/generate_openapi.py --release $(git describe --tags --abbrev=0) > ./public/api/wekan.yml
             # we temporary need api2html and mkdirp
-            npm install -g api2html
+            npm install -g api2html@0.3.0
             npm install -g mkdirp
             api2html -c ./public/logo-header.png -o ./public/api/wekan.html ./public/api/wekan.yml
             npm uninstall -g mkdirp

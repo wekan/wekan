@@ -302,7 +302,7 @@ RUN \
     gosu wekan:wekan /home/wekan/.meteor/meteor -- help; \
     \
     # extract the OpenAPI specification
-    npm install -g api2html && \
+    npm install -g api2html@0.3.0 && \
     mkdir -p /home/wekan/python && \
     chown wekan:wekan --recursive /home/wekan/python && \
     cd /home/wekan/python && \
