@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- Fix typos.                              
+- [Fix Outgoing Webhook message about created new swimlane](https://github.com/wekan/wekan/issues/1969).
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.53 2019-03-23 Wekan release
 
 This release fixes the following bugs:
