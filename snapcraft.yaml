@@ -65,7 +65,7 @@ apps:
 
 parts:
     mongodb:
-        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1804-4.0.7.tgz
+        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-3.2.22.tgz
         plugin: dump
         stage-packages: [libssl1.0.0]
         filesets:
@@ -85,7 +85,7 @@ parts:
         node-packages:
             - node-gyp
             - node-pre-gyp
-            - fibers
+            - fibers@2.0.0
         build-packages:
             - ca-certificates
             - apt-utils
