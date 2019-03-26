@@ -5,35 +5,6 @@ BlazeComponent.extendComponent({
   onCreated() {
     // for infinite scrolling
     this.cardlimit = new ReactiveVar(InfiniteScrollIter);
-    this.spinnerShown = false;
-  },
-
-  onRendered() {
-    const spinner = this.find('.sk-spinner-list');
-
-    if (spinner) {
-      const options = {
-        root: null, // we check if the spinner is on the current viewport
-        rootMargin: '0px',
-        threshold: 0.25,
-      };
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          this.spinnerShown = entry.isIntersecting;
-          this.updateList();
-        });
-      }, options);
-
-      observer.observe(spinner);
-    }
-  },
-
-  updateList() {
-    if (this.spinnerShown) {
-      this.cardlimit.set(this.cardlimit.get() + InfiniteScrollIter);
-      window.requestIdleCallback(() => this.updateList());
-    }
   },
 
   mixins() {
@@ -641,3 +612,39 @@ BlazeComponent.extendComponent({
     }];
   },
 }).register('searchElementPopup');
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.spinnerShown = false;
+    this.cardlimit = this.parentComponent().cardlimit;
+  },
+
+  onRendered() {
+    const spinner = this.find('.sk-spinner-list');
+
+    if (spinner) {
+      const options = {
+        root: null, // we check if the spinner is on the current viewport
+        rootMargin: '0px',
+        threshold: 0.25,
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          this.spinnerShown = entry.isIntersecting;
+          this.updateList();
+        });
+      }, options);
+
+      observer.observe(spinner);
+    }
+  },
+
+  updateList() {
+    if (this.spinnerShown) {
+      this.cardlimit.set(this.cardlimit.get() + InfiniteScrollIter);
+      window.requestIdleCallback(() => this.updateList());
+    }
+  },
+
+}).register('spinnerList');
