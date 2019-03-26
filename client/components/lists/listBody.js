@@ -5,6 +5,7 @@ BlazeComponent.extendComponent({
   onCreated() {
     // for infinite scrolling
     this.cardlimit = new ReactiveVar(InfiniteScrollIter);
+    this.spinnerShown = false;
   },
 
   onRendered() {
@@ -19,13 +20,19 @@ BlazeComponent.extendComponent({
 
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            this.cardlimit.set(this.cardlimit.get() + InfiniteScrollIter);
-          }
+          this.spinnerShown = entry.isIntersecting;
+          this.updateList();
         });
       }, options);
 
       observer.observe(spinner);
+    }
+  },
+
+  updateList() {
+    if (this.spinnerShown) {
+      this.cardlimit.set(this.cardlimit.get() + InfiniteScrollIter);
+      window.requestIdleCallback(() => this.updateList());
     }
   },
 
