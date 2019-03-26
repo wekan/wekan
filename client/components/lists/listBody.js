@@ -8,25 +8,25 @@ BlazeComponent.extendComponent({
   },
 
   onRendered() {
-    const domElement = this.find('.js-perfect-scrollbar');
+    const spinner = this.find('.sk-spinner-list');
 
-    this.$(domElement).on('scroll', () => this.updateList(domElement));
-    $(window).on(`resize.${this.data().listId}`, () => this.updateList(domElement));
+    if (spinner) {
+      const options = {
+        root: null, // we check if the spinner is on the current viewport
+        rootMargin: '0px',
+        threshold: 0.25,
+      };
 
-    // we add a Mutation Observer to allow propagations of cardlimit
-    // when the spinner stays in the current view (infinite scrolling)
-    this.mutationObserver = new MutationObserver(() => this.updateList(domElement));
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            this.cardlimit.set(this.cardlimit.get() + InfiniteScrollIter);
+          }
+        });
+      }, options);
 
-    this.mutationObserver.observe(domElement, {
-      childList: true,
-    });
-
-    this.updateList(domElement);
-  },
-
-  onDestroyed() {
-    $(window).off(`resize.${this.data().listId}`);
-    this.mutationObserver.disconnect();
+      observer.observe(spinner);
+    }
   },
 
   mixins() {
@@ -191,36 +191,9 @@ BlazeComponent.extendComponent({
     });
   },
 
-  spinnerInView(container) {
-    const parentViewHeight = container.clientHeight;
-    const bottomViewPosition = container.scrollTop + parentViewHeight;
-
-    const spinner = this.find('.sk-spinner-list');
-
-    const threshold = spinner.offsetTop;
-
-    return bottomViewPosition > threshold;
-  },
-
   showSpinner(swimlaneId) {
     const list = Template.currentData();
     return list.cards(swimlaneId).count() > this.cardlimit.get();
-  },
-
-  updateList(container) {
-    // first, if the spinner is not rendered, we have reached the end of
-    // the list of cards, so skip and disable firing the events
-    const target = this.find('.sk-spinner-list');
-    if (!target) {
-      this.$(container).off('scroll');
-      $(window).off(`resize.${this.data().listId}`);
-      return;
-    }
-
-    if (this.spinnerInView(container)) {
-      this.cardlimit.set(this.cardlimit.get() + InfiniteScrollIter);
-      Ps.update(container);
-    }
   },
 
   canSeeAddCard() {
