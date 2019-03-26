@@ -629,15 +629,19 @@ BlazeComponent.extendComponent({
         threshold: 0.25,
       };
 
-      const observer = new IntersectionObserver((entries) => {
+      this.observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           this.spinnerShown = entry.isIntersecting;
           this.updateList();
         });
       }, options);
 
-      observer.observe(spinner);
+      this.observer.observe(spinner);
     }
+  },
+
+  onDestroyed() {
+    this.observer.disconnect();
   },
 
   updateList() {
