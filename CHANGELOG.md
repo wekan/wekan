@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v2.56 2019-03-27 Wekan release
 
 This release [fixes the following bugs](https://github.com/wekan/wekan/pull/2287), thanks to bentiss with Apache I-CLA:
 
