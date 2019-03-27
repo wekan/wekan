@@ -65,7 +65,7 @@ apps:
 
 parts:
     mongodb:
-        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-4.0.7.tgz
+        source: https://repo.mongodb.org/apt/ubuntu/dists/xenial/mongodb-org/4.0/multiverse/binary-amd64/mongodb-org-server_4.0.7_amd64.deb
         plugin: dump
         stage-packages: [libssl1.0.0]
         filesets:
