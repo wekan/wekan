@@ -1,3 +1,14 @@
+# Upcoming Wekan release
+
+This release [fixes the following bugs](https://github.com/wekan/wekan/pull/2287), thanks to bentiss with Apache I-CLA:
+
+- [#2250 -> the spinner could be shown on startup and never goes away](https://github.com/wekan/wekan/issues/2250).
+- The code will now only load extra cards that will be in the current viewport.
+- When 2 users were interacting on the same board, there was a situation where the spinner could show up on the other user, without being able to load the extra cards.
+- The code is now much simpler, thanks to the IntersectionObserver, and all of this for fewer lines of code :)
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.55 2019-03-25 Wekan release
 
 This release fixes the following bugs, thanks to bentiss with Apache I-CLA:
