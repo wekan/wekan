@@ -18,7 +18,7 @@
     "act-uncompleteChecklist": "a rendu incomplet la checklist __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
     "act-addComment": "a commenté la carte __card__ : __comment__ dans la liste __list__ du couloir __swimlane__ du tableau __board__",
     "act-createBoard": "a créé le tableau __board__",
-    "act-createSwimlane": "created swimlane __swimlane__ to board __board__",
+    "act-createSwimlane": "a créé le couloir __swimlane__ dans le tableau __board__",
     "act-createCard": "a créé la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
     "act-createCustomField": "a créé le champ personnalisé __customField__ pour la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
     "act-createList": "a ajouté la liste __list__ au tableau __board__",
