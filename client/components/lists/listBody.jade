@@ -13,7 +13,14 @@ template(name="listBody")
               class="{{#if MultiSelection.isSelected _id}}is-checked{{/if}}")
           +minicard(this)
       if (showSpinner (idOrNull ../../_id))
-        +spinnerList
+        .sk-spinner.sk-spinner-wave.sk-spinner-list(
+          class=currentBoard.colorClass
+          id="showMoreResults")
+          .sk-rect1
+          .sk-rect2
+          .sk-rect3
+          .sk-rect4
+          .sk-rect5
 
       if canSeeAddCard
         +inlinedForm(autoclose=false position="bottom")
@@ -22,16 +29,6 @@ template(name="listBody")
           a.open-minicard-composer.js-card-composer.js-open-inlined-form
             i.fa.fa-plus
             | {{_ 'add-card'}}
-
-template(name="spinnerList")
-  .sk-spinner.sk-spinner-wave.sk-spinner-list(
-    class=currentBoard.colorClass
-    id="showMoreResults")
-    .sk-rect1
-    .sk-rect2
-    .sk-rect3
-    .sk-rect4
-    .sk-rect5
 
 template(name="addCardForm")
   .minicard.minicard-composer.js-composer
