@@ -1,6 +1,12 @@
 # Upcoming Wekan release
 
-This release reverts the following fixes:
+This release fixes the following bugs:
+
+- [Add proper variables for join card](https://github.com/wekan/wekan/commit/289f1fe1340c85eb2af19825f4972e9057a86b7a),
+  fixes [Incorrect variable replacement on email notifications](https://github.com/wekan/wekan/issues/2295).
+  Thanks to justinr1234.
+
+and reverts the following fixes:
 
 - [Revert spinner etc fixes of Wekan v2.56, because of some new bugs](https://github.com/wekan/wekan/issues/2250).
   Thanks to gerroon.
