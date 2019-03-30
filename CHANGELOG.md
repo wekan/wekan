@@ -6,11 +6,6 @@ This release fixes the following bugs:
   fixes [Incorrect variable replacement on email notifications](https://github.com/wekan/wekan/issues/2295).
   Thanks to justinr1234.
 
-and reverts the following fixes:
-
-- [Revert spinner etc fixes of Wekan v2.56, because of some new bugs](https://github.com/wekan/wekan/issues/2250).
-  Thanks to gerroon.
-
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v2.56 2019-03-27 Wekan release
