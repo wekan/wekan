@@ -74,6 +74,7 @@ do
 			# Debian, Ubuntu, Mint
 			sudo apt-get install -y build-essential git curl wget
 			curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+			sudo apt-get install -y nodejs
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
 		        echo "macOS";
 			pause '1) Install XCode 2) Install Node 8.x from https://nodejs.org/en/ 3) Press [Enter] key to continue.'
