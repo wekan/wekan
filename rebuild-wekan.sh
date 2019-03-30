@@ -72,7 +72,7 @@ do
 		if [[ "$OSTYPE" == "linux-gnu" ]]; then
 	                echo "Linux";
 			# Debian, Ubuntu, Mint
-			sudo apt-get install -y build-essential git curl wget
+			sudo apt-get install -y build-essential gcc g++ make git curl wget
 			curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 			sudo apt-get install -y nodejs
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
