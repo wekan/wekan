@@ -615,40 +615,50 @@ BlazeComponent.extendComponent({
 
 BlazeComponent.extendComponent({
   onCreated() {
-    this.spinnerShown = false;
     this.cardlimit = this.parentComponent().cardlimit;
+
+    this.listId = this.parentComponent().data()._id;
+    this.swimlaneId = '';
+
+    const boardView = Meteor.user().profile.boardView;
+    if (boardView === 'board-view-swimlanes')
+      this.swimlaneId = this.parentComponent().parentComponent().parentComponent().data()._id;
   },
 
   onRendered() {
-    const spinner = this.find('.sk-spinner-list');
+    this.spinner = this.find('.sk-spinner-list');
+    this.container = this.$(this.spinner).parents('.js-perfect-scrollbar')[0];
 
-    if (spinner) {
-      const options = {
-        root: null, // we check if the spinner is on the current viewport
-        rootMargin: '0px',
-        threshold: 0.25,
-      };
+    $(this.container).on(`scroll.spinner_${this.swimlaneId}_${this.listId}`, () => this.updateList());
+    $(window).on(`resize.spinner_${this.swimlaneId}_${this.listId}`, () => this.updateList());
 
-      this.observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          this.spinnerShown = entry.isIntersecting;
-          this.updateList();
-        });
-      }, options);
-
-      this.observer.observe(spinner);
-    }
+    this.updateList();
   },
 
   onDestroyed() {
-    this.observer.disconnect();
+    $(this.container).off(`scroll.spinner_${this.swimlaneId}_${this.listId}`);
+    $(window).off(`resize.spinner_${this.swimlaneId}_${this.listId}`);
   },
 
   updateList() {
-    if (this.spinnerShown) {
+    if (this.spinnerInView()) {
       this.cardlimit.set(this.cardlimit.get() + InfiniteScrollIter);
       window.requestIdleCallback(() => this.updateList());
     }
+  },
+
+  spinnerInView() {
+    const parentViewHeight = this.container.clientHeight;
+    const bottomViewPosition = this.container.scrollTop + parentViewHeight;
+
+    const threshold = this.spinner.offsetTop;
+
+    // spinner deleted
+    if (!this.spinner.offsetTop) {
+      return false;
+    }
+
+    return bottomViewPosition > threshold;
   },
 
 }).register('spinnerList');
