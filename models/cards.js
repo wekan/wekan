@@ -1384,6 +1384,9 @@ function cardMembers(userId, doc, fieldNames, modifier) {
         activityType: 'joinMember',
         boardId: doc.boardId,
         cardId: doc._id,
+        memberId,
+        listId: doc.listId,
+        swimlaneId: doc.swimlaneId,
       });
     }
   }

@@ -1,3 +1,16 @@
+# v2.57 2019-04-02 Wekan release
+
+This release fixes the following bugs, thanks to justinr1234:
+
+- [Add proper variables for join card](https://github.com/wekan/wekan/commit/289f1fe1340c85eb2af19825f4972e9057a86b7a),
+  fixes [Incorrect variable replacement on email notifications](https://github.com/wekan/wekan/issues/2295).
+
+and fixes the following bugs with Apache I-CLA, thanks to bentiss:
+
+- [List: Do not use IntersectionObserver to reduce CPU usage](https://github.com/wekan/wekan/pull/2302).
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.56 2019-03-27 Wekan release
 
 This release [fixes the following bugs](https://github.com/wekan/wekan/pull/2287), thanks to bentiss with Apache I-CLA:
