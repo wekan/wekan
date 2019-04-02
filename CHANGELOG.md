@@ -1,10 +1,13 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release fixes the following bugs, thanks to justinr1234:
 
 - [Add proper variables for join card](https://github.com/wekan/wekan/commit/289f1fe1340c85eb2af19825f4972e9057a86b7a),
   fixes [Incorrect variable replacement on email notifications](https://github.com/wekan/wekan/issues/2295).
-  Thanks to justinr1234.
+
+and fixes the following bugs with Apache I-CLA, thanks to bentiss:
+
+- [List: Do not use IntersectionObserver to reduce CPU usage](https://github.com/wekan/wekan/pull/2302).
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
