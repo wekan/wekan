@@ -1403,6 +1403,9 @@ function cardMembers(userId, doc, fieldNames, modifier) {
         activityType: 'unjoinMember',
         boardId: doc.boardId,
         cardId: doc._id,
+        memberId,
+        listId: doc.listId,
+        swimlaneId: doc.swimlaneId,
       });
     }
   }
