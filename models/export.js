@@ -17,7 +17,6 @@ if (Meteor.isServer) {
 
 
   JsonRoutes.add('get', '/api/boards/:boardId/export', function(req, res) {
-    console.error("LOGG API");
     const boardId = req.params.boardId;
     let user = null;
     // todo XXX for real API, first look for token in Authentication: header
