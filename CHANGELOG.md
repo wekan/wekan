@@ -1,3 +1,12 @@
+# v2.59 2019-04-06 Wekan release
+
+This release fixes the following bugs:
+
+- [Add variables for activity notifications, Fixes #2285](https://github.com/wekan/wekan/pull/2320).
+  Thanks to rinnaz.
+    
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.58 2019-04-06 Wekan release
 
 This release adds the following new features:
@@ -7,7 +16,7 @@ This release adds the following new features:
 - [Add Duplicate Board tooltip, and remove adding text "Copy" to duplicated board](https://github.com/wekan/wekan/commit/0f15b6d1982c383f76e8411cb501ff27e8febd42).
   Thanks to xet7.
 
-amd fixes the following bugs:
+and fixes the following bugs:
 
 - [Add proper variables for unjoin card](https://github.com/wekan/wekan/pull/2313).
   Thanks to chotaire.

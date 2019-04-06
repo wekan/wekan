@@ -1356,6 +1356,7 @@ function cardState(userId, doc, fieldNames) {
         boardId: doc.boardId,
         listId: doc.listId,
         cardId: doc._id,
+        swimlaneId: doc.swimlaneId,
       });
     } else {
       Activities.insert({
@@ -1365,6 +1366,7 @@ function cardState(userId, doc, fieldNames) {
         listName: Lists.findOne(doc.listId).title,
         listId: doc.listId,
         cardId: doc._id,
+        swimlaneId: doc.swimlaneId,
       });
     }
   }
@@ -1426,6 +1428,8 @@ function cardLabels(userId, doc, fieldNames, modifier) {
         activityType: 'addedLabel',
         boardId: doc.boardId,
         cardId: doc._id,
+        listId: doc.listId,
+        swimlaneId: doc.swimlaneId,
       };
       Activities.insert(act);
     }
@@ -1442,6 +1446,8 @@ function cardLabels(userId, doc, fieldNames, modifier) {
         activityType: 'removedLabel',
         boardId: doc.boardId,
         cardId: doc._id,
+        listId: doc.listId,
+        swimlaneId: doc.swimlaneId,
       });
     }
   }
