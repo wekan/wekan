@@ -67,7 +67,7 @@ BlazeComponent.extendComponent({
               Utils.goBoardId(res);
             }
           }
-          );
+        );
         evt.preventDefault();
       },
       'click .js-accept-invite'() {

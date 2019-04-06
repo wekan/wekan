@@ -30,7 +30,7 @@ if (Meteor.isServer) {
     }
 
     const exporter = new Exporter(boardId);
-    if (true||exporter.canExport(user)) {
+    if (exporter.canExport(user)) {
       JsonRoutes.sendResult(res, {
         code: 200,
         data: exporter.build(),

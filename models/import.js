@@ -31,18 +31,17 @@ Meteor.methods({
 });
 
 Meteor.methods({
-  cloneBoard(sourceBoardId,currentBoardId) {
+  cloneBoard(sourceBoardId, currentBoardId) {
     check(sourceBoardId, String);
     check(currentBoardId, Match.Maybe(String));
     const exporter = new Exporter(sourceBoardId);
-    let data = exporter.build();
-    let addData = {};
+    const data = exporter.build();
+    const addData = {};
     addData.membersMapping = wekanMembersMapper.getMembersToMap(data);
     const creator =  new WekanCreator(addData);
-    data.title = data.title + " - " + TAPi18n.__('copy-tag');
+    data.title = `${data.title  } - ${  TAPi18n.__('copy-tag')}`;
     return creator.create(data, currentBoardId);
   },
 });
-
 
 
