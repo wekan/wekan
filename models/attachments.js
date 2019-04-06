@@ -72,6 +72,8 @@ if (Meteor.isServer) {
         attachmentId: doc._id,
         boardId: doc.boardId,
         cardId: doc.cardId,
+        listId: doc.listId,
+        swimlaneId: doc.swimlaneId,
       });
     } else {
       // Don't add activity about adding the attachment as the activity
@@ -96,6 +98,8 @@ if (Meteor.isServer) {
       activityType: 'deleteAttachment',
       boardId: doc.boardId,
       cardId: doc.cardId,
+      listId: doc.listId,
+      swimlaneId: doc.swimlaneId,
     });
   });
 }
