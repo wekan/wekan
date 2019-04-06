@@ -682,5 +682,6 @@
     "error-undefined": "Algo no está bien",
     "error-ldap-login": "Ocurrió un error al intentar acceder",
     "display-authentication-method": "Mostrar el método de autenticación",
-    "default-authentication-method": "Método de autenticación por defecto"
+    "default-authentication-method": "Método de autenticación por defecto",
+    "duplicate-board": "Duplicar tablero"
 }

@@ -682,5 +682,6 @@
     "error-undefined": "Qualcosa è andato storto",
     "error-ldap-login": "C'è stato un errore mentre provavi ad effettuare il login",
     "display-authentication-method": "Mostra il metodo di autenticazione",
-    "default-authentication-method": "Metodo di autenticazione predefinito"
+    "default-authentication-method": "Metodo di autenticazione predefinito",
+    "duplicate-board": "Duplicate Board"
 }

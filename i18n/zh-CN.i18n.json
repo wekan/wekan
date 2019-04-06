@@ -682,5 +682,6 @@
     "error-undefined": "出了点问题",
     "error-ldap-login": "尝试登陆时出错",
     "display-authentication-method": "显示认证方式",
-    "default-authentication-method": "缺省认证方式"
+    "default-authentication-method": "缺省认证方式",
+    "duplicate-board": "Duplicate Board"
 }

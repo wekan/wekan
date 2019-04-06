@@ -1338,6 +1338,7 @@ function cardMove(userId, doc, fieldNames, oldListId, oldSwimlaneId, oldBoardId)
       listId: doc.listId,
       boardId: doc.boardId,
       cardId: doc._id,
+      cardTitle:doc.title,
       swimlaneName: Swimlanes.findOne(doc.swimlaneId).title,
       swimlaneId: doc.swimlaneId,
       oldSwimlaneId,
@@ -1403,6 +1404,9 @@ function cardMembers(userId, doc, fieldNames, modifier) {
         activityType: 'unjoinMember',
         boardId: doc.boardId,
         cardId: doc._id,
+        memberId,
+        listId: doc.listId,
+        swimlaneId: doc.swimlaneId,
       });
     }
   }

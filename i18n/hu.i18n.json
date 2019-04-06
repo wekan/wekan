@@ -682,5 +682,6 @@
     "error-undefined": "Valami hiba történt",
     "error-ldap-login": "Hiba történt bejelentkezés közben",
     "display-authentication-method": "Hitelelesítési mód mutatása",
-    "default-authentication-method": "Alapértelmezett hitelesítési mód"
+    "default-authentication-method": "Alapértelmezett hitelesítési mód",
+    "duplicate-board": "Duplicate Board"
 }

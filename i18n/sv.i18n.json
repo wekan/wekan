@@ -682,5 +682,6 @@
     "error-undefined": "Något gick fel",
     "error-ldap-login": "Ett fel uppstod när du försökte logga in",
     "display-authentication-method": "Visa autentiseringsmetod",
-    "default-authentication-method": "Standard autentiseringsmetod"
+    "default-authentication-method": "Standard autentiseringsmetod",
+    "duplicate-board": "Duplicate Board"
 }

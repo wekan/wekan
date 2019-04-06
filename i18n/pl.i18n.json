@@ -682,5 +682,6 @@
     "error-undefined": "Coś poszło nie tak",
     "error-ldap-login": "Wystąpił błąd w trakcie logowania",
     "display-authentication-method": "Wyświetl metodę logowania",
-    "default-authentication-method": "Domyślna metoda logowania"
+    "default-authentication-method": "Domyślna metoda logowania",
+    "duplicate-board": "Duplicate Board"
 }

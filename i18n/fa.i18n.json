@@ -682,5 +682,6 @@
     "error-undefined": "یک اشتباه رخ داده شده است",
     "error-ldap-login": "هنگام تلاش برای ورود به یک خطا رخ داد",
     "display-authentication-method": "نمایش نوع اعتبارسنجی",
-    "default-authentication-method": "نوع اعتبارسنجی پیشفرض"
+    "default-authentication-method": "نوع اعتبارسنجی پیشفرض",
+    "duplicate-board": "Duplicate Board"
 }
