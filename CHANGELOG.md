@@ -1,5 +1,10 @@
 # Upcoming Wekan release
 
+This release adds the following new features:
+
+- [Duplicate Board](https://github.com/wekan/wekan/issues/2257). Related #2225.
+  Thanks to Angtrim.
+
 This release fixes the following bugs:
 
 - [Add proper variables for unjoin card](https://github.com/wekan/wekan/pull/2313).
@@ -8,6 +13,8 @@ This release fixes the following bugs:
   Thanks to hupptechnologies.
 - [Remove not needed ARGS from Dockerfile to reduce amount of Docker layers](https://github.com/wekan/wekan/issues/2301).
   Thanks to folhabranca.
+- [Fix Swimlane Rules don't work](https://github.com/wekan/wekan/issues/2225).
+  Thanks to Angtrim.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
