@@ -6,6 +6,8 @@ This release fixes the following bugs:
   Thanks to chotaire.
 - [Center reduce left margin in card view on mobile browser](https://github.com/wekan/wekan/pull/2314).
   Thanks to hupptechnologies.
+- [Remove not needed ARGS from Dockerfile to reduce amount of Docker layers](https://github.com/wekan/wekan/issues/2301).
+  Thanks to folhabranca.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
