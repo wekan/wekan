@@ -4,15 +4,17 @@ This release adds the following new features:
 
 - [Duplicate Board](https://github.com/wekan/wekan/issues/2257). Related #2225.
   Thanks to Angtrim.
+- [Add Duplicate Board tooltip, and remove adding text "Copy" to duplicated board](https://github.com/wekan/wekan/commit/0f15b6d1982c383f76e8411cb501ff27e8febd42).
+  Thanks to xet7.
 
-This release fixes the following bugs:
+amd fixes the following bugs:
 
 - [Add proper variables for unjoin card](https://github.com/wekan/wekan/pull/2313).
   Thanks to chotaire.
 - [Center reduce left margin in card view on mobile browser](https://github.com/wekan/wekan/pull/2314).
   Thanks to hupptechnologies.
 - [Remove not needed ARGS from Dockerfile to reduce amount of Docker layers](https://github.com/wekan/wekan/issues/2301).
-  Thanks to folhabranca.
+  Thanks to folhabranca and xet7.
 - [Fix Swimlane Rules don't work](https://github.com/wekan/wekan/issues/2225).
   Thanks to Angtrim.
 
