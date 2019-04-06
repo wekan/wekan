@@ -31,9 +31,9 @@ kenton:accounts-sandstorm
 service-configuration@1.0.11
 useraccounts:unstyled
 useraccounts:flow-routing
-#wekan:wekan-ldap
-#wekan:accounts-cas
-#wekan-accounts-oidc
+wekan:wekan-ldap
+wekan:accounts-cas
+wekan-accounts-oidc
 
 # Utilities
 check@1.2.5
@@ -87,7 +87,7 @@ momentjs:moment@2.22.2
 browser-policy-framing
 mquandalle:moment
 msavin:usercache
-#wekan-scrollbar
+wekan-scrollbar
 mquandalle:perfect-scrollbar
 mdg:meteor-apm-agent
 meteorhacks:unblock
