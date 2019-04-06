@@ -95,6 +95,8 @@ function itemCreation(userId, doc) {
     checklistId: doc.checklistId,
     checklistItemId: doc._id,
     checklistItemName:doc.title,
+    listId: doc.listId,
+    swimlaneId: doc.swimlaneId,
   });
 }
 
@@ -121,6 +123,8 @@ function publishCheckActivity(userId, doc){
     checklistId: doc.checklistId,
     checklistItemId: doc._id,
     checklistItemName:doc.title,
+    listId: doc.listId,
+    swimlaneId: doc.swimlaneId,
   };
   Activities.insert(act);
 }
@@ -138,6 +142,8 @@ function publishChekListCompleted(userId, doc){
       boardId,
       checklistId: doc.checklistId,
       checklistName: checkList.title,
+      listId: doc.listId,
+      swimlaneId: doc.swimlaneId,
     };
     Activities.insert(act);
   }
@@ -169,6 +175,8 @@ function publishChekListUncompleted(userId, doc){
       boardId,
       checklistId: doc.checklistId,
       checklistName: checkList.title,
+      listId: doc.listId,
+      swimlaneId: doc.swimlaneId,
     };
     Activities.insert(act);
   }
@@ -207,6 +215,8 @@ if (Meteor.isServer) {
       checklistId: doc.checklistId,
       checklistItemId: doc._id,
       checklistItemName:doc.title,
+      listId: doc.listId,
+      swimlaneId: doc.swimlaneId,
     });
   });
 }
