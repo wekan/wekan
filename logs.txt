@@ -1,0 +1,29 @@
+[[[[[ ~/Projects/wekan ]]]]]
+
+=> Started proxy.
+=> A patch (Meteor 1.6.1.4) for your current release is available!
+   Update this project now with 'meteor update --patch'.
+=> Started MongoDB.
+[34mI20190104-18:05:07.115(1)? [39mPresence started serverId=5obj8Jf6oCDspWgMz
+[34mW20190104-18:05:07.463(1)? (STDERR) [39m[35mNote: you are using a pure-JavaScript implementation of bcrypt.[39m
+[34mW20190104-18:05:07.464(1)? (STDERR) [39m[35mWhile this implementation will work correctly, it is known to be[39m
+[34mW20190104-18:05:07.464(1)? (STDERR) [39m[35mapproximately three times slower than the native implementation.[39m
+[34mW20190104-18:05:07.465(1)? (STDERR) [39m[35mIn order to use the native implementation instead, run[39m
+[34mW20190104-18:05:07.465(1)? (STDERR) [39m[35m[39m
+[34mW20190104-18:05:07.466(1)? (STDERR) [39m[35m  meteor npm install --save bcrypt[39m
+[34mW20190104-18:05:07.466(1)? (STDERR) [39m[35m[39m
+[34mW20190104-18:05:07.467(1)? (STDERR) [39m[35min the root directory of your application.[39m
+=> Started your app.
+
+=> App running at: http://localhost:3000/
+=> Server modified -- restarting...                                   [34mI20190104-18:06:15.969(1)? [39mPresence started serverId=XNprswJmWsvaCxBEb
+[34mW20190104-18:06:16.274(1)? (STDERR) [39m[35mNote: you are using a pure-JavaScript implementation of bcrypt.[39m
+[34mW20190104-18:06:16.275(1)? (STDERR) [39m[35mWhile this implementation will work correctly, it is known to be[39m
+[34mW20190104-18:06:16.276(1)? (STDERR) [39m[35mapproximately three times slower than the native implementation.[39m
+[34mW20190104-18:06:16.276(1)? (STDERR) [39m[35mIn order to use the native implementation instead, run[39m
+[34mW20190104-18:06:16.277(1)? (STDERR) [39m[35m[39m
+[34mW20190104-18:06:16.277(1)? (STDERR) [39m[35m  meteor npm install --save bcrypt[39m
+[34mW20190104-18:06:16.278(1)? (STDERR) [39m[35m[39m
+[34mW20190104-18:06:16.278(1)? (STDERR) [39m[35min the root directory of your application.[39m
+=> Meteor server restarted
+=> Client modified -- refreshing

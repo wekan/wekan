@@ -39,15 +39,18 @@ BlazeComponent.extendComponent({
       'click .js-add-moved-trigger' (event) {
         const datas = this.data();
         const desc = Utils.getTriggerActionDesc(event, this);
-        const swimlaneName = this.find('#create-swimlane-name').value;
+        const swimlaneName = this.find('#create-swimlane-name-2').value;
         const actionSelected = this.find('#move-action').value;
         const listName = this.find('#move-list-name').value;
         const boardId = Session.get('currentBoard');
+        const divId = $(event.currentTarget.parentNode).attr('id');
+        const cardTitle = this.cardTitleFilters[divId];
         if (actionSelected === 'moved-to') {
           datas.triggerVar.set({
             activityType: 'moveCard',
             boardId,
             listName,
+            cardTitle,
             swimlaneName,
             'oldListName': '*',
             desc,
@@ -57,6 +60,7 @@ BlazeComponent.extendComponent({
           datas.triggerVar.set({
             activityType: 'moveCard',
             boardId,
+            cardTitle,
             swimlaneName,
             'listName': '*',
             'oldListName': listName,
