@@ -4,6 +4,10 @@ This release fixes the following bugs:
 
 - [Add proper variables for unjoin card](https://github.com/wekan/wekan/pull/2313).
   Thanks to chotaire.
+- [Center reduce left margin in card view on mobile browser](https://github.com/wekan/wekan/pull/2314).
+  Thanks to hupptechnologies.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v2.57 2019-04-02 Wekan release
 
