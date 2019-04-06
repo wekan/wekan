@@ -682,5 +682,6 @@
     "error-undefined": "Bir şeyler yanlış gitti",
     "error-ldap-login": "Giriş yapmaya çalışırken bir hata oluştu",
     "display-authentication-method": "Display Authentication Method",
-    "default-authentication-method": "Default Authentication Method"
+    "default-authentication-method": "Default Authentication Method",
+    "duplicate-board": "Duplicate Board"
 }

@@ -682,5 +682,6 @@
     "error-undefined": "Une erreur inconnue s'est produite",
     "error-ldap-login": "Une erreur s'est produite lors de la tentative de connexion",
     "display-authentication-method": "Afficher la méthode d'authentification",
-    "default-authentication-method": "Méthode d'authentification par défaut"
+    "default-authentication-method": "Méthode d'authentification par défaut",
+    "duplicate-board": "Duplicate Board"
 }

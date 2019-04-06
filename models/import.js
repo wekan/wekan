@@ -39,7 +39,8 @@ Meteor.methods({
     const addData = {};
     addData.membersMapping = wekanMembersMapper.getMembersToMap(data);
     const creator =  new WekanCreator(addData);
-    data.title = `${data.title  } - ${  TAPi18n.__('copy-tag')}`;
+    //data.title = `${data.title  } - ${  TAPi18n.__('copy-tag')}`;
+    data.title = `${data.title}`;
     return creator.create(data, currentBoardId);
   },
 });

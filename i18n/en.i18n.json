@@ -686,5 +686,5 @@
     "error-ldap-login": "An error occurred while trying to login",
     "display-authentication-method": "Display Authentication Method",
     "default-authentication-method": "Default Authentication Method",
-    "copy-tag": "Copy"
+    "duplicate-board": "Duplicate Board"
 }

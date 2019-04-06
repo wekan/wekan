@@ -682,5 +682,6 @@
     "error-undefined": "מהו השתבש",
     "error-ldap-login": "אירעה שגיאה בעת ניסיון הכניסה",
     "display-authentication-method": "הצגת שיטת אימות",
-    "default-authentication-method": "שיטת אימות כבררת מחדל"
+    "default-authentication-method": "שיטת אימות כבררת מחדל",
+    "duplicate-board": "Duplicate Board"
 }

@@ -682,5 +682,6 @@
     "error-undefined": "Что-то пошло не так",
     "error-ldap-login": "Ошибка при попытке авторизации",
     "display-authentication-method": "Показывать способ авторизации",
-    "default-authentication-method": "Способ авторизации по умолчанию"
+    "default-authentication-method": "Способ авторизации по умолчанию",
+    "duplicate-board": "Duplicate Board"
 }
