@@ -354,20 +354,20 @@ DESCRIPTION_LDAP_DEFAULT_DOMAIN="The default domain of the ldap it is used to cr
 DEFAULT_LDAP_DEFAULT_DOMAIN=""
 KEY_LDAP_DEFAULT_DOMAIN="ldap-default-domain"
 
-DESCRIPTION_HEADER_LOGIN_ID="Header login ID. Example for siteminder: BNPPUID"
+DESCRIPTION_HEADER_LOGIN_ID="Header login ID. Example for siteminder: HEADERUID"
 DEFAULT_HEADER_LOGIN_ID=""
 KEY_HEADER_LOGIN_ID="header-login-id"
 
-DESCRIPTION_HEADER_LOGIN_FIRSTNAME="Header login firstname. Example for siteminder: BNPPFIRSTNAME"
-DEFAULT_HEADER_LOGIN_FIRSTNAME="Header login firstname. Example for siteminder: BNPPFIRSTNAME"
+DESCRIPTION_HEADER_LOGIN_FIRSTNAME="Header login firstname. Example for siteminder: HEADERFIRSTNAME"
+DEFAULT_HEADER_LOGIN_FIRSTNAME="Header login firstname. Example for siteminder: HEADERFIRSTNAME"
 KEY_HEADER_LOGIN_FIRSTNAME="header-login-firstname"
 
-DESCRIPTION_HEADER_LOGIN_LASTNAME="Header login lastname. Example for siteminder: BNPPLASTNAME"
-DEFAULT_HEADER_LOGIN_LASTNAME="Header login firstname. Example for siteminder: BNPPLASTNAME"
+DESCRIPTION_HEADER_LOGIN_LASTNAME="Header login lastname. Example for siteminder: HEADERLASTNAME"
+DEFAULT_HEADER_LOGIN_LASTNAME="Header login firstname. Example for siteminder: HEADERLASTNAME"
 KEY_HEADER_LOGIN_LASTNAME="header-login-lastname"
 
-DESCRIPTION_HEADER_LOGIN_EMAIL="Header login email. Example for siteminder: BNPPEMAILADDRESS"
-DEFAULT_HEADER_LOGIN_EMAIL="Header login email. Example for siteminder: BNPPEMAILADDRESS"
+DESCRIPTION_HEADER_LOGIN_EMAIL="Header login email. Example for siteminder: HEADEREMAILADDRESS"
+DEFAULT_HEADER_LOGIN_EMAIL="Header login email. Example for siteminder: HEADEREMAILADDRESS"
 KEY_HEADER_LOGIN_EMAIL="header-login-email"
 
 DESCRIPTION_LOGOUT_WITH_TIMER="Enables or not the option logout with timer"
