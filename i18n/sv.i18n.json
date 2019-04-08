@@ -18,7 +18,7 @@
     "act-uncompleteChecklist": "ofullbordade checklista __checklist__ på kort __card__ i lista __list__ i simbana __swimlane__ på tavla __board__",
     "act-addComment": "kommenterade på kort __card__: __comment__ i lista __list__ i simbana __swimlane__ på tavla __board__",
     "act-createBoard": "skapade tavla __board__",
-    "act-createSwimlane": "created swimlane __swimlane__ to board __board__",
+    "act-createSwimlane": "skapade simbana __swimlane__ till tavla __board__",
     "act-createCard": "skapade kort __card__ i lista __list__ i simbana __swimlane__ på tavla __board__",
     "act-createCustomField": "skapade anpassat fält __customField__ på kort __card__ i lista __list__ i simbana __swimlane__ på tavla __board__",
     "act-createList": "la till lista __list__ på tavla __board__",
@@ -31,7 +31,7 @@
     "act-importCard": "importerade kort __card__ i lista __list__ i simbana __swimlane__ på tavla __board__",
     "act-importList": "importerade lista __list__ i simbana __swimlane__ på tavla __board__",
     "act-joinMember": "la till medlem __member__ på kort __card__ i lista __list__ i simbana __swimlane__ på tavla __board__",
-    "act-moveCard": "moved card __card__ at board __board__ from list __oldList__ at swimlane __oldSwimlane__ to list __list__ at swimlane __swimlane__",
+    "act-moveCard": "flyttade kort __card__ på tavla __board__ från lista __oldList__ i sambana __oldSwimlane__ till lista list __list__ i simbana __swimlane__",
     "act-moveCardToOtherBoard": "flyttade kort __card__ från lista __oldList__ i simbana __oldSwimlane__ på tavla __oldBoard__ till lista __list__ i simbana __swimlane__ på tavla __board__",
     "act-removeBoardMember": "borttagen medlem __member__  från tavla __board__",
     "act-restoredCard": "återställde kort __card__ till lista __lis__ i simbana __swimlane__ på tavla __board__",
@@ -683,5 +683,5 @@
     "error-ldap-login": "Ett fel uppstod när du försökte logga in",
     "display-authentication-method": "Visa autentiseringsmetod",
     "default-authentication-method": "Standard autentiseringsmetod",
-    "duplicate-board": "Duplicate Board"
+    "duplicate-board": "Dubbletttavla"
 }

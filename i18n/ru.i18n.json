@@ -683,5 +683,5 @@
     "error-ldap-login": "Ошибка при попытке авторизации",
     "display-authentication-method": "Показывать способ авторизации",
     "default-authentication-method": "Способ авторизации по умолчанию",
-    "duplicate-board": "Duplicate Board"
+    "duplicate-board": "Клонировать доску"
 }

@@ -683,5 +683,5 @@
     "error-ldap-login": "Es ist ein Fehler beim Anmelden aufgetreten",
     "display-authentication-method": "Anzeige Authentifizierungsverfahren",
     "default-authentication-method": "Standardauthentifizierungsverfahren",
-    "duplicate-board": "Duplicate Board"
+    "duplicate-board": "Board duplizieren"
 }

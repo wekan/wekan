@@ -1,3 +1,12 @@
+# v2.60 2019-04-08 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix: Description of Board is out of visible after Feature "Duplicate Board"](https://github.com/wekan/wekan/issues/2324).
+  Thanks to sfahrenholz and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.59 2019-04-06 Wekan release
 
 This release fixes the following bugs:
