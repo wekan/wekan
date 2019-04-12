@@ -111,7 +111,7 @@ do
         "Build Wekan")
 		echo "Building Wekan."
 		wekan_repo_check
-		rm -rf packages
+		rm -rf packages/kadira-flow-router packages/meteor-useraccounts-core packages/meteor-accounts-cas packages/wekan*
 		mkdir packages
 		cd packages
 		git clone --depth 1 -b master https://github.com/wekan/flow-router.git kadira-flow-router
