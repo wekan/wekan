@@ -87,6 +87,8 @@ function commentCreation(userId, doc){
     boardId: doc.boardId,
     cardId: doc.cardId,
     commentId: doc._id,
+    listId: doc.listId,
+    swimlaneId: doc.swimlaneId,
   });
 }
 

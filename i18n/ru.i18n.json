@@ -5,7 +5,9 @@
     "act-deleteAttachment": "удалил вложение __attachment__ из карточки __card__ в списке __list__ на дорожке __swimlane__ доски __board__",
     "act-addSubtask": "добавил подзадачу __subtask__ для карточки __card__ в списке __list__ на дорожке __swimlane__ доски __board__",
     "act-addLabel": "Добавлена метка __label__ в карточку __card__ в списке __list__ на дорожке __swimlane__ доски __board__",
+    "act-addedLabel": "Добавлена метка __label__ в карточку __card__ в списке __list__ на дорожке __swimlane__ доски __board__",
     "act-removeLabel": "Снята метка __label__ с карточки __card__ в списке __list__ на дорожке __swimlane__ доски __board__",
+    "act-removedLabel": "Снята метка __label__ с карточки __card__ в списке __list__ на дорожке __swimlane__ доски __board__",
     "act-addChecklist": "добавил контрольный список __checklist__ в карточку __card__ в списке __list__ на дорожке __swimlane__ доски __board__",
     "act-addChecklistItem": "добавил пункт __checklistItem__ в контрольный список __checklist__ в карточке __card__ в списке __list__ на дорожке __swimlane__ доски __board__",
     "act-removeChecklist": "удалил контрольный список __checklist__ из карточки __card__ в списке __list__ на дорожке __swimlane__ доски __board__",
@@ -16,6 +18,7 @@
     "act-uncompleteChecklist": "вновь открыл контрольный список __checklist__ в карточке __card__ в списке __list__ на дорожке __swimlane__ доски __board__",
     "act-addComment": "написал в карточке __card__: __comment__ в списке __list__ на дорожке __swimlane__ доски __board__",
     "act-createBoard": "создал доску __board__",
+    "act-createSwimlane": "создал дорожку __swimlane__ на доске __board__",
     "act-createCard": "создал карточку __card__ в списке __list__ на дорожке __swimlane__ доски __board__",
     "act-createCustomField": "создал поле __customField__ в карточке __card__ в списке __list__ на дорожке __swimlane__ доски __board__\n",
     "act-createList": "добавил список __list__ на доску __board__",
@@ -679,5 +682,6 @@
     "error-undefined": "Что-то пошло не так",
     "error-ldap-login": "Ошибка при попытке авторизации",
     "display-authentication-method": "Показывать способ авторизации",
-    "default-authentication-method": "Способ авторизации по умолчанию"
+    "default-authentication-method": "Способ авторизации по умолчанию",
+    "duplicate-board": "Клонировать доску"
 }

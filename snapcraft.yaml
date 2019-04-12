@@ -65,7 +65,7 @@ apps:
 
 parts:
     mongodb:
-        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1804-4.0.7.tgz
+        source: https://repo.mongodb.org/apt/ubuntu/dists/xenial/mongodb-org/4.0/multiverse/binary-amd64/mongodb-org-server_4.0.7_amd64.deb
         plugin: dump
         stage-packages: [libssl1.0.0]
         filesets:
@@ -85,7 +85,7 @@ parts:
         node-packages:
             - node-gyp
             - node-pre-gyp
-            - fibers
+            - fibers@2.0.0
         build-packages:
             - ca-certificates
             - apt-utils
@@ -113,7 +113,7 @@ parts:
             mkdir -p ./public/api
             python3 ./openapi/generate_openapi.py --release $(git describe --tags --abbrev=0) > ./public/api/wekan.yml
             # we temporary need api2html and mkdirp
-            npm install -g api2html
+            npm install -g api2html@0.3.0
             npm install -g mkdirp
             api2html -c ./public/logo-header.png -o ./public/api/wekan.html ./public/api/wekan.yml
             npm uninstall -g mkdirp
@@ -206,7 +206,7 @@ parts:
             cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
             cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
             rm $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan
-            rm $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/meteor/rajit_bootstrap3-datepicker/lib/bootstrap-datepicker/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
+            #rm $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/meteor/rajit_bootstrap3-datepicker/lib/bootstrap-datepicker/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
         organize:
             README: README.wekan
         prime:

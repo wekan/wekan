@@ -22,13 +22,16 @@ template(name="boardList")
                 i.fa.js-star-board(
                   class="fa-star{{#if isStarred}} is-star-active{{else}}-o{{/if}}"
                   title="{{_ 'star-board-title'}}")
-
+                p.board-list-item-desc= description
                 if hasSpentTimeCards
                   i.fa.js-has-spenttime-cards(
                     class="fa-circle{{#if hasOvertimeCards}} has-overtime-card-active{{else}} no-overtime-card-active{{/if}}"
                     title="{{#if hasOvertimeCards}}{{_ 'has-overtime-cards'}}{{else}}{{_ 'has-spenttime-cards'}}{{/if}}")
+                i.fa.js-clone-board(
+                    class="fa-clone"
+                    title="{{_ 'duplicate-board'}}")
 
-                p.board-list-item-desc= description
+
 
 template(name="boardListHeaderBar")
   h1 {{_ 'my-boards'}}

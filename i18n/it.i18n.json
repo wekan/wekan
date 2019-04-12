@@ -5,7 +5,9 @@
     "act-deleteAttachment": "eliminato allegato __attachment__ dalla scheda __card__ della lista __list__ della corsia __swimlane__  nella bacheca __board__",
     "act-addSubtask": "aggiunto sottotask __subtask__ alla scheda __card__ della lista __list__ della corsia __swimlane__  nella bacheca __board__",
     "act-addLabel": "aggiunta etichetta __label__ alla scheda __card__ della lista __list__ della corsia __swimlane__  nella bacheca __board__",
+    "act-addedLabel": "aggiunta etichetta __label__ alla scheda __card__ della lista __list__ della corsia __swimlane__  nella bacheca __board__",
     "act-removeLabel": "rimossa etichetta __label__ dalla scheda __card__ della lista __list__ della corsia __swimlane__  nella bacheca __board__",
+    "act-removedLabel": "rimossa etichetta __label__ dalla scheda __card__ della lista __list__ della corsia __swimlane__  nella bacheca __board__",
     "act-addChecklist": "aggiunta lista di controllo __label__ alla scheda __card__ della lista __list__ della corsia __swimlane__  nella bacheca __board__",
     "act-addChecklistItem": "aggiunto elemento __checklistItem__ alla lista di controllo __checklist__ della scheda __card__ della lista __list__ della corsia __swimlane__  nella bacheca __board__",
     "act-removeChecklist": "rimossa lista di controllo __checklist__ dalla scheda __card__ della lista __list__ della corsia __swimlane__  nella bacheca __board__",
@@ -16,6 +18,7 @@
     "act-uncompleteChecklist": "lista di controllo __checklist__ incompleta nella scheda __card__ della lista __list__ in corsia __swimlane__ della bacheca __board__",
     "act-addComment": "commento sulla scheda __card__: __comment__ nella lista __list__ della corsia __swimlane__ della bacheca __board__",
     "act-createBoard": "bacheca __board__ creata",
+    "act-createSwimlane": "created swimlane __swimlane__ to board __board__",
     "act-createCard": "scheda __card__ creata nella lista __list__ della corsia __swimlane__ della bacheca __board__",
     "act-createCustomField": "campo personalizzato __customField__ creato nella scheda __card__ della lista __list__ in corsia __swimlane__ della bacheca __board__",
     "act-createList": "aggiunta lista __list__ alla bacheca __board__",
@@ -679,5 +682,6 @@
     "error-undefined": "Qualcosa è andato storto",
     "error-ldap-login": "C'è stato un errore mentre provavi ad effettuare il login",
     "display-authentication-method": "Mostra il metodo di autenticazione",
-    "default-authentication-method": "Metodo di autenticazione predefinito"
+    "default-authentication-method": "Metodo di autenticazione predefinito",
+    "duplicate-board": "Duplicate Board"
 }

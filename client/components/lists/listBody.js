@@ -7,28 +7,6 @@ BlazeComponent.extendComponent({
     this.cardlimit = new ReactiveVar(InfiniteScrollIter);
   },
 
-  onRendered() {
-    const domElement = this.find('.js-perfect-scrollbar');
-
-    this.$(domElement).on('scroll', () => this.updateList(domElement));
-    $(window).on(`resize.${this.data().listId}`, () => this.updateList(domElement));
-
-    // we add a Mutation Observer to allow propagations of cardlimit
-    // when the spinner stays in the current view (infinite scrolling)
-    this.mutationObserver = new MutationObserver(() => this.updateList(domElement));
-
-    this.mutationObserver.observe(domElement, {
-      childList: true,
-    });
-
-    this.updateList(domElement);
-  },
-
-  onDestroyed() {
-    $(window).off(`resize.${this.data().listId}`);
-    this.mutationObserver.disconnect();
-  },
-
   mixins() {
     return [Mixins.PerfectScrollbar];
   },
@@ -191,36 +169,9 @@ BlazeComponent.extendComponent({
     });
   },
 
-  spinnerInView(container) {
-    const parentViewHeight = container.clientHeight;
-    const bottomViewPosition = container.scrollTop + parentViewHeight;
-
-    const spinner = this.find('.sk-spinner-list');
-
-    const threshold = spinner.offsetTop;
-
-    return bottomViewPosition > threshold;
-  },
-
   showSpinner(swimlaneId) {
     const list = Template.currentData();
     return list.cards(swimlaneId).count() > this.cardlimit.get();
-  },
-
-  updateList(container) {
-    // first, if the spinner is not rendered, we have reached the end of
-    // the list of cards, so skip and disable firing the events
-    const target = this.find('.sk-spinner-list');
-    if (!target) {
-      this.$(container).off('scroll');
-      $(window).off(`resize.${this.data().listId}`);
-      return;
-    }
-
-    if (this.spinnerInView(container)) {
-      this.cardlimit.set(this.cardlimit.get() + InfiniteScrollIter);
-      Ps.update(container);
-    }
   },
 
   canSeeAddCard() {
@@ -661,3 +612,53 @@ BlazeComponent.extendComponent({
     }];
   },
 }).register('searchElementPopup');
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.cardlimit = this.parentComponent().cardlimit;
+
+    this.listId = this.parentComponent().data()._id;
+    this.swimlaneId = '';
+
+    const boardView = Meteor.user().profile.boardView;
+    if (boardView === 'board-view-swimlanes')
+      this.swimlaneId = this.parentComponent().parentComponent().parentComponent().data()._id;
+  },
+
+  onRendered() {
+    this.spinner = this.find('.sk-spinner-list');
+    this.container = this.$(this.spinner).parents('.js-perfect-scrollbar')[0];
+
+    $(this.container).on(`scroll.spinner_${this.swimlaneId}_${this.listId}`, () => this.updateList());
+    $(window).on(`resize.spinner_${this.swimlaneId}_${this.listId}`, () => this.updateList());
+
+    this.updateList();
+  },
+
+  onDestroyed() {
+    $(this.container).off(`scroll.spinner_${this.swimlaneId}_${this.listId}`);
+    $(window).off(`resize.spinner_${this.swimlaneId}_${this.listId}`);
+  },
+
+  updateList() {
+    if (this.spinnerInView()) {
+      this.cardlimit.set(this.cardlimit.get() + InfiniteScrollIter);
+      window.requestIdleCallback(() => this.updateList());
+    }
+  },
+
+  spinnerInView() {
+    const parentViewHeight = this.container.clientHeight;
+    const bottomViewPosition = this.container.scrollTop + parentViewHeight;
+
+    const threshold = this.spinner.offsetTop;
+
+    // spinner deleted
+    if (!this.spinner.offsetTop) {
+      return false;
+    }
+
+    return bottomViewPosition > threshold;
+  },
+
+}).register('spinnerList');

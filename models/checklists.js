@@ -135,6 +135,8 @@ if (Meteor.isServer) {
       boardId: Cards.findOne(doc.cardId).boardId,
       checklistId: doc._id,
       checklistName:doc.title,
+      listId: doc.listId,
+      swimlaneId: doc.swimlaneId,
     });
   });
 
@@ -152,6 +154,8 @@ if (Meteor.isServer) {
       boardId: Cards.findOne(doc.cardId).boardId,
       checklistId: doc._id,
       checklistName:doc.title,
+      listId: doc.listId,
+      swimlaneId: doc.swimlaneId,
     });
 
 

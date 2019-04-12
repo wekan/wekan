@@ -1,3 +1,88 @@
+# v2.60 2019-04-08 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix: Description of Board is out of visible after Feature "Duplicate Board"](https://github.com/wekan/wekan/issues/2324).
+  Thanks to sfahrenholz and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v2.59 2019-04-06 Wekan release
+
+This release fixes the following bugs:
+
+- [Add variables for activity notifications, Fixes #2285](https://github.com/wekan/wekan/pull/2320).
+  Thanks to rinnaz.
+    
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v2.58 2019-04-06 Wekan release
+
+This release adds the following new features:
+
+- [Duplicate Board](https://github.com/wekan/wekan/issues/2257). Related #2225.
+  Thanks to Angtrim.
+- [Add Duplicate Board tooltip, and remove adding text "Copy" to duplicated board](https://github.com/wekan/wekan/commit/0f15b6d1982c383f76e8411cb501ff27e8febd42).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Add proper variables for unjoin card](https://github.com/wekan/wekan/pull/2313).
+  Thanks to chotaire.
+- [Center reduce left margin in card view on mobile browser](https://github.com/wekan/wekan/pull/2314).
+  Thanks to hupptechnologies.
+- [Remove not needed ARGS from Dockerfile to reduce amount of Docker layers](https://github.com/wekan/wekan/issues/2301).
+  Thanks to folhabranca and xet7.
+- [Fix Swimlane Rules don't work](https://github.com/wekan/wekan/issues/2225).
+  Thanks to Angtrim.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v2.57 2019-04-02 Wekan release
+
+This release fixes the following bugs, thanks to justinr1234:
+
+- [Add proper variables for join card](https://github.com/wekan/wekan/commit/289f1fe1340c85eb2af19825f4972e9057a86b7a),
+  fixes [Incorrect variable replacement on email notifications](https://github.com/wekan/wekan/issues/2295).
+
+and fixes the following bugs with Apache I-CLA, thanks to bentiss:
+
+- [List: Do not use IntersectionObserver to reduce CPU usage](https://github.com/wekan/wekan/pull/2302).
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v2.56 2019-03-27 Wekan release
+
+This release [fixes the following bugs](https://github.com/wekan/wekan/pull/2287), thanks to bentiss with Apache I-CLA:
+
+- [#2250 -> the spinner could be shown on startup and never goes away](https://github.com/wekan/wekan/issues/2250).
+- The code will now only load extra cards that will be in the current viewport.
+- When 2 users were interacting on the same board, there was a situation where the spinner could show up on the other user, without being able to load the extra cards.
+- The code is now much simpler, thanks to the IntersectionObserver, and all of this for fewer lines of code :)
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v2.55 2019-03-25 Wekan release
+
+This release fixes the following bugs, thanks to bentiss with Apache I-CLA:
+
+- [Use older api2html@0.3.0](https://github.com/wekan/wekan/commit/625682a4dab43c525494af10121edbfd547786d7)
+  to fix [broken snap and docker build](https://github.com/wekan/wekan/issues/2286),
+  because newer api2html caused
+  [breaking change](https://github.com/tobilg/api2html/commit/a9a41bca18db3f9ec61395d7262eff071a995783)
+  at api2html/bin/api2html.js:23 has error about "php": "PHP".
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v2.54 2019-03-25 Wekan release
+
+This release fixes the following bugs:
+
+- Fix typos.                              
+- [Fix Outgoing Webhook message about created new swimlane](https://github.com/wekan/wekan/issues/1969).
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.53 2019-03-23 Wekan release
 
 This release fixes the following bugs:

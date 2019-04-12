@@ -5,7 +5,9 @@
     "act-deleteAttachment": "a supprimé la pièce jointe __attachment__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
     "act-addSubtask": "a ajouté la sous-tâche __checklist__ à la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
     "act-addLabel": "a ajouté l'étiquette __label__ à la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "act-addedLabel": "a ajouté l'étiquette __label__ à la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
     "act-removeLabel": "a enlevé l'étiquette __label__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+    "act-removedLabel": "a enlevé l'étiquette __label__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
     "act-addChecklist": "a ajouté la checklist __checklist__ à la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
     "act-addChecklistItem": "a ajouté l'élément __checklistItem__ à la checklist __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
     "act-removeChecklist": "a supprimé la checklist __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
@@ -16,6 +18,7 @@
     "act-uncompleteChecklist": "a rendu incomplet la checklist __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
     "act-addComment": "a commenté la carte __card__ : __comment__ dans la liste __list__ du couloir __swimlane__ du tableau __board__",
     "act-createBoard": "a créé le tableau __board__",
+    "act-createSwimlane": "a créé le couloir __swimlane__ dans le tableau __board__",
     "act-createCard": "a créé la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
     "act-createCustomField": "a créé le champ personnalisé __customField__ pour la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
     "act-createList": "a ajouté la liste __list__ au tableau __board__",
@@ -679,5 +682,6 @@
     "error-undefined": "Une erreur inconnue s'est produite",
     "error-ldap-login": "Une erreur s'est produite lors de la tentative de connexion",
     "display-authentication-method": "Afficher la méthode d'authentification",
-    "default-authentication-method": "Méthode d'authentification par défaut"
+    "default-authentication-method": "Méthode d'authentification par défaut",
+    "duplicate-board": "Dupliquer le tableau"
 }
