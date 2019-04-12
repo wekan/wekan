@@ -20,22 +20,20 @@
   },
   "homepage": "https://wekan.github.io",
   "devDependencies": {
-    "eslint": "^5.9.0"
+    "eslint": "^5.16.0"
   },
   "dependencies": {
-    "@babel/runtime": "^7.2.0",
+    "@babel/runtime": "^7.4.3",
     "bcrypt": "^3.0.2",
     "bson": "^4.0.0",
     "bunyan": "^1.8.12",
     "es6-promise": "^4.2.4",
-    "hoek": "^5.0.4",
-    "jquery-mousewheel": "^3.1.13",
     "ldapjs": "^1.0.2",
     "meteor-node-stubs": "^0.4.1",
     "os": "^0.1.1",
     "page": "^1.8.6",
     "qs": "^6.5.2",
-    "source-map-support": "^0.5.9",
+    "source-map-support": "^0.5.12",
     "xss": "^1.0.3"
   }
 }
