@@ -48,8 +48,6 @@ arillo:flow-router-helpers
 audit-argument-checks@1.0.7
 kadira:blaze-layout
 kadira:dochead
-meteorhacks:picker
-meteorhacks:subs-manager
 mquandalle:autofocus
 ongoworks:speakingurl
 raix:handlebar-helpers
@@ -88,7 +86,10 @@ mquandalle:moment
 msavin:usercache
 wekan-scrollbar
 mquandalle:perfect-scrollbar
-mdg:meteor-apm-agent
-meteorhacks:unblock
+mdg:meteor-apm-agent@3.2.0-rc.0!
 coagmano:stylus
 lucasantoniassi:accounts-lockout
+meteorhacks:subs-manager
+meteorhacks:picker
+lamhieu:unblock
+meteorhacks:aggregate@1.3.0
