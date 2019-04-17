@@ -1,5 +1,5 @@
 name: wekan
-version: 0
+version: "0"
 version-script: git describe --dirty --tags |  cut -c 2-
 summary: The open-source kanban
 description: |
@@ -85,7 +85,7 @@ parts:
         node-packages:
             - node-gyp
             - node-pre-gyp
-            - fibers@2.0.0
+            - fibers@3.1.1
         build-packages:
             - ca-certificates
             - apt-utils
