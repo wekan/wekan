@@ -184,6 +184,11 @@ parts:
               rm -rf meteor-accounts-oidc
               cd ..
             fi
+            if [ ! -d "packages/markdown" ]; then
+              cd packages
+              git clone --depth 1 -b master --recurse-submodules https://github.com/wekan/markdown.git
+              cd ..
+            fi
             rm -rf package-lock.json .build
             meteor add standard-minifier-js --allow-superuser
             meteor npm install --allow-superuser

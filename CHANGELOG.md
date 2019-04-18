@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release adds the following updates:
+
+- [Update to use newest GitHub flawored markdown](https://github.com/wekan/wekan/commit/fea2ad3d7d09b44c3de1dbcdd3f8750aaa6776d5),
+  because [it was found old version was in use](https://github.com/wekan/wekan/issues/2334).
+  Thanks to shaygover and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.60 2019-04-08 Wekan release
 
 This release fixes the following bugs:
@@ -13,7 +23,7 @@ This release fixes the following bugs:
 
 - [Add variables for activity notifications, Fixes #2285](https://github.com/wekan/wekan/pull/2320).
   Thanks to rinnaz.
-    
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v2.58 2019-04-06 Wekan release
@@ -43,7 +53,7 @@ Thanks to above GitHub users for their contributions and translators for their t
 This release fixes the following bugs, thanks to justinr1234:
 
 - [Add proper variables for join card](https://github.com/wekan/wekan/commit/289f1fe1340c85eb2af19825f4972e9057a86b7a),
-  fixes [Incorrect variable replacement on email notifications](https://github.com/wekan/wekan/issues/2295).
+  fixes [Incorrect variable replacement on email notifications](https://github.com/wekan/wekan/issues/2285).
 
 and fixes the following bugs with Apache I-CLA, thanks to bentiss:
 
@@ -78,7 +88,7 @@ Thanks to above GitHub users for their contributions and translators for their t
 
 This release fixes the following bugs:
 
-- Fix typos.                              
+- Fix typos.
 - [Fix Outgoing Webhook message about created new swimlane](https://github.com/wekan/wekan/issues/1969).
 
 Thanks to above GitHub users for their contributions and translators for their translations.
@@ -111,7 +121,7 @@ and fixes the following bugs:
 
 - [Fix IFTTT email sending](https://github.com/wekan/wekan/pull/2279).
   Thanks to justinr1234.
-    
+
 Thanks to above GitHub users for their contributions.
 
 # v2.51 2019-03-21 Wekan release
@@ -232,7 +242,7 @@ and reverts the following change of v2.42, because they did not fix anything, th
 
 - [Revert: Tried to fix snap mongodb-control not starting database](https://github.com/wekan/wekan/commit/4055f451fdadfbfdef9a10be29a0eb6aed91182c).
 
-Thanks to above GitHub users for their contributions, and translators for their translations.  
+Thanks to above GitHub users for their contributions, and translators for their translations.
 
 # v2.42 2019-03-07 Wekan release
 
@@ -271,7 +281,7 @@ This release fixes the following bugs:
 - [Fix](https://github.com/wekan/wekan/commit/e845fe3e7130d111be4c3a73e2551738c980ff7b)
   [manifest](https://github.com/wekan/wekan/issues/2168) and
   [icon](https://github.com/wekan/wekan/issues/1692) paths. Thanks to xet7.
-    
+
 Thanks to above GitHub users for their contributions, and translators for their translations.
 
 # v2.38 2019-03-06 Wekan release
@@ -323,13 +333,13 @@ and moved the following code around:
   xet7 can make changes directly and GitHub issues are enabled.
 
 Thanks to GitHub user xet7 for contributions.
-    
+
 # v2.35 2019-03-01 Wekan release
 
 This release fixes the following bugs:
 
-- [Add Filter fix back](https://github.com/wekan/wekan/issues/2213), 
-  because there was no bug in filter fix.              
+- [Add Filter fix back](https://github.com/wekan/wekan/issues/2213),
+  because there was no bug in filter fix.
 
 Thanks to GitHub user xet7 for contributions.
 
@@ -395,7 +405,7 @@ This release adds the following new Sandstorm features and fixes:
 - New Sandstorm board first user is Admin and [has IFTTT Rules](https://github.com/wekan/wekan/issues/2125) and Standalone Wekan Admin Panel.
   Probably some Admin Panel features do not work yet. Please keep backup of your grains before testing Admin Panel.
 - Linked Cards and Linked Boards.
-- Some not needed options like Logout etc have been hidden from top bar right menu. 
+- Some not needed options like Logout etc have been hidden from top bar right menu.
 - [Import board now works. "Board not found" is not problem anymore](https://github.com/wekan/wekan/issues/1430), because you can go to All Boards page to change to imported board.
 
 and removes the following features:
@@ -477,7 +487,7 @@ and fixes the following bugs:
    mobile browser](https://github.com/wekan/wekan/issues/2183). Thanks to xet7.
 
 Thanks to above GitHub users for their contributions, and translators for their translations.
-    
+
 # v2.21 2019-02-12 Wekan release
 
 This release adds the following new features:
@@ -534,12 +544,12 @@ and fixes the following bugs with Apache I-CLA, thanks to bentiss:
       header)
     - make sure the placeholder never get placed between the header and the
       list of cards in a swimlane
-    - fix the finding of the next and previous list of cards. 
+    - fix the finding of the next and previous list of cards.
     For all of this to be successful, we need to resize the swimlanes to a
     known value. This can lead to some visual jumps with scrolling when you
     drag or drop the swimlanea. I tried to remedy that by computing the new
     scroll value. Still not ideal however, as there are still some jumps when
-    dropping.    
+    dropping.
     Fixes [#2159](https://github.com/wekan/wekan/issues/2159).
 
 Thanks to above GitHub users and translators for contributions.
@@ -567,7 +577,7 @@ Thanks to GitHub user ChronikEwok for contributions.
 
 This release fixes the following bugs:
 
-- [Fix: Not displaying card content of public board: Snap, Docker and Sandstorm Shared Wekan Board 
+- [Fix: Not displaying card content of public board: Snap, Docker and Sandstorm Shared Wekan Board
   Link](https://github.com/wekan/wekan/issues/1623) with
   [code from ChronikEwok](https://github.com/ChronikEwok/wekan/commit/cad9b20451bb6149bfb527a99b5001873b06c3de).
 
@@ -599,7 +609,7 @@ This release adds the following new features with Apache I-CLA, thanks to bentis
 - [When writing to minicard, press Shift-Enter on minicard to go to next line
   below](https://github.com/wekan/wekan/commit/7a35099fb9778d5f3656a57c74af426cfb20fba3),
   to continue writing on same minicard 2nd line.
-    
+
 Thanks to GitHub user bentiss for contributions.
 
 # v2.12 2019-01-31 Wekan release
@@ -724,7 +734,7 @@ and fixes the following bugs with Apache I-CLA, thanks to bentiss:
 - [Make sure Swimlanes and Lists have a populated sort field](https://github.com/wekan/wekan/commit/5c6a725712a443b4d03b4f86262033ddfb66bc3d).
   When moving around the swimlanes or the lists, if one element has a sort
   with a null value, the computation of the new sort value is aborted,
-  meaning that there are glitches in the UI.    
+  meaning that there are glitches in the UI.
   This happens on the first swimlane created with the new board, or when
   a swimlane or a list gets added through the API;
 - UI: Lists: [Make sure all lists boxes are the same height](https://github.com/wekan/wekan/commit/97d95b4bcbcab86629e368ea41bb9f00450b21f6).
@@ -794,7 +804,7 @@ and fixes the following bugs:
   - When clicking Move Card, go to correct page position. Currently it's at empty page position, and there is
     need to scroll page up to see Move Card options. It should work similarly like Copy Card, that is visible.
   - Also check that other buttons go to visible page.
-    
+
 Thanks to above GitHub users for their contributions.
 
 # v1.97 2018-12-26 Wekan release
@@ -803,7 +813,7 @@ This release adds the following new features:
 
 - Upgrade to Node 8.15.0 and MongoDB 3.2.22.
 - Stacksmith: back to Meteor 1.6.x based Wekan, because Meteor 1.8.x based is currently broken.
-    
+
 Thanks to GitHub user xet7 for contributions.
 
 # v1.96 2018-12-24 Wekan release
@@ -965,7 +975,7 @@ Thanks to GitHub user xet7 for contributions.
 
 This release fixes the following bugs:
 
-- Remove extra commas `,` and add missing backslash `\`. 
+- Remove extra commas `,` and add missing backslash `\`.
   Maybe after that login, logout and CORS works.
 
 Thanks to GitHub user xet7 for contributions.
@@ -1120,7 +1130,7 @@ and hides the following features at Sandstorm:
 
 - Hide Linked Card and Linked Board on Sandstorm, because they are only
   useful when having multiple boards, and at Sandstorm
-  there is only one board per grain. Thanks to ocdtrekkie and xet7. Closes #1982 
+  there is only one board per grain. Thanks to ocdtrekkie and xet7. Closes #1982
 
 Thanks to above mentioned GitHub users for their contributions.
 
@@ -1282,7 +1292,7 @@ and tries to fix the following bugs:
 - Try to fix snap.
 
 Thanks to GitHub users Akuket and xet7 for their contributions.
-    
+
 # v1.53.5 2018-10-10 Wekan Edge relase
 
 This release tries to fix the following bugs:
@@ -1306,7 +1316,7 @@ This release adds the following new features:
 - [Upgrade](https://github.com/wekan/wekan/issues/1522) to [Meteor](https://blog.meteor.com/meteor-1-8-erases-the-debts-of-1-7-77af4c931fe3) [1.8.1-beta.0](https://github.com/meteor/meteor/issues/10216).
   with [these](https://github.com/wekan/wekan/commit/079e45eb52a0f62ddb6051bf2ea80fac8860d3d5)
   [commits](https://github.com/wekan/wekan/commit/dd47d46f4341a8c4ced05749633f783e88623e1b). So now it's possible to use MongoDB 2.6 - 4.0.
-  
+
 Thanks to GitHub user xet7 for contributions.
 
 # v1.53.2 2018-10-10 Wekan Edge release
@@ -1334,7 +1344,7 @@ and fixes the following bugs:
 - [Feature rules: fixes and enhancements](https://github.com/wekan/wekan/pull/1936).
 
 Thanks to GitHub users Akuket, Angtrim, dcmcand, lberk, maximest-pierre, InfoSec812, schulz and xet7 for their contributions.
-    
+
 # v1.52.1 2018-10-02 Wekan Edge release
 
 This release adds the following new features:
@@ -1349,7 +1359,7 @@ and reverts previous change:
   Oidc already works with [doorkeeper](https://github.com/doorkeeper-gem/doorkeeper-provider-app).
 
 Thanks to GitHub user xet7 for contributions.
-    
+
 # v1.51.2 2018-09-30 Wekan Edge release
 
 This release adds the following new features:
@@ -1408,7 +1418,7 @@ Thanks to GitHub users Angtrim, maurice-schleussinger, suprovsky and xet7 for th
 This release adds the following new features:
 
 - Change from Node v8.12.0 prerelease to use official Node v8.12.0.
-    
+
 Thanks to GitHub user xet7 for contributions.
 
 # v1.49 2018-09-17 Wekan release
@@ -1566,10 +1576,10 @@ Thanks to GitHub users hever, salleman33, tlevine and xet7 for their contributio
 This release adds the following new features:
 
 Add Caddy plugins:
-- [http.filter](https://caddyserver.com/docs/http.filter) 
+- [http.filter](https://caddyserver.com/docs/http.filter)
   for changing Wekan UI on the fly, for example custom logo,
   or changing to all different CSS file to have custom theme;
-- [http.ipfilter](https://caddyserver.com/docs/http.ipfilter) 
+- [http.ipfilter](https://caddyserver.com/docs/http.ipfilter)
   to block requests by ip address;
 - [http.realip](https://caddyserver.com/docs/http.realip)
   for showing real X-Forwarded-For IP to behind proxy;
@@ -1865,7 +1875,7 @@ and fixes the following bugs:
 * To fix ["title is required"](https://github.com/wekan/wekan/issues/1576) fix only
   [add-checklist-items and revert all other migration changes](https://github.com/wekan/wekan/issues/1734);
 * [Restore invitation code logic](https://github.com/wekan/wekan/pull/1732). Please test and add comment
-  to those invitation code issues that this fixes. 
+  to those invitation code issues that this fixes.
 
 Thanks to GitHub users TNick and xet7 for their contributions.
 
@@ -2036,7 +2046,7 @@ This release adds the following new features:
 and fixes the following bugs:
 
 * [Error: title is required](https://github.com/wekan/wekan/issues/1576).
-    
+
 Thanks to GitHub users Shahar-Y, thiagofernando and ThisNeko for their contributions.
 
 # v0.94 2018-05-03 Wekan release
