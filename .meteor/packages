@@ -66,7 +66,6 @@ mquandalle:jquery-textcomplete
 mquandalle:jquery-ui-drag-drop-sort
 mquandalle:mousetrap-bindglobal
 peerlibrary:blaze-components@=0.15.1
-perak:markdown
 templates:tabs
 verron:autosize
 simple:json-routes
@@ -92,3 +91,4 @@ mquandalle:perfect-scrollbar
 mdg:meteor-apm-agent
 meteorhacks:unblock
 lucasantoniassi:accounts-lockout
+wekan-markdown

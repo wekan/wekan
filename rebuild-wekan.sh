@@ -111,7 +111,7 @@ do
         "Build Wekan")
 		echo "Building Wekan."
 		wekan_repo_check
-		rm -rf packages
+		rm -rf packages/kadira-flow-router packages/meteor-useraccounts-core packages/meteor-accounts-cas packages/wekan-ldap packages/wekan-ldap packages/wekan-scrfollbar packages/meteor-accounts-oidc packages/markdown
 		mkdir packages
 		cd packages
 		git clone --depth 1 -b master https://github.com/wekan/flow-router.git kadira-flow-router
@@ -120,6 +120,7 @@ do
 		git clone --depth 1 -b master https://github.com/wekan/wekan-ldap.git
 		git clone --depth 1 -b master https://github.com/wekan/wekan-scrollbar.git
 		git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-oidc.git
+		git clone --depth 1 -b master --recurse-submodules https://github.com/wekan/markdown.git
                 mv meteor-accounts-oidc/packages/switch_accounts-oidc wekan_accounts-oidc
                 mv meteor-accounts-oidc/packages/switch_oidc wekan_oidc
                 rm -rf meteor-accounts-oidc
