@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release adds the following updates:
+
+- [Update to use newest GitHub flawored markdown](https://github.com/wekan/wekan/commit/fea2ad3d7d09b44c3de1dbcdd3f8750aaa6776d5),
+  because [it was found old version was in use](https://github.com/wekan/wekan/issues/2334).
+  Thanks to shaygover and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.60 2019-04-08 Wekan release
 
 This release fixes the following bugs:
