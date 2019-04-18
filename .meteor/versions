@@ -124,6 +124,7 @@ npm-bcrypt@0.9.3
 npm-mongo@2.2.33
 oauth@1.2.1
 oauth2@1.2.0
+observe-sequence@1.0.16
 ongoworks:speakingurl@1.1.0
 ordered-dict@1.0.9
 peerlibrary:assert@0.2.5
