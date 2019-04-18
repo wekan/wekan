@@ -10,6 +10,8 @@ and fixes the following bugs:
 
 - [Fix Full width of lists and space before first list](https://github.com/wekan/wekan/pull/2343).
   Thanks to hupptehcnologies.
+- Remove [extra](https://github.com/wekan/wekan/pull/2332) [quotes](https://github.com/wekan/wekan/pull/2333) from docker-compose.yml.
+  Thanks to hibare.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
