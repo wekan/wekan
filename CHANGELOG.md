@@ -6,6 +6,11 @@ This release adds the following updates:
   because [it was found old version was in use](https://github.com/wekan/wekan/issues/2334).
   Thanks to shaygover and xet7.
 
+and fixes the following bugs:
+
+- [Fix Full width of lists and space before first list](https://github.com/wekan/wekan/pull/2343).
+  Thanks to hupptehcnologies.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v2.60 2019-04-08 Wekan release
