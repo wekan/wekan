@@ -4,9 +4,12 @@ template(name="people")
       | {{_ 'error-notAuthorized'}}
     else
       .content-title.ext-box
-        span {{_ 'people'}}
-        input#searchInput(placeholder="{{_ 'search'}}")
-        button#searchButton {{_ 'enter'}}
+        .ext-box-left
+          span {{_ 'people'}}
+          input#searchInput(placeholder="{{_ 'search'}}")
+          button#searchButton {{_ 'enter'}}
+        .ext-box-right
+          span {{_ 'people-number'}} #{peopleNumber}
       .content-body
         .side-menu
           ul

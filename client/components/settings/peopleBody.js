@@ -9,6 +9,7 @@ BlazeComponent.extendComponent({
     this.loading = new ReactiveVar(false);
     this.people = new ReactiveVar(true);
     this.findUsersOptions = new ReactiveVar({});
+    this.number = new ReactiveVar(0);
 
     this.page = new ReactiveVar(1);
     this.loadNextPageLocked = false;
@@ -30,21 +31,29 @@ BlazeComponent.extendComponent({
   events() {
     return [{
       'click #searchButton'(event) {
-        const value = $('#searchInput').first().val();
-        if (value === '') {
-          this.findUsersOptions.set({});
-        } else {
-          const regex = new RegExp(value, 'i');
-          this.findUsersOptions.set({
-            $or: [
-              { username: regex },
-              { 'profile.fullname': regex },
-              { 'emails.address': regex },
-            ]
-          });
+        this.filterPeople(event);
+      },
+      'keydown #searchInput'(event) {
+        if (event.keyCode === 13 && !event.shiftKey) {
+          this.filterPeople(event);
         }
       }
     }];
+  },
+  filterPeople(event) {
+    const value = $('#searchInput').first().val();
+    if (value === '') {
+      this.findUsersOptions.set({});
+    } else {
+      const regex = new RegExp(value, 'i');
+      this.findUsersOptions.set({
+        $or: [
+          { username: regex },
+          { 'profile.fullname': regex },
+          { 'emails.address': regex },
+        ]
+      });
+    }
   },
   loadNextPage() {
     if (this.loadNextPageLocked === false) {
@@ -69,11 +78,16 @@ BlazeComponent.extendComponent({
     this.loading.set(w);
   },
   peopleList() {
-    // get users in front to cache them
-    return Users.find(this.findUsersOptions.get(), {
+    const users = Users.find(this.findUsersOptions.get(), {
       fields: {_id: true},
     });
+    this.number.set(users.count());
+    return users;
   },
+  peopleNumber() {
+    return this.number.get();
+  }
+
 }).register('people');
 
 Template.peopleRow.helpers({
