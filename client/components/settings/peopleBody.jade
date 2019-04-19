@@ -3,8 +3,10 @@ template(name="people")
     unless currentUser.isAdmin
       | {{_ 'error-notAuthorized'}}
     else
-      .content-title
+      .content-title.ext-box
         span {{_ 'people'}}
+        input#searchInput(placeholder="{{_ 'search'}}")
+        button#searchButton {{_ 'enter'}}
       .content-body
         .side-menu
           ul

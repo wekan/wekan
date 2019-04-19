@@ -8,6 +8,7 @@ BlazeComponent.extendComponent({
     this.error = new ReactiveVar('');
     this.loading = new ReactiveVar(false);
     this.people = new ReactiveVar(true);
+    this.findUsersOptions = new ReactiveVar({});
 
     this.page = new ReactiveVar(1);
     this.loadNextPageLocked = false;
@@ -25,6 +26,25 @@ BlazeComponent.extendComponent({
         }
       });
     });
+  },
+  events() {
+    return [{
+      'click #searchButton'(event) {
+        const value = $('#searchInput').first().val();
+        if (value === '') {
+          this.findUsersOptions.set({});
+        } else {
+          const regex = new RegExp(value, 'i');
+          this.findUsersOptions.set({
+            $or: [
+              { username: regex },
+              { 'profile.fullname': regex },
+              { 'emails.address': regex },
+            ]
+          });
+        }
+      }
+    }];
   },
   loadNextPage() {
     if (this.loadNextPageLocked === false) {
@@ -49,7 +69,8 @@ BlazeComponent.extendComponent({
     this.loading.set(w);
   },
   peopleList() {
-    return Users.find({}, {
+    // get users in front to cache them
+    return Users.find(this.findUsersOptions.get(), {
       fields: {_id: true},
     });
   },
