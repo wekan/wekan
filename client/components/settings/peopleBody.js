@@ -30,17 +30,17 @@ BlazeComponent.extendComponent({
   },
   events() {
     return [{
-      'click #searchButton'(event) {
-        this.filterPeople(event);
+      'click #searchButton'() {
+        this.filterPeople();
       },
       'keydown #searchInput'(event) {
         if (event.keyCode === 13 && !event.shiftKey) {
-          this.filterPeople(event);
+          this.filterPeople();
         }
-      }
+      },
     }];
   },
-  filterPeople(event) {
+  filterPeople() {
     const value = $('#searchInput').first().val();
     if (value === '') {
       this.findUsersOptions.set({});
@@ -51,7 +51,7 @@ BlazeComponent.extendComponent({
           { username: regex },
           { 'profile.fullname': regex },
           { 'emails.address': regex },
-        ]
+        ],
       });
     }
   },
@@ -86,8 +86,7 @@ BlazeComponent.extendComponent({
   },
   peopleNumber() {
     return this.number.get();
-  }
-
+  },
 }).register('people');
 
 Template.peopleRow.helpers({
