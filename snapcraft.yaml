@@ -179,8 +179,8 @@ parts:
             if [ ! -d "packages/wekan_accounts-oidc" ]; then
               cd packages
               git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-oidc.git
-              mv meteor-accounts-oidc/packages/switch_accounts-oidc wekan_accounts-oidc
-              mv meteor-accounts-oidc/packages/switch_oidc wekan_oidc
+              mv meteor-accounts-oidc/packages/switch_accounts-oidc wekan-accounts-oidc
+              mv meteor-accounts-oidc/packages/switch_oidc wekan-oidc
               rm -rf meteor-accounts-oidc
               cd ..
             fi

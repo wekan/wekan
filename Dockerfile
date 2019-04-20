@@ -201,8 +201,8 @@ RUN \
     gosu wekan:wekan git clone --depth 1 -b master git://github.com/wekan/wekan-scrollbar.git && \
     gosu wekan:wekan git clone --depth 1 -b master git://github.com/wekan/meteor-accounts-oidc.git && \
     gosu wekan:wekan git clone --depth 1 -b master --recurse-submodules git://github.com/wekan/markdown.git && \
-    gosu wekan:wekan mv meteor-accounts-oidc/packages/switch_accounts-oidc wekan_accounts-oidc && \
-    gosu wekan:wekan mv meteor-accounts-oidc/packages/switch_oidc wekan_oidc && \
+    gosu wekan:wekan mv meteor-accounts-oidc/packages/switch_accounts-oidc wekan-accounts-oidc && \
+    gosu wekan:wekan mv meteor-accounts-oidc/packages/switch_oidc wekan-oidc && \
     gosu wekan:wekan rm -rf meteor-accounts-oidc && \
     sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' /home/wekan/app/packages/meteor-useraccounts-core/package.js && \
     cd /home/wekan/.meteor && \
