@@ -4,8 +4,6 @@ echo "Note: If you use other locale than en_US.UTF-8 , you need to additionally 
 echo "      with 'sudo dpkg-reconfigure locales' , so that MongoDB works correctly."
 echo "      You can still use any other locale as your main locale."
 
-#X64NODE="https://nodejs.org/dist/v8.14.1/node-v8.14.1-linux-x64.tar.gz"
-
 function pause(){
 	read -p "$*"
 }
@@ -64,17 +62,19 @@ do
         "Build Wekan")
 		echo "Building Wekan."
 		cd ~/repos/wekan
-		mkdir -p ~/repos/wekan/packages
-		cd ~/repos/wekan/packages
-		git clone --depth 1 -b master https://github.com/wekan/flow-router.git kadira-flow-router
-		git clone --depth 1 -b master https://github.com/meteor-useraccounts/core.git meteor-useraccounts-core
-		git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-cas.git
-		git clone --depth 1 -b master https://github.com/wekan/wekan-ldap.git
-		git clone --depth 1 -b master https://github.com/wekan/wekan-scrollbar.git
-		git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-oidc.git
-                mv meteor-accounts-oidc/packages/switch_accounts-oidc wekan_accounts-oidc
-                mv meteor-accounts-oidc/packages/switch_oidc wekan_oidc
-                rm -rf meteor-accounts-oidc
+		## REPOS BELOW ARE INCLUDED TO WEKAN
+		#mkdir -p ~/repos/wekan/packages
+		#cd ~/repos/wekan/packages
+		#git clone --depth 1 -b master https://github.com/wekan/flow-router.git kadira-flow-router
+		#git clone --depth 1 -b master https://github.com/meteor-useraccounts/core.git meteor-useraccounts-core
+		#git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-cas.git
+		#git clone --depth 1 -b master https://github.com/wekan/wekan-ldap.git
+		#git clone --depth 1 -b master https://github.com/wekan/wekan-scrollbar.git
+		#git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-oidc.git
+		#git clone --depth 1 -b master --recurse-submodules https://github.com/wekan/markdown.git
+                #mv meteor-accounts-oidc/packages/switch_accounts-oidc wekan_accounts-oidc
+                #mv meteor-accounts-oidc/packages/switch_oidc wekan_oidc
+                #rm -rf meteor-accounts-oidc
 		if [[ "$OSTYPE" == "darwin"* ]]; then
 			echo "sed at macOS";
 			sed -i '' 's/api\.versionsFrom/\/\/api.versionsFrom/' ~/repos/wekan/packages/meteor-useraccounts-core/package.js

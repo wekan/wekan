@@ -1,4 +1,4 @@
-FROM ubuntu:cosmic
+FROM ubuntu:disco
 LABEL maintainer="wekan"
 
 # Set the environment variables (defaults where required)
@@ -6,7 +6,7 @@ LABEL maintainer="wekan"
 # ENV BUILD_DEPS="paxctl"
 ENV BUILD_DEPS="apt-utils bsdtar gnupg gosu wget curl bzip2 build-essential python python3 python3-distutils git ca-certificates gcc-7" \
     DEBUG=false \
-    NODE_VERSION=v8.15.1 \
+    NODE_VERSION=v8.16.0 \
     METEOR_RELEASE=1.6.0.1 \
     USE_EDGE=false \
     METEOR_EDGE=1.5-beta.17 \
@@ -191,18 +191,20 @@ RUN \
     fi; \
     \
     # Get additional packages
-    mkdir -p /home/wekan/app/packages && \
+    #mkdir -p /home/wekan/app/packages && \
     chown wekan:wekan --recursive /home/wekan && \
-    cd /home/wekan/app/packages && \
-    gosu wekan:wekan git clone --depth 1 -b master git://github.com/wekan/flow-router.git kadira-flow-router && \
-    gosu wekan:wekan git clone --depth 1 -b master git://github.com/meteor-useraccounts/core.git meteor-useraccounts-core && \
-    gosu wekan:wekan git clone --depth 1 -b master git://github.com/wekan/meteor-accounts-cas.git && \
-    gosu wekan:wekan git clone --depth 1 -b master git://github.com/wekan/wekan-ldap.git && \
-    gosu wekan:wekan git clone --depth 1 -b master git://github.com/wekan/wekan-scrollbar.git && \
-    gosu wekan:wekan git clone --depth 1 -b master git://github.com/wekan/meteor-accounts-oidc.git && \
-    gosu wekan:wekan mv meteor-accounts-oidc/packages/switch_accounts-oidc wekan_accounts-oidc && \
-    gosu wekan:wekan mv meteor-accounts-oidc/packages/switch_oidc wekan_oidc && \
-    gosu wekan:wekan rm -rf meteor-accounts-oidc && \
+    # REPOS BELOW ARE INCLUDED TO WEKAN REPO
+    #cd /home/wekan/app/packages && \
+    #gosu wekan:wekan git clone --depth 1 -b master https://github.com/wekan/flow-router.git kadira-flow-router && \
+    #gosu wekan:wekan git clone --depth 1 -b master https://github.com/meteor-useraccounts/core.git meteor-useraccounts-core && \
+    #gosu wekan:wekan git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-cas.git && \
+    #gosu wekan:wekan git clone --depth 1 -b master https://github.com/wekan/wekan-ldap.git && \
+    #gosu wekan:wekan git clone --depth 1 -b master https://github.com/wekan/wekan-scrollbar.git && \
+    #gosu wekan:wekan git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-oidc.git && \
+    #gosu wekan:wekan git clone --depth 1 -b master --recurse-submodules https://github.com/wekan/markdown.git && \
+    #gosu wekan:wekan mv meteor-accounts-oidc/packages/switch_accounts-oidc wekan-accounts-oidc && \
+    #gosu wekan:wekan mv meteor-accounts-oidc/packages/switch_oidc wekan-oidc && \
+    #gosu wekan:wekan rm -rf meteor-accounts-oidc && \
     sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' /home/wekan/app/packages/meteor-useraccounts-core/package.js && \
     cd /home/wekan/.meteor && \
     gosu wekan:wekan /home/wekan/.meteor/meteor -- help; \
@@ -212,7 +214,7 @@ RUN \
     mkdir -p /home/wekan/python && \
     chown wekan:wekan --recursive /home/wekan/python && \
     cd /home/wekan/python && \
-    gosu wekan:wekan git clone --depth 1 -b master git://github.com/Kronuz/esprima-python && \
+    gosu wekan:wekan git clone --depth 1 -b master https://github.com/Kronuz/esprima-python && \
     cd /home/wekan/python/esprima-python && \
     python3 setup.py install --record files.txt && \
     cd /home/wekan/app &&\

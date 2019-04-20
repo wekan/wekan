@@ -28,17 +28,19 @@ cd wekan
 git checkout edge
 echo "Building Wekan."
 REM del /S /F /Q packages
-md packages
-cd packages
-git clone --depth 1 -b master https://github.com/wekan/flow-router.git kadira-flow-router
-git clone --depth 1 -b master https://github.com/meteor-useraccounts/core.git meteor-useraccounts-core
-git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-cas.git
-git clone --depth 1 -b master https://github.com/wekan/wekan-ldap.git
-git clone --depth 1 -b master https://github.com/wekan/wekan-scrollbar.git
-git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-oidc.git
-move meteor-accounts-oidc/packages/switch_accounts-oidc wekan_accounts-oidc
-move meteor-accounts-oidc/packages/switch_oidc wekan_oidc
-del /S /F /Q meteor-accounts-oidc
+REM ## REPOS BELOW ARE INCLUDED TO WEKAN
+REM md packages
+REM cd packages
+REM git clone --depth 1 -b master https://github.com/wekan/flow-router.git kadira-flow-router
+REM git clone --depth 1 -b master https://github.com/meteor-useraccounts/core.git meteor-useraccounts-core
+REM git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-cas.git
+REM git clone --depth 1 -b master https://github.com/wekan/wekan-ldap.git
+REM git clone --depth 1 -b master https://github.com/wekan/wekan-scrollbar.git
+REM git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-oidc.git
+REM git clone --depth 1 -b master --recurse-submodules https://github.com/wekan/markdown.git
+REM move meteor-accounts-oidc/packages/switch_accounts-oidc wekan_accounts-oidc
+REM move meteor-accounts-oidc/packages/switch_oidc wekan_oidc
+REM del /S /F /Q meteor-accounts-oidc
 REM sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' ~/repos/wekan/packages/meteor-useraccounts-core/package.js
 cd ..
 REM del /S /F /Q node_modules

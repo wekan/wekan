@@ -289,10 +289,10 @@ function wekan_repo_check(){
       #---------------------------------------------------------------------
       # Login to LDAP automatically with HTTP header.
       # In below example for siteminder, at right side of = is header name.
-      #export HEADER_LOGIN_ID=BNPPUID
-      #export HEADER_LOGIN_FIRSTNAME=BNPPFIRSTNAME
-      #export HEADER_LOGIN_LASTNAME=BNPPLASTNAME
-      #export HEADER_LOGIN_EMAIL=BNPPEMAILADDRESS
+      #export HEADER_LOGIN_ID=HEADERUID
+      #export HEADER_LOGIN_FIRSTNAME=HEADERFIRSTNAME
+      #export HEADER_LOGIN_LASTNAME=HEADERLASTNAME
+      #export HEADER_LOGIN_EMAIL=HEADEREMAILADDRESS
       #---------------------------------------------------------------------
       # LOGOUT_WITH_TIMER : Enables or not the option logout with timer
       # example : LOGOUT_WITH_TIMER=true

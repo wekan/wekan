@@ -683,5 +683,6 @@
     "error-ldap-login": "Wystąpił błąd w trakcie logowania",
     "display-authentication-method": "Wyświetl metodę logowania",
     "default-authentication-method": "Domyślna metoda logowania",
-    "duplicate-board": "Duplicate Board"
+    "duplicate-board": "Duplicate Board",
+    "people-number": "The number of people is:"
 }

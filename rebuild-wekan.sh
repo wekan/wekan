@@ -5,7 +5,7 @@ echo "      with 'sudo dpkg-reconfigure locales' , so that MongoDB works correct
 echo "      You can still use any other locale as your main locale."
 
 #Below script installs newest node 8.x for Debian/Ubuntu/Mint.
-#NODE_VERSION=8.14.1
+#NODE_VERSION=8.16.0
 #X64NODE="https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz"
 
 function pause(){
@@ -45,21 +45,22 @@ function npm_call(){
 	rm -rf $TMPDIR
 }
 
-function wekan_repo_check(){
-	git_remotes="$(git remote show 2>/dev/null)"
-	res=""
-	for i in $git_remotes; do
-		res="$(git remote get-url $i | sed 's/.*wekan\/wekan.*/wekan\/wekan/')"
-		if [[ "$res" == "wekan/wekan" ]]; then
-		    break
-		fi
-	done
-
-	if [[ "$res" != "wekan/wekan" ]]; then
-		echo "$PWD is not a wekan repository"
-		exit;
-	fi
-}
+#function wekan_repo_check(){
+## UNCOMMENTING, IT'S NOT REQUIRED THAT /HOME/USERNAME IS /HOME/WEKAN
+#	git_remotes="$(git remote show 2>/dev/null)"
+#	res=""
+#	for i in $git_remotes; do
+#		res="$(git remote get-url $i | sed 's/.*wekan\/wekan.*/wekan\/wekan/')"
+#		if [[ "$res" == "wekan/wekan" ]]; then
+#		    break
+#		fi
+#	done
+#
+#	if [[ "$res" != "wekan/wekan" ]]; then
+#		echo "$PWD is not a wekan repository"
+#		exit;
+#	fi
+#}
 
 echo
 PS3='Please enter your choice: '
@@ -110,28 +111,29 @@ do
 		;;
         "Build Wekan")
 		echo "Building Wekan."
-		wekan_repo_check
-		rm -rf packages/kadira-flow-router packages/meteor-useraccounts-core packages/meteor-accounts-cas packages/wekan*
-		mkdir packages
-		cd packages
-		git clone --depth 1 -b master https://github.com/wekan/flow-router.git kadira-flow-router
-		git clone --depth 1 -b master https://github.com/meteor-useraccounts/core.git meteor-useraccounts-core
-		git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-cas.git
-		git clone --depth 1 -b master https://github.com/wekan/wekan-ldap.git
-		git clone --depth 1 -b master https://github.com/wekan/wekan-scrollbar.git
-		git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-oidc.git
-                mv meteor-accounts-oidc/packages/switch_accounts-oidc wekan_accounts-oidc
-                mv meteor-accounts-oidc/packages/switch_oidc wekan_oidc
-                rm -rf meteor-accounts-oidc
-		if [[ "$OSTYPE" == "darwin"* ]]; then
-			echo "sed at macOS";
-			sed -i '' 's/api\.versionsFrom/\/\/api.versionsFrom/' ~/repos/wekan/packages/meteor-useraccounts-core/package.js
-		else
-			echo "sed at ${OSTYPE}"
-			sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' ~/repos/wekan/packages/meteor-useraccounts-core/package.js
-		fi
-
-		cd ..
+		#wekan_repo_check
+		# REPOS BELOW ARE INCLUDED TO WEKAN REPO
+		#rm -rf packages/kadira-flow-router packages/meteor-useraccounts-core packages/meteor-accounts-cas packages/wekan-ldap packages/wekan-ldap packages/wekan-scrfollbar packages/meteor-accounts-oidc packages/markdown
+		#mkdir packages
+		#cd packages
+		#git clone --depth 1 -b master https://github.com/wekan/flow-router.git kadira-flow-router
+		#git clone --depth 1 -b master https://github.com/meteor-useraccounts/core.git meteor-useraccounts-core
+		#git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-cas.git
+		#git clone --depth 1 -b master https://github.com/wekan/wekan-ldap.git
+		#git clone --depth 1 -b master https://github.com/wekan/wekan-scrollbar.git
+		#git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-oidc.git
+		#git clone --depth 1 -b master --recurse-submodules https://github.com/wekan/markdown.git
+                #mv meteor-accounts-oidc/packages/switch_accounts-oidc wekan_accounts-oidc
+                #mv meteor-accounts-oidc/packages/switch_oidc wekan_oidc
+                #rm -rf meteor-accounts-oidc
+		#if [[ "$OSTYPE" == "darwin"* ]]; then
+		#	echo "sed at macOS";
+		#	sed -i '' 's/api\.versionsFrom/\/\/api.versionsFrom/' ~/repos/wekan/packages/meteor-useraccounts-core/package.js
+		#else
+		#	echo "sed at ${OSTYPE}"
+		#	sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' ~/repos/wekan/packages/meteor-useraccounts-core/package.js
+		#fi
+		#cd ..
 		rm -rf node_modules
 		meteor npm install
 		rm -rf .build

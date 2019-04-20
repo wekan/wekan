@@ -683,5 +683,6 @@
     "error-ldap-login": "Virhe tapahtui yrittäessä kirjautua sisään",
     "display-authentication-method": "Näytä kirjautumistapa",
     "default-authentication-method": "Oletus kirjautumistapa",
-    "duplicate-board": "Tee kaksoiskappale taulusta"
+    "duplicate-board": "Tee kaksoiskappale taulusta",
+    "people-number": "Ihmisten määrä on:"
 }

@@ -8,6 +8,8 @@ BlazeComponent.extendComponent({
     this.error = new ReactiveVar('');
     this.loading = new ReactiveVar(false);
     this.people = new ReactiveVar(true);
+    this.findUsersOptions = new ReactiveVar({});
+    this.number = new ReactiveVar(0);
 
     this.page = new ReactiveVar(1);
     this.loadNextPageLocked = false;
@@ -25,6 +27,33 @@ BlazeComponent.extendComponent({
         }
       });
     });
+  },
+  events() {
+    return [{
+      'click #searchButton'() {
+        this.filterPeople();
+      },
+      'keydown #searchInput'(event) {
+        if (event.keyCode === 13 && !event.shiftKey) {
+          this.filterPeople();
+        }
+      },
+    }];
+  },
+  filterPeople() {
+    const value = $('#searchInput').first().val();
+    if (value === '') {
+      this.findUsersOptions.set({});
+    } else {
+      const regex = new RegExp(value, 'i');
+      this.findUsersOptions.set({
+        $or: [
+          { username: regex },
+          { 'profile.fullname': regex },
+          { 'emails.address': regex },
+        ],
+      });
+    }
   },
   loadNextPage() {
     if (this.loadNextPageLocked === false) {
@@ -49,9 +78,14 @@ BlazeComponent.extendComponent({
     this.loading.set(w);
   },
   peopleList() {
-    return Users.find({}, {
+    const users = Users.find(this.findUsersOptions.get(), {
       fields: {_id: true},
     });
+    this.number.set(users.count());
+    return users;
+  },
+  peopleNumber() {
+    return this.number.get();
   },
 }).register('people');
 
