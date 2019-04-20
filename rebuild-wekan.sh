@@ -45,7 +45,7 @@ function npm_call(){
 	rm -rf $TMPDIR
 }
 
-function wekan_repo_check(){
+#function wekan_repo_check(){
 ## UNCOMMENTING, IT'S NOT REQUIRED THAT /HOME/USERNAME IS /HOME/WEKAN
 #	git_remotes="$(git remote show 2>/dev/null)"
 #	res=""
@@ -60,7 +60,7 @@ function wekan_repo_check(){
 #		echo "$PWD is not a wekan repository"
 #		exit;
 #	fi
-}
+#}
 
 echo
 PS3='Please enter your choice: '
@@ -111,7 +111,7 @@ do
 		;;
         "Build Wekan")
 		echo "Building Wekan."
-		wekan_repo_check
+		#wekan_repo_check
 		# REPOS BELOW ARE INCLUDED TO WEKAN REPO
 		#rm -rf packages/kadira-flow-router packages/meteor-useraccounts-core packages/meteor-accounts-cas packages/wekan-ldap packages/wekan-ldap packages/wekan-scrfollbar packages/meteor-accounts-oidc packages/markdown
 		#mkdir packages
