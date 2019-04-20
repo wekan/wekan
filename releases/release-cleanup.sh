@@ -8,12 +8,11 @@ sudo rm -rf parts prime stage .meteor-spk
 
 # Set permissions
 cd ~/repos
-sudo chown user:user wekan -R
+sudo chown -R $USER wekan
 cd ~/
-sudo chown user:user .meteor -R
-#sudo chown user:user .cache/snapcraft -R
+sudo chown -R $USER ~/.meteor
 sudo rm -rf .cache/snapcraft
-sudo chown user:user .config -R
+sudo chown -R $USER .config
 
 # Back
 cd ~/repos

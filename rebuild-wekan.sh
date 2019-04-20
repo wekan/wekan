@@ -107,6 +107,7 @@ do
 	        npm_call -g install fibers@3.1.1
 	        # Install Meteor, if it's not yet installed
 	        curl https://install.meteor.com | bash
+		sudo chown -R $USER ~/.meteor
 		break
 		;;
         "Build Wekan")
