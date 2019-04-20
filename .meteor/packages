@@ -31,8 +31,8 @@ kenton:accounts-sandstorm
 service-configuration@1.0.11
 useraccounts:unstyled
 useraccounts:flow-routing
-wekan:wekan-ldap
-wekan:accounts-cas
+wekan-ldap
+wekan-accounts-cas
 wekan-accounts-oidc
 
 # Utilities

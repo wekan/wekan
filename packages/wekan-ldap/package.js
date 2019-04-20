@@ -1,5 +1,5 @@
 Package.describe({
-  name: 'wekan:wekan-ldap',
+  name: 'wekan-ldap',
   version: '0.0.2',
   // Brief, one-line summary of the package.
   summary: 'Basic meteor login with ldap',

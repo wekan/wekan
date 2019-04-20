@@ -1,7 +1,8 @@
 Package.describe({
+  name: 'wekan-scrollbar',
   summary: "A wrapper for Malihu Custom Scrollbar. Highly customizable custom scrollbar jQuery plugin",
   version: "3.1.3",
-  git: "https://github.com/MaazAli/Meteor-Malihu-Custom-Scrollbar.git"
+  git: "https://github.com/wekan/wekan-scrollbar.git"
 });
 
 Package.onUse(function(api) {
