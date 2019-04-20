@@ -65,7 +65,7 @@ apps:
 
 parts:
     mongodb:
-        source: https://repo.mongodb.org/apt/ubuntu/dists/xenial/mongodb-org/4.0/multiverse/binary-amd64/mongodb-org-server_4.0.6_amd64.deb
+        source: https://repo.mongodb.org/apt/ubuntu/dists/xenial/mongodb-org/4.0/multiverse/binary-amd64/mongodb-org-server_4.0.9_amd64.deb
         plugin: dump
         stage-packages: [libssl1.1]
         filesets:
