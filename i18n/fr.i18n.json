@@ -386,7 +386,7 @@
     "normal": "Normal",
     "normal-desc": "Peut voir et modifier les cartes. Ne peut pas changer les paramètres.",
     "not-accepted-yet": "L'invitation n'a pas encore été acceptée",
-    "notify-participate": "Recevoir les mises à jour de toutes les cartes auxquelles vous participez en tant que créateur ou que participant ",
+    "notify-participate": "Recevoir les mises à jour de toutes les cartes auxquelles vous participez en tant que créateur ou que participant",
     "notify-watch": "Recevoir les mises à jour de tous les tableaux, listes ou cartes que vous suivez",
     "optional": "optionnel",
     "or": "ou",
@@ -432,7 +432,7 @@
     "shortcut-show-shortcuts": "Afficher cette liste de raccourcis",
     "shortcut-toggle-filterbar": "Afficher/Masquer la barre latérale des filtres",
     "shortcut-toggle-sidebar": "Afficher/Masquer la barre latérale du tableau",
-    "show-cards-minimum-count": "Afficher le nombre de cartes si la liste en contient plus de ",
+    "show-cards-minimum-count": "Afficher le nombre de cartes si la liste en contient plus de",
     "sidebar-open": "Ouvrir le panneau",
     "sidebar-close": "Fermer le panneau",
     "signupPopup-title": "Créer un compte",
@@ -684,5 +684,5 @@
     "display-authentication-method": "Afficher la méthode d'authentification",
     "default-authentication-method": "Méthode d'authentification par défaut",
     "duplicate-board": "Dupliquer le tableau",
-    "people-number": "Le nombre d'utilisateurs est de : "
+    "people-number": "Le nombre d'utilisateurs est de :"
 }

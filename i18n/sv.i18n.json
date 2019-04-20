@@ -683,5 +683,6 @@
     "error-ldap-login": "Ett fel uppstod när du försökte logga in",
     "display-authentication-method": "Visa autentiseringsmetod",
     "default-authentication-method": "Standard autentiseringsmetod",
-    "duplicate-board": "Dubbletttavla"
+    "duplicate-board": "Dubbletttavla",
+    "people-number": "The number of people is:"
 }
