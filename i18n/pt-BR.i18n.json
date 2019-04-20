@@ -683,6 +683,6 @@
     "error-ldap-login": "Um erro ocorreu enquanto tentava entrar",
     "display-authentication-method": "Mostrar Método de Autenticação",
     "default-authentication-method": "Método de Autenticação Padrão",
-    "duplicate-board": "Duplicate Board",
-    "people-number": "The number of people is:"
+    "duplicate-board": "Duplicar Quadro",
+    "people-number": "O número de pessoas é:"
 }
