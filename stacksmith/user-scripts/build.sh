@@ -2,7 +2,7 @@
 set -euxo pipefail
 
 BUILD_DEPS="bsdtar gnupg wget curl bzip2 python git ca-certificates perl-Digest-SHA"
-NODE_VERSION=v8.15.1
+NODE_VERSION=v8.16.0
 #METEOR_RELEASE=1.6.0.1 - for Stacksmith, meteor-1.8 branch that could have METEOR@1.8.1-beta.8 or newer
 USE_EDGE=false
 METEOR_EDGE=1.5-beta.17
@@ -64,19 +64,19 @@ echo " ...\n"
 if [ "$USE_EDGE" = false ]; then
   sudo su -c '/home/wekan/install_meteor.sh' - wekan
 else
-  sudo -u wekan git clone --recursive --depth 1 -b release/METEOR@${METEOR_EDGE} git://github.com/meteor/meteor.git /home/wekan/.meteor;
+  sudo -u wekan git clone --recursive --depth 1 -b release/METEOR@${METEOR_EDGE} https://github.com/meteor/meteor.git /home/wekan/.meteor;
 fi;
 
 # Get additional packages
 sudo mkdir -p /home/wekan/app/packages
 sudo chown wekan:wekan --recursive /home/wekan/app
 cd /home/wekan/app/packages
-sudo -u wekan git clone --depth 1 -b master git://github.com/wekan/flow-router.git kadira-flow-router
-sudo -u wekan git clone --depth 1 -b master git://github.com/meteor-useraccounts/core.git meteor-useraccounts-core
-sudo -u wekan git clone --depth 1 -b master git://github.com/wekan/meteor-accounts-cas.git
-sudo -u wekan git clone --depth 1 -b master git://github.com/wekan/wekan-ldap.git
-sudo -u wekan git clone --depth 1 -b master git://github.com/wekan/wekan-scrollbar.git
-sudo -u wekan git clone --depth 1 -b master git://github.com/wekan/meteor-accounts-oidc.git
+sudo -u wekan git clone --depth 1 -b master https://github.com/wekan/flow-router.git kadira-flow-router
+sudo -u wekan git clone --depth 1 -b master https://github.com/meteor-useraccounts/core.git meteor-useraccounts-core
+sudo -u wekan git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-cas.git
+sudo -u wekan git clone --depth 1 -b master https://github.com/wekan/wekan-ldap.git
+sudo -u wekan git clone --depth 1 -b master https://github.com/wekan/wekan-scrollbar.git
+sudo -u wekan git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-oidc.git
 sudo -u wekan mv meteor-accounts-oidc/packages/switch_accounts-oidc wekan_accounts-oidc
 sudo -u wekan mv meteor-accounts-oidc/packages/switch_oidc wekan_oidc
 sudo -u wekan rm -rf meteor-accounts-oidc
