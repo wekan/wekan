@@ -1,0 +1,12 @@
+<!-- Template level auth -->
+<template name="ensureSignedIn">
+  {{#if signedIn}}
+    {{> Template.dynamic template=template}}
+  {{else}}
+    {{#if auth}}
+      {{> Template.dynamic template=auth}}
+    {{else}}
+      {{> fullPageAtForm}}
+    {{/if}}
+  {{/if}}
+</template>

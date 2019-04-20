@@ -106,7 +106,7 @@ parts:
             rm -rf .build
             mkdir -p .build/python
             cd .build/python
-            git clone --depth 1 -b master git://github.com/Kronuz/esprima-python
+            git clone --depth 1 -b master https://github.com/Kronuz/esprima-python
             cd esprima-python
             python3 setup.py install
             cd ../../..
@@ -147,48 +147,49 @@ parts:
             chmod +x install_meteor.sh
             sh install_meteor.sh
             rm install_meteor.sh
-            if [ ! -d "packages" ]; then
-              mkdir packages
-            fi
-            if [ ! -d "packages/kadira-flow-router" ]; then
-              cd packages
-              git clone --depth 1 -b master https://github.com/wekan/flow-router.git kadira-flow-router
-              cd ..
-            fi
-            if [ ! -d "packages/meteor-useraccounts-core" ]; then
-              cd packages
-              git clone --depth 1 -b master https://github.com/meteor-useraccounts/core.git meteor-useraccounts-core
-              sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' meteor-useraccounts-core/package.js
-              cd ..
-            fi
-            if [ ! -d "packages/meteor-accounts-cas" ]; then
-              cd packages
-              git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-cas.git meteor-accounts-cas
-              cd ..
-            fi
-            if [ ! -d "packages/wekan-ldap" ]; then
-              cd packages
-              git clone --depth 1 -b master https://github.com/wekan/wekan-ldap.git
-              cd ..
-            fi
-            if [ ! -d "packages/wekan-scrollbar" ]; then
-              cd packages
-              git clone --depth 1 -b master https://github.com/wekan/wekan-scrollbar.git
-              cd ..
-            fi
-            if [ ! -d "packages/wekan_accounts-oidc" ]; then
-              cd packages
-              git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-oidc.git
-              mv meteor-accounts-oidc/packages/switch_accounts-oidc wekan-accounts-oidc
-              mv meteor-accounts-oidc/packages/switch_oidc wekan-oidc
-              rm -rf meteor-accounts-oidc
-              cd ..
-            fi
-            if [ ! -d "packages/markdown" ]; then
-              cd packages
-              git clone --depth 1 -b master --recurse-submodules https://github.com/wekan/markdown.git
-              cd ..
-            fi
+            # REPOS BELOW ARE INCLUDED TO WEKAN REPO
+            #if [ ! -d "packages" ]; then
+            #  mkdir packages
+            #fi
+            #if [ ! -d "packages/kadira-flow-router" ]; then
+            #  cd packages
+            #  git clone --depth 1 -b master https://github.com/wekan/flow-router.git kadira-flow-router
+            #  cd ..
+            #fi
+            #if [ ! -d "packages/meteor-useraccounts-core" ]; then
+            #  cd packages
+            #  git clone --depth 1 -b master https://github.com/meteor-useraccounts/core.git meteor-useraccounts-core
+            #  sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' meteor-useraccounts-core/package.js
+            #  cd ..
+            #fi
+            #if [ ! -d "packages/meteor-accounts-cas" ]; then
+            #  cd packages
+            #  git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-cas.git meteor-accounts-cas
+            #  cd ..
+            #fi
+            #if [ ! -d "packages/wekan-ldap" ]; then
+            #  cd packages
+            #  git clone --depth 1 -b master https://github.com/wekan/wekan-ldap.git
+            #  cd ..
+            #fi
+            #if [ ! -d "packages/wekan-scrollbar" ]; then
+            #  cd packages
+            #  git clone --depth 1 -b master https://github.com/wekan/wekan-scrollbar.git
+            #  cd ..
+            #fi
+            #if [ ! -d "packages/wekan_accounts-oidc" ]; then
+            #  cd packages
+            #  git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-oidc.git
+            #  mv meteor-accounts-oidc/packages/switch_accounts-oidc wekan-accounts-oidc
+            #  mv meteor-accounts-oidc/packages/switch_oidc wekan-oidc
+            #  rm -rf meteor-accounts-oidc
+            #  cd ..
+            #fi
+            #if [ ! -d "packages/markdown" ]; then
+            #  cd packages
+            #  git clone --depth 1 -b master --recurse-submodules https://github.com/wekan/markdown.git
+            #  cd ..
+            #fi
             rm -rf package-lock.json .build
             meteor add standard-minifier-js --allow-superuser
             meteor npm install --allow-superuser

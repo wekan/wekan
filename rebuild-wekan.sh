@@ -46,19 +46,20 @@ function npm_call(){
 }
 
 function wekan_repo_check(){
-	git_remotes="$(git remote show 2>/dev/null)"
-	res=""
-	for i in $git_remotes; do
-		res="$(git remote get-url $i | sed 's/.*wekan\/wekan.*/wekan\/wekan/')"
-		if [[ "$res" == "wekan/wekan" ]]; then
-		    break
-		fi
-	done
-
-	if [[ "$res" != "wekan/wekan" ]]; then
-		echo "$PWD is not a wekan repository"
-		exit;
-	fi
+## UNCOMMENTING, IT'S NOT REQUIRED THAT /HOME/USERNAME IS /HOME/WEKAN
+#	git_remotes="$(git remote show 2>/dev/null)"
+#	res=""
+#	for i in $git_remotes; do
+#		res="$(git remote get-url $i | sed 's/.*wekan\/wekan.*/wekan\/wekan/')"
+#		if [[ "$res" == "wekan/wekan" ]]; then
+#		    break
+#		fi
+#	done
+#
+#	if [[ "$res" != "wekan/wekan" ]]; then
+#		echo "$PWD is not a wekan repository"
+#		exit;
+#	fi
 }
 
 echo
@@ -111,19 +112,20 @@ do
         "Build Wekan")
 		echo "Building Wekan."
 		wekan_repo_check
-		rm -rf packages/kadira-flow-router packages/meteor-useraccounts-core packages/meteor-accounts-cas packages/wekan-ldap packages/wekan-ldap packages/wekan-scrfollbar packages/meteor-accounts-oidc packages/markdown
-		mkdir packages
-		cd packages
-		git clone --depth 1 -b master https://github.com/wekan/flow-router.git kadira-flow-router
-		git clone --depth 1 -b master https://github.com/meteor-useraccounts/core.git meteor-useraccounts-core
-		git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-cas.git
-		git clone --depth 1 -b master https://github.com/wekan/wekan-ldap.git
-		git clone --depth 1 -b master https://github.com/wekan/wekan-scrollbar.git
-		git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-oidc.git
-		git clone --depth 1 -b master --recurse-submodules https://github.com/wekan/markdown.git
-                mv meteor-accounts-oidc/packages/switch_accounts-oidc wekan_accounts-oidc
-                mv meteor-accounts-oidc/packages/switch_oidc wekan_oidc
-                rm -rf meteor-accounts-oidc
+		# REPOS BELOW ARE INCLUDED TO WEKAN REPO
+		#rm -rf packages/kadira-flow-router packages/meteor-useraccounts-core packages/meteor-accounts-cas packages/wekan-ldap packages/wekan-ldap packages/wekan-scrfollbar packages/meteor-accounts-oidc packages/markdown
+		#mkdir packages
+		#cd packages
+		#git clone --depth 1 -b master https://github.com/wekan/flow-router.git kadira-flow-router
+		#git clone --depth 1 -b master https://github.com/meteor-useraccounts/core.git meteor-useraccounts-core
+		#git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-cas.git
+		#git clone --depth 1 -b master https://github.com/wekan/wekan-ldap.git
+		#git clone --depth 1 -b master https://github.com/wekan/wekan-scrollbar.git
+		#git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-oidc.git
+		#git clone --depth 1 -b master --recurse-submodules https://github.com/wekan/markdown.git
+                #mv meteor-accounts-oidc/packages/switch_accounts-oidc wekan_accounts-oidc
+                #mv meteor-accounts-oidc/packages/switch_oidc wekan_oidc
+                #rm -rf meteor-accounts-oidc
 		if [[ "$OSTYPE" == "darwin"* ]]; then
 			echo "sed at macOS";
 			sed -i '' 's/api\.versionsFrom/\/\/api.versionsFrom/' ~/repos/wekan/packages/meteor-useraccounts-core/package.js

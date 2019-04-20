@@ -191,19 +191,20 @@ RUN \
     fi; \
     \
     # Get additional packages
-    mkdir -p /home/wekan/app/packages && \
+    #mkdir -p /home/wekan/app/packages && \
     chown wekan:wekan --recursive /home/wekan && \
-    cd /home/wekan/app/packages && \
-    gosu wekan:wekan git clone --depth 1 -b master https://github.com/wekan/flow-router.git kadira-flow-router && \
-    gosu wekan:wekan git clone --depth 1 -b master https://github.com/meteor-useraccounts/core.git meteor-useraccounts-core && \
-    gosu wekan:wekan git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-cas.git && \
-    gosu wekan:wekan git clone --depth 1 -b master https://github.com/wekan/wekan-ldap.git && \
-    gosu wekan:wekan git clone --depth 1 -b master https://github.com/wekan/wekan-scrollbar.git && \
-    gosu wekan:wekan git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-oidc.git && \
-    gosu wekan:wekan git clone --depth 1 -b master --recurse-submodules https://github.com/wekan/markdown.git && \
-    gosu wekan:wekan mv meteor-accounts-oidc/packages/switch_accounts-oidc wekan-accounts-oidc && \
-    gosu wekan:wekan mv meteor-accounts-oidc/packages/switch_oidc wekan-oidc && \
-    gosu wekan:wekan rm -rf meteor-accounts-oidc && \
+    # REPOS BELOW ARE INCLUDED TO WEKAN REPO
+    #cd /home/wekan/app/packages && \
+    #gosu wekan:wekan git clone --depth 1 -b master https://github.com/wekan/flow-router.git kadira-flow-router && \
+    #gosu wekan:wekan git clone --depth 1 -b master https://github.com/meteor-useraccounts/core.git meteor-useraccounts-core && \
+    #gosu wekan:wekan git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-cas.git && \
+    #gosu wekan:wekan git clone --depth 1 -b master https://github.com/wekan/wekan-ldap.git && \
+    #gosu wekan:wekan git clone --depth 1 -b master https://github.com/wekan/wekan-scrollbar.git && \
+    #gosu wekan:wekan git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-oidc.git && \
+    #gosu wekan:wekan git clone --depth 1 -b master --recurse-submodules https://github.com/wekan/markdown.git && \
+    #gosu wekan:wekan mv meteor-accounts-oidc/packages/switch_accounts-oidc wekan-accounts-oidc && \
+    #gosu wekan:wekan mv meteor-accounts-oidc/packages/switch_oidc wekan-oidc && \
+    #gosu wekan:wekan rm -rf meteor-accounts-oidc && \
     sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' /home/wekan/app/packages/meteor-useraccounts-core/package.js && \
     cd /home/wekan/.meteor && \
     gosu wekan:wekan /home/wekan/.meteor/meteor -- help; \

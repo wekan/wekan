@@ -1,0 +1,14 @@
+.build*
+
+# Ignore OS generated files 
+.DS_Store
+.DS_Store?
+._*
+.Trashes
+Thumbs.db
+ehthumbs.db
+
+#Ignore temp files
+*~
+
+.idea

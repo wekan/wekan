@@ -8,7 +8,6 @@ npm-debug.log
 .vscode/
 .idea/
 .build/*
-packages/
 package-lock.json
 **/parts/
 **/stage
@@ -17,3 +16,16 @@ package-lock.json
 snap/.snapcraft/
 .idea
 .DS_Store
+.DS_Store?
+.build*
+*.browserify.js.cached
+*.browserify.js.map
+.build*
+versions.json
+.versions
+.npm
+.build*
+._*
+.Trashes
+Thumbs.db
+ehthumbs.db
