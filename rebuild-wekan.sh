@@ -126,15 +126,14 @@ do
                 #mv meteor-accounts-oidc/packages/switch_accounts-oidc wekan_accounts-oidc
                 #mv meteor-accounts-oidc/packages/switch_oidc wekan_oidc
                 #rm -rf meteor-accounts-oidc
-		if [[ "$OSTYPE" == "darwin"* ]]; then
-			echo "sed at macOS";
-			sed -i '' 's/api\.versionsFrom/\/\/api.versionsFrom/' ~/repos/wekan/packages/meteor-useraccounts-core/package.js
-		else
-			echo "sed at ${OSTYPE}"
-			sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' ~/repos/wekan/packages/meteor-useraccounts-core/package.js
-		fi
-
-		cd ..
+		#if [[ "$OSTYPE" == "darwin"* ]]; then
+		#	echo "sed at macOS";
+		#	sed -i '' 's/api\.versionsFrom/\/\/api.versionsFrom/' ~/repos/wekan/packages/meteor-useraccounts-core/package.js
+		#else
+		#	echo "sed at ${OSTYPE}"
+		#	sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' ~/repos/wekan/packages/meteor-useraccounts-core/package.js
+		#fi
+		#cd ..
 		rm -rf node_modules
 		meteor npm install
 		rm -rf .build
