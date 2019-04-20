@@ -67,7 +67,7 @@ parts:
     mongodb:
         source: https://repo.mongodb.org/apt/ubuntu/dists/xenial/mongodb-org/4.0/multiverse/binary-amd64/mongodb-org-server_4.0.6_amd64.deb
         plugin: dump
-        stage-packages: [libssl1.0.0]
+        stage-packages: [libssl1.1]
         filesets:
             mongo:
                 - usr
@@ -97,6 +97,7 @@ parts:
             - execstack
             - nodejs
             - npm
+            - python3-setuptools
         stage-packages:
             - libfontconfig1
         override-build: |
