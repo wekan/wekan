@@ -194,12 +194,12 @@ RUN \
     mkdir -p /home/wekan/app/packages && \
     chown wekan:wekan --recursive /home/wekan && \
     cd /home/wekan/app/packages && \
-    gosu wekan:wekan git clone --depth 1 -b master git://github.com/wekan/flow-router.git kadira-flow-router && \
-    gosu wekan:wekan git clone --depth 1 -b master git://github.com/meteor-useraccounts/core.git meteor-useraccounts-core && \
-    gosu wekan:wekan git clone --depth 1 -b master git://github.com/wekan/meteor-accounts-cas.git && \
-    gosu wekan:wekan git clone --depth 1 -b master git://github.com/wekan/wekan-ldap.git && \
-    gosu wekan:wekan git clone --depth 1 -b master git://github.com/wekan/wekan-scrollbar.git && \
-    gosu wekan:wekan git clone --depth 1 -b master git://github.com/wekan/meteor-accounts-oidc.git && \
+    gosu wekan:wekan git clone --depth 1 -b master https://github.com/wekan/flow-router.git kadira-flow-router && \
+    gosu wekan:wekan git clone --depth 1 -b master https://github.com/meteor-useraccounts/core.git meteor-useraccounts-core && \
+    gosu wekan:wekan git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-cas.git && \
+    gosu wekan:wekan git clone --depth 1 -b master https://github.com/wekan/wekan-ldap.git && \
+    gosu wekan:wekan git clone --depth 1 -b master https://github.com/wekan/wekan-scrollbar.git && \
+    gosu wekan:wekan git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-oidc.git && \
     gosu wekan:wekan git clone --depth 1 -b master --recurse-submodules https://github.com/wekan/markdown.git && \
     gosu wekan:wekan mv meteor-accounts-oidc/packages/switch_accounts-oidc wekan-accounts-oidc && \
     gosu wekan:wekan mv meteor-accounts-oidc/packages/switch_oidc wekan-oidc && \
@@ -213,7 +213,7 @@ RUN \
     mkdir -p /home/wekan/python && \
     chown wekan:wekan --recursive /home/wekan/python && \
     cd /home/wekan/python && \
-    gosu wekan:wekan git clone --depth 1 -b master git://github.com/Kronuz/esprima-python && \
+    gosu wekan:wekan git clone --depth 1 -b master https://github.com/Kronuz/esprima-python && \
     cd /home/wekan/python/esprima-python && \
     python3 setup.py install --record files.txt && \
     cd /home/wekan/app &&\
