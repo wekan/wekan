@@ -4,10 +4,10 @@ LABEL maintainer="wekan"
 # Set the environment variables (defaults where required)
 # DOES NOT WORK: paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
 # ENV BUILD_DEPS="paxctl"
-ENV BUILD_DEPS="apt-utils bsdtar gnupg gosu wget curl bzip2 build-essential python python3 python3-distutils git ca-certificates gcc-7" \
+ENV BUILD_DEPS="apt-utils bsdtar gnupg gosu wget curl bzip2 build-essential python3 python3-distutils git ca-certificates gcc-8" \
     DEBUG=false \
     NODE_VERSION=v8.16.0 \
-    METEOR_RELEASE=1.6.0.1 \
+    METEOR_RELEASE=1.8.1 \
     USE_EDGE=false \
     METEOR_EDGE=1.5-beta.17 \
     NPM_VERSION=latest \
@@ -174,14 +174,14 @@ RUN \
     \
     # Change user to wekan and install meteor
     cd /home/wekan/ && \
-    chown wekan:wekan --recursive /home/wekan && \
+    chown wekan --recursive /home/wekan && \
     curl "https://install.meteor.com" -o /home/wekan/install_meteor.sh && \
     #curl "https://install.meteor.com/?release=${METEOR_RELEASE}" -o /home/wekan/install_meteor.sh && \
     # OLD: sed -i "s|RELEASE=.*|RELEASE=${METEOR_RELEASE}\"\"|g" ./install_meteor.sh && \
     # Install Meteor forcing its progress
     sed -i 's/VERBOSITY="--silent"/VERBOSITY="--progress-bar"/' ./install_meteor.sh && \
     echo "Starting meteor ${METEOR_RELEASE} installation...   \n" && \
-    chown wekan:wekan /home/wekan/install_meteor.sh && \
+    chown wekan /home/wekan/install_meteor.sh && \
     \
     # Check if opting for a release candidate instead of major release
     if [ "$USE_EDGE" = false ]; then \
@@ -192,7 +192,7 @@ RUN \
     \
     # Get additional packages
     #mkdir -p /home/wekan/app/packages && \
-    chown wekan:wekan --recursive /home/wekan && \
+    chown wekan --recursive /home/wekan && \
     # REPOS BELOW ARE INCLUDED TO WEKAN REPO
     #cd /home/wekan/app/packages && \
     #gosu wekan:wekan git clone --depth 1 -b master https://github.com/wekan/flow-router.git kadira-flow-router && \
@@ -212,7 +212,7 @@ RUN \
     # extract the OpenAPI specification
     npm install -g api2html@0.3.0 && \
     mkdir -p /home/wekan/python && \
-    chown wekan:wekan --recursive /home/wekan/python && \
+    chown wekan --recursive /home/wekan/python && \
     cd /home/wekan/python && \
     gosu wekan:wekan git clone --depth 1 -b master https://github.com/Kronuz/esprima-python && \
     cd /home/wekan/python/esprima-python && \
@@ -227,8 +227,8 @@ RUN \
     gosu wekan:wekan /home/wekan/.meteor/meteor npm install && \
     gosu wekan:wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build && \
     cp /home/wekan/app/fix-download-unicode/cfs_access-point.txt /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
-    rm /home/wekan/app_build/bundle/programs/server/npm/node_modules/meteor/rajit_bootstrap3-datepicker/lib/bootstrap-datepicker/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs && \
-    chown wekan:wekan /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
+    #rm /home/wekan/app_build/bundle/programs/server/npm/node_modules/meteor/rajit_bootstrap3-datepicker/lib/bootstrap-datepicker/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs && \
+    chown wekan /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
     #Removed binary version of bcrypt because of security vulnerability that is not fixed yet.
     #https://github.com/wekan/wekan/commit/4b2010213907c61b0e0482ab55abb06f6a668eac
     #https://github.com/wekan/wekan/commit/7eeabf14be3c63fae2226e561ef8a0c1390c8d3c
