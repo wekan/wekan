@@ -89,15 +89,14 @@ parts:
         build-packages:
             - ca-certificates
             - apt-utils
-            - python
             - python3
-            - g++
+            - gcc-8
             - capnproto
             - curl
             - execstack
             - nodejs
             - npm
-            - python3-setuptools
+            - python3-pip
         stage-packages:
             - libfontconfig1
         override-build: |
@@ -107,6 +106,7 @@ parts:
             rm -rf .build
             mkdir -p .build/python
             cd .build/python
+            pip3 install -U setuptools wheel
             git clone --depth 1 -b master https://github.com/Kronuz/esprima-python
             cd esprima-python
             python3 setup.py install
