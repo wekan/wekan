@@ -1,4 +1,4 @@
-FROM ubuntu:cosmic
+FROM ubuntu:disco
 LABEL maintainer="wekan"
 
 # Set the environment variables (defaults where required)
