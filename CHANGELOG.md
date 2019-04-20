@@ -5,6 +5,8 @@ This release adds the following updates:
 - [Update to use newest GitHub flawored markdown](https://github.com/wekan/wekan/commit/fea2ad3d7d09b44c3de1dbcdd3f8750aaa6776d5),
   because [it was found old version was in use](https://github.com/wekan/wekan/issues/2334).
   Thanks to shaygover and xet7.
+- [Upgrade to Node 8.16.0](https://github.com/wekan/wekan/commit/6117097a93bfb11c8bd4c87a23c44a50e22ceb87).
+  Thanks to xet7.    
 
 and fixes the following bugs:
 
@@ -12,6 +14,10 @@ and fixes the following bugs:
   Thanks to hupptehcnologies.
 - Remove [extra](https://github.com/wekan/wekan/pull/2332) [quotes](https://github.com/wekan/wekan/pull/2333) from docker-compose.yml.
   Thanks to hibare.
+- Fix Docker builds by moving all separately cloned wekan/packages/* repos like ldap, oidc, etc code to wekan repo code,
+  so that in build scripts it's not needed to clone those. Also archived those wekan repos and moved issues
+  to https://github.com/wekan/wekan/issues because changes and development to those packages now happends on wekan/wekan repo.
+  There was also fixes to repo urls etc. Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
