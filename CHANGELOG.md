@@ -1,12 +1,20 @@
-# Upcoming Wekan release
+# v2.61 2019-04-20 Wekan release
 
-This release adds the following updates:
+This release adds the following new features:
+
+- Admin Panel/People: Can now search users by username, full name or email and using regex to find them.
+  Display the number of users. All registered users by default else the number of users selected by the search.
+  Thanks to Akuket.
+
+and adds the following updates:
 
 - [Update to use newest GitHub flawored markdown](https://github.com/wekan/wekan/commit/fea2ad3d7d09b44c3de1dbcdd3f8750aaa6776d5),
   because [it was found old version was in use](https://github.com/wekan/wekan/issues/2334).
   Thanks to shaygover and xet7.
 - [Upgrade to Node 8.16.0](https://github.com/wekan/wekan/commit/6117097a93bfb11c8bd4c87a23c44a50e22ceb87).
-  Thanks to xet7.    
+  Thanks to Node developers and xet7.    
+- [Upgrade Docker base image to ubuntu:disco](https://github.com/wekan/wekan/commit/bd14ee3b1f450ddc6dec26ccc8da702b839942e5).
+  Thanks to Ubuntu developers and xet7.
 
 and fixes the following bugs:
 
@@ -18,6 +26,8 @@ and fixes the following bugs:
   so that in build scripts it's not needed to clone those. Also archived those wekan repos and moved issues
   to https://github.com/wekan/wekan/issues because changes and development to those packages now happends on wekan/wekan repo.
   There was also fixes to repo urls etc. Thanks to xet7.
+- [Additional updates](https://github.com/wekan/wekan/pull/2347) to meteor-1.8 branch, that contains
+  Meteor 1.8.1 version that works in Docker but not yet at Snap and Sandstorm. Thanks to justinr1234.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
