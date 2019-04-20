@@ -1,24 +1,7 @@
 #!/bin/bash
 
-function wekan_repo_check(){
-      git_remotes="$(git remote show 2>/dev/null)"
-      res=""
-      for i in $git_remotes; do
-            res="$(git remote get-url $i | sed 's/.*wekan\/wekan.*/wekan\/wekan/')"
-            if [[ "$res" == "wekan/wekan" ]]; then
-                break
-            fi
-      done
-
-      if [[ "$res" != "wekan/wekan" ]]; then
-            echo "$PWD is not a wekan repository"
-            exit;
-      fi
-}
-
 # If you want to restart even on crash, uncomment while and done lines.
 #while true; do
-      wekan_repo_check
       cd .build/bundle
       #---------------------------------------------
       # Debug OIDC OAuth2 etc.
