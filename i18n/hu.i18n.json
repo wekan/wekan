@@ -683,5 +683,6 @@
     "error-ldap-login": "Hiba történt bejelentkezés közben",
     "display-authentication-method": "Hitelelesítési mód mutatása",
     "default-authentication-method": "Alapértelmezett hitelesítési mód",
-    "duplicate-board": "Duplicate Board"
+    "duplicate-board": "Duplicate Board",
+    "people-number": "The number of people is:"
 }

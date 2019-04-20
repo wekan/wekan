@@ -683,5 +683,6 @@
     "error-ldap-login": "هنگام تلاش برای ورود به یک خطا رخ داد",
     "display-authentication-method": "نمایش نوع اعتبارسنجی",
     "default-authentication-method": "نوع اعتبارسنجی پیشفرض",
-    "duplicate-board": "Duplicate Board"
+    "duplicate-board": "Duplicate Board",
+    "people-number": "The number of people is:"
 }
