@@ -114,11 +114,11 @@ parts:
             mkdir -p ./public/api
             python3 ./openapi/generate_openapi.py --release $(git describe --tags --abbrev=0) > ./public/api/wekan.yml
             # we temporary need api2html and mkdirp
-            npm install -g api2html@0.3.0
-            npm install -g mkdirp
+            npm install -g --unsafe-perm api2html@0.3.0
+            npm install -g  --unsafe-perm mkdirp
             api2html -c ./public/logo-header.png -o ./public/api/wekan.html ./public/api/wekan.yml
-            npm uninstall -g mkdirp
-            npm uninstall -g api2html
+            npm uninstall -g --unsafe-perm mkdirp
+            npm uninstall -g --unsafe-perm api2html
             # Node Fibers 100% CPU usage issue:
             # https://github.com/wekan/wekan-mongodb/issues/2#issuecomment-381453161
             # https://github.com/meteor/meteor/issues/9796#issuecomment-381676326
@@ -193,7 +193,7 @@ parts:
             #fi
             rm -rf package-lock.json .build
             meteor add standard-minifier-js --allow-superuser
-            meteor npm install --allow-superuser
+            meteor npm install --allow-superuser --unsafe-perm
             meteor build .build --directory --allow-superuser
             cp -f fix-download-unicode/cfs_access-point.txt .build/bundle/programs/server/packages/cfs_access-point.js
             #Removed binary version of bcrypt because of security vulnerability that is not fixed yet.
@@ -206,7 +206,7 @@ parts:
             #cd ../../../../
             # Change to directory .build/bundle/programs/server
             cd .build/bundle/programs/server
-            npm install
+            npm install --unsafe-perm
             #meteor npm install --save bcrypt
             # Change back to Wekan source directory
             cd ../../../..
