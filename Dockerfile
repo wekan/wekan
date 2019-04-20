@@ -188,7 +188,7 @@ RUN \
     if [ "$USE_EDGE" = false ]; then \
       gosu wekan:wekan sh /home/wekan/install_meteor.sh; \
     else \
-      gosu wekan:wekan git clone --recursive --depth 1 -b release/METEOR@${METEOR_EDGE} git://github.com/meteor/meteor.git /home/wekan/.meteor; \
+      gosu wekan:wekan git clone --recursive --depth 1 -b release/METEOR@${METEOR_EDGE} https://github.com/meteor/meteor.git /home/wekan/.meteor; \
     fi; \
     \
     # Get additional packages
