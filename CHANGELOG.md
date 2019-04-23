@@ -1,3 +1,13 @@
+# v2.63 2019-04-23 Wekan release
+
+This release removes the following Caddy plugins:
+
+- [Remove Caddy plugins http.filter, http.ipfilter and http.realip from Caddy](https://github.com/wekan/wekan/commot/6a94500170509d2d82bd9a0fdc94a7ce66215b3d)
+  because they are currently broken, preventing download of Caddy during Wekan Snap build.
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.62 2019-04-23 Wekan release
 
 This release fixes the following bugs:
