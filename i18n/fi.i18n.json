@@ -684,5 +684,9 @@
     "display-authentication-method": "Näytä kirjautumistapa",
     "default-authentication-method": "Oletus kirjautumistapa",
     "duplicate-board": "Tee kaksoiskappale taulusta",
-    "people-number": "Ihmisten määrä on:"
+    "people-number": "Ihmisten määrä on:",
+    "swimlaneDeletePopup-title": "Poista Swimlane ?",
+    "swimlane-delete-pop": "Kaikki toimet poistetaan toimintasyötteestä ja swimlanen poistaminen on lopullista. Tätä ei pysty peruuttamaan.",
+    "restore-all": "Palauta kaikki",
+    "delete-all": "Poista kaikki"
 }

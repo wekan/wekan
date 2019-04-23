@@ -684,5 +684,9 @@
     "display-authentication-method": "Mostra il metodo di autenticazione",
     "default-authentication-method": "Metodo di autenticazione predefinito",
     "duplicate-board": "Duplica bacheca",
-    "people-number": "Il numero di persone è:"
+    "people-number": "Il numero di persone è:",
+    "swimlaneDeletePopup-title": "Delete Swimlane ?",
+    "swimlane-delete-pop": "All actions will be removed from the activity feed and you won't be able to recover the swimlane. There is no undo.",
+    "restore-all": "Restore all",
+    "delete-all": "Delete all"
 }
