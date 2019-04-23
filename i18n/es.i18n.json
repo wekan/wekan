@@ -687,6 +687,6 @@
     "people-number": "El número de personas es:",
     "swimlaneDeletePopup-title": "¿Eliminar el carril de flujo?",
     "swimlane-delete-pop": "Todas las acciones serán eliminadas del historial de actividades y no se podrá recuperar el carril de flujo. Esta acción no puede deshacerse.",
-    "restore-all": "Restore all",
-    "delete-all": "Delete all"
+    "restore-all": "Restaurar todas",
+    "delete-all": "Borrar todas"
 }
