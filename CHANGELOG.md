@@ -1,3 +1,12 @@
+# v2.64 2019-04-23 Wekan release
+
+This release adds the following new features:
+
+- [Board Archive: Restore All/Delete All of Cards/Lists/Swimlanes](https://github.com/wekan/wekan/pull/2376).
+  Thanks to Akuket.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.63 2019-04-23 Wekan release
 
 This release removes the following Caddy plugins:

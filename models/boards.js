@@ -803,6 +803,13 @@ Boards.mutations({
   },
 });
 
+function boardRemover(userId, doc) {
+  [Cards, Lists, Swimlanes, Integrations, Rules, Activities].forEach((element) => {
+    element.remove({ boardId: doc._id });
+  });
+}
+
+
 if (Meteor.isServer) {
   Boards.allow({
     insert: Meteor.userId,
@@ -964,6 +971,18 @@ if (Meteor.isServer) {
         }
       });
     }
+  });
+
+  Boards.before.remove((userId, doc) => {
+    boardRemover(userId, doc);
+    // Add removeBoard activity to keep it
+    Activities.insert({
+      userId,
+      type: 'board',
+      activityTypeId: doc._id,
+      activityType: 'removeBoard',
+      boardId: doc._id,
+    });
   });
 
   // Add a new activity if we add or remove a member to the board

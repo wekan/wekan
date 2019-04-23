@@ -684,5 +684,9 @@
     "display-authentication-method": "显示认证方式",
     "default-authentication-method": "缺省认证方式",
     "duplicate-board": "复制看板",
-    "people-number": "人数是："
+    "people-number": "人数是：",
+    "swimlaneDeletePopup-title": "Delete Swimlane ?",
+    "swimlane-delete-pop": "All actions will be removed from the activity feed and you won't be able to recover the swimlane. There is no undo.",
+    "restore-all": "Restore all",
+    "delete-all": "Delete all"
 }
