@@ -225,7 +225,7 @@ parts:
 
     caddy:
         plugin: dump
-        source: https://caddyserver.com/download/linux/amd64?plugins=http.filter,http.ipfilter,http.realip&license=personal&telemetry=off
+        source: https://caddyserver.com/download/linux/amd64?license=personal&telemetry=off
         source-type: tar
         organize:
           caddy: bin/caddy
