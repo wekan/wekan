@@ -687,5 +687,9 @@
     "display-authentication-method": "Display Authentication Method",
     "default-authentication-method": "Default Authentication Method",
     "duplicate-board": "Duplicate Board",
-    "people-number": "The number of people is: "
+    "people-number": "The number of people is: ",
+    "swimlaneDeletePopup-title": "Delete Swimlane ?",
+    "swimlane-delete-pop": "All actions will be removed from the activity feed and you won't be able to recover the swimlane. There is no undo.",
+    "restore-all": "Restore all",
+    "delete-all": "Delete all"
 }

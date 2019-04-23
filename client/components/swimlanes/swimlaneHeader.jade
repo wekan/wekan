@@ -54,3 +54,7 @@ template(name="setSwimlaneColorPopup")
           i.fa.fa-check
     button.primary.confirm.js-submit {{_ 'save'}}
     button.js-remove-color.negate.wide.right {{_ 'unset-color'}}
+
+template(name="swimlaneDeletePopup")
+  p {{_ "swimlane-delete-pop"}}
+  button.js-confirm.negate.full(type="submit") {{_ 'delete'}}

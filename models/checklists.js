@@ -157,8 +157,6 @@ if (Meteor.isServer) {
       listId: doc.listId,
       swimlaneId: doc.swimlaneId,
     });
-
-
   });
 }
 
