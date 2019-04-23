@@ -18,11 +18,11 @@
     "act-uncompleteChecklist": "看板 __board__ 中的泳道 __swimlane__ 中的列表 __list__ 中的卡片 __card__ 中的清单 __checklist__ 未完成",
     "act-addComment": "对看板 __board__ 中的泳道 __swimlane__ 中的列表 __list__ 中的卡片 __card__ 发表了评论: __comment__ ",
     "act-createBoard": "创建看板 __board__",
-    "act-createSwimlane": "created swimlane __swimlane__ to board __board__",
-    "act-createCard": "created card __card__ to list __list__ at swimlane __swimlane__ at board __board__",
-    "act-createCustomField": "created custom field __customField__ to card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
+    "act-createSwimlane": "创建泳道 __swimlane__ 到看板 __board__",
+    "act-createCard": "在看板 __board__ 的泳道 __swimlane__ 的列表 __list__ 中添加卡片 __card__",
+    "act-createCustomField": "在看板 __board__ 泳道 __swimlane__ 列表 __list__ 卡片 __card__ 中创建自定义字段 __customField__",
     "act-createList": "添加列表 __list__ 至看板 __board__",
-    "act-addBoardMember": "added member __member__ to board __board__",
+    "act-addBoardMember": "添加成员 __member__ 到看板 __board__",
     "act-archivedBoard": "看板 __board__ 已被移入归档",
     "act-archivedCard": "Card __card__ at list __list__ at swimlane __swimlane__ at board __board__ moved to Archive",
     "act-archivedList": "看板 __board__ 中的泳道 __swimlane__ 中的列表 __list__ 已被移入归档",
@@ -683,6 +683,6 @@
     "error-ldap-login": "尝试登陆时出错",
     "display-authentication-method": "显示认证方式",
     "default-authentication-method": "缺省认证方式",
-    "duplicate-board": "Duplicate Board",
-    "people-number": "The number of people is:"
+    "duplicate-board": "复制看板",
+    "people-number": "人数是："
 }
