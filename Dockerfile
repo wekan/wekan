@@ -4,7 +4,7 @@ LABEL maintainer="wekan"
 # Set the environment variables (defaults where required)
 # DOES NOT WORK: paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
 # ENV BUILD_DEPS="paxctl"
-ENV BUILD_DEPS="apt-utils bsdtar gnupg gosu wget curl bzip2 build-essential python python3 python3-distutils git ca-certificates gcc-7" \
+ENV BUILD_DEPS="apt-utils bsdtar gnupg gosu wget curl bzip2 build-essential python3 python3-pip git ca-certificates gcc-8" \
     DEBUG=false \
     NODE_VERSION=v8.16.0 \
     METEOR_RELEASE=1.6.0.1 \
@@ -108,6 +108,7 @@ RUN \
     \
     # OS dependencies
     apt-get update -y && apt-get install -y --no-install-recommends ${BUILD_DEPS} && \
+    pip3 install -U pip setuptools wheel && \
     \
     # Meteor installer doesn't work with the default tar binary, so using bsdtar while installing.
     # https://github.com/coreos/bugs/issues/1095#issuecomment-350574389
