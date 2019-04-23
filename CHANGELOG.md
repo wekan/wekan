@@ -1,8 +1,8 @@
-# Upcoming Wekan release
+# v2.64 2019-04-23 Wekan release
 
 This release adds the following new features:
 
-- [Board Archive: Delete Card/List/Swimlane](https://github.com/wekan/wekan/pull/2376).
+- [Board Archive: Restore All/Delete All of Cards/Lists/Swimlanes](https://github.com/wekan/wekan/pull/2376).
   Thanks to Akuket.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
