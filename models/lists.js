@@ -217,6 +217,10 @@ Lists.helpers({
   isTemplateList() {
     return this.type === 'template-list';
   },
+
+  remove() {
+    Lists.remove({ _id: this._id});
+  },
 });
 
 Lists.mutations({
@@ -310,6 +314,12 @@ if (Meteor.isServer) {
   });
 
   Lists.before.remove((userId, doc) => {
+    const cards = Cards.find({ listId: doc._id });
+    if (cards) {
+      cards.forEach((card) => {
+        Cards.remove(card._id);
+      });
+    }
     Activities.insert({
       userId,
       type: 'list',

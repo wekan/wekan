@@ -2,6 +2,10 @@ template(name="archivesSidebar")
   +basicTabs(tabs=tabs)
 
    +tabContent(slug="cards")
+    p.quiet
+      a.js-restore-all-cards {{_ 'restore-all'}}
+      | -
+      a.js-delete-all-cards {{_ 'delete-all'}}
     each archivedCards
       .minicard-wrapper.js-minicard
         +minicard(this)
@@ -16,23 +20,35 @@ template(name="archivesSidebar")
       p.no-items-message {{_ 'no-archived-cards'}}
 
    +tabContent(slug="lists")
+    p.quiet
+      a.js-restore-all-lists {{_ 'restore-all'}}
+      | -
+      a.js-delete-all-lists {{_ 'delete-all'}}
     ul.archived-lists
       each archivedLists
         li.archived-lists-item
-          if currentUser.isBoardMember
-            button.js-restore-list
-              i.fa.fa-undo
           = title
+          if currentUser.isBoardMember
+            p.quiet
+              a.js-restore-list {{_ 'restore'}}
+              | -
+              a.js-delete-list {{_ 'delete'}}
       else
         li.no-items-message {{_ 'no-archived-lists'}}
 
    +tabContent(slug="swimlanes")
+    p.quiet
+      a.js-restore-all-swimlanes {{_ 'restore-all'}}
+      | -
+      a.js-delete-all-swimlanes {{_ 'delete-all'}}
     ul.archived-lists
       each archivedSwimlanes
         li.archived-lists-item
-          if currentUser.isBoardMember
-            button.js-restore-swimlane
-              i.fa.fa-undo
           = title
+          if currentUser.isBoardMember
+            p.quiet
+              a.js-restore-swimlane {{_ 'restore'}}
+              | -
+              a.js-delete-swimlane {{_ 'delete'}}
       else
         li.no-items-message {{_ 'no-archived-swimlanes'}}

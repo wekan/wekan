@@ -1518,7 +1518,7 @@ function cardCreation(userId, doc) {
 }
 
 function cardRemover(userId, doc) {
-  Activities.remove({
+  ChecklistItems.remove({
     cardId: doc._id,
   });
   Checklists.remove({
@@ -1583,7 +1583,7 @@ if (Meteor.isServer) {
 
   // Remove all activities associated with a card if we remove the card
   // Remove also card_comments / checklists / attachments
-  Cards.after.remove((userId, doc) => {
+  Cards.before.remove((userId, doc) => {
     cardRemover(userId, doc);
   });
 }
