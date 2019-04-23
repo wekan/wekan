@@ -1,3 +1,12 @@
+# v2.62 2019-04-23 Wekan release
+
+This release fixes the following bugs:
+
+- [Mobile UI: Center cards in list view](https://github.com/wekan/wekan/issues/2371).
+  Thanks to hupptechnologies.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.61 2019-04-20 Wekan release
 
 This release adds the following new features:
