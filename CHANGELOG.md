@@ -1,6 +1,12 @@
-# Upcoming Wekan release
+# v2.65 2019-04-24 Wekan release
 
-This release fixes the following UI duplicates:
+This release adds the following new features:
+
+- [Now a loading animation is displayed when the authentication is performed. This allows users
+  to know that it's in progress](https://github.com/wekan/wekan/pull/2379).
+  Thanks to Akuket.
+
+and removes the following UI duplicates:
 
 - [Remove from card menu, because they also exist at card:
   members, labels, attachments, dates received/start/due/end](https://github.com/wekan/wekan/issues/2242).
