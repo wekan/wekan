@@ -685,8 +685,8 @@
     "default-authentication-method": "Método de Autenticação Padrão",
     "duplicate-board": "Duplicar Quadro",
     "people-number": "O número de pessoas é:",
-    "swimlaneDeletePopup-title": "Delete Swimlane ?",
-    "swimlane-delete-pop": "All actions will be removed from the activity feed and you won't be able to recover the swimlane. There is no undo.",
-    "restore-all": "Restore all",
-    "delete-all": "Delete all"
+    "swimlaneDeletePopup-title": "Excluir Raia?",
+    "swimlane-delete-pop": "Todas as ações serão excluídas da lista de atividades e você não poderá recuperar a raia. Não há como desfazer.",
+    "restore-all": "Restaurar tudo",
+    "delete-all": "Excluir tudo"
 }
