@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release fixes the following UI duplicates:
+
+- [Remove from card menu, because they also exist at card:
+  members, labels, attachments, dates received/start/due/end](https://github.com/wekan/wekan/issues/2242).
+  Thanks to sfahrenholz, jrsupplee and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.64 2019-04-23 Wekan release
 
 This release adds the following new features:
