@@ -12,8 +12,8 @@
     "act-addChecklistItem": "נוסף פריט סימון __checklistItem__ לרשימת המטלות __checklist__ לכרטיס __card__ ברשימה __list__ במסלול __swimlane__ בלוח __board__",
     "act-removeChecklist": "הוסרה רשימת מטלות __checklist__ מהכרטיס __card__ ברשימה __list__ שבמסלול __swimlane__ בלוח __board__",
     "act-removeChecklistItem": "פריט הסימון __checklistItem__ הוסר מרשימת המטלות __checkList__ בכרטיס __card__ ברשימה __list__ מהמסלול __swimlane__ בלוח __board__",
-    "act-checkedItem": "checked __checklistItem__ of checklist __checklist__ at card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
-    "act-uncheckedItem": "unchecked __checklistItem__ of checklist __checklist__ at card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
+    "act-checkedItem": "__checklistItem__ ברשימת המטלות __checklist__ סומן בכרטיס __card__ ברשימה __list__ במסלול __swimlane__ בלוח __board__",
+    "act-uncheckedItem": "בוטל הסימון __checklistItem__ ברשימת המטלות __checklist__ בכרטיס __card__ ברשימה __list__ במסלול __swimlane__ בלוח __board__",
     "act-completeChecklist": "completed checklist __checklist__ at card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
     "act-uncompleteChecklist": "uncompleted checklist __checklist__ at card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
     "act-addComment": "commented on card __card__: __comment__ at list __list__ at swimlane __swimlane__ at board __board__",
@@ -689,5 +689,5 @@
     "swimlane-delete-pop": "כל הפעולות יוסרו מהזנת הפעילות ולא תהיה לך אפשרות לשחזר את המסלול. אי אפשר לחזור אחורה.",
     "restore-all": "לשחזר הכול",
     "delete-all": "למחוק הכול",
-    "loading": "Loading, please wait."
+    "loading": "העמוד בטעינה, אנא המתינו."
 }
