@@ -23,6 +23,7 @@ const validator = {
 Template.userFormsLayout.onCreated(function() {
   const instance = this;
   instance.currentSetting = new ReactiveVar();
+  instance.isLoading = new ReactiveVar(false);
 
   Meteor.subscribe('setting', {
     onReady() {
@@ -45,6 +46,10 @@ Template.userFormsLayout.onRendered(() => {
 Template.userFormsLayout.helpers({
   currentSetting() {
     return Template.instance().currentSetting.get();
+  },
+
+  isLoading() {
+    return Template.instance().isLoading.get();
   },
 
   afterBodyStart() {
@@ -89,7 +94,11 @@ Template.userFormsLayout.events({
   },
   'click #at-btn'(event, instance) {
     if (FlowRouter.getRouteName() === 'atSignIn') {
-      authentication(event, instance);
+      instance.isLoading.set(true);
+      authentication(event, instance)
+        .then(() => {
+          instance.isLoading.set(false);
+        });
     }
   },
 });
@@ -116,19 +125,21 @@ async function authentication(event, instance) {
 
   switch (result) {
   case 'ldap':
-    Meteor.loginWithLDAP(match, password, function() {
-      FlowRouter.go('/');
+    return new Promise((resolve) => {
+      Meteor.loginWithLDAP(match, password, function() {
+        resolve(FlowRouter.go('/'));
+      });
     });
-    break;
 
   case 'cas':
-    Meteor.loginWithCas(function() {
-      FlowRouter.go('/');
+    return new Promise((resolve) => {
+      Meteor.loginWithCas(match, password, function() {
+        resolve(FlowRouter.go('/'));
+      });
     });
-    break;
 
   default:
-    break;
+    return;
   }
 }
 
