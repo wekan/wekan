@@ -688,5 +688,6 @@
     "swimlaneDeletePopup-title": "Poista Swimlane ?",
     "swimlane-delete-pop": "Kaikki toimet poistetaan toimintasyötteestä ja swimlanen poistaminen on lopullista. Tätä ei pysty peruuttamaan.",
     "restore-all": "Palauta kaikki",
-    "delete-all": "Poista kaikki"
+    "delete-all": "Poista kaikki",
+    "loading": "Ladataan, odota hetki."
 }

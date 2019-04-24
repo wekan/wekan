@@ -688,5 +688,6 @@
     "swimlaneDeletePopup-title": "למחוק מסלול?",
     "swimlane-delete-pop": "כל הפעולות יוסרו מהזנת הפעילות ולא תהיה לך אפשרות לשחזר את המסלול. אי אפשר לחזור אחורה.",
     "restore-all": "לשחזר הכול",
-    "delete-all": "למחוק הכול"
+    "delete-all": "למחוק הכול",
+    "loading": "Loading, please wait."
 }

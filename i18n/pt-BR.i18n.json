@@ -688,5 +688,6 @@
     "swimlaneDeletePopup-title": "Excluir Raia?",
     "swimlane-delete-pop": "Todas as ações serão excluídas da lista de atividades e você não poderá recuperar a raia. Não há como desfazer.",
     "restore-all": "Restaurar tudo",
-    "delete-all": "Excluir tudo"
+    "delete-all": "Excluir tudo",
+    "loading": "Loading, please wait."
 }

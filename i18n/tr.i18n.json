@@ -688,5 +688,6 @@
     "swimlaneDeletePopup-title": "Kulvar silinsin mi?",
     "swimlane-delete-pop": "All actions will be removed from the activity feed and you won't be able to recover the swimlane. There is no undo.",
     "restore-all": "Restore all",
-    "delete-all": "Hepsini sil"
+    "delete-all": "Hepsini sil",
+    "loading": "Loading, please wait."
 }
