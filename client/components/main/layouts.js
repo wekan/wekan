@@ -113,11 +113,11 @@ async function authentication(event, instance) {
   const match = $('#at-field-username_and_email').val();
   const password = $('#at-field-password').val();
 
-  if (!match || !password) return;
+  if (!match || !password) return undefined;
 
   const result = await getAuthenticationMethod(instance.currentSetting.get(), match);
 
-  if (result === 'password') return;
+  if (result === 'password') return undefined;
 
   // Stop submit #at-pwd-form
   event.preventDefault();
@@ -139,7 +139,7 @@ async function authentication(event, instance) {
     });
 
   default:
-    return;
+    return undefined;
   }
 }
 
