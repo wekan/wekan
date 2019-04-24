@@ -685,8 +685,9 @@
     "default-authentication-method": "Standardauthentifizierungsverfahren",
     "duplicate-board": "Board duplizieren",
     "people-number": "Anzahl der Personen:",
-    "swimlaneDeletePopup-title": "Delete Swimlane ?",
-    "swimlane-delete-pop": "All actions will be removed from the activity feed and you won't be able to recover the swimlane. There is no undo.",
-    "restore-all": "Restore all",
-    "delete-all": "Delete all"
+    "swimlaneDeletePopup-title": "Swimlane löschen?",
+    "swimlane-delete-pop": "Alle Aktionen werden aus dem Aktivitäts-Feed entfernt und du kannst die Swimlane auch nicht wiederherstellen: Es gibt kein Undo!",
+    "restore-all": "Alles wiederherstellen",
+    "delete-all": "Alles löschen",
+    "loading": "Loading, please wait."
 }

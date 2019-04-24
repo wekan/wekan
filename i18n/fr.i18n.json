@@ -688,5 +688,6 @@
     "swimlaneDeletePopup-title": "Supprimer le couloir ?",
     "swimlane-delete-pop": "Toutes les actions vont être supprimées du suivi d'activités et vous ne pourrez plus utiliser ce couloir. Cette action est irréversible.",
     "restore-all": "Tout supprimer",
-    "delete-all": "Tout restaurer"
+    "delete-all": "Tout restaurer",
+    "loading": "Chargement, merci de patienter."
 }

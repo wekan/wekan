@@ -13,20 +13,20 @@ head
 
 template(name="userFormsLayout")
   section.auth-layout
-    h1
-      br
-      br
     section.auth-dialog
-      +Template.dynamic(template=content)
-      if currentSetting.displayAuthenticationMethod
-        +connectionMethod(authenticationMethod=currentSetting.defaultAuthenticationMethod)
-      div.at-form-lang
-        select.select-lang.js-userform-set-language
-          each languages
-            if isCurrentLanguage
-              option(value="{{tag}}" selected="selected") {{name}}
-            else
-              option(value="{{tag}}") {{name}}
+      if isLoading
+        +loader
+      else
+        +Template.dynamic(template=content)
+        if currentSetting.displayAuthenticationMethod
+          +connectionMethod(authenticationMethod=currentSetting.defaultAuthenticationMethod)
+        div.at-form-lang
+          select.select-lang.js-userform-set-language
+            each languages
+              if isCurrentLanguage
+                option(value="{{tag}}" selected="selected") {{name}}
+              else
+                option(value="{{tag}}") {{name}}
 
 template(name="defaultLayout")
   +header
@@ -59,3 +59,14 @@ template(name="message")
     unless currentUser
       with(pathFor route='atSignIn')
         p {{{_ 'page-maybe-private' this}}}
+
+template(name="loader")
+  h1.loadingText {{_ 'loading'}}
+  .lds-roller
+    div
+    div
+    div
+    div
+    div
+    div
+    div

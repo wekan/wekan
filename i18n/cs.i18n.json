@@ -683,10 +683,11 @@
     "error-ldap-login": "Během přihlašování nastala chyba",
     "display-authentication-method": "Zobraz způsob ověřování",
     "default-authentication-method": "Zobraz způsob ověřování",
-    "duplicate-board": "Duplicate Board",
+    "duplicate-board": "Duplikovat tablo",
     "people-number": "The number of people is:",
     "swimlaneDeletePopup-title": "Delete Swimlane ?",
     "swimlane-delete-pop": "All actions will be removed from the activity feed and you won't be able to recover the swimlane. There is no undo.",
     "restore-all": "Restore all",
-    "delete-all": "Delete all"
+    "delete-all": "Delete all",
+    "loading": "Loading, please wait."
 }
