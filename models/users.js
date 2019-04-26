@@ -238,6 +238,19 @@ Users.allow({
     const user = Users.findOne(userId);
     return user && Meteor.user().isAdmin;
   },
+  remove(userId, doc) {
+    const adminsNumber = Users.find({ isAdmin: true }).count();
+    const { isAdmin } = Users.findOne({ _id: userId }, { fields: { 'isAdmin': 1 } });
+
+    // Prevents remove of the only one administrator
+    if (adminsNumber === 1 && isAdmin && userId === doc._id) {
+      return false;
+    }
+
+    // If it's the user or an admin
+    return userId === doc._id || isAdmin;
+  },
+  fetch: [],
 });
 
 // Search a user in the complete server database by its name or username. This
@@ -363,6 +376,10 @@ Users.helpers({
 
   getTemplatesBoardSlug() {
     return Boards.findOne(this.profile.templatesBoardId).slug;
+  },
+
+  remove() {
+    User.remove({ _id: this._id});
   },
 });
 
@@ -671,6 +688,17 @@ if (Meteor.isServer) {
     Users._collection._ensureIndex({
       username: 1,
     }, {unique: true});
+  });
+
+  Users.before.remove((userId, doc) => {
+    Boards
+      .find({members: {$elemMatch: {userId: doc._id, isAdmin: true}}})
+      .forEach((board) => {
+        // If only one admin for the board
+        if (board.members.filter((e) => e.isAdmin).length === 1) {
+          Boards.remove(board._id);
+        }
+      });
   });
 
   // Each board document contains the de-normalized number of users that have

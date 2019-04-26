@@ -98,6 +98,7 @@ Template.peopleRow.helpers({
 
 Template.editUserPopup.onCreated(function() {
   this.authenticationMethods = new ReactiveVar([]);
+  this.errorMessage = new ReactiveVar('');
 
   Meteor.call('getAuthenticationsEnabled', (_, result) => {
     if (result) {
@@ -128,6 +129,9 @@ Template.editUserPopup.helpers({
     const userId = Template.instance().data.userId;
     const selected = Users.findOne(userId).authenticationMethod;
     return selected === 'ldap';
+  },
+  errorMessage() {
+    return Template.instance().errorMessage.get();
   },
 });
 
@@ -219,5 +223,10 @@ Template.editUserPopup.events({
         }
       });
     } else Popup.close();
+  },
+
+  'click #deleteButton'() {
+    Users.remove(this.userId);
+    Popup.close();
   },
 });
