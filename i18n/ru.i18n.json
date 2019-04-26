@@ -4,7 +4,7 @@
     "act-addAttachment": "прикрепил вложение __attachment__ в карточку __card__ в списке __list__ на дорожке __swimlane__ доски __board__",
     "act-deleteAttachment": "удалил вложение __attachment__ из карточки __card__ в списке __list__ на дорожке __swimlane__ доски __board__",
     "act-addSubtask": "добавил подзадачу __subtask__ для карточки __card__ в списке __list__ на дорожке __swimlane__ доски __board__",
-    "act-addLabel": "Добавлена метка __label__ в карточку __card__ в списке __list__ на дорожке __swimlane__ доски __board__",
+    "act-addLabel": "добавил метку __label__ в карточку __card__ в списке __list__ на дорожке __swimlane__ доски __board__",
     "act-addedLabel": "Добавлена метка __label__ в карточку __card__ в списке __list__ на дорожке __swimlane__ доски __board__",
     "act-removeLabel": "Снята метка __label__ с карточки __card__ в списке __list__ на дорожке __swimlane__ доски __board__",
     "act-removedLabel": "Снята метка __label__ с карточки __card__ в списке __list__ на дорожке __swimlane__ доски __board__",
@@ -689,5 +689,5 @@
     "swimlane-delete-pop": "Все действия будут удалены из ленты активности участников, и вы не сможете восстановить дорожку. Данное действие необратимо.",
     "restore-all": "Восстановить все",
     "delete-all": "Удалить все",
-    "loading": "Loading, please wait."
+    "loading": "Идет загрузка, пожалуйста подождите"
 }
