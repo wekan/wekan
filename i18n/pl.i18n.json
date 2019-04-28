@@ -683,11 +683,11 @@
     "error-ldap-login": "Wystąpił błąd w trakcie logowania",
     "display-authentication-method": "Wyświetl metodę logowania",
     "default-authentication-method": "Domyślna metoda logowania",
-    "duplicate-board": "Duplicate Board",
-    "people-number": "The number of people is:",
-    "swimlaneDeletePopup-title": "Delete Swimlane ?",
-    "swimlane-delete-pop": "All actions will be removed from the activity feed and you won't be able to recover the swimlane. There is no undo.",
-    "restore-all": "Restore all",
-    "delete-all": "Delete all",
-    "loading": "Loading, please wait."
+    "duplicate-board": "Duplikuj tablicę",
+    "people-number": "Liczba użytkowników to:",
+    "swimlaneDeletePopup-title": "Usunąć diagram czynności?",
+    "swimlane-delete-pop": "Wszystkie akcje będą usunięte z widoku aktywności, nie można będzie przywrócić diagramu czynności.  Usunięcie jest nieodwracalne.",
+    "restore-all": "Przywróć wszystkie",
+    "delete-all": "Usuń wszystkie",
+    "loading": "Ładowanie, proszę czekać."
 }
