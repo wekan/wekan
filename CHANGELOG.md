@@ -1,6 +1,11 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following new translations:
+
+- Add Chinese (Hong Kong).
+  Thanks to translators.
+
+and fixes the following bugs:
 
 - [Fix OIDC login](https://github.com/wekan/wekan/pull/2385). Related [#2383](https://github.com/wekan/wekan/issues/2383).
   Thanks to faust64.
