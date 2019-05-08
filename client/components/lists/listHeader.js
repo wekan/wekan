@@ -30,7 +30,7 @@ BlazeComponent.extendComponent({
   cardsCount() {
     const list = Template.currentData();
     let swimlaneId = '';
-    const boardView = Meteor.user().profile.boardView;
+    const boardView = (Meteor.user().profile || {}).boardView;
     if (boardView === 'board-view-swimlanes')
       swimlaneId = this.parentComponent().parentComponent().data()._id;
 
