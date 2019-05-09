@@ -56,7 +56,7 @@ template(name="addChecklistItemForm")
     a.fa.fa-times-thin.js-close-inlined-form
 
 template(name="editChecklistItemForm")
-  textarea.js-edit-checklist-item(rows='1' autofocus)
+  textarea.js-edit-checklist-item(rows='1' autofocus dir="auto")
     if $eq type 'item'
       = item.title
     else
