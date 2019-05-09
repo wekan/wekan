@@ -22,10 +22,10 @@ const pkgdef :Spk.PackageDefinition = (
     appTitle = (defaultText = "Wekan"),
     # The name of the app as it is displayed to the user.
 
-    appVersion = 267,
+    appVersion = 268,
     # Increment this for every release.
 
-    appMarketingVersion = (defaultText = "2.65.0~2019-04-24"),
+    appMarketingVersion = (defaultText = "2.66.0~2019-05-09"),
     # Human-readable presentation of the app version.
 
     minUpgradableAppVersion = 0,
