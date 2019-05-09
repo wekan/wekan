@@ -1,6 +1,14 @@
-# Upcoming Wekan release
+# v2.66 2019-05-09 Wekan release
 
-This release adds the following new translations:
+This release adds the following new features:
+
+- [Delete user feature](https://github.com/wekan/wekan/pull/2384).
+  Thanks to Akuket.
+- Change to Delete user feature: [When last board admin is removed, board is not deleted, other board users can
+  still use it](https://github.com/wekan/wekan/commit/e1b016cf3d4ff93e9e0fe1feb96372e3e1625233).
+  Thanks to xet7.
+
+and adds the following new translations:
 
 - Add Chinese (Hong Kong).
   Thanks to translators.
@@ -9,6 +17,10 @@ and fixes the following bugs:
 
 - [Fix OIDC login](https://github.com/wekan/wekan/pull/2385). Related [#2383](https://github.com/wekan/wekan/issues/2383).
   Thanks to faust64.
+- [Fix missing profile checks](https://github.com/wekan/wekan/pull/2396).
+  Thanks to justinr1234.
+- [Fix RTL issue #884, part 1](https://github.com/wekan/wekan/pull/2395).
+  Thanks to guyzyl.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 

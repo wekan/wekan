@@ -95,6 +95,11 @@ Template.editProfilePopup.events({
       });
     } else Popup.back();
   },
+  'click #deleteButton'() {
+    Users.remove(Meteor.userId());
+    Popup.close();
+    AccountsTemplates.logout();
+  },
 });
 
 // XXX For some reason the useraccounts autofocus isnt working in this case.
