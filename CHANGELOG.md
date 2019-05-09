@@ -1,6 +1,14 @@
 # Upcoming Wekan release
 
-This release adds the following new translations:
+This release adds the following new features:
+
+- [Delete user feature](https://github.com/wekan/wekan/pull/2384).
+  Thanks to Akuket.
+- Change to Delete user feature: [When last board admin is removed, board is not deleted, other board users can
+  still use it](https://github.com/wekan/wekan/commit/e1b016cf3d4ff93e9e0fe1feb96372e3e1625233).
+  Thanks to xet7.
+
+and adds the following new translations:
 
 - Add Chinese (Hong Kong).
   Thanks to translators.
