@@ -1,3 +1,5 @@
+import { FastRender } from 'meteor/staringatlights:fast-render';
+
 FastRender.onAllRoutes(function() {
   this.subscribe('boards');
 });

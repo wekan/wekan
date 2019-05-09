@@ -135,6 +135,6 @@ $(document).on('click', (evt) => {
   }
 });
 
-$(document).on('click', 'a[href=#]',  (evt) => {
+$(document).on('click', 'a[href=\\#]',  (evt) => {
   evt.preventDefault();
 });

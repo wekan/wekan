@@ -288,32 +288,32 @@ Users.helpers({
   },
 
   starredBoards() {
-    const {starredBoards = []} = this.profile;
+    const {starredBoards = []} = this.profile || {};
     return Boards.find({archived: false, _id: {$in: starredBoards}});
   },
 
   hasStarred(boardId) {
-    const {starredBoards = []} = this.profile;
+    const {starredBoards = []} = this.profile || {};
     return _.contains(starredBoards, boardId);
   },
 
   invitedBoards() {
-    const {invitedBoards = []} = this.profile;
+    const {invitedBoards = []} = this.profile || {};
     return Boards.find({archived: false, _id: {$in: invitedBoards}});
   },
 
   isInvitedTo(boardId) {
-    const {invitedBoards = []} = this.profile;
+    const {invitedBoards = []} = this.profile || {};
     return _.contains(invitedBoards, boardId);
   },
 
   hasTag(tag) {
-    const {tags = []} = this.profile;
+    const {tags = []} = this.profile || {};
     return _.contains(tags, tag);
   },
 
   hasNotification(activityId) {
-    const {notifications = []} = this.profile;
+    const {notifications = []} = this.profile || {};
     return _.contains(notifications, activityId);
   },
 
@@ -323,7 +323,7 @@ Users.helpers({
   },
 
   getEmailBuffer() {
-    const {emailBuffer = []} = this.profile;
+    const {emailBuffer = []} = this.profile || {};
     return emailBuffer;
   },
 
@@ -358,11 +358,11 @@ Users.helpers({
   },
 
   getTemplatesBoardId() {
-    return this.profile.templatesBoardId;
+    return (this.profile || {}).templatesBoardId;
   },
 
   getTemplatesBoardSlug() {
-    return Boards.findOne(this.profile.templatesBoardId).slug;
+    return (Boards.findOne((this.profile || {}).templatesBoardId) || {}).slug;
   },
 });
 

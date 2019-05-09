@@ -191,19 +191,19 @@ BlazeComponent.extendComponent({
   isViewSwimlanes() {
     const currentUser = Meteor.user();
     if (!currentUser) return false;
-    return (currentUser.profile.boardView === 'board-view-swimlanes');
+    return ((currentUser.profile || {}).boardView === 'board-view-swimlanes');
   },
 
   isViewLists() {
     const currentUser = Meteor.user();
     if (!currentUser) return true;
-    return (currentUser.profile.boardView === 'board-view-lists');
+    return ((currentUser.profile || {}).boardView === 'board-view-lists');
   },
 
   isViewCalendar() {
     const currentUser = Meteor.user();
     if (!currentUser) return false;
-    return (currentUser.profile.boardView === 'board-view-cal');
+    return ((currentUser.profile || {}).boardView === 'board-view-cal');
   },
 
   openNewListForm() {
@@ -335,6 +335,6 @@ BlazeComponent.extendComponent({
   isViewCalendar() {
     const currentUser = Meteor.user();
     if (!currentUser) return false;
-    return (currentUser.profile.boardView === 'board-view-cal');
+    return ((currentUser.profile || {}).boardView === 'board-view-cal');
   },
 }).register('calendarView');
