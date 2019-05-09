@@ -690,16 +690,22 @@ if (Meteor.isServer) {
     }, {unique: true});
   });
 
-  Users.before.remove((userId, doc) => {
-    Boards
-      .find({members: {$elemMatch: {userId: doc._id, isAdmin: true}}})
-      .forEach((board) => {
-        // If only one admin for the board
-        if (board.members.filter((e) => e.isAdmin).length === 1) {
-          Boards.remove(board._id);
-        }
-      });
-  });
+  // OLD WAY THIS CODE DID WORK: When user is last admin of board,
+  // if admin is removed, board is removed.
+  // NOW THIS IS COMMENTED OUT, because other board users still need to be able
+  // to use that board, and not have board deleted.
+  // Someone can be later changed to be admin of board, by making change to database.
+  // TODO: Add UI for changing someone as board admin.
+  //Users.before.remove((userId, doc) => {
+  //  Boards
+  //    .find({members: {$elemMatch: {userId: doc._id, isAdmin: true}}})
+  //    .forEach((board) => {
+  //      // If only one admin for the board
+  //      if (board.members.filter((e) => e.isAdmin).length === 1) {
+  //        Boards.remove(board._id);
+  //      }
+  //    });
+  //});
 
   // Each board document contains the de-normalized number of users that have
   // starred it. If the user star or unstar a board, we need to update this
