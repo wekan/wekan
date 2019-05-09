@@ -1,5 +1,5 @@
 3stack:presence@1.1.2
-accounts-base@1.4.3
+accounts-base@1.4.4
 accounts-oauth@1.1.16
 accounts-password@1.5.1
 aldeed:collection2@2.10.0
@@ -165,8 +165,8 @@ spacebars-compiler@1.1.3
 srp@1.0.12
 standard-minifier-css@1.5.3
 standard-minifier-js@2.4.1
-staringatlights:fast-render@3.0.8
-staringatlights:inject-data@2.2.1
+staringatlights:fast-render@3.2.0
+staringatlights:inject-data@2.3.0
 tap:i18n@1.8.2
 templates:tabs@2.3.0
 templating@1.3.2
@@ -183,11 +183,11 @@ useraccounts:unstyled@1.14.2
 verron:autosize@3.0.8
 webapp@1.7.4
 webapp-hashing@1.0.9
+wekan-accounts-cas@0.1.0
 wekan-accounts-oidc@1.0.10
+wekan-ldap@0.0.2
 wekan-markdown@1.0.7
 wekan-oidc@1.0.12
 wekan-scrollbar@3.1.3
-wekan-accounts-cas@0.1.0
-wekan-ldap@0.0.2
 yasaricli:slugify@0.0.7
 zimme:active-route@2.3.2
