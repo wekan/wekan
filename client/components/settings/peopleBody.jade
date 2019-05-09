@@ -107,5 +107,8 @@ template(name="editUserPopup")
     label
       | {{_ 'password'}}
       input.js-profile-password(type="password")
+    div.buttonsContainer
+      input.primary.wide(type="submit" value="{{_ 'save'}}")
+      div
+      input#deleteButton.primary.wide(type="button" value="{{_ 'delete'}}")
 
-    input.primary.wide(type="submit" value="{{_ 'save'}}")
