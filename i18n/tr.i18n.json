@@ -59,7 +59,7 @@
     "activity-checked-item": "checked %s in checklist %s of %s",
     "activity-unchecked-item": "unchecked %s in checklist %s of %s",
     "activity-checklist-added": "%s içine yapılacak listesi ekledi",
-    "activity-checklist-removed": "removed a checklist from %s",
+    "activity-checklist-removed": "%s Tarafından yapılacaklar listesi silinmiştir",
     "activity-checklist-completed": "completed checklist __checklist__ at card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
     "activity-checklist-uncompleted": "uncompleted the checklist %s of %s",
     "activity-checklist-item-added": "%s içinde %s yapılacak listesine öğe ekledi",

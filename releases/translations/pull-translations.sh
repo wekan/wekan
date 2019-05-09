@@ -146,3 +146,6 @@ tx pull -f -l zh_CN
 
 echo "Chinese (Taiwan)"
 tx pull -f -l zh_TW
+
+echo "Chinese (Hong Kong)"
+tx pull -f -l zh_HK

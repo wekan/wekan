@@ -271,9 +271,9 @@
     "email-enrollAccount-subject": "Ihr Benutzerkonto auf __siteName__ wurde erstellt",
     "email-enrollAccount-text": "Hallo __user__,\n\num den Dienst nutzen zu können, klicken Sie bitte auf folgenden Link:\n\n__url__\n\nDanke.",
     "email-fail": "Senden der E-Mail fehlgeschlagen",
-    "email-fail-text": "Fehler beim Senden des E-Mails",
+    "email-fail-text": "Fehler beim Senden der E-Mail",
     "email-invalid": "Ungültige E-Mail-Adresse",
-    "email-invite": "via E-Mail einladen",
+    "email-invite": "per E-Mail einladen",
     "email-invite-subject": "__inviter__ hat Ihnen eine Einladung geschickt",
     "email-invite-text": "Hallo __user__,\n\n__inviter__ hat Sie zu dem Board \"__board__\" eingeladen.\n\nBitte klicken Sie auf folgenden Link:\n\n__url__\n\nDanke.",
     "email-resetPassword-subject": "Setzten Sie ihr Passwort auf __siteName__ zurück",
@@ -686,8 +686,8 @@
     "duplicate-board": "Board duplizieren",
     "people-number": "Anzahl der Personen:",
     "swimlaneDeletePopup-title": "Swimlane löschen?",
-    "swimlane-delete-pop": "Alle Aktionen werden aus dem Aktivitäts-Feed entfernt und du kannst die Swimlane auch nicht wiederherstellen: Es gibt kein Undo!",
+    "swimlane-delete-pop": "Alle Aktionen werden aus dem Aktivitätenfeed entfernt und die Swimlane kann nicht wiederhergestellt werden. Es gibt kein Rückgängig!",
     "restore-all": "Alles wiederherstellen",
     "delete-all": "Alles löschen",
-    "loading": "Loading, please wait."
+    "loading": "Laden, bitte warten."
 }
