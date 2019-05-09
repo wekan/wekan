@@ -9,6 +9,10 @@ and fixes the following bugs:
 
 - [Fix OIDC login](https://github.com/wekan/wekan/pull/2385). Related [#2383](https://github.com/wekan/wekan/issues/2383).
   Thanks to faust64.
+- [Fix missing profile checks](https://github.com/wekan/wekan/pull/2396).
+  Thanks to justinr1234.
+- [Fix RTL issue #884, part 1](https://github.com/wekan/wekan/pull/2395).
+  Thanks to guyzyl.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
