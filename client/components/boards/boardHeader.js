@@ -89,12 +89,14 @@ BlazeComponent.extendComponent({
       },
       'click .js-toggle-board-view'() {
         const currentUser = Meteor.user();
-        if (currentUser.profile.boardView === 'board-view-swimlanes') {
+        if ((currentUser.profile || {}).boardView === 'board-view-swimlanes') {
           currentUser.setBoardView('board-view-cal');
-        } else if (currentUser.profile.boardView === 'board-view-lists') {
+        } else if ((currentUser.profile || {}).boardView === 'board-view-lists') {
           currentUser.setBoardView('board-view-swimlanes');
-        } else if (currentUser.profile.boardView === 'board-view-cal') {
+        } else if ((currentUser.profile || {}).boardView === 'board-view-cal') {
           currentUser.setBoardView('board-view-lists');
+        } else {
+          currentUser.setBoardView('board-view-swimlanes');
         }
       },
       'click .js-toggle-sidebar'() {
