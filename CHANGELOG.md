@@ -4,6 +4,8 @@ This release adds the following new features:
 
 - [Move board to Archive button at each board at All Boards page](https://github.com/wekan/wekan/commit/828f6ea321020eda77fea399df52889e2081dfac).
   Thanks to xet7. Related #2389
+- [If adding Subtasks does not work on old board, added wiki page how to make it work again](https://github.com/wekan/wekan/wiki/Subtasks).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
