@@ -41,28 +41,38 @@ Accounts.registerLoginHandler('ldap', function(loginRequest) {
   let ldapUser;
 
   try {
-    ldap.connectSync();
-    const users = ldap.searchUsersSync(loginRequest.username);
 
-    if (users.length !== 1) {
-      log_info('Search returned', users.length, 'record(s) for', loginRequest.username);
-      throw new Error('User not Found');
-    }
+      ldap.connectSync();
 
-    if (ldap.authSync(users[0].dn, loginRequest.ldapPass) === true) {
-      if (ldap.isUserInGroup(loginRequest.username, users[0])) {
-        ldapUser = users[0];
-      } else {
-        throw new Error('User not in a valid group');
-      }
-    } else {
-      log_info('Wrong password for', loginRequest.username);
-    }
+     if (!!LDAP.settings_get('LDAP_USER_AUTHENTICATION')) {
+        ldap.bindUserIfNecessary(loginRequest.username, loginRequest.ldapPass);
+       ldapUser = ldap.searchUsersSync(loginRequest.username)[0];
+       } else {
+
+       const users = ldap.searchUsersSync(loginRequest.username);
+
+       if (users.length !== 1) {
+         log_info('Search returned', users.length, 'record(s) for', loginRequest.username);
+         throw new Error('User not Found');
+       }
+
+       if (ldap.authSync(users[0].dn, loginRequest.ldapPass) === true) {
+         if (ldap.isUserInGroup(loginRequest.username, users[0])) {
+           ldapUser = users[0];
+         } else {
+           throw new Error('User not in a valid group');
+         }
+       } else {
+         log_info('Wrong password for', loginRequest.username);
+       }
+     }
+
+
   } catch (error) {
-    log_error(error);
+     log_error(error);
   }
 
-  if (ldapUser === undefined) {
+  if (!ldapUser) {
     if (LDAP.settings_get('LDAP_LOGIN_FALLBACK') === true) {
       return fallbackDefaultAccountSystem(self, loginRequest.username, loginRequest.ldapPass);
     }
@@ -76,8 +86,7 @@ Accounts.registerLoginHandler('ldap', function(loginRequest) {
 
   const Unique_Identifier_Field = getLdapUserUniqueID(ldapUser);
   let user;
-
-  // Attempt to find user by unique identifier
+   // Attempt to find user by unique identifier
 
   if (Unique_Identifier_Field) {
     userQuery = {
@@ -88,14 +97,14 @@ Accounts.registerLoginHandler('ldap', function(loginRequest) {
     log_debug('userQuery', userQuery);
 
     user = Meteor.users.findOne(userQuery);
-  }
+   }
 
   // Attempt to find user by username
 
   let username;
   let email;
 
-  if (LDAP.settings_get('LDAP_USERNAME_FIELD') !== '') {
+   if (LDAP.settings_get('LDAP_USERNAME_FIELD') !== '') {
     username = slug(getLdapUsername(ldapUser));
   } else {
     username = slug(loginRequest.username);
@@ -104,6 +113,7 @@ Accounts.registerLoginHandler('ldap', function(loginRequest) {
   if(LDAP.settings_get('LDAP_EMAIL_FIELD') !== '') {
     email = getLdapEmail(ldapUser);
   }
+
 
   if (!user) {
     if(email && LDAP.settings_get('LDAP_EMAIL_MATCH_REQUIRE') === true) {
