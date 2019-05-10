@@ -173,6 +173,9 @@ REM # LDAP_REJECT_UNAUTHORIZED : Reject Unauthorized Certificate
 REM # example : LDAP_REJECT_UNAUTHORIZED=true
 REM SET LDAP_REJECT_UNAUTHORIZED=false
 
+REM # Option to login to the LDAP server with the user's own username and password, instead of an administrator key. Default: false (use administrator key).
+REM SET LDAP_USER_AUTHENTICATION=true
+
 REM # LDAP_USER_SEARCH_FILTER : Optional extra LDAP filters. Don't forget the outmost enclosing parentheses if needed
 REM # example : LDAP_USER_SEARCH_FILTER=
 REM SET LDAP_USER_SEARCH_FILTER=
