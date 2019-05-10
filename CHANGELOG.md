@@ -1,3 +1,12 @@
+# v2.69 2019-05-11 Wekan release
+
+This release fixes the following translation names:
+
+- [Fix translation name in Wekan menu: oc to Occitan](https://github.com/wekan/wekan/commit/db40ca25ac5df17fcc8b7c93f12b7e2bffc349d2).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.68 2019-05-10 Wekan release
 
 This release adds the following new features:
