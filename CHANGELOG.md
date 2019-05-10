@@ -1,9 +1,22 @@
+# v2.68 2019-05-10 Wekan release
+
+This release adds the following new features:
+
+- [Option to login to the LDAP server with the user's own username and password, instead of an administrator
+  key](https://github.com/wekan/wekan/pull/2399). Default: false (use administrator key).
+  With new setting: LDAP_USER_AUTHENTICATION=true.
+  Thanks to thiagofernando.
+- [Added above new LDAP_USER_AUTHENTION=true option to Snap, Docker and Source settings](https://github.com/wekan/wekan/commit/3bbc805ee42e3c1638b50260d3fafc2b5f936923).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.67 2019-05-10 Wekan release
 
 This release adds the following new features:
 
 - [Move board to Archive button at each board at All Boards page](https://github.com/wekan/wekan/commit/828f6ea321020eda77fea399df52889e2081dfac).
-  Thanks to xet7. Related #2389
+  Thanks to xet7. Related [#2389](https://github.com/wekan/wekan/issues/2389).
 - [If adding Subtasks does not work on old board, added wiki page how to make it work again](https://github.com/wekan/wekan/wiki/Subtasks).
   Thanks to xet7.
 
