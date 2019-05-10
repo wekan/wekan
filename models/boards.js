@@ -867,6 +867,22 @@ if (Meteor.isServer) {
       } else throw new Meteor.Error('error-board-doesNotExist');
     },
   });
+
+  Meteor.methods({
+    archiveBoard(boardId) {
+      check(boardId, String);
+      const board = Boards.findOne(boardId);
+      if (board) {
+        const userId = Meteor.userId();
+        const index = board.memberIndex(userId);
+        if (index >= 0) {
+          board.archive();
+          return true;
+        } else throw new Meteor.Error('error-board-notAMember');
+      } else throw new Meteor.Error('error-board-doesNotExist');
+    },
+  });
+
 }
 
 if (Meteor.isServer) {

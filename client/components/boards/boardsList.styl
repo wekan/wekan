@@ -106,15 +106,29 @@ $spaceBetweenTiles = 16px
     transition-duration: .15s
     transition-property: color, font-size, background
 
+  .fa-archive
+    position: absolute;
+    bottom: 0
+    font-size: 14px
+    height: 18px
+    line-height: 18px
+    opacity: 0
+    left: 0
+    padding: 9px 9px
+    transition-duration: .15s
+    transition-property: color, font-size, background
+
   li:hover a
     &:hover
       .fa-star,
       .fa-clone,
+      .fa-archive,
       .fa-star-o
         color: white
 
     .fa-star,
     .fa-clone,
+    .fa-archive,
     .fa-star-o
       color: white
       opacity: .75

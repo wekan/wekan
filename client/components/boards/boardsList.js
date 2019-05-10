@@ -70,6 +70,11 @@ BlazeComponent.extendComponent({
         );
         evt.preventDefault();
       },
+      'click .js-archive-board'(evt) {
+        const boardId = this.currentData()._id;
+        Meteor.call('archiveBoard', boardId);
+        evt.preventDefault();
+      },
       'click .js-accept-invite'() {
         const boardId = this.currentData()._id;
         Meteor.user().removeInvite(boardId);
