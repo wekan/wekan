@@ -68,6 +68,8 @@ Template.userFormsLayout.helpers({
         name = 'Brezhoneg';
       } else if (lang.name === 'ig') {
         name = 'Igbo';
+      } else if (lang.name === 'oc') {
+        name = 'Occitan';
       }
       return { tag, name };
     }).sort(function(a, b) {
