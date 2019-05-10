@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v2.69 2019-05-11 Wekan release
 
 This release fixes the following translation names:
 
