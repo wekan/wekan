@@ -1,0 +1,76 @@
+template(name="cardCustomFieldsPopup")
+    ul.pop-over-list
+        each board.customFields
+            li.item(class="")
+                a.name.js-select-field(href="#")
+                    span.full-name
+                        = name
+                    if hasCustomField
+                        i.fa.fa-check
+    hr
+    a.quiet-button.full.js-settings
+        i.fa.fa-cog
+        span {{_ 'settings'}}
+
+template(name="cardCustomField")
+    +Template.dynamic(template=getTemplate)
+
+template(name="cardCustomField-text")
+    if canModifyCard
+        +inlinedForm(classNames="js-card-customfield-text")
+            +editor(autofocus=true)
+                = value
+            .edit-controls.clearfix
+                button.primary(type="submit") {{_ 'save'}}
+                a.fa.fa-times-thin.js-close-inlined-form
+        else
+            a.js-open-inlined-form
+                if value
+                    +viewer
+                        = value
+                else
+                    | {{_ 'edit'}}
+
+template(name="cardCustomField-number")
+    if canModifyCard
+        +inlinedForm(classNames="js-card-customfield-number")
+            input(type="number" value=data.value)
+            .edit-controls.clearfix
+                button.primary(type="submit") {{_ 'save'}}
+                a.fa.fa-times-thin.js-close-inlined-form
+        else
+            a.js-open-inlined-form
+                if value
+                    = value
+                else
+                    | {{_ 'edit'}}
+
+template(name="cardCustomField-date")
+    if canModifyCard
+        a.js-edit-date(title="{{showTitle}}" class="{{classes}}")
+            if value
+                div.card-date
+                    time(datetime="{{showISODate}}")
+                        | {{showDate}}
+            else
+                | {{_ 'edit'}}
+
+template(name="cardCustomField-dropdown")
+    if canModifyCard
+        +inlinedForm(classNames="js-card-customfield-dropdown")
+            select.inline
+                each items
+                    if($eq data.value this._id)
+                        option(value=_id selected="selected") {{name}}
+                    else
+                        option(value=_id) {{name}}
+            .edit-controls.clearfix
+                button.primary(type="submit") {{_ 'save'}}
+                a.fa.fa-times-thin.js-close-inlined-form
+        else
+            a.js-open-inlined-form
+                if value
+                    +viewer
+                        = selectedItem
+                else
+                    | {{_ 'edit'}}

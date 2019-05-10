@@ -45,28 +45,45 @@
       display: flex
       flex-direction: column
 
-      li > a
-        display: flex
-        height: 30px
-        margin: 0
-        padding: 4px
-        border-radius: 3px
-        align-items: center
+      li
+        & > a
+          display: flex
+          height: 30px
+          margin: 0
+          padding: 4px
+          border-radius: 3px
+          align-items: center
 
-        &:hover
-          &, i, .quiet
-            color white
+          &:hover
+            &, i, .quiet
+              color white
 
-        .member, .card-label
-          margin-right: 7px
-          margin-top: 5px
+          .member, .card-label
+            margin-right: 7px
+            margin-top: 5px
 
-        .sidebar-list-item-description
-          flex: 1
-          overflow: ellipsis
+          .minicard-edit-button
+            float: right
+            padding: 8px
+            border-radius: 3px
 
-        .fa.fa-check
-          margin: 0 4px
+          .sidebar-list-item-description
+            flex: 1
+            overflow: ellipsis
+
+          .fa.fa-check
+            margin: 0 4px
+
+        .minicard
+          padding: 6px 8px 4px
+
+          .minicard-edit-button
+            float: right
+            padding: 4px
+            border-radius: 3px
+
+            &:hover
+              background: #dbdbdb
 
     .sidebar-btn
       display: block

@@ -12,11 +12,11 @@ template(name="import")
 
 template(name="importTextarea")
   form
-    p: label(for='import-textarea') {{_ instruction}}
+    p: label(for='import-textarea') {{_ instruction}} {{_ 'import-board-instruction-about-errors'}}
     textarea.js-import-json(placeholder="{{_ 'import-json-placeholder'}}" autofocus)
       | {{jsonText}}
     if isSandstorm
-      h1.warning DANGER !!! THIS DESTROYS YOUR IMPORTED DATA, CAUSES BOARD NOT FOUND ERROR WHEN YOU OPEN THIS GRAIN AGAIN https://github.com/wekan/wekan/issues/1430
+      h1.warning {{_ 'import-sandstorm-backup-warning'}}
       p.warning {{_ 'import-sandstorm-warning'}}
     input.primary.wide(type="submit" value="{{_ 'import'}}")
 

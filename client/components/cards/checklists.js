@@ -1,4 +1,4 @@
-const { calculateIndexData } = Utils;
+const { calculateIndexData, enableClickOnTouch } = Utils;
 
 function initSorting(items) {
   items.sortable({
@@ -36,6 +36,9 @@ function initSorting(items) {
       checklistItem.move(checklistId, sortIndex.base);
     },
   });
+
+  // ugly touch event hotfix
+  enableClickOnTouch('.js-checklist-item:not(.placeholder)');
 }
 
 BlazeComponent.extendComponent({
@@ -71,8 +74,10 @@ BlazeComponent.extendComponent({
     event.preventDefault();
     const textarea = this.find('textarea.js-add-checklist-item');
     const title = textarea.value.trim();
-    const cardId = this.currentData().cardId;
+    let cardId = this.currentData().cardId;
     const card = Cards.findOne(cardId);
+    if (card.isLinked())
+      cardId = card.linkedId;
 
     if (title) {
       Checklists.insert({
@@ -204,7 +209,7 @@ Template.checklistDeleteDialog.onDestroyed(() => {
   $cardDetails.animate( { scrollTop: this.scrollState.position });
 });
 
-Template.itemDetail.helpers({
+Template.checklistItemDetail.helpers({
   canModifyCard() {
     return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
   },
@@ -223,4 +228,4 @@ BlazeComponent.extendComponent({
       'click .js-checklist-item .check-box': this.toggleItem,
     }];
   },
-}).register('itemDetail');
+}).register('checklistItemDetail');

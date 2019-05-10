@@ -10,7 +10,7 @@ Meteor.publish('boards', function() {
 
   // Defensive programming to verify that starredBoards has the expected
   // format -- since the field is in the `profile` a user can modify it.
-  const {starredBoards = []} = Users.findOne(this.userId).profile;
+  const {starredBoards = []} = Users.findOne(this.userId).profile || {};
   check(starredBoards, [String]);
 
   return Boards.find({
@@ -32,6 +32,7 @@ Meteor.publish('boards', function() {
       color: 1,
       members: 1,
       permission: 1,
+      type: 1,
     },
   });
 });
@@ -59,6 +60,7 @@ Meteor.publish('archivedBoards', function() {
 });
 
 Meteor.publishRelations('board', function(boardId) {
+  this.unblock();
   check(boardId, String);
   const thisUserId = this.userId;
 
@@ -71,10 +73,12 @@ Meteor.publishRelations('board', function(boardId) {
       { permission: 'public' },
       { members: { $elemMatch: { userId: this.userId, isActive: true }}},
     ],
-  }, { limit: 1 }), function(boardId, board) {
+  // Sort required to ensure oplog usage
+  }, { limit: 1, sort: { _id: 1 } }), function(boardId, board) {
     this.cursor(Lists.find({ boardId }));
     this.cursor(Swimlanes.find({ boardId }));
     this.cursor(Integrations.find({ boardId }));
+    this.cursor(CustomFields.find({ boardIds: {$in: [boardId]} }, { sort: { name: 1 } }));
 
     // Cards and cards comments
     // XXX Originally we were publishing the card documents as a child of the
@@ -97,12 +101,47 @@ Meteor.publishRelations('board', function(boardId) {
     //
     // And in the meantime our code below works pretty well -- it's not even a
     // hack!
-    this.cursor(Cards.find({ boardId }), function(cardId) {
-      this.cursor(CardComments.find({ cardId }));
-      this.cursor(Attachments.find({ cardId }));
-      this.cursor(Checklists.find({ cardId }));
-      this.cursor(ChecklistItems.find({ cardId }));
+
+    // Gather queries and send in bulk
+    const cardComments = this.join(CardComments);
+    cardComments.selector = (_ids) => ({ cardId: _ids });
+    const attachments = this.join(Attachments);
+    attachments.selector = (_ids) => ({ cardId: _ids });
+    const checklists = this.join(Checklists);
+    checklists.selector = (_ids) => ({ cardId: _ids });
+    const checklistItems = this.join(ChecklistItems);
+    checklistItems.selector = (_ids) => ({ cardId: _ids });
+    const parentCards = this.join(Cards);
+    parentCards.selector = (_ids) => ({ parentId: _ids });
+    const boards = this.join(Boards);
+    const subCards = this.join(Cards);
+
+    this.cursor(Cards.find({ boardId: {$in: [boardId,  board.subtasksDefaultBoardId]}}), function(cardId, card) {
+      if (card.type === 'cardType-linkedCard') {
+        const impCardId = card.linkedId;
+        subCards.push(impCardId);
+        cardComments.push(impCardId);
+        attachments.push(impCardId);
+        checklists.push(impCardId);
+        checklistItems.push(impCardId);
+      } else if (card.type === 'cardType-linkedBoard') {
+        boards.push(card.linkedId);
+      }
+      cardComments.push(cardId);
+      attachments.push(cardId);
+      checklists.push(cardId);
+      checklistItems.push(cardId);
+      parentCards.push(cardId);
     });
+
+    // Send bulk queries for all found ids
+    subCards.send();
+    cardComments.send();
+    attachments.send();
+    checklists.send();
+    checklistItems.send();
+    boards.send();
+    parentCards.send();
 
     if (board.members) {
       // Board members. This publication also includes former board members that

@@ -1,0 +1,9 @@
+template(name='connectionMethod')
+  div.at-form-authentication
+    label {{_ 'authentication-method'}}
+    select.select-authentication
+      each authentications
+        if isSelected value
+          option(value="{{value}}" selected) {{_ value}}
+        else
+          option(value="{{value}}") {{_ value}}

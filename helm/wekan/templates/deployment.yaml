@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "wekan.fullname" . }}
+  labels:
+    app: {{ template "wekan.name" . }}
+    chart: {{ template "wekan.chart" . }}
+    component: wekan
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "wekan.name" . }}
+      component: wekan
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      annotations:
+      labels:
+        app: {{ template "wekan.name" . }}
+        component: wekan
+        release: {{ .Release.Name }}
+    spec:
+      serviceAccountName: {{ template "wekan.serviceAccountName" . }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          terminationMessagePolicy: FallbackToLogsOnError
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: ROOT_URL
+              value: {{ .Values.root_url | default "https://wekan.local" | quote }}
+            - name: MONGO_URL
+              value: "{{ template "mongodb-replicaset.url" . }}"
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 60
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+{{- if .Values.affinity }}
+      affinity:
+{{ toYaml .Values.affinity | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}

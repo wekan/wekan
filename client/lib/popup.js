@@ -4,9 +4,9 @@ window.Popup = new class {
     this.template = Template.popup;
 
     // We only want to display one popup at a time and we keep the view object
-    // in this `Popup._current` variable. If there is no popup currently opened
+    // in this `Popup.current` variable. If there is no popup currently opened
     // the value is `null`.
-    this._current = null;
+    this.current = null;
 
     // It's possible to open a sub-popup B from a popup A. In that case we keep
     // the data of popup A so we can return back to it. Every time we open a new
@@ -27,11 +27,9 @@ window.Popup = new class {
   open(name) {
     const self = this;
     const popupName = `${name}Popup`;
-
     function clickFromPopup(evt) {
       return $(evt.target).closest('.js-pop-over').length !== 0;
     }
-
     return function(evt) {
       // If a popup is already opened, clicking again on the opener element
       // should close it -- and interrupt the current `open` function.
@@ -57,7 +55,6 @@ window.Popup = new class {
         self._stack = [];
         openerElement = evt.currentTarget;
       }
-
       $(openerElement).addClass('is-active');
       evt.preventDefault();
 
@@ -139,6 +136,7 @@ window.Popup = new class {
       const openerElement = this._getTopStack().openerElement;
       $(openerElement).removeClass('is-active');
 
+
       this._stack = [];
     }
   }
@@ -186,7 +184,7 @@ window.Popup = new class {
       // positives.
       const title = TAPi18n.__(translationKey);
       // when popup showed as full of small screen, we need a default header to clearly see [X] button
-      const defaultTitle = Utils.isMiniScreen() ? 'Wekan' : false;
+      const defaultTitle = Utils.isMiniScreen() ? '' : false;
       return title !== translationKey ? title : defaultTitle;
     };
   }
@@ -200,7 +198,7 @@ escapeActions.forEach((actionName) => {
     () => Popup[actionName](),
     () => Popup.isOpen(),
     {
-      noClickEscapeOn: '.js-pop-over',
+      noClickEscapeOn: '.js-pop-over,.js-open-card-title-popup',
       enabledOnClick: actionName === 'close',
     }
   );

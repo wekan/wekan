@@ -1,0 +1,55 @@
+template(name="cardActions")
+  div.trigger-item
+    div.trigger-content
+      div.trigger-dropdown
+        select(id="label-action")
+          option(value="add") {{{_'r-add'}}}
+          option(value="remove") {{{_'r-remove'}}}
+      div.trigger-text 
+        | {{{_'r-label'}}}
+      div.trigger-dropdown
+        select(id="label-id")
+          each labels
+            option(value="#{_id}")
+              = name
+    div.trigger-button.js-add-label-action.js-goto-rules
+      i.fa.fa-plus
+
+  div.trigger-item
+    div.trigger-content
+      div.trigger-dropdown
+        select(id="member-action")
+          option(value="add") {{{_'r-add'}}}
+          option(value="remove") {{{_'r-remove'}}}
+      div.trigger-text 
+        | {{{_'r-member'}}}
+      div.trigger-dropdown
+        input(id="member-name",type=text,placeholder="{{{_'r-name'}}}")  
+    div.trigger-button.js-add-member-action.js-goto-rules
+      i.fa.fa-plus
+
+  div.trigger-item
+    div.trigger-content
+      div.trigger-text 
+        | {{{_'r-remove-all'}}}
+    div.trigger-button.js-add-removeall-action.js-goto-rules
+      i.fa.fa-plus
+
+  div.trigger-item
+    div.trigger-content
+      div.trigger-text
+        | {{{_'r-set-color'}}}
+        button.trigger-button.trigger-button-color.js-show-color-palette(
+          id="color-action"
+          class="card-details-{{cardColorButton}}")
+          | {{{_ cardColorButtonText }}}
+    div.trigger-button.js-set-color-action.js-goto-rules
+      i.fa.fa-plus
+
+template(name="setCardActionsColorPopup")
+  form.edit-label
+    .palette-colors: each colors
+      span.card-label.palette-color.js-palette-color(class="card-details-{{color}}")
+        if(isSelected color)
+          i.fa.fa-check
+    button.primary.confirm.js-submit {{_ 'save'}}

@@ -1,0 +1,498 @@
+version: '2'
+
+# Note: Do not add single quotes '' to variables. Having spaces still works without quotes where required.
+#---------------------------------------------------------------------------------------------------------
+# ==== CREATING USERS AND LOGGING IN TO WEKAN ====
+# https://github.com/wekan/wekan/wiki/Adding-users
+#---------------------------------------------------------------------------------------------------------
+# ==== FORGOT PASSWORD ====
+# https://github.com/wekan/wekan/wiki/Forgot-Password
+#---------------------------------------------------------------------------------------------------------
+# ==== Upgrading Wekan to new version =====
+# 1) Stop Wekan:
+#      docker-compose stop
+# 2) Download new version:
+#      docker-compose pull wekan
+# 3) If you have more networks for VPN etc as described at bottom of
+#    this config, download for them too:
+#      docker-compose pull wekan2
+# 4) Start Wekan:
+#      docker-compose start
+#----------------------------------------------------------------------------------
+# ==== OPTIONAL: DEDICATED DOCKER USER ====
+# 1) Optionally create a dedicated user for Wekan, for example:
+#      sudo useradd -d /home/wekan -m -s /bin/bash wekan
+# 2) Add this user to the docker group, then logout+login or reboot:
+#      sudo usermod -aG docker wekan
+# 3) Then login as user wekan.
+# 4) Create this file /home/wekan/docker-compose.yml with your modifications.
+#----------------------------------------------------------------------------------
+# ==== RUN DOCKER AS SERVICE ====
+# 1a) Running Docker as service, on Systemd like Debian 9, Ubuntu 16.04, CentOS 7:
+#      sudo systemctl enable docker
+#      sudo systemctl start docker
+# 1b) Running Docker as service, on init.d like Debian 8, Ubuntu 14.04, CentOS 6:
+#      sudo update-rc.d docker defaults
+#      sudo service docker start
+# ----------------------------------------------------------------------------------
+# ==== USAGE OF THIS docker-compose.yml ====
+# 1) For seeing does Wekan work, try this and check with your webbroser:
+#      docker-compose up
+# 2) Stop Wekan and start Wekan in background:
+#     docker-compose stop
+#     docker-compose up -d
+# 3) See running Docker containers:
+#     docker ps
+# 4) Stop Docker containers:
+#     docker-compose stop
+# ----------------------------------------------------------------------------------
+# ===== INSIDE DOCKER CONTAINERS, AND BACKUP/RESTORE ====
+# https://github.com/wekan/wekan/wiki/Backup
+# If really necessary, repair MongoDB: https://github.com/wekan/wekan-mongodb/issues/6#issuecomment-424004116
+# 1) Going inside containers:
+#    a) Wekan app, does not contain data
+#         docker exec -it wekan-app bash
+#    b) MongoDB, contains all data
+#         docker exec -it wekan-db bash
+# 2) Copying database to outside of container:
+#      docker exec -it wekan-db bash
+#      cd /data
+#      mongodump
+#      exit
+#      docker cp wekan-db:/data/dump .
+# 3) Restoring database
+#      # 1) Stop wekan
+#             docker stop wekan-app
+#      # 2) Go inside database container
+#             docker exec -it wekan-db bash
+#      # 3) and data directory
+#             cd /data
+#      # 4) Remove previos dump
+#             rm -rf dump
+#      # 5) Exit db container
+#             exit
+#      # 6) Copy dump to inside docker container
+#             docker cp dump wekan-db:/data/
+#      # 7) Go inside database container
+#             docker exec -it wekan-db bash
+#      # 8) and data directory
+#             cd /data
+#      # 9) Restore
+#             mongorestore --drop
+#      # 10) Exit db container
+#             exit
+#      # 11) Start wekan
+#             docker start wekan-app
+#-------------------------------------------------------------------------
+
+services:
+  torodb-stampede:
+    image: torodb/stampede:latest
+    networks:
+      - wekan-tier
+    links:
+      - postgres
+      - mongodb
+    environment:
+      - POSTGRES_PASSWORD
+      - TORODB_SETUP=true
+      - TORODB_SYNC_SOURCE=mongodb:27017
+      - TORODB_BACKEND_HOST=postgres
+      - TORODB_BACKEND_PORT=5432
+      - TORODB_BACKEND_DATABASE=wekan
+      - TORODB_BACKEND_USER=wekan
+      - TORODB_BACKEND_PASSWORD=wekan
+      - DEBUG
+  postgres:
+    image: postgres:9.6
+    networks:
+      - wekan-tier
+    environment:
+      - POSTGRES_PASSWORD
+    ports:
+      - "5432:5432"
+  mongodb:
+    image: mongo:3.2
+    networks:
+      - wekan-tier
+    ports:
+      - "27017:27017"
+    entrypoint:
+      - /bin/bash
+      - "-c"
+      - mongo --nodb --eval '
+            var db;
+            while (!db) {
+                try {
+                  db = new Mongo("mongodb:27017").getDB("local");
+                } catch(ex) {}
+                sleep(3000);
+            };
+            rs.initiate({_id:"rs1",members:[{_id:0,host:"mongodb:27017"}]});
+        ' 1>/dev/null 2>&1 &
+        mongod --replSet rs1
+  wekan:
+    image: quay.io/wekan/wekan
+    container_name: wekan-app
+    restart: always
+    networks:
+      - wekan-tier
+    ports:
+      # Docker outsideport:insideport. Do not add anything extra here.
+      # For example, if you want to have wekan on port 3001,
+      # use 3001:8080 . Do not add any extra address etc here, that way it does not work.
+      - 80:8080
+    environment:
+      - MONGO_URL=mongodb://mongodb:27017/wekan
+      #---------------------------------------------------------------
+      # ==== ROOT_URL SETTING ====
+      # Change ROOT_URL to your real Wekan URL, for example:
+      # If you have Caddy/Nginx/Apache providing SSL
+      #  - https://example.com
+      #  - https://boards.example.com
+      # This can be problematic with avatars https://github.com/wekan/wekan/issues/1776
+      #  - https://example.com/wekan
+      # If without https, can be only wekan node, no need for Caddy/Nginx/Apache if you don't need them
+      #  - http://example.com
+      #  - http://boards.example.com
+      #  - http://192.168.1.100    <=== using at local LAN
+      - ROOT_URL=http://localhost  #   <=== using only at same laptop/desktop where Wekan is installed
+      # ==== EMAIL SETTINGS ====
+      # Email settings are required in both MAIL_URL and Admin Panel,
+      #   see https://github.com/wekan/wekan/wiki/Troubleshooting-Mail
+      #   For SSL in email, change smtp:// to smtps://
+      # NOTE: Special characters need to be url-encoded in MAIL_URL.
+      #       You can encode those characters for example at: https://www.urlencoder.org
+      - MAIL_URL=smtp://user:pass@mailserver.example.com:25/
+      - MAIL_FROM='Example Wekan Support <support@example.com>'
+      #---------------------------------------------------------------
+      # ==== OPTIONAL: MONGO OPLOG SETTINGS =====
+      # https://github.com/wekan/wekan-mongodb/issues/2#issuecomment-378343587
+      # We've fixed our CPU usage problem today with an environment
+      # change around Wekan. I wasn't aware during implementation
+      # that if you're using more than 1 instance of Wekan
+      # (or any MeteorJS based tool) you're supposed to set
+      # MONGO_OPLOG_URL as an environment variable.
+      # Without setting it, Meteor will perform a pull-and-diff
+      # update of it's dataset. With it, Meteor will update from
+      # the OPLOG. See here
+      #   https://blog.meteor.com/tuning-meteor-mongo-livedata-for-scalability-13fe9deb8908
+      # After setting
+      # MONGO_OPLOG_URL=mongodb://<username>:<password>@<mongoDbURL>/local?authSource=admin&replicaSet=rsWekan
+      # the CPU usage for all Wekan instances dropped to an average
+      # of less than 10% with only occasional spikes to high usage
+      # (I guess when someone is doing a lot of work)
+      # - MONGO_OPLOG_URL=mongodb://<username>:<password>@<mongoDbURL>/local?authSource=admin&replicaSet=rsWekan
+      #---------------------------------------------------------------
+      # ==== OPTIONAL: KADIRA PERFORMANCE MONITORING FOR METEOR ====
+      # https://github.com/smeijer/kadira
+      # https://blog.meteor.com/kadira-apm-is-now-open-source-490469ffc85f
+      # - export KADIRA_OPTIONS_ENDPOINT=http://127.0.0.1:11011
+      #---------------------------------------------------------------
+      # ==== OPTIONAL: LOGS AND STATS ====
+      # https://github.com/wekan/wekan/wiki/Logs
+      #
+      # Daily export of Wekan changes as JSON to Logstash and ElasticSearch / Kibana (ELK)
+      # https://github.com/wekan/wekan-logstash
+      #
+      # Statistics Python script for Wekan Dashboard
+      # https://github.com/wekan/wekan-stats
+      #
+      # Console, file, and zulip logger on database changes https://github.com/wekan/wekan/pull/1010
+      # with fix to replace console.log by winston logger https://github.com/wekan/wekan/pull/1033
+      # but there could be bug https://github.com/wekan/wekan/issues/1094
+      #
+      # There is Feature Request: Logging date and time of all activity with summary reports,
+      # and requesting reason for changing card to other column https://github.com/wekan/wekan/issues/1598
+      #---------------------------------------------------------------
+      # ==== WEKAN API AND EXPORT BOARD ====
+      # Wekan Export Board works when WITH_API=true.
+      # https://github.com/wekan/wekan/wiki/REST-API
+      # https://github.com/wekan/wekan-gogs
+      # If you disable Wekan API with false, Export Board does not work.
+      - WITH_API=true
+      #-----------------------------------------------------------------
+      # ==== CORS =====
+      # CORS: Set Access-Control-Allow-Origin header. Example: *
+      #- CORS=*
+      #-----------------------------------------------------------------
+      # ==== MATOMO INTEGRATION ====
+      # Optional: Integration with Matomo https://matomo.org that is installed to your server
+      # The address of the server where Matomo is hosted.
+      # example: - MATOMO_ADDRESS=https://example.com/matomo
+      #- MATOMO_ADDRESS=
+      # The value of the site ID given in Matomo server for Wekan
+      # example: - MATOMO_SITE_ID=12345
+      #- MATOMO_SITE_ID=
+      # The option do not track which enables users to not be tracked by matomo
+      # example:  - MATOMO_DO_NOT_TRACK=false
+      #- MATOMO_DO_NOT_TRACK=
+      # The option that allows matomo to retrieve the username:
+      # example: MATOMO_WITH_USERNAME=true
+      #- MATOMO_WITH_USERNAME=false
+      #-----------------------------------------------------------------
+      # ==== BROWSER POLICY AND TRUSTED IFRAME URL ====
+      # Enable browser policy and allow one trusted URL that can have iframe that has Wekan embedded inside.
+      # Setting this to false is not recommended, it also disables all other browser policy protections
+      # and allows all iframing etc. See wekan/server/policy.js
+      - BROWSER_POLICY_ENABLED=true
+      # When browser policy is enabled, HTML code at this Trusted URL can have iframe that embeds Wekan inside.
+      #- TRUSTED_URL=
+      #-----------------------------------------------------------------
+      # ==== OUTGOING WEBHOOKS ====
+      # What to send to Outgoing Webhook, or leave out. Example, that includes all that are default: cardId,listId,oldListId,boardId,comment,user,card,commentId .
+      # example: WEBHOOKS_ATTRIBUTES=cardId,listId,oldListId,boardId,comment,user,card,commentId
+      #- WEBHOOKS_ATTRIBUTES=
+      #-----------------------------------------------------------------
+      # ==== OAUTH2 ONLY WITH OIDC AND DOORKEEPER AS INDENTITY PROVIDER
+      # https://github.com/wekan/wekan/issues/1874
+      # https://github.com/wekan/wekan/wiki/OAuth2
+      # Enable the OAuth2 connection
+      # example: OAUTH2_ENABLED=true
+      #- OAUTH2_ENABLED=false
+      # OAuth2 docs: https://github.com/wekan/wekan/wiki/OAuth2
+      # OAuth2 Client ID, for example from Rocket.Chat. Example: abcde12345
+      # example: OAUTH2_CLIENT_ID=abcde12345
+      #- OAUTH2_CLIENT_ID=
+      # OAuth2 Secret, for example from Rocket.Chat: Example: 54321abcde
+      # example: OAUTH2_SECRET=54321abcde
+      #- OAUTH2_SECRET=
+      # OAuth2 Server URL, for example Rocket.Chat. Example: https://chat.example.com
+      # example: OAUTH2_SERVER_URL=https://chat.example.com
+      #- OAUTH2_SERVER_URL=
+      # OAuth2 Authorization Endpoint. Example: /oauth/authorize
+      # example: OAUTH2_AUTH_ENDPOINT=/oauth/authorize
+      #- OAUTH2_AUTH_ENDPOINT=
+      # OAuth2 Userinfo Endpoint. Example: /oauth/userinfo
+      # example: OAUTH2_USERINFO_ENDPOINT=/oauth/userinfo
+      #- OAUTH2_USERINFO_ENDPOINT=
+      # OAuth2 Token Endpoint. Example: /oauth/token
+      # example: OAUTH2_TOKEN_ENDPOINT=/oauth/token
+      #- OAUTH2_TOKEN_ENDPOINT=
+      #-----------------------------------------------------------------
+      # ==== LDAP ====
+      # https://github.com/wekan/wekan/wiki/LDAP
+      # For Snap settings see https://github.com/wekan/wekan-snap/wiki/Supported-settings-keys
+      # Most settings work both on Snap and Docker below.
+      # Note: Do not add single quotes '' to variables. Having spaces still works without quotes where required.
+      #
+      # DEFAULT_AUTHENTICATION_METHOD : The default authentication method used if a user does not exist to create and authenticate. Can be set as ldap.
+      # example : DEFAULT_AUTHENTICATION_METHOD=ldap
+      #- DEFAULT_AUTHENTICATION_METHOD=
+      #
+      # LDAP_ENABLE : Enable or not the connection by the LDAP
+      # example : LDAP_ENABLE=true
+      #- LDAP_ENABLE=false
+      #
+      # LDAP_PORT : The port of the LDAP server
+      # example : LDAP_PORT=389
+      #- LDAP_PORT=389
+      #
+      # LDAP_HOST : The host server for the LDAP server
+      # example : LDAP_HOST=localhost
+      #- LDAP_HOST=
+      #
+      # LDAP_BASEDN : The base DN for the LDAP Tree
+      # example : LDAP_BASEDN=ou=user,dc=example,dc=org
+      #- LDAP_BASEDN=
+      #
+      # LDAP_LOGIN_FALLBACK : Fallback on the default authentication method
+      # example : LDAP_LOGIN_FALLBACK=true
+      #- LDAP_LOGIN_FALLBACK=false
+      #
+      # LDAP_RECONNECT : Reconnect to the server if the connection is lost
+      # example : LDAP_RECONNECT=false
+      #- LDAP_RECONNECT=true
+      #
+      # LDAP_TIMEOUT : Overall timeout, in milliseconds
+      # example : LDAP_TIMEOUT=12345
+      #- LDAP_TIMEOUT=10000
+      #
+      # LDAP_IDLE_TIMEOUT : Specifies the timeout for idle LDAP connections in milliseconds
+      # example : LDAP_IDLE_TIMEOUT=12345
+      #- LDAP_IDLE_TIMEOUT=10000
+      #
+      # LDAP_CONNECT_TIMEOUT : Connection timeout, in milliseconds
+      # example : LDAP_CONNECT_TIMEOUT=12345
+      #- LDAP_CONNECT_TIMEOUT=10000
+      #
+      # LDAP_AUTHENTIFICATION : If the LDAP needs a user account to search
+      # example : LDAP_AUTHENTIFICATION=true
+      #- LDAP_AUTHENTIFICATION=false
+      #
+      # LDAP_AUTHENTIFICATION_USERDN : The search user DN
+      # example : LDAP_AUTHENTIFICATION_USERDN=cn=admin,dc=example,dc=org
+      #- LDAP_AUTHENTIFICATION_USERDN=
+      #
+      # LDAP_AUTHENTIFICATION_PASSWORD : The password for the search user
+      # example : AUTHENTIFICATION_PASSWORD=admin
+      #- LDAP_AUTHENTIFICATION_PASSWORD=
+      #
+      # LDAP_LOG_ENABLED : Enable logs for the module
+      # example : LDAP_LOG_ENABLED=true
+      #- LDAP_LOG_ENABLED=false
+      #
+      # LDAP_BACKGROUND_SYNC : If the sync of the users should be done in the background
+      # example : LDAP_BACKGROUND_SYNC=true
+      #- LDAP_BACKGROUND_SYNC=false
+      #
+      # LDAP_BACKGROUND_SYNC_INTERVAL : At which interval does the background task sync in milliseconds
+      # example : LDAP_BACKGROUND_SYNC_INTERVAL=12345
+      #- LDAP_BACKGROUND_SYNC_INTERVAL=100
+      #
+      # LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED :
+      # example : LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED=true
+      #- LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED=false
+      #
+      # LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS :
+      # example : LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS=true
+      #- LDAP_BACKGROUND_SYNC_IMPORT_NEW_USERS=false
+      #
+      # LDAP_ENCRYPTION : If using LDAPS
+      # example : LDAP_ENCRYPTION=ssl
+      #- LDAP_ENCRYPTION=false
+      #
+      # LDAP_CA_CERT : The certification for the LDAPS server. Certificate needs to be included in this docker-compose.yml file.
+      # example : LDAP_CA_CERT=-----BEGIN CERTIFICATE-----MIIE+zCCA+OgAwIBAgIkAhwR/6TVLmdRY6hHxvUFWc0+Enmu/Hu6cj+G2FIdAgIC...-----END CERTIFICATE-----
+      #- LDAP_CA_CERT=
+      #
+      # LDAP_REJECT_UNAUTHORIZED : Reject Unauthorized Certificate
+      # example : LDAP_REJECT_UNAUTHORIZED=true
+      #- LDAP_REJECT_UNAUTHORIZED=false
+      #
+      # LDAP_USER_SEARCH_FILTER : Optional extra LDAP filters. Don't forget the outmost enclosing parentheses if needed
+      # example : LDAP_USER_SEARCH_FILTER=
+      #- LDAP_USER_SEARCH_FILTER=
+      #
+      # LDAP_USER_SEARCH_SCOPE : base (search only in the provided DN), one (search only in the provided DN and one level deep), or sub (search the whole subtree)
+      # example : LDAP_USER_SEARCH_SCOPE=one
+      #- LDAP_USER_SEARCH_SCOPE=
+      #
+      # LDAP_USER_SEARCH_FIELD : Which field is used to find the user
+      # example : LDAP_USER_SEARCH_FIELD=uid
+      #- LDAP_USER_SEARCH_FIELD=
+      #
+      # LDAP_SEARCH_PAGE_SIZE : Used for pagination (0=unlimited)
+      # example : LDAP_SEARCH_PAGE_SIZE=12345
+      #- LDAP_SEARCH_PAGE_SIZE=0
+      #
+      # LDAP_SEARCH_SIZE_LIMIT : The limit number of entries (0=unlimited)
+      # example : LDAP_SEARCH_SIZE_LIMIT=12345
+      #- LDAP_SEARCH_SIZE_LIMIT=0
+      #
+      # LDAP_GROUP_FILTER_ENABLE : Enable group filtering
+      # example : LDAP_GROUP_FILTER_ENABLE=true
+      #- LDAP_GROUP_FILTER_ENABLE=false
+      #
+      # LDAP_GROUP_FILTER_OBJECTCLASS : The object class for filtering
+      # example : LDAP_GROUP_FILTER_OBJECTCLASS=group
+      #- LDAP_GROUP_FILTER_OBJECTCLASS=
+      #
+      # LDAP_GROUP_FILTER_GROUP_ID_ATTRIBUTE :
+      # example :
+      #- LDAP_GROUP_FILTER_GROUP_ID_ATTRIBUTE=
+      #
+      # LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE :
+      # example :
+      #- LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE=
+      #
+      # LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT :
+      # example :
+      #- LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT=
+      #
+      # LDAP_GROUP_FILTER_GROUP_NAME :
+      # example :
+      #- LDAP_GROUP_FILTER_GROUP_NAME=
+      #
+      # LDAP_UNIQUE_IDENTIFIER_FIELD : This field is sometimes class GUID (Globally Unique Identifier)
+      # example : LDAP_UNIQUE_IDENTIFIER_FIELD=guid
+      #- LDAP_UNIQUE_IDENTIFIER_FIELD=
+      #
+      # LDAP_UTF8_NAMES_SLUGIFY : Convert the username to utf8
+      # example : LDAP_UTF8_NAMES_SLUGIFY=false
+      #- LDAP_UTF8_NAMES_SLUGIFY=true
+      #
+      # LDAP_USERNAME_FIELD : Which field contains the ldap username
+      # example : LDAP_USERNAME_FIELD=username
+      #- LDAP_USERNAME_FIELD=
+      #
+      # LDAP_FULLNAME_FIELD : Which field contains the ldap fullname
+      # example : LDAP_FULLNAME_FIELD=fullname
+      #- LDAP_FULLNAME_FIELD=
+      #
+      # LDAP_MERGE_EXISTING_USERS :
+      # example : LDAP_MERGE_EXISTING_USERS=true
+      #- LDAP_MERGE_EXISTING_USERS=false
+      #-----------------------------------------------------------------
+      # LDAP_SYNC_USER_DATA :
+      # example : LDAP_SYNC_USER_DATA=true
+      #- LDAP_SYNC_USER_DATA=false
+      #
+      # LDAP_SYNC_USER_DATA_FIELDMAP :
+      # example : LDAP_SYNC_USER_DATA_FIELDMAP={"cn":"name", "mail":"email"}
+      #- LDAP_SYNC_USER_DATA_FIELDMAP=
+      #
+      # LDAP_SYNC_GROUP_ROLES :
+      # example :
+      #- LDAP_SYNC_GROUP_ROLES=
+      #
+      # LDAP_DEFAULT_DOMAIN : The default domain of the ldap it is used to create email if the field is not map correctly with the LDAP_SYNC_USER_DATA_FIELDMAP
+      # example :
+      #- LDAP_DEFAULT_DOMAIN=
+      #---------------------------------------------------------------------
+      # ==== LOGOUT TIMER, probably does not work yet ====
+      # LOGOUT_WITH_TIMER : Enables or not the option logout with timer
+      # example : LOGOUT_WITH_TIMER=true
+      #- LOGOUT_WITH_TIMER=
+      #
+      # LOGOUT_IN : The number of days
+      # example : LOGOUT_IN=1
+      #- LOGOUT_IN=
+      #
+      # LOGOUT_ON_HOURS : The number of hours
+      # example : LOGOUT_ON_HOURS=9
+      #- LOGOUT_ON_HOURS=
+      #
+      # LOGOUT_ON_MINUTES : The number of minutes
+      # example : LOGOUT_ON_MINUTES=55
+      #- LOGOUT_ON_MINUTES=
+      #-------------------------------------------------------------------
+
+    depends_on:
+      - mongodb
+
+#---------------------------------------------------------------------------------
+# ==== OPTIONAL: SHARE DATABASE TO OFFICE LAN AND REMOTE VPN ====
+#  When using Wekan both at office LAN and remote VPN:
+#    1) Have above Wekan docker container config with LAN IP address
+#    2) Copy all of above wekan container config below, look above of this part above and all config below it,
+#       before above depends_on: part:
+#
+#         wekan:
+#            #-------------------------------------------------------------------------------------
+#            # ==== MONGODB AND METEOR VERSION ====
+#            # a) For Wekan Meteor 1.8.x version at meteor-1.8 branch, .....
+#
+#
+#       and change name to different name like wekan2 or wekanvpn, and change ROOT_URL to server VPN IP
+#       address.
+#    3) This way both Wekan containers can use same MongoDB database
+#       and see the same Wekan boards.
+#    4) You could also add 3rd Wekan container for 3rd network etc.
+# EXAMPLE:
+#  wekan2:
+#    ....COPY CONFIG FROM ABOVE TO HERE...
+#    environment:
+#      - ROOT_URL='http://10.10.10.10'
+#      ...COPY CONFIG FROM ABOVE TO HERE...
+#---------------------------------------------------------------------------------
+
+volumes:
+  mongodb:
+    driver: local
+  mongodb-dump:
+    driver: local
+
+networks:
+  wekan-tier:
+    driver: bridge

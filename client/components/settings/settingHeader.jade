@@ -4,22 +4,21 @@ template(name="settingHeaderBar")
 
   .setting-header-btns.left
     unless isMiniScreen
-      unless isSandstorm
-        if currentUser
-          a.setting-header-btn.settings(href="{{pathFor 'setting'}}")
-            i.fa(class="fa-cog")
-            span {{_ 'settings'}}
+      if currentUser
+        a.setting-header-btn.settings(href="{{pathFor 'setting'}}")
+          i.fa(class="fa-cog")
+          span {{_ 'settings'}}
 
-          a.setting-header-btn.people(href="{{pathFor 'people'}}")
-            i.fa(class="fa-users")
-            span {{_ 'people'}}
+        a.setting-header-btn.people(href="{{pathFor 'people'}}")
+          i.fa(class="fa-users")
+          span {{_ 'people'}}
 
-          a.setting-header-btn.informations(href="{{pathFor 'information'}}")
-            i.fa(class="fa-info-circle")
-            span {{_ 'info'}}
+        a.setting-header-btn.informations(href="{{pathFor 'information'}}")
+          i.fa(class="fa-info-circle")
+          span {{_ 'info'}}
 
-        else
-          a.setting-header-btn.js-log-in(
-            title="{{_ 'log-in'}}")
-            i.fa.fa-sign-in
-            span {{_ 'log-in'}}
+      else
+        a.setting-header-btn.js-log-in(
+          title="{{_ 'log-in'}}")
+          i.fa.fa-sign-in
+          span {{_ 'log-in'}}

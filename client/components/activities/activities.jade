@@ -14,6 +14,9 @@ template(name="boardActivities")
       p.activity-desc
         +memberName(user=user)
 
+        if($eq activityType 'deleteAttachment')
+          | {{{_ 'activity-delete-attach' cardLink}}}.
+
         if($eq activityType 'addAttachment')
           | {{{_ 'activity-attached' attachmentLink cardLink}}}.
 
@@ -31,12 +34,28 @@ template(name="boardActivities")
           .activity-checklist(href="{{ card.absoluteUrl }}")
             +viewer
               = checklist.title
+        if($eq activityType 'removeChecklist')
+          | {{{_ 'activity-checklist-removed' cardLink}}}.
+
+        if($eq activityType 'checkedItem')
+          | {{{_ 'activity-checked-item' checkItem checklist.title cardLink}}}.
+
+        if($eq activityType 'uncheckedItem')
+          | {{{_ 'activity-unchecked-item' checkItem checklist.title cardLink}}}.
+
+        if($eq activityType 'checklistCompleted')
+          | {{{_ 'activity-checklist-completed' checklist.title cardLink}}}.
+
+        if($eq activityType 'checklistUncompleted')
+          | {{{_ 'activity-checklist-uncompleted' checklist.title cardLink}}}.
 
         if($eq activityType 'addChecklistItem')
           | {{{_ 'activity-checklist-item-added' checklist.title cardLink}}}.
           .activity-checklist(href="{{ card.absoluteUrl }}")
             +viewer
               = checklistItem.title
+        if($eq activityType 'removedChecklistItem')
+          | {{{_ 'activity-checklist-item-removed' checklist.title cardLink}}}.
 
         if($eq activityType 'archivedCard')
           | {{{_ 'activity-archived' cardLink}}}.
@@ -52,6 +71,9 @@ template(name="boardActivities")
 
         if($eq activityType 'createCard')
           | {{{_ 'activity-added' cardLink boardLabel}}}.
+
+        if($eq activityType 'createCustomField')
+          | {{_ 'activity-customfield-created' customField}}.
 
         if($eq activityType 'createList')
           | {{_ 'activity-added' list.title boardLabel}}.
@@ -77,6 +99,9 @@ template(name="boardActivities")
           else
             | {{{_ 'activity-added' memberLink cardLink}}}.
 
+        if($eq activityType 'moveCardBoard')
+          | {{{_ 'activity-moved' cardLink oldBoardName boardName}}}.
+
         if($eq activityType 'moveCard')
           | {{{_ 'activity-moved' cardLink oldList.title list.title}}}.
 
@@ -85,6 +110,18 @@ template(name="boardActivities")
 
         if($eq activityType 'restoredCard')
           | {{{_ 'activity-sent' cardLink boardLabel}}}.
+
+        if($eq activityType 'addedLabel')
+          | {{{_ 'activity-added-label' lastLabel cardLink}}}.
+
+        if($eq activityType 'removedLabel')
+          | {{{_ 'activity-removed-label' lastLabel cardLink}}}.
+
+        if($eq activityType 'setCustomField')
+          | {{{_ 'activity-set-customfield' lastCustomField lastCustomFieldValue cardLink}}}.
+
+        if($eq activityType 'unsetCustomField')
+          | {{{_ 'activity-unset-customfield' lastCustomField cardLink}}}.
 
         if($eq activityType 'unjoinMember')
           if($eq user._id member._id)
@@ -101,7 +138,7 @@ template(name="cardActivities")
       p.activity-desc
         +memberName(user=user)
         if($eq activityType 'createCard')
-          | {{_ 'activity-added' cardLabel list.title}}.
+          | {{_ 'activity-added' cardLabel listName}}.
         if($eq activityType 'importCard')
           | {{{_ 'activity-imported' cardLabel list.title sourceLink}}}.
         if($eq activityType 'joinMember')
@@ -116,14 +153,44 @@ template(name="cardActivities")
             | {{{_ 'activity-removed' cardLabel memberLink}}}.
         if($eq activityType 'archivedCard')
           | {{_ 'activity-archived' cardLabel}}.
+
+        if($eq activityType 'addedLabel')
+          | {{{_ 'activity-added-label-card' lastLabel }}}.
+
+        if($eq activityType 'removedLabel')
+          | {{{_ 'activity-removed-label-card' lastLabel }}}.
+
+        if($eq activityType 'removeChecklist')
+          | {{{_ 'activity-checklist-removed' cardLabel}}}.
+
+        if($eq activityType 'checkedItem')
+          | {{{_ 'activity-checked-item-card' checkItem checklist.title }}}.
+
+        if($eq activityType 'uncheckedItem')
+          | {{{_ 'activity-unchecked-item-card' checkItem checklist.title }}}.
+
+        if($eq activityType 'checklistCompleted')
+          | {{{_ 'activity-checklist-completed-card' checklist.title }}}.
+
+        if($eq activityType 'checklistUncompleted')
+          | {{{_ 'activity-checklist-uncompleted-card' checklist.title }}}.
+
         if($eq activityType 'restoredCard')
           | {{_ 'activity-sent' cardLabel boardLabel}}.
         if($eq activityType 'moveCard')
           | {{_ 'activity-moved' cardLabel oldList.title list.title}}.
+
+        if($eq activityType 'moveCardBoard')
+          | {{{_ 'activity-moved' cardLink oldBoardName boardName}}}.
+
         if($eq activityType 'addAttachment')
           | {{{_ 'activity-attached' attachmentLink cardLabel}}}.
           if attachment.isImage
             img.attachment-image-preview(src=attachment.url)
+        if($eq activityType 'deleteAttachment')
+          | {{{_ 'activity-delete-attach'  cardLabel}}}.
+        if($eq activityType 'removedChecklist')
+          | {{{_ 'activity-checklist-removed' cardLabel}}}.
         if($eq activityType 'addChecklist')
           | {{{_ 'activity-checklist-added' cardLabel}}}.
           .activity-checklist

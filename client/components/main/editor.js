@@ -36,13 +36,18 @@ import sanitizeXss from 'xss';
 const at = HTML.CharRef({html: '&commat;', str: '@'});
 Blaze.Template.registerHelper('mentions', new Template('mentions', function() {
   const view = this;
+  let content = Blaze.toHTML(view.templateContentBlock);
   const currentBoard = Boards.findOne(Session.get('currentBoard'));
+  if (!currentBoard)
+    return HTML.Raw(sanitizeXss(content));
   const knowedUsers = currentBoard.members.map((member) => {
-    member.username = Users.findOne(member.userId).username;
+    const u = Users.findOne(member.userId);
+    if(u){
+      member.username = u.username;
+    }
     return member;
   });
   const mentionRegex = /\B@([\w.]*)/gi;
-  let content = Blaze.toHTML(view.templateContentBlock);
 
   let currentMention;
   while ((currentMention = mentionRegex.exec(content)) !== null) {

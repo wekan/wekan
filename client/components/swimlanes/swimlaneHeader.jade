@@ -1,14 +1,21 @@
 template(name="swimlaneHeader")
-  .swimlane-header-wrap.js-swimlane-header
-    +inlinedForm
-      +editSwimlaneTitleForm
+  .swimlane-header-wrap.js-swimlane-header(class='{{#if colorClass}}swimlane-{{colorClass}}{{/if}}')
+    if this.isTemplateContainer
+        +swimlaneFixedHeader(this)
     else
-      .swimlane-header(
-        class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
-        = title
-      .swimlane-header-menu
-        unless currentUser.isCommentOnly
-          a.fa.fa-navicon.js-open-swimlane-menu
+      +inlinedForm
+        +editSwimlaneTitleForm
+      else
+        +swimlaneFixedHeader(this)
+
+template(name="swimlaneFixedHeader")
+  .swimlane-header(
+    class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
+    = title
+  .swimlane-header-menu
+    unless currentUser.isCommentOnly
+      a.fa.fa-plus.js-open-add-swimlane-menu.swimlane-header-plus-icon
+      a.fa.fa-navicon.js-open-swimlane-menu
 
 template(name="editSwimlaneTitleForm")
   .list-composer
@@ -20,4 +27,34 @@ template(name="editSwimlaneTitleForm")
 template(name="swimlaneActionPopup")
   unless currentUser.isCommentOnly
     ul.pop-over-list
-      li: a.js-close-swimlane {{_ 'archive-swimlane'}}
+       li: a.js-set-swimlane-color {{_ 'select-color'}}
+    unless this.isTemplateContainer
+      hr
+      ul.pop-over-list
+        li: a.js-close-swimlane {{_ 'archive-swimlane'}}
+
+template(name="swimlaneAddPopup")
+  unless currentUser.isCommentOnly
+    form
+      input.swimlane-name-input.full-line(type="text" placeholder="{{_ 'add-swimlane'}}"
+        autocomplete="off" autofocus)
+      .edit-controls.clearfix
+        button.primary.confirm(type="submit") {{_ 'add'}}
+        unless currentBoard.isTemplatesBoard
+          unless currentBoard.isTemplateBoard
+            span.quiet
+              | {{_ 'or'}}
+              a.js-swimlane-template {{_ 'template'}}
+
+template(name="setSwimlaneColorPopup")
+  form.edit-label
+    .palette-colors: each colors
+      span.card-label.palette-color.js-palette-color(class="card-details-{{color}}")
+        if(isSelected color)
+          i.fa.fa-check
+    button.primary.confirm.js-submit {{_ 'save'}}
+    button.js-remove-color.negate.wide.right {{_ 'unset-color'}}
+
+template(name="swimlaneDeletePopup")
+  p {{_ "swimlane-delete-pop"}}
+  button.js-confirm.negate.full(type="submit") {{_ 'delete'}}

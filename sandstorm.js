@@ -75,7 +75,7 @@ if (isSandstorm && Meteor.isServer) {
         session.claimRequest(token).then((response) => {
           const identity = response.cap.castAs(Identity.Identity);
           const promises = [api.getIdentityId(identity), identity.getProfile(),
-                            httpBridge.saveIdentity(identity)];
+            httpBridge.saveIdentity(identity)];
           return Promise.all(promises).then((responses) => {
             const identityId = responses[0].id.toString('hex').slice(0, 32);
             const profile = responses[1].profile;
@@ -115,9 +115,9 @@ if (isSandstorm && Meteor.isServer) {
           const identity = response.identity;
           return identity.getProfile().then(() => {
             return { identity,
-                     mentioned: !!user.mentioned,
-                     subscribed: !!user.subscribed,
-                   };
+              mentioned: !!user.mentioned,
+              subscribed: !!user.subscribed,
+            };
           });
         }).catch(() => {
           // Ignore identities that fail to restore. Either they were added before we set
@@ -132,7 +132,7 @@ if (isSandstorm && Meteor.isServer) {
 
         return session.activity(event);
       }).then(() => done(),
-              (e) => done(e));
+        (e) => done(e));
     })();
   }
 
@@ -208,7 +208,8 @@ if (isSandstorm && Meteor.isServer) {
     const isActive = permissions.indexOf('participate') > -1;
     const isAdmin = permissions.indexOf('configure') > -1;
     const isCommentOnly = false;
-    const permissionDoc = { userId, isActive, isAdmin, isCommentOnly };
+    const isNoComments = false;
+    const permissionDoc = { userId, isActive, isAdmin, isNoComments, isCommentOnly };
 
     const boardMembers = Boards.findOne(sandstormBoard._id).members;
     const memberIndex = _.pluck(boardMembers, 'userId').indexOf(userId);
@@ -434,12 +435,12 @@ if (isSandstorm && Meteor.isClient) {
   //
   // XXX Hack. The home route is already defined at this point so we need to
   // add the redirection trigger to the internal route object.
-  FlowRouter._routesMap.home._triggersEnter.push((context, redirect) => {
-    redirect(FlowRouter.path('board', {
-      id: sandstormBoard._id,
-      slug: sandstormBoard.slug,
-    }));
-  });
+  //FlowRouter._routesMap.home._triggersEnter.push((context, redirect) => {
+  //  redirect(FlowRouter.path('board', {
+  //    id: sandstormBoard._id,
+  //    slug: sandstormBoard.slug,
+  //  }));
+  //});
 
   // XXX Hack. `Meteor.absoluteUrl` doesn't work in Sandstorm, since every
   // session has a different URL whereas Meteor computes absoluteUrl based on
@@ -456,9 +457,9 @@ if (isSandstorm && Meteor.isClient) {
   // XXX Hack to fix https://github.com/wefork/wekan/issues/27
   // Sandstorm Wekan instances only ever have a single board, so there is no need
   // to cache per-board subscriptions.
-  SubsManager.prototype.subscribe = function(...params) {
-    return Meteor.subscribe(...params);
-  };
+  //SubsManager.prototype.subscribe = function(...params) {
+  //  return Meteor.subscribe(...params);
+  //};
 }
 
 // We use this blaze helper in the UI to hide some templates that does not make

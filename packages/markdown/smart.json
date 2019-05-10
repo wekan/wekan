@@ -1,0 +1,9 @@
+{
+  "name": "markdown",
+  "description": "GitHub flavored markdown parser for Meteor based on marked.js",
+  "homepage": "https://github.com/wekan/markdown",
+  "author": "Petar Korponaic",
+  "version": "1.0.7",
+  "git": "https://github.com/wekan/markdown.git",
+  "packages": {}
+}

@@ -134,8 +134,9 @@ BlazeComponent.extendComponent({
 
 Template.cardMembersPopup.helpers({
   isCardMember() {
-    const cardId = Template.parentData()._id;
-    const cardMembers = Cards.findOne(cardId).members || [];
+    const card = Template.parentData();
+    const cardMembers = card.getMembers();
+
     return _.contains(cardMembers, this.userId);
   },
 

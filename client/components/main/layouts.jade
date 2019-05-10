@@ -1,7 +1,6 @@
 head
-  title Wekan
-  meta(name="viewport"
-   content="maximum-scale=1.0,width=device-width,initial-scale=1.0,user-scalable=0")
+  title
+  meta(name="viewport" content="maximum-scale=1.0,width=device-width,initial-scale=1.0,user-scalable=0")
   meta(http-equiv="X-UA-Compatible" content="IE=edge")
   //- XXX We should use pathFor in the following `href` to support the case
     where the application is deployed with a path prefix, but it seems to be
@@ -9,34 +8,47 @@ head
     packages.
   link(rel="shortcut icon" href="/wekan-favicon.png")
   link(rel="apple-touch-icon" href="/wekan-favicon.png")
+  link(rel="mask-icon" href="/wekan-logo-150.svg")
   link(rel="manifest" href="/wekan-manifest.json")
 
 template(name="userFormsLayout")
   section.auth-layout
-    h1.at-form-landing-logo
-      img(src="{{pathFor '/wekan-logo.png'}}" alt="Wekan")
     section.auth-dialog
-      +Template.dynamic(template=content)
-      div.at-form-lang
-        select.select-lang.js-userform-set-language
-          each languages
-            if isCurrentLanguage
-              option(value="{{tag}}" selected="selected") {{name}}
-            else
-              option(value="{{tag}}") {{name}}
+      if isLoading
+        +loader
+      else
+        +Template.dynamic(template=content)
+        if currentSetting.displayAuthenticationMethod
+          +connectionMethod(authenticationMethod=currentSetting.defaultAuthenticationMethod)
+        div.at-form-lang
+          select.select-lang.js-userform-set-language
+            each languages
+              if isCurrentLanguage
+                option(value="{{tag}}" selected="selected") {{name}}
+              else
+                option(value="{{tag}}") {{name}}
 
 template(name="defaultLayout")
   +header
   #content
+    | {{{afterBodyStart}}}
     +Template.dynamic(template=content)
+    | {{{beforeBodyEnd}}}
   if (Modal.isOpen)
     #modal
       .overlay
-      .modal-content
-        a.modal-close-btn.js-close-modal
-          i.fa.fa-times-thin
-        +Template.dynamic(template=Modal.getHeaderName)
-        +Template.dynamic(template=Modal.getTemplateName)
+      if (Modal.isWide)
+        .modal-content-wide.modal-container
+          a.modal-close-btn.js-close-modal
+            i.fa.fa-times-thin
+          +Template.dynamic(template=Modal.getHeaderName)
+          +Template.dynamic(template=Modal.getTemplateName)
+      else
+        .modal-content.modal-container
+          a.modal-close-btn.js-close-modal
+            i.fa.fa-times-thin
+          +Template.dynamic(template=Modal.getHeaderName)
+          +Template.dynamic(template=Modal.getTemplateName)
 
 template(name="notFound")
   +message(label='page-not-found')
@@ -47,3 +59,14 @@ template(name="message")
     unless currentUser
       with(pathFor route='atSignIn')
         p {{{_ 'page-maybe-private' this}}}
+
+template(name="loader")
+  h1.loadingText {{_ 'loading'}}
+  .lds-roller
+    div
+    div
+    div
+    div
+    div
+    div
+    div

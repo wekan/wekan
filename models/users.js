@@ -4,8 +4,14 @@ const isSandstorm = Meteor.settings && Meteor.settings.public &&
   Meteor.settings.public.sandstorm;
 Users = Meteor.users;
 
+/**
+ * A User in wekan
+ */
 Users.attachSchema(new SimpleSchema({
   username: {
+    /**
+     * the username of the user
+     */
     type: String,
     optional: true,
     autoValue() { // eslint-disable-line consistent-return
@@ -18,17 +24,29 @@ Users.attachSchema(new SimpleSchema({
     },
   },
   emails: {
+    /**
+     * the list of emails attached to a user
+     */
     type: [Object],
     optional: true,
   },
   'emails.$.address': {
+    /**
+     * The email address
+     */
     type: String,
     regEx: SimpleSchema.RegEx.Email,
   },
   'emails.$.verified': {
+    /**
+     * Has the email been verified
+     */
     type: Boolean,
   },
   createdAt: {
+    /**
+     * creation date of the user
+     */
     type: Date,
     autoValue() { // eslint-disable-line consistent-return
       if (this.isInsert) {
@@ -39,6 +57,9 @@ Users.attachSchema(new SimpleSchema({
     },
   },
   profile: {
+    /**
+     * profile settings
+     */
     type: Object,
     optional: true,
     autoValue() { // eslint-disable-line consistent-return
@@ -50,77 +71,165 @@ Users.attachSchema(new SimpleSchema({
     },
   },
   'profile.avatarUrl': {
+    /**
+     * URL of the avatar of the user
+     */
     type: String,
     optional: true,
   },
   'profile.emailBuffer': {
+    /**
+     * list of email buffers of the user
+     */
     type: [String],
     optional: true,
   },
   'profile.fullname': {
+    /**
+     * full name of the user
+     */
     type: String,
     optional: true,
   },
   'profile.hiddenSystemMessages': {
+    /**
+     * does the user wants to hide system messages?
+     */
     type: Boolean,
     optional: true,
   },
   'profile.initials': {
+    /**
+     * initials of the user
+     */
     type: String,
     optional: true,
   },
   'profile.invitedBoards': {
+    /**
+     * board IDs the user has been invited to
+     */
     type: [String],
     optional: true,
   },
   'profile.language': {
+    /**
+     * language of the user
+     */
     type: String,
     optional: true,
   },
   'profile.notifications': {
+    /**
+     * enabled notifications for the user
+     */
     type: [String],
     optional: true,
   },
   'profile.showCardsCountAt': {
+    /**
+     * showCardCountAt field of the user
+     */
     type: Number,
     optional: true,
   },
   'profile.starredBoards': {
-    type: [String],
-    optional: true,
-  },
-  'profile.tags': {
+    /**
+     * list of starred board IDs
+     */
     type: [String],
     optional: true,
   },
   'profile.icode': {
+    /**
+     * icode
+     */
     type: String,
     optional: true,
   },
   'profile.boardView': {
+    /**
+     * boardView field of the user
+     */
     type: String,
     optional: true,
+    allowedValues: [
+      'board-view-lists',
+      'board-view-swimlanes',
+      'board-view-cal',
+    ],
+  },
+  'profile.templatesBoardId': {
+    /**
+     * Reference to the templates board
+     */
+    type: String,
+    defaultValue: '',
+  },
+  'profile.cardTemplatesSwimlaneId': {
+    /**
+     * Reference to the card templates swimlane Id
+     */
+    type: String,
+    defaultValue: '',
+  },
+  'profile.listTemplatesSwimlaneId': {
+    /**
+     * Reference to the list templates swimlane Id
+     */
+    type: String,
+    defaultValue: '',
+  },
+  'profile.boardTemplatesSwimlaneId': {
+    /**
+     * Reference to the board templates swimlane Id
+     */
+    type: String,
+    defaultValue: '',
   },
   services: {
+    /**
+     * services field of the user
+     */
     type: Object,
     optional: true,
     blackbox: true,
   },
   heartbeat: {
+    /**
+     * last time the user has been seen
+     */
     type: Date,
     optional: true,
   },
   isAdmin: {
+    /**
+     * is the user an admin of the board?
+     */
     type: Boolean,
     optional: true,
   },
   createdThroughApi: {
+    /**
+     * was the user created through the API?
+     */
     type: Boolean,
     optional: true,
   },
   loginDisabled: {
+    /**
+     * loginDisabled field of the user
+     */
     type: Boolean,
     optional: true,
+  },
+  'authenticationMethod': {
+    /**
+     * authentication method of the user
+     */
+    type: String,
+    optional: false,
+    defaultValue: 'password',
   },
 }));
 
@@ -129,6 +238,19 @@ Users.allow({
     const user = Users.findOne(userId);
     return user && Meteor.user().isAdmin;
   },
+  remove(userId, doc) {
+    const adminsNumber = Users.find({ isAdmin: true }).count();
+    const { isAdmin } = Users.findOne({ _id: userId }, { fields: { 'isAdmin': 1 } });
+
+    // Prevents remove of the only one administrator
+    if (adminsNumber === 1 && isAdmin && userId === doc._id) {
+      return false;
+    }
+
+    // If it's the user or an admin
+    return userId === doc._id || isAdmin;
+  },
+  fetch: [],
 });
 
 // Search a user in the complete server database by its name or username. This
@@ -144,6 +266,16 @@ if (Meteor.isClient) {
     isBoardMember() {
       const board = Boards.findOne(Session.get('currentBoard'));
       return board && board.hasMember(this._id);
+    },
+
+    isNotNoComments() {
+      const board = Boards.findOne(Session.get('currentBoard'));
+      return board && board.hasMember(this._id) && !board.hasNoComments(this._id);
+    },
+
+    isNoComments() {
+      const board = Boards.findOne(Session.get('currentBoard'));
+      return board && board.hasNoComments(this._id);
     },
 
     isNotCommentOnly() {
@@ -169,32 +301,32 @@ Users.helpers({
   },
 
   starredBoards() {
-    const {starredBoards = []} = this.profile;
+    const {starredBoards = []} = this.profile || {};
     return Boards.find({archived: false, _id: {$in: starredBoards}});
   },
 
   hasStarred(boardId) {
-    const {starredBoards = []} = this.profile;
+    const {starredBoards = []} = this.profile || {};
     return _.contains(starredBoards, boardId);
   },
 
   invitedBoards() {
-    const {invitedBoards = []} = this.profile;
+    const {invitedBoards = []} = this.profile || {};
     return Boards.find({archived: false, _id: {$in: invitedBoards}});
   },
 
   isInvitedTo(boardId) {
-    const {invitedBoards = []} = this.profile;
+    const {invitedBoards = []} = this.profile || {};
     return _.contains(invitedBoards, boardId);
   },
 
   hasTag(tag) {
-    const {tags = []} = this.profile;
+    const {tags = []} = this.profile || {};
     return _.contains(tags, tag);
   },
 
   hasNotification(activityId) {
-    const {notifications = []} = this.profile;
+    const {notifications = []} = this.profile || {};
     return _.contains(notifications, activityId);
   },
 
@@ -204,7 +336,7 @@ Users.helpers({
   },
 
   getEmailBuffer() {
-    const {emailBuffer = []} = this.profile;
+    const {emailBuffer = []} = this.profile || {};
     return emailBuffer;
   },
 
@@ -236,6 +368,18 @@ Users.helpers({
   getLanguage() {
     const profile = this.profile || {};
     return profile.language || 'en';
+  },
+
+  getTemplatesBoardId() {
+    return (this.profile || {}).templatesBoardId;
+  },
+
+  getTemplatesBoardSlug() {
+    return (Boards.findOne((this.profile || {}).templatesBoardId) || {}).slug;
+  },
+
+  remove() {
+    User.remove({ _id: this._id});
   },
 });
 
@@ -468,9 +612,34 @@ if (Meteor.isServer) {
   });
   Accounts.onCreateUser((options, user) => {
     const userCount = Users.find().count();
-    if (!isSandstorm && userCount === 0) {
+    if (userCount === 0) {
       user.isAdmin = true;
       return user;
+    }
+
+    if (user.services.oidc) {
+      const email = user.services.oidc.email.toLowerCase();
+      user.username = user.services.oidc.username;
+      user.emails = [{ address: email, verified: true }];
+      const initials = user.services.oidc.fullname.match(/\b[a-zA-Z]/g).join('').toUpperCase();
+      user.profile = { initials, fullname: user.services.oidc.fullname, boardView: 'board-view-lists' };
+      user.authenticationMethod = 'oauth2';
+
+      // see if any existing user has this email address or username, otherwise create new
+      const existingUser = Meteor.users.findOne({$or: [{'emails.address': email}, {'username':user.username}]});
+      if (!existingUser)
+        return user;
+
+      // copy across new service info
+      const service = _.keys(user.services)[0];
+      existingUser.services[service] = user.services[service];
+      existingUser.emails = user.emails;
+      existingUser.username = user.username;
+      existingUser.profile = user.profile;
+      existingUser.authenticationMethod = user.authenticationMethod;
+
+      Meteor.users.remove({_id: existingUser._id}); // remove existing record
+      return existingUser;
     }
 
     if (options.from === 'admin') {
@@ -479,6 +648,13 @@ if (Meteor.isServer) {
     }
 
     const disableRegistration = Settings.findOne().disableRegistration;
+    // If this is the first Authentication by the ldap and self registration disabled
+    if (disableRegistration && options && options.ldap) {
+      user.authenticationMethod = 'ldap';
+      return user;
+    }
+
+    // If self registration enabled
     if (!disableRegistration) {
       return user;
     }
@@ -496,9 +672,13 @@ if (Meteor.isServer) {
     } else {
       user.profile = {icode: options.profile.invitationcode};
       user.profile.boardView = 'board-view-lists';
-    }
 
-    return user;
+      // Deletes the invitation code after the user was created successfully.
+      setTimeout(Meteor.bindEnvironment(() => {
+        InvitationCodes.remove({'_id': invitationCode._id});
+      }), 200);
+      return user;
+    }
   });
 }
 
@@ -509,6 +689,23 @@ if (Meteor.isServer) {
       username: 1,
     }, {unique: true});
   });
+
+  // OLD WAY THIS CODE DID WORK: When user is last admin of board,
+  // if admin is removed, board is removed.
+  // NOW THIS IS COMMENTED OUT, because other board users still need to be able
+  // to use that board, and not have board deleted.
+  // Someone can be later changed to be admin of board, by making change to database.
+  // TODO: Add UI for changing someone as board admin.
+  //Users.before.remove((userId, doc) => {
+  //  Boards
+  //    .find({members: {$elemMatch: {userId: doc._id, isAdmin: true}}})
+  //    .forEach((board) => {
+  //      // If only one admin for the board
+  //      if (board.members.filter((e) => e.isAdmin).length === 1) {
+  //        Boards.remove(board._id);
+  //      }
+  //    });
+  //});
 
   // Each board document contains the de-normalized number of users that have
   // starred it. If the user star or unstar a board, we need to update this
@@ -548,7 +745,6 @@ if (Meteor.isServer) {
   CollectionHooks.getUserId = () => {
     return fakeUserId.get() || getUserId();
   };
-
   if (!isSandstorm) {
     Users.after.insert((userId, doc) => {
       const fakeUser = {
@@ -558,6 +754,7 @@ if (Meteor.isServer) {
       };
 
       fakeUserId.withValue(doc._id, () => {
+      /*
         // Insert the Welcome Board
         Boards.insert({
           title: TAPi18n.__('welcome-board'),
@@ -572,6 +769,53 @@ if (Meteor.isServer) {
 
           ['welcome-list1', 'welcome-list2'].forEach((title, titleIndex) => {
             Lists.insert({title: TAPi18n.__(title), boardId, sort: titleIndex}, fakeUser);
+          });
+        });
+        */
+
+        Boards.insert({
+          title: TAPi18n.__('templates'),
+          permission: 'private',
+          type: 'template-container',
+        }, fakeUser, (err, boardId) => {
+
+          // Insert the reference to our templates board
+          Users.update(fakeUserId.get(), {$set: {'profile.templatesBoardId': boardId}});
+
+          // Insert the card templates swimlane
+          Swimlanes.insert({
+            title: TAPi18n.__('card-templates-swimlane'),
+            boardId,
+            sort: 1,
+            type: 'template-container',
+          }, fakeUser, (err, swimlaneId) => {
+
+            // Insert the reference to out card templates swimlane
+            Users.update(fakeUserId.get(), {$set: {'profile.cardTemplatesSwimlaneId': swimlaneId}});
+          });
+
+          // Insert the list templates swimlane
+          Swimlanes.insert({
+            title: TAPi18n.__('list-templates-swimlane'),
+            boardId,
+            sort: 2,
+            type: 'template-container',
+          }, fakeUser, (err, swimlaneId) => {
+
+            // Insert the reference to out list templates swimlane
+            Users.update(fakeUserId.get(), {$set: {'profile.listTemplatesSwimlaneId': swimlaneId}});
+          });
+
+          // Insert the board templates swimlane
+          Swimlanes.insert({
+            title: TAPi18n.__('board-templates-swimlane'),
+            boardId,
+            sort: 3,
+            type: 'template-container',
+          }, fakeUser, (err, swimlaneId) => {
+
+            // Insert the reference to out board templates swimlane
+            Users.update(fakeUserId.get(), {$set: {'profile.boardTemplatesSwimlaneId': swimlaneId}});
           });
         });
       });
@@ -593,7 +837,9 @@ if (Meteor.isServer) {
 
     //invite user to corresponding boards
     const disableRegistration = Settings.findOne().disableRegistration;
-    if (disableRegistration) {
+    // If ldap, bypass the inviation code if the self registration isn't allowed.
+    // TODO : pay attention if ldap field in the user model change to another content ex : ldap field to connection_type
+    if (doc.authenticationMethod !== 'ldap' && disableRegistration) {
       const invitationCode = InvitationCodes.findOne({code: doc.profile.icode, valid: true});
       if (!invitationCode) {
         throw new Meteor.Error('error-invitation-code-not-exist');
@@ -613,9 +859,26 @@ if (Meteor.isServer) {
   });
 }
 
-
 // USERS REST API
 if (Meteor.isServer) {
+  // Middleware which checks that API is enabled.
+  JsonRoutes.Middleware.use(function (req, res, next) {
+    const api = req.url.search('api');
+    if (api === 1 && process.env.WITH_API === 'true' || api === -1){
+      return next();
+    }
+    else {
+      res.writeHead(301, {Location: '/'});
+      return res.end();
+    }
+  });
+
+  /**
+   * @operation get_current_user
+   *
+   * @summary returns the current user
+   * @return_type Users
+   */
   JsonRoutes.add('GET', '/api/user', function(req, res) {
     try {
       Authentication.checkLoggedIn(req.userId);
@@ -634,6 +897,15 @@ if (Meteor.isServer) {
     }
   });
 
+  /**
+   * @operation get_all_users
+   *
+   * @summary return all the users
+   *
+   * @description Only the admin user (the first user) can call the REST API.
+   * @return_type [{ _id: string,
+   *                 username: string}]
+   */
   JsonRoutes.add('GET', '/api/users', function (req, res) {
     try {
       Authentication.checkUserId(req.userId);
@@ -652,10 +924,20 @@ if (Meteor.isServer) {
     }
   });
 
-  JsonRoutes.add('GET', '/api/users/:id', function (req, res) {
+  /**
+   * @operation get_user
+   *
+   * @summary get a given user
+   *
+   * @description Only the admin user (the first user) can call the REST API.
+   *
+   * @param {string} userId the user ID
+   * @return_type Users
+   */
+  JsonRoutes.add('GET', '/api/users/:userId', function (req, res) {
     try {
       Authentication.checkUserId(req.userId);
-      const id = req.params.id;
+      const id = req.params.userId;
       JsonRoutes.sendResult(res, {
         code: 200,
         data: Meteor.users.findOne({ _id: id }),
@@ -669,10 +951,27 @@ if (Meteor.isServer) {
     }
   });
 
-  JsonRoutes.add('PUT', '/api/users/:id', function (req, res) {
+  /**
+   * @operation edit_user
+   *
+   * @summary edit a given user
+   *
+   * @description Only the admin user (the first user) can call the REST API.
+   *
+   * Possible values for *action*:
+   * - `takeOwnership`: The admin takes the ownership of ALL boards of the user (archived and not archived) where the user is admin on.
+   * - `disableLogin`: Disable a user (the user is not allowed to login and his login tokens are purged)
+   * - `enableLogin`: Enable a user
+   *
+   * @param {string} userId the user ID
+   * @param {string} action the action
+   * @return_type {_id: string,
+   *               title: string}
+   */
+  JsonRoutes.add('PUT', '/api/users/:userId', function (req, res) {
     try {
       Authentication.checkUserId(req.userId);
-      const id = req.params.id;
+      const id = req.params.userId;
       const action = req.body.action;
       let data = Meteor.users.findOne({ _id: id });
       if (data !== undefined) {
@@ -712,6 +1011,126 @@ if (Meteor.isServer) {
     }
   });
 
+  /**
+   * @operation add_board_member
+   * @tag Boards
+   *
+   * @summary Add New Board Member with Role
+   *
+   * @description Only the admin user (the first user) can call the REST API.
+   *
+   * **Note**: see [Boards.set_board_member_permission](#set_board_member_permission)
+   * to later change the permissions.
+   *
+   * @param {string} boardId the board ID
+   * @param {string} userId the user ID
+   * @param {boolean} isAdmin is the user an admin of the board
+   * @param {boolean} isNoComments disable comments
+   * @param {boolean} isCommentOnly only enable comments
+   * @return_type {_id: string,
+   *               title: string}
+   */
+  JsonRoutes.add('POST', '/api/boards/:boardId/members/:userId/add', function (req, res) {
+    try {
+      Authentication.checkUserId(req.userId);
+      const userId = req.params.userId;
+      const boardId = req.params.boardId;
+      const action = req.body.action;
+      const {isAdmin, isNoComments, isCommentOnly} = req.body;
+      let data = Meteor.users.findOne({ _id: userId });
+      if (data !== undefined) {
+        if (action === 'add') {
+          data = Boards.find({
+            _id: boardId,
+          }).map(function(board) {
+            if (!board.hasMember(userId)) {
+              board.addMember(userId);
+              function isTrue(data){
+                return data.toLowerCase() === 'true';
+              }
+              board.setMemberPermission(userId, isTrue(isAdmin), isTrue(isNoComments), isTrue(isCommentOnly), userId);
+            }
+            return {
+              _id: board._id,
+              title: board.title,
+            };
+          });
+        }
+      }
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: query,
+      });
+    }
+    catch (error) {
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: error,
+      });
+    }
+  });
+
+  /**
+   * @operation remove_board_member
+   * @tag Boards
+   *
+   * @summary Remove Member from Board
+   *
+   * @description Only the admin user (the first user) can call the REST API.
+   *
+   * @param {string} boardId the board ID
+   * @param {string} userId the user ID
+   * @param {string} action the action (needs to be `remove`)
+   * @return_type {_id: string,
+   *               title: string}
+   */
+  JsonRoutes.add('POST', '/api/boards/:boardId/members/:userId/remove', function (req, res) {
+    try {
+      Authentication.checkUserId(req.userId);
+      const userId = req.params.userId;
+      const boardId = req.params.boardId;
+      const action = req.body.action;
+      let data = Meteor.users.findOne({ _id: userId });
+      if (data !== undefined) {
+        if (action === 'remove') {
+          data = Boards.find({
+            _id: boardId,
+          }).map(function(board) {
+            if (board.hasMember(userId)) {
+              board.removeMember(userId);
+            }
+            return {
+              _id: board._id,
+              title: board.title,
+            };
+          });
+        }
+      }
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: query,
+      });
+    }
+    catch (error) {
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: error,
+      });
+    }
+  });
+
+  /**
+   * @operation new_user
+   *
+   * @summary Create a new user
+   *
+   * @description Only the admin user (the first user) can call the REST API.
+   *
+   * @param {string} username the new username
+   * @param {string} email the email of the new user
+   * @param {string} password the password of the new user
+   * @return_type {_id: string}
+   */
   JsonRoutes.add('POST', '/api/users/', function (req, res) {
     try {
       Authentication.checkUserId(req.userId);
@@ -736,10 +1155,20 @@ if (Meteor.isServer) {
     }
   });
 
-  JsonRoutes.add('DELETE', '/api/users/:id', function (req, res) {
+  /**
+   * @operation delete_user
+   *
+   * @summary Delete a user
+   *
+   * @description Only the admin user (the first user) can call the REST API.
+   *
+   * @param {string} userId the ID of the user to delete
+   * @return_type {_id: string}
+   */
+  JsonRoutes.add('DELETE', '/api/users/:userId', function (req, res) {
     try {
       Authentication.checkUserId(req.userId);
-      const id = req.params.id;
+      const id = req.params.userId;
       Meteor.users.remove({ _id: id });
       JsonRoutes.sendResult(res, {
         code: 200,

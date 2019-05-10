@@ -1,5 +1,20 @@
 const subManager = new SubsManager();
 
+Template.boardListHeaderBar.events({
+  'click .js-open-archived-board'() {
+    Modal.open('archivedBoards');
+  },
+});
+
+Template.boardListHeaderBar.helpers({
+  templatesBoardId() {
+    return Meteor.user().getTemplatesBoardId();
+  },
+  templatesBoardSlug() {
+    return Meteor.user().getTemplatesBoardSlug();
+  },
+});
+
 BlazeComponent.extendComponent({
   onCreated() {
     Meteor.subscribe('setting');
@@ -9,11 +24,9 @@ BlazeComponent.extendComponent({
     return Boards.find({
       archived: false,
       'members.userId': Meteor.userId(),
-    }, {
-      sort: ['title'],
-    });
+      type: 'board',
+    }, { sort: ['title'] });
   },
-
   isStarred() {
     const user = Meteor.user();
     return user && user.hasStarred(this.currentData()._id);
@@ -40,6 +53,21 @@ BlazeComponent.extendComponent({
       'click .js-star-board'(evt) {
         const boardId = this.currentData()._id;
         Meteor.user().toggleBoardStar(boardId);
+        evt.preventDefault();
+      },
+      'click .js-clone-board'(evt) {
+        Meteor.call('cloneBoard',
+          this.currentData()._id,
+          Session.get('fromBoard'),
+          (err, res) => {
+            if (err) {
+              this.setError(err.error);
+            } else {
+              Session.set('fromBoard', null);
+              Utils.goBoardId(res);
+            }
+          }
+        );
         evt.preventDefault();
       },
       'click .js-accept-invite'() {

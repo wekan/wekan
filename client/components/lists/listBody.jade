@@ -4,7 +4,7 @@ template(name="listBody")
       if cards.count
         +inlinedForm(autoclose=false position="top")
           +addCardForm(listId=_id position="top")
-      each (cards (idOrNull ../../_id))
+      each (cardsWithLimit (idOrNull ../../_id))
         a.minicard-wrapper.js-minicard(href=absoluteUrl
           class="{{#if cardIsSelected}}is-selected{{/if}}"
           class="{{#if MultiSelection.isSelected _id}}is-checked{{/if}}")
@@ -12,6 +12,9 @@ template(name="listBody")
             .materialCheckBox.multi-selection-checkbox.js-toggle-multi-selection(
               class="{{#if MultiSelection.isSelected _id}}is-checked{{/if}}")
           +minicard(this)
+      if (showSpinner (idOrNull ../../_id))
+        +spinnerList
+
       if canSeeAddCard
         +inlinedForm(autoclose=false position="bottom")
           +addCardForm(listId=_id position="bottom")
@@ -19,6 +22,16 @@ template(name="listBody")
           a.open-minicard-composer.js-card-composer.js-open-inlined-form
             i.fa.fa-plus
             | {{_ 'add-card'}}
+
+template(name="spinnerList")
+  .sk-spinner.sk-spinner-wave.sk-spinner-list(
+    class=currentBoard.colorClass
+    id="showMoreResults")
+    .sk-rect1
+    .sk-rect2
+    .sk-rect3
+    .sk-rect4
+    .sk-rect5
 
 template(name="addCardForm")
   .minicard.minicard-composer.js-composer
@@ -34,8 +47,84 @@ template(name="addCardForm")
 
   .add-controls.clearfix
     button.primary.confirm(type="submit") {{_ 'add'}}
-    a.fa.fa-times-thin.js-close-inlined-form
+    unless currentBoard.isTemplatesBoard
+      unless currentBoard.isTemplateBoard
+        span.quiet
+          | {{_ 'or'}}
+          a.js-link {{_ 'link'}}
+        span.quiet
+          | &nbsp;
+          | /
+          a.js-search {{_ 'search'}}
+        span.quiet
+          | &nbsp;
+          | /
+          a.js-card-template {{_ 'template'}}
 
 template(name="autocompleteLabelLine")
   .minicard-label(class="card-label-{{colorName}}" title=labelName)
   span(class="{{#if hasNoName}}quiet{{/if}}")= labelName
+
+template(name="linkCardPopup")
+  label {{_ 'boards'}}:
+  .link-board-wrapper
+    select.js-select-boards
+      option(value="")
+      each boards
+        option(value="{{_id}}") {{title}}
+    input.primary.confirm.js-link-board(type="button" value="{{_ 'link'}}")
+
+  label {{_ 'swimlanes'}}:
+  select.js-select-swimlanes
+    each swimlanes
+      option(value="{{_id}}") {{title}}
+
+  label {{_ 'lists'}}:
+  select.js-select-lists
+    each lists
+      option(value="{{_id}}") {{title}}
+
+  label {{_ 'cards'}}:
+  select.js-select-cards
+    each cards
+      option(value="{{getId}}") {{getTitle}}
+
+  .edit-controls.clearfix
+    input.primary.confirm.js-done(type="button" value="{{_ 'link'}}")
+
+template(name="searchElementPopup")
+  form
+    label
+      | {{_ 'title'}}
+      input.js-element-title(type="text" placeholder="{{_ 'title'}}" autofocus required)
+  unless isTemplateSearch
+    label {{_ 'boards'}}:
+    .link-board-wrapper
+      select.js-select-boards
+        option(value="")
+        each boards
+          option(value="{{_id}}") {{title}}
+  form.js-search-term-form
+    input(type="text" name="searchTerm" placeholder="{{_ 'search-example'}}" autofocus dir="auto")
+  .list-body.js-perfect-scrollbar.search-card-results
+    .minicards.clearfix.js-minicards
+      if isBoardTemplateSearch
+        each results
+          a.minicard-wrapper.js-minicard
+            +miniboard(this)
+      if isListTemplateSearch
+        each results
+          a.minicard-wrapper.js-minicard
+            +minilist(this)
+      if isSwimlaneTemplateSearch
+        each results
+          a.minicard-wrapper.js-minicard
+            +miniswimlane(this)
+      if isCardTemplateSearch
+        each results
+          a.minicard-wrapper.js-minicard
+            +minicard(this)
+      unless isTemplateSearch
+        each results
+          a.minicard-wrapper.js-minicard
+            +minicard(this)

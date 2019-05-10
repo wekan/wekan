@@ -6,8 +6,18 @@ allowIsBoardMember = function(userId, board) {
   return board && board.hasMember(userId);
 };
 
-allowIsBoardMemberNonComment = function(userId, board) {
+allowIsAnyBoardMember = function(userId, boards) {
+  return _.some(boards, (board) => {
+    return board && board.hasMember(userId);
+  });
+};
+
+allowIsBoardMemberCommentOnly = function(userId, board) {
   return board && board.hasMember(userId) && !board.hasCommentOnly(userId);
+};
+
+allowIsBoardMemberNoComments = function(userId, board) {
+  return board && board.hasMember(userId) && !board.hasNoComments(userId);
 };
 
 allowIsBoardMemberByCard = function(userId, card) {

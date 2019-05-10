@@ -1,14 +1,25 @@
-const { calculateIndex } = Utils;
+const { calculateIndex, enableClickOnTouch } = Utils;
+
+function currentListIsInThisSwimlane(swimlaneId) {
+  const currentList = Lists.findOne(Session.get('currentList'));
+  return currentList && (currentList.swimlaneId === swimlaneId || currentList.swimlaneId === '');
+}
 
 function currentCardIsInThisList(listId, swimlaneId) {
   const currentCard = Cards.findOne(Session.get('currentCard'));
   const currentUser = Meteor.user();
-  if (currentUser.profile.boardView === 'board-view-lists')
-    return currentCard && currentCard.listId === listId;
-  else if (currentUser.profile.boardView === 'board-view-swimlanes')
+  if (currentUser && currentUser.profile && currentUser.profile.boardView === 'board-view-swimlanes')
     return currentCard && currentCard.listId === listId && currentCard.swimlaneId === swimlaneId;
-  else
-    return false;
+  else // Default view: board-view-lists
+    return currentCard && currentCard.listId === listId;
+  // https://github.com/wekan/wekan/issues/1623
+  // https://github.com/ChronikEwok/wekan/commit/cad9b20451bb6149bfb527a99b5001873b06c3de
+  // TODO: In public board, if you would like to switch between List/Swimlane view, you could
+  //       1) If there is no view cookie, save to cookie board-view-lists
+  //          board-view-lists / board-view-swimlanes / board-view-cal
+  //       2) If public user changes clicks board-view-lists then change view and
+  //          then change view and save cookie with view value
+  //          without using currentuser above, because currentuser is null.
 }
 
 function initSortable(boardComponent, $listsDom) {
@@ -64,6 +75,9 @@ function initSortable(boardComponent, $listsDom) {
     },
   });
 
+  // ugly touch event hotfix
+  enableClickOnTouch('.js-list:not(.js-list-composer)');
+
   function userIsMember() {
     return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
   }
@@ -105,6 +119,10 @@ BlazeComponent.extendComponent({
     return currentCardIsInThisList(listId, swimlaneId);
   },
 
+  currentListIsInThisSwimlane(swimlaneId) {
+    return currentListIsInThisSwimlane(swimlaneId);
+  },
+
   events() {
     return [{
       // Click-and-drag action
@@ -144,6 +162,12 @@ BlazeComponent.extendComponent({
 }).register('swimlane');
 
 BlazeComponent.extendComponent({
+  onCreated() {
+    this.currentBoard = Boards.findOne(Session.get('currentBoard'));
+    this.isListTemplatesSwimlane = this.currentBoard.isTemplatesBoard() && this.currentData().isListTemplatesSwimlane();
+    this.currentSwimlane = this.currentData();
+  },
+
   // Proxy
   open() {
     this.childComponents('inlinedForm')[0].open();
@@ -160,57 +184,18 @@ BlazeComponent.extendComponent({
             title,
             boardId: Session.get('currentBoard'),
             sort: $('.list').length,
+            type: (this.isListTemplatesSwimlane)?'template-list':'list',
+            swimlaneId: (this.currentBoard.isTemplatesBoard())?this.currentSwimlane._id:'',
           });
 
           titleInput.value = '';
           titleInput.focus();
         }
       },
+      'click .js-list-template': Popup.open('searchElement'),
     }];
   },
 }).register('addListForm');
-
-BlazeComponent.extendComponent({
-  // Proxy
-  open() {
-    this.childComponents('inlinedForm')[0].open();
-  },
-
-  events() {
-    return [{
-      submit(evt) {
-        evt.preventDefault();
-        let titleInput = this.find('.list-name-input');
-        if (titleInput) {
-          const title = titleInput.value.trim();
-          if (title) {
-            Lists.insert({
-              title,
-              boardId: Session.get('currentBoard'),
-              sort: $('.list').length,
-            });
-
-            titleInput.value = '';
-            titleInput.focus();
-          }
-        } else {
-          titleInput = this.find('.swimlane-name-input');
-          const title = titleInput.value.trim();
-          if (title) {
-            Swimlanes.insert({
-              title,
-              boardId: Session.get('currentBoard'),
-              sort: $('.swimlane').length,
-            });
-
-            titleInput.value = '';
-            titleInput.focus();
-          }
-        }
-      },
-    }];
-  },
-}).register('addListAndSwimlaneForm');
 
 Template.swimlane.helpers({
   canSeeAddList() {

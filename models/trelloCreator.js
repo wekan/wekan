@@ -150,6 +150,7 @@ export class TrelloCreator {
         userId: Meteor.userId(),
         isAdmin: true,
         isActive: true,
+        isNoComments: false,
         isCommentOnly: false,
         swimlaneId: false,
       }],
@@ -177,6 +178,7 @@ export class TrelloCreator {
               userId: wekanId,
               isAdmin: this.getAdmin(trelloMembership.memberType),
               isActive: true,
+              isNoComments: false,
               isCommentOnly: false,
               swimlaneId: false,
             });
@@ -266,7 +268,7 @@ export class TrelloCreator {
       }
       // insert card
       const cardId = Cards.direct.insert(cardToCreate);
-      // keep track of Trello id => WeKan id
+      // keep track of Trello id => Wekan id
       this.cards[card.id] = cardId;
       // log activity
       // Activities.direct.insert({
@@ -429,7 +431,7 @@ export class TrelloCreator {
           sort: checklist.pos,
         };
         const checklistId = Checklists.direct.insert(checklistToCreate);
-        // keep track of Trello id => WeKan id
+        // keep track of Trello id => Wekan id
         this.checklists[checklist.id] = checklistId;
         // Now add the items to the checklistItems
         let counter = 0;

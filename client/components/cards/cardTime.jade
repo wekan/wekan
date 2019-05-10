@@ -3,10 +3,10 @@ template(name="editCardSpentTime")
     form.edit-time
       .fields
         label(for="time") {{_ 'time'}}
-        input.js-time-field#time(type="number" step="0.01" name="time" value="{{card.spentTime}}" placeholder=timeFormat autofocus)
+        input.js-time-field#time(type="number" step="0.01" name="time" value="{{card.getSpentTime}}" placeholder=timeFormat autofocus)
         label(for="overtime") {{_ 'overtime'}}
         a.js-toggle-overtime
-          .materialCheckBox#overtime(class="{{#if card.isOvertime}}is-checked{{/if}}" name="overtime")
+          .materialCheckBox#overtime(class="{{#if getIsOvertime}}is-checked{{/if}}" name="overtime")
 
       if error.get
         .warning {{_ error.get}}
@@ -15,8 +15,8 @@ template(name="editCardSpentTime")
 
 template(name="timeBadge")
   if canModifyCard
-    a.js-edit-time.card-time(title="{{showTitle}}" class="{{#if isOvertime}}card-label-red{{else}}card-label-green{{/if}}")
+    a.js-edit-time.card-time(title="{{showTitle}}" class="{{#if getIsOvertime}}card-label-red{{else}}card-label-green{{/if}}")
       | {{showTime}}
   else
-    a.card-time(title="{{showTitle}}" class="{{#if isOvertime}}card-label-red{{else}}card-label-green{{/if}}")
+    a.card-time(title="{{showTitle}}" class="{{#if getIsOvertime}}card-label-red{{else}}card-label-green{{/if}}")
       | {{showTime}}
