@@ -6,7 +6,9 @@ template(name="customFieldsSidebar")
                     div.minicard
                         a.fa.fa-pencil.js-edit-custom-field.minicard-edit-button
                         div.minicard-title
-                            | {{ name }} ({{ type }})
+                          +viewer
+                            =name
+                          | ({{ type }})
 
     if currentUser.isBoardMember
         hr
