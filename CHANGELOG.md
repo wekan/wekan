@@ -1,3 +1,14 @@
+# v2.70 2019-05-11 Wekan release
+
+This release adds the following new features:
+
+- [View markdown on List names, Custom Fields (Text and Dropdown), Label names,
+  All Boards view Board names and Board descriptions](https://github.com/wekan/wekan/commit/b795115042c2eb6bccbf029f21d78849a44128ca).
+  Related [#2334](https://github.com/wekan/wekan/issues/2334).
+  Thanks to shaygover and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.69 2019-05-11 Wekan release
 
 This release fixes the following translation names:

@@ -10,7 +10,8 @@ template(name="listHeader")
           a.list-header-left-icon.fa.fa-angle-left.js-unselect-list
       h2.list-header-name(
         class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
-        = title
+        +viewer
+          = title
         if wipLimit.enabled
          |&nbsp;(
          span(class="{{#if reachedWipLimit}}highlight{{/if}}") {{cards.count}}
