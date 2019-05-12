@@ -1,3 +1,12 @@
+# v2.71 2019-05-12 Wekan release
+
+This release adds the following new features:
+
+- [Add partentId support on card web API](https://github.com/wekan/wekan/pulls/2400).
+  Thanks to atilaromero.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.70 2019-05-11 Wekan release
 
 This release adds the following new features:
@@ -133,7 +142,7 @@ and adds the following updates:
 and fixes the following bugs:
 
 - [Fix Full width of lists and space before first list](https://github.com/wekan/wekan/pull/2343).
-  Thanks to hupptehcnologies.
+  Thanks to hupptechnologies.
 - Remove [extra](https://github.com/wekan/wekan/pull/2332) [quotes](https://github.com/wekan/wekan/pull/2333) from docker-compose.yml.
   Thanks to hibare.
 - Fix Docker builds by moving all separately cloned wekan/packages/* repos like ldap, oidc, etc code to wekan repo code,

@@ -1685,6 +1685,7 @@ if (Meteor.isServer) {
    * @param {string} boardId the board ID of the new card
    * @param {string} listId the list ID of the new card
    * @param {string} authorID the user ID of the person owning the card
+   * @param {string} parentId the parent ID of the new card
    * @param {string} title the title of the new card
    * @param {string} description the description of the new card
    * @param {string} swimlaneId the swimlane ID of the new card
@@ -1695,6 +1696,7 @@ if (Meteor.isServer) {
     Authentication.checkUserId(req.userId);
     const paramBoardId = req.params.boardId;
     const paramListId = req.params.listId;
+    const paramParentId = req.params.parentId;
     const currentCards = Cards.find({
       listId: paramListId,
       archived: false,
@@ -1708,6 +1710,7 @@ if (Meteor.isServer) {
         title: req.body.title,
         boardId: paramBoardId,
         listId: paramListId,
+        parentId: paramParentId,
         description: req.body.description,
         userId: req.body.authorId,
         swimlaneId: req.body.swimlaneId,
@@ -1761,6 +1764,7 @@ if (Meteor.isServer) {
    * @param {string} [listId] the new list ID of the card (move operation)
    * @param {string} [description] the new description of the card
    * @param {string} [authorId] change the owner of the card
+   * @param {string} [parentId] change the parent of the card
    * @param {string} [labelIds] the new list of label IDs attached to the card
    * @param {string} [swimlaneId] the new swimlane ID of the card
    * @param {string} [members] the new list of member IDs attached to the card
@@ -1816,6 +1820,19 @@ if (Meteor.isServer) {
         fieldName: 'listId',
       }, paramListId);
 
+    }
+    if (req.body.hasOwnProperty('parentId')) {
+      const newParentId = req.body.parentId;
+      Cards.direct.update({
+        _id: paramCardId,
+        listId: paramListId,
+        boardId: paramBoardId,
+        archived: false,
+      }, {
+        $set: {
+          parentId: newParentId,
+        },
+      });
     }
     if (req.body.hasOwnProperty('description')) {
       const newDescription = req.body.description;
