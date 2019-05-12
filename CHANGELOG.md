@@ -133,7 +133,7 @@ and adds the following updates:
 and fixes the following bugs:
 
 - [Fix Full width of lists and space before first list](https://github.com/wekan/wekan/pull/2343).
-  Thanks to hupptehcnologies.
+  Thanks to hupptechnologies.
 - Remove [extra](https://github.com/wekan/wekan/pull/2332) [quotes](https://github.com/wekan/wekan/pull/2333) from docker-compose.yml.
   Thanks to hibare.
 - Fix Docker builds by moving all separately cloned wekan/packages/* repos like ldap, oidc, etc code to wekan repo code,
