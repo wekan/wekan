@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Add partentId support on card web API](https://github.com/wekan/wekan/pulls/2400).
+  Thanks to atilaromero.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.70 2019-05-11 Wekan release
 
 This release adds the following new features:
