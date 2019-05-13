@@ -348,7 +348,7 @@ BlazeComponent.extendComponent({
 
     this.boardId = Session.get('currentBoard');
     // In order to get current board info
-    subManager.subscribe('board', this.boardId);
+    subManager.subscribe('board', this.boardId, false);
     this.board = Boards.findOne(this.boardId);
     // List where to insert card
     const list = $(Popup._getTopStack().openerElement).closest('.js-list');
@@ -414,7 +414,7 @@ BlazeComponent.extendComponent({
   events() {
     return [{
       'change .js-select-boards'(evt) {
-        subManager.subscribe('board', $(evt.currentTarget).val());
+        subManager.subscribe('board', $(evt.currentTarget).val(), false);
         this.selectedBoardId.set($(evt.currentTarget).val());
       },
       'change .js-select-swimlanes'(evt) {
@@ -500,13 +500,13 @@ BlazeComponent.extendComponent({
     }
     const boardId = board._id;
     // Subscribe to this board
-    subManager.subscribe('board', boardId);
+    subManager.subscribe('board', boardId, false);
     this.selectedBoardId = new ReactiveVar(boardId);
 
     if (!this.isBoardTemplateSearch) {
       this.boardId = Session.get('currentBoard');
       // In order to get current board info
-      subManager.subscribe('board', this.boardId);
+      subManager.subscribe('board', this.boardId, false);
       this.swimlaneId = '';
       // Swimlane where to insert card
       const swimlane = $(Popup._getTopStack().openerElement).parents('.js-swimlane');
@@ -547,7 +547,7 @@ BlazeComponent.extendComponent({
     } else if (this.isBoardTemplateSearch) {
       const boards = board.searchBoards(this.term.get());
       boards.forEach((board) => {
-        subManager.subscribe('board', board.linkedId);
+        subManager.subscribe('board', board.linkedId, false);
       });
       return boards;
     } else {
@@ -558,7 +558,7 @@ BlazeComponent.extendComponent({
   events() {
     return [{
       'change .js-select-boards'(evt) {
-        subManager.subscribe('board', $(evt.currentTarget).val());
+        subManager.subscribe('board', $(evt.currentTarget).val(), false);
         this.selectedBoardId.set($(evt.currentTarget).val());
       },
       'submit .js-search-term-form'(evt) {

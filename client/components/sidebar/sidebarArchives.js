@@ -1,4 +1,26 @@
+const subManager = new SubsManager();
+
 BlazeComponent.extendComponent({
+  onCreated() {
+    this.isArchiveReady = new ReactiveVar(false);
+
+    // The pattern we use to manually handle data loading is described here:
+    // https://kadira.io/academy/meteor-routing-guide/content/subscriptions-and-data-management/using-subs-manager
+    // XXX The boardId should be readed from some sort the component "props",
+    // unfortunatly, Blaze doesn't have this notion.
+    this.autorun(() => {
+      const currentBoardId = Session.get('currentBoard');
+      if (!currentBoardId)
+        return;
+      const handle = subManager.subscribe('board', currentBoardId, true);
+      Tracker.nonreactive(() => {
+        Tracker.autorun(() => {
+          this.isArchiveReady.set( handle.ready() );
+        });
+      });
+    });
+  },
+
   tabs() {
     return [
       { name: TAPi18n.__('cards'), slug: 'cards' },
