@@ -424,7 +424,7 @@ Template.moveCardPopup.events({
 });
 BlazeComponent.extendComponent({
   onCreated() {
-    subManager.subscribe('board', Session.get('currentBoard'));
+    subManager.subscribe('board', Session.get('currentBoard'), false);
     this.selectedBoardId = new ReactiveVar(Session.get('currentBoard'));
   },
 
@@ -453,7 +453,7 @@ BlazeComponent.extendComponent({
     return [{
       'change .js-select-boards'(evt) {
         this.selectedBoardId.set($(evt.currentTarget).val());
-        subManager.subscribe('board', this.selectedBoardId.get());
+        subManager.subscribe('board', this.selectedBoardId.get(), false);
       },
     }];
   },
@@ -676,7 +676,7 @@ BlazeComponent.extendComponent({
         if (selection === 'none') {
           this.parentBoard.set(null);
         } else {
-          subManager.subscribe('board', $(evt.currentTarget).val());
+          subManager.subscribe('board', $(evt.currentTarget).val(), false);
           this.parentBoard.set(selection);
           list.prop('disabled', false);
         }

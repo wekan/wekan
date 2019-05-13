@@ -59,9 +59,12 @@ Meteor.publish('archivedBoards', function() {
   });
 });
 
-Meteor.publishRelations('board', function(boardId) {
+// If isArchived = false, this will only return board elements which are not archived.
+// If isArchived = true, this will only return board elements which are archived.
+Meteor.publishRelations('board', function(boardId, isArchived) {
   this.unblock();
   check(boardId, String);
+  check(isArchived, Boolean);
   const thisUserId = this.userId;
 
   this.cursor(Boards.find({
@@ -75,8 +78,8 @@ Meteor.publishRelations('board', function(boardId) {
     ],
   // Sort required to ensure oplog usage
   }, { limit: 1, sort: { _id: 1 } }), function(boardId, board) {
-    this.cursor(Lists.find({ boardId }));
-    this.cursor(Swimlanes.find({ boardId }));
+    this.cursor(Lists.find({ boardId: boardId, archived: isArchived }));
+    this.cursor(Swimlanes.find({ boardId: boardId,  archived: isArchived  }));
     this.cursor(Integrations.find({ boardId }));
     this.cursor(CustomFields.find({ boardIds: {$in: [boardId]} }, { sort: { name: 1 } }));
 
@@ -115,8 +118,9 @@ Meteor.publishRelations('board', function(boardId) {
     parentCards.selector = (_ids) => ({ parentId: _ids });
     const boards = this.join(Boards);
     const subCards = this.join(Cards);
+    subCards.selector = (_ids) => ({ archived: isArchived });
 
-    this.cursor(Cards.find({ boardId: {$in: [boardId,  board.subtasksDefaultBoardId]}}), function(cardId, card) {
+    this.cursor(Cards.find({ boardId: {$in: [boardId,  board.subtasksDefaultBoardId]}, archived: isArchived }), function(cardId, card) {
       if (card.type === 'cardType-linkedCard') {
         const impCardId = card.linkedId;
         subCards.push(impCardId);

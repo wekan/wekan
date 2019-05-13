@@ -14,7 +14,7 @@ BlazeComponent.extendComponent({
       const currentBoardId = Session.get('currentBoard');
       if (!currentBoardId)
         return;
-      const handle = subManager.subscribe('board', currentBoardId);
+      const handle = subManager.subscribe('board', currentBoardId, false);
       Tracker.nonreactive(() => {
         Tracker.autorun(() => {
           this.isBoardReady.set(handle.ready());
