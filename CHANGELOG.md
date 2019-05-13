@@ -1,3 +1,13 @@
+# v2.72 2019-05-13 Wekan release
+
+This release adds the following new features:
+
+- [Added BIDI support to "Add Card"](https://github.com/wekan/wekan/pull/2401).
+  Related [#884](https://github.com/wekan/wekan/issues/884).
+  Thanks to guyzyl.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.71 2019-05-12 Wekan release
 
 This release adds the following new features:
