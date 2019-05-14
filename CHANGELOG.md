@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- Add missing [wekan-ldap#40](https://github.com/wekan/wekan-ldap/pull/40) code about
+  [LDAP_SYNC_ADMIN_STATUS](https://github.com/wekan/wekan/commit/0fe40ad9ec82ef2045578f4cc1e2ebb6cc80d47a).
+  Thanks to JulianJacobi, n-st, chirrut2 and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.73 2019-05-14 Wekan release
 
 This release fixes the following bugs with Apache I-CLA:
