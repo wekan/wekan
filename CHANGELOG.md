@@ -1,6 +1,10 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release fixes the following bugs with Apache I-CLA:
+- [Card count placement and export API functionality back](https://github.com/wekan/wekan/pulls/2406).
+  Thanks to bentiss.
+
+and fixes the following bugs:
 
 - Fixed [#2338](https://github.com/wekan/wekan/issues/2338) -> [Slow opening of big boards with too many archived items](https://github.com/wekan/wekan/pull/2402).
   If some Wekan users see errors with this, please empty your browser cache.
