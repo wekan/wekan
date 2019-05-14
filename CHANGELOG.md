@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- Fixed [#2338](https://github.com/wekan/wekan/issues/2338) -> [Slow opening of big boards with too many archived items](https://github.com/wekan/wekan/pull/2402).
+  If some Wekan users see errors with this, please empty your browser cache.
+  Thanks to nerminator.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.72 2019-05-13 Wekan release
 
 This release adds the following new features:
