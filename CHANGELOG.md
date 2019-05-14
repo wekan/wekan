@@ -1,7 +1,10 @@
 # Upcoming Wekan release
 
 This release fixes the following bugs with Apache I-CLA:
+
 - [Card count placement and export API functionality back](https://github.com/wekan/wekan/pulls/2406).
+  Thanks to bentiss.
+- [Few fixes for Dockerfile](https://github.com/wekan/wekan/pulls/2407).
   Thanks to bentiss.
 
 and fixes the following bugs:
