@@ -179,6 +179,15 @@ Accounts.registerLoginHandler('ldap', function(loginRequest) {
       },
     };
 
+    if (LDAP.settings_get('LDAP_SYNC_ADMIN_STATUS') === true) {
+      log_debug('Updating admin status');
+      const targetGroups = LDAP.settings_get('LDAP_SYNC_ADMIN_GROUPS').split(',');
+      const groups = ldap.getUserGroups(username, ldapUser).filter((value) => targetGroups.includes(value));
+
+      user.isAdmin = groups.length > 0;
+      Meteor.users.update({_id: user._id}, {$set: {isAdmin: user.isAdmin}});
+    }
+
     if( LDAP.settings_get('LDAP_SYNC_GROUP_ROLES') === true ) {
       log_debug('Updating Groups/Roles');
       const groups = ldap.getUserGroups(username, ldapUser);
@@ -216,6 +225,15 @@ Accounts.registerLoginHandler('ldap', function(loginRequest) {
   }
 
   const result = addLdapUser(ldapUser, username, loginRequest.ldapPass);
+
+  if (LDAP.settings_get('LDAP_SYNC_ADMIN_STATUS') === true) {
+    log_debug('Updating admin status');
+    const targetGroups = LDAP.settings_get('LDAP_SYNC_ADMIN_GROUPS').split(',');
+    const groups = ldap.getUserGroups(username, ldapUser).filter((value) => targetGroups.includes(value));
+
+    result.isAdmin = groups.length > 0;
+    Meteor.users.update({_id: result.userId}, {$set: {isAdmin: result.isAdmin}});
+  }
 
   if( LDAP.settings_get('LDAP_SYNC_GROUP_ROLES') === true ) {
     const groups = ldap.getUserGroups(username, ldapUser);
