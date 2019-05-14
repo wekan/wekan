@@ -194,7 +194,7 @@ RUN \
     \
     # Get additional packages
     #mkdir -p /home/wekan/app/packages && \
-    chown wekan:wekan --recursive /home/wekan && \
+    #chown wekan:wekan --recursive /home/wekan && \
     # REPOS BELOW ARE INCLUDED TO WEKAN REPO
     #cd /home/wekan/app/packages && \
     #gosu wekan:wekan git clone --depth 1 -b master https://github.com/wekan/flow-router.git kadira-flow-router && \
