@@ -678,7 +678,7 @@ def parse_schemas(schemas_dir):
                 data = ''.join(f.readlines())
                 try:
                     # if the file failed, it's likely it doesn't contain a schema
-                    program = esprima.parseScript(data, options={'comment': True, 'loc': True})
+                    program = esprima.parseModule(data, options={'comment': True, 'loc': True})
                 except:
                     continue
 
