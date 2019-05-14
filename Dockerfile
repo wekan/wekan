@@ -194,7 +194,7 @@ RUN \
     \
     # Get additional packages
     #mkdir -p /home/wekan/app/packages && \
-    chown wekan:wekan --recursive /home/wekan && \
+    #chown wekan:wekan --recursive /home/wekan && \
     # REPOS BELOW ARE INCLUDED TO WEKAN REPO
     #cd /home/wekan/app/packages && \
     #gosu wekan:wekan git clone --depth 1 -b master https://github.com/wekan/flow-router.git kadira-flow-router && \
@@ -212,7 +212,7 @@ RUN \
     gosu wekan:wekan /home/wekan/.meteor/meteor -- help; \
     \
     # extract the OpenAPI specification
-    npm install -g api2html@0.3.0 && \
+    npm install -g api2html@0.3.3 && \
     mkdir -p /home/wekan/python && \
     chown wekan:wekan --recursive /home/wekan/python && \
     cd /home/wekan/python && \
@@ -220,9 +220,9 @@ RUN \
     cd /home/wekan/python/esprima-python && \
     python3 setup.py install --record files.txt && \
     cd /home/wekan/app &&\
-    mkdir -p ./public/api && \
-    python3 ./openapi/generate_openapi.py --release $(git describe --tags --abbrev=0) > ./public/api/wekan.yml && \
-    /opt/nodejs/bin/api2html -c ./public/logo-header.png -o ./public/api/wekan.html ./public/api/wekan.yml; \
+    gosu wekan:wekan mkdir -p ./public/api && \
+    gosu wekan:wekan python3 ./openapi/generate_openapi.py --release $(git describe --tags --abbrev=0) > ./public/api/wekan.yml && \
+    gosu wekan:wekan /opt/nodejs/bin/api2html -c ./public/logo-header.png -o ./public/api/wekan.html ./public/api/wekan.yml; \
     # Build app
     cd /home/wekan/app && \
     gosu wekan:wekan /home/wekan/.meteor/meteor add standard-minifier-js && \
