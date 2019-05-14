@@ -78,8 +78,8 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
     ],
   // Sort required to ensure oplog usage
   }, { limit: 1, sort: { _id: 1 } }), function(boardId, board) {
-    this.cursor(Lists.find({ boardId: boardId, archived: isArchived }));
-    this.cursor(Swimlanes.find({ boardId: boardId,  archived: isArchived  }));
+    this.cursor(Lists.find({ boardId, archived: isArchived }));
+    this.cursor(Swimlanes.find({ boardId,  archived: isArchived  }));
     this.cursor(Integrations.find({ boardId }));
     this.cursor(CustomFields.find({ boardIds: {$in: [boardId]} }, { sort: { name: 1 } }));
 
