@@ -81,6 +81,10 @@
         #export OAUTH2_AUTH_ENDPOINT=/oauth2/v2.0/authorize
         #export OAUTH2_USERINFO_ENDPOINT=https://graph.microsoft.com/oidc/userinfo
         #export OAUTH2_TOKEN_ENDPOINT=/oauth2/v2.0/token
+        # OAUTH2 ID Token Whitelist Fields.
+        #export OAUTH2_ID_TOKEN_WHITELIST_FIELDS=[]
+        # OAUTH2 Request Permissions.
+        #export OAUTH2_REQUEST_PERMISSIONS=['openid','profile','email']
         # The claim name you want to map to the unique ID field:
         #export OAUTH2_ID_MAP=email
         # The claim name you want to map to the username field:

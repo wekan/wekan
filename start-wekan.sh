@@ -124,6 +124,10 @@
       #export OAUTH2_USERINFO_ENDPOINT=/oauth/userinfo
       # OAuth2 Token Endpoint.
       #export OAUTH2_TOKEN_ENDPOINT=/oauth/token
+      # OAUTH2 ID Token Whitelist Fields.
+      #export OAUTH2_ID_TOKEN_WHITELIST_FIELDS=[]
+      # OAUTH2 Request Permissions.
+      #export OAUTH2_REQUEST_PERMISSIONS=['openid','profile','email']
       # OAuth2 ID Mapping
       #export OAUTH2_ID_MAP=
       # OAuth2 Username Mapping

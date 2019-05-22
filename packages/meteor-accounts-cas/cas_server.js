@@ -71,14 +71,37 @@ class CAS {
                 callback({message: 'Empty response.'});
               }
               if (result['cas:serviceResponse']['cas:authenticationSuccess']) {
-                var userData = {
+                const userData = {
                   id: result['cas:serviceResponse']['cas:authenticationSuccess'][0]['cas:user'][0].toLowerCase(),
-                }
-                const attributes = result['cas:serviceResponse']['cas:authenticationSuccess'][0]['cas:attributes'][0];
-                for (var fieldName in attributes) {
-                  userData[fieldName] = attributes[fieldName][0];
                 };
-                callback(undefined, true, userData);
+                const attributes = result['cas:serviceResponse']['cas:authenticationSuccess'][0]['cas:attributes'][0];
+
+                // Check allowed ldap groups if exist (array only)
+                // example cas settings : "allowedLdapGroups" : ["wekan", "admin"],
+                let findedGroup = false;
+                const allowedLdapGroups = Meteor.settings.cas.allowedLdapGroups || false;
+                for (const fieldName in attributes) {
+                  if (allowedLdapGroups && fieldName === 'cas:memberOf') {
+                    for (const groups in attributes[fieldName]) {
+                      const str = attributes[fieldName][groups];
+                      if (!Array.isArray(allowedLdapGroups)) {
+                        callback({message: 'Settings "allowedLdapGroups" must be an array'});
+                      }
+                      for (const allowedLdapGroup in allowedLdapGroups) {
+                        if (str.search(`cn=${allowedLdapGroups[allowedLdapGroup]}`) >= 0) {
+                          findedGroup = true;
+                        }
+                      }
+                    }
+                  }
+                  userData[fieldName] = attributes[fieldName][0];
+                }
+
+                if (allowedLdapGroups && !findedGroup) {
+                  callback({message: 'Group not finded.'}, false);
+                } else {
+                  callback(undefined, true, userData);
+                }
               } else {
                 callback(undefined, false);
               }

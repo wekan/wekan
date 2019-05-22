@@ -1,3 +1,18 @@
+# v2.75 2019-05-22 Wekan release
+
+This release adds the following new features:
+
+- [CAS allowed LDAP groups](https://github.com/wekan/meteor-accounts-cas/pull/4).
+  Thanks to ppoulard. Please test. Related [#2356](https://github.com/wekan/wekan/issues/2356).
+
+and fixes the following bugs:
+
+- [Fix](https://github.com/wekan/wekan/commit/634df8f6f26a7a7a2df6f87a705d322d88638425):
+  [OAuth2 Requested Scopes are wrong / cannot be configured](https://github.com/wekan/wekan/issues/2412).
+  Thanks to DominikPf and xet7. Please test.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.74 2019-05-14 Wekan release
 
 This release fixes the following bugs:
