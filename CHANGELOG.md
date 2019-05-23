@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix Scope parsing Issue for OAuth2 Login with simple String](https://github.com/wekan/wekan/pulls/2427).
+  Thanks to DominikPf.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.75 2019-05-22 Wekan release
 
 This release adds the following new features:
