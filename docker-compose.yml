@@ -239,6 +239,10 @@ services:
       # ==== CORS =====
       # CORS: Set Access-Control-Allow-Origin header.
       #- CORS=*
+      # CORS_ALLOW_HEADERS: Set Access-Control-Allow-Headers header.  "Authorization,Content-Type" is required for cross-origin use of the API.
+      #- CORS_ALLOW_HEADERS=Authorization,Content-Type
+      # CORS_EXPOSE_HEADERS: Set Access-Control-Expose-Headers header.  This is not needed for typical CORS situations
+      #- CORS_EXPOSE_HEADERS=*
       #-----------------------------------------------------------------
       # ==== MATOMO INTEGRATION ====
       # Optional: Integration with Matomo https://matomo.org that is installed to your server
