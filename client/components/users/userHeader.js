@@ -28,15 +28,36 @@ Template.memberMenuPopup.events({
   },
 });
 
+// Get accountSettings in reactive vars to avoid a bug
+// when getting them in the helpers
+Template.editProfilePopup.onCreated(function() {
+  const instance = this;
+  instance.allowEmailChange = new ReactiveVar(false);
+  instance.allowUserNameChange = new ReactiveVar(false);
+  instance.allowUserDeleteAccount = new ReactiveVar(false);
+
+  Meteor.subscribe('accountSettings', {
+    onReady() {
+      AccountSettings.find().forEach((element) => {
+        console.log(element);
+        instance[element._id.slice(9)] = element.booleanValue
+      });
+      console.log(instance);
+      // return this.stop();
+    },
+  });
+});
+
 Template.editProfilePopup.helpers({
   allowEmailChange() {
-    return AccountSettings.findOne('accounts-allowEmailChange').booleanValue;
+    return Template.instance().allowEmailChange;
   },
   allowUserNameChange() {
-    return AccountSettings.findOne('accounts-allowUserNameChange').booleanValue;
+    return Template.instance().allowUserNameChange;
   },
   allowUserDeleteAccount() {
-    return AccountSettings.findOne('accounts-allowUserDeleteAccount').booleanValue;
+    console.log(Template.instance().allowUserDeleteAccount);
+    return Template.instance().allowUserDeleteAccount;
   },
 });
 
