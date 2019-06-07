@@ -98,7 +98,7 @@ Template.editProfilePopup.events({
       });
     } else Popup.back();
   },
-  'click #deleteButton':  Popup.afterConfirm('userDelete',() => {
+  'click #deleteButton':  Popup.afterConfirm('userDelete', () => {
     Users.remove(Meteor.userId());
     Popup.close();
     AccountsTemplates.logout();
