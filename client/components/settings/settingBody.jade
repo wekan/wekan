@@ -114,6 +114,14 @@ template(name='accountSettings')
         input.form-control#accounts-allowUserNameChange(type="radio" name="allowUserNameChange" value="false" checked="{{#unless allowUserNameChange}}checked{{/unless}}")
         span {{_ 'no'}}
     li
+    li.accounts-form
+      .title {{_ 'accounts-allowUserDeleteAccount'}}
+      .form-group.flex
+        input.form-control#accounts-allowUserDeleteAccount(type="radio" name="allowUserDeleteAccount" value="true" checked="{{#if allowUserDeleteAccount}}checked{{/if}}")
+        span {{_ 'yes'}}
+        input.form-control#accounts-allowUserDeleteAccount(type="radio" name="allowUserDeleteAccount" value="false" checked="{{#unless allowUserDeleteAccount}}checked{{/unless}}")
+        span {{_ 'no'}}
+    li
       button.js-accounts-save.primary {{_ 'save'}}
 
 template(name='announcementSettings')

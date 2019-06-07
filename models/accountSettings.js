@@ -35,5 +35,11 @@ if (Meteor.isServer) {
         sort: 1,
       },
     });
+    AccountSettings.upsert({_id: 'accounts-allowUserDeleteAccount'}, {
+      $setOnInsert: {
+        booleanValue: false,
+        sort: 2,
+      },
+    });
   });
 }

@@ -35,6 +35,9 @@ Template.editProfilePopup.helpers({
   allowUserNameChange() {
     return AccountSettings.findOne('accounts-allowUserNameChange').booleanValue;
   },
+  allowUserDeleteAccount() {
+    return AccountSettings.findOne('accounts-allowUserDeleteAccount').booleanValue;
+  },
 });
 
 Template.editProfilePopup.events({
@@ -95,11 +98,11 @@ Template.editProfilePopup.events({
       });
     } else Popup.back();
   },
-  'click #deleteButton'() {
+  'click #deleteButton':  Popup.afterConfirm('userDelete',() => {
     Users.remove(Meteor.userId());
     Popup.close();
     AccountsTemplates.logout();
-  },
+  }),
 });
 
 // XXX For some reason the useraccounts autofocus isnt working in this case.

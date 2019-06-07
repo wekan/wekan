@@ -692,5 +692,8 @@
     "swimlane-delete-pop": "All actions will be removed from the activity feed and you won't be able to recover the swimlane. There is no undo.",
     "restore-all": "Restore all",
     "delete-all": "Delete all",
-    "loading": "Loading, please wait."
+    "loading": "Loading, please wait.",
+    "userDeletePopup-title": "Delete this account?",
+    "user-delete-pop": "Are you sure you want to delete this account? There is no undo.",
+    "accounts-allowUserDeleteAccount": "Allow user to delete his account"
 }
