@@ -38,6 +38,10 @@
         #---------------------------------------------
         # CORS: Set Access-Control-Allow-Origin header. Example: *
         #export CORS=*
+        # To enable the Set Access-Control-Allow-Headers header. "Authorization,Content-Type" is required for cross-origin use of the API.
+        #export CORS_ALLOW_HEADERS=Authorization,Content-Type
+        # To enable the Set Access-Control-Expose-Headers header.  This is not needed for typical CORS situations. Example: *
+        #export CORS_EXPOSE_HEADERS=*
         #---------------------------------------------
         ## Optional: Integration with Matomo https://matomo.org that is installed to your server
         ## The address of the server where Matomo is hosted:
@@ -84,7 +88,7 @@
         # OAUTH2 ID Token Whitelist Fields.
         #export OAUTH2_ID_TOKEN_WHITELIST_FIELDS=[]
         # OAUTH2 Request Permissions.
-        #export OAUTH2_REQUEST_PERMISSIONS=['openid','profile','email']
+        #export OAUTH2_REQUEST_PERMISSIONS='openid profile email'
         # The claim name you want to map to the unique ID field:
         #export OAUTH2_ID_MAP=email
         # The claim name you want to map to the username field:

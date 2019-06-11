@@ -1,3 +1,28 @@
+# v2.76 2019-06-11 Wekan release
+
+This release adds the following new features:
+
+- [Add support for CORS headers "Access-control-allow-headers" and
+  "Access-control-expose-headers"](https://github.com/wekan/wekan/pull/2429).
+  Thanks to risacher and xet7.
+- [Support scopes in OAuth2, so that Authentication via OAuth2 with Google is now possible](https://github.com/wekan/wekan/pull/2483).
+  Thanks to moserben16.
+
+and fixes the following bugs:
+
+- [Fix Scope parsing Issue for OAuth2 Login with simple String](https://github.com/wekan/wekan/pulls/2427).
+  Thanks to DominikPf.
+- [Show attachment name in Outgoing Webhook when attachment is added to card](https://github.com/wekan/wekan/commit/992ecfefa2e46ee7321ec9b8bfc3400532e5645e).
+  Thanks to xet7. Related [#2285](https://github.com/wekan/wekan/issues/2285).
+- [Show attachment name in Outgoing Webhook when attachment is removed from card](https://github.com/wekan/wekan/commit/23ccb3b991be6d7196e59f7d68df17b8949df049).
+  Thanks to xet7. Related [#2285](https://github.com/wekan/wekan/issues/2285).
+- [Allow BoardAdmin to create board rules](https://github.com/wekan/wekan/pull/2433).
+  Thanks to road42.
+- [Fix typo](https://github.com/wekan/wekan/pull/2442).
+  Thanks to Jason-Cooke.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.75 2019-05-22 Wekan release
 
 This release adds the following new features:

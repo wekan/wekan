@@ -49,7 +49,12 @@ if (Meteor.release) {
 var getToken = function (query) {
   var debug = process.env.DEBUG || false;
   var config = getConfiguration();
-  var serverTokenEndpoint = config.serverUrl + config.tokenEndpoint;
+  if(config.tokenEndpoint.includes('https://')){
+    var serverTokenEndpoint = config.tokenEndpoint;
+  }else{
+    var serverTokenEndpoint = config.serverUrl + config.tokenEndpoint;
+  }
+  var requestPermissions = config.requestPermissions;
   var response;
 
   try {
@@ -66,6 +71,7 @@ var getToken = function (query) {
           client_secret: OAuth.openSecret(config.secret),
           redirect_uri: OAuth._redirectUri('oidc', config),
           grant_type: 'authorization_code',
+          scope: requestPermissions,
           state: query.state
         }
       }

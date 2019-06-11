@@ -18,7 +18,7 @@ Meteor.methods({
 
     // label activity did not work yet, see wekan/models/activities.js
     const quoteParams = _.clone(params);
-    ['card', 'list', 'oldList', 'board', 'oldBoard', 'comment', 'checklist', 'swimlane', 'oldSwimlane', 'label'].forEach((key) => {
+    ['card', 'list', 'oldList', 'board', 'oldBoard', 'comment', 'checklist', 'swimlane', 'oldSwimlane', 'label', 'attachment'].forEach((key) => {
       if (quoteParams[key]) quoteParams[key] = `"${params[key]}"`;
     });
 

@@ -18,10 +18,9 @@ Oidc.requestCredential = function (options, credentialRequestCompleteCallback) {
       new ServiceConfiguration.ConfigError('Service oidc not configured.'));
     return;
   }
-  
+
   var credentialToken = Random.secret();
   var loginStyle = OAuth._loginStyle('oidc', config, options);
-  var scope = config.requestPermissions || ['openid', 'profile', 'email'];
 
   // options
   options = options || {};
@@ -29,7 +28,7 @@ Oidc.requestCredential = function (options, credentialRequestCompleteCallback) {
   options.response_type = options.response_type || 'code';
   options.redirect_uri = OAuth._redirectUri('oidc', config);
   options.state = OAuth._stateParam(loginStyle, credentialToken, options.redirectUrl);
-  options.scope = scope.join(' ');
+  options.scope = config.requestPermissions || 'openid profile email';
 
   if (config.loginStyle && config.loginStyle == 'popup') {
     options.display = 'popup';

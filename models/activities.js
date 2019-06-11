@@ -166,7 +166,8 @@ if (Meteor.isServer) {
     }
     if (activity.attachmentId) {
       const attachment = activity.attachment();
-      params.attachment = attachment._id;
+      params.attachment = attachment.original.name;
+      params.attachmentId = attachment._id;
     }
     if (activity.checklistId) {
       const checklist = activity.checklist();

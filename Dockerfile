@@ -41,7 +41,7 @@ ENV BUILD_DEPS="apt-utils bsdtar gnupg gosu wget curl bzip2 build-essential pyth
     OAUTH2_USERNAME_MAP="" \
     OAUTH2_FULLNAME_MAP="" \
     OAUTH2_ID_TOKEN_WHITELIST_FIELDS=[] \
-    OAUTH2_REQUEST_PERMISSIONS=['openid','profiles','email'] \
+    OAUTH2_REQUEST_PERMISSIONS='openid profiles email' \
     OAUTH2_EMAIL_MAP="" \
     LDAP_ENABLE=false \
     LDAP_PORT=389 \
@@ -99,6 +99,8 @@ ENV BUILD_DEPS="apt-utils bsdtar gnupg gosu wget curl bzip2 build-essential pyth
     LOGOUT_ON_HOURS="" \
     LOGOUT_ON_MINUTES="" \
     CORS="" \
+    CORS_ALLOW_HEADERS="" \
+    CORS_EXPOSE_HEADERS="" \
     DEFAULT_AUTHENTICATION_METHOD=""
 
 # Copy the app to the image
