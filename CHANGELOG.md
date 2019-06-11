@@ -10,6 +10,10 @@ and fixes the following bugs:
 
 - [Fix Scope parsing Issue for OAuth2 Login with simple String](https://github.com/wekan/wekan/pulls/2427).
   Thanks to DominikPf.
+- [Show attachment name in Outgoing Webhook when attachment is added to card](https://github.com/wekan/wekan/commit/992ecfefa2e46ee7321ec9b8bfc3400532e5645e).
+  Thanks to xet7. Related [#2285](https://github.com/wekan/wekan/issues/2285).
+- [Show attachment name in Outgoing Webhook when attachment is removed from card](https://github.com/wekan/wekan/commit/23ccb3b991be6d7196e59f7d68df17b8949df049).
+  Thanks to xet7. Related [#2285](https://github.com/wekan/wekan/issues/2285).
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
