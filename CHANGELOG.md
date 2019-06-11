@@ -14,6 +14,8 @@ and fixes the following bugs:
   Thanks to xet7. Related [#2285](https://github.com/wekan/wekan/issues/2285).
 - [Show attachment name in Outgoing Webhook when attachment is removed from card](https://github.com/wekan/wekan/commit/23ccb3b991be6d7196e59f7d68df17b8949df049).
   Thanks to xet7. Related [#2285](https://github.com/wekan/wekan/issues/2285).
+- [Allow BoardAdmin to create board rules](https://github.com/wekan/wekan/pull/2433).
+  Thanks to road42.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
