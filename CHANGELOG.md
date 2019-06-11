@@ -16,6 +16,8 @@ and fixes the following bugs:
   Thanks to xet7. Related [#2285](https://github.com/wekan/wekan/issues/2285).
 - [Allow BoardAdmin to create board rules](https://github.com/wekan/wekan/pull/2433).
   Thanks to road42.
+- [Fix typo](https://github.com/wekan/wekan/pull/2442).
+  Thanks to Jason-Cooke.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
