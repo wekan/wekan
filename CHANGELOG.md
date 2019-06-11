@@ -4,7 +4,7 @@ This release adds the following new features:
 
 - [Add support for CORS headers "Access-control-allow-headers" and
   "Access-control-expose-headers"](https://github.com/wekan/wekan/pull/2429).
-  Thanks to risacher.
+  Thanks to risacher and xet7.
 
 and fixes the following bugs:
 
