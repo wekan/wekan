@@ -99,6 +99,8 @@ ENV BUILD_DEPS="apt-utils bsdtar gnupg gosu wget curl bzip2 build-essential pyth
     LOGOUT_ON_HOURS="" \
     LOGOUT_ON_MINUTES="" \
     CORS="" \
+    CORS_ALLOW_HEADERS="" \
+    CORS_EXPOSE_HEADERS="" \
     DEFAULT_AUTHENTICATION_METHOD=""
 
 # Copy the app to the image
