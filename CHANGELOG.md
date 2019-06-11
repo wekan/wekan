@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix Snap build](https://github.com/wekan/wekan/commit/e1e20275a673d3065c6cf239db8d2f1a505baa69).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.76 2019-06-11 Wekan release
 
 This release adds the following new features:
