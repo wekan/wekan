@@ -1,3 +1,21 @@
+# v2.78 2019-06-12 Wekan release
+
+This release fixes the following bugs:
+
+- [Try to fix OIDC login](https://github.com/wekan/wekan/commit/8b31c0768c34fc4557b54cec936a0b4288a8e722).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v2.77 2019-06-11 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix Snap build](https://github.com/wekan/wekan/commit/e1e20275a673d3065c6cf239db8d2f1a505baa69).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.76 2019-06-11 Wekan release
 
 This release adds the following new features:
