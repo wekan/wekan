@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix OAuth2 typos in Dockerfile and docker-compose.yml](https://github.com/wekan/wekan/pull/2488).
+  Thanks to DominikPf.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.78 2019-06-12 Wekan release
 
 This release fixes the following bugs:
