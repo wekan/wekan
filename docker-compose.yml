@@ -331,7 +331,7 @@ services:
       # OAUTH2 ID Token Whitelist Fields.
       #- OAUTH2_ID_TOKEN_WHITELIST_FIELDS=[]
       # OAUTH2 Request Permissions.
-      #- OAUTH2_REQUEST_PERMISSIONS='openid profile email'
+      #- OAUTH2_REQUEST_PERMISSIONS=openid profile email
       # OAuth2 ID Mapping
       #- OAUTH2_ID_MAP=
       # OAuth2 Username Mapping
