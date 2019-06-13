@@ -1,3 +1,10 @@
+# v2.80 2019-06-13 Wekan release
+
+- [Fix OAuth2 typos in snap-src/bin/config](https://github.com/wekan/wekan/commit/44dbd462b19e613fcb47161d44e4046d5d91a319).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.79 2019-06-13 Wekan release
 
 This release fixes the following bugs:
