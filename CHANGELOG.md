@@ -1,3 +1,13 @@
+# v2.81 2019-06-13 Wekan release
+
+This release fixes the following bugs:
+
+- [Change OAuth2 whitelist default to empty string at snap, so it would be used as array on
+  wekan/server/authentication.js](https://github.com/wekan/wekan/commit/4334fbbb9dacf45b0262019526a9697b015049a1).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.80 2019-06-13 Wekan release
 
 This release fixes the following bugs:
