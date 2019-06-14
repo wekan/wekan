@@ -1,3 +1,12 @@
+# v2.82 2019-06-14 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix OIDC Docker login. Empty string results to empty array at wekan/server/authentication.js](https://github.com/wekan/wekan/commit/bddbaa7bc2f3cfe8553a2265e168231ab51876f3).
+  Thanks to xet7.
+    
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.81 2019-06-13 Wekan release
 
 This release fixes the following bugs:
