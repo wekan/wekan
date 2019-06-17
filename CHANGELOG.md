@@ -1,3 +1,12 @@
+# v2.83 2019-06-17 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix Bug: Unable to click board submenu on mobile](https://github.com/wekan/wekan/commit/7ff6f24a90374ae95edbb87b37e0c235e7aee434).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.82 2019-06-14 Wekan release
 
 This release fixes the following bugs:
