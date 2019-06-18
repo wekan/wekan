@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Buttons for adding rules to a board where missing for isBoardAdmin](https://github.com/wekan/wekan/pull/2500).
+  Thanks to road42.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.83 2019-06-17 Wekan release
 
 This release fixes the following bugs:
