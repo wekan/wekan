@@ -1,3 +1,15 @@
+# v2.86 2019-06-19 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix Wekan unable to Select Text from Description edit box](https://github.com/wekan/wekan/issues/2451)
+  by removing feature of card description submit on click outside. This is because when selecting text
+  and dragging up did trigger submit of description, so description was closed and selecting text failed.
+  This did affect all Chromium-based browsers: Chrome, Chromium, Chromium Edge.
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.85 2019-06-19 Wekan release
 
 This release fixes the following bugs:

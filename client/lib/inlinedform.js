@@ -80,11 +80,11 @@ EscapeActions.register('inlinedForm',
 );
 
 // submit on click outside
-document.addEventListener('click', function(evt) {
-  const openedForm = currentlyOpenedForm.get();
-  const isClickOutside = $(evt.target).closest('.js-inlined-form').length === 0;
-  if (openedForm && isClickOutside) {
-    $('.js-inlined-form button[type=submit]').click();
-    openedForm.close();
-  }
-}, true);
+//document.addEventListener('click', function(evt) {
+//  const openedForm = currentlyOpenedForm.get();
+//  const isClickOutside = $(evt.target).closest('.js-inlined-form').length === 0;
+//  if (openedForm && isClickOutside) {
+//    $('.js-inlined-form button[type=submit]').click();
+//    openedForm.close();
+//  }
+//}, true);
