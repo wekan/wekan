@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fixed bug: rule doesn't move card to top/bottom](https://github.com/wekan/wekan/pull/2502).
+  Thanks to road42.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.84 2019-06-18 Wekan release
 
 This release fixes the following bugs:
