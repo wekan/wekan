@@ -51,7 +51,7 @@ RulesHelper = {
         listId = list._id;
       }
       const minOrder = _.min(list.cardsUnfiltered(card.swimlaneId).map((c) => c.sort));
-      card.move(card.swimlaneId, listId, minOrder - 1);
+      card.move(boardId, card.swimlaneId, listId, minOrder - 1);
     }
     if(action.actionType === 'moveCardToBottom'){
       let listId;
@@ -64,7 +64,7 @@ RulesHelper = {
         listId = list._id;
       }
       const maxOrder = _.max(list.cardsUnfiltered(card.swimlaneId).map((c) => c.sort));
-      card.move(card.swimlaneId, listId, maxOrder + 1);
+      card.move(boardId, card.swimlaneId, listId, maxOrder + 1);
     }
     if(action.actionType === 'sendEmail'){
       const to = action.emailTo;
