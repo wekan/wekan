@@ -51,7 +51,7 @@ RulesHelper = {
         listId = list._id;
       }
       const minOrder = _.min(list.cardsUnfiltered(card.swimlaneId).map((c) => c.sort));
-      card.move(card.swimlaneId, listId, minOrder - 1);
+      card.move(boardId, card.swimlaneId, listId, minOrder - 1);
     }
     if(action.actionType === 'moveCardToBottom'){
       let listId;
@@ -64,7 +64,7 @@ RulesHelper = {
         listId = list._id;
       }
       const maxOrder = _.max(list.cardsUnfiltered(card.swimlaneId).map((c) => c.sort));
-      card.move(card.swimlaneId, listId, maxOrder + 1);
+      card.move(boardId, card.swimlaneId, listId, maxOrder + 1);
     }
     if(action.actionType === 'sendEmail'){
       const to = action.emailTo;
@@ -81,6 +81,76 @@ RulesHelper = {
         // eslint-disable-next-line no-console
         console.error(e);
         return;
+      }
+    }
+    if(action.actionType === 'setDate') {
+      try {
+        var currentDateTime = new Date();
+        switch (action.dateField) {
+          case 'startAt':
+            var res = card.getStart()
+            if (typeof res === 'undefined') {
+              card.setStart(currentDateTime);
+            }
+            break;
+          case 'endAt':
+              var res = card.getEnd()
+              if (typeof res === 'undefined') {
+                card.setEnd(currentDateTime);
+              }
+              break;
+          case 'dueAt':
+              var res = card.getDue()
+              if (typeof res === 'undefined') {
+                card.setDue(currentDateTime);
+              }
+            break;
+          case 'receivedAt':
+              var res = card.getReceived()
+              if (typeof res === 'undefined') {
+                card.setReceived(currentDateTime);
+              }
+              break;
+        }
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.error(e);
+        return;
+      }
+    }
+
+    if(action.actionType === 'updateDate'){
+      var currentDateTime = new Date();
+      switch (action.dateField) {
+        case 'startAt':
+          card.setStart(currentDateTime);
+          break;
+        case 'endAt':
+            card.setEnd(currentDateTime);
+            break;
+        case 'dueAt':
+            card.setDue(currentDateTime);
+            break;
+        case 'receivedAt':
+            card.setReceived(currentDateTime);
+            break;
+      }
+    }
+    if(action.actionType === 'removeDate'){
+      var currentDateTime = new Date();
+      switch (action.dateField) {
+        case 'startAt':
+          card.unsetStart();
+          break;
+        case 'endAt':
+          card.unsetEnd();
+          break;
+        case 'dueAt':
+          card.unsetDue();
+          break;
+        case 'receivedAt':
+          card.unsetReceived();
+          break;
       }
     }
     if(action.actionType === 'archive'){

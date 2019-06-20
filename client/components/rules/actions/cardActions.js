@@ -29,7 +29,56 @@ BlazeComponent.extendComponent({
 
   events() {
     return [{
-      'click .js-add-label-action' (event) {
+      'click .js-set-date-action' (event) {
+        const ruleName = this.data().ruleName.get();
+        const trigger = this.data().triggerVar.get();
+        const triggerId = Triggers.insert(trigger);
+        const actionSelected = this.find('#setdate-action').value;
+        const dateFieldSelected = this.find('#setdate-datefield').value;
+        const boardId = Session.get('currentBoard');
+        const desc = Utils.getTriggerActionDesc(event, this);
+
+        const actionId = Actions.insert({
+          actionType: actionSelected,
+          dateField: dateFieldSelected,
+          boardId,
+          desc
+        });
+
+        Rules.insert({
+          title: ruleName,
+          triggerId,
+          actionId,
+          boardId,
+          desc
+        });
+    },
+
+    'click .js-remove-datevalue-action' (event) {
+        const ruleName = this.data().ruleName.get();
+        const trigger = this.data().triggerVar.get();
+        const triggerId = Triggers.insert(trigger);
+        const dateFieldSelected = this.find('#setdate-removedatefieldvalue').value;
+        const boardId = Session.get('currentBoard');
+        const desc = Utils.getTriggerActionDesc(event, this);
+
+        const actionId = Actions.insert({
+          actionType: 'removeDate',
+          dateField: dateFieldSelected,
+          boardId,
+          desc,
+        });
+
+        Rules.insert({
+          title: ruleName,
+          triggerId,
+          actionId,
+          boardId,
+          desc,
+        });
+    },
+
+    'click .js-add-label-action' (event) {
         const ruleName = this.data().ruleName.get();
         const trigger = this.data().triggerVar.get();
         const actionSelected = this.find('#label-action').value;
