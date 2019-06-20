@@ -85,32 +85,36 @@ RulesHelper = {
     }
     if(action.actionType === 'setDate') {
       try {
-        let currentDateTime = new Date();
+        const currentDateTime = new Date();
         switch (action.dateField){
-        case 'startAt':
-          let resStart = card.getStart()
+        case 'startAt': {
+          const resStart = card.getStart();
           if (typeof resStart === 'undefined') {
             card.setStart(currentDateTime);
           }
           break;
-        case 'endAt':
-          let resEnd = card.getEnd()
+        }
+        case 'endAt': {
+          const resEnd = card.getEnd();
           if (typeof resEnd === 'undefined') {
             card.setEnd(currentDateTime);
           }
           break;
-        case 'dueAt':
-          let resDue = card.getDue()
+        }
+        case 'dueAt': {
+          const resDue = card.getDue();
           if (typeof resDue === 'undefined') {
             card.setDue(currentDateTime);
           }
           break;
-        case 'receivedAt':
-          let resReceived = card.getReceived()
+        }
+        case 'receivedAt': {
+          const resReceived = card.getReceived();
           if (typeof resReceived === 'undefined') {
             card.setReceived(currentDateTime);
           }
           break;
+        }
         }
       } catch (e) {
         // eslint-disable-next-line no-console
@@ -120,37 +124,45 @@ RulesHelper = {
     }
 
     if(action.actionType === 'updateDate'){
-      let currentDateTimeUpdate = new Date();
+      const currentDateTimeUpdate = new Date();
       switch (action.dateField){
-      case 'startAt':
+      case 'startAt': {
         card.setStart(currentDateTimeUpdate);
         break;
-      case 'endAt':
-          card.setEnd(currentDateTimeUpdate);
-          break;
-      case 'dueAt':
-          card.setDue(currentDateTimeUpdate);
-          break;
-      case 'receivedAt':
-          card.setReceived(currentDateTimeUpdate);
-          break;
+      }
+      case 'endAt': {
+        card.setEnd(currentDateTimeUpdate);
+        break;
+      }
+      case 'dueAt': {
+        card.setDue(currentDateTimeUpdate);
+        break;
+      }
+      case 'receivedAt': {
+        card.setReceived(currentDateTimeUpdate);
+        break;
+      }
       }
     }
     if(action.actionType === 'removeDate'){
-      switch (action.dateField) {
-        case 'startAt':
-          card.unsetStart();
-          break;
-        case 'endAt':
-          card.unsetEnd();
-          break;
-        case 'dueAt':
-          card.unsetDue();
-          break;
-        case 'receivedAt':
-          card.unsetReceived();
-          break;
+      switch (action.dateField){
+      case 'startAt': {
+        card.unsetStart();
+        break;
       }
+      case 'endAt': {
+        card.unsetEnd();
+        break;
+      }
+      case 'dueAt': {
+        card.unsetDue();
+        break;
+      }
+      case 'receivedAt': {
+        card.unsetReceived();
+        break;
+      }
+    }
     }
     if(action.actionType === 'archive'){
       card.archive();
