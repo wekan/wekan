@@ -162,7 +162,7 @@ RulesHelper = {
         card.unsetReceived();
         break;
       }
-    }
+      }
     }
     if(action.actionType === 'archive'){
       card.archive();
