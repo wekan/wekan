@@ -85,32 +85,32 @@ RulesHelper = {
     }
     if(action.actionType === 'setDate') {
       try {
-        var currentDateTime = new Date();
-        switch (action.dateField) {
-          case 'startAt':
-            var res = card.getStart()
-            if (typeof res === 'undefined') {
-              card.setStart(currentDateTime);
-            }
-            break;
-          case 'endAt':
-              var res = card.getEnd()
-              if (typeof res === 'undefined') {
-                card.setEnd(currentDateTime);
-              }
-              break;
-          case 'dueAt':
-              var res = card.getDue()
-              if (typeof res === 'undefined') {
-                card.setDue(currentDateTime);
-              }
-            break;
-          case 'receivedAt':
-              var res = card.getReceived()
-              if (typeof res === 'undefined') {
-                card.setReceived(currentDateTime);
-              }
-              break;
+        let currentDateTime = new Date();
+        switch (action.dateField){
+        case 'startAt':
+          let resStart = card.getStart()
+          if (typeof resStart === 'undefined') {
+            card.setStart(currentDateTime);
+          }
+          break;
+        case 'endAt':
+          let resEnd = card.getEnd()
+          if (typeof resEnd === 'undefined') {
+            card.setEnd(currentDateTime);
+          }
+          break;
+        case 'dueAt':
+          let resDue = card.getDue()
+          if (typeof resDue === 'undefined') {
+            card.setDue(currentDateTime);
+          }
+          break;
+        case 'receivedAt':
+          let resReceived = card.getReceived()
+          if (typeof resReceived === 'undefined') {
+            card.setReceived(currentDateTime);
+          }
+          break;
         }
       } catch (e) {
         // eslint-disable-next-line no-console
@@ -120,24 +120,23 @@ RulesHelper = {
     }
 
     if(action.actionType === 'updateDate'){
-      var currentDateTime = new Date();
-      switch (action.dateField) {
-        case 'startAt':
-          card.setStart(currentDateTime);
+      let currentDateTimeUpdate = new Date();
+      switch (action.dateField){
+      case 'startAt':
+        card.setStart(currentDateTimeUpdate);
+        break;
+      case 'endAt':
+          card.setEnd(currentDateTimeUpdate);
           break;
-        case 'endAt':
-            card.setEnd(currentDateTime);
-            break;
-        case 'dueAt':
-            card.setDue(currentDateTime);
-            break;
-        case 'receivedAt':
-            card.setReceived(currentDateTime);
-            break;
+      case 'dueAt':
+          card.setDue(currentDateTimeUpdate);
+          break;
+      case 'receivedAt':
+          card.setReceived(currentDateTimeUpdate);
+          break;
       }
     }
     if(action.actionType === 'removeDate'){
-      var currentDateTime = new Date();
       switch (action.dateField) {
         case 'startAt':
           card.unsetStart();

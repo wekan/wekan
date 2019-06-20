@@ -42,7 +42,7 @@ BlazeComponent.extendComponent({
           actionType: actionSelected,
           dateField: dateFieldSelected,
           boardId,
-          desc
+          desc,
         });
 
         Rules.insert({
@@ -50,11 +50,11 @@ BlazeComponent.extendComponent({
           triggerId,
           actionId,
           boardId,
-          desc
+          desc,
         });
-    },
+      },
 
-    'click .js-remove-datevalue-action' (event) {
+      'click .js-remove-datevalue-action' (event) {
         const ruleName = this.data().ruleName.get();
         const trigger = this.data().triggerVar.get();
         const triggerId = Triggers.insert(trigger);
@@ -76,9 +76,9 @@ BlazeComponent.extendComponent({
           boardId,
           desc,
         });
-    },
+      },
 
-    'click .js-add-label-action' (event) {
+      'click .js-add-label-action' (event) {
         const ruleName = this.data().ruleName.get();
         const trigger = this.data().triggerVar.get();
         const actionSelected = this.find('#label-action').value;
