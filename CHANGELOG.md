@@ -1,3 +1,18 @@
+# v2.89 2019-06-21 Wekan release
+
+This release adds the following Sandstorm features:
+
+- [Sandstorm Wekan: Set everyone as Admin](https://github.com/wekan/wekan/commit/60d62a6ae3a79059e68b2cd1d554d67b7d50b6aa).
+  Please test does this help with [Problem with the user management: can't add users or give wekan admin rights](https://github.com/wekan/wekan/issues/2405).
+  Thanks to xet7.
+- [If board does not exist, redirect to All Boards page, at all Wekan platforms](https://github.com/wekan/wekan/commit/4f46adc389126597266d71110f9754841f86857c).
+  So now at Sandstorm when loading Wekan grain, if first Sandstorm board is found,
+  it is opened. If first Sandstorm board is not found (it's deleted or archived),
+  then redirect automatically to All Boards page. [Closes #3132](https://github.com/wekan/wekan/issues/3132).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.88 2019-06-21 Wekan release
 
 This release adds the following updates:
