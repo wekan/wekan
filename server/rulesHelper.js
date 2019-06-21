@@ -83,6 +83,89 @@ RulesHelper = {
         return;
       }
     }
+
+    if(action.actionType === 'setDate') {
+      try {
+        const currentDateTime = new Date();
+        switch (action.dateField){
+        case 'startAt': {
+          const resStart = card.getStart();
+          if (typeof resStart === 'undefined') {
+            card.setStart(currentDateTime);
+          }
+          break;
+        }
+        case 'endAt': {
+          const resEnd = card.getEnd();
+          if (typeof resEnd === 'undefined') {
+            card.setEnd(currentDateTime);
+          }
+          break;
+        }
+        case 'dueAt': {
+          const resDue = card.getDue();
+          if (typeof resDue === 'undefined') {
+            card.setDue(currentDateTime);
+          }
+          break;
+        }
+        case 'receivedAt': {
+          const resReceived = card.getReceived();
+          if (typeof resReceived === 'undefined') {
+            card.setReceived(currentDateTime);
+          }
+          break;
+        }
+        }
+      } catch (e) {
+        // eslint-disable-next-line no-console
+        console.error(e);
+        return;
+      }
+    }
+
+    if(action.actionType === 'updateDate'){
+      const currentDateTimeUpdate = new Date();
+      switch (action.dateField){
+      case 'startAt': {
+        card.setStart(currentDateTimeUpdate);
+        break;
+      }
+      case 'endAt': {
+        card.setEnd(currentDateTimeUpdate);
+        break;
+      }
+      case 'dueAt': {
+        card.setDue(currentDateTimeUpdate);
+        break;
+      }
+      case 'receivedAt': {
+        card.setReceived(currentDateTimeUpdate);
+        break;
+      }
+      }
+    }
+
+    if(action.actionType === 'removeDate'){
+      switch (action.dateField){
+      case 'startAt': {
+        card.unsetStart();
+        break;
+      }
+      case 'endAt': {
+        card.unsetEnd();
+        break;
+      }
+      case 'dueAt': {
+        card.unsetDue();
+        break;
+      }
+      case 'receivedAt': {
+        card.unsetReceived();
+        break;
+      }
+      }
+    }
     if(action.actionType === 'archive'){
       card.archive();
     }
