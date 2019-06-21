@@ -88,18 +88,22 @@ if (Meteor.isServer) {
     }
   });
 
-  Attachments.files.after.remove((userId, doc) => {
-    Activities.remove({
-      attachmentId: doc._id,
-    });
+  Attachments.files.before.remove((userId, doc) => {
     Activities.insert({
       userId,
       type: 'card',
       activityType: 'deleteAttachment',
+      attachmentId: doc._id,
       boardId: doc.boardId,
       cardId: doc.cardId,
       listId: doc.listId,
       swimlaneId: doc.swimlaneId,
+    });
+  });
+
+  Attachments.files.after.remove((userId, doc) => {
+    Activities.remove({
+      attachmentId: doc._id,
     });
   });
 }

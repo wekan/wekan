@@ -31,6 +31,13 @@ REM SET ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURES_BERORE=3
 REM SET ACCOUNTS_LOCKOUT_UNKNOWN_USERS_LOCKOUT_PERIOD=60
 REM SET ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURE_WINDOW=15
 
+REM # CORS: Set Access-Control-Allow-Origin header. Example: *
+REM SET CORS=*
+REM # To enable the Set Access-Control-Allow-Headers header. "Authorization,Content-Type" is required for cross-origin use of the API.
+REM SET CORS_ALLOW_HEADERS=Authorization,Content-Type
+REM # To enable the Set Access-Control-Expose-Headers header.  This is not needed for typical CORS situations. Example: *
+REM SET CORS_EXPOSE_HEADERS=*
+
 REM # Optional: Integration with Matomo https://matomo.org that is installed to your server
 REM # The address of the server where Matomo is hosted.
 REM # example: - MATOMO_ADDRESS=https://example.com/matomo

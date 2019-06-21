@@ -7,5 +7,17 @@ Meteor.startup(() => {
       return next();
     });
   }
+  if ( process.env.CORS_ALLOW_HEADERS ) {
+    WebApp.rawConnectHandlers.use(function(req, res, next) {
+      res.setHeader('Access-Control-Allow-Headers', process.env.CORS_ALLOW_HEADERS);
+      return next();
+    });
+  }
+  if ( process.env.CORS_EXPOSE_HEADERS ) {
+    WebApp.rawConnectHandlers.use(function(req, res, next) {
+      res.setHeader('Access-Control-Expose-Headers', process.env.CORS_EXPOSE_HEADERS);
+      return next();
+    });
+  }
 
 });
