@@ -1,3 +1,11 @@
+# v2.88 2019-06-21 Wekan release
+
+This release adds the following updates:
+
+- Update translations.
+
+Thanks to translators for their translations.
+
 # v2.87 2019-06-21 Wekan release
 
 This release adds the following new features:
