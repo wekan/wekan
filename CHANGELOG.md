@@ -1,3 +1,19 @@
+# v2.87 2019-06-21 Wekan release
+
+This release adds the following new features:
+
+- [Rule cardAction - SetDate](https://github.com/wekan/wekan/pull/2506).
+  Thanks to road42.
+
+and fixes the following bugs:
+
+- [Fix Move card to top/bottom of list](https://github.com/wekan/wekan/pull/2508).
+  Thanks to road42.
+- [Translation fixes](https://github.com/wekan/wekan/pull/2507).
+  Thanks to road42.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.86 2019-06-19 Wekan release
 
 This release fixes the following bugs:

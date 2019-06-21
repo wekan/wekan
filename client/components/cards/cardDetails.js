@@ -345,12 +345,12 @@ Template.cardDetailsActionsPopup.events({
   'click .js-move-card-to-top' (evt) {
     evt.preventDefault();
     const minOrder = _.min(this.list().cards(this.swimlaneId).map((c) => c.sort));
-    this.move(this.swimlaneId, this.listId, minOrder - 1);
+    this.move(this.boardId, this.swimlaneId, this.listId, minOrder - 1);
   },
   'click .js-move-card-to-bottom' (evt) {
     evt.preventDefault();
     const maxOrder = _.max(this.list().cards(this.swimlaneId).map((c) => c.sort));
-    this.move(this.swimlaneId, this.listId, maxOrder + 1);
+    this.move(this.boardId, this.swimlaneId, this.listId, maxOrder + 1);
   },
   'click .js-archive' (evt) {
     evt.preventDefault();
