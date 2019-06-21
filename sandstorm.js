@@ -206,8 +206,7 @@ if (isSandstorm && Meteor.isServer) {
 
   function updateUserPermissions(userId, permissions) {
     const isActive = permissions.indexOf('participate') > -1;
-    //const isAdmin = permissions.indexOf('configure') > -1;
-    const isAdmin = true;
+    const isAdmin = permissions.indexOf('configure') > -1;
     const isCommentOnly = false;
     const isNoComments = false;
     const permissionDoc = { userId, isActive, isAdmin, isNoComments, isCommentOnly };
