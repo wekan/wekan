@@ -27,6 +27,10 @@ BlazeComponent.extendComponent({
     return Utils.isMiniScreen() && Session.get('currentCard');
   },
 
+  goHome() {
+    FlowRouter.go('home');
+  },
+
 }).register('board');
 
 BlazeComponent.extendComponent({
