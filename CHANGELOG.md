@@ -1,3 +1,12 @@
+# v2.90 2019-06-21 Wekan release
+
+This release reverts the following Sandstorm changes:
+
+- [Revert v2.89 setting every Sandstorm Wekan user as admin](https://github.com/wekan/wekan/commit/e5c0d0ea18fe74a47afdfe101160280854e2c74f).
+  Thanks to xet7. [Related #2405](https://github.com/wekan/wekan/issues/2405).
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.89 2019-06-21 Wekan release
 
 This release adds the following Sandstorm features:
