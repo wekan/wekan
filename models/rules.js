@@ -1,23 +1,51 @@
+import { Meteor } from 'meteor/meteor';
+
 Rules = new Mongo.Collection('rules');
 
-Rules.attachSchema(new SimpleSchema({
-  title: {
-    type: String,
-    optional: false,
-  },
-  triggerId: {
-    type: String,
-    optional: false,
-  },
-  actionId: {
-    type: String,
-    optional: false,
-  },
-  boardId: {
-    type: String,
-    optional: false,
-  },
-}));
+Rules.attachSchema(
+  new SimpleSchema({
+    title: {
+      type: String,
+      optional: false,
+    },
+    triggerId: {
+      type: String,
+      optional: false,
+    },
+    actionId: {
+      type: String,
+      optional: false,
+    },
+    boardId: {
+      type: String,
+      optional: false,
+    },
+    createdAt: {
+      type: Date,
+      optional: true,
+      // eslint-disable-next-line consistent-return
+      autoValue() {
+        if (this.isInsert) {
+          return new Date();
+        } else {
+          this.unset();
+        }
+      },
+    },
+    modifiedAt: {
+      type: Date,
+      denyUpdate: false,
+      // eslint-disable-next-line consistent-return
+      autoValue() {
+        if (this.isInsert || this.isUpsert || this.isUpdate) {
+          return new Date();
+        } else {
+          this.unset();
+        }
+      },
+    },
+  })
+);
 
 Rules.mutations({
   rename(description) {
@@ -26,14 +54,13 @@ Rules.mutations({
 });
 
 Rules.helpers({
-  getAction(){
-    return Actions.findOne({_id:this.actionId});
+  getAction() {
+    return Actions.findOne({ _id: this.actionId });
   },
-  getTrigger(){
-    return Triggers.findOne({_id:this.triggerId});
+  getTrigger() {
+    return Triggers.findOne({ _id: this.triggerId });
   },
 });
-
 
 Rules.allow({
   insert(userId, doc) {
@@ -46,3 +73,16 @@ Rules.allow({
     return allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
   },
 });
+
+Rules.before.update((userId, doc, fieldNames, modifier, options) => {
+  modifier.$set = modifier.$set || {};
+  modifier.$set.modifiedAt = Date.now();
+});
+
+if (Meteor.isServer) {
+  Meteor.startup(() => {
+    Rules._collection._ensureIndex({ modifiedAt: -1 });
+  });
+}
+
+export default Rules;

@@ -81,8 +81,21 @@ Cards.attachSchema(new SimpleSchema({
      * creation date
      */
     type: Date,
-    autoValue() { // eslint-disable-line consistent-return
+    // eslint-disable-next-line consistent-return
+    autoValue() {
       if (this.isInsert) {
+        return new Date();
+      } else {
+        this.unset();
+      }
+    },
+  },
+  modifiedAt: {
+    type: Date,
+    denyUpdate: false,
+    // eslint-disable-next-line consistent-return
+    autoValue() {
+      if (this.isInsert || this.isUpsert || this.isUpdate) {
         return new Date();
       } else {
         this.unset();
@@ -1539,7 +1552,8 @@ if (Meteor.isServer) {
   // Cards are often fetched within a board, so we create an index to make these
   // queries more efficient.
   Meteor.startup(() => {
-    Cards._collection._ensureIndex({boardId: 1, createdAt: -1});
+    Cards._collection._ensureIndex({ modifiedAt: -1 });
+    Cards._collection._ensureIndex({ boardId: 1, createdAt: -1 });
     // https://github.com/wekan/wekan/issues/1863
     // Swimlane added a new field in the cards collection of mongodb named parentId.
     // When loading a board, mongodb is searching for every cards, the id of the parent (in the swinglanes collection).
@@ -1579,6 +1593,11 @@ if (Meteor.isServer) {
   // Add a new activity if we edit a custom field
   Cards.before.update((userId, doc, fieldNames, modifier) => {
     cardCustomFields(userId, doc, fieldNames, modifier);
+  });
+
+  Cards.before.update((userId, doc, fieldNames, modifier, options) => {
+    modifier.$set = modifier.$set || {};
+    modifier.$set.modifiedAt = Date.now();
   });
 
   // Remove all activities associated with a card if we remove the card
@@ -1980,3 +1999,5 @@ if (Meteor.isServer) {
 
   });
 }
+
+export default Cards;
