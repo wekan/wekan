@@ -62,6 +62,8 @@ Template.cardAttachmentsPopup.events({
         file.cardId = card.linkedId;
       } else {
         file.boardId = card.boardId;
+        file.swimlaneId = card.swimlaneId;
+        file.listId = card.listId;
         file.cardId = card._id;
       }
       file.userId = Meteor.userId();
