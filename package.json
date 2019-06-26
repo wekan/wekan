@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "lint": "eslint --ignore-pattern 'packages/*' .",
+    "prettify": "prettier --write '**/*.js' '**/*.jsx'",
     "test": "npm run --silent lint"
   },
   "eslintConfig": {
@@ -20,7 +21,15 @@
   },
   "homepage": "https://wekan.github.io",
   "devDependencies": {
-    "eslint": "^5.16.0"
+    "eslint": "^5.16.0",
+    "eslint-config-meteor": "0.0.9",
+    "eslint-config-prettier": "^3.6.0",
+    "eslint-import-resolver-meteor": "^0.4.0",
+    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-meteor": "^4.2.2",
+    "eslint-plugin-prettier": "^3.1.0",
+    "prettier": "^1.18.2",
+    "prettier-eslint": "^8.8.2"
   },
   "dependencies": {
     "@babel/runtime": "^7.4.3",

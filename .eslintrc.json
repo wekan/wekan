@@ -1,9 +1,15 @@
 {
-  "extends": "eslint:recommended",
+  "extends": [
+    "eslint:recommended",
+    "plugin:meteor/recommended",
+    "prettier",
+    "prettier/standard"
+  ],
   "env": {
     "es6": true,
     "node": true,
-    "browser": true
+    "browser": true,
+    "meteor": true
   },
   "parserOptions": {
     "ecmaVersion": 2017,
@@ -28,11 +34,12 @@
     "no-unneeded-ternary": 2,
     "radix": 2,
     "semi": [2, "always"],
-    "camelcase": [2, {"properties": "never"}],
+    "camelcase": [2, { "properties": "never" }],
     "comma-spacing": 2,
     "comma-style": 2,
     "eol-last": 2,
     "linebreak-style": [2, "unix"],
+    "meteor/audit-argument-checks": 0,
     "new-parens": 2,
     "no-lonely-if": 2,
     "no-multiple-empty-lines": 2,
@@ -52,8 +59,26 @@
     "prefer-const": 2,
     "prefer-spread": 2,
     "prefer-template": 2,
-    "no-unused-vars" : "warn"
+    "no-unused-vars": "warn",
+    "prettier/prettier": [
+      "error",
+      {
+        "printWidth": 80,
+        "tabWidth": 2,
+        "useTabs": false,
+        "singleQuote": true,
+        "trailingComma": "all"
+      }
+    ]
   },
+  "settings": {
+    "import/resolver": {
+      "meteor": {
+        "extensions": [".js", ".jsx"]
+      }
+    }
+  },
+  "plugins": ["prettier", "meteor"],
   "globals": {
     "Meteor": false,
     "Session": false,
@@ -100,7 +125,7 @@
     "Attachments": true,
     "Boards": true,
     "CardComments": true,
-    "DatePicker" : true,
+    "DatePicker": true,
     "Cards": true,
     "CustomFields": true,
     "Lists": true,

@@ -1,0 +1,7 @@
+packages/
+node_modules/
+.build/
+.meteor/
+.vscode/
+.tx/
+.github/
