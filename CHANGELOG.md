@@ -1,3 +1,13 @@
+# v2.92 2019-06-27 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix Outgoing Webhook messages for Checlists, Checklist Items, Card comments, Add/Remove CustomField to board](https://github.com/wekan/wekan/commit/5283ba9ebbedf11540ffef1d4d87891c5ce9efc7).
+  Not yet fixed is Outgoing Webhook message about setting CustomField value.
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.91 2019-06-27 Wekan release
 
 This release fixes the following bugs:

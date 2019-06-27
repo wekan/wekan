@@ -81,14 +81,15 @@ CardComments.helpers({
 CardComments.hookOptions.after.update = { fetchPrevious: false };
 
 function commentCreation(userId, doc){
+  const card = Cards.findOne(doc.cardId);
   Activities.insert({
     userId,
     activityType: 'addComment',
     boardId: doc.boardId,
     cardId: doc.cardId,
     commentId: doc._id,
-    listId: doc.listId,
-    swimlaneId: doc.swimlaneId,
+    listId: card.listId,
+    swimlaneId: card.swimlaneId,
   });
 }
 
@@ -101,6 +102,34 @@ if (Meteor.isServer) {
 
   CardComments.after.insert((userId, doc) => {
     commentCreation(userId, doc);
+  });
+
+  CardComments.after.update((userId, doc) => {
+    const activity = Activities.findOne({ commentId: doc._id });
+    const card = Cards.findOne(doc.cardId);
+    Activities.insert({
+      userId,
+      activityType: 'editComment',
+      boardId: doc.boardId,
+      cardId: doc.cardId,
+      commentId: doc._id,
+      listId: card.listId,
+      swimlaneId: card.swimlaneId,
+    });
+  });
+
+  CardComments.before.remove((userId, doc) => {
+    const activity = Activities.findOne({ commentId: doc._id });
+    const card = Cards.findOne(doc.cardId);
+    Activities.insert({
+      userId,
+      activityType: 'deleteComment',
+      boardId: doc.boardId,
+      cardId: doc.cardId,
+      commentId: doc._id,
+      listId: card.listId,
+      swimlaneId: card.swimlaneId,
+    });
   });
 
   CardComments.after.remove((userId, doc) => {

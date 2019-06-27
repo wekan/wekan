@@ -128,20 +128,22 @@ if (Meteor.isServer) {
   });
 
   Checklists.after.insert((userId, doc) => {
+    const card = Cards.findOne(doc.cardId);
     Activities.insert({
       userId,
       activityType: 'addChecklist',
       cardId: doc.cardId,
-      boardId: Cards.findOne(doc.cardId).boardId,
+      boardId: card.boardId,
       checklistId: doc._id,
       checklistName:doc.title,
-      listId: doc.listId,
-      swimlaneId: doc.swimlaneId,
+      listId: card.listId,
+      swimlaneId: card.swimlaneId,
     });
   });
 
   Checklists.before.remove((userId, doc) => {
     const activities = Activities.find({ checklistId: doc._id });
+    const card = Cards.findOne(doc.cardId);
     if (activities) {
       activities.forEach((activity) => {
         Activities.remove(activity._id);
@@ -154,8 +156,8 @@ if (Meteor.isServer) {
       boardId: Cards.findOne(doc.cardId).boardId,
       checklistId: doc._id,
       checklistName:doc.title,
-      listId: doc.listId,
-      swimlaneId: doc.swimlaneId,
+      listId: card.listId,
+      swimlaneId: card.swimlaneId,
     });
   });
 }

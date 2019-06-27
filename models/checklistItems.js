@@ -94,9 +94,9 @@ function itemCreation(userId, doc) {
     boardId,
     checklistId: doc.checklistId,
     checklistItemId: doc._id,
-    checklistItemName:doc.title,
-    listId: doc.listId,
-    swimlaneId: doc.swimlaneId,
+    checklistItemName: doc.title,
+    listId: card.listId,
+    swimlaneId: card.swimlaneId,
   });
 }
 
@@ -123,8 +123,8 @@ function publishCheckActivity(userId, doc){
     checklistId: doc.checklistId,
     checklistItemId: doc._id,
     checklistItemName:doc.title,
-    listId: doc.listId,
-    swimlaneId: doc.swimlaneId,
+    listId: card.listId,
+    swimlaneId: card.swimlaneId,
   };
   Activities.insert(act);
 }
@@ -142,8 +142,8 @@ function publishChekListCompleted(userId, doc){
       boardId,
       checklistId: doc.checklistId,
       checklistName: checkList.title,
-      listId: doc.listId,
-      swimlaneId: doc.swimlaneId,
+      listId: card.listId,
+      swimlaneId: card.swimlaneId,
     };
     Activities.insert(act);
   }
@@ -175,8 +175,8 @@ function publishChekListUncompleted(userId, doc){
       boardId,
       checklistId: doc.checklistId,
       checklistName: checkList.title,
-      listId: doc.listId,
-      swimlaneId: doc.swimlaneId,
+      listId: card.listId,
+      swimlaneId: card.swimlaneId,
     };
     Activities.insert(act);
   }
@@ -215,8 +215,8 @@ if (Meteor.isServer) {
       checklistId: doc.checklistId,
       checklistItemId: doc._id,
       checklistItemName:doc.title,
-      listId: doc.listId,
-      swimlaneId: doc.swimlaneId,
+      listId: card.listId,
+      swimlaneId: card.swimlaneId,
     });
   });
 }
