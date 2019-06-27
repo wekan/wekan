@@ -1,6 +1,5 @@
 Attachments = new FS.Collection('attachments', {
   stores: [
-
     // XXX Add a new store for cover thumbnails so we don't load big images in
     // the general board view
     new FS.Store.GridFS('attachments', {
@@ -24,7 +23,6 @@ Attachments = new FS.Collection('attachments', {
     }),
   ],
 });
-
 
 if (Meteor.isServer) {
   Meteor.startup(() => {
@@ -78,13 +76,16 @@ if (Meteor.isServer) {
     } else {
       // Don't add activity about adding the attachment as the activity
       // be imported and delete source field
-      Attachments.update({
-        _id: doc._id,
-      }, {
-        $unset: {
-          source: '',
+      Attachments.update(
+        {
+          _id: doc._id,
         },
-      });
+        {
+          $unset: {
+            source: '',
+          },
+        }
+      );
     }
   });
 
@@ -107,3 +108,5 @@ if (Meteor.isServer) {
     });
   });
 }
+
+export default Attachments;

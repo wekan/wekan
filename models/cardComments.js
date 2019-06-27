@@ -3,55 +3,69 @@ CardComments = new Mongo.Collection('card_comments');
 /**
  * A comment on a card
  */
-CardComments.attachSchema(new SimpleSchema({
-  boardId: {
-    /**
-     * the board ID
-     */
-    type: String,
-  },
-  cardId: {
-    /**
-     * the card ID
-     */
-    type: String,
-  },
-  // XXX Rename in `content`? `text` is a bit vague...
-  text: {
-    /**
-     * the text of the comment
-     */
-    type: String,
-  },
-  // XXX We probably don't need this information here, since we already have it
-  // in the associated comment creation activity
-  createdAt: {
-    /**
-     * when was the comment created
-     */
-    type: Date,
-    denyUpdate: false,
-    autoValue() { // eslint-disable-line consistent-return
-      if (this.isInsert) {
-        return new Date();
-      } else {
-        this.unset();
-      }
+CardComments.attachSchema(
+  new SimpleSchema({
+    boardId: {
+      /**
+       * the board ID
+       */
+      type: String,
     },
-  },
-  // XXX Should probably be called `authorId`
-  userId: {
-    /**
-     * the author ID of the comment
-     */
-    type: String,
-    autoValue() { // eslint-disable-line consistent-return
-      if (this.isInsert && !this.isSet) {
-        return this.userId;
-      }
+    cardId: {
+      /**
+       * the card ID
+       */
+      type: String,
     },
-  },
-}));
+    // XXX Rename in `content`? `text` is a bit vague...
+    text: {
+      /**
+       * the text of the comment
+       */
+      type: String,
+    },
+    createdAt: {
+      /**
+       * when was the comment created
+       */
+      type: Date,
+      denyUpdate: false,
+      // eslint-disable-next-line consistent-return
+      autoValue() {
+        if (this.isInsert) {
+          return new Date();
+        } else {
+          this.unset();
+        }
+      },
+    },
+    modifiedAt: {
+      type: Date,
+      denyUpdate: false,
+      // eslint-disable-next-line consistent-return
+      autoValue() {
+        if (this.isInsert || this.isUpsert || this.isUpdate) {
+          return new Date();
+        } else {
+          this.unset();
+        }
+      },
+    },
+    // XXX Should probably be called `authorId`
+    userId: {
+      /**
+       * the author ID of the comment
+       */
+      type: String,
+      // eslint-disable-next-line consistent-return
+      autoValue() {
+        if (this.isInsert && !this.isSet) {
+          return this.userId;
+        }
+      },
+    },
+  })
+);
 
 CardComments.allow({
   insert(userId, doc) {
@@ -80,7 +94,7 @@ CardComments.helpers({
 
 CardComments.hookOptions.after.update = { fetchPrevious: false };
 
-function commentCreation(userId, doc){
+function commentCreation(userId, doc) {
   const card = Cards.findOne(doc.cardId);
   Activities.insert({
     userId,
@@ -93,10 +107,16 @@ function commentCreation(userId, doc){
   });
 }
 
+CardComments.before.update((userId, doc, fieldNames, modifier, options) => {
+  modifier.$set = modifier.$set || {};
+  modifier.$set.modifiedAt = Date.now();
+});
+
 if (Meteor.isServer) {
   // Comments are often fetched within a card, so we create an index to make these
   // queries more efficient.
   Meteor.startup(() => {
+    CardComments._collection._ensureIndex({ modifiedAt: -1 });
     CardComments._collection._ensureIndex({ cardId: 1, createdAt: -1 });
   });
 
@@ -152,14 +172,20 @@ if (Meteor.isServer) {
    *                comment: string,
    *                authorId: string}]
    */
-  JsonRoutes.add('GET', '/api/boards/:boardId/cards/:cardId/comments', function (req, res) {
+  JsonRoutes.add('GET', '/api/boards/:boardId/cards/:cardId/comments', function(
+    req,
+    res
+  ) {
     try {
-      Authentication.checkUserId( req.userId);
+      Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
       const paramCardId = req.params.cardId;
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: CardComments.find({ boardId: paramBoardId, cardId: paramCardId}).map(function (doc) {
+        data: CardComments.find({
+          boardId: paramBoardId,
+          cardId: paramCardId,
+        }).map(function(doc) {
           return {
             _id: doc._id,
             comment: doc.text,
@@ -167,8 +193,7 @@ if (Meteor.isServer) {
           };
         }),
       });
-    }
-    catch (error) {
+    } catch (error) {
       JsonRoutes.sendResult(res, {
         code: 200,
         data: error,
@@ -185,24 +210,31 @@ if (Meteor.isServer) {
    * @param {string} commentId the ID of the comment to retrieve
    * @return_type CardComments
    */
-  JsonRoutes.add('GET', '/api/boards/:boardId/cards/:cardId/comments/:commentId', function (req, res) {
-    try {
-      Authentication.checkUserId( req.userId);
-      const paramBoardId = req.params.boardId;
-      const paramCommentId = req.params.commentId;
-      const paramCardId = req.params.cardId;
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: CardComments.findOne({ _id: paramCommentId, cardId: paramCardId, boardId: paramBoardId }),
-      });
+  JsonRoutes.add(
+    'GET',
+    '/api/boards/:boardId/cards/:cardId/comments/:commentId',
+    function(req, res) {
+      try {
+        Authentication.checkUserId(req.userId);
+        const paramBoardId = req.params.boardId;
+        const paramCommentId = req.params.commentId;
+        const paramCardId = req.params.cardId;
+        JsonRoutes.sendResult(res, {
+          code: 200,
+          data: CardComments.findOne({
+            _id: paramCommentId,
+            cardId: paramCardId,
+            boardId: paramBoardId,
+          }),
+        });
+      } catch (error) {
+        JsonRoutes.sendResult(res, {
+          code: 200,
+          data: error,
+        });
+      }
     }
-    catch (error) {
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: error,
-      });
-    }
-  });
+  );
 
   /**
    * @operation new_comment
@@ -214,35 +246,42 @@ if (Meteor.isServer) {
    * @param {string} text the content of the comment
    * @return_type {_id: string}
    */
-  JsonRoutes.add('POST', '/api/boards/:boardId/cards/:cardId/comments', function (req, res) {
-    try {
-      Authentication.checkUserId( req.userId);
-      const paramBoardId = req.params.boardId;
-      const paramCardId = req.params.cardId;
-      const id = CardComments.direct.insert({
-        userId: req.body.authorId,
-        text: req.body.comment,
-        cardId: paramCardId,
-        boardId: paramBoardId,
-      });
+  JsonRoutes.add(
+    'POST',
+    '/api/boards/:boardId/cards/:cardId/comments',
+    function(req, res) {
+      try {
+        Authentication.checkUserId(req.userId);
+        const paramBoardId = req.params.boardId;
+        const paramCardId = req.params.cardId;
+        const id = CardComments.direct.insert({
+          userId: req.body.authorId,
+          text: req.body.comment,
+          cardId: paramCardId,
+          boardId: paramBoardId,
+        });
 
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: {
+        JsonRoutes.sendResult(res, {
+          code: 200,
+          data: {
+            _id: id,
+          },
+        });
+
+        const cardComment = CardComments.findOne({
           _id: id,
-        },
-      });
-
-      const cardComment = CardComments.findOne({_id: id, cardId:paramCardId, boardId: paramBoardId });
-      commentCreation(req.body.authorId, cardComment);
+          cardId: paramCardId,
+          boardId: paramBoardId,
+        });
+        commentCreation(req.body.authorId, cardComment);
+      } catch (error) {
+        JsonRoutes.sendResult(res, {
+          code: 200,
+          data: error,
+        });
+      }
     }
-    catch (error) {
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: error,
-      });
-    }
-  });
+  );
 
   /**
    * @operation delete_comment
@@ -253,25 +292,34 @@ if (Meteor.isServer) {
    * @param {string} commentId the ID of the comment to delete
    * @return_type {_id: string}
    */
-  JsonRoutes.add('DELETE', '/api/boards/:boardId/cards/:cardId/comments/:commentId', function (req, res) {
-    try {
-      Authentication.checkUserId( req.userId);
-      const paramBoardId = req.params.boardId;
-      const paramCommentId = req.params.commentId;
-      const paramCardId = req.params.cardId;
-      CardComments.remove({ _id: paramCommentId, cardId: paramCardId, boardId: paramBoardId });
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: {
-          _id: paramCardId,
-        },
-      });
+  JsonRoutes.add(
+    'DELETE',
+    '/api/boards/:boardId/cards/:cardId/comments/:commentId',
+    function(req, res) {
+      try {
+        Authentication.checkUserId(req.userId);
+        const paramBoardId = req.params.boardId;
+        const paramCommentId = req.params.commentId;
+        const paramCardId = req.params.cardId;
+        CardComments.remove({
+          _id: paramCommentId,
+          cardId: paramCardId,
+          boardId: paramBoardId,
+        });
+        JsonRoutes.sendResult(res, {
+          code: 200,
+          data: {
+            _id: paramCardId,
+          },
+        });
+      } catch (error) {
+        JsonRoutes.sendResult(res, {
+          code: 200,
+          data: error,
+        });
+      }
     }
-    catch (error) {
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: error,
-      });
-    }
-  });
+  );
 }
+
+export default CardComments;

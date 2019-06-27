@@ -2,31 +2,66 @@
 // `UnsavedEdits` API on the client.
 UnsavedEditCollection = new Mongo.Collection('unsaved-edits');
 
-UnsavedEditCollection.attachSchema(new SimpleSchema({
-  fieldName: {
-    type: String,
-  },
-  docId: {
-    type: String,
-  },
-  value: {
-    type: String,
-  },
-  userId: {
-    type: String,
-    autoValue() { // eslint-disable-line consistent-return
-      if (this.isInsert && !this.isSet) {
-        return this.userId;
-      }
+UnsavedEditCollection.attachSchema(
+  new SimpleSchema({
+    fieldName: {
+      type: String,
     },
-  },
-}));
+    docId: {
+      type: String,
+    },
+    value: {
+      type: String,
+    },
+    userId: {
+      type: String,
+      // eslint-disable-next-line consistent-return
+      autoValue() {
+        if (this.isInsert && !this.isSet) {
+          return this.userId;
+        }
+      },
+    },
+    createdAt: {
+      type: Date,
+      optional: true,
+      // eslint-disable-next-line consistent-return
+      autoValue() {
+        if (this.isInsert) {
+          return new Date();
+        } else {
+          this.unset();
+        }
+      },
+    },
+    modifiedAt: {
+      type: Date,
+      denyUpdate: false,
+      // eslint-disable-next-line consistent-return
+      autoValue() {
+        if (this.isInsert || this.isUpsert || this.isUpdate) {
+          return new Date();
+        } else {
+          this.unset();
+        }
+      },
+    },
+  })
+);
+
+UnsavedEditCollection.before.update(
+  (userId, doc, fieldNames, modifier, options) => {
+    modifier.$set = modifier.$set || {};
+    modifier.$set.modifiedAt = Date.now();
+  }
+);
 
 if (Meteor.isServer) {
   function isAuthor(userId, doc, fieldNames = []) {
     return userId === doc.userId && fieldNames.indexOf('userId') === -1;
   }
   Meteor.startup(() => {
+    UnsavedEditCollection._collection._ensureIndex({ modifiedAt: -1 });
     UnsavedEditCollection._collection._ensureIndex({ userId: 1 });
   });
   UnsavedEditCollection.allow({
@@ -36,3 +71,5 @@ if (Meteor.isServer) {
     fetch: ['userId'],
   });
 }
+
+export default UnsavedEditCollection;

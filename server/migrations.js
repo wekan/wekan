@@ -1,3 +1,23 @@
+import AccountSettings from '../models/accountSettings';
+import Actions from '../models/actions';
+import Activities from '../models/activities';
+import Announcements from '../models/announcements';
+import Boards from '../models/boards';
+import CardComments from '../models/cardComments';
+import Cards from '../models/cards';
+import ChecklistItems from '../models/checklistItems';
+import Checklists from '../models/checklists';
+import CustomFields from '../models/customFields';
+import Integrations from '../models/integrations';
+import InvitationCodes from '../models/invitationCodes';
+import Lists from '../models/lists';
+import Rules from '../models/rules';
+import Settings from '../models/settings';
+import Swimlanes from '../models/swimlanes';
+import Triggers from '../models/triggers';
+import UnsavedEdits from '../models/unsavedEdits';
+import Users from '../models/users';
+
 // Anytime you change the schema of one of the collection in a non-backward
 // compatible way you have to write a migration in this file using the following
 // API:
@@ -28,18 +48,22 @@ const noValidateMulti = { ...noValidate, multi: true };
 
 Migrations.add('board-background-color', () => {
   const defaultColor = '#16A085';
-  Boards.update({
-    background: {
-      $exists: false,
-    },
-  }, {
-    $set: {
+  Boards.update(
+    {
       background: {
-        type: 'color',
-        color: defaultColor,
+        $exists: false,
       },
     },
-  }, noValidateMulti);
+    {
+      $set: {
+        background: {
+          type: 'color',
+          color: defaultColor,
+        },
+      },
+    },
+    noValidateMulti
+  );
 });
 
 Migrations.add('lowercase-board-permission', () => {
@@ -57,24 +81,28 @@ Migrations.add('change-attachments-type-for-non-images', () => {
   const newTypeForNonImage = 'application/octet-stream';
   Attachments.find().forEach((file) => {
     if (!file.isImage()) {
-      Attachments.update(file._id, {
-        $set: {
-          'original.type': newTypeForNonImage,
-          'copies.attachments.type': newTypeForNonImage,
+      Attachments.update(
+        file._id,
+        {
+          $set: {
+            'original.type': newTypeForNonImage,
+            'copies.attachments.type': newTypeForNonImage,
+          },
         },
-      }, noValidate);
+        noValidate
+      );
     }
   });
 });
 
 Migrations.add('card-covers', () => {
   Cards.find().forEach((card) => {
-    const cover =  Attachments.findOne({ cardId: card._id, cover: true });
+    const cover = Attachments.findOne({ cardId: card._id, cover: true });
     if (cover) {
-      Cards.update(card._id, {$set: {coverId: cover._id}}, noValidate);
+      Cards.update(card._id, { $set: { coverId: cover._id } }, noValidate);
     }
   });
-  Attachments.update({}, {$unset: {cover: ''}}, noValidateMulti);
+  Attachments.update({}, { $unset: { cover: '' } }, noValidateMulti);
 });
 
 Migrations.add('use-css-class-for-boards-colors', () => {
@@ -89,26 +117,31 @@ Migrations.add('use-css-class-for-boards-colors', () => {
   Boards.find().forEach((board) => {
     const oldBoardColor = board.background.color;
     const newBoardColor = associationTable[oldBoardColor];
-    Boards.update(board._id, {
-      $set: { color: newBoardColor },
-      $unset: { background: '' },
-    }, noValidate);
+    Boards.update(
+      board._id,
+      {
+        $set: { color: newBoardColor },
+        $unset: { background: '' },
+      },
+      noValidate
+    );
   });
 });
 
 Migrations.add('denormalize-star-number-per-board', () => {
   Boards.find().forEach((board) => {
-    const nStars = Users.find({'profile.starredBoards': board._id}).count();
-    Boards.update(board._id, {$set: {stars: nStars}}, noValidate);
+    const nStars = Users.find({ 'profile.starredBoards': board._id }).count();
+    Boards.update(board._id, { $set: { stars: nStars } }, noValidate);
   });
 });
 
 // We want to keep a trace of former members so we can efficiently publish their
 // infos in the general board publication.
 Migrations.add('add-member-isactive-field', () => {
-  Boards.find({}, {fields: {members: 1}}).forEach((board) => {
+  Boards.find({}, { fields: { members: 1 } }).forEach((board) => {
     const allUsersWithSomeActivity = _.chain(
-      Activities.find({ boardId: board._id }, { fields:{ userId:1 }}).fetch())
+      Activities.find({ boardId: board._id }, { fields: { userId: 1 } }).fetch()
+    )
       .pluck('userId')
       .uniq()
       .value();
@@ -127,7 +160,7 @@ Migrations.add('add-member-isactive-field', () => {
         isActive: false,
       });
     });
-    Boards.update(board._id, {$set: {members: newMemberSet}}, noValidate);
+    Boards.update(board._id, { $set: { members: newMemberSet } }, noValidate);
   });
 });
 
@@ -184,7 +217,7 @@ Migrations.add('add-checklist-items', () => {
     // Create new items
     _.sortBy(checklist.items, 'sort').forEach((item, index) => {
       ChecklistItems.direct.insert({
-        title: (item.title ? item.title : 'Checklist'),
+        title: item.title ? item.title : 'Checklist',
         sort: index,
         isFinished: item.isFinished,
         checklistId: checklist._id,
@@ -193,8 +226,9 @@ Migrations.add('add-checklist-items', () => {
     });
 
     // Delete old ones
-    Checklists.direct.update({ _id: checklist._id },
-      { $unset: { items : 1 } },
+    Checklists.direct.update(
+      { _id: checklist._id },
+      { $unset: { items: 1 } },
       noValidate
     );
   });
@@ -217,324 +251,512 @@ Migrations.add('add-card-types', () => {
   Cards.find().forEach((card) => {
     Cards.direct.update(
       { _id: card._id },
-      { $set: {
-        type: 'cardType-card',
-        linkedId: null } },
+      {
+        $set: {
+          type: 'cardType-card',
+          linkedId: null,
+        },
+      },
       noValidate
     );
   });
 });
 
 Migrations.add('add-custom-fields-to-cards', () => {
-  Cards.update({
-    customFields: {
-      $exists: false,
+  Cards.update(
+    {
+      customFields: {
+        $exists: false,
+      },
     },
-  }, {
-    $set: {
-      customFields:[],
+    {
+      $set: {
+        customFields: [],
+      },
     },
-  }, noValidateMulti);
+    noValidateMulti
+  );
 });
 
 Migrations.add('add-requester-field', () => {
-  Cards.update({
-    requestedBy: {
-      $exists: false,
+  Cards.update(
+    {
+      requestedBy: {
+        $exists: false,
+      },
     },
-  }, {
-    $set: {
-      requestedBy:'',
+    {
+      $set: {
+        requestedBy: '',
+      },
     },
-  }, noValidateMulti);
+    noValidateMulti
+  );
 });
 
 Migrations.add('add-assigner-field', () => {
-  Cards.update({
-    assignedBy: {
-      $exists: false,
+  Cards.update(
+    {
+      assignedBy: {
+        $exists: false,
+      },
     },
-  }, {
-    $set: {
-      assignedBy:'',
+    {
+      $set: {
+        assignedBy: '',
+      },
     },
-  }, noValidateMulti);
+    noValidateMulti
+  );
 });
 
 Migrations.add('add-parent-field-to-cards', () => {
-  Cards.update({
-    parentId: {
-      $exists: false,
+  Cards.update(
+    {
+      parentId: {
+        $exists: false,
+      },
     },
-  }, {
-    $set: {
-      parentId:'',
+    {
+      $set: {
+        parentId: '',
+      },
     },
-  }, noValidateMulti);
+    noValidateMulti
+  );
 });
 
 Migrations.add('add-subtasks-boards', () => {
-  Boards.update({
-    subtasksDefaultBoardId: {
-      $exists: false,
+  Boards.update(
+    {
+      subtasksDefaultBoardId: {
+        $exists: false,
+      },
     },
-  }, {
-    $set: {
-      subtasksDefaultBoardId: null,
-      subtasksDefaultListId: null,
+    {
+      $set: {
+        subtasksDefaultBoardId: null,
+        subtasksDefaultListId: null,
+      },
     },
-  }, noValidateMulti);
+    noValidateMulti
+  );
 });
 
 Migrations.add('add-subtasks-sort', () => {
-  Boards.update({
-    subtaskSort: {
-      $exists: false,
+  Boards.update(
+    {
+      subtaskSort: {
+        $exists: false,
+      },
     },
-  }, {
-    $set: {
-      subtaskSort: -1,
+    {
+      $set: {
+        subtaskSort: -1,
+      },
     },
-  }, noValidateMulti);
+    noValidateMulti
+  );
 });
 
 Migrations.add('add-subtasks-allowed', () => {
-  Boards.update({
-    allowsSubtasks: {
-      $exists: false,
+  Boards.update(
+    {
+      allowsSubtasks: {
+        $exists: false,
+      },
     },
-  }, {
-    $set: {
-      allowsSubtasks: true,
+    {
+      $set: {
+        allowsSubtasks: true,
+      },
     },
-  }, noValidateMulti);
+    noValidateMulti
+  );
 });
 
 Migrations.add('add-subtasks-allowed', () => {
-  Boards.update({
-    presentParentTask: {
-      $exists: false,
+  Boards.update(
+    {
+      presentParentTask: {
+        $exists: false,
+      },
     },
-  }, {
-    $set: {
-      presentParentTask: 'no-parent',
+    {
+      $set: {
+        presentParentTask: 'no-parent',
+      },
     },
-  }, noValidateMulti);
+    noValidateMulti
+  );
 });
 
 Migrations.add('add-authenticationMethod', () => {
-  Users.update({
-    'authenticationMethod': {
-      $exists: false,
+  Users.update(
+    {
+      authenticationMethod: {
+        $exists: false,
+      },
     },
-  }, {
-    $set: {
-      'authenticationMethod': 'password',
+    {
+      $set: {
+        authenticationMethod: 'password',
+      },
     },
-  }, noValidateMulti);
+    noValidateMulti
+  );
 });
 
 Migrations.add('remove-tag', () => {
-  Users.update({
-  }, {
-    $unset: {
-      'profile.tags':1,
+  Users.update(
+    {},
+    {
+      $unset: {
+        'profile.tags': 1,
+      },
     },
-  }, noValidateMulti);
+    noValidateMulti
+  );
 });
 
 Migrations.add('remove-customFields-references-broken', () => {
-  Cards.update({'customFields.$value': null},
-    { $pull: {
-      customFields: {value: null},
+  Cards.update(
+    { 'customFields.$value': null },
+    {
+      $pull: {
+        customFields: { value: null },
+      },
     },
-    }, noValidateMulti);
+    noValidateMulti
+  );
 });
 
 Migrations.add('add-product-name', () => {
-  Settings.update({
-    productName: {
-      $exists: false,
+  Settings.update(
+    {
+      productName: {
+        $exists: false,
+      },
     },
-  }, {
-    $set: {
-      productName:'',
+    {
+      $set: {
+        productName: '',
+      },
     },
-  }, noValidateMulti);
+    noValidateMulti
+  );
 });
 
 Migrations.add('add-hide-logo', () => {
-  Settings.update({
-    hideLogo: {
-      $exists: false,
+  Settings.update(
+    {
+      hideLogo: {
+        $exists: false,
+      },
     },
-  }, {
-    $set: {
-      hideLogo: false,
+    {
+      $set: {
+        hideLogo: false,
+      },
     },
-  }, noValidateMulti);
+    noValidateMulti
+  );
 });
 
 Migrations.add('add-custom-html-after-body-start', () => {
-  Settings.update({
-    customHTMLafterBodyStart: {
-      $exists: false,
+  Settings.update(
+    {
+      customHTMLafterBodyStart: {
+        $exists: false,
+      },
     },
-  }, {
-    $set: {
-      customHTMLafterBodyStart:'',
+    {
+      $set: {
+        customHTMLafterBodyStart: '',
+      },
     },
-  }, noValidateMulti);
+    noValidateMulti
+  );
 });
 
 Migrations.add('add-custom-html-before-body-end', () => {
-  Settings.update({
-    customHTMLbeforeBodyEnd: {
-      $exists: false,
+  Settings.update(
+    {
+      customHTMLbeforeBodyEnd: {
+        $exists: false,
+      },
     },
-  }, {
-    $set: {
-      customHTMLbeforeBodyEnd:'',
+    {
+      $set: {
+        customHTMLbeforeBodyEnd: '',
+      },
     },
-  }, noValidateMulti);
+    noValidateMulti
+  );
 });
 
 Migrations.add('add-displayAuthenticationMethod', () => {
-  Settings.update({
-    displayAuthenticationMethod: {
-      $exists: false,
+  Settings.update(
+    {
+      displayAuthenticationMethod: {
+        $exists: false,
+      },
     },
-  }, {
-    $set: {
-      displayAuthenticationMethod: true,
+    {
+      $set: {
+        displayAuthenticationMethod: true,
+      },
     },
-  }, noValidateMulti);
+    noValidateMulti
+  );
 });
 
 Migrations.add('add-defaultAuthenticationMethod', () => {
-  Settings.update({
-    defaultAuthenticationMethod: {
-      $exists: false,
+  Settings.update(
+    {
+      defaultAuthenticationMethod: {
+        $exists: false,
+      },
     },
-  }, {
-    $set: {
-      defaultAuthenticationMethod: 'password',
+    {
+      $set: {
+        defaultAuthenticationMethod: 'password',
+      },
     },
-  }, noValidateMulti);
+    noValidateMulti
+  );
 });
 
 Migrations.add('add-templates', () => {
-  Boards.update({
-    type: {
-      $exists: false,
+  Boards.update(
+    {
+      type: {
+        $exists: false,
+      },
     },
-  }, {
-    $set: {
-      type: 'board',
+    {
+      $set: {
+        type: 'board',
+      },
     },
-  }, noValidateMulti);
-  Swimlanes.update({
-    type: {
-      $exists: false,
+    noValidateMulti
+  );
+  Swimlanes.update(
+    {
+      type: {
+        $exists: false,
+      },
     },
-  }, {
-    $set: {
-      type: 'swimlane',
+    {
+      $set: {
+        type: 'swimlane',
+      },
     },
-  }, noValidateMulti);
-  Lists.update({
-    type: {
-      $exists: false,
+    noValidateMulti
+  );
+  Lists.update(
+    {
+      type: {
+        $exists: false,
+      },
+      swimlaneId: {
+        $exists: false,
+      },
     },
-    swimlaneId: {
-      $exists: false,
+    {
+      $set: {
+        type: 'list',
+        swimlaneId: '',
+      },
     },
-  }, {
-    $set: {
-      type: 'list',
-      swimlaneId: '',
-    },
-  }, noValidateMulti);
+    noValidateMulti
+  );
   Users.find({
     'profile.templatesBoardId': {
       $exists: false,
     },
   }).forEach((user) => {
     // Create board and swimlanes
-    Boards.insert({
-      title: TAPi18n.__('templates'),
-      permission: 'private',
-      type: 'template-container',
-      members: [
-        {
-          userId: user._id,
-          isAdmin: true,
-          isActive: true,
-          isNoComments: false,
-          isCommentOnly: false,
-        },
-      ],
-    }, (err, boardId) => {
-
-      // Insert the reference to our templates board
-      Users.update(user._id, {$set: {'profile.templatesBoardId': boardId}});
-
-      // Insert the card templates swimlane
-      Swimlanes.insert({
-        title: TAPi18n.__('card-templates-swimlane'),
-        boardId,
-        sort: 1,
+    Boards.insert(
+      {
+        title: TAPi18n.__('templates'),
+        permission: 'private',
         type: 'template-container',
-      }, (err, swimlaneId) => {
+        members: [
+          {
+            userId: user._id,
+            isAdmin: true,
+            isActive: true,
+            isNoComments: false,
+            isCommentOnly: false,
+          },
+        ],
+      },
+      (err, boardId) => {
+        // Insert the reference to our templates board
+        Users.update(user._id, {
+          $set: { 'profile.templatesBoardId': boardId },
+        });
 
-        // Insert the reference to out card templates swimlane
-        Users.update(user._id, {$set: {'profile.cardTemplatesSwimlaneId': swimlaneId}});
-      });
+        // Insert the card templates swimlane
+        Swimlanes.insert(
+          {
+            title: TAPi18n.__('card-templates-swimlane'),
+            boardId,
+            sort: 1,
+            type: 'template-container',
+          },
+          (err, swimlaneId) => {
+            // Insert the reference to out card templates swimlane
+            Users.update(user._id, {
+              $set: { 'profile.cardTemplatesSwimlaneId': swimlaneId },
+            });
+          }
+        );
 
-      // Insert the list templates swimlane
-      Swimlanes.insert({
-        title: TAPi18n.__('list-templates-swimlane'),
-        boardId,
-        sort: 2,
-        type: 'template-container',
-      }, (err, swimlaneId) => {
+        // Insert the list templates swimlane
+        Swimlanes.insert(
+          {
+            title: TAPi18n.__('list-templates-swimlane'),
+            boardId,
+            sort: 2,
+            type: 'template-container',
+          },
+          (err, swimlaneId) => {
+            // Insert the reference to out list templates swimlane
+            Users.update(user._id, {
+              $set: { 'profile.listTemplatesSwimlaneId': swimlaneId },
+            });
+          }
+        );
 
-        // Insert the reference to out list templates swimlane
-        Users.update(user._id, {$set: {'profile.listTemplatesSwimlaneId': swimlaneId}});
-      });
-
-      // Insert the board templates swimlane
-      Swimlanes.insert({
-        title: TAPi18n.__('board-templates-swimlane'),
-        boardId,
-        sort: 3,
-        type: 'template-container',
-      }, (err, swimlaneId) => {
-
-        // Insert the reference to out board templates swimlane
-        Users.update(user._id, {$set: {'profile.boardTemplatesSwimlaneId': swimlaneId}});
-      });
-    });
+        // Insert the board templates swimlane
+        Swimlanes.insert(
+          {
+            title: TAPi18n.__('board-templates-swimlane'),
+            boardId,
+            sort: 3,
+            type: 'template-container',
+          },
+          (err, swimlaneId) => {
+            // Insert the reference to out board templates swimlane
+            Users.update(user._id, {
+              $set: { 'profile.boardTemplatesSwimlaneId': swimlaneId },
+            });
+          }
+        );
+      }
+    );
   });
 });
 
 Migrations.add('fix-circular-reference_', () => {
   Cards.find().forEach((card) => {
     if (card.parentId === card._id) {
-      Cards.update(card._id, {$set: {parentId: ''}}, noValidateMulti);
+      Cards.update(card._id, { $set: { parentId: '' } }, noValidateMulti);
     }
   });
 });
 
 Migrations.add('mutate-boardIds-in-customfields', () => {
   CustomFields.find().forEach((cf) => {
-    CustomFields.update(cf, {
-      $set: {
-        boardIds: [cf.boardId],
+    CustomFields.update(
+      cf,
+      {
+        $set: {
+          boardIds: [cf.boardId],
+        },
+        $unset: {
+          boardId: '',
+        },
       },
-      $unset: {
-        boardId: '',
-      },
-    }, noValidateMulti);
+      noValidateMulti
+    );
   });
+});
+
+const firstBatchOfDbsToAddCreatedAndUpdated = [
+  AccountSettings,
+  Actions,
+  Activities,
+  Announcements,
+  Boards,
+  CardComments,
+  Cards,
+  ChecklistItems,
+  Checklists,
+  CustomFields,
+  Integrations,
+  InvitationCodes,
+  Lists,
+  Rules,
+  Settings,
+  Swimlanes,
+  Triggers,
+  UnsavedEdits,
+];
+
+firstBatchOfDbsToAddCreatedAndUpdated.forEach((db) => {
+  db.before.insert((userId, doc) => {
+    doc.createdAt = Date.now();
+    doc.updatedAt = doc.createdAt;
+  });
+
+  db.before.update((userId, doc, fieldNames, modifier, options) => {
+    modifier.$set = modifier.$set || {};
+    modifier.$set.updatedAt = new Date();
+  });
+});
+
+const modifiedAtTables = [
+  AccountSettings,
+  Actions,
+  Activities,
+  Announcements,
+  Boards,
+  CardComments,
+  Cards,
+  ChecklistItems,
+  Checklists,
+  CustomFields,
+  Integrations,
+  InvitationCodes,
+  Lists,
+  Rules,
+  Settings,
+  Swimlanes,
+  Triggers,
+  UnsavedEdits,
+  Users,
+];
+
+Migrations.add('add-missing-created-and-modified', () => {
+  Promise.all(
+    modifiedAtTables.map((db) =>
+      db
+        .rawCollection()
+        .update(
+          { modifiedAt: { $exists: false } },
+          { $set: { modifiedAt: new Date() } },
+          { multi: true }
+        )
+        .then(() =>
+          db
+            .rawCollection()
+            .update(
+              { createdAt: { $exists: false } },
+              { $set: { createdAt: new Date() } },
+              { multi: true }
+            )
+        )
+    )
+  )
+    .then(() => {
+      // eslint-disable-next-line no-console
+      console.info('Successfully added createdAt and updatedAt to all tables');
+    })
+    .catch((e) => {
+      // eslint-disable-next-line no-console
+      console.error(e);
+    });
 });

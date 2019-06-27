@@ -3,125 +3,161 @@ Lists = new Mongo.Collection('lists');
 /**
  * A list (column) in the Wekan board.
  */
-Lists.attachSchema(new SimpleSchema({
-  title: {
-    /**
-     * the title of the list
-     */
-    type: String,
-  },
-  archived: {
-    /**
-     * is the list archived
-     */
-    type: Boolean,
-    autoValue() { // eslint-disable-line consistent-return
-      if (this.isInsert && !this.isSet) {
-        return false;
-      }
+Lists.attachSchema(
+  new SimpleSchema({
+    title: {
+      /**
+       * the title of the list
+       */
+      type: String,
     },
-  },
-  boardId: {
-    /**
-     * the board associated to this list
-     */
-    type: String,
-  },
-  swimlaneId: {
-    /**
-     * the swimlane associated to this list. Used for templates
-     */
-    type: String,
-    defaultValue: '',
-  },
-  createdAt: {
-    /**
-     * creation date
-     */
-    type: Date,
-    autoValue() { // eslint-disable-line consistent-return
-      if (this.isInsert) {
-        return new Date();
-      } else {
-        this.unset();
-      }
+    archived: {
+      /**
+       * is the list archived
+       */
+      type: Boolean,
+      // eslint-disable-next-line consistent-return
+      autoValue() {
+        if (this.isInsert && !this.isSet) {
+          return false;
+        }
+      },
     },
-  },
-  sort: {
-    /**
-     * is the list sorted
-     */
-    type: Number,
-    decimal: true,
-    // XXX We should probably provide a default
-    optional: true,
-  },
-  updatedAt: {
-    /**
-     * last update of the list
-     */
-    type: Date,
-    optional: true,
-    autoValue() { // eslint-disable-line consistent-return
-      if (this.isUpdate) {
-        return new Date();
-      } else {
-        this.unset();
-      }
+    boardId: {
+      /**
+       * the board associated to this list
+       */
+      type: String,
     },
-  },
-  wipLimit: {
-    /**
-     * WIP object, see below
-     */
-    type: Object,
-    optional: true,
-  },
-  'wipLimit.value': {
-    /**
-     * value of the WIP
-     */
-    type: Number,
-    decimal: false,
-    defaultValue: 1,
-  },
-  'wipLimit.enabled': {
-    /**
-     * is the WIP enabled
-     */
-    type: Boolean,
-    defaultValue: false,
-  },
-  'wipLimit.soft': {
-    /**
-     * is the WIP a soft or hard requirement
-     */
-    type: Boolean,
-    defaultValue: false,
-  },
-  color: {
-    /**
-     * the color of the list
-     */
-    type: String,
-    optional: true,
-    // silver is the default, so it is left out
-    allowedValues: [
-      'white', 'green', 'yellow', 'orange', 'red', 'purple',
-      'blue', 'sky', 'lime', 'pink', 'black',
-      'peachpuff', 'crimson', 'plum', 'darkgreen',
-      'slateblue', 'magenta', 'gold', 'navy', 'gray',
-      'saddlebrown', 'paleturquoise', 'mistyrose', 'indigo',
-    ],
-  },
-  type: {
-    /**
-     * The type of list
-     */
-    type: String,
-    defaultValue: 'list',
-  },
-}));
+    swimlaneId: {
+      /**
+       * the swimlane associated to this list. Used for templates
+       */
+      type: String,
+      defaultValue: '',
+    },
+    createdAt: {
+      /**
+       * creation date
+       */
+      type: Date,
+      // eslint-disable-next-line consistent-return
+      autoValue() {
+        if (this.isInsert) {
+          return new Date();
+        } else {
+          this.unset();
+        }
+      },
+    },
+    sort: {
+      /**
+       * is the list sorted
+       */
+      type: Number,
+      decimal: true,
+      // XXX We should probably provide a default
+      optional: true,
+    },
+    updatedAt: {
+      /**
+       * last update of the list
+       */
+      type: Date,
+      optional: true,
+      // eslint-disable-next-line consistent-return
+      autoValue() {
+        if (this.isUpdate || this.isUpsert || this.isInsert) {
+          return new Date();
+        } else {
+          this.unset();
+        }
+      },
+    },
+    modifiedAt: {
+      type: Date,
+      denyUpdate: false,
+      // eslint-disable-next-line consistent-return
+      autoValue() {
+        if (this.isInsert || this.isUpsert || this.isUpdate) {
+          return new Date();
+        } else {
+          this.unset();
+        }
+      },
+    },
+    wipLimit: {
+      /**
+       * WIP object, see below
+       */
+      type: Object,
+      optional: true,
+    },
+    'wipLimit.value': {
+      /**
+       * value of the WIP
+       */
+      type: Number,
+      decimal: false,
+      defaultValue: 1,
+    },
+    'wipLimit.enabled': {
+      /**
+       * is the WIP enabled
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
+    'wipLimit.soft': {
+      /**
+       * is the WIP a soft or hard requirement
+       */
+      type: Boolean,
+      defaultValue: false,
+    },
+    color: {
+      /**
+       * the color of the list
+       */
+      type: String,
+      optional: true,
+      // silver is the default, so it is left out
+      allowedValues: [
+        'white',
+        'green',
+        'yellow',
+        'orange',
+        'red',
+        'purple',
+        'blue',
+        'sky',
+        'lime',
+        'pink',
+        'black',
+        'peachpuff',
+        'crimson',
+        'plum',
+        'darkgreen',
+        'slateblue',
+        'magenta',
+        'gold',
+        'navy',
+        'gray',
+        'saddlebrown',
+        'paleturquoise',
+        'mistyrose',
+        'indigo',
+      ],
+    },
+    type: {
+      /**
+       * The type of list
+       */
+      type: String,
+      defaultValue: 'list',
+    },
+  })
+);
 
 Lists.allow({
   insert(userId, doc) {
@@ -172,10 +208,8 @@ Lists.helpers({
       listId: this._id,
       archived: false,
     };
-    if (swimlaneId)
-      selector.swimlaneId = swimlaneId;
-    return Cards.find(Filter.mongoSelector(selector),
-      { sort: ['sort'] });
+    if (swimlaneId) selector.swimlaneId = swimlaneId;
+    return Cards.find(Filter.mongoSelector(selector), { sort: ['sort'] });
   },
 
   cardsUnfiltered(swimlaneId) {
@@ -183,10 +217,8 @@ Lists.helpers({
       listId: this._id,
       archived: false,
     };
-    if (swimlaneId)
-      selector.swimlaneId = swimlaneId;
-    return Cards.find(selector,
-      { sort: ['sort'] });
+    if (swimlaneId) selector.swimlaneId = swimlaneId;
+    return Cards.find(selector, { sort: ['sort'] });
   },
 
   allCards() {
@@ -197,11 +229,12 @@ Lists.helpers({
     return Boards.findOne(this.boardId);
   },
 
-  getWipLimit(option){
+  getWipLimit(option) {
     const list = Lists.findOne({ _id: this._id });
-    if(!list.wipLimit) { // Necessary check to avoid exceptions for the case where the doc doesn't have the wipLimit field yet set
+    if (!list.wipLimit) {
+      // Necessary check to avoid exceptions for the case where the doc doesn't have the wipLimit field yet set
       return 0;
-    } else if(!option) {
+    } else if (!option) {
       return list.wipLimit;
     } else {
       return list.wipLimit[option] ? list.wipLimit[option] : 0; // Necessary check to avoid exceptions for the case where the doc doesn't have the wipLimit field yet set
@@ -209,8 +242,7 @@ Lists.helpers({
   },
 
   colorClass() {
-    if (this.color)
-      return this.color;
+    if (this.color) return this.color;
     return '';
   },
 
@@ -219,7 +251,7 @@ Lists.helpers({
   },
 
   remove() {
-    Lists.remove({ _id: this._id});
+    Lists.remove({ _id: this._id });
   },
 });
 
@@ -271,10 +303,10 @@ Lists.mutations({
 });
 
 Meteor.methods({
-  applyWipLimit(listId, limit){
+  applyWipLimit(listId, limit) {
     check(listId, String);
     check(limit, Number);
-    if(limit === 0){
+    if (limit === 0) {
       limit = 1;
     }
     Lists.findOne({ _id: listId }).setWipLimit(limit);
@@ -283,7 +315,7 @@ Meteor.methods({
   enableWipLimit(listId) {
     check(listId, String);
     const list = Lists.findOne({ _id: listId });
-    if(list.getWipLimit('value') === 0){
+    if (list.getWipLimit('value') === 0) {
       list.setWipLimit(1);
     }
     list.toggleWipLimit(!list.getWipLimit('enabled'));
@@ -300,6 +332,7 @@ Lists.hookOptions.after.update = { fetchPrevious: false };
 
 if (Meteor.isServer) {
   Meteor.startup(() => {
+    Lists._collection._ensureIndex({ modifiedAt: -1 });
     Lists._collection._ensureIndex({ boardId: 1 });
   });
 
@@ -311,6 +344,11 @@ if (Meteor.isServer) {
       boardId: doc.boardId,
       listId: doc._id,
     });
+  });
+
+  Lists.before.update((userId, doc, fieldNames, modifier, options) => {
+    modifier.$set = modifier.$set || {};
+    modifier.$set.modifiedAt = Date.now();
   });
 
   Lists.before.remove((userId, doc) => {
@@ -353,22 +391,23 @@ if (Meteor.isServer) {
    * @return_type [{_id: string,
    *           title: string}]
    */
-  JsonRoutes.add('GET', '/api/boards/:boardId/lists', function (req, res) {
+  JsonRoutes.add('GET', '/api/boards/:boardId/lists', function(req, res) {
     try {
       const paramBoardId = req.params.boardId;
-      Authentication.checkBoardAccess( req.userId, paramBoardId);
+      Authentication.checkBoardAccess(req.userId, paramBoardId);
 
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: Lists.find({ boardId: paramBoardId, archived: false }).map(function (doc) {
-          return {
-            _id: doc._id,
-            title: doc.title,
-          };
-        }),
+        data: Lists.find({ boardId: paramBoardId, archived: false }).map(
+          function(doc) {
+            return {
+              _id: doc._id,
+              title: doc.title,
+            };
+          }
+        ),
       });
-    }
-    catch (error) {
+    } catch (error) {
       JsonRoutes.sendResult(res, {
         code: 200,
         data: error,
@@ -384,17 +423,23 @@ if (Meteor.isServer) {
    * @param {string} listId the List ID
    * @return_type Lists
    */
-  JsonRoutes.add('GET', '/api/boards/:boardId/lists/:listId', function (req, res) {
+  JsonRoutes.add('GET', '/api/boards/:boardId/lists/:listId', function(
+    req,
+    res
+  ) {
     try {
       const paramBoardId = req.params.boardId;
       const paramListId = req.params.listId;
-      Authentication.checkBoardAccess( req.userId, paramBoardId);
+      Authentication.checkBoardAccess(req.userId, paramBoardId);
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: Lists.findOne({ _id: paramListId, boardId: paramBoardId, archived: false }),
+        data: Lists.findOne({
+          _id: paramListId,
+          boardId: paramBoardId,
+          archived: false,
+        }),
       });
-    }
-    catch (error) {
+    } catch (error) {
       JsonRoutes.sendResult(res, {
         code: 200,
         data: error,
@@ -410,9 +455,9 @@ if (Meteor.isServer) {
    * @param {string} title the title of the List
    * @return_type {_id: string}
    */
-  JsonRoutes.add('POST', '/api/boards/:boardId/lists', function (req, res) {
+  JsonRoutes.add('POST', '/api/boards/:boardId/lists', function(req, res) {
     try {
-      Authentication.checkUserId( req.userId);
+      Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
       const board = Boards.findOne(paramBoardId);
       const id = Lists.insert({
@@ -426,8 +471,7 @@ if (Meteor.isServer) {
           _id: id,
         },
       });
-    }
-    catch (error) {
+    } catch (error) {
       JsonRoutes.sendResult(res, {
         code: 200,
         data: error,
@@ -446,9 +490,12 @@ if (Meteor.isServer) {
    * @param {string} listId the ID of the list to remove
    * @return_type {_id: string}
    */
-  JsonRoutes.add('DELETE', '/api/boards/:boardId/lists/:listId', function (req, res) {
+  JsonRoutes.add('DELETE', '/api/boards/:boardId/lists/:listId', function(
+    req,
+    res
+  ) {
     try {
-      Authentication.checkUserId( req.userId);
+      Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
       const paramListId = req.params.listId;
       Lists.remove({ _id: paramListId, boardId: paramBoardId });
@@ -458,13 +505,13 @@ if (Meteor.isServer) {
           _id: paramListId,
         },
       });
-    }
-    catch (error) {
+    } catch (error) {
       JsonRoutes.sendResult(res, {
         code: 200,
         data: error,
       });
     }
   });
-
 }
+
+export default Lists;

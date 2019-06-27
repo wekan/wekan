@@ -69,7 +69,11 @@ Activities.before.insert((userId, doc) => {
 Activities.after.insert((userId, doc) => {
   const activity = Activities._transform(doc);
   RulesHelper.executeRules(activity);
+});
 
+Activities.before.update((userId, doc, fieldNames, modifier, options) => {
+  modifier.$set = modifier.$set || {};
+  modifier.$set.modifiedAt = Date.now();
 });
 
 if (Meteor.isServer) {
@@ -78,11 +82,21 @@ if (Meteor.isServer) {
   // are largely used in the App. See #524.
   Meteor.startup(() => {
     Activities._collection._ensureIndex({ createdAt: -1 });
+    Activities._collection._ensureIndex({ modifiedAt: -1 });
     Activities._collection._ensureIndex({ cardId: 1, createdAt: -1 });
     Activities._collection._ensureIndex({ boardId: 1, createdAt: -1 });
-    Activities._collection._ensureIndex({ commentId: 1 }, { partialFilterExpression: { commentId: { $exists: true } } });
-    Activities._collection._ensureIndex({ attachmentId: 1 }, { partialFilterExpression: { attachmentId: { $exists: true } } });
-    Activities._collection._ensureIndex({ customFieldId: 1 }, { partialFilterExpression: { customFieldId: { $exists: true } } });
+    Activities._collection._ensureIndex(
+      { commentId: 1 },
+      { partialFilterExpression: { commentId: { $exists: true } } }
+    );
+    Activities._collection._ensureIndex(
+      { attachmentId: 1 },
+      { partialFilterExpression: { attachmentId: { $exists: true } } }
+    );
+    Activities._collection._ensureIndex(
+      { customFieldId: 1 },
+      { partialFilterExpression: { customFieldId: { $exists: true } } }
+    );
     // Label activity did not work yet, unable to edit labels when tried this.
     //Activities._collection._dropIndex({ labelId: 1 }, { "indexKey": -1 });
     //Activities._collection._dropIndex({ labelId: 1 }, { partialFilterExpression: { labelId: { $exists: true } } });
@@ -189,18 +203,35 @@ if (Meteor.isServer) {
     //  params.labelId = activity.labelId;
     //}
     if (board) {
-      const watchingUsers = _.pluck(_.where(board.watchers, {level: 'watching'}), 'userId');
-      const trackingUsers = _.pluck(_.where(board.watchers, {level: 'tracking'}), 'userId');
-      watchers = _.union(watchers, watchingUsers, _.intersection(participants, trackingUsers));
+      const watchingUsers = _.pluck(
+        _.where(board.watchers, { level: 'watching' }),
+        'userId'
+      );
+      const trackingUsers = _.pluck(
+        _.where(board.watchers, { level: 'tracking' }),
+        'userId'
+      );
+      watchers = _.union(
+        watchers,
+        watchingUsers,
+        _.intersection(participants, trackingUsers)
+      );
     }
 
     Notifications.getUsers(watchers).forEach((user) => {
       Notifications.notify(user, title, description, params);
     });
 
-    const integrations = Integrations.find({ boardId: board._id, type: 'outgoing-webhooks', enabled: true, activities: { '$in': [description, 'all'] } }).fetch();
+    const integrations = Integrations.find({
+      boardId: board._id,
+      type: 'outgoing-webhooks',
+      enabled: true,
+      activities: { $in: [description, 'all'] },
+    }).fetch();
     if (integrations.length > 0) {
       Meteor.call('outgoingWebhooks', integrations, description, params);
     }
   });
 }
+
+export default Activities;
