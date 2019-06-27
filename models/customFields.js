@@ -117,6 +117,29 @@ function customFieldCreation(userId, doc){
   });
 }
 
+function customFieldDeletion(userId, doc){
+  Activities.insert({
+    userId,
+    activityType: 'deleteCustomField',
+    boardId: doc.boardIds[0], // We are creating a customField, it has only one boardId
+    customFieldId: doc._id,
+  });
+}
+
+// This has some bug, it does not show edited customField value at Outgoing Webhook,
+// instead it shows undefined, and no listId and swimlaneId.
+function customFieldEdit(userId, doc){
+  const card = Cards.findOne(doc.cardId);
+  Activities.insert({
+    userId,
+    activityType: 'editCustomField',
+    boardId: doc.boardIds[0], // We are creating a customField, it has only one boardId
+    customFieldId: doc._id,
+    listId: card.listId,
+    swimlaneId: card.swimlaneId,
+  });
+}
+
 if (Meteor.isServer) {
   Meteor.startup(() => {
     CustomFields._collection._ensureIndex({ boardIds: 1 });
@@ -133,9 +156,12 @@ if (Meteor.isServer) {
         {$pull: {'customFields': {'_id': doc._id}}},
         {multi: true}
       );
+      customFieldEdit(userId, doc);
       Activities.remove({
         customFieldId: doc._id,
         boardId: modifier.$pull.boardIds,
+        listId: card.listId,
+        swimlaneId: card.swimlaneId,
       });
     } else if (_.contains(fieldNames, 'boardIds') && modifier.$push) {
       Activities.insert({
@@ -148,6 +174,7 @@ if (Meteor.isServer) {
   });
 
   CustomFields.before.remove((userId, doc) => {
+    customFieldDeletion(userId, doc);
     Activities.remove({
       customFieldId: doc._id,
     });
