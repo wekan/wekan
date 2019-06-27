@@ -4,10 +4,29 @@
   "description": "Open-Source kanban",
   "private": true,
   "scripts": {
-    "lint": "eslint --ignore-pattern 'packages/*' .",
+    "lint": "eslint --cache --ext .js --ignore-path .eslintignore .",
+    "lint:eslint:fix": "eslint --ext .js --ignore-path .eslintignore --fix .",
+    "lint:staged": "lint-staged",
     "prettify": "prettier --write '**/*.js' '**/*.jsx'",
     "test": "npm run --silent lint"
   },
+  "lint-staged": {
+    "*.js": [
+      "meteor npm run prettify",
+      "meteor npm run lint:eslint:fix",
+      "git add --force"
+    ],
+    "*.jsx": [
+      "meteor npm run prettify",
+      "meteor npm run lint:eslint:fix",
+      "git add --force"
+    ],
+    "*.json": [
+      "prettier --write",
+      "git add --force"
+    ]
+  },
+  "pre-commit": "lint:staged",
   "eslintConfig": {
     "extends": "@meteorjs/eslint-config-meteor"
   },
@@ -28,6 +47,8 @@
     "eslint-plugin-import": "^2.18.0",
     "eslint-plugin-meteor": "^4.2.2",
     "eslint-plugin-prettier": "^3.1.0",
+    "lint-staged": "^7.3.0",
+    "pre-commit": "^1.2.2",
     "prettier": "^1.18.2",
     "prettier-eslint": "^8.8.2"
   },
