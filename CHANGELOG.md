@@ -1,3 +1,12 @@
+# v2.93 2019-06-28 Wekan release
+
+This release fixes the following bugs:
+
+- [LDAP: Check if email attribute is an array, that has many email addresses](https://github.com/wekan/wekan/pull/2519).
+  Thanks to tdemaret and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.92 2019-06-27 Wekan release
 
 This release fixes the following bugs:
