@@ -71,17 +71,18 @@ class SetFilter {
   _getEmptySelector() {
     this._dep.depend();
     let includeEmpty = false;
-    this._selectedElements.forEach((el) => {
+    this._selectedElements.forEach(el => {
       if (el === undefined) {
         includeEmpty = true;
       }
     });
-    return includeEmpty ? {
-      $eq: [],
-    } : null;
+    return includeEmpty
+      ? {
+          $eq: [],
+        }
+      : null;
   }
 }
-
 
 // Advanced filter forms a MongoSelector from a users String.
 // Build by: Ignatz 19.05.2018 (github feuerball11)
@@ -128,7 +129,8 @@ class AdvancedFilter {
         current += char;
         continue;
       }
-      if (char === '\'') {
+      // eslint-disable-next-line quotes
+      if (char === "'") {
         string = !string;
         if (string) wasString = true;
         continue;
@@ -139,8 +141,8 @@ class AdvancedFilter {
       }
       if (char === ' ' && !string) {
         commands.push({
-          'cmd': current,
-          'string': wasString,
+          cmd: current,
+          string: wasString,
           regex,
         });
         wasString = false;
@@ -151,8 +153,8 @@ class AdvancedFilter {
     }
     if (current !== '') {
       commands.push({
-        'cmd': current,
-        'string': wasString,
+        cmd: current,
+        string: wasString,
         regex,
       });
     }
@@ -161,16 +163,19 @@ class AdvancedFilter {
 
   _fieldNameToId(field) {
     const found = CustomFields.findOne({
-      'name': field,
+      name: field,
     });
     return found._id;
   }
 
   _fieldValueToId(field, value) {
     const found = CustomFields.findOne({
-      'name': field,
+      name: field,
     });
-    if (found.settings.dropdownItems && found.settings.dropdownItems.length > 0) {
+    if (
+      found.settings.dropdownItems &&
+      found.settings.dropdownItems.length > 0
+    ) {
       for (let i = 0; i < found.settings.dropdownItems.length; i++) {
         if (found.settings.dropdownItems[i].name === value) {
           return found.settings.dropdownItems[i]._id;
@@ -202,37 +207,32 @@ class AdvancedFilter {
     for (let i = 0; i < commands.length; i++) {
       if (commands[i].cmd) {
         switch (commands[i].cmd) {
-        case '(':
-        {
-          level++;
-          if (start === -1) start = i;
-          continue;
-        }
-        case ')':
-        {
-          level--;
-          commands.splice(i, 1);
-          i--;
-          continue;
-        }
-        default:
-        {
-          if (level > 0) {
-            subcommands.push(commands[i]);
+          case '(': {
+            level++;
+            if (start === -1) start = i;
+            continue;
+          }
+          case ')': {
+            level--;
             commands.splice(i, 1);
             i--;
             continue;
           }
-        }
+          default: {
+            if (level > 0) {
+              subcommands.push(commands[i]);
+              commands.splice(i, 1);
+              i--;
+              continue;
+            }
+          }
         }
       }
     }
     if (start !== -1) {
       this._processSubCommands(subcommands);
-      if (subcommands.length === 1)
-        commands.splice(start, 0, subcommands[0]);
-      else
-        commands.splice(start, 0, subcommands);
+      if (subcommands.length === 1) commands.splice(start, 0, subcommands[0]);
+      else commands.splice(start, 0, subcommands);
     }
     this._processConditions(commands);
     this._processLogicalOperators(commands);
@@ -242,149 +242,139 @@ class AdvancedFilter {
     for (let i = 0; i < commands.length; i++) {
       if (!commands[i].string && commands[i].cmd) {
         switch (commands[i].cmd) {
-        case '=':
-        case '==':
-        case '===':
-        {
-          const field = commands[i - 1].cmd;
-          const str = commands[i + 1].cmd;
-          if (commands[i + 1].regex) {
-            const match = str.match(new RegExp('^/(.*?)/([gimy]*)$'));
-            let regex = null;
-            if (match.length > 2)
-              regex = new RegExp(match[1], match[2]);
-            else
-              regex = new RegExp(match[1]);
-            commands[i] = {
-              'customFields._id': this._fieldNameToId(field),
-              'customFields.value': regex,
-            };
-          } else {
-            commands[i] = {
-              'customFields._id': this._fieldNameToId(field),
-              'customFields.value': {
-                $in: [this._fieldValueToId(field, str), parseInt(str, 10)],
-              },
-            };
-          }
-          commands.splice(i - 1, 1);
-          commands.splice(i, 1);
-          //changed = true;
-          i--;
-          break;
-        }
-        case '!=':
-        case '!==':
-        {
-          const field = commands[i - 1].cmd;
-          const str = commands[i + 1].cmd;
-          if (commands[i + 1].regex) {
-            const match = str.match(new RegExp('^/(.*?)/([gimy]*)$'));
-            let regex = null;
-            if (match.length > 2)
-              regex = new RegExp(match[1], match[2]);
-            else
-              regex = new RegExp(match[1]);
-            commands[i] = {
-              'customFields._id': this._fieldNameToId(field),
-              'customFields.value': {
-                $not: regex,
-              },
-            };
-          } else {
-            commands[i] = {
-              'customFields._id': this._fieldNameToId(field),
-              'customFields.value': {
-                $not: {
+          case '=':
+          case '==':
+          case '===': {
+            const field = commands[i - 1].cmd;
+            const str = commands[i + 1].cmd;
+            if (commands[i + 1].regex) {
+              const match = str.match(new RegExp('^/(.*?)/([gimy]*)$'));
+              let regex = null;
+              if (match.length > 2) regex = new RegExp(match[1], match[2]);
+              else regex = new RegExp(match[1]);
+              commands[i] = {
+                'customFields._id': this._fieldNameToId(field),
+                'customFields.value': regex,
+              };
+            } else {
+              commands[i] = {
+                'customFields._id': this._fieldNameToId(field),
+                'customFields.value': {
                   $in: [this._fieldValueToId(field, str), parseInt(str, 10)],
                 },
+              };
+            }
+            commands.splice(i - 1, 1);
+            commands.splice(i, 1);
+            //changed = true;
+            i--;
+            break;
+          }
+          case '!=':
+          case '!==': {
+            const field = commands[i - 1].cmd;
+            const str = commands[i + 1].cmd;
+            if (commands[i + 1].regex) {
+              const match = str.match(new RegExp('^/(.*?)/([gimy]*)$'));
+              let regex = null;
+              if (match.length > 2) regex = new RegExp(match[1], match[2]);
+              else regex = new RegExp(match[1]);
+              commands[i] = {
+                'customFields._id': this._fieldNameToId(field),
+                'customFields.value': {
+                  $not: regex,
+                },
+              };
+            } else {
+              commands[i] = {
+                'customFields._id': this._fieldNameToId(field),
+                'customFields.value': {
+                  $not: {
+                    $in: [this._fieldValueToId(field, str), parseInt(str, 10)],
+                  },
+                },
+              };
+            }
+            commands.splice(i - 1, 1);
+            commands.splice(i, 1);
+            //changed = true;
+            i--;
+            break;
+          }
+          case '>':
+          case 'gt':
+          case 'Gt':
+          case 'GT': {
+            const field = commands[i - 1].cmd;
+            const str = commands[i + 1].cmd;
+            commands[i] = {
+              'customFields._id': this._fieldNameToId(field),
+              'customFields.value': {
+                $gt: parseInt(str, 10),
               },
             };
+            commands.splice(i - 1, 1);
+            commands.splice(i, 1);
+            //changed = true;
+            i--;
+            break;
           }
-          commands.splice(i - 1, 1);
-          commands.splice(i, 1);
-          //changed = true;
-          i--;
-          break;
-        }
-        case '>':
-        case 'gt':
-        case 'Gt':
-        case 'GT':
-        {
-          const field = commands[i - 1].cmd;
-          const str = commands[i + 1].cmd;
-          commands[i] = {
-            'customFields._id': this._fieldNameToId(field),
-            'customFields.value': {
-              $gt: parseInt(str, 10),
-            },
-          };
-          commands.splice(i - 1, 1);
-          commands.splice(i, 1);
-          //changed = true;
-          i--;
-          break;
-        }
-        case '>=':
-        case '>==':
-        case 'gte':
-        case 'Gte':
-        case 'GTE':
-        {
-          const field = commands[i - 1].cmd;
-          const str = commands[i + 1].cmd;
-          commands[i] = {
-            'customFields._id': this._fieldNameToId(field),
-            'customFields.value': {
-              $gte: parseInt(str, 10),
-            },
-          };
-          commands.splice(i - 1, 1);
-          commands.splice(i, 1);
-          //changed = true;
-          i--;
-          break;
-        }
-        case '<':
-        case 'lt':
-        case 'Lt':
-        case 'LT':
-        {
-          const field = commands[i - 1].cmd;
-          const str = commands[i + 1].cmd;
-          commands[i] = {
-            'customFields._id': this._fieldNameToId(field),
-            'customFields.value': {
-              $lt: parseInt(str, 10),
-            },
-          };
-          commands.splice(i - 1, 1);
-          commands.splice(i, 1);
-          //changed = true;
-          i--;
-          break;
-        }
-        case '<=':
-        case '<==':
-        case 'lte':
-        case 'Lte':
-        case 'LTE':
-        {
-          const field = commands[i - 1].cmd;
-          const str = commands[i + 1].cmd;
-          commands[i] = {
-            'customFields._id': this._fieldNameToId(field),
-            'customFields.value': {
-              $lte: parseInt(str, 10),
-            },
-          };
-          commands.splice(i - 1, 1);
-          commands.splice(i, 1);
-          //changed = true;
-          i--;
-          break;
-        }
+          case '>=':
+          case '>==':
+          case 'gte':
+          case 'Gte':
+          case 'GTE': {
+            const field = commands[i - 1].cmd;
+            const str = commands[i + 1].cmd;
+            commands[i] = {
+              'customFields._id': this._fieldNameToId(field),
+              'customFields.value': {
+                $gte: parseInt(str, 10),
+              },
+            };
+            commands.splice(i - 1, 1);
+            commands.splice(i, 1);
+            //changed = true;
+            i--;
+            break;
+          }
+          case '<':
+          case 'lt':
+          case 'Lt':
+          case 'LT': {
+            const field = commands[i - 1].cmd;
+            const str = commands[i + 1].cmd;
+            commands[i] = {
+              'customFields._id': this._fieldNameToId(field),
+              'customFields.value': {
+                $lt: parseInt(str, 10),
+              },
+            };
+            commands.splice(i - 1, 1);
+            commands.splice(i, 1);
+            //changed = true;
+            i--;
+            break;
+          }
+          case '<=':
+          case '<==':
+          case 'lte':
+          case 'Lte':
+          case 'LTE': {
+            const field = commands[i - 1].cmd;
+            const str = commands[i + 1].cmd;
+            commands[i] = {
+              'customFields._id': this._fieldNameToId(field),
+              'customFields.value': {
+                $lte: parseInt(str, 10),
+              },
+            };
+            commands.splice(i - 1, 1);
+            commands.splice(i, 1);
+            //changed = true;
+            i--;
+            break;
+          }
         }
       }
     }
@@ -394,54 +384,51 @@ class AdvancedFilter {
     for (let i = 0; i < commands.length; i++) {
       if (!commands[i].string && commands[i].cmd) {
         switch (commands[i].cmd) {
-        case 'or':
-        case 'Or':
-        case 'OR':
-        case '|':
-        case '||':
-        {
-          const op1 = commands[i - 1];
-          const op2 = commands[i + 1];
-          commands[i] = {
-            $or: [op1, op2],
-          };
-          commands.splice(i - 1, 1);
-          commands.splice(i, 1);
-          //changed = true;
-          i--;
-          break;
-        }
-        case 'and':
-        case 'And':
-        case 'AND':
-        case '&':
-        case '&&':
-        {
-          const op1 = commands[i - 1];
-          const op2 = commands[i + 1];
-          commands[i] = {
-            $and: [op1, op2],
-          };
-          commands.splice(i - 1, 1);
-          commands.splice(i, 1);
-          //changed = true;
-          i--;
-          break;
-        }
-        case 'not':
-        case 'Not':
-        case 'NOT':
-        case '!':
-        {
-          const op1 = commands[i + 1];
-          commands[i] = {
-            $not: op1,
-          };
-          commands.splice(i + 1, 1);
-          //changed = true;
-          i--;
-          break;
-        }
+          case 'or':
+          case 'Or':
+          case 'OR':
+          case '|':
+          case '||': {
+            const op1 = commands[i - 1];
+            const op2 = commands[i + 1];
+            commands[i] = {
+              $or: [op1, op2],
+            };
+            commands.splice(i - 1, 1);
+            commands.splice(i, 1);
+            //changed = true;
+            i--;
+            break;
+          }
+          case 'and':
+          case 'And':
+          case 'AND':
+          case '&':
+          case '&&': {
+            const op1 = commands[i - 1];
+            const op2 = commands[i + 1];
+            commands[i] = {
+              $and: [op1, op2],
+            };
+            commands.splice(i - 1, 1);
+            commands.splice(i, 1);
+            //changed = true;
+            i--;
+            break;
+          }
+          case 'not':
+          case 'Not':
+          case 'NOT':
+          case '!': {
+            const op1 = commands[i + 1];
+            commands[i] = {
+              $not: op1,
+            };
+            commands.splice(i + 1, 1);
+            //changed = true;
+            i--;
+            break;
+          }
         }
       }
     }
@@ -452,7 +439,6 @@ class AdvancedFilter {
     const commands = this._filterToCommands();
     return this._arrayToSelector(commands);
   }
-
 }
 
 // The global Filter object.
@@ -477,23 +463,26 @@ Filter = {
   _exceptionsDep: new Tracker.Dependency(),
 
   isActive() {
-    return _.any(this._fields, (fieldName) => {
-      return this[fieldName]._isActive();
-    }) || this.advanced._isActive();
+    return (
+      _.any(this._fields, fieldName => {
+        return this[fieldName]._isActive();
+      }) || this.advanced._isActive()
+    );
   },
 
   _getMongoSelector() {
-    if (!this.isActive())
-      return {};
+    if (!this.isActive()) return {};
 
     const filterSelector = {};
     const emptySelector = {};
     let includeEmptySelectors = false;
-    this._fields.forEach((fieldName) => {
+    this._fields.forEach(fieldName => {
       const filter = this[fieldName];
       if (filter._isActive()) {
         if (filter.subField !== '') {
-          filterSelector[`${fieldName}.${filter.subField}`] = filter._getMongoSelector();
+          filterSelector[
+            `${fieldName}.${filter.subField}`
+          ] = filter._getMongoSelector();
         } else {
           filterSelector[fieldName] = filter._getMongoSelector();
         }
@@ -513,11 +502,15 @@ Filter = {
 
     const selectors = [exceptionsSelector];
 
-    if (_.any(this._fields, (fieldName) => {
-      return this[fieldName]._isActive();
-    })) selectors.push(filterSelector);
+    if (
+      _.any(this._fields, fieldName => {
+        return this[fieldName]._isActive();
+      })
+    )
+      selectors.push(filterSelector);
     if (includeEmptySelectors) selectors.push(emptySelector);
-    if (this.advanced._isActive()) selectors.push(this.advanced._getMongoSelector());
+    if (this.advanced._isActive())
+      selectors.push(this.advanced._getMongoSelector());
 
     return {
       $or: selectors,
@@ -526,8 +519,7 @@ Filter = {
 
   mongoSelector(additionalSelector) {
     const filterSelector = this._getMongoSelector();
-    if (_.isUndefined(additionalSelector))
-      return filterSelector;
+    if (_.isUndefined(additionalSelector)) return filterSelector;
     else
       return {
         $and: [filterSelector, additionalSelector],
@@ -535,7 +527,7 @@ Filter = {
   },
 
   reset() {
-    this._fields.forEach((fieldName) => {
+    this._fields.forEach(fieldName => {
       const filter = this[fieldName];
       filter.reset();
     });

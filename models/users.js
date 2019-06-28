@@ -247,7 +247,7 @@ Users.attachSchema(
       optional: false,
       defaultValue: 'password',
     },
-  })
+  }),
 );
 
 Users.allow({
@@ -259,7 +259,7 @@ Users.allow({
     const adminsNumber = Users.find({ isAdmin: true }).count();
     const { isAdmin } = Users.findOne(
       { _id: userId },
-      { fields: { isAdmin: 1 } }
+      { fields: { isAdmin: 1 } },
     );
 
     // Prevents remove of the only one administrator
@@ -533,7 +533,7 @@ Meteor.methods({
     check(email, String);
     const existingUser = Users.findOne(
       { 'emails.address': email },
-      { fields: { _id: 1 } }
+      { fields: { _id: 1 } },
     );
     if (existingUser) {
       throw new Meteor.Error('email-already-taken');
@@ -700,7 +700,7 @@ if (Meteor.isServer) {
     if (!options || !options.profile) {
       throw new Meteor.Error(
         'error-invitation-code-blank',
-        'The invitation code is required'
+        'The invitation code is required',
       );
     }
     const invitationCode = InvitationCodes.findOne({
@@ -711,7 +711,8 @@ if (Meteor.isServer) {
     if (!invitationCode) {
       throw new Meteor.Error(
         'error-invitation-code-not-exist',
-        'The invitation code doesn\'t exist'
+        // eslint-disable-next-line quotes
+        "The invitation code doesn't exist",
       );
     } else {
       user.profile = { icode: options.profile.invitationcode };
@@ -722,17 +723,12 @@ if (Meteor.isServer) {
         Meteor.bindEnvironment(() => {
           InvitationCodes.remove({ _id: invitationCode._id });
         }),
-        200
+        200,
       );
       return user;
     }
   });
 }
-
-Users.before.update((userId, doc, fieldNames, modifier, options) => {
-  modifier.$set = modifier.$set || {};
-  modifier.$set.modifiedAt = Date.now();
-});
 
 if (Meteor.isServer) {
   // Let mongoDB ensure username unicity
@@ -742,7 +738,7 @@ if (Meteor.isServer) {
       {
         username: 1,
       },
-      { unique: true }
+      { unique: true },
     );
   });
 
@@ -786,7 +782,7 @@ if (Meteor.isServer) {
     // b. We use it to find deleted and newly inserted ids by using it in one
     // direction and then in the other.
     function incrementBoards(boardsIds, inc) {
-      boardsIds.forEach((boardId) => {
+      boardsIds.forEach(boardId => {
         Boards.update(boardId, { $inc: { stars: inc } });
       });
     }
@@ -855,7 +851,7 @@ if (Meteor.isServer) {
                 Users.update(fakeUserId.get(), {
                   $set: { 'profile.cardTemplatesSwimlaneId': swimlaneId },
                 });
-              }
+              },
             );
 
             // Insert the list templates swimlane
@@ -872,7 +868,7 @@ if (Meteor.isServer) {
                 Users.update(fakeUserId.get(), {
                   $set: { 'profile.listTemplatesSwimlaneId': swimlaneId },
                 });
-              }
+              },
             );
 
             // Insert the board templates swimlane
@@ -889,9 +885,9 @@ if (Meteor.isServer) {
                 Users.update(fakeUserId.get(), {
                   $set: { 'profile.boardTemplatesSwimlaneId': swimlaneId },
                 });
-              }
+              },
             );
-          }
+          },
         );
       });
     });
@@ -921,7 +917,7 @@ if (Meteor.isServer) {
       if (!invitationCode) {
         throw new Meteor.Error('error-invitation-code-not-exist');
       } else {
-        invitationCode.boardsToBeInvited.forEach((boardId) => {
+        invitationCode.boardsToBeInvited.forEach(boardId => {
           const board = Boards.findOne(boardId);
           board.addMember(doc._id);
         });
@@ -1071,7 +1067,7 @@ if (Meteor.isServer) {
                   loginDisabled: true,
                   'services.resume.loginTokens': '',
                 },
-              }
+              },
             );
           } else if (action === 'enableLogin') {
             Users.update({ _id: id }, { $set: { loginDisabled: '' } });
@@ -1112,7 +1108,7 @@ if (Meteor.isServer) {
    */
   JsonRoutes.add('POST', '/api/boards/:boardId/members/:userId/add', function(
     req,
-    res
+    res,
   ) {
     try {
       Authentication.checkUserId(req.userId);
@@ -1136,7 +1132,7 @@ if (Meteor.isServer) {
                 isTrue(isAdmin),
                 isTrue(isNoComments),
                 isTrue(isCommentOnly),
-                userId
+                userId,
               );
             }
             return {
@@ -1207,7 +1203,7 @@ if (Meteor.isServer) {
           data: error,
         });
       }
-    }
+    },
   );
 
   /**

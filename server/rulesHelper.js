@@ -1,72 +1,78 @@
 RulesHelper = {
-  executeRules(activity){
+  executeRules(activity) {
     const matchingRules = this.findMatchingRules(activity);
-    for(let i = 0; i< matchingRules.length; i++){
+    for (let i = 0; i < matchingRules.length; i++) {
       const action = matchingRules[i].getAction();
-      if(action !== undefined){
+      if (action !== undefined) {
         this.performAction(activity, action);
       }
     }
   },
-  findMatchingRules(activity){
+  findMatchingRules(activity) {
     const activityType = activity.activityType;
-    if(TriggersDef[activityType] === undefined){
+    if (TriggersDef[activityType] === undefined) {
       return [];
     }
     const matchingFields = TriggersDef[activityType].matchingFields;
     const matchingMap = this.buildMatchingFieldsMap(activity, matchingFields);
     const matchingTriggers = Triggers.find(matchingMap);
     const matchingRules = [];
-    matchingTriggers.forEach(function(trigger){
+    matchingTriggers.forEach(function(trigger) {
       const rule = trigger.getRule();
       // Check that for some unknown reason there are some leftover triggers
       // not connected to any rules
-      if(rule !== undefined){
+      if (rule !== undefined) {
         matchingRules.push(trigger.getRule());
       }
     });
     return matchingRules;
   },
-  buildMatchingFieldsMap(activity, matchingFields){
-    const matchingMap = {'activityType':activity.activityType};
-    for(let i = 0; i< matchingFields.length; i++){
+  buildMatchingFieldsMap(activity, matchingFields) {
+    const matchingMap = { activityType: activity.activityType };
+    for (let i = 0; i < matchingFields.length; i++) {
       // Creating a matching map with the actual field of the activity
       // and with the wildcard (for example: trigger when a card is added
       // in any [*] board
-      matchingMap[matchingFields[i]] = { $in: [activity[matchingFields[i]], '*']};
+      matchingMap[matchingFields[i]] = {
+        $in: [activity[matchingFields[i]], '*'],
+      };
     }
     return matchingMap;
   },
-  performAction(activity, action){
-    const card = Cards.findOne({_id:activity.cardId});
+  performAction(activity, action) {
+    const card = Cards.findOne({ _id: activity.cardId });
     const boardId = activity.boardId;
-    if(action.actionType === 'moveCardToTop'){
+    if (action.actionType === 'moveCardToTop') {
       let listId;
       let list;
-      if(action.listTitle === '*'){
+      if (action.listTitle === '*') {
         listId = card.listId;
         list = card.list();
-      }else{
-        list = Lists.findOne({title: action.listTitle, boardId });
+      } else {
+        list = Lists.findOne({ title: action.listTitle, boardId });
         listId = list._id;
       }
-      const minOrder = _.min(list.cardsUnfiltered(card.swimlaneId).map((c) => c.sort));
+      const minOrder = _.min(
+        list.cardsUnfiltered(card.swimlaneId).map(c => c.sort),
+      );
       card.move(boardId, card.swimlaneId, listId, minOrder - 1);
     }
-    if(action.actionType === 'moveCardToBottom'){
+    if (action.actionType === 'moveCardToBottom') {
       let listId;
       let list;
-      if(action.listTitle === '*'){
+      if (action.listTitle === '*') {
         listId = card.listId;
         list = card.list();
-      }else{
-        list = Lists.findOne({title: action.listTitle, boardId});
+      } else {
+        list = Lists.findOne({ title: action.listTitle, boardId });
         listId = list._id;
       }
-      const maxOrder = _.max(list.cardsUnfiltered(card.swimlaneId).map((c) => c.sort));
+      const maxOrder = _.max(
+        list.cardsUnfiltered(card.swimlaneId).map(c => c.sort),
+      );
       card.move(boardId, card.swimlaneId, listId, maxOrder + 1);
     }
-    if(action.actionType === 'sendEmail'){
+    if (action.actionType === 'sendEmail') {
       const to = action.emailTo;
       const text = action.emailMsg || '';
       const subject = action.emailSubject || '';
@@ -84,38 +90,38 @@ RulesHelper = {
       }
     }
 
-    if(action.actionType === 'setDate') {
+    if (action.actionType === 'setDate') {
       try {
         const currentDateTime = new Date();
-        switch (action.dateField){
-        case 'startAt': {
-          const resStart = card.getStart();
-          if (typeof resStart === 'undefined') {
-            card.setStart(currentDateTime);
+        switch (action.dateField) {
+          case 'startAt': {
+            const resStart = card.getStart();
+            if (typeof resStart === 'undefined') {
+              card.setStart(currentDateTime);
+            }
+            break;
           }
-          break;
-        }
-        case 'endAt': {
-          const resEnd = card.getEnd();
-          if (typeof resEnd === 'undefined') {
-            card.setEnd(currentDateTime);
+          case 'endAt': {
+            const resEnd = card.getEnd();
+            if (typeof resEnd === 'undefined') {
+              card.setEnd(currentDateTime);
+            }
+            break;
           }
-          break;
-        }
-        case 'dueAt': {
-          const resDue = card.getDue();
-          if (typeof resDue === 'undefined') {
-            card.setDue(currentDateTime);
+          case 'dueAt': {
+            const resDue = card.getDue();
+            if (typeof resDue === 'undefined') {
+              card.setDue(currentDateTime);
+            }
+            break;
           }
-          break;
-        }
-        case 'receivedAt': {
-          const resReceived = card.getReceived();
-          if (typeof resReceived === 'undefined') {
-            card.setReceived(currentDateTime);
+          case 'receivedAt': {
+            const resReceived = card.getReceived();
+            if (typeof resReceived === 'undefined') {
+              card.setReceived(currentDateTime);
+            }
+            break;
           }
-          break;
-        }
         }
       } catch (e) {
         // eslint-disable-next-line no-console
@@ -124,135 +130,177 @@ RulesHelper = {
       }
     }
 
-    if(action.actionType === 'updateDate'){
+    if (action.actionType === 'updateDate') {
       const currentDateTimeUpdate = new Date();
-      switch (action.dateField){
-      case 'startAt': {
-        card.setStart(currentDateTimeUpdate);
-        break;
-      }
-      case 'endAt': {
-        card.setEnd(currentDateTimeUpdate);
-        break;
-      }
-      case 'dueAt': {
-        card.setDue(currentDateTimeUpdate);
-        break;
-      }
-      case 'receivedAt': {
-        card.setReceived(currentDateTimeUpdate);
-        break;
-      }
+      switch (action.dateField) {
+        case 'startAt': {
+          card.setStart(currentDateTimeUpdate);
+          break;
+        }
+        case 'endAt': {
+          card.setEnd(currentDateTimeUpdate);
+          break;
+        }
+        case 'dueAt': {
+          card.setDue(currentDateTimeUpdate);
+          break;
+        }
+        case 'receivedAt': {
+          card.setReceived(currentDateTimeUpdate);
+          break;
+        }
       }
     }
 
-    if(action.actionType === 'removeDate'){
-      switch (action.dateField){
-      case 'startAt': {
-        card.unsetStart();
-        break;
-      }
-      case 'endAt': {
-        card.unsetEnd();
-        break;
-      }
-      case 'dueAt': {
-        card.unsetDue();
-        break;
-      }
-      case 'receivedAt': {
-        card.unsetReceived();
-        break;
-      }
+    if (action.actionType === 'removeDate') {
+      switch (action.dateField) {
+        case 'startAt': {
+          card.unsetStart();
+          break;
+        }
+        case 'endAt': {
+          card.unsetEnd();
+          break;
+        }
+        case 'dueAt': {
+          card.unsetDue();
+          break;
+        }
+        case 'receivedAt': {
+          card.unsetReceived();
+          break;
+        }
       }
     }
-    if(action.actionType === 'archive'){
+    if (action.actionType === 'archive') {
       card.archive();
     }
-    if(action.actionType === 'unarchive'){
+    if (action.actionType === 'unarchive') {
       card.restore();
     }
-    if(action.actionType === 'setColor'){
+    if (action.actionType === 'setColor') {
       card.setColor(action.selectedColor);
     }
-    if(action.actionType === 'addLabel'){
+    if (action.actionType === 'addLabel') {
       card.addLabel(action.labelId);
     }
-    if(action.actionType === 'removeLabel'){
+    if (action.actionType === 'removeLabel') {
       card.removeLabel(action.labelId);
     }
-    if(action.actionType === 'addMember'){
-      const memberId = Users.findOne({username:action.username})._id;
+    if (action.actionType === 'addMember') {
+      const memberId = Users.findOne({ username: action.username })._id;
       card.assignMember(memberId);
     }
-    if(action.actionType === 'removeMember'){
-      if(action.username === '*'){
+    if (action.actionType === 'removeMember') {
+      if (action.username === '*') {
         const members = card.members;
-        for(let i = 0; i< members.length; i++){
+        for (let i = 0; i < members.length; i++) {
           card.unassignMember(members[i]);
         }
-      }else{
-        const memberId = Users.findOne({username:action.username})._id;
+      } else {
+        const memberId = Users.findOne({ username: action.username })._id;
         card.unassignMember(memberId);
       }
     }
-    if(action.actionType === 'checkAll'){
-      const checkList = Checklists.findOne({'title':action.checklistName, 'cardId':card._id});
+    if (action.actionType === 'checkAll') {
+      const checkList = Checklists.findOne({
+        title: action.checklistName,
+        cardId: card._id,
+      });
       checkList.checkAllItems();
     }
-    if(action.actionType === 'uncheckAll'){
-      const checkList = Checklists.findOne({'title':action.checklistName, 'cardId':card._id});
+    if (action.actionType === 'uncheckAll') {
+      const checkList = Checklists.findOne({
+        title: action.checklistName,
+        cardId: card._id,
+      });
       checkList.uncheckAllItems();
     }
-    if(action.actionType === 'checkItem'){
-      const checkList = Checklists.findOne({'title':action.checklistName, 'cardId':card._id});
-      const checkItem = ChecklistItems.findOne({'title':action.checkItemName, 'checkListId':checkList._id});
+    if (action.actionType === 'checkItem') {
+      const checkList = Checklists.findOne({
+        title: action.checklistName,
+        cardId: card._id,
+      });
+      const checkItem = ChecklistItems.findOne({
+        title: action.checkItemName,
+        checkListId: checkList._id,
+      });
       checkItem.check();
     }
-    if(action.actionType === 'uncheckItem'){
-      const checkList = Checklists.findOne({'title':action.checklistName, 'cardId':card._id});
-      const checkItem = ChecklistItems.findOne({'title':action.checkItemName, 'checkListId':checkList._id});
+    if (action.actionType === 'uncheckItem') {
+      const checkList = Checklists.findOne({
+        title: action.checklistName,
+        cardId: card._id,
+      });
+      const checkItem = ChecklistItems.findOne({
+        title: action.checkItemName,
+        checkListId: checkList._id,
+      });
       checkItem.uncheck();
     }
-    if(action.actionType === 'addChecklist'){
-      Checklists.insert({'title':action.checklistName, 'cardId':card._id, 'sort':0});
+    if (action.actionType === 'addChecklist') {
+      Checklists.insert({
+        title: action.checklistName,
+        cardId: card._id,
+        sort: 0,
+      });
     }
-    if(action.actionType === 'removeChecklist'){
-      Checklists.remove({'title':action.checklistName, 'cardId':card._id, 'sort':0});
+    if (action.actionType === 'removeChecklist') {
+      Checklists.remove({
+        title: action.checklistName,
+        cardId: card._id,
+        sort: 0,
+      });
     }
-    if(action.actionType === 'addSwimlane'){
+    if (action.actionType === 'addSwimlane') {
       Swimlanes.insert({
         title: action.swimlaneName,
         boardId,
         sort: 0,
       });
     }
-    if(action.actionType === 'addChecklistWithItems'){
-      const checkListId = Checklists.insert({'title':action.checklistName, 'cardId':card._id, 'sort':0});
+    if (action.actionType === 'addChecklistWithItems') {
+      const checkListId = Checklists.insert({
+        title: action.checklistName,
+        cardId: card._id,
+        sort: 0,
+      });
       const itemsArray = action.checklistItems.split(',');
-      const checkList = Checklists.findOne({_id:checkListId});
-      for(let i = 0; i <itemsArray.length; i++){
-        ChecklistItems.insert({title:itemsArray[i], checklistId:checkListId, cardId:card._id, 'sort':checkList.itemCount()});
+      const checkList = Checklists.findOne({ _id: checkListId });
+      for (let i = 0; i < itemsArray.length; i++) {
+        ChecklistItems.insert({
+          title: itemsArray[i],
+          checklistId: checkListId,
+          cardId: card._id,
+          sort: checkList.itemCount(),
+        });
       }
     }
-    if(action.actionType === 'createCard'){
-      const list = Lists.findOne({title:action.listName, boardId});
+    if (action.actionType === 'createCard') {
+      const list = Lists.findOne({ title: action.listName, boardId });
       let listId = '';
       let swimlaneId = '';
-      const swimlane = Swimlanes.findOne({title:action.swimlaneName, boardId});
-      if(list === undefined){
+      const swimlane = Swimlanes.findOne({
+        title: action.swimlaneName,
+        boardId,
+      });
+      if (list === undefined) {
         listId = '';
-      }else{
+      } else {
         listId = list._id;
       }
-      if(swimlane === undefined){
-        swimlaneId = Swimlanes.findOne({title:'Default', boardId})._id;
-      }else{
+      if (swimlane === undefined) {
+        swimlaneId = Swimlanes.findOne({ title: 'Default', boardId })._id;
+      } else {
         swimlaneId = swimlane._id;
       }
-      Cards.insert({title:action.cardName, listId, swimlaneId, sort:0, boardId});
+      Cards.insert({
+        title: action.cardName,
+        listId,
+        swimlaneId,
+        sort: 0,
+        boardId,
+      });
     }
-
   },
-
 };

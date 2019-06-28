@@ -8,13 +8,14 @@ BlazeComponent.extendComponent({
   },
 
   events() {
-    return [{
-      'click .js-linked-link' () {
-        if (this.data().isLinkedCard())
-          Utils.goCardId(this.data().linkedId);
-        else if (this.data().isLinkedBoard())
-          Utils.goBoardId(this.data().linkedId);
+    return [
+      {
+        'click .js-linked-link'() {
+          if (this.data().isLinkedCard()) Utils.goCardId(this.data().linkedId);
+          else if (this.data().isLinkedBoard())
+            Utils.goBoardId(this.data().linkedId);
+        },
       },
-    }];
+    ];
   },
 }).register('minicard');

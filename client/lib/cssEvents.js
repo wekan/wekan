@@ -3,11 +3,11 @@
 function whichTransitionEvent() {
   const el = document.createElement('fakeelement');
   const transitions = {
-    transition:'transitionend',
-    OTransition:'oTransitionEnd',
-    MSTransition:'msTransitionEnd',
-    MozTransition:'transitionend',
-    WebkitTransition:'webkitTransitionEnd',
+    transition: 'transitionend',
+    OTransition: 'oTransitionEnd',
+    MSTransition: 'msTransitionEnd',
+    MozTransition: 'transitionend',
+    WebkitTransition: 'webkitTransitionEnd',
   };
 
   for (const t in transitions) {
@@ -21,11 +21,11 @@ function whichTransitionEvent() {
 function whichAnimationEvent() {
   const el = document.createElement('fakeelement');
   const transitions = {
-    animation:'animationend',
-    OAnimation:'oAnimationEnd',
-    MSTransition:'msAnimationEnd',
-    MozAnimation:'animationend',
-    WebkitAnimation:'webkitAnimationEnd',
+    animation: 'animationend',
+    OAnimation: 'oAnimationEnd',
+    MSTransition: 'msAnimationEnd',
+    MozAnimation: 'animationend',
+    WebkitAnimation: 'webkitAnimationEnd',
   };
 
   for (const t in transitions) {

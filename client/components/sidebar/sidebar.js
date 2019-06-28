@@ -91,29 +91,34 @@ BlazeComponent.extendComponent({
   },
 
   showTongueTitle() {
-    if (this.isOpen())
-      return `${TAPi18n.__('sidebar-close')}`;
-    else
-      return `${TAPi18n.__('sidebar-open')}`;
+    if (this.isOpen()) return `${TAPi18n.__('sidebar-close')}`;
+    else return `${TAPi18n.__('sidebar-open')}`;
   },
 
   events() {
-    return [{
-      'click .js-hide-sidebar': this.hide,
-      'click .js-toggle-sidebar': this.toggle,
-      'click .js-back-home': this.setView,
-      'click .js-shortcuts'() {
-        FlowRouter.go('shortcuts');
+    return [
+      {
+        'click .js-hide-sidebar': this.hide,
+        'click .js-toggle-sidebar': this.toggle,
+        'click .js-back-home': this.setView,
+        'click .js-shortcuts'() {
+          FlowRouter.go('shortcuts');
+        },
       },
-    }];
+    ];
   },
 }).register('sidebar');
 
 Blaze.registerHelper('Sidebar', () => Sidebar);
 
-EscapeActions.register('sidebarView',
-  () => { Sidebar.setView(defaultView); },
-  () => { return Sidebar && Sidebar.getView() !== defaultView; }
+EscapeActions.register(
+  'sidebarView',
+  () => {
+    Sidebar.setView(defaultView);
+  },
+  () => {
+    return Sidebar && Sidebar.getView() !== defaultView;
+  },
 );
 
 Template.memberPopup.helpers({
@@ -122,13 +127,13 @@ Template.memberPopup.helpers({
   },
   memberType() {
     const type = Users.findOne(this.userId).isBoardAdmin() ? 'admin' : 'normal';
-    if(type === 'normal'){
+    if (type === 'normal') {
       const currentBoard = Boards.findOne(Session.get('currentBoard'));
       const commentOnly = currentBoard.hasCommentOnly(this.userId);
       const noComments = currentBoard.hasNoComments(this.userId);
-      if(commentOnly){
+      if (commentOnly) {
         return TAPi18n.__('comment-only').toLowerCase();
-      } else if(noComments) {
+      } else if (noComments) {
         return TAPi18n.__('no-comments').toLowerCase();
       } else {
         return TAPi18n.__(type).toLowerCase();
@@ -197,7 +202,7 @@ Template.memberPopup.events({
   'click .js-remove-member': Popup.afterConfirm('removeMember', function() {
     const boardId = Session.get('currentBoard');
     const memberId = this.userId;
-    Cards.find({ boardId, members: memberId }).forEach((card) => {
+    Cards.find({ boardId, members: memberId }).forEach(card => {
       card.unassignMember(memberId);
     });
     Boards.findOne(boardId).removeMember(memberId);
@@ -274,38 +279,40 @@ BlazeComponent.extendComponent({
   },
 
   events() {
-    return [{
-      'submit'(evt) {
-        evt.preventDefault();
-        const url = evt.target.url.value;
-        const boardId = Session.get('currentBoard');
-        let id = null;
-        let integration = null;
-        if (evt.target.id) {
-          id = evt.target.id.value;
-          integration = this.integration(id);
-          if (url) {
-            Integrations.update(integration._id, {
-              $set: {
-                url: `${url}`,
-              },
+    return [
+      {
+        submit(evt) {
+          evt.preventDefault();
+          const url = evt.target.url.value;
+          const boardId = Session.get('currentBoard');
+          let id = null;
+          let integration = null;
+          if (evt.target.id) {
+            id = evt.target.id.value;
+            integration = this.integration(id);
+            if (url) {
+              Integrations.update(integration._id, {
+                $set: {
+                  url: `${url}`,
+                },
+              });
+            } else {
+              Integrations.remove(integration._id);
+            }
+          } else if (url) {
+            Integrations.insert({
+              userId: Meteor.userId(),
+              enabled: true,
+              type: 'outgoing-webhooks',
+              url: `${url}`,
+              boardId: `${boardId}`,
+              activities: ['all'],
             });
-          } else {
-            Integrations.remove(integration._id);
           }
-        } else if (url) {
-          Integrations.insert({
-            userId: Meteor.userId(),
-            enabled: true,
-            type: 'outgoing-webhooks',
-            url: `${url}`,
-            boardId: `${boardId}`,
-            activities: ['all'],
-          });
-        }
-        Popup.close();
+          Popup.close();
+        },
       },
-    }];
+    ];
   },
 }).register('outgoingWebhooksPopup');
 
@@ -375,14 +382,16 @@ BlazeComponent.extendComponent({
   },
 
   events() {
-    return [{
-      'click .js-select-background'(evt) {
-        const currentBoard = Boards.findOne(Session.get('currentBoard'));
-        const newColor = this.currentData().toString();
-        currentBoard.setColor(newColor);
-        evt.preventDefault();
+    return [
+      {
+        'click .js-select-background'(evt) {
+          const currentBoard = Boards.findOne(Session.get('currentBoard'));
+          const newColor = this.currentData().toString();
+          currentBoard.setColor(newColor);
+          evt.preventDefault();
+        },
       },
-    }];
+    ];
   },
 }).register('boardChangeColorPopup');
 
@@ -400,25 +409,34 @@ BlazeComponent.extendComponent({
   },
 
   isNullBoardSelected() {
-    return (this.currentBoard.subtasksDefaultBoardId === null) || (this.currentBoard.subtasksDefaultBoardId === undefined);
+    return (
+      this.currentBoard.subtasksDefaultBoardId === null ||
+      this.currentBoard.subtasksDefaultBoardId === undefined
+    );
   },
 
   boards() {
-    return Boards.find({
-      archived: false,
-      'members.userId': Meteor.userId(),
-    }, {
-      sort: ['title'],
-    });
+    return Boards.find(
+      {
+        archived: false,
+        'members.userId': Meteor.userId(),
+      },
+      {
+        sort: ['title'],
+      },
+    );
   },
 
   lists() {
-    return Lists.find({
-      boardId: this.currentBoard._id,
-      archived: false,
-    }, {
-      sort: ['title'],
-    });
+    return Lists.find(
+      {
+        boardId: this.currentBoard._id,
+        archived: false,
+      },
+      {
+        sort: ['title'],
+      },
+    );
   },
 
   hasLists() {
@@ -431,54 +449,74 @@ BlazeComponent.extendComponent({
 
   presentParentTask() {
     let result = this.currentBoard.presentParentTask;
-    if ((result === null) || (result === undefined)) {
+    if (result === null || result === undefined) {
       result = 'no-parent';
     }
     return result;
   },
 
   events() {
-    return [{
-      'click .js-field-has-subtasks'(evt) {
-        evt.preventDefault();
-        this.currentBoard.allowsSubtasks = !this.currentBoard.allowsSubtasks;
-        this.currentBoard.setAllowsSubtasks(this.currentBoard.allowsSubtasks);
-        $('.js-field-has-subtasks .materialCheckBox').toggleClass('is-checked', this.currentBoard.allowsSubtasks);
-        $('.js-field-has-subtasks').toggleClass('is-checked', this.currentBoard.allowsSubtasks);
-        $('.js-field-deposit-board').prop('disabled', !this.currentBoard.allowsSubtasks);
-      },
-      'change .js-field-deposit-board'(evt) {
-        let value = evt.target.value;
-        if (value === 'null') {
-          value = null;
-        }
-        this.currentBoard.setSubtasksDefaultBoardId(value);
-        evt.preventDefault();
-      },
-      'change .js-field-deposit-list'(evt) {
-        this.currentBoard.setSubtasksDefaultListId(evt.target.value);
-        evt.preventDefault();
-      },
-      'click .js-field-show-parent-in-minicard'(evt) {
-        const value = evt.target.id || $(evt.target).parent()[0].id ||  $(evt.target).parent()[0].parent()[0].id;
-        const options = [
-          'prefix-with-full-path',
-          'prefix-with-parent',
-          'subtext-with-full-path',
-          'subtext-with-parent',
-          'no-parent'];
-        options.forEach(function(element) {
-          if (element !== value) {
-            $(`#${element} .materialCheckBox`).toggleClass('is-checked', false);
-            $(`#${element}`).toggleClass('is-checked', false);
+    return [
+      {
+        'click .js-field-has-subtasks'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsSubtasks = !this.currentBoard.allowsSubtasks;
+          this.currentBoard.setAllowsSubtasks(this.currentBoard.allowsSubtasks);
+          $('.js-field-has-subtasks .materialCheckBox').toggleClass(
+            'is-checked',
+            this.currentBoard.allowsSubtasks,
+          );
+          $('.js-field-has-subtasks').toggleClass(
+            'is-checked',
+            this.currentBoard.allowsSubtasks,
+          );
+          $('.js-field-deposit-board').prop(
+            'disabled',
+            !this.currentBoard.allowsSubtasks,
+          );
+        },
+        'change .js-field-deposit-board'(evt) {
+          let value = evt.target.value;
+          if (value === 'null') {
+            value = null;
           }
-        });
-        $(`#${value} .materialCheckBox`).toggleClass('is-checked', true);
-        $(`#${value}`).toggleClass('is-checked', true);
-        this.currentBoard.setPresentParentTask(value);
-        evt.preventDefault();
+          this.currentBoard.setSubtasksDefaultBoardId(value);
+          evt.preventDefault();
+        },
+        'change .js-field-deposit-list'(evt) {
+          this.currentBoard.setSubtasksDefaultListId(evt.target.value);
+          evt.preventDefault();
+        },
+        'click .js-field-show-parent-in-minicard'(evt) {
+          const value =
+            evt.target.id ||
+            $(evt.target).parent()[0].id ||
+            $(evt.target)
+              .parent()[0]
+              .parent()[0].id;
+          const options = [
+            'prefix-with-full-path',
+            'prefix-with-parent',
+            'subtext-with-full-path',
+            'subtext-with-parent',
+            'no-parent',
+          ];
+          options.forEach(function(element) {
+            if (element !== value) {
+              $(`#${element} .materialCheckBox`).toggleClass(
+                'is-checked',
+                false,
+              );
+              $(`#${element}`).toggleClass('is-checked', false);
+            }
+          });
+          $(`#${value} .materialCheckBox`).toggleClass('is-checked', true);
+          $(`#${value}`).toggleClass('is-checked', true);
+          this.currentBoard.setPresentParentTask(value);
+          evt.preventDefault();
+        },
       },
-    }];
+    ];
   },
 }).register('boardSubtaskSettingsPopup');
 
@@ -528,35 +566,46 @@ BlazeComponent.extendComponent({
   },
 
   events() {
-    return [{
-      'keyup input'() {
-        this.setError('');
+    return [
+      {
+        'keyup input'() {
+          this.setError('');
+        },
+        'click .js-select-member'() {
+          const userId = this.currentData()._id;
+          const currentBoard = Boards.findOne(Session.get('currentBoard'));
+          if (!currentBoard.hasMember(userId)) {
+            this.inviteUser(userId);
+          }
+        },
+        'click .js-email-invite'() {
+          const idNameEmail = $('.js-search-member input').val();
+          if (idNameEmail.indexOf('@') < 0 || this.isValidEmail(idNameEmail)) {
+            this.inviteUser(idNameEmail);
+          } else this.setError('email-invalid');
+        },
       },
-      'click .js-select-member'() {
-        const userId = this.currentData()._id;
-        const currentBoard = Boards.findOne(Session.get('currentBoard'));
-        if (!currentBoard.hasMember(userId)) {
-          this.inviteUser(userId);
-        }
-      },
-      'click .js-email-invite'() {
-        const idNameEmail = $('.js-search-member input').val();
-        if (idNameEmail.indexOf('@')<0 || this.isValidEmail(idNameEmail)) {
-          this.inviteUser(idNameEmail);
-        } else this.setError('email-invalid');
-      },
-    }];
+    ];
   },
 }).register('addMemberPopup');
 
 Template.changePermissionsPopup.events({
-  'click .js-set-admin, click .js-set-normal, click .js-set-no-comments, click .js-set-comment-only'(event) {
+  'click .js-set-admin, click .js-set-normal, click .js-set-no-comments, click .js-set-comment-only'(
+    event,
+  ) {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
     const memberId = this.userId;
     const isAdmin = $(event.currentTarget).hasClass('js-set-admin');
-    const isCommentOnly = $(event.currentTarget).hasClass('js-set-comment-only');
+    const isCommentOnly = $(event.currentTarget).hasClass(
+      'js-set-comment-only',
+    );
     const isNoComments = $(event.currentTarget).hasClass('js-set-no-comments');
-    currentBoard.setMemberPermission(memberId, isAdmin, isNoComments, isCommentOnly);
+    currentBoard.setMemberPermission(
+      memberId,
+      isAdmin,
+      isNoComments,
+      isCommentOnly,
+    );
     Popup.back(1);
   },
 });
@@ -569,21 +618,33 @@ Template.changePermissionsPopup.helpers({
 
   isNormal() {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
-    return !currentBoard.hasAdmin(this.userId) && !currentBoard.hasNoComments(this.userId) && !currentBoard.hasCommentOnly(this.userId);
+    return (
+      !currentBoard.hasAdmin(this.userId) &&
+      !currentBoard.hasNoComments(this.userId) &&
+      !currentBoard.hasCommentOnly(this.userId)
+    );
   },
 
   isNoComments() {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
-    return !currentBoard.hasAdmin(this.userId) && currentBoard.hasNoComments(this.userId);
+    return (
+      !currentBoard.hasAdmin(this.userId) &&
+      currentBoard.hasNoComments(this.userId)
+    );
   },
 
   isCommentOnly() {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
-    return !currentBoard.hasAdmin(this.userId) && currentBoard.hasCommentOnly(this.userId);
+    return (
+      !currentBoard.hasAdmin(this.userId) &&
+      currentBoard.hasCommentOnly(this.userId)
+    );
   },
 
   isLastAdmin() {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
-    return currentBoard.hasAdmin(this.userId) && (currentBoard.activeAdmins() === 1);
+    return (
+      currentBoard.hasAdmin(this.userId) && currentBoard.activeAdmins() === 1
+    );
   },
 });

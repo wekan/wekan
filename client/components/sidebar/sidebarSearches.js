@@ -9,11 +9,13 @@ BlazeComponent.extendComponent({
   },
 
   events() {
-    return [{
-      'submit .js-search-term-form'(evt) {
-        evt.preventDefault();
-        this.term.set(evt.target.searchTerm.value);
+    return [
+      {
+        'submit .js-search-term-form'(evt) {
+          evt.preventDefault();
+          this.term.set(evt.target.searchTerm.value);
+        },
       },
-    }];
+    ];
   },
 }).register('searchSidebar');

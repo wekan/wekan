@@ -40,8 +40,10 @@ Mousetrap.bind(['down', 'up'], (evt, key) => {
     return;
   }
 
-  const nextFunc = (key === 'down' ? 'next' : 'prev');
-  const nextCard = $('.js-minicard.is-selected')[nextFunc]('.js-minicard').get(0);
+  const nextFunc = key === 'down' ? 'next' : 'prev';
+  const nextCard = $('.js-minicard.is-selected')
+    [nextFunc]('.js-minicard')
+    .get(0);
   if (nextCard) {
     const nextCardId = Blaze.getData(nextCard)._id;
     Utils.goCardId(nextCardId);
@@ -49,7 +51,7 @@ Mousetrap.bind(['down', 'up'], (evt, key) => {
 });
 
 // XXX This shortcut should also work when hovering over a card in board view
-Mousetrap.bind('space', (evt) => {
+Mousetrap.bind('space', evt => {
   if (!Session.get('currentCard')) {
     return;
   }
@@ -69,29 +71,38 @@ Mousetrap.bind('space', (evt) => {
 });
 
 Template.keyboardShortcuts.helpers({
-  mapping: [{
-    keys: ['W'],
-    action: 'shortcut-toggle-sidebar',
-  }, {
-    keys: ['Q'],
-    action: 'shortcut-filter-my-cards',
-  }, {
-    keys: ['F'],
-    action: 'shortcut-toggle-filterbar',
-  }, {
-    keys: ['X'],
-    action: 'shortcut-clear-filters',
-  }, {
-    keys: ['?'],
-    action: 'shortcut-show-shortcuts',
-  }, {
-    keys: ['ESC'],
-    action: 'shortcut-close-dialog',
-  }, {
-    keys: ['@'],
-    action: 'shortcut-autocomplete-members',
-  }, {
-    keys: ['SPACE'],
-    action: 'shortcut-assign-self',
-  }],
+  mapping: [
+    {
+      keys: ['W'],
+      action: 'shortcut-toggle-sidebar',
+    },
+    {
+      keys: ['Q'],
+      action: 'shortcut-filter-my-cards',
+    },
+    {
+      keys: ['F'],
+      action: 'shortcut-toggle-filterbar',
+    },
+    {
+      keys: ['X'],
+      action: 'shortcut-clear-filters',
+    },
+    {
+      keys: ['?'],
+      action: 'shortcut-show-shortcuts',
+    },
+    {
+      keys: ['ESC'],
+      action: 'shortcut-close-dialog',
+    },
+    {
+      keys: ['@'],
+      action: 'shortcut-autocomplete-members',
+    },
+    {
+      keys: ['SPACE'],
+      action: 'shortcut-assign-self',
+    },
+  ],
 });

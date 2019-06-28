@@ -20,13 +20,13 @@ Template.header.helpers({
   },
 
   hasAnnouncement() {
-    const announcements =  Announcements.findOne();
+    const announcements = Announcements.findOne();
     return announcements && announcements.enabled;
   },
 
   announcement() {
     $('.announcement').show();
-    const announcements =  Announcements.findOne();
+    const announcements = Announcements.findOne();
     return announcements && announcements.body;
   },
 });

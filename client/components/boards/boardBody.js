@@ -12,8 +12,7 @@ BlazeComponent.extendComponent({
     // unfortunatly, Blaze doesn't have this notion.
     this.autorun(() => {
       const currentBoardId = Session.get('currentBoard');
-      if (!currentBoardId)
-        return;
+      if (!currentBoardId) return;
       const handle = subManager.subscribe('board', currentBoardId, false);
       Tracker.nonreactive(() => {
         Tracker.autorun(() => {
@@ -30,7 +29,6 @@ BlazeComponent.extendComponent({
   goHome() {
     FlowRouter.go('home');
   },
-
 }).register('board');
 
 BlazeComponent.extendComponent({
@@ -47,7 +45,7 @@ BlazeComponent.extendComponent({
     if (nullSortSwimlanes.count() > 0) {
       const swimlanes = currentBoardData.swimlanes();
       let count = 0;
-      swimlanes.forEach((s) => {
+      swimlanes.forEach(s => {
         Swimlanes.update(s._id, {
           $set: {
             sort: count,
@@ -62,7 +60,7 @@ BlazeComponent.extendComponent({
     if (nullSortLists.count() > 0) {
       const lists = currentBoardData.lists();
       let count = 0;
-      lists.forEach((l) => {
+      lists.forEach(l => {
         Lists.update(l._id, {
           $set: {
             sort: count,
@@ -110,12 +108,15 @@ BlazeComponent.extendComponent({
         // resize all swimlanes + headers to be a total of 150 px per row
         // this could be achieved by setIsDragging(true) but we want immediate
         // result
-        ui.item.siblings('.js-swimlane').css('height', `${swimlaneWhileSortingHeight - 26}px`);
+        ui.item
+          .siblings('.js-swimlane')
+          .css('height', `${swimlaneWhileSortingHeight - 26}px`);
 
         // set the new scroll height after the resize and insertion of
         // the placeholder. We want the element under the cursor to stay
         // at the same place on the screen
-        ui.item.parent().get(0).scrollTop = ui.placeholder.get(0).offsetTop + parentOffset.top - evt.pageY;
+        ui.item.parent().get(0).scrollTop =
+          ui.placeholder.get(0).offsetTop + parentOffset.top - evt.pageY;
       },
       beforeStop(evt, ui) {
         const parentOffset = ui.item.parent().offset();
@@ -124,7 +125,8 @@ BlazeComponent.extendComponent({
 
         // compute the new scroll height after the resize and removal of
         // the placeholder
-        const scrollTop = ui.placeholder.get(0).offsetTop + parentOffset.top - evt.pageY;
+        const scrollTop =
+          ui.placeholder.get(0).offsetTop + parentOffset.top - evt.pageY;
 
         // then reset the original view of the swimlane
         siblings.removeClass('moving-swimlane');
@@ -154,11 +156,14 @@ BlazeComponent.extendComponent({
       sort(evt, ui) {
         // get the mouse position in the sortable
         const parentOffset = ui.item.parent().offset();
-        const cursorY = evt.pageY - parentOffset.top + ui.item.parent().scrollTop();
+        const cursorY =
+          evt.pageY - parentOffset.top + ui.item.parent().scrollTop();
 
         // compute the intended index of the placeholder (we need to skip the
         // slots between the headers and the list of cards)
-        const newplaceholderIndex = Math.floor(cursorY / swimlaneWhileSortingHeight);
+        const newplaceholderIndex = Math.floor(
+          cursorY / swimlaneWhileSortingHeight,
+        );
         let destPlaceholderIndex = (newplaceholderIndex + 1) * 2;
 
         // if we are scrolling far away from the bottom of the list
@@ -169,9 +174,17 @@ BlazeComponent.extendComponent({
         // update the placeholder position in the DOM tree
         if (destPlaceholderIndex !== ui.placeholder.index()) {
           if (destPlaceholderIndex < boardComponent.origPlaceholderIndex) {
-            ui.placeholder.insertBefore(ui.placeholder.siblings().slice(destPlaceholderIndex - 2, destPlaceholderIndex - 1));
+            ui.placeholder.insertBefore(
+              ui.placeholder
+                .siblings()
+                .slice(destPlaceholderIndex - 2, destPlaceholderIndex - 1),
+            );
           } else {
-            ui.placeholder.insertAfter(ui.placeholder.siblings().slice(destPlaceholderIndex - 1, destPlaceholderIndex));
+            ui.placeholder.insertAfter(
+              ui.placeholder
+                .siblings()
+                .slice(destPlaceholderIndex - 1, destPlaceholderIndex),
+            );
           }
         }
       },
@@ -181,7 +194,11 @@ BlazeComponent.extendComponent({
     enableClickOnTouch('.js-swimlane:not(.placeholder)');
 
     function userIsMember() {
-      return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
+      return (
+        Meteor.user() &&
+        Meteor.user().isBoardMember() &&
+        !Meteor.user().isCommentOnly()
+      );
     }
 
     // If there is no data in the board (ie, no lists) we autofocus the list
@@ -195,45 +212,49 @@ BlazeComponent.extendComponent({
   isViewSwimlanes() {
     const currentUser = Meteor.user();
     if (!currentUser) return false;
-    return ((currentUser.profile || {}).boardView === 'board-view-swimlanes');
+    return (currentUser.profile || {}).boardView === 'board-view-swimlanes';
   },
 
   isViewLists() {
     const currentUser = Meteor.user();
     if (!currentUser) return true;
-    return ((currentUser.profile || {}).boardView === 'board-view-lists');
+    return (currentUser.profile || {}).boardView === 'board-view-lists';
   },
 
   isViewCalendar() {
     const currentUser = Meteor.user();
     if (!currentUser) return false;
-    return ((currentUser.profile || {}).boardView === 'board-view-cal');
+    return (currentUser.profile || {}).boardView === 'board-view-cal';
   },
 
   openNewListForm() {
     if (this.isViewSwimlanes()) {
       this.childComponents('swimlane')[0]
-        .childComponents('addListAndSwimlaneForm')[0].open();
+        .childComponents('addListAndSwimlaneForm')[0]
+        .open();
     } else if (this.isViewLists()) {
       this.childComponents('listsGroup')[0]
-        .childComponents('addListForm')[0].open();
+        .childComponents('addListForm')[0]
+        .open();
     }
   },
   events() {
-    return [{
-      // XXX The board-overlay div should probably be moved to the parent
-      // component.
-      'mouseenter .board-overlay'() {
-        if (this.mouseHasEnterCardDetails) {
-          this.showOverlay.set(false);
-        }
+    return [
+      {
+        // XXX The board-overlay div should probably be moved to the parent
+        // component.
+        'mouseenter .board-overlay'() {
+          if (this.mouseHasEnterCardDetails) {
+            this.showOverlay.set(false);
+          }
+        },
+        mouseup() {
+          if (this._isDragging) {
+            this._isDragging = false;
+          }
+        },
       },
-      'mouseup'() {
-        if (this._isDragging) {
-          this._isDragging = false;
-        }
-      },
-    }];
+    ];
   },
 
   // XXX Flow components allow us to avoid creating these two setter methods by
@@ -245,23 +266,24 @@ BlazeComponent.extendComponent({
 
   scrollLeft(position = 0) {
     const swimlanes = this.$('.js-swimlanes');
-    swimlanes && swimlanes.animate({
-      scrollLeft: position,
-    });
+    swimlanes &&
+      swimlanes.animate({
+        scrollLeft: position,
+      });
   },
 
   scrollTop(position = 0) {
     const swimlanes = this.$('.js-swimlanes');
-    swimlanes && swimlanes.animate({
-      scrollTop: position,
-    });
+    swimlanes &&
+      swimlanes.animate({
+        scrollTop: position,
+      });
   },
-
 }).register('boardBody');
 
 BlazeComponent.extendComponent({
   onRendered() {
-    this.autorun(function(){
+    this.autorun(function() {
       $('#calendar-view').fullCalendar('refetchEvents');
     });
   },
@@ -273,7 +295,8 @@ BlazeComponent.extendComponent({
       timezone: 'local',
       header: {
         left: 'title   today prev,next',
-        center: 'agendaDay,listDay,timelineDay agendaWeek,listWeek,timelineWeek month,timelineMonth timelineYear',
+        center:
+          'agendaDay,listDay,timelineDay agendaWeek,listWeek,timelineWeek month,timelineMonth timelineYear',
         right: '',
       },
       // height: 'parent', nope, doesn't work as the parent might be small
@@ -283,7 +306,7 @@ BlazeComponent.extendComponent({
       nowIndicator: true,
       businessHours: {
         // days of week. an array of zero-based day of week integers (0=Sunday)
-        dow: [ 1, 2, 3, 4, 5 ], // Monday - Friday
+        dow: [1, 2, 3, 4, 5], // Monday - Friday
         start: '8:00',
         end: '18:00',
       },
@@ -291,20 +314,25 @@ BlazeComponent.extendComponent({
       events(start, end, timezone, callback) {
         const currentBoard = Boards.findOne(Session.get('currentBoard'));
         const events = [];
-        currentBoard.cardsInInterval(start.toDate(), end.toDate()).forEach(function(card){
-          events.push({
-            id: card._id,
-            title: card.title,
-            start: card.startAt,
-            end: card.endAt,
-            allDay: Math.abs(card.endAt.getTime() - card.startAt.getTime()) / 1000 === 24*3600,
-            url: FlowRouter.url('card', {
-              boardId: currentBoard._id,
-              slug: currentBoard.slug,
-              cardId: card._id,
-            }),
+        currentBoard
+          .cardsInInterval(start.toDate(), end.toDate())
+          .forEach(function(card) {
+            events.push({
+              id: card._id,
+              title: card.title,
+              start: card.startAt,
+              end: card.endAt,
+              allDay:
+                Math.abs(card.endAt.getTime() - card.startAt.getTime()) /
+                  1000 ===
+                24 * 3600,
+              url: FlowRouter.url('card', {
+                boardId: currentBoard._id,
+                slug: currentBoard.slug,
+                cardId: card._id,
+              }),
+            });
           });
-        });
         callback(events);
       },
       eventResize(event, delta, revertFunc) {
@@ -339,6 +367,6 @@ BlazeComponent.extendComponent({
   isViewCalendar() {
     const currentUser = Meteor.user();
     if (!currentUser) return false;
-    return ((currentUser.profile || {}).boardView === 'board-view-cal');
+    return (currentUser.profile || {}).boardView === 'board-view-cal';
   },
 }).register('calendarView');

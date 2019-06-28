@@ -27,10 +27,7 @@ function copyTitleInAriaLabel(attributes) {
 // which is a little bit hacky -- but still reasonable with our ES6 usage. If we
 // end up switching to React we will probably create lower level small
 // components to handle that without overwriting any build-in function.
-const {
-  A: superA,
-  I: superI,
-} = HTML;
+const { A: superA, I: superI } = HTML;
 
 HTML.A = (attributes, ...others) => {
   return superA(copyTitleInAriaLabel(enforceHref(attributes)), ...others);

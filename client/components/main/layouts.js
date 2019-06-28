@@ -1,6 +1,6 @@
 BlazeLayout.setRoot('body');
 
-const i18nTagToT9n = (i18nTag) => {
+const i18nTagToT9n = i18nTag => {
   // t9n/i18n tags are same now, see: https://github.com/softwarerero/meteor-accounts-t9n/pull/129
   // but we keep this conversion function here, to be aware that that they are different system.
   return i18nTag;
@@ -21,20 +21,23 @@ const validator = {
 };
 
 Template.userFormsLayout.onCreated(function() {
-  const instance = this;
-  instance.currentSetting = new ReactiveVar();
-  instance.isLoading = new ReactiveVar(false);
+  const templateInstance = this;
+  templateInstance.currentSetting = new ReactiveVar();
+  templateInstance.isLoading = new ReactiveVar(false);
 
   Meteor.subscribe('setting', {
     onReady() {
-      instance.currentSetting.set(Settings.findOne());
+      templateInstance.currentSetting.set(Settings.findOne());
       return this.stop();
     },
   });
 });
 
 Template.userFormsLayout.onRendered(() => {
-  AccountsTemplates.state.form.keys = new Proxy(AccountsTemplates.state.form.keys, validator);
+  AccountsTemplates.state.form.keys = new Proxy(
+    AccountsTemplates.state.form.keys,
+    validator,
+  );
 
   const i18nTag = navigator.language;
   if (i18nTag) {
@@ -89,18 +92,17 @@ Template.userFormsLayout.helpers({
 });
 
 Template.userFormsLayout.events({
-  'change .js-userform-set-language'(evt) {
-    const i18nTag = $(evt.currentTarget).val();
+  'change .js-userform-set-language'(event) {
+    const i18nTag = $(event.currentTarget).val();
     T9n.setLanguage(i18nTagToT9n(i18nTag));
-    evt.preventDefault();
+    event.preventDefault();
   },
-  'click #at-btn'(event, instance) {
+  'click #at-btn'(event, templateInstance) {
     if (FlowRouter.getRouteName() === 'atSignIn') {
-      instance.isLoading.set(true);
-      authentication(event, instance)
-        .then(() => {
-          instance.isLoading.set(false);
-        });
+      templateInstance.isLoading.set(true);
+      authentication(event, templateInstance).then(() => {
+        templateInstance.isLoading.set(false);
+      });
     }
   },
 });
@@ -111,13 +113,16 @@ Template.defaultLayout.events({
   },
 });
 
-async function authentication(event, instance) {
+async function authentication(event, templateInstance) {
   const match = $('#at-field-username_and_email').val();
   const password = $('#at-field-password').val();
 
   if (!match || !password) return undefined;
 
-  const result = await getAuthenticationMethod(instance.currentSetting.get(), match);
+  const result = await getAuthenticationMethod(
+    templateInstance.currentSetting.get(),
+    match,
+  );
 
   if (result === 'password') return undefined;
 
@@ -126,26 +131,29 @@ async function authentication(event, instance) {
   event.stopImmediatePropagation();
 
   switch (result) {
-  case 'ldap':
-    return new Promise((resolve) => {
-      Meteor.loginWithLDAP(match, password, function() {
-        resolve(FlowRouter.go('/'));
+    case 'ldap':
+      return new Promise(resolve => {
+        Meteor.loginWithLDAP(match, password, function() {
+          resolve(FlowRouter.go('/'));
+        });
       });
-    });
 
-  case 'cas':
-    return new Promise((resolve) => {
-      Meteor.loginWithCas(match, password, function() {
-        resolve(FlowRouter.go('/'));
+    case 'cas':
+      return new Promise(resolve => {
+        Meteor.loginWithCas(match, password, function() {
+          resolve(FlowRouter.go('/'));
+        });
       });
-    });
 
-  default:
-    return undefined;
+    default:
+      return undefined;
   }
 }
 
-function getAuthenticationMethod({displayAuthenticationMethod, defaultAuthenticationMethod}, match) {
+function getAuthenticationMethod(
+  { displayAuthenticationMethod, defaultAuthenticationMethod },
+  match,
+) {
   if (displayAuthenticationMethod) {
     return $('.select-authentication').val();
   }
@@ -153,7 +161,7 @@ function getAuthenticationMethod({displayAuthenticationMethod, defaultAuthentica
 }
 
 function getUserAuthenticationMethod(defaultAuthenticationMethod, match) {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     try {
       Meteor.subscribe('user-authenticationMethod', match, {
         onReady() {
@@ -166,7 +174,7 @@ function getUserAuthenticationMethod(defaultAuthenticationMethod, match) {
           resolve(authenticationMethod);
         },
       });
-    } catch(error) {
+    } catch (error) {
       resolve(defaultAuthenticationMethod);
     }
   });

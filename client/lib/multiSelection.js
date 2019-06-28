@@ -1,6 +1,4 @@
-
 function getCardsBetween(idA, idB) {
-
   function pluckId(doc) {
     return doc._id;
   }
@@ -15,7 +13,7 @@ function getCardsBetween(idA, idB) {
     }).map(pluckId);
   }
 
-  const cards = _.sortBy([Cards.findOne(idA), Cards.findOne(idB)], (c) => {
+  const cards = _.sortBy([Cards.findOne(idA), Cards.findOne(idB)], c => {
     return c.sort;
   });
 
@@ -31,17 +29,21 @@ function getCardsBetween(idA, idB) {
     };
   } else {
     selector = {
-      $or: [{
-        listId: cards[0].listId,
-        sort: { $lte: cards[0].sort },
-      }, {
-        listId: {
-          $in: getListsStrictlyBetween(cards[0].listId, cards[1].listId),
+      $or: [
+        {
+          listId: cards[0].listId,
+          sort: { $lte: cards[0].sort },
         },
-      }, {
-        listId: cards[1].listId,
-        sort: { $gte: cards[1].sort },
-      }],
+        {
+          listId: {
+            $in: getListsStrictlyBetween(cards[0].listId, cards[1].listId),
+          },
+        },
+        {
+          listId: cards[1].listId,
+          sort: { $gte: cards[1].sort },
+        },
+      ],
       archived: false,
     };
   }
@@ -133,14 +135,12 @@ MultiSelection = {
 
     const selectedCards = this._selectedCards.get();
 
-    cardIds.forEach((cardId) => {
+    cardIds.forEach(cardId => {
       const indexOfCard = selectedCards.indexOf(cardId);
 
       if (options.remove && indexOfCard > -1)
         selectedCards.splice(indexOfCard, 1);
-
-      else if (options.add)
-        selectedCards.push(cardId);
+      else if (options.add) selectedCards.push(cardId);
     });
 
     this._selectedCards.set(selectedCards);
@@ -153,9 +153,15 @@ MultiSelection = {
 
 Blaze.registerHelper('MultiSelection', MultiSelection);
 
-EscapeActions.register('multiselection',
-  () => { MultiSelection.disable(); },
-  () => { return MultiSelection.isActive(); }, {
+EscapeActions.register(
+  'multiselection',
+  () => {
+    MultiSelection.disable();
+  },
+  () => {
+    return MultiSelection.isActive();
+  },
+  {
     noClickEscapeOn: '.js-minicard,.js-board-sidebar-content',
-  }
+  },
 );

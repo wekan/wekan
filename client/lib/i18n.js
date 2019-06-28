@@ -12,7 +12,7 @@ Meteor.startup(() => {
     }
 
     if (!language) {
-      if(navigator.languages) {
+      if (navigator.languages) {
         language = navigator.languages[0];
       } else {
         language = navigator.language || navigator.userLanguage;

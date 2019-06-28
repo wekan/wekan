@@ -3,7 +3,6 @@ BlazeComponent.extendComponent({
     this.subscribe('allRules');
     this.subscribe('allTriggers');
     this.subscribe('allActions');
-
   },
 
   trigger() {
@@ -34,5 +33,4 @@ BlazeComponent.extendComponent({
   events() {
     return [{}];
   },
-
 }).register('ruleDetails');

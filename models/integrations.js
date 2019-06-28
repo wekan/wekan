@@ -86,13 +86,8 @@ Integrations.attachSchema(
        */
       type: String,
     },
-  })
+  }),
 );
-
-Integrations.before.update((userId, doc, fieldNames, modifier, options) => {
-  modifier.$set = modifier.$set || {};
-  modifier.$set.modifiedAt = Date.now();
-});
 
 Integrations.allow({
   insert(userId, doc) {
@@ -123,7 +118,7 @@ if (Meteor.isServer) {
    */
   JsonRoutes.add('GET', '/api/boards/:boardId/integrations', function(
     req,
-    res
+    res,
   ) {
     try {
       const paramBoardId = req.params.boardId;
@@ -131,7 +126,7 @@ if (Meteor.isServer) {
 
       const data = Integrations.find(
         { boardId: paramBoardId },
-        { fields: { token: 0 } }
+        { fields: { token: 0 } },
       ).map(function(doc) {
         return doc;
       });
@@ -155,7 +150,7 @@ if (Meteor.isServer) {
    */
   JsonRoutes.add('GET', '/api/boards/:boardId/integrations/:intId', function(
     req,
-    res
+    res,
   ) {
     try {
       const paramBoardId = req.params.boardId;
@@ -166,7 +161,7 @@ if (Meteor.isServer) {
         code: 200,
         data: Integrations.findOne(
           { _id: paramIntId, boardId: paramBoardId },
-          { fields: { token: 0 } }
+          { fields: { token: 0 } },
         ),
       });
     } catch (error) {
@@ -187,7 +182,7 @@ if (Meteor.isServer) {
    */
   JsonRoutes.add('POST', '/api/boards/:boardId/integrations', function(
     req,
-    res
+    res,
   ) {
     try {
       const paramBoardId = req.params.boardId;
@@ -228,7 +223,7 @@ if (Meteor.isServer) {
    */
   JsonRoutes.add('PUT', '/api/boards/:boardId/integrations/:intId', function(
     req,
-    res
+    res,
   ) {
     try {
       const paramBoardId = req.params.boardId;
@@ -239,35 +234,35 @@ if (Meteor.isServer) {
         const newEnabled = req.body.enabled;
         Integrations.direct.update(
           { _id: paramIntId, boardId: paramBoardId },
-          { $set: { enabled: newEnabled } }
+          { $set: { enabled: newEnabled } },
         );
       }
       if (req.body.hasOwnProperty('title')) {
         const newTitle = req.body.title;
         Integrations.direct.update(
           { _id: paramIntId, boardId: paramBoardId },
-          { $set: { title: newTitle } }
+          { $set: { title: newTitle } },
         );
       }
       if (req.body.hasOwnProperty('url')) {
         const newUrl = req.body.url;
         Integrations.direct.update(
           { _id: paramIntId, boardId: paramBoardId },
-          { $set: { url: newUrl } }
+          { $set: { url: newUrl } },
         );
       }
       if (req.body.hasOwnProperty('token')) {
         const newToken = req.body.token;
         Integrations.direct.update(
           { _id: paramIntId, boardId: paramBoardId },
-          { $set: { token: newToken } }
+          { $set: { token: newToken } },
         );
       }
       if (req.body.hasOwnProperty('activities')) {
         const newActivities = req.body.activities;
         Integrations.direct.update(
           { _id: paramIntId, boardId: paramBoardId },
-          { $set: { activities: newActivities } }
+          { $set: { activities: newActivities } },
         );
       }
 
@@ -306,14 +301,14 @@ if (Meteor.isServer) {
 
         Integrations.direct.update(
           { _id: paramIntId, boardId: paramBoardId },
-          { $pullAll: { activities: newActivities } }
+          { $pullAll: { activities: newActivities } },
         );
 
         JsonRoutes.sendResult(res, {
           code: 200,
           data: Integrations.findOne(
             { _id: paramIntId, boardId: paramBoardId },
-            { fields: { _id: 1, activities: 1 } }
+            { fields: { _id: 1, activities: 1 } },
           ),
         });
       } catch (error) {
@@ -322,7 +317,7 @@ if (Meteor.isServer) {
           data: error,
         });
       }
-    }
+    },
   );
 
   /**
@@ -346,14 +341,14 @@ if (Meteor.isServer) {
 
         Integrations.direct.update(
           { _id: paramIntId, boardId: paramBoardId },
-          { $addToSet: { activities: { $each: newActivities } } }
+          { $addToSet: { activities: { $each: newActivities } } },
         );
 
         JsonRoutes.sendResult(res, {
           code: 200,
           data: Integrations.findOne(
             { _id: paramIntId, boardId: paramBoardId },
-            { fields: { _id: 1, activities: 1 } }
+            { fields: { _id: 1, activities: 1 } },
           ),
         });
       } catch (error) {
@@ -362,7 +357,7 @@ if (Meteor.isServer) {
           data: error,
         });
       }
-    }
+    },
   );
 
   /**
@@ -375,7 +370,7 @@ if (Meteor.isServer) {
    */
   JsonRoutes.add('DELETE', '/api/boards/:boardId/integrations/:intId', function(
     req,
-    res
+    res,
   ) {
     try {
       const paramBoardId = req.params.boardId;

@@ -62,16 +62,16 @@ Migrations.add('board-background-color', () => {
         },
       },
     },
-    noValidateMulti
+    noValidateMulti,
   );
 });
 
 Migrations.add('lowercase-board-permission', () => {
-  ['Public', 'Private'].forEach((permission) => {
+  ['Public', 'Private'].forEach(permission => {
     Boards.update(
       { permission },
       { $set: { permission: permission.toLowerCase() } },
-      noValidateMulti
+      noValidateMulti,
     );
   });
 });
@@ -79,7 +79,7 @@ Migrations.add('lowercase-board-permission', () => {
 // Security migration: see https://github.com/wekan/wekan/issues/99
 Migrations.add('change-attachments-type-for-non-images', () => {
   const newTypeForNonImage = 'application/octet-stream';
-  Attachments.find().forEach((file) => {
+  Attachments.find().forEach(file => {
     if (!file.isImage()) {
       Attachments.update(
         file._id,
@@ -89,14 +89,14 @@ Migrations.add('change-attachments-type-for-non-images', () => {
             'copies.attachments.type': newTypeForNonImage,
           },
         },
-        noValidate
+        noValidate,
       );
     }
   });
 });
 
 Migrations.add('card-covers', () => {
-  Cards.find().forEach((card) => {
+  Cards.find().forEach(card => {
     const cover = Attachments.findOne({ cardId: card._id, cover: true });
     if (cover) {
       Cards.update(card._id, { $set: { coverId: cover._id } }, noValidate);
@@ -114,7 +114,7 @@ Migrations.add('use-css-class-for-boards-colors', () => {
     '#2C3E50': 'midnight',
     '#E67E22': 'pumpkin',
   };
-  Boards.find().forEach((board) => {
+  Boards.find().forEach(board => {
     const oldBoardColor = board.background.color;
     const newBoardColor = associationTable[oldBoardColor];
     Boards.update(
@@ -123,13 +123,13 @@ Migrations.add('use-css-class-for-boards-colors', () => {
         $set: { color: newBoardColor },
         $unset: { background: '' },
       },
-      noValidate
+      noValidate,
     );
   });
 });
 
 Migrations.add('denormalize-star-number-per-board', () => {
-  Boards.find().forEach((board) => {
+  Boards.find().forEach(board => {
     const nStars = Users.find({ 'profile.starredBoards': board._id }).count();
     Boards.update(board._id, { $set: { stars: nStars } }, noValidate);
   });
@@ -138,9 +138,12 @@ Migrations.add('denormalize-star-number-per-board', () => {
 // We want to keep a trace of former members so we can efficiently publish their
 // infos in the general board publication.
 Migrations.add('add-member-isactive-field', () => {
-  Boards.find({}, { fields: { members: 1 } }).forEach((board) => {
+  Boards.find({}, { fields: { members: 1 } }).forEach(board => {
     const allUsersWithSomeActivity = _.chain(
-      Activities.find({ boardId: board._id }, { fields: { userId: 1 } }).fetch()
+      Activities.find(
+        { boardId: board._id },
+        { fields: { userId: 1 } },
+      ).fetch(),
     )
       .pluck('userId')
       .uniq()
@@ -149,11 +152,11 @@ Migrations.add('add-member-isactive-field', () => {
     const formerUsers = _.difference(allUsersWithSomeActivity, currentUsers);
 
     const newMemberSet = [];
-    board.members.forEach((member) => {
+    board.members.forEach(member => {
       member.isActive = true;
       newMemberSet.push(member);
     });
-    formerUsers.forEach((userId) => {
+    formerUsers.forEach(userId => {
       newMemberSet.push({
         userId,
         isAdmin: false,
@@ -170,7 +173,7 @@ Migrations.add('add-sort-checklists', () => {
       Checklists.direct.update(
         checklist._id,
         { $set: { sort: index } },
-        noValidate
+        noValidate,
       );
     }
     checklist.items.forEach((item, index) => {
@@ -178,7 +181,7 @@ Migrations.add('add-sort-checklists', () => {
         Checklists.direct.update(
           { _id: checklist._id, 'items._id': item._id },
           { $set: { 'items.$.sort': index } },
-          noValidate
+          noValidate,
         );
       }
     });
@@ -186,14 +189,14 @@ Migrations.add('add-sort-checklists', () => {
 });
 
 Migrations.add('add-swimlanes', () => {
-  Boards.find().forEach((board) => {
+  Boards.find().forEach(board => {
     const swimlaneId = board.getDefaultSwimline()._id;
-    Cards.find({ boardId: board._id }).forEach((card) => {
+    Cards.find({ boardId: board._id }).forEach(card => {
       if (!card.hasOwnProperty('swimlaneId')) {
         Cards.direct.update(
           { _id: card._id },
           { $set: { swimlaneId } },
-          noValidate
+          noValidate,
         );
       }
     });
@@ -201,19 +204,19 @@ Migrations.add('add-swimlanes', () => {
 });
 
 Migrations.add('add-views', () => {
-  Boards.find().forEach((board) => {
+  Boards.find().forEach(board => {
     if (!board.hasOwnProperty('view')) {
       Boards.direct.update(
         { _id: board._id },
         { $set: { view: 'board-view-swimlanes' } },
-        noValidate
+        noValidate,
       );
     }
   });
 });
 
 Migrations.add('add-checklist-items', () => {
-  Checklists.find().forEach((checklist) => {
+  Checklists.find().forEach(checklist => {
     // Create new items
     _.sortBy(checklist.items, 'sort').forEach((item, index) => {
       ChecklistItems.direct.insert({
@@ -229,26 +232,26 @@ Migrations.add('add-checklist-items', () => {
     Checklists.direct.update(
       { _id: checklist._id },
       { $unset: { items: 1 } },
-      noValidate
+      noValidate,
     );
   });
 });
 
 Migrations.add('add-profile-view', () => {
-  Users.find().forEach((user) => {
+  Users.find().forEach(user => {
     if (!user.hasOwnProperty('profile.boardView')) {
       // Set default view
       Users.direct.update(
         { _id: user._id },
         { $set: { 'profile.boardView': 'board-view-lists' } },
-        noValidate
+        noValidate,
       );
     }
   });
 });
 
 Migrations.add('add-card-types', () => {
-  Cards.find().forEach((card) => {
+  Cards.find().forEach(card => {
     Cards.direct.update(
       { _id: card._id },
       {
@@ -257,7 +260,7 @@ Migrations.add('add-card-types', () => {
           linkedId: null,
         },
       },
-      noValidate
+      noValidate,
     );
   });
 });
@@ -274,7 +277,7 @@ Migrations.add('add-custom-fields-to-cards', () => {
         customFields: [],
       },
     },
-    noValidateMulti
+    noValidateMulti,
   );
 });
 
@@ -290,7 +293,7 @@ Migrations.add('add-requester-field', () => {
         requestedBy: '',
       },
     },
-    noValidateMulti
+    noValidateMulti,
   );
 });
 
@@ -306,7 +309,7 @@ Migrations.add('add-assigner-field', () => {
         assignedBy: '',
       },
     },
-    noValidateMulti
+    noValidateMulti,
   );
 });
 
@@ -322,7 +325,7 @@ Migrations.add('add-parent-field-to-cards', () => {
         parentId: '',
       },
     },
-    noValidateMulti
+    noValidateMulti,
   );
 });
 
@@ -339,7 +342,7 @@ Migrations.add('add-subtasks-boards', () => {
         subtasksDefaultListId: null,
       },
     },
-    noValidateMulti
+    noValidateMulti,
   );
 });
 
@@ -355,7 +358,7 @@ Migrations.add('add-subtasks-sort', () => {
         subtaskSort: -1,
       },
     },
-    noValidateMulti
+    noValidateMulti,
   );
 });
 
@@ -371,7 +374,7 @@ Migrations.add('add-subtasks-allowed', () => {
         allowsSubtasks: true,
       },
     },
-    noValidateMulti
+    noValidateMulti,
   );
 });
 
@@ -387,7 +390,7 @@ Migrations.add('add-subtasks-allowed', () => {
         presentParentTask: 'no-parent',
       },
     },
-    noValidateMulti
+    noValidateMulti,
   );
 });
 
@@ -403,7 +406,7 @@ Migrations.add('add-authenticationMethod', () => {
         authenticationMethod: 'password',
       },
     },
-    noValidateMulti
+    noValidateMulti,
   );
 });
 
@@ -415,7 +418,7 @@ Migrations.add('remove-tag', () => {
         'profile.tags': 1,
       },
     },
-    noValidateMulti
+    noValidateMulti,
   );
 });
 
@@ -427,7 +430,7 @@ Migrations.add('remove-customFields-references-broken', () => {
         customFields: { value: null },
       },
     },
-    noValidateMulti
+    noValidateMulti,
   );
 });
 
@@ -443,7 +446,7 @@ Migrations.add('add-product-name', () => {
         productName: '',
       },
     },
-    noValidateMulti
+    noValidateMulti,
   );
 });
 
@@ -459,7 +462,7 @@ Migrations.add('add-hide-logo', () => {
         hideLogo: false,
       },
     },
-    noValidateMulti
+    noValidateMulti,
   );
 });
 
@@ -475,7 +478,7 @@ Migrations.add('add-custom-html-after-body-start', () => {
         customHTMLafterBodyStart: '',
       },
     },
-    noValidateMulti
+    noValidateMulti,
   );
 });
 
@@ -491,7 +494,7 @@ Migrations.add('add-custom-html-before-body-end', () => {
         customHTMLbeforeBodyEnd: '',
       },
     },
-    noValidateMulti
+    noValidateMulti,
   );
 });
 
@@ -507,7 +510,7 @@ Migrations.add('add-displayAuthenticationMethod', () => {
         displayAuthenticationMethod: true,
       },
     },
-    noValidateMulti
+    noValidateMulti,
   );
 });
 
@@ -523,7 +526,7 @@ Migrations.add('add-defaultAuthenticationMethod', () => {
         defaultAuthenticationMethod: 'password',
       },
     },
-    noValidateMulti
+    noValidateMulti,
   );
 });
 
@@ -539,7 +542,7 @@ Migrations.add('add-templates', () => {
         type: 'board',
       },
     },
-    noValidateMulti
+    noValidateMulti,
   );
   Swimlanes.update(
     {
@@ -552,7 +555,7 @@ Migrations.add('add-templates', () => {
         type: 'swimlane',
       },
     },
-    noValidateMulti
+    noValidateMulti,
   );
   Lists.update(
     {
@@ -569,13 +572,13 @@ Migrations.add('add-templates', () => {
         swimlaneId: '',
       },
     },
-    noValidateMulti
+    noValidateMulti,
   );
   Users.find({
     'profile.templatesBoardId': {
       $exists: false,
     },
-  }).forEach((user) => {
+  }).forEach(user => {
     // Create board and swimlanes
     Boards.insert(
       {
@@ -611,7 +614,7 @@ Migrations.add('add-templates', () => {
             Users.update(user._id, {
               $set: { 'profile.cardTemplatesSwimlaneId': swimlaneId },
             });
-          }
+          },
         );
 
         // Insert the list templates swimlane
@@ -627,7 +630,7 @@ Migrations.add('add-templates', () => {
             Users.update(user._id, {
               $set: { 'profile.listTemplatesSwimlaneId': swimlaneId },
             });
-          }
+          },
         );
 
         // Insert the board templates swimlane
@@ -643,15 +646,15 @@ Migrations.add('add-templates', () => {
             Users.update(user._id, {
               $set: { 'profile.boardTemplatesSwimlaneId': swimlaneId },
             });
-          }
+          },
         );
-      }
+      },
     );
   });
 });
 
 Migrations.add('fix-circular-reference_', () => {
-  Cards.find().forEach((card) => {
+  Cards.find().forEach(card => {
     if (card.parentId === card._id) {
       Cards.update(card._id, { $set: { parentId: '' } }, noValidateMulti);
     }
@@ -659,7 +662,7 @@ Migrations.add('fix-circular-reference_', () => {
 });
 
 Migrations.add('mutate-boardIds-in-customfields', () => {
-  CustomFields.find().forEach((cf) => {
+  CustomFields.find().forEach(cf => {
     CustomFields.update(
       cf,
       {
@@ -670,7 +673,7 @@ Migrations.add('mutate-boardIds-in-customfields', () => {
           boardId: '',
         },
       },
-      noValidateMulti
+      noValidateMulti,
     );
   });
 });
@@ -696,13 +699,13 @@ const firstBatchOfDbsToAddCreatedAndUpdated = [
   UnsavedEdits,
 ];
 
-firstBatchOfDbsToAddCreatedAndUpdated.forEach((db) => {
+firstBatchOfDbsToAddCreatedAndUpdated.forEach(db => {
   db.before.insert((userId, doc) => {
     doc.createdAt = Date.now();
     doc.updatedAt = doc.createdAt;
   });
 
-  db.before.update((userId, doc, fieldNames, modifier, options) => {
+  db.before.update((userId, doc, fieldNames, modifier) => {
     modifier.$set = modifier.$set || {};
     modifier.$set.updatedAt = new Date();
   });
@@ -732,13 +735,13 @@ const modifiedAtTables = [
 
 Migrations.add('add-missing-created-and-modified', () => {
   Promise.all(
-    modifiedAtTables.map((db) =>
+    modifiedAtTables.map(db =>
       db
         .rawCollection()
         .update(
           { modifiedAt: { $exists: false } },
           { $set: { modifiedAt: new Date() } },
-          { multi: true }
+          { multi: true },
         )
         .then(() =>
           db
@@ -746,16 +749,16 @@ Migrations.add('add-missing-created-and-modified', () => {
             .update(
               { createdAt: { $exists: false } },
               { $set: { createdAt: new Date() } },
-              { multi: true }
-            )
-        )
-    )
+              { multi: true },
+            ),
+        ),
+    ),
   )
     .then(() => {
       // eslint-disable-next-line no-console
       console.info('Successfully added createdAt and updatedAt to all tables');
     })
-    .catch((e) => {
+    .catch(e => {
       // eslint-disable-next-line no-console
       console.error(e);
     });

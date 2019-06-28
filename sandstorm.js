@@ -1,7 +1,7 @@
 // Sandstorm context is detected using the METEOR_SETTINGS environment variable
 // in the package definition.
-const isSandstorm = Meteor.settings && Meteor.settings.public &&
-                    Meteor.settings.public.sandstorm;
+const isSandstorm =
+  Meteor.settings && Meteor.settings.public && Meteor.settings.public.sandstorm;
 
 // In sandstorm we only have one board per sandstorm instance. Since we want to
 // keep most of our code unchanged, we simply hard-code a board `_id` and
@@ -28,15 +28,17 @@ if (isSandstorm && Meteor.isServer) {
   const Package = Capnp.importSystem('sandstorm/package.capnp');
   const Powerbox = Capnp.importSystem('sandstorm/powerbox.capnp');
   const Identity = Capnp.importSystem('sandstorm/identity.capnp');
-  const SandstormHttpBridge =
-    Capnp.importSystem('sandstorm/sandstorm-http-bridge.capnp').SandstormHttpBridge;
+  const SandstormHttpBridge = Capnp.importSystem(
+    'sandstorm/sandstorm-http-bridge.capnp',
+  ).SandstormHttpBridge;
 
   let httpBridge = null;
   let capnpConnection = null;
 
   const bridgeConfig = Capnp.parse(
     Package.BridgeConfig,
-    fs.readFileSync('/sandstorm-http-bridge-config'));
+    fs.readFileSync('/sandstorm-http-bridge-config'),
+  );
 
   function getHttpBridge() {
     if (!httpBridge) {
@@ -54,9 +56,13 @@ if (isSandstorm && Meteor.isServer) {
       const parsedDescriptor = Capnp.parse(
         Powerbox.PowerboxDescriptor,
         new Buffer(descriptor, 'base64'),
-        { packed: true });
+        { packed: true },
+      );
 
-      const tag = Capnp.parse(Identity.Identity.PowerboxTag, parsedDescriptor.tags[0].value);
+      const tag = Capnp.parse(
+        Identity.Identity.PowerboxTag,
+        parsedDescriptor.tags[0].value,
+      );
       const permissions = [];
       if (tag.permissions[1]) {
         permissions.push('configure');
@@ -71,35 +77,43 @@ if (isSandstorm && Meteor.isServer) {
       const session = httpBridge.getSessionContext(sessionId).context;
       const api = httpBridge.getSandstormApi(sessionId).api;
 
-      Meteor.wrapAsync((done) => {
-        session.claimRequest(token).then((response) => {
-          const identity = response.cap.castAs(Identity.Identity);
-          const promises = [api.getIdentityId(identity), identity.getProfile(),
-            httpBridge.saveIdentity(identity)];
-          return Promise.all(promises).then((responses) => {
-            const identityId = responses[0].id.toString('hex').slice(0, 32);
-            const profile = responses[1].profile;
-            return profile.picture.getUrl().then((response) => {
-              const sandstormInfo = {
-                id: identityId,
-                name: profile.displayName.defaultText,
-                permissions,
-                picture: `${response.protocol}://${response.hostPath}`,
-                preferredHandle: profile.preferredHandle,
-                pronouns: profile.pronouns,
-              };
+      Meteor.wrapAsync(done => {
+        session
+          .claimRequest(token)
+          .then(response => {
+            const identity = response.cap.castAs(Identity.Identity);
+            const promises = [
+              api.getIdentityId(identity),
+              identity.getProfile(),
+              httpBridge.saveIdentity(identity),
+            ];
+            return Promise.all(promises).then(responses => {
+              const identityId = responses[0].id.toString('hex').slice(0, 32);
+              const profile = responses[1].profile;
+              return profile.picture.getUrl().then(response => {
+                const sandstormInfo = {
+                  id: identityId,
+                  name: profile.displayName.defaultText,
+                  permissions,
+                  picture: `${response.protocol}://${response.hostPath}`,
+                  preferredHandle: profile.preferredHandle,
+                  pronouns: profile.pronouns,
+                };
 
-              const login = Accounts.updateOrCreateUserFromExternalService(
-                'sandstorm', sandstormInfo,
-                { profile: { name: sandstormInfo.name } });
+                const login = Accounts.updateOrCreateUserFromExternalService(
+                  'sandstorm',
+                  sandstormInfo,
+                  { profile: { name: sandstormInfo.name } },
+                );
 
-              updateUserPermissions(login.userId, permissions);
-              done();
+                updateUserPermissions(login.userId, permissions);
+                done();
+              });
             });
+          })
+          .catch(e => {
+            done(e, null);
           });
-        }).catch((e) => {
-          done(e, null);
-        });
       })();
     },
   });
@@ -107,32 +121,39 @@ if (isSandstorm && Meteor.isServer) {
   function reportActivity(sessionId, path, type, users, caption) {
     const httpBridge = getHttpBridge();
     const session = httpBridge.getSessionContext(sessionId).context;
-    Meteor.wrapAsync((done) => {
-      return Promise.all(users.map((user) => {
-        return httpBridge.getSavedIdentity(user.id).then((response) => {
-          // Call getProfile() to make sure that the identity successfully resolves.
-          // (In C++ we would instead call whenResolved() here.)
-          const identity = response.identity;
-          return identity.getProfile().then(() => {
-            return { identity,
-              mentioned: !!user.mentioned,
-              subscribed: !!user.subscribed,
-            };
-          });
-        }).catch(() => {
-          // Ignore identities that fail to restore. Either they were added before we set
-          // `saveIdentityCaps` to true, or they have lost access to the board.
-        });
-      })).then((maybeUsers) => {
-        const users = maybeUsers.filter((u) => !!u);
-        const event = { path, type, users };
-        if (caption) {
-          event.notification = { caption };
-        }
+    Meteor.wrapAsync(done => {
+      return Promise.all(
+        users.map(user => {
+          return httpBridge
+            .getSavedIdentity(user.id)
+            .then(response => {
+              // Call getProfile() to make sure that the identity successfully resolves.
+              // (In C++ we would instead call whenResolved() here.)
+              const identity = response.identity;
+              return identity.getProfile().then(() => {
+                return {
+                  identity,
+                  mentioned: !!user.mentioned,
+                  subscribed: !!user.subscribed,
+                };
+              });
+            })
+            .catch(() => {
+              // Ignore identities that fail to restore. Either they were added before we set
+              // `saveIdentityCaps` to true, or they have lost access to the board.
+            });
+        }),
+      )
+        .then(maybeUsers => {
+          const users = maybeUsers.filter(u => !!u);
+          const event = { path, type, users };
+          if (caption) {
+            event.notification = { caption };
+          }
 
-        return session.activity(event);
-      }).then(() => done(),
-        (e) => done(e));
+          return session.activity(event);
+        })
+        .then(() => done(), e => done(e));
     })();
   }
 
@@ -146,7 +167,9 @@ if (isSandstorm && Meteor.isServer) {
 
         const eventTypes = bridgeConfig.viewInfo.eventTypes;
 
-        const defIdx = eventTypes.findIndex((def) => def.name === doc.activityType );
+        const defIdx = eventTypes.findIndex(
+          def => def.name === doc.activityType,
+        );
         if (defIdx >= 0) {
           const users = {};
           function ensureUserListed(userId) {
@@ -188,10 +211,14 @@ if (isSandstorm && Meteor.isServer) {
           if (doc.activityType === 'addComment') {
             const comment = CardComments.findOne(doc.commentId);
             caption = { defaultText: comment.text };
-            const activeMembers =
-              _.pluck(Boards.findOne(sandstormBoard._id).activeMembers(), 'userId');
-            (comment.text.match(/\B@([\w.]*)/g) || []).forEach((username) => {
-              const user = Meteor.users.findOne({ username: username.slice(1)});
+            const activeMembers = _.pluck(
+              Boards.findOne(sandstormBoard._id).activeMembers(),
+              'userId',
+            );
+            (comment.text.match(/\B@([\w.]*)/g) || []).forEach(username => {
+              const user = Meteor.users.findOne({
+                username: username.slice(1),
+              });
               if (user && activeMembers.indexOf(user._id) !== -1) {
                 mentionedUser(user._id);
               }
@@ -209,18 +236,22 @@ if (isSandstorm && Meteor.isServer) {
     const isAdmin = permissions.indexOf('configure') > -1;
     const isCommentOnly = false;
     const isNoComments = false;
-    const permissionDoc = { userId, isActive, isAdmin, isNoComments, isCommentOnly };
+    const permissionDoc = {
+      userId,
+      isActive,
+      isAdmin,
+      isNoComments,
+      isCommentOnly,
+    };
 
     const boardMembers = Boards.findOne(sandstormBoard._id).members;
     const memberIndex = _.pluck(boardMembers, 'userId').indexOf(userId);
 
     let modifier;
     if (memberIndex > -1)
-      modifier = { $set: { [`members.${memberIndex}`]: permissionDoc }};
-    else if (!isActive)
-      modifier = {};
-    else
-      modifier = { $push: { members: permissionDoc }};
+      modifier = { $set: { [`members.${memberIndex}`]: permissionDoc } };
+    else if (!isActive) modifier = {};
+    else modifier = { $push: { members: permissionDoc } };
 
     Boards.update(sandstormBoard._id, modifier);
   }
@@ -259,7 +290,7 @@ if (isSandstorm && Meteor.isServer) {
       });
       Activities.update(
         { activityTypeId: sandstormBoard._id },
-        { $set: { userId: doc._id }}
+        { $set: { userId: doc._id } },
       );
     }
 
@@ -274,10 +305,12 @@ if (isSandstorm && Meteor.isServer) {
 
     const username = doc.services.sandstorm.preferredHandle;
     let appendNumber = 0;
-    while (Users.findOne({
-      _id: { $ne: doc._id },
-      username: generateUniqueUsername(username, appendNumber),
-    })) {
+    while (
+      Users.findOne({
+        _id: { $ne: doc._id },
+        username: generateUniqueUsername(username, appendNumber),
+      })
+    ) {
       appendNumber += 1;
     }
 
@@ -321,40 +354,43 @@ if (isSandstorm && Meteor.isServer) {
   // is now handled by Sandstorm.
   // See https://github.com/wekan/wekan/issues/346
   Migrations.add('enforce-public-visibility-for-sandstorm', () => {
-    Boards.update('sandstorm', { $set: { permission: 'public' }});
+    Boards.update('sandstorm', { $set: { permission: 'public' } });
   });
 
   // Monkey patch to work around the problem described in
   // https://github.com/sandstorm-io/meteor-accounts-sandstorm/pull/31
   const _httpMethods = HTTP.methods;
-  HTTP.methods = (newMethods) => {
-    Object.keys(newMethods).forEach((key) =>  {
+  HTTP.methods = newMethods => {
+    Object.keys(newMethods).forEach(key => {
       if (newMethods[key].auth) {
         newMethods[key].auth = function() {
           const sandstormID = this.req.headers['x-sandstorm-user-id'];
-          const user = Meteor.users.findOne({'services.sandstorm.id': sandstormID});
+          const user = Meteor.users.findOne({
+            'services.sandstorm.id': sandstormID,
+          });
           return user && user._id;
         };
       }
     });
     _httpMethods(newMethods);
   };
-
 }
 
 if (isSandstorm && Meteor.isClient) {
   let rpcCounter = 0;
   const rpcs = {};
 
-  window.addEventListener('message', (event) => {
+  window.addEventListener('message', event => {
     if (event.source === window) {
       // Meteor likes to postmessage itself.
       return;
     }
 
-    if ((event.source !== window.parent) ||
-        typeof event.data !== 'object' ||
-        typeof event.data.rpcId !== 'number') {
+    if (
+      event.source !== window.parent ||
+      typeof event.data !== 'object' ||
+      typeof event.data.rpcId !== 'number'
+    ) {
       throw new Error(`got unexpected postMessage: ${event}`);
     }
 
@@ -374,7 +410,7 @@ if (isSandstorm && Meteor.isClient) {
     obj[name] = message;
     window.parent.postMessage(obj, '*');
     return new Promise((resolve, reject) => {
-      rpcs[id] = (response) => {
+      rpcs[id] = response => {
         if (response.error) {
           reject(new Error(response.error));
         } else {
@@ -401,16 +437,20 @@ if (isSandstorm && Meteor.isClient) {
   function doRequest(serializedPowerboxDescriptor, onSuccess) {
     return sendRpc('powerboxRequest', {
       query: [serializedPowerboxDescriptor],
-    }).then((response) => {
+    }).then(response => {
       if (!response.canceled) {
         onSuccess(response);
       }
     });
   }
 
-  window.sandstormRequestIdentity = function () {
-    doRequest(powerboxDescriptors.identity, (response) => {
-      Meteor.call('sandstormClaimIdentityRequest', response.token, response.descriptor);
+  window.sandstormRequestIdentity = function() {
+    doRequest(powerboxDescriptors.identity, response => {
+      Meteor.call(
+        'sandstormClaimIdentityRequest',
+        response.token,
+        response.descriptor,
+      );
     });
   };
 
@@ -422,9 +462,11 @@ if (isSandstorm && Meteor.isClient) {
     return window.parent.postMessage(msg, '*');
   }
 
-  FlowRouter.triggers.enter([({ path }) => {
-    updateSandstormMetaData({ setPath: path });
-  }]);
+  FlowRouter.triggers.enter([
+    ({ path }) => {
+      updateSandstormMetaData({ setPath: path });
+    },
+  ]);
 
   Tracker.autorun(() => {
     updateSandstormMetaData({ setTitle: DocHead.getTitle() });

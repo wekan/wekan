@@ -21,14 +21,18 @@ BlazeComponent.extendComponent({
     const boardComponent = this.parentComponent().parentComponent();
 
     function userIsMember() {
-      return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
+      return (
+        Meteor.user() &&
+        Meteor.user().isBoardMember() &&
+        !Meteor.user().isCommentOnly()
+      );
     }
 
     const itemsSelector = '.js-minicard:not(.placeholder, .js-card-composer)';
     const $cards = this.$('.js-minicards');
 
-    if(window.matchMedia('(max-width: 1199px)').matches) {
-      $( '.js-minicards' ).sortable({
+    if (window.matchMedia('(max-width: 1199px)').matches) {
+      $('.js-minicards').sortable({
         handle: '.handle',
       });
     }
@@ -42,10 +46,16 @@ BlazeComponent.extendComponent({
         if (MultiSelection.isActive()) {
           const andNOthers = $cards.find('.js-minicard.is-checked').length - 1;
           if (andNOthers > 0) {
-            helper.append($(Blaze.toHTML(HTML.DIV(
-              { 'class': 'and-n-other' },
-              TAPi18n.__('and-n-other-card', { count: andNOthers })
-            ))));
+            helper.append(
+              $(
+                Blaze.toHTML(
+                  HTML.DIV(
+                    { class: 'and-n-other' },
+                    TAPi18n.__('and-n-other-card', { count: andNOthers }),
+                  ),
+                ),
+              ),
+            );
           }
         }
         return helper;
@@ -70,9 +80,16 @@ BlazeComponent.extendComponent({
         const currentBoard = Boards.findOne(Session.get('currentBoard'));
         let swimlaneId = '';
         const boardView = (Meteor.user().profile || {}).boardView;
-        if (boardView === 'board-view-swimlanes' || currentBoard.isTemplatesBoard())
+        if (
+          boardView === 'board-view-swimlanes' ||
+          currentBoard.isTemplatesBoard()
+        )
           swimlaneId = Blaze.getData(ui.item.parents('.swimlane').get(0))._id;
-        else if ((boardView === 'board-view-lists') || (boardView === 'board-view-cal') || !boardView)
+        else if (
+          boardView === 'board-view-lists' ||
+          boardView === 'board-view-cal' ||
+          !boardView
+        )
           swimlaneId = currentBoard.getDefaultSwimline()._id;
 
         // Normally the jquery-ui sortable library moves the dragged DOM element
@@ -86,7 +103,12 @@ BlazeComponent.extendComponent({
 
         if (MultiSelection.isActive()) {
           Cards.find(MultiSelection.getMongoSelector()).forEach((card, i) => {
-            card.move(currentBoard._id, swimlaneId, listId, sortIndex.base + i * sortIndex.increment);
+            card.move(
+              currentBoard._id,
+              swimlaneId,
+              listId,
+              sortIndex.base + i * sortIndex.increment,
+            );
           });
         } else {
           const cardDomElement = ui.item.get(0);

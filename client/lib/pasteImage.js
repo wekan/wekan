@@ -11,7 +11,10 @@
   $.event.fix = (function(originalFix) {
     return function(event) {
       event = originalFix.apply(this, arguments);
-      if (event.type.indexOf('copy') === 0 || event.type.indexOf('paste') === 0) {
+      if (
+        event.type.indexOf('copy') === 0 ||
+        event.type.indexOf('paste') === 0
+      ) {
         event.clipboardData = event.originalEvent.clipboardData;
       }
       return event;
@@ -23,7 +26,7 @@
     matchType: /image.*/,
   };
 
-  return $.fn.pasteImageReader = function(options) {
+  return ($.fn.pasteImageReader = function(options) {
     if (typeof options === 'function') {
       options = {
         callback: options,
@@ -35,8 +38,11 @@
       return $(element).bind('paste', function(event) {
         const types = event.clipboardData.types;
         const items = event.clipboardData.items;
-        for(let i=0; i<types.length; i++) {
-          if(types[i].match(options.matchType) || items[i].type.match(options.matchType)) {
+        for (let i = 0; i < types.length; i++) {
+          if (
+            types[i].match(options.matchType) ||
+            items[i].type.match(options.matchType)
+          ) {
             const f = items[i].getAsFile();
             const reader = new FileReader();
             reader.onload = function(evt) {
@@ -53,5 +59,5 @@
         }
       });
     });
-  };
+  });
 })(jQuery);

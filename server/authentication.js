@@ -1,21 +1,20 @@
 import Fiber from 'fibers';
 
 Meteor.startup(() => {
-
   // Node Fibers 100% CPU usage issue
   // https://github.com/wekan/wekan-mongodb/issues/2#issuecomment-381453161
   // https://github.com/meteor/meteor/issues/9796#issuecomment-381676326
   // https://github.com/sandstorm-io/sandstorm/blob/0f1fec013fe7208ed0fd97eb88b31b77e3c61f42/shell/server/00-startup.js#L99-L129
   Fiber.poolSize = 1e9;
 
-  Accounts.validateLoginAttempt(function (options) {
+  Accounts.validateLoginAttempt(function(options) {
     const user = options.user || {};
     return !user.loginDisabled;
   });
 
   Authentication = {};
 
-  Authentication.checkUserId = function (userId) {
+  Authentication.checkUserId = function(userId) {
     if (userId === undefined) {
       const error = new Meteor.Error('Unauthorized', 'Unauthorized');
       error.statusCode = 401;
@@ -28,13 +27,12 @@ Meteor.startup(() => {
       error.statusCode = 403;
       throw error;
     }
-
   };
 
   // This will only check if the user is logged in.
   // The authorization checks for the user will have to be done inside each API endpoint
   Authentication.checkLoggedIn = function(userId) {
-    if(userId === undefined) {
+    if (userId === undefined) {
       const error = new Meteor.Error('Unauthorized', 'Unauthorized');
       error.statusCode = 401;
       throw error;
@@ -44,7 +42,7 @@ Meteor.startup(() => {
   // An admin should be authorized to access everything, so we use a separate check for admins
   // This throws an error if otherReq is false and the user is not an admin
   Authentication.checkAdminOrCondition = function(userId, otherReq) {
-    if(otherReq) return;
+    if (otherReq) return;
     const admin = Users.findOne({ _id: userId, isAdmin: true });
     if (admin === undefined) {
       const error = new Meteor.Error('Forbidden', 'Forbidden');
@@ -58,14 +56,16 @@ Meteor.startup(() => {
     Authentication.checkLoggedIn(userId);
 
     const board = Boards.findOne({ _id: boardId });
-    const normalAccess = board.permission === 'public' || board.members.some((e) => e.userId === userId);
+    const normalAccess =
+      board.permission === 'public' ||
+      board.members.some(e => e.userId === userId);
     Authentication.checkAdminOrCondition(userId, normalAccess);
   };
 
   if (Meteor.isServer) {
-    if(process.env.OAUTH2_CLIENT_ID !== '') {
-
-      ServiceConfiguration.configurations.upsert( // eslint-disable-line no-undef
+    if (process.env.OAUTH2_CLIENT_ID !== '') {
+      ServiceConfiguration.configurations.upsert(
+        // eslint-disable-line no-undef
         { service: 'oidc' },
         {
           $set: {
@@ -76,15 +76,14 @@ Meteor.startup(() => {
             authorizationEndpoint: process.env.OAUTH2_AUTH_ENDPOINT,
             userinfoEndpoint: process.env.OAUTH2_USERINFO_ENDPOINT,
             tokenEndpoint: process.env.OAUTH2_TOKEN_ENDPOINT,
-            idTokenWhitelistFields: process.env.OAUTH2_ID_TOKEN_WHITELIST_FIELDS || [],
+            idTokenWhitelistFields:
+              process.env.OAUTH2_ID_TOKEN_WHITELIST_FIELDS || [],
             requestPermissions: process.env.OAUTH2_REQUEST_PERMISSIONS,
           },
           // OAUTH2_ID_TOKEN_WHITELIST_FIELDS || [],
           // OAUTH2_REQUEST_PERMISSIONS || 'openid profile email',
-        }
+        },
       );
     }
   }
-
 });
-

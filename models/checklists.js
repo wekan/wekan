@@ -59,7 +59,7 @@ Checklists.attachSchema(
       type: Number,
       decimal: true,
     },
-  })
+  }),
 );
 
 Checklists.helpers({
@@ -68,7 +68,7 @@ Checklists.helpers({
     this._id = null;
     this.cardId = newCardId;
     const newChecklistId = Checklists.insert(this);
-    ChecklistItems.find({ checklistId: oldChecklistId }).forEach((item) => {
+    ChecklistItems.find({ checklistId: oldChecklistId }).forEach(item => {
       item._id = null;
       item.checklistId = newChecklistId;
       item.cardId = newCardId;
@@ -84,7 +84,7 @@ Checklists.helpers({
       {
         checklistId: this._id,
       },
-      { sort: ['sort'] }
+      { sort: ['sort'] },
     );
   },
   finishedCount() {
@@ -160,16 +160,11 @@ if (Meteor.isServer) {
     });
   });
 
-  Checklists.before.update((userId, doc, fieldNames, modifier, options) => {
-    modifier.$set = modifier.$set || {};
-    modifier.$set.modifiedAt = Date.now();
-  });
-
   Checklists.before.remove((userId, doc) => {
     const activities = Activities.find({ checklistId: doc._id });
     const card = Cards.findOne(doc.cardId);
     if (activities) {
-      activities.forEach((activity) => {
+      activities.forEach(activity => {
         Activities.remove(activity._id);
       });
     }
@@ -203,7 +198,7 @@ if (Meteor.isServer) {
       Authentication.checkUserId(req.userId);
       const paramCardId = req.params.cardId;
       const checklists = Checklists.find({ cardId: paramCardId }).map(function(
-        doc
+        doc,
       ) {
         return {
           _id: doc._id,
@@ -220,7 +215,7 @@ if (Meteor.isServer) {
           code: 500,
         });
       }
-    }
+    },
   );
 
   /**
@@ -269,7 +264,7 @@ if (Meteor.isServer) {
           code: 500,
         });
       }
-    }
+    },
   );
 
   /**
@@ -313,7 +308,7 @@ if (Meteor.isServer) {
           code: 400,
         });
       }
-    }
+    },
   );
 
   /**
@@ -340,7 +335,7 @@ if (Meteor.isServer) {
           _id: paramChecklistId,
         },
       });
-    }
+    },
   );
 }
 

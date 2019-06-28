@@ -7,7 +7,7 @@ allowIsBoardMember = function(userId, board) {
 };
 
 allowIsAnyBoardMember = function(userId, boards) {
-  return _.some(boards, (board) => {
+  return _.some(boards, board => {
     return board && board.hasMember(userId);
   });
 };
