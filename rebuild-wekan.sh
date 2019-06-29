@@ -78,7 +78,7 @@ do
 			sudo chown wekan:wekan ../../.npm -R
 			#curl -0 -L https://npmjs.org/install.sh | sudo sh
 			sudo npm -g install n
-			sudo n 8.15.1
+			sudo n 8.16.0
 			#curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 			#sudo apt-get install -y nodejs
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
@@ -105,11 +105,12 @@ do
 			exit;
 		fi
 
-	        ## Latest npm with Meteor 1.6
+	        ## Latest npm with Meteor 1.8.x
 	        npm_call -g install npm
 	        npm_call -g install node-gyp
-	        # Latest fibers for Meteor 1.6
-	        npm_call -g install fibers@3.1.1
+	        # Latest fibers for Meteor 1.8.x
+		sudo mkdir -p /usr/local/lib/node_modules/fibers/.node-gyp
+	        npm_call -g install fibers@4.0.1
 	        # Install Meteor, if it's not yet installed
 	        curl https://install.meteor.com | bash
 		sudo chown -R $USER ~/.meteor
