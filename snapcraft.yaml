@@ -1,6 +1,6 @@
 name: wekan
 base: core18
-version: 0
+version: '3.6'
 version-script: git describe --dirty --tags |  cut -c 2-
 summary: The open-source kanban
 description: |
