@@ -7,7 +7,7 @@
       # Debug OIDC OAuth2 etc.
       #export DEBUG=true
       #---------------------------------------------
-      export MONGO_URL='mongodb://127.0.0.1:27019/wekan'
+      export MONGO_URL='mongodb://127.0.0.1:27018/wekan'
       #---------------------------------------------
       # Production: https://example.com/wekan
       # Local: http://localhost:2000
