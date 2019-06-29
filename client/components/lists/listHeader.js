@@ -6,12 +6,18 @@ Meteor.startup(() => {
 BlazeComponent.extendComponent({
   canSeeAddCard() {
     const list = Template.currentData();
-    return !list.getWipLimit('enabled') || list.getWipLimit('soft') || !this.reachedWipLimit();
+    return (
+      !list.getWipLimit('enabled') ||
+      list.getWipLimit('soft') ||
+      !this.reachedWipLimit()
+    );
   },
 
-  editTitle(evt) {
-    evt.preventDefault();
-    const newTitle = this.childComponents('inlinedForm')[0].getValue().trim();
+  editTitle(event) {
+    event.preventDefault();
+    const newTitle = this.childComponents('inlinedForm')[0]
+      .getValue()
+      .trim();
     const list = this.currentData();
     if (newTitle) {
       list.rename(newTitle.trim());
@@ -32,14 +38,19 @@ BlazeComponent.extendComponent({
     let swimlaneId = '';
     const boardView = (Meteor.user().profile || {}).boardView;
     if (boardView === 'board-view-swimlanes')
-      swimlaneId = this.parentComponent().parentComponent().data()._id;
+      swimlaneId = this.parentComponent()
+        .parentComponent()
+        .data()._id;
 
     return list.cards(swimlaneId).count();
   },
 
   reachedWipLimit() {
     const list = Template.currentData();
-    return list.getWipLimit('enabled') && list.getWipLimit('value') <= list.cards().count();
+    return (
+      list.getWipLimit('enabled') &&
+      list.getWipLimit('value') <= list.cards().count()
+    );
   },
 
   showCardsCountForList(count) {
@@ -48,20 +59,24 @@ BlazeComponent.extendComponent({
   },
 
   events() {
-    return [{
-      'click .js-open-list-menu': Popup.open('listAction'),
-      'click .js-add-card' (evt) {
-        const listDom = $(evt.target).parents(`#js-list-${this.currentData()._id}`)[0];
-        const listComponent = BlazeComponent.getComponentForElement(listDom);
-        listComponent.openForm({
-          position: 'top',
-        });
+    return [
+      {
+        'click .js-open-list-menu': Popup.open('listAction'),
+        'click .js-add-card'(event) {
+          const listDom = $(event.target).parents(
+            `#js-list-${this.currentData()._id}`,
+          )[0];
+          const listComponent = BlazeComponent.getComponentForElement(listDom);
+          listComponent.openForm({
+            position: 'top',
+          });
+        },
+        'click .js-unselect-list'() {
+          Session.set('currentList', null);
+        },
+        submit: this.editTitle,
       },
-      'click .js-unselect-list'() {
-        Session.set('currentList', null);
-      },
-      submit: this.editTitle,
-    }];
+    ];
   },
 }).register('listHeader');
 
@@ -76,22 +91,22 @@ Template.listActionPopup.helpers({
 });
 
 Template.listActionPopup.events({
-  'click .js-list-subscribe' () {},
+  'click .js-list-subscribe'() {},
   'click .js-set-color-list': Popup.open('setListColor'),
-  'click .js-select-cards' () {
-    const cardIds = this.allCards().map((card) => card._id);
+  'click .js-select-cards'() {
+    const cardIds = this.allCards().map(card => card._id);
     MultiSelection.add(cardIds);
     Popup.close();
   },
-  'click .js-toggle-watch-list' () {
+  'click .js-toggle-watch-list'() {
     const currentList = this;
     const level = currentList.findWatcher(Meteor.userId()) ? null : 'watching';
     Meteor.call('watch', 'list', currentList._id, level, (err, ret) => {
       if (!err && ret) Popup.close();
     });
   },
-  'click .js-close-list' (evt) {
-    evt.preventDefault();
+  'click .js-close-list'(event) {
+    event.preventDefault();
     this.archive();
     Popup.close();
   },
@@ -102,10 +117,17 @@ Template.listActionPopup.events({
 BlazeComponent.extendComponent({
   applyWipLimit() {
     const list = Template.currentData();
-    const limit = parseInt(Template.instance().$('.wip-limit-value').val(), 10);
+    const limit = parseInt(
+      Template.instance()
+        .$('.wip-limit-value')
+        .val(),
+      10,
+    );
 
-    if(limit < list.cards().count() && !list.getWipLimit('soft')){
-      Template.instance().$('.wip-limit-error').click();
+    if (limit < list.cards().count() && !list.getWipLimit('soft')) {
+      Template.instance()
+        .$('.wip-limit-error')
+        .click();
     } else {
       Meteor.call('applyWipLimit', list._id, limit);
       Popup.back();
@@ -115,7 +137,10 @@ BlazeComponent.extendComponent({
   enableSoftLimit() {
     const list = Template.currentData();
 
-    if(list.getWipLimit('soft') && list.getWipLimit('value') < list.cards().count()){
+    if (
+      list.getWipLimit('soft') &&
+      list.getWipLimit('value') < list.cards().count()
+    ) {
       list.setWipLimit(list.cards().count());
     }
     Meteor.call('enableSoftLimit', Template.currentData()._id);
@@ -124,7 +149,10 @@ BlazeComponent.extendComponent({
   enableWipLimit() {
     const list = Template.currentData();
     // Prevent user from using previously stored wipLimit.value if it is less than the current number of cards in the list
-    if(!list.getWipLimit('enabled') && list.getWipLimit('value') < list.cards().count()){
+    if (
+      !list.getWipLimit('enabled') &&
+      list.getWipLimit('value') < list.cards().count()
+    ) {
       list.setWipLimit(list.cards().count());
     }
     Meteor.call('enableWipLimit', list._id);
@@ -138,24 +166,26 @@ BlazeComponent.extendComponent({
     return Template.currentData().getWipLimit('enabled');
   },
 
-  wipLimitValue(){
+  wipLimitValue() {
     return Template.currentData().getWipLimit('value');
   },
 
   events() {
-    return [{
-      'click .js-enable-wip-limit': this.enableWipLimit,
-      'click .wip-limit-apply': this.applyWipLimit,
-      'click .wip-limit-error': Popup.open('wipLimitError'),
-      'click .materialCheckBox': this.enableSoftLimit,
-    }];
+    return [
+      {
+        'click .js-enable-wip-limit': this.enableWipLimit,
+        'click .wip-limit-apply': this.applyWipLimit,
+        'click .wip-limit-error': Popup.open('wipLimitError'),
+        'click .materialCheckBox': this.enableSoftLimit,
+      },
+    ];
   },
 }).register('setWipLimitPopup');
 
 Template.listMorePopup.events({
-  'click .js-delete': Popup.afterConfirm('listDelete', function () {
+  'click .js-delete': Popup.afterConfirm('listDelete', function() {
     Popup.close();
-    this.allCards().map((card) => Cards.remove(card._id));
+    this.allCards().map(card => Cards.remove(card._id));
     Lists.remove(this._id);
     Utils.goBoardId(this.boardId);
   }),
@@ -168,7 +198,7 @@ BlazeComponent.extendComponent({
   },
 
   colors() {
-    return listsColors.map((color) => ({ color, name: '' }));
+    return listsColors.map(color => ({ color, name: '' }));
   },
 
   isSelected(color) {
@@ -176,18 +206,20 @@ BlazeComponent.extendComponent({
   },
 
   events() {
-    return [{
-      'click .js-palette-color'() {
-        this.currentColor.set(this.currentData().color);
+    return [
+      {
+        'click .js-palette-color'() {
+          this.currentColor.set(this.currentData().color);
+        },
+        'click .js-submit'() {
+          this.currentList.setColor(this.currentColor.get());
+          Popup.close();
+        },
+        'click .js-remove-color'() {
+          this.currentList.setColor(null);
+          Popup.close();
+        },
       },
-      'click .js-submit' () {
-        this.currentList.setColor(this.currentColor.get());
-        Popup.close();
-      },
-      'click .js-remove-color'() {
-        this.currentList.setColor(null);
-        Popup.close();
-      },
-    }];
+    ];
   },
 }).register('setListColorPopup');

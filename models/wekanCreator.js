@@ -87,99 +87,120 @@ export class WekanCreator {
   }
 
   checkActivities(wekanActivities) {
-    check(wekanActivities, [Match.ObjectIncluding({
-      activityType: String,
-      createdAt: DateString,
-    })]);
+    check(wekanActivities, [
+      Match.ObjectIncluding({
+        activityType: String,
+        createdAt: DateString,
+      }),
+    ]);
     // XXX we could perform more thorough checks based on action type
   }
 
   checkBoard(wekanBoard) {
-    check(wekanBoard, Match.ObjectIncluding({
-      archived: Boolean,
-      title: String,
-      // XXX refine control by validating 'color' against a list of
-      // allowed values (is it worth the maintenance?)
-      color: String,
-      permission: Match.Where((value) => {
-        return ['private', 'public'].indexOf(value) >= 0;
+    check(
+      wekanBoard,
+      Match.ObjectIncluding({
+        archived: Boolean,
+        title: String,
+        // XXX refine control by validating 'color' against a list of
+        // allowed values (is it worth the maintenance?)
+        color: String,
+        permission: Match.Where(value => {
+          return ['private', 'public'].indexOf(value) >= 0;
+        }),
       }),
-    }));
+    );
   }
 
   checkCards(wekanCards) {
-    check(wekanCards, [Match.ObjectIncluding({
-      archived: Boolean,
-      dateLastActivity: DateString,
-      labelIds: [String],
-      title: String,
-      sort: Number,
-    })]);
+    check(wekanCards, [
+      Match.ObjectIncluding({
+        archived: Boolean,
+        dateLastActivity: DateString,
+        labelIds: [String],
+        title: String,
+        sort: Number,
+      }),
+    ]);
   }
 
   checkLabels(wekanLabels) {
-    check(wekanLabels, [Match.ObjectIncluding({
-      // XXX refine control by validating 'color' against a list of allowed
-      // values (is it worth the maintenance?)
-      color: String,
-    })]);
+    check(wekanLabels, [
+      Match.ObjectIncluding({
+        // XXX refine control by validating 'color' against a list of allowed
+        // values (is it worth the maintenance?)
+        color: String,
+      }),
+    ]);
   }
 
   checkLists(wekanLists) {
-    check(wekanLists, [Match.ObjectIncluding({
-      archived: Boolean,
-      title: String,
-    })]);
+    check(wekanLists, [
+      Match.ObjectIncluding({
+        archived: Boolean,
+        title: String,
+      }),
+    ]);
   }
 
   checkSwimlanes(wekanSwimlanes) {
-    check(wekanSwimlanes, [Match.ObjectIncluding({
-      archived: Boolean,
-      title: String,
-    })]);
+    check(wekanSwimlanes, [
+      Match.ObjectIncluding({
+        archived: Boolean,
+        title: String,
+      }),
+    ]);
   }
 
   checkChecklists(wekanChecklists) {
-    check(wekanChecklists, [Match.ObjectIncluding({
-      cardId: String,
-      title: String,
-    })]);
+    check(wekanChecklists, [
+      Match.ObjectIncluding({
+        cardId: String,
+        title: String,
+      }),
+    ]);
   }
 
   checkChecklistItems(wekanChecklistItems) {
-    check(wekanChecklistItems, [Match.ObjectIncluding({
-      cardId: String,
-      title: String,
-    })]);
+    check(wekanChecklistItems, [
+      Match.ObjectIncluding({
+        cardId: String,
+        title: String,
+      }),
+    ]);
   }
 
   checkRules(wekanRules) {
-    check(wekanRules, [Match.ObjectIncluding({
-      triggerId: String,
-      actionId: String,
-      title: String,
-    })]);
+    check(wekanRules, [
+      Match.ObjectIncluding({
+        triggerId: String,
+        actionId: String,
+        title: String,
+      }),
+    ]);
   }
 
   checkTriggers(wekanTriggers) {
     // XXX More check based on trigger type
-    check(wekanTriggers, [Match.ObjectIncluding({
-      activityType: String,
-      desc: String,
-    })]);
+    check(wekanTriggers, [
+      Match.ObjectIncluding({
+        activityType: String,
+        desc: String,
+      }),
+    ]);
   }
 
   getMembersToMap(data) {
-  // we will work on the list itself (an ordered array of objects) when a
-  // mapping is done, we add a 'wekan' field to the object representing the
-  // imported member
+    // we will work on the list itself (an ordered array of objects) when a
+    // mapping is done, we add a 'wekan' field to the object representing the
+    // imported member
     const membersToMap = data.members;
     const users = data.users;
     // auto-map based on username
-    membersToMap.forEach((importedMember) => {
+    membersToMap.forEach(importedMember => {
       importedMember.id = importedMember.userId;
       delete importedMember.userId;
-      const user = users.filter((user) => {
+      const user = users.filter(user => {
         return user._id === importedMember.id;
       })[0];
       if (user.profile && user.profile.fullname) {
@@ -196,10 +217,12 @@ export class WekanCreator {
 
   checkActions(wekanActions) {
     // XXX More check based on action type
-    check(wekanActions, [Match.ObjectIncluding({
-      actionType: String,
-      desc: String,
-    })]);
+    check(wekanActions, [
+      Match.ObjectIncluding({
+        actionType: String,
+        desc: String,
+      }),
+    ]);
   }
 
   // You must call parseActions before calling this one.
@@ -210,15 +233,17 @@ export class WekanCreator {
       // very old boards won't have a creation activity so no creation date
       createdAt: this._now(boardToImport.createdAt),
       labels: [],
-      members: [{
-        userId: Meteor.userId(),
-        wekanId: Meteor.userId(),
-        isActive: true,
-        isAdmin: true,
-        isNoComments: false,
-        isCommentOnly: false,
-        swimlaneId: false,
-      }],
+      members: [
+        {
+          userId: Meteor.userId(),
+          wekanId: Meteor.userId(),
+          isActive: true,
+          isAdmin: true,
+          isNoComments: false,
+          isCommentOnly: false,
+          swimlaneId: false,
+        },
+      ],
       // Standalone Export has modifiedAt missing, adding modifiedAt to fix it
       modifiedAt: this._now(boardToImport.modifiedAt),
       permission: boardToImport.permission,
@@ -228,16 +253,20 @@ export class WekanCreator {
     };
     // now add other members
     if (boardToImport.members) {
-      boardToImport.members.forEach((wekanMember) => {
+      boardToImport.members.forEach(wekanMember => {
         // do we already have it in our list?
-        if (!boardToCreate.members.some((member) => member.wekanId === wekanMember.wekanId))
+        if (
+          !boardToCreate.members.some(
+            member => member.wekanId === wekanMember.wekanId,
+          )
+        )
           boardToCreate.members.push({
             ...wekanMember,
             userId: wekanMember.wekanId,
           });
       });
     }
-    boardToImport.labels.forEach((label) => {
+    boardToImport.labels.forEach(label => {
       const labelToCreate = {
         _id: Random.id(6),
         color: label.color,
@@ -279,7 +308,7 @@ export class WekanCreator {
    */
   createCards(wekanCards, boardId) {
     const result = [];
-    wekanCards.forEach((card) => {
+    wekanCards.forEach(card => {
       const cardToCreate = {
         archived: card.archived,
         boardId,
@@ -300,7 +329,7 @@ export class WekanCreator {
       };
       // add labels
       if (card.labelIds) {
-        cardToCreate.labelIds = card.labelIds.map((wekanId) => {
+        cardToCreate.labelIds = card.labelIds.map(wekanId => {
           return this.labels[wekanId];
         });
       }
@@ -308,12 +337,12 @@ export class WekanCreator {
       if (card.members) {
         const wekanMembers = [];
         // we can't just map, as some members may not have been mapped
-        card.members.forEach((sourceMemberId) => {
+        card.members.forEach(sourceMemberId => {
           if (this.members[sourceMemberId]) {
             const wekanId = this.members[sourceMemberId];
             // we may map multiple Wekan members to the same wekan user
             // in which case we risk adding the same user multiple times
-            if (!wekanMembers.find((wId) => wId === wekanId)) {
+            if (!wekanMembers.find(wId => wId === wekanId)) {
               wekanMembers.push(wekanId);
             }
           }
@@ -349,7 +378,7 @@ export class WekanCreator {
       // add comments
       const comments = this.comments[card._id];
       if (comments) {
-        comments.forEach((comment) => {
+        comments.forEach(comment => {
           const commentToCreate = {
             boardId,
             cardId,
@@ -377,7 +406,7 @@ export class WekanCreator {
       const attachments = this.attachments[card._id];
       const wekanCoverId = card.coverId;
       if (attachments) {
-        attachments.forEach((att) => {
+        attachments.forEach(att => {
           const file = new FS.File();
           // Simulating file.attachData on the client generates multiple errors
           // - HEAD returns null, which causes exception down the line
@@ -394,7 +423,7 @@ export class WekanCreator {
                 // attachments' related activities automatically
                 file.source = 'import';
                 if (error) {
-                  throw (error);
+                  throw error;
                 } else {
                   const wekanAtt = Attachments.insert(file, () => {
                     // we do nothing
@@ -411,33 +440,37 @@ export class WekanCreator {
                 }
               });
             } else if (att.file) {
-              file.attachData(new Buffer(att.file, 'base64'), {
-                type: att.type,
-              }, (error) => {
-                file.name(att.name);
-                file.boardId = boardId;
-                file.cardId = cardId;
-                file.userId = self._user(att.userId);
-                // The field source will only be used to prevent adding
-                // attachments' related activities automatically
-                file.source = 'import';
-                if (error) {
-                  throw (error);
-                } else {
-                  const wekanAtt = Attachments.insert(file, () => {
-                    // we do nothing
-                  });
-                  this.attachmentIds[att._id] = wekanAtt._id;
-                  //
-                  if (wekanCoverId === att._id) {
-                    Cards.direct.update(cardId, {
-                      $set: {
-                        coverId: wekanAtt._id,
-                      },
+              file.attachData(
+                new Buffer(att.file, 'base64'),
+                {
+                  type: att.type,
+                },
+                error => {
+                  file.name(att.name);
+                  file.boardId = boardId;
+                  file.cardId = cardId;
+                  file.userId = self._user(att.userId);
+                  // The field source will only be used to prevent adding
+                  // attachments' related activities automatically
+                  file.source = 'import';
+                  if (error) {
+                    throw error;
+                  } else {
+                    const wekanAtt = Attachments.insert(file, () => {
+                      // we do nothing
                     });
+                    this.attachmentIds[att._id] = wekanAtt._id;
+                    //
+                    if (wekanCoverId === att._id) {
+                      Cards.direct.update(cardId, {
+                        $set: {
+                          coverId: wekanAtt._id,
+                        },
+                      });
+                    }
                   }
-                }
-              });
+                },
+              );
             }
           }
           // todo XXX set cover - if need be
@@ -450,7 +483,7 @@ export class WekanCreator {
 
   // Create labels if they do not exist and load this.labels.
   createLabels(wekanLabels, board) {
-    wekanLabels.forEach((label) => {
+    wekanLabels.forEach(label => {
       const color = label.color;
       const name = label.name;
       const existingLabel = board.getLabel(name, color);
@@ -479,7 +512,7 @@ export class WekanCreator {
       const listId = Lists.direct.insert(listToCreate);
       Lists.direct.update(listId, {
         $set: {
-          'updatedAt': this._now(),
+          updatedAt: this._now(),
         },
       });
       this.lists[list._id] = listId;
@@ -520,7 +553,7 @@ export class WekanCreator {
       const swimlaneId = Swimlanes.direct.insert(swimlaneToCreate);
       Swimlanes.direct.update(swimlaneId, {
         $set: {
-          'updatedAt': this._now(),
+          updatedAt: this._now(),
         },
       });
       this.swimlanes[swimlane._id] = swimlaneId;
@@ -545,7 +578,7 @@ export class WekanCreator {
   }
 
   createTriggers(wekanTriggers, boardId) {
-    wekanTriggers.forEach((trigger) => {
+    wekanTriggers.forEach(trigger => {
       if (trigger.hasOwnProperty('labelId')) {
         trigger.labelId = this.labels[trigger.labelId];
       }
@@ -560,7 +593,7 @@ export class WekanCreator {
   }
 
   createActions(wekanActions, boardId) {
-    wekanActions.forEach((action) => {
+    wekanActions.forEach(action => {
       if (action.hasOwnProperty('labelId')) {
         action.labelId = this.labels[action.labelId];
       }
@@ -575,7 +608,7 @@ export class WekanCreator {
   }
 
   createRules(wekanRules, boardId) {
-    wekanRules.forEach((rule) => {
+    wekanRules.forEach(rule => {
       // Create the rule
       rule.boardId = boardId;
       rule.triggerId = this.triggers[rule.triggerId];
@@ -595,189 +628,178 @@ export class WekanCreator {
         sort: checklistitem.sort ? checklistitem.sort : checklistitemIndex,
         isFinished: checklistitem.isFinished,
       };
-      const checklistItemId = ChecklistItems.direct.insert(checklistItemTocreate);
+      const checklistItemId = ChecklistItems.direct.insert(
+        checklistItemTocreate,
+      );
       this.checklistItems[checklistitem._id] = checklistItemId;
     });
   }
 
   parseActivities(wekanBoard) {
-    wekanBoard.activities.forEach((activity) => {
+    wekanBoard.activities.forEach(activity => {
       switch (activity.activityType) {
-      case 'addAttachment':
-      {
-        // We have to be cautious, because the attachment could have been removed later.
-        // In that case Wekan still reports its addition, but removes its 'url' field.
-        // So we test for that
-        const wekanAttachment = wekanBoard.attachments.filter((attachment) => {
-          return attachment._id === activity.attachmentId;
-        })[0];
+        case 'addAttachment': {
+          // We have to be cautious, because the attachment could have been removed later.
+          // In that case Wekan still reports its addition, but removes its 'url' field.
+          // So we test for that
+          const wekanAttachment = wekanBoard.attachments.filter(attachment => {
+            return attachment._id === activity.attachmentId;
+          })[0];
 
-        if (typeof wekanAttachment !== 'undefined' && wekanAttachment) {
-          if (wekanAttachment.url || wekanAttachment.file) {
-            // we cannot actually create the Wekan attachment, because we don't yet
-            // have the cards to attach it to, so we store it in the instance variable.
-            const wekanCardId = activity.cardId;
-            if (!this.attachments[wekanCardId]) {
-              this.attachments[wekanCardId] = [];
+          if (typeof wekanAttachment !== 'undefined' && wekanAttachment) {
+            if (wekanAttachment.url || wekanAttachment.file) {
+              // we cannot actually create the Wekan attachment, because we don't yet
+              // have the cards to attach it to, so we store it in the instance variable.
+              const wekanCardId = activity.cardId;
+              if (!this.attachments[wekanCardId]) {
+                this.attachments[wekanCardId] = [];
+              }
+              this.attachments[wekanCardId].push(wekanAttachment);
             }
-            this.attachments[wekanCardId].push(wekanAttachment);
           }
+          break;
         }
-        break;
-      }
-      case 'addComment':
-      {
-        const wekanComment = wekanBoard.comments.filter((comment) => {
-          return comment._id === activity.commentId;
-        })[0];
-        const id = activity.cardId;
-        if (!this.comments[id]) {
-          this.comments[id] = [];
+        case 'addComment': {
+          const wekanComment = wekanBoard.comments.filter(comment => {
+            return comment._id === activity.commentId;
+          })[0];
+          const id = activity.cardId;
+          if (!this.comments[id]) {
+            this.comments[id] = [];
+          }
+          this.comments[id].push(wekanComment);
+          break;
         }
-        this.comments[id].push(wekanComment);
-        break;
-      }
-      case 'createBoard':
-      {
-        this.createdAt.board = activity.createdAt;
-        break;
-      }
-      case 'createCard':
-      {
-        const cardId = activity.cardId;
-        this.createdAt.cards[cardId] = activity.createdAt;
-        this.createdBy.cards[cardId] = activity.userId;
-        break;
-      }
-      case 'createList':
-      {
-        const listId = activity.listId;
-        this.createdAt.lists[listId] = activity.createdAt;
-        break;
-      }
-      case 'createSwimlane':
-      {
-        const swimlaneId = activity.swimlaneId;
-        this.createdAt.swimlanes[swimlaneId] = activity.createdAt;
-        break;
-      }
+        case 'createBoard': {
+          this.createdAt.board = activity.createdAt;
+          break;
+        }
+        case 'createCard': {
+          const cardId = activity.cardId;
+          this.createdAt.cards[cardId] = activity.createdAt;
+          this.createdBy.cards[cardId] = activity.userId;
+          break;
+        }
+        case 'createList': {
+          const listId = activity.listId;
+          this.createdAt.lists[listId] = activity.createdAt;
+          break;
+        }
+        case 'createSwimlane': {
+          const swimlaneId = activity.swimlaneId;
+          this.createdAt.swimlanes[swimlaneId] = activity.createdAt;
+          break;
+        }
       }
     });
   }
 
   importActivities(activities, boardId) {
-    activities.forEach((activity) => {
+    activities.forEach(activity => {
       switch (activity.activityType) {
-      // Board related activities
-      // TODO: addBoardMember, removeBoardMember
-      case 'createBoard':
-      {
-        Activities.direct.insert({
-          userId: this._user(activity.userId),
-          type: 'board',
-          activityTypeId: boardId,
-          activityType: activity.activityType,
-          boardId,
-          createdAt: this._now(activity.createdAt),
-        });
-        break;
-      }
-      // List related activities
-      // TODO: removeList, archivedList
-      case 'createList':
-      {
-        Activities.direct.insert({
-          userId: this._user(activity.userId),
-          type: 'list',
-          activityType: activity.activityType,
-          listId: this.lists[activity.listId],
-          boardId,
-          createdAt: this._now(activity.createdAt),
-        });
-        break;
-      }
-      // Card related activities
-      // TODO: archivedCard, restoredCard, joinMember, unjoinMember
-      case 'createCard':
-      {
-        Activities.direct.insert({
-          userId: this._user(activity.userId),
-          activityType: activity.activityType,
-          listId: this.lists[activity.listId],
-          cardId: this.cards[activity.cardId],
-          boardId,
-          createdAt: this._now(activity.createdAt),
-        });
-        break;
-      }
-      case 'moveCard':
-      {
-        Activities.direct.insert({
-          userId: this._user(activity.userId),
-          oldListId: this.lists[activity.oldListId],
-          activityType: activity.activityType,
-          listId: this.lists[activity.listId],
-          cardId: this.cards[activity.cardId],
-          boardId,
-          createdAt: this._now(activity.createdAt),
-        });
-        break;
-      }
-      // Comment related activities
-      case 'addComment':
-      {
-        Activities.direct.insert({
-          userId: this._user(activity.userId),
-          activityType: activity.activityType,
-          cardId: this.cards[activity.cardId],
-          commentId: this.commentIds[activity.commentId],
-          boardId,
-          createdAt: this._now(activity.createdAt),
-        });
-        break;
-      }
-      // Attachment related activities
-      case 'addAttachment':
-      {
-        Activities.direct.insert({
-          userId: this._user(activity.userId),
-          type: 'card',
-          activityType: activity.activityType,
-          attachmentId: this.attachmentIds[activity.attachmentId],
-          cardId: this.cards[activity.cardId],
-          boardId,
-          createdAt: this._now(activity.createdAt),
-        });
-        break;
-      }
-      // Checklist related activities
-      case 'addChecklist':
-      {
-        Activities.direct.insert({
-          userId: this._user(activity.userId),
-          activityType: activity.activityType,
-          cardId: this.cards[activity.cardId],
-          checklistId: this.checklists[activity.checklistId],
-          boardId,
-          createdAt: this._now(activity.createdAt),
-        });
-        break;
-      }
-      case 'addChecklistItem':
-      {
-        Activities.direct.insert({
-          userId: this._user(activity.userId),
-          activityType: activity.activityType,
-          cardId: this.cards[activity.cardId],
-          checklistId: this.checklists[activity.checklistId],
-          checklistItemId: activity.checklistItemId.replace(
-            activity.checklistId,
-            this.checklists[activity.checklistId]),
-          boardId,
-          createdAt: this._now(activity.createdAt),
-        });
-        break;
-      }
+        // Board related activities
+        // TODO: addBoardMember, removeBoardMember
+        case 'createBoard': {
+          Activities.direct.insert({
+            userId: this._user(activity.userId),
+            type: 'board',
+            activityTypeId: boardId,
+            activityType: activity.activityType,
+            boardId,
+            createdAt: this._now(activity.createdAt),
+          });
+          break;
+        }
+        // List related activities
+        // TODO: removeList, archivedList
+        case 'createList': {
+          Activities.direct.insert({
+            userId: this._user(activity.userId),
+            type: 'list',
+            activityType: activity.activityType,
+            listId: this.lists[activity.listId],
+            boardId,
+            createdAt: this._now(activity.createdAt),
+          });
+          break;
+        }
+        // Card related activities
+        // TODO: archivedCard, restoredCard, joinMember, unjoinMember
+        case 'createCard': {
+          Activities.direct.insert({
+            userId: this._user(activity.userId),
+            activityType: activity.activityType,
+            listId: this.lists[activity.listId],
+            cardId: this.cards[activity.cardId],
+            boardId,
+            createdAt: this._now(activity.createdAt),
+          });
+          break;
+        }
+        case 'moveCard': {
+          Activities.direct.insert({
+            userId: this._user(activity.userId),
+            oldListId: this.lists[activity.oldListId],
+            activityType: activity.activityType,
+            listId: this.lists[activity.listId],
+            cardId: this.cards[activity.cardId],
+            boardId,
+            createdAt: this._now(activity.createdAt),
+          });
+          break;
+        }
+        // Comment related activities
+        case 'addComment': {
+          Activities.direct.insert({
+            userId: this._user(activity.userId),
+            activityType: activity.activityType,
+            cardId: this.cards[activity.cardId],
+            commentId: this.commentIds[activity.commentId],
+            boardId,
+            createdAt: this._now(activity.createdAt),
+          });
+          break;
+        }
+        // Attachment related activities
+        case 'addAttachment': {
+          Activities.direct.insert({
+            userId: this._user(activity.userId),
+            type: 'card',
+            activityType: activity.activityType,
+            attachmentId: this.attachmentIds[activity.attachmentId],
+            cardId: this.cards[activity.cardId],
+            boardId,
+            createdAt: this._now(activity.createdAt),
+          });
+          break;
+        }
+        // Checklist related activities
+        case 'addChecklist': {
+          Activities.direct.insert({
+            userId: this._user(activity.userId),
+            activityType: activity.activityType,
+            cardId: this.cards[activity.cardId],
+            checklistId: this.checklists[activity.checklistId],
+            boardId,
+            createdAt: this._now(activity.createdAt),
+          });
+          break;
+        }
+        case 'addChecklistItem': {
+          Activities.direct.insert({
+            userId: this._user(activity.userId),
+            activityType: activity.activityType,
+            cardId: this.cards[activity.cardId],
+            checklistId: this.checklists[activity.checklistId],
+            checklistItemId: activity.checklistItemId.replace(
+              activity.checklistId,
+              this.checklists[activity.checklistId],
+            ),
+            boardId,
+            createdAt: this._now(activity.createdAt),
+          });
+          break;
+        }
       }
     });
   }
@@ -788,7 +810,6 @@ export class WekanCreator {
     // check(data, {
     //   membersMapping: Match.Optional(Object),
     // });
-
     // this.checkActivities(board.activities);
     // this.checkBoard(board);
     // this.checkLabels(board.labels);
@@ -807,7 +828,9 @@ export class WekanCreator {
 
   create(board, currentBoardId) {
     // TODO : Make isSandstorm variable global
-    const isSandstorm = Meteor.settings && Meteor.settings.public &&
+    const isSandstorm =
+      Meteor.settings &&
+      Meteor.settings.public &&
       Meteor.settings.public.sandstorm;
     if (isSandstorm && currentBoardId) {
       const currentBoard = Boards.findOne(currentBoardId);

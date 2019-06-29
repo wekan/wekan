@@ -56,7 +56,7 @@ BlazeComponent.extendComponent({
     const membersMapping = this.membersToMap.get();
     if (membersMapping) {
       const mappingById = {};
-      membersMapping.forEach((member) => {
+      membersMapping.forEach(member => {
         if (member.wekanId) {
           mappingById[member.id] = member.wekanId;
         }
@@ -64,7 +64,8 @@ BlazeComponent.extendComponent({
       additionalData.membersMapping = mappingById;
     }
     this.membersToMap.set([]);
-    Meteor.call('importBoard',
+    Meteor.call(
+      'importBoard',
       this.importedData.get(),
       additionalData,
       this.importSource,
@@ -76,7 +77,7 @@ BlazeComponent.extendComponent({
           Session.set('fromBoard', null);
           Utils.goBoardId(res);
         }
-      }
+      },
     );
   },
 
@@ -84,12 +85,12 @@ BlazeComponent.extendComponent({
     const importSource = Session.get('importSource');
     let membersToMap;
     switch (importSource) {
-    case 'trello':
-      membersToMap = trelloMembersMapper.getMembersToMap(dataObject);
-      break;
-    case 'wekan':
-      membersToMap = wekanMembersMapper.getMembersToMap(dataObject);
-      break;
+      case 'trello':
+        membersToMap = trelloMembersMapper.getMembersToMap(dataObject);
+        break;
+      case 'wekan':
+        membersToMap = wekanMembersMapper.getMembersToMap(dataObject);
+        break;
     }
     return membersToMap;
   },
@@ -109,22 +110,26 @@ BlazeComponent.extendComponent({
   },
 
   events() {
-    return [{
-      submit(evt) {
-        return this.parentComponent().importData(evt);
+    return [
+      {
+        submit(evt) {
+          return this.parentComponent().importData(evt);
+        },
       },
-    }];
+    ];
   },
 }).register('importTextarea');
 
 BlazeComponent.extendComponent({
   onCreated() {
     this.autorun(() => {
-      this.parentComponent().membersToMap.get().forEach(({ wekanId }) => {
-        if (wekanId) {
-          this.subscribe('user-miniprofile', wekanId);
-        }
-      });
+      this.parentComponent()
+        .membersToMap.get()
+        .forEach(({ wekanId }) => {
+          if (wekanId) {
+            this.subscribe('user-miniprofile', wekanId);
+          }
+        });
     });
   },
 
@@ -149,23 +154,23 @@ BlazeComponent.extendComponent({
   _setPropertyForMember(property, value, memberId, unset = false) {
     const listOfMembers = this.members();
     let finder = null;
-    if(memberId) {
-      finder = (member) => member.id === memberId;
+    if (memberId) {
+      finder = member => member.id === memberId;
     } else {
-      finder = (member) => member.selected;
+      finder = member => member.selected;
     }
-    listOfMembers.forEach((member) => {
-      if(finder(member)) {
-        if(value !== null) {
+    listOfMembers.forEach(member => {
+      if (finder(member)) {
+        if (value !== null) {
           member[property] = value;
         } else {
           delete member[property];
         }
-        if(!unset) {
+        if (!unset) {
           // we shortcut if we don't care about unsetting the others
           return false;
         }
-      } else if(unset) {
+      } else if (unset) {
         delete member[property];
       }
       return true;
@@ -186,9 +191,9 @@ BlazeComponent.extendComponent({
     const allMembers = this.members();
     let finder = null;
     if (memberId) {
-      finder = (user) => user.id === memberId;
+      finder = user => user.id === memberId;
     } else {
-      finder = (user) => user.selected;
+      finder = user => user.selected;
     }
     return allMembers.find(finder);
   },
@@ -197,7 +202,7 @@ BlazeComponent.extendComponent({
     return this._setPropertyForMember('wekanId', wekanId, null);
   },
 
-  unmapMember(memberId){
+  unmapMember(memberId) {
     return this._setPropertyForMember('wekanId', null, memberId);
   },
 
@@ -208,7 +213,7 @@ BlazeComponent.extendComponent({
 
   onMapMember(evt) {
     const memberToMap = this.currentData();
-    if(memberToMap.wekan) {
+    if (memberToMap.wekan) {
       // todo xxx ask for confirmation?
       this.unmapMember(memberToMap.id);
     } else {
@@ -218,10 +223,12 @@ BlazeComponent.extendComponent({
   },
 
   events() {
-    return [{
-      'submit': this.onSubmit,
-      'click .js-select-member': this.onMapMember,
-    }];
+    return [
+      {
+        submit: this.onSubmit,
+        'click .js-select-member': this.onMapMember,
+      },
+    ];
   },
 }).register('importMapMembers');
 
@@ -230,14 +237,16 @@ BlazeComponent.extendComponent({
     this.find('.js-map-member input').focus();
   },
 
-  onSelectUser(){
+  onSelectUser() {
     Popup.getOpenerComponent().mapSelectedMember(this.currentData()._id);
     Popup.back();
   },
 
   events() {
-    return [{
-      'click .js-select-import': this.onSelectUser,
-    }];
+    return [
+      {
+        'click .js-select-import': this.onSelectUser,
+      },
+    ];
   },
 }).register('importMapMembersAddPopup');

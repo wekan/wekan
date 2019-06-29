@@ -64,7 +64,7 @@ CardComments.attachSchema(
         }
       },
     },
-  })
+  }),
 );
 
 CardComments.allow({
@@ -107,11 +107,6 @@ function commentCreation(userId, doc) {
   });
 }
 
-CardComments.before.update((userId, doc, fieldNames, modifier, options) => {
-  modifier.$set = modifier.$set || {};
-  modifier.$set.modifiedAt = Date.now();
-});
-
 if (Meteor.isServer) {
   // Comments are often fetched within a card, so we create an index to make these
   // queries more efficient.
@@ -125,7 +120,6 @@ if (Meteor.isServer) {
   });
 
   CardComments.after.update((userId, doc) => {
-    const activity = Activities.findOne({ commentId: doc._id });
     const card = Cards.findOne(doc.cardId);
     Activities.insert({
       userId,
@@ -139,7 +133,6 @@ if (Meteor.isServer) {
   });
 
   CardComments.before.remove((userId, doc) => {
-    const activity = Activities.findOne({ commentId: doc._id });
     const card = Cards.findOne(doc.cardId);
     Activities.insert({
       userId,
@@ -174,7 +167,7 @@ if (Meteor.isServer) {
    */
   JsonRoutes.add('GET', '/api/boards/:boardId/cards/:cardId/comments', function(
     req,
-    res
+    res,
   ) {
     try {
       Authentication.checkUserId(req.userId);
@@ -233,7 +226,7 @@ if (Meteor.isServer) {
           data: error,
         });
       }
-    }
+    },
   );
 
   /**
@@ -280,7 +273,7 @@ if (Meteor.isServer) {
           data: error,
         });
       }
-    }
+    },
   );
 
   /**
@@ -318,7 +311,7 @@ if (Meteor.isServer) {
           data: error,
         });
       }
-    }
+    },
   );
 }
 

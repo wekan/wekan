@@ -11,15 +11,20 @@ BlazeComponent.extendComponent({
   },
 
   onRendered() {
-    const $picker = this.$('.js-datepicker').datepicker({
-      todayHighlight: true,
-      todayBtn: 'linked',
-      language: TAPi18n.getLanguage(),
-    }).on('changeDate', function(evt) {
-      this.find('#date').value = moment(evt.date).format('L');
-      this.error.set('');
-      this.find('#time').focus();
-    }.bind(this));
+    const $picker = this.$('.js-datepicker')
+      .datepicker({
+        todayHighlight: true,
+        todayBtn: 'linked',
+        language: TAPi18n.getLanguage(),
+      })
+      .on(
+        'changeDate',
+        function(evt) {
+          this.find('#date').value = moment(evt.date).format('L');
+          this.error.set('');
+          this.find('#time').focus();
+        }.bind(this),
+      );
 
     if (this.date.get().isValid()) {
       $picker.datepicker('update', this.date.get().toDate());
@@ -27,13 +32,11 @@ BlazeComponent.extendComponent({
   },
 
   showDate() {
-    if (this.date.get().isValid())
-      return this.date.get().format('L');
+    if (this.date.get().isValid()) return this.date.get().format('L');
     return '';
   },
   showTime() {
-    if (this.date.get().isValid())
-      return this.date.get().format('LT');
+    if (this.date.get().isValid()) return this.date.get().format('LT');
     return '';
   },
   dateFormat() {
@@ -44,51 +47,58 @@ BlazeComponent.extendComponent({
   },
 
   events() {
-    return [{
-      'keyup .js-date-field'() {
-        // parse for localized date format in strict mode
-        const dateMoment = moment(this.find('#date').value, 'L', true);
-        if (dateMoment.isValid()) {
-          this.error.set('');
-          this.$('.js-datepicker').datepicker('update', dateMoment.toDate());
-        }
-      },
-      'keyup .js-time-field'() {
-        // parse for localized time format in strict mode
-        const dateMoment = moment(this.find('#time').value, 'LT', true);
-        if (dateMoment.isValid()) {
-          this.error.set('');
-        }
-      },
-      'submit .edit-date'(evt) {
-        evt.preventDefault();
+    return [
+      {
+        'keyup .js-date-field'() {
+          // parse for localized date format in strict mode
+          const dateMoment = moment(this.find('#date').value, 'L', true);
+          if (dateMoment.isValid()) {
+            this.error.set('');
+            this.$('.js-datepicker').datepicker('update', dateMoment.toDate());
+          }
+        },
+        'keyup .js-time-field'() {
+          // parse for localized time format in strict mode
+          const dateMoment = moment(this.find('#time').value, 'LT', true);
+          if (dateMoment.isValid()) {
+            this.error.set('');
+          }
+        },
+        'submit .edit-date'(evt) {
+          evt.preventDefault();
 
-        // if no time was given, init with 12:00
-        const time = evt.target.time.value || moment(new Date().setHours(12, 0, 0)).format('LT');
+          // if no time was given, init with 12:00
+          const time =
+            evt.target.time.value ||
+            moment(new Date().setHours(12, 0, 0)).format('LT');
 
-        const dateString = `${evt.target.date.value} ${time}`;
-        const newDate = moment(dateString, 'L LT', true);
-        if (newDate.isValid()) {
-          this._storeDate(newDate.toDate());
+          const dateString = `${evt.target.date.value} ${time}`;
+          const newDate = moment(dateString, 'L LT', true);
+          if (newDate.isValid()) {
+            this._storeDate(newDate.toDate());
+            Popup.close();
+          } else {
+            this.error.set('invalid-date');
+            evt.target.date.focus();
+          }
+        },
+        'click .js-delete-date'(evt) {
+          evt.preventDefault();
+          this._deleteDate();
           Popup.close();
-        }
-        else {
-          this.error.set('invalid-date');
-          evt.target.date.focus();
-        }
+        },
       },
-      'click .js-delete-date'(evt) {
-        evt.preventDefault();
-        this._deleteDate();
-        Popup.close();
-      },
-    }];
+    ];
   },
 });
 
 Template.dateBadge.helpers({
   canModifyCard() {
-    return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
+    return (
+      Meteor.user() &&
+      Meteor.user().isBoardMember() &&
+      !Meteor.user().isCommentOnly()
+    );
   },
 });
 
@@ -96,7 +106,8 @@ Template.dateBadge.helpers({
 (class extends DatePicker {
   onCreated() {
     super.onCreated();
-    this.data().getReceived() && this.date.set(moment(this.data().getReceived()));
+    this.data().getReceived() &&
+      this.date.set(moment(this.data().getReceived()));
   }
 
   _storeDate(date) {
@@ -106,8 +117,7 @@ Template.dateBadge.helpers({
   _deleteDate() {
     this.card.setReceived(null);
   }
-}).register('editCardReceivedDatePopup');
-
+}.register('editCardReceivedDatePopup'));
 
 // editCardStartDatePopup
 (class extends DatePicker {
@@ -119,7 +129,10 @@ Template.dateBadge.helpers({
   onRendered() {
     super.onRendered();
     if (moment.isDate(this.card.getReceived())) {
-      this.$('.js-datepicker').datepicker('setStartDate', this.card.getReceived());
+      this.$('.js-datepicker').datepicker(
+        'setStartDate',
+        this.card.getReceived(),
+      );
     }
   }
 
@@ -130,7 +143,7 @@ Template.dateBadge.helpers({
   _deleteDate() {
     this.card.setStart(null);
   }
-}).register('editCardStartDatePopup');
+}.register('editCardStartDatePopup'));
 
 // editCardDueDatePopup
 (class extends DatePicker {
@@ -153,7 +166,7 @@ Template.dateBadge.helpers({
   _deleteDate() {
     this.card.setDue(null);
   }
-}).register('editCardDueDatePopup');
+}.register('editCardDueDatePopup'));
 
 // editCardEndDatePopup
 (class extends DatePicker {
@@ -176,8 +189,7 @@ Template.dateBadge.helpers({
   _deleteDate() {
     this.card.setEnd(null);
   }
-}).register('editCardEndDatePopup');
-
+}.register('editCardEndDatePopup'));
 
 // Display received, start, due & end dates
 const CardDate = BlazeComponent.extendComponent({
@@ -224,17 +236,20 @@ class CardReceivedDate extends CardDate {
     const startAt = this.data().getStart();
     const theDate = this.date.get();
     // if dueAt, endAt and startAt exist & are > receivedAt, receivedAt doesn't need to be flagged
-    if (((startAt) && (theDate.isAfter(dueAt))) ||
-       ((endAt) && (theDate.isAfter(endAt))) ||
-       ((dueAt) && (theDate.isAfter(dueAt))))
+    if (
+      (startAt && theDate.isAfter(dueAt)) ||
+      (endAt && theDate.isAfter(endAt)) ||
+      (dueAt && theDate.isAfter(dueAt))
+    )
       classes += 'long-overdue';
-    else
-      classes += 'current';
+    else classes += 'current';
     return classes;
   }
 
   showTitle() {
-    return `${TAPi18n.__('card-received-on')} ${this.date.get().format('LLLL')}`;
+    return `${TAPi18n.__('card-received-on')} ${this.date
+      .get()
+      .format('LLLL')}`;
   }
 
   events() {
@@ -261,13 +276,10 @@ class CardStartDate extends CardDate {
     const theDate = this.date.get();
     const now = this.now.get();
     // if dueAt or endAt exist & are > startAt, startAt doesn't need to be flagged
-    if (((endAt) && (theDate.isAfter(endAt))) ||
-       ((dueAt) && (theDate.isAfter(dueAt))))
+    if ((endAt && theDate.isAfter(endAt)) || (dueAt && theDate.isAfter(dueAt)))
       classes += 'long-overdue';
-    else if (theDate.isBefore(now, 'minute'))
-      classes += 'almost-due';
-    else
-      classes += 'current';
+    else if (theDate.isBefore(now, 'minute')) classes += 'almost-due';
+    else classes += 'current';
     return classes;
   }
 
@@ -298,17 +310,12 @@ class CardDueDate extends CardDate {
     const theDate = this.date.get();
     const now = this.now.get();
     // if the due date is after the end date, green - done early
-    if ((endAt) && (theDate.isAfter(endAt)))
-      classes += 'current';
+    if (endAt && theDate.isAfter(endAt)) classes += 'current';
     // if there is an end date, don't need to flag the due date
-    else if (endAt)
-      classes += '';
-    else if (now.diff(theDate, 'days') >= 2)
-      classes += 'long-overdue';
-    else if (now.diff(theDate, 'minute') >= 0)
-      classes += 'due';
-    else if (now.diff(theDate, 'days') >= -1)
-      classes += 'almost-due';
+    else if (endAt) classes += '';
+    else if (now.diff(theDate, 'days') >= 2) classes += 'long-overdue';
+    else if (now.diff(theDate, 'minute') >= 0) classes += 'due';
+    else if (now.diff(theDate, 'days') >= -1) classes += 'almost-due';
     return classes;
   }
 
@@ -337,12 +344,9 @@ class CardEndDate extends CardDate {
     let classes = 'end-date' + ' ';
     const dueAt = this.data().getDue();
     const theDate = this.date.get();
-    if (theDate.diff(dueAt, 'days') >= 2)
-      classes += 'long-overdue';
-    else if (theDate.diff(dueAt, 'days') >= 0)
-      classes += 'due';
-    else if (theDate.diff(dueAt, 'days') >= -2)
-      classes += 'almost-due';
+    if (theDate.diff(dueAt, 'days') >= 2) classes += 'long-overdue';
+    else if (theDate.diff(dueAt, 'days') >= 0) classes += 'due';
+    else if (theDate.diff(dueAt, 'days') >= -2) classes += 'almost-due';
     return classes;
   }
 
@@ -362,22 +366,22 @@ CardEndDate.register('cardEndDate');
   showDate() {
     return this.date.get().format('l');
   }
-}).register('minicardReceivedDate');
+}.register('minicardReceivedDate'));
 
 (class extends CardStartDate {
   showDate() {
     return this.date.get().format('l');
   }
-}).register('minicardStartDate');
+}.register('minicardStartDate'));
 
 (class extends CardDueDate {
   showDate() {
     return this.date.get().format('l');
   }
-}).register('minicardDueDate');
+}.register('minicardDueDate'));
 
 (class extends CardEndDate {
   showDate() {
     return this.date.get().format('l');
   }
-}).register('minicardEndDate');
+}.register('minicardEndDate'));

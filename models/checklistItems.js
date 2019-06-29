@@ -61,7 +61,7 @@ ChecklistItems.attachSchema(
         }
       },
     },
-  })
+  }),
 );
 
 ChecklistItems.allow({
@@ -225,11 +225,6 @@ if (Meteor.isServer) {
     publishChekListUncompleted(userId, doc, fieldNames);
   });
 
-  ChecklistItems.before.update((userId, doc, fieldNames, modifier, options) => {
-    modifier.$set = modifier.$set || {};
-    modifier.$set.modifiedAt = Date.now();
-  });
-
   ChecklistItems.after.insert((userId, doc) => {
     itemCreation(userId, doc);
   });
@@ -281,7 +276,7 @@ if (Meteor.isServer) {
           code: 500,
         });
       }
-    }
+    },
   );
 
   /**
@@ -308,13 +303,13 @@ if (Meteor.isServer) {
       if (req.body.hasOwnProperty('isFinished')) {
         ChecklistItems.direct.update(
           { _id: paramItemId },
-          { $set: { isFinished: req.body.isFinished } }
+          { $set: { isFinished: req.body.isFinished } },
         );
       }
       if (req.body.hasOwnProperty('title')) {
         ChecklistItems.direct.update(
           { _id: paramItemId },
-          { $set: { title: req.body.title } }
+          { $set: { title: req.body.title } },
         );
       }
 
@@ -324,7 +319,7 @@ if (Meteor.isServer) {
           _id: paramItemId,
         },
       });
-    }
+    },
   );
 
   /**
@@ -353,7 +348,7 @@ if (Meteor.isServer) {
           _id: paramItemId,
         },
       });
-    }
+    },
   );
 }
 

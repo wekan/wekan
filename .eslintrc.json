@@ -12,11 +12,8 @@
     "meteor": true
   },
   "parserOptions": {
-    "ecmaVersion": 2017,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "experimentalObjectRestSpread": true
-    }
+    "ecmaVersion": 2018,
+    "sourceType": "module"
   },
   "rules": {
     "strict": 0,
@@ -26,7 +23,7 @@
     "consistent-return": 2,
     "dot-notation": 2,
     "eqeqeq": 2,
-    "indent": [2, 2],
+    "indent": 0,
     "no-cond-assign": 2,
     "no-constant-condition": 2,
     "no-eval": 2,
@@ -50,7 +47,6 @@
     "quotes": [2, "single"],
     "semi-spacing": 2,
     "space-unary-ops": 2,
-    "arrow-parens": 2,
     "arrow-spacing": 2,
     "no-class-assign": 2,
     "no-dupe-class-members": 2,
@@ -69,7 +65,8 @@
         "singleQuote": true,
         "trailingComma": "all"
       }
-    ]
+    ],
+    "meteor/no-session": 0
   },
   "settings": {
     "import/resolver": {

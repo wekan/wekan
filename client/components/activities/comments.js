@@ -14,39 +14,41 @@ BlazeComponent.extendComponent({
   },
 
   events() {
-    return [{
-      'click .js-new-comment:not(.focus)'() {
-        commentFormIsOpen.set(true);
+    return [
+      {
+        'click .js-new-comment:not(.focus)'() {
+          commentFormIsOpen.set(true);
+        },
+        'submit .js-new-comment-form'(evt) {
+          const input = this.getInput();
+          const text = input.val().trim();
+          const card = this.currentData();
+          let boardId = card.boardId;
+          let cardId = card._id;
+          if (card.isLinkedCard()) {
+            boardId = Cards.findOne(card.linkedId).boardId;
+            cardId = card.linkedId;
+          }
+          if (text) {
+            CardComments.insert({
+              text,
+              boardId,
+              cardId,
+            });
+            resetCommentInput(input);
+            Tracker.flush();
+            autosize.update(input);
+          }
+          evt.preventDefault();
+        },
+        // Pressing Ctrl+Enter should submit the form
+        'keydown form textarea'(evt) {
+          if (evt.keyCode === 13 && (evt.metaKey || evt.ctrlKey)) {
+            this.find('button[type=submit]').click();
+          }
+        },
       },
-      'submit .js-new-comment-form'(evt) {
-        const input = this.getInput();
-        const text = input.val().trim();
-        const card = this.currentData();
-        let boardId = card.boardId;
-        let cardId = card._id;
-        if (card.isLinkedCard()) {
-          boardId = Cards.findOne(card.linkedId).boardId;
-          cardId = card.linkedId;
-        }
-        if (text) {
-          CardComments.insert({
-            text,
-            boardId,
-            cardId,
-          });
-          resetCommentInput(input);
-          Tracker.flush();
-          autosize.update(input);
-        }
-        evt.preventDefault();
-      },
-      // Pressing Ctrl+Enter should submit the form
-      'keydown form textarea'(evt) {
-        if (evt.keyCode === 13 && (evt.metaKey || evt.ctrlKey)) {
-          this.find('button[type=submit]').click();
-        }
-      },
-    }];
+    ];
   },
 }).register('commentForm');
 
@@ -69,7 +71,8 @@ Tracker.autorun(() => {
   });
 });
 
-EscapeActions.register('inlinedForm',
+EscapeActions.register(
+  'inlinedForm',
   () => {
     const draftKey = {
       fieldName: 'cardComment',
@@ -84,7 +87,10 @@ EscapeActions.register('inlinedForm',
     }
     resetCommentInput(commentInput);
   },
-  () => { return commentFormIsOpen.get(); }, {
+  () => {
+    return commentFormIsOpen.get();
+  },
+  {
     noClickEscapeOn: '.js-new-comment',
-  }
+  },
 );

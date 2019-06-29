@@ -1,4 +1,4 @@
-const DateString = Match.Where(function (dateAsString) {
+const DateString = Match.Where(function(dateAsString) {
   check(dateAsString, String);
   return moment(dateAsString, moment.ISO_8601).isValid();
 });
@@ -52,10 +52,10 @@ export class TrelloCreator {
    * @param {String} dateString a properly formatted Date
    */
   _now(dateString) {
-    if(dateString) {
+    if (dateString) {
       return new Date(dateString);
     }
-    if(!this._nowDate) {
+    if (!this._nowDate) {
       this._nowDate = new Date();
     }
     return this._nowDate;
@@ -67,75 +67,90 @@ export class TrelloCreator {
    * Otherwise return current logged user.
    * @param trelloUserId
    * @private
-     */
+   */
   _user(trelloUserId) {
-    if(trelloUserId && this.members[trelloUserId]) {
+    if (trelloUserId && this.members[trelloUserId]) {
       return this.members[trelloUserId];
     }
     return Meteor.userId();
   }
 
   checkActions(trelloActions) {
-    check(trelloActions, [Match.ObjectIncluding({
-      data: Object,
-      date: DateString,
-      type: String,
-    })]);
+    check(trelloActions, [
+      Match.ObjectIncluding({
+        data: Object,
+        date: DateString,
+        type: String,
+      }),
+    ]);
     // XXX we could perform more thorough checks based on action type
   }
 
   checkBoard(trelloBoard) {
-    check(trelloBoard, Match.ObjectIncluding({
-      closed: Boolean,
-      name: String,
-      prefs: Match.ObjectIncluding({
-        // XXX refine control by validating 'background' against a list of
-        // allowed values (is it worth the maintenance?)
-        background: String,
-        permissionLevel: Match.Where((value) => {
-          return ['org', 'private', 'public'].indexOf(value)>= 0;
+    check(
+      trelloBoard,
+      Match.ObjectIncluding({
+        closed: Boolean,
+        name: String,
+        prefs: Match.ObjectIncluding({
+          // XXX refine control by validating 'background' against a list of
+          // allowed values (is it worth the maintenance?)
+          background: String,
+          permissionLevel: Match.Where(value => {
+            return ['org', 'private', 'public'].indexOf(value) >= 0;
+          }),
         }),
       }),
-    }));
+    );
   }
 
   checkCards(trelloCards) {
-    check(trelloCards, [Match.ObjectIncluding({
-      closed: Boolean,
-      dateLastActivity: DateString,
-      desc: String,
-      idLabels: [String],
-      idMembers: [String],
-      name: String,
-      pos: Number,
-    })]);
+    check(trelloCards, [
+      Match.ObjectIncluding({
+        closed: Boolean,
+        dateLastActivity: DateString,
+        desc: String,
+        idLabels: [String],
+        idMembers: [String],
+        name: String,
+        pos: Number,
+      }),
+    ]);
   }
 
   checkLabels(trelloLabels) {
-    check(trelloLabels, [Match.ObjectIncluding({
-      // XXX refine control by validating 'color' against a list of allowed
-      // values (is it worth the maintenance?)
-      name: String,
-    })]);
+    check(trelloLabels, [
+      Match.ObjectIncluding({
+        // XXX refine control by validating 'color' against a list of allowed
+        // values (is it worth the maintenance?)
+        name: String,
+      }),
+    ]);
   }
 
   checkLists(trelloLists) {
-    check(trelloLists, [Match.ObjectIncluding({
-      closed: Boolean,
-      name: String,
-    })]);
+    check(trelloLists, [
+      Match.ObjectIncluding({
+        closed: Boolean,
+        name: String,
+      }),
+    ]);
   }
 
   checkChecklists(trelloChecklists) {
-    check(trelloChecklists, [Match.ObjectIncluding({
-      idBoard: String,
-      idCard: String,
-      name: String,
-      checkItems: [Match.ObjectIncluding({
-        state: String,
+    check(trelloChecklists, [
+      Match.ObjectIncluding({
+        idBoard: String,
+        idCard: String,
         name: String,
-      })],
-    })]);
+        checkItems: [
+          Match.ObjectIncluding({
+            state: String,
+            name: String,
+          }),
+        ],
+      }),
+    ]);
   }
 
   // You must call parseActions before calling this one.
@@ -146,31 +161,35 @@ export class TrelloCreator {
       // very old boards won't have a creation activity so no creation date
       createdAt: this._now(this.createdAt.board),
       labels: [],
-      members: [{
-        userId: Meteor.userId(),
-        isAdmin: true,
-        isActive: true,
-        isNoComments: false,
-        isCommentOnly: false,
-        swimlaneId: false,
-      }],
+      members: [
+        {
+          userId: Meteor.userId(),
+          isAdmin: true,
+          isActive: true,
+          isNoComments: false,
+          isCommentOnly: false,
+          swimlaneId: false,
+        },
+      ],
       permission: this.getPermission(trelloBoard.prefs.permissionLevel),
       slug: getSlug(trelloBoard.name) || 'board',
       stars: 0,
       title: trelloBoard.name,
     };
     // now add other members
-    if(trelloBoard.memberships) {
-      trelloBoard.memberships.forEach((trelloMembership) => {
+    if (trelloBoard.memberships) {
+      trelloBoard.memberships.forEach(trelloMembership => {
         const trelloId = trelloMembership.idMember;
         // do we have a mapping?
-        if(this.members[trelloId]) {
+        if (this.members[trelloId]) {
           const wekanId = this.members[trelloId];
           // do we already have it in our list?
-          const wekanMember = boardToCreate.members.find((wekanMember) => wekanMember.userId === wekanId);
-          if(wekanMember) {
+          const wekanMember = boardToCreate.members.find(
+            wekanMember => wekanMember.userId === wekanId,
+          );
+          if (wekanMember) {
             // we're already mapped, but maybe with lower rights
-            if(!wekanMember.isAdmin) {
+            if (!wekanMember.isAdmin) {
               wekanMember.isAdmin = this.getAdmin(trelloMembership.memberType);
             }
           } else {
@@ -186,7 +205,7 @@ export class TrelloCreator {
         }
       });
     }
-    trelloBoard.labels.forEach((label) => {
+    trelloBoard.labels.forEach(label => {
       const labelToCreate = {
         _id: Random.id(6),
         color: label.color ? label.color : 'black',
@@ -198,7 +217,7 @@ export class TrelloCreator {
       boardToCreate.labels.push(labelToCreate);
     });
     const boardId = Boards.direct.insert(boardToCreate);
-    Boards.direct.update(boardId, {$set: {modifiedAt: this._now()}});
+    Boards.direct.update(boardId, { $set: { modifiedAt: this._now() } });
     // log activity
     Activities.direct.insert({
       activityType: 'importBoard',
@@ -225,7 +244,7 @@ export class TrelloCreator {
    */
   createCards(trelloCards, boardId) {
     const result = [];
-    trelloCards.forEach((card) => {
+    trelloCards.forEach(card => {
       const cardToCreate = {
         archived: card.closed,
         boardId,
@@ -243,26 +262,26 @@ export class TrelloCreator {
       };
       // add labels
       if (card.idLabels) {
-        cardToCreate.labelIds = card.idLabels.map((trelloId) => {
+        cardToCreate.labelIds = card.idLabels.map(trelloId => {
           return this.labels[trelloId];
         });
       }
       // add members {
-      if(card.idMembers) {
+      if (card.idMembers) {
         const wekanMembers = [];
         // we can't just map, as some members may not have been mapped
-        card.idMembers.forEach((trelloId) => {
-          if(this.members[trelloId]) {
+        card.idMembers.forEach(trelloId => {
+          if (this.members[trelloId]) {
             const wekanId = this.members[trelloId];
             // we may map multiple Trello members to the same wekan user
             // in which case we risk adding the same user multiple times
-            if(!wekanMembers.find((wId) => wId === wekanId)){
+            if (!wekanMembers.find(wId => wId === wekanId)) {
               wekanMembers.push(wekanId);
             }
           }
           return true;
         });
-        if(wekanMembers.length>0) {
+        if (wekanMembers.length > 0) {
           cardToCreate.members = wekanMembers;
         }
       }
@@ -289,7 +308,7 @@ export class TrelloCreator {
       // add comments
       const comments = this.comments[card.id];
       if (comments) {
-        comments.forEach((comment) => {
+        comments.forEach(comment => {
           const commentToCreate = {
             boardId,
             cardId,
@@ -318,15 +337,15 @@ export class TrelloCreator {
       const attachments = this.attachments[card.id];
       const trelloCoverId = card.idAttachmentCover;
       if (attachments) {
-        attachments.forEach((att) => {
+        attachments.forEach(att => {
           const file = new FS.File();
           // Simulating file.attachData on the client generates multiple errors
           // - HEAD returns null, which causes exception down the line
           // - the template then tries to display the url to the attachment which causes other errors
           // so we make it server only, and let UI catch up once it is done, forget about latency comp.
           const self = this;
-          if(Meteor.isServer) {
-            file.attachData(att.url, function (error) {
+          if (Meteor.isServer) {
+            file.attachData(att.url, function(error) {
               file.boardId = boardId;
               file.cardId = cardId;
               file.userId = self._user(att.idMemberCreator);
@@ -334,15 +353,17 @@ export class TrelloCreator {
               // attachments' related activities automatically
               file.source = 'import';
               if (error) {
-                throw(error);
+                throw error;
               } else {
                 const wekanAtt = Attachments.insert(file, () => {
                   // we do nothing
                 });
                 self.attachmentIds[att.id] = wekanAtt._id;
                 //
-                if(trelloCoverId === att.id) {
-                  Cards.direct.update(cardId, { $set: {coverId: wekanAtt._id}});
+                if (trelloCoverId === att.id) {
+                  Cards.direct.update(cardId, {
+                    $set: { coverId: wekanAtt._id },
+                  });
                 }
               }
             });
@@ -357,7 +378,7 @@ export class TrelloCreator {
 
   // Create labels if they do not exist and load this.labels.
   createLabels(trelloLabels, board) {
-    trelloLabels.forEach((label) => {
+    trelloLabels.forEach(label => {
       const color = label.color;
       const name = label.name;
       const existingLabel = board.getLabel(name, color);
@@ -371,7 +392,7 @@ export class TrelloCreator {
   }
 
   createLists(trelloLists, boardId) {
-    trelloLists.forEach((list) => {
+    trelloLists.forEach(list => {
       const listToCreate = {
         archived: list.closed,
         boardId,
@@ -384,7 +405,7 @@ export class TrelloCreator {
         sort: list.pos,
       };
       const listId = Lists.direct.insert(listToCreate);
-      Lists.direct.update(listId, {$set: {'updatedAt': this._now()}});
+      Lists.direct.update(listId, { $set: { updatedAt: this._now() } });
       this.lists[list.id] = listId;
       // log activity
       // Activities.direct.insert({
@@ -416,12 +437,12 @@ export class TrelloCreator {
       sort: 1,
     };
     const swimlaneId = Swimlanes.direct.insert(swimlaneToCreate);
-    Swimlanes.direct.update(swimlaneId, {$set: {'updatedAt': this._now()}});
+    Swimlanes.direct.update(swimlaneId, { $set: { updatedAt: this._now() } });
     this.swimlane = swimlaneId;
   }
 
   createChecklists(trelloChecklists) {
-    trelloChecklists.forEach((checklist) => {
+    trelloChecklists.forEach(checklist => {
       if (this.cards[checklist.idCard]) {
         // Create the checklist
         const checklistToCreate = {
@@ -435,7 +456,7 @@ export class TrelloCreator {
         this.checklists[checklist.id] = checklistId;
         // Now add the items to the checklistItems
         let counter = 0;
-        checklist.checkItems.forEach((item) => {
+        checklist.checkItems.forEach(item => {
           counter++;
           const checklistItemTocreate = {
             _id: checklistId + counter,
@@ -458,15 +479,15 @@ export class TrelloCreator {
   getColor(trelloColorCode) {
     // trello color name => wekan color
     const mapColors = {
-      'blue': 'belize',
-      'orange': 'pumpkin',
-      'green': 'nephritis',
-      'red': 'pomegranate',
-      'purple': 'wisteria',
-      'pink': 'pomegranate',
-      'lime': 'nephritis',
-      'sky': 'belize',
-      'grey': 'midnight',
+      blue: 'belize',
+      orange: 'pumpkin',
+      green: 'nephritis',
+      red: 'pomegranate',
+      purple: 'wisteria',
+      pink: 'pomegranate',
+      lime: 'nephritis',
+      sky: 'belize',
+      grey: 'midnight',
     };
     const wekanColor = mapColors[trelloColorCode];
     return wekanColor || Boards.simpleSchema()._schema.color.allowedValues[0];
@@ -482,7 +503,7 @@ export class TrelloCreator {
   }
 
   parseActions(trelloActions) {
-    trelloActions.forEach((action) => {
+    trelloActions.forEach(action => {
       if (action.type === 'addAttachmentToCard') {
         // We have to be cautious, because the attachment could have been removed later.
         // In that case Trello still reports its addition, but removes its 'url' field.
@@ -490,11 +511,11 @@ export class TrelloCreator {
         const trelloAttachment = action.data.attachment;
         // We need the idMemberCreator
         trelloAttachment.idMemberCreator = action.idMemberCreator;
-        if(trelloAttachment.url) {
+        if (trelloAttachment.url) {
           // we cannot actually create the Wekan attachment, because we don't yet
           // have the cards to attach it to, so we store it in the instance variable.
           const trelloCardId = action.data.card.id;
-          if(!this.attachments[trelloCardId]) {
+          if (!this.attachments[trelloCardId]) {
             this.attachments[trelloCardId] = [];
           }
           this.attachments[trelloCardId].push(trelloAttachment);
@@ -520,88 +541,89 @@ export class TrelloCreator {
   }
 
   importActions(actions, boardId) {
-    actions.forEach((action) => {
+    actions.forEach(action => {
       switch (action.type) {
-      // Board related actions
-      // TODO: addBoardMember, removeBoardMember
-      case 'createBoard': {
-        Activities.direct.insert({
-          userId: this._user(action.idMemberCreator),
-          type: 'board',
-          activityTypeId: boardId,
-          activityType: 'createBoard',
-          boardId,
-          createdAt: this._now(action.date),
-        });
-        break;
-      }
-      // List related activities
-      // TODO: removeList, archivedList
-      case 'createList': {
-        Activities.direct.insert({
-          userId: this._user(action.idMemberCreator),
-          type: 'list',
-          activityType: 'createList',
-          listId: this.lists[action.data.list.id],
-          boardId,
-          createdAt: this._now(action.date),
-        });
-        break;
-      }
-      // Card related activities
-      // TODO: archivedCard, restoredCard, joinMember, unjoinMember
-      case 'createCard': {
-        Activities.direct.insert({
-          userId: this._user(action.idMemberCreator),
-          activityType: 'createCard',
-          listId: this.lists[action.data.list.id],
-          cardId: this.cards[action.data.card.id],
-          boardId,
-          createdAt: this._now(action.date),
-        });
-        break;
-      }
-      case 'updateCard': {
-        if (action.data.old.idList) {
+        // Board related actions
+        // TODO: addBoardMember, removeBoardMember
+        case 'createBoard': {
           Activities.direct.insert({
             userId: this._user(action.idMemberCreator),
-            oldListId: this.lists[action.data.old.idList],
-            activityType: 'moveCard',
-            listId: this.lists[action.data.listAfter.id],
+            type: 'board',
+            activityTypeId: boardId,
+            activityType: 'createBoard',
+            boardId,
+            createdAt: this._now(action.date),
+          });
+          break;
+        }
+        // List related activities
+        // TODO: removeList, archivedList
+        case 'createList': {
+          Activities.direct.insert({
+            userId: this._user(action.idMemberCreator),
+            type: 'list',
+            activityType: 'createList',
+            listId: this.lists[action.data.list.id],
+            boardId,
+            createdAt: this._now(action.date),
+          });
+          break;
+        }
+        // Card related activities
+        // TODO: archivedCard, restoredCard, joinMember, unjoinMember
+        case 'createCard': {
+          Activities.direct.insert({
+            userId: this._user(action.idMemberCreator),
+            activityType: 'createCard',
+            listId: this.lists[action.data.list.id],
             cardId: this.cards[action.data.card.id],
             boardId,
             createdAt: this._now(action.date),
           });
+          break;
         }
-        break;
+        case 'updateCard': {
+          if (action.data.old.idList) {
+            Activities.direct.insert({
+              userId: this._user(action.idMemberCreator),
+              oldListId: this.lists[action.data.old.idList],
+              activityType: 'moveCard',
+              listId: this.lists[action.data.listAfter.id],
+              cardId: this.cards[action.data.card.id],
+              boardId,
+              createdAt: this._now(action.date),
+            });
+          }
+          break;
+        }
+        // Comment related activities
+        // Trello doesn't export the comment id
+        // Attachment related activities
+        case 'addAttachmentToCard': {
+          Activities.direct.insert({
+            userId: this._user(action.idMemberCreator),
+            type: 'card',
+            activityType: 'addAttachment',
+            attachmentId: this.attachmentIds[action.data.attachment.id],
+            cardId: this.cards[action.data.card.id],
+            boardId,
+            createdAt: this._now(action.date),
+          });
+          break;
+        }
+        // Checklist related activities
+        case 'addChecklistToCard': {
+          Activities.direct.insert({
+            userId: this._user(action.idMemberCreator),
+            activityType: 'addChecklist',
+            cardId: this.cards[action.data.card.id],
+            checklistId: this.checklists[action.data.checklist.id],
+            boardId,
+            createdAt: this._now(action.date),
+          });
+          break;
+        }
       }
-      // Comment related activities
-      // Trello doesn't export the comment id
-      // Attachment related activities
-      case 'addAttachmentToCard': {
-        Activities.direct.insert({
-          userId: this._user(action.idMemberCreator),
-          type: 'card',
-          activityType: 'addAttachment',
-          attachmentId: this.attachmentIds[action.data.attachment.id],
-          cardId: this.cards[action.data.card.id],
-          boardId,
-          createdAt: this._now(action.date),
-        });
-        break;
-      }
-      // Checklist related activities
-      case 'addChecklistToCard': {
-        Activities.direct.insert({
-          userId: this._user(action.idMemberCreator),
-          activityType: 'addChecklist',
-          cardId: this.cards[action.data.card.id],
-          checklistId: this.checklists[action.data.checklist.id],
-          boardId,
-          createdAt: this._now(action.date),
-        });
-        break;
-      }}
       // Trello doesn't have an add checklist item action
     });
   }
@@ -624,7 +646,9 @@ export class TrelloCreator {
 
   create(board, currentBoardId) {
     // TODO : Make isSandstorm variable global
-    const isSandstorm = Meteor.settings && Meteor.settings.public &&
+    const isSandstorm =
+      Meteor.settings &&
+      Meteor.settings.public &&
       Meteor.settings.public.sandstorm;
     if (isSandstorm && currentBoardId) {
       const currentBoard = Boards.findOne(currentBoardId);

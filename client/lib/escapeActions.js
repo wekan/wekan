@@ -33,13 +33,19 @@ EscapeActions = {
 
     const noClickEscapeOn = options.noClickEscapeOn;
 
-    this._actions = _.sortBy([...this._actions, {
-      priority,
-      condition,
-      action,
-      noClickEscapeOn,
-      enabledOnClick,
-    }], (action) => action.priority);
+    this._actions = _.sortBy(
+      [
+        ...this._actions,
+        {
+          priority,
+          condition,
+          action,
+          noClickEscapeOn,
+          enabledOnClick,
+        },
+      ],
+      action => action.priority,
+    );
   },
 
   executeLowest() {
@@ -80,10 +86,8 @@ EscapeActions = {
   },
 
   _stopClick(action, clickTarget) {
-    if (!_.isString(action.noClickEscapeOn))
-      return false;
-    else
-      return $(clickTarget).closest(action.noClickEscapeOn).length > 0;
+    if (!_.isString(action.noClickEscapeOn)) return false;
+    else return $(clickTarget).closest(action.noClickEscapeOn).length > 0;
   },
 
   _execute(options) {
@@ -95,14 +99,11 @@ EscapeActions = {
     let executedAtLeastOne = false;
     let maxPriority;
 
-    if (!maxLabel)
-      maxPriority = Infinity;
-    else
-      maxPriority = this.hierarchy.indexOf(maxLabel);
+    if (!maxLabel) maxPriority = Infinity;
+    else maxPriority = this.hierarchy.indexOf(maxLabel);
 
     for (const currentAction of this._actions) {
-      if (currentAction.priority > maxPriority)
-        return executedAtLeastOne;
+      if (currentAction.priority > maxPriority) return executedAtLeastOne;
 
       if (isClick && this._stopClick(currentAction, clickTarget))
         return executedAtLeastOne;
@@ -111,8 +112,7 @@ EscapeActions = {
       if (isEnabled && currentAction.condition()) {
         currentAction.action();
         executedAtLeastOne = true;
-        if (!multipleActions)
-          return executedAtLeastOne;
+        if (!multipleActions) return executedAtLeastOne;
       }
     }
     return executedAtLeastOne;
@@ -128,13 +128,15 @@ Mousetrap.bindGlobal('esc', () => {
 // On a left click on the document, we try to exectute one escape action (eg,
 // close the popup). We don't execute any action if the user has clicked on a
 // link or a button.
-$(document).on('click', (evt) => {
-  if (evt.button === 0 &&
-    $(evt.target).closest('a,button,.is-editable').length === 0) {
+$(document).on('click', evt => {
+  if (
+    evt.button === 0 &&
+    $(evt.target).closest('a,button,.is-editable').length === 0
+  ) {
     EscapeActions.clickExecute(evt.target, 'multiselection');
   }
 });
 
-$(document).on('click', 'a[href=\\#]',  (evt) => {
+$(document).on('click', 'a[href=\\#]', evt => {
   evt.preventDefault();
 });

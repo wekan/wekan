@@ -47,18 +47,13 @@ InvitationCodes.attachSchema(
       type: Boolean,
       defaultValue: true,
     },
-  })
+  }),
 );
 
 InvitationCodes.helpers({
   author() {
     return Users.findOne(this.authorId);
   },
-});
-
-InvitationCodes.before.update((userId, doc, fieldNames, modifier, options) => {
-  modifier.$set = modifier.$set || {};
-  modifier.$set.modifiedAt = Date.now();
 });
 
 // InvitationCodes.before.insert((userId, doc) => {

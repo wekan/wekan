@@ -95,7 +95,7 @@ CustomFields.attachSchema(
         }
       },
     },
-  })
+  }),
 );
 
 CustomFields.mutations({
@@ -118,7 +118,7 @@ CustomFields.allow({
       userId,
       Boards.find({
         _id: { $in: doc.boardIds },
-      }).fetch()
+      }).fetch(),
     );
   },
   update(userId, doc) {
@@ -126,7 +126,7 @@ CustomFields.allow({
       userId,
       Boards.find({
         _id: { $in: doc.boardIds },
-      }).fetch()
+      }).fetch(),
     );
   },
   remove(userId, doc) {
@@ -134,7 +134,7 @@ CustomFields.allow({
       userId,
       Boards.find({
         _id: { $in: doc.boardIds },
-      }).fetch()
+      }).fetch(),
     );
   },
   fetch: ['userId', 'boardIds'],
@@ -152,7 +152,7 @@ function customFieldCreation(userId, doc) {
   });
 }
 
-function customFieldDeletion(userId, doc){
+function customFieldDeletion(userId, doc) {
   Activities.insert({
     userId,
     activityType: 'deleteCustomField',
@@ -163,7 +163,7 @@ function customFieldDeletion(userId, doc){
 
 // This has some bug, it does not show edited customField value at Outgoing Webhook,
 // instead it shows undefined, and no listId and swimlaneId.
-function customFieldEdit(userId, doc){
+function customFieldEdit(userId, doc) {
   const card = Cards.findOne(doc.cardId);
   Activities.insert({
     userId,
@@ -185,17 +185,12 @@ if (Meteor.isServer) {
     customFieldCreation(userId, doc);
   });
 
-  CustomFields.before.update((userId, doc, fieldNames, modifier, options) => {
-    modifier.$set = modifier.$set || {};
-    modifier.$set.modifiedAt = Date.now();
-  });
-
   CustomFields.before.update((userId, doc, fieldNames, modifier) => {
     if (_.contains(fieldNames, 'boardIds') && modifier.$pull) {
       Cards.update(
         { boardId: modifier.$pull.boardIds, 'customFields._id': doc._id },
         { $pull: { customFields: { _id: doc._id } } },
-        { multi: true }
+        { multi: true },
       );
       customFieldEdit(userId, doc);
       Activities.remove({
@@ -223,7 +218,7 @@ if (Meteor.isServer) {
     Cards.update(
       { boardId: { $in: doc.boardIds }, 'customFields._id': doc._id },
       { $pull: { customFields: { _id: doc._id } } },
-      { multi: true }
+      { multi: true },
     );
   });
 }
@@ -241,7 +236,7 @@ if (Meteor.isServer) {
    */
   JsonRoutes.add('GET', '/api/boards/:boardId/custom-fields', function(
     req,
-    res
+    res,
   ) {
     Authentication.checkUserId(req.userId);
     const paramBoardId = req.params.boardId;
@@ -254,7 +249,7 @@ if (Meteor.isServer) {
             name: cf.name,
             type: cf.type,
           };
-        }
+        },
       ),
     });
   });
@@ -281,7 +276,7 @@ if (Meteor.isServer) {
           boardIds: { $in: [paramBoardId] },
         }),
       });
-    }
+    },
   );
 
   /**
@@ -299,7 +294,7 @@ if (Meteor.isServer) {
    */
   JsonRoutes.add('POST', '/api/boards/:boardId/custom-fields', function(
     req,
-    res
+    res,
   ) {
     Authentication.checkUserId(req.userId);
     const paramBoardId = req.params.boardId;
@@ -351,7 +346,7 @@ if (Meteor.isServer) {
           _id: id,
         },
       });
-    }
+    },
   );
 }
 

@@ -21,11 +21,14 @@ BlazeComponent.extendComponent({
   },
 
   boards() {
-    return Boards.find({
-      archived: false,
-      'members.userId': Meteor.userId(),
-      type: 'board',
-    }, { sort: ['title'] });
+    return Boards.find(
+      {
+        archived: false,
+        'members.userId': Meteor.userId(),
+        type: 'board',
+      },
+      { sort: ['title'] },
+    );
   },
   isStarred() {
     const user = Meteor.user();
@@ -48,46 +51,49 @@ BlazeComponent.extendComponent({
   },
 
   events() {
-    return [{
-      'click .js-add-board': Popup.open('createBoard'),
-      'click .js-star-board'(evt) {
-        const boardId = this.currentData()._id;
-        Meteor.user().toggleBoardStar(boardId);
-        evt.preventDefault();
-      },
-      'click .js-clone-board'(evt) {
-        Meteor.call('cloneBoard',
-          this.currentData()._id,
-          Session.get('fromBoard'),
-          (err, res) => {
-            if (err) {
-              this.setError(err.error);
-            } else {
-              Session.set('fromBoard', null);
-              Utils.goBoardId(res);
+    return [
+      {
+        'click .js-add-board': Popup.open('createBoard'),
+        'click .js-star-board'(evt) {
+          const boardId = this.currentData()._id;
+          Meteor.user().toggleBoardStar(boardId);
+          evt.preventDefault();
+        },
+        'click .js-clone-board'(evt) {
+          Meteor.call(
+            'cloneBoard',
+            this.currentData()._id,
+            Session.get('fromBoard'),
+            (err, res) => {
+              if (err) {
+                this.setError(err.error);
+              } else {
+                Session.set('fromBoard', null);
+                Utils.goBoardId(res);
+              }
+            },
+          );
+          evt.preventDefault();
+        },
+        'click .js-archive-board'(evt) {
+          const boardId = this.currentData()._id;
+          Meteor.call('archiveBoard', boardId);
+          evt.preventDefault();
+        },
+        'click .js-accept-invite'() {
+          const boardId = this.currentData()._id;
+          Meteor.user().removeInvite(boardId);
+        },
+        'click .js-decline-invite'() {
+          const boardId = this.currentData()._id;
+          Meteor.call('quitBoard', boardId, (err, ret) => {
+            if (!err && ret) {
+              Meteor.user().removeInvite(boardId);
+              FlowRouter.go('home');
             }
-          }
-        );
-        evt.preventDefault();
+          });
+        },
       },
-      'click .js-archive-board'(evt) {
-        const boardId = this.currentData()._id;
-        Meteor.call('archiveBoard', boardId);
-        evt.preventDefault();
-      },
-      'click .js-accept-invite'() {
-        const boardId = this.currentData()._id;
-        Meteor.user().removeInvite(boardId);
-      },
-      'click .js-decline-invite'() {
-        const boardId = this.currentData()._id;
-        Meteor.call('quitBoard', boardId, (err, ret) => {
-          if (!err && ret) {
-            Meteor.user().removeInvite(boardId);
-            FlowRouter.go('home');
-          }
-        });
-      },
-    }];
+    ];
   },
 }).register('boardList');

@@ -1,4 +1,4 @@
-window.Popup = new class {
+window.Popup = new (class {
   constructor() {
     // The template we use to render popups
     this.template = Template.popup;
@@ -67,7 +67,7 @@ window.Popup = new class {
         title: self._getTitle(popupName),
         depth: self._stack.length,
         offset: self._getOffset(openerElement),
-        dataContext: this.currentData && this.currentData() || this,
+        dataContext: (this.currentData && this.currentData()) || this,
       });
 
       // If there are no popup currently opened we use the Blaze API to render
@@ -80,11 +80,14 @@ window.Popup = new class {
       // our internal dependency, and since we just changed the top element of
       // our internal stack, the popup will be updated with the new data.
       if (!self.isOpen()) {
-        self.current = Blaze.renderWithData(self.template, () => {
-          self._dep.depend();
-          return { ...self._getTopStack(), stack: self._stack };
-        }, document.body);
-
+        self.current = Blaze.renderWithData(
+          self.template,
+          () => {
+            self._dep.depend();
+            return { ...self._getTopStack(), stack: self._stack };
+          },
+          document.body,
+        );
       } else {
         self._dep.changed();
       }
@@ -101,7 +104,7 @@ window.Popup = new class {
     const self = this;
 
     return function(evt, tpl) {
-      const context = this.currentData && this.currentData() || this;
+      const context = (this.currentData && this.currentData()) || this;
       context.__afterConfirmAction = action;
       self.open(name).call(context, evt, tpl);
     };
@@ -136,7 +139,6 @@ window.Popup = new class {
       const openerElement = this._getTopStack().openerElement;
       $(openerElement).removeClass('is-active');
 
-
       this._stack = [];
     }
   }
@@ -159,7 +161,7 @@ window.Popup = new class {
     return () => {
       Utils.windowResizeDep.depend();
 
-      if(Utils.isMiniScreen()) return { left:0, top:0 };
+      if (Utils.isMiniScreen()) return { left: 0, top: 0 };
 
       const offset = $element.offset();
       const popupWidth = 300 + 15;
@@ -188,18 +190,19 @@ window.Popup = new class {
       return title !== translationKey ? title : defaultTitle;
     };
   }
-}();
+})();
 
 // We close a potential opened popup on any left click on the document, or go
 // one step back by pressing escape.
 const escapeActions = ['back', 'close'];
-escapeActions.forEach((actionName) => {
-  EscapeActions.register(`popup-${actionName}`,
+escapeActions.forEach(actionName => {
+  EscapeActions.register(
+    `popup-${actionName}`,
     () => Popup[actionName](),
     () => Popup.isOpen(),
     {
       noClickEscapeOn: '.js-pop-over,.js-open-card-title-popup',
       enabledOnClick: actionName === 'close',
-    }
+    },
   );
 });

@@ -2,20 +2,26 @@ Utils = {
   // XXX We should remove these two methods
   goBoardId(_id) {
     const board = Boards.findOne(_id);
-    return board && FlowRouter.go('board', {
-      id: board._id,
-      slug: board.slug,
-    });
+    return (
+      board &&
+      FlowRouter.go('board', {
+        id: board._id,
+        slug: board.slug,
+      })
+    );
   },
 
   goCardId(_id) {
     const card = Cards.findOne(_id);
     const board = Boards.findOne(card.boardId);
-    return board && FlowRouter.go('card', {
-      cardId: card._id,
-      boardId: board._id,
-      slug: board.slug,
-    });
+    return (
+      board &&
+      FlowRouter.go('card', {
+        cardId: card._id,
+        boardId: board._id,
+        slug: board.slug,
+      })
+    );
   },
 
   capitalize(string) {
@@ -104,13 +110,21 @@ Utils = {
         return window.matchMedia(query).matches;
       };
 
-      if (('ontouchstart' in window) || window.DocumentTouch && document instanceof window.DocumentTouch) {
+      if (
+        'ontouchstart' in window ||
+        (window.DocumentTouch && document instanceof window.DocumentTouch)
+      ) {
         return true;
       }
 
       // include the 'heartz' as a way to have a non matching MQ to help terminate the join
       // https://git.io/vznFH
-      const query = ['(', prefixes.join('touch-enabled),('), 'heartz', ')'].join('');
+      const query = [
+        '(',
+        prefixes.join('touch-enabled),('),
+        'heartz',
+        ')',
+      ].join('');
       return mq(query);
     })();
     Utils.isTouchDevice = () => isTouchable;
@@ -120,7 +134,7 @@ Utils = {
   calculateTouchDistance(touchA, touchB) {
     return Math.sqrt(
       Math.pow(touchA.screenX - touchB.screenX, 2) +
-      Math.pow(touchA.screenY - touchB.screenY, 2)
+        Math.pow(touchA.screenY - touchB.screenY, 2),
     );
   },
 
@@ -136,7 +150,11 @@ Utils = {
       lastTouch = touches[touches.length - 1];
     });
     $(document).on('touchend', selector, function(e) {
-      if (touchStart && lastTouch && Utils.calculateTouchDistance(touchStart, lastTouch) <= 20) {
+      if (
+        touchStart &&
+        lastTouch &&
+        Utils.calculateTouchDistance(touchStart, lastTouch) <= 20
+      ) {
         e.preventDefault();
         const clickEvent = document.createEvent('MouseEvents');
         clickEvent.initEvent('click', true, true);
@@ -145,30 +163,30 @@ Utils = {
     });
   },
 
-  manageCustomUI(){
+  manageCustomUI() {
     Meteor.call('getCustomUI', (err, data) => {
-      if (err && err.error[0] === 'var-not-exist'){
+      if (err && err.error[0] === 'var-not-exist') {
         Session.set('customUI', false); // siteId || address server not defined
       }
-      if (!err){
+      if (!err) {
         Utils.setCustomUI(data);
       }
     });
   },
 
-  setCustomUI(data){
+  setCustomUI(data) {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
     if (currentBoard) {
-      DocHead.setTitle(`${currentBoard.title  } - ${  data.productName}`);
+      DocHead.setTitle(`${currentBoard.title} - ${data.productName}`);
     } else {
       DocHead.setTitle(`${data.productName}`);
     }
   },
 
-  setMatomo(data){
+  setMatomo(data) {
     window._paq = window._paq || [];
     window._paq.push(['setDoNotTrack', data.doNotTrack]);
-    if (data.withUserName){
+    if (data.withUserName) {
       window._paq.push(['setUserId', Meteor.user().username]);
     }
     window._paq.push(['trackPageView']);
@@ -196,12 +214,12 @@ Utils = {
 
   manageMatomo() {
     const matomo = Session.get('matomo');
-    if (matomo === undefined){
+    if (matomo === undefined) {
       Meteor.call('getMatomoConf', (err, data) => {
-        if (err && err.error[0] === 'var-not-exist'){
+        if (err && err.error[0] === 'var-not-exist') {
           Session.set('matomo', false); // siteId || address server not defined
         }
-        if (!err){
+        if (!err) {
           Utils.setMatomo(data);
         }
       });
@@ -220,15 +238,21 @@ Utils = {
         finalString += element.text().toLowerCase();
       } else if (element.hasClass('user-details')) {
         let username = element.find('input').val();
-        if(username === undefined || username === ''){
+        if (username === undefined || username === '') {
           username = '*';
         }
-        finalString += `${element.find('.trigger-text').text().toLowerCase() } ${  username}`;
+        finalString += `${element
+          .find('.trigger-text')
+          .text()
+          .toLowerCase()} ${username}`;
       } else if (element.find('select').length > 0) {
-        finalString += element.find('select option:selected').text().toLowerCase();
+        finalString += element
+          .find('select option:selected')
+          .text()
+          .toLowerCase();
       } else if (element.find('input').length > 0) {
         let inputvalue = element.find('input').val();
-        if(inputvalue === undefined || inputvalue === ''){
+        if (inputvalue === undefined || inputvalue === '') {
           inputvalue = '*';
         }
         finalString += inputvalue;

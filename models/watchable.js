@@ -1,5 +1,5 @@
 // simple version, only toggle watch / unwatch
-const simpleWatchable = (collection) => {
+const simpleWatchable = collection => {
   collection.attachSchema({
     watchers: {
       type: [String],
@@ -24,8 +24,8 @@ const simpleWatchable = (collection) => {
   collection.mutations({
     setWatcher(userId, level) {
       // if level undefined or null or false, then remove
-      if (!level) return { $pull: { watchers: userId }};
-      return { $addToSet: { watchers: userId }};
+      if (!level) return { $pull: { watchers: userId } };
+      return { $addToSet: { watchers: userId } };
     },
   });
 };
@@ -34,7 +34,7 @@ const simpleWatchable = (collection) => {
 const complexWatchOptions = ['watching', 'tracking', 'muted'];
 const complexWatchDefault = 'muted';
 
-const complexWatchable = (collection) => {
+const complexWatchable = collection => {
   collection.attachSchema({
     'watchers.$.userId': {
       type: String,
@@ -72,9 +72,9 @@ const complexWatchable = (collection) => {
     setWatcher(userId, level) {
       // if level undefined or null or false, then remove
       if (level === complexWatchDefault) level = null;
-      if (!level) return { $pull: { watchers: { userId }}};
+      if (!level) return { $pull: { watchers: { userId } } };
       const index = this.watcherIndex(userId);
-      if (index<0) return { $push: { watchers: { userId, level }}};
+      if (index < 0) return { $push: { watchers: { userId, level } } };
       return {
         $set: {
           [`watchers.${index}.level`]: level,

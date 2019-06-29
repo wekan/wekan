@@ -1,4 +1,4 @@
-Meteor.publish('rules', (ruleId) => {
+Meteor.publish('rules', ruleId => {
   check(ruleId, String);
   return Rules.find({
     _id: ruleId,
