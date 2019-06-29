@@ -156,7 +156,7 @@ Lists.attachSchema(
       type: String,
       defaultValue: 'list',
     },
-  })
+  }),
 );
 
 Lists.allow({
@@ -198,7 +198,7 @@ Lists.helpers({
       swimlaneId: oldSwimlaneId,
       listId: oldId,
       archived: false,
-    }).forEach((card) => {
+    }).forEach(card => {
       card.copy(boardId, swimlaneId, _id);
     });
   },
@@ -262,7 +262,7 @@ Lists.mutations({
 
   archive() {
     if (this.isTemplateList()) {
-      this.cards().forEach((card) => {
+      this.cards().forEach(card => {
         return card.archive();
       });
     }
@@ -271,7 +271,7 @@ Lists.mutations({
 
   restore() {
     if (this.isTemplateList()) {
-      this.allCards().forEach((card) => {
+      this.allCards().forEach(card => {
         return card.restore();
       });
     }
@@ -346,15 +346,10 @@ if (Meteor.isServer) {
     });
   });
 
-  Lists.before.update((userId, doc, fieldNames, modifier, options) => {
-    modifier.$set = modifier.$set || {};
-    modifier.$set.modifiedAt = Date.now();
-  });
-
   Lists.before.remove((userId, doc) => {
     const cards = Cards.find({ listId: doc._id });
     if (cards) {
-      cards.forEach((card) => {
+      cards.forEach(card => {
         Cards.remove(card._id);
       });
     }
@@ -404,7 +399,7 @@ if (Meteor.isServer) {
               _id: doc._id,
               title: doc.title,
             };
-          }
+          },
         ),
       });
     } catch (error) {
@@ -425,7 +420,7 @@ if (Meteor.isServer) {
    */
   JsonRoutes.add('GET', '/api/boards/:boardId/lists/:listId', function(
     req,
-    res
+    res,
   ) {
     try {
       const paramBoardId = req.params.boardId;
@@ -492,7 +487,7 @@ if (Meteor.isServer) {
    */
   JsonRoutes.add('DELETE', '/api/boards/:boardId/lists/:listId', function(
     req,
-    res
+    res,
   ) {
     try {
       Authentication.checkUserId(req.userId);

@@ -64,20 +64,22 @@ BlazeComponent.extendComponent({
   },
 
   canModifyCard() {
-    return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
+    return (
+      Meteor.user() &&
+      Meteor.user().isBoardMember() &&
+      !Meteor.user().isCommentOnly()
+    );
   },
 }).register('checklistDetail');
 
 BlazeComponent.extendComponent({
-
   addChecklist(event) {
     event.preventDefault();
     const textarea = this.find('textarea.js-add-checklist-item');
     const title = textarea.value.trim();
     let cardId = this.currentData().cardId;
     const card = Cards.findOne(cardId);
-    if (card.isLinked())
-      cardId = card.linkedId;
+    if (card.isLinked()) cardId = card.linkedId;
 
     if (title) {
       Checklists.insert({
@@ -86,7 +88,9 @@ BlazeComponent.extendComponent({
         sort: card.checklists().count(),
       });
       setTimeout(() => {
-        this.$('.add-checklist-item').last().click();
+        this.$('.add-checklist-item')
+          .last()
+          .click();
       }, 100);
     }
     textarea.value = '';
@@ -113,7 +117,11 @@ BlazeComponent.extendComponent({
   },
 
   canModifyCard() {
-    return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
+    return (
+      Meteor.user() &&
+      Meteor.user().isBoardMember() &&
+      !Meteor.user().isCommentOnly()
+    );
   },
 
   deleteChecklist() {
@@ -167,37 +175,43 @@ BlazeComponent.extendComponent({
   events() {
     const events = {
       'click .toggle-delete-checklist-dialog'(event) {
-        if($(event.target).hasClass('js-delete-checklist')){
+        if ($(event.target).hasClass('js-delete-checklist')) {
           this.checklistToDelete = this.currentData().checklist; //Store data context
         }
         this.toggleDeleteDialog.set(!this.toggleDeleteDialog.get());
       },
     };
 
-    return [{
-      ...events,
-      'submit .js-add-checklist': this.addChecklist,
-      'submit .js-edit-checklist-title': this.editChecklist,
-      'submit .js-add-checklist-item': this.addChecklistItem,
-      'submit .js-edit-checklist-item': this.editChecklistItem,
-      'click .js-delete-checklist-item': this.deleteItem,
-      'click .confirm-checklist-delete': this.deleteChecklist,
-      keydown: this.pressKey,
-    }];
+    return [
+      {
+        ...events,
+        'submit .js-add-checklist': this.addChecklist,
+        'submit .js-edit-checklist-title': this.editChecklist,
+        'submit .js-add-checklist-item': this.addChecklistItem,
+        'submit .js-edit-checklist-item': this.editChecklistItem,
+        'click .js-delete-checklist-item': this.deleteItem,
+        'click .confirm-checklist-delete': this.deleteChecklist,
+        keydown: this.pressKey,
+      },
+    ];
   },
 }).register('checklists');
 
 Template.checklistDeleteDialog.onCreated(() => {
   const $cardDetails = this.$('.card-details');
-  this.scrollState = { position: $cardDetails.scrollTop(), //save current scroll position
+  this.scrollState = {
+    position: $cardDetails.scrollTop(), //save current scroll position
     top: false, //required for smooth scroll animation
   };
   //Callback's purpose is to only prevent scrolling after animation is complete
-  $cardDetails.animate({ scrollTop: 0 }, 500, () => { this.scrollState.top = true; });
+  $cardDetails.animate({ scrollTop: 0 }, 500, () => {
+    this.scrollState.top = true;
+  });
 
   //Prevent scrolling while dialog is open
   $cardDetails.on('scroll', () => {
-    if(this.scrollState.top) { //If it's already in position, keep it there. Otherwise let animation scroll
+    if (this.scrollState.top) {
+      //If it's already in position, keep it there. Otherwise let animation scroll
       $cardDetails.scrollTop(0);
     }
   });
@@ -206,12 +220,16 @@ Template.checklistDeleteDialog.onCreated(() => {
 Template.checklistDeleteDialog.onDestroyed(() => {
   const $cardDetails = this.$('.card-details');
   $cardDetails.off('scroll'); //Reactivate scrolling
-  $cardDetails.animate( { scrollTop: this.scrollState.position });
+  $cardDetails.animate({ scrollTop: this.scrollState.position });
 });
 
 Template.checklistItemDetail.helpers({
   canModifyCard() {
-    return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
+    return (
+      Meteor.user() &&
+      Meteor.user().isBoardMember() &&
+      !Meteor.user().isCommentOnly()
+    );
   },
 });
 
@@ -224,8 +242,10 @@ BlazeComponent.extendComponent({
     }
   },
   events() {
-    return [{
-      'click .js-checklist-item .check-box': this.toggleItem,
-    }];
+    return [
+      {
+        'click .js-checklist-item .check-box': this.toggleItem,
+      },
+    ];
   },
 }).register('checklistItemDetail');

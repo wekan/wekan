@@ -40,19 +40,21 @@ BlazeComponent.extendComponent({
     // console.log(this.data());
   },
   events() {
-    return [{
-      'click .js-set-board-actions'(){
-        this.setBoardActions();
+    return [
+      {
+        'click .js-set-board-actions'() {
+          this.setBoardActions();
+        },
+        'click .js-set-card-actions'() {
+          this.setCardActions();
+        },
+        'click .js-set-mail-actions'() {
+          this.setMailActions();
+        },
+        'click .js-set-checklist-actions'() {
+          this.setChecklistActions();
+        },
       },
-      'click .js-set-card-actions'() {
-        this.setCardActions();
-      },
-      'click .js-set-mail-actions'() {
-        this.setMailActions();
-      },
-      'click .js-set-checklist-actions'() {
-        this.setChecklistActions();
-      },
-    }];
+    ];
   },
 }).register('rulesActions');

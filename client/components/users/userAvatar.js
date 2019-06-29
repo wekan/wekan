@@ -22,14 +22,11 @@ Template.userAvatar.helpers({
   presenceStatusClassName() {
     const user = Users.findOne(this.userId);
     const userPresence = presences.findOne({ userId: this.userId });
-    if (user && user.isInvitedTo(Session.get('currentBoard')))
-      return 'pending';
-    else if (!userPresence)
-      return 'disconnected';
+    if (user && user.isInvitedTo(Session.get('currentBoard'))) return 'pending';
+    else if (!userPresence) return 'disconnected';
     else if (Session.equals('currentBoard', userPresence.state.currentBoardId))
       return 'active';
-    else
-      return 'idle';
+    else return 'idle';
   },
 });
 
@@ -45,7 +42,7 @@ Template.userAvatarInitials.helpers({
 
   viewPortWidth() {
     const user = Users.findOne(this.userId);
-    return (user && user.getInitials().length || 1) * 12;
+    return ((user && user.getInitials().length) || 1) * 12;
   },
 });
 
@@ -64,7 +61,7 @@ BlazeComponent.extendComponent({
   },
 
   uploadedAvatars() {
-    return Avatars.find({userId: Meteor.userId()});
+    return Avatars.find({ userId: Meteor.userId() });
   },
 
   isSelected() {
@@ -89,46 +86,48 @@ BlazeComponent.extendComponent({
   },
 
   events() {
-    return [{
-      'click .js-upload-avatar'() {
-        this.$('.js-upload-avatar-input').click();
-      },
-      'change .js-upload-avatar-input'(evt) {
-        let file, fileUrl;
+    return [
+      {
+        'click .js-upload-avatar'() {
+          this.$('.js-upload-avatar-input').click();
+        },
+        'change .js-upload-avatar-input'(event) {
+          let file, fileUrl;
 
-        FS.Utility.eachFile(evt, (f) => {
-          try {
-            file = Avatars.insert(new FS.File(f));
-            fileUrl = file.url(this.avatarUrlOptions());
-          } catch (e) {
-            this.setError('avatar-too-big');
+          FS.Utility.eachFile(event, f => {
+            try {
+              file = Avatars.insert(new FS.File(f));
+              fileUrl = file.url(this.avatarUrlOptions());
+            } catch (e) {
+              this.setError('avatar-too-big');
+            }
+          });
+
+          if (fileUrl) {
+            this.setError('');
+            const fetchAvatarInterval = window.setInterval(() => {
+              $.ajax({
+                url: fileUrl,
+                success: () => {
+                  this.setAvatar(file.url(this.avatarUrlOptions()));
+                  window.clearInterval(fetchAvatarInterval);
+                },
+              });
+            }, 100);
           }
-        });
-
-        if (fileUrl) {
-          this.setError('');
-          const fetchAvatarInterval = window.setInterval(() => {
-            $.ajax({
-              url: fileUrl,
-              success: () => {
-                this.setAvatar(file.url(this.avatarUrlOptions()));
-                window.clearInterval(fetchAvatarInterval);
-              },
-            });
-          }, 100);
-        }
+        },
+        'click .js-select-avatar'() {
+          const avatarUrl = this.currentData().url(this.avatarUrlOptions());
+          this.setAvatar(avatarUrl);
+        },
+        'click .js-select-initials'() {
+          this.setAvatar('');
+        },
+        'click .js-delete-avatar'() {
+          Avatars.remove(this.currentData()._id);
+        },
       },
-      'click .js-select-avatar'() {
-        const avatarUrl = this.currentData().url(this.avatarUrlOptions());
-        this.setAvatar(avatarUrl);
-      },
-      'click .js-select-initials'() {
-        this.setAvatar('');
-      },
-      'click .js-delete-avatar'() {
-        Avatars.remove(this.currentData()._id);
-      },
-    }];
+    ];
   },
 }).register('changeAvatarPopup');
 
@@ -146,11 +145,11 @@ Template.cardMembersPopup.helpers({
 });
 
 Template.cardMembersPopup.events({
-  'click .js-select-member'(evt) {
+  'click .js-select-member'(event) {
     const card = Cards.findOne(Session.get('currentCard'));
     const memberId = this.userId;
     card.toggleMember(memberId);
-    evt.preventDefault();
+    event.preventDefault();
   },
 });
 

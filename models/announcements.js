@@ -42,7 +42,7 @@ Announcements.attachSchema(
         }
       },
     },
-  })
+  }),
 );
 
 Announcements.allow({
@@ -50,11 +50,6 @@ Announcements.allow({
     const user = Users.findOne(userId);
     return user && user.isAdmin;
   },
-});
-
-Announcements.before.update((userId, doc, fieldNames, modifier, options) => {
-  modifier.$set = modifier.$set || {};
-  modifier.$set.modifiedAt = Date.now();
 });
 
 if (Meteor.isServer) {

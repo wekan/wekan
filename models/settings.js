@@ -76,7 +76,7 @@ Settings.attachSchema(
         }
       },
     },
-  })
+  }),
 );
 Settings.helpers({
   mailUrl() {
@@ -88,7 +88,7 @@ Settings.helpers({
       return `${protocol}${this.mailServer.host}:${this.mailServer.port}/`;
     }
     return `${protocol}${this.mailServer.username}:${encodeURIComponent(
-      this.mailServer.password
+      this.mailServer.password,
     )}@${this.mailServer.host}:${this.mailServer.port}/`;
   },
 });
@@ -99,11 +99,6 @@ Settings.allow({
   },
 });
 
-Settings.before.update((userId, doc, fieldNames, modifier) => {
-  modifier.$set = modifier.$set || {};
-  modifier.$set.modifiedAt = new Date();
-});
-
 if (Meteor.isServer) {
   Meteor.startup(() => {
     Settings._collection._ensureIndex({ modifiedAt: -1 });
@@ -111,7 +106,7 @@ if (Meteor.isServer) {
     if (!setting) {
       const now = new Date();
       const domain = process.env.ROOT_URL.match(
-        /\/\/(?:www\.)?(.*)?(?:\/)?/
+        /\/\/(?:www\.)?(.*)?(?:\/)?/,
       )[1];
       const from = `Boards Support <support@${domain}>`;
       const defaultSetting = {
@@ -143,9 +138,7 @@ if (Meteor.isServer) {
     if (_.contains(fieldNames, 'mailServer') && doc.mailServer.host) {
       const protocol = doc.mailServer.enableTLS ? 'smtps://' : 'smtp://';
       if (!doc.mailServer.username && !doc.mailServer.password) {
-        process.env.MAIL_URL = `${protocol}${doc.mailServer.host}:${
-          doc.mailServer.port
-        }/`;
+        process.env.MAIL_URL = `${protocol}${doc.mailServer.host}:${doc.mailServer.port}/`;
       } else {
         process.env.MAIL_URL = `${protocol}${
           doc.mailServer.username
@@ -220,14 +213,14 @@ if (Meteor.isServer) {
       if (!user.isAdmin) {
         throw new Meteor.Error('not-allowed');
       }
-      emails.forEach((email) => {
+      emails.forEach(email => {
         if (email && SimpleSchema.RegEx.Email.test(email)) {
           // Checks if the email is already link to an account.
           const userExist = Users.findOne({ email });
           if (userExist) {
             throw new Meteor.Error(
               'user-exist',
-              `The user with the email ${email} has already an account.`
+              `The user with the email ${email} has already an account.`,
             );
           }
           // Checks if the email is already link to an invitation.
@@ -253,10 +246,10 @@ if (Meteor.isServer) {
                 } else {
                   throw new Meteor.Error(
                     'invitation-generated-fail',
-                    err.message
+                    err.message,
                   );
                 }
-              }
+              },
             );
           }
         }
@@ -284,7 +277,7 @@ if (Meteor.isServer) {
         throw new Meteor.Error(
           'email-fail',
           `${TAPi18n.__('email-fail-text', { lng: lang })}: ${message}`,
-          message
+          message,
         );
       }
       return {

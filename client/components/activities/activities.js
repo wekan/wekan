@@ -13,7 +13,7 @@ BlazeComponent.extendComponent({
       let thisId, searchId;
       if (mode === 'linkedcard' || mode === 'linkedboard') {
         thisId = Session.get('currentCard');
-        searchId = Cards.findOne({_id: thisId}).linkedId;
+        searchId = Cards.findOne({ _id: thisId }).linkedId;
         mode = mode.replace('linked', '');
       } else {
         thisId = Session.get(`current${capitalizedMode}`);
@@ -22,8 +22,7 @@ BlazeComponent.extendComponent({
       const limit = this.page.get() * activitiesPerPage;
       const user = Meteor.user();
       const hideSystem = user ? user.hasHiddenSystemMessages() : false;
-      if (searchId === null)
-        return;
+      if (searchId === null) return;
 
       this.subscribe('activities', mode, searchId, limit, hideSystem, () => {
         this.loadNextPageLocked = false;
@@ -50,9 +49,9 @@ BlazeComponent.extendComponent({
     }
   },
 
-  checkItem(){
+  checkItem() {
     const checkItemId = this.currentData().checklistItemId;
-    const checkItem = ChecklistItems.findOne({_id:checkItemId});
+    const checkItem = ChecklistItems.findOne({ _id: checkItemId });
     return checkItem.title;
   },
 
@@ -66,42 +65,58 @@ BlazeComponent.extendComponent({
 
   cardLink() {
     const card = this.currentData().card();
-    return card && Blaze.toHTML(HTML.A({
-      href: card.absoluteUrl(),
-      'class': 'action-card',
-    }, card.title));
+    return (
+      card &&
+      Blaze.toHTML(
+        HTML.A(
+          {
+            href: card.absoluteUrl(),
+            class: 'action-card',
+          },
+          card.title,
+        ),
+      )
+    );
   },
 
-  lastLabel(){
+  lastLabel() {
     const lastLabelId = this.currentData().labelId;
-    if (!lastLabelId)
-      return null;
-    const lastLabel = Boards.findOne(Session.get('currentBoard')).getLabelById(lastLabelId);
-    if(lastLabel.name === undefined || lastLabel.name === ''){
+    if (!lastLabelId) return null;
+    const lastLabel = Boards.findOne(Session.get('currentBoard')).getLabelById(
+      lastLabelId,
+    );
+    if (lastLabel.name === undefined || lastLabel.name === '') {
       return lastLabel.color;
-    }else{
+    } else {
       return lastLabel.name;
     }
   },
 
-  lastCustomField(){
-    const lastCustomField = CustomFields.findOne(this.currentData().customFieldId);
-    if (!lastCustomField)
-      return null;
+  lastCustomField() {
+    const lastCustomField = CustomFields.findOne(
+      this.currentData().customFieldId,
+    );
+    if (!lastCustomField) return null;
     return lastCustomField.name;
   },
 
-  lastCustomFieldValue(){
-    const lastCustomField = CustomFields.findOne(this.currentData().customFieldId);
-    if (!lastCustomField)
-      return null;
+  lastCustomFieldValue() {
+    const lastCustomField = CustomFields.findOne(
+      this.currentData().customFieldId,
+    );
+    if (!lastCustomField) return null;
     const value = this.currentData().value;
-    if (lastCustomField.settings.dropdownItems && lastCustomField.settings.dropdownItems.length > 0) {
-      const dropDownValue = _.find(lastCustomField.settings.dropdownItems, (item) => {
-        return item._id === value;
-      });
-      if (dropDownValue)
-        return dropDownValue.name;
+    if (
+      lastCustomField.settings.dropdownItems &&
+      lastCustomField.settings.dropdownItems.length > 0
+    ) {
+      const dropDownValue = _.find(
+        lastCustomField.settings.dropdownItems,
+        item => {
+          return item._id === value;
+        },
+      );
+      if (dropDownValue) return dropDownValue.name;
     }
     return value;
   },
@@ -112,11 +127,16 @@ BlazeComponent.extendComponent({
 
   sourceLink() {
     const source = this.currentData().source;
-    if(source) {
-      if(source.url) {
-        return Blaze.toHTML(HTML.A({
-          href: source.url,
-        }, source.system));
+    if (source) {
+      if (source.url) {
+        return Blaze.toHTML(
+          HTML.A(
+            {
+              href: source.url,
+            },
+            source.system,
+          ),
+        );
       } else {
         return source.system;
       }
@@ -133,38 +153,50 @@ BlazeComponent.extendComponent({
   attachmentLink() {
     const attachment = this.currentData().attachment();
     // trying to display url before file is stored generates js errors
-    return attachment && attachment.url({ download: true }) && Blaze.toHTML(HTML.A({
-      href: attachment.url({ download: true }),
-      target: '_blank',
-    }, attachment.name()));
+    return (
+      attachment &&
+      attachment.url({ download: true }) &&
+      Blaze.toHTML(
+        HTML.A(
+          {
+            href: attachment.url({ download: true }),
+            target: '_blank',
+          },
+          attachment.name(),
+        ),
+      )
+    );
   },
 
   customField() {
     const customField = this.currentData().customField();
-    if (!customField)
-      return null;
+    if (!customField) return null;
     return customField.name;
   },
 
   events() {
-    return [{
-      // XXX We should use Popup.afterConfirmation here
-      'click .js-delete-comment'() {
-        const commentId = this.currentData().commentId;
-        CardComments.remove(commentId);
+    return [
+      {
+        // XXX We should use Popup.afterConfirmation here
+        'click .js-delete-comment'() {
+          const commentId = this.currentData().commentId;
+          CardComments.remove(commentId);
+        },
+        'submit .js-edit-comment'(evt) {
+          evt.preventDefault();
+          const commentText = this.currentComponent()
+            .getValue()
+            .trim();
+          const commentId = Template.parentData().commentId;
+          if (commentText) {
+            CardComments.update(commentId, {
+              $set: {
+                text: commentText,
+              },
+            });
+          }
+        },
       },
-      'submit .js-edit-comment'(evt) {
-        evt.preventDefault();
-        const commentText = this.currentComponent().getValue().trim();
-        const commentId = Template.parentData().commentId;
-        if (commentText) {
-          CardComments.update(commentId, {
-            $set: {
-              text: commentText,
-            },
-          });
-        }
-      },
-    }];
+    ];
   },
 }).register('activities');

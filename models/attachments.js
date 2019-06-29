@@ -12,7 +12,7 @@ Attachments = new FS.Collection('attachments', {
       // XXX Should we use `beforeWrite` option of CollectionFS instead of
       // collection-hooks?
       // We should use `beforeWrite`.
-      beforeWrite: (fileObj) => {
+      beforeWrite: fileObj => {
         if (!fileObj.isImage()) {
           return {
             type: 'application/octet-stream',
@@ -84,7 +84,7 @@ if (Meteor.isServer) {
           $unset: {
             source: '',
           },
-        }
+        },
       );
     }
   });

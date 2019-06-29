@@ -101,7 +101,7 @@ Boards.attachSchema(
           const colors = Boards.simpleSchema()._schema['labels.$.color']
             .allowedValues;
           const defaultLabelsColors = _.clone(colors).splice(0, 6);
-          return defaultLabelsColors.map((color) => ({
+          return defaultLabelsColors.map(color => ({
             color,
             _id: Random.id(6),
             name: '',
@@ -342,7 +342,7 @@ Boards.attachSchema(
       type: String,
       defaultValue: 'board',
     },
-  })
+  }),
 );
 
 Boards.helpers({
@@ -355,7 +355,7 @@ Boards.helpers({
     Swimlanes.find({
       boardId: oldId,
       archived: false,
-    }).forEach((swimlane) => {
+    }).forEach(swimlane => {
       swimlane.type = 'swimlane';
       swimlane.copy(_id);
     });
@@ -382,7 +382,7 @@ Boards.helpers({
   isActiveMember(userId) {
     if (userId) {
       return this.members.find(
-        (member) => member.userId === userId && member.isActive
+        member => member.userId === userId && member.isActive,
       );
     } else {
       return false;
@@ -396,14 +396,14 @@ Boards.helpers({
   cards() {
     return Cards.find(
       { boardId: this._id, archived: false },
-      { sort: { title: 1 } }
+      { sort: { title: 1 } },
     );
   },
 
   lists() {
     return Lists.find(
       { boardId: this._id, archived: false },
-      { sort: { sort: 1 } }
+      { sort: { sort: 1 } },
     );
   },
 
@@ -418,7 +418,7 @@ Boards.helpers({
   swimlanes() {
     return Swimlanes.find(
       { boardId: this._id, archived: false },
-      { sort: { sort: 1 } }
+      { sort: { sort: 1 } },
     );
   },
 
@@ -432,7 +432,7 @@ Boards.helpers({
       },
       {
         sort: { sort: 1 },
-      }
+      },
     );
   },
 
@@ -535,7 +535,7 @@ Boards.helpers({
   customFields() {
     return CustomFields.find(
       { boardIds: { $in: [this._id] } },
-      { sort: { name: 1 } }
+      { sort: { name: 1 } },
     );
   },
 
@@ -848,7 +848,7 @@ Boards.mutations({
     isAdmin,
     isNoComments,
     isCommentOnly,
-    currentUserId = Meteor.userId()
+    currentUserId = Meteor.userId(),
   ) {
     const memberIndex = this.memberIndex(memberId);
     // do not allow change permission of self
@@ -884,9 +884,9 @@ Boards.mutations({
 
 function boardRemover(userId, doc) {
   [Cards, Lists, Swimlanes, Integrations, Rules, Activities].forEach(
-    (element) => {
+    element => {
       element.remove({ boardId: doc._id });
-    }
+    },
   );
 }
 
@@ -927,7 +927,7 @@ if (Meteor.isServer) {
         _.findWhere(doc.members, {
           userId: removedMemberId,
           isAdmin: true,
-        })
+        }),
       );
     },
     fetch: ['members'],
@@ -973,7 +973,7 @@ if (Meteor.isServer) {
         _id: 1,
         'members.userId': 1,
       },
-      { unique: true }
+      { unique: true },
     );
     Boards._collection._ensureIndex({ 'members.userId': 1 });
   });
@@ -1009,12 +1009,12 @@ if (Meteor.isServer) {
           labelIds: removedLabelId,
         },
       },
-      { multi: true }
+      { multi: true },
     );
   });
 
   const foreachRemovedMember = (doc, modifier, callback) => {
-    Object.keys(modifier).forEach((set) => {
+    Object.keys(modifier).forEach(set => {
       if (modifier[set] !== false) {
         return;
       }
@@ -1030,11 +1030,6 @@ if (Meteor.isServer) {
     });
   };
 
-  Boards.before.update((userId, doc, fieldNames, modifier, options) => {
-    modifier.$set = modifier.$set || {};
-    modifier.$set.modifiedAt = Date.now();
-  });
-
   // Remove a member from all objects of the board before leaving the board
   Boards.before.update((userId, doc, fieldNames, modifier) => {
     if (!_.contains(fieldNames, 'members')) {
@@ -1043,7 +1038,7 @@ if (Meteor.isServer) {
 
     if (modifier.$set) {
       const boardId = doc._id;
-      foreachRemovedMember(doc, modifier.$set, (memberId) => {
+      foreachRemovedMember(doc, modifier.$set, memberId => {
         Cards.update(
           { boardId },
           {
@@ -1052,7 +1047,7 @@ if (Meteor.isServer) {
               watchers: memberId,
             },
           },
-          { multi: true }
+          { multi: true },
         );
 
         Lists.update(
@@ -1062,7 +1057,7 @@ if (Meteor.isServer) {
               watchers: memberId,
             },
           },
-          { multi: true }
+          { multi: true },
         );
 
         const board = Boards._transform(doc);
@@ -1112,7 +1107,7 @@ if (Meteor.isServer) {
 
     // Say goodbye to the former member
     if (modifier.$set) {
-      foreachRemovedMember(doc, modifier.$set, (memberId) => {
+      foreachRemovedMember(doc, modifier.$set, memberId => {
         Activities.insert({
           userId,
           memberId,
@@ -1143,7 +1138,7 @@ if (Meteor.isServer) {
       // admins can access boards of any user
       Authentication.checkAdminOrCondition(
         req.userId,
-        req.userId === paramUserId
+        req.userId === paramUserId,
       );
 
       const data = Boards.find(
@@ -1153,7 +1148,7 @@ if (Meteor.isServer) {
         },
         {
           sort: ['title'],
-        }
+        },
       ).map(function(board) {
         return {
           _id: board._id,
@@ -1332,7 +1327,7 @@ if (Meteor.isServer) {
         if (!board.getLabel(name, color)) {
           Boards.direct.update(
             { _id: id },
-            { $push: { labels: { _id: labelId, name, color } } }
+            { $push: { labels: { _id: labelId, name, color } } },
           );
           JsonRoutes.sendResult(res, {
             code: 200,
@@ -1364,7 +1359,7 @@ if (Meteor.isServer) {
    */
   JsonRoutes.add('POST', '/api/boards/:boardId/members/:memberId', function(
     req,
-    res
+    res,
   ) {
     try {
       const boardId = req.params.boardId;
@@ -1384,7 +1379,7 @@ if (Meteor.isServer) {
         isTrue(isAdmin),
         isTrue(isNoComments),
         isTrue(isCommentOnly),
-        req.userId
+        req.userId,
       );
 
       JsonRoutes.sendResult(res, {

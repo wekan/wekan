@@ -3,11 +3,15 @@ Meteor.startup(() => {
   Notifications.subscribe('email', (user, title, description, params) => {
     // add quote to make titles easier to read in email text
     const quoteParams = _.clone(params);
-    ['card', 'list', 'oldList', 'board', 'comment'].forEach((key) => {
+    ['card', 'list', 'oldList', 'board', 'comment'].forEach(key => {
       if (quoteParams[key]) quoteParams[key] = `"${params[key]}"`;
     });
 
-    const text = `${params.user} ${TAPi18n.__(description, quoteParams, user.getLanguage())}\n${params.url}`;
+    const text = `${params.user} ${TAPi18n.__(
+      description,
+      quoteParams,
+      user.getLanguage(),
+    )}\n${params.url}`;
     user.addEmailBuffer(text);
 
     // unlike setTimeout(func, delay, args),
@@ -39,5 +43,3 @@ Meteor.startup(() => {
     }, process.env.EMAIL_NOTIFICATION_TIMEOUT || 30000);
   });
 });
-
-

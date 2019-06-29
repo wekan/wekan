@@ -34,13 +34,13 @@ UnsavedEdits = {
   },
 
   has({ fieldName, docId }) {
-    return Boolean(this.get({fieldName, docId}));
+    return Boolean(this.get({ fieldName, docId }));
   },
 
   set({ fieldName, docId }, value) {
     const currentDoc = this._getCollectionDocument(fieldName, docId);
     if (currentDoc) {
-      UnsavedEditCollection.update(currentDoc._id, { $set: { value }});
+      UnsavedEditCollection.update(currentDoc._id, { $set: { value } });
     } else {
       UnsavedEditCollection.insert({
         fieldName,
@@ -58,7 +58,7 @@ UnsavedEdits = {
   },
 
   _getCollectionDocument(fieldName, docId) {
-    return UnsavedEditCollection.findOne({fieldName, docId});
+    return UnsavedEditCollection.findOne({ fieldName, docId });
   },
 };
 

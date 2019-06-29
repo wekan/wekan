@@ -20,11 +20,6 @@ Actions.helpers({
   },
 });
 
-Actions.before.update((userId, doc, fieldNames, modifier, options) => {
-  modifier.$set = modifier.$set || {};
-  modifier.$set.modifiedAt = Date.now();
-});
-
 if (Meteor.isServer) {
   Meteor.startup(() => {
     Actions._collection._ensureIndex({ modifiedAt: -1 });

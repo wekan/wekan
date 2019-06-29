@@ -37,7 +37,7 @@ AccountSettings.attachSchema(
         }
       },
     },
-  })
+  }),
 );
 
 AccountSettings.allow({
@@ -45,11 +45,6 @@ AccountSettings.allow({
     const user = Users.findOne(userId);
     return user && user.isAdmin;
   },
-});
-
-AccountSettings.before.update((userId, doc, fieldNames, modifier, options) => {
-  modifier.$set = modifier.$set || {};
-  modifier.$set.modifiedAt = Date.now();
 });
 
 if (Meteor.isServer) {
@@ -62,7 +57,7 @@ if (Meteor.isServer) {
           booleanValue: false,
           sort: 0,
         },
-      }
+      },
     );
     AccountSettings.upsert(
       { _id: 'accounts-allowUserNameChange' },
@@ -71,7 +66,7 @@ if (Meteor.isServer) {
           booleanValue: false,
           sort: 1,
         },
-      }
+      },
     );
   });
 }

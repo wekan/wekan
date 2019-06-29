@@ -9,7 +9,7 @@ BlazeComponent.extendComponent({
   },
 
   labels() {
-    return labelColors.map((color) => ({ color, name: '' }));
+    return labelColors.map(color => ({ color, name: '' }));
   },
 
   isSelected(color) {
@@ -17,11 +17,13 @@ BlazeComponent.extendComponent({
   },
 
   events() {
-    return [{
-      'click .js-palette-color'() {
-        this.currentColor.set(this.currentData().color);
+    return [
+      {
+        'click .js-palette-color'() {
+          this.currentColor.set(this.currentData().color);
+        },
       },
-    }];
+    ];
   },
 }).register('formLabel');
 
@@ -38,19 +40,19 @@ Template.createLabelPopup.helpers({
 });
 
 Template.cardLabelsPopup.events({
-  'click .js-select-label'(evt) {
+  'click .js-select-label'(event) {
     const card = Cards.findOne(Session.get('currentCard'));
     const labelId = this._id;
     card.toggleLabel(labelId);
-    evt.preventDefault();
+    event.preventDefault();
   },
   'click .js-edit-label': Popup.open('editLabel'),
   'click .js-add-label': Popup.open('createLabel'),
 });
 
 Template.formLabel.events({
-  'click .js-palette-color'(evt) {
-    const $this = $(evt.currentTarget);
+  'click .js-palette-color'(event) {
+    const $this = $(event.currentTarget);
 
     // hide selected ll colors
     $('.js-palette-select').addClass('hide');
@@ -62,11 +64,14 @@ Template.formLabel.events({
 
 Template.createLabelPopup.events({
   // Create the new label
-  'submit .create-label'(evt, tpl) {
-    evt.preventDefault();
+  'submit .create-label'(event, templateInstance) {
+    event.preventDefault();
     const board = Boards.findOne(Session.get('currentBoard'));
-    const name = tpl.$('#labelName').val().trim();
-    const color = Blaze.getData(tpl.find('.fa-check')).color;
+    const name = templateInstance
+      .$('#labelName')
+      .val()
+      .trim();
+    const color = Blaze.getData(templateInstance.find('.fa-check')).color;
     board.addLabel(name, color);
     Popup.back();
   },
@@ -78,11 +83,14 @@ Template.editLabelPopup.events({
     board.removeLabel(this._id);
     Popup.back(2);
   }),
-  'submit .edit-label'(evt, tpl) {
-    evt.preventDefault();
+  'submit .edit-label'(event, templateInstance) {
+    event.preventDefault();
     const board = Boards.findOne(Session.get('currentBoard'));
-    const name = tpl.$('#labelName').val().trim();
-    const color = Blaze.getData(tpl.find('.fa-check')).color;
+    const name = templateInstance
+      .$('#labelName')
+      .val()
+      .trim();
+    const color = Blaze.getData(templateInstance.find('.fa-check')).color;
     board.editLabel(this._id, name, color);
     Popup.back();
   },

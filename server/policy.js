@@ -1,8 +1,7 @@
 import { BrowserPolicy } from 'meteor/browser-policy-common';
 
 Meteor.startup(() => {
-
-  if ( process.env.BROWSER_POLICY_ENABLED === 'true' ) {
+  if (process.env.BROWSER_POLICY_ENABLED === 'true') {
     // Trusted URL that can embed Wekan in iFrame.
     const trusted = process.env.TRUSTED_URL;
     BrowserPolicy.framing.disallow();
@@ -13,8 +12,7 @@ Meteor.startup(() => {
     //BrowserPolicy.content.allowFontDataUrl();
     BrowserPolicy.framing.restrictToOrigin(trusted);
     //BrowserPolicy.content.allowScriptOrigin(trusted);
-  }
-  else {
+  } else {
     // Disable browser policy and allow all framing and including.
     // Use only at internal LAN, not at Internet.
     BrowserPolicy.framing.allowAll();
@@ -26,9 +24,8 @@ Meteor.startup(() => {
 
   // If Matomo URL is set, allow it.
   const matomoUrl = process.env.MATOMO_ADDRESS;
-  if (matomoUrl){
+  if (matomoUrl) {
     //BrowserPolicy.content.allowScriptOrigin(matomoUrl);
     //BrowserPolicy.content.allowImageOrigin(matomoUrl);
   }
-
 });

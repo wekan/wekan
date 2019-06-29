@@ -51,16 +51,11 @@ Triggers.helpers({
 
   labels() {
     const boardLabels = this.board().labels;
-    const cardLabels = _.filter(boardLabels, (label) => {
+    const cardLabels = _.filter(boardLabels, label => {
       return _.contains(this.labelIds, label._id);
     });
     return cardLabels;
   },
-});
-
-Triggers.before.update((userId, doc, fieldNames, modifier, options) => {
-  modifier.$set = modifier.$set || {};
-  modifier.$set.modifiedAt = Date.now();
 });
 
 if (Meteor.isServer) {

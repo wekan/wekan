@@ -4,7 +4,7 @@ export function getMembersToMap(data) {
   // imported member
   const membersToMap = data.members;
   // auto-map based on username
-  membersToMap.forEach((importedMember) => {
+  membersToMap.forEach(importedMember => {
     const wekanUser = Users.findOne({ username: importedMember.username });
     if (wekanUser) {
       importedMember.wekanId = wekanUser._id;

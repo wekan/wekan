@@ -1,10 +1,11 @@
 Template.attachmentsGalery.events({
   'click .js-add-attachment': Popup.open('cardAttachments'),
-  'click .js-confirm-delete': Popup.afterConfirm('attachmentDelete',
+  'click .js-confirm-delete': Popup.afterConfirm(
+    'attachmentDelete',
     function() {
       Attachments.remove(this._id);
       Popup.close();
-    }
+    },
   ),
   // If we let this event bubble, FlowRouter will handle it and empty the page
   // content, see #101.
@@ -17,8 +18,8 @@ Template.attachmentsGalery.events({
   'click .js-remove-cover'() {
     Cards.findOne(this.cardId).unsetCover();
   },
-  'click .js-preview-image'(evt) {
-    Popup.open('previewAttachedImage').call(this, evt);
+  'click .js-preview-image'(event) {
+    Popup.open('previewAttachedImage').call(this, event);
     // when multiple thumbnails, if click one then another very fast,
     // we might get a wrong width from previous img.
     // when popup reused, onRendered() won't be called, so we cannot get there.
@@ -31,31 +32,29 @@ Template.attachmentsGalery.events({
       // if the image is too large, we resize & center the popup.
       if (w > 300) {
         $('div.pop-over').css({
-          width: (w + 20),
+          width: w + 20,
           position: 'absolute',
-          left: (window.innerWidth - w)/2,
-          top: (window.innerHeight - h)/2,
+          left: (window.innerWidth - w) / 2,
+          top: (window.innerHeight - h) / 2,
         });
       }
     };
-    const url = $(evt.currentTarget).attr('src');
-    if (img.src === url && img.complete)
-      rePosPopup();
-    else
-      img.onload = rePosPopup;
+    const url = $(event.currentTarget).attr('src');
+    if (img.src === url && img.complete) rePosPopup();
+    else img.onload = rePosPopup;
   },
 });
 
 Template.previewAttachedImagePopup.events({
-  'click .js-large-image-clicked'(){
+  'click .js-large-image-clicked'() {
     Popup.close();
   },
 });
 
 Template.cardAttachmentsPopup.events({
-  'change .js-attach-file'(evt) {
+  'change .js-attach-file'(event) {
     const card = this;
-    FS.Utility.eachFile(evt, (f) => {
+    FS.Utility.eachFile(event, f => {
       const file = new FS.File(f);
       if (card.isLinkedCard()) {
         file.boardId = Cards.findOne(card.linkedId).boardId;
@@ -77,9 +76,9 @@ Template.cardAttachmentsPopup.events({
       Popup.close();
     });
   },
-  'click .js-computer-upload'(evt, tpl) {
-    tpl.find('.js-attach-file').click();
-    evt.preventDefault();
+  'click .js-computer-upload'(event, templateInstance) {
+    templateInstance.find('.js-attach-file').click();
+    event.preventDefault();
   },
   'click .js-upload-clipboard-image': Popup.open('previewClipboardImage'),
 });
@@ -88,7 +87,7 @@ let pastedResults = null;
 
 Template.previewClipboardImagePopup.onRendered(() => {
   // we can paste image from clipboard
-  $(document.body).pasteImageReader((results) => {
+  $(document.body).pasteImageReader(results => {
     if (results.dataURL.startsWith('data:image/')) {
       $('img.preview-clipboard-image').attr('src', results.dataURL);
       pastedResults = results;
@@ -96,7 +95,7 @@ Template.previewClipboardImagePopup.onRendered(() => {
   });
 
   // we can also drag & drop image file to it
-  $(document.body).dropImageReader((results) => {
+  $(document.body).dropImageReader(results => {
     if (results.dataURL.startsWith('data:image/')) {
       $('img.preview-clipboard-image').attr('src', results.dataURL);
       pastedResults = results;

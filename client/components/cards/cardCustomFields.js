@@ -7,22 +7,21 @@ Template.cardCustomFieldsPopup.helpers({
 });
 
 Template.cardCustomFieldsPopup.events({
-  'click .js-select-field'(evt) {
+  'click .js-select-field'(event) {
     const card = Cards.findOne(Session.get('currentCard'));
     const customFieldId = this._id;
     card.toggleCustomField(customFieldId);
-    evt.preventDefault();
+    event.preventDefault();
   },
-  'click .js-settings'(evt) {
+  'click .js-settings'(event) {
     EscapeActions.executeUpTo('detailsPane');
     Sidebar.setView('customFields');
-    evt.preventDefault();
+    event.preventDefault();
   },
 });
 
 // cardCustomField
 const CardCustomField = BlazeComponent.extendComponent({
-
   getTemplate() {
     return `cardCustomField-${this.data().definition.type}`;
   },
@@ -34,52 +33,55 @@ const CardCustomField = BlazeComponent.extendComponent({
   },
 
   canModifyCard() {
-    return Meteor.user() && Meteor.user().isBoardMember() && !Meteor.user().isCommentOnly();
+    return (
+      Meteor.user() &&
+      Meteor.user().isBoardMember() &&
+      !Meteor.user().isCommentOnly()
+    );
   },
 });
 CardCustomField.register('cardCustomField');
 
 // cardCustomField-text
 (class extends CardCustomField {
-
   onCreated() {
     super.onCreated();
   }
 
   events() {
-    return [{
-      'submit .js-card-customfield-text'(evt) {
-        evt.preventDefault();
-        const value = this.currentComponent().getValue();
-        this.card.setCustomField(this.customFieldId, value);
+    return [
+      {
+        'submit .js-card-customfield-text'(event) {
+          event.preventDefault();
+          const value = this.currentComponent().getValue();
+          this.card.setCustomField(this.customFieldId, value);
+        },
       },
-    }];
+    ];
   }
-
-}).register('cardCustomField-text');
+}.register('cardCustomField-text'));
 
 // cardCustomField-number
 (class extends CardCustomField {
-
   onCreated() {
     super.onCreated();
   }
 
   events() {
-    return [{
-      'submit .js-card-customfield-number'(evt) {
-        evt.preventDefault();
-        const value = parseInt(this.find('input').value, 10);
-        this.card.setCustomField(this.customFieldId, value);
+    return [
+      {
+        'submit .js-card-customfield-number'(event) {
+          event.preventDefault();
+          const value = parseInt(this.find('input').value, 10);
+          this.card.setCustomField(this.customFieldId, value);
+        },
       },
-    }];
+    ];
   }
-
-}).register('cardCustomField-number');
+}.register('cardCustomField-number'));
 
 // cardCustomField-date
 (class extends CardCustomField {
-
   onCreated() {
     super.onCreated();
     const self = this;
@@ -108,8 +110,10 @@ CardCustomField.register('cardCustomField');
   }
 
   classes() {
-    if (this.date.get().isBefore(this.now.get(), 'minute') &&
-            this.now.get().isBefore(this.data().value)) {
+    if (
+      this.date.get().isBefore(this.now.get(), 'minute') &&
+      this.now.get().isBefore(this.data().value)
+    ) {
       return 'current';
     }
     return '';
@@ -120,12 +124,13 @@ CardCustomField.register('cardCustomField');
   }
 
   events() {
-    return [{
-      'click .js-edit-date': Popup.open('cardCustomField-date'),
-    }];
+    return [
+      {
+        'click .js-edit-date': Popup.open('cardCustomField-date'),
+      },
+    ];
   }
-
-}).register('cardCustomField-date');
+}.register('cardCustomField-date'));
 
 // cardCustomField-datePopup
 (class extends DatePicker {
@@ -144,11 +149,10 @@ CardCustomField.register('cardCustomField');
   _deleteDate() {
     this.card.setCustomField(this.customFieldId, '');
   }
-}).register('cardCustomField-datePopup');
+}.register('cardCustomField-datePopup'));
 
 // cardCustomField-dropdown
 (class extends CardCustomField {
-
   onCreated() {
     super.onCreated();
     this._items = this.data().definition.settings.dropdownItems;
@@ -160,20 +164,23 @@ CardCustomField.register('cardCustomField');
   }
 
   selectedItem() {
-    const selected = this._items.find((item) => {
+    const selected = this._items.find(item => {
       return item._id === this.data().value;
     });
-    return (selected) ? selected.name : TAPi18n.__('custom-field-dropdown-unknown');
+    return selected
+      ? selected.name
+      : TAPi18n.__('custom-field-dropdown-unknown');
   }
 
   events() {
-    return [{
-      'submit .js-card-customfield-dropdown'(evt) {
-        evt.preventDefault();
-        const value = this.find('select').value;
-        this.card.setCustomField(this.customFieldId, value);
+    return [
+      {
+        'submit .js-card-customfield-dropdown'(event) {
+          event.preventDefault();
+          const value = this.find('select').value;
+          this.card.setCustomField(this.customFieldId, value);
+        },
       },
-    }];
+    ];
   }
-
-}).register('cardCustomField-dropdown');
+}.register('cardCustomField-dropdown'));

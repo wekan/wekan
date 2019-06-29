@@ -25,7 +25,7 @@ Blaze.registerHelper('currentList', () => {
   }
 });
 
-Blaze.registerHelper('getUser', (userId) => Users.findOne(userId));
+Blaze.registerHelper('getUser', userId => Users.findOne(userId));
 
 Blaze.registerHelper('concat', (...args) => args.slice(0, -1).join(''));
 

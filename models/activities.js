@@ -71,11 +71,6 @@ Activities.after.insert((userId, doc) => {
   RulesHelper.executeRules(activity);
 });
 
-Activities.before.update((userId, doc, fieldNames, modifier, options) => {
-  modifier.$set = modifier.$set || {};
-  modifier.$set.modifiedAt = Date.now();
-});
-
 if (Meteor.isServer) {
   // For efficiency create indexes on the date of creation, and on the date of
   // creation in conjunction with the card or board id, as corresponding views
@@ -87,15 +82,15 @@ if (Meteor.isServer) {
     Activities._collection._ensureIndex({ boardId: 1, createdAt: -1 });
     Activities._collection._ensureIndex(
       { commentId: 1 },
-      { partialFilterExpression: { commentId: { $exists: true } } }
+      { partialFilterExpression: { commentId: { $exists: true } } },
     );
     Activities._collection._ensureIndex(
       { attachmentId: 1 },
-      { partialFilterExpression: { attachmentId: { $exists: true } } }
+      { partialFilterExpression: { attachmentId: { $exists: true } } },
     );
     Activities._collection._ensureIndex(
       { customFieldId: 1 },
-      { partialFilterExpression: { customFieldId: { $exists: true } } }
+      { partialFilterExpression: { customFieldId: { $exists: true } } },
     );
     // Label activity did not work yet, unable to edit labels when tried this.
     //Activities._collection._dropIndex({ labelId: 1 }, { "indexKey": -1 });
@@ -205,20 +200,20 @@ if (Meteor.isServer) {
     if (board) {
       const watchingUsers = _.pluck(
         _.where(board.watchers, { level: 'watching' }),
-        'userId'
+        'userId',
       );
       const trackingUsers = _.pluck(
         _.where(board.watchers, { level: 'tracking' }),
-        'userId'
+        'userId',
       );
       watchers = _.union(
         watchers,
         watchingUsers,
-        _.intersection(participants, trackingUsers)
+        _.intersection(participants, trackingUsers),
       );
     }
 
-    Notifications.getUsers(watchers).forEach((user) => {
+    Notifications.getUsers(watchers).forEach(user => {
       Notifications.notify(user, title, description, params);
     });
 

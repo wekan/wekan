@@ -1,7 +1,9 @@
 let previousPath;
-FlowRouter.triggers.exit([({path}) => {
-  previousPath = path;
-}]);
+FlowRouter.triggers.exit([
+  ({ path }) => {
+    previousPath = path;
+  },
+]);
 
 FlowRouter.route('/', {
   name: 'home',
@@ -192,9 +194,11 @@ const redirections = {
 
 _.each(redirections, (newPath, oldPath) => {
   FlowRouter.route(oldPath, {
-    triggersEnter: [(context, redirect) => {
-      redirect(FlowRouter.path(newPath, context.params));
-    }],
+    triggersEnter: [
+      (context, redirect) => {
+        redirect(FlowRouter.path(newPath, context.params));
+      },
+    ],
   });
 });
 

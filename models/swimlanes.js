@@ -120,7 +120,7 @@ Swimlanes.attachSchema(
       type: String,
       defaultValue: 'swimlane',
     },
-  })
+  }),
 );
 
 Swimlanes.allow({
@@ -153,7 +153,7 @@ Swimlanes.helpers({
     }
 
     // Copy all lists in swimlane
-    Lists.find(query).forEach((list) => {
+    Lists.find(query).forEach(list => {
       list.type = 'list';
       list.swimlaneId = oldId;
       list.boardId = boardId;
@@ -167,7 +167,7 @@ Swimlanes.helpers({
         swimlaneId: this._id,
         archived: false,
       }),
-      { sort: ['sort'] }
+      { sort: ['sort'] },
     );
   },
 
@@ -178,7 +178,7 @@ Swimlanes.helpers({
         swimlaneId: { $in: [this._id, ''] },
         archived: false,
       },
-      { sort: ['sort'] }
+      { sort: ['sort'] },
     );
   },
 
@@ -234,7 +234,7 @@ Swimlanes.mutations({
 
   archive() {
     if (this.isTemplateSwimlane()) {
-      this.myLists().forEach((list) => {
+      this.myLists().forEach(list => {
         return list.archive();
       });
     }
@@ -243,7 +243,7 @@ Swimlanes.mutations({
 
   restore() {
     if (this.isTemplateSwimlane()) {
-      this.myLists().forEach((list) => {
+      this.myLists().forEach(list => {
         return list.restore();
       });
     }
@@ -260,11 +260,6 @@ Swimlanes.mutations({
       },
     };
   },
-});
-
-Swimlanes.before.update((userId, doc, fieldNames, modifier, options) => {
-  modifier.$set = modifier.$set || {};
-  modifier.$set.modifiedAt = Date.now();
 });
 
 Swimlanes.hookOptions.after.update = { fetchPrevious: false };
@@ -292,11 +287,11 @@ if (Meteor.isServer) {
         swimlaneId: { $in: [doc._id, ''] },
         archived: false,
       },
-      { sort: ['sort'] }
+      { sort: ['sort'] },
     );
 
     if (lists.count() < 2) {
-      lists.forEach((list) => {
+      lists.forEach(list => {
         list.remove();
       });
     } else {
@@ -350,7 +345,7 @@ if (Meteor.isServer) {
               _id: doc._id,
               title: doc.title,
             };
-          }
+          },
         ),
       });
     } catch (error) {
@@ -372,7 +367,7 @@ if (Meteor.isServer) {
    */
   JsonRoutes.add('GET', '/api/boards/:boardId/swimlanes/:swimlaneId', function(
     req,
-    res
+    res,
   ) {
     try {
       const paramBoardId = req.params.boardId;
@@ -459,7 +454,7 @@ if (Meteor.isServer) {
           data: error,
         });
       }
-    }
+    },
   );
 }
 

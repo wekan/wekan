@@ -11,7 +11,10 @@
   $.event.fix = (function(originalFix) {
     return function(event) {
       event = originalFix.apply(this, arguments);
-      if (event.type.indexOf('drag') === 0 || event.type.indexOf('drop') === 0) {
+      if (
+        event.type.indexOf('drag') === 0 ||
+        event.type.indexOf('drop') === 0
+      ) {
         event.dataTransfer = event.originalEvent.dataTransfer;
       }
       return event;
@@ -23,7 +26,7 @@
     matchType: /image.*/,
   };
 
-  return $.fn.dropImageReader = function(options) {
+  return ($.fn.dropImageReader = function(options) {
     if (typeof options === 'function') {
       options = {
         callback: options,
@@ -40,9 +43,9 @@
       return $(element).bind('drop', function(event) {
         stopFn(event);
         const files = event.dataTransfer.files;
-        for(let i=0; i<files.length; i++) {
+        for (let i = 0; i < files.length; i++) {
           const f = files[i];
-          if(f.type.match(options.matchType)) {
+          if (f.type.match(options.matchType)) {
             const reader = new FileReader();
             reader.onload = function(evt) {
               return options.callback.call(element, {
@@ -58,5 +61,5 @@
         }
       });
     });
-  };
+  });
 })(jQuery);

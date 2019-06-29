@@ -38,16 +38,18 @@ BlazeComponent.extendComponent({
     // console.log(this.data());
   },
   events() {
-    return [{
-      'click .js-set-board-triggers' () {
-        this.setBoardTriggers();
+    return [
+      {
+        'click .js-set-board-triggers'() {
+          this.setBoardTriggers();
+        },
+        'click .js-set-card-triggers'() {
+          this.setCardTriggers();
+        },
+        'click .js-set-checklist-triggers'() {
+          this.setChecklistTriggers();
+        },
       },
-      'click .js-set-card-triggers' () {
-        this.setCardTriggers();
-      },
-      'click .js-set-checklist-triggers' () {
-        this.setChecklistTriggers();
-      },
-    }];
+    ];
   },
 }).register('rulesTriggers');

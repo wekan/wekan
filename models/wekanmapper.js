@@ -5,10 +5,10 @@ export function getMembersToMap(data) {
   const membersToMap = data.members;
   const users = data.users;
   // auto-map based on username
-  membersToMap.forEach((importedMember) => {
+  membersToMap.forEach(importedMember => {
     importedMember.id = importedMember.userId;
     delete importedMember.userId;
-    const user = users.filter((user) => {
+    const user = users.filter(user => {
       return user._id === importedMember.id;
     })[0];
     if (user.profile && user.profile.fullname) {

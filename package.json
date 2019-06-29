@@ -8,7 +8,7 @@
     "lint:eslint:fix": "eslint --ext .js --ignore-path .eslintignore --fix .",
     "lint:staged": "lint-staged",
     "prettify": "prettier --write '**/*.js' '**/*.jsx'",
-    "test": "npm run --silent lint"
+    "test": "npm run lint"
   },
   "lint-staged": {
     "*.js": [

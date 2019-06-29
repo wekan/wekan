@@ -18,15 +18,17 @@ Mixins.InfiniteScrolling = BlazeComponent.extendComponent({
   },
 
   events() {
-    return [{
-      scroll(evt) {
-        const domElement = evt.currentTarget;
-        let altitude = domElement.scrollTop + domElement.offsetHeight;
-        altitude += peakAnticipation;
-        if (altitude >= this.callFirstWith(null, 'getNextPeak')) {
-          this.mixinParent().callFirstWith(null, 'reachNextPeak');
-        }
+    return [
+      {
+        scroll(evt) {
+          const domElement = evt.currentTarget;
+          let altitude = domElement.scrollTop + domElement.offsetHeight;
+          altitude += peakAnticipation;
+          if (altitude >= this.callFirstWith(null, 'getNextPeak')) {
+            this.mixinParent().callFirstWith(null, 'reachNextPeak');
+          }
+        },
       },
-    }];
+    ];
   },
 });
