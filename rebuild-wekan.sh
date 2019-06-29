@@ -78,7 +78,7 @@ do
 			sudo chown wekan:wekan ../../.npm -R
 			#curl -0 -L https://npmjs.org/install.sh | sudo sh
 			sudo npm -g install n
-			sudo n 10.16.0
+			sudo n 8.15.1
 			#curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 			#sudo apt-get install -y nodejs
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
