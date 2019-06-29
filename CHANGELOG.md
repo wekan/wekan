@@ -1,3 +1,21 @@
+# v2.94 2019-06-29 Wekan release
+
+This release adds the following updates:
+
+- [Prettier & eslint project style update](https://github.com/wekan/wekan/pull/2520).
+  Thanks to justinr1234.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v2.93 2019-06-28 Wekan release
+
+This release fixes the following bugs:
+
+- [LDAP: Check if email attribute is an array, that has many email addresses](https://github.com/wekan/wekan/pull/2519).
+  Thanks to tdemaret and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.92 2019-06-27 Wekan release
 
 This release fixes the following bugs:
@@ -110,7 +128,7 @@ This release fixes the following bugs:
 
 - [Fix OIDC Docker login. Empty string results to empty array at wekan/server/authentication.js](https://github.com/wekan/wekan/commit/bddbaa7bc2f3cfe8553a2265e168231ab51876f3).
   Thanks to xet7.
-    
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v2.81 2019-06-13 Wekan release
@@ -373,7 +391,7 @@ and adds the following updates:
   because [it was found old version was in use](https://github.com/wekan/wekan/issues/2334).
   Thanks to shaygover and xet7.
 - [Upgrade to Node 8.16.0](https://github.com/wekan/wekan/commit/6117097a93bfb11c8bd4c87a23c44a50e22ceb87).
-  Thanks to Node developers and xet7.    
+  Thanks to Node developers and xet7.
 - [Upgrade Docker base image to ubuntu:disco](https://github.com/wekan/wekan/commit/bd14ee3b1f450ddc6dec26ccc8da702b839942e5).
   Thanks to Ubuntu developers and xet7.
 
