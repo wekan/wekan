@@ -530,6 +530,9 @@ Meteor.methods({
     Meteor.user().setShowCardsCountAt(limit);
   },
   setEmail(email, userId) {
+    if (Array.isArray(email)) {
+      email = email.shift();
+    }
     check(email, String);
     const existingUser = Users.findOne(
       { 'emails.address': email },
@@ -552,6 +555,9 @@ Meteor.methods({
   },
   setUsernameAndEmail(username, email, userId) {
     check(username, String);
+    if (Array.isArray(email)) {
+      email = email.shift();
+    }
     check(email, String);
     check(userId, String);
     Meteor.call('setUsername', username, userId);
@@ -648,7 +654,11 @@ if (Meteor.isServer) {
     }
 
     if (user.services.oidc) {
-      const email = user.services.oidc.email.toLowerCase();
+      let email = user.services.oidc.email;
+      if (Array.isArray(email)) {
+        email = email.shift();
+      }
+      email = email.toLowerCase();
       user.username = user.services.oidc.username;
       user.emails = [{ address: email, verified: true }];
       const initials = user.services.oidc.fullname
