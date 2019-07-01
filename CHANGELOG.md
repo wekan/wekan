@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v2.95 2019-07-01 Wekan release
 
 This release adds the following new features, thanks to xet7:
 
