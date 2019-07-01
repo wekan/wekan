@@ -1,3 +1,19 @@
+# Upcoming Wekan release
+
+This release adds the following new features, thanks to xet7:
+
+- [Make list header add card + button more black, to make it more visible](https://github.com/wekan/wekan/commit/b260d05a8b2f87c29dd998d42103d1220b20cc08). 
+- [On minicard, make comment icon and number of comments have red color
+  on white rounded background, so it is more visible when there is comments on card](https://github.com/wekan/wekan/commit/bbc68309af0029f2bc4194db4c7e79689f888ea4).
+- [Make card description text more visible with black borders and more white text area](https://github.com/wekan/wekan/commit/48ebc5f11745b125ce01d08d60e2d8e3a9419a5f).
+
+and adds the following [themes to board background colors](https://github.com/wekan/wekan/commit/c04292e98832e3aa7952e8a7858d47a853f40aad), thanks to xet7:
+
+- RELAX MODE, so when green background selected, list background is light green.
+- [DARK MODE](https://github.com/wekan/wekan/issues/1149), when dark backgroud color selected. Please test and send color visibility fixes as pull requests.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.93 2019-06-28 Wekan release
 
 This release fixes the following bugs:
