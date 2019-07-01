@@ -463,9 +463,9 @@ export class TrelloCreator {
       'green': 'nephritis',
       'red': 'pomegranate',
       'purple': 'wisteria',
-      'pink': 'pomegranate',
-      'lime': 'nephritis',
-      'sky': 'belize',
+      'pink': 'moderatepink',
+      'lime': 'limegreen',
+      'sky': 'strongcyan',
       'grey': 'midnight',
     };
     const wekanColor = mapColors[trelloColorCode];

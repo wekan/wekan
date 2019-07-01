@@ -61,8 +61,10 @@ template(name="boardChangeColorPopup")
     each backgroundColors
       .board-background-select.js-select-background
         span.background-box(class="board-color-{{this}}")
+          span {{this}}
           if isSelected
             i.fa.fa-check
+
 
 template(name="boardSubtaskSettingsPopup")
   form.board-subtask-settings

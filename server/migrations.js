@@ -85,6 +85,11 @@ Migrations.add('use-css-class-for-boards-colors', () => {
     '#8E44AD': 'wisteria',
     '#2C3E50': 'midnight',
     '#E67E22': 'pumpkin',
+    '#CD5A91': 'moderatepink',
+    '#00AECC': 'strongcyan',
+    '#4BBF6B': 'limegreen',
+    '#2C3E51': 'dark',
+    '#27AE61': 'relax',
   };
   Boards.find().forEach((board) => {
     const oldBoardColor = board.background.color;

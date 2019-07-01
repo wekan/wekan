@@ -87,3 +87,145 @@ setBoardColor(color)
 
 .board-color-pumpkin
   setBoardColor(#E67E22)
+
+.board-color-moderatepink
+  setBoardColor(#CD5A91)
+
+.board-color-strongcyan
+  setBoardColor(#00AECC)
+
+.board-color-limegreen
+  setBoardColor(#4BBF6B)
+
+.board-color-dark
+  setBoardColor(#2C3E51)
+
+  /* Not hidden in dark mode.
+    card fields: received, start, due, end, members, requested, assigned
+  .card-details-item.card-details-item-received,
+  .card-details-item.card-details-item-start,
+  .card-details-item.card-details-item-due,
+  .card-details-item.card-details-item-end,
+  .card-details-item.card-details-item-members,
+  .card-details-item.card-details-item-name { display:none; }
+  .card-details-items:empty { display:none; }
+  */
+
+  // DARK MODE, when dark background mode selected.
+  // Modified version from https://github.com/wekan/wekan/wiki/Custom-CSS-themes#dark-theme
+  // In progress, please send pull requests to fix remaining visibility issues.
+  .ui-sortable,
+  .swimlane,
+  .swimlane >.swimlane-header-wrap,
+  .swimlane >.list.js-list,
+  .swimlane >.list-composer.js-list-composer,
+  .list-body,
+  .list,
+  .list-composer,
+  .sidebar-content,
+  .card-details
+    background-color:#2C3E50
+
+  .card-details h3,
+  .card-details-items,
+  .card-checklist-items .ui-sortable,
+  .card-subtasks-items,
+  .activities,
+  .material-toggle-switch
+    color:#bbbbbb
+
+  .list-header
+    background-color: #888888
+
+  .board-widget,
+  .board-widget-labels,
+  .board-widget-members
+    color: #aaaaaa
+
+  /* popup menu titles (boards, swimlanes, lists, cards, labels) */
+  .pop-over >.header
+    display:none;
+
+  /* HIDE UNTIL HOVER -------------------------------------------------- */
+
+  /* header "+" button */
+  #header-quick-access .fa-plus
+    display:none
+  #header-quick-access:hover .fa-plus
+    display:inherit
+
+  /* "add card" links (use visibility rather than display so items don't jump) */
+  .open-minicard-composer
+    visibility:hidden
+
+  .list.js-list:hover .open-minicard-composer
+    visibility:visible
+
+  .list-header-menu
+    visibility:hidden
+
+  .list.js-list:hover .list-header-menu
+    visibility:visible
+
+  /* "add list/swimlane" links (use visibility rather than display so items don't jump) */
+  .list.js-list-composer       >.list-header
+    visibility:hidden
+
+  .list.js-list-composer:hover >.list-header
+    visibility:visible
+
+  /* headers */
+  #header-quick-access, #header
+    background-color:rgba(0,0,0,.75) !important
+
+  #header .board-header-btn:hover
+    background-color:rgba(255,255,255,0.3) !important
+
+  /* foregrounds: swimlanes, lists */
+  .list >.list-header, .swimlane-header
+    color:rgba(255,255,255,.7)
+
+  /* minicards */
+  .minicard
+    background-color:rgba(255,255,255,.4)
+
+  .minicard-wrapper.is-selected .minicard,
+  .minicard:hover,
+  .minicard-composer.js-composer,
+  .open-minicard-composer:hover
+    background-color:rgba(255,255,255,.8) !important
+    color:#000
+
+  .minicard, .minicard .badge
+    color:#fff
+
+  .minicard:hover .badge, .minicard-wrapper.is-selected .badge
+    color:#000
+
+  /* cards */
+  .card-details .card-details-header
+    background-color:#ccc
+
+  /* sidebar */
+  .sidebar-tongue, .sidebar-shadow
+    background-color:#666 !important
+
+  .sidebar-content h3, .sidebar-content h2, .sidebar-content
+    color:rgba(255,255,255,.7) !important
+
+.board-color-relax
+  setBoardColor(#27AE61)
+
+  // RELAX MODE: light green backgroud, when green background color selected.
+  .ui-sortable
+    background-color:#a7e366
+
+  .list-header
+    background-color:#a7e366
+    border-bottom: 6px solid #a7e366
+
+  .list-body
+    background-color:#a7e366
+
+  .list
+    border-left: 1px dotted #000000

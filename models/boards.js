@@ -208,7 +208,12 @@ Boards.attachSchema(new SimpleSchema({
       'pomegranate',
       'pumpkin',
       'wisteria',
+      'moderatepink',
+      'strongcyan',
+      'limegreen',
       'midnight',
+      'dark',
+      'relax',
     ],
     autoValue() { // eslint-disable-line consistent-return
       if (this.isInsert && !this.isSet) {
@@ -1134,7 +1139,8 @@ if (Meteor.isServer) {
    * @description This allows to create a board.
    *
    * The color has to be chosen between `belize`, `nephritis`, `pomegranate`,
-   * `pumpkin`, `wisteria`, `midnight`:
+   * `pumpkin`, `wisteria`, `moderatepink`, `strongcyan`,
+   * `limegreen`, `midnight`, `dark`, `relax`:
    *
    * <img src="https://wekan.github.io/board-colors.png" width="40%" alt="Wekan logo" />
    *
