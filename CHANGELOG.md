@@ -1,3 +1,15 @@
+# Upcoming Wekan release
+
+This release removes the following features, that were added at Wekan v2.95:
+
+- [Remove RELAX MODE and DARK MODE](https://github.com/wekan/wekan/commit/8477e94f3b8f531a4209f49758200009d274c1cf),
+  because [they changed look of all existing boards](https://github.com/wekan/wekan/issues/1149#issuecomment-507255114).
+  At some later Wekan release they will be added back as separate themes
+  that can be selected, without changing existing boards.
+  Thanks to chirrut2 and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.95 2019-07-01 Wekan release
 
 This release adds the following new features, thanks to xet7:
