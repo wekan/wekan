@@ -11,6 +11,7 @@ and adds the following [themes to board background colors](https://github.com/we
 
 - RELAX MODE, so when green background selected, list background is light green.
 - [DARK MODE](https://github.com/wekan/wekan/issues/1149), when dark backgroud color selected. Please test and send color visibility fixes as pull requests.
+- In RELAX MODE and DARK MODE, [hide card fields: received, start, due, end, members, requested, assigned](https://github.com/wekan/wekan/commit/b42ecb7948ad194433dc4460305174965106a751).
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
