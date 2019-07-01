@@ -1,3 +1,15 @@
+# Upcoming Wekan release
+
+This release [adds the following new features](https://github.com/wekan/wekan/commit/3e8cb8c6e1617ef03ebce045d3b93aeb2cf91228), thanks to xet7:
+
+- Add background color names to background colors.
+- Add new background colors: moderatepink, strongcyan, limegreen.
+- Add new background colors with themes: dark, relax.
+
+Note: Due Date etc on cards is visible on all background colors and themes. Hiding is not implemented yet.
+    
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.96 2019-07-01 Wekan release
 
 This release removes the following features, that were added at Wekan v2.95:
