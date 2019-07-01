@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v2.97 2019-07-01 Wekan release
 
 This release [adds the following new features](https://github.com/wekan/wekan/commit/3e8cb8c6e1617ef03ebce045d3b93aeb2cf91228), thanks to xet7:
 
