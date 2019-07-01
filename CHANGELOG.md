@@ -1,3 +1,52 @@
+# Upcoming Wekan release
+
+This release adds the following new features, thanks to xet7:
+
+- [Add Wekan v2.95-v2.97 master branch features and fixes to meteor-1.8 branch](https://github.com/wekan/wekan/commit/34b2168d0dda253dedabbee47031873efa4ae446).
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v2.97 2019-07-01 Wekan release
+
+This release [adds the following new features](https://github.com/wekan/wekan/commit/3e8cb8c6e1617ef03ebce045d3b93aeb2cf91228), thanks to xet7:
+
+- Add background color names to background colors.
+- Add new background colors: moderatepink, strongcyan, limegreen.
+- Add new background colors with themes: dark, relax.
+
+Note: Due Date etc on cards is visible on all background colors and themes. Hiding is not implemented yet.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v2.96 2019-07-01 Wekan release
+
+This release removes the following features, that were added at Wekan v2.95:
+
+- [Remove RELAX MODE and DARK MODE](https://github.com/wekan/wekan/commit/8477e94f3b8f531a4209f49758200009d274c1cf),
+  because [they changed look of all existing boards](https://github.com/wekan/wekan/issues/1149#issuecomment-507255114).
+  At some later Wekan release they will be added back as separate themes
+  that can be selected, without changing existing boards.
+  Thanks to chirrut2 and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v2.95 2019-07-01 Wekan release
+
+This release adds the following new features, thanks to xet7:
+
+- [Make list header add card + button more black, to make it more visible](https://github.com/wekan/wekan/commit/b260d05a8b2f87c29dd998d42103d1220b20cc08).
+- [On minicard, make comment icon and number of comments have red color
+  on white rounded background, so it is more visible when there is comments on card](https://github.com/wekan/wekan/commit/bbc68309af0029f2bc4194db4c7e79689f888ea4).
+- [Make card description text more visible with black borders and more white text area](https://github.com/wekan/wekan/commit/48ebc5f11745b125ce01d08d60e2d8e3a9419a5f).
+
+and adds the following [themes to board background colors](https://github.com/wekan/wekan/commit/c04292e98832e3aa7952e8a7858d47a853f40aad), thanks to xet7:
+
+- RELAX MODE, so when green background selected, list background is light green.
+- [DARK MODE](https://github.com/wekan/wekan/issues/1149), when dark backgroud color selected. Please test and send color visibility fixes as pull requests.
+- In RELAX MODE and DARK MODE, [hide card fields: received, start, due, end, members, requested, assigned](https://github.com/wekan/wekan/commit/b42ecb7948ad194433dc4460305174965106a751).
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.94 2019-06-29 Wekan release
 
 This release adds the following updates:
