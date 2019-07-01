@@ -77,6 +77,17 @@ setBoardColor(color)
   .ui-sortable
     background-color:#a7e366
 
+  /* Hidden in relax mode.
+    card fields: received, start, due, end, members, requested, assigned
+  */
+  .card-details-item.card-details-item-received,
+  .card-details-item.card-details-item-start,
+  .card-details-item.card-details-item-due,
+  .card-details-item.card-details-item-end,
+  .card-details-item.card-details-item-members,
+  .card-details-item.card-details-item-name { display:none; }
+  .card-details-items:empty { display:none; }
+
 .board-color-pomegranate
   setBoardColor(#C0392B)
 
@@ -88,6 +99,17 @@ setBoardColor(color)
 
 .board-color-midnight
   setBoardColor(#2C3E50)
+
+  /* Hidden in dark mode.
+    card fields: received, start, due, end, members, requested, assigned
+  */
+  .card-details-item.card-details-item-received,
+  .card-details-item.card-details-item-start,
+  .card-details-item.card-details-item-due,
+  .card-details-item.card-details-item-end,
+  .card-details-item.card-details-item-members,
+  .card-details-item.card-details-item-name { display:none; }
+  .card-details-items:empty { display:none; }
 
   // DARK MODE, when dark background mode selected.
   // Modified version from https://github.com/wekan/wekan/wiki/Custom-CSS-themes#dark-theme
