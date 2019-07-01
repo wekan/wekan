@@ -15,6 +15,16 @@ and adds the following [themes to board background colors](https://github.com/we
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
+# v2.94 2019-06-30 Wekan RasPi3 Meteor 1.8.1 release
+
+This release adds the following new features, thanks to xet7:
+
+- [Wekan now availabe for RasPi3, arm64 servers etc](https://github.com/wekan/wekan/wiki/Raspberry-Pi).
+  See [meteor-1.8 branch ChangeLog](https://github.com/wekan/wekan/blob/meteor-1.8/CHANGELOG.md) for changes.
+  For Docker, see docker-compose.yml at https://github.com/wekan/wekan meteor-1.8 branch.
+
+Currently Snap and Sandstorm are at Meteor 1.6 still, in this master branch. Sometime later all platforms move to meteor-1.8 brach when builds work.
+
 # v2.93 2019-06-28 Wekan release
 
 This release fixes the following bugs:
