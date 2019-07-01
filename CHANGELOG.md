@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v2.96 2019-07-01 Wekan release
 
 This release removes the following features, that were added at Wekan v2.95:
 
