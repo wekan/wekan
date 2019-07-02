@@ -175,7 +175,11 @@ template(name="createBoard")
       input.js-new-board-title(type="text" placeholder="{{_ 'bucket-example'}}" autofocus required)
     label
       | {{_ 'board-key'}}
-      input.js-new-board-key(type="text" placeholder="{{_ 'board-key-example'}}")
+      input.js-new-board-key#boardkey(type="text" name="boardkey" required placeholder="{{_ 'board-key-example'}}")
+
+    if error.get
+        div.error {{_ error.get}}
+
     if visibilityMenuIsOpen.get
       +boardVisibilityList
     else
@@ -197,14 +201,18 @@ template(name="createBoard")
       | /
       a.js-board-template {{_ 'template'}}
 
-template(name="boardChangeTitlePopup")
+template(name="boardChangeTitle")
   form
     label
       | {{_ 'title'}}
-      input.js-board-name(type="text" value=title autofocus dir="auto")
+      input.js-board-name#title(type="text" value=title autofocus dir="auto")
     label
-      | {{_ 'boardKey'}}
-      input.js-board-key(type="text" value=boardKey dir="auto")
+      | {{_ 'board-key'}}
+      input.js-board-key#boardkey(type="text" name="boardkey" value=boardKey dir="auto")
+
+    if error.get
+        .error {{_ error.get}}
+
     label
       | {{_ 'description'}}
       textarea.js-board-desc(dir="auto")= description

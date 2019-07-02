@@ -44,20 +44,48 @@ Template.boardMenuPopup.helpers({
   },
 });
 
-Template.boardChangeTitlePopup.events({
-  submit(evt, tpl) {
-    const newTitle = tpl.$('.js-board-name').val().trim();
-    const newBoardKey = tpl.$('.js-board-key').val().trim();
-    const newDesc = tpl.$('.js-board-desc').val().trim();
-    if (newTitle) {
-      this.rename(newTitle);
-      this.setBoardKey(newBoardKey);
-      this.setDescription(newDesc);
+BlazeComponent.extendComponent({
+  template() {
+    return 'boardChangeTitle';
+  },
+
+  onCreated() {
+    this.error = new ReactiveVar('');
+  },
+
+  onSubmit(evt) {
+    evt.preventDefault();
+    const newTitle = this.find('.js-board-name').value.trim();
+    const newBoardKey = this.find('.js-board-key').value.trim();
+    const newDesc = this.find('.js-board-desc').value.trim();
+
+    // validate input
+    if (newBoardKey.length > 3) {
+      this.error.set('board-key-invalid-length');
+      evt.target.boardkey.focus();
+    } else if (!newTitle) {
+      this.error.set('invalid-title');
+      evt.target.title.focus();
+    } else {
+      const currentBoard = Boards.findOne(Session.get('currentBoard'));
+
+      // only set changed data
+      if (currentBoard.title !== newTitle || currentBoard.boardKey !== newBoardKey)
+        currentBoard.rename(newTitle, newBoardKey);
+
+      if (currentBoard.description !== newDesc)
+        currentBoard.setDescription(newDesc);
+
       Popup.close();
     }
-    evt.preventDefault();
   },
-});
+
+  events() {
+    return [{
+      submit: this.onSubmit,
+    }];
+  },
+}).register('boardChangeTitlePopup');
 
 BlazeComponent.extendComponent({
   watchLevel() {
@@ -151,6 +179,7 @@ const CreateBoard = BlazeComponent.extendComponent({
     this.visibilityMenuIsOpen = new ReactiveVar(false);
     this.visibility = new ReactiveVar('private');
     this.boardId = new ReactiveVar('');
+    this.error = new ReactiveVar('');
   },
 
   visibilityCheck() {
@@ -172,18 +201,25 @@ const CreateBoard = BlazeComponent.extendComponent({
     const boardKey = this.find('.js-new-board-key').value;
     const visibility = this.visibility.get();
 
-    this.boardId.set(Boards.insert({
-      title,
-      boardKey,
-      permission: visibility,
-    }));
+    if (boardKey.length > 3) {
+      this.error.set('board-key-invalid-length');
+      evt.target.boardkey.focus();
+    }
+    else
+    {
+      this.boardId.set(Boards.insert({
+        title,
+        boardKey,
+        permission: visibility,
+      }));
 
-    Swimlanes.insert({
-      title: 'Default',
-      boardId: this.boardId.get(),
-    });
+      Swimlanes.insert({
+        title: 'Default',
+        boardId: this.boardId.get(),
+      });
 
-    Utils.goBoardId(this.boardId.get());
+      Utils.goBoardId(this.boardId.get());
+    }
   },
 
   events() {

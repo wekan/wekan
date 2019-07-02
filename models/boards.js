@@ -15,6 +15,8 @@ Boards.attachSchema(new SimpleSchema({
      * The key of the board
      */
     type: String,
+    min: 1,
+    max: 3,
   },
   showBoardKey: {
     /**
@@ -27,7 +29,7 @@ Boards.attachSchema(new SimpleSchema({
       'key-only-key',
     ],
     type: String,
-    defaultValue: 'key-postfix-title-key-bracketed',
+    defaultValue: 'key-hide-key',
   },
   fullTitle: {
     /**
@@ -747,26 +749,21 @@ Boards.mutations({
     return { $set: { archived: false } };
   },
 
-  rename(title) {
+  rename(title, boardKey, showBoardKey) {
     // If the title changes, we need to re-set the
     // values for 'boardKey' and 'showBoardKey', too.
     // If not, the 'fullTitle' autovalue does not get set.
+
+    if (!boardKey)
+      boardKey = this.boardKey;
+
+    if (!showBoardKey)
+      showBoardKey = this.showBoardKey;
+
     return { $set: {
       title,
-      boardKey : this.boardKey,
-      showBoardKey : this.showBoardKey,
-    },
-    };
-  },
-
-  setBoardKey(boardKey) {
-    // If the boardKey changes, we need to re-set the
-    // values for 'title' and 'showBoardKey', too.
-    // If not, the 'fullTitle' autovalue does not get set.
-    return { $set: {
-      title: this.title,
       boardKey,
-      showBoardKey : this.showBoardKey,
+      showBoardKey,
     },
     };
   },
@@ -1247,6 +1244,7 @@ if (Meteor.isServer) {
    * <img src="https://wekan.github.io/board-colors.png" width="40%" alt="Wekan logo" />
    *
    * @param {string} title the new title of the board
+   * @param {string} boardKey the key of the board
    * @param {string} owner "ABCDE12345" <= User ID in Wekan.
    *                 (Not username or email)
    * @param {boolean} [isAdmin] is the owner an admin of the board (default true)
@@ -1265,6 +1263,8 @@ if (Meteor.isServer) {
       Authentication.checkUserId(req.userId);
       const id = Boards.insert({
         title: req.body.title,
+        boardKey: req.body.boardKey,
+        showBoardKey: 'key-hide-key',
         members: [
           {
             userId: req.body.owner,
