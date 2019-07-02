@@ -20,7 +20,7 @@ template(name="boardList")
               span.details
                 span.board-list-item-name
                   +viewer
-                    = title
+                    = fullTitle
                 i.fa.js-star-board(
                   class="fa-star{{#if isStarred}} is-star-active{{else}}-o{{/if}}"
                   title="{{_ 'star-board-title'}}")

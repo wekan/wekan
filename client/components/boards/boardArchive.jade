@@ -13,7 +13,7 @@ template(name="archivedBoards")
           button.board-header-btn.js-restore-board
             i.fa.fa-undo
             | {{_ 'restore-board'}}
-          = title
+          = fullTitle
     else
       li.no-items-message {{_ 'no-archived-boards'}}
 

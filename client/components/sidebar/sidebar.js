@@ -153,6 +153,7 @@ Template.boardMenuPopup.events({
     Popup.close();
   },
   'click .js-change-board-color': Popup.open('boardChangeColor'),
+  'click .js-change-board-key-view': Popup.open('boardChangeKeyView'),
   'click .js-change-language': Popup.open('changeLanguage'),
   'click .js-archive-board ': Popup.afterConfirm('archiveBoard', function() {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
@@ -385,6 +386,57 @@ BlazeComponent.extendComponent({
     }];
   },
 }).register('boardChangeColorPopup');
+
+BlazeComponent.extendComponent({
+
+  compareSelectedKey(key) {
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    return currentBoard.showBoardKey === key;
+  },
+
+  showKeyViewOptions() {
+    // TODO: This may be pretty much nicer
+    const keys = [
+      {
+        key: 'key-postfix-title-key-bracketed',
+        translationKey: 'board-key-view-postfix-title-key-bracketed',
+        isSelectedKey: this.compareSelectedKey('key-postfix-title-key-bracketed'),
+      },
+      {
+        key: 'key-prefix-title-dash',
+        translationKey: 'board-key-view-prefix-title-dash',
+        isSelectedKey: this.compareSelectedKey('key-prefix-title-dash'),
+      },
+      {
+        key: 'key-hide-key',
+        translationKey: 'board-key-view-hide-key',
+        isSelectedKey: this.compareSelectedKey('key-hide-key'),
+      },
+      {
+        key: 'key-only-key',
+        translationKey: 'board-key-view-hide-title',
+        isSelectedKey: this.compareSelectedKey('key-only-key'),
+      },
+    ];
+
+    return keys;
+  },
+
+  events() {
+    return [{
+      'click .js-board-key-field-list'(evt) {
+        const currentBoard = Boards.findOne(Session.get('currentBoard'));
+
+        let value = evt.target.value;
+        if (value === 'null') {
+          value = 'key-postfix-title-key-bracketed';
+        }
+        currentBoard.setShowBoardKey(value);
+        evt.preventDefault();
+      },
+    }];
+  },
+}).register('boardChangeKeyViewPopup');
 
 BlazeComponent.extendComponent({
   onCreated() {

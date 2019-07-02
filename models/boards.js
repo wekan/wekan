@@ -10,6 +10,64 @@ Boards.attachSchema(new SimpleSchema({
      */
     type: String,
   },
+  boardKey: {
+    /**
+     * The key of the board
+     */
+    type: String,
+  },
+  showBoardKey: {
+    /**
+     * Saved configuration how to show the key
+     */
+    allowedValues: [
+      'key-postfix-title-key-bracketed',
+      'key-prefix-title-dash',
+      'key-hide-key',
+      'key-only-key',
+    ],
+    type: String,
+    defaultValue: 'key-postfix-title-key-bracketed',
+  },
+  fullTitle: {
+    /**
+     * The full title of the board, shown like 'showBoardKey' configured
+     */
+    type: String,
+    autoValue() { // eslint-disable-line consistent-return
+
+      // Fetch required fields
+      const title = this.field('title');
+      const boardKey = this.field('boardKey');
+      const showBoardKey = this.field('showBoardKey');
+
+      // Only act on insert or update
+      // and then all three required fields are set
+      if ((this.isInsert || this.isUpdate) && !this.isSet && title.isSet && boardKey.isSet && showBoardKey.isSet) {
+
+        // Calculate the fullTitle
+        let fullTitle = '';
+
+        switch (showBoardKey.value)
+        {
+        case 'key-prefix-title-dash':
+          fullTitle = `${boardKey.value} - ${title.value}`;
+          break;
+        case 'key-hide-key':
+          fullTitle = title.value;
+          break;
+        case 'key-only-key':
+          fullTitle = boardKey.value;
+          break;
+        case 'key-postfix-title-key-bracketed':
+        default:
+          fullTitle = `${title.value} (${boardKey.value})`;
+        }
+
+        return fullTitle;
+      }
+    },
+  },
   slug: {
     /**
      * The title slugified.
@@ -333,6 +391,18 @@ Boards.helpers({
       swimlane.type = 'swimlane';
       swimlane.copy(_id);
     });
+  },
+  /**
+   * Generates random chars as board key
+   */
+  generateKey() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let key = '';
+    for (let i=0; i<3; i++) {
+      const pos = Math.floor(Math.random() * chars.length);
+      key += chars.substring(pos, pos+1);
+    }
+    return key;
   },
   /**
    * Is supplied user authorized to view this board?
@@ -678,7 +748,39 @@ Boards.mutations({
   },
 
   rename(title) {
-    return { $set: { title } };
+    // If the title changes, we need to re-set the
+    // values for 'boardKey' and 'showBoardKey', too.
+    // If not, the 'fullTitle' autovalue does not get set.
+    return { $set: {
+      title,
+      boardKey : this.boardKey,
+      showBoardKey : this.showBoardKey,
+    },
+    };
+  },
+
+  setBoardKey(boardKey) {
+    // If the boardKey changes, we need to re-set the
+    // values for 'title' and 'showBoardKey', too.
+    // If not, the 'fullTitle' autovalue does not get set.
+    return { $set: {
+      title: this.title,
+      boardKey,
+      showBoardKey : this.showBoardKey,
+    },
+    };
+  },
+
+  setShowBoardKey(showBoardKey) {
+    // If the showBoardKey changes, we need to re-set the
+    // values for 'title' and 'boardKey', too.
+    // If not, the 'fullTitle' autovalue does not get set.
+    return { $set: {
+      title: this.title,
+      boardKey : this.boardKey,
+      showBoardKey,
+    },
+    };
   },
 
   setDescription(description) {

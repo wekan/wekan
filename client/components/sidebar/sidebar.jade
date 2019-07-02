@@ -65,6 +65,16 @@ template(name="boardChangeColorPopup")
           if isSelected
             i.fa.fa-check
 
+template(name="boardChangeKeyViewPopup")
+  form.board-change-key-view
+    label
+      | {{_ 'board-select-how-key-should-be-shown'}}
+      select.js-board-key-field-list(id="board-key-field-select")
+        each showKeyViewOptions
+          if isSelectedKey
+            option(value="{{key}}" selected="selected") {{{_ translationKey}}}
+          else
+            option(value="{{key}}") {{{_ translationKey}}}
 
 template(name="boardSubtaskSettingsPopup")
   form.board-subtask-settings
@@ -153,6 +163,7 @@ template(name="boardMenuPopup")
     li: a.js-open-archives {{_ 'archived-items'}}
     if currentUser.isBoardAdmin
       li: a.js-change-board-color {{_ 'board-change-color'}}
+      li: a.js-change-board-key-view {{_ 'board-change-key-view'}}
     //-
       XXX Language should be handled by sandstorm, but for now display a
       language selection link in the board menu. This link is normally present
