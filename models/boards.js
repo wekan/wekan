@@ -244,6 +244,7 @@ Boards.attachSchema(
         'midnight',
         'dark',
         'relax',
+        'corteza',
       ],
       // eslint-disable-next-line consistent-return
       autoValue() {
@@ -1229,7 +1230,7 @@ if (Meteor.isServer) {
    *
    * The color has to be chosen between `belize`, `nephritis`, `pomegranate`,
    * `pumpkin`, `wisteria`, `moderatepink`, `strongcyan`,
-   * `limegreen`, `midnight`, `dark`, `relax`:
+   * `limegreen`, `midnight`, `dark`, `relax`, `corteza`:
    *
    * <img src="https://wekan.github.io/board-colors.png" width="40%" alt="Wekan logo" />
    *
