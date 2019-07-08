@@ -108,7 +108,7 @@ modern-browsers@0.1.4
 modules@0.13.0
 modules-runtime@0.10.3
 momentjs:moment@2.24.0
-mongo@1.6.2
+mongo@1.6.3
 mongo-decimal@0.1.1
 mongo-dev-server@1.1.0
 mongo-id@1.0.7
