@@ -1,3 +1,29 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Add Corteza theme. In progress](https://github.com/wekan/wekan/commit/289e78dbd29cca9d97d3b5787c3368583d43b40f).
+  Thanks to xet7.
+
+and adds the following updates:
+
+- [Update Meteor mongo package version](https://github.com/wekan/wekan/commit/96065d11a543852c1069cbab528bd08508b4a27c).
+  Thanks to xet7.
+- Update dependencies](https://github.com/wekan/wekan/commit/d82c72f1c1df908e92045e5034fa12b33fc7f70c).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Remove from minicard](https://github.com/wekan/wekan/commit/1ea6552cd1ebbd4f52eb903abfa34595664637d7)
+  comment icon and number of comments [the aggressive red color and big bold serif font style
+  number](https://github.com/wekan/wekan/commit/bbc68309af0029f2bc4194db4c7e79689f888ea4#commitcomment-34216371).
+  Thanks to hever and xet7.
+- [Try to fix docker-compose.yml to use correct master branch that has
+  meteor 1.8.1](https://github.com/wekan/wekan/commit/202cc5a797b6269ec422c6f2e532a49f09d4e30a).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.98 2019-07-02 Wekan release
 
 This release adds the following new features, thanks to xet7:
