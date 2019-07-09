@@ -201,6 +201,19 @@ template(name="cardActivities")
           .activity-checklist(href="{{ card.absoluteUrl }}")
             +viewer
               = checklistItem.title
+        if(currentData.timeKey)
+          | {{{_ activityType }}}
+          = ' '
+          i(title=currentData.timeValue).activity-meta {{ moment currentData.timeValue 'LLL' }}
+          if (currentData.timeOldValue)
+              = ' '                                                                                    
+              | {{{_ "previous_as" }}}
+              = ' '
+              i(title=currentData.timeOldValue).activity-meta {{ moment currentData.timeOldValue 'LLL' }}
+          = ' @'
+        else if(currentData.timeValue)
+          | {{{_ activityType currentData.timeValue}}}
+        
 
         if($eq activityType 'addComment')
           +inlinedForm(classNames='js-edit-comment')

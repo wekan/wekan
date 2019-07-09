@@ -197,6 +197,18 @@ if (Meteor.isServer) {
     //  params.label = label.name;
     //  params.labelId = activity.labelId;
     //}
+    if (
+      (!activity.timeKey || activity.timeKey === 'dueAt') &&
+      activity.timeValue
+    ) {
+      // due time reminder
+      title = 'act-withDue';
+    }
+    ['timeValue', 'timeOldValue'].forEach(key => {
+      // copy time related keys & values to params
+      const value = activity[key];
+      if (value) params[key] = value;
+    });
     if (board) {
       const watchingUsers = _.pluck(
         _.where(board.watchers, { level: 'watching' }),
@@ -212,7 +224,6 @@ if (Meteor.isServer) {
         _.intersection(participants, trackingUsers),
       );
     }
-
     Notifications.getUsers(watchers).forEach(user => {
       Notifications.notify(user, title, description, params);
     });
