@@ -1620,9 +1620,9 @@ if (Meteor.isServer) {
     // With a huge database, this result in a very slow app and high CPU on the mongodb side.
     // To correct it, add Index to parentId:
     Cards._collection._ensureIndex({ parentId: 1 });
-    /*let notifydays = parseInt(process.env.NOTIFY_DUE_DAYS_BEFORE_AND_AFTER) || 2; // default as 2 days b4 and after
-    let notifyitvl = parseInt(process.env.NOTIFY_DUE_AT_HOUR_OF_DAY) || 3600 * 24 * 1e3; // default interval as one day
-    Meteor.call("findDueCards",notifydays,notifyitvl);*/
+    // let notifydays = parseInt(process.env.NOTIFY_DUE_DAYS_BEFORE_AND_AFTER) || 2; // default as 2 days b4 and after
+    // let notifyitvl = parseInt(process.env.NOTIFY_DUE_AT_HOUR_OF_DAY) || 3600 * 24 * 1e3; // default interval as one day
+    // Meteor.call("findDueCards",notifydays,notifyitvl);
     Meteor.defer(() => {
       addCronJob();
     });

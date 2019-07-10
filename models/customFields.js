@@ -165,11 +165,15 @@ function customFieldDeletion(userId, doc) {
 // instead it shows undefined, and no listId and swimlaneId.
 function customFieldEdit(userId, doc) {
   const card = Cards.findOne(doc.cardId);
+  const customFieldValue = Activities.findOne({ customFieldId: doc._id }).value;
+  const boardId = card.boardId;
+  //boardId: doc.boardIds[0], // We are creating a customField, it has only one boardId
   Activities.insert({
     userId,
-    activityType: 'editCustomField',
-    boardId: doc.boardIds[0], // We are creating a customField, it has only one boardId
+    activityType: 'setCustomField',
+    boardId,
     customFieldId: doc._id,
+    customFieldValue,
     listId: card.listId,
     swimlaneId: card.swimlaneId,
   });
