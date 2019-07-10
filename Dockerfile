@@ -263,8 +263,8 @@ RUN \
     rm -R /home/wekan/app && \
     rm -R /home/wekan/app_build && \
     cat /home/wekan/python/esprima-python/files.txt | xargs rm -R && \
-    rm -R /home/wekan/python && \
-    rm /home/wekan/install_meteor.sh
+    rm -R /home/wekan/python
+    #rm /home/wekan/install_meteor.sh
 
 ENV PORT=8080
 EXPOSE $PORT
