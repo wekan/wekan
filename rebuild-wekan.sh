@@ -142,6 +142,7 @@ do
 		#	sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' ~/repos/wekan/packages/meteor-useraccounts-core/package.js
 		#fi
 		#cd ..
+		sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
 		rm -rf node_modules
 		meteor npm install
 		rm -rf .build
