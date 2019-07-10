@@ -176,8 +176,9 @@ RUN \
     #DOES NOT WORK: paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
     #paxctl -mC `which node` && \
     \
-    # Install Node dependencies
+    # Install Node dependencies. Python path for node-gyp.
     npm install -g npm@${NPM_VERSION} && \
+    npm config set python /usr/bin/python && \
     npm install -g node-gyp && \
     npm install -g fibers@${FIBERS_VERSION} && \
     \
