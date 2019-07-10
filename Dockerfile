@@ -4,7 +4,7 @@ LABEL maintainer="wekan"
 # Set the environment variables (defaults where required)
 # DOES NOT WORK: paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
 # ENV BUILD_DEPS="paxctl"
-ENV BUILD_DEPS="apt-utils bsdtar gnupg gosu wget curl bzip2 build-essential python3 python3-pip git ca-certificates gcc-8" \
+ENV BUILD_DEPS="apt-utils bsdtar gnupg gosu wget curl bzip2 build-essential python python3 python3-pip git ca-certificates gcc-8" \
     DEBUG=false \
     NODE_VERSION=v8.16.0 \
     METEOR_RELEASE=1.8.1 \
