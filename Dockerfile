@@ -225,8 +225,9 @@ RUN \
     gosu wekan:wekan git clone --depth 1 -b master https://github.com/Kronuz/esprima-python && \
     cd /home/wekan/python/esprima-python && \
     python3 setup.py install --record files.txt && \
-    cd /home/wekan/app &&\
-    gosu wekan:wekan mkdir -p ./public/api && \
+    cd /home/wekan/app && \
+    mkdir -p /home/wekan/app/public/api && \
+    chown wekan --recursive /home/wekan/app && \
     gosu wekan:wekan python3 ./openapi/generate_openapi.py --release $(git describe --tags --abbrev=0) > ./public/api/wekan.yml && \
     gosu wekan:wekan /opt/nodejs/bin/api2html -c ./public/logo-header.png -o ./public/api/wekan.html ./public/api/wekan.yml; \
     # Build app
