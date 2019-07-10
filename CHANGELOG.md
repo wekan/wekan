@@ -30,6 +30,10 @@ and fixes the following bugs:
 - [Try to fix docker-compose.yml to use correct master branch that has
   meteor 1.8.1](https://github.com/wekan/wekan/commit/202cc5a797b6269ec422c6f2e532a49f09d4e30a).
   Thanks to xet7.
+- [Outgoing Webhooks setCustomField: Add board name, card name, custom field name to be
+  visible](https://github.com/wekan/wekan/commit/2003d90467debeadf51b69630c80ee6040524f52).
+  Still missing: custom field value, list name, swimlane name.
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
