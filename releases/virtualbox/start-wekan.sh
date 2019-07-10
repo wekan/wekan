@@ -35,7 +35,24 @@
         #export ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURES_BERORE=3
         #export ACCOUNTS_LOCKOUT_UNKNOWN_USERS_LOCKOUT_PERIOD=60
         #export ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURE_WINDOW=15
-        #---------------------------------------------
+        #---------------------------------------------------------------
+        # ==== EMAIL DUE DATE NOTIFICATION =====
+        # https://github.com/wekan/wekan/pull/2536
+        # System timelines will be showing any user modification for
+        # dueat startat endat receivedat, also notification to
+        # the watchers and if any card is due, about due or past due.
+        #
+        # Notify due days, default 2 days before and after. 0 = due notifications disabled. Default: 2
+        #export NOTIFY_DUE_DAYS_BEFORE_AND_AFTER=2
+        #
+        # Notify due at hour of day. Default every morning at 8am. Can be 0-23.
+        # If env variable has parsing error, use default. Notification sent to watchers.
+        #export NOTIFY_DUE_AT_HOUR_OF_DAY=8
+        #-----------------------------------------------------------------
+        # ==== EMAIL NOTIFICATION TIMEOUT, ms =====
+        # Defaut: 30000 ms = 30s
+        #export EMAIL_NOTIFICATION_TIMEOUT=30000
+        #-----------------------------------------------------------------
         # CORS: Set Access-Control-Allow-Origin header. Example: *
         #export CORS=*
         # To enable the Set Access-Control-Allow-Headers header. "Authorization,Content-Type" is required for cross-origin use of the API.
