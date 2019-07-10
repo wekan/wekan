@@ -178,7 +178,7 @@ RUN \
     \
     # Install Node dependencies. Python path for node-gyp.
     npm install -g npm@${NPM_VERSION} && \
-    npm config set python /usr/bin/python && \
+    npm config set python python2.7 && \
     npm install -g node-gyp && \
     npm install -g fibers@${FIBERS_VERSION} && \
     \
