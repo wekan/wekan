@@ -172,6 +172,7 @@ RUN \
     ln -s /opt/nodejs/bin/node /usr/bin/node && \
     ln -s /opt/nodejs/bin/npm /usr/bin/npm && \
     mkdir -p /opt/nodejs/lib/node_modules/fibers/.node-gyp /root/.node-gyp/8.16.0 && \
+    chmod a+w /root/.node-gyp/8.16.0 && \
     \
     #DOES NOT WORK: paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
     #paxctl -mC `which node` && \
@@ -236,7 +237,7 @@ RUN \
     # Build app
     cd /home/wekan/app && \
     mkdir -p /home/wekan/.npm && \
-    chown wekan --recursive /home/wekan/.npm && \
+    chown wekan --recursive /home/wekan/.npm /home/wekan/.config && \
     #gosu wekan:wekan /home/wekan/.meteor/meteor add standard-minifier-js && \
     gosu wekan:wekan npm install && \
     gosu wekan:wekan meteor build --directory /home/wekan/app_build && \
