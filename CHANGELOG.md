@@ -4,12 +4,15 @@ This release adds the following new features:
 
 - [Add Corteza theme. In progress](https://github.com/wekan/wekan/commit/289e78dbd29cca9d97d3b5787c3368583d43b40f).
   Thanks to xet7.
-- [System timelines will be showing any user modification for duat startat endat receivedat, also notification
+- [Notify Due Days: System timelines will be showing any user modification for duat startat endat receivedat, also notification
   to the watchers and if any card is due, about due or past due](https://github.com/wekan/wekan/pull/2536).
-  ENV variables: NOTIFY_DUE_DAYS (default is 2, if 0, will turn off notification for and dued cards),
-  NOTIFY_DUE_ITVL (any number between 0 - 23, standing for at what hour of a day that the notification will
+  ENV variables: NOTIFY_DUE_DAYS_BEFORE_AND_AFTER (default is 2, if 0, will turn off notification for and dued cards),
+  NOTIFY_DUE_AT_HOUR_OF_DAY (any number between 0 - 23, standing for at what hour of a day that the notification will
   be sent to the watchers).
   Thanks to whowillcare.
+- [Notify Due Days: Add settings to Snap/Docker/Source. Rename env variables to NOTIFY_DUE_DAYS_BEFORE_AND_AFTER and
+  NOTIFY_DUE_AT_HOUR_OF_DAY](https://github.com/wekan/wekan/commit/5084cddf37ba16ce0855f8575c39f5e62d1b7f67).
+  Thanks to xet7.
 
 and adds the following updates:
 
