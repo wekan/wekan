@@ -235,6 +235,7 @@ RUN \
     gosu wekan:wekan /opt/nodejs/bin/api2html -c ./public/logo-header.png -o ./public/api/wekan.html ./public/api/wekan.yml; \
     # Build app
     cd /home/wekan/app && \
+    mkdir -p /home/wekan/.npm && \
     chown wekan --recursive /home/wekan/.npm && \
     #gosu wekan:wekan /home/wekan/.meteor/meteor add standard-minifier-js && \
     gosu wekan:wekan npm install && \
