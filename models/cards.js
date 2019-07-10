@@ -1553,6 +1553,60 @@ function cardRemover(userId, doc) {
   });
 }
 
+const findDueCards = days => {
+  const seekDue = ($from, $to, activityType) => {
+    Cards.find({
+      dueAt: { $gte: $from, $lt: $to },
+    }).forEach(card => {
+      const username = Users.findOne(card.userId).username;
+      const activity = {
+        userId: card.userId,
+        username,
+        activityType,
+        boardId: card.boardId,
+        cardId: card._id,
+        cardTitle: card.title,
+        listId: card.listId,
+        timeValue: card.dueAt,
+        swimlaneId: card.swimlaneId,
+      };
+      Activities.insert(activity);
+    });
+  };
+  const now = new Date(),
+    aday = 3600 * 24 * 1e3,
+    then = day => new Date(now.setHours(0, 0, 0, 0) + day * aday);
+  seekDue(then(1), then(days), 'almostdue');
+  seekDue(then(0), then(1), 'duenow');
+  seekDue(then(-days), now, 'pastdue');
+};
+const addCronJob = _.debounce(
+  Meteor.bindEnvironment(function findDueCardsDebounced() {
+    const notifydays = parseInt(process.env.NOTIFY_DUE_DAYS, 10) || 2; // default as 2 days b4 and after
+    if (!(notifydays > 0 && notifydays < 15)) {
+      // notifying due is disabled
+      return;
+    }
+    const notifyitvl = process.env.NOTIFY_DUE_ITVL; //passed in the itvl has to be a number standing for the hour of current time
+    const defaultitvl = 8; // default every morning at 8am, if the passed env variable has parsing error use default
+    const itvl = parseInt(notifyitvl, 10) || defaultitvl;
+    const scheduler = (job => () => {
+      const now = new Date();
+      const hour = 3600 * 1e3;
+      if (now.getHours() === itvl) {
+        if (typeof job === 'function') {
+          job();
+        }
+      }
+      Meteor.setTimeout(scheduler, hour);
+    })(() => {
+      findDueCards(notifydays);
+    });
+    scheduler();
+  }),
+  500,
+);
+
 if (Meteor.isServer) {
   // Cards are often fetched within a board, so we create an index to make these
   // queries more efficient.
@@ -1565,12 +1619,17 @@ if (Meteor.isServer) {
     // With a huge database, this result in a very slow app and high CPU on the mongodb side.
     // To correct it, add Index to parentId:
     Cards._collection._ensureIndex({ parentId: 1 });
+    /*let notifydays = parseInt(process.env.NOTIFY_DUE_DAYS) || 2; // default as 2 days b4 and after
+    let notifyitvl = parseInt(process.env.NOTIFY_DUE_ITVL) || 3600 * 24 * 1e3; // default interval as one day
+    Meteor.call("findDueCards",notifydays,notifyitvl);*/
+    Meteor.defer(() => {
+      addCronJob();
+    });
   });
 
   Cards.after.insert((userId, doc) => {
     cardCreation(userId, doc);
   });
-
   // New activity for card (un)archivage
   Cards.after.update((userId, doc, fieldNames) => {
     cardState(userId, doc, fieldNames);
@@ -1600,6 +1659,35 @@ if (Meteor.isServer) {
     cardCustomFields(userId, doc, fieldNames, modifier);
   });
 
+  // Add a new activity if modify time related field like dueAt startAt etc
+  Cards.before.update((userId, doc, fieldNames, modifier) => {
+    const dla = 'dateLastActivity';
+    const fields = fieldNames.filter(name => name !== dla);
+    const timingaction = ['receivedAt', 'dueAt', 'startAt', 'endAt'];
+    const action = fields[0];
+    if (fields.length > 0 && _.contains(timingaction, action)) {
+      // add activities for user change these attributes
+      const value = modifier.$set[action];
+      const oldvalue = doc[action] || '';
+      const activityType = `a-${action}`;
+      const card = Cards.findOne(doc._id);
+      const username = Users.findOne(userId).username;
+      const activity = {
+        userId,
+        username,
+        activityType,
+        boardId: doc.boardId,
+        cardId: doc._id,
+        cardTitle: doc.title,
+        timeKey: action,
+        timeValue: value,
+        timeOldValue: oldvalue,
+        listId: card.listId,
+        swimlaneId: card.swimlaneId,
+      };
+      Activities.insert(activity);
+    }
+  });
   // Remove all activities associated with a card if we remove the card
   // Remove also card_comments / checklists / attachments
   Cards.before.remove((userId, doc) => {
