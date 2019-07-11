@@ -8,7 +8,6 @@ npm-debug.log
 .vscode/
 .idea/
 .build/*
-package-lock.json
 **/parts/
 **/stage
 **/prime
