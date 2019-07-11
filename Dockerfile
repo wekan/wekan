@@ -172,8 +172,7 @@ RUN \
     ln -s /opt/nodejs/bin/node /usr/bin/node && \
     ln -s /opt/nodejs/bin/npm /usr/bin/npm && \
     mkdir -p /opt/nodejs/lib/node_modules/fibers/.node-gyp /root/.node-gyp/8.16.0 /home/wekan/.config && \
-    chown wekan --recursive /home/wekan/.config
-    chmod a+w /root/.node-gyp/8.16.0 && \
+    chown wekan --recursive /home/wekan/.config && \
     \
     #DOES NOT WORK: paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
     #paxctl -mC `which node` && \
