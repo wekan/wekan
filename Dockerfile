@@ -171,7 +171,8 @@ RUN \
     mv node-${NODE_VERSION}-${ARCHITECTURE} /opt/nodejs && \
     ln -s /opt/nodejs/bin/node /usr/bin/node && \
     ln -s /opt/nodejs/bin/npm /usr/bin/npm && \
-    mkdir -p /opt/nodejs/lib/node_modules/fibers/.node-gyp /root/.node-gyp/8.16.0 && \
+    mkdir -p /opt/nodejs/lib/node_modules/fibers/.node-gyp /root/.node-gyp/8.16.0 /home/wekan/.config && \
+    chown wekan --recursive /home/wekan/.config
     chmod a+w /root/.node-gyp/8.16.0 && \
     \
     #DOES NOT WORK: paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
@@ -186,22 +187,23 @@ RUN \
     # Change user to wekan and install meteor
     cd /home/wekan/ && \
     chown wekan --recursive /home/wekan && \
-    #curl "https://install.meteor.com" -o /home/wekan/install_meteor.sh && \
+    curl "https://install.meteor.com" -o /home/wekan/install_meteor.sh && \
     #curl "https://install.meteor.com/?release=${METEOR_RELEASE}" -o /home/wekan/install_meteor.sh && \
     # OLD: sed -i "s|RELEASE=.*|RELEASE=${METEOR_RELEASE}\"\"|g" ./install_meteor.sh && \
     # Install Meteor forcing its progress
     #sed -i 's/VERBOSITY="--silent"/VERBOSITY="--progress-bar"/' ./install_meteor.sh && \
     echo "Starting meteor ${METEOR_RELEASE} installation...   \n" && \
-    #chown wekan /home/wekan/install_meteor.sh && \
+    chown wekan /home/wekan/install_meteor.sh && \
+    gosu wekan:wekan sh /home/wekan/install_meteor.sh; \
     \
     # Check if opting for a release candidate instead of major release
-    if [ "$USE_EDGE" = false ]; then \
+    #if [ "$USE_EDGE" = false ]; then \
       #gosu wekan:wekan sh /home/wekan/install_meteor.sh; \
-      gosu wekan:wekan curl https://install.meteor.com/ | sh; \
-    else \
-      gosu wekan:wekan git clone --recursive --depth 1 -b release/METEOR@${METEOR_EDGE} https://github.com/meteor/meteor.git /home/wekan/.meteor; \
-    fi; \
-    \
+    #  gosu wekan:wekan curl https://install.meteor.com/ | sh; \
+    #else \
+    #  gosu wekan:wekan git clone --recursive --depth 1 -b release/METEOR@${METEOR_EDGE} https://github.com/meteor/meteor.git /home/wekan/.meteor; \
+    #fi; \
+    #\
     # Get additional packages
     #mkdir -p /home/wekan/app/packages && \
     #chown wekan:wekan --recursive /home/wekan && \
