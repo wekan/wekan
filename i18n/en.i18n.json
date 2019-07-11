@@ -721,5 +721,6 @@
   "act-withDue": "__card__ due reminders [__board__]",
   "act-almostdue": "was reminding the current due (__timeValue__) of __card__ is approaching",
   "act-pastdue": "was reminding the current due (__timeValue__) of __card__ is past",
-  "act-duenow": "was reminding the current due (__timeValue__) of __card__ is now"
+  "act-duenow": "was reminding the current due (__timeValue__) of __card__ is now",
+  "act-atUserComment": "You were mentioned in [__board__] __card__"
 }
