@@ -7,7 +7,7 @@ Meteor.startup(() => {
       if (quoteParams[key]) quoteParams[key] = `"${params[key]}"`;
     });
     ['timeValue', 'timeOldValue'].forEach(key => {
-      if (quoteParams[key]) quoteParams[key] = `${params[key]}`;
+      quoteParams[key] = quoteParams[key] ? `${params[key]}` : '';
     });
 
     const lan = user.getLanguage();

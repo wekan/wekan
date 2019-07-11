@@ -171,6 +171,26 @@ if (Meteor.isServer) {
     if (activity.commentId) {
       const comment = activity.comment();
       params.comment = comment.text;
+      if (board) {
+        const atUser = /(?:^|\s+)@(\S+)(?:\s+|$)/g;
+        const comment = params.comment;
+        if (comment.match(atUser)) {
+          const commenter = params.user;
+          while (atUser.exec(comment)) {
+            const username = RegExp.$1;
+            if (commenter === username) {
+              // it's person at himself, ignore it?
+              continue;
+            }
+            const user = Users.findOne(username) || Users.findOne({ username });
+            const uid = user && user._id;
+            if (board.hasMember(uid)) {
+              title = 'act-atUserComment';
+              watchers = _.union(watchers, [uid]);
+            }
+          }
+        }
+      }
       params.commentId = comment._id;
     }
     if (activity.attachmentId) {
@@ -212,6 +232,19 @@ if (Meteor.isServer) {
       if (value) params[key] = value;
     });
     if (board) {
+      const BIGEVENTS = process.env.BIGEVENTS_PATTERN || 'due'; // if environment BIGEVENTS_PATTERN is set or default, any activityType matching it is important
+      try {
+        const atype = activity.activityType;
+        if (new RegExp(BIGEVENTS).exec(atype)) {
+          watchers = _.union(
+            watchers,
+            board.activeMembers().map(member => member.userId),
+          ); // notify all active members for important events system defined or default to all activity related to due date
+        }
+      } catch (e) {
+        // passed env var BIGEVENTS_PATTERN is not a valid regex
+      }
+
       const watchingUsers = _.pluck(
         _.where(board.watchers, { level: 'watching' }),
         'userId',
