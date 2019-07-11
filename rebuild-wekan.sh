@@ -73,10 +73,11 @@ do
 		if [[ "$OSTYPE" == "linux-gnu" ]]; then
 	                echo "Linux";
 			# Debian, Ubuntu, Mint
-			sudo apt-get install -y build-essential gcc g++ make git curl wget npm nodejs
-			sudo npm -g install npm
-			sudo chown wekan:wekan ../../.npm -R
-			#curl -0 -L https://npmjs.org/install.sh | sudo sh
+			sudo apt-get install -y build-essential gcc g++ make git curl wget
+			# npm nodejs
+			#sudo npm -g install npm
+			curl -0 -L https://npmjs.org/install.sh | sudo sh
+			sudo chown -R $(id -u):$(id -g) $HOME/.npm
 			sudo npm -g install n
 			sudo n 8.16.0
 			#curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
@@ -113,7 +114,7 @@ do
 	        npm_call -g install fibers@4.0.1
 	        # Install Meteor, if it's not yet installed
 	        curl https://install.meteor.com | bash
-		sudo chown -R $USER ~/.meteor
+		sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
 		break
 		;;
         "Build Wekan")
@@ -141,6 +142,7 @@ do
 		#	sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' ~/repos/wekan/packages/meteor-useraccounts-core/package.js
 		#fi
 		#cd ..
+		sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
 		rm -rf node_modules
 		meteor npm install
 		rm -rf .build

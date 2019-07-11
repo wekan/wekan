@@ -29,3 +29,4 @@ versions.json
 .Trashes
 Thumbs.db
 ehthumbs.db
+.eslintcache

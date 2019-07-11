@@ -702,5 +702,21 @@
   "swimlane-delete-pop": "Wszystkie akcje będą usunięte z widoku aktywności, nie można będzie przywrócić diagramu czynności.  Usunięcie jest nieodwracalne.",
   "restore-all": "Przywróć wszystkie",
   "delete-all": "Usuń wszystkie",
-  "loading": "Ładowanie, proszę czekać."
+  "loading": "Ładowanie, proszę czekać.",
+  "previous_as": "last time was",
+  "act-a-dueAt": "modified due time to \nWhen: __timeValue__\nWhere: __card__\n previous due was __timeOldValue__",
+  "act-a-endAt": "modified ending time to __timeValue__ from (__timeOldValue__)",
+  "act-a-startAt": "modified starting time to __timeValue__ from (__timeOldValue__)",
+  "act-a-receivedAt": "modified received time to __timeValue__ from (__timeOldValue__)",
+  "a-dueAt": "modified due time to be",
+  "a-endAt": "modified ending time to be",
+  "a-startAt": "modified starting time to be",
+  "a-receivedAt": "modified received time to be",
+  "almostdue": "current due time %s is approaching",
+  "pastdue": "current due time %s is past",
+  "duenow": "current due time %s is today",
+  "act-withDue": "__card__ due reminders [__board__]",
+  "act-almostdue": "was reminding the current due (__timeValue__) of __card__ is approaching",
+  "act-pastdue": "was reminding the current due (__timeValue__) of __card__ is past",
+  "act-duenow": "was reminding the current due (__timeValue__) of __card__ is now"
 }

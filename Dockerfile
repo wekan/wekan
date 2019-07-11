@@ -4,7 +4,7 @@ LABEL maintainer="wekan"
 # Set the environment variables (defaults where required)
 # DOES NOT WORK: paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
 # ENV BUILD_DEPS="paxctl"
-ENV BUILD_DEPS="apt-utils bsdtar gnupg gosu wget curl bzip2 build-essential python3 python3-pip git ca-certificates gcc-8" \
+ENV BUILD_DEPS="apt-utils bsdtar gnupg gosu wget curl bzip2 g++ build-essential python python3 python3-pip git ca-certificates" \
     DEBUG=false \
     NODE_VERSION=v8.16.0 \
     METEOR_RELEASE=1.8.1 \
@@ -21,6 +21,8 @@ ENV BUILD_DEPS="apt-utils bsdtar gnupg gosu wget curl bzip2 build-essential pyth
     ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURES_BERORE=3 \
     ACCOUNTS_LOCKOUT_UNKNOWN_USERS_LOCKOUT_PERIOD=60 \
     ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURE_WINDOW=15 \
+    NOTIFY_DUE_DAYS_BEFORE_AND_AFTER="" \
+    NOTIFY_DUE_AT_HOUR_OF_DAY="" \
     EMAIL_NOTIFICATION_TIMEOUT=30000 \
     MATOMO_ADDRESS="" \
     MATOMO_SITE_ID="" \
@@ -169,33 +171,39 @@ RUN \
     mv node-${NODE_VERSION}-${ARCHITECTURE} /opt/nodejs && \
     ln -s /opt/nodejs/bin/node /usr/bin/node && \
     ln -s /opt/nodejs/bin/npm /usr/bin/npm && \
+    mkdir -p /opt/nodejs/lib/node_modules/fibers/.node-gyp /root/.node-gyp/8.16.0 /home/wekan/.config && \
+    chown wekan --recursive /home/wekan/.config && \
     \
     #DOES NOT WORK: paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
     #paxctl -mC `which node` && \
     \
-    # Install Node dependencies
+    # Install Node dependencies. Python path for node-gyp.
     npm install -g npm@${NPM_VERSION} && \
+    npm config set python python2.7 && \
     npm install -g node-gyp && \
     npm install -g fibers@${FIBERS_VERSION} && \
     \
     # Change user to wekan and install meteor
     cd /home/wekan/ && \
     chown wekan --recursive /home/wekan && \
-    curl "https://install.meteor.com" -o /home/wekan/install_meteor.sh && \
+    #curl "https://install.meteor.com" -o /home/wekan/install_meteor.sh && \
     #curl "https://install.meteor.com/?release=${METEOR_RELEASE}" -o /home/wekan/install_meteor.sh && \
     # OLD: sed -i "s|RELEASE=.*|RELEASE=${METEOR_RELEASE}\"\"|g" ./install_meteor.sh && \
     # Install Meteor forcing its progress
-    sed -i 's/VERBOSITY="--silent"/VERBOSITY="--progress-bar"/' ./install_meteor.sh && \
+    #sed -i 's/VERBOSITY="--silent"/VERBOSITY="--progress-bar"/' ./install_meteor.sh && \
     echo "Starting meteor ${METEOR_RELEASE} installation...   \n" && \
-    chown wekan /home/wekan/install_meteor.sh && \
+    gosu wekan:wekan curl https://install.meteor.com/ | /bin/sh && \
+    #chown wekan /home/wekan/install_meteor.sh && \
+    #gosu wekan:wekan sh /home/wekan/install_meteor.sh; \
     \
     # Check if opting for a release candidate instead of major release
-    if [ "$USE_EDGE" = false ]; then \
-      gosu wekan:wekan sh /home/wekan/install_meteor.sh; \
-    else \
-      gosu wekan:wekan git clone --recursive --depth 1 -b release/METEOR@${METEOR_EDGE} https://github.com/meteor/meteor.git /home/wekan/.meteor; \
-    fi; \
-    \
+    #if [ "$USE_EDGE" = false ]; then \
+      #gosu wekan:wekan sh /home/wekan/install_meteor.sh; \
+    #  gosu wekan:wekan curl https://install.meteor.com/ | sh; \
+    #else \
+    #  gosu wekan:wekan git clone --recursive --depth 1 -b release/METEOR@${METEOR_EDGE} https://github.com/meteor/meteor.git /home/wekan/.meteor; \
+    #fi; \
+    #\
     # Get additional packages
     #mkdir -p /home/wekan/app/packages && \
     #chown wekan:wekan --recursive /home/wekan && \
@@ -223,15 +231,18 @@ RUN \
     gosu wekan:wekan git clone --depth 1 -b master https://github.com/Kronuz/esprima-python && \
     cd /home/wekan/python/esprima-python && \
     python3 setup.py install --record files.txt && \
-    cd /home/wekan/app &&\
-    gosu wekan:wekan mkdir -p ./public/api && \
+    cd /home/wekan/app && \
+    mkdir -p /home/wekan/app/public/api && \
+    chown wekan --recursive /home/wekan/app && \
     gosu wekan:wekan python3 ./openapi/generate_openapi.py --release $(git describe --tags --abbrev=0) > ./public/api/wekan.yml && \
     gosu wekan:wekan /opt/nodejs/bin/api2html -c ./public/logo-header.png -o ./public/api/wekan.html ./public/api/wekan.yml; \
     # Build app
     cd /home/wekan/app && \
-    gosu wekan:wekan /home/wekan/.meteor/meteor add standard-minifier-js && \
-    gosu wekan:wekan /home/wekan/.meteor/meteor npm install && \
-    gosu wekan:wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build && \
+    mkdir -p /home/wekan/.npm && \
+    chown wekan --recursive /home/wekan/.npm /home/wekan/.config && \
+    #gosu wekan:wekan /home/wekan/.meteor/meteor add standard-minifier-js && \
+    gosu wekan:wekan npm install && \
+    gosu wekan:wekan meteor build --directory /home/wekan/app_build && \
     cp /home/wekan/app/fix-download-unicode/cfs_access-point.txt /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
     #rm /home/wekan/app_build/bundle/programs/server/npm/node_modules/meteor/rajit_bootstrap3-datepicker/lib/bootstrap-datepicker/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs && \
     chown wekan /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
@@ -258,8 +269,8 @@ RUN \
     rm -R /home/wekan/app && \
     rm -R /home/wekan/app_build && \
     cat /home/wekan/python/esprima-python/files.txt | xargs rm -R && \
-    rm -R /home/wekan/python && \
-    rm /home/wekan/install_meteor.sh
+    rm -R /home/wekan/python
+    #rm /home/wekan/install_meteor.sh
 
 ENV PORT=8080
 EXPOSE $PORT

@@ -702,5 +702,21 @@
   "swimlane-delete-pop": "כל הפעולות יוסרו מהזנת הפעילות ולא תהיה לך אפשרות לשחזר את המסלול. אי אפשר לחזור אחורה.",
   "restore-all": "לשחזר הכול",
   "delete-all": "למחוק הכול",
-  "loading": "העמוד בטעינה, אנא המתינו."
+  "loading": "העמוד בטעינה, אנא המתינו.",
+  "previous_as": "הזמן הקודם היה",
+  "act-a-dueAt": "זמן יעד שונה ל: \n__timeValue__\nבכרטיס: __card__\n זמן היעד הקודם היה __timeOldValue__",
+  "act-a-endAt": "modified ending time to __timeValue__ from (__timeOldValue__)",
+  "act-a-startAt": "modified starting time to __timeValue__ from (__timeOldValue__)",
+  "act-a-receivedAt": "modified received time to __timeValue__ from (__timeOldValue__)",
+  "a-dueAt": "modified due time to be",
+  "a-endAt": "modified ending time to be",
+  "a-startAt": "modified starting time to be",
+  "a-receivedAt": "modified received time to be",
+  "almostdue": "current due time %s is approaching",
+  "pastdue": "current due time %s is past",
+  "duenow": "current due time %s is today",
+  "act-withDue": "__card__ due reminders [__board__]",
+  "act-almostdue": "was reminding the current due (__timeValue__) of __card__ is approaching",
+  "act-pastdue": "was reminding the current due (__timeValue__) of __card__ is past",
+  "act-duenow": "was reminding the current due (__timeValue__) of __card__ is now"
 }

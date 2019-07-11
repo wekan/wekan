@@ -53,7 +53,7 @@
     "prettier-eslint": "^8.8.2"
   },
   "dependencies": {
-    "@babel/runtime": "^7.5.1",
+    "@babel/runtime": "^7.5.4",
     "bcrypt": "^3.0.2",
     "bson": "^4.0.0",
     "bunyan": "^1.8.12",

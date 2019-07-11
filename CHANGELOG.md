@@ -4,12 +4,21 @@ This release adds the following new features:
 
 - [Add Corteza theme. In progress](https://github.com/wekan/wekan/commit/289e78dbd29cca9d97d3b5787c3368583d43b40f).
   Thanks to xet7.
+- [Notify Due Days: System timelines will be showing any user modification for duat startat endat receivedat, also notification
+  to the watchers and if any card is due, about due or past due](https://github.com/wekan/wekan/pull/2536).
+  ENV variables: NOTIFY_DUE_DAYS_BEFORE_AND_AFTER (default is 2, if 0, will turn off notification for and dued cards),
+  NOTIFY_DUE_AT_HOUR_OF_DAY (any number between 0 - 23, standing for at what hour of a day that the notification will
+  be sent to the watchers).
+  Thanks to whowillcare.
+- [Notify Due Days: Add settings to Snap/Docker/Source. Rename env variables to NOTIFY_DUE_DAYS_BEFORE_AND_AFTER and
+  NOTIFY_DUE_AT_HOUR_OF_DAY](https://github.com/wekan/wekan/commit/5084cddf37ba16ce0855f8575c39f5e62d1b7f67).
+  Thanks to xet7.
 
 and adds the following updates:
 
 - [Update Meteor mongo package version](https://github.com/wekan/wekan/commit/96065d11a543852c1069cbab528bd08508b4a27c).
   Thanks to xet7.
-- Update dependencies](https://github.com/wekan/wekan/commit/d82c72f1c1df908e92045e5034fa12b33fc7f70c).
+- [Update dependencies](https://github.com/wekan/wekan/commit/d82c72f1c1df908e92045e5034fa12b33fc7f70c).
   Thanks to xet7.
 
 and fixes the following bugs:
@@ -20,6 +29,10 @@ and fixes the following bugs:
   Thanks to hever and xet7.
 - [Try to fix docker-compose.yml to use correct master branch that has
   meteor 1.8.1](https://github.com/wekan/wekan/commit/202cc5a797b6269ec422c6f2e532a49f09d4e30a).
+  Thanks to xet7.
+- [Outgoing Webhooks setCustomField: Add board name, card name, custom field name to be
+  visible](https://github.com/wekan/wekan/commit/2003d90467debeadf51b69630c80ee6040524f52).
+  Still missing: custom field value, list name, swimlane name.
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.

@@ -1582,12 +1582,13 @@ const findDueCards = days => {
 };
 const addCronJob = _.debounce(
   Meteor.bindEnvironment(function findDueCardsDebounced() {
-    const notifydays = parseInt(process.env.NOTIFY_DUE_DAYS, 10) || 2; // default as 2 days b4 and after
+    const notifydays =
+      parseInt(process.env.NOTIFY_DUE_DAYS_BEFORE_AND_AFTER, 10) || 2; // default as 2 days before and after
     if (!(notifydays > 0 && notifydays < 15)) {
       // notifying due is disabled
       return;
     }
-    const notifyitvl = process.env.NOTIFY_DUE_ITVL; //passed in the itvl has to be a number standing for the hour of current time
+    const notifyitvl = process.env.NOTIFY_DUE_AT_HOUR_OF_DAY; //passed in the itvl has to be a number standing for the hour of current time
     const defaultitvl = 8; // default every morning at 8am, if the passed env variable has parsing error use default
     const itvl = parseInt(notifyitvl, 10) || defaultitvl;
     const scheduler = (job => () => {
@@ -1619,9 +1620,9 @@ if (Meteor.isServer) {
     // With a huge database, this result in a very slow app and high CPU on the mongodb side.
     // To correct it, add Index to parentId:
     Cards._collection._ensureIndex({ parentId: 1 });
-    /*let notifydays = parseInt(process.env.NOTIFY_DUE_DAYS) || 2; // default as 2 days b4 and after
-    let notifyitvl = parseInt(process.env.NOTIFY_DUE_ITVL) || 3600 * 24 * 1e3; // default interval as one day
-    Meteor.call("findDueCards",notifydays,notifyitvl);*/
+    // let notifydays = parseInt(process.env.NOTIFY_DUE_DAYS_BEFORE_AND_AFTER) || 2; // default as 2 days b4 and after
+    // let notifyitvl = parseInt(process.env.NOTIFY_DUE_AT_HOUR_OF_DAY) || 3600 * 24 * 1e3; // default interval as one day
+    // Meteor.call("findDueCards",notifydays,notifyitvl);
     Meteor.defer(() => {
       addCronJob();
     });

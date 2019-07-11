@@ -189,7 +189,9 @@ if (Meteor.isServer) {
     if (activity.customFieldId) {
       const customField = activity.customField();
       params.customField = customField.name;
-      params.customFieldValue = customField.text;
+      params.customFieldValue = Activities.findOne({
+        customFieldId: customField._id,
+      }).value;
     }
     // Label activity did not work yet, unable to edit labels when tried this.
     //if (activity.labelId) {
