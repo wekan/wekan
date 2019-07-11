@@ -718,5 +718,6 @@
     "act-withDue": "__card__ eräaika muistutukset [__board__]",
     "act-almostdue": "muistutti nykyisen eräajan (__timeValue__) kortilla __card__ lähestyvän",
     "act-pastdue": "muistutti nykyisen eräajan (__timeValue__) kortilla __card__ menneen",
-    "act-duenow": "muistutti nykyisen eräajan (__timeValue__) kortilla __card__ olevan nyt"
+    "act-duenow": "muistutti nykyisen eräajan (__timeValue__) kortilla __card__ olevan nyt",
+    "act-atUserComment": "Sinut mainittiin [__board__] __card__"
 }

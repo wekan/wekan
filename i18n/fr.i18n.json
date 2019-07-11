@@ -703,7 +703,7 @@
     "restore-all": "Tout supprimer",
     "delete-all": "Tout restaurer",
     "loading": "Chargement, merci de patienter.",
-    "previous_as": "last time was",
+    "previous_as": "dernière heure était",
     "act-a-dueAt": "modified due time to \nWhen: __timeValue__\nWhere: __card__\n previous due was __timeOldValue__",
     "act-a-endAt": "modified ending time to __timeValue__ from (__timeOldValue__)",
     "act-a-startAt": "modified starting time to __timeValue__ from (__timeOldValue__)",
@@ -718,5 +718,6 @@
     "act-withDue": "__card__ due reminders [__board__]",
     "act-almostdue": "was reminding the current due (__timeValue__) of __card__ is approaching",
     "act-pastdue": "was reminding the current due (__timeValue__) of __card__ is past",
-    "act-duenow": "was reminding the current due (__timeValue__) of __card__ is now"
+    "act-duenow": "was reminding the current due (__timeValue__) of __card__ is now",
+    "act-atUserComment": "You were mentioned in [__board__] __card__"
 }

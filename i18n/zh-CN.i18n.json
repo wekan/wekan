@@ -718,5 +718,6 @@
     "act-withDue": "__card__ 到期提醒[__board__]",
     "act-almostdue": "__card__ 的当前到期提醒(__timeValue__) 正在接近",
     "act-pastdue": "__card__ 的当前到期提醒(__timeValue__) 已经过去了",
-    "act-duenow": "__card__ 的当前到期提醒(__timeValue__) 现在到期"
+    "act-duenow": "__card__ 的当前到期提醒(__timeValue__) 现在到期",
+    "act-atUserComment": "You were mentioned in [__board__] __card__"
 }
