@@ -719,5 +719,5 @@
     "act-almostdue": "__card__ 的当前到期提醒(__timeValue__) 正在接近",
     "act-pastdue": "__card__ 的当前到期提醒(__timeValue__) 已经过去了",
     "act-duenow": "__card__ 的当前到期提醒(__timeValue__) 现在到期",
-    "act-atUserComment": "You were mentioned in [__board__] __card__"
+    "act-atUserComment": "您在 [__board__] __card__中被提到"
 }
