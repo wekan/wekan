@@ -9,7 +9,7 @@ This release adds the following new features:
   ENV variables: NOTIFY_DUE_DAYS_BEFORE_AND_AFTER (default is 2, if 0, will turn off notification for and dued cards),
   NOTIFY_DUE_AT_HOUR_OF_DAY (any number between 0 - 23, standing for at what hour of a day that the notification will
   be sent to the watchers). Also [bug fix for this, timeOldValue needs to set to "" in params when it's
-  not set.](https://github.com/wekan/wekan/pull/2541).
+  not set](https://github.com/wekan/wekan/pull/2541).
   Thanks to whowillcare.
 - [Notify Due Days: Add settings to Snap/Docker/Source. Rename env variables to NOTIFY_DUE_DAYS_BEFORE_AND_AFTER and
   NOTIFY_DUE_AT_HOUR_OF_DAY](https://github.com/wekan/wekan/commit/5084cddf37ba16ce0855f8575c39f5e62d1b7f67).
