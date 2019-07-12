@@ -216,7 +216,9 @@ setBoardColor(color)
 .board-color-relax
   setBoardColor(#27AE61)
 
-  // RELAX MODE: light green backgroud, when green background color selected.
+  // RELAX MODE: light green background, with green background color,
+  // to help this theme users to relax.
+  // Colors and emphasis are specific to this Wekan theme contributor's company.
   .ui-sortable
     background-color:#a7e366
 
@@ -229,6 +231,32 @@ setBoardColor(color)
 
   .list
     border-left: 1px dotted #000000
+
+  // Card details text emphasis: black border and white background
+  // to make it details text field easier to find for RELAX MODE users,
+  // and focus attention.
+  .card-details .card-details-items
+    & ~ .js-open-inlined-form
+        .viewer
+            background-color #ffffff !important
+            padding 15px !important
+            border 1px solid #000000 !important
+
+  // When card has comment, emphasis on minicard:
+  // bigger red comment icon and number of comments,
+  // to make it easier notice card comments and focus attention.
+  .minicard .badges .badge
+    .badge-icon,
+    .badge-text
+      &.badge-comment
+        display: block
+        border-radius: 4px
+        padding: 1px 3px
+        margin-bottom: 0.3rem
+        color: #ff0000
+        background-color: #ffffff
+        font-weight: bold
+        font-size: 11pt
 
 .board-color-corteza
   setBoardColor(#568BA2)
