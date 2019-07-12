@@ -4,14 +4,24 @@ This release adds the following new features:
 
 - [Add Corteza theme. In progress](https://github.com/wekan/wekan/commit/289e78dbd29cca9d97d3b5787c3368583d43b40f).
   Thanks to xet7.
-- [Notify Due Days: System timelines will be showing any user modification for duat startat endat receivedat, also notification
-  to the watchers and if any card is due, about due or past due](https://github.com/wekan/wekan/pull/2536).
+- [Notify Due Days: System timelines will be showing any user modification for duat startat endat receivedat,
+  also notification to the watchers and if any card is due, about due or past due](https://github.com/wekan/wekan/pull/2536).
   ENV variables: NOTIFY_DUE_DAYS_BEFORE_AND_AFTER (default is 2, if 0, will turn off notification for and dued cards),
   NOTIFY_DUE_AT_HOUR_OF_DAY (any number between 0 - 23, standing for at what hour of a day that the notification will
-  be sent to the watchers).
+  be sent to the watchers). Also [bug fix for this, timeOldValue needs to set to "" in params when it's
+  not set.](https://github.com/wekan/wekan/pull/2541).
   Thanks to whowillcare.
 - [Notify Due Days: Add settings to Snap/Docker/Source. Rename env variables to NOTIFY_DUE_DAYS_BEFORE_AND_AFTER and
   NOTIFY_DUE_AT_HOUR_OF_DAY](https://github.com/wekan/wekan/commit/5084cddf37ba16ce0855f8575c39f5e62d1b7f67).
+  Thanks to xet7.
+- [BIGEVENTS_PATTERN: When user being @ in comment, as long as it's not himself, a notification will be
+  sent out no matter this user is watching the board or not](https://github.com/wekan/wekan/pull/2541).
+  Introduced a system env var BIGEVENTS_PATTERN default as "due", so any activityType matches the pattern,
+  system will send out notifications to all board members no matter they are watching or tracking
+  the board or not. Owner of the Wekan server can disable the feature by setting this variable to "NONE"
+  or change the pattern to any valid regex. i.e. '|' delimited activityType names.
+  Thanks to whowillcare.
+- [Add BIGEVENTS_PATTERN to Source/Snap/Docker](https://github.com/wekan/wekan/commit/d7c09df7d2649bf2d2b61772c251f81793a6ed77).
   Thanks to xet7.
 
 and adds the following updates:
@@ -34,6 +44,9 @@ and fixes the following bugs:
   visible](https://github.com/wekan/wekan/commit/2003d90467debeadf51b69630c80ee6040524f52).
   Still missing: custom field value, list name, swimlane name.
   Thanks to xet7.
+- [Don't remove boardoverlay when mouse leaves carddetails](https://github.com/wekan/wekan/pull/2540),
+  to reduce Wekan board flashiness.
+  Thanks to newhinton.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
