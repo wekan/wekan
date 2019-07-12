@@ -44,9 +44,15 @@ and fixes the following bugs:
   visible](https://github.com/wekan/wekan/commit/2003d90467debeadf51b69630c80ee6040524f52).
   Still missing: custom field value, list name, swimlane name.
   Thanks to xet7.
-- [Don't remove boardoverlay when mouse leaves carddetails](https://github.com/wekan/wekan/pull/2540),
-  to reduce Wekan board flashiness.
+- [Don't remove boardoverlay when mouse leaves carddetails](https://github.com/wekan/wekan/pull/2540).
+  This reduces Wekan board flashiness.
   Thanks to newhinton.
+- [Limit the board list to 2 or 1 for mobile clients](https://github.com/wekan/wekan/pull/2542).
+  As a mobile user, the board size of in the home page too small, so the user is easily to
+  click on archive or copy button by accident. Increase the board size to 50% for pixel
+  greater than 360 and lesser than 800 and height to 8rem, 100% for any screen is even smaller.
+  This will reduce the accident much more.
+  Thanks to whowillcare.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
