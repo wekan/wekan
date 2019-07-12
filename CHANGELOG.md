@@ -33,9 +33,10 @@ and adds the following updates:
 
 and fixes the following bugs:
 
-- [Remove from minicard](https://github.com/wekan/wekan/commit/1ea6552cd1ebbd4f52eb903abfa34595664637d7)
-  comment icon and number of comments [the aggressive red color and big bold serif font style
-  number](https://github.com/wekan/wekan/commit/bbc68309af0029f2bc4194db4c7e79689f888ea4#commitcomment-34216371).
+- RELAX THEME: Use [only in this theme](https://github.com/wekan/wekan/commit/3ad6e554dceea822dee7390872260e872a792dcd)
+  the aggressive [red color and big bold serif font style
+  number](https://github.com/wekan/wekan/commit/bbc68309af0029f2bc4194db4c7e79689f888ea4#commitcomment-34216371) and
+  [card details text emphasis](https://github.com/wekan/wekan/commit/48ebc5f11745b125ce01d08d60e2d8e3a9419a5f#commitcomment-34268095)
   Thanks to hever and xet7.
 - [Try to fix docker-compose.yml to use correct master branch that has
   meteor 1.8.1](https://github.com/wekan/wekan/commit/202cc5a797b6269ec422c6f2e532a49f09d4e30a).
