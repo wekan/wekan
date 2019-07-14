@@ -185,6 +185,7 @@ webapp@1.7.4
 webapp-hashing@1.0.9
 wekan-accounts-cas@0.1.0
 wekan-accounts-oidc@1.0.10
+wekan-cfs-access-point@2.0.0
 wekan-ldap@0.0.2
 wekan-markdown@1.0.7
 wekan-oidc@1.0.12

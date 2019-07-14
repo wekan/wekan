@@ -1,0 +1,67 @@
+{
+  "format": "unipackage-unibuild-pre1",
+  "uses": [
+    {
+      "package": "meteor"
+    },
+    {
+      "package": "cfs:base-package",
+      "constraint": "0.0.30"
+    },
+    {
+      "package": "cfs:file",
+      "constraint": "0.1.16"
+    },
+    {
+      "package": "check",
+      "constraint": "1.0.2"
+    },
+    {
+      "package": "ejson",
+      "constraint": "1.0.4"
+    },
+    {
+      "package": "cfs:http-methods",
+      "constraint": "0.0.29"
+    },
+    {
+      "package": "cfs:http-publish",
+      "constraint": "0.0.13"
+    }
+  ],
+  "implies": [
+    {
+      "package": "cfs:base-package",
+      "constraint": ""
+    }
+  ],
+  "resources": [
+    {
+      "type": "prelink",
+      "file": "os-legacy/packages/cfs_access-point/packages/cfs_access-point.js",
+      "length": 104737,
+      "offset": 0,
+      "servePath": "/packages/cfs_access-point/packages/cfs_access-point.js"
+    }
+  ],
+  "packageVariables": [
+    {
+      "name": "rootUrlPathPrefix"
+    },
+    {
+      "name": "baseUrl"
+    },
+    {
+      "name": "getHeaders"
+    },
+    {
+      "name": "getHeadersByCollection"
+    },
+    {
+      "name": "_existingMountPoints"
+    },
+    {
+      "name": "mountUrls"
+    }
+  ]
+}
