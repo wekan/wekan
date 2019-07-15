@@ -18,6 +18,7 @@ import Triggers from '../models/triggers';
 import UnsavedEdits from '../models/unsavedEdits';
 import Users from '../models/users';
 import Org from '../models/org';
+import OrgUser from '../models/orgUser';
 
 // Anytime you change the schema of one of the collection in a non-backward
 // compatible way you have to write a migration in this file using the following
@@ -705,6 +706,7 @@ const firstBatchOfDbsToAddCreatedAndUpdated = [
   Triggers,
   UnsavedEdits,
   Org,
+  OrgUser,
 ];
 
 firstBatchOfDbsToAddCreatedAndUpdated.forEach(db => {
@@ -740,6 +742,7 @@ const modifiedAtTables = [
   UnsavedEdits,
   Users,
   Org,
+  OrgUser,
 ];
 
 Migrations.add('add-missing-created-and-modified', () => {
