@@ -118,4 +118,11 @@ Org.attachSchema(
   }),
 );
 
+if (Meteor.isServer) {
+  // Index for Organization name.
+  Meteor.startup(() => {
+    Org._collection._ensureIndex({ name: -1 });
+  });
+}
+
 export default Org;
