@@ -79,6 +79,7 @@ kadira:blaze-layout@2.3.0
 kadira:dochead@1.5.0
 kadira:flow-router@2.12.1
 kenton:accounts-sandstorm@0.7.0
+konecty:mongo-counter@0.0.5_3
 lamhieu:meteorx@2.0.1
 lamhieu:unblock@1.0.0
 launch-screen@1.1.1
