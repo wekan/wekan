@@ -5,7 +5,7 @@ Org = new Mongo.Collection('org');
  */
 Org.attachSchema(
   new SimpleSchema({
-    id: {
+    _id: {
       /**
        * the organization id
        */
