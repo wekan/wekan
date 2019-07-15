@@ -1,4 +1,4 @@
-OrgUser = new Mongo.Collection('org_user');
+OrgUser = new Mongo.Collection('orgUser');
 
 /**
  * A Organization User in wekan
@@ -14,18 +14,18 @@ OrgUser.attachSchema(
       // eslint-disable-next-line consistent-return
       autoValue() {
         if (this.isInsert && !this.isSet) {
-          return incrementCounter('counters', 'org_user_id', 1);
+          return incrementCounter('counters', 'orgUserId', 1);
         }
       },
     },
-    org_id: {
+    orgId: {
       /**
        * the organization id
        */
       type: Number,
       optional: true,
     },
-    user_id: {
+    userId: {
       /**
        * the user id
        */
@@ -72,8 +72,8 @@ OrgUser.attachSchema(
 if (Meteor.isServer) {
   // Index for Organization User.
   Meteor.startup(() => {
-    OrgUser._collection._ensureIndex({ org_id: -1 });
-    OrgUser._collection._ensureIndex({ org_id: -1, user_id: -1 });
+    OrgUser._collection._ensureIndex({ orgId: -1 });
+    OrgUser._collection._ensureIndex({ orgId: -1, userId: -1 });
   });
 }
 

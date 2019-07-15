@@ -14,7 +14,7 @@ Org.attachSchema(
       // eslint-disable-next-line consistent-return
       autoValue() {
         if (this.isInsert && !this.isSet) {
-          return incrementCounter('counters', 'org_id', 1);
+          return incrementCounter('counters', 'orgId', 1);
         }
       },
     },
@@ -65,9 +65,9 @@ Org.attachSchema(
       optional: true,
       max: 255,
     },
-    zip_code: {
+    zipCode: {
       /**
-       * zip_code of the organization
+       * zipCode of the organization
        */
       type: String,
       optional: true,
@@ -81,9 +81,9 @@ Org.attachSchema(
       optional: true,
       max: 255,
     },
-    billing_email: {
+    billingEmail: {
       /**
-       * billing_email of the organization
+       * billingEmail of the organization
        */
       type: String,
       optional: true,
