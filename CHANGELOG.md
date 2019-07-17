@@ -54,6 +54,13 @@ and fixes the following bugs:
   greater than 360 and lesser than 800 and height to 8rem, 100% for any screen is even smaller.
   This will reduce the accident much more.
   Thanks to whowillcare.
+- [Add check for board member isActive](https://github.com/wekan/wekan/commit fe42eb1d014c06dfed8114a00b29eac9b08baec6).
+  Thanks to xet7.
+
+and has the following features in progress, not anything visible yet:
+
+- [Teams/Organizations: Add beginnings of database structure](https://github.com/wekan/wekan/issues/802#issuecomment-505986270).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
