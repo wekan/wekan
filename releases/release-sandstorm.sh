@@ -2,7 +2,7 @@
 
 # Delete old stuff
 cd ~/repos/wekan
-.//releases/release-cleanup.sh
+./releases/release-cleanup.sh
 
 # Build Source
 cd ~/repos/wekan
