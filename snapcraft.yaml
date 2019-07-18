@@ -85,7 +85,7 @@ parts:
 #            - node-gyp
 #            - node-pre-gyp
 #            - fibers@4.0.1
-        build-packages:
+        #build-packages:
         #    - ca-certificates
         #    - apt-utils
         ##   - python3
