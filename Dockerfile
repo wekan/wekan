@@ -4,7 +4,7 @@ LABEL maintainer="wekan"
 # Set the environment variables (defaults where required)
 # DOES NOT WORK: paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
 # ENV BUILD_DEPS="paxctl"
-ENV BUILD_DEPS="apt-utils bsdtar gnupg gosu wget curl bzip2 g++ build-essential python python3 python3-pip git ca-certificates" \
+ENV BUILD_DEPS="apt-utils bsdtar gnupg gosu wget curl bzip2 g++ build-essential git ca-certificates" \
     DEBUG=false \
     NODE_VERSION=v8.16.0 \
     METEOR_RELEASE=1.8.1 \
@@ -118,7 +118,7 @@ RUN \
     \
     # OS dependencies
     apt-get update -y && apt-get install -y --no-install-recommends ${BUILD_DEPS} && \
-    pip3 install -U pip setuptools wheel && \
+    #pip3 install -U pip setuptools wheel && \
     \
     # Meteor installer doesn't work with the default tar binary, so using bsdtar while installing.
     # https://github.com/coreos/bugs/issues/1095#issuecomment-350574389
@@ -174,7 +174,7 @@ RUN \
     mv node-${NODE_VERSION}-${ARCHITECTURE} /opt/nodejs && \
     ln -s /opt/nodejs/bin/node /usr/bin/node && \
     ln -s /opt/nodejs/bin/npm /usr/bin/npm && \
-    mkdir -p /opt/nodejs/lib/node_modules/fibers/.node-gyp /root/.node-gyp/8.16.0 /home/wekan/.config && \
+    #mkdir -p /opt/nodejs/lib/node_modules/fibers/.node-gyp /root/.node-gyp/8.16.0 /home/wekan/.config && \
     chown wekan --recursive /home/wekan/.config && \
     \
     #DOES NOT WORK: paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
@@ -182,9 +182,9 @@ RUN \
     \
     # Install Node dependencies. Python path for node-gyp.
     npm install -g npm@${NPM_VERSION} && \
-    npm config set python python2.7 && \
-    npm install -g node-gyp && \
-    npm install -g fibers@${FIBERS_VERSION} && \
+    #npm config set python python2.7 && \
+    #npm install -g node-gyp && \
+    #npm install -g fibers@${FIBERS_VERSION} && \
     \
     # Change user to wekan and install meteor
     cd /home/wekan/ && \
@@ -227,18 +227,18 @@ RUN \
     gosu wekan:wekan /home/wekan/.meteor/meteor -- help; \
     \
     # extract the OpenAPI specification
-    npm install -g api2html@0.3.3 && \
-    mkdir -p /home/wekan/python && \
-    chown wekan --recursive /home/wekan/python && \
-    cd /home/wekan/python && \
-    gosu wekan:wekan git clone --depth 1 -b master https://github.com/Kronuz/esprima-python && \
-    cd /home/wekan/python/esprima-python && \
-    python3 setup.py install --record files.txt && \
-    cd /home/wekan/app && \
-    mkdir -p /home/wekan/app/public/api && \
-    chown wekan --recursive /home/wekan/app && \
-    gosu wekan:wekan python3 ./openapi/generate_openapi.py --release $(git describe --tags --abbrev=0) > ./public/api/wekan.yml && \
-    gosu wekan:wekan /opt/nodejs/bin/api2html -c ./public/logo-header.png -o ./public/api/wekan.html ./public/api/wekan.yml; \
+    #npm install -g api2html@0.3.3 && \
+    #mkdir -p /home/wekan/python && \
+    #chown wekan --recursive /home/wekan/python && \
+    #cd /home/wekan/python && \
+    #gosu wekan:wekan git clone --depth 1 -b master https://github.com/Kronuz/esprima-python && \
+    #cd /home/wekan/python/esprima-python && \
+    #python3 setup.py install --record files.txt && \
+    #cd /home/wekan/app && \
+    #mkdir -p /home/wekan/app/public/api && \
+    #chown wekan --recursive /home/wekan/app && \
+    #gosu wekan:wekan python3 ./openapi/generate_openapi.py --release $(git describe --tags --abbrev=0) > ./public/api/wekan.yml && \
+    #gosu wekan:wekan /opt/nodejs/bin/api2html -c ./public/logo-header.png -o ./public/api/wekan.html ./public/api/wekan.yml; \
     # Build app
     cd /home/wekan/app && \
     mkdir -p /home/wekan/.npm && \
@@ -271,7 +271,7 @@ RUN \
     rm -R /home/wekan/.meteor && \
     rm -R /home/wekan/app && \
     rm -R /home/wekan/app_build && \
-    cat /home/wekan/python/esprima-python/files.txt | xargs rm -R && \
+    #cat /home/wekan/python/esprima-python/files.txt | xargs rm -R && \
     rm -R /home/wekan/python
     #rm /home/wekan/install_meteor.sh
 
