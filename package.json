@@ -45,7 +45,7 @@
     "eslint-config-prettier": "^3.6.0",
     "eslint-import-resolver-meteor": "^0.4.0",
     "eslint-plugin-import": "^2.18.0",
-    "eslint-plugin-meteor": "^4.2.2",
+    "eslint-plugin-meteor": "^5.1.0",
     "eslint-plugin-prettier": "^3.1.0",
     "lint-staged": "^7.3.0",
     "pre-commit": "^1.2.2",
@@ -54,6 +54,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.5.4",
+    "ajv": "^5.0.0",
     "bcrypt": "^3.0.2",
     "bson": "^4.0.0",
     "bunyan": "^1.8.12",
