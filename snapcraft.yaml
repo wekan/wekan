@@ -85,13 +85,13 @@ parts:
 #            - node-gyp
 #            - node-pre-gyp
 #            - fibers@4.0.1
-        #build-packages:
-        #    - ca-certificates
-        #    - apt-utils
+        build-packages:
+            - ca-certificates
+            - apt-utils
         ##   - python3
         #    - gcc++-8
         #    - capnproto
-        #    - curl
+            - curl
         #    - execstack
         #    - nodejs
         #    - npm
