@@ -21,6 +21,11 @@ SET PORT=2000
 REM # If you disable Wekan API with false, Export Board does not work.
 SET WITH_API=true
 
+REM # ==== Allow to shrink attached/pasted image ====
+REM # https://github.com/wekan/wekan/pull/2544
+REM SET MAX_IMAGE_PIXEL=1024
+REM SET IMAGE_COMPRESS_RATIO=80
+
 REM # ==== PASSWORD BRUTE FORCE PROTECTION ====
 REM #https://atmospherejs.com/lucasantoniassi/accounts-lockout
 REM #Defaults below. Uncomment to change. wekan/server/accounts-lockout.js
