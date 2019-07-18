@@ -82,13 +82,13 @@ BlazeComponent.extendComponent({
         },
         'click .js-accept-invite'() {
           const boardId = this.currentData()._id;
-          Meteor.user().removeInvite(boardId);
+          Meteor.call('acceptInvite', boardId);
         },
         'click .js-decline-invite'() {
           const boardId = this.currentData()._id;
           Meteor.call('quitBoard', boardId, (err, ret) => {
             if (!err && ret) {
-              Meteor.user().removeInvite(boardId);
+              Meteor.call('acceptInvite', boardId);
               FlowRouter.go('home');
             }
           });
