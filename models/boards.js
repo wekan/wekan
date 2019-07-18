@@ -952,6 +952,19 @@ if (Meteor.isServer) {
         } else throw new Meteor.Error('error-board-notAMember');
       } else throw new Meteor.Error('error-board-doesNotExist');
     },
+    acceptInvite(boardId) {
+      check(boardId, String);
+      const board = Boards.findOne(boardId);
+      if (!board) {
+        throw new Meteor.Error('error-board-doesNotExist');
+      }
+
+      Meteor.users.update(Meteor.userId(), {
+        $pull: {
+          'profile.invitedBoards': boardId,
+        },
+      });
+    },
   });
 
   Meteor.methods({
