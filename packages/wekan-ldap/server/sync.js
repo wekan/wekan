@@ -1,4 +1,5 @@
 import _ from 'underscore';
+import SyncedCron from 'meteor/percolate:synced-cron';
 import LDAP from './ldap';
 import { log_debug, log_info, log_warn, log_error } from './logger';
 
@@ -418,30 +419,35 @@ function sync() {
 const jobName = 'LDAP_Sync';
 
 const addCronJob = _.debounce(Meteor.bindEnvironment(function addCronJobDebounced() {
+  let sc=SyncedCron.SyncedCron; //Why ?? something must be wrong in the import
   if (LDAP.settings_get('LDAP_BACKGROUND_SYNC') !== true) {
     log_info('Disabling LDAP Background Sync');
-    if (SyncedCron.nextScheduledAtDate(jobName)) {
-      SyncedCron.remove(jobName);
+    if (sc.nextScheduledAtDate(jobName)) {
+      sc.remove(jobName);
     }
     return;
   }
 
-  if (LDAP.settings_get('LDAP_BACKGROUND_SYNC_INTERVAL')) {
-    log_info('Enabling LDAP Background Sync');
-    SyncedCron.add({
-      name: jobName,
-      schedule: (parser) => parser.text(LDAP.settings_get('LDAP_BACKGROUND_SYNC_INTERVAL')),
-      job() {
-        sync();
-      },
-    });
-    SyncedCron.start();
-  }
+  log_info('Enabling LDAP Background Sync');
+  sc.add({
+    name: jobName,
+    schedule: function(parser) {
+    if (LDAP.settings_get('LDAP_BACKGROUND_SYNC_INTERVAL')) {
+       return parser.text(LDAP.settings_get('LDAP_BACKGROUND_SYNC_INTERVAL'));
+    }
+    else {
+       return parser.recur().on(0).minute();
+    }},
+    job: function() {
+      sync();
+    },
+  });
+  sc.start();
+
 }), 500);
 
 Meteor.startup(() => {
   Meteor.defer(() => {
-    LDAP.settings_get('LDAP_BACKGROUND_SYNC', addCronJob);
-    LDAP.settings_get('LDAP_BACKGROUND_SYNC_INTERVAL', addCronJob);
+    if(LDAP.settings_get('LDAP_BACKGROUND_SYNC')){addCronJob();}
   });
 });
