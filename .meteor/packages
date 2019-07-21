@@ -94,3 +94,4 @@ lamhieu:unblock
 meteorhacks:aggregate@1.3.0
 wekan-markdown
 konecty:mongo-counter
+percolate:synced-cron
