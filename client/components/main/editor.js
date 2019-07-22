@@ -1,9 +1,7 @@
 Template.editor.onRendered(() => {
-  const $textarea = this.$('textarea');
-
-  autosize($textarea);
-
-  $textarea.escapeableTextComplete([
+  const textareaSelector = 'textarea';
+  const disableRicherEditor = Meteor.settings.public.NO_RICHER_EDITOR;
+  const mentions = [
     // User mentions
     {
       match: /\B@([\w.]*)$/,
@@ -27,7 +25,129 @@ Template.editor.onRendered(() => {
       },
       index: 1,
     },
-  ]);
+  ];
+  if (!disableRicherEditor) {
+    const isSmall = Utils.isMiniScreen();
+    const toolbar = isSmall
+      ? [
+          ['font', ['bold', 'underline']],
+          ['fontsize', ['fontsize']],
+          ['color', ['color']],
+          ['table', ['table']],
+          ['view', ['fullscreen']],
+        ]
+      : [
+          ['style', ['style']],
+          ['font', ['bold', 'underline', 'clear']],
+          ['fontsize', ['fontsize']],
+          ['fontname', ['fontname']],
+          ['color', ['color']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          ['table', ['table']],
+          //['insert', ['link', 'picture', 'video']], // iframe tag will be sanitized TODO if iframe[class=note-video-clip] can be added into safe list, insert video can be enabled
+          ['insert', ['link', 'picture']],
+          ['view', ['fullscreen', 'help']],
+        ];
+    const cleanPastedHTML = function(input) {
+      const badTags = [
+        'style',
+        'script',
+        'applet',
+        'embed',
+        'noframes',
+        'noscript',
+        'meta',
+        'link',
+        'button',
+        'form',
+      ].join('|');
+      const badPatterns = new RegExp(
+        `(?:${[
+          `<(${badTags})s*[^>][\\s\\S]*?<\\/\\1>`,
+          `<(${badTags})[^>]*?\\/>`,
+        ].join('|')})`,
+        'gi',
+      );
+      let output = input;
+      // remove bad Tags
+      output = output.replace(badPatterns, '');
+      // remove attributes ' style="..."'
+      const badAttributes = new RegExp(
+        `(?:${[
+          'on\\S+=([\'"]?).*?\\1',
+          'href=([\'"]?)javascript:.*?\\2',
+          'style=([\'"]?).*?\\3',
+          'target=\\S+',
+        ].join('|')})`,
+        'gi',
+      );
+      output = output.replace(badAttributes, '');
+      output = output.replace(/(<a )/gi, '$1target=_ '); // always to new target
+      return output;
+    };
+    const editor = '.editor';
+    const selectors = [
+      `.js-new-comment-form ${editor}`,
+      `.js-edit-comment ${editor}`,
+    ].join(','); // only new comment and edit comment
+    $(selectors).summernote({
+      callbacks: {
+        onInit(object) {
+          const jEditor = object && object.editor;
+          const toolbar = object && object.toolbar;
+          if (jEditor !== undefined) {
+            jEditor.find('.note-editable').escapeableTextComplete(mentions);
+          }
+          if (toolbar !== undefined) {
+            const fBtn = toolbar.find('.btn-fullscreen');
+            fBtn.on('click', function() {
+              const $this = $(this),
+                isActive = $this.hasClass('active');
+              $('.minicards').toggle(!isActive); // mini card is still showing when editor is in fullscreen mode, we hide here manually
+            });
+          }
+        },
+        onPaste() {
+          // clear up unwanted tag info when user pasted in text
+          const thisNote = $(this);
+          const updatePastedText = function(someNote) {
+            const original = someNote.summernote('code');
+            const cleaned = cleanPastedHTML(original); //this is where to call whatever clean function you want. I have mine in a different file, called CleanPastedHTML.
+            someNote.summernote('code', ''); //clear original
+            someNote.summernote('pasteHTML', cleaned); //this sets the displayed content editor to the cleaned pasted code.
+          };
+          setTimeout(function() {
+            //this kinda sucks, but if you don't do a setTimeout,
+            //the function is called before the text is really pasted.
+            updatePastedText(thisNote);
+          }, 10);
+        },
+      },
+      dialogsInBody: true,
+      disableDragAndDrop: true,
+      toolbar,
+      popover: {
+        image: [
+          [
+            'image',
+            ['resizeFull', 'resizeHalf', 'resizeQuarter', 'resizeNone'],
+          ],
+          ['float', ['floatLeft', 'floatRight', 'floatNone']],
+          ['remove', ['removeMedia']],
+        ],
+        table: [
+          ['add', ['addRowDown', 'addRowUp', 'addColLeft', 'addColRight']],
+          ['delete', ['deleteRow', 'deleteCol', 'deleteTable']],
+        ],
+        air: [['color', ['color']], ['font', ['bold', 'underline', 'clear']]],
+      },
+      height: 200,
+    });
+  } else {
+    const $textarea = this.$(textareaSelector);
+    autosize($textarea);
+    $textarea.escapeableTextComplete(mentions);
+  }
 });
 
 import sanitizeXss from 'xss';
