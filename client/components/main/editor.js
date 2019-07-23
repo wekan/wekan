@@ -26,15 +26,20 @@ Template.editor.onRendered(() => {
       index: 1,
     },
   ];
+  const enableTextarea = function() {
+    const $textarea = this.$(textareaSelector);
+    autosize($textarea);
+    $textarea.escapeableTextComplete(mentions);
+  };
   if (!disableRicherEditor) {
     const isSmall = Utils.isMiniScreen();
     const toolbar = isSmall
       ? [
-          ['font', ['bold', 'underline']],
-          ['fontsize', ['fontsize']],
-          ['color', ['color']],
-          ['table', ['table']],
           ['view', ['fullscreen']],
+          ['table', ['table']],
+          ['font', ['bold', 'underline']],
+          //['fontsize', ['fontsize']],
+          ['color', ['color']],
         ]
       : [
           ['style', ['style']],
@@ -45,7 +50,7 @@ Template.editor.onRendered(() => {
           ['para', ['ul', 'ol', 'paragraph']],
           ['table', ['table']],
           //['insert', ['link', 'picture', 'video']], // iframe tag will be sanitized TODO if iframe[class=note-video-clip] can be added into safe list, insert video can be enabled
-          ['insert', ['link', 'picture']],
+          //['insert', ['link', 'picture']], // modal popup has issue somehow :(
           ['view', ['fullscreen', 'help']],
         ];
     const cleanPastedHTML = function(input) {
@@ -90,63 +95,92 @@ Template.editor.onRendered(() => {
       `.js-new-comment-form ${editor}`,
       `.js-edit-comment ${editor}`,
     ].join(','); // only new comment and edit comment
-    $(selectors).summernote({
-      callbacks: {
-        onInit(object) {
-          const jEditor = object && object.editor;
-          const toolbar = object && object.toolbar;
-          if (jEditor !== undefined) {
-            jEditor.find('.note-editable').escapeableTextComplete(mentions);
-          }
-          if (toolbar !== undefined) {
-            const fBtn = toolbar.find('.btn-fullscreen');
-            fBtn.on('click', function() {
-              const $this = $(this),
-                isActive = $this.hasClass('active');
-              $('.minicards').toggle(!isActive); // mini card is still showing when editor is in fullscreen mode, we hide here manually
-            });
-          }
-        },
-        onPaste() {
-          // clear up unwanted tag info when user pasted in text
-          const thisNote = $(this);
-          const updatePastedText = function(someNote) {
-            const original = someNote.summernote('code');
-            const cleaned = cleanPastedHTML(original); //this is where to call whatever clean function you want. I have mine in a different file, called CleanPastedHTML.
-            someNote.summernote('code', ''); //clear original
-            someNote.summernote('pasteHTML', cleaned); //this sets the displayed content editor to the cleaned pasted code.
-          };
-          setTimeout(function() {
-            //this kinda sucks, but if you don't do a setTimeout,
-            //the function is called before the text is really pasted.
-            updatePastedText(thisNote);
-          }, 10);
-        },
-      },
-      dialogsInBody: true,
-      disableDragAndDrop: true,
-      toolbar,
-      popover: {
-        image: [
-          [
-            'image',
-            ['resizeFull', 'resizeHalf', 'resizeQuarter', 'resizeNone'],
-          ],
-          ['float', ['floatLeft', 'floatRight', 'floatNone']],
-          ['remove', ['removeMedia']],
-        ],
-        table: [
-          ['add', ['addRowDown', 'addRowUp', 'addColLeft', 'addColRight']],
-          ['delete', ['deleteRow', 'deleteCol', 'deleteTable']],
-        ],
-        air: [['color', ['color']], ['font', ['bold', 'underline', 'clear']]],
-      },
-      height: 200,
-    });
+    const inputs = $(selectors);
+    if (inputs.length === 0) {
+      // only enable richereditor to new comment or edit comment no others
+      enableTextarea();
+    } else {
+      const placeholder = inputs.attr('placeholder') || '';
+      const mSummernotes = [];
+      const getSummernote = function(input) {
+        const idx = inputs.index(input);
+        if (idx > -1) {
+          return mSummernotes[idx];
+        }
+        return undefined;
+      };
+      inputs.each(function(idx, input) {
+        mSummernotes[idx] = $(input).summernote({
+          placeholder,
+          callbacks: {
+            onInit(object) {
+              const originalInput = this;
+              $(originalInput).on('input', function() {
+                // when comment is submitted, the original textarea will be set to '', so shall we
+                if (!this.value) {
+                  const sn = getSummernote(this);
+                  sn && sn.summernote('reset');
+                  object && object.editingArea.find('.note-placeholder').show();
+                }
+              });
+              const jEditor = object && object.editable;
+              const toolbar = object && object.toolbar;
+              if (jEditor !== undefined) {
+                jEditor.escapeableTextComplete(mentions);
+              }
+              if (toolbar !== undefined) {
+                const fBtn = toolbar.find('.btn-fullscreen');
+                fBtn.on('click', function() {
+                  const $this = $(this),
+                    isActive = $this.hasClass('active');
+                  $('.minicards').toggle(!isActive); // mini card is still showing when editor is in fullscreen mode, we hide here manually
+                });
+              }
+            },
+            onPaste() {
+              // clear up unwanted tag info when user pasted in text
+              const thisNote = this;
+              const updatePastedText = function(object) {
+                const someNote = getSummernote(object);
+                const original = someNote.summernote('code');
+                const cleaned = cleanPastedHTML(original); //this is where to call whatever clean function you want. I have mine in a different file, called CleanPastedHTML.
+                someNote.summernote('reset'); //clear original
+                someNote.summernote('pasteHTML', cleaned); //this sets the displayed content editor to the cleaned pasted code.
+              };
+              setTimeout(function() {
+                //this kinda sucks, but if you don't do a setTimeout,
+                //the function is called before the text is really pasted.
+                updatePastedText(thisNote);
+              }, 10);
+            },
+          },
+          dialogsInBody: true,
+          disableDragAndDrop: true,
+          toolbar,
+          popover: {
+            image: [
+              [
+                'image',
+                ['resizeFull', 'resizeHalf', 'resizeQuarter', 'resizeNone'],
+              ],
+              ['float', ['floatLeft', 'floatRight', 'floatNone']],
+              ['remove', ['removeMedia']],
+            ],
+            table: [
+              ['add', ['addRowDown', 'addRowUp', 'addColLeft', 'addColRight']],
+              ['delete', ['deleteRow', 'deleteCol', 'deleteTable']],
+            ],
+            air: [
+              ['color', ['color']],
+              ['font', ['bold', 'underline', 'clear']],
+            ],
+          },
+          height: 200,
+        });
+      });
+    }
   } else {
-    const $textarea = this.$(textareaSelector);
-    autosize($textarea);
-    $textarea.escapeableTextComplete(mentions);
+    enableTextarea();
   }
 });
 

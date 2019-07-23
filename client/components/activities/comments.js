@@ -54,7 +54,7 @@ BlazeComponent.extendComponent({
 
 // XXX This should be a static method of the `commentForm` component
 function resetCommentInput(input) {
-  input.val('');
+  input.val('').trigger('input'); // without manually trigger, input event won't be fired
   input.blur();
   commentFormIsOpen.set(false);
 }
