@@ -18,6 +18,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Many](https://github.com/wekan/wekan/pull/2546) [Snap](https://github.com/wekan/wekan/pull/2552) [fixes](https://github.com/wekan/wekan/pull/2553).
   In Progress. Thanks to justrinr1234.
+- [Try to fix Dockerfile](https://github.com/wekan/wekan/commit/7df6f305c5cf41ac213623aeffaa7e48c981e0b6).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
