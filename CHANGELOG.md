@@ -11,7 +11,7 @@ and fixes the following bugs:
 
 - [Fix invites](https://github.com/wekan/wekan/pull/2549).
   Thanks to justinr1234.
-- [Makes LDAP background sync work. If the sync interval is unspecified, falls back to a hourly default)(https://github.com/wekan/wekan/pull/2555).
+- [Makes LDAP background sync work. If the sync interval is unspecified, falls back to a hourly default](https://github.com/wekan/wekan/pull/2555).
   Thanks to pshunter.
 - [Prevent isCommentOnly user adding attachments, editing list names, moving lists,
   and seeing board settings menu. Show non-editable Custom Fields to isCommentOnly user](https://github.com/wekan/wekan/commit/a68c928896a94c377134f29a7183aa0b5a423720).
