@@ -9,6 +9,8 @@ version: '2'
 # https://github.com/wekan/wekan/wiki/Forgot-Password
 #---------------------------------------------------------------------------------------------------------
 # ==== Upgrading Wekan to new version =====
+# NOTE: MongoDB has changed from 3.x to 4.x, in that case you need backup/restore with --noIndexRestore
+#       see https://github.com/wekan/wekan/wiki/Backup
 # 1) Stop Wekan:
 #      docker-compose stop
 # 2) Download new version:
@@ -90,9 +92,9 @@ services:
   wekandb:
     #-------------------------------------------------------------------------------------
     # ==== MONGODB AND METEOR VERSION ====
-    # a) For Wekan Meteor 1.8.x version at meteor-1.8 branch, use mongo 4.x
+    # a) For Wekan Meteor 1.8.x version at master branch, use mongo 4.x
     image: mongo:4.0.10
-    # b) For Wekan Meteor 1.6.x version at master/devel/edge branches.
+    # b) For Wekan Meteor 1.6.x version at devel branch.
     # Only for Snap and Sandstorm while they are not upgraded yet to Meteor 1.8.x
     #image: mongo:3.2.21
     #-------------------------------------------------------------------------------------
@@ -110,17 +112,18 @@ services:
   wekan:
     #-------------------------------------------------------------------------------------
     # ==== MONGODB AND METEOR VERSION ====
-    # a) For Wekan Meteor 1.8.x version at meteor-1.8 branch,
+    # NOTE: Quay is currently not updated, use Docker Hub image below c)
+    # a) For Wekan Meteor 1.8.x version at master branch,
     #    using https://quay.io/wekan/wekan automatic builds
-    #image: quay.io/wekan/wekan:meteor-1.8
+    #image: quay.io/wekan/wekan:master
     # b) For Wekan Meteor 1.6.x version at master/devel/edge branches.
     # Only for Snap and Sandstorm while they are not upgraded yet to Meteor 1.8.x
-    image: quay.io/wekan/wekan:master
+    #image: quay.io/wekan/wekan:master
     # c) Using specific Meteor 1.6.x version tag:
     # image: quay.io/wekan/wekan:v1.95
     # c) Using Docker Hub automatic builds https://hub.docker.com/r/wekanteam/wekan
-    # image: wekanteam/wekan:meteor-1.8
-    # image: wekanteam/wekan:v1.95
+    image: wekanteam/wekan
+    # image: wekanteam/wekan:v2.99
     #-------------------------------------------------------------------------------------
     container_name: wekan-app
     restart: always
