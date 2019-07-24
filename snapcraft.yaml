@@ -92,7 +92,7 @@ parts:
         #    - gcc++-8
         #    - capnproto
             - curl
-            - libcurl4
+            - libcurl3
             - php-curl
         #    - execstack
         #    - nodejs
