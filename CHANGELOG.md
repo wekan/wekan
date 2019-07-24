@@ -1,4 +1,11 @@
-# Upcoming Wekan release
+# v3.00 2019-07-25 Wekan release
+
+This release:
+
+- works with source, and docker-compose.yml at master branch.
+- Docker release uses Meteor 1.8.1 and MongoDB 4.0.10, so you need to backup your old MongoDB database and
+  restore with --noIndexRestore as described at https://github.com/wekan/wekan/wiki/Backup
+- Snap and Sandstorm builds are not fixed yet, see progress at https://github.com/wekan/wekan/issues/2533
 
 This release adds the following new features:
 
@@ -18,7 +25,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Many](https://github.com/wekan/wekan/pull/2546) [Snap](https://github.com/wekan/wekan/pull/2552) [fixes](https://github.com/wekan/wekan/pull/2553).
   In Progress. Thanks to justrinr1234.
-- [Try to fix Dockerfile](https://github.com/wekan/wekan/commit/7df6f305c5cf41ac213623aeffaa7e48c981e0b6).
+- [Fixed Dockerfile](https://github.com/wekan/wekan/commit/7df6f305c5cf41ac213623aeffaa7e48c981e0b6) and
+  [docker-compose.yml](https://github.com/wekan/wekan/commit/95698911f92ca728dbaab69406fd09bcbf81339d).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
