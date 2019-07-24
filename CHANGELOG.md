@@ -1,3 +1,26 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Added label text to labels on minicard](https://github.com/wekan/wekan/commit/c48d5a73cab04db1a1e113e4367dc88573110438).
+  Thanks to xet7.
+- [Allow to shrink attached/pasted image](https://github.com/wekan/wekan/pull/2544).
+  Thanks to whowillcare.
+
+and fixes the following bugs:
+
+- [Fix invites](https://github.com/wekan/wekan/pull/2549).
+  Thanks to justinr1234.
+- [Makes LDAP background sync work. If the sync interval is unspecified, falls back to a hourly default)(https://github.com/wekan/wekan/pull/2555).
+  Thanks to pshunter.
+- [Prevent isCommentOnly user adding attachments, editing list names, moving lists,
+  and seeing board settings menu. Show non-editable Custom Fields to isCommentOnly user](https://github.com/wekan/wekan/commit/a68c928896a94c377134f29a7183aa0b5a423720).
+  Thanks to xet7.
+- [Many](https://github.com/wekan/wekan/pull/2546) [Snap](https://github.com/wekan/wekan/pull/2552) [fixes](https://github.com/wekan/wekan/pull/2553).
+  In Progress. Thanks to justrinr1234.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v2.99 2019-07-17 Wekan release
 
 This release adds the following new features:
