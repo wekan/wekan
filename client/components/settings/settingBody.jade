@@ -44,7 +44,7 @@ template(name="general")
         ul
           li
             .title {{_ 'invite-people'}}
-            textarea#email-to-invite.form-control(rows='5', placeholder="{{_ 'email-addresses'}}")
+            textarea#email-to-invite.wekan-form-control(rows='5', placeholder="{{_ 'email-addresses'}}")
           li
             .title {{_ 'to-boards'}}
             .bg-white
@@ -63,20 +63,20 @@ template(name='email')
       .title {{_ 'smtp-host'}}
       .description {{_ 'smtp-host-description'}}
       .form-group
-        input.form-control#mail-server-host(type="text", placeholder="smtp.domain.com" value="{{currentSetting.mailServer.host}}")
+        input.wekan-form-control#mail-server-host(type="text", placeholder="smtp.domain.com" value="{{currentSetting.mailServer.host}}")
     li.smtp-form
       .title {{_ 'smtp-port'}}
       .description {{_ 'smtp-port-description'}}
       .form-group
-        input.form-control#mail-server-port(type="text", placeholder="25" value="{{currentSetting.mailServer.port}}")
+        input.wekan-form-control#mail-server-port(type="text", placeholder="25" value="{{currentSetting.mailServer.port}}")
     li.smtp-form
       .title {{_ 'smtp-username'}}
       .form-group
-        input.form-control#mail-server-username(type="text", placeholder="{{_ 'username'}}" value="{{currentSetting.mailServer.username}}")
+        input.wekan-form-control#mail-server-username(type="text", placeholder="{{_ 'username'}}" value="{{currentSetting.mailServer.username}}")
     li.smtp-form
       .title {{_ 'smtp-password'}}
       .form-group
-        input.form-control#mail-server-password(type="password", placeholder="{{_ 'password'}}" value="{{currentSetting.mailServer.password}}")
+        input.wekan-form-control#mail-server-password(type="password", placeholder="{{_ 'password'}}" value="{{currentSetting.mailServer.password}}")
     li.smtp-form
       .title {{_ 'smtp-tls'}}
       .form-group
@@ -88,7 +88,7 @@ template(name='email')
     li.smtp-form
       .title {{_ 'send-from'}}
       .form-group
-        input.form-control#mail-server-from(type="email", placeholder="no-reply@domain.com" value="{{currentSetting.mailServer.from}}")
+        input.wekan-form-control#mail-server-from(type="email", placeholder="no-reply@domain.com" value="{{currentSetting.mailServer.from}}")
 
     li
       button.js-save.primary {{_ 'save'}}
@@ -101,17 +101,17 @@ template(name='accountSettings')
     li.accounts-form
       .title {{_ 'accounts-allowEmailChange'}}
       .form-group.flex
-        input.form-control#accounts-allowEmailChange(type="radio" name="allowEmailChange" value="true" checked="{{#if allowEmailChange}}checked{{/if}}")
+        input.wekan-form-control#accounts-allowEmailChange(type="radio" name="allowEmailChange" value="true" checked="{{#if allowEmailChange}}checked{{/if}}")
         span {{_ 'yes'}}
-        input.form-control#accounts-allowEmailChange(type="radio" name="allowEmailChange" value="false" checked="{{#unless allowEmailChange}}checked{{/unless}}")
+        input.wekan-form-control#accounts-allowEmailChange(type="radio" name="allowEmailChange" value="false" checked="{{#unless allowEmailChange}}checked{{/unless}}")
         span {{_ 'no'}}
     li
     li.accounts-form
       .title {{_ 'accounts-allowUserNameChange'}}
       .form-group.flex
-        input.form-control#accounts-allowUserNameChange(type="radio" name="allowUserNameChange" value="true" checked="{{#if allowUserNameChange}}checked{{/if}}")
+        input.wekan-form-control#accounts-allowUserNameChange(type="radio" name="allowUserNameChange" value="true" checked="{{#if allowUserNameChange}}checked{{/if}}")
         span {{_ 'yes'}}
-        input.form-control#accounts-allowUserNameChange(type="radio" name="allowUserNameChange" value="false" checked="{{#unless allowUserNameChange}}checked{{/unless}}")
+        input.wekan-form-control#accounts-allowUserNameChange(type="radio" name="allowUserNameChange" value="false" checked="{{#unless allowUserNameChange}}checked{{/unless}}")
         span {{_ 'no'}}
     li
       button.js-accounts-save.primary {{_ 'save'}}
@@ -128,7 +128,7 @@ template(name='announcementSettings')
         ul
           li
             .title {{_ 'admin-announcement-title'}}
-            textarea#admin-announcement.form-control= currentSetting.body
+            textarea#admin-announcement.wekan-form-control= currentSetting.body
           li
             button.js-announcement-save.primary {{_ 'save'}}
 
@@ -137,16 +137,16 @@ template(name='layoutSettings')
     //li.layout-form
       .title {{_ 'hide-logo'}}
       .form-group.flex
-        input.form-control#hide-logo(type="radio" name="hideLogo" value="true" checked="{{#if currentSetting.hideLogo}}checked{{/if}}")
+        input.wekan-form-control#hide-logo(type="radio" name="hideLogo" value="true" checked="{{#if currentSetting.hideLogo}}checked{{/if}}")
         span {{_ 'yes'}}
-        input.form-control#hide-logo(type="radio" name="hideLogo" value="false" checked="{{#unless currentSetting.hideLogo}}checked{{/unless}}")
+        input.wekan-form-control#hide-logo(type="radio" name="hideLogo" value="false" checked="{{#unless currentSetting.hideLogo}}checked{{/unless}}")
         span {{_ 'no'}}
     li.layout-form
       .title {{_ 'display-authentication-method'}}
       .form-group.flex
-        input.form-control#display-authentication-method(type="radio" name="displayAuthenticationMethod" value="true" checked="{{#if currentSetting.displayAuthenticationMethod}}checked{{/if}}")
+        input.wekan-form-control#display-authentication-method(type="radio" name="displayAuthenticationMethod" value="true" checked="{{#if currentSetting.displayAuthenticationMethod}}checked{{/if}}")
         span {{_ 'yes'}}
-        input.form-control#display-authentication-method(type="radio" name="displayAuthenticationMethod" value="false" checked="{{#unless currentSetting.displayAuthenticationMethod}}checked{{/unless}}")
+        input.wekan-form-control#display-authentication-method(type="radio" name="displayAuthenticationMethod" value="false" checked="{{#unless currentSetting.displayAuthenticationMethod}}checked{{/unless}}")
         span {{_ 'no'}}
     li.layout-form
       .title {{_ 'default-authentication-method'}}
@@ -154,13 +154,13 @@ template(name='layoutSettings')
     li.layout-form
       .title {{_ 'custom-product-name'}}
       .form-group
-        input.form-control#product-name(type="text", placeholder="" value="{{currentSetting.productName}}")
+        input.wekan-form-control#product-name(type="text", placeholder="" value="{{currentSetting.productName}}")
     li.layout-form
       .title {{_ 'add-custom-html-after-body-start'}}
-      textarea#customHTMLafterBodyStart.form-control= currentSetting.customHTMLafterBodyStart
+      textarea#customHTMLafterBodyStart.wekan-form-control= currentSetting.customHTMLafterBodyStart
     li.layout-form
       .title {{_ 'add-custom-html-before-body-end'}}
-      textarea#customHTMLbeforeBodyEnd.form-control= currentSetting.customHTMLbeforeBodyEnd
+      textarea#customHTMLbeforeBodyEnd.wekan-form-control= currentSetting.customHTMLbeforeBodyEnd
     li
       button.js-save-layout.primary {{_ 'save'}}
 

@@ -1,6 +1,6 @@
 Template.editor.onRendered(() => {
   const textareaSelector = 'textarea';
-  const disableRicherEditor = Meteor.settings.public.NO_RICHER_EDITOR;
+  const enableRicherEditor = Meteor.settings.public.RICHER_EDITOR || true;
   const mentions = [
     // User mentions
     {
@@ -31,7 +31,7 @@ Template.editor.onRendered(() => {
     autosize($textarea);
     $textarea.escapeableTextComplete(mentions);
   };
-  if (!disableRicherEditor) {
+  if (enableRicherEditor) {
     const isSmall = Utils.isMiniScreen();
     const toolbar = isSmall
       ? [
