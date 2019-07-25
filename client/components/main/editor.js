@@ -1,6 +1,7 @@
 Template.editor.onRendered(() => {
   const textareaSelector = 'textarea';
-  const enableRicherEditor = Meteor.settings.public.RICHER_EDITOR || true;
+  const enableRicherEditor =
+    Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR || true;
   const mentions = [
     // User mentions
     {
