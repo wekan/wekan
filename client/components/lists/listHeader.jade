@@ -9,7 +9,7 @@ template(name="listHeader")
         if currentList
           a.list-header-left-icon.fa.fa-angle-left.js-unselect-list
       h2.list-header-name(
-        class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
+        class="{{#if currentUser.isBoardMember}}{{#unless currentUser.isCommentOnly}}js-open-inlined-form is-editable{{/unless}}{{/if}}")
         +viewer
           = title
         if wipLimit.enabled

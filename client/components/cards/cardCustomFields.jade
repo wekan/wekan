@@ -31,6 +31,10 @@ template(name="cardCustomField-text")
                         = value
                 else
                     | {{_ 'edit'}}
+    else
+      +viewer
+        = value
+
 
 template(name="cardCustomField-number")
     if canModifyCard
@@ -45,6 +49,9 @@ template(name="cardCustomField-number")
                     = value
                 else
                     | {{_ 'edit'}}
+    else
+        if value
+            = value
 
 template(name="cardCustomField-date")
     if canModifyCard
@@ -55,6 +62,11 @@ template(name="cardCustomField-date")
                         | {{showDate}}
             else
                 | {{_ 'edit'}}
+    else
+        if value
+            div.card-date
+                time(datetime="{{showISODate}}")
+                    | {{showDate}}
 
 template(name="cardCustomField-dropdown")
     if canModifyCard
@@ -79,3 +91,7 @@ template(name="cardCustomField-dropdown")
                         = selectedItem
                 else
                     | {{_ 'edit'}}
+    else
+        if value
+            +viewer
+                = selectedItem

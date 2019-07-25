@@ -174,7 +174,7 @@ RUN \
     mv node-${NODE_VERSION}-${ARCHITECTURE} /opt/nodejs && \
     ln -s /opt/nodejs/bin/node /usr/bin/node && \
     ln -s /opt/nodejs/bin/npm /usr/bin/npm && \
-    #mkdir -p /opt/nodejs/lib/node_modules/fibers/.node-gyp /root/.node-gyp/8.16.0 /home/wekan/.config && \
+    mkdir -p /opt/nodejs/lib/node_modules/fibers/.node-gyp /root/.node-gyp/8.16.0 /home/wekan/.config && \
     chown wekan --recursive /home/wekan/.config && \
     \
     #DOES NOT WORK: paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
@@ -196,8 +196,8 @@ RUN \
     #sed -i 's/VERBOSITY="--silent"/VERBOSITY="--progress-bar"/' ./install_meteor.sh && \
     echo "Starting meteor ${METEOR_RELEASE} installation...   \n" && \
     gosu wekan:wekan curl https://install.meteor.com/ | /bin/sh && \
-    #chown wekan /home/wekan/install_meteor.sh && \
-    #gosu wekan:wekan sh /home/wekan/install_meteor.sh; \
+    mv /root/.meteor /home/wekan/ && \
+    chown wekan --recursive /home/wekan/.meteor && \
     \
     # Check if opting for a release candidate instead of major release
     #if [ "$USE_EDGE" = false ]; then \
@@ -242,7 +242,7 @@ RUN \
     # Build app
     cd /home/wekan/app && \
     mkdir -p /home/wekan/.npm && \
-    chown wekan --recursive /home/wekan/.npm /home/wekan/.config && \
+    chown wekan --recursive /home/wekan/.npm /home/wekan/.config /home/wekan/.meteor && \
     #gosu wekan:wekan /home/wekan/.meteor/meteor add standard-minifier-js && \
     gosu wekan:wekan npm install && \
     gosu wekan:wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build && \
@@ -270,9 +270,9 @@ RUN \
     rm -R /var/lib/apt/lists/* && \
     rm -R /home/wekan/.meteor && \
     rm -R /home/wekan/app && \
-    rm -R /home/wekan/app_build && \
+    rm -R /home/wekan/app_build
     #cat /home/wekan/python/esprima-python/files.txt | xargs rm -R && \
-    rm -R /home/wekan/python
+    #rm -R /home/wekan/python
     #rm /home/wekan/install_meteor.sh
 
 ENV PORT=8080
