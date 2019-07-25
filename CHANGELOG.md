@@ -1,3 +1,16 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Rich text editor at card comments, based on
+  Summernote](https://github.com/wekan/wekan/pull/2560).
+  Thanks to whowillcare.
+- [Add setting RICHER_CARD_COMMENT_EDITOR=true to
+  Source/Snap/Docker/Sandstorm](https://github.com/wekan/wekan/commit/4aba290358455433c0fc676e8c9cf1bd627eddde).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.00 2019-07-25 Wekan release
 
 This release:
