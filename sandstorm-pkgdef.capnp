@@ -238,6 +238,7 @@ const myCommand :Spk.Manifest.Command = (
     # Note that this defines the *entire* environment seen by your app.
     (key = "PATH", value = "/usr/local/bin:/usr/bin:/bin"),
     (key = "WITH_API", value = "true"),
+    (key = "RICHER_CARD_COMMENT_EDITOR", value = "true"),
     (key = "MATOMO_ADDRESS", value=""),
     (key = "MATOMO_SITE_ID", value=""),
     (key = "MATOMO_DO_NOT_TRACK", value="true"),

@@ -21,6 +21,10 @@ SET PORT=2000
 REM # If you disable Wekan API with false, Export Board does not work.
 SET WITH_API=true
 
+REM # ==== RICH TEXT EDITOR IN CARD COMMENTS ====
+REM # https://github.com/wekan/wekan/pull/2560
+SET RICHER_CARD_COMMENT_EDITOR=true
+
 REM # ==== Allow to shrink attached/pasted image ====
 REM # https://github.com/wekan/wekan/pull/2544
 REM SET MAX_IMAGE_PIXEL=1024
