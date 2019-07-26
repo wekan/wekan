@@ -132,7 +132,7 @@ services:
         ' 1>/dev/null 2>&1 &
         mongod --replSet rs1
   wekan:
-    image: quay.io/wekan/wekan
+    image: wekanteam/wekan:latestdevel
     container_name: wekan-app
     restart: always
     networks:
@@ -337,8 +337,9 @@ services:
       #- LDAP_BACKGROUND_SYNC=false
       #
       # LDAP_BACKGROUND_SYNC_INTERVAL : At which interval does the background task sync in milliseconds
-      # example : LDAP_BACKGROUND_SYNC_INTERVAL=12345
-      #- LDAP_BACKGROUND_SYNC_INTERVAL=100
+      # Leave this unset, so it uses default, and does not crash.
+      # https://github.com/wekan/wekan/issues/2354#issuecomment-515305722
+      - LDAP_BACKGROUND_SYNC_INTERVAL=''
       #
       # LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED :
       # example : LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED=true
