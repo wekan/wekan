@@ -1,3 +1,20 @@
+# Upcoming Wekan release
+
+This release adds the following updates:
+
+- [Updated Wekan on OpenShift](https://github.com/wekan/wekan/commit/85ca2b1363ed0bad8639ba7ed65c55e445816947).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Set LDAP_BACKGROUND_SYNC_INTERVAL='' (empty string) so it works](https://github.com/wekan/wekan/commit/fff144a8279ac36ce83e6b975f17f6dbc35f39d6)
+  and [does not crash](https://github.com/wekan/wekan/issues/2354#issuecomment-515305722).
+  Also updated wekan-postgresql docker-compose.yml to use devel branch docker image, because ToroDB requires MongoDB 3.2,
+  it's not tested yet could newest master branch docker image work with MongoDB 3.2.  
+  Thanks to benh57 and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.01 2019-07-26 Wekan release
 
 This release adds the following new features:
