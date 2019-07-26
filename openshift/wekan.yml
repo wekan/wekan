@@ -352,17 +352,17 @@ parameters:
   name: VOLUME_CAPACITY
   required: true
   value: 1Gi
-- description: Version of MongoDB image to be used (2.4, 2.6, 3.2 or latest).
+- description: Version of MongoDB image to be used (3.6, 4.0.10).
   displayName: Version of MongoDB Image
   name: MONGODB_VERSION
   required: true
-  value: '3.2'
+  value: '4.0.10'
 - name: WEKAN_SERVICE_NAME
   displayName: Wekan Service Name
   value: wekan
   required: true
 - name: WEKAN_IMAGE
-  displayName: WeKan Docker Image
-  value: quay.io/wekan/wekan:latest
+  displayName: Wekan Docker Image
+  value: wekanteam/wekan:latest
   description: The metabase docker image to use
   required: true
