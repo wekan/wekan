@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v3.02 Upcoming Wekan release
 
 This release adds the following updates:
 
@@ -12,6 +12,12 @@ and fixes the following bugs:
   Also updated wekan-postgresql docker-compose.yml to use devel branch docker image, because ToroDB requires MongoDB 3.2,
   it's not tested yet could newest master branch docker image work with MongoDB 3.2.  
   Thanks to benh57 and xet7.
+
+and tries to fix following bugs:
+
+- [Try to fix Snap](https://github.com/wekan/wekan/commit/7cf6850cdf77ef51808784e3d275c5be86ff6c92).
+  This [will be tested soon, does this work](https://github.com/wekan/wekan/issues/2533#issuecomment-515329490).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
