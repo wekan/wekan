@@ -75,7 +75,6 @@ horka:swipebox
 dynamic-import@0.5.1
 staringatlights:fast-render
 
-mixmax:smart-disconnect
 accounts-password@1.5.1
 cfs:gridfs
 rzymek:fullcalendar
