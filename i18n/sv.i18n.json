@@ -719,5 +719,7 @@
   "act-almostdue": "påminde om den aktuella förfallotiden (__timeValue__) av __card__ närmar sig",
   "act-pastdue": "påminde om den aktuella förfallotiden (__timeValue__) av __card__ är förbi",
   "act-duenow": "påminde om den aktuella förfallotiden (__timeValue__) av __card__ är nu",
-  "act-atUserComment": "Du nämndes i [__board__] __card__"
+  "act-atUserComment": "Du nämndes i [__board__] __card__",
+  "delete-user-confirm-popup": "Are you sure you want to delete this account? There is no undo.",
+  "accounts-allowUserDelete": "Allow users to self delete their account"
 }
