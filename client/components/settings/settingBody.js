@@ -233,11 +233,16 @@ BlazeComponent.extendComponent({
       $('input[name=allowEmailChange]:checked').val() === 'true';
     const allowUserNameChange =
       $('input[name=allowUserNameChange]:checked').val() === 'true';
+    const allowUserDelete =
+      $('input[name=allowUserDelete]:checked').val() === 'true';
     AccountSettings.update('accounts-allowEmailChange', {
       $set: { booleanValue: allowEmailChange },
     });
     AccountSettings.update('accounts-allowUserNameChange', {
       $set: { booleanValue: allowUserNameChange },
+    });
+    AccountSettings.update('accounts-allowUserDelete', {
+      $set: { booleanValue: allowUserDelete },
     });
   },
 
@@ -246,6 +251,9 @@ BlazeComponent.extendComponent({
   },
   allowUserNameChange() {
     return AccountSettings.findOne('accounts-allowUserNameChange').booleanValue;
+  },
+  allowUserDelete() {
+    return AccountSettings.findOne('accounts-allowUserDelete').booleanValue;
   },
 
   events() {

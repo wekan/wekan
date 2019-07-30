@@ -243,8 +243,8 @@ Template.editUserPopup.events({
     } else Popup.close();
   },
 
-  'click #deleteButton'() {
+  'click #deleteButton': Popup.afterConfirm('userDelete', function() {
     Users.remove(this.userId);
     Popup.close();
-  },
+  }),
 });
