@@ -114,6 +114,14 @@ template(name='accountSettings')
         input.wekan-form-control#accounts-allowUserNameChange(type="radio" name="allowUserNameChange" value="false" checked="{{#unless allowUserNameChange}}checked{{/unless}}")
         span {{_ 'no'}}
     li
+    li.accounts-form
+      .title {{_ 'accounts-allowUserDelete'}}
+      .form-group.flex
+        input.wekan-form-control#accounts-allowUserDelete(type="radio" name="allowUserDelete" value="true" checked="{{#if allowUserDelete}}checked{{/if}}")
+        span {{_ 'yes'}}
+        input.wekan-form-control#accounts-allowUserDelete(type="radio" name="allowUserDelete" value="false" checked="{{#unless allowUserDelete}}checked{{/unless}}")
+        span {{_ 'no'}}
+    li
       button.js-accounts-save.primary {{_ 'save'}}
 
 template(name='announcementSettings')

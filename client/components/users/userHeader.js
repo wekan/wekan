@@ -35,6 +35,9 @@ Template.editProfilePopup.helpers({
   allowUserNameChange() {
     return AccountSettings.findOne('accounts-allowUserNameChange').booleanValue;
   },
+  allowUserDelete() {
+    return AccountSettings.findOne('accounts-allowUserDelete').booleanValue;
+  },
 });
 
 Template.editProfilePopup.events({
