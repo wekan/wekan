@@ -82,3 +82,8 @@ template(name="changeSettingsPopup")
         | {{_ 'show-cards-minimum-count'}}
       input#show-cards-count-at.inline-input.left(type="number" value="#{showCardsCountAt}" min="0" max="99" onkeydown="return false")
       input.js-apply-show-cards-at.left(type="submit" value="{{_ 'apply'}}")
+
+
+template(name="userDeletePopup")
+  p {{_ 'delete-user-confirm-popup'}}
+  button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
