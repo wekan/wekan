@@ -720,6 +720,6 @@
   "act-pastdue": "הזכירה שמועד היעד הנוכחי (__timeValue__) של __card__ חלף",
   "act-duenow": "הזכירה שמועד היעד הנוכחי (__timeValue__) של __card__ הוא עכשיו",
   "act-atUserComment": "אוזכרת תחת [__board__] ‏__card__",
-  "delete-user-confirm-popup": "Are you sure you want to delete this account? There is no undo.",
-  "accounts-allowUserDelete": "Allow users to self delete their account"
+  "delete-user-confirm-popup": "למחוק את החשבון הזה? אי אפשר לבטל.",
+  "accounts-allowUserDelete": "לאפשר למשתמשים למחוק את החשבונות של עצמם"
 }

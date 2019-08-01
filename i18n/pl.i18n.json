@@ -720,6 +720,6 @@
   "act-pastdue": "przypomina o ubiegłej dacie ukończenia (__timeValue__) karty __card__",
   "act-duenow": "przypomina o ubiegającej teraz dacie ukończenia (__timeValue__) karty __card__",
   "act-atUserComment": "Zostałeś wspomniany na __board__ (__card__)",
-  "delete-user-confirm-popup": "Are you sure you want to delete this account? There is no undo.",
-  "accounts-allowUserDelete": "Allow users to self delete their account"
+  "delete-user-confirm-popup": "Czy jesteś pewien, że chcesz usunąć te konto? Nie można tego wycofać.",
+  "accounts-allowUserDelete": "Pozwól użytkownikom na usuwanie własnych kont"
 }

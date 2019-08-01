@@ -720,6 +720,6 @@
   "act-pastdue": "was reminding the current due (__timeValue__) of __card__ is past",
   "act-duenow": "was reminding the current due (__timeValue__) of __card__ is now",
   "act-atUserComment": "You were mentioned in [__board__] __card__",
-  "delete-user-confirm-popup": "Are you sure you want to delete this account? There is no undo.",
-  "accounts-allowUserDelete": "Allow users to self delete their account"
+  "delete-user-confirm-popup": "Êtes-vous sûr de vouloir supprimer ce compte ? Cette opération ne peut pas être annulée. ",
+  "accounts-allowUserDelete": "Autoriser les utilisateurs à supprimer leur compte"
 }

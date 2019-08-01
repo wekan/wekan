@@ -720,6 +720,6 @@
   "act-pastdue": "__card__ 的当前到期提醒(__timeValue__) 已经过去了",
   "act-duenow": "__card__ 的当前到期提醒(__timeValue__) 现在到期",
   "act-atUserComment": "您在 [__board__] __card__中被提到",
-  "delete-user-confirm-popup": "Are you sure you want to delete this account? There is no undo.",
-  "accounts-allowUserDelete": "Allow users to self delete their account"
+  "delete-user-confirm-popup": "确实要删除此帐户吗？此操作无法撤销。",
+  "accounts-allowUserDelete": "允许用户自行删除其帐户"
 }
