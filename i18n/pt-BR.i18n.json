@@ -720,6 +720,6 @@
   "act-pastdue": "está lembrando que o prazo final atual (__timeValue__) do __card__ venceu",
   "act-duenow": "está lembrando que o prazo final (__timeValue__) do __card__ é agora",
   "act-atUserComment": "Você foi mencionado no [__board__] __card__",
-  "delete-user-confirm-popup": "Are you sure you want to delete this account? There is no undo.",
-  "accounts-allowUserDelete": "Allow users to self delete their account"
+  "delete-user-confirm-popup": "Você realmente quer apagar esta conta? Não há como desfazer.",
+  "accounts-allowUserDelete": "Permitir que usuários apaguem a própria conta"
 }
