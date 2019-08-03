@@ -203,9 +203,10 @@ parts:
             cp -f fix-download-unicode/cfs_access-point.txt .build/bundle/programs/server/packages/cfs_access-point.js
             # Disable code coverage on Snap, because it crashes Wekan starting.
             # https://github.com/wekan/wekan/issues/2533#issuecomment-513506939
+            #sed -i 's|Profile(fileInfo.path, func).apply(global, args);|//Profile(fileInfo.path, func).apply(global, args);|g' .build/bundle/programs/server/boot.js
+            #   although it did not help, it said unable to find main function.
             # Other option to fix would be to drop indexes at start of snap:
             # https://stackoverflow.com/questions/24241742/drop-all-indexes-from-all-collections-in-a-mongodb-database-using-the-command-li
-            sed -i 's|Profile(fileInfo.path, func).apply(global, args);|//Profile(fileInfo.path, func).apply(global, args);|g' .build/bundle/programs/server/boot.js
             #Removed binary version of bcrypt because of security vulnerability that is not fixed yet.
             #https://github.com/wekan/wekan/commit/4b2010213907c61b0e0482ab55abb06f6a668eac
             #https://github.com/wekan/wekan/commit/7eeabf14be3c63fae2226e561ef8a0c1390c8d3c

@@ -30,3 +30,6 @@ fi
 echo "mongodb bind options: $BIND_OPTIONS"
 
 mongod --dbpath $SNAP_COMMON --logpath $SNAP_COMMON/mongodb.log --logappend --journal $BIND_OPTIONS --smallfiles
+
+# Drop indexes on database upgrade, when starting MongoDB
+mongo wekan --eval "db.getCollectionNames().forEach(function(col_name) { var coll = db.getCollection(col_name); coll.dropIndexes(); });" $BIND_OPTIONS
