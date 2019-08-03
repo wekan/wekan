@@ -1,0 +1,9 @@
+targets:
+  ubuntu-18.04:
+  ubuntu-16.04:
+  ubuntu-14.04:
+  centos-6:
+  centos-7:
+  debian-10:
+  sles-12:
+  sles-11:
