@@ -1,4 +1,4 @@
-# Upcoming Wekan Docker/Bundle/Source release
+# v3.03 2019-08-04 Wekan release
 
 This release adds the following new features:
 
@@ -8,7 +8,8 @@ This release adds the following new features:
   Thanks to Akuket.
 - [Add admin setting to prevent users to self deleting their account](https://github.com/wekan/wekan/pull/2573).
   Thanks to Akuket.
-- [Add Packager.io DEB/RPM Wekan packages for Debian/Ubuntu/CentOS/SLES](https://packager.io/gh/wekan/wekan). Does not work yet, [debugging in progress here](https://github.com/wekan/wekan/issues/2582).
+- [Add Packager.io DEB/RPM Wekan packages for Debian/Ubuntu/CentOS/SLES](https://packager.io/gh/wekan/wekan).
+  Does not work yet, [debugging in progress here](https://github.com/wekan/wekan/issues/2582).
   Thanks to xet7 and sfahrenholz.
 - [Add setting field LDAP_USER_AUTHENTICATION_FIELD=uid](https://github.com/wekan/wekan/pull/2581).
   Thanks to Trekky12.
