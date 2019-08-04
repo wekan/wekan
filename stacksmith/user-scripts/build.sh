@@ -7,7 +7,7 @@ NODE_VERSION=v8.16.0
 USE_EDGE=false
 METEOR_EDGE=1.5-beta.17
 NPM_VERSION=latest
-FIBERS_VERSION=2.0.0
+FIBERS_VERSION=4.0.1
 ARCHITECTURE=linux-x64
 #NODE_VERSION=v10.14.1
 
@@ -19,11 +19,8 @@ sudo useradd --user-group --system --home-dir /home/wekan wekan
 sudo mkdir -p /home/wekan
 sudo chown wekan:wekan /home/wekan/
 
-# meteor-1.8 branch that has newer Meteor that is compatible with MongoDB 4.x
-sudo -u wekan git clone -b meteor-1.8 https://github.com/wekan/wekan.git /home/wekan/app
-
-# OLD: Using Meteor 1.6.x version of Wekan
-#sudo -u wekan git clone https://github.com/wekan/wekan.git /home/wekan/app
+# master branch that has newer Meteor that is compatible with MongoDB 4.x
+sudo -u wekan git clone -b master https://github.com/wekan/wekan.git /home/wekan/app
 
 sudo yum install -y ${BUILD_DEPS}
 
@@ -66,20 +63,6 @@ if [ "$USE_EDGE" = false ]; then
 else
   sudo -u wekan git clone --recursive --depth 1 -b release/METEOR@${METEOR_EDGE} https://github.com/meteor/meteor.git /home/wekan/.meteor;
 fi;
-
-# Get additional packages
-sudo mkdir -p /home/wekan/app/packages
-sudo chown wekan:wekan --recursive /home/wekan/app
-cd /home/wekan/app/packages
-sudo -u wekan git clone --depth 1 -b master https://github.com/wekan/flow-router.git kadira-flow-router
-sudo -u wekan git clone --depth 1 -b master https://github.com/meteor-useraccounts/core.git meteor-useraccounts-core
-sudo -u wekan git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-cas.git
-sudo -u wekan git clone --depth 1 -b master https://github.com/wekan/wekan-ldap.git
-sudo -u wekan git clone --depth 1 -b master https://github.com/wekan/wekan-scrollbar.git
-sudo -u wekan git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-oidc.git
-sudo -u wekan mv meteor-accounts-oidc/packages/switch_accounts-oidc wekan_accounts-oidc
-sudo -u wekan mv meteor-accounts-oidc/packages/switch_oidc wekan_oidc
-sudo -u wekan rm -rf meteor-accounts-oidc
 
 sudo sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' /home/wekan/app/packages/meteor-useraccounts-core/package.js
 sudo -u wekan /home/wekan/.meteor/meteor -- help
