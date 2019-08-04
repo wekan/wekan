@@ -1,4 +1,35 @@
-# v3.02 Upcoming Wekan release
+# Upcoming Wekan Docker/Bundle/Source release
+
+This release adds the following new features:
+
+- [Add RICHER_CARD_COMMENT_EDITOR=true to docker-compose.yml](https://github.com/wekan/wekan/commit/268f9de23c8167dca9499587ee31fb74edb6b83e).
+  Thanks to xet7.
+- [Add popup to confirm deleting one account](https://github.com/wekan/wekan/pull/2573).
+  Thanks to Akuket.
+- [Add admin setting to prevent users to self deleting their account](https://github.com/wekan/wekan/pull/2573).
+  Thanks to Akuket.
+- [Add Packager.io DEB/RPM Wekan packages for Debian/Ubuntu/CentOS/SLES](https://packager.io/gh/wekan/wekan). Does not work yet, [debugging in progress here](https://github.com/wekan/wekan/issues/2582).
+  Thanks to xet7 and sfahrenholz.
+- [Add setting field LDAP_USER_AUTHENTICATION_FIELD=uid](https://github.com/wekan/wekan/pull/2581).
+  Thanks to Trekky12.
+
+and adds the following upgrades:
+
+- [Upgrade MongoDB to 4.0.11](https://github.com/wekan/wekan/commit/ec35c544b780e563a973fd887c5190f429431bfb).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Remove mixmax:smart-disconnect, previously it did disconnect Wekan when
+  browser tab was not active, but because now users are working on multiple
+  boards at different browser tabs and switching all time time, there was
+  constant loading, so now after removing all tabs keeps active. This can
+  increase server CPU usage](https://github.com/wekan/wekan/commit/669cd76018cbbfbd3ee58610a35959fa8a84ea36).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.02 2019-07-26 Wekan release
 
 This release adds the following updates:
 
@@ -10,7 +41,7 @@ and fixes the following bugs:
 - [Set LDAP_BACKGROUND_SYNC_INTERVAL='' (empty string) so it works](https://github.com/wekan/wekan/commit/fff144a8279ac36ce83e6b975f17f6dbc35f39d6)
   and [does not crash](https://github.com/wekan/wekan/issues/2354#issuecomment-515305722).
   Also updated wekan-postgresql docker-compose.yml to use devel branch docker image, because ToroDB requires MongoDB 3.2,
-  it's not tested yet could newest master branch docker image work with MongoDB 3.2.  
+  it's not tested yet could newest master branch docker image work with MongoDB 3.2.
   Thanks to benh57 and xet7.
 
 and tries to fix following bugs:
