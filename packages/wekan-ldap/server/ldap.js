@@ -27,6 +27,7 @@ export default class LDAP {
       BaseDN                             : this.constructor.settings_get('LDAP_BASEDN'),
       Internal_Log_Level                 : this.constructor.settings_get('INTERNAL_LOG_LEVEL'),
       User_Authentication                : this.constructor.settings_get('LDAP_USER_AUTHENTICATION'),
+      User_Authentication_Field          : this.constructor.settings_get('LDAP_USER_AUTHENTICATION_FIELD'),
       User_Attributes                    : this.constructor.settings_get('LDAP_USER_ATTRIBUTES'),
       User_Search_Filter                 : this.constructor.settings_get('LDAP_USER_SEARCH_FILTER'),
       User_Search_Scope                  : this.constructor.settings_get('LDAP_USER_SEARCH_SCOPE'),
@@ -226,7 +227,7 @@ export default class LDAP {
 
     if (!this.options.BaseDN) throw new Error('BaseDN is not provided');
 
-    const userDn = `uid=${username},${this.options.BaseDN}`;
+    const userDn = `${this.options.User_Authentication_Field}=${username},${this.options.BaseDN}`;
 
     this.bindSync(userDn, password);
     this.domainBinded = true;
