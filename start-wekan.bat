@@ -244,6 +244,9 @@ REM SET LDAP_REJECT_UNAUTHORIZED=false
 REM # Option to login to the LDAP server with the user's own username and password, instead of an administrator key. Default: false (use administrator key).
 REM SET LDAP_USER_AUTHENTICATION=true
 
+REM # Which field is used to find the user for the user authentication. Default: uid.
+REM SET LDAP_USER_AUTHENTICATION_FIELD=uid
+
 REM # LDAP_USER_SEARCH_FILTER : Optional extra LDAP filters. Don't forget the outmost enclosing parentheses if needed
 REM # example : LDAP_USER_SEARCH_FILTER=
 REM SET LDAP_USER_SEARCH_FILTER=

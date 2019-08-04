@@ -70,6 +70,7 @@ ENV BUILD_DEPS="apt-utils bsdtar gnupg gosu wget curl bzip2 g++ build-essential 
     LDAP_CA_CERT="" \
     LDAP_REJECT_UNAUTHORIZED=false \
     LDAP_USER_AUTHENTICATION=false \
+    LDAP_USER_AUTHENTICATION_FIELD=uid \
     LDAP_USER_SEARCH_FILTER="" \
     LDAP_USER_SEARCH_SCOPE="" \
     LDAP_USER_SEARCH_FIELD="" \
