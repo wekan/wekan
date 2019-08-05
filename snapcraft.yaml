@@ -73,10 +73,10 @@ parts:
                 - usr
                 - bin
                 - lib
-        # stage:
-        #     - $mongo
-        # prime:
-        #     - $mongo
+        stage:
+            - $mongo
+        prime:
+            - $mongo
     wekan:
         source: .
         plugin: nodejs
@@ -88,8 +88,13 @@ parts:
         build-packages:
             - ca-certificates
             - apt-utils
+            - bsdtar
+            - gnupg
+            - bzip2
         ##   - python3
-        #    - gcc++-8
+            - g++
+            - build-essential
+            - git
         #    - capnproto
             - curl
             - libcurl3
@@ -99,11 +104,16 @@ parts:
         #    - npm
         ##   - python3-pip
         ##   - python3-venv
-        # stage-packages:
-        #     - libfontconfig1
+        stage-packages:
+            - libfontconfig1
         override-build: |
+            set -o xtrace
             echo "Cleaning environment first"
             rm -rf ~/.meteor ~/.npm /usr/local/lib/node_modules
+            # Meteor installer doesn't work with the default tar binary, so using bsdtar while installing.
+            # https://github.com/coreos/bugs/issues/1095#issuecomment-350574389
+            cp $(which tar) $(which tar)~
+            ln -sf $(which bsdtar) $(which tar)
             # Create the OpenAPI specification
             rm -rf .build
             mkdir .build
@@ -197,7 +207,7 @@ parts:
             #  cd ..
             #fi
             rm -rf package-lock.json .build
-            meteor add standard-minifier-js --allow-superuser
+            #meteor add standard-minifier-js --allow-superuser
             meteor npm install --allow-superuser --unsafe-perm
             meteor build .build --directory --allow-superuser
             cp -f fix-download-unicode/cfs_access-point.txt .build/bundle/programs/server/packages/cfs_access-point.js
@@ -227,6 +237,8 @@ parts:
             #rm $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/meteor/rajit_bootstrap3-datepicker/lib/bootstrap-datepicker/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
             # rm $SNAPCRAFT_PART_INSTALL/lib/node_modules/node-pre-gyp/node_modules/tar/lib/.mkdir.js.swp
             # rm $SNAPCRAFT_PART_INSTALL/lib/node_modules/node-gyp/node_modules/tar/lib/.mkdir.js.swp
+            # Put back the original tar
+            mv $(which tar)~ $(which tar)
         organize:
             README: README.wekan
         prime:

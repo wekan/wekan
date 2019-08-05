@@ -70,7 +70,7 @@ sudo -u wekan /home/wekan/.meteor/meteor -- help
 # Build app
 cd /home/wekan/app
 meteor=/home/wekan/.meteor/meteor
-sudo -u wekan ${meteor} add standard-minifier-js
+#sudo -u wekan ${meteor} add standard-minifier-js
 sudo -u wekan ${meteor} npm install
 sudo -u wekan ${meteor} build --directory /home/wekan/app_build
 sudo cp /home/wekan/app/fix-download-unicode/cfs_access-point.txt /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js
