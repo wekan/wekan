@@ -73,10 +73,10 @@ parts:
                 - usr
                 - bin
                 - lib
-        stage:
-            - $mongo
-        prime:
-            - $mongo
+#        stage:
+#            - $mongo
+#        prime:
+#            - $mongo
     wekan:
         source: .
         plugin: nodejs
