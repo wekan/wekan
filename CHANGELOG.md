@@ -1,3 +1,12 @@
+# v3.06 2019-08-07 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix board query](https://github.com/wekan/wekan/pull/2587).
+  Thanks to justinr1234.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.05 2019-08-07 Wekan release
 
 This release fixes the following bugs:
