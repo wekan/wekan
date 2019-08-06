@@ -1,3 +1,14 @@
+# v3.04 2019-08-06 Wekan release
+
+This release fixes the following bugs:
+
+- [Fixed Snap: Use Meteor 1.6.0.1 dependencies on Snap on master branch](https://github.com/wekan/wekan/commit/74a4b28313e9cfedcb927e4496c0dd3800b1e6f9).
+  Thanks to xet7.
+- [Hide Admin Panel user delete button until someone has time to fix it](https://github.com/wekan/wekan/commit/b9a25ecfaca067d0392c83d97a0deb65e6e296dd).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.03 2019-08-04 Wekan release
 
 This release adds the following new features:
