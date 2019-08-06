@@ -13,4 +13,5 @@ export LC_ALL=C
 # start mongodb backup
 [ "x" == "x${MONGODB_BIND_IP}" ] && MONGODB_BIND_IP="127.0.0.1"
 echo "using bind ip"
-mongorestore --host $MONGODB_BIND_IP --port $MONGODB_PORT -d wekan --noIndexRestore --gzip  --archive=$1
+mongorestore --host $MONGODB_BIND_IP --port $MONGODB_PORT -d wekan --gzip --archive=$1
+# --noIndexRestore
