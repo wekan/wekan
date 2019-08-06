@@ -1,3 +1,12 @@
+# v3.05 2019-08-07 Wekan release
+
+This release fixes the following bugs:
+
+- [Fixed LDAP group filtering bug on Snap settings](https://github.com/wekan/wekan/pull/2584).
+  Thanks to KuenzelIT.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.04 2019-08-06 Wekan release
 
 This release fixes the following bugs:
