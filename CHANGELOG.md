@@ -1,3 +1,13 @@
+# v3.08 2019-08-07 Wekan release
+
+This release fixes the following bugs:
+
+- [Removed removing phantomjs from snap, because snap build did stop to error
+  no phantomjs could be removed](https://github.com/wekan/wekan/commit/7d8f1dee62f285a4587fb40e7331d0f500b2e5fb).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.07 2019-08-07 Wekan release
 
 This release fixes the following bugs:
