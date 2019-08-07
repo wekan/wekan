@@ -4,6 +4,8 @@ This release fixes the following bugs:
 
 - [Make Save button visible again at Admin Panel People Edit](https://github.com/wekan/wekan/commit/716fc32968e7dd51b64a11c6c33e59aee849c982).
   Thanks to sclerc-chss and xet7.
+- [Fix checking if API is enabled](https://github.com/wekan/wekan/pull/2588).
+  Thanks to justinr1234.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
