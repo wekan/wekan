@@ -33,7 +33,8 @@ template(name="listsGroup")
             +addListForm
     else
       each lists
-        +list(this)
+        if visible this
+          +list(this)
         if currentCardIsInThisList _id null
           +cardDetails(currentCard)
       if currentUser.isBoardMember
