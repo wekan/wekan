@@ -722,5 +722,5 @@
   "act-atUserComment": "Você foi mencionado no [__board__] __card__",
   "delete-user-confirm-popup": "Você realmente quer apagar esta conta? Não há como desfazer.",
   "accounts-allowUserDelete": "Permitir que usuários apaguem a própria conta",
-  "hide-minicard-label-text": "Hide minicard label text"
+  "hide-minicard-label-text": "Esconder rótulo da etiqueta do mini cartão"
 }
