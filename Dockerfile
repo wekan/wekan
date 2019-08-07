@@ -259,8 +259,8 @@ RUN \
     #gosu wekan:wekan npm install bcrypt && \
     #
     # Delete phantomjs
-    cd /home/wekan/app_build/bundle && \
-    find . -name "*phantomjs*" | xargs rm -rf && \
+    #cd /home/wekan/app_build/bundle && \
+    #find . -name "*phantomjs*" | xargs rm -rf && \
     #
     cd /home/wekan/app_build/bundle/programs/server/ && \
     gosu wekan:wekan npm install && \
