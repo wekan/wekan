@@ -115,14 +115,11 @@ services:
     # NOTE: Quay is currently not updated, use Docker Hub image below c)
     # a) For Wekan Meteor 1.8.x version at master branch,
     #    using https://quay.io/wekan/wekan automatic builds
-    #image: quay.io/wekan/wekan:master
-    # b) For Wekan Meteor 1.6.x version at master/devel/edge branches.
-    # Only for Snap and Sandstorm while they are not upgraded yet to Meteor 1.8.x
-    #image: quay.io/wekan/wekan:master
-    # c) Using specific Meteor 1.6.x version tag:
+    image: quay.io/wekan/wekan
+    # b) Using specific Meteor 1.6.x version tag:
     # image: quay.io/wekan/wekan:v1.95
     # c) Using Docker Hub automatic builds https://hub.docker.com/r/wekanteam/wekan
-    image: wekanteam/wekan
+    #image: wekanteam/wekan
     # image: wekanteam/wekan:v2.99
     #-------------------------------------------------------------------------------------
     container_name: wekan-app
