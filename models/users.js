@@ -109,7 +109,14 @@ Users.attachSchema(
     },
     'profile.hiddenSystemMessages': {
       /**
-       * does the user wants to hide system messages?
+       * does the user want to hide system messages?
+       */
+      type: Boolean,
+      optional: true,
+    },
+    'profile.hiddenMinicardLabelText': {
+      /**
+       * does the user want to hide minicard label texts?
        */
       type: Boolean,
       optional: true,
@@ -359,6 +366,11 @@ Users.helpers({
     return profile.hiddenSystemMessages || false;
   },
 
+  hasHiddenMinicardLabelText() {
+    const profile = this.profile || {};
+    return profile.hiddenMinicardLabelText || false;
+  },
+
   getEmailBuffer() {
     const { emailBuffer = [] } = this.profile || {};
     return emailBuffer;
@@ -462,6 +474,14 @@ Users.mutations({
     };
   },
 
+  toggleLabelText(value = false) {
+    return {
+      $set: {
+        'profile.hiddenMinicardLabelText': !value,
+      },
+    };
+  },
+
   addNotification(activityId) {
     return {
       $addToSet: {
@@ -524,6 +544,10 @@ Meteor.methods({
   toggleSystemMessages() {
     const user = Meteor.user();
     user.toggleSystem(user.hasHiddenSystemMessages());
+  },
+  toggleMinicardLabelText() {
+    const user = Meteor.user();
+    user.toggleLabelText(user.hasHiddenMinicardLabelText());
   },
   changeLimitToShowCardsCount(limit) {
     check(limit, Number);

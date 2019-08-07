@@ -22,6 +22,11 @@ template(name='homeSidebar')
   +membersWidget
   hr
   +labelsWidget
+  ul#cards.label-text-hidden
+    a.flex.js-toggle-minicard-label-text
+      span {{_ 'hide-minicard-label-text'}}
+      b &nbsp;
+      .materialCheckBox(class="{{#if hiddenMinicardLabelText}}is-checked{{/if}}")
   hr
   unless currentUser.isNoComments
     h3
