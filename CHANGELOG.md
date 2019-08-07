@@ -1,3 +1,12 @@
+# v3.11 2019-08-07 Wekan release
+
+This release fixes the following bugs:
+
+- [Remove non-existing file from snapcraft.yaml to get Snap to build](https://github.com/wekan/wekan/commit/ad82a900e8ec636a72c6e74bb8489559ce2a8bf0).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.10 2019-08-07 Wekan release
 
 This release fixes the following bugs:
