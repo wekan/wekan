@@ -1,6 +1,11 @@
-# Upcoming Wekan release
+# v3.09 2019-08-07 Wekan release
 
-This release fixes the following bugs:
+This release adds the following features:
+
+- [Hide minicard label text: per user checkbox setting at sidebar](https://github.com/wekan/wekan/commit/f7e0b837d394d55d66d451c34f43fa8afd357e5b).
+  Thanks to xet7.
+
+and fixes the following bugs:
 
 - [Make Save button visible again at Admin Panel People Edit](https://github.com/wekan/wekan/commit/716fc32968e7dd51b64a11c6c33e59aee849c982).
   Thanks to sclerc-chss and xet7.
