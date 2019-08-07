@@ -257,6 +257,11 @@ RUN \
     #cd /home/wekan/app_build/bundle/programs/server/npm/node_modules/meteor/npm-bcrypt && \
     #gosu wekan:wekan rm -rf node_modules/bcrypt && \
     #gosu wekan:wekan npm install bcrypt && \
+    #
+    # Delete phantomjs
+    cd /home/wekan/app_build/bundle && \
+    find . -name "*phantomjs*" | xargs rm -rf && \
+    #
     cd /home/wekan/app_build/bundle/programs/server/ && \
     gosu wekan:wekan npm install && \
     #gosu wekan:wekan npm install bcrypt && \
