@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Make Save button visible again at Admin Panel People Edit](https://github.com/wekan/wekan/commit/716fc32968e7dd51b64a11c6c33e59aee849c982).
+  Thanks to sclerc-chss and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.08 2019-08-07 Wekan release
 
 This release fixes the following bugs:
