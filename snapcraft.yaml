@@ -107,7 +107,7 @@ parts:
             rm -rf .meteor
             mv .meteor-1.6-snap/.meteor .
             mv .meteor-1.6-snap/package.json .
-            mv .meteor-1.6-snap/package-lock.json .
+            #mv .meteor-1.6-snap/package-lock.json .
             mv .meteor-1.6-snap/rebuild-wekan.sh .
             rm -rf .meteor-1.6-snap
             # Create the OpenAPI specification
