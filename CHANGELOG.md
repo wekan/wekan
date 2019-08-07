@@ -1,3 +1,12 @@
+# v3.07 2019-08-07 Wekan release
+
+This release fixes the following bugs:
+
+- [Try to make release sizes smaller by deleting phantomjs](https://github.com/wekan/wekan/commit/1fc3a1db2e663f149287b6e14053d536fb1a8a81).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.06 2019-08-07 Wekan release
 
 This release fixes the following bugs:
