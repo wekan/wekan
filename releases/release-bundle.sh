@@ -1,5 +1,5 @@
 cd ~/repos/wekan
-./rebuild-wekan.sh
+./releases/rebuild-release.sh
 ./releases/delete-phantomjs.sh
 cd ~/repos/wekan/.build
 zip -r wekan-$1.zip bundle
