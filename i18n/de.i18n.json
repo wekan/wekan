@@ -722,5 +722,5 @@
   "act-atUserComment": "Du wurdest erwähnt in [__board__] __card__",
   "delete-user-confirm-popup": "Sind Sie sicher, dass Sie diesen Account löschen wollen? Die Aktion kann nicht rückgängig gemacht werden.",
   "accounts-allowUserDelete": "Erlaube Benutzern ihren eigenen Account zu löschen",
-  "hide-minicard-label-text": "Hide minicard label text"
+  "hide-minicard-label-text": "Labeltext auf Minikarte ausblenden"
 }

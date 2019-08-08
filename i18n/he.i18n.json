@@ -722,5 +722,5 @@
   "act-atUserComment": "אוזכרת תחת [__board__] ‏__card__",
   "delete-user-confirm-popup": "למחוק את החשבון הזה? אי אפשר לבטל.",
   "accounts-allowUserDelete": "לאפשר למשתמשים למחוק את החשבונות של עצמם",
-  "hide-minicard-label-text": "Hide minicard label text"
+  "hide-minicard-label-text": "הסתרת טקסט התווית של מיני כרטיס"
 }

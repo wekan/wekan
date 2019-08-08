@@ -719,7 +719,7 @@
   "act-almostdue": "was reminding the current due (__timeValue__) of __card__ is approaching",
   "act-pastdue": "was reminding the current due (__timeValue__) of __card__ is past",
   "act-duenow": "was reminding the current due (__timeValue__) of __card__ is now",
-  "act-atUserComment": "You were mentioned in [__board__] __card__",
+  "act-atUserComment": "Vous avez été mentionné dans [__board__] __card__",
   "delete-user-confirm-popup": "Êtes-vous sûr de vouloir supprimer ce compte ? Cette opération ne peut pas être annulée. ",
   "accounts-allowUserDelete": "Autoriser les utilisateurs à supprimer leur compte",
   "hide-minicard-label-text": "Hide minicard label text"

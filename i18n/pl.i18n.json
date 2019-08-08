@@ -715,12 +715,12 @@
   "almostdue": "aktualny termin ukończenia %s dobiega końca",
   "pastdue": "aktualny termin ukończenia %s jest w przeszłości",
   "duenow": "aktualny termin ukończenia %s jest dzisiaj",
-  "act-withDue": "__card__ ma przypomnienia zakończenia terminu [__board__]",
+  "act-withDue": "__card__ przypomina o zakończeniu terminu [__board__]",
   "act-almostdue": "przypomina o zbliżającej się dacie ukończenia (__timeValue__) karty __card__",
   "act-pastdue": "przypomina o ubiegłej dacie ukończenia (__timeValue__) karty __card__",
   "act-duenow": "przypomina o ubiegającej teraz dacie ukończenia (__timeValue__) karty __card__",
   "act-atUserComment": "Zostałeś wspomniany na __board__ (__card__)",
   "delete-user-confirm-popup": "Czy jesteś pewien, że chcesz usunąć te konto? Nie można tego wycofać.",
   "accounts-allowUserDelete": "Pozwól użytkownikom na usuwanie własnych kont",
-  "hide-minicard-label-text": "Hide minicard label text"
+  "hide-minicard-label-text": "Ukryj opisy etykiet minikart"
 }
