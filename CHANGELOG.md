@@ -9,9 +9,15 @@ This release adds the following new features:
   server admin switchs to this setting, their old attachments won't be available
   anymore, unless someone make a script to export them out to the filesystem.
   Thanks to whowillcare.
+- [Allowing user to insert video, link and image, or paste in html with sanitization.
+  In user comments display area, images can be clicked and shown as
+  swipebox](https://github.com/wekan/wekan/pull/2593).
+  Thanks to whowillcare.
 
 and fixes the following bugs:
 
+- [Fix comment-editor marking issue](https://github.com/wekan/wekan/issues/2575).
+  Thanks to whowillcare.
 - [Bugfix: style kbd font color became white after introduced summernote editor
   to card comments](https://github.com/wekan/wekan/pull/2600).
   Thanks to whowillcare.
