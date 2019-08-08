@@ -1,6 +1,16 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+- [Allowing wekan server admin to specify the attachments to be uploaded to server
+  file system instead of mongodb by specifying a system
+  env var: ATTACHMENTS_STORE_PATH](https://github.com/wekan/wekan/pull/2603).
+  The only caveat for this is if it's not a brand new wekan, if the wekan
+  server admin switchs to this setting, their old attachments won't be available
+  anymore, unless someone make a script to export them out to the filesystem.
+  Thanks to whowillcare.
+
+and fixes the following bugs:
 
 - [Bugfix: style kbd font color became white after introduced summernote editor
   to card comments](https://github.com/wekan/wekan/pull/2600).
@@ -9,6 +19,11 @@ This release fixes the following bugs:
   on desktop webbrowser view, so that it's not possible for normal users to make accidental
   clicks to those](https://github.com/wekan/wekan/issues/2599).
   Thanks to derbolle and xet7.
+- [Fix bug on editing users informations, switching to other view, staring
+  a board](https://github.com/wekan/wekan/issues/2590).
+  Thanks to road42.
+- [Fix null access with board body](https://github.com/wekan/wekan/pull/2602).
+  Thanks to justinr1234.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
