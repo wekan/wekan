@@ -1,3 +1,7 @@
+# v3.13 2019-08-09 Wekan relese
+
+Update translations. Thanks to translators.
+
 # v3.12 2019-08-09 Wekan release
 
 This release adds the following new features:
