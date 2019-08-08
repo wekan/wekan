@@ -1,7 +1,79 @@
+import _sanitizeXss from 'xss';
+const enableRicherEditor =
+  Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR || true;
+const sanitizeXss = (input, options) => {
+  const defaultAllowedIframeSrc = /^(https:){0,1}\/\/.*?(youtube|vimeo|dailymotion|youku)/i;
+  const allowedIframeSrcRegex = (function() {
+    let reg = defaultAllowedIframeSrc;
+    const SAFE_IFRAME_SRC_PATTERN =
+      Meteor.settings.public.SAFE_IFRAME_SRC_PATTERN;
+    try {
+      if (SAFE_IFRAME_SRC_PATTERN !== undefined) {
+        reg = new RegExp(SAFE_IFRAME_SRC_PATTERN, 'i');
+      }
+    } catch (e) {
+      /*eslint no-console: ["error", { allow: ["warn", "error"] }] */
+
+      console.error('Wrong pattern specified', SAFE_IFRAM_SRC_PATTERN, e);
+    }
+    return reg;
+  })();
+  const targetWindow = '_blank';
+  options = {
+    onTag(tag, html, options) {
+      if (tag === 'iframe') {
+        const clipCls = 'note-vide-clip';
+        if (!options.isClosing) {
+          const srcp = /src=(['"]{0,1})(\S*)(\1)/;
+          let safe = html.indexOf(`class="${clipCls}"`) > -1;
+          if (srcp.exec(html)) {
+            const src = RegExp.$2;
+            if (allowedIframeSrcRegex.exec(src)) {
+              safe = true;
+            }
+            if (safe)
+              return `<iframe src='${src}' class="${clipCls}" width=100% height=auto allowfullscreen></iframe>`;
+          }
+        } else {
+          return '';
+        }
+      } else if (tag === 'a') {
+        if (!options.isClosing) {
+          if (/href=(['"]{0,1})(\S*)(\1)/.exec(html)) {
+            const href = RegExp.$2;
+            if (href.match(/^((http(s){0,1}:){0,1}\/\/|\/)/)) {
+              // a valid url
+              return `<a href=${href} target=${targetWindow}>`;
+            }
+          }
+        }
+      } else if (tag === 'img') {
+        if (!options.isClosing) {
+          if (new RegExp('src=([\'"]{0,1})(\\S*)(\\1)').exec(html)) {
+            const src = RegExp.$2;
+            return `<a href='${src}' class='swipebox'><img src='${src}' class="attachment-image-preview mCS_img_loaded"></a>`;
+          }
+        }
+      }
+      return undefined;
+    },
+    onTagAttr(tag, name, value) {
+      if (tag === 'img' && name === 'src') {
+        if (value && value.substr(0, 5) === 'data:') {
+          // allow image with dataURI src
+          return `${name}='${value}'`;
+        }
+      } else if (tag === 'a' && name === 'target') {
+        return `${name}='${targetWindow}'`; // always change a href target to a new window
+      }
+      return undefined;
+    },
+    ...options,
+  };
+  return _sanitizeXss(input, options);
+};
 Template.editor.onRendered(() => {
   const textareaSelector = 'textarea';
-  const enableRicherEditor =
-    Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR || true;
   const mentions = [
     // User mentions
     {
@@ -50,47 +122,11 @@ Template.editor.onRendered(() => {
           ['color', ['color']],
           ['para', ['ul', 'ol', 'paragraph']],
           ['table', ['table']],
-          //['insert', ['link', 'picture', 'video']], // iframe tag will be sanitized TODO if iframe[class=note-video-clip] can be added into safe list, insert video can be enabled
+          ['insert', ['link', 'picture', 'video']], // iframe tag will be sanitized TODO if iframe[class=note-video-clip] can be added into safe list, insert video can be enabled
           //['insert', ['link', 'picture']], // modal popup has issue somehow :(
           ['view', ['fullscreen', 'help']],
         ];
-    const cleanPastedHTML = function(input) {
-      const badTags = [
-        'style',
-        'script',
-        'applet',
-        'embed',
-        'noframes',
-        'noscript',
-        'meta',
-        'link',
-        'button',
-        'form',
-      ].join('|');
-      const badPatterns = new RegExp(
-        `(?:${[
-          `<(${badTags})s*[^>][\\s\\S]*?<\\/\\1>`,
-          `<(${badTags})[^>]*?\\/>`,
-        ].join('|')})`,
-        'gi',
-      );
-      let output = input;
-      // remove bad Tags
-      output = output.replace(badPatterns, '');
-      // remove attributes ' style="..."'
-      const badAttributes = new RegExp(
-        `(?:${[
-          'on\\S+=([\'"]?).*?\\1',
-          'href=([\'"]?)javascript:.*?\\2',
-          'style=([\'"]?).*?\\3',
-          'target=\\S+',
-        ].join('|')})`,
-        'gi',
-      );
-      output = output.replace(badAttributes, '');
-      output = output.replace(/(<a )/gi, '$1target=_ '); // always to new target
-      return output;
-    };
+    const cleanPastedHTML = sanitizeXss;
     const editor = '.editor';
     const selectors = [
       `.js-new-comment-form ${editor}`,
@@ -116,8 +152,8 @@ Template.editor.onRendered(() => {
           callbacks: {
             onInit(object) {
               const originalInput = this;
-              $(originalInput).on('input', function() {
-                // when comment is submitted, the original textarea will be set to '', so shall we
+              $(originalInput).on('submitted', function() {
+                // resetCommentInput has been called
                 if (!this.value) {
                   const sn = getSummernote(this);
                   sn && sn.summernote('reset');
@@ -136,6 +172,42 @@ Template.editor.onRendered(() => {
                     isActive = $this.hasClass('active');
                   $('.minicards').toggle(!isActive); // mini card is still showing when editor is in fullscreen mode, we hide here manually
                 });
+              }
+            },
+            onImageUpload(files) {
+              const $summernote = getSummernote(this);
+              if (files && files.length > 0) {
+                const image = files[0];
+                const reader = new FileReader();
+                const MAX_IMAGE_PIXEL = Utils.MAX_IMAGE_PIXEL;
+                const COMPRESS_RATIO = Utils.IMAGE_COMPRESS_RATIO;
+                const processData = function(dataURL) {
+                  const img = document.createElement('img');
+                  img.src = dataURL;
+                  img.setAttribute('width', '100%');
+                  $summernote.summernote('insertNode', img);
+                };
+                reader.onload = function(e) {
+                  const dataurl = e && e.target && e.target.result;
+                  if (dataurl !== undefined) {
+                    if (MAX_IMAGE_PIXEL) {
+                      // need to shrink image
+                      Utils.shrinkImage({
+                        dataurl,
+                        maxSize: MAX_IMAGE_PIXEL,
+                        ratio: COMPRESS_RATIO,
+                        callback(changed) {
+                          if (changed !== false && !!changed) {
+                            processData(changed);
+                          }
+                        },
+                      });
+                    } else {
+                      processData(dataurl);
+                    }
+                  }
+                };
+                reader.readAsDataURL(image);
               }
             },
             onPaste() {
@@ -184,8 +256,6 @@ Template.editor.onRendered(() => {
     enableTextarea();
   }
 });
-
-import sanitizeXss from 'xss';
 
 // XXX I believe we should compute a HTML rendered field on the server that
 // would handle markdown and user mentions. We can simply have two
@@ -237,32 +307,35 @@ Blaze.Template.registerHelper(
 
       content = content.replace(fullMention, Blaze.toHTML(link));
     }
-
     return HTML.Raw(sanitizeXss(content));
   }),
 );
-
 Template.viewer.events({
   // Viewer sometimes have click-able wrapper around them (for instance to edit
   // the corresponding text). Clicking a link shouldn't fire these actions, stop
   // we stop these event at the viewer component level.
   'click a'(event, templateInstance) {
-    event.stopPropagation();
-
-    // XXX We hijack the build-in browser action because we currently don't have
-    // `_blank` attributes in viewer links, and the transformer function is
-    // handled by a third party package that we can't configure easily. Fix that
-    // by using directly `_blank` attribute in the rendered HTML.
-    event.preventDefault();
-
+    let prevent = true;
     const userId = event.currentTarget.dataset.userid;
     if (userId) {
       Popup.open('member').call({ userId }, event, templateInstance);
     } else {
       const href = event.currentTarget.href;
-      if (href) {
+      const child = event.currentTarget.firstElementChild;
+      if (child && child.tagName === 'IMG') {
+        prevent = false;
+      } else if (href) {
         window.open(href, '_blank');
       }
+    }
+    if (prevent) {
+      event.stopPropagation();
+
+      // XXX We hijack the build-in browser action because we currently don't have
+      // `_blank` attributes in viewer links, and the transformer function is
+      // handled by a third party package that we can't configure easily. Fix that
+      // by using directly `_blank` attribute in the rendered HTML.
+      event.preventDefault();
     }
   },
 });
