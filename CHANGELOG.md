@@ -1,3 +1,17 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Bugfix: style kbd font color became white after introduced summernote editor
+  to card comments](https://github.com/wekan/wekan/pull/2600).
+  Thanks to whowillcare.
+- [Show All Boards / Clone Board and Archive Board only to BoardAdmin/Admin/Sandstorm users
+  on desktop webbrowser view, so that it's not possible for normal users to make accidental
+  clicks to those](https://github.com/wekan/wekan/issues/2599).
+  Thanks to derbolle and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.11 2019-08-07 Wekan release
 
 This release fixes the following bugs:
