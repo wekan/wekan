@@ -88,6 +88,10 @@ DESCRIPTION_ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURE_WINDOW="Accounts lockout unkn
 DEFAULT_ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURE_WINDOW="15"
 KEY_ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURE_WINDOW="accounts-lockout-unknown-users-failure-window"
 
+DESCRIPTION_ATTACHMENTS_STORE_PATH="Allow wekan ower to specify where uploaded files to store on the server instead of the mongodb"
+DEFAULT_ATTACHMENTS_STORE_PATH=""
+KEY_ATTACHMENTS_STORE_PATH="attachments-store-path"
+
 DESCRIPTION_MAX_IMAGE_PIXEL="Max image pixel: Allow to shrink attached/pasted image https://github.com/wekan/wekan/pull/2544"
 DEFAULT_MAX_IMAGE_PIXEL=""
 KEY_MAX_IMAGE_PIXEL="max-image-pixel"

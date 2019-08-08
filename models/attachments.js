@@ -1,8 +1,23 @@
-Attachments = new FS.Collection('attachments', {
-  stores: [
-    // XXX Add a new store for cover thumbnails so we don't load big images in
-    // the general board view
-    new FS.Store.GridFS('attachments', {
+const localFSStore = process.env.ATTACHMENTS_STORE_PATH;
+const storeName = 'attachments';
+const defaultStoreOptions = {
+  beforeWrite: fileObj => {
+    if (!fileObj.isImage()) {
+      return {
+        type: 'application/octet-stream',
+      };
+    }
+    return {};
+  },
+};
+const Store = localFSStore
+  ? new FS.Store.FileSystem(storeName, {
+      path: localFSStore,
+      ...defaultStoreOptions,
+    })
+  : new FS.Store.GridFS(storeName, {
+      // XXX Add a new store for cover thumbnails so we don't load big images in
+      // the general board view
       // If the uploaded document is not an image we need to enforce browser
       // download instead of execution. This is particularly important for HTML
       // files that the browser will just execute if we don't serve them with the
@@ -12,16 +27,10 @@ Attachments = new FS.Collection('attachments', {
       // XXX Should we use `beforeWrite` option of CollectionFS instead of
       // collection-hooks?
       // We should use `beforeWrite`.
-      beforeWrite: fileObj => {
-        if (!fileObj.isImage()) {
-          return {
-            type: 'application/octet-stream',
-          };
-        }
-        return {};
-      },
-    }),
-  ],
+      ...defaultStoreOptions,
+    });
+Attachments = new FS.Collection('attachments', {
+  stores: [Store],
 });
 
 if (Meteor.isServer) {

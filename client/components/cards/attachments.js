@@ -66,6 +66,9 @@ Template.cardAttachmentsPopup.events({
         file.cardId = card._id;
       }
       file.userId = Meteor.userId();
+      if (file.original) {
+        file.original.name = f.name;
+      }
       const attachment = Attachments.insert(file);
 
       if (attachment && attachment._id && attachment.isImage()) {
