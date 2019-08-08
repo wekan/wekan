@@ -24,6 +24,58 @@ Utils = {
     );
   },
 
+  MAX_IMAGE_PIXEL: Meteor.settings.public.MAX_IMAGE_PIXEL,
+  COMPRESS_RATIO: Meteor.settings.public.IMAGE_COMPRESS_RATIO,
+  shrinkImage(options) {
+    // shrink image to certain size
+    const dataurl = options.dataurl,
+      callback = options.callback,
+      toBlob = options.toBlob;
+    let canvas = document.createElement('canvas'),
+      image = document.createElement('img');
+    const maxSize = options.maxSize || 1024;
+    const ratio = options.ratio || 1.0;
+    const next = function(result) {
+      image = null;
+      canvas = null;
+      if (typeof callback === 'function') {
+        callback(result);
+      }
+    };
+    image.onload = function() {
+      let width = this.width,
+        height = this.height;
+      let changed = false;
+      if (width > height) {
+        if (width > maxSize) {
+          height *= maxSize / width;
+          width = maxSize;
+          changed = true;
+        }
+      } else if (height > maxSize) {
+        width *= maxSize / height;
+        height = maxSize;
+        changed = true;
+      }
+      canvas.width = width;
+      canvas.height = height;
+      canvas.getContext('2d').drawImage(this, 0, 0, width, height);
+      if (changed === true) {
+        const type = 'image/jpeg';
+        if (toBlob) {
+          canvas.toBlob(next, type, ratio);
+        } else {
+          next(canvas.toDataURL(type, ratio));
+        }
+      } else {
+        next(changed);
+      }
+    };
+    image.onerror = function() {
+      next(false);
+    };
+    image.src = dataurl;
+  },
   capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   },

@@ -38,6 +38,7 @@ BlazeComponent.extendComponent({
             resetCommentInput(input);
             Tracker.flush();
             autosize.update(input);
+            input.trigger('submitted');
           }
           evt.preventDefault();
         },
@@ -54,7 +55,7 @@ BlazeComponent.extendComponent({
 
 // XXX This should be a static method of the `commentForm` component
 function resetCommentInput(input) {
-  input.val('').trigger('input'); // without manually trigger, input event won't be fired
+  input.val(''); // without manually trigger, input event won't be fired
   input.blur();
   commentFormIsOpen.set(false);
 }
