@@ -260,7 +260,7 @@ Users.attachSchema(
 Users.allow({
   update(userId) {
     const user = Users.findOne(userId);
-    return user && Meteor.user().isAdmin;
+    return user; // && Meteor.user().isAdmin; // GitHub issue #2590
   },
   remove(userId, doc) {
     const adminsNumber = Users.find({ isAdmin: true }).count();
