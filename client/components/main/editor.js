@@ -176,36 +176,71 @@ Template.editor.onRendered(() => {
               const $summernote = getSummernote(this);
               if (files && files.length > 0) {
                 const image = files[0];
-                const reader = new FileReader();
+                const currentCard = Cards.findOne(Session.get('currentCard'));
                 const MAX_IMAGE_PIXEL = Utils.MAX_IMAGE_PIXEL;
                 const COMPRESS_RATIO = Utils.IMAGE_COMPRESS_RATIO;
-                const processData = function(dataURL) {
+                const insertImage = src => {
                   const img = document.createElement('img');
-                  img.src = dataURL;
+                  img.src = src;
                   img.setAttribute('width', '100%');
                   $summernote.summernote('insertNode', img);
                 };
-                reader.onload = function(e) {
-                  const dataurl = e && e.target && e.target.result;
-                  if (dataurl !== undefined) {
-                    if (MAX_IMAGE_PIXEL) {
+                const processData = function(fileObj) {
+                  Utils.processUploadedAttachment(
+                    currentCard,
+                    fileObj,
+                    attachment => {
+                      if (
+                        attachment &&
+                        attachment._id &&
+                        attachment.isImage()
+                      ) {
+                        attachment.one('uploaded', function() {
+                          const maxTry = 3;
+                          const checkItvl = 500;
+                          let retry = 0;
+                          const checkUrl = function() {
+                            // even though uploaded event fired, attachment.url() is still null somehow //TODO
+                            const url = attachment.url();
+                            if (url) {
+                              insertImage(url);
+                            } else {
+                              retry++;
+                              if (retry < maxTry) {
+                                setTimeout(checkUrl, checkItvl);
+                              }
+                            }
+                          };
+                          checkUrl();
+                        });
+                      }
+                    },
+                  );
+                };
+                if (MAX_IMAGE_PIXEL) {
+                  const reader = new FileReader();
+                  reader.onload = function(e) {
+                    const dataurl = e && e.target && e.target.result;
+                    if (dataurl !== undefined) {
                       // need to shrink image
                       Utils.shrinkImage({
                         dataurl,
                         maxSize: MAX_IMAGE_PIXEL,
                         ratio: COMPRESS_RATIO,
-                        callback(changed) {
-                          if (changed !== false && !!changed) {
-                            processData(changed);
+                        toBlob: true,
+                        callback(blob) {
+                          if (blob !== false) {
+                            blob.name = image.name;
+                            processData(blob);
                           }
                         },
                       });
-                    } else {
-                      processData(dataurl);
                     }
-                  }
-                };
-                reader.readAsDataURL(image);
+                  };
+                  reader.readAsDataURL(image);
+                } else {
+                  processData(image);
+                }
               }
             },
             onPaste() {
