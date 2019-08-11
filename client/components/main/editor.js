@@ -1,6 +1,4 @@
 import _sanitizeXss from 'xss';
-const enableRicherEditor =
-  Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR || true;
 const sanitizeXss = (input, options) => {
   const defaultAllowedIframeSrc = /^(https:){0,1}\/\/.*?(youtube|vimeo|dailymotion|youku)/i;
   const allowedIframeSrcRegex = (function() {
@@ -104,7 +102,7 @@ Template.editor.onRendered(() => {
     autosize($textarea);
     $textarea.escapeableTextComplete(mentions);
   };
-  if (enableRicherEditor) {
+  if (Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR !== false) {
     const isSmall = Utils.isMiniScreen();
     const toolbar = isSmall
       ? [
