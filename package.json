@@ -55,6 +55,7 @@
   "dependencies": {
     "@babel/runtime": "^7.5.4",
     "ajv": "^5.0.0",
+    "babel-runtime": "^6.26.0",
     "bcrypt": "^3.0.2",
     "bson": "^4.0.0",
     "bunyan": "^1.8.12",

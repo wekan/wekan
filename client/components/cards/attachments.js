@@ -55,27 +55,12 @@ Template.cardAttachmentsPopup.events({
   'change .js-attach-file'(event) {
     const card = this;
     const processFile = f => {
-      const file = new FS.File(f);
-      if (card.isLinkedCard()) {
-        file.boardId = Cards.findOne(card.linkedId).boardId;
-        file.cardId = card.linkedId;
-      } else {
-        file.boardId = card.boardId;
-        file.swimlaneId = card.swimlaneId;
-        file.listId = card.listId;
-        file.cardId = card._id;
-      }
-      file.userId = Meteor.userId();
-      if (file.original) {
-        file.original.name = f.name;
-      }
-      const attachment = Attachments.insert(file);
-
-      if (attachment && attachment._id && attachment.isImage()) {
-        card.setCover(attachment._id);
-      }
-
-      Popup.close();
+      Utils.processUploadedAttachment(card, f, attachment => {
+        if (attachment && attachment._id && attachment.isImage()) {
+          card.setCover(attachment._id);
+        }
+        Popup.close();
+      });
     };
 
     FS.Utility.eachFile(event, f => {
