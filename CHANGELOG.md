@@ -1,4 +1,19 @@
-# v3.13 2019-08-09 Wekan relese
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [On wekan master specifying ATTACHMENTS_STORE_PATH, it will try its best keeping original attachments, only newer
+  attachments will be stored into specified path](https://github.com/wekan/wekan/pull/2607).
+  Thanks to whowillcare.
+
+This release fixes the following bugs:
+
+- [Fix bug: Unable to disable richer comment editor](https://github.com/wekan/wekan/pull/2607).
+  Thanks to whowillcare.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.13 2019-08-09 Wekan release
 
 Update translations. Thanks to translators.
 
