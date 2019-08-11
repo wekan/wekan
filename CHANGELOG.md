@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v3.14 2019-08-11 Wekan release
 
 This release adds the following new features:
 
@@ -10,7 +10,7 @@ This release adds the following new features:
   as attachment](https://github.com/wekan/wekan/pull/2608).
   Thanks to whowillcare.
 
-This release fixes the following bugs:
+and fixes the following bugs:
 
 - [Fix bug: Unable to disable richer comment editor](https://github.com/wekan/wekan/pull/2607).
   Thanks to whowillcare.
