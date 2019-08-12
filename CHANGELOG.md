@@ -4,6 +4,9 @@ This release adds the following new features:
 
 - [Make Admin Panel text like version etc selectable](https://github.com/wekan/wekan/commit/5aa090e91184764afeac8b7c7bf4b4cb947c8f17).
   Thanks to xet7.
+- [Add to Admin Panel / Version: Meteor version, MongoDB version, MongoDB storage engine, MongoDB Oplog
+  enabled](https://github.com/wekan/wekan/commit/20294d833a2bf0bd1720444f4ffe018b025dacca).
+  Thanks to RocketChat developers for MongoDB detection code and xet7 for other code.
 
 and fixes the following bugs:
 
