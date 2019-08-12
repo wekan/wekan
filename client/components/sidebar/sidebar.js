@@ -47,8 +47,11 @@ BlazeComponent.extendComponent({
   },
 
   calculateNextPeak() {
-    const altitude = this.find('.js-board-sidebar-content').scrollHeight;
-    this.callFirstWith(this, 'setNextPeak', altitude);
+    const sidebarElement = this.find('.js-board-sidebar-content');
+    if (sidebarElement) {
+      const altitude = sidebarElement.scrollHeight;
+      this.callFirstWith(this, 'setNextPeak', altitude);
+    }
   },
 
   reachNextPeak() {
