@@ -1,3 +1,14 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix scrollHeight error when the sidebar is not visible](https://github.com/wekan/wekan/pull/2609).
+  Thanks to Trekky12.
+- [Fix insert action for CustomFields API](https://github.com/wekan/wekan/pull/2610).
+  Thanks to JimCircadian.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.15 2019-08-11 Wekan release
 
 This release fixes the following bugs:
