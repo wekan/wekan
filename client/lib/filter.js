@@ -451,10 +451,11 @@ Filter = {
   // before changing the schema.
   labelIds: new SetFilter(),
   members: new SetFilter(),
+  assignees: new SetFilter(),
   customFields: new SetFilter('_id'),
   advanced: new AdvancedFilter(),
 
-  _fields: ['labelIds', 'members', 'customFields'],
+  _fields: ['labelIds', 'members', 'assignees', 'customFields'],
 
   // We don't filter cards that have been added after the last filter change. To
   // implement this we keep the id of these cards in this `_exceptions` fields
