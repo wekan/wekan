@@ -10,6 +10,8 @@ This release adds the following new features:
 - [Use Meteor 1.8.1 and MongoDB 3.2.22 in Snap](https://github.com/wekan/wekan/commit/39ffe1d80dad5759b338d4ed2d6c576717af2a07).
   Removed Meteor 1.6.x files.
   Thanks to xet7.
+- [Enable HTML email content for richer comment](https://github.com/wekan/wekan/pull/2611).
+  Thanks to whowillcare.
 
 and fixes the following bugs:
 
@@ -17,6 +19,9 @@ and fixes the following bugs:
   Thanks to Trekky12.
 - [Fix insert action for CustomFields API](https://github.com/wekan/wekan/pull/2610).
   Thanks to JimCircadian.
+- [Fixed a few issues related summernote enabled: 1) @ user couldn't send out email sometime, due to html format.
+  2) @ user link wasn't able to show user info by clicking](https://github.com/wekan/wekan/pull/2611).
+  Thanks to whowillcare.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
