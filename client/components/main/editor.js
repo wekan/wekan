@@ -1,4 +1,5 @@
 import _sanitizeXss from 'xss';
+const ASIS = 'asis';
 const sanitizeXss = (input, options) => {
   const defaultAllowedIframeSrc = /^(https:){0,1}\/\/.*?(youtube|vimeo|dailymotion|youku)/i;
   const allowedIframeSrcRegex = (function() {
@@ -17,28 +18,39 @@ const sanitizeXss = (input, options) => {
     return reg;
   })();
   const targetWindow = '_blank';
+  const getHtmlDOM = html => {
+    const i = document.createElement('i');
+    i.innerHTML = html;
+    return i.firstChild;
+  };
   options = {
     onTag(tag, html, options) {
+      const htmlDOM = getHtmlDOM(html);
+      const getAttr = attr => {
+        return htmlDOM && attr && htmlDOM.getAttribute(attr);
+      };
       if (tag === 'iframe') {
         const clipCls = 'note-vide-clip';
         if (!options.isClosing) {
-          const srcp = /src=(['"]{0,1})(\S*)(\1)/;
-          let safe = html.indexOf(`class="${clipCls}"`) > -1;
-          if (srcp.exec(html)) {
-            const src = RegExp.$2;
-            if (allowedIframeSrcRegex.exec(src)) {
-              safe = true;
-            }
-            if (safe)
-              return `<iframe src='${src}' class="${clipCls}" width=100% height=auto allowfullscreen></iframe>`;
+          const iframeCls = getAttr('class');
+          let safe = iframeCls.indexOf(clipCls) > -1;
+          const src = getAttr('src');
+          if (allowedIframeSrcRegex.exec(src)) {
+            safe = true;
           }
+          if (safe)
+            return `<iframe src='${src}' class="${clipCls}" width=100% height=auto allowfullscreen></iframe>`;
         } else {
+          // remove </iframe> tag
           return '';
         }
       } else if (tag === 'a') {
         if (!options.isClosing) {
-          if (/href=(['"]{0,1})(\S*)(\1)/.exec(html)) {
-            const href = RegExp.$2;
+          if (getAttr(ASIS) === 'true') {
+            // if has a ASIS attribute, don't do anything, it's a member id
+            return html;
+          } else {
+            const href = getAttr('href');
             if (href.match(/^((http(s){0,1}:){0,1}\/\/|\/)/)) {
               // a valid url
               return `<a href=${href} target=${targetWindow}>`;
@@ -47,8 +59,8 @@ const sanitizeXss = (input, options) => {
         }
       } else if (tag === 'img') {
         if (!options.isClosing) {
-          if (new RegExp('src=([\'"]{0,1})(\\S*)(\\1)').exec(html)) {
-            const src = RegExp.$2;
+          const src = getAttr('src');
+          if (src) {
             return `<a href='${src}' class='swipebox'><img src='${src}' class="attachment-image-preview mCS_img_loaded"></a>`;
           }
         }
@@ -203,7 +215,9 @@ Template.editor.onRendered(() => {
                             // even though uploaded event fired, attachment.url() is still null somehow //TODO
                             const url = attachment.url();
                             if (url) {
-                              insertImage(url);
+                              insertImage(
+                                `${location.protocol}//${location.host}${url}`,
+                              );
                             } else {
                               retry++;
                               if (retry < maxTry) {
@@ -334,6 +348,7 @@ Blaze.Template.registerHelper(
           // `userId` to the popup as usual, and we need to store it in the DOM
           // using a data attribute.
           'data-userId': knowedUser.userId,
+          [ASIS]: 'true',
         },
         linkValue,
       );

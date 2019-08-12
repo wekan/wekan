@@ -110,7 +110,9 @@ if (Meteor.isServer) {
     if (activity.userId) {
       // No need send notification to user of activity
       // participants = _.union(participants, [activity.userId]);
-      params.user = activity.user().getName();
+      const user = activity.user();
+      params.user = user.getName();
+      params.userEmails = user.emails;
       params.userId = activity.userId;
     }
     if (activity.boardId) {
@@ -172,7 +174,7 @@ if (Meteor.isServer) {
       const comment = activity.comment();
       params.comment = comment.text;
       if (board) {
-        const atUser = /(?:^|\s+)@(\S+)(?:\s+|$)/g;
+        const atUser = /(?:^|>|\b|\s)@(\S+)(?:\s|$|<|\b)/g;
         const comment = params.comment;
         if (comment.match(atUser)) {
           const commenter = params.user;
@@ -184,6 +186,8 @@ if (Meteor.isServer) {
             }
             const user = Users.findOne(username) || Users.findOne({ username });
             const uid = user && user._id;
+            params.atUsername = username;
+            params.atEmails = user.emails;
             if (board.hasMember(uid)) {
               title = 'act-atUserComment';
               watchers = _.union(watchers, [uid]);
