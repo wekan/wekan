@@ -7,6 +7,9 @@ This release adds the following new features:
 - [Add to Admin Panel / Version: Meteor version, MongoDB version, MongoDB storage engine, MongoDB Oplog
   enabled](https://github.com/wekan/wekan/commit/20294d833a2bf0bd1720444f4ffe018b025dacca).
   Thanks to RocketChat developers for MongoDB detection code and xet7 for other code.
+- [Use Meteor 1.8.1 and MongoDB 3.2.22 in Snap](https://github.com/wekan/wekan/commit/39ffe1d80dad5759b338d4ed2d6c576717af2a07).
+  Removed Meteor 1.6.x files.
+  Thanks to xet7.
 
 and fixes the following bugs:
 
