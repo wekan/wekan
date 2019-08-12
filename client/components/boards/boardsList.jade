@@ -31,12 +31,28 @@ template(name="boardList")
                   i.fa.js-has-spenttime-cards(
                     class="fa-circle{{#if hasOvertimeCards}} has-overtime-card-active{{else}} no-overtime-card-active{{/if}}"
                     title="{{#if hasOvertimeCards}}{{_ 'has-overtime-cards'}}{{else}}{{_ 'has-spenttime-cards'}}{{/if}}")
-                i.fa.js-clone-board(
-                    class="fa-clone"
-                    title="{{_ 'duplicate-board'}}")
-                i.fa.js-archive-board(
-                    class="fa-archive"
-                    title="{{_ 'archive-board'}}")
+                unless isMiniScreen
+                  if isSandstorm
+                    i.fa.js-clone-board(
+                        class="fa-clone"
+                        title="{{_ 'duplicate-board'}}")
+                    i.fa.js-archive-board(
+                        class="fa-archive"
+                        title="{{_ 'archive-board'}}")
+                  else if currentUser.isBoardAdmin
+                    i.fa.js-clone-board(
+                        class="fa-clone"
+                        title="{{_ 'duplicate-board'}}")
+                    i.fa.js-archive-board(
+                        class="fa-archive"
+                        title="{{_ 'archive-board'}}")
+                  else if currentUser.isAdmin
+                    i.fa.js-clone-board(
+                        class="fa-clone"
+                        title="{{_ 'duplicate-board'}}")
+                    i.fa.js-archive-board(
+                        class="fa-archive"
+                        title="{{_ 'archive-board'}}")
 
 template(name="boardListHeaderBar")
   h1 {{_ 'my-boards'}}

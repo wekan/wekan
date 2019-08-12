@@ -22,6 +22,7 @@ ENV BUILD_DEPS="apt-utils bsdtar gnupg gosu wget curl bzip2 g++ build-essential 
     ACCOUNTS_LOCKOUT_UNKNOWN_USERS_LOCKOUT_PERIOD=60 \
     ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURE_WINDOW=15 \
     RICHER_CARD_COMMENT_EDITOR=true \
+    ATTACHMENTS_STORE_PATH="" \
     MAX_IMAGE_PIXEL="" \
     IMAGE_COMPRESS_RATIO="" \
     BIGEVENTS_PATTERN="" \
@@ -259,8 +260,8 @@ RUN \
     #gosu wekan:wekan npm install bcrypt && \
     #
     # Delete phantomjs
-    cd /home/wekan/app_build/bundle && \
-    find . -name "*phantomjs*" | xargs rm -rf && \
+    #cd /home/wekan/app_build/bundle && \
+    #find . -name "*phantomjs*" | xargs rm -rf && \
     #
     cd /home/wekan/app_build/bundle/programs/server/ && \
     gosu wekan:wekan npm install && \

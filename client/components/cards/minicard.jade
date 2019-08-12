@@ -8,9 +8,12 @@ template(name="minicard")
     if labels
       .minicard-labels
         each labels
-          span.card-label(class="card-label-{{color}}" title=name)
-            +viewer
-              = name
+          unless hiddenMinicardLabelText
+            span.card-label(class="card-label-{{color}}" title=name)
+              +viewer
+                = name
+          if hiddenMinicardLabelText
+            .minicard-label(class="card-label-{{color}}" title="{{name}}")
     .minicard-title
       .handle
         .fa.fa-arrows

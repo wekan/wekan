@@ -91,3 +91,8 @@ mdg:meteor-apm-agent
 meteorhacks:unblock
 lucasantoniassi:accounts-lockout
 wekan-markdown
+konecty:mongo-counter
+percolate:synced-cron
+easylogic:summernote
+cfs:filesystem
+

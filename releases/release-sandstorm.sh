@@ -1,12 +1,12 @@
 # Usage: ./release.sh 1.36
 
 # Delete old stuff
-cd ~/repos/wekan
-./releases/release-cleanup.sh
+#cd ~/repos/wekan
+#./releases/release-cleanup.sh
 
 # Build Source
-cd ~/repos/wekan
-./releases/rebuild-release.sh
+#cd ~/repos/wekan
+#./releases/rebuild-release.sh
 
 # Build Sandstorm
 cd ~/repos/wekan
@@ -16,6 +16,6 @@ scp wekan-$1.spk x2:/var/snap/wekan/common/releases.wekan.team/
 mv wekan-$1.spk ..
 
 # Delete old stuff
-cd ~/repos/wekan
-./releases/release-cleanup.sh
+#cd ~/repos/wekan
+#./releases/release-cleanup.sh
 

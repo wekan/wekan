@@ -55,24 +55,12 @@ Template.cardAttachmentsPopup.events({
   'change .js-attach-file'(event) {
     const card = this;
     const processFile = f => {
-      const file = new FS.File(f);
-      if (card.isLinkedCard()) {
-        file.boardId = Cards.findOne(card.linkedId).boardId;
-        file.cardId = card.linkedId;
-      } else {
-        file.boardId = card.boardId;
-        file.swimlaneId = card.swimlaneId;
-        file.listId = card.listId;
-        file.cardId = card._id;
-      }
-      file.userId = Meteor.userId();
-      const attachment = Attachments.insert(file);
-
-      if (attachment && attachment._id && attachment.isImage()) {
-        card.setCover(attachment._id);
-      }
-
-      Popup.close();
+      Utils.processUploadedAttachment(card, f, attachment => {
+        if (attachment && attachment._id && attachment.isImage()) {
+          card.setCover(attachment._id);
+        }
+        Popup.close();
+      });
     };
 
     FS.Utility.eachFile(event, f => {
@@ -86,7 +74,7 @@ Template.cardAttachmentsPopup.events({
         reader.onload = function(e) {
           const dataurl = e && e.target && e.target.result;
           if (dataurl !== undefined) {
-            shrinkImage({
+            Utils.shrinkImage({
               dataurl,
               maxSize: MAX_IMAGE_PIXEL,
               ratio: COMPRESS_RATIO,
@@ -118,59 +106,9 @@ Template.cardAttachmentsPopup.events({
   'click .js-upload-clipboard-image': Popup.open('previewClipboardImage'),
 });
 
-const MAX_IMAGE_PIXEL = Meteor.settings.public.MAX_IMAGE_PIXEL;
-const COMPRESS_RATIO = Meteor.settings.public.IMAGE_COMPRESS_RATIO;
+const MAX_IMAGE_PIXEL = Utils.MAX_IMAGE_PIXEL;
+const COMPRESS_RATIO = Utils.IMAGE_COMPRESS_RATIO;
 let pastedResults = null;
-const shrinkImage = function(options) {
-  // shrink image to certain size
-  const dataurl = options.dataurl,
-    callback = options.callback,
-    toBlob = options.toBlob;
-  let canvas = document.createElement('canvas'),
-    image = document.createElement('img');
-  const maxSize = options.maxSize || 1024;
-  const ratio = options.ratio || 1.0;
-  const next = function(result) {
-    image = null;
-    canvas = null;
-    if (typeof callback === 'function') {
-      callback(result);
-    }
-  };
-  image.onload = function() {
-    let width = this.width,
-      height = this.height;
-    let changed = false;
-    if (width > height) {
-      if (width > maxSize) {
-        height *= maxSize / width;
-        width = maxSize;
-        changed = true;
-      }
-    } else if (height > maxSize) {
-      width *= maxSize / height;
-      height = maxSize;
-      changed = true;
-    }
-    canvas.width = width;
-    canvas.height = height;
-    canvas.getContext('2d').drawImage(this, 0, 0, width, height);
-    if (changed === true) {
-      const type = 'image/jpeg';
-      if (toBlob) {
-        canvas.toBlob(next, type, ratio);
-      } else {
-        next(canvas.toDataURL(type, ratio));
-      }
-    } else {
-      next(changed);
-    }
-  };
-  image.onerror = function() {
-    next(false);
-  };
-  image.src = dataurl;
-};
 
 Template.previewClipboardImagePopup.onRendered(() => {
   // we can paste image from clipboard
@@ -182,7 +120,7 @@ Template.previewClipboardImagePopup.onRendered(() => {
       };
       if (MAX_IMAGE_PIXEL) {
         // if has size limitation on image we shrink it before uploading
-        shrinkImage({
+        Utils.shrinkImage({
           dataurl: results.dataURL,
           maxSize: MAX_IMAGE_PIXEL,
           ratio: COMPRESS_RATIO,

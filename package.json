@@ -1,6 +1,6 @@
 {
   "name": "wekan",
-  "version": "v3.08.0",
+  "version": "v3.15.0",
   "description": "Open-Source kanban",
   "private": true,
   "scripts": {
@@ -55,12 +55,15 @@
   "dependencies": {
     "@babel/runtime": "^7.5.4",
     "ajv": "^5.0.0",
+    "babel-runtime": "^6.26.0",
     "bcrypt": "^3.0.2",
     "bson": "^4.0.0",
     "bunyan": "^1.8.12",
     "es6-promise": "^4.2.4",
+    "gridfs-stream": "^0.5.3",
     "ldapjs": "^1.0.2",
     "meteor-node-stubs": "^0.4.1",
+    "mongodb": "^2.2.19",
     "os": "^0.1.1",
     "page": "^1.8.6",
     "qs": "^6.5.2",

@@ -80,7 +80,7 @@ cd /home/wekan/app_build/bundle/programs/server/
 sudo npm install
 sudo chown -R wekan:wekan ./node_modules
 
-cd /home/wekan/app_build/bundle
-find . -name "*phantomjs*" | sudo xargs rm -rf
+#cd /home/wekan/app_build/bundle
+#find . -name "*phantomjs*" | sudo xargs rm -rf
 
 sudo mv /home/wekan/app_build/bundle /build

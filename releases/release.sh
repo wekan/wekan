@@ -1,7 +1,10 @@
 # Usage: ./release.sh 1.36
 
+# Build Bundle
+~/repos/wekan/releases/release-bundle.sh $1
+
 # Build Sandstorm
-./release-sandstorm.sh $1
+~/repos/wekan/release-sandstorm.sh $1
 
 # Build Snap
-./release-snap.sh $1
+#./release-snap.sh $1

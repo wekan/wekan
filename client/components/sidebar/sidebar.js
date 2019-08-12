@@ -101,6 +101,9 @@ BlazeComponent.extendComponent({
         'click .js-hide-sidebar': this.hide,
         'click .js-toggle-sidebar': this.toggle,
         'click .js-back-home': this.setView,
+        'click .js-toggle-minicard-label-text'() {
+          Meteor.call('toggleMinicardLabelText');
+        },
         'click .js-shortcuts'() {
           FlowRouter.go('shortcuts');
         },
@@ -110,6 +113,12 @@ BlazeComponent.extendComponent({
 }).register('sidebar');
 
 Blaze.registerHelper('Sidebar', () => Sidebar);
+
+Template.homeSidebar.helpers({
+  hiddenMinicardLabelText() {
+    return Meteor.user().hasHiddenMinicardLabelText();
+  },
+});
 
 EscapeActions.register(
   'sidebarView',

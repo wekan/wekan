@@ -104,11 +104,11 @@ parts:
             rm -rf ~/.meteor ~/.npm /usr/local/lib/node_modules
             # Delete meteor 1.8.x dependencies and
             # move Snap's working meteor 1.6.0.1 dependencies to be used at Wekan Snap
-            rm -rf .meteor
-            mv .meteor-1.6-snap/.meteor .
-            mv .meteor-1.6-snap/package.json .
-            mv .meteor-1.6-snap/package-lock.json .
-            mv .meteor-1.6-snap/rebuild-wekan.sh .
+            #rm -rf .meteor
+            #mv .meteor-1.6-snap/.meteor .
+            #mv .meteor-1.6-snap/package.json .
+            #mv .meteor-1.6-snap/package-lock.json .
+            #mv .meteor-1.6-snap/rebuild-wekan.sh .
             rm -rf .meteor-1.6-snap
             # Create the OpenAPI specification
             rm -rf .build
@@ -201,6 +201,7 @@ parts:
             rm -rf package-lock.json .build
             meteor add standard-minifier-js --allow-superuser
             meteor npm install --allow-superuser
+            meteor npm install --allow-superuser --save babel-runtime
             meteor build .build --directory --allow-superuser
             cp -f fix-download-unicode/cfs_access-point.txt .build/bundle/programs/server/packages/cfs_access-point.js
             #Removed binary version of bcrypt because of security vulnerability that is not fixed yet.
@@ -214,15 +215,20 @@ parts:
             # Change to directory .build/bundle/programs/server
             cd .build/bundle/programs/server
             npm install
+            npm install --allow-superuser --save babel-runtime
             #meteor npm install --save bcrypt
             # Change back to Wekan source directory
             cd ../../../..
             cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
             cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
-            rm $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan
-            rm $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/meteor/rajit_bootstrap3-datepicker/lib/bootstrap-datepicker/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
-            rm $SNAPCRAFT_PART_INSTALL/lib/node_modules/node-pre-gyp/node_modules/tar/lib/.mkdir.js.swp
-            rm $SNAPCRAFT_PART_INSTALL/lib/node_modules/node-gyp/node_modules/tar/lib/.mkdir.js.swp
+            rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan
+            rm -f $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/meteor/rajit_bootstrap3-datepicker/lib/bootstrap-datepicker/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
+            rm -f $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/tar/lib/.mkdir.js.swp
+            rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/node-pre-gyp/node_modules/tar/lib/.mkdir.js.swp
+            rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/node-gyp/node_modules/tar/lib/.mkdir.js.swp
+            # Meteor 1.8.x additional .swp remove
+            rm -f $SNAPCRAFT_PART_INSTALL/programs/server/node_modules/node-pre-gyp/node_modules/tar/lib/.mkdir.js.swp
+
         organize:
             README: README.wekan
         prime:

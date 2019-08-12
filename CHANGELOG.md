@@ -1,3 +1,107 @@
+# v3.15 2019-08-11 Wekan release
+
+This release fixes the following bugs:
+
+- [Try to fix Snap](https://github.com/wekan/wekan/commit/a1d883b22f73f4bef6d547f94dcb900f475fcb41).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.14 2019-08-11 Wekan release
+
+This release adds the following new features:
+
+- [On wekan master specifying ATTACHMENTS_STORE_PATH, it will try its best keeping original attachments, only newer
+  attachments will be stored into specified path](https://github.com/wekan/wekan/pull/2607).
+  Thanks to whowillcare.
+- [Made image upload in summernote as attachment to wekan board instead of base64 string,
+  which would make the comments use less bytes and be able to take advantage of using local file system feature
+  as attachment](https://github.com/wekan/wekan/pull/2608).
+  Thanks to whowillcare.
+
+and fixes the following bugs:
+
+- [Fix bug: Unable to disable richer comment editor](https://github.com/wekan/wekan/pull/2607).
+  Thanks to whowillcare.
+- [Changed rm to rm -f in wekan snap build, and add packages that somehow didn't get install during snapcraft
+  build](https://github.com/wekan/wekan/pull/2608).
+  Thanks to whowillcare.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.13 2019-08-09 Wekan release
+
+Update translations. Thanks to translators.
+
+# v3.12 2019-08-09 Wekan release
+
+This release adds the following new features:
+
+- [Allowing wekan server admin to specify the attachments to be uploaded to server
+  file system instead of mongodb by specifying a system
+  env var: ATTACHMENTS_STORE_PATH](https://github.com/wekan/wekan/pull/2603).
+  The only caveat for this is if it's not a brand new wekan, if the wekan
+  server admin switchs to this setting, their old attachments won't be available
+  anymore, unless someone make a script to export them out to the filesystem.
+  Thanks to whowillcare.
+- [Allowing user to insert video, link and image, or paste in html with sanitization.
+  In user comments display area, images can be clicked and shown as
+  swipebox](https://github.com/wekan/wekan/pull/2593).
+  Thanks to whowillcare.
+
+and fixes the following bugs:
+
+- [Fix comment-editor marking issue](https://github.com/wekan/wekan/issues/2575).
+  Thanks to whowillcare.
+- [Bugfix: style kbd font color became white after introduced summernote editor
+  to card comments](https://github.com/wekan/wekan/pull/2600).
+  Thanks to whowillcare.
+- [Show All Boards / Clone Board and Archive Board only to BoardAdmin/Admin/Sandstorm users
+  on desktop webbrowser view, so that it's not possible for normal users to make accidental
+  clicks to those](https://github.com/wekan/wekan/issues/2599).
+  Thanks to derbolle and xet7.
+- [Fix bug on editing users informations, switching to other view, staring
+  a board](https://github.com/wekan/wekan/issues/2590).
+  Thanks to road42.
+- [Fix null access with board body](https://github.com/wekan/wekan/pull/2602).
+  Thanks to justinr1234.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.11 2019-08-07 Wekan release
+
+This release fixes the following bugs:
+
+- [Remove non-existing file from snapcraft.yaml to get Snap to build](https://github.com/wekan/wekan/commit/ad82a900e8ec636a72c6e74bb8489559ce2a8bf0).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.10 2019-08-07 Wekan release
+
+This release fixes the following bugs:
+
+- [Add missing dependencies back and revert deleting phantomjs](https://github.com/wekan/wekan/commit/32e9aa0ddaf1b015825b8c62ad17ed74b449e4b1).
+  Thanks to whowillcare and xet7.
+    
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.09 2019-08-07 Wekan release
+
+This release adds the following features:
+
+- [Hide minicard label text: per user checkbox setting at sidebar](https://github.com/wekan/wekan/commit/f7e0b837d394d55d66d451c34f43fa8afd357e5b).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Make Save button visible again at Admin Panel People Edit](https://github.com/wekan/wekan/commit/716fc32968e7dd51b64a11c6c33e59aee849c982).
+  Thanks to sclerc-chss and xet7.
+- [Fix checking if API is enabled](https://github.com/wekan/wekan/pull/2588).
+  Thanks to justinr1234.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.08 2019-08-07 Wekan release
 
 This release fixes the following bugs:
