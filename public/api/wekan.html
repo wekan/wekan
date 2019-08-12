@@ -1524,7 +1524,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
 	  	<ul class="toc-list-h1">
         
           <li>
-            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v3.11">Wekan REST API v3.11</a>
+            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v3.15">Wekan REST API v3.15</a>
             
           </li>
         
@@ -2017,7 +2017,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="wekan-rest-api">Wekan REST API v3.11</h1>
+        <h1 id="wekan-rest-api">Wekan REST API v3.15</h1>
 <blockquote>
 <p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
 </blockquote>
@@ -11594,6 +11594,7 @@ System.out.println(response.toString());
     ],
     <span class="hljs-attr">"fullname"</span>: <span class="hljs-string">"string"</span>,
     <span class="hljs-attr">"hiddenSystemMessages"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">"hiddenMinicardLabelText"</span>: <span class="hljs-literal">true</span>,
     <span class="hljs-attr">"initials"</span>: <span class="hljs-string">"string"</span>,
     <span class="hljs-attr">"invitedBoards"</span>: [
       <span class="hljs-string">"string"</span>
@@ -12246,6 +12247,7 @@ System.out.println(response.toString());
     ],
     <span class="hljs-attr">"fullname"</span>: <span class="hljs-string">"string"</span>,
     <span class="hljs-attr">"hiddenSystemMessages"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">"hiddenMinicardLabelText"</span>: <span class="hljs-literal">true</span>,
     <span class="hljs-attr">"initials"</span>: <span class="hljs-string">"string"</span>,
     <span class="hljs-attr">"invitedBoards"</span>: [
       <span class="hljs-string">"string"</span>
@@ -15385,6 +15387,7 @@ UserSecurity
     ],
     <span class="hljs-attr">"fullname"</span>: <span class="hljs-string">"string"</span>,
     <span class="hljs-attr">"hiddenSystemMessages"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">"hiddenMinicardLabelText"</span>: <span class="hljs-literal">true</span>,
     <span class="hljs-attr">"initials"</span>: <span class="hljs-string">"string"</span>,
     <span class="hljs-attr">"invitedBoards"</span>: [
       <span class="hljs-string">"string"</span>
@@ -15550,6 +15553,7 @@ UserSecurity
   ],
   <span class="hljs-attr">"fullname"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"hiddenSystemMessages"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"hiddenMinicardLabelText"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"initials"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"invitedBoards"</span>: [
     <span class="hljs-string">"string"</span>
@@ -15609,7 +15613,14 @@ UserSecurity
 <td>boolean</td>
 <td>false</td>
 <td>none</td>
-<td>does the user wants to hide system messages?</td>
+<td>does the user want to hide system messages?</td>
+</tr>
+<tr>
+<td>hiddenMinicardLabelText</td>
+<td>boolean</td>
+<td>false</td>
+<td>none</td>
+<td>does the user want to hide minicard label texts?</td>
 </tr>
 <tr>
 <td>initials</td>

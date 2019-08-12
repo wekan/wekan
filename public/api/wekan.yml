@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v3.11
+  version: v3.15
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -2867,7 +2867,11 @@ definitions:
         type: string
       hiddenSystemMessages:
         description: |
-           does the user wants to hide system messages?
+           does the user want to hide system messages?
+        type: boolean
+      hiddenMinicardLabelText:
+        description: |
+           does the user want to hide minicard label texts?
         type: boolean
       initials:
         description: |
