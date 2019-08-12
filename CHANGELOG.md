@@ -1,6 +1,11 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+- [Make Admin Panel text like version etc selectable](https://github.com/wekan/wekan/commit/5aa090e91184764afeac8b7c7bf4b4cb947c8f17).
+  Thanks to xet7.
+
+and fixes the following bugs:
 
 - [Fix scrollHeight error when the sidebar is not visible](https://github.com/wekan/wekan/pull/2609).
   Thanks to Trekky12.
