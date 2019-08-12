@@ -32,14 +32,14 @@ Meteor.startup(() => {
       if (texts.length === 0) return;
 
       // merge the cached content into single email and flush
-      const text = texts.join('\n\n');
+      const html = texts.join('<br/>\n\n');
       user.clearEmailBuffer();
       try {
         Email.send({
           to: user.emails[0].address.toLowerCase(),
           from: Accounts.emailTemplates.from,
           subject,
-          text,
+          html,
         });
       } catch (e) {
         return;
