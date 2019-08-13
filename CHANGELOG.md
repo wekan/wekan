@@ -1,3 +1,13 @@
+# v3.17 2019-08-13 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix ReferenceError: cardAssignees is not defined](https://github.com/wekan/wekan/issues/2612).
+  Reverted In-Progress Assignee field, moving it to feature branch.
+  Thanks to saschafoerster and to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.16 2019-08-13 Wekan release
 
 This release adds the following new features:
