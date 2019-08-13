@@ -302,6 +302,7 @@ if (Meteor.isServer) {
   ) {
     Authentication.checkUserId(req.userId);
     const paramBoardId = req.params.boardId;
+    const board = Boards.findOne({ _id: paramBoardId });
     const id = CustomFields.direct.insert({
       name: req.body.name,
       type: req.body.type,
@@ -309,7 +310,7 @@ if (Meteor.isServer) {
       showOnCard: req.body.showOnCard,
       automaticallyOnCard: req.body.automaticallyOnCard,
       showLabelOnMiniCard: req.body.showLabelOnMiniCard,
-      boardIds: { $in: [paramBoardId] },
+      boardIds: [board._id],
     });
 
     const customField = CustomFields.findOne({
