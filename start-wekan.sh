@@ -41,6 +41,9 @@
       # https://github.com/wekan/wekan/pull/2560
       export RICHER_CARD_COMMENT_EDITOR=true
       #---------------------------------------------------------------
+      # ==== CARD OPENED, SEND WEBHOOK MESSAGE ====
+      export CARD_OPENED_WEBHOOK_ENABLED=false
+      #---------------------------------------------------------------
       # ==== Allow to shrink attached/pasted image ====
       # https://github.com/wekan/wekan/pull/2544
       #export MAX_IMAGE_PIXEL=1024

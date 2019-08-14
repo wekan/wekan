@@ -25,6 +25,9 @@ REM # ==== RICH TEXT EDITOR IN CARD COMMENTS ====
 REM # https://github.com/wekan/wekan/pull/2560
 SET RICHER_CARD_COMMENT_EDITOR=true
 
+REM # ==== CARD OPENED, SEND WEBHOOK MESSAGE ====
+SET CARD_OPENED_WEBHOOK_ENABLED=false
+
 REM # ==== Allow to shrink attached/pasted image ====
 REM # https://github.com/wekan/wekan/pull/2544
 REM SET MAX_IMAGE_PIXEL=1024
