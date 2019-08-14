@@ -1,3 +1,18 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Send webhook when cardDetails is rendered](https://github.com/wekan/wekan/pull/2620).
+  Thanks to jymcheong.
+
+and fixes the following bugs:
+
+- [Time line is missing delete/edit comments, add English i18n for these two activities,
+  For html email msg needs](https://github.com/wekan/wekan/pull/2615).
+  Thanks to whowillcare.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.17 2019-08-13 Wekan release
 
 This release fixes the following bugs:
