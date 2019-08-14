@@ -3,13 +3,14 @@
 // 1. that the user is a member of
 // 2. the user has starred
 Meteor.publish('boards', function() {
+  const userId = this.userId;
   // Ensure that the user is connected. If it is not, we need to return an empty
   // array to tell the client to remove the previously published docs.
-  if (!Match.test(this.userId, String)) return [];
+  if (!Match.test(userId, String) || !userId) return [];
 
   // Defensive programming to verify that starredBoards has the expected
   // format -- since the field is in the `profile` a user can modify it.
-  const { starredBoards = [] } = Users.findOne(this.userId).profile || [];
+  const { starredBoards = [] } = (Users.findOne(userId) || {}).profile || {};
   check(starredBoards, [String]);
 
   return Boards.find(
@@ -20,7 +21,7 @@ Meteor.publish('boards', function() {
           _id: { $in: starredBoards },
           permission: 'public',
         },
-        { members: { $elemMatch: { userId: this.userId, isActive: true } } },
+        { members: { $elemMatch: { userId, isActive: true } } },
       ],
     },
     {
@@ -40,14 +41,15 @@ Meteor.publish('boards', function() {
 });
 
 Meteor.publish('archivedBoards', function() {
-  if (!Match.test(this.userId, String)) return [];
+  const userId = this.userId;
+  if (!Match.test(userId, String)) return [];
 
   return Boards.find(
     {
       archived: true,
       members: {
         $elemMatch: {
-          userId: this.userId,
+          userId,
           isAdmin: true,
         },
       },
@@ -70,6 +72,13 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
   check(boardId, String);
   check(isArchived, Boolean);
   const thisUserId = this.userId;
+  const $or = [{ permission: 'public' }];
+
+  if (thisUserId) {
+    $or.push({
+      members: { $elemMatch: { userId: thisUserId, isActive: true } },
+    });
+  }
 
   this.cursor(
     Boards.find(
@@ -78,10 +87,7 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
         archived: false,
         // If the board is not public the user has to be a member of it to see
         // it.
-        $or: [
-          { permission: 'public' },
-          { members: { $elemMatch: { userId: this.userId, isActive: true } } },
-        ],
+        $or,
         // Sort required to ensure oplog usage
       },
       { limit: 1, sort: { _id: 1 } },
