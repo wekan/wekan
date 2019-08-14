@@ -1,13 +1,18 @@
-# Upcoming Wekan release
+# v3.18 2019-08-15 Wekan release
 
 This release adds the following new features:
 
-- [Send webhook](https://github.com/wekan/wekan/issues/2518) when
+- [Send webhook message](https://github.com/wekan/wekan/issues/2518) when
   [cardDetails is rendered](https://github.com/wekan/wekan/pull/2620).
   Thanks to jymcheong.
 - Related to [above new feature](https://github.com/wekan/wekan/issues/2518),
   Add [setting CARD_OPENED_WEBHOOK_ENABLED=false as
   default](https://github.com/wekan/wekan/commit/b8c527d52bec7272c890385f11e26acec65822ae).
+  Thanks to xet7.
+
+and adds the following updates:
+
+- [Update base64 dependency](https://github.com/wekan/wekan/commit/c87001fa9f8d1fa13640ae604b1ba46556c7813c).
   Thanks to xet7.
 
 and fixes the following bugs:
