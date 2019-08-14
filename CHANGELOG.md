@@ -2,8 +2,13 @@
 
 This release adds the following new features:
 
-- [Send webhook when cardDetails is rendered](https://github.com/wekan/wekan/pull/2620).
+- [Send webhook](https://github.com/wekan/wekan/issues/2518) when
+  [cardDetails is rendered](https://github.com/wekan/wekan/pull/2620).
   Thanks to jymcheong.
+- Related to [above new feature](https://github.com/wekan/wekan/issues/2518),
+  Add [setting CARD_OPENED_WEBHOOK_ENABLED=false as
+  default](https://github.com/wekan/wekan/commit/b8c527d52bec7272c890385f11e26acec65822ae).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
