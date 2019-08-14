@@ -73,6 +73,8 @@
   "activity-unchecked-item-card": "odznaczono %s w liście zadań %s",
   "activity-checklist-completed-card": "wykonał(a) wszystkie zadania z listy __checklist__ na karcie __card__ na liście __list__ na diagramie czynności __swimlane__ na tablicy __board__",
   "activity-checklist-uncompleted-card": "wycofano ukończenie listy zadań %s",
+  "activity-editComment": "edited comment %s",
+  "activity-deleteComment": "deleted comment %s",
   "add-attachment": "Dodaj załącznik",
   "add-board": "Dodaj tablicę",
   "add-card": "Dodaj kartę",

@@ -73,6 +73,8 @@
   "activity-unchecked-item-card": "取消勾选 %s 于清单 %s中",
   "activity-checklist-completed-card": "完成检查列表  __checklist__  卡片  __card__ 列表 __list__ 泳道 __swimlane__ 看板 __board__",
   "activity-checklist-uncompleted-card": "未完成清单 %s",
+  "activity-editComment": "edited comment %s",
+  "activity-deleteComment": "deleted comment %s",
   "add-attachment": "添加附件",
   "add-board": "添加看板",
   "add-card": "添加卡片",

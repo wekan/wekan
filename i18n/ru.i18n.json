@@ -73,6 +73,8 @@
   "activity-unchecked-item-card": "снял %s в контрольном списке %s",
   "activity-checklist-completed-card": "завершил контрольный список __checklist__ в карточку __card__ в списке __list__ на дорожке __swimlane__ доски __board__",
   "activity-checklist-uncompleted-card": "вновь открыл контрольный список %s",
+  "activity-editComment": "edited comment %s",
+  "activity-deleteComment": "deleted comment %s",
   "add-attachment": "Добавить вложение",
   "add-board": "Добавить доску",
   "add-card": "Добавить карточку",

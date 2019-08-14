@@ -73,6 +73,8 @@
   "activity-unchecked-item-card": "%s è stato deselezionato nella  checklist %s",
   "activity-checklist-completed-card": "checklist  __label__ completata nella scheda __card__ della lista __list__ della corsia __swimlane__  nella bacheca __board__",
   "activity-checklist-uncompleted-card": "La checklist %s non è completa",
+  "activity-editComment": "edited comment %s",
+  "activity-deleteComment": "deleted comment %s",
   "add-attachment": "Aggiungi Allegato",
   "add-board": "Aggiungi Bacheca",
   "add-card": "Aggiungi Scheda",
