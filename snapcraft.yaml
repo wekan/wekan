@@ -102,14 +102,6 @@ parts:
         override-build: |
             echo "Cleaning environment first"
             rm -rf ~/.meteor ~/.npm /usr/local/lib/node_modules
-            # Delete meteor 1.8.x dependencies and
-            # move Snap's working meteor 1.6.0.1 dependencies to be used at Wekan Snap
-            #rm -rf .meteor
-            #mv .meteor-1.6-snap/.meteor .
-            #mv .meteor-1.6-snap/package.json .
-            #mv .meteor-1.6-snap/package-lock.json .
-            #mv .meteor-1.6-snap/rebuild-wekan.sh .
-            rm -rf .meteor-1.6-snap
             # Create the OpenAPI specification
             rm -rf .build
             #mkdir -p .build/python

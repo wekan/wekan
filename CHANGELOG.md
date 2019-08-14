@@ -1,3 +1,40 @@
+# v3.17 2019-08-13 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix ReferenceError: cardAssignees is not defined](https://github.com/wekan/wekan/issues/2612).
+  Reverted In-Progress Assignee field, moving it to feature branch.
+  Thanks to saschafoerster and to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.16 2019-08-13 Wekan release
+
+This release adds the following new features:
+
+- [Make Admin Panel text like version etc selectable](https://github.com/wekan/wekan/commit/5aa090e91184764afeac8b7c7bf4b4cb947c8f17).
+  Thanks to xet7.
+- [Add to Admin Panel / Version: Meteor version, MongoDB version, MongoDB storage engine, MongoDB Oplog
+  enabled](https://github.com/wekan/wekan/commit/20294d833a2bf0bd1720444f4ffe018b025dacca).
+  Thanks to RocketChat developers for MongoDB detection code and xet7 for other code.
+- [Use Meteor 1.8.1 and MongoDB 3.2.22 in Snap](https://github.com/wekan/wekan/commit/39ffe1d80dad5759b338d4ed2d6c576717af2a07).
+  Removed Meteor 1.6.x files.
+  Thanks to xet7.
+- [Enable HTML email content for richer comment](https://github.com/wekan/wekan/pull/2611).
+  Thanks to whowillcare.
+
+and fixes the following bugs:
+
+- [Fix scrollHeight error when the sidebar is not visible](https://github.com/wekan/wekan/pull/2609).
+  Thanks to Trekky12.
+- [Fix insert action for CustomFields API](https://github.com/wekan/wekan/pull/2610).
+  Thanks to JimCircadian.
+- [Fixed a few issues related summernote enabled: 1) @ user couldn't send out email sometime, due to html format.
+  2) @ user link wasn't able to show user info by clicking](https://github.com/wekan/wekan/pull/2611).
+  Thanks to whowillcare.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.15 2019-08-11 Wekan release
 
 This release fixes the following bugs:

@@ -20,8 +20,20 @@ template(name='statistics')
           th Wekan {{_ 'info'}}
           td {{statistics.version}}
         tr
+          th {{_ 'Meteor_version'}}
+          td {{statistics.meteor.meteorVersion}}
+        tr
           th {{_ 'Node_version'}}
           td {{statistics.process.nodeVersion}}
+        tr
+          th {{_ 'MongoDB_version'}}
+          td {{statistics.mongo.mongoVersion}}
+        tr
+          th {{_ 'MongoDB_storage_engine'}}
+          td {{statistics.mongo.mongoStorageEngine}}
+        tr
+          th {{_ 'MongoDB_Oplog_enabled'}}
+          td {{statistics.mongo.mongoOplogEnabled}}
         tr
           th {{_ 'OS_Type'}}
           td {{statistics.os.type}}
