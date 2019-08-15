@@ -73,6 +73,8 @@
   "activity-unchecked-item-card": "अचिह्नित %s अंदर में चिह्नांकन-सूची %s",
   "activity-checklist-completed-card": "completed checklist __checklist__ at card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
   "activity-checklist-uncompleted-card": "अपूर्ण चिह्नांकन-सूची %s",
+  "activity-editComment": "edited comment %s",
+  "activity-deleteComment": "deleted comment %s",
   "add-attachment": "संलग्न करें",
   "add-board": "बोर्ड जोड़ें",
   "add-card": "कार्ड जोड़ें",

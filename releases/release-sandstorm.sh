@@ -14,7 +14,7 @@ meteor-spk pack wekan-$1.spk
 spk publish wekan-$1.spk
 scp wekan-$1.spk x2:/var/snap/wekan/common/releases.wekan.team/
 mv wekan-$1.spk ..
-
+sudo rm -rf .meteor-spk
 # Delete old stuff
 #cd ~/repos/wekan
 #./releases/release-cleanup.sh

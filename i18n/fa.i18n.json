@@ -73,6 +73,8 @@
   "activity-unchecked-item-card": "چک نشده  %s در چک لیست %s",
   "activity-checklist-completed-card": "completed checklist __checklist__ at card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
   "activity-checklist-uncompleted-card": "چک لیست تمام نشده %s",
+  "activity-editComment": "edited comment %s",
+  "activity-deleteComment": "deleted comment %s",
   "add-attachment": "افزودن ضمیمه",
   "add-board": "افزودن برد",
   "add-card": "افزودن کارت",

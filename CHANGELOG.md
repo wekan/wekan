@@ -1,3 +1,53 @@
+# v3.20 2019-08-15 Wekan release
+
+This release fixes the following security issues:
+
+- [Revert permission change](https://github.com/wekan/wekan/commit/d302d6f857657ada229f78d9fcd32f63753d9779),
+  related [#2590](https://github.com/wekan/wekan/issues/2590) and
+  [these comments](https://github.com/wekan/wekan/commit/9f6d615ee5bbdb7552e6bdcae75a76a7f74fef7a#commitcomment-34636513).
+  Thanks to road42, justinr1234 and xet7.
+
+and adds the following new features:
+
+- On board, BoardAdmin and normal user can now [invite new user directly
+  with email address](https://github.com/wekan/wekan/issues/2060),
+  [without using Admin Panel or registering
+  at /sign-up](https://github.com/wekan/wekan/commit/5c696e5a3c70d31a7af6e47cbcf691f6c18eb384).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Fix bug: When on board, clicking Admin Panel redirects to All Boards page, so it did require
+  to click Admin Panel again](https://github.com/wekan/wekan/commit/d302d6f857657ada229f78d9fcd32f63753d9779).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.18 2019-08-15 Wekan release
+
+This release adds the following new features:
+
+- [Send webhook message](https://github.com/wekan/wekan/issues/2518) when
+  [cardDetails is rendered](https://github.com/wekan/wekan/pull/2620).
+  Thanks to jymcheong.
+- Related to [above new feature](https://github.com/wekan/wekan/issues/2518),
+  Add [setting CARD_OPENED_WEBHOOK_ENABLED=false as
+  default](https://github.com/wekan/wekan/commit/b8c527d52bec7272c890385f11e26acec65822ae).
+  Thanks to xet7.
+
+and adds the following updates:
+
+- [Update base64 dependency](https://github.com/wekan/wekan/commit/c87001fa9f8d1fa13640ae604b1ba46556c7813c).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Time line is missing delete/edit comments, add English i18n for these two activities,
+  For html email msg needs](https://github.com/wekan/wekan/pull/2615).
+  Thanks to whowillcare.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.17 2019-08-13 Wekan release
 
 This release fixes the following bugs:

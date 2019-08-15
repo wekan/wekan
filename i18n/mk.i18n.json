@@ -73,6 +73,8 @@
   "activity-unchecked-item-card": "размаркира %s в чеклист %s",
   "activity-checklist-completed-card": "completed checklist __checklist__ at card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
   "activity-checklist-uncompleted-card": "\"отзавърши\" чеклистта %s",
+  "activity-editComment": "edited comment %s",
+  "activity-deleteComment": "deleted comment %s",
   "add-attachment": "Додај прилог",
   "add-board": "Додади Табла",
   "add-card": "Додади Картичка",

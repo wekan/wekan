@@ -73,6 +73,8 @@
   "activity-unchecked-item-card": "as descroiat %s dins la checklist %s",
   "activity-checklist-completed-card": "as acabat la checklist__checklist__ de la carta __card__ de la tièra __list__ del corredor __swimlane__ del tablèu __board__",
   "activity-checklist-uncompleted-card": "as rendut incomplet la checklist %s",
+  "activity-editComment": "edited comment %s",
+  "activity-deleteComment": "deleted comment %s",
   "add-attachment": "Apondre una pèça joncha",
   "add-board": "Apondre un tablèu",
   "add-card": "Apondre una carta",

@@ -73,6 +73,8 @@
   "activity-unchecked-item-card": "desmarcado %s en la lista de verificación %s",
   "activity-checklist-completed-card": "completada la lista de verificación __checklist__ de la tarjeta __card__ de la lista __list__ del carril __swimlane__ del tablero __board__",
   "activity-checklist-uncompleted-card": "no completó la lista de verificación %s",
+  "activity-editComment": "edited comment %s",
+  "activity-deleteComment": "deleted comment %s",
   "add-attachment": "Añadir adjunto",
   "add-board": "Añadir tablero",
   "add-card": "Añadir una tarjeta",
