@@ -1,6 +1,21 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release fixes the following security issues:
+
+- [Revert permission change](https://github.com/wekan/wekan/commit/d302d6f857657ada229f78d9fcd32f63753d9779),
+  related [#2590](https://github.com/wekan/wekan/issues/2590) and
+  [these comments](https://github.com/wekan/wekan/commit/9f6d615ee5bbdb7552e6bdcae75a76a7f74fef7a#commitcomment-34636513).
+  Thanks to road42, justinr1234 and xet7.
+
+and adds the following new features:
+
+- On board, BoardAdmin and normal user can now [invite new user directly
+  with email address](https://github.com/wekan/wekan/issues/2060),
+  [without using Admin Panel or registering
+  at /sign-up](https://github.com/wekan/wekan/commit/5c696e5a3c70d31a7af6e47cbcf691f6c18eb384).
+  Thanks to xet7.
+
+and fixes the following bugs:
 
 - [Fix bug: When on board, clicking Admin Panel redirects to All Boards page, so it did require
   to click Admin Panel again](https://github.com/wekan/wekan/commit/d302d6f857657ada229f78d9fcd32f63753d9779).
