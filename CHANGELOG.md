@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v3.19 2019-08-15 Upcoming Wekan release
 
 This release fixes the following security issues:
 
