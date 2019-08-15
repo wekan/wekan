@@ -22,7 +22,7 @@ Meteor.methods({
     let nodeVersion = process.version;
     nodeVersion = nodeVersion.replace('v', '');
     statistics.process = {
-      nodeVersion: nodeVersion,
+      nodeVersion,
       pid: process.pid,
       uptime: process.uptime(),
     };
@@ -30,7 +30,7 @@ Meteor.methods({
     let meteorVersion = Meteor.release;
     meteorVersion = meteorVersion.replace('METEOR@', '');
     statistics.meteor = {
-      meteorVersion: meteorVersion,
+      meteorVersion,
     };
     // Thanks to RocketChat for MongoDB version detection !
     // https://github.com/RocketChat/Rocket.Chat/blob/develop/app/utils/server/functions/getMongoInfo.js
@@ -59,9 +59,9 @@ Meteor.methods({
       }
     }
     statistics.mongo = {
-      mongoVersion: mongoVersion,
-      mongoStorageEngine: mongoStorageEngine,
-      mongoOplogEnabled: mongoOplogEnabled,
+      mongoVersion,
+      mongoStorageEngine,
+      mongoOplogEnabled,
     };
     return statistics;
   },
