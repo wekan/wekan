@@ -180,7 +180,7 @@ Template.editor.onRendered(() => {
                 fBtn.on('click', function() {
                   const $this = $(this),
                     isActive = $this.hasClass('active');
-                  $('.minicards').toggle(!isActive); // mini card is still showing when editor is in fullscreen mode, we hide here manually
+                  $('.minicards,#header-quick-access').toggle(!isActive); // mini card is still showing when editor is in fullscreen mode, we hide here manually
                 });
               }
             },
