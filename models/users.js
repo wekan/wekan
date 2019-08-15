@@ -611,8 +611,8 @@ if (Meteor.isServer) {
         board.members &&
         _.contains(_.pluck(board.members, 'userId'), inviter._id) &&
         _.where(board.members, { userId: inviter._id })[0].isActive;
-        // GitHub issue 2060
-        //_.where(board.members, { userId: inviter._id })[0].isAdmin;
+      // GitHub issue 2060
+      //_.where(board.members, { userId: inviter._id })[0].isAdmin;
       if (!allowInvite) throw new Meteor.Error('error-board-notAMember');
 
       this.unblock();
