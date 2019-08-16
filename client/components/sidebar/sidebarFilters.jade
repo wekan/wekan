@@ -56,6 +56,22 @@ template(name="filterSidebar")
           if Filter.customFields.isSelected _id
             i.fa.fa-check
   hr
+  ul.sidebar-list
+    li(class="{{#if Filter.archive.isSelected _id}}active{{/if}}")
+      a.name.js-toggle-archive-filter
+        span.sidebar-list-item-description
+          | {{_ 'filter-show-archive'}}
+        if Filter.archive.isSelected _id
+          i.fa.fa-check
+  hr
+  ul.sidebar-list
+    li(class="{{#if Filter.hideEmpty.isSelected _id}}active{{/if}}")
+      a.name.js-toggle-hideEmpty-filter
+        span.sidebar-list-item-description
+          | {{_ 'filter-hide-empty'}}
+        if Filter.hideEmpty.isSelected _id
+          i.fa.fa-check
+  hr
   span {{_ 'advanced-filter-label'}}
   input.js-field-advanced-filter(type="text")
   span {{_ 'advanced-filter-description'}}
