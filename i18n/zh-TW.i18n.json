@@ -306,8 +306,6 @@
   "filter-no-label": "沒有標籤",
   "filter-no-member": "沒有成員",
   "filter-no-custom-fields": "沒有自訂欄位",
-  "filter-show-archive": "顯示已封存清單",
-  "filter-hide-empty": "隱藏空白清單",
   "filter-on": "篩選器已開啟",
   "filter-on-desc": "你正在篩選該看板上的卡片，點此編輯篩選條件。",
   "filter-to-selection": "選擇的篩選條件",
@@ -729,5 +727,6 @@
   "act-duenow": "was reminding the current due (__timeValue__) of __card__ is now",
   "act-atUserComment": "You were mentioned in [__board__] __card__",
   "delete-user-confirm-popup": "Are you sure you want to delete this account? There is no undo.",
-  "accounts-allowUserDelete": "Allow users to self delete their account"
+  "accounts-allowUserDelete": "Allow users to self delete their account",
+  "hide-minicard-label-text": "Hide minicard label text"
 }

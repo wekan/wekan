@@ -305,9 +305,7 @@
   "filter-clear": "フィルターの解除",
   "filter-no-label": "ラベルなし",
   "filter-no-member": "メンバーなし",
-  "filter-no-custom-fields": "カスタムフィールドなし",
-  "filter-show-archive": "アーカイブされたリストを表示",
-  "filter-hide-empty": "空のリストを隠す",
+  "filter-no-custom-fields": "No Custom Fields",
   "filter-on": "フィルター有効",
   "filter-on-desc": "このボードのカードをフィルターしています。フィルターを編集するにはこちらをクリックしてください。",
   "filter-to-selection": "フィルターした項目を全選択",
@@ -729,5 +727,6 @@
   "act-duenow": "was reminding the current due (__timeValue__) of __card__ is now",
   "act-atUserComment": "You were mentioned in [__board__] __card__",
   "delete-user-confirm-popup": "Are you sure you want to delete this account? There is no undo.",
-  "accounts-allowUserDelete": "Allow users to self delete their account"
+  "accounts-allowUserDelete": "Allow users to self delete their account",
+  "hide-minicard-label-text": "Hide minicard label text"
 }
