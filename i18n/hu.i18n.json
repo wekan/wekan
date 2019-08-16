@@ -306,6 +306,8 @@
   "filter-no-label": "Nincs címke",
   "filter-no-member": "Nincs tag",
   "filter-no-custom-fields": "Nincsenek egyéni mezők",
+  "filter-show-archive": "Show archived lists",
+  "filter-hide-empty": "Hide empty lists",
   "filter-on": "Szűrő bekapcsolva",
   "filter-on-desc": "A kártyaszűrés be van kapcsolva ezen a táblán. Kattintson ide a szűrő szerkesztéséhez.",
   "filter-to-selection": "Szűrés a kijelöléshez",

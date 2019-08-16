@@ -306,6 +306,8 @@
   "filter-no-label": "Kein Label",
   "filter-no-member": "Kein Mitglied",
   "filter-no-custom-fields": "Keine benutzerdefinierten Felder",
+  "filter-show-archive": "Show archived lists",
+  "filter-hide-empty": "Hide empty lists",
   "filter-on": "Filter ist aktiv",
   "filter-on-desc": "Sie filtern die Karten in diesem Board. Klicken Sie, um den Filter zu bearbeiten.",
   "filter-to-selection": "Ergebnisse auswählen",

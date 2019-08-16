@@ -306,6 +306,8 @@
   "filter-no-label": "Sin etiqueta",
   "filter-no-member": "Sin miembro",
   "filter-no-custom-fields": "Sin campos personalizados",
+  "filter-show-archive": "Show archived lists",
+  "filter-hide-empty": "Hide empty lists",
   "filter-on": "Filtrado activado",
   "filter-on-desc": "Estás filtrando tarjetas en este tablero. Haz clic aquí para editar el filtro.",
   "filter-to-selection": "Filtrar la selección",

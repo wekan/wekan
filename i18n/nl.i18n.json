@@ -306,6 +306,8 @@
   "filter-no-label": "Geen label",
   "filter-no-member": "Geen lid",
   "filter-no-custom-fields": "No Custom Fields",
+  "filter-show-archive": "Show archived lists",
+  "filter-hide-empty": "Hide empty lists",
   "filter-on": "Filter staat aan",
   "filter-on-desc": "Je bent nu kaarten aan het filteren op dit bord. Klik hier om het filter te wijzigen.",
   "filter-to-selection": "Filter zoals selectie",

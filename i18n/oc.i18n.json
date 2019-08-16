@@ -306,6 +306,8 @@
   "filter-no-label": "Pas cap d'etiqueta",
   "filter-no-member": "Pas cap de participant",
   "filter-no-custom-fields": "Pas de camp personalizat",
+  "filter-show-archive": "Show archived lists",
+  "filter-hide-empty": "Hide empty lists",
   "filter-on": "Lo filtre es activat",
   "filter-on-desc": "Filtratz las cartas dins aqueste tablèu. Picar aquí per editar los filtres",
   "filter-to-selection": "Filtrar la seleccion",

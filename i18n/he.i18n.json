@@ -306,6 +306,8 @@
   "filter-no-label": "אין תווית",
   "filter-no-member": "אין חבר כזה",
   "filter-no-custom-fields": "אין שדות מותאמים אישית",
+  "filter-show-archive": "Show archived lists",
+  "filter-hide-empty": "Hide empty lists",
   "filter-on": "המסנן פועל",
   "filter-on-desc": "מסנן כרטיסים פעיל בלוח זה. יש ללחוץ כאן לעריכת המסנן.",
   "filter-to-selection": "סינון לבחירה",

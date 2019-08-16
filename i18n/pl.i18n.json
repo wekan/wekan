@@ -306,6 +306,8 @@
   "filter-no-label": "Brak etykiety",
   "filter-no-member": "Brak członków",
   "filter-no-custom-fields": "Brak niestandardowych pól",
+  "filter-show-archive": "Show archived lists",
+  "filter-hide-empty": "Hide empty lists",
   "filter-on": "Filtr jest włączony",
   "filter-on-desc": "Filtrujesz karty na tej tablicy. Kliknij tutaj by edytować filtr.",
   "filter-to-selection": "Odfiltruj zaznaczenie",

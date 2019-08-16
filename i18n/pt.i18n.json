@@ -306,6 +306,8 @@
   "filter-no-label": "Sem etiquetas",
   "filter-no-member": "Sem membros",
   "filter-no-custom-fields": "Sem Campos Personalizados",
+  "filter-show-archive": "Show archived lists",
+  "filter-hide-empty": "Hide empty lists",
   "filter-on": "Filtro está activo",
   "filter-on-desc": "Está a filtrar cartões neste quadro. Clique aqui para editar o filtro.",
   "filter-to-selection": "Filtrar esta selecção",

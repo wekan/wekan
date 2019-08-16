@@ -306,6 +306,8 @@
   "filter-no-label": "Aucune étiquette",
   "filter-no-member": "Aucun participant",
   "filter-no-custom-fields": "Pas de champs personnalisés",
+  "filter-show-archive": "Show archived lists",
+  "filter-hide-empty": "Hide empty lists",
   "filter-on": "Le filtre est actif",
   "filter-on-desc": "Vous êtes en train de filtrer les cartes sur ce tableau. Cliquez ici pour modifier les filtres.",
   "filter-to-selection": "Filtre vers la sélection",

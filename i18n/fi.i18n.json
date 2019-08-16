@@ -306,6 +306,8 @@
   "filter-no-label": "Ei tunnistetta",
   "filter-no-member": "Ei jäseniä",
   "filter-no-custom-fields": "Ei mukautettuja kenttiä",
+  "filter-show-archive": "Näytä arkistoidut listat",
+  "filter-hide-empty": "Näytä tyhjät listat",
   "filter-on": "Suodatus on päällä",
   "filter-on-desc": "Suodatat kortteja tällä taululla. Klikkaa tästä muokataksesi suodatinta.",
   "filter-to-selection": "Suodata valintaan",
