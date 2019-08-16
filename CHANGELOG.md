@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [In the filter menu, 1) Turning on "show archive" will request archived lists and show them on the ListView.
+  2) Turning on "hide empty lists" will hide empty lists on the ListView](https://github.com/wekan/wekan/pull/2632).
+  Thanks to urakagi.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.20 2019-08-15 Wekan release
 
 This release fixes the following security issues:
