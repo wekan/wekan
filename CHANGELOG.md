@@ -6,6 +6,13 @@ This release adds the following new features:
   2) Turning on "hide empty lists" will hide empty lists on the ListView](https://github.com/wekan/wekan/pull/2632).
   Thanks to urakagi.
 
+and fixes the following bugs:
+
+- [Fix mismatched queries](https://github.com/wekan/wekan/pull/2628).
+  Thanks to justinr1234.
+- [Fix Summernote too wide when in mobile screen](https://github.com/wekan/wekan/issues/2621).
+  Thanks to whowillcare.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v3.20 2019-08-15 Wekan release
