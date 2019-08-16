@@ -73,6 +73,8 @@
   "activity-unchecked-item-card": "unchecked %s in checklist %s",
   "activity-checklist-completed-card": "completed checklist __checklist__ at card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
   "activity-checklist-uncompleted-card": "uncompleted the checklist %s",
+  "activity-editComment": "edited comment %s",
+  "activity-deleteComment": "deleted comment %s",
   "add-attachment": "Add Attachment",
   "add-board": "Add Board",
   "add-card": "Add Card",

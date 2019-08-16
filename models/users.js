@@ -260,7 +260,7 @@ Users.attachSchema(
 Users.allow({
   update(userId) {
     const user = Users.findOne(userId);
-    return user; // && Meteor.user().isAdmin; // GitHub issue #2590
+    return user && Meteor.user().isAdmin; // GitHub issue #2590
   },
   remove(userId, doc) {
     const adminsNumber = Users.find({ isAdmin: true }).count();
@@ -610,8 +610,9 @@ if (Meteor.isServer) {
         board &&
         board.members &&
         _.contains(_.pluck(board.members, 'userId'), inviter._id) &&
-        _.where(board.members, { userId: inviter._id })[0].isActive &&
-        _.where(board.members, { userId: inviter._id })[0].isAdmin;
+        _.where(board.members, { userId: inviter._id })[0].isActive;
+      // GitHub issue 2060
+      //_.where(board.members, { userId: inviter._id })[0].isAdmin;
       if (!allowInvite) throw new Meteor.Error('error-board-notAMember');
 
       this.unblock();

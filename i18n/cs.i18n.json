@@ -73,6 +73,8 @@
   "activity-unchecked-item-card": "nedokončen %s v seznamu %s",
   "activity-checklist-completed-card": "dokončil(a) zaškrtávací seznam __checklist__ na kartě __card__ ve sloupci __list__ ve swimlane __swimlane__ na tablu __board__",
   "activity-checklist-uncompleted-card": "nedokončený seznam %s",
+  "activity-editComment": "edited comment %s",
+  "activity-deleteComment": "deleted comment %s",
   "add-attachment": "Přidat přílohu",
   "add-board": "Přidat tablo",
   "add-card": "Přidat kartu",

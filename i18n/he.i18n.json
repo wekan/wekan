@@ -73,6 +73,8 @@
   "activity-unchecked-item-card": "הסימון של %s בוטל ברשימת המשימות %s",
   "activity-checklist-completed-card": "רשימת המטלות __checklist__ בכרטיס __card__ שברשימה __list__ תחת המסלול __swimlane__ בלוח __board__ הושלמה",
   "activity-checklist-uncompleted-card": "רשימת המשימות %s סומנה כבלתי מושלמת",
+  "activity-editComment": "התגובה %s נערכה",
+  "activity-deleteComment": "התגובה %s נמחקה",
   "add-attachment": "הוספת קובץ מצורף",
   "add-board": "הוספת לוח",
   "add-card": "הוספת כרטיס",

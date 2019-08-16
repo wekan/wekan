@@ -73,6 +73,8 @@
   "activity-unchecked-item-card": "poistettu ruksi %s tarkistuslistassa %s",
   "activity-checklist-completed-card": "valmistui tarkistuslista __checklist__ kortilla __card__ listalla __list__ swimlanella __swimlane__ taululla __board__",
   "activity-checklist-uncompleted-card": "ei valmistunut tarkistuslista %s",
+  "activity-editComment": "muokkasi kommenttia %s",
+  "activity-deleteComment": "poisti kommentin %s",
   "add-attachment": "Lisää liite",
   "add-board": "Lisää taulu",
   "add-card": "Lisää kortti",
