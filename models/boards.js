@@ -407,10 +407,7 @@ Boards.helpers({
   },
 
   lists() {
-    return Lists.find(
-      { boardId: this._id, archived: false },
-      { sort: { sort: 1 } },
-    );
+    return Lists.find({ boardId: this._id }, { sort: { sort: 1 } });
   },
 
   nullSortLists() {
