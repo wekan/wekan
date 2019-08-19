@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Wrap minicard text labels to multiple rows](https://github.com/wekan/wekan/commit/af830812dbbf7d766a754d937308b11373c66e5a).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.21 2019-08-16 Wekan release
 
 This release adds the following new features:
