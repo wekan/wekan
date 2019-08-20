@@ -1,3 +1,12 @@
+# v3.23 2019-08-20 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix login did not work](https://github.com/wekan/wekan/commit/b2deab544bfeea49017bec27f92f1269b0b7ec43).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.22 2019-08-20 Wekan release
 
 This release adds the following new features:
