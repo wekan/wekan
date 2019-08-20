@@ -5,7 +5,7 @@
   "act-deleteAttachment": "удалил вложение __attachment__ из карточки __card__ в списке __list__ на дорожке __swimlane__ доски __board__",
   "act-addSubtask": "добавил подзадачу __subtask__ для карточки __card__ в списке __list__ на дорожке __swimlane__ доски __board__",
   "act-addLabel": "добавил метку __label__ в карточку __card__ в списке __list__ на дорожке __swimlane__ доски __board__",
-  "act-addedLabel": "Добавлена метка __label__ в карточку __card__ в списке __list__ на дорожке __swimlane__ доски __board__",
+  "act-addedLabel": "добавил метку __label__ в карточку __card__ в списке __list__ на дорожке __swimlane__ доски __board__",
   "act-removeLabel": "Снята метка __label__ с карточки __card__ в списке __list__ на дорожке __swimlane__ доски __board__",
   "act-removedLabel": "Снята метка __label__ с карточки __card__ в списке __list__ на дорожке __swimlane__ доски __board__",
   "act-addChecklist": "добавил контрольный список __checklist__ в карточку __card__ в списке __list__ на дорожке __swimlane__ доски __board__",
