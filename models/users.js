@@ -257,31 +257,6 @@ Users.attachSchema(
   }),
 );
 
-Users.before.update(function(userId, fieldNames) {
-  const user = Users.findOne({ _id: userId });
-  if ((user && user.isAdmin) || (Meteor.user() && Meteor.user().isAdmin)) {
-    return true;
-  }
-  if (!user) {
-    return false;
-  }
-  if (_.contains(fieldNames, 'services')) {
-    return false;
-  }
-  if (_.contains(fieldNames, 'heartBeat')) {
-    return false;
-  }
-  if (_.contains(fieldNames, 'isAdmin')) {
-    return false;
-  }
-  if (_.contains(fieldNames, 'loginDisabled')) {
-    return false;
-  }
-  if (_.contains(fieldNames, 'authenticationMethod')) {
-    return false;
-  }
-});
-
 Users.allow({
   update(userId, doc) {
     const user = Users.findOne({ _id: userId });
