@@ -211,22 +211,20 @@ BlazeComponent.extendComponent({
     this.parentComponent().nextStep();
   },
 
-  onMapMember(evt) {
-    const memberToMap = this.currentData();
-    if (memberToMap.wekan) {
-      // todo xxx ask for confirmation?
-      this.unmapMember(memberToMap.id);
-    } else {
-      this.setSelectedMember(memberToMap.id);
-      Popup.open('importMapMembersAdd')(evt);
-    }
-  },
-
   events() {
     return [
       {
         submit: this.onSubmit,
-        'click .js-select-member': this.onMapMember,
+        'click .js-select-member'(evt) {
+          const memberToMap = this.currentData();
+          if (memberToMap.wekan) {
+            // todo xxx ask for confirmation?
+            this.unmapMember(memberToMap.id);
+          } else {
+            this.setSelectedMember(memberToMap.id);
+            Popup.open('importMapMembersAdd')(evt);
+          }
+        },
       },
     ];
   },

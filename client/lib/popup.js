@@ -67,7 +67,7 @@ window.Popup = new (class {
         title: self._getTitle(popupName),
         depth: self._stack.length,
         offset: self._getOffset(openerElement),
-        dataContext: (this.currentData && this.currentData()) || this,
+        dataContext: (this && this.currentData && this.currentData()) || this,
       });
 
       // If there are no popup currently opened we use the Blaze API to render
