@@ -93,8 +93,11 @@
   .minicard-custom-field
     display:flex;
   .minicard-custom-field-item
-    max-width:50%;
-    flex-grow:1;
+    flex-grow: 1
+    display: block
+    word-wrap: break-word
+    max-width: 100px
+    margin-right: 4px
   .handle
     width: 20px;
     height: 20px;
@@ -112,7 +115,9 @@
     p:last-child
       margin-bottom: 0
     .viewer
-      display: inline-block
+      display: block
+      word-wrap: break-word
+      max-width: 230px
   .dates
     display: flex;
     flex-direction: row;
