@@ -16,6 +16,24 @@ fi
 
 export LC_ALL=C
 
+# When starting MongoDB, if logfile exist, delete it, because now uses syslog instead of logfile,
+# because syslog usually already has log rotation.
+# https://github.com/wekan/wekan-snap/issues/92
+if test -f "$SNAP_COMMON/mongodb.log"; then
+   rm -f "$SNAP_COMMON/mongodb.log"
+fi
+
+# Alternative: When starting MongoDB, and using logfile, truncate log to last 1000 lines of text.
+# 1) If file exists:
+#if test -f "$SNAP_COMMON/mongodb.log"; then
+#    # 2) Copy last 1000 lines to variable loglast1000lines.
+#    loglast1000lines=$(tail -1000 "$SNAP_COMMON/mongodb.log")
+#    # 3) Copy variable to replace original MongoDB log.
+#    echo "$loglast1000lines" > "$SNAP_COMMON/mongodb.log"
+#    # 4) Set variable to be empty.
+#    loglast1000lines=""
+#fi
+
 if [ -z "$MONGO_URL" ]; then
 
     # start mongo deamon
@@ -31,11 +49,17 @@ if [ -z "$MONGO_URL" ]; then
     fi
     echo "mongodb bind options: $BIND_OPTIONS"
 
-    mongod --dbpath $SNAP_COMMON --logpath $SNAP_COMMON/mongodb.log --logappend --journal $BIND_OPTIONS --smallfiles
+    ## OLD: Logging to file.
+    #mongod --dbpath $SNAP_COMMON --logpath $SNAP_COMMON/mongodb.log --logappend --journal $BIND_OPTIONS --smallfiles
+    ## NEW: Logging to syslog, that usually has already log rotation.
+    mongod --dbpath $SNAP_COMMON --syslog --journal $BIND_OPTIONS --smallfiles
 
 else
 
-    mongod --dbpath $SNAP_COMMON --logpath $SNAP_COMMON/mongodb.log --logappend --journal $MONGO_URL --smallfiles
+    ## OLD: Logging to file.
+    #mongod --dbpath $SNAP_COMMON --logpath $SNAP_COMMON/mongodb.log --logappend --journal $MONGO_URL --smallfiles
+    ## NEW: Logging to syslog, that usually has already log rotation.
+    mongod --dbpath $SNAP_COMMON --syslog --journal $MONGO_URL --smallfiles
 
 fi
 
