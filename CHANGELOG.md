@@ -1,3 +1,16 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Add missing modules](https://github.com/wekan/wekan/pull/2653).
+  Thanks to GhassenRjab.
+- [Add package-lock.json](https://github.com/wekan/wekan/commit/ad01526124216abcc8b3c8230599c4eda331a86d).
+  Thanks to GhassenRjab and xet7.
+- [Fix last label undefined](https://github.com/wekan/wekan/pull/2657).
+  Thanks to justinr1234.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.25 2019-08-23 Wekan release
 
 This release adds the following new features:
