@@ -104,8 +104,8 @@ DESCRIPTION_IMAGE_COMPRESS_RATIO="Image compress ratio: Allow to shrink attached
 DEFAULT_IMAGE_COMPRESS_RATIO=""
 KEY_IMAGE_COMPRESS_RATIO="image-compress-ratio"
 
-DESCRIPTION_BIGEVENTS_PATTERN="Big events pattern: Notify always due etc regardless of notification settings. Default: due, All: received|start|due|end, Disabled: NONE"
-DEFAULT_BIGEVENTS_PATTERN=""
+DESCRIPTION_BIGEVENTS_PATTERN="Big events pattern: Notify always due etc regardless of notification settings. Default: NONE, All: received|start|due|end, Disabled: NONE"
+DEFAULT_BIGEVENTS_PATTERN="NONE"
 KEY_BIGEVENTS_PATTERN="bigevents-pattern"
 
 DESCRIPTION_NOTIFY_DUE_DAYS_BEFORE_AND_AFTER="Notify due days, default 2 days before and after. 0 = due notifications disabled. Default: 2"
