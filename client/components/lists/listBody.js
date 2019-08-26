@@ -701,12 +701,16 @@ BlazeComponent.extendComponent({
     this.listId = this.parentComponent().data()._id;
     this.swimlaneId = '';
 
-    const boardView = (Meteor.user().profile || {}).boardView;
-    if (boardView === 'board-view-swimlanes')
-      this.swimlaneId = this.parentComponent()
-        .parentComponent()
-        .parentComponent()
-        .data()._id;
+    let user = Meteor.user();
+    if (user) {
+      const boardView = (Meteor.user().profile || {}).boardView;
+      if (boardView === 'board-view-swimlanes') {
+        this.swimlaneId = this.parentComponent()
+          .parentComponent()
+          .parentComponent()
+          .data()._id;
+      }
+    }
   },
 
   onRendered() {
