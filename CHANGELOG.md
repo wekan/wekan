@@ -8,6 +8,8 @@ This release fixes the following bugs:
   Thanks to GhassenRjab and xet7.
 - [Fix last label undefined](https://github.com/wekan/wekan/pull/2657).
   Thanks to justinr1234.
+- [Default to BIGEVENTS_PATTERN=NONE so that Wekan sends less email notifications](https://github.com/wekan/wekan/commit/0083215ea3955a950d345d44a8663e5b05e8f00f).
+  Thanks to rinnaz and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
