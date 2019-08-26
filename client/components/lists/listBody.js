@@ -701,8 +701,23 @@ BlazeComponent.extendComponent({
     this.listId = this.parentComponent().data()._id;
     this.swimlaneId = '';
 
-    let user = Meteor.user();
-    if (user) {
+    const isSandstorm =
+      Meteor.settings &&
+      Meteor.settings.public &&
+      Meteor.settings.public.sandstorm;
+
+    if (isSandstorm) {
+      const user = Meteor.user();
+      if (user) {
+        const boardView = (Meteor.user().profile || {}).boardView;
+        if (boardView === 'board-view-swimlanes') {
+          this.swimlaneId = this.parentComponent()
+            .parentComponent()
+            .parentComponent()
+            .data()._id;
+        }
+      }
+    } else {
       const boardView = (Meteor.user().profile || {}).boardView;
       if (boardView === 'board-view-swimlanes') {
         this.swimlaneId = this.parentComponent()
