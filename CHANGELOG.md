@@ -1,3 +1,12 @@
+# v3.28 2019-08-29 Wekan release
+
+This release fixes the following bugs:
+
+- Fix broken Sandstorm release by reverting upgrading MongoDB.
+  Thanks to xet7
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.27 2019-08-29 Wekan release
 
 This release adds the following upgrades:
