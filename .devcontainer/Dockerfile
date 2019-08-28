@@ -1,7 +1,7 @@
 FROM ubuntu:disco
 LABEL maintainer="sgr"
 
-ENV BUILD_DEPS="gnupg gosu bsdtar wget curl bzip2 g++ build-essential python git ca-certificates"
+ENV BUILD_DEPS="gnupg gosu bsdtar wget curl bzip2 g++ build-essential python git ca-certificates iproute2"
 ENV DEBIAN_FRONTEND=noninteractive
 
 ENV \
@@ -145,3 +145,16 @@ RUN set -o xtrace \
   && sh /home/wekan/install-meteor.sh
 
 ENV PATH=$PATH:$HOME/.meteor/
+
+# Copy source dir
+USER root
+
+RUN set -o xtrace \
+  && mkdir /home/wekan/app
+
+COPY ${SRC_PATH} /home/wekan/app/
+
+RUN set -o xtrace \
+  && chown -R wekan:wekan /home/wekan/app /home/wekan/.meteor
+
+USER wekan
