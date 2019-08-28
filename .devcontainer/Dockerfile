@@ -126,7 +126,9 @@ RUN set -o xtrace \
   && tar -xJf "node-v$NODE_VERSION-$ARCHITECTURE.tar.xz" -C /usr/local --strip-components=1 --no-same-owner \
   && rm "node-v$NODE_VERSION-$ARCHITECTURE.tar.xz" SHASUMS256.txt.asc \
   && ln -s /usr/local/bin/node /usr/local/bin/nodejs \
-  && npm install -g npm@${NPM_VERSION}
+  && mkdir -p /usr/local/lib/node_modules/fibers/.node-gyp /root/.node-gyp/${NODE_VERSION} /home/wekan/.config \
+  && npm install -g npm@${NPM_VERSION} \
+  && chown wekan:wekan --recursive /home/wekan/.config
 
 ENV DEBIAN_FRONTEND=dialog
 
