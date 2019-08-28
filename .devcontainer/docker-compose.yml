@@ -21,8 +21,8 @@ services:
     networks:
       - wekan-dev-tier
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
     ports:
       - 3000:3000
       - 9229:9229
@@ -38,7 +38,7 @@ services:
     depends_on:
       - wekandb-dev
     volumes:
-      - ..:/app
+      - ..:/app:delegated
     command:
       sleep infinity
 

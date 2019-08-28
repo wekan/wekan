@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /app
+cd /home/wekan/app
 rm -rf node_modules
 /home/wekan/.meteor/meteor npm install
 rm -rf .build
@@ -9,4 +9,4 @@ cp -f fix-download-unicode/cfs_access-point.txt .build/bundle/programs/server/pa
 cd .build/bundle/programs/server
 rm -rf node_modules
 /home/wekan/.meteor/meteor npm install
-cd /app
+cd /home/wekan/app
