@@ -1,3 +1,12 @@
+# v3.27 2019-08-29 Wekan release
+
+This release adds the following upgrades:
+
+- [Upgrade Node, Mongo, fibers and qs](https://github.com/wekan/wekan/commit/e21c47d3cfe0f228ce5ab394142c6ec6ee090d65).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.26 2019-08-28 Wekan release
 
 This release adds the following new features:
