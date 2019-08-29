@@ -1,6 +1,6 @@
 name: wekan
 version: 0
-adopt-info: mypart
+adopt-info: wekan
 summary: The Open-Source kanban
 description: |
    Wekan is an open-source and collaborative kanban board application.
@@ -62,12 +62,6 @@ apps:
     database-restore:
         command: mongodb-restore
         plugs: [network, network-bind]
-
-part:
-    mypart:
-      override-build: |
-        snapcraftctl set-version "$(git describe --dirty --tags | cut -c 2-)"
-        snapcraftctl build
 
 parts:
     mongodb:
@@ -227,6 +221,9 @@ parts:
             rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/node-gyp/node_modules/tar/lib/.mkdir.js.swp
             # Meteor 1.8.x additional .swp remove
             rm -f $SNAPCRAFT_PART_INSTALL/programs/server/node_modules/node-pre-gyp/node_modules/tar/lib/.mkdir.js.swp
+            # Wekan version
+            snapcraftctl set-version "$(git describe --dirty --tags | cut -c 2-)"
+            snapcraftctl build
         organize:
             README: README.wekan
         prime:
