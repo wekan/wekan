@@ -1,3 +1,15 @@
+# v3.30 2019-08-29 Wekan release
+
+This release fixes the following bugs:
+
+- Snap: [Change version-script to adopt-info](https://github.com/wekan/wekan/commit/0ff5ce8fde6cc9a05a3c8b93e18ebce7282d3a67)
+  to [fix dirty](https://forum.snapcraft.io/t/dirty-snap-release/12975/4).
+  Thanks to popey and daniel at Snapcraft forum.
+- [Delete another phantomjs binary from Snap](https://github.com/wekan/wekan/commit/5084102e6e17fa2cb3bc8c1180745e15379fab5f).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.29 2019-08-29 Wekan release
 
 This release fixes the following bugs:
