@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Add card color to calendar event. The color of the calendar event will match the card
+  color](https://github.com/wekan/wekan/pull/2664).
+  Thanks to grmpfhmbl.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.32 2019-08-29 Wekan release
 
 This release fixes the following bugs:
