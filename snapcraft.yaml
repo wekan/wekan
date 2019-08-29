@@ -213,14 +213,21 @@ parts:
             cd ../../../..
             cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
             cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
-            rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan
+            # Delete phantomjs
             rm -f $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/meteor/rajit_bootstrap3-datepicker/lib/bootstrap-datepicker/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
             rm -f $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/meteor/lucasantoniassi_accounts-lockout/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
-            rm -f $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/tar/lib/.mkdir.js.swp
-            rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/node-pre-gyp/node_modules/tar/lib/.mkdir.js.swp
-            rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/node-gyp/node_modules/tar/lib/.mkdir.js.swp
+            # Delete all .swp files at subdirectories
+            find $SNAPCRAFT_PART_INSTALL -name \*.swp -type f -delete
+            # OLD: Delete each .swp file separately
+            #rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan
+            #rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan/.build/bundle/programs/server/npm/node_modules/tar/lib/.mkdir.js.swp
+            #rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan/.build/bundle/programs/server/node_modules/node-pre-gyp/node_modules/tar/lib/.mkdir.js.swp
+            #rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan/node_modules/tar/lib/.mkdir.js.swp
+            #rm -f $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/tar/lib/.mkdir.js.swp
+            #rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/node-pre-gyp/node_modules/tar/lib/.mkdir.js.swp
+            #rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/node-gyp/node_modules/tar/lib/.mkdir.js.swp
             # Meteor 1.8.x additional .swp remove
-            rm -f $SNAPCRAFT_PART_INSTALL/programs/server/node_modules/node-pre-gyp/node_modules/tar/lib/.mkdir.js.swp
+            #rm -f $SNAPCRAFT_PART_INSTALL/programs/server/node_modules/node-pre-gyp/node_modules/tar/lib/.mkdir.js.swp
             # Wekan version
             snapcraftctl set-version "$(git describe --dirty --tags | cut -c 2-)"
             snapcraftctl build
