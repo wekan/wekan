@@ -1,3 +1,12 @@
+# v3.32 2019-08-29 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix Snap adopt-info](https://github.com/wekan/wekan/commit/79d4cd83b1fa83bb814230683b7449ed7f3e1ede).
+  Thanks to [popey at Snapcraft forum](https://forum.snapcraft.io/t/dirty-snap-release/12975/12).
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.31 2019-08-29 Wekan release
 
 This release fixes the following bugs:
