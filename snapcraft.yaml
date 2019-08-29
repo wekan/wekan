@@ -63,6 +63,12 @@ apps:
         command: mongodb-restore
         plugs: [network, network-bind]
 
+part:
+    mypart:
+      override-build: |
+        snapcraftctl set-version "$(git describe --dirty --tags | cut -c 2-)"
+        snapcraftctl build
+
 parts:
     mongodb:
         source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-3.2.22.tgz
@@ -225,11 +231,6 @@ parts:
             README: README.wekan
         prime:
             - -lib/node_modules/node-pre-gyp/node_modules/tar/lib/.unpack.js.swp
-
-    mypart:
-      override-build: |
-        snapcraftctl set-version "$(git describe --dirty --tags | cut -c 2-)"
-        snapcraftctl build
 
     helpers:
         source: snap-src
