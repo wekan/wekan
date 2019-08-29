@@ -1,3 +1,12 @@
+# v3.34 2019-08-29 Wekan release
+
+This release fixes the following bugs:
+
+- [Snap: Delete all .swp files](https://github.com/wekan/wekan/commit/d5403bbfc53390aeaaf68eb452bc24d88f1e0942).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.33 2019-08-29 Wekan release
 
 This release adds the following new features:
