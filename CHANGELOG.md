@@ -1,3 +1,11 @@
+# v3.35 2019-08-29 Wekan release
+
+This release fixes the following bugs:
+
+- [Try to fix Snap](https://github.com/wekan/wekan/commit/71d32c6bc8e6affd345026797ff31e94a0a10d77).
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.34 2019-08-29 Wekan release
 
 This release fixes the following bugs:
