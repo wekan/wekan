@@ -1,3 +1,5 @@
+const subManager = new SubsManager();
+
 BlazeComponent.extendComponent({
   events() {
     return [
@@ -10,6 +12,23 @@ BlazeComponent.extendComponent({
         'click .js-toggle-member-filter'(evt) {
           evt.preventDefault();
           Filter.members.toggle(this.currentData()._id);
+          Filter.resetExceptions();
+        },
+        'click .js-toggle-archive-filter'(evt) {
+          evt.preventDefault();
+          Filter.archive.toggle(this.currentData()._id);
+          Filter.resetExceptions();
+          const currentBoardId = Session.get('currentBoard');
+          if (!currentBoardId) return;
+          subManager.subscribe(
+            'board',
+            currentBoardId,
+            Filter.archive.isSelected(),
+          );
+        },
+        'click .js-toggle-hideEmpty-filter'(evt) {
+          evt.preventDefault();
+          Filter.hideEmpty.toggle(this.currentData()._id);
           Filter.resetExceptions();
         },
         'click .js-toggle-custom-fields-filter'(evt) {

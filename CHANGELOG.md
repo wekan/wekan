@@ -1,3 +1,174 @@
+# v3.35 2019-08-29 Wekan release
+
+This release fixes the following bugs:
+
+- [Try to fix Snap](https://github.com/wekan/wekan/commit/71d32c6bc8e6affd345026797ff31e94a0a10d77).
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.34 2019-08-29 Wekan release
+
+This release fixes the following bugs:
+
+- [Snap: Delete all .swp files](https://github.com/wekan/wekan/commit/d5403bbfc53390aeaaf68eb452bc24d88f1e0942).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.33 2019-08-29 Wekan release
+
+This release adds the following new features:
+
+- [Add card color to calendar event. The color of the calendar event will match the card
+  color](https://github.com/wekan/wekan/pull/2664).
+  Thanks to grmpfhmbl.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.32 2019-08-29 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix Snap adopt-info](https://github.com/wekan/wekan/commit/79d4cd83b1fa83bb814230683b7449ed7f3e1ede).
+  Thanks to [popey at Snapcraft forum](https://forum.snapcraft.io/t/dirty-snap-release/12975/12).
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.31 2019-08-29 Wekan release
+
+This release fixes the following bugs:
+
+- [Try](https://github.com/wekan/wekan/commit/be5f435bc5f500b24bc838ac1dc8bf3bb9a33a22) to
+  [fix adopt-info](https://forum.snapcraft.io/t/dirty-snap-release/12975/8).
+  Thanks to ogra at Snapcraft forum.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.30 2019-08-29 Wekan release
+
+This release fixes the following bugs:
+
+- Snap: [Change version-script to adopt-info](https://github.com/wekan/wekan/commit/0ff5ce8fde6cc9a05a3c8b93e18ebce7282d3a67)
+  to [fix dirty](https://forum.snapcraft.io/t/dirty-snap-release/12975/4).
+  Thanks to popey and daniel at Snapcraft forum.
+- [Delete another phantomjs binary from Snap](https://github.com/wekan/wekan/commit/5084102e6e17fa2cb3bc8c1180745e15379fab5f).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.29 2019-08-29 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix Snap](https://github.com/wekan/wekan/commit/7761a22bb4e88ad9a5a39ed84e1ff244015c3a58).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.28 2019-08-29 Wekan release
+
+This release fixes the following bugs:
+
+- Fix broken Sandstorm release by reverting upgrading MongoDB.
+  Thanks to xet7
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.27 2019-08-29 Wekan release
+
+This release adds the following upgrades:
+
+- [Upgrade Node, Mongo, fibers and qs](https://github.com/wekan/wekan/commit/e21c47d3cfe0f228ce5ab394142c6ec6ee090d65).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.26 2019-08-28 Wekan release
+
+This release adds the following new features:
+
+- [Add devcontainer](https://github.com/wekan/wekan/pull/2659) and some [related fixes](https://github.com/wekan/wekan/pull/2660).
+  Thanks to road42.
+
+and fixes the following bugs:
+
+- [Add missing modules](https://github.com/wekan/wekan/pull/2653).
+  Thanks to GhassenRjab.
+- [Add package-lock.json](https://github.com/wekan/wekan/commit/ad01526124216abcc8b3c8230599c4eda331a86d).
+  Thanks to GhassenRjab and xet7.
+- [Fix last label undefined](https://github.com/wekan/wekan/pull/2657).
+  Thanks to justinr1234.
+- [Default to BIGEVENTS_PATTERN=NONE so that Wekan sends less email notifications](https://github.com/wekan/wekan/commit/0083215ea3955a950d345d44a8663e5b05e8f00f).
+  Thanks to rinnaz and xet7.
+- [Fix app hang when Meteor.user() is null and list spinner is loaded bug](https://github.com/wekan/wekan/pull/2654).
+  Thanks to urakagi.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.25 2019-08-23 Wekan release
+
+This release adds the following new features:
+
+- [Limit card width to fixed size](https://github.com/wekan/wekan/commit/0dd3ff29f2b558bc912b330f178347035dcc46c7).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Fix](https://github.com/wekan/wekan/pull/2645) [selecting user accounts when importing from Trello](https://github.com/wekan/wekan/issues/2638).
+  Thanks to justrinr1234.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.24 2019-08-22 Wekan release
+
+This release fixes the following bugs:
+
+- [Snap: Delete old MongoDB log, and log to syslog instead, because syslog usually already has
+  log rotation](https://github.com/wekan/wekan/commit/cc792ddd57691bb54972c73b9c861c768fce8c34).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.23 2019-08-20 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix login did not work](https://github.com/wekan/wekan/commit/b2deab544bfeea49017bec27f92f1269b0b7ec43).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.22 2019-08-20 Wekan release
+
+This release adds the following new features:
+
+- [Wrap minicard text labels to multiple rows](https://github.com/wekan/wekan/commit/af830812dbbf7d766a754d937308b11373c66e5a).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Fix: Some users cannot switch views or languages](https://github.com/wekan/wekan/issues/2630).
+  Thanks to xet7 and justinr1234.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.21 2019-08-16 Wekan release
+
+This release adds the following new features:
+
+- [In the filter menu, 1) Turning on "show archive" will request archived lists and show them on the ListView.
+  2) Turning on "hide empty lists" will hide empty lists on the ListView](https://github.com/wekan/wekan/pull/2632).
+  Thanks to urakagi.
+
+and fixes the following bugs:
+
+- [Fix mismatched queries](https://github.com/wekan/wekan/pull/2628).
+  Thanks to justinr1234.
+- [Fix Summernote too wide when in mobile screen](https://github.com/wekan/wekan/issues/2621).
+  Thanks to whowillcare.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.20 2019-08-15 Wekan release
 
 This release fixes the following security issues:

@@ -1,3 +1,4 @@
+archivedRequested = false;
 const subManager = new SubsManager();
 
 BlazeComponent.extendComponent({
@@ -12,6 +13,7 @@ BlazeComponent.extendComponent({
       const currentBoardId = Session.get('currentBoard');
       if (!currentBoardId) return;
       const handle = subManager.subscribe('board', currentBoardId, true);
+      archivedRequested = true;
       Tracker.nonreactive(() => {
         Tracker.autorun(() => {
           this.isArchiveReady.set(handle.ready());

@@ -45,19 +45,19 @@ REM SET ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURE_WINDOW=15
 
 REM # ==== BIGEVENTS DUE ETC NOTIFICATIONS =====
 REM # https://github.com/wekan/wekan/pull/2541
-REM # Introduced a system env var BIGEVENTS_PATTERN default as "due",
+REM # Introduced a system env var BIGEVENTS_PATTERN default as "NONE",
 REM # so any activityType matches the pattern, system will send out
 REM # notifications to all board members no matter they are watching
 REM # or tracking the board or not. Owner of the wekan server can
 REM # disable the feature by setting this variable to "NONE" or
 REM # change the pattern to any valid regex. i.e. '|' delimited
 REM # activityType names.
-REM # a) Default
+REM # a) Example
 REM SET BIGEVENTS_PATTERN=due
 REM # b) All
 REM SET BIGEVENTS_PATTERN=received|start|due|end
 REM # c) Disabled
-REM SET BIGEVENTS_PATTERN=NONE
+SET BIGEVENTS_PATTERN=NONE
 
 REM # ==== EMAIL DUE DATE NOTIFICATION =====
 REM # https://github.com/wekan/wekan/pull/2536

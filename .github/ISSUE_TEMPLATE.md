@@ -17,6 +17,7 @@ Other Wekan issues can be added here.
 * Node Version:
 * MongoDB Version:
 * ROOT_URL environment variable http(s)://(subdomain).example.com(/suburl):
+* Wekan only works on newest desktop Firefox/Chromium/Chrome/Edge/Chromium Edge and mobile Chrome. What webbrowser version are you using?
 
 **Problem description**:
 - *REQUIRED: Add recorded animated gif about how it works currently, and screenshot mockups how it should work. Use peek to record animgif in Linux https://github.com/phw/peek*

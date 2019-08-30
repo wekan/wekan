@@ -306,6 +306,8 @@
   "filter-no-label": "Ingen etikett",
   "filter-no-member": "Ingen medlem",
   "filter-no-custom-fields": "Inga anpassade fält",
+  "filter-show-archive": "Show archived lists",
+  "filter-hide-empty": "Hide empty lists",
   "filter-on": "Filter är på",
   "filter-on-desc": "Du filtrerar kort på denna anslagstavla. Klicka här för att redigera filter.",
   "filter-to-selection": "Filter till val",

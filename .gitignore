@@ -29,6 +29,5 @@ versions.json
 Thumbs.db
 ehthumbs.db
 .eslintcache
-package-lock.json
 .meteor/local
 .meteor-1.6-snap/.meteor/local

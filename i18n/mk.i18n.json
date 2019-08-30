@@ -306,6 +306,8 @@
   "filter-no-label": "без етикет",
   "filter-no-member": "без член",
   "filter-no-custom-fields": "Няма Собствени полета",
+  "filter-show-archive": "Show archived lists",
+  "filter-hide-empty": "Hide empty lists",
   "filter-on": "Има приложени филтри",
   "filter-on-desc": "В момента филтрирате картите в това табло. Моля, натиснете тук, за да промените филтъра.",
   "filter-to-selection": "Филтрирай избраните",

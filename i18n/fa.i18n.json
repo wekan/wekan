@@ -306,6 +306,8 @@
   "filter-no-label": "بدون برچسب",
   "filter-no-member": "بدون عضو",
   "filter-no-custom-fields": "هیچ فیلدشخصی ای وجود ندارد",
+  "filter-show-archive": "Show archived lists",
+  "filter-hide-empty": "Hide empty lists",
   "filter-on": "صافی ـFilterـ فعال است",
   "filter-on-desc": "شما صافی ـFilterـ برای کارتهای تخته را روشن کرده اید. جهت ویرایش کلیک نمایید.",
   "filter-to-selection": "صافی ـFilterـ برای موارد انتخابی",

@@ -326,6 +326,7 @@ BlazeComponent.extendComponent({
                 slug: currentBoard.slug,
                 cardId: card._id,
               }),
+              className: card.color ? `calendar-event-${card.color}` : null,
             });
           });
         callback(events);

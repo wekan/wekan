@@ -306,6 +306,8 @@
   "filter-no-label": "ნიშანი არ გვაქვს",
   "filter-no-member": "არ არის წევრები ",
   "filter-no-custom-fields": "არა მომხმარებლის ველი",
+  "filter-show-archive": "Show archived lists",
+  "filter-hide-empty": "Hide empty lists",
   "filter-on": "ფილტრი ჩართულია",
   "filter-on-desc": "თქვენ ფილტრავთ ბარათებს ამ დაფაზე. დააკლიკეთ აქ ფილტრაციის შესწორებისთვის. ",
   "filter-to-selection": "მონიშნულის გაფილტვრა",

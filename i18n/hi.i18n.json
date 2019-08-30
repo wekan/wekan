@@ -306,6 +306,8 @@
   "filter-no-label": "No label",
   "filter-no-member": "No सदस्य",
   "filter-no-custom-fields": "No  प्रचलन  क्षेत्र",
+  "filter-show-archive": "Show archived lists",
+  "filter-hide-empty": "Hide empty lists",
   "filter-on": "Filter is on",
   "filter-on-desc": "You are filtering कार्ड इस पर बोर्ड. Click here तक  संपादित करें filter.",
   "filter-to-selection": "Filter तक selection",

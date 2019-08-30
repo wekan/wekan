@@ -306,6 +306,8 @@
   "filter-no-label": "Žádný štítek",
   "filter-no-member": "Žádný člen",
   "filter-no-custom-fields": "Žádné vlastní pole",
+  "filter-show-archive": "Show archived lists",
+  "filter-hide-empty": "Hide empty lists",
   "filter-on": "Filtr je zapnut",
   "filter-on-desc": "Filtrujete karty tohoto tabla. Pro úpravu filtru klikni sem.",
   "filter-to-selection": "Filtrovat výběr",
