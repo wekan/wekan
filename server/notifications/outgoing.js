@@ -55,11 +55,15 @@ Meteor.methods({
           },
         });
       } else {
-        CardComments.insert({
-          text: newComment,
-          cardId,
-          boardId,
-        });
+        const userId = data.userId;
+        if (userId) {
+          CardComments.insert({
+            text: newComment,
+            userId,
+            cardId,
+            boardId,
+          });
+        }
       }
     }
   },
