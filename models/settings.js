@@ -147,7 +147,6 @@ if (Meteor.isServer) {
         }:${doc.mailServer.port}/`;
       }
       Accounts.emailTemplates.from = doc.mailServer.from;
-      console.log('Settings saved:', Accounts.emailTemplates);
     }
   });
 

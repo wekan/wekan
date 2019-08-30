@@ -184,10 +184,11 @@ if (Meteor.isServer) {
               // it's person at himself, ignore it?
               continue;
             }
-            const user = Users.findOne(username) || Users.findOne({ username });
-            const uid = user && user._id;
+            const atUser =
+              Users.findOne(username) || Users.findOne({ username });
+            const uid = atUser && atUser._id;
             params.atUsername = username;
-            params.atEmails = user.emails;
+            params.atEmails = atUser.emails;
             if (board.hasMember(uid)) {
               title = 'act-atUserComment';
               watchers = _.union(watchers, [uid]);
@@ -268,13 +269,23 @@ if (Meteor.isServer) {
     });
 
     const integrations = Integrations.find({
-      boardId: board._id,
-      type: 'outgoing-webhooks',
+      boardId: { $in: [board._id, Integrations.Const.GLOBAL_WEBHOOK_ID] },
+      // type: 'outgoing-webhooks', // all types
       enabled: true,
       activities: { $in: [description, 'all'] },
     }).fetch();
     if (integrations.length > 0) {
-      Meteor.call('outgoingWebhooks', integrations, description, params);
+      integrations.forEach(integration => {
+        Meteor.call(
+          'outgoingWebhooks',
+          integration,
+          description,
+          params,
+          () => {
+            return;
+          },
+        );
+      });
     }
   });
 }

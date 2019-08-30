@@ -90,7 +90,11 @@ Integrations.attachSchema(
 );
 Integrations.Const = {
   GLOBAL_WEBHOOK_ID: '_global',
-  WEBHOOK_TYPES: ['outgoing-webhooks', 'bidirectional-webhooks'],
+  ONEWAY: 'outgoing-webhooks',
+  TWOWAY: 'bidirectional-webhooks',
+  get WEBHOOK_TYPES() {
+    return [this.ONEWAY, this.TWOWAY];
+  },
 };
 const permissionHelper = {
   allow(userId, doc) {
