@@ -41,7 +41,8 @@ Meteor.methods({
     const paramCardId = data.cardId;
     const paramBoardId = data.boardId;
     const newComment = data.comment;
-    if (paramCardId && paramBoardId && newComment) { // only process data with the cardid, boardid and comment text, TODO can expand other functions here to react on returned data
+    if (paramCardId && paramBoardId && newComment) {
+      // only process data with the cardid, boardid and comment text, TODO can expand other functions here to react on returned data
       const comment = CardComments.findOne({
         _id: paramCommentId,
         cardId: paramCardId,
