@@ -149,6 +149,8 @@ ENV PATH=$PATH:$HOME/.meteor/
 # Copy source dir
 USER root
 
+RUN echo "export PATH=$PATH" > /etc/environment
+
 RUN set -o xtrace \
   && mkdir /home/wekan/app
 
