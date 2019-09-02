@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 ENV \
     DEBUG=false \
-    NODE_VERSION=8.16.0 \
+    NODE_VERSION=8.16.1 \
     METEOR_RELEASE=1.8.1 \
     USE_EDGE=false \
     METEOR_EDGE=1.5-beta.17 \
