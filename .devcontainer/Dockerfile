@@ -144,12 +144,12 @@ RUN set -o xtrace \
   && printf "\n[-] Installing Meteor $METEOR_VERSION...\n\n" \
   && sh /home/wekan/install-meteor.sh
 
-ENV PATH=$PATH:$HOME/.meteor/
+ENV PATH=$PATH:/home/wekan/.meteor/
 
 # Copy source dir
 USER root
 
-RUN echo "export PATH=$PATH" > /etc/environment
+RUN echo "export PATH=$PATH" >> /etc/environment
 
 RUN set -o xtrace \
   && mkdir /home/wekan/app
