@@ -135,22 +135,30 @@ template(name="archiveBoardPopup")
 template(name="outgoingWebhooksPopup")
   each integrations
     form.integration-form
-      if title
-        h4 {{title}}
-      else
-        h4 {{_ 'no-name'}}
-      label
-        | URL
-        input.js-outgoing-webhooks-url(type="text" name="url" value=url)
-        input(type="hidden" value=_id name="id")
+      a.flex
+        span {{_ 'disable-webhook'}}
+        b &nbsp;
+        .materialCheckBox(class="{{#unless enabled}}is-checked{{/unless}}")
+      input.js-outgoing-webhooks-title(placeholder="{{_ 'webhook-title'}}" type="text" name="title" value=title)
+      input.js-outgoing-webhooks-url(type="text" name="url" value=url autofocus)
+      input.js-outgoing-webhooks-token(placeholder="{{_ 'webhook-token' }}" type="text" value=token name="token")
+      select.js-outgoing-webhooks-type(name="type")
+          each _type in types
+              if($eq _type this.type)
+                  option(value=_type selected="selected") {{_ _type}}
+              else
+                  option(value=_type) {{_ _type}}
+      input(type="hidden" value=this.type name="_type")
+      input(type="hidden" value=_id name="id")
       input.primary.wide(type="submit" value="{{_ 'save'}}")
   form.integration-form
-    h4
-      | {{_ 'new-outgoing-webhook'}}
-    label
-      | URL
-      input.js-outgoing-webhooks-url(type="text" name="url" autofocus)
-    input.primary.wide(type="submit" value="{{_ 'save'}}")
+    input.js-outgoing-webhooks-title(placeholder="{{_ 'webhook-title'}}" type="text" name="title" autofocus)
+    input.js-outgoing-webhooks-url(placeholder="{{_ 'URL' }}" type="text" name="url")
+    input.js-outgoing-webhooks-token(placeholder="{{_ 'webhook-token' }}" type="text" name="token")
+    select.js-outgoing-webhooks-type(name="type")
+        each _type in types
+            option(value=_type) {{_ _type}}
+    input.primary.wide(type="submit" value="{{_ 'create'}}")
 
 template(name="boardMenuPopup")
   ul.pop-over-list

@@ -23,7 +23,6 @@ Utils = {
       })
     );
   },
-
   MAX_IMAGE_PIXEL: Meteor.settings.public.MAX_IMAGE_PIXEL,
   COMPRESS_RATIO: Meteor.settings.public.IMAGE_COMPRESS_RATIO,
   processUploadedAttachment(card, fileObj, callback) {

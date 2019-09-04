@@ -88,16 +88,30 @@ Integrations.attachSchema(
     },
   }),
 );
-
+Integrations.Const = {
+  GLOBAL_WEBHOOK_ID: '_global',
+  ONEWAY: 'outgoing-webhooks',
+  TWOWAY: 'bidirectional-webhooks',
+  get WEBHOOK_TYPES() {
+    return [this.ONEWAY, this.TWOWAY];
+  },
+};
+const permissionHelper = {
+  allow(userId, doc) {
+    const user = Users.findOne(userId);
+    const isAdmin = user && Meteor.user().isAdmin;
+    return isAdmin || allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
+  },
+};
 Integrations.allow({
   insert(userId, doc) {
-    return allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
+    return permissionHelper.allow(userId, doc);
   },
   update(userId, doc) {
-    return allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
+    return permissionHelper.allow(userId, doc);
   },
   remove(userId, doc) {
-    return allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
+    return permissionHelper.allow(userId, doc);
   },
   fetch: ['boardId'],
 });

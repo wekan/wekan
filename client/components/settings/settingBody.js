@@ -7,11 +7,13 @@ BlazeComponent.extendComponent({
     this.accountSetting = new ReactiveVar(false);
     this.announcementSetting = new ReactiveVar(false);
     this.layoutSetting = new ReactiveVar(false);
+    this.webhookSetting = new ReactiveVar(false);
 
     Meteor.subscribe('setting');
     Meteor.subscribe('mailServer');
     Meteor.subscribe('accountSettings');
     Meteor.subscribe('announcements');
+    Meteor.subscribe('globalwebhooks');
   },
 
   setError(error) {
@@ -83,6 +85,7 @@ BlazeComponent.extendComponent({
       this.accountSetting.set('account-setting' === targetID);
       this.announcementSetting.set('announcement-setting' === targetID);
       this.layoutSetting.set('layout-setting' === targetID);
+      this.webhookSetting.set('webhook-setting' === targetID);
     }
   },
 
