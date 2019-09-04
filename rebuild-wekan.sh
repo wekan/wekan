@@ -143,8 +143,8 @@ do
 		#fi
 		#cd ..
 		sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
-		rm -rf node_modules
-		meteor npm install
+		rm -rf node_modules .meteor/local
+		npm install
 		rm -rf .build
 		meteor build .build --directory
 		cp -f fix-download-unicode/cfs_access-point.txt .build/bundle/programs/server/packages/cfs_access-point.js
@@ -156,7 +156,7 @@ do
 		#meteor npm install bcrypt
 		cd .build/bundle/programs/server
 		rm -rf node_modules
-		meteor npm install
+		npm install
 		#meteor npm install bcrypt
 		cd ../../../..
 		echo Done.
