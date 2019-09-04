@@ -210,6 +210,9 @@ parts:
             #meteor npm install --save bcrypt
             # Change back to Wekan source directory
             cd ../../../..
+            # Remove package-lock.json so that set-version below would not claim Wekan is dirty
+            rm -f package-lock.json
+            # Copy files to snap
             cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
             cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
             # Delete phantomjs
@@ -222,9 +225,9 @@ parts:
             rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan/.build/bundle/programs/server/npm/node_modules/tar/lib/.mkdir.js.swp
             rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan/.build/bundle/programs/server/node_modules/node-pre-gyp/node_modules/tar/lib/.mkdir.js.swp
             rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan/node_modules/tar/lib/.mkdir.js.swp
-            rm -f $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/tar/lib/.mkdir.js.swp
             rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/node-pre-gyp/node_modules/tar/lib/.mkdir.js.swp
             rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/node-gyp/node_modules/tar/lib/.mkdir.js.swp
+            rm -f $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/tar/lib/.mkdir.js.swp
             # Meteor 1.8.x additional .swp remove
             rm -f $SNAPCRAFT_PART_INSTALL/programs/server/node_modules/node-pre-gyp/node_modules/tar/lib/.mkdir.js.swp
             # Wekan version
