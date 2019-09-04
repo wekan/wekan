@@ -517,7 +517,7 @@
   "outgoingWebhooksPopup-title": "Lähtevät Webkoukut",
   "boardCardTitlePopup-title": "Kortin otsikkosuodatin",
   "disable-webhook": "Poista käytöstä tämä Webkoukku",
-  "global-webhook": "Global Webhooks",
+  "global-webhook": "Kaikenkattavat Webkoukut",
   "new-outgoing-webhook": "Uusi lähtevä Webkoukku",
   "no-name": "(Tuntematon)",
   "Node_version": "Node-versio",
