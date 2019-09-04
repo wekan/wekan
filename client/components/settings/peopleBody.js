@@ -17,7 +17,7 @@ BlazeComponent.extendComponent({
     this.autorun(() => {
       const limit = this.page.get() * usersPerPage;
 
-      this.subscribe('people', limit, () => {
+      this.subscribe('people', this.findUsersOptions.get(), limit, () => {
         this.loadNextPageLocked = false;
         const nextPeakBefore = this.callFirstWith(null, 'getNextPeak');
         this.calculateNextPeak();
@@ -85,7 +85,7 @@ BlazeComponent.extendComponent({
     const users = Users.find(this.findUsersOptions.get(), {
       fields: { _id: true },
     });
-    this.number.set(users.count());
+    this.number.set(users.count(false));
     return users;
   },
   peopleNumber() {
