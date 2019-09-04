@@ -32,3 +32,4 @@ ehthumbs.db
 .meteor/local
 .meteor-1.6-snap/.meteor/local
 .devcontainer/docker-compose.extend.yml
+package-lock.json
