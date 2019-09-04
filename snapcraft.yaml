@@ -212,6 +212,8 @@ parts:
             cd ../../../..
             # Remove package-lock.json so that set-version below would not claim Wekan is dirty
             rm -f package-lock.json
+            # Remove local files
+            rm -rf .meteor/local
             # Copy files to snap
             cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
             cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
