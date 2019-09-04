@@ -214,6 +214,9 @@ parts:
             rm -f package-lock.json
             # Remove local files
             rm -rf .meteor/local
+            rm -f .build/bundle/programs/server/npm/node_modules/tar/lib/.mkdir.js.swp
+            rm -f .build/bundle/programs/server/node_modules/node-pre-gyp/node_modules/tar/lib/.mkdir.js.swp
+            rm -f lib/node_modules/wekan/node_modules/tar/lib/.mkdir.js.sw
             # Copy files to snap
             cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
             cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
@@ -224,8 +227,8 @@ parts:
             #find $SNAPCRAFT_PART_INSTALL -name \*.swp -type f -delete
             # Delete each .swp file separately
             #rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan
-            rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan/.build/bundle/programs/server/npm/node_modules/tar/lib/.mkdir.js.swp
-            rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan/.build/bundle/programs/server/node_modules/node-pre-gyp/node_modules/tar/lib/.mkdir.js.swp
+            #rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan/.build/bundle/programs/server/npm/node_modules/tar/lib/.mkdir.js.swp
+            #rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan/.build/bundle/programs/server/node_modules/node-pre-gyp/node_modules/tar/lib/.mkdir.js.swp
             rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan/node_modules/tar/lib/.mkdir.js.swp
             rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/node-pre-gyp/node_modules/tar/lib/.mkdir.js.swp
             rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/node-gyp/node_modules/tar/lib/.mkdir.js.swp
