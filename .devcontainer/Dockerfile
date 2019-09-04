@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 ENV \
     DEBUG=false \
-    NODE_VERSION=8.16.0 \
+    NODE_VERSION=8.16.1 \
     METEOR_RELEASE=1.8.1 \
     USE_EDGE=false \
     METEOR_EDGE=1.5-beta.17 \
@@ -144,10 +144,12 @@ RUN set -o xtrace \
   && printf "\n[-] Installing Meteor $METEOR_VERSION...\n\n" \
   && sh /home/wekan/install-meteor.sh
 
-ENV PATH=$PATH:$HOME/.meteor/
+ENV PATH=$PATH:/home/wekan/.meteor/
 
 # Copy source dir
 USER root
+
+RUN echo "export PATH=$PATH" >> /etc/environment
 
 RUN set -o xtrace \
   && mkdir /home/wekan/app

@@ -3,7 +3,7 @@ version: '3.7'
 services:
 
   wekandb-dev:
-    image: mongo:4.0.11
+    image: mongo:4.0.12
     container_name: wekan-dev-db
     restart: unless-stopped
     command: mongod --smallfiles --oplogSize 128
@@ -29,9 +29,6 @@ services:
     environment:
       - MONGO_URL=mongodb://wekandb-dev:27017/wekan
       - ROOT_URL=http://localhost:3000
-      #- MAIL_URL=smtp://user:pass@mailserver.example.com:25/
-      - MAIL_URL=smtp://<mail_url>:25/?ignoreTLS=true&tls={rejectUnauthorized:false}
-      - MAIL_FROM=Wekan Notifications <noreply.wekan@mydomain.com>
       - WITH_API=true
       - RICHER_CARD_COMMENT_EDITOR=true
       - BROWSER_POLICY_ENABLED=true
