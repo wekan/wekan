@@ -62,8 +62,14 @@ Activities.helpers({
   //},
 });
 
+Activities.before.update((userId, doc, fieldNames, modifier) => {
+  modifier.$set = modifier.$set || {};
+  modifier.$set.modifiedAt = new Date();
+});
+
 Activities.before.insert((userId, doc) => {
   doc.createdAt = new Date();
+  doc.modifiedAt = doc.createdAt;
 });
 
 Activities.after.insert((userId, doc) => {
