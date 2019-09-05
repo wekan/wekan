@@ -12,6 +12,16 @@ Triggers.mutations({
   },
 });
 
+Triggers.before.insert((userId, doc) => {
+  doc.createdAt = new Date();
+  doc.updatedAt = doc.createdAt;
+});
+
+Triggers.before.update((userId, doc, fieldNames, modifier) => {
+  modifier.$set = modifier.$set || {};
+  modifier.$set.updatedAt = new Date();
+});
+
 Triggers.allow({
   insert(userId, doc) {
     return allowIsBoardAdmin(userId, Boards.findOne(doc.boardId));
