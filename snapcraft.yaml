@@ -1,6 +1,7 @@
 name: wekan
-adopt-info: wekan
-summary: The Open-Source kanban
+version: 0
+version-script: git describe --tags |  cut -c 2-
+summary: The open-source kanban
 description: |
    Wekan is an open-source and collaborative kanban board application.
 
@@ -210,34 +211,16 @@ parts:
             #meteor npm install --save bcrypt
             # Change back to Wekan source directory
             cd ../../../..
-            # Remove package-lock.json so that set-version below would not claim Wekan is dirty
-            rm -f package-lock.json
-            # Remove local files
-            rm -rf .meteor/local
-            rm -f .build/bundle/programs/server/npm/node_modules/tar/lib/.mkdir.js.swp
-            rm -f .build/bundle/programs/server/node_modules/node-pre-gyp/node_modules/tar/lib/.mkdir.js.swp
-            rm -f lib/node_modules/wekan/node_modules/tar/lib/.mkdir.js.sw
-            # Copy files to snap
             cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
             cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
-            # Delete phantomjs
+            rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan
             rm -f $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/meteor/rajit_bootstrap3-datepicker/lib/bootstrap-datepicker/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
-            rm -f $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/meteor/lucasantoniassi_accounts-lockout/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
-            # Delete all .swp files at subdirectories
-            #find $SNAPCRAFT_PART_INSTALL -name \*.swp -type f -delete
-            # Delete each .swp file separately
-            #rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan
-            #rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan/.build/bundle/programs/server/npm/node_modules/tar/lib/.mkdir.js.swp
-            #rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan/.build/bundle/programs/server/node_modules/node-pre-gyp/node_modules/tar/lib/.mkdir.js.swp
-            rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan/node_modules/tar/lib/.mkdir.js.swp
+            rm -f $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/tar/lib/.mkdir.js.swp
             rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/node-pre-gyp/node_modules/tar/lib/.mkdir.js.swp
             rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/node-gyp/node_modules/tar/lib/.mkdir.js.swp
-            rm -f $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/tar/lib/.mkdir.js.swp
             # Meteor 1.8.x additional .swp remove
             rm -f $SNAPCRAFT_PART_INSTALL/programs/server/node_modules/node-pre-gyp/node_modules/tar/lib/.mkdir.js.swp
-            # Wekan version
-            snapcraftctl set-version "$(git describe --dirty --tags | cut -c 2-)"
-            snapcraftctl build
+
         organize:
             README: README.wekan
         prime:
