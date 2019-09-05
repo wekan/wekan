@@ -124,7 +124,7 @@ Meteor.methods({
     const url = integration.url;
     const response = postCatchError(url, options);
 
-    if (response && response.statusCode && response.statusCode === 200) {
+    if (response && response.statusCode && response.statusCode >= 200 && response.statusCode < 300) {
       if (is2way) {
         const cid = params.commentId;
         const tooSoon = Lock.has(cid); // if an activity happens to fast, notification shouldn't fire with the same id
