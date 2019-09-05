@@ -218,7 +218,12 @@
       #export LDAP_AUTHENTIFICATION=false
       # LDAP_AUTHENTIFICATION_USERDN : The search user DN
       # example :  export LDAP_AUTHENTIFICATION_USERDN=cn=admin,dc=example,dc=org
-      #export LDAP_AUTHENTIFICATION_USERDN=
+      #----------------------------------------------------------------------------
+      # The search user DN - You need quotes when you have spaces in parameters
+      # 2 examples:
+      #export LDAP_AUTHENTIFICATION_USERDN="CN=ldap admin,CN=users,DC=domainmatter,DC=lan"
+      #export LDAP_AUTHENTIFICATION_USERDN="CN=wekan_adm,OU=serviceaccounts,OU=admin,OU=prod,DC=mydomain,DC=com"
+      #---------------------------------------------------------------------------
       # LDAP_AUTHENTIFICATION_PASSWORD : The password for the search user
       # example : AUTHENTIFICATION_PASSWORD=admin
       #export LDAP_AUTHENTIFICATION_PASSWORD=

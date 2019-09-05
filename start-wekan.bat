@@ -206,6 +206,11 @@ REM # LDAP_AUTHENTIFICATION_USERDN : The search user DN
 REM # example: LDAP_AUTHENTIFICATION_USERDN=cn=admin,dc=example,dc=org
 REM SET LDAP_AUTHENTIFICATION_USERDN=
 
+REM # The search user DN - You need quotes when you have spaces in parameters
+REM # 2 examples:
+REM SET LDAP_AUTHENTIFICATION_USERDN="CN=ldap admin,CN=users,DC=domainmatter,DC=lan"
+REM SET LDAP_AUTHENTIFICATION_USERDN="CN=wekan_adm,OU=serviceaccounts,OU=admin,OU=prod,DC=mydomain,DC=com"
+
 REM # LDAP_AUTHENTIFICATION_PASSWORD : The password for the search user
 REM # example : AUTHENTIFICATION_PASSWORD=admin
 REM SET LDAP_AUTHENTIFICATION_PASSWORD=

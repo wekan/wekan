@@ -426,8 +426,10 @@ services:
       # If the LDAP needs a user account to search
       #- LDAP_AUTHENTIFICATION=true
       #
-      # The search user DN
-      #- LDAP_AUTHENTIFICATION_USERDN=cn=wekan_adm,ou=serviceaccounts,ou=admin,ou=prod,dc=mydomain,dc=com
+      # The search user DN - You need quotes when you have spaces in parameters
+      # 2 examples:
+      #- LDAP_AUTHENTIFICATION_USERDN="CN=ldap admin,CN=users,DC=domainmatter,DC=lan"
+      #- LDAP_AUTHENTIFICATION_USERDN="CN=wekan_adm,OU=serviceaccounts,OU=admin,OU=prod,DC=mydomain,DC=com"
       #
       # The password for the search user
       #- LDAP_AUTHENTIFICATION_PASSWORD=pwd
