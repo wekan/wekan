@@ -148,7 +148,7 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
         function(cardId, card) {
           if (card.type === 'cardType-linkedCard') {
             const impCardId = card.linkedId;
-            subCards.push(impCardId);
+            //subCards.push(impCardId);   // GitHub issue #2688
             cardComments.push(impCardId);
             attachments.push(impCardId);
             checklists.push(impCardId);
