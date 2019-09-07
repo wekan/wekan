@@ -7,6 +7,8 @@ This release fixes the following bugs:
   Thanks to compumatter.
 - [Fix: Linked cards make load all cards of database](https://github.com/wekan/wekan/commit/a56988c487745b2879cebe1943e7a987016e8bef).
   Thanks to Akuket.
+- [Fix Unable to drag select text without closing card details](https://github.com/wekan/wekan/pull/2690).
+  Thanks to justinr1234.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
