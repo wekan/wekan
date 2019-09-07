@@ -321,6 +321,19 @@ BlazeComponent.extendComponent({
           parentComponent.showOverlay.set(true);
           parentComponent.mouseHasEnterCardDetails = true;
         },
+        'mousedown .js-card-details'() {
+          Session.set('cardDetailsIsDragging', false);
+          Session.set('cardDetailsIsMouseDown', true);
+        },
+        'mousemove .js-card-details'() {
+          if (Session.get('cardDetailsIsMouseDown')) {
+            Session.set('cardDetailsIsDragging', true);
+          }
+        },
+        'mouseup .js-card-details'() {
+          Session.set('cardDetailsIsDragging', false);
+          Session.set('cardDetailsIsMouseDown', false);
+        },
         'click #toggleButton'() {
           Meteor.call('toggleSystemMessages');
         },
@@ -777,7 +790,14 @@ BlazeComponent.extendComponent({
 EscapeActions.register(
   'detailsPane',
   () => {
-    Utils.goBoardId(Session.get('currentBoard'));
+    if (Session.get('cardDetailsIsDragging')) {
+      // Reset dragging status as the mouse landed outside the cardDetails template area and this will prevent a mousedown event from firing
+      Session.set('cardDetailsIsDragging', false);
+      Session.set('cardDetailsIsMouseDown', false);
+    } else {
+      // Prevent close card when the user is selecting text and moves the mouse cursor outside the card detail area
+      Utils.goBoardId(Session.get('currentBoard'));
+    }
   },
   () => {
     return !Session.equals('currentCard', null);
