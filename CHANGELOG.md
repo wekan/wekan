@@ -5,6 +5,8 @@ This release fixes the following bugs:
 - LDAP: [Fix USERDN example, when parameters contain spaces](https://github.com/wekan/wekan/commit/6cbd4cabc716c755e547abb798f657fe5476ed04).
   LDAP_AUTHENTIFICATION_USERDN="CN=ldap admin,CN=users,DC=domainmatter,DC=lan" .
   Thanks to compumatter.
+- [Fix: Linked cards make load all cards of database](https://github.com/wekan/wekan/commit/a56988c487745b2879cebe1943e7a987016e8bef).
+  Thanks to Akuket.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
