@@ -180,7 +180,7 @@ if (Meteor.isServer) {
       const comment = activity.comment();
       params.comment = comment.text;
       if (board) {
-        const atUser = /(?:^|>|\b|\s)@(\S+)(?:\s|$|<|\b)/g;
+        const atUser = /(?:^|>|\b|\s)@(\S+?)(?:\s|$|<|\b)/g;
         const comment = params.comment;
         if (comment.match(atUser)) {
           const commenter = params.user;
@@ -192,12 +192,14 @@ if (Meteor.isServer) {
             }
             const atUser =
               Users.findOne(username) || Users.findOne({ username });
-            const uid = atUser && atUser._id;
-            params.atUsername = username;
-            params.atEmails = atUser.emails;
-            if (board.hasMember(uid)) {
-              title = 'act-atUserComment';
-              watchers = _.union(watchers, [uid]);
+            if (atUser && atUser._id) {
+              const uid = atUser._id;
+              params.atUsername = username;
+              params.atEmails = atUser.emails;
+              if (board.hasMember(uid)) {
+                title = 'act-atUserComment';
+                watchers = _.union(watchers, [uid]);
+              }
             }
           }
         }
