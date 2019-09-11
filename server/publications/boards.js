@@ -138,7 +138,7 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
       parentCards.selector = _ids => ({ parentId: _ids });
       const boards = this.join(Boards);
       const subCards = this.join(Cards);
-      subCards.selector = () => ({ archived: isArchived });
+      subCards.selector = _ids => ({ _id: _ids, archived: isArchived });
 
       this.cursor(
         Cards.find({
