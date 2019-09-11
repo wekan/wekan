@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix subcard selector](https://github.com/wekan/wekan/pull/2697).
+  Thanks to justinr1234.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.39 2019-09-11 Wekan release
 
 This release fixes the following bugs:
