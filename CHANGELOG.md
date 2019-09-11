@@ -1,3 +1,7 @@
+# v3.38 2019-09-11 Wekan release
+
+- Update translations. Thanks to translators.
+
 # v3.37 2019-09-07 Wekan release
 
 This release fixes the following bugs:
