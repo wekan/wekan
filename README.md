@@ -83,7 +83,6 @@ that by providing one-click installation on various platforms.
   [many times a day](https://github.com/wekan/wekan/blob/devel/CHANGELOG.md).
 - [Please add Add new Feature Requests and Bug Reports immediately](https://github.com/wekan/wekan/issues).
 - [Commercial Support](https://wekan.team).
-- [Bounties](https://wekan.team/bounties/index.html).
 
 We also welcome sponsors for features and bugfixes.
 By working directly with Wekan you get the benefit of active maintenance and new features added by growing Wekan developer community.
