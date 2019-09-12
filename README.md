@@ -54,7 +54,6 @@ that by providing one-click installation on various platforms.
 - [Features][features]: Wekan has real-time user interface.
 - [Platforms][platforms]: Wekan supports many platforms.
   Wekan is critical part of new platforms Wekan is currently being integrated to.
-- [Integrations][integrations]: Current possible integrations and future plans.
 
 ## Requirements
 
@@ -91,24 +90,13 @@ By working directly with Wekan you get the benefit of active maintenance and new
 
 ## Demo
 
-[Wekan demo][roadmap_wefork]
+[Wekan demo][roadmap_wekan]
 
 ## Screenshot
 
 [More screenshots at Features page](https://github.com/wekan/wekan/wiki/Features)
 
-[![Screenshot of Wekan][screenshot_wefork]][roadmap_wefork]
-
-## Stable
-
-- master+devel branch. At release, devel is merged to master.
-- Receives fixes and features that have been tested at edge that they work.
-- If you want automatic updates, [use Snap](https://github.com/wekan/wekan-snap/wiki/Install).
-- If you want to test before update, [use Docker quay.io release tags](https://github.com/wekan/wekan/wiki/Docker).
-
-## Edge
-
-- edge branch. All new fixes and features are added to here first. [Testing Edge](https://github.com/wekan/wekan-snap/wiki/Snap-Developer-Docs).
+[![Screenshot of Wekan][screenshot_wekan]][roadmap_wekan]
 
 ## License
 
@@ -117,14 +105,11 @@ with [Meteor](https://www.meteor.com).
 
 [platforms]: https://github.com/wekan/wekan/wiki/Platforms
 [dev_docs]: https://github.com/wekan/wekan/wiki/Developer-Documentation
-[screenshot_wekan]: http://i.imgur.com/cI4jW2h.png
-[screenshot_wefork]: https://wekan.github.io/wekan-markdown.png
+[screenshot_wekan]: https://wekan.github.io/wekan-markdown.png
 [features]: https://github.com/wekan/wekan/wiki/Features
-[integrations]: https://github.com/wekan/wekan/wiki/Integrations
-[roadmap_wekan]: http://try.wekan.io/b/MeSsFJaSqeuo9M6bs/wekan-roadmap
-[roadmap_wefork]: https://wekan.indie.host/b/t2YaGmyXgNkppcFBq/wekan-fork-roadmap
+[roadmap_wekan]: https://boards.wekan.team/b/D2SzJKZDS4Z48yeQH/wekan-open-source-kanban-board-with-mit-license
 [wekan_issues]: https://github.com/wekan/wekan/issues
-[wefork_issues]: https://github.com/wefork/wekan/issues
+[wekan_issues]: https://github.com/wekan/wekan/issues
 [docker_image]: https://hub.docker.com/r/wekanteam/wekan/
 [travis_badge]: https://travis-ci.org/wekan/wekan.svg?branch=devel
 [travis_status]: https://travis-ci.org/wekan/wekan
