@@ -31,11 +31,9 @@ BlazeComponent.extendComponent({
     const itemsSelector = '.js-minicard:not(.placeholder, .js-card-composer)';
     const $cards = this.$('.js-minicards');
 
-    if (window.matchMedia('(max-width: 1199px)').matches) {
-      $('.js-minicards').sortable({
-        handle: '.handle',
-      });
-    }
+    $('.js-minicards').sortable({
+      handle: '.handle',
+    });
 
     $cards.sortable({
       connectWith: '.js-minicards:not(.js-list-full)',
