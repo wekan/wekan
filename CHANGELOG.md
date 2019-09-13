@@ -1,8 +1,8 @@
-# Upcoming Wekan release
+# v3.41 2019-09-13 Wekan release
 
 This release adds the following new features:
 
-- [More Mobile and Desktop drag handles part 1](https://github.com/wekan/wekan/commit/ff550e91103115e7b731dd80c4588b93b2d4c64f).
+- [More Mobile and Desktop drag handles for Swimlanes/Lists/Cards. Part 1](https://github.com/wekan/wekan/commit/ff550e91103115e7b731dd80c4588b93b2d4c64f).
   Thanks to xet7.
     
 Thanks to above GitHub users for their contributions and translators for their translations.
