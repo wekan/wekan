@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [More Mobile and Desktop drag handles part 1](https://github.com/wekan/wekan/commit/ff550e91103115e7b731dd80c4588b93b2d4c64f).
+  Thanks to xet7.
+    
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.40 2019-09-11 Wekan release
 
 This release fixes the following bugs:
