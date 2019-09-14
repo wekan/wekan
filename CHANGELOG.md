@@ -1,3 +1,12 @@
+# v3.42 2019-09-14 Wekan release
+
+This release removed the following new features:
+
+- [Revert drag handle changes of Wekan v3.41](https://github.com/wekan/wekan/commit/57119868bbb49f47c7d0b51b9952df9bd83d46f5).
+  Thanks to Keelan.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.41 2019-09-13 Wekan release
 
 This release adds the following new features:
