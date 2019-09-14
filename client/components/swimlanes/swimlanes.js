@@ -56,7 +56,7 @@ function initSortable(boardComponent, $listsDom) {
   $listsDom.sortable({
     tolerance: 'pointer',
     helper: 'clone',
-    handle: '.js-list-handle',
+    handle: '.js-list-header',
     items: '.js-list:not(.js-list-composer)',
     placeholder: 'list placeholder',
     distance: 7,
@@ -156,8 +156,7 @@ BlazeComponent.extendComponent({
             'input',
             'textarea',
             'p',
-            '.js-list-handle',
-            '.js-swimlane-header-handle',
+            '.js-list-header',
           ];
           if (
             $(evt.target).closest(noDragInside.join(',')).length === 0 &&
