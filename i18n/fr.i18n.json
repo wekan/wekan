@@ -735,5 +735,6 @@
   "act-atUserComment": "Vous avez été mentionné dans [__board__] __card__",
   "delete-user-confirm-popup": "Êtes-vous sûr de vouloir supprimer ce compte ? Cette opération ne peut pas être annulée. ",
   "accounts-allowUserDelete": "Autoriser les utilisateurs à supprimer leur compte",
-  "hide-minicard-label-text": "Cacher le label de la minicarte"
+  "hide-minicard-label-text": "Cacher le label de la minicarte",
+  "show-desktop-drag-handles": "Show desktop drag handles"
 }
