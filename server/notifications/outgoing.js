@@ -10,11 +10,39 @@ const postCatchError = Meteor.wrapAsync((url, options, resolve) => {
 
 const Lock = {
   _lock: {},
-  has(id) {
-    return !!this._lock[id];
+  _timer: {},
+  echoDelay: 500, // echo should be happening much faster
+  normalDelay: 1e3, // normally user typed comment will be much slower
+  ECHO: 2,
+  NORMAL: 1,
+  NULL: 0,
+  has(id, value) {
+    const existing = this._lock[id];
+    let ret = this.NULL;
+    if (existing) {
+      ret = existing === value ? this.ECHO : this.NORMAL;
+    }
+    return ret;
   },
-  set(id) {
-    this._lock[id] = 1;
+  clear(id, delay) {
+    const previous = this._timer[id];
+    if (previous) {
+      Meteor.clearTimeout(previous);
+    }
+    this._timer[id] = Meteor.setTimeout(() => this.unset(id), delay);
+  },
+  set(id, value) {
+    const state = this.has(id, value);
+    let delay = this.normalDelay;
+    if (state === this.ECHO) {
+      delay = this.echoDelay;
+    }
+    if (!value) {
+      // user commented, we set a lock
+      value = 1;
+    }
+    this._lock[id] = value;
+    this.clear(id, delay); // always auto reset the locker after delay
   },
   unset(id) {
     delete this._lock[id];
@@ -33,40 +61,44 @@ const webhooksAtbts = (process.env.WEBHOOKS_ATTRIBUTES &&
   'commentId',
   'swimlaneId',
 ];
-const responseFunc = 'reactOnHookResponse';
-Meteor.methods({
-  [responseFunc](data) {
-    check(data, Object);
-    const paramCommentId = data.commentId;
-    const paramCardId = data.cardId;
-    const paramBoardId = data.boardId;
-    const newComment = data.comment;
-    if (paramCardId && paramBoardId && newComment) {
-      // only process data with the cardid, boardid and comment text, TODO can expand other functions here to react on returned data
-      const comment = CardComments.findOne({
-        _id: paramCommentId,
-        cardId: paramCardId,
-        boardId: paramBoardId,
-      });
+const responseFunc = data => {
+  const paramCommentId = data.commentId;
+  const paramCardId = data.cardId;
+  const paramBoardId = data.boardId;
+  const newComment = data.comment;
+  if (paramCardId && paramBoardId && newComment) {
+    // only process data with the cardid, boardid and comment text, TODO can expand other functions here to react on returned data
+    const comment = CardComments.findOne({
+      _id: paramCommentId,
+      cardId: paramCardId,
+      boardId: paramBoardId,
+    });
+    const board = Boards.findOne(paramBoardId);
+    const card = Cards.findOne(paramCardId);
+    if (board && card) {
       if (comment) {
-        CardComments.update(comment._id, {
+        Lock.set(comment._id, newComment);
+        CardComments.direct.update(comment._id, {
           $set: {
             text: newComment,
           },
         });
-      } else {
-        const userId = data.userId;
-        if (userId) {
-          CardComments.insert({
-            text: newComment,
-            userId,
-            cardId,
-            boardId,
-          });
-        }
+      }
+    } else {
+      const userId = data.userId;
+      if (userId) {
+        const inserted = CardComments.direct.insert({
+          text: newComment,
+          userId,
+          cardId,
+          boardId,
+        });
+        Lock.set(inserted._id, newComment);
       }
     }
-  },
+  }
+};
+Meteor.methods({
   outgoingWebhooks(integration, description, params) {
     check(integration, Object);
     check(description, String);
@@ -119,9 +151,20 @@ Meteor.methods({
     if (token) headers['X-Wekan-Token'] = token;
     const options = {
       headers,
-      data: is2way ? clonedParams : value,
+      data: is2way ? { description, ...clonedParams } : value,
     };
     const url = integration.url;
+    if (is2way) {
+      const cid = params.commentId;
+      const comment = params.comment;
+      const lockState = cid && Lock.has(cid, comment);
+      if (cid && lockState !== Lock.NULL) {
+        // it's a comment  and there is a previous lock
+        return;
+      } else if (cid) {
+        Lock.set(cid, comment); // set a lock here
+      }
+    }
     const response = postCatchError(url, options);
 
     if (
@@ -131,21 +174,12 @@ Meteor.methods({
       response.statusCode < 300
     ) {
       if (is2way) {
-        const cid = params.commentId;
-        const tooSoon = Lock.has(cid); // if an activity happens to fast, notification shouldn't fire with the same id
-        if (!tooSoon) {
-          let clearNotification = () => {};
-          if (cid) {
-            Lock.set(cid);
-            const clearNotificationFlagTimeout = 1000;
-            clearNotification = () => Lock.unset(cid);
-            Meteor.setTimeout(clearNotification, clearNotificationFlagTimeout);
-          }
-          const data = response.data; // only an JSON encoded response will be actioned
-          if (data) {
-            Meteor.call(responseFunc, data, () => {
-              clearNotification();
-            });
+        const data = response.data; // only an JSON encoded response will be actioned
+        if (data) {
+          try {
+            responseFunc(data);
+          } catch (e) {
+            throw new Meteor.Error('error-process-data');
           }
         }
       }
