@@ -53,10 +53,21 @@ function initSortable(boardComponent, $listsDom) {
     },
   };
 
+  if (Utils.isMiniScreen) {
+    $listsDom.sortable({
+      handle: '.js-list-handle',
+    });
+  }
+
+  if (!Utils.isMiniScreen && showDesktopDragHandles) {
+    $listsDom.sortable({
+      handle: '.js-list-header',
+    });
+  }
+
   $listsDom.sortable({
     tolerance: 'pointer',
     helper: 'clone',
-    handle: '.js-list-header',
     items: '.js-list:not(.js-list-composer)',
     placeholder: 'list placeholder',
     distance: 7,
@@ -151,13 +162,39 @@ BlazeComponent.extendComponent({
           // define a list of elements in which we disable the dragging because
           // the user will legitimately expect to be able to select some text with
           // his mouse.
-          const noDragInside = [
-            'a',
-            'input',
-            'textarea',
-            'p',
-            '.js-list-header',
-          ];
+
+          if (Utils.isMiniScreen) {
+            const noDragInside = [
+              'a',
+              'input',
+              'textarea',
+              'p',
+              '.js-list-handle',
+              '.js-swimlane-header-handle',
+            ];
+          }
+
+          if (!Utils.isMiniScreen && !showDesktopDragHandles) {
+            const noDragInside = [
+              'a',
+              'input',
+              'textarea',
+              'p',
+              '.js-list-header',
+            ];
+          }
+
+          if (!Utils.isMiniScreen && showDesktopDragHandles) {
+            const noDragInside = [
+              'a',
+              'input',
+              'textarea',
+              'p',
+              '.js-list-handle',
+              '.js-swimlane-header-handle',
+            ];
+          }
+
           if (
             $(evt.target).closest(noDragInside.join(',')).length === 0 &&
             this.$('.swimlane').prop('clientHeight') > evt.offsetY
@@ -233,6 +270,9 @@ BlazeComponent.extendComponent({
 }).register('addListForm');
 
 Template.swimlane.helpers({
+  showDesktopDragHandles() {
+    return Meteor.user().hasShowDesktopDragHandles();
+  },
   canSeeAddList() {
     return (
       Meteor.user() &&

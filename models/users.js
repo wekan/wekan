@@ -109,6 +109,13 @@ Users.attachSchema(
       type: String,
       optional: true,
     },
+    'profile.showDesktopDragHandles': {
+      /**
+       * does the user want to hide system messages?
+       */
+      type: Boolean,
+      optional: true,
+    },
     'profile.hiddenSystemMessages': {
       /**
        * does the user want to hide system messages?
@@ -368,6 +375,11 @@ Users.helpers({
     return _.contains(notifications, activityId);
   },
 
+  hasShowDesktopDragHandles() {
+    const profile = this.profile || {};
+    return profile.showDesktopDragHandles || false;
+  },
+
   hasHiddenSystemMessages() {
     const profile = this.profile || {};
     return profile.hiddenSystemMessages || false;
@@ -473,6 +485,14 @@ Users.mutations({
     else this.addTag(tag);
   },
 
+  toggleDesktopHandles(value = false) {
+    return {
+      $set: {
+        'profile.showDesktopDragHandles': !value,
+      },
+    };
+  },
+
   toggleSystem(value = false) {
     return {
       $set: {
@@ -547,6 +567,10 @@ Meteor.methods({
     } else {
       Users.update(userId, { $set: { username } });
     }
+  },
+  toggleDesktopDragHandles() {
+    const user = Meteor.user();
+    user.toggleDesktopHandles(user.hasShowDesktopDragHandles());
   },
   toggleSystemMessages() {
     const user = Meteor.user();

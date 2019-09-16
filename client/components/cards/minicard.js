@@ -26,6 +26,9 @@ BlazeComponent.extendComponent({
 }).register('minicard');
 
 Template.minicard.helpers({
+  showDesktopDragHandles() {
+    return Meteor.user().hasShowDesktopDragHandles();
+  },
   hiddenMinicardLabelText() {
     return Meteor.user().hasHiddenMinicardLabelText();
   },
