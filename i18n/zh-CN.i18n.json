@@ -735,5 +735,6 @@
   "act-atUserComment": "您在 [__board__] __card__中被提到",
   "delete-user-confirm-popup": "确实要删除此帐户吗？此操作无法撤销。",
   "accounts-allowUserDelete": "允许用户自行删除其帐户",
-  "hide-minicard-label-text": "隐藏迷你卡片标签文本"
+  "hide-minicard-label-text": "隐藏迷你卡片标签文本",
+  "show-desktop-drag-handles": "Show desktop drag handles"
 }

@@ -735,5 +735,6 @@
   "act-atUserComment": "Du nämndes i [__board__] __card__",
   "delete-user-confirm-popup": "Är du säker på att du vill ta bort det här kontot? Det går inte att ångra sig.",
   "accounts-allowUserDelete": "Tillåt användare att själv ta bort sina konton",
-  "hide-minicard-label-text": "Hide minicard label text"
+  "hide-minicard-label-text": "Hide minicard label text",
+  "show-desktop-drag-handles": "Show desktop drag handles"
 }

@@ -735,5 +735,6 @@
   "act-atUserComment": "Вас упомянули в [__board__] __card__",
   "delete-user-confirm-popup": "Вы уверены, что хотите удалить аккаунт? Данное действие необратимо.",
   "accounts-allowUserDelete": "Разрешить пользователям удалять собственные аккаунты",
-  "hide-minicard-label-text": "Скрыть текст меток на карточках"
+  "hide-minicard-label-text": "Скрыть текст меток на карточках",
+  "show-desktop-drag-handles": "Show desktop drag handles"
 }

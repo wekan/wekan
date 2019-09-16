@@ -735,5 +735,6 @@
   "act-atUserComment": "Zostałeś wspomniany na __board__ (__card__)",
   "delete-user-confirm-popup": "Czy jesteś pewien, że chcesz usunąć te konto? Nie można tego wycofać.",
   "accounts-allowUserDelete": "Pozwól użytkownikom na usuwanie własnych kont",
-  "hide-minicard-label-text": "Ukryj opisy etykiet minikart"
+  "hide-minicard-label-text": "Ukryj opisy etykiet minikart",
+  "show-desktop-drag-handles": "Show desktop drag handles"
 }
