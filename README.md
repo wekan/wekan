@@ -73,9 +73,9 @@ that by providing one-click installation on various platforms.
   Bugs, updates, users deleting list or card, harddrive full, harddrive crash etc can eat your data. There is no undo yet.
   Some bug can cause Wekan board to not load at all, requiring manual fixing of database content.
 
-## Roadmap
+## Roadmap and Demo
 
-[Roadmap][roadmap_wekan] - Public read-only Wekan board.
+[Roadmap][roadmap_wekan] - Public read-only board at Wekan demo.
 
 [Developer Documentation][dev_docs]
 
