@@ -156,25 +156,45 @@ Template.editor.onRendered(() => {
         }
         return undefined;
       };
+      let popupShown = false;
       inputs.each(function(idx, input) {
         mSummernotes[idx] = $(input).summernote({
           placeholder,
           callbacks: {
+            onKeydown(e) {
+              if (popupShown) {
+                e.preventDefault();
+              }
+            },
+            onKeyup(e) {
+              if (popupShown) {
+                e.preventDefault();
+              }
+            },
             onInit(object) {
               const originalInput = this;
+              const setAutocomplete = function(jEditor) {
+                if (jEditor !== undefined) {
+                  jEditor.escapeableTextComplete(mentions).on({
+                    'textComplete:show'() {
+                      popupShown = true;
+                    },
+                    'textComplete:hide'() {
+                      popupShown = false;
+                    },
+                  });
+                }
+              };
               $(originalInput).on('submitted', function() {
                 // resetCommentInput has been called
                 if (!this.value) {
                   const sn = getSummernote(this);
-                  sn && sn.summernote('reset');
-                  object && object.editingArea.find('.note-placeholder').show();
+                  sn && sn.summernote('code', '');
                 }
               });
               const jEditor = object && object.editable;
               const toolbar = object && object.toolbar;
-              if (jEditor !== undefined) {
-                jEditor.escapeableTextComplete(mentions);
-              }
+              setAutocomplete(jEditor);
               if (toolbar !== undefined) {
                 const fBtn = toolbar.find('.btn-fullscreen');
                 fBtn.on('click', function() {
@@ -264,7 +284,7 @@ Template.editor.onRendered(() => {
                 const someNote = getSummernote(object);
                 const original = someNote.summernote('code');
                 const cleaned = cleanPastedHTML(original); //this is where to call whatever clean function you want. I have mine in a different file, called CleanPastedHTML.
-                someNote.summernote('reset'); //clear original
+                someNote.summernote('code', ''); //clear original
                 someNote.summernote('pasteHTML', cleaned); //this sets the displayed content editor to the cleaned pasted code.
               };
               setTimeout(function() {
