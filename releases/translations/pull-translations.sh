@@ -36,6 +36,9 @@ tx pull -f -l en_GB
 echo "Greek:"
 tx pull -f -l el
 
+echo "Slovenian:"
+tx pull -f -l sl_SI
+
 echo "Spanish:"
 tx pull -f -l es
 
