@@ -45,6 +45,7 @@ $.fn.escapeableTextComplete = function(strategies, options, ...otherArgs) {
       });
     },
   });
+  return this;
 };
 
 EscapeActions.register('textcomplete', () => {}, () => dropdownMenuIsOpened, {
