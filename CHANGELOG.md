@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v3.44 2019-09-17 Wekan release
 
 This release adds the following languages:
 
