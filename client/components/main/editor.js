@@ -190,8 +190,6 @@ Template.editor.onRendered(() => {
                 if (!this.value) {
                   const sn = getSummernote(this);
                   sn && sn.summernote('code', '');
-                  setAutocomplete(jEditor);
-                  //object && object.editingArea.find('.note-placeholder').show();
                 }
               });
               const jEditor = object && object.editable;
