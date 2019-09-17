@@ -1,3 +1,16 @@
+# v3.43 2019-09-17 Wekan release
+
+This release fixes the following bugs:
+
+- [In richer editor, @user might not get pickup correctly, if it's formated](https://github.com/wekan/wekan/pull/2715).
+  Thanks to whowillcare.
+- [Table content should have word-wrap](https://github.com/wekan/wekan/pull/2715).
+  Thanks to whowillcare.
+- [Two-way hooks locking mechanism will fail sometime, therefore, change all comment insert or update to direct, which means it won't invoke any hook](https://github.com/wekan/wekan/pull/2715).
+  Thanks to whowillcare.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.42 2019-09-14 Wekan release
 
 This release removed the following new features:

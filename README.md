@@ -73,23 +73,19 @@ that by providing one-click installation on various platforms.
   Bugs, updates, users deleting list or card, harddrive full, harddrive crash etc can eat your data. There is no undo yet.
   Some bug can cause Wekan board to not load at all, requiring manual fixing of database content.
 
-## Roadmap
+## Roadmap and Demo
 
-[Roadmap Milestones](https://github.com/wekan/wekan/milestones)
+[Roadmap][roadmap_wekan] - Public read-only board at Wekan demo.
 
 [Developer Documentation][dev_docs]
 
 - There is many companies and individuals contributing code to Wekan, to add features and bugfixes
   [many times a day](https://github.com/wekan/wekan/blob/devel/CHANGELOG.md).
 - [Please add Add new Feature Requests and Bug Reports immediately](https://github.com/wekan/wekan/issues).
-- [Commercial Support](https://wekan.team).
+- [Commercial Support](https://wekan.team/commercial-support/).
 
 We also welcome sponsors for features and bugfixes.
 By working directly with Wekan you get the benefit of active maintenance and new features added by growing Wekan developer community.
-
-## Demo
-
-[Wekan demo][roadmap_wekan]
 
 ## Screenshot
 
