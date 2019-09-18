@@ -161,6 +161,9 @@ Template.changeLanguagePopup.events({
 });
 
 Template.changeSettingsPopup.helpers({
+  showDesktopDragHandles() {
+    return Meteor.user().hasShowDesktopDragHandles();
+  },
   hiddenSystemMessages() {
     return Meteor.user().hasHiddenSystemMessages();
   },
@@ -170,6 +173,9 @@ Template.changeSettingsPopup.helpers({
 });
 
 Template.changeSettingsPopup.events({
+  'click .js-toggle-desktop-drag-handles'() {
+    Meteor.call('toggleDesktopDragHandles');
+  },
   'click .js-toggle-system-messages'() {
     Meteor.call('toggleSystemMessages');
   },
