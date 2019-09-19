@@ -1,3 +1,17 @@
+# v3.44 2019-09-17 Wekan release
+
+This release adds the following languages:
+
+- [Add language: Slovenian](https://github.com/wekan/wekan/commit/125231beff0fb84a18a46fe246fa12e098246985).
+  Thanks to translators.
+
+and fixes the following bugs:
+
+- [Fix: in richer editor @ autocomplete doesn't really insert the username properly](https://github.com/wekan/wekan/pull/2717).
+  Thanks to whowillcare.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.43 2019-09-17 Wekan release
 
 This release fixes the following bugs:
