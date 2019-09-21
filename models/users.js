@@ -541,6 +541,7 @@ Users.mutations({
 Meteor.methods({
   setUsername(username, userId) {
     check(username, String);
+    check(userId, String);
     const nUsersWithUsername = Users.find({ username }).count();
     if (nUsersWithUsername > 0) {
       throw new Meteor.Error('username-already-taken');
