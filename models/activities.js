@@ -242,8 +242,8 @@ if (Meteor.isServer) {
       (!activity.timeKey || activity.timeKey === 'dueAt') &&
       activity.timeValue
     ) {
-      // due time reminder
-      title = 'act-withDue';
+      // due time reminder, if it doesn't have old value, it's a brand new set, need some differentiation
+      title = activity.timeOldValue ? 'act-withDue' : 'act-newDue';
     }
     ['timeValue', 'timeOldValue'].forEach(key => {
       // copy time related keys & values to params

@@ -731,6 +731,7 @@
   "almostdue": "current due time %s is approaching",
   "pastdue": "current due time %s is past",
   "duenow": "current due time %s is today",
+  "act-newDue": "__card__ has 1st due reminder [__board__]",
   "act-withDue": "__card__ due reminders [__board__]",
   "act-almostdue": "was reminding the current due (__timeValue__) of __card__ is approaching",
   "act-pastdue": "was reminding the current due (__timeValue__) of __card__ is past",
