@@ -1558,6 +1558,7 @@ function cardRemover(userId, doc) {
 const findDueCards = days => {
   const seekDue = ($from, $to, activityType) => {
     Cards.find({
+      archived: false,
       dueAt: { $gte: $from, $lt: $to },
     }).forEach(card => {
       const username = Users.findOne(card.userId).username;
