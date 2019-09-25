@@ -728,6 +728,7 @@
   "almostdue": "a data limite actual %s está-se a aproximar",
   "pastdue": "a data limite actual %s já passou",
   "duenow": "a data limite actual %s é hoje",
+  "act-newDue": "__card__ has 1st due reminder [__board__]",
   "act-withDue": "lembretes das datas limites de __card__ [__board__]",
   "act-almostdue": "estava a lembrar que a data limite actual (__timeValue__) de __card__ está-se a aproximar",
   "act-pastdue": "estava a lembrar que a data limite (__timeValue__) de __card__ já passou",

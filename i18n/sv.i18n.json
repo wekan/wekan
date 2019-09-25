@@ -728,6 +728,7 @@
   "almostdue": "aktuell förfallotid %s närmar sig",
   "pastdue": "aktuell förfallotid %s är förbi",
   "duenow": "aktuell förfallotid %s är idag",
+  "act-newDue": "__card__ has 1st due reminder [__board__]",
   "act-withDue": "__card__ förfallotidspåminnelser [__board__]",
   "act-almostdue": "påminde om den aktuella förfallotiden (__timeValue__) av __card__ närmar sig",
   "act-pastdue": "påminde om den aktuella förfallotiden (__timeValue__) av __card__ är förbi",

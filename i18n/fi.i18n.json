@@ -728,6 +728,7 @@
   "almostdue": "nykyinen eräaika %s lähestyy",
   "pastdue": "nykyinen eräaika %s on mennyt",
   "duenow": "nykyinen eräaika %s on tänään",
+  "act-newDue": "__card__ on 1. erääntymismuistutus [__board__]",
   "act-withDue": "__card__ eräaika muistutukset [__board__]",
   "act-almostdue": "muistutti nykyisen eräajan (__timeValue__) kortilla __card__ lähestyvän",
   "act-pastdue": "muistutti nykyisen eräajan (__timeValue__) kortilla __card__ menneen",

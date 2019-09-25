@@ -728,6 +728,7 @@
   "almostdue": "trenutni rok %s se približuje",
   "pastdue": "trenutni rok %s je potekel",
   "duenow": "trenutni rok %s je danes",
+  "act-newDue": "__card__ has 1st due reminder [__board__]",
   "act-withDue": "__card__ opomniki roka zapadlosti [__board__]",
   "act-almostdue": "je opomnil trenuten rok zapadlosti (__timeValue__) kartice __card__ se bliža",
   "act-pastdue": "je opomnil trenuten rok zapadlosti (__timeValue__) kartice __card__ je potekel",

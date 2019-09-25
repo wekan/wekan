@@ -728,6 +728,7 @@
   "almostdue": "prazo final atual %s está próximo",
   "pastdue": "prazo final atual %s venceu",
   "duenow": "prazo final atual %s é hoje",
+  "act-newDue": "__card__ has 1st due reminder [__board__]",
   "act-withDue": "__card__ lembrete de prazos finais [__board__]",
   "act-almostdue": "está lembrando que o prazo final atual (__timeValue__) do __card__ está próximo",
   "act-pastdue": "está lembrando que o prazo final atual (__timeValue__) do __card__ venceu",

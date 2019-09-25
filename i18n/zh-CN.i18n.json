@@ -728,6 +728,7 @@
   "almostdue": "当前到期时间%s即将到来",
   "pastdue": "当前到期时间%s已过",
   "duenow": "当前到期时间%s为今天",
+  "act-newDue": "__card__ has 1st due reminder [__board__]",
   "act-withDue": "__card__ 到期提醒[__board__]",
   "act-almostdue": "__card__ 的当前到期提醒(__timeValue__) 正在接近",
   "act-pastdue": "__card__ 的当前到期提醒(__timeValue__) 已经过去了",

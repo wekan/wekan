@@ -728,6 +728,7 @@
   "almostdue": "מועד היעד הנוכחי %s מתקרב",
   "pastdue": "מועד היעד הנוכחי %s חלף",
   "duenow": "מועד היעד הנוכחי %s הוא היום",
+  "act-newDue": "__card__ has 1st due reminder [__board__]",
   "act-withDue": "__card__ תזכורות למועדי יעד [__board__]",
   "act-almostdue": "הזכירה שמועד היעד הנוכחי (__timeValue__) של __card__ מתקרב",
   "act-pastdue": "הזכירה שמועד היעד הנוכחי (__timeValue__) של __card__ חלף",
