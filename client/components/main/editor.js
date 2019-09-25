@@ -94,7 +94,13 @@ Template.editor.onRendered(() => {
           currentBoard
             .activeMembers()
             .map(member => {
-              const username = Users.findOne(member.userId).username;
+              const user = Users.findOne(member.userId);
+              if (user._id === Meteor.userId()) {
+                return null;
+              }
+              const value = user.username;
+              const username =
+                value && value.match(/\s+/) ? `"${value}"` : value;
               return username.includes(term) ? username : null;
             })
             .filter(Boolean),
@@ -120,9 +126,10 @@ Template.editor.onRendered(() => {
       ? [
           ['view', ['fullscreen']],
           ['table', ['table']],
-          ['font', ['bold', 'underline']],
-          //['fontsize', ['fontsize']],
+          ['font', ['bold']],
           ['color', ['color']],
+          ['insert', ['video']], // iframe tag will be sanitized TODO if iframe[class=note-video-clip] can be added into safe list, insert video can be enabled
+          //['fontsize', ['fontsize']],
         ]
       : [
           ['style', ['style']],
@@ -345,11 +352,12 @@ Blaze.Template.registerHelper(
       }
       return member;
     });
-    const mentionRegex = /\B@([\w.]*)/gi;
+    const mentionRegex = /\B@(?:(?:"([\w.\s]*)")|([\w.]+))/gi; // including space in username
 
     let currentMention;
     while ((currentMention = mentionRegex.exec(content)) !== null) {
-      const [fullMention, username] = currentMention;
+      const [fullMention, quoteduser, simple] = currentMention;
+      const username = quoteduser || simple;
       const knowedUser = _.findWhere(knowedUsers, { username });
       if (!knowedUser) {
         continue;

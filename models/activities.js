@@ -180,28 +180,34 @@ if (Meteor.isServer) {
       const comment = activity.comment();
       params.comment = comment.text;
       if (board) {
-        const atUser = /(?:^|>|\b|\s)@(\S+?)(?:\s|$|<|\b)/g;
         const comment = params.comment;
-        if (comment.match(atUser)) {
-          const commenter = params.user;
-          while (atUser.exec(comment)) {
-            const username = RegExp.$1;
-            if (commenter === username) {
-              // it's person at himself, ignore it?
-              continue;
-            }
-            const atUser =
-              Users.findOne(username) || Users.findOne({ username });
-            if (atUser && atUser._id) {
-              const uid = atUser._id;
-              params.atUsername = username;
-              params.atEmails = atUser.emails;
-              if (board.hasMember(uid)) {
-                title = 'act-atUserComment';
-                watchers = _.union(watchers, [uid]);
-              }
-            }
+        const knownUsers = board.members.map(member => {
+          const u = Users.findOne(member.userId);
+          if (u) {
+            member.username = u.username;
+            member.emails = u.emails;
           }
+          return member;
+        });
+        const mentionRegex = /\B@(?:(?:"([\w.\s]*)")|([\w.]+))/gi; // including space in username
+        let currentMention;
+        while ((currentMention = mentionRegex.exec(comment)) !== null) {
+          /*eslint no-unused-vars: ["error", { "varsIgnorePattern": "[iI]gnored" }]*/
+          const [ignored, quoteduser, simple] = currentMention;
+          const username = quoteduser || simple;
+          if (username === params.user) {
+            // ignore commenter mention himself?
+            continue;
+          }
+          const atUser = _.findWhere(knownUsers, { username });
+          if (!atUser) {
+            continue;
+          }
+          const uid = atUser.userId;
+          params.atUsername = username;
+          params.atEmails = atUser.emails;
+          title = 'act-atUserComment';
+          watchers = _.union(watchers, [uid]);
         }
       }
       params.commentId = comment._id;
@@ -236,8 +242,8 @@ if (Meteor.isServer) {
       (!activity.timeKey || activity.timeKey === 'dueAt') &&
       activity.timeValue
     ) {
-      // due time reminder
-      title = 'act-withDue';
+      // due time reminder, if it doesn't have old value, it's a brand new set, need some differentiation
+      title = activity.timeOldValue ? 'act-withDue' : 'act-newDue';
     }
     ['timeValue', 'timeOldValue'].forEach(key => {
       // copy time related keys & values to params
