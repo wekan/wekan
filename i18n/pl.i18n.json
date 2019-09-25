@@ -736,5 +736,5 @@
   "delete-user-confirm-popup": "Czy jesteś pewien, że chcesz usunąć te konto? Nie można tego wycofać.",
   "accounts-allowUserDelete": "Pozwól użytkownikom na usuwanie własnych kont",
   "hide-minicard-label-text": "Ukryj opisy etykiet minikart",
-  "show-desktop-drag-handles": "Show desktop drag handles"
+  "show-desktop-drag-handles": "Pokaż przeciągnięcia na pulpit"
 }
