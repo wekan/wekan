@@ -43,6 +43,12 @@ BlazeComponent.extendComponent({
       });
     }
 
+    if (!Utils.isMiniScreen && !showDesktopDragHandles) {
+      $('.js-minicards').sortable({
+        handle: 'list-header',
+      });
+    }
+
     $cards.sortable({
       connectWith: '.js-minicards:not(.js-list-full)',
       tolerance: 'pointer',
