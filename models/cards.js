@@ -1583,14 +1583,14 @@ const findDueCards = days => {
   if (!days.map) days = [days];
   days.map(day => {
     let args = [];
-    if (day == 0) {
+    if (day === 0) {
       args = [then(0), then(1), 'duenow'];
     } else if (day > 0) {
       args = [then(1), then(day), 'almostdue'];
     } else {
       args = [then(day), now, 'pastdue'];
     }
-    seekDue.apply(null, args);
+    seekDue(...args);
   });
 };
 const addCronJob = _.debounce(
