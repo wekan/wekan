@@ -289,6 +289,7 @@ if (Meteor.isServer) {
       activities: { $in: [description, 'all'] },
     }).fetch();
     if (integrations.length > 0) {
+      params.watchers = watchers;
       integrations.forEach(integration => {
         Meteor.call(
           'outgoingWebhooks',
