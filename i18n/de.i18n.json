@@ -728,6 +728,7 @@
   "almostdue": "aktuelles Fälligkeitsdatum %s bevorstehend",
   "pastdue": "aktuelles Fälligkeitsdatum %s überschritten",
   "duenow": "aktuelles Fälligkeitsdatum %s heute",
+  "act-newDue": "__card__ has 1st due reminder [__board__]",
   "act-withDue": "__card__ fällige Erinnerungen [__board__]",
   "act-almostdue": "erinnernd an das aktuelle Fälligkeitszeitpunkt (__timeValue__) von __card__ ist bevorstehend",
   "act-pastdue": "erinnernd an das aktuelle Fälligkeitszeitpunkt (__timeValue__) von __card__ ist vorbei",

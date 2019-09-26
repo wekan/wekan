@@ -28,6 +28,12 @@ BlazeComponent.extendComponent({
   },
 }).register('swimlaneHeader');
 
+Template.swimlaneHeader.helpers({
+  showDesktopDragHandles() {
+    return Meteor.user().hasShowDesktopDragHandles();
+  },
+});
+
 Template.swimlaneActionPopup.events({
   'click .js-set-swimlane-color': Popup.open('setSwimlaneColor'),
   'click .js-close-swimlane'(event) {

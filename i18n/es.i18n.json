@@ -728,6 +728,7 @@
   "almostdue": "está próxima la hora de vencimiento actual %s",
   "pastdue": "se sobrepasó la hora de vencimiento actual%s",
   "duenow": "la hora de vencimiento actual %s es hoy",
+  "act-newDue": "__card__ has 1st due reminder [__board__]",
   "act-withDue": "__card__ notificaciones de vencimiento [__board__]",
   "act-almostdue": "se ha notificado que el vencimiento actual (__timeValue__) de __card__ está próximo",
   "act-pastdue": "se ha notificado que el vencimiento actual (__timeValue__) de __card__ se sobrepasó",
@@ -736,5 +737,5 @@
   "delete-user-confirm-popup": "¿Seguro que quieres eliminar esta cuenta? Esta acción no puede deshacerse.",
   "accounts-allowUserDelete": "Permitir a los usuarios eliminar su cuenta",
   "hide-minicard-label-text": "Ocultar el texto de la etiqueta de la minitarjeta",
-  "show-desktop-drag-handles": "Show desktop drag handles"
+  "show-desktop-drag-handles": "Mostrar los controles de arrastre del escritorio"
 }

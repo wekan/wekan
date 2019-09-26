@@ -728,6 +728,7 @@
   "almostdue": "prazo final atual %s está próximo",
   "pastdue": "prazo final atual %s venceu",
   "duenow": "prazo final atual %s é hoje",
+  "act-newDue": "__card__ has 1st due reminder [__board__]",
   "act-withDue": "__card__ lembrete de prazos finais [__board__]",
   "act-almostdue": "está lembrando que o prazo final atual (__timeValue__) do __card__ está próximo",
   "act-pastdue": "está lembrando que o prazo final atual (__timeValue__) do __card__ venceu",
@@ -736,5 +737,5 @@
   "delete-user-confirm-popup": "Você realmente quer apagar esta conta? Não há como desfazer.",
   "accounts-allowUserDelete": "Permitir que usuários apaguem a própria conta",
   "hide-minicard-label-text": "Esconder rótulo da etiqueta do mini cartão",
-  "show-desktop-drag-handles": "Show desktop drag handles"
+  "show-desktop-drag-handles": "Mostrar alças de arrasto da área de trabalho"
 }

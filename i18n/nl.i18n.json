@@ -728,6 +728,7 @@
   "almostdue": "huidige vervaldatum %s nadert",
   "pastdue": "huidige vervaldatum %s is verlopen",
   "duenow": "huidige vervaldatum %s is vandaag",
+  "act-newDue": "__card__ has 1st due reminder [__board__]",
   "act-withDue": "__card__ verval herinneringen [__board__]",
   "act-almostdue": "was aan het herinneren aan dat de huidige vervaldatum (__timeValue__) van __card__ nadert",
   "act-pastdue": "was aan het herinneren aan dat de huidige vervaldatum (__timeValue__) van __card__ is verlopen",
@@ -736,5 +737,5 @@
   "delete-user-confirm-popup": "Weet je zeker dat je dit account wilt verwijderen? Er is geen herstelmogelijkheid.",
   "accounts-allowUserDelete": "Sta gebruikers toe om hun eigen account te verwijderen",
   "hide-minicard-label-text": "Verberg minikaart labeltekst",
-  "show-desktop-drag-handles": "Show desktop drag handles"
+  "show-desktop-drag-handles": "Toon sleep gereedschap op werkblad"
 }

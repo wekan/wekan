@@ -728,6 +728,7 @@
   "almostdue": "La date d'échéance %s approche",
   "pastdue": "La date d'échéance %s est passée",
   "duenow": "La date d'échéance %s est aujourd'hui",
+  "act-newDue": "__card__ has 1st due reminder [__board__]",
   "act-withDue": "__card__ rappel d'échéance [__board__]",
   "act-almostdue": "rappelle que l'échéance (__timeValue__) de __card__ approche",
   "act-pastdue": "rappelle que l'échéance (__timeValue__) de __card__  est passée",
