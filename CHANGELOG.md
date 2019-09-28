@@ -1,3 +1,16 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Cards due timeline will be shown in Calendar view](https://github.com/wekan/wekan/pull/2738).
+  Thanks to whowillcare.
+- [Modified due day reminders in cards.js, so wekan server admin can control the reminder more flexibly](https://github.com/wekan/wekan/pull/2738).
+  i.e. NOTIFY_DUE_DAYS_BEFORE_AND_AFTER = 0 notification will be sent on due day only.
+  NOTIFY_DUE_DAYS_BEFORE_AND_AFTER = 2,0 it means notification will be sent on both due day and two days before.
+  Thanks to whowillcare.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.44 2019-09-17 Wekan release
 
 This release adds the following languages:
