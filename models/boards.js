@@ -699,6 +699,13 @@ Boards.helpers({
     return result;
   },
 
+  cardsDueInBetween(start, end) {
+    return Cards.find({
+      boardId: this._id,
+      dueAt: { $gte: start, $lte: end },
+    });
+  },
+
   cardsInInterval(start, end) {
     return Cards.find({
       boardId: this._id,

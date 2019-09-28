@@ -108,7 +108,7 @@ DESCRIPTION_BIGEVENTS_PATTERN="Big events pattern: Notify always due etc regardl
 DEFAULT_BIGEVENTS_PATTERN="NONE"
 KEY_BIGEVENTS_PATTERN="bigevents-pattern"
 
-DESCRIPTION_NOTIFY_DUE_DAYS_BEFORE_AND_AFTER="Notify due days, default 2 days before and after. 0 = due notifications disabled. Default: 2"
+DESCRIPTION_NOTIFY_DUE_DAYS_BEFORE_AND_AFTER="Notify due days, accepts ',' delimited string, i.e. 2,0 means notify will be sent out 2 days before and right on due day. Default: empty"
 DEFAULT_NOTIFY_DUE_DAYS_BEFORE_AND_AFTER=""
 KEY_NOTIFY_DUE_DAYS_BEFORE_AND_AFTER="notify-due-days-before-and-after"
 

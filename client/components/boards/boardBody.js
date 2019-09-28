@@ -309,26 +309,46 @@ BlazeComponent.extendComponent({
       events(start, end, timezone, callback) {
         const currentBoard = Boards.findOne(Session.get('currentBoard'));
         const events = [];
+        const pushEvent = function(card, title, start, end, extraCls) {
+          start = start || card.startAt;
+          end = end || card.endAt;
+          title = title || card.title;
+          const className =
+            (extraCls ? `${extraCls} ` : '') +
+            (card.color ? `calendar-event-${card.color}` : '');
+          events.push({
+            id: card._id,
+            title,
+            start,
+            end: end || card.endAt,
+            allDay:
+              Math.abs(end.getTime() - start.getTime()) / 1000 === 24 * 3600,
+            url: FlowRouter.url('card', {
+              boardId: currentBoard._id,
+              slug: currentBoard.slug,
+              cardId: card._id,
+            }),
+            className,
+          });
+        };
         currentBoard
           .cardsInInterval(start.toDate(), end.toDate())
           .forEach(function(card) {
-            events.push({
-              id: card._id,
-              title: card.title,
-              start: card.startAt,
-              end: card.endAt,
-              allDay:
-                Math.abs(card.endAt.getTime() - card.startAt.getTime()) /
-                  1000 ===
-                24 * 3600,
-              url: FlowRouter.url('card', {
-                boardId: currentBoard._id,
-                slug: currentBoard.slug,
-                cardId: card._id,
-              }),
-              className: card.color ? `calendar-event-${card.color}` : null,
-            });
+            pushEvent(card);
           });
+        currentBoard
+          .cardsDueInBetween(start.toDate(), end.toDate())
+          .forEach(function(card) {
+            pushEvent(
+              card,
+              `${card.title} ${TAPi18n.__('card-due')}`,
+              card.dueAt,
+              new Date(card.dueAt.getTime() + 36e5),
+            );
+          });
+        events.sort(function(first, second) {
+          return first.id > second.id ? 1 : -1;
+        });
         callback(events);
       },
       eventResize(event, delta, revertFunc) {

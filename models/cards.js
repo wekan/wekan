@@ -1579,18 +1579,38 @@ const findDueCards = days => {
   const now = new Date(),
     aday = 3600 * 24 * 1e3,
     then = day => new Date(now.setHours(0, 0, 0, 0) + day * aday);
-  seekDue(then(1), then(days), 'almostdue');
-  seekDue(then(0), then(1), 'duenow');
-  seekDue(then(-days), now, 'pastdue');
+  if (!days) return;
+  if (!days.map) days = [days];
+  days.map(day => {
+    let args = [];
+    if (day === 0) {
+      args = [then(0), then(1), 'duenow'];
+    } else if (day > 0) {
+      args = [then(1), then(day), 'almostdue'];
+    } else {
+      args = [then(day), now, 'pastdue'];
+    }
+    seekDue(...args);
+  });
 };
 const addCronJob = _.debounce(
   Meteor.bindEnvironment(function findDueCardsDebounced() {
-    const notifydays =
-      parseInt(process.env.NOTIFY_DUE_DAYS_BEFORE_AND_AFTER, 10) || 2; // default as 2 days before and after
-    if (!(notifydays > 0 && notifydays < 15)) {
-      // notifying due is disabled
+    const envValue = process.env.NOTIFY_DUE_DAYS_BEFORE_AND_AFTER;
+    if (!envValue) {
       return;
     }
+    const notifydays = envValue
+      .split(',')
+      .map(value => {
+        const iValue = parseInt(value, 10);
+        if (!(iValue > 0 && iValue < 15)) {
+          // notifying due is disabled
+          return false;
+        } else {
+          return iValue;
+        }
+      })
+      .filter(Boolean);
     const notifyitvl = process.env.NOTIFY_DUE_AT_HOUR_OF_DAY; //passed in the itvl has to be a number standing for the hour of current time
     const defaultitvl = 8; // default every morning at 8am, if the passed env variable has parsing error use default
     const itvl = parseInt(notifyitvl, 10) || defaultitvl;
