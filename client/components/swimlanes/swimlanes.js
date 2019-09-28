@@ -68,6 +68,7 @@ function initSortable(boardComponent, $listsDom) {
   $listsDom.sortable({
     tolerance: 'pointer',
     helper: 'clone',
+    handle: '.js-list-header',
     items: '.js-list:not(.js-list-composer)',
     placeholder: 'list placeholder',
     distance: 7,
