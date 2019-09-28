@@ -21,7 +21,15 @@ DatePicker = BlazeComponent.extendComponent({
         function(evt) {
           this.find('#date').value = moment(evt.date).format('L');
           this.error.set('');
-          this.find('#time').focus();
+          const timeInput = this.find('#time');
+          timeInput.focus();
+          if (!timeInput.value) {
+            const currentHour = evt.date.getHours();
+            const defaultMoment = moment(
+              currentHour > 0 ? evt.date : '1970-01-01 08:00:00',
+            ); // default to 8:00 am local time
+            timeInput.value = defaultMoment.format('LT');
+          }
         }.bind(this),
       );
 

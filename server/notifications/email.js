@@ -13,11 +13,14 @@ Meteor.startup(() => {
     const lan = user.getLanguage();
     const subject = TAPi18n.__(title, params, lan); // the original function has a fault, i believe the title should be used according to original author
     const existing = user.getEmailBuffer().length > 0;
-    const text = `${existing ? `<br/>\n${subject}<br/>\n` : ''}${
+    const htmlEnabled =
+      Meteor.settings.public &&
+      Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR !== false;
+    const text = `${existing ? `\n${subject}\n` : ''}${
       params.user
-    } ${TAPi18n.__(description, quoteParams, lan)}<br/>\n${params.url}`;
+    } ${TAPi18n.__(description, quoteParams, lan)}\n${params.url}`;
 
-    user.addEmailBuffer(text);
+    user.addEmailBuffer(htmlEnabled ? text.replace(/\n/g, '<br/>') : text);
 
     // unlike setTimeout(func, delay, args),
     // Meteor.setTimeout(func, delay) does not accept args :-(
