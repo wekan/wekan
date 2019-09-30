@@ -52,6 +52,7 @@ BlazeComponent.extendComponent({
     $cards.sortable({
       connectWith: '.js-minicards:not(.js-list-full)',
       tolerance: 'pointer',
+      handle: 'list-header',
       appendTo: '.board-canvas',
       helper(evt, item) {
         const helper = item.clone();

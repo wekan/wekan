@@ -4,11 +4,11 @@ function initSorting(items) {
   items.sortable({
     tolerance: 'pointer',
     helper: 'clone',
-    items: '.js-checklist-item:not(.placeholder)',
+    items: '.js-checklist-item-handle:not(.placeholder)',
     connectWith: '.js-checklist-items',
     appendTo: '.board-canvas',
     distance: 7,
-    placeholder: 'checklist-item placeholder',
+    placeholder: 'checklist-item-handle placeholder',
     scroll: false,
     start(evt, ui) {
       ui.placeholder.height(ui.helper.height());
@@ -17,11 +17,11 @@ function initSorting(items) {
     stop(evt, ui) {
       const parent = ui.item.parents('.js-checklist-items');
       const checklistId = Blaze.getData(parent.get(0)).checklist._id;
-      let prevItem = ui.item.prev('.js-checklist-item').get(0);
+      let prevItem = ui.item.prev('.js-checklist-item-handle').get(0);
       if (prevItem) {
         prevItem = Blaze.getData(prevItem).item;
       }
-      let nextItem = ui.item.next('.js-checklist-item').get(0);
+      let nextItem = ui.item.next('.js-checklist-item-handle').get(0);
       if (nextItem) {
         nextItem = Blaze.getData(nextItem).item;
       }
@@ -38,7 +38,7 @@ function initSorting(items) {
   });
 
   // ugly touch event hotfix
-  enableClickOnTouch('.js-checklist-item:not(.placeholder)');
+  enableClickOnTouch('.js-checklist-item-handle:not(.placeholder)');
 }
 
 BlazeComponent.extendComponent({
@@ -197,6 +197,12 @@ BlazeComponent.extendComponent({
   },
 }).register('checklists');
 
+Template.checklists.helpers({
+  showDesktopDragHandles() {
+    return Meteor.user().hasShowDesktopDragHandles();
+  },
+});
+
 Template.checklistDeleteDialog.onCreated(() => {
   const $cardDetails = this.$('.card-details');
   this.scrollState = {
@@ -230,6 +236,9 @@ Template.checklistItemDetail.helpers({
       Meteor.user().isBoardMember() &&
       !Meteor.user().isCommentOnly()
     );
+  },
+  showDesktopDragHandles() {
+    return Meteor.user().hasShowDesktopDragHandles();
   },
 });
 

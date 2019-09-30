@@ -31,10 +31,12 @@ template(name="checklistDetail")
           h2.title.js-open-inlined-form.is-editable
             +viewer
               = checklist.title
+            a.checklist-handle.handle.fa.fa-arrows.js-checklist-handle
         else
           h2.title
             +viewer
                 = checklist.title
+            a.checklist-handle.handle.fa.fa-arrows.js-checklist-handle
     +checklistItems(checklist = checklist)
 
 template(name="checklistDeleteDialog")
@@ -75,6 +77,11 @@ template(name="checklistItems")
         +editChecklistItemForm(type = 'item' item = item checklist = checklist)
       else
         +checklistItemDetail(item = item checklist = checklist)
+        if isMiniScreen
+          a.checklist-item-handle.handle.fa.fa-arrows.js-checklist-item-handle
+        unless isMiniScreen
+          if showDesktopDragHandles
+            a.checklist-item-handle.handle.fa.fa-arrows.js-checklist-item-handle
     if canModifyCard
       +inlinedForm(autoclose=false classNames="js-add-checklist-item" checklist = checklist)
         +addChecklistItemForm

@@ -35,6 +35,14 @@ textarea.js-add-checklist-item, textarea.js-edit-checklist-item
     &.is-finished
       color: #3cb500
 
+  .checklist-handle
+    position: absolute
+    padding: 7px
+    top: 50%
+    transform: translateY(-50%)
+    left: 100px
+    font-size: 18px
+
   .js-delete-checklist
     @extends .delete-text
 
@@ -70,7 +78,7 @@ textarea.js-add-checklist-item, textarea.js-edit-checklist-item
       margin-left: 12%
       float: left
     .toggle-delete-checklist-dialog
-      margin-right: 12%
+      margin-right: 20%
       float: right
 
 #card-details-overlay
@@ -125,12 +133,19 @@ textarea.js-add-checklist-item, textarea.js-edit-checklist-item
     &.is-checked
       color: #8c8c8c
       font-style: italic
-    & .viewer
+    &.viewer
       p
         margin-bottom: 2px
         display: block
         word-wrap: break-word
         max-width: 420px
+    .checklist-item-handle
+      position: absolute
+      padding: 7px
+      top: 50%
+      transform: translateY(-50%)
+      left: 200px
+      font-size: 18px
 
 .js-delete-checklist-item
   margin: 0 0 0.5em 1.33em

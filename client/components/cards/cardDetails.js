@@ -165,7 +165,8 @@ BlazeComponent.extendComponent({
     $checklistsDom.sortable({
       tolerance: 'pointer',
       helper: 'clone',
-      handle: '.checklist-title',
+      //handle: '.checklist-title',
+      handle: '.checklist-item-handle',
       items: '.js-checklist',
       placeholder: 'checklist placeholder',
       distance: 7,
