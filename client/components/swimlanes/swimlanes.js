@@ -105,17 +105,12 @@ function initSortable(boardComponent, $listsDom) {
       $listsDom.sortable({
         handle: '.js-list-handle',
       });
-    }
-
+    };
     if (!Utils.isMiniScreen && showDesktopDragHandles) {
       $listsDom.sortable({
         handle: '.js-list-header',
       });
-    }
-
-
-
-
+    };
     if ($listDom.data('sortable')) {
       $listsDom.sortable(
         'option',
@@ -179,13 +174,7 @@ BlazeComponent.extendComponent({
           }
 
           if (!Utils.isMiniScreen && !showDesktopDragHandles) {
-            noDragInside = [
-              'a',
-              'input',
-              'textarea',
-              'p',
-              '.js-list-header',
-            ];
+            noDragInside = ['a', 'input', 'textarea', 'p', '.js-list-header'];
           }
 
           if (!Utils.isMiniScreen && showDesktopDragHandles) {
