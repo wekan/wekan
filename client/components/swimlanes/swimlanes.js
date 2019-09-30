@@ -105,12 +105,12 @@ function initSortable(boardComponent, $listsDom) {
       $listsDom.sortable({
         handle: '.js-list-handle',
       });
-    };
+    }
     if (!Utils.isMiniScreen && showDesktopDragHandles) {
       $listsDom.sortable({
         handle: '.js-list-header',
       });
-    };
+    }
     if ($listDom.data('sortable')) {
       $listsDom.sortable(
         'option',
