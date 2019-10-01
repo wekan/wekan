@@ -8,6 +8,16 @@ This release adds the following new features:
   i.e. NOTIFY_DUE_DAYS_BEFORE_AND_AFTER = 0 notification will be sent on due day only.
   NOTIFY_DUE_DAYS_BEFORE_AND_AFTER = 2,0 it means notification will be sent on both due day and two days before.
   Thanks to whowillcare.
+- [Added modifications the help files, related to NOTIFY_DUE_DAYS_BEFORE_AND_AFTER](https://github.com/wekan/wekan/pull/2740).
+  Thanks to whowillcare. 
+- [More drag](https://github.com/wekan/wekan/75dc5f226cb3261337c9be9614856efc0b40e377)
+  [handles for mobile, and optional at desktop](https://github.com/wekan/wekan/98c38fe58f597cbc0389676ae880704a671e480b). In Progress.
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Modified list.style regarding .list-header-name when in mobile mode. It was too close to left arrow](https://github.com/wekan/wekan/pull/2740).
+  Thanks to whowillcare.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
