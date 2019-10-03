@@ -39,7 +39,6 @@ function initSorting(items) {
 
   // ugly touch event hotfix
   enableClickOnTouch('.js-checklist-item:not(.placeholder)');
-
 }
 
 BlazeComponent.extendComponent({
@@ -61,30 +60,6 @@ BlazeComponent.extendComponent({
       if ($itemsDom.data('sortable')) {
         $(self.itemsDom).sortable('option', 'disabled', !userIsMember());
       }
-      if(Utils.isMiniScreen()) {
-        this.$('.js-checklists').sortable({
-          handle: '.checklist-handle',
-        });
-        this.$('.js-checklist-item').sortable({
-          handle: '.checklist-item-handle',
-        });
-      } else {
-        if (Meteor.user().hasShowDesktopDragHandles()) {
-          this.$('.js-checklists').sortable({
-            handle: '.checklist-handle',
-          });
-          this.$('.js-checklist-item').sortable({
-            handle: '.checklist-item-handle',
-          });
-        } else {
-          this.$('.js-checklists').sortable({
-            handle: '.checklist-title',
-          });
-          this.$('.js-checklist-item').sortable({
-            handle: '.checklist-item',
-          });
-        }
-      }
     });
   },
 
@@ -96,12 +71,6 @@ BlazeComponent.extendComponent({
     );
   },
 }).register('checklistDetail');
-
-Template.checklistDetail.helpers({
-  showDesktopDragHandles() {
-    return Meteor.user().hasShowDesktopDragHandles();
-  },
-});
 
 BlazeComponent.extendComponent({
   addChecklist(event) {
@@ -228,12 +197,6 @@ BlazeComponent.extendComponent({
   },
 }).register('checklists');
 
-Template.checklists.helpers({
-  showDesktopDragHandles() {
-    return Meteor.user().hasShowDesktopDragHandles();
-  },
-});
-
 Template.checklistDeleteDialog.onCreated(() => {
   const $cardDetails = this.$('.card-details');
   this.scrollState = {
@@ -267,9 +230,6 @@ Template.checklistItemDetail.helpers({
       Meteor.user().isBoardMember() &&
       !Meteor.user().isCommentOnly()
     );
-  },
-  showDesktopDragHandles() {
-    return Meteor.user().hasShowDesktopDragHandles();
   },
 });
 

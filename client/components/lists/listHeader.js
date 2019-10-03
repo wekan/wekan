@@ -80,12 +80,6 @@ BlazeComponent.extendComponent({
   },
 }).register('listHeader');
 
-Template.listHeader.helpers({
-  showDesktopDragHandles() {
-    return Meteor.user().hasShowDesktopDragHandles();
-  },
-});
-
 Template.listActionPopup.helpers({
   isWipLimitEnabled() {
     return Template.currentData().getWipLimit('enabled');

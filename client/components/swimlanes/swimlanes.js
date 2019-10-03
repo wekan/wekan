@@ -101,8 +101,6 @@ function initSortable(boardComponent, $listsDom) {
   // is not a board member
   boardComponent.autorun(() => {
     const $listDom = $listsDom;
-
-
     if ($listDom.data('sortable')) {
       $listsDom.sortable(
         'option',
@@ -110,33 +108,6 @@ function initSortable(boardComponent, $listsDom) {
         MultiSelection.isActive() || !userIsMember(),
       );
     }
-
-
-    if (Utils.isMiniScreen()) {
-      this.$('.js-lists').sortable({
-        handle: '.list-header-menu-handle',
-      });
-      this.$('.js-swimlanes').sortable({
-        handle: '.swimlane-header-menu-miniscreen-handle',
-      });
-    } else {
-      if (Meteor.user().hasShowDesktopDragHandles()) {
-        this.$('.js-lists').sortable({
-          handle: '.list-header-menu-handle',
-        });
-        this.$('.js-swimlanes').sortable({
-          handle: '.swimlane-header-menu-handle',
-        });
-      } else {
-        this.$('.js-lists').sortable({
-          handle: '.list-header',
-        });
-        this.$('.js-swimlanes').sortable({
-          handle: '.swimlane-header',
-        });
-      }
-    }
-
   });
 }
 
@@ -187,7 +158,6 @@ BlazeComponent.extendComponent({
             'p',
             '.js-list-header',
           ];
-
           if (
             $(evt.target).closest(noDragInside.join(',')).length === 0 &&
             this.$('.swimlane').prop('clientHeight') > evt.offsetY
@@ -263,9 +233,6 @@ BlazeComponent.extendComponent({
 }).register('addListForm');
 
 Template.swimlane.helpers({
-  showDesktopDragHandles() {
-    return Meteor.user().hasShowDesktopDragHandles();
-  },
   canSeeAddList() {
     return (
       Meteor.user() &&
@@ -308,9 +275,3 @@ BlazeComponent.extendComponent({
     initSortable(boardComponent, $listsDom);
   },
 }).register('listsGroup');
-
-Template.listsGroup.helpers({
-  showDesktopDragHandles() {
-    return Meteor.user().hasShowDesktopDragHandles();
-  },
-});

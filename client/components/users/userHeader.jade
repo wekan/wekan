@@ -79,11 +79,6 @@ template(name="changeSettingsPopup")
         if hiddenSystemMessages
           i.fa.fa-check
     li
-      a.js-toggle-desktop-drag-handles
-        | {{_ 'show-desktop-drag-handles'}}
-        if showDesktopDragHandles
-          i.fa.fa-check
-    li
       label.bold
         | {{_ 'show-cards-minimum-count'}}
       input#show-cards-count-at.inline-input.left(type="number" value="#{showCardsCountAt}" min="0" max="99" onkeydown="return false")

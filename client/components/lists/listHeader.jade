@@ -29,11 +29,8 @@ template(name="listHeader")
               if canSeeAddCard
                 a.js-add-card.fa.fa-plus.list-header-plus-icon
               a.fa.fa-navicon.js-open-list-menu
-          a.list-header-menu-handle-miniscreen-angle-left.handle.fa.fa-arrows.js-list-handle
         else
           a.list-header-menu-icon.fa.fa-angle-right.js-select-list
-          |&nbsp;&nbsp;&nbsp;&nbsp;
-          a.list-header-menu-handle.handle.fa.fa-arrows.js-list-handle
       else if currentUser.isBoardMember
         if isWatching
           i.list-header-watch-icon.fa.fa-eye
@@ -42,8 +39,6 @@ template(name="listHeader")
             if canSeeAddCard
               a.js-add-card.fa.fa-plus.list-header-plus-icon
             a.fa.fa-navicon.js-open-list-menu
-          if showDesktopDragHandles
-            a.list-header-menu-handle.handle.fa.fa-arrows.js-list-handle
 
 template(name="editListTitleForm")
   .list-composer
