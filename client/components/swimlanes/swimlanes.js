@@ -56,6 +56,7 @@ function initSortable(boardComponent, $listsDom) {
   $listsDom.sortable({
     tolerance: 'pointer',
     helper: 'clone',
+    handle: '.js-list-header',
     items: '.js-list:not(.js-list-composer)',
     placeholder: 'list placeholder',
     distance: 7,
@@ -101,16 +102,7 @@ function initSortable(boardComponent, $listsDom) {
   boardComponent.autorun(() => {
     const $listDom = $listsDom;
 
-    if (Utils.isMiniScreen) {
-      $listsDom.sortable({
-        handle: '.js-list-handle',
-      });
-    }
-    if (!Utils.isMiniScreen && showDesktopDragHandles) {
-      $listsDom.sortable({
-        handle: '.js-list-header',
-      });
-    }
+
     if ($listDom.data('sortable')) {
       $listsDom.sortable(
         'option',
@@ -118,6 +110,33 @@ function initSortable(boardComponent, $listsDom) {
         MultiSelection.isActive() || !userIsMember(),
       );
     }
+
+
+    if (Utils.isMiniScreen()) {
+      this.$('.js-lists').sortable({
+        handle: '.list-header-menu-handle',
+      });
+      this.$('.js-swimlanes').sortable({
+        handle: '.swimlane-header-menu-miniscreen-handle',
+      });
+    } else {
+      if (Meteor.user().hasShowDesktopDragHandles()) {
+        this.$('.js-lists').sortable({
+          handle: '.list-header-menu-handle',
+        });
+        this.$('.js-swimlanes').sortable({
+          handle: '.swimlane-header-menu-handle',
+        });
+      } else {
+        this.$('.js-lists').sortable({
+          handle: '.list-header',
+        });
+        this.$('.js-swimlanes').sortable({
+          handle: '.swimlane-header',
+        });
+      }
+    }
+
   });
 }
 
@@ -161,32 +180,13 @@ BlazeComponent.extendComponent({
           // define a list of elements in which we disable the dragging because
           // the user will legitimately expect to be able to select some text with
           // his mouse.
-
-          if (Utils.isMiniScreen) {
-            noDragInside = [
-              'a',
-              'input',
-              'textarea',
-              'p',
-              '.js-list-handle',
-              '.js-swimlane-header-handle',
-            ];
-          }
-
-          if (!Utils.isMiniScreen && !showDesktopDragHandles) {
-            noDragInside = ['a', 'input', 'textarea', 'p', '.js-list-header'];
-          }
-
-          if (!Utils.isMiniScreen && showDesktopDragHandles) {
-            noDragInside = [
-              'a',
-              'input',
-              'textarea',
-              'p',
-              '.js-list-handle',
-              '.js-swimlane-header-handle',
-            ];
-          }
+          const noDragInside = [
+            'a',
+            'input',
+            'textarea',
+            'p',
+            '.js-list-header',
+          ];
 
           if (
             $(evt.target).closest(noDragInside.join(',')).length === 0 &&
@@ -308,3 +308,9 @@ BlazeComponent.extendComponent({
     initSortable(boardComponent, $listsDom);
   },
 }).register('listsGroup');
+
+Template.listsGroup.helpers({
+  showDesktopDragHandles() {
+    return Meteor.user().hasShowDesktopDragHandles();
+  },
+});

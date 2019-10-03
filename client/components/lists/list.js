@@ -31,24 +31,6 @@ BlazeComponent.extendComponent({
     const itemsSelector = '.js-minicard:not(.placeholder, .js-card-composer)';
     const $cards = this.$('.js-minicards');
 
-    if (Utils.isMiniScreen) {
-      $('.js-minicards').sortable({
-        handle: '.handle',
-      });
-    }
-
-    if (!Utils.isMiniScreen && showDesktopDragHandles) {
-      $('.js-minicards').sortable({
-        handle: '.handle',
-      });
-    }
-
-    if (!Utils.isMiniScreen && !showDesktopDragHandles) {
-      $('.js-minicards').sortable({
-        handle: 'list-header',
-      });
-    }
-
     $cards.sortable({
       connectWith: '.js-minicards:not(.js-list-full)',
       tolerance: 'pointer',
@@ -138,6 +120,21 @@ BlazeComponent.extendComponent({
     // Disable drag-dropping if the current user is not a board member or is comment only
     this.autorun(() => {
       $cards.sortable('option', 'disabled', !userIsMember());
+      if (Utils.isMiniScreen()) {
+        this.$('.js-minicards').sortable({
+          handle: '.handle',
+        });
+      } else {
+        if (Meteor.user().hasShowDesktopDragHandles()) {
+          this.$('.js-minicards').sortable({
+            handle: '.handle',
+          });
+        } else {
+          this.$('.js-minicards').sortable({
+            handle: '.minicard-title',
+          });
+        }
+      }
     });
 
     // We want to re-run this function any time a card is added.
@@ -178,5 +175,11 @@ Template.miniList.events({
   'click .js-select-list'() {
     const listId = this._id;
     Session.set('currentList', listId);
+  },
+});
+
+Template.miniList.helpers({
+  showDesktopDragHandles() {
+    return Meteor.user().hasShowDesktopDragHandles();
   },
 });
