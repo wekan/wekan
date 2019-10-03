@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v3.45 2019-10-03 Wekan release
 
 This release adds the following new features:
 
@@ -10,9 +10,6 @@ This release adds the following new features:
   Thanks to whowillcare.
 - [Added modifications the help files, related to NOTIFY_DUE_DAYS_BEFORE_AND_AFTER](https://github.com/wekan/wekan/pull/2740).
   Thanks to whowillcare. 
-- [More drag](https://github.com/wekan/wekan/75dc5f226cb3261337c9be9614856efc0b40e377)
-  [handles for mobile, and optional at desktop](https://github.com/wekan/wekan/98c38fe58f597cbc0389676ae880704a671e480b). In Progress.
-  Thanks to xet7.
 
 and fixes the following bugs:
 
