@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [More black minicard badges](https://github.com/wekan/wekan/commit/68be12d166b21a41b4e2c4021b0966807e5ed1e6).
+  Thanks to sfahrenholz and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.45 2019-10-03 Wekan release
 
 This release adds the following new features:
