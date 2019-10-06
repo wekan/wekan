@@ -276,6 +276,7 @@ if (Meteor.isServer) {
    * @param {string} boardId the board ID
    * @param {string} cardId the card ID
    * @param {string} title the title of the new checklist
+   * @param {string} [items] the list of items on the new checklist
    * @return_type {_id: string}
    */
   JsonRoutes.add(
@@ -291,11 +292,19 @@ if (Meteor.isServer) {
         sort: 0,
       });
       if (id) {
-        req.body.items.forEach(function(item, idx) {
+        let items = req.body.items || [];
+        if (_.isString(items)) {
+          if (items === '') {
+            items = [];
+          } else {
+            items = [items];
+          }
+        }
+        items.forEach(function(item, idx) {
           ChecklistItems.insert({
             cardId: paramCardId,
             checklistId: id,
-            title: item.title,
+            title: item,
             sort: idx,
           });
         });
