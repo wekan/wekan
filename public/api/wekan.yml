@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v3.44
+  version: v3.46
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -317,6 +317,11 @@ paths:
         - name: title
           in: formData
           description: the title value
+          type: string
+          required: true
+        - name: items
+          in: formData
+          description: the items value
           type: string
           required: true
         - name: board

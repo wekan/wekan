@@ -1524,7 +1524,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
 	  	<ul class="toc-list-h1">
         
           <li>
-            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v3.44">Wekan REST API v3.44</a>
+            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v3.46">Wekan REST API v3.46</a>
             
           </li>
         
@@ -2017,7 +2017,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="wekan-rest-api">Wekan REST API v3.44</h1>
+        <h1 id="wekan-rest-api">Wekan REST API v3.46</h1>
 <blockquote>
 <p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
 </blockquote>
@@ -4479,7 +4479,8 @@ $.ajax({
 </code></pre>
 <pre class="highlight tab tab-javascript--nodejs"><code><span class="hljs-keyword">const</span> fetch = <span class="hljs-built_in">require</span>(<span class="hljs-string">'node-fetch'</span>);
 <span class="hljs-keyword">const</span> inputBody = <span class="hljs-string">'{
-  "title": "string"
+  "title": "string",
+  "items": "string"
 }'</span>;
 <span class="hljs-keyword">const</span> headers = {
   <span class="hljs-string">'Content-Type'</span>:<span class="hljs-string">'multipart/form-data'</span>,
@@ -4573,6 +4574,7 @@ System.out.println(response.toString());
 <p>Body parameter</p>
 </blockquote>
 <pre class="highlight tab tab-yaml"><code><span class="hljs-attr">title:</span> <span class="hljs-string">string</span>
+<span class="hljs-attr">items:</span> <span class="hljs-string">string</span>
 
 </code></pre>
 <h3 id="post_board_card_checklists-parameters">Parameters</h3>
@@ -4614,6 +4616,13 @@ System.out.println(response.toString());
 <td>string</td>
 <td>true</td>
 <td>the title value</td>
+</tr>
+<tr>
+<td>» items</td>
+<td>body</td>
+<td>string</td>
+<td>true</td>
+<td>the items value</td>
 </tr>
 </tbody>
 </table>
