@@ -1852,8 +1852,15 @@ if (Meteor.isServer) {
     const check = Users.findOne({
       _id: req.body.authorId,
     });
-    const members = req.body.members || [req.body.authorId];
     if (typeof check !== 'undefined') {
+      let members = req.body.members || [];
+      if (_.isString(members)) {
+        if (members === '') {
+          members = [];
+        } else {
+          members = [members];
+        }
+      }
       const id = Cards.direct.insert({
         title: req.body.title,
         boardId: paramBoardId,
