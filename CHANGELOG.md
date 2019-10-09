@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [REST API: fix handling of members property on card creation](https://github.com/wekan/wekan/pull/2751).
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.46 2019-10-07 Wekan release
 
 This release fixes the following bugs:
