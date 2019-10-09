@@ -1,3 +1,12 @@
+# v3.49 2019-10-09 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix prettier errors](https://github.com/wekan/wekan/commits/36e006fa4e78fe94e627625d1cc589654668f22a).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.48 2019-10-09 Wekan release
 
 This release fixes the following bugs:
