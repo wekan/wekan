@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Make possible to upload attachments using drag-and-drop or Ctrl+V without setting the environmental-variable MAX_IMAGE_PIXEL](https://github.com/wekan/wekan/pull/2754).
+  Thanks to moserben16.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.47 2019-10-09 Wekan release
 
 This release fixes the following bugs:
