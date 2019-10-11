@@ -58,6 +58,8 @@ template(name="minicard")
       if getDue
         .date
           +minicardDueDate
+      if getEnd
+         +minicardEndDate
       if getSpentTime
         .date
           +cardSpentTime

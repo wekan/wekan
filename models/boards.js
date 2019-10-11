@@ -409,6 +409,21 @@ Boards.helpers({
   },
 
   lists() {
+    const enabled = Meteor.user().hasShowDesktopDragHandles();
+    return enabled ? this.draggableLists() : this.newestLists();
+  },
+
+  newestLists() {
+    // sorted lists from newest to the oldest, by its creation date or its cards' last modification date
+    return Lists.find(
+      {
+        boardId: this._id,
+        archived: false,
+      },
+      { sort: { updatedAt: -1 } },
+    );
+  },
+  draggableLists() {
     return Lists.find({ boardId: this._id }, { sort: { sort: 1 } });
   },
 

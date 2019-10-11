@@ -1695,6 +1695,23 @@ if (Meteor.isServer) {
       const oldvalue = doc[action] || '';
       const activityType = `a-${action}`;
       const card = Cards.findOne(doc._id);
+      const list = card.list();
+      if (list) {
+        // change list modifiedAt
+        const modifiedAt = new Date();
+        const boardId = list.boardId;
+        Lists.direct.update(
+          {
+            _id: list._id,
+          },
+          {
+            $set: {
+              modifiedAt,
+              boardId,
+            },
+          },
+        );
+      }
       const username = Users.findOne(userId).username;
       const activity = {
         userId,

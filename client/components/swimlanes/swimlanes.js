@@ -163,37 +163,11 @@ BlazeComponent.extendComponent({
           // the user will legitimately expect to be able to select some text with
           // his mouse.
 
-          if (Utils.isMiniScreen) {
-            const noDragInside = [
-              'a',
-              'input',
-              'textarea',
-              'p',
-              '.js-list-handle',
-              '.js-swimlane-header-handle',
-            ];
-          }
-
-          if (!Utils.isMiniScreen && !showDesktopDragHandles) {
-            const noDragInside = [
-              'a',
-              'input',
-              'textarea',
-              'p',
-              '.js-list-header',
-            ];
-          }
-
-          if (!Utils.isMiniScreen && showDesktopDragHandles) {
-            const noDragInside = [
-              'a',
-              'input',
-              'textarea',
-              'p',
-              '.js-list-handle',
-              '.js-swimlane-header-handle',
-            ];
-          }
+          const noDragInside = ['a', 'input', 'textarea', 'p'].concat(
+            Util.isMiniScreen || (!Util.isMiniScreen && showDesktopDragHandles)
+              ? ['.js-list-handle', '.js-swimlane-header-handle']
+              : ['.js-list-header'],
+          );
 
           if (
             $(evt.target).closest(noDragInside.join(',')).length === 0 &&
