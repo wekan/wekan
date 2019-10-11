@@ -50,12 +50,18 @@ if (Meteor.isServer) {
   });
 }
 
+// exporter maybe is broken since Gridfs introduced, add fs and path
+
 export class Exporter {
   constructor(boardId) {
     this._boardId = boardId;
   }
 
   build() {
+    const fs = Npm.require('fs');
+    const os = Npm.require('os');
+    const path = Npm.require('path');
+
     const byBoard = { boardId: this._boardId };
     const byBoardNoLinked = {
       boardId: this._boardId,
@@ -134,6 +140,9 @@ export class Exporter {
     const getBase64Data = function(doc, callback) {
       let buffer = new Buffer(0);
       // callback has the form function (err, res) {}
+      const tmpWriteable = fs.createWriteStream(
+        path.join(os.tmpdir(), `tmpexport${process.pid}`),
+      );
       const readStream = doc.createReadStream();
       readStream.on('data', function(chunk) {
         buffer = Buffer.concat([buffer, chunk]);
@@ -145,6 +154,7 @@ export class Exporter {
         // done
         callback(null, buffer.toString('base64'));
       });
+      readStream.pipe(tmpWriteable);
     };
     const getBase64DataSync = Meteor.wrapAsync(getBase64Data);
     result.attachments = Attachments.find(byBoard)
