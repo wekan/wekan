@@ -140,9 +140,11 @@ export class Exporter {
     const getBase64Data = function(doc, callback) {
       let buffer = new Buffer(0);
       // callback has the form function (err, res) {}
-      const tmpWriteable = fs.createWriteStream(
-        path.join(os.tmpdir(), `tmpexport${process.pid}`),
+      const tmpFile = path.join(
+        os.tmpdir(),
+        `tmpexport${process.pid}${Math.radom()}`,
       );
+      const tmpWriteable = fs.createWriteStream(tmpFile);
       const readStream = doc.createReadStream();
       readStream.on('data', function(chunk) {
         buffer = Buffer.concat([buffer, chunk]);
@@ -152,6 +154,9 @@ export class Exporter {
       });
       readStream.on('end', function() {
         // done
+        fs.unlink(tmpFile, () => {
+          //ignored
+        });
         callback(null, buffer.toString('base64'));
       });
       readStream.pipe(tmpWriteable);
