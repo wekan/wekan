@@ -465,14 +465,7 @@ Filter = {
   advanced: new AdvancedFilter(),
   lists: new AdvancedFilter(), // we need the ability to filter list by name as well
 
-  _fields: [
-    'labelIds',
-    'members',
-    'archive',
-    'hideEmpty',
-    'customFields',
-    'lists',
-  ],
+  _fields: ['labelIds', 'members', 'archive', 'hideEmpty', 'customFields'],
 
   // We don't filter cards that have been added after the last filter change. To
   // implement this we keep the id of these cards in this `_exceptions` fields
@@ -549,6 +542,7 @@ Filter = {
       const filter = this[fieldName];
       filter.reset();
     });
+    this.lists.reset();
     this.advanced.reset();
     this.resetExceptions();
   },
