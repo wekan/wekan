@@ -1696,9 +1696,11 @@ if (Meteor.isServer) {
       const activityType = `a-${action}`;
       const card = Cards.findOne(doc._id);
       const list = card.list();
-      if (list) {
+      if (list && action === 'endAt') {
         // change list modifiedAt
-        const modifiedAt = new Date();
+        const modifiedAt = new Date(
+          new Date(value).getTime() - 365 * 24 * 3600 * 1e3,
+        ); // set it as 1 year before
         const boardId = list.boardId;
         Lists.direct.update(
           {

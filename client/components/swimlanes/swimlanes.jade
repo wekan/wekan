@@ -42,7 +42,7 @@ template(name="listsGroup")
           +cardDetails(currentCard)
 
 template(name="addListForm")
-  .list.list-composer.js-list-composer
+  .list.list-composer.js-list-composer(class="{{#if isMiniScreen}}mini-list{{/if}}")
     .list-header-add
       +inlinedForm(autoclose=false)
         input.list-name-input.full-line(type="text" placeholder="{{_ 'add-list'}}"

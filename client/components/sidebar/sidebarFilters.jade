@@ -5,6 +5,9 @@
 
 template(name="filterSidebar")
   ul.sidebar-list
+    span {{_ 'list-filter-label'}}          
+    input.js-list-filter(type="text")
+  ul.sidebar-list
     li(class="{{#if Filter.labelIds.isSelected undefined}}active{{/if}}")
           a.name.js-toggle-label-filter
             span.sidebar-list-item-description

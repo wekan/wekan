@@ -4,6 +4,10 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
+        'change .js-list-filter'(evt) {
+          evt.preventDefault();
+          Filter.lists.set(this.find('.js-list-filter').value.trim());
+        },
         'click .js-toggle-label-filter'(evt) {
           evt.preventDefault();
           Filter.labelIds.toggle(this.currentData()._id);

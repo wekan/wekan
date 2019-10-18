@@ -174,8 +174,8 @@ Swimlanes.helpers({
   },
 
   lists() {
-    const enabled = Meteor.user().hasShowDesktopDragHandles();
-    return enabled ? this.draggableLists() : this.newestLists();
+    const enabled = Meteor.user().hasSortBy();
+    return enabled ? this.newestLists() : this.draggableLists();
   },
   newestLists() {
     // sorted lists from newest to the oldest, by its creation date or its cards' last modification date
@@ -185,7 +185,7 @@ Swimlanes.helpers({
         swimlaneId: { $in: [this._id, ''] },
         archived: false,
       },
-      { sort: { updatedAt: -1 } },
+      { sort: { modifiedAt: -1 } },
     );
   },
   draggableLists() {

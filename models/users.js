@@ -4,6 +4,16 @@ const isSandstorm =
   Meteor.settings && Meteor.settings.public && Meteor.settings.public.sandstorm;
 Users = Meteor.users;
 
+const allowedSortValues = [
+  '-modifiedAt',
+  'modifiedAt',
+  '-title',
+  'title',
+  '-sort',
+  'sort',
+];
+const defaultSortBy = allowedSortValues[0];
+
 /**
  * A User in wekan
  */
@@ -191,6 +201,15 @@ Users.attachSchema(
         'board-view-cal',
       ],
     },
+    'profile.listSortBy': {
+      /**
+       * default sort list for user
+       */
+      type: String,
+      optional: true,
+      defaultValue: defaultSortBy,
+      allowedValues: allowedSortValues,
+    },
     'profile.templatesBoardId': {
       /**
        * Reference to the templates board
@@ -365,6 +384,31 @@ Users.helpers({
     return _.contains(invitedBoards, boardId);
   },
 
+  _getListSortBy() {
+    const profile = this.profile || {};
+    const sortBy = profile.listSortBy || defaultSortBy;
+    const keyPattern = /^(-{0,1})(.*$)/;
+    const ret = [];
+    if (keyPattern.exec(sortBy)) {
+      ret[0] = RegExp.$2;
+      ret[1] = RegExp.$1 ? -1 : 1;
+    }
+    return ret;
+  },
+  hasSortBy() {
+    // if use doesn't have dragHandle, then we can let user to choose sort list by different order
+    return !this.hasShowDesktopDragHandles();
+  },
+  getListSortBy() {
+    return this._getListSortBy()[0];
+  },
+  getListSortTypes() {
+    return allowedSortValues;
+  },
+  getListSortByDirection() {
+    return this._getListSortBy()[1];
+  },
+
   hasTag(tag) {
     const { tags = [] } = this.profile || {};
     return _.contains(tags, tag);
@@ -485,6 +529,13 @@ Users.mutations({
     else this.addTag(tag);
   },
 
+  setListSortBy(value) {
+    return {
+      $set: {
+        'profile.listSortBy': value,
+      },
+    };
+  },
   toggleDesktopHandles(value = false) {
     return {
       $set: {
@@ -568,6 +619,10 @@ Meteor.methods({
     } else {
       Users.update(userId, { $set: { username } });
     }
+  },
+  setListSortBy(value) {
+    check(value, String);
+    Meteor.user().setListSortBy(value);
   },
   toggleDesktopDragHandles() {
     const user = Meteor.user();
@@ -800,6 +855,9 @@ if (Meteor.isServer) {
 if (Meteor.isServer) {
   // Let mongoDB ensure username unicity
   Meteor.startup(() => {
+    allowedSortValues.forEach(value => {
+      Lists._collection._ensureIndex(value);
+    });
     Users._collection._ensureIndex({ modifiedAt: -1 });
     Users._collection._ensureIndex(
       {

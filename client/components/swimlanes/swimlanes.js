@@ -267,6 +267,11 @@ BlazeComponent.extendComponent({
         return false;
       }
     }
+    if (Filter.lists._isActive()) {
+      if (!list.title.match(Filter.lists.getRegexSelector())) {
+        return false;
+      }
+    }
     if (Filter.hideEmpty.isSelected()) {
       const swimlaneId = this.parentComponent()
         .parentComponent()

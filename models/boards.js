@@ -409,18 +409,20 @@ Boards.helpers({
   },
 
   lists() {
-    const enabled = Meteor.user().hasShowDesktopDragHandles();
-    return enabled ? this.draggableLists() : this.newestLists();
+    const enabled = Meteor.user().hasSortBy();
+    return enabled ? this.newestLists() : this.draggableLists();
   },
 
   newestLists() {
     // sorted lists from newest to the oldest, by its creation date or its cards' last modification date
+    const value = Meteor.user()._getListSortBy();
+    const sortKey = { starred: -1, [value[0]]: value[1] }; // [["starred",-1],value];
     return Lists.find(
       {
         boardId: this._id,
         archived: false,
       },
-      { sort: { updatedAt: -1 } },
+      { sort: sortKey },
     );
   },
   draggableLists() {
