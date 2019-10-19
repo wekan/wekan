@@ -269,6 +269,10 @@ Lists.helpers({
     return this.starred === true;
   },
 
+  absoluteUrl() {
+    const card = Cards.findOne({ listId: this._id });
+    return card && card.absoluteUrl();
+  },
   remove() {
     Lists.remove({ _id: this._id });
   },
