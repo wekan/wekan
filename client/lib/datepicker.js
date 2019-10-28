@@ -3,7 +3,7 @@ DatePicker = BlazeComponent.extendComponent({
     return 'datepicker';
   },
 
-  onCreated(defaultTime='1970-01-01 08:00:00') {
+  onCreated(defaultTime = '1970-01-01 08:00:00') {
     this.error = new ReactiveVar('');
     this.card = this.data();
     this.date = new ReactiveVar(moment.invalid());

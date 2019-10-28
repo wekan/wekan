@@ -105,7 +105,7 @@ Template.dateBadge.helpers({
 // editCardReceivedDatePopup
 (class extends DatePicker {
   onCreated() {
-    super.onCreated(moment().format("YYYY-MM-DD HH:mm"));
+    super.onCreated(moment().format('YYYY-MM-DD HH:mm'));
     this.data().getReceived() &&
       this.date.set(moment(this.data().getReceived()));
   }
@@ -122,7 +122,7 @@ Template.dateBadge.helpers({
 // editCardStartDatePopup
 (class extends DatePicker {
   onCreated() {
-    super.onCreated(moment().format("YYYY-MM-DD HH:mm"));
+    super.onCreated(moment().format('YYYY-MM-DD HH:mm'));
     this.data().getStart() && this.date.set(moment(this.data().getStart()));
   }
 
@@ -171,7 +171,7 @@ Template.dateBadge.helpers({
 // editCardEndDatePopup
 (class extends DatePicker {
   onCreated() {
-    super.onCreated(moment().format("YYYY-MM-DD HH:mm"));
+    super.onCreated(moment().format('YYYY-MM-DD HH:mm'));
     this.data().getEnd() && this.date.set(moment(this.data().getEnd()));
   }
 
