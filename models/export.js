@@ -142,7 +142,7 @@ export class Exporter {
       // callback has the form function (err, res) {}
       const tmpFile = path.join(
         os.tmpdir(),
-        `tmpexport${process.pid}${Math.radom()}`,
+        `tmpexport${process.pid}${Math.random()}`,
       );
       const tmpWriteable = fs.createWriteStream(tmpFile);
       const readStream = doc.createReadStream();
