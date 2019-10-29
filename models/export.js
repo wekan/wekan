@@ -112,7 +112,7 @@ export class Exporter {
       );
       result.subtaskItems.push(
         ...Cards.find({
-          parentid: card._id,
+          parentId: card._id,
         }).fetch(),
       );
     });
