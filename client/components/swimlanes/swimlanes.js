@@ -53,10 +53,21 @@ function initSortable(boardComponent, $listsDom) {
     },
   };
 
+  if (Utils.isMiniScreen) {
+    $listsDom.sortable({
+      handle: '.js-list-handle',
+    });
+  }
+
+  if (!Utils.isMiniScreen && showDesktopDragHandles) {
+    $listsDom.sortable({
+      handle: '.js-list-header',
+    });
+  }
+
   $listsDom.sortable({
     tolerance: 'pointer',
     helper: 'clone',
-    handle: '.js-list-header',
     items: '.js-list:not(.js-list-composer)',
     placeholder: 'list placeholder',
     distance: 7,
@@ -151,13 +162,13 @@ BlazeComponent.extendComponent({
           // define a list of elements in which we disable the dragging because
           // the user will legitimately expect to be able to select some text with
           // his mouse.
-          const noDragInside = [
-            'a',
-            'input',
-            'textarea',
-            'p',
-            '.js-list-header',
-          ];
+
+          const noDragInside = ['a', 'input', 'textarea', 'p'].concat(
+            Util.isMiniScreen || (!Util.isMiniScreen && showDesktopDragHandles)
+              ? ['.js-list-handle', '.js-swimlane-header-handle']
+              : ['.js-list-header'],
+          );
+
           if (
             $(evt.target).closest(noDragInside.join(',')).length === 0 &&
             this.$('.swimlane').prop('clientHeight') > evt.offsetY
@@ -233,6 +244,9 @@ BlazeComponent.extendComponent({
 }).register('addListForm');
 
 Template.swimlane.helpers({
+  showDesktopDragHandles() {
+    return Meteor.user().hasShowDesktopDragHandles();
+  },
   canSeeAddList() {
     return (
       Meteor.user() &&
@@ -250,6 +264,11 @@ BlazeComponent.extendComponent({
     if (list.archived) {
       // Show archived list only when filter archive is on or archive is selected
       if (!(Filter.archive.isSelected() || archivedRequested)) {
+        return false;
+      }
+    }
+    if (Filter.lists._isActive()) {
+      if (!list.title.match(Filter.lists.getRegexSelector())) {
         return false;
       }
     }

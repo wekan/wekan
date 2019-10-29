@@ -89,7 +89,7 @@ BlazeComponent.extendComponent({
         helper.append(list.clone());
         return helper;
       },
-      handle: '.js-swimlane-header',
+      handle: '.js-swimlane-header-handle',
       items: '.swimlane:not(.placeholder)',
       placeholder: 'swimlane placeholder',
       distance: 7,

@@ -13,6 +13,20 @@ BlazeComponent.extendComponent({
     );
   },
 
+  isBoardAdmin() {
+    return Meteor.user().isBoardAdmin();
+  },
+  starred(check = undefined) {
+    const list = Template.currentData();
+    const status = list.isStarred();
+    if (check === undefined) {
+      // just check
+      return status;
+    } else {
+      list.star(!status);
+      return !status;
+    }
+  },
   editTitle(event) {
     event.preventDefault();
     const newTitle = this.childComponents('inlinedForm')[0]
@@ -61,6 +75,10 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
+        'click .js-list-star'(event) {
+          event.preventDefault();
+          this.starred(!this.starred());
+        },
         'click .js-open-list-menu': Popup.open('listAction'),
         'click .js-add-card'(event) {
           const listDom = $(event.target).parents(
@@ -79,6 +97,12 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('listHeader');
+
+Template.listHeader.helpers({
+  showDesktopDragHandles() {
+    return Meteor.user().hasShowDesktopDragHandles();
+  },
+});
 
 Template.listActionPopup.helpers({
   isWipLimitEnabled() {

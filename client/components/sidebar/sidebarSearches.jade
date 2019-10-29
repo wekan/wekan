@@ -2,6 +2,10 @@ template(name="searchSidebar")
   form.js-search-term-form
     input(type="text" name="searchTerm" placeholder="{{_ 'search-example'}}" autofocus dir="auto")
   .list-body.js-perfect-scrollbar
+    .minilists.clearfix.js-minilists
+      each (lists)
+        a.minilist-wrapper.js-minilist(href=absoluteUrl)
+          +minilist(this)
     .minicards.clearfix.js-minicards
       each (results)
         a.minicard-wrapper.js-minicard(href=absoluteUrl)

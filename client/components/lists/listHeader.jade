@@ -9,6 +9,7 @@ template(name="listHeader")
         if currentList
           a.list-header-left-icon.fa.fa-angle-left.js-unselect-list
       h2.list-header-name(
+        title="{{ moment modifiedAt 'LLL' }}"
         class="{{#if currentUser.isBoardMember}}{{#unless currentUser.isCommentOnly}}js-open-inlined-form is-editable{{/unless}}{{/if}}")
         +viewer
           = title
@@ -29,16 +30,22 @@ template(name="listHeader")
               if canSeeAddCard
                 a.js-add-card.fa.fa-plus.list-header-plus-icon
               a.fa.fa-navicon.js-open-list-menu
+          a.list-header-menu-handle.handle.fa.fa-arrows.js-list-handle
         else
           a.list-header-menu-icon.fa.fa-angle-right.js-select-list
+          a.list-header-menu-handle.handle.fa.fa-arrows.js-list-handle
       else if currentUser.isBoardMember
         if isWatching
           i.list-header-watch-icon.fa.fa-eye
         div.list-header-menu
           unless currentUser.isCommentOnly
+            if isBoardAdmin
+              a.fa.js-list-star.list-header-plus-icon(class="fa-star{{#unless starred}}-o{{/unless}}")
             if canSeeAddCard
               a.js-add-card.fa.fa-plus.list-header-plus-icon
             a.fa.fa-navicon.js-open-list-menu
+          if showDesktopDragHandles
+            a.list-header-menu-handle.handle.fa.fa-arrows.js-list-handle
 
 template(name="editListTitleForm")
   .list-composer

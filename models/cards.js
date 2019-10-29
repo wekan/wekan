@@ -1695,6 +1695,25 @@ if (Meteor.isServer) {
       const oldvalue = doc[action] || '';
       const activityType = `a-${action}`;
       const card = Cards.findOne(doc._id);
+      const list = card.list();
+      if (list && action === 'endAt') {
+        // change list modifiedAt
+        const modifiedAt = new Date(
+          new Date(value).getTime() - 365 * 24 * 3600 * 1e3,
+        ); // set it as 1 year before
+        const boardId = list.boardId;
+        Lists.direct.update(
+          {
+            _id: list._id,
+          },
+          {
+            $set: {
+              modifiedAt,
+              boardId,
+            },
+          },
+        );
+      }
       const username = Users.findOne(userId).username;
       const activity = {
         userId,
@@ -1852,15 +1871,8 @@ if (Meteor.isServer) {
     const check = Users.findOne({
       _id: req.body.authorId,
     });
+    const members = req.body.members || [req.body.authorId];
     if (typeof check !== 'undefined') {
-      let members = req.body.members || [];
-      if (_.isString(members)) {
-        if (members === '') {
-          members = [];
-        } else {
-          members = [members];
-        }
-      }
       const id = Cards.direct.insert({
         title: req.body.title,
         boardId: paramBoardId,

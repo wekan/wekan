@@ -1,3 +1,5 @@
+const DOWNCLS = 'fa-sort-down';
+const UPCLS = 'fa-sort-up';
 Template.boardMenuPopup.events({
   'click .js-rename-board': Popup.open('boardChangeTitle'),
   'click .js-custom-fields'() {
@@ -80,7 +82,25 @@ BlazeComponent.extendComponent({
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
     return currentBoard && currentBoard.stars >= 2;
   },
-
+  showSort() {
+    return Meteor.user().hasSortBy();
+  },
+  directionClass() {
+    return this.currentDirection() === -1 ? DOWNCLS : UPCLS;
+  },
+  changeDirection() {
+    const direction = 0 - this.currentDirection() === -1 ? '-' : '';
+    Meteor.call('setListSortBy', direction + this.currentListSortBy());
+  },
+  currentDirection() {
+    return Meteor.user().getListSortByDirection();
+  },
+  currentListSortBy() {
+    return Meteor.user().getListSortBy();
+  },
+  listSortShortDesc() {
+    return `list-label-short-${this.currentListSortBy()}`;
+  },
   events() {
     return [
       {
@@ -117,6 +137,16 @@ BlazeComponent.extendComponent({
         },
         'click .js-open-filter-view'() {
           Sidebar.setView('filter');
+        },
+        'click .js-open-sort-view'(evt) {
+          const target = evt.target;
+          if (target.tagName === 'I') {
+            // click on the text, popup choices
+            this.changeDirection();
+          } else {
+            // change the sort order
+            Popup.open('listsort')(evt);
+          }
         },
         'click .js-filter-reset'(event) {
           event.stopPropagation();
@@ -277,3 +307,73 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('boardChangeWatchPopup');
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    //this.sortBy = new ReactiveVar();
+    ////this.sortDirection = new ReactiveVar();
+    //this.setSortBy();
+    this.downClass = DOWNCLS;
+    this.upClass = UPCLS;
+  },
+  allowedSortValues() {
+    const types = [];
+    const pushed = {};
+    Meteor.user()
+      .getListSortTypes()
+      .forEach(type => {
+        const key = type.replace(/^-/, '');
+        if (pushed[key] === undefined) {
+          types.push({
+            name: key,
+            label: `list-label-${key}`,
+            shortLabel: `list-label-short-${key}`,
+          });
+          pushed[key] = 1;
+        }
+      });
+    return types;
+  },
+  Direction() {
+    return Meteor.user().getListSortByDirection() === -1
+      ? this.downClass
+      : this.upClass;
+  },
+  sortby() {
+    return Meteor.user().getListSortBy();
+  },
+
+  setSortBy(type = null) {
+    const user = Meteor.user();
+    if (type === null) {
+      type = user._getListSortBy();
+    } else {
+      let value = '';
+      if (type.map) {
+        // is an array
+        value = (type[1] === -1 ? '-' : '') + type[0];
+      }
+      Meteor.call('setListSortBy', value);
+    }
+    //this.sortBy.set(type[0]);
+    //this.sortDirection.set(type[1]);
+  },
+
+  events() {
+    return [
+      {
+        'click .js-sort-by'(evt) {
+          evt.preventDefault();
+          const target = evt.target;
+          const sortby = target.getAttribute('name');
+          const down = !!target.querySelector(`.${this.upClass}`);
+          const direction = down ? -1 : 1;
+          this.setSortBy([sortby, direction]);
+          if (Utils.isMiniScreen) {
+            Popup.close();
+          }
+        },
+      },
+    ];
+  },
+}).register('listsortPopup');
