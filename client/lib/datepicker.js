@@ -3,10 +3,11 @@ DatePicker = BlazeComponent.extendComponent({
     return 'datepicker';
   },
 
-  onCreated() {
+  onCreated(defaultTime = '1970-01-01 08:00:00') {
     this.error = new ReactiveVar('');
     this.card = this.data();
     this.date = new ReactiveVar(moment.invalid());
+    this.defaultTime = defaultTime;
   },
 
   onRendered() {
@@ -26,7 +27,7 @@ DatePicker = BlazeComponent.extendComponent({
           if (!timeInput.value) {
             const currentHour = evt.date.getHours();
             const defaultMoment = moment(
-              currentHour > 0 ? evt.date : '1970-01-01 08:00:00',
+              currentHour > 0 ? evt.date : this.defaultTime,
             ); // default to 8:00 am local time
             timeInput.value = defaultMoment.format('LT');
           }
