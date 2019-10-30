@@ -1,3 +1,42 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Allowing lists to be sorted by modifiedAt when not in draggable
+  mode](https://github.com/wekan/wekan/commits/77f8b76d4e13c35ea3451622176bbb69a4d39a32).
+  Thanks to whowillcare.
+- Allow user to sort Lists in Board by his own preference boardadmin can star
+  list [1](https://github.com/wekan/wekan/commit/bc2a20f04e32607f8488a9cecd815647fb43e40e), 
+  [2](https://github.com/wekan/wekan/commit/bc2a20f04e32607f8488a9cecd815647fb43e40e).
+  Thanks to whowillcare.
+- [Allowing user to filter list in Filter function not just cards
+  commit](https://github.com/wekan/wekan/commit/d2d4840758b0f5aed7feb4f6a459bb2b2d1a3f0b).
+  Thanks to whowillcare.
+- Allow user to search Lists in Board](https://github.com/wekan/wekan/commit/32f50e16586696ec7d100ce0438d1030ae1f606e).
+  Thanks to whowillcare.
+- Enhancement: [Set card times more sensible using the 'Today' button in
+  datepicker](https://github.com/wekan/wekan/pull/2747).
+  Thanks to liske.
+
+and fixes the following bugs:
+
+- Bug Fix [#2093](https://github.com/wekan/wekan/issues/2093), need to [clean up the
+  temporary file](https://github.com/wekan/wekan/commit/2737d6b23f3a0fd2314236a85fbdee536df745a2).
+  Thanks to whowillcare.
+- Bug Fix [#2093](https://github.com/wekan/wekan/issues/2093): the broken [should be prior to file attachment feature introduced](https://github.com/wekan/wekan/commit/f53c624b0f6c6ebcc20c378a153e5cda8d73463c).
+  Thanks to whowillcare.
+- [Fix typo on exporting subtasks](https://github.com/wekan/wekan/commit/00d581245c1fe6a01ef372ca87d8a25bc7b937e4).
+  Thanks to xiorcala.
+- [Change the radom to random typo in export.js](https://github.com/wekan/wekan/commit/e195c731de88aba4026c239f4552ae821d522ec7).
+  Thanks to whowillcare.
+- Fix: [List last modify time will be affected by cards dueAt, endAt](https://github.com/wekan/wekan/commit/3308d90a3a6a1ddeed33966767937cd2c2c90cb5).
+  Thanks to whowillcare.
+- Revert creating new list to left, now creates again to right. Thanks to whowillcare.
+  Revert New List item moved from right to left. Thanks to derbolle and xet7.
+  [1](https://github.com/wekan/wekan/commit/806df30ba3499cef193eaf1b437cdef65282510f).
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.49 2019-10-09 Wekan release
 
 This release fixes the following bugs:
