@@ -12,13 +12,13 @@ template(name="swimlane")
           unless currentUser.isCommentOnly
             +addListForm
     else
-      if currentUser.isBoardMember
-        unless currentUser.isCommentOnly
-          +addListForm
       each lists
         +list(this)
         if currentCardIsInThisList _id ../_id
           +cardDetails(currentCard)
+      if currentUser.isBoardMember
+        unless currentUser.isCommentOnly
+          +addListForm
 
 template(name="listsGroup")
   .swimlane.list-group.js-lists
@@ -26,20 +26,20 @@ template(name="listsGroup")
       if currentList
         +list(currentList)
       else
+        each lists
+          +miniList(this)
         if currentUser.isBoardMember
           unless currentUser.isCommentOnly
             +addListForm
-        each lists
-          +miniList(this)
     else
-      if currentUser.isBoardMember
-        unless currentUser.isCommentOnly
-          +addListForm
       each lists
         if visible this
           +list(this)
         if currentCardIsInThisList _id null
           +cardDetails(currentCard)
+      if currentUser.isBoardMember
+        unless currentUser.isCommentOnly
+          +addListForm
 
 template(name="addListForm")
   .list.list-composer.js-list-composer(class="{{#if isMiniScreen}}mini-list{{/if}}")
