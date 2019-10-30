@@ -1696,10 +1696,11 @@ if (Meteor.isServer) {
       const activityType = `a-${action}`;
       const card = Cards.findOne(doc._id);
       const list = card.list();
-      if (list && action === 'endAt') {
-        // change list modifiedAt
+      if (list) {
+        // change list modifiedAt, when user modified the key values in timingaction array, if it's endAt, put the modifiedAt of list back to one year ago for sorting purpose
         const modifiedAt = new Date(
-          new Date(value).getTime() - 365 * 24 * 3600 * 1e3,
+          new Date(value).getTime() -
+            (action === 'endAt' ? 365 * 24 * 3600 * 1e3 : 0),
         ); // set it as 1 year before
         const boardId = list.boardId;
         Lists.direct.update(
