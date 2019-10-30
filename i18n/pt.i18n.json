@@ -747,5 +747,6 @@
   "delete-user-confirm-popup": "Tem a certeza que pretende apagar esta conta? Não há como desfazer.",
   "accounts-allowUserDelete": "Permitir aos utilizadores apagar as suas próprias contas",
   "hide-minicard-label-text": "Ocultar texto das etiquetas dos mini-cartões",
-  "show-desktop-drag-handles": "Show desktop drag handles"
+  "show-desktop-drag-handles": "Show desktop drag handles",
+  "assignee": "Assignee"
 }

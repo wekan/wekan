@@ -747,5 +747,6 @@
   "delete-user-confirm-popup": "確定要刪除此帳戶嗎？此操作無法還原。",
   "accounts-allowUserDelete": "允許用戶自行刪除其帳戶",
   "hide-minicard-label-text": "隱藏迷你卡片標籤內文",
-  "show-desktop-drag-handles": "顯示桌面拖曳工具"
+  "show-desktop-drag-handles": "顯示桌面拖曳工具",
+  "assignee": "Assignee"
 }

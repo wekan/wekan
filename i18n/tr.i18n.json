@@ -747,5 +747,6 @@
   "delete-user-confirm-popup": "Bu kullanıcı hesabını silmek istediğinize emin misiniz?  Bu işlemi geri alamazsınız.",
   "accounts-allowUserDelete": "Kullanıcılara hesaplarını silmek için izin ver.",
   "hide-minicard-label-text": "Mini kart etiklerini gizle",
-  "show-desktop-drag-handles": "Show desktop drag handles"
+  "show-desktop-drag-handles": "Show desktop drag handles",
+  "assignee": "Assignee"
 }

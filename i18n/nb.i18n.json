@@ -747,5 +747,6 @@
   "delete-user-confirm-popup": "Er du sikker på at du vil slette denne kontoen?",
   "accounts-allowUserDelete": "Tillat at brukere sletter sin konto",
   "hide-minicard-label-text": "Hide minicard label text",
-  "show-desktop-drag-handles": "Show desktop drag handles"
+  "show-desktop-drag-handles": "Show desktop drag handles",
+  "assignee": "Assignee"
 }

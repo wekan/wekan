@@ -747,5 +747,6 @@
   "delete-user-confirm-popup": "Ви дійсно бажаєте видалити даний обліковий запис? Цю дію не можна відмінити.",
   "accounts-allowUserDelete": "Дозволити користувачам видаляти їх власні облікові записи",
   "hide-minicard-label-text": "Hide minicard label text",
-  "show-desktop-drag-handles": "Show desktop drag handles"
+  "show-desktop-drag-handles": "Show desktop drag handles",
+  "assignee": "Assignee"
 }

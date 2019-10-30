@@ -747,5 +747,6 @@
   "delete-user-confirm-popup": "Weet je zeker dat je dit account wilt verwijderen? Er is geen herstelmogelijkheid.",
   "accounts-allowUserDelete": "Sta gebruikers toe om hun eigen account te verwijderen",
   "hide-minicard-label-text": "Verberg minikaart labeltekst",
-  "show-desktop-drag-handles": "Toon sleep gereedschap op werkblad"
+  "show-desktop-drag-handles": "Toon sleep gereedschap op werkblad",
+  "assignee": "Assignee"
 }

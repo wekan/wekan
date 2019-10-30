@@ -747,5 +747,6 @@
   "delete-user-confirm-popup": "Are you sure you want to delete this account? There is no undo.",
   "accounts-allowUserDelete": "Allow users to self delete their account",
   "hide-minicard-label-text": "Hide minicard label text",
-  "show-desktop-drag-handles": "Show desktop drag handles"
+  "show-desktop-drag-handles": "Show desktop drag handles",
+  "assignee": "Assignee"
 }
