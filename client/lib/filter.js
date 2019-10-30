@@ -477,7 +477,9 @@ Filter = {
     return (
       _.any(this._fields, fieldName => {
         return this[fieldName]._isActive();
-      }) || this.advanced._isActive()
+      }) ||
+      this.advanced._isActive() ||
+      this.lists._isActive()
     );
   },
 
