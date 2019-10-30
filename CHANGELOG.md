@@ -12,7 +12,7 @@ This release adds the following new features:
 - [Allowing user to filter list in Filter function not just cards
   commit](https://github.com/wekan/wekan/commit/d2d4840758b0f5aed7feb4f6a459bb2b2d1a3f0b).
   Thanks to whowillcare.
-- Allow user to search Lists in Board](https://github.com/wekan/wekan/commit/32f50e16586696ec7d100ce0438d1030ae1f606e).
+- [Allow user to search Lists in Board](https://github.com/wekan/wekan/commit/32f50e16586696ec7d100ce0438d1030ae1f606e).
   Thanks to whowillcare.
 - Enhancement: [Set card times more sensible using the 'Today' button in
   datepicker](https://github.com/wekan/wekan/pull/2747).
