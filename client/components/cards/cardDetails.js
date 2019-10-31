@@ -309,6 +309,8 @@ BlazeComponent.extendComponent({
         },
         'click .js-member': Popup.open('cardMember'),
         'click .js-add-members': Popup.open('cardMembers'),
+        'click .js-assignee': Popup.open('cardAssignee'),
+        'click .js-add-assignees': Popup.open('cardAssignees'),
         'click .js-add-labels': Popup.open('cardLabels'),
         'click .js-received-date': Popup.open('editCardReceivedDate'),
         'click .js-start-date': Popup.open('editCardStartDate'),
@@ -399,6 +401,7 @@ Template.cardDetailsActionsPopup.helpers({
 
 Template.cardDetailsActionsPopup.events({
   'click .js-members': Popup.open('cardMembers'),
+  'click .js-assignees': Popup.open('cardAssignees'),
   'click .js-labels': Popup.open('cardLabels'),
   'click .js-attachments': Popup.open('cardAttachments'),
   'click .js-custom-fields': Popup.open('cardCustomFields'),

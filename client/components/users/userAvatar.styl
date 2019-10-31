@@ -2,7 +2,8 @@
 
 avatar-radius = 50%
 
-.member
+.member,
+.assignee
   border-radius: 3px
   display: block
   position: relative
@@ -32,7 +33,8 @@ avatar-radius = 50%
       height: 100%
       width: @height
 
-  .member-presence-status
+  .member-presence-status,
+  .assignee-presence-status
     background-color: #b3b3b3
     border: 1px solid #fff
     border-radius: 50%
@@ -79,7 +81,8 @@ avatar-radius = 50%
       color: white
 
 
-  &.add-member
+  &.add-member,
+  &.add-assignee
     display: flex
     align-items: center
     justify-content: center
@@ -111,7 +114,8 @@ avatar-radius = 50%
     p
       padding-top: 0
 
-  .member
+  .member,
+  .assignee
     width: 50px
     height: @width
     margin-right: 10px

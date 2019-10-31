@@ -15,6 +15,23 @@ template(name="userAvatar")
           a.edit-avatar.js-change-avatar
             i.fa.fa-pencil
 
+template(name="userAvatarAssignee")
+  a.assignee.js-assignee(title="{{userData.profile.fullname}} ({{userData.username}})")
+    if userData.profile.avatarUrl
+      img.avatar.avatar-image(src="{{userData.profile.avatarUrl}}")
+    else
+      +userAvatarInitials(userId=userData._id)
+
+    if showStatus
+      span.assignee-presence-status(class=presenceStatusClassName)
+      span.assignee-type(class=assigneeType)
+
+    unless isSandstorm
+      if showEdit
+        if $eq currentUser._id userData._id
+          a.edit-avatar.js-change-avatar
+            i.fa.fa-pencil
+
 template(name="userAvatarInitials")
   svg.avatar.avatar-initials(viewBox="0 0 {{viewPortWidth}} 15")
     text(x="50%" y="13" text-anchor="middle")= initials
@@ -74,6 +91,21 @@ template(name="cardMemberPopup")
     ul.pop-over-list
       if currentUser.isNotCommentOnly
           li: a.js-remove-member {{_ 'remove-member-from-card'}}
+
+      if $eq currentUser._id user._id
+        with currentUser
+          li: a.js-edit-profile {{_ 'edit-profile'}}
+
+template(name="cardAssigneePopup")
+  .board-assignee-menu
+    .mini-profile-info
+      +userAvatar(userId=user._id showEdit=true)
+      .info
+        h3= user.profile.fullname
+        p.quiet @{{ user.username }}
+    ul.pop-over-list
+      if currentUser.isNotCommentOnly
+          li: a.js-remove-assignee {{_ 'remove-member-from-card'}}
 
       if $eq currentUser._id user._id
         with currentUser

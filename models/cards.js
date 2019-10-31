@@ -203,6 +203,14 @@ Cards.attachSchema(
       optional: true,
       defaultValue: [],
     },
+    assignees: {
+      /**
+       * who assignees of the card (user IDs)
+       */
+      type: [String],
+      optional: true,
+      defaultValue: [],
+    },
     receivedAt: {
       /**
        * Date the card was received
@@ -409,6 +417,10 @@ Cards.helpers({
 
   isAssigned(memberId) {
     return _.contains(this.getMembers(), memberId);
+  },
+
+  isAssignee(assigneeId) {
+    return _.contains(this.getAssignees(), assigneeId);
   },
 
   activities() {
@@ -745,6 +757,20 @@ Cards.helpers({
     }
   },
 
+  getAssignees() {
+    if (this.isLinkedCard()) {
+      const card = Cards.findOne({ _id: this.linkedId });
+      return card.assignees;
+    } else if (this.isLinkedBoard()) {
+      const board = Boards.findOne({ _id: this.linkedId });
+      return board.activeAssignees().map(assignee => {
+        return assignee.userId;
+      });
+    } else {
+      return this.assignees;
+    }
+  },
+
   assignMember(memberId) {
     if (this.isLinkedCard()) {
       return Cards.update(
@@ -758,6 +784,23 @@ Cards.helpers({
       return Cards.update(
         { _id: this._id },
         { $addToSet: { members: memberId } },
+      );
+    }
+  },
+
+  assignAssignee(assigneeId) {
+    if (this.isLinkedCard()) {
+      return Cards.update(
+        { _id: this.linkedId },
+        { $addToSet: { assignees: assigneeId } },
+      );
+    } else if (this.isLinkedBoard()) {
+      const board = Boards.findOne({ _id: this.linkedId });
+      return board.addAssignee(assigneeId);
+    } else {
+      return Cards.update(
+        { _id: this._id },
+        { $addToSet: { assignees: assigneeId } },
       );
     }
   },
@@ -776,11 +819,36 @@ Cards.helpers({
     }
   },
 
+  unassignAssignee(assigneeId) {
+    if (this.isLinkedCard()) {
+      return Cards.update(
+        { _id: this.linkedId },
+        { $pull: { assignees: assigneeId } },
+      );
+    } else if (this.isLinkedBoard()) {
+      const board = Boards.findOne({ _id: this.linkedId });
+      return board.removeAssignee(assigneeId);
+    } else {
+      return Cards.update(
+        { _id: this._id },
+        { $pull: { assignees: assigneeId } },
+      );
+    }
+  },
+
   toggleMember(memberId) {
     if (this.getMembers() && this.getMembers().indexOf(memberId) > -1) {
       return this.unassignMember(memberId);
     } else {
       return this.assignMember(memberId);
+    }
+  },
+
+  toggleAssignee(assigneeId) {
+    if (this.getAssignees() && this.getAssignees().indexOf(assigneeId) > -1) {
+      return this.unassignAssignee(assigneeId);
+    } else {
+      return this.assignAssignee(assigneeId);
     }
   },
 
@@ -1126,10 +1194,26 @@ Cards.mutations({
     };
   },
 
+  assignAssignee(assigneeId) {
+    return {
+      $addToSet: {
+        assignees: assigneeId,
+      },
+    };
+  },
+
   unassignMember(memberId) {
     return {
       $pull: {
         members: memberId,
+      },
+    };
+  },
+
+  unassignAssignee(assigneeId) {
+    return {
+      $pull: {
+        assignees: assigneeId,
       },
     };
   },
@@ -1139,6 +1223,14 @@ Cards.mutations({
       return this.unassignMember(memberId);
     } else {
       return this.assignMember(memberId);
+    }
+  },
+
+  toggleAssignee(assigneeId) {
+    if (this.assignees && this.assignees.indexOf(assigneeId) > -1) {
+      return this.unassignAssignee(assigneeId);
+    } else {
+      return this.assignAssignee(assigneeId);
     }
   },
 
@@ -1436,6 +1528,46 @@ function cardMembers(userId, doc, fieldNames, modifier) {
   }
 }
 
+function cardAssignees(userId, doc, fieldNames, modifier) {
+  if (!_.contains(fieldNames, 'assignees')) return;
+  let assigneeId;
+  // Say hello to the new assignee
+  if (modifier.$addToSet && modifier.$addToSet.assignees) {
+    assigneeId = modifier.$addToSet.assignees;
+    const username = Users.findOne(assigneeId).username;
+    if (!_.contains(doc.assignees, assigneeId)) {
+      Activities.insert({
+        userId,
+        username,
+        activityType: 'joinAssignee',
+        boardId: doc.boardId,
+        cardId: doc._id,
+        assigneeId,
+        listId: doc.listId,
+        swimlaneId: doc.swimlaneId,
+      });
+    }
+  }
+  // Say goodbye to the former assignee
+  if (modifier.$pull && modifier.$pull.assignees) {
+    assigneeId = modifier.$pull.assignees;
+    const username = Users.findOne(assigneeId).username;
+    // Check that the former assignee is assignee of the card
+    if (_.contains(doc.assignees, assigneeId)) {
+      Activities.insert({
+        userId,
+        username,
+        activityType: 'unjoinAssignee',
+        boardId: doc.boardId,
+        cardId: doc._id,
+        assigneeId,
+        listId: doc.listId,
+        swimlaneId: doc.swimlaneId,
+      });
+    }
+  }
+}
+
 function cardLabels(userId, doc, fieldNames, modifier) {
   if (!_.contains(fieldNames, 'labelIds')) return;
   let labelId;
@@ -1673,6 +1805,12 @@ if (Meteor.isServer) {
     updateActivities(doc, fieldNames, modifier);
   });
 
+  // Add a new activity if we add or remove a assignee to the card
+  Cards.before.update((userId, doc, fieldNames, modifier) => {
+    cardAssignees(userId, doc, fieldNames, modifier);
+    updateActivities(doc, fieldNames, modifier);
+  });
+
   // Add a new activity if we add or remove a label to the card
   Cards.before.update((userId, doc, fieldNames, modifier) => {
     cardLabels(userId, doc, fieldNames, modifier);
@@ -1852,6 +1990,7 @@ if (Meteor.isServer) {
    * @param {string} description the description of the new card
    * @param {string} swimlaneId the swimlane ID of the new card
    * @param {string} [members] the member IDs list of the new card
+   * @param {string} [assignees] the assignee IDs list of the new card
    * @return_type {_id: string}
    */
   JsonRoutes.add('POST', '/api/boards/:boardId/lists/:listId/cards', function(
@@ -1873,6 +2012,7 @@ if (Meteor.isServer) {
       _id: req.body.authorId,
     });
     const members = req.body.members || [req.body.authorId];
+    const assignees = req.body.assignees;
     if (typeof check !== 'undefined') {
       const id = Cards.direct.insert({
         title: req.body.title,
@@ -1884,6 +2024,7 @@ if (Meteor.isServer) {
         swimlaneId: req.body.swimlaneId,
         sort: currentCards.count(),
         members,
+        assignees,
       });
       JsonRoutes.sendResult(res, {
         code: 200,
@@ -1935,6 +2076,7 @@ if (Meteor.isServer) {
    * @param {string} [labelIds] the new list of label IDs attached to the card
    * @param {string} [swimlaneId] the new swimlane ID of the card
    * @param {string} [members] the new list of member IDs attached to the card
+   * @param {string} [assignees] the new list of assignee IDs attached to the card
    * @param {string} [requestedBy] the new requestedBy field of the card
    * @param {string} [assignedBy] the new assignedBy field of the card
    * @param {string} [receivedAt] the new receivedAt field of the card
@@ -2193,6 +2335,25 @@ if (Meteor.isServer) {
             archived: false,
           },
           { $set: { members: newmembers } },
+        );
+      }
+      if (req.body.hasOwnProperty('assignees')) {
+        let newassignees = req.body.assignees;
+        if (_.isString(newassignees)) {
+          if (newassignees === '') {
+            newassignees = null;
+          } else {
+            newassignees = [newassignees];
+          }
+        }
+        Cards.direct.update(
+          {
+            _id: paramCardId,
+            listId: paramListId,
+            boardId: paramBoardId,
+            archived: false,
+          },
+          { $set: { assignees: newassignees } },
         );
       }
       if (req.body.hasOwnProperty('swimlaneId')) {
