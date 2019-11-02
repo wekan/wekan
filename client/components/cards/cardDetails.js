@@ -863,6 +863,19 @@ Template.cardAssigneesPopup.events({
   },
 });
 
+Template.cardAssigneesPopup.helpers({
+  isCardAssignee() {
+    const card = Template.parentData();
+    const cardAssignees = card.getAssignees();
+
+    return _.contains(cardAssignees, this.userId);
+  },
+
+  user() {
+    return Users.findOne(this.userId);
+  },
+});
+
 Template.cardAssigneePopup.helpers({
   userData() {
     // We need to handle a special case for the search results provided by the
