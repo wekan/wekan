@@ -344,6 +344,50 @@ BlazeComponent.extendComponent({
   },
 }).register('cardDetails');
 
+Template.cardDetails.helpers({
+  userData() {
+    // We need to handle a special case for the search results provided by the
+    // `matteodem:easy-search` package. Since these results gets published in a
+    // separate collection, and not in the standard Meteor.Users collection as
+    // expected, we use a component parameter ("property") to distinguish the
+    // two cases.
+    const userCollection = this.esSearch ? ESSearchResults : Users;
+    return userCollection.findOne(this.userId, {
+      fields: {
+        profile: 1,
+        username: 1,
+      },
+    });
+  },
+
+  memberType() {
+    const user = Users.findOne(this.userId);
+    return user && user.isBoardAdmin() ? 'admin' : 'normal';
+  },
+
+  presenceStatusClassName() {
+    const user = Users.findOne(this.userId);
+    const userPresence = presences.findOne({ userId: this.userId });
+    if (user && user.isInvitedTo(Session.get('currentBoard'))) return 'pending';
+    else if (!userPresence) return 'disconnected';
+    else if (Session.equals('currentBoard', userPresence.state.currentBoardId))
+      return 'active';
+    else return 'idle';
+  },
+});
+
+Template.userAvatarAssigneeInitials.helpers({
+  initials() {
+    const user = Users.findOne(this.userId);
+    return user && user.getInitials();
+  },
+
+  viewPortWidth() {
+    const user = Users.findOne(this.userId);
+    return ((user && user.getInitials().length) || 1) * 12;
+  },
+});
+
 // We extends the normal InlinedForm component to support UnsavedEdits draft
 // feature.
 (class extends InlinedForm {
@@ -809,3 +853,63 @@ EscapeActions.register(
     noClickEscapeOn: '.js-card-details,.board-sidebar,#header',
   },
 );
+
+Template.cardAssigneesPopup.events({
+  'click .js-select-assignee'(event) {
+    const card = Cards.findOne(Session.get('currentCard'));
+    const assigneeId = this.userId;
+    card.toggleAssignee(assigneeId);
+    event.preventDefault();
+  },
+});
+
+Template.cardAssigneePopup.helpers({
+  userData() {
+    // We need to handle a special case for the search results provided by the
+    // `matteodem:easy-search` package. Since these results gets published in a
+    // separate collection, and not in the standard Meteor.Users collection as
+    // expected, we use a component parameter ("property") to distinguish the
+    // two cases.
+    const userCollection = this.esSearch ? ESSearchResults : Users;
+    return userCollection.findOne(this.userId, {
+      fields: {
+        profile: 1,
+        username: 1,
+      },
+    });
+  },
+
+  memberType() {
+    const user = Users.findOne(this.userId);
+    return user && user.isBoardAdmin() ? 'admin' : 'normal';
+  },
+
+  presenceStatusClassName() {
+    const user = Users.findOne(this.userId);
+    const userPresence = presences.findOne({ userId: this.userId });
+    if (user && user.isInvitedTo(Session.get('currentBoard'))) return 'pending';
+    else if (!userPresence) return 'disconnected';
+    else if (Session.equals('currentBoard', userPresence.state.currentBoardId))
+      return 'active';
+    else return 'idle';
+  },
+
+  isCardAssignee() {
+    const card = Template.parentData();
+    const cardAssignees = card.getAssignees();
+
+    return _.contains(cardAssignees, this.userId);
+  },
+
+  user() {
+    return Users.findOne(this.userId);
+  },
+});
+
+Template.cardAssigneePopup.events({
+  'click .js-remove-assignee'() {
+    Cards.findOne(this.cardId).unassignAssignee(this.userId);
+    Popup.close();
+  },
+  'click .js-edit-profile': Popup.open('editProfile'),
+});

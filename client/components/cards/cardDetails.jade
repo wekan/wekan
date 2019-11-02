@@ -76,7 +76,7 @@ template(name="cardDetails")
       .card-details-item.card-details-item-assignees
         h3.card-details-item-title {{_ 'assignee'}}
         each getAssignees
-          +userAvatar(userId=this cardId=../_id)
+          +userAvatarAssignee(userId=this cardId=../_id)
           | {{! XXX Hack to hide syntaxic coloration /// }}
         if canModifyCard
           a.assignee.add-assignee.card-details-item-add-button.js-add-assignees(title="{{_ 'assignee'}}")
@@ -307,7 +307,7 @@ template(name="cardMembersPopup")
 
 template(name="cardAssigneesPopup")
   ul.pop-over-list.js-card-assignee-list
-    each board.activeAssignees
+    each board.activeMembers
       li.item(class="{{#if isCardAssignee}}active{{/if}}")
         a.name.js-select-assignee(href="#")
           +userAvatarAssignee(userId=user._id)
@@ -316,6 +316,42 @@ template(name="cardAssigneesPopup")
             | (<span class="username">{{ user.username }}</span>)
           if isCardAssignee
             i.fa.fa-check
+
+template(name="userAvatarAssignee")
+  a.assignee.js-assignee(title="{{userData.profile.fullname}} ({{userData.username}})")
+    if userData.profile.avatarUrl
+      img.avatar.avatar-image(src="{{userData.profile.avatarUrl}}")
+    else
+      +userAvatarAssigneeInitials(userId=userData._id)
+
+    if showStatus
+      span.member-presence-status(class=presenceStatusClassName)
+      span.member-type(class=memberType)
+
+    unless isSandstorm
+      if showEdit
+        if $eq currentUser._id userData._id
+          a.edit-avatar.js-change-avatar
+            i.fa.fa-pencil
+
+template(name="cardAssigneePopup")
+  .board-assignee-menu
+    .mini-profile-info
+      +userAvatar(userId=user._id showEdit=true)
+      .info
+        h3= user.profile.fullname
+        p.quiet @{{ user.username }}
+    ul.pop-over-list
+      if currentUser.isNotCommentOnly
+          li: a.js-remove-assignee {{_ 'remove-member-from-card'}}
+
+      if $eq currentUser._id user._id
+        with currentUser
+          li: a.js-edit-profile {{_ 'edit-profile'}}
+
+template(name="userAvatarAssigneeInitials")
+  svg.avatar.avatar-assignee-initials(viewBox="0 0 {{viewPortWidth}} 15")
+    text(x="50%" y="13" text-anchor="middle")= initials
 
 template(name="cardMorePopup")
   p.quiet

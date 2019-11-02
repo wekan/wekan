@@ -763,7 +763,7 @@ Cards.helpers({
       return card.assignees;
     } else if (this.isLinkedBoard()) {
       const board = Boards.findOne({ _id: this.linkedId });
-      return board.activeAssignees().map(assignee => {
+      return board.activeMembers().map(assignee => {
         return assignee.userId;
       });
     } else {

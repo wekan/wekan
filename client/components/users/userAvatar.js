@@ -139,13 +139,6 @@ Template.cardMembersPopup.helpers({
     return _.contains(cardMembers, this.userId);
   },
 
-  isCardAssignee() {
-    const card = Template.parentData();
-    const cardAssignees = card.getAssignees();
-
-    return _.contains(cardAssignees, this.userId);
-  },
-
   user() {
     return Users.findOne(this.userId);
   },
@@ -169,29 +162,6 @@ Template.cardMemberPopup.helpers({
 Template.cardMemberPopup.events({
   'click .js-remove-member'() {
     Cards.findOne(this.cardId).unassignMember(this.userId);
-    Popup.close();
-  },
-  'click .js-edit-profile': Popup.open('editProfile'),
-});
-
-Template.cardAssigneesPopup.events({
-  'click .js-select-assignee'(event) {
-    const card = Cards.findOne(Session.get('currentCard'));
-    const assigneeId = this.userId;
-    card.toggleAssignee(assigneeId);
-    event.preventDefault();
-  },
-});
-
-Template.cardAssigneePopup.helpers({
-  user() {
-    return Users.findOne(this.userId);
-  },
-});
-
-Template.cardAssigneePopup.events({
-  'click .js-remove-assignee'() {
-    Cards.findOne(this.cardId).unassignAssignee(this.userId);
     Popup.close();
   },
   'click .js-edit-profile': Popup.open('editProfile'),
