@@ -344,9 +344,9 @@ class CardEndDate extends CardDate {
     let classes = 'end-date' + ' ';
     const dueAt = this.data().getDue();
     const theDate = this.date.get();
-    if (!dueAt) classes += ''
-    else if (theDate.isBefore(dueAt)) classes += 'current'
-    else if (theDate.isAfter(dueAt)) classes += 'due'
+    if (!dueAt) classes += '';
+    else if (theDate.isBefore(dueAt)) classes += 'current';
+    else if (theDate.isAfter(dueAt)) classes += 'due';
     return classes;
   }
 
