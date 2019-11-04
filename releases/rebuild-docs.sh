@@ -1,6 +1,6 @@
 # Generate docs.
 
-mkdir -p public/api
+#mkdir -p public/api
 python3 ./openapi/generate_openapi.py --release $(git describe --tags --abbrev=0) > ./public/api/wekan.yml
 api2html -c ./public/logo-header.png -o ./public/api/wekan.html ./public/api/wekan.yml
 
