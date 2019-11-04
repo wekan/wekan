@@ -89,7 +89,7 @@ livedata@1.0.18
 localstorage@1.2.0
 logging@1.1.20
 lucasantoniassi:accounts-lockout@1.0.0
-matb33:collection-hooks@0.8.4
+matb33:collection-hooks@0.9.1
 matteodem:easy-search@1.6.4
 mdg:meteor-apm-agent@3.2.3
 mdg:validation-error@0.5.1

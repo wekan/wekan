@@ -63,7 +63,7 @@
     "gridfs-stream": "^0.5.3",
     "ldapjs": "^1.0.2",
     "meteor-node-stubs": "^0.4.1",
-    "mongodb": "^2.2.19",
+    "mongodb": "^3.3.3",
     "os": "^0.1.1",
     "page": "^1.8.6",
     "qs": "^6.8.0",
