@@ -62,23 +62,6 @@ avatar-radius = 50%
       background: #e44242
       border-color: #f1dada
 
-  .edit-avatar
-    position: absolute
-    top: 0
-    height: 100%
-    width: 100%
-    border-radius: avatar-radius
-    background: black
-    display: flex
-    align-items: center
-    justify-content: center
-    opacity: 0
-
-    &:hover
-      opacity: 0.6
-
-    i.fa-pencil
-      color: white
 
 
   &.add-assignee
@@ -89,34 +72,6 @@ avatar-radius = 50%
 
     &:hover, &.is-active
       box-shadow: 0 0 0 2px darken(white, 60%) inset
-
-.atMention
-  background: #dbdbdb
-  border-radius: 3px
-  padding: 1px 4px
-  margin: -1px 0
-  display: inline-block
-
-  &.me
-    background: #cfdfe8
-
-.mini-profile-info
-  margin-top: 10px
-
-  .info
-    padding-top: 5px
-
-    h3, p
-      margin-bottom: 0
-      padding-left: 0
-
-    p
-      padding-top: 0
-
-  .assignee
-    width: 50px
-    height: @width
-    margin-right: 10px
 
 // Other card details
 
