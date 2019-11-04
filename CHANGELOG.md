@@ -34,6 +34,13 @@ and fixes the following bugs:
 - Revert creating new list to left, now creates again to right. Thanks to whowillcare.
   Revert New List item moved from right to left. Thanks to derbolle and xet7.
   [1](https://github.com/wekan/wekan/commit/806df30ba3499cef193eaf1b437cdef65282510f).
+- REST API: [Fix deletion of a single board card](https://github.com/wekan/wekan/pull/2778).
+  Thanks to liske.
+- [cardDate: endDate coloring change](https://github.com/wekan/wekan/pull/2779).
+  If no due-date timestamp is set => Gray.
+  If end-date timestamp is younger than due-date timestamp => Green.
+  If end-date timestamp is older than due-date timestamp => Red.
+  Thanks to bandresen.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
