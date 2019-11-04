@@ -2398,13 +2398,13 @@ if (Meteor.isServer) {
       const paramListId = req.params.listId;
       const paramCardId = req.params.cardId;
 
+      const card = Cards.findOne({
+        _id: paramCardId,
+      });
       Cards.direct.remove({
         _id: paramCardId,
         listId: paramListId,
         boardId: paramBoardId,
-      });
-      const card = Cards.find({
-        _id: paramCardId,
       });
       cardRemover(req.body.authorId, card);
       JsonRoutes.sendResult(res, {
