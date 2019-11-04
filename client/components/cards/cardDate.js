@@ -237,7 +237,7 @@ class CardReceivedDate extends CardDate {
     const theDate = this.date.get();
     // if dueAt, endAt and startAt exist & are > receivedAt, receivedAt doesn't need to be flagged
     if (
-      (startAt && theDate.isAfter(dueAt)) ||
+      (startAt && theDate.isAfter(startAt)) ||
       (endAt && theDate.isAfter(endAt)) ||
       (dueAt && theDate.isAfter(dueAt))
     )
