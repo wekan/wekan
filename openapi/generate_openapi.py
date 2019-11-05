@@ -3,9 +3,12 @@
 import argparse
 import esprima
 import json
+import logging
 import os
 import re
-import sys
+
+
+logger = logging.getLogger(__name__)
 
 
 def get_req_body_elems(obj, elems):
@@ -156,16 +159,25 @@ class EntryPoint(object):
     def compute_path(self):
         return self._path.value.rstrip('/')
 
-    def error(self, message):
+    def log(self, message, level):
         if self._raw_doc is None:
-            sys.stderr.write('in {},\n'.format(self.schema.name))
-            sys.stderr.write('{}\n'.format(message))
+            logger.log(level, 'in {},'.format(self.schema.name))
+            logger.log(level, message)
             return
-        sys.stderr.write('in {}, lines {}-{}\n'.format(self.schema.name,
-                                                       self._raw_doc.loc.start.line,
-                                                       self._raw_doc.loc.end.line))
-        sys.stderr.write('{}\n'.format(self._raw_doc.value))
-        sys.stderr.write('{}\n'.format(message))
+        logger.log(level, 'in {}, lines {}-{}'.format(self.schema.name,
+                                                      self._raw_doc.loc.start.line,
+                                                      self._raw_doc.loc.end.line))
+        logger.log(level, self._raw_doc.value)
+        logger.log(level, message)
+
+    def error(self, message):
+        return self.log(message, logging.ERROR)
+
+    def warn(self, message):
+        return self.log(message, logging.WARNING)
+
+    def info(self, message):
+        return self.log(message, logging.INFO)
 
     @property
     def doc(self):
@@ -235,7 +247,7 @@ class EntryPoint(object):
                 if name.startswith('{'):
                     param_type = name.strip('{}')
                     if param_type not in ['string', 'number', 'boolean', 'integer', 'array', 'file']:
-                        self.error('Warning, unknown type {}\n allowed values: string, number, boolean, integer, array, file'.format(param_type))
+                        self.warn('unknown type {}\n allowed values: string, number, boolean, integer, array, file'.format(param_type))
                     try:
                         name, desc = desc.split(maxsplit=1)
                     except ValueError:
@@ -248,7 +260,7 @@ class EntryPoint(object):
 
                 # we should not have 2 identical parameter names
                 if tag in params:
-                    self.error('Warning, overwriting parameter {}'.format(name))
+                    self.warn('overwriting parameter {}'.format(name))
 
                 params[name] = (param_type, optional, desc)
 
@@ -278,7 +290,7 @@ class EntryPoint(object):
 
             # we should not have 2 identical tags but @param or @tag
             if tag in self._doc:
-                self.error('Warning, overwriting tag {}'.format(tag))
+                self.warn('overwriting tag {}'.format(tag))
 
             self._doc[tag] = data
 
@@ -301,7 +313,7 @@ class EntryPoint(object):
                     current_data = ''
                     line = data
                 else:
-                    self.error('Unknown tag {}, ignoring'.format(tag))
+                    self.info('Unknown tag {}, ignoring'.format(tag))
 
             current_data += line + '\n'
 
