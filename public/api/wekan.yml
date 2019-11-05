@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v3.49
+  version: v3.50
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -1273,6 +1273,12 @@ paths:
             the member IDs list of the new card
           type: string
           required: false
+        - name: assignees
+          in: formData
+          description: |
+            the assignee IDs list of the new card
+          type: string
+          required: false
         - name: title
           in: formData
           description: |
@@ -1436,6 +1442,11 @@ paths:
         - name: members
           in: formData
           description: the members value
+          type: string
+          required: true
+        - name: assignees
+          in: formData
+          description: the assignees value
           type: string
           required: true
         - name: swimlaneId
@@ -2354,6 +2365,14 @@ definitions:
           type: string
           x-nullable: true
         x-nullable: true
+      assignees:
+        description: |
+           who assignees of the card (user IDs)
+        type: array
+        items:
+          type: string
+          x-nullable: true
+        x-nullable: true
       receivedAt:
         description: |
            Date the card was received
@@ -2611,6 +2630,12 @@ definitions:
         description: |
            the title of the list
         type: string
+      starred:
+        description: |
+           if a list is stared
+           then we put it on the top
+        type: boolean
+        x-nullable: true
       archived:
         description: |
            is the list archived
@@ -2870,6 +2895,10 @@ definitions:
         description: |
            full name of the user
         type: string
+      showDesktopDragHandles:
+        description: |
+           does the user want to hide system messages?
+        type: boolean
       hiddenSystemMessages:
         description: |
            does the user want to hide system messages?
@@ -2923,6 +2952,17 @@ definitions:
           - board-view-lists
           - board-view-swimlanes
           - board-view-cal
+      listSortBy:
+        description: |
+           default sort list for user
+        type: string
+        enum:
+          - -modifiedat
+          - modifiedat
+          - -title
+          - title
+          - -sort
+          - sort
       templatesBoardId:
         description: |
            Reference to the templates board

@@ -1524,7 +1524,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
 	  	<ul class="toc-list-h1">
         
           <li>
-            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v3.49">Wekan REST API v3.49</a>
+            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v3.50">Wekan REST API v3.50</a>
             
           </li>
         
@@ -2017,7 +2017,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="wekan-rest-api">Wekan REST API v3.49</h1>
+        <h1 id="wekan-rest-api">Wekan REST API v3.50</h1>
 <blockquote>
 <p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
 </blockquote>
@@ -9359,6 +9359,7 @@ System.out.println(response.toString());
 </blockquote>
 <pre class="highlight tab tab-json"><code>{
   <span class="hljs-attr">"title"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"starred"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"archived"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"boardId"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"swimlaneId"</span>: <span class="hljs-string">"string"</span>,
@@ -9879,6 +9880,7 @@ $.ajax({
 <span class="hljs-keyword">const</span> inputBody = <span class="hljs-string">'{
   "authorId": "string",
   "members": "string",
+  "assignees": "string",
   "title": "string",
   "description": "string",
   "swimlaneId": "string"
@@ -9981,6 +9983,7 @@ System.out.println(response.toString());
 </blockquote>
 <pre class="highlight tab tab-yaml"><code><span class="hljs-attr">authorId:</span> <span class="hljs-string">string</span>
 <span class="hljs-attr">members:</span> <span class="hljs-string">string</span>
+<span class="hljs-attr">assignees:</span> <span class="hljs-string">string</span>
 <span class="hljs-attr">title:</span> <span class="hljs-string">string</span>
 <span class="hljs-attr">description:</span> <span class="hljs-string">string</span>
 <span class="hljs-attr">swimlaneId:</span> <span class="hljs-string">string</span>
@@ -10032,6 +10035,13 @@ System.out.println(response.toString());
 <td>string</td>
 <td>false</td>
 <td>the member IDs list of the new card</td>
+</tr>
+<tr>
+<td>» assignees</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>the assignee IDs list of the new card</td>
 </tr>
 <tr>
 <td>» title</td>
@@ -10339,6 +10349,7 @@ $.ajax({
   "isOverTime": "string",
   "customFields": "string",
   "members": "string",
+  "assignees": "string",
   "swimlaneId": "string"
 }'</span>;
 <span class="hljs-keyword">const</span> headers = {
@@ -10449,6 +10460,7 @@ System.out.println(response.toString());
 <span class="hljs-attr">isOverTime:</span> <span class="hljs-string">string</span>
 <span class="hljs-attr">customFields:</span> <span class="hljs-string">string</span>
 <span class="hljs-attr">members:</span> <span class="hljs-string">string</span>
+<span class="hljs-attr">assignees:</span> <span class="hljs-string">string</span>
 <span class="hljs-attr">swimlaneId:</span> <span class="hljs-string">string</span>
 
 </code></pre>
@@ -10610,6 +10622,13 @@ System.out.println(response.toString());
 <td>string</td>
 <td>true</td>
 <td>the members value</td>
+</tr>
+<tr>
+<td>» assignees</td>
+<td>body</td>
+<td>string</td>
+<td>true</td>
+<td>the assignees value</td>
 </tr>
 <tr>
 <td>» swimlaneId</td>
@@ -11602,6 +11621,7 @@ System.out.println(response.toString());
       <span class="hljs-string">"string"</span>
     ],
     <span class="hljs-attr">"fullname"</span>: <span class="hljs-string">"string"</span>,
+    <span class="hljs-attr">"showDesktopDragHandles"</span>: <span class="hljs-literal">true</span>,
     <span class="hljs-attr">"hiddenSystemMessages"</span>: <span class="hljs-literal">true</span>,
     <span class="hljs-attr">"hiddenMinicardLabelText"</span>: <span class="hljs-literal">true</span>,
     <span class="hljs-attr">"initials"</span>: <span class="hljs-string">"string"</span>,
@@ -11618,6 +11638,7 @@ System.out.println(response.toString());
     ],
     <span class="hljs-attr">"icode"</span>: <span class="hljs-string">"string"</span>,
     <span class="hljs-attr">"boardView"</span>: <span class="hljs-string">"board-view-lists"</span>,
+    <span class="hljs-attr">"listSortBy"</span>: <span class="hljs-string">"-modifiedat"</span>,
     <span class="hljs-attr">"templatesBoardId"</span>: <span class="hljs-string">"string"</span>,
     <span class="hljs-attr">"cardTemplatesSwimlaneId"</span>: <span class="hljs-string">"string"</span>,
     <span class="hljs-attr">"listTemplatesSwimlaneId"</span>: <span class="hljs-string">"string"</span>,
@@ -12255,6 +12276,7 @@ System.out.println(response.toString());
       <span class="hljs-string">"string"</span>
     ],
     <span class="hljs-attr">"fullname"</span>: <span class="hljs-string">"string"</span>,
+    <span class="hljs-attr">"showDesktopDragHandles"</span>: <span class="hljs-literal">true</span>,
     <span class="hljs-attr">"hiddenSystemMessages"</span>: <span class="hljs-literal">true</span>,
     <span class="hljs-attr">"hiddenMinicardLabelText"</span>: <span class="hljs-literal">true</span>,
     <span class="hljs-attr">"initials"</span>: <span class="hljs-string">"string"</span>,
@@ -12271,6 +12293,7 @@ System.out.println(response.toString());
     ],
     <span class="hljs-attr">"icode"</span>: <span class="hljs-string">"string"</span>,
     <span class="hljs-attr">"boardView"</span>: <span class="hljs-string">"board-view-lists"</span>,
+    <span class="hljs-attr">"listSortBy"</span>: <span class="hljs-string">"-modifiedat"</span>,
     <span class="hljs-attr">"templatesBoardId"</span>: <span class="hljs-string">"string"</span>,
     <span class="hljs-attr">"cardTemplatesSwimlaneId"</span>: <span class="hljs-string">"string"</span>,
     <span class="hljs-attr">"listTemplatesSwimlaneId"</span>: <span class="hljs-string">"string"</span>,
@@ -14159,6 +14182,9 @@ UserSecurity
   <span class="hljs-attr">"members"</span>: [
     <span class="hljs-string">"string"</span>
   ],
+  <span class="hljs-attr">"assignees"</span>: [
+    <span class="hljs-string">"string"</span>
+  ],
   <span class="hljs-attr">"receivedAt"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"startAt"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"dueAt"</span>: <span class="hljs-string">"string"</span>,
@@ -14303,6 +14329,13 @@ UserSecurity
 <td>false</td>
 <td>none</td>
 <td>list of members (user IDs)</td>
+</tr>
+<tr>
+<td>assignees</td>
+<td>[string]|null</td>
+<td>false</td>
+<td>none</td>
+<td>who assignees of the card (user IDs)</td>
 </tr>
 <tr>
 <td>receivedAt</td>
@@ -14917,6 +14950,7 @@ UserSecurity
 <p><a id="schemalists"></a></p>
 <pre class="highlight tab tab-json"><code>{
   <span class="hljs-attr">"title"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"starred"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"archived"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"boardId"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"swimlaneId"</span>: <span class="hljs-string">"string"</span>,
@@ -14953,6 +14987,13 @@ UserSecurity
 <td>true</td>
 <td>none</td>
 <td>the title of the list</td>
+</tr>
+<tr>
+<td>starred</td>
+<td>boolean|null</td>
+<td>false</td>
+<td>none</td>
+<td>if a list is stared then we put it on the top</td>
 </tr>
 <tr>
 <td>archived</td>
@@ -15395,6 +15436,7 @@ UserSecurity
       <span class="hljs-string">"string"</span>
     ],
     <span class="hljs-attr">"fullname"</span>: <span class="hljs-string">"string"</span>,
+    <span class="hljs-attr">"showDesktopDragHandles"</span>: <span class="hljs-literal">true</span>,
     <span class="hljs-attr">"hiddenSystemMessages"</span>: <span class="hljs-literal">true</span>,
     <span class="hljs-attr">"hiddenMinicardLabelText"</span>: <span class="hljs-literal">true</span>,
     <span class="hljs-attr">"initials"</span>: <span class="hljs-string">"string"</span>,
@@ -15411,6 +15453,7 @@ UserSecurity
     ],
     <span class="hljs-attr">"icode"</span>: <span class="hljs-string">"string"</span>,
     <span class="hljs-attr">"boardView"</span>: <span class="hljs-string">"board-view-lists"</span>,
+    <span class="hljs-attr">"listSortBy"</span>: <span class="hljs-string">"-modifiedat"</span>,
     <span class="hljs-attr">"templatesBoardId"</span>: <span class="hljs-string">"string"</span>,
     <span class="hljs-attr">"cardTemplatesSwimlaneId"</span>: <span class="hljs-string">"string"</span>,
     <span class="hljs-attr">"listTemplatesSwimlaneId"</span>: <span class="hljs-string">"string"</span>,
@@ -15561,6 +15604,7 @@ UserSecurity
     <span class="hljs-string">"string"</span>
   ],
   <span class="hljs-attr">"fullname"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"showDesktopDragHandles"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"hiddenSystemMessages"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"hiddenMinicardLabelText"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"initials"</span>: <span class="hljs-string">"string"</span>,
@@ -15577,6 +15621,7 @@ UserSecurity
   ],
   <span class="hljs-attr">"icode"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"boardView"</span>: <span class="hljs-string">"board-view-lists"</span>,
+  <span class="hljs-attr">"listSortBy"</span>: <span class="hljs-string">"-modifiedat"</span>,
   <span class="hljs-attr">"templatesBoardId"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"cardTemplatesSwimlaneId"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"listTemplatesSwimlaneId"</span>: <span class="hljs-string">"string"</span>,
@@ -15616,6 +15661,13 @@ UserSecurity
 <td>false</td>
 <td>none</td>
 <td>full name of the user</td>
+</tr>
+<tr>
+<td>showDesktopDragHandles</td>
+<td>boolean</td>
+<td>false</td>
+<td>none</td>
+<td>does the user want to hide system messages?</td>
 </tr>
 <tr>
 <td>hiddenSystemMessages</td>
@@ -15688,6 +15740,13 @@ UserSecurity
 <td>boardView field of the user</td>
 </tr>
 <tr>
+<td>listSortBy</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>default sort list for user</td>
+</tr>
+<tr>
 <td>templatesBoardId</td>
 <td>string</td>
 <td>true</td>
@@ -15737,6 +15796,30 @@ UserSecurity
 <tr>
 <td>boardView</td>
 <td>board-view-cal</td>
+</tr>
+<tr>
+<td>listSortBy</td>
+<td>-modifiedat</td>
+</tr>
+<tr>
+<td>listSortBy</td>
+<td>modifiedat</td>
+</tr>
+<tr>
+<td>listSortBy</td>
+<td>-title</td>
+</tr>
+<tr>
+<td>listSortBy</td>
+<td>title</td>
+</tr>
+<tr>
+<td>listSortBy</td>
+<td>-sort</td>
+</tr>
+<tr>
+<td>listSortBy</td>
+<td>sort</td>
 </tr>
 </tbody>
 </table>
