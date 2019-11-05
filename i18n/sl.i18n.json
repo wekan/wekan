@@ -748,5 +748,6 @@
   "accounts-allowUserDelete": "Dovoli uporabnikom, da sami izbrišejo svoj račun",
   "hide-minicard-label-text": "Skrij besedilo oznak na karticah",
   "show-desktop-drag-handles": "Pokaži ročke za povleko na namizju",
-  "assignee": "Dodeljen član"
+  "assignee": "Dodeljen član",
+  "cardAssigneesPopup-title": "Dodeljen član"
 }

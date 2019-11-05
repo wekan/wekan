@@ -748,5 +748,6 @@
   "accounts-allowUserDelete": "Kullanıcılara hesaplarını silmek için izin ver.",
   "hide-minicard-label-text": "Mini kart etiklerini gizle",
   "show-desktop-drag-handles": "Show desktop drag handles",
-  "assignee": "Assignee"
+  "assignee": "Assignee",
+  "cardAssigneesPopup-title": "Assignee"
 }

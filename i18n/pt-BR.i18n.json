@@ -748,5 +748,6 @@
   "accounts-allowUserDelete": "Permitir que usuários apaguem a própria conta",
   "hide-minicard-label-text": "Esconder rótulo da etiqueta do mini cartão",
   "show-desktop-drag-handles": "Mostrar alças de arrasto da área de trabalho",
-  "assignee": "Administrador"
+  "assignee": "Administrador",
+  "cardAssigneesPopup-title": "Administrador"
 }

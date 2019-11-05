@@ -748,5 +748,6 @@
   "accounts-allowUserDelete": "Autoriser les utilisateurs à supprimer leur compte",
   "hide-minicard-label-text": "Cacher le label de la minicarte",
   "show-desktop-drag-handles": "Voir les poignées de déplacement du bureau",
-  "assignee": "Cessionnaire"
+  "assignee": "Cessionnaire",
+  "cardAssigneesPopup-title": "Cessionnaire"
 }

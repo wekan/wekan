@@ -748,5 +748,6 @@
   "accounts-allowUserDelete": "允许用户自行删除其帐户",
   "hide-minicard-label-text": "隐藏迷你卡片标签文本",
   "show-desktop-drag-handles": "显示桌面拖放手柄",
-  "assignee": "被指派人"
+  "assignee": "被指派人",
+  "cardAssigneesPopup-title": "被指派人"
 }

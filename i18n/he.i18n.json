@@ -748,5 +748,6 @@
   "accounts-allowUserDelete": "לאפשר למשתמשים למחוק את החשבונות של עצמם",
   "hide-minicard-label-text": "הסתרת טקסט התווית של מיני כרטיס",
   "show-desktop-drag-handles": "הצגת ידיות גרירה של שולחן העבודה",
-  "assignee": "גורם אחראי"
+  "assignee": "גורם אחראי",
+  "cardAssigneesPopup-title": "גורם אחראי"
 }

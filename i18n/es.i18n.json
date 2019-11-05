@@ -748,5 +748,6 @@
   "accounts-allowUserDelete": "Permitir a los usuarios eliminar su cuenta",
   "hide-minicard-label-text": "Ocultar el texto de la etiqueta de la minitarjeta",
   "show-desktop-drag-handles": "Mostrar los controles de arrastre del escritorio",
-  "assignee": "Assignee"
+  "assignee": "Assignee",
+  "cardAssigneesPopup-title": "Assignee"
 }

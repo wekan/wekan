@@ -748,5 +748,6 @@
   "accounts-allowUserDelete": "Pozwól użytkownikom na usuwanie własnych kont",
   "hide-minicard-label-text": "Ukryj opisy etykiet minikart",
   "show-desktop-drag-handles": "Pokaż przeciągnięcia na pulpit",
-  "assignee": "Przypisujący"
+  "assignee": "Przypisujący",
+  "cardAssigneesPopup-title": "Przypisujący"
 }

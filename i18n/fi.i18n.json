@@ -748,5 +748,6 @@
   "accounts-allowUserDelete": "Salli käyttäjien poistaa tilinsä itse",
   "hide-minicard-label-text": "Piilota minikortin tunniste teksti",
   "show-desktop-drag-handles": "Näytä työpöydän vedon kahvat",
-  "assignee": "Valtuutettu"
+  "assignee": "Valtuutettu",
+  "cardAssigneesPopup-title": "Valtuutettu"
 }

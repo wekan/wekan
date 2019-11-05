@@ -748,5 +748,6 @@
   "accounts-allowUserDelete": "Sta gebruikers toe om hun eigen account te verwijderen",
   "hide-minicard-label-text": "Verberg minikaart labeltekst",
   "show-desktop-drag-handles": "Toon sleep gereedschap op werkblad",
-  "assignee": "Toegewezen aan"
+  "assignee": "Toegewezen aan",
+  "cardAssigneesPopup-title": "Toegewezen aan"
 }

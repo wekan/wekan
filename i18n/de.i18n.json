@@ -748,5 +748,6 @@
   "accounts-allowUserDelete": "Erlaube Benutzern ihren eigenen Account zu löschen",
   "hide-minicard-label-text": "Labeltext auf Minikarte ausblenden",
   "show-desktop-drag-handles": "Desktop-Ziehpunkte anzeigen",
-  "assignee": "Zugewiesen"
+  "assignee": "Zugewiesen",
+  "cardAssigneesPopup-title": "Zugewiesen"
 }

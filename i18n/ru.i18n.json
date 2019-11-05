@@ -748,5 +748,6 @@
   "accounts-allowUserDelete": "Разрешить пользователям удалять собственные аккаунты",
   "hide-minicard-label-text": "Скрыть текст меток на карточках",
   "show-desktop-drag-handles": "Show desktop drag handles",
-  "assignee": "Assignee"
+  "assignee": "Assignee",
+  "cardAssigneesPopup-title": "Assignee"
 }

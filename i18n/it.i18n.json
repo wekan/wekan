@@ -748,5 +748,6 @@
   "accounts-allowUserDelete": "Permetti agli utenti di cancellare il loro profilo",
   "hide-minicard-label-text": "Hide minicard label text",
   "show-desktop-drag-handles": "Show desktop drag handles",
-  "assignee": "Assignee"
+  "assignee": "Assignee",
+  "cardAssigneesPopup-title": "Assignee"
 }
