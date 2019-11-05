@@ -310,7 +310,7 @@ template(name="cardAssigneesPopup")
     each board.activeMembers
       li.item(class="{{#if isCardAssignee}}active{{/if}}")
         a.name.js-select-assignee(href="#")
-          +userAvatarAssignee(userId=user._id)
+          +userAvatar(userId=user._id)
           span.full-name
             = user.profile.fullname
             | (<span class="username">{{ user.username }}</span>)
