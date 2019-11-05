@@ -129,13 +129,13 @@ BlazeComponent.extendComponent({
         user: Meteor.user().username,
         url: '',
       };
-      
-      const integrations = Integrations.find({        
-        boardId: { $in: [card.boardId, Integrations.Const.GLOBAL_WEBHOOK_ID] },        
+
+      const integrations = Integrations.find({
+        boardId: { $in: [card.boardId, Integrations.Const.GLOBAL_WEBHOOK_ID] },
         enabled: true,
         activities: { $in: ['CardDetailsRendered', 'all'] },
       }).fetch();
-      
+
       if (integrations.length > 0) {
         integrations.forEach(integration => {
           Meteor.call(
