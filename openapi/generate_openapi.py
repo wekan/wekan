@@ -677,6 +677,27 @@ class Schemas(object):
                 print('      - {}'.format(f))
 
 
+class Context(object):
+    def __init__(self, path):
+        self.path = path
+
+        with open(path) as f:
+            self._txt = f.readlines()
+
+        data = ''.join(self._txt)
+        self.program = esprima.parseModule(data,
+                                           options={
+                                               'comment': True,
+                                               'loc': True
+                                           })
+
+    def txt_for(self, statement):
+        return self.text_at(statement.loc.start.line, statement.loc.end.line)
+
+    def text_at(self, begin, end):
+        return ''.join(self._txt[begin - 1:end])
+
+
 def parse_schemas(schemas_dir):
 
     schemas = {}
@@ -686,17 +707,19 @@ def parse_schemas(schemas_dir):
         files.sort()
         for filename in files:
             path = os.path.join(root, filename)
-            with open(path) as f:
-                data = ''.join(f.readlines())
-                try:
-                    # if the file failed, it's likely it doesn't contain a schema
-                    program = esprima.parseModule(data, options={'comment': True, 'loc': True})
-                except:
-                    continue
+            try:
+                # if the file failed, it's likely it doesn't contain a schema
+                context = Context(path)
+            except:
+                continue
 
-                current_schema = None
-                jsdocs = [c for c in program.comments
-                          if c.type == 'Block' and c.value.startswith('*\n')]
+            program = context.program
+
+            current_schema = None
+            jsdocs = [c for c in program.comments
+                      if c.type == 'Block' and c.value.startswith('*\n')]
+
+            try:
 
                 for statement in program.body:
 
@@ -742,6 +765,13 @@ def parse_schemas(schemas_dir):
                                              if j.loc.end.line + 1 == operation.loc.start.line]
                                     if bool(jsdoc):
                                         entry_point.doc = jsdoc[0]
+            except TypeError:
+                logger.warning(context.txt_for(statement))
+                logger.error('{}:{}-{} can not parse {}'.format(path,
+                                                                statement.loc.start.line,
+                                                                statement.loc.end.line,
+                                                                statement.type))
+                raise
 
     return schemas, entry_points
 
