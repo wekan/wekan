@@ -121,11 +121,6 @@ BlazeComponent.extendComponent({
       // Send Webhook but not create Activities records ---
       const card = this.currentData();
       const userId = Meteor.userId();
-      //console.log(`userId: ${userId}`);
-      //console.log(`cardId: ${card._id}`);
-      //console.log(`boardId: ${card.boardId}`);
-      //console.log(`listId: ${card.listId}`);
-      //console.log(`swimlaneId: ${card.swimlaneId}`);
       const params = {
         userId,
         cardId: card._id,
@@ -134,16 +129,25 @@ BlazeComponent.extendComponent({
         user: Meteor.user().username,
         url: '',
       };
-      //console.log('looking for integrations...');
-      const integrations = Integrations.find({
-        boardId: card.boardId,
-        type: 'outgoing-webhooks',
+      
+      const integrations = Integrations.find({        
+        boardId: { $in: [card.boardId, Integrations.Const.GLOBAL_WEBHOOK_ID] },        
         enabled: true,
         activities: { $in: ['CardDetailsRendered', 'all'] },
       }).fetch();
-      //console.log(`Investigation length: ${integrations.length}`);
+      
       if (integrations.length > 0) {
-        Meteor.call('outgoingWebhooks', integrations, 'CardSelected', params);
+        integrations.forEach(integration => {
+          Meteor.call(
+            'outgoingWebhooks',
+            integration,
+            'CardSelected',
+            params,
+            () => {
+              return;
+            },
+          );
+        });
       }
       //-------------
     }
