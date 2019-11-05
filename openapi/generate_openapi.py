@@ -474,7 +474,41 @@ class SchemaProperty(object):
 
                 elif p.key.name == 'allowedValues':
                     self.type = 'enum'
-                    self.enum = [e.value.lower() for e in p.value.elements]
+                    if p.value.type == 'ArrayExpression':
+                        self.enum = [e.value.lower() for e in p.value.elements]
+                    elif p.value.type == 'Identifier':
+                        # tree wide lookout for the identifier
+                        def find_variable(elem, match):
+                            if isinstance(elem, list):
+                                for value in elem:
+                                    ret = find_variable(value, match)
+                                    if ret is not None:
+                                        return ret
+
+                            try:
+                                items = elem.items()
+                            except AttributeError:
+                                return None
+                            except TypeError:
+                                return None
+
+                            if (elem.type == 'VariableDeclarator' and
+                               elem.id.name == match):
+                                return elem
+
+                            for type, value in items:
+                                ret = find_variable(value, match)
+                                if ret is not None:
+                                    return ret
+
+                            return None
+
+                        elem = find_variable(context.program.body, p.value.name)
+
+                        if elem.init.type != 'ArrayExpression':
+                            raise TypeError('can not find "{}"'.format(p.value.name))
+
+                        self.enum = [e.value.lower() for e in elem.init.elements]
 
                 elif p.key.name == 'blackbox':
                     self.blackbox = True
