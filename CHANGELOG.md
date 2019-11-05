@@ -41,6 +41,10 @@ and fixes the following bugs:
   If end-date timestamp is younger than due-date timestamp => Green.
   If end-date timestamp is older than due-date timestamp => Red.
   Thanks to bandresen.
+- [Fixed Card Open Webhook Error](https://github.com/wekan/wekan/issues/2780).
+  Thanks to jymcheong.
+- [Fixed OpenAPI docs generation](https://github.com/wekan/wekan/pull/2783).
+  Thanks to bentiss.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
