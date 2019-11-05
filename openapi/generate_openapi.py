@@ -6,9 +6,12 @@ import json
 import logging
 import os
 import re
+import sys
+import traceback
 
 
 logger = logging.getLogger(__name__)
+err_context = 3
 
 
 def get_req_body_elems(obj, elems):
@@ -453,7 +456,7 @@ class EntryPoint(object):
 
 
 class SchemaProperty(object):
-    def __init__(self, statement, schema):
+    def __init__(self, statement, schema, context):
         self.schema = schema
         self.statement = statement
         self.name = statement.key.name or statement.key.value
@@ -461,22 +464,41 @@ class SchemaProperty(object):
         self.blackbox = False
         self.required = True
         for p in statement.value.properties:
-            if p.key.name == 'type':
-                if p.value.type == 'Identifier':
-                    self.type = p.value.name.lower()
-                elif p.value.type == 'ArrayExpression':
-                    self.type = 'array'
-                    self.elements = [e.name.lower() for e in p.value.elements]
+            try:
+                if p.key.name == 'type':
+                    if p.value.type == 'Identifier':
+                        self.type = p.value.name.lower()
+                    elif p.value.type == 'ArrayExpression':
+                        self.type = 'array'
+                        self.elements = [e.name.lower() for e in p.value.elements]
 
-            elif p.key.name == 'allowedValues':
-                self.type = 'enum'
-                self.enum = [e.value.lower() for e in p.value.elements]
+                elif p.key.name == 'allowedValues':
+                    self.type = 'enum'
+                    self.enum = [e.value.lower() for e in p.value.elements]
 
-            elif p.key.name == 'blackbox':
-                self.blackbox = True
+                elif p.key.name == 'blackbox':
+                    self.blackbox = True
 
-            elif p.key.name == 'optional' and p.value.value:
-                self.required = False
+                elif p.key.name == 'optional' and p.value.value:
+                    self.required = False
+            except Exception:
+                input = ''
+                for line in range(p.loc.start.line - err_context, p.loc.end.line + 1 + err_context):
+                    if line < p.loc.start.line or line > p.loc.end.line:
+                        input += '. '
+                    else:
+                        input += '>>'
+                    input += context.text_at(line, line)
+                input = ''.join(input)
+                logger.error('{}:{}-{} can not parse {}:\n{}'.format(context.path,
+                                                                     p.loc.start.line,
+                                                                     p.loc.end.line,
+                                                                     p.type,
+                                                                     input))
+                logger.error('esprima tree:\n{}'.format(p))
+
+                logger.error(traceback.format_exc())
+                sys.exit(1)
 
         self._doc = None
         self._raw_doc = None
@@ -586,7 +608,7 @@ class SchemaProperty(object):
 
 
 class Schemas(object):
-    def __init__(self, data=None, jsdocs=None, name=None):
+    def __init__(self, context, data=None, jsdocs=None, name=None):
         self.name = name
         self._data = data
         self.fields = None
@@ -597,7 +619,7 @@ class Schemas(object):
                 self.name = data.expression.callee.object.name
 
             content = data.expression.arguments[0].arguments[0]
-            self.fields = [SchemaProperty(p, self) for p in content.properties]
+            self.fields = [SchemaProperty(p, self, context) for p in content.properties]
 
         self._doc = None
         self._raw_doc = None
@@ -732,7 +754,7 @@ def parse_schemas(schemas_dir):
                        statement.expression.arguments[0].type == 'NewExpression' and
                        statement.expression.arguments[0].callee.name == 'SimpleSchema'):
 
-                        schema = Schemas(statement, jsdocs)
+                        schema = Schemas(context, statement, jsdocs)
                         current_schema = schema.name
                         schemas[current_schema] = schema
 
@@ -752,7 +774,7 @@ def parse_schemas(schemas_dir):
                             if len(data) > 0:
                                 if current_schema is None:
                                     current_schema = filename
-                                    schemas[current_schema] = Schemas(name=current_schema)
+                                    schemas[current_schema] = Schemas(context, name=current_schema)
 
                                 schema_entry_points = [EntryPoint(schemas[current_schema], d)
                                                        for d in data]
