@@ -364,6 +364,14 @@ Template.cardDetails.helpers({
     });
   },
 
+  assigneeSelected() {
+    if (this.getAssignees().length === 0) {
+      return false;
+    } else {
+      return true;
+    }
+  },
+
   memberType() {
     const user = Users.findOne(this.userId);
     return user && user.isBoardAdmin() ? 'admin' : 'normal';

@@ -79,8 +79,9 @@ template(name="cardDetails")
           +userAvatarAssignee(userId=this cardId=../_id)
           | {{! XXX Hack to hide syntaxic coloration /// }}
         if canModifyCard
-          a.assignee.add-assignee.card-details-item-add-button.js-add-assignees(title="{{_ 'assignee'}}")
-            i.fa.fa-plus
+          unless assigneeSelected
+            a.assignee.add-assignee.card-details-item-add-button.js-add-assignees(title="{{_ 'assignee'}}")
+              i.fa.fa-plus
 
       .card-details-item.card-details-item-labels
         h3.card-details-item-title {{_ 'labels'}}
