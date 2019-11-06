@@ -1202,6 +1202,8 @@ Cards.mutations({
           assignees: assigneeId,
         },
       };
+    } else {
+      return false;
     }
   },
 
