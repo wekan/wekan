@@ -1195,11 +1195,14 @@ Cards.mutations({
   },
 
   assignAssignee(assigneeId) {
-    return {
-      $addToSet: {
-        assignees: assigneeId,
-      },
-    };
+    // If there is not any assignee, allow one assignee, not more.
+    if (this.getAssignees().length === 0) {
+      return {
+        $addToSet: {
+          assignees: assigneeId,
+        },
+      };
+    }
   },
 
   unassignMember(memberId) {
