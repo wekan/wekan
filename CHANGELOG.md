@@ -64,6 +64,8 @@ and fixes the following bugs:
   Thanks to jymcheong.
 - [Fixed OpenAPI docs generation](https://github.com/wekan/wekan/pull/2783).
   Thanks to bentiss.
+- [Fixed close card button not visible on mobile web](https://github.com/wekan/wekan/36b5965dd07e3f0fd90069353310739c394c220f).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
