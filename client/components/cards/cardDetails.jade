@@ -4,9 +4,14 @@ template(name="cardDetails")
       +inlinedForm(classNames="js-card-details-title")
         +editCardTitleForm
       else
-        a.fa.fa-times-thin.close-card-details.js-close-card-details
-        if currentUser.isBoardMember
-          a.fa.fa-navicon.card-details-menu.js-open-card-details-menu
+        unless isMiniScreen
+          a.fa.fa-times-thin.close-card-details.js-close-card-details
+          if currentUser.isBoardMember
+            a.fa.fa-navicon.card-details-menu.js-open-card-details-menu
+        if isMiniScreen
+          a.fa.fa-times-thin.close-card-details-mobile-web.js-close-card-details
+          if currentUser.isBoardMember
+            a.fa.fa-navicon.card-details-menu-mobile-web.js-open-card-details-menu
         h2.card-details-title.js-card-title(
           class="{{#if canModifyCard}}js-open-inlined-form is-editable{{/if}}")
             +viewer
