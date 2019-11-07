@@ -17,6 +17,19 @@ This release adds the following new features:
 - Enhancement: [Set card times more sensible using the 'Today' button in
   datepicker](https://github.com/wekan/wekan/pull/2747).
   Thanks to liske.
+- [At card, added Assignee field like Jira, and REST API for it](https://github.com/wekan/wekan/issues/2452).
+  Parts: [Add assignee](https://github.com/wekan/wekan/commit/9e1aaf163f3bd0b3c2d2aee8225d111f83b3d421),
+  [Remove Assignee. Avatar icon is at card and assignee details](https://github.com/wekan/wekan/commit/3e8f9ef1a5275a5e9b691c7e74dc73b97a43689a),
+  [When selecting new assignee (+) icon, list shows names who to add](https://github.com/wekan/wekan/commit/32ce2b51d8bff5e8851732394a8bae3c56f8b0b6),
+  [More progress](https://github.com/wekan/wekan/commit/ea823ab68fd5243c8485177e44a074be836836b8),
+  [In add assignee popup, avatars are now visible](https://github.com/wekan/wekan/commit/56efb5c41075151eeb259d99990a7e86695b2b69).
+  [Add assignee popup title](https://github.com/wekan/wekan/commit/31dbdc835d5a092b8360a4dbe93e9fbcce068855),
+  [Prevent more than one assignee](https://github.com/wekan/wekan/commit/1728298659521ee8e6fc94fedad3160030b9a2c3).
+  [When there is one selected assignee on card, don't show + button for adding more assignees, because there can only be one
+  assignee](https://github.com/wekan/wekan/commit 3cf09efb13438d66db6cf739591c679ea538d812),
+  [Now assignee is visible also at minicard](https://github.com/wekan/wekan/commit/9fd14f7ecb593d3debf5adff8f6c61adb0c3feca),
+  [Update REST API docs, there can only be one assignee in array](https://github.com/wekan/wekan/commit/de7509dc60257667192054e320b381f9dd0f0a31).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
