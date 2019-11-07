@@ -76,6 +76,12 @@ template(name="minicard")
               +viewer
                 = trueValue
 
+    if getAssignees
+      .minicard-assignees.js-minicard-assignees
+        each getAssignees
+          +userAvatar(userId=this)
+        hr
+
     if getMembers
       .minicard-members.js-minicard-members
         each getMembers
