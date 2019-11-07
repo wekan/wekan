@@ -205,7 +205,8 @@ Cards.attachSchema(
     },
     assignees: {
       /**
-       * who assignees of the card (user IDs)
+       * who is assignee of the card (user ID),
+       * maximum one ID of assignee in array.
        */
       type: [String],
       optional: true,
@@ -1995,7 +1996,7 @@ if (Meteor.isServer) {
    * @param {string} description the description of the new card
    * @param {string} swimlaneId the swimlane ID of the new card
    * @param {string} [members] the member IDs list of the new card
-   * @param {string} [assignees] the assignee IDs list of the new card
+   * @param {string} [assignees] the array of maximum one ID of assignee of the new card
    * @return_type {_id: string}
    */
   JsonRoutes.add('POST', '/api/boards/:boardId/lists/:listId/cards', function(
@@ -2081,7 +2082,7 @@ if (Meteor.isServer) {
    * @param {string} [labelIds] the new list of label IDs attached to the card
    * @param {string} [swimlaneId] the new swimlane ID of the card
    * @param {string} [members] the new list of member IDs attached to the card
-   * @param {string} [assignees] the new list of assignee IDs attached to the card
+   * @param {string} [assignees] the array of maximum one ID of assignee attached to the card
    * @param {string} [requestedBy] the new requestedBy field of the card
    * @param {string} [assignedBy] the new assignedBy field of the card
    * @param {string} [receivedAt] the new receivedAt field of the card
