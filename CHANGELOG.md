@@ -18,7 +18,8 @@ This release adds the following new features:
   datepicker](https://github.com/wekan/wekan/pull/2747).
   Thanks to liske.
 - [At card, added Assignee field like Jira, and REST API for it](https://github.com/wekan/wekan/issues/2452).
-  Parts: [Add assignee](https://github.com/wekan/wekan/commit/9e1aaf163f3bd0b3c2d2aee8225d111f83b3d421),
+  Parts:
+  [Add assignee](https://github.com/wekan/wekan/commit/9e1aaf163f3bd0b3c2d2aee8225d111f83b3d421),
   [Remove Assignee. Avatar icon is at card and assignee details](https://github.com/wekan/wekan/commit/3e8f9ef1a5275a5e9b691c7e74dc73b97a43689a),
   [When selecting new assignee (+) icon, list shows names who to add](https://github.com/wekan/wekan/commit/32ce2b51d8bff5e8851732394a8bae3c56f8b0b6),
   [More progress](https://github.com/wekan/wekan/commit/ea823ab68fd5243c8485177e44a074be836836b8),
@@ -29,6 +30,11 @@ This release adds the following new features:
   assignee](https://github.com/wekan/wekan/commit 3cf09efb13438d66db6cf739591c679ea538d812),
   [Now assignee is visible also at minicard](https://github.com/wekan/wekan/commit/9fd14f7ecb593d3debf5adff8f6c61adb0c3feca),
   [Update REST API docs, there can only be one assignee in array](https://github.com/wekan/wekan/commit/de7509dc60257667192054e320b381f9dd0f0a31).
+  Thanks to xet7.
+- [More mobile drag handles, and optional desktop drag handles](https://github.com/wekan/wekan/issues/2081): In Progress.
+  Parts:
+  [Some drag handle fixes](https://github.com/wekan/wekan/commit/6a8960547729148bd3085cb469f9e93d510ed66c),
+  [Fix desktop swimlane drag handle position](https://github.com/wekan/wekan/commit/2ec15602d284122fce1a45bed352d0d4050162e2),
   Thanks to xet7.
 
 and fixes the following bugs:
