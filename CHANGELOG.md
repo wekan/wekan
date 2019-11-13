@@ -34,7 +34,7 @@ This release adds the following new features:
 - [More mobile drag handles, and optional desktop drag handles](https://github.com/wekan/wekan/issues/2081): In Progress.
   Parts:
   [Some drag handle fixes](https://github.com/wekan/wekan/commit/6a8960547729148bd3085cb469f9e93d510ed66c),
-  [Fix desktop swimlane drag handle position](https://github.com/wekan/wekan/commit/2ec15602d284122fce1a45bed352d0d4050162e2),
+  [Fix desktop swimlane drag handle position](https://github.com/wekan/wekan/commit/2ec15602d284122fce1a45bed352d0d4050162e2).
   Thanks to xet7.
 
 and fixes the following bugs:
