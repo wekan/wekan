@@ -1276,7 +1276,7 @@ paths:
         - name: assignees
           in: formData
           description: |
-            the assignee IDs list of the new card
+            the array of maximum one ID of assignee of the new card
           type: string
           required: false
         - name: title
@@ -2367,7 +2367,8 @@ definitions:
         x-nullable: true
       assignees:
         description: |
-           who assignees of the card (user IDs)
+           who is assignee of the card (user ID),
+           maximum one ID of assignee in array.
         type: array
         items:
           type: string
