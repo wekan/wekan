@@ -1,6 +1,6 @@
 {
   "accept": "확인",
-  "act-activity-notify": "Activity Notification",
+  "act-activity-notify": "활동 알림",
   "act-addAttachment": "added attachment __attachment__ to card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
   "act-deleteAttachment": "deleted attachment __attachment__ at card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
   "act-addSubtask": "added subtask __subtask__ to card __card__ at list __list__ at swimlane __swimlane__ at board __board__",

@@ -743,7 +743,7 @@
   "act-almostdue": "напомнил, что скоро завершается срок выполнения (__timeValue__) карточки __card__",
   "act-pastdue": "напомнил, что срок выполнения (__timeValue__) карточки __card__ прошел",
   "act-duenow": "напомнил, что срок выполнения (__timeValue__) карточки __card__ — это уже сейчас",
-  "act-atUserComment": "You were mentioned in [__board__] __list__/__card__",
+  "act-atUserComment": "Вас упомянули в [__board__] __list__/__card__",
   "delete-user-confirm-popup": "Вы уверены, что хотите удалить аккаунт? Данное действие необратимо.",
   "accounts-allowUserDelete": "Разрешить пользователям удалять собственные аккаунты",
   "hide-minicard-label-text": "Скрыть текст меток на карточках",
