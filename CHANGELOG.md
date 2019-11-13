@@ -66,6 +66,8 @@ and fixes the following bugs:
   Thanks to bentiss.
 - [Fixed close card button not visible on mobile web](https://github.com/wekan/wekan/36b5965dd07e3f0fd90069353310739c394c220f).
   Thanks to xet7.
+- [Fix card, list and swimlane move. Allow moving cards in multiselect mode](https://github.com/wekan/wekan/commit/537a48bede250155b30ec264904ba320625bab73).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
