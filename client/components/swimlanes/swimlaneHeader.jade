@@ -17,6 +17,8 @@ template(name="swimlaneFixedHeader")
       a.fa.fa-plus.js-open-add-swimlane-menu.swimlane-header-plus-icon
       a.fa.fa-navicon.js-open-swimlane-menu
       unless isMiniScreen
+        unless showDesktopDragHandles
+          a.swimlane-header.handle.fa.fa-arrows.js-swimlane-header-handle
         if showDesktopDragHandles
           a.swimlane-header-handle.handle.fa.fa-arrows.js-swimlane-header-handle
       if isMiniScreen
