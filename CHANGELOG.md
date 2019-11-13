@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Change sorting lists to work on desktop drag handle page instead,
+  where it seems to work better](https://github.com/wekan/wekan/commit/bbc3ab3f994c5a61a4414bc64b05f5a03d259e46).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.50 2019-11-13 Wekan release
 
 This release adds the following new features:
