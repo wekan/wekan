@@ -38,6 +38,11 @@ This release adds the following new features:
   [Fix card, list and swimlane move. Allow moving cards in multiselect mode](https://github.com/wekan/wekan/commit/537a48bede250155b30ec264904ba320625bab73).
   Thanks to xet7.
 
+and adds the following updates:
+
+- [Update Node.js to v8.16.2](https://github.com/wekan/wekan/commit/1eb3d25b40797fdab41d7dd59405cfcea81dcc61).
+  Thanks to xet7.
+
 and fixes the following bugs:
 
 - Bug Fix [#2093](https://github.com/wekan/wekan/issues/2093), need to [clean up the
