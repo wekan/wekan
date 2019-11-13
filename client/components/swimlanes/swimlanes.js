@@ -53,18 +53,6 @@ function initSortable(boardComponent, $listsDom) {
     },
   };
 
-  if (Utils.isMiniScreen) {
-    $listsDom.sortable({
-      handle: '.js-list-handle',
-    });
-  }
-
-  if (!Utils.isMiniScreen && showDesktopDragHandles) {
-    $listsDom.sortable({
-      handle: '.js-list-header',
-    });
-  }
-
   $listsDom.sortable({
     tolerance: 'pointer',
     helper: 'clone',
@@ -108,15 +96,29 @@ function initSortable(boardComponent, $listsDom) {
     );
   }
 
-  // Disable drag-dropping while in multi-selection mode, or if the current user
-  // is not a board member
   boardComponent.autorun(() => {
+    if (
+      Utils.isMiniScreen() ||
+      (!Utils.isMiniScreen() && Meteor.user().hasShowDesktopDragHandles())
+    ) {
+      $listsDom.sortable({
+        handle: '.js-list-handle',
+      });
+    } else {
+      $listsDom.sortable({
+        handle: '.js-list-header',
+      });
+    }
+
     const $listDom = $listsDom;
     if ($listDom.data('sortable')) {
       $listsDom.sortable(
         'option',
         'disabled',
-        MultiSelection.isActive() || !userIsMember(),
+        // Disable drag-dropping when user is not member
+        !userIsMember(),
+        // Not disable drag-dropping while in multi-selection mode
+        // MultiSelection.isActive() || !userIsMember(),
       );
     }
   });
@@ -164,7 +166,9 @@ BlazeComponent.extendComponent({
           // his mouse.
 
           const noDragInside = ['a', 'input', 'textarea', 'p'].concat(
-            Util.isMiniScreen || (!Util.isMiniScreen && showDesktopDragHandles)
+            Utils.isMiniScreen() ||
+              (!Utils.isMiniScreen() &&
+                Meteor.user().hasShowDesktopDragHandles())
               ? ['.js-list-handle', '.js-swimlane-header-handle']
               : ['.js-list-header'],
           );

@@ -89,7 +89,6 @@ BlazeComponent.extendComponent({
         helper.append(list.clone());
         return helper;
       },
-      handle: '.js-swimlane-header-handle',
       items: '.swimlane:not(.placeholder)',
       placeholder: 'swimlane placeholder',
       distance: 7,
@@ -192,6 +191,24 @@ BlazeComponent.extendComponent({
 
     // ugly touch event hotfix
     enableClickOnTouch('.js-swimlane:not(.placeholder)');
+
+    this.autorun(() => {
+      if (
+        Utils.isMiniScreen() ||
+        (!Utils.isMiniScreen() && Meteor.user().hasShowDesktopDragHandles())
+      ) {
+        $swimlanesDom.sortable({
+          handle: '.js-swimlane-header-handle',
+        });
+      } else {
+        $swimlanesDom.sortable({
+          handle: '.swimlane-header',
+        });
+      }
+
+      // Disable drag-dropping if the current user is not a board member or is comment only
+      $swimlanesDom.sortable('option', 'disabled', !userIsMember());
+    });
 
     function userIsMember() {
       return (

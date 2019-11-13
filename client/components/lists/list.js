@@ -31,18 +31,6 @@ BlazeComponent.extendComponent({
     const itemsSelector = '.js-minicard:not(.placeholder, .js-card-composer)';
     const $cards = this.$('.js-minicards');
 
-    if (Utils.isMiniScreen) {
-      $('.js-minicards').sortable({
-        handle: '.handle',
-      });
-    }
-
-    if (!Utils.isMiniScreen && showDesktopDragHandles) {
-      $('.js-minicards').sortable({
-        handle: '.handle',
-      });
-    }
-
     $cards.sortable({
       connectWith: '.js-minicards:not(.js-list-full)',
       tolerance: 'pointer',
@@ -128,8 +116,21 @@ BlazeComponent.extendComponent({
     // ugly touch event hotfix
     enableClickOnTouch(itemsSelector);
 
-    // Disable drag-dropping if the current user is not a board member or is comment only
     this.autorun(() => {
+      if (
+        Utils.isMiniScreen() ||
+        (!Utils.isMiniScreen() && Meteor.user().hasShowDesktopDragHandles())
+      ) {
+        $cards.sortable({
+          handle: '.handle',
+        });
+      } else {
+        $cards.sortable({
+          handle: '.minicard',
+        });
+      }
+
+      // Disable drag-dropping if the current user is not a board member or is comment only
       $cards.sortable('option', 'disabled', !userIsMember());
     });
 
