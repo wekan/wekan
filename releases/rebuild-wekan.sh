@@ -25,7 +25,7 @@ do
 				sudo apt install -y build-essential git curl wget
 #				sudo apt -y install nodejs npm
 #				sudo npm -g install n
-#				sudo n 8.11.3
+#				sudo n 8.16.2
 			fi
 
 #			if [ "$(grep -Ei 'debian' /etc/*release)" ]; then
