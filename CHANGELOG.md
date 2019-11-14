@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Add database migration for assignee](https://github.com/wekan/wekan/commit/5b41d72e8de93833e1788962427422cff62c09a2).
+  Thanks to ocdtrekkie and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.51 2019-11-14 Wekan release
 
 This release fixes the following bugs:
