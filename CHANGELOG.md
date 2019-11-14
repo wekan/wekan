@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Revert list sorting change of Wekan v3.51 because it reversed alphabetical sorting of
+  lists](https://github.com/wekan/wekan/commit/ab2a721a1443b903cdbbbe275f41ffd3269012c6).
+  Thanks to Dalisay and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.52 2019-11-14 Wekan release
 
 This release fixes the following bugs:
