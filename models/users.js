@@ -396,8 +396,8 @@ Users.helpers({
     return ret;
   },
   hasSortBy() {
-    // if user has dragHandle, then we can let user to choose sort list by different order
-    return this.hasShowDesktopDragHandles();
+    // if use doesn't have dragHandle, then we can let user to choose sort list by different order
+    return !this.hasShowDesktopDragHandles();
   },
   getListSortBy() {
     return this._getListSortBy()[0];
