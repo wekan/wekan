@@ -777,3 +777,19 @@ Migrations.add('fix-incorrect-dates', () => {
       }),
   );
 });
+
+Migrations.add('add-assignee', () => {
+  Cards.update(
+    {
+      assignees: {
+        $exists: false,
+      },
+    },
+    {
+      $set: {
+        assignees: [],
+      },
+    },
+    noValidateMulti,
+  );
+});
