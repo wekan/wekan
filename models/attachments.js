@@ -1,3 +1,29 @@
+import { FilesCollection } from 'meteor/ostrio:files';
+
+Attachments = new FilesCollection({
+  storagePath: storagePath(),
+  debug: true, // FIXME: Remove debug mode
+  collectionName: 'attachments2',
+  allowClientCode: false, // Disallow remove files from Client
+});
+
+if (Meteor.isServer) {
+  Meteor.startup(() => {
+    Attachments.collection._ensureIndex({ cardId: 1 });
+  });
+
+  // TODO: Permission related
+  // TODO: Add Activity update
+  // TODO: publish and subscribe
+//  Meteor.publish('files.attachments.all', function () {
+//    return Attachments.find().cursor;
+//  });
+} else {
+//  Meteor.subscribe('files.attachments.all');
+}
+
+// ---------- Deprecated fallback ---------- //
+
 const localFSStore = process.env.ATTACHMENTS_STORE_PATH;
 const storeName = 'attachments';
 const defaultStoreOptions = {
@@ -171,16 +197,16 @@ if (localFSStore) {
     ...defaultStoreOptions,
   });
 }
-Attachments = new FS.Collection('attachments', {
+DeprecatedAttachs = new FS.Collection('attachments', {
   stores: [store],
 });
 
 if (Meteor.isServer) {
   Meteor.startup(() => {
-    Attachments.files._ensureIndex({ cardId: 1 });
+    DeprecatedAttachs.files._ensureIndex({ cardId: 1 });
   });
 
-  Attachments.allow({
+  DeprecatedAttachs.allow({
     insert(userId, doc) {
       return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
     },
@@ -206,10 +232,10 @@ if (Meteor.isServer) {
   });
 }
 
-// XXX Enforce a schema for the Attachments CollectionFS
+// XXX Enforce a schema for the DeprecatedAttachs CollectionFS
 
 if (Meteor.isServer) {
-  Attachments.files.after.insert((userId, doc) => {
+  DeprecatedAttachs.files.after.insert((userId, doc) => {
     // If the attachment doesn't have a source field
     // or its source is different than import
     if (!doc.source || doc.source !== 'import') {
@@ -227,7 +253,7 @@ if (Meteor.isServer) {
     } else {
       // Don't add activity about adding the attachment as the activity
       // be imported and delete source field
-      Attachments.update(
+      DeprecatedAttachs.update(
         {
           _id: doc._id,
         },
@@ -240,7 +266,7 @@ if (Meteor.isServer) {
     }
   });
 
-  Attachments.files.before.remove((userId, doc) => {
+  DeprecatedAttachs.files.before.remove((userId, doc) => {
     Activities.insert({
       userId,
       type: 'card',
@@ -253,11 +279,16 @@ if (Meteor.isServer) {
     });
   });
 
-  Attachments.files.after.remove((userId, doc) => {
+  DeprecatedAttachs.files.after.remove((userId, doc) => {
     Activities.remove({
       attachmentId: doc._id,
     });
   });
+}
+
+function storagePath(defaultPath) {
+  const storePath = process.env.ATTACHMENTS_STORE_PATH;
+  return storePath ? storePath : defaultPath;
 }
 
 export default Attachments;

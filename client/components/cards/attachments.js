@@ -149,20 +149,28 @@ Template.previewClipboardImagePopup.events({
     if (results && results.file) {
       window.oPasted = pastedResults;
       const card = this;
-      const file = new FS.File(results.file);
+      const settings = {
+        file: results.file,
+        streams: 'dynamic',
+        chunkSize: 'dynamic'
+      };
       if (!results.name) {
         // if no filename, it's from clipboard. then we give it a name, with ext name from MIME type
+        // FIXME: Check this behavior
         if (typeof results.file.type === 'string') {
-          file.name(results.file.type.replace('image/', 'clipboard.'));
+          settings.fileName = new Date().getTime() + results.file.type.replace('.+/', '');
         }
       }
-      file.updatedAt(new Date());
-      file.boardId = card.boardId;
-      file.cardId = card._id;
-      file.userId = Meteor.userId();
-      const attachment = Attachments.insert(file);
+      settings.meta = {};
+      settings.meta.updatedAt = new Date().getTime();
+      settings.meta.boardId = card.boardId;
+      settings.meta.cardId = card._id;
+      settings.meta.userId = Meteor.userId();
+      console.log('settings', settings);
+      const attachment = Attachments.insert(settings, false);
 
-      if (attachment && attachment._id && attachment.isImage()) {
+      // TODO: Check image cover behavior
+      if (attachment && attachment._id && attachment.isImage) {
         card.setCover(attachment._id);
       }
 

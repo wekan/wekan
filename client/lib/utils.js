@@ -34,21 +34,27 @@ Utils = {
     if (!card) {
       return next();
     }
-    const file = new FS.File(fileObj);
+    let settings = {
+      file: fileObj,
+      streams: 'dynamic',
+      chunkSize: 'dynamic'
+    };
+    settings.meta = {};
     if (card.isLinkedCard()) {
-      file.boardId = Cards.findOne(card.linkedId).boardId;
-      file.cardId = card.linkedId;
+      settings.meta.boardId = Cards.findOne(card.linkedId).boardId;
+      settings.meta.cardId = card.linkedId;
     } else {
-      file.boardId = card.boardId;
-      file.swimlaneId = card.swimlaneId;
-      file.listId = card.listId;
-      file.cardId = card._id;
+      settings.meta.boardId = card.boardId;
+      settings.meta.swimlaneId = card.swimlaneId;
+      settings.meta.listId = card.listId;
+      settings.meta.cardId = card._id;
     }
-    file.userId = Meteor.userId();
-    if (file.original) {
+    settings.meta.userId = Meteor.userId();
+    // FIXME: What is this?
+/*    if (file.original) {
       file.original.name = fileObj.name;
-    }
-    return next(Attachments.insert(file));
+    }*/
+    return next(Attachments.insert(settings, false));
   },
   shrinkImage(options) {
     // shrink image to certain size
