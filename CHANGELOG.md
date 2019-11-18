@@ -12,7 +12,9 @@ and fixes the following bugs:
 
 - [Fix: Public board now loads correctly. When you select one of Lists/Swimlanes/Calendar view and
   reload webbrowser page, it can change view](https://github.com/wekan/wekan/issues/2311).
+  Thanks to xet7.
 - [Fix: List sorting commented out](https://github.com/wekan/wekan/issues/2800).
+  Thanks to xet7.
 - [Fix: Errors hasHiddenMinicardText, hasShowDragHandles, showSort, hasSortBy, profile,
   FirefoxAndroid/IE11/Vivaldi/Chromium browsers not working by using cookies instead of
   database](https://github.com/wekan/wekan/issues/2643#issuecomment-554907955).
