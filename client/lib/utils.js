@@ -1,4 +1,58 @@
 Utils = {
+  setBoardView(view) {
+    import { Cookies } from 'meteor/ostrio:cookies';
+    const cookies = new Cookies();
+    currentUser = Meteor.user();
+    if (view === 'board-view-lists') {
+      cookies.set('boardView', 'board-view-lists'); //true
+      if (currentUser) {
+        Meteor.user().setBoardView('board-view-lists');
+      }
+    } else if (view === 'board-view-swimlanes') {
+      cookies.set('boardView', 'board-view-swimlanes'); //true
+      if (currentUser) {
+        Meteor.user().setBoardView('board-view-swimlanes');
+      }
+    } else if (view === 'board-view-collapse') {
+      cookies.set('boardView', 'board-view-swimlane'); //true
+      cookies.set('collapseSwimlane', 'true'); //true
+      if (currentUser) {
+        Meteor.user().setBoardView('board-view-swimlane');
+      }
+    } else if (view === 'board-view-cal') {
+      cookies.set('boardView', 'board-view-cal'); //true
+      if (currentUser) {
+        Meteor.user().setBoardView('board-view-cal');
+      }
+    }
+  },
+
+  unsetBoardView() {
+    import { Cookies } from 'meteor/ostrio:cookies';
+    const cookies = new Cookies();
+    cookies.remove('boardView');
+    cookies.remove('collapseSwimlane');
+  },
+
+  boardView() {
+    import { Cookies } from 'meteor/ostrio:cookies';
+    const cookies = new Cookies();
+    if (cookies.get('boardView') === 'board-view-lists') {
+      return 'board-view-lists';
+    } else if (
+      cookies.get('boardView') === 'board-view-swimlanes' &&
+      !cookies.has('collapseSwimlane')
+    ) {
+      return 'board-view-swimlanes';
+    } else if (cookies.has('collapseSwimlane')) {
+      return 'board-view-swimlanes';
+    } else if (cookies.get('boardView') === 'board-view-cal') {
+      return 'board-view-cal';
+    } else {
+      return false;
+    }
+  },
+
   // XXX We should remove these two methods
   goBoardId(_id) {
     const board = Boards.findOne(_id);

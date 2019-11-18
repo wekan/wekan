@@ -44,14 +44,16 @@ BlazeComponent.extendComponent({
   },
 
   limitToShowCardsCount() {
-    return Meteor.user().getLimitToShowCardsCount();
+    const currentUser = Meteor.user();
+    if (currentUser) {
+      return Meteor.user().getLimitToShowCardsCount();
+    }
   },
 
   cardsCount() {
     const list = Template.currentData();
     let swimlaneId = '';
-    const boardView = (Meteor.user().profile || {}).boardView;
-    if (boardView === 'board-view-swimlanes')
+    if (Utils.boardView() === 'board-view-swimlanes')
       swimlaneId = this.parentComponent()
         .parentComponent()
         .data()._id;
@@ -100,7 +102,13 @@ BlazeComponent.extendComponent({
 
 Template.listHeader.helpers({
   showDesktopDragHandles() {
-    return Meteor.user().hasShowDesktopDragHandles();
+    import { Cookies } from 'meteor/ostrio:cookies';
+    const cookies = new Cookies();
+    if (cookies.has('showDesktopDragHandles')) {
+      return true;
+    } else {
+      return false;
+    }
   },
 });
 

@@ -30,7 +30,13 @@ BlazeComponent.extendComponent({
 
 Template.swimlaneHeader.helpers({
   showDesktopDragHandles() {
-    return Meteor.user().hasShowDesktopDragHandles();
+    import { Cookies } from 'meteor/ostrio:cookies';
+    const cookies = new Cookies();
+    if (cookies.has('showDesktopDragHandles')) {
+      return true;
+    } else {
+      return false;
+    }
   },
 });
 

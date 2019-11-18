@@ -192,10 +192,13 @@ BlazeComponent.extendComponent({
     // ugly touch event hotfix
     enableClickOnTouch('.js-swimlane:not(.placeholder)');
 
+    import { Cookies } from 'meteor/ostrio:cookies';
+    const cookies = new Cookies();
+
     this.autorun(() => {
       if (
         Utils.isMiniScreen() ||
-        (!Utils.isMiniScreen() && Meteor.user().hasShowDesktopDragHandles())
+        (!Utils.isMiniScreen() && cookies.has('showDesktopDragHandles'))
       ) {
         $swimlanesDom.sortable({
           handle: '.js-swimlane-header-handle',
@@ -227,20 +230,32 @@ BlazeComponent.extendComponent({
   },
 
   isViewSwimlanes() {
+    import { Cookies } from 'meteor/ostrio:cookies';
+    const cookies = new Cookies();
     const currentUser = Meteor.user();
-    if (!currentUser) return false;
+    if (!currentUser) {
+      return cookies.get('boardView') === 'board-view-swimlanes';
+    }
     return (currentUser.profile || {}).boardView === 'board-view-swimlanes';
   },
 
   isViewLists() {
+    import { Cookies } from 'meteor/ostrio:cookies';
+    const cookies = new Cookies();
     const currentUser = Meteor.user();
-    if (!currentUser) return true;
+    if (!currentUser) {
+      return cookies.get('boardView') === 'board-view-lists';
+    }
     return (currentUser.profile || {}).boardView === 'board-view-lists';
   },
 
   isViewCalendar() {
+    import { Cookies } from 'meteor/ostrio:cookies';
+    const cookies = new Cookies();
     const currentUser = Meteor.user();
-    if (!currentUser) return false;
+    if (!currentUser) {
+      return cookies.get('boardView') === 'board-view-cal';
+    }
     return (currentUser.profile || {}).boardView === 'board-view-cal';
   },
 
@@ -398,8 +413,12 @@ BlazeComponent.extendComponent({
     };
   },
   isViewCalendar() {
+    import { Cookies } from 'meteor/ostrio:cookies';
+    const cookies = new Cookies();
     const currentUser = Meteor.user();
-    if (!currentUser) return false;
+    if (!currentUser) {
+      return cookies.get('boardView') === 'board-view-cal';
+    }
     return (currentUser.profile || {}).boardView === 'board-view-cal';
   },
 }).register('calendarView');

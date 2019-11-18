@@ -1,5 +1,7 @@
+/*
 const DOWNCLS = 'fa-sort-down';
 const UPCLS = 'fa-sort-up';
+*/
 Template.boardMenuPopup.events({
   'click .js-rename-board': Popup.open('boardChangeTitle'),
   'click .js-custom-fields'() {
@@ -82,6 +84,7 @@ BlazeComponent.extendComponent({
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
     return currentBoard && currentBoard.stars >= 2;
   },
+  /*
   showSort() {
     return Meteor.user().hasSortBy();
   },
@@ -101,6 +104,7 @@ BlazeComponent.extendComponent({
   listSortShortDesc() {
     return `list-label-short-${this.currentListSortBy()}`;
   },
+  */
   events() {
     return [
       {
@@ -114,30 +118,14 @@ BlazeComponent.extendComponent({
         'click .js-open-archived-board'() {
           Modal.open('archivedBoards');
         },
-        'click .js-toggle-board-view'() {
-          const currentUser = Meteor.user();
-          if (
-            (currentUser.profile || {}).boardView === 'board-view-swimlanes'
-          ) {
-            currentUser.setBoardView('board-view-cal');
-          } else if (
-            (currentUser.profile || {}).boardView === 'board-view-lists'
-          ) {
-            currentUser.setBoardView('board-view-swimlanes');
-          } else if (
-            (currentUser.profile || {}).boardView === 'board-view-cal'
-          ) {
-            currentUser.setBoardView('board-view-lists');
-          } else {
-            currentUser.setBoardView('board-view-swimlanes');
-          }
-        },
+        'click .js-toggle-board-view': Popup.open('boardChangeView'),
         'click .js-toggle-sidebar'() {
           Sidebar.toggle();
         },
         'click .js-open-filter-view'() {
           Sidebar.setView('filter');
         },
+        /*
         'click .js-open-sort-view'(evt) {
           const target = evt.target;
           if (target.tagName === 'I') {
@@ -148,6 +136,7 @@ BlazeComponent.extendComponent({
             Popup.open('listsort')(evt);
           }
         },
+        */
         'click .js-filter-reset'(event) {
           event.stopPropagation();
           Sidebar.setView();
@@ -155,9 +144,6 @@ BlazeComponent.extendComponent({
         },
         'click .js-open-search-view'() {
           Sidebar.setView('search');
-        },
-        'click .js-open-rules-view'() {
-          Modal.openWide('rulesMain');
         },
         'click .js-multiselection-activate'() {
           const currentCard = Session.get('currentCard');
@@ -185,6 +171,85 @@ Template.boardHeaderBar.helpers({
       Meteor.user().isBoardMember() &&
       !Meteor.user().isCommentOnly()
     );
+  },
+  boardView() {
+    import { Cookies } from 'meteor/ostrio:cookies';
+    const cookies = new Cookies();
+    if (cookies.get('boardView') === 'board-view-lists') {
+      return 'board-view-lists';
+    } else if (cookies.get('boardView') === 'board-view-swimlanes') {
+      return 'board-view-swimlanes';
+    } else if (cookies.get('boardView') === 'board-view-collapse') {
+      return 'board-view-collapse';
+    } else if (cookies.get('boardView') === 'board-view-cal') {
+      return 'board-view-cal';
+    } else {
+      return false;
+    }
+  },
+  collapseSwimlane() {
+    import { Cookies } from 'meteor/ostrio:cookies';
+    const cookies = new Cookies();
+    if (cookies.has('collapseSwimlane')) {
+      return true;
+    } else {
+      return false;
+    }
+  },
+});
+
+Template.boardChangeViewPopup.events({
+  'click .js-open-lists-view'() {
+    import { Cookies } from 'meteor/ostrio:cookies';
+    const cookies = new Cookies();
+    if (cookies.get('boardView') !== 'board-view-lists') {
+      cookies.set('boardView', 'board-view-lists');
+      const currentUser = Meteor.user();
+      if (currentUser) {
+        Meteor.user().setBoardView('board-view-lists');
+      }
+    }
+    Popup.close();
+  },
+  'click .js-open-swimlanes-view'() {
+    import { Cookies } from 'meteor/ostrio:cookies';
+    const cookies = new Cookies();
+    if (cookies.get('boardView') !== 'board-view-swimlanes') {
+      cookies.set('boardView', 'board-view-swimlanes');
+      cookies.remove('collapseSwimlane');
+      const currentUser = Meteor.user();
+      if (currentUser) {
+        Meteor.user().setBoardView('board-view-swimlanes');
+      }
+    }
+    Popup.close();
+  },
+  'click .js-open-collapse-view'() {
+    import { Cookies } from 'meteor/ostrio:cookies';
+    const cookies = new Cookies();
+    if (cookies.get('boardView') !== 'board-view-swimlanes') {
+      cookies.set('boardView', 'board-view-swimlanes');
+      cookies.set('collapseSwimlane', 'true');
+      const currentUser = Meteor.user();
+      if (currentUser) {
+        Meteor.user().setBoardView('board-view-swimlanes');
+      }
+    }
+    Popup.close();
+  },
+  'click .js-open-cal-view'() {
+    import { Cookies } from 'meteor/ostrio:cookies';
+    const cookies = new Cookies();
+    cookies.set('boardView', 'board-view-cal');
+    const currentUser = Meteor.user();
+    if (currentUser) {
+      Meteor.user().setBoardView('board-view-cal');
+    }
+    Popup.close();
+  },
+  'click .js-open-rules-view'() {
+    Modal.openWide('rulesMain');
+    Popup.close();
   },
 });
 
@@ -308,6 +373,7 @@ BlazeComponent.extendComponent({
   },
 }).register('boardChangeWatchPopup');
 
+/*
 BlazeComponent.extendComponent({
   onCreated() {
     //this.sortBy = new ReactiveVar();
@@ -377,3 +443,4 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('listsortPopup');
+*/

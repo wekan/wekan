@@ -96,3 +96,4 @@ konecty:mongo-counter
 percolate:synced-cron
 easylogic:summernote
 cfs:filesystem
+ostrio:cookies

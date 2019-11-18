@@ -162,19 +162,41 @@ Template.changeLanguagePopup.events({
 
 Template.changeSettingsPopup.helpers({
   showDesktopDragHandles() {
-    return Meteor.user().hasShowDesktopDragHandles();
+    import { Cookies } from 'meteor/ostrio:cookies';
+    const cookies = new Cookies();
+    if (cookies.has('showDesktopDragHandles')) {
+      return true;
+    } else {
+      return false;
+    }
   },
   hiddenSystemMessages() {
-    return Meteor.user().hasHiddenSystemMessages();
+    const currentUser = Meteor.user();
+    if (currentUser) {
+      return Meteor.user().hasHiddenSystemMessages();
+    } else {
+      return false;
+    }
   },
   showCardsCountAt() {
-    return Meteor.user().getLimitToShowCardsCount();
+    const currentUser = Meteor.user();
+    if (currentUser) {
+      return Meteor.user().getLimitToShowCardsCount();
+    } else {
+      return false;
+    }
   },
 });
 
 Template.changeSettingsPopup.events({
   'click .js-toggle-desktop-drag-handles'() {
-    Meteor.call('toggleDesktopDragHandles');
+    import { Cookies } from 'meteor/ostrio:cookies';
+    const cookies = new Cookies();
+    if (cookies.has('showDesktopDragHandles')) {
+      cookies.remove('showDesktopDragHandles'); //true
+    } else {
+      cookies.set('showDesktopDragHandles', 'true'); //true
+    }
   },
   'click .js-toggle-system-messages'() {
     Meteor.call('toggleSystemMessages');

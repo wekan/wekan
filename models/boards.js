@@ -409,8 +409,12 @@ Boards.helpers({
   },
 
   lists() {
-    const enabled = Meteor.user().hasSortBy();
-    return enabled ? this.newestLists() : this.draggableLists();
+    //currentUser = Meteor.user();
+    //if (currentUser) {
+    //  enabled = Meteor.user().hasSortBy();
+    //}
+    //return enabled ? this.newestLists() : this.draggableLists();
+    return this.draggableLists();
   },
 
   newestLists() {

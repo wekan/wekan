@@ -107,7 +107,13 @@ BlazeComponent.extendComponent({
         'click .js-toggle-sidebar': this.toggle,
         'click .js-back-home': this.setView,
         'click .js-toggle-minicard-label-text'() {
-          Meteor.call('toggleMinicardLabelText');
+          import { Cookies } from 'meteor/ostrio:cookies';
+          const cookies = new Cookies();
+          if (cookies.has('hiddenMinicardLabelText')) {
+            cookies.remove('hiddenMinicardLabelText'); //true
+          } else {
+            cookies.set('hiddenMinicardLabelText', 'true'); //true
+          }
         },
         'click .js-shortcuts'() {
           FlowRouter.go('shortcuts');
@@ -121,7 +127,13 @@ Blaze.registerHelper('Sidebar', () => Sidebar);
 
 Template.homeSidebar.helpers({
   hiddenMinicardLabelText() {
-    return Meteor.user().hasHiddenMinicardLabelText();
+    import { Cookies } from 'meteor/ostrio:cookies';
+    const cookies = new Cookies();
+    if (cookies.has('hiddenMinicardLabelText')) {
+      return true;
+    } else {
+      return false;
+    }
   },
 });
 

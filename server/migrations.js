@@ -793,3 +793,27 @@ Migrations.add('add-assignee', () => {
     noValidateMulti,
   );
 });
+
+Migrations.add('remove-profile-showDesktopDragHandles', () => {
+  Users.update(
+    {},
+    {
+      $unset: {
+        'profile.showDesktopDragHandles': 1,
+      },
+    },
+    noValidateMulti,
+  );
+});
+
+Migrations.add('remove-profile-hiddenMinicardLabelText', () => {
+  Users.update(
+    {},
+    {
+      $unset: {
+        'profile.hiddenMinicardLabelText': 1,
+      },
+    },
+    noValidateMulti,
+  );
+});

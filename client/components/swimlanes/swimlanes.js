@@ -14,7 +14,7 @@ function currentCardIsInThisList(listId, swimlaneId) {
   if (
     currentUser &&
     currentUser.profile &&
-    currentUser.profile.boardView === 'board-view-swimlanes'
+    Utils.boardView() === 'board-view-swimlanes'
   )
     return (
       currentCard &&
@@ -97,10 +97,9 @@ function initSortable(boardComponent, $listsDom) {
   }
 
   boardComponent.autorun(() => {
-    if (
-      Utils.isMiniScreen() ||
-      (!Utils.isMiniScreen() && Meteor.user().hasShowDesktopDragHandles())
-    ) {
+    import { Cookies } from 'meteor/ostrio:cookies';
+    const cookies = new Cookies();
+    if (!Utils.isMiniScreen() && cookies.has('showDesktopDragHandles')) {
       $listsDom.sortable({
         handle: '.js-list-handle',
       });
@@ -135,21 +134,25 @@ BlazeComponent.extendComponent({
 
     initSortable(boardComponent, $listsDom);
 
-    // Minimize swimlanes start https://www.w3schools.com/howto/howto_js_accordion.asp
-    const acc = document.getElementsByClassName('accordion');
-    let i;
-    for (i = 0; i < acc.length; i++) {
-      acc[i].addEventListener('click', function() {
-        this.classList.toggle('active');
-        const panel = this.nextElementSibling;
-        if (panel.style.maxHeight) {
-          panel.style.maxHeight = null;
-        } else {
-          panel.style.maxHeight = `${panel.scrollHeight}px`;
-        }
-      });
+    import { Cookies } from 'meteor/ostrio:cookies';
+    const cookies = new Cookies();
+    if (cookies.has('collapseSwimlane')) {
+      // Minimize swimlanes start https://www.w3schools.com/howto/howto_js_accordion.asp
+      const acc = document.getElementsByClassName('accordion');
+      let i;
+      for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener('click', function() {
+          this.classList.toggle('active');
+          const panel = this.nextElementSibling;
+          if (panel.style.maxHeight) {
+            panel.style.maxHeight = null;
+          } else {
+            panel.style.maxHeight = `${panel.scrollHeight}px`;
+          }
+        });
+      }
+      // Minimize swimlanes end https://www.w3schools.com/howto/howto_js_accordion.asp
     }
-    // Minimize swimlanes end https://www.w3schools.com/howto/howto_js_accordion.asp
   },
   onCreated() {
     this.draggingActive = new ReactiveVar(false);
@@ -181,10 +184,12 @@ BlazeComponent.extendComponent({
           // the user will legitimately expect to be able to select some text with
           // his mouse.
 
+          import { Cookies } from 'meteor/ostrio:cookies';
+          const cookies = new Cookies();
+
           const noDragInside = ['a', 'input', 'textarea', 'p'].concat(
             Utils.isMiniScreen() ||
-              (!Utils.isMiniScreen() &&
-                Meteor.user().hasShowDesktopDragHandles())
+              (!Utils.isMiniScreen() && cookies.has('showDesktopDragHandles'))
               ? ['.js-list-handle', '.js-swimlane-header-handle']
               : ['.js-list-header'],
           );
@@ -265,7 +270,13 @@ BlazeComponent.extendComponent({
 
 Template.swimlane.helpers({
   showDesktopDragHandles() {
-    return Meteor.user().hasShowDesktopDragHandles();
+    import { Cookies } from 'meteor/ostrio:cookies';
+    const cookies = new Cookies();
+    if (cookies.has('showDesktopDragHandles')) {
+      return true;
+    } else {
+      return false;
+    }
   },
   canSeeAddList() {
     return (
