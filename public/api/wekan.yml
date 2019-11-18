@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v3.53
+  version: v3.54
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -2896,17 +2896,9 @@ definitions:
         description: |
            full name of the user
         type: string
-      showDesktopDragHandles:
-        description: |
-           does the user want to hide system messages?
-        type: boolean
       hiddenSystemMessages:
         description: |
            does the user want to hide system messages?
-        type: boolean
-      hiddenMinicardLabelText:
-        description: |
-           does the user want to hide minicard label texts?
         type: boolean
       initials:
         description: |
@@ -2952,6 +2944,7 @@ definitions:
         enum:
           - board-view-lists
           - board-view-swimlanes
+          - board-view-collapse
           - board-view-cal
       listSortBy:
         description: |
