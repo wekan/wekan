@@ -1,3 +1,27 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [New feature: Now there is popup selection of Lists/Swimlanes/Calendar/Roles](https://github.com/wekan/wekan/commit/96abe3c6914ce37d9fb44da8fda375e40ad65c9e).
+  Thanks to xet7.
+- [New feature, not set visible yet, because switching to it does not
+  work properly yet: Collapsible Swimlanes](https://github.com/wekan/wekan/issues/2804).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Fix: Public board now loads correctly. When you select one of Lists/Swimlanes/Calendar view and
+  reload webbrowser page, it can change view](https://github.com/wekan/wekan/issues/2311).
+- [Fix: List sorting commented out](https://github.com/wekan/wekan/issues/2800).
+- [Fix: Errors hasHiddenMinicardText, hasShowDragHandles, showSort, hasSortBy, profile,
+  FirefoxAndroid/IE11/Vivaldi/Chromium browsers not working by using cookies instead of
+  database](https://github.com/wekan/wekan/issues/2643#issuecomment-554907955).
+  Note: Cookie changes are not always immediate, if there is no effect, you may need to
+  reload webbrowser page. This could be improved later.
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.53 2019-11-14 Wekan release
 
 This release fixes the following bugs:
