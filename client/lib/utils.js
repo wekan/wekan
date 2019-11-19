@@ -10,9 +10,9 @@ Utils = {
         cookies.set('boardView', 'board-view-lists'); //true
       } else if (view === 'board-view-swimlanes') {
         cookies.set('boardView', 'board-view-swimlanes'); //true
-      //} else if (view === 'board-view-collapse') {
-      //  cookies.set('boardView', 'board-view-swimlane'); //true
-      //  cookies.set('collapseSwimlane', 'true'); //true
+        //} else if (view === 'board-view-collapse') {
+        //  cookies.set('boardView', 'board-view-swimlane'); //true
+        //  cookies.set('collapseSwimlane', 'true'); //true
       } else if (view === 'board-view-cal') {
         cookies.set('boardView', 'board-view-cal'); //true
       }
@@ -29,7 +29,7 @@ Utils = {
   boardView() {
     currentUser = Meteor.user();
     if (currentUser) {
-      return (currentUser.profile || {}).boardView
+      return (currentUser.profile || {}).boardView;
     } else {
       import { Cookies } from 'meteor/ostrio:cookies';
       const cookies = new Cookies();
@@ -40,8 +40,8 @@ Utils = {
         //&& !cookies.has('collapseSwimlane')
       ) {
         return 'board-view-swimlanes';
-      //} else if (cookies.has('collapseSwimlane')) {
-      //  return 'board-view-swimlanes';
+        //} else if (cookies.has('collapseSwimlane')) {
+        //  return 'board-view-swimlanes';
       } else if (cookies.get('boardView') === 'board-view-cal') {
         return 'board-view-cal';
       } else {

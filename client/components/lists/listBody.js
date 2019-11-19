@@ -713,13 +713,11 @@ BlazeComponent.extendComponent({
             .data()._id;
         }
       }
-    } else {
-      if (Utils.boardView() === 'board-view-swimlanes') {
-        this.swimlaneId = this.parentComponent()
-          .parentComponent()
-          .parentComponent()
-          .data()._id;
-      }
+    } else if (Utils.boardView() === 'board-view-swimlanes') {
+      this.swimlaneId = this.parentComponent()
+        .parentComponent()
+        .parentComponent()
+        .data()._id;
     }
   },
 

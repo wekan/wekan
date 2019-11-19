@@ -122,7 +122,8 @@ BlazeComponent.extendComponent({
       let showDesktopDragHandles = false;
       currentUser = Meteor.user();
       if (currentUser) {
-        showDesktopDragHandles = (currentUser.profile || {}).showDesktopDragHandles;
+        showDesktopDragHandles = (currentUser.profile || {})
+          .showDesktopDragHandles;
       } else {
         if (cookies.has('showDesktopDragHandles')) {
           showDesktopDragHandles = true;

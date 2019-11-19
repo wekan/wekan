@@ -102,7 +102,8 @@ function initSortable(boardComponent, $listsDom) {
     let showDesktopDragHandles = false;
     currentUser = Meteor.user();
     if (currentUser) {
-      showDesktopDragHandles = (currentUser.profile || {}).showDesktopDragHandles;
+      showDesktopDragHandles = (currentUser.profile || {})
+        .showDesktopDragHandles;
     } else {
       import { Cookies } from 'meteor/ostrio:cookies';
       const cookies = new Cookies();
@@ -203,7 +204,8 @@ BlazeComponent.extendComponent({
           let showDesktopDragHandles = false;
           currentUser = Meteor.user();
           if (currentUser) {
-            showDesktopDragHandles = (currentUser.profile || {}).showDesktopDragHandles;
+            showDesktopDragHandles = (currentUser.profile || {})
+              .showDesktopDragHandles;
           } else {
             import { Cookies } from 'meteor/ostrio:cookies';
             const cookies = new Cookies();
