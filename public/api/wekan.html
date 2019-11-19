@@ -11621,7 +11621,9 @@ System.out.println(response.toString());
       <span class="hljs-string">"string"</span>
     ],
     <span class="hljs-attr">"fullname"</span>: <span class="hljs-string">"string"</span>,
+    <span class="hljs-attr">"showDesktopDragHandles"</span>: <span class="hljs-literal">true</span>,
     <span class="hljs-attr">"hiddenSystemMessages"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">"hiddenMinicardLabelText"</span>: <span class="hljs-literal">true</span>,
     <span class="hljs-attr">"initials"</span>: <span class="hljs-string">"string"</span>,
     <span class="hljs-attr">"invitedBoards"</span>: [
       <span class="hljs-string">"string"</span>
@@ -12274,7 +12276,9 @@ System.out.println(response.toString());
       <span class="hljs-string">"string"</span>
     ],
     <span class="hljs-attr">"fullname"</span>: <span class="hljs-string">"string"</span>,
+    <span class="hljs-attr">"showDesktopDragHandles"</span>: <span class="hljs-literal">true</span>,
     <span class="hljs-attr">"hiddenSystemMessages"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">"hiddenMinicardLabelText"</span>: <span class="hljs-literal">true</span>,
     <span class="hljs-attr">"initials"</span>: <span class="hljs-string">"string"</span>,
     <span class="hljs-attr">"invitedBoards"</span>: [
       <span class="hljs-string">"string"</span>
@@ -15432,7 +15436,9 @@ UserSecurity
       <span class="hljs-string">"string"</span>
     ],
     <span class="hljs-attr">"fullname"</span>: <span class="hljs-string">"string"</span>,
+    <span class="hljs-attr">"showDesktopDragHandles"</span>: <span class="hljs-literal">true</span>,
     <span class="hljs-attr">"hiddenSystemMessages"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">"hiddenMinicardLabelText"</span>: <span class="hljs-literal">true</span>,
     <span class="hljs-attr">"initials"</span>: <span class="hljs-string">"string"</span>,
     <span class="hljs-attr">"invitedBoards"</span>: [
       <span class="hljs-string">"string"</span>
@@ -15598,7 +15604,9 @@ UserSecurity
     <span class="hljs-string">"string"</span>
   ],
   <span class="hljs-attr">"fullname"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"showDesktopDragHandles"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"hiddenSystemMessages"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"hiddenMinicardLabelText"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"initials"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"invitedBoards"</span>: [
     <span class="hljs-string">"string"</span>
@@ -15655,11 +15663,25 @@ UserSecurity
 <td>full name of the user</td>
 </tr>
 <tr>
+<td>showDesktopDragHandles</td>
+<td>boolean</td>
+<td>false</td>
+<td>none</td>
+<td>does the user want to hide system messages?</td>
+</tr>
+<tr>
 <td>hiddenSystemMessages</td>
 <td>boolean</td>
 <td>false</td>
 <td>none</td>
 <td>does the user want to hide system messages?</td>
+</tr>
+<tr>
+<td>hiddenMinicardLabelText</td>
+<td>boolean</td>
+<td>false</td>
+<td>none</td>
+<td>does the user want to hide minicard label texts?</td>
 </tr>
 <tr>
 <td>initials</td>
@@ -15770,10 +15792,6 @@ UserSecurity
 <tr>
 <td>boardView</td>
 <td>board-view-swimlanes</td>
-</tr>
-<tr>
-<td>boardView</td>
-<td>board-view-collapse</td>
 </tr>
 <tr>
 <td>boardView</td>
