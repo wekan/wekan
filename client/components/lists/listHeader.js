@@ -102,12 +102,17 @@ BlazeComponent.extendComponent({
 
 Template.listHeader.helpers({
   showDesktopDragHandles() {
-    import { Cookies } from 'meteor/ostrio:cookies';
-    const cookies = new Cookies();
-    if (cookies.has('showDesktopDragHandles')) {
-      return true;
+    currentUser = Meteor.user();
+    if (currentUser) {
+      return (currentUser.profile || {}).showDesktopDragHandles;
     } else {
-      return false;
+      import { Cookies } from 'meteor/ostrio:cookies';
+      const cookies = new Cookies();
+      if (cookies.has('showDesktopDragHandles')) {
+        return true;
+      } else {
+        return false;
+      }
     }
   },
 });

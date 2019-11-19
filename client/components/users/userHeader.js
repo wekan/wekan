@@ -5,10 +5,22 @@ Template.headerUserBar.events({
 
 Template.memberMenuPopup.helpers({
   templatesBoardId() {
-    return Meteor.user().getTemplatesBoardId();
+    currentUser = Meteor.user();
+    if (currentUser) {
+      return Meteor.user().getTemplatesBoardId();
+    } else {
+      // No need to getTemplatesBoardId on public board
+      return false;
+    }
   },
   templatesBoardSlug() {
-    return Meteor.user().getTemplatesBoardSlug();
+    currentUser = Meteor.user();
+    if (currentUser) {
+      return Meteor.user().getTemplatesBoardSlug();
+    } else {
+      // No need to getTemplatesBoardSlug() on public board
+      return false;
+    }
   },
 });
 
@@ -162,44 +174,73 @@ Template.changeLanguagePopup.events({
 
 Template.changeSettingsPopup.helpers({
   showDesktopDragHandles() {
-    import { Cookies } from 'meteor/ostrio:cookies';
-    const cookies = new Cookies();
-    if (cookies.has('showDesktopDragHandles')) {
-      return true;
+    currentUser = Meteor.user();
+    if (currentUser) {
+      return (currentUser.profile || {}).showDesktopDragHandles;
     } else {
-      return false;
+      import { Cookies } from 'meteor/ostrio:cookies';
+      const cookies = new Cookies();
+      if (cookies.has('showDesktopDragHandles')) {
+        return true;
+      } else {
+        return false;
+      }
     }
   },
   hiddenSystemMessages() {
-    const currentUser = Meteor.user();
+    currentUser = Meteor.user();
     if (currentUser) {
-      return Meteor.user().hasHiddenSystemMessages();
+      return (currentUser.profile || {}).hasHiddenSystemMessages;
     } else {
-      return false;
+      import { Cookies } from 'meteor/ostrio:cookies';
+      const cookies = new Cookies();
+      if (cookies.has('hasHiddenSystemMessages')) {
+        return true;
+      } else {
+        return false;
+      }
     }
   },
   showCardsCountAt() {
-    const currentUser = Meteor.user();
+    currentUser = Meteor.user();
     if (currentUser) {
       return Meteor.user().getLimitToShowCardsCount();
     } else {
-      return false;
+      import { Cookies } from 'meteor/ostrio:cookies';
+      const cookies = new Cookies();
+      return cookies.get('limitToShowCardsCount');
     }
   },
 });
 
 Template.changeSettingsPopup.events({
   'click .js-toggle-desktop-drag-handles'() {
-    import { Cookies } from 'meteor/ostrio:cookies';
-    const cookies = new Cookies();
-    if (cookies.has('showDesktopDragHandles')) {
-      cookies.remove('showDesktopDragHandles'); //true
+    currentUser = Meteor.user();
+    if (currentUser) {
+      Meteor.call('toggleDesktopDragHandles');
     } else {
-      cookies.set('showDesktopDragHandles', 'true'); //true
+      import { Cookies } from 'meteor/ostrio:cookies';
+      const cookies = new Cookies();
+      if (cookies.has('showDesktopDragHandles')) {
+        cookies.remove('showDesktopDragHandles');
+      } else {
+        cookies.set('showDesktopDragHandles', 'true');
+      }
     }
   },
   'click .js-toggle-system-messages'() {
-    Meteor.call('toggleSystemMessages');
+    currentUser = Meteor.user();
+    if (currentUser) {
+      Meteor.call('toggleSystemMessages');
+    } else {
+      import { Cookies } from 'meteor/ostrio:cookies';
+      const cookies = new Cookies();
+      if (cookies.has('hasHiddenSystemMessages')) {
+        cookies.remove('hasHiddenSystemMessages');
+      } else {
+        cookies.set('hasHiddenSystemMessages', 'true');
+      }
+    }
   },
   'click .js-apply-show-cards-at'(event, templateInstance) {
     event.preventDefault();
@@ -208,7 +249,14 @@ Template.changeSettingsPopup.events({
       10,
     );
     if (!isNaN(minLimit)) {
-      Meteor.call('changeLimitToShowCardsCount', minLimit);
+      currentUser = Meteor.user();
+      if (currentUser) {
+        Meteor.call('changeLimitToShowCardsCount', minLimit);
+      } else {
+        import { Cookies } from 'meteor/ostrio:cookies';
+        const cookies = new Cookies();
+        cookies.set('limitToShowCardsCount', minLimit);
+      }
       Popup.back();
     }
   },

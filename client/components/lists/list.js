@@ -119,7 +119,19 @@ BlazeComponent.extendComponent({
     const cookies = new Cookies();
 
     this.autorun(() => {
-      if (!Utils.isMiniScreen() && cookies.has('showDesktopDragHandles')) {
+      let showDesktopDragHandles = false;
+      currentUser = Meteor.user();
+      if (currentUser) {
+        showDesktopDragHandles = (currentUser.profile || {}).showDesktopDragHandles;
+      } else {
+        if (cookies.has('showDesktopDragHandles')) {
+          showDesktopDragHandles = true;
+        } else {
+          showDesktopDragHandles = false;
+        }
+      }
+
+      if (!Utils.isMiniScreen() && showDesktopDragHandles) {
         $cards.sortable({
           handle: '.handle',
         });
@@ -163,12 +175,17 @@ BlazeComponent.extendComponent({
 
 Template.list.helpers({
   showDesktopDragHandles() {
-    import { Cookies } from 'meteor/ostrio:cookies';
-    const cookies = new Cookies();
-    if (cookies.has('showDesktopDragHandles')) {
-      return true;
+    currentUser = Meteor.user();
+    if (currentUser) {
+      return (currentUser.profile || {}).showDesktopDragHandles;
     } else {
-      return false;
+      import { Cookies } from 'meteor/ostrio:cookies';
+      const cookies = new Cookies();
+      if (cookies.has('showDesktopDragHandles')) {
+        return true;
+      } else {
+        return false;
+      }
     }
   },
 });

@@ -196,9 +196,20 @@ BlazeComponent.extendComponent({
     const cookies = new Cookies();
 
     this.autorun(() => {
+      let showDesktopDragHandles = false;
+      currentUser = Meteor.user();
+      if (currentUser) {
+        showDesktopDragHandles = (currentUser.profile || {}).showDesktopDragHandles;
+      } else {
+        if (cookies.has('showDesktopDragHandles')) {
+          showDesktopDragHandles = true;
+        } else {
+          showDesktopDragHandles = false;
+        }
+      }
       if (
         Utils.isMiniScreen() ||
-        (!Utils.isMiniScreen() && cookies.has('showDesktopDragHandles'))
+        (!Utils.isMiniScreen() && showDesktopDragHandles)
       ) {
         $swimlanesDom.sortable({
           handle: '.js-swimlane-header-handle',
@@ -230,33 +241,36 @@ BlazeComponent.extendComponent({
   },
 
   isViewSwimlanes() {
-    import { Cookies } from 'meteor/ostrio:cookies';
-    const cookies = new Cookies();
-    const currentUser = Meteor.user();
-    if (!currentUser) {
+    currentUser = Meteor.user();
+    if (currentUser) {
+      return (currentUser.profile || {}).boardView === 'board-view-swimlanes';
+    } else {
+      import { Cookies } from 'meteor/ostrio:cookies';
+      const cookies = new Cookies();
       return cookies.get('boardView') === 'board-view-swimlanes';
     }
-    return (currentUser.profile || {}).boardView === 'board-view-swimlanes';
   },
 
   isViewLists() {
-    import { Cookies } from 'meteor/ostrio:cookies';
-    const cookies = new Cookies();
-    const currentUser = Meteor.user();
-    if (!currentUser) {
+    currentUser = Meteor.user();
+    if (currentUser) {
+      return (currentUser.profile || {}).boardView === 'board-view-lists';
+    } else {
+      import { Cookies } from 'meteor/ostrio:cookies';
+      const cookies = new Cookies();
       return cookies.get('boardView') === 'board-view-lists';
     }
-    return (currentUser.profile || {}).boardView === 'board-view-lists';
   },
 
   isViewCalendar() {
-    import { Cookies } from 'meteor/ostrio:cookies';
-    const cookies = new Cookies();
-    const currentUser = Meteor.user();
-    if (!currentUser) {
+    currentUser = Meteor.user();
+    if (currentUser) {
+      return (currentUser.profile || {}).boardView === 'board-view-cal';
+    } else {
+      import { Cookies } from 'meteor/ostrio:cookies';
+      const cookies = new Cookies();
       return cookies.get('boardView') === 'board-view-cal';
     }
-    return (currentUser.profile || {}).boardView === 'board-view-cal';
   },
 
   openNewListForm() {
@@ -413,12 +427,13 @@ BlazeComponent.extendComponent({
     };
   },
   isViewCalendar() {
-    import { Cookies } from 'meteor/ostrio:cookies';
-    const cookies = new Cookies();
-    const currentUser = Meteor.user();
-    if (!currentUser) {
+    currentUser = Meteor.user();
+    if (currentUser) {
+      return (currentUser.profile || {}).boardView === 'board-view-cal';
+    } else {
+      import { Cookies } from 'meteor/ostrio:cookies';
+      const cookies = new Cookies();
       return cookies.get('boardView') === 'board-view-cal';
     }
-    return (currentUser.profile || {}).boardView === 'board-view-cal';
   },
 }).register('calendarView');

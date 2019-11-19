@@ -33,21 +33,31 @@ BlazeComponent.extendComponent({
 
 Template.minicard.helpers({
   showDesktopDragHandles() {
-    import { Cookies } from 'meteor/ostrio:cookies';
-    const cookies = new Cookies();
-    if (cookies.has('showDesktopDragHandles')) {
-      return true;
+    currentUser = Meteor.user();
+    if (currentUser) {
+      return (currentUser.profile || {}).showDesktopDragHandles;
     } else {
-      return false;
+      import { Cookies } from 'meteor/ostrio:cookies';
+      const cookies = new Cookies();
+      if (cookies.has('showDesktopDragHandles')) {
+        return true;
+      } else {
+        return false;
+      }
     }
   },
   hiddenMinicardLabelText() {
-    import { Cookies } from 'meteor/ostrio:cookies';
-    const cookies = new Cookies();
-    if (cookies.has('hiddenMinicardLabelText')) {
-      return true;
+    currentUser = Meteor.user();
+    if (currentUser) {
+      return (currentUser.profile || {}).hiddenMinicardLabelText;
     } else {
-      return false;
+      import { Cookies } from 'meteor/ostrio:cookies';
+      const cookies = new Cookies();
+      if (cookies.has('hiddenMinicardLabelText')) {
+        return true;
+      } else {
+        return false;
+      }
     }
   },
 });

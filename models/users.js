@@ -119,9 +119,23 @@ Users.attachSchema(
       type: String,
       optional: true,
     },
+    'profile.showDesktopDragHandles': {
+      /**
+       * does the user want to hide system messages?
+       */
+      type: Boolean,
+      optional: true,
+    },
     'profile.hiddenSystemMessages': {
       /**
        * does the user want to hide system messages?
+       */
+      type: Boolean,
+      optional: true,
+    },
+    'profile.hiddenMinicardLabelText': {
+      /**
+       * does the user want to hide minicard label texts?
        */
       type: Boolean,
       optional: true,
@@ -184,7 +198,6 @@ Users.attachSchema(
       allowedValues: [
         'board-view-lists',
         'board-view-swimlanes',
-        'board-view-collapse',
         'board-view-cal',
       ],
     },
@@ -382,18 +395,10 @@ Users.helpers({
     }
     return ret;
   },
-  //hasSortBy() {
-  // if use doesn't have dragHandle, then we can let user to choose sort list by different order
-  //return this.hasShowDesktopDragHandles();
-  //  return false;
-  /*
-    if (typeof currentUser === 'undefined' || typeof currentUser === 'null') {
-      return false;
-    } else {
-      return this.hasShowDesktopDragHandles();
-    }
-    */
-  //},
+  hasSortBy() {
+    // if use doesn't have dragHandle, then we can let user to choose sort list by different order
+    return !this.hasShowDesktopDragHandles();
+  },
   getListSortBy() {
     return this._getListSortBy()[0];
   },
@@ -414,9 +419,19 @@ Users.helpers({
     return _.contains(notifications, activityId);
   },
 
+  hasShowDesktopDragHandles() {
+    const profile = this.profile || {};
+    return profile.showDesktopDragHandles || false;
+  },
+
   hasHiddenSystemMessages() {
     const profile = this.profile || {};
     return profile.hiddenSystemMessages || false;
+  },
+
+  hasHiddenMinicardLabelText() {
+    const profile = this.profile || {};
+    return profile.hiddenMinicardLabelText || false;
   },
 
   getEmailBuffer() {
@@ -440,11 +455,8 @@ Users.helpers({
   },
 
   getLimitToShowCardsCount() {
-    currentUser = Meteor.user();
-    if (currentUser) {
-      const profile = this.profile || {};
-      return profile.showCardsCountAt;
-    }
+    const profile = this.profile || {};
+    return profile.showCardsCountAt;
   },
 
   getName() {
@@ -524,11 +536,26 @@ Users.mutations({
       },
     };
   },
+  toggleDesktopHandles(value = false) {
+    return {
+      $set: {
+        'profile.showDesktopDragHandles': !value,
+      },
+    };
+  },
 
   toggleSystem(value = false) {
     return {
       $set: {
         'profile.hiddenSystemMessages': !value,
+      },
+    };
+  },
+
+  toggleLabelText(value = false) {
+    return {
+      $set: {
+        'profile.hiddenMinicardLabelText': !value,
       },
     };
   },
@@ -597,9 +624,17 @@ Meteor.methods({
     check(value, String);
     Meteor.user().setListSortBy(value);
   },
+  toggleDesktopDragHandles() {
+    const user = Meteor.user();
+    user.toggleDesktopHandles(user.hasShowDesktopDragHandles());
+  },
   toggleSystemMessages() {
     const user = Meteor.user();
     user.toggleSystem(user.hasHiddenSystemMessages());
+  },
+  toggleMinicardLabelText() {
+    const user = Meteor.user();
+    user.toggleLabelText(user.hasHiddenMinicardLabelText());
   },
   changeLimitToShowCardsCount(limit) {
     check(limit, Number);

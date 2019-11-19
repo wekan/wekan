@@ -794,24 +794,32 @@ Migrations.add('add-assignee', () => {
   );
 });
 
-Migrations.add('remove-profile-showDesktopDragHandles', () => {
+Migrations.add('add-profile-showDesktopDragHandles', () => {
   Users.update(
-    {},
     {
-      $unset: {
-        'profile.showDesktopDragHandles': 1,
+      'profile.showDesktopDragHandles': {
+        $exists: false,
+      },
+    },
+    {
+      $set: {
+        'profile.showDesktopDragHandles': false,
       },
     },
     noValidateMulti,
   );
 });
 
-Migrations.add('remove-profile-hiddenMinicardLabelText', () => {
+Migrations.add('add-profile-hiddenMinicardLabelText', () => {
   Users.update(
-    {},
     {
-      $unset: {
-        'profile.hiddenMinicardLabelText': 1,
+      'profile.hiddenMinicardLabelText': {
+        $exists: false,
+      },
+    },
+    {
+      $set: {
+        'profile.hiddenMinicardLabelText': false,
       },
     },
     noValidateMulti,

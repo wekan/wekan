@@ -107,12 +107,17 @@ BlazeComponent.extendComponent({
         'click .js-toggle-sidebar': this.toggle,
         'click .js-back-home': this.setView,
         'click .js-toggle-minicard-label-text'() {
-          import { Cookies } from 'meteor/ostrio:cookies';
-          const cookies = new Cookies();
-          if (cookies.has('hiddenMinicardLabelText')) {
-            cookies.remove('hiddenMinicardLabelText'); //true
+          currentUser = Meteor.user();
+          if (currentUser) {
+            Meteor.call('toggleMinicardLabelText');
           } else {
-            cookies.set('hiddenMinicardLabelText', 'true'); //true
+            import { Cookies } from 'meteor/ostrio:cookies';
+            const cookies = new Cookies();
+            if (cookies.has('hiddenMinicardLabelText')) {
+              cookies.remove('hiddenMinicardLabelText');
+            } else {
+              cookies.set('hiddenMinicardLabelText', 'true');
+            }
           }
         },
         'click .js-shortcuts'() {
@@ -127,12 +132,17 @@ Blaze.registerHelper('Sidebar', () => Sidebar);
 
 Template.homeSidebar.helpers({
   hiddenMinicardLabelText() {
-    import { Cookies } from 'meteor/ostrio:cookies';
-    const cookies = new Cookies();
-    if (cookies.has('hiddenMinicardLabelText')) {
-      return true;
+    currentUser = Meteor.user();
+    if (currentUser) {
+      return (currentUser.profile || {}).hiddenMinicardLabelText;
     } else {
-      return false;
+      import { Cookies } from 'meteor/ostrio:cookies';
+      const cookies = new Cookies();
+      if (cookies.has('hiddenMinicardLabelText')) {
+        return true;
+      } else {
+        return false;
+      }
     }
   },
 });

@@ -99,7 +99,21 @@ function initSortable(boardComponent, $listsDom) {
   boardComponent.autorun(() => {
     import { Cookies } from 'meteor/ostrio:cookies';
     const cookies = new Cookies();
-    if (!Utils.isMiniScreen() && cookies.has('showDesktopDragHandles')) {
+    let showDesktopDragHandles = false;
+    currentUser = Meteor.user();
+    if (currentUser) {
+      showDesktopDragHandles = (currentUser.profile || {}).showDesktopDragHandles;
+    } else {
+      import { Cookies } from 'meteor/ostrio:cookies';
+      const cookies = new Cookies();
+      if (cookies.has('showDesktopDragHandles')) {
+        showDesktopDragHandles = true;
+      } else {
+        showDesktopDragHandles = false;
+      }
+    }
+
+    if (!Utils.isMiniScreen() && showDesktopDragHandles) {
       $listsDom.sortable({
         handle: '.js-list-handle',
       });
@@ -186,10 +200,23 @@ BlazeComponent.extendComponent({
 
           import { Cookies } from 'meteor/ostrio:cookies';
           const cookies = new Cookies();
+          let showDesktopDragHandles = false;
+          currentUser = Meteor.user();
+          if (currentUser) {
+            showDesktopDragHandles = (currentUser.profile || {}).showDesktopDragHandles;
+          } else {
+            import { Cookies } from 'meteor/ostrio:cookies';
+            const cookies = new Cookies();
+            if (cookies.has('showDesktopDragHandles')) {
+              showDesktopDragHandles = true;
+            } else {
+              showDesktopDragHandles = false;
+            }
+          }
 
           const noDragInside = ['a', 'input', 'textarea', 'p'].concat(
             Utils.isMiniScreen() ||
-              (!Utils.isMiniScreen() && cookies.has('showDesktopDragHandles'))
+              (!Utils.isMiniScreen() && showDesktopDragHandles)
               ? ['.js-list-handle', '.js-swimlane-header-handle']
               : ['.js-list-header'],
           );
@@ -270,12 +297,17 @@ BlazeComponent.extendComponent({
 
 Template.swimlane.helpers({
   showDesktopDragHandles() {
-    import { Cookies } from 'meteor/ostrio:cookies';
-    const cookies = new Cookies();
-    if (cookies.has('showDesktopDragHandles')) {
-      return true;
+    currentUser = Meteor.user();
+    if (currentUser) {
+      return (currentUser.profile || {}).showDesktopDragHandles;
     } else {
-      return false;
+      import { Cookies } from 'meteor/ostrio:cookies';
+      const cookies = new Cookies();
+      if (cookies.has('showDesktopDragHandles')) {
+        return true;
+      } else {
+        return false;
+      }
     }
   },
   canSeeAddList() {
