@@ -173,78 +173,33 @@ Template.boardHeaderBar.helpers({
     );
   },
   boardView() {
-    import { Cookies } from 'meteor/ostrio:cookies';
-    const cookies = new Cookies();
-    if (cookies.get('boardView') === 'board-view-lists') {
-      return 'board-view-lists';
-    } else if (cookies.get('boardView') === 'board-view-swimlanes') {
-      return 'board-view-swimlanes';
-    } else if (cookies.get('boardView') === 'board-view-collapse') {
-      return 'board-view-collapse';
-    } else if (cookies.get('boardView') === 'board-view-cal') {
-      return 'board-view-cal';
-    } else {
-      return false;
-    }
+    return Utils.boardView();
   },
-  collapseSwimlane() {
-    import { Cookies } from 'meteor/ostrio:cookies';
-    const cookies = new Cookies();
-    if (cookies.has('collapseSwimlane')) {
-      return true;
-    } else {
-      return false;
-    }
-  },
+  //collapseSwimlane() {
+  //  import { Cookies } from 'meteor/ostrio:cookies';
+  //  const cookies = new Cookies();
+  //  if (cookies.has('collapseSwimlane')) {
+  //    return true;
+  //  } else {
+  //    return false;
+  //  }
+  //},
 });
 
 Template.boardChangeViewPopup.events({
   'click .js-open-lists-view'() {
-    import { Cookies } from 'meteor/ostrio:cookies';
-    const cookies = new Cookies();
-    if (cookies.get('boardView') !== 'board-view-lists') {
-      cookies.set('boardView', 'board-view-lists');
-      const currentUser = Meteor.user();
-      if (currentUser) {
-        Meteor.user().setBoardView('board-view-lists');
-      }
-    }
+    Utils.setBoardView('board-view-lists');
     Popup.close();
   },
   'click .js-open-swimlanes-view'() {
-    import { Cookies } from 'meteor/ostrio:cookies';
-    const cookies = new Cookies();
-    if (cookies.get('boardView') !== 'board-view-swimlanes') {
-      cookies.set('boardView', 'board-view-swimlanes');
-      cookies.remove('collapseSwimlane');
-      const currentUser = Meteor.user();
-      if (currentUser) {
-        Meteor.user().setBoardView('board-view-swimlanes');
-      }
-    }
+    Utils.setBoardView('board-view-swimlanes');
     Popup.close();
   },
-  'click .js-open-collapse-view'() {
-    import { Cookies } from 'meteor/ostrio:cookies';
-    const cookies = new Cookies();
-    if (cookies.get('boardView') !== 'board-view-swimlanes') {
-      cookies.set('boardView', 'board-view-swimlanes');
-      cookies.set('collapseSwimlane', 'true');
-      const currentUser = Meteor.user();
-      if (currentUser) {
-        Meteor.user().setBoardView('board-view-swimlanes');
-      }
-    }
-    Popup.close();
-  },
+  //'click .js-open-collapse-view'() {
+  //  Utils.setBoardView('board-view-collapse');
+  //Popup.close();
   'click .js-open-cal-view'() {
-    import { Cookies } from 'meteor/ostrio:cookies';
-    const cookies = new Cookies();
-    cookies.set('boardView', 'board-view-cal');
-    const currentUser = Meteor.user();
-    if (currentUser) {
-      Meteor.user().setBoardView('board-view-cal');
-    }
+    Utils.setBoardView('board-view-cal');
     Popup.close();
   },
   'click .js-open-rules-view'() {

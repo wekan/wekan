@@ -39,8 +39,8 @@ template(name="listHeader")
           i.list-header-watch-icon.fa.fa-eye
         div.list-header-menu
           unless currentUser.isCommentOnly
-            if isBoardAdmin
-              a.fa.js-list-star.list-header-plus-icon(class="fa-star{{#unless starred}}-o{{/unless}}")
+            //if isBoardAdmin
+            //  a.fa.js-list-star.list-header-plus-icon(class="fa-star{{#unless starred}}-o{{/unless}}")
             if canSeeAddCard
               a.js-add-card.fa.fa-plus.list-header-plus-icon
             a.fa.fa-navicon.js-open-list-menu
