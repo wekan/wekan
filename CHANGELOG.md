@@ -1,3 +1,25 @@
+# Upcoming Wekan release
+
+This release adds the following updates:
+
+- [Update to Meteor 1.8.2. Update dependencies](https://github.com/wekan/wekan/commit/38dfe0b9a71a083adc2de1a81170fea0e4a8e53f).
+  Thanks to xet7.
+- [Fix lint errors and update travis NPM version](https://github.com/wekan/wekan/commit/b0f345ba21830b033c9edcc8ee5252b280111ae7).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- Fix slow scroll on card detail by setting scrollInertia to 0](https://github.com/wekan/wekan/commit/599ace1db7918df41d9708d14b0351acb0f8688e).
+  Thanks to cafeoh.
+- [Fix lint errors](https://github.com/wekan/wekan/commit/788dd0a81a06efee165007a92780f9e8c2c754ac).
+  Thanks to xet7.
+- [Remove eslint option that does not work](https://github.com/wekan/wekan/commit/a06daff92e5f7cca55d1698252e3aa6526877c8b).
+  Thanks to xet7.
+- [Try to fix lint errors](https://github.com/wekan/wekan/commit/58e505f79a0617011576bdded9427b0d448d6107).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.55 2019-11-19 Wekan release
 
 This release fixes the following bugs:
