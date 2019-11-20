@@ -40,7 +40,6 @@
   },
   "homepage": "https://wekan.github.io",
   "devDependencies": {
-    "babel-eslint": "^10.0.3",
     "eslint": "^5.16.0",
     "eslint-config-meteor": "0.0.9",
     "eslint-config-prettier": "^3.6.0",
