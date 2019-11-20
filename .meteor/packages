@@ -6,9 +6,9 @@
 meteor-base@1.4.0
 
 # Build system
-ecmascript@0.12.4
-standard-minifier-css@1.5.3
-standard-minifier-js@2.4.1
+ecmascript@0.13.0
+standard-minifier-css@1.5.4
+standard-minifier-js@2.5.0
 mquandalle:jade
 
 # Polyfills
@@ -22,7 +22,7 @@ dburles:collection-helpers
 idmontie:migrations
 matb33:collection-hooks
 matteodem:easy-search
-mongo@1.6.2
+mongo@1.7.0
 mquandalle:collection-mutations
 
 # Account system
