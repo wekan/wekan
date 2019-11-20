@@ -201,16 +201,14 @@ BlazeComponent.extendComponent({
       if (currentUser) {
         showDesktopDragHandles = (currentUser.profile || {})
           .showDesktopDragHandles;
+      } else if (cookies.has('showDesktopDragHandles')) {
+        showDesktopDragHandles = true;
       } else {
-        if (cookies.has('showDesktopDragHandles')) {
-          showDesktopDragHandles = true;
-        } else {
-          showDesktopDragHandles = false;
-        }
+        showDesktopDragHandles = false;
       }
       if (
-        Utils.isMiniScreen() ||
-        (!Utils.isMiniScreen() && showDesktopDragHandles)
+        Utils.isMiniScreen()
+        || (!Utils.isMiniScreen() && showDesktopDragHandles)
       ) {
         $swimlanesDom.sortable({
           handle: '.js-swimlane-header-handle',
@@ -227,9 +225,9 @@ BlazeComponent.extendComponent({
 
     function userIsMember() {
       return (
-        Meteor.user() &&
-        Meteor.user().isBoardMember() &&
-        !Meteor.user().isCommentOnly()
+        Meteor.user()
+        && Meteor.user().isBoardMember()
+        && !Meteor.user().isCommentOnly()
       );
     }
 
@@ -308,16 +306,16 @@ BlazeComponent.extendComponent({
 
   scrollLeft(position = 0) {
     const swimlanes = this.$('.js-swimlanes');
-    swimlanes &&
-      swimlanes.animate({
+    swimlanes
+      && swimlanes.animate({
         scrollLeft: position,
       });
   },
 
   scrollTop(position = 0) {
     const swimlanes = this.$('.js-swimlanes');
-    swimlanes &&
-      swimlanes.animate({
+    swimlanes
+      && swimlanes.animate({
         scrollTop: position,
       });
   },
@@ -361,8 +359,8 @@ BlazeComponent.extendComponent({
           end = end || card.endAt;
           title = title || card.title;
           const className =
-            (extraCls ? `${extraCls} ` : '') +
-            (card.color ? `calendar-event-${card.color}` : '');
+            (extraCls ? `${extraCls} ` : '')
+            + (card.color ? `calendar-event-${card.color}` : '');
           events.push({
             id: card._id,
             title,

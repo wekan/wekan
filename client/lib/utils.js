@@ -5,17 +5,15 @@ Utils = {
     currentUser = Meteor.user();
     if (currentUser) {
       Meteor.user().setBoardView(view);
-    } else {
-      if (view === 'board-view-lists') {
-        cookies.set('boardView', 'board-view-lists'); //true
-      } else if (view === 'board-view-swimlanes') {
-        cookies.set('boardView', 'board-view-swimlanes'); //true
-        //} else if (view === 'board-view-collapse') {
-        //  cookies.set('boardView', 'board-view-swimlane'); //true
-        //  cookies.set('collapseSwimlane', 'true'); //true
-      } else if (view === 'board-view-cal') {
-        cookies.set('boardView', 'board-view-cal'); //true
-      }
+    } else if (view === 'board-view-lists') {
+      cookies.set('boardView', 'board-view-lists'); //true
+    } else if (view === 'board-view-swimlanes') {
+      cookies.set('boardView', 'board-view-swimlanes'); //true
+      //} else if (view === 'board-view-collapse') {
+      //  cookies.set('boardView', 'board-view-swimlane'); //true
+      //  cookies.set('collapseSwimlane', 'true'); //true
+    } else if (view === 'board-view-cal') {
+      cookies.set('boardView', 'board-view-cal'); //true
     }
   },
 
@@ -54,8 +52,8 @@ Utils = {
   goBoardId(_id) {
     const board = Boards.findOne(_id);
     return (
-      board &&
-      FlowRouter.go('board', {
+      board
+      && FlowRouter.go('board', {
         id: board._id,
         slug: board.slug,
       })
@@ -66,8 +64,8 @@ Utils = {
     const card = Cards.findOne(_id);
     const board = Boards.findOne(card.boardId);
     return (
-      board &&
-      FlowRouter.go('card', {
+      board
+      && FlowRouter.go('card', {
         cardId: card._id,
         boardId: board._id,
         slug: board.slug,
@@ -238,8 +236,8 @@ Utils = {
       };
 
       if (
-        'ontouchstart' in window ||
-        (window.DocumentTouch && document instanceof window.DocumentTouch)
+        'ontouchstart' in window
+        || (window.DocumentTouch && document instanceof window.DocumentTouch)
       ) {
         return true;
       }
@@ -260,8 +258,8 @@ Utils = {
 
   calculateTouchDistance(touchA, touchB) {
     return Math.sqrt(
-      Math.pow(touchA.screenX - touchB.screenX, 2) +
-        Math.pow(touchA.screenY - touchB.screenY, 2),
+      Math.pow(touchA.screenX - touchB.screenX, 2)
+        + Math.pow(touchA.screenY - touchB.screenY, 2),
     );
   },
 
@@ -278,9 +276,9 @@ Utils = {
     });
     $(document).on('touchend', selector, function(e) {
       if (
-        touchStart &&
-        lastTouch &&
-        Utils.calculateTouchDistance(touchStart, lastTouch) <= 20
+        touchStart
+        && lastTouch
+        && Utils.calculateTouchDistance(touchStart, lastTouch) <= 20
       ) {
         e.preventDefault();
         const clickEvent = document.createEvent('MouseEvents');

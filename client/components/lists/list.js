@@ -22,9 +22,9 @@ BlazeComponent.extendComponent({
 
     function userIsMember() {
       return (
-        Meteor.user() &&
-        Meteor.user().isBoardMember() &&
-        !Meteor.user().isCommentOnly()
+        Meteor.user()
+        && Meteor.user().isBoardMember()
+        && !Meteor.user().isCommentOnly()
       );
     }
 
@@ -74,14 +74,14 @@ BlazeComponent.extendComponent({
         const currentBoard = Boards.findOne(Session.get('currentBoard'));
         let swimlaneId = '';
         if (
-          Utils.boardView() === 'board-view-swimlanes' ||
-          currentBoard.isTemplatesBoard()
+          Utils.boardView() === 'board-view-swimlanes'
+          || currentBoard.isTemplatesBoard()
         )
           swimlaneId = Blaze.getData(ui.item.parents('.swimlane').get(0))._id;
         else if (
-          Utils.boardView() === 'board-view-lists' ||
-          Utils.boardView() === 'board-view-cal' ||
-          !Utils.boardView
+          Utils.boardView() === 'board-view-lists'
+          || Utils.boardView() === 'board-view-cal'
+          || !Utils.boardView
         )
           swimlaneId = currentBoard.getDefaultSwimline()._id;
 
@@ -124,12 +124,10 @@ BlazeComponent.extendComponent({
       if (currentUser) {
         showDesktopDragHandles = (currentUser.profile || {})
           .showDesktopDragHandles;
+      } else if (cookies.has('showDesktopDragHandles')) {
+        showDesktopDragHandles = true;
       } else {
-        if (cookies.has('showDesktopDragHandles')) {
-          showDesktopDragHandles = true;
-        } else {
-          showDesktopDragHandles = false;
-        }
+        showDesktopDragHandles = false;
       }
 
       if (!Utils.isMiniScreen() && showDesktopDragHandles) {
