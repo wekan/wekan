@@ -229,18 +229,14 @@ Template.editor.onRendered(() => {
                     currentCard,
                     fileObj,
                     attachment => {
-                      if (
-                        attachment &&
-                        attachment._id &&
-                        attachment.isImage()
-                      ) {
+                      if (attachment && attachment._id && attachment.isImage) {
                         attachment.one('uploaded', function() {
                           const maxTry = 3;
                           const checkItvl = 500;
                           let retry = 0;
                           const checkUrl = function() {
                             // even though uploaded event fired, attachment.url() is still null somehow //TODO
-                            const url = attachment.url();
+                            const url = attachment.link();
                             if (url) {
                               insertImage(
                                 `${location.protocol}//${location.host}${url}`,

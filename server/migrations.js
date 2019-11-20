@@ -80,7 +80,7 @@ Migrations.add('lowercase-board-permission', () => {
 Migrations.add('change-attachments-type-for-non-images', () => {
   const newTypeForNonImage = 'application/octet-stream';
   Attachments.find().forEach(file => {
-    if (!file.isImage()) {
+    if (!file.isImage) {
       Attachments.update(
         file._id,
         {
@@ -97,7 +97,7 @@ Migrations.add('change-attachments-type-for-non-images', () => {
 
 Migrations.add('card-covers', () => {
   Cards.find().forEach(card => {
-    const cover = Attachments.findOne({ cardId: card._id, cover: true });
+    const cover = Attachments.findOne({ 'meta.cardId': card._id, cover: true });
     if (cover) {
       Cards.update(card._id, { $set: { coverId: cover._id } }, noValidate);
     }

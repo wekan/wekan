@@ -366,7 +366,7 @@ Cards.helpers({
 
     // Copy attachments
     oldCard.attachments().forEach(att => {
-      att.cardId = _id;
+      att.meta.cardId = _id;
       delete att._id;
       return Attachments.insert(att);
     });
@@ -456,14 +456,16 @@ Cards.helpers({
   attachments() {
     if (this.isLinkedCard()) {
       return Attachments.find(
-        { cardId: this.linkedId },
+        { 'meta.cardId': this.linkedId },
         { sort: { uploadedAt: -1 } },
       );
     } else {
-      return Attachments.find(
-        { cardId: this._id },
+      const ret = Attachments.find(
+        { 'meta.cardId': this._id },
         { sort: { uploadedAt: -1 } },
       );
+      if (ret.first()) console.log('link', Attachments.link(ret.first()));
+      return ret;
     }
   },
 
@@ -471,7 +473,7 @@ Cards.helpers({
     const cover = Attachments.findOne(this.coverId);
     // if we return a cover before it is fully stored, we will get errors when we try to display it
     // todo XXX we could return a default "upload pending" image in the meantime?
-    return cover && cover.url() && cover;
+    return cover && cover.link();
   },
 
   checklists() {

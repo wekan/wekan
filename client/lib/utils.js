@@ -37,7 +37,15 @@ Utils = {
     let settings = {
       file: fileObj,
       streams: 'dynamic',
-      chunkSize: 'dynamic'
+      chunkSize: 'dynamic',
+      onUploaded: function(error, fileObj) {
+        console.log('after insert', Attachments.find({}).fetch());
+        if (error) {
+          console.log('Error while upload', error);
+        } else {
+          next(fileObj);
+        }
+      },
     };
     settings.meta = {};
     if (card.isLinkedCard()) {
@@ -51,10 +59,10 @@ Utils = {
     }
     settings.meta.userId = Meteor.userId();
     // FIXME: What is this?
-/*    if (file.original) {
+    /*    if (file.original) {
       file.original.name = fileObj.name;
     }*/
-    return next(Attachments.insert(settings, false));
+    Attachments.insert(settings);
   },
   shrinkImage(options) {
     // shrink image to certain size

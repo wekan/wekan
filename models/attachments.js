@@ -4,7 +4,7 @@ Attachments = new FilesCollection({
   storagePath: storagePath(),
   debug: true, // FIXME: Remove debug mode
   collectionName: 'attachments2',
-  allowClientCode: false, // Disallow remove files from Client
+  allowClientCode: true, // FIXME: Permissions
 });
 
 if (Meteor.isServer) {
@@ -15,11 +15,11 @@ if (Meteor.isServer) {
   // TODO: Permission related
   // TODO: Add Activity update
   // TODO: publish and subscribe
-//  Meteor.publish('files.attachments.all', function () {
-//    return Attachments.find().cursor;
-//  });
+  Meteor.publish('attachments', function() {
+    return Attachments.find().cursor;
+  });
 } else {
-//  Meteor.subscribe('files.attachments.all');
+  Meteor.subscribe('attachments');
 }
 
 // ---------- Deprecated fallback ---------- //

@@ -45,10 +45,22 @@ Template.attachmentsGalery.events({
   },
 });
 
+Template.attachmentsGalery.helpers({
+  url() {
+    return Attachments.link(this);
+  }
+});
+
 Template.previewAttachedImagePopup.events({
   'click .js-large-image-clicked'() {
     Popup.close();
   },
+});
+
+Template.previewAttachedImagePopup.helpers({
+  url() {
+    return Attachments.link(this);
+  }
 });
 
 Template.cardAttachmentsPopup.events({
@@ -56,7 +68,8 @@ Template.cardAttachmentsPopup.events({
     const card = this;
     const processFile = f => {
       Utils.processUploadedAttachment(card, f, attachment => {
-        if (attachment && attachment._id && attachment.isImage()) {
+        console.log('attachment', attachment);
+        if (attachment && attachment._id && attachment.isImage) {
           card.setCover(attachment._id);
         }
         Popup.close();
@@ -152,13 +165,14 @@ Template.previewClipboardImagePopup.events({
       const settings = {
         file: results.file,
         streams: 'dynamic',
-        chunkSize: 'dynamic'
+        chunkSize: 'dynamic',
       };
       if (!results.name) {
         // if no filename, it's from clipboard. then we give it a name, with ext name from MIME type
         // FIXME: Check this behavior
         if (typeof results.file.type === 'string') {
-          settings.fileName = new Date().getTime() + results.file.type.replace('.+/', '');
+          settings.fileName =
+            new Date().getTime() + results.file.type.replace('.+/', '');
         }
       }
       settings.meta = {};
@@ -166,8 +180,7 @@ Template.previewClipboardImagePopup.events({
       settings.meta.boardId = card.boardId;
       settings.meta.cardId = card._id;
       settings.meta.userId = Meteor.userId();
-      console.log('settings', settings);
-      const attachment = Attachments.insert(settings, false);
+      const attachment = Attachments.insert(settings);
 
       // TODO: Check image cover behavior
       if (attachment && attachment._id && attachment.isImage) {

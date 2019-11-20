@@ -162,7 +162,7 @@ export class Exporter {
       readStream.pipe(tmpWriteable);
     };
     const getBase64DataSync = Meteor.wrapAsync(getBase64Data);
-    result.attachments = Attachments.find(byBoard)
+    result.attachments = Attachments.find({ 'meta.boardId': byBoard.boardId })
       .fetch()
       .map(attachment => {
         return {
