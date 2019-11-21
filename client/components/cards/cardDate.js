@@ -105,7 +105,7 @@ Template.dateBadge.helpers({
 // editCardReceivedDatePopup
 (class extends DatePicker {
   onCreated() {
-    super.onCreated();
+    super.onCreated(moment().format('YYYY-MM-DD HH:mm'));
     this.data().getReceived() &&
       this.date.set(moment(this.data().getReceived()));
   }
@@ -122,7 +122,7 @@ Template.dateBadge.helpers({
 // editCardStartDatePopup
 (class extends DatePicker {
   onCreated() {
-    super.onCreated();
+    super.onCreated(moment().format('YYYY-MM-DD HH:mm'));
     this.data().getStart() && this.date.set(moment(this.data().getStart()));
   }
 
@@ -148,7 +148,7 @@ Template.dateBadge.helpers({
 // editCardDueDatePopup
 (class extends DatePicker {
   onCreated() {
-    super.onCreated();
+    super.onCreated('1970-01-01 17:00:00');
     this.data().getDue() && this.date.set(moment(this.data().getDue()));
   }
 
@@ -171,7 +171,7 @@ Template.dateBadge.helpers({
 // editCardEndDatePopup
 (class extends DatePicker {
   onCreated() {
-    super.onCreated();
+    super.onCreated(moment().format('YYYY-MM-DD HH:mm'));
     this.data().getEnd() && this.date.set(moment(this.data().getEnd()));
   }
 
@@ -237,7 +237,7 @@ class CardReceivedDate extends CardDate {
     const theDate = this.date.get();
     // if dueAt, endAt and startAt exist & are > receivedAt, receivedAt doesn't need to be flagged
     if (
-      (startAt && theDate.isAfter(dueAt)) ||
+      (startAt && theDate.isAfter(startAt)) ||
       (endAt && theDate.isAfter(endAt)) ||
       (dueAt && theDate.isAfter(dueAt))
     )
@@ -344,9 +344,9 @@ class CardEndDate extends CardDate {
     let classes = 'end-date' + ' ';
     const dueAt = this.data().getDue();
     const theDate = this.date.get();
-    if (theDate.diff(dueAt, 'days') >= 2) classes += 'long-overdue';
-    else if (theDate.diff(dueAt, 'days') >= 0) classes += 'due';
-    else if (theDate.diff(dueAt, 'days') >= -2) classes += 'almost-due';
+    if (!dueAt) classes += '';
+    else if (theDate.isBefore(dueAt)) classes += 'current';
+    else if (theDate.isAfter(dueAt)) classes += 'due';
     return classes;
   }
 

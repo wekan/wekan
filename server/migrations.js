@@ -684,39 +684,6 @@ Migrations.add('mutate-boardIds-in-customfields', () => {
   });
 });
 
-const firstBatchOfDbsToAddCreatedAndUpdated = [
-  AccountSettings,
-  Actions,
-  Activities,
-  Announcements,
-  Boards,
-  CardComments,
-  Cards,
-  ChecklistItems,
-  Checklists,
-  CustomFields,
-  Integrations,
-  InvitationCodes,
-  Lists,
-  Rules,
-  Settings,
-  Swimlanes,
-  Triggers,
-  UnsavedEdits,
-];
-
-firstBatchOfDbsToAddCreatedAndUpdated.forEach(db => {
-  db.before.insert((userId, doc) => {
-    doc.createdAt = Date.now();
-    doc.updatedAt = doc.createdAt;
-  });
-
-  db.before.update((userId, doc, fieldNames, modifier) => {
-    modifier.$set = modifier.$set || {};
-    modifier.$set.updatedAt = new Date();
-  });
-});
-
 const modifiedAtTables = [
   AccountSettings,
   Actions,
@@ -768,4 +735,93 @@ Migrations.add('add-missing-created-and-modified', () => {
       // eslint-disable-next-line no-console
       console.error(e);
     });
+});
+
+Migrations.add('fix-incorrect-dates', () => {
+  const tables = [
+    AccountSettings,
+    Actions,
+    Activities,
+    Announcements,
+    Boards,
+    CardComments,
+    Cards,
+    ChecklistItems,
+    Checklists,
+    CustomFields,
+    Integrations,
+    InvitationCodes,
+    Lists,
+    Rules,
+    Settings,
+    Swimlanes,
+    Triggers,
+    UnsavedEdits,
+  ];
+
+  // Dates were previously created with Date.now() which is a number, not a date
+  tables.forEach(t =>
+    t
+      .rawCollection()
+      .find({ $or: [{ createdAt: { $type: 1 } }, { updatedAt: { $type: 1 } }] })
+      .forEach(({ _id, createdAt, updatedAt }) => {
+        t.rawCollection().update(
+          { _id },
+          {
+            $set: {
+              createdAt: new Date(createdAt),
+              updatedAt: new Date(updatedAt),
+            },
+          },
+        );
+      }),
+  );
+});
+
+Migrations.add('add-assignee', () => {
+  Cards.update(
+    {
+      assignees: {
+        $exists: false,
+      },
+    },
+    {
+      $set: {
+        assignees: [],
+      },
+    },
+    noValidateMulti,
+  );
+});
+
+Migrations.add('add-profile-showDesktopDragHandles', () => {
+  Users.update(
+    {
+      'profile.showDesktopDragHandles': {
+        $exists: false,
+      },
+    },
+    {
+      $set: {
+        'profile.showDesktopDragHandles': false,
+      },
+    },
+    noValidateMulti,
+  );
+});
+
+Migrations.add('add-profile-hiddenMinicardLabelText', () => {
+  Users.update(
+    {
+      'profile.hiddenMinicardLabelText': {
+        $exists: false,
+      },
+    },
+    {
+      $set: {
+        'profile.hiddenMinicardLabelText': false,
+      },
+    },
+    noValidateMulti,
+  );
 });

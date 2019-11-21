@@ -11,6 +11,15 @@ Lists.attachSchema(
        */
       type: String,
     },
+    starred: {
+      /**
+       * if a list is stared
+       * then we put it on the top
+       */
+      type: Boolean,
+      optional: true,
+      defaultValue: false,
+    },
     archived: {
       /**
        * is the list archived
@@ -45,6 +54,8 @@ Lists.attachSchema(
       autoValue() {
         if (this.isInsert) {
           return new Date();
+        } else if (this.isUpsert) {
+          return { $setOnInsert: new Date() };
         } else {
           this.unset();
         }
@@ -79,10 +90,14 @@ Lists.attachSchema(
       denyUpdate: false,
       // eslint-disable-next-line consistent-return
       autoValue() {
-        if (this.isInsert || this.isUpsert || this.isUpdate) {
+        // this is redundant with updatedAt
+        /*if (this.isInsert || this.isUpsert || this.isUpdate) {
           return new Date();
         } else {
           this.unset();
+        }*/
+        if (!this.isSet) {
+          return new Date();
         }
       },
     },
@@ -250,6 +265,14 @@ Lists.helpers({
     return this.type === 'template-list';
   },
 
+  isStarred() {
+    return this.starred === true;
+  },
+
+  absoluteUrl() {
+    const card = Cards.findOne({ listId: this._id });
+    return card && card.absoluteUrl();
+  },
   remove() {
     Lists.remove({ _id: this._id });
   },
@@ -258,6 +281,9 @@ Lists.helpers({
 Lists.mutations({
   rename(title) {
     return { $set: { title } };
+  },
+  star(enable = true) {
+    return { $set: { starred: !!enable } };
   },
 
   archive() {

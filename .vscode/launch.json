@@ -1,0 +1,28 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+      {
+          "type": "chrome",
+          "request": "launch",
+          "name": "Meteor: Chrome",
+          "url": "http://localhost:3000",
+          "webRoot": "${workspaceFolder}"
+      },
+      {
+          "type": "node",
+          "request": "launch",
+          "name": "Meteor: Node",
+          "runtimeExecutable": "/home/wekan/.meteor/meteor",
+          "runtimeArgs": ["run", "--inspect-brk=9229"],
+          "outputCapture": "std",
+          "port": 9229,
+          "timeout": 60000
+      }
+  ],
+  "compounds": [
+      {
+          "name": "Meteor: All",
+          "configurations": ["Meteor: Node", "Meteor: Chrome"]
+      }
+  ]
+}

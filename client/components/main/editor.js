@@ -94,7 +94,13 @@ Template.editor.onRendered(() => {
           currentBoard
             .activeMembers()
             .map(member => {
-              const username = Users.findOne(member.userId).username;
+              const user = Users.findOne(member.userId);
+              if (user._id === Meteor.userId()) {
+                return null;
+              }
+              const value = user.username;
+              const username =
+                value && value.match(/\s+/) ? `"${value}"` : value;
               return username.includes(term) ? username : null;
             })
             .filter(Boolean),
@@ -120,9 +126,10 @@ Template.editor.onRendered(() => {
       ? [
           ['view', ['fullscreen']],
           ['table', ['table']],
-          ['font', ['bold', 'underline']],
-          //['fontsize', ['fontsize']],
+          ['font', ['bold']],
           ['color', ['color']],
+          ['insert', ['video']], // iframe tag will be sanitized TODO if iframe[class=note-video-clip] can be added into safe list, insert video can be enabled
+          //['fontsize', ['fontsize']],
         ]
       : [
           ['style', ['style']],
@@ -156,25 +163,45 @@ Template.editor.onRendered(() => {
         }
         return undefined;
       };
+      let popupShown = false;
       inputs.each(function(idx, input) {
         mSummernotes[idx] = $(input).summernote({
           placeholder,
           callbacks: {
+            onKeydown(e) {
+              if (popupShown) {
+                e.preventDefault();
+              }
+            },
+            onKeyup(e) {
+              if (popupShown) {
+                e.preventDefault();
+              }
+            },
             onInit(object) {
               const originalInput = this;
+              const setAutocomplete = function(jEditor) {
+                if (jEditor !== undefined) {
+                  jEditor.escapeableTextComplete(mentions).on({
+                    'textComplete:show'() {
+                      popupShown = true;
+                    },
+                    'textComplete:hide'() {
+                      popupShown = false;
+                    },
+                  });
+                }
+              };
               $(originalInput).on('submitted', function() {
                 // resetCommentInput has been called
                 if (!this.value) {
                   const sn = getSummernote(this);
-                  sn && sn.summernote('reset');
-                  object && object.editingArea.find('.note-placeholder').show();
+                  sn && sn.summernote('code', '');
                 }
               });
               const jEditor = object && object.editable;
               const toolbar = object && object.toolbar;
-              if (jEditor !== undefined) {
-                jEditor.escapeableTextComplete(mentions);
-              }
+              setAutocomplete(jEditor);
               if (toolbar !== undefined) {
                 const fBtn = toolbar.find('.btn-fullscreen');
                 fBtn.on('click', function() {
@@ -264,7 +291,7 @@ Template.editor.onRendered(() => {
                 const someNote = getSummernote(object);
                 const original = someNote.summernote('code');
                 const cleaned = cleanPastedHTML(original); //this is where to call whatever clean function you want. I have mine in a different file, called CleanPastedHTML.
-                someNote.summernote('reset'); //clear original
+                someNote.summernote('code', ''); //clear original
                 someNote.summernote('pasteHTML', cleaned); //this sets the displayed content editor to the cleaned pasted code.
               };
               setTimeout(function() {
@@ -325,11 +352,12 @@ Blaze.Template.registerHelper(
       }
       return member;
     });
-    const mentionRegex = /\B@([\w.]*)/gi;
+    const mentionRegex = /\B@(?:(?:"([\w.\s]*)")|([\w.]+))/gi; // including space in username
 
     let currentMention;
     while ((currentMention = mentionRegex.exec(content)) !== null) {
-      const [fullMention, username] = currentMention;
+      const [fullMention, quoteduser, simple] = currentMention;
+      const username = quoteduser || simple;
       const knowedUser = _.findWhere(knowedUsers, { username });
       if (!knowedUser) {
         continue;

@@ -211,6 +211,66 @@ services:
       # https://github.com/wekan/wekan-gogs
       # If you disable Wekan API with false, Export Board does not work.
       - WITH_API=true
+      #---------------------------------------------------------------
+      # ==== PASSWORD BRUTE FORCE PROTECTION ====
+      #https://atmospherejs.com/lucasantoniassi/accounts-lockout
+      #Defaults below. Uncomment to change. wekan/server/accounts-lockout.js
+      #- ACCOUNTS_LOCKOUT_KNOWN_USERS_FAILURES_BEFORE=3
+      #- ACCOUNTS_LOCKOUT_KNOWN_USERS_PERIOD=60
+      #- ACCOUNTS_LOCKOUT_KNOWN_USERS_FAILURE_WINDOW=15
+      #- ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURES_BERORE=3
+      #- ACCOUNTS_LOCKOUT_UNKNOWN_USERS_LOCKOUT_PERIOD=60
+      #- ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURE_WINDOW=15
+      #---------------------------------------------------------------
+      # ==== STORE ATTACHMENT ON SERVER FILESYSTEM INSTEAD OF MONGODB ====
+      # https://github.com/wekan/wekan/pull/2603
+      #- ATTACHMENTS_STORE_PATH = <pathname> # pathname can be relative or fullpath
+      #---------------------------------------------------------------
+      # ==== RICH TEXT EDITOR IN CARD COMMENTS ====
+      # https://github.com/wekan/wekan/pull/2560
+      - RICHER_CARD_COMMENT_EDITOR=true
+      #---------------------------------------------------------------
+      # ==== CARD OPENED, SEND WEBHOOK MESSAGE ====
+      # https://github.com/wekan/wekan/issues/2518
+      - CARD_OPENED_WEBHOOK_ENABLED=false
+      #---------------------------------------------------------------
+      # ==== Allow to shrink attached/pasted image ====
+      # https://github.com/wekan/wekan/pull/2544
+      #-MAX_IMAGE_PIXEL=1024
+      #-IMAGE_COMPRESS_RATIO=80
+      #---------------------------------------------------------------
+      # ==== BIGEVENTS DUE ETC NOTIFICATIONS =====
+      # https://github.com/wekan/wekan/pull/2541
+      # Introduced a system env var BIGEVENTS_PATTERN default as "NONE",
+      # so any activityType matches the pattern, system will send out
+      # notifications to all board members no matter they are watching
+      # or tracking the board or not. Owner of the wekan server can
+      # disable the feature by setting this variable to "NONE" or
+      # change the pattern to any valid regex. i.e. '|' delimited
+      # activityType names.
+      # a) Example
+      #- BIGEVENTS_PATTERN=due
+      # b) All
+      #- BIGEVENTS_PATTERN=received|start|due|end
+      # c) Disabled
+      - BIGEVENTS_PATTERN=NONE
+      #---------------------------------------------------------------
+      # ==== EMAIL DUE DATE NOTIFICATION =====
+      # https://github.com/wekan/wekan/pull/2536
+      # System timelines will be showing any user modification for
+      # dueat startat endat receivedat, also notification to
+      # the watchers and if any card is due, about due or past due.
+      #
+      # Notify due days, default 2 days before and after. 0 = due notifications disabled. Default: 2
+      #- NOTIFY_DUE_DAYS_BEFORE_AND_AFTER=2
+      #
+      # Notify due at hour of day. Default every morning at 8am. Can be 0-23.
+      # If env variable has parsing error, use default. Notification sent to watchers.
+      #- NOTIFY_DUE_AT_HOUR_OF_DAY=8
+      #-----------------------------------------------------------------
+      # ==== EMAIL NOTIFICATION TIMEOUT, ms =====
+      # Defaut: 30000 ms = 30s
+      #- EMAIL_NOTIFICATION_TIMEOUT=30000
       #-----------------------------------------------------------------
       # ==== CORS =====
       # CORS: Set Access-Control-Allow-Origin header. Example: *

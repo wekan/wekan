@@ -131,6 +131,8 @@ Template.previewClipboardImagePopup.onRendered(() => {
             direct(results);
           },
         });
+      } else {
+        direct(results);
       }
     }
   };

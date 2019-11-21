@@ -1,6 +1,6 @@
 name: wekan
 version: 0
-version-script: git describe --dirty --tags |  cut -c 2-
+version-script: git describe --tags |  cut -c 2-
 summary: The open-source kanban
 description: |
    Wekan is an open-source and collaborative kanban board application.
@@ -81,7 +81,7 @@ parts:
     wekan:
         source: .
         plugin: nodejs
-        node-engine: 8.16.0
+        node-engine: 8.16.2
         node-packages:
             - node-gyp
             - node-pre-gyp
@@ -190,7 +190,7 @@ parts:
             #  git clone --depth 1 -b master --recurse-submodules https://github.com/wekan/markdown.git
             #  cd ..
             #fi
-            rm -rf package-lock.json .build
+            rm -rf .build
             meteor add standard-minifier-js --allow-superuser
             meteor npm install --allow-superuser
             meteor npm install --allow-superuser --save babel-runtime

@@ -50,19 +50,19 @@
         #---------------------------------------------------------------
         # ==== BIGEVENTS DUE ETC NOTIFICATIONS =====
         # https://github.com/wekan/wekan/pull/2541
-        # Introduced a system env var BIGEVENTS_PATTERN default as "due",
+        # Introduced a system env var BIGEVENTS_PATTERN default as "NONE",
         # so any activityType matches the pattern, system will send out
         # notifications to all board members no matter they are watching
         # or tracking the board or not. Owner of the wekan server can
         # disable the feature by setting this variable to "NONE" or
         # change the pattern to any valid regex. i.e. '|' delimited
         # activityType names.
-        # a) Default
+        # a) Example
         #export BIGEVENTS_PATTERN=due
         # b) All
         #export BIGEVENTS_PATTERN=received|start|due|end
         # c) Disabled
-        #export BIGEVENTS_PATTERN=NONE
+        export BIGEVENTS_PATTERN=NONE
         #---------------------------------------------------------------
         # ==== EMAIL DUE DATE NOTIFICATION =====
         # https://github.com/wekan/wekan/pull/2536
@@ -70,8 +70,9 @@
         # dueat startat endat receivedat, also notification to
         # the watchers and if any card is due, about due or past due.
         #
-        # Notify due days, default 2 days before and after. 0 = due notifications disabled. Default: 2
-        #export NOTIFY_DUE_DAYS_BEFORE_AND_AFTER=2
+        # Notify due days, default is None. 
+        #export NOTIFY_DUE_DAYS_BEFORE_AND_AFTER=2,0
+        # it will notify user 2 days before due day and on the due day
         #
         # Notify due at hour of day. Default every morning at 8am. Can be 0-23.
         # If env variable has parsing error, use default. Notification sent to watchers.

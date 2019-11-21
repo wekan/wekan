@@ -93,7 +93,7 @@ services:
     #-------------------------------------------------------------------------------------
     # ==== MONGODB AND METEOR VERSION ====
     # a) For Wekan Meteor 1.8.x version at master branch, use mongo 4.x
-    image: mongo:4.0.11
+    image: mongo:4.0.12
     # b) For Wekan Meteor 1.6.x version at devel branch.
     # Only for Snap and Sandstorm while they are not upgraded yet to Meteor 1.8.x
     #image: mongo:3.2.21
@@ -251,19 +251,19 @@ services:
       #---------------------------------------------------------------
       # ==== BIGEVENTS DUE ETC NOTIFICATIONS =====
       # https://github.com/wekan/wekan/pull/2541
-      # Introduced a system env var BIGEVENTS_PATTERN default as "due",
+      # Introduced a system env var BIGEVENTS_PATTERN default as "NONE",
       # so any activityType matches the pattern, system will send out
       # notifications to all board members no matter they are watching
       # or tracking the board or not. Owner of the wekan server can
       # disable the feature by setting this variable to "NONE" or
       # change the pattern to any valid regex. i.e. '|' delimited
       # activityType names.
-      # a) Default
+      # a) Example
       #- BIGEVENTS_PATTERN=due
       # b) All
       #- BIGEVENTS_PATTERN=received|start|due|end
       # c) Disabled
-      #- BIGEVENTS_PATTERN=NONE
+      - BIGEVENTS_PATTERN=NONE
       #---------------------------------------------------------------
       # ==== EMAIL DUE DATE NOTIFICATION =====
       # https://github.com/wekan/wekan/pull/2536
@@ -271,8 +271,8 @@ services:
       # dueat startat endat receivedat, also notification to
       # the watchers and if any card is due, about due or past due.
       #
-      # Notify due days, default 2 days before and after. 0 = due notifications disabled. Default: 2
-      #- NOTIFY_DUE_DAYS_BEFORE_AND_AFTER=2
+      # Notify due days, default is None, 2 days before and on the event day
+      #- NOTIFY_DUE_DAYS_BEFORE_AND_AFTER=2,0
       #
       # Notify due at hour of day. Default every morning at 8am. Can be 0-23.
       # If env variable has parsing error, use default. Notification sent to watchers.
@@ -426,8 +426,10 @@ services:
       # If the LDAP needs a user account to search
       #- LDAP_AUTHENTIFICATION=true
       #
-      # The search user DN
-      #- LDAP_AUTHENTIFICATION_USERDN=cn=wekan_adm,ou=serviceaccounts,ou=admin,ou=prod,dc=mydomain,dc=com
+      # The search user DN - You need quotes when you have spaces in parameters
+      # 2 examples:
+      #- LDAP_AUTHENTIFICATION_USERDN="CN=ldap admin,CN=users,DC=domainmatter,DC=lan"
+      #- LDAP_AUTHENTIFICATION_USERDN="CN=wekan_adm,OU=serviceaccounts,OU=admin,OU=prod,DC=mydomain,DC=com"
       #
       # The password for the search user
       #- LDAP_AUTHENTIFICATION_PASSWORD=pwd

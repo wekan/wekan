@@ -55,6 +55,8 @@ Boards.attachSchema(
       autoValue() {
         if (this.isInsert) {
           return new Date();
+        } else if (this.isUpsert) {
+          return { $setOnInsert: new Date() };
         } else {
           this.unset();
         }
@@ -407,6 +409,27 @@ Boards.helpers({
   },
 
   lists() {
+    //currentUser = Meteor.user();
+    //if (currentUser) {
+    //  enabled = Meteor.user().hasSortBy();
+    //}
+    //return enabled ? this.newestLists() : this.draggableLists();
+    return this.draggableLists();
+  },
+
+  newestLists() {
+    // sorted lists from newest to the oldest, by its creation date or its cards' last modification date
+    const value = Meteor.user()._getListSortBy();
+    const sortKey = { starred: -1, [value[0]]: value[1] }; // [["starred",-1],value];
+    return Lists.find(
+      {
+        boardId: this._id,
+        archived: false,
+      },
+      { sort: sortKey },
+    );
+  },
+  draggableLists() {
     return Lists.find({ boardId: this._id }, { sort: { sort: 1 } });
   },
 
@@ -695,6 +718,13 @@ Boards.helpers({
       result = Swimlanes.findOne({ boardId: this._id });
     }
     return result;
+  },
+
+  cardsDueInBetween(start, end) {
+    return Cards.find({
+      boardId: this._id,
+      dueAt: { $gte: start, $lte: end },
+    });
   },
 
   cardsInInterval(start, end) {

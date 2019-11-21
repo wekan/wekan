@@ -18,7 +18,13 @@ BlazeComponent.extendComponent({
       },
       {
         'click .js-toggle-minicard-label-text'() {
-          Meteor.call('toggleMinicardLabelText');
+          import { Cookies } from 'meteor/ostrio:cookies';
+          const cookies = new Cookies();
+          if (cookies.has('hiddenMinicardLabelText')) {
+            cookies.remove('hiddenMinicardLabelText'); //true
+          } else {
+            cookies.set('hiddenMinicardLabelText', 'true'); //true
+          }
         },
       },
     ];
@@ -26,7 +32,32 @@ BlazeComponent.extendComponent({
 }).register('minicard');
 
 Template.minicard.helpers({
+  showDesktopDragHandles() {
+    currentUser = Meteor.user();
+    if (currentUser) {
+      return (currentUser.profile || {}).showDesktopDragHandles;
+    } else {
+      import { Cookies } from 'meteor/ostrio:cookies';
+      const cookies = new Cookies();
+      if (cookies.has('showDesktopDragHandles')) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  },
   hiddenMinicardLabelText() {
-    return Meteor.user().hasHiddenMinicardLabelText();
+    currentUser = Meteor.user();
+    if (currentUser) {
+      return (currentUser.profile || {}).hiddenMinicardLabelText;
+    } else {
+      import { Cookies } from 'meteor/ostrio:cookies';
+      const cookies = new Cookies();
+      if (cookies.has('hiddenMinicardLabelText')) {
+        return true;
+      } else {
+        return false;
+      }
+    }
   },
 });

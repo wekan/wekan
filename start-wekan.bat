@@ -45,27 +45,27 @@ REM SET ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURE_WINDOW=15
 
 REM # ==== BIGEVENTS DUE ETC NOTIFICATIONS =====
 REM # https://github.com/wekan/wekan/pull/2541
-REM # Introduced a system env var BIGEVENTS_PATTERN default as "due",
+REM # Introduced a system env var BIGEVENTS_PATTERN default as "NONE",
 REM # so any activityType matches the pattern, system will send out
 REM # notifications to all board members no matter they are watching
 REM # or tracking the board or not. Owner of the wekan server can
 REM # disable the feature by setting this variable to "NONE" or
 REM # change the pattern to any valid regex. i.e. '|' delimited
 REM # activityType names.
-REM # a) Default
+REM # a) Example
 REM SET BIGEVENTS_PATTERN=due
 REM # b) All
 REM SET BIGEVENTS_PATTERN=received|start|due|end
 REM # c) Disabled
-REM SET BIGEVENTS_PATTERN=NONE
+SET BIGEVENTS_PATTERN=NONE
 
 REM # ==== EMAIL DUE DATE NOTIFICATION =====
 REM # https://github.com/wekan/wekan/pull/2536
 REM # System timelines will be showing any user modification for
 REM # dueat startat endat receivedat, also notification to
 REM # the watchers and if any card is due, about due or past due.
-REM # Notify due days, default 2 days before and after. 0 = due notifications disabled. Default: 2
-REM SET NOTIFY_DUE_DAYS_BEFORE_AND_AFTER=2
+REM # Notify due days, default is None. 
+REM # SET NOTIFY_DUE_DAYS_BEFORE_AND_AFTER=2,0
 REM # Notify due at hour of day. Default every morning at 8am. Can be 0-23.
 REM # If env variable has parsing error, use default. Notification sent to watchers.
 REM SET NOTIFY_DUE_AT_HOUR_OF_DAY=8
@@ -205,6 +205,11 @@ REM SET LDAP_AUTHENTIFICATION=false
 REM # LDAP_AUTHENTIFICATION_USERDN : The search user DN
 REM # example: LDAP_AUTHENTIFICATION_USERDN=cn=admin,dc=example,dc=org
 REM SET LDAP_AUTHENTIFICATION_USERDN=
+
+REM # The search user DN - You need quotes when you have spaces in parameters
+REM # 2 examples:
+REM SET LDAP_AUTHENTIFICATION_USERDN="CN=ldap admin,CN=users,DC=domainmatter,DC=lan"
+REM SET LDAP_AUTHENTIFICATION_USERDN="CN=wekan_adm,OU=serviceaccounts,OU=admin,OU=prod,DC=mydomain,DC=com"
 
 REM # LDAP_AUTHENTIFICATION_PASSWORD : The password for the search user
 REM # example : AUTHENTIFICATION_PASSWORD=admin

@@ -138,7 +138,7 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
       parentCards.selector = _ids => ({ parentId: _ids });
       const boards = this.join(Boards);
       const subCards = this.join(Cards);
-      subCards.selector = () => ({ archived: isArchived });
+      subCards.selector = _ids => ({ _id: _ids, archived: isArchived });
 
       this.cursor(
         Cards.find({
@@ -148,7 +148,7 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
         function(cardId, card) {
           if (card.type === 'cardType-linkedCard') {
             const impCardId = card.linkedId;
-            subCards.push(impCardId);
+            subCards.push(impCardId); // GitHub issue #2688 and #2693
             cardComments.push(impCardId);
             attachments.push(impCardId);
             checklists.push(impCardId);

@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v3.24
+  version: v3.55
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -317,6 +317,11 @@ paths:
         - name: title
           in: formData
           description: the title value
+          type: string
+          required: true
+        - name: items
+          in: formData
+          description: the items value
           type: string
           required: true
         - name: board
@@ -1268,6 +1273,12 @@ paths:
             the member IDs list of the new card
           type: string
           required: false
+        - name: assignees
+          in: formData
+          description: |
+            the array of maximum one ID of assignee of the new card
+          type: string
+          required: false
         - name: title
           in: formData
           description: |
@@ -1431,6 +1442,11 @@ paths:
         - name: members
           in: formData
           description: the members value
+          type: string
+          required: true
+        - name: assignees
+          in: formData
+          description: the assignees value
           type: string
           required: true
         - name: swimlaneId
@@ -2349,6 +2365,15 @@ definitions:
           type: string
           x-nullable: true
         x-nullable: true
+      assignees:
+        description: |
+           who is assignee of the card (user ID),
+           maximum one ID of assignee in array.
+        type: array
+        items:
+          type: string
+          x-nullable: true
+        x-nullable: true
       receivedAt:
         description: |
            Date the card was received
@@ -2606,6 +2631,12 @@ definitions:
         description: |
            the title of the list
         type: string
+      starred:
+        description: |
+           if a list is stared
+           then we put it on the top
+        type: boolean
+        x-nullable: true
       archived:
         description: |
            is the list archived
@@ -2865,6 +2896,10 @@ definitions:
         description: |
            full name of the user
         type: string
+      showDesktopDragHandles:
+        description: |
+           does the user want to hide system messages?
+        type: boolean
       hiddenSystemMessages:
         description: |
            does the user want to hide system messages?
@@ -2918,6 +2953,17 @@ definitions:
           - board-view-lists
           - board-view-swimlanes
           - board-view-cal
+      listSortBy:
+        description: |
+           default sort list for user
+        type: string
+        enum:
+          - -modifiedat
+          - modifiedat
+          - -title
+          - title
+          - -sort
+          - sort
       templatesBoardId:
         description: |
            Reference to the templates board

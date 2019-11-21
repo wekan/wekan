@@ -1,5 +1,41 @@
 @import 'nib'
 
+/*
+// Minimize swimlanes start https://www.w3schools.com/howto/howto_js_accordion.asp
+
+.accordion
+  cursor: pointer
+  width: 30px
+  height: 20px
+  border: none
+  outline: none
+  font-size: 18px
+  transition: 0.4s
+  padding-top: 0px
+  margin-top: 0px
+
+.accordion:after
+  // Unicode triagle right:
+  content: '\25B6'
+  color: #777
+  font-weight: bold
+  float: left
+
+.active:after
+  // Unicode triangle down:
+  content: '\25BC'
+
+.panel
+  width: 100%
+  max-height: 0
+  overflow: hidden
+  transition: max-height 0.2s ease-out
+  margin: 0px
+  padding: 0px
+
+// Minimize swimlanes end https://www.w3schools.com/howto/howto_js_accordion.asp
+*/
+
 .swimlane
   // Even if this background color is the same as the body we can't leave it
   // transparent, because that won't work during a swimlane drag.
@@ -25,22 +61,22 @@
       cursor: grabbing
 
   .swimlane-header-wrap
-    display: flex;
-    flex-direction: row;
-    flex: 1 0 100%;
-    background-color: #ccc;
+    display: flex
+    flex-direction: row
+    flex: 1 0 100%
+    background-color: #ccc
 
     .swimlane-header
-      font-size: 14px;
+      font-size: 14px
       padding: 5px 5px
-      font-weight: bold;
-      min-height: 9px;
-      width: 100%;
-      overflow: hidden;
-      -o-text-overflow: ellipsis;
-      text-overflow: ellipsis;
-      word-wrap: break-word;
-      text-align: center;
+      font-weight: bold
+      min-height: 9px
+      width: 100%
+      overflow: hidden
+      -o-text-overflow: ellipsis
+      text-overflow: ellipsis
+      word-wrap: break-word
+      text-align: center
 
     .swimlane-header-menu
       position: absolute
@@ -49,6 +85,22 @@
     .swimlane-header-plus-icon
       margin-left: 5px
       margin-right: 10px
+
+    .swimlane-header-handle
+      position: absolute
+      padding: 7px
+      top: 50%
+      transform: translateY(-50%)
+      left: 230px
+      font-size: 18px
+
+    .swimlane-header-miniscreen-handle
+      position: absolute
+      padding: 7px
+      top: 50%
+      transform: translateY(-50%)
+      left: 87vw
+      font-size: 24px
 
 .list-group
   height: 100%

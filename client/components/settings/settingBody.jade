@@ -18,6 +18,8 @@ template(name="setting")
               a.js-setting-menu(data-id="announcement-setting") {{_ 'admin-announcement'}}
             li
               a.js-setting-menu(data-id="layout-setting") {{_ 'layout'}}
+            li
+              a.js-setting-menu(data-id="webhook-setting") {{_ 'global-webhook'}}
         .main-body
           if loading.get
             +spinner
@@ -31,6 +33,12 @@ template(name="setting")
             +announcementSettings
           else if layoutSetting.get
             +layoutSettings
+          else if webhookSetting.get
+            +webhookSettings
+
+template(name="webhookSettings")
+  span
+     +outgoingWebhooksPopup
 
 template(name="general")
   ul#registration-setting.setting-detail

@@ -1,3 +1,9 @@
+Meteor.publish('globalwebhooks', () => {
+  const boardId = Integrations.Const.GLOBAL_WEBHOOK_ID;
+  return Integrations.find({
+    boardId,
+  });
+});
 Meteor.publish('setting', () => {
   return Settings.find(
     {},

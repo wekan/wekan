@@ -1,5 +1,80 @@
 @import 'nib'
 
+// Assignee, code copied from wekan/client/users/userAvatar.styl
+
+avatar-radius = 50%
+
+.assignee
+  border-radius: 3px
+  display: block
+  position: relative
+  float: left
+  height: 30px
+  width: @height
+  margin: 0 4px 4px 0
+  cursor: pointer
+  user-select: none
+  z-index: 1
+  text-decoration: none
+  border-radius: avatar-radius
+
+  .avatar
+    overflow: hidden
+    border-radius: avatar-radius
+
+    &.avatar-assignee-initials
+      height: 70%
+      width: @height
+      padding: 15%
+      background-color: #dbdbdb
+      color: #444444
+      position: absolute
+
+    &.avatar-image
+      height: 100%
+      width: @height
+
+  .assignee-presence-status
+    background-color: #b3b3b3
+    border: 1px solid #fff
+    border-radius: 50%
+    height: 7px
+    width: @height
+    position: absolute
+    right: -1px
+    bottom: -1px
+    border: 1px solid white
+    z-index: 15
+
+    &.active
+      background: #64c464
+      border-color: #daf1da
+
+    &.idle
+      background: #e4e467
+      border-color: #f7f7d4
+
+    &.disconnected
+      background: #bdbdbd
+      border-color: #ededed
+
+    &.pending
+      background: #e44242
+      border-color: #f1dada
+
+
+
+  &.add-assignee
+    display: flex
+    align-items: center
+    justify-content: center
+    box-shadow: 0 0 0 2px darken(white, 25%) inset
+
+    &:hover, &.is-active
+      box-shadow: 0 0 0 2px darken(white, 60%) inset
+
+// Other card details
+
 .card-details
   padding: 0
   flex-shrink: 0
@@ -32,7 +107,9 @@
     border-bottom: 1px solid darken(white, 14%)
 
     .close-card-details,
-    .card-details-menu
+    .card-details-menu,
+    .close-card-details-mobile-web,
+    .card-details-menu-mobile-web
       float: right
 
     .close-card-details
@@ -40,9 +117,19 @@
       padding: 5px
       margin-right: -8px
 
+    .close-card-details-mobile-web
+      font-size: 24px
+      padding: 5px
+      margin-right: 40px
+
     .card-details-menu
       font-size: 17px
       padding: 10px
+
+    .card-details-menu-mobile-web
+      font-size: 17px
+      padding: 10px
+      margin-right: 30px
 
     .card-details-watch
       font-size: 17px
@@ -93,6 +180,7 @@
         margin-right: 0
       &.card-details-item-labels,
       &.card-details-item-members,
+      &.card-details-item-assignees,
       &.card-details-item-received,
       &.card-details-item-start,
       &.card-details-item-due,
