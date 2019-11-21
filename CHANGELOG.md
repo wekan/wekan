@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v3.56 2019-11-21 Wekan release
 
 This release adds the following updates:
 
@@ -6,10 +6,16 @@ This release adds the following updates:
   Thanks to xet7.
 - [Fix lint errors and update travis NPM version](https://github.com/wekan/wekan/commit/b0f345ba21830b033c9edcc8ee5252b280111ae7).
   Thanks to xet7.
+- [Change base image to rolling, that is currently Ubuntu eoan
+  version](https://github.com/wekan/wekan/commit/c66cc3d4dadb15b669256530cfda89359cdb9340).
+  Thanks to xet7.
+- [It seems Ubuntu eoan package bsdtar has been renamed to
+  libarchive-tools](https://github.com/wekan/wekan/commit/c60967e935bdc0e7e9aea0a1c23178aee8a73c29).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
-- Fix slow scroll on card detail by setting scrollInertia to 0](https://github.com/wekan/wekan/commit/599ace1db7918df41d9708d14b0351acb0f8688e).
+- [Fix slow scroll on card detail by setting scrollInertia to 0](https://github.com/wekan/wekan/commit/599ace1db7918df41d9708d14b0351acb0f8688e).
   Thanks to cafeoh.
 - [Fix lint errors](https://github.com/wekan/wekan/commit/788dd0a81a06efee165007a92780f9e8c2c754ac).
   Thanks to xet7.
@@ -17,14 +23,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Try to fix lint errors](https://github.com/wekan/wekan/commit/58e505f79a0617011576bdded9427b0d448d6107).
   Thanks to xet7.
-- [Add to snap Snap MongoDB logging option --quiet](https://github.com/wekan/wekan/commit/c7ded515022fff2c1167ce8938405a846185a710).
+- [Add to Snap MongoDB logging option --quiet](https://github.com/wekan/wekan/commit/c7ded515022fff2c1167ce8938405a846185a710).
   Thanks to fmeehan and xet7.
-- [Change base image to rolling, that is currently Ubuntu eoan
-  version](https://github.com/wekan/wekan/commit/c66cc3d4dadb15b669256530cfda89359cdb9340).
-  Thanks to xet7.
-- [It seems Ubuntu eoan package bsdtar has been renamed to
-  libarchive-tools](https://github.com/wekan/wekan/commit/c60967e935bdc0e7e9aea0a1c23178aee8a73c29).
-  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
