@@ -1,4 +1,4 @@
-FROM ubuntu:eoan
+FROM ubuntu:rolling
 LABEL maintainer="wekan"
 
 # Set the environment variables (defaults where required)
