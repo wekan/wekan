@@ -17,6 +17,14 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Try to fix lint errors](https://github.com/wekan/wekan/commit/58e505f79a0617011576bdded9427b0d448d6107).
   Thanks to xet7.
+- [Add to snap Snap MongoDB logging option --quiet](https://github.com/wekan/wekan/commit/c7ded515022fff2c1167ce8938405a846185a710).
+  Thanks to fmeehan and xet7.
+- [Change base image to rolling, that is currently Ubuntu eoan
+  version](https://github.com/wekan/wekan/commit/c66cc3d4dadb15b669256530cfda89359cdb9340).
+  Thanks to xet7.
+- [It seems Ubuntu eoan package bsdtar has been renamed to
+  libarchive-tools](https://github.com/wekan/wekan/commit/c60967e935bdc0e7e9aea0a1c23178aee8a73c29).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
