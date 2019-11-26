@@ -1,3 +1,6 @@
+import { Cookies } from 'meteor/ostrio:cookies';
+const cookies = new Cookies();
+
 Template.headerUserBar.events({
   'click .js-open-header-member-menu': Popup.open('memberMenu'),
   'click .js-change-avatar': Popup.open('changeAvatar'),
@@ -178,8 +181,6 @@ Template.changeSettingsPopup.helpers({
     if (currentUser) {
       return (currentUser.profile || {}).showDesktopDragHandles;
     } else {
-      import { Cookies } from 'meteor/ostrio:cookies';
-      const cookies = new Cookies();
       if (cookies.has('showDesktopDragHandles')) {
         return true;
       } else {
@@ -192,8 +193,6 @@ Template.changeSettingsPopup.helpers({
     if (currentUser) {
       return (currentUser.profile || {}).hasHiddenSystemMessages;
     } else {
-      import { Cookies } from 'meteor/ostrio:cookies';
-      const cookies = new Cookies();
       if (cookies.has('hasHiddenSystemMessages')) {
         return true;
       } else {
@@ -219,8 +218,6 @@ Template.changeSettingsPopup.events({
     if (currentUser) {
       Meteor.call('toggleDesktopDragHandles');
     } else {
-      import { Cookies } from 'meteor/ostrio:cookies';
-      const cookies = new Cookies();
       if (cookies.has('showDesktopDragHandles')) {
         cookies.remove('showDesktopDragHandles');
       } else {
@@ -233,8 +230,6 @@ Template.changeSettingsPopup.events({
     if (currentUser) {
       Meteor.call('toggleSystemMessages');
     } else {
-      import { Cookies } from 'meteor/ostrio:cookies';
-      const cookies = new Cookies();
       if (cookies.has('hasHiddenSystemMessages')) {
         cookies.remove('hasHiddenSystemMessages');
       } else {
@@ -253,8 +248,6 @@ Template.changeSettingsPopup.events({
       if (currentUser) {
         Meteor.call('changeLimitToShowCardsCount', minLimit);
       } else {
-        import { Cookies } from 'meteor/ostrio:cookies';
-        const cookies = new Cookies();
         cookies.set('limitToShowCardsCount', minLimit);
       }
       Popup.back();

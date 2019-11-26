@@ -1,3 +1,5 @@
+import { Cookies } from 'meteor/ostrio:cookies';
+const cookies = new Cookies();
 Sidebar = null;
 
 const defaultView = 'home';
@@ -111,8 +113,6 @@ BlazeComponent.extendComponent({
           if (currentUser) {
             Meteor.call('toggleMinicardLabelText');
           } else {
-            import { Cookies } from 'meteor/ostrio:cookies';
-            const cookies = new Cookies();
             if (cookies.has('hiddenMinicardLabelText')) {
               cookies.remove('hiddenMinicardLabelText');
             } else {
@@ -136,8 +136,6 @@ Template.homeSidebar.helpers({
     if (currentUser) {
       return (currentUser.profile || {}).hiddenMinicardLabelText;
     } else {
-      import { Cookies } from 'meteor/ostrio:cookies';
-      const cookies = new Cookies();
       if (cookies.has('hiddenMinicardLabelText')) {
         return true;
       } else {

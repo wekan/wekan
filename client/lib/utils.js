@@ -1,7 +1,8 @@
+import { Cookies } from 'meteor/ostrio:cookies';
+const cookies = new Cookies();
+
 Utils = {
   setBoardView(view) {
-    import { Cookies } from 'meteor/ostrio:cookies';
-    const cookies = new Cookies();
     currentUser = Meteor.user();
     if (currentUser) {
       Meteor.user().setBoardView(view);
@@ -18,8 +19,6 @@ Utils = {
   },
 
   unsetBoardView() {
-    import { Cookies } from 'meteor/ostrio:cookies';
-    const cookies = new Cookies();
     cookies.remove('boardView');
     cookies.remove('collapseSwimlane');
   },
@@ -29,8 +28,6 @@ Utils = {
     if (currentUser) {
       return (currentUser.profile || {}).boardView;
     } else {
-      import { Cookies } from 'meteor/ostrio:cookies';
-      const cookies = new Cookies();
       if (cookies.get('boardView') === 'board-view-lists') {
         return 'board-view-lists';
       } else if (

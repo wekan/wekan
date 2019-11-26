@@ -175,15 +175,6 @@ Template.boardHeaderBar.helpers({
   boardView() {
     return Utils.boardView();
   },
-  //collapseSwimlane() {
-  //  import { Cookies } from 'meteor/ostrio:cookies';
-  //  const cookies = new Cookies();
-  //  if (cookies.has('collapseSwimlane')) {
-  //    return true;
-  //  } else {
-  //    return false;
-  //  }
-  //},
 });
 
 Template.boardChangeViewPopup.events({
@@ -195,9 +186,6 @@ Template.boardChangeViewPopup.events({
     Utils.setBoardView('board-view-swimlanes');
     Popup.close();
   },
-  //'click .js-open-collapse-view'() {
-  //  Utils.setBoardView('board-view-collapse');
-  //Popup.close();
   'click .js-open-cal-view'() {
     Utils.setBoardView('board-view-cal');
     Popup.close();
