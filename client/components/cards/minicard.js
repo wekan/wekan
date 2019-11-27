@@ -32,4 +32,7 @@ Template.minicard.helpers({
   hiddenMinicardLabelText() {
     return Meteor.user().hasHiddenMinicardLabelText();
   },
+  coverUrl() {
+    return Attachments.findOne(this.coverId).link();
+  },
 });

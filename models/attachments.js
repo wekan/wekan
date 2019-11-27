@@ -2,9 +2,12 @@ import { FilesCollection } from 'meteor/ostrio:files';
 
 Attachments = new FilesCollection({
   storagePath: storagePath(),
-  debug: true, // FIXME: Remove debug mode
+  debug: false, // FIXME: Remove debug mode
   collectionName: 'attachments2',
   allowClientCode: true, // FIXME: Permissions
+  onAfterUpload: (fileRef) => {
+    Attachments.update({_id:fileRef._id}, {$set: {"meta.uploaded": true}});
+  }
 });
 
 if (Meteor.isServer) {
@@ -15,6 +18,7 @@ if (Meteor.isServer) {
   // TODO: Permission related
   // TODO: Add Activity update
   // TODO: publish and subscribe
+
   Meteor.publish('attachments', function() {
     return Attachments.find().cursor;
   });

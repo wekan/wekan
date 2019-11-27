@@ -460,11 +460,10 @@ Cards.helpers({
         { sort: { uploadedAt: -1 } },
       );
     } else {
-      const ret = Attachments.find(
+      let ret = Attachments.find(
         { 'meta.cardId': this._id },
         { sort: { uploadedAt: -1 } },
       );
-      if (ret.first()) console.log('link', Attachments.link(ret.first()));
       return ret;
     }
   },

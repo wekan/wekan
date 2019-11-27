@@ -13,10 +13,10 @@ Template.attachmentsGalery.events({
     event.stopPropagation();
   },
   'click .js-add-cover'() {
-    Cards.findOne(this.cardId).setCover(this._id);
+    Cards.findOne(this.meta.cardId).setCover(this._id);
   },
   'click .js-remove-cover'() {
-    Cards.findOne(this.cardId).unsetCover();
+    Cards.findOne(this.meta.cardId).unsetCover();
   },
   'click .js-preview-image'(event) {
     Popup.open('previewAttachedImage').call(this, event);
@@ -47,8 +47,11 @@ Template.attachmentsGalery.events({
 
 Template.attachmentsGalery.helpers({
   url() {
-    return Attachments.link(this);
-  }
+    return Attachments.link(this); 
+  },
+  isUploaded() {
+    return !!this.meta.uploaded;
+  },
 });
 
 Template.previewAttachedImagePopup.events({
@@ -67,13 +70,14 @@ Template.cardAttachmentsPopup.events({
   'change .js-attach-file'(event) {
     const card = this;
     const processFile = f => {
-      Utils.processUploadedAttachment(card, f, attachment => {
-        console.log('attachment', attachment);
-        if (attachment && attachment._id && attachment.isImage) {
-          card.setCover(attachment._id);
+      Utils.processUploadedAttachment(card, f,
+        (err, attachment) => {
+          if (attachment && attachment._id && attachment.isImage) {
+            card.setCover(attachment._id);
+          }
+          Popup.close();
         }
-        Popup.close();
-      });
+      );
     };
 
     FS.Utility.eachFile(event, f => {
@@ -169,7 +173,6 @@ Template.previewClipboardImagePopup.events({
       };
       if (!results.name) {
         // if no filename, it's from clipboard. then we give it a name, with ext name from MIME type
-        // FIXME: Check this behavior
         if (typeof results.file.type === 'string') {
           settings.fileName =
             new Date().getTime() + results.file.type.replace('.+/', '');
@@ -182,7 +185,6 @@ Template.previewClipboardImagePopup.events({
       settings.meta.userId = Meteor.userId();
       const attachment = Attachments.insert(settings);
 
-      // TODO: Check image cover behavior
       if (attachment && attachment._id && attachment.isImage) {
         card.setCover(attachment._id);
       }
