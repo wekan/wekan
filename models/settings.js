@@ -334,6 +334,10 @@ if (Meteor.isServer) {
     getDefaultAuthenticationMethod() {
       return process.env.DEFAULT_AUTHENTICATION_METHOD;
     },
+
+    getLinkedCardsEnabled() {
+      return process.env.LINKED_CARDS_ENABLED === 'true';
+    }
   });
 }
 
