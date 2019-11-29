@@ -10,9 +10,6 @@ Utils = {
       cookies.set('boardView', 'board-view-lists'); //true
     } else if (view === 'board-view-swimlanes') {
       cookies.set('boardView', 'board-view-swimlanes'); //true
-      //} else if (view === 'board-view-collapse') {
-      //  cookies.set('boardView', 'board-view-swimlane'); //true
-      //  cookies.set('collapseSwimlane', 'true'); //true
     } else if (view === 'board-view-cal') {
       cookies.set('boardView', 'board-view-cal'); //true
     }
@@ -32,11 +29,8 @@ Utils = {
         return 'board-view-lists';
       } else if (
         cookies.get('boardView') === 'board-view-swimlanes'
-        //&& !cookies.has('collapseSwimlane')
       ) {
         return 'board-view-swimlanes';
-        //} else if (cookies.has('collapseSwimlane')) {
-        //  return 'board-view-swimlanes';
       } else if (cookies.get('boardView') === 'board-view-cal') {
         return 'board-view-cal';
       } else {

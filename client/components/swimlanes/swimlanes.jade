@@ -20,28 +20,6 @@ template(name="swimlane")
         if currentUser.isBoardMember
           unless currentUser.isCommentOnly
             +addListForm
-  //if collapseSwimlane
-  //  // Minimize swimlanes next 2 lines below https://www.w3schools.com/howto/howto_js_accordion.asp
-  //  button(class="accordion")
-  //  div(class="panel")
-  //    .swimlane.js-lists.js-swimlane
-  //      if isMiniScreen
-  //        if currentListIsInThisSwimlane _id
-  //          +list(currentList)
-  //        unless currentList
-  //          each lists
-  //            +miniList(this)
-  //          if currentUser.isBoardMember
-  //            unless currentUser.isCommentOnly
-  //              +addListForm
-  //      else
-  //        each lists
-  //          +list(this)
-  //          if currentCardIsInThisList _id ../_id
-  //            +cardDetails(currentCard)
-  //        if currentUser.isBoardMember
-  //          unless currentUser.isCommentOnly
-  //            +addListForm
 
 template(name="listsGroup")
   .swimlane.list-group.js-lists
