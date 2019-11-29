@@ -103,14 +103,9 @@ template(name="boardHeaderBar")
             i.fa.fa-trello
           if $eq boardView 'board-view-swimlanes'
             i.fa.fa-th-large
-          //  unless collapseSwimlane
-          //    i.fa.fa-th-large
-          //  if collapseSwimlane
-          //    i.fa.fa-play
           if $eq boardView 'board-view-cal'
             i.fa.fa-calendar
           span {{#if boardView}}{{_ boardView}}{{else}}{{_ 'board-view-lists'}}{{/if}}
-          //span {{#if collapseSwimlane}}{{_ 'board-view-collapse'}}{{else}}{{#if boardView}}{{_ boardView}}{{else}}{{_ 'board-view-lists'}}{{/if}}{{/if}}
 
       if canModifyBoard
         a.board-header-btn.js-multiselection-activate(
@@ -191,13 +186,6 @@ template(name="boardChangeViewPopup")
           | {{_ 'board-view-swimlanes'}}
           if $eq Utils.boardView "board-view-swimlanes"
             i.fa.fa-check
-    //li
-    //  with "board-view-collapse"
-    //    a.js-open-collapse-view
-    //      i.fa.fa-play.colorful
-    //      | {{_ 'board-view-collapse'}}
-    //      if $eq Utils.boardView "board-view-collapse"
-    //        i.fa.fa-check
     li
       with "board-view-cal"
         a.js-open-cal-view
