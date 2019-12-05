@@ -14,7 +14,7 @@ before_install:
   - sudo curl -L https://github.com/docker/compose/releases/download/${TRAVIS_DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
   - sudo chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
-  - sudo docker-compose build --no-cache --force-rm
+  - travis_wait 60 sudo docker-compose build --no-cache --force-rm
   - sudo docker-compose up -d wekandb
   - sudo docker-compose up -d wekan
   # ^^ Note - need to come up with some way of checking the output from docker run
