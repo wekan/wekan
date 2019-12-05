@@ -1,3 +1,15 @@
+# Upcoming Wekan release
+
+This release adds the following updates:
+
+- [Update to Meteor 1.9-beta.4, Node.js 12.13.1 and MongoDB 4.2.1.
+  Remove MongoDB option --smallfiles that is not supported in MongoDB 4.2.1.
+  Add MongoDB option --quiet to docker-compose.yml.
+  Update snap fibers to 4.0.1](https://github.com/wekan/wekan/commit/467a3be8509d4a45cd26da7f199b4dbd049086fd).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.56 2019-11-21 Wekan release
 
 This release adds the following updates:
