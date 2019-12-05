@@ -99,7 +99,7 @@ parts:
             - npm
         stage-packages:
             - libfontconfig1
-            - libcurl4
+            - libcurl3
         override-build: |
             echo "Cleaning environment first"
             rm -rf ~/.meteor ~/.npm /usr/local/lib/node_modules
