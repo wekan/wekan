@@ -6,10 +6,10 @@ LABEL maintainer="wekan"
 # ENV BUILD_DEPS="paxctl"
 ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-essential git ca-certificates python3" \
     DEBUG=false \
-    NODE_VERSION=12.13.1 \
-    METEOR_RELEASE=1.9-beta.4 \
+    NODE_VERSION=v8.16.2 \
+    METEOR_RELEASE=1.8.1 \
     USE_EDGE=false \
-    METEOR_EDGE=1.9-beta.4 \
+    METEOR_EDGE=1.5-beta.17 \
     NPM_VERSION=latest \
     FIBERS_VERSION=4.0.1 \
     ARCHITECTURE=linux-x64 \
@@ -130,8 +130,8 @@ RUN \
     ln -sf $(which bsdtar) $(which tar) && \
     \
     # Download nodejs
-    wget https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
-    wget https://nodejs.org/dist/v${NODE_VERSION}/SHASUMS256.txt.asc && \
+    wget https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
+    wget https://nodejs.org/dist/${NODE_VERSION}/SHASUMS256.txt.asc && \
     #---------------------------------------------------------------------------------------------
     # Node Fibers 100% CPU usage issue:
     # https://github.com/wekan/wekan-mongodb/issues/2#issuecomment-381453161
@@ -146,7 +146,7 @@ RUN \
     #echo "1ed54adb8497ad8967075a0b5d03dd5d0a502be43d4a4d84e5af489c613d7795  node-v8.12.0-linux-x64.tar.gz" >> SHASUMS256.txt.asc && \
     \
     # Verify nodejs authenticity
-    grep v${NODE_VERSION}-${ARCHITECTURE}.tar.gz SHASUMS256.txt.asc | shasum -a 256 -c - && \
+    grep ${NODE_VERSION}-${ARCHITECTURE}.tar.gz SHASUMS256.txt.asc | shasum -a 256 -c - && \
     #export GNUPGHOME="$(mktemp -d)" && \
     #\
     # Try other key servers if ha.pool.sks-keyservers.net is unreachable
@@ -173,12 +173,12 @@ RUN \
     rm -f SHASUMS256.txt.asc && \
     \
     # Install Node
-    tar xvzf node-v${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
-    rm node-v${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
-    mv node-v${NODE_VERSION}-${ARCHITECTURE} /opt/nodejs && \
+    tar xvzf node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
+    rm node-${NODE_VERSION}-${ARCHITECTURE}.tar.gz && \
+    mv node-${NODE_VERSION}-${ARCHITECTURE} /opt/nodejs && \
     ln -s /opt/nodejs/bin/node /usr/bin/node && \
     ln -s /opt/nodejs/bin/npm /usr/bin/npm && \
-    mkdir -p /opt/nodejs/lib/node_modules/fibers/.node-gyp /root/.node-gyp/${NODE_VERSION} /home/wekan/.config && \
+    mkdir -p /opt/nodejs/lib/node_modules/fibers/.node-gyp /root/.node-gyp/8.16.1 /home/wekan/.config && \
     chown wekan --recursive /home/wekan/.config && \
     \
     #DOES NOT WORK: paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
@@ -275,7 +275,7 @@ RUN \
     # Cleanup
     apt-get remove --purge -y ${BUILD_DEPS} && \
     apt-get autoremove -y && \
-    #npm uninstall -g api2html &&\
+    npm uninstall -g api2html &&\
     rm -R /var/lib/apt/lists/* && \
     rm -R /home/wekan/.meteor && \
     rm -R /home/wekan/app && \

@@ -81,11 +81,11 @@ parts:
     wekan:
         source: .
         plugin: nodejs
-        node-engine: 12.13.1
+        node-engine: 8.16.2
         node-packages:
             - node-gyp
             - node-pre-gyp
-            - fibers@4.0.1
+            - fibers@2.0.0
         build-packages:
             - ca-certificates
             - apt-utils
@@ -99,7 +99,6 @@ parts:
             - npm
         stage-packages:
             - libfontconfig1
-#            - libcurl3
         override-build: |
             echo "Cleaning environment first"
             rm -rf ~/.meteor ~/.npm /usr/local/lib/node_modules
