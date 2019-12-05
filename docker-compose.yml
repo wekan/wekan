@@ -1,4 +1,4 @@
-version: '2'
+version: '3.7'
 
 # Note: Do not add single quotes '' to variables. Having spaces still works without quotes where required.
 #---------------------------------------------------------------------------------------------------------
@@ -93,14 +93,14 @@ services:
     #-------------------------------------------------------------------------------------
     # ==== MONGODB AND METEOR VERSION ====
     # a) For Wekan Meteor 1.8.x version at master branch, use mongo 4.x
-    image: mongo:4.0.12
+    image: mongo:4.2.1
     # b) For Wekan Meteor 1.6.x version at devel branch.
     # Only for Snap and Sandstorm while they are not upgraded yet to Meteor 1.8.x
     #image: mongo:3.2.21
     #-------------------------------------------------------------------------------------
     container_name: wekan-db
     restart: always
-    command: mongod --smallfiles --oplogSize 128
+    command: mongod --oplogSize 128 --quiet
     networks:
       - wekan-tier
     expose:
@@ -129,17 +129,17 @@ services:
     #-------------------------------------------------------------------------------------
     # ==== BUILD wekan-app DOCKER CONTAINER FROM SOURCE, if you uncomment these ====
     # ==== and use commands: docker-compose up -d --build
-    #build:
-    #  context: .
-    #  dockerfile: Dockerfile
-    #  args:
-    #    - NODE_VERSION=${NODE_VERSION}
-    #    - METEOR_RELEASE=${METEOR_RELEASE}
-    #    - NPM_VERSION=${NPM_VERSION}
-    #    - ARCHITECTURE=${ARCHITECTURE}
-    #    - SRC_PATH=${SRC_PATH}
-    #    - METEOR_EDGE=${METEOR_EDGE}
-    #    - USE_EDGE=${USE_EDGE}
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - NODE_VERSION=${NODE_VERSION}
+        - METEOR_RELEASE=${METEOR_RELEASE}
+        - NPM_VERSION=${NPM_VERSION}
+        - ARCHITECTURE=${ARCHITECTURE}
+        - SRC_PATH=${SRC_PATH}
+        - METEOR_EDGE=${METEOR_EDGE}
+        - USE_EDGE=${USE_EDGE}
     #-------------------------------------------------------------------------------------
     ports:
       # Docker outsideport:insideport. Do not add anything extra here.

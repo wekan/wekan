@@ -1,4 +1,4 @@
-FROM ubuntu:disco
+FROM ubuntu:rolling
 LABEL maintainer="sgr"
 
 ENV BUILD_DEPS="gnupg gosu bsdtar wget curl bzip2 g++ build-essential python git ca-certificates iproute2"
@@ -6,10 +6,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 ENV \
     DEBUG=false \
-    NODE_VERSION=8.16.2 \
-    METEOR_RELEASE=1.8.1 \
+    NODE_VERSION=12.13.1 \
+    METEOR_RELEASE=1.9-beta.4 \
     USE_EDGE=false \
-    METEOR_EDGE=1.5-beta.17 \
+    METEOR_EDGE=1.9-beta.4 \
     NPM_VERSION=latest \
     FIBERS_VERSION=4.0.1 \
     ARCHITECTURE=linux-x64 \

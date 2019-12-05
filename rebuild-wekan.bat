@@ -11,10 +11,10 @@ cd C:\repos
 REM Install chocolatey
 @"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command "iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))" && SET "PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin"
 
-choco install -y git curl python2 dotnet4.5.2 nano mongodb-3 mongoclient meteor
+choco install -y git curl python2 dotnet4.5.2 nano mongodb-4 mongoclient meteor
 
-curl -O https://nodejs.org/dist/v8.16.2/node-v8.16.2-x64.msi
-call node-v8.16.2-x64.msi
+curl -O https://nodejs.org/dist/v8.16.2/node-v12.13.1-x64.msi
+call node-v12.13.1-x64.msi
 
 call npm config -g set msvs_version 2015
 call meteor npm config -g set msvs_version 2015

@@ -1,9 +1,9 @@
-dist: disco
+dist: rolling
 sudo: required
 
 env:
-  TRAVIS_DOCKER_COMPOSE_VERSION: 1.24.0
-  TRAVIS_NODE_VERSION: 8.16.2
+  TRAVIS_DOCKER_COMPOSE_VERSION: 3.7.0
+  TRAVIS_NODE_VERSION: 12.13.1
   TRAVIS_NPM_VERSION: latest
 
 before_install:
