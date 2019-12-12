@@ -4,6 +4,8 @@ This release fixes the following bugs:
 
 - [Fix: Don't add a blank space for empty custom fields on minicards](https://github.com/wekan/wekan/commit/e2a374f0aad8489a84d6de9966c281a812b5eca3).
   Thanks to roobre and xet7.
+- [Fix: Allow to set empty card title, AssignedBy and RequestedBy](https://github.com/wekan/wekan/commit/25561946edf37351f67cf7500902dde7d9114d2f).
+  Thanks to justinr1234 and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
