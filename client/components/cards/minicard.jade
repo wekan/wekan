@@ -67,14 +67,15 @@ template(name="minicard")
     .minicard-custom-fields
       each customFieldsWD
         if definition.showOnCard
-          .minicard-custom-field
-            if definition.showLabelOnMiniCard
+          if trueValue
+            .minicard-custom-field
+              if definition.showLabelOnMiniCard
+                .minicard-custom-field-item
+                  +viewer
+                    = definition.name
               .minicard-custom-field-item
                 +viewer
-                  = definition.name
-            .minicard-custom-field-item
-              +viewer
-                = trueValue
+                  = trueValue
 
     if getAssignees
       .minicard-assignees.js-minicard-assignees
