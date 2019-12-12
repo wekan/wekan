@@ -291,6 +291,8 @@ BlazeComponent.extendComponent({
             .trim();
           if (title) {
             this.data().setTitle(title);
+          } else {
+            this.data().setTitle('');
           }
         },
         'submit .js-card-details-assigner'(event) {
@@ -300,6 +302,8 @@ BlazeComponent.extendComponent({
             .trim();
           if (assigner) {
             this.data().setAssignedBy(assigner);
+          } else {
+            this.data().setAssignedBy('');
           }
         },
         'submit .js-card-details-requester'(event) {
@@ -309,6 +313,8 @@ BlazeComponent.extendComponent({
             .trim();
           if (requester) {
             this.data().setRequestedBy(requester);
+          } else {
+            this.data().setRequestedBy('');
           }
         },
         'click .js-member': Popup.open('cardMember'),
