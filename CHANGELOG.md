@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix: Don't add a blank space for empty custom fields on minicards](https://github.com/wekan/wekan/commit/e2a374f0aad8489a84d6de9966c281a812b5eca3).
+  Thanks to roobre and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.56 2019-11-21 Wekan release
 
 This release adds the following updates:
