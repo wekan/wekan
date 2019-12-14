@@ -223,6 +223,8 @@
   "comment-only-desc": "Comentari sus las cartas solament.",
   "no-comments": "Pas cap de comentari",
   "no-comments-desc": "Podèts pas veire ni los comentaris ni las activitats",
+  "worker": "Worker",
+  "worker-desc": "Can only move cards, assign itself to card and comment.",
   "computer": "Ordenator",
   "confirm-subtask-delete-dialog": "Sètz segur de voler quitar aquesta jos-tasca?",
   "confirm-checklist-delete-dialog": "Sètz segur de voler quitar aquesta checklist?",

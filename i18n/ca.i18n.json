@@ -223,6 +223,8 @@
   "comment-only-desc": "Només pots fer comentaris a les fitxes",
   "no-comments": "Sense comentaris",
   "no-comments-desc": "Can not see comments and activities.",
+  "worker": "Worker",
+  "worker-desc": "Can only move cards, assign itself to card and comment.",
   "computer": "Ordinador",
   "confirm-subtask-delete-dialog": "Esteu segur que voleu eliminar la subtasca?",
   "confirm-checklist-delete-dialog": "Are you sure you want to delete checklist?",

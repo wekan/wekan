@@ -223,6 +223,8 @@
   "comment-only-desc": "Může přidávat komentáře pouze do karet.",
   "no-comments": "Žádné komentáře",
   "no-comments-desc": "Nemůže vidět komentáře a aktivity",
+  "worker": "Worker",
+  "worker-desc": "Can only move cards, assign itself to card and comment.",
   "computer": "Počítač",
   "confirm-subtask-delete-dialog": "Opravdu chcete smazat tento podúkol?",
   "confirm-checklist-delete-dialog": "Opravdu chcete smazat tento checklist?",

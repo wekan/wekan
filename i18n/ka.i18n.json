@@ -223,6 +223,8 @@
   "comment-only-desc": "თქვენ შეგიძლიათ კომენტარის გაკეთება მხოლოდ ბარათებზე.",
   "no-comments": "No comments",
   "no-comments-desc": "Can not see comments and activities.",
+  "worker": "Worker",
+  "worker-desc": "Can only move cards, assign itself to card and comment.",
   "computer": "კომპიუტერი",
   "confirm-subtask-delete-dialog": "დარწმუნებული ხართ, რომ გსურთ ქვესაქმიანობის წაშლა? ",
   "confirm-checklist-delete-dialog": "დარწმუნებული ხართ, რომ გსურთ კატალოგის წაშლა ? ",

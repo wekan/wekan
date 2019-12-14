@@ -223,6 +223,8 @@
   "comment-only-desc": "Może tylko komentować w kartach.",
   "no-comments": "Bez komentarzy",
   "no-comments-desc": "Nie widzi komentarzy i aktywności.",
+  "worker": "Worker",
+  "worker-desc": "Can only move cards, assign itself to card and comment.",
   "computer": "Komputera",
   "confirm-subtask-delete-dialog": "Czy jesteś pewien, że chcesz usunąć to podzadanie?",
   "confirm-checklist-delete-dialog": "Czy jesteś pewien, że chcesz usunąć listę zadań?",

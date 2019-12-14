@@ -223,6 +223,8 @@
   "comment-only-desc": "Sadece kartlara yorum yazabilir.",
   "no-comments": "Yorum Yok",
   "no-comments-desc": "Yorumlar ve aktiviteleri göremiyorum.",
+  "worker": "Worker",
+  "worker-desc": "Can only move cards, assign itself to card and comment.",
   "computer": "Bilgisayar",
   "confirm-subtask-delete-dialog": "Alt görevi silmek istediğinizden emin misiniz?",
   "confirm-checklist-delete-dialog": "Kontrol listesini silmek istediğinden emin misin?",

@@ -223,6 +223,8 @@
   "comment-only-desc": "Може да коментира само в карти.",
   "no-comments": "Нема коментари",
   "no-comments-desc": "Can not see comments and activities.",
+  "worker": "Worker",
+  "worker-desc": "Can only move cards, assign itself to card and comment.",
   "computer": "Компјутер",
   "confirm-subtask-delete-dialog": "Сигурен ли сте, дека сакате да изтриете подзадачата?",
   "confirm-checklist-delete-dialog": "Сигурни ли сте, дека сакате да изтриете този чеклист?",

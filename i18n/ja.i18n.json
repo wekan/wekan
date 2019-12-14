@@ -223,6 +223,8 @@
   "comment-only-desc": "カードにのみコメント可能",
   "no-comments": "コメントなし",
   "no-comments-desc": "Can not see comments and activities.",
+  "worker": "Worker",
+  "worker-desc": "Can only move cards, assign itself to card and comment.",
   "computer": "コンピューター",
   "confirm-subtask-delete-dialog": "本当にサブタスクを削除してもよろしいでしょうか？",
   "confirm-checklist-delete-dialog": "本当にチェックリストを削除してもよろしいでしょうか？",

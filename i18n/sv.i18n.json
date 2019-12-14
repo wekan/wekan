@@ -223,6 +223,8 @@
   "comment-only-desc": "Kan endast kommentera kort.",
   "no-comments": "Inga kommentarer",
   "no-comments-desc": "Kan inte se kommentarer och aktiviteter.",
+  "worker": "Worker",
+  "worker-desc": "Can only move cards, assign itself to card and comment.",
   "computer": "Dator",
   "confirm-subtask-delete-dialog": "Är du säker på att du vill radera deluppgift?",
   "confirm-checklist-delete-dialog": "Är du säker på att du vill radera checklista?",

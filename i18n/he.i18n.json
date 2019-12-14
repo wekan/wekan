@@ -223,6 +223,8 @@
   "comment-only-desc": "ניתן להגיב על כרטיסים בלבד.",
   "no-comments": "אין הערות",
   "no-comments-desc": "לא ניתן לצפות בתגובות ובפעילויות.",
+  "worker": "Worker",
+  "worker-desc": "Can only move cards, assign itself to card and comment.",
   "computer": "מחשב",
   "confirm-subtask-delete-dialog": "למחוק את תת המשימה?",
   "confirm-checklist-delete-dialog": "למחוק את רשימת המשימות?",

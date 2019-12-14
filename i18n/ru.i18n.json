@@ -223,6 +223,8 @@
   "comment-only-desc": "Может комментировать только карточки.",
   "no-comments": "Без комментариев",
   "no-comments-desc": "Не видит комментарии и историю действий.",
+  "worker": "Worker",
+  "worker-desc": "Can only move cards, assign itself to card and comment.",
   "computer": "Загрузить с компьютера",
   "confirm-subtask-delete-dialog": "Вы уверены, что хотите удалить подзадачу?",
   "confirm-checklist-delete-dialog": "Вы уверены, что хотите удалить контрольный список?",

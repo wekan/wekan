@@ -223,6 +223,8 @@
   "comment-only-desc": "只能在卡片上發表評論。",
   "no-comments": "暫無評論",
   "no-comments-desc": "無法檢視評論和活動。",
+  "worker": "Worker",
+  "worker-desc": "Can only move cards, assign itself to card and comment.",
   "computer": "從本機上傳",
   "confirm-subtask-delete-dialog": "確定要刪除子任務嗎？",
   "confirm-checklist-delete-dialog": "確定要刪除清單嗎？",

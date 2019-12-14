@@ -223,6 +223,8 @@
   "comment-only-desc": "Pode comentar apenas em cartões.",
   "no-comments": "Sem comentários",
   "no-comments-desc": "Sem visualização de comentários e atividades.",
+  "worker": "Colaborador",
+  "worker-desc": "Pode apenas mover cartões, atribuir-se ao cartão e comentar.",
   "computer": "Computador",
   "confirm-subtask-delete-dialog": "Tem certeza que deseja excluir a subtarefa?",
   "confirm-checklist-delete-dialog": "Tem certeza que quer excluir a lista de verificação?",

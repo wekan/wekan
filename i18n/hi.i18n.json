@@ -223,6 +223,8 @@
   "comment-only-desc": "केवल कार्ड पर टिप्पणी कर सकते हैं।",
   "no-comments": "कोई टिप्पणी नहीं",
   "no-comments-desc": "टिप्पणियां और गतिविधियां नहीं देख पा रहे हैं।",
+  "worker": "Worker",
+  "worker-desc": "Can only move cards, assign itself to card and comment.",
   "computer": "संगणक",
   "confirm-subtask-delete-dialog": "क्या आप वाकई उपकार्य हटाना चाहते हैं?",
   "confirm-checklist-delete-dialog": "क्या आप वाकई जांचसूची हटाना चाहते हैं?",

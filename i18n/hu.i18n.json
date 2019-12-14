@@ -223,6 +223,8 @@
   "comment-only-desc": "Csak megjegyzést írhat a kártyákhoz.",
   "no-comments": "No comments",
   "no-comments-desc": "Can not see comments and activities.",
+  "worker": "Worker",
+  "worker-desc": "Can only move cards, assign itself to card and comment.",
   "computer": "Számítógép",
   "confirm-subtask-delete-dialog": "Biztosan törölni szeretnél az alfeladatot?",
   "confirm-checklist-delete-dialog": "Are you sure you want to delete checklist?",

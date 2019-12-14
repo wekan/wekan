@@ -223,6 +223,8 @@
   "comment-only-desc": "Voi vain kommentoida kortteja",
   "no-comments": "Ei kommentteja",
   "no-comments-desc": "Ei voi nähdä kommentteja ja toimintaa.",
+  "worker": "Työntekijä",
+  "worker-desc": "Voi vain siirtää kortteja, valtuuttaa itsensä kortille ja kommentoida.",
   "computer": "Tietokone",
   "confirm-subtask-delete-dialog": "Haluatko varmasti poistaa alitehtävän?",
   "confirm-checklist-delete-dialog": "Haluatko varmasti poistaa tarkistuslistan?",

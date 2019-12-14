@@ -223,6 +223,8 @@
   "comment-only-desc": "Solo puedes comentar en las tarjetas.",
   "no-comments": "No hay comentarios",
   "no-comments-desc": "No se pueden mostrar comentarios ni actividades.",
+  "worker": "Worker",
+  "worker-desc": "Can only move cards, assign itself to card and comment.",
   "computer": "el ordenador",
   "confirm-subtask-delete-dialog": "¿Seguro que quieres eliminar la subtarea?",
   "confirm-checklist-delete-dialog": "¿Seguro que quieres eliminar la lista de verificación?",

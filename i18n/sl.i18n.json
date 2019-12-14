@@ -223,6 +223,8 @@
   "comment-only-desc": "Lahko komentirate samo na karticah.",
   "no-comments": "Ni komentarjev",
   "no-comments-desc": "Ne morete videti komentarjev in dejavnosti.",
+  "worker": "Worker",
+  "worker-desc": "Can only move cards, assign itself to card and comment.",
   "computer": "Računalnik",
   "confirm-subtask-delete-dialog": "Ste prepričani, da želite izbrisati podopravilo?",
   "confirm-checklist-delete-dialog": "Ste prepričani, da želite izbrisati kontrolni seznam?",

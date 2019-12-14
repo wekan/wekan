@@ -223,6 +223,8 @@
   "comment-only-desc": "Can comment on cards only.",
   "no-comments": "கருத்து இல்லை ",
   "no-comments-desc": "Can not see comments and activities.",
+  "worker": "Worker",
+  "worker-desc": "Can only move cards, assign itself to card and comment.",
   "computer": "கணினி ",
   "confirm-subtask-delete-dialog": "Are you sure you want to delete subtask?",
   "confirm-checklist-delete-dialog": "Are you sure you want to delete checklist?",

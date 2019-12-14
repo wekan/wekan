@@ -223,6 +223,8 @@
   "comment-only-desc": "فقط می‌تواند روی کارت‌ها نظر دهد.",
   "no-comments": "هیچ کامنتی موجود نیست",
   "no-comments-desc": "نظرات و فعالیت ها را نمی توان دید.",
+  "worker": "Worker",
+  "worker-desc": "Can only move cards, assign itself to card and comment.",
   "computer": "رایانه",
   "confirm-subtask-delete-dialog": "از حذف این زیر وظیفه اطمینان دارید؟",
   "confirm-checklist-delete-dialog": "مطمئنا چک لیست پاک شود؟",

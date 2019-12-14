@@ -223,6 +223,8 @@
   "comment-only-desc": "Kan alleen op kaarten aantekenen.",
   "no-comments": "Geen aantekeningen",
   "no-comments-desc": "Zie geen aantekeningen of activiteiten.",
+  "worker": "Worker",
+  "worker-desc": "Can only move cards, assign itself to card and comment.",
   "computer": "Computer",
   "confirm-subtask-delete-dialog": "Weet je zeker dat je de subtaak wilt verwijderen?",
   "confirm-checklist-delete-dialog": "Weet je zeker dat je de checklist wilt verwijderen?",

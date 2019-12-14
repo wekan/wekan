@@ -223,6 +223,8 @@
   "comment-only-desc": "只能在卡片上评论。",
   "no-comments": "暂无评论",
   "no-comments-desc": "无法查看评论和活动。",
+  "worker": "Worker",
+  "worker-desc": "Can only move cards, assign itself to card and comment.",
   "computer": "从本机上传",
   "confirm-subtask-delete-dialog": "确定要删除子任务吗？",
   "confirm-checklist-delete-dialog": "确定要删除清单吗？",
