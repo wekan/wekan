@@ -137,7 +137,7 @@
   "board-view": "看板視圖",
   "board-view-cal": "日歷",
   "board-view-swimlanes": "泳道圖",
-  "board-view-collapse": "Collapse",
+  "board-view-collapse": "損毀",
   "board-view-lists": "清單",
   "bucket-example": "例如 “目標清單”",
   "cancel": "取消",
@@ -223,8 +223,8 @@
   "comment-only-desc": "只能在卡片上發表評論。",
   "no-comments": "暫無評論",
   "no-comments-desc": "無法檢視評論和活動。",
-  "worker": "Worker",
-  "worker-desc": "Can only move cards, assign itself to card and comment.",
+  "worker": "工作者",
+  "worker-desc": "只能移動卡片，分配給自己及發表評論。",
   "computer": "從本機上傳",
   "confirm-subtask-delete-dialog": "確定要刪除子任務嗎？",
   "confirm-checklist-delete-dialog": "確定要刪除清單嗎？",
@@ -440,7 +440,7 @@
   "save": "儲存",
   "search": "搜尋",
   "rules": "規則",
-  "search-cards": "Search from card/list titles and descriptions on this board",
+  "search-cards": "搜尋看板內的卡片標題及描述",
   "search-example": "搜尋",
   "select-color": "選擇顏色",
   "set-wip-limit-value": "設定此清單中的最大任務數",
@@ -752,6 +752,6 @@
   "accounts-allowUserDelete": "允許用戶自行刪除其帳戶",
   "hide-minicard-label-text": "隱藏迷你卡片標籤內文",
   "show-desktop-drag-handles": "顯示桌面拖曳工具",
-  "assignee": "Assignee",
-  "cardAssigneesPopup-title": "Assignee"
+  "assignee": "代理人",
+  "cardAssigneesPopup-title": "代理人"
 }
