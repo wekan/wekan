@@ -2003,8 +2003,15 @@ if (Meteor.isServer) {
     req,
     res,
   ) {
-    Authentication.checkUserId(req.userId);
+    // Check user is logged in
+    Authentication.checkLoggedIn(req.userId);
     const paramBoardId = req.params.boardId;
+    // Check user has permission to add card to the board
+    const board = Boards.findOne({
+      _id: paramBoardId
+    });
+    const addPermission = allowIsBoardMemberCommentOnly(req.userId, board);
+    Authentication.checkAdminOrCondition(req.userId, addPermission);
     const paramListId = req.params.listId;
     const paramParentId = req.params.parentId;
     const currentCards = Cards.find(
