@@ -16,9 +16,6 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
-        'click .js-new-comment:not(.focus)'() {
-          commentFormIsOpen.set(true);
-        },
         'submit .js-new-comment-form'(evt) {
           const input = this.getInput();
           const text = input.val().trim();

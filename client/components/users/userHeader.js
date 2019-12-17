@@ -180,24 +180,20 @@ Template.changeSettingsPopup.helpers({
     currentUser = Meteor.user();
     if (currentUser) {
       return (currentUser.profile || {}).showDesktopDragHandles;
+    } else if (cookies.has('showDesktopDragHandles')) {
+      return true;
     } else {
-      if (cookies.has('showDesktopDragHandles')) {
-        return true;
-      } else {
-        return false;
-      }
+      return false;
     }
   },
   hiddenSystemMessages() {
     currentUser = Meteor.user();
     if (currentUser) {
       return (currentUser.profile || {}).hasHiddenSystemMessages;
+    } else if (cookies.has('hasHiddenSystemMessages')) {
+      return true;
     } else {
-      if (cookies.has('hasHiddenSystemMessages')) {
-        return true;
-      } else {
-        return false;
-      }
+      return false;
     }
   },
   showCardsCountAt() {
@@ -205,8 +201,6 @@ Template.changeSettingsPopup.helpers({
     if (currentUser) {
       return Meteor.user().getLimitToShowCardsCount();
     } else {
-      import { Cookies } from 'meteor/ostrio:cookies';
-      const cookies = new Cookies();
       return cookies.get('limitToShowCardsCount');
     }
   },
@@ -217,24 +211,20 @@ Template.changeSettingsPopup.events({
     currentUser = Meteor.user();
     if (currentUser) {
       Meteor.call('toggleDesktopDragHandles');
+    } else if (cookies.has('showDesktopDragHandles')) {
+      cookies.remove('showDesktopDragHandles');
     } else {
-      if (cookies.has('showDesktopDragHandles')) {
-        cookies.remove('showDesktopDragHandles');
-      } else {
-        cookies.set('showDesktopDragHandles', 'true');
-      }
+      cookies.set('showDesktopDragHandles', 'true');
     }
   },
   'click .js-toggle-system-messages'() {
     currentUser = Meteor.user();
     if (currentUser) {
       Meteor.call('toggleSystemMessages');
+    } else if (cookies.has('hasHiddenSystemMessages')) {
+      cookies.remove('hasHiddenSystemMessages');
     } else {
-      if (cookies.has('hasHiddenSystemMessages')) {
-        cookies.remove('hasHiddenSystemMessages');
-      } else {
-        cookies.set('hasHiddenSystemMessages', 'true');
-      }
+      cookies.set('hasHiddenSystemMessages', 'true');
     }
   },
   'click .js-apply-show-cards-at'(event, templateInstance) {
