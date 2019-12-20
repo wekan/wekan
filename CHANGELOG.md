@@ -6,6 +6,8 @@ This release adds the following features:
   Thanks to Robert-Lebedeu.
 - [Add env var LINKED_CARDS_ENABLED to enable or not linked cards. It is set at true by default](https://github.com/wekan/wekan/pull/2834).
   Thanks to Akuket.
+- [LINKED_CARDS_ENABLED settings part 2](https://github.com/wekan/wekan/commit/1bf7f95bd8e1f38ad0413861c32dce3b0edb407e).
+  Thanks to xet7.
 
 and adds the following updates:
 
