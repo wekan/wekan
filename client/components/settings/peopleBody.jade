@@ -39,26 +39,55 @@ template(name="peopleGeneral")
 
 template(name="peopleRow")
   tr
-    td.username {{ userData.username }}
-    td {{ userData.profile.fullname }}
-    td
-      if userData.isAdmin
-        | {{_ 'yes'}}
-      else
-        | {{_ 'no'}}
-    td {{ userData.emails.[0].address }}
-    td
-      if userData.emails.[0].verified
-        | {{_ 'yes'}}
-      else
-        | {{_ 'no'}}
-    td {{ moment userData.createdAt 'LLL' }}
+    if userData.loginDisabled
+      td.username <s>{{ userData.username }}</s>
+    else
+      td.username {{ userData.username }}
+    if userData.loginDisabled
+      td <s>{{ userData.profile.fullname }}</s>
+    else
+      td {{ userData.profile.fullname }}
+    if userData.loginDisabled
+      td
+        if userData.isAdmin
+          | <s>{{_ 'yes'}}</s>
+        else
+          | <s>{{_ 'no'}}</s>
+    else
+      td
+        if userData.isAdmin
+          | {{_ 'yes'}}
+        else
+          | {{_ 'no'}}
+    if userData.loginDisabled
+      td <s>{{ userData.emails.[0].address }}</s>
+    else
+      td {{ userData.emails.[0].address }}
+    if userData.loginDisabled
+      td
+        if userData.emails.[0].verified
+          | <s>{{_ 'yes'}}</s>
+        else
+          | <s>{{_ 'no'}}</s>
+    else
+      td
+        if userData.emails.[0].verified
+          | {{_ 'yes'}}
+        else
+          | {{_ 'no'}}
+    if userData.loginDisabled
+      td <s>{{ moment userData.createdAt 'LLL' }}</s>
+    else
+      td {{ moment userData.createdAt 'LLL' }}
     td
       if userData.loginDisabled
         | {{_ 'no'}}
       else
         | {{_ 'yes'}}
-    td {{_ userData.authenticationMethod }}
+    if userData.loginDisabled
+      td <s>{{_ userData.authenticationMethod }}</s>
+    else
+      td {{_ userData.authenticationMethod }}
     td
       a.edit-user
         | {{_ 'edit'}}
