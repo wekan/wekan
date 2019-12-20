@@ -440,10 +440,10 @@ services:
       # If the sync of the users should be done in the background
       #- LDAP_BACKGROUND_SYNC=false
       #
-      # At which interval does the background task sync in milliseconds.
+      # At which interval does the background task sync.
       # The format must be as specified in:
       # https://bunkat.github.io/later/parsers.html#text
-      - LDAP_BACKGROUND_SYNC_INTERVAL='every 1 hour'
+      #- LDAP_BACKGROUND_SYNC_INTERVAL='every 1 hour'
       #
       #- LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED=false
       #

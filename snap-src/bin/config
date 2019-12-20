@@ -278,7 +278,7 @@ DESCRIPTION_LDAP_BACKGROUND_SYNC="If the sync of the users should be done in the
 DEFAULT_LDAP_BACKGROUND_SYNC="false"
 KEY_LDAP_BACKGROUND_SYNC="ldap-background-sync"
 
-DESCRIPTION_LDAP_BACKGROUND_SYNC_INTERVAL="At which interval does the background task sync in milliseconds"
+DESCRIPTION_LDAP_BACKGROUND_SYNC_INTERVAL="At which interval does the background task sync"
 DEFAULT_LDAP_BACKGROUND_SYNC_INTERVAL=""
 KEY_LDAP_BACKGROUND_SYNC_INTERVAL="ldap-background-sync-interval"
 
