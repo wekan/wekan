@@ -8,6 +8,8 @@ This release adds the following features:
   Thanks to Akuket.
 - [LINKED_CARDS_ENABLED settings part 2](https://github.com/wekan/wekan/commit/1bf7f95bd8e1f38ad0413861c32dce3b0edb407e).
   Thanks to xet7.
+- [Visual difference for inactive user in Administration: strikethrough](https://github.com/wekan/wekan/commit/1f1aea87a421ca5e7931d220d10c838574208e2c).
+  Thanks to hever and xet7.
 
 and adds the following updates:
 
