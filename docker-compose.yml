@@ -560,8 +560,8 @@ services:
       #- LOGOUT_ON_MINUTES=
       #-------------------------------------------------------------------
       # LINKED_CARDS_ENABLED : Enable or not the linked cards feature
-      # example : LINKED_CARDS_ENABLED=false
-      - LINKED_CARDS_ENABLED=true
+      # Default: true
+      #- LINKED_CARDS_ENABLED=false
     depends_on:
       - wekandb
 
