@@ -1,11 +1,20 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following updates:
+
+- [Upgrade to Meteor 1.8.3 and Node 8.17.0. Update release scripts. Fix ldap background sync documentation part 2](https://github.com/wekan/wekan/commit/782d0b620988628f40f50f9cd824f6652cfb0dd9).
+
+and fixes the following bugs:
 
 - [Fix: Don't add a blank space for empty custom fields on minicards](https://github.com/wekan/wekan/commit/e2a374f0aad8489a84d6de9966c281a812b5eca3).
   Thanks to roobre and xet7.
 - [Fix: Allow to set empty card title, AssignedBy and RequestedBy](https://github.com/wekan/wekan/commit/25561946edf37351f67cf7500902dde7d9114d2f).
   Thanks to justinr1234 and xet7.
+- [Fix comment text disappearing when clicking outside of comment text area.
+  Fix lint error.](https://github.com/wekan/wekan/commit/3b3950369ce07aa9e6fc4ab1bef9fb8a4993e398).
+  Thanks to xet7.
+- [Fix ldap background sync documentation](https://github.com/wekan/wekan/pull/2855).
+  Thanks to koelle25.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
@@ -116,7 +125,7 @@ This release adds the following new features:
   mode](https://github.com/wekan/wekan/commits/77f8b76d4e13c35ea3451622176bbb69a4d39a32).
   Thanks to whowillcare.
 - Allow user to sort Lists in Board by his own preference boardadmin can star
-  list [1](https://github.com/wekan/wekan/commit/bc2a20f04e32607f8488a9cecd815647fb43e40e), 
+  list [1](https://github.com/wekan/wekan/commit/bc2a20f04e32607f8488a9cecd815647fb43e40e),
   [2](https://github.com/wekan/wekan/commit/bc2a20f04e32607f8488a9cecd815647fb43e40e).
   Thanks to whowillcare.
 - [Allowing user to filter list in Filter function not just cards
@@ -233,7 +242,7 @@ This release adds the following new features:
   NOTIFY_DUE_DAYS_BEFORE_AND_AFTER = 2,0 it means notification will be sent on both due day and two days before.
   Thanks to whowillcare.
 - [Added modifications the help files, related to NOTIFY_DUE_DAYS_BEFORE_AND_AFTER](https://github.com/wekan/wekan/pull/2740).
-  Thanks to whowillcare. 
+  Thanks to whowillcare.
 
 and fixes the following bugs:
 
@@ -284,7 +293,7 @@ This release adds the following new features:
 
 - [More Mobile and Desktop drag handles for Swimlanes/Lists/Cards. Part 1](https://github.com/wekan/wekan/commit/ff550e91103115e7b731dd80c4588b93b2d4c64f).
   Thanks to xet7.
-    
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v3.40 2019-09-11 Wekan release
@@ -693,7 +702,7 @@ This release fixes the following bugs:
 
 - [Add missing dependencies back and revert deleting phantomjs](https://github.com/wekan/wekan/commit/32e9aa0ddaf1b015825b8c62ad17ed74b449e4b1).
   Thanks to whowillcare and xet7.
-    
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v3.09 2019-08-07 Wekan release
