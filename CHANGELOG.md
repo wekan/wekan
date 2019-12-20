@@ -1,6 +1,13 @@
 # Upcoming Wekan release
 
-This release adds the following updates:
+This release adds the following features:
+
+- [Allow card & checklist API creation for authorized board members](https://github.com/wekan/wekan/pull/2854).
+  Thanks to Robert-Lebedeu.
+- [Add env var LINKED_CARDS_ENABLED to enable or not linked cards. It is set at true by default](https://github.com/wekan/wekan/pull/2834).
+  Thanks to Akuket.
+
+and adds the following updates:
 
 - [Upgrade to Meteor 1.8.3 and Node 8.17.0. Update release scripts. Fix ldap background sync documentation part 2](https://github.com/wekan/wekan/commit/782d0b620988628f40f50f9cd824f6652cfb0dd9).
 
