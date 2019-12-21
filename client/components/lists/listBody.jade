@@ -49,7 +49,7 @@ template(name="addCardForm")
     button.primary.confirm(type="submit") {{_ 'add'}}
     unless currentBoard.isTemplatesBoard
       unless currentBoard.isTemplateBoard
-        if linkCardsEnabled
+        if linkedCardsEnabled
           span.quiet
             | {{_ 'or'}}
             a.js-link {{_ 'link'}}

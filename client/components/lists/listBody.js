@@ -5,17 +5,6 @@ BlazeComponent.extendComponent({
   onCreated() {
     // for infinite scrolling
     this.cardlimit = new ReactiveVar(InfiniteScrollIter);
-    this.linkCardsEnabled = new ReactiveVar(true);
-
-    Meteor.call('getLinkedCardsEnabled', (error, ret) => {
-      if (!error && ret) {
-        this.linkCardsEnabled.set(ret);
-      }
-    });
-  },
-
-  linkCardsEnabled() {
-    return this.linkCardsEnabled.get();
   },
 
   mixins() {
@@ -387,6 +376,12 @@ BlazeComponent.extendComponent({
     );
   },
 }).register('addCardForm');
+
+Template.addCardForm.helpers({
+  linkedCardsEnabled() {
+    return Meteor.settings.public.linkedCardsEnabled;
+  },
+});
 
 BlazeComponent.extendComponent({
   onCreated() {
