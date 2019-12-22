@@ -518,9 +518,6 @@ services:
       # example : LOGOUT_ON_MINUTES=55
       #- LOGOUT_ON_MINUTES=
       #-------------------------------------------------------------------
-      # LINKED_CARDS_ENABLED : Enable or not the linked cards feature
-      # Default: true
-      #- LINKED_CARDS_ENABLED=false
 
     depends_on:
       - mongodb

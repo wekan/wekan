@@ -378,10 +378,6 @@ REM # LOGOUT_ON_MINUTES : The number of minutes
 REM # example : LOGOUT_ON_MINUTES=55
 REM SET LOGOUT_ON_MINUTES=
 
-REM # LINKED_CARDS_ENABLED : Enable or not the linked cards feature
-REM # Default: true
-REM SET LINKED_CARDS_ENABLED=false
-
 cd .build\bundle
 node main.js
 cd ..\..

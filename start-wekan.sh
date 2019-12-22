@@ -352,10 +352,6 @@
       # LOGOUT_ON_MINUTES : The number of minutes
       # example : LOGOUT_ON_MINUTES=55
       #export LOGOUT_ON_MINUTES=
-      #-------------------------------------------------------------------
-      # LINKED_CARDS_ENABLED : Enable or not the linked cards feature
-      # Default: true
-      #export LINKED_CARDS_ENABLED=false
 
       node main.js
       # & >> ../../wekan.log

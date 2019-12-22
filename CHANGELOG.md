@@ -4,10 +4,6 @@ This release adds the following features:
 
 - [Allow card & checklist API creation for authorized board members](https://github.com/wekan/wekan/pull/2854).
   Thanks to Robert-Lebedeu.
-- [Add env var LINKED_CARDS_ENABLED to enable or not linked cards. It is set at true by default](https://github.com/wekan/wekan/pull/2834).
-  Thanks to Akuket.
-- [LINKED_CARDS_ENABLED settings part 2](https://github.com/wekan/wekan/commit/1bf7f95bd8e1f38ad0413861c32dce3b0edb407e).
-  Thanks to xet7.
 - [Visual difference for inactive user in Administration: strikethrough](https://github.com/wekan/wekan/commit/1f1aea87a421ca5e7931d220d10c838574208e2c).
   Thanks to hever and xet7.
 

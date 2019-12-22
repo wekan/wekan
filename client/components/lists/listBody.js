@@ -377,12 +377,6 @@ BlazeComponent.extendComponent({
   },
 }).register('addCardForm');
 
-Template.addCardForm.helpers({
-  linkedCardsEnabled() {
-    return Meteor.settings.public.linkedCardsEnabled;
-  },
-});
-
 BlazeComponent.extendComponent({
   onCreated() {
     this.selectedBoardId = new ReactiveVar('');
