@@ -1,8 +1,8 @@
-# Upcoming Wekan release
+# v3.57 2019-12-22 Wekan release
 
 This release adds the following features:
 
-- [Allow card & checklist API creation for authorized board members](https://github.com/wekan/wekan/pull/2854).
+- [Allow card and checklist API creation for authorized board members](https://github.com/wekan/wekan/pull/2854).
   Thanks to Robert-Lebedeu.
 - [Visual difference for inactive user in Administration: strikethrough](https://github.com/wekan/wekan/commit/1f1aea87a421ca5e7931d220d10c838574208e2c).
   Thanks to hever and xet7.
@@ -10,6 +10,7 @@ This release adds the following features:
 and adds the following updates:
 
 - [Upgrade to Meteor 1.8.3 and Node 8.17.0. Update release scripts. Fix ldap background sync documentation part 2](https://github.com/wekan/wekan/commit/782d0b620988628f40f50f9cd824f6652cfb0dd9).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
@@ -18,7 +19,7 @@ and fixes the following bugs:
 - [Fix: Allow to set empty card title, AssignedBy and RequestedBy](https://github.com/wekan/wekan/commit/25561946edf37351f67cf7500902dde7d9114d2f).
   Thanks to justinr1234 and xet7.
 - [Fix comment text disappearing when clicking outside of comment text area.
-  Fix lint error.](https://github.com/wekan/wekan/commit/3b3950369ce07aa9e6fc4ab1bef9fb8a4993e398).
+  Fix lint error](https://github.com/wekan/wekan/commit/3b3950369ce07aa9e6fc4ab1bef9fb8a4993e398).
   Thanks to xet7.
 - [Fix ldap background sync documentation](https://github.com/wekan/wekan/pull/2855).
   Thanks to koelle25.
