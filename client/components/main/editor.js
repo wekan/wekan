@@ -225,6 +225,7 @@ Template.editor.onRendered(() => {
                   $summernote.summernote('insertNode', img);
                 };
                 const processData = function(fileObj) {
+                  // FIXME: Change to new API
                   Utils.processUploadedAttachment(
                     currentCard,
                     fileObj,

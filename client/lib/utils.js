@@ -25,12 +25,7 @@ Utils = {
   },
   MAX_IMAGE_PIXEL: Meteor.settings.public.MAX_IMAGE_PIXEL,
   COMPRESS_RATIO: Meteor.settings.public.IMAGE_COMPRESS_RATIO,
-  processUploadedAttachment(card, fileObj, callback) {
-    const next = attachment => {
-      if (typeof callback === 'function') {
-        callback(attachment);
-      }
-    };
+  processUploadedAttachment(card, fileObj, callbacks) {
     if (!card) {
       return onUploaded();
     }
@@ -50,7 +45,16 @@ Utils = {
       settings.meta.cardId = card._id;
     }
     settings.meta.userId = Meteor.userId();
-    Attachments.insert(settings).on('end', next);
+    if (typeof callbacks === 'function') {
+      settings.onEnd = callbacks;
+    } else {
+      for (const key in callbacks) {
+        if (key.substring(0, 2) === 'on') {
+          settings[key] = callbacks[key];
+        }
+      }
+    }
+    Attachments.insert(settings);
   },
   shrinkImage(options) {
     // shrink image to certain size

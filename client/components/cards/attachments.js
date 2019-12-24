@@ -66,18 +66,38 @@ Template.previewAttachedImagePopup.helpers({
   }
 });
 
+// For uploading popup
+
+let uploadFileSize = new ReactiveVar('');
+let uploadProgress = new ReactiveVar(0);
+
 Template.cardAttachmentsPopup.events({
-  'change .js-attach-file'(event) {
+  'change .js-attach-file'(event, instance) {
     const card = this;
-    const processFile = f => {
-      Utils.processUploadedAttachment(card, f,
-        (err, attachment) => {
+    const callbacks = {
+		    onBeforeUpload: (err, fileData) => {
+          Popup.open('uploading')(this.clickEvent);
+          return true;
+        },
+        onUploaded: (err, attachment) => {
+          console.log('onEnd');
           if (attachment && attachment._id && attachment.isImage) {
             card.setCover(attachment._id);
           }
           Popup.close();
+        },
+        onStart: (error, fileData) => {
+          console.log('fd', fileData);
+          uploadFileSize.set(`${fileData.size} bytes`);
+        },
+				onError: (err, fileObj) => {
+          console.log('Error!', err);
+        },
+        onProgress: (progress, fileData) => {
         }
-      );
+    };
+    const processFile = f => {
+      Utils.processUploadedAttachment(card, f, callbacks);
     };
 
     FS.Utility.eachFile(event, f => {
@@ -117,10 +137,20 @@ Template.cardAttachmentsPopup.events({
     });
   },
   'click .js-computer-upload'(event, templateInstance) {
+    this.clickEvent = event;
     templateInstance.find('.js-attach-file').click();
     event.preventDefault();
   },
   'click .js-upload-clipboard-image': Popup.open('previewClipboardImage'),
+});
+
+Template.uploadingPopup.onRendered(() => {
+});
+
+Template.uploadingPopup.helpers({
+  fileSize: () => {
+    return uploadFileSize.get();
+  }
 });
 
 const MAX_IMAGE_PIXEL = Utils.MAX_IMAGE_PIXEL;

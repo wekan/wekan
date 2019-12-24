@@ -18,6 +18,13 @@ template(name="attachmentDeletePopup")
   p {{_ "attachment-delete-pop"}}
   button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
 
+template(name="uploadingPopup")
+  p Uploading...
+  p
+    span.upload-percentage 0%
+    div.upload-progress-bar
+    span.upload-size {{fileSize}}
+
 template(name="attachmentsGalery")
   .attachments-galery
     each attachments
@@ -53,3 +60,4 @@ template(name="attachmentsGalery")
       unless currentUser.isCommentOnly
         li.attachment-item.add-attachment
           a.js-add-attachment {{_ 'add-attachment' }}
+
