@@ -75,7 +75,7 @@ else use user-provided URL.
 {{- if (index .Values "mongodb-replicaset" "enabled") -}}
 {{- $count := (int (index .Values "mongodb-replicaset" "replicas")) -}}
 {{- $release := .Release.Name -}}
-mongodb://{{- range $v := until $count }}{{ $release }}-mongodb-replicaset-{{ $v }}.{{ $release }}-mongodb-replicaset:27017{{ if ne $v (sub $count 1) }},{{- end -}}{{- end -}}?replicaSet={{ index .Values "mongodb-replicaset" "replicaSetName" }}
+mongodb://{{ $release }}-mongodb-replicaset:27017/admin?replicaSet={{ index .Values "mongodb-replicaset" "replicaSetName" }}
 {{- else -}}
 {{- index .Values "mongodb-replicaset" "url" -}}
 {{- end -}}
