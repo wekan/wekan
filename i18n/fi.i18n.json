@@ -224,7 +224,7 @@
   "no-comments": "Ei kommentteja",
   "no-comments-desc": "Ei voi nähdä kommentteja ja toimintaa.",
   "worker": "Työntekijä",
-  "worker-desc": "Voi vain siirtää kortteja, valtuuttaa itsensä kortille ja kommentoida.",
+  "worker-desc": "Voi vain siirtää kortteja, ilmoittautua kortin käsittelijäksi ja kommentoida.",
   "computer": "Tietokone",
   "confirm-subtask-delete-dialog": "Haluatko varmasti poistaa alitehtävän?",
   "confirm-checklist-delete-dialog": "Haluatko varmasti poistaa tarkistuslistan?",
@@ -752,6 +752,6 @@
   "accounts-allowUserDelete": "Salli käyttäjien poistaa tilinsä itse",
   "hide-minicard-label-text": "Piilota minikortin nimilappu teksti",
   "show-desktop-drag-handles": "Näytä työpöydän vedon kahvat",
-  "assignee": "Valtuutettu",
-  "cardAssigneesPopup-title": "Valtuutettu"
+  "assignee": "Käsittelijä",
+  "cardAssigneesPopup-title": "Käsittelijä"
 }
