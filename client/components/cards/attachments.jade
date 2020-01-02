@@ -19,10 +19,10 @@ template(name="attachmentDeletePopup")
   button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
 
 template(name="uploadingPopup")
-  p Uploading...
-  p
-    span.upload-percentage 0%
-    div.upload-progress-bar
+  .uploading-info
+    span.upload-percentage {{progress}}%
+    .upload-progress-frame
+      .upload-progress-bar(style="width: {{progress}}%;")
     span.upload-size {{fileSize}}
 
 template(name="attachmentsGalery")

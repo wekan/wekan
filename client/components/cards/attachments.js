@@ -77,23 +77,24 @@ Template.cardAttachmentsPopup.events({
     const callbacks = {
 		    onBeforeUpload: (err, fileData) => {
           Popup.open('uploading')(this.clickEvent);
+          uploadFileSize.set('...');
+          uploadProgress.set(0);
           return true;
         },
         onUploaded: (err, attachment) => {
-          console.log('onEnd');
           if (attachment && attachment._id && attachment.isImage) {
             card.setCover(attachment._id);
           }
           Popup.close();
         },
         onStart: (error, fileData) => {
-          console.log('fd', fileData);
-          uploadFileSize.set(`${fileData.size} bytes`);
+          uploadFileSize.set(formatBytes(fileData.size));
         },
 				onError: (err, fileObj) => {
           console.log('Error!', err);
         },
         onProgress: (progress, fileData) => {
+          uploadProgress.set(progress);
         }
     };
     const processFile = f => {
@@ -144,12 +145,12 @@ Template.cardAttachmentsPopup.events({
   'click .js-upload-clipboard-image': Popup.open('previewClipboardImage'),
 });
 
-Template.uploadingPopup.onRendered(() => {
-});
-
 Template.uploadingPopup.helpers({
   fileSize: () => {
     return uploadFileSize.get();
+  },
+  progress: () => {
+    return uploadProgress.get();
   }
 });
 
@@ -225,3 +226,15 @@ Template.previewClipboardImagePopup.events({
     }
   },
 });
+
+function formatBytes(bytes, decimals = 2) {
+    if (bytes === 0) return '0 Bytes';
+
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
