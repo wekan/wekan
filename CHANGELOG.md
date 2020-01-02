@@ -1,3 +1,15 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix: k8s templates update for helm](https://github.com/wekan/wekan/pull/2867).
+  1. Upgrade mongo replica version.
+  2. Access mongo via service url.
+  3. Change the expose servicePort to numeric.
+  Thanks to jiangytcn.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.57 2019-12-22 Wekan release
 
 This release adds the following features:
