@@ -104,12 +104,10 @@ function initSortable(boardComponent, $listsDom) {
     if (currentUser) {
       showDesktopDragHandles = (currentUser.profile || {})
         .showDesktopDragHandles;
+    } else if (cookies.has('showDesktopDragHandles')) {
+      showDesktopDragHandles = true;
     } else {
-      if (cookies.has('showDesktopDragHandles')) {
-        showDesktopDragHandles = true;
-      } else {
-        showDesktopDragHandles = false;
-      }
+      showDesktopDragHandles = false;
     }
 
     if (!Utils.isMiniScreen() && showDesktopDragHandles) {
@@ -182,12 +180,10 @@ BlazeComponent.extendComponent({
           if (currentUser) {
             showDesktopDragHandles = (currentUser.profile || {})
               .showDesktopDragHandles;
+          } else if (cookies.has('showDesktopDragHandles')) {
+            showDesktopDragHandles = true;
           } else {
-            if (cookies.has('showDesktopDragHandles')) {
-              showDesktopDragHandles = true;
-            } else {
-              showDesktopDragHandles = false;
-            }
+            showDesktopDragHandles = false;
           }
 
           const noDragInside = ['a', 'input', 'textarea', 'p'].concat(
@@ -276,12 +272,10 @@ Template.swimlane.helpers({
     currentUser = Meteor.user();
     if (currentUser) {
       return (currentUser.profile || {}).showDesktopDragHandles;
+    } else if (cookies.has('showDesktopDragHandles')) {
+      return true;
     } else {
-      if (cookies.has('showDesktopDragHandles')) {
-        return true;
-      } else {
-        return false;
-      }
+      return false;
     }
   },
   canSeeAddList() {

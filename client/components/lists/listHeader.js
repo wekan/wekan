@@ -9,9 +9,10 @@ BlazeComponent.extendComponent({
   canSeeAddCard() {
     const list = Template.currentData();
     return (
-      !list.getWipLimit('enabled') ||
-      list.getWipLimit('soft') ||
-      !this.reachedWipLimit()
+      (!list.getWipLimit('enabled') ||
+        list.getWipLimit('soft') ||
+        !this.reachedWipLimit()) &&
+      !Meteor.user().isWorker()
     );
   },
 
@@ -109,12 +110,10 @@ Template.listHeader.helpers({
     currentUser = Meteor.user();
     if (currentUser) {
       return (currentUser.profile || {}).showDesktopDragHandles;
+    } else if (cookies.has('showDesktopDragHandles')) {
+      return true;
     } else {
-      if (cookies.has('showDesktopDragHandles')) {
-        return true;
-      } else {
-        return false;
-      }
+      return false;
     }
   },
 });

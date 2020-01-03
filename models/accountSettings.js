@@ -82,4 +82,16 @@ if (Meteor.isServer) {
   });
 }
 
+AccountSettings.helpers({
+  allowEmailChange() {
+    return AccountSettings.findOne('accounts-allowEmailChange').booleanValue;
+  },
+  allowUserNameChange() {
+    return AccountSettings.findOne('accounts-allowUserNameChange').booleanValue;
+  },
+  allowUserDelete() {
+    return AccountSettings.findOne('accounts-allowUserDelete').booleanValue;
+  },
+});
+
 export default AccountSettings;

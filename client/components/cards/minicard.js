@@ -36,24 +36,20 @@ Template.minicard.helpers({
     currentUser = Meteor.user();
     if (currentUser) {
       return (currentUser.profile || {}).showDesktopDragHandles;
+    } else if (cookies.has('showDesktopDragHandles')) {
+      return true;
     } else {
-      if (cookies.has('showDesktopDragHandles')) {
-        return true;
-      } else {
-        return false;
-      }
+      return false;
     }
   },
   hiddenMinicardLabelText() {
     currentUser = Meteor.user();
     if (currentUser) {
       return (currentUser.profile || {}).hiddenMinicardLabelText;
+    } else if (cookies.has('hiddenMinicardLabelText')) {
+      return true;
     } else {
-      if (cookies.has('hiddenMinicardLabelText')) {
-        return true;
-      } else {
-        return false;
-      }
+      return false;
     }
   },
 });

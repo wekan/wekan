@@ -352,6 +352,16 @@ if (Meteor.isClient) {
       return board && board.hasCommentOnly(this._id);
     },
 
+    isNotWorker() {
+      const board = Boards.findOne(Session.get('currentBoard'));
+      return board && board.hasMember(this._id) && !board.hasWorker(this._id);
+    },
+
+    isWorker() {
+      const board = Boards.findOne(Session.get('currentBoard'));
+      return board && board.hasWorker(this._id);
+    },
+
     isBoardAdmin() {
       const board = Boards.findOne(Session.get('currentBoard'));
       return board && board.hasAdmin(this._id);

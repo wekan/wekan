@@ -26,6 +26,7 @@ BlazeComponent.extendComponent({
 
   onCreated() {
     this.currentBoard = Boards.findOne(Session.get('currentBoard'));
+    this.currentUser = Meteor.user();
     this.isLoaded = new ReactiveVar(false);
     const boardBody = this.parentComponent().parentComponent();
     //in Miniview parent is Board, not BoardBody.
@@ -52,6 +53,15 @@ BlazeComponent.extendComponent({
       Meteor.user() &&
       Meteor.user().isBoardMember() &&
       !Meteor.user().isCommentOnly()
+    );
+  },
+
+  canModifyCardWorker() {
+    return (
+      Meteor.user() &&
+      Meteor.user().isBoardMember() &&
+      !Meteor.user().isCommentOnly() &&
+      !Meteor.user().isWorker()
     );
   },
 
@@ -322,7 +332,12 @@ BlazeComponent.extendComponent({
         'click .js-assignee': Popup.open('cardAssignee'),
         'click .js-add-assignees': Popup.open('cardAssignees'),
         'click .js-add-labels': Popup.open('cardLabels'),
-        'click .js-received-date': Popup.open('editCardReceivedDate'),
+        'click .js-received-date'(event) {
+          event.preventDefault();
+          if (!Meteor.user().isWorker) {
+            Popup.open('editCardReceivedDate');
+          }
+        },
         'click .js-start-date': Popup.open('editCardStartDate'),
         'click .js-due-date': Popup.open('editCardDueDate'),
         'click .js-end-date': Popup.open('editCardEndDate'),
@@ -381,6 +396,13 @@ Template.cardDetails.helpers({
   memberType() {
     const user = Users.findOne(this.userId);
     return user && user.isBoardAdmin() ? 'admin' : 'normal';
+  },
+
+  isWorker() {
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    return (
+      !currentBoard.hasAdmin(this.userId) && currentBoard.hasWorker(this.userId)
+    );
   },
 
   presenceStatusClassName() {
@@ -459,6 +481,15 @@ Template.cardDetailsActionsPopup.helpers({
       !Meteor.user().isCommentOnly()
     );
   },
+
+  canModifyCardWorker() {
+    return (
+      Meteor.user() &&
+      Meteor.user().isBoardMember() &&
+      !Meteor.user().isCommentOnly() &&
+      !Meteor.user().isWorker()
+    );
+  },
 });
 
 Template.cardDetailsActionsPopup.events({
@@ -467,7 +498,12 @@ Template.cardDetailsActionsPopup.events({
   'click .js-labels': Popup.open('cardLabels'),
   'click .js-attachments': Popup.open('cardAttachments'),
   'click .js-custom-fields': Popup.open('cardCustomFields'),
-  'click .js-received-date': Popup.open('editCardReceivedDate'),
+  'click .js-received-date'(event) {
+    event.preventDefault();
+    if (!Meteor.user().isWorker) {
+      Popup.open('editCardReceivedDate');
+    }
+  },
   'click .js-start-date': Popup.open('editCardStartDate'),
   'click .js-due-date': Popup.open('editCardDueDate'),
   'click .js-end-date': Popup.open('editCardEndDate'),
@@ -876,6 +912,12 @@ Template.cardAssigneesPopup.events({
   'click .js-select-assignee'(event) {
     const card = Cards.findOne(Session.get('currentCard'));
     const assigneeId = this.userId;
+    card.toggleAssignee(assigneeId);
+    event.preventDefault();
+  },
+  'click .js-select-assigneeWorker'(event) {
+    const card = Cards.findOne(Session.get('currentCard'));
+    const assigneeId = currentUser._id;
     card.toggleAssignee(assigneeId);
     event.preventDefault();
   },

@@ -236,12 +236,14 @@ if (isSandstorm && Meteor.isServer) {
     const isAdmin = permissions.indexOf('configure') > -1;
     const isCommentOnly = false;
     const isNoComments = false;
+    const isWorker = false;
     const permissionDoc = {
       userId,
       isActive,
       isAdmin,
       isNoComments,
       isCommentOnly,
+      isWorker,
     };
 
     const boardMembers = Boards.findOne(sandstormBoard._id).members;

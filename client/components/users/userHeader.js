@@ -45,13 +45,31 @@ Template.memberMenuPopup.events({
 
 Template.editProfilePopup.helpers({
   allowEmailChange() {
-    return AccountSettings.findOne('accounts-allowEmailChange').booleanValue;
+    Meteor.call('AccountSettings.allowEmailChange', (_, result) => {
+      if (result) {
+        return true;
+      } else {
+        return false;
+      }
+    });
   },
   allowUserNameChange() {
-    return AccountSettings.findOne('accounts-allowUserNameChange').booleanValue;
+    Meteor.call('AccountSettings.allowUserNameChange', (_, result) => {
+      if (result) {
+        return true;
+      } else {
+        return false;
+      }
+    });
   },
   allowUserDelete() {
-    return AccountSettings.findOne('accounts-allowUserDelete').booleanValue;
+    Meteor.call('AccountSettings.allowUserDelete', (_, result) => {
+      if (result) {
+        return true;
+      } else {
+        return false;
+      }
+    });
   },
 });
 
