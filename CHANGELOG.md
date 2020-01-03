@@ -13,7 +13,7 @@ and fixes the following bugs:
   2. Access mongo via service url.
   3. Change the expose servicePort to numeric.
   Thanks to jiangytcn.
-- [Fix browser console errors when editing user profile name](https://github.com/wekan/wekan/commit/2bf>
+- [Fix browser console errors when editing user profile name](https://github.com/wekan/wekan/commit/2bf004120d5a43cd3c3c060fc7c0c30d1b01f220).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
