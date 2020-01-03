@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v3.57
+  version: v3.58
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -209,6 +209,12 @@ paths:
           in: formData
           description: |
             only enable comments (default false)
+          type: boolean
+          required: false
+        - name: isWorker
+          in: formData
+          description: |
+            only move cards, assign himself to card and comment (default false)
           type: boolean
           required: false
         - name: permission
@@ -1534,6 +1540,12 @@ paths:
             CommentsOnly capability
           type: boolean
           required: true
+        - name: isWorker
+          in: formData
+          description: |
+            Worker capability
+          type: boolean
+          required: true
         - name: board
           in: path
           description: |
@@ -2214,6 +2226,10 @@ definitions:
       isCommentOnly:
         description: |
            Is the member only allowed to comment on the board
+        type: boolean
+      isWorker:
+        description: |
+           Is the member only allowed to move card, assign himself to card and comment
         type: boolean
     required:
       - userId
