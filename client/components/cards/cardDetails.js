@@ -332,12 +332,7 @@ BlazeComponent.extendComponent({
         'click .js-assignee': Popup.open('cardAssignee'),
         'click .js-add-assignees': Popup.open('cardAssignees'),
         'click .js-add-labels': Popup.open('cardLabels'),
-        'click .js-received-date'(event) {
-          event.preventDefault();
-          if (!Meteor.user().isWorker) {
-            Popup.open('editCardReceivedDate');
-          }
-        },
+        'click .js-received-date': Popup.open('editCardReceivedDate'),
         'click .js-start-date': Popup.open('editCardStartDate'),
         'click .js-due-date': Popup.open('editCardDueDate'),
         'click .js-end-date': Popup.open('editCardEndDate'),
