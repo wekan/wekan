@@ -1,3 +1,20 @@
+# Upcoming Wekan release
+
+This release adds the following features:
+
+- [Add more Font Awesome icons. This was originally added
+  at Wekan v3.58, removed at Wekan v3.60, and now
+  added back at Wekan v3.61](https://github.com/wekan/wekan/commit/cd253522a305523e3e36bb73313e8c4db500a717).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Fix browser javascript console errors when editing profile. This was originally added
+  at Wekan v3.58, removed at Wekan v3.60, and now added back at
+  Wekan v3.61](https://github.com/wekan/wekan/commit/cd253522a305523e3e36bb73313e8c4db500a717).
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.60 2020-01-03 Wekan release
 
 This release fixes the following bugs:
