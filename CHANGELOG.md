@@ -1,6 +1,15 @@
+# v3.59 2020-01-03 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix not being able to edit received date](https://github.com/wekan/wekan/commit/5376bc7b7905c0dd99fae1aeae3f63b4583a3e3f).
+  Thanks to xet7.    
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.58 2020-01-03 Wekan release
 
-This release adds the following features and fixes:
+This release adds the following features:
 
 - [Add Worker role](https://github.com/wekan/wekan/issues/2788). Thanks to xet7.
 - [Add more Font Awesome icons](https://github.com/wekan/wekan/commit/2bf004120d5a43cd3c3c060fc7c0c30d1b01f220).
