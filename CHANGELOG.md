@@ -1,12 +1,20 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following features and fixes:
+
+- [Add Worker role](https://github.com/wekan/wekan/issues/2788). Thanks to xet7.
+- [Add more Font Awesome icons](https://github.com/wekan/wekan/commit/2bf004120d5a43cd3c3c060fc7c0c30d1b01f220).
+  Thanks to xet7.
+
+and fixes the following bugs:
 
 - [Fix: k8s templates update for helm](https://github.com/wekan/wekan/pull/2867).
   1. Upgrade mongo replica version.
   2. Access mongo via service url.
   3. Change the expose servicePort to numeric.
   Thanks to jiangytcn.
+- [Fix browser console errors when editing user profile name](https://github.com/wekan/wekan/commit/2bf>
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
