@@ -1,3 +1,14 @@
+# v3.60 2020-01-03 Wekan release
+
+This release fixes the following bugs:
+
+- [Revert to Wekan v3.57 version of client and models directories,
+  removing Worker role temporarily, because Worker role changes
+  broke saving card](https://github.com/wekan/wekan/commit/27943796ade78ca3c503637a1340918bf06a1267).
+  Thanks to xet7 !
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.59 2020-01-03 Wekan release
 
 This release fixes the following bugs:
