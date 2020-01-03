@@ -67,8 +67,7 @@ BlazeComponent.extendComponent({
     return (
       Meteor.user() &&
       Meteor.user().isBoardMember() &&
-      !Meteor.user().isCommentOnly() &&
-      !Meteor.user().isWorker()
+      !Meteor.user().isCommentOnly()
     );
   },
 }).register('checklistDetail');
@@ -121,8 +120,7 @@ BlazeComponent.extendComponent({
     return (
       Meteor.user() &&
       Meteor.user().isBoardMember() &&
-      !Meteor.user().isCommentOnly() &&
-      !Meteor.user().isWorker()
+      !Meteor.user().isCommentOnly()
     );
   },
 
@@ -230,8 +228,7 @@ Template.checklistItemDetail.helpers({
     return (
       Meteor.user() &&
       Meteor.user().isBoardMember() &&
-      !Meteor.user().isCommentOnly() &&
-      !Meteor.user().isWorker()
+      !Meteor.user().isCommentOnly()
     );
   },
 });

@@ -3,8 +3,7 @@ BlazeComponent.extendComponent({
     return (
       Meteor.user() &&
       Meteor.user().isBoardMember() &&
-      !Meteor.user().isCommentOnly() &&
-      !Meteor.user().isWorker()
+      !Meteor.user().isCommentOnly()
     );
   },
 }).register('subtaskDetail');
@@ -56,8 +55,7 @@ BlazeComponent.extendComponent({
     return (
       Meteor.user() &&
       Meteor.user().isBoardMember() &&
-      !Meteor.user().isCommentOnly() &&
-      !Meteor.user().isWorker()
+      !Meteor.user().isCommentOnly()
     );
   },
 
@@ -156,8 +154,7 @@ Template.subtaskItemDetail.helpers({
     return (
       Meteor.user() &&
       Meteor.user().isBoardMember() &&
-      !Meteor.user().isCommentOnly() &&
-      !Meteor.user().isWorker()
+      !Meteor.user().isCommentOnly()
     );
   },
 });

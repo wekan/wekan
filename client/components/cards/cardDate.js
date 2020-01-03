@@ -97,8 +97,7 @@ Template.dateBadge.helpers({
     return (
       Meteor.user() &&
       Meteor.user().isBoardMember() &&
-      !Meteor.user().isCommentOnly() &&
-      !Meteor.user().isWorker()
+      !Meteor.user().isCommentOnly()
     );
   },
 });

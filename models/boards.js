@@ -185,7 +185,6 @@ Boards.attachSchema(
               isActive: true,
               isNoComments: false,
               isCommentOnly: false,
-              isWorker: false,
             },
           ];
         }
@@ -219,13 +218,6 @@ Boards.attachSchema(
     'members.$.isCommentOnly': {
       /**
        * Is the member only allowed to comment on the board
-       */
-      type: Boolean,
-      optional: true,
-    },
-    'members.$.isWorker': {
-      /**
-       * Is the member only allowed to move card, assign himself to card and comment
        */
       type: Boolean,
       optional: true,
@@ -546,7 +538,6 @@ Boards.helpers({
       isActive: true,
       isAdmin: false,
       isNoComments: true,
-      isWorker: false,
     });
   },
 
@@ -556,17 +547,6 @@ Boards.helpers({
       isActive: true,
       isAdmin: false,
       isCommentOnly: true,
-      isWorker: false,
-    });
-  },
-
-  hasWorker(memberId) {
-    return !!_.findWhere(this.members, {
-      userId: memberId,
-      isActive: true,
-      isAdmin: false,
-      isCommentOnly: false,
-      isWorker: true,
     });
   },
 
@@ -869,7 +849,6 @@ Boards.mutations({
           isActive: true,
           isNoComments: false,
           isCommentOnly: false,
-          isWorker: false,
         },
       },
     };
@@ -902,7 +881,6 @@ Boards.mutations({
     isAdmin,
     isNoComments,
     isCommentOnly,
-    isWorker,
     currentUserId = Meteor.userId(),
   ) {
     const memberIndex = this.memberIndex(memberId);
@@ -916,7 +894,6 @@ Boards.mutations({
         [`members.${memberIndex}.isAdmin`]: isAdmin,
         [`members.${memberIndex}.isNoComments`]: isNoComments,
         [`members.${memberIndex}.isCommentOnly`]: isCommentOnly,
-        [`members.${memberIndex}.isWorker`]: isWorker,
       },
     };
   },
@@ -1304,7 +1281,6 @@ if (Meteor.isServer) {
    * @param {boolean} [isActive] is the board active (default true)
    * @param {boolean} [isNoComments] disable comments (default false)
    * @param {boolean} [isCommentOnly] only enable comments (default false)
-   * @param {boolean} [isWorker] only move cards, assign himself to card and comment (default false)
    * @param {string} [permission] "private" board <== Set to "public" if you
    *                 want public Wekan board
    * @param {string} [color] the color of the board
@@ -1324,7 +1300,6 @@ if (Meteor.isServer) {
             isActive: req.body.isActive || true,
             isNoComments: req.body.isNoComments || false,
             isCommentOnly: req.body.isCommentOnly || false,
-            isWorker: req.body.isWorker || false,
           },
         ],
         permission: req.body.permission || 'private',
@@ -1428,7 +1403,6 @@ if (Meteor.isServer) {
    * @param {boolean} isAdmin admin capability
    * @param {boolean} isNoComments NoComments capability
    * @param {boolean} isCommentOnly CommentsOnly capability
-   * @param {boolean} isWorker Worker capability
    */
   JsonRoutes.add('POST', '/api/boards/:boardId/members/:memberId', function(
     req,
@@ -1437,7 +1411,7 @@ if (Meteor.isServer) {
     try {
       const boardId = req.params.boardId;
       const memberId = req.params.memberId;
-      const { isAdmin, isNoComments, isCommentOnly, isWorker } = req.body;
+      const { isAdmin, isNoComments, isCommentOnly } = req.body;
       Authentication.checkBoardAccess(req.userId, boardId);
       const board = Boards.findOne({ _id: boardId });
       function isTrue(data) {
@@ -1452,7 +1426,6 @@ if (Meteor.isServer) {
         isTrue(isAdmin),
         isTrue(isNoComments),
         isTrue(isCommentOnly),
-        isTrue(isWorker),
         req.userId,
       );
 

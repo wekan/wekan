@@ -9,10 +9,9 @@ BlazeComponent.extendComponent({
   canSeeAddCard() {
     const list = Template.currentData();
     return (
-      (!list.getWipLimit('enabled') ||
-        list.getWipLimit('soft') ||
-        !this.reachedWipLimit()) &&
-      !Meteor.user().isWorker()
+      !list.getWipLimit('enabled') ||
+      list.getWipLimit('soft') ||
+      !this.reachedWipLimit()
     );
   },
 

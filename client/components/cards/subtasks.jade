@@ -1,7 +1,5 @@
 template(name="subtasks")
-  h3
-    i.fa.fa-sitemap
-    | {{_ 'subtasks'}}
+  h3 {{_ 'subtasks'}}
   if toggleDeleteDialog.get
     .board-overlay#card-details-overlay
     +subtaskDeleteDialog(subtask = subtaskToDelete)

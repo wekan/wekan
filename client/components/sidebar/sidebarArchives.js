@@ -139,12 +139,3 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('archivesSidebar');
-
-Template.archivesSidebar.helpers({
-  isWorker() {
-    const currentBoard = Boards.findOne(Session.get('currentBoard'));
-    return (
-      !currentBoard.hasAdmin(this.userId) && currentBoard.hasWorker(this.userId)
-    );
-  },
-});

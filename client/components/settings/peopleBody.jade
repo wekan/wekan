@@ -5,22 +5,16 @@ template(name="people")
     else
       .content-title.ext-box
         .ext-box-left
-          span
-            i.fa.fa-users
-            | {{_ 'people'}}
+          span {{_ 'people'}}
           input#searchInput(placeholder="{{_ 'search'}}")
-          button#searchButton
-            i.fa.fa-search
-            | {{_ 'search'}}
+          button#searchButton {{_ 'search'}}
         .ext-box-right
           span {{_ 'people-number'}} #{peopleNumber}
       .content-body
         .side-menu
           ul
             li.active
-              a.js-setting-menu(data-id="people-setting")
-                i.fa.fa-users
-                | {{_ 'people'}}
+              a.js-setting-menu(data-id="people-setting") {{_ 'people'}}
         .main-body
           if loading.get
             +spinner
@@ -96,7 +90,6 @@ template(name="peopleRow")
       td {{_ userData.authenticationMethod }}
     td
       a.edit-user
-        i.fa.fa-edit
         | {{_ 'edit'}}
 
 template(name="editUserPopup")
