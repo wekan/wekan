@@ -1,3 +1,14 @@
+# Upcoming Wekan release
+
+This release adds the following features:
+
+- [Add Worker role](https://github.com/wekan/wekan/issues/2788).
+  This was originally added at Wekan v3.58, reverted at Wekan v3.60 because of bugs,
+  and now after fixes added back.
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.61 2020-01-03 Wekan release
 
 This release adds the following features:
