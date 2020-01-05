@@ -189,7 +189,8 @@ BlazeComponent.extendComponent({
       !this.reachedWipLimit() &&
       Meteor.user() &&
       Meteor.user().isBoardMember() &&
-      !Meteor.user().isCommentOnly()
+      !Meteor.user().isCommentOnly() &&
+      !Meteor.user().isWorker()
     );
   },
 

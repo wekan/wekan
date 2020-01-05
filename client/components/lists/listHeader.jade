@@ -10,7 +10,7 @@ template(name="listHeader")
           a.list-header-left-icon.fa.fa-angle-left.js-unselect-list
       h2.list-header-name(
         title="{{ moment modifiedAt 'LLL' }}"
-        class="{{#if currentUser.isBoardMember}}{{#unless currentUser.isCommentOnly}}js-open-inlined-form is-editable{{/unless}}{{/if}}")
+        class="{{#if currentUser.isBoardMember}}{{#unless currentUser.isCommentOnly}}{{#unless currentUser.isWorker}}js-open-inlined-form is-editable{{/unless}}{{/unless}}{{/if}}")
         +viewer
           = title
         if wipLimit.enabled
@@ -65,11 +65,12 @@ template(name="listActionPopup")
           i.fa.fa-eye-slash
           |  {{_ 'watch'}}
   unless currentUser.isCommentOnly
-    ul.pop-over-list
-      li
-        a.js-set-color-list
-          i.fa.fa-paint-brush
-          | {{_ 'set-color-list'}}
+    unless currentUser.isWorker
+      ul.pop-over-list
+        li
+          a.js-set-color-list
+            i.fa.fa-paint-brush
+            | {{_ 'set-color-list'}}
     ul.pop-over-list
       if cards.count
         li
@@ -82,13 +83,14 @@ template(name="listActionPopup")
           a.js-set-wip-limit
             i.fa.fa-ban
             | {{#if isWipLimitEnabled }}{{_ 'edit-wip-limit'}}{{else}}{{_ 'setWipLimitPopup-title'}}{{/if}}
-    hr
-    ul.pop-over-list
-      li
-        a.js-close-list
-          i.fa.fa-arrow-right
-          i.fa.fa-archive
-          | {{_ 'archive-list'}}
+    unless currentUser.isWorker
+      hr
+      ul.pop-over-list
+        li
+          a.js-close-list
+            i.fa.fa-arrow-right
+            i.fa.fa-archive
+            | {{_ 'archive-list'}}
     hr
     ul.pop-over-list
       li
@@ -114,7 +116,8 @@ template(name="listMorePopup")
       input.inline-input(type="text" readonly value="{{ rootUrl }}")
     | {{_ 'added'}}
     span.date(title=list.createdAt) {{ moment createdAt 'LLL' }}
-    a.js-delete {{_ 'delete'}}
+    unless currentUser.isWorker
+      a.js-delete {{_ 'delete'}}
 
 template(name="listDeletePopup")
   p {{_ "list-delete-pop"}}

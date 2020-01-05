@@ -94,7 +94,8 @@ function initSortable(boardComponent, $listsDom) {
     return (
       Meteor.user() &&
       Meteor.user().isBoardMember() &&
-      !Meteor.user().isCommentOnly()
+      !Meteor.user().isCommentOnly() &&
+      !Meteor.user().isWorker()
     );
   }
 
@@ -131,6 +132,15 @@ function initSortable(boardComponent, $listsDom) {
         // MultiSelection.isActive() || !userIsMember(),
       );
     }
+
+    $listsDom.sortable(
+      'option',
+      'disabled',
+      // Disable drag-dropping when user is not member
+      Meteor.user().isWorker(),
+      // Not disable drag-dropping while in multi-selection mode
+      // MultiSelection.isActive() || !userIsMember(),
+    );
   });
 }
 
@@ -282,7 +292,8 @@ Template.swimlane.helpers({
     return (
       Meteor.user() &&
       Meteor.user().isBoardMember() &&
-      !Meteor.user().isCommentOnly()
+      !Meteor.user().isCommentOnly() &&
+      !Meteor.user().isWorker()
     );
   },
 });

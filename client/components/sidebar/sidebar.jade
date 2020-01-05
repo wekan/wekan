@@ -40,8 +40,9 @@ template(name="membersWidget")
       i.fa.fa-users
       | {{_ 'members'}}
       unless currentUser.isCommentOnly
-        a.board-header-btn.js-open-board-menu(title="{{_ 'boardMenuPopup-title'}}").right
-          i.board-header-btn-icon.fa.fa-cog
+        unless currentUser.isWorker
+          a.board-header-btn.js-open-board-menu(title="{{_ 'boardMenuPopup-title'}}").right
+            i.board-header-btn-icon.fa.fa-cog
 
     .board-widget-content
       each currentBoard.activeMembers
@@ -164,11 +165,12 @@ template(name="outgoingWebhooksPopup")
 
 template(name="boardMenuPopup")
   ul.pop-over-list
-    li: a.js-custom-fields {{_ 'custom-fields'}}
-    li
-      a.js-open-archives
-        i.fa.fa-archive
-        | {{_ 'archived-items'}}
+    if isNotWorker
+      li: a.js-custom-fields {{_ 'custom-fields'}}
+      li
+        a.js-open-archives
+          i.fa.fa-archive
+          | {{_ 'archived-items'}}
     if currentUser.isBoardAdmin
       li
         a.js-change-board-color
@@ -246,7 +248,7 @@ template(name="labelsWidget")
     .board-widget-content
       each currentBoard.labels
           a.card-label(class="card-label-{{color}}"
-            class="{{#if currentUser.isNotCommentOnly}}js-label{{/if}}")
+            class="{{#if currentUser.isNotCommentOnly}}{{#if currentUser.isNotWorker}}js-label{{/if}}{{/if}}")
             span.card-label-name
               +viewer
                 = name
@@ -275,11 +277,12 @@ template(name="memberPopup")
           a.js-change-role
             | {{_ 'change-permissions'}}
             span.quiet (#{memberType})
-      li
-        if $eq currentUser._id userId
-          a.js-leave-member {{_ 'leave-board'}}
-        else if currentUser.isBoardAdmin
-          a.js-remove-member {{_ 'remove-from-board'}}
+      unless currentUser.isWorker
+        li
+          if $eq currentUser._id userId
+            a.js-leave-member {{_ 'leave-board'}}
+          else if currentUser.isBoardAdmin
+            a.js-remove-member {{_ 'remove-from-board'}}
 
 template(name="removeMemberPopup")
   p {{_ 'remove-member-pop' name=user.profile.fullname username=user.username boardTitle=board.title}}
@@ -343,6 +346,12 @@ template(name="changePermissionsPopup")
         if isCommentOnly
           i.fa.fa-check
         span.sub-name {{_ 'comment-only-desc'}}
+    li
+      a(class="{{#if isLastAdmin}}disabled{{else}}js-set-worker{{/if}}")
+        | {{_ 'worker'}}
+        if isWorker
+          i.fa.fa-check
+        span.sub-name {{_ 'worker-desc'}}
   if isLastAdmin
     hr
     p.quiet.bottom {{_ 'last-admin-desc'}}

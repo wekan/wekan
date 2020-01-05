@@ -44,7 +44,8 @@ template(name="cardDetails")
           +cardReceivedDate
         else
           if canModifyCard
-            a.js-received-date {{_ 'add'}}
+            unless currentUser.isWorker
+              a.js-received-date {{_ 'add'}}
 
       .card-details-item.card-details-item-start
         h3
@@ -54,7 +55,8 @@ template(name="cardDetails")
           +cardStartDate
         else
           if canModifyCard
-            a.js-start-date {{_ 'add'}}
+            unless currentUser.isWorker
+              a.js-start-date {{_ 'add'}}
 
       .card-details-item.card-details-item-due
         h3
@@ -64,7 +66,8 @@ template(name="cardDetails")
           +cardDueDate
         else
           if canModifyCard
-            a.js-due-date {{_ 'add'}}
+            unless currentUser.isWorker
+              a.js-due-date {{_ 'add'}}
 
       .card-details-item.card-details-item-end
         h3
@@ -74,7 +77,8 @@ template(name="cardDetails")
           +cardEndDate
         else
           if canModifyCard
-            a.js-end-date {{_ 'add'}}
+            unless currentUser.isWorker
+              a.js-end-date {{_ 'add'}}
 
     .card-details-items
       .card-details-item.card-details-item-members
@@ -85,8 +89,9 @@ template(name="cardDetails")
           +userAvatar(userId=this cardId=../_id)
           | {{! XXX Hack to hide syntaxic coloration /// }}
         if canModifyCard
-          a.member.add-member.card-details-item-add-button.js-add-members(title="{{_ 'card-members-title'}}")
-            i.fa.fa-plus
+          unless currentUser.isWorker
+            a.member.add-member.card-details-item-add-button.js-add-members(title="{{_ 'card-members-title'}}")
+              i.fa.fa-plus
 
       .card-details-item.card-details-item-assignees
         h3
@@ -96,9 +101,13 @@ template(name="cardDetails")
           +userAvatarAssignee(userId=this cardId=../_id)
           | {{! XXX Hack to hide syntaxic coloration /// }}
         if canModifyCard
+          a.assignee.add-assignee.card-details-item-add-button.js-add-assignees(title="{{_ 'assignee'}}")
+            i.fa.fa-plus
+        if currentUser.isWorker
           unless assigneeSelected
             a.assignee.add-assignee.card-details-item-add-button.js-add-assignees(title="{{_ 'assignee'}}")
               i.fa.fa-plus
+
 
       .card-details-item.card-details-item-labels
         h3
@@ -110,8 +119,9 @@ template(name="cardDetails")
               +viewer
                 = name
         if canModifyCard
-          a.card-label.add-label.js-add-labels(title="{{_ 'card-labels-title'}}")
-            i.fa.fa-plus
+          unless currentUser.isWorker
+            a.card-label.add-label.js-add-labels(title="{{_ 'card-labels-title'}}")
+              i.fa.fa-plus
 
     .card-details-items
       each customFieldsWD
@@ -132,28 +142,29 @@ template(name="cardDetails")
 
     //- XXX We should use "editable" to avoid repetiting ourselves
     if canModifyCard
-      h3
-        i.fa.fa-align-left
-        card-details-item-title {{_ 'description'}}
-      +inlinedCardDescription(classNames="card-description js-card-description")
-        +editor(autofocus=true)
-          | {{getUnsavedValue 'cardDescription' _id getDescription}}
-        .edit-controls.clearfix
-          button.primary(type="submit") {{_ 'save'}}
-          a.fa.fa-times-thin.js-close-inlined-form
-      else
-        a.js-open-inlined-form
-          if getDescription
-            +viewer
-              = getDescription
-          else
-            | {{_ 'edit'}}
-        if (hasUnsavedValue 'cardDescription' _id)
-          p.quiet
-            | {{_ 'unsaved-description'}}
-            a.js-open-inlined-form {{_ 'view-it'}}
-            = ' - '
-            a.js-close-inlined-form {{_ 'discard'}}
+      unless currentUser.isWorker
+        h3
+          i.fa.fa-align-left
+          card-details-item-title {{_ 'description'}}
+        +inlinedCardDescription(classNames="card-description js-card-description")
+          +editor(autofocus=true)
+            | {{getUnsavedValue 'cardDescription' _id getDescription}}
+          .edit-controls.clearfix
+            button.primary(type="submit") {{_ 'save'}}
+            a.fa.fa-times-thin.js-close-inlined-form
+        else
+          a.js-open-inlined-form
+            if getDescription
+              +viewer
+                = getDescription
+            else
+              | {{_ 'edit'}}
+          if (hasUnsavedValue 'cardDescription' _id)
+            p.quiet
+              | {{_ 'unsaved-description'}}
+              a.js-open-inlined-form {{_ 'view-it'}}
+              = ' - '
+              a.js-close-inlined-form {{_ 'discard'}}
     else if getDescription
       h3.card-details-item-title {{_ 'description'}}
       +viewer
@@ -165,15 +176,16 @@ template(name="cardDetails")
           i.fa.fa-shopping-cart
           card-details-item-title {{_ 'requested-by'}}
         if canModifyCard
-          +inlinedForm(classNames="js-card-details-requester")
-            +editCardRequesterForm
-          else
-            a.js-open-inlined-form
-              if getRequestedBy
-                +viewer
-                  = getRequestedBy
-              else
-                | {{_ 'add'}}
+          unless currentUser.isWorker
+            +inlinedForm(classNames="js-card-details-requester")
+              +editCardRequesterForm
+            else
+              a.js-open-inlined-form
+                if getRequestedBy
+                  +viewer
+                    = getRequestedBy
+                else
+                  | {{_ 'add'}}
         else if getRequestedBy
           +viewer
             = getRequestedBy
@@ -183,15 +195,16 @@ template(name="cardDetails")
           i.fa.fa-user-plus
           card-details-item-title {{_ 'assigned-by'}}
         if canModifyCard
-          +inlinedForm(classNames="js-card-details-assigner")
-            +editCardAssignerForm
-          else
-            a.js-open-inlined-form
-              if getAssignedBy
-                +viewer
-                  = getAssignedBy
-              else
-                | {{_ 'add'}}
+          unless currentUser.isWorker
+            +inlinedForm(classNames="js-card-details-assigner")
+              +editCardAssignerForm
+            else
+              a.js-open-inlined-form
+                if getAssignedBy
+                  +viewer
+                    = getAssignedBy
+                else
+                  | {{_ 'add'}}
         else if getRequestedBy
           +viewer
             = getAssignedBy
@@ -266,28 +279,29 @@ template(name="cardDetailsActionsPopup")
           i.fa.fa-eye-slash
           |  {{_ 'watch'}}
   if canModifyCard
-    hr
-    ul.pop-over-list
-      //li: a.js-members {{_ 'card-edit-members'}}
-      //li: a.js-labels {{_ 'card-edit-labels'}}
-      //li: a.js-attachments {{_ 'card-edit-attachments'}}
-      li
-        a.js-custom-fields
-          i.fa.fa-list-alt
-          | {{_ 'card-edit-custom-fields'}}
-      //li: a.js-received-date {{_ 'editCardReceivedDatePopup-title'}}
-      //li: a.js-start-date {{_ 'editCardStartDatePopup-title'}}
-      //li: a.js-due-date {{_ 'editCardDueDatePopup-title'}}
-      //li: a.js-end-date {{_ 'editCardEndDatePopup-title'}}
-      li
-        a.js-spent-time
-          i.fa.fa-clock-o
-          | {{_ 'editCardSpentTimePopup-title'}}
-      li
-        a.js-set-card-color
-          i.fa.fa-paint-brush
-          | {{_ 'setCardColorPopup-title'}}
-    hr
+    unless currentUser.isWorker
+      hr
+      ul.pop-over-list
+        //li: a.js-members {{_ 'card-edit-members'}}
+        //li: a.js-labels {{_ 'card-edit-labels'}}
+        //li: a.js-attachments {{_ 'card-edit-attachments'}}
+        li
+          a.js-custom-fields
+            i.fa.fa-list-alt
+            | {{_ 'card-edit-custom-fields'}}
+        //li: a.js-received-date {{_ 'editCardReceivedDatePopup-title'}}
+        //li: a.js-start-date {{_ 'editCardStartDatePopup-title'}}
+        //li: a.js-due-date {{_ 'editCardDueDatePopup-title'}}
+        //li: a.js-end-date {{_ 'editCardEndDatePopup-title'}}
+        li
+          a.js-spent-time
+            i.fa.fa-clock-o
+            | {{_ 'editCardSpentTimePopup-title'}}
+        li
+          a.js-set-card-color
+            i.fa.fa-paint-brush
+            | {{_ 'setCardColorPopup-title'}}
+      hr
     ul.pop-over-list
       li
         a.js-move-card-to-top
@@ -297,16 +311,17 @@ template(name="cardDetailsActionsPopup")
         a.js-move-card-to-bottom
           i.fa.fa-arrow-down
           | {{_ 'moveCardToBottom-title'}}
-    hr
-    ul.pop-over-list
-      li
-        a.js-move-card
-          i.fa.fa-arrow-right
-          | {{_ 'moveCardPopup-title'}}
-      li
-        a.js-copy-card
-          i.fa.fa-copy
-          | {{_ 'copyCardPopup-title'}}
+    unless currentUser.isWorker
+      hr
+      ul.pop-over-list
+        li
+          a.js-move-card
+            i.fa.fa-arrow-right
+            | {{_ 'moveCardPopup-title'}}
+        li
+          a.js-copy-card
+            i.fa.fa-copy
+            | {{_ 'copyCardPopup-title'}}
       hr
       ul.pop-over-list
         li
@@ -379,16 +394,27 @@ template(name="cardMembersPopup")
             i.fa.fa-check
 
 template(name="cardAssigneesPopup")
-  ul.pop-over-list.js-card-assignee-list
-    each board.activeMembers
-      li.item(class="{{#if isCardAssignee}}active{{/if}}")
-        a.name.js-select-assignee(href="#")
-          +userAvatar(userId=user._id)
-          span.full-name
-            = user.profile.fullname
-            | (<span class="username">{{ user.username }}</span>)
-          if isCardAssignee
-            i.fa.fa-check
+  unless currentUser.isWorker
+    ul.pop-over-list.js-card-assignee-list
+      each board.activeMembers
+        li.item(class="{{#if isCardAssignee}}active{{/if}}")
+          a.name.js-select-assignee(href="#")
+            +userAvatar(userId=user._id)
+            span.full-name
+              = user.profile.fullname
+              | (<span class="username">{{ user.username }}</span>)
+            if isCardAssignee
+              i.fa.fa-check
+  if currentUser.isWorker
+    ul.pop-over-list.js-card-assignee-list
+        li.item(class="{{#if currentUser.isCardAssignee}}active{{/if}}")
+          a.name.js-select-assignee(href="#")
+            +userAvatar(userId=currentUser._id)
+            span.full-name
+              = currentUser.profile.fullname
+              | (<span class="username">{{ currentUser.username }}</span>)
+            if currentUser.isCardAssignee
+              i.fa.fa-check
 
 template(name="userAvatarAssignee")
   a.assignee.js-assignee(title="{{userData.profile.fullname}} ({{userData.username}})")
@@ -416,11 +442,13 @@ template(name="cardAssigneePopup")
         p.quiet @{{ user.username }}
     ul.pop-over-list
       if currentUser.isNotCommentOnly
-        li: a.js-remove-assignee {{_ 'remove-member-from-card'}}
+        unless currentUser.isWorker
+          li: a.js-remove-assignee {{_ 'remove-member-from-card'}}
 
-      if $eq currentUser._id user._id
-        with currentUser
-          li: a.js-edit-profile {{_ 'edit-profile'}}
+      unless currentUser.isWorker
+        if $eq currentUser._id user._id
+          with currentUser
+            li: a.js-edit-profile {{_ 'edit-profile'}}
 
 template(name="userAvatarAssigneeInitials")
   svg.avatar.avatar-assignee-initials(viewBox="0 0 {{viewPortWidth}} 15")
