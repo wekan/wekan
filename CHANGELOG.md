@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release removes the following features:
+
+- [Removed Custom HTML feature that does not work](https://github.com/wekan/wekan/commit/ddce0ada094e6450be260b4cda21fdfa09ae0133).
+  Thanks to xet7 !
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.63 2020-01-06 Wekan release
 
 This release fixes the following bugs:
