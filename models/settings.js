@@ -33,14 +33,6 @@ Settings.attachSchema(
       type: String,
       optional: true,
     },
-    customHTMLafterBodyStart: {
-      type: String,
-      optional: true,
-    },
-    customHTMLbeforeBodyEnd: {
-      type: String,
-      optional: true,
-    },
     displayAuthenticationMethod: {
       type: Boolean,
       optional: true,

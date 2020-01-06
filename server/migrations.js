@@ -472,38 +472,6 @@ Migrations.add('add-hide-logo', () => {
   );
 });
 
-Migrations.add('add-custom-html-after-body-start', () => {
-  Settings.update(
-    {
-      customHTMLafterBodyStart: {
-        $exists: false,
-      },
-    },
-    {
-      $set: {
-        customHTMLafterBodyStart: '',
-      },
-    },
-    noValidateMulti,
-  );
-});
-
-Migrations.add('add-custom-html-before-body-end', () => {
-  Settings.update(
-    {
-      customHTMLbeforeBodyEnd: {
-        $exists: false,
-      },
-    },
-    {
-      $set: {
-        customHTMLbeforeBodyEnd: '',
-      },
-    },
-    noValidateMulti,
-  );
-});
-
 Migrations.add('add-displayAuthenticationMethod', () => {
   Settings.update(
     {
