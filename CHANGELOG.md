@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix: Unable to find Archive Card/List/Swimlane in board
+  settings](https://github.com/wekan/wekan/commit/8ce993921718f3e10c2daa5fabb145b939d789dd).
+  Thanks to neobradley and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.62 2020-01-05 Wekan release
 
 This release adds the following features:
