@@ -165,12 +165,11 @@ template(name="outgoingWebhooksPopup")
 
 template(name="boardMenuPopup")
   ul.pop-over-list
-    if isNotWorker
-      li: a.js-custom-fields {{_ 'custom-fields'}}
-      li
-        a.js-open-archives
-          i.fa.fa-archive
-          | {{_ 'archived-items'}}
+    li: a.js-custom-fields {{_ 'custom-fields'}}
+    li
+      a.js-open-archives
+        i.fa.fa-archive
+        | {{_ 'archived-items'}}
     if currentUser.isBoardAdmin
       li
         a.js-change-board-color
