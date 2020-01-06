@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v3.64 2020-01-06 Wekan release
 
 This release adds the following warning for CentOS 7 users:
 
