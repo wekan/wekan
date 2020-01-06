@@ -1,6 +1,16 @@
 # Upcoming Wekan release
 
-This release removes the following features:
+This release adds the following warning for CentOS 7 users:
+
+- [WARNING: DO NOT USE SNAP ON CENTOS 7, THERE IS UPDATE BUG](https://github.com/wekan/wekan-snap/wiki/CentOS-7).
+  Thanks to andy-twosticks and xet7.
+
+and adds the following features:
+
+- [Wider sidebar](https://github.com/wekan/wekan/commit/5058233509e44916296e38fb8a6c5dd591c46d8b).
+  Thanks to vjrj.
+    
+and removes the following features:
 
 - [Removed Custom HTML feature that does not work](https://github.com/wekan/wekan/commit/ddce0ada094e6450be260b4cda21fdfa09ae0133).
   Thanks to xet7.
