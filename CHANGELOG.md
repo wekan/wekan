@@ -3,7 +3,7 @@
 This release removes the following features:
 
 - [Removed Custom HTML feature that does not work](https://github.com/wekan/wekan/commit/ddce0ada094e6450be260b4cda21fdfa09ae0133).
-  Thanks to xet7 !
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
