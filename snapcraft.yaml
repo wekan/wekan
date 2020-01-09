@@ -85,10 +85,11 @@ parts:
         node-packages:
             - node-gyp
             - node-pre-gyp
-            - fibers@2.0.0
+            - fibers
         build-packages:
             - ca-certificates
             - apt-utils
+            - build-essential
             - python
 #            - python3
             - g++
