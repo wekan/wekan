@@ -1,3 +1,19 @@
+# v3.65 2020-01-10 Wekan release
+
+This release adds the following features:
+
+- [More keyboard shortcuts: c for archive card](https://github.com/wekan/wekan/commit/d16a601c04aeb1d3550c5c541be02a67276a34cf).
+  Thanks to xet7.
+
+and adds the following updates:
+
+- [Upgrade to Meteor 1.9, Node 12.14.1 and MongoDB 4.2.2](https://github.com/wekan/wekan/commit/785f3cf88b61f687ef5ad4a529768221d1a54c86).
+  Thanks to xet7.
+- [Add more issue repo links to GitHub issue template](https://github.com/wekan/wekan/commit/5724674e73246f4e52843a6d6906c0ecdd85cccc).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.64 2020-01-06 Wekan release
 
 This release adds the following warning for CentOS 7 users:
