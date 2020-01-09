@@ -70,6 +70,30 @@ Mousetrap.bind('space', evt => {
   }
 });
 
+// XXX This shortcut should also work when hovering over a card in board view
+Mousetrap.bind('c', evt => {
+  if (!Session.get('currentCard')) {
+    return;
+  }
+
+  const currentUserId = Meteor.userId();
+  if (currentUserId === null) {
+    return;
+  }
+
+  if (
+    Meteor.user().isBoardMember() &&
+    !Meteor.user().isCommentOnly() &&
+    !Meteor.user().isWorker()
+  ) {
+    const card = Cards.findOne(Session.get('currentCard'));
+    card.archive();
+    // We should prevent scrolling in card when spacebar is clicked
+    // This should do it according to Mousetrap docs, but it doesn't
+    evt.preventDefault();
+  }
+});
+
 Template.keyboardShortcuts.helpers({
   mapping: [
     {
@@ -103,6 +127,10 @@ Template.keyboardShortcuts.helpers({
     {
       keys: ['SPACE'],
       action: 'shortcut-assign-self',
+    },
+    {
+      keys: ['C'],
+      action: 'archive-card',
     },
   ],
 });
