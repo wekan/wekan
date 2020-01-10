@@ -100,7 +100,7 @@ services:
     #-------------------------------------------------------------------------------------
     container_name: wekan-db
     restart: always
-    command: mongod --smallfiles --oplogSize 128
+    command: mongod --oplogSize 128
     networks:
       - wekan-tier
     expose:
