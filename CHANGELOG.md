@@ -1,9 +1,19 @@
+# v3.68 2020-01-10 Wekan release
+
+This release tries to fix the following bugs:
+
+- [Try to fix Snap by removing MongoDB option --smallfiles that is not supported
+  in MongoDB 4.x](https://github.com/wekan/wekan/commit/031df54a2e0a03dcb7a2586667e60e5bd4eef706)
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.67 2020-01-10 Wekan release
 
 This release tries to fix the following bugs:
 
 - [Try to fix Snap](https://github.com/wekan/wekan/commit/2b382b940be9af575fab4c2e955702d8cde55ae9).
-  Try to fix Snap.
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
