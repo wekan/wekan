@@ -153,7 +153,10 @@ if (isSandstorm && Meteor.isServer) {
 
           return session.activity(event);
         })
-        .then(() => done(), e => done(e));
+        .then(
+          () => done(),
+          e => done(e),
+        );
     })();
   }
 
