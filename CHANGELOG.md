@@ -1,3 +1,12 @@
+# v3.67 2020-01-10 Wekan release
+
+This release tries to fix the following bugs:
+
+- [Try to fix Snap](https://github.com/wekan/wekan/commit/2b382b940be9af575fab4c2e955702d8cde55ae9).
+  Try to fix Snap.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.66 2020-01-10 Wekan release
 
 This release tries to fix the following bugs:
