@@ -1,3 +1,13 @@
+# v3.69 2020-01-10 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix docker-compose.yml to not use --smallfiles that is not supported in
+  MongoDB 4.x](https://github.com/wekan/wekan/commit/ecb76842fcbd81701afcab8db0ed106e6be0fdec).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.68 2020-01-10 Wekan release
 
 This release tries to fix the following bugs:
