@@ -92,7 +92,7 @@ parts:
             - ca-certificates
             - apt-utils
             - build-essential
-            - python
+#            - python
             - python3
             - g++
             - capnproto
