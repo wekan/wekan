@@ -1,5 +1,5 @@
 name: wekan
-version: '0'
+version: 0
 version-script: git describe --tags |  cut -c 2-
 summary: The open-source kanban
 description: |
@@ -12,11 +12,6 @@ description: |
 
 confinement: strict
 grade: stable
-base: core18
-
-environment:
-  npm_config_unsafe_perm: "true"
-  NODE_ENV: "production"
 
 architectures:
   - amd64
@@ -70,9 +65,11 @@ apps:
 
 parts:
     mongodb:
-        source: https://repo.mongodb.org/apt/ubuntu/dists/bionic/mongodb-org/4.2/multiverse/binary-amd64/mongodb-org-server_4.2.2_amd64.deb
+        source: https://repo.mongodb.org/apt/ubuntu/dists/xenial/mongodb-org/4.2/multiverse/binary-amd64/mongodb-org-server_4.2.2_amd64.deb
+        #https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-4.0.14.tgz
+        #https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-3.2.22.tgz
         plugin: dump
-        stage-packages: [libssl1.1]
+        stage-packages: [libssl1.0.0]
         filesets:
             mongo:
                 - usr
@@ -86,19 +83,21 @@ parts:
     wekan:
         source: .
         plugin: nodejs
-#        node-engine: 12.14.1
+        node-engine: 12.14.1
+        node-packages:
+            - node-gyp
+            - node-pre-gyp
+            - fibers@2.0.0
         build-packages:
             - ca-certificates
             - apt-utils
-            - build-essential
-#            - python
-            - python3
+            - python
+#            - python3
             - g++
             - capnproto
             - curl
-            - libcurl4
             - execstack
-#            - nodejs
+            - nodejs
             - npm
         stage-packages:
             - libfontconfig1
@@ -107,11 +106,6 @@ parts:
             rm -rf ~/.meteor ~/.npm /usr/local/lib/node_modules
             # Create the OpenAPI specification
             rm -rf .build
-            npm -g install n
-            n 12.14.1
-            npm install -g node-gyp
-            npm install -g node-pre-gyp
-            npm install -g fibers
             #mkdir -p .build/python
             #cd .build/python
             #git clone --depth 1 -b master https://github.com/Kronuz/esprima-python
