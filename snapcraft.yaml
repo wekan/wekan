@@ -69,7 +69,9 @@ parts:
         #https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-4.0.14.tgz
         #https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-3.2.22.tgz
         plugin: dump
-        stage-packages: [libssl1.0.0]
+        stage-packages:
+            - libssl1.0.0
+            - libcurl3
         filesets:
             mongo:
                 - usr
@@ -97,11 +99,13 @@ parts:
             - g++
             - capnproto
             - curl
+            - libcurl3
             - execstack
             - nodejs
             - npm
         stage-packages:
             - libfontconfig1
+            - libssl1.0.0
             - libcurl3
         override-build: |
             echo "Cleaning environment first"
