@@ -55,7 +55,7 @@ if (isSandstorm && Meteor.isServer) {
 
       const parsedDescriptor = Capnp.parse(
         Powerbox.PowerboxDescriptor,
-        new Buffer(descriptor, 'base64'),
+        new Buffer.alloc(descriptor, 'base64'),
         { packed: true },
       );
 

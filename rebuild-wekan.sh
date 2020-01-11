@@ -111,7 +111,7 @@ do
 	        npm_call -g install node-gyp
 	        # Latest fibers for Meteor 1.8.x
 		sudo mkdir -p /usr/local/lib/node_modules/fibers/.node-gyp
-	        npm_call -g install fibers@4.0.1
+	        npm_call -g install fibers
 	        # Install Meteor, if it's not yet installed
 	        curl https://install.meteor.com | bash
 		sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
