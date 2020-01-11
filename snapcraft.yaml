@@ -86,6 +86,7 @@ parts:
     wekan:
         source: .
         plugin: nodejs
+#        node-engine: 12.14.1
         build-packages:
             - ca-certificates
             - apt-utils
@@ -97,7 +98,7 @@ parts:
             - curl
             - libcurl4
             - execstack
-            - nodejs
+#            - nodejs
             - npm
         stage-packages:
             - libfontconfig1
