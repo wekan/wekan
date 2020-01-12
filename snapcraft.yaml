@@ -112,6 +112,7 @@ parts:
             rm -rf ~/.meteor ~/.npm /usr/local/lib/node_modules
             # Create the OpenAPI specification
             rm -rf .build
+            mkdir -p stage/bin
             #mkdir -p .build/python
             #cd .build/python
             #git clone --depth 1 -b master https://github.com/Kronuz/esprima-python
