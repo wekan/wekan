@@ -291,8 +291,12 @@ if (Meteor.isServer) {
 }
 
 function storagePath(defaultPath) {
+/*
+  console.log('path', process.env.ATTACHMENTS_STORE_PATH);
+  console.log('env', process.env);
   // FIXME
   return '/var/attachments';
+*/
   const storePath = process.env.ATTACHMENTS_STORE_PATH;
   return storePath ? storePath : defaultPath;
 }
