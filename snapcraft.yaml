@@ -110,7 +110,6 @@ parts:
         override-build: |
             echo "Cleaning environment first"
             rm -rf ~/.meteor ~/.npm /usr/local/lib/node_modules
-            # Create the OpenAPI specification
             rm -rf .build
             echo "Installing meteor"
             curl https://install.meteor.com/ -o install_meteor.sh
