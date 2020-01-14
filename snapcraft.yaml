@@ -105,8 +105,6 @@ parts:
             - npm
         stage-packages:
             - libfontconfig1
-            - libssl1.0.0
-            - libcurl3
         override-build: |
             echo "Cleaning environment first"
             rm -rf ~/.meteor ~/.npm /usr/local/lib/node_modules
@@ -128,7 +126,6 @@ parts:
             # Change back to Wekan source directory
             cd ../../../..
             cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
-            rm -rf $SNAPCRFT_PART_INSTALL/bin
             cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
             rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan
             rm -f $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/meteor/rajit_bootstrap3-datepicker/lib/bootstrap-datepicker/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
