@@ -33,6 +33,6 @@ Template.minicard.helpers({
     return Meteor.user().hasHiddenMinicardLabelText();
   },
   coverUrl() {
-    return Attachments.findOne(this.coverId).link();
+    return Attachments.findOne(this.coverId).link('original', '/');
   },
 });

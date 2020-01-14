@@ -47,7 +47,7 @@ Template.attachmentsGalery.events({
 
 Template.attachmentsGalery.helpers({
   url() {
-    return Attachments.link(this); 
+    return Attachments.link(this, 'original', '/'); 
   },
   isUploaded() {
     return !!this.meta.uploaded;
@@ -62,7 +62,7 @@ Template.previewAttachedImagePopup.events({
 
 Template.previewAttachedImagePopup.helpers({
   url() {
-    return Attachments.link(this);
+    return Attachments.link(this, 'original', '/');
   }
 });
 

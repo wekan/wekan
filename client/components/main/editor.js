@@ -225,32 +225,33 @@ Template.editor.onRendered(() => {
                   $summernote.summernote('insertNode', img);
                 };
                 const processData = function(fileObj) {
-                  // FIXME: Change to new API
                   Utils.processUploadedAttachment(
                     currentCard,
-                    fileObj,
-                    attachment => {
-                      if (attachment && attachment._id && attachment.isImage) {
-                        attachment.one('uploaded', function() {
-                          const maxTry = 3;
-                          const checkItvl = 500;
-                          let retry = 0;
-                          const checkUrl = function() {
-                            // even though uploaded event fired, attachment.url() is still null somehow //TODO
-                            const url = attachment.link();
-                            if (url) {
-                              insertImage(
-                                `${location.protocol}//${location.host}${url}`,
-                              );
-                            } else {
-                              retry++;
-                              if (retry < maxTry) {
-                                setTimeout(checkUrl, checkItvl);
+                    fileObj, 
+                    { onUploaded:
+                      attachment => {
+                        if (attachment && attachment._id && attachment.isImage) {
+                          attachment.one('uploaded', function() {
+                            const maxTry = 3;
+                            const checkItvl = 500;
+                            let retry = 0;
+                            const checkUrl = function() {
+                              // even though uploaded event fired, attachment.url() is still null somehow //TODO
+                              const url = Attachments.link(attachment, 'original', '/');
+                              if (url) {
+                                insertImage(
+                                  `${location.protocol}//${location.host}${url}`,
+                                );
+                              } else {
+                                retry++;
+                                if (retry < maxTry) {
+                                  setTimeout(checkUrl, checkItvl);
+                                }
                               }
-                            }
-                          };
-                          checkUrl();
-                        });
+                            };
+                            checkUrl();
+                          });
+                        }
                       }
                     },
                   );
