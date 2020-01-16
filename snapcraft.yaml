@@ -1,6 +1,5 @@
 name: wekan
-version: 0
-version-script: git describe --tags |  cut -c 2-
+version: git
 summary: The open-source kanban
 description: |
    Wekan is an open-source and collaborative kanban board application.
@@ -12,6 +11,7 @@ description: |
 
 confinement: strict
 grade: stable
+base: core18
 
 architectures:
   - amd64
@@ -69,9 +69,7 @@ parts:
         #https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-4.0.14.tgz
         #https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-3.2.22.tgz
         plugin: dump
-        stage-packages:
-            - libssl1.0.0
-            - libcurl3
+        stage-packages: [libssl1.0.0, libcurl3]
         filesets:
             mongo:
                 - usr
