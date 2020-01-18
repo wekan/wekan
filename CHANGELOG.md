@@ -1,3 +1,21 @@
+# v3.70 2020-01-18 Wekan release
+
+This release fixes the following bugs:
+
+- [Add missing LD_LIBRARY_PATH to use libssl and libcurl](https://github.com/wekan/wekan/10f142a1a05acb98a175ccb0326fb0c1d3e3713f).
+  Thanks to xet7.
+- [Use Meteor 1.8.x](https://github.com/wekan/wekan/commit/55a2aa90cbbf44200e9b0b9f4bd08b6177f1bb95)
+  [on Snap](https://github.com/wekan/wekan/commit/6a01170d8696322462c4065ce0cf4a637a058975), because
+  Snap builds do not work yet for Meteor 1.9, Node 12.14.1 and MongoDB 4.2.2.
+  Docker version works with Meteor 1.9.
+  Thanks to xet7.
+- [Try to fix Node 12 Buffer() deprecation errors](https://github.com/wekan/wekan/commit/9b905c2833d54cf34d1875148075b2bf756d943a).
+  Thanks to xet7.
+- [Add Snap Meteor 1.8.x files to lint ignore files](https://github.com/wekan/wekan/commit/48f8050c25e40f737dfdd3a98923cb87cd4e77e2).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.69 2020-01-10 Wekan release
 
 This release fixes the following bugs:
@@ -63,7 +81,7 @@ and adds the following features:
 
 - [Wider sidebar](https://github.com/wekan/wekan/commit/5058233509e44916296e38fb8a6c5dd591c46d8b).
   Thanks to vjrj.
-    
+
 and removes the following features:
 
 - [Removed Custom HTML feature that does not work](https://github.com/wekan/wekan/commit/ddce0ada094e6450be260b4cda21fdfa09ae0133).
@@ -125,7 +143,7 @@ Thanks to above GitHub users for their contributions and translators for their t
 This release fixes the following bugs:
 
 - [Fix not being able to edit received date](https://github.com/wekan/wekan/commit/5376bc7b7905c0dd99fae1aeae3f63b4583a3e3f).
-  Thanks to xet7.    
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 

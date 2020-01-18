@@ -1,6 +1,6 @@
 {
   "name": "wekan",
-  "version": "v3.69.0",
+  "version": "v3.70.0",
   "description": "Open-Source kanban",
   "private": true,
   "scripts": {
@@ -44,7 +44,7 @@
     "eslint-config-meteor": "0.0.9",
     "eslint-config-prettier": "^3.6.0",
     "eslint-import-resolver-meteor": "^0.4.0",
-    "eslint-plugin-import": "^2.19.1",
+    "eslint-plugin-import": "^2.20.0",
     "eslint-plugin-meteor": "^5.1.0",
     "eslint-plugin-prettier": "^3.1.2",
     "lint-staged": "^7.3.0",
@@ -53,7 +53,7 @@
     "prettier-eslint": "^8.8.2"
   },
   "dependencies": {
-    "@babel/runtime": "^7.7.7",
+    "@babel/runtime": "^7.8.3",
     "ajv": "^5.0.0",
     "babel-runtime": "^6.26.0",
     "bcrypt": "^3.0.7",
@@ -63,7 +63,7 @@
     "gridfs-stream": "^0.5.3",
     "ldapjs": "^1.0.2",
     "meteor-node-stubs": "^0.4.1",
-    "mongodb": "^3.4.1",
+    "mongodb": "^3.5.0",
     "os": "^0.1.1",
     "page": "^1.11.5",
     "qs": "^6.9.1",
