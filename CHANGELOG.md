@@ -1,3 +1,12 @@
+# v3.71 2020-01-18 Sandstorm-only Wekan release
+
+This release fixes the following bugs:
+
+- [Try to fix Wekan at Sandstorm by using Meteor 1.8.x and Node 8.17.0 at Sandstorm](https://github.com/wekan/wekan/commit/5e5ab95410c715a4379631456fc5547c497898b0).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.70 2020-01-18 Wekan release
 
 This release fixes the following bugs:
