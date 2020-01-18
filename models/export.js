@@ -138,7 +138,7 @@ export class Exporter {
     // [Old] for attachments we only export IDs and absolute url to original doc
     // [New] Encode attachment to base64
     const getBase64Data = function(doc, callback) {
-      let buffer = new Buffer.alloc(0);
+      let buffer = Buffer.from(0);
       // callback has the form function (err, res) {}
       const tmpFile = path.join(
         os.tmpdir(),

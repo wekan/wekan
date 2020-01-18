@@ -131,9 +131,9 @@ var getTokenContent = function (token) {
   if (token) {
     try {
       var parts = token.split('.');
-      var header = JSON.parse(new Buffer.alloc(parts[0], 'base64').toString());
-      content = JSON.parse(new Buffer.alloc(parts[1], 'base64').toString());
-      var signature = new Buffer.alloc(parts[2], 'base64');
+      var header = JSON.parse(Buffer.from(parts[0], 'base64').toString());
+      content = JSON.parse(Buffer.from(parts[1], 'base64').toString());
+      var signature = Buffer.from(parts[2], 'base64');
       var signed = parts[0] + '.' + parts[1];
     } catch (err) {
       this.content = {
