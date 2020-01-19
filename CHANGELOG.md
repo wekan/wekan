@@ -1,3 +1,12 @@
+# v3.72 2020-01-19 Sandstorm-only Wekan release
+
+This release fixes the following bugs:
+
+- Try to fix Wekan at Sandstorm.
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.71 2020-01-18 Sandstorm-only Wekan release
 
 This release fixes the following bugs:

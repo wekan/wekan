@@ -12,6 +12,10 @@
 cd ~/repos/wekan
 # Use Meteor 1.8.x and Node 8.17.0
 sudo n 8.17.0
+sudo rm -rf /root/.cache/node-gyp/8.17.0
+sudo mkdir -p /usr/local/lib/node_modules/fibers/.node-gyp
+sudo npm -g uninstall node-gyp node-pre-gyp fibers
+sudo npm -g install node-gyp node-pre-gyp fibers
 ./releases/rebuild-release.sh
 rm -rf .build
 mkdir ../sandstorm-build
@@ -37,7 +41,7 @@ mv wekan-$1.spk ..
 sudo rm -rf .meteor-spk
 # Back to Meteor 1.9 and Node 12.14.1
 sudo n 12.14.1
-rm -rf .meteor
+sudo rm -rf .meteor
 mv ../sandstorm-build/.meteor .
 mv ../sandstorm-build/.snap-meteor-1.8 .
 rmdir ../sandstorm-build
