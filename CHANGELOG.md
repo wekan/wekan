@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Show System Wide Announcement in one line](https://github.com/wekan/wekan/pull/2891).
+  Thanks to tsia.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.72 2020-01-19 Sandstorm-only Wekan release
 
 This release fixes the following bugs:
