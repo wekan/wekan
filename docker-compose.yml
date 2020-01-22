@@ -342,6 +342,31 @@ services:
       # Tthe claim name you want to map to the email field:
       #- OAUTH2_EMAIL_MAP=email
       #-----------------------------------------------------------------
+      # ==== OAUTH2 Nextcloud ====
+      # 1) Register the application with Nextcloud: https://your.nextcloud/settings/admin/security
+      #    Make sure you capture the application ID as well as generate a secret key.
+      # 2) Configure the environment variables. This differs slightly
+      #     by installation type, but make sure you have the following:
+      #- OAUTH2_ENABLED=true
+      # OAuth2 login style: popup or redirect.
+      #- OAUTH2_LOGIN_STYLE=redirect
+      # Application GUID captured during app registration:
+      #- OAUTH2_CLIENT_ID=xxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx
+      # Secret key generated during app registration:
+      #- OAUTH2_SECRET=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+      #- OAUTH2_SERVER_URL=https://your-nextcloud.tld
+      #- OAUTH2_AUTH_ENDPOINT=/index.php/apps/oauth2/authorize
+      #- OAUTH2_USERINFO_ENDPOINT=/ocs/v2.php/cloud/user?format=json
+      #- OAUTH2_TOKEN_ENDPOINT=/index.php/apps/oauth2/api/v1/token
+      # The claim name you want to map to the unique ID field:
+      #- OAUTH2_ID_MAP=id
+      # The claim name you want to map to the username field:
+      #- OAUTH2_USERNAME_MAP=id
+      # The claim name you want to map to the full name field:
+      #- OAUTH2_FULLNAME_MAP=display-name
+      # Tthe claim name you want to map to the email field:
+      #- OAUTH2_EMAIL_MAP=email
+      #-----------------------------------------------------------------
       # ==== OAUTH2 KEYCLOAK ====
       # https://github.com/wekan/wekan/wiki/Keycloak  <== MAPPING INFO, REQUIRED
       #- OAUTH2_ENABLED=true
