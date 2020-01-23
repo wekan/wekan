@@ -9,6 +9,8 @@ and fixes the following bugs:
 
 - [Show System Wide Announcement in one line](https://github.com/wekan/wekan/pull/2891).
   Thanks to tsia.
+- [Fixed board export with attachment in Wekan Meteor 1.9.x version](https://github.com/wekan/wekan/pull/2898).
+  Thanks to izadpoor.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
