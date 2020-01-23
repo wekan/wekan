@@ -24,7 +24,6 @@ if (Meteor.isServer) {
   JsonRoutes.add('get', '/api/boards/:boardId/export', function(req, res) {
     const boardId = req.params.boardId;
     let user = null;
-
     const loginToken = req.query.authToken;
     if (loginToken) {
       const hashToken = Accounts._hashLoginToken(loginToken);
@@ -35,7 +34,6 @@ if (Meteor.isServer) {
       Authentication.checkUserId(req.userId);
       user = Users.findOne({ _id: req.userId, isAdmin: true });
     }
-
     const exporter = new Exporter(boardId);
     if (exporter.canExport(user)) {
       JsonRoutes.sendResult(res, {
@@ -137,8 +135,11 @@ export class Exporter {
 
     // [Old] for attachments we only export IDs and absolute url to original doc
     // [New] Encode attachment to base64
+
     const getBase64Data = function(doc, callback) {
-      let buffer = Buffer.from(0);
+      let buffer = Buffer.allocUnsafe(0);
+      buffer.fill(0);
+
       // callback has the form function (err, res) {}
       const tmpFile = path.join(
         os.tmpdir(),
@@ -149,14 +150,16 @@ export class Exporter {
       readStream.on('data', function(chunk) {
         buffer = Buffer.concat([buffer, chunk]);
       });
+
       readStream.on('error', function(err) {
-        callback(err, null);
+        callback(null, null);
       });
       readStream.on('end', function() {
         // done
         fs.unlink(tmpFile, () => {
           //ignored
         });
+
         callback(null, buffer.toString('base64'));
       });
       readStream.pipe(tmpWriteable);
@@ -165,11 +168,14 @@ export class Exporter {
     result.attachments = Attachments.find(byBoard)
       .fetch()
       .map(attachment => {
+        let filebase64 = null;
+        filebase64 = getBase64DataSync(attachment);
+
         return {
           _id: attachment._id,
           cardId: attachment.cardId,
-          // url: FlowRouter.url(attachment.url()),
-          file: getBase64DataSync(attachment),
+          //url: FlowRouter.url(attachment.url()),
+          file: filebase64,
           name: attachment.original.name,
           type: attachment.original.type,
         };
