@@ -279,6 +279,29 @@ BlazeComponent.extendComponent({
         'click .js-close-card-details'() {
           Utils.goBoardId(this.data().boardId);
         },
+        'click .js-copy-link'() {
+          StringToCopyElement = document.getElementById('cardURL_copy');
+          StringToCopyElement.select();
+          if (document.execCommand('copy')) {
+            StringToCopyElement.blur();
+          } else {
+            document.getElementById('cardURL_copy').selectionStart = 0;
+            document.getElementById('cardURL_copy').selectionEnd = 999;
+            document.execCommand('copy');
+            if (window.getSelection) {
+              if (window.getSelection().empty) {
+                // Chrome
+                window.getSelection().empty();
+              } else if (window.getSelection().removeAllRanges) {
+                // Firefox
+                window.getSelection().removeAllRanges();
+              }
+            } else if (document.selection) {
+              // IE?
+              document.selection.empty();
+            }
+          }
+        },
         'click .js-open-card-details-menu': Popup.open('cardDetailsActions'),
         'submit .js-card-description'(event) {
           event.preventDefault();
