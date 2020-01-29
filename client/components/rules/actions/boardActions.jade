@@ -1,29 +1,42 @@
 template(name="boardActions")
   div.trigger-item
     div.trigger-content
-      div.trigger-text 
+      div.trigger-text
         | {{_'r-move-card-to'}}
       div.trigger-dropdown
         select(id="move-gen-action")
           option(value="top") {{_'r-top-of'}}
           option(value="bottom") {{_'r-bottom-of'}}
-      div.trigger-text 
+      div.trigger-text
         | {{_'r-its-list'}}
     div.trigger-button.js-add-gen-move-action.js-goto-rules
       i.fa.fa-plus
 
   div.trigger-item
     div.trigger-content
-      div.trigger-text 
+      div.trigger-text
         | {{_'r-move-card-to'}}
       div.trigger-dropdown
         select(id="move-spec-action")
           option(value="top") {{_'r-top-of'}}
           option(value="bottom") {{_'r-bottom-of'}}
-      div.trigger-text 
-        | {{_'r-list'}}
+      div.trigger-text
+        | {{_'r-the-board'}}
+      div.trigger-dropdown
+        select(id="board-id")
+          each boards
+            if $eq _id currentBoard._id
+              option(value="{{_id}}" selected) {{_ 'current'}}
+            else
+              option(value="{{_id}}") {{title}}
+      div.trigger-text
+        | {{_'r-in-list'}}
       div.trigger-dropdown
         input(id="listName",type=text,placeholder="{{_'r-name'}}")
+      div.trigger-text
+        | {{_'r-in-swimlane'}}
+      div.trigger-dropdown
+        input(id="swimlaneName",type=text,placeholder="{{_'r-name'}}")
     div.trigger-button.js-add-spec-move-action.js-goto-rules
       i.fa.fa-plus
 
@@ -33,14 +46,14 @@ template(name="boardActions")
         select(id="arch-action")
           option(value="archive") {{_'r-archive'}}
           option(value="unarchive") {{_'r-unarchive'}}
-      div.trigger-text 
+      div.trigger-text
         | {{_'r-card'}}
     div.trigger-button.js-add-arch-action.js-goto-rules
       i.fa.fa-plus
 
   div.trigger-item
     div.trigger-content
-      div.trigger-text 
+      div.trigger-text
         | {{_'r-add-swimlane'}}
       div.trigger-dropdown
         input(id="swimlane-name",type=text,placeholder="{{_'r-name'}}")
@@ -49,15 +62,15 @@ template(name="boardActions")
 
   div.trigger-item
     div.trigger-content
-      div.trigger-text 
+      div.trigger-text
         | {{_'r-create-card'}}
       div.trigger-dropdown
         input(id="card-name",type=text,placeholder="{{_'r-name'}}")
-      div.trigger-text 
+      div.trigger-text
         | {{_'r-in-list'}}
       div.trigger-dropdown
         input(id="list-name",type=text,placeholder="{{_'r-name'}}")
-      div.trigger-text 
+      div.trigger-text
         | {{_'r-in-swimlane'}}
       div.trigger-dropdown
         input(id="swimlane-name2",type=text,placeholder="{{_'r-name'}}")
@@ -65,8 +78,8 @@ template(name="boardActions")
       i.fa.fa-plus
 
 
-   
-  
+
+
 
 
 
