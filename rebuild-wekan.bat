@@ -1,5 +1,10 @@
 @ECHO OFF
 
+REM NOTE: You can try this to install Meteor on Windows, it works:
+REM       https://github.com/zodern/windows-meteor-installer/
+
+REM Installing Meteor with Chocolatey does not currently work.
+
 REM NOTE: THIS .BAT DOES NOT WORK !!
 REM Use instead this webpage instructions to build on Windows:
 REM https://github.com/wekan/wekan/wiki/Install-Wekan-from-source-on-Windows
