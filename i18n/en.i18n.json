@@ -756,5 +756,6 @@
   "hide-minicard-label-text": "Hide minicard label text",
   "show-desktop-drag-handles": "Show desktop drag handles",
   "assignee": "Assignee",
-  "cardAssigneesPopup-title": "Assignee"
+  "cardAssigneesPopup-title": "Assignee",
+  "addmore-detail": "Add a more detailed description"
 }

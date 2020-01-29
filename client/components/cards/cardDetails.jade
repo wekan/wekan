@@ -187,7 +187,7 @@ template(name="cardDetails")
               +viewer
                 = getDescription
             else
-              | {{_ 'Add a more detailed description'}}
+              | {{_ 'addmore-detail'}}
           if (hasUnsavedValue 'cardDescription' _id)
             p.quiet
               | {{_ 'unsaved-description'}}
