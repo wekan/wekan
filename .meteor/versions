@@ -1,7 +1,7 @@
 3stack:presence@1.1.2
 accounts-base@1.5.0
 accounts-oauth@1.1.16
-accounts-password@1.5.2
+accounts-password@1.5.3
 aldeed:collection2@2.10.0
 aldeed:collection2-core@1.2.0
 aldeed:schema-deny@1.1.0
@@ -12,7 +12,7 @@ allow-deny@1.1.0
 arillo:flow-router-helpers@0.5.2
 audit-argument-checks@1.0.7
 autoupdate@1.6.0
-babel-compiler@7.5.0
+babel-compiler@7.5.1
 babel-runtime@1.5.0
 base64@1.0.12
 binary-heap@1.0.11
@@ -52,12 +52,12 @@ ddp@1.4.0
 ddp-client@2.3.3
 ddp-common@1.4.0
 ddp-rate-limiter@1.0.7
-ddp-server@2.3.0
+ddp-server@2.3.1
 deps@1.0.12
 diff-sequence@1.1.1
 dynamic-import@0.5.1
 easylogic:summernote@0.8.8
-ecmascript@0.14.0
+ecmascript@0.14.1
 ecmascript-runtime@0.7.0
 ecmascript-runtime-client@0.10.0
 ecmascript-runtime-server@0.9.0
@@ -106,7 +106,7 @@ minifier-js@2.6.0
 minifiers@1.1.8-faster-rebuild.0
 minimongo@1.4.5
 mobile-status-bar@1.0.14
-modern-browsers@0.1.4
+modern-browsers@0.1.5
 modules@0.15.0
 modules-runtime@0.12.0
 momentjs:moment@2.24.0
@@ -186,7 +186,7 @@ useraccounts:core@1.14.2
 useraccounts:flow-routing@1.14.2
 useraccounts:unstyled@1.14.2
 verron:autosize@3.0.8
-webapp@1.8.0
+webapp@1.8.2
 webapp-hashing@1.0.9
 wekan-accounts-cas@0.1.0
 wekan-accounts-oidc@1.0.10
