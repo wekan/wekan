@@ -8,10 +8,13 @@ template(name="cardDetails")
           a.fa.fa-times-thin.close-card-details.js-close-card-details
           if currentUser.isBoardMember
             a.fa.fa-navicon.card-details-menu.js-open-card-details-menu
+            input.inline-input(type="hidden" id="cardURL_copy" value="{{ absoluteUrl }}")
+            a.fa.fa-link.card-copy-button.js-copy-link
         if isMiniScreen
           a.fa.fa-times-thin.close-card-details-mobile-web.js-close-card-details
           if currentUser.isBoardMember
             a.fa.fa-navicon.card-details-menu-mobile-web.js-open-card-details-menu
+            a.fa.fa-link.card-copy-mobile-button
         h2.card-details-title.js-card-title(
           class="{{#if canModifyCard}}js-open-inlined-form is-editable{{/if}}")
             +viewer
@@ -36,92 +39,103 @@ template(name="cardDetails")
         p.warning {{_ 'card-archived'}}
 
     .card-details-items
-      .card-details-item.card-details-item-received
-        h3
-          i.fa.fa-sign-out
-          card-details-item-title {{_ 'card-received'}}
-        if getReceived
-          +cardReceivedDate
-        else
-          if canModifyCard
-            unless currentUser.isWorker
-              a.js-received-date {{_ 'add'}}
+      if currentBoard.allowsReceivedDate
+        .card-details-item.card-details-item-received
+          h3
+            i.fa.fa-sign-out
+            card-details-item-title {{_ 'card-received'}}
+          if getReceived
+            +cardReceivedDate
+          else
+            if canModifyCard
+              unless currentUser.isWorker
+                a.card-label.add-label.js-received-date
+                  i.fa.fa-plus
 
-      .card-details-item.card-details-item-start
-        h3
-          i.fa.fa-hourglass-start
-          card-details-item-title {{_ 'card-start'}}
-        if getStart
-          +cardStartDate
-        else
-          if canModifyCard
-            unless currentUser.isWorker
-              a.js-start-date {{_ 'add'}}
+      if currentBoard.allowsStartDate
+        .card-details-item.card-details-item-start
+          h3
+            i.fa.fa-hourglass-start
+            card-details-item-title {{_ 'card-start'}}
+          if getStart
+            +cardStartDate
+          else
+            if canModifyCard
+              unless currentUser.isWorker
+                a.card-label.add-label.js-start-date
+                  i.fa.fa-plus
 
-      .card-details-item.card-details-item-due
-        h3
-          i.fa.fa-sign-in
-          card-details-item-title {{_ 'card-due'}}
-        if getDue
-          +cardDueDate
-        else
-          if canModifyCard
-            unless currentUser.isWorker
-              a.js-due-date {{_ 'add'}}
+      if currentBoard.allowsDueDate
+        .card-details-item.card-details-item-due
+          h3
+            i.fa.fa-sign-in
+            card-details-item-title {{_ 'card-due'}}
+          if getDue
+            +cardDueDate
+          else
+            if canModifyCard
+              unless currentUser.isWorker
+                a.card-label.add-label.js-due-date
+                  i.fa.fa-plus
 
-      .card-details-item.card-details-item-end
-        h3
-          i.fa.fa-hourglass-end
-          card-details-item-title {{_ 'card-end'}}
-        if getEnd
-          +cardEndDate
-        else
-          if canModifyCard
-            unless currentUser.isWorker
-              a.js-end-date {{_ 'add'}}
+      if currentBoard.allowsEndDate
+        .card-details-item.card-details-item-end
+          h3
+            i.fa.fa-hourglass-end
+            card-details-item-title {{_ 'card-end'}}
+          if getEnd
+            +cardEndDate
+          else
+            if canModifyCard
+              unless currentUser.isWorker
+                a.card-label.add-label.js-end-date
+                  i.fa.fa-plus
 
     .card-details-items
-      .card-details-item.card-details-item-members
-        h3
-          i.fa.fa-users
-          card-details-item-title {{_ 'members'}}
-        each getMembers
-          +userAvatar(userId=this cardId=../_id)
-          | {{! XXX Hack to hide syntaxic coloration /// }}
-        if canModifyCard
-          unless currentUser.isWorker
-            a.member.add-member.card-details-item-add-button.js-add-members(title="{{_ 'card-members-title'}}")
-              i.fa.fa-plus
+      if currentBoard.allowsMembers
+        .card-details-item.card-details-item-members
+          h3
+            i.fa.fa-users
+            card-details-item-title {{_ 'members'}}
+          each getMembers
+            +userAvatar(userId=this cardId=../_id)
+            | {{! XXX Hack to hide syntaxic coloration /// }}
+          if canModifyCard
+            unless currentUser.isWorker
+              a.member.add-member.card-details-item-add-button.js-add-members(title="{{_ 'card-members-title'}}")
+                i.fa.fa-plus
 
-      .card-details-item.card-details-item-assignees
-        h3
-          i.fa.fa-user
-          card-details-item-title {{_ 'assignee'}}
-        each getAssignees
-          +userAvatarAssignee(userId=this cardId=../_id)
-          | {{! XXX Hack to hide syntaxic coloration /// }}
-        if canModifyCard
-          a.assignee.add-assignee.card-details-item-add-button.js-add-assignees(title="{{_ 'assignee'}}")
-            i.fa.fa-plus
-        if currentUser.isWorker
-          unless assigneeSelected
+      //if assigneeSelected
+      if currentBoard.allowsAssignee
+        .card-details-item.card-details-item-assignees
+          h3
+            i.fa.fa-user
+            card-details-item-title {{_ 'assignee'}}
+          each getAssignees
+            +userAvatarAssignee(userId=this cardId=../_id)
+            | {{! XXX Hack to hide syntaxic coloration /// }}
+          if canModifyCard
             a.assignee.add-assignee.card-details-item-add-button.js-add-assignees(title="{{_ 'assignee'}}")
               i.fa.fa-plus
+          if currentUser.isWorker
+            unless assigneeSelected
+              a.assignee.add-assignee.card-details-item-add-button.js-add-assignees(title="{{_ 'assignee'}}")
+                i.fa.fa-plus
 
-
-      .card-details-item.card-details-item-labels
-        h3
-          i.fa.fa-tags
-          card-details-item-title {{_ 'labels'}}
-        a(class="{{#if canModifyCard}}js-add-labels{{else}}is-disabled{{/if}}" title="{{_ 'card-labels-title'}}")
-          each labels
-            span.card-label(class="card-label-{{color}}" title=name)
-              +viewer
-                = name
-        if canModifyCard
-          unless currentUser.isWorker
-            a.card-label.add-label.js-add-labels(title="{{_ 'card-labels-title'}}")
-              i.fa.fa-plus
+      if currentBoard.allowsLabels
+        .card-details-item.card-details-item-labels
+          h3
+            i.fa.fa-tags
+            card-details-item-title {{_ 'labels'}}
+          a(class="{{#if canModifyCard}}js-add-labels{{else}}is-disabled{{/if}}" title="{{_ 'card-labels-title'}}")
+            each labels
+              span.card-label(class="card-label-{{color}}" title=name)
+                +viewer
+                  = name
+          if canModifyCard
+            unless currentUser.isWorker
+              a.card-label.add-label.js-add-labels(title="{{_ 'card-labels-title'}}")
+                i.fa.fa-plus
 
     .card-details-items
       each customFieldsWD
@@ -143,9 +157,9 @@ template(name="cardDetails")
     //- XXX We should use "editable" to avoid repetiting ourselves
     if canModifyCard
       unless currentUser.isWorker
-        h3
-          i.fa.fa-align-left
-          card-details-item-title {{_ 'description'}}
+        //h3
+        //  i.fa.fa-align-left
+        //  card-details-item-title {{_ 'description'}}
         +inlinedCardDescription(classNames="card-description js-card-description")
           +editor(autofocus=true)
             | {{getUnsavedValue 'cardDescription' _id getDescription}}
@@ -153,16 +167,16 @@ template(name="cardDetails")
             button.primary(type="submit") {{_ 'save'}}
             a.fa.fa-times-thin.js-close-inlined-form
         else
-          a.js-open-inlined-form
+          a.description-item.add-description.js-open-inlined-form
             if getDescription
               +viewer
                 = getDescription
             else
-              | {{_ 'edit'}}
+              | {{_ 'addmore-detail'}}
           if (hasUnsavedValue 'cardDescription' _id)
             p.quiet
               | {{_ 'unsaved-description'}}
-              a.js-open-inlined-form {{_ 'view-it'}}
+              a.description-item.add-description.js-open-inlined-form {{_ 'view-it'}}
               = ' - '
               a.js-close-inlined-form {{_ 'discard'}}
     else if getDescription
@@ -171,57 +185,60 @@ template(name="cardDetails")
         = getDescription
 
     .card-details-items
-      .card-details-item.card-details-item-name
-        h3
-          i.fa.fa-shopping-cart
-          card-details-item-title {{_ 'requested-by'}}
-        if canModifyCard
-          unless currentUser.isWorker
-            +inlinedForm(classNames="js-card-details-requester")
-              +editCardRequesterForm
-            else
-              a.js-open-inlined-form
-                if getRequestedBy
-                  +viewer
-                    = getRequestedBy
-                else
-                  | {{_ 'add'}}
-        else if getRequestedBy
-          +viewer
-            = getRequestedBy
+      if currentBoard.allowsRequestedBy
+        .card-details-item.card-details-item-name
+          h3
+            i.fa.fa-shopping-cart
+            card-details-item-title {{_ 'requested-by'}}
+          if canModifyCard
+            unless currentUser.isWorker
+              +inlinedForm(classNames="js-card-details-requester")
+                +editCardRequesterForm
+              else
+                a.js-open-inlined-form
+                  if getRequestedBy
+                    +viewer
+                      = getRequestedBy
+                  else
+                    | {{_ 'add'}}
+          else if getRequestedBy
+            +viewer
+              = getRequestedBy
 
-      .card-details-item.card-details-item-name
-        h3
-          i.fa.fa-user-plus
-          card-details-item-title {{_ 'assigned-by'}}
-        if canModifyCard
-          unless currentUser.isWorker
-            +inlinedForm(classNames="js-card-details-assigner")
-              +editCardAssignerForm
-            else
-              a.js-open-inlined-form
-                if getAssignedBy
-                  +viewer
-                    = getAssignedBy
-                else
-                  | {{_ 'add'}}
-        else if getRequestedBy
-          +viewer
-            = getAssignedBy
+      if currentBoard.allowsAssignedBy
+        .card-details-item.card-details-item-name
+          h3
+            i.fa.fa-user-plus
+            card-details-item-title {{_ 'assigned-by'}}
+          if canModifyCard
+            unless currentUser.isWorker
+              +inlinedForm(classNames="js-card-details-assigner")
+                +editCardAssignerForm
+              else
+                a.js-open-inlined-form
+                  if getAssignedBy
+                    +viewer
+                      = getAssignedBy
+                  else
+                    | {{_ 'add'}}
+          else if getRequestedBy
+            +viewer
+              = getAssignedBy
 
-    hr
-    +checklists(cardId = _id)
-
-    if currentBoard.allowsSubtasks
-      hr
-      +subtasks(cardId = _id)
-
-    hr
-    h3
-      i.fa.fa-paperclip
-      | {{_ 'attachments'}}
-
-    +attachmentsGalery
+    .card-checklist-attachmentGalerys
+      .card-checklist-attachmentGalery.card-checklists
+        if currentBoard.allowsChecklists
+          +checklists(cardId = _id)
+        if currentBoard.allowsSubtasks
+          hr
+          +subtasks(cardId = _id)
+      if currentBoard.allowsAttachments
+        //- hr
+        //- h3
+        //- i.fa.fa-paperclip
+        //- | {{_ 'attachments'}}
+        .card-checklist-attachmentGalery.card-attachmentGalery
+          +attachmentsGalery
 
     hr
     unless currentUser.isNoComments
@@ -237,9 +254,16 @@ template(name="cardDetails")
             else
               input.toggle-switch(type="checkbox" id="toggleButton")
             label.toggle-label(for="toggleButton")
-    if currentUser.isBoardMember
-      unless currentUser.isNoComments
-        +commentForm
+    if currentBoard.allowsComments
+      if currentUser.isBoardMember
+        unless currentUser.isNoComments
+          if canModifyCard
+            +inlinedForm(autoclose=false classNames="js-new-comment-form")
+              +commentForm
+            else
+              +userAvatar(userId=currentUser._id)
+              a.comment-item.add-comment.js-open-inlined-form
+                | {{_ 'Write Comment'}}
     unless currentUser.isNoComments
       if isLoaded.get
         if isLinkedCard

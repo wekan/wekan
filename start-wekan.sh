@@ -39,7 +39,7 @@
       #---------------------------------------------------------------
       # ==== RICH TEXT EDITOR IN CARD COMMENTS ====
       # https://github.com/wekan/wekan/pull/2560
-      export RICHER_CARD_COMMENT_EDITOR=true
+      export RICHER_CARD_COMMENT_EDITOR=false
       #---------------------------------------------------------------
       # ==== CARD OPENED, SEND WEBHOOK MESSAGE ====
       export CARD_OPENED_WEBHOOK_ENABLED=false
