@@ -794,8 +794,11 @@ BlazeComponent.extendComponent({
         },
         'click .js-field-has-assigned-by'(evt) {
           evt.preventDefault();
-          this.currentBoard.allowsAssignedBy = !this.currentBoard.allowsAssignedBy;
-          this.currentBoard.setAllowsAssignedBy(this.currentBoard.allowsAssignedBy);
+          this.currentBoard.allowsAssignedBy = !this.currentBoard
+            .allowsAssignedBy;
+          this.currentBoard.setAllowsAssignedBy(
+            this.currentBoard.allowsAssignedBy,
+          );
           $(`.js-field-has-assigned-by ${MCB}`).toggleClass(
             CKCLS,
             this.currentBoard.allowsAssignedBy,
@@ -807,8 +810,11 @@ BlazeComponent.extendComponent({
         },
         'click .js-field-has-requested-by'(evt) {
           evt.preventDefault();
-          this.currentBoard.allowsRequestedBy = !this.currentBoard.allowsRequestedBy;
-          this.currentBoard.setAllowsRequestedBy(this.currentBoard.allowsRequestedBy);
+          this.currentBoard.allowsRequestedBy = !this.currentBoard
+            .allowsRequestedBy;
+          this.currentBoard.setAllowsRequestedBy(
+            this.currentBoard.allowsRequestedBy,
+          );
           $(`.js-field-has-requested-by ${MCB}`).toggleClass(
             CKCLS,
             this.currentBoard.allowsRequestedBy,
