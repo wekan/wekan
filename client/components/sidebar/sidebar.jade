@@ -72,6 +72,88 @@ template(name="boardChangeColorPopup")
           if isSelected
             i.fa.fa-check
 
+template(name="boardCardSettingsPopup")
+  form.board-card-settings
+    h3 {{_ 'show-on-card'}}
+    div.check-div
+      a.flex.js-field-has-receiveddate(class="{{#if allowsReceivedDate}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsReceivedDate}}is-checked{{/if}}")
+        span
+          i.fa.fa-sign-out
+          | {{_ 'card-received'}}
+    div.check-div
+      a.flex.js-field-has-startdate(class="{{#if allowsStartDate}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsStartDate}}is-checked{{/if}}")
+        span
+          i.fa.fa-hourglass-start
+          | {{_ 'card-start'}}
+    div.check-div
+      a.flex.js-field-has-duedate(class="{{#if allowsDueDate}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsDueDate}}is-checked{{/if}}")
+        span
+          i.fa.fa-sign-in
+          | {{_ 'card-due'}}
+    div.check-div
+      a.flex.js-field-has-enddate(class="{{#if allowsEndDate}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsEndDate}}is-checked{{/if}}")
+        span
+          i.fa.fa-hourglass-end
+          | {{_ 'card-end'}}
+    div.check-div
+      a.flex.js-field-has-members(class="{{#if allowsMembers}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsMembers}}is-checked{{/if}}")
+        span
+          i.fa.fa-users
+          | {{_ 'members'}}
+    div.check-div
+      a.flex.js-field-has-assignee(class="{{#if allowsAssignee}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsAssignee}}is-checked{{/if}}")
+        span
+          i.fa.fa-user
+          | {{_ 'assignee'}}
+    div.check-div
+      a.flex.js-field-has-assigned-by(class="{{#if allowsAssignedBy}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsAssignedBy}}is-checked{{/if}}")
+        span
+          i.fa.fa-shopping-cart
+          | {{_ 'assigned-by'}}
+    div.check-div
+      a.flex.js-field-has-requested-by(class="{{#if allowsRequestedBy}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsRequestedBy}}is-checked{{/if}}")
+        span
+          i.fa.fa-user-plus
+          | {{_ 'requested-by'}}
+    div.check-div
+      a.flex.js-field-has-labels(class="{{#if allowsLabels}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsLabels}}is-checked{{/if}}")
+        span
+          i.fa.fa-tags
+          | {{_ 'labels'}}
+    div.check-div
+      a.flex.js-field-has-checklists(class="{{#if allowsChecklists}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsChecklists}}is-checked{{/if}}")
+        span
+          i.fa.fa-check
+          | {{_ 'checklists'}}
+    div.check-div
+      a.flex.js-field-has-subtasks(class="{{#if allowsSubtasks}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsSubtasks}}is-checked{{/if}}")
+        span
+          i.fa.fa-sitemap
+          | {{_ 'subtasks'}}
+    div.check-div
+      a.flex.js-field-has-attachments(class="{{#if allowsAttachments}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsAttachments}}is-checked{{/if}}")
+        span
+          i.fa.fa-paperclip
+          | {{_ 'attachments'}}
+    div.check-div
+      a.flex.js-field-has-comments(class="{{#if allowsComments}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsComments}}is-checked{{/if}}")
+        span
+          i.fa.fa-comment-o
+          | {{_ 'comment'}}
+
 template(name="boardSubtaskSettingsPopup")
   form.board-subtask-settings
     h3 {{_ 'show-parent-in-minicard'}}
@@ -198,6 +280,10 @@ template(name="boardMenuPopup")
             i.fa.fa-globe
             | {{_ 'outgoing-webhooks'}}
         li
+          a.js-card-settings
+            i.fa.fa-id-card-o
+            | {{_ 'card-settings'}}
+        li
           a.js-subtask-settings
             i.fa.fa-sitemap
             | {{_ 'subtask-settings'}}
@@ -238,6 +324,12 @@ template(name="boardMenuPopup")
         a.js-subtask-settings
           i.fa.fa-sitemap
           | {{_ 'subtask-settings'}}
+    hr
+    ul.pop-over-list
+      li
+        a.js-Date-settings
+          i.fa.fa-calendar
+          | {{_ 'Date-settings'}}
 
 template(name="labelsWidget")
   .board-widget.board-widget-labels
