@@ -583,8 +583,9 @@
   "default": "Predefinito",
   "queue": "Coda",
   "subtask-settings": "Impostazioni sotto-compiti",
+  "card-settings": "Card Settings",
   "boardSubtaskSettingsPopup-title": "Impostazioni sotto-compiti della bacheca",
-  "show-subtasks-field": "Le schede posso avere dei sotto-compiti",
+  "boardCardSettingsPopup-title": "Card Settings",
   "deposit-subtasks-board": "Deposita i sotto compiti in questa bacheca",
   "deposit-subtasks-list": "Lista di destinaizoni per questi sotto-compiti",
   "show-parent-in-minicard": "Mostra genirotri nelle mini schede:",
@@ -753,5 +754,7 @@
   "hide-minicard-label-text": "Nascondi etichetta minicard",
   "show-desktop-drag-handles": "Mostra maniglie di trascinamento del desktop",
   "assignee": "Assegnatario",
-  "cardAssigneesPopup-title": "Assegnatario"
+  "cardAssigneesPopup-title": "Assegnatario",
+  "addmore-detail": "Add a more detailed description",
+  "show-on-card": "Show on Card"
 }

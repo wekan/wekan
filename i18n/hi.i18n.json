@@ -583,8 +583,9 @@
   "default": "Default",
   "queue": "Queue",
   "subtask-settings": "Subtasks  व्यवस्था",
+  "card-settings": "Card Settings",
   "boardSubtaskSettingsPopup-title": "बोर्ड Subtasks  व्यवस्था",
-  "show-subtasks-field": "Cards can have subtasks",
+  "boardCardSettingsPopup-title": "Card Settings",
   "deposit-subtasks-board": "Deposit subtasks तक  यह बोर्ड:",
   "deposit-subtasks-list": "Landing सूची for subtasks deposited here:",
   "show-parent-in-minicard": "Show parent अंदर में minicard:",
@@ -753,5 +754,7 @@
   "hide-minicard-label-text": "Hide minicard label text",
   "show-desktop-drag-handles": "Show desktop drag handles",
   "assignee": "Assignee",
-  "cardAssigneesPopup-title": "Assignee"
+  "cardAssigneesPopup-title": "Assignee",
+  "addmore-detail": "Add a more detailed description",
+  "show-on-card": "Show on Card"
 }

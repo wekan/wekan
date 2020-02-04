@@ -583,8 +583,9 @@
   "default": "Oletus",
   "queue": "Jono",
   "subtask-settings": "Alitehtävä-asetukset",
+  "card-settings": "Kortin asetukset",
   "boardSubtaskSettingsPopup-title": "Taulualitehtävien asetukset",
-  "show-subtasks-field": "Korteilla voi olla alitehtäviä",
+  "boardCardSettingsPopup-title": "Kortin asetukset",
   "deposit-subtasks-board": "Talleta alitehtävät tälle taululle:",
   "deposit-subtasks-list": "Laskeutumislista alatehtäville tallennettu tänne:",
   "show-parent-in-minicard": "Näytä ylätehtävä minikortilla:",
@@ -753,5 +754,7 @@
   "hide-minicard-label-text": "Piilota minikortin nimilappu teksti",
   "show-desktop-drag-handles": "Näytä työpöydän vedon kahvat",
   "assignee": "Käsittelijä",
-  "cardAssigneesPopup-title": "Käsittelijä"
+  "cardAssigneesPopup-title": "Käsittelijä",
+  "addmore-detail": "Lisää tarkempi kuvaus",
+  "show-on-card": "Näytä kortilla"
 }

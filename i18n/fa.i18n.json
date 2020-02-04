@@ -583,8 +583,9 @@
   "default": "پیش‌فرض",
   "queue": "صف",
   "subtask-settings": "تنظیمات ریزکارها",
+  "card-settings": "Card Settings",
   "boardSubtaskSettingsPopup-title": "تنظیمات ریزکار های برد",
-  "show-subtasks-field": "کارت می تواند ریزکار داشته باشد",
+  "boardCardSettingsPopup-title": "Card Settings",
   "deposit-subtasks-board": "افزودن ریزکار به برد:",
   "deposit-subtasks-list": "لیست برای ریزکار های افزوده شده",
   "show-parent-in-minicard": "نمایش خانواده در ریز کارت",
@@ -753,5 +754,7 @@
   "hide-minicard-label-text": "Hide minicard label text",
   "show-desktop-drag-handles": "Show desktop drag handles",
   "assignee": "Assignee",
-  "cardAssigneesPopup-title": "Assignee"
+  "cardAssigneesPopup-title": "Assignee",
+  "addmore-detail": "Add a more detailed description",
+  "show-on-card": "Show on Card"
 }

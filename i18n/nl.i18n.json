@@ -583,8 +583,9 @@
   "default": "Standaard",
   "queue": "Rij",
   "subtask-settings": "Subtaak Instellingen",
+  "card-settings": "Card Settings",
   "boardSubtaskSettingsPopup-title": "Bord Subtaak Instellingen",
-  "show-subtasks-field": "Kaarten kunnen subtaken hebben",
+  "boardCardSettingsPopup-title": "Card Settings",
   "deposit-subtasks-board": "Plaats subtaken op dit bord:",
   "deposit-subtasks-list": "Plaats subtaken in deze lijst:",
   "show-parent-in-minicard": "Toon bron in minikaart:",
@@ -753,5 +754,7 @@
   "hide-minicard-label-text": "Verberg minikaart labeltekst",
   "show-desktop-drag-handles": "Toon sleep gereedschap op werkblad",
   "assignee": "Toegewezen aan",
-  "cardAssigneesPopup-title": "Toegewezen aan"
+  "cardAssigneesPopup-title": "Toegewezen aan",
+  "addmore-detail": "Add a more detailed description",
+  "show-on-card": "Show on Card"
 }

@@ -583,8 +583,9 @@
   "default": "Varsayılan",
   "queue": "Sıra",
   "subtask-settings": "Alt Görev ayarları",
+  "card-settings": "Card Settings",
   "boardSubtaskSettingsPopup-title": "Pano alt görev ayarları",
-  "show-subtasks-field": "Kartların alt görevleri olabilir",
+  "boardCardSettingsPopup-title": "Card Settings",
   "deposit-subtasks-board": "Deposit subtasks to this board:",
   "deposit-subtasks-list": "Alt görevlerin açılacağı liste:",
   "show-parent-in-minicard": "Mini kart içinde üst kartı göster",
@@ -753,5 +754,7 @@
   "hide-minicard-label-text": "Mini kart etiklerini gizle",
   "show-desktop-drag-handles": "Show desktop drag handles",
   "assignee": "Assignee",
-  "cardAssigneesPopup-title": "Assignee"
+  "cardAssigneesPopup-title": "Assignee",
+  "addmore-detail": "Add a more detailed description",
+  "show-on-card": "Show on Card"
 }

@@ -583,8 +583,9 @@
   "default": "預設值",
   "queue": "隊列",
   "subtask-settings": "子任務設定",
+  "card-settings": "Card Settings",
   "boardSubtaskSettingsPopup-title": "看板子任務設定",
-  "show-subtasks-field": "卡片包含子任務",
+  "boardCardSettingsPopup-title": "Card Settings",
   "deposit-subtasks-board": "將子任務放入以下看板：",
   "deposit-subtasks-list": "將子任務放入以下清單：",
   "show-parent-in-minicard": "顯示上一級卡片：",
@@ -753,5 +754,7 @@
   "hide-minicard-label-text": "隱藏迷你卡片標籤內文",
   "show-desktop-drag-handles": "顯示桌面拖曳工具",
   "assignee": "代理人",
-  "cardAssigneesPopup-title": "代理人"
+  "cardAssigneesPopup-title": "代理人",
+  "addmore-detail": "Add a more detailed description",
+  "show-on-card": "Show on Card"
 }
