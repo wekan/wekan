@@ -1115,10 +1115,6 @@ Boards.mutations({
     return { $set: { allowsLabels } };
   },
 
-  setAllowsAssignee(allowsAssignee) {
-    return { $set: { allowsAssignee } };
-  },
-
   setAllowsReceivedDate(allowsReceivedDate) {
     return { $set: { allowsReceivedDate } };
   },
