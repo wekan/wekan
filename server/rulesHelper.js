@@ -42,65 +42,35 @@ RulesHelper = {
   performAction(activity, action) {
     const card = Cards.findOne({ _id: activity.cardId });
     const boardId = activity.boardId;
-    if (
-      action.actionType === 'moveCardToTop' ||
-      action.actionType === 'moveCardToBottom'
-    ) {
-      let list;
+    if (action.actionType === 'moveCardToTop') {
       let listId;
-      if (action.listName === '*') {
+      let list;
+      if (action.listTitle === '*') {
+        listId = card.listId;
         list = card.list();
-        if (boardId !== action.boardId) {
-          list = Lists.findOne({ title: list.title, boardId: action.boardId });
-        }
       } else {
-        list = Lists.findOne({
-          title: action.listName,
-          boardId: action.boardId,
-        });
-      }
-      if (list === undefined) {
-        listId = '';
-      } else {
+        list = Lists.findOne({ title: action.listTitle, boardId });
         listId = list._id;
       }
-
-      let swimlane;
-      let swimlaneId;
-      if (action.swimlaneName === '*') {
-        swimlane = Swimlanes.findOne(card.swimlaneId);
-        if (boardId !== action.boardId) {
-          swimlane = Swimlanes.findOne({
-            title: swimlane.title,
-            boardId: action.boardId,
-          });
-        }
+      const minOrder = _.min(
+        list.cardsUnfiltered(card.swimlaneId).map(c => c.sort),
+      );
+      card.move(boardId, card.swimlaneId, listId, minOrder - 1);
+    }
+    if (action.actionType === 'moveCardToBottom') {
+      let listId;
+      let list;
+      if (action.listTitle === '*') {
+        listId = card.listId;
+        list = card.list();
       } else {
-        swimlane = Swimlanes.findOne({
-          title: action.swimlaneName,
-          boardId: action.boardId,
-        });
+        list = Lists.findOne({ title: action.listTitle, boardId });
+        listId = list._id;
       }
-      if (swimlane === undefined) {
-        swimlaneId = Swimlanes.findOne({
-          title: 'Default',
-          boardId: action.boardId,
-        })._id;
-      } else {
-        swimlaneId = swimlane._id;
-      }
-
-      if (action.actionType === 'moveCardToTop') {
-        const minOrder = _.min(
-          list.cardsUnfiltered(swimlaneId).map(c => c.sort),
-        );
-        card.move(action.boardId, swimlaneId, listId, minOrder - 1);
-      } else {
-        const maxOrder = _.max(
-          list.cardsUnfiltered(swimlaneId).map(c => c.sort),
-        );
-        card.move(action.boardId, swimlaneId, listId, maxOrder + 1);
-      }
+      const maxOrder = _.max(
+        list.cardsUnfiltered(card.swimlaneId).map(c => c.sort),
+      );
+      card.move(boardId, card.swimlaneId, listId, maxOrder + 1);
     }
     if (action.actionType === 'sendEmail') {
       const to = action.emailTo;

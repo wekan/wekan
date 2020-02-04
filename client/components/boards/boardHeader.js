@@ -30,6 +30,7 @@ Template.boardMenuPopup.events({
   'click .js-outgoing-webhooks': Popup.open('outgoingWebhooks'),
   'click .js-import-board': Popup.open('chooseBoardSource'),
   'click .js-subtask-settings': Popup.open('boardSubtaskSettings'),
+  'click .js-Date-settings': Popup.open('boardDateSettings')
 });
 
 Template.boardMenuPopup.helpers({

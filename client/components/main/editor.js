@@ -120,6 +120,10 @@ Template.editor.onRendered(() => {
     autosize($textarea);
     $textarea.escapeableTextComplete(mentions);
   };
+<<<<<<< HEAD
+=======
+  
+>>>>>>> ac37e360b69b799c12f03e1c158cfc0367d26e55
   if (Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR !== false) {
     const isSmall = Utils.isMiniScreen();
     const toolbar = isSmall

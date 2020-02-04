@@ -208,6 +208,7 @@ Template.boardMenuPopup.events({
   'click .js-outgoing-webhooks': Popup.open('outgoingWebhooks'),
   'click .js-import-board': Popup.open('chooseBoardSource'),
   'click .js-subtask-settings': Popup.open('boardSubtaskSettings'),
+  'click .js-Date-settings': Popup.open('boardDateSettings')
 });
 
 Template.boardMenuPopup.helpers({
@@ -584,6 +585,130 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('boardSubtaskSettingsPopup');
+
+BlazeComponent.extendComponent({
+  onCreated(){
+    this.currentBoard = Boards.findOne(Session.get('currentBoard'));
+  },
+
+  allowsReceivedDate(){
+    return this.currentBoard.allowsReceivedDate;
+  },
+
+  allowsStartDate(){
+    return this.currentBoard.allowsStartDate;
+  },
+
+  allowsEndDate(){
+    return this.currentBoard.allowsEndDate;
+  },
+
+  allowsDueDate(){
+    return this.currentBoard.allowsDueDate;
+  },
+
+  isBoardSelected(){
+    return this.currentBoard.dateSettingsDefaultBoardID
+  },
+
+  isNullBoardSelected() {
+    return (
+      this.currentBoard.dateSettingsDefaultBoardId === null ||
+      this.currentBoard.dateSettingsDefaultBoardId === undefined
+    );
+  },
+
+  boards() {
+    return Boards.find(
+      {
+        archived: false,
+        'members.userId': Meteor.userId(),
+      },
+      {
+        sort: ['title'],
+      },
+    );
+  },
+
+  lists() {
+    return Lists.find(
+      {
+        boardId: this.currentBoard._id,
+        archived: false,
+      },
+      {
+        sort: ['title'],
+      },
+    );
+  },
+
+  hasLists() {
+    return this.lists().count() > 0;
+  },
+
+  isListSelected() {
+    return this.currentBoard.dateSettingsDefaultBoardId === this.currentData()._id;
+  },
+
+  events() {
+    return [
+      {
+        'click .js-field-has-receiveddate'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsReceivedDate = !this.currentBoard.allowsReceivedDate;
+          this.currentBoard.setAllowsReceivedDate(this.currentBoard.allowsReceivedDate);
+          $(`.js-field-has-receiveddate ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsReceivedDate,
+          );
+          $('.js-field-has-receiveddate').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsReceivedDate,
+          );
+        },
+        'click .js-field-has-startdate'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsStartDate = !this.currentBoard.allowsStartDate;
+          this.currentBoard.setAllowsStartDate(this.currentBoard.allowsStartDate);
+          $(`.js-field-has-startdate ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsStartDate,
+          );
+          $('.js-field-has-startdate').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsStartDate,
+          );
+        },
+        'click .js-field-has-enddate'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsEndDate = !this.currentBoard.allowsEndDate;
+          this.currentBoard.setAllowsEndDate(this.currentBoard.allowsEndDate);
+          $(`.js-field-has-enddate ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsEndDate,
+          );
+          $('.js-field-has-enddate').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsEndDate,
+          );
+        },
+        'click .js-field-has-duedate'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsDueDate = !this.currentBoard.allowsDueDate;
+          this.currentBoard.setAllowsDueDate(this.currentBoard.allowsDueDate);
+          $(`.js-field-has-duedate ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsDueDate,
+          );
+          $('.js-field-has-duedate').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsDueDate,
+          );
+        },
+      },
+    ];
+  },
+}).register('boardDateSettingsPopup');
 
 BlazeComponent.extendComponent({
   onCreated() {

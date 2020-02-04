@@ -2,7 +2,10 @@
 
 REM NOTE: You can try this to install Meteor on Windows, it works:
 REM       https://github.com/zodern/windows-meteor-installer/
+<<<<<<< HEAD
 
+=======
+>>>>>>> ac37e360b69b799c12f03e1c158cfc0367d26e55
 REM Installing Meteor with Chocolatey does not currently work.
 
 REM NOTE: THIS .BAT DOES NOT WORK !!
