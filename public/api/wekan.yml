@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v3.73
+  version: v3.74
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -2093,9 +2093,63 @@ definitions:
            The default List ID assigned to subtasks.
         type: string
         x-nullable: true
+      dateSettingsDefaultBoardId:
+        type: string
+        x-nullable: true
+      dateSettingsDefaultListId:
+        type: string
+        x-nullable: true
       allowsSubtasks:
         description: |
            Does the board allows subtasks?
+        type: boolean
+      allowsAttachments:
+        description: |
+           Does the board allows attachments?
+        type: boolean
+      allowsChecklists:
+        description: |
+           Does the board allows checklists?
+        type: boolean
+      allowsComments:
+        description: |
+           Does the board allows comments?
+        type: boolean
+      allowsLabels:
+        description: |
+           Does the board allows labels?
+        type: boolean
+      allowsAssignee:
+        description: |
+           Does the board allows assignee?
+        type: boolean
+      allowsMembers:
+        description: |
+           Does the board allows members?
+        type: boolean
+      allowsRequestedBy:
+        description: |
+           Does the board allows requested by?
+        type: boolean
+      allowsAssignedBy:
+        description: |
+           Does the board allows requested by?
+        type: boolean
+      allowsReceivedDate:
+        description: |
+           Does the board allows received date?
+        type: boolean
+      allowsStartDate:
+        description: |
+           Does the board allows start date?
+        type: boolean
+      allowsEndDate:
+        description: |
+           Does the board allows end date?
+        type: boolean
+      allowsDueDate:
+        description: |
+           Does the board allows due date?
         type: boolean
       presentParentTask:
         description: |
@@ -2154,6 +2208,18 @@ definitions:
       - permission
       - color
       - allowsSubtasks
+      - allowsAttachments
+      - allowsChecklists
+      - allowsComments
+      - allowsLabels
+      - allowsAssignee
+      - allowsMembers
+      - allowsRequestedBy
+      - allowsAssignedBy
+      - allowsReceivedDate
+      - allowsStartDate
+      - allowsEndDate
+      - allowsDueDate
       - type
   BoardsLabels:
     type: object
