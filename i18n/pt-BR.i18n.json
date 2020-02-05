@@ -583,9 +583,9 @@
   "default": "Padrão",
   "queue": "Fila",
   "subtask-settings": "Configurações de subtarefas",
-  "card-settings": "Card Settings",
+  "card-settings": "Configurações do Cartão",
   "boardSubtaskSettingsPopup-title": "Configurações das subtarefas do quadro",
-  "boardCardSettingsPopup-title": "Card Settings",
+  "boardCardSettingsPopup-title": "Configurações do Cartão",
   "deposit-subtasks-board": "Inserir subtarefas a este quadro:",
   "deposit-subtasks-list": "Listas de subtarefas inseridas aqui:",
   "show-parent-in-minicard": "Mostrar Pai do mini cartão:",
@@ -755,6 +755,6 @@
   "show-desktop-drag-handles": "Mostrar alças de arrasto da área de trabalho",
   "assignee": "Administrador",
   "cardAssigneesPopup-title": "Administrador",
-  "addmore-detail": "Add a more detailed description",
-  "show-on-card": "Show on Card"
+  "addmore-detail": "Adicionar descrição detalhada",
+  "show-on-card": "Mostrar no Cartão"
 }

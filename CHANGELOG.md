@@ -1,3 +1,14 @@
+# v3.74 2020-02-05 Wekan release
+
+This release adds the following new features:
+
+- [For BoardAdmin, add way to hide parts of a card, at Board Settings/Card Settings/Show on Card: Received, Start, ... etc](https://github.com/wekan/wekan/pull/2915).
+  Thanks to 2020product and xet7.
+- [Set default to RICHER_CARD_COMMENT_EDITOR=false](https://github.com/wekan/wekan/commit/65fa2f626f503b8089e0d982901cffb3990426cb).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.73 2020-01-29 Wekan release
 
 This release adds the following new features:
