@@ -1,8 +1,29 @@
+# v3.75 2020-02-05 Wekan release
+
+This release adds the following new features:
+
+- [Fix](https://github.com/wekan/wekan/commit/f22785dbcde42e425c9ead209ec224aef6e11c16)
+  [adding comments](https://github.com/wekan/wekan/issues/2918).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Added some working layout changes like activities using less space from https://github.com/wekan/wekan/pull/2920](https://github.com/wekan/wekan/commit/f22785dbcde42e425c9ead209ec224aef6e11c16).
+  Thanks to 2020product.
+- [Fixed Card Settings not working at Sandstorm](https://github.com/wekan/wekan/commit/f22785dbcde42e425c9ead209ec224aef6e11c16).
+  Thanks to xet7.
+- Add [Card Description title](https://github.com/wekan/wekan/issues/2918#issuecomment-582346577)
+  [back](https://github.com/wekan/wekan/commit/f22785dbcde42e425c9ead209ec224aef6e11c16).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.74 2020-02-05 Wekan release
 
 This release adds the following new features:
 
-- [For BoardAdmin, add way to hide parts of a card, at Board Settings/Card Settings/Show on Card: Received, Start, ... etc](https://github.com/wekan/wekan/pull/2915).
+- [For BoardAdmin, add way to hide parts of a card, at Board Settings/Card Settings/Show on Card: Received, Start, ... etc.
+  Add to card title bar Copy card to Clipboard button](https://github.com/wekan/wekan/pull/2915).
   Thanks to 2020product and xet7.
 - [Set default to RICHER_CARD_COMMENT_EDITOR=false](https://github.com/wekan/wekan/commit/65fa2f626f503b8089e0d982901cffb3990426cb).
   Thanks to xet7.
