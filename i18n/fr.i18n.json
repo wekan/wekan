@@ -583,9 +583,9 @@
   "default": "Défaut",
   "queue": "Queue",
   "subtask-settings": "Paramètres des sous-tâches",
-  "card-settings": "Card Settings",
+  "card-settings": "Paramètres de la carte",
   "boardSubtaskSettingsPopup-title": "Paramètres des sous-tâches du tableau",
-  "boardCardSettingsPopup-title": "Card Settings",
+  "boardCardSettingsPopup-title": "Paramètres de la carte",
   "deposit-subtasks-board": "Déposer des sous-tâches dans ce tableau :",
   "deposit-subtasks-list": "Liste de destination pour les sous-tâches déposées ici :",
   "show-parent-in-minicard": "Voir la carte parente dans la mini-carte :",
@@ -755,6 +755,6 @@
   "show-desktop-drag-handles": "Voir les poignées de déplacement du bureau",
   "assignee": "Cessionnaire",
   "cardAssigneesPopup-title": "Cessionnaire",
-  "addmore-detail": "Add a more detailed description",
-  "show-on-card": "Show on Card"
+  "addmore-detail": "Ajouter une description plus détaillée",
+  "show-on-card": "Afficher sur la carte"
 }

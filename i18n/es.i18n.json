@@ -223,8 +223,8 @@
   "comment-only-desc": "Solo puedes comentar en las tarjetas.",
   "no-comments": "No hay comentarios",
   "no-comments-desc": "No se pueden mostrar comentarios ni actividades.",
-  "worker": "Worker",
-  "worker-desc": "Can only move cards, assign itself to card and comment.",
+  "worker": "Trabajador",
+  "worker-desc": "Solo puede mover tarjetas, asignarse a la tarjeta y comentar.",
   "computer": "el ordenador",
   "confirm-subtask-delete-dialog": "¿Seguro que quieres eliminar la subtarea?",
   "confirm-checklist-delete-dialog": "¿Seguro que quieres eliminar la lista de verificación?",
@@ -583,9 +583,9 @@
   "default": "Por defecto",
   "queue": "Cola",
   "subtask-settings": "Preferencias de las subtareas",
-  "card-settings": "Card Settings",
+  "card-settings": "Preferencias de la tarjeta",
   "boardSubtaskSettingsPopup-title": "Preferencias de las subtareas del tablero",
-  "boardCardSettingsPopup-title": "Card Settings",
+  "boardCardSettingsPopup-title": "Preferencias de la tarjeta",
   "deposit-subtasks-board": "Depositar subtareas en este tablero:",
   "deposit-subtasks-list": "Lista de destino para subtareas depositadas aquí:",
   "show-parent-in-minicard": "Mostrar el padre en una minitarjeta:",
@@ -755,6 +755,6 @@
   "show-desktop-drag-handles": "Mostrar los controles de arrastre del escritorio",
   "assignee": "Asignado",
   "cardAssigneesPopup-title": "Asignado",
-  "addmore-detail": "Add a more detailed description",
-  "show-on-card": "Show on Card"
+  "addmore-detail": "Añadir una descripción detallada",
+  "show-on-card": "Mostrar en la tarjeta"
 }
