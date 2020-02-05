@@ -54,4 +54,6 @@ template(name="attachmentsGalery")
       unless currentUser.isCommentOnly
         unless currentUser.isWorker
           li.attachment-item.add-attachment
-            a.js-add-attachment {{_ 'add-attachment' }}
+            a.js-add-attachment
+              i.fa.fa-plus
+              | {{_ 'add-attachment' }}

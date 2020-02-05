@@ -279,6 +279,29 @@ BlazeComponent.extendComponent({
         'click .js-close-card-details'() {
           Utils.goBoardId(this.data().boardId);
         },
+        'click .js-copy-link'() {
+          StringToCopyElement = document.getElementById('cardURL_copy');
+          StringToCopyElement.select();
+          if (document.execCommand('copy')) {
+            StringToCopyElement.blur();
+          } else {
+            document.getElementById('cardURL_copy').selectionStart = 0;
+            document.getElementById('cardURL_copy').selectionEnd = 999;
+            document.execCommand('copy');
+            if (window.getSelection) {
+              if (window.getSelection().empty) {
+                // Chrome
+                window.getSelection().empty();
+              } else if (window.getSelection().removeAllRanges) {
+                // Firefox
+                window.getSelection().removeAllRanges();
+              }
+            } else if (document.selection) {
+              // IE?
+              document.selection.empty();
+            }
+          }
+        },
         'click .js-open-card-details-menu': Popup.open('cardDetailsActions'),
         'submit .js-card-description'(event) {
           event.preventDefault();
@@ -371,8 +394,72 @@ Template.cardDetails.helpers({
     });
   },
 
+  receivedSelected() {
+    if (this.getReceived().length === 0) {
+      return false;
+    } else {
+      return true;
+    }
+  },
+
+  startSelected() {
+    if (this.getstart().length === 0) {
+      return false;
+    } else {
+      return true;
+    }
+  },
+
+  endSelected() {
+    if (this.getEnd().length === 0) {
+      return false;
+    } else {
+      return true;
+    }
+  },
+
+  dueSelected() {
+    if (this.getDue().length === 0) {
+      return false;
+    } else {
+      return true;
+    }
+  },
+
+  memberSelected() {
+    if (this.getMembers().length === 0) {
+      return false;
+    } else {
+      return true;
+    }
+  },
+
+  labelSelected() {
+    if (this.getLabels().length === 0) {
+      return false;
+    } else {
+      return true;
+    }
+  },
+
   assigneeSelected() {
     if (this.getAssignees().length === 0) {
+      return false;
+    } else {
+      return true;
+    }
+  },
+
+  requestBySelected() {
+    if (this.getRequestBy().length === 0) {
+      return false;
+    } else {
+      return true;
+    }
+  },
+
+  assigneeBySelected() {
+    if (this.getAssigneeBy().length === 0) {
       return false;
     } else {
       return true;

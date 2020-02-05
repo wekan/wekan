@@ -1,22 +1,6 @@
 BlazeComponent.extendComponent({
   onCreated() {},
 
-  boards() {
-    const boards = Boards.find(
-      {
-        archived: false,
-        'members.userId': Meteor.userId(),
-        _id: {
-          $ne: Meteor.user().getTemplatesBoardId(),
-        },
-      },
-      {
-        sort: ['title'],
-      },
-    );
-    return boards;
-  },
-
   events() {
     return [
       {
@@ -68,18 +52,15 @@ BlazeComponent.extendComponent({
           const ruleName = this.data().ruleName.get();
           const trigger = this.data().triggerVar.get();
           const actionSelected = this.find('#move-spec-action').value;
-          const swimlaneName = this.find('#swimlaneName').value;
-          const listName = this.find('#listName').value;
+          const listTitle = this.find('#listName').value;
           const boardId = Session.get('currentBoard');
-          const destBoardId = this.find('#board-id').value;
           const desc = Utils.getTriggerActionDesc(event, this);
           if (actionSelected === 'top') {
             const triggerId = Triggers.insert(trigger);
             const actionId = Actions.insert({
               actionType: 'moveCardToTop',
-              listName,
-              swimlaneName,
-              boardId: destBoardId,
+              listTitle,
+              boardId,
               desc,
             });
             Rules.insert({
@@ -93,9 +74,8 @@ BlazeComponent.extendComponent({
             const triggerId = Triggers.insert(trigger);
             const actionId = Actions.insert({
               actionType: 'moveCardToBottom',
-              listName,
-              swimlaneName,
-              boardId: destBoardId,
+              listTitle,
+              boardId,
               desc,
             });
             Rules.insert({
