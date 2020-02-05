@@ -87,6 +87,10 @@ EscapeActions.register(
   },
 );
 
+UI.registerHelper('equals', function(a, b) {
+  return a === b;
+});
+
 // submit on click outside
 //document.addEventListener('click', function(evt) {
 //  const openedForm = currentlyOpenedForm.get();

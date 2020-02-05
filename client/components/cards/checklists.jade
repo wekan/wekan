@@ -1,7 +1,7 @@
 template(name="checklists")
-  h3
-    i.fa.fa-check
-    | {{_ 'checklists'}}
+  //- h3
+  //-   i.fa.fa-check
+  //-   | {{_ 'checklists'}}
   if toggleDeleteDialog.get
     .board-overlay#card-details-overlay
     +checklistDeleteDialog(checklist = checklistToDelete)
@@ -17,7 +17,7 @@ template(name="checklists")
     else
       a.js-open-inlined-form
         i.fa.fa-plus
-        | {{_ 'add-checklist'}}...
+        | {{_ 'add-checklist'}}
 
 template(name="checklistDetail")
   .js-checklist.checklist
@@ -83,7 +83,7 @@ template(name="checklistItems")
       else
         a.add-checklist-item.js-open-inlined-form
           i.fa.fa-plus
-          | {{_ 'add-checklist-item'}}...
+          | {{_ 'add-checklist-item'}}
 
 template(name='checklistItemDetail')
   .js-checklist-item.checklist-item

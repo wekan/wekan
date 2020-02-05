@@ -72,6 +72,31 @@ template(name="boardChangeColorPopup")
           if isSelected
             i.fa.fa-check
 
+template(name='boardAssigneeSettingsPopup')
+  form.board-Assignee-settings
+    div.check-div
+      a.flex.js-field-has-assignee(class="{{#if allowsAssignee}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsAssignee}}is-checked{{/if}}")
+        span {{_ 'show-assignee'}}
+template(name="boardDateSettingsPopup")
+  form.board-Date-settings
+    div.check-div
+      a.flex.js-field-has-receiveddate(class="{{#if allowsReceivedDate}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsReceivedDate}}is-checked{{/if}}")
+        span {{_ 'show-receiveddate-field'}}
+    div.check-div
+      a.flex.js-field-has-startdate(class="{{#if allowsStartDate}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsStartDate}}is-checked{{/if}}")
+        span {{_ 'show-startdate-field'}}
+    div.check-div
+      a.flex.js-field-has-enddate(class="{{#if allowsEndDate}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsEndDate}}is-checked{{/if}}")
+        span {{_ 'show-enddate-field'}}
+    div.check-div
+      a.flex.js-field-has-duedate(class="{{#if allowsDueDate}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsDueDate}}is-checked{{/if}}")
+        span {{_ 'show-duedate-field'}}
+
 template(name="boardSubtaskSettingsPopup")
   form.board-subtask-settings
     h3 {{_ 'show-parent-in-minicard'}}
@@ -201,6 +226,14 @@ template(name="boardMenuPopup")
           a.js-subtask-settings
             i.fa.fa-sitemap
             | {{_ 'subtask-settings'}}
+        li
+          a.js-Date-settings
+            i.fa.fa-calendar
+            | {{_ 'Date-settings'}}
+         li
+          a.js-assignee-settings
+            i.fa.fa-user
+            | {{_ 'Assignee-settings'}}
       unless currentBoard.isTemplatesBoard
         hr
         ul.pop-over-list
@@ -238,6 +271,18 @@ template(name="boardMenuPopup")
         a.js-subtask-settings
           i.fa.fa-sitemap
           | {{_ 'subtask-settings'}}
+    hr
+    ul.pop-over-list
+      li
+        a.js-Date-settings
+          i.fa.fa-calendar
+          | {{_ 'Date-settings'}}
+    hr
+    ul.pop-over-list
+      li
+        a.js-assignee-settings
+          i.fa.fa-user
+          | {{_ 'Assignee-settings'}}
 
 template(name="labelsWidget")
   .board-widget.board-widget-labels
