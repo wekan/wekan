@@ -583,9 +583,9 @@
   "default": "Domyślny",
   "queue": "Kolejka",
   "subtask-settings": "Ustawienia podzadań",
-  "card-settings": "Card Settings",
+  "card-settings": "Ustawienia karty",
   "boardSubtaskSettingsPopup-title": "Ustawienia tablicy podzadań",
-  "boardCardSettingsPopup-title": "Card Settings",
+  "boardCardSettingsPopup-title": "Ustawienia kart",
   "deposit-subtasks-board": "Przechowuj podzadania na tablicy:",
   "deposit-subtasks-list": "Początkowa lista dla podzadań jest przechowywana w:",
   "show-parent-in-minicard": "Pokaż rodzica w minikarcie:",
@@ -755,6 +755,6 @@
   "show-desktop-drag-handles": "Pokaż przeciągnięcia na pulpit",
   "assignee": "Przypisujący",
   "cardAssigneesPopup-title": "Przypisujący",
-  "addmore-detail": "Add a more detailed description",
-  "show-on-card": "Show on Card"
+  "addmore-detail": "Dodaj bardziej szczegółowy opis",
+  "show-on-card": "Pokaż na karcie"
 }

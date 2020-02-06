@@ -583,9 +583,9 @@
   "default": "Standard",
   "queue": "Warteschlange",
   "subtask-settings": "Einstellungen für Teilaufgaben",
-  "card-settings": "Card Settings",
+  "card-settings": "Karten-Einstellungen",
   "boardSubtaskSettingsPopup-title": "Boardeinstellungen für Teilaufgaben",
-  "boardCardSettingsPopup-title": "Card Settings",
+  "boardCardSettingsPopup-title": "Karten-Einstellungen",
   "deposit-subtasks-board": "Teilaufgaben in diesem Board ablegen:",
   "deposit-subtasks-list": "Zielliste für hier abgelegte Teilaufgaben:",
   "show-parent-in-minicard": "Übergeordnetes Element auf Minikarte anzeigen:",
@@ -755,6 +755,6 @@
   "show-desktop-drag-handles": "Desktop-Ziehpunkte anzeigen",
   "assignee": "Zugewiesen",
   "cardAssigneesPopup-title": "Zugewiesen",
-  "addmore-detail": "Add a more detailed description",
-  "show-on-card": "Show on Card"
+  "addmore-detail": "Eine detailliertere Beschreibung hinzufügen",
+  "show-on-card": "Zeige auf Karte"
 }
