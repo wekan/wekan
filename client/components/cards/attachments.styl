@@ -1,25 +1,20 @@
 @import 'nib'
 
 .attachments-galery
-  display: flex
+
   flex-wrap: wrap
 
   .attachment-item
-    width: 33.33% - 2%
-    margin: 10px 1% 0
-    text-align: center
+
+    text-align: right
     border-radius: 3px
     overflow: hidden
-    background: darken(white, 7%)
-    min-height: 120px
 
     &:hover
       background: darken(white, 12%)
 
     &.add-attachment
       display: flex
-      align-items: center
-
       a
         display: block
         margin: auto
@@ -82,4 +77,4 @@
       width: 100%
 
       .attachment-thumbnail
-        height: 200px
+        height: 130px

@@ -278,6 +278,7 @@ Boards.attachSchema(
       optional: true,
       defaultValue: null,
     },
+
     subtasksDefaultListId: {
       /**
        * The default List ID assigned to subtasks.
@@ -286,6 +287,19 @@ Boards.attachSchema(
       optional: true,
       defaultValue: null,
     },
+
+    dateSettingsDefaultBoardId: {
+      type: String,
+      optional: true,
+      defaultValue: null,
+    },
+
+    dateSettingsDefaultListId: {
+      type: String,
+      optional: true,
+      defaultValue: null,
+    },
+
     allowsSubtasks: {
       /**
        * Does the board allows subtasks?
@@ -293,6 +307,103 @@ Boards.attachSchema(
       type: Boolean,
       defaultValue: true,
     },
+
+    allowsAttachments: {
+      /**
+       * Does the board allows attachments?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
+    allowsChecklists: {
+      /**
+       * Does the board allows checklists?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
+    allowsComments: {
+      /**
+       * Does the board allows comments?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
+    allowsLabels: {
+      /**
+       * Does the board allows labels?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
+    allowsAssignee: {
+      /**
+       * Does the board allows assignee?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
+    allowsMembers: {
+      /**
+       * Does the board allows members?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
+    allowsRequestedBy: {
+      /**
+       * Does the board allows requested by?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
+    allowsAssignedBy: {
+      /**
+       * Does the board allows requested by?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
+    allowsReceivedDate: {
+      /**
+       * Does the board allows received date?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
+    allowsStartDate: {
+      /**
+       * Does the board allows start date?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
+    allowsEndDate: {
+      /**
+       * Does the board allows end date?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
+    allowsDueDate: {
+      /**
+       * Does the board allows due date?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
     presentParentTask: {
       /**
        * Controls how to present the parent task:
@@ -728,6 +839,24 @@ Boards.helpers({
     return Lists.findOne(this.getDefaultSubtasksListId());
   },
 
+  getDefaultDateSettingsListId() {
+    if (
+      this.dateSettingsDefaultListId === null ||
+      this.dateSettingsDefaultListId === undefined
+    ) {
+      this.dateSettingsDefaultListId = Lists.insert({
+        title: TAPi18n.__('queue'),
+        boardId: this._id,
+      });
+      this.setDateSettingsDefaultListId(this.dateSettingsDefaultListId);
+    }
+    return this.dateSettingsDefaultListId;
+  },
+
+  getDefaultDateSettingsList() {
+    return Lists.findOne(this.getDefaultDateSettingsListId());
+  },
+
   getDefaultSwimline() {
     let result = Swimlanes.findOne({ boardId: this._id });
     if (result === undefined) {
@@ -923,6 +1052,54 @@ Boards.mutations({
 
   setAllowsSubtasks(allowsSubtasks) {
     return { $set: { allowsSubtasks } };
+  },
+
+  setAllowsMembers(allowsMembers) {
+    return { $set: { allowsMembers } };
+  },
+
+  setAllowsChecklists(allowsChecklists) {
+    return { $set: { allowsChecklists } };
+  },
+
+  setAllowsAssignee(allowsAssignee) {
+    return { $set: { allowsAssignee } };
+  },
+
+  setAllowsAssignedBy(allowsAssignedBy) {
+    return { $set: { allowsAssignedBy } };
+  },
+
+  setAllowsRequestedBy(allowsRequestedBy) {
+    return { $set: { allowsRequestedBy } };
+  },
+
+  setAllowsAttachments(allowsAttachments) {
+    return { $set: { allowsAttachments } };
+  },
+
+  setAllowsLabels(allowsLabels) {
+    return { $set: { allowsLabels } };
+  },
+
+  setAllowsReceivedDate(allowsReceivedDate) {
+    return { $set: { allowsReceivedDate } };
+  },
+
+  setAllowsStartDate(allowsStartDate) {
+    return { $set: { allowsStartDate } };
+  },
+
+  setAllowsEndDate(allowsEndDate) {
+    return { $set: { allowsEndDate } };
+  },
+
+  setAllowsDueDate(allowsDueDate) {
+    return { $set: { allowsDueDate } };
+  },
+
+  setAllowsComments(allowsComments) {
+    return { $set: { allowsComments } };
   },
 
   setSubtasksDefaultBoardId(subtasksDefaultBoardId) {
