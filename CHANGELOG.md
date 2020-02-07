@@ -1,8 +1,24 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Card Settings/Show on card/Activities](https://github.com/wekan/wekan/commit/2fce02afbced07c6ff2b05786f159701c8b559e9).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [When in Card Settings hiding Comments, only adding new comment is hidden, not old
+  comments](https://github.com/wekan/wekan/commit/2fce02afbced07c6ff2b05786f159701c8b559e9).
+  Thanks to xet7.
+    
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.76 2020-02-07 Wekan release
 
 This release adds the following updates:
 
 - [Use Meteor 1.9 and Node.js 12.15.0 on Snap and Docker](https://github.com/wekan/wekan/commit/8384d68a060ef8f2c202ce2fa6064c5c823d28dc).
+  This also fixes bug that exporting some boards was not possible, downloading export file failed.
   Thanks to xet7.
 
 and fixes the following bugs:
