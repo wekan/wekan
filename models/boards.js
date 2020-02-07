@@ -332,6 +332,14 @@ Boards.attachSchema(
       defaultValue: true,
     },
 
+    allowsActivities: {
+      /**
+       * Does the board allows comments?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
     allowsLabels: {
       /**
        * Does the board allows labels?
@@ -1117,6 +1125,10 @@ Boards.mutations({
 
   setAllowsComments(allowsComments) {
     return { $set: { allowsComments } };
+  },
+
+  setAllowsActivities(allowsActivities) {
+    return { $set: { allowsActivities } };
   },
 
   setAllowsReceivedDate(allowsReceivedDate) {

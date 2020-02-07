@@ -153,6 +153,12 @@ template(name="boardCardSettingsPopup")
         span
           i.fa.fa-comment-o
           | {{_ 'comment'}}
+    div.check-div
+      a.flex.js-field-has-comments(class="{{#if allowsActivities}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsActivities}}is-checked{{/if}}")
+        span
+          i.fa.fa-history
+          | {{_ 'activities'}}
 
 template(name="boardSubtaskSettingsPopup")
   form.board-subtask-settings

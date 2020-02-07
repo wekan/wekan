@@ -985,3 +985,19 @@ Migrations.add('add-requested-by-allowed', () => {
     noValidateMulti,
   );
 });
+
+Migrations.add('add-activities-allowed', () => {
+  Boards.update(
+    {
+      allowsActivities: {
+        $exists: false,
+      },
+    },
+    {
+      $set: {
+        allowsActivities: true,
+      },
+    },
+    noValidateMulti,
+  );
+});

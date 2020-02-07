@@ -882,6 +882,22 @@ BlazeComponent.extendComponent({
             this.currentBoard.allowsComments,
           );
         },
+        'click .js-field-has-activities'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsActivities = !this.currentBoard
+            .allowsActivities;
+          this.currentBoard.setAllowsActivities(
+            this.currentBoard.allowsActivities,
+          );
+          $(`.js-field-has-activities ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsActivities,
+          );
+          $('.js-field-has-activities').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsActivities,
+          );
+        },
       },
     ];
   },
