@@ -133,14 +133,33 @@ BlazeComponent.extendComponent({
         $cards.sortable({
           handle: '.handle',
         });
-      } else {
+      } else if (!Utils.isMiniScreen() && !showDesktopDragHandles) {
         $cards.sortable({
           handle: '.minicard',
         });
       }
 
-      // Disable drag-dropping if the current user is not a board member or is comment only
-      $cards.sortable('option', 'disabled', !userIsMember());
+      if ($cards.data('sortable')) {
+        $cards.sortable(
+          'option',
+          'disabled',
+          // Disable drag-dropping when user is not member/is miniscreen
+          !userIsMember(),
+          // Not disable drag-dropping while in multi-selection mode
+          // MultiSelection.isActive() || !userIsMember(),
+        );
+      }
+
+      if ($cards.data('sortable')) {
+        $cards.sortable(
+          'option',
+          'disabled',
+          // Disable drag-dropping when user is not member/is miniscreen
+          Utils.isMiniScreen(),
+          // Not disable drag-dropping while in multi-selection mode
+          // MultiSelection.isActive() || !userIsMember(),
+        );
+      }
     });
 
     // We want to re-run this function any time a card is added.

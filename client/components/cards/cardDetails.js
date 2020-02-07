@@ -253,6 +253,12 @@ BlazeComponent.extendComponent({
       if ($subtasksDom.data('sortable')) {
         $subtasksDom.sortable('option', 'disabled', !userIsMember());
       }
+      if ($checklistsDom.data('sortable')) {
+        $checklistsDom.sortable('option', 'disabled', Utils.isMiniScreen());
+      }
+      if ($subtasksDom.data('sortable')) {
+        $subtasksDom.sortable('option', 'disabled', Utils.isMiniScreen());
+      }
     });
   },
 

@@ -205,21 +205,19 @@ BlazeComponent.extendComponent({
       } else {
         showDesktopDragHandles = false;
       }
-      if (
-        Utils.isMiniScreen() ||
-        (!Utils.isMiniScreen() && showDesktopDragHandles)
-      ) {
+      if (!Utils.isMiniScreen() && showDesktopDragHandles) {
         $swimlanesDom.sortable({
           handle: '.js-swimlane-header-handle',
         });
-      } else {
+      } else if (!Utils.isMiniScreen() && !showDesktopDragHandles) {
         $swimlanesDom.sortable({
           handle: '.swimlane-header',
         });
       }
 
-      // Disable drag-dropping if the current user is not a board member or is comment only
+      // Disable drag-dropping if the current user is not a board member or is miniscreen
       $swimlanesDom.sortable('option', 'disabled', !userIsMember());
+      $swimlanesDom.sortable('option', 'disabled', Utils.isMiniScreen());
     });
 
     function userIsMember() {

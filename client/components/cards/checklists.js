@@ -60,6 +60,9 @@ BlazeComponent.extendComponent({
       if ($itemsDom.data('sortable')) {
         $(self.itemsDom).sortable('option', 'disabled', !userIsMember());
       }
+      if ($itemsDom.data('sortable')) {
+        $(self.itemsDom).sortable('option', 'disabled', Utils.isMiniScreen());
+      }
     });
   },
 

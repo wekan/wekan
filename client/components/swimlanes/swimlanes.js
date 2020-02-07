@@ -115,7 +115,7 @@ function initSortable(boardComponent, $listsDom) {
       $listsDom.sortable({
         handle: '.js-list-handle',
       });
-    } else {
+    } else if (!Utils.isMiniScreen() && !showDesktopDragHandles) {
       $listsDom.sortable({
         handle: '.js-list-header',
       });
@@ -126,21 +126,34 @@ function initSortable(boardComponent, $listsDom) {
       $listsDom.sortable(
         'option',
         'disabled',
-        // Disable drag-dropping when user is not member
+        // Disable drag-dropping when user is not member/is worker/is miniscreen
         !userIsMember(),
         // Not disable drag-dropping while in multi-selection mode
         // MultiSelection.isActive() || !userIsMember(),
       );
     }
 
-    $listsDom.sortable(
-      'option',
-      'disabled',
-      // Disable drag-dropping when user is not member
-      Meteor.user().isWorker(),
-      // Not disable drag-dropping while in multi-selection mode
-      // MultiSelection.isActive() || !userIsMember(),
-    );
+    if ($listDom.data('sortable')) {
+      $listsDom.sortable(
+        'option',
+        'disabled',
+        // Disable drag-dropping when user is not member/is worker/is miniscreen
+        Meteor.user().isWorker(),
+        // Not disable drag-dropping while in multi-selection mode
+        // MultiSelection.isActive() || !userIsMember(),
+      );
+    }
+
+    if ($listDom.data('sortable')) {
+      $listsDom.sortable(
+        'option',
+        'disabled',
+        // Disable drag-dropping when user is not member/is worker/is miniscreen
+        Utils.isMiniScreen(),
+        // Not disable drag-dropping while in multi-selection mode
+        // MultiSelection.isActive() || !userIsMember(),
+      );
+    }
   });
 }
 
