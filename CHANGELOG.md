@@ -1,3 +1,20 @@
+# Upcoming Wekan release
+
+This release adds the following updates:
+
+- [Use Meteor 1.9 and Node.js 12.15.0 on Snap and Docker](https://github.com/wekan/wekan/commit/8384d68a060ef8f2c202ce2fa6064c5c823d28dc).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Fix Bug enable/disable Comments in Card Settings](https://github.com/wekan/wekan/issues/2923).
+  Thanks to warnt, mdurokov and xet7.
+- [Try to disable dragging Swimlanes/Lists/Cards/Checklists/Subtasks on small mobile smartphones webbrowsers,
+  and hide drag handles on mobile web](https://github.com/wekan/wekan/commit/bf78b093bad7d463ee325ad96e8b485264d4a3be).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.75 2020-02-05 Wekan release
 
 This release adds the following new features:
