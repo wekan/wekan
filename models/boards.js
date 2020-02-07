@@ -1095,8 +1095,8 @@ Boards.mutations({
     return { $set: { allowsChecklists } };
   },
 
-  setAllowsAssignee(allowsComments) {
-    return { $set: { allowsComments } };
+  setAllowsAssignee(allowsAssignee) {
+    return { $set: { allowsAssignee } };
   },
 
   setAllowsAssignedBy(allowsAssignedBy) {
@@ -1113,6 +1113,10 @@ Boards.mutations({
 
   setAllowsLabels(allowsLabels) {
     return { $set: { allowsLabels } };
+  },
+
+  setAllowsComments(allowsComments) {
+    return { $set: { allowsComments } };
   },
 
   setAllowsReceivedDate(allowsReceivedDate) {
