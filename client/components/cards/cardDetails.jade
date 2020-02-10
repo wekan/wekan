@@ -9,9 +9,10 @@ template(name="cardDetails")
           if currentUser.isBoardMember
             a.fa.fa-navicon.card-details-menu.js-open-card-details-menu
             input.inline-input(type="hidden" id="cardURL_copy" value="{{ absoluteUrl }}")
-            a.fa.card-copy-button.js-copy-link(
+            a.fa.fa-link.card-copy-button.js-copy-link(
               class="fa-link"
               title="{{_ 'copy-card-link-to-clipboard'}}"
+              value="{{ absoluteUrl }}"
             )
         if isMiniScreen
           a.fa.fa-times-thin.close-card-details-mobile-web.js-close-card-details
