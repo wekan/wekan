@@ -224,7 +224,7 @@
   "no-comments": "Keine Kommentare",
   "no-comments-desc": "Kann keine Kommentare und Aktivitäten sehen.",
   "worker": "Arbeiter",
-  "worker-desc": "Kann nur Karten verschieben, sich selbst zuweisen und kommentieren.",
+  "worker-desc": "Kann Karten nur verschieben, sich selbst zuweisen und kommentieren.",
   "computer": "Computer",
   "confirm-subtask-delete-dialog": "Wollen Sie die Teilaufgabe wirklich löschen?",
   "confirm-checklist-delete-dialog": "Wollen Sie die Checkliste wirklich löschen?",
