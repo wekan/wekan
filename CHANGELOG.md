@@ -1,14 +1,8 @@
 # Upcoming Wekan release
 
-This release adds the following new features:
+This release removes the following features:
 
-- [Card Settings/Show on card/Activities](https://github.com/wekan/wekan/commit/2fce02afbced07c6ff2b05786f159701c8b559e9).
-  Thanks to xet7.
-
-and fixes the following bugs:
-
-- [When in Card Settings hiding Comments, only adding new comment is hidden, not old
-  comments](https://github.com/wekan/wekan/commit/2fce02afbced07c6ff2b05786f159701c8b559e9).
+- [Remove hiding comments and activities](https://github.com/wekan/wekan/commit/2a54218f3f68547032bd53a04a968b233be21e15).
   Thanks to xet7.
     
 Thanks to above GitHub users for their contributions and translators for their translations.
