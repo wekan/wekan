@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v3.77 2020-02-10 Wekan release
 
 This release removes the following features:
 
