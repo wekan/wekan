@@ -4,6 +4,12 @@ This release removes the following features:
 
 - [Remove hiding comments and activities](https://github.com/wekan/wekan/commit/2a54218f3f68547032bd53a04a968b233be21e15).
   Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Fix Copy Card Link to Clipboard button at card title did not
+  work](https://github.com/wekan/wekan/commit/9a21b0a1c933e7f778e4e57a8258e150ccea1620).
+  Thanks to 2020product and xet7.
     
 Thanks to above GitHub users for their contributions and translators for their translations.
 
