@@ -647,6 +647,14 @@ BlazeComponent.extendComponent({
     return this.currentBoard.allowsComments;
   },
 
+  allowsDescriptionTitle() {
+    return this.currentBoard.allowsDescriptionTitle;
+  },
+
+  allowsDescriptionText() {
+    return this.currentBoard.allowsDescriptionText;
+  },
+
   isBoardSelected() {
     return this.currentBoard.dateSettingsDefaultBoardID;
   },
@@ -835,6 +843,38 @@ BlazeComponent.extendComponent({
           $('.js-field-has-labels').toggleClass(
             CKCLS,
             this.currentBoard.allowsLabels,
+          );
+        },
+        'click .js-field-has-description-title'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsDescriptionTitle = !this.currentBoard
+            .allowsDescriptionTitle;
+          this.currentBoard.setAllowsDescriptionTitle(
+            this.currentBoard.allowsDescriptionTitle,
+          );
+          $(`.js-field-has-description-title ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsDescriptionTitle,
+          );
+          $('.js-field-has-description-title').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsDescriptionTitle,
+          );
+        },
+        'click .js-field-has-description-text'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsDescriptionText = !this.currentBoard
+            .allowsDescriptionText;
+          this.currentBoard.setAllowsDescriptionText(
+            this.currentBoard.allowsDescriptionText,
+          );
+          $(`.js-field-has-description-text ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsDescriptionText,
+          );
+          $('.js-field-has-description-text').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsDescriptionText,
           );
         },
         'click .js-field-has-checklists'(evt) {

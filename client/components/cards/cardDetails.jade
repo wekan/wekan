@@ -95,7 +95,7 @@ template(name="cardDetails")
                 a.card-label.add-label.js-end-date
                   i.fa.fa-plus
 
-    .card-details-items
+      //.card-details-items
       if currentBoard.allowsMembers
         .card-details-item.card-details-item-members
           h3
@@ -141,7 +141,7 @@ template(name="cardDetails")
               a.card-label.add-label.js-add-labels(title="{{_ 'card-labels-title'}}")
                 i.fa.fa-plus
 
-    .card-details-items
+      //.card-details-items
       each customFieldsWD
         .card-details-item.card-details-item-customfield
           h3.card-details-item-title
@@ -149,7 +149,7 @@ template(name="cardDetails")
               = definition.name
           +cardCustomField
 
-    .card-details-items
+      //.card-details-items
       if getSpentTime
         .card-details-item.card-details-item-spent
           if getIsOvertime
@@ -158,37 +158,7 @@ template(name="cardDetails")
             h3.card-details-item-title {{_ 'spent-time-hours'}}
           +cardSpentTime
 
-    //- XXX We should use "editable" to avoid repetiting ourselves
-    if canModifyCard
-      unless currentUser.isWorker
-        h3
-          i.fa.fa-align-left
-          card-details-item-title {{_ 'description'}}
-        +inlinedCardDescription(classNames="card-description js-card-description")
-          +editor(autofocus=true)
-            | {{getUnsavedValue 'cardDescription' _id getDescription}}
-          .edit-controls.clearfix
-            button.primary(type="submit") {{_ 'save'}}
-            a.fa.fa-times-thin.js-close-inlined-form
-        else
-          a.js-open-inlined-form
-            if getDescription
-              +viewer
-                = getDescription
-            else
-              | {{_ 'edit'}}
-          if (hasUnsavedValue 'cardDescription' _id)
-            p.quiet
-              | {{_ 'unsaved-description'}}
-              a.js-open-inlined-form {{_ 'view-it'}}
-              = ' - '
-              a.js-close-inlined-form {{_ 'discard'}}
-    else if getDescription
-      h3.card-details-item-title {{_ 'description'}}
-      +viewer
-        = getDescription
-
-    .card-details-items
+      //.card-details-items
       if currentBoard.allowsRequestedBy
         .card-details-item.card-details-item-name
           h3
@@ -228,6 +198,41 @@ template(name="cardDetails")
           else if getRequestedBy
             +viewer
               = getAssignedBy
+
+    //- XXX We should use "editable" to avoid repetiting ourselves
+    if canModifyCard
+      unless currentUser.isWorker
+        if currentBoard.allowsDescriptionTitle
+          h3
+            i.fa.fa-align-left
+            card-details-item-title {{_ 'description'}}
+        if currentBoard.allowsDescriptionText
+          +inlinedCardDescription(classNames="card-description js-card-description")
+            +editor(autofocus=true)
+              | {{getUnsavedValue 'cardDescription' _id getDescription}}
+            .edit-controls.clearfix
+              button.primary(type="submit") {{_ 'save'}}
+              a.fa.fa-times-thin.js-close-inlined-form
+          else
+            if currentBoard.allowsDescriptionText
+              a.js-open-inlined-form
+                if getDescription
+                  +viewer
+                    = getDescription
+                else
+                  | {{_ 'edit'}}
+              if (hasUnsavedValue 'cardDescription' _id)
+                p.quiet
+                  | {{_ 'unsaved-description'}}
+                  a.js-open-inlined-form {{_ 'view-it'}}
+                  = ' - '
+                  a.js-close-inlined-form {{_ 'discard'}}
+    else if getDescription
+      if currentBoard.allowsDescriptionTitle
+        h3.card-details-item-title {{_ 'description'}}
+      if currentBoard.allowsDescriptionText
+        +viewer
+          = getDescription
 
     .card-checklist-attachmentGalerys
       .card-checklist-attachmentGalery.card-checklists

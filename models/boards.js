@@ -332,6 +332,22 @@ Boards.attachSchema(
       defaultValue: true,
     },
 
+    allowsDescriptionTitle: {
+      /**
+       * Does the board allows description title?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
+    allowsDescriptionText: {
+      /**
+       * Does the board allows description text?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
     allowsActivities: {
       /**
        * Does the board allows comments?
@@ -1125,6 +1141,14 @@ Boards.mutations({
 
   setAllowsComments(allowsComments) {
     return { $set: { allowsComments } };
+  },
+
+  setAllowsDescriptionTitle(allowsDescriptionTitle) {
+    return { $set: { allowsDescriptionTitle } };
+  },
+
+  setAllowsDescriptionText(allowsDescriptionText) {
+    return { $set: { allowsDescriptionText } };
   },
 
   setAllowsActivities(allowsActivities) {

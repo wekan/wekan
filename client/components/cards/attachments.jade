@@ -53,5 +53,7 @@ template(name="attachmentsGalery")
     if currentUser.isBoardMember
       unless currentUser.isCommentOnly
         unless currentUser.isWorker
-          li.attachment-item.add-attachment
-            a.js-add-attachment {{_ 'add-attachment' }}
+          //li.attachment-item.add-attachment
+          a.js-add-attachment
+            i.fa.fa-paperclip
+            | {{_ 'add-attachment' }}

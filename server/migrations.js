@@ -1001,3 +1001,35 @@ Migrations.add('add-activities-allowed', () => {
     noValidateMulti,
   );
 });
+
+Migrations.add('add-description-title-allowed', () => {
+  Boards.update(
+    {
+      allowsDescriptionTitle: {
+        $exists: false,
+      },
+    },
+    {
+      $set: {
+        allowsDescriptionTitle: true,
+      },
+    },
+    noValidateMulti,
+  );
+});
+
+Migrations.add('add-description-text-allowed', () => {
+  Boards.update(
+    {
+      allowsDescriptionText: {
+        $exists: false,
+      },
+    },
+    {
+      $set: {
+        allowsDescriptionText: true,
+      },
+    },
+    noValidateMulti,
+  );
+});

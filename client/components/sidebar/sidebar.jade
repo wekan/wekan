@@ -130,6 +130,20 @@ template(name="boardCardSettingsPopup")
           i.fa.fa-tags
           | {{_ 'labels'}}
     div.check-div
+      a.flex.js-field-has-description-title(class="{{#if allowsDescriptionTitle}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsDescriptionTitle}}is-checked{{/if}}")
+        span
+          i.fa.fa-align-left
+          | {{_ 'description'}}
+          | {{_ 'title'}}
+    div.check-div
+      a.flex.js-field-has-description-text(class="{{#if allowsDescriptionText}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsDescriptionText}}is-checked{{/if}}")
+        span
+          i.fa.fa-align-left
+          | {{_ 'description'}}
+          | {{_ 'custom-field-text'}}
+    div.check-div
       a.flex.js-field-has-checklists(class="{{#if allowsChecklists}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsChecklists}}is-checked{{/if}}")
         span
