@@ -583,9 +583,9 @@
   "default": "По умолчанию",
   "queue": "Очередь",
   "subtask-settings": "Настройки подзадач",
-  "card-settings": "Card Settings",
+  "card-settings": "Настройки карточки",
   "boardSubtaskSettingsPopup-title": "Настройки подзадач для доски",
-  "boardCardSettingsPopup-title": "Card Settings",
+  "boardCardSettingsPopup-title": "Настройки карточки",
   "deposit-subtasks-board": "Отправлять подзадачи на доску:",
   "deposit-subtasks-list": "Размещать подзадачи, отправленные на эту доску, в списке:",
   "show-parent-in-minicard": "Указывать исходную карточку:",
@@ -755,6 +755,6 @@
   "show-desktop-drag-handles": "Show desktop drag handles",
   "assignee": "Исполнитель",
   "cardAssigneesPopup-title": "Исполнитель",
-  "addmore-detail": "Add a more detailed description",
-  "show-on-card": "Show on Card"
+  "addmore-detail": "Добавить более детальное описание",
+  "show-on-card": "Показать на карточке"
 }
