@@ -1,3 +1,17 @@
+# v3.78 2020-02-12 Wekan release
+
+This release adds the following features:
+
+- [Card Settings / Show on Card: Description Title and Description Text](https://github.com/wekan/wekan/commit/e89965f6422fd95b4ad2112ae407b1dde4853510).
+  Thanks to e-stoniauk, 2020product and xet7.
+
+and fixes the following bugs:
+
+- [Remove card element grouping to create compact card layout](https://github.com/wekan/wekan/commit/e89965f6422fd95b4ad2112ae407b1dde4853510).
+  Thanks to e-stoniauk, 2020product and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.77 2020-02-10 Wekan release
 
 This release removes the following features:
