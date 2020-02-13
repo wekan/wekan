@@ -1,3 +1,12 @@
+# v3.79 2020-02-13 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix Card Opened Webhook can not be disabled](https://github.com/wekan/wekan/commit/178f376e2138b5522c2e92ddfd2babb113df8d9f).
+  Thanks to mvanvoorden and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.78 2020-02-12 Wekan release
 
 This release adds the following features:

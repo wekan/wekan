@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v3.77
+  version: v3.79
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -2115,6 +2115,14 @@ definitions:
         description: |
            Does the board allows comments?
         type: boolean
+      allowsDescriptionTitle:
+        description: |
+           Does the board allows description title?
+        type: boolean
+      allowsDescriptionText:
+        description: |
+           Does the board allows description text?
+        type: boolean
       allowsActivities:
         description: |
            Does the board allows comments?
@@ -2215,6 +2223,8 @@ definitions:
       - allowsAttachments
       - allowsChecklists
       - allowsComments
+      - allowsDescriptionTitle
+      - allowsDescriptionText
       - allowsActivities
       - allowsLabels
       - allowsAssignee
