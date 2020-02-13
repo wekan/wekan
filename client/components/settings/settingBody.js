@@ -171,20 +171,12 @@ BlazeComponent.extendComponent({
     const displayAuthenticationMethod =
       $('input[name=displayAuthenticationMethod]:checked').val() === 'true';
     const defaultAuthenticationMethod = $('#defaultAuthenticationMethod').val();
-    const customHTMLafterBodyStart = $('#customHTMLafterBodyStart')
-      .val()
-      .trim();
-    const customHTMLbeforeBodyEnd = $('#customHTMLbeforeBodyEnd')
-      .val()
-      .trim();
 
     try {
       Settings.update(Settings.findOne()._id, {
         $set: {
           productName,
           hideLogo: hideLogoChange,
-          customHTMLafterBodyStart,
-          customHTMLbeforeBodyEnd,
           displayAuthenticationMethod,
           defaultAuthenticationMethod,
         },

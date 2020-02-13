@@ -2,14 +2,13 @@
 set -euxo pipefail
 
 BUILD_DEPS="bsdtar gnupg wget curl bzip2 python git ca-certificates perl-Digest-SHA"
-NODE_VERSION=v8.16.0
+NODE_VERSION=v12.15.0
 #METEOR_RELEASE=1.6.0.1 - for Stacksmith, meteor-1.8 branch that could have METEOR@1.8.1-beta.8 or newer
 USE_EDGE=false
 METEOR_EDGE=1.5-beta.17
 NPM_VERSION=latest
 FIBERS_VERSION=4.0.1
 ARCHITECTURE=linux-x64
-#NODE_VERSION=v10.14.1
 
 sudo yum groupinstall -y 'Development Tools'
 sudo yum install -y http://opensource.wandisco.com/centos/7/git/x86_64/wandisco-git-release-7-2.noarch.rpm

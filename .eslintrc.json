@@ -145,6 +145,7 @@
     "allowIsBoardMemberByCard": true,
     "allowIsBoardMemberCommentOnly": true,
     "allowIsBoardMemberNoComments": true,
+    "allowIsBoardMemberWorker": true,
     "Emoji": true,
     "Checklists": true,
     "Settings": true,

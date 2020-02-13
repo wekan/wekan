@@ -283,8 +283,15 @@ if (Meteor.isServer) {
     'POST',
     '/api/boards/:boardId/cards/:cardId/checklists',
     function(req, res) {
-      Authentication.checkUserId(req.userId);
-
+      // Check user is logged in
+      Authentication.checkLoggedIn(req.userId);
+      const paramBoardId = req.params.boardId;
+      // Check user has permission to add checklist to the card
+      const board = Boards.findOne({
+        _id: paramBoardId,
+      });
+      const addPermission = allowIsBoardMemberCommentOnly(req.userId, board);
+      Authentication.checkAdminOrCondition(req.userId, addPermission);
       const paramCardId = req.params.cardId;
       const id = Checklists.insert({
         title: req.body.title,

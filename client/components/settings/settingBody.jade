@@ -4,22 +4,35 @@ template(name="setting")
       | {{_ 'error-notAuthorized'}}
     else
       .content-title
+        i.fa.fa-cog
         span {{_ 'settings'}}
       .content-body
         .side-menu
           ul
             li.active
-              a.js-setting-menu(data-id="registration-setting") {{_ 'registration'}}
+              a.js-setting-menu(data-id="registration-setting")
+                i.fa.fa-sign-in
+                | {{_ 'registration'}}
             li
-              a.js-setting-menu(data-id="email-setting") {{_ 'email'}}
+              a.js-setting-menu(data-id="email-setting")
+                i.fa.fa-envelope
+                | {{_ 'email'}}
             li
-              a.js-setting-menu(data-id="account-setting") {{_ 'accounts'}}
+              a.js-setting-menu(data-id="account-setting")
+                i.fa.fa-users
+                | {{_ 'accounts'}}
             li
-              a.js-setting-menu(data-id="announcement-setting") {{_ 'admin-announcement'}}
+              a.js-setting-menu(data-id="announcement-setting")
+                i.fa.fa-bullhorn
+                | {{_ 'admin-announcement'}}
             li
-              a.js-setting-menu(data-id="layout-setting") {{_ 'layout'}}
+              a.js-setting-menu(data-id="layout-setting")
+                i.fa.fa-object-group
+                | {{_ 'layout'}}
             li
-              a.js-setting-menu(data-id="webhook-setting") {{_ 'global-webhook'}}
+              a.js-setting-menu(data-id="webhook-setting")
+                i.fa.fa-globe
+                | {{_ 'global-webhook'}}
         .main-body
           if loading.get
             +spinner
@@ -171,12 +184,6 @@ template(name='layoutSettings')
       .title {{_ 'custom-product-name'}}
       .form-group
         input.wekan-form-control#product-name(type="text", placeholder="" value="{{currentSetting.productName}}")
-    li.layout-form
-      .title {{_ 'add-custom-html-after-body-start'}}
-      textarea#customHTMLafterBodyStart.wekan-form-control= currentSetting.customHTMLafterBodyStart
-    li.layout-form
-      .title {{_ 'add-custom-html-before-body-end'}}
-      textarea#customHTMLbeforeBodyEnd.wekan-form-control= currentSetting.customHTMLbeforeBodyEnd
     li
       button.js-save-layout.primary {{_ 'save'}}
 

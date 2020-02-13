@@ -1,6 +1,6 @@
 {
   "name": "wekan",
-  "version": "v3.49.0",
+  "version": "v3.78.0",
   "description": "Open-Source kanban",
   "private": true,
   "scripts": {
@@ -44,30 +44,30 @@
     "eslint-config-meteor": "0.0.9",
     "eslint-config-prettier": "^3.6.0",
     "eslint-import-resolver-meteor": "^0.4.0",
-    "eslint-plugin-import": "^2.18.0",
+    "eslint-plugin-import": "^2.20.0",
     "eslint-plugin-meteor": "^5.1.0",
-    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-prettier": "^3.1.2",
     "lint-staged": "^7.3.0",
     "pre-commit": "^1.2.2",
-    "prettier": "^1.18.2",
+    "prettier": "^1.19.1",
     "prettier-eslint": "^8.8.2"
   },
   "dependencies": {
-    "@babel/runtime": "^7.6.2",
+    "@babel/runtime": "^7.8.4",
     "ajv": "^5.0.0",
     "babel-runtime": "^6.26.0",
-    "bcrypt": "^3.0.2",
-    "bson": "^4.0.0",
+    "bcrypt": "^3.0.7",
+    "bson": "^4.0.3",
     "bunyan": "^1.8.12",
     "es6-promise": "^4.2.4",
     "gridfs-stream": "^0.5.3",
     "ldapjs": "^1.0.2",
     "meteor-node-stubs": "^0.4.1",
-    "mongodb": "^3.3.3",
+    "mongodb": "^3.5.0",
     "os": "^0.1.1",
-    "page": "^1.8.6",
-    "qs": "^6.8.0",
-    "source-map-support": "^0.5.12",
+    "page": "^1.11.5",
+    "qs": "^6.9.1",
+    "source-map-support": "^0.5.16",
     "xss": "^1.0.6"
   }
 }

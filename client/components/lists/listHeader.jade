@@ -10,7 +10,7 @@ template(name="listHeader")
           a.list-header-left-icon.fa.fa-angle-left.js-unselect-list
       h2.list-header-name(
         title="{{ moment modifiedAt 'LLL' }}"
-        class="{{#if currentUser.isBoardMember}}{{#unless currentUser.isCommentOnly}}js-open-inlined-form is-editable{{/unless}}{{/if}}")
+        class="{{#if currentUser.isBoardMember}}{{#unless currentUser.isCommentOnly}}{{#unless currentUser.isWorker}}js-open-inlined-form is-editable{{/unless}}{{/unless}}{{/if}}")
         +viewer
           = title
         if wipLimit.enabled
@@ -30,17 +30,17 @@ template(name="listHeader")
               if canSeeAddCard
                 a.js-add-card.fa.fa-plus.list-header-plus-icon
               a.fa.fa-navicon.js-open-list-menu
-          a.list-header-handle.handle.fa.fa-arrows.js-list-handle
+          //a.list-header-handle.handle.fa.fa-arrows.js-list-handle
         else
           a.list-header-menu-icon.fa.fa-angle-right.js-select-list
-          a.list-header-handle.handle.fa.fa-arrows.js-list-handle
+          //a.list-header-handle.handle.fa.fa-arrows.js-list-handle
       else if currentUser.isBoardMember
         if isWatching
           i.list-header-watch-icon.fa.fa-eye
         div.list-header-menu
           unless currentUser.isCommentOnly
-            if isBoardAdmin
-              a.fa.js-list-star.list-header-plus-icon(class="fa-star{{#unless starred}}-o{{/unless}}")
+            //if isBoardAdmin
+            //  a.fa.js-list-star.list-header-plus-icon(class="fa-star{{#unless starred}}-o{{/unless}}")
             if canSeeAddCard
               a.js-add-card.fa.fa-plus.list-header-plus-icon
             a.fa.fa-navicon.js-open-list-menu
@@ -56,25 +56,47 @@ template(name="editListTitleForm")
 
 template(name="listActionPopup")
   ul.pop-over-list
-    li: a.js-toggle-watch-list {{#if isWatching}}{{_ 'unwatch'}}{{else}}{{_ 'watch'}}{{/if}}
+    li
+      a.js-toggle-watch-list
+        if isWatching
+          i.fa.fa-eye
+          |  {{_ 'unwatch'}}
+        else
+          i.fa.fa-eye-slash
+          |  {{_ 'watch'}}
   unless currentUser.isCommentOnly
-    hr
-    ul.pop-over-list
-      li: a.js-set-color-list {{_ 'set-color-list'}}
-    hr
+    unless currentUser.isWorker
+      ul.pop-over-list
+        li
+          a.js-set-color-list
+            i.fa.fa-paint-brush
+            | {{_ 'set-color-list'}}
     ul.pop-over-list
       if cards.count
-        li: a.js-select-cards {{_ 'list-select-cards'}}
-        hr
+        li
+          a.js-select-cards
+            i.fa.fa-check-square
+            | {{_ 'list-select-cards'}}
     if currentUser.isBoardAdmin
       ul.pop-over-list
-        li: a.js-set-wip-limit {{#if isWipLimitEnabled }}{{_ 'edit-wip-limit'}}{{else}}{{_ 'setWipLimitPopup-title'}}{{/if}}
+        li
+          a.js-set-wip-limit
+            i.fa.fa-ban
+            | {{#if isWipLimitEnabled }}{{_ 'edit-wip-limit'}}{{else}}{{_ 'setWipLimitPopup-title'}}{{/if}}
+    unless currentUser.isWorker
       hr
-    ul.pop-over-list
-      li: a.js-close-list {{_ 'archive-list'}}
+      ul.pop-over-list
+        li
+          a.js-close-list
+            i.fa.fa-arrow-right
+            i.fa.fa-archive
+            | {{_ 'archive-list'}}
     hr
     ul.pop-over-list
-      li: a.js-more {{_ 'listMorePopup-title'}}
+      li
+        a.js-more
+          i.fa.fa-link
+          | {{_ 'listMorePopup-title'}}
 
 template(name="boardLists")
   ul.pop-over-list
@@ -94,7 +116,8 @@ template(name="listMorePopup")
       input.inline-input(type="text" readonly value="{{ rootUrl }}")
     | {{_ 'added'}}
     span.date(title=list.createdAt) {{ moment createdAt 'LLL' }}
-    a.js-delete {{_ 'delete'}}
+    unless currentUser.isWorker
+      a.js-delete {{_ 'delete'}}
 
 template(name="listDeletePopup")
   p {{_ "list-delete-pop"}}

@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v3.50
+  version: v3.77
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -209,6 +209,12 @@ paths:
           in: formData
           description: |
             only enable comments (default false)
+          type: boolean
+          required: false
+        - name: isWorker
+          in: formData
+          description: |
+            only move cards, assign himself to card and comment (default false)
           type: boolean
           required: false
         - name: permission
@@ -1276,7 +1282,7 @@ paths:
         - name: assignees
           in: formData
           description: |
-            the assignee IDs list of the new card
+            the array of maximum one ID of assignee of the new card
           type: string
           required: false
         - name: title
@@ -1532,6 +1538,12 @@ paths:
           in: formData
           description: |
             CommentsOnly capability
+          type: boolean
+          required: true
+        - name: isWorker
+          in: formData
+          description: |
+            Worker capability
           type: boolean
           required: true
         - name: board
@@ -2081,9 +2093,67 @@ definitions:
            The default List ID assigned to subtasks.
         type: string
         x-nullable: true
+      dateSettingsDefaultBoardId:
+        type: string
+        x-nullable: true
+      dateSettingsDefaultListId:
+        type: string
+        x-nullable: true
       allowsSubtasks:
         description: |
            Does the board allows subtasks?
+        type: boolean
+      allowsAttachments:
+        description: |
+           Does the board allows attachments?
+        type: boolean
+      allowsChecklists:
+        description: |
+           Does the board allows checklists?
+        type: boolean
+      allowsComments:
+        description: |
+           Does the board allows comments?
+        type: boolean
+      allowsActivities:
+        description: |
+           Does the board allows comments?
+        type: boolean
+      allowsLabels:
+        description: |
+           Does the board allows labels?
+        type: boolean
+      allowsAssignee:
+        description: |
+           Does the board allows assignee?
+        type: boolean
+      allowsMembers:
+        description: |
+           Does the board allows members?
+        type: boolean
+      allowsRequestedBy:
+        description: |
+           Does the board allows requested by?
+        type: boolean
+      allowsAssignedBy:
+        description: |
+           Does the board allows requested by?
+        type: boolean
+      allowsReceivedDate:
+        description: |
+           Does the board allows received date?
+        type: boolean
+      allowsStartDate:
+        description: |
+           Does the board allows start date?
+        type: boolean
+      allowsEndDate:
+        description: |
+           Does the board allows end date?
+        type: boolean
+      allowsDueDate:
+        description: |
+           Does the board allows due date?
         type: boolean
       presentParentTask:
         description: |
@@ -2142,6 +2212,19 @@ definitions:
       - permission
       - color
       - allowsSubtasks
+      - allowsAttachments
+      - allowsChecklists
+      - allowsComments
+      - allowsActivities
+      - allowsLabels
+      - allowsAssignee
+      - allowsMembers
+      - allowsRequestedBy
+      - allowsAssignedBy
+      - allowsReceivedDate
+      - allowsStartDate
+      - allowsEndDate
+      - allowsDueDate
       - type
   BoardsLabels:
     type: object
@@ -2214,6 +2297,10 @@ definitions:
       isCommentOnly:
         description: |
            Is the member only allowed to comment on the board
+        type: boolean
+      isWorker:
+        description: |
+           Is the member only allowed to move card, assign himself to card and comment
         type: boolean
     required:
       - userId
@@ -2367,7 +2454,8 @@ definitions:
         x-nullable: true
       assignees:
         description: |
-           who assignees of the card (user IDs)
+           who is assignee of the card (user ID),
+           maximum one ID of assignee in array.
         type: array
         items:
           type: string

@@ -58,7 +58,7 @@ Meteor.startup(() => {
     const board = Boards.findOne({ _id: boardId });
     const normalAccess =
       board.permission === 'public' ||
-      board.members.some(e => e.userId === userId).isActive;
+      board.members.some(e => e.userId === userId && e.isActive);
     Authentication.checkAdminOrCondition(userId, normalAccess);
   };
 

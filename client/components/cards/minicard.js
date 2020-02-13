@@ -1,3 +1,5 @@
+import { Cookies } from 'meteor/ostrio:cookies';
+const cookies = new Cookies();
 // Template.cards.events({
 //   'click .member': Popup.open('cardMember')
 // });
@@ -18,7 +20,11 @@ BlazeComponent.extendComponent({
       },
       {
         'click .js-toggle-minicard-label-text'() {
-          Meteor.call('toggleMinicardLabelText');
+          if (cookies.has('hiddenMinicardLabelText')) {
+            cookies.remove('hiddenMinicardLabelText'); //true
+          } else {
+            cookies.set('hiddenMinicardLabelText', 'true'); //true
+          }
         },
       },
     ];
@@ -27,10 +33,24 @@ BlazeComponent.extendComponent({
 
 Template.minicard.helpers({
   showDesktopDragHandles() {
-    return Meteor.user().hasShowDesktopDragHandles();
+    currentUser = Meteor.user();
+    if (currentUser) {
+      return (currentUser.profile || {}).showDesktopDragHandles;
+    } else if (cookies.has('showDesktopDragHandles')) {
+      return true;
+    } else {
+      return false;
+    }
   },
   hiddenMinicardLabelText() {
-    return Meteor.user().hasHiddenMinicardLabelText();
+    currentUser = Meteor.user();
+    if (currentUser) {
+      return (currentUser.profile || {}).hiddenMinicardLabelText;
+    } else if (cookies.has('hiddenMinicardLabelText')) {
+      return true;
+    } else {
+      return false;
+    }
   },
   coverUrl() {
     return Attachments.findOne(this.coverId).link('original', '/');

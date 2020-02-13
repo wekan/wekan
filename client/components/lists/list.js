@@ -1,3 +1,5 @@
+import { Cookies } from 'meteor/ostrio:cookies';
+const cookies = new Cookies();
 const { calculateIndex, enableClickOnTouch } = Utils;
 
 BlazeComponent.extendComponent({
@@ -30,18 +32,6 @@ BlazeComponent.extendComponent({
 
     const itemsSelector = '.js-minicard:not(.placeholder, .js-card-composer)';
     const $cards = this.$('.js-minicards');
-
-    if (Utils.isMiniScreen) {
-      $('.js-minicards').sortable({
-        handle: '.handle',
-      });
-    }
-
-    if (!Utils.isMiniScreen && showDesktopDragHandles) {
-      $('.js-minicards').sortable({
-        handle: '.handle',
-      });
-    }
 
     $cards.sortable({
       connectWith: '.js-minicards:not(.js-list-full)',
@@ -85,16 +75,15 @@ BlazeComponent.extendComponent({
         const listId = Blaze.getData(ui.item.parents('.list').get(0))._id;
         const currentBoard = Boards.findOne(Session.get('currentBoard'));
         let swimlaneId = '';
-        const boardView = (Meteor.user().profile || {}).boardView;
         if (
-          boardView === 'board-view-swimlanes' ||
+          Utils.boardView() === 'board-view-swimlanes' ||
           currentBoard.isTemplatesBoard()
         )
           swimlaneId = Blaze.getData(ui.item.parents('.swimlane').get(0))._id;
         else if (
-          boardView === 'board-view-lists' ||
-          boardView === 'board-view-cal' ||
-          !boardView
+          Utils.boardView() === 'board-view-lists' ||
+          Utils.boardView() === 'board-view-cal' ||
+          !Utils.boardView
         )
           swimlaneId = currentBoard.getDefaultSwimline()._id;
 
@@ -128,9 +117,49 @@ BlazeComponent.extendComponent({
     // ugly touch event hotfix
     enableClickOnTouch(itemsSelector);
 
-    // Disable drag-dropping if the current user is not a board member or is comment only
     this.autorun(() => {
-      $cards.sortable('option', 'disabled', !userIsMember());
+      let showDesktopDragHandles = false;
+      currentUser = Meteor.user();
+      if (currentUser) {
+        showDesktopDragHandles = (currentUser.profile || {})
+          .showDesktopDragHandles;
+      } else if (cookies.has('showDesktopDragHandles')) {
+        showDesktopDragHandles = true;
+      } else {
+        showDesktopDragHandles = false;
+      }
+
+      if (!Utils.isMiniScreen() && showDesktopDragHandles) {
+        $cards.sortable({
+          handle: '.handle',
+        });
+      } else if (!Utils.isMiniScreen() && !showDesktopDragHandles) {
+        $cards.sortable({
+          handle: '.minicard',
+        });
+      }
+
+      if ($cards.data('sortable')) {
+        $cards.sortable(
+          'option',
+          'disabled',
+          // Disable drag-dropping when user is not member/is miniscreen
+          !userIsMember(),
+          // Not disable drag-dropping while in multi-selection mode
+          // MultiSelection.isActive() || !userIsMember(),
+        );
+      }
+
+      if ($cards.data('sortable')) {
+        $cards.sortable(
+          'option',
+          'disabled',
+          // Disable drag-dropping when user is not member/is miniscreen
+          Utils.isMiniScreen(),
+          // Not disable drag-dropping while in multi-selection mode
+          // MultiSelection.isActive() || !userIsMember(),
+        );
+      }
     });
 
     // We want to re-run this function any time a card is added.
@@ -163,7 +192,14 @@ BlazeComponent.extendComponent({
 
 Template.list.helpers({
   showDesktopDragHandles() {
-    return Meteor.user().hasShowDesktopDragHandles();
+    currentUser = Meteor.user();
+    if (currentUser) {
+      return (currentUser.profile || {}).showDesktopDragHandles;
+    } else if (cookies.has('showDesktopDragHandles')) {
+      return true;
+    } else {
+      return false;
+    }
   },
 });
 

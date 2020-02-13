@@ -15,6 +15,7 @@ if [ -z "$LANG" ]; then
 fi
 
 export LC_ALL=C
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/snap/wekan/current/lib/x86_64-linux-gnu
 
 # When starting MongoDB, if logfile exist, delete it, because now uses syslog instead of logfile,
 # because syslog usually already has log rotation.
@@ -52,14 +53,14 @@ if [ -z "$MONGO_URL" ]; then
     ## OLD: Logging to file.
     #mongod --dbpath $SNAP_COMMON --logpath $SNAP_COMMON/mongodb.log --logappend --journal $BIND_OPTIONS --smallfiles
     ## NEW: Logging to syslog, that usually has already log rotation.
-    mongod --dbpath $SNAP_COMMON --syslog --journal $BIND_OPTIONS --smallfiles
+    mongod --dbpath $SNAP_COMMON --syslog --journal $BIND_OPTIONS --quiet
 
 else
 
     ## OLD: Logging to file.
     #mongod --dbpath $SNAP_COMMON --logpath $SNAP_COMMON/mongodb.log --logappend --journal $MONGO_URL --smallfiles
     ## NEW: Logging to syslog, that usually has already log rotation.
-    mongod --dbpath $SNAP_COMMON --syslog --journal $MONGO_URL --smallfiles
+    mongod --dbpath $SNAP_COMMON --syslog --journal $MONGO_URL --quiet
 
 fi
 

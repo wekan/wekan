@@ -132,7 +132,7 @@ services:
         ' 1>/dev/null 2>&1 &
         mongod --replSet rs1
   wekan:
-    image: wekanteam/wekan:latestdevel
+    image: quay.io/wekan/wekan
     container_name: wekan-app
     restart: always
     networks:
@@ -228,7 +228,7 @@ services:
       #---------------------------------------------------------------
       # ==== RICH TEXT EDITOR IN CARD COMMENTS ====
       # https://github.com/wekan/wekan/pull/2560
-      - RICHER_CARD_COMMENT_EDITOR=true
+      - RICHER_CARD_COMMENT_EDITOR=false
       #---------------------------------------------------------------
       # ==== CARD OPENED, SEND WEBHOOK MESSAGE ====
       # https://github.com/wekan/wekan/issues/2518
@@ -396,10 +396,10 @@ services:
       # example : LDAP_BACKGROUND_SYNC=true
       #- LDAP_BACKGROUND_SYNC=false
       #
-      # LDAP_BACKGROUND_SYNC_INTERVAL : At which interval does the background task sync in milliseconds
-      # Leave this unset, so it uses default, and does not crash.
-      # https://github.com/wekan/wekan/issues/2354#issuecomment-515305722
-      - LDAP_BACKGROUND_SYNC_INTERVAL=''
+      # At which interval does the background task sync.
+      # The format must be as specified in:
+      # https://bunkat.github.io/later/parsers.html#text
+      #- LDAP_BACKGROUND_SYNC_INTERVAL='every 1 hour'
       #
       # LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED :
       # example : LDAP_BACKGROUND_SYNC_KEEP_EXISTANT_USERS_UPDATED=true

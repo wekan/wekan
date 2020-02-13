@@ -1,3 +1,5 @@
+import { Cookies } from 'meteor/ostrio:cookies';
+const cookies = new Cookies();
 Sidebar = null;
 
 const defaultView = 'home';
@@ -107,7 +109,14 @@ BlazeComponent.extendComponent({
         'click .js-toggle-sidebar': this.toggle,
         'click .js-back-home': this.setView,
         'click .js-toggle-minicard-label-text'() {
-          Meteor.call('toggleMinicardLabelText');
+          currentUser = Meteor.user();
+          if (currentUser) {
+            Meteor.call('toggleMinicardLabelText');
+          } else if (cookies.has('hiddenMinicardLabelText')) {
+            cookies.remove('hiddenMinicardLabelText');
+          } else {
+            cookies.set('hiddenMinicardLabelText', 'true');
+          }
         },
         'click .js-shortcuts'() {
           FlowRouter.go('shortcuts');
@@ -121,7 +130,14 @@ Blaze.registerHelper('Sidebar', () => Sidebar);
 
 Template.homeSidebar.helpers({
   hiddenMinicardLabelText() {
-    return Meteor.user().hasHiddenMinicardLabelText();
+    currentUser = Meteor.user();
+    if (currentUser) {
+      return (currentUser.profile || {}).hiddenMinicardLabelText;
+    } else if (cookies.has('hiddenMinicardLabelText')) {
+      return true;
+    } else {
+      return false;
+    }
   },
 });
 
@@ -145,10 +161,13 @@ Template.memberPopup.helpers({
       const currentBoard = Boards.findOne(Session.get('currentBoard'));
       const commentOnly = currentBoard.hasCommentOnly(this.userId);
       const noComments = currentBoard.hasNoComments(this.userId);
+      const worker = currentBoard.hasWorker(this.userId);
       if (commentOnly) {
         return TAPi18n.__('comment-only').toLowerCase();
       } else if (noComments) {
         return TAPi18n.__('no-comments').toLowerCase();
+      } else if (worker) {
+        return TAPi18n.__('worker').toLowerCase();
       } else {
         return TAPi18n.__(type).toLowerCase();
       }
@@ -189,6 +208,7 @@ Template.boardMenuPopup.events({
   'click .js-outgoing-webhooks': Popup.open('outgoingWebhooks'),
   'click .js-import-board': Popup.open('chooseBoardSource'),
   'click .js-subtask-settings': Popup.open('boardSubtaskSettings'),
+  'click .js-card-settings': Popup.open('boardCardSettings'),
 });
 
 Template.boardMenuPopup.helpers({
@@ -250,6 +270,14 @@ Template.membersWidget.helpers({
   isInvited() {
     const user = Meteor.user();
     return user && user.isInvitedTo(Session.get('currentBoard'));
+  },
+  isWorker() {
+    const user = Meteor.user();
+    if (user) {
+      return Meteor.call(Boards.hasWorker(user.memberId));
+    } else {
+      return false;
+    }
   },
 });
 
@@ -445,6 +473,10 @@ BlazeComponent.extendComponent({
     return this.currentBoard.allowsSubtasks;
   },
 
+  allowsReceivedDate() {
+    return this.currentBoard.allowsReceivedDate;
+  },
+
   isBoardSelected() {
     return this.currentBoard.subtasksDefaultBoardId === this.currentData()._id;
   },
@@ -560,6 +592,359 @@ BlazeComponent.extendComponent({
 
 BlazeComponent.extendComponent({
   onCreated() {
+    this.currentBoard = Boards.findOne(Session.get('currentBoard'));
+  },
+
+  allowsReceivedDate() {
+    return this.currentBoard.allowsReceivedDate;
+  },
+
+  allowsStartDate() {
+    return this.currentBoard.allowsStartDate;
+  },
+
+  allowsDueDate() {
+    return this.currentBoard.allowsDueDate;
+  },
+
+  allowsEndDate() {
+    return this.currentBoard.allowsEndDate;
+  },
+
+  allowsSubtasks() {
+    return this.currentBoard.allowsSubtasks;
+  },
+
+  allowsMembers() {
+    return this.currentBoard.allowsMembers;
+  },
+
+  allowsAssignee() {
+    return this.currentBoard.allowsAssignee;
+  },
+
+  allowsAssignedBy() {
+    return this.currentBoard.allowsAssignedBy;
+  },
+
+  allowsRequestedBy() {
+    return this.currentBoard.allowsRequestedBy;
+  },
+
+  allowsLabels() {
+    return this.currentBoard.allowsLabels;
+  },
+
+  allowsChecklists() {
+    return this.currentBoard.allowsChecklists;
+  },
+
+  allowsAttachments() {
+    return this.currentBoard.allowsAttachments;
+  },
+
+  allowsComments() {
+    return this.currentBoard.allowsComments;
+  },
+
+  allowsDescriptionTitle() {
+    return this.currentBoard.allowsDescriptionTitle;
+  },
+
+  allowsDescriptionText() {
+    return this.currentBoard.allowsDescriptionText;
+  },
+
+  isBoardSelected() {
+    return this.currentBoard.dateSettingsDefaultBoardID;
+  },
+
+  isNullBoardSelected() {
+    return (
+      this.currentBoard.dateSettingsDefaultBoardId === null ||
+      this.currentBoard.dateSettingsDefaultBoardId === undefined
+    );
+  },
+
+  boards() {
+    return Boards.find(
+      {
+        archived: false,
+        'members.userId': Meteor.userId(),
+      },
+      {
+        sort: ['title'],
+      },
+    );
+  },
+
+  lists() {
+    return Lists.find(
+      {
+        boardId: this.currentBoard._id,
+        archived: false,
+      },
+      {
+        sort: ['title'],
+      },
+    );
+  },
+
+  hasLists() {
+    return this.lists().count() > 0;
+  },
+
+  isListSelected() {
+    return (
+      this.currentBoard.dateSettingsDefaultBoardId === this.currentData()._id
+    );
+  },
+
+  events() {
+    return [
+      {
+        'click .js-field-has-receiveddate'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsReceivedDate = !this.currentBoard
+            .allowsReceivedDate;
+          this.currentBoard.setAllowsReceivedDate(
+            this.currentBoard.allowsReceivedDate,
+          );
+          $(`.js-field-has-receiveddate ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsReceivedDate,
+          );
+          $('.js-field-has-receiveddate').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsReceivedDate,
+          );
+        },
+        'click .js-field-has-startdate'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsStartDate = !this.currentBoard
+            .allowsStartDate;
+          this.currentBoard.setAllowsStartDate(
+            this.currentBoard.allowsStartDate,
+          );
+          $(`.js-field-has-startdate ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsStartDate,
+          );
+          $('.js-field-has-startdate').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsStartDate,
+          );
+        },
+        'click .js-field-has-enddate'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsEndDate = !this.currentBoard.allowsEndDate;
+          this.currentBoard.setAllowsEndDate(this.currentBoard.allowsEndDate);
+          $(`.js-field-has-enddate ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsEndDate,
+          );
+          $('.js-field-has-enddate').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsEndDate,
+          );
+        },
+        'click .js-field-has-duedate'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsDueDate = !this.currentBoard.allowsDueDate;
+          this.currentBoard.setAllowsDueDate(this.currentBoard.allowsDueDate);
+          $(`.js-field-has-duedate ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsDueDate,
+          );
+          $('.js-field-has-duedate').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsDueDate,
+          );
+        },
+        'click .js-field-has-subtasks'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsSubtasks = !this.currentBoard.allowsSubtasks;
+          this.currentBoard.setAllowsSubtasks(this.currentBoard.allowsSubtasks);
+          $(`.js-field-has-subtasks ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsSubtasks,
+          );
+          $('.js-field-has-subtasks').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsSubtasks,
+          );
+        },
+        'click .js-field-has-members'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsMembers = !this.currentBoard.allowsMembers;
+          this.currentBoard.setAllowsMembers(this.currentBoard.allowsMembers);
+          $(`.js-field-has-members ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsMembers,
+          );
+          $('.js-field-has-members').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsMembers,
+          );
+        },
+        'click .js-field-has-assignee'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsAssignee = !this.currentBoard.allowsAssignee;
+          this.currentBoard.setAllowsAssignee(this.currentBoard.allowsAssignee);
+          $(`.js-field-has-assignee ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsAssignee,
+          );
+          $('.js-field-has-assignee').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsAssignee,
+          );
+        },
+        'click .js-field-has-assigned-by'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsAssignedBy = !this.currentBoard
+            .allowsAssignedBy;
+          this.currentBoard.setAllowsAssignedBy(
+            this.currentBoard.allowsAssignedBy,
+          );
+          $(`.js-field-has-assigned-by ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsAssignedBy,
+          );
+          $('.js-field-has-assigned-by').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsAssignedBy,
+          );
+        },
+        'click .js-field-has-requested-by'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsRequestedBy = !this.currentBoard
+            .allowsRequestedBy;
+          this.currentBoard.setAllowsRequestedBy(
+            this.currentBoard.allowsRequestedBy,
+          );
+          $(`.js-field-has-requested-by ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsRequestedBy,
+          );
+          $('.js-field-has-requested-by').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsRequestedBy,
+          );
+        },
+        'click .js-field-has-labels'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsLabels = !this.currentBoard.allowsLabels;
+          this.currentBoard.setAllowsLabels(this.currentBoard.allowsLabels);
+          $(`.js-field-has-labels ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsAssignee,
+          );
+          $('.js-field-has-labels').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsLabels,
+          );
+        },
+        'click .js-field-has-description-title'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsDescriptionTitle = !this.currentBoard
+            .allowsDescriptionTitle;
+          this.currentBoard.setAllowsDescriptionTitle(
+            this.currentBoard.allowsDescriptionTitle,
+          );
+          $(`.js-field-has-description-title ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsDescriptionTitle,
+          );
+          $('.js-field-has-description-title').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsDescriptionTitle,
+          );
+        },
+        'click .js-field-has-description-text'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsDescriptionText = !this.currentBoard
+            .allowsDescriptionText;
+          this.currentBoard.setAllowsDescriptionText(
+            this.currentBoard.allowsDescriptionText,
+          );
+          $(`.js-field-has-description-text ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsDescriptionText,
+          );
+          $('.js-field-has-description-text').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsDescriptionText,
+          );
+        },
+        'click .js-field-has-checklists'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsChecklists = !this.currentBoard
+            .allowsChecklists;
+          this.currentBoard.setAllowsChecklists(
+            this.currentBoard.allowsChecklists,
+          );
+          $(`.js-field-has-checklists ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsChecklists,
+          );
+          $('.js-field-has-checklists').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsChecklists,
+          );
+        },
+        'click .js-field-has-attachments'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsAttachments = !this.currentBoard
+            .allowsAttachments;
+          this.currentBoard.setAllowsAttachments(
+            this.currentBoard.allowsAttachments,
+          );
+          $(`.js-field-has-attachments ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsAttachments,
+          );
+          $('.js-field-has-attachments').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsAttachments,
+          );
+        },
+        'click .js-field-has-comments'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsComments = !this.currentBoard.allowsComments;
+          this.currentBoard.setAllowsComments(this.currentBoard.allowsComments);
+          $(`.js-field-has-comments ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsComments,
+          );
+          $('.js-field-has-comments').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsComments,
+          );
+        },
+        'click .js-field-has-activities'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsActivities = !this.currentBoard
+            .allowsActivities;
+          this.currentBoard.setAllowsActivities(
+            this.currentBoard.allowsActivities,
+          );
+          $(`.js-field-has-activities ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsActivities,
+          );
+          $('.js-field-has-activities').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsActivities,
+          );
+        },
+      },
+    ];
+  },
+}).register('boardCardSettingsPopup');
+
+BlazeComponent.extendComponent({
+  onCreated() {
     this.error = new ReactiveVar('');
     this.loading = new ReactiveVar(false);
   },
@@ -628,7 +1013,7 @@ BlazeComponent.extendComponent({
 }).register('addMemberPopup');
 
 Template.changePermissionsPopup.events({
-  'click .js-set-admin, click .js-set-normal, click .js-set-no-comments, click .js-set-comment-only'(
+  'click .js-set-admin, click .js-set-normal, click .js-set-no-comments, click .js-set-comment-only, click .js-set-worker'(
     event,
   ) {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
@@ -638,11 +1023,13 @@ Template.changePermissionsPopup.events({
       'js-set-comment-only',
     );
     const isNoComments = $(event.currentTarget).hasClass('js-set-no-comments');
+    const isWorker = $(event.currentTarget).hasClass('js-set-worker');
     currentBoard.setMemberPermission(
       memberId,
       isAdmin,
       isNoComments,
       isCommentOnly,
+      isWorker,
     );
     Popup.back(1);
   },
@@ -659,7 +1046,8 @@ Template.changePermissionsPopup.helpers({
     return (
       !currentBoard.hasAdmin(this.userId) &&
       !currentBoard.hasNoComments(this.userId) &&
-      !currentBoard.hasCommentOnly(this.userId)
+      !currentBoard.hasCommentOnly(this.userId) &&
+      !currentBoard.hasWorker(this.userId)
     );
   },
 
@@ -676,6 +1064,13 @@ Template.changePermissionsPopup.helpers({
     return (
       !currentBoard.hasAdmin(this.userId) &&
       currentBoard.hasCommentOnly(this.userId)
+    );
+  },
+
+  isWorker() {
+    const currentBoard = Boards.findOne(Session.get('currentBoard'));
+    return (
+      !currentBoard.hasAdmin(this.userId) && currentBoard.hasWorker(this.userId)
     );
   },
 

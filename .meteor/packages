@@ -6,9 +6,9 @@
 meteor-base@1.4.0
 
 # Build system
-ecmascript@0.12.4
-standard-minifier-css@1.5.3
-standard-minifier-js@2.4.1
+ecmascript@0.14.0
+standard-minifier-css@1.6.0
+standard-minifier-js@2.6.0
 mquandalle:jade
 
 # Polyfills
@@ -22,7 +22,7 @@ dburles:collection-helpers
 idmontie:migrations
 matb33:collection-hooks
 matteodem:easy-search
-mongo@1.6.2
+mongo@1.8.0
 mquandalle:collection-mutations
 
 # Account system
@@ -75,7 +75,7 @@ horka:swipebox
 dynamic-import@0.5.1
 staringatlights:fast-render
 
-accounts-password@1.5.1
+accounts-password@1.5.2
 cfs:gridfs
 rzymek:fullcalendar
 momentjs:moment@2.22.2
@@ -97,3 +97,4 @@ percolate:synced-cron
 easylogic:summernote
 cfs:filesystem
 ostrio:files
+ostrio:cookies

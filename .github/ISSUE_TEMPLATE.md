@@ -2,6 +2,8 @@
 
 Add these issues to elsewhere:
 - Snap: https://github.com/wekan/wekan-snap/issues
+- LDAP: https://github.com/wekan/wekan-ldap/issues
+- UCS: https://github.com/wekan/univention/issues
 
 Other Wekan issues can be added here.
 

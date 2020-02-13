@@ -1524,7 +1524,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
 	  	<ul class="toc-list-h1">
         
           <li>
-            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v3.50">Wekan REST API v3.50</a>
+            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v3.77">Wekan REST API v3.77</a>
             
           </li>
         
@@ -2017,7 +2017,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="wekan-rest-api">Wekan REST API v3.50</h1>
+        <h1 id="wekan-rest-api">Wekan REST API v3.77</h1>
 <blockquote>
 <p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
 </blockquote>
@@ -2837,6 +2837,7 @@ $.ajax({
   "isActive": true,
   "isNoComments": true,
   "isCommentOnly": true,
+  "isWorker": true,
   "permission": "string",
   "color": "string"
 }'</span>;
@@ -2947,6 +2948,7 @@ System.out.println(response.toString());
 <span class="hljs-attr">isActive:</span> <span class="hljs-literal">true</span>
 <span class="hljs-attr">isNoComments:</span> <span class="hljs-literal">true</span>
 <span class="hljs-attr">isCommentOnly:</span> <span class="hljs-literal">true</span>
+<span class="hljs-attr">isWorker:</span> <span class="hljs-literal">true</span>
 <span class="hljs-attr">permission:</span> <span class="hljs-string">string</span>
 <span class="hljs-attr">color:</span> <span class="hljs-string">string</span>
 
@@ -3011,6 +3013,13 @@ System.out.println(response.toString());
 <td>boolean</td>
 <td>false</td>
 <td>only enable comments (default false)</td>
+</tr>
+<tr>
+<td>» isWorker</td>
+<td>body</td>
+<td>boolean</td>
+<td>false</td>
+<td>only move cards, assign himself to card and comment (default false)</td>
 </tr>
 <tr>
 <td>» permission</td>
@@ -3269,7 +3278,8 @@ System.out.println(response.toString());
       <span class="hljs-attr">"isAdmin"</span>: <span class="hljs-literal">true</span>,
       <span class="hljs-attr">"isActive"</span>: <span class="hljs-literal">true</span>,
       <span class="hljs-attr">"isNoComments"</span>: <span class="hljs-literal">true</span>,
-      <span class="hljs-attr">"isCommentOnly"</span>: <span class="hljs-literal">true</span>
+      <span class="hljs-attr">"isCommentOnly"</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">"isWorker"</span>: <span class="hljs-literal">true</span>
     }
   ],
   <span class="hljs-attr">"permission"</span>: <span class="hljs-string">"public"</span>,
@@ -3277,7 +3287,22 @@ System.out.println(response.toString());
   <span class="hljs-attr">"description"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"subtasksDefaultBoardId"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"subtasksDefaultListId"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"dateSettingsDefaultBoardId"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"dateSettingsDefaultListId"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"allowsSubtasks"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsAttachments"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsChecklists"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsComments"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsActivities"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsLabels"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsAssignee"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsMembers"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsRequestedBy"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsAssignedBy"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsReceivedDate"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsStartDate"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsEndDate"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsDueDate"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"presentParentTask"</span>: <span class="hljs-string">"prefix-with-full-path"</span>,
   <span class="hljs-attr">"startAt"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"dueAt"</span>: <span class="hljs-string">"string"</span>,
@@ -3884,7 +3909,8 @@ $.ajax({
 <span class="hljs-keyword">const</span> inputBody = <span class="hljs-string">'{
   "isAdmin": true,
   "isNoComments": true,
-  "isCommentOnly": true
+  "isCommentOnly": true,
+  "isWorker": true
 }'</span>;
 <span class="hljs-keyword">const</span> headers = {
   <span class="hljs-string">'Content-Type'</span>:<span class="hljs-string">'multipart/form-data'</span>,
@@ -3981,6 +4007,7 @@ System.out.println(response.toString());
 <pre class="highlight tab tab-yaml"><code><span class="hljs-attr">isAdmin:</span> <span class="hljs-literal">true</span>
 <span class="hljs-attr">isNoComments:</span> <span class="hljs-literal">true</span>
 <span class="hljs-attr">isCommentOnly:</span> <span class="hljs-literal">true</span>
+<span class="hljs-attr">isWorker:</span> <span class="hljs-literal">true</span>
 
 </code></pre>
 <h3 id="set_board_member_permission-parameters">Parameters</h3>
@@ -4036,6 +4063,13 @@ System.out.println(response.toString());
 <td>boolean</td>
 <td>true</td>
 <td>CommentsOnly capability</td>
+</tr>
+<tr>
+<td>» isWorker</td>
+<td>body</td>
+<td>boolean</td>
+<td>true</td>
+<td>Worker capability</td>
 </tr>
 </tbody>
 </table>
@@ -10041,7 +10075,7 @@ System.out.println(response.toString());
 <td>body</td>
 <td>string</td>
 <td>false</td>
-<td>the assignee IDs list of the new card</td>
+<td>the array of maximum one ID of assignee of the new card</td>
 </tr>
 <tr>
 <td>» title</td>
@@ -13608,7 +13642,8 @@ UserSecurity
       <span class="hljs-attr">"isAdmin"</span>: <span class="hljs-literal">true</span>,
       <span class="hljs-attr">"isActive"</span>: <span class="hljs-literal">true</span>,
       <span class="hljs-attr">"isNoComments"</span>: <span class="hljs-literal">true</span>,
-      <span class="hljs-attr">"isCommentOnly"</span>: <span class="hljs-literal">true</span>
+      <span class="hljs-attr">"isCommentOnly"</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">"isWorker"</span>: <span class="hljs-literal">true</span>
     }
   ],
   <span class="hljs-attr">"permission"</span>: <span class="hljs-string">"public"</span>,
@@ -13616,7 +13651,22 @@ UserSecurity
   <span class="hljs-attr">"description"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"subtasksDefaultBoardId"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"subtasksDefaultListId"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"dateSettingsDefaultBoardId"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"dateSettingsDefaultListId"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"allowsSubtasks"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsAttachments"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsChecklists"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsComments"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsActivities"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsLabels"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsAssignee"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsMembers"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsRequestedBy"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsAssignedBy"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsReceivedDate"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsStartDate"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsEndDate"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsDueDate"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"presentParentTask"</span>: <span class="hljs-string">"prefix-with-full-path"</span>,
   <span class="hljs-attr">"startAt"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"dueAt"</span>: <span class="hljs-string">"string"</span>,
@@ -13732,11 +13782,116 @@ UserSecurity
 <td>The default List ID assigned to subtasks.</td>
 </tr>
 <tr>
+<td>dateSettingsDefaultBoardId</td>
+<td>string|null</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>dateSettingsDefaultListId</td>
+<td>string|null</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
 <td>allowsSubtasks</td>
 <td>boolean</td>
 <td>true</td>
 <td>none</td>
 <td>Does the board allows subtasks?</td>
+</tr>
+<tr>
+<td>allowsAttachments</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allows attachments?</td>
+</tr>
+<tr>
+<td>allowsChecklists</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allows checklists?</td>
+</tr>
+<tr>
+<td>allowsComments</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allows comments?</td>
+</tr>
+<tr>
+<td>allowsActivities</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allows comments?</td>
+</tr>
+<tr>
+<td>allowsLabels</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allows labels?</td>
+</tr>
+<tr>
+<td>allowsAssignee</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allows assignee?</td>
+</tr>
+<tr>
+<td>allowsMembers</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allows members?</td>
+</tr>
+<tr>
+<td>allowsRequestedBy</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allows requested by?</td>
+</tr>
+<tr>
+<td>allowsAssignedBy</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allows requested by?</td>
+</tr>
+<tr>
+<td>allowsReceivedDate</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allows received date?</td>
+</tr>
+<tr>
+<td>allowsStartDate</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allows start date?</td>
+</tr>
+<tr>
+<td>allowsEndDate</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allows end date?</td>
+</tr>
+<tr>
+<td>allowsDueDate</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allows due date?</td>
 </tr>
 <tr>
 <td>presentParentTask</td>
@@ -14034,7 +14189,8 @@ UserSecurity
   <span class="hljs-attr">"isAdmin"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"isActive"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"isNoComments"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"isCommentOnly"</span>: <span class="hljs-literal">true</span>
+  <span class="hljs-attr">"isCommentOnly"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"isWorker"</span>: <span class="hljs-literal">true</span>
 }
 
 </code></pre>
@@ -14084,6 +14240,13 @@ UserSecurity
 <td>false</td>
 <td>none</td>
 <td>Is the member only allowed to comment on the board</td>
+</tr>
+<tr>
+<td>isWorker</td>
+<td>boolean</td>
+<td>false</td>
+<td>none</td>
+<td>Is the member only allowed to move card, assign himself to card and comment</td>
 </tr>
 </tbody>
 </table>
@@ -14335,7 +14498,7 @@ UserSecurity
 <td>[string]|null</td>
 <td>false</td>
 <td>none</td>
-<td>who assignees of the card (user IDs)</td>
+<td>who is assignee of the card (user ID), maximum one ID of assignee in array.</td>
 </tr>
 <tr>
 <td>receivedAt</td>

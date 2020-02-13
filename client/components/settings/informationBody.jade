@@ -4,12 +4,16 @@ template(name='information')
       | {{_ 'error-notAuthorized'}}
     else
       .content-title
-        span {{_ 'info'}}
+        span
+          i.fa.fa-info-circle
+          | {{_ 'info'}}
       .content-body
         .side-menu
           ul
             li.active
-              a.js-setting-menu(data-id="information-display") {{_ 'info'}}
+              a.js-setting-menu(data-id="information-display")
+                i.fa.fa-info-circle
+                | {{_ 'info'}}
         .main-body
           +statistics
 

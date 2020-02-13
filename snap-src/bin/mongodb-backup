@@ -9,6 +9,7 @@ if [ -z "$LANG" ]; then
 fi
 
 export LC_ALL=C
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/snap/wekan/current/lib/x86_64-linux-gnu
 
 if [ -z $1 ]; then
     DATE=`/bin/date +%Y%m%dT%H%M%S`

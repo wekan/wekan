@@ -1,3 +1,5 @@
+import { Cookies } from 'meteor/ostrio:cookies';
+const cookies = new Cookies();
 let listsColors;
 Meteor.startup(() => {
   listsColors = Lists.simpleSchema()._schema.color.allowedValues;
@@ -7,9 +9,10 @@ BlazeComponent.extendComponent({
   canSeeAddCard() {
     const list = Template.currentData();
     return (
-      !list.getWipLimit('enabled') ||
-      list.getWipLimit('soft') ||
-      !this.reachedWipLimit()
+      (!list.getWipLimit('enabled') ||
+        list.getWipLimit('soft') ||
+        !this.reachedWipLimit()) &&
+      !Meteor.user().isWorker()
     );
   },
 
@@ -44,14 +47,18 @@ BlazeComponent.extendComponent({
   },
 
   limitToShowCardsCount() {
-    return Meteor.user().getLimitToShowCardsCount();
+    const currentUser = Meteor.user();
+    if (currentUser) {
+      return Meteor.user().getLimitToShowCardsCount();
+    } else {
+      return false;
+    }
   },
 
   cardsCount() {
     const list = Template.currentData();
     let swimlaneId = '';
-    const boardView = (Meteor.user().profile || {}).boardView;
-    if (boardView === 'board-view-swimlanes')
+    if (Utils.boardView() === 'board-view-swimlanes')
       swimlaneId = this.parentComponent()
         .parentComponent()
         .data()._id;
@@ -100,7 +107,14 @@ BlazeComponent.extendComponent({
 
 Template.listHeader.helpers({
   showDesktopDragHandles() {
-    return Meteor.user().hasShowDesktopDragHandles();
+    currentUser = Meteor.user();
+    if (currentUser) {
+      return (currentUser.profile || {}).showDesktopDragHandles;
+    } else if (cookies.has('showDesktopDragHandles')) {
+      return true;
+    } else {
+      return false;
+    }
   },
 });
 

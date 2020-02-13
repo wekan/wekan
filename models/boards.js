@@ -185,6 +185,7 @@ Boards.attachSchema(
               isActive: true,
               isNoComments: false,
               isCommentOnly: false,
+              isWorker: false,
             },
           ];
         }
@@ -218,6 +219,13 @@ Boards.attachSchema(
     'members.$.isCommentOnly': {
       /**
        * Is the member only allowed to comment on the board
+       */
+      type: Boolean,
+      optional: true,
+    },
+    'members.$.isWorker': {
+      /**
+       * Is the member only allowed to move card, assign himself to card and comment
        */
       type: Boolean,
       optional: true,
@@ -270,6 +278,7 @@ Boards.attachSchema(
       optional: true,
       defaultValue: null,
     },
+
     subtasksDefaultListId: {
       /**
        * The default List ID assigned to subtasks.
@@ -278,6 +287,19 @@ Boards.attachSchema(
       optional: true,
       defaultValue: null,
     },
+
+    dateSettingsDefaultBoardId: {
+      type: String,
+      optional: true,
+      defaultValue: null,
+    },
+
+    dateSettingsDefaultListId: {
+      type: String,
+      optional: true,
+      defaultValue: null,
+    },
+
     allowsSubtasks: {
       /**
        * Does the board allows subtasks?
@@ -285,6 +307,127 @@ Boards.attachSchema(
       type: Boolean,
       defaultValue: true,
     },
+
+    allowsAttachments: {
+      /**
+       * Does the board allows attachments?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
+    allowsChecklists: {
+      /**
+       * Does the board allows checklists?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
+    allowsComments: {
+      /**
+       * Does the board allows comments?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
+    allowsDescriptionTitle: {
+      /**
+       * Does the board allows description title?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
+    allowsDescriptionText: {
+      /**
+       * Does the board allows description text?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
+    allowsActivities: {
+      /**
+       * Does the board allows comments?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
+    allowsLabels: {
+      /**
+       * Does the board allows labels?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
+    allowsAssignee: {
+      /**
+       * Does the board allows assignee?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
+    allowsMembers: {
+      /**
+       * Does the board allows members?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
+    allowsRequestedBy: {
+      /**
+       * Does the board allows requested by?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
+    allowsAssignedBy: {
+      /**
+       * Does the board allows requested by?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
+    allowsReceivedDate: {
+      /**
+       * Does the board allows received date?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
+    allowsStartDate: {
+      /**
+       * Does the board allows start date?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
+    allowsEndDate: {
+      /**
+       * Does the board allows end date?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
+    allowsDueDate: {
+      /**
+       * Does the board allows due date?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
     presentParentTask: {
       /**
        * Controls how to present the parent task:
@@ -409,8 +552,12 @@ Boards.helpers({
   },
 
   lists() {
-    const enabled = Meteor.user().hasSortBy();
-    return enabled ? this.newestLists() : this.draggableLists();
+    //currentUser = Meteor.user();
+    //if (currentUser) {
+    //  enabled = Meteor.user().hasSortBy();
+    //}
+    //return enabled ? this.newestLists() : this.draggableLists();
+    return this.draggableLists();
   },
 
   newestLists() {
@@ -534,6 +681,7 @@ Boards.helpers({
       isActive: true,
       isAdmin: false,
       isNoComments: true,
+      isWorker: false,
     });
   },
 
@@ -543,6 +691,17 @@ Boards.helpers({
       isActive: true,
       isAdmin: false,
       isCommentOnly: true,
+      isWorker: false,
+    });
+  },
+
+  hasWorker(memberId) {
+    return !!_.findWhere(this.members, {
+      userId: memberId,
+      isActive: true,
+      isAdmin: false,
+      isCommentOnly: false,
+      isWorker: true,
     });
   },
 
@@ -686,6 +845,39 @@ Boards.helpers({
     return Boards.findOne(this.getDefaultSubtasksBoardId());
   },
 
+  //Date Settings option such as received date, start date and so on.
+  getDefaultDateSettingsBoardId() {
+    if (
+      this.dateSettingsDefaultBoardId === null ||
+      this.dateSettingsDefaultBoardId === undefined
+    ) {
+      this.dateSettingsDefaultBoardId = Boards.insert({
+        title: `^${this.title}^`,
+        permission: this.permission,
+        members: this.members,
+        color: this.color,
+        description: TAPi18n.__('default-dates-board', {
+          board: this.title,
+        }),
+      });
+
+      Swimlanes.insert({
+        title: TAPi18n.__('default'),
+        boardId: this.dateSettingsDefaultBoardId,
+      });
+      Boards.update(this._id, {
+        $set: {
+          dateSettingsDefaultBoardId: this.dateSettingsDefaultBoardId,
+        },
+      });
+    }
+    return this.dateSettingsDefaultBoardId;
+  },
+
+  getDefaultDateSettingsBoard() {
+    return Boards.findOne(this.getDefaultDateSettingsBoardId());
+  },
+
   getDefaultSubtasksListId() {
     if (
       this.subtasksDefaultListId === null ||
@@ -702,6 +894,24 @@ Boards.helpers({
 
   getDefaultSubtasksList() {
     return Lists.findOne(this.getDefaultSubtasksListId());
+  },
+
+  getDefaultDateSettingsListId() {
+    if (
+      this.dateSettingsDefaultListId === null ||
+      this.dateSettingsDefaultListId === undefined
+    ) {
+      this.dateSettingsDefaultListId = Lists.insert({
+        title: TAPi18n.__('queue'),
+        boardId: this._id,
+      });
+      this.setDateSettingsDefaultListId(this.dateSettingsDefaultListId);
+    }
+    return this.dateSettingsDefaultListId;
+  },
+
+  getDefaultDateSettingsList() {
+    return Lists.findOne(this.getDefaultDateSettingsListId());
   },
 
   getDefaultSwimline() {
@@ -845,6 +1055,7 @@ Boards.mutations({
           isActive: true,
           isNoComments: false,
           isCommentOnly: false,
+          isWorker: false,
         },
       },
     };
@@ -877,6 +1088,7 @@ Boards.mutations({
     isAdmin,
     isNoComments,
     isCommentOnly,
+    isWorker,
     currentUserId = Meteor.userId(),
   ) {
     const memberIndex = this.memberIndex(memberId);
@@ -890,12 +1102,73 @@ Boards.mutations({
         [`members.${memberIndex}.isAdmin`]: isAdmin,
         [`members.${memberIndex}.isNoComments`]: isNoComments,
         [`members.${memberIndex}.isCommentOnly`]: isCommentOnly,
+        [`members.${memberIndex}.isWorker`]: isWorker,
       },
     };
   },
 
   setAllowsSubtasks(allowsSubtasks) {
     return { $set: { allowsSubtasks } };
+  },
+
+  setAllowsMembers(allowsMembers) {
+    return { $set: { allowsMembers } };
+  },
+
+  setAllowsChecklists(allowsChecklists) {
+    return { $set: { allowsChecklists } };
+  },
+
+  setAllowsAssignee(allowsAssignee) {
+    return { $set: { allowsAssignee } };
+  },
+
+  setAllowsAssignedBy(allowsAssignedBy) {
+    return { $set: { allowsAssignedBy } };
+  },
+
+  setAllowsRequestedBy(allowsRequestedBy) {
+    return { $set: { allowsRequestedBy } };
+  },
+
+  setAllowsAttachments(allowsAttachments) {
+    return { $set: { allowsAttachments } };
+  },
+
+  setAllowsLabels(allowsLabels) {
+    return { $set: { allowsLabels } };
+  },
+
+  setAllowsComments(allowsComments) {
+    return { $set: { allowsComments } };
+  },
+
+  setAllowsDescriptionTitle(allowsDescriptionTitle) {
+    return { $set: { allowsDescriptionTitle } };
+  },
+
+  setAllowsDescriptionText(allowsDescriptionText) {
+    return { $set: { allowsDescriptionText } };
+  },
+
+  setAllowsActivities(allowsActivities) {
+    return { $set: { allowsActivities } };
+  },
+
+  setAllowsReceivedDate(allowsReceivedDate) {
+    return { $set: { allowsReceivedDate } };
+  },
+
+  setAllowsStartDate(allowsStartDate) {
+    return { $set: { allowsStartDate } };
+  },
+
+  setAllowsEndDate(allowsEndDate) {
+    return { $set: { allowsEndDate } };
+  },
+
+  setAllowsDueDate(allowsDueDate) {
+    return { $set: { allowsDueDate } };
   },
 
   setSubtasksDefaultBoardId(subtasksDefaultBoardId) {
@@ -1277,6 +1550,7 @@ if (Meteor.isServer) {
    * @param {boolean} [isActive] is the board active (default true)
    * @param {boolean} [isNoComments] disable comments (default false)
    * @param {boolean} [isCommentOnly] only enable comments (default false)
+   * @param {boolean} [isWorker] only move cards, assign himself to card and comment (default false)
    * @param {string} [permission] "private" board <== Set to "public" if you
    *                 want public Wekan board
    * @param {string} [color] the color of the board
@@ -1296,6 +1570,7 @@ if (Meteor.isServer) {
             isActive: req.body.isActive || true,
             isNoComments: req.body.isNoComments || false,
             isCommentOnly: req.body.isCommentOnly || false,
+            isWorker: req.body.isWorker || false,
           },
         ],
         permission: req.body.permission || 'private',
@@ -1399,6 +1674,7 @@ if (Meteor.isServer) {
    * @param {boolean} isAdmin admin capability
    * @param {boolean} isNoComments NoComments capability
    * @param {boolean} isCommentOnly CommentsOnly capability
+   * @param {boolean} isWorker Worker capability
    */
   JsonRoutes.add('POST', '/api/boards/:boardId/members/:memberId', function(
     req,
@@ -1407,7 +1683,7 @@ if (Meteor.isServer) {
     try {
       const boardId = req.params.boardId;
       const memberId = req.params.memberId;
-      const { isAdmin, isNoComments, isCommentOnly } = req.body;
+      const { isAdmin, isNoComments, isCommentOnly, isWorker } = req.body;
       Authentication.checkBoardAccess(req.userId, boardId);
       const board = Boards.findOne({ _id: boardId });
       function isTrue(data) {
@@ -1422,6 +1698,7 @@ if (Meteor.isServer) {
         isTrue(isAdmin),
         isTrue(isNoComments),
         isTrue(isCommentOnly),
+        isTrue(isWorker),
         req.userId,
       );
 

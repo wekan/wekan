@@ -5,7 +5,7 @@ echo "      with 'sudo dpkg-reconfigure locales' , so that MongoDB works correct
 echo "      You can still use any other locale as your main locale."
 
 #Below script installs newest node 8.x for Debian/Ubuntu/Mint.
-#NODE_VERSION=8.16.0
+#NODE_VERSION=12.15.0
 #X64NODE="https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz"
 
 function pause(){
@@ -79,7 +79,7 @@ do
 			curl -0 -L https://npmjs.org/install.sh | sudo sh
 			sudo chown -R $(id -u):$(id -g) $HOME/.npm
 			sudo npm -g install n
-			sudo n 8.16.1
+			sudo n 12.15.0
 			#curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 			#sudo apt-get install -y nodejs
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
@@ -111,7 +111,7 @@ do
 	        npm_call -g install node-gyp
 	        # Latest fibers for Meteor 1.8.x
 		sudo mkdir -p /usr/local/lib/node_modules/fibers/.node-gyp
-	        npm_call -g install fibers@4.0.1
+	        npm_call -g install fibers
 	        # Install Meteor, if it's not yet installed
 	        curl https://install.meteor.com | bash
 		sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor

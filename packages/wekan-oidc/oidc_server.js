@@ -10,6 +10,7 @@ OAuth.registerService('oidc', 2, null, function (query) {
   var expiresAt = (+new Date) + (1000 * parseInt(token.expires_in, 10));
 
   var userinfo = getUserInfo(accessToken);
+  if (userinfo.ocs) userinfo = userinfo.ocs.data; // Nextcloud hack
   if (debug) console.log('XXX: userinfo:', userinfo);
 
   var serviceData = {};
@@ -131,9 +132,9 @@ var getTokenContent = function (token) {
   if (token) {
     try {
       var parts = token.split('.');
-      var header = JSON.parse(new Buffer(parts[0], 'base64').toString());
-      content = JSON.parse(new Buffer(parts[1], 'base64').toString());
-      var signature = new Buffer(parts[2], 'base64');
+      var header = JSON.parse(Buffer.from(parts[0], 'base64').toString());
+      content = JSON.parse(Buffer.from(parts[1], 'base64').toString());
+      var signature = Buffer.from(parts[2], 'base64');
       var signed = parts[0] + '.' + parts[1];
     } catch (err) {
       this.content = {

@@ -174,8 +174,12 @@ Swimlanes.helpers({
   },
 
   lists() {
-    const enabled = Meteor.user().hasSortBy();
-    return enabled ? this.newestLists() : this.draggableLists();
+    //currentUser = Meteor.user();
+    //if (currentUser) {
+    //  enabled = Meteor.user().hasSortBy();
+    //}
+    //return enabled ? this.newestLists() : this.draggableLists();
+    return this.draggableLists();
   },
   newestLists() {
     // sorted lists from newest to the oldest, by its creation date or its cards' last modification date

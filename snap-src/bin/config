@@ -60,8 +60,8 @@ DESCRIPTION_WITH_API="Enable/disable the api of wekan"
 DEFAULT_WITH_API="true"
 KEY_WITH_API="with-api"
 
-DESCRIPTION_RICHER_CARD_COMMENT_EDITOR="Rich text editor in card comments. Default: true"
-DEFAULT_RICHER_CARD_COMMENT_EDITOR="true"
+DESCRIPTION_RICHER_CARD_COMMENT_EDITOR="Rich text editor in card comments. Default: false"
+DEFAULT_RICHER_CARD_COMMENT_EDITOR="false"
 KEY_RICHER_CARD_COMMENT_EDITOR="richer-card-comment-editor"
 
 DESCRIPTION_CARD_OPENED_WEBHOOK_ENABLED="Card opened, send webhook message. Default: false https://github.com/wekan/wekan/issues/2518"
@@ -278,7 +278,7 @@ DESCRIPTION_LDAP_BACKGROUND_SYNC="If the sync of the users should be done in the
 DEFAULT_LDAP_BACKGROUND_SYNC="false"
 KEY_LDAP_BACKGROUND_SYNC="ldap-background-sync"
 
-DESCRIPTION_LDAP_BACKGROUND_SYNC_INTERVAL="At which interval does the background task sync in milliseconds"
+DESCRIPTION_LDAP_BACKGROUND_SYNC_INTERVAL="At which interval does the background task sync"
 DEFAULT_LDAP_BACKGROUND_SYNC_INTERVAL=""
 KEY_LDAP_BACKGROUND_SYNC_INTERVAL="ldap-background-sync-interval"
 

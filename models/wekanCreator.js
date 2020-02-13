@@ -443,7 +443,7 @@ export class WekanCreator {
             } else if (att.file) {
               // FIXME: Change to new file library
               file.attachData(
-                new Buffer(att.file, 'base64'),
+                Buffer.from(att.file, 'base64'),
                 {
                   type: att.type,
                 },

@@ -1,5 +1,7 @@
 template(name="checklists")
-  h3 {{_ 'checklists'}}
+  h3
+    i.fa.fa-check
+    | {{_ 'checklists'}}
   if toggleDeleteDialog.get
     .board-overlay#card-details-overlay
     +checklistDeleteDialog(checklist = checklistToDelete)

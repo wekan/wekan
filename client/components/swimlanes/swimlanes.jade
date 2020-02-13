@@ -1,24 +1,25 @@
 template(name="swimlane")
   .swimlane
     +swimlaneHeader
-  .swimlane.js-lists.js-swimlane
-    if isMiniScreen
-      if currentListIsInThisSwimlane _id
-        +list(currentList)
-      unless currentList
+  unless collapseSwimlane
+    .swimlane.js-lists.js-swimlane
+      if isMiniScreen
+        if currentListIsInThisSwimlane _id
+          +list(currentList)
+        unless currentList
+          each lists
+            +miniList(this)
+          if currentUser.isBoardMember
+            unless currentUser.isCommentOnly
+              +addListForm
+      else
         each lists
-          +miniList(this)
+          +list(this)
+          if currentCardIsInThisList _id ../_id
+            +cardDetails(currentCard)
         if currentUser.isBoardMember
           unless currentUser.isCommentOnly
             +addListForm
-    else
-      each lists
-        +list(this)
-        if currentCardIsInThisList _id ../_id
-          +cardDetails(currentCard)
-      if currentUser.isBoardMember
-        unless currentUser.isCommentOnly
-          +addListForm
 
 template(name="listsGroup")
   .swimlane.list-group.js-lists
@@ -42,19 +43,20 @@ template(name="listsGroup")
           +addListForm
 
 template(name="addListForm")
-  .list.list-composer.js-list-composer(class="{{#if isMiniScreen}}mini-list{{/if}}")
-    .list-header-add
-      +inlinedForm(autoclose=false)
-        input.list-name-input.full-line(type="text" placeholder="{{_ 'add-list'}}"
-          autocomplete="off" autofocus)
-        .edit-controls.clearfix
-          button.primary.confirm(type="submit") {{_ 'save'}}
-          unless currentBoard.isTemplatesBoard
-            unless currentBoard.isTemplateBoard
-              span.quiet
-                | {{_ 'or'}}
-                a.js-list-template {{_ 'template'}}
-      else
-        a.open-list-composer.js-open-inlined-form
-          i.fa.fa-plus
-          | {{_ 'add-list'}}
+  unless currentUser.isWorker
+    .list.list-composer.js-list-composer(class="{{#if isMiniScreen}}mini-list{{/if}}")
+      .list-header-add
+        +inlinedForm(autoclose=false)
+          input.list-name-input.full-line(type="text" placeholder="{{_ 'add-list'}}"
+            autocomplete="off" autofocus)
+          .edit-controls.clearfix
+            button.primary.confirm(type="submit") {{_ 'save'}}
+            unless currentBoard.isTemplatesBoard
+              unless currentBoard.isTemplateBoard
+                span.quiet
+                  | {{_ 'or'}}
+                  a.js-list-template {{_ 'template'}}
+        else
+          a.open-list-composer.js-open-inlined-form
+            i.fa.fa-plus
+            | {{_ 'add-list'}}

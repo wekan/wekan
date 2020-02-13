@@ -81,11 +81,11 @@ parts:
     wekan:
         source: .
         plugin: nodejs
-        node-engine: 8.16.1
+        node-engine: 12.15.0
         node-packages:
             - node-gyp
             - node-pre-gyp
-            - fibers@2.0.0
+            - fibers
         build-packages:
             - ca-certificates
             - apt-utils
@@ -104,6 +104,18 @@ parts:
             rm -rf ~/.meteor ~/.npm /usr/local/lib/node_modules
             # Create the OpenAPI specification
             rm -rf .build
+            ## Use Meteor 1.8.x on Snap
+            #rm -rf .meteor
+            #mv .snap-meteor-1.8/.meteor .
+            #mv .snap-meteor-1.8/package.json .
+            #mv .snap-meteor-1.8/package-lock.json .
+            ## Meteor 1.9.x has changes to Buffer() => Buffer.alloc(), so reverting those
+            #mv .snap-meteor-1.8/cfs_access-point.txt fix-download-unicode/
+            #mv .snap-meteor-1.8/export.js models/
+            #mv .snap-meteor-1.8/wekanCreator.js models/
+            #mv .snap-meteor-1.8/ldap.js packages/wekan-ldap/server/ldap.js
+            #mv .snap-meteor-1.8/oidc_server.js packages/wekan-oidc/oidc_server.js
+            rm -rf .snap-meteor-1.8
             #mkdir -p .build/python
             #cd .build/python
             #git clone --depth 1 -b master https://github.com/Kronuz/esprima-python

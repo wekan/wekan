@@ -48,7 +48,6 @@ BlazeComponent.extendComponent({
     const board = this.data().board();
     let linkedId = '';
     let swimlaneId = '';
-    const boardView = (Meteor.user().profile || {}).boardView;
     let cardType = 'cardType-card';
     if (title) {
       if (board.isTemplatesBoard()) {
@@ -71,14 +70,14 @@ BlazeComponent.extendComponent({
           });
           cardType = 'cardType-linkedBoard';
         }
-      } else if (boardView === 'board-view-swimlanes')
+      } else if (Utils.boardView() === 'board-view-swimlanes')
         swimlaneId = this.parentComponent()
           .parentComponent()
           .data()._id;
       else if (
-        boardView === 'board-view-lists' ||
-        boardView === 'board-view-cal' ||
-        !boardView
+        Utils.boardView() === 'board-view-lists' ||
+        Utils.boardView() === 'board-view-cal' ||
+        !Utils.boardView
       )
         swimlaneId = board.getDefaultSwimline()._id;
 
@@ -157,9 +156,8 @@ BlazeComponent.extendComponent({
   },
 
   idOrNull(swimlaneId) {
-    const currentUser = Meteor.user();
     if (
-      (currentUser.profile || {}).boardView === 'board-view-swimlanes' ||
+      Utils.boardView() === 'board-view-swimlanes' ||
       this.data()
         .board()
         .isTemplatesBoard()
@@ -191,7 +189,8 @@ BlazeComponent.extendComponent({
       !this.reachedWipLimit() &&
       Meteor.user() &&
       Meteor.user().isBoardMember() &&
-      !Meteor.user().isCommentOnly()
+      !Meteor.user().isCommentOnly() &&
+      !Meteor.user().isWorker()
     );
   },
 
@@ -397,10 +396,9 @@ BlazeComponent.extendComponent({
       '.js-swimlane',
     );
     this.swimlaneId = '';
-    const boardView = (Meteor.user().profile || {}).boardView;
-    if (boardView === 'board-view-swimlanes')
+    if (Utils.boardView() === 'board-view-swimlanes')
       this.swimlaneId = Blaze.getData(swimlane[0])._id;
-    else if (boardView === 'board-view-lists' || !boardView)
+    else if (Utils.boardView() === 'board-view-lists' || !Utils.boardView)
       this.swimlaneId = Swimlanes.findOne({ boardId: this.boardId })._id;
   },
 
@@ -580,7 +578,7 @@ BlazeComponent.extendComponent({
       const swimlane = $(Popup._getTopStack().openerElement).parents(
         '.js-swimlane',
       );
-      if ((Meteor.user().profile || {}).boardView === 'board-view-swimlanes')
+      if (Utils.boardView() === 'board-view-swimlanes')
         this.swimlaneId = Blaze.getData(swimlane[0])._id;
       else this.swimlaneId = Swimlanes.findOne({ boardId: this.boardId })._id;
       // List where to insert card
@@ -709,22 +707,18 @@ BlazeComponent.extendComponent({
     if (isSandstorm) {
       const user = Meteor.user();
       if (user) {
-        const boardView = (Meteor.user().profile || {}).boardView;
-        if (boardView === 'board-view-swimlanes') {
+        if (Utils.boardView() === 'board-view-swimlanes') {
           this.swimlaneId = this.parentComponent()
             .parentComponent()
             .parentComponent()
             .data()._id;
         }
       }
-    } else {
-      const boardView = (Meteor.user().profile || {}).boardView;
-      if (boardView === 'board-view-swimlanes') {
-        this.swimlaneId = this.parentComponent()
-          .parentComponent()
-          .parentComponent()
-          .data()._id;
-      }
+    } else if (Utils.boardView() === 'board-view-swimlanes') {
+      this.swimlaneId = this.parentComponent()
+        .parentComponent()
+        .parentComponent()
+        .data()._id;
     }
   },
 

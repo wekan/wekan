@@ -1,6 +1,6 @@
 name: wekan
-version: '0'
-version-script: git describe --dirty --tags | cut -c 2-
+version: 0
+version-script: git describe --tags |  cut -c 2-
 summary: The open-source kanban
 description: |
    Wekan is an open-source and collaborative kanban board application.
@@ -65,75 +65,59 @@ apps:
 
 parts:
     mongodb:
-        source: https://repo.mongodb.org/apt/ubuntu/dists/xenial/mongodb-org/4.0/multiverse/binary-amd64/mongodb-org-server_4.0.11_amd64.deb
+        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-3.2.22.tgz
         plugin: dump
-        stage-packages: [libssl-dev]
+        stage-packages: [libssl1.0.0]
         filesets:
             mongo:
                 - usr
                 - bin
                 - lib
-#        stage:
-#            - $mongo
-#        prime:
-#            - $mongo
+        stage:
+            - $mongo
+        prime:
+            - $mongo
+
     wekan:
         source: .
         plugin: nodejs
-        node-engine: 8.16.0
-#        node-packages:
-#            - node-gyp
-#            - node-pre-gyp
-#            - fibers@4.0.1
+        node-engine: 8.17.0
+        node-packages:
+            - node-gyp
+            - node-pre-gyp
+            - fibers@2.0.0
         build-packages:
             - ca-certificates
             - apt-utils
-            - bsdtar
-            - gnupg
-            - bzip2
-        ##   - python3
+            - python
+#            - python3
             - g++
-            - build-essential
-            - git
-        #    - capnproto
+            - capnproto
             - curl
-            - libcurl3
-            - php-curl
-        #    - execstack
-        #    - nodejs
-        #    - npm
-        ##   - python3-pip
-        ##   - python3-venv
+            - execstack
+            - nodejs
+            - npm
         stage-packages:
             - libfontconfig1
         override-build: |
-            set -o xtrace
             echo "Cleaning environment first"
             rm -rf ~/.meteor ~/.npm /usr/local/lib/node_modules
-            # Meteor installer doesn't work with the default tar binary, so using bsdtar while installing.
-            # https://github.com/coreos/bugs/issues/1095#issuecomment-350574389
-            cp $(which tar) $(which tar)~
-            ln -sf $(which bsdtar) $(which tar)
             # Create the OpenAPI specification
             rm -rf .build
-            mkdir .build
-            ##mkdir -p .build/python
-            ##cd .build/python
-            ##python3 -m venv env
-            ##. ./env/bin/activate
-            ##pip3 install -U setuptools wheel
-            ##git clone --depth 1 -b master https://github.com/Kronuz/esprima-python
-            ##cd esprima-python
-            ##python3 setup.py install
-            ##cd ../../..
-            ##mkdir -p ./public/api
-            ##python3 ./openapi/generate_openapi.py --release $(git describe --tags --abbrev=0) > ./public/api/wekan.yml
+            #mkdir -p .build/python
+            #cd .build/python
+            #git clone --depth 1 -b master https://github.com/Kronuz/esprima-python
+            #cd esprima-python
+            #python3 setup.py install
+            #cd ../../..
+            #mkdir -p ./public/api
+            #python3 ./openapi/generate_openapi.py --release $(git describe --tags --abbrev=0) > ./public/api/wekan.yml
             # we temporary need api2html and mkdirp
-            ##npm install -g --unsafe-perm api2html@0.3.0
-            ##npm install -g  --unsafe-perm mkdirp
-            ##api2html -c ./public/logo-header.png -o ./public/api/wekan.html ./public/api/wekan.yml
-            ##npm uninstall -g --unsafe-perm mkdirp
-            ##npm uninstall -g --unsafe-perm api2html
+            #npm install -g api2html@0.3.0
+            #npm install -g mkdirp
+            #api2html -c ./public/logo-header.png -o ./public/api/wekan.html ./public/api/wekan.yml
+            #npm uninstall -g mkdirp
+            #npm uninstall -g api2html
             # Node Fibers 100% CPU usage issue:
             # https://github.com/wekan/wekan-mongodb/issues/2#issuecomment-381453161
             # https://github.com/meteor/meteor/issues/9796#issuecomment-381676326
@@ -206,17 +190,12 @@ parts:
             #  git clone --depth 1 -b master --recurse-submodules https://github.com/wekan/markdown.git
             #  cd ..
             #fi
-            rm -rf package-lock.json .build
-            #meteor add standard-minifier-js --allow-superuser
-            meteor npm install --allow-superuser --unsafe-perm
+            rm -rf .build
+            meteor add standard-minifier-js --allow-superuser
+            meteor npm install --allow-superuser
+            meteor npm install --allow-superuser --save babel-runtime
             meteor build .build --directory --allow-superuser
             cp -f fix-download-unicode/cfs_access-point.txt .build/bundle/programs/server/packages/cfs_access-point.js
-            # Disable code coverage on Snap, because it crashes Wekan starting.
-            # https://github.com/wekan/wekan/issues/2533#issuecomment-513506939
-            #sed -i 's|Profile(fileInfo.path, func).apply(global, args);|//Profile(fileInfo.path, func).apply(global, args);|g' .build/bundle/programs/server/boot.js
-            #   although it did not help, it said unable to find main function.
-            # Other option to fix would be to drop indexes at start of snap:
-            # https://stackoverflow.com/questions/24241742/drop-all-indexes-from-all-collections-in-a-mongodb-database-using-the-command-li
             #Removed binary version of bcrypt because of security vulnerability that is not fixed yet.
             #https://github.com/wekan/wekan/commit/4b2010213907c61b0e0482ab55abb06f6a668eac
             #https://github.com/wekan/wekan/commit/7eeabf14be3c63fae2226e561ef8a0c1390c8d3c
@@ -227,18 +206,21 @@ parts:
             #cd ../../../../
             # Change to directory .build/bundle/programs/server
             cd .build/bundle/programs/server
-            npm install --unsafe-perm
+            npm install
+            npm install --allow-superuser --save babel-runtime
             #meteor npm install --save bcrypt
             # Change back to Wekan source directory
             cd ../../../..
             cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
             cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
-            # rm $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan
-            #rm $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/meteor/rajit_bootstrap3-datepicker/lib/bootstrap-datepicker/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
-            # rm $SNAPCRAFT_PART_INSTALL/lib/node_modules/node-pre-gyp/node_modules/tar/lib/.mkdir.js.swp
-            # rm $SNAPCRAFT_PART_INSTALL/lib/node_modules/node-gyp/node_modules/tar/lib/.mkdir.js.swp
-            # Put back the original tar
-            mv $(which tar)~ $(which tar)
+            rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan
+            rm -f $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/meteor/rajit_bootstrap3-datepicker/lib/bootstrap-datepicker/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
+            rm -f $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/tar/lib/.mkdir.js.swp
+            rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/node-pre-gyp/node_modules/tar/lib/.mkdir.js.swp
+            rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/node-gyp/node_modules/tar/lib/.mkdir.js.swp
+            # Meteor 1.8.x additional .swp remove
+            rm -f $SNAPCRAFT_PART_INSTALL/programs/server/node_modules/node-pre-gyp/node_modules/tar/lib/.mkdir.js.swp
+
         organize:
             README: README.wekan
         prime:

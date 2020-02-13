@@ -117,13 +117,14 @@ template(name="multiselectionSidebar")
               i.fa.fa-check
             else if someSelectedElementHave 'member' _id
               i.fa.fa-ellipsis-h
-  hr
-  a.sidebar-btn.js-move-selection
-    i.fa.fa-share
-    span {{_ 'move-selection'}}
-  a.sidebar-btn.js-archive-selection
-    i.fa.fa-archive
-    span {{_ 'archive-selection'}}
+  unless currentUser.isWorker
+    hr
+    a.sidebar-btn.js-move-selection
+      i.fa.fa-share
+      span {{_ 'move-selection'}}
+    a.sidebar-btn.js-archive-selection
+      i.fa.fa-archive
+      span {{_ 'archive-selection'}}
 
 template(name="disambiguateMultiLabelPopup")
   p {{_ 'what-to-do'}}

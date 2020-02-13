@@ -1,3 +1,6 @@
+import { Cookies } from 'meteor/ostrio:cookies';
+const cookies = new Cookies();
+
 Template.headerUserBar.events({
   'click .js-open-header-member-menu': Popup.open('memberMenu'),
   'click .js-change-avatar': Popup.open('changeAvatar'),
@@ -5,10 +8,22 @@ Template.headerUserBar.events({
 
 Template.memberMenuPopup.helpers({
   templatesBoardId() {
-    return Meteor.user().getTemplatesBoardId();
+    currentUser = Meteor.user();
+    if (currentUser) {
+      return Meteor.user().getTemplatesBoardId();
+    } else {
+      // No need to getTemplatesBoardId on public board
+      return false;
+    }
   },
   templatesBoardSlug() {
-    return Meteor.user().getTemplatesBoardSlug();
+    currentUser = Meteor.user();
+    if (currentUser) {
+      return Meteor.user().getTemplatesBoardSlug();
+    } else {
+      // No need to getTemplatesBoardSlug() on public board
+      return false;
+    }
   },
 });
 
@@ -30,13 +45,31 @@ Template.memberMenuPopup.events({
 
 Template.editProfilePopup.helpers({
   allowEmailChange() {
-    return AccountSettings.findOne('accounts-allowEmailChange').booleanValue;
+    Meteor.call('AccountSettings.allowEmailChange', (_, result) => {
+      if (result) {
+        return true;
+      } else {
+        return false;
+      }
+    });
   },
   allowUserNameChange() {
-    return AccountSettings.findOne('accounts-allowUserNameChange').booleanValue;
+    Meteor.call('AccountSettings.allowUserNameChange', (_, result) => {
+      if (result) {
+        return true;
+      } else {
+        return false;
+      }
+    });
   },
   allowUserDelete() {
-    return AccountSettings.findOne('accounts-allowUserDelete').booleanValue;
+    Meteor.call('AccountSettings.allowUserDelete', (_, result) => {
+      if (result) {
+        return true;
+      } else {
+        return false;
+      }
+    });
   },
 });
 
@@ -162,22 +195,55 @@ Template.changeLanguagePopup.events({
 
 Template.changeSettingsPopup.helpers({
   showDesktopDragHandles() {
-    return Meteor.user().hasShowDesktopDragHandles();
+    currentUser = Meteor.user();
+    if (currentUser) {
+      return (currentUser.profile || {}).showDesktopDragHandles;
+    } else if (cookies.has('showDesktopDragHandles')) {
+      return true;
+    } else {
+      return false;
+    }
   },
   hiddenSystemMessages() {
-    return Meteor.user().hasHiddenSystemMessages();
+    currentUser = Meteor.user();
+    if (currentUser) {
+      return (currentUser.profile || {}).hasHiddenSystemMessages;
+    } else if (cookies.has('hasHiddenSystemMessages')) {
+      return true;
+    } else {
+      return false;
+    }
   },
   showCardsCountAt() {
-    return Meteor.user().getLimitToShowCardsCount();
+    currentUser = Meteor.user();
+    if (currentUser) {
+      return Meteor.user().getLimitToShowCardsCount();
+    } else {
+      return cookies.get('limitToShowCardsCount');
+    }
   },
 });
 
 Template.changeSettingsPopup.events({
   'click .js-toggle-desktop-drag-handles'() {
-    Meteor.call('toggleDesktopDragHandles');
+    currentUser = Meteor.user();
+    if (currentUser) {
+      Meteor.call('toggleDesktopDragHandles');
+    } else if (cookies.has('showDesktopDragHandles')) {
+      cookies.remove('showDesktopDragHandles');
+    } else {
+      cookies.set('showDesktopDragHandles', 'true');
+    }
   },
   'click .js-toggle-system-messages'() {
-    Meteor.call('toggleSystemMessages');
+    currentUser = Meteor.user();
+    if (currentUser) {
+      Meteor.call('toggleSystemMessages');
+    } else if (cookies.has('hasHiddenSystemMessages')) {
+      cookies.remove('hasHiddenSystemMessages');
+    } else {
+      cookies.set('hasHiddenSystemMessages', 'true');
+    }
   },
   'click .js-apply-show-cards-at'(event, templateInstance) {
     event.preventDefault();
@@ -186,7 +252,12 @@ Template.changeSettingsPopup.events({
       10,
     );
     if (!isNaN(minLimit)) {
-      Meteor.call('changeLimitToShowCardsCount', minLimit);
+      currentUser = Meteor.user();
+      if (currentUser) {
+        Meteor.call('changeLimitToShowCardsCount', minLimit);
+      } else {
+        cookies.set('limitToShowCardsCount', minLimit);
+      }
       Popup.back();
     }
   },

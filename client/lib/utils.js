@@ -1,4 +1,40 @@
+import { Cookies } from 'meteor/ostrio:cookies';
+const cookies = new Cookies();
+
 Utils = {
+  setBoardView(view) {
+    currentUser = Meteor.user();
+    if (currentUser) {
+      Meteor.user().setBoardView(view);
+    } else if (view === 'board-view-lists') {
+      cookies.set('boardView', 'board-view-lists'); //true
+    } else if (view === 'board-view-swimlanes') {
+      cookies.set('boardView', 'board-view-swimlanes'); //true
+    } else if (view === 'board-view-cal') {
+      cookies.set('boardView', 'board-view-cal'); //true
+    }
+  },
+
+  unsetBoardView() {
+    cookies.remove('boardView');
+    cookies.remove('collapseSwimlane');
+  },
+
+  boardView() {
+    currentUser = Meteor.user();
+    if (currentUser) {
+      return (currentUser.profile || {}).boardView;
+    } else if (cookies.get('boardView') === 'board-view-lists') {
+      return 'board-view-lists';
+    } else if (cookies.get('boardView') === 'board-view-swimlanes') {
+      return 'board-view-swimlanes';
+    } else if (cookies.get('boardView') === 'board-view-cal') {
+      return 'board-view-cal';
+    } else {
+      return false;
+    }
+  },
+
   // XXX We should remove these two methods
   goBoardId(_id) {
     const board = Boards.findOne(_id);
@@ -117,8 +153,38 @@ Utils = {
   // in a small window (even on desktop), Wekan run in compact mode.
   // we can easily debug with a small window of desktop browser. :-)
   isMiniScreen() {
+    // OLD WINDOW WIDTH DETECTION:
     this.windowResizeDep.depend();
     return $(window).width() <= 800;
+
+    // NEW TOUCH DEVICE DETECTION:
+    // https://developer.mozilla.org/en-US/docs/Web/HTTP/Browser_detection_using_the_user_agent
+
+    /*
+    var hasTouchScreen = false;
+    if ("maxTouchPoints" in navigator) {
+        hasTouchScreen = navigator.maxTouchPoints > 0;
+    } else if ("msMaxTouchPoints" in navigator) {
+        hasTouchScreen = navigator.msMaxTouchPoints > 0;
+    } else {
+        var mQ = window.matchMedia && matchMedia("(pointer:coarse)");
+        if (mQ && mQ.media === "(pointer:coarse)") {
+            hasTouchScreen = !!mQ.matches;
+        } else if ('orientation' in window) {
+            hasTouchScreen = true; // deprecated, but good fallback
+        } else {
+            // Only as a last resort, fall back to user agent sniffing
+            var UA = navigator.userAgent;
+            hasTouchScreen = (
+                /\b(BlackBerry|webOS|iPhone|IEMobile)\b/i.test(UA) ||
+                /\b(Android|Windows Phone|iPad|iPod)\b/i.test(UA)
+            );
+        }
+    }
+    */
+    //if (hasTouchScreen)
+    //    document.getElementById("exampleButton").style.padding="1em";
+    //return false;
   },
 
   calculateIndexData(prevData, nextData, nItems = 1) {
