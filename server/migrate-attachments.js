@@ -1,35 +1,5 @@
-import { FilesCollection } from 'meteor/ostrio:files';
-
-Attachments = new FilesCollection({
-  storagePath: storagePath(),
-  debug: false, // FIXME: Remove debug mode
-  collectionName: 'attachments2',
-  allowClientCode: true, // FIXME: Permissions
-  onAfterUpload: (fileRef) => {
-    Attachments.update({_id:fileRef._id}, {$set: {"meta.uploaded": true}});
-  }
-});
-
-if (Meteor.isServer) {
-  Meteor.startup(() => {
-    Attachments.collection._ensureIndex({ cardId: 1 });
-  });
-
-  // TODO: Permission related
-  // TODO: Add Activity update
-  // TODO: publish and subscribe
-
-  Meteor.publish('attachments2', function() {
-    return Attachments.find().cursor;
-  });
-} else {
-  Meteor.subscribe('attachments2');
-}
-
-// ---------- Deprecated fallback ---------- //
-
 const localFSStore = process.env.ATTACHMENTS_STORE_PATH;
-const storeName = 'attachments2';
+const storeName = 'attachments';
 const defaultStoreOptions = {
   beforeWrite: fileObj => {
     if (!fileObj.isImage()) {
@@ -201,10 +171,93 @@ if (localFSStore) {
     ...defaultStoreOptions,
   });
 }
+CFSAttachments = new FS.Collection('attachments', {
+  stores: [store],
+});
 
-function storagePath(defaultPath) {
-  const storePath = process.env.ATTACHMENTS_STORE_PATH;
-  return storePath ? storePath : defaultPath;
+if (Meteor.isServer) {
+  Meteor.startup(() => {
+    CFSAttachments.files._ensureIndex({ cardId: 1 });
+  });
+
+  CFSAttachments.allow({
+    insert(userId, doc) {
+      return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+    },
+    update(userId, doc) {
+      return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+    },
+    remove(userId, doc) {
+      return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+    },
+    // We authorize the attachment download either:
+    // - if the board is public, everyone (even unconnected) can download it
+    // - if the board is private, only board members can download it
+    download(userId, doc) {
+      const board = Boards.findOne(doc.boardId);
+      if (board.isPublic()) {
+        return true;
+      } else {
+        return board.hasMember(userId);
+      }
+    },
+
+    fetch: ['boardId'],
+  });
 }
 
-export default Attachments;
+// XXX Enforce a schema for the Attachments CollectionFS
+
+if (Meteor.isServer) {
+  CFSAttachments.files.after.insert((userId, doc) => {
+    // If the attachment doesn't have a source field
+    // or its source is different than import
+    if (!doc.source || doc.source !== 'import') {
+      // Add activity about adding the attachment
+      Activities.insert({
+        userId,
+        type: 'card',
+        activityType: 'addAttachment',
+        attachmentId: doc._id,
+        boardId: doc.boardId,
+        cardId: doc.cardId,
+        listId: doc.listId,
+        swimlaneId: doc.swimlaneId,
+      });
+    } else {
+      // Don't add activity about adding the attachment as the activity
+      // be imported and delete source field
+      CFSAttachments.update(
+        {
+          _id: doc._id,
+        },
+        {
+          $unset: {
+            source: '',
+          },
+        },
+      );
+    }
+  });
+
+  CFSAttachments.files.before.remove((userId, doc) => {
+    Activities.insert({
+      userId,
+      type: 'card',
+      activityType: 'deleteAttachment',
+      attachmentId: doc._id,
+      boardId: doc.boardId,
+      cardId: doc.cardId,
+      listId: doc.listId,
+      swimlaneId: doc.swimlaneId,
+    });
+  });
+
+  CFSAttachments.files.after.remove((userId, doc) => {
+    Activities.remove({
+      attachmentId: doc._id,
+    });
+  });
+}
+
+export default CFSAttachments;

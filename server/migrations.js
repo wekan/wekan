@@ -17,6 +17,7 @@ import Swimlanes from '../models/swimlanes';
 import Triggers from '../models/triggers';
 import UnsavedEdits from '../models/unsavedEdits';
 import Users from '../models/users';
+import CFSAttachments from './migrate-attachments';
 
 // Anytime you change the schema of one of the collection in a non-backward
 // compatible way you have to write a migration in this file using the following
@@ -776,4 +777,9 @@ Migrations.add('fix-incorrect-dates', () => {
         );
       }),
   );
+});
+
+Migrations.add('fix-incorrect-dates', () => {
+  cas = CFSAttachments.find();
+  console.log('cas', cas);
 });
