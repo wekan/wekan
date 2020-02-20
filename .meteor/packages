@@ -10,6 +10,7 @@ ecmascript@0.14.0
 standard-minifier-css@1.6.0
 standard-minifier-js@2.6.0
 mquandalle:jade
+coffeescript@2.4.1!
 
 # Polyfills
 es5-shim@4.8.0
