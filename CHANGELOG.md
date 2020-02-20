@@ -1,3 +1,23 @@
+# Upcoming Wekan release
+
+This release adds the following updates:
+
+- [Update to Meteor 1.9.1, Node 12.16.1 etc newest dependencies](https://github.com/wekan/wekan/commit/cbbb5deff7d84a91c40becc9caaf70f5b6738b63).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Update Sandstorm release build script](https://github.com/wekan/wekan/commit/a4ff6cc0af8545ca4d3e97fa2cabbe7981c025b2).
+  Thanks to xet7.
+- [Fix docker-compose link](https://github.com/wekan/wekan/pull/2937).
+  Thanks to pbek.
+- [Remove alethes:pages package, that had some indentation error.
+  Package is about pagination, but I did not find any pagination related code in Wekan
+  yet](https://github.com/wekan/wekan/commit/ec012060305bc16fbf8d2ac218f5c847e02c4301).
+  Thanks to xet7 !
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.79 2020-02-13 Wekan release
 
 This release fixes the following bugs:
@@ -34,7 +54,7 @@ and fixes the following bugs:
   work [Part 1](https://github.com/wekan/wekan/commit/9a21b0a1c933e7f778e4e57a8258e150ccea1620)
   and [Part2](https://github.com/wekan/wekan/commit/4467a68b97a3fbf0fbae7f05177d978f2aa80287).
   Thanks to 2020product and xet7.
-    
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v3.76 2020-02-07 Wekan release
