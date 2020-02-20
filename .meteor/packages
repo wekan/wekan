@@ -44,7 +44,6 @@ session@1.2.0
 tracker@1.2.0
 underscore@1.0.10
 3stack:presence
-alethes:pages
 arillo:flow-router-helpers
 audit-argument-checks@1.0.7
 kadira:blaze-layout
