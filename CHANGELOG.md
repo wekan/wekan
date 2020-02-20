@@ -4,6 +4,8 @@ This release adds the following updates:
 
 - [Update to Meteor 1.9.1, Node 12.16.1 etc newest dependencies](https://github.com/wekan/wekan/commit/cbbb5deff7d84a91c40becc9caaf70f5b6738b63).
   Thanks to xet7.
+- [Update to Meteor 1.9.2](https://github.com/wekan/wekan/commit/9be3f3714ae680ff9fc1855c960c9831e84c2b07).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
