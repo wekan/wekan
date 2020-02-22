@@ -1,6 +1,12 @@
-# Upcoming Wekan release
+# v3.80 2020-02-22 Wekan release
 
-This release adds the following updates:
+This release adds the following features:
+
+- [Create New User in Admin Panel](https://github.com/wekan/wekan/commit/e0ca960a35cf006880019ba28fc82aa30f289a71).
+  Works, but does not save fullname yet, so currently it's needed to edit add fullname later.
+  Thanks to xet7.
+
+and adds the following updates:
 
 - [Update to Meteor 1.9.1, Node 12.16.1 etc newest dependencies](https://github.com/wekan/wekan/commit/cbbb5deff7d84a91c40becc9caaf70f5b6738b63).
   Thanks to xet7.
