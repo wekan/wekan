@@ -620,6 +620,34 @@ Users.mutations({
 });
 
 Meteor.methods({
+  setCreateUser(fullname, username, password, isAdmin, isActive, email) {
+    if (Meteor.user().isAdmin) {
+      check(fullname, String);
+      check(username, String);
+      check(password, String);
+      check(isAdmin, String);
+      check(isActive, String);
+      check(email, String);
+
+      const nUsersWithUsername = Users.find({ username }).count();
+      const nUsersWithEmail = Users.find({ email }).count();
+      if (nUsersWithUsername > 0) {
+        throw new Meteor.Error('username-already-taken');
+      } else if (nUsersWithEmail > 0) {
+        throw new Meteor.Error('email-already-taken');
+      } else {
+        Accounts.createUser({
+          fullname,
+          username,
+          password,
+          isAdmin,
+          isActive,
+          email: email.toLowerCase(),
+          from: 'admin',
+        });
+      }
+    }
+  },
   setUsername(username, userId) {
     check(username, String);
     check(userId, String);
