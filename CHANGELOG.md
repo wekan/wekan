@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release tries to fix the following bugs:
+
+- [Try to fix afterwards loading of cards by adding fallback when requestIdleCallback is not
+  available](https://github.com/wekan/wekan/commit/2b9540ce02de604bf84ea082f2dcb1d01673708c).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.80 2020-02-22 Wekan release
 
 This release adds the following features:
