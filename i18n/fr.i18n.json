@@ -756,5 +756,8 @@
   "assignee": "Cessionnaire",
   "cardAssigneesPopup-title": "Cessionnaire",
   "addmore-detail": "Ajouter une description plus détaillée",
-  "show-on-card": "Afficher sur la carte"
+  "show-on-card": "Afficher sur la carte",
+  "new": "New",
+  "editUserPopup-title": "Edit User",
+  "newUserPopup-title": "New User"
 }

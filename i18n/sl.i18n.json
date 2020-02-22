@@ -756,5 +756,8 @@
   "assignee": "Dodeljen član",
   "cardAssigneesPopup-title": "Dodeljen član",
   "addmore-detail": "Dodaj podrobnejši opis",
-  "show-on-card": "Prikaži na kartici"
+  "show-on-card": "Prikaži na kartici",
+  "new": "New",
+  "editUserPopup-title": "Edit User",
+  "newUserPopup-title": "New User"
 }

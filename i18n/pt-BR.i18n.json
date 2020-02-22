@@ -756,5 +756,8 @@
   "assignee": "Administrador",
   "cardAssigneesPopup-title": "Administrador",
   "addmore-detail": "Adicionar descrição detalhada",
-  "show-on-card": "Mostrar no Cartão"
+  "show-on-card": "Mostrar no Cartão",
+  "new": "New",
+  "editUserPopup-title": "Edit User",
+  "newUserPopup-title": "New User"
 }

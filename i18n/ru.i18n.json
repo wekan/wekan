@@ -756,5 +756,8 @@
   "assignee": "Исполнитель",
   "cardAssigneesPopup-title": "Исполнитель",
   "addmore-detail": "Добавить более детальное описание",
-  "show-on-card": "Показать на карточке"
+  "show-on-card": "Показать на карточке",
+  "new": "New",
+  "editUserPopup-title": "Edit User",
+  "newUserPopup-title": "New User"
 }

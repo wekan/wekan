@@ -756,5 +756,8 @@
   "assignee": "Zugewiesen",
   "cardAssigneesPopup-title": "Zugewiesen",
   "addmore-detail": "Eine detailliertere Beschreibung hinzufügen",
-  "show-on-card": "Zeige auf Karte"
+  "show-on-card": "Zeige auf Karte",
+  "new": "New",
+  "editUserPopup-title": "Edit User",
+  "newUserPopup-title": "New User"
 }

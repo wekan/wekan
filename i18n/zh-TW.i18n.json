@@ -756,5 +756,8 @@
   "assignee": "代理人",
   "cardAssigneesPopup-title": "代理人",
   "addmore-detail": "Add a more detailed description",
-  "show-on-card": "Show on Card"
+  "show-on-card": "Show on Card",
+  "new": "New",
+  "editUserPopup-title": "Edit User",
+  "newUserPopup-title": "New User"
 }

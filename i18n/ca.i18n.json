@@ -756,5 +756,8 @@
   "assignee": "Assignat",
   "cardAssigneesPopup-title": "Assignat",
   "addmore-detail": "Afegiu una descripció més detallada",
-  "show-on-card": "Show on Card"
+  "show-on-card": "Show on Card",
+  "new": "New",
+  "editUserPopup-title": "Edit User",
+  "newUserPopup-title": "New User"
 }

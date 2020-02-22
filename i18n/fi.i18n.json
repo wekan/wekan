@@ -756,5 +756,8 @@
   "assignee": "Käsittelijä",
   "cardAssigneesPopup-title": "Käsittelijä",
   "addmore-detail": "Lisää tarkempi kuvaus",
-  "show-on-card": "Näytä kortilla"
+  "show-on-card": "Näytä kortilla",
+  "new": "Uusi",
+  "editUserPopup-title": "Muokkaa käyttäjää",
+  "newUserPopup-title": "Uusi käyttäjä"
 }

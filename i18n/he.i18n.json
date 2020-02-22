@@ -756,5 +756,8 @@
   "assignee": "גורם אחראי",
   "cardAssigneesPopup-title": "גורם אחראי",
   "addmore-detail": "הוספת תיאור מפורט",
-  "show-on-card": "הצגה על הכרטיס"
+  "show-on-card": "הצגה על הכרטיס",
+  "new": "New",
+  "editUserPopup-title": "Edit User",
+  "newUserPopup-title": "New User"
 }
