@@ -6,6 +6,7 @@ Meteor.publish('user-miniprofile', function(userId) {
       username: 1,
       'profile.fullname': 1,
       'profile.avatarUrl': 1,
+      'profile.initials': 1,
     },
   });
 });

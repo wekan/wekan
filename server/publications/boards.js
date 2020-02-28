@@ -192,6 +192,7 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
                 username: 1,
                 'profile.fullname': 1,
                 'profile.avatarUrl': 1,
+                'profile.initials': 1,
               },
             },
           ),
