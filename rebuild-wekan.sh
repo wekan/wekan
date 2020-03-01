@@ -146,7 +146,7 @@ do
 		rm -rf node_modules .meteor/local
 		npm install
 		rm -rf .build
-		meteor build .build --directory --exclude-archs web.browser.legacy,web.cordova
+		meteor build .build --directory
 		cp -f fix-download-unicode/cfs_access-point.txt .build/bundle/programs/server/packages/cfs_access-point.js
 		#Removed binary version of bcrypt because of security vulnerability that is not fixed yet.
 		#https://github.com/wekan/wekan/commit/4b2010213907c61b0e0482ab55abb06f6a668eac
