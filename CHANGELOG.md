@@ -1,3 +1,15 @@
+# v3.83 2020-03-01 Wekan release
+
+This release tries to revert remaining the following changes:
+
+- [Revert](https://github.com/wekan/wekan/88573ad2cdb8596b795a82ef40a0662180e8a7d7) change made at Wekan v3.81,
+  because building did not work: [Try to make Meteor build time shorter
+  by excluding legacy and cordova. This was made possible by
+  Meteor 1.10-rc.2](https://github.com/wekan/wekan/commit/0d3002f69d97e646fa7368bfdade4f78c51e9884).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.82 2020-03-01 Wekan release
 
 This release reverts the following changes:
