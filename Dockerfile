@@ -7,7 +7,7 @@ LABEL maintainer="wekan"
 ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-essential git ca-certificates python3" \
     DEBUG=false \
     NODE_VERSION=v12.16.1 \
-    METEOR_RELEASE=1.9.0 \
+    METEOR_RELEASE=1.10-rc.2 \
     USE_EDGE=false \
     METEOR_EDGE=1.5-beta.17 \
     NPM_VERSION=latest \
@@ -249,7 +249,7 @@ RUN \
     chown wekan --recursive /home/wekan/.npm /home/wekan/.config /home/wekan/.meteor && \
     #gosu wekan:wekan /home/wekan/.meteor/meteor add standard-minifier-js && \
     gosu wekan:wekan npm install && \
-    gosu wekan:wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build && \
+    gosu wekan:wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build --exclude-archs web.browser.legacy,web.cordova && \
     cp /home/wekan/app/fix-download-unicode/cfs_access-point.txt /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
     #rm /home/wekan/app_build/bundle/programs/server/npm/node_modules/meteor/rajit_bootstrap3-datepicker/lib/bootstrap-datepicker/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs && \
     chown wekan /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \

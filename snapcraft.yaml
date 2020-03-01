@@ -206,7 +206,7 @@ parts:
             meteor add standard-minifier-js --allow-superuser
             meteor npm install --allow-superuser
             meteor npm install --allow-superuser --save babel-runtime
-            meteor build .build --directory --allow-superuser
+            meteor build .build --directory --allow-superuser --exclude-archs web.browser.legacy,web.cordova
             cp -f fix-download-unicode/cfs_access-point.txt .build/bundle/programs/server/packages/cfs_access-point.js
             #Removed binary version of bcrypt because of security vulnerability that is not fixed yet.
             #https://github.com/wekan/wekan/commit/4b2010213907c61b0e0482ab55abb06f6a668eac

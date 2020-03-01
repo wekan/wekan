@@ -51,7 +51,7 @@ cd ..
 REM del /S /F /Q node_modules
 call meteor npm install
 REM del /S /F /Q .build
-call meteor build .build --directory
+call meteor build .build --directory --exclude-archs web.browser.legacy,web.cordova
 copy fix-download-unicode\cfs_access-point.txt .build\bundle\programs\server\packages\cfs_access-point.js
 cd .build\bundle\programs\server
 call meteor npm install
