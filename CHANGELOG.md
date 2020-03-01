@@ -1,10 +1,34 @@
-# Upcoming Wekan release
+# v3.81 2020-03-01 Wekan release
 
-This release tries to fix the following bugs:
+This release [fixes](https://github.com/wekan/wekan/commit/aac7c380c8c389b0683b2bd64e2cc856993f0e30) the following CRITICAL SECURITY VULNERABILITIES and other bugs:
+
+- Fix critical and moderate security vulnerabilities reported at 2020-02-26 with
+  responsible disclosure by [Dejan Zelic](https://twitter.com/dejandayoff),
+  Justin Benjamin and others at [Offensive Security](https://twitter.com/offsectraining),
+  that follow standard 90 days before public disclosure.
+  Thanks to xet7.
+- Fix webhook error that prevented some card etc deleting from web UI of board.
+  Thanks to xet7.
+- Add missing Font Awesome icon to Board Settings Menu.
+  Thanks to xet7.
+- Remove autofocus from many form input boxes so that they would not cause warnings.
+  Thanks to xet7.
+
+and does the following upgrades:
+
+- [Upgrade Meteor to 1.10-rc.2](https://github.com/wekan/wekan/commit/26b521e86e6ac40b7ba25bbe8dac7bf4d48d43ce).
+  Thanks to xet7.
+- [Try to make Meteor build time shorter by excluding legacy and cordova. This was made possible by
+  Meteor 1.10-rc.2](https://github.com/wekan/wekan/commit/0d3002f69d97e646fa7368bfdade4f78c51e9884).
+  Thanks to xet7.
+
+and fixes the following bugs:
 
 - [Try to fix afterwards loading of cards by adding fallback when requestIdleCallback is not
   available](https://github.com/wekan/wekan/commit/2b9540ce02de604bf84ea082f2dcb1d01673708c).
   Thanks to xet7.
+- [Make profile.initials available in publications](https://github.com/wekan/wekan/pull/2948).
+  Thanks to NicoP-S.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
