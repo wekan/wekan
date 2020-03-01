@@ -620,44 +620,6 @@ Users.mutations({
 });
 
 Meteor.methods({
-  setCreateUser(fullname, username, password, isAdmin, isActive, email) {
-    if (Meteor.user().isAdmin) {
-      check(fullname, String);
-      check(username, String);
-      check(password, String);
-      check(isAdmin, String);
-      check(isActive, String);
-      check(email, String);
-
-      const nUsersWithUsername = Users.find({ username }).count();
-      const nUsersWithEmail = Users.find({ email }).count();
-      if (nUsersWithUsername > 0) {
-        throw new Meteor.Error('username-already-taken');
-      } else if (nUsersWithEmail > 0) {
-        throw new Meteor.Error('email-already-taken');
-      } else {
-        Accounts.createUser({
-          fullname,
-          username,
-          password,
-          isAdmin,
-          isActive,
-          email: email.toLowerCase(),
-          from: 'admin',
-        });
-      }
-    }
-  },
-  setUsername(username, userId) {
-    check(username, String);
-    check(userId, String);
-    const nUsersWithUsername = Users.find({ username }).count();
-    if (nUsersWithUsername > 0) {
-      throw new Meteor.Error('username-already-taken');
-    } else {
-      Users.update(userId, { $set: { username } });
-    }
-  },
   setListSortBy(value) {
     check(value, String);
     Meteor.user().setListSortBy(value);
@@ -678,51 +640,97 @@ Meteor.methods({
     check(limit, Number);
     Meteor.user().setShowCardsCountAt(limit);
   },
-  setEmail(email, userId) {
-    if (Array.isArray(email)) {
-      email = email.shift();
-    }
-    check(email, String);
-    const existingUser = Users.findOne(
-      { 'emails.address': email },
-      { fields: { _id: 1 } },
-    );
-    if (existingUser) {
-      throw new Meteor.Error('email-already-taken');
-    } else {
-      Users.update(userId, {
-        $set: {
-          emails: [
-            {
-              address: email,
-              verified: false,
-            },
-          ],
-        },
-      });
-    }
-  },
-  setUsernameAndEmail(username, email, userId) {
-    check(username, String);
-    if (Array.isArray(email)) {
-      email = email.shift();
-    }
-    check(email, String);
-    check(userId, String);
-    Meteor.call('setUsername', username, userId);
-    Meteor.call('setEmail', email, userId);
-  },
-  setPassword(newPassword, userId) {
-    check(userId, String);
-    check(newPassword, String);
-    if (Meteor.user().isAdmin) {
-      Accounts.setPassword(userId, newPassword);
-    }
-  },
 });
 
 if (Meteor.isServer) {
   Meteor.methods({
+    setCreateUser(fullname, username, password, isAdmin, isActive, email) {
+      if (Meteor.user() && Meteor.user().isAdmin) {
+        check(fullname, String);
+        check(username, String);
+        check(password, String);
+        check(isAdmin, String);
+        check(isActive, String);
+        check(email, String);
+
+        const nUsersWithUsername = Users.find({ username }).count();
+        const nUsersWithEmail = Users.find({ email }).count();
+        if (nUsersWithUsername > 0) {
+          throw new Meteor.Error('username-already-taken');
+        } else if (nUsersWithEmail > 0) {
+          throw new Meteor.Error('email-already-taken');
+        } else {
+          Accounts.createUser({
+            fullname,
+            username,
+            password,
+            isAdmin,
+            isActive,
+            email: email.toLowerCase(),
+            from: 'admin',
+          });
+        }
+      }
+    },
+    setUsername(username, userId) {
+      if (Meteor.user() && Meteor.user().isAdmin) {
+        check(username, String);
+        check(userId, String);
+        const nUsersWithUsername = Users.find({ username }).count();
+        if (nUsersWithUsername > 0) {
+          throw new Meteor.Error('username-already-taken');
+        } else {
+          Users.update(userId, { $set: { username } });
+        }
+      }
+    },
+    setEmail(email, userId) {
+      if (Meteor.user() && Meteor.user().isAdmin) {
+        if (Array.isArray(email)) {
+          email = email.shift();
+        }
+        check(email, String);
+        const existingUser = Users.findOne(
+          { 'emails.address': email },
+          { fields: { _id: 1 } },
+        );
+        if (existingUser) {
+          throw new Meteor.Error('email-already-taken');
+        } else {
+          Users.update(userId, {
+            $set: {
+              emails: [
+                {
+                  address: email,
+                  verified: false,
+                },
+              ],
+            },
+          });
+        }
+      }
+    },
+    setUsernameAndEmail(username, email, userId) {
+      if (Meteor.user() && Meteor.user().isAdmin) {
+        check(username, String);
+        if (Array.isArray(email)) {
+          email = email.shift();
+        }
+        check(email, String);
+        check(userId, String);
+        Meteor.call('setUsername', username, userId);
+        Meteor.call('setEmail', email, userId);
+      }
+    },
+    setPassword(newPassword, userId) {
+      if (Meteor.user() && Meteor.user().isAdmin) {
+        check(userId, String);
+        check(newPassword, String);
+        if (Meteor.user().isAdmin) {
+          Accounts.setPassword(userId, newPassword);
+        }
+      }
+    },
     // we accept userId, username, email
     inviteUserToBoard(username, boardId) {
       check(username, String);
@@ -754,8 +762,9 @@ if (Meteor.isServer) {
           throw new Meteor.Error('error-user-notAllowSelf');
       } else {
         if (posAt <= 0) throw new Meteor.Error('error-user-doesNotExist');
-        if (Settings.findOne().disableRegistration)
+        if (Settings.findOne({ disableRegistration: true })) {
           throw new Meteor.Error('error-user-notCreated');
+        }
         // Set in lowercase email before creating account
         const email = username.toLowerCase();
         username = email.substring(0, posAt);
