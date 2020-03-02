@@ -1038,3 +1038,10 @@ Migrations.add('fix-incorrect-dates', () => {
     cas = CFSAttachments.find();
     console.log('cas', cas);
 });     
+
+Migrations.add('change-attachment-library', () => {
+  console.log('migration called here');
+  Migrations.rollback('change-attachment-library');
+  console.log('migration rollbacked');
+});
+
