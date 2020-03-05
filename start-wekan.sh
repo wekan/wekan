@@ -41,6 +41,11 @@
       # https://github.com/wekan/wekan/pull/2560
       export RICHER_CARD_COMMENT_EDITOR=false
       #---------------------------------------------------------------
+      # ==== MOUSE SCROLL ====
+      # https://github.com/wekan/wekan/issues/2949
+      export SCROLLINERTIA=0
+      export SCROLLAMOUNT=auto
+      #---------------------------------------------------------------
       # ==== CARD OPENED, SEND WEBHOOK MESSAGE ====
       export CARD_OPENED_WEBHOOK_ENABLED=false
       #---------------------------------------------------------------

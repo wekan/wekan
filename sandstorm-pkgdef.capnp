@@ -239,6 +239,8 @@ const myCommand :Spk.Manifest.Command = (
     (key = "PATH", value = "/usr/local/bin:/usr/bin:/bin"),
     (key = "WITH_API", value = "true"),
     (key = "RICHER_CARD_COMMENT_EDITOR", value="false"),
+    (key = "SCROLLINERTIA", value="0"),
+    (key = "SCROLLAMOUNT", value="auto"),
     (key = "CARD_OPENED_WEBHOOK_ENABLED", value="false"),
     (key = "BIGEVENTS_PATTERN", value="NONE"),
     (key = "MATOMO_ADDRESS", value=""),

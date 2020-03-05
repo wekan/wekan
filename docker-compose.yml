@@ -240,6 +240,11 @@ services:
       # https://github.com/wekan/wekan/pull/2560
       - RICHER_CARD_COMMENT_EDITOR=false
       #---------------------------------------------------------------
+      # ==== MOUSE SCROLL ====
+      # https://github.com/wekan/wekan/issues/2949
+      - SCROLLINERTIA=0
+      - SCROLLAMOUNT=auto
+      #---------------------------------------------------------------
       # ==== CARD OPENED, SEND WEBHOOK MESSAGE ====
       # https://github.com/wekan/wekan/issues/2518
       - CARD_OPENED_WEBHOOK_ENABLED=false

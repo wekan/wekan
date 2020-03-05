@@ -110,7 +110,9 @@ ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-
     CORS="" \
     CORS_ALLOW_HEADERS="" \
     CORS_EXPOSE_HEADERS="" \
-    DEFAULT_AUTHENTICATION_METHOD=""
+    DEFAULT_AUTHENTICATION_METHOD="" \
+    SCROLLINERTIA="0" \
+    SCROLLAMOUNT="auto"
 
 # Copy the app to the image
 COPY ${SRC_PATH} /home/wekan/app
