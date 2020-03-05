@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix: Error when retrieve token from some OIDC due to not necessary scope
+  parameter](https://github.com/wekan/wekan/pull/2955).
+  Thanks to benoitm76.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.83 2020-03-01 Wekan release
 
 This release tries to revert remaining the following changes:
