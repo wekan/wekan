@@ -757,7 +757,7 @@
   "cardAssigneesPopup-title": "担当者",
   "addmore-detail": "詳細説明の追加",
   "show-on-card": "カードに表示する項目",
-  "new": "New",
-  "editUserPopup-title": "Edit User",
-  "newUserPopup-title": "New User"
+  "new": "新規作成",
+  "editUserPopup-title": "ユーザーを編集",
+  "newUserPopup-title": "新規ユーザー"
 }
