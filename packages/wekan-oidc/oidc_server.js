@@ -72,7 +72,6 @@ var getToken = function (query) {
           client_secret: OAuth.openSecret(config.secret),
           redirect_uri: OAuth._redirectUri('oidc', config),
           grant_type: 'authorization_code',
-          scope: requestPermissions,
           state: query.state
         }
       }
