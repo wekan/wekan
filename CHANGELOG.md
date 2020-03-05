@@ -1,6 +1,13 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following features:
+
+- [Add settings for mouse wheen scroll inertia and scroll
+  amount](https://github.com/wekan/wekan/commit/9d13001b903f9ec50f5fa3a4bdbacae32b27ac65).
+  For example: sudo snap set scrollinertia='200' , sudo snap set scrollamount='200' .
+  Thanks to danger89 and xet7.
+
+and fixes the following bugs:
 
 - [Fix: Error when retrieve token from some OIDC due to not necessary scope
   parameter](https://github.com/wekan/wekan/pull/2955).
