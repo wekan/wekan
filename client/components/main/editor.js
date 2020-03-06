@@ -57,6 +57,9 @@ const sanitizeXss = (input, options) => {
             }
           }
         }
+        /* Don't use swipebox on markdown, so that img tag can now use width
+       * and height parameters. https://github.com/wekan/wekan/issues/2956
+       * Previously this was added at https://github.com/wekan/wekan/pull/2593
       } else if (tag === 'img') {
         if (!options.isClosing) {
           const src = getAttr('src');
@@ -64,6 +67,7 @@ const sanitizeXss = (input, options) => {
             return `<a href='${src}' class='swipebox'><img src='${src}' class="attachment-image-preview mCS_img_loaded"></a>`;
           }
         }
+      */
       }
       return undefined;
     },

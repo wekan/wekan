@@ -3,27 +3,31 @@
   "plugins": [
     "standard"
   ],
-  "parserOptions": { "ecmaVersion": 5 },
+  "parserOptions": {
+    "ecmaVersion": 5,
+    "sourceType": "script"
+  },
   "rules": {
     "semi": ["error", "always"],
-    "indent": ["warn", 2, {
-      "VariableDeclarator": { "var": 2 },
+    "indent": ["error", 2, {
       "SwitchCase": 1,
+      "VariableDeclarator": { "var": 2 },
       "outerIIFEBody": 0
     }],
-    "space-before-function-paren": "off",
-    "object-curly-spacing": "off",
     "operator-linebreak": ["error", "before", { "overrides": { "=": "after" } }],
+    "space-before-function-paren": ["error", "never"],
     "no-cond-assign": "off",
     "no-useless-escape": "off",
-    "no-return-assign": "off",
     "one-var": "off",
-    "no-control-regex": "off"
+    "no-control-regex": "off",
+    "no-prototype-builtins": "off",
+
+    "prefer-const": "off",
+    "no-var": "off"
   },
   "env": {
     "node": true,
     "browser": true,
-    "amd": true,
-    "jasmine": true
+    "amd": true
   }
 }

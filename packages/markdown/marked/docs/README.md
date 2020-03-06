@@ -25,7 +25,7 @@ These documentation pages are also rendered using marked 💯
 
 <h2 id="usage">Usage</h2>
 
-### Warning: 🚨 Marked does not [sanitize](https://marked.js.org/#/USING_ADVANCED.md#options) the output HTML by default 🚨
+### Warning: 🚨 Marked does not [sanitize](https://marked.js.org/#/USING_ADVANCED.md#options) the output HTML. Please use a sanitize library, like [DOMPurify](https://github.com/cure53/DOMPurify) (recommended), [sanitize-html](https://github.com/apostrophecms/sanitize-html) or [insane](https://github.com/bevacqua/insane) on the output HTML! 🚨
 
 **CLI**
 
@@ -72,8 +72,8 @@ We actively support the features of the following [Markdown flavors](https://git
 |Flavor                                                     |Version    |
 |:----------------------------------------------------------|:----------|
 |The original markdown.pl                                   |--         |
-|[CommonMark](http://spec.commonmark.org/0.28/)             |0.28       |
-|[GitHub Flavored Markdown](https://github.github.com/gfm/) |0.28       |
+|[CommonMark](http://spec.commonmark.org/0.29/)             |0.29       |
+|[GitHub Flavored Markdown](https://github.github.com/gfm/) |0.29       |
 
 By supporting the above Markdown flavors, it's possible that Marked can help you use other flavors as well; however, these are not actively supported by the community.
 
