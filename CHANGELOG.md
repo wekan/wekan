@@ -13,6 +13,9 @@ and fixes the following bugs:
 - [Fix: Error when retrieve token from some OIDC due to not necessary scope
   parameter](https://github.com/wekan/wekan/pull/2955).
   Thanks to benoitm76.
+- [Fix: img tag did not allow width and height. Removed swipebox from markdown editor
+  img tag and updated marked markdown to newest version](https://github.com/wekan/wekan/commit/2b26bbe78a1a2b8b427963a6c44c3853efdb737e).
+  Thanks to hradec and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
