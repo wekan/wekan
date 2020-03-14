@@ -17,6 +17,8 @@ and adds the following updates:
 - Update minimist [Part1](https://github.com/wekan/wekan/commit/f4e2bc0d3283cefc5a9f2c83d1965760885609a1)
   and [Part2](https://github.com/wekan/wekan/commit/2f131419077076b50bd6c924d3efd6ca82503bc1).
   Thanks to xet7.
+- [Update acorn](https://github.com/wekan/wekan/commit/2174936613bc7995ac9bf1b66a5fb90903b9e7e8).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
