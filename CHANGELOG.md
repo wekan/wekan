@@ -14,6 +14,9 @@ and adds the following updates:
   Thanks to xet7.
 - [Update markdown](https://github.com/wekan/wekan/commit/6e0fa78022ea487176eb0a32ec5a4a441f8e0c3c).
   Thanks to xet7.
+- Update minimist [Part1](https://github.com/wekan/wekan/commit/f4e2bc0d3283cefc5a9f2c83d1965760885609a1)
+  and [Part2](https://github.com/wekan/wekan/commit/2f131419077076b50bd6c924d3efd6ca82503bc1).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
