@@ -8,6 +8,13 @@ This release adds the following features:
   For example: sudo snap set scrollinertia='200' , sudo snap set scrollamount='200' .
   Thanks to danger89 and xet7.
 
+and adds the following updates:
+
+- [Upgrade to Meteor 1.10.1](https://github.com/wekan/wekan/commit/e16c65babc1f021c35a3d46bc61e649ec94d1e82).
+  Thanks to xet7.
+- [Update markdown](https://github.com/wekan/wekan/commit/6e0fa78022ea487176eb0a32ec5a4a441f8e0c3c).
+  Thanks to xet7.
+
 and fixes the following bugs:
 
 - [Fix: Error when retrieve token from some OIDC due to not necessary scope
