@@ -732,7 +732,7 @@
   "delete-all": "Cancella tutto",
   "loading": "Loading, please wait.",
   "previous_as": "l'ultima volta è stata",
-  "act-a-dueAt": "modified due time to \nWhen: __timeValue__\nWhere: __card__\n previous due was __timeOldValue__",
+  "act-a-dueAt": "Scadenza modificata in __timeValue__\nData precedente: __timeOldValue__",
   "act-a-endAt": "modified ending time to __timeValue__ from (__timeOldValue__)",
   "act-a-startAt": "modified starting time to __timeValue__ from (__timeOldValue__)",
   "act-a-receivedAt": "modified received time to __timeValue__ from (__timeOldValue__)",
