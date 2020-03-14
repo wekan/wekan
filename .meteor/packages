@@ -23,7 +23,7 @@ dburles:collection-helpers
 idmontie:migrations
 matb33:collection-hooks
 matteodem:easy-search
-mongo@1.9.0-rc110.2
+mongo@1.9.0
 mquandalle:collection-mutations
 
 # Account system
@@ -38,7 +38,7 @@ wekan-accounts-oidc
 # Utilities
 check@1.3.1
 jquery@1.11.10
-random@1.2.0-rc110.2
+random@1.2.0
 reactive-dict@1.3.0
 session@1.2.0
 tracker@1.2.0
@@ -67,7 +67,7 @@ templates:tabs
 verron:autosize
 simple:json-routes
 rajit:bootstrap3-datepicker
-shell-server@0.5.0-rc110.2
+shell-server@0.5.0
 simple:rest-accounts-password
 useraccounts:core
 email@1.2.3
@@ -75,7 +75,7 @@ horka:swipebox
 dynamic-import@0.5.1
 staringatlights:fast-render
 
-accounts-password@1.6.0-rc110.2
+accounts-password@1.6.0
 cfs:gridfs
 rzymek:fullcalendar
 momentjs:moment@2.22.2
