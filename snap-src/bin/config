@@ -338,19 +338,19 @@ DESCRIPTION_LDAP_GROUP_FILTER_OBJECTCLASS="The object class for filtering"
 DEFAULT_LDAP_GROUP_FILTER_OBJECTCLASS=""
 KEY_LDAP_GROUP_FILTER_OBJECTCLASS="ldap-group-filter-objectclass"
 
-DESCRIPTION_LDAP_GROUP_FILTER_GROUP_ID_ATTRIBUTE="ldap-group-filter-id-attribute. Default: ''"
+DESCRIPTION_LDAP_GROUP_FILTER_GROUP_ID_ATTRIBUTE="The attribute of a group identifying it. Default: ''"
 DEFAULT_LDAP_GROUP_FILTER_GROUP_ID_ATTRIBUTE=""
 KEY_LDAP_GROUP_FILTER_GROUP_ID_ATTRIBUTE="ldap-group-filter-id-attribute"
 
-DESCRIPTION_LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE="ldap-group-filter-member-attibute. Default: ''"
+DESCRIPTION_LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE="The attribute inside a group object listing its members. Default: ''"
 DEFAULT_LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE=""
 KEY_LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE="ldap-group-filter-member-attribute"
 
-DESCRIPTION_LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT="ldap-group-filter-group-member-format. Default: ''"
+DESCRIPTION_LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT="The format of the value of ldap-group-filter-member-attribute (e.g. 'dn' if the user's dn ist saved as value into the attribute).  Default: ''"
 DEFAULT_LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT=""
 KEY_LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT="ldap-group-filter-member-format"
 
-DESCRIPTION_LDAP_GROUP_FILTER_GROUP_NAME="ldap-group-filter-group-name. Default: ''"
+DESCRIPTION_LDAP_GROUP_FILTER_GROUP_NAME="The group name (id) that matches all users. Default: ''"
 DEFAULT_LDAP_GROUP_FILTER_GROUP_NAME=""
 KEY_LDAP_GROUP_FILTER_GROUP_NAME="ldap-group-filter-group-name"
 
