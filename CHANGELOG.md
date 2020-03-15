@@ -22,6 +22,9 @@ and adds the following updates:
 
 and fixes the following bugs:
 
+- [Downgrade stylus to v1.1.0 to speed up building Wekan](https://github.com/wekan/wekan/commit/fca4cdcebf1cc6642aefeb78b911cb5b95ebe473).
+  This is because building newer stylus v2 takes 52 minutes. After this change, building Wekan takes 3 minutes.
+  Thanks to zodern.
 - [Fix: Error when retrieve token from some OIDC due to not necessary scope
   parameter](https://github.com/wekan/wekan/pull/2955).
   Thanks to benoitm76.
