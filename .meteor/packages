@@ -85,7 +85,7 @@ msavin:usercache
 wekan-scrollbar
 mquandalle:perfect-scrollbar
 mdg:meteor-apm-agent@3.2.0-rc.0!
-coagmano:stylus
+coagmano:stylus@1.1.0!
 lucasantoniassi:accounts-lockout
 meteorhacks:subs-manager
 meteorhacks:picker
