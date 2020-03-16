@@ -22,6 +22,8 @@ and adds the following updates:
   Thanks to xet7.
 - [Update ostrio:cookies](https://github.com/wekan/wekan/commit/14b8610837117616d436e2bac6a9dc653e315662).
   Thanks to xet7.
+- [Add build time profiling to build script](https://github.com/wekan/wekan/commit/f968109e7390139e50375ee29bc7bc3cf1e1ab41).
+  Thanks to zodern.
 
 and fixes the following bugs:
 
