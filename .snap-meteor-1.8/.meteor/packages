@@ -85,7 +85,8 @@ msavin:usercache
 wekan-scrollbar
 mquandalle:perfect-scrollbar
 mdg:meteor-apm-agent@3.2.0-rc.0!
-coagmano:stylus
+# Keep stylus in 1.1.0, because building v2 takes extra 52 minutes.
+coagmano:stylus@1.1.0!
 lucasantoniassi:accounts-lockout
 meteorhacks:subs-manager
 meteorhacks:picker
