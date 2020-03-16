@@ -14,10 +14,13 @@ and adds the following updates:
   Thanks to xet7.
 - [Update markdown](https://github.com/wekan/wekan/commit/6e0fa78022ea487176eb0a32ec5a4a441f8e0c3c).
   Thanks to xet7.
-- Update minimist [Part1](https://github.com/wekan/wekan/commit/f4e2bc0d3283cefc5a9f2c83d1965760885609a1)
-  and [Part2](https://github.com/wekan/wekan/commit/2f131419077076b50bd6c924d3efd6ca82503bc1).
+- [Update minimist](https://github.com/wekan/wekan/commit/ea6baa5c2b956ee28b0a7e63f988e2fc1998201a).
   Thanks to xet7.
-- [Update acorn](https://github.com/wekan/wekan/commit/2174936613bc7995ac9bf1b66a5fb90903b9e7e8).
+- [Update acorn](https://github.com/wekan/wekan/commit/369a29707bbec3bf89717c16e8b698fb4666087a).
+  Thanks to xet7.
+- [Update prettier-eslint](https://github.com/wekan/wekan/commit/8183b7bdaa01d2ce53ac7215beafd5efe21373e8).
+  Thanks to xet7.
+- [Update ostrio:cookies](https://github.com/wekan/wekan/commit/14b8610837117616d436e2bac6a9dc653e315662).
   Thanks to xet7.
 
 and fixes the following bugs:
