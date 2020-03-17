@@ -11,7 +11,7 @@
 REPODIR=/home/wekan/repos
 WEKANDIR=/home/wekan/repos/wekan
 OLDDIR=/home/wekan/repos/sandstorm-build
-METEDIR=/home/wekan/repos/wekan/.snap-meteor-1.8
+METEDIR=/home/wekan/repos/wekan/.sandstorm-meteor-1.8
 
 # Ensure sudo access
 sudo echo .
