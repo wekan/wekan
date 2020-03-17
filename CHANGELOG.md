@@ -5,7 +5,7 @@ This release adds the following features:
 - Add settings for mouse wheel scroll inertia and scroll
   amount [Part1](https://github.com/wekan/wekan/commit/9d13001b903f9ec50f5fa3a4bdbacae32b27ac65)
   and [Part2](https://github.com/wekan/wekan/commit/aaecac091209e90c0c2123830728f5e7a835ccb4).
-  For example: sudo snap set scrollinertia='200' , sudo snap set scrollamount='200' .
+  For example: sudo snap set wekan scrollinertia='200' , sudo snap set wekan scrollamount='200' .
   Thanks to danger89 and xet7.
 
 and adds the following updates:
