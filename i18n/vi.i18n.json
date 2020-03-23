@@ -1,8 +1,8 @@
 {
   "accept": "Chấp nhận",
-  "act-activity-notify": "Activity Notification",
-  "act-addAttachment": "added attachment __attachment__ to card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
-  "act-deleteAttachment": "deleted attachment __attachment__ at card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
+  "act-activity-notify": "Thông báo hoạt động",
+  "act-addAttachment": "thêm tập tin đính kèm __attachment__  vào thẻ __list__ tại danh sách __list__  tại đường bơi __swimlane__ tại bảng __board__",
+  "act-deleteAttachment": "xóa tập tin đính kèm __attachment__ tại thẻ __card__ tại danh sách __list__ tại đường bơi __swimlane__ tại bảng __board__ ",
   "act-addSubtask": "added subtask __subtask__ to card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
   "act-addLabel": "Added label __label__ to card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
   "act-addedLabel": "Added label __label__ to card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
