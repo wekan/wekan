@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v3.85 2020-03-23 Wekan release
 
 This release fixes the following SECURITY VULNERABLITIES:
 
