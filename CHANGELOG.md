@@ -1,8 +1,16 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release fixes the following SECURITY VULNERABLITIES:
 
-- 
+- [Fix XSS bug reported today 4 hours ago by Cyb3rjunky](https://github.com/wekan/wekan/commit/482682e50079d70c5113169020d6834013b57c11).
+  Logged in users could run javascript in input fields.
+  This affects Wekan versions v3.12-v3.84.
+  In [Wekan v3.12](https://github.com/wekan/wekan/blob/master/CHANGELOG.md#v312-2019-08-09-wekan-release)
+  there was [changes for XSS filter to allow inserting images, videos etc
+  on comment WYSIWYG editor](https://github.com/wekan/wekan/pull/2593)
+  so features related to that are now removed.
+  After this fix, Javascript in input fields is not executed.
+  Thanks to Cyb3rjunky and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
