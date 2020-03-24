@@ -1,6 +1,6 @@
 # v3.85 2020-03-23 Wekan release
 
-This release fixes the following SECURITY VULNERABLITIES:
+This release fixes the following CRITICAL SECURITY VULNERABILITIES:
 
 - [Fix XSS bug reported today 4 hours ago by Cyb3rjunky](https://github.com/wekan/wekan/commit/482682e50079d70c5113169020d6834013b57c11).
   Logged in users could run javascript in input fields.
