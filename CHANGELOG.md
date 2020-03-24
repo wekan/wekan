@@ -4,7 +4,17 @@ This release fixes the following bugs:
 
 - [Fix Rich editor can not be disabled, regression from changes yesterday at Wekan v3.85](https://github.com/wekan/wekan/commit/12ab8fac5db9c5ac8069d0ca2bca340d6004a25b).
   Thanks to uusijani, vjrj and xet7.
-    
+Author: Lauri Ojansivu <x@xet7.org>
+Date:   Tue Mar 24 20:39:49 2020 +0200
+
+- [1) Fix Pasting text into a card is adding a line before and after
+      (and multiplies by pasting more) by changing paste "p" to "br".
+   2) Fixes to summernote and markdown comment editors, related
+       to keeping them open when adding comments, having
+       @member mention not close card, and disabling clicking of
+       @member mention](https://github.com/wekan/wekan/commit/b9099a8b7ea6f63c79bdcbb871cb993b2cb7e325).
+  Thanks to xet7 !
+        
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v3.85 2020-03-23 Wekan release
