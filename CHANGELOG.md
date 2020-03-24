@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix Rich editor can not be disabled, regression from changes yesterday at Wekan v3.85](https://github.com/wekan/wekan/commit/12ab8fac5db9c5ac8069d0ca2bca340d6004a25b).
+  Thanks to uusijani, vjrj and xet7.
+    
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.85 2020-03-23 Wekan release
 
 This release fixes the following CRITICAL SECURITY VULNERABILITIES:
