@@ -30,7 +30,7 @@ Template.editor.onRendered(() => {
     autosize($textarea);
     $textarea.escapeableTextComplete(mentions);
   };
-  if (Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR !== false) {
+  if (Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR === 'true') {
     const isSmall = Utils.isMiniScreen();
     const toolbar = isSmall
       ? [
@@ -108,10 +108,37 @@ Template.editor.onRendered(() => {
         }
         return undefined;
       };
+      // Prevent @member mentions on Add Comment input field
+      // from closing card, part 1.
+      let popupShown = false;
       inputs.each(function(idx, input) {
         mSummernotes[idx] = $(input).summernote({
           placeholder,
+          // Prevent @member mentions on Add Comment input field
+          // from closing card, part 2.
+          onKeydown(e) {
+            if (popupShown) {
+              e.preventDefault();
+            }
+          },
+          onKeyup(e) {
+            if (popupShown) {
+              e.preventDefault();
+            }
+          },
           callbacks: {
+            // Prevent @member mentions on Add Comment input field
+            // from closing card, part 3.
+            onKeydown(e) {
+              if (popupShown) {
+                e.preventDefault();
+              }
+            },
+            onKeyup(e) {
+              if (popupShown) {
+                e.preventDefault();
+              }
+            },
             onInit(object) {
               const originalInput = this;
               $(originalInput).on('input', function() {
@@ -136,7 +163,6 @@ Template.editor.onRendered(() => {
                 });
               }
             },
-
             onImageUpload(files) {
               const $summernote = getSummernote(this);
               if (files && files.length > 0) {
@@ -215,6 +241,12 @@ Template.editor.onRendered(() => {
               const thisNote = this;
               const updatePastedText = function(object) {
                 const someNote = getSummernote(object);
+                // Fix Pasting text into a card is adding a line before and after
+                // (and multiplies by pasting more) by changing paste "p" to "br".
+                // Fixes https://github.com/wekan/wekan/2890 .
+                // == Fix Start ==
+                someNote.execCommand('defaultParagraphSeparator', false, 'br');
+                // == Fix End ==
                 const original = someNote.summernote('code');
                 const cleaned = cleanPastedHTML(original); //this is where to call whatever clean function you want. I have mine in a different file, called CleanPastedHTML.
                 someNote.summernote('reset'); //clear original
@@ -291,11 +323,17 @@ Blaze.Template.registerHelper(
       }
 
       const linkValue = [' ', at, knowedUser.username];
-      let linkClass = 'atMention js-open-member';
+      //let linkClass = 'atMention js-open-member';
+      let linkClass = 'atMention';
       if (knowedUser.userId === Meteor.userId()) {
         linkClass += ' me';
       }
-      const link = HTML.A(
+      // This @user mention link generation did open same Wekan
+      // window in new tab, so now A is changed to U so it's
+      // underlined and there is no link popup. This way also
+      // text can be selected more easily.
+      //const link = HTML.A(
+      const link = HTML.U(
         {
           class: linkClass,
           // XXX Hack. Since we stringify this render function result below with
@@ -329,7 +367,10 @@ Template.viewer.events({
 
     const userId = event.currentTarget.dataset.userid;
     if (userId) {
-      Popup.open('member').call({ userId }, event, templateInstance);
+      // Prevent @member mentions on Add Comment input field
+      // from closing card, part 4.
+      PopupNoClose.open('member').call({ userId }, event, templateInstance);
+      event.preventDefault();
     } else {
       const href = event.currentTarget.href;
       if (href) {
