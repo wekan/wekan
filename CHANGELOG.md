@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Hide duplicate "Hide system messages" at Change Settings/Member Settings, because it's also on card
+  slider](https://github.com/wekan/wekan/issues/2837).
+  Thanks to notohiro and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.86 2020-03-24 Wekan release
 
 This release fixes the following bugs:
