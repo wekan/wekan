@@ -20,7 +20,7 @@ BlazeComponent.extendComponent({
     const crtBoard = Boards.findOne(card.boardId);
     const targetBoard = crtBoard.getDefaultSubtasksBoard();
     const listId = targetBoard.getDefaultSubtasksListId();
-    const swimlaneId = targetBoard.getDefaultSwimline()._id;
+    const swimlaneId = card.swimlaneId;
 
     if (title) {
       const _id = Cards.insert({
