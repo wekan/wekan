@@ -109,9 +109,9 @@ and dependencies (minified).
 			scrollbarPosition:"inside",
 			/*
 			scrolling inertia
-			values: integer (milliseconds)
+			values: integer (milliseconds). default: 0
 			*/
-			scrollInertia:0,
+			scrollInertia:Meteor.settings.public.SCROLLINERTIA,
 			/*
 			auto-adjust scrollbar dragger length
 			values: boolean
@@ -161,7 +161,7 @@ and dependencies (minified).
 				scrolling amount in pixels
 				values: "auto", integer
 				*/
-				scrollAmount:"auto",
+				scrollAmount:Meteor.settings.public.SCROLLAMOUNT,
 				/*
 				mouse-wheel scrolling axis
 				the default scrolling direction when both vertical and horizontal scrollbars are present

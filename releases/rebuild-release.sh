@@ -9,7 +9,7 @@ sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
 rm -rf node_modules
 meteor npm install
 rm -rf .build
-meteor build .build --directory
+METEOR_PROFILE=100 meteor build .build --directory
 cp -f fix-download-unicode/cfs_access-point.txt .build/bundle/programs/server/packages/cfs_access-point.js
 cd .build/bundle/programs/server
 rm -rf node_modules

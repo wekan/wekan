@@ -33,6 +33,13 @@ BlazeComponent.extendComponent({
               cardId,
             });
             resetCommentInput(input);
+            // With Richer editor is in use, and comment is submitted,
+            // clear comment form with JQuery. Id #summernote is defined
+            // at client/components/main/editor.jade where it previously was
+            // id=id, now it is id="summernote".
+            if (Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR === 'true') {
+              $('#summernote').summernote('code', '');
+            }
             Tracker.flush();
             autosize.update(input);
             input.trigger('submitted');

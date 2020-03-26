@@ -757,7 +757,7 @@
   "cardAssigneesPopup-title": "Zugewiesen",
   "addmore-detail": "Eine detailliertere Beschreibung hinzufügen",
   "show-on-card": "Zeige auf Karte",
-  "new": "New",
-  "editUserPopup-title": "Edit User",
-  "newUserPopup-title": "New User"
+  "new": "Neu",
+  "editUserPopup-title": "Benutzer ändern",
+  "newUserPopup-title": "Neuer Benutzer"
 }

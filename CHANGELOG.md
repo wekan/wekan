@@ -1,10 +1,140 @@
 # Upcoming Wekan release
 
-This release tries to fix the following bugs:
+This release fixes the following bugs:
+
+- [Hide duplicate "Hide system messages" at Change Settings/Member Settings, because it's also on card
+  slider](https://github.com/wekan/wekan/issues/2837).
+  Thanks to notohiro and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.86 2020-03-24 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix Rich editor can not be disabled, regression from changes yesterday at Wekan v3.85](https://github.com/wekan/wekan/commit/12ab8fac5db9c5ac8069d0ca2bca340d6004a25b).
+  Thanks to uusijani, vjrj and xet7.
+- [1) Fix Pasting text into a card is adding a line before and after
+      (and multiplies by pasting more) by changing paste "p" to "br".
+   2) Fixes to summernote and markdown comment editors, related
+       to keeping them open when adding comments, having
+       @member mention not close card, and disabling clicking of
+       @member mention](https://github.com/wekan/wekan/commit/b9099a8b7ea6f63c79bdcbb871cb993b2cb7e325).
+  Thanks to xet7 !
+        
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.85 2020-03-23 Wekan release
+
+This release fixes the following CRITICAL SECURITY VULNERABILITIES:
+
+- [Fix XSS bug reported today 4 hours ago by Cyb3rjunky](https://github.com/wekan/wekan/commit/482682e50079d70c5113169020d6834013b57c11).
+  Logged in users could run javascript in input fields.
+  This affects Wekan versions v3.12-v3.84.
+  In [Wekan v3.12](https://github.com/wekan/wekan/blob/master/CHANGELOG.md#v312-2019-08-09-wekan-release)
+  there was [changes for XSS filter to allow inserting images, videos etc
+  on comment WYSIWYG editor](https://github.com/wekan/wekan/pull/2593)
+  so features related to that are now removed.
+  After this fix, Javascript in input fields is not executed.
+  Thanks to Cyb3rjunky and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.84 2020-03-16 Wekan release
+
+This release adds the following features:
+
+- Add settings for mouse wheel scroll inertia and scroll
+  amount [Part1](https://github.com/wekan/wekan/commit/9d13001b903f9ec50f5fa3a4bdbacae32b27ac65)
+  and [Part2](https://github.com/wekan/wekan/commit/aaecac091209e90c0c2123830728f5e7a835ccb4).
+  For example: sudo snap set wekan scrollinertia='200' , sudo snap set wekan scrollamount='200' .
+  Thanks to danger89 and xet7.
+
+and adds the following updates:
+
+- [Upgrade to Meteor 1.10.1](https://github.com/wekan/wekan/commit/e16c65babc1f021c35a3d46bc61e649ec94d1e82).
+  Thanks to xet7.
+- [Update markdown](https://github.com/wekan/wekan/commit/6e0fa78022ea487176eb0a32ec5a4a441f8e0c3c).
+  Thanks to xet7.
+- [Update minimist](https://github.com/wekan/wekan/commit/ea6baa5c2b956ee28b0a7e63f988e2fc1998201a).
+  Thanks to xet7.
+- [Update acorn](https://github.com/wekan/wekan/commit/369a29707bbec3bf89717c16e8b698fb4666087a).
+  Thanks to xet7.
+- [Update prettier-eslint](https://github.com/wekan/wekan/commit/8183b7bdaa01d2ce53ac7215beafd5efe21373e8).
+  Thanks to xet7.
+- [Update ostrio:cookies](https://github.com/wekan/wekan/commit/14b8610837117616d436e2bac6a9dc653e315662).
+  Thanks to xet7.
+- [Add build time profiling to build script](https://github.com/wekan/wekan/commit/f968109e7390139e50375ee29bc7bc3cf1e1ab41).
+  Thanks to zodern.
+
+and fixes the following bugs:
+
+- [Downgrade stylus to v1.1.0 to speed up building Wekan](https://github.com/wekan/wekan/commit/fca4cdcebf1cc6642aefeb78b911cb5b95ebe473).
+  This is because building newer stylus v2 takes 52 minutes. After this change, building Wekan takes 3 minutes.
+  Thanks to zodern.
+- [Fix: Error when retrieve token from some OIDC due to not necessary scope
+  parameter](https://github.com/wekan/wekan/pull/2955).
+  Thanks to benoitm76.
+- [Fix: img tag did not allow width and height. Removed swipebox from markdown editor
+  img tag and updated marked markdown to newest version](https://github.com/wekan/wekan/commit/2b26bbe78a1a2b8b427963a6c44c3853efdb737e).
+  Thanks to hradec and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.83 2020-03-01 Wekan release
+
+This release tries to revert remaining the following changes:
+
+- [Revert](https://github.com/wekan/wekan/88573ad2cdb8596b795a82ef40a0662180e8a7d7) change made at Wekan v3.81,
+  because building did not work: [Try to make Meteor build time shorter
+  by excluding legacy and cordova. This was made possible by
+  Meteor 1.10-rc.2](https://github.com/wekan/wekan/commit/0d3002f69d97e646fa7368bfdade4f78c51e9884).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.82 2020-03-01 Wekan release
+
+This release reverts the following changes:
+
+- Revert change made at Wekan v3.81, because building did not work: [Try to make Meteor build time shorter
+  by excluding legacy and cordova. This was made possible by
+  Meteor 1.10-rc.2](https://github.com/wekan/wekan/commit/0d3002f69d97e646fa7368bfdade4f78c51e9884).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.81 2020-03-01 Wekan release
+
+This release [fixes](https://github.com/wekan/wekan/commit/aac7c380c8c389b0683b2bd64e2cc856993f0e30) the following CRITICAL SECURITY VULNERABILITIES and other bugs:
+
+- Fix critical and moderate security vulnerabilities reported at 2020-02-26 with
+  responsible disclosure by [Dejan Zelic](https://twitter.com/dejandayoff),
+  Justin Benjamin and others at [Offensive Security](https://twitter.com/offsectraining),
+  that follow standard 90 days before public disclosure.
+  Thanks to xet7.
+- Fix webhook error that prevented some card etc deleting from web UI of board.
+  Thanks to xet7.
+- Add missing Font Awesome icon to Board Settings Menu.
+  Thanks to xet7.
+- Remove autofocus from many form input boxes so that they would not cause warnings.
+  Thanks to xet7.
+
+and does the following upgrades:
+
+- [Upgrade Meteor to 1.10-rc.2](https://github.com/wekan/wekan/commit/26b521e86e6ac40b7ba25bbe8dac7bf4d48d43ce).
+  Thanks to xet7.
+- [Try to make Meteor build time shorter by excluding legacy and cordova. This was made possible by
+  Meteor 1.10-rc.2](https://github.com/wekan/wekan/commit/0d3002f69d97e646fa7368bfdade4f78c51e9884).
+  Thanks to xet7.
+
+and fixes the following bugs:
 
 - [Try to fix afterwards loading of cards by adding fallback when requestIdleCallback is not
   available](https://github.com/wekan/wekan/commit/2b9540ce02de604bf84ea082f2dcb1d01673708c).
   Thanks to xet7.
+- [Make profile.initials available in publications](https://github.com/wekan/wekan/pull/2948).
+  Thanks to NicoP-S.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 

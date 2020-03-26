@@ -110,7 +110,7 @@ template(name="editUserPopup")
     label.hide.userId(type="text" value=user._id)
     label
       | {{_ 'fullname'}}
-      input.js-profile-fullname(type="text" value=user.profile.fullname autofocus)
+      input.js-profile-fullname(type="text" value=user.profile.fullname)
     label
       | {{_ 'username'}}
       span.error.hide.username-taken
@@ -159,7 +159,7 @@ template(name="newUserPopup")
     //label.hide.userId(type="text" value=user._id)
     label
       | {{_ 'fullname'}}
-      input.js-profile-fullname(type="text" value="" autofocus)
+      input.js-profile-fullname(type="text" value="")
     label
       | {{_ 'username'}}
       span.error.hide.username-taken

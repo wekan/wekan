@@ -25,6 +25,11 @@ REM # ==== RICH TEXT EDITOR IN CARD COMMENTS ====
 REM # https://github.com/wekan/wekan/pull/2560
 SET RICHER_CARD_COMMENT_EDITOR=false
 
+REM # ==== MOUSE SCROLL ====
+REM # https://github.com/wekan/wekan/issues/2949
+SET SCROLLINERTIA=0
+SET SCROLLAMOUNT=auto
+
 REM # ==== CARD OPENED, SEND WEBHOOK MESSAGE ====
 SET CARD_OPENED_WEBHOOK_ENABLED=false
 

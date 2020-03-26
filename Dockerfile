@@ -7,7 +7,7 @@ LABEL maintainer="wekan"
 ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-essential git ca-certificates python3" \
     DEBUG=false \
     NODE_VERSION=v12.16.1 \
-    METEOR_RELEASE=1.9.0 \
+    METEOR_RELEASE=1.10-rc.2 \
     USE_EDGE=false \
     METEOR_EDGE=1.5-beta.17 \
     NPM_VERSION=latest \
@@ -110,7 +110,9 @@ ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-
     CORS="" \
     CORS_ALLOW_HEADERS="" \
     CORS_EXPOSE_HEADERS="" \
-    DEFAULT_AUTHENTICATION_METHOD=""
+    DEFAULT_AUTHENTICATION_METHOD="" \
+    SCROLLINERTIA="0" \
+    SCROLLAMOUNT="auto"
 
 # Copy the app to the image
 COPY ${SRC_PATH} /home/wekan/app
