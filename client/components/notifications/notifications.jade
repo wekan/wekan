@@ -1,0 +1,5 @@
+template(name='notifications')
+  #notifications.board-header-btns.right
+    a.notifications-drawer-toggle.fa.fa-bell(class="{{#if $gt unreadNotifications 0}}alert{{/if}}")
+    if $.Session.get 'showNotificationsDrawer'
+      +notificationsDrawer(unreadNotifications=unreadNotifications)

@@ -1,0 +1,53 @@
+template(name='notificationIcon')
+  if($in activityType 'deleteAttachment' 'addAttachment')
+    i.fa.fa-paperclip.activity-type(title="attachment")
+  else if($in activityType 'createBoard' 'importBoard')
+    i.fa.fa-chalkboard.activity-type(title="board")
+
+  else if($in activityType 'createCard' 'importCard' 'moveCard')
+    +cardNotificationIcon
+  else if($in activityType 'moveCardBoard' 'archivedCard' 'restoredCard')
+    +cardNotificationIcon
+    //- $in can only handle up to 3 cases so we have to break this case over 2 cases... use a simple template to keep it
+    //- DRY and consistant
+
+  else if($in activityType 'addChecklist' 'removedChecklist' 'completeChecklist')
+    +checklistNotificationIcon
+  else if($in activityType 'uncompleteChecklist')
+    +checklistNotificationIcon
+    //- $in can only handle up to 3 cases so we have to break this case over 2 cases... use a simple template to keep it
+    //- DRY and consistant
+
+  else if($in activityType 'checkedItem' 'uncheckedItem' 'addChecklistItem' 'removedChecklistItem')
+    i.fa.fa-check-square.activity-type(title="checklist item")
+  else if($in activityType 'addComment')
+    i.fa.fa-comment-o.activity-type(title="comment")
+  else if($in activityType 'createCustomField' 'setCustomField' 'unsetCustomField')
+    i.fa.fa-code.activity-type(title="custom field")
+  else if($in activityType 'addedLabel' 'removedLabel')
+    i.fa.fa-tag.activity-type(title="label")
+
+  else if($in activityType 'createList' 'removeList' 'archivedList')
+    +listNotificationIcon
+  else if($in activityType  'importList')
+    +listNotificationIcon
+    //- $in can only handle up to 3 cases so we have to break this case over 2 cases... use a simple template to keep it
+    //- DRY and consistant
+
+    //- elswhere in the app we use fa-trello to indicate lists...
+    //- i personally like fa-columns a bit better
+  else if($in activityType 'unjoinMember' 'addBoardMember' 'joinMember' 'removeBoardMember')
+    i.fa.fa-user.activity-type(title="member")
+  else if($in activityType 'createSwimlane' 'archivedSwimlane')
+    i.fa.fa-th-large.activity-type(title="swimlane")
+  else
+    i.fa.fa-bug.activity-type(title="can't find icon for #{activityType}")
+
+template(name='cardNotificationIcon')
+  i.fa.fa-clone.activity-type(title="card")
+
+template(name='checklistNotificationIcon')
+  i.fa.fa-list.activity-type(title="checklist")
+
+template(name='listNotificationIcon')
+  i.fa.fa-columns.activity-type(title="list")

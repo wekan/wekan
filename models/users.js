@@ -165,7 +165,20 @@ Users.attachSchema(
       /**
        * enabled notifications for the user
        */
-      type: [String],
+      type: [Object],
+      optional: true,
+    },
+    'profile.notifications.$.activity': {
+      /**
+       * The id of the activity this notification references
+       */
+      type: String,
+    },
+    'profile.notifications.$.read': {
+      /**
+       * the date on which this notification was read
+       */
+      type: Date,
       optional: true,
     },
     'profile.showCardsCountAt': {
@@ -429,6 +442,20 @@ Users.helpers({
     return _.contains(notifications, activityId);
   },
 
+  notifications() {
+    const { notifications = [] } = this.profile || {};
+    for (const index in notifications) {
+      if (!notifications.hasOwnProperty(index)) continue;
+      const notification = notifications[index];
+      // this preserves their db sort order for editing
+      notification.dbIndex = index;
+      notification.activity = Activities.findOne(notification.activity);
+    }
+    // this sorts them newest to oldest to match Trello's behavior
+    notifications.reverse();
+    return notifications;
+  },
+
   hasShowDesktopDragHandles() {
     const profile = this.profile || {};
     return profile.showDesktopDragHandles || false;
@@ -573,7 +600,7 @@ Users.mutations({
   addNotification(activityId) {
     return {
       $addToSet: {
-        'profile.notifications': activityId,
+        'profile.notifications': { activity: activityId },
       },
     };
   },
@@ -581,7 +608,7 @@ Users.mutations({
   removeNotification(activityId) {
     return {
       $pull: {
-        'profile.notifications': activityId,
+        'profile.notifications': { activity: activityId },
       },
     };
   },
