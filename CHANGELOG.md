@@ -5,6 +5,11 @@ This release fixes the following bugs:
 - [Hide duplicate "Hide system messages" at Change Settings/Member Settings, because it's also on card
   slider](https://github.com/wekan/wekan/issues/2837).
   Thanks to notohiro and xet7.
+- [Fix Browser always reload the whole page when I change one of the card
+  color](https://github.com/wekan/wekan/commit/3546d7aa02bc65cf1183cb493adeb543ba51945d).
+  Fixed by making label colors and text again editable.
+  Regression from [Wekan v3.86 2)](https://github.com/wekan/wekan/commit/b9099a8b7ea6f63c79bdcbb871cb993b2cb7e325).
+  Thanks to javen9881 and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
