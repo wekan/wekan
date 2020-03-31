@@ -191,10 +191,6 @@ Template.boardChangeViewPopup.events({
     Utils.setBoardView('board-view-cal');
     Popup.close();
   },
-  'click .js-open-rules-view'() {
-    Modal.openWide('rulesMain');
-    Popup.close();
-  },
 });
 
 const CreateBoard = BlazeComponent.extendComponent({
