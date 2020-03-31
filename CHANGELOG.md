@@ -1,10 +1,15 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release makes the following UI changes:
 
+- [Move "Rules" from "Board View" to "Board Settings"](https://github.com/wekan/wekan/commit/e7d23435934e044c90a1818f84798cb79194169c).
+  Thanks to helioguardabaxo and xet7.
 - [Hide duplicate "Hide system messages" at Change Settings/Member Settings, because it's also on card
   slider](https://github.com/wekan/wekan/issues/2837).
   Thanks to notohiro and xet7.
+
+and fixes the following bugs:
+
 - [Fix Browser always reload the whole page when I change one of the card
   color](https://github.com/wekan/wekan/commit/3546d7aa02bc65cf1183cb493adeb543ba51945d).
   Fixed by making label colors and text again editable.
