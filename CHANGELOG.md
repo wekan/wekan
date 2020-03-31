@@ -2,7 +2,9 @@
 
 This release makes the following UI changes:
 
-- [Move "Rules" from "Board View" to "Board Settings"](https://github.com/wekan/wekan/commit/e7d23435934e044c90a1818f84798cb79194169c).
+- [Move "Rules" from "Board View" to "Board Settings"](https://github.com/wekan/wekan/issues/2973).
+  Thanks to helioguardabaxo and xet7.
+- [Improvements on card details visualization](https://github.com/wekan/wekan/issues/2974).
   Thanks to helioguardabaxo and xet7.
 - [Hide duplicate "Hide system messages" at Change Settings/Member Settings, because it's also on card
   slider](https://github.com/wekan/wekan/issues/2837).
