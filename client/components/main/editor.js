@@ -114,12 +114,11 @@ Template.editor.onRendered(() => {
           callbacks: {
             onInit(object) {
               const originalInput = this;
-              $(originalInput).on('input', function() {
+              $(originalInput).on('submitted', function() {
                 // when comment is submitted, the original textarea will be set to '', so shall we
                 if (!this.value) {
                   const sn = getSummernote(this);
-                  sn && sn.summernote('reset');
-                  object && object.editingArea.find('.note-placeholder').show();
+                  sn && sn.summernote('code', '');
                 }
               });
               const jEditor = object && object.editable;
@@ -223,7 +222,7 @@ Template.editor.onRendered(() => {
                 // == Fix End ==
                 const original = someNote.summernote('code');
                 const cleaned = cleanPastedHTML(original); //this is where to call whatever clean function you want. I have mine in a different file, called CleanPastedHTML.
-                someNote.summernote('reset'); //clear original
+                someNote.summernote('code', ''); //clear original
                 someNote.summernote('pasteHTML', cleaned); //this sets the displayed content editor to the cleaned pasted code.
               };
               setTimeout(function() {
@@ -290,7 +289,8 @@ Blaze.Template.registerHelper(
 
     let currentMention;
     while ((currentMention = mentionRegex.exec(content)) !== null) {
-      const [fullMention, username] = currentMention;
+      const [fullMention, quoteduser, simple] = currentMention;
+      const username = quoteduser || simple;
       const knowedUser = _.findWhere(knowedUsers, { username });
       if (!knowedUser) {
         continue;
@@ -330,14 +330,7 @@ Template.viewer.events({
   // the corresponding text). Clicking a link shouldn't fire these actions, stop
   // we stop these event at the viewer component level.
   'click a'(event, templateInstance) {
-    event.stopPropagation();
-
-    // XXX We hijack the build-in browser action because we currently don't have
-    // `_blank` attributes in viewer links, and the transformer function is
-    // handled by a third party package that we can't configure easily. Fix that
-    // by using directly `_blank` attribute in the rendered HTML.
-    event.preventDefault();
-
+    let prevent = true;
     const userId = event.currentTarget.dataset.userid;
     if (userId) {
       Popup.open('member').call({ userId }, event, templateInstance);
@@ -346,6 +339,15 @@ Template.viewer.events({
       if (href) {
         window.open(href, '_blank');
       }
+    }
+    if (prevent) {
+      event.stopPropagation();
+
+      // XXX We hijack the build-in browser action because we currently don't have
+      // `_blank` attributes in viewer links, and the transformer function is
+      // handled by a third party package that we can't configure easily. Fix that
+      // by using directly `_blank` attribute in the rendered HTML.
+      event.preventDefault();
     }
   },
 });
