@@ -10,6 +10,8 @@ This release fixes the following bugs:
   Fixed by making label colors and text again editable.
   Regression from [Wekan v3.86 2)](https://github.com/wekan/wekan/commit/b9099a8b7ea6f63c79bdcbb871cb993b2cb7e325).
   Thanks to javen9881 and xet7.
+- [Fix richer editor submit did not clear edit area](https://github.com/wekan/wekan/commit/033d6710470b2ecd7a0ec0b2f0741ff459e68b32).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
