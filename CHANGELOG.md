@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v3.87 2020-04-01 Wekan release
 
 This release makes the following UI changes:
 
