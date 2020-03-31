@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix start-wekan.sh MongoDB port to 27017](https://github.com/wekan/wekan/commit/c60a092fc0ed9fe15c417bcb443b1e3e3aaedf7e).
+  Thanks to Keelan and xet7.
+    
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.87 2020-04-01 Wekan release
 
 This release makes the following UI changes:
