@@ -1,13 +1,8 @@
 template(name="editor")
-  // With Richer editor is in use, and comment is submitted,
-  // clear comment form with JQuery Comment at
-  // client/components/activities/comments.js . Id #summernote is defined
-  // here at client/components/main/editor.jade where it previously was
-  // id=id, now it is id="summernote".
   textarea.editor(
     dir="auto"
     class="{{class}}"
-    id="summernote"
+    id=id
     autofocus=autofocus
     placeholder="{{_ 'comment-placeholder'}}")
     +Template.contentBlock

@@ -30,7 +30,7 @@ Template.editor.onRendered(() => {
     autosize($textarea);
     $textarea.escapeableTextComplete(mentions);
   };
-  if (Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR === 'true') {
+  if (Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR !== false) {
     const isSmall = Utils.isMiniScreen();
     const toolbar = isSmall
       ? [
@@ -108,37 +108,10 @@ Template.editor.onRendered(() => {
         }
         return undefined;
       };
-      // Prevent @member mentions on Add Comment input field
-      // from closing card, part 1.
-      let popupShown = false;
       inputs.each(function(idx, input) {
         mSummernotes[idx] = $(input).summernote({
           placeholder,
-          // Prevent @member mentions on Add Comment input field
-          // from closing card, part 2.
-          onKeydown(e) {
-            if (popupShown) {
-              e.preventDefault();
-            }
-          },
-          onKeyup(e) {
-            if (popupShown) {
-              e.preventDefault();
-            }
-          },
           callbacks: {
-            // Prevent @member mentions on Add Comment input field
-            // from closing card, part 3.
-            onKeydown(e) {
-              if (popupShown) {
-                e.preventDefault();
-              }
-            },
-            onKeyup(e) {
-              if (popupShown) {
-                e.preventDefault();
-              }
-            },
             onInit(object) {
               const originalInput = this;
               $(originalInput).on('input', function() {
@@ -163,6 +136,7 @@ Template.editor.onRendered(() => {
                 });
               }
             },
+
             onImageUpload(files) {
               const $summernote = getSummernote(this);
               if (files && files.length > 0) {
@@ -323,8 +297,7 @@ Blaze.Template.registerHelper(
       }
 
       const linkValue = [' ', at, knowedUser.username];
-      //let linkClass = 'atMention js-open-member';
-      let linkClass = 'atMention';
+      let linkClass = 'atMention js-open-member';
       if (knowedUser.userId === Meteor.userId()) {
         linkClass += ' me';
       }
@@ -367,10 +340,7 @@ Template.viewer.events({
 
     const userId = event.currentTarget.dataset.userid;
     if (userId) {
-      // Prevent @member mentions on Add Comment input field
-      // from closing card, part 4.
-      PopupNoClose.open('member').call({ userId }, event, templateInstance);
-      event.preventDefault();
+      Popup.open('member').call({ userId }, event, templateInstance);
     } else {
       const href = event.currentTarget.href;
       if (href) {
