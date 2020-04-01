@@ -1,6 +1,11 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release makes the following UI changes:
+
+- [Minicard labels on the top and title on bottom](https://github.com/wekan/wekan/issues/2980).
+  Thanks to helioguardabaxo and xet7.
+
+and fixes the following bugs:
 
 - [Fix start-wekan.sh MongoDB port to 27017](https://github.com/wekan/wekan/commit/c60a092fc0ed9fe15c417bcb443b1e3e3aaedf7e).
   Thanks to Keelan and xet7.
