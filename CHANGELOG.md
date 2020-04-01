@@ -1,8 +1,8 @@
-# Upcoming Wekan release
+# v3.88 2020-04-02 Wekan release
 
 This release adds the following new features:
 
-- [Notification drawer like Trello](https://github.com/wekan/wekan/pull/2975).
+- [Notification drawer](https://github.com/wekan/wekan/pull/2975) [like Trello](https://github.com/wekan/wekan/issues/2471).
   Thanks to jtbairdsr and xet7.
 
 and makes the following UI changes:

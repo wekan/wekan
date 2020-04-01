@@ -1524,7 +1524,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
 	  	<ul class="toc-list-h1">
         
           <li>
-            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v3.87">Wekan REST API v3.87</a>
+            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v3.88">Wekan REST API v3.88</a>
             
           </li>
         
@@ -2017,7 +2017,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="wekan-rest-api">Wekan REST API v3.87</h1>
+        <h1 id="wekan-rest-api">Wekan REST API v3.88</h1>
 <blockquote>
 <p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
 </blockquote>
@@ -11665,9 +11665,9 @@ System.out.println(response.toString());
       <span class="hljs-string">"string"</span>
     ],
     <span class="hljs-attr">"language"</span>: <span class="hljs-string">"string"</span>,
-    <span class="hljs-attr">"notifications"</span>: [
-      <span class="hljs-string">"string"</span>
-    ],
+    <span class="hljs-attr">"notifications"</span>: [],
+    <span class="hljs-attr">"activity"</span>: <span class="hljs-string">"string"</span>,
+    <span class="hljs-attr">"read"</span>: <span class="hljs-string">"string"</span>,
     <span class="hljs-attr">"showCardsCountAt"</span>: <span class="hljs-number">0</span>,
     <span class="hljs-attr">"starredBoards"</span>: [
       <span class="hljs-string">"string"</span>
@@ -12320,9 +12320,9 @@ System.out.println(response.toString());
       <span class="hljs-string">"string"</span>
     ],
     <span class="hljs-attr">"language"</span>: <span class="hljs-string">"string"</span>,
-    <span class="hljs-attr">"notifications"</span>: [
-      <span class="hljs-string">"string"</span>
-    ],
+    <span class="hljs-attr">"notifications"</span>: [],
+    <span class="hljs-attr">"activity"</span>: <span class="hljs-string">"string"</span>,
+    <span class="hljs-attr">"read"</span>: <span class="hljs-string">"string"</span>,
     <span class="hljs-attr">"showCardsCountAt"</span>: <span class="hljs-number">0</span>,
     <span class="hljs-attr">"starredBoards"</span>: [
       <span class="hljs-string">"string"</span>
@@ -15625,9 +15625,9 @@ UserSecurity
       <span class="hljs-string">"string"</span>
     ],
     <span class="hljs-attr">"language"</span>: <span class="hljs-string">"string"</span>,
-    <span class="hljs-attr">"notifications"</span>: [
-      <span class="hljs-string">"string"</span>
-    ],
+    <span class="hljs-attr">"notifications"</span>: [],
+    <span class="hljs-attr">"activity"</span>: <span class="hljs-string">"string"</span>,
+    <span class="hljs-attr">"read"</span>: <span class="hljs-string">"string"</span>,
     <span class="hljs-attr">"showCardsCountAt"</span>: <span class="hljs-number">0</span>,
     <span class="hljs-attr">"starredBoards"</span>: [
       <span class="hljs-string">"string"</span>
@@ -15793,9 +15793,9 @@ UserSecurity
     <span class="hljs-string">"string"</span>
   ],
   <span class="hljs-attr">"language"</span>: <span class="hljs-string">"string"</span>,
-  <span class="hljs-attr">"notifications"</span>: [
-    <span class="hljs-string">"string"</span>
-  ],
+  <span class="hljs-attr">"notifications"</span>: [],
+  <span class="hljs-attr">"activity"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"read"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"showCardsCountAt"</span>: <span class="hljs-number">0</span>,
   <span class="hljs-attr">"starredBoards"</span>: [
     <span class="hljs-string">"string"</span>
@@ -15887,10 +15887,24 @@ UserSecurity
 </tr>
 <tr>
 <td>notifications</td>
-<td>[string]</td>
+<td>[<a href="#schemausersprofilenotifications">UsersProfileNotifications</a>]</td>
 <td>false</td>
 <td>none</td>
 <td>enabled notifications for the user</td>
+</tr>
+<tr>
+<td>activity</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The id of the activity this notification references</td>
+</tr>
+<tr>
+<td>read</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>the date on which this notification was read</td>
 </tr>
 <tr>
 <td>showCardsCountAt</td>
