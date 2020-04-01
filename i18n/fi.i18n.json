@@ -764,6 +764,6 @@
   "view-all": "Näytä kaikki",
   "filter-by-unread": "Suodata lukemattomat",
   "mark-all-as-read": "Merkkaa kaikki luetuksi",
-  "allow-rename": "Salli nimeä uudelleen",
-  "allowRenamePopup-title": "Salli nimeä uudelleen"
+  "allow-rename": "Salli uudelleennimeäminen",
+  "allowRenamePopup-title": "Salli uudelleennimeäminen"
 }
