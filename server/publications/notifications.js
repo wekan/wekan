@@ -94,7 +94,8 @@ Meteor.publish('notificationUsers', function() {
 });
 
 function activities() {
+  const notifications = Meteor.user().profile.notifications || [];
   return Activities.find({
-    _id: { $in: Meteor.user().profile.notifications.map(v => v.activity) },
+    _id: { $in: notifications.map(v => v.activity) },
   });
 }
