@@ -203,6 +203,7 @@ template(name="cardDetails")
     if canModifyCard
       unless currentUser.isWorker
         if currentBoard.allowsDescriptionTitle
+          hr
           h3
             i.fa.fa-align-left
             card-details-item-title {{_ 'description'}}
@@ -229,6 +230,7 @@ template(name="cardDetails")
                   a.js-close-inlined-form {{_ 'discard'}}
     else if getDescription
       if currentBoard.allowsDescriptionTitle
+        hr
         h3.card-details-item-title {{_ 'description'}}
       if currentBoard.allowsDescriptionText
         +viewer
@@ -237,15 +239,16 @@ template(name="cardDetails")
     .card-checklist-attachmentGalerys
       .card-checklist-attachmentGalery.card-checklists
         if currentBoard.allowsChecklists
+          hr
           +checklists(cardId = _id)
         if currentBoard.allowsSubtasks
           hr
           +subtasks(cardId = _id)
       if currentBoard.allowsAttachments
-        //- hr
-        //- h3
-        //- i.fa.fa-paperclip
-        //- | {{_ 'attachments'}}
+        hr
+        h3
+          i.fa.fa-paperclip
+          | {{_ 'attachments'}}
         .card-checklist-attachmentGalery.card-attachmentGalery
           +attachmentsGalery
 

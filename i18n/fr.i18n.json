@@ -759,5 +759,11 @@
   "show-on-card": "Afficher sur la carte",
   "new": "Nouveau",
   "editUserPopup-title": "Éditer l'utilisateur",
-  "newUserPopup-title": "Nouvel utilisateur"
+  "newUserPopup-title": "Nouvel utilisateur",
+  "notifications": "Notifications",
+  "view-all": "View All",
+  "filter-by-unread": "Filter by Unread",
+  "mark-all-as-read": "Mark all as read",
+  "allow-rename": "Allow Rename",
+  "allowRenamePopup-title": "Allow Rename"
 }

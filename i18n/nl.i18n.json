@@ -759,5 +759,11 @@
   "show-on-card": "Toon op kaart",
   "new": "Nieuw",
   "editUserPopup-title": "Wijzig gebruiker",
-  "newUserPopup-title": "Nieuwe gebruiker"
+  "newUserPopup-title": "Nieuwe gebruiker",
+  "notifications": "Notifications",
+  "view-all": "View All",
+  "filter-by-unread": "Filter by Unread",
+  "mark-all-as-read": "Mark all as read",
+  "allow-rename": "Allow Rename",
+  "allowRenamePopup-title": "Allow Rename"
 }

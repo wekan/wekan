@@ -182,6 +182,10 @@ Template.memberPopup.helpers({
 
 Template.boardMenuPopup.events({
   'click .js-rename-board': Popup.open('boardChangeTitle'),
+  'click .js-open-rules-view'() {
+    Modal.openWide('rulesMain');
+    Popup.close();
+  },
   'click .js-custom-fields'() {
     Sidebar.setView('customFields');
     Popup.close();

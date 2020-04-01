@@ -30,7 +30,7 @@ Template.editor.onRendered(() => {
     autosize($textarea);
     $textarea.escapeableTextComplete(mentions);
   };
-  if (Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR === 'true') {
+  if (Meteor.settings.public.RICHER_CARD_COMMENT_EDITOR !== false) {
     const isSmall = Utils.isMiniScreen();
     const toolbar = isSmall
       ? [
@@ -108,45 +108,17 @@ Template.editor.onRendered(() => {
         }
         return undefined;
       };
-      // Prevent @member mentions on Add Comment input field
-      // from closing card, part 1.
-      let popupShown = false;
       inputs.each(function(idx, input) {
         mSummernotes[idx] = $(input).summernote({
           placeholder,
-          // Prevent @member mentions on Add Comment input field
-          // from closing card, part 2.
-          onKeydown(e) {
-            if (popupShown) {
-              e.preventDefault();
-            }
-          },
-          onKeyup(e) {
-            if (popupShown) {
-              e.preventDefault();
-            }
-          },
           callbacks: {
-            // Prevent @member mentions on Add Comment input field
-            // from closing card, part 3.
-            onKeydown(e) {
-              if (popupShown) {
-                e.preventDefault();
-              }
-            },
-            onKeyup(e) {
-              if (popupShown) {
-                e.preventDefault();
-              }
-            },
             onInit(object) {
               const originalInput = this;
-              $(originalInput).on('input', function() {
+              $(originalInput).on('submitted', function() {
                 // when comment is submitted, the original textarea will be set to '', so shall we
                 if (!this.value) {
                   const sn = getSummernote(this);
-                  sn && sn.summernote('reset');
-                  object && object.editingArea.find('.note-placeholder').show();
+                  sn && sn.summernote('code', '');
                 }
               });
               const jEditor = object && object.editable;
@@ -163,6 +135,7 @@ Template.editor.onRendered(() => {
                 });
               }
             },
+
             onImageUpload(files) {
               const $summernote = getSummernote(this);
               if (files && files.length > 0) {
@@ -249,7 +222,7 @@ Template.editor.onRendered(() => {
                 // == Fix End ==
                 const original = someNote.summernote('code');
                 const cleaned = cleanPastedHTML(original); //this is where to call whatever clean function you want. I have mine in a different file, called CleanPastedHTML.
-                someNote.summernote('reset'); //clear original
+                someNote.summernote('code', ''); //clear original
                 someNote.summernote('pasteHTML', cleaned); //this sets the displayed content editor to the cleaned pasted code.
               };
               setTimeout(function() {
@@ -316,15 +289,15 @@ Blaze.Template.registerHelper(
 
     let currentMention;
     while ((currentMention = mentionRegex.exec(content)) !== null) {
-      const [fullMention, username] = currentMention;
+      const [fullMention, quoteduser, simple] = currentMention;
+      const username = quoteduser || simple;
       const knowedUser = _.findWhere(knowedUsers, { username });
       if (!knowedUser) {
         continue;
       }
 
       const linkValue = [' ', at, knowedUser.username];
-      //let linkClass = 'atMention js-open-member';
-      let linkClass = 'atMention';
+      let linkClass = 'atMention js-open-member';
       if (knowedUser.userId === Meteor.userId()) {
         linkClass += ' me';
       }
@@ -357,25 +330,24 @@ Template.viewer.events({
   // the corresponding text). Clicking a link shouldn't fire these actions, stop
   // we stop these event at the viewer component level.
   'click a'(event, templateInstance) {
-    event.stopPropagation();
-
-    // XXX We hijack the build-in browser action because we currently don't have
-    // `_blank` attributes in viewer links, and the transformer function is
-    // handled by a third party package that we can't configure easily. Fix that
-    // by using directly `_blank` attribute in the rendered HTML.
-    event.preventDefault();
-
+    let prevent = true;
     const userId = event.currentTarget.dataset.userid;
     if (userId) {
-      // Prevent @member mentions on Add Comment input field
-      // from closing card, part 4.
-      PopupNoClose.open('member').call({ userId }, event, templateInstance);
-      event.preventDefault();
+      Popup.open('member').call({ userId }, event, templateInstance);
     } else {
       const href = event.currentTarget.href;
       if (href) {
         window.open(href, '_blank');
       }
+    }
+    if (prevent) {
+      event.stopPropagation();
+
+      // XXX We hijack the build-in browser action because we currently don't have
+      // `_blank` attributes in viewer links, and the transformer function is
+      // handled by a third party package that we can't configure easily. Fix that
+      // by using directly `_blank` attribute in the rendered HTML.
+      event.preventDefault();
     }
   },
 });

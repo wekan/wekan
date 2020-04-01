@@ -1,10 +1,38 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release makes the following UI changes:
 
+- [Minicard labels on the top and title on bottom](https://github.com/wekan/wekan/issues/2980).
+  Thanks to helioguardabaxo and xet7.
+
+and fixes the following bugs:
+
+- [Fix start-wekan.sh MongoDB port to 27017](https://github.com/wekan/wekan/commit/c60a092fc0ed9fe15c417bcb443b1e3e3aaedf7e).
+  Thanks to Keelan and xet7.
+    
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.87 2020-04-01 Wekan release
+
+This release makes the following UI changes:
+
+- [Move "Rules" from "Board View" to "Board Settings"](https://github.com/wekan/wekan/issues/2973).
+  Thanks to helioguardabaxo and xet7.
+- [Improvements on card details visualization](https://github.com/wekan/wekan/issues/2974).
+  Thanks to helioguardabaxo and xet7.
 - [Hide duplicate "Hide system messages" at Change Settings/Member Settings, because it's also on card
   slider](https://github.com/wekan/wekan/issues/2837).
   Thanks to notohiro and xet7.
+
+and fixes the following bugs:
+
+- [Fix Browser always reload the whole page when I change one of the card
+  color](https://github.com/wekan/wekan/commit/3546d7aa02bc65cf1183cb493adeb543ba51945d).
+  Fixed by making label colors and text again editable.
+  Regression from [Wekan v3.86 2)](https://github.com/wekan/wekan/commit/b9099a8b7ea6f63c79bdcbb871cb993b2cb7e325).
+  Thanks to javen9881 and xet7.
+- [Fix richer editor submit did not clear edit area](https://github.com/wekan/wekan/commit/033d6710470b2ecd7a0ec0b2f0741ff459e68b32).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
