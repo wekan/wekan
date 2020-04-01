@@ -1,6 +1,11 @@
 # Upcoming Wekan release
 
-This release makes the following UI changes:
+This release adds the following new features:
+
+- [Notification drawer like Trello](https://github.com/wekan/wekan/pull/2975).
+  Thanks to jtbairdsr and xet7.
+
+and makes the following UI changes:
 
 - [Minicard labels on the top and title on bottom](https://github.com/wekan/wekan/issues/2980).
   Thanks to helioguardabaxo and xet7.
