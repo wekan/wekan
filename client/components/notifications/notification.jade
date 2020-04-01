@@ -1,0 +1,10 @@
+template(name='notification')
+  li.notification(class="{{#if read}}read{{/if}}")
+    .read-status
+      .materialCheckBox(class="{{#if read}}is-checked{{/if}}")
+      +notificationIcon(activityData)
+    .details
+      +activity(activity=activityData mode='none')
+    if read
+      .remove
+        a.fa.fa-trash
