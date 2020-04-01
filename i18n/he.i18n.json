@@ -759,5 +759,11 @@
   "show-on-card": "הצגה על הכרטיס",
   "new": "חדש",
   "editUserPopup-title": "עריכת משתמש",
-  "newUserPopup-title": "משתמש חדש"
+  "newUserPopup-title": "משתמש חדש",
+  "notifications": "Notifications",
+  "view-all": "View All",
+  "filter-by-unread": "Filter by Unread",
+  "mark-all-as-read": "Mark all as read",
+  "allow-rename": "Allow Rename",
+  "allowRenamePopup-title": "Allow Rename"
 }

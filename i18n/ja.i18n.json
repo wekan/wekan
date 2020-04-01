@@ -759,5 +759,11 @@
   "show-on-card": "カードに表示する項目",
   "new": "新規作成",
   "editUserPopup-title": "ユーザーを編集",
-  "newUserPopup-title": "新規ユーザー"
+  "newUserPopup-title": "新規ユーザー",
+  "notifications": "通知",
+  "view-all": "View All",
+  "filter-by-unread": "Filter by Unread",
+  "mark-all-as-read": "Mark all as read",
+  "allow-rename": "Allow Rename",
+  "allowRenamePopup-title": "Allow Rename"
 }

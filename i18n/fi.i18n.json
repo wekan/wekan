@@ -759,5 +759,11 @@
   "show-on-card": "Näytä kortilla",
   "new": "Uusi",
   "editUserPopup-title": "Muokkaa käyttäjää",
-  "newUserPopup-title": "Uusi käyttäjä"
+  "newUserPopup-title": "Uusi käyttäjä",
+  "notifications": "Ilmoitukset",
+  "view-all": "Näytä kaikki",
+  "filter-by-unread": "Suodata lukemattomat",
+  "mark-all-as-read": "Merkkaa kaikki luetuksi",
+  "allow-rename": "Salli nimeä uudelleen",
+  "allowRenamePopup-title": "Salli nimeä uudelleen"
 }

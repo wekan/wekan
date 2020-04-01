@@ -759,5 +759,11 @@
   "show-on-card": "Mostra sulla scheda",
   "new": "Nuovo",
   "editUserPopup-title": "Modifica utente",
-  "newUserPopup-title": "Nuovo utente"
+  "newUserPopup-title": "Nuovo utente",
+  "notifications": "Notifications",
+  "view-all": "View All",
+  "filter-by-unread": "Filter by Unread",
+  "mark-all-as-read": "Mark all as read",
+  "allow-rename": "Allow Rename",
+  "allowRenamePopup-title": "Allow Rename"
 }
