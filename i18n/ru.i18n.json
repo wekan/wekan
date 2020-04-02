@@ -64,7 +64,7 @@
   "activity-unchecked-item": "снял %s в контрольном списке %s в %s",
   "activity-checklist-added": "добавил контрольный список в %s",
   "activity-checklist-removed": "удалил контрольный список из %s",
-  "activity-checklist-completed": "завершил контрольный список __checklist__ в карточке __card__ в списке __list__ на дорожке __swimlane__ доски __board__",
+  "activity-checklist-completed": "completed checklist %s of %s",
   "activity-checklist-uncompleted": "вновь открыл контрольный список %s в %s",
   "activity-checklist-item-added": "добавил пункт в контрольный список '%s' в карточке %s",
   "activity-checklist-item-removed": "удалил пункт из контрольного списка '%s' в карточке %s",
@@ -759,5 +759,11 @@
   "show-on-card": "Показать на карточке",
   "new": "New",
   "editUserPopup-title": "Edit User",
-  "newUserPopup-title": "New User"
+  "newUserPopup-title": "New User",
+  "notifications": "Уведомления",
+  "view-all": "View All",
+  "filter-by-unread": "Filter by Unread",
+  "mark-all-as-read": "Mark all as read",
+  "allow-rename": "Allow Rename",
+  "allowRenamePopup-title": "Allow Rename"
 }

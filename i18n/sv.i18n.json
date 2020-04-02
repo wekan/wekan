@@ -64,7 +64,7 @@
   "activity-unchecked-item": "okryssad %s i checklistan %s av %s",
   "activity-checklist-added": "lade kontrollista till %s",
   "activity-checklist-removed": "tog bort en checklista från %s",
-  "activity-checklist-completed": "slutförde checklista __checklist__ i kort __card__ i lista __list__ i  simbana __swimlane__ på anslagstavla __board__",
+  "activity-checklist-completed": "completed checklist %s of %s",
   "activity-checklist-uncompleted": "inte slutfört checklistan %s av %s",
   "activity-checklist-item-added": "lade checklista objekt till '%s' i %s",
   "activity-checklist-item-removed": "tog bort en checklista objekt från \"%s\" i %s",
@@ -759,5 +759,11 @@
   "show-on-card": "Visa på kort",
   "new": "Ny",
   "editUserPopup-title": "Redigera användare",
-  "newUserPopup-title": "Ny användare"
+  "newUserPopup-title": "Ny användare",
+  "notifications": "Notifications",
+  "view-all": "View All",
+  "filter-by-unread": "Filter by Unread",
+  "mark-all-as-read": "Mark all as read",
+  "allow-rename": "Allow Rename",
+  "allowRenamePopup-title": "Allow Rename"
 }

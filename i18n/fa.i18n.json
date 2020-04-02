@@ -64,7 +64,7 @@
   "activity-unchecked-item": "چک نشده  %s در چک لیست %s از %s",
   "activity-checklist-added": "سیاهه به %s اضافه شد",
   "activity-checklist-removed": "از چک لیست حذف گردید",
-  "activity-checklist-completed": "سیاهه __checklist__ را در کارت __card__ در لیست __list__ در مسیر شناور __swimlane__ در برد __board__ کامل کرد",
+  "activity-checklist-completed": "completed checklist %s of %s",
   "activity-checklist-uncompleted": "تمام نشده ها در چک لیست %s از %s",
   "activity-checklist-item-added": "added checklist item to '%s' in %s",
   "activity-checklist-item-removed": "حذف شده از چک لیست  '%s' در %s",
@@ -759,5 +759,11 @@
   "show-on-card": "Show on Card",
   "new": "New",
   "editUserPopup-title": "Edit User",
-  "newUserPopup-title": "New User"
+  "newUserPopup-title": "New User",
+  "notifications": "Notifications",
+  "view-all": "View All",
+  "filter-by-unread": "Filter by Unread",
+  "mark-all-as-read": "Mark all as read",
+  "allow-rename": "Allow Rename",
+  "allowRenamePopup-title": "Allow Rename"
 }

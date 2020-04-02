@@ -64,7 +64,7 @@
   "activity-unchecked-item": "%s uitgevinkt in checklist %s van %s",
   "activity-checklist-added": "checklist toegevoegd aan %s",
   "activity-checklist-removed": "checklist verwijderd van %s",
-  "activity-checklist-completed": "heeft checklist __checklist__ afgewerkt op kaart __card__ van lijst __list__ in swimlane __swimlane__ op bord __board__",
+  "activity-checklist-completed": "completed checklist %s of %s",
   "activity-checklist-uncompleted": "checklist %s onafgewerkt van %s",
   "activity-checklist-item-added": "checklist item toegevoegd aan '%s' in '%s'",
   "activity-checklist-item-removed": "checklist item verwijderd van '%s' in %s",
@@ -759,5 +759,11 @@
   "show-on-card": "Toon op kaart",
   "new": "Nieuw",
   "editUserPopup-title": "Wijzig gebruiker",
-  "newUserPopup-title": "Nieuwe gebruiker"
+  "newUserPopup-title": "Nieuwe gebruiker",
+  "notifications": "Notifications",
+  "view-all": "View All",
+  "filter-by-unread": "Filter by Unread",
+  "mark-all-as-read": "Mark all as read",
+  "allow-rename": "Allow Rename",
+  "allowRenamePopup-title": "Allow Rename"
 }

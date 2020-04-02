@@ -64,7 +64,7 @@
   "activity-unchecked-item": "размаркира %s от списък със задачи %s на %s",
   "activity-checklist-added": "добави списък със задачи към %s",
   "activity-checklist-removed": "премахна списък със задачи от %s",
-  "activity-checklist-completed": "completed checklist __checklist__ at card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
+  "activity-checklist-completed": "completed checklist %s of %s",
   "activity-checklist-uncompleted": "\"отзавърши\" чеклистта %s в %s",
   "activity-checklist-item-added": "добави точка към '%s' в/във %s",
   "activity-checklist-item-removed": "премахна точка от '%s' в %s",
@@ -759,5 +759,11 @@
   "show-on-card": "Show on Card",
   "new": "New",
   "editUserPopup-title": "Edit User",
-  "newUserPopup-title": "New User"
+  "newUserPopup-title": "New User",
+  "notifications": "Notifications",
+  "view-all": "View All",
+  "filter-by-unread": "Filter by Unread",
+  "mark-all-as-read": "Mark all as read",
+  "allow-rename": "Allow Rename",
+  "allowRenamePopup-title": "Allow Rename"
 }

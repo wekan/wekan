@@ -64,7 +64,7 @@
   "activity-unchecked-item": "अचिह्नित %s अंदर में चिह्नांकन-सूची %s of %s",
   "activity-checklist-added": "संकलित चिह्नांकन-सूची तक %s",
   "activity-checklist-removed": "हटा दिया एक चिह्नांकन-सूची से %s",
-  "activity-checklist-completed": "completed checklist __checklist__ at card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
+  "activity-checklist-completed": "completed checklist %s of %s",
   "activity-checklist-uncompleted": "अपूर्ण चिह्नांकन-सूची %s of %s",
   "activity-checklist-item-added": "संकलित चिह्नांकन-सूची विषय तक '%s' अंदर में %s",
   "activity-checklist-item-removed": "हटा दिया एक चिह्नांकन-सूची विषय से '%s' अंदर में %s",
@@ -759,5 +759,11 @@
   "show-on-card": "Show on Card",
   "new": "New",
   "editUserPopup-title": "Edit User",
-  "newUserPopup-title": "New User"
+  "newUserPopup-title": "New User",
+  "notifications": "Notifications",
+  "view-all": "View All",
+  "filter-by-unread": "Filter by Unread",
+  "mark-all-as-read": "Mark all as read",
+  "allow-rename": "Allow Rename",
+  "allowRenamePopup-title": "Allow Rename"
 }

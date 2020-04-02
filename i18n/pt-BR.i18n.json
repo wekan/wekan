@@ -64,7 +64,7 @@
   "activity-unchecked-item": "desmarcado %s na lista de verificação %s de %s",
   "activity-checklist-added": "Adicionada lista de verificação a %s",
   "activity-checklist-removed": "removida a lista de verificação de %s",
-  "activity-checklist-completed": "completada a lista de verificação __checklist__ no cartão __card__ na lista __list__ em raia __swimlane__ no quadro __board__",
+  "activity-checklist-completed": "completed checklist %s of %s",
   "activity-checklist-uncompleted": "não-completada a lista de verificação %s de %s",
   "activity-checklist-item-added": "adicionado o item de lista de verificação para '%s' em %s",
   "activity-checklist-item-removed": "removida o item de lista de verificação de '%s' na %s",
@@ -182,7 +182,7 @@
   "changeLanguagePopup-title": "Alterar Idioma",
   "changePasswordPopup-title": "Alterar Senha",
   "changePermissionsPopup-title": "Alterar Permissões",
-  "changeSettingsPopup-title": "Altera configurações",
+  "changeSettingsPopup-title": "Alterar configurações",
   "subtasks": "Subtarefas",
   "checklists": "Listas de verificação",
   "click-to-star": "Marcar quadro como favorito.",
@@ -759,5 +759,11 @@
   "show-on-card": "Mostrar no Cartão",
   "new": "Novo",
   "editUserPopup-title": "Editar usuário",
-  "newUserPopup-title": "Novo usuário"
+  "newUserPopup-title": "Novo usuário",
+  "notifications": "Notificações",
+  "view-all": "Ver tudo",
+  "filter-by-unread": "Filtrar não lidas",
+  "mark-all-as-read": "Marcar todas como lidas",
+  "allow-rename": "Permitir renomear",
+  "allowRenamePopup-title": "Permitir renomear"
 }

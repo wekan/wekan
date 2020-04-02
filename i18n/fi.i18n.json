@@ -64,7 +64,7 @@
   "activity-unchecked-item": "poistettu ruksi %s tarkistuslistassa %s / %s",
   "activity-checklist-added": "lisätty tarkistuslista kortille %s",
   "activity-checklist-removed": "poistettu tarkistuslista kohteesta %s",
-  "activity-checklist-completed": "valmistui tarkistuslista __checklist__ kortilla __card__ listalla __list__ swimlanella __swimlane__ taululla __board__",
+  "activity-checklist-completed": "saatiin valmiiksi tarkistuslista %s / %s",
   "activity-checklist-uncompleted": "ei saatu valmiiksi tarkistuslista %s / %s",
   "activity-checklist-item-added": "lisäsi kohdan tarkistuslistaan '%s' kortilla %s",
   "activity-checklist-item-removed": "poistettu tarkistuslistan kohta '%s' / %s",
@@ -759,5 +759,11 @@
   "show-on-card": "Näytä kortilla",
   "new": "Uusi",
   "editUserPopup-title": "Muokkaa käyttäjää",
-  "newUserPopup-title": "Uusi käyttäjä"
+  "newUserPopup-title": "Uusi käyttäjä",
+  "notifications": "Ilmoitukset",
+  "view-all": "Näytä kaikki",
+  "filter-by-unread": "Suodata lukemattomat",
+  "mark-all-as-read": "Merkkaa kaikki luetuksi",
+  "allow-rename": "Salli uudelleennimeäminen",
+  "allowRenamePopup-title": "Salli uudelleennimeäminen"
 }

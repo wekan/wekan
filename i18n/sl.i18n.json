@@ -64,7 +64,7 @@
   "activity-unchecked-item": "odkljukal %s na kontrolnem seznamu %s od %s",
   "activity-checklist-added": "dodal kontrolni seznam na %s",
   "activity-checklist-removed": "odstranil kontrolni seznam iz %s",
-  "activity-checklist-completed": "dokončal kontrolni seznam __checklist__ na kartici __card__ na seznamu __list__ na plavalni stezi __swimlane__ na tabli __board__",
+  "activity-checklist-completed": "completed checklist %s of %s",
   "activity-checklist-uncompleted": "nedokončal kontrolni seznam %s od %s",
   "activity-checklist-item-added": "dodal postavko kontrolnega seznama na '%s' v %s",
   "activity-checklist-item-removed": "odstranil postavko kontrolnega seznama iz '%s' v %s",
@@ -759,5 +759,11 @@
   "show-on-card": "Prikaži na kartici",
   "new": "Novo",
   "editUserPopup-title": "Uredi uporabnika",
-  "newUserPopup-title": "Nov uporabnik"
+  "newUserPopup-title": "Nov uporabnik",
+  "notifications": "Notifications",
+  "view-all": "View All",
+  "filter-by-unread": "Filter by Unread",
+  "mark-all-as-read": "Mark all as read",
+  "allow-rename": "Allow Rename",
+  "allowRenamePopup-title": "Allow Rename"
 }

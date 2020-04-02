@@ -64,7 +64,7 @@
   "activity-unchecked-item": "unchecked %s in checklist %s of %s",
   "activity-checklist-added": "lista je dodata u %s",
   "activity-checklist-removed": "removed a checklist from %s",
-  "activity-checklist-completed": "completed checklist __checklist__ at card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
+  "activity-checklist-completed": "completed checklist %s of %s",
   "activity-checklist-uncompleted": "uncompleted the checklist %s of %s",
   "activity-checklist-item-added": "added checklist item to '%s' in %s",
   "activity-checklist-item-removed": "removed a checklist item from '%s' in %s",
@@ -757,7 +757,13 @@
   "cardAssigneesPopup-title": "Asignat",
   "addmore-detail": "Dodaj detaljaniji opis",
   "show-on-card": "Prikaži na kartici",
-  "new": "New",
-  "editUserPopup-title": "Edit User",
-  "newUserPopup-title": "New User"
+  "new": "Novo",
+  "editUserPopup-title": "Uredi korisnika",
+  "newUserPopup-title": "Novi korisnik",
+  "notifications": "Obaveštenja",
+  "view-all": "Prikaži sve",
+  "filter-by-unread": "Filtriraj nepročitano",
+  "mark-all-as-read": "Označi sve kao pročitano",
+  "allow-rename": "Dozvoli preimenovanje",
+  "allowRenamePopup-title": "Dozvoli preimenovanje"
 }

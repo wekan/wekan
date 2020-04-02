@@ -64,7 +64,7 @@
   "activity-unchecked-item": "未勾選 %s  於清單 %s 共 %s",
   "activity-checklist-added": "已新增待辦清單 %s",
   "activity-checklist-removed": "已刪除%s的待辦清單",
-  "activity-checklist-completed": "完成檢查清單__checklist__ 卡片 __card__ 清單 __list__ 泳道  __swimlane__ 看板 __board__",
+  "activity-checklist-completed": "completed checklist %s of %s",
   "activity-checklist-uncompleted": "未完成清單 %s 共 %s",
   "activity-checklist-item-added": "新增待辦清單項目從 %s 到 %s",
   "activity-checklist-item-removed": "已從 '%s' 於 %s中 移除一個清單項",
@@ -759,5 +759,11 @@
   "show-on-card": "Show on Card",
   "new": "New",
   "editUserPopup-title": "Edit User",
-  "newUserPopup-title": "New User"
+  "newUserPopup-title": "New User",
+  "notifications": "Notifications",
+  "view-all": "View All",
+  "filter-by-unread": "Filter by Unread",
+  "mark-all-as-read": "Mark all as read",
+  "allow-rename": "Allow Rename",
+  "allowRenamePopup-title": "Allow Rename"
 }

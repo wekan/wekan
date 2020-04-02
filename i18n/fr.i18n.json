@@ -64,7 +64,7 @@
   "activity-unchecked-item": "a décoché %s dans la checklist %s de %s",
   "activity-checklist-added": "a ajouté une checklist à %s",
   "activity-checklist-removed": "a supprimé une checklist de %s",
-  "activity-checklist-completed": "a complété la checklist __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
+  "activity-checklist-completed": "completed checklist %s of %s",
   "activity-checklist-uncompleted": "a rendu incomplète la checklist %s de %s",
   "activity-checklist-item-added": "a ajouté un élément à la checklist '%s' dans %s",
   "activity-checklist-item-removed": "a supprimé une checklist de '%s' dans %s",
@@ -759,5 +759,11 @@
   "show-on-card": "Afficher sur la carte",
   "new": "Nouveau",
   "editUserPopup-title": "Éditer l'utilisateur",
-  "newUserPopup-title": "Nouvel utilisateur"
+  "newUserPopup-title": "Nouvel utilisateur",
+  "notifications": "Notifications",
+  "view-all": "Voir tout",
+  "filter-by-unread": "Filtrer par non lu",
+  "mark-all-as-read": "Marquer comme lus",
+  "allow-rename": "Autoriser le renommage",
+  "allowRenamePopup-title": "Autoriser le renommage"
 }

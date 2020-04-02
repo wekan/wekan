@@ -64,7 +64,7 @@
   "activity-unchecked-item": "odznaczono %s w liście zadań %s z %s",
   "activity-checklist-added": "dodał(a) listę zadań do %s",
   "activity-checklist-removed": "usunął listę zadań z %s",
-  "activity-checklist-completed": "wykonał(a) wszystkie zadania z listy __checklist__ na karcie __card__ na liście __list__ na diagramie czynności __swimlane__ na tablicy __board__",
+  "activity-checklist-completed": "completed checklist %s of %s",
   "activity-checklist-uncompleted": "nieukończono listy zadań %s z %s",
   "activity-checklist-item-added": "dodał(a) zadanie '%s' do %s",
   "activity-checklist-item-removed": "usunął element z listy zadań '%s' w %s",
@@ -759,5 +759,11 @@
   "show-on-card": "Pokaż na karcie",
   "new": "Nowy",
   "editUserPopup-title": "Edytuj użytkownika",
-  "newUserPopup-title": "Nowy użytkownik"
+  "newUserPopup-title": "Nowy użytkownik",
+  "notifications": "Notifications",
+  "view-all": "View All",
+  "filter-by-unread": "Filter by Unread",
+  "mark-all-as-read": "Mark all as read",
+  "allow-rename": "Allow Rename",
+  "allowRenamePopup-title": "Allow Rename"
 }

@@ -64,7 +64,7 @@
   "activity-unchecked-item": "hat %s in Checkliste %s von %s abgewählt",
   "activity-checklist-added": "hat eine Checkliste zu %s hinzugefügt",
   "activity-checklist-removed": "entfernte eine Checkliste von %s",
-  "activity-checklist-completed": "hat Checkliste __checklist__ der Karte __card__ auf der Liste __list__ in Swimlane __swimlane__ in Board __board__ vervollständigt",
+  "activity-checklist-completed": "completed checklist %s of %s",
   "activity-checklist-uncompleted": "unvervollständigte die Checkliste %s von %s",
   "activity-checklist-item-added": "hat ein Checklistenelement zu '%s' in %s hinzugefügt",
   "activity-checklist-item-removed": "hat ein Checklistenelement von '%s' in %s entfernt",
@@ -759,5 +759,11 @@
   "show-on-card": "Zeige auf Karte",
   "new": "Neu",
   "editUserPopup-title": "Benutzer ändern",
-  "newUserPopup-title": "Neuer Benutzer"
+  "newUserPopup-title": "Neuer Benutzer",
+  "notifications": "Benachrichtigungen",
+  "view-all": "View All",
+  "filter-by-unread": "Filter by Unread",
+  "mark-all-as-read": "Mark all as read",
+  "allow-rename": "Allow Rename",
+  "allowRenamePopup-title": "Allow Rename"
 }

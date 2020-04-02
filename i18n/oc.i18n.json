@@ -64,7 +64,7 @@
   "activity-unchecked-item": "as descroiat %s dins la checklist %s de %s",
   "activity-checklist-added": "as apondut a checklist a %s",
   "activity-checklist-removed": "as tirat la checklist de %s",
-  "activity-checklist-completed": "as acabat la checklist __checklist__ de la carta __card__ de la tièra __list__ del corredor __swimlane__ del tablèu __board__",
+  "activity-checklist-completed": "completed checklist %s of %s",
   "activity-checklist-uncompleted": "as rendut incomplet la checklist %s de %s",
   "activity-checklist-item-added": "as apondut un element a la checklist '%s' dins %s",
   "activity-checklist-item-removed": "as tirat un element a la checklist '%s' dins %s",
@@ -759,5 +759,11 @@
   "show-on-card": "Show on Card",
   "new": "New",
   "editUserPopup-title": "Edit User",
-  "newUserPopup-title": "New User"
+  "newUserPopup-title": "New User",
+  "notifications": "Notifications",
+  "view-all": "View All",
+  "filter-by-unread": "Filter by Unread",
+  "mark-all-as-read": "Mark all as read",
+  "allow-rename": "Allow Rename",
+  "allowRenamePopup-title": "Allow Rename"
 }

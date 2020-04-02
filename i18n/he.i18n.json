@@ -64,7 +64,7 @@
   "activity-unchecked-item": "בוטל הסימון של %s ברשימת המשימות %s מתוך %s",
   "activity-checklist-added": "נוספה רשימת משימות אל %s",
   "activity-checklist-removed": "הוסרה רשימת משימות מ־%s",
-  "activity-checklist-completed": "רשימת המטלות __checklist__ בכרטיס __card__ שברשימה __list__ תחת המסלול __swimlane__ בלוח __board__ הושלמה",
+  "activity-checklist-completed": "completed checklist %s of %s",
   "activity-checklist-uncompleted": "רשימת המשימות %s מתוך %s סומנה כבלתי מושלמת",
   "activity-checklist-item-added": "נוסף פריט רשימת משימות אל ‚%s‘ תחת %s",
   "activity-checklist-item-removed": "הוסר פריט מרשימת המשימות ‚%s’ תחת %s",
@@ -759,5 +759,11 @@
   "show-on-card": "הצגה על הכרטיס",
   "new": "חדש",
   "editUserPopup-title": "עריכת משתמש",
-  "newUserPopup-title": "משתמש חדש"
+  "newUserPopup-title": "משתמש חדש",
+  "notifications": "Notifications",
+  "view-all": "View All",
+  "filter-by-unread": "Filter by Unread",
+  "mark-all-as-read": "Mark all as read",
+  "allow-rename": "Allow Rename",
+  "allowRenamePopup-title": "Allow Rename"
 }

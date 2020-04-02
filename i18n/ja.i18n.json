@@ -64,7 +64,7 @@
   "activity-unchecked-item": "チェックが外されました %s チェックリスト %s / %s",
   "activity-checklist-added": "%s にチェックリストを追加しました",
   "activity-checklist-removed": "チェックリストを %s から削除しました",
-  "activity-checklist-completed": "チェックリスト __checklist__ ボード __board__, スイムレーン __swimlane__, リスト __list__, カード __card__ が完了しました",
+  "activity-checklist-completed": "completed checklist %s of %s",
   "activity-checklist-uncompleted": "チェックリスト %s / %s が未完了になりました",
   "activity-checklist-item-added": "チェックリスト項目を '%s' / %s に追加しました",
   "activity-checklist-item-removed": "'%s' の チェックリスト %s の項目を削除しました",
@@ -759,5 +759,11 @@
   "show-on-card": "カードに表示する項目",
   "new": "新規作成",
   "editUserPopup-title": "ユーザーを編集",
-  "newUserPopup-title": "新規ユーザー"
+  "newUserPopup-title": "新規ユーザー",
+  "notifications": "通知",
+  "view-all": "View All",
+  "filter-by-unread": "Filter by Unread",
+  "mark-all-as-read": "Mark all as read",
+  "allow-rename": "Allow Rename",
+  "allowRenamePopup-title": "Allow Rename"
 }

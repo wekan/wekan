@@ -64,7 +64,7 @@
   "activity-unchecked-item": "disattivato %s nella checklist %s di %s",
   "activity-checklist-added": "aggiunta checklist a %s",
   "activity-checklist-removed": "È stata rimossa una checklist da%s",
-  "activity-checklist-completed": "checklist  __checklist__ completata nella scheda __card__ della lista __list__ della corsia __swimlane__  nella bacheca __board__",
+  "activity-checklist-completed": "completed checklist %s of %s",
   "activity-checklist-uncompleted": "La checklist non è stata completata",
   "activity-checklist-item-added": "Aggiunto l'elemento checklist a '%s' in %s",
   "activity-checklist-item-removed": "è stato rimosso un elemento della checklist da '%s' in %s",
@@ -759,5 +759,11 @@
   "show-on-card": "Mostra sulla scheda",
   "new": "Nuovo",
   "editUserPopup-title": "Modifica utente",
-  "newUserPopup-title": "Nuovo utente"
+  "newUserPopup-title": "Nuovo utente",
+  "notifications": "Notifiche",
+  "view-all": "Mostra Tutto",
+  "filter-by-unread": "Filtra per non Letto",
+  "mark-all-as-read": "Segna come letto",
+  "allow-rename": "Consenti Rinomina",
+  "allowRenamePopup-title": "Consenti Rinomina"
 }

@@ -64,7 +64,7 @@
   "activity-unchecked-item": "unchecked %s in checklist %s of %s",
   "activity-checklist-added": "daftar periksa ditambahkan ke %s",
   "activity-checklist-removed": "removed a checklist from %s",
-  "activity-checklist-completed": "completed checklist __checklist__ at card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
+  "activity-checklist-completed": "completed checklist %s of %s",
   "activity-checklist-uncompleted": "uncompleted the checklist %s of %s",
   "activity-checklist-item-added": "added checklist item to '%s' in %s",
   "activity-checklist-item-removed": "removed a checklist item from '%s' in %s",
@@ -759,5 +759,11 @@
   "show-on-card": "Show on Card",
   "new": "New",
   "editUserPopup-title": "Edit User",
-  "newUserPopup-title": "New User"
+  "newUserPopup-title": "New User",
+  "notifications": "Notifications",
+  "view-all": "View All",
+  "filter-by-unread": "Filter by Unread",
+  "mark-all-as-read": "Mark all as read",
+  "allow-rename": "Allow Rename",
+  "allowRenamePopup-title": "Allow Rename"
 }

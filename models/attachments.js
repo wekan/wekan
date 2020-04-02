@@ -219,6 +219,9 @@ if (Meteor.isServer) {
         type: 'card',
         activityType: 'addAttachment',
         attachmentId: doc._id,
+        // this preserves the name so that notifications can be meaningful after
+        // this file is removed
+        attachmentName: doc.original.name,
         boardId: doc.boardId,
         cardId: doc.cardId,
         listId: doc.listId,
@@ -246,16 +249,13 @@ if (Meteor.isServer) {
       type: 'card',
       activityType: 'deleteAttachment',
       attachmentId: doc._id,
+      // this preserves the name so that notifications can be meaningful after
+      // this file is removed
+      attachmentName: doc.original.name,
       boardId: doc.boardId,
       cardId: doc.cardId,
       listId: doc.listId,
       swimlaneId: doc.swimlaneId,
-    });
-  });
-
-  Attachments.files.after.remove((userId, doc) => {
-    Activities.remove({
-      attachmentId: doc._id,
     });
   });
 }

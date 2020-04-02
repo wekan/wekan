@@ -64,7 +64,7 @@
   "activity-unchecked-item": "desmarcado %s en lista  %s de %s",
   "activity-checklist-added": "ha añadido una lista de verificación a %s",
   "activity-checklist-removed": "eliminada una lista de verificación desde %s",
-  "activity-checklist-completed": "completada la lista de verificación __checklist__ de la tarjeta __card__ de la lista __list__ del carril __swimlane__ del tablero __board__",
+  "activity-checklist-completed": "completed checklist %s of %s",
   "activity-checklist-uncompleted": "no completado la lista %s de %s",
   "activity-checklist-item-added": "ha añadido el elemento de la lista de verificación a '%s' en %s",
   "activity-checklist-item-removed": "eliminado un elemento de la lista de verificación desde '%s' en %s",
@@ -759,5 +759,11 @@
   "show-on-card": "Mostrar en la tarjeta",
   "new": "Nuevo",
   "editUserPopup-title": "Editar el usuario",
-  "newUserPopup-title": "Nuevo usuario"
+  "newUserPopup-title": "Nuevo usuario",
+  "notifications": "Notificaciones",
+  "view-all": "Ver todo",
+  "filter-by-unread": "Filtrar por no leído",
+  "mark-all-as-read": "Marcar todo como leido",
+  "allow-rename": "Permitir renombrar",
+  "allowRenamePopup-title": "Permitir renombrar"
 }

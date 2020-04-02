@@ -64,7 +64,7 @@
   "activity-unchecked-item": "ازالة تحقق %s من قائمة التحقق %s من %s",
   "activity-checklist-added": "أضاف قائمة تحقق إلى %s",
   "activity-checklist-removed": "ازالة قائمة التحقق من %s",
-  "activity-checklist-completed": "completed checklist __checklist__ at card __card__ at list __list__ at swimlane __swimlane__ at board __board__",
+  "activity-checklist-completed": "completed checklist %s of %s",
   "activity-checklist-uncompleted": "لم يتم انجاز قائمة التحقق %s من %s",
   "activity-checklist-item-added": "تم اضافة عنصر قائمة التحقق الى '%s' في %s",
   "activity-checklist-item-removed": "تم ازالة عنصر قائمة التحقق الى '%s' في %s",
@@ -759,5 +759,11 @@
   "show-on-card": "Show on Card",
   "new": "New",
   "editUserPopup-title": "Edit User",
-  "newUserPopup-title": "New User"
+  "newUserPopup-title": "New User",
+  "notifications": "Notifications",
+  "view-all": "View All",
+  "filter-by-unread": "Filter by Unread",
+  "mark-all-as-read": "Mark all as read",
+  "allow-rename": "Allow Rename",
+  "allowRenamePopup-title": "Allow Rename"
 }
