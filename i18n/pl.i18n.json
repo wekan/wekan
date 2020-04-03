@@ -440,7 +440,7 @@
   "save": "Zapisz",
   "search": "Wyszukaj",
   "rules": "Reguły",
-  "search-cards": "Szukaj w tytułach kart/list oraz opisach na tej tablicy",
+  "search-cards": "Search from card/list titles, descriptions and custom fields on this board",
   "search-example": "Czego mam szukać?",
   "select-color": "Wybierz kolor",
   "set-wip-limit-value": "Ustaw maksymalny limit zadań na tej liście",

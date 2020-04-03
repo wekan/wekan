@@ -440,7 +440,7 @@
   "save": "保存",
   "search": "搜索",
   "rules": "规则",
-  "search-cards": "搜索当前看板上的卡片/列表标题和描述",
+  "search-cards": "Search from card/list titles, descriptions and custom fields on this board",
   "search-example": "搜索",
   "select-color": "选择颜色",
   "set-wip-limit-value": "设置此列表中的最大任务数",

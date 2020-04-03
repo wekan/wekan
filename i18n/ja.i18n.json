@@ -440,7 +440,7 @@
   "save": "保存",
   "search": "検索",
   "rules": "ルール",
-  "search-cards": "ボードのカード/リストのタイトルと詳細から検索",
+  "search-cards": "Search from card/list titles, descriptions and custom fields on this board",
   "search-example": "検索文字",
   "select-color": "色を選択",
   "set-wip-limit-value": "このリスト中のタスクの最大数を設定",

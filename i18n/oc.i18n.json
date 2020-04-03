@@ -440,7 +440,7 @@
   "save": "Salvar",
   "search": "Cèrca",
   "rules": "Règlas",
-  "search-cards": "Search from card/list titles and descriptions on this board",
+  "search-cards": "Search from card/list titles, descriptions and custom fields on this board",
   "search-example": "Text to search for?",
   "select-color": "Color causida",
   "set-wip-limit-value": "Set a limit for the maximum number of tasks in this list",

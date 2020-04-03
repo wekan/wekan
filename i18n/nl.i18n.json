@@ -440,7 +440,7 @@
   "save": "Opslaan",
   "search": "Zoek",
   "rules": "Regels",
-  "search-cards": "Zoek op kaarten/lijsten en omschrijvingen op dit bord",
+  "search-cards": "Search from card/list titles, descriptions and custom fields on this board",
   "search-example": "Tekst om naar te zoeken?",
   "select-color": "Selecteer kleur",
   "set-wip-limit-value": "Zet een limiet voor het maximaal aantal taken in deze lijst",

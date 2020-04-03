@@ -440,7 +440,7 @@
   "save": "Spara",
   "search": "Sök",
   "rules": "Regler",
-  "search-cards": "Sök från kort-/listtitlar och beskrivningar på denna anslagstavla",
+  "search-cards": "Search from card/list titles, descriptions and custom fields on this board",
   "search-example": "Text att söka efter?",
   "select-color": "Välj färg",
   "set-wip-limit-value": "Ange en gräns för det maximala antalet uppgifter i den här listan",

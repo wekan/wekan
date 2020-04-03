@@ -440,7 +440,7 @@
   "save": "Kaydet",
   "search": "Arama",
   "rules": "Kurallar",
-  "search-cards": "Search from card/list titles and descriptions on this board",
+  "search-cards": "Search from card/list titles, descriptions and custom fields on this board",
   "search-example": "Aranılacak metin?",
   "select-color": "Renk Seç",
   "set-wip-limit-value": "Bu listedeki en fazla öğe sayısı için bir sınır belirleyin",
