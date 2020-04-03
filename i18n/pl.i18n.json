@@ -64,7 +64,7 @@
   "activity-unchecked-item": "odznaczono %s w liście zadań %s z %s",
   "activity-checklist-added": "dodał(a) listę zadań do %s",
   "activity-checklist-removed": "usunął listę zadań z %s",
-  "activity-checklist-completed": "completed checklist %s of %s",
+  "activity-checklist-completed": "ukończono listę zadań %s z %s",
   "activity-checklist-uncompleted": "nieukończono listy zadań %s z %s",
   "activity-checklist-item-added": "dodał(a) zadanie '%s' do %s",
   "activity-checklist-item-removed": "usunął element z listy zadań '%s' w %s",
@@ -760,10 +760,10 @@
   "new": "Nowy",
   "editUserPopup-title": "Edytuj użytkownika",
   "newUserPopup-title": "Nowy użytkownik",
-  "notifications": "Notifications",
-  "view-all": "View All",
-  "filter-by-unread": "Filter by Unread",
-  "mark-all-as-read": "Mark all as read",
-  "allow-rename": "Allow Rename",
-  "allowRenamePopup-title": "Allow Rename"
+  "notifications": "Powiadomienia",
+  "view-all": "Wyświetl wszystko",
+  "filter-by-unread": "Filtruj nieprzeczytane",
+  "mark-all-as-read": "Zaznacz wszystkie jako przeczytane",
+  "allow-rename": "Zezwól na zmianę nazwy",
+  "allowRenamePopup-title": "Zezwól na zmianę nazwy"
 }

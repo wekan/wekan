@@ -64,7 +64,7 @@
   "activity-unchecked-item": "desmarcado %s na lista de verificação %s de %s",
   "activity-checklist-added": "Adicionada lista de verificação a %s",
   "activity-checklist-removed": "removida a lista de verificação de %s",
-  "activity-checklist-completed": "completed checklist %s of %s",
+  "activity-checklist-completed": "listas de verificação completas %s de %s",
   "activity-checklist-uncompleted": "não-completada a lista de verificação %s de %s",
   "activity-checklist-item-added": "adicionado o item de lista de verificação para '%s' em %s",
   "activity-checklist-item-removed": "removida o item de lista de verificação de '%s' na %s",

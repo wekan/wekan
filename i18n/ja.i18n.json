@@ -64,7 +64,7 @@
   "activity-unchecked-item": "チェックが外されました %s チェックリスト %s / %s",
   "activity-checklist-added": "%s にチェックリストを追加しました",
   "activity-checklist-removed": "チェックリストを %s から削除しました",
-  "activity-checklist-completed": "completed checklist %s of %s",
+  "activity-checklist-completed": "チェックリスト%s / %s が完了しました",
   "activity-checklist-uncompleted": "チェックリスト %s / %s が未完了になりました",
   "activity-checklist-item-added": "チェックリスト項目を '%s' / %s に追加しました",
   "activity-checklist-item-removed": "'%s' の チェックリスト %s の項目を削除しました",
@@ -761,9 +761,9 @@
   "editUserPopup-title": "ユーザーを編集",
   "newUserPopup-title": "新規ユーザー",
   "notifications": "通知",
-  "view-all": "View All",
-  "filter-by-unread": "Filter by Unread",
-  "mark-all-as-read": "Mark all as read",
-  "allow-rename": "Allow Rename",
-  "allowRenamePopup-title": "Allow Rename"
+  "view-all": "全てを表示",
+  "filter-by-unread": "未読でフィルタ",
+  "mark-all-as-read": "全て既読にする",
+  "allow-rename": "リネームを許可する",
+  "allowRenamePopup-title": "リネームを許可する"
 }
