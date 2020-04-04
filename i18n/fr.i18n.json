@@ -440,7 +440,7 @@
   "save": "Enregistrer",
   "search": "Chercher",
   "rules": "Règles",
-  "search-cards": "Chercher selon les titres de carte/liste et descriptions de ce tableau",
+  "search-cards": "Search from card/list titles, descriptions and custom fields on this board",
   "search-example": "Texte à rechercher ?",
   "select-color": "Sélectionner une couleur",
   "set-wip-limit-value": "Définit une limite maximale au nombre de cartes de cette liste",

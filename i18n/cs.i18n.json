@@ -440,7 +440,7 @@
   "save": "Uložit",
   "search": "Hledat",
   "rules": "Pravidla",
-  "search-cards": "Search from card/list titles and descriptions on this board",
+  "search-cards": "Search from card/list titles, descriptions and custom fields on this board",
   "search-example": "Hledaný text",
   "select-color": "Vybrat barvu",
   "set-wip-limit-value": "Nastaví limit pro maximální počet úkolů ve sloupci.",

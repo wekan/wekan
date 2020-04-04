@@ -1,3 +1,14 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Create subtasks in parenttask swimlane](https://github.com/wekan/wekan/issues/1953).
+  Thanks to TOSCom-DanielEder.
+- [When searching cards in a board, also search from Custom Fields](https://github.com/wekan/wekan/pull/2985).
+  Thanks to slvrpdr.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.88 2020-04-02 Wekan release
 
 This release adds the following new features:

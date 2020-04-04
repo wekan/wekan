@@ -440,7 +440,7 @@
   "save": "Snimi",
   "search": "Pretraga",
   "rules": "Rules",
-  "search-cards": "Pretraži naslove sa kartica/listi i opisa na ovoj tabli",
+  "search-cards": "Search from card/list titles, descriptions and custom fields on this board",
   "search-example": "Text to search for?",
   "select-color": "Select Color",
   "set-wip-limit-value": "Set a limit for the maximum number of tasks in this list",

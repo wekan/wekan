@@ -440,7 +440,7 @@
   "save": "ذخیره",
   "search": "جستجو",
   "rules": "قوانین",
-  "search-cards": "جتستجو از عنوان لیست/کارت ها و توضیحات در این برد",
+  "search-cards": "Search from card/list titles, descriptions and custom fields on this board",
   "search-example": "متن مورد جستجو؟",
   "select-color": "انتخاب رنگ",
   "set-wip-limit-value": "تعیین بیشینه تعداد وظایف در این فهرست",

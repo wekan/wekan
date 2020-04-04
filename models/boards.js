@@ -806,7 +806,11 @@ Boards.helpers({
     if (term) {
       const regex = new RegExp(term, 'i');
 
-      query.$or = [{ title: regex }, { description: regex }];
+      query.$or = [
+        { title: regex },
+        { description: regex },
+        { customFields: { $elemMatch: { value: regex } } },
+      ];
     }
 
     return Cards.find(query, projection);

@@ -440,7 +440,7 @@
   "save": "Desa",
   "search": "Cerca",
   "rules": "Regles",
-  "search-cards": "Search from card/list titles and descriptions on this board",
+  "search-cards": "Search from card/list titles, descriptions and custom fields on this board",
   "search-example": "Text que cercar?",
   "select-color": "Selecciona color",
   "set-wip-limit-value": "Limita el màxim nombre de tasques en aquesta llista",

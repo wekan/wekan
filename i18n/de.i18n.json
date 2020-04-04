@@ -64,7 +64,7 @@
   "activity-unchecked-item": "hat %s in Checkliste %s von %s abgewählt",
   "activity-checklist-added": "hat eine Checkliste zu %s hinzugefügt",
   "activity-checklist-removed": "entfernte eine Checkliste von %s",
-  "activity-checklist-completed": "completed checklist %s of %s",
+  "activity-checklist-completed": "Abgeschlossene Checkliste",
   "activity-checklist-uncompleted": "unvervollständigte die Checkliste %s von %s",
   "activity-checklist-item-added": "hat ein Checklistenelement zu '%s' in %s hinzugefügt",
   "activity-checklist-item-removed": "hat ein Checklistenelement von '%s' in %s entfernt",
@@ -440,7 +440,7 @@
   "save": "Speichern",
   "search": "Suchen",
   "rules": "Regeln",
-  "search-cards": "Suche nach Karten-/Listentiteln und Beschreibungen auf diesem Board",
+  "search-cards": "Search from card/list titles, descriptions and custom fields on this board",
   "search-example": "Suchbegriff",
   "select-color": "Farbe auswählen",
   "set-wip-limit-value": "Setzen Sie ein Limit für die maximale Anzahl von Aufgaben in dieser Liste",
@@ -761,9 +761,9 @@
   "editUserPopup-title": "Benutzer ändern",
   "newUserPopup-title": "Neuer Benutzer",
   "notifications": "Benachrichtigungen",
-  "view-all": "View All",
+  "view-all": "Alle anzeigen",
   "filter-by-unread": "Filter by Unread",
-  "mark-all-as-read": "Mark all as read",
-  "allow-rename": "Allow Rename",
-  "allowRenamePopup-title": "Allow Rename"
+  "mark-all-as-read": "Als ungelesen markieren",
+  "allow-rename": "Umbenennen erlauben",
+  "allowRenamePopup-title": "Umbenennen erlauben"
 }

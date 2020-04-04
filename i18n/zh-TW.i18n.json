@@ -440,7 +440,7 @@
   "save": "儲存",
   "search": "搜尋",
   "rules": "規則",
-  "search-cards": "搜尋看板內的卡片標題及描述",
+  "search-cards": "Search from card/list titles, descriptions and custom fields on this board",
   "search-example": "搜尋",
   "select-color": "選擇顏色",
   "set-wip-limit-value": "設定此清單中的最大任務數",

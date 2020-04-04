@@ -440,7 +440,7 @@
   "save": "Guardar",
   "search": "Procurar",
   "rules": "Regras",
-  "search-cards": "Search from card/list titles and descriptions on this board",
+  "search-cards": "Search from card/list titles, descriptions and custom fields on this board",
   "search-example": "Texto a procurar?",
   "select-color": "Seleccionar Cor",
   "set-wip-limit-value": "Defina um limite máximo para o número de tarefas nesta lista",
