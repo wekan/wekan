@@ -73,6 +73,8 @@ Template.userFormsLayout.helpers({
         name = 'Igbo';
       } else if (lang.name === 'oc') {
         name = 'Occitan';
+      } else if (lang.name === 'zh-TW') {
+        name = '繁體中文（台灣）';
       }
       return { tag, name };
     }).sort(function(a, b) {
