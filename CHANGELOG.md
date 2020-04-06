@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release updates the following translations:
+
+- [Update layouts.js for zh-TW language name](https://github.com/wekan/wekan/pull/2988).
+  Thanks to doggy8088.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.89 2020-04-05 Wekan release
 
 This release adds the following new features:
