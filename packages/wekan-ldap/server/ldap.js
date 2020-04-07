@@ -40,6 +40,8 @@ export default class LDAP {
       group_filter_group_member_attribute: this.constructor.settings_get('LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE'),
       group_filter_group_member_format   : this.constructor.settings_get('LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT'),
       group_filter_group_name            : this.constructor.settings_get('LDAP_GROUP_FILTER_GROUP_NAME'),
+      AD_Simple_Auth                     : this.constructor.settings_get('LDAP_AD_SIMPLE_AUTH'),
+      Default_Domain                     : this.constructor.settings_get('LDAP_DEFAULT_DOMAIN'),
     };
   }
 
@@ -225,9 +227,16 @@ export default class LDAP {
     }
 
 
-    if (!this.options.BaseDN) throw new Error('BaseDN is not provided');
+    if (!this.options.BaseDN && !this.options.AD_Simple_Auth) throw new Error('BaseDN is not provided');
 
-    const userDn = `${this.options.User_Authentication_Field}=${username},${this.options.BaseDN}`;
+    var userDn = "";
+    if (this.options.AD_Simple_Auth === true) {
+      userDn = `${username}@${this.options.Default_Domain}`;
+    } else {
+      userDn = `${this.options.User_Authentication_Field}=${username},${this.options.BaseDN}`;
+    }
+
+    log_info('Binding with User', userDn);
 
     this.bindSync(userDn, password);
     this.domainBinded = true;
