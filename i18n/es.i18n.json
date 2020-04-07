@@ -440,7 +440,7 @@
   "save": "Añadir",
   "search": "Buscar",
   "rules": "Reglas",
-  "search-cards": "Search from card/list titles, descriptions and custom fields on this board",
+  "search-cards": "Buscar entre los títulos, las descripciones de las tarjetas/listas y los campos personalizados en este tablero. ",
   "search-example": "¿Texto a buscar?",
   "select-color": "Seleccionar el color",
   "set-wip-limit-value": "Cambiar el límite para el número máximo de tareas en esta lista.",

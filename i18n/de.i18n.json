@@ -440,7 +440,7 @@
   "save": "Speichern",
   "search": "Suchen",
   "rules": "Regeln",
-  "search-cards": "Search from card/list titles, descriptions and custom fields on this board",
+  "search-cards": "Suche nach Karten-/Listentiteln, Beschreibungen und personalisierten Feldern auf diesem Brett ",
   "search-example": "Suchbegriff",
   "select-color": "Farbe auswählen",
   "set-wip-limit-value": "Setzen Sie ein Limit für die maximale Anzahl von Aufgaben in dieser Liste",
@@ -762,7 +762,7 @@
   "newUserPopup-title": "Neuer Benutzer",
   "notifications": "Benachrichtigungen",
   "view-all": "Alle anzeigen",
-  "filter-by-unread": "Filter by Unread",
+  "filter-by-unread": "Nach Ungelesenen filtern",
   "mark-all-as-read": "Als ungelesen markieren",
   "allow-rename": "Umbenennen erlauben",
   "allowRenamePopup-title": "Umbenennen erlauben"

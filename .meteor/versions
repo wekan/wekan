@@ -11,7 +11,7 @@ allow-deny@1.1.0
 arillo:flow-router-helpers@0.5.2
 audit-argument-checks@1.0.7
 autoupdate@1.6.0
-babel-compiler@7.5.2
+babel-compiler@7.5.3
 babel-runtime@1.5.0
 base64@1.0.12
 binary-heap@1.0.11
@@ -20,7 +20,7 @@ blaze-tools@1.0.10
 boilerplate-generator@1.7.0
 browser-policy-common@1.0.11
 browser-policy-framing@1.1.0
-caching-compiler@1.2.1
+caching-compiler@1.2.2
 caching-html-compiler@1.1.3
 callback-hook@1.3.0
 cfs:access-point@0.1.49
@@ -55,9 +55,9 @@ ddp-rate-limiter@1.0.7
 ddp-server@2.3.1
 deps@1.0.12
 diff-sequence@1.1.1
-dynamic-import@0.5.1
+dynamic-import@0.5.2
 easylogic:summernote@0.8.8
-ecmascript@0.14.2
+ecmascript@0.14.3
 ecmascript-runtime@0.7.0
 ecmascript-runtime-client@0.10.0
 ecmascript-runtime-server@0.9.0
@@ -110,7 +110,7 @@ modern-browsers@0.1.5
 modules@0.15.0
 modules-runtime@0.12.0
 momentjs:moment@2.24.0
-mongo@1.9.0
+mongo@1.9.1
 mongo-decimal@0.1.1
 mongo-dev-server@1.1.0
 mongo-id@1.0.7
@@ -186,7 +186,7 @@ useraccounts:core@1.14.2
 useraccounts:flow-routing@1.14.2
 useraccounts:unstyled@1.14.2
 verron:autosize@3.0.8
-webapp@1.9.0
+webapp@1.9.1
 webapp-hashing@1.0.9
 wekan-accounts-cas@0.1.0
 wekan-accounts-oidc@1.0.10

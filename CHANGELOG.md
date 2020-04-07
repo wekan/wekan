@@ -1,4 +1,17 @@
-# Upcoming Wekan release
+# v3.90 2020-04-06 Wekan release
+
+This release makes the following updates:
+
+- [Update dependencies](https://github.com/wekan/wekan/commit/d798f6e3ef09595ce4f1d1fbc053eec70fc91fb9).
+
+and updates the following translations:
+
+- [Update layouts.js for zh-TW language name](https://github.com/wekan/wekan/pull/2988).
+  Thanks to doggy8088.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.89 2020-04-05 Wekan release
 
 This release adds the following new features:
 
