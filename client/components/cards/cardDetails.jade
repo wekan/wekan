@@ -199,6 +199,24 @@ template(name="cardDetails")
             +viewer
               = getAssignedBy
 
+    if getVoteQuestion
+      hr
+      .vote-title
+        h3
+          i.fa.fa-thumbs-up
+          card-details-item-title {{_ 'vote-question'}}
+        .vote-result
+          .card-label.card-label-green
+            +viewer
+              = voteCountPositive
+          .card-label.card-label-red
+            +viewer
+              = voteCountNegative
+      +viewer
+        = getVoteQuestion
+      button.card-details-green.js-vote.js-vote-positive(class="{{#if voteState}}voted{{/if}}") {{_ 'vote-for-it'}}
+      button.card-details-red.js-vote.js-vote-negative(class="{{#if $eq voteState false}}voted{{/if}}") {{_ 'vote-against'}}
+
     //- XXX We should use "editable" to avoid repetiting ourselves
     if canModifyCard
       unless currentUser.isWorker
@@ -315,6 +333,16 @@ template(name="cardDetailsActionsPopup")
         //li: a.js-members {{_ 'card-edit-members'}}
         //li: a.js-labels {{_ 'card-edit-labels'}}
         //li: a.js-attachments {{_ 'card-edit-attachments'}}
+        if getVoteQuestion
+          li
+            a.js-cancel-voting
+              i.fa.fa-thumbs-up
+              | {{_ 'card-cancel-voting'}}
+        else
+          li
+            a.js-start-voting
+              i.fa.fa-thumbs-up
+              | {{_ 'card-start-voting'}}
         li
           a.js-custom-fields
             i.fa.fa-list-alt
@@ -538,3 +566,12 @@ template(name="cardDeletePopup")
   unless archived
    p {{_ "card-delete-suggest-archive"}}
   button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
+
+template(name="cardStartVotingPopup")
+  form.edit-vote-question
+    .fields
+      label(for="vote") {{_ 'vote-question'}}
+      input.js-vote-field#vote(type="text" name="vote" value="{{card.getVoteQuestion}}" autofocus)
+
+    button.primary.confirm.js-submit {{_ 'save'}}
+    //- button.js-remove-color.negate.wide.right {{_ 'delete'}}
