@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [OpenShift: Route template added to helm chart for Openshift v4x
+  cluster](https://github.com/wekan/wekan/pull/2996).
+  Thanks to ckavili.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.90 2020-04-06 Wekan release
 
 This release makes the following updates:
