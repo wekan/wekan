@@ -319,6 +319,7 @@
   "filter-clear": "Pulisci filtri",
   "filter-no-label": "Nessuna etichetta",
   "filter-no-member": "Nessun membro",
+  "filter-no-assignee": "No assignee",
   "filter-no-custom-fields": "Nessun campo personalizzato",
   "filter-show-archive": "Mostra le liste archiviate",
   "filter-hide-empty": "Nascondi liste vuote",

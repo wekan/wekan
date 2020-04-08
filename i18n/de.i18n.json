@@ -319,6 +319,7 @@
   "filter-clear": "Filter entfernen",
   "filter-no-label": "Kein Label",
   "filter-no-member": "Kein Mitglied",
+  "filter-no-assignee": "No assignee",
   "filter-no-custom-fields": "Keine benutzerdefinierten Felder",
   "filter-show-archive": "Archivierte Listen anzeigen",
   "filter-hide-empty": "Leere Listen verstecken",
@@ -763,7 +764,7 @@
   "notifications": "Benachrichtigungen",
   "view-all": "Alle anzeigen",
   "filter-by-unread": "Nach Ungelesenen filtern",
-  "mark-all-as-read": "Als ungelesen markieren",
+  "mark-all-as-read": "Alle als gelesen markieren",
   "allow-rename": "Umbenennen erlauben",
   "allowRenamePopup-title": "Umbenennen erlauben"
 }

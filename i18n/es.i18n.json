@@ -319,6 +319,7 @@
   "filter-clear": "Limpiar el filtro",
   "filter-no-label": "Sin etiqueta",
   "filter-no-member": "Sin miembro",
+  "filter-no-assignee": "No assignee",
   "filter-no-custom-fields": "Sin campos personalizados",
   "filter-show-archive": "Mostrar las listas archivadas",
   "filter-hide-empty": "Ocultar las listas vacías",

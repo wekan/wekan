@@ -319,6 +319,7 @@
   "filter-clear": "Wis filter",
   "filter-no-label": "Geen label",
   "filter-no-member": "Geen lid",
+  "filter-no-assignee": "No assignee",
   "filter-no-custom-fields": "Geen maatwerkvelden",
   "filter-show-archive": "Toon gearchiveerde lijsten",
   "filter-hide-empty": "Verberg lege lijsten",
