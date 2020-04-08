@@ -931,7 +931,8 @@ if (Meteor.isServer) {
 const addCronJob = _.debounce(
   Meteor.bindEnvironment(function notificationCleanupDebounced() {
     // passed in the removeAge has to be a number standing for the number of days after a notification is read before we remove it
-    const envRemoveAge = process.env.NOTIFICATION_REMOVAL_AGE;
+    const envRemoveAge =
+      process.env.NOTIFICATION_TRAY_AFTER_READ_DAYS_BEFORE_REMOVE;
     // default notifications will be removed 2 days after they are read
     const defaultRemoveAge = 2;
     const removeAge = parseInt(envRemoveAge, 10) || defaultRemoveAge;

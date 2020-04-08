@@ -242,6 +242,7 @@ const myCommand :Spk.Manifest.Command = (
     (key = "SCROLLINERTIA", value="0"),
     (key = "SCROLLAMOUNT", value="auto"),
     (key = "CARD_OPENED_WEBHOOK_ENABLED", value="false"),
+    (key = "NOTIFICATION_TRAY_AFTER_READ_DAYS_BEFORE_REMOVE", value=""),
     (key = "BIGEVENTS_PATTERN", value="NONE"),
     (key = "MATOMO_ADDRESS", value=""),
     (key = "MATOMO_SITE_ID", value=""),

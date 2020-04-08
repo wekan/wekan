@@ -26,6 +26,7 @@ ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-
     ATTACHMENTS_STORE_PATH="" \
     MAX_IMAGE_PIXEL="" \
     IMAGE_COMPRESS_RATIO="" \
+    NOTIFICATION_TRAY_AFTER_READ_DAYS_BEFORE_REMOVE="" \
     BIGEVENTS_PATTERN=NONE \
     NOTIFY_DUE_DAYS_BEFORE_AND_AFTER="" \
     NOTIFY_DUE_AT_HOUR_OF_DAY="" \
