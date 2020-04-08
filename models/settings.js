@@ -198,6 +198,10 @@ if (Meteor.isServer) {
     return process.env.CAS_ENABLED === 'true';
   }
 
+  function isApiEnabled() {
+    return process.env.WITH_API === 'true';
+  }
+
   Meteor.methods({
     sendInvitation(emails, boards) {
       check(emails, [String]);
@@ -312,6 +316,10 @@ if (Meteor.isServer) {
 
     _isCasEnabled() {
       return isCasEnabled();
+    },
+
+    _isApiEnabled() {
+      return isApiEnabled();
     },
 
     // Gets all connection methods to use it in the Template

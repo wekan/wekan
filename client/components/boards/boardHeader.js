@@ -33,22 +33,6 @@ Template.boardMenuPopup.events({
   'click .js-card-settings': Popup.open('boardCardSettings'),
 });
 
-Template.boardMenuPopup.helpers({
-  exportUrl() {
-    const params = {
-      boardId: Session.get('currentBoard'),
-    };
-    const queryParams = {
-      authToken: Accounts._storedLoginToken(),
-    };
-    return FlowRouter.path('/api/boards/:boardId/export', params, queryParams);
-  },
-  exportFilename() {
-    const boardId = Session.get('currentBoard');
-    return `wekan-export-board-${boardId}.json`;
-  },
-});
-
 Template.boardChangeTitlePopup.events({
   submit(event, templateInstance) {
     const newTitle = templateInstance
