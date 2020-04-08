@@ -59,6 +59,9 @@ ingress:
   #    hosts:
   #      - wekan-example.local
 
+  route:
+    enabled: false
+
 resources: 
   requests:
     memory: 128Mi

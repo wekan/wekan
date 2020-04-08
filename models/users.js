@@ -1,3 +1,5 @@
+import { SyncedCron } from 'meteor/percolate:synced-cron';
+
 // Sandstorm context is detected using the METEOR_SETTINGS environment variable
 // in the package definition.
 const isSandstorm =
@@ -926,6 +928,38 @@ if (Meteor.isServer) {
   });
 }
 
+const addCronJob = _.debounce(
+  Meteor.bindEnvironment(function notificationCleanupDebounced() {
+    // passed in the removeAge has to be a number standing for the number of days after a notification is read before we remove it
+    const envRemoveAge =
+      process.env.NOTIFICATION_TRAY_AFTER_READ_DAYS_BEFORE_REMOVE;
+    // default notifications will be removed 2 days after they are read
+    const defaultRemoveAge = 2;
+    const removeAge = parseInt(envRemoveAge, 10) || defaultRemoveAge;
+
+    SyncedCron.add({
+      name: 'notification_cleanup',
+      schedule: parser => parser.text('every 1 days'),
+      job: () => {
+        for (const user of Users.find()) {
+          for (const notification of user.profile.notifications) {
+            if (notification.read) {
+              const removeDate = new Date(notification.read);
+              removeDate.setDate(removeDate.getDate() + removeAge);
+              if (removeDate <= new Date()) {
+                user.removeNotification(notification.activity);
+              }
+            }
+          }
+        }
+      },
+    });
+
+    SyncedCron.start();
+  }),
+  500,
+);
+
 if (Meteor.isServer) {
   // Let mongoDB ensure username unicity
   Meteor.startup(() => {
@@ -939,6 +973,9 @@ if (Meteor.isServer) {
       },
       { unique: true },
     );
+    Meteor.defer(() => {
+      addCronJob();
+    });
   });
 
   // OLD WAY THIS CODE DID WORK: When user is last admin of board,

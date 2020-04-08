@@ -153,7 +153,7 @@
   "card-edit-attachments": "Edit attachments",
   "card-edit-custom-fields": "Edit custom fields",
   "card-start-voting": "Start voting",
-  "card-cancel-voting": "Delete voting",
+  "card-cancel-voting": "Delete voting and all votes",
   "card-edit-labels": "Edit labels",
   "card-edit-members": "Edit members",
   "card-labels-title": "Change the labels for the card.",
@@ -325,6 +325,7 @@
   "filter-clear": "Clear filter",
   "filter-no-label": "No label",
   "filter-no-member": "No member",
+  "filter-no-assignee": "No assignee",
   "filter-no-custom-fields": "No Custom Fields",
   "filter-show-archive": "Show archived lists",
   "filter-hide-empty": "Hide empty lists",
@@ -773,6 +774,7 @@
   "view-all": "View All",
   "filter-by-unread": "Filter by Unread",
   "mark-all-as-read": "Mark all as read",
+  "remove-all-read": "Remove all read",
   "allow-rename": "Allow Rename",
   "allowRenamePopup-title": "Allow Rename"
 }

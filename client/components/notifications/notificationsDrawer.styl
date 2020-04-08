@@ -45,11 +45,22 @@ section#notifications-drawer
       line-height: 24px
       opacity 1
 
-  .all-read
+  .all-read,
+  .remove-read
     color belize
     background-color: #fafafa
     margin 8px 16px 12px
     display inline-block
+
+  .remove-read
+    float right
+
+    &:hover
+      color #eb4646 !important
+
+      i.fa
+        color inherit
+
 
   ul.notifications
     display: block

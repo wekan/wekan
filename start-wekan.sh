@@ -54,6 +54,11 @@
       #export MAX_IMAGE_PIXEL=1024
       #export IMAGE_COMPRESS_RATIO=80
       #---------------------------------------------------------------
+      # ==== NOTIFICATION TRAY AFTER READ DAYS BEFORE REMOVE =====
+      # Number of days after a notification is read before we remove it.
+      # Default: 2
+      #- NOTIFICATION_TRAY_AFTER_READ_DAYS_BEFORE_REMOVE=2
+      #---------------------------------------------------------------
       # ==== BIGEVENTS DUE ETC NOTIFICATIONS =====
       # https://github.com/wekan/wekan/pull/2541
       # Introduced a system env var BIGEVENTS_PATTERN default as "NONE",

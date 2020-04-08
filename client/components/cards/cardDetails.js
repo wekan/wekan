@@ -40,31 +40,29 @@ BlazeComponent.extendComponent({
 
   voteState() {
     const card = this.currentData();
-    const userId = Meteor.userId()
-    let state
+    const userId = Meteor.userId();
+    let state;
     if (card.vote) {
       if (card.vote.positive) {
         state = _.contains(card.vote.positive, userId);
-        if (state === true) return true
+        if (state === true) return true;
       }
       if (card.vote.negative) {
         state = _.contains(card.vote.negative, userId);
-        if (state === true) return false
+        if (state === true) return false;
       }
     }
-    return null
+    return null;
   },
   voteCountPositive() {
     const card = this.currentData();
-    if (card.vote && card.vote.positive)
-      return card.vote.positive.length
-    return null
+    if (card.vote && card.vote.positive) return card.vote.positive.length;
+    return null;
   },
   voteCountNegative() {
     const card = this.currentData();
-    if (card.vote && card.vote.negative)
-      return card.vote.negative.length
-    return null
+    if (card.vote && card.vote.negative) return card.vote.negative.length;
+    return null;
   },
   isWatching() {
     const card = this.currentData();
@@ -408,17 +406,17 @@ BlazeComponent.extendComponent({
           Meteor.call('toggleSystemMessages');
         },
         'click .js-vote'(e) {
-          const forIt = $(e.target).hasClass('js-vote-positive')
-          let newState = null
+          const forIt = $(e.target).hasClass('js-vote-positive');
+          let newState = null;
           if (
             this.voteState() == null ||
-            this.voteState() == false && forIt ||
-            this.voteState() == true && !forIt
+            (this.voteState() == false && forIt) ||
+            (this.voteState() == true && !forIt)
           ) {
-            newState = forIt
+            newState = forIt;
           }
-          this.data().setVote(Meteor.userId(), newState)
-        }
+          this.data().setVote(Meteor.userId(), newState);
+        },
       },
     ];
   },
@@ -613,7 +611,7 @@ Template.cardDetailsActionsPopup.events({
   'click .js-set-card-color': Popup.open('setCardColor'),
   'click .js-cancel-voting'(event) {
     event.preventDefault();
-    this.unsetVote()
+    this.unsetVote();
     Popup.close();
   },
   'click .js-move-card-to-top'(event) {
@@ -649,7 +647,7 @@ Template.cardDetailsActionsPopup.events({
   },
 });
 
-Template.editCardTitleForm.onRendered(function () {
+Template.editCardTitleForm.onRendered(function() {
   autosize(this.$('.js-edit-card-title'));
 });
 
@@ -663,7 +661,7 @@ Template.editCardTitleForm.events({
   },
 });
 
-Template.editCardRequesterForm.onRendered(function () {
+Template.editCardRequesterForm.onRendered(function() {
   autosize(this.$('.js-edit-card-requester'));
 });
 
@@ -676,7 +674,7 @@ Template.editCardRequesterForm.events({
   },
 });
 
-Template.editCardAssignerForm.onRendered(function () {
+Template.editCardAssignerForm.onRendered(function() {
   autosize(this.$('.js-edit-card-assigner'));
 });
 
@@ -816,7 +814,7 @@ Template.copyChecklistToManyCardsPopup.events({
 
         // copy subtasks
         cursor = Cards.find({ parentId: oldId });
-        cursor.forEach(function () {
+        cursor.forEach(function() {
           'use strict';
           const subtask = arguments[0];
           subtask.parentId = _id;
@@ -965,7 +963,7 @@ BlazeComponent.extendComponent({
             }
           }
         },
-        'click .js-delete': Popup.afterConfirm('cardDelete', function () {
+        'click .js-delete': Popup.afterConfirm('cardDelete', function() {
           Popup.close();
           Cards.remove(this._id);
           Utils.goBoardId(this.boardId);
@@ -1003,9 +1001,8 @@ BlazeComponent.extendComponent({
         'submit .edit-vote-question'(evt) {
           evt.preventDefault();
           const voteQuestion = evt.target.vote.value;
-          this.currentCard.setVoteQuestion(voteQuestion)
+          this.currentCard.setVoteQuestion(voteQuestion);
           Popup.close();
-
         },
       },
     ];
