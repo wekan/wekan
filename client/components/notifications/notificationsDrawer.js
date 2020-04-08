@@ -16,6 +16,13 @@ Template.notificationsDrawer.helpers({
   transformedProfile() {
     return Users.findOne(Meteor.userId());
   },
+  readNotifications() {
+    const readNotifications = _.filter(
+      Meteor.user().profile.notifications,
+      v => !!v.read,
+    );
+    return readNotifications.length;
+  },
 });
 
 Template.notificationsDrawer.events({
@@ -34,5 +41,13 @@ Template.notificationsDrawer.events({
   },
   'click .toggle-read'() {
     Session.set('showReadNotifications', !Session.get('showReadNotifications'));
+  },
+  'click .remove-read'() {
+    const user = Meteor.user();
+    for (const notification of user.profile.notifications) {
+      if (notification.read) {
+        user.removeNotification(notification.activity);
+      }
+    }
   },
 });

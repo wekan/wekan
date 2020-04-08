@@ -14,3 +14,7 @@ template(name='notificationsDrawer')
         +notification(activityData=activity index=dbIndex read=read)
     if($gt unreadNotifications 0)
       a.all-read {{_ 'mark-all-as-read'}}
+    if ($and ($.Session.get 'showReadNotifications') ($gt readNotifications 0))
+      a.remove-read
+        i.fa.fa-trash
+        | {{_ 'remove-all-read'}}
