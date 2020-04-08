@@ -5,6 +5,8 @@ This release adds the following new features:
 - [OpenShift: Route template added to helm chart for Openshift v4x
   cluster](https://github.com/wekan/wekan/pull/2996).
   Thanks to ckavili.
+- [Filter by Assignee](https://github.com/wekan/wekan/pull/2997).
+  Thanks to daniel-eder.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
