@@ -319,6 +319,7 @@
   "filter-clear": "Clear filter",
   "filter-no-label": "No label",
   "filter-no-member": "No member",
+  "filter-no-assignee": "No assignee",
   "filter-no-custom-fields": "No Custom Fields",
   "filter-show-archive": "Show archived lists",
   "filter-hide-empty": "Hide empty lists",
