@@ -7,6 +7,8 @@ This release adds the following new features:
   Thanks to ckavili.
 - [Filter by Assignee](https://github.com/wekan/wekan/pull/2997).
   Thanks to daniel-eder.
+- [Vote on Card](https://github.com/wekan/wekan/pull/2994).
+  Thanks to NicoP-S and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
