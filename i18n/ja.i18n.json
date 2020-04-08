@@ -771,6 +771,7 @@
   "view-all": "全てを表示",
   "filter-by-unread": "未読でフィルタ",
   "mark-all-as-read": "全て既読にする",
+  "remove-all-read": "Remove all read",
   "allow-rename": "リネームを許可する",
   "allowRenamePopup-title": "リネームを許可する"
 }

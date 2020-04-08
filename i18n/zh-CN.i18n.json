@@ -771,6 +771,7 @@
   "view-all": "查看全部",
   "filter-by-unread": "过滤未读",
   "mark-all-as-read": "标记全部已读",
+  "remove-all-read": "Remove all read",
   "allow-rename": "允许重命名",
   "allowRenamePopup-title": "允许重命名"
 }

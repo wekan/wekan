@@ -771,6 +771,7 @@
   "view-all": "Bekijk alles",
   "filter-by-unread": "Filter op Ongelezen",
   "mark-all-as-read": "Markeer alles als gelezen",
+  "remove-all-read": "Remove all read",
   "allow-rename": "Sta Hernoemen toe",
   "allowRenamePopup-title": "Sta Hernoemen toe"
 }

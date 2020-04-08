@@ -771,6 +771,7 @@
   "view-all": "Zobrazit vše",
   "filter-by-unread": "Filter by Unread",
   "mark-all-as-read": "Označit vše jako přečtené",
+  "remove-all-read": "Remove all read",
   "allow-rename": "Povolit přejmenování",
   "allowRenamePopup-title": "Povolit přejmenování"
 }

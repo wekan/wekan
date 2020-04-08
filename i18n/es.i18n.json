@@ -771,6 +771,7 @@
   "view-all": "Ver todo",
   "filter-by-unread": "Filtrar por no leído",
   "mark-all-as-read": "Marcar todo como leido",
+  "remove-all-read": "Remove all read",
   "allow-rename": "Permitir renombrar",
   "allowRenamePopup-title": "Permitir renombrar"
 }

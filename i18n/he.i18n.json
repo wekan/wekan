@@ -153,7 +153,7 @@
   "card-edit-attachments": "עריכת קבצים מצורפים",
   "card-edit-custom-fields": "עריכת שדות בהתאמה אישית",
   "card-start-voting": "התחילו להצביע",
-  "card-cancel-voting": "Delete voting and all votes",
+  "card-cancel-voting": "מחיקת אפשרות ההצבעה ואת כל הקולות",
   "card-edit-labels": "עריכת תוויות",
   "card-edit-members": "עריכת חברים",
   "card-labels-title": "שינוי תוויות לכרטיס.",
@@ -163,7 +163,7 @@
   "cardAttachmentsPopup-title": "לצרף מ־",
   "cardCustomField-datePopup-title": "החלפת תאריך",
   "cardCustomFieldsPopup-title": "עריכת שדות בהתאמה אישית",
-  "cardStartVotingPopup-title": "Start a vote",
+  "cardStartVotingPopup-title": "התחלת הצבעה",
   "vote-question": "שאלת הסקר",
   "vote-for-it": "בעד",
   "vote-against": "נגד",
@@ -771,6 +771,7 @@
   "view-all": "להציג הכול",
   "filter-by-unread": "סימון לפי כאלו שלא נקראו",
   "mark-all-as-read": "לסמן הכול כאילו שנקראו",
+  "remove-all-read": "הסרת כל אלו שנקראו",
   "allow-rename": "לאפשר שינוי שם",
   "allowRenamePopup-title": "לאפשר שינוי שם"
 }
