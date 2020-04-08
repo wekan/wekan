@@ -282,7 +282,10 @@ if (Meteor.isServer) {
       );
     }
     Notifications.getUsers(watchers).forEach(user => {
-      Notifications.notify(user, title, description, params);
+      // don't notify a user of their own behavior
+      if (user._id !== userId) {
+        Notifications.notify(user, title, description, params);
+      }
     });
 
     const integrations = Integrations.find({
