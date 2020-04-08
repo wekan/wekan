@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v3.90
+  version: v3.91
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -2523,6 +2523,11 @@ definitions:
            ID of the linked card
         type: string
         x-nullable: true
+      vote:
+        description: |
+           vote object, see below
+        $ref: "#/definitions/CardsVote"
+        x-nullable: true
     required:
       - archived
       - swimlaneId
@@ -2532,6 +2537,29 @@ definitions:
       - userId
       - sort
       - type
+  CardsVote:
+    type: object
+    properties:
+      question:
+        type: string
+      positive:
+        description: |
+           list of members (user IDs)
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      negative:
+        description: |
+           list of members (user IDs)
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      end:
+        type: string
+    required:
+      - question
   CardsCustomfields:
     type: object
   ChecklistItems:
