@@ -153,7 +153,7 @@
   "card-edit-attachments": "Editar adjuntos",
   "card-edit-custom-fields": "Editar campos personalizados",
   "card-start-voting": "Start voting",
-  "card-cancel-voting": "Delete voting",
+  "card-cancel-voting": "Delete voting and all votes",
   "card-edit-labels": "Editar etiquetas",
   "card-edit-members": "Editar miembros",
   "card-labels-title": "Cambiar las etiquetas de la tarjeta.",

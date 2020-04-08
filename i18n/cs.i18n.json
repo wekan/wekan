@@ -153,7 +153,7 @@
   "card-edit-attachments": "Upravit přílohy",
   "card-edit-custom-fields": "Upravit vlastní pole",
   "card-start-voting": "Start voting",
-  "card-cancel-voting": "Delete voting",
+  "card-cancel-voting": "Delete voting and all votes",
   "card-edit-labels": "Upravit štítky",
   "card-edit-members": "Upravit členy",
   "card-labels-title": "Změnit štítky karty.",

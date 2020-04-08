@@ -153,7 +153,7 @@
   "card-edit-attachments": "첨부 파일 수정",
   "card-edit-custom-fields": "Edit custom fields",
   "card-start-voting": "Start voting",
-  "card-cancel-voting": "Delete voting",
+  "card-cancel-voting": "Delete voting and all votes",
   "card-edit-labels": "라벨 수정",
   "card-edit-members": "멤버 수정",
   "card-labels-title": "카드의 라벨 변경.",

@@ -153,7 +153,7 @@
   "card-edit-attachments": "Wijzig bijlagen",
   "card-edit-custom-fields": "Wijzig maatwerkvelden",
   "card-start-voting": "Start voting",
-  "card-cancel-voting": "Delete voting",
+  "card-cancel-voting": "Delete voting and all votes",
   "card-edit-labels": "Wijzig labels",
   "card-edit-members": "Wijzig leden",
   "card-labels-title": "Wijzig de labels van de kaart.",

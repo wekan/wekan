@@ -153,7 +153,7 @@
   "card-edit-attachments": "添付ファイルの編集",
   "card-edit-custom-fields": "カスタムフィールドの編集",
   "card-start-voting": "Start voting",
-  "card-cancel-voting": "Delete voting",
+  "card-cancel-voting": "Delete voting and all votes",
   "card-edit-labels": "ラベルの編集",
   "card-edit-members": "メンバーの編集",
   "card-labels-title": "カードのラベルを変更する",

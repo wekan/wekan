@@ -153,7 +153,7 @@
   "card-edit-attachments": "Mellékletek szerkesztése",
   "card-edit-custom-fields": "Egyéni mezők szerkesztése",
   "card-start-voting": "Start voting",
-  "card-cancel-voting": "Delete voting",
+  "card-cancel-voting": "Delete voting and all votes",
   "card-edit-labels": "Címkék szerkesztése",
   "card-edit-members": "Tagok szerkesztése",
   "card-labels-title": "A kártya címkéinek megváltoztatása.",

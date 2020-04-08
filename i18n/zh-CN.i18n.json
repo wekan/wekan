@@ -153,7 +153,7 @@
   "card-edit-attachments": "编辑附件",
   "card-edit-custom-fields": "编辑自定义字段",
   "card-start-voting": "Start voting",
-  "card-cancel-voting": "Delete voting",
+  "card-cancel-voting": "Delete voting and all votes",
   "card-edit-labels": "编辑标签",
   "card-edit-members": "编辑成员",
   "card-labels-title": "更改该卡片上的标签",

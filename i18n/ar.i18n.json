@@ -153,7 +153,7 @@
   "card-edit-attachments": "تعديل المرفقات",
   "card-edit-custom-fields": "تعديل الحقل المعدل",
   "card-start-voting": "Start voting",
-  "card-cancel-voting": "Delete voting",
+  "card-cancel-voting": "Delete voting and all votes",
   "card-edit-labels": "تعديل العلامات",
   "card-edit-members": "تعديل الأعضاء",
   "card-labels-title": "تعديل علامات البطاقة.",

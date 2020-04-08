@@ -153,7 +153,7 @@
   "card-edit-attachments": "Redigera bilaga",
   "card-edit-custom-fields": "Redigera anpassade fält",
   "card-start-voting": "Start voting",
-  "card-cancel-voting": "Delete voting",
+  "card-cancel-voting": "Delete voting and all votes",
   "card-edit-labels": "Redigera etiketter",
   "card-edit-members": "Redigera medlemmar",
   "card-labels-title": "Ändra etiketter för kortet.",
