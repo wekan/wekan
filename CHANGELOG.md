@@ -1,3 +1,18 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Scheduler to clean up read notifications. Also added a button to manually remove all
+  read notifications, and a fix to prevent users form getting notifications for their own
+  actions](https://github.com/wekan/wekan/pull/2998).
+  Thanks to jtbairdsr.
+- [Add setting](https://github.com/wekan/wekan/commit/5ebb47cb0ec7272894a37d99579ede872251f55c)
+  default [NOTIFICATION_TRAY_AFTER_READ_DAYS_BEFORE_REMOVE=2](https://github.com/wekan/wekan/pull/2998)
+  to all Wekan platforms.
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.91 2020-04-08 Wekan release
 
 This release adds the following new features:
