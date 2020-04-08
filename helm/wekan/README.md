@@ -56,3 +56,10 @@ mongodb-replicaset:
 This section controls the scale of the MongoDB redundant Replica Set.
 
 **replicas:** This is the number of MongoDB instances to include in the set. You can set this to 1 for a single server - this will still allow you to scale-up later with a helm upgrade.
+
+### Install OCP route
+If you use this chart to deploy Wekan on an OCP cluster, you can create route instead of ingress with following command:
+
+``` bash
+$ helm template --set route.enabled=true,ingress.enabled=false values.yaml . | oc apply -f-
+```
