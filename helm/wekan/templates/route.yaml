@@ -1,7 +1,5 @@
 {{- if .Values.route.enabled -}}
 {{- $fullName := include "wekan.fullname" . -}}
-{{- $servicePort := .Values.service.port -}}
-{{- $ingressPath := .Values.ingress.path -}}
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:

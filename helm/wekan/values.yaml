@@ -60,7 +60,7 @@ ingress:
   #      - wekan-example.local
 
   route:
-    enabled: true
+    enabled: false
 
 resources: 
   requests:
