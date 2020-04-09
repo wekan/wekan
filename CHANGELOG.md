@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v3.93 2020-04-10 Wekan release
 
 This release adds the following new features:
 
@@ -11,7 +11,8 @@ This release adds the following new features:
 
 and adds the following updates:
 
-- [Upgrade to Node v12.16.2](https://github.com/wekan/wekan/commit/6db717b9b384fe1491063e507b80e67791a07e3a).
+- Upgrade to Node v12.16.2 [Part1](https://github.com/wekan/wekan/commit/6db717b9b384fe1491063e507b80e67791a07e3a)
+  and [Part2](https://github.com/wekan/wekan/commit/268d7fcb32186a902a84e7f6d80c50b1f3790bad).
   Thanks to Node developers and xet7.
 
 and fixes the following bugs:
