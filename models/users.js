@@ -814,6 +814,16 @@ if (Meteor.isServer) {
       board.addMember(user._id);
       user.addInvite(boardId);
 
+      //Check if there is a subtasks board
+      if (board.subtasksDefaultBoardId){
+        const subBoard = Boards.findOne(board.subtasksDefaultBoardId);
+        //If there is, also add user to that board
+        if (subBoard) {
+          subBoard.addMember(user._id);
+          user.addInvite(subBoard._id);
+        }
+      }
+      
       try {
         const params = {
           user: user.username,
