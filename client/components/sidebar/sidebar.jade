@@ -298,10 +298,11 @@ template(name="boardMenuPopup")
     if currentUser.isBoardAdmin
       hr
       ul.pop-over-list
-        li
-          a(href="{{exportUrl}}", download="{{exportFilename}}")
-            i.fa.fa-share-alt
-            | {{_ 'export-board'}}
+        if withApi
+          li
+            a(href="{{exportUrl}}", download="{{exportFilename}}")
+              i.fa.fa-share-alt
+              | {{_ 'export-board'}}
         li
           a.js-outgoing-webhooks
             i.fa.fa-globe
@@ -326,11 +327,12 @@ template(name="boardMenuPopup")
   if isSandstorm
     hr
     ul.pop-over-list
-      li
-        a(href="{{exportUrl}}", download="{{exportFilename}}")
-          i.fa.fa-share-alt
-          i.fa.fa-sign-out
-          | {{_ 'export-board'}}
+      if withApi
+        li
+          a(href="{{exportUrl}}", download="{{exportFilename}}")
+            i.fa.fa-share-alt
+            i.fa.fa-sign-out
+            | {{_ 'export-board'}}
       li
         a.js-import-board
           i.fa.fa-share-alt
