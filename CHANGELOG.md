@@ -9,6 +9,11 @@ This release adds the following new features:
   board](https://github.com/wekan/wekan/pull/3004).
   Thanks to slvrpdr.
 
+and adds the following updates:
+
+- [Upgrade to Node v12.16.2](https://github.com/wekan/wekan/commit/6db717b9b384fe1491063e507b80e67791a07e3a).
+  Thanks to Node developers and xet7.
+
 and fixes the following bugs:
 
 - [Fix bug that prevents editing or deleting
