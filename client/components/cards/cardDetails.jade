@@ -206,12 +206,12 @@ template(name="cardDetails")
           i.fa.fa-thumbs-up
           card-details-item-title {{_ 'vote-question'}}
         .vote-result
-          .card-label.card-label-green
-            +viewer
-              = voteCountPositive
-          .card-label.card-label-red
-            +viewer
-              = voteCountNegative
+          if votePublic
+            a.card-label.card-label-green.js-show-positive-votes {{ voteCountPositive }}
+            a.card-label.card-label-red.js-show-negative-votes {{ voteCountNegative }}
+          else
+            .card-label.card-label-green {{ voteCountPositive }}
+            .card-label.card-label-red {{ voteCountNegative }}
       +viewer
         = getVoteQuestion
       button.card-details-green.js-vote.js-vote-positive(class="{{#if voteState}}voted{{/if}}") {{_ 'vote-for-it'}}
@@ -572,6 +572,29 @@ template(name="cardStartVotingPopup")
     .fields
       label(for="vote") {{_ 'vote-question'}}
       input.js-vote-field#vote(type="text" name="vote" value="{{card.getVoteQuestion}}" autofocus)
+      label(for="vote-public") {{_ 'vote-public'}}
+        a.js-toggle-vote-public
+          .materialCheckBox#vote-public(name="vote-public")
 
     button.primary.confirm.js-submit {{_ 'save'}}
     //- button.js-remove-color.negate.wide.right {{_ 'delete'}}
+
+template(name="positiveVoteMembersPopup")
+  ul.pop-over-list.js-card-member-list
+    each m in voteMemberPositive
+      li.item
+        a.name
+          +userAvatar(userId=m._id)
+          span.full-name
+            = m.profile.fullname
+            | (<span class="username">{{ m.username }}</span>)
+
+template(name="negativeVoteMembersPopup")
+  ul.pop-over-list.js-card-member-list
+    each m in voteMemberNegative
+      li.item
+        a.name
+          +userAvatar(userId=m._id)
+          span.full-name
+            = m.profile.fullname
+            | (<span class="username">{{ m.username }}</span>)
