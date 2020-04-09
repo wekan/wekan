@@ -1,3 +1,22 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Trello vote import & hide export button if with_api is
+  disabled](https://github.com/wekan/wekan/pull/3000).
+  Thanks to NicoP-S.
+- [When adding a user to a board that has subtasks, also add user to the subtask
+  board](https://github.com/wekan/wekan/pull/3004).
+  Thanks to slvrpdr.
+
+and fixes the following bugs:
+
+- [Fix bug that prevents editing or deleting
+  comments](https://github.com/wekan/wekan/pull/3005).
+  Thanks to jtbairdsr.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.92 2020-04-09 Wekan release
 
 This release adds the following new features:
