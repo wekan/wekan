@@ -164,7 +164,10 @@
   "cardCustomField-datePopup-title": "Изменить дату",
   "cardCustomFieldsPopup-title": "редактировать настраиваемые поля",
   "cardStartVotingPopup-title": "Голосовать",
+  "positiveVoteMembersPopup-title": "Proponents",
+  "negativeVoteMembersPopup-title": "Opponents",
   "vote-question": "Вопрос для голосования",
+  "vote-public": "Public vote",
   "vote-for-it": "за",
   "vote-against": "против",
   "cardDeletePopup-title": "Удалить карточку?",
@@ -771,7 +774,7 @@
   "view-all": "Показать все",
   "filter-by-unread": "Фильтр по непрочитанным",
   "mark-all-as-read": "Отметить все как прочитанные",
-  "remove-all-read": "Remove all read",
+  "remove-all-read": "Удалить все прочитанные",
   "allow-rename": "Разрешить переименование",
   "allowRenamePopup-title": "Разрешить переименование"
 }
