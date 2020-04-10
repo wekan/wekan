@@ -54,6 +54,12 @@ BlazeComponent.extendComponent({
     }
     return null;
   },
+  votePublic() {
+    const card = this.currentData();
+    if (card.vote)
+      return card.vote.public
+    return null
+  },
   voteCountPositive() {
     const card = this.currentData();
     if (card.vote && card.vote.positive) return card.vote.positive.length;
@@ -382,6 +388,8 @@ BlazeComponent.extendComponent({
         'click .js-start-date': Popup.open('editCardStartDate'),
         'click .js-due-date': Popup.open('editCardDueDate'),
         'click .js-end-date': Popup.open('editCardEndDate'),
+        'click .js-show-positive-votes':Popup.open('positiveVoteMembers'),
+        'click .js-show-negative-votes': Popup.open('negativeVoteMembers'),
         'mouseenter .js-card-details'() {
           const parentComponent = this.parentComponent().parentComponent();
           //on mobile view parent is Board, not BoardBody.
@@ -647,7 +655,7 @@ Template.cardDetailsActionsPopup.events({
   },
 });
 
-Template.editCardTitleForm.onRendered(function() {
+Template.editCardTitleForm.onRendered(function () {
   autosize(this.$('.js-edit-card-title'));
 });
 
@@ -661,7 +669,7 @@ Template.editCardTitleForm.events({
   },
 });
 
-Template.editCardRequesterForm.onRendered(function() {
+Template.editCardRequesterForm.onRendered(function () {
   autosize(this.$('.js-edit-card-requester'));
 });
 
@@ -674,7 +682,7 @@ Template.editCardRequesterForm.events({
   },
 });
 
-Template.editCardAssignerForm.onRendered(function() {
+Template.editCardAssignerForm.onRendered(function () {
   autosize(this.$('.js-edit-card-assigner'));
 });
 
@@ -814,7 +822,7 @@ Template.copyChecklistToManyCardsPopup.events({
 
         // copy subtasks
         cursor = Cards.find({ parentId: oldId });
-        cursor.forEach(function() {
+        cursor.forEach(function () {
           'use strict';
           const subtask = arguments[0];
           subtask.parentId = _id;
@@ -963,7 +971,7 @@ BlazeComponent.extendComponent({
             }
           }
         },
-        'click .js-delete': Popup.afterConfirm('cardDelete', function() {
+        'click .js-delete': Popup.afterConfirm('cardDelete', function () {
           Popup.close();
           Cards.remove(this._id);
           Utils.goBoardId(this.boardId);
@@ -1001,8 +1009,13 @@ BlazeComponent.extendComponent({
         'submit .edit-vote-question'(evt) {
           evt.preventDefault();
           const voteQuestion = evt.target.vote.value;
-          this.currentCard.setVoteQuestion(voteQuestion);
+          const publicVote = $('#vote-public').hasClass('is-checked');
+          this.currentCard.setVoteQuestion(voteQuestion, publicVote);
           Popup.close();
+        },
+        'click a.js-toggle-vote-public'(event) {
+          event.preventDefault();
+          $('#vote-public').toggleClass('is-checked');
         },
       },
     ];

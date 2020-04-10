@@ -303,6 +303,7 @@ export class TrelloCreator {
         if (positiveVotes.length > 0) {
           cardToCreate.vote = {
             question: cardToCreate.title,
+            public: true,
             positive: positiveVotes,
           }
         }
