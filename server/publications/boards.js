@@ -18,7 +18,7 @@ Meteor.publish('boards', function() {
       archived: false,
       $or: [
         {
-          _id: { $in: starredBoards },
+          // _id: { $in: starredBoards },  // Commented out, to get a list of all public boards
           permission: 'public',
         },
         { members: { $elemMatch: { userId, isActive: true } } },

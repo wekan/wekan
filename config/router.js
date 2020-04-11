@@ -26,6 +26,27 @@ FlowRouter.route('/', {
   },
 });
 
+FlowRouter.route('/public', {
+  name: 'public',
+  triggersEnter: [AccountsTemplates.ensureSignedIn],
+  action() {
+    Session.set('currentBoard', null);
+    Session.set('currentList', null);
+    Session.set('currentCard', null);
+
+    Filter.reset();
+    EscapeActions.executeAll();
+
+    Utils.manageCustomUI();
+    Utils.manageMatomo();
+
+    BlazeLayout.render('defaultLayout', {
+      headerBar: 'boardListHeaderBar',
+      content: 'boardList',
+    });
+  },
+});
+
 FlowRouter.route('/b/:id/:slug', {
   name: 'board',
   action(params) {
