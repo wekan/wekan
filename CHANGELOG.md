@@ -2,6 +2,8 @@
 
 This release adds the following new features:
 
+- [Public vote](https://github.com/wekan/wekan/pull/3006).
+  Thanks to NicoP-S.
 - [Add robots.txt disallow all](https://github.com/wekan/wekan/commit/3fae5355d40055757bf4a5f0c503581195609720).
   Thanks to xet7.
 
