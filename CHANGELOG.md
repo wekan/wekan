@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v3.95 2020-04-12 Wekan release
 
 This release adds the following new features:
 
@@ -8,6 +8,10 @@ This release adds the following new features:
   projects much easier. It allows anyone to start a ready-to-code dev
   environment for any branch, issue and pull request with a single click.
   Thanks to juniormendonca.
+- [Public boards overview](https://github.com/wekan/wekan/pull/3008).
+  Thanks to NicoP-S.
+- Try to upgrade Sandstorm Wekan to Meteor 1.10.1 and Node 12.x.
+  Thanks to kentonv and xet7.
 
 and fixes the following bugs:
 
@@ -15,14 +19,6 @@ and fixes the following bugs:
   Thanks to boeserwolf.
 - [Fix error in notifications cleanup cron](https://github.com/wekan/wekan/pull/3010).
   Thanks to jtbairdsr.
-
-Thanks to above GitHub users for their contributions and translators for their translations.
-
-# v3.95 2020-04-12 Wekan release
-
-This release adds the following new features:
-
-- Upgrade Sandstorm Wekan to Meteor 1.10.1 and Node 12.x.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
