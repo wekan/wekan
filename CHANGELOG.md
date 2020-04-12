@@ -1,3 +1,31 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Add gitpod config](https://github.com/wekan/wekan/pull/3009).
+  This adds support for Gitpod.io, a free automated
+  dev environment that makes contributing and generally working on GitHub
+  projects much easier. It allows anyone to start a ready-to-code dev
+  environment for any branch, issue and pull request with a single click.
+  Thanks to juniormendonca.
+
+and fixes the following bugs:
+
+- [Fix styling issue in notifications drawer](https://github.com/wekan/wekan/pull/3012).
+  Thanks to boeserwolf.
+- [Fix error in notifications cleanup cron](https://github.com/wekan/wekan/pull/3010).
+  Thanks to jtbairdsr.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.95 2020-04-12 Wekan release
+
+This release adds the following new features:
+
+- Upgrade Sandstorm Wekan to Meteor 1.10.1 and Node 12.x.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.94 2020-04-12 Wekan release
 
 This release adds the following new features:
@@ -103,7 +131,7 @@ and fixes the following bugs:
 
 - [Fix start-wekan.sh MongoDB port to 27017](https://github.com/wekan/wekan/commit/c60a092fc0ed9fe15c417bcb443b1e3e3aaedf7e).
   Thanks to Keelan and xet7.
-    
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v3.87 2020-04-01 Wekan release
@@ -143,7 +171,7 @@ This release fixes the following bugs:
        @member mention not close card, and disabling clicking of
        @member mention](https://github.com/wekan/wekan/commit/b9099a8b7ea6f63c79bdcbb871cb993b2cb7e325).
   Thanks to xet7 !
-        
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v3.85 2020-03-23 Wekan release
