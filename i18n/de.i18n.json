@@ -328,7 +328,7 @@
   "filter-clear": "Filter entfernen",
   "filter-no-label": "Kein Label",
   "filter-no-member": "Kein Mitglied",
-  "filter-no-assignee": "No assignee",
+  "filter-no-assignee": "Nicht zugewiesen",
   "filter-no-custom-fields": "Keine benutzerdefinierten Felder",
   "filter-show-archive": "Archivierte Listen anzeigen",
   "filter-hide-empty": "Leere Listen verstecken",
