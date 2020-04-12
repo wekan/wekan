@@ -815,7 +815,7 @@ if (Meteor.isServer) {
       user.addInvite(boardId);
 
       //Check if there is a subtasks board
-      if (board.subtasksDefaultBoardId){
+      if (board.subtasksDefaultBoardId) {
         const subBoard = Boards.findOne(board.subtasksDefaultBoardId);
         //If there is, also add user to that board
         if (subBoard) {
@@ -823,7 +823,7 @@ if (Meteor.isServer) {
           user.addInvite(subBoard._id);
         }
       }
-      
+
       try {
         const params = {
           user: user.username,
@@ -952,6 +952,7 @@ const addCronJob = _.debounce(
       schedule: parser => parser.text('every 1 days'),
       job: () => {
         for (const user of Users.find()) {
+          if (!user.profile || !user.profile.notifications) continue;
           for (const notification of user.profile.notifications) {
             if (notification.read) {
               const removeDate = new Date(notification.read);
