@@ -377,8 +377,8 @@ if (Meteor.isClient) {
       return board && board.hasWorker(this._id);
     },
 
-    isBoardAdmin() {
-      const board = Boards.findOne(Session.get('currentBoard'));
+    isBoardAdmin(boardId = Session.get('currentBoard')) {
+      const board = Boards.findOne(boardId);
       return board && board.hasAdmin(this._id);
     },
   });

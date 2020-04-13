@@ -42,6 +42,10 @@ BlazeComponent.extendComponent({
     const user = Meteor.user();
     return user && user.hasStarred(this.currentData()._id);
   },
+  isAdministrable() {
+    const user = Meteor.user();
+    return user && user.isBoardAdmin(this.currentData()._id);
+  },
 
   hasOvertimeCards() {
     subManager.subscribe('board', this.currentData()._id, false);
