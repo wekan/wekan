@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v3.96 2020-04-15 Wekan release
 
 This release adds the following Sandstorm updates:
 
@@ -26,7 +26,7 @@ and fixes the following bugs:
 - [Fix Board admins can not clone or archive their boards at All Boards
   page](https://github.com/wekan/wekan/pull/3013).
   Thanks to salleman33.
-- [Fix `<p>` margin in card labels](https://github.com/wekan/wekan/pull/3015)
+- [Fix `<p>` margin in card labels](https://github.com/wekan/wekan/pull/3015).
   Thanks to boeserwolf.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
