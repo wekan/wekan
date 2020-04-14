@@ -1,3 +1,36 @@
+# Upcoming Wekan release
+
+This release adds the following Sandstorm updates:
+
+- This is the first Sandstorm Wekan release that uses newest Meteor 1.10.1 and Node 12.x.
+  Now all Wekan platforms use newest Meteor and Node 12.x LTS.
+  Thanks to kentonv and xet7.
+- [Fix capnp workaround to work with newest Meteor and
+  Node 12.x](https://github.com/wekan/wekan/commit/b2d546579c4957352c29b36c0c8a4a08b944dbb4).
+  Thanks to kentonv.
+- [Update Sandstorm release script for newest Meteor and
+  Node 12.x](https://github.com/wekan/wekan/commit/c5f782976b971fa3f2323e80a013bbf6a49c0596).
+  Thanks to xet7.
+- [Remove Meteor 1.8.x files because Sandstorm Wekan now uses newest
+  Meteor](https://github.com/wekan/wekan/commit/1a836969e10215bad47ac56a9b0d9de801b66fd2).
+  Thanks to xet7.
+
+and adds the following new features:
+
+- [Hide password auth with environment variable PASSWORD_LOGIN_ENABLED=false](https://github.com/wekan/wekan/pull/3014).
+  Snap example: `sudo snap set wekan password-login-enabled='false'` .
+  Thanks to salleman33.
+
+and fixes the following bugs:
+
+- [Fix Board admins can not clone or archive their boards at All Boards
+  page](https://github.com/wekan/wekan/pull/3013).
+  Thanks to salleman33.
+- [Fix `<p>` margin in card labels](https://github.com/wekan/wekan/pull/3015)
+  Thanks to boeserwolf.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.95 2020-04-12 Wekan release
 
 This release adds the following new features:
@@ -10,8 +43,6 @@ This release adds the following new features:
   Thanks to juniormendonca.
 - [Public boards overview](https://github.com/wekan/wekan/pull/3008).
   Thanks to NicoP-S.
-- Try to upgrade Sandstorm Wekan to Meteor 1.10.1 and Node 12.x.
-  Thanks to kentonv and xet7.
 
 and fixes the following bugs:
 
