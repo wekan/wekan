@@ -362,6 +362,9 @@
       # LOGOUT_ON_MINUTES : The number of minutes
       # example : LOGOUT_ON_MINUTES=55
       #export LOGOUT_ON_MINUTES=
+      #---------------------------------------------------------------------
+      # PASSWORD_LOGIN_ENABLED : Enable or not the password login form. 
+      #export PASSWORD_LOGIN_ENABLED=true
 
       node main.js
       # & >> ../../wekan.log
