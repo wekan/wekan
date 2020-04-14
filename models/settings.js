@@ -335,7 +335,7 @@ if (Meteor.isServer) {
       return process.env.DEFAULT_AUTHENTICATION_METHOD;
     },
 
-    isPasswordDisabled() {
+    isPasswordLoginDisabled() {
       return process.env.PASSWORD_LOGIN_ENABLED === 'false';
     },
 
