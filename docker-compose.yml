@@ -598,6 +598,9 @@ services:
       # example : LOGOUT_ON_MINUTES=55
       #- LOGOUT_ON_MINUTES=
       #-------------------------------------------------------------------
+      # Hide password login form 
+      # - PASSWORD_LOGIN_ENABLED=true
+      #-------------------------------------------------------------------
     depends_on:
       - wekandb
 

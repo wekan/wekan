@@ -363,6 +363,13 @@ REM SET LDAP_SYNC_ADMIN_STATUS=true
 REM # Comma separated list of admin group names to sync.
 REM SET LDAP_SYNC_ADMIN_GROUPS=group1,group2
 
+REM ------------------------------------------------
+
+REM # Enable/Disable password login form.
+REM SET PASSWORD_LOGIN_ENABLED=true
+
+REM ------------------------------------------------
+
 REM # Login to LDAP automatically with HTTP header.
 REM # In below example for siteminder, at right side of = is header name.
 REM SET HEADER_LOGIN_ID=HEADERUID
