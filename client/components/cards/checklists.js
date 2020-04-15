@@ -250,7 +250,7 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
-        'click .js-checklist-item .check-box': this.toggleItem,
+        'click .js-checklist-item .check-box-container': this.toggleItem,
       },
     ];
   },
