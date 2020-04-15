@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix using checklists on mobile and iPad](https://github.com/wekan/wekan/pull/3019).
+  Thanks to devinsm.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.96 2020-04-15 Wekan release
 
 This release adds the following Sandstorm updates:
