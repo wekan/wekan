@@ -30,7 +30,9 @@ credentials:
 
 ## Specify additional environmental variables for the Deployment
 ##
-env: {}
+env:
+  - name: ""
+    value: ""
 
 service:
   type: NodePort
