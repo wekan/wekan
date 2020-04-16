@@ -1,0 +1,11 @@
+image: quay.io/wekan/wekan
+manifests:
+  - image: quay.io/wekan/wekan:amd64
+    platform:
+      architecture: amd64
+      os: linux
+  - image: quay.io/wekan/wekan:arm64v8
+    platform:
+      architecture: arm64
+      os: linux
+      variant: v8
