@@ -13,6 +13,9 @@ and fixes the following bugs:
   Thanks to marc1006.
 - [Make OCP OAuth work with Openshift 4.x](https://github.com/wekan/wekan/pull/3020).
   Thanks to ckavili.
+- [Remove old warning from Sandstorm import board data loss, because bug has been already
+  fixed](https://github.com/wekan/wekan/commit/960fe5163b6a2f7c3dca03b5e31d69611b49f079).
+  Thanks to aputsiaq and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
