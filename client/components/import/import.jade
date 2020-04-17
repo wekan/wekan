@@ -15,9 +15,6 @@ template(name="importTextarea")
     p: label(for='import-textarea') {{_ instruction}} {{_ 'import-board-instruction-about-errors'}}
     textarea.js-import-json(placeholder="{{_ 'import-json-placeholder'}}" autofocus)
       | {{jsonText}}
-    if isSandstorm
-      h1.warning {{_ 'import-sandstorm-backup-warning'}}
-      p.warning {{_ 'import-sandstorm-warning'}}
     input.primary.wide(type="submit" value="{{_ 'import'}}")
 
 template(name="importMapMembers")
