@@ -1,6 +1,11 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+- [Added dockerfiles for multi-arch builds and manifest](https://github.com/wekan/wekan/pull/3023).
+  Thanks to brokencode64.
+
+and fixes the following bugs:
 
 - [Fix using checklists on mobile and iPad](https://github.com/wekan/wekan/pull/3019).
   Thanks to devinsm.
