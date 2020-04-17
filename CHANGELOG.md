@@ -9,6 +9,8 @@ and fixes the following bugs:
 
 - [Fix using checklists on mobile and iPad](https://github.com/wekan/wekan/pull/3019).
   Thanks to devinsm.
+- [Improve card layout on mobile devices](https://github.com/wekan/wekan/pull/3024).
+  Thanks to marc1006.
 - [Make OCP OAuth work with Openshift 4.x](https://github.com/wekan/wekan/pull/3020).
   Thanks to ckavili.
 
