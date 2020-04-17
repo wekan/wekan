@@ -4,6 +4,8 @@ This release fixes the following bugs:
 
 - [Fix using checklists on mobile and iPad](https://github.com/wekan/wekan/pull/3019).
   Thanks to devinsm.
+- [Make OCP OAuth work with Openshift 4.x](https://github.com/wekan/wekan/pull/3020).
+  Thanks to ckavili.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
