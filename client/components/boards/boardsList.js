@@ -49,9 +49,9 @@ BlazeComponent.extendComponent({
       stop(evt, ui) {
         // To attribute the new index number, we need to get the DOM element
         // of the previous and the following card -- if any.
-        const prevCardDom = ui.item.prev('.js-board').get(0);
-        const nextCardDom = ui.item.next('.js-board').get(0);
-        const sortIndex = calculateIndex(prevCardDom, nextCardDom, 1);
+        const prevBoardDom = ui.item.prev('.js-board').get(0);
+        const nextBoardBom = ui.item.next('.js-board').get(0);
+        const sortIndex = calculateIndex(prevBoardDom, nextBoardBom, 1);
 
         const boardDomElement = ui.item.get(0);
         const board = Blaze.getData(boardDomElement);
