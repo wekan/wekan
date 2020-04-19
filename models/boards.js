@@ -493,6 +493,14 @@ Boards.attachSchema(
       type: String,
       defaultValue: 'board',
     },
+    sort: {
+      /**
+       * Sort value
+       */
+      type: Number,
+      decimal: true,
+      defaultValue: -1,
+    },
   }),
 );
 
@@ -1186,6 +1194,10 @@ Boards.mutations({
   setPresentParentTask(presentParentTask) {
     return { $set: { presentParentTask } };
   },
+
+  move(sortIndex) {
+    return { $set: { sort: sortIndex } };
+  },
 });
 
 function boardRemover(userId, doc) {
@@ -1282,6 +1294,14 @@ if (Meteor.isServer) {
     },
   });
 }
+
+// Insert new board at last position in sort order.
+Boards.before.insert((userId, doc) => {
+  const lastBoard = Boards.findOne({ sort: { $exists: true } }, { sort: { sort: -1 } });
+  if (lastBoard && typeof lastBoard.sort !== 'undefined') {
+    doc.sort = lastBoard.sort + 1;
+  }
+});
 
 if (Meteor.isServer) {
   // Let MongoDB ensure that a member is not included twice in the same board
@@ -1466,7 +1486,7 @@ if (Meteor.isServer) {
           'members.userId': paramUserId,
         },
         {
-          sort: ['title'],
+          sort: { sort: 1 /* boards default sorting */ },
         },
       ).map(function(board) {
         return {
@@ -1496,7 +1516,12 @@ if (Meteor.isServer) {
       Authentication.checkUserId(req.userId);
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: Boards.find({ permission: 'public' }).map(function(doc) {
+        data: Boards.find(
+          { permission: 'public' },
+          {
+            sort: { sort: 1 /* boards default sorting */ },
+          },
+        ).map(function(doc) {
           return {
             _id: doc._id,
             title: doc.title,

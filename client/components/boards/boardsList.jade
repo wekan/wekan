@@ -1,10 +1,10 @@
 template(name="boardList")
   .wrapper
-    ul.board-list.clearfix
+    ul.board-list.clearfix.js-boards
       li.js-add-board
         a.board-list-item.label {{_ 'add-board'}}
       each boards
-        li(class="{{#if isStarred}}starred{{/if}}" class=colorClass)
+        li(class="{{#if isStarred}}starred{{/if}}" class=colorClass).js-board
           if isInvited
             .board-list-item
               span.details
