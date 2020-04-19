@@ -348,8 +348,6 @@
   "import-board-c": "Importar tablero",
   "import-board-title-trello": "Importar tablero de Trello",
   "import-board-title-wekan": "Import board from previous export",
-  "import-sandstorm-backup-warning": "Do not delete data you import from original exported board or Trello before checking does this grain close and open again, or do you get Board not found error, that means data loss.",
-  "import-sandstorm-warning": "El tablero importado va a borrar todos los datos existentes en el tablero y reemplazarlos con los del tablero en cuestión.",
   "from-trello": "De Trello",
   "from-wekan": "From previous export",
   "import-board-instruction-trello": "En tu tablero de Trello, ve a 'Menú', luego a 'Más', 'Imprimir y Exportar', 'Exportar JSON', y copia el texto resultante.",
