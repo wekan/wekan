@@ -493,6 +493,14 @@ Boards.attachSchema(
       type: String,
       defaultValue: 'board',
     },
+    sort: {
+      /**
+       * Sort value
+       */
+      type: Number,
+      decimal: true,
+      defaultValue: -1,
+    },
   }),
 );
 
