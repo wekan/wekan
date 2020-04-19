@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v3.96
+  version: v3.97
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -1895,6 +1895,10 @@ definitions:
         description: |
            The type of board
         type: string
+      sort:
+        description: |
+           Sort value
+        type: number
     required:
       - title
       - slug
@@ -1922,6 +1926,7 @@ definitions:
       - allowsEndDate
       - allowsDueDate
       - type
+      - sort
   BoardsLabels:
     type: object
     properties:
