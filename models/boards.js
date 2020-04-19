@@ -1194,6 +1194,10 @@ Boards.mutations({
   setPresentParentTask(presentParentTask) {
     return { $set: { presentParentTask } };
   },
+
+  move(sortIndex) {
+    return { $set: { sort: sortIndex } };
+  },
 });
 
 function boardRemover(userId, doc) {
