@@ -3,7 +3,10 @@
 This release adds the following new features:
 
 - [Added dockerfiles for multi-arch builds and manifest](https://github.com/wekan/wekan/pull/3023).
+  [In Progress](https://github.com/wekan/wekan/issues/2999).
   Thanks to brokencode64.
+- [Make linked card clickable](https://github.com/wekan/wekan/pull/3025).
+  Thanks to boeserwolf.
 
 and fixes the following bugs:
 
