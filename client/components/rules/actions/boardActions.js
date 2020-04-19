@@ -11,7 +11,7 @@ BlazeComponent.extendComponent({
         },
       },
       {
-        sort: ['title'],
+        sort: { sort: 1 /* boards default sorting */ },
       },
     );
     return boards;

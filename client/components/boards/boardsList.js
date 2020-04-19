@@ -7,8 +7,8 @@ Template.boardListHeaderBar.events({
 });
 
 Template.boardListHeaderBar.helpers({
-  title(){
-    return FlowRouter.getRouteName() == 'home' ? 'my-boards' :'public';
+  title() {
+    return FlowRouter.getRouteName() == 'home' ? 'my-boards' : 'public';
   },
   templatesBoardId() {
     return Meteor.user() && Meteor.user().getTemplatesBoardId();
@@ -27,16 +27,12 @@ BlazeComponent.extendComponent({
     let query = {
       archived: false,
       type: 'board',
-    }
+    };
     if (FlowRouter.getRouteName() == 'home')
-      query['members.userId'] = Meteor.userId()
-    else
-      query.permission = 'public'
+      query['members.userId'] = Meteor.userId();
+    else query.permission = 'public';
 
-    return Boards.find(
-      query,
-      { sort: ['title'] },
-    );
+    return Boards.find(query, { sort: { sort: 1 /* boards default sorting */ } });
   },
   isStarred() {
     const user = Meteor.user();

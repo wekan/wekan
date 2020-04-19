@@ -386,12 +386,20 @@ if (Meteor.isClient) {
 
 Users.helpers({
   boards() {
-    return Boards.find({ 'members.userId': this._id });
+    return Boards.find(
+      { 'members.userId': this._id },
+      { sort: { sort: 1 /* boards default sorting */ } },
+    );
   },
 
   starredBoards() {
     const { starredBoards = [] } = this.profile || {};
-    return Boards.find({ archived: false, _id: { $in: starredBoards } });
+    return Boards.find(
+      { archived: false, _id: { $in: starredBoards } },
+      {
+        sort: { sort: 1 /* boards default sorting */ },
+      },
+    );
   },
 
   hasStarred(boardId) {
@@ -401,7 +409,12 @@ Users.helpers({
 
   invitedBoards() {
     const { invitedBoards = [] } = this.profile || {};
-    return Boards.find({ archived: false, _id: { $in: invitedBoards } });
+    return Boards.find(
+      { archived: false, _id: { $in: invitedBoards } },
+      {
+        sort: { sort: 1 /* boards default sorting */ },
+      },
+    );
   },
 
   isInvitedTo(boardId) {
@@ -1292,10 +1305,13 @@ if (Meteor.isServer) {
       let data = Meteor.users.findOne({ _id: id });
       if (data !== undefined) {
         if (action === 'takeOwnership') {
-          data = Boards.find({
-            'members.userId': id,
-            'members.isAdmin': true,
-          }).map(function(board) {
+          data = Boards.find(
+            {
+              'members.userId': id,
+              'members.isAdmin': true,
+            },
+            { sort: { sort: 1 /* boards default sorting */ } },
+          ).map(function(board) {
             if (board.hasMember(req.userId)) {
               board.removeMember(req.userId);
             }

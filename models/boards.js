@@ -1474,7 +1474,7 @@ if (Meteor.isServer) {
           'members.userId': paramUserId,
         },
         {
-          sort: ['title'],
+          sort: { sort: 1 /* boards default sorting */ },
         },
       ).map(function(board) {
         return {
@@ -1504,7 +1504,12 @@ if (Meteor.isServer) {
       Authentication.checkUserId(req.userId);
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: Boards.find({ permission: 'public' }).map(function(doc) {
+        data: Boards.find(
+          { permission: 'public' },
+          {
+            sort: { sort: 1 /* boards default sorting */ },
+          },
+        ).map(function(doc) {
           return {
             _id: doc._id,
             title: doc.title,
