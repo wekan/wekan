@@ -11,6 +11,19 @@ $spaceBetweenTiles = 16px
     box-sizing: border-box
     position: relative
 
+    &.placeholder:after
+      content: '';
+      display: block;
+      background: darken(white, 20%)
+      border-radius: 3px;
+      height: 106px;
+      margin: 8px;
+
+    &.ui-sortable-helper
+      cursor: grabbing
+      transform: rotate(4deg)
+      display: block !important
+
     &.starred
       .fa-star,
       .fa-star-o
@@ -183,7 +196,7 @@ $spaceBetweenTiles = 16px
     overflow: scroll
 
     li
-      width: 50% 
+      width: 50%
 
     .board-list-item
       overflow: hidden

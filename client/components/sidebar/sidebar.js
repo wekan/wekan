@@ -510,7 +510,7 @@ BlazeComponent.extendComponent({
         'members.userId': Meteor.userId(),
       },
       {
-        sort: ['title'],
+        sort: { sort: 1 /* boards default sorting */ },
       },
     );
   },
@@ -589,7 +589,7 @@ BlazeComponent.extendComponent({
             'subtext-with-parent',
             'no-parent',
           ];
-          options.forEach(function (element) {
+          options.forEach(function(element) {
             if (element !== value) {
               $(`#${element} ${MCB}`).toggleClass(CKCLS, false);
               $(`#${element}`).toggleClass(CKCLS, false);
@@ -688,7 +688,7 @@ BlazeComponent.extendComponent({
         'members.userId': Meteor.userId(),
       },
       {
-        sort: ['title'],
+        sort: { sort: 1 /* boards default sorting */ },
       },
     );
   },

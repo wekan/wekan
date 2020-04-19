@@ -727,7 +727,7 @@ BlazeComponent.extendComponent({
         _id: { $ne: Meteor.user().getTemplatesBoardId() },
       },
       {
-        sort: ['title'],
+        sort: { sort: 1 /* boards default sorting */ },
       },
     );
     return boards;
@@ -903,7 +903,7 @@ BlazeComponent.extendComponent({
         },
       },
       {
-        sort: ['title'],
+        sort: { sort: 1 /* boards default sorting */ },
       },
     );
     return boards;
@@ -974,7 +974,7 @@ BlazeComponent.extendComponent({
             }
           }
         },
-        'click .js-delete': Popup.afterConfirm('cardDelete', function () {
+        'click .js-delete': Popup.afterConfirm('cardDelete', function() {
           Popup.close();
           Cards.remove(this._id);
           Utils.goBoardId(this.boardId);
