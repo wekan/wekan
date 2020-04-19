@@ -35,6 +35,7 @@ Meteor.publish('boards', function() {
         members: 1,
         permission: 1,
         type: 1,
+        sort: 1,
       },
       sort: { sort: 1 /* boards default sorting */ },
     },
