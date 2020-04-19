@@ -379,6 +379,9 @@ BlazeComponent.extendComponent({
             this.data().setRequestedBy('');
           }
         },
+        'click .js-go-to-linked-card'() {
+           Utils.goCardId(this.data().linkedId)
+        },
         'click .js-member': Popup.open('cardMember'),
         'click .js-add-members': Popup.open('cardMembers'),
         'click .js-assignee': Popup.open('cardAssignee'),
