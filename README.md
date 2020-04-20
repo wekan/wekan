@@ -34,7 +34,7 @@ and PWA app that can be added as icon on Android and bookmark on iOS, used like 
 
 **NOTE**: 
 - Please read the [FAQ](https://github.com/wekan/wekan/wiki/FAQ) first
-- Please don't feed the trolls and spammers that are mentioned in the FAQ :)
+- Please don't feed the [trolls](https://github.com/wekan/wekan/wiki/FAQ#why-am-i-called-a-troll) and [spammers](https://github.com/wekan/wekan/wiki/FAQ#why-am-i-called-a-spammer) that are mentioned in the FAQ :)
 
 ## About Wekan
 
