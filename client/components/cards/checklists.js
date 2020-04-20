@@ -1,4 +1,4 @@
-const { calculateIndexData, enableClickOnTouch } = Utils;
+const { calculateIndexData, enableClickOnTouch, capitalize } = Utils;
 
 function initSorting(items) {
   items.sortable({
@@ -177,6 +177,16 @@ BlazeComponent.extendComponent({
     }
   },
 
+  focusChecklistItem(event) {
+    // If a new checklist is created, pre-fill the title and select it.
+    const checklist = this.currentData().checklist;
+    if (!checklist) {
+      const textarea = event.target;
+      textarea.value = capitalize(TAPi18n.__('r-checklist'));
+      textarea.select();
+    }
+  },
+
   events() {
     const events = {
       'click .toggle-delete-checklist-dialog'(event) {
@@ -196,6 +206,7 @@ BlazeComponent.extendComponent({
         'submit .js-edit-checklist-item': this.editChecklistItem,
         'click .js-delete-checklist-item': this.deleteItem,
         'click .confirm-checklist-delete': this.deleteChecklist,
+        'focus .js-add-checklist-item': this.focusChecklistItem,
         keydown: this.pressKey,
       },
     ];
