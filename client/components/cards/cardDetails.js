@@ -420,9 +420,9 @@ BlazeComponent.extendComponent({
           const forIt = $(e.target).hasClass('js-vote-positive');
           let newState = null;
           if (
-            this.voteState() == null ||
-            (this.voteState() == false && forIt) ||
-            (this.voteState() == true && !forIt)
+            this.voteState() === null ||
+            (this.voteState() === false && forIt) ||
+            (this.voteState() === true && !forIt)
           ) {
             newState = forIt;
           }
