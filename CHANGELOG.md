@@ -14,8 +14,6 @@ and adds the following updates:
 
 - [Upgrade to Meteor 1.10.2](https://github.com/wekan/wekan/commit/d1f98d0c472fb41e25fb29a9a6f6dae7db003f6f).
   Thanks to Meteor developers and xet7.
-- [Try to upgrade MongoDB version in Snap](https://github.com/wekan/wekan/commit/6b808dd74bf6d12d6a7ee7c23dfa3943b229a51d).
-  Thanks to xet7.
 
 and fixes the following bugs:
 

@@ -65,9 +65,9 @@ apps:
 
 parts:
     mongodb:
-        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-3.2.22.tgz
+        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-4.2.6.tgz
         plugin: dump
-        stage-packages: [libssl1.0.0]
+        stage-packages: [libssl1.0.0, libcurl3]
         filesets:
             mongo:
                 - usr
@@ -90,10 +90,11 @@ parts:
             - ca-certificates
             - apt-utils
             - python
-#            - python3
+            - python3
             - g++
             - capnproto
             - curl
+            - libcurl3
             - execstack
             - nodejs
             - npm
