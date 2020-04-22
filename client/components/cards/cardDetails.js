@@ -278,17 +278,12 @@ BlazeComponent.extendComponent({
 
     // Disable sorting if the current user is not a board member
     this.autorun(() => {
-      if ($checklistsDom.data('sortable')) {
-        $checklistsDom.sortable('option', 'disabled', !userIsMember());
+      const disabled = !userIsMember() || Utils.isMiniScreen();
+      if ($checklistsDom.data('uiSortable')) {
+        $checklistsDom.sortable('option', 'disabled', disabled);
       }
-      if ($subtasksDom.data('sortable')) {
-        $subtasksDom.sortable('option', 'disabled', !userIsMember());
-      }
-      if ($checklistsDom.data('sortable')) {
-        $checklistsDom.sortable('option', 'disabled', Utils.isMiniScreen());
-      }
-      if ($subtasksDom.data('sortable')) {
-        $subtasksDom.sortable('option', 'disabled', Utils.isMiniScreen());
+      if ($subtasksDom.data('uiSortable')) {
+        $subtasksDom.sortable('option', 'disabled', disabled);
       }
     });
   },

@@ -122,34 +122,12 @@ function initSortable(boardComponent, $listsDom) {
     }
 
     const $listDom = $listsDom;
-    if ($listDom.data('sortable')) {
+    if ($listDom.data('uiSortable')) {
       $listsDom.sortable(
         'option',
         'disabled',
         // Disable drag-dropping when user is not member/is worker/is miniscreen
-        !userIsMember(),
-        // Not disable drag-dropping while in multi-selection mode
-        // MultiSelection.isActive() || !userIsMember(),
-      );
-    }
-
-    if ($listDom.data('sortable')) {
-      $listsDom.sortable(
-        'option',
-        'disabled',
-        // Disable drag-dropping when user is not member/is worker/is miniscreen
-        Meteor.user().isWorker(),
-        // Not disable drag-dropping while in multi-selection mode
-        // MultiSelection.isActive() || !userIsMember(),
-      );
-    }
-
-    if ($listDom.data('sortable')) {
-      $listsDom.sortable(
-        'option',
-        'disabled',
-        // Disable drag-dropping when user is not member/is worker/is miniscreen
-        Utils.isMiniScreen(),
+        !userIsMember() || Meteor.user().isWorker() || Utils.isMiniScreen(),
         // Not disable drag-dropping while in multi-selection mode
         // MultiSelection.isActive() || !userIsMember(),
       );
