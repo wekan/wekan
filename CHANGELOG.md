@@ -4,6 +4,8 @@ This release adds the following new features:
 
 - [Pre-fill the title of checklists (Trello-style)](https://github.com/wekan/wekan/pull/3030).
   Thanks to boeserwolf.
+- [Implement option to change the first day of the week in user settings](https://github.com/wekan/wekan/pull/3032).
+  Thanks to marc1006.
 
 and fixes the following bugs:
 
