@@ -6,7 +6,7 @@
 meteor-base@1.4.0
 
 # Build system
-ecmascript@0.14.2
+ecmascript@0.14.3
 standard-minifier-css@1.6.0
 standard-minifier-js@2.6.0
 mquandalle:jade
@@ -23,7 +23,7 @@ dburles:collection-helpers
 idmontie:migrations
 matb33:collection-hooks
 matteodem:easy-search
-mongo@1.9.0
+mongo@1.10.0
 mquandalle:collection-mutations
 
 # Account system
@@ -72,7 +72,7 @@ simple:rest-accounts-password
 useraccounts:core
 email@1.2.3
 horka:swipebox
-dynamic-import@0.5.1
+dynamic-import@0.5.2
 staringatlights:fast-render
 
 accounts-password@1.6.0
