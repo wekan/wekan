@@ -774,5 +774,13 @@
   "mark-all-as-read": "Označi sve kao pročitano",
   "remove-all-read": "Ukloni sve pročitano",
   "allow-rename": "Dozvoli preimenovanje",
-  "allowRenamePopup-title": "Dozvoli preimenovanje"
+  "allowRenamePopup-title": "Dozvoli preimenovanje",
+  "start-day-of-week": "Set day of the week start",
+  "monday": "Monday",
+  "tuesday": "Tuesday",
+  "wednesday": "Wednesday",
+  "thursday": "Thursday",
+  "friday": "Friday",
+  "saturday": "Saturday",
+  "sunday": "Sunday"
 }

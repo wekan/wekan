@@ -774,5 +774,13 @@
   "mark-all-as-read": "Alle als gelesen markieren",
   "remove-all-read": "Alle gelesenen entfernen",
   "allow-rename": "Umbenennen erlauben",
-  "allowRenamePopup-title": "Umbenennen erlauben"
+  "allowRenamePopup-title": "Umbenennen erlauben",
+  "start-day-of-week": "Set day of the week start",
+  "monday": "Monday",
+  "tuesday": "Tuesday",
+  "wednesday": "Wednesday",
+  "thursday": "Thursday",
+  "friday": "Friday",
+  "saturday": "Saturday",
+  "sunday": "Sunday"
 }

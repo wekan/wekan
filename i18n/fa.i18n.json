@@ -774,5 +774,13 @@
   "mark-all-as-read": "علامت همه به خوانده شده",
   "remove-all-read": "حذف همه خوانده شده",
   "allow-rename": "Allow Rename",
-  "allowRenamePopup-title": "Allow Rename"
+  "allowRenamePopup-title": "Allow Rename",
+  "start-day-of-week": "Set day of the week start",
+  "monday": "Monday",
+  "tuesday": "Tuesday",
+  "wednesday": "Wednesday",
+  "thursday": "Thursday",
+  "friday": "Friday",
+  "saturday": "Saturday",
+  "sunday": "Sunday"
 }

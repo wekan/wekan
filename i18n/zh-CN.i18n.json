@@ -774,5 +774,13 @@
   "mark-all-as-read": "标记全部已读",
   "remove-all-read": "移除所有已读",
   "allow-rename": "允许重命名",
-  "allowRenamePopup-title": "允许重命名"
+  "allowRenamePopup-title": "允许重命名",
+  "start-day-of-week": "Set day of the week start",
+  "monday": "Monday",
+  "tuesday": "Tuesday",
+  "wednesday": "Wednesday",
+  "thursday": "Thursday",
+  "friday": "Friday",
+  "saturday": "Saturday",
+  "sunday": "Sunday"
 }

@@ -774,5 +774,13 @@
   "mark-all-as-read": "Zaznacz wszystkie jako przeczytane",
   "remove-all-read": "Usuń wszystkie przeczytane",
   "allow-rename": "Zezwól na zmianę nazwy",
-  "allowRenamePopup-title": "Zezwól na zmianę nazwy"
+  "allowRenamePopup-title": "Zezwól na zmianę nazwy",
+  "start-day-of-week": "Set day of the week start",
+  "monday": "Monday",
+  "tuesday": "Tuesday",
+  "wednesday": "Wednesday",
+  "thursday": "Thursday",
+  "friday": "Friday",
+  "saturday": "Saturday",
+  "sunday": "Sunday"
 }
