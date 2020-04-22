@@ -1475,12 +1475,12 @@ Cards.mutations({
       },
     };
   },
-  setVoteQuestion(question, public) {
+  setVoteQuestion(question, public_) {
     return {
       $set: {
         vote: {
           question,
-          public,
+          public_,
           positive: [],
           negative: [],
         },
