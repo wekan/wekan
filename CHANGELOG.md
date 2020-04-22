@@ -5,6 +5,11 @@ This release adds the following new features:
 - [Pre-fill the title of checklists (Trello-style)](https://github.com/wekan/wekan/pull/3030).
   Thanks to boeserwolf.
 
+and fixes the following bugs:
+
+- [Multiple lint issue fixes](https://github.com/wekan/wekan/pull/3031).
+  Thanks to marc1006.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v3.97 2020-04-19 Wekan release
