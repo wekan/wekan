@@ -233,10 +233,14 @@ Template.boardMenuPopup.events({
   'click .js-card-settings': Popup.open('boardCardSettings'),
   'click .html-export-board': async event => {
     event.preventDefault();
-    Popup.close();
-    document.querySelector('.board-header-btn.js-toggle-sidebar').click();
 
     const zip = new JSZip();
+
+    const downloadJSONLink = document.querySelector('.download-json-link');
+    const downloadJSONURL = downloadJSONLink.href;
+
+    Popup.close();
+    document.querySelector('.board-header-btn.js-toggle-sidebar').click();
 
     Array.from(document.querySelectorAll('script')).forEach(elem =>
       elem.remove(),
@@ -308,6 +312,10 @@ Template.boardMenuPopup.events({
       zip.file(fileFullPath, responseBody);
       elem.src = `./${elem.tagName.toLowerCase()}/${filename}`;
     });
+
+    const response = await fetch(downloadJSONURL);
+    const responseBody = await response.text();
+    zip.file(`data/${boardSlug}.json`, responseBody);
 
     document.querySelector('.board-sidebar.sidebar').remove();
 
