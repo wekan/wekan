@@ -117,6 +117,17 @@ template(name="changeSettingsPopup")
           | {{_ 'show-cards-minimum-count'}}
         input#show-cards-count-at.inline-input.left(type="number" value="#{showCardsCountAt}" min="0" max="99" onkeydown="return false")
         input.js-apply-show-cards-at.left(type="submit" value="{{_ 'apply'}}")
+      li
+        label.bold
+          i.fa.fa-calendar
+          | {{_ 'start-day-of-week'}}
+        select#start-day-of-week.inline-input.left
+          each day in weekDays startDayOfWeek
+            if day.isSelected
+              option(selected="true", value="#{day.value}") #{day.name}
+            else
+              option(value="#{day.value}") #{day.name}
+        input.js-apply-start-day-of-week.left(type="submit" value="{{_ 'apply'}}")
 
 template(name="userDeletePopup")
   unless currentUser.isWorker
