@@ -190,6 +190,13 @@ Users.attachSchema(
       type: Number,
       optional: true,
     },
+    'profile.startDayOfWeek': {
+      /**
+       * startDayOfWeek field of the user
+       */
+      type: Number,
+      optional: true,
+    },
     'profile.starredBoards': {
       /**
        * list of starred board IDs
@@ -521,6 +528,11 @@ Users.helpers({
     return profile.language || 'en';
   },
 
+  getStartDayOfWeek() {
+    const profile = this.profile || {};
+    return profile.startDayOfWeek || 1;
+  },
+
   getTemplatesBoardId() {
     return (this.profile || {}).templatesBoardId;
   },
@@ -652,6 +664,10 @@ Users.mutations({
     return { $set: { 'profile.showCardsCountAt': limit } };
   },
 
+  setStartDayOfWeek(startDay) {
+    return { $set: { 'profile.startDayOfWeek': startDay } };
+  },
+
   setBoardView(view) {
     return {
       $set: {
@@ -681,6 +697,10 @@ Meteor.methods({
   changeLimitToShowCardsCount(limit) {
     check(limit, Number);
     Meteor.user().setShowCardsCountAt(limit);
+  },
+  changeStartDayOfWeek(startDay) {
+    check(startDay, Number);
+    Meteor.user().setStartDayOfWeek(startDay);
   },
 });
 

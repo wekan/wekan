@@ -10,13 +10,22 @@ DatePicker = BlazeComponent.extendComponent({
     this.defaultTime = defaultTime;
   },
 
+  startDayOfWeek() {
+    const currentUser = Meteor.user();
+    if (currentUser) {
+      return currentUser.getStartDayOfWeek();
+    } else {
+      return 1;
+    }
+  },
+
   onRendered() {
     const $picker = this.$('.js-datepicker')
       .datepicker({
         todayHighlight: true,
         todayBtn: 'linked',
         language: TAPi18n.getLanguage(),
-        weekStart: 1,
+        weekStart: this.startDayOfWeek(),
       })
       .on(
         'changeDate',

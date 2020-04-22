@@ -2544,6 +2544,10 @@ definitions:
         description: |
            showCardCountAt field of the user
         type: number
+      startDayOfWeek:
+        description: |
+           startDayOfWeek field of the user
+        type: number
       starredBoards:
         description: |
            list of starred board IDs

@@ -224,6 +224,27 @@ Template.changeSettingsPopup.helpers({
       return cookies.get('limitToShowCardsCount');
     }
   },
+  weekDays(startDay) {
+    return [
+      TAPi18n.__('sunday'),
+      TAPi18n.__('monday'),
+      TAPi18n.__('tuesday'),
+      TAPi18n.__('wednesday'),
+      TAPi18n.__('thursday'),
+      TAPi18n.__('friday'),
+      TAPi18n.__('saturday'),
+    ].map(function(day, index) {
+      return { name: day, value: index, isSelected: index === startDay };
+    });
+  },
+  startDayOfWeek() {
+    currentUser = Meteor.user();
+    if (currentUser) {
+      return currentUser.getStartDayOfWeek();
+    } else {
+      return cookies.get('startDayOfWeek');
+    }
+  },
 });
 
 Template.changeSettingsPopup.events({
@@ -259,6 +280,22 @@ Template.changeSettingsPopup.events({
         Meteor.call('changeLimitToShowCardsCount', minLimit);
       } else {
         cookies.set('limitToShowCardsCount', minLimit);
+      }
+      Popup.back();
+    }
+  },
+  'click .js-apply-start-day-of-week'(event, templateInstance) {
+    event.preventDefault();
+    const startDay = parseInt(
+      templateInstance.$('#start-day-of-week').val(),
+      10,
+    );
+    if (!isNaN(startDay)) {
+      currentUser = Meteor.user();
+      if (currentUser) {
+        Meteor.call('changeStartDayOfWeek', startDay);
+      } else {
+        cookies.set('startDayOfWeek', startDay);
       }
       Popup.back();
     }
