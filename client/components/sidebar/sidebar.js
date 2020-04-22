@@ -215,6 +215,8 @@ Template.boardMenuPopup.events({
   'click .js-card-settings': Popup.open('boardCardSettings'),
   'click .html-export-board'(event) {
     event.preventDefault();
+    Popup.close();
+    this.hide();
 
     Array.from(document.querySelectorAll('script')).forEach(elem => elem.remove());
     Array.from(document.querySelectorAll('link:not([rel="stylesheet"])')).forEach(elem => elem.remove());
