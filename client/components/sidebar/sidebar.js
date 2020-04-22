@@ -1,4 +1,5 @@
 import { Cookies } from 'meteor/ostrio:cookies';
+const JSZip = require('jszip');
 const cookies = new Cookies();
 Sidebar = null;
 
@@ -218,6 +219,8 @@ Template.boardMenuPopup.events({
     Popup.close();
     this.hide();
 
+    let zip = new JSZip();
+
     Array.from(document.querySelectorAll('script')).forEach(elem => elem.remove());
     Array.from(document.querySelectorAll('link:not([rel="stylesheet"])')).forEach(elem => elem.remove());
     document.querySelector('#header-quick-access').remove();
@@ -234,31 +237,43 @@ Template.boardMenuPopup.events({
     let htmlDoc = ('<!doctype html>' + window.document.querySelector('html').outerHTML);
     htmlDoc = htmlDoc.replace('<a ', '<span ');
     htmlDoc = htmlDoc.replace('</a>', '</span>');
-    let dl = document.createElement('a');
-    dl.href = window.URL.createObjectURL(
-      new Blob([htmlDoc], {type: 'application/html'}) // file content
-    );
-    dl.onclick = event => document.body.removeChild(event.target);
-    dl.style.display = 'none';
-    dl.target = '_blank';
-    dl.download = window.location.href.split('/').pop() + ".html";
-    document.body.appendChild(dl);
+
+    // let dl = document.createElement('a');
+    // dl.href = window.URL.createObjectURL(
+    //   new Blob([htmlDoc], {type: 'application/html'}) // file content
+    // );
+
+    const boardSlug = window.location.href.split('/').pop();
+    const htmlOutputPath = `${boardSlug}/indexedDB.html`;
+
+    zip.file(htmlOutputPath, new Blob([htmlDoc], {type: 'application/html'}));
+    // dl.onclick = event => document.body.removeChild(event.target);
+    // dl.style.display = 'none';
+    // dl.target = '_blank';
+    // dl.download =
+    // document.body.appendChild(dl);
 
     Array.from(document.querySelectorAll('link[href][rel="stylesheet"]')).forEach(async elem => {
-      let response = await fetch(elem.href)
-      let responseBody = await response.text()
-      console.log(elem.href.split('/').pop().split('?').shift())
-      console.log(responseBody)
+      let response = await fetch(elem.href);
+      let responseBody = await response.text();
+      const filename = elem.href.split('/').pop().split('?').shift();
+      zip.file(filename, responseBody);
+      elem.src = `../${filename}`;
     });
     Array.from(document.querySelectorAll('[src]')).forEach(async elem => {
       let response = await fetch(elem.src)
       let responseBody = await response.blob()
-      console.log(elem.href.split('/').pop().split('?').shift())
-      console.log(responseBody)
+      const filename = elem.href.split('/').pop().split('?').shift();
+      const fileFullPath = `${boardSlug}/${elem.tagName.toLowerCase()}/${filename}`;
+      zip.file(fileFullPath, responseBody);
+      elem.src = `./${elem.tagName.toLowerCase()}/${filename}`;
     });
 
-    dl.click();
-    window.location.reload();
+    zip.generateAsync({type:"blob"}).then(content => {
+      // see FileSaver.js
+      saveAs(content, `${boardSlug}.zip`);
+      window.location.reload();
+    });
   },
 });
 
