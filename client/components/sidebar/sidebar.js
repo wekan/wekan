@@ -309,6 +309,8 @@ Template.boardMenuPopup.events({
       elem.src = `./${elem.tagName.toLowerCase()}/${filename}`;
     });
 
+    document.querySelector('.board-sidebar.sidebar').remove();
+
     let htmlDoc = `<!doctype html>${
       window.document.querySelector('html').outerHTML
     }`;
