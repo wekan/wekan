@@ -197,14 +197,14 @@ Template.boardMenuPopup.events({
   },
   'click .js-change-board-color': Popup.open('boardChangeColor'),
   'click .js-change-language': Popup.open('changeLanguage'),
-  'click .js-archive-board ': Popup.afterConfirm('archiveBoard', function () {
+  'click .js-archive-board ': Popup.afterConfirm('archiveBoard', function() {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
     currentBoard.archive();
     // XXX We should have some kind of notification on top of the page to
     // confirm that the board was successfully archived.
     FlowRouter.go('home');
   }),
-  'click .js-delete-board': Popup.afterConfirm('deleteBoard', function () {
+  'click .js-delete-board': Popup.afterConfirm('deleteBoard', function() {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
     Popup.close();
     Boards.remove(currentBoard._id);
@@ -219,57 +219,82 @@ Template.boardMenuPopup.events({
     Popup.close();
     this.hide();
 
-    let zip = new JSZip();
+    const zip = new JSZip();
 
-    Array.from(document.querySelectorAll('script')).forEach(elem => elem.remove());
-    Array.from(document.querySelectorAll('link:not([rel="stylesheet"])')).forEach(elem => elem.remove());
+    Array.from(document.querySelectorAll('script')).forEach(elem =>
+      elem.remove(),
+    );
+    Array.from(
+      document.querySelectorAll('link:not([rel="stylesheet"])'),
+    ).forEach(elem => elem.remove());
     document.querySelector('#header-quick-access').remove();
-    Array.from(document.querySelectorAll('#header-main-bar .board-header-btns')).forEach(elem => elem.remove());
-    Array.from(document.querySelectorAll('.list-composer')).forEach(elem => elem.remove());
-    Array.from(document.querySelectorAll('.list-composer,.js-card-composer, .js-add-card')).forEach(elem => elem.remove());
-    Array.from(document.querySelectorAll('.js-perfect-scrollbar > div:nth-of-type(n+2)')).forEach(elem => elem.remove());
-    Array.from(document.querySelectorAll('.js-perfect-scrollbar')).forEach(elem => {
-      elem.style = 'overflow-y: auto !important;';
-      elem.classList.remove('js-perfect-scrollbar');
+    Array.from(
+      document.querySelectorAll('#header-main-bar .board-header-btns'),
+    ).forEach(elem => elem.remove());
+    Array.from(document.querySelectorAll('.list-composer')).forEach(elem =>
+      elem.remove(),
+    );
+    Array.from(
+      document.querySelectorAll(
+        '.list-composer,.js-card-composer, .js-add-card',
+      ),
+    ).forEach(elem => elem.remove());
+    Array.from(
+      document.querySelectorAll('.js-perfect-scrollbar > div:nth-of-type(n+2)'),
+    ).forEach(elem => elem.remove());
+    Array.from(document.querySelectorAll('.js-perfect-scrollbar')).forEach(
+      elem => {
+        elem.style = 'overflow-y: auto !important;';
+        elem.classList.remove('js-perfect-scrollbar');
+      },
+    );
+    Array.from(document.querySelectorAll('[href]:not(link)')).forEach(elem =>
+      elem.attributes.removeNamedItem('href'),
+    );
+    Array.from(document.querySelectorAll('[href]')).forEach(elem => {
+      // eslint-disable-next-line no-self-assign
+      elem.href = elem.href;
+      // eslint-disable-next-line no-self-assign
+      elem.src = elem.src;
     });
-    Array.from(document.querySelectorAll('[href]:not(link)')).forEach(elem => elem.attributes.removeNamedItem('href'));
-    Array.from(document.querySelectorAll('[href]')).forEach(elem => {elem.href = elem.href; elem.src = elem.src});
-    let htmlDoc = ('<!doctype html>' + window.document.querySelector('html').outerHTML);
+    let htmlDoc = `<!doctype html>${
+      window.document.querySelector('html').outerHTML
+    }`;
     htmlDoc = htmlDoc.replace('<a ', '<span ');
     htmlDoc = htmlDoc.replace('</a>', '</span>');
-
-    // let dl = document.createElement('a');
-    // dl.href = window.URL.createObjectURL(
-    //   new Blob([htmlDoc], {type: 'application/html'}) // file content
-    // );
 
     const boardSlug = window.location.href.split('/').pop();
     const htmlOutputPath = `${boardSlug}/indexedDB.html`;
 
-    zip.file(htmlOutputPath, new Blob([htmlDoc], {type: 'application/html'}));
-    // dl.onclick = event => document.body.removeChild(event.target);
-    // dl.style.display = 'none';
-    // dl.target = '_blank';
-    // dl.download =
-    // document.body.appendChild(dl);
+    zip.file(htmlOutputPath, new Blob([htmlDoc], { type: 'application/html' }));
 
-    Array.from(document.querySelectorAll('link[href][rel="stylesheet"]')).forEach(async elem => {
-      let response = await fetch(elem.href);
-      let responseBody = await response.text();
-      const filename = elem.href.split('/').pop().split('?').shift();
+    Array.from(
+      document.querySelectorAll('link[href][rel="stylesheet"]'),
+    ).forEach(async elem => {
+      const response = await fetch(elem.href);
+      const responseBody = await response.text();
+      const filename = elem.href
+        .split('/')
+        .pop()
+        .split('?')
+        .shift();
       zip.file(filename, responseBody);
       elem.src = `../${filename}`;
     });
     Array.from(document.querySelectorAll('[src]')).forEach(async elem => {
-      let response = await fetch(elem.src)
-      let responseBody = await response.blob()
-      const filename = elem.href.split('/').pop().split('?').shift();
+      const response = await fetch(elem.src);
+      const responseBody = await response.blob();
+      const filename = elem.href
+        .split('/')
+        .pop()
+        .split('?')
+        .shift();
       const fileFullPath = `${boardSlug}/${elem.tagName.toLowerCase()}/${filename}`;
       zip.file(fileFullPath, responseBody);
       elem.src = `./${elem.tagName.toLowerCase()}/${filename}`;
     });
 
-    zip.generateAsync({type:"blob"}).then(content => {
+    zip.generateAsync({ type: 'blob' }).then(content => {
       // see FileSaver.js
       saveAs(content, `${boardSlug}.zip`);
       window.location.reload();
@@ -277,17 +302,16 @@ Template.boardMenuPopup.events({
   },
 });
 
-
-Template.boardMenuPopup.onCreated(function () {
+Template.boardMenuPopup.onCreated(function() {
   this.apiEnabled = new ReactiveVar(false);
   Meteor.call('_isApiEnabled', (e, result) => {
-    this.apiEnabled.set(result)
-  })
-})
+    this.apiEnabled.set(result);
+  });
+});
 
 Template.boardMenuPopup.helpers({
   withApi() {
-    return Template.instance().apiEnabled.get()
+    return Template.instance().apiEnabled.get();
   },
   exportUrl() {
     const params = {
@@ -310,7 +334,7 @@ Template.memberPopup.events({
     Popup.close();
   },
   'click .js-change-role': Popup.open('changePermissions'),
-  'click .js-remove-member': Popup.afterConfirm('removeMember', function () {
+  'click .js-remove-member': Popup.afterConfirm('removeMember', function() {
     const boardId = Session.get('currentBoard');
     const memberId = this.userId;
     Cards.find({ boardId, members: memberId }).forEach(card => {
