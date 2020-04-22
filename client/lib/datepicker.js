@@ -16,6 +16,7 @@ DatePicker = BlazeComponent.extendComponent({
         todayHighlight: true,
         todayBtn: 'linked',
         language: TAPi18n.getLanguage(),
+        weekStart: 1,
       })
       .on(
         'changeDate',
