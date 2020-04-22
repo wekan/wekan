@@ -196,14 +196,14 @@ Template.boardMenuPopup.events({
   },
   'click .js-change-board-color': Popup.open('boardChangeColor'),
   'click .js-change-language': Popup.open('changeLanguage'),
-  'click .js-archive-board ': Popup.afterConfirm('archiveBoard', function () {
+  'click .js-archive-board ': Popup.afterConfirm('archiveBoard', function() {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
     currentBoard.archive();
     // XXX We should have some kind of notification on top of the page to
     // confirm that the board was successfully archived.
     FlowRouter.go('home');
   }),
-  'click .js-delete-board': Popup.afterConfirm('deleteBoard', function () {
+  'click .js-delete-board': Popup.afterConfirm('deleteBoard', function() {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
     Popup.close();
     Boards.remove(currentBoard._id);
@@ -215,17 +215,16 @@ Template.boardMenuPopup.events({
   'click .js-card-settings': Popup.open('boardCardSettings'),
 });
 
-
-Template.boardMenuPopup.onCreated(function () {
+Template.boardMenuPopup.onCreated(function() {
   this.apiEnabled = new ReactiveVar(false);
   Meteor.call('_isApiEnabled', (e, result) => {
-    this.apiEnabled.set(result)
-  })
-})
+    this.apiEnabled.set(result);
+  });
+});
 
 Template.boardMenuPopup.helpers({
   withApi() {
-    return Template.instance().apiEnabled.get()
+    return Template.instance().apiEnabled.get();
   },
   exportUrl() {
     const params = {
@@ -248,7 +247,7 @@ Template.memberPopup.events({
     Popup.close();
   },
   'click .js-change-role': Popup.open('changePermissions'),
-  'click .js-remove-member': Popup.afterConfirm('removeMember', function () {
+  'click .js-remove-member': Popup.afterConfirm('removeMember', function() {
     const boardId = Session.get('currentBoard');
     const memberId = this.userId;
     Cards.find({ boardId, members: memberId }).forEach(card => {

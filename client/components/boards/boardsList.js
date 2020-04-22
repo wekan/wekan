@@ -86,7 +86,9 @@ BlazeComponent.extendComponent({
       query['members.userId'] = Meteor.userId();
     else query.permission = 'public';
 
-    return Boards.find(query, { sort: { sort: 1 /* boards default sorting */ } });
+    return Boards.find(query, {
+      sort: { sort: 1 /* boards default sorting */ },
+    });
   },
   isStarred() {
     const user = Meteor.user();

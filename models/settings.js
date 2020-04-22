@@ -338,7 +338,6 @@ if (Meteor.isServer) {
     isPasswordLoginDisabled() {
       return process.env.PASSWORD_LOGIN_ENABLED === 'false';
     },
-
   });
 }
 

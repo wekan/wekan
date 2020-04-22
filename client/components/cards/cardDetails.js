@@ -56,9 +56,8 @@ BlazeComponent.extendComponent({
   },
   votePublic() {
     const card = this.currentData();
-    if (card.vote)
-      return card.vote.public
-    return null
+    if (card.vote) return card.vote.public;
+    return null;
   },
   voteCountPositive() {
     const card = this.currentData();
@@ -380,7 +379,7 @@ BlazeComponent.extendComponent({
           }
         },
         'click .js-go-to-linked-card'() {
-           Utils.goCardId(this.data().linkedId)
+          Utils.goCardId(this.data().linkedId);
         },
         'click .js-member': Popup.open('cardMember'),
         'click .js-add-members': Popup.open('cardMembers'),
@@ -391,7 +390,7 @@ BlazeComponent.extendComponent({
         'click .js-start-date': Popup.open('editCardStartDate'),
         'click .js-due-date': Popup.open('editCardDueDate'),
         'click .js-end-date': Popup.open('editCardEndDate'),
-        'click .js-show-positive-votes':Popup.open('positiveVoteMembers'),
+        'click .js-show-positive-votes': Popup.open('positiveVoteMembers'),
         'click .js-show-negative-votes': Popup.open('negativeVoteMembers'),
         'mouseenter .js-card-details'() {
           const parentComponent = this.parentComponent().parentComponent();
@@ -658,7 +657,7 @@ Template.cardDetailsActionsPopup.events({
   },
 });
 
-Template.editCardTitleForm.onRendered(function () {
+Template.editCardTitleForm.onRendered(function() {
   autosize(this.$('.js-edit-card-title'));
 });
 
@@ -672,7 +671,7 @@ Template.editCardTitleForm.events({
   },
 });
 
-Template.editCardRequesterForm.onRendered(function () {
+Template.editCardRequesterForm.onRendered(function() {
   autosize(this.$('.js-edit-card-requester'));
 });
 
@@ -685,7 +684,7 @@ Template.editCardRequesterForm.events({
   },
 });
 
-Template.editCardAssignerForm.onRendered(function () {
+Template.editCardAssignerForm.onRendered(function() {
   autosize(this.$('.js-edit-card-assigner'));
 });
 
@@ -825,7 +824,7 @@ Template.copyChecklistToManyCardsPopup.events({
 
         // copy subtasks
         cursor = Cards.find({ parentId: oldId });
-        cursor.forEach(function () {
+        cursor.forEach(function() {
           'use strict';
           const subtask = arguments[0];
           subtask.parentId = _id;

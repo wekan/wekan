@@ -1036,12 +1036,8 @@ Migrations.add('add-description-text-allowed', () => {
 
 Migrations.add('add-sort-field-to-boards', () => {
   Boards.find().forEach((board, index) => {
-  if (!board.hasOwnProperty('sort')) {
-      Boards.direct.update(
-        board._id,
-        { $set: { sort: index } },
-        noValidate
-      );
+    if (!board.hasOwnProperty('sort')) {
+      Boards.direct.update(board._id, { $set: { sort: index } }, noValidate);
     }
   });
 });
