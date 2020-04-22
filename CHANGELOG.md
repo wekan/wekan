@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Pre-fill the title of checklists (Trello-style)](https://github.com/wekan/wekan/pull/3030).
+  Thanks to boeserwolf.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.97 2020-04-19 Wekan release
 
 This release adds the following new features:
