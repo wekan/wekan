@@ -6,6 +6,9 @@ This release adds the following new features:
   Thanks to boeserwolf.
 - [Implement option to change the first day of the week in user settings](https://github.com/wekan/wekan/pull/3032).
   Thanks to marc1006.
+- [Add babel to build chain and linter. Enables fancy Javascript language
+  features like optional chaining, for developer happiness](https://github.com/wekan/wekan/pull/3034).
+  Thanks to boeserwolf.
 
 and fixes the following bugs:
 
