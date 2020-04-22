@@ -217,7 +217,7 @@ Template.boardMenuPopup.events({
   'click .html-export-board'(event) {
     event.preventDefault();
     Popup.close();
-    this.hide();
+    document.querySelector('.board-header-btn.js-toggle-sidebar').click();
 
     const zip = new JSZip();
 
