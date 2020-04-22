@@ -9,6 +9,8 @@ and fixes the following bugs:
 
 - [Multiple lint issue fixes](https://github.com/wekan/wekan/pull/3031).
   Thanks to marc1006.
+- [Fix lint errors in lint error fix](https://github.com/wekan/wekan/commit/9e95c06415e614e587d684ff9660cc53c5f8c8d3).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
