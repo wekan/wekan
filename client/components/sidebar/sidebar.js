@@ -15,6 +15,23 @@ const viewTitles = {
   archives: 'archives',
 };
 
+const saveAs = function(blob, filename) {
+  let dl = document.createElement('a');
+  dl.href = window.URL.createObjectURL(blob);
+  dl.onclick = event => document.body.removeChild(event.target);
+  dl.style.display = 'none';
+  dl.target = '_blank';
+  dl.download = filename;
+  document.body.appendChild(dl);
+  dl.click();
+};
+
+const asyncForEach = async function (array, callback) {
+  for (let index = 0; index < array.length; index++) {
+    await callback(array[index], index, array);
+  }
+};
+
 BlazeComponent.extendComponent({
   mixins() {
     return [Mixins.InfiniteScrolling, Mixins.PerfectScrollbar];
@@ -214,7 +231,7 @@ Template.boardMenuPopup.events({
   'click .js-import-board': Popup.open('chooseBoardSource'),
   'click .js-subtask-settings': Popup.open('boardSubtaskSettings'),
   'click .js-card-settings': Popup.open('boardCardSettings'),
-  'click .html-export-board'(event) {
+  'click .html-export-board': async event => {
     event.preventDefault();
     Popup.close();
     document.querySelector('.board-header-btn.js-toggle-sidebar').click();
@@ -257,20 +274,15 @@ Template.boardMenuPopup.events({
       // eslint-disable-next-line no-self-assign
       elem.src = elem.src;
     });
-    let htmlDoc = `<!doctype html>${
-      window.document.querySelector('html').outerHTML
-    }`;
-    htmlDoc = htmlDoc.replace('<a ', '<span ');
-    htmlDoc = htmlDoc.replace('</a>', '</span>');
 
     const boardSlug = window.location.href.split('/').pop();
-    const htmlOutputPath = `${boardSlug}/indexedDB.html`;
+    const htmlOutputPath = `${boardSlug}/index.html`;
 
-    zip.file(htmlOutputPath, new Blob([htmlDoc], { type: 'application/html' }));
-
-    Array.from(
+    const stylesheets = Array.from(
       document.querySelectorAll('link[href][rel="stylesheet"]'),
-    ).forEach(async elem => {
+    );
+
+    await asyncForEach(stylesheets, async elem => {
       const response = await fetch(elem.href);
       const responseBody = await response.text();
       const filename = elem.href
@@ -279,9 +291,12 @@ Template.boardMenuPopup.events({
         .split('?')
         .shift();
       zip.file(filename, responseBody);
-      elem.src = `../${filename}`;
+      elem.href = `../${filename}`;
     });
-    Array.from(document.querySelectorAll('[src]')).forEach(async elem => {
+
+    const srcElements = Array.from(document.querySelectorAll('[src]'));
+
+    await asyncForEach(srcElements, async elem => {
       const response = await fetch(elem.src);
       const responseBody = await response.blob();
       const filename = elem.href
@@ -293,6 +308,13 @@ Template.boardMenuPopup.events({
       zip.file(fileFullPath, responseBody);
       elem.src = `./${elem.tagName.toLowerCase()}/${filename}`;
     });
+
+    let htmlDoc = `<!doctype html>${
+      window.document.querySelector('html').outerHTML
+    }`;
+    htmlDoc = htmlDoc.replace('<a ', '<span ');
+    htmlDoc = htmlDoc.replace('</a>', '</span>');
+    zip.file(htmlOutputPath, new Blob([htmlDoc], { type: 'application/html' }));
 
     zip.generateAsync({ type: 'blob' }).then(content => {
       // see FileSaver.js
