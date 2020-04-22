@@ -10,6 +10,11 @@ This release adds the following new features:
   features like optional chaining, for developer happiness](https://github.com/wekan/wekan/pull/3034).
   Thanks to boeserwolf.
 
+and adds the following updates:
+
+- [Upgrade to Meteor 1.10.2](https://github.com/wekan/wekan/commit/d1f98d0c472fb41e25fb29a9a6f6dae7db003f6f).
+  Thanks to Meteor developers and xet7.
+
 and fixes the following bugs:
 
 - [Multiple lint issue fixes](https://github.com/wekan/wekan/pull/3031).
