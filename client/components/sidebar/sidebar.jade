@@ -303,6 +303,9 @@ template(name="boardMenuPopup")
             a(href="{{exportUrl}}", download="{{exportFilename}}")
               i.fa.fa-share-alt
               | {{_ 'export-board'}}
+        li.html-export-board
+          i.fa.fa-share
+          | {{_ 'export-board-html'}}
         li
           a.js-outgoing-webhooks
             i.fa.fa-globe
