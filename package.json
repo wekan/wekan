@@ -53,6 +53,7 @@
     "prettier-eslint": "^9.0.1"
   },
   "dependencies": {
+    "@babel/core": "^7.9.0",
     "@babel/runtime": "^7.9.2",
     "ajv": "^5.0.0",
     "babel-runtime": "^6.26.0",
