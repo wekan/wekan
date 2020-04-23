@@ -268,36 +268,31 @@ Template.changeSettingsPopup.events({
       cookies.set('hasHiddenSystemMessages', 'true');
     }
   },
-  'click .js-apply-show-cards-at'(event, templateInstance) {
+  'click .js-apply-user-settings'(event, templateInstance) {
     event.preventDefault();
     const minLimit = parseInt(
       templateInstance.$('#show-cards-count-at').val(),
       10,
     );
+    const startDay = parseInt(
+      templateInstance.$('#start-day-of-week').val(),
+      10,
+    );
+    const currentUser = Meteor.user();
     if (!isNaN(minLimit)) {
-      currentUser = Meteor.user();
       if (currentUser) {
         Meteor.call('changeLimitToShowCardsCount', minLimit);
       } else {
         cookies.set('limitToShowCardsCount', minLimit);
       }
-      Popup.back();
     }
-  },
-  'click .js-apply-start-day-of-week'(event, templateInstance) {
-    event.preventDefault();
-    const startDay = parseInt(
-      templateInstance.$('#start-day-of-week').val(),
-      10,
-    );
     if (!isNaN(startDay)) {
-      currentUser = Meteor.user();
       if (currentUser) {
         Meteor.call('changeStartDayOfWeek', startDay);
       } else {
         cookies.set('startDayOfWeek', startDay);
       }
-      Popup.back();
     }
+    Popup.back();
   },
 });
