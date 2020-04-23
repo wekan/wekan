@@ -9,19 +9,21 @@ This release adds the following new features:
 - [Add babel to build chain and linter. Enables fancy Javascript language
   features like optional chaining, for developer happiness](https://github.com/wekan/wekan/pull/3034).
   Thanks to boeserwolf.
+- [Use only one 'Apply' button for applying the user settings](https://github.com/wekan/wekan/pull/3039).
+  Thanks to marc1006.
 
 and adds the following updates:
 
 - [Upgrade to Meteor 1.10.2](https://github.com/wekan/wekan/commit/d1f98d0c472fb41e25fb29a9a6f6dae7db003f6f).
   Thanks to Meteor developers and xet7.
+- [Set Snap MongoDB compatibility to 4.2 according to Meteor ChangeLog](https://github.com/wekan/wekan/commit/7de18eccea3854db3be6197bf21afbfd3ddb65a6).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
 - [Multiple lint issue fixes](https://github.com/wekan/wekan/pull/3031).
   Thanks to marc1006.
 - [Fix lint errors in lint error fix](https://github.com/wekan/wekan/commit/9e95c06415e614e587d684ff9660cc53c5f8c8d3).
-  Thanks to xet7.
-- [Set Snap MongoDB compatibility to 4.2 according to Meteor ChangeLog](https://github.com/wekan/wekan/commit/7de18eccea3854db3be6197bf21afbfd3ddb65a6).
   Thanks to xet7.
 - [Fix getStartDayOfWeek function](https://github.com/wekan/wekan/pull/3038).
   Thanks to marc1006 and boeserwolf.
