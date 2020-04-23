@@ -291,7 +291,7 @@ Template.boardMenuPopup.events({
       const responseBody = await response.text();
 
       const finalResponse = responseBody.replace(
-        'packages/fortawesome_fontawesome/upstream/', './'
+        'packages/fortawesome_fontawesome/upstream/', '../'
       );
 
       const filename = elem.href
