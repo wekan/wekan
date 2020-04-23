@@ -309,7 +309,7 @@ Template.boardMenuPopup.events({
     await asyncForEach(srcElements, async elem => {
       const response = await fetch(elem.src);
       const responseBody = await response.blob();
-      const filename = elem.href
+      const filename = elem.src
         .split('/')
         .pop()
         .split('?')
