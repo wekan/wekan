@@ -775,12 +775,12 @@
   "remove-all-read": "Rimuovi tutti i già letti",
   "allow-rename": "Consenti Rinomina",
   "allowRenamePopup-title": "Consenti Rinomina",
-  "start-day-of-week": "Set day of the week start",
-  "monday": "Monday",
-  "tuesday": "Tuesday",
-  "wednesday": "Wednesday",
-  "thursday": "Thursday",
-  "friday": "Friday",
-  "saturday": "Saturday",
-  "sunday": "Sunday"
+  "start-day-of-week": "Imposta l'inizio del giorno della settimana",
+  "monday": "Lunedi",
+  "tuesday": "Martedi",
+  "wednesday": "Mercoledi",
+  "thursday": "Giovedi",
+  "friday": "Venerdi",
+  "saturday": "Sabato",
+  "sunday": "Domenica"
 }

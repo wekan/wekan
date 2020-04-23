@@ -775,12 +775,12 @@
   "remove-all-read": "移除所有已讀",
   "allow-rename": "允許更名",
   "allowRenamePopup-title": "允許更名",
-  "start-day-of-week": "Set day of the week start",
-  "monday": "Monday",
-  "tuesday": "Tuesday",
-  "wednesday": "Wednesday",
-  "thursday": "Thursday",
-  "friday": "Friday",
-  "saturday": "Saturday",
-  "sunday": "Sunday"
+  "start-day-of-week": "一周的第一天",
+  "monday": "周一",
+  "tuesday": "週二",
+  "wednesday": "週三",
+  "thursday": "週四",
+  "friday": "週五",
+  "saturday": "週六",
+  "sunday": "週日"
 }

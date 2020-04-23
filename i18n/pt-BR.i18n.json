@@ -775,12 +775,12 @@
   "remove-all-read": "Remover todas lidas",
   "allow-rename": "Permitir renomear",
   "allowRenamePopup-title": "Permitir renomear",
-  "start-day-of-week": "Set day of the week start",
-  "monday": "Monday",
-  "tuesday": "Tuesday",
-  "wednesday": "Wednesday",
-  "thursday": "Thursday",
-  "friday": "Friday",
-  "saturday": "Saturday",
-  "sunday": "Sunday"
+  "start-day-of-week": "Definir dia em que a semana começa",
+  "monday": "Segunda",
+  "tuesday": "Terça",
+  "wednesday": "Quarta",
+  "thursday": "Quinta",
+  "friday": "Sexta",
+  "saturday": "Sábado",
+  "sunday": "Domingo"
 }

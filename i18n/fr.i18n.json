@@ -775,12 +775,12 @@
   "remove-all-read": "Supprimer les lus",
   "allow-rename": "Autoriser le renommage",
   "allowRenamePopup-title": "Autoriser le renommage",
-  "start-day-of-week": "Set day of the week start",
-  "monday": "Monday",
-  "tuesday": "Tuesday",
-  "wednesday": "Wednesday",
-  "thursday": "Thursday",
-  "friday": "Friday",
-  "saturday": "Saturday",
-  "sunday": "Sunday"
+  "start-day-of-week": "Définir le jour de début de semaine",
+  "monday": "Lundi",
+  "tuesday": "Mardi",
+  "wednesday": "Mercredi",
+  "thursday": "Jeudi",
+  "friday": "Vendredi",
+  "saturday": "Samedi",
+  "sunday": "Dimanche"
 }
