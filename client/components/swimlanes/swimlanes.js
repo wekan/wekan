@@ -111,7 +111,7 @@ function initSortable(boardComponent, $listsDom) {
       showDesktopDragHandles = false;
     }
 
-    if (!Utils.isMiniScreen() && showDesktopDragHandles) {
+    if (Utils.isMiniScreen() || showDesktopDragHandles) {
       $listsDom.sortable({
         handle: '.js-list-handle',
       });
@@ -126,8 +126,8 @@ function initSortable(boardComponent, $listsDom) {
       $listsDom.sortable(
         'option',
         'disabled',
-        // Disable drag-dropping when user is not member/is worker/is miniscreen
-        !userIsMember() || Meteor.user().isWorker() || Utils.isMiniScreen(),
+        // Disable drag-dropping when user is not member/is worker
+        !userIsMember() || Meteor.user().isWorker(),
         // Not disable drag-dropping while in multi-selection mode
         // MultiSelection.isActive() || !userIsMember(),
       );
@@ -188,8 +188,7 @@ BlazeComponent.extendComponent({
           }
 
           const noDragInside = ['a', 'input', 'textarea', 'p'].concat(
-            Utils.isMiniScreen() ||
-              (!Utils.isMiniScreen() && showDesktopDragHandles)
+            Utils.isMiniScreen() || showDesktopDragHandles
               ? ['.js-list-handle', '.js-swimlane-header-handle']
               : ['.js-list-header'],
           );
