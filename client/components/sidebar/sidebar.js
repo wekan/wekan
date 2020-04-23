@@ -1,5 +1,6 @@
 import { Cookies } from 'meteor/ostrio:cookies';
-const JSZip = require('jszip');
+
+const { HtmlExport } = ExportHtml;
 const cookies = new Cookies();
 Sidebar = null;
 
@@ -13,23 +14,6 @@ const viewTitles = {
   multiselection: 'multi-selection',
   customFields: 'custom-fields',
   archives: 'archives',
-};
-
-const saveAs = function(blob, filename) {
-  let dl = document.createElement('a');
-  dl.href = window.URL.createObjectURL(blob);
-  dl.onclick = event => document.body.removeChild(event.target);
-  dl.style.display = 'none';
-  dl.target = '_blank';
-  dl.download = filename;
-  document.body.appendChild(dl);
-  dl.click();
-};
-
-const asyncForEach = async function (array, callback) {
-  for (let index = 0; index < array.length; index++) {
-    await callback(array[index], index, array);
-  }
 };
 
 BlazeComponent.extendComponent({
@@ -232,111 +216,8 @@ Template.boardMenuPopup.events({
   'click .js-subtask-settings': Popup.open('boardSubtaskSettings'),
   'click .js-card-settings': Popup.open('boardCardSettings'),
   'click .html-export-board': async event => {
-    event.preventDefault();
-
-    const zip = new JSZip();
-
-    const downloadJSONLink = document.querySelector('.download-json-link');
-    const downloadJSONURL = downloadJSONLink.href;
-
     Popup.close();
-    document.querySelector('.board-header-btn.js-toggle-sidebar').click();
-
-    Array.from(document.querySelectorAll('script')).forEach(elem =>
-      elem.remove(),
-    );
-    Array.from(
-      document.querySelectorAll('link:not([rel="stylesheet"])'),
-    ).forEach(elem => elem.remove());
-    document.querySelector('#header-quick-access').remove();
-    Array.from(
-      document.querySelectorAll('#header-main-bar .board-header-btns'),
-    ).forEach(elem => elem.remove());
-    Array.from(document.querySelectorAll('.list-composer')).forEach(elem =>
-      elem.remove(),
-    );
-    Array.from(
-      document.querySelectorAll(
-        '.list-composer,.js-card-composer, .js-add-card',
-      ),
-    ).forEach(elem => elem.remove());
-    Array.from(
-      document.querySelectorAll('.js-perfect-scrollbar > div:nth-of-type(n+2)'),
-    ).forEach(elem => elem.remove());
-    Array.from(document.querySelectorAll('.js-perfect-scrollbar')).forEach(
-      elem => {
-        elem.style = 'overflow-y: auto !important;';
-        elem.classList.remove('js-perfect-scrollbar');
-      },
-    );
-    Array.from(document.querySelectorAll('[href]:not(link)')).forEach(elem =>
-      elem.attributes.removeNamedItem('href'),
-    );
-    Array.from(document.querySelectorAll('[href]')).forEach(elem => {
-      // eslint-disable-next-line no-self-assign
-      elem.href = elem.href;
-      // eslint-disable-next-line no-self-assign
-      elem.src = elem.src;
-    });
-
-    const boardSlug = window.location.href.split('/').pop();
-    const htmlOutputPath = `${boardSlug}/index.html`;
-
-    const stylesheets = Array.from(
-      document.querySelectorAll('link[href][rel="stylesheet"]'),
-    );
-
-    await asyncForEach(stylesheets, async elem => {
-      const response = await fetch(elem.href);
-      const responseBody = await response.text();
-
-      const finalResponse = responseBody.replace(
-        new RegExp('packages\/[^\/]+\/upstream\/', 'gim'), '../'
-      );
-
-      const filename = elem.href
-        .split('/')
-        .pop()
-        .split('?')
-        .shift();
-      const fileFullPath = `style/${filename}`;
-      zip.file(fileFullPath, finalResponse);
-      elem.href = `../${fileFullPath}`;
-    });
-
-    const srcElements = Array.from(document.querySelectorAll('[src]'));
-
-    await asyncForEach(srcElements, async elem => {
-      const response = await fetch(elem.src);
-      const responseBody = await response.blob();
-      const filename = elem.src
-        .split('/')
-        .pop()
-        .split('?')
-        .shift();
-      const fileFullPath = `${boardSlug}/${elem.tagName.toLowerCase()}/${filename}`;
-      zip.file(fileFullPath, responseBody);
-      elem.src = `./${elem.tagName.toLowerCase()}/${filename}`;
-    });
-
-    const response = await fetch(downloadJSONURL);
-    const responseBody = await response.text();
-    zip.file(`data/${boardSlug}.json`, responseBody);
-
-    document.querySelector('.board-sidebar.sidebar').remove();
-
-    let htmlDoc = `<!doctype html>${
-      window.document.querySelector('html').outerHTML
-    }`;
-    htmlDoc = htmlDoc.replace(new RegExp('<a ', 'gim'), '<span ');
-    htmlDoc = htmlDoc.replace(new RegExp('<\/a', 'gim'), '</span');
-    zip.file(htmlOutputPath, new Blob([htmlDoc], { type: 'application/html' }));
-
-    zip.generateAsync({ type: 'blob' }).then(content => {
-      // see FileSaver.js
-      saveAs(content, `${boardSlug}.zip`);
-      window.location.reload();
-    });
+    HtmlExport(event);
   },
 });
 
