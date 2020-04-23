@@ -291,7 +291,7 @@ Template.boardMenuPopup.events({
       const responseBody = await response.text();
 
       const finalResponse = responseBody.replace(
-        'packages/fortawesome_fontawesome/upstream/', '../'
+        new RegExp('packages\/[^\/]+\/upstream\/', 'gim'), '../'
       );
 
       const filename = elem.href
@@ -328,8 +328,8 @@ Template.boardMenuPopup.events({
     let htmlDoc = `<!doctype html>${
       window.document.querySelector('html').outerHTML
     }`;
-    htmlDoc = htmlDoc.replace('<a ', '<span ');
-    htmlDoc = htmlDoc.replace('</a>', '</span>');
+    htmlDoc = htmlDoc.replace(new RegExp('<a ', 'gim'), '<span ');
+    htmlDoc = htmlDoc.replace(new RegExp('<\/a', 'gim'), '</span');
     zip.file(htmlOutputPath, new Blob([htmlDoc], { type: 'application/html' }));
 
     zip.generateAsync({ type: 'blob' }).then(content => {
