@@ -289,12 +289,17 @@ Template.boardMenuPopup.events({
     await asyncForEach(stylesheets, async elem => {
       const response = await fetch(elem.href);
       const responseBody = await response.text();
+
+      const finalResponse = responseBody.replace(
+        'packages/fortawesome_fontawesome/upstream/', './'
+      );
+
       const filename = elem.href
         .split('/')
         .pop()
         .split('?')
         .shift();
-      zip.file(filename, responseBody);
+      zip.file(filename, finalResponse);
       elem.href = `../${filename}`;
     });
 
