@@ -23,6 +23,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Set Snap MongoDB compatibility to 4.2 according to Meteor ChangeLog](https://github.com/wekan/wekan/commit/7de18eccea3854db3be6197bf21afbfd3ddb65a6).
   Thanks to xet7.
+- [Fix getStartDayOfWeek function](https://github.com/wekan/wekan/pull/3038).
+  Thanks to marc1006 and boeserwolf.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
