@@ -299,8 +299,9 @@ Template.boardMenuPopup.events({
         .pop()
         .split('?')
         .shift();
-      zip.file(filename, finalResponse);
-      elem.href = `../${filename}`;
+      const fileFullPath = `style/${filename}`;
+      zip.file(fileFullPath, finalResponse);
+      elem.href = `../${fileFullPath}`;
     });
 
     const srcElements = Array.from(document.querySelectorAll('[src]'));
