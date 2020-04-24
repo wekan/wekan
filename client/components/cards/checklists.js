@@ -57,11 +57,8 @@ BlazeComponent.extendComponent({
     // Disable sorting if the current user is not a board member
     self.autorun(() => {
       const $itemsDom = $(self.itemsDom);
-      if ($itemsDom.data('sortable')) {
-        $(self.itemsDom).sortable('option', 'disabled', !userIsMember());
-      }
-      if ($itemsDom.data('sortable')) {
-        $(self.itemsDom).sortable('option', 'disabled', Utils.isMiniScreen());
+      if ($itemsDom.data('uiSortable')) {
+        $(self.itemsDom).sortable('option', 'disabled', !userIsMember() || Utils.isMiniScreen());
       }
     });
   },

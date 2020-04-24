@@ -205,7 +205,7 @@ BlazeComponent.extendComponent({
       } else {
         showDesktopDragHandles = false;
       }
-      if (!Utils.isMiniScreen() && showDesktopDragHandles) {
+      if (Utils.isMiniScreen() || showDesktopDragHandles) {
         $swimlanesDom.sortable({
           handle: '.js-swimlane-header-handle',
         });
@@ -215,9 +215,8 @@ BlazeComponent.extendComponent({
         });
       }
 
-      // Disable drag-dropping if the current user is not a board member or is miniscreen
+      // Disable drag-dropping if the current user is not a board member
       $swimlanesDom.sortable('option', 'disabled', !userIsMember());
-      $swimlanesDom.sortable('option', 'disabled', Utils.isMiniScreen());
     });
 
     function userIsMember() {

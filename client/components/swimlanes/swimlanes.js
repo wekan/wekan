@@ -111,7 +111,7 @@ function initSortable(boardComponent, $listsDom) {
       showDesktopDragHandles = false;
     }
 
-    if (!Utils.isMiniScreen() && showDesktopDragHandles) {
+    if (Utils.isMiniScreen() || showDesktopDragHandles) {
       $listsDom.sortable({
         handle: '.js-list-handle',
       });
@@ -122,34 +122,12 @@ function initSortable(boardComponent, $listsDom) {
     }
 
     const $listDom = $listsDom;
-    if ($listDom.data('sortable')) {
+    if ($listDom.data('uiSortable')) {
       $listsDom.sortable(
         'option',
         'disabled',
-        // Disable drag-dropping when user is not member/is worker/is miniscreen
-        !userIsMember(),
-        // Not disable drag-dropping while in multi-selection mode
-        // MultiSelection.isActive() || !userIsMember(),
-      );
-    }
-
-    if ($listDom.data('sortable')) {
-      $listsDom.sortable(
-        'option',
-        'disabled',
-        // Disable drag-dropping when user is not member/is worker/is miniscreen
-        Meteor.user().isWorker(),
-        // Not disable drag-dropping while in multi-selection mode
-        // MultiSelection.isActive() || !userIsMember(),
-      );
-    }
-
-    if ($listDom.data('sortable')) {
-      $listsDom.sortable(
-        'option',
-        'disabled',
-        // Disable drag-dropping when user is not member/is worker/is miniscreen
-        Utils.isMiniScreen(),
+        // Disable drag-dropping when user is not member/is worker
+        !userIsMember() || Meteor.user().isWorker(),
         // Not disable drag-dropping while in multi-selection mode
         // MultiSelection.isActive() || !userIsMember(),
       );
@@ -210,8 +188,7 @@ BlazeComponent.extendComponent({
           }
 
           const noDragInside = ['a', 'input', 'textarea', 'p'].concat(
-            Utils.isMiniScreen() ||
-              (!Utils.isMiniScreen() && showDesktopDragHandles)
+            Utils.isMiniScreen() || showDesktopDragHandles
               ? ['.js-list-handle', '.js-swimlane-header-handle']
               : ['.js-list-header'],
           );
