@@ -1,4 +1,4 @@
-const { calculateIndexData, enableClickOnTouch, capitalize } = Utils;
+const { calculateIndexData, capitalize } = Utils;
 
 function initSorting(items) {
   items.sortable({
@@ -36,9 +36,6 @@ function initSorting(items) {
       checklistItem.move(checklistId, sortIndex.base);
     },
   });
-
-  // ugly touch event hotfix
-  enableClickOnTouch('.js-checklist-item:not(.placeholder)');
 }
 
 BlazeComponent.extendComponent({

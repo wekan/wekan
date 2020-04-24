@@ -1,6 +1,6 @@
 import { Cookies } from 'meteor/ostrio:cookies';
 const cookies = new Cookies();
-const { calculateIndex, enableClickOnTouch } = Utils;
+const { calculateIndex } = Utils;
 
 BlazeComponent.extendComponent({
   // Proxy
@@ -113,9 +113,6 @@ BlazeComponent.extendComponent({
         boardComponent.setIsDragging(false);
       },
     });
-
-    // ugly touch event hotfix
-    enableClickOnTouch(itemsSelector);
 
     this.autorun(() => {
       let showDesktopDragHandles = false;
