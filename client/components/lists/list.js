@@ -129,7 +129,7 @@ BlazeComponent.extendComponent({
         showDesktopDragHandles = false;
       }
 
-      if (!Utils.isMiniScreen() && showDesktopDragHandles) {
+      if (Utils.isMiniScreen() || showDesktopDragHandles) {
         $cards.sortable({
           handle: '.handle',
         });
@@ -139,23 +139,12 @@ BlazeComponent.extendComponent({
         });
       }
 
-      if ($cards.data('sortable')) {
+      if ($cards.data('uiSortable')) {
         $cards.sortable(
           'option',
           'disabled',
-          // Disable drag-dropping when user is not member/is miniscreen
+          // Disable drag-dropping when user is not member
           !userIsMember(),
-          // Not disable drag-dropping while in multi-selection mode
-          // MultiSelection.isActive() || !userIsMember(),
-        );
-      }
-
-      if ($cards.data('sortable')) {
-        $cards.sortable(
-          'option',
-          'disabled',
-          // Disable drag-dropping when user is not member/is miniscreen
-          Utils.isMiniScreen(),
           // Not disable drag-dropping while in multi-selection mode
           // MultiSelection.isActive() || !userIsMember(),
         );
