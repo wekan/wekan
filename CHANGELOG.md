@@ -11,6 +11,9 @@ This release adds the following new features:
   Thanks to boeserwolf.
 - [Use only one 'Apply' button for applying the user settings](https://github.com/wekan/wekan/pull/3039).
   Thanks to marc1006.
+- [Allow variable height for board list items. Allow words in title/description to be able to break
+  and wrap onto the next line](https://github.com/wekan/wekan/pull/3046).
+  Thanks to marc1006.
 
 and adds the following updates:
 
