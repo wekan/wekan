@@ -31,6 +31,8 @@ and fixes the following bugs:
   Thanks to marc1006.
 - [Fix Wekan not load at all in Firefox v.68 for Android](https://github.com/wekan/wekan/commit/1235363465b824d26129d4aa74a4445f362c1a73).
   Thanks to xet7.
+- [Fix comment typo in docker-compose.yml](https://github.com/wekan/wekan/pull/3044).
+  Thanks to VictorioBerra.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
