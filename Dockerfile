@@ -271,6 +271,8 @@ RUN \
     cd /home/wekan/app_build/bundle/programs/server/ && \
     gosu wekan:wekan npm install && \
     #gosu wekan:wekan npm install bcrypt && \
+    # Remove legacy webbroser bundle, so that Wekan works also at Android Firefox, iOS Safari, etc.
+		rm -rf /home/wekan/app_build/bundle/programs/web.browser.legacy && \
     mv /home/wekan/app_build/bundle /build && \
     \
     # Put back the original tar

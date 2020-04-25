@@ -148,6 +148,8 @@ do
 		rm -rf .build
 		meteor build .build --directory
 		cp -f fix-download-unicode/cfs_access-point.txt .build/bundle/programs/server/packages/cfs_access-point.js
+    # Remove legacy webbroser bundle, so that Wekan works also at Android Firefox, iOS Safari, etc.
+		rm -rf .build/bundle/programs/web.browser.legacy
 		#Removed binary version of bcrypt because of security vulnerability that is not fixed yet.
 		#https://github.com/wekan/wekan/commit/4b2010213907c61b0e0482ab55abb06f6a668eac
 		#https://github.com/wekan/wekan/commit/7eeabf14be3c63fae2226e561ef8a0c1390c8d3c
