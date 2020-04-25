@@ -775,12 +775,12 @@
   "remove-all-read": "全ての既読を削除",
   "allow-rename": "リネームを許可する",
   "allowRenamePopup-title": "リネームを許可する",
-  "start-day-of-week": "Set day of the week start",
-  "monday": "Monday",
-  "tuesday": "Tuesday",
-  "wednesday": "Wednesday",
-  "thursday": "Thursday",
-  "friday": "Friday",
-  "saturday": "Saturday",
-  "sunday": "Sunday"
+  "start-day-of-week": "週の始まりを設定",
+  "monday": "月曜",
+  "tuesday": "火曜",
+  "wednesday": "水曜",
+  "thursday": "木曜",
+  "friday": "金曜",
+  "saturday": "土曜",
+  "sunday": "日曜"
 }
