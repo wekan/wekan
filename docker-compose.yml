@@ -38,7 +38,7 @@ version: '2'
 #      sudo service docker start
 # ----------------------------------------------------------------------------------
 # ==== USAGE OF THIS docker-compose.yml ====
-# 1) For seeing does Wekan work, try this and check with your webbroser:
+# 1) For seeing does Wekan work, try this and check with your web browser:
 #      docker-compose up
 # 2) Stop Wekan and start Wekan in background:
 #     docker-compose stop
