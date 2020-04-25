@@ -1,4 +1,4 @@
-const { calculateIndexData, enableClickOnTouch, capitalize } = Utils;
+const { calculateIndexData, capitalize } = Utils;
 
 function initSorting(items) {
   items.sortable({
@@ -36,9 +36,6 @@ function initSorting(items) {
       checklistItem.move(checklistId, sortIndex.base);
     },
   });
-
-  // ugly touch event hotfix
-  enableClickOnTouch('.js-checklist-item:not(.placeholder)');
 }
 
 BlazeComponent.extendComponent({
@@ -54,11 +51,15 @@ BlazeComponent.extendComponent({
       return Meteor.user() && Meteor.user().isBoardMember();
     }
 
-    // Disable sorting if the current user is not a board member
+    // Disable sorting if the current user is not a board member or is a miniscreen
     self.autorun(() => {
       const $itemsDom = $(self.itemsDom);
-      if ($itemsDom.data('uiSortable')) {
-        $(self.itemsDom).sortable('option', 'disabled', !userIsMember() || Utils.isMiniScreen());
+      if ($itemsDom.data('uiSortable') || $itemsDom.data('sortable')) {
+        $(self.itemsDom).sortable(
+          'option',
+          'disabled',
+          !userIsMember() || Utils.isMiniScreen(),
+        );
       }
     });
   },

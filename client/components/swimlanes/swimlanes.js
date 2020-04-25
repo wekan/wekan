@@ -1,6 +1,6 @@
 import { Cookies } from 'meteor/ostrio:cookies';
 const cookies = new Cookies();
-const { calculateIndex, enableClickOnTouch } = Utils;
+const { calculateIndex } = Utils;
 
 function currentListIsInThisSwimlane(swimlaneId) {
   const currentList = Lists.findOne(Session.get('currentList'));
@@ -87,9 +87,6 @@ function initSortable(boardComponent, $listsDom) {
     },
   });
 
-  // ugly touch event hotfix
-  enableClickOnTouch('.js-list:not(.js-list-composer)');
-
   function userIsMember() {
     return (
       Meteor.user() &&
@@ -122,7 +119,7 @@ function initSortable(boardComponent, $listsDom) {
     }
 
     const $listDom = $listsDom;
-    if ($listDom.data('uiSortable')) {
+    if ($listDom.data('uiSortable') || $listDom.data('sortable')) {
       $listsDom.sortable(
         'option',
         'disabled',

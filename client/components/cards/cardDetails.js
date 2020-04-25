@@ -1,5 +1,5 @@
 const subManager = new SubsManager();
-const { calculateIndexData, enableClickOnTouch } = Utils;
+const { calculateIndexData } = Utils;
 
 let cardColors;
 Meteor.startup(() => {
@@ -231,9 +231,6 @@ BlazeComponent.extendComponent({
       },
     });
 
-    // ugly touch event hotfix
-    enableClickOnTouch('.card-checklist-items .js-checklist');
-
     const $subtasksDom = this.$('.card-subtasks-items');
 
     $subtasksDom.sortable({
@@ -269,9 +266,6 @@ BlazeComponent.extendComponent({
       },
     });
 
-    // ugly touch event hotfix
-    enableClickOnTouch('.card-subtasks-items .js-subtasks');
-
     function userIsMember() {
       return Meteor.user() && Meteor.user().isBoardMember();
     }
@@ -279,10 +273,10 @@ BlazeComponent.extendComponent({
     // Disable sorting if the current user is not a board member
     this.autorun(() => {
       const disabled = !userIsMember() || Utils.isMiniScreen();
-      if ($checklistsDom.data('uiSortable')) {
+      if ($checklistsDom.data('uiSortable') || $checklistsDom.data('sortable')) {
         $checklistsDom.sortable('option', 'disabled', disabled);
       }
-      if ($subtasksDom.data('uiSortable')) {
+      if ($subtasksDom.data('uiSortable') || $subtasksDom.data('sortable')) {
         $subtasksDom.sortable('option', 'disabled', disabled);
       }
     });

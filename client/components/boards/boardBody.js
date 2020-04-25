@@ -1,7 +1,7 @@
 import { Cookies } from 'meteor/ostrio:cookies';
 const cookies = new Cookies();
 const subManager = new SubsManager();
-const { calculateIndex, enableClickOnTouch } = Utils;
+const { calculateIndex } = Utils;
 const swimlaneWhileSortingHeight = 150;
 
 BlazeComponent.extendComponent({
@@ -190,9 +190,6 @@ BlazeComponent.extendComponent({
         }
       },
     });
-
-    // ugly touch event hotfix
-    enableClickOnTouch('.js-swimlane:not(.placeholder)');
 
     this.autorun(() => {
       let showDesktopDragHandles = false;

@@ -1,6 +1,6 @@
 import { Cookies } from 'meteor/ostrio:cookies';
 const cookies = new Cookies();
-const { calculateIndex, enableClickOnTouch } = Utils;
+const { calculateIndex } = Utils;
 
 BlazeComponent.extendComponent({
   // Proxy
@@ -114,9 +114,6 @@ BlazeComponent.extendComponent({
       },
     });
 
-    // ugly touch event hotfix
-    enableClickOnTouch(itemsSelector);
-
     this.autorun(() => {
       let showDesktopDragHandles = false;
       currentUser = Meteor.user();
@@ -139,7 +136,7 @@ BlazeComponent.extendComponent({
         });
       }
 
-      if ($cards.data('uiSortable')) {
+      if ($cards.data('uiSortable') || $cards.data('sortable')) {
         $cards.sortable(
           'option',
           'disabled',
