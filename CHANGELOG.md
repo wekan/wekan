@@ -27,7 +27,7 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix getStartDayOfWeek function](https://github.com/wekan/wekan/pull/3038).
   Thanks to marc1006 and boeserwolf.
-- [Improve mobile devices support](https://github.com/wekan/wekan/pull/3040).
+- Improve mobile devices support [Part1](https://github.com/wekan/wekan/pull/3040) and [Part2](https://github.com/wekan/wekan/pull/3045).
   Thanks to marc1006.
 - [Fix Wekan not load at all in Firefox v.68 for Android](https://github.com/wekan/wekan/commit/1235363465b824d26129d4aa74a4445f362c1a73).
   Thanks to xet7.
