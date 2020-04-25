@@ -1,3 +1,173 @@
+# v3.98 2020-04-25 Wekan release
+
+News:
+
+- There is now many mobile and desktop webbrowser fixes. Please test does your
+  favourite Javascript enabled webbrowser work, and add issues if something
+  does not work, and there is no existing issue about that yet.
+- Desktop browser mode has setting for Show/Hide drag handles:
+  top right click username / Change Settings / Show desktop drag handles.
+  You can request desktop website also at mobile webbrowsers on Android.
+  At iOS requesting desktop website did not seem to work yet.
+- At iOS Safari and Chrome, to see swimlane buttons you need to scroll to right.
+  Fixes to this and other issues are welcome as pull request.
+
+This release adds the following new features:
+
+- [Pre-fill the title of checklists (Trello-style)](https://github.com/wekan/wekan/pull/3030).
+  Thanks to boeserwolf.
+- [Implement option to change the first day of the week in user settings](https://github.com/wekan/wekan/pull/3032).
+  Thanks to marc1006.
+- [Add babel to build chain and linter. Enables fancy Javascript language
+  features like optional chaining, for developer happiness](https://github.com/wekan/wekan/pull/3034).
+  Thanks to boeserwolf.
+- [Use only one 'Apply' button for applying the user settings](https://github.com/wekan/wekan/pull/3039).
+  Thanks to marc1006.
+- [Allow variable height for board list items. Allow words in title/description to be able to break
+  and wrap onto the next line](https://github.com/wekan/wekan/pull/3046).
+  Thanks to marc1006.
+
+and adds the following updates:
+
+- [Upgrade to Meteor 1.10.2](https://github.com/wekan/wekan/commit/d1f98d0c472fb41e25fb29a9a6f6dae7db003f6f).
+  Thanks to Meteor developers and xet7.
+- [Set Snap MongoDB compatibility to 4.2 according to Meteor ChangeLog](https://github.com/wekan/wekan/commit/7de18eccea3854db3be6197bf21afbfd3ddb65a6).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Multiple lint issue fixes](https://github.com/wekan/wekan/pull/3031).
+  Thanks to marc1006.
+- [Fix lint errors in lint error fix](https://github.com/wekan/wekan/commit/9e95c06415e614e587d684ff9660cc53c5f8c8d3).
+  Thanks to xet7.
+- [Fix getStartDayOfWeek function](https://github.com/wekan/wekan/pull/3038).
+  Thanks to marc1006 and boeserwolf.
+- Improve mobile devices support [Part1](https://github.com/wekan/wekan/pull/3040) and [Part2](https://github.com/wekan/wekan/pull/3045).
+  Thanks to marc1006.
+- [Fix Wekan not load at all in Firefox v.68 for Android](https://github.com/wekan/wekan/commit/1235363465b824d26129d4aa74a4445f362c1a73).
+  Thanks to xet7.
+- [Fix comment typo in docker-compose.yml](https://github.com/wekan/wekan/pull/3044).
+  Thanks to VictorioBerra.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.97 2020-04-19 Wekan release
+
+This release adds the following new features:
+
+- [Sortable boards](https://github.com/wekan/wekan/pull/3027).
+  Thanks to boeserwolf.
+- [Added dockerfiles for multi-arch builds and manifest](https://github.com/wekan/wekan/pull/3023).
+  [In Progress](https://github.com/wekan/wekan/issues/2999).
+  Thanks to brokencode64.
+- [Make linked card clickable](https://github.com/wekan/wekan/pull/3025).
+  Thanks to boeserwolf.
+
+and fixes the following bugs:
+
+- [Fix using checklists on mobile and iPad](https://github.com/wekan/wekan/pull/3019).
+  Thanks to devinsm.
+- [Improve card layout on mobile devices](https://github.com/wekan/wekan/pull/3024).
+  Thanks to marc1006.
+- [Make OCP OAuth work with Openshift 4.x](https://github.com/wekan/wekan/pull/3020).
+  Thanks to ckavili.
+- [Remove old warning from Sandstorm import board data loss, because bug has been already
+  fixed](https://github.com/wekan/wekan/commit/960fe5163b6a2f7c3dca03b5e31d69611b49f079).
+  Thanks to aputsiaq and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.96 2020-04-15 Wekan release
+
+This release adds the following Sandstorm updates:
+
+- This is the first Sandstorm Wekan release that uses newest Meteor 1.10.1 and Node 12.x.
+  Now all Wekan platforms use newest Meteor and Node 12.x LTS.
+  Thanks to kentonv and xet7.
+- [Fix capnp workaround to work with newest Meteor and
+  Node 12.x](https://github.com/wekan/wekan/commit/b2d546579c4957352c29b36c0c8a4a08b944dbb4).
+  Thanks to kentonv.
+- [Update Sandstorm release script for newest Meteor and
+  Node 12.x](https://github.com/wekan/wekan/commit/c5f782976b971fa3f2323e80a013bbf6a49c0596).
+  Thanks to xet7.
+- [Remove Meteor 1.8.x files because Sandstorm Wekan now uses newest
+  Meteor](https://github.com/wekan/wekan/commit/1a836969e10215bad47ac56a9b0d9de801b66fd2).
+  Thanks to xet7.
+
+and adds the following new features:
+
+- [Hide password auth with environment variable PASSWORD_LOGIN_ENABLED=false](https://github.com/wekan/wekan/pull/3014).
+  Snap example: `sudo snap set wekan password-login-enabled='false'` .
+  Thanks to salleman33.
+
+and fixes the following bugs:
+
+- [Fix Board admins can not clone or archive their boards at All Boards
+  page](https://github.com/wekan/wekan/pull/3013).
+  Thanks to salleman33.
+- [Fix `<p>` margin in card labels](https://github.com/wekan/wekan/pull/3015).
+  Thanks to boeserwolf.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.95 2020-04-12 Wekan release
+
+This release adds the following new features:
+
+- [Add gitpod config](https://github.com/wekan/wekan/pull/3009).
+  This adds support for Gitpod.io, a free automated
+  dev environment that makes contributing and generally working on GitHub
+  projects much easier. It allows anyone to start a ready-to-code dev
+  environment for any branch, issue and pull request with a single click.
+  Thanks to juniormendonca.
+- [Public boards overview](https://github.com/wekan/wekan/pull/3008).
+  Thanks to NicoP-S.
+
+and fixes the following bugs:
+
+- [Fix styling issue in notifications drawer](https://github.com/wekan/wekan/pull/3012).
+  Thanks to boeserwolf.
+- [Fix error in notifications cleanup cron](https://github.com/wekan/wekan/pull/3010).
+  Thanks to jtbairdsr.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.94 2020-04-12 Wekan release
+
+This release adds the following new features:
+
+- [Public vote](https://github.com/wekan/wekan/pull/3006).
+  Thanks to NicoP-S.
+- [Add robots.txt disallow all](https://github.com/wekan/wekan/commit/3fae5355d40055757bf4a5f0c503581195609720).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.93 2020-04-10 Wekan release
+
+This release adds the following new features:
+
+- [Trello vote import & hide export button if with_api is
+  disabled](https://github.com/wekan/wekan/pull/3000).
+  Thanks to NicoP-S.
+- [When adding a user to a board that has subtasks, also add user to the subtask
+  board](https://github.com/wekan/wekan/pull/3004).
+  Thanks to slvrpdr.
+
+and adds the following updates:
+
+- Upgrade to Node v12.16.2 [Part1](https://github.com/wekan/wekan/commit/6db717b9b384fe1491063e507b80e67791a07e3a)
+  and [Part2](https://github.com/wekan/wekan/commit/268d7fcb32186a902a84e7f6d80c50b1f3790bad).
+  Thanks to Node developers and xet7.
+
+and fixes the following bugs:
+
+- [Fix bug that prevents editing or deleting
+  comments](https://github.com/wekan/wekan/pull/3005).
+  Thanks to jtbairdsr.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.92 2020-04-09 Wekan release
 
 This release adds the following new features:
@@ -67,7 +237,7 @@ and fixes the following bugs:
 
 - [Fix start-wekan.sh MongoDB port to 27017](https://github.com/wekan/wekan/commit/c60a092fc0ed9fe15c417bcb443b1e3e3aaedf7e).
   Thanks to Keelan and xet7.
-    
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v3.87 2020-04-01 Wekan release
@@ -107,7 +277,7 @@ This release fixes the following bugs:
        @member mention not close card, and disabling clicking of
        @member mention](https://github.com/wekan/wekan/commit/b9099a8b7ea6f63c79bdcbb871cb993b2cb7e325).
   Thanks to xet7 !
-        
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v3.85 2020-03-23 Wekan release

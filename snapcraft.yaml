@@ -81,7 +81,7 @@ parts:
     wekan:
         source: .
         plugin: nodejs
-        node-engine: 12.16.1
+        node-engine: 12.16.2
         node-packages:
             - node-gyp
             - node-pre-gyp
@@ -216,6 +216,8 @@ parts:
             #meteor npm install --save bcrypt
             # Change from npm-bcrypt directory back to .build/bundle/programs/server directory.
             #cd ../../../../
+            # Remove legacy webbroser bundle, so that Wekan works also at Android Firefox, iOS Safari, etc.
+            rm -rf .build/bundle/programs/web.browser.legacy
             # Change to directory .build/bundle/programs/server
             cd .build/bundle/programs/server
             npm install

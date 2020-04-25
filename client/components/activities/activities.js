@@ -180,7 +180,7 @@ BlazeComponent.extendComponent({
       {
         // XXX We should use Popup.afterConfirmation here
         'click .js-delete-comment'() {
-          const commentId = this.currentData().commentId;
+          const commentId = this.currentData().activity.commentId;
           CardComments.remove(commentId);
         },
         'submit .js-edit-comment'(evt) {
@@ -188,7 +188,7 @@ BlazeComponent.extendComponent({
           const commentText = this.currentComponent()
             .getValue()
             .trim();
-          const commentId = Template.parentData().commentId;
+          const commentId = Template.parentData().activity.commentId;
           if (commentText) {
             CardComments.update(commentId, {
               $set: {

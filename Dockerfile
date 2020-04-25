@@ -6,8 +6,8 @@ LABEL maintainer="wekan"
 # ENV BUILD_DEPS="paxctl"
 ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-essential git ca-certificates python3" \
     DEBUG=false \
-    NODE_VERSION=v12.16.1 \
-    METEOR_RELEASE=1.10-rc.2 \
+    NODE_VERSION=v12.16.2 \
+    METEOR_RELEASE=1.10.2 \
     USE_EDGE=false \
     METEOR_EDGE=1.5-beta.17 \
     NPM_VERSION=latest \
@@ -113,7 +113,8 @@ ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-
     CORS_EXPOSE_HEADERS="" \
     DEFAULT_AUTHENTICATION_METHOD="" \
     SCROLLINERTIA="0" \
-    SCROLLAMOUNT="auto"
+    SCROLLAMOUNT="auto" \
+    PASSWORD_LOGIN_ENABLED=true
 
 # Copy the app to the image
 COPY ${SRC_PATH} /home/wekan/app
@@ -270,6 +271,8 @@ RUN \
     cd /home/wekan/app_build/bundle/programs/server/ && \
     gosu wekan:wekan npm install && \
     #gosu wekan:wekan npm install bcrypt && \
+    # Remove legacy webbroser bundle, so that Wekan works also at Android Firefox, iOS Safari, etc.
+		rm -rf /home/wekan/app_build/bundle/programs/web.browser.legacy && \
     mv /home/wekan/app_build/bundle /build && \
     \
     # Put back the original tar

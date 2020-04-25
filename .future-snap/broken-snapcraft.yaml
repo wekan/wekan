@@ -65,9 +65,9 @@ apps:
 
 parts:
     mongodb:
-        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-3.2.22.tgz
+        source: https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-4.2.6.tgz
         plugin: dump
-        stage-packages: [libssl1.0.0]
+        stage-packages: [libssl1.0.0, libcurl3]
         filesets:
             mongo:
                 - usr
@@ -81,19 +81,20 @@ parts:
     wekan:
         source: .
         plugin: nodejs
-        node-engine: 8.17.0
+        node-engine: 12.16.2
         node-packages:
             - node-gyp
             - node-pre-gyp
-            - fibers@2.0.0
+            - fibers
         build-packages:
             - ca-certificates
             - apt-utils
             - python
-#            - python3
+            - python3
             - g++
             - capnproto
             - curl
+            - libcurl3
             - execstack
             - nodejs
             - npm
@@ -104,6 +105,18 @@ parts:
             rm -rf ~/.meteor ~/.npm /usr/local/lib/node_modules
             # Create the OpenAPI specification
             rm -rf .build
+            ## Use Meteor 1.8.x on Snap
+            #rm -rf .meteor
+            #mv .snap-meteor-1.8/.meteor .
+            #mv .snap-meteor-1.8/package.json .
+            #mv .snap-meteor-1.8/package-lock.json .
+            ## Meteor 1.9.x has changes to Buffer() => Buffer.alloc(), so reverting those
+            #mv .snap-meteor-1.8/cfs_access-point.txt fix-download-unicode/
+            #mv .snap-meteor-1.8/export.js models/
+            #mv .snap-meteor-1.8/wekanCreator.js models/
+            #mv .snap-meteor-1.8/ldap.js packages/wekan-ldap/server/ldap.js
+            #mv .snap-meteor-1.8/oidc_server.js packages/wekan-oidc/oidc_server.js
+            rm -rf .snap-meteor-1.8
             #mkdir -p .build/python
             #cd .build/python
             #git clone --depth 1 -b master https://github.com/Kronuz/esprima-python

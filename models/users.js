@@ -190,6 +190,13 @@ Users.attachSchema(
       type: Number,
       optional: true,
     },
+    'profile.startDayOfWeek': {
+      /**
+       * startDayOfWeek field of the user
+       */
+      type: Number,
+      optional: true,
+    },
     'profile.starredBoards': {
       /**
        * list of starred board IDs
@@ -377,8 +384,8 @@ if (Meteor.isClient) {
       return board && board.hasWorker(this._id);
     },
 
-    isBoardAdmin() {
-      const board = Boards.findOne(Session.get('currentBoard'));
+    isBoardAdmin(boardId = Session.get('currentBoard')) {
+      const board = Boards.findOne(boardId);
       return board && board.hasAdmin(this._id);
     },
   });
@@ -386,12 +393,20 @@ if (Meteor.isClient) {
 
 Users.helpers({
   boards() {
-    return Boards.find({ 'members.userId': this._id });
+    return Boards.find(
+      { 'members.userId': this._id },
+      { sort: { sort: 1 /* boards default sorting */ } },
+    );
   },
 
   starredBoards() {
     const { starredBoards = [] } = this.profile || {};
-    return Boards.find({ archived: false, _id: { $in: starredBoards } });
+    return Boards.find(
+      { archived: false, _id: { $in: starredBoards } },
+      {
+        sort: { sort: 1 /* boards default sorting */ },
+      },
+    );
   },
 
   hasStarred(boardId) {
@@ -401,7 +416,12 @@ Users.helpers({
 
   invitedBoards() {
     const { invitedBoards = [] } = this.profile || {};
-    return Boards.find({ archived: false, _id: { $in: invitedBoards } });
+    return Boards.find(
+      { archived: false, _id: { $in: invitedBoards } },
+      {
+        sort: { sort: 1 /* boards default sorting */ },
+      },
+    );
   },
 
   isInvitedTo(boardId) {
@@ -506,6 +526,12 @@ Users.helpers({
   getLanguage() {
     const profile = this.profile || {};
     return profile.language || 'en';
+  },
+
+  getStartDayOfWeek() {
+    const profile = this.profile || {};
+    // default is 'Monday' (1)
+    return profile.startDayOfWeek ?? 1;
   },
 
   getTemplatesBoardId() {
@@ -639,6 +665,10 @@ Users.mutations({
     return { $set: { 'profile.showCardsCountAt': limit } };
   },
 
+  setStartDayOfWeek(startDay) {
+    return { $set: { 'profile.startDayOfWeek': startDay } };
+  },
+
   setBoardView(view) {
     return {
       $set: {
@@ -668,6 +698,10 @@ Meteor.methods({
   changeLimitToShowCardsCount(limit) {
     check(limit, Number);
     Meteor.user().setShowCardsCountAt(limit);
+  },
+  changeStartDayOfWeek(startDay) {
+    check(startDay, Number);
+    Meteor.user().setStartDayOfWeek(startDay);
   },
 });
 
@@ -814,6 +848,16 @@ if (Meteor.isServer) {
       board.addMember(user._id);
       user.addInvite(boardId);
 
+      //Check if there is a subtasks board
+      if (board.subtasksDefaultBoardId) {
+        const subBoard = Boards.findOne(board.subtasksDefaultBoardId);
+        //If there is, also add user to that board
+        if (subBoard) {
+          subBoard.addMember(user._id);
+          user.addInvite(subBoard._id);
+        }
+      }
+
       try {
         const params = {
           user: user.username,
@@ -942,6 +986,7 @@ const addCronJob = _.debounce(
       schedule: parser => parser.text('every 1 days'),
       job: () => {
         for (const user of Users.find()) {
+          if (!user.profile || !user.profile.notifications) continue;
           for (const notification of user.profile.notifications) {
             if (notification.read) {
               const removeDate = new Date(notification.read);
@@ -1281,10 +1326,13 @@ if (Meteor.isServer) {
       let data = Meteor.users.findOne({ _id: id });
       if (data !== undefined) {
         if (action === 'takeOwnership') {
-          data = Boards.find({
-            'members.userId': id,
-            'members.isAdmin': true,
-          }).map(function(board) {
+          data = Boards.find(
+            {
+              'members.userId': id,
+              'members.isAdmin': true,
+            },
+            { sort: { sort: 1 /* boards default sorting */ } },
+          ).map(function(board) {
             if (board.hasMember(req.userId)) {
               board.removeMember(req.userId);
             }

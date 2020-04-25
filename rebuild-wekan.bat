@@ -18,8 +18,8 @@ REM Install chocolatey
 
 choco install -y git curl python2 dotnet4.5.2 nano mongodb-3 mongoclient meteor
 
-curl -O https://nodejs.org/dist/v12.16.1/node-v12.16.1-x64.msi
-call node-v12.16.1-x64.msi
+curl -O https://nodejs.org/dist/v12.16.2/node-v12.16.2-x64.msi
+call node-v12.16.2-x64.msi
 
 call npm config -g set msvs_version 2015
 call meteor npm config -g set msvs_version 2015
@@ -53,6 +53,9 @@ call meteor npm install
 REM del /S /F /Q .build
 call meteor build .build --directory
 copy fix-download-unicode\cfs_access-point.txt .build\bundle\programs\server\packages\cfs_access-point.js
+REM ## Remove legacy webbroser bundle, so that Wekan works also at Android Firefox, iOS Safari, etc.
+del /S /F /Q rm .build/bundle/programs/web.browser.legacy
+REM ## Install some NPM packages
 cd .build\bundle\programs\server
 call meteor npm install
 REM cd C:\repos\wekan\.meteor\local\build\programs\server

@@ -527,7 +527,12 @@ services:
       # LOGOUT_ON_MINUTES : The number of minutes
       # example : LOGOUT_ON_MINUTES=55
       #- LOGOUT_ON_MINUTES=
+      #---------------------------------------------------------------------
+      # PASSWORD_LOGIN_ENABLED : Enable or not the password login form. 
+      # example: PASSWORD_LOGIN_ENABLED=false
+      # - PASSWORD_LOGIN_ENABLED
       #-------------------------------------------------------------------
+      
 
     depends_on:
       - mongodb

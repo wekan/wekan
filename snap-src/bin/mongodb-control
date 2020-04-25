@@ -66,3 +66,5 @@ fi
 
 # Drop indexes on database upgrade, when starting MongoDB
 #mongo wekan --eval "db.getCollectionNames().forEach(function(col_name) { var coll = db.getCollection(col_name); coll.dropIndexes(); });" $BIND_OPTIONS
+
+mongo wekan --eval 'db.adminCommand({ setFeatureCompatibilityVersion: "4.2" });' $BIND_OPTIONS

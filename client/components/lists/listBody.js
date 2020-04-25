@@ -411,7 +411,7 @@ BlazeComponent.extendComponent({
         type: 'board',
       },
       {
-        sort: ['title'],
+        sort: { sort: 1 /* boards default sorting */ },
       },
     );
     return boards;
@@ -597,7 +597,7 @@ BlazeComponent.extendComponent({
         type: 'board',
       },
       {
-        sort: ['title'],
+        sort: { sort: 1 /* boards default sorting */ },
       },
     );
     return boards;

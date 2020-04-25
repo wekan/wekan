@@ -334,6 +334,10 @@ if (Meteor.isServer) {
     getDefaultAuthenticationMethod() {
       return process.env.DEFAULT_AUTHENTICATION_METHOD;
     },
+
+    isPasswordLoginDisabled() {
+      return process.env.PASSWORD_LOGIN_ENABLED === 'false';
+    },
   });
 }
 

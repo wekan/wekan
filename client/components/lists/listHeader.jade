@@ -30,10 +30,9 @@ template(name="listHeader")
               if canSeeAddCard
                 a.js-add-card.fa.fa-plus.list-header-plus-icon
               a.fa.fa-navicon.js-open-list-menu
-          //a.list-header-handle.handle.fa.fa-arrows.js-list-handle
         else
           a.list-header-menu-icon.fa.fa-angle-right.js-select-list
-          //a.list-header-handle.handle.fa.fa-arrows.js-list-handle
+          a.list-header-handle.handle.fa.fa-arrows.js-list-handle
       else if currentUser.isBoardMember
         if isWatching
           i.list-header-watch-icon.fa.fa-eye
