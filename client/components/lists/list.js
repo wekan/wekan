@@ -139,7 +139,7 @@ BlazeComponent.extendComponent({
         });
       }
 
-      if ($cards.data('uiSortable')) {
+      if ($cards.data('uiSortable') || $cards.data('sortable')) {
         $cards.sortable(
           'option',
           'disabled',

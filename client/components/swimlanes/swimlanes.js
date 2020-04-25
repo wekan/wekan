@@ -122,7 +122,7 @@ function initSortable(boardComponent, $listsDom) {
     }
 
     const $listDom = $listsDom;
-    if ($listDom.data('uiSortable')) {
+    if ($listDom.data('uiSortable') || $listDom.data('sortable')) {
       $listsDom.sortable(
         'option',
         'disabled',
