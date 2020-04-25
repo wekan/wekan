@@ -1,4 +1,16 @@
-# Upcoming Wekan release
+# v3.98 2020-04-25 Wekan release
+
+News:
+
+- There is now many mobile and desktop webbrowser fixes. Please test does your
+  favourite Javascript enabled webbrowser work, and add issues if something
+  does not work, and there is no existing issue about that yet.
+- Desktop browser mode has setting for Show/Hide drag handles:
+  top right click username / Change Settings / Show desktop drag handles.
+  You can request desktop website also at mobile webbrowsers on Android.
+  At iOS requesting desktop website did not seem to work yet.
+- At iOS Safari and Chrome, to see swimlane buttons you need to scroll to right.
+  Fixes to this and other issues are welcome as pull request.
 
 This release adds the following new features:
 
