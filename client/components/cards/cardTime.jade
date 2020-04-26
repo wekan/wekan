@@ -4,10 +4,9 @@ template(name="editCardSpentTime")
       .fields
         label(for="time") {{_ 'time'}}
         input.js-time-field#time(type="number" step="0.01" name="time" value="{{card.getSpentTime}}" placeholder=timeFormat autofocus)
-        .check-div
-          a.flex.js-toggle-overtime
-            .materialCheckBox#overtime(class="{{#if getIsOvertime}}is-checked{{/if}}" name="overtime")
-            span {{_ 'overtime'}}
+        label(for="overtime") {{_ 'overtime'}}
+        a.js-toggle-overtime
+          .materialCheckBox#overtime(class="{{#if getIsOvertime}}is-checked{{/if}}" name="overtime")
 
       if error.get
         .warning {{_ error.get}}

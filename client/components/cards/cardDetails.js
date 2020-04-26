@@ -54,7 +54,21 @@ BlazeComponent.extendComponent({
     }
     return null;
   },
-
+  votePublic() {
+    const card = this.currentData();
+    if (card.vote) return card.vote.public;
+    return null;
+  },
+  voteCountPositive() {
+    const card = this.currentData();
+    if (card.vote && card.vote.positive) return card.vote.positive.length;
+    return null;
+  },
+  voteCountNegative() {
+    const card = this.currentData();
+    if (card.vote && card.vote.negative) return card.vote.negative.length;
+    return null;
+  },
   isWatching() {
     const card = this.currentData();
     return card.findWatcher(Meteor.userId());
@@ -987,17 +1001,12 @@ BlazeComponent.extendComponent({
           evt.preventDefault();
           const voteQuestion = evt.target.vote.value;
           const publicVote = $('#vote-public').hasClass('is-checked');
-          const allowNonBoardMembers = $('#vote-allow-non-members').hasClass('is-checked');
-          this.currentCard.setVoteQuestion(voteQuestion, publicVote,allowNonBoardMembers);
+          this.currentCard.setVoteQuestion(voteQuestion, publicVote);
           Popup.close();
         },
         'click a.js-toggle-vote-public'(event) {
           event.preventDefault();
           $('#vote-public').toggleClass('is-checked');
-        },
-        'click a.js-toggle-vote-allow-non-members'(event) {
-          event.preventDefault();
-          $('#vote-allow-non-members').toggleClass('is-checked');
         },
       },
     ];

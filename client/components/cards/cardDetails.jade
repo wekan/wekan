@@ -212,8 +212,6 @@ template(name="cardDetails")
           else
             .card-label.card-label-green {{ voteCountPositive }}
             .card-label.card-label-red {{ voteCountNegative }}
-          unless ($and currentBoard.isPublic voteAllowNonBoardMembers )
-            .card-label.card-label-gray  {{ voteCount }} {{_ 'r-of' }} {{ currentBoard.activeMembers.length }}
       +viewer
         = getVoteQuestion
       button.card-details-green.js-vote.js-vote-positive(class="{{#if voteState}}voted{{/if}}") {{_ 'vote-for-it'}}
@@ -574,15 +572,12 @@ template(name="cardStartVotingPopup")
     .fields
       label(for="vote") {{_ 'vote-question'}}
       input.js-vote-field#vote(type="text" name="vote" value="{{card.getVoteQuestion}}" autofocus)
-      .check-div
-        a.flex.js-toggle-vote-public
+      label(for="vote-public") {{_ 'vote-public'}}
+        a.js-toggle-vote-public
           .materialCheckBox#vote-public(name="vote-public")
-          span {{_ 'vote-public'}}
-      .check-div
-        a.flex.js-toggle-vote-allow-non-members
-          .materialCheckBox#vote-allow-non-members(name="vote-allow-non-members")
-          span {{_ 'allowNonBoardMembers'}}
+
     button.primary.confirm.js-submit {{_ 'save'}}
+    //- button.js-remove-color.negate.wide.right {{_ 'delete'}}
 
 template(name="positiveVoteMembersPopup")
   ul.pop-over-list.js-card-member-list
