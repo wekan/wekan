@@ -1,5 +1,5 @@
 const subManager = new SubsManager();
-const { calculateIndex } = Utils;
+const { calculateIndex, enableClickOnTouch } = Utils;
 
 Template.boardListHeaderBar.events({
   'click .js-open-archived-board'() {
@@ -67,6 +67,9 @@ BlazeComponent.extendComponent({
         board.move(sortIndex.base);
       },
     });
+
+    // ugly touch event hotfix
+    enableClickOnTouch(itemsSelector);
 
     // Disable drag-dropping if the current user is not a board member or is comment only
     this.autorun(() => {
