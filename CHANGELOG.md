@@ -1,3 +1,13 @@
+# v4.00 2020-04-27 Wekan release
+
+This release fixes the following bugs:
+
+- [Make sure that the board header buttons fit into one line even for devices with 360px width
+  resolution](https://github.com/wekan/wekan/pull/3052).
+  Thanks to marc1006.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.99 2020-04-27 Wekan release
 
 This release fixes the following bugs:
