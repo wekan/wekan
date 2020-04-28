@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix getStartDayOfWeek once again](https://github.com/wekan/wekan/pull/3061).
+  Thanks to marc1006.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.01 2020-04-28 Wekan release
 
 This release adds the following updates:
