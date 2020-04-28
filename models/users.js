@@ -530,8 +530,11 @@ Users.helpers({
 
   getStartDayOfWeek() {
     const profile = this.profile || {};
-    // default is 'Monday' (1)
-    return profile.startDayOfWeek || 1;
+    if (typeof profile.startDayOfWeek === 'undefined') {
+      // default is 'Monday' (1)
+      return 1;
+    }
+    return profile.startDayOfWeek;
   },
 
   getTemplatesBoardId() {
