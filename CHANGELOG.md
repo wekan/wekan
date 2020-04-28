@@ -1,6 +1,11 @@
-# Upcoming Wekan release
+# v4.01 2020-04-28 Wekan release
 
-This release fixes the following bugs:
+This release adds the following updates:
+
+- [Upgrade to Node v12.16.3](https://github.com/wekan/wekan/commit/1d89e96dd101c11913f1acdd6d16b5650eaf18a7).
+  Thanks to Node developers and xet7.
+
+and fixes the following bugs:
 
 - [Fix Docker builds](https://github.com/wekan/wekan/commit/280e66947e3afa878c41e876cf827ebcec81a2c6).
   Thanks to xet7.
