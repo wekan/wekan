@@ -594,11 +594,6 @@ Template.cardDetailsActionsPopup.events({
   'click .js-copy-card': Popup.open('copyCard'),
   'click .js-copy-checklist-cards': Popup.open('copyChecklistToManyCards'),
   'click .js-set-card-color': Popup.open('setCardColor'),
-  'click .js-cancel-voting'(event) {
-    event.preventDefault();
-    this.unsetVote();
-    Popup.close();
-  },
   'click .js-move-card-to-top'(event) {
     event.preventDefault();
     const minOrder = _.min(
@@ -632,7 +627,7 @@ Template.cardDetailsActionsPopup.events({
   },
 });
 
-Template.editCardTitleForm.onRendered(function() {
+Template.editCardTitleForm.onRendered(function () {
   autosize(this.$('.js-edit-card-title'));
 });
 
@@ -646,7 +641,7 @@ Template.editCardTitleForm.events({
   },
 });
 
-Template.editCardRequesterForm.onRendered(function() {
+Template.editCardRequesterForm.onRendered(function () {
   autosize(this.$('.js-edit-card-requester'));
 });
 
@@ -659,7 +654,7 @@ Template.editCardRequesterForm.events({
   },
 });
 
-Template.editCardAssignerForm.onRendered(function() {
+Template.editCardAssignerForm.onRendered(function () {
   autosize(this.$('.js-edit-card-assigner'));
 });
 
@@ -799,7 +794,7 @@ Template.copyChecklistToManyCardsPopup.events({
 
         // copy subtasks
         cursor = Cards.find({ parentId: oldId });
-        cursor.forEach(function() {
+        cursor.forEach(function () {
           'use strict';
           const subtask = arguments[0];
           subtask.parentId = _id;
@@ -948,7 +943,7 @@ BlazeComponent.extendComponent({
             }
           }
         },
-        'click .js-delete': Popup.afterConfirm('cardDelete', function() {
+        'click .js-delete': Popup.afterConfirm('cardDelete', function () {
           Popup.close();
           Cards.remove(this._id);
           Utils.goBoardId(this.boardId);
@@ -978,18 +973,34 @@ BlazeComponent.extendComponent({
   onCreated() {
     this.currentCard = this.currentData();
     this.voteQuestion = new ReactiveVar(this.currentCard.voteQuestion);
+    this.voteEnd = new ReactiveVar(null);
   },
 
+  setVoteEnd(voteEnd) {
+    this.voteEnd.set(voteEnd)
+  },
   events() {
     return [
       {
+        'click .js-end-date': Popup.open('editVoteEndDate'),
         'submit .edit-vote-question'(evt) {
           evt.preventDefault();
           const voteQuestion = evt.target.vote.value;
           const publicVote = $('#vote-public').hasClass('is-checked');
           const allowNonBoardMembers = $('#vote-allow-non-members').hasClass('is-checked');
-          this.currentCard.setVoteQuestion(voteQuestion, publicVote,allowNonBoardMembers);
+          const endString = $('#vote-end').val()
+
+          this.currentCard.setVoteQuestion(voteQuestion, publicVote, allowNonBoardMembers);
+          if (endString) {
+            const end = moment(endString, 'L LT', true);
+            this.currentCard.setVoteEnd(new Date())
+          }
           Popup.close();
+        },
+        'click .js-remove-vote'(event) {
+          event.preventDefault();
+          this.currentCard.unsetVote();
+          Popup.close()
         },
         'click a.js-toggle-vote-public'(event) {
           event.preventDefault();
@@ -1003,6 +1014,59 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('cardStartVotingPopup');
+
+
+// editVoteEndDatePopup
+(class extends DatePicker {
+  onCreated() {
+    super.onCreated(moment().format('YYYY-MM-DD HH:mm'));
+    this.data().getVoteEnd() && this.date.set(moment(this.data().getVoteEnd()));
+  }
+  events() {
+    return [
+      {
+        'submit .edit-date'(evt) {
+          evt.preventDefault();
+
+          // if no time was given, init with 12:00
+          const time =
+            evt.target.time.value ||
+            moment(new Date().setHours(12, 0, 0)).format('LT');
+
+          const dateString = `${evt.target.date.value} ${time}`;
+          const newDate = moment(dateString, 'L LT', true);
+          if (newDate.isValid()) {
+            // if active vote -  store it
+            if (this.currentData().getVoteQuestion()) {
+              this._storeDate(newDate.toDate());
+              Popup.close()
+            } else {
+              // pass the date back to the first popup
+              // TODO how to get the date back to the cardStartVotingPopup to the hidden #vote-end input ?! \
+              // TODO Popup.getOpenerComponent() return cardDetails and not cardStartVotingPopup...
+              // Popup.getOpenerComponent().setVoteEnd(newDate.toDate())  // not working :(
+            }
+            Popup.back();
+          } else {
+            this.error.set('invalid-date');
+            evt.target.date.focus();
+          }
+        },
+        'click .js-delete-date'(evt) {
+          evt.preventDefault();
+          this._deleteDate();
+          Popup.close();
+        },
+      }
+    ];
+  }
+  _storeDate(newDate) {
+    this.card.setVoteEnd(newDate);
+  }
+  _deleteDate() {
+    this.card.unsetVoteEnd();
+  }
+}.register('editVoteEndDatePopup'));
 
 // Close the card details pane by pressing escape
 EscapeActions.register(

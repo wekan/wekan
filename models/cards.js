@@ -352,7 +352,9 @@ Cards.allow({
     return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
   },
   update(userId, doc, fields) {
-    return allowIsBoardMember(userId, Boards.findOne(doc.boardId)) || _.isEqual(fields, ['vote', 'modifiedAt', 'dateLastActivity']);
+    // Allow board members or logged in users if only vote get's changed
+    return allowIsBoardMember(userId, Boards.findOne(doc.boardId)) ||
+      _.isEqual(fields, ['vote', 'modifiedAt', 'dateLastActivity']) && !!userId;
   },
   remove(userId, doc) {
     return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
@@ -1052,6 +1054,29 @@ Cards.helpers({
     }
   },
 
+  getVoteEnd() {
+    if (this.isLinkedCard()) {
+      const card = Cards.findOne({ _id: this.linkedId });
+      if (card && card.vote) return card.vote.end;
+      else return null;
+    } else if (this.isLinkedBoard()) {
+      const board = Boards.findOne({ _id: this.linkedId });
+      if (board && board.vote) return board.vote.end;
+      else return null;
+    } else if (this.vote) {
+      return this.vote.end;
+    } else {
+      return null;
+    }
+  },
+  expiredVote() {
+    let end = this.getVoteEnd()
+    if (end) {
+      end = moment(end)
+      return end.isBefore(new Date())
+    }
+    return false
+  },
   voteMemberPositive() {
     if (this.vote && this.vote.positive)
       return Users.find({ _id: { $in: this.vote.positive } });
@@ -1517,6 +1542,16 @@ Cards.mutations({
       $unset: {
         vote: '',
       },
+    };
+  },
+  setVoteEnd(end) {
+    return {
+      $set: { "vote.end": end },
+    }
+  },
+  unsetVoteEnd() {
+    return {
+      $unset: { "vote.end": '' },
     };
   },
   setVote(userId, forIt) {
