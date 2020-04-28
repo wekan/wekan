@@ -340,10 +340,6 @@ Cards.attachSchema(
       type: Boolean,
       defaultValue: false,
     },
-    'vote.allowNonBoardMembers': {
-      type: Boolean,
-      defaultValue: false,
-    },
   }),
 );
 
@@ -351,6 +347,7 @@ Cards.allow({
   insert(userId, doc) {
     return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
   },
+
   update(userId, doc, fields) {
     // Allow board members or logged in users if only vote get's changed
     return allowIsBoardMember(userId, Boards.findOne(doc.boardId)) ||
@@ -738,7 +735,7 @@ Cards.helpers({
 
   parentString(sep) {
     return this.parentList()
-      .map(function (elem) {
+      .map(function(elem) {
         return elem.title;
       })
       .join(sep);
@@ -1082,6 +1079,7 @@ Cards.helpers({
       return Users.find({ _id: { $in: this.vote.positive } });
     return [];
   },
+
   voteMemberNegative() {
     if (this.vote && this.vote.negative)
       return Users.find({ _id: { $in: this.vote.negative } });
@@ -1180,26 +1178,6 @@ Cards.helpers({
 
   isTemplateCard() {
     return this.type === 'template-card';
-  },
-
-  votePublic() {
-    if (this.vote) return this.vote.public;
-    return null;
-  },
-  voteAllowNonBoardMembers() {
-    if (this.vote) return this.vote.allowNonBoardMembers;
-    return null;
-  },
-  voteCountNegative() {
-    if (this.vote && this.vote.negative) return this.vote.negative.length;
-    return null;
-  },
-  voteCountPositive() {
-    if (this.vote && this.vote.positive) return this.vote.positive.length;
-    return null;
-  },
-  voteCount() {
-    return this.voteCountPositive() + this.voteCountNegative()
   },
 });
 
@@ -1524,13 +1502,12 @@ Cards.mutations({
       },
     };
   },
-  setVoteQuestion(question, public, allowNonBoardMembers) {
+  setVoteQuestion(question, publicVote) {
     return {
       $set: {
         vote: {
           question,
-          public,
-          allowNonBoardMembers,
+          public: publicVote,
           positive: [],
           negative: [],
         },
@@ -1989,7 +1966,7 @@ if (Meteor.isServer) {
   });
 
   //New activity for card moves
-  Cards.after.update(function (userId, doc, fieldNames) {
+  Cards.after.update(function(userId, doc, fieldNames) {
     const oldListId = this.previous.listId;
     const oldSwimlaneId = this.previous.swimlaneId;
     const oldBoardId = this.previous.boardId;
@@ -2035,7 +2012,7 @@ if (Meteor.isServer) {
         // change list modifiedAt, when user modified the key values in timingaction array, if it's endAt, put the modifiedAt of list back to one year ago for sorting purpose
         const modifiedAt = new Date(
           new Date(value).getTime() -
-          (action === 'endAt' ? 365 * 24 * 3600 * 1e3 : 0),
+            (action === 'endAt' ? 365 * 24 * 3600 * 1e3 : 0),
         ); // set it as 1 year before
         const boardId = list.boardId;
         Lists.direct.update(
@@ -2089,7 +2066,7 @@ if (Meteor.isServer) {
   JsonRoutes.add(
     'GET',
     '/api/boards/:boardId/swimlanes/:swimlaneId/cards',
-    function (req, res) {
+    function(req, res) {
       const paramBoardId = req.params.boardId;
       const paramSwimlaneId = req.params.swimlaneId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
@@ -2099,7 +2076,7 @@ if (Meteor.isServer) {
           boardId: paramBoardId,
           swimlaneId: paramSwimlaneId,
           archived: false,
-        }).map(function (doc) {
+        }).map(function(doc) {
           return {
             _id: doc._id,
             title: doc.title,
@@ -2123,7 +2100,7 @@ if (Meteor.isServer) {
    *                title: string,
    *                description: string}]
    */
-  JsonRoutes.add('GET', '/api/boards/:boardId/lists/:listId/cards', function (
+  JsonRoutes.add('GET', '/api/boards/:boardId/lists/:listId/cards', function(
     req,
     res,
   ) {
@@ -2136,7 +2113,7 @@ if (Meteor.isServer) {
         boardId: paramBoardId,
         listId: paramListId,
         archived: false,
-      }).map(function (doc) {
+      }).map(function(doc) {
         return {
           _id: doc._id,
           title: doc.title,
@@ -2158,7 +2135,7 @@ if (Meteor.isServer) {
   JsonRoutes.add(
     'GET',
     '/api/boards/:boardId/lists/:listId/cards/:cardId',
-    function (req, res) {
+    function(req, res) {
       const paramBoardId = req.params.boardId;
       const paramListId = req.params.listId;
       const paramCardId = req.params.cardId;
@@ -2190,7 +2167,7 @@ if (Meteor.isServer) {
    * @param {string} [assignees] the array of maximum one ID of assignee of the new card
    * @return_type {_id: string}
    */
-  JsonRoutes.add('POST', '/api/boards/:boardId/lists/:listId/cards', function (
+  JsonRoutes.add('POST', '/api/boards/:boardId/lists/:listId/cards', function(
     req,
     res,
   ) {
@@ -2297,7 +2274,7 @@ if (Meteor.isServer) {
   JsonRoutes.add(
     'PUT',
     '/api/boards/:boardId/lists/:listId/cards/:cardId',
-    function (req, res) {
+    function(req, res) {
       Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
       const paramCardId = req.params.cardId;
@@ -2596,7 +2573,7 @@ if (Meteor.isServer) {
   JsonRoutes.add(
     'DELETE',
     '/api/boards/:boardId/lists/:listId/cards/:cardId',
-    function (req, res) {
+    function(req, res) {
       Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
       const paramListId = req.params.listId;

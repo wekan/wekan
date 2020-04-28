@@ -4,11 +4,11 @@ FROM amd64/alpine:3.7 AS builder
 ENV QEMU_VERSION=v4.2.0-6 \
     QEMU_ARCHITECTURE=aarch64 \
     NODE_ARCHITECTURE=linux-arm64 \
-    NODE_VERSION=v12.16.1 \
+    NODE_VERSION=v12.16.3 \
     WEKAN_VERSION=3.96  \
     WEKAN_ARCHITECTURE=arm64
-     
-     # Install dependencies 
+
+     # Install dependencies
 RUN  apk update && apk add ca-certificates outils-sha1 && \
      \
      # Download qemu static for our architecture
@@ -18,7 +18,7 @@ RUN  apk update && apk add ca-certificates outils-sha1 && \
     wget https://releases.wekan.team/raspi3/wekan-${WEKAN_VERSION}-${WEKAN_ARCHITECTURE}.zip && \
     wget https://releases.wekan.team/raspi3/SHA256SUMS.txt && \
     # Verify wekan
-    grep wekan-${WEKAN_VERSION}-${WEKAN_ARCHITECTURE}.zip SHA256SUMS.txt | sha256sum -c - && \ 
+    grep wekan-${WEKAN_VERSION}-${WEKAN_ARCHITECTURE}.zip SHA256SUMS.txt | sha256sum -c - && \
     \
     # Unzip wekan
     unzip wekan-${WEKAN_VERSION}-${WEKAN_ARCHITECTURE}.zip && \
@@ -33,7 +33,7 @@ RUN  apk update && apk add ca-certificates outils-sha1 && \
     # Extract node and remove tar.gz
     tar xvzf node-${NODE_VERSION}-${NODE_ARCHITECTURE}.tar.gz
 
-# Build wekan dockerfile 
+# Build wekan dockerfile
 FROM arm64v8/ubuntu:19.10
 LABEL maintainer="wekan"
 
@@ -46,7 +46,7 @@ ENV QEMU_ARCHITECTURE=aarch64 \
     WITH_API=true \
     PORT=8080 \
     ROOT_URL=http://localhost \
-    MONGO_URL=mongodb://127.0.0.1:27017/wekan 
+    MONGO_URL=mongodb://127.0.0.1:27017/wekan
 
 # Copy qemu-static to image
 COPY --from=builder qemu-${QEMU_ARCHITECTURE}-static /usr/bin
@@ -55,7 +55,7 @@ COPY --from=builder qemu-${QEMU_ARCHITECTURE}-static /usr/bin
 COPY --from=builder bundle /home/wekan/bundle
 
 # Copy
-COPY --from=builder node-${NODE_VERSION}-${NODE_ARCHITECTURE} /opt/nodejs 
+COPY --from=builder node-${NODE_VERSION}-${NODE_ARCHITECTURE} /opt/nodejs
 
 RUN \
     set -o xtrace && \

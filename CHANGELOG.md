@@ -1,3 +1,55 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix getStartDayOfWeek once again](https://github.com/wekan/wekan/pull/3061).
+  Thanks to marc1006.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v4.01 2020-04-28 Wekan release
+
+This release adds the following updates:
+
+- [Upgrade to Node v12.16.3](https://github.com/wekan/wekan/commit/1d89e96dd101c11913f1acdd6d16b5650eaf18a7).
+  Thanks to Node developers and xet7.
+
+and fixes the following bugs:
+
+- [Fix Docker builds](https://github.com/wekan/wekan/commit/280e66947e3afa878c41e876cf827ebcec81a2c6).
+  Thanks to xet7.
+- [Fix Cards and Users API docs at https://wekan.github.io/api/ not generated because of
+  syntax error and new Javascript syntax](https://github.com/wekan/wekan/commit/9ae20a3f51e63c29f536e2f5b3e66a2c7d88c691).
+  Wekan uses wekan/releases/generate-docs*.sh Python code to generate OpenAPI docs,
+  it did not show any errors while generating docs, only left out parts of API docs.
+  This affected Wekan versions v3.94-v4.00.
+  Thanks to pvcon13 and xet7.
+- [Fix list header height when cards count is shown](https://github.com/wekan/wekan/pull/3056).
+  Thanks to marc1006.
+- [Smaller height for Add Board button](https://github.com/wekan/wekan/commit/6afc9259f084717a0cc3ce6d66979fd7c1471939).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v4.00 2020-04-27 Wekan release
+
+This release fixes the following bugs:
+
+- [Make sure that the board header buttons fit into one line even for devices with 360px width
+  resolution](https://github.com/wekan/wekan/pull/3052).
+  Thanks to marc1006.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v3.99 2020-04-27 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix Boards are very hard to tap in mobile](https://github.com/wekan/wekan/pull/3051).
+  Thanks to marc1006.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v3.98 2020-04-25 Wekan release
 
 News:

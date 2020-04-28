@@ -215,8 +215,6 @@ template(name="cardDetails")
           else
             .card-label.card-label-green {{ voteCountPositive }}
             .card-label.card-label-red {{ voteCountNegative }}
-          unless ($and currentBoard.isPublic voteAllowNonBoardMembers )
-            .card-label.card-label-gray  {{ voteCount }} {{_ 'r-of' }} {{ currentBoard.activeMembers.length }}
       +viewer
         = getVoteQuestion
       if ($and currentUser ($not expiredVote))

@@ -54,7 +54,21 @@ BlazeComponent.extendComponent({
     }
     return null;
   },
-
+  votePublic() {
+    const card = this.currentData();
+    if (card.vote) return card.vote.public;
+    return null;
+  },
+  voteCountPositive() {
+    const card = this.currentData();
+    if (card.vote && card.vote.positive) return card.vote.positive.length;
+    return null;
+  },
+  voteCountNegative() {
+    const card = this.currentData();
+    if (card.vote && card.vote.negative) return card.vote.negative.length;
+    return null;
+  },
   isWatching() {
     const card = this.currentData();
     return card.findWatcher(Meteor.userId());
@@ -259,7 +273,10 @@ BlazeComponent.extendComponent({
     // Disable sorting if the current user is not a board member
     this.autorun(() => {
       const disabled = !userIsMember() || Utils.isMiniScreen();
-      if ($checklistsDom.data('uiSortable') || $checklistsDom.data('sortable')) {
+      if (
+        $checklistsDom.data('uiSortable') ||
+        $checklistsDom.data('sortable')
+      ) {
         $checklistsDom.sortable('option', 'disabled', disabled);
       }
       if ($subtasksDom.data('uiSortable') || $subtasksDom.data('sortable')) {
@@ -1005,10 +1022,6 @@ BlazeComponent.extendComponent({
         'click a.js-toggle-vote-public'(event) {
           event.preventDefault();
           $('#vote-public').toggleClass('is-checked');
-        },
-        'click a.js-toggle-vote-allow-non-members'(event) {
-          event.preventDefault();
-          $('#vote-allow-non-members').toggleClass('is-checked');
         },
       },
     ];
