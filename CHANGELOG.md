@@ -12,6 +12,8 @@ This release fixes the following bugs:
   Thanks to pvcon13 and xet7.
 - [Fix list header height when cards count is shown](https://github.com/wekan/wekan/pull/3056).
   Thanks to marc1006.
+- [Smaller height for Add Board button](https://github.com/wekan/wekan/commit/6afc9259f084717a0cc3ce6d66979fd7c1471939).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
