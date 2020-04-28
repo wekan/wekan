@@ -10,6 +10,8 @@ This release fixes the following bugs:
   it did not show any errors while generating docs, only left out parts of API docs.
   This affected Wekan versions v3.94-v4.00.
   Thanks to pvcon13 and xet7.
+- [Fix list header height when cards count is shown](https://github.com/wekan/wekan/pull/3056).
+  Thanks to marc1006.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
