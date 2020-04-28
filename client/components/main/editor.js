@@ -330,7 +330,7 @@ Template.viewer.events({
   // the corresponding text). Clicking a link shouldn't fire these actions, stop
   // we stop these event at the viewer component level.
   'click a'(event, templateInstance) {
-    let prevent = true;
+    const prevent = true;
     const userId = event.currentTarget.dataset.userid;
     if (userId) {
       Popup.open('member').call({ userId }, event, templateInstance);

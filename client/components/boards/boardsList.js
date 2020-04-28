@@ -78,7 +78,7 @@ BlazeComponent.extendComponent({
   },
 
   boards() {
-    let query = {
+    const query = {
       archived: false,
       type: 'board',
     };
