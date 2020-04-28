@@ -531,7 +531,7 @@ Users.helpers({
   getStartDayOfWeek() {
     const profile = this.profile || {};
     // default is 'Monday' (1)
-    return profile.startDayOfWeek ?? 1;
+    return profile.startDayOfWeek || 1;
   },
 
   getTemplatesBoardId() {

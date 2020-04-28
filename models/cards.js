@@ -1053,6 +1053,7 @@ Cards.helpers({
       return Users.find({ _id: { $in: this.vote.positive } });
     return [];
   },
+
   voteMemberNegative() {
     if (this.vote && this.vote.negative)
       return Users.find({ _id: { $in: this.vote.negative } });
@@ -1475,12 +1476,12 @@ Cards.mutations({
       },
     };
   },
-  setVoteQuestion(question, public) {
+  setVoteQuestion(question, publicVote) {
     return {
       $set: {
         vote: {
           question,
-          public,
+          public: publicVote,
           positive: [],
           negative: [],
         },
