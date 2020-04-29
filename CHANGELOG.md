@@ -4,6 +4,9 @@ This release fixes the following bugs:
 
 - [Fix getStartDayOfWeek once again](https://github.com/wekan/wekan/pull/3061).
   Thanks to marc1006.
+- [Fix shortcuts list and support card shortcuts when hovering
+  a card](https://github.com/wekan/wekan/pull/3066).
+  Thanks to marc1006.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
