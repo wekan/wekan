@@ -1,6 +1,11 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following platforms:
+
+- [Android arm64/x64](https://github.com/wekan/wekan/wiki/Android).
+  Thanks to xet7.
+
+and fixes the following bugs:
 
 - [Fix getStartDayOfWeek once again](https://github.com/wekan/wekan/pull/3061).
   Thanks to marc1006.
