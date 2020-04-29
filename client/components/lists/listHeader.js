@@ -223,8 +223,25 @@ BlazeComponent.extendComponent({
 Template.listMorePopup.events({
   'click .js-delete': Popup.afterConfirm('listDelete', function() {
     Popup.close();
-    this.allCards().map(card => Cards.remove(card._id));
-    Lists.remove(this._id);
+    // TODO how can we avoid the fetch call?
+    const allCards = this.allCards().fetch();
+    const allCardIds = _.pluck(allCards, '_id');
+    // it's okay if the linked cards are on the same list
+    if (
+      Cards.find({
+        $and: [
+          { listId: { $ne: this._id } },
+          { linkedId: { $in: allCardIds } },
+        ],
+      }).count() === 0
+    ) {
+      allCardIds.map(_id => Cards.remove(_id));
+      Lists.remove(this._id);
+    } else {
+      // TODO popup with a hint that the list cannot be deleted as there are
+      // linked cards. We can adapt the query above so we can list the linked
+      // cards.
+    }
     Utils.goBoardId(this.boardId);
   }),
 });
