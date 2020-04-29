@@ -658,10 +658,7 @@ BlazeComponent.extendComponent({
               _id = element.copy(this.boardId, this.swimlaneId, this.listId);
               // 1.B Linked card
             } else {
-              delete element._id;
-              element.type = 'cardType-linkedCard';
-              element.linkedId = element.linkedId || element._id;
-              _id = Cards.insert(element);
+              _id = element.link(this.boardId, this.swimlaneId, this.listId);
             }
             Filter.addException(_id);
             // List insertion
