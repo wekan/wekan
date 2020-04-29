@@ -672,7 +672,7 @@ BlazeComponent.extendComponent({
             element.sort = Boards.findOne(this.boardId)
               .swimlanes()
               .count();
-            element.type = 'swimlalne';
+            element.type = 'swimlane';
             _id = element.copy(this.boardId);
           } else if (this.isBoardTemplateSearch) {
             board = Boards.findOne(element.linkedId);
