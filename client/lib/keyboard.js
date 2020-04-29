@@ -97,19 +97,19 @@ Mousetrap.bind('c', evt => {
 Template.keyboardShortcuts.helpers({
   mapping: [
     {
-      keys: ['W'],
+      keys: ['w'],
       action: 'shortcut-toggle-sidebar',
     },
     {
-      keys: ['Q'],
+      keys: ['q'],
       action: 'shortcut-filter-my-cards',
     },
     {
-      keys: ['F'],
+      keys: ['f'],
       action: 'shortcut-toggle-filterbar',
     },
     {
-      keys: ['X'],
+      keys: ['x'],
       action: 'shortcut-clear-filters',
     },
     {
@@ -129,7 +129,7 @@ Template.keyboardShortcuts.helpers({
       action: 'shortcut-assign-self',
     },
     {
-      keys: ['C'],
+      keys: ['c'],
       action: 'archive-card',
     },
   ],
