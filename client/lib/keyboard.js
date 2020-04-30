@@ -1,6 +1,16 @@
 // XXX There is no reason to define these shortcuts globally, they should be
 // attached to a template (most of them will go in the `board` template).
 
+function getHoveredCardId() {
+  const card = $('.js-minicard:hover').get(0);
+  if (!card) return null;
+  return Blaze.getData(card)._id;
+}
+
+function getSelectedCardId() {
+  return Session.get('selectedCard') || getHoveredCardId();
+}
+
 Mousetrap.bind('?', () => {
   FlowRouter.go('shortcuts');
 });
@@ -50,9 +60,9 @@ Mousetrap.bind(['down', 'up'], (evt, key) => {
   }
 });
 
-// XXX This shortcut should also work when hovering over a card in board view
 Mousetrap.bind('space', evt => {
-  if (!Session.get('currentCard')) {
+  const cardId = getSelectedCardId();
+  if (!cardId) {
     return;
   }
 
@@ -62,7 +72,7 @@ Mousetrap.bind('space', evt => {
   }
 
   if (Meteor.user().isBoardMember()) {
-    const card = Cards.findOne(Session.get('currentCard'));
+    const card = Cards.findOne(cardId);
     card.toggleMember(currentUserId);
     // We should prevent scrolling in card when spacebar is clicked
     // This should do it according to Mousetrap docs, but it doesn't
@@ -70,9 +80,9 @@ Mousetrap.bind('space', evt => {
   }
 });
 
-// XXX This shortcut should also work when hovering over a card in board view
 Mousetrap.bind('c', evt => {
-  if (!Session.get('currentCard')) {
+  const cardId = getSelectedCardId();
+  if (!cardId) {
     return;
   }
 
@@ -86,7 +96,7 @@ Mousetrap.bind('c', evt => {
     !Meteor.user().isCommentOnly() &&
     !Meteor.user().isWorker()
   ) {
-    const card = Cards.findOne(Session.get('currentCard'));
+    const card = Cards.findOne(cardId);
     card.archive();
     // We should prevent scrolling in card when spacebar is clicked
     // This should do it according to Mousetrap docs, but it doesn't
@@ -97,19 +107,19 @@ Mousetrap.bind('c', evt => {
 Template.keyboardShortcuts.helpers({
   mapping: [
     {
-      keys: ['W'],
+      keys: ['w'],
       action: 'shortcut-toggle-sidebar',
     },
     {
-      keys: ['Q'],
+      keys: ['q'],
       action: 'shortcut-filter-my-cards',
     },
     {
-      keys: ['F'],
+      keys: ['f'],
       action: 'shortcut-toggle-filterbar',
     },
     {
-      keys: ['X'],
+      keys: ['x'],
       action: 'shortcut-clear-filters',
     },
     {
@@ -129,7 +139,7 @@ Template.keyboardShortcuts.helpers({
       action: 'shortcut-assign-self',
     },
     {
-      keys: ['C'],
+      keys: ['c'],
       action: 'archive-card',
     },
   ],

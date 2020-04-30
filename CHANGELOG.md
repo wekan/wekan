@@ -1,8 +1,23 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following server platforms:
+
+- [Android arm64/x64](https://github.com/wekan/wekan/wiki/Android).
+  Thanks to xet7.
+
+and adds the following features:
+
+- [Install Wekan to mobile homescreen icon and use fullscreen
+  PWA](https://github.com/commit/8d5adc04645e3e71423f16869f39b8d79969bccd).
+  [Docs for iOS and Android at wiki PWA page](https://github.com/wekan/wekan/wiki/PWA).
+  Thanks to xet7.
+
+and fixes the following bugs:
 
 - [Fix getStartDayOfWeek once again](https://github.com/wekan/wekan/pull/3061).
+  Thanks to marc1006.
+- [Fix shortcuts list and support card shortcuts when hovering
+  a card](https://github.com/wekan/wekan/pull/3066).
   Thanks to marc1006.
 
 Thanks to above GitHub users for their contributions and translators for their translations.

@@ -6,10 +6,16 @@ head
     where the application is deployed with a path prefix, but it seems to be
     difficult to do that cleanly with Blaze -- at least without adding extra
     packages.
-  link(rel="shortcut icon" href="/wekan-favicon.png")
-  link(rel="apple-touch-icon" href="/wekan-favicon.png")
-  link(rel="mask-icon" href="/wekan-logo-150.svg")
-  link(rel="manifest" href="/wekan-manifest.json")
+  link(rel="shortcut icon" type="image/x-icon" href="/favicon.ico")
+  link(rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png")
+  link(rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png")
+  link(rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png")
+  link(rel="manifest" href="/site.webmanifest")
+  link(rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5")
+  meta(name="apple-mobile-web-app-title" content="Wekan")
+  meta(name="application-name" content="Wekan")
+  meta(name="msapplication-TileColor" content="#00aba9")
+  meta(name="theme-color" content="#ffffff")
 
 template(name="userFormsLayout")
   section.auth-layout
