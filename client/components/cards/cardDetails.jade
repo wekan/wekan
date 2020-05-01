@@ -215,6 +215,8 @@ template(name="cardDetails")
           else
             .card-label.card-label-green {{ voteCountPositive }}
             .card-label.card-label-red {{ voteCountNegative }}
+          unless ($and currentBoard.isPublic voteAllowNonBoardMembers )
+            .card-label.card-label-gray  {{ voteCount }} {{_ 'r-of' }} {{ currentBoard.activeMembers.length }}
       +viewer
         = getVoteQuestion
       if ($and currentUser ($not expiredVote))
@@ -575,13 +577,13 @@ template(name="cardStartVotingPopup")
       label(for="vote") {{_ 'vote-question'}}
       input.js-vote-field#vote(type="text" name="vote" value="{{getVoteQuestion}}" autofocus )(disabled="{{#if getVoteQuestion}}disabled{{/if}}")
       .check-div
-        a.flex(class="{{#if getVoteQuestion}}is-disabled{{else}}js-toggle-vote-public{{/if}}")
-          .materialCheckBox#vote-public(name="vote-public")(class="{{#if votePublic}}is-checked{{/if}}")
-          span {{_ 'vote-public'}}
-      .check-div
         a.flex(class="{{#if getVoteQuestion}}is-disabled{{else}}js-toggle-vote-allow-non-members{{/if}}")
           .materialCheckBox#vote-allow-non-members(name="vote-allow-non-members")(class="{{#if voteAllowNonBoardMembers}}is-checked{{/if}}")
           span {{_ 'allowNonBoardMembers'}}
+      .check-div
+        a.flex(class="{{#if getVoteQuestion}}is-disabled{{else}}js-toggle-vote-public{{/if}}")
+          .materialCheckBox#vote-public(name="vote-public")(class="{{#if votePublic}}is-checked{{/if}}")
+          span {{_ 'vote-public'}}
       .check-div.flex
         i.fa.fa-hourglass-end
         a.js-end-date

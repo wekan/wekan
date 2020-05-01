@@ -400,6 +400,9 @@ class VoteEndDate extends CardDate {
     let classes = 'end-date' + ' ';
     return classes
   }
+  showDate() {
+    return this.date.get().format('l LT');
+  }
   showTitle() {
     return `${TAPi18n.__('card-end-on')} ${this.date.get().format('LLLL')}`;
   }

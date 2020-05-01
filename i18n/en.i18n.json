@@ -166,7 +166,7 @@
   "positiveVoteMembersPopup-title": "Proponents",
   "negativeVoteMembersPopup-title": "Opponents",
   "editVoteEndDatePopup-title": "Change vote end date",
-  "allowNonBoardMembers": "Allow non board members to vote",
+  "allowNonBoardMembers": "Allow all logged in users",
   "vote-question": "Voting question",
   "vote-public": "Show who voted what",
   "vote-for-it": "for it",

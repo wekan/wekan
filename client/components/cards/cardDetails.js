@@ -978,20 +978,7 @@ BlazeComponent.extendComponent({
   onCreated() {
     this.currentCard = this.currentData();
     this.voteQuestion = new ReactiveVar(this.currentCard.voteQuestion);
-    // this.voteEnd = new ReactiveVar(null);
-    console.log("ON CREATE", cookies.get('voteEnd'))
-    // if (!this.data().getVoteQuestion()) {
-    //   delete this.data().vote
-    // this.voteEnd = cookies.get('voteEnd')
-    // cookies.remove('voteEnd') // delete temp cookie
-    // }
-    // else
-    //   this.voteEnd = this.data().getVoteEnd()
   },
-
-  // getVoteEnd() {
-  //   return this.voteEnd || this.currentCard.getVoteEnd()
-  // },
   events() {
     return [
       {
