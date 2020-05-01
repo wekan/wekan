@@ -1,3 +1,5 @@
+import { Cookies } from 'meteor/ostrio:cookies';
+const cookies = new Cookies();
 const subManager = new SubsManager();
 const { calculateIndexData } = Utils;
 
@@ -990,12 +992,20 @@ BlazeComponent.extendComponent({
   onCreated() {
     this.currentCard = this.currentData();
     this.voteQuestion = new ReactiveVar(this.currentCard.voteQuestion);
-    this.voteEnd = new ReactiveVar(null);
+    // this.voteEnd = new ReactiveVar(null);
+    console.log("ON CREATE", cookies.get('voteEnd'))
+    // if (!this.data().getVoteQuestion()) {
+    //   delete this.data().vote
+    // this.voteEnd = cookies.get('voteEnd')
+    // cookies.remove('voteEnd') // delete temp cookie
+    // }
+    // else
+    //   this.voteEnd = this.data().getVoteEnd()
   },
 
-  setVoteEnd(voteEnd) {
-    this.voteEnd.set(voteEnd)
-  },
+  // getVoteEnd() {
+  //   return this.voteEnd || this.currentCard.getVoteEnd()
+  // },
   events() {
     return [
       {
@@ -1005,20 +1015,19 @@ BlazeComponent.extendComponent({
           const voteQuestion = evt.target.vote.value;
           const publicVote = $('#vote-public').hasClass('is-checked');
           const allowNonBoardMembers = $('#vote-allow-non-members').hasClass('is-checked');
-          const endString = $('#vote-end').val()
+          const endString = this.currentCard.getVoteEnd()
 
           this.currentCard.setVoteQuestion(voteQuestion, publicVote, allowNonBoardMembers);
           if (endString) {
-            const end = moment(endString, 'L LT', true);
-            this.currentCard.setVoteEnd(new Date())
+            this.currentCard.setVoteEnd(endString)
           }
           Popup.close();
         },
-        'click .js-remove-vote'(event) {
+        'click .js-remove-vote': Popup.afterConfirm('deleteVote', () => {
           event.preventDefault();
           this.currentCard.unsetVote();
           Popup.close()
-        },
+        }),
         'click a.js-toggle-vote-public'(event) {
           event.preventDefault();
           $('#vote-public').toggleClass('is-checked');
@@ -1054,12 +1063,11 @@ BlazeComponent.extendComponent({
               this._storeDate(newDate.toDate());
               Popup.close()
             } else {
-              // pass the date back to the first popup
-              // TODO how to get the date back to the cardStartVotingPopup to the hidden #vote-end input ?! \
-              // TODO Popup.getOpenerComponent() return cardDetails and not cardStartVotingPopup...
-              // Popup.getOpenerComponent().setVoteEnd(newDate.toDate())  // not working :(
+              this.currentData().vote = { end: newDate.toDate() } // set vote end temp
+              // console.log(this.currentData())
+              // cookies.set('voteEnd', newDate.toDate()); // set temp cookie for transfer to priveus popup
+              Popup.back();
             }
-            Popup.back();
           } else {
             this.error.set('invalid-date');
             evt.target.date.focus();

@@ -77,6 +77,7 @@ BlazeComponent.extendComponent({
         },
 
         'click .js-delete-card': Popup.afterConfirm('cardDelete', function() {
+          console.log("AFTER CONFIRM")
           const cardId = this._id;
           Cards.remove(cardId);
           Popup.close();

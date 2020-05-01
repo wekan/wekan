@@ -202,9 +202,9 @@ template(name="cardDetails")
     if getVoteQuestion
       hr
       .vote-title
-        h3
-          i.fa.fa-thumbs-up
-          card-details-item-title
+        div.flex
+          h3
+            i.fa.fa-thumbs-up
             {{_ 'vote-question'}}
           if getVoteEnd
             +voteEndDate
@@ -565,6 +565,10 @@ template(name="cardDeletePopup")
     p {{_ "card-delete-suggest-archive"}}
   button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
 
+template(name="deleteVotePopup")
+  p {{_ "vote-delete-pop"}}
+  button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
+
 template(name="cardStartVotingPopup")
   form.edit-vote-question
     .fields
@@ -588,9 +592,7 @@ template(name="cardStartVotingPopup")
         if getVoteEnd
           +voteEndDate
 
-      input#vote-end(type="hidden" name="vote-end")
-
-    button.primary.confirm.js-submit {{_ 'save'}}
+    button.primary.js-submit {{_ 'save'}}
     if getVoteQuestion
       button.js-remove-vote.negate.wide.right {{_ 'delete'}}
 

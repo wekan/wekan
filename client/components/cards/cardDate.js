@@ -19,7 +19,7 @@ BlazeComponent.extendComponent({
       })
       .on(
         'changeDate',
-        function(evt) {
+        function (evt) {
           this.find('#date').value = moment(evt.date).format('L');
           this.error.set('');
           this.find('#time').focus();
@@ -396,7 +396,10 @@ class VoteEndDate extends CardDate {
       self.date.set(moment(self.data().getVoteEnd()));
     });
   }
-
+  classes() {
+    let classes = 'end-date' + ' ';
+    return classes
+  }
   showTitle() {
     return `${TAPi18n.__('card-end-on')} ${this.date.get().format('LLLL')}`;
   }
