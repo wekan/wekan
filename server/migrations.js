@@ -1039,9 +1039,41 @@ Migrations.add('fix-incorrect-dates', () => {
     console.log('cas', cas);
 });     
 
+import { MongoInternals } from 'meteor/mongo';
+
 Migrations.add('change-attachment-library', () => {
-  console.log('migration called here');
-  Migrations.rollback('change-attachment-library');
-  console.log('migration rollbacked');
+	const http = require('http');
+	const fs = require('fs');
+	CFSAttachments.find().forEach(file => {
+    const bucket = new MongoInternals.NpmModule.GridFSBucket(MongoInternals.defaultRemoteCollectionDriver().mongo.db, {bucketName: 'cfs_gridfs.attachments'});
+    const gfsId = new MongoInternals.NpmModule.ObjectID(file.copies.attachments.key);
+ 	  const reader = bucket.openDownloadStream(gfsId);
+		const path = `/var/attachments/${file.name()}`;
+		const fd = fs.createWriteStream(path);
+		reader.pipe(fd);
+    let opts = {
+    	fileName: file.name(),
+			type: file.type(),
+      fileId: file._id,
+			meta: {
+				userId: file.userId,
+				boardId: file.boardId,
+				cardId: file.cardId
+			}
+    };
+		if (file.listId) {
+			opts.meta.listId = file.listId;
+		}
+		if (file.swimlaneId) {
+			opts.meta.swimlaneId = file.swimlaneId;
+		}
+		Attachments.addFile(path, opts, (err, fileRef) => {
+      if (err) {
+        console.log('error when migrating ', fileName, err);
+      } else {
+        file.remove();
+      }
+    });
+	});
 });
 
