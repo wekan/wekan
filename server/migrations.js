@@ -1048,7 +1048,11 @@ Migrations.add('change-attachment-library', () => {
     const bucket = new MongoInternals.NpmModule.GridFSBucket(MongoInternals.defaultRemoteCollectionDriver().mongo.db, {bucketName: 'cfs_gridfs.attachments'});
     const gfsId = new MongoInternals.NpmModule.ObjectID(file.copies.attachments.key);
  	  const reader = bucket.openDownloadStream(gfsId);
-		const path = `/var/attachments/${file.name()}`;
+    let store = Attachments.storagePath();
+    if (store.charAt(store.length - 1) === '/') {
+      store = store.substring(0, store.length - 1);
+    }
+		const path = `${store}/${file.name()}`;
 		const fd = fs.createWriteStream(path);
 		reader.pipe(fd);
     let opts = {
