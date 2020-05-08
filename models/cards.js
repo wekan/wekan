@@ -2156,7 +2156,7 @@ if (Meteor.isServer) {
     const check = Users.findOne({
       _id: req.body.authorId,
     });
-    const members = req.body.members || [req.body.authorId];
+    const members = req.body.members;
     const assignees = req.body.assignees;
     if (typeof check !== 'undefined') {
       const id = Cards.direct.insert({
