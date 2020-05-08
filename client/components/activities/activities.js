@@ -163,7 +163,7 @@ BlazeComponent.extendComponent({
               href: link,
               target: '_blank',
             },
-            attachment.name(),
+            attachment.name,
           ),
         )) ||
       this.currentData().activity.attachmentName

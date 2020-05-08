@@ -8,8 +8,7 @@ Attachments = new FilesCollection({
   allowClientCode: true,
   collectionName: 'attachments2',
   onAfterUpload: onAttachmentUploaded,
-  onBeforeRemove: onAttachmentRemoving,
-  onAfterRemove: onAttachmentRemoved
+  onBeforeRemove: onAttachmentRemoving
 });
 
 if (Meteor.isServer) {
@@ -41,9 +40,9 @@ function onAttachmentUploaded(fileRef) {
       type: 'card',
       activityType: 'addAttachment',
       attachmentId: fileRef._id,
-	  // this preserves the name so that notifications can be meaningful after
+      // this preserves the name so that notifications can be meaningful after
       // this file is removed 
-	  attachmentName: fileRef.versions.original.name,
+      attachmentName: fileRef.name,
       boardId: fileRef.meta.boardId,
       cardId: fileRef.meta.cardId,
       listId: fileRef.meta.listId,
@@ -73,25 +72,15 @@ function onAttachmentRemoving(cursor) {
     type: 'card',
     activityType: 'deleteAttachment',
     attachmentId: file._id,
-	// this preserves the name so that notifications can be meaningful after
+    // this preserves the name so that notifications can be meaningful after
     // this file is removed
-	attachmentName: file.versions.original.name,
+    attachmentName: file.name,
     boardId: meta.boardId,
     cardId: meta.cardId,
     listId: meta.listId,
     swimlaneId: meta.swimlaneId,
   });
   return true;
-}
-
-function onAttachmentRemoved(files) {
-  // Don't know why we need to remove the activity
-/*  for (let i in files) {
-    let doc = files[i];
-    Activities.remove({
-      attachmentId: doc._id,
-    });
-  }*/
 }
 
 export default Attachments;
