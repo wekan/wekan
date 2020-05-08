@@ -20,7 +20,22 @@ BlazeComponent.extendComponent({
     const crtBoard = Boards.findOne(card.boardId);
     const targetBoard = crtBoard.getDefaultSubtasksBoard();
     const listId = targetBoard.getDefaultSubtasksListId();
-    const swimlaneId = targetBoard.getDefaultSwimline()._id;
+
+    //Get the full swimlane data for the parent task.
+    const parentSwimlane = Swimlanes.findOne({
+      boardId: crtBoard._id,
+      _id: card.swimlaneId,
+    });
+    //find the swimlane of the same name in the target board.
+    const targetSwimlane = Swimlanes.findOne({
+      boardId: targetBoard._id,
+      title: parentSwimlane.title,
+    });
+    //If no swimlane with a matching title exists in the target board, fall back to the default swimlane.
+    const swimlaneId =
+      targetSwimlane === undefined
+        ? targetBoard.getDefaultSwimline()._id
+        : targetSwimlane._id;
 
     if (title) {
       const _id = Cards.insert({

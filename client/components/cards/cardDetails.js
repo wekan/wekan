@@ -1,5 +1,5 @@
 const subManager = new SubsManager();
-const { calculateIndexData, enableClickOnTouch } = Utils;
+const { calculateIndexData } = Utils;
 
 let cardColors;
 Meteor.startup(() => {
@@ -38,6 +38,37 @@ BlazeComponent.extendComponent({
     Meteor.subscribe('unsaved-edits');
   },
 
+  voteState() {
+    const card = this.currentData();
+    const userId = Meteor.userId();
+    let state;
+    if (card.vote) {
+      if (card.vote.positive) {
+        state = _.contains(card.vote.positive, userId);
+        if (state === true) return true;
+      }
+      if (card.vote.negative) {
+        state = _.contains(card.vote.negative, userId);
+        if (state === true) return false;
+      }
+    }
+    return null;
+  },
+  votePublic() {
+    const card = this.currentData();
+    if (card.vote) return card.vote.public;
+    return null;
+  },
+  voteCountPositive() {
+    const card = this.currentData();
+    if (card.vote && card.vote.positive) return card.vote.positive.length;
+    return null;
+  },
+  voteCountNegative() {
+    const card = this.currentData();
+    if (card.vote && card.vote.negative) return card.vote.negative.length;
+    return null;
+  },
   isWatching() {
     const card = this.currentData();
     return card.findWatcher(Meteor.userId());
@@ -200,9 +231,6 @@ BlazeComponent.extendComponent({
       },
     });
 
-    // ugly touch event hotfix
-    enableClickOnTouch('.card-checklist-items .js-checklist');
-
     const $subtasksDom = this.$('.card-subtasks-items');
 
     $subtasksDom.sortable({
@@ -238,26 +266,21 @@ BlazeComponent.extendComponent({
       },
     });
 
-    // ugly touch event hotfix
-    enableClickOnTouch('.card-subtasks-items .js-subtasks');
-
     function userIsMember() {
       return Meteor.user() && Meteor.user().isBoardMember();
     }
 
     // Disable sorting if the current user is not a board member
     this.autorun(() => {
-      if ($checklistsDom.data('sortable')) {
-        $checklistsDom.sortable('option', 'disabled', !userIsMember());
+      const disabled = !userIsMember() || Utils.isMiniScreen();
+      if (
+        $checklistsDom.data('uiSortable') ||
+        $checklistsDom.data('sortable')
+      ) {
+        $checklistsDom.sortable('option', 'disabled', disabled);
       }
-      if ($subtasksDom.data('sortable')) {
-        $subtasksDom.sortable('option', 'disabled', !userIsMember());
-      }
-      if ($checklistsDom.data('sortable')) {
-        $checklistsDom.sortable('option', 'disabled', Utils.isMiniScreen());
-      }
-      if ($subtasksDom.data('sortable')) {
-        $subtasksDom.sortable('option', 'disabled', Utils.isMiniScreen());
+      if ($subtasksDom.data('uiSortable') || $subtasksDom.data('sortable')) {
+        $subtasksDom.sortable('option', 'disabled', disabled);
       }
     });
   },
@@ -347,6 +370,9 @@ BlazeComponent.extendComponent({
             this.data().setRequestedBy('');
           }
         },
+        'click .js-go-to-linked-card'() {
+          Utils.goCardId(this.data().linkedId);
+        },
         'click .js-member': Popup.open('cardMember'),
         'click .js-add-members': Popup.open('cardMembers'),
         'click .js-assignee': Popup.open('cardAssignee'),
@@ -356,6 +382,8 @@ BlazeComponent.extendComponent({
         'click .js-start-date': Popup.open('editCardStartDate'),
         'click .js-due-date': Popup.open('editCardDueDate'),
         'click .js-end-date': Popup.open('editCardEndDate'),
+        'click .js-show-positive-votes': Popup.open('positiveVoteMembers'),
+        'click .js-show-negative-votes': Popup.open('negativeVoteMembers'),
         'mouseenter .js-card-details'() {
           const parentComponent = this.parentComponent().parentComponent();
           //on mobile view parent is Board, not BoardBody.
@@ -378,6 +406,18 @@ BlazeComponent.extendComponent({
         },
         'click #toggleButton'() {
           Meteor.call('toggleSystemMessages');
+        },
+        'click .js-vote'(e) {
+          const forIt = $(e.target).hasClass('js-vote-positive');
+          let newState = null;
+          if (
+            this.voteState() === null ||
+            (this.voteState() === false && forIt) ||
+            (this.voteState() === true && !forIt)
+          ) {
+            newState = forIt;
+          }
+          this.data().setVote(Meteor.userId(), newState);
         },
       },
     ];
@@ -560,6 +600,7 @@ Template.cardDetailsActionsPopup.events({
   'click .js-assignees': Popup.open('cardAssignees'),
   'click .js-labels': Popup.open('cardLabels'),
   'click .js-attachments': Popup.open('cardAttachments'),
+  'click .js-start-voting': Popup.open('cardStartVoting'),
   'click .js-custom-fields': Popup.open('cardCustomFields'),
   'click .js-received-date': Popup.open('editCardReceivedDate'),
   'click .js-start-date': Popup.open('editCardStartDate'),
@@ -570,6 +611,11 @@ Template.cardDetailsActionsPopup.events({
   'click .js-copy-card': Popup.open('copyCard'),
   'click .js-copy-checklist-cards': Popup.open('copyChecklistToManyCards'),
   'click .js-set-card-color': Popup.open('setCardColor'),
+  'click .js-cancel-voting'(event) {
+    event.preventDefault();
+    this.unsetVote();
+    Popup.close();
+  },
   'click .js-move-card-to-top'(event) {
     event.preventDefault();
     const minOrder = _.min(
@@ -672,7 +718,7 @@ BlazeComponent.extendComponent({
         _id: { $ne: Meteor.user().getTemplatesBoardId() },
       },
       {
-        sort: ['title'],
+        sort: { sort: 1 /* boards default sorting */ },
       },
     );
     return boards;
@@ -848,7 +894,7 @@ BlazeComponent.extendComponent({
         },
       },
       {
-        sort: ['title'],
+        sort: { sort: 1 /* boards default sorting */ },
       },
     );
     return boards;
@@ -944,6 +990,31 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('cardMorePopup');
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.currentCard = this.currentData();
+    this.voteQuestion = new ReactiveVar(this.currentCard.voteQuestion);
+  },
+
+  events() {
+    return [
+      {
+        'submit .edit-vote-question'(evt) {
+          evt.preventDefault();
+          const voteQuestion = evt.target.vote.value;
+          const publicVote = $('#vote-public').hasClass('is-checked');
+          this.currentCard.setVoteQuestion(voteQuestion, publicVote);
+          Popup.close();
+        },
+        'click a.js-toggle-vote-public'(event) {
+          event.preventDefault();
+          $('#vote-public').toggleClass('is-checked');
+        },
+      },
+    ];
+  },
+}).register('cardStartVotingPopup');
 
 // Close the card details pane by pressing escape
 EscapeActions.register(

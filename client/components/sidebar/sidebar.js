@@ -182,6 +182,10 @@ Template.memberPopup.helpers({
 
 Template.boardMenuPopup.events({
   'click .js-rename-board': Popup.open('boardChangeTitle'),
+  'click .js-open-rules-view'() {
+    Modal.openWide('rulesMain');
+    Popup.close();
+  },
   'click .js-custom-fields'() {
     Sidebar.setView('customFields');
     Popup.close();
@@ -211,7 +215,17 @@ Template.boardMenuPopup.events({
   'click .js-card-settings': Popup.open('boardCardSettings'),
 });
 
+Template.boardMenuPopup.onCreated(function() {
+  this.apiEnabled = new ReactiveVar(false);
+  Meteor.call('_isApiEnabled', (e, result) => {
+    this.apiEnabled.set(result);
+  });
+});
+
 Template.boardMenuPopup.helpers({
+  withApi() {
+    return Template.instance().apiEnabled.get();
+  },
   exportUrl() {
     const params = {
       boardId: Session.get('currentBoard'),
@@ -495,7 +509,7 @@ BlazeComponent.extendComponent({
         'members.userId': Meteor.userId(),
       },
       {
-        sort: ['title'],
+        sort: { sort: 1 /* boards default sorting */ },
       },
     );
   },
@@ -673,7 +687,7 @@ BlazeComponent.extendComponent({
         'members.userId': Meteor.userId(),
       },
       {
-        sort: ['title'],
+        sort: { sort: 1 /* boards default sorting */ },
       },
     );
   },

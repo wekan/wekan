@@ -88,7 +88,8 @@ template(name="checklistItems")
 template(name='checklistItemDetail')
   .js-checklist-item.checklist-item
     if canModifyCard
-      .check-box.materialCheckBox(class="{{#if item.isFinished }}is-checked{{/if}}")
+      .check-box-container
+        .check-box.materialCheckBox(class="{{#if item.isFinished }}is-checked{{/if}}")
       .item-title.js-open-inlined-form.is-editable(class="{{#if item.isFinished }}is-checked{{/if}}")
         +viewer
           = item.title

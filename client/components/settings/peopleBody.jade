@@ -40,8 +40,14 @@ template(name="peopleGeneral")
         th {{_ 'active'}}
         th {{_ 'authentication-method'}}
         th
+          +newUserRow
       each user in peopleList
         +peopleRow(userId=user._id)
+
+template(name="newUserRow")
+  a.new-user
+    i.fa.fa-edit
+    | {{_ 'new'}}
 
 template(name="peopleRow")
   tr
@@ -104,7 +110,7 @@ template(name="editUserPopup")
     label.hide.userId(type="text" value=user._id)
     label
       | {{_ 'fullname'}}
-      input.js-profile-fullname(type="text" value=user.profile.fullname autofocus)
+      input.js-profile-fullname(type="text" value=user.profile.fullname)
     label
       | {{_ 'username'}}
       span.error.hide.username-taken
@@ -148,3 +154,49 @@ template(name="editUserPopup")
     //  div
     //  input#deleteButton.primary.wide(type="button" value="{{_ 'delete'}}")
 
+template(name="newUserPopup")
+  form
+    //label.hide.userId(type="text" value=user._id)
+    label
+      | {{_ 'fullname'}}
+      input.js-profile-fullname(type="text" value="")
+    label
+      | {{_ 'username'}}
+      span.error.hide.username-taken
+        | {{_ 'error-username-taken'}}
+      //if isLdap
+      //  input.js-profile-username(type="text" value=user.username readonly)
+      //else
+      input.js-profile-username(type="text" value="")
+    label
+      | {{_ 'email'}}
+      span.error.hide.email-taken
+        | {{_ 'error-email-taken'}}
+      //if isLdap
+      //  input.js-profile-email(type="email" value="{{user.emails.[0].address}}" readonly)
+      //else
+      input.js-profile-email(type="email" value="")
+    label
+      | {{_ 'admin'}}
+      select.select-role.js-profile-isadmin
+        option(value="false" selected="selected") {{_ 'no'}}
+        option(value="true") {{_ 'yes'}}
+    label
+      | {{_ 'active'}}
+      select.select-active.js-profile-isactive
+        option(value="false" selected="selected") {{_ 'yes'}}
+        option(value="true") {{_ 'no'}}
+    label
+      | {{_ 'authentication-type'}}
+      select.select-authenticationMethod.js-authenticationMethod
+        each authentications
+          if isSelected value
+            option(value="{{value}}" selected) {{_ value}}
+          else
+            option(value="{{value}}") {{_ value}}
+    hr
+    label
+      | {{_ 'password'}}
+      input.js-profile-password(type="password")
+    div.buttonsContainer
+      input.primary.wide(type="submit" value="{{_ 'save'}}")

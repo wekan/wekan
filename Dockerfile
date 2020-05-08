@@ -4,10 +4,12 @@ LABEL maintainer="wekan"
 # Set the environment variables (defaults where required)
 # DOES NOT WORK: paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
 # ENV BUILD_DEPS="paxctl"
+ARG DEBIAN_FRONTEND=noninteractive
+
 ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-essential git ca-certificates python3" \
     DEBUG=false \
-    NODE_VERSION=v12.15.0 \
-    METEOR_RELEASE=1.9.0 \
+    NODE_VERSION=v12.16.3 \
+    METEOR_RELEASE=1.10.2 \
     USE_EDGE=false \
     METEOR_EDGE=1.5-beta.17 \
     NPM_VERSION=latest \
@@ -26,6 +28,7 @@ ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-
     ATTACHMENTS_STORE_PATH="" \
     MAX_IMAGE_PIXEL="" \
     IMAGE_COMPRESS_RATIO="" \
+    NOTIFICATION_TRAY_AFTER_READ_DAYS_BEFORE_REMOVE="" \
     BIGEVENTS_PATTERN=NONE \
     NOTIFY_DUE_DAYS_BEFORE_AND_AFTER="" \
     NOTIFY_DUE_AT_HOUR_OF_DAY="" \
@@ -110,7 +113,10 @@ ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-
     CORS="" \
     CORS_ALLOW_HEADERS="" \
     CORS_EXPOSE_HEADERS="" \
-    DEFAULT_AUTHENTICATION_METHOD=""
+    DEFAULT_AUTHENTICATION_METHOD="" \
+    SCROLLINERTIA="0" \
+    SCROLLAMOUNT="auto" \
+    PASSWORD_LOGIN_ENABLED=true
 
 # Copy the app to the image
 COPY ${SRC_PATH} /home/wekan/app
@@ -267,6 +273,8 @@ RUN \
     cd /home/wekan/app_build/bundle/programs/server/ && \
     gosu wekan:wekan npm install && \
     #gosu wekan:wekan npm install bcrypt && \
+    # Remove legacy webbroser bundle, so that Wekan works also at Android Firefox, iOS Safari, etc.
+		rm -rf /home/wekan/app_build/bundle/programs/web.browser.legacy && \
     mv /home/wekan/app_build/bundle /build && \
     \
     # Put back the original tar

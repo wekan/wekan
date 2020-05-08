@@ -1,7 +1,7 @@
 import { Cookies } from 'meteor/ostrio:cookies';
 const cookies = new Cookies();
 const subManager = new SubsManager();
-const { calculateIndex, enableClickOnTouch } = Utils;
+const { calculateIndex } = Utils;
 const swimlaneWhileSortingHeight = 150;
 
 BlazeComponent.extendComponent({
@@ -191,9 +191,6 @@ BlazeComponent.extendComponent({
       },
     });
 
-    // ugly touch event hotfix
-    enableClickOnTouch('.js-swimlane:not(.placeholder)');
-
     this.autorun(() => {
       let showDesktopDragHandles = false;
       currentUser = Meteor.user();
@@ -205,7 +202,7 @@ BlazeComponent.extendComponent({
       } else {
         showDesktopDragHandles = false;
       }
-      if (!Utils.isMiniScreen() && showDesktopDragHandles) {
+      if (Utils.isMiniScreen() || showDesktopDragHandles) {
         $swimlanesDom.sortable({
           handle: '.js-swimlane-header-handle',
         });
@@ -215,9 +212,8 @@ BlazeComponent.extendComponent({
         });
       }
 
-      // Disable drag-dropping if the current user is not a board member or is miniscreen
+      // Disable drag-dropping if the current user is not a board member
       $swimlanesDom.sortable('option', 'disabled', !userIsMember());
-      $swimlanesDom.sortable('option', 'disabled', Utils.isMiniScreen());
     });
 
     function userIsMember() {

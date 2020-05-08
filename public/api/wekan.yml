@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v3.77
+  version: v4.01
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -2115,6 +2115,14 @@ definitions:
         description: |
            Does the board allows comments?
         type: boolean
+      allowsDescriptionTitle:
+        description: |
+           Does the board allows description title?
+        type: boolean
+      allowsDescriptionText:
+        description: |
+           Does the board allows description text?
+        type: boolean
       allowsActivities:
         description: |
            Does the board allows comments?
@@ -2201,6 +2209,10 @@ definitions:
         description: |
            The type of board
         type: string
+      sort:
+        description: |
+           Sort value
+        type: number
     required:
       - title
       - slug
@@ -2215,6 +2227,8 @@ definitions:
       - allowsAttachments
       - allowsChecklists
       - allowsComments
+      - allowsDescriptionTitle
+      - allowsDescriptionText
       - allowsActivities
       - allowsLabels
       - allowsAssignee
@@ -2226,6 +2240,7 @@ definitions:
       - allowsEndDate
       - allowsDueDate
       - type
+      - sort
   BoardsLabels:
     type: object
     properties:
@@ -2513,6 +2528,11 @@ definitions:
            ID of the linked card
         type: string
         x-nullable: true
+      vote:
+        description: |
+           vote object, see below
+        $ref: "#/definitions/CardsVote"
+        x-nullable: true
     required:
       - archived
       - swimlaneId
@@ -2522,6 +2542,32 @@ definitions:
       - userId
       - sort
       - type
+  CardsVote:
+    type: object
+    properties:
+      question:
+        type: string
+      positive:
+        description: |
+           list of members (user IDs)
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      negative:
+        description: |
+           list of members (user IDs)
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      end:
+        type: string
+      public:
+        type: boolean
+    required:
+      - question
+      - public
   CardsCustomfields:
     type: object
   ChecklistItems:
@@ -3015,11 +3061,22 @@ definitions:
            enabled notifications for the user
         type: array
         items:
-          type: string
-          x-nullable: true
+          $ref: "#/definitions/UsersProfileNotifications"
+      activity:
+        description: |
+           The id of the activity this notification references
+        type: string
+      read:
+        description: |
+           the date on which this notification was read
+        type: string
       showCardsCountAt:
         description: |
            showCardCountAt field of the user
+        type: number
+      startDayOfWeek:
+        description: |
+           startDayOfWeek field of the user
         type: number
       starredBoards:
         description: |
@@ -3068,6 +3125,7 @@ definitions:
            Reference to the board templates swimlane Id
         type: string
     required:
+      - activity
       - templatesBoardId
       - cardTemplatesSwimlaneId
       - listTemplatesSwimlaneId

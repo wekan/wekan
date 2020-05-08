@@ -18,7 +18,7 @@ Meteor.publish('boards', function() {
       archived: false,
       $or: [
         {
-          _id: { $in: starredBoards },
+          // _id: { $in: starredBoards },  // Commented out, to get a list of all public boards
           permission: 'public',
         },
         { members: { $elemMatch: { userId, isActive: true } } },
@@ -35,7 +35,9 @@ Meteor.publish('boards', function() {
         members: 1,
         permission: 1,
         type: 1,
+        sort: 1,
       },
+      sort: { sort: 1 /* boards default sorting */ },
     },
   );
 });
@@ -61,6 +63,7 @@ Meteor.publish('archivedBoards', function() {
         slug: 1,
         title: 1,
       },
+      sort: { sort: 1 /* boards default sorting */ },
     },
   );
 });
@@ -90,7 +93,7 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
         $or,
         // Sort required to ensure oplog usage
       },
-      { limit: 1, sort: { _id: 1 } },
+      { limit: 1, sort: { sort: 1 /* boards default sorting */ } },
     ),
     function(boardId, board) {
       this.cursor(Lists.find({ boardId, archived: isArchived }));
@@ -192,6 +195,7 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
                 username: 1,
                 'profile.fullname': 1,
                 'profile.avatarUrl': 1,
+                'profile.initials': 1,
               },
             },
           ),

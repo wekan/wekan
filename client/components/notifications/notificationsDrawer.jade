@@ -1,0 +1,20 @@
+template(name='notificationsDrawer')
+  section#notifications-drawer(class="{{#if $.Session.get 'showReadNotifications'}}show-read{{/if}}")
+    .header
+      if $.Session.get 'showReadNotifications'
+        a.toggle-read {{_ 'filter-by-unread'}}
+      else
+        a.toggle-read {{_ 'view-all'}}
+      h5 {{_ 'notifications'}}
+        if($gt unreadNotifications 0)
+          |(#{unreadNotifications})
+      a.fa.fa-times-thin.close
+    ul.notifications
+      each transformedProfile.notifications
+        +notification(activityData=activity index=dbIndex read=read)
+    if($gt unreadNotifications 0)
+      a.all-read {{_ 'mark-all-as-read'}}
+    if ($and ($.Session.get 'showReadNotifications') ($gt readNotifications 0))
+      a.remove-read
+        i.fa.fa-trash
+        | {{_ 'remove-all-read'}}

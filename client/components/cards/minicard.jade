@@ -4,8 +4,8 @@ template(name="minicard")
     class="{{#if isLinkedBoard}}linked-board{{/if}}"
     class="minicard-{{colorClass}}")
     if isMiniScreen
-      //.handle
-      //  .fa.fa-arrows
+      .handle
+        .fa.fa-arrows
     unless isMiniScreen
       if showDesktopDragHandles
         .handle
@@ -100,6 +100,10 @@ template(name="minicard")
       if getDescription
         .badge.badge-state-image-only(title=getDescription)
           span.badge-icon.fa.fa-align-left
+      if getVoteQuestion
+        .badge.badge-state-image-only(title=getVoteQuestion)
+          span.badge-icon.fa.fa-thumbs-up
+          span.badge-icon.fa.fa-thumbs-down
       if attachments.count
         .badge
           span.badge-icon.fa.fa-paperclip

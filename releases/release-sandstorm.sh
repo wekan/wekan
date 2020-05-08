@@ -1,4 +1,4 @@
-# Usage: ./release.sh 1.36
+# Usage: ./release.sh 3.95
 
 # Delete old stuff
 #cd ~/repos/wekan
@@ -8,44 +8,24 @@
 #cd ~/repos/wekan
 #./releases/rebuild-release.sh
 
+REPODIR=/home/wekan/repos
+WEKANDIR=/home/wekan/repos/wekan
+
+# Ensure sudo access
+sudo echo .
 # Build Sandstorm
-cd ~/repos/wekan
-# Use Meteor 1.8.x and Node 8.17.0
-sudo n 8.17.0
-sudo rm -rf /root/.cache/node-gyp/8.17.0
+cd $REPODIR
+rm -rf $WEKANDIR
+git clone git@github.com:wekan/wekan.git
+cd $WEKANDIR
+sudo n 12.16.3
 sudo mkdir -p /usr/local/lib/node_modules/fibers/.node-gyp
-sudo npm -g uninstall node-gyp node-pre-gyp fibers
-sudo npm -g install node-gyp node-pre-gyp fibers
+# Build Wekan
 ./releases/rebuild-release.sh
-rm -rf .build
-mkdir ../sandstorm-build
-cp -pR .meteor ../sandstorm-build/
-cp -pR .snap-meteor-1.8 ../sandstorm-build/
-mv .snap-meteor-1.8/.meteor .
-mv .snap-meteor-1.8/package.json .
-mv .snap-meteor-1.8/package-lock.json .
-# Meteor 1.9.x has changes to Buffer() => Buffer.alloc(), so reverting those
-mv .snap-meteor-1.8/cfs_access-point.txt fix-download-unicode/
-mv .snap-meteor-1.8/export.js models/
-mv .snap-meteor-1.8/wekanCreator.js models/
-mv .snap-meteor-1.8/ldap.js packages/wekan-ldap/server/ldap.js
-mv .snap-meteor-1.8/oidc_server.js packages/wekan-oidc/oidc_server.js
-rm -rf .snap-meteor-1.8
-# Build bundle with Meteor 1.8.x and Node 8.17.0
-./releases/rebuild-release.sh
+cd .build/bundle/programs/server
+npm install node-gyp node-pre-gyp fibers
+cd $WEKANDIR
 # Build Sandstorm
 meteor-spk pack wekan-$1.spk
-spk publish wekan-$1.spk
-scp wekan-$1.spk x2:/var/snap/wekan/common/releases.wekan.team/
-mv wekan-$1.spk ..
-sudo rm -rf .meteor-spk
-# Back to Meteor 1.9 and Node 12.14.1
-sudo n 12.14.1
-sudo rm -rf .meteor
-mv ../sandstorm-build/.meteor .
-mv ../sandstorm-build/.snap-meteor-1.8 .
-rmdir ../sandstorm-build
-# Delete old stuff
-#cd ~/repos/wekan
-#./releases/release-cleanup.sh
-
+#spk publish wekan-$1.spk
+#scp wekan-$1.spk x2:/var/snap/wekan/common/releases.wekan.team/

@@ -24,6 +24,11 @@ template(name="header")
             a(href="{{pathFor 'home'}}")
               span.fa.fa-home
               | {{_ 'all-boards'}}
+          li.separator -
+          li
+            a(href="{{pathFor 'public'}}")
+              span.fa.fa-globe
+              | {{_ 'public'}}
           each currentUser.starredBoards
             li.separator -
             li(class="{{#if $.Session.equals 'currentBoard' _id}}current{{/if}}")
@@ -34,6 +39,8 @@ template(name="header")
 
       a#header-new-board-icon.js-create-board
         i.fa.fa-plus(title="Create a new board")
+
+      +notifications
 
       +headerUserBar
 

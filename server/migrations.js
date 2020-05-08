@@ -1034,10 +1034,13 @@ Migrations.add('add-description-text-allowed', () => {
   );
 });
 
-Migrations.add('fix-incorrect-dates', () => {
-    cas = CFSAttachments.find();
-    console.log('cas', cas);
-});     
+Migrations.add('add-sort-field-to-boards', () => {
+  Boards.find().forEach((board, index) => {
+    if (!board.hasOwnProperty('sort')) {
+      Boards.direct.update(board._id, { $set: { sort: index } }, noValidate);
+    }
+  });
+});
 
 import { MongoInternals } from 'meteor/mongo';
 

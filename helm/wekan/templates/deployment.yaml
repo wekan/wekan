@@ -37,6 +37,12 @@ spec:
               value: {{ .Values.root_url | default "https://wekan.local" | quote }}
             - name: MONGO_URL
               value: "{{ template "mongodb-replicaset.url" . }}"
+          {{- range $key := .Values.env }}
+          {{- if .value }}
+            - name: {{ .name }}
+              value: {{ .value | quote }}
+          {{- end }}
+          {{- end }}
           livenessProbe:
             httpGet:
               path: /

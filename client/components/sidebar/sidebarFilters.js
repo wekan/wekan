@@ -18,6 +18,11 @@ BlazeComponent.extendComponent({
           Filter.members.toggle(this.currentData()._id);
           Filter.resetExceptions();
         },
+        'click .js-toggle-assignee-filter'(evt) {
+          evt.preventDefault();
+          Filter.assignees.toggle(this.currentData()._id);
+          Filter.resetExceptions();
+        },
         'click .js-toggle-archive-filter'(evt) {
           evt.preventDefault();
           Filter.archive.toggle(this.currentData()._id);

@@ -94,17 +94,18 @@ avatar-radius = 50%
   animation: flexGrowIn 0.1s
   box-shadow: 0 0 7px 0 darken(white, 30%)
   transition: flex-basis 0.1s
+  box-sizing: border-box
 
   .mCustomScrollBox
     padding-left: 0
 
   .ps-scrollbar-y-rail
     pointer-event: all
-    position: absolute;
+    position: absolute
 
   .card-details-canvas
     width: 470px
-    padding-left: 20px;
+    padding-left: 20px
 
   .card-details-header
     margin: 0 -20px 5px
@@ -241,7 +242,7 @@ input[type="submit"].attachment-add-link-submit
 
     .card-details-canvas
       width: 100%
-      padding-left: 0px;
+      padding-left: 0px
 
     .card-details-header
       .close-card-details
@@ -330,3 +331,13 @@ card-details-color(background, color...)
 
 .card-details-indigo
   card-details-color(#4b0082, #ffffff) //White text for better visibility
+
+.voted
+  opacity: .7
+.vote-title
+  display: flex
+  justify-content: space-between
+.vote-result
+  display: flex
+.js-show-positive-votes
+  cursor: pointer

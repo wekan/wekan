@@ -11,6 +11,7 @@ OAuth.registerService('oidc', 2, null, function (query) {
 
   var userinfo = getUserInfo(accessToken);
   if (userinfo.ocs) userinfo = userinfo.ocs.data; // Nextcloud hack
+  if (userinfo.metadata) userinfo = userinfo.metadata // Openshift hack
   if (debug) console.log('XXX: userinfo:', userinfo);
 
   var serviceData = {};
@@ -72,7 +73,6 @@ var getToken = function (query) {
           client_secret: OAuth.openSecret(config.secret),
           redirect_uri: OAuth._redirectUri('oidc', config),
           grant_type: 'authorization_code',
-          scope: requestPermissions,
           state: query.state
         }
       }

@@ -411,7 +411,7 @@ BlazeComponent.extendComponent({
         type: 'board',
       },
       {
-        sort: ['title'],
+        sort: { sort: 1 /* boards default sorting */ },
       },
     );
     return boards;
@@ -597,7 +597,7 @@ BlazeComponent.extendComponent({
         type: 'board',
       },
       {
-        sort: ['title'],
+        sort: { sort: 1 /* boards default sorting */ },
       },
     );
     return boards;
@@ -743,9 +743,25 @@ BlazeComponent.extendComponent({
   },
 
   updateList() {
+    // Use fallback when requestIdleCallback is not available on iOS and Safari
+    // https://www.afasterweb.com/2017/11/20/utilizing-idle-moments/
+    checkIdleTime =
+      window.requestIdleCallback ||
+      function(handler) {
+        const startTime = Date.now();
+        return setTimeout(function() {
+          handler({
+            didTimeout: false,
+            timeRemaining() {
+              return Math.max(0, 50.0 - (Date.now() - startTime));
+            },
+          });
+        }, 1);
+      };
+
     if (this.spinnerInView()) {
       this.cardlimit.set(this.cardlimit.get() + InfiniteScrollIter);
-      window.requestIdleCallback(() => this.updateList());
+      checkIdleTime(() => this.updateList());
     }
   },
 

@@ -48,7 +48,7 @@ BlazeComponent.extendComponent({
         'members.isAdmin': true,
       },
       {
-        sort: ['title'],
+        sort: { sort: 1 /* boards default sorting */ },
       },
     );
   },

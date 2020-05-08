@@ -41,6 +41,9 @@ function onAttachmentUploaded(fileRef) {
       type: 'card',
       activityType: 'addAttachment',
       attachmentId: fileRef._id,
+	  // this preserves the name so that notifications can be meaningful after
+      // this file is removed 
+	  attachmentName: fileRef.versions.original.name,
       boardId: fileRef.meta.boardId,
       cardId: fileRef.meta.cardId,
       listId: fileRef.meta.listId,
@@ -70,6 +73,9 @@ function onAttachmentRemoving(cursor) {
     type: 'card',
     activityType: 'deleteAttachment',
     attachmentId: file._id,
+	// this preserves the name so that notifications can be meaningful after
+    // this file is removed
+	attachmentName: file.versions.original.name,
     boardId: meta.boardId,
     cardId: meta.cardId,
     listId: meta.listId,

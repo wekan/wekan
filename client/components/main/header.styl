@@ -99,7 +99,7 @@
   height: 28px
   font-size: 12px
   display: flex
-  z-index: 17
+  z-index: 21
 
   #header-user-bar,
   #header-new-board-icon,
@@ -127,7 +127,7 @@
       &.current
         color: darken(white, 5%)
 
-      &:first-child .fa-home
+      &:first-child .fa-home,&:nth-child(3) .fa-globe
         margin-right: 5px
 
       a.js-create-board
@@ -175,7 +175,7 @@
       .board-header-btn
         height: 32px
         line-height: @height
-        font-size: 16px
+        font-size: 15px
 
         i.fa
           line-height: 32px

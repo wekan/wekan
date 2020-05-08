@@ -98,12 +98,12 @@ template(name="changeLanguagePopup")
 
 template(name="changeSettingsPopup")
   ul.pop-over-list
-    li
-      a.js-toggle-system-messages
-        i.fa.fa-comments-o
-        | {{_ 'hide-system-messages'}}
-        if hiddenSystemMessages
-          i.fa.fa-check
+    //li
+    //  a.js-toggle-system-messages
+    //    i.fa.fa-comments-o
+    //    | {{_ 'hide-system-messages'}}
+    //    if hiddenSystemMessages
+    //      i.fa.fa-check
     li
       a.js-toggle-desktop-drag-handles
         i.fa.fa-arrows
@@ -112,11 +112,20 @@ template(name="changeSettingsPopup")
           i.fa.fa-check
     unless currentUser.isWorker
       li
-        label.bold
+        label.bold.clear
           i.fa.fa-sort-numeric-asc
           | {{_ 'show-cards-minimum-count'}}
         input#show-cards-count-at.inline-input.left(type="number" value="#{showCardsCountAt}" min="0" max="99" onkeydown="return false")
-        input.js-apply-show-cards-at.left(type="submit" value="{{_ 'apply'}}")
+        label.bold.clear
+          i.fa.fa-calendar
+          | {{_ 'start-day-of-week'}}
+        select#start-day-of-week.inline-input.left
+          each day in weekDays startDayOfWeek
+            if day.isSelected
+              option(selected="true", value="#{day.value}") #{day.name}
+            else
+              option(value="#{day.value}") #{day.name}
+        input.js-apply-user-settings.left(type="submit" value="{{_ 'apply'}}")
 
 template(name="userDeletePopup")
   unless currentUser.isWorker

@@ -32,7 +32,7 @@ template(name="cardDetails")
           // else
             {{_ 'top-level-card'}}
         if isLinkedCard
-          h3.linked-card-location
+          a.linked-card-location.js-go-to-linked-card
             +viewer
               | {{getBoardTitle}} > {{getTitle}}
 
@@ -199,10 +199,29 @@ template(name="cardDetails")
             +viewer
               = getAssignedBy
 
+    if getVoteQuestion
+      hr
+      .vote-title
+        h3
+          i.fa.fa-thumbs-up
+          card-details-item-title {{_ 'vote-question'}}
+        .vote-result
+          if votePublic
+            a.card-label.card-label-green.js-show-positive-votes {{ voteCountPositive }}
+            a.card-label.card-label-red.js-show-negative-votes {{ voteCountNegative }}
+          else
+            .card-label.card-label-green {{ voteCountPositive }}
+            .card-label.card-label-red {{ voteCountNegative }}
+      +viewer
+        = getVoteQuestion
+      button.card-details-green.js-vote.js-vote-positive(class="{{#if voteState}}voted{{/if}}") {{_ 'vote-for-it'}}
+      button.card-details-red.js-vote.js-vote-negative(class="{{#if $eq voteState false}}voted{{/if}}") {{_ 'vote-against'}}
+
     //- XXX We should use "editable" to avoid repetiting ourselves
     if canModifyCard
       unless currentUser.isWorker
         if currentBoard.allowsDescriptionTitle
+          hr
           h3
             i.fa.fa-align-left
             card-details-item-title {{_ 'description'}}
@@ -229,6 +248,7 @@ template(name="cardDetails")
                   a.js-close-inlined-form {{_ 'discard'}}
     else if getDescription
       if currentBoard.allowsDescriptionTitle
+        hr
         h3.card-details-item-title {{_ 'description'}}
       if currentBoard.allowsDescriptionText
         +viewer
@@ -237,15 +257,16 @@ template(name="cardDetails")
     .card-checklist-attachmentGalerys
       .card-checklist-attachmentGalery.card-checklists
         if currentBoard.allowsChecklists
+          hr
           +checklists(cardId = _id)
         if currentBoard.allowsSubtasks
           hr
           +subtasks(cardId = _id)
       if currentBoard.allowsAttachments
-        //- hr
-        //- h3
-        //- i.fa.fa-paperclip
-        //- | {{_ 'attachments'}}
+        hr
+        h3
+          i.fa.fa-paperclip
+          | {{_ 'attachments'}}
         .card-checklist-attachmentGalery.card-attachmentGalery
           +attachmentsGalery
 
@@ -312,6 +333,16 @@ template(name="cardDetailsActionsPopup")
         //li: a.js-members {{_ 'card-edit-members'}}
         //li: a.js-labels {{_ 'card-edit-labels'}}
         //li: a.js-attachments {{_ 'card-edit-attachments'}}
+        if getVoteQuestion
+          li
+            a.js-cancel-voting
+              i.fa.fa-thumbs-up
+              | {{_ 'card-cancel-voting'}}
+        else
+          li
+            a.js-start-voting
+              i.fa.fa-thumbs-up
+              | {{_ 'card-start-voting'}}
         li
           a.js-custom-fields
             i.fa.fa-list-alt
@@ -535,3 +566,35 @@ template(name="cardDeletePopup")
   unless archived
    p {{_ "card-delete-suggest-archive"}}
   button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
+
+template(name="cardStartVotingPopup")
+  form.edit-vote-question
+    .fields
+      label(for="vote") {{_ 'vote-question'}}
+      input.js-vote-field#vote(type="text" name="vote" value="{{card.getVoteQuestion}}" autofocus)
+      label(for="vote-public") {{_ 'vote-public'}}
+        a.js-toggle-vote-public
+          .materialCheckBox#vote-public(name="vote-public")
+
+    button.primary.confirm.js-submit {{_ 'save'}}
+    //- button.js-remove-color.negate.wide.right {{_ 'delete'}}
+
+template(name="positiveVoteMembersPopup")
+  ul.pop-over-list.js-card-member-list
+    each m in voteMemberPositive
+      li.item
+        a.name
+          +userAvatar(userId=m._id)
+          span.full-name
+            = m.profile.fullname
+            | (<span class="username">{{ m.username }}</span>)
+
+template(name="negativeVoteMembersPopup")
+  ul.pop-over-list.js-card-member-list
+    each m in voteMemberNegative
+      li.item
+        a.name
+          +userAvatar(userId=m._id)
+          span.full-name
+            = m.profile.fullname
+            | (<span class="username">{{ m.username }}</span>)

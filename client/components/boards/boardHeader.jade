@@ -193,20 +193,6 @@ template(name="boardChangeViewPopup")
           | {{_ 'board-view-cal'}}
           if $eq Utils.boardView "board-view-cal"
             i.fa.fa-check
-    if currentUser.isAdmin
-      hr
-      li
-        with "board-view-rules"
-          a.js-open-rules-view(title="{{_ 'rules'}}")
-            i.fa.fa-magic
-            | {{_ 'rules'}}
-    else if currentUser.isBoardAdmin
-      hr
-      li
-        with "board-view-rules"
-          a.js-open-rules-view(title="{{_ 'rules'}}")
-            i.fa.fa-magic
-            | {{_ 'rules'}}
 
 template(name="createBoard")
   form

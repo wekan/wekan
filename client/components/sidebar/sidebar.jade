@@ -245,7 +245,7 @@ template(name="outgoingWebhooksPopup")
         b &nbsp;
         .materialCheckBox(class="{{#unless enabled}}is-checked{{/unless}}")
       input.js-outgoing-webhooks-title(placeholder="{{_ 'webhook-title'}}" type="text" name="title" value=title)
-      input.js-outgoing-webhooks-url(type="text" name="url" value=url autofocus)
+      input.js-outgoing-webhooks-url(type="text" name="url" value=url)
       input.js-outgoing-webhooks-token(placeholder="{{_ 'webhook-token' }}" type="text" value=token name="token")
       select.js-outgoing-webhooks-type(name="type")
           each _type in types
@@ -257,7 +257,7 @@ template(name="outgoingWebhooksPopup")
       input(type="hidden" value=_id name="id")
       input.primary.wide(type="submit" value="{{_ 'save'}}")
   form.integration-form
-    input.js-outgoing-webhooks-title(placeholder="{{_ 'webhook-title'}}" type="text" name="title" autofocus)
+    input.js-outgoing-webhooks-title(placeholder="{{_ 'webhook-title'}}" type="text" name="title")
     input.js-outgoing-webhooks-url(placeholder="{{_ 'URL' }}" type="text" name="url")
     input.js-outgoing-webhooks-token(placeholder="{{_ 'webhook-token' }}" type="text" name="token")
     select.js-outgoing-webhooks-type(name="type")
@@ -267,7 +267,14 @@ template(name="outgoingWebhooksPopup")
 
 template(name="boardMenuPopup")
   ul.pop-over-list
-    li: a.js-custom-fields {{_ 'custom-fields'}}
+    li
+      a.js-open-rules-view(title="{{_ 'rules'}}")
+        i.fa.fa-magic
+        | {{_ 'rules'}}
+    li
+      a.js-custom-fields
+        i.fa.fa-list-alt
+        | {{_ 'custom-fields'}}
     li
       a.js-open-archives
         i.fa.fa-archive
@@ -291,10 +298,11 @@ template(name="boardMenuPopup")
     if currentUser.isBoardAdmin
       hr
       ul.pop-over-list
-        li
-          a(href="{{exportUrl}}", download="{{exportFilename}}")
-            i.fa.fa-share-alt
-            | {{_ 'export-board'}}
+        if withApi
+          li
+            a(href="{{exportUrl}}", download="{{exportFilename}}")
+              i.fa.fa-share-alt
+              | {{_ 'export-board'}}
         li
           a.js-outgoing-webhooks
             i.fa.fa-globe
@@ -319,11 +327,12 @@ template(name="boardMenuPopup")
   if isSandstorm
     hr
     ul.pop-over-list
-      li
-        a(href="{{exportUrl}}", download="{{exportFilename}}")
-          i.fa.fa-share-alt
-          i.fa.fa-sign-out
-          | {{_ 'export-board'}}
+      if withApi
+        li
+          a(href="{{exportUrl}}", download="{{exportFilename}}")
+            i.fa.fa-share-alt
+            i.fa.fa-sign-out
+            | {{_ 'export-board'}}
       li
         a.js-import-board
           i.fa.fa-share-alt
