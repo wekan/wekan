@@ -22,9 +22,7 @@ const sandstormBoard = {
 
 if (isSandstorm && Meteor.isServer) {
   const fs = require('fs');
-  const pathParts = process.cwd().split('/');
-  const path = pathParts.join('/');
-  const Capnp = Npm.require(`${path}../../../node_modules/capnp.js`);
+  const Capnp = Npm.require(`capnp`);
   const Package = Capnp.importSystem('sandstorm/package.capnp');
   const Powerbox = Capnp.importSystem('sandstorm/powerbox.capnp');
   const Identity = Capnp.importSystem('sandstorm/identity.capnp');
@@ -55,7 +53,7 @@ if (isSandstorm && Meteor.isServer) {
 
       const parsedDescriptor = Capnp.parse(
         Powerbox.PowerboxDescriptor,
-        new Buffer(descriptor, 'base64'),
+        Buffer.from(descriptor, 'base64'),
         { packed: true },
       );
 
@@ -153,7 +151,10 @@ if (isSandstorm && Meteor.isServer) {
 
           return session.activity(event);
         })
-        .then(() => done(), e => done(e));
+        .then(
+          () => done(),
+          e => done(e),
+        );
     })();
   }
 
@@ -236,12 +237,14 @@ if (isSandstorm && Meteor.isServer) {
     const isAdmin = permissions.indexOf('configure') > -1;
     const isCommentOnly = false;
     const isNoComments = false;
+    const isWorker = false;
     const permissionDoc = {
       userId,
       isActive,
       isAdmin,
       isNoComments,
       isCommentOnly,
+      isWorker,
     };
 
     const boardMembers = Boards.findOne(sandstormBoard._id).members;

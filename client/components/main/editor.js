@@ -1,87 +1,3 @@
-import _sanitizeXss from 'xss';
-const ASIS = 'asis';
-const sanitizeXss = (input, options) => {
-  const defaultAllowedIframeSrc = /^(https:){0,1}\/\/.*?(youtube|vimeo|dailymotion|youku)/i;
-  const allowedIframeSrcRegex = (function() {
-    let reg = defaultAllowedIframeSrc;
-    const SAFE_IFRAME_SRC_PATTERN =
-      Meteor.settings.public.SAFE_IFRAME_SRC_PATTERN;
-    try {
-      if (SAFE_IFRAME_SRC_PATTERN !== undefined) {
-        reg = new RegExp(SAFE_IFRAME_SRC_PATTERN, 'i');
-      }
-    } catch (e) {
-      /*eslint no-console: ["error", { allow: ["warn", "error"] }] */
-
-      console.error('Wrong pattern specified', SAFE_IFRAM_SRC_PATTERN, e);
-    }
-    return reg;
-  })();
-  const targetWindow = '_blank';
-  const getHtmlDOM = html => {
-    const i = document.createElement('i');
-    i.innerHTML = html;
-    return i.firstChild;
-  };
-  options = {
-    onTag(tag, html, options) {
-      const htmlDOM = getHtmlDOM(html);
-      const getAttr = attr => {
-        return htmlDOM && attr && htmlDOM.getAttribute(attr);
-      };
-      if (tag === 'iframe') {
-        const clipCls = 'note-vide-clip';
-        if (!options.isClosing) {
-          const iframeCls = getAttr('class');
-          let safe = iframeCls.indexOf(clipCls) > -1;
-          const src = getAttr('src');
-          if (allowedIframeSrcRegex.exec(src)) {
-            safe = true;
-          }
-          if (safe)
-            return `<iframe src='${src}' class="${clipCls}" width=100% height=auto allowfullscreen></iframe>`;
-        } else {
-          // remove </iframe> tag
-          return '';
-        }
-      } else if (tag === 'a') {
-        if (!options.isClosing) {
-          if (getAttr(ASIS) === 'true') {
-            // if has a ASIS attribute, don't do anything, it's a member id
-            return html;
-          } else {
-            const href = getAttr('href');
-            if (href.match(/^((http(s){0,1}:){0,1}\/\/|\/)/)) {
-              // a valid url
-              return `<a href=${href} target=${targetWindow}>`;
-            }
-          }
-        }
-      } else if (tag === 'img') {
-        if (!options.isClosing) {
-          const src = getAttr('src');
-          if (src) {
-            return `<a href='${src}' class='swipebox'><img src='${src}' class="attachment-image-preview mCS_img_loaded"></a>`;
-          }
-        }
-      }
-      return undefined;
-    },
-    onTagAttr(tag, name, value) {
-      if (tag === 'img' && name === 'src') {
-        if (value && value.substr(0, 5) === 'data:') {
-          // allow image with dataURI src
-          return `${name}='${value}'`;
-        }
-      } else if (tag === 'a' && name === 'target') {
-        return `${name}='${targetWindow}'`; // always change a href target to a new window
-      }
-      return undefined;
-    },
-    ...options,
-  };
-  return _sanitizeXss(input, options);
-};
 Template.editor.onRendered(() => {
   const textareaSelector = 'textarea';
   const mentions = [
@@ -94,13 +10,7 @@ Template.editor.onRendered(() => {
           currentBoard
             .activeMembers()
             .map(member => {
-              const user = Users.findOne(member.userId);
-              if (user._id === Meteor.userId()) {
-                return null;
-              }
-              const value = user.username;
-              const username =
-                value && value.match(/\s+/) ? `"${value}"` : value;
+              const username = Users.findOne(member.userId).username;
               return username.includes(term) ? username : null;
             })
             .filter(Boolean),
@@ -126,10 +36,9 @@ Template.editor.onRendered(() => {
       ? [
           ['view', ['fullscreen']],
           ['table', ['table']],
-          ['font', ['bold']],
-          ['color', ['color']],
-          ['insert', ['video']], // iframe tag will be sanitized TODO if iframe[class=note-video-clip] can be added into safe list, insert video can be enabled
+          ['font', ['bold', 'underline']],
           //['fontsize', ['fontsize']],
+          ['color', ['color']],
         ]
       : [
           ['style', ['style']],
@@ -139,11 +48,47 @@ Template.editor.onRendered(() => {
           ['color', ['color']],
           ['para', ['ul', 'ol', 'paragraph']],
           ['table', ['table']],
-          ['insert', ['link', 'picture', 'video']], // iframe tag will be sanitized TODO if iframe[class=note-video-clip] can be added into safe list, insert video can be enabled
+          //['insert', ['link', 'picture', 'video']], // iframe tag will be sanitized TODO if iframe[class=note-video-clip] can be added into safe list, insert video can be enabled
           //['insert', ['link', 'picture']], // modal popup has issue somehow :(
           ['view', ['fullscreen', 'help']],
         ];
-    const cleanPastedHTML = sanitizeXss;
+    const cleanPastedHTML = function(input) {
+      const badTags = [
+        'style',
+        'script',
+        'applet',
+        'embed',
+        'noframes',
+        'noscript',
+        'meta',
+        'link',
+        'button',
+        'form',
+      ].join('|');
+      const badPatterns = new RegExp(
+        `(?:${[
+          `<(${badTags})s*[^>][\\s\\S]*?<\\/\\1>`,
+          `<(${badTags})[^>]*?\\/>`,
+        ].join('|')})`,
+        'gi',
+      );
+      let output = input;
+      // remove bad Tags
+      output = output.replace(badPatterns, '');
+      // remove attributes ' style="..."'
+      const badAttributes = new RegExp(
+        `(?:${[
+          'on\\S+=([\'"]?).*?\\1',
+          'href=([\'"]?)javascript:.*?\\2',
+          'style=([\'"]?).*?\\3',
+          'target=\\S+',
+        ].join('|')})`,
+        'gi',
+      );
+      output = output.replace(badAttributes, '');
+      output = output.replace(/(<a )/gi, '$1target=_ '); // always to new target
+      return output;
+    };
     const editor = '.editor';
     const selectors = [
       `.js-new-comment-form ${editor}`,
@@ -163,37 +108,14 @@ Template.editor.onRendered(() => {
         }
         return undefined;
       };
-      let popupShown = false;
       inputs.each(function(idx, input) {
         mSummernotes[idx] = $(input).summernote({
           placeholder,
           callbacks: {
-            onKeydown(e) {
-              if (popupShown) {
-                e.preventDefault();
-              }
-            },
-            onKeyup(e) {
-              if (popupShown) {
-                e.preventDefault();
-              }
-            },
             onInit(object) {
               const originalInput = this;
-              const setAutocomplete = function(jEditor) {
-                if (jEditor !== undefined) {
-                  jEditor.escapeableTextComplete(mentions).on({
-                    'textComplete:show'() {
-                      popupShown = true;
-                    },
-                    'textComplete:hide'() {
-                      popupShown = false;
-                    },
-                  });
-                }
-              };
               $(originalInput).on('submitted', function() {
-                // resetCommentInput has been called
+                // when comment is submitted, the original textarea will be set to '', so shall we
                 if (!this.value) {
                   const sn = getSummernote(this);
                   sn && sn.summernote('code', '');
@@ -201,7 +123,9 @@ Template.editor.onRendered(() => {
               });
               const jEditor = object && object.editable;
               const toolbar = object && object.toolbar;
-              setAutocomplete(jEditor);
+              if (jEditor !== undefined) {
+                jEditor.escapeableTextComplete(mentions);
+              }
               if (toolbar !== undefined) {
                 const fBtn = toolbar.find('.btn-fullscreen');
                 fBtn.on('click', function() {
@@ -211,6 +135,7 @@ Template.editor.onRendered(() => {
                 });
               }
             },
+
             onImageUpload(files) {
               const $summernote = getSummernote(this);
               if (files && files.length > 0) {
@@ -289,6 +214,12 @@ Template.editor.onRendered(() => {
               const thisNote = this;
               const updatePastedText = function(object) {
                 const someNote = getSummernote(object);
+                // Fix Pasting text into a card is adding a line before and after
+                // (and multiplies by pasting more) by changing paste "p" to "br".
+                // Fixes https://github.com/wekan/wekan/2890 .
+                // == Fix Start ==
+                someNote.execCommand('defaultParagraphSeparator', false, 'br');
+                // == Fix End ==
                 const original = someNote.summernote('code');
                 const cleaned = cleanPastedHTML(original); //this is where to call whatever clean function you want. I have mine in a different file, called CleanPastedHTML.
                 someNote.summernote('code', ''); //clear original
@@ -331,6 +262,8 @@ Template.editor.onRendered(() => {
   }
 });
 
+import sanitizeXss from 'xss';
+
 // XXX I believe we should compute a HTML rendered field on the server that
 // would handle markdown and user mentions. We can simply have two
 // fields, one source, and one compiled version (in HTML) and send only the
@@ -352,7 +285,7 @@ Blaze.Template.registerHelper(
       }
       return member;
     });
-    const mentionRegex = /\B@(?:(?:"([\w.\s]*)")|([\w.]+))/gi; // including space in username
+    const mentionRegex = /\B@([\w.]*)/gi;
 
     let currentMention;
     while ((currentMention = mentionRegex.exec(content)) !== null) {
@@ -368,7 +301,12 @@ Blaze.Template.registerHelper(
       if (knowedUser.userId === Meteor.userId()) {
         linkClass += ' me';
       }
-      const link = HTML.A(
+      // This @user mention link generation did open same Wekan
+      // window in new tab, so now A is changed to U so it's
+      // underlined and there is no link popup. This way also
+      // text can be selected more easily.
+      //const link = HTML.A(
+      const link = HTML.U(
         {
           class: linkClass,
           // XXX Hack. Since we stringify this render function result below with
@@ -376,16 +314,17 @@ Blaze.Template.registerHelper(
           // `userId` to the popup as usual, and we need to store it in the DOM
           // using a data attribute.
           'data-userId': knowedUser.userId,
-          [ASIS]: 'true',
         },
         linkValue,
       );
 
       content = content.replace(fullMention, Blaze.toHTML(link));
     }
+
     return HTML.Raw(sanitizeXss(content));
   }),
 );
+
 Template.viewer.events({
   // Viewer sometimes have click-able wrapper around them (for instance to edit
   // the corresponding text). Clicking a link shouldn't fire these actions, stop
@@ -397,10 +336,7 @@ Template.viewer.events({
       Popup.open('member').call({ userId }, event, templateInstance);
     } else {
       const href = event.currentTarget.href;
-      const child = event.currentTarget.firstElementChild;
-      if (child && child.tagName === 'IMG') {
-        prevent = false;
-      } else if (href) {
+      if (href) {
         window.open(href, '_blank');
       }
     }

@@ -7,7 +7,7 @@
       # Debug OIDC OAuth2 etc.
       #export DEBUG=true
       #---------------------------------------------
-      export MONGO_URL='mongodb://127.0.0.1:27018/wekan'
+      export MONGO_URL='mongodb://127.0.0.1:27017/wekan'
       #---------------------------------------------
       # Production: https://example.com/wekan
       # Local: http://localhost:2000
@@ -39,7 +39,12 @@
       #---------------------------------------------------------------
       # ==== RICH TEXT EDITOR IN CARD COMMENTS ====
       # https://github.com/wekan/wekan/pull/2560
-      export RICHER_CARD_COMMENT_EDITOR=true
+      export RICHER_CARD_COMMENT_EDITOR=false
+      #---------------------------------------------------------------
+      # ==== MOUSE SCROLL ====
+      # https://github.com/wekan/wekan/issues/2949
+      export SCROLLINERTIA=0
+      export SCROLLAMOUNT=auto
       #---------------------------------------------------------------
       # ==== CARD OPENED, SEND WEBHOOK MESSAGE ====
       export CARD_OPENED_WEBHOOK_ENABLED=false
@@ -48,6 +53,11 @@
       # https://github.com/wekan/wekan/pull/2544
       #export MAX_IMAGE_PIXEL=1024
       #export IMAGE_COMPRESS_RATIO=80
+      #---------------------------------------------------------------
+      # ==== NOTIFICATION TRAY AFTER READ DAYS BEFORE REMOVE =====
+      # Number of days after a notification is read before we remove it.
+      # Default: 2
+      #- NOTIFICATION_TRAY_AFTER_READ_DAYS_BEFORE_REMOVE=2
       #---------------------------------------------------------------
       # ==== BIGEVENTS DUE ETC NOTIFICATIONS =====
       # https://github.com/wekan/wekan/pull/2541
@@ -352,6 +362,9 @@
       # LOGOUT_ON_MINUTES : The number of minutes
       # example : LOGOUT_ON_MINUTES=55
       #export LOGOUT_ON_MINUTES=
+      #---------------------------------------------------------------------
+      # PASSWORD_LOGIN_ENABLED : Enable or not the password login form. 
+      #export PASSWORD_LOGIN_ENABLED=true
 
       node main.js
       # & >> ../../wekan.log

@@ -23,7 +23,12 @@ SET WITH_API=true
 
 REM # ==== RICH TEXT EDITOR IN CARD COMMENTS ====
 REM # https://github.com/wekan/wekan/pull/2560
-SET RICHER_CARD_COMMENT_EDITOR=true
+SET RICHER_CARD_COMMENT_EDITOR=false
+
+REM # ==== MOUSE SCROLL ====
+REM # https://github.com/wekan/wekan/issues/2949
+SET SCROLLINERTIA=0
+SET SCROLLAMOUNT=auto
 
 REM # ==== CARD OPENED, SEND WEBHOOK MESSAGE ====
 SET CARD_OPENED_WEBHOOK_ENABLED=false
@@ -42,6 +47,11 @@ REM SET ACCOUNTS_LOCKOUT_KNOWN_USERS_FAILURE_WINDOW=15
 REM SET ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURES_BERORE=3
 REM SET ACCOUNTS_LOCKOUT_UNKNOWN_USERS_LOCKOUT_PERIOD=60
 REM SET ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURE_WINDOW=15
+
+REM # ==== NOTIFICATION TRAY AFTER READ DAYS BEFORE REMOVE =====
+REM # Number of days after a notification is read before we remove it.
+REM # Default: 2
+REM SET NOTIFICATION_TRAY_AFTER_READ_DAYS_BEFORE_REMOVE=2
 
 REM # ==== BIGEVENTS DUE ETC NOTIFICATIONS =====
 REM # https://github.com/wekan/wekan/pull/2541
@@ -352,6 +362,13 @@ REM SET LDAP_SYNC_ADMIN_STATUS=true
 
 REM # Comma separated list of admin group names to sync.
 REM SET LDAP_SYNC_ADMIN_GROUPS=group1,group2
+
+REM ------------------------------------------------
+
+REM # Enable/Disable password login form.
+REM SET PASSWORD_LOGIN_ENABLED=true
+
+REM ------------------------------------------------
 
 REM # Login to LDAP automatically with HTTP header.
 REM # In below example for siteminder, at right side of = is header name.

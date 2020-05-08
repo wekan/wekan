@@ -132,7 +132,7 @@ services:
         ' 1>/dev/null 2>&1 &
         mongod --replSet rs1
   wekan:
-    image: wekanteam/wekan:latestdevel
+    image: quay.io/wekan/wekan
     container_name: wekan-app
     restart: always
     networks:
@@ -228,7 +228,12 @@ services:
       #---------------------------------------------------------------
       # ==== RICH TEXT EDITOR IN CARD COMMENTS ====
       # https://github.com/wekan/wekan/pull/2560
-      - RICHER_CARD_COMMENT_EDITOR=true
+      - RICHER_CARD_COMMENT_EDITOR=false
+      #---------------------------------------------------------------
+      # ==== MOUSE SCROLL ====
+      # https://github.com/wekan/wekan/issues/2949
+      - SCROLLINERTIA=0
+      - SCROLLAMOUNT=auto
       #---------------------------------------------------------------
       # ==== CARD OPENED, SEND WEBHOOK MESSAGE ====
       # https://github.com/wekan/wekan/issues/2518
@@ -238,6 +243,11 @@ services:
       # https://github.com/wekan/wekan/pull/2544
       #-MAX_IMAGE_PIXEL=1024
       #-IMAGE_COMPRESS_RATIO=80
+      #---------------------------------------------------------------
+      # ==== NOTIFICATION TRAY AFTER READ DAYS BEFORE REMOVE =====
+      # Number of days after a notification is read before we remove it.
+      # Default: 2
+      #- NOTIFICATION_TRAY_AFTER_READ_DAYS_BEFORE_REMOVE=2
       #---------------------------------------------------------------
       # ==== BIGEVENTS DUE ETC NOTIFICATIONS =====
       # https://github.com/wekan/wekan/pull/2541
@@ -441,7 +451,7 @@ services:
       # example : LDAP_SEARCH_SIZE_LIMIT=12345
       #- LDAP_SEARCH_SIZE_LIMIT=0
       #
-      # LDAP_GROUP_FILTER_ENABLE : Enable group filtering
+      # LDAP_GROUP_FILTER_ENABLE : Enable group filtering. Note the authenticated ldap user must be able to query all relevant group data with own login data from ldap
       # example : LDAP_GROUP_FILTER_ENABLE=true
       #- LDAP_GROUP_FILTER_ENABLE=false
       #
@@ -449,20 +459,20 @@ services:
       # example : LDAP_GROUP_FILTER_OBJECTCLASS=group
       #- LDAP_GROUP_FILTER_OBJECTCLASS=
       #
-      # LDAP_GROUP_FILTER_GROUP_ID_ATTRIBUTE :
-      # example :
+      # LDAP_GROUP_FILTER_GROUP_ID_ATTRIBUTE : The attribute of a group identifying it
+      # example : LDAP_GROUP_FILTER_GROUP_ID_ATTRIBUTE=cn
       #- LDAP_GROUP_FILTER_GROUP_ID_ATTRIBUTE=
       #
-      # LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE :
-      # example :
+      # LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE : The attribute inside a group object listing its members
+      # example : member
       #- LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE=
       #
-      # LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT :
-      # example :
+      # LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT : The format of the value of LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE
+      # example : dn
       #- LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT=
       #
-      # LDAP_GROUP_FILTER_GROUP_NAME :
-      # example :
+      # LDAP_GROUP_FILTER_GROUP_NAME : The group name (id) that matches all users
+      # example : wekan_users
       #- LDAP_GROUP_FILTER_GROUP_NAME=
       #
       # LDAP_UNIQUE_IDENTIFIER_FIELD : This field is sometimes class GUID (Globally Unique Identifier)
@@ -517,7 +527,12 @@ services:
       # LOGOUT_ON_MINUTES : The number of minutes
       # example : LOGOUT_ON_MINUTES=55
       #- LOGOUT_ON_MINUTES=
+      #---------------------------------------------------------------------
+      # PASSWORD_LOGIN_ENABLED : Enable or not the password login form. 
+      # example: PASSWORD_LOGIN_ENABLED=false
+      # - PASSWORD_LOGIN_ENABLED
       #-------------------------------------------------------------------
+      
 
     depends_on:
       - mongodb

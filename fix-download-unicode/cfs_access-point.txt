@@ -451,14 +451,14 @@ FS.HTTP.Handlers.Get = function (ref) {
         if(userAgent.indexOf('msie') >= 0 || userAgent.indexOf('trident') >= 0 || userAgent.indexOf('chrome') >= 0) {
             ref.filename =  encodeURIComponent(ref.filename);
         } else if(userAgent.indexOf('firefox') >= 0) {
-            ref.filename = new Buffer(ref.filename).toString('binary');
+            ref.filename = Buffer.from(ref.filename).toString('binary');
         } else {
             /* safari*/
-            ref.filename = new Buffer(ref.filename).toString('binary');
-        }   
+            ref.filename = Buffer.from(ref.filename).toString('binary');
+        }
    } catch (ex){
         ref.filename = 'tempfix';
-   } 
+   }
    return originalHandler.call(this, ref);
 };
                                                                                                                       // 221

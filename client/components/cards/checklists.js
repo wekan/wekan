@@ -1,4 +1,4 @@
-const { calculateIndexData, enableClickOnTouch } = Utils;
+const { calculateIndexData, capitalize } = Utils;
 
 function initSorting(items) {
   items.sortable({
@@ -36,9 +36,6 @@ function initSorting(items) {
       checklistItem.move(checklistId, sortIndex.base);
     },
   });
-
-  // ugly touch event hotfix
-  enableClickOnTouch('.js-checklist-item:not(.placeholder)');
 }
 
 BlazeComponent.extendComponent({
@@ -54,11 +51,15 @@ BlazeComponent.extendComponent({
       return Meteor.user() && Meteor.user().isBoardMember();
     }
 
-    // Disable sorting if the current user is not a board member
+    // Disable sorting if the current user is not a board member or is a miniscreen
     self.autorun(() => {
       const $itemsDom = $(self.itemsDom);
-      if ($itemsDom.data('sortable')) {
-        $(self.itemsDom).sortable('option', 'disabled', !userIsMember());
+      if ($itemsDom.data('uiSortable') || $itemsDom.data('sortable')) {
+        $(self.itemsDom).sortable(
+          'option',
+          'disabled',
+          !userIsMember() || Utils.isMiniScreen(),
+        );
       }
     });
   },
@@ -67,7 +68,8 @@ BlazeComponent.extendComponent({
     return (
       Meteor.user() &&
       Meteor.user().isBoardMember() &&
-      !Meteor.user().isCommentOnly()
+      !Meteor.user().isCommentOnly() &&
+      !Meteor.user().isWorker()
     );
   },
 }).register('checklistDetail');
@@ -120,7 +122,8 @@ BlazeComponent.extendComponent({
     return (
       Meteor.user() &&
       Meteor.user().isBoardMember() &&
-      !Meteor.user().isCommentOnly()
+      !Meteor.user().isCommentOnly() &&
+      !Meteor.user().isWorker()
     );
   },
 
@@ -172,6 +175,16 @@ BlazeComponent.extendComponent({
     }
   },
 
+  focusChecklistItem(event) {
+    // If a new checklist is created, pre-fill the title and select it.
+    const checklist = this.currentData().checklist;
+    if (!checklist) {
+      const textarea = event.target;
+      textarea.value = capitalize(TAPi18n.__('r-checklist'));
+      textarea.select();
+    }
+  },
+
   events() {
     const events = {
       'click .toggle-delete-checklist-dialog'(event) {
@@ -191,6 +204,7 @@ BlazeComponent.extendComponent({
         'submit .js-edit-checklist-item': this.editChecklistItem,
         'click .js-delete-checklist-item': this.deleteItem,
         'click .confirm-checklist-delete': this.deleteChecklist,
+        'focus .js-add-checklist-item': this.focusChecklistItem,
         keydown: this.pressKey,
       },
     ];
@@ -228,7 +242,8 @@ Template.checklistItemDetail.helpers({
     return (
       Meteor.user() &&
       Meteor.user().isBoardMember() &&
-      !Meteor.user().isCommentOnly()
+      !Meteor.user().isCommentOnly() &&
+      !Meteor.user().isWorker()
     );
   },
 });
@@ -244,7 +259,7 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
-        'click .js-checklist-item .check-box': this.toggleItem,
+        'click .js-checklist-item .check-box-container': this.toggleItem,
       },
     ];
   },

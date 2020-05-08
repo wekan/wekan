@@ -288,7 +288,7 @@ if (Meteor.isServer) {
       const paramBoardId = req.params.boardId;
       // Check user has permission to add checklist to the card
       const board = Boards.findOne({
-        _id: paramBoardId
+        _id: paramBoardId,
       });
       const addPermission = allowIsBoardMemberCommentOnly(req.userId, board);
       Authentication.checkAdminOrCondition(req.userId, addPermission);

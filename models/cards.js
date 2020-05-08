@@ -304,6 +304,42 @@ Cards.attachSchema(
       optional: true,
       defaultValue: '',
     },
+    vote: {
+      /**
+       * vote object, see below
+       */
+      type: Object,
+      optional: true,
+    },
+    'vote.question': {
+      type: String,
+      defaultValue: '',
+    },
+    'vote.positive': {
+      /**
+       * list of members (user IDs)
+       */
+      type: [String],
+      optional: true,
+      defaultValue: [],
+    },
+    'vote.negative': {
+      /**
+       * list of members (user IDs)
+       */
+      type: [String],
+      optional: true,
+      defaultValue: [],
+    },
+    'vote.end': {
+      type: Date,
+      optional: true,
+      defaultValue: null,
+    },
+    'vote.public': {
+      type: Boolean,
+      defaultValue: false,
+    },
   }),
 );
 
@@ -980,6 +1016,50 @@ Cards.helpers({
     }
   },
 
+  getVoteQuestion() {
+    if (this.isLinkedCard()) {
+      const card = Cards.findOne({ _id: this.linkedId });
+      if (card && card.vote) return card.vote.question;
+      else return null;
+    } else if (this.isLinkedBoard()) {
+      const board = Boards.findOne({ _id: this.linkedId });
+      if (board && board.vote) return board.vote.question;
+      else return null;
+    } else if (this.vote) {
+      return this.vote.question;
+    } else {
+      return null;
+    }
+  },
+
+  getVotePublic() {
+    if (this.isLinkedCard()) {
+      const card = Cards.findOne({ _id: this.linkedId });
+      if (card && card.vote) return card.vote.public;
+      else return null;
+    } else if (this.isLinkedBoard()) {
+      const board = Boards.findOne({ _id: this.linkedId });
+      if (board && board.vote) return board.vote.public;
+      else return null;
+    } else if (this.vote) {
+      return this.vote.public;
+    } else {
+      return null;
+    }
+  },
+
+  voteMemberPositive() {
+    if (this.vote && this.vote.positive)
+      return Users.find({ _id: { $in: this.vote.positive } });
+    return [];
+  },
+
+  voteMemberNegative() {
+    if (this.vote && this.vote.negative)
+      return Users.find({ _id: { $in: this.vote.negative } });
+    return [];
+  },
+
   getId() {
     if (this.isLinked()) {
       return this.linkedId;
@@ -1395,6 +1475,58 @@ Cards.mutations({
         parentId,
       },
     };
+  },
+  setVoteQuestion(question, publicVote) {
+    return {
+      $set: {
+        vote: {
+          question,
+          public: publicVote,
+          positive: [],
+          negative: [],
+        },
+      },
+    };
+  },
+  unsetVote() {
+    return {
+      $unset: {
+        vote: '',
+      },
+    };
+  },
+  setVote(userId, forIt) {
+    switch (forIt) {
+      case true:
+        // vote for it
+        return {
+          $pull: {
+            'vote.negative': userId,
+          },
+          $addToSet: {
+            'vote.positive': userId,
+          },
+        };
+      case false:
+        // vote against
+        return {
+          $pull: {
+            'vote.positive': userId,
+          },
+          $addToSet: {
+            'vote.negative': userId,
+          },
+        };
+
+      default:
+        // Remove votes
+        return {
+          $pull: {
+            'vote.positive': userId,
+            'vote.negative': userId,
+          },
+        };
+    }
   },
 });
 
@@ -2008,7 +2140,7 @@ if (Meteor.isServer) {
     const paramBoardId = req.params.boardId;
     // Check user has permission to add card to the board
     const board = Boards.findOne({
-      _id: paramBoardId
+      _id: paramBoardId,
     });
     const addPermission = allowIsBoardMemberCommentOnly(req.userId, board);
     Authentication.checkAdminOrCondition(req.userId, addPermission);

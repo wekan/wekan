@@ -8,234 +8,201 @@ template(name="activities")
       +cardActivities
 
 template(name="boardActivities")
-  each currentBoard.activities
-    .activity
-      +userAvatar(userId=user._id)
-      p.activity-desc
-        +memberName(user=user)
-
-        if($eq activityType 'deleteAttachment')
-          | {{{_ 'activity-delete-attach' cardLink}}}.
-
-        if($eq activityType 'addAttachment')
-          | {{{_ 'activity-attached' attachmentLink cardLink}}}.
-
-        if($eq activityType 'addBoardMember')
-          | {{{_ 'activity-added' memberLink boardLabel}}}.
-
-        if($eq activityType 'addComment')
-          | {{{_ 'activity-on' cardLink}}}
-          a.activity-comment(href="{{ card.absoluteUrl }}")
-            +viewer
-              = comment.text
-
-        if($eq activityType 'addChecklist')
-          | {{{_ 'activity-checklist-added' cardLink}}}.
-          .activity-checklist(href="{{ card.absoluteUrl }}")
-            +viewer
-              = checklist.title
-        if($eq activityType 'removeChecklist')
-          | {{{_ 'activity-checklist-removed' cardLink}}}.
-
-        if($eq activityType 'checkedItem')
-          | {{{_ 'activity-checked-item' checkItem checklist.title cardLink}}}.
-
-        if($eq activityType 'uncheckedItem')
-          | {{{_ 'activity-unchecked-item' checkItem checklist.title cardLink}}}.
-
-        if($eq activityType 'checklistCompleted')
-          | {{{_ 'activity-checklist-completed' checklist.title cardLink}}}.
-
-        if($eq activityType 'checklistUncompleted')
-          | {{{_ 'activity-checklist-uncompleted' checklist.title cardLink}}}.
-
-        if($eq activityType 'addChecklistItem')
-          | {{{_ 'activity-checklist-item-added' checklist.title cardLink}}}.
-          .activity-checklist(href="{{ card.absoluteUrl }}")
-            +viewer
-              = checklistItem.title
-        if($eq activityType 'removedChecklistItem')
-          | {{{_ 'activity-checklist-item-removed' checklist.title cardLink}}}.
-
-        if($eq activityType 'archivedCard')
-          | {{{_ 'activity-archived' cardLink}}}.
-
-        if($eq activityType 'archivedList')
-          | {{_ 'activity-archived' list.title}}.
-
-        if($eq activityType 'archivedSwimlane')
-          | {{_ 'activity-archived' swimlane.title}}.
-
-        if($eq activityType 'createBoard')
-          | {{_ 'activity-created' boardLabel}}.
-
-        if($eq activityType 'createCard')
-          | {{{_ 'activity-added' cardLink boardLabel}}}.
-
-        if($eq activityType 'createCustomField')
-          | {{_ 'activity-customfield-created' customField}}.
-
-        if($eq activityType 'createList')
-          | {{_ 'activity-added' list.title boardLabel}}.
-
-        if($eq activityType 'createSwimlane')
-          | {{_ 'activity-added' swimlane.title boardLabel}}.
-
-        if($eq activityType 'removeList')
-          | {{_ 'activity-removed' title boardLabel}}.
-
-        if($eq activityType 'importBoard')
-          | {{{_ 'activity-imported-board' boardLabel sourceLink}}}.
-
-        if($eq activityType 'importCard')
-          | {{{_ 'activity-imported' cardLink boardLabel sourceLink}}}.
-
-        if($eq activityType 'importList')
-          | {{{_ 'activity-imported' listLabel boardLabel sourceLink}}}.
-
-        if($eq activityType 'joinMember')
-          if($eq user._id member._id)
-            | {{{_ 'activity-joined' cardLink}}}.
-          else
-            | {{{_ 'activity-added' memberLink cardLink}}}.
-
-        if($eq activityType 'moveCardBoard')
-          | {{{_ 'activity-moved' cardLink oldBoardName boardName}}}.
-
-        if($eq activityType 'moveCard')
-          | {{{_ 'activity-moved' cardLink oldList.title list.title}}}.
-
-        if($eq activityType 'removeBoardMember')
-          | {{{_ 'activity-excluded' memberLink boardLabel}}}.
-
-        if($eq activityType 'restoredCard')
-          | {{{_ 'activity-sent' cardLink boardLabel}}}.
-
-        if($eq activityType 'addedLabel')
-          | {{{_ 'activity-added-label' lastLabel cardLink}}}.
-
-        if($eq activityType 'removedLabel')
-          | {{{_ 'activity-removed-label' lastLabel cardLink}}}.
-
-        if($eq activityType 'setCustomField')
-          | {{{_ 'activity-set-customfield' lastCustomField lastCustomFieldValue cardLink}}}.
-
-        if($eq activityType 'unsetCustomField')
-          | {{{_ 'activity-unset-customfield' lastCustomField cardLink}}}.
-
-        if($eq activityType 'unjoinMember')
-          if($eq user._id member._id)
-            | {{{_ 'activity-unjoined' cardLink}}}.
-          else
-            | {{{_ 'activity-removed' memberLink cardLink}}}.
-
-        span(title=createdAt).activity-meta {{ moment createdAt }}
+  each activityData in currentBoard.activities
+    +activity(activity=activityData card=card mode=mode)
 
 template(name="cardActivities")
-  each currentCard.activities
-    .activity
-      +userAvatar(userId=user._id)
-      p.activity-desc
-        +memberName(user=user)
-        if($eq activityType 'createCard')
-          | {{_ 'activity-added' cardLabel listName}}.
-        if($eq activityType 'importCard')
-          | {{{_ 'activity-imported' cardLabel list.title sourceLink}}}.
-        if($eq activityType 'joinMember')
-          if($eq user._id member._id)
-            | {{_ 'activity-joined' cardLabel}}.
-          else
-            | {{{_ 'activity-added' memberLink cardLabel}}}.
-        if($eq activityType 'unjoinMember')
-          if($eq user._id member._id)
-            | {{_ 'activity-unjoined' cardLabel}}.
-          else
-            | {{{_ 'activity-removed' cardLabel memberLink}}}.
-        if($eq activityType 'archivedCard')
-          | {{_ 'activity-archived' cardLabel}}.
+  each activityData in currentCard.activities
+    +activity(activity=activityData card=card mode=mode)
 
-        if($eq activityType 'addedLabel')
-          | {{{_ 'activity-added-label-card' lastLabel }}}.
+template(name="activity")
+  .activity
+    +userAvatar(userId=activity.user._id)
+    p.activity-desc
+      +memberName(user=activity.user)
 
-        if($eq activityType 'removedLabel')
-          | {{{_ 'activity-removed-label-card' lastLabel }}}.
+      //- attachment activity -------------------------------------------------
+      if($eq activity.activityType 'deleteAttachment')
+        | {{{_ 'activity-delete-attach' cardLink}}}.
 
-        if($eq activityType 'removeChecklist')
-          | {{{_ 'activity-checklist-removed' cardLabel}}}.
+      if($eq activity.activityType 'addAttachment')
+        | {{{_ 'activity-attached' attachmentLink cardLink}}}.
+        if($neq mode 'board')
+          if activity.attachment.isImage
+            img.attachment-image-preview(src=activity.attachment.url)
 
-        if($eq activityType 'checkedItem')
-          | {{{_ 'activity-checked-item-card' checkItem checklist.title }}}.
+      //- board activity ------------------------------------------------------
+      if($eq mode 'board')
+        if($eq activity.activityType 'createBoard')
+          | {{_ 'activity-created' boardLabel}}.
 
-        if($eq activityType 'uncheckedItem')
-          | {{{_ 'activity-unchecked-item-card' checkItem checklist.title }}}.
+        if($eq activity.activityType 'importBoard')
+          | {{{_ 'activity-imported-board' boardLabel sourceLink}}}.
 
-        if($eq activityType 'checklistCompleted')
-          | {{{_ 'activity-checklist-completed-card' checklist.title }}}.
+        if($eq activity.activityType 'addBoardMember')
+          | {{{_ 'activity-added' memberLink boardLabel}}}.
 
-        if($eq activityType 'checklistUncompleted')
-          | {{{_ 'activity-checklist-uncompleted-card' checklist.title }}}.
+        if($eq activity.activityType 'removeBoardMember')
+          | {{{_ 'activity-excluded' memberLink boardLabel}}}.
 
-        if($eq activityType 'restoredCard')
-          | {{_ 'activity-sent' cardLabel boardLabel}}.
-        if($eq activityType 'moveCard')
-          | {{_ 'activity-moved' cardLabel oldList.title list.title}}.
+      //- card activity -------------------------------------------------------
+      if($eq activity.activityType 'createCard')
+        if($eq mode 'card')
+          | {{{_ 'activity-added' cardLabel activity.listName}}}.
+        else
+          | {{{_ 'activity-added' cardLabel boardLabel}}}.
 
-        if($eq activityType 'moveCardBoard')
-          | {{{_ 'activity-moved' cardLink oldBoardName boardName}}}.
+      if($eq activity.activityType 'importCard')
+        | {{{_ 'activity-imported' cardLink boardLabel sourceLink}}}.
 
-        if($eq activityType 'addAttachment')
-          | {{{_ 'activity-attached' attachmentLink cardLabel}}}.
-          if attachment.isImage
-            img.attachment-image-preview(src=attachment.url)
-        if($eq activityType 'deleteAttachment')
-          | {{{_ 'activity-delete-attach'  cardLabel}}}.
-        if($eq activityType 'removedChecklist')
-          | {{{_ 'activity-checklist-removed' cardLabel}}}.
-        if($eq activityType 'addChecklist')
-          | {{{_ 'activity-checklist-added' cardLabel}}}.
+      if($eq activity.activityType 'moveCard')
+        | {{{_ 'activity-moved' cardLabel activity.oldList.title activity.list.title}}}.
+
+      if($eq activity.activityType 'moveCardBoard')
+        | {{{_ 'activity-moved' cardLink activity.oldBoardName activity.boardName}}}.
+
+      if($eq activity.activityType 'archivedCard')
+        | {{{_ 'activity-archived' cardLink}}}.
+
+      if($eq activity.activityType 'restoredCard')
+        | {{{_ 'activity-sent' cardLink boardLabel}}}.
+
+      //- checklist activity --------------------------------------------------
+      if($eq activity.activityType 'addChecklist')
+        | {{{_ 'activity-checklist-added' cardLink}}}.
+        if($eq mode 'card')
           .activity-checklist
             +viewer
-              = checklist.title
-        if($eq activityType 'addChecklistItem')
-          | {{{_ 'activity-checklist-item-added' checklist.title cardLink}}}.
-          .activity-checklist(href="{{ card.absoluteUrl }}")
+              = activity.checklist.title
+        else
+          a.activity-checklist(href="{{ activity.card.absoluteUrl }}")
             +viewer
-              = checklistItem.title
-        
-        if(currentData.timeKey)
-          | {{{_ activityType }}}
-          = ' '
-          i(title=currentData.timeValue).activity-meta {{ moment currentData.timeValue 'LLL' }}
-          if (currentData.timeOldValue)
-              = ' '                                                                                    
-              | {{{_ "previous_as" }}}
-              = ' '
-              i(title=currentData.timeOldValue).activity-meta {{ moment currentData.timeOldValue 'LLL' }}
-          = ' @'
-        else if(currentData.timeValue)
-          | {{{_ activityType currentData.timeValue}}}
-        
+              = activity.checklist.title
 
-        if($eq activityType 'deleteComment')
-          | {{{_ 'activity-deleteComment' currentData.commentId}}}.
-        if($eq activityType 'editComment')
-          | {{{_ 'activity-editComment' currentData.commentId}}}.
-        if($eq activityType 'addComment')
+      if($eq activity.activityType 'removedChecklist')
+        | {{{_ 'activity-checklist-removed' cardLink}}}.
+
+      if($eq activity.activityType 'completeChecklist')
+        | {{{_ 'activity-checklist-completed' activity.checklist.title cardLink}}}.
+
+      if($eq activity.activityType 'uncompleteChecklist')
+        | {{{_ 'activity-checklist-uncompleted' activity.checklist.title cardLink}}}.
+
+      if($eq activity.activityType 'checkedItem')
+        | {{{_ 'activity-checked-item' checkItem activity.checklist.title cardLink}}}.
+
+      if($eq activity.activityType 'uncheckedItem')
+        | {{{_ 'activity-unchecked-item' checkItem activity.checklist.title cardLink}}}.
+
+      if($eq activity.activityType 'addChecklistItem')
+        | {{{_ 'activity-checklist-item-added' activity.checklist.title cardLink}}}.
+        .activity-checklist(href="{{ activity.card.absoluteUrl }}")
+          +viewer
+            = activity.checklistItem.title
+
+      if($eq activity.activityType 'removedChecklistItem')
+        | {{{_ 'activity-checklist-item-removed' activity.checklist.title cardLink}}}.
+
+      //- comment activity ----------------------------------------------------
+      if($eq mode 'card')
+        //- if we are in card mode we display the comment in a way that it
+        //- can be edited by the owner
+        if($eq activity.activityType 'addComment')
           +inlinedForm(classNames='js-edit-comment')
             +editor(autofocus=true)
-              = comment.text
+              = activity.comment.text
             .edit-controls
               button.primary(type="submit") {{_ 'edit'}}
           else
             .activity-comment
               +viewer
-                = comment.text
-            span(title=createdAt).activity-meta {{ moment createdAt }}
-              if ($eq currentUser._id comment.userId)
+                = activity.comment.text
+            span(title=activity.createdAt).activity-meta {{ moment activity.createdAt }}
+              if ($eq currentUser._id activity.comment.userId)
                 = ' - '
                 a.js-open-inlined-form {{_ "edit"}}
                 = ' - '
                 a.js-delete-comment {{_ "delete"}}
 
+        if($eq activity.activityType 'deleteComment')
+          | {{{_ 'activity-deleteComment' currentData.commentId}}}.
+
+        if($eq activity.activityType 'editComment')
+          | {{{_ 'activity-editComment' currentData.commentId}}}.
+      else
+        //- if we are not in card mode we only display a summary of the comment
+        if($eq activity.activityType 'addComment')
+          | {{{_ 'activity-on' cardLink}}}
+          a.activity-comment(href="{{ activity.card.absoluteUrl }}")
+            +viewer
+              = activity.comment.text
+
+      //- customField activity ------------------------------------------------
+      if($eq mode 'board')
+        if($eq activity.activityType 'createCustomField')
+          | {{_ 'activity-customfield-created' customField}}.
+
+        if($eq activity.activityType 'setCustomField')
+          | {{{_ 'activity-set-customfield' lastCustomField lastCustomFieldValue cardLink}}}.
+
+        if($eq activity.activityType 'unsetCustomField')
+          | {{{_ 'activity-unset-customfield' lastCustomField cardLink}}}.
+
+      //- label activity ------------------------------------------------------
+      if($eq activity.activityType 'addedLabel')
+        | {{{_ 'activity-added-label' lastLabel cardLink}}}.
+
+      if($eq activity.activityType 'removedLabel')
+        | {{{_ 'activity-removed-label' lastLabel cardLink}}}.
+
+      //- list activity -------------------------------------------------------
+      if($neq mode 'card')
+        if($eq activity.activityType 'createList')
+          | {{{_ 'activity-added' listLabel boardLabel}}}.
+
+        if($eq activity.activityType 'importList')
+          | {{{_ 'activity-imported' listLabel boardLabel sourceLink}}}.
+
+        if($eq activity.activityType 'removeList')
+          | {{{_ 'activity-removed' activity.title boardLabel}}}.
+
+        if($eq activity.activityType 'archivedList')
+          | {{_ 'activity-archived' listLabel}}.
+
+      //- member activity ----------------------------------------------------
+      if($eq activity.activityType 'joinMember')
+        if($eq user._id activity.member._id)
+          | {{{_ 'activity-joined' cardLink}}}.
         else
-          span(title=createdAt).activity-meta {{ moment createdAt }}
+          | {{{_ 'activity-added' memberLink cardLink}}}.
+
+      if($eq activity.activityType 'unjoinMember')
+        if($eq user._id activity.member._id)
+          | {{{_ 'activity-unjoined' cardLink}}}.
+        else
+          | {{{_ 'activity-removed' memberLink cardLink}}}.
+
+      //- swimlane activity --------------------------------------------------
+      if($neq mode 'card')
+        if($eq activity.activityType 'createSwimlane')
+          | {{{_ 'activity-added' activity.swimlane.title boardLabel}}}.
+
+        if($eq activity.activityType 'archivedSwimlane')
+          | {{_ 'activity-archived' activity.swimlane.title}}.
+
+
+      //- I don't understand this part ----------------------------------------
+      if(currentData.timeKey)
+        | {{{_ activity.activityType }}}
+        = ' '
+        i(title=currentData.timeValue).activity-meta {{ moment currentData.timeValue 'LLL' }}
+        if (currentData.timeOldValue)
+          = ' '
+            | {{{_ "previous_as" }}}
+            = ' '
+            i(title=currentData.timeOldValue).activity-meta {{ moment currentData.timeOldValue 'LLL' }}
+        = ' @'
+      else if(currentData.timeValue)
+        | {{{_ activity.activityType currentData.timeValue}}}
+
+      span(title=activity.createdAt).activity-meta {{ moment activity.createdAt }}

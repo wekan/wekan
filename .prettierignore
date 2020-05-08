@@ -5,3 +5,4 @@ node_modules/
 .vscode/
 .tx/
 .github/
+.snap-meteor-1.8/

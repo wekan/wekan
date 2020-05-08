@@ -13,21 +13,46 @@ template(name="headerUserBar")
 template(name="memberMenuPopup")
   ul.pop-over-list
     with currentUser
-      li: a.js-edit-profile {{_ 'edit-profile'}}
-      li: a.js-change-settings {{_ 'change-settings'}}
-      li: a.js-change-avatar {{_ 'edit-avatar'}}
+      li
+        a.js-edit-profile
+          i.fa.fa-user
+          | {{_ 'edit-profile'}}
+      li
+        a.js-change-settings
+          i.fa.fa-cog
+          | {{_ 'change-settings'}}
+      li
+        a.js-change-avatar
+          i.fa.fa-picture-o
+          | {{_ 'edit-avatar'}}
       unless isSandstorm
-        li: a.js-change-password {{_ 'changePasswordPopup-title'}}
-        li: a.js-change-language {{_ 'changeLanguagePopup-title'}}
+        li
+          a.js-change-password
+            i.fa.fa-key
+            | {{_ 'changePasswordPopup-title'}}
+        li
+          a.js-change-language
+            i.fa.fa-flag
+            | {{_ 'changeLanguagePopup-title'}}
     if currentUser.isAdmin
-      li: a.js-go-setting(href="{{pathFor 'setting'}}") {{_ 'admin-panel'}}
-  hr
-  ul.pop-over-list
-    li: a(href="{{pathFor 'board' id=templatesBoardId slug=templatesBoardSlug}}") {{_ 'templates'}}
+      li
+        a.js-go-setting(href="{{pathFor 'setting'}}")
+          i.fa.fa-lock
+          | {{_ 'admin-panel'}}
+  unless currentUser.isWorker
+    hr
+    ul.pop-over-list
+      li
+        a(href="{{pathFor 'board' id=templatesBoardId slug=templatesBoardSlug}}")
+          i.fa.fa-clone
+          | {{_ 'templates'}}
   unless isSandstorm
     hr
     ul.pop-over-list
-      li: a.js-logout {{_ 'log-out'}}
+      li
+        a.js-logout
+          i.fa.fa-sign-out
+          | {{_ 'log-out'}}
 
 template(name="editProfilePopup")
   form
@@ -73,23 +98,36 @@ template(name="changeLanguagePopup")
 
 template(name="changeSettingsPopup")
   ul.pop-over-list
-    li
-      a.js-toggle-system-messages
-        | {{_ 'hide-system-messages'}}
-        if hiddenSystemMessages
-          i.fa.fa-check
+    //li
+    //  a.js-toggle-system-messages
+    //    i.fa.fa-comments-o
+    //    | {{_ 'hide-system-messages'}}
+    //    if hiddenSystemMessages
+    //      i.fa.fa-check
     li
       a.js-toggle-desktop-drag-handles
+        i.fa.fa-arrows
         | {{_ 'show-desktop-drag-handles'}}
         if showDesktopDragHandles
           i.fa.fa-check
-    li
-      label.bold
-        | {{_ 'show-cards-minimum-count'}}
-      input#show-cards-count-at.inline-input.left(type="number" value="#{showCardsCountAt}" min="0" max="99" onkeydown="return false")
-      input.js-apply-show-cards-at.left(type="submit" value="{{_ 'apply'}}")
-
+    unless currentUser.isWorker
+      li
+        label.bold.clear
+          i.fa.fa-sort-numeric-asc
+          | {{_ 'show-cards-minimum-count'}}
+        input#show-cards-count-at.inline-input.left(type="number" value="#{showCardsCountAt}" min="0" max="99" onkeydown="return false")
+        label.bold.clear
+          i.fa.fa-calendar
+          | {{_ 'start-day-of-week'}}
+        select#start-day-of-week.inline-input.left
+          each day in weekDays startDayOfWeek
+            if day.isSelected
+              option(selected="true", value="#{day.value}") #{day.name}
+            else
+              option(value="#{day.value}") #{day.name}
+        input.js-apply-user-settings.left(type="submit" value="{{_ 'apply'}}")
 
 template(name="userDeletePopup")
-  p {{_ 'delete-user-confirm-popup'}}
-  button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
+  unless currentUser.isWorker
+    p {{_ 'delete-user-confirm-popup'}}
+    button.js-confirm.negate.full(type="submit") {{_ 'delete'}}

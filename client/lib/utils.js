@@ -24,18 +24,14 @@ Utils = {
     currentUser = Meteor.user();
     if (currentUser) {
       return (currentUser.profile || {}).boardView;
+    } else if (cookies.get('boardView') === 'board-view-lists') {
+      return 'board-view-lists';
+    } else if (cookies.get('boardView') === 'board-view-swimlanes') {
+      return 'board-view-swimlanes';
+    } else if (cookies.get('boardView') === 'board-view-cal') {
+      return 'board-view-cal';
     } else {
-      if (cookies.get('boardView') === 'board-view-lists') {
-        return 'board-view-lists';
-      } else if (
-        cookies.get('boardView') === 'board-view-swimlanes'
-      ) {
-        return 'board-view-swimlanes';
-      } else if (cookies.get('boardView') === 'board-view-cal') {
-        return 'board-view-cal';
-      } else {
-        return false;
-      }
+      return false;
     }
   },
 
@@ -43,8 +39,8 @@ Utils = {
   goBoardId(_id) {
     const board = Boards.findOne(_id);
     return (
-      board
-      && FlowRouter.go('board', {
+      board &&
+      FlowRouter.go('board', {
         id: board._id,
         slug: board.slug,
       })
@@ -55,8 +51,8 @@ Utils = {
     const card = Cards.findOne(_id);
     const board = Boards.findOne(card.boardId);
     return (
-      board
-      && FlowRouter.go('card', {
+      board &&
+      FlowRouter.go('card', {
         cardId: card._id,
         boardId: board._id,
         slug: board.slug,
@@ -151,8 +147,38 @@ Utils = {
   // in a small window (even on desktop), Wekan run in compact mode.
   // we can easily debug with a small window of desktop browser. :-)
   isMiniScreen() {
+    // OLD WINDOW WIDTH DETECTION:
     this.windowResizeDep.depend();
     return $(window).width() <= 800;
+
+    // NEW TOUCH DEVICE DETECTION:
+    // https://developer.mozilla.org/en-US/docs/Web/HTTP/Browser_detection_using_the_user_agent
+
+    /*
+    var hasTouchScreen = false;
+    if ("maxTouchPoints" in navigator) {
+        hasTouchScreen = navigator.maxTouchPoints > 0;
+    } else if ("msMaxTouchPoints" in navigator) {
+        hasTouchScreen = navigator.msMaxTouchPoints > 0;
+    } else {
+        var mQ = window.matchMedia && matchMedia("(pointer:coarse)");
+        if (mQ && mQ.media === "(pointer:coarse)") {
+            hasTouchScreen = !!mQ.matches;
+        } else if ('orientation' in window) {
+            hasTouchScreen = true; // deprecated, but good fallback
+        } else {
+            // Only as a last resort, fall back to user agent sniffing
+            var UA = navigator.userAgent;
+            hasTouchScreen = (
+                /\b(BlackBerry|webOS|iPhone|IEMobile)\b/i.test(UA) ||
+                /\b(Android|Windows Phone|iPad|iPod)\b/i.test(UA)
+            );
+        }
+    }
+    */
+    //if (hasTouchScreen)
+    //    document.getElementById("exampleButton").style.padding="1em";
+    //return false;
   },
 
   calculateIndexData(prevData, nextData, nItems = 1) {
@@ -227,8 +253,8 @@ Utils = {
       };
 
       if (
-        'ontouchstart' in window
-        || (window.DocumentTouch && document instanceof window.DocumentTouch)
+        'ontouchstart' in window ||
+        (window.DocumentTouch && document instanceof window.DocumentTouch)
       ) {
         return true;
       }
@@ -249,8 +275,8 @@ Utils = {
 
   calculateTouchDistance(touchA, touchB) {
     return Math.sqrt(
-      Math.pow(touchA.screenX - touchB.screenX, 2)
-        + Math.pow(touchA.screenY - touchB.screenY, 2),
+      Math.pow(touchA.screenX - touchB.screenX, 2) +
+        Math.pow(touchA.screenY - touchB.screenY, 2),
     );
   },
 
@@ -267,9 +293,9 @@ Utils = {
     });
     $(document).on('touchend', selector, function(e) {
       if (
-        touchStart
-        && lastTouch
-        && Utils.calculateTouchDistance(touchStart, lastTouch) <= 20
+        touchStart &&
+        lastTouch &&
+        Utils.calculateTouchDistance(touchStart, lastTouch) <= 20
       ) {
         e.preventDefault();
         const clickEvent = document.createEvent('MouseEvents');

@@ -100,6 +100,10 @@ template(name="minicard")
       if getDescription
         .badge.badge-state-image-only(title=getDescription)
           span.badge-icon.fa.fa-align-left
+      if getVoteQuestion
+        .badge.badge-state-image-only(title=getVoteQuestion)
+          span.badge-icon.fa.fa-thumbs-up
+          span.badge-icon.fa.fa-thumbs-down
       if attachments.count
         .badge
           span.badge-icon.fa.fa-paperclip

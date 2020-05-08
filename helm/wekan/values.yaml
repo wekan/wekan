@@ -8,6 +8,7 @@
 serviceAccounts:
   create: true
   name: ""
+  annotations: ""
 
 ## Wekan image configuration
 ##
@@ -29,7 +30,9 @@ credentials:
 
 ## Specify additional environmental variables for the Deployment
 ##
-env: {}
+env:
+  - name: ""
+    value: ""
 
 service:
   type: NodePort
@@ -59,7 +62,10 @@ ingress:
   #    hosts:
   #      - wekan-example.local
 
-resources: 
+route:
+  enabled: false
+
+resources:
   requests:
     memory: 128Mi
     cpu: 300m

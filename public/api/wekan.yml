@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v3.57
+  version: v4.01
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -209,6 +209,12 @@ paths:
           in: formData
           description: |
             only enable comments (default false)
+          type: boolean
+          required: false
+        - name: isWorker
+          in: formData
+          description: |
+            only move cards, assign himself to card and comment (default false)
           type: boolean
           required: false
         - name: permission
@@ -1534,6 +1540,12 @@ paths:
             CommentsOnly capability
           type: boolean
           required: true
+        - name: isWorker
+          in: formData
+          description: |
+            Worker capability
+          type: boolean
+          required: true
         - name: board
           in: path
           description: |
@@ -2081,9 +2093,75 @@ definitions:
            The default List ID assigned to subtasks.
         type: string
         x-nullable: true
+      dateSettingsDefaultBoardId:
+        type: string
+        x-nullable: true
+      dateSettingsDefaultListId:
+        type: string
+        x-nullable: true
       allowsSubtasks:
         description: |
            Does the board allows subtasks?
+        type: boolean
+      allowsAttachments:
+        description: |
+           Does the board allows attachments?
+        type: boolean
+      allowsChecklists:
+        description: |
+           Does the board allows checklists?
+        type: boolean
+      allowsComments:
+        description: |
+           Does the board allows comments?
+        type: boolean
+      allowsDescriptionTitle:
+        description: |
+           Does the board allows description title?
+        type: boolean
+      allowsDescriptionText:
+        description: |
+           Does the board allows description text?
+        type: boolean
+      allowsActivities:
+        description: |
+           Does the board allows comments?
+        type: boolean
+      allowsLabels:
+        description: |
+           Does the board allows labels?
+        type: boolean
+      allowsAssignee:
+        description: |
+           Does the board allows assignee?
+        type: boolean
+      allowsMembers:
+        description: |
+           Does the board allows members?
+        type: boolean
+      allowsRequestedBy:
+        description: |
+           Does the board allows requested by?
+        type: boolean
+      allowsAssignedBy:
+        description: |
+           Does the board allows requested by?
+        type: boolean
+      allowsReceivedDate:
+        description: |
+           Does the board allows received date?
+        type: boolean
+      allowsStartDate:
+        description: |
+           Does the board allows start date?
+        type: boolean
+      allowsEndDate:
+        description: |
+           Does the board allows end date?
+        type: boolean
+      allowsDueDate:
+        description: |
+           Does the board allows due date?
         type: boolean
       presentParentTask:
         description: |
@@ -2131,6 +2209,10 @@ definitions:
         description: |
            The type of board
         type: string
+      sort:
+        description: |
+           Sort value
+        type: number
     required:
       - title
       - slug
@@ -2142,7 +2224,23 @@ definitions:
       - permission
       - color
       - allowsSubtasks
+      - allowsAttachments
+      - allowsChecklists
+      - allowsComments
+      - allowsDescriptionTitle
+      - allowsDescriptionText
+      - allowsActivities
+      - allowsLabels
+      - allowsAssignee
+      - allowsMembers
+      - allowsRequestedBy
+      - allowsAssignedBy
+      - allowsReceivedDate
+      - allowsStartDate
+      - allowsEndDate
+      - allowsDueDate
       - type
+      - sort
   BoardsLabels:
     type: object
     properties:
@@ -2214,6 +2312,10 @@ definitions:
       isCommentOnly:
         description: |
            Is the member only allowed to comment on the board
+        type: boolean
+      isWorker:
+        description: |
+           Is the member only allowed to move card, assign himself to card and comment
         type: boolean
     required:
       - userId
@@ -2426,6 +2528,11 @@ definitions:
            ID of the linked card
         type: string
         x-nullable: true
+      vote:
+        description: |
+           vote object, see below
+        $ref: "#/definitions/CardsVote"
+        x-nullable: true
     required:
       - archived
       - swimlaneId
@@ -2435,6 +2542,32 @@ definitions:
       - userId
       - sort
       - type
+  CardsVote:
+    type: object
+    properties:
+      question:
+        type: string
+      positive:
+        description: |
+           list of members (user IDs)
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      negative:
+        description: |
+           list of members (user IDs)
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      end:
+        type: string
+      public:
+        type: boolean
+    required:
+      - question
+      - public
   CardsCustomfields:
     type: object
   ChecklistItems:
@@ -2928,11 +3061,22 @@ definitions:
            enabled notifications for the user
         type: array
         items:
-          type: string
-          x-nullable: true
+          $ref: "#/definitions/UsersProfileNotifications"
+      activity:
+        description: |
+           The id of the activity this notification references
+        type: string
+      read:
+        description: |
+           the date on which this notification was read
+        type: string
       showCardsCountAt:
         description: |
            showCardCountAt field of the user
+        type: number
+      startDayOfWeek:
+        description: |
+           startDayOfWeek field of the user
         type: number
       starredBoards:
         description: |
@@ -2981,6 +3125,7 @@ definitions:
            Reference to the board templates swimlane Id
         type: string
     required:
+      - activity
       - templatesBoardId
       - cardTemplatesSwimlaneId
       - listTemplatesSwimlaneId

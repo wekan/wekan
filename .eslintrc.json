@@ -11,6 +11,7 @@
     "browser": true,
     "meteor": true
   },
+  "parser": "babel-eslint",
   "parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module"
@@ -145,6 +146,7 @@
     "allowIsBoardMemberByCard": true,
     "allowIsBoardMemberCommentOnly": true,
     "allowIsBoardMemberNoComments": true,
+    "allowIsBoardMemberWorker": true,
     "Emoji": true,
     "Checklists": true,
     "Settings": true,

@@ -1,10 +1,10 @@
 template(name="boardList")
   .wrapper
-    ul.board-list.clearfix
+    ul.board-list.clearfix.js-boards
       li.js-add-board
         a.board-list-item.label {{_ 'add-board'}}
       each boards
-        li(class="{{#if isStarred}}starred{{/if}}" class=colorClass)
+        li(class="{{#if isStarred}}starred{{/if}}" class=colorClass).js-board
           if isInvited
             .board-list-item
               span.details
@@ -39,7 +39,7 @@ template(name="boardList")
                     i.fa.js-archive-board(
                         class="fa-archive"
                         title="{{_ 'archive-board'}}")
-                  else if currentUser.isBoardAdmin
+                  else if isAdministrable
                     i.fa.js-clone-board(
                         class="fa-clone"
                         title="{{_ 'duplicate-board'}}")
@@ -55,7 +55,7 @@ template(name="boardList")
                         title="{{_ 'archive-board'}}")
 
 template(name="boardListHeaderBar")
-  h1 {{_ 'my-boards'}}
+  h1 {{_ title }}
   .board-header-btns.right
     a.board-header-btn.js-open-archived-board
       i.fa.fa-archive

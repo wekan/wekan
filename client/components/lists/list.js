@@ -1,6 +1,6 @@
 import { Cookies } from 'meteor/ostrio:cookies';
 const cookies = new Cookies();
-const { calculateIndex, enableClickOnTouch } = Utils;
+const { calculateIndex } = Utils;
 
 BlazeComponent.extendComponent({
   // Proxy
@@ -114,9 +114,6 @@ BlazeComponent.extendComponent({
       },
     });
 
-    // ugly touch event hotfix
-    enableClickOnTouch(itemsSelector);
-
     this.autorun(() => {
       let showDesktopDragHandles = false;
       currentUser = Meteor.user();
@@ -129,18 +126,26 @@ BlazeComponent.extendComponent({
         showDesktopDragHandles = false;
       }
 
-      if (!Utils.isMiniScreen() && showDesktopDragHandles) {
+      if (Utils.isMiniScreen() || showDesktopDragHandles) {
         $cards.sortable({
           handle: '.handle',
         });
-      } else {
+      } else if (!Utils.isMiniScreen() && !showDesktopDragHandles) {
         $cards.sortable({
           handle: '.minicard',
         });
       }
 
-      // Disable drag-dropping if the current user is not a board member or is comment only
-      $cards.sortable('option', 'disabled', !userIsMember());
+      if ($cards.data('uiSortable') || $cards.data('sortable')) {
+        $cards.sortable(
+          'option',
+          'disabled',
+          // Disable drag-dropping when user is not member
+          !userIsMember(),
+          // Not disable drag-dropping while in multi-selection mode
+          // MultiSelection.isActive() || !userIsMember(),
+        );
+      }
     });
 
     // We want to re-run this function any time a card is added.
@@ -176,12 +181,10 @@ Template.list.helpers({
     currentUser = Meteor.user();
     if (currentUser) {
       return (currentUser.profile || {}).showDesktopDragHandles;
+    } else if (cookies.has('showDesktopDragHandles')) {
+      return true;
     } else {
-      if (cookies.has('showDesktopDragHandles')) {
-        return true;
-      } else {
-        return false;
-      }
+      return false;
     }
   },
 });

@@ -108,7 +108,7 @@ if (Meteor.isServer) {
     let participants = [];
     let watchers = [];
     let title = 'act-activity-notify';
-    let board = null;
+    const board = Boards.findOne(activity.boardId);
     const description = `act-${activity.activityType}`;
     const params = {
       activityId: activity._id,
@@ -122,8 +122,11 @@ if (Meteor.isServer) {
       params.userId = activity.userId;
     }
     if (activity.boardId) {
-      board = activity.board();
-      params.board = board.title;
+      if (board.title.length > 0) {
+        params.board = board.title;
+      } else {
+        params.board = '';
+      }
       title = 'act-withBoardTitle';
       params.url = board.absoluteUrl();
       params.boardId = activity.boardId;
@@ -279,7 +282,10 @@ if (Meteor.isServer) {
       );
     }
     Notifications.getUsers(watchers).forEach(user => {
-      Notifications.notify(user, title, description, params);
+      // don't notify a user of their own behavior
+      if (user._id !== userId) {
+        Notifications.notify(user, title, description, params);
+      }
     });
 
     const integrations = Integrations.find({

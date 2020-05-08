@@ -39,6 +39,9 @@ BlazeComponent.extendComponent({
             this.filterPeople();
           }
         },
+        'click #newUserButton'() {
+          Popup.open('newUser');
+        },
       },
     ];
   },
@@ -141,6 +144,47 @@ Template.editUserPopup.helpers({
   },
 });
 
+Template.newUserPopup.onCreated(function() {
+  this.authenticationMethods = new ReactiveVar([]);
+  this.errorMessage = new ReactiveVar('');
+
+  Meteor.call('getAuthenticationsEnabled', (_, result) => {
+    if (result) {
+      // TODO : add a management of different languages
+      // (ex {value: ldap, text: TAPi18n.__('ldap', {}, T9n.getLanguage() || 'en')})
+      this.authenticationMethods.set([
+        { value: 'password' },
+        // Gets only the authentication methods availables
+        ...Object.entries(result)
+          .filter(e => e[1])
+          .map(e => ({ value: e[0] })),
+      ]);
+    }
+  });
+});
+
+Template.newUserPopup.helpers({
+  //user() {
+  //  return Users.findOne(this.userId);
+  //},
+  authentications() {
+    return Template.instance().authenticationMethods.get();
+  },
+  //isSelected(match) {
+  //  const userId = Template.instance().data.userId;
+  //  const selected = Users.findOne(userId).authenticationMethod;
+  //  return selected === match;
+  //},
+  //isLdap() {
+  //  const userId = Template.instance().data.userId;
+  //  const selected = Users.findOne(userId).authenticationMethod;
+  //  return selected === 'ldap';
+  //},
+  errorMessage() {
+    return Template.instance().errorMessage.get();
+  },
+});
+
 BlazeComponent.extendComponent({
   onCreated() {},
   user() {
@@ -154,6 +198,16 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('peopleRow');
+
+BlazeComponent.extendComponent({
+  events() {
+    return [
+      {
+        'click a.new-user': Popup.open('newUser'),
+      },
+    ];
+  },
+}).register('newUserRow');
 
 Template.editUserPopup.events({
   submit(event, templateInstance) {
@@ -247,4 +301,45 @@ Template.editUserPopup.events({
     Users.remove(this.userId);
     Popup.close();
   }),
+});
+
+Template.newUserPopup.events({
+  submit(event, templateInstance) {
+    event.preventDefault();
+    const fullname = templateInstance.find('.js-profile-fullname').value.trim();
+    const username = templateInstance.find('.js-profile-username').value.trim();
+    const password = templateInstance.find('.js-profile-password').value;
+    const isAdmin = templateInstance.find('.js-profile-isadmin').value.trim();
+    const isActive = templateInstance.find('.js-profile-isactive').value.trim();
+    const email = templateInstance.find('.js-profile-email').value.trim();
+
+    Meteor.call(
+      'setCreateUser',
+      fullname,
+      username,
+      password,
+      isAdmin,
+      isActive,
+      email.toLowerCase(),
+      function(error) {
+        const usernameMessageElement = templateInstance.$('.username-taken');
+        const emailMessageElement = templateInstance.$('.email-taken');
+        if (error) {
+          const errorElement = error.error;
+          if (errorElement === 'username-already-taken') {
+            usernameMessageElement.show();
+            emailMessageElement.hide();
+          } else if (errorElement === 'email-already-taken') {
+            usernameMessageElement.hide();
+            emailMessageElement.show();
+          }
+        } else {
+          usernameMessageElement.hide();
+          emailMessageElement.hide();
+          Popup.close();
+        }
+      },
+    );
+    Popup.close();
+  },
 });

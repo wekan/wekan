@@ -33,14 +33,6 @@ Settings.attachSchema(
       type: String,
       optional: true,
     },
-    customHTMLafterBodyStart: {
-      type: String,
-      optional: true,
-    },
-    customHTMLbeforeBodyEnd: {
-      type: String,
-      optional: true,
-    },
     displayAuthenticationMethod: {
       type: Boolean,
       optional: true,
@@ -206,6 +198,10 @@ if (Meteor.isServer) {
     return process.env.CAS_ENABLED === 'true';
   }
 
+  function isApiEnabled() {
+    return process.env.WITH_API === 'true';
+  }
+
   Meteor.methods({
     sendInvitation(emails, boards) {
       check(emails, [String]);
@@ -322,6 +318,10 @@ if (Meteor.isServer) {
       return isCasEnabled();
     },
 
+    _isApiEnabled() {
+      return isApiEnabled();
+    },
+
     // Gets all connection methods to use it in the Template
     getAuthenticationsEnabled() {
       return {
@@ -333,6 +333,10 @@ if (Meteor.isServer) {
 
     getDefaultAuthenticationMethod() {
       return process.env.DEFAULT_AUTHENTICATION_METHOD;
+    },
+
+    isPasswordLoginDisabled() {
+      return process.env.PASSWORD_LOGIN_ENABLED === 'false';
     },
   });
 }

@@ -22,10 +22,10 @@ const pkgdef :Spk.PackageDefinition = (
     appTitle = (defaultText = "Wekan"),
     # The name of the app as it is displayed to the user.
 
-    appVersion = 359,
+    appVersion = 401,
     # Increment this for every release.
 
-    appMarketingVersion = (defaultText = "3.57.0~2019-12-22"),
+    appMarketingVersion = (defaultText = "4.01.0~2020-04-28"),
     # Human-readable presentation of the app version.
 
     minUpgradableAppVersion = 0,
@@ -238,8 +238,11 @@ const myCommand :Spk.Manifest.Command = (
     # Note that this defines the *entire* environment seen by your app.
     (key = "PATH", value = "/usr/local/bin:/usr/bin:/bin"),
     (key = "WITH_API", value = "true"),
-    (key = "RICHER_CARD_COMMENT_EDITOR", value="true"),
+    (key = "RICHER_CARD_COMMENT_EDITOR", value="false"),
+    (key = "SCROLLINERTIA", value="0"),
+    (key = "SCROLLAMOUNT", value="auto"),
     (key = "CARD_OPENED_WEBHOOK_ENABLED", value="false"),
+    (key = "NOTIFICATION_TRAY_AFTER_READ_DAYS_BEFORE_REMOVE", value=""),
     (key = "BIGEVENTS_PATTERN", value="NONE"),
     (key = "MATOMO_ADDRESS", value=""),
     (key = "MATOMO_SITE_ID", value=""),
@@ -256,6 +259,7 @@ const myCommand :Spk.Manifest.Command = (
     (key = "OAUTH2_USERINFO_ENDPOINT", value=""),
     (key = "OAUTH2_TOKEN_ENDPOINT", value=""),
     (key = "LDAP_ENABLE", value="false"),
+    (key = "PASSWORD_LOGIN_ENABLED", value="true"),
     (key = "SANDSTORM", value="1"),
     (key = "METEOR_SETTINGS", value = "{\"public\": {\"sandstorm\": true}}")
   ]

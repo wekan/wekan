@@ -285,6 +285,30 @@ export class TrelloCreator {
           cardToCreate.members = wekanMembers;
         }
       }
+      // add vote
+      if (card.idMembersVoted) {
+        // Trello only know's positive votes
+        const positiveVotes = [];
+        card.idMembersVoted.forEach(trelloId => {
+          if (this.members[trelloId]) {
+            const wekanId = this.members[trelloId];
+            // we may map multiple Trello members to the same wekan user
+            // in which case we risk adding the same user multiple times
+            if (!positiveVotes.find(wId => wId === wekanId)) {
+              positiveVotes.push(wekanId);
+            }
+          }
+          return true;
+        });
+        if (positiveVotes.length > 0) {
+          cardToCreate.vote = {
+            question: cardToCreate.title,
+            public: true,
+            positive: positiveVotes,
+          };
+        }
+      }
+
       // insert card
       const cardId = Cards.direct.insert(cardToCreate);
       // keep track of Trello id => Wekan id

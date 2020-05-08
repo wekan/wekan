@@ -1,3 +1,0 @@
-`someone@example.com`
-
-``*test`*

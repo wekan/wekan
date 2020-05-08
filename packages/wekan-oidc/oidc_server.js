@@ -10,6 +10,8 @@ OAuth.registerService('oidc', 2, null, function (query) {
   var expiresAt = (+new Date) + (1000 * parseInt(token.expires_in, 10));
 
   var userinfo = getUserInfo(accessToken);
+  if (userinfo.ocs) userinfo = userinfo.ocs.data; // Nextcloud hack
+  if (userinfo.metadata) userinfo = userinfo.metadata // Openshift hack
   if (debug) console.log('XXX: userinfo:', userinfo);
 
   var serviceData = {};
@@ -71,7 +73,6 @@ var getToken = function (query) {
           client_secret: OAuth.openSecret(config.secret),
           redirect_uri: OAuth._redirectUri('oidc', config),
           grant_type: 'authorization_code',
-          scope: requestPermissions,
           state: query.state
         }
       }
@@ -131,9 +132,9 @@ var getTokenContent = function (token) {
   if (token) {
     try {
       var parts = token.split('.');
-      var header = JSON.parse(new Buffer(parts[0], 'base64').toString());
-      content = JSON.parse(new Buffer(parts[1], 'base64').toString());
-      var signature = new Buffer(parts[2], 'base64');
+      var header = JSON.parse(Buffer.from(parts[0], 'base64').toString());
+      content = JSON.parse(Buffer.from(parts[1], 'base64').toString());
+      var signature = Buffer.from(parts[2], 'base64');
       var signed = parts[0] + '.' + parts[1];
     } catch (err) {
       this.content = {
