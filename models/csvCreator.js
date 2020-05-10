@@ -128,10 +128,9 @@ export class CsvCreator {
     };
 
     // create labels
+    const labelsToCreate = new Set();
     for (let i = 1; i < csvData.length; i++) {
-      //get the label column
       if (csvData[i][this.fieldIndex.labels]) {
-        const labelsToCreate = new Set();
         for (const importedLabel of csvData[i][this.fieldIndex.labels].split(
           ' ',
         )) {
@@ -139,22 +138,22 @@ export class CsvCreator {
             labelsToCreate.add(importedLabel);
           }
         }
-        for (const label of labelsToCreate) {
-          let labelName, labelColor;
-          if (label.indexOf('-') > -1) {
-            labelName = label.split('-')[0];
-            labelColor = label.split('-')[1];
-          } else {
-            labelName = label;
-          }
-          const labelToCreate = {
-            _id: Random.id(6),
-            color: labelColor ? labelColor : 'black',
-            name: labelName,
-          };
-          boardToCreate.labels.push(labelToCreate);
-        }
       }
+    }
+    for (const label of labelsToCreate) {
+      let labelName, labelColor;
+      if (label.indexOf('-') > -1) {
+        labelName = label.split('-')[0];
+        labelColor = label.split('-')[1];
+      } else {
+        labelName = label;
+      }
+      const labelToCreate = {
+        _id: Random.id(6),
+        color: labelColor ? labelColor : 'black',
+        name: labelName,
+      };
+      boardToCreate.labels.push(labelToCreate);
     }
 
     const boardId = Boards.direct.insert(boardToCreate);
