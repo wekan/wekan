@@ -8,8 +8,16 @@ This release adds the following server platforms:
 and adds the following features:
 
 - [Install Wekan to mobile homescreen icon and use fullscreen
-  PWA](https://github.com/commit/8d5adc04645e3e71423f16869f39b8d79969bccd).
+  PWA](https://github.com/wekan/wekan/commit/8d5adc04645e3e71423f16869f39b8d79969bccd).
   [Docs for iOS and Android at wiki PWA page](https://github.com/wekan/wekan/wiki/PWA).
+  Thanks to xet7.
+- [Add options to rebuild-wekan.sh to run Meteor in development mode where after
+  file change it rebuilds](https://github.com/wekan/wekan/commit/5f915ef966170ea7baca7ddeb11319bc08a26fef).
+  Thanks to xet7.
+
+and adds the following updates:
+
+- [Update dependencies](https://github.com/wekan/wekan/commit/75bdd33fda58ea0233f5b38c466bcb1a9b0406ab).
   Thanks to xet7.
 
 and fixes the following bugs:
