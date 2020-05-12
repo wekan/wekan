@@ -27,6 +27,9 @@ and fixes the following bugs:
 - [Fix shortcuts list and support card shortcuts when hovering
   a card](https://github.com/wekan/wekan/pull/3066).
   Thanks to marc1006.
+- [Add white-space:normal to copy-to-clipboard button in card
+  details](https://github.com/wekan/wekan/pull/3075).
+  Thanks to helioguardabaxo.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
