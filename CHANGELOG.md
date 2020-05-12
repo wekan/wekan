@@ -30,6 +30,8 @@ and fixes the following bugs:
 - [Add white-space:normal to copy-to-clipboard button in card
   details](https://github.com/wekan/wekan/pull/3075).
   Thanks to helioguardabaxo.
+- [Fix avatar-image class](https://github.com/wekan/wekan/pull/3083).
+  Thanks to krupupakku.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
