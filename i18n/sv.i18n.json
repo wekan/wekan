@@ -320,6 +320,7 @@
   "export-board-json": "Exportera tavla till JSON",
   "export-board-csv": "Expoertera tavla till CSV",
   "export-board-tsv": "Exportera tavla till TSV",
+  "export-board-html": "Export board to HTML",
   "exportBoardPopup-title": "Exportera anslagstavla",
   "sort": "Sortera",
   "sort-desc": "Klicka för att sortera listan",

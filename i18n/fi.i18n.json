@@ -320,6 +320,7 @@
   "export-board-json": "Vie taulu JSON",
   "export-board-csv": "Vie taulu CSV",
   "export-board-tsv": "Vie taulu TSV",
+  "export-board-html": "Vie taulu HTML",
   "exportBoardPopup-title": "Vie taulu",
   "sort": "Lajittele",
   "sort-desc": "Klikkaa lajitellaksesi listan",

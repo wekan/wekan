@@ -320,6 +320,7 @@
   "export-board-json": "Export board to JSON",
   "export-board-csv": "Export board to CSV",
   "export-board-tsv": "Export board to TSV",
+  "export-board-html": "Export board to HTML",
   "exportBoardPopup-title": "Export board",
   "sort": "Sortiraj",
   "sort-desc": "Kliknite da biste sortirali listu",

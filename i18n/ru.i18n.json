@@ -320,6 +320,7 @@
   "export-board-json": "Экспортировать доску в JSON",
   "export-board-csv": "Экспортировать доску в CSV",
   "export-board-tsv": "Экспортировать доску в TSV",
+  "export-board-html": "Export board to HTML",
   "exportBoardPopup-title": "Экспортировать доску",
   "sort": "Сортировать",
   "sort-desc": "Нажмите, чтобы отсортировать список",

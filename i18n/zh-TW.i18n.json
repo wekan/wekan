@@ -320,6 +320,7 @@
   "export-board-json": "Export board to JSON",
   "export-board-csv": "Export board to CSV",
   "export-board-tsv": "Export board to TSV",
+  "export-board-html": "Export board to HTML",
   "exportBoardPopup-title": "匯出看板",
   "sort": "排序",
   "sort-desc": "點選排序清單",

@@ -320,6 +320,7 @@
   "export-board-json": "Export board to JSON",
   "export-board-csv": "Export board to CSV",
   "export-board-tsv": "Export board to TSV",
+  "export-board-html": "Export board to HTML",
   "exportBoardPopup-title": "Esporta bacheca",
   "sort": "Ordina",
   "sort-desc": "Clicca per ordinare la lista",

@@ -320,6 +320,7 @@
   "export-board-json": "Exporteer bord naar JSON",
   "export-board-csv": "Exporteer bord naar CSV",
   "export-board-tsv": "Exporteer bord naar TSV",
+  "export-board-html": "Export board to HTML",
   "exportBoardPopup-title": "Exporteer bord",
   "sort": "Sorteer",
   "sort-desc": "Klik om lijst te sorteren",
