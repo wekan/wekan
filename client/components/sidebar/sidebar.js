@@ -1,4 +1,3 @@
-sidebar.js;
 import { Cookies } from 'meteor/ostrio:cookies';
 const cookies = new Cookies();
 Sidebar = null;

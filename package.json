@@ -71,9 +71,9 @@
     "mongodb": "^3.5.7",
     "os": "^0.1.1",
     "page": "^1.11.5",
+    "papaparse": "^5.2.0",
     "qs": "^6.9.4",
     "source-map-support": "^0.5.19",
-    "papaparse": "^5.2.0",
     "xss": "^1.0.6"
   }
 }

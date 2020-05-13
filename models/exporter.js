@@ -1,4 +1,3 @@
-models / exporter.js;
 const stringify = require('csv-stringify');
 
 // exporter maybe is broken since Gridfs introduced, add fs and path
@@ -215,6 +214,31 @@ export class Exporter {
       'Vote',
       'Archived',
     );
+
+    /* TODO: Try to get translations working.
+             These currently only bring English translations.
+    TAPi18n.__('title'),
+    TAPi18n.__('description'),
+    TAPi18n.__('status'),
+    TAPi18n.__('swimlane'),
+    TAPi18n.__('owner'),
+    TAPi18n.__('requested-by'),
+    TAPi18n.__('assigned-by'),
+    TAPi18n.__('members'),
+    TAPi18n.__('assignee'),
+    TAPi18n.__('labels'),
+    TAPi18n.__('card-start'),
+    TAPi18n.__('card-due'),
+    TAPi18n.__('card-end'),
+    TAPi18n.__('overtime-hours'),
+    TAPi18n.__('spent-time-hours'),
+    TAPi18n.__('createdAt'),
+    TAPi18n.__('last-modified-at'),
+    TAPi18n.__('last-activity'),
+    TAPi18n.__('voting'),
+    TAPi18n.__('archived'),
+    */
+
     const stringifier = stringify({
       header: true,
       delimiter,
