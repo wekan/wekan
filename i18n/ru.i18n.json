@@ -320,7 +320,7 @@
   "export-board-json": "Экспортировать доску в JSON",
   "export-board-csv": "Экспортировать доску в CSV",
   "export-board-tsv": "Экспортировать доску в TSV",
-  "export-board-html": "Export board to HTML",
+  "export-board-html": "Экспортировать доску в HTML",
   "exportBoardPopup-title": "Экспортировать доску",
   "sort": "Сортировать",
   "sort-desc": "Нажмите, чтобы отсортировать список",
@@ -804,5 +804,7 @@
   "last-modified-at": "Последний раз изменено",
   "last-activity": "Последние действия",
   "voting": "Голосование",
-  "archived": "Архивировано"
+  "archived": "Архивировано",
+  "delete-linked-card-before-this-card": "You can not delete this card before first deleting linked card that has",
+  "delete-linked-cards-before-this-list": "You can not delete this list before first deleting linked cards that are pointing to cards in this list"
 }

@@ -804,5 +804,7 @@
   "last-modified-at": "Laatste aanpassing op",
   "last-activity": "Laatste activiteit",
   "voting": "Stemmen",
-  "archived": "Gearchiveerd"
+  "archived": "Gearchiveerd",
+  "delete-linked-card-before-this-card": "You can not delete this card before first deleting linked card that has",
+  "delete-linked-cards-before-this-list": "You can not delete this list before first deleting linked cards that are pointing to cards in this list"
 }
