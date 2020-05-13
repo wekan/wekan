@@ -238,9 +238,19 @@ Template.listMorePopup.events({
       allCardIds.map(_id => Cards.remove(_id));
       Lists.remove(this._id);
     } else {
-      // TODO popup with a hint that the list cannot be deleted as there are
+      // TODO: Figure out more informative message.
+      // Popup with a hint that the list cannot be deleted as there are
       // linked cards. We can adapt the query above so we can list the linked
       // cards.
+      // Related:
+      //   client/components/cards/cardDetails.js about line 969
+      //   https://github.com/wekan/wekan/issues/2785
+      const message = `${TAPi18n.__(
+        'delete-linked-cards-before-this-list',
+      )} linkedId: ${
+        this._id
+      } at client/components/lists/listHeader.js and https://github.com/wekan/wekan/issues/2785`;
+      alert(message);
     }
     Utils.goBoardId(this.boardId);
   }),
