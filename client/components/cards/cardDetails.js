@@ -956,7 +956,23 @@ BlazeComponent.extendComponent({
         },
         'click .js-delete': Popup.afterConfirm('cardDelete', function() {
           Popup.close();
-          Cards.remove(this._id);
+          // verify that there are no linked cards
+          if (Cards.find({ linkedId: this._id }).count() === 0) {
+            Cards.remove(this._id);
+          } else {
+            // TODO: Maybe later we can list where the linked cards are.
+            // Now here is popup with a hint that the card cannot be deleted
+            // as there are linked cards.
+            // Related:
+            //   client/components/lists/listHeader.js about line 248
+            //   https://github.com/wekan/wekan/issues/2785
+            const message = `${TAPi18n.__(
+              'delete-linked-card-before-this-card',
+            )} linkedId: ${
+              this._id
+            } at client/components/cards/cardDetails.js and https://github.com/wekan/wekan/issues/2785`;
+            alert(message);
+          }
           Utils.goBoardId(this.boardId);
         }),
         'change .js-field-parent-board'(event) {
