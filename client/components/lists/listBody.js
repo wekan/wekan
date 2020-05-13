@@ -77,7 +77,7 @@ BlazeComponent.extendComponent({
       else if (
         Utils.boardView() === 'board-view-lists' ||
         Utils.boardView() === 'board-view-cal' ||
-        !Utils.boardView
+        !Utils.boardView()
       )
         swimlaneId = board.getDefaultSwimline()._id;
 
