@@ -54,21 +54,6 @@ BlazeComponent.extendComponent({
     }
     return null;
   },
-  votePublic() {
-    const card = this.currentData();
-    if (card.vote) return card.vote.public;
-    return null;
-  },
-  voteCountPositive() {
-    const card = this.currentData();
-    if (card.vote && card.vote.positive) return card.vote.positive.length;
-    return null;
-  },
-  voteCountNegative() {
-    const card = this.currentData();
-    if (card.vote && card.vote.negative) return card.vote.negative.length;
-    return null;
-  },
   isWatching() {
     const card = this.currentData();
     return card.findWatcher(Meteor.userId());
@@ -146,6 +131,15 @@ BlazeComponent.extendComponent({
       }
     }
     return result;
+  },
+
+  showVotingButtons() {
+    const card = this.currentData();
+    return (
+      (currentUser.isBoardMember() ||
+        (currentUser && card.voteAllowNonBoardMembers())) &&
+      !card.expiredVote()
+    );
   },
 
   onRendered() {
@@ -611,11 +605,6 @@ Template.cardDetailsActionsPopup.events({
   'click .js-copy-card': Popup.open('copyCard'),
   'click .js-copy-checklist-cards': Popup.open('copyChecklistToManyCards'),
   'click .js-set-card-color': Popup.open('setCardColor'),
-  'click .js-cancel-voting'(event) {
-    event.preventDefault();
-    this.unsetVote();
-    Popup.close();
-  },
   'click .js-move-card-to-top'(event) {
     event.preventDefault();
     const minOrder = _.min(
@@ -1000,21 +989,92 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
+        'click .js-end-date': Popup.open('editVoteEndDate'),
         'submit .edit-vote-question'(evt) {
           evt.preventDefault();
           const voteQuestion = evt.target.vote.value;
           const publicVote = $('#vote-public').hasClass('is-checked');
-          this.currentCard.setVoteQuestion(voteQuestion, publicVote);
+          const allowNonBoardMembers = $('#vote-allow-non-members').hasClass(
+            'is-checked',
+          );
+          const endString = this.currentCard.getVoteEnd();
+
+          this.currentCard.setVoteQuestion(
+            voteQuestion,
+            publicVote,
+            allowNonBoardMembers,
+          );
+          if (endString) {
+            this.currentCard.setVoteEnd(endString);
+          }
           Popup.close();
         },
+        'click .js-remove-vote': Popup.afterConfirm('deleteVote', () => {
+          event.preventDefault();
+          this.currentCard.unsetVote();
+          Popup.close();
+        }),
         'click a.js-toggle-vote-public'(event) {
           event.preventDefault();
           $('#vote-public').toggleClass('is-checked');
+        },
+        'click a.js-toggle-vote-allow-non-members'(event) {
+          event.preventDefault();
+          $('#vote-allow-non-members').toggleClass('is-checked');
         },
       },
     ];
   },
 }).register('cardStartVotingPopup');
+
+// editVoteEndDatePopup
+(class extends DatePicker {
+  onCreated() {
+    super.onCreated(moment().format('YYYY-MM-DD HH:mm'));
+    this.data().getVoteEnd() && this.date.set(moment(this.data().getVoteEnd()));
+  }
+  events() {
+    return [
+      {
+        'submit .edit-date'(evt) {
+          evt.preventDefault();
+
+          // if no time was given, init with 12:00
+          const time =
+            evt.target.time.value ||
+            moment(new Date().setHours(12, 0, 0)).format('LT');
+
+          const dateString = `${evt.target.date.value} ${time}`;
+          const newDate = moment(dateString, 'L LT', true);
+          if (newDate.isValid()) {
+            // if active vote -  store it
+            if (this.currentData().getVoteQuestion()) {
+              this._storeDate(newDate.toDate());
+              Popup.close();
+            } else {
+              this.currentData().vote = { end: newDate.toDate() }; // set vote end temp
+              Popup.back();
+            }
+          } else {
+            this.error.set('invalid-date');
+            evt.target.date.focus();
+          }
+        },
+        'click .js-delete-date'(evt) {
+          evt.preventDefault();
+          this._deleteDate();
+          Popup.close();
+        },
+      },
+    ];
+  }
+  _storeDate(newDate) {
+    this.card.setVoteEnd(newDate);
+  }
+  _deleteDate() {
+    this.card.unsetVoteEnd();
+  }
+}.register('editVoteEndDatePopup'));
 
 // Close the card details pane by pressing escape
 EscapeActions.register(

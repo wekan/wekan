@@ -22,7 +22,7 @@ const sandstormBoard = {
 
 if (isSandstorm && Meteor.isServer) {
   const fs = require('fs');
-  const Capnp = Npm.require(`capnp`);
+  const Capnp = Npm.require('capnp');
   const Package = Capnp.importSystem('sandstorm/package.capnp');
   const Powerbox = Capnp.importSystem('sandstorm/powerbox.capnp');
   const Identity = Capnp.importSystem('sandstorm/identity.capnp');
