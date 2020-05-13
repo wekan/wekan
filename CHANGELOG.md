@@ -20,6 +20,11 @@ and adds the following updates:
 - [Update dependencies](https://github.com/wekan/wekan/commit/75bdd33fda58ea0233f5b38c466bcb1a9b0406ab).
   Thanks to xet7.
 
+and adds the following translations:
+
+- [Add Spanish (Chile)](https://github.com/wekan/wekan/commit/96507e6777ed77a324eaec9799c5b46b0d25ad26).
+  Thanks to isos, Transifex user.
+
 and fixes the following bugs:
 
 - [Fix getStartDayOfWeek once again](https://github.com/wekan/wekan/pull/3061).
