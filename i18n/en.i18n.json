@@ -796,5 +796,12 @@
   "thursday": "Thursday",
   "friday": "Friday",
   "saturday": "Saturday",
-  "sunday": "Sunday"
+  "sunday": "Sunday",
+  "status": "Status",
+  "swimlane": "Swimlane",
+  "owner": "Owner",
+  "last-modified-at": "Last modified at",
+  "last-activity": "Last activity",
+  "voting": "Voting",
+  "archived": "Archived"
 }
