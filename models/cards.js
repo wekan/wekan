@@ -438,6 +438,21 @@ Cards.helpers({
     return _id;
   },
 
+  link(boardId, swimlaneId, listId) {
+    // TODO is there a better method to create a deepcopy?
+    linkCard = JSON.parse(JSON.stringify(this));
+    // TODO is this how it is meant to be?
+    linkCard.linkedId = linkCard.linkedId || linkCard._id;
+    linkCard.boardId = boardId;
+    linkCard.swimlaneId = swimlaneId;
+    linkCard.listId = listId;
+    linkCard.type = 'cardType-linkedCard';
+    delete linkCard._id;
+    // TODO shall we copy the labels for a linked card?!
+    delete linkCard.labelIds;
+    return Cards.insert(linkCard);
+  },
+
   list() {
     return Lists.findOne(this.listId);
   },

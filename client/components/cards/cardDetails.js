@@ -956,7 +956,12 @@ BlazeComponent.extendComponent({
         },
         'click .js-delete': Popup.afterConfirm('cardDelete', function() {
           Popup.close();
-          Cards.remove(this._id);
+          // verify that there are no linked cards
+          if (Cards.find({ linkedId: this._id }).count() === 0) {
+            Cards.remove(this._id);
+          } else {
+            // TODO popup...
+          }
           Utils.goBoardId(this.boardId);
         }),
         'change .js-field-parent-board'(event) {
