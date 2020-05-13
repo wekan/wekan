@@ -62,6 +62,7 @@
     "bcrypt": "^3.0.7",
     "bson": "^4.0.3",
     "bunyan": "^1.8.12",
+    "csv-stringify": "^5.5.0",
     "es6-promise": "^4.2.4",
     "flatted": "^2.0.1",
     "gridfs-stream": "^0.5.3",
@@ -70,6 +71,7 @@
     "mongodb": "^3.5.7",
     "os": "^0.1.1",
     "page": "^1.11.5",
+    "papaparse": "^5.2.0",
     "qs": "^6.9.4",
     "source-map-support": "^0.5.19",
     "xss": "^1.0.6"
