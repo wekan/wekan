@@ -32,6 +32,9 @@ and fixes the following bugs:
   Thanks to helioguardabaxo.
 - [Fix avatar-image class](https://github.com/wekan/wekan/pull/3083).
   Thanks to krupupakku.
+- [Fix REST API so Create card does now allow an empty member
+  list](https://github.com/wekan/wekan/pull/3084).
+  Thanks to wackazong.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
