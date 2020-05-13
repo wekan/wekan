@@ -13,7 +13,7 @@ template(name="import")
 template(name="importTextarea")
   form
     p: label(for='import-textarea') {{_ instruction}} {{_ 'import-board-instruction-about-errors'}}
-    textarea.js-import-json(placeholder="{{_ 'import-json-placeholder'}}" autofocus)
+    textarea.js-import-json(placeholder="{{_ importPlaceHolder}}" autofocus)
       | {{jsonText}}
     input.primary.wide(type="submit" value="{{_ 'import'}}")
 
