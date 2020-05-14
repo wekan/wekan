@@ -64,7 +64,7 @@ function npm_call(){
 
 echo
 PS3='Please enter your choice: '
-options=("Install Wekan dependencies" "Build Wekan" "Quit")
+options=("Install Wekan dependencies" "Build Wekan" "Run Meteor for development on Ethernet IP address port 4000" "Run Meteor for development on Custom IP address and port" "Quit")
 select opt in "${options[@]}"
 do
     case $opt in
@@ -106,18 +106,19 @@ do
 			exit;
 		fi
 
-	        ## Latest npm with Meteor 1.8.x
-	        npm_call -g install npm
-	        npm_call -g install node-gyp
-	        # Latest fibers for Meteor 1.8.x
+		## Latest npm with Meteor 1.8.x
+		npm_call -g install npm
+		npm_call -g install node-gyp
+		# Latest fibers for Meteor 1.8.x
 		sudo mkdir -p /usr/local/lib/node_modules/fibers/.node-gyp
-	        npm_call -g install fibers
-	        # Install Meteor, if it's not yet installed
-	        curl https://install.meteor.com | bash
+		npm_call -g install fibers
+		# Install Meteor, if it's not yet installed
+		curl https://install.meteor.com | bash
 		sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
 		break
 		;;
-        "Build Wekan")
+
+    "Build Wekan")
 		echo "Building Wekan."
 		#wekan_repo_check
 		# REPOS BELOW ARE INCLUDED TO WEKAN REPO
@@ -148,7 +149,7 @@ do
 		rm -rf .build
 		meteor build .build --directory
 		cp -f fix-download-unicode/cfs_access-point.txt .build/bundle/programs/server/packages/cfs_access-point.js
-    # Remove legacy webbroser bundle, so that Wekan works also at Android Firefox, iOS Safari, etc.
+		# Remove legacy webbroser bundle, so that Wekan works also at Android Firefox, iOS Safari, etc.
 		rm -rf .build/bundle/programs/web.browser.legacy
 		#Removed binary version of bcrypt because of security vulnerability that is not fixed yet.
 		#https://github.com/wekan/wekan/commit/4b2010213907c61b0e0482ab55abb06f6a668eac
@@ -164,9 +165,26 @@ do
 		echo Done.
 		break
 		;;
-        "Quit")
+
+    "Run Meteor for development on Ethernet IP address port 4000")
+		IPADDRESS=$(ip addr show enp2s0 | grep 'inet ' | cut -d: -f2 | awk '{ print $2}' | cut -d '/' -f 1)
+		WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:4000 meteor run --exclude-archs web.browser.legacy,web.cordova --port 4000
 		break
-            ;;
-        *) echo invalid option;;
+		;;
+
+    "Run Meteor for development on Custom IP address and port")
+		ip address
+		echo "From above list, what is your IP address?"
+		read IPADDRESS
+		echo "On what port you would like to run Wekan?"
+		read PORT
+    WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:$PORT meteor run --exclude-archs web.browser.legacy,web.cordova --port $PORT
+		break
+    ;;
+
+    "Quit")
+		break
+    ;;
+    *) echo invalid option;;
     esac
 done
