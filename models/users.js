@@ -1240,6 +1240,25 @@ if (Meteor.isServer) {
       Authentication.checkLoggedIn(req.userId);
       const data = Meteor.users.findOne({ _id: req.userId });
       delete data.services;
+
+      // get all boards where the user is member of
+      let boards = Boards.find(
+        {
+          type: 'board',
+          'members.userId': req.userId,
+        },
+        {
+          fields: { _id: 1, members: 1 },
+        },
+      );
+      boards = boards.map(b => {
+        const u = b.members.find(m => m.userId === req.userId);
+        delete u.userId;
+        u.boardId = b._id;
+        return u;
+      });
+
+      data.boards = boards;
       JsonRoutes.sendResult(res, {
         code: 200,
         data,
@@ -1292,9 +1311,29 @@ if (Meteor.isServer) {
     try {
       Authentication.checkUserId(req.userId);
       const id = req.params.userId;
+
+      // get all boards where the user is member of
+      let boards = Boards.find(
+        {
+          type: 'board',
+          'members.userId': id,
+        },
+        {
+          fields: { _id: 1, members: 1 },
+        },
+      );
+      boards = boards.map(b => {
+        const u = b.members.find(m => m.userId === id);
+        delete u.userId;
+        u.boardId = b._id;
+        return u;
+      });
+
+      const user = Meteor.users.findOne({ _id: id });
+      user.boards = boards;
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: Meteor.users.findOne({ _id: id }),
+        data: user,
       });
     } catch (error) {
       JsonRoutes.sendResult(res, {

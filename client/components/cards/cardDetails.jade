@@ -202,9 +202,12 @@ template(name="cardDetails")
     if getVoteQuestion
       hr
       .vote-title
-        h3
-          i.fa.fa-thumbs-up
-          card-details-item-title {{_ 'vote-question'}}
+        div.flex
+          h3
+            i.fa.fa-thumbs-up
+            | {{_ 'vote-question'}}
+          if getVoteEnd
+            +voteEndDate
         .vote-result
           if votePublic
             a.card-label.card-label-green.js-show-positive-votes {{ voteCountPositive }}
@@ -212,10 +215,13 @@ template(name="cardDetails")
           else
             .card-label.card-label-green {{ voteCountPositive }}
             .card-label.card-label-red {{ voteCountNegative }}
+          unless ($and currentBoard.isPublic voteAllowNonBoardMembers )
+            .card-label.card-label-gray  {{ voteCount }} {{_ 'r-of' }} {{ currentBoard.activeMembers.length }}
       +viewer
         = getVoteQuestion
-      button.card-details-green.js-vote.js-vote-positive(class="{{#if voteState}}voted{{/if}}") {{_ 'vote-for-it'}}
-      button.card-details-red.js-vote.js-vote-negative(class="{{#if $eq voteState false}}voted{{/if}}") {{_ 'vote-against'}}
+      if showVotingButtons
+        button.card-details-green.js-vote.js-vote-positive(class="{{#if voteState}}voted{{/if}}") {{_ 'vote-for-it'}}
+        button.card-details-red.js-vote.js-vote-negative(class="{{#if $eq voteState false}}voted{{/if}}") {{_ 'vote-against'}}
 
     //- XXX We should use "editable" to avoid repetiting ourselves
     if canModifyCard
@@ -333,16 +339,10 @@ template(name="cardDetailsActionsPopup")
         //li: a.js-members {{_ 'card-edit-members'}}
         //li: a.js-labels {{_ 'card-edit-labels'}}
         //li: a.js-attachments {{_ 'card-edit-attachments'}}
-        if getVoteQuestion
-          li
-            a.js-cancel-voting
-              i.fa.fa-thumbs-up
-              | {{_ 'card-cancel-voting'}}
-        else
-          li
-            a.js-start-voting
-              i.fa.fa-thumbs-up
-              | {{_ 'card-start-voting'}}
+        li
+          a.js-start-voting
+            i.fa.fa-thumbs-up
+            | {{_ 'card-edit-voting'}}
         li
           a.js-custom-fields
             i.fa.fa-list-alt
@@ -465,14 +465,14 @@ template(name="cardAssigneesPopup")
               i.fa.fa-check
   if currentUser.isWorker
     ul.pop-over-list.js-card-assignee-list
-        li.item(class="{{#if currentUser.isCardAssignee}}active{{/if}}")
-          a.name.js-select-assignee(href="#")
-            +userAvatar(userId=currentUser._id)
-            span.full-name
-              = currentUser.profile.fullname
-              | (<span class="username">{{ currentUser.username }}</span>)
-            if currentUser.isCardAssignee
-              i.fa.fa-check
+      li.item(class="{{#if currentUser.isCardAssignee}}active{{/if}}")
+        a.name.js-select-assignee(href="#")
+          +userAvatar(userId=currentUser._id)
+          span.full-name
+            = currentUser.profile.fullname
+            | (<span class="username">{{ currentUser.username }}</span>)
+          if currentUser.isCardAssignee
+            i.fa.fa-check
 
 template(name="userAvatarAssignee")
   a.assignee.js-assignee(title="{{userData.profile.fullname}} ({{userData.username}})")
@@ -519,7 +519,7 @@ template(name="cardMorePopup")
       = ' '
       i.fa.colorful(class="{{#if board.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
       input.inline-input(type="text" id="cardURL" readonly value="{{ absoluteUrl }}" autofocus="autofocus")
-      button.js-copy-card-link-to-clipboard(class="btn") {{_ 'copy-card-link-to-clipboard'}}
+      button.js-copy-card-link-to-clipboard(class="btn" id="clipboard") {{_ 'copy-card-link-to-clipboard'}}
     span.clearfix
     br
     h2 {{_ 'change-card-parent'}}
@@ -564,20 +564,39 @@ template(name="setCardColorPopup")
 template(name="cardDeletePopup")
   p {{_ "card-delete-pop"}}
   unless archived
-   p {{_ "card-delete-suggest-archive"}}
+    p {{_ "card-delete-suggest-archive"}}
+  button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
+
+template(name="deleteVotePopup")
+  p {{_ "vote-delete-pop"}}
   button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
 
 template(name="cardStartVotingPopup")
   form.edit-vote-question
     .fields
       label(for="vote") {{_ 'vote-question'}}
-      input.js-vote-field#vote(type="text" name="vote" value="{{card.getVoteQuestion}}" autofocus)
-      label(for="vote-public") {{_ 'vote-public'}}
-        a.js-toggle-vote-public
-          .materialCheckBox#vote-public(name="vote-public")
+      input.js-vote-field#vote(type="text" name="vote" value="{{getVoteQuestion}}" autofocus disabled="{{#if getVoteQuestion}}disabled{{/if}}")
+      .check-div
+        a.flex(class="{{#if getVoteQuestion}}is-disabled{{else}}js-toggle-vote-allow-non-members{{/if}}")
+          .materialCheckBox#vote-allow-non-members(name="vote-allow-non-members" class="{{#if voteAllowNonBoardMembers}}is-checked{{/if}}")
+          span {{_ 'allowNonBoardMembers'}}
+      .check-div
+        a.flex(class="{{#if getVoteQuestion}}is-disabled{{else}}js-toggle-vote-public{{/if}}")
+          .materialCheckBox#vote-public(name="vote-public" class="{{#if votePublic}}is-checked{{/if}}")
+          span {{_ 'vote-public'}}
+      .check-div.flex
+        i.fa.fa-hourglass-end
+        a.js-end-date
+          span
+            | {{_ 'card-end'}}
+            unless getVoteEnd
+              i.fa.fa-plus
+        if getVoteEnd
+          +voteEndDate
 
-    button.primary.confirm.js-submit {{_ 'save'}}
-    //- button.js-remove-color.negate.wide.right {{_ 'delete'}}
+    button.primary.js-submit {{_ 'save'}}
+    if getVoteQuestion
+      button.js-remove-vote.negate.wide.right {{_ 'delete'}}
 
 template(name="positiveVoteMembersPopup")
   ul.pop-over-list.js-card-member-list

@@ -103,7 +103,9 @@ template(name="minicard")
       if getVoteQuestion
         .badge.badge-state-image-only(title=getVoteQuestion)
           span.badge-icon.fa.fa-thumbs-up
+          span.badge-text {{ voteCountPositive }}
           span.badge-icon.fa.fa-thumbs-down
+          span.badge-text {{ voteCountNegative }}
       if attachments.count
         .badge
           span.badge-icon.fa.fa-paperclip

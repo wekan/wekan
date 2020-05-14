@@ -77,7 +77,7 @@ BlazeComponent.extendComponent({
       else if (
         Utils.boardView() === 'board-view-lists' ||
         Utils.boardView() === 'board-view-cal' ||
-        !Utils.boardView
+        !Utils.boardView()
       )
         swimlaneId = board.getDefaultSwimline()._id;
 
@@ -658,10 +658,7 @@ BlazeComponent.extendComponent({
               _id = element.copy(this.boardId, this.swimlaneId, this.listId);
               // 1.B Linked card
             } else {
-              delete element._id;
-              element.type = 'cardType-linkedCard';
-              element.linkedId = element.linkedId || element._id;
-              _id = Cards.insert(element);
+              _id = element.link(this.boardId, this.swimlaneId, this.listId);
             }
             Filter.addException(_id);
             // List insertion
@@ -675,7 +672,7 @@ BlazeComponent.extendComponent({
             element.sort = Boards.findOne(this.boardId)
               .swimlanes()
               .count();
-            element.type = 'swimlalne';
+            element.type = 'swimlane';
             _id = element.copy(this.boardId);
           } else if (this.isBoardTemplateSearch) {
             board = Boards.findOne(element.linkedId);

@@ -340,6 +340,10 @@ Cards.attachSchema(
       type: Boolean,
       defaultValue: false,
     },
+    'vote.allowNonBoardMembers': {
+      type: Boolean,
+      defaultValue: false,
+    },
   }),
 );
 
@@ -347,8 +351,14 @@ Cards.allow({
   insert(userId, doc) {
     return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
   },
-  update(userId, doc) {
-    return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+
+  update(userId, doc, fields) {
+    // Allow board members or logged in users if only vote get's changed
+    return (
+      allowIsBoardMember(userId, Boards.findOne(doc.boardId)) ||
+      (_.isEqual(fields, ['vote', 'modifiedAt', 'dateLastActivity']) &&
+        !!userId)
+    );
   },
   remove(userId, doc) {
     return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
@@ -426,6 +436,21 @@ Cards.helpers({
     });
 
     return _id;
+  },
+
+  link(boardId, swimlaneId, listId) {
+    // TODO is there a better method to create a deepcopy?
+    linkCard = JSON.parse(JSON.stringify(this));
+    // TODO is this how it is meant to be?
+    linkCard.linkedId = linkCard.linkedId || linkCard._id;
+    linkCard.boardId = boardId;
+    linkCard.swimlaneId = swimlaneId;
+    linkCard.listId = listId;
+    linkCard.type = 'cardType-linkedCard';
+    delete linkCard._id;
+    // TODO shall we copy the labels for a linked card?!
+    delete linkCard.labelIds;
+    return Cards.insert(linkCard);
   },
 
   list() {
@@ -1048,6 +1073,29 @@ Cards.helpers({
     }
   },
 
+  getVoteEnd() {
+    if (this.isLinkedCard()) {
+      const card = Cards.findOne({ _id: this.linkedId });
+      if (card && card.vote) return card.vote.end;
+      else return null;
+    } else if (this.isLinkedBoard()) {
+      const board = Boards.findOne({ _id: this.linkedId });
+      if (board && board.vote) return board.vote.end;
+      else return null;
+    } else if (this.vote) {
+      return this.vote.end;
+    } else {
+      return null;
+    }
+  },
+  expiredVote() {
+    let end = this.getVoteEnd();
+    if (end) {
+      end = moment(end);
+      return end.isBefore(new Date());
+    }
+    return false;
+  },
   voteMemberPositive() {
     if (this.vote && this.vote.positive)
       return Users.find({ _id: { $in: this.vote.positive } });
@@ -1152,6 +1200,26 @@ Cards.helpers({
 
   isTemplateCard() {
     return this.type === 'template-card';
+  },
+
+  votePublic() {
+    if (this.vote) return this.vote.public;
+    return null;
+  },
+  voteAllowNonBoardMembers() {
+    if (this.vote) return this.vote.allowNonBoardMembers;
+    return null;
+  },
+  voteCountNegative() {
+    if (this.vote && this.vote.negative) return this.vote.negative.length;
+    return null;
+  },
+  voteCountPositive() {
+    if (this.vote && this.vote.positive) return this.vote.positive.length;
+    return null;
+  },
+  voteCount() {
+    return this.voteCountPositive() + this.voteCountNegative();
   },
 });
 
@@ -1476,12 +1544,13 @@ Cards.mutations({
       },
     };
   },
-  setVoteQuestion(question, publicVote) {
+  setVoteQuestion(question, publicVote, allowNonBoardMembers) {
     return {
       $set: {
         vote: {
           question,
           public: publicVote,
+          allowNonBoardMembers,
           positive: [],
           negative: [],
         },
@@ -1493,6 +1562,16 @@ Cards.mutations({
       $unset: {
         vote: '',
       },
+    };
+  },
+  setVoteEnd(end) {
+    return {
+      $set: { 'vote.end': end },
+    };
+  },
+  unsetVoteEnd() {
+    return {
+      $unset: { 'vote.end': '' },
     };
   },
   setVote(userId, forIt) {
@@ -2156,7 +2235,7 @@ if (Meteor.isServer) {
     const check = Users.findOne({
       _id: req.body.authorId,
     });
-    const members = req.body.members || [req.body.authorId];
+    const members = req.body.members;
     const assignees = req.body.assignees;
     if (typeof check !== 'undefined') {
       const id = Cards.direct.insert({

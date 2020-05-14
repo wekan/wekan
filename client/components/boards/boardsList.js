@@ -25,7 +25,6 @@ BlazeComponent.extendComponent({
   },
 
   onRendered() {
-    const self = this;
     function userIsAllowedToMove() {
       return Meteor.user();
     }
@@ -78,7 +77,7 @@ BlazeComponent.extendComponent({
   },
 
   boards() {
-    let query = {
+    const query = {
       archived: false,
       type: 'board',
     };
