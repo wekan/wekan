@@ -402,10 +402,14 @@ Cards.helpers({
     const _id = Cards.insert(this);
 
     // Copy attachments
-    oldCard.attachments().forEach(att => {
-      att.meta.cardId = _id;
-      delete att._id;
-      return Attachments.insert(att);
+    oldCard.attachments().forEach((file) => {
+      Meteor.call('cloneAttachment', file, 
+        {
+          meta: {
+            cardId: _id
+          }
+        }
+      );
     });
 
     // copy checklists

@@ -1,4 +1,5 @@
 import { FilesCollection } from 'meteor/ostrio:files';
+const fs = require('fs');
 
 const collectionName = 'attachments2';
 
@@ -18,6 +19,36 @@ if (Meteor.isServer) {
 
   // TODO: Permission related
   // TODO: Add Activity update
+
+  Meteor.methods({
+    cloneAttachment(file, overrides) {
+      check(file, Object);
+      check(overrides, Match.Maybe(Object));
+      const path = file.path;
+      const opts = {
+          fileName: file.name,
+          type: file.type,
+          meta: file.meta,
+          userId: file.userId
+      };
+      for (let key in overrides) {
+        if (key === 'meta') {
+          for (let metaKey in overrides.meta) {
+            opts.meta[metaKey] = overrides.meta[metaKey];
+          }
+        } else {
+          opts[key] = overrides[key];
+        }
+      }
+      const buffer = fs.readFileSync(path);
+      Attachments.write(buffer, opts, (err, fileRef) => {
+        if (err) {
+          console.log('Error when cloning record', err);
+        }
+      });
+      return true;
+    }
+  });
 
   Meteor.publish(collectionName, function() {
     return Attachments.find().cursor;
@@ -51,13 +82,13 @@ function onAttachmentUploaded(fileRef) {
   } else {
     // Don't add activity about adding the attachment as the activity
     // be imported and delete source field
-    CFSAttachments.update(
+    Attachments.collection.update(
       {
         _id: fileRef._id,
       },
       {
         $unset: {
-          source: '',
+          'meta.source': '',
         },
       },
     );

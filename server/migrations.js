@@ -1061,6 +1061,7 @@ Migrations.add('change-attachment-library', () => {
     let opts = {
     	fileName: file.name(),
 			type: file.type(),
+      size: file.size(),
       fileId: file._id,
 			meta: {
 				userId: file.userId,
@@ -1077,8 +1078,6 @@ Migrations.add('change-attachment-library', () => {
 		Attachments.addFile(path, opts, (err, fileRef) => {
       if (err) {
         console.log('error when migrating ', fileName, err);
-      } else {
-        file.remove();
       }
     });
 	});
