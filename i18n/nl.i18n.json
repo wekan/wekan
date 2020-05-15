@@ -320,7 +320,7 @@
   "export-board-json": "Exporteer bord naar JSON",
   "export-board-csv": "Exporteer bord naar CSV",
   "export-board-tsv": "Exporteer bord naar TSV",
-  "export-board-html": "Export board to HTML",
+  "export-board-html": "Exporteer bord naar HTML",
   "exportBoardPopup-title": "Exporteer bord",
   "sort": "Sorteer",
   "sort-desc": "Klik om lijst te sorteren",
@@ -805,6 +805,6 @@
   "last-activity": "Laatste activiteit",
   "voting": "Stemmen",
   "archived": "Gearchiveerd",
-  "delete-linked-card-before-this-card": "You can not delete this card before first deleting linked card that has",
-  "delete-linked-cards-before-this-list": "You can not delete this list before first deleting linked cards that are pointing to cards in this list"
+  "delete-linked-card-before-this-card": "Je kunt deze kaart niet verwijderen voordat de gekoppelde kaart is verwijderd ",
+  "delete-linked-cards-before-this-list": "Je kunt deze lijst niet verwijderen voordat de gekoppelde kaarten verwijderd zijn die verwijzen naar kaarten in deze lijst"
 }
