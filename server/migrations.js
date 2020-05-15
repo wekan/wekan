@@ -119,6 +119,7 @@ Migrations.add('use-css-class-for-boards-colors', () => {
     '#2C3E51': 'dark',
     '#27AE61': 'relax',
     '#568BA2': 'corteza',
+    '#499BEA': 'clearblue'
   };
   Boards.find().forEach(board => {
     const oldBoardColor = board.background.color;
