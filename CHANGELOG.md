@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v4.02 2020-05-15 Wekan release
 
 This release adds the following server platforms:
 
