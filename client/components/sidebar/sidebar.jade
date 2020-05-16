@@ -329,12 +329,10 @@ template(name="boardMenuPopup")
   if isSandstorm
     hr
     ul.pop-over-list
-      if withApi
-        li
-          a(href="{{exportUrl}}", download="{{exportFilename}}")
-            i.fa.fa-share-alt
-            i.fa.fa-sign-out
-            | {{_ 'export-board'}}
+      li
+        a.js-export-board
+          i.fa.fa-share-alt
+          | {{_ 'export-board'}}
       li
         a.js-import-board
           i.fa.fa-share-alt
