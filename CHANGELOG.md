@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release adds the following features:
+
+- [Theme: Natural](https://github.com/wekan/wekan/pull/3098).
+  You can select it from Board Settings / Change color / natural.
+  Thanks to compumatter and helioguardabaxo,
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.03 2020-05-16 Wekan release
 
 This release adds the following features:
