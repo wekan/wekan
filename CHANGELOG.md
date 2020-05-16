@@ -1,6 +1,12 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following features:
+
+- [Theme: Clearblue](https://github.com/wekan/wekan/pull/3093).
+  You can select it from Board Settings / Change color / clearblue.
+  Thanks to CidKramer.
+
+and fixes the following bugs:
 
 - [Fix Can't Scroll on All Boards on mobile phone. Added drag handles](https://github.com/wekan/wekan/issues/3096).
   Thanks to xet7.
