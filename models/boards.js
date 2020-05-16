@@ -255,6 +255,7 @@ Boards.attachSchema(
         'dark',
         'relax',
         'corteza',
+        'clearblue'
       ],
       // eslint-disable-next-line consistent-return
       autoValue() {
