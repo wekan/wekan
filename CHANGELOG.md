@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v4.03 2020-05-16 Wekan release
 
 This release adds the following features:
 
@@ -9,6 +9,8 @@ This release adds the following features:
 and fixes the following bugs:
 
 - [Fix Can't Scroll on All Boards on mobile phone. Added drag handles](https://github.com/wekan/wekan/issues/3096).
+  Thanks to xet7.
+- [Try to fix Sandstorm Wekan Export menu](https://github.com/wekan/wekan/commit/1ac11d92ba8f38981c87db25e5b5e1fa2adb6968).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.

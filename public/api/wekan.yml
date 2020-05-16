@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v4.02
+  version: v4.03
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -2078,6 +2078,7 @@ definitions:
           - dark
           - relax
           - corteza
+          - clearblue
       description:
         description: |
            The description of the board
