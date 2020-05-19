@@ -2,6 +2,8 @@
 
 This release adds the following features:
 
+- [Found Time Tracking GPLv3 software "Titra" with integration to Wekan](https://github.com/wekan/wekan/wiki/Time-Tracking).
+  Thanks to willhseitz.
 - [Theme: Natural](https://github.com/wekan/wekan/pull/3098).
   You can select it from Board Settings / Change color / natural.
   Thanks to compumatter and helioguardabaxo,
