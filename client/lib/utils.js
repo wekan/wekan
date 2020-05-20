@@ -70,7 +70,9 @@ Utils = {
       streams: 'dynamic',
       chunkSize: 'dynamic',
     };
-    settings.meta = {};
+    settings.meta = {
+      uploading: true
+    };
     if (card.isLinkedCard()) {
       settings.meta.boardId = Cards.findOne(card.linkedId).boardId;
       settings.meta.cardId = card.linkedId;

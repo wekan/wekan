@@ -80,7 +80,7 @@ Migrations.add('lowercase-board-permission', () => {
 Migrations.add('change-attachments-type-for-non-images', () => {
   const newTypeForNonImage = 'application/octet-stream';
   Attachments.find().forEach(file => {
-    if (!file.isImage()) {
+    if (!file.isImage) {
       Attachments.update(
         file._id,
         {
@@ -1058,27 +1058,29 @@ Migrations.add('change-attachment-library', () => {
 		const path = `${store}/${file.name()}`;
 		const fd = fs.createWriteStream(path);
 		reader.pipe(fd);
-    let opts = {
-    	fileName: file.name(),
-			type: file.type(),
-      size: file.size(),
-      fileId: file._id,
-			meta: {
-				userId: file.userId,
-				boardId: file.boardId,
-				cardId: file.cardId
-			}
-    };
-		if (file.listId) {
-			opts.meta.listId = file.listId;
-		}
-		if (file.swimlaneId) {
-			opts.meta.swimlaneId = file.swimlaneId;
-		}
-		Attachments.addFile(path, opts, (err, fileRef) => {
-      if (err) {
-        console.log('error when migrating ', fileRef.name, err);
+    reader.on('end', () => {
+      let opts = {
+        fileName: file.name(),
+        type: file.type(),
+        size: file.size(),
+        fileId: file._id,
+        meta: {
+          userId: file.userId,
+          boardId: file.boardId,
+          cardId: file.cardId
+        }
+      };
+      if (file.listId) {
+        opts.meta.listId = file.listId;
       }
+      if (file.swimlaneId) {
+        opts.meta.swimlaneId = file.swimlaneId;
+      }
+      Attachments.addFile(path, opts, (err, fileRef) => {
+        if (err) {
+          console.log('error when migrating', file.name(), err);
+        }
+      });
     });
 	});
 });

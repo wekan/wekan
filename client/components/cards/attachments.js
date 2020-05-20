@@ -50,7 +50,10 @@ Template.attachmentsGalery.helpers({
     return Attachments.link(this, 'original', '/'); 
   },
   isUploaded() {
-    return !!this.meta.uploaded;
+    return !this.meta.uploading;
+  },
+  isImage() {
+    return !!this.isImage;
   },
 });
 

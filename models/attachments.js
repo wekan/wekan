@@ -6,7 +6,7 @@ const collectionName = 'attachments2';
 Attachments = new FilesCollection({
   storagePath: storagePath(),
   debug: false, 
-  allowClientCode: true,
+//  allowClientCode: true,
   collectionName: 'attachments2',
   onAfterUpload: onAttachmentUploaded,
   onBeforeRemove: onAttachmentRemoving
@@ -18,7 +18,17 @@ if (Meteor.isServer) {
   });
 
   // TODO: Permission related
-  // TODO: Add Activity update
+  Attachments.allow({
+    insert() {
+      return false;
+    },
+    update() {
+      return true;
+    },
+    remove() {
+      return true;
+    }
+  });
 
   Meteor.methods({
     cloneAttachment(file, overrides) {
@@ -63,7 +73,7 @@ function storagePath(defaultPath) {
 }
 
 function onAttachmentUploaded(fileRef) {
-  Attachments.update({_id:fileRef._id}, {$set: {"meta.uploaded": true}});
+  Attachments.update({_id:fileRef._id}, {$set: {"meta.uploading": false}});
   if (!fileRef.meta.source || fileRef.meta.source !== 'import') {
     // Add activity about adding the attachment
     Activities.insert({
