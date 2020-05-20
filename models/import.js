@@ -1,21 +1,27 @@
 import { TrelloCreator } from './trelloCreator';
 import { WekanCreator } from './wekanCreator';
-import { Exporter } from './export';
+import { CsvCreator } from './csvCreator';
+import { Exporter } from './exporter';
 import wekanMembersMapper from './wekanmapper';
 
 Meteor.methods({
   importBoard(board, data, importSource, currentBoard) {
-    check(board, Object);
     check(data, Object);
     check(importSource, String);
     check(currentBoard, Match.Maybe(String));
     let creator;
     switch (importSource) {
       case 'trello':
+        check(board, Object);
         creator = new TrelloCreator(data);
         break;
       case 'wekan':
+        check(board, Object);
         creator = new WekanCreator(data);
+        break;
+      case 'csv':
+        check(board, Array);
+        creator = new CsvCreator(data);
         break;
     }
 

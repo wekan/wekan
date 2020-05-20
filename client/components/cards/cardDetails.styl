@@ -10,6 +10,9 @@ avatar-radius = 50%
   left: -2000px
   top: 0px
 
+#clipboard
+  white-space: normal
+
 .assignee
   border-radius: 3px
   display: block
@@ -37,6 +40,8 @@ avatar-radius = 50%
       position: absolute
 
     &.avatar-image
+      object-fit: cover;
+      object-position: center;
       height: 100%
       width: @height
 
@@ -337,6 +342,11 @@ card-details-color(background, color...)
 .vote-title
   display: flex
   justify-content: space-between
+
+  .js-edit-date
+    align-self: baseline
+    margin-left: 5px
+
 .vote-result
   display: flex
 .js-show-positive-votes

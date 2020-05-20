@@ -386,3 +386,30 @@ CardEndDate.register('cardEndDate');
     return this.date.get().format('l');
   }
 }.register('minicardEndDate'));
+
+class VoteEndDate extends CardDate {
+  onCreated() {
+    super.onCreated();
+    const self = this;
+    self.autorun(() => {
+      self.date.set(moment(self.data().getVoteEnd()));
+    });
+  }
+  classes() {
+    const classes = 'end-date' + ' ';
+    return classes;
+  }
+  showDate() {
+    return this.date.get().format('l LT');
+  }
+  showTitle() {
+    return `${TAPi18n.__('card-end-on')} ${this.date.get().format('LLLL')}`;
+  }
+
+  events() {
+    return super.events().concat({
+      'click .js-edit-date': Popup.open('editVoteEndDate'),
+    });
+  }
+}
+VoteEndDate.register('voteEndDate');

@@ -1,5 +1,8 @@
 import trelloMembersMapper from './trelloMembersMapper';
 import wekanMembersMapper from './wekanMembersMapper';
+import csvMembersMapper from './csvMembersMapper';
+
+const Papa = require('papaparse');
 
 BlazeComponent.extendComponent({
   title() {
@@ -30,20 +33,30 @@ BlazeComponent.extendComponent({
     }
   },
 
-  importData(evt) {
+  importData(evt, dataSource) {
     evt.preventDefault();
-    const dataJson = this.find('.js-import-json').value;
-    try {
-      const dataObject = JSON.parse(dataJson);
-      this.setError('');
-      this.importedData.set(dataObject);
-      const membersToMap = this._prepareAdditionalData(dataObject);
-      // store members data and mapping in Session
-      // (we go deep and 2-way, so storing in data context is not a viable option)
+    const input = this.find('.js-import-json').value;
+    if (dataSource === 'csv') {
+      const csv = input.indexOf('\t') > 0 ? input.replace(/(\t)/g, ',') : input;
+      const ret = Papa.parse(csv);
+      if (ret && ret.data && ret.data.length) this.importedData.set(ret.data);
+      else throw new Meteor.Error('error-csv-schema');
+      const membersToMap = this._prepareAdditionalData(ret.data);
       this.membersToMap.set(membersToMap);
       this.nextStep();
-    } catch (e) {
-      this.setError('error-json-malformed');
+    } else {
+      try {
+        const dataObject = JSON.parse(input);
+        this.setError('');
+        this.importedData.set(dataObject);
+        const membersToMap = this._prepareAdditionalData(dataObject);
+        // store members data and mapping in Session
+        // (we go deep and 2-way, so storing in data context is not a viable option)
+        this.membersToMap.set(membersToMap);
+        this.nextStep();
+      } catch (e) {
+        this.setError('error-json-malformed');
+      }
     }
   },
 
@@ -91,6 +104,9 @@ BlazeComponent.extendComponent({
       case 'wekan':
         membersToMap = wekanMembersMapper.getMembersToMap(dataObject);
         break;
+      case 'csv':
+        membersToMap = csvMembersMapper.getMembersToMap(dataObject);
+        break;
     }
     return membersToMap;
   },
@@ -109,11 +125,23 @@ BlazeComponent.extendComponent({
     return `import-board-instruction-${Session.get('importSource')}`;
   },
 
+  importPlaceHolder() {
+    const importSource = Session.get('importSource');
+    if (importSource === 'csv') {
+      return 'import-csv-placeholder';
+    } else {
+      return 'import-json-placeholder';
+    }
+  },
+
   events() {
     return [
       {
         submit(evt) {
-          return this.parentComponent().importData(evt);
+          return this.parentComponent().importData(
+            evt,
+            Session.get('importSource'),
+          );
         },
       },
     ];

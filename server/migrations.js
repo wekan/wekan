@@ -1045,7 +1045,6 @@ Migrations.add('add-sort-field-to-boards', () => {
 import { MongoInternals } from 'meteor/mongo';
 
 Migrations.add('change-attachment-library', () => {
-	const http = require('http');
 	const fs = require('fs');
 	CFSAttachments.find().forEach(file => {
     const bucket = new MongoInternals.NpmModule.GridFSBucket(MongoInternals.defaultRemoteCollectionDriver().mongo.db, {bucketName: 'cfs_gridfs.attachments'});

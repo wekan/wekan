@@ -213,6 +213,7 @@ Template.boardMenuPopup.events({
   'click .js-import-board': Popup.open('chooseBoardSource'),
   'click .js-subtask-settings': Popup.open('boardSubtaskSettings'),
   'click .js-card-settings': Popup.open('boardCardSettings'),
+  'click .js-export-board': Popup.open('exportBoard'),
 });
 
 Template.boardMenuPopup.onCreated(function() {
@@ -404,6 +405,63 @@ BlazeComponent.extendComponent({
     return 'chooseBoardSource';
   },
 }).register('chooseBoardSourcePopup');
+
+BlazeComponent.extendComponent({
+  template() {
+    return 'exportBoard';
+  },
+  withApi() {
+    return Template.instance().apiEnabled.get();
+  },
+  exportUrl() {
+    const params = {
+      boardId: Session.get('currentBoard'),
+    };
+    const queryParams = {
+      authToken: Accounts._storedLoginToken(),
+    };
+    return FlowRouter.path('/api/boards/:boardId/export', params, queryParams);
+  },
+  exportCsvUrl() {
+    const params = {
+      boardId: Session.get('currentBoard'),
+    };
+    const queryParams = {
+      authToken: Accounts._storedLoginToken(),
+    };
+    return FlowRouter.path(
+      '/api/boards/:boardId/export/csv',
+      params,
+      queryParams,
+    );
+  },
+  exportTsvUrl() {
+    const params = {
+      boardId: Session.get('currentBoard'),
+    };
+    const queryParams = {
+      authToken: Accounts._storedLoginToken(),
+      delimiter: '\t',
+    };
+    return FlowRouter.path(
+      '/api/boards/:boardId/export/csv',
+      params,
+      queryParams,
+    );
+  },
+  exportJsonFilename() {
+    const boardId = Session.get('currentBoard');
+    return `wekan-export-board-${boardId}.json`;
+  },
+  exportCsvFilename() {
+    const boardId = Session.get('currentBoard');
+    return `wekan-export-board-${boardId}.csv`;
+  },
+  exportTsvFilename() {
+    const boardId = Session.get('currentBoard');
+    return `wekan-export-board-${boardId}.tsv`;
+  },
+}).register('exportBoardPopup');
 
 Template.labelsWidget.events({
   'click .js-label': Popup.open('editLabel'),
