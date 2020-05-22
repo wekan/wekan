@@ -146,7 +146,7 @@ export class Exporter {
         `tmpexport${process.pid}${Math.random()}`,
       );
       const tmpWriteable = fs.createWriteStream(tmpFile);
-      const readStream = doc.createReadStream();
+      const readStream = fs.createReadStream(doc.path);
       readStream.on('data', function(chunk) {
         buffer = Buffer.concat([buffer, chunk]);
       });
@@ -173,11 +173,11 @@ export class Exporter {
 
         return {
           _id: attachment._id,
-          cardId: attachment.cardId,
+          cardId: attachment.meta.cardId,
           //url: FlowRouter.url(attachment.url()),
           file: filebase64,
-          name: attachment.original.name,
-          type: attachment.original.type,
+          name: attachment.name,
+          type: attachment.type,
         };
       });
 
