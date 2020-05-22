@@ -542,6 +542,169 @@ setBoardClear(color1,color2)
   .list-header
     background-color: #c9cfc3
     border-bottom: 6px solid #c9cfc3
-  
+
   .swimlane .swimlane-header-wrap
     background-color: #c2c0ab
+
+/*
+  Alternate "Modern" Styling
+*/
+.board-color-modern
+  setBoardColor(#2A80B8)
+
+  /* General */
+  body
+    background: #f5f5f5
+
+  &#header-quick-access
+    padding: 10px
+    font-size: 14px
+    background: #333 !important
+
+  &#header-quick-access ul
+    overflow: visible
+
+  &#header-quick-access ul li.current
+    border: 0 !important
+    font-weight: bold
+
+  &#header-quick-access ul li.separator
+    display: none
+
+  &#header-quick-access ul li:nth-child(3)
+    margin-right: 10px
+
+  &#header-quick-access ul li a
+    padding: 5px 10px
+    border-radius: 2px
+
+  &#header-quick-access ul li.current a
+    border-radius: 2px
+    background: rgba(255,255,255,.2)
+
+  &#header #header-main-bar h1
+    font-family: Poppins
+    font-weight: bold
+  &#header-quick-access #header-user-bar
+    position relative
+
+  &#header-quick-access #header-user-bar .header-user-bar-name
+    margin: 5px 3px 0 0;
+
+  section#notifications-drawer
+    top: 46px;
+    box-shadow: 0 4px 20px rgba(0,0,0,.1)
+    max-width: 100%
+
+  section#notifications-drawer .header
+    top: 46px;
+    border-radius: 0 3px
+    height: 21px
+    background: #f7f7f7
+
+  /* Swimlane */
+  .swimlane
+    background: #f5f5f5
+
+  .swimlane .swimlane-header-wrap .swimlane-header
+    font-family: Poppins
+
+  /* All board views */
+  .board-list .board-list-item
+    padding: 20px
+
+  .board-list-item-name
+    font-family: Poppins
+
+  /* Board */
+  .list
+    background: transparent
+    border-left: 0
+    margin: 10px 0
+    padding: 0px
+    border-radius: 5px
+    min-width: 300px
+
+  .list-body .open-minicard-composer:hover /*me*/
+    background: none
+    box-shadow: none
+
+  .list:first-child
+    margin-left: 5px
+
+  .list.list-composer.js-list-composer
+    transition: all .3s ease
+    min-width: 80px
+
+  .open-list-composer.js-open-inlined-form:hover
+    color: #222
+
+  .list-header
+    background: none
+    border-bottom-width: 0px
+
+  .list-header .list-header-name
+    font-family: Poppins
+    color: #000
+    font-weight: 500
+
+  /* Card changes */
+  .minicard
+    background: #FFF
+    padding: 15px 15px 10px
+    box-shadow: 0 3px 8px rgba(0,0,0,.05)
+
+  .minicard-plum:hover:not(.minicard-composer), .is-selected .minicard-plum, .draggable-hover-card .minicard-plum
+    background: none
+
+  .minicard-title
+    line-height: 1.5em
+
+  .minicard .minicard-cover
+    background-size: cover
+    margin: -15px -15px 10px
+    height: 100px
+
+  .card-label-orange
+    color: #fff
+
+  .card-date
+    font-size: 12px
+    padding: 3px 5px
+
+  /* Pop over */
+  .header-title
+    font-family: Poppins
+    font-size: 16px
+    color: #333
+
+  .pop-over
+    box-shadow: 0 4px 20px rgba(0,0,0,.1)
+    border: 0
+    border-radius: 5px
+
+  .pop-over .header
+    padding: 10px
+    border-bottom: 0
+    border-radius: 5px 5px 0 0
+
+  .pop-over .content-container .content
+    padding: 5px 20px 20px
+    width: 260px
+
+  .pop-over-list li > a
+    border-radius: 5px
+
+  .pop-over-list li > a > i
+    margin-right: 5px
+
+  .pop-over-list li>a .sub-name
+    margin-bottom: 8px
+
+  /* Sidebar */
+  .sidebar .sidebar-shadow
+    box-shadow: 0 0 60px rgba(0,0,0,.2)
+
+  .sidebar .sidebar-content
+    padding: 30px
+
