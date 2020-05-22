@@ -747,7 +747,7 @@
   "error-ldap-login": "嘗試登入時出現錯誤",
   "display-authentication-method": "顯示認證方式",
   "default-authentication-method": "預設認證方式",
-  "duplicate-board": "重複的看板",
+  "duplicate-board": "複製看板",
   "people-number": "人數是：",
   "swimlaneDeletePopup-title": "是否刪除泳道？",
   "swimlane-delete-pop": "所有動作將從活動來源中刪除，您將無法恢復泳道。此操作無法還原。",
