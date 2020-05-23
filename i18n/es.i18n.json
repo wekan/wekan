@@ -687,7 +687,7 @@
   "r-of-checklist": "de la lista de verificación",
   "r-send-email": "Enviar un email",
   "r-to": "a",
-  "r-of": "of",
+  "r-of": "de",
   "r-subject": "asunto",
   "r-rule-details": "Detalle de la regla",
   "r-d-move-to-top-gen": "Mover la tarjeta al inicio de su lista",
@@ -790,7 +790,7 @@
   "remove-all-read": "Eliminar todos los leídos",
   "allow-rename": "Permitir renombrar",
   "allowRenamePopup-title": "Permitir renombrar",
-  "start-day-of-week": "Set day of the week start",
+  "start-day-of-week": "Establecer el dia de comienzo de la semana",
   "monday": "Lunes",
   "tuesday": "Martes",
   "wednesday": "Miércoles",
@@ -801,10 +801,10 @@
   "status": "Estado",
   "swimlane": "Carril",
   "owner": "Propietario",
-  "last-modified-at": "Last modified at",
+  "last-modified-at": "Última modificación ",
   "last-activity": "Última actividad",
-  "voting": "Voting",
-  "archived": "Archived",
-  "delete-linked-card-before-this-card": "You can not delete this card before first deleting linked card that has",
-  "delete-linked-cards-before-this-list": "You can not delete this list before first deleting linked cards that are pointing to cards in this list"
+  "voting": "Votar",
+  "archived": "Archivado",
+  "delete-linked-card-before-this-card": "No puede borrar esta tarjeta antes de borrar la tarjeta enlazada que tiene",
+  "delete-linked-cards-before-this-list": "No puede borrar esta lista antes de borrar las tarjetas enlazadas que apuntan a tarjetas en esta lista"
 }

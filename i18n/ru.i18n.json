@@ -805,6 +805,6 @@
   "last-activity": "Последние действия",
   "voting": "Голосование",
   "archived": "Архивировано",
-  "delete-linked-card-before-this-card": "You can not delete this card before first deleting linked card that has",
-  "delete-linked-cards-before-this-list": "You can not delete this list before first deleting linked cards that are pointing to cards in this list"
+  "delete-linked-card-before-this-card": "Вы не можете удалить карточку, не удалив связанную c ней карточку, которая имеет ",
+  "delete-linked-cards-before-this-list": "Вы не можете удалить этот список, не удалив карточки, которые указывают на карточки в этом списке"
 }
