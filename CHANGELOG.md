@@ -7,6 +7,8 @@ This release adds the following features:
 - [Theme: Natural](https://github.com/wekan/wekan/pull/3098).
   You can select it from Board Settings / Change color / natural.
   Thanks to compumatter and helioguardabaxo,
+- [Export board to HTML static page .zip archive](https://github.com/wekan/wekan/pull/3043).
+  Thanks to Lewiscowles1986.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
