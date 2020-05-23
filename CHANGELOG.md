@@ -6,9 +6,16 @@ This release adds the following features:
   Thanks to willhseitz.
 - [Theme: Natural](https://github.com/wekan/wekan/pull/3098).
   You can select it from Board Settings / Change color / natural.
-  Thanks to compumatter and helioguardabaxo,
+  Thanks to compumatter and helioguardabaxo.
+- [Theme: Modern](https://github.com/wekan/wekan/pull/3106).
+  Thanks to jeroenstoker com and helioguardabaxo.
 - [Export board to HTML static page .zip archive](https://github.com/wekan/wekan/pull/3043).
   Thanks to Lewiscowles1986.
+
+and fixes the following bugs:
+
+- [Change the swimlaneid of a card only if a new target swimlaneid is selected](https://github.com/wekan/wekan/pull/3108).
+  Thanks to marc1006.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
