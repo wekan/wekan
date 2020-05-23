@@ -363,7 +363,7 @@ template(name="boardMenuPopup")
 template(name="exportBoard")
   ul.pop-over-list
     li
-      a(href="{{exportUrl}}", download="{{exportJsonFilename}}")
+      a.download-json-link(href="{{exportUrl}}", download="{{exportJsonFilename}}")
         i.fa.fa-share-alt
         | {{_ 'export-board-json'}}
     li
@@ -374,6 +374,10 @@ template(name="exportBoard")
       a(href="{{exportTsvUrl}}", download="{{exportTsvFilename}}")
         i.fa.fa-share-alt
         | {{_ 'export-board-tsv'}}
+    li
+      a.html-export-board
+        i.fa.fa-archive
+        | {{_ 'export-board-html'}}
 
 template(name="labelsWidget")
   .board-widget.board-widget-labels

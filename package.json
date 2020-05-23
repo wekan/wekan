@@ -66,6 +66,7 @@
     "es6-promise": "^4.2.4",
     "flatted": "^2.0.1",
     "gridfs-stream": "^0.5.3",
+    "jszip": "^3.4.0",
     "ldapjs": "^1.0.2",
     "meteor-node-stubs": "^0.4.1",
     "mongodb": "^3.5.7",
