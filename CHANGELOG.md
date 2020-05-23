@@ -16,6 +16,8 @@ and fixes the following bugs:
 
 - [Change the swimlaneid of a card only if a new target swimlaneid is selected](https://github.com/wekan/wekan/pull/3108).
   Thanks to marc1006.
+- [Set '*' as default value for swimlane and list name in card move action](https://github.com/wekan/wekan/pull/3109).
+  Thanks to hickorysb and marc1006.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
