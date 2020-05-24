@@ -369,6 +369,7 @@ export class TrelloCreator {
           // so we make it server only, and let UI catch up once it is done, forget about latency comp.
           const self = this;
           if (Meteor.isServer) {
+            // FIXME: Change to new model
             file.attachData(att.url, function(error) {
               file.boardId = boardId;
               file.cardId = cardId;

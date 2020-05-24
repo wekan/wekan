@@ -49,7 +49,7 @@ window.Popup = new (class {
       // has one. This allows us to position a sub-popup exactly at the same
       // position than its parent.
       let openerElement;
-      if (clickFromPopup(evt)) {
+      if (clickFromPopup(evt) && self._getTopStack()) {
         openerElement = self._getTopStack().openerElement;
       } else {
         self._stack = [];
