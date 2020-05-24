@@ -20,6 +20,8 @@ undefined](https://github.com/wekan/wekan/commit/b7105d7b5712dcdbf9dadebfddaba76
 - [Fix minicard cover functionality. Otherwise, if `this.coverId` is undefined then `Attachments.findOne()` would return any
 attachment](https://github.com/wekan/wekan/commit/66d35a15280795b76a81c3e59cebbd2a29e4dff8).
   Thanks to marc1006.
+- [Some fixes suggested by deepcode.ai](https://github.com/wekan/wekan/pull/3112).
+  Thanks to marc1006.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
