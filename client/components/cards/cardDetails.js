@@ -74,11 +74,18 @@ BlazeComponent.extendComponent({
 
   scrollParentContainer() {
     const cardPanelWidth = 510;
-    const bodyBoardComponent = this.parentComponent().parentComponent();
+    const parentComponent = this.parentComponent();
+    // TODO sometimes parentComponent is not available, maybe because it's not
+    // yet created?!
+    if (!parentComponent) return;
+    const bodyBoardComponent = parentComponent.parentComponent();
     //On Mobile View Parent is Board, Not Board Body. I cant see how this funciton should work then.
     if (bodyBoardComponent === null) return;
     const $cardView = this.$(this.firstNode());
     const $cardContainer = bodyBoardComponent.$('.js-swimlanes');
+    // TODO sometimes cardContainer is not available, maybe because it's not yet
+    // created?!
+    if (!$cardContainer) return;
     const cardContainerScroll = $cardContainer.scrollLeft();
     const cardContainerWidth = $cardContainer.width();
 
