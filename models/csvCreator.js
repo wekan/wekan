@@ -50,6 +50,7 @@ export class CsvCreator {
    */
   mapHeadertoCardFieldIndex(headerRow) {
     const index = {};
+    index.customFields = [];
     for (let i = 0; i < headerRow.length; i++) {
       switch (headerRow[i].trim().toLowerCase()) {
         case 'title':
@@ -98,8 +99,49 @@ export class CsvCreator {
           index.modifiedAt = i;
           break;
       }
+      if (headerRow[i].toLowerCase().startsWith('customfield')) {
+        if (headerRow[i].split('-')[2] === 'dropdown') {
+          index.customFields.push({
+            name: headerRow[i].split('-')[1],
+            type: headerRow[i].split('-')[2],
+            options: headerRow[i].split('-')[3].split('/'),
+            position: i,
+          });
+        } else {
+          index.customFields.push({
+            name: headerRow[i].split('-')[1],
+            type: headerRow[i].split('-')[2],
+            position: i,
+          });
+        }
+      }
     }
     this.fieldIndex = index;
+  }
+  createCustomFields(boardId) {
+    this.fieldIndex.customFields.forEach(customField => {
+      let settings = {};
+      if (customField.type === 'dropdown') {
+        settings = {
+          dropdownItems: customField.options.map(option => {
+            return { _id: Random.id(6), name: option };
+          }),
+        };
+      } else {
+        settings = {};
+      }
+      const id = CustomFields.direct.insert({
+        name: customField.name,
+        type: customField.type,
+        settings,
+        showOnCard: false,
+        automaticallyOnCard: false,
+        showLabelOnMiniCard: false,
+        boardIds: [boardId],
+      });
+      customField.id = id;
+      customField.settings = settings;
+    });
   }
 
   createBoard(csvData) {
@@ -228,9 +270,10 @@ export class CsvCreator {
       const cardToCreate = {
         archived: false,
         boardId,
-        createdAt: csvData[i][this.fieldIndex.createdAt]
-          ? this._now(new Date(csvData[i][this.fieldIndex.createdAt]))
-          : null,
+        createdAt:
+          csvData[i][this.fieldIndex.createdAt] !== ' ' || ''
+            ? this._now(new Date(csvData[i][this.fieldIndex.createdAt]))
+            : null,
         dateLastActivity: this._now(),
         description: csvData[i][this.fieldIndex.description],
         listId: this.lists[csvData[i][this.fieldIndex.stage]],
@@ -238,20 +281,24 @@ export class CsvCreator {
         sort: -1,
         title: csvData[i][this.fieldIndex.title],
         userId: this._user(),
-        startAt: csvData[i][this.fieldIndex.startAt]
-          ? this._now(new Date(csvData[i][this.fieldIndex.startAt]))
-          : null,
-        dueAt: csvData[i][this.fieldIndex.dueAt]
-          ? this._now(new Date(csvData[i][this.fieldIndex.dueAt]))
-          : null,
-        endAt: csvData[i][this.fieldIndex.endAt]
-          ? this._now(new Date(csvData[i][this.fieldIndex.endAt]))
-          : null,
+        startAt:
+          csvData[i][this.fieldIndex.startAt] !== ' ' || ''
+            ? this._now(new Date(csvData[i][this.fieldIndex.startAt]))
+            : null,
+        dueAt:
+          csvData[i][this.fieldIndex.dueAt] !== ' ' || ''
+            ? this._now(new Date(csvData[i][this.fieldIndex.dueAt]))
+            : null,
+        endAt:
+          csvData[i][this.fieldIndex.endAt] !== ' ' || ''
+            ? this._now(new Date(csvData[i][this.fieldIndex.endAt]))
+            : null,
         spentTime: null,
         labelIds: [],
-        modifiedAt: csvData[i][this.fieldIndex.modifiedAt]
-          ? this._now(new Date(csvData[i][this.fieldIndex.modifiedAt]))
-          : null,
+        modifiedAt:
+          csvData[i][this.fieldIndex.modifiedAt] !== ' ' || ''
+            ? this._now(new Date(csvData[i][this.fieldIndex.modifiedAt]))
+            : null,
       };
       // add the labels
       if (csvData[i][this.fieldIndex.labels]) {
@@ -290,7 +337,29 @@ export class CsvCreator {
           cardToCreate.members = wekanMembers;
         }
       }
-      Cards.direct.insert(cardToCreate);
+      // add the custom fields
+      if (this.fieldIndex.customFields.length > 0) {
+        const customFields = [];
+        this.fieldIndex.customFields.forEach(customField => {
+          if (csvData[i][customField.position] !== ' ') {
+            if (customField.type === 'dropdown') {
+              customFields.push({
+                _id: customField.id,
+                value: customField.settings.dropdownItems.find(
+                  ({ name }) => name === csvData[i][customField.position],
+                )._id,
+              });
+            } else {
+              customFields.push({
+                _id: customField.id,
+                value: csvData[i][customField.position],
+              });
+            }
+          }
+          cardToCreate.customFields = customFields;
+        });
+        Cards.direct.insert(cardToCreate);
+      }
     }
   }
 
@@ -307,6 +376,7 @@ export class CsvCreator {
     const boardId = this.createBoard(board);
     this.createLists(board, boardId);
     this.createSwimlanes(boardId);
+    this.createCustomFields(boardId);
     this.createCards(board, boardId);
     return boardId;
   }
