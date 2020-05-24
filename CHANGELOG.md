@@ -1,3 +1,28 @@
+# Upcoming Wekan release
+
+This release fixes the following updates:
+
+- [Update packages](https://github.com/wekan/wekan/commit/3b44acd87c35340bf9fe5d210f4402f1b1a1dfdf).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- Try to fix Snap [1](https://github.com/wekan/wekan/commit/6fad68b9b9afd8de7074037d73eeac40f6a3f7c1), [2](https://github.com/wekan/wekan/commit/b737adfcdfc9b8084a7eb84420a89c014bbec1fb).
+  Thanks to xet7.
+- [Add default attachments store path /var/snap/wekan/common/uploads where attachments will be
+  stored](https://github.com/wekan/wekan/commit/c61a126c8bcb25a1eda0203b89c990ae31de7a70).
+  Thanks to xet7.
+- [Make scrollParentContainer() more robust as it's used in a timeout callback. Example exception: Exception in setTimeout callback: TypeError: Cannot read property 'parentComponent' of null. Probably there is a better fix for this](https://github.com/wekan/wekan/commit/d5fbd50b760b1d3b84b5b4e8af3a8ed7608e2918).
+  Thanks to marc1006.
+- [Fix error link not available. Fixes: Exception in template helper: TypeError: Cannot read property 'link' of
+undefined](https://github.com/wekan/wekan/commit/b7105d7b5712dcdbf9dadebfddaba7691810da5c).
+  Thanks to marc1006.
+- [Fix minicard cover functionality. Otherwise, if `this.coverId` is undefined then `Attachments.findOne()` would return any
+attachment](https://github.com/wekan/wekan/commit/66d35a15280795b76a81c3e59cebbd2a29e4dff8).
+  Thanks to marc1006.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.04 2020-05-24 Wekan release
 
 This release adds the following features:
