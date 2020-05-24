@@ -378,8 +378,8 @@ BlazeComponent.extendComponent({
               new Date(card.dueAt.getTime() + 36e5),
             );
           });
-        events.sort(function(first, second) {
-          return first.id > second.id ? 1 : -1;
+        events.sort((first, second) => {
+          return first.id === second.id ? 0 : first.id > second.id ? 1 : -1;
         });
         callback(events);
       },
