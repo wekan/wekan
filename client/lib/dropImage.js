@@ -39,8 +39,8 @@
     };
     return this.each(function() {
       const element = this;
-      $(element).bind('dragenter dragover dragleave', stopFn);
-      return $(element).bind('drop', function(event) {
+      $(element).on('dragenter dragover dragleave', stopFn);
+      return $(element).on('drop', function(event) {
         stopFn(event);
         const files = event.dataTransfer.files;
         for (let i = 0; i < files.length; i++) {

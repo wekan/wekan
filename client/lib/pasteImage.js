@@ -35,7 +35,7 @@
     options = $.extend({}, defaults, options);
     return this.each(function() {
       const element = this;
-      return $(element).bind('paste', function(event) {
+      return $(element).on('paste', function(event) {
         const types = event.clipboardData.types;
         const items = event.clipboardData.items;
         for (let i = 0; i < types.length; i++) {
