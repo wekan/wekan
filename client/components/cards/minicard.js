@@ -52,4 +52,7 @@ Template.minicard.helpers({
       return false;
     }
   },
+  coverUrl() {
+    return Attachments.findOne(this.coverId).link('original', '/');
+  },
 });

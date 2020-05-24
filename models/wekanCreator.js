@@ -415,6 +415,7 @@ export class WekanCreator {
           const self = this;
           if (Meteor.isServer) {
             if (att.url) {
+              // FIXME: Change to new file library
               file.attachData(att.url, function(error) {
                 file.boardId = boardId;
                 file.cardId = cardId;
@@ -440,6 +441,7 @@ export class WekanCreator {
                 }
               });
             } else if (att.file) {
+              // FIXME: Change to new file library
               file.attachData(
                 Buffer.from(att.file, 'base64'),
                 {

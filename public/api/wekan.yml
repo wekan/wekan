@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v4.03
+  version: v4.04
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -797,8 +797,8 @@ paths:
             200 response
   /api/boards/{board}/export:
     get:
-      operationId: exportJson
-      summary: This route is used to export the board to a json file format.
+      operationId: export
+      summary: This route is used to export the board.
       description: |
         If user is already logged-in, pass loginToken as param
          "authToken": '/api/boards/:boardId/export?authToken=:token'
@@ -2079,6 +2079,8 @@ definitions:
           - relax
           - corteza
           - clearblue
+          - natural
+          - modern
       description:
         description: |
            The description of the board
