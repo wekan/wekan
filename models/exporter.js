@@ -37,8 +37,8 @@ export class Exporter {
     result.cards = Cards.find(byBoardNoLinked, noBoardId).fetch();
     result.swimlanes = Swimlanes.find(byBoard, noBoardId).fetch();
     result.customFields = CustomFields.find(
-      { boardIds: { $in: [this.boardId] } },
-      { fields: { boardId: 0 } },
+      { boardIds: this.boardId },
+      { fields: { boardIds: 0 } },
     ).fetch();
     result.comments = CardComments.find(byBoard, noBoardId).fetch();
     result.activities = Activities.find(byBoard, noBoardId).fetch();
@@ -214,7 +214,29 @@ export class Exporter {
       'Vote',
       'Archived',
     );
-
+    const customFieldMap = {};
+    let i = 0;
+    result.customFields.forEach(customField => {
+      customFieldMap[customField._id] = i;
+      customFieldMap[customField._id] = {
+        position: i,
+        type: customField.type,
+      };
+      if (customField.type === 'dropdown') {
+        let options = '';
+        customField.settings.dropdownItems.forEach(item => {
+          options = options === '' ? item.name : `/${options + item.name}`;
+        });
+        columnHeaders.push(
+          `CustomField-${customField.name}-${customField.type}-${options}`,
+        );
+      } else {
+        columnHeaders.push(
+          `CustomField-${customField.name}-${customField.type}`,
+        );
+      }
+      i++;
+    });
     /* TODO: Try to get translations working.
              These currently only bring English translations.
     TAPi18n.__('title'),
@@ -290,21 +312,15 @@ export class Exporter {
         labels = `${labels + label.name}-${label.color} `;
       });
       currentRow.push(labels.trim());
-      currentRow.push(card.startAt ? moment(card.startAt).format('LLLL') : ' ');
-      currentRow.push(card.dueAt ? moment(card.dueAt).format('LLLL') : ' ');
-      currentRow.push(card.endAt ? moment(card.endAt).format('LLLL') : ' ');
+      currentRow.push(card.startAt ? moment(card.startAt).format() : ' ');
+      currentRow.push(card.dueAt ? moment(card.dueAt).format() : ' ');
+      currentRow.push(card.endAt ? moment(card.endAt).format() : ' ');
       currentRow.push(card.isOvertime ? 'true' : 'false');
       currentRow.push(card.spentTime);
+      currentRow.push(card.createdAt ? moment(card.createdAt).format() : ' ');
+      currentRow.push(card.modifiedAt ? moment(card.modifiedAt).format() : ' ');
       currentRow.push(
-        card.createdAt ? moment(card.createdAt).format('LLLL') : ' ',
-      );
-      currentRow.push(
-        card.modifiedAt ? moment(card.modifiedAt).format('LLLL') : ' ',
-      );
-      currentRow.push(
-        card.dateLastActivity
-          ? moment(card.dateLastActivity).format('LLLL')
-          : ' ',
+        card.dateLastActivity ? moment(card.dateLastActivity).format() : ' ',
       );
       if (card.vote.question) {
         let positiveVoters = '';
@@ -331,6 +347,39 @@ export class Exporter {
         currentRow.push(' ');
       }
       currentRow.push(card.archived ? 'true' : 'false');
+      //Custom fields
+      const customFieldValuesToPush = new Array(result.customFields.length);
+      card.customFields.forEach(field => {
+        if (customFieldMap[field._id].type === 'date') {
+          customFieldValuesToPush[customFieldMap[field._id].position] = moment(
+            field.value,
+          ).format();
+        } else if (customFieldMap[field._id].type === 'dropdown') {
+          const dropdownOptions = result.customFields.find(
+            ({ _id }) => _id === field._id,
+          ).settings.dropdownItems;
+          const fieldValue = dropdownOptions.find(
+            ({ _id }) => _id === field.value,
+          ).name;
+          customFieldValuesToPush[
+            customFieldMap[field._id].position
+          ] = fieldValue;
+        } else {
+          customFieldValuesToPush[customFieldMap[field._id].position] =
+            field.value;
+        }
+      });
+      for (
+        let valueIndex = 0;
+        valueIndex < customFieldValuesToPush.length;
+        valueIndex++
+      ) {
+        if (!(valueIndex in customFieldValuesToPush)) {
+          currentRow.push(' ');
+        } else {
+          currentRow.push(customFieldValuesToPush[valueIndex]);
+        }
+      }
       stringifier.write(currentRow);
     });
     stringifier.end();
