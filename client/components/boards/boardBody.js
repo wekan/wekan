@@ -365,12 +365,12 @@ BlazeComponent.extendComponent({
         };
         currentBoard
           .cardsInInterval(start.toDate(), end.toDate())
-          .forEach(function(card) {
+          .forEach(card => {
             pushEvent(card);
           });
         currentBoard
           .cardsDueInBetween(start.toDate(), end.toDate())
-          .forEach(function(card) {
+          .forEach(card => {
             pushEvent(
               card,
               `${card.title} ${TAPi18n.__('card-due')}`,

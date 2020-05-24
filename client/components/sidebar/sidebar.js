@@ -653,7 +653,7 @@ BlazeComponent.extendComponent({
             'subtext-with-parent',
             'no-parent',
           ];
-          options.forEach(function(element) {
+          options.forEach(element => {
             if (element !== value) {
               $(`#${element} ${MCB}`).toggleClass(CKCLS, false);
               $(`#${element}`).toggleClass(CKCLS, false);
