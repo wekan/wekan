@@ -1,6 +1,11 @@
 # Upcoming Wekan release
 
-This release fixes the following updates:
+This release adds the following new features:
+
+- [Import/Export Custom Fields in CSV/TSV](https://github.com/wekan/wekan/pull/3115).
+  Thanks to brymut.
+
+and adds the following updates:
 
 - [Update packages](https://github.com/wekan/wekan/commit/3b44acd87c35340bf9fe5d210f4402f1b1a1dfdf).
   Thanks to xet7.
