@@ -51,7 +51,7 @@
     "lint-staged": "^7.3.0",
     "pre-commit": "^1.2.2",
     "prettier": "^1.19.1",
-    "prettier-eslint": "^9.0.1"
+    "prettier-eslint": "^9.0.2"
   },
   "dependencies": {
     "@babel/core": "^7.9.6",
