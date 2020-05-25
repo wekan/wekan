@@ -1,6 +1,6 @@
 const JSZip = require('jszip');
 
-window.ExportHtml = (Popup) => {
+window.ExportHtml = Popup => {
   const saveAs = function(blob, filename) {
     let dl = document.createElement('a');
     dl.href = window.URL.createObjectURL(blob);
@@ -12,21 +12,22 @@ window.ExportHtml = (Popup) => {
     dl.click();
   };
 
-  const asyncForEach = async function (array, callback) {
+  const asyncForEach = async function(array, callback) {
     for (let index = 0; index < array.length; index++) {
       await callback(array[index], index, array);
     }
   };
 
   const getPageHtmlString = () => {
-    return `<!doctype html>${
-      window.document.querySelector('html').outerHTML
-    }`;
+    return `<!doctype html>${window.document.querySelector('html').outerHTML}`;
   };
 
   const removeAnchors = htmlString => {
-    const replaceOpenAnchor = htmlString.replace(new RegExp('<a ', 'gim'), '<span ');
-    return replaceOpenAnchor.replace(new RegExp('<\/a', 'gim'), '</span');
+    const replaceOpenAnchor = htmlString.replace(
+      new RegExp('<a ', 'gim'),
+      '<span ',
+    );
+    return replaceOpenAnchor.replace(new RegExp('</a', 'gim'), '</span');
   };
 
   const ensureSidebarRemoved = () => {
@@ -83,9 +84,8 @@ window.ExportHtml = (Popup) => {
       elem.src = elem.src;
     });
     Array.from(document.querySelectorAll('.is-editable')).forEach(elem => {
-      elem.classList.remove('is-editable')
-    })
-
+      elem.classList.remove('is-editable');
+    });
   };
 
   const getBoardSlug = () => {
@@ -104,7 +104,8 @@ window.ExportHtml = (Popup) => {
       const responseBody = await response.text();
 
       const finalResponse = responseBody.replace(
-        new RegExp('packages\/[^\/]+\/upstream\/', 'gim'), '../'
+        new RegExp('packages/[^/]+/upstream/', 'gim'),
+        '../',
       );
 
       const filename = elem.href
@@ -138,30 +139,33 @@ window.ExportHtml = (Popup) => {
   };
 
   const removeCssUrlSurround = url => {
-    const working = url || "";
+    const working = url || '';
     return working
-      .split("url(")
-      .join("")
-      .split("\")")
-      .join("")
-      .split("\"")
-      .join("")
+      .split('url(')
+      .join('')
+      .split('")')
+      .join('')
+      .split('"')
+      .join('')
       .split("')")
-      .join("")
+      .join('')
       .split("'")
-      .join("")
-      .split(")")
-      .join("");
+      .join('')
+      .split(')')
+      .join('');
   };
 
   const getCardCovers = () => {
-    return Array.from(document.querySelectorAll('.minicard-cover'))
-      .filter(elem => elem.style['background-image'])
-  }
+    return Array.from(document.querySelectorAll('.minicard-cover')).filter(
+      elem => elem.style['background-image'],
+    );
+  };
 
   const downloadCardCovers = async (elements, zip, boardSlug) => {
     await asyncForEach(elements, async elem => {
-      const response = await fetch(removeCssUrlSurround(elem.style['background-image']));
+      const response = await fetch(
+        removeCssUrlSurround(elem.style['background-image']),
+      );
       const responseBody = await response.blob();
       const filename = removeCssUrlSurround(elem.style['background-image'])
         .split('/')
@@ -179,9 +183,12 @@ window.ExportHtml = (Popup) => {
   const addBoardHTMLToZip = (boardSlug, zip) => {
     ensureSidebarRemoved();
     const htmlOutputPath = `${boardSlug}/index.html`;
-    zip.file(htmlOutputPath, new Blob([
-      removeAnchors(getPageHtmlString())
-    ], { type: 'application/html' }));
+    zip.file(
+      htmlOutputPath,
+      new Blob([removeAnchors(getPageHtmlString())], {
+        type: 'application/html',
+      }),
+    );
   };
 
   return async () => {
@@ -202,5 +209,5 @@ window.ExportHtml = (Popup) => {
     const content = await zip.generateAsync({ type: 'blob' });
     saveAs(content, `${boardSlug}.zip`);
     window.location.reload();
-  }
+  };
 };

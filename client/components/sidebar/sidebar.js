@@ -467,7 +467,7 @@ Template.exportBoard.events({
   'click .html-export-board': async event => {
     event.preventDefault();
     await ExportHtml(Popup)();
-  }
+  },
 });
 
 Template.labelsWidget.events({
