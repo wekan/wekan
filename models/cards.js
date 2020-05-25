@@ -278,7 +278,7 @@ Cards.attachSchema(
        */
       type: Number,
       decimal: true,
-      defaultValue: '',
+      defaultValue: 0,
     },
     subtaskSort: {
       /**
