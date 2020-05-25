@@ -152,31 +152,33 @@ Template.editor.onRendered(() => {
                 const processData = function(fileObj) {
                   Utils.processUploadedAttachment(
                     currentCard,
-                    fileObj, 
-                    { onUploaded:
-                      attachment => {
-                        if (attachment && attachment._id && attachment.isImage) {
-                          attachment.one('uploaded', function() {
-                            const maxTry = 3;
-                            const checkItvl = 500;
-                            let retry = 0;
-                            const checkUrl = function() {
-                              // even though uploaded event fired, attachment.url() is still null somehow //TODO
-                              const url = Attachments.link(attachment, 'original', '/');
-                              if (url) {
-                                insertImage(
-                                  `${location.protocol}//${location.host}${url}`,
-                                );
-                              } else {
-                                retry++;
-                                if (retry < maxTry) {
-                                  setTimeout(checkUrl, checkItvl);
-                                }
+                    fileObj,
+                    attachment => {
+                      if (
+                        attachment &&
+                        attachment._id &&
+                        attachment.isImage()
+                      ) {
+                        attachment.one('uploaded', function() {
+                          const maxTry = 3;
+                          const checkItvl = 500;
+                          let retry = 0;
+                          const checkUrl = function() {
+                            // even though uploaded event fired, attachment.url() is still null somehow //TODO
+                            const url = attachment.url();
+                            if (url) {
+                              insertImage(
+                                `${location.protocol}//${location.host}${url}`,
+                              );
+                            } else {
+                              retry++;
+                              if (retry < maxTry) {
+                                setTimeout(checkUrl, checkItvl);
                               }
-                            };
-                            checkUrl();
-                          });
-                        }
+                            }
+                          };
+                          checkUrl();
+                        });
                       }
                     },
                   );

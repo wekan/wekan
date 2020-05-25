@@ -151,23 +151,21 @@ BlazeComponent.extendComponent({
   },
 
   attachmentLink() {
-    const activity = this.currentData().activity;
-    const attachment = activity.attachment();
-    const link = attachment ? attachment.link('original', '/') : null;
+    const attachment = this.currentData().activity.attachment();
     // trying to display url before file is stored generates js errors
     return (
       (attachment &&
-        link &&
+        attachment.url({ download: true }) &&
         Blaze.toHTML(
           HTML.A(
             {
-              href: link,
+              href: attachment.url({ download: true }),
               target: '_blank',
             },
-            attachment.name,
+            attachment.name(),
           ),
         )) ||
-      activity.attachmentName
+      this.currentData().activity.attachmentName
     );
   },
 

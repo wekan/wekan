@@ -13,10 +13,10 @@ Template.attachmentsGalery.events({
     event.stopPropagation();
   },
   'click .js-add-cover'() {
-    Cards.findOne(this.meta.cardId).setCover(this._id);
+    Cards.findOne(this.cardId).setCover(this._id);
   },
   'click .js-remove-cover'() {
-    Cards.findOne(this.meta.cardId).unsetCover();
+    Cards.findOne(this.cardId).unsetCover();
   },
   'click .js-preview-image'(event) {
     Popup.open('previewAttachedImage').call(this, event);
@@ -45,63 +45,22 @@ Template.attachmentsGalery.events({
   },
 });
 
-Template.attachmentsGalery.helpers({
-  url() {
-    return Attachments.link(this, 'original', '/'); 
-  },
-  isUploaded() {
-    return !this.meta.uploading;
-  },
-  isImage() {
-    return !!this.isImage;
-  },
-});
-
 Template.previewAttachedImagePopup.events({
   'click .js-large-image-clicked'() {
     Popup.close();
   },
 });
 
-Template.previewAttachedImagePopup.helpers({
-  url() {
-    return Attachments.link(this, 'original', '/');
-  }
-});
-
-// For uploading popup
-
-let uploadFileSize = new ReactiveVar('');
-let uploadProgress = new ReactiveVar(0);
-
 Template.cardAttachmentsPopup.events({
-  'change .js-attach-file'(event, instance) {
+  'change .js-attach-file'(event) {
     const card = this;
-    const callbacks = {
-		    onBeforeUpload: (err, fileData) => {
-          Popup.open('uploading')(this.clickEvent);
-          uploadFileSize.set('...');
-          uploadProgress.set(0);
-          return true;
-        },
-        onUploaded: (err, attachment) => {
-          if (attachment && attachment._id && attachment.isImage) {
-            card.setCover(attachment._id);
-          }
-          Popup.close();
-        },
-        onStart: (error, fileData) => {
-          uploadFileSize.set(formatBytes(fileData.size));
-        },
-				onError: (err, fileObj) => {
-          console.log('Error!', err);
-        },
-        onProgress: (progress, fileData) => {
-          uploadProgress.set(progress);
-        }
-    };
     const processFile = f => {
-      Utils.processUploadedAttachment(card, f, callbacks);
+      Utils.processUploadedAttachment(card, f, attachment => {
+        if (attachment && attachment._id && attachment.isImage()) {
+          card.setCover(attachment._id);
+        }
+        Popup.close();
+      });
     };
 
     FS.Utility.eachFile(event, f => {
@@ -141,20 +100,10 @@ Template.cardAttachmentsPopup.events({
     });
   },
   'click .js-computer-upload'(event, templateInstance) {
-    this.clickEvent = event;
     templateInstance.find('.js-attach-file').click();
     event.preventDefault();
   },
   'click .js-upload-clipboard-image': Popup.open('previewClipboardImage'),
-});
-
-Template.uploadingPopup.helpers({
-  fileSize: () => {
-    return uploadFileSize.get();
-  },
-  progress: () => {
-    return uploadProgress.get();
-  }
 });
 
 const MAX_IMAGE_PIXEL = Utils.MAX_IMAGE_PIXEL;
@@ -200,26 +149,20 @@ Template.previewClipboardImagePopup.events({
     if (results && results.file) {
       window.oPasted = pastedResults;
       const card = this;
-      const settings = {
-        file: results.file,
-        streams: 'dynamic',
-        chunkSize: 'dynamic',
-      };
+      const file = new FS.File(results.file);
       if (!results.name) {
         // if no filename, it's from clipboard. then we give it a name, with ext name from MIME type
         if (typeof results.file.type === 'string') {
-          settings.fileName =
-            new Date().getTime() + results.file.type.replace('.+/', '');
+          file.name(results.file.type.replace('image/', 'clipboard.'));
         }
       }
-      settings.meta = {};
-      settings.meta.updatedAt = new Date().getTime();
-      settings.meta.boardId = card.boardId;
-      settings.meta.cardId = card._id;
-      settings.meta.userId = Meteor.userId();
-      const attachment = Attachments.insert(settings);
+      file.updatedAt(new Date());
+      file.boardId = card.boardId;
+      file.cardId = card._id;
+      file.userId = Meteor.userId();
+      const attachment = Attachments.insert(file);
 
-      if (attachment && attachment._id && attachment.isImage) {
+      if (attachment && attachment._id && attachment.isImage()) {
         card.setCover(attachment._id);
       }
 
@@ -229,15 +172,3 @@ Template.previewClipboardImagePopup.events({
     }
   },
 });
-
-function formatBytes(bytes, decimals = 2) {
-    if (bytes === 0) return '0 Bytes';
-
-    const k = 1024;
-    const dm = decimals < 0 ? 0 : decimals;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
-}

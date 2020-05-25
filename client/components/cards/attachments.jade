@@ -18,19 +18,12 @@ template(name="attachmentDeletePopup")
   p {{_ "attachment-delete-pop"}}
   button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
 
-template(name="uploadingPopup")
-  .uploading-info
-    span.upload-percentage {{progress}}%
-    .upload-progress-frame
-      .upload-progress-bar(style="width: {{progress}}%;")
-    span.upload-size {{fileSize}}
-
 template(name="attachmentsGalery")
   .attachments-galery
     each attachments
       .attachment-item
-        a.attachment-thumbnail.swipebox(href="{{url}}" download="{{name}}" title="{{name}}")
-          if isUploaded 
+        a.attachment-thumbnail.swipebox(href="{{url}}" title="{{name}}")
+          if isUploaded
             if isImage
               img.attachment-thumbnail-img(src="{{url}}")
             else
@@ -40,7 +33,7 @@ template(name="attachmentsGalery")
         p.attachment-details
           = name
           span.attachment-details-actions
-            a.js-download(href="{{url download=true}}" download="{{name}}")
+            a.js-download(href="{{url download=true}}")
               i.fa.fa-download
               | {{_ 'download'}}
             if currentUser.isBoardMember

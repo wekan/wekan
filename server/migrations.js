@@ -80,7 +80,7 @@ Migrations.add('lowercase-board-permission', () => {
 Migrations.add('change-attachments-type-for-non-images', () => {
   const newTypeForNonImage = 'application/octet-stream';
   Attachments.find().forEach(file => {
-    if (!file.isImage) {
+    if (!file.isImage()) {
       Attachments.update(
         file._id,
         {
@@ -1044,46 +1044,3 @@ Migrations.add('add-sort-field-to-boards', () => {
     }
   });
 });
-
-import { MongoInternals } from 'meteor/mongo';
-
-Migrations.add('change-attachment-library', () => {
-	const fs = require('fs');
-	CFSAttachments.find().forEach(file => {
-    const bucket = new MongoInternals.NpmModule.GridFSBucket(MongoInternals.defaultRemoteCollectionDriver().mongo.db, {bucketName: 'cfs_gridfs.attachments'});
-    const gfsId = new MongoInternals.NpmModule.ObjectID(file.copies.attachments.key);
- 	  const reader = bucket.openDownloadStream(gfsId);
-    let store = Attachments.storagePath();
-    if (store.charAt(store.length - 1) === '/') {
-      store = store.substring(0, store.length - 1);
-    }
-		const path = `${store}/${file.name()}`;
-		const fd = fs.createWriteStream(path);
-		reader.pipe(fd);
-    reader.on('end', () => {
-      let opts = {
-        fileName: file.name(),
-        type: file.type(),
-        size: file.size(),
-        fileId: file._id,
-        meta: {
-          userId: file.userId,
-          boardId: file.boardId,
-          cardId: file.cardId
-        }
-      };
-      if (file.listId) {
-        opts.meta.listId = file.listId;
-      }
-      if (file.swimlaneId) {
-        opts.meta.swimlaneId = file.swimlaneId;
-      }
-      Attachments.addFile(path, opts, (err, fileRef) => {
-        if (err) {
-          console.log('error when migrating', file.name(), err);
-        }
-      });
-    });
-	});
-});
-
