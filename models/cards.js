@@ -1284,16 +1284,17 @@ Cards.mutations({
   },
 
   moveOptionalArgs({ boardId, swimlaneId, listId, sort } = {}) {
-    boardId = boardId ?? this.boardId;
-    swimlaneId = swimlaneId ?? this.swimlaneId;
+    boardId = boardId || this.boardId;
+    swimlaneId = swimlaneId || this.swimlaneId;
     // This should never happen, but there was a bug that was fixed in commit
     // ea0239538a68e225c867411a4f3e0d27c158383.
     if (!swimlaneId) {
       const board = Boards.findOne(boardId);
       swimlaneId = board.getDefaultSwimline()._id;
     }
-    listId = listId ?? this.listId;
-    sort = sort ?? this.sort;
+    listId = listId || this.listId;
+    if (sort === undefined || sort === null)
+      sort = this.sort;
     return this.move(boardId, swimlaneId, listId, sort);
   },
 
