@@ -9,6 +9,16 @@ BlazeComponent.extendComponent({
     return 'minicard';
   },
 
+  formattedCurrencyCustomFieldValue(definition) {
+    const customField = this.data()
+      .customFieldsWD()
+      .find(f => f._id === definition._id);
+    const customFieldTrueValue =
+      customField && customField.trueValue ? customField.trueValue : '';
+
+    return `${definition.settings.currencySymbol}${customFieldTrueValue}`;
+  },
+
   events() {
     return [
       {

@@ -74,8 +74,12 @@ template(name="minicard")
                   +viewer
                     = definition.name
               .minicard-custom-field-item
-                +viewer
-                  = trueValue
+                if $eq definition.type "currency"
+                  +viewer
+                    = formattedCurrencyCustomFieldValue(definition)
+                else
+                  +viewer
+                    = trueValue
 
     if getAssignees
       .minicard-assignees.js-minicard-assignees
