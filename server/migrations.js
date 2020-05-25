@@ -1047,9 +1047,17 @@ import { MongoInternals } from 'meteor/mongo';
 Migrations.add('change-attachment-library', () => {
 	const fs = require('fs');
 	CFSAttachments.find().forEach(file => {
-    const bucket = new MongoInternals.NpmModule.GridFSBucket(MongoInternals.defaultRemoteCollectionDriver().mongo.db, {bucketName: 'cfs_gridfs.attachments'});
-    const gfsId = new MongoInternals.NpmModule.ObjectID(file.copies.attachments.key);
- 	  const reader = bucket.openDownloadStream(gfsId);
+    let reader;
+    try {
+      reader = file.createReadStream();
+    } catch (error) {
+      const bucket = new MongoInternals.NpmModule.GridFSBucket(MongoInternals.defaultRemoteCollectionDriver().mongo.db, {bucketName: 'cfs_gridfs.attachments'});
+      if (!file.copies) {
+        return;
+      }
+      const gfsId = new MongoInternals.NpmModule.ObjectID(file.copies.attachments.key);
+      reader = bucket.openDownloadStream(gfsId);
+    }
     let store = Attachments.storagePath();
     if (store.charAt(store.length - 1) === '/') {
       store = store.substring(0, store.length - 1);

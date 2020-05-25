@@ -6,7 +6,7 @@ const collectionName = 'attachments2';
 Attachments = new FilesCollection({
   storagePath: storagePath(),
   debug: false, 
-//  allowClientCode: true,
+  allowClientCode: true,
   collectionName: 'attachments2',
   onAfterUpload: onAttachmentUploaded,
   onBeforeRemove: onAttachmentRemoving
@@ -15,19 +15,6 @@ Attachments = new FilesCollection({
 if (Meteor.isServer) {
   Meteor.startup(() => {
     Attachments.collection._ensureIndex({ cardId: 1 });
-  });
-
-  // TODO: Permission related
-  Attachments.allow({
-    insert() {
-      return false;
-    },
-    update() {
-      return true;
-    },
-    remove() {
-      return true;
-    }
   });
 
   Meteor.methods({
