@@ -27,6 +27,12 @@ attachment](https://github.com/wekan/wekan/commit/66d35a15280795b76a81c3e59cebbd
   Thanks to marc1006.
 - [Some fixes suggested by deepcode.ai](https://github.com/wekan/wekan/pull/3112).
   Thanks to marc1006.
+- [Move In Progress ostrio-files changes to separate branch, and revert ostrio-files changes, so that:
+  Export to CSV/TSV with custom fields works,
+  Attachments are not exported to disk,
+  It is possible to build arm64/s390x versions
+  again](https://github.com/wekan/wekan/commit d52affe65893f17bab59bb43aa9f5afbb54993d3).
+  Thanks to xet7 !
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
