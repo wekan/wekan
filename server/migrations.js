@@ -18,6 +18,8 @@ import Triggers from '../models/triggers';
 import UnsavedEdits from '../models/unsavedEdits';
 import Users from '../models/users';
 
+import { MongoInternals } from 'meteor/mongo';
+
 // Anytime you change the schema of one of the collection in a non-backward
 // compatible way you have to write a migration in this file using the following
 // API:
@@ -79,8 +81,8 @@ Migrations.add('lowercase-board-permission', () => {
 // Security migration: see https://github.com/wekan/wekan/issues/99
 Migrations.add('change-attachments-type-for-non-images', () => {
   const newTypeForNonImage = 'application/octet-stream';
-  Attachments.find().forEach(file => {
-    if (!file.isImage) {
+  CFSAttachments.find().forEach(file => {
+    if (!file.isImage()) {
       Attachments.update(
         file._id,
         {
@@ -1042,8 +1044,6 @@ Migrations.add('add-sort-field-to-boards', () => {
   });
 });
 
-import { MongoInternals } from 'meteor/mongo';
-
 Migrations.add('change-attachment-library', () => {
 	const fs = require('fs');
 	CFSAttachments.find().forEach(file => {
@@ -1059,7 +1059,7 @@ Migrations.add('change-attachment-library', () => {
       reader = bucket.openDownloadStream(gfsId);
     }
     let store = Attachments.storagePath();
-    if (store.charAt(store.length - 1) === '/') {
+    if (store.endsWith('/')) {
       store = store.substring(0, store.length - 1);
     }
 		const path = `${store}/${file.name()}`;
