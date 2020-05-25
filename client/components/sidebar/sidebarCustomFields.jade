@@ -38,7 +38,7 @@ template(name="createCustomFieldPopup")
             label
                 | {{_ 'custom-field-currency-option'}}
             select.js-field-currency
-              each getCurrencySymbols
+              each getCurrencyCodes
                 if selected
                   option(value=value selected="selected") {{name}}
                 else

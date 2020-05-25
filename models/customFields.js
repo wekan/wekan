@@ -30,7 +30,7 @@ CustomFields.attachSchema(
        */
       type: Object,
     },
-    'settings.currencySymbol': {
+    'settings.currencyCode': {
       type: String,
       optional: true,
     },

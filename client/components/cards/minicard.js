@@ -16,7 +16,11 @@ BlazeComponent.extendComponent({
     const customFieldTrueValue =
       customField && customField.trueValue ? customField.trueValue : '';
 
-    return `${definition.settings.currencySymbol}${customFieldTrueValue}`;
+    const locale = TAPi18n.getLanguage();
+    return new Intl.NumberFormat(locale, {
+      style: 'currency',
+      currency: definition.settings.currencyCode,
+    }).format(customFieldTrueValue);
   },
 
   events() {

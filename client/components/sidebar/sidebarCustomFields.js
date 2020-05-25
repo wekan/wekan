@@ -18,11 +18,47 @@ BlazeComponent.extendComponent({
 const CreateCustomFieldPopup = BlazeComponent.extendComponent({
   _types: ['text', 'number', 'date', 'dropdown', 'currency'],
 
-  _defaultCurrencySymbols: [
-    { symbol: '$' },
-    { symbol: '€' },
-    { symbol: '￡' },
-    { symbol: '¥' },
+  _currencyList: [
+    {
+      name: 'US Dollar',
+      code: 'USD',
+    },
+    {
+      name: 'Euro',
+      code: 'EUR',
+    },
+    {
+      name: 'Yen',
+      code: 'JPY',
+    },
+    {
+      name: 'Pound Sterling',
+      code: 'GBP',
+    },
+    {
+      name: 'Australian Dollar',
+      code: 'AUD',
+    },
+    {
+      name: 'Canadian Dollar',
+      code: 'CAD',
+    },
+    {
+      name: 'Swiss Franc',
+      code: 'CHF',
+    },
+    {
+      name: 'Yuan Renminbi',
+      code: 'CNY',
+    },
+    {
+      name: 'Hong Kong Dollar',
+      code: 'HKD',
+    },
+    {
+      name: 'New Zealand Dollar',
+      code: 'NZD',
+    },
   ],
 
   onCreated() {
@@ -30,10 +66,10 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
       this.data().type ? this.data().type : this._types[0],
     );
 
-    this.currencySymbol = new ReactiveVar(
-      this.data().settings && this.data().settings.currencySymbol
-        ? this.data().settings.currencySymbol
-        : this._defaultCurrencySymbols[0].symbol,
+    this.currencyCode = new ReactiveVar(
+      this.data().settings && this.data().settings.currencyCode
+        ? this.data().settings.currencyCode
+        : this._currencyList[0].code,
     );
 
     this.dropdownItems = new ReactiveVar(
@@ -58,14 +94,14 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
     return this.type.get() !== type;
   },
 
-  getCurrencySymbols() {
-    const currentSymbol = this.currencySymbol.get();
+  getCurrencyCodes() {
+    const currentCode = this.currencyCode.get();
 
-    return this._defaultCurrencySymbols.map(({ symbol }) => {
+    return this._currencyList.map(({ name, code }) => {
       return {
-        name: symbol,
-        value: symbol,
-        selected: symbol === currentSymbol,
+        name: `${code} - ${name}`,
+        value: code,
+        selected: code === currentCode,
       };
     });
   },
@@ -89,8 +125,8 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
     const settings = {};
     switch (this.type.get()) {
       case 'currency': {
-        const currencySymbol = this.currencySymbol.get();
-        settings.currencySymbol = currencySymbol;
+        const currencyCode = this.currencyCode.get();
+        settings.currencyCode = currencyCode;
         break;
       }
       case 'dropdown': {
@@ -113,7 +149,7 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
         },
         'change .js-field-currency'(evt) {
           const value = evt.target.value;
-          this.currencySymbol.set(value);
+          this.currencyCode.set(value);
         },
         'keydown .js-dropdown-item.last'(evt) {
           if (evt.target.value.trim() && evt.keyCode === 13) {

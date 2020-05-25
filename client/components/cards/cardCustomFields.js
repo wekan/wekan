@@ -85,11 +85,16 @@ CardCustomField.register('cardCustomField');
   onCreated() {
     super.onCreated();
 
-    this.currencySymbol = this.data().definition.settings.currencySymbol;
+    this.currencyCode = this.data().definition.settings.currencyCode;
   }
 
   formattedValue() {
-    return `${this.currencySymbol}${this.data().value}`;
+    const locale = TAPi18n.getLanguage();
+
+    return new Intl.NumberFormat(locale, {
+      style: 'currency',
+      currency: this.currencyCode,
+    }).format(this.data().value);
   }
 
   events() {
