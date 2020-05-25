@@ -157,8 +157,9 @@ Template.disambiguateMultiMemberPopup.events({
 });
 
 Template.moveSelectionPopup.events({
-  'click .js-select-list'() {
-    mutateSelectedCards('move', this._id);
+  'click .js-select-list'(event) {
+    // Move the minicard to the end of the target list
+    mutateSelectedCards('moveToEndOfList', { listId: this._id });
     EscapeActions.executeUpTo('multiselection');
   },
 });
