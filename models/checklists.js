@@ -70,7 +70,7 @@ Checklists.helpers({
     this._id = null;
     this.cardId = newCardId;
     const newChecklistId = Checklists.insert(this);
-    ChecklistItems.find({ checklistId: oldChecklistId }).forEach(item => {
+    ChecklistItems.find({ checklistId: oldChecklistId }).forEach(function(item) {
       item._id = null;
       item.checklistId = newChecklistId;
       item.cardId = newCardId;
@@ -100,13 +100,13 @@ Checklists.helpers({
   },
   checkAllItems() {
     const checkItems = ChecklistItems.find({ checklistId: this._id });
-    checkItems.forEach(item => {
+    checkItems.forEach(function(item) {
       item.check();
     });
   },
   uncheckAllItems() {
     const checkItems = ChecklistItems.find({ checklistId: this._id });
-    checkItems.forEach(item => {
+    checkItems.forEach(function(item) {
       item.uncheck();
     });
   },
@@ -307,7 +307,7 @@ if (Meteor.isServer) {
             items = [items];
           }
         }
-        items.forEach((item, idx) => {
+        items.forEach(function(item, idx) {
           ChecklistItems.insert({
             cardId: paramCardId,
             checklistId: id,

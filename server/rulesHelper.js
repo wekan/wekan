@@ -17,7 +17,7 @@ RulesHelper = {
     const matchingMap = this.buildMatchingFieldsMap(activity, matchingFields);
     const matchingTriggers = Triggers.find(matchingMap);
     const matchingRules = [];
-    matchingTriggers.forEach(trigger => {
+    matchingTriggers.forEach(function(trigger) {
       const rule = trigger.getRule();
       // Check that for some unknown reason there are some leftover triggers
       // not connected to any rules

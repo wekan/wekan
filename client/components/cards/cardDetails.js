@@ -812,9 +812,9 @@ Template.copyChecklistToManyCardsPopup.events({
 
         // copy subtasks
         cursor = Cards.find({ parentId: oldId });
-        cursor.forEach(cur => {
+        cursor.forEach(function() {
           'use strict';
-          const subtask = cur;
+          const subtask = arguments[0];
           subtask.parentId = _id;
           subtask._id = null;
           /* const newSubtaskId = */ Cards.insert(subtask);
