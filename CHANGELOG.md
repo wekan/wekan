@@ -1,3 +1,16 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix move selection](https://github.com/wekan/wekan/pull/3120).
+  Thanks to marc1006.
+- [Fix Python API generation](https://github.com/wekan/wekan/pull/3121).
+  Thanks to marc1006.
+- [Fix default value of `sort`](https://github.com/wekan/wekan/pull/3122).
+  Thanks to marc1006.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.06 2020-05-25 Wekan release
 
 This release fixes the following bugs:
