@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v4.05 2020-05-25 Wekan release
 
 This release adds the following new features:
 
@@ -12,7 +12,7 @@ and adds the following updates:
 
 and fixes the following bugs:
 
-- Try to fix Snap [1](https://github.com/wekan/wekan/commit/6fad68b9b9afd8de7074037d73eeac40f6a3f7c1), [2](https://github.com/wekan/wekan/commit/b737adfcdfc9b8084a7eb84420a89c014bbec1fb).
+- Try to fix Snap [1](https://github.com/wekan/wekan/commit/6fad68b9b9afd8de7074037d73eeac40f6a3f7c1), [2](https://github.com/wekan/wekan/commit/b737adfcdfc9b8084a7eb84420a89c014bbec1fb). Later reverted those like other ostrio-files changes too.
   Thanks to xet7.
 - [Add default attachments store path /var/snap/wekan/common/uploads where attachments will be
   stored](https://github.com/wekan/wekan/commit/c61a126c8bcb25a1eda0203b89c990ae31de7a70).
@@ -27,16 +27,19 @@ attachment](https://github.com/wekan/wekan/commit/66d35a15280795b76a81c3e59cebbd
   Thanks to marc1006.
 - [Some fixes suggested by deepcode.ai](https://github.com/wekan/wekan/pull/3112).
   Thanks to marc1006.
+- [Sorry marc1006, I had to revert deepcode.ai arrow function fixes because Python API docs generator does not work all when code has arrow functions](https://github.com/wekan/wekan/commit/f9018fc3a87080d8d97c371e29a8f3f0a20ca932).
+  Thanks to xet7.
 - [Move In Progress ostrio-files changes to separate branch, and revert ostrio-files changes, so that:
-  Export to CSV/TSV with custom fields works,
-  Attachments are not exported to disk,
+  Export to CSV/TSV with custom fields works, Attachments are not exported to disk,
   It is possible to build arm64/s390x versions
-  again](https://github.com/wekan/wekan/commit d52affe65893f17bab59bb43aa9f5afbb54993d3).
-  Thanks to xet7 !
+  again](https://github.com/wekan/wekan/commit/d52affe65893f17bab59bb43aa9f5afbb54993d3).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v4.04 2020-05-24 Wekan release
+
+Please use v4.05 or newer instead, that works better.
 
 This release adds the following features:
 

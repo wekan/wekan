@@ -70,7 +70,9 @@ Checklists.helpers({
     this._id = null;
     this.cardId = newCardId;
     const newChecklistId = Checklists.insert(this);
-    ChecklistItems.find({ checklistId: oldChecklistId }).forEach(function(item) {
+    ChecklistItems.find({ checklistId: oldChecklistId }).forEach(function(
+      item,
+    ) {
       item._id = null;
       item.checklistId = newChecklistId;
       item.cardId = newCardId;
