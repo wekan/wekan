@@ -1255,6 +1255,48 @@ Cards.mutations({
     };
   },
 
+  moveToEndOfList({ listId } = {}) {
+    let swimlaneId = this.swimlaneId;
+    const boardId = this.boardId;
+    let sortIndex = 0;
+
+    // This should never happen, but there was a bug that was fixed in commit
+    // ea0239538a68e225c867411a4f3e0d27c158383.
+    if (!swimlaneId) {
+      const board = Boards.findOne(boardId);
+      swimlaneId = board.getDefaultSwimline()._id;
+    }
+    // Move the minicard to the end of the target list
+    let parentElementDom = $(`#swimlane-${this.swimlaneId}`).get(0);
+    if (!parentElementDom) parentElementDom = $(':root');
+
+    const lastCardDom = $(parentElementDom)
+      .find(`#js-list-${listId} .js-minicard:last`)
+      .get(0);
+    if (lastCardDom) sortIndex = Utils.calculateIndex(lastCardDom, null).base;
+
+    return this.moveOptionalArgs({
+      boardId: boardId,
+      swimlaneId: swimlaneId,
+      listId: listId,
+      sort: sortIndex,
+    });
+  },
+
+  moveOptionalArgs({ boardId, swimlaneId, listId, sort } = {}) {
+    boardId = boardId ?? this.boardId;
+    swimlaneId = swimlaneId ?? this.swimlaneId;
+    // This should never happen, but there was a bug that was fixed in commit
+    // ea0239538a68e225c867411a4f3e0d27c158383.
+    if (!swimlaneId) {
+      const board = Boards.findOne(boardId);
+      swimlaneId = board.getDefaultSwimline()._id;
+    }
+    listId = listId ?? this.listId;
+    sort = sort ?? this.sort;
+    return this.move(boardId, swimlaneId, listId, sort);
+  },
+
   move(boardId, swimlaneId, listId, sort) {
     // Copy Custom Fields
     if (this.boardId !== boardId) {
