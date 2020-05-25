@@ -322,7 +322,7 @@ export class Exporter {
       currentRow.push(
         card.dateLastActivity ? moment(card.dateLastActivity).format() : ' ',
       );
-      if (card.vote.question) {
+      if (card.vote.question !== undefined) {
         let positiveVoters = '';
         let negativeVoters = '';
         card.vote.positive.forEach(userId => {
