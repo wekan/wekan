@@ -1,4 +1,4 @@
-'# Use use the meteor-spk tool to generate a sandstorm package (spk) from this
+# Use use the meteor-spk tool to generate a sandstorm package (spk) from this
 # meteor application source code. https://github.com/sandstorm-io/meteor-spk
 @0xa5275bd3ad124e12;
 
