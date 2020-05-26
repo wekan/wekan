@@ -807,6 +807,6 @@
   "last-activity": "Última atividade",
   "voting": "Votação",
   "archived": "Arquivado",
-  "delete-linked-card-before-this-card": "You can not delete this card before first deleting linked card that has",
-  "delete-linked-cards-before-this-list": "You can not delete this list before first deleting linked cards that are pointing to cards in this list"
+  "delete-linked-card-before-this-card": "Você não pode excluir este cartão antes de excluir primeiro o cartão vinculado que possui",
+  "delete-linked-cards-before-this-list": "Você não pode excluir esta lista antes de excluir primeiro os cartões vinculados que estão apontando para os cartões nesta lista"
 }
