@@ -37,7 +37,7 @@ export class Exporter {
     result.cards = Cards.find(byBoardNoLinked, noBoardId).fetch();
     result.swimlanes = Swimlanes.find(byBoard, noBoardId).fetch();
     result.customFields = CustomFields.find(
-      { boardIds: this.boardId },
+      { boardIds: this._boardId },
       { fields: { boardIds: 0 } },
     ).fetch();
     result.comments = CardComments.find(byBoard, noBoardId).fetch();
@@ -217,7 +217,6 @@ export class Exporter {
     const customFieldMap = {};
     let i = 0;
     result.customFields.forEach(customField => {
-      customFieldMap[customField._id] = i;
       customFieldMap[customField._id] = {
         position: i,
         type: customField.type,
@@ -225,10 +224,14 @@ export class Exporter {
       if (customField.type === 'dropdown') {
         let options = '';
         customField.settings.dropdownItems.forEach(item => {
-          options = options === '' ? item.name : `/${options + item.name}`;
+          options = options === '' ? item.name : `${`${options}/${item.name}`}`;
         });
         columnHeaders.push(
           `CustomField-${customField.name}-${customField.type}-${options}`,
+        );
+      } else if (customField.type === 'currency') {
+        columnHeaders.push(
+          `CustomField-${customField.name}-${customField.type}-${customField.settings.currencyCode}`,
         );
       } else {
         columnHeaders.push(
@@ -322,7 +325,7 @@ export class Exporter {
       currentRow.push(
         card.dateLastActivity ? moment(card.dateLastActivity).format() : ' ',
       );
-      if (card.vote.question !== undefined) {
+      if (card.vote && card.vote.question !== '') {
         let positiveVoters = '';
         let negativeVoters = '';
         card.vote.positive.forEach(userId => {
@@ -350,23 +353,25 @@ export class Exporter {
       //Custom fields
       const customFieldValuesToPush = new Array(result.customFields.length);
       card.customFields.forEach(field => {
-        if (customFieldMap[field._id].type === 'date') {
-          customFieldValuesToPush[customFieldMap[field._id].position] = moment(
-            field.value,
-          ).format();
-        } else if (customFieldMap[field._id].type === 'dropdown') {
-          const dropdownOptions = result.customFields.find(
-            ({ _id }) => _id === field._id,
-          ).settings.dropdownItems;
-          const fieldValue = dropdownOptions.find(
-            ({ _id }) => _id === field.value,
-          ).name;
-          customFieldValuesToPush[
-            customFieldMap[field._id].position
-          ] = fieldValue;
-        } else {
-          customFieldValuesToPush[customFieldMap[field._id].position] =
-            field.value;
+        if (field.value !== null) {
+          if (customFieldMap[field._id].type === 'date') {
+            customFieldValuesToPush[
+              customFieldMap[field._id].position
+            ] = moment(field.value).format();
+          } else if (customFieldMap[field._id].type === 'dropdown') {
+            const dropdownOptions = result.customFields.find(
+              ({ _id }) => _id === field._id,
+            ).settings.dropdownItems;
+            const fieldValue = dropdownOptions.find(
+              ({ _id }) => _id === field.value,
+            ).name;
+            customFieldValuesToPush[
+              customFieldMap[field._id].position
+            ] = fieldValue;
+          } else {
+            customFieldValuesToPush[customFieldMap[field._id].position] =
+              field.value;
+          }
         }
       });
       for (
@@ -383,7 +388,7 @@ export class Exporter {
       stringifier.write(currentRow);
     });
     stringifier.end();
-    return cardRows;
+    return cardRows[0];
   }
 
   canExport(user) {
