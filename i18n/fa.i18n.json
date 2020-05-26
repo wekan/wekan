@@ -256,6 +256,8 @@
   "current": "جاری",
   "custom-field-delete-pop": "این اقدام فیلدشخصی را بهمراه تمامی تاریخچه آن از کارت ها پاک می کند و برگشت پذیر نمی باشد",
   "custom-field-checkbox": "جعبه انتخابی",
+  "custom-field-currency": "Currency",
+  "custom-field-currency-option": "Currency Code",
   "custom-field-date": "تاریخ",
   "custom-field-dropdown": "لیست افتادنی",
   "custom-field-dropdown-none": "(هیچ)",

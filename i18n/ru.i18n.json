@@ -256,6 +256,8 @@
   "current": "текущий",
   "custom-field-delete-pop": "Отменить нельзя. Это удалит настраиваемое поле со всех карт и уничтожит его историю.",
   "custom-field-checkbox": "Галочка",
+  "custom-field-currency": "Currency",
+  "custom-field-currency-option": "Currency Code",
   "custom-field-date": "Дата",
   "custom-field-dropdown": "Выпадающий список",
   "custom-field-dropdown-none": "(нет)",

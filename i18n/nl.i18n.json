@@ -256,6 +256,8 @@
   "current": "Huidige",
   "custom-field-delete-pop": "Er is geen herstelmogelijkheid. Deze actie zal dit maatwerkveld van alle kaarten verwijderen en de bijbehorende historie wissen.",
   "custom-field-checkbox": "Checkbox",
+  "custom-field-currency": "Currency",
+  "custom-field-currency-option": "Currency Code",
   "custom-field-date": "Datum",
   "custom-field-dropdown": "Dropdown Lijst",
   "custom-field-dropdown-none": "(geen)",

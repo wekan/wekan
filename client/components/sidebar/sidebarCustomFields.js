@@ -16,12 +16,62 @@ BlazeComponent.extendComponent({
 }).register('customFieldsSidebar');
 
 const CreateCustomFieldPopup = BlazeComponent.extendComponent({
-  _types: ['text', 'number', 'date', 'dropdown'],
+  _types: ['text', 'number', 'date', 'dropdown', 'currency'],
+
+  _currencyList: [
+    {
+      name: 'US Dollar',
+      code: 'USD',
+    },
+    {
+      name: 'Euro',
+      code: 'EUR',
+    },
+    {
+      name: 'Yen',
+      code: 'JPY',
+    },
+    {
+      name: 'Pound Sterling',
+      code: 'GBP',
+    },
+    {
+      name: 'Australian Dollar',
+      code: 'AUD',
+    },
+    {
+      name: 'Canadian Dollar',
+      code: 'CAD',
+    },
+    {
+      name: 'Swiss Franc',
+      code: 'CHF',
+    },
+    {
+      name: 'Yuan Renminbi',
+      code: 'CNY',
+    },
+    {
+      name: 'Hong Kong Dollar',
+      code: 'HKD',
+    },
+    {
+      name: 'New Zealand Dollar',
+      code: 'NZD',
+    },
+  ],
 
   onCreated() {
     this.type = new ReactiveVar(
       this.data().type ? this.data().type : this._types[0],
     );
+
+    this.currencyCode = new ReactiveVar(
+      this.data().settings && this.data().settings.currencyCode
+        ? this.data().settings.currencyCode
+        : this._currencyList[0].code,
+    );
+
     this.dropdownItems = new ReactiveVar(
       this.data().settings && this.data().settings.dropdownItems
         ? this.data().settings.dropdownItems
@@ -44,6 +94,18 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
     return this.type.get() !== type;
   },
 
+  getCurrencyCodes() {
+    const currentCode = this.currencyCode.get();
+
+    return this._currencyList.map(({ name, code }) => {
+      return {
+        name: `${code} - ${name}`,
+        value: code,
+        selected: code === currentCode,
+      };
+    });
+  },
+
   getDropdownItems() {
     const items = this.dropdownItems.get();
     Array.from(this.findAll('.js-field-settings-dropdown input')).forEach(
@@ -62,6 +124,11 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
   getSettings() {
     const settings = {};
     switch (this.type.get()) {
+      case 'currency': {
+        const currencyCode = this.currencyCode.get();
+        settings.currencyCode = currencyCode;
+        break;
+      }
       case 'dropdown': {
         const dropdownItems = this.getDropdownItems().filter(
           item => !!item.name.trim(),
@@ -79,6 +146,10 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
         'change .js-field-type'(evt) {
           const value = evt.target.value;
           this.type.set(value);
+        },
+        'change .js-field-currency'(evt) {
+          const value = evt.target.value;
+          this.currencyCode.set(value);
         },
         'keydown .js-dropdown-item.last'(evt) {
           if (evt.target.value.trim() && evt.keyCode === 13) {

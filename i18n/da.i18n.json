@@ -256,6 +256,8 @@
   "current": "nuværende",
   "custom-field-delete-pop": "Du kan ikke fortryde handlingen. Dette vil fjerne dette brugerdefinerede felt fra alle kort og tilintetgøre dens historik.",
   "custom-field-checkbox": "Afkrydsningsfelt",
+  "custom-field-currency": "Currency",
+  "custom-field-currency-option": "Currency Code",
   "custom-field-date": "Dato",
   "custom-field-dropdown": "Rullegardinliste",
   "custom-field-dropdown-none": "(ingen)",

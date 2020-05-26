@@ -33,6 +33,17 @@ template(name="createCustomFieldPopup")
                         option(value=value selected="selected") {{name}}
                     else
                         option(value=value) {{name}}
+
+        div.js-field-settings.js-field-settings-currency(class="{{#if isTypeNotSelected 'currency'}}hide{{/if}}")
+            label
+                | {{_ 'custom-field-currency-option'}}
+            select.js-field-currency
+              each getCurrencyCodes
+                if selected
+                  option(value=value selected="selected") {{name}}
+                else
+                  option(value=value) {{name}}
+
         div.js-field-settings.js-field-settings-dropdown(class="{{#if isTypeNotSelected 'dropdown'}}hide{{/if}}")
             label
                 | {{_ 'custom-field-dropdown-options'}}

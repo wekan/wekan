@@ -256,6 +256,8 @@
   "current": "actuel",
   "custom-field-delete-pop": "Cette action n'est pas réversible. Elle supprimera ce champ personnalisé de toutes les cartes et détruira son historique.",
   "custom-field-checkbox": "Case à cocher",
+  "custom-field-currency": "Currency",
+  "custom-field-currency-option": "Currency Code",
   "custom-field-date": "Date",
   "custom-field-dropdown": "Liste de choix",
   "custom-field-dropdown-none": "(aucun)",

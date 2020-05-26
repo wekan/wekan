@@ -256,6 +256,8 @@
   "current": "वर्तमान",
   "custom-field-delete-pop": "कोई पूर्ववत् नहीं है । यह सभी कार्ड से इस कस्टम क्षेत्र को हटा दें और इसके इतिहास को नष्ट कर देगा ।",
   "custom-field-checkbox": "निशानबक्से",
+  "custom-field-currency": "Currency",
+  "custom-field-currency-option": "Currency Code",
   "custom-field-date": "दिनांक",
   "custom-field-dropdown": "ड्रॉपडाउन सूची",
   "custom-field-dropdown-none": "(कोई नहीं)",

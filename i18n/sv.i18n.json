@@ -256,6 +256,8 @@
   "current": "aktuell",
   "custom-field-delete-pop": "Det går inte att ångra. Detta tar bort det här anpassade fältet från alla kort och förstör dess historia.",
   "custom-field-checkbox": "Kryssruta",
+  "custom-field-currency": "Currency",
+  "custom-field-currency-option": "Currency Code",
   "custom-field-date": "Datum",
   "custom-field-dropdown": "Rullgardingsmeny",
   "custom-field-dropdown-none": "(inga)",

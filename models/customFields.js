@@ -22,13 +22,17 @@ CustomFields.attachSchema(
        * type of the custom field
        */
       type: String,
-      allowedValues: ['text', 'number', 'date', 'dropdown'],
+      allowedValues: ['text', 'number', 'date', 'dropdown', 'currency'],
     },
     settings: {
       /**
        * settings of the custom field
        */
       type: Object,
+    },
+    'settings.currencyCode': {
+      type: String,
+      optional: true,
     },
     'settings.dropdownItems': {
       /**

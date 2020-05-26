@@ -80,6 +80,36 @@ CardCustomField.register('cardCustomField');
   }
 }.register('cardCustomField-number'));
 
+// cardCustomField-currency
+(class extends CardCustomField {
+  onCreated() {
+    super.onCreated();
+
+    this.currencyCode = this.data().definition.settings.currencyCode;
+  }
+
+  formattedValue() {
+    const locale = TAPi18n.getLanguage();
+
+    return new Intl.NumberFormat(locale, {
+      style: 'currency',
+      currency: this.currencyCode,
+    }).format(this.data().value);
+  }
+
+  events() {
+    return [
+      {
+        'submit .js-card-customfield-currency'(event) {
+          event.preventDefault();
+          const value = Number(this.find('input').value, 10);
+          this.card.setCustomField(this.customFieldId, value);
+        },
+      },
+    ];
+  }
+}.register('cardCustomField-currency'));
+
 // cardCustomField-date
 (class extends CardCustomField {
   onCreated() {

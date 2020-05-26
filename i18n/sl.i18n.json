@@ -256,6 +256,8 @@
   "current": "trenutno",
   "custom-field-delete-pop": "Razveljavitve ni. To bo odstranilo to poljubno polje iz vseh kartic in izbrisalo njegovo zgodovino.",
   "custom-field-checkbox": "Potrditveno polje",
+  "custom-field-currency": "Currency",
+  "custom-field-currency-option": "Currency Code",
   "custom-field-date": "Datum",
   "custom-field-dropdown": "Spustni seznam",
   "custom-field-dropdown-none": "(nobeno)",

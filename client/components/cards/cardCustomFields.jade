@@ -53,6 +53,23 @@ template(name="cardCustomField-number")
         if value
             = value
 
+template(name="cardCustomField-currency")
+    if canModifyCard
+        +inlinedForm(classNames="js-card-customfield-currency")
+            input(type="text" value=data.value)
+            .edit-controls.clearfix
+                button.primary(type="submit") {{_ 'save'}}
+                a.fa.fa-times-thin.js-close-inlined-form
+        else
+            a.js-open-inlined-form
+                if value
+                    = formattedValue
+                else
+                    | {{_ 'edit'}}
+    else
+        if value
+            = formattedValue
+
 template(name="cardCustomField-date")
     if canModifyCard
         a.js-edit-date(title="{{showTitle}}" class="{{classes}}")

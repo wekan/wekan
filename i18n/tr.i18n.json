@@ -256,6 +256,8 @@
   "current": "mevcut",
   "custom-field-delete-pop": "Bunun geri dönüşü yoktur. Bu özel alan tüm kartlardan kaldırılıp tarihçesi yokedilecektir.",
   "custom-field-checkbox": "İşaret kutusu",
+  "custom-field-currency": "Currency",
+  "custom-field-currency-option": "Currency Code",
   "custom-field-date": "Tarih",
   "custom-field-dropdown": "Açılır liste",
   "custom-field-dropdown-none": "(hiçbiri)",
