@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix vote export & export/import currency custom field to CSV/TSV](https://github.com/wekan/wekan/pull/3128).
+  Thanks to brymut.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.08 2020-05-26 Wekan release
 
 This release adds the following new features:
