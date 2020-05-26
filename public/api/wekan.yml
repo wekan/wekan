@@ -3071,6 +3071,11 @@ definitions:
         description: |
            does the user want to hide system messages?
         type: boolean
+      groupChecklistByIsFinished:
+        description: |
+          does the user want the checklist items to be grouped depending on
+          whether they have been finished?
+        type: boolean
       hiddenSystemMessages:
         description: |
            does the user want to hide system messages?

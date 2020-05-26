@@ -128,6 +128,15 @@ Users.attachSchema(
       type: Boolean,
       optional: true,
     },
+    'profile.groupChecklistByIsFinished': {
+      /**
+       * does the user want the checklist items to be grouped depending on
+       * whether they have been finished?
+       */
+      type: Boolean,
+      optional: true,
+    },
+
     'profile.hiddenSystemMessages': {
       /**
        * does the user want to hide system messages?
@@ -483,6 +492,11 @@ Users.helpers({
     return profile.showDesktopDragHandles || false;
   },
 
+  hasGroupChecklistByIsFinished() {
+    const profile = this.profile || {};
+    return profile.groupChecklistByIsFinished || false;
+  },
+
   hasHiddenSystemMessages() {
     const profile = this.profile || {};
     return profile.hiddenSystemMessages || false;
@@ -612,6 +626,15 @@ Users.mutations({
     };
   },
 
+  toggleGroupChecklistByIsFinished() {
+    const value = this.hasGroupChecklistByIsFinished();
+    return {
+      $set: {
+        'profile.groupChecklistByIsFinished': !value,
+      },
+    };
+  },
+
   toggleSystem(value = false) {
     return {
       $set: {
@@ -689,6 +712,10 @@ Meteor.methods({
   toggleDesktopDragHandles() {
     const user = Meteor.user();
     user.toggleDesktopHandles(user.hasShowDesktopDragHandles());
+  },
+  toggleGroupChecklistByIsFinished() {
+    const user = Meteor.user();
+    user.toggleGroupChecklistByIsFinished();
   },
   toggleSystemMessages() {
     const user = Meteor.user();

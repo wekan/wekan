@@ -193,6 +193,9 @@ BlazeComponent.extendComponent({
         }
         this.toggleDeleteDialog.set(!this.toggleDeleteDialog.get());
       },
+      'click #toggleGroupChecklistButton'() {
+        Meteor.call('toggleGroupChecklistByIsFinished');
+      },
     };
 
     return [
@@ -210,6 +213,14 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('checklists');
+
+Template.checklists.helpers({
+  groupChecklistByIsFinished() {
+    const user = Meteor.user();
+    if (user) return user.hasGroupChecklistByIsFinished();
+    return false;
+  },
+});
 
 Template.checklistDeleteDialog.onCreated(() => {
   const $cardDetails = this.$('.card-details');
@@ -264,3 +275,11 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('checklistItemDetail');
+
+Template.checklistItems.helpers({
+  groupChecklistByIsFinished() {
+    const currentUser = Meteor.user();
+    if (currentUser) return currentUser.hasGroupChecklistByIsFinished();
+    return false;
+  },
+});

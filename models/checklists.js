@@ -83,12 +83,19 @@ Checklists.helpers({
   itemCount() {
     return ChecklistItems.find({ checklistId: this._id }).count();
   },
-  items() {
+  items(groupByIsFinished = false) {
+    let sort;
+    if (groupByIsFinished) {
+      sort = { isFinished: 1, sort: 1 };
+    } else {
+      sort = { sort: 1 };
+    }
+
     return ChecklistItems.find(
       {
         checklistId: this._id,
       },
-      { sort: ['sort'] },
+      { sort },
     );
   },
   finishedCount() {
