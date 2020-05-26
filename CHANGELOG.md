@@ -1,3 +1,17 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Add the 'Currency' Custom Field type](https://github.com/wekan/wekan/pull/3123).
+  Thanks to habenamare.
+
+and fixes the following bugs:
+
+- [Fix typo that caused parse error](https://github.com/wekan/wekan/commit/351d9d0c9577c9d543d543bc12a51388b0141324).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.07 2020-05-26 Wekan release
 
 This release fixes the following bugs:
