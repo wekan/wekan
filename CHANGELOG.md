@@ -5,6 +5,11 @@ This release adds the following new features:
 - [Add the 'Currency' Custom Field type](https://github.com/wekan/wekan/pull/3123).
   Thanks to habenamare.
 
+and adds the following updates:
+
+- [Add some changes to Modern theme](https://github.com/wekan/wekan/commit/6a1bc167cf10e75d61b3196db9eac2978d70ad8e).
+  Thanks to jeroenstoker and xet7.
+
 and fixes the following bugs:
 
 - [Fix typo that caused parse error](https://github.com/wekan/wekan/commit/351d9d0c9577c9d543d543bc12a51388b0141324).
