@@ -256,6 +256,8 @@
   "current": "მიმდინარე",
   "custom-field-delete-pop": "ქმედება გამოიწვევს მომხმარებლის ველის წაშლას ყველა ბარათიდან და გაანადგურებს მის ისტორიას, რის შემდეგაც შეუძლებელი იქნება მისი უკან დაბრუნება. ",
   "custom-field-checkbox": "მოსანიშნი გრაფა",
+  "custom-field-currency": "Currency",
+  "custom-field-currency-option": "Currency Code",
   "custom-field-date": "თარიღი",
   "custom-field-dropdown": "ჩამოსაშლელი სია",
   "custom-field-dropdown-none": "(ცარიელი)",

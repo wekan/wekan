@@ -256,6 +256,8 @@
   "current": "現在",
   "custom-field-delete-pop": "この操作は取り消しできません。このカスタムフィールドはすべてのカードから外され履歴からも見えなくなります。",
   "custom-field-checkbox": "チェックボックス",
+  "custom-field-currency": "Currency",
+  "custom-field-currency-option": "Currency Code",
   "custom-field-date": "日付",
   "custom-field-dropdown": "ドロップダウンリスト",
   "custom-field-dropdown-none": "(none)",

@@ -256,6 +256,8 @@
   "current": "נוכחי",
   "custom-field-delete-pop": "אין אפשרות לבטל את הפעולה. הפעולה תסיר את השדה שהותאם אישית מכל הכרטיסים ותשמיד את ההיסטוריה שלו.",
   "custom-field-checkbox": "תיבת סימון",
+  "custom-field-currency": "Currency",
+  "custom-field-currency-option": "Currency Code",
   "custom-field-date": "תאריך",
   "custom-field-dropdown": "רשימה נגללת",
   "custom-field-dropdown-none": "(ללא)",

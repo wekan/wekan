@@ -256,6 +256,8 @@
   "current": "jelenlegi",
   "custom-field-delete-pop": "Nincs visszavonás. Ez el fogja távolítani az egyéni mezőt az összes kártyáról, és megsemmisíti az előzményeit.",
   "custom-field-checkbox": "Jelölőnégyzet",
+  "custom-field-currency": "Currency",
+  "custom-field-currency-option": "Currency Code",
   "custom-field-date": "Dátum",
   "custom-field-dropdown": "Legördülő lista",
   "custom-field-dropdown-none": "(nincs)",

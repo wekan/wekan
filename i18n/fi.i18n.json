@@ -256,6 +256,8 @@
   "current": "nykyinen",
   "custom-field-delete-pop": "Tätä ei voi peruuttaa. Tämä poistaa tämän mukautetun kentän kaikista korteista ja poistaa sen historian.",
   "custom-field-checkbox": "Valintaruutu",
+  "custom-field-currency": "Valuutta",
+  "custom-field-currency-option": "Valuutta koodi",
   "custom-field-date": "Päivämäärä",
   "custom-field-dropdown": "Pudotusvalikko",
   "custom-field-dropdown-none": "(ei mitään)",

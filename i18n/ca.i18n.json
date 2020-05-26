@@ -256,6 +256,8 @@
   "current": "Actual",
   "custom-field-delete-pop": "There is no undo. This will remove this custom field from all cards and destroy its history.",
   "custom-field-checkbox": "Checkbox",
+  "custom-field-currency": "Currency",
+  "custom-field-currency-option": "Currency Code",
   "custom-field-date": "Data",
   "custom-field-dropdown": "Dropdown List",
   "custom-field-dropdown-none": "(none)",

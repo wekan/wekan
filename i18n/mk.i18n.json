@@ -256,6 +256,8 @@
   "current": "сегашен",
   "custom-field-delete-pop": "There is no undo. This will remove this custom field from all cards and destroy its history.",
   "custom-field-checkbox": "Чекбокс",
+  "custom-field-currency": "Currency",
+  "custom-field-currency-option": "Currency Code",
   "custom-field-date": "Дата",
   "custom-field-dropdown": "Падащо меню",
   "custom-field-dropdown-none": "(няма)",

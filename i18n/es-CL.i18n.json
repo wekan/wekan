@@ -256,6 +256,8 @@
   "current": "actual",
   "custom-field-delete-pop": "Se eliminará este campo personalizado de todas las tarjetas y se destruirá su historial. Esta acción no puede deshacerse.",
   "custom-field-checkbox": "Casilla de verificación",
+  "custom-field-currency": "Currency",
+  "custom-field-currency-option": "Currency Code",
   "custom-field-date": "Fecha",
   "custom-field-dropdown": "Lista desplegable",
   "custom-field-dropdown-none": "(nada)",

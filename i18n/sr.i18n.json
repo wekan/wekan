@@ -256,6 +256,8 @@
   "current": "current",
   "custom-field-delete-pop": "There is no undo. This will remove this custom field from all cards and destroy its history.",
   "custom-field-checkbox": "Checkbox",
+  "custom-field-currency": "Currency",
+  "custom-field-currency-option": "Currency Code",
   "custom-field-date": "Datum",
   "custom-field-dropdown": "Padajuća lista",
   "custom-field-dropdown-none": "(ništa)",

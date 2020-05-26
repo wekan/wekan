@@ -256,6 +256,8 @@
   "current": "Aktuální",
   "custom-field-delete-pop": "Nelze vrátit zpět. Toto odebere toto vlastní pole ze všech karet a zničí jeho historii.",
   "custom-field-checkbox": "Checkbox",
+  "custom-field-currency": "Currency",
+  "custom-field-currency-option": "Currency Code",
   "custom-field-date": "Datum",
   "custom-field-dropdown": "Rozbalovací seznam",
   "custom-field-dropdown-none": "(prázdné)",

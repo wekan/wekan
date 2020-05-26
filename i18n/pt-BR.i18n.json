@@ -256,6 +256,8 @@
   "current": "atual",
   "custom-field-delete-pop": "Não existe desfazer. Isso irá excluir o campo customizado de todos os cartões e destruir seu histórico",
   "custom-field-checkbox": "Caixa de seleção",
+  "custom-field-currency": "Currency",
+  "custom-field-currency-option": "Currency Code",
   "custom-field-date": "Data",
   "custom-field-dropdown": "Lista suspensa",
   "custom-field-dropdown-none": "(nada)",

@@ -256,6 +256,8 @@
   "current": "目前",
   "custom-field-delete-pop": "此操作將會從所有卡片中移除自訂欄位以及銷毀歷史紀錄，並且無法撤消。",
   "custom-field-checkbox": "複選框",
+  "custom-field-currency": "Currency",
+  "custom-field-currency-option": "Currency Code",
   "custom-field-date": "日期",
   "custom-field-dropdown": "下拉式選單",
   "custom-field-dropdown-none": "(無)",
