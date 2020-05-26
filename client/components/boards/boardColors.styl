@@ -679,7 +679,7 @@ setBoardClear(color1,color2)
     color: #333
 
   .pop-over
-    box-shadow: 0 4px 20px rgba(0,0,0,.1)
+    box-shadow: 0 4px 20px rgba(0,0,0,.2)
     border: 0
     border-radius: 5px
 
@@ -687,6 +687,17 @@ setBoardClear(color1,color2)
     padding: 10px
     border-bottom: 0
     border-radius: 5px 5px 0 0
+    background:#eee
+
+  .pop-over .header .header-title
+    font-family: Poppins
+    font-size:16px
+    color:#333
+
+  .pop-over .header .close-btn
+    font-size:20px
+    top:6px
+    right:8px
 
   .pop-over .content-container .content
     padding: 5px 20px 20px
@@ -708,3 +719,23 @@ setBoardClear(color1,color2)
   .sidebar .sidebar-content
     padding: 30px
 
+  /* Notifications */
+  .board-color-modern section#notifications-drawer
+    border-radius:5px
+
+  .board-color-modern section#notifications-drawer .header
+    padding: 18px 16px
+    border-bottom: 0
+    border-radius: 5px 5px 0 0
+    background: #eee
+
+  .board-color-modern section#notifications-drawer .header h5
+    font-family: Poppins
+    font-weight: bold
+
+  .board-color-modern section#notifications-drawer .header .close
+    font-size: 20px
+    top: 14px
+
+  section#notifications-drawer .header .toggle-read
+    top: 18px
