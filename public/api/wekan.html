@@ -1524,7 +1524,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
 	  	<ul class="toc-list-h1">
         
           <li>
-            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v4.07">Wekan REST API v4.07</a>
+            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v4.08">Wekan REST API v4.08</a>
             
           </li>
         
@@ -2022,7 +2022,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="wekan-rest-api">Wekan REST API v4.07</h1>
+        <h1 id="wekan-rest-api">Wekan REST API v4.08</h1>
 <blockquote>
 <p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
 </blockquote>
@@ -14989,6 +14989,7 @@ UserSecurity
   <span class="hljs-attr">"name"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"type"</span>: <span class="hljs-string">"text"</span>,
   <span class="hljs-attr">"settings"</span>: {
+    <span class="hljs-attr">"currencyCode"</span>: <span class="hljs-string">"string"</span>,
     <span class="hljs-attr">"dropdownItems"</span>: [
       {}
     ]
@@ -15104,11 +15105,16 @@ UserSecurity
 <td>type</td>
 <td>dropdown</td>
 </tr>
+<tr>
+<td>type</td>
+<td>currency</td>
+</tr>
 </tbody>
 </table>
 <h2 id="tocscustomfieldssettings">CustomFieldsSettings</h2>
 <p><a id="schemacustomfieldssettings"></a></p>
 <pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"currencyCode"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"dropdownItems"</span>: [
     {}
   ]
@@ -15127,6 +15133,13 @@ UserSecurity
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>currencyCode</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
 <tr>
 <td>dropdownItems</td>
 <td>[<a href="#schemacustomfieldssettingsdropdownitems">CustomFieldsSettingsDropdownitems</a>]</td>
