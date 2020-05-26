@@ -107,6 +107,13 @@ export class CsvCreator {
             options: headerRow[i].split('-')[3].split('/'),
             position: i,
           });
+        } else if (headerRow[i].split('-')[2] === 'currency') {
+          index.customFields.push({
+            name: headerRow[i].split('-')[1],
+            type: headerRow[i].split('-')[2],
+            currencyCode: headerRow[i].split('-')[3],
+            position: i,
+          });
         } else {
           index.customFields.push({
             name: headerRow[i].split('-')[1],
@@ -126,6 +133,10 @@ export class CsvCreator {
           dropdownItems: customField.options.map(option => {
             return { _id: Random.id(6), name: option };
           }),
+        };
+      } else if (customField.type === 'currency') {
+        settings = {
+          currencyCode: customField.currencyCode,
         };
       } else {
         settings = {};

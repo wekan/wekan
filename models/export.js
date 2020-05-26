@@ -85,10 +85,10 @@ if (Meteor.isServer) {
         ? exporter.buildCsv(params.query.delimiter)
         : exporter.buildCsv();
       res.writeHead(200, {
-        'Content-Length': body[0].length,
+        'Content-Length': body.length,
         'Content-Type': params.query.delimiter ? 'text/csv' : 'text/tsv',
       });
-      res.write(body[0]);
+      res.write(body);
       res.end();
     } else {
       res.writeHead(403);
