@@ -2,7 +2,7 @@ const JSZip = require('jszip');
 
 window.ExportHtml = Popup => {
   const saveAs = function(blob, filename) {
-    let dl = document.createElement('a');
+    const dl = document.createElement('a');
     dl.href = window.URL.createObjectURL(blob);
     dl.onclick = event => document.body.removeChild(event.target);
     dl.style.display = 'none';

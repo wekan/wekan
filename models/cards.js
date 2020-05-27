@@ -1276,9 +1276,9 @@ Cards.mutations({
     if (lastCardDom) sortIndex = Utils.calculateIndex(lastCardDom, null).base;
 
     return this.moveOptionalArgs({
-      boardId: boardId,
-      swimlaneId: swimlaneId,
-      listId: listId,
+      boardId,
+      swimlaneId,
+      listId,
       sort: sortIndex,
     });
   },
@@ -1293,8 +1293,7 @@ Cards.mutations({
       swimlaneId = board.getDefaultSwimline()._id;
     }
     listId = listId || this.listId;
-    if (sort === undefined || sort === null)
-      sort = this.sort;
+    if (sort === undefined || sort === null) sort = this.sort;
     return this.move(boardId, swimlaneId, listId, sort);
   },
 
@@ -2680,6 +2679,52 @@ if (Meteor.isServer) {
         data: {
           _id: paramCardId,
         },
+      });
+    },
+  );
+
+  /**
+   * @operation get_cards_by_custom_field
+   * @summary Get all Cards that matchs a value of a specific custom field
+   *
+   * @param {string} boardId the board ID
+   * @param {string} customFieldId the list ID
+   * @param {string} customFieldValue the value to look for
+   * @return_type [{_id: string,
+   *                title: string,
+   *                description: string,
+   *                listId: string
+   *                swinlaneId: string}]
+   */
+  JsonRoutes.add(
+    'GET',
+    '/api/boards/:boardId/cardsByCustomField/:customFieldId/:customFieldValue',
+    function(req, res) {
+      const paramBoardId = req.params.boardId;
+      const paramCustomFieldId = req.params.customFieldId;
+      const paramCustomFieldValue = req.params.customFieldValue;
+
+      Authentication.checkBoardAccess(req.userId, paramBoardId);
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: Cards.find({
+          boardId: paramBoardId,
+          customFields: {
+            $elemMatch: {
+              _id: paramCustomFieldId,
+              value: paramCustomFieldValue,
+            },
+          },
+          archived: false,
+        }).map(function(doc) {
+          return {
+            _id: doc._id,
+            title: doc.title,
+            description: doc.description,
+            listId: doc.listId,
+            swinlaneId: doc.swinlaneId,
+          };
+        }),
       });
     },
   );
