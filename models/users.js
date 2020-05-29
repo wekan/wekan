@@ -1075,6 +1075,7 @@ if (Meteor.isServer) {
     incrementBoards(_.difference(newIds, oldIds), +1);
   });
 
+  // Override getUserId so that we can TODO get the current userId
   const fakeUserId = new Meteor.EnvironmentVariable();
   const getUserId = CollectionHooks.getUserId;
   CollectionHooks.getUserId = () => {
