@@ -1109,6 +1109,10 @@ if (Meteor.isServer) {
         });
         */
 
+          const Future = require('fibers/future');
+          let future1 = new Future();
+          let future2 = new Future();
+          let future3 = new Future();
         Boards.insert(
           {
             title: TAPi18n.__('templates'),
@@ -1136,6 +1140,7 @@ if (Meteor.isServer) {
                 Users.update(fakeUserId.get(), {
                   $set: { 'profile.cardTemplatesSwimlaneId': swimlaneId },
                 });
+                  future1.return();
               },
             );
 
@@ -1153,6 +1158,7 @@ if (Meteor.isServer) {
                 Users.update(fakeUserId.get(), {
                   $set: { 'profile.listTemplatesSwimlaneId': swimlaneId },
                 });
+                  future2.return();
               },
             );
 
@@ -1170,15 +1176,22 @@ if (Meteor.isServer) {
                 Users.update(fakeUserId.get(), {
                   $set: { 'profile.boardTemplatesSwimlaneId': swimlaneId },
                 });
+                  future3.return();
               },
             );
           },
         );
+          // HACK
+          future1.wait();
+          future2.wait();
+          future3.wait();
       });
     });
   }
 
-  Users.after.insert((userId, doc) => {
+    Users.after.insert((userId, doc) => {
+        // HACK
+      doc = Users.findOne({_id: doc._id});
     if (doc.createdThroughApi) {
       // The admin user should be able to create a user despite disabling registration because
       // it is two different things (registration and creation).
