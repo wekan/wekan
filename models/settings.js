@@ -259,7 +259,7 @@ if (Meteor.isServer) {
         throw new Meteor.Error('invalid-user');
       }
       const user = Meteor.user();
-      if (!user.emails || !user.emails[0] || user.emails[0].address) {
+      if (!user.emails || !user.emails[0] || !user.emails[0].address) {
         throw new Meteor.Error('email-invalid');
       }
       this.unblock();
