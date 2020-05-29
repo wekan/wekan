@@ -5,6 +5,11 @@ This release adds the following new features:
 - [Added an API to get the cards for a specific custom field value](https://github.com/wekan/wekan/pulls/3131).
   Thanks to gvespignani70.
 
+and adds the following updates:
+
+- [Upgrade to Node v12.17.0](https://github.com/wekan/wekan/commit/3ade9d95a69b269c345127e1755e1b539dc07263).
+  Thanks to Node developers and xet7.
+
 and fixes the following bugs:
 
 - [Fix email verification in `sendSMTPTestEmail`](https://github.com/wekan/wekan/pull/3135).
