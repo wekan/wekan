@@ -1,3 +1,17 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Added an API to get the cards for a specific custom field value](https://github.com/wekan/wekan/pulls/3131).
+  Thanks to gvespignani70.
+
+and fixes the following bugs:
+
+- [Fix email verification in `sendSMTPTestEmail`](https://github.com/wekan/wekan/pull/3135).
+  Thanks to marc1006.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.09 2020-05-27 Wekan release
 
 This release fixes the following bugs:
