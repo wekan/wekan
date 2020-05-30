@@ -323,7 +323,7 @@ BlazeComponent.extendComponent({
       header: {
         left: 'title   today prev,next',
         center:
-          'agendaDay,listDay,timelineDay agendaWeek,listWeek,timelineWeek month,timelineMonth timelineYear',
+          'agendaDay,listDay,timelineDay agendaWeek,listWeek,timelineWeek month,listMonth',
         right: '',
       },
       // height: 'parent', nope, doesn't work as the parent might be small
