@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v4.09
+  version: v4.10
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -639,6 +639,35 @@ paths:
         - name: comment
           in: path
           description: the comment value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/cardsByCustomField/{customField}/{customFieldValue}:
+    get:
+      operationId: get_board_customFieldValue
+      tags:
+        - Cards
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: customField
+          in: path
+          description: the customField value
+          type: string
+          required: true
+        - name: customFieldValue
+          in: path
+          description: the customFieldValue value
           type: string
           required: true
       produces:
