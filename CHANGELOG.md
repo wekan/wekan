@@ -14,6 +14,9 @@ and fixes the following bugs:
 
 - [Fix email verification in `sendSMTPTestEmail`](https://github.com/wekan/wekan/pull/3135).
   Thanks to marc1006.
+- [Try to Fix Registration broken "Templates board id is required" with ugly hack. If it works, ugly becomes
+  beautiful](https://github.com/wekan/wekan/pull/3140).
+  Thanks to marc1006.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
