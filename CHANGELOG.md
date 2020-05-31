@@ -1,3 +1,18 @@
+# Upcoming Wekan release
+
+This release adds the following new platforms:
+
+- [Using arm64 bundle on Raspberry Pi OS arm64 with MongoDB 4.2.x for RasPi3 and
+  RasPi4](https://github.com/wekan/wekan/wiki/Raspberry-Pi#raspberry-pi-os-arm64-with-mongodb-42x).
+  Thanks to Raspberry Pi OS devs, MongoDB devs and xet7.
+
+and adds the following new features:
+
+- [Add Calendar Month Event List view](https://github.com/wekan/wekan/commit/f73ea218eefba3f0d6c642849dfede9e03052d25).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.10 2020-05-30 Wekan release
 
 This release adds the following new features:
