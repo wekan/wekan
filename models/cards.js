@@ -2168,6 +2168,11 @@ if (Meteor.isServer) {
             title: doc.title,
             description: doc.description,
             listId: doc.listId,
+            receivedAt: doc.receivedAt,
+            startAt:doc.startAt,
+            dueAt: doc.dueAt,
+            endAt: doc.endAt,
+            assignees: doc.assignees,
           };
         }),
       });
@@ -2204,6 +2209,11 @@ if (Meteor.isServer) {
           _id: doc._id,
           title: doc.title,
           description: doc.description,
+          receivedAt: doc.receivedAt,
+          startAt:doc.startAt,
+          dueAt: doc.dueAt,
+          endAt: doc.endAt,
+          assignees: doc.assignees,
         };
       }),
     });
