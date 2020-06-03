@@ -12,6 +12,8 @@ and adds the following updates:
   Thanks to Node developers and xet7.
 - [Update `markedjs` package](https://github.com/wekan/wekan/pull/3149).
   Thanks to marc1006.
+- [Add fibers](https://github.com/wekan/wekan/commit/cd49018306f826fff37b7024dfde9de05d88b620).
+  Thanks to xet7.
 
 and adds the following new features:
 
