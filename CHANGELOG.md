@@ -6,7 +6,7 @@ This release adds the following new platforms:
   RasPi4](https://github.com/wekan/wekan/wiki/Raspberry-Pi#raspberry-pi-os-arm64-with-mongodb-42x).
   Thanks to Raspberry Pi OS devs, MongoDB devs and xet7.
 - [s390x RHEL 8](https://github.com/wekan/wekan/wiki/s390x#rhel-8).
-  Thanks to IBM, Linux Foundation and xet7.
+  Thanks to IBM, Red Hat Linux, Linux Foundation and xet7.
 
 and adds the following updates:
 
