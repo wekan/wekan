@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v4.11 2020-06-04 Wekan release
 
 This release adds the following new platforms:
 
