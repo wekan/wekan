@@ -177,6 +177,7 @@ templating@1.3.2
 templating-compiler@1.3.3
 templating-runtime@1.3.2
 templating-tools@1.1.2
+tmeasday:check-npm-versions@0.3.2
 tracker@1.2.0
 twbs:bootstrap@3.3.6
 ui@1.0.13
@@ -191,7 +192,7 @@ webapp-hashing@1.0.9
 wekan-accounts-cas@0.1.0
 wekan-accounts-oidc@1.0.10
 wekan-ldap@0.0.2
-wekan-markdown@1.0.8
+wekan-markdown@1.0.9
 wekan-oidc@1.0.12
 wekan-scrollbar@3.1.3
 yasaricli:slugify@0.0.7
