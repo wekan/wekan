@@ -64,8 +64,6 @@ objects:
       name: "${WEKAN_SERVICE_NAME}"
     sessionAffinity: None
     type: ClusterIP
-  status:
-    loadBalancer: {}
 - apiVersion: v1
   kind: Service
   metadata:
@@ -86,8 +84,6 @@ objects:
       name: "${DATABASE_SERVICE_NAME}"
     sessionAffinity: None
     type: ClusterIP
-  status:
-    loadBalancer: {}
 - apiVersion: v1
   kind: PersistentVolumeClaim
   metadata:
@@ -276,7 +272,6 @@ objects:
         lastTriggeredImage: ''
       type: ImageChange
     - type: ConfigChange
-  status: {}
 - apiVersion: route.openshift.io/v1
   kind: Route
   metadata:
@@ -297,15 +292,6 @@ objects:
       name: wekan
       weight: 100
     wildcardPolicy: None
-  status:
-    ingress:
-      - conditions:
-          - lastTransitionTime: '2018-08-28T14:45:21Z'
-            status: 'True'
-            type: Admitted
-        host: ${FQDN}
-        routerName: router
-        wildcardPolicy: None
 parameters:
 - description: The Fully Qualified Hostname (FQDN) of the application
   displayName: FQDN
@@ -323,7 +309,7 @@ parameters:
   displayName: Database Service Name
   name: DATABASE_SERVICE_NAME
   required: true
-  value: mongodb
+  value: wekan-mongodb
 - description: Username for MongoDB user that will be used for accessing the database.
   displayName: MongoDB Connection Username
   from: user[A-Z0-9]{3}
@@ -356,7 +342,7 @@ parameters:
   displayName: Version of MongoDB Image
   name: MONGODB_VERSION
   required: true
-  value: '4.0.10'
+  value: '3.6'
 - name: WEKAN_SERVICE_NAME
   displayName: Wekan Service Name
   value: wekan
