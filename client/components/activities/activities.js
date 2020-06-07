@@ -1,3 +1,5 @@
+import sanitizeXss from 'xss';
+
 const activitiesPerPage = 20;
 
 BlazeComponent.extendComponent({
@@ -57,7 +59,7 @@ BlazeComponent.extendComponent({
     return checkItem && checkItem.title;
   },
 
-  boardLabel() {
+  boardLabelLink() {
     const data = this.currentData();
     if (data.mode !== 'board') {
       return createBoardLink(data.activity.board(), data.activity.listName);
@@ -65,10 +67,10 @@ BlazeComponent.extendComponent({
     return TAPi18n.__('this-board');
   },
 
-  cardLabel() {
+  cardLabelLink() {
     const data = this.currentData();
     if (data.mode !== 'card') {
-      return createCardLink(this.currentData().activity.card());
+      return createCardLink(data.activity.card());
     }
     return TAPi18n.__('this-card');
   },
@@ -134,11 +136,11 @@ BlazeComponent.extendComponent({
             {
               href: source.url,
             },
-            source.system,
+            sanitizeXss(source.system),
           ),
         );
       } else {
-        return source.system;
+        return sanitizeXss(source.system);
       }
     }
     return null;
@@ -162,10 +164,10 @@ BlazeComponent.extendComponent({
               href: attachment.url({ download: true }),
               target: '_blank',
             },
-            attachment.name(),
+            sanitizeXss(attachment.name()),
           ),
         )) ||
-      this.currentData().activity.attachmentName
+      sanitizeXss(this.currentData().activity.attachmentName)
     );
   },
 
@@ -202,7 +204,15 @@ BlazeComponent.extendComponent({
   },
 }).register('activity');
 
+Template.activity.helpers({
+  sanitize(value) {
+    return sanitizeXss(value);
+  },
+});
+
 function createCardLink(card) {
+    if (!card)
+        return '';
   return (
     card &&
     Blaze.toHTML(
@@ -211,7 +221,7 @@ function createCardLink(card) {
           href: card.absoluteUrl(),
           class: 'action-card',
         },
-        card.title,
+        sanitizeXss(card.title),
       ),
     )
   );
@@ -228,7 +238,7 @@ function createBoardLink(board, list) {
           href: board.absoluteUrl(),
           class: 'action-board',
         },
-        text,
+        sanitizeXss(text),
       ),
     )
   );
