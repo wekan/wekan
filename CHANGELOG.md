@@ -14,7 +14,7 @@ This release fixes the following CRITICAL SECURITY VULNERABILITIES:
 
 and adds the following new features:
 
-- Change default view to Swimlanes
+- Change default view to Swimlanes:
   [Part 1](https://github.com/wekan/wekan/commit/8c3322f9a93c321e8a2cc5cfcd4b1d6316a5fb7c),
   [Part 2](https://github.com/wekan/wekan/commit/61e682470cdaef42cce2d74b41fb752cfc61848b),
   [Part 3 Change dropdown order to Swimlanes/Lists/Calendar](https://github.com/wekan/wekan/commit/7f6d500cbec15496ae357b05b9df3f10e51ed1f1),
