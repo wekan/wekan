@@ -211,8 +211,7 @@ Template.activity.helpers({
 });
 
 function createCardLink(card) {
-    if (!card)
-        return '';
+  if (!card) return '';
   return (
     card &&
     Blaze.toHTML(
