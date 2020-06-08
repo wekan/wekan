@@ -1,3 +1,43 @@
+# Upcoming Wekan release
+
+This release fixes the following CRITICAL SECURITY VULNERABILITIES:
+
+- Fix XSS bug reported 2020-05-24 by [swsjona](https://twitter.com/swsjona),
+  [Part 1](https://github.com/wekan/wekan/commit/1f85b25549b50602380f1745f19e5fe44fe36d6f),
+  [Part 2](https://github.com/wekan/wekan/commit/fb44df981581354bf23a6928427ad2bf73c4550f),
+  [Part 3](https://github.com/wekan/wekan/commit/99f68f36b028d6c75acf2e5b83585b1acee65f97),
+  [Part 4](https://github.com/wekan/wekan/commit/8a622ec7c3043bf8f34399ef34563e6a9a19dcd8).
+  Logged in users could run javascript in input fields. This was partially fixed at v3.85,
+  but at some fields XSS was still possible. This affects at least Wekan versions v3.12-v4.12.
+  After this fix, Javascript in input fields is not executed.
+  Thanks to swsjona, marc1006 and xet7.
+
+and adds the following new features:
+
+- Change default view to Swimlanes
+  [Part 1](https://github.com/wekan/wekan/commit/8c3322f9a93c321e8a2cc5cfcd4b1d6316a5fb7c),
+  [Part 2](https://github.com/wekan/wekan/commit/61e682470cdaef42cce2d74b41fb752cfc61848b),
+  [Part 3 Change dropdown order to Swimlanes/Lists/Calendar](https://github.com/wekan/wekan/commit/7f6d500cbec15496ae357b05b9df3f10e51ed1f1),
+  [Part 4.1. Public board default view to Swimlane. Part 4.2. When changing Public board
+  view (sets view cookie), also reload page so view is changed
+  immediately](https://github.com/wekan/wekan/commit/39519d1cc944c567837be0f88ab4a037e2144c61).
+  Thanks to xet7.
+- [Use markdown in Swimlane titles](https://github.com/wekan/wekan/commit/6b22f96313354b45b851b93c25aa392bbe346bdb).
+  Thanks to xet7.
+
+and adds the following updates:
+
+- [Update minifier-css](https://github.com/wekan/wekan/commit/cb1e91fee83eaad1e926c288c0abfc1e4f2a8bd4).
+   Thanks to xet7.
+
+and fixes the following bugs:
+
+- Fix indent [Part1](https://github.com/wekan/wekan/commit/415e94d187ffcb9a4afaecc5c6960a50a87ca7eb),
+- [Part 2](https://github.com/wekan/wekan/commit/96494bacf550cde65598e6d59199517f311aa33d).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.11 2020-06-04 Wekan release
 
 This release adds the following new platforms:
