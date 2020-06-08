@@ -368,30 +368,36 @@ Cards.allow({
 
 Cards.helpers({
   copy(boardId, swimlaneId, listId) {
-    const oldBoard = Boards.findOne(this.boardId);
-    const oldBoardLabels = oldBoard.labels;
-    // Get old label names
-    const oldCardLabels = _.pluck(
-      _.filter(oldBoardLabels, label => {
-        return _.contains(this.labelIds, label._id);
-      }),
-      'name',
-    );
-
-    const newBoard = Boards.findOne(boardId);
-    const newBoardLabels = newBoard.labels;
-    const newCardLabels = _.pluck(
-      _.filter(newBoardLabels, label => {
-        return _.contains(oldCardLabels, label.name);
-      }),
-      '_id',
-    );
-
     const oldId = this._id;
     const oldCard = Cards.findOne(oldId);
 
-    // Copy Custom Fields
-    if (oldBoard._id !== boardId) {
+    // we must only copy the labels and custom fields if the target board
+    // differs from the source board
+    if (this.boardId !== boardId) {
+      const oldBoard = Boards.findOne(this.boardId);
+      const oldBoardLabels = oldBoard.labels;
+
+      // Get old label names
+      const oldCardLabels = _.pluck(
+        _.filter(oldBoardLabels, label => {
+          return _.contains(this.labelIds, label._id);
+        }),
+        'name',
+      );
+
+      const newBoard = Boards.findOne(boardId);
+      const newBoardLabels = newBoard.labels;
+      const newCardLabels = _.pluck(
+        _.filter(newBoardLabels, label => {
+          return _.contains(oldCardLabels, label.name);
+        }),
+        '_id',
+      );
+      // now set the new label ids
+      delete this.labelIds;
+      this.labelIds = newCardLabels;
+
+      // Copy Custom Fields
       CustomFields.find({
         _id: {
           $in: oldCard.customFields.map(cf => {
@@ -404,8 +410,6 @@ Cards.helpers({
     }
 
     delete this._id;
-    delete this.labelIds;
-    this.labelIds = newCardLabels;
     this.boardId = boardId;
     this.swimlaneId = swimlaneId;
     this.listId = listId;
@@ -1298,8 +1302,40 @@ Cards.mutations({
   },
 
   move(boardId, swimlaneId, listId, sort) {
-    // Copy Custom Fields
+    const mutatedFields = {
+      boardId,
+      swimlaneId,
+      listId,
+      sort,
+    };
+
+    // we must only copy the labels and custom fields if the target board
+    // differs from the source board
     if (this.boardId !== boardId) {
+      // Get label names
+      const oldBoard = Boards.findOne(this.boardId);
+      const oldBoardLabels = oldBoard.labels;
+      const oldCardLabels = _.pluck(
+        _.filter(oldBoardLabels, label => {
+          return _.contains(this.labelIds, label._id);
+        }),
+        'name',
+      );
+
+      const newBoard = Boards.findOne(boardId);
+      const newBoardLabels = newBoard.labels;
+      const newCardLabelIds = _.pluck(
+        _.filter(newBoardLabels, label => {
+          return label.name && _.contains(oldCardLabels, label.name);
+        }),
+        '_id',
+      );
+
+      Object.assign(mutatedFields, {
+        labelIds: newCardLabelIds,
+      });
+
+      // Copy custom fields
       CustomFields.find({
         _id: {
           $in: this.customFields.map(cf => {
@@ -1310,33 +1346,6 @@ Cards.mutations({
         if (!_.contains(cf.boardIds, boardId)) cf.addBoard(boardId);
       });
     }
-
-    // Get label names
-    const oldBoard = Boards.findOne(this.boardId);
-    const oldBoardLabels = oldBoard.labels;
-    const oldCardLabels = _.pluck(
-      _.filter(oldBoardLabels, label => {
-        return _.contains(this.labelIds, label._id);
-      }),
-      'name',
-    );
-
-    const newBoard = Boards.findOne(boardId);
-    const newBoardLabels = newBoard.labels;
-    const newCardLabelIds = _.pluck(
-      _.filter(newBoardLabels, label => {
-        return label.name && _.contains(oldCardLabels, label.name);
-      }),
-      '_id',
-    );
-
-    const mutatedFields = {
-      boardId,
-      swimlaneId,
-      listId,
-      sort,
-      labelIds: newCardLabelIds,
-    };
 
     Cards.update(this._id, {
       $set: mutatedFields,
