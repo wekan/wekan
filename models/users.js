@@ -95,7 +95,7 @@ Users.attachSchema(
       autoValue() {
         if (this.isInsert && !this.isSet) {
           return {
-            boardView: 'board-view-lists',
+            boardView: 'board-view-swimlanes',
           };
         }
       },
@@ -218,8 +218,8 @@ Users.attachSchema(
       type: String,
       optional: true,
       allowedValues: [
-        'board-view-lists',
         'board-view-swimlanes',
+        'board-view-lists',
         'board-view-cal',
       ],
     },
@@ -903,7 +903,7 @@ if (Meteor.isServer) {
       user.profile = {
         initials,
         fullname: user.services.oidc.fullname,
-        boardView: 'board-view-lists',
+        boardView: 'board-view-swimlanes',
       };
       user.authenticationMethod = 'oauth2';
 
@@ -961,7 +961,7 @@ if (Meteor.isServer) {
       );
     } else {
       user.profile = { icode: options.profile.invitationcode };
-      user.profile.boardView = 'board-view-lists';
+      user.profile.boardView = 'board-view-swimlanes';
 
       // Deletes the invitation code after the user was created successfully.
       setTimeout(

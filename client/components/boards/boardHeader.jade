@@ -105,7 +105,7 @@ template(name="boardHeaderBar")
             i.fa.fa-th-large
           if $eq boardView 'board-view-cal'
             i.fa.fa-calendar
-          span {{#if boardView}}{{_ boardView}}{{else}}{{_ 'board-view-lists'}}{{/if}}
+          span {{#if boardView}}{{_ boardView}}{{else}}{{_ 'board-view-swimlanes'}}{{/if}}
 
       if canModifyBoard
         a.board-header-btn.js-multiselection-activate(
