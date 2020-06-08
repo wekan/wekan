@@ -2,7 +2,7 @@
 
 This release fixes the following CRITICAL SECURITY VULNERABILITIES:
 
-- Fix XSS bug reported 2020-05-24 by [swsjona](https://twitter.com/swsjona),
+- Fix XSS bug reported 2020-05-24 by [swsjona](https://twitter.com/swsjona): 
   [Part 1](https://github.com/wekan/wekan/commit/1f85b25549b50602380f1745f19e5fe44fe36d6f),
   [Part 2](https://github.com/wekan/wekan/commit/fb44df981581354bf23a6928427ad2bf73c4550f),
   [Part 3](https://github.com/wekan/wekan/commit/99f68f36b028d6c75acf2e5b83585b1acee65f97),
@@ -28,12 +28,12 @@ and adds the following new features:
 and adds the following updates:
 
 - [Update minifier-css](https://github.com/wekan/wekan/commit/cb1e91fee83eaad1e926c288c0abfc1e4f2a8bd4).
-   Thanks to xet7.
+  Thanks to xet7.
 
 and fixes the following bugs:
 
 - Fix indent [Part1](https://github.com/wekan/wekan/commit/415e94d187ffcb9a4afaecc5c6960a50a87ca7eb),
-- [Part 2](https://github.com/wekan/wekan/commit/96494bacf550cde65598e6d59199517f311aa33d).
+  [Part 2](https://github.com/wekan/wekan/commit/96494bacf550cde65598e6d59199517f311aa33d).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
