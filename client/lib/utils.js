@@ -6,12 +6,18 @@ Utils = {
     currentUser = Meteor.user();
     if (currentUser) {
       Meteor.user().setBoardView(view);
-    } else if (view === 'board-view-lists') {
-      cookies.set('boardView', 'board-view-lists'); //true
     } else if (view === 'board-view-swimlanes') {
       cookies.set('boardView', 'board-view-swimlanes'); //true
+      location.reload();
+    } else if (view === 'board-view-lists') {
+      cookies.set('boardView', 'board-view-lists'); //true
+      location.reload();
     } else if (view === 'board-view-cal') {
       cookies.set('boardView', 'board-view-cal'); //true
+      location.reload();
+    } else {
+      cookies.set('boardView', 'board-view-swimlanes'); //true
+      location.reload();
     }
   },
 
@@ -24,14 +30,16 @@ Utils = {
     currentUser = Meteor.user();
     if (currentUser) {
       return (currentUser.profile || {}).boardView;
-    } else if (cookies.get('boardView') === 'board-view-lists') {
-      return 'board-view-lists';
     } else if (cookies.get('boardView') === 'board-view-swimlanes') {
       return 'board-view-swimlanes';
+    } else if (cookies.get('boardView') === 'board-view-lists') {
+      return 'board-view-lists';
     } else if (cookies.get('boardView') === 'board-view-cal') {
       return 'board-view-cal';
     } else {
-      return false;
+      cookies.set('boardView', 'board-view-swimlanes'); //true
+      location.reload();
+      return 'board-view-swimlanes';
     }
   },
 
