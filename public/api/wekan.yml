@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v4.11
+  version: v4.12
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -3132,8 +3132,8 @@ definitions:
            boardView field of the user
         type: string
         enum:
-          - board-view-lists
           - board-view-swimlanes
+          - board-view-lists
           - board-view-cal
       listSortBy:
         description: |

@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v4.12 2020-06-08 Wekan release
 
 This release fixes the following CRITICAL SECURITY VULNERABILITIES:
 
