@@ -173,18 +173,18 @@ template(name="boardChangeWatchPopup")
 template(name="boardChangeViewPopup")
   ul.pop-over-list
     li
-      with "board-view-lists"
-        a.js-open-lists-view
-          i.fa.fa-trello.colorful
-          | {{_ 'board-view-lists'}}
-          if $eq Utils.boardView "board-view-lists"
-            i.fa.fa-check
-    li
       with "board-view-swimlanes"
         a.js-open-swimlanes-view
           i.fa.fa-th-large.colorful
           | {{_ 'board-view-swimlanes'}}
           if $eq Utils.boardView "board-view-swimlanes"
+            i.fa.fa-check
+    li
+      with "board-view-lists"
+        a.js-open-lists-view
+          i.fa.fa-trello.colorful
+          | {{_ 'board-view-lists'}}
+          if $eq Utils.boardView "board-view-lists"
             i.fa.fa-check
     li
       with "board-view-cal"
