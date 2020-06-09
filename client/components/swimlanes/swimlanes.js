@@ -23,15 +23,7 @@ function currentCardIsInThisList(listId, swimlaneId) {
       currentCard.listId === listId &&
       currentCard.swimlaneId === swimlaneId
     );
-  // OLD: Default view: board-view-lists
-  ////else return currentCard && currentCard.listId === listId;
-  // NEW: Default view: board-view-swimlanes
-  else
-    return (
-      currentCard &&
-      currentCard.listId === listId &&
-      currentCard.swimlaneId === swimlaneId
-    );
+  else return currentCard && currentCard.listId === listId;
 
   // https://github.com/wekan/wekan/issues/1623
   // https://github.com/ChronikEwok/wekan/commit/cad9b20451bb6149bfb527a99b5001873b06c3de
