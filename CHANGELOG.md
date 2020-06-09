@@ -2,11 +2,10 @@
 
 This release adds the following updates:
 
-- [OpenShift template updates](https://github.com/wekan/wekan/pull/3158):
+- [OpenShift template updates](https://github.com/wekan/wekan/pull/3158), Thanks to jimmyjones2:
   1) Remove status fields (this is created by Kubernetes at run time)
   2) The latest MongoDB by default available with OpenShift is 3.6
-  3) Change MongoDB service name to contain wekan to avoid potentially conflicting with other mongodb instances in the same project
-  Thanks to jimmyjones2.
+  3) Change MongoDB service name to contain wekan to avoid potentially conflicting with other mongodb instances in the same project.
 
 and fixes the following bugs:
 
