@@ -14,6 +14,8 @@ and fixes the following bugs:
 
 - [Copy the labels only if the target board is different](https://github.com/wekan/wekan/pull/3154).
   Thanks to marc1006.
+- [Fix condition whether a card is in list](https://github.com/wekan/wekan/pull/3165).
+  Thanks to marc1006.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
