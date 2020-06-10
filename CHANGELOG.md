@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Add user option to hide finished checklist items. Strikethrough checked
+  items](https://github.com/wekan/wekan/pull/3167).
+  Thanks to marc1006.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.13 2020-06-09 Wekan release
 
 This release adds the following updates:
