@@ -3071,6 +3071,10 @@ definitions:
         description: |
            does the user want to hide system messages?
         type: boolean
+      hideCheckedItems:
+        description: |
+          does the user want to hide checked checklist items?
+        type: boolean
       hiddenSystemMessages:
         description: |
            does the user want to hide system messages?

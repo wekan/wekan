@@ -193,6 +193,9 @@ BlazeComponent.extendComponent({
         }
         this.toggleDeleteDialog.set(!this.toggleDeleteDialog.get());
       },
+      'click #toggleHideCheckedItemsButton'() {
+        Meteor.call('toggleHideCheckedItems');
+      },
     };
 
     return [
@@ -210,6 +213,14 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('checklists');
+
+Template.checklists.helpers({
+  hideCheckedItems() {
+    const currentUser = Meteor.user();
+    if (currentUser) return currentUser.hasHideCheckedItems();
+    return false;
+  },
+});
 
 Template.checklistDeleteDialog.onCreated(() => {
   const $cardDetails = this.$('.card-details');
@@ -245,6 +256,11 @@ Template.checklistItemDetail.helpers({
       !Meteor.user().isCommentOnly() &&
       !Meteor.user().isWorker()
     );
+  },
+  hideCheckedItems() {
+    const user = Meteor.user();
+    if (user) return user.hasHideCheckedItems();
+    return false;
   },
 });
 
