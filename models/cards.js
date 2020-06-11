@@ -1112,6 +1112,21 @@ Cards.helpers({
       return Users.find({ _id: { $in: this.vote.negative } });
     return [];
   },
+  voteState() {
+    const userId = Meteor.userId();
+    let state;
+    if (this.vote) {
+      if (this.vote.positive) {
+        state = _.contains(this.vote.positive, userId);
+        if (state === true) return true;
+      }
+      if (this.vote.negative) {
+        state = _.contains(this.vote.negative, userId);
+        if (state === true) return false;
+      }
+    }
+    return null;
+  },
 
   getId() {
     if (this.isLinked()) {
@@ -2374,6 +2389,10 @@ if (Meteor.isServer) {
    * @param {boolean} [isOverTime] the new isOverTime field of the card
    * @param {string} [customFields] the new customFields value of the card
    * @param {string} [color] the new color of the card
+   * @param {Object} [vote] the vote object
+   * @param {string} vote.question the vote question
+   * @param {boolean} vote.public show who voted what
+   * @param {boolean} vote.allowNonBoardMembers allow all logged in users to vote?
    * @return_type {_id: string}
    */
   JsonRoutes.add(
@@ -2471,6 +2490,24 @@ if (Meteor.isServer) {
             archived: false,
           },
           { $set: { color: newColor } },
+        );
+      }
+      if (req.body.hasOwnProperty('vote')) {
+        const newVote = req.body.vote;
+        newVote.positive = [];
+        newVote.negative = [];
+        if (!newVote.hasOwnProperty('public')) newVote.public = false;
+        if (!newVote.hasOwnProperty('allowNonBoardMembers'))
+          newVote.allowNonBoardMembers = false;
+
+        Cards.direct.update(
+          {
+            _id: paramCardId,
+            listId: paramListId,
+            boardId: paramBoardId,
+            archived: false,
+          },
+          { $set: { vote: newVote } },
         );
       }
       if (req.body.hasOwnProperty('labelIds')) {

@@ -106,9 +106,9 @@ template(name="minicard")
           span.badge-icon.fa.fa-align-left
       if getVoteQuestion
         .badge.badge-state-image-only(title=getVoteQuestion)
-          span.badge-icon.fa.fa-thumbs-up
+          span.badge-icon.fa.fa-thumbs-up(class="{{#if voteState}}text-green{{/if}}")
           span.badge-text {{ voteCountPositive }}
-          span.badge-icon.fa.fa-thumbs-down
+          span.badge-icon.fa.fa-thumbs-down(class="{{#if $eq voteState false}}text-red{{/if}}")
           span.badge-text {{ voteCountNegative }}
       if attachments.count
         .badge
