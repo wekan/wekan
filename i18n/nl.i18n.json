@@ -808,5 +808,6 @@
   "voting": "Stemmen",
   "archived": "Gearchiveerd",
   "delete-linked-card-before-this-card": "Je kunt deze kaart niet verwijderen voordat de gekoppelde kaart is verwijderd ",
-  "delete-linked-cards-before-this-list": "Je kunt deze lijst niet verwijderen voordat de gekoppelde kaarten verwijderd zijn die verwijzen naar kaarten in deze lijst"
+  "delete-linked-cards-before-this-list": "Je kunt deze lijst niet verwijderen voordat de gekoppelde kaarten verwijderd zijn die verwijzen naar kaarten in deze lijst",
+  "hide-checked-items": "Hide checked items"
 }

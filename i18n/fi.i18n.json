@@ -808,5 +808,6 @@
   "voting": "Äänestys",
   "archived": "Arkistoitu",
   "delete-linked-card-before-this-card": "Et voi poistaa tätä korttia ennenkuin ensin poistat linkitetyn kortin jolla on",
-  "delete-linked-cards-before-this-list": "Et voi poistaa tätä listaa ennenkuin poistat linkitetyt kortit jotka osoittavat kortteihin tässä listassa"
+  "delete-linked-cards-before-this-list": "Et voi poistaa tätä listaa ennenkuin poistat linkitetyt kortit jotka osoittavat kortteihin tässä listassa",
+  "hide-checked-items": "Piilota ruksatut kohdat"
 }

@@ -808,5 +808,6 @@
   "voting": "投票",
   "archived": "存档",
   "delete-linked-card-before-this-card": "在你首次删除卡片前你无法删除此选项卡片",
-  "delete-linked-cards-before-this-list": "在首先删除指向此列表中的卡的链接卡之前，不能删除此列表"
+  "delete-linked-cards-before-this-list": "在首先删除指向此列表中的卡的链接卡之前，不能删除此列表",
+  "hide-checked-items": "Hide checked items"
 }

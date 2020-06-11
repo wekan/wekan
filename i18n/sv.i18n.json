@@ -808,5 +808,6 @@
   "voting": "Röstning",
   "archived": "Arkiverad",
   "delete-linked-card-before-this-card": "You can not delete this card before first deleting linked card that has",
-  "delete-linked-cards-before-this-list": "You can not delete this list before first deleting linked cards that are pointing to cards in this list"
+  "delete-linked-cards-before-this-list": "You can not delete this list before first deleting linked cards that are pointing to cards in this list",
+  "hide-checked-items": "Hide checked items"
 }
