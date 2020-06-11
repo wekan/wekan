@@ -7,7 +7,7 @@ BlazeComponent.extendComponent({
     // XXX Should we use ReactiveNumber?
     this.page = new ReactiveVar(1);
     this.loadNextPageLocked = false;
-    const sidebar = this.parentComponent(); // XXX for some reason not working
+    const sidebar = Sidebar;
     sidebar.callFirstWith(null, 'resetNextPeak');
     this.autorun(() => {
       let mode = this.data().mode;
@@ -43,16 +43,15 @@ BlazeComponent.extendComponent({
       });
     });
   },
-}).register('activities');
-
-BlazeComponent.extendComponent({
   loadNextPage() {
     if (this.loadNextPageLocked === false) {
       this.page.set(this.page.get() + 1);
       this.loadNextPageLocked = true;
     }
   },
+}).register('activities');
 
+BlazeComponent.extendComponent({
   checkItem() {
     const checkItemId = this.currentData().activity.checklistItemId;
     const checkItem = ChecklistItems.findOne({ _id: checkItemId });
