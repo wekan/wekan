@@ -172,16 +172,14 @@ function customFieldDeletion(userId, doc) {
 function customFieldEdit(userId, doc) {
   const card = Cards.findOne(doc.cardId);
   const customFieldValue = Activities.findOne({ customFieldId: doc._id }).value;
-  const boardId = card.boardId;
-  //boardId: doc.boardIds[0], // We are creating a customField, it has only one boardId
   Activities.insert({
     userId,
     activityType: 'setCustomField',
-    boardId,
+    boardId: doc.boardIds[0], // We are creating a customField, it has only one boardId
     customFieldId: doc._id,
     customFieldValue,
-    listId: card.listId,
-    swimlaneId: card.swimlaneId,
+    listId: doc.listId,
+    swimlaneId: doc.swimlaneId,
   });
 }
 
@@ -206,8 +204,8 @@ if (Meteor.isServer) {
       Activities.remove({
         customFieldId: doc._id,
         boardId: modifier.$pull.boardIds,
-        listId: card.listId,
-        swimlaneId: card.swimlaneId,
+        listId: doc.listId,
+        swimlaneId: doc.swimlaneId,
       });
     } else if (_.contains(fieldNames, 'boardIds') && modifier.$push) {
       Activities.insert({
