@@ -2,17 +2,19 @@
 
 This release adds the following new features:
 
-- [Add user option to hide finished checklist items. Strikethrough checked
-  items](https://github.com/wekan/wekan/pull/3167).
+- [Add user option to hide finished checklist items. Strikethrough checked items](https://github.com/wekan/wekan/pull/3167).
   Thanks to marc1006.
-- [Added the possibility to start a vote via API edit_card. And added some better visibility to see what was
-  voted](https://github.com/wekan/wekan/pull/3170).
+- [Added the possibility to start a vote via API edit_card. And added some better visibility to see what was voted](https://github.com/wekan/wekan/pull/3170).
   Thanks to NicoP-S.
 
 and fixes the following bugs:
 
 - [Fix infinite scrolling for activities](https://github.com/wekan/wekan/pull/3168).
   Thanks to marc1006.
+- [Remove top and bottom margin for hidden checklist items](https://github.com/wekan/wekan/pull/3172).
+  Thanks to marc1006.
+- [Alignment and spacing of minicard labels](https://github.com/wekan/wekan/pull/3174).
+  Thanks to hgustafsson.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
