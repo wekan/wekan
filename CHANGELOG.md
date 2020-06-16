@@ -1,3 +1,13 @@
+# v4.15 2020-06-16 Wekan release
+
+This release fixes the following bugs:
+
+- Fix lint errors [Part1](https://github.com/wekan/wekan/commit/f1587753cb0bba38e4b1df2e0300d3dc2826da72) and
+  [Part2](https://github.com/wekan/wekan/commit/e6629779f77676eadfe4465c407f0bee0ec64061).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.14 2020-06-16 Wekan release
 
 This release adds the following new features:
