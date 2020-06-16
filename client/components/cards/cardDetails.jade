@@ -223,11 +223,11 @@ template(name="cardDetails")
         button.card-details-green.js-vote.js-vote-positive(class="{{#if voteState}}voted{{/if}}")
           if voteState
             i.fa.fa-thumbs-up
-          {{_ 'vote-for-it'}}
+            | {{_ 'vote-for-it'}}
         button.card-details-red.js-vote.js-vote-negative(class="{{#if $eq voteState false}}voted{{/if}}")
           if $eq voteState false
             i.fa.fa-thumbs-down
-          {{_ 'vote-against'}}
+            | {{_ 'vote-against'}}
 
     //- XXX We should use "editable" to avoid repetiting ourselves
     if canModifyCard
