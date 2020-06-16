@@ -814,13 +814,21 @@ def parse_schemas(schemas_dir):
                                                        for d in data]
                                 entry_points.extend(schema_entry_points)
 
+                                end_of_previous_operation = -1
+
                                 # try to match JSDoc to the operations
                                 for entry_point in schema_entry_points:
                                     operation = entry_point.method  # POST/GET/PUT/DELETE
+
+                                    # find all jsdocs that end before the current operation,
+                                    # the last item in the list is the one we need
                                     jsdoc = [j for j in jsdocs
-                                             if j.loc.end.line + 1 == operation.loc.start.line]
+                                             if j.loc.end.line + 1 <= operation.loc.start.line and
+                                                j.loc.start.line > end_of_previous_operation]
                                     if bool(jsdoc):
-                                        entry_point.doc = jsdoc[0]
+                                        entry_point.doc = jsdoc[-1]
+
+                                    end_of_previous_operation = operation.loc.end.line
             except TypeError:
                 logger.warning(context.txt_for(statement))
                 logger.error('{}:{}-{} can not parse {}'.format(path,
