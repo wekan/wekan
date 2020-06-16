@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v4.14 2020-06-16 Wekan release
 
 This release adds the following new features:
 
@@ -6,6 +6,11 @@ This release adds the following new features:
   Thanks to marc1006.
 - [Added the possibility to start a vote via API edit_card. And added some better visibility to see what was voted](https://github.com/wekan/wekan/pull/3170).
   Thanks to NicoP-S.
+
+and adds the following updates:
+
+- [Update dependencies](https://github.com/wekan/wekan/commit/8f34cdc279602e97085e0a504f7716495349f83c).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
