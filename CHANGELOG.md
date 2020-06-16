@@ -15,6 +15,8 @@ and fixes the following bugs:
   Thanks to marc1006.
 - [Alignment and spacing of minicard labels](https://github.com/wekan/wekan/pull/3174).
   Thanks to hgustafsson.
+- [Fix: Unable to delete a custom field in a board](https://github.com/wekan/wekan/commit/3b2b1087447bc8613baa8254bfec55e3d485bdc4).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
