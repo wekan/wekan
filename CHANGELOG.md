@@ -5,6 +5,9 @@ This release adds the following new features:
 - [Add user option to hide finished checklist items. Strikethrough checked
   items](https://github.com/wekan/wekan/pull/3167).
   Thanks to marc1006.
+- [Added the possibility to start a vote via API edit_card. And added some better visibility to see what was
+  voted](https://github.com/wekan/wekan/pull/3170).
+  Thanks to NicoP-S.
 
 and fixes the following bugs:
 
