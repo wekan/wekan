@@ -234,7 +234,7 @@ export function syncUserData(user, ldapUser) {
     const username = slug(getLdapUsername(ldapUser));
     if (user && user._id && username !== user.username) {
       log_info('Syncing user username', user.username, '->', username);
-      Meteor.users.findOne({ _id: user._id }, { $set: { username }});
+      Users.findOne({ _id: user._id }, { $set: { username }});
     }
   }
 
@@ -341,7 +341,7 @@ export function importNewUsers(ldap) {
       }
 
       // Add user if it was not added before
-      let user = Meteor.users.findOne(userQuery);
+      let user = Users.findOne(userQuery);
 
       if (!user && username && LDAP.settings_get('LDAP_MERGE_EXISTING_USERS') === true) {
         const userQuery = {
@@ -350,7 +350,7 @@ export function importNewUsers(ldap) {
 
         log_debug('userQuery merge', userQuery);
 
-        user = Meteor.users.findOne(userQuery);
+        user = Users.findOne(userQuery);
         if (user) {
           syncUserData(user, ldapUser);
         }

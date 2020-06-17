@@ -804,7 +804,7 @@ If, differently, you do something like this:
 if (Meteor.isServer){
     Meteor.methods({
         "userExists": function(username){
-            return !!Meteor.users.findOne({username: username});
+            return !!Users.findOne({username: username});
         },
     });
 }

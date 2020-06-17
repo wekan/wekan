@@ -10,7 +10,7 @@ Meteor.methods({
     var userId = this.userId;
 
     if (userId) {
-      var user = Meteor.users.findOne(userId);
+      var user = Users.findOne(userId);
       var numServices = _.keys(user.services).length; // including "resume"
       var unset = {};
 

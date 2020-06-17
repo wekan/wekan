@@ -80,7 +80,7 @@ AT.prototype._init = function() {
       return Meteor.users.find(userId, {fields: {services: 1}});
       /*
       if (userId) {
-        var user = Meteor.users.findOne(userId);
+        var user = Users.findOne(userId);
         var services_id = _.chain(user.services)
           .keys()
           .reject(function(service) {return service === "resume";})
