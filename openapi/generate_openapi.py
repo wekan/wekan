@@ -249,7 +249,10 @@ class EntryPoint(object):
 
                 if name.startswith('{'):
                     param_type = name.strip('{}')
-                    if param_type not in ['string', 'number', 'boolean', 'integer', 'array', 'file']:
+                    if param_type == 'Object':
+                        # hope for the best
+                        param_type = 'object'
+                    elif param_type not in ['string', 'number', 'boolean', 'integer', 'array', 'file']:
                         self.warn('unknown type {}\n allowed values: string, number, boolean, integer, array, file'.format(param_type))
                     try:
                         name, desc = desc.split(maxsplit=1)
