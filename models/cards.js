@@ -2749,7 +2749,7 @@ if (Meteor.isServer) {
    * @return_type [{_id: string,
    *                title: string,
    *                description: string,
-   *                listId: string
+   *                listId: string,
    *                swinlaneId: string}]
    */
   JsonRoutes.add(
