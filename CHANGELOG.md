@@ -12,6 +12,8 @@ and fixes the following bugs:
 - Fix finding corrent user [Part1](https://github.com/wekan/wekan/pull/3180) and
   [Part2](https://github.com/wekan/wekan/commit/f245b6b7faa29b4f276527daca48c305fe9689c1).
   Thanks to salleman33 and xet7.
+- [Try to prevent errors on CSV/TSV export](https://github.com/wekan/wekan/commit/b00db983c8506e0cdc9968e452c3c8025fc10776).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
