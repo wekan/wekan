@@ -1,9 +1,14 @@
-# Upcoming Wekan release
+# v4.16 2020-06-17 Wekan release
 
 This release adds the following features:
 
 - [Add find-replace.sh script for development](https://github.com/wekan/wekan/commit/bda49ed60947e0438206b2f55119f5c5c132c734).
   Thanks to xet7.
+
+and adds the following updates:
+
+- [Upgrade to Node 12.18.1](https://github.com/wekan/wekan/commit/b11ae567c9b2d16a115ea4f3f7f88e67d076f326).
+  Thanks to Node developers and xet7.
 
 and fixes the following bugs:
 
