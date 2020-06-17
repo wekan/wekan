@@ -1,3 +1,16 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Revert finding correct user changes that were made at Wekan v4.16](https://github.com/wekan/wekan/commit/5eb378452761ad1d6d67a491316007fdf6dfd689).
+  Thanks to xet7.
+- [Fix activities view on mobile devices](https://github.com/wekan/wekan/pull/3183).
+  Thanks to marc1006.
+- [Add back checks about can user export CSV/TSV](https://github.com/wekan/wekan/commit/afe00d02cddf016a3ccc1ed9a98a7f10d3339f26).
+  Thanks to marc1006 and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.16 2020-06-17 Wekan release
 
 This release adds the following features:
