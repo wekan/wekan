@@ -7,8 +7,9 @@ BlazeComponent.extendComponent({
     // XXX Should we use ReactiveNumber?
     this.page = new ReactiveVar(1);
     this.loadNextPageLocked = false;
+    // TODO is sidebar always available? E.g. on small screens/mobile devices
     const sidebar = Sidebar;
-    sidebar.callFirstWith(null, 'resetNextPeak');
+    sidebar && sidebar.callFirstWith(null, 'resetNextPeak');
     this.autorun(() => {
       let mode = this.data().mode;
       const capitalizedMode = Utils.capitalize(mode);
@@ -29,6 +30,8 @@ BlazeComponent.extendComponent({
       this.subscribe('activities', mode, searchId, limit, hideSystem, () => {
         this.loadNextPageLocked = false;
 
+        // TODO the guard can be removed as soon as the TODO above is resolved
+        if (!sidebar) return;
         // If the sibear peak hasn't increased, that mean that there are no more
         // activities, and we can stop calling new subscriptions.
         // XXX This is hacky! We need to know excatly and reactively how many
