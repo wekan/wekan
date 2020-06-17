@@ -4,6 +4,9 @@ This release fixes the following bugs:
 
 - [OpenAPI: Fix jsdoc/operation matching](https://github.com/wekan/wekan/pull/3171).
   Thanks to bentiss.
+- Fix finding corrent user [Part1](https://github.com/wekan/wekan/pull/3180) and
+  [Part2](https://github.com/wekan/wekan/commit/f245b6b7faa29b4f276527daca48c305fe9689c1).
+  Thanks to salleman33 and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
