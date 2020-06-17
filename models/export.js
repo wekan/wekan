@@ -28,7 +28,7 @@ if (Meteor.isServer) {
     const loginToken = req.query.authToken;
     if (loginToken) {
       const hashToken = Accounts._hashLoginToken(loginToken);
-      user = Users.findOne({
+      user = Meteor.users.findOne({
         'services.resume.loginTokens.hashedToken': hashToken,
       });
     } else if (!Meteor.settings.public.sandstorm) {
@@ -69,7 +69,7 @@ if (Meteor.isServer) {
     const loginToken = params.query.authToken;
     if (loginToken) {
       const hashToken = Accounts._hashLoginToken(loginToken);
-      user = Users.findOne({
+      user = Meteor.users.findOne({
         'services.resume.loginTokens.hashedToken': hashToken,
       });
     } else if (!Meteor.settings.public.sandstorm) {

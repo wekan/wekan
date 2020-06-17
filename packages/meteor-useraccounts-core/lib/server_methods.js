@@ -124,7 +124,7 @@ Meteor.methods({
   ATResendVerificationEmail: function (email) {
     check(email, String);
 
-    var user = Users.findOne({ "emails.address": email });
+    var user = Meteor.users.findOne({ "emails.address": email });
 
     // Send the standard error back to the client if no user exist with this e-mail
     if (!user) {

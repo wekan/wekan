@@ -933,7 +933,7 @@ if (Meteor.isServer) {
       user.authenticationMethod = 'oauth2';
 
       // see if any existing user has this email address or username, otherwise create new
-      const existingUser = Users.findOne({
+      const existingUser = Meteor.users.findOne({
         $or: [{ 'emails.address': email }, { username: user.username }],
       });
       if (!existingUser) return user;
@@ -946,7 +946,7 @@ if (Meteor.isServer) {
       existingUser.profile = user.profile;
       existingUser.authenticationMethod = user.authenticationMethod;
 
-      Meteor.users.remove({ _id: user._id });
+      Meteor.users.remove({ _id: existingUser._id }); // remove existing record
       return existingUser;
     }
 
@@ -1277,7 +1277,7 @@ if (Meteor.isServer) {
   JsonRoutes.add('GET', '/api/user', function(req, res) {
     try {
       Authentication.checkLoggedIn(req.userId);
-      const data = Users.findOne({ _id: req.userId });
+      const data = Meteor.users.findOne({ _id: req.userId });
       delete data.services;
 
       // get all boards where the user is member of
@@ -1368,7 +1368,7 @@ if (Meteor.isServer) {
         return u;
       });
 
-      const user = Users.findOne({ _id: id });
+      const user = Meteor.users.findOne({ _id: id });
       user.boards = boards;
       JsonRoutes.sendResult(res, {
         code: 200,
@@ -1404,7 +1404,7 @@ if (Meteor.isServer) {
       Authentication.checkUserId(req.userId);
       const id = req.params.userId;
       const action = req.body.action;
-      let data = Users.findOne({ _id: id });
+      let data = Meteor.users.findOne({ _id: id });
       if (data !== undefined) {
         if (action === 'takeOwnership') {
           data = Boards.find(
@@ -1437,7 +1437,7 @@ if (Meteor.isServer) {
           } else if (action === 'enableLogin') {
             Users.update({ _id: id }, { $set: { loginDisabled: '' } });
           }
-          data = Users.findOne({ _id: id });
+          data = Meteor.users.findOne({ _id: id });
         }
       }
       JsonRoutes.sendResult(res, {
@@ -1481,7 +1481,7 @@ if (Meteor.isServer) {
       const boardId = req.params.boardId;
       const action = req.body.action;
       const { isAdmin, isNoComments, isCommentOnly } = req.body;
-      let data = Users.findOne({ _id: userId });
+      let data = Meteor.users.findOne({ _id: userId });
       if (data !== undefined) {
         if (action === 'add') {
           data = Boards.find({
@@ -1542,7 +1542,7 @@ if (Meteor.isServer) {
         const userId = req.params.userId;
         const boardId = req.params.boardId;
         const action = req.body.action;
-        let data = Users.findOne({ _id: userId });
+        let data = Meteor.users.findOne({ _id: userId });
         if (data !== undefined) {
           if (action === 'remove') {
             data = Boards.find({

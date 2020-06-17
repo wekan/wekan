@@ -869,7 +869,7 @@ var expirationAuth = function expirationAuth() {                                
   }                                                                                                                   // 326
                                                                                                                       // 327
   // We are not on a secure line - so we have to look up the user...                                                  // 328
-  var user = Users.findOne({                                                                                   // 329
+  var user = Meteor.users.findOne({                                                                                   // 329
     $or: [                                                                                                            // 330
       {'services.resume.loginTokens.hashedToken': Accounts._hashLoginToken(userToken)},                               // 331
       {'services.resume.loginTokens.token': userToken}                                                                // 332

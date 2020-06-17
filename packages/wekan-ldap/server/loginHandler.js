@@ -96,7 +96,7 @@ Accounts.registerLoginHandler('ldap', function(loginRequest) {
     log_info('Querying user');
     log_debug('userQuery', userQuery);
 
-    user = Users.findOne(userQuery);
+    user = Meteor.users.findOne(userQuery);
    }
 
   // Attempt to find user by username
@@ -137,7 +137,7 @@ Accounts.registerLoginHandler('ldap', function(loginRequest) {
 
     log_debug('userQuery', userQuery);
 
-    user = Users.findOne(userQuery);
+    user = Meteor.users.findOne(userQuery);
   }
 
   // Attempt to find user by e-mail address only
@@ -159,7 +159,7 @@ Accounts.registerLoginHandler('ldap', function(loginRequest) {
 
     log_debug('userQuery', userQuery);
 
-    user = Users.findOne(userQuery);
+    user = Meteor.users.findOne(userQuery);
 
   }
 

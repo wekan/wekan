@@ -175,7 +175,7 @@ if (isSandstorm && Meteor.isServer) {
           const users = {};
           function ensureUserListed(userId) {
             if (!users[userId]) {
-              const user = Users.findOne(userId);
+              const user = Meteor.users.findOne(userId);
               if (user) {
                 users[userId] = { id: user.services.sandstorm.id };
               } else {
@@ -217,7 +217,7 @@ if (isSandstorm && Meteor.isServer) {
               'userId',
             );
             (comment.text.match(/\B@([\w.]*)/g) || []).forEach(username => {
-              const user = Users.findOne({
+              const user = Meteor.users.findOne({
                 username: username.slice(1),
               });
               if (user && activeMembers.indexOf(user._id) !== -1) {
@@ -368,7 +368,7 @@ if (isSandstorm && Meteor.isServer) {
       if (newMethods[key].auth) {
         newMethods[key].auth = function() {
           const sandstormID = this.req.headers['x-sandstorm-user-id'];
-          const user = Users.findOne({
+          const user = Meteor.users.findOne({
             'services.sandstorm.id': sandstormID,
           });
           return user && user._id;
