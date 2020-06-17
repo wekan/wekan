@@ -1,6 +1,11 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following features:
+
+- [Add find-replace.sh script for development](https://github.com/wekan/wekan/commit/bda49ed60947e0438206b2f55119f5c5c132c734).
+  Thanks to xet7.
+
+and fixes the following bugs:
 
 - [OpenAPI: Fix jsdoc/operation matching](https://github.com/wekan/wekan/pull/3171).
   Thanks to bentiss.
