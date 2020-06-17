@@ -933,7 +933,7 @@ if (Meteor.isServer) {
       user.authenticationMethod = 'oauth2';
 
       // see if any existing user has this email address or username, otherwise create new
-      const existingUser = Meteor.users.findOne({
+      const existingUser = Users.findOne({
         $or: [{ 'emails.address': email }, { username: user.username }],
       });
       if (!existingUser) return user;
@@ -946,7 +946,7 @@ if (Meteor.isServer) {
       existingUser.profile = user.profile;
       existingUser.authenticationMethod = user.authenticationMethod;
 
-      Meteor.users.remove({ _id: existingUser._id }); // remove existing record
+      Meteor.users.remove({ _id: user._id });
       return existingUser;
     }
 
