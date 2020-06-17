@@ -933,7 +933,7 @@ if (Meteor.isServer) {
       user.authenticationMethod = 'oauth2';
 
       // see if any existing user has this email address or username, otherwise create new
-      const existingUser = Meteor.users.findOne({
+      const existingUser = Users.findOne({
         $or: [{ 'emails.address': email }, { username: user.username }],
       });
       if (!existingUser) return user;
