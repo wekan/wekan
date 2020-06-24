@@ -64,7 +64,7 @@ function npm_call(){
 
 echo
 PS3='Please enter your choice: '
-options=("Install Wekan dependencies" "Build Wekan" "Run Meteor for development on Ethernet IP address port 4000" "Run Meteor for development on Custom IP address and port" "Quit")
+options=("Install Wekan dependencies" "Build Wekan" "Run Meteor for development on Ethernet IP address port 4000" "Run Meteor for development on Eth interface ens3 address port 4000" "Run Meteor for development on Custom IP address and port" "Quit")
 select opt in "${options[@]}"
 do
     case $opt in
@@ -171,6 +171,12 @@ do
 		WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:4000 meteor run --exclude-archs web.browser.legacy,web.cordova --port 4000
 		break
 		;;
+
+    "Run Meteor for development on Eth interface ens3 address port 4000")
+                IPADDRESS=$(ip addr show ens3 | grep 'inet ' | cut -d: -f2 | awk '{ print $2}' | cut -d '/' -f 1)
+                WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:4000 meteor run --exclude-archs web.browser.legacy,web.cordova --port 4000
+                break
+                ;;
 
     "Run Meteor for development on Custom IP address and port")
 		ip address
