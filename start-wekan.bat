@@ -1,9 +1,4 @@
-REM ------------------------------------------------------------
-
-REM NOTE: THIS .BAT DOES NOT WORK !!
-REM Use instead this webpage instructions to build on Windows:
-REM https://github.com/wekan/wekan/wiki/Install-Wekan-from-source-on-Windows
-REM Please add fix PRs, like config of MongoDB etc.
+@ECHO OFF
 
 REM ------------------------------------------------------------
 
@@ -12,11 +7,13 @@ REM SET DEBUG=true
 
 REM ------------------------------------------------------------
 
+SET ROOT_URL=http://localhost
+SET PORT=80
 SET MONGO_URL=mongodb://127.0.0.1:27017/wekan
-SET ROOT_URL=http://127.0.0.1:2000/
-SET MAIL_URL=smtp://user:pass@mailserver.example.com:25/
-SET MAIL_FROM=admin@example.com
-SET PORT=2000
+
+REM https://github.com/wekan/wekan/wiki/Troubleshooting-Mail
+REM SET MAIL_URL=smtps://username:password@email-smtp.eu-west-1.amazonaws.com:587/
+REM SET MAIL_FROM="Wekan Boards <info@example.com>"
 
 REM # If you disable Wekan API with false, Export Board does not work.
 SET WITH_API=true
@@ -395,6 +392,4 @@ REM # LOGOUT_ON_MINUTES : The number of minutes
 REM # example : LOGOUT_ON_MINUTES=55
 REM SET LOGOUT_ON_MINUTES=
 
-cd .build\bundle
 node main.js
-cd ..\..
