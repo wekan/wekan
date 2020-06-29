@@ -463,6 +463,13 @@ BlazeComponent.extendComponent({
   },
 }).register('exportBoardPopup');
 
+Template.exportBoard.events({
+  'click .html-export-board': async event => {
+    event.preventDefault();
+    await ExportHtml(Popup)();
+  }
+});
+
 Template.labelsWidget.events({
   'click .js-label': Popup.open('editLabel'),
   'click .js-add-label': Popup.open('createLabel'),
@@ -646,7 +653,7 @@ BlazeComponent.extendComponent({
             'subtext-with-parent',
             'no-parent',
           ];
-          options.forEach(function(element) {
+          options.forEach(element => {
             if (element !== value) {
               $(`#${element} ${MCB}`).toggleClass(CKCLS, false);
               $(`#${element}`).toggleClass(CKCLS, false);

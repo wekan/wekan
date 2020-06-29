@@ -320,7 +320,7 @@
   "export-board-json": "Exporter le tableau en JSON",
   "export-board-csv": "Exporter le tableau en CSV",
   "export-board-tsv": "Exporter le tableau en TSV",
-  "export-board-html": "Export board to HTML",
+  "export-board-html": "Exporter le tableau en HTML",
   "exportBoardPopup-title": "Exporter le tableau",
   "sort": "Tri",
   "sort-desc": "Cliquez pour trier la liste",
@@ -805,6 +805,6 @@
   "last-activity": "Dernière activité",
   "voting": "Vote",
   "archived": "Archivé",
-  "delete-linked-card-before-this-card": "You can not delete this card before first deleting linked card that has",
-  "delete-linked-cards-before-this-list": "You can not delete this list before first deleting linked cards that are pointing to cards in this list"
+  "delete-linked-card-before-this-card": "Vous ne pouvez pas supprimer cette carte avant d'avoir d'abord supprimé la carte liée qui a",
+  "delete-linked-cards-before-this-list": "Vous ne pouvez pas supprimer cette liste avant d'avoir d'abord supprimé les cartes liées qui pointent vers des cartes de cette liste"
 }

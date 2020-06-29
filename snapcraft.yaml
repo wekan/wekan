@@ -234,6 +234,8 @@ parts:
             rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/node-gyp/node_modules/tar/lib/.mkdir.js.swp
             # Meteor 1.8.x additional .swp remove
             rm -f $SNAPCRAFT_PART_INSTALL/programs/server/node_modules/node-pre-gyp/node_modules/tar/lib/.mkdir.js.swp
+            # ostrio tmp remove
+            rm -rf $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/meteor/ostrio_files/node_modules/request-libcurl/.node_modules-garbage*
 
         organize:
             README: README.wekan

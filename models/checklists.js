@@ -100,13 +100,13 @@ Checklists.helpers({
   },
   checkAllItems() {
     const checkItems = ChecklistItems.find({ checklistId: this._id });
-    checkItems.forEach(function(item) {
+    checkItems.forEach(item => {
       item.check();
     });
   },
   uncheckAllItems() {
     const checkItems = ChecklistItems.find({ checklistId: this._id });
-    checkItems.forEach(function(item) {
+    checkItems.forEach(item => {
       item.uncheck();
     });
   },
@@ -307,7 +307,7 @@ if (Meteor.isServer) {
             items = [items];
           }
         }
-        items.forEach(function(item, idx) {
+        items.forEach((item, idx) => {
           ChecklistItems.insert({
             cardId: paramCardId,
             checklistId: id,

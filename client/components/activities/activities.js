@@ -151,8 +151,9 @@ BlazeComponent.extendComponent({
   },
 
   attachmentLink() {
-    const attachment = this.currentData().activity.attachment();
-    const link = attachment.link('original', '/');
+    const activity = this.currentData().activity;
+    const attachment = activity.attachment();
+    const link = attachment ? attachment.link('original', '/') : null;
     // trying to display url before file is stored generates js errors
     return (
       (attachment &&
@@ -166,7 +167,7 @@ BlazeComponent.extendComponent({
             attachment.name,
           ),
         )) ||
-      this.currentData().activity.attachmentName
+      activity.attachmentName
     );
   },
 

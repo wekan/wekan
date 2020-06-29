@@ -1,5 +1,77 @@
 # Upcoming Wekan release
 
+This release adds the following new features:
+
+- [Import/Export Custom Fields in CSV/TSV](https://github.com/wekan/wekan/pull/3115).
+  Thanks to brymut.
+
+and adds the following updates:
+
+- [Update packages](https://github.com/wekan/wekan/commit/3b44acd87c35340bf9fe5d210f4402f1b1a1dfdf).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- Try to fix Snap [1](https://github.com/wekan/wekan/commit/6fad68b9b9afd8de7074037d73eeac40f6a3f7c1), [2](https://github.com/wekan/wekan/commit/b737adfcdfc9b8084a7eb84420a89c014bbec1fb).
+  Thanks to xet7.
+- [Add default attachments store path /var/snap/wekan/common/uploads where attachments will be
+  stored](https://github.com/wekan/wekan/commit/c61a126c8bcb25a1eda0203b89c990ae31de7a70).
+  Thanks to xet7.
+- [Make scrollParentContainer() more robust as it's used in a timeout callback. Example exception: Exception in setTimeout callback: TypeError: Cannot read property 'parentComponent' of null. Probably there is a better fix for this](https://github.com/wekan/wekan/commit/d5fbd50b760b1d3b84b5b4e8af3a8ed7608e2918).
+  Thanks to marc1006.
+- [Fix error link not available. Fixes: Exception in template helper: TypeError: Cannot read property 'link' of
+undefined](https://github.com/wekan/wekan/commit/b7105d7b5712dcdbf9dadebfddaba7691810da5c).
+  Thanks to marc1006.
+- [Fix minicard cover functionality. Otherwise, if `this.coverId` is undefined then `Attachments.findOne()` would return any
+attachment](https://github.com/wekan/wekan/commit/66d35a15280795b76a81c3e59cebbd2a29e4dff8).
+  Thanks to marc1006.
+- [Some fixes suggested by deepcode.ai](https://github.com/wekan/wekan/pull/3112).
+  Thanks to marc1006.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v4.04 2020-05-24 Wekan release
+
+This release adds the following features:
+
+- [Found Time Tracking GPLv3 software "Titra" with integration to Wekan](https://github.com/wekan/wekan/wiki/Time-Tracking).
+  Thanks to willhseitz.
+- [Theme: Natural](https://github.com/wekan/wekan/pull/3098).
+  You can select it from Board Settings / Change color / natural.
+  Thanks to compumatter and helioguardabaxo.
+- [Theme: Modern](https://github.com/wekan/wekan/pull/3106).
+  Thanks to jeroenstoker com and helioguardabaxo.
+- [Export board to HTML static page .zip archive](https://github.com/wekan/wekan/pull/3043).
+  Thanks to Lewiscowles1986.
+
+and fixes the following bugs:
+
+- [Change the swimlaneid of a card only if a new target swimlaneid is selected](https://github.com/wekan/wekan/pull/3108).
+  Thanks to marc1006.
+- [Set '*' as default value for swimlane and list name in card move action](https://github.com/wekan/wekan/pull/3109).
+  Thanks to hickorysb and marc1006.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v4.03 2020-05-16 Wekan release
+
+This release adds the following features:
+
+- [Theme: Clearblue](https://github.com/wekan/wekan/pull/3093).
+  You can select it from Board Settings / Change color / clearblue.
+  Thanks to CidKramer.
+
+and fixes the following bugs:
+
+- [Fix Can't Scroll on All Boards on mobile phone. Added drag handles](https://github.com/wekan/wekan/issues/3096).
+  Thanks to xet7.
+- [Try to fix Sandstorm Wekan Export menu](https://github.com/wekan/wekan/commit/1ac11d92ba8f38981c87db25e5b5e1fa2adb6968).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v4.02 2020-05-15 Wekan release
+
 This release adds the following server platforms:
 
 - [Android arm64/x64](https://github.com/wekan/wekan/wiki/Android).

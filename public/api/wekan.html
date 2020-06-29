@@ -1524,7 +1524,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
 	  	<ul class="toc-list-h1">
 
           <li>
-            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v4.01">Wekan REST API v4.01</a>
+            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v4.04">Wekan REST API v4.04</a>
 
           </li>
 
@@ -2022,7 +2022,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="wekan-rest-api">Wekan REST API v4.01</h1>
+        <h1 id="wekan-rest-api">Wekan REST API v4.04</h1>
 <blockquote>
 <p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
 </blockquote>
@@ -14044,6 +14044,18 @@ UserSecurity
 <td>corteza</td>
 </tr>
 <tr>
+<td>color</td>
+<td>clearblue</td>
+</tr>
+<tr>
+<td>color</td>
+<td>natural</td>
+</tr>
+<tr>
+<td>color</td>
+<td>modern</td>
+</tr>
+<tr>
 <td>presentParentTask</td>
 <td>prefix-with-full-path</td>
 </tr>
@@ -14402,7 +14414,8 @@ UserSecurity
       <span class="hljs-string">"string"</span>
     ],
     <span class="hljs-attr">"end"</span>: <span class="hljs-string">"string"</span>,
-    <span class="hljs-attr">"public"</span>: <span class="hljs-literal">true</span>
+    <span class="hljs-attr">"public"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">"allowNonBoardMembers"</span>: <span class="hljs-literal">true</span>
   }
 }
 
@@ -14753,7 +14766,8 @@ UserSecurity
     <span class="hljs-string">"string"</span>
   ],
   <span class="hljs-attr">"end"</span>: <span class="hljs-string">"string"</span>,
-  <span class="hljs-attr">"public"</span>: <span class="hljs-literal">true</span>
+  <span class="hljs-attr">"public"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowNonBoardMembers"</span>: <span class="hljs-literal">true</span>
 }
 
 </code></pre>
@@ -14799,6 +14813,13 @@ UserSecurity
 </tr>
 <tr>
 <td>public</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>allowNonBoardMembers</td>
 <td>boolean</td>
 <td>true</td>
 <td>none</td>

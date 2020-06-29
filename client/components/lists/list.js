@@ -74,18 +74,16 @@ BlazeComponent.extendComponent({
         const sortIndex = calculateIndex(prevCardDom, nextCardDom, nCards);
         const listId = Blaze.getData(ui.item.parents('.list').get(0))._id;
         const currentBoard = Boards.findOne(Session.get('currentBoard'));
-        let swimlaneId = '';
+        const defaultSwimlaneId = currentBoard.getDefaultSwimline()._id;
+        let targetSwimlaneId = null;
+
+        // only set a new swimelane ID if the swimlanes view is active
         if (
           Utils.boardView() === 'board-view-swimlanes' ||
           currentBoard.isTemplatesBoard()
         )
-          swimlaneId = Blaze.getData(ui.item.parents('.swimlane').get(0))._id;
-        else if (
-          Utils.boardView() === 'board-view-lists' ||
-          Utils.boardView() === 'board-view-cal' ||
-          !Utils.boardView
-        )
-          swimlaneId = currentBoard.getDefaultSwimline()._id;
+          targetSwimlaneId = Blaze.getData(ui.item.parents('.swimlane').get(0))
+            ._id;
 
         // Normally the jquery-ui sortable library moves the dragged DOM element
         // to its new position, which disrupts Blaze reactive updates mechanism
@@ -98,9 +96,12 @@ BlazeComponent.extendComponent({
 
         if (MultiSelection.isActive()) {
           Cards.find(MultiSelection.getMongoSelector()).forEach((card, i) => {
+            const newSwimlaneId = targetSwimlaneId
+              ? targetSwimlaneId
+              : card.swimlaneId || defaultSwimlaneId;
             card.move(
               currentBoard._id,
-              swimlaneId,
+              newSwimlaneId,
               listId,
               sortIndex.base + i * sortIndex.increment,
             );
@@ -108,7 +109,10 @@ BlazeComponent.extendComponent({
         } else {
           const cardDomElement = ui.item.get(0);
           const card = Blaze.getData(cardDomElement);
-          card.move(currentBoard._id, swimlaneId, listId, sortIndex.base);
+          const newSwimlaneId = targetSwimlaneId
+            ? targetSwimlaneId
+            : card.swimlaneId || defaultSwimlaneId;
+          card.move(currentBoard._id, newSwimlaneId, listId, sortIndex.base);
         }
         boardComponent.setIsDragging(false);
       },
