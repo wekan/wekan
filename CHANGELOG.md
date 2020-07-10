@@ -9,6 +9,8 @@ This release fixes the following bugs:
   Thanks to xet7.
 - [Fix typo](https://github.com/wekan/wekan/pull/3197).
   Thanks to Lua00808.
+- [Fix creating user misbehaving in some special case](https://github.com/wekan/wekan/pull/3206).
+  Thanks to salleman33.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
