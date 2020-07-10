@@ -946,7 +946,8 @@ if (Meteor.isServer) {
       existingUser.profile = user.profile;
       existingUser.authenticationMethod = user.authenticationMethod;
 
-      Meteor.users.remove({ _id: existingUser._id }); // remove existing record
+      Meteor.users.remove({ _id: user._id });
+      Meteor.users.remove({ _id: existingUser._id }); // is going to be created again
       return existingUser;
     }
 
