@@ -302,10 +302,18 @@ if (Meteor.isServer) {
 
       const paramItemId = req.params.itemId;
 
+      function isTrue(data) {
+        try {
+          return data.toLowerCase() === 'true';
+        } catch (error) {
+          return data;
+        }
+      }
+
       if (req.body.hasOwnProperty('isFinished')) {
         ChecklistItems.direct.update(
           { _id: paramItemId },
-          { $set: { isFinished: req.body.isFinished } },
+          { $set: { isFinished: isTrue(req.body.isFinished) } },
         );
       }
       if (req.body.hasOwnProperty('title')) {
