@@ -62,7 +62,6 @@
     "bcrypt": "^3.0.7",
     "bson": "^4.0.3",
     "bunyan": "^1.8.12",
-    "csv-stringify": "^5.5.0",
     "es6-promise": "^4.2.4",
     "fibers": "^5.0.0",
     "flatted": "^2.0.1",
