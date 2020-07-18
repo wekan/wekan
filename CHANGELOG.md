@@ -1,3 +1,26 @@
+# Upcoming Wekan release
+
+This release adds the following features:
+
+- [Add support for EdgeHTML browser (Microsoft Legacy Edge, not based on Chromium) by removing incompatible csv-stringify package.
+  CSV export will be fixed later](https://github.com/wekan/wekan/commit/b9a4b0b51d3692fcbb715b1afc875f21cd204ae5).
+  Thanks to xet7.
+
+and adds the following updates:
+
+- Update dependencies [Part1](https://github.com/wekan/wekan/commit/23ee93ca3d4ea161a93627a8e28e1ce93eea1bab),
+  [Part2](https://github.com/wekan/wekan/commit/6646d48ccbaf04c4935de35fe037eff3bd7fd469),
+  [Part3](https://github.com/wekan/wekan/commit/87cb4598f745a362aaac06b8b457198c40aaf61e),
+  [Part4](https://github.com/wekan/wekan/commit/f57ed2990f5c6e1af10d270b24c7092805711afe).
+  Thanks to developers of dependencies and xet7.
+
+and fixes the following bugs:
+
+- [Checklist Item PUT API: boolean cast on isFinished](https://github.com/wekan/wekan/pull/3211).
+  Thanks to Robert-Lebedeu.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.18 2020-07-10 Wekan release
 
 This release adds the following updates:
