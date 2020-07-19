@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Change slug on card rename](https://github.com/wekan/wekan/pull/3214).
+  Thanks to NicoP-S.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.19 2020-07-18 Wekan release
 
 This release adds the following features:
