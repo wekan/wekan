@@ -2,7 +2,8 @@
 
 This release adds the following updates:
 
-- [Update dependencies](https://github.com/wekan/wekan/commit/419615bed43b6e9de4030193c47137a066b85bde).
+- Update dependencies[Part1](https://github.com/wekan/wekan/commit/419615bed43b6e9de4030193c47137a066b85bde) and
+  [Part2](https://github.com/wekan/wekan/commit/116372e11e09ce9b8376a8694553add595e02815).
   Thanks to developers of dependencies and xet7.
 
 and fixes the following bugs:
