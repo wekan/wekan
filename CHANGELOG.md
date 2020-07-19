@@ -1,9 +1,16 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following updates:
+
+- [Update dependencies](https://github.com/wekan/wekan/commit/419615bed43b6e9de4030193c47137a066b85bde).
+  Thanks to developers of dependencies and xet7.
+
+and fixes the following bugs:
 
 - [Change slug on card rename](https://github.com/wekan/wekan/pull/3214).
   Thanks to NicoP-S.
+- [Add missing Wekan logo sizes for PWAs and Apps](https://github.com/wekan/wekan/commit/de28bf8569a7373a5d6fd60a4f413e76673adc26).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
