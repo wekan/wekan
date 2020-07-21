@@ -5,7 +5,7 @@ echo "      with 'sudo dpkg-reconfigure locales' , so that MongoDB works correct
 echo "      You can still use any other locale as your main locale."
 
 #Below script installs newest node 8.x for Debian/Ubuntu/Mint.
-#NODE_VERSION=12.18.0
+#NODE_VERSION=12.18.2
 #X64NODE="https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz"
 
 function pause(){
@@ -64,7 +64,8 @@ function npm_call(){
 
 echo
 PS3='Please enter your choice: '
-options=("Install Wekan dependencies" "Build Wekan" "Run Meteor for development on Ethernet IP address port 4000" "Run Meteor for development on Custom IP address and port" "Quit")
+options=("Install Wekan dependencies" "Build Wekan" "Run Meteor for dev on http://localhost:4000" "Run Meteor for dev on http://CURRENT-IP-ADDRESS:4000" "Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT" "Quit")
+
 select opt in "${options[@]}"
 do
     case $opt in
@@ -79,7 +80,7 @@ do
 			curl -0 -L https://npmjs.org/install.sh | sudo sh
 			sudo chown -R $(id -u):$(id -g) $HOME/.npm
 			sudo npm -g install n
-			sudo n 12.18.0
+			sudo n 12.18.2
 			#curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 			#sudo apt-get install -y nodejs
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
@@ -166,13 +167,18 @@ do
 		break
 		;;
 
-    "Run Meteor for development on Ethernet IP address port 4000")
-		IPADDRESS=$(ip addr show enp2s0 | grep 'inet ' | cut -d: -f2 | awk '{ print $2}' | cut -d '/' -f 1)
+    "Run Meteor for dev on http://localhost:4000")
+		WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://localhost:4000 meteor run --exclude-archs web.browser.legacy,web.cordova --port 4000
+		break
+		;;
+
+    "Run Meteor for dev on http://CURRENT-IP-ADDRESS:4000")
+		IPADDRESS=$(ip a | grep 'scope global' | grep 'inet ' | cut -d: -f2 | awk '{ print $2}' | cut -d '/' -f 1)
 		WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:4000 meteor run --exclude-archs web.browser.legacy,web.cordova --port 4000
 		break
 		;;
 
-    "Run Meteor for development on Custom IP address and port")
+    "Run Meteor for dev on http://CUSTOM-IP-ADDRESS:PORT")
 		ip address
 		echo "From above list, what is your IP address?"
 		read IPADDRESS

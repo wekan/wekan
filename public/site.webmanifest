@@ -11,6 +11,21 @@
             "src": "/android-chrome-512x512.png",
             "sizes": "512x512",
             "type": "image/png"
+        },
+        {
+            "src": "/Square150x150Logo.scale-100.png",
+            "sizes": "150x150",
+            "type": "image/png"
+        },
+        {
+            "src": "/Square44x44Logo.scale-100.png",
+            "sizes": "44x44",
+            "type": "image/png"
+        },
+        {
+            "src": "/StoreLogo.scale-100.png",
+            "sizes": "50x50",
+            "type": "image/png"
         }
     ],
     "theme_color": "#ffffff",

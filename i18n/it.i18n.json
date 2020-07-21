@@ -256,8 +256,8 @@
   "current": "corrente",
   "custom-field-delete-pop": "Non potrai tornare indietro. Questa azione rimuoverà questo campo personalizzato da tutte le schede ed eliminerà ogni sua traccia.",
   "custom-field-checkbox": "Casella di scelta",
-  "custom-field-currency": "Currency",
-  "custom-field-currency-option": "Currency Code",
+  "custom-field-currency": "Valuta",
+  "custom-field-currency-option": "Codice Valuta",
   "custom-field-date": "Data",
   "custom-field-dropdown": "Lista a discesa",
   "custom-field-dropdown-none": "(niente)",
@@ -808,5 +808,6 @@
   "voting": "Votazione",
   "archived": "Archiviato",
   "delete-linked-card-before-this-card": "Non puoi eliminare questa scheda prima di avere eliminato una scheda collegata che ha",
-  "delete-linked-cards-before-this-list": "Non puoi eliminare questa lista prima di avere eliminato le schede collegate che puntano su schede in questa lista"
+  "delete-linked-cards-before-this-list": "Non puoi eliminare questa lista prima di avere eliminato le schede collegate che puntano su schede in questa lista",
+  "hide-checked-items": "Nascondi articoli controllati"
 }

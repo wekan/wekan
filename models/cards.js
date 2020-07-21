@@ -368,30 +368,36 @@ Cards.allow({
 
 Cards.helpers({
   copy(boardId, swimlaneId, listId) {
-    const oldBoard = Boards.findOne(this.boardId);
-    const oldBoardLabels = oldBoard.labels;
-    // Get old label names
-    const oldCardLabels = _.pluck(
-      _.filter(oldBoardLabels, label => {
-        return _.contains(this.labelIds, label._id);
-      }),
-      'name',
-    );
-
-    const newBoard = Boards.findOne(boardId);
-    const newBoardLabels = newBoard.labels;
-    const newCardLabels = _.pluck(
-      _.filter(newBoardLabels, label => {
-        return _.contains(oldCardLabels, label.name);
-      }),
-      '_id',
-    );
-
     const oldId = this._id;
     const oldCard = Cards.findOne(oldId);
 
-    // Copy Custom Fields
-    if (oldBoard._id !== boardId) {
+    // we must only copy the labels and custom fields if the target board
+    // differs from the source board
+    if (this.boardId !== boardId) {
+      const oldBoard = Boards.findOne(this.boardId);
+      const oldBoardLabels = oldBoard.labels;
+
+      // Get old label names
+      const oldCardLabels = _.pluck(
+        _.filter(oldBoardLabels, label => {
+          return _.contains(this.labelIds, label._id);
+        }),
+        'name',
+      );
+
+      const newBoard = Boards.findOne(boardId);
+      const newBoardLabels = newBoard.labels;
+      const newCardLabels = _.pluck(
+        _.filter(newBoardLabels, label => {
+          return _.contains(oldCardLabels, label.name);
+        }),
+        '_id',
+      );
+      // now set the new label ids
+      delete this.labelIds;
+      this.labelIds = newCardLabels;
+
+      // Copy Custom Fields
       CustomFields.find({
         _id: {
           $in: oldCard.customFields.map(cf => {
@@ -404,8 +410,6 @@ Cards.helpers({
     }
 
     delete this._id;
-    delete this.labelIds;
-    this.labelIds = newCardLabels;
     this.boardId = boardId;
     this.swimlaneId = swimlaneId;
     this.listId = listId;
@@ -1108,6 +1112,21 @@ Cards.helpers({
       return Users.find({ _id: { $in: this.vote.negative } });
     return [];
   },
+  voteState() {
+    const userId = Meteor.userId();
+    let state;
+    if (this.vote) {
+      if (this.vote.positive) {
+        state = _.contains(this.vote.positive, userId);
+        if (state === true) return true;
+      }
+      if (this.vote.negative) {
+        state = _.contains(this.vote.negative, userId);
+        if (state === true) return false;
+      }
+    }
+    return null;
+  },
 
   getId() {
     if (this.isLinked()) {
@@ -1298,8 +1317,40 @@ Cards.mutations({
   },
 
   move(boardId, swimlaneId, listId, sort) {
-    // Copy Custom Fields
+    const mutatedFields = {
+      boardId,
+      swimlaneId,
+      listId,
+      sort,
+    };
+
+    // we must only copy the labels and custom fields if the target board
+    // differs from the source board
     if (this.boardId !== boardId) {
+      // Get label names
+      const oldBoard = Boards.findOne(this.boardId);
+      const oldBoardLabels = oldBoard.labels;
+      const oldCardLabels = _.pluck(
+        _.filter(oldBoardLabels, label => {
+          return _.contains(this.labelIds, label._id);
+        }),
+        'name',
+      );
+
+      const newBoard = Boards.findOne(boardId);
+      const newBoardLabels = newBoard.labels;
+      const newCardLabelIds = _.pluck(
+        _.filter(newBoardLabels, label => {
+          return label.name && _.contains(oldCardLabels, label.name);
+        }),
+        '_id',
+      );
+
+      Object.assign(mutatedFields, {
+        labelIds: newCardLabelIds,
+      });
+
+      // Copy custom fields
       CustomFields.find({
         _id: {
           $in: this.customFields.map(cf => {
@@ -1310,33 +1361,6 @@ Cards.mutations({
         if (!_.contains(cf.boardIds, boardId)) cf.addBoard(boardId);
       });
     }
-
-    // Get label names
-    const oldBoard = Boards.findOne(this.boardId);
-    const oldBoardLabels = oldBoard.labels;
-    const oldCardLabels = _.pluck(
-      _.filter(oldBoardLabels, label => {
-        return _.contains(this.labelIds, label._id);
-      }),
-      'name',
-    );
-
-    const newBoard = Boards.findOne(boardId);
-    const newBoardLabels = newBoard.labels;
-    const newCardLabelIds = _.pluck(
-      _.filter(newBoardLabels, label => {
-        return label.name && _.contains(oldCardLabels, label.name);
-      }),
-      '_id',
-    );
-
-    const mutatedFields = {
-      boardId,
-      swimlaneId,
-      listId,
-      sort,
-      labelIds: newCardLabelIds,
-    };
 
     Cards.update(this._id, {
       $set: mutatedFields,
@@ -2169,7 +2193,7 @@ if (Meteor.isServer) {
             description: doc.description,
             listId: doc.listId,
             receivedAt: doc.receivedAt,
-            startAt:doc.startAt,
+            startAt: doc.startAt,
             dueAt: doc.dueAt,
             endAt: doc.endAt,
             assignees: doc.assignees,
@@ -2210,7 +2234,7 @@ if (Meteor.isServer) {
           title: doc.title,
           description: doc.description,
           receivedAt: doc.receivedAt,
-          startAt:doc.startAt,
+          startAt: doc.startAt,
           dueAt: doc.dueAt,
           endAt: doc.endAt,
           assignees: doc.assignees,
@@ -2365,6 +2389,10 @@ if (Meteor.isServer) {
    * @param {boolean} [isOverTime] the new isOverTime field of the card
    * @param {string} [customFields] the new customFields value of the card
    * @param {string} [color] the new color of the card
+   * @param {Object} [vote] the vote object
+   * @param {string} vote.question the vote question
+   * @param {boolean} vote.public show who voted what
+   * @param {boolean} vote.allowNonBoardMembers allow all logged in users to vote?
    * @return_type {_id: string}
    */
   JsonRoutes.add(
@@ -2462,6 +2490,24 @@ if (Meteor.isServer) {
             archived: false,
           },
           { $set: { color: newColor } },
+        );
+      }
+      if (req.body.hasOwnProperty('vote')) {
+        const newVote = req.body.vote;
+        newVote.positive = [];
+        newVote.negative = [];
+        if (!newVote.hasOwnProperty('public')) newVote.public = false;
+        if (!newVote.hasOwnProperty('allowNonBoardMembers'))
+          newVote.allowNonBoardMembers = false;
+
+        Cards.direct.update(
+          {
+            _id: paramCardId,
+            listId: paramListId,
+            boardId: paramBoardId,
+            archived: false,
+          },
+          { $set: { vote: newVote } },
         );
       }
       if (req.body.hasOwnProperty('labelIds')) {
@@ -2703,7 +2749,7 @@ if (Meteor.isServer) {
    * @return_type [{_id: string,
    *                title: string,
    *                description: string,
-   *                listId: string
+   *                listId: string,
    *                swinlaneId: string}]
    */
   JsonRoutes.add(

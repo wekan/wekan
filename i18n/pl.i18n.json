@@ -808,5 +808,6 @@
   "voting": "Głosowanie",
   "archived": "Zarchiwizowany",
   "delete-linked-card-before-this-card": "Nie możesz usunąć tej karty, dopóki nie usuniesz podpiętej karty, w której są",
-  "delete-linked-cards-before-this-list": "Nie możesz usunąć tej karty, dopóki nie usuniesz podpiętych kart, które wskazują na karty w tej liście"
+  "delete-linked-cards-before-this-list": "Nie możesz usunąć tej karty, dopóki nie usuniesz podpiętych kart, które wskazują na karty w tej liście",
+  "hide-checked-items": "Hide checked items"
 }

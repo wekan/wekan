@@ -256,8 +256,8 @@
   "current": "当前",
   "custom-field-delete-pop": "没有撤销，此动作将从所有卡片中移除自定义字段并销毁历史。",
   "custom-field-checkbox": "选择框",
-  "custom-field-currency": "Currency",
-  "custom-field-currency-option": "Currency Code",
+  "custom-field-currency": "货币",
+  "custom-field-currency-option": "货币代码",
   "custom-field-date": "日期",
   "custom-field-dropdown": "下拉列表",
   "custom-field-dropdown-none": "(无)",
@@ -808,5 +808,6 @@
   "voting": "投票",
   "archived": "存档",
   "delete-linked-card-before-this-card": "在你首次删除卡片前你无法删除此选项卡片",
-  "delete-linked-cards-before-this-list": "在首先删除指向此列表中的卡的链接卡之前，不能删除此列表"
+  "delete-linked-cards-before-this-list": "在首先删除指向此列表中的卡的链接卡之前，不能删除此列表",
+  "hide-checked-items": "隐藏选中项"
 }

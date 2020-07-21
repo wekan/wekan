@@ -85,7 +85,9 @@ if (Meteor.isServer) {
         ? exporter.buildCsv(params.query.delimiter)
         : exporter.buildCsv();
       res.writeHead(200, {
-        'Content-Length': body.length,
+        // Checking length does not work https://github.com/wekan/wekan/issues/3173
+        // so not using it here
+        //'Content-Length': body.length,
         'Content-Type': params.query.delimiter ? 'text/csv' : 'text/tsv',
       });
       res.write(body);

@@ -249,7 +249,10 @@ class EntryPoint(object):
 
                 if name.startswith('{'):
                     param_type = name.strip('{}')
-                    if param_type not in ['string', 'number', 'boolean', 'integer', 'array', 'file']:
+                    if param_type == 'Object':
+                        # hope for the best
+                        param_type = 'object'
+                    elif param_type not in ['string', 'number', 'boolean', 'integer', 'array', 'file']:
                         self.warn('unknown type {}\n allowed values: string, number, boolean, integer, array, file'.format(param_type))
                     try:
                         name, desc = desc.split(maxsplit=1)
@@ -814,13 +817,21 @@ def parse_schemas(schemas_dir):
                                                        for d in data]
                                 entry_points.extend(schema_entry_points)
 
+                                end_of_previous_operation = -1
+
                                 # try to match JSDoc to the operations
                                 for entry_point in schema_entry_points:
                                     operation = entry_point.method  # POST/GET/PUT/DELETE
+
+                                    # find all jsdocs that end before the current operation,
+                                    # the last item in the list is the one we need
                                     jsdoc = [j for j in jsdocs
-                                             if j.loc.end.line + 1 == operation.loc.start.line]
+                                             if j.loc.end.line + 1 <= operation.loc.start.line and
+                                                j.loc.start.line > end_of_previous_operation]
                                     if bool(jsdoc):
-                                        entry_point.doc = jsdoc[0]
+                                        entry_point.doc = jsdoc[-1]
+
+                                    end_of_previous_operation = operation.loc.end.line
             except TypeError:
                 logger.warning(context.txt_for(statement))
                 logger.error('{}:{}-{} can not parse {}'.format(path,

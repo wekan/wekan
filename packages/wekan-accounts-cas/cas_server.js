@@ -229,13 +229,13 @@ const casValidate = (req, ticket, token, service, callback) => {
   if (attrs.debug) {
     console.log(`CAS response : ${JSON.stringify(result)}`);
   }
-  let user = Meteor.users.findOne({ 'username': options.username });
+  let user = Users.findOne({ 'username': options.username });
   if (! user) {
     if (attrs.debug) {
       console.log(`Creating user account ${JSON.stringify(options)}`);
     }
     const userId = Accounts.insertUserDoc({}, options);
-    user = Meteor.users.findOne(userId);
+    user = Users.findOne(userId);
   }
   if (attrs.debug) {
     console.log(`Using user account ${JSON.stringify(user)}`);

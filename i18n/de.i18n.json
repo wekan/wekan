@@ -807,6 +807,7 @@
   "last-activity": "Letzte Aktivität",
   "voting": "Abstimunng",
   "archived": "Archiviert",
-  "delete-linked-card-before-this-card": "You can not delete this card before first deleting linked card that has",
-  "delete-linked-cards-before-this-list": "You can not delete this list before first deleting linked cards that are pointing to cards in this list"
+  "delete-linked-card-before-this-card": "Sie können diese Karte erst löschen, wenn Sie alle verbundenen Karten gelöscht haben.",
+  "delete-linked-cards-before-this-list": "Sie können diese Liste erst löschen, wenn Sie alle Karten gelöscht haben, die auf Karten in dieser Liste verweisen.",
+  "hide-checked-items": "Erledigte ausblenden"
 }

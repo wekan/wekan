@@ -256,8 +256,8 @@
   "current": "Huidige",
   "custom-field-delete-pop": "Er is geen herstelmogelijkheid. Deze actie zal dit maatwerkveld van alle kaarten verwijderen en de bijbehorende historie wissen.",
   "custom-field-checkbox": "Checkbox",
-  "custom-field-currency": "Currency",
-  "custom-field-currency-option": "Currency Code",
+  "custom-field-currency": "Valuta",
+  "custom-field-currency-option": "Valuta Teken",
   "custom-field-date": "Datum",
   "custom-field-dropdown": "Dropdown Lijst",
   "custom-field-dropdown-none": "(geen)",
@@ -808,5 +808,6 @@
   "voting": "Stemmen",
   "archived": "Gearchiveerd",
   "delete-linked-card-before-this-card": "Je kunt deze kaart niet verwijderen voordat de gekoppelde kaart is verwijderd ",
-  "delete-linked-cards-before-this-list": "Je kunt deze lijst niet verwijderen voordat de gekoppelde kaarten verwijderd zijn die verwijzen naar kaarten in deze lijst"
+  "delete-linked-cards-before-this-list": "Je kunt deze lijst niet verwijderen voordat de gekoppelde kaarten verwijderd zijn die verwijzen naar kaarten in deze lijst",
+  "hide-checked-items": "Verberg aangevinkte items"
 }

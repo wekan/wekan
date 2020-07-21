@@ -16,6 +16,10 @@ textarea.js-add-checklist-item, textarea.js-edit-checklist-item
   &:hover
     color: inherit
 
+.checklists-title
+  display: flex
+  justify-content: space-between
+
 .checklist-title
   .checkbox
     float: left
@@ -99,6 +103,17 @@ textarea.js-add-checklist-item, textarea.js-edit-checklist-item
   margin-top: 3px
   display: flex
   background: darken(white, 3%)
+  opacity: 1
+  transition: height 0ms 400ms, opacity 400ms 0ms
+  height: auto
+  overflow: hidden
+
+  &.is-checked.invisible
+    opacity: 0
+    height: 0
+    transition: height 0ms 0ms, opacity 600ms 0ms
+    margin-top: 0
+    margin-bottom: 0
 
   &.placeholder
     background: darken(white, 20%)
@@ -128,6 +143,7 @@ textarea.js-add-checklist-item, textarea.js-edit-checklist-item
     &.is-checked
       color: #8c8c8c
       font-style: italic
+      text-decoration: line-through
     & .viewer
       p
         margin-bottom: 2px

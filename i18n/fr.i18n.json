@@ -808,5 +808,6 @@
   "voting": "Vote",
   "archived": "Archivé",
   "delete-linked-card-before-this-card": "Vous ne pouvez pas supprimer cette carte avant d'avoir d'abord supprimé la carte liée qui a",
-  "delete-linked-cards-before-this-list": "Vous ne pouvez pas supprimer cette liste avant d'avoir d'abord supprimé les cartes liées qui pointent vers des cartes de cette liste"
+  "delete-linked-cards-before-this-list": "Vous ne pouvez pas supprimer cette liste avant d'avoir d'abord supprimé les cartes liées qui pointent vers des cartes de cette liste",
+  "hide-checked-items": "Cacher les éléments cochés"
 }

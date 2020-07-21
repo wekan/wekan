@@ -808,5 +808,6 @@
   "voting": "Votar",
   "archived": "Archivado",
   "delete-linked-card-before-this-card": "No puede borrar esta tarjeta antes de borrar la tarjeta enlazada que tiene",
-  "delete-linked-cards-before-this-list": "No puede borrar esta lista antes de borrar las tarjetas enlazadas que apuntan a tarjetas en esta lista"
+  "delete-linked-cards-before-this-list": "No puede borrar esta lista antes de borrar las tarjetas enlazadas que apuntan a tarjetas en esta lista",
+  "hide-checked-items": "Hide checked items"
 }

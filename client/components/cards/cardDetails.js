@@ -38,22 +38,6 @@ BlazeComponent.extendComponent({
     Meteor.subscribe('unsaved-edits');
   },
 
-  voteState() {
-    const card = this.currentData();
-    const userId = Meteor.userId();
-    let state;
-    if (card.vote) {
-      if (card.vote.positive) {
-        state = _.contains(card.vote.positive, userId);
-        if (state === true) return true;
-      }
-      if (card.vote.negative) {
-        state = _.contains(card.vote.negative, userId);
-        if (state === true) return false;
-      }
-    }
-    return null;
-  },
   isWatching() {
     const card = this.currentData();
     return card.findWatcher(Meteor.userId());
@@ -412,9 +396,9 @@ BlazeComponent.extendComponent({
           const forIt = $(e.target).hasClass('js-vote-positive');
           let newState = null;
           if (
-            this.voteState() === null ||
-            (this.voteState() === false && forIt) ||
-            (this.voteState() === true && !forIt)
+            this.data().voteState() === null ||
+            (this.data().voteState() === false && forIt) ||
+            (this.data().voteState() === true && !forIt)
           ) {
             newState = forIt;
           }
