@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [REST API: Changed edit_card and get_card_by_customfields to return full documents](https://github.com/wekan/wekan/pull/3215).
+  Thanks to gvespignani70.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.20 2020-07-20 Wekan release
 
 This release adds the following updates:
