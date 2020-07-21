@@ -11,7 +11,8 @@ template(name="swimlaneHeader")
 template(name="swimlaneFixedHeader")
   .swimlane-header(
     class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
-    = title
+      +viewer
+        = title
   .swimlane-header-menu
     unless currentUser.isCommentOnly
       a.fa.fa-plus.js-open-add-swimlane-menu.swimlane-header-plus-icon

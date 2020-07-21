@@ -34,38 +34,38 @@ template(name="activity")
       //- board activity ------------------------------------------------------
       if($eq mode 'board')
         if($eq activity.activityType 'createBoard')
-          | {{_ 'activity-created' boardLabel}}.
+          | {{{_ 'activity-created' boardLabelLink}}}.
 
         if($eq activity.activityType 'importBoard')
-          | {{{_ 'activity-imported-board' boardLabel sourceLink}}}.
+          | {{{_ 'activity-imported-board' boardLabelLink sourceLink}}}.
 
         if($eq activity.activityType 'addBoardMember')
-          | {{{_ 'activity-added' memberLink boardLabel}}}.
+          | {{{_ 'activity-added' memberLink boardLabelLink}}}.
 
         if($eq activity.activityType 'removeBoardMember')
-          | {{{_ 'activity-excluded' memberLink boardLabel}}}.
+          | {{{_ 'activity-excluded' memberLink boardLabelLink}}}.
 
       //- card activity -------------------------------------------------------
       if($eq activity.activityType 'createCard')
         if($eq mode 'card')
-          | {{{_ 'activity-added' cardLabel activity.listName}}}.
+          | {{{_ 'activity-added' cardLabelLink (sanitize activity.listName)}}}.
         else
-          | {{{_ 'activity-added' cardLabel boardLabel}}}.
+          | {{{_ 'activity-added' cardLabelLink boardLabelLink}}}.
 
       if($eq activity.activityType 'importCard')
-        | {{{_ 'activity-imported' cardLink boardLabel sourceLink}}}.
+        | {{{_ 'activity-imported' cardLink boardLabelLink sourceLink}}}.
 
       if($eq activity.activityType 'moveCard')
-        | {{{_ 'activity-moved' cardLabel activity.oldList.title activity.list.title}}}.
+        | {{{_ 'activity-moved' cardLabelLink (sanitize activity.oldList.title) (sanitize activity.list.title)}}}.
 
       if($eq activity.activityType 'moveCardBoard')
-        | {{{_ 'activity-moved' cardLink activity.oldBoardName activity.boardName}}}.
+        | {{{_ 'activity-moved' cardLink (sanitize activity.oldBoardName) (sanitize activity.boardName)}}}.
 
       if($eq activity.activityType 'archivedCard')
         | {{{_ 'activity-archived' cardLink}}}.
 
       if($eq activity.activityType 'restoredCard')
-        | {{{_ 'activity-sent' cardLink boardLabel}}}.
+        | {{{_ 'activity-sent' cardLink boardLabelLink}}}.
 
       //- checklist activity --------------------------------------------------
       if($eq activity.activityType 'addChecklist')
@@ -83,25 +83,25 @@ template(name="activity")
         | {{{_ 'activity-checklist-removed' cardLink}}}.
 
       if($eq activity.activityType 'completeChecklist')
-        | {{{_ 'activity-checklist-completed' activity.checklist.title cardLink}}}.
+        | {{{_ 'activity-checklist-completed' (sanitize activity.checklist.title) cardLink}}}.
 
       if($eq activity.activityType 'uncompleteChecklist')
-        | {{{_ 'activity-checklist-uncompleted' activity.checklist.title cardLink}}}.
+        | {{{_ 'activity-checklist-uncompleted' (sanitize activity.checklist.title) cardLink}}}.
 
       if($eq activity.activityType 'checkedItem')
-        | {{{_ 'activity-checked-item' checkItem activity.checklist.title cardLink}}}.
+        | {{{_ 'activity-checked-item' (sanitize checkItem) (sanitize activity.checklist.title) cardLink}}}.
 
       if($eq activity.activityType 'uncheckedItem')
-        | {{{_ 'activity-unchecked-item' checkItem activity.checklist.title cardLink}}}.
+        | {{{_ 'activity-unchecked-item' (sanitize checkItem) (sanitize activity.checklist.title) cardLink}}}.
 
       if($eq activity.activityType 'addChecklistItem')
-        | {{{_ 'activity-checklist-item-added' activity.checklist.title cardLink}}}.
+        | {{{_ 'activity-checklist-item-added' (sanitize activity.checklist.title) cardLink}}}.
         .activity-checklist(href="{{ activity.card.absoluteUrl }}")
           +viewer
             = activity.checklistItem.title
 
       if($eq activity.activityType 'removedChecklistItem')
-        | {{{_ 'activity-checklist-item-removed' activity.checklist.title cardLink}}}.
+        | {{{_ 'activity-checklist-item-removed' (sanitize activity.checklist.title) cardLink}}}.
 
       //- comment activity ----------------------------------------------------
       if($eq mode 'card')
@@ -143,31 +143,31 @@ template(name="activity")
           | {{_ 'activity-customfield-created' customField}}.
 
         if($eq activity.activityType 'setCustomField')
-          | {{{_ 'activity-set-customfield' lastCustomField lastCustomFieldValue cardLink}}}.
+          | {{{_ 'activity-set-customfield' (sanitize lastCustomField) (sanitize lastCustomFieldValue) cardLink}}}.
 
         if($eq activity.activityType 'unsetCustomField')
-          | {{{_ 'activity-unset-customfield' lastCustomField cardLink}}}.
+          | {{{_ 'activity-unset-customfield' (sanitize lastCustomField) cardLink}}}.
 
       //- label activity ------------------------------------------------------
       if($eq activity.activityType 'addedLabel')
-        | {{{_ 'activity-added-label' lastLabel cardLink}}}.
+        | {{{_ 'activity-added-label' (sanitize lastLabel) cardLink}}}.
 
       if($eq activity.activityType 'removedLabel')
-        | {{{_ 'activity-removed-label' lastLabel cardLink}}}.
+        | {{{_ 'activity-removed-label' (sanitize lastLabel) cardLink}}}.
 
       //- list activity -------------------------------------------------------
       if($neq mode 'card')
         if($eq activity.activityType 'createList')
-          | {{{_ 'activity-added' listLabel boardLabel}}}.
+          | {{{_ 'activity-added' (sanitize listLabel) boardLabelLink}}}.
 
         if($eq activity.activityType 'importList')
-          | {{{_ 'activity-imported' listLabel boardLabel sourceLink}}}.
+          | {{{_ 'activity-imported' (sanitize listLabel) boardLabelLink sourceLink}}}.
 
         if($eq activity.activityType 'removeList')
-          | {{{_ 'activity-removed' activity.title boardLabel}}}.
+          | {{{_ 'activity-removed' (sanitize activity.title) boardLabelLink}}}.
 
         if($eq activity.activityType 'archivedList')
-          | {{_ 'activity-archived' listLabel}}.
+          | {{_ 'activity-archived' (sanitize listLabel)}}.
 
       //- member activity ----------------------------------------------------
       if($eq activity.activityType 'joinMember')
@@ -185,15 +185,15 @@ template(name="activity")
       //- swimlane activity --------------------------------------------------
       if($neq mode 'card')
         if($eq activity.activityType 'createSwimlane')
-          | {{{_ 'activity-added' activity.swimlane.title boardLabel}}}.
+          | {{_ 'activity-added' (sanitize activity.swimlane.title) boardLabelLink}}.
 
         if($eq activity.activityType 'archivedSwimlane')
-          | {{_ 'activity-archived' activity.swimlane.title}}.
+          | {{_ 'activity-archived' (sanitize activity.swimlane.title)}}.
 
 
       //- I don't understand this part ----------------------------------------
       if(currentData.timeKey)
-        | {{{_ activity.activityType }}}
+        | {{_ activity.activityType }}
         = ' '
         i(title=currentData.timeValue).activity-meta {{ moment currentData.timeValue 'LLL' }}
         if (currentData.timeOldValue)
@@ -203,6 +203,6 @@ template(name="activity")
             i(title=currentData.timeOldValue).activity-meta {{ moment currentData.timeOldValue 'LLL' }}
         = ' @'
       else if(currentData.timeValue)
-        | {{{_ activity.activityType currentData.timeValue}}}
+        | {{_ activity.activityType currentData.timeValue}}
 
       span(title=activity.createdAt).activity-meta {{ moment activity.createdAt }}

@@ -1,3 +1,5 @@
+import sanitizeXss from 'xss';
+
 const activitiesPerPage = 20;
 
 BlazeComponent.extendComponent({
@@ -5,8 +7,9 @@ BlazeComponent.extendComponent({
     // XXX Should we use ReactiveNumber?
     this.page = new ReactiveVar(1);
     this.loadNextPageLocked = false;
-    const sidebar = this.parentComponent(); // XXX for some reason not working
-    sidebar.callFirstWith(null, 'resetNextPeak');
+    // TODO is sidebar always available? E.g. on small screens/mobile devices
+    const sidebar = Sidebar;
+    sidebar && sidebar.callFirstWith(null, 'resetNextPeak');
     this.autorun(() => {
       let mode = this.data().mode;
       const capitalizedMode = Utils.capitalize(mode);
@@ -27,6 +30,8 @@ BlazeComponent.extendComponent({
       this.subscribe('activities', mode, searchId, limit, hideSystem, () => {
         this.loadNextPageLocked = false;
 
+        // TODO the guard can be removed as soon as the TODO above is resolved
+        if (!sidebar) return;
         // If the sibear peak hasn't increased, that mean that there are no more
         // activities, and we can stop calling new subscriptions.
         // XXX This is hacky! We need to know excatly and reactively how many
@@ -41,23 +46,22 @@ BlazeComponent.extendComponent({
       });
     });
   },
-}).register('activities');
-
-BlazeComponent.extendComponent({
   loadNextPage() {
     if (this.loadNextPageLocked === false) {
       this.page.set(this.page.get() + 1);
       this.loadNextPageLocked = true;
     }
   },
+}).register('activities');
 
+BlazeComponent.extendComponent({
   checkItem() {
     const checkItemId = this.currentData().activity.checklistItemId;
     const checkItem = ChecklistItems.findOne({ _id: checkItemId });
     return checkItem && checkItem.title;
   },
 
-  boardLabel() {
+  boardLabelLink() {
     const data = this.currentData();
     if (data.mode !== 'board') {
       return createBoardLink(data.activity.board(), data.activity.listName);
@@ -65,10 +69,10 @@ BlazeComponent.extendComponent({
     return TAPi18n.__('this-board');
   },
 
-  cardLabel() {
+  cardLabelLink() {
     const data = this.currentData();
     if (data.mode !== 'card') {
-      return createCardLink(this.currentData().activity.card());
+      return createCardLink(data.activity.card());
     }
     return TAPi18n.__('this-card');
   },
@@ -134,11 +138,11 @@ BlazeComponent.extendComponent({
             {
               href: source.url,
             },
-            source.system,
+            sanitizeXss(source.system),
           ),
         );
       } else {
-        return source.system;
+        return sanitizeXss(source.system);
       }
     }
     return null;
@@ -162,10 +166,10 @@ BlazeComponent.extendComponent({
               href: attachment.url({ download: true }),
               target: '_blank',
             },
-            attachment.name(),
+            sanitizeXss(attachment.name()),
           ),
         )) ||
-      this.currentData().activity.attachmentName
+      sanitizeXss(this.currentData().activity.attachmentName)
     );
   },
 
@@ -202,7 +206,14 @@ BlazeComponent.extendComponent({
   },
 }).register('activity');
 
+Template.activity.helpers({
+  sanitize(value) {
+    return sanitizeXss(value);
+  },
+});
+
 function createCardLink(card) {
+  if (!card) return '';
   return (
     card &&
     Blaze.toHTML(
@@ -211,7 +222,7 @@ function createCardLink(card) {
           href: card.absoluteUrl(),
           class: 'action-card',
         },
-        card.title,
+        sanitizeXss(card.title),
       ),
     )
   );
@@ -228,7 +239,7 @@ function createBoardLink(board, list) {
           href: board.absoluteUrl(),
           class: 'action-board',
         },
-        text,
+        sanitizeXss(text),
       ),
     )
   );

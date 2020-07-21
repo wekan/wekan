@@ -256,8 +256,8 @@
   "current": "текущий",
   "custom-field-delete-pop": "Отменить нельзя. Это удалит настраиваемое поле со всех карт и уничтожит его историю.",
   "custom-field-checkbox": "Галочка",
-  "custom-field-currency": "Currency",
-  "custom-field-currency-option": "Currency Code",
+  "custom-field-currency": "Валюта",
+  "custom-field-currency-option": "Код валюты",
   "custom-field-date": "Дата",
   "custom-field-dropdown": "Выпадающий список",
   "custom-field-dropdown-none": "(нет)",
@@ -808,5 +808,6 @@
   "voting": "Голосование",
   "archived": "Архивировано",
   "delete-linked-card-before-this-card": "Вы не можете удалить карточку, не удалив связанную c ней карточку, которая имеет ",
-  "delete-linked-cards-before-this-list": "Вы не можете удалить этот список, не удалив карточки, которые указывают на карточки в этом списке"
+  "delete-linked-cards-before-this-list": "Вы не можете удалить этот список, не удалив карточки, которые указывают на карточки в этом списке",
+  "hide-checked-items": "Спрятать отмеченные"
 }

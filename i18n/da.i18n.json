@@ -808,5 +808,6 @@
   "voting": "Afstemning",
   "archived": "Arkiveret",
   "delete-linked-card-before-this-card": "Du kan ikke slette dette kort før der slettes sammenkædede kort som har",
-  "delete-linked-cards-before-this-list": "Du kan ikke slette denne liste før der slettes sammenkædede kort, der peger til kort i denne liste"
+  "delete-linked-cards-before-this-list": "Du kan ikke slette denne liste før der slettes sammenkædede kort, der peger til kort i denne liste",
+  "hide-checked-items": "Hide checked items"
 }

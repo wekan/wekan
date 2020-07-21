@@ -18,18 +18,14 @@ Boards.attachSchema(
       type: String,
       // eslint-disable-next-line consistent-return
       autoValue() {
-        // XXX We need to improve slug management. Only the id should be necessary
-        // to identify a board in the code.
-        // XXX If the board title is updated, the slug should also be updated.
         // In some cases (Chinese and Japanese for instance) the `getSlug` function
         // return an empty string. This is causes bugs in our application so we set
         // a default slug in this case.
-        if (this.isInsert && !this.isSet) {
+        // Improvment would be to change client URL after slug is changed
+        const title = this.field('title');
+        if (title.isSet && !this.isSet) {
           let slug = 'board';
-          const title = this.field('title');
-          if (title.isSet) {
-            slug = getSlug(title.value) || slug;
-          }
+          slug = getSlug(title.value) || slug;
           return slug;
         }
       },
@@ -1217,6 +1213,14 @@ if (Meteor.isServer) {
     update: allowIsBoardAdmin,
     remove: allowIsBoardAdmin,
     fetch: ['members'],
+  });
+
+  // All logged in users are allowed to reorder boards by dragging at All Boards page and Public Boards page.
+  Boards.allow({
+    update(userId, board, fieldNames) {
+      return _.contains(fieldNames, 'sort');
+    },
+    fetch: [],
   });
 
   // The number of users that have starred this board is managed by trusted code

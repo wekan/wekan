@@ -246,19 +246,6 @@ Migrations.add('add-checklist-items', () => {
   });
 });
 
-Migrations.add('add-profile-view', () => {
-  Users.find().forEach(user => {
-    if (!user.hasOwnProperty('profile.boardView')) {
-      // Set default view
-      Users.direct.update(
-        { _id: user._id },
-        { $set: { 'profile.boardView': 'board-view-lists' } },
-        noValidate,
-      );
-    }
-  });
-});
-
 Migrations.add('add-card-types', () => {
   Cards.find().forEach(card => {
     Cards.direct.update(
@@ -1041,6 +1028,19 @@ Migrations.add('add-sort-field-to-boards', () => {
   Boards.find().forEach((board, index) => {
     if (!board.hasOwnProperty('sort')) {
       Boards.direct.update(board._id, { $set: { sort: index } }, noValidate);
+    }
+  });
+});
+
+Migrations.add('add-default-profile-view', () => {
+  Users.find().forEach(user => {
+    if (!user.hasOwnProperty('profile.boardView')) {
+      // Set default view
+      Users.direct.update(
+        { _id: user._id },
+        { $set: { 'profile.boardView': 'board-view-swimlanes' } },
+        noValidate,
+      );
     }
   });
 });

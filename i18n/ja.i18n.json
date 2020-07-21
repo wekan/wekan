@@ -808,5 +808,6 @@
   "voting": "投票",
   "archived": "アーカイブ",
   "delete-linked-card-before-this-card": "カード内にある、リンクされているカードを削除しなければ、このカードは削除できません",
-  "delete-linked-cards-before-this-list": "リスト内にある、他のカードを参照しているカードを削除しなければ、このリストは削除できません"
+  "delete-linked-cards-before-this-list": "リスト内にある、他のカードを参照しているカードを削除しなければ、このリストは削除できません",
+  "hide-checked-items": "チェックした項目を隠す"
 }

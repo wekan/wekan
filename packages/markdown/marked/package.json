@@ -74,5 +74,8 @@
   },
   "engines": {
     "node": ">= 8.16.2"
+  },
+  "dependencies": {
+    "lodash": "^4.17.19"
   }
 }

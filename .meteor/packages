@@ -98,3 +98,4 @@ percolate:synced-cron
 easylogic:summernote
 cfs:filesystem
 ostrio:cookies
+tmeasday:check-npm-versions

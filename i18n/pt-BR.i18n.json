@@ -808,5 +808,6 @@
   "voting": "Votação",
   "archived": "Arquivado",
   "delete-linked-card-before-this-card": "Você não pode excluir este cartão antes de excluir primeiro o cartão vinculado que possui",
-  "delete-linked-cards-before-this-list": "Você não pode excluir esta lista antes de excluir primeiro os cartões vinculados que estão apontando para os cartões nesta lista"
+  "delete-linked-cards-before-this-list": "Você não pode excluir esta lista antes de excluir primeiro os cartões vinculados que estão apontando para os cartões nesta lista",
+  "hide-checked-items": "Esconder itens marcados"
 }

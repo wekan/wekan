@@ -1,7 +1,17 @@
 template(name="checklists")
-  h3
-    i.fa.fa-check
-    | {{_ 'checklists'}}
+  .checklists-title
+    h3
+      i.fa.fa-check
+      | {{_ 'checklists'}}
+    if currentUser.isBoardMember
+      .material-toggle-switch
+        span.toggle-switch-title {{_ 'hide-checked-items'}}
+        if hideCheckedItems
+          input.toggle-switch(type="checkbox" id="toggleHideCheckedItemsButton" checked="checked")
+        else
+          input.toggle-switch(type="checkbox" id="toggleHideCheckedItemsButton")
+        label.toggle-label(for="toggleHideCheckedItemsButton")
+
   if toggleDeleteDialog.get
     .board-overlay#card-details-overlay
     +checklistDeleteDialog(checklist = checklistToDelete)
@@ -86,7 +96,7 @@ template(name="checklistItems")
           | {{_ 'add-checklist-item'}}...
 
 template(name='checklistItemDetail')
-  .js-checklist-item.checklist-item
+  .js-checklist-item.checklist-item(class="{{#if item.isFinished }}is-checked{{#if hideCheckedItems}} invisible{{/if}}{{/if}}")
     if canModifyCard
       .check-box-container
         .check-box.materialCheckBox(class="{{#if item.isFinished }}is-checked{{/if}}")

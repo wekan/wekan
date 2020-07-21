@@ -25,10 +25,6 @@ BlazeComponent.extendComponent({
   },
 
   onRendered() {
-    function userIsAllowedToMove() {
-      return Meteor.user();
-    }
-
     const itemsSelector = '.js-board:not(.placeholder)';
 
     const $boards = this.$('.js-boards');
@@ -77,8 +73,6 @@ BlazeComponent.extendComponent({
           handle: '.board-handle',
         });
       }
-
-      $boards.sortable('option', 'disabled', !userIsAllowedToMove());
     });
   },
 
