@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v4.20
+  version: v4.21
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -1580,18 +1580,6 @@ paths:
             the new title of the card
           type: string
           required: false
-        - name: listId
-          in: formData
-          description: |
-            the new list ID of the card (move operation)
-          type: string
-          required: false
-        - name: authorId
-          in: formData
-          description: |
-            change the owner of the card
-          type: string
-          required: false
         - name: parentId
           in: formData
           description: |
@@ -1692,6 +1680,18 @@ paths:
           in: formData
           description: |
             the new swimlane ID of the card
+          type: string
+          required: false
+        - name: listId
+          in: formData
+          description: |
+            the new list ID of the card (move operation)
+          type: string
+          required: false
+        - name: authorId
+          in: formData
+          description: |
+            change the owner of the card
           type: string
           required: false
         - name: board
