@@ -1136,9 +1136,9 @@ if (Meteor.isServer) {
         */
 
         const Future = require('fibers/future');
-        let future1 = new Future();
-        let future2 = new Future();
-        let future3 = new Future();
+        const future1 = new Future();
+        const future2 = new Future();
+        const future3 = new Future();
         Boards.insert(
           {
             title: TAPi18n.__('templates'),
