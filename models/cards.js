@@ -2420,34 +2420,6 @@ if (Meteor.isServer) {
           },
         );
       }
-      if (req.body.hasOwnProperty('listId')) {
-        const newParamListId = req.body.listId;
-        Cards.direct.update(
-          {
-            _id: paramCardId,
-            listId: paramListId,
-            boardId: paramBoardId,
-            archived: false,
-          },
-          {
-            $set: {
-              listId: newParamListId,
-            },
-          },
-        );
-
-        const card = Cards.findOne({
-          _id: paramCardId,
-        });
-        cardMove(
-          req.body.authorId,
-          card,
-          {
-            fieldName: 'listId',
-          },
-          paramListId,
-        );
-      }
       if (req.body.hasOwnProperty('parentId')) {
         const newParentId = req.body.parentId;
         Cards.direct.update(
@@ -2691,6 +2663,34 @@ if (Meteor.isServer) {
           { $set: { swimlaneId: newParamSwimlaneId } },
         );
       }
+      if (req.body.hasOwnProperty('listId')) {
+        const newParamListId = req.body.listId;
+        Cards.direct.update(
+          {
+            _id: paramCardId,
+            listId: paramListId,
+            boardId: paramBoardId,
+            archived: false,
+          },
+          {
+            $set: {
+              listId: newParamListId,
+            },
+          },
+        );
+
+        const card = Cards.findOne({
+          _id: paramCardId,
+        });
+        cardMove(
+          req.body.authorId,
+          card,
+          {
+            fieldName: 'listId',
+          },
+          paramListId,
+        );
+      }
       JsonRoutes.sendResult(res, {
         code: 200,
         data: {
@@ -2772,15 +2772,7 @@ if (Meteor.isServer) {
             },
           },
           archived: false,
-        }).map(function(doc) {
-          return {
-            _id: doc._id,
-            title: doc.title,
-            description: doc.description,
-            listId: doc.listId,
-            swinlaneId: doc.swinlaneId,
-          };
-        }),
+        }).fetch(),
       });
     },
   );
