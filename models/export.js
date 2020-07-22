@@ -61,6 +61,7 @@ export class Exporter {
     const path = Npm.require('path');
 
     const byBoard = { boardId: this._boardId };
+    const attachByBoard = { 'meta.boardId': this._boardId };
     const byBoardNoLinked = {
       boardId: this._boardId,
       linkedId: { $in: ['', null] },
@@ -165,7 +166,7 @@ export class Exporter {
       readStream.pipe(tmpWriteable);
     };
     const getBase64DataSync = Meteor.wrapAsync(getBase64Data);
-    result.attachments = Attachments.find({ 'meta.boardId': byBoard.boardId })
+    result.attachments = Attachments.find(attachByBoard)
       .fetch()
       .map(attachment => {
         let filebase64 = null;

@@ -12,6 +12,7 @@ export class Exporter {
     const path = Npm.require('path');
 
     const byBoard = { boardId: this._boardId };
+    const attachByBoard = { 'meta.boardId': this._boardId };
     const byBoardNoLinked = {
       boardId: this._boardId,
       linkedId: { $in: ['', null] },
@@ -97,7 +98,7 @@ export class Exporter {
         `tmpexport${process.pid}${Math.random()}`,
       );
       const tmpWriteable = fs.createWriteStream(tmpFile);
-      const readStream = doc.createReadStream();
+      const readStream = fs.createReadStream(doc.path);
       readStream.on('data', function(chunk) {
         buffer = Buffer.concat([buffer, chunk]);
       });
@@ -116,7 +117,7 @@ export class Exporter {
       readStream.pipe(tmpWriteable);
     };
     const getBase64DataSync = Meteor.wrapAsync(getBase64Data);
-    result.attachments = Attachments.find(byBoard)
+    result.attachments = Attachments.find(attachByBoard)
       .fetch()
       .map(attachment => {
         let filebase64 = null;
@@ -124,11 +125,11 @@ export class Exporter {
 
         return {
           _id: attachment._id,
-          cardId: attachment.cardId,
+          cardId: attachment.meta.cardId,
           //url: FlowRouter.url(attachment.url()),
           file: filebase64,
-          name: attachment.original.name,
-          type: attachment.original.type,
+          name: attachment.name,
+          type: attachment.type,
         };
       });
 

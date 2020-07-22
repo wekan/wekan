@@ -326,6 +326,7 @@ export class WekanCreator {
         startAt: card.startAt ? this._now(card.startAt) : null,
         dueAt: card.dueAt ? this._now(card.dueAt) : null,
         spentTime: card.spentTime || null,
+        coverId: card.coverId
       };
       // add labels
       if (card.labelIds) {
@@ -403,84 +404,86 @@ export class WekanCreator {
           // });
         });
       }
-      const attachments = this.attachments[card._id];
-      const wekanCoverId = card.coverId;
-      if (attachments) {
-        attachments.forEach(att => {
-          const file = new FS.File();
-          // Simulating file.attachData on the client generates multiple errors
-          // - HEAD returns null, which causes exception down the line
-          // - the template then tries to display the url to the attachment which causes other errors
-          // so we make it server only, and let UI catch up once it is done, forget about latency comp.
-          const self = this;
-          if (Meteor.isServer) {
-            if (att.url) {
-              // FIXME: Change to new file library
-              file.attachData(att.url, function(error) {
-                file.boardId = boardId;
-                file.cardId = cardId;
-                file.userId = self._user(att.userId);
-                // The field source will only be used to prevent adding
-                // attachments' related activities automatically
-                file.source = 'import';
-                if (error) {
-                  throw error;
-                } else {
-                  const wekanAtt = Attachments.insert(file, () => {
-                    // we do nothing
-                  });
-                  self.attachmentIds[att._id] = wekanAtt._id;
-                  //
-                  if (wekanCoverId === att._id) {
-                    Cards.direct.update(cardId, {
-                      $set: {
-                        coverId: wekanAtt._id,
-                      },
-                    });
-                  }
-                }
-              });
-            } else if (att.file) {
-              // FIXME: Change to new file library
-              file.attachData(
-                Buffer.from(att.file, 'base64'),
-                {
-                  type: att.type,
-                },
-                error => {
-                  file.name(att.name);
-                  file.boardId = boardId;
-                  file.cardId = cardId;
-                  file.userId = self._user(att.userId);
-                  // The field source will only be used to prevent adding
-                  // attachments' related activities automatically
-                  file.source = 'import';
-                  if (error) {
-                    throw error;
-                  } else {
-                    const wekanAtt = Attachments.insert(file, () => {
-                      // we do nothing
-                    });
-                    this.attachmentIds[att._id] = wekanAtt._id;
-                    //
-                    if (wekanCoverId === att._id) {
-                      Cards.direct.update(cardId, {
-                        $set: {
-                          coverId: wekanAtt._id,
-                        },
-                      });
-                    }
-                  }
-                },
-              );
-            }
-          }
-          // todo XXX set cover - if need be
-        });
-      }
+      //const wekanCoverId = card.coverId;
       result.push(cardId);
     });
     return result;
+  }
+
+  createAttachments(wekanAttachments, boardId) {
+    wekanAttachments.forEach(att => {
+      console.log('att', att);
+      console.log('file', att.file[0]);
+      // Simulating file.attachData on the client generates multiple errors
+      // - HEAD returns null, which causes exception down the line
+      // - the template then tries to display the url to the attachment which causes other errors
+      // so we make it server only, and let UI catch up once it is done, forget about latency comp.
+      const self = this;
+      if (Meteor.isServer) {
+        if (att.url) {
+          // FIXME: Change to new file library
+          file.attachData(att.url, function(error) {
+            file.boardId = boardId;
+            file.cardId = cardId;
+            file.userId = self._user(att.userId);
+            // The field source will only be used to prevent adding
+            // attachments' related activities automatically
+            file.source = 'import';
+            if (error) {
+              throw error;
+            } else {
+              const wekanAtt = Attachments.insert(file, () => {
+                // we do nothing
+              });
+              self.attachmentIds[att._id] = wekanAtt._id;
+              //
+              if (wekanCoverId === att._id) {
+                Cards.direct.update(cardId, {
+                  $set: {
+                    coverId: wekanAtt._id,
+                  },
+                });
+              }
+            }
+          });
+        } else if (att.file) {
+          const buffer = Buffer.from(att.file, 'base64');
+          const cardId = this.cards[att.cardId];
+          const opts = {
+            fileName: att.name,
+            type: att.type,
+            meta: {
+              boardId: boardId,
+              cardId: cardId,
+              source: 'import'
+            },
+            userId: self._user(att.userId)
+          };
+          Attachments.write(buffer, opts, (err, fileRef) => {
+            //console.log('ref', fileRef);
+            if (err) {
+              console.log('Error when impoting attachments', err);
+            } else {
+              const card = Cards.findOne(cardId);
+              if (card) {
+                const wekanCoverId = card.coverId;
+                console.log('card', card);
+                console.log('cover', wekanCoverId);
+                console.log('id1', att._id);
+                console.log('id2', fileRef._id);
+                if (wekanCoverId === att._id) {
+                  Cards.direct.update(cardId, {
+                    $set: {
+                      coverId: fileRef._id,
+                    },
+                  });
+                }
+              }
+            }
+          });
+        }
+      }
+    });
   }
 
   // Create labels if they do not exist and load this.labels.
@@ -843,6 +846,7 @@ export class WekanCreator {
     this.createLists(board.lists, boardId);
     this.createSwimlanes(board.swimlanes, boardId);
     this.createCards(board.cards, boardId);
+    this.createAttachments(board.attachments, boardId);
     this.createChecklists(board.checklists);
     this.createChecklistItems(board.checklistItems);
     this.importActivities(board.activities, boardId);

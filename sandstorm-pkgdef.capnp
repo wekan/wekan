@@ -11,7 +11,8 @@ const pkgdef :Spk.PackageDefinition = (
   # The package definition. Note that the spk tool looks specifically for the
   # "pkgdef" constant.
 
-  id = "m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h",
+#  id = "m86q05rdvj14yvn78ghaxynqz7u2svw6rnttptxx49g1785cdv1h",
+  id = "f3pk81pyc2qx2aje8d788p2kxpvxw2zjn6g1645jp01ru0hgack0",
   # The app ID is actually its public key. The private key was placed in your
   # keyring. All updates must be signed with the same key.
 
@@ -22,10 +23,10 @@ const pkgdef :Spk.PackageDefinition = (
     appTitle = (defaultText = "Wekan"),
     # The name of the app as it is displayed to the user.
 
-    appVersion = 404,
+    appVersion = 999378,
     # Increment this for every release.
 
-    appMarketingVersion = (defaultText = "4.04.0~2020-05-24"),
+    appMarketingVersion = (defaultText = "p4.01.0~2020-05-56"),
     # Human-readable presentation of the app version.
 
     minUpgradableAppVersion = 0,
@@ -63,11 +64,11 @@ const pkgdef :Spk.PackageDefinition = (
       categories = [productivity, office],
 
       author = (
-        contactEmail = "x@xet7.org",
-        pgpSignature = embed "meta/wekanteam-pgp-sig",
+        contactEmail = "",
       ),
 
       pgpKeyring = embed "meta/keyring",
+
 
       description = (defaultText = embed "meta/description.md"),
 
@@ -262,6 +263,6 @@ const myCommand :Spk.Manifest.Command = (
     (key = "PASSWORD_LOGIN_ENABLED", value="true"),
     (key = "SANDSTORM", value="1"),
     (key = "METEOR_SETTINGS", value = "{\"public\": {\"sandstorm\": true}}"),
-    (key = "ATTACHMENTS_STORE_PATH", value = "/var/attachments/")
+    (key = "ATTACHMENTS_STORE_PATH", value = "/var/attachments")
   ]
 );
