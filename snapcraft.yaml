@@ -248,8 +248,15 @@ parts:
 
     caddy:
         plugin: dump
-        source: https://caddyserver.com/download/linux/amd64?license=personal&telemetry=off
-        source-type: tar
+        ## Caddy v1 is not developed anymore. TODO: Sometime migrate to Caddy v2.
+        ## https://caddy.community/t/caddyfile-v1-adapter/9129
+        ## https://github.com/caddyserver/caddy/tree/v1
+        #source: https://caddyserver.com/download/linux/amd64?license=personal&telemetry=off
+        #source-type: tar
+        # Using last working binary that was downloaded from above URL to Wekan Snap,
+        # and .txt files from https://github.com/caddyserver/caddy/tree/v1/dist
+        source: https://releases.wekan.team/caddy/caddy-v1-linux-amd64.7z
+        source-type: 7z
         organize:
           caddy: bin/caddy
           CHANGES.txt: CADDY_CHANGES.txt
