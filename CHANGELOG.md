@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v4.22 2020-07-23 Wekan release
 
 This release adds back these features:
 
@@ -10,6 +10,11 @@ and hides these features temporarily:
 
 - [Hide CSV export until it's fixed in EdgeHTML compatible way](https://github.com/wekan/wekan/commit/045b8a84a29dde09201dd5108c757719d00e6f55).
   Thanks to xet7.
+
+and adds the following updates:
+
+- [Upgrade to Node 12.18.3](https://github.com/wekan/wekan/commit/6f503ca818abff17a20b6612aeea1f9e2c4a8234).
+  Thanks to Node developers.
 
 and fixes the following bugs:
 
