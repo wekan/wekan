@@ -80,21 +80,19 @@ if (Meteor.isServer) {
       });
     }
     const exporter = new Exporter(boardId);
-    if (exporter.canExport(user)) {
-      body = params.query.delimiter
-        ? exporter.buildCsv(params.query.delimiter)
-        : exporter.buildCsv();
-      res.writeHead(200, {
-        // Checking length does not work https://github.com/wekan/wekan/issues/3173
-        // so not using it here
-        //'Content-Length': body.length,
-        'Content-Type': params.query.delimiter ? 'text/csv' : 'text/tsv',
-      });
-      res.write(body);
-      res.end();
-    } else {
-      res.writeHead(403);
-      res.end('Permission Error');
-    }
+    //if (exporter.canExport(user)) {
+    body = params.query.delimiter
+      ? exporter.buildCsv(params.query.delimiter)
+      : exporter.buildCsv();
+    //'Content-Length': body.length,
+    res.writeHead(200, {
+      'Content-Type': params.query.delimiter ? 'text/csv' : 'text/tsv',
+    });
+    res.write(body);
+    res.end();
+    //} else {
+    //  res.writeHead(403);
+    //  res.end('Permission Error');
+    //}
   });
 }
