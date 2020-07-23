@@ -1,6 +1,17 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds back these features:
+
+- [Export to JSON and HTML .zip file](https://github.com/commit/1624fc82f7c319e84a78f29445c7867f7da15c32)
+  that also fixes #3216 Clone Boards not working.
+  Thanks to xet7.
+
+and hides these features temporarily:
+
+- [Hide CSV export until it's fixed in EdgeHTML compatible way](https://github.com/wekan/wekan/commit/045b8a84a29dde09201dd5108c757719d00e6f55).
+  Thanks to xet7.
+
+and fixes the following bugs:
 
 - [Fix Snap](https://github.com/wekan/wekan/commit/68391a943bd37d9f98819ffb7b7a29692d0bd380).
   This fix was already included to Wekan v4.21 to get it released.
