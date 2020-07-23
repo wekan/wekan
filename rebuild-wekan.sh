@@ -173,7 +173,8 @@ do
 		;;
 
     "Run Meteor for dev on http://CURRENT-IP-ADDRESS:4000")
-		IPADDRESS=$(ip a | grep 'scope global' | grep 'inet ' | cut -d: -f2 | awk '{ print $2}' | cut -d '/' -f 1)
+		IPADDRESS=$(ip a | grep 'noprefixroute' | grep 'inet ' | cut -d: -f2 | awk '{ print $2}' | cut -d '/' -f 1)
+		echo "Your IP address is $IPADDRESS"
 		WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:4000 meteor run --exclude-archs web.browser.legacy,web.cordova --port 4000
 		break
 		;;
@@ -184,6 +185,7 @@ do
 		read IPADDRESS
 		echo "On what port you would like to run Wekan?"
 		read PORT
+		echo "ROOT_URL=http://$IPADDRESS:$PORT"
     WITH_API=true RICHER_CARD_COMMENT_EDITOR=false ROOT_URL=http://$IPADDRESS:$PORT meteor run --exclude-archs web.browser.legacy,web.cordova --port $PORT
 		break
     ;;
