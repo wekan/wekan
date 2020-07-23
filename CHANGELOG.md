@@ -1,3 +1,16 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix Snap](https://github.com/wekan/wekan/commit/68391a943bd37d9f98819ffb7b7a29692d0bd380).
+  This fix was already included to Wekan v4.21 to get it released.
+  TODO: Sometime migrate from Caddy v1 to Caddy v2.
+  Thanks to xet7.
+- [Fix detecting current IP address on rebuild-wekan.sh](https://github.com/wekan/wekan/commit/ec1d8f275ff4cd720a8cd3bc918b32f9c5f5d099).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.21 2020-07-21 Wekan release
 
 This release adds the following new features:
