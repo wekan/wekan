@@ -5,10 +5,62 @@ echo "      with 'sudo dpkg-reconfigure locales' , so that MongoDB works correct
 echo "      You can still use any other locale as your main locale."
 
 #Below script installs newest node 8.x for Debian/Ubuntu/Mint.
+#NODE_VERSION=12.18.2
+#X64NODE="https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz"
 
 function pause(){
 	read -p "$*"
 }
+
+function cprec(){
+	if [[ -d "$1" ]]; then
+		if [[ ! -d "$2" ]]; then
+			sudo mkdir -p "$2"
+		fi
+
+		for i in $(ls -A "$1"); do
+			cprec "$1/$i" "$2/$i"
+		done
+	else
+		sudo cp "$1" "$2"
+	fi
+}
+
+# sudo npm doesn't work right, so this is a workaround
+function npm_call(){
+	TMPDIR="/tmp/tmp_npm_prefix"
+	if [[ -d "$TMPDIR" ]]; then
+		rm -rf $TMPDIR
+	fi
+	mkdir $TMPDIR
+	NPM_PREFIX="$(npm config get prefix)"
+	npm config set prefix $TMPDIR
+	npm "$@"
+	npm config set prefix "$NPM_PREFIX"
+
+	echo "Moving files to $NPM_PREFIX"
+	for i in $(ls -A $TMPDIR); do
+		cprec "$TMPDIR/$i" "$NPM_PREFIX/$i"
+	done
+	rm -rf $TMPDIR
+}
+
+#function wekan_repo_check(){
+## UNCOMMENTING, IT'S NOT REQUIRED THAT /HOME/USERNAME IS /HOME/WEKAN
+#	git_remotes="$(git remote show 2>/dev/null)"
+#	res=""
+#	for i in $git_remotes; do
+#		res="$(git remote get-url $i | sed 's/.*wekan\/wekan.*/wekan\/wekan/')"
+#		if [[ "$res" == "wekan/wekan" ]]; then
+#		    break
+#		fi
+#	done
+#
+#	if [[ "$res" != "wekan/wekan" ]]; then
+#		echo "$PWD is not a wekan repository"
+#		exit;
+#	fi
+#}
 
 echo
 PS3='Please enter your choice: '
@@ -28,7 +80,7 @@ do
 			curl -0 -L https://npmjs.org/install.sh | sudo sh
 			sudo chown -R $(id -u):$(id -g) $HOME/.npm
 			sudo npm -g install n
-			sudo n 12.18.3
+			sudo n 12.18.2
 			#curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 			#sudo apt-get install -y nodejs
 		elif [[ "$OSTYPE" == "darwin"* ]]; then
@@ -56,11 +108,11 @@ do
 		fi
 
 		## Latest npm with Meteor 1.8.x
-		sudo npm -g install npm
-		sudo npm -g install node-gyp
+		npm_call -g install npm
+		npm_call -g install node-gyp
 		# Latest fibers for Meteor 1.8.x
 		sudo mkdir -p /usr/local/lib/node_modules/fibers/.node-gyp
-		sudo npm -g install fibers
+		npm_call -g install fibers
 		# Install Meteor, if it's not yet installed
 		curl https://install.meteor.com | bash
 		sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
@@ -69,6 +121,21 @@ do
 
     "Build Wekan")
 		echo "Building Wekan."
+		#wekan_repo_check
+		# REPOS BELOW ARE INCLUDED TO WEKAN REPO
+		#rm -rf packages/kadira-flow-router packages/meteor-useraccounts-core packages/meteor-accounts-cas packages/wekan-ldap packages/wekan-ldap packages/wekan-scrfollbar packages/meteor-accounts-oidc packages/markdown
+		#mkdir packages
+		#cd packages
+		#git clone --depth 1 -b master https://github.com/wekan/flow-router.git kadira-flow-router
+		#git clone --depth 1 -b master https://github.com/meteor-useraccounts/core.git meteor-useraccounts-core
+		#git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-cas.git
+		#git clone --depth 1 -b master https://github.com/wekan/wekan-ldap.git
+		#git clone --depth 1 -b master https://github.com/wekan/wekan-scrollbar.git
+		#git clone --depth 1 -b master https://github.com/wekan/meteor-accounts-oidc.git
+		#git clone --depth 1 -b master --recurse-submodules https://github.com/wekan/markdown.git
+                #mv meteor-accounts-oidc/packages/switch_accounts-oidc wekan_accounts-oidc
+                #mv meteor-accounts-oidc/packages/switch_oidc wekan_oidc
+                #rm -rf meteor-accounts-oidc
 		#if [[ "$OSTYPE" == "darwin"* ]]; then
 		#	echo "sed at macOS";
 		#	sed -i '' 's/api\.versionsFrom/\/\/api.versionsFrom/' ~/repos/wekan/packages/meteor-useraccounts-core/package.js
