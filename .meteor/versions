@@ -51,7 +51,7 @@ dburles:collection-helpers@1.1.0
 ddp@1.4.0
 ddp-client@2.3.3
 ddp-common@1.4.0
-ddp-rate-limiter@1.0.7
+ddp-rate-limiter@1.0.8
 ddp-server@2.3.2
 deps@1.0.12
 diff-sequence@1.1.1
