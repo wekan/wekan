@@ -256,8 +256,8 @@
   "current": "actual",
   "custom-field-delete-pop": "Se eliminará este campo personalizado de todas las tarjetas y se destruirá su historial. Esta acción no puede deshacerse.",
   "custom-field-checkbox": "Casilla de verificación",
-  "custom-field-currency": "Currency",
-  "custom-field-currency-option": "Currency Code",
+  "custom-field-currency": "Moneda",
+  "custom-field-currency-option": "Código de moneda",
   "custom-field-date": "Fecha",
   "custom-field-dropdown": "Lista desplegable",
   "custom-field-dropdown-none": "(nada)",
@@ -809,5 +809,5 @@
   "archived": "Archivado",
   "delete-linked-card-before-this-card": "No puede borrar esta tarjeta antes de borrar la tarjeta enlazada que tiene",
   "delete-linked-cards-before-this-list": "No puede borrar esta lista antes de borrar las tarjetas enlazadas que apuntan a tarjetas en esta lista",
-  "hide-checked-items": "Hide checked items"
+  "hide-checked-items": "Ocultar elementos marcados"
 }
