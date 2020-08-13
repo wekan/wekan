@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release fixes following CRITICAL VULNERABILITIES:
+
+- [Update vulnerable dependency elliptic that is dependency of meteor-node-stubs that is dependency of
+  Wekan](https://github.com/wekan/wekan/commit/910f0cecbe7a4b3fdff603e5e74c2cb1c40b660b).
+  Thanks to filipenevola, neeldug, L25inux and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.22 2020-07-23 Wekan release
 
 This release adds back these features:
