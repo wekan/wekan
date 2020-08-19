@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release adds the following updates:
+
+- [Upgrade to Meteor 1.11](https://github.com/wekan/wekan/commit/4d49265b25595444553e1c2d6e48c7a699949654).
+  Thanks to Meteor developers.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.23 2020-08-13 Wekan release
 
 This release fixes following CRITICAL VULNERABILITIES:
