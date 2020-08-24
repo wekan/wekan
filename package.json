@@ -59,7 +59,7 @@
     "@root/request": "^1.6.1",
     "ajv": "^5.0.0",
     "babel-runtime": "^6.26.0",
-    "bcrypt": "^3.0.7",
+    "bcrypt": "^5.0.0",
     "bson": "^4.0.3",
     "bunyan": "^1.8.12",
     "es6-promise": "^4.2.4",
