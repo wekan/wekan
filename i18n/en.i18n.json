@@ -638,6 +638,8 @@
   "r-delete-rule": "Delete rule",
   "r-new-rule-name": "New rule title",
   "r-no-rules": "No rules",
+  "r-trigger": "Trigger",
+  "r-action": "Action",
   "r-when-a-card": "When a card",
   "r-is": "is",
   "r-is-moved": "is moved",
