@@ -638,6 +638,8 @@
     "r-delete-rule": "Kuralı sil",
     "r-new-rule-name": "Yeni kural başlığı",
     "r-no-rules": "Kural yok",
+    "r-trigger": "Trigger",
+    "r-action": "Action",
     "r-when-a-card": "Kart eklendiğinde",
     "r-is": "is",
     "r-is-moved": "taşındı",

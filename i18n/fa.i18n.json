@@ -638,6 +638,8 @@
     "r-delete-rule": "حذف قانون",
     "r-new-rule-name": "تیتر قانون جدید",
     "r-no-rules": "بدون قانون",
+    "r-trigger": "Trigger",
+    "r-action": "Action",
     "r-when-a-card": "زمانی که کارت",
     "r-is": "هست",
     "r-is-moved": "جابه‌جا شده",

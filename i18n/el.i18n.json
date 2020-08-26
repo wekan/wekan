@@ -638,6 +638,8 @@
     "r-delete-rule": "Διαγραφή κανόνα",
     "r-new-rule-name": "New rule title",
     "r-no-rules": "No rules",
+    "r-trigger": "Trigger",
+    "r-action": "Action",
     "r-when-a-card": "Όταν μία κάρτα",
     "r-is": "is",
     "r-is-moved": "is moved",

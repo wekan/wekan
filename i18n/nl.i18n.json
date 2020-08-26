@@ -638,6 +638,8 @@
     "r-delete-rule": "Verwijder regel",
     "r-new-rule-name": "Nieuwe regelnaam",
     "r-no-rules": "Geen regels",
+    "r-trigger": "Trigger",
+    "r-action": "Action",
     "r-when-a-card": "Als een kaart",
     "r-is": "is",
     "r-is-moved": "is verplaatst",

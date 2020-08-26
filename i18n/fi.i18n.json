@@ -638,6 +638,8 @@
     "r-delete-rule": "Poista sääntö",
     "r-new-rule-name": "Uuden säännön otsikko",
     "r-no-rules": "Ei sääntöjä",
+    "r-trigger": "Liipaisin",
+    "r-action": "Toimi",
     "r-when-a-card": "Kun kortti",
     "r-is": "on",
     "r-is-moved": "on siirretty",

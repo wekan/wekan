@@ -638,6 +638,8 @@
     "r-delete-rule": "Изтрий правилото",
     "r-new-rule-name": "Заглавие за новото правило",
     "r-no-rules": "Няма правила",
+    "r-trigger": "Trigger",
+    "r-action": "Action",
     "r-when-a-card": "Когато карта",
     "r-is": "е",
     "r-is-moved": "преместена",

@@ -638,6 +638,8 @@
     "r-delete-rule": "Smazat pravidlo",
     "r-new-rule-name": "Nový název pravidla",
     "r-no-rules": "Žádná pravidla",
+    "r-trigger": "Trigger",
+    "r-action": "Action",
     "r-when-a-card": "Pokud karta",
     "r-is": "je",
     "r-is-moved": "je přesunuto",

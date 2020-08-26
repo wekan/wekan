@@ -638,6 +638,8 @@
     "r-delete-rule": "ルールを削除",
     "r-new-rule-name": "新しいルールのタイトル",
     "r-no-rules": "ルールなし",
+    "r-trigger": "Trigger",
+    "r-action": "Action",
     "r-when-a-card": "カード：",
     "r-is": "が",
     "r-is-moved": "が移動された時",

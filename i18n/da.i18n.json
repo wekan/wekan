@@ -638,6 +638,8 @@
     "r-delete-rule": "Slet regel",
     "r-new-rule-name": "Ny titel for regel",
     "r-no-rules": "Ingen regler",
+    "r-trigger": "Trigger",
+    "r-action": "Action",
     "r-when-a-card": "Når et kort",
     "r-is": "er",
     "r-is-moved": "flyttes",

@@ -638,6 +638,8 @@
     "r-delete-rule": "删除规则",
     "r-new-rule-name": "新建规则标题",
     "r-no-rules": "暂无规则",
+    "r-trigger": "Trigger",
+    "r-action": "Action",
     "r-when-a-card": "当一张卡片",
     "r-is": "是",
     "r-is-moved": "已经移动",

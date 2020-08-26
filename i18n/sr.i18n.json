@@ -638,6 +638,8 @@
     "r-delete-rule": "Obriši pravilo",
     "r-new-rule-name": "Novi naslov pravila",
     "r-no-rules": "Nema pravila",
+    "r-trigger": "Trigger",
+    "r-action": "Action",
     "r-when-a-card": "Kada kartica",
     "r-is": "je",
     "r-is-moved": "je premeštena",

@@ -638,6 +638,8 @@
     "r-delete-rule": "Regel löschen",
     "r-new-rule-name": "Neuer Regeltitel",
     "r-no-rules": "Keine Regeln",
+    "r-trigger": "Trigger",
+    "r-action": "Action",
     "r-when-a-card": "Wenn Karte",
     "r-is": "wird",
     "r-is-moved": "verschoben wird",
