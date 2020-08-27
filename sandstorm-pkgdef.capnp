@@ -241,6 +241,7 @@ const myCommand :Spk.Manifest.Command = (
     (key = "RICHER_CARD_COMMENT_EDITOR", value="false"),
     (key = "SCROLLINERTIA", value="0"),
     (key = "SCROLLAMOUNT", value="auto"),
+    (key = "SCROLLDELTAFACTOR", value="auto"),
     (key = "CARD_OPENED_WEBHOOK_ENABLED", value="false"),
     (key = "NOTIFICATION_TRAY_AFTER_READ_DAYS_BEFORE_REMOVE", value=""),
     (key = "BIGEVENTS_PATTERN", value="NONE"),

@@ -45,6 +45,7 @@
       # https://github.com/wekan/wekan/issues/2949
       export SCROLLINERTIA=0
       export SCROLLAMOUNT=auto
+      export SCROLLDELTAFACTOR=auto
       #---------------------------------------------------------------
       # ==== CARD OPENED, SEND WEBHOOK MESSAGE ====
       export CARD_OPENED_WEBHOOK_ENABLED=false
@@ -363,7 +364,7 @@
       # example : LOGOUT_ON_MINUTES=55
       #export LOGOUT_ON_MINUTES=
       #---------------------------------------------------------------------
-      # PASSWORD_LOGIN_ENABLED : Enable or not the password login form. 
+      # PASSWORD_LOGIN_ENABLED : Enable or not the password login form.
       #export PASSWORD_LOGIN_ENABLED=true
 
       node main.js

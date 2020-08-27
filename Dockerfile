@@ -116,6 +116,7 @@ ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-
     DEFAULT_AUTHENTICATION_METHOD="" \
     SCROLLINERTIA="0" \
     SCROLLAMOUNT="auto" \
+    SCROLLDELTAFACTOR="auto" \
     PASSWORD_LOGIN_ENABLED=true
 
 # Copy the app to the image

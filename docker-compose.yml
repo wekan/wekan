@@ -244,6 +244,7 @@ services:
       # https://github.com/wekan/wekan/issues/2949
       - SCROLLINERTIA=0
       - SCROLLAMOUNT=auto
+      - SCROLLDELTAFACTOR=auto
       #---------------------------------------------------------------
       # ==== CARD OPENED, SEND WEBHOOK MESSAGE ====
       # https://github.com/wekan/wekan/issues/2518
@@ -598,7 +599,7 @@ services:
       # example : LOGOUT_ON_MINUTES=55
       #- LOGOUT_ON_MINUTES=
       #-------------------------------------------------------------------
-      # Hide password login form 
+      # Hide password login form
       # - PASSWORD_LOGIN_ENABLED=true
       #-------------------------------------------------------------------
     depends_on:
