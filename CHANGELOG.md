@@ -14,6 +14,11 @@ and adds the following translations:
 - [Add Spanish (Peru) (es_PE)](https://github.com/wekan/wekan/commit/b9f87bf310b4f071c8219bb7511b15a7fa27340d).
   Thanks to translators.
 
+and adds the following mouse scroll settings:
+
+- [Add setting for mouse scroll deltafactor. Fix snap setting for mouse scroll amount](https://github.com/wekan/wekan/commit/7e4b791c2964f4b130abbaee62ffdff1536450c4).
+  Thanks to danger89 and xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v4.23 2020-08-13 Wekan release
