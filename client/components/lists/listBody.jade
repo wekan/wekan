@@ -1,5 +1,5 @@
 template(name="listBody")
-  .list-body.js-perfect-scrollbar
+  .list-body
     .minicards.clearfix.js-minicards(class="{{#if reachedWipLimit}}js-list-full{{/if}}")
       if cards.count
         +inlinedForm(autoclose=false position="top")
@@ -106,7 +106,7 @@ template(name="searchElementPopup")
           option(value="{{_id}}") {{title}}
   form.js-search-term-form
     input(type="text" name="searchTerm" placeholder="{{_ 'search-example'}}" autofocus dir="auto")
-  .list-body.js-perfect-scrollbar.search-card-results
+  .list-body.search-card-results
     .minicards.clearfix.js-minicards
       if isBoardTemplateSearch
         each results
