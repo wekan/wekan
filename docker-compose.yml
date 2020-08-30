@@ -356,8 +356,9 @@ services:
       #- OAUTH2_EMAIL_MAP=email
       #-----------------------------------------------------------------
       # ==== OAUTH2 Nextcloud ====
-      # 1) Register the application with Nextcloud: https://your.nextcloud/settings/admin/security
+      # 1) Register the application with Nextcloud: https://your.nextcloud/index.php/settings/admin/security
       #    Make sure you capture the application ID as well as generate a secret key.
+      #    Use https://your.wekan/_oauth/oidc for the redirect URI.
       # 2) Configure the environment variables. This differs slightly
       #     by installation type, but make sure you have the following:
       #- OAUTH2_ENABLED=true
