@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release adds the following docker-compose.yml changes:
+
+- [Mongo 4.4 does not work. Mongo 4.2 and 3.x works](https://github.com/wekan/wekan/commit/5d2daa4a80c819f0610ff2f17589de1e1085836c).
+  Thanks to GuidoDr for info. Related https://github.com/wekan/wekan/issues/3247
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.24 2020-08-27 Wekan release
 
 This release adds the following updates:
