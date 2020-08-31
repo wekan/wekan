@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v4.25 2020-08-31 Wekan release
 
 This release adds the following docker-compose.yml changes:
 
