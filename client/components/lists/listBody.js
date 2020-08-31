@@ -8,7 +8,7 @@ BlazeComponent.extendComponent({
   },
 
   mixins() {
-    return [Mixins.PerfectScrollbar];
+    return [];
   },
 
   openForm(options) {
@@ -523,7 +523,7 @@ BlazeComponent.extendComponent({
 
 BlazeComponent.extendComponent({
   mixins() {
-    return [Mixins.PerfectScrollbar];
+    return [];
   },
 
   onCreated() {
@@ -721,7 +721,7 @@ BlazeComponent.extendComponent({
 
   onRendered() {
     this.spinner = this.find('.sk-spinner-list');
-    this.container = this.$(this.spinner).parents('.js-perfect-scrollbar')[0];
+    this.container = this.$(this.spinner).parents('.list-body')[0];
 
     $(this.container).on(
       `scroll.spinner_${this.swimlaneId}_${this.listId}`,
