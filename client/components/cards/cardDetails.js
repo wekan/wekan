@@ -8,7 +8,7 @@ Meteor.startup(() => {
 
 BlazeComponent.extendComponent({
   mixins() {
-    return [Mixins.InfiniteScrolling, Mixins.PerfectScrollbar];
+    return [Mixins.InfiniteScrolling];
   },
 
   calculateNextPeak() {
@@ -171,13 +171,6 @@ BlazeComponent.extendComponent({
 
     if (!Utils.isMiniScreen()) {
       Meteor.setTimeout(() => {
-        $('.card-details').mCustomScrollbar({
-          theme: 'minimal-dark',
-          setWidth: false,
-          setLeft: 0,
-          scrollbarPosition: 'outside',
-          mouseWheel: true,
-        });
         this.scrollParentContainer();
       }, 500);
     }

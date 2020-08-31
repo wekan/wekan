@@ -1,7 +1,7 @@
 template(name="searchSidebar")
   form.js-search-term-form
     input(type="text" name="searchTerm" placeholder="{{_ 'search-example'}}" autofocus dir="auto")
-  .list-body.js-perfect-scrollbar
+  .list-body
     .minilists.clearfix.js-minilists
       each (lists)
         a.minilist-wrapper.js-minilist(href=absoluteUrl)

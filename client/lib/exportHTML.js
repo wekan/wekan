@@ -65,15 +65,6 @@ window.ExportHtml = Popup => {
         '.list-composer,.js-card-composer, .js-add-card',
       ),
     ).forEach(elem => elem.remove());
-    Array.from(
-      document.querySelectorAll('.js-perfect-scrollbar > div:nth-of-type(n+2)'),
-    ).forEach(elem => elem.remove());
-    Array.from(document.querySelectorAll('.js-perfect-scrollbar')).forEach(
-      elem => {
-        elem.style = 'overflow-y: auto !important;';
-        elem.classList.remove('js-perfect-scrollbar');
-      },
-    );
     Array.from(document.querySelectorAll('[href]:not(link)')).forEach(elem =>
       elem.attributes.removeNamedItem('href'),
     );
