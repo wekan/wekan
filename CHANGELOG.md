@@ -1,3 +1,26 @@
+# Upcoming Wekan release
+
+This release adds the following quality checks:
+
+- [Added GitHub automatic code quality analysis](https://github.com/wekan/wekan/commit/df35683043603f6ecb9bd4f2a4b357e374397ad1).
+  Thanks to xet7.
+
+and updates the following dependencies:
+
+- [bl](https://github.com/wekan/wekan/commit/7ec671bb9f8a33c5eb28c26b98143f9b4cd9b958).
+  Thanks to developers of dependencies.
+- [Delete markdown demo that is not in use](https://github.com/wekan/wekan/commit/d344c39d497cc291ee7927fdda900dc8bac22bc2).
+  Thanks to xet7.
+- [Update markdown and xss](https://github.com/wekan/wekan/commit/cfcbf640d64bdfc4f3a482c32e35f396e1a22191)
+  Thanks to developers of dependencies.
+
+and fixes the following bugs:
+
+- [Disable list formatting and converting to HTML. This fixes markdown numbering and viewing bugs](https://github.com/wekan/wekan/commit/41b1c55988a9a65005ac0b9e1ddcc0596c047a49).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.25 2020-08-31 Wekan release
 
 This release adds the following docker-compose.yml changes:
