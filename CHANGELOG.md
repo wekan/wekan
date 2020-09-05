@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v4.26 2020-09-05 Wekan release
 
 This release adds the following quality checks:
 
