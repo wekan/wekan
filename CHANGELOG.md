@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Reverted incomplete fix for "Checklist + card title with starting number and point", because it disabled some markdown.
+  Also more fixes to GFM checklist not displayed properly](https://github.com/wekan/wekan/commit/bf18792d7733d6e6cfb61a8d6db4caafdcc19b34).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.26 2020-09-05 Wekan release
 
 This release adds the following quality checks:
