@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix card scrollbar on Windows](https://github.com/wekan/wekan/pull/3264).
+  Thanks to tborychowski.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.27 2020-09-09 Wekan release
 
 This release fixes the following bugs:
