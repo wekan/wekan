@@ -1,8 +1,6 @@
-// Source: https://github.com/chjj/marked
-
 Package.describe({
 	name: 'wekan-markdown',
-	summary: 'GitHub flavored markdown parser for Meteor based on marked.js',
+	summary: 'GitHub flavored markdown parser for Meteor based on markdown-it',
 	version: '1.0.9',
 	git: 'https://github.com/wekan/markdown.git',
 });
@@ -16,8 +14,6 @@ Package.onUse(function (api) {
 	api.use('templating');
   api.use("ecmascript", ['server', 'client']);
 
-	api.add_files('marked/lib/marked.js', ['server', 'client']);
-	api.add_files('src/markdown.js', ['server', 'client']);
 	api.export('Markdown', ['server', 'client']);
 
   api.use('ui', 'client', {weak: true});

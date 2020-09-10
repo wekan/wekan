@@ -1,4 +1,13 @@
 import sanitizeXss from 'xss';
+var Markdown = require('markdown-it')({
+  html: true,
+  linkify: true,
+	typographer: true,
+	breaks: true,
+});
+
+var emoji = require('markdown-it-emoji');
+Markdown.use(emoji);
 
 if (Package.ui) {
 	const Template = Package.templating.Template;
@@ -13,6 +22,6 @@ if (Package.ui) {
 			text = Blaze._toText(self.templateContentBlock, HTML.TEXTMODE.STRING);
 		}
 
-      return HTML.Raw(sanitizeXss(Markdown(text)));
+			return HTML.Raw(sanitizeXss(Markdown.render(text)));
 	}));
 }

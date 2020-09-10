@@ -68,6 +68,8 @@
     "gridfs-stream": "^1.1.1",
     "jszip": "^3.4.0",
     "ldapjs": "^2.1.1",
+    "markdown-it": "^11.0.0",
+    "markdown-it-emoji": "^1.4.0",
     "meteor-node-stubs": "^1.0.1",
     "mongodb": "^3.5.7",
     "os": "^0.1.1",
