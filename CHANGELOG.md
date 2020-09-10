@@ -1,6 +1,11 @@
-# Upcoming Wekan release
+# v4.28 2020-09-11 Wekan release
 
-This release fixes the following bugs:
+This release updates some dependencies:
+
+- [Update some dependencies](https://github.com/wekan/wekan/commit/125c4684bd6815a8f49241bc2663e82112afe67b).
+  Thanks to developers of dependencies.
+
+and fixes the following bugs:
 
 - [Fix card scrollbar on Windows](https://github.com/wekan/wekan/pull/3264).
   Thanks to tborychowski.
