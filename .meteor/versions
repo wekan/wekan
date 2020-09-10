@@ -17,7 +17,7 @@ base64@1.0.12
 binary-heap@1.0.11
 blaze@2.3.4
 blaze-tools@1.0.10
-boilerplate-generator@1.7.0
+boilerplate-generator@1.7.1
 browser-policy-common@1.0.11
 browser-policy-framing@1.1.0
 caching-compiler@1.2.2
@@ -101,7 +101,7 @@ meteorhacks:collection-utils@1.2.0
 meteorhacks:picker@1.0.3
 meteorhacks:subs-manager@1.6.4
 meteorspark:util@0.2.0
-minifier-css@1.5.2
+minifier-css@1.5.3
 minifier-js@2.6.0
 minifiers@1.1.8-faster-rebuild.0
 minimongo@1.6.0
