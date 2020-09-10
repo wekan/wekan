@@ -4,6 +4,8 @@ This release fixes the following bugs:
 
 - [Fix card scrollbar on Windows](https://github.com/wekan/wekan/pull/3264).
   Thanks to tborychowski.
+- [Try to fix language names](https://github.com/wekan/wekan/commit/f81fd8084fd6cd1ad57daefcc22ed1fb0acaaeca).
+  Thanks to buplet, xoas and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
