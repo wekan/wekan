@@ -1,3 +1,13 @@
+# v4.29 2020-09-11
+
+This release adds the following new features:
+
+- [Changed markdown from marked to markdown-it](https://github.com/wekan/wekan/commit/20b01771055ca4d8871d13abb559ab92ecee10f4) and
+  added emoji support https://github.com/wekan/wekan/wiki/Emoji .
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.28 2020-09-11 Wekan release
 
 This release updates some dependencies:
