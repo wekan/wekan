@@ -1,3 +1,21 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Add setting for OAUTH2_ADFS=true](https://github.com/wekan/wekan/pull/3269)
+  and [related settings for Wekan platforms]()
+  for [SSO Integration with ADFS 4.0 using OAuth 2 and OpenID](https://github.com/wekan/wekan/issues/3184).
+  Thanks to phaseshift3r and xet7.
+
+and updates some dependencies:
+
+- [Update dependencies](https://github.com/wekan/wekan/pull/3268).
+  Thanks to blaggacao.
+- [Update npm-mongo dependency](https://github.com/wekan/wekan/commit/9fdafd20081b20302af3d1a6397fb840348f1209).
+  Thanks to filipenevola.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.29 2020-09-11
 
 This release adds the following new features:
