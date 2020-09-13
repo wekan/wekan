@@ -465,7 +465,7 @@
   "search": "Chercher",
   "rules": "Règles",
   "search-cards": "Rechercher parmi les titres, descriptions et champs personnalisés des cartes/listes de ce tableau",
-  "search-example": "Write text you search and press Enter",
+  "search-example": "Écrivez le texte que vous recherchez et appuyez sur Entrée",
   "select-color": "Sélectionner une couleur",
   "set-wip-limit-value": "Définit une limite maximale au nombre de cartes de cette liste",
   "setWipLimitPopup-title": "Définir la limite WIP",
