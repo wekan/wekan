@@ -42,8 +42,24 @@ template(name="cardDetails")
       else
         p.warning {{_ 'card-archived'}}
 
-    .card-details-items
+    .card-details-items 
+      if currentBoard.allowsLabels
+        .card-details-item.card-details-item-labels
+          h3
+            i.fa.fa-tags
+            card-details-item-title {{_ 'labels'}}
+          a(class="{{#if canModifyCard}}js-add-labels{{else}}is-disabled{{/if}}" title="{{_ 'card-labels-title'}}")
+            each labels
+              span.card-label(class="card-label-{{color}}" title=name)
+                +viewer
+                  = name
+          if canModifyCard
+            unless currentUser.isWorker
+              a.card-label.add-label.js-add-labels(title="{{_ 'card-labels-title'}}")
+                i.fa.fa-plus
+      
       if currentBoard.allowsReceivedDate
+        hr
         .card-details-item.card-details-item-received
           h3
             i.fa.fa-sign-out
@@ -97,6 +113,7 @@ template(name="cardDetails")
 
       //.card-details-items
       if currentBoard.allowsMembers
+        hr
         .card-details-item.card-details-item-members
           h3
             i.fa.fa-users
@@ -126,36 +143,15 @@ template(name="cardDetails")
               a.assignee.add-assignee.card-details-item-add-button.js-add-assignees(title="{{_ 'assignee'}}")
                 i.fa.fa-plus
 
-      if currentBoard.allowsLabels
-        .card-details-item.card-details-item-labels
-          h3
-            i.fa.fa-tags
-            card-details-item-title {{_ 'labels'}}
-          a(class="{{#if canModifyCard}}js-add-labels{{else}}is-disabled{{/if}}" title="{{_ 'card-labels-title'}}")
-            each labels
-              span.card-label(class="card-label-{{color}}" title=name)
-                +viewer
-                  = name
-          if canModifyCard
-            unless currentUser.isWorker
-              a.card-label.add-label.js-add-labels(title="{{_ 'card-labels-title'}}")
-                i.fa.fa-plus
-
-      //.card-details-items
-      each customFieldsWD
-        .card-details-item.card-details-item-customfield
-          h3.card-details-item-title
-            +viewer
-              = definition.name
-          +cardCustomField
-
       //.card-details-items
       if getSpentTime
         .card-details-item.card-details-item-spent
           if getIsOvertime
-            h3.card-details-item-title {{_ 'overtime-hours'}}
+            h3
+              card-details-item-title {{_ 'overtime-hours'}}
           else
-            h3.card-details-item-title {{_ 'spent-time-hours'}}
+            h3
+              card-details-item-title {{_ 'spent-time-hours'}}
           +cardSpentTime
 
       //.card-details-items
@@ -198,6 +194,17 @@ template(name="cardDetails")
           else if getRequestedBy
             +viewer
               = getAssignedBy
+
+      //.card-details-items
+      if customFieldsWD
+        hr
+        each customFieldsWD
+          .card-details-item.card-details-item-customfield
+            h3
+              card-details-item-title
+                i.fa.fa-list-alt
+                = definition.name
+            +cardCustomField
 
     if getVoteQuestion
       hr
