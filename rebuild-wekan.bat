@@ -52,7 +52,6 @@ REM del /S /F /Q node_modules
 call meteor npm install
 REM del /S /F /Q .build
 call meteor build .build --directory
-copy fix-download-unicode\cfs_access-point.txt .build\bundle\programs\server\packages\cfs_access-point.js
 REM ## Remove legacy webbroser bundle, so that Wekan works also at Android Firefox, iOS Safari, etc.
 del /S /F /Q rm .build/bundle/programs/web.browser.legacy
 REM ## Install some NPM packages
