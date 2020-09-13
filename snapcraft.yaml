@@ -229,11 +229,16 @@ parts:
             cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
             rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/wekan
             rm -f $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/meteor/rajit_bootstrap3-datepicker/lib/bootstrap-datepicker/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs
+            # Delete phantomjs that is in accounts-lockout
+            rm -rf $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/meteor/lucasantoniassi_accounts-lockout/node_modules/phantomjs-prebuilt
+            # Delete temporary files
             rm -f $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/tar/lib/.mkdir.js.swp
             rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/node-pre-gyp/node_modules/tar/lib/.mkdir.js.swp
             rm -f $SNAPCRAFT_PART_INSTALL/lib/node_modules/node-gyp/node_modules/tar/lib/.mkdir.js.swp
             # Meteor 1.8.x additional .swp remove
             rm -f $SNAPCRAFT_PART_INSTALL/programs/server/node_modules/node-pre-gyp/node_modules/tar/lib/.mkdir.js.swp
+            # Delete fibers for other archs
+            rm -rf $SNAPCRAFT_PART_INSTALL/programs/server/node_modules/fibers/bin/linux-ia32*
             # ostrio tmp remove
             rm -rf $SNAPCRAFT_PART_INSTALL/programs/server/npm/node_modules/meteor/ostrio_files/node_modules/request-libcurl/.node_modules-garbage*
 
