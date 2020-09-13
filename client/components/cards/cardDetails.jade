@@ -42,12 +42,28 @@ template(name="cardDetails")
       else
         p.warning {{_ 'card-archived'}}
 
-    .card-details-items
+    .card-details-items 
+      if currentBoard.allowsLabels
+        .card-details-item.card-details-item-labels
+          h3.card-details-item-title
+            i.fa.fa-tags
+            | {{_ 'labels'}}        
+          a(class="{{#if canModifyCard}}js-add-labels{{else}}is-disabled{{/if}}" title="{{_ 'card-labels-title'}}")
+            each labels
+              span.card-label(class="card-label-{{color}}" title=name)
+                +viewer
+                  = name
+          if canModifyCard
+            unless currentUser.isWorker
+              a.card-label.add-label.js-add-labels(title="{{_ 'card-labels-title'}}")
+                i.fa.fa-plus
+      
       if currentBoard.allowsReceivedDate
+        hr
         .card-details-item.card-details-item-received
-          h3
+          h3.card-details-item-title
             i.fa.fa-sign-out
-            card-details-item-title {{_ 'card-received'}}
+            | {{_ 'card-received'}}
           if getReceived
             +cardReceivedDate
           else
@@ -58,9 +74,9 @@ template(name="cardDetails")
 
       if currentBoard.allowsStartDate
         .card-details-item.card-details-item-start
-          h3
+          h3.card-details-item-title
             i.fa.fa-hourglass-start
-            card-details-item-title {{_ 'card-start'}}
+            | {{_ 'card-start'}}
           if getStart
             +cardStartDate
           else
@@ -71,9 +87,9 @@ template(name="cardDetails")
 
       if currentBoard.allowsDueDate
         .card-details-item.card-details-item-due
-          h3
+          h3.card-details-item-title
             i.fa.fa-sign-in
-            card-details-item-title {{_ 'card-due'}}
+            | {{_ 'card-due'}}
           if getDue
             +cardDueDate
           else
@@ -84,9 +100,9 @@ template(name="cardDetails")
 
       if currentBoard.allowsEndDate
         .card-details-item.card-details-item-end
-          h3
+          h3.card-details-item-title
             i.fa.fa-hourglass-end
-            card-details-item-title {{_ 'card-end'}}
+            | {{_ 'card-end'}}
           if getEnd
             +cardEndDate
           else
@@ -97,10 +113,11 @@ template(name="cardDetails")
 
       //.card-details-items
       if currentBoard.allowsMembers
+        hr
         .card-details-item.card-details-item-members
-          h3
+          h3.card-details-item-title
             i.fa.fa-users
-            card-details-item-title {{_ 'members'}}
+            | {{_ 'members'}}
           each getMembers
             +userAvatar(userId=this cardId=../_id)
             | {{! XXX Hack to hide syntaxic coloration /// }}
@@ -112,9 +129,9 @@ template(name="cardDetails")
       //if assigneeSelected
       if currentBoard.allowsAssignee
         .card-details-item.card-details-item-assignees
-          h3
+          h3.card-details-item-title
             i.fa.fa-user
-            card-details-item-title {{_ 'assignee'}}
+            | {{_ 'assignee'}}
           each getAssignees
             +userAvatarAssignee(userId=this cardId=../_id)
             | {{! XXX Hack to hide syntaxic coloration /// }}
@@ -126,44 +143,23 @@ template(name="cardDetails")
               a.assignee.add-assignee.card-details-item-add-button.js-add-assignees(title="{{_ 'assignee'}}")
                 i.fa.fa-plus
 
-      if currentBoard.allowsLabels
-        .card-details-item.card-details-item-labels
-          h3
-            i.fa.fa-tags
-            card-details-item-title {{_ 'labels'}}
-          a(class="{{#if canModifyCard}}js-add-labels{{else}}is-disabled{{/if}}" title="{{_ 'card-labels-title'}}")
-            each labels
-              span.card-label(class="card-label-{{color}}" title=name)
-                +viewer
-                  = name
-          if canModifyCard
-            unless currentUser.isWorker
-              a.card-label.add-label.js-add-labels(title="{{_ 'card-labels-title'}}")
-                i.fa.fa-plus
-
-      //.card-details-items
-      each customFieldsWD
-        .card-details-item.card-details-item-customfield
-          h3.card-details-item-title
-            +viewer
-              = definition.name
-          +cardCustomField
-
       //.card-details-items
       if getSpentTime
         .card-details-item.card-details-item-spent
           if getIsOvertime
-            h3.card-details-item-title {{_ 'overtime-hours'}}
+            h3.card-details-item-title
+              | {{_ 'overtime-hours'}}
           else
-            h3.card-details-item-title {{_ 'spent-time-hours'}}
+            h3.card-details-item-title
+              | {{_ 'spent-time-hours'}}
           +cardSpentTime
 
       //.card-details-items
       if currentBoard.allowsRequestedBy
         .card-details-item.card-details-item-name
-          h3
+          h3.card-details-item-title
             i.fa.fa-shopping-cart
-            card-details-item-title {{_ 'requested-by'}}
+            | {{_ 'requested-by'}}
           if canModifyCard
             unless currentUser.isWorker
               +inlinedForm(classNames="js-card-details-requester")
@@ -181,9 +177,9 @@ template(name="cardDetails")
 
       if currentBoard.allowsAssignedBy
         .card-details-item.card-details-item-name
-          h3
+          h3.card-details-item-title
             i.fa.fa-user-plus
-            card-details-item-title {{_ 'assigned-by'}}
+            | {{_ 'assigned-by'}}
           if canModifyCard
             unless currentUser.isWorker
               +inlinedForm(classNames="js-card-details-assigner")
@@ -198,6 +194,16 @@ template(name="cardDetails")
           else if getRequestedBy
             +viewer
               = getAssignedBy
+
+      //.card-details-items
+      if customFieldsWD
+        hr
+        each customFieldsWD
+          .card-details-item.card-details-item-customfield
+            h3.card-details-item-title
+              i.fa.fa-list-alt
+              = definition.name
+            +cardCustomField
 
     if getVoteQuestion
       hr
@@ -234,9 +240,9 @@ template(name="cardDetails")
       unless currentUser.isWorker
         if currentBoard.allowsDescriptionTitle
           hr
-          h3
+          h3.card-details-item-title
             i.fa.fa-align-left
-            card-details-item-title {{_ 'description'}}
+            | {{_ 'description'}}
         if currentBoard.allowsDescriptionText
           +inlinedCardDescription(classNames="card-description js-card-description")
             +editor(autofocus=true)
@@ -276,7 +282,7 @@ template(name="cardDetails")
           +subtasks(cardId = _id)
       if currentBoard.allowsAttachments
         hr
-        h3
+        h3.card-details-item-title
           i.fa.fa-paperclip
           | {{_ 'attachments'}}
         .card-checklist-attachmentGalery.card-attachmentGalery
@@ -285,7 +291,7 @@ template(name="cardDetails")
     hr
     unless currentUser.isNoComments
       .activity-title
-        h3
+        h3.card-details-item-title
           i.fa.fa-history
           | {{ _ 'activity'}}
         if currentUser.isBoardMember
