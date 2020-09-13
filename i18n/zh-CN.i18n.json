@@ -465,7 +465,7 @@
   "search": "搜索",
   "rules": "规则",
   "search-cards": "搜寻看板內的卡片/列表标题、描述、自定义字段",
-  "search-example": "搜索",
+  "search-example": "Write text you search and press Enter",
   "select-color": "选择颜色",
   "set-wip-limit-value": "设置此列表中的最大任务数",
   "setWipLimitPopup-title": "设置最大任务数",

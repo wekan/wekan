@@ -465,7 +465,7 @@
   "search": "検索",
   "rules": "ルール",
   "search-cards": "このボード上のカード/リストタイトル、詳細、カスタムフィールドから検索",
-  "search-example": "検索文字",
+  "search-example": "Write text you search and press Enter",
   "select-color": "色を選択",
   "set-wip-limit-value": "このリスト中のタスクの最大数を設定",
   "setWipLimitPopup-title": "仕掛中制限設定",
