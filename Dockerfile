@@ -290,7 +290,6 @@ RUN \
     chmod u+w *.json && \
     gosu wekan:wekan npm install && \
     gosu wekan:wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build && \
-    #cp /home/wekan/app/fix-download-unicode/cfs_access-point.txt /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
     #rm /home/wekan/app_build/bundle/programs/server/npm/node_modules/meteor/rajit_bootstrap3-datepicker/lib/bootstrap-datepicker/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs && \
     #chown wekan /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
     #Removed binary version of bcrypt because of security vulnerability that is not fixed yet.
