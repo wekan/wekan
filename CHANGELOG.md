@@ -23,7 +23,7 @@ and adds the following updates:
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
-# v4.29 2020-09-11
+# v4.29 2020-09-11 Wekan release
 
 This release adds the following new features:
 
