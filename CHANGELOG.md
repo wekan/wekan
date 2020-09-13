@@ -2,10 +2,13 @@
 
 This release adds the following new features:
 
-- [Add setting for OAUTH2_ADFS=true](https://github.com/wekan/wekan/pull/3269)
+- [Add setting for OAUTH2_ADFS_ENABLED=true](https://github.com/wekan/wekan/pull/3269)
   and [related settings for Wekan platforms]()
   for [SSO Integration with ADFS 4.0 using OAuth 2 and OpenID](https://github.com/wekan/wekan/issues/3184).
-  Thanks to phaseshift3r and xet7.
+  Thanks to phaseshift3r.
+- [Add setting OAUTH2_ADFS_ENABLED=false for most platforms. Remove mouse scroll settings of already removed custom scrollbar.
+  Add testing for both string and boolean version of true](https://github.com/wekan/wekan/commit/f6bdb4d694453d73f4bfa6a75814833594cf5000).
+  Thanks to xet7.
 
 and updates some dependencies:
 
