@@ -1,14 +1,16 @@
 # Upcoming Wekan release
 
-This release adds the following new features:
+This release adds the following new features and improvements:
 
 - [Add setting for OAUTH2_ADFS_ENABLED=true](https://github.com/wekan/wekan/pull/3269)
-  and [related settings for Wekan platforms]()
   for [SSO Integration with ADFS 4.0 using OAuth 2 and OpenID](https://github.com/wekan/wekan/issues/3184).
   Thanks to phaseshift3r.
 - [Add setting OAUTH2_ADFS_ENABLED=false for most platforms. Remove mouse scroll settings of already removed custom scrollbar.
   Add testing for both string and boolean version of true](https://github.com/wekan/wekan/commit/f6bdb4d694453d73f4bfa6a75814833594cf5000).
   Thanks to xet7.
+- [Design improvements in templates, card details and custom fields](https://github.com/wekan/wekan/pull/3271)
+  and [related change to translation](https://github.com/wekan/wekan/commit/fe40c5fd37a7c54240c080caf98b6130229f5d31).
+  Thanks to helioguardabaxo and xet7.
 
 and updates some dependencies:
 
