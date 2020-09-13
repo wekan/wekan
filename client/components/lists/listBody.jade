@@ -105,6 +105,8 @@ template(name="searchElementPopup")
         each boards
           option(value="{{_id}}") {{title}}
   form.js-search-term-form
+    label
+      | {{_ 'template'}}
     input(type="text" name="searchTerm" placeholder="{{_ 'search-example'}}" autofocus dir="auto")
   .list-body.search-card-results
     .minicards.clearfix.js-minicards

@@ -89,7 +89,7 @@ avatar-radius = 50%
 .card-details
   padding: 0
   flex-shrink: 0
-  flex-basis: 510px
+  flex-basis: 600px
   will-change: flex-basis
   overflow-y: scroll
   overflow-x: hidden
@@ -198,23 +198,32 @@ avatar-radius = 50%
       margin-right: 0.5em
       &:last-child
         margin-right: 0
-      &.card-details-item-labels,
+      &.card-details-item-labels
+        display: block
+        word-wrap: break-word
+        max-width: 95%
+        flex-grow: 1
       &.card-details-item-members,
       &.card-details-item-assignees,
-      &.card-details-item-received,
-      &.card-details-item-start,
-      &.card-details-item-due,
-      &.card-details-item-end,
       &.card-details-item-customfield,
       &.card-details-item-name
         display: block
         word-wrap: break-word
-        max-width: 48%
+        max-width: 36%
+        flex-grow: 1
+      &.card-details-item-received,
+      &.card-details-item-start,
+      &.card-details-item-due,
+      &.card-details-item-end
+        display: block
+        word-wrap: break-word
+        max-width: 28%
         flex-grow: 1
 
   .card-details-item-title
     font-size: 16px
-    color: #000
+    font-weight: bold
+    color: #4d4d4d
 
   .card-label
     padding-top: 5px
