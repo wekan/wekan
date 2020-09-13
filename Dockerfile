@@ -41,6 +41,7 @@ ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-
     TRUSTED_URL="" \
     WEBHOOKS_ATTRIBUTES="" \
     OAUTH2_ENABLED=false \
+    OAUTH2_ADFS_ENABLED=false \
     OAUTH2_LOGIN_STYLE=redirect \
     OAUTH2_CLIENT_ID="" \
     OAUTH2_SECRET="" \
@@ -114,9 +115,6 @@ ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-
     CORS_ALLOW_HEADERS="" \
     CORS_EXPOSE_HEADERS="" \
     DEFAULT_AUTHENTICATION_METHOD="" \
-    SCROLLINERTIA="0" \
-    SCROLLAMOUNT="auto" \
-    SCROLLDELTAFACTOR="auto" \
     PASSWORD_LOGIN_ENABLED=true
 
 # Copy the app to the image

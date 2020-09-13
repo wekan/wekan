@@ -187,19 +187,26 @@ if (Meteor.isServer) {
   }
 
   function isLdapEnabled() {
-    return process.env.LDAP_ENABLE === 'true';
+    return (
+      process.env.LDAP_ENABLE === 'true' || process.env.LDAP_ENABLE === true
+    );
   }
 
   function isOauth2Enabled() {
-    return process.env.OAUTH2_ENABLED === 'true';
+    return (
+      process.env.OAUTH2_ENABLED === 'true' ||
+      process.env.OAUTH2_ENABLED === true
+    );
   }
 
   function isCasEnabled() {
-    return process.env.CAS_ENABLED === 'true';
+    return (
+      process.env.CAS_ENABLED === 'true' || process.env.CAS_ENABLED === true
+    );
   }
 
   function isApiEnabled() {
-    return process.env.WITH_API === 'true';
+    return process.env.WITH_API === 'true' || process.env.WITH_API === true;
   }
 
   Meteor.methods({
