@@ -65,7 +65,7 @@
     "es6-promise": "^4.2.4",
     "fibers": "^5.0.0",
     "flatted": "^3.0.4",
-    "gridfs-stream": "^1.1.1",
+    "gridfs-stream": "https://github.com/wekan/gridfs-stream/tarball/master",
     "jszip": "^3.4.0",
     "ldapjs": "^2.1.1",
     "markdown-it": "^11.0.0",
