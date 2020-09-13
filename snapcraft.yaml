@@ -110,7 +110,6 @@ parts:
             #mv .snap-meteor-1.8/package.json .
             #mv .snap-meteor-1.8/package-lock.json .
             ## Meteor 1.9.x has changes to Buffer() => Buffer.alloc(), so reverting those
-            #mv .snap-meteor-1.8/cfs_access-point.txt fix-download-unicode/
             #mv .snap-meteor-1.8/export.js models/
             #mv .snap-meteor-1.8/wekanCreator.js models/
             #mv .snap-meteor-1.8/ldap.js packages/wekan-ldap/server/ldap.js
@@ -207,7 +206,6 @@ parts:
             meteor npm install --allow-superuser
             meteor npm install --allow-superuser --save babel-runtime
             meteor build .build --directory --allow-superuser
-            cp -f fix-download-unicode/cfs_access-point.txt .build/bundle/programs/server/packages/cfs_access-point.js
             #Removed binary version of bcrypt because of security vulnerability that is not fixed yet.
             #https://github.com/wekan/wekan/commit/4b2010213907c61b0e0482ab55abb06f6a668eac
             #https://github.com/wekan/wekan/commit/7eeabf14be3c63fae2226e561ef8a0c1390c8d3c
