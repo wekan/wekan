@@ -242,7 +242,7 @@ if (Meteor.isServer) {
     }
     if (activity.attachmentId) {
       const attachment = activity.attachment();
-      params.attachment = attachment.original.name;
+      params.attachment = attachment.name;
       params.attachmentId = attachment._id;
     }
     if (activity.checklistId) {

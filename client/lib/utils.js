@@ -162,23 +162,21 @@ Utils = {
       })
     );
   },
+  getCommonAttachmentMetaFrom(card) {
+    let meta;
+    if (card.isLinkedCard()) {
+      meta.boardId = Cards.findOne(card.linkedId).boardId;
+      meta.cardId = card.linkedId;
+    } else {
+      meta.boardId = card.boardId;
+      meta.swimlaneId = card.swimlaneId;
+      meta.listId = card.listId;
+      meta.cardId = card._id;
+    }
+    return meta;
+  },
   MAX_IMAGE_PIXEL: Meteor.settings.public.MAX_IMAGE_PIXEL,
   COMPRESS_RATIO: Meteor.settings.public.IMAGE_COMPRESS_RATIO,
-  addCommonMetaToAttachment(card, file) {
-    if (card.isLinkedCard()) {
-      file.boardId = Cards.findOne(card.linkedId).boardId;
-      file.cardId = card.linkedId;
-    } else {
-      file.boardId = card.boardId;
-      file.swimlaneId = card.swimlaneId;
-      file.listId = card.listId;
-      file.cardId = card._id;
-    }
-    file.userId = Meteor.userId();
-    if (file.original) {
-      file.original.name = file.name;
-    }
-  },
   shrinkImage(options) {
     // shrink image to certain size
     const dataurl = options.dataurl,

@@ -67,19 +67,19 @@ Template.cardAttachmentsPopup.events({
       const uploader = Attachments.insert(
         {
           file: event.currentTarget.files[0],
+          meta: Utils.getCommonAttachmentMetaFrom(card),
           chunkSize: 'dynamic',
         },
         false,
       );
-      uploader.on('uploaded', (error, fileObj) => {
+      uploader.on('uploaded', (error, fileRef) => {
         if (!error) {
-          if (fileObj.isImage) {
-            card.setCover(fileObj._id);
+          if (fileRef.isImage) {
+            card.setCover(fileRef._id);
           }
-          Utils.addCommonMetaToAttachment(card, fileObj);
         }
       });
-      uploader.on('end', (error, fileObj) => {
+      uploader.on('end', (error, fileRef) => {
         Popup.back();
       });
       uploader.start();
@@ -131,28 +131,27 @@ Template.previewClipboardImagePopup.onRendered(() => {
 
 Template.previewClipboardImagePopup.events({
   'click .js-upload-pasted-image'() {
-    const results = pastedResults;
-    if (results && results.file) {
+    const card = this;
+    if (pastedResults && pastedResults.file) {
+      const file = pastedResults.file;
       window.oPasted = pastedResults;
-      const card = this;
       const uploader = Attachments.insert(
         {
-          file: results.file,
-          fileName:
-            results.name || results.file.type.replace('image/', 'clipboard.'),
+          file,
+          meta: Utils.getCommonAttachmentMetaFrom(card),
+          fileName: file.name || file.type.replace('image/', 'clipboard.'),
           chunkSize: 'dynamic',
         },
         false,
       );
-      uploader.on('uploaded', (error, fileObj) => {
+      uploader.on('uploaded', (error, fileRef) => {
         if (!error) {
-          if (fileObj.isImage) {
-            card.setCover(fileObj._id);
+          if (fileRef.isImage) {
+            card.setCover(fileRef._id);
           }
-          Utils.addCommonMetaToAttachment(card, fileObj);
         }
       });
-      uploader.on('end', (error, fileObj) => {
+      uploader.on('end', (error, fileRef) => {
         pastedResults = null;
         $(document.body).pasteImageReader(() => {});
         Popup.back();

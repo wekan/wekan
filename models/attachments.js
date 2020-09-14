@@ -7,6 +7,21 @@ import { createOnAfterRemove } from './lib/fsHooks/createOnAfterRemove';
 
 const attachmentBucket = createBucket('attachments');
 
+const insertActivity = (fileObj, activityType) =>
+  Activities.insert({
+    userId: fileObj.userId,
+    type: 'card',
+    activityType,
+    attachmentId: fileObj._id,
+    // this preserves the name so that notifications can be meaningful after
+    // this file is removed
+    attachmentName: fileObj.name,
+    boardId: fileObj.meta.boardId,
+    cardId: fileObj.meta.cardId,
+    listId: fileObj.meta.listId,
+    swimlaneId: fileObj.meta.swimlaneId,
+  });
+
 // XXX Enforce a schema for the Attachments FilesCollection
 // see: https://github.com/VeliovGroup/Meteor-Files/wiki/Schema
 
@@ -14,84 +29,46 @@ export const Attachments = new FilesCollection({
   debug: false, // Change to `true` for debugging
   collectionName: 'attachments',
   allowClientCode: false,
-  onAfterUpload(doc) {
+  onAfterUpload(fileRef) {
+    createOnAfterUpload(attachmentBucket)(fileRef);
     // If the attachment doesn't have a source field
     // or its source is different than import
-    if (!doc.source || doc.source !== 'import') {
+    if (!fileRef.meta.source || fileRef.meta.source !== 'import') {
       // Add activity about adding the attachment
-      Activities.insert({
-        userId,
-        type: 'card',
-        activityType: 'addAttachment',
-        attachmentId: doc._id,
-        // this preserves the name so that notifications can be meaningful after
-        // this file is removed
-        attachmentName: doc.original.name,
-        boardId: doc.boardId,
-        cardId: doc.cardId,
-        listId: doc.listId,
-        swimlaneId: doc.swimlaneId,
-      });
-    } else {
-      // Don't add activity about adding the attachment as the activity
-      // be imported and delete source field
-      Attachments.update(
-        {
-          _id: doc._id,
-        },
-        {
-          $unset: {
-            source: '',
-          },
-        },
-      );
+      insertActivity(fileRef, 'addAttachment');
     }
-    createOnAfterUpload(attachmentBucket)(doc);
   },
   interceptDownload: createInterceptDownload(attachmentBucket),
-  onAfterRemove(docs) {
-    docs.forEach(function(doc) {
-      Activities.insert({
-        userId: doc.userId,
-        type: 'card',
-        activityType: 'deleteAttachment',
-        attachmentId: doc._id,
-        // this preserves the name so that notifications can be meaningful after
-        // this file is removed
-        attachmentName: doc.original.name,
-        boardId: doc.boardId,
-        cardId: doc.cardId,
-        listId: doc.listId,
-        swimlaneId: doc.swimlaneId,
-      });
+  onAfterRemove(files) {
+    createOnAfterRemove(attachmentBucket)(files);
+    files.forEach(fileObj => {
+      insertActivity(fileObj, 'deleteAttachment');
     });
-    createOnAfterRemove(attachmentBucket)(docs);
   },
   // We authorize the attachment download either:
   // - if the board is public, everyone (even unconnected) can download it
   // - if the board is private, only board members can download it
-  downloadCallback(doc) {
-    const board = Boards.findOne(doc.boardId);
+  protected(fileObj) {
+    const board = Boards.findOne(fileObj.meta.boardId);
     if (board.isPublic()) {
       return true;
-    } else {
-      return board.hasMember(this.userId);
     }
+    return board.hasMember(this.userId);
   },
 });
 
 if (Meteor.isServer) {
   Attachments.allow({
-    insert(userId, doc) {
-      return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+    insert(userId, fileObj) {
+      return allowIsBoardMember(userId, Boards.findOne(fileObj.boardId));
     },
-    update(userId, doc) {
-      return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+    update(userId, fileObj) {
+      return allowIsBoardMember(userId, Boards.findOne(fileObj.boardId));
     },
-    remove(userId, doc) {
-      return allowIsBoardMember(userId, Boards.findOne(doc.boardId));
+    remove(userId, fileObj) {
+      return allowIsBoardMember(userId, Boards.findOne(fileObj.boardId));
     },
-    fetch: ['boardId'],
+    fetch: ['meta'],
   });
 
   Meteor.startup(() => {
