@@ -69,16 +69,7 @@ Utils = {
   },
   MAX_IMAGE_PIXEL: Meteor.settings.public.MAX_IMAGE_PIXEL,
   COMPRESS_RATIO: Meteor.settings.public.IMAGE_COMPRESS_RATIO,
-  processUploadedAttachment(card, fileObj, callback) {
-    const next = attachment => {
-      if (typeof callback === 'function') {
-        callback(attachment);
-      }
-    };
-    if (!card) {
-      return next();
-    }
-    const file = new FS.File(fileObj);
+  addCommonMetaToAttachment(card, file) {
     if (card.isLinkedCard()) {
       file.boardId = Cards.findOne(card.linkedId).boardId;
       file.cardId = card.linkedId;
@@ -90,9 +81,8 @@ Utils = {
     }
     file.userId = Meteor.userId();
     if (file.original) {
-      file.original.name = fileObj.name;
+      file.original.name = file.name;
     }
-    return next(Attachments.insert(file));
   },
   shrinkImage(options) {
     // shrink image to certain size

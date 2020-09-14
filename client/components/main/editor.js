@@ -149,39 +149,26 @@ Template.editor.onRendered(() => {
                   img.setAttribute('width', '100%');
                   $summernote.summernote('insertNode', img);
                 };
-                const processData = function(fileObj) {
-                  Utils.processUploadedAttachment(
-                    currentCard,
-                    fileObj,
-                    attachment => {
-                      if (
-                        attachment &&
-                        attachment._id &&
-                        attachment.isImage()
-                      ) {
-                        attachment.one('uploaded', function() {
-                          const maxTry = 3;
-                          const checkItvl = 500;
-                          let retry = 0;
-                          const checkUrl = function() {
-                            // even though uploaded event fired, attachment.url() is still null somehow //TODO
-                            const url = attachment.url();
-                            if (url) {
-                              insertImage(
-                                `${location.protocol}//${location.host}${url}`,
-                              );
-                            } else {
-                              retry++;
-                              if (retry < maxTry) {
-                                setTimeout(checkUrl, checkItvl);
-                              }
-                            }
-                          };
-                          checkUrl();
-                        });
-                      }
+                const processUpload = function(file) {
+                  const uploader = Attachments.insert(
+                    {
+                      file,
+                      streams: 'dynamic',
+                      chunkSize: 'dynamic',
                     },
+                    false,
                   );
+                  uploader.on('uploaded', (error, fileObj) => {
+                    if (!error) {
+                      if (fileObj.isImage) {
+                        insertImage(
+                          `${location.protocol}//${location.host}${fileObj.path}`,
+                        );
+                      }
+                      Utils.addCommonMetaToAttachment(currentCard, fileObj);
+                    }
+                  });
+                  uploader.start();
                 };
                 if (MAX_IMAGE_PIXEL) {
                   const reader = new FileReader();
@@ -197,7 +184,7 @@ Template.editor.onRendered(() => {
                         callback(blob) {
                           if (blob !== false) {
                             blob.name = image.name;
-                            processData(blob);
+                            processUpload(blob);
                           }
                         },
                       });
@@ -205,7 +192,7 @@ Template.editor.onRendered(() => {
                   };
                   reader.readAsDataURL(image);
                 } else {
-                  processData(image);
+                  processUpload(image);
                 }
               }
             },
