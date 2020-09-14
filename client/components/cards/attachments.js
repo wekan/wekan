@@ -67,7 +67,6 @@ Template.cardAttachmentsPopup.events({
       const uploader = Attachments.insert(
         {
           file: event.currentTarget.files[0],
-          streams: 'dynamic',
           chunkSize: 'dynamic',
         },
         false,
@@ -136,26 +135,29 @@ Template.previewClipboardImagePopup.events({
     if (results && results.file) {
       window.oPasted = pastedResults;
       const card = this;
-      const file = new FS.File(results.file);
-      if (!results.name) {
-        // if no filename, it's from clipboard. then we give it a name, with ext name from MIME type
-        if (typeof results.file.type === 'string') {
-          file.name(results.file.type.replace('image/', 'clipboard.'));
+      const uploader = Attachments.insert(
+        {
+          file: results.file,
+          fileName:
+            results.name || results.file.type.replace('image/', 'clipboard.'),
+          chunkSize: 'dynamic',
+        },
+        false,
+      );
+      uploader.on('uploaded', (error, fileObj) => {
+        if (!error) {
+          if (fileObj.isImage) {
+            card.setCover(fileObj._id);
+          }
+          Utils.addCommonMetaToAttachment(card, fileObj);
         }
-      }
-      file.updatedAt(new Date());
-      file.boardId = card.boardId;
-      file.cardId = card._id;
-      file.userId = Meteor.userId();
-      const attachment = Attachments.insert(file);
-
-      if (attachment && attachment._id && attachment.isImage()) {
-        card.setCover(attachment._id);
-      }
-
-      pastedResults = null;
-      $(document.body).pasteImageReader(() => {});
-      Popup.back();
+      });
+      uploader.on('end', (error, fileObj) => {
+        pastedResults = null;
+        $(document.body).pasteImageReader(() => {});
+        Popup.back();
+      });
+      uploader.start();
     }
   },
 });
