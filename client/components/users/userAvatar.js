@@ -220,28 +220,27 @@ BlazeComponent.extendComponent({
           this.$('.js-upload-avatar-input').click();
         },
         'change .js-upload-avatar-input'(event) {
-          let file, fileUrl;
-
-          FS.Utility.eachFile(event, f => {
-            try {
-              file = Avatars.insert(new FS.File(f));
-              fileUrl = file.url(this.avatarUrlOptions());
-            } catch (e) {
-              this.setError('avatar-too-big');
-            }
-          });
-
-          if (fileUrl) {
-            this.setError('');
-            const fetchAvatarInterval = window.setInterval(() => {
-              $.ajax({
-                url: fileUrl,
-                success: () => {
-                  this.setAvatar(file.url(this.avatarUrlOptions()));
-                  window.clearInterval(fetchAvatarInterval);
-                },
-              });
-            }, 100);
+          const self = this;
+          if (event.currentTarget.files && event.currentTarget.files[0]) {
+            const uploader = Avatars.insert(
+              {
+                file: event.currentTarget.files[0],
+                streams: 'dynamic',
+                chunkSize: 'dynamic',
+              },
+              false,
+            );
+            uploader.on('uploaded', (error, fileObj) => {
+              if (!error) {
+                self.setAvatar(fileObj.path);
+                // self.setAvatar(this.currentData().url(this.avatarUrlOptions()));
+              }
+            });
+            uploader.on('error', (error, fileObj) => {
+              // XXX check for actually returned error
+              self.setError('avatar-too-big');
+            });
+            uploader.start();
           }
         },
         'click .js-select-avatar'() {
