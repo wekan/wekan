@@ -160,28 +160,23 @@ BlazeComponent.extendComponent({
                   const currentCard = Utils.getCurrentCard();
                   const MAX_IMAGE_PIXEL = Utils.MAX_IMAGE_PIXEL;
                   const COMPRESS_RATIO = Utils.IMAGE_COMPRESS_RATIO;
-                  const insertImage = src => {
-                    const img = document.createElement('img');
-                    img.src = src;
-                    img.setAttribute('width', '100%');
-                    $summernote.summernote('insertNode', img);
-                  };
                   const processUpload = function(file) {
                     const uploader = Attachments.insert(
                       {
                         file,
+                        meta: Utils.getCommonAttachmentMetaFrom(card),
                         chunkSize: 'dynamic',
                       },
                       false,
                     );
-                    uploader.on('uploaded', (error, fileObj) => {
+                    uploader.on('uploaded', (error, fileRef) => {
                       if (!error) {
-                        if (fileObj.isImage) {
-                          insertImage(
-                            `${location.protocol}//${location.host}${fileObj.path}`,
-                          );
+                        if (fileRef.isImage) {
+                          const img = document.createElement('img');
+                          img.src = fileRef.link();
+                          img.setAttribute('width', '100%');
+                          $summernote.summernote('insertNode', img);
                         }
-                        Utils.addCommonMetaToAttachment(currentCard, fileObj);
                       }
                     });
                     uploader.start();

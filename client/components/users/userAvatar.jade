@@ -93,7 +93,7 @@ template(name="changeAvatarPopup")
           unless isSelected
             a.js-delete-avatar {{_ 'delete'}}
             |  -
-          = original.name
+          = name
     li: a.js-select-initials
       .member
         +userAvatarInitials(userId=currentUser._id)

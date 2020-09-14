@@ -78,11 +78,11 @@ export class Exporter {
 
         return {
           _id: attachment._id,
-          cardId: attachment.cardId,
+          cardId: attachment.meta.cardId,
           //url: FlowRouter.url(attachment.url()),
           file: filebase64,
-          name: attachment.original.name,
-          type: attachment.original.type,
+          name: attachment.name,
+          type: attachment.type,
         };
       });
     //When has a especific valid attachment return the single element
@@ -209,7 +209,7 @@ export class Exporter {
       delimiter: userDelimiter,
       header: true,
       newline: "\r\n",
-      skipEmptyLines: false, 
+      skipEmptyLines: false,
       escapeFormulae: true,
     };
 

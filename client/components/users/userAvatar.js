@@ -229,13 +229,13 @@ BlazeComponent.extendComponent({
               },
               false,
             );
-            uploader.on('uploaded', (error, fileObj) => {
+            uploader.on('uploaded', (error, fileRef) => {
               if (!error) {
-                self.setAvatar(fileObj.path);
+                self.setAvatar(fileRef.path);
                 // self.setAvatar(this.currentData().url(this.avatarUrlOptions()));
               }
             });
-            uploader.on('error', (error, fileObj) => {
+            uploader.on('error', (error, fileData) => {
               // XXX check for actually returned error
               self.setError('avatar-too-big');
             });
