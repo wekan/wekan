@@ -1,3 +1,14 @@
+# Upcoming Wekan release
+
+This release adds the following login settings:
+
+- [Added some CAS and SAML settings](https://github.com/wekan/wekan/commit/214c86cc22f4c721a79ec0a4a4f3bbd90d673f93).
+  Not tested. Please test and send pull requests if it does not work.
+  See https://github.com/wekan/wekan/wiki/SAML and https://github.com/wekan/wekan/wiki/CAS
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.32 2020-09-13 Wekan release
 
 This release tried to fix the following bugs:
