@@ -1,3 +1,12 @@
+# v4.34 2020-09-14 Wekan release
+
+This release tries to fix the following bugs:
+
+- [Try to fix Snap](https://github.com/wekan/wekan/commit/d2b84c7773f20b34bca8be23078469a8809005a6).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.33 2020-09-14 Wekan release
 
 This release adds the following login settings:
