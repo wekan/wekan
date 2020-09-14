@@ -140,37 +140,30 @@ Template.editor.onRendered(() => {
               const $summernote = getSummernote(this);
               if (files && files.length > 0) {
                 const image = files[0];
-                const currentCard = Cards.findOne(Session.get('currentCard'));
-                const MAX_IMAGE_PIXEL = Utils.MAX_IMAGE_PIXEL;
-                const COMPRESS_RATIO = Utils.IMAGE_COMPRESS_RATIO;
-                const insertImage = src => {
-                  const img = document.createElement('img');
-                  img.src = src;
-                  img.setAttribute('width', '100%');
-                  $summernote.summernote('insertNode', img);
-                };
+                const card = Cards.findOne(Session.get('currentCard'));
                 const processUpload = function(file) {
                   const uploader = Attachments.insert(
                     {
                       file,
+                      meta: Utils.getCommonAttachmentMetaFrom(card),
                       streams: 'dynamic',
                       chunkSize: 'dynamic',
                     },
                     false,
                   );
-                  uploader.on('uploaded', (error, fileObj) => {
+                  uploader.on('uploaded', (error, fileRef) => {
                     if (!error) {
-                      if (fileObj.isImage) {
-                        insertImage(
-                          `${location.protocol}//${location.host}${fileObj.path}`,
-                        );
+                      if (fileRef.isImage) {
+                        const img = document.createElement('img');
+                        img.src = fileRef.link();
+                        img.setAttribute('width', '100%');
+                        $summernote.summernote('insertNode', img);
                       }
-                      Utils.addCommonMetaToAttachment(currentCard, fileObj);
                     }
                   });
                   uploader.start();
                 };
-                if (MAX_IMAGE_PIXEL) {
+                if (Utils.MAX_IMAGE_PIXEL) {
                   const reader = new FileReader();
                   reader.onload = function(e) {
                     const dataurl = e && e.target && e.target.result;
@@ -178,8 +171,8 @@ Template.editor.onRendered(() => {
                       // need to shrink image
                       Utils.shrinkImage({
                         dataurl,
-                        maxSize: MAX_IMAGE_PIXEL,
-                        ratio: COMPRESS_RATIO,
+                        maxSize: Utils.MAX_IMAGE_PIXEL,
+                        ratio: Utils.IMAGE_COMPRESS_RATIO,
                         toBlob: true,
                         callback(blob) {
                           if (blob !== false) {
