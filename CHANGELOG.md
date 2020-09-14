@@ -4,7 +4,7 @@ This release adds the following login settings:
 
 - [Added some CAS and SAML settings](https://github.com/wekan/wekan/commit/214c86cc22f4c721a79ec0a4a4f3bbd90d673f93).
   Not tested. Please test and send pull requests if it does not work.
-  See https://github.com/wekan/wekan/wiki/SAML and https://github.com/wekan/wekan/wiki/CAS
+  See https://github.com/wekan/wekan/wiki/SAML and https://github.com/wekan/wekan/wiki/CAS .
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
