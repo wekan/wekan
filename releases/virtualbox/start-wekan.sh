@@ -361,6 +361,24 @@
       #---------------------------------------------------------------------
       # PASSWORD_LOGIN_ENABLED : Enable or not the password login form.
       #export PASSWORD_LOGIN_ENABLED=true
+      #---------------------------------------------------------------------
+      #export CAS_ENABLED=true
+      #export CAS_BASE_URL=https://cas.example.com/cas
+      #export CAS_LOGIN_URL=https://cas.example.com/login
+      #export CAS_VALIDATE_URL=https://cas.example.com/cas/p3/serviceValidate
+      #---------------------------------------------------------------------
+      #export SAML_ENABLED=true
+      #export SAML_PROVIDER=
+      #export SAML_ENTRYPOINT=
+      #export SAML_ISSUER=
+      #export SAML_CERT=
+      #export SAML_IDPSLO_REDIRECTURL=
+      #export SAML_PRIVATE_KEYFILE=
+      #export SAML_PUBLIC_CERTFILE=
+      #export SAML_IDENTIFIER_FORMAT=
+      #export SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE=
+      #export SAML_ATTRIBUTES=
+      #---------------------------------------------------------------------
 
       node main.js & >> ~/repos/wekan.log
       cd ~/repos

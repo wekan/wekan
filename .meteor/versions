@@ -192,6 +192,7 @@ wekan-accounts-cas@0.1.0
 wekan-accounts-oidc@1.0.10
 wekan-ldap@0.0.2
 wekan-markdown@1.0.9
+wekan-meteor-accounts-saml@0.0.18
 wekan-oidc@1.0.12
 yasaricli:slugify@0.0.7
 zimme:active-route@2.3.2
