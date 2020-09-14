@@ -170,7 +170,6 @@ BlazeComponent.extendComponent({
                     const uploader = Attachments.insert(
                       {
                         file,
-                        streams: 'dynamic',
                         chunkSize: 'dynamic',
                       },
                       false,
