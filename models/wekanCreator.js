@@ -444,81 +444,36 @@ export class WekanCreator {
       }
       const attachments = this.attachments[card._id];
       const wekanCoverId = card.coverId;
-      if (attachments) {
+      if (attachments && Meteor.isServer) {
         attachments.forEach(att => {
-          const file = new FS.File();
           // Simulating file.attachData on the client generates multiple errors
           // - HEAD returns null, which causes exception down the line
           // - the template then tries to display the url to the attachment which causes other errors
           // so we make it server only, and let UI catch up once it is done, forget about latency comp.
           const self = this;
-          if (Meteor.isServer) {
-            if (att.url) {
-              file.attachData(att.url, function(error) {
-                file.boardId = boardId;
-                file.cardId = cardId;
-                file.userId = self._user(att.userId);
-                // The field source will only be used to prevent adding
-                // attachments' related activities automatically
-                file.source = 'import';
+          if (att.url || att.file) {
+            Attachment.load(
+              att.url ? att.url : Buffer.from(att.file, 'base64'),
+              { type: att.type ? att.ype : undefined },
+              (error, fileObj) => {
                 if (error) {
                   throw error;
-                } else {
-                  const wekanAtt = Attachments.insert(file, () => {
-                    // we do nothing
-                  });
-                  self.attachmentIds[att._id] = wekanAtt._id;
-                  //
-                  if (wekanCoverId === att._id) {
-                    Cards.direct.update(cardId, {
-                      $set: {
-                        coverId: wekanAtt._id,
-                      },
-                    });
-                  }
                 }
-              });
-            } else if (att.file) {
-              //If attribute type is null or empty string is set, assume binary stream
-              att.type =
-                !att.type || att.type.trim().length === 0
-                  ? 'application/octet-stream'
-                  : att.type;
-
-              file.attachData(
-                Buffer.from(att.file, 'base64'),
-                {
-                  type: att.type,
-                },
-                error => {
-                  file.name(att.name);
-                  file.boardId = boardId;
-                  file.cardId = cardId;
-                  file.userId = self._user(att.userId);
-                  // The field source will only be used to prevent adding
-                  // attachments' related activities automatically
-                  file.source = 'import';
-                  if (error) {
-                    throw error;
-                  } else {
-                    const wekanAtt = Attachments.insert(file, () => {
-                      // we do nothing
-                    });
-                    this.attachmentIds[att._id] = wekanAtt._id;
-                    //
-                    if (wekanCoverId === att._id) {
-                      Cards.direct.update(cardId, {
-                        $set: {
-                          coverId: wekanAtt._id,
-                        },
-                      });
-                    }
-                  }
-                },
-              );
-            }
+                fileObj.boardId = boardId;
+                fileObj.cardId = cardId;
+                fileObj.userId = self._user(att.userId);
+                // The field source will only be used to prevent adding
+                // attachments' related activities automatically
+                fileObj.source = 'import';
+                self.attachmentIds[att._id] = fileObj._id;
+                if (wekanCoverId === att._id) {
+                  Cards.direct.update(cardId, {
+                    $set: { coverId: fileObj._id },
+                  });
+                }
+              },
+            );
           }
-          // todo XXX set cover - if need be
         });
       }
       result.push(cardId);
