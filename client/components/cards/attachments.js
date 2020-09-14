@@ -63,50 +63,28 @@ Template.previewAttachedImagePopup.events({
 Template.cardAttachmentsPopup.events({
   'change .js-attach-file'(event) {
     const card = this;
-    const processFile = f => {
-      Utils.processUploadedAttachment(card, f, attachment => {
-        if (attachment && attachment._id && attachment.isImage()) {
-          card.setCover(attachment._id);
+    if (event.currentTarget.files && event.currentTarget.files[0]) {
+      const uploader = Attachments.insert(
+        {
+          file: event.currentTarget.files[0],
+          streams: 'dynamic',
+          chunkSize: 'dynamic',
+        },
+        false,
+      );
+      uploader.on('uploaded', (error, fileObj) => {
+        if (!error) {
+          if (fileObj.isImage) {
+            card.setCover(fileObj._id);
+          }
+          Utils.addCommonMetaToAttachment(card, fileObj);
         }
+      });
+      uploader.on('end', (error, fileObj) => {
         Popup.back();
       });
-    };
-
-    FS.Utility.eachFile(event, f => {
-      if (
-        MAX_IMAGE_PIXEL > 0 &&
-        typeof f.type === 'string' &&
-        f.type.match(/^image/)
-      ) {
-        // is image
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          const dataurl = e && e.target && e.target.result;
-          if (dataurl !== undefined) {
-            Utils.shrinkImage({
-              dataurl,
-              maxSize: MAX_IMAGE_PIXEL,
-              ratio: COMPRESS_RATIO,
-              toBlob: true,
-              callback(blob) {
-                if (blob === false) {
-                  processFile(f);
-                } else {
-                  blob.name = f.name;
-                  processFile(blob);
-                }
-              },
-            });
-          } else {
-            // couldn't process it let other function handle it?
-            processFile(f);
-          }
-        };
-        reader.readAsDataURL(f);
-      } else {
-        processFile(f);
-      }
-    });
+      uploader.start();
+    }
   },
   'click .js-computer-upload'(event, templateInstance) {
     templateInstance.find('.js-attach-file').click();
