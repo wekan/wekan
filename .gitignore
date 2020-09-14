@@ -5,6 +5,7 @@
 tmp/
 node_modules/
 npm-debug.log
+.gitmodules
 .vscode/
 .idea/
 .build/*

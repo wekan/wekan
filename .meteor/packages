@@ -97,4 +97,4 @@ easylogic:summernote
 cfs:filesystem
 ostrio:cookies
 tmeasday:check-npm-versions
-wekan-meteor-accounts-saml
+steffo:meteor-accounts-saml
