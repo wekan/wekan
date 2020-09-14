@@ -7,6 +7,11 @@ This release adds the following login settings:
   See https://github.com/wekan/wekan/wiki/SAML and https://github.com/wekan/wekan/wiki/CAS .
   Thanks to xet7.
 
+and updates some dependencies:
+
+- [Update dependencies](https://github.com/wekan/wekan/commit/cca041e21a66087ca4008a22cb0f5b4176801101).
+  Thanks to developers of dependencies.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v4.32 2020-09-13 Wekan release
