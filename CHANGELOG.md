@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v4.33 2020-09-14 Wekan release
 
 This release adds the following login settings:
 
