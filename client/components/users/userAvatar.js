@@ -225,7 +225,6 @@ BlazeComponent.extendComponent({
             const uploader = Avatars.insert(
               {
                 file: event.currentTarget.files[0],
-                streams: 'dynamic',
                 chunkSize: 'dynamic',
               },
               false,
