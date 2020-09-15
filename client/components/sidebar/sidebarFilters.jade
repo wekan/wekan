@@ -4,10 +4,14 @@
   and #each x in y constructors to fix this.
 
 template(name="filterSidebar")
+  h3 {{_ 'list-filter-label'}}
   ul.sidebar-list
-    span {{_ 'list-filter-label'}}
     form.js-list-filter
       input(type="text")
+  hr
+  h3
+    i.fa.fa-tags
+    | {{_ 'filter-labels-label'}}
   ul.sidebar-list
     li(class="{{#if Filter.labelIds.isSelected undefined}}active{{/if}}")
           a.name.js-toggle-label-filter
@@ -27,6 +31,9 @@ template(name="filterSidebar")
           if Filter.labelIds.isSelected _id
             i.fa.fa-check
   hr
+  h3
+    i.fa.fa-users
+    | {{_ 'filter-member-label'}}
   ul.sidebar-list
     li(class="{{#if Filter.members.isSelected undefined}}active{{/if}}")
           a.name.js-toggle-member-filter
@@ -45,6 +52,9 @@ template(name="filterSidebar")
             if Filter.members.isSelected _id
               i.fa.fa-check
   hr
+  h3
+    i.fa.fa-user
+    | {{_ 'filter-assignee-label'}}
   ul.sidebar-list
     li(class="{{#if Filter.assignees.isSelected undefined}}active{{/if}}")
       a.name.js-toggle-assignee-filter
@@ -63,6 +73,9 @@ template(name="filterSidebar")
             if Filter.assignees.isSelected _id
               i.fa.fa-check
   hr
+  h3
+    i.fa.fa-list-alt
+    | {{_ 'filter-custom-fields-label'}}
   ul.sidebar-list
     li(class="{{#if Filter.customFields.isSelected undefined}}active{{/if}}")
           a.name.js-toggle-custom-fields-filter
@@ -78,6 +91,8 @@ template(name="filterSidebar")
           if Filter.customFields.isSelected _id
             i.fa.fa-check
   hr
+  h3
+    | {{_ 'other-filters-label'}}
   ul.sidebar-list
     li(class="{{#if Filter.archive.isSelected _id}}active{{/if}}")
       a.name.js-toggle-archive-filter
@@ -85,7 +100,6 @@ template(name="filterSidebar")
           | {{_ 'filter-show-archive'}}
         if Filter.archive.isSelected _id
           i.fa.fa-check
-  hr
   ul.sidebar-list
     li(class="{{#if Filter.hideEmpty.isSelected _id}}active{{/if}}")
       a.name.js-toggle-hideEmpty-filter
@@ -94,7 +108,7 @@ template(name="filterSidebar")
         if Filter.hideEmpty.isSelected _id
           i.fa.fa-check
   hr
-  span {{_ 'advanced-filter-label'}}
+  h3 {{_ 'advanced-filter-label'}}
   input.js-field-advanced-filter(type="text")
   span {{_ 'advanced-filter-description'}}
   if Filter.isActive
@@ -107,6 +121,9 @@ template(name="filterSidebar")
       span {{_ 'filter-to-selection'}}
 
 template(name="multiselectionSidebar")
+  h3
+    i.fa.fa-tags
+    | {{_ 'multi-selection-label'}}
   ul.sidebar-list
     each currentBoard.labels
       li
@@ -122,6 +139,9 @@ template(name="multiselectionSidebar")
           else if someSelectedElementHave 'label' _id
             i.fa.fa-ellipsis-h
   hr
+  h3
+    i.fa.fa-users
+    | {{_ 'multi-selection-member'}}
   ul.sidebar-list
     each currentBoard.activeMembers
       with getUser userId
