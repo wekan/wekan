@@ -1,0 +1,1 @@
+git push --follow-tags
