@@ -1,3 +1,17 @@
+# Upcoming Wekan release
+
+This release adds the following UI improvements:
+
+- [UI improvements in filter, multi-selection and rules](https://github.com/wekan/wekan/pull/3279).
+  Thanks to helioguardabaxo and xet7.
+
+and fixes the following bugs:
+
+- [Fix parse error in docker-compose.yml](https://github.com/wekan/wekan/pull/3278).
+  Thanks to devilmengcry.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.36 2020-09-15 Wekan release
 
 This release adds the following new features:
