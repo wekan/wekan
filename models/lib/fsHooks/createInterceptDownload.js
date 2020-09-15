@@ -1,6 +1,6 @@
 import { createObjectId } from '../grid/createObjectId';
 
-const createInterceptDownload = bucket =>
+export const createInterceptDownload = bucket =>
   function interceptDownload(http, file, versionName) {
     const { gridFsFileId } = file.versions[versionName].meta || {};
     if (gridFsFileId) {
