@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Added translations for date selection popups](https://github.com/wekan/wekan/commit/f9b0da65f1de48a2af11aa7afbd767559ba95b79).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.35 2020-09-14 Wekan release
 
 This release tries to fix the following bugs:
