@@ -1,9 +1,14 @@
-# Upcoming Wekan release
+# v4.37 2020-09-15 Wekan release
 
 This release adds the following UI improvements:
 
 - [UI improvements in filter, multi-selection and rules](https://github.com/wekan/wekan/pull/3279).
   Thanks to helioguardabaxo and xet7.
+
+and adds the following updates:
+
+- [Update release scripts](https://github.com/wekan/wekan/commit/e79b7fad0a35f29020c48a4a4eedb435573c9bf1).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
