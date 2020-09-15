@@ -11,7 +11,7 @@ template(name="filterSidebar")
   hr
   h3
     i.fa.fa-tags
-    {{_ 'filter-labels-label'}}
+    | {{_ 'filter-labels-label'}}
   ul.sidebar-list
     li(class="{{#if Filter.labelIds.isSelected undefined}}active{{/if}}")
           a.name.js-toggle-label-filter
@@ -33,7 +33,7 @@ template(name="filterSidebar")
   hr
   h3
     i.fa.fa-users
-    {{_ 'filter-member-label'}}
+    | {{_ 'filter-member-label'}}
   ul.sidebar-list
     li(class="{{#if Filter.members.isSelected undefined}}active{{/if}}")
           a.name.js-toggle-member-filter
@@ -54,7 +54,7 @@ template(name="filterSidebar")
   hr
   h3
     i.fa.fa-user
-    {{_ 'filter-assignee-label'}}
+    | {{_ 'filter-assignee-label'}}
   ul.sidebar-list
     li(class="{{#if Filter.assignees.isSelected undefined}}active{{/if}}")
       a.name.js-toggle-assignee-filter
@@ -75,7 +75,7 @@ template(name="filterSidebar")
   hr
   h3
     i.fa.fa-list-alt
-    {{_ 'filter-custom-fields-label'}}
+    | {{_ 'filter-custom-fields-label'}}
   ul.sidebar-list
     li(class="{{#if Filter.customFields.isSelected undefined}}active{{/if}}")
           a.name.js-toggle-custom-fields-filter
@@ -92,7 +92,7 @@ template(name="filterSidebar")
             i.fa.fa-check
   hr
   h3
-    {{_ 'other-filters-label'}}
+    | {{_ 'other-filters-label'}}
   ul.sidebar-list
     li(class="{{#if Filter.archive.isSelected _id}}active{{/if}}")
       a.name.js-toggle-archive-filter
@@ -123,7 +123,7 @@ template(name="filterSidebar")
 template(name="multiselectionSidebar")
   h3
     i.fa.fa-tags
-    {{_ 'multi-selection-label'}}
+    | {{_ 'multi-selection-label'}}
   ul.sidebar-list
     each currentBoard.labels
       li
@@ -141,7 +141,7 @@ template(name="multiselectionSidebar")
   hr
   h3
     i.fa.fa-users
-    {{_ 'multi-selection-member'}}
+    | {{_ 'multi-selection-member'}}
   ul.sidebar-list
     each currentBoard.activeMembers
       with getUser userId
