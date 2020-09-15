@@ -57,7 +57,7 @@ BlazeComponent.extendComponent({
   },
 
   scrollParentContainer() {
-    const cardPanelWidth = 510;
+    const cardPanelWidth = 600;
     const parentComponent = this.parentComponent();
     // TODO sometimes parentComponent is not available, maybe because it's not
     // yet created?!
