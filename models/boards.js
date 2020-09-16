@@ -6,8 +6,10 @@ import {
   TYPE_TEMPLATE_CONTAINER,
 } from '/config/const';
 import Users from "./users";
+import Attachments from './attachments';
 
 const escapeForRegex = require('escape-string-regexp');
+
 Boards = new Mongo.Collection('boards');
 
 /**
