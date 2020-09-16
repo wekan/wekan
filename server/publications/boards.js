@@ -235,7 +235,7 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
       cardCommentsLinkedBoard.selector = _ids => ({ boardId: _ids });
       const cardCommentReactions = this.join(CardCommentReactions);
       cardCommentReactions.selector = _ids => ({ cardId: _ids });
-      const attachments = this.join(Attachments);
+      const attachments = this.join(Attachments.collection);
       attachments.selector = _ids => ({ cardId: _ids });
       const checklists = this.join(Checklists);
       checklists.selector = _ids => ({ cardId: _ids });
