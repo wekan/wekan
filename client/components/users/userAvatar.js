@@ -3,7 +3,6 @@ import Avatars from '/models/avatars';
 import Users from '/models/users';
 import Org from '/models/org';
 import Team from '/models/team';
-import Avatars from '/models/avatars';
 
 Template.userAvatar.helpers({
   userData() {

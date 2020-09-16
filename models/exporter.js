@@ -1,5 +1,4 @@
 const Papa = require('papaparse');
-import Attachments from './attachments';
 
 //const stringify = require('csv-stringify');
 
