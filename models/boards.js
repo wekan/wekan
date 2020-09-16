@@ -1,3 +1,5 @@
+import Attachments from './attachments';
+
 Boards = new Mongo.Collection('boards');
 
 /**

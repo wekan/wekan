@@ -1,3 +1,4 @@
+import Avatars from '../../../models/avatars';
 Template.userAvatar.helpers({
   userData() {
     // We need to handle a special case for the search results provided by the

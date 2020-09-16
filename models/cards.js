@@ -1,3 +1,5 @@
+import Attachments from './attachments';
+
 Cards = new Mongo.Collection('cards');
 
 // XXX To improve pub/sub performances a card document should include a
