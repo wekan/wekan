@@ -7,7 +7,7 @@ import { createOnAfterRemove } from './lib/fsHooks/createOnAfterRemove';
 
 const avatarsBucket = createBucket('avatars');
 
-export const Avatars = new FilesCollection({
+const Avatars = new FilesCollection({
   debug: false, // Change to `true` for debugging
   collectionName: 'avatars',
   allowClientCode: false,
