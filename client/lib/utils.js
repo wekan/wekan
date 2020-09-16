@@ -163,7 +163,7 @@ Utils = {
     );
   },
   getCommonAttachmentMetaFrom(card) {
-    let meta;
+    const meta = {};
     if (card.isLinkedCard()) {
       meta.boardId = Cards.findOne(card.linkedId).boardId;
       meta.cardId = card.linkedId;
