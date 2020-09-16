@@ -905,6 +905,16 @@ if (Meteor.isServer) {
       }
       return { username: user.username, email: user.emails[0].address };
     },
+    impersonate(userId) {
+      check(userId, String);
+
+      if (!Meteor.users.findOne(userId))
+        throw new Meteor.Error(404, 'User not found');
+      if (!Meteor.user().isAdmin)
+        throw new Meteor.Error(403, 'Permission denied');
+
+      this.setUserId(userId);
+    },
   });
   Accounts.onCreateUser((options, user) => {
     const userCount = Users.find().count();
