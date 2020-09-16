@@ -5,12 +5,15 @@ import { createOnAfterUpload } from './lib/fsHooks/createOnAfterUpload';
 import { createInterceptDownload } from './lib/fsHooks/createInterceptDownload';
 import { createOnAfterRemove } from './lib/fsHooks/createOnAfterRemove';
 
-const avatarsBucket = createBucket('avatars');
+let avatarsBucket;
+if (Meteor.isServer) {
+  avatarsBucket = createBucket('avatars');
+}
 
 const Avatars = new FilesCollection({
   debug: false, // Change to `true` for debugging
   collectionName: 'avatars',
-  allowClientCode: false,
+  allowClientCode: true,
   onBeforeUpload(file) {
     if (file.size <= 72000 && file.isImage) return true;
     return 'Please upload image, with size equal or less than 72KB';
@@ -24,11 +27,13 @@ function isOwner(userId, doc) {
   return userId && userId === doc.userId;
 }
 
-Avatars.allow({
-  insert: isOwner,
-  update: isOwner,
-  remove: isOwner,
-  fetch: ['userId'],
-});
+if (Meteor.isServer) {
+  Avatars.allow({
+    insert: isOwner,
+    update: isOwner,
+    remove: isOwner,
+    fetch: ['userId'],
+  });
+}
 
 export default Avatars;
