@@ -28,7 +28,7 @@ const insertActivity = (fileObj, activityType) =>
 // XXX Enforce a schema for the Attachments FilesCollection
 // see: https://github.com/VeliovGroup/Meteor-Files/wiki/Schema
 
-const Attachments = new FilesCollection({
+Attachments = new FilesCollection({
   debug: false, // Change to `true` for debugging
   collectionName: 'attachments',
   allowClientCode: false,
