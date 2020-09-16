@@ -104,6 +104,8 @@ template(name="peopleRow")
       a.edit-user
         i.fa.fa-edit
         | {{_ 'edit'}}
+      a.more-settings-user
+        i.fa.fa-ellipsis-h
 
 template(name="editUserPopup")
   form
@@ -200,3 +202,10 @@ template(name="newUserPopup")
       input.js-profile-password(type="password")
     div.buttonsContainer
       input.primary.wide(type="submit" value="{{_ 'save'}}")
+
+template(name="settingsUserPopup")
+  ul.pop-over-list
+    li
+      a.impersonate-user
+        i.fa.fa-user
+        | {{_ 'impersonate-user'}}

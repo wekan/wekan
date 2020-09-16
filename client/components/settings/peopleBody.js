@@ -194,6 +194,7 @@ BlazeComponent.extendComponent({
     return [
       {
         'click a.edit-user': Popup.open('editUser'),
+        'click a.more-settings-user': Popup.open('settingsUser'),
       },
     ];
   },
@@ -341,5 +342,18 @@ Template.newUserPopup.events({
       },
     );
     Popup.close();
+  },
+});
+
+Template.settingsUserPopup.events({
+  'click .impersonate-user'(event) {
+    event.preventDefault();
+
+    Meteor.call('impersonate', this.userId, err => {
+      if (!err) {
+        FlowRouter.go('/');
+        Meteor.connection.setUserId(this.userId);
+      }
+    });
   },
 });
