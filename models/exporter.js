@@ -1,7 +1,6 @@
 import moment from 'moment';
 const Papa = require('papaparse');
 import { TAPi18n } from '/imports/i18n';
-import Attachments from './attachments';
 
 //const stringify = require('csv-stringify');
 

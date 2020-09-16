@@ -1,5 +1,3 @@
-import Attachments from './attachments';
-
 // Activities don't need a schema because they are always set from the a trusted
 // environment - the server - and there is no risk that a user change the logic
 // we use with this collection. Moreover using a schema for this collection
