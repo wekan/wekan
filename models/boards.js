@@ -8,6 +8,7 @@ import {
   TYPE_TEMPLATE_CONTAINER,
 } from '/config/const';
 import Users from "./users";
+import Attachments from './attachments';
 
 Boards = new Mongo.Collection('boards');
 

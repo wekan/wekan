@@ -1,3 +1,5 @@
+import Attachments from '/models/attachments';
+
 const specialHandles = [
   {userId: 'board_members', username: 'board_members'},
   {userId: 'card_members', username: 'card_members'}

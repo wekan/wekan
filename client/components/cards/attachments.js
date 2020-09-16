@@ -1,3 +1,5 @@
+import Attachments from '../../../models/attachments';
+
 Template.attachmentsGalery.events({
   'click .js-add-attachment': Popup.open('cardAttachments'),
   'click .js-confirm-delete': Popup.afterConfirm(
