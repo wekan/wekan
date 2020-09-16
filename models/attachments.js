@@ -32,8 +32,8 @@ const Attachments = new FilesCollection({
   debug: false, // Change to `true` for debugging
   collectionName: 'attachments',
   allowClientCode: false,
-  onAfterUpload(fileRef) {
-    createOnAfterUpload(attachmentBucket)(fileRef);
+  onAfterUpload: function onAfterUpload(fileRef) {
+    createOnAfterUpload(attachmentBucket).call(this, fileRef);
     // If the attachment doesn't have a source field
     // or its source is different than import
     if (!fileRef.meta.source || fileRef.meta.source !== 'import') {
@@ -42,8 +42,8 @@ const Attachments = new FilesCollection({
     }
   },
   interceptDownload: createInterceptDownload(attachmentBucket),
-  onAfterRemove(files) {
-    createOnAfterRemove(attachmentBucket)(files);
+  onAfterRemove: function onAfterRemove(files) {
+    createOnAfterRemove(attachmentBucket).call(this, files);
     files.forEach(fileObj => {
       insertActivity(fileObj, 'deleteAttachment');
     });
