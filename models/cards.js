@@ -738,12 +738,12 @@ Cards.helpers({
   attachments() {
     if (this.isLinkedCard()) {
       return Attachments.find(
-        { cardId: this.linkedId },
+        { 'meta.cardId': this.linkedId },
         { sort: { uploadedAt: -1 } },
       );
     } else {
       return Attachments.find(
-        { cardId: this._id },
+        { 'meta.cardId': this._id },
         { sort: { uploadedAt: -1 } },
       );
     }
