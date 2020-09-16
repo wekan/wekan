@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following CRITICAL VULNERABILITIES:
+
+- [Upgrade to Node.js v12.18.4](https://github.com/wekan/wekan/commit/5cd9f89b21e6f800c2b78da49a1c0cf7f6fba955).
+  Thanks to Node.js developers.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.37 2020-09-15 Wekan release
 
 This release adds the following UI improvements:
