@@ -10,7 +10,7 @@ if (Meteor.isServer) {
   avatarsBucket = createBucket('avatars');
 }
 
-const Avatars = new FilesCollection({
+Avatars = new FilesCollection({
   debug: false, // Change to `true` for debugging
   collectionName: 'avatars',
   allowClientCode: true,
