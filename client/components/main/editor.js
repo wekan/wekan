@@ -1,5 +1,3 @@
-import Attachments from '../../../models/attachments';
-
 Template.editor.onRendered(() => {
   const textareaSelector = 'textarea';
   const mentions = [
