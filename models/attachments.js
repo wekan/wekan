@@ -5,7 +5,10 @@ import { createOnAfterUpload } from './lib/fsHooks/createOnAfterUpload';
 import { createInterceptDownload } from './lib/fsHooks/createInterceptDownload';
 import { createOnAfterRemove } from './lib/fsHooks/createOnAfterRemove';
 
-const attachmentBucket = createBucket('attachments');
+let attachmentBucket;
+if (Meteor.isServer) {
+  attachmentBucket = createBucket('attachments');
+}
 
 const insertActivity = (fileObj, activityType) =>
   Activities.insert({
