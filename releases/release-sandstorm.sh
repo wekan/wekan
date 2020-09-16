@@ -18,7 +18,7 @@ cd $REPODIR
 rm -rf $WEKANDIR
 git clone git@github.com:wekan/wekan.git
 cd $WEKANDIR
-sudo n 12.18.3
+sudo n 12.18.4
 sudo mkdir -p /usr/local/lib/node_modules/fibers/.node-gyp
 # Build Wekan
 ./releases/rebuild-release.sh
