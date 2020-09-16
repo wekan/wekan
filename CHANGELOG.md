@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Impersonate one user](https://github.com/wekan/wekan/pull/3280) and
+  [related translatable strings](https://github.com/wekan/wekan/commit/81ac0fdba9b52477dbbe7b6ed01b6d299288bcca).
+  Thanks to Akuket and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.38 2020-09-16 Wekan release
 
 This release fixes the following CRITICAL VULNERABILITIES:
