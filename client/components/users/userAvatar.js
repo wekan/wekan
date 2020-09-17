@@ -1,3 +1,5 @@
+import { formatFleURL } from 'meteor/ostrio:files/lib';
+
 Template.userAvatar.helpers({
   userData() {
     // We need to handle a special case for the search results provided by the
@@ -53,21 +55,14 @@ BlazeComponent.extendComponent({
     Meteor.subscribe('my-avatars');
   },
 
-  avatarUrlOptions() {
-    return {
-      auth: false,
-      brokenIsFine: true,
-    };
-  },
-
   uploadedAvatars() {
-    return Avatars.find({ userId: Meteor.userId() });
+    return Avatars.find({ userId: Meteor.userId() }).each();
   },
 
   isSelected() {
     const userProfile = Meteor.user().profile;
     const avatarUrl = userProfile && userProfile.avatarUrl;
-    const currentAvatarUrl = this.currentData().url(this.avatarUrlOptions());
+    const currentAvatarUrl = `${this.currentData().link()}?auth=false&brokenIsFine=true`;
     return avatarUrl === currentAvatarUrl;
   },
 
@@ -104,8 +99,9 @@ BlazeComponent.extendComponent({
             );
             uploader.on('uploaded', (error, fileRef) => {
               if (!error) {
-                self.setAvatar(fileRef.path);
-                // self.setAvatar(this.currentData().url(this.avatarUrlOptions()));
+                self.setAvatar(
+                  `${formatFleURL(fileRef)}?auth=false&brokenIsFine=true`,
+                );
               }
             });
             uploader.on('error', (error, fileData) => {
@@ -115,7 +111,7 @@ BlazeComponent.extendComponent({
           }
         },
         'click .js-select-avatar'() {
-          const avatarUrl = this.currentData().url(this.avatarUrlOptions());
+          const avatarUrl = `${this.currentData().link()}?auth=false&brokenIsFine=true`;
           this.setAvatar(avatarUrl);
         },
         'click .js-select-initials'() {
