@@ -13,10 +13,10 @@ Template.attachmentsGalery.events({
     event.stopPropagation();
   },
   'click .js-add-cover'() {
-    Cards.findOne(this.cardId).setCover(this._id);
+    Cards.findOne(this.meta.cardId).setCover(this._id);
   },
   'click .js-remove-cover'() {
-    Cards.findOne(this.cardId).unsetCover();
+    Cards.findOne(this.meta.cardId).unsetCover();
   },
   'click .js-preview-image'(event) {
     Popup.open('previewAttachedImage').call(this, event);
