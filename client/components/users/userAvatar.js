@@ -236,8 +236,7 @@ BlazeComponent.extendComponent({
               }
             });
             uploader.on('error', (error, fileData) => {
-              // XXX check for actually returned error
-              self.setError('avatar-too-big');
+              self.setError(error.reason);
             });
             uploader.start();
           }

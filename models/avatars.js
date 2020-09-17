@@ -15,8 +15,10 @@ Avatars = new FilesCollection({
   collectionName: 'avatars',
   allowClientCode: true,
   onBeforeUpload(file) {
-    if (file.size <= 72000 && file.isImage) return true;
-    return 'Please upload image, with size equal or less than 72KB';
+    if (file.size <= 72000 && file.type.startsWith("image/")) {
+      return true;
+    };
+    return 'avatar-too-big';
   },
   onAfterUpload: createOnAfterUpload(avatarsBucket),
   interceptDownload: createInterceptDownload(avatarsBucket),
