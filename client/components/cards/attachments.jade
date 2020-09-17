@@ -11,9 +11,6 @@ template(name="previewClipboardImagePopup")
   img.preview-clipboard-image()
   button.primary.js-upload-pasted-image {{_ 'upload'}}
 
-template(name="previewAttachedImagePopup")
-  img.preview-large-image.js-large-image-clicked(src="{{link}}")
-
 template(name="attachmentDeletePopup")
   p {{_ "attachment-delete-pop"}}
   button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
