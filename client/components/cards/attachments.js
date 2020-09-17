@@ -18,31 +18,6 @@ Template.attachmentsGalery.events({
   'click .js-remove-cover'() {
     Cards.findOne(this.meta.cardId).unsetCover();
   },
-  'click .js-preview-image'(event) {
-    Popup.open('previewAttachedImage').call(this, event);
-    // when multiple thumbnails, if click one then another very fast,
-    // we might get a wrong width from previous img.
-    // when popup reused, onRendered() won't be called, so we cannot get there.
-    // here make sure to get correct size when this img fully loaded.
-    const img = $('img.preview-large-image')[0];
-    if (!img) return;
-    const rePosPopup = () => {
-      const w = img.width;
-      const h = img.height;
-      // if the image is too large, we resize & center the popup.
-      if (w > 300) {
-        $('div.pop-over').css({
-          width: w + 20,
-          position: 'absolute',
-          left: (window.innerWidth - w) / 2,
-          top: (window.innerHeight - h) / 2,
-        });
-      }
-    };
-    const url = $(event.currentTarget).attr('src');
-    if (img.src === url && img.complete) rePosPopup();
-    else img.onload = rePosPopup;
-  },
 });
 
 Template.attachmentsGalery.helpers({
@@ -51,12 +26,6 @@ Template.attachmentsGalery.helpers({
   },
   fileSize(size) {
     return Math.round(size / 1024);
-  },
-});
-
-Template.previewAttachedImagePopup.events({
-  'click .js-large-image-clicked'() {
-    Popup.back();
   },
 });
 
