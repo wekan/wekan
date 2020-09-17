@@ -20,13 +20,10 @@ template(name="attachmentsGalery")
     each attachments
       .attachment-item
         a.attachment-thumbnail.swipebox(href="{{link}}" title="{{name}}")
-          if isUploaded
-            if isImage
-              img.attachment-thumbnail-img(src="{{link}}")
-            else
-              span.attachment-thumbnail-ext= extension
+          if isImage
+            img.attachment-thumbnail-img(src="{{link}}")
           else
-            +spinner
+            span.attachment-thumbnail-ext= extension
         p.attachment-details
           = name
           span.attachment-details-actions
