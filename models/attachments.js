@@ -31,7 +31,7 @@ const insertActivity = (fileObj, activityType) =>
 Attachments = new FilesCollection({
   debug: false, // Change to `true` for debugging
   collectionName: 'attachments',
-  allowClientCode: false,
+  allowClientCode: true,
   onAfterUpload: function onAfterUpload(fileRef) {
     createOnAfterUpload(attachmentBucket).call(this, fileRef);
     // If the attachment doesn't have a source field
