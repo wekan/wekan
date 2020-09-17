@@ -39,7 +39,7 @@ export const createInterceptDownload = bucket =>
 const getContentDisposition = (name, downloadFlag) => {
   const dispositionType = downloadFlag === 'true' ? 'attachment;' : 'inline;';
 
-  const encodedName = encodeURIComponent(fileName);
+  const encodedName = encodeURIComponent(name);
   const dispositionName = `filename="${encodedName}"; filename=*UTF-8"${encodedName}";`;
   const dispositionEncoding = 'charset=utf-8';
 
