@@ -38,7 +38,7 @@ template(name="attachmentsGalery")
             else
               span.attachment-thumbnail-ext= extension
           else
-            +spinner
+            span.attachment-thumbnail-ext= extension
         p.attachment-details
           = name
           span.file-size ({{fileSize size}} KB)
