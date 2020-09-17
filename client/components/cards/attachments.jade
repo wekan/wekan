@@ -22,10 +22,10 @@ template(name="attachmentsGalery")
   .attachments-galery
     each attachments
       .attachment-item
-        a.attachment-thumbnail.swipebox(href="{{url}}" title="{{name}}")
+        a.attachment-thumbnail.swipebox(href="{{link}}" title="{{name}}")
           if isUploaded
             if isImage
-              img.attachment-thumbnail-img(src="{{url}}")
+              img.attachment-thumbnail-img(src="{{link}}")
             else
               span.attachment-thumbnail-ext= extension
           else
@@ -33,7 +33,7 @@ template(name="attachmentsGalery")
         p.attachment-details
           = name
           span.attachment-details-actions
-            a.js-download(href="{{url download=true}}")
+            a.js-download(href="{{link}}?download=true")
               i.fa.fa-download
               | {{_ 'download'}}
             if currentUser.isBoardMember
