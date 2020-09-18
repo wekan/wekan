@@ -2,8 +2,11 @@
 
 This release adds the following new features:
 
-- [Custom Logo for Login and Top Left Corner. Optional link when clicking logo.
-  Settings at Admin Panel / Layout](https://github.com/wekan/wekan/commit/a7c3317ed696fad8e211b22afbb3012f3a4f2ddb).
+- Custom Logo for Login and Top Left Corner. Optional link when clicking logo.
+  Settings at Admin Panel / Layout.
+  [Part 1](https://github.com/wekan/wekan/commit/a7c3317ed696fad8e211b22afbb3012f3a4f2ddb),
+  [Part 2](https://github.com/wekan/wekan/commit/05e3fc31b4633978a6b002a0325aad8e74d57ec4),
+  [Part 3](https://github.com/wekan/wekan/commit/3fc80e1145b23f8e6c7492ef4e3313b02f3d8772).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
