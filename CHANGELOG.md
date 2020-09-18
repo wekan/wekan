@@ -9,6 +9,11 @@ This release adds the following new features:
   [Part 3](https://github.com/wekan/wekan/commit/3fc80e1145b23f8e6c7492ef4e3313b02f3d8772).
   Thanks to xet7.
 
+and adds the following updates:
+
+- [Upgrade to Meteor v1.11.1](https://github.com/wekan/wekan/commit/185cf163b23280af5a7910381209984e2362a452).
+  Thanks to Meteor developers.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v4.39 2020-09-17 Wekan release
