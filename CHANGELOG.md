@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Custom Logo for Login and Top Left Corner. Optional link when clicking logo.
+  Settings at Admin Panel / Layout](https://github.com/wekan/wekan/commit/a7c3317ed696fad8e211b22afbb3012f3a4f2ddb).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.39 2020-09-17 Wekan release
 
 This release adds the following new features:
