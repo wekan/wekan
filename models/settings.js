@@ -49,7 +49,7 @@ Settings.attachSchema(
       type: String,
       optional: true,
     },
-    customLoginLogoTargetUrl: {
+    customLoginLogoLinkUrl: {
       type: String,
       optional: true,
     },
@@ -57,7 +57,7 @@ Settings.attachSchema(
       type: String,
       optional: true,
     },
-    customTopLeftCornerLogoTargetUrl: {
+    customTopLeftCornerLogoLinkUrl: {
       type: String,
       optional: true,
     },

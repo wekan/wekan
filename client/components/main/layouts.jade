@@ -26,11 +26,11 @@ template(name="userFormsLayout")
     unless currentSetting.hideLogo
       h1.at-form-landing-logo
       if currentSetting.customLoginLogoImageUrl
-        if currentSetting.customLoginLogoTargetUrl
-          a(href="{{currentSetting.customLoginLogoTargetUrl}}")
+        if currentSetting.customLoginLogoLinkUrl
+          a(href="{{currentSetting.customLoginLogoLinkUrl}}")
             img(src="{{currentSetting.customLoginLogoImageUrl}}" width="300" height="auto")
           br
-        unless currentSetting.customLoginLogoTargetUrl
+        unless currentSetting.customLoginLogoLinkUrl
           img(src="{{currentSetting.customLoginLogoImageUrl}}" width="300" height="auto")
           br
       unless currentSetting.customLoginLogoImageUrl

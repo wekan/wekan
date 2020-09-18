@@ -25,10 +25,10 @@ template(name="header")
           the list of all boards.
         unless currentSetting.hideLogo
           if currentSetting.customTopLeftCornerLogoImageUrl
-            if currentSetting.customTopLeftCornerLogoTargetUrl
-              a(href="{{currentSetting.customTopLeftCornerLogoTargetUrl}}")
+            if currentSetting.customTopLeftCornerLogoLinkUrl
+              a(href="{{currentSetting.customTopLeftCornerLogoLinkUrl}}")
                 img(src="{{currentSetting.customTopLeftCornerLogoImageUrl}}" height="27" width="auto" margin="0" padding="0")
-            unless currentSetting.customTopLeftCornerLogoTargetUrl
+            unless currentSetting.customTopLeftCornerLogoLinkUrl
               img(src="{{currentSetting.customTopLeftCornerLogoImageUrl}}" height="27" width="auto" margin="0" padding="0")
           unless currentSetting.customTopLeftCornerLogoImageUrl
             img(src="{{pathFor '/logo-header.png'}}" alt="")

@@ -170,7 +170,7 @@ BlazeComponent.extendComponent({
     const customLoginLogoImageUrl = $('#custom-login-logo-image-url')
       .val()
       .trim();
-    const customLoginLogoTargetUrl = $('#custom-login-logo-target-url')
+    const customLoginLogoLinkUrl = $('#custom-login-logo-link-url')
       .val()
       .trim();
     const customTopLeftCornerLogoImageUrl = $(
@@ -178,8 +178,8 @@ BlazeComponent.extendComponent({
     )
       .val()
       .trim();
-    const customTopLeftCornerLogoTargetUrl = $(
-      '#custom-top-left-corner-logo-target-url',
+    const customTopLeftCornerLogoLinkUrl = $(
+      '#custom-top-left-corner-logo-link-url',
     )
       .val()
       .trim();
@@ -194,9 +194,9 @@ BlazeComponent.extendComponent({
           productName,
           hideLogo: hideLogoChange,
           customLoginLogoImageUrl,
-          customLoginLogoTargetUrl,
+          customLoginLogoLinkUrl,
           customTopLeftCornerLogoImageUrl,
-          customTopLeftCornerLogoTargetUrl,
+          customTopLeftCornerLogoLinkUrl,
           displayAuthenticationMethod,
           defaultAuthenticationMethod,
         },
