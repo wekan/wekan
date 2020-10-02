@@ -14,6 +14,7 @@ Meteor.publish('setting', () => {
         hideLogo: 1,
         customLoginLogoImageUrl: 1,
         customLoginLogoLinkUrl: 1,
+        textBelowCustomLoginLogo: 1,
         customTopLeftCornerLogoImageUrl: 1,
         customTopLeftCornerLogoLinkUrl: 1,
         customHTMLafterBodyStart: 1,

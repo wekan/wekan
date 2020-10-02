@@ -36,6 +36,10 @@ template(name="userFormsLayout")
       unless currentSetting.customLoginLogoImageUrl
         img(src="{{pathFor '/wekan-logo.svg'}}" alt="" width="300" height="auto")
         br
+      if currentSetting.textBelowCustomLoginLogo
+        +viewer
+          | {{currentSetting.textBelowCustomLoginLogo}}
+        br
     section.auth-dialog
       if isLoading
         +loader

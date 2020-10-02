@@ -193,6 +193,10 @@ template(name='layoutSettings')
       .form-group
         input.wekan-form-control#custom-login-logo-link-url(type="text", placeholder="" value="{{currentSetting.customLoginLogoLinkUrl}}")
     li.layout-form
+      .title {{_ 'text-below-custom-login-logo'}}
+      .form-group
+        textarea#text-below-custom-login-logo.wekan-form-control= currentSetting.textBelowCustomLoginLogo
+    li.layout-form
       .title {{_ 'custom-top-left-corner-logo-image-url'}}
       .form-group
         input.wekan-form-control#custom-top-left-corner-logo-image-url(type="text", placeholder="" value="{{currentSetting.customTopLeftCornerLogoImageUrl}}")

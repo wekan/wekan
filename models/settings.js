@@ -53,6 +53,10 @@ Settings.attachSchema(
       type: String,
       optional: true,
     },
+    textBelowCustomLoginLogo: {
+      type: String,
+      optional: true,
+    },
     customTopLeftCornerLogoImageUrl: {
       type: String,
       optional: true,

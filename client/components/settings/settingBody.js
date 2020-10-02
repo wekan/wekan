@@ -173,6 +173,9 @@ BlazeComponent.extendComponent({
     const customLoginLogoLinkUrl = $('#custom-login-logo-link-url')
       .val()
       .trim();
+    const textBelowCustomLoginLogo = $('#text-below-custom-login-logo')
+      .val()
+      .trim();
     const customTopLeftCornerLogoImageUrl = $(
       '#custom-top-left-corner-logo-image-url',
     )
@@ -195,6 +198,7 @@ BlazeComponent.extendComponent({
           hideLogo: hideLogoChange,
           customLoginLogoImageUrl,
           customLoginLogoLinkUrl,
+          textBelowCustomLoginLogo,
           customTopLeftCornerLogoImageUrl,
           customTopLeftCornerLogoLinkUrl,
           displayAuthenticationMethod,
