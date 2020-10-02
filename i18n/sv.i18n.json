@@ -518,6 +518,7 @@
   "custom-top-left-corner-logo-link-url": "Länk för anpassad logotyp",
   "custom-login-logo-image-url": "Länk till bild för anpassad logotyp på inloggningssidan",
   "custom-login-logo-link-url": "Länk för anpassad logotyp på inloggningssidan",
+  "text-below-custom-login-logo": "Text below Custom Login Logo",
   "username": "Änvandarnamn",
   "view-it": "Visa det",
   "warn-list-archived": "varning: detta kort finns i en lista i Arkiv",

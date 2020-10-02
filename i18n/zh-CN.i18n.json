@@ -518,6 +518,7 @@
   "custom-top-left-corner-logo-link-url": "Custom Top Left Corner Logo Link URL",
   "custom-login-logo-image-url": "Custom Login Logo Image URL",
   "custom-login-logo-link-url": "通过连接上传logo",
+  "text-below-custom-login-logo": "Text below Custom Login Logo",
   "username": "用户名",
   "view-it": "查看",
   "warn-list-archived": "警告：此卡片在列表归档中",
