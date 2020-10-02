@@ -132,7 +132,7 @@ services:
         ' 1>/dev/null 2>&1 &
         mongod --replSet rs1
   wekan:
-    image: quay.io/wekan/wekan
+    image: wekanteam/wekan
     container_name: wekan-app
     restart: always
     networks:
@@ -308,6 +308,9 @@ services:
       # What to send to Outgoing Webhook, or leave out. Example, that includes all that are default: cardId,listId,oldListId,boardId,comment,user,card,commentId .
       # example: WEBHOOKS_ATTRIBUTES=cardId,listId,oldListId,boardId,comment,user,card,commentId
       #- WEBHOOKS_ATTRIBUTES=
+      #-----------------------------------------------------------------
+      # ==== OAUTH2 ORACLE on premise identity manager OIM ====
+      #- ORACLE_OIM_ENABLED=true
       #-----------------------------------------------------------------
       # ==== OAUTH2 ONLY WITH OIDC AND DOORKEEPER AS INDENTITY PROVIDER
       # https://github.com/wekan/wekan/issues/1874
