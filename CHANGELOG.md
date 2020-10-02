@@ -8,6 +8,11 @@ This release adds the following new features:
 - [At Admin Panel / Layout: Text below Custom Login Logo. Can have markdown formatting](https://github.com/wekan/wekan/commit/7223d6e75057d1412862a97b8a43c34ec23b16e9).
   Thanks to xet7.
 
+and adds the following updates:
+
+- [Update dependencies](https://github.com/wekan/wekan/commit/b796a6cbf4911c14ff036a51db0252e08d3a5ef8).
+  Thanks to developers of dependencies.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v4.40 2020-09-18 Wekan release
