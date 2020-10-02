@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Login with OIDC OAuth2 Oracle on premise identity manager OIM, with setting ORACLE_OIM_ENABLED=true](https://github.com/wekan/wekan/commit/ec8a78537f1dc40e967de36a02ea09cf7398318a).
+  More info [at wiki](https://github.com/wekan/wekan/wiki/Oracle-OIM).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.40 2020-09-18 Wekan release
 
 This release adds the following new features:
