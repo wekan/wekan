@@ -38,16 +38,22 @@ apps:
         command: wekan-control
         daemon: simple
         plugs: [network, network-bind]
+        restart-condition: on-failure
+        restart-delay: 10s
 
     mongodb:
         command: mongodb-control
         daemon: simple
         plugs: [network, network-bind]
+        restart-condition: on-failure
+        restart-delay: 10s
 
     caddy:
         command: caddy-control
         daemon: simple
         plugs: [network, network-bind]
+        restart-condition: on-failure
+        restart-delay: 10s
 
     help:
         command: wekan-help
