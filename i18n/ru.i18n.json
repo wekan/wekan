@@ -518,7 +518,7 @@
   "custom-top-left-corner-logo-link-url": "URL ссылки с пользовательского изображения в левом верхнем углу",
   "custom-login-logo-image-url": "URL пользовательского изображения при входе",
   "custom-login-logo-link-url": "URL ссылки с пользовательского изображения при входе",
-  "text-below-custom-login-logo": "Text below Custom Login Logo",
+  "text-below-custom-login-logo": "Текст под пользовательским изображением при входе",
   "username": "Имя пользователя",
   "view-it": "Просмотреть",
   "warn-list-archived": "внимание: эта карточка из списка, который находится в Архиве",
