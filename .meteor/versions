@@ -109,7 +109,7 @@ mobile-status-bar@1.1.0
 modern-browsers@0.1.5
 modules@0.15.0
 modules-runtime@0.12.0
-momentjs:moment@2.29.0
+momentjs:moment@2.29.1
 mongo@1.10.0
 mongo-decimal@0.1.1
 mongo-dev-server@1.1.0
@@ -132,7 +132,7 @@ oauth2@1.3.0
 observe-sequence@1.0.16
 ongoworks:speakingurl@1.1.0
 ordered-dict@1.1.0
-ostrio:cookies@2.6.0
+ostrio:cookies@2.6.1
 peerlibrary:assert@0.3.0
 peerlibrary:base-component@0.16.0
 peerlibrary:blaze-components@0.15.1
