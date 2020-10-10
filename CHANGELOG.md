@@ -1,13 +1,3 @@
-# Upcoming Wekan release
-
-This release fixes the following bugs:
-
-- [Added restart on failure delay of 10 seconds to Snap](https://github.com/wekan/wekan/commit/ac65b93b438fdbc1e3b84f141daa948284215db7)
-  to see if it fixes too fast restart problems of systemd.
-  Thanks to xet7.
-
-Thanks to above GitHub users for their contributions and translators for their translations.
-
 # v4.41 2020-10-03 Wekan release
 
 This release adds the following new features:
