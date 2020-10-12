@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release adds the following updates:
+
+- [Upgrade to Node.js 12.19.0](https://github.com/wekan/wekan/commit/b8a209249e968b90917af319adf24fedf2157396).
+  Thanks to Node.js developers.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.41 2020-10-03 Wekan release
 
 This release adds the following new features:
