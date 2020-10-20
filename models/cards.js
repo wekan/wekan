@@ -1412,15 +1412,24 @@ Cards.mutations({
 
   assignAssignee(assigneeId) {
     // If there is not any assignee, allow one assignee, not more.
+    /*
     if (this.getAssignees().length === 0) {
       return {
         $addToSet: {
           assignees: assigneeId,
         },
       };
-    } else {
-      return false;
-    }
+    */
+    // Allow more that one assignee:
+    // https://github.com/wekan/wekan/issues/3302
+    return {
+      $addToSet: {
+        assignees: assigneeId,
+      },
+    };
+    //} else {
+    //  return false,
+    //}
   },
 
   unassignMember(memberId) {

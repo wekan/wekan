@@ -120,6 +120,9 @@
       # Example: export WEBHOOKS_ATTRIBUTES=cardId,listId,oldListId,boardId,comment,user,card,commentId
       export WEBHOOKS_ATTRIBUTES=''
       #---------------------------------------------
+      # OAUTH2 ORACLE on premise identity manager OIM
+      #export ORACLE_OIM_ENABLED=true
+      #---------------------------------------------
       # ==== OAUTH2 AZURE ====
       # https://github.com/wekan/wekan/wiki/Azure
       # 1) Register the application with Azure. Make sure you capture

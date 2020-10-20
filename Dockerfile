@@ -8,7 +8,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-essential git ca-certificates python3" \
     DEBUG=false \
-    NODE_VERSION=v12.18.4 \
+    NODE_VERSION=v12.19.0 \
     METEOR_RELEASE=1.10.2 \
     USE_EDGE=false \
     METEOR_EDGE=1.5-beta.17 \
@@ -129,7 +129,8 @@ ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-
     SAML_PUBLIC_CERTFILE="" \
     SAML_IDENTIFIER_FORMAT="" \
     SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE="" \
-    SAML_ATTRIBUTES=""
+    SAML_ATTRIBUTES="" \
+    ORACLE_OIM_ENABLED=false
 
 # Copy the app to the image
 COPY ${SRC_PATH} /home/wekan/app

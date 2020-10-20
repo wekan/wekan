@@ -1045,6 +1045,22 @@ Migrations.add('add-default-profile-view', () => {
     }
   });
 });
+
+Migrations.add('add-hide-logo-by-default', () => {
+  Settings.update(
+    {
+      hideLogo: {
+        hideLogo: false,
+      },
+    },
+    {
+      $set: {
+        hideLogo: true,
+      },
+    },
+    noValidateMulti,
+  );
+});
 Migrations.add(
   'adapt-attachments-to-ostrio-files-api-using-meta-and-drp-cfs-leacy',
   () => {

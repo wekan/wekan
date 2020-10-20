@@ -1,4 +1,4 @@
-//const stringify = require('csv-stringify');
+const Papa = require('papaparse');
 
 // exporter maybe is broken since Gridfs introduced, add fs and path
 export class Exporter {
@@ -192,6 +192,40 @@ export class Exporter {
     const result = this.build();
     const columnHeaders = [];
     const cardRows = [];
+
+    const papaconfig = {
+      delimiter, // get parameter (was: auto-detect)
+      worker: true,
+    };
+
+    /*
+      newline: "",	// auto-detect
+      quoteChar: '"',
+      escapeChar: '"',
+      header: true,
+      transformHeader: undefined,
+      dynamicTyping: false,
+      preview: 0,
+      encoding: "",
+      comments: false,
+      step: undefined,
+      complete: undefined,
+      error: undefined,
+      download: false,
+      downloadRequestHeaders: undefined,
+      downloadRequestBody: undefined,
+      skipEmptyLines: false,
+      chunk: undefined,
+      chunkSize: undefined,
+      fastMode: undefined,
+      beforeFirstChunk: undefined,
+      withCredentials: undefined,
+      transform: undefined
+    };
+    */
+
+    //delimitersToGuess: [',', '\t', '|', ';', Papa.RECORD_SEP, Papa.UNIT_SEP]
+
     columnHeaders.push(
       'Title',
       'Description',
@@ -240,6 +274,7 @@ export class Exporter {
       }
       i++;
     });
+    cardRows.push([[columnHeaders]]);
     /* TODO: Try to get translations working.
              These currently only bring English translations.
     TAPi18n.__('title'),
@@ -263,24 +298,6 @@ export class Exporter {
     TAPi18n.__('voting'),
     TAPi18n.__('archived'),
     */
-
-    const stringifier = stringify({
-      header: true,
-      delimiter,
-      columns: columnHeaders,
-    });
-
-    stringifier.on('readable', function() {
-      let row;
-      while ((row = stringifier.read())) {
-        cardRows.push(row);
-      }
-    });
-
-    stringifier.on('error', function(err) {
-      // eslint-disable-next-line no-console
-      console.error(err.message);
-    });
 
     result.cards.forEach(card => {
       const currentRow = [];
@@ -385,10 +402,10 @@ export class Exporter {
           currentRow.push(customFieldValuesToPush[valueIndex]);
         }
       }
-      stringifier.write(currentRow);
+      cardRows.push([[currentRow]]);
     });
-    stringifier.end();
-    return cardRows[0];
+
+    return Papa.unparse(cardRows, papaconfig);
   }
 
   canExport(user) {

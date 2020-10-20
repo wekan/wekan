@@ -7,7 +7,7 @@ meteor-base@1.4.0
 
 # Build system
 ecmascript@0.14.3
-standard-minifier-css@1.6.0
+standard-minifier-css@1.6.1
 standard-minifier-js@2.6.0
 mquandalle:jade
 coffeescript@2.4.1!

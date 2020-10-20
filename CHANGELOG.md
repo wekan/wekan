@@ -1,4 +1,63 @@
-# Upcoming Wekan release
+# v4.43 2020-10-20 Wekan release
+
+This release adds the following new features:
+
+- [Allow more than one assignee](https://github.com/wekan/wekan/commit/acf9e7caeaf59e1030ae1014c0cb2fb7dae27147).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Fixed CSV/TSV export](https://github.com/wekan/wekan/commit/d7333dec84328ca191f430d96aaf9e550840631a).
+  Please test and report any problems [at issue #3173](https://github.com/wekan/wekan/issues/3173).
+  Thanks to xet7.
+    
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v4.42 2020-10-14 Wekan release
+
+This release adds the following updates:
+
+- [Upgrade to Node.js 12.19.0](https://github.com/wekan/wekan/commit/b8a209249e968b90917af319adf24fedf2157396).
+  Thanks to Node.js developers.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v4.41 2020-10-03 Wekan release
+
+This release adds the following new features:
+
+- [Login with OIDC OAuth2 Oracle on premise identity manager OIM, with setting ORACLE_OIM_ENABLED=true](https://github.com/wekan/wekan/commit/ec8a78537f1dc40e967de36a02ea09cf7398318a).
+  More info [at wiki](https://github.com/wekan/wekan/wiki/Oracle-OIM).
+  Thanks to xet7.
+- [At Admin Panel / Layout: Text below Custom Login Logo. Can have markdown formatting](https://github.com/wekan/wekan/commit/7223d6e75057d1412862a97b8a43c34ec23b16e9).
+  Thanks to xet7.
+
+and adds the following updates:
+
+- [Update dependencies](https://github.com/wekan/wekan/commit/b796a6cbf4911c14ff036a51db0252e08d3a5ef8).
+  Thanks to developers of dependencies.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v4.40 2020-09-18 Wekan release
+
+This release adds the following new features:
+
+- Custom Logo for Login and Top Left Corner. Optional link when clicking logo.
+  Settings at Admin Panel / Layout.
+  [Part 1](https://github.com/wekan/wekan/commit/a7c3317ed696fad8e211b22afbb3012f3a4f2ddb),
+  [Part 2](https://github.com/wekan/wekan/commit/05e3fc31b4633978a6b002a0325aad8e74d57ec4),
+  [Part 3](https://github.com/wekan/wekan/commit/3fc80e1145b23f8e6c7492ef4e3313b02f3d8772).
+  Thanks to xet7.
+
+and adds the following updates:
+
+- [Upgrade to Meteor v1.11.1](https://github.com/wekan/wekan/commit/185cf163b23280af5a7910381209984e2362a452).
+  Thanks to Meteor developers.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v4.39 2020-09-17 Wekan release
 
 This release adds the following new features:
 

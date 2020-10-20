@@ -167,6 +167,25 @@ BlazeComponent.extendComponent({
     const productName = $('#product-name')
       .val()
       .trim();
+    const customLoginLogoImageUrl = $('#custom-login-logo-image-url')
+      .val()
+      .trim();
+    const customLoginLogoLinkUrl = $('#custom-login-logo-link-url')
+      .val()
+      .trim();
+    const textBelowCustomLoginLogo = $('#text-below-custom-login-logo')
+      .val()
+      .trim();
+    const customTopLeftCornerLogoImageUrl = $(
+      '#custom-top-left-corner-logo-image-url',
+    )
+      .val()
+      .trim();
+    const customTopLeftCornerLogoLinkUrl = $(
+      '#custom-top-left-corner-logo-link-url',
+    )
+      .val()
+      .trim();
     const hideLogoChange = $('input[name=hideLogo]:checked').val() === 'true';
     const displayAuthenticationMethod =
       $('input[name=displayAuthenticationMethod]:checked').val() === 'true';
@@ -177,6 +196,11 @@ BlazeComponent.extendComponent({
         $set: {
           productName,
           hideLogo: hideLogoChange,
+          customLoginLogoImageUrl,
+          customLoginLogoLinkUrl,
+          textBelowCustomLoginLogo,
+          customTopLeftCornerLogoImageUrl,
+          customTopLeftCornerLogoLinkUrl,
           displayAuthenticationMethod,
           defaultAuthenticationMethod,
         },

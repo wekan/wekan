@@ -163,13 +163,6 @@ template(name='announcementSettings')
 
 template(name='layoutSettings')
   ul#layout-setting.setting-detail
-    //li.layout-form
-      .title {{_ 'hide-logo'}}
-      .form-group.flex
-        input.wekan-form-control#hide-logo(type="radio" name="hideLogo" value="true" checked="{{#if currentSetting.hideLogo}}checked{{/if}}")
-        span {{_ 'yes'}}
-        input.wekan-form-control#hide-logo(type="radio" name="hideLogo" value="false" checked="{{#unless currentSetting.hideLogo}}checked{{/unless}}")
-        span {{_ 'no'}}
     li.layout-form
       .title {{_ 'display-authentication-method'}}
       .form-group.flex
@@ -184,9 +177,35 @@ template(name='layoutSettings')
       .title {{_ 'custom-product-name'}}
       .form-group
         input.wekan-form-control#product-name(type="text", placeholder="" value="{{currentSetting.productName}}")
+    li.layout-form
+      .title {{_ 'hide-logo'}}
+      .form-group.flex
+        input.wekan-form-control#hide-logo(type="radio" name="hideLogo" value="true" checked="{{#if currentSetting.hideLogo}}checked{{/if}}")
+        span {{_ 'yes'}}
+        input.wekan-form-control#hide-logo(type="radio" name="hideLogo" value="false" checked="{{#unless currentSetting.hideLogo}}checked{{/unless}}")
+        span {{_ 'no'}}
+    li.layout-form
+      .title {{_ 'custom-login-logo-image-url'}}
+      .form-group
+        input.wekan-form-control#custom-login-logo-image-url(type="text", placeholder="" value="{{currentSetting.customLoginLogoImageUrl}}")
+    li.layout-form
+      .title {{_ 'custom-login-logo-link-url'}}
+      .form-group
+        input.wekan-form-control#custom-login-logo-link-url(type="text", placeholder="" value="{{currentSetting.customLoginLogoLinkUrl}}")
+    li.layout-form
+      .title {{_ 'text-below-custom-login-logo'}}
+      .form-group
+        textarea#text-below-custom-login-logo.wekan-form-control= currentSetting.textBelowCustomLoginLogo
+    li.layout-form
+      .title {{_ 'custom-top-left-corner-logo-image-url'}}
+      .form-group
+        input.wekan-form-control#custom-top-left-corner-logo-image-url(type="text", placeholder="" value="{{currentSetting.customTopLeftCornerLogoImageUrl}}")
+    li.layout-form
+      .title {{_ 'custom-top-left-corner-logo-link-url'}}
+      .form-group
+        input.wekan-form-control#custom-top-left-corner-logo-link-url(type="text", placeholder="" value="{{currentSetting.customTopLeftCornerLogoLinkUrl}}")
     li
       button.js-save-layout.primary {{_ 'save'}}
-
 
 template(name='selectAuthenticationMethod')
   select#defaultAuthenticationMethod

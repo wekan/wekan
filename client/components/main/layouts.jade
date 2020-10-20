@@ -19,6 +19,27 @@ head
 
 template(name="userFormsLayout")
   section.auth-layout
+    if currentSetting.hideLogo
+      h1.at-form-landing-logo
+        br
+        br
+    unless currentSetting.hideLogo
+      h1.at-form-landing-logo
+      if currentSetting.customLoginLogoImageUrl
+        if currentSetting.customLoginLogoLinkUrl
+          a(href="{{currentSetting.customLoginLogoLinkUrl}}")
+            img(src="{{currentSetting.customLoginLogoImageUrl}}" width="300" height="auto")
+          br
+        unless currentSetting.customLoginLogoLinkUrl
+          img(src="{{currentSetting.customLoginLogoImageUrl}}" width="300" height="auto")
+          br
+      unless currentSetting.customLoginLogoImageUrl
+        img(src="{{pathFor '/wekan-logo.svg'}}" alt="" width="300" height="auto")
+        br
+      if currentSetting.textBelowCustomLoginLogo
+        +viewer
+          | {{currentSetting.textBelowCustomLoginLogo}}
+        br
     section.auth-dialog
       if isLoading
         +loader

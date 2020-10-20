@@ -45,6 +45,26 @@ Settings.attachSchema(
       type: Boolean,
       optional: true,
     },
+    customLoginLogoImageUrl: {
+      type: String,
+      optional: true,
+    },
+    customLoginLogoLinkUrl: {
+      type: String,
+      optional: true,
+    },
+    textBelowCustomLoginLogo: {
+      type: String,
+      optional: true,
+    },
+    customTopLeftCornerLogoImageUrl: {
+      type: String,
+      optional: true,
+    },
+    customTopLeftCornerLogoLinkUrl: {
+      type: String,
+      optional: true,
+    },
     createdAt: {
       type: Date,
       denyUpdate: true,
