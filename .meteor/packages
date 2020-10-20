@@ -17,6 +17,7 @@ es5-shim@4.8.0
 
 # Collections
 aldeed:collection2
+cfs:standard-packages
 cottz:publish-relations
 dburles:collection-helpers
 idmontie:migrations
@@ -75,6 +76,7 @@ dynamic-import@0.5.2
 staringatlights:fast-render
 
 accounts-password@1.6.2
+cfs:gridfs
 rzymek:fullcalendar
 momentjs:moment@2.22.2
 browser-policy-framing@1.1.0
@@ -92,6 +94,7 @@ wekan-markdown
 konecty:mongo-counter
 percolate:synced-cron
 easylogic:summernote
+cfs:filesystem
 ostrio:cookies
 ostrio:files
 tmeasday:check-npm-versions
