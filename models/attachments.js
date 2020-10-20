@@ -56,7 +56,7 @@ Attachments = new FilesCollection({
     if (board.isPublic()) {
       return true;
     }
-    return board.hasMember(fileObj.userId);
+    return board.hasMember(this.userId);
   },
 });
 

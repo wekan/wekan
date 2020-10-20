@@ -7,7 +7,7 @@ template(name="minicard")
       .handle
         .fa.fa-arrows
     if cover
-      .minicard-cover(style="background-image: url('{{cover.link 'original' '/'}}');")
+      .minicard-cover(style="background-image: url('{{cover.link 'original' '/'}}?dummyReloadAfterSessionEstablished={{sess}}');")
     if labels
       .minicard-labels(class="{{#if hiddenMinicardLabelText}}minicard-labels-no-text{{/if}}")
         each labels
