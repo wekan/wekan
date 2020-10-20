@@ -5,6 +5,9 @@ import Actions from '../models/actions';
 import Activities from '../models/activities';
 import Announcements from '../models/announcements';
 import Attachments from '../models/attachments';
+import AttachmentsOld from '../models/attachments_old';
+import Avatars from '../models/avatars';
+import AvatarsOld from '../models/avatars_old';
 import Boards from '../models/boards';
 import CardComments from '../models/cardComments';
 import Cards from '../models/cards';
@@ -1125,37 +1128,132 @@ Migrations.add('add-card-details-show-lists', () => {
   );
 });
 
-Migrations.add(
-  'adapt-attachments-to-ostrio-files-api-using-meta-and-drp-cfs-leacy',
-  () => {
-    Attachments.find().forEach(file => {
-      Attachments.update(
-        file._id,
-        {
-          $set: {
-            'meta.boardId': file.boardId,
-            'meta.cardId': file.cardId,
-            'meta.listId': file.listId,
-            'meta.swimlaneId': file.swimlaneId,
-          },
-        },
-        noValidate,
-      );
+Migrations.add('migrate-attachments-collectionFS-to-ostrioFiles', () => {
+  AttachmentsOld.find().forEach(function(fileObj) {
+    //console.log('File: ', fileObj.userId);
+
+    // This directory must be writable on server, so a test run first
+    // We are going to copy the files locally, then move them to S3
+    const fileName = `./assets/app/uploads/attachments/${fileObj.name()}`;
+    const newFileName = fileObj.name();
+
+    // This is "example" variable, change it to the userId that you might be using.
+    const userId = fileObj.userId;
+
+    const fileType = fileObj.type();
+    const fileSize = fileObj.size();
+    const fileId = fileObj._id;
+
+    const readStream = fileObj.createReadStream('attachments');
+    const writeStream = fs.createWriteStream(fileName);
+
+    writeStream.on('error', function(err) {
+      console.log('Writing error: ', err, fileName);
     });
-    Attachments.update(
-      {},
-      {
-        $unset: {
-          original: '', // cfs:* legacy
-          copies: '', // cfs:* legacy
-          failures: '', // cfs:* legacy
-          boardId: '',
-          cardId: '',
-          listId: '',
-          swimlaneId: '',
+
+    // Once we have a file, then upload it to our new data storage
+    readStream.on('end', () => {
+      console.log('Ended: ', fileName);
+      // UserFiles is the new Meteor-Files/FilesCollection collection instance
+
+      Attachments.addFile(
+        fileName,
+        {
+          fileName: newFileName,
+          type: fileType,
+          meta: {
+            boardId: fileObj.boardId,
+            cardId: fileObj.cardId,
+            listId: fileObj.listId,
+            swimlaneId: fileObj.swimlaneId,
+          },
+          userId,
+          size: fileSize,
+          fileId,
         },
-      },
-      noValidateMulti,
-    );
-  },
-);
+        (err, fileRef) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log('File Inserted: ', fileRef._id);
+            // Set the userId again
+            Attachments.update({ _id: fileRef._id }, { $set: { userId } });
+            fileObj.remove();
+          }
+        },
+        true,
+      ); // proceedAfterUpload
+    });
+
+    readStream.on('error', error => {
+      console.log('Error: ', fileName, error);
+    });
+
+    readStream.pipe(writeStream);
+  });
+});
+
+Migrations.add('migrate-avatars-collectionFS-to-ostrioFiles', () => {
+  AvatarsOld.find().forEach(function(fileObj) {
+    //console.log('File: ', fileObj.userId);
+
+    // This directory must be writable on server, so a test run first
+    // We are going to copy the files locally, then move them to S3
+    const fileName = `./assets/app/uploads/avatars/${fileObj.name()}`;
+    const newFileName = fileObj.name();
+
+    // This is "example" variable, change it to the userId that you might be using.
+    const userId = fileObj.userId;
+
+    const fileType = fileObj.type();
+    const fileSize = fileObj.size();
+    const fileId = fileObj._id;
+
+    const readStream = fileObj.createReadStream('avatars');
+    const writeStream = fs.createWriteStream(fileName);
+
+    writeStream.on('error', function(err) {
+      console.log('Writing error: ', err, fileName);
+    });
+
+    // Once we have a file, then upload it to our new data storage
+    readStream.on('end', () => {
+      console.log('Ended: ', fileName);
+      // UserFiles is the new Meteor-Files/FilesCollection collection instance
+
+      Avatars.addFile(
+        fileName,
+        {
+          fileName: newFileName,
+          type: fileType,
+          meta: {
+            boardId: fileObj.boardId,
+            cardId: fileObj.cardId,
+            listId: fileObj.listId,
+            swimlaneId: fileObj.swimlaneId,
+          },
+          userId,
+          size: fileSize,
+          fileId,
+        },
+        (err, fileRef) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log('File Inserted: ', fileRef._id);
+            // Set the userId again
+            Avatars.update({ _id: fileRef._id }, { $set: { userId } });
+            fileObj.remove();
+          }
+        },
+        true,
+      ); // proceedAfterUpload
+    });
+
+    readStream.on('error', error => {
+      console.log('Error: ', fileName, error);
+    });
+
+    readStream.pipe(writeStream);
+  });
+});
