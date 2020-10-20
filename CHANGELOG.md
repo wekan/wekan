@@ -1,8 +1,14 @@
-# Upcoming Wekan release
+# v4.43 2020-10-20 Wekan release
 
 This release adds the following new features:
 
 - [Allow more than one assignee](https://github.com/wekan/wekan/commit/acf9e7caeaf59e1030ae1014c0cb2fb7dae27147).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Fixed CSV/TSV export](https://github.com/wekan/wekan/commit/d7333dec84328ca191f430d96aaf9e550840631a).
+  Please test and report any problems [at issue #3173](https://github.com/wekan/wekan/issues/3173).
   Thanks to xet7.
     
 Thanks to above GitHub users for their contributions and translators for their translations.
