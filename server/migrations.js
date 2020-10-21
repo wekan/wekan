@@ -23,6 +23,8 @@ import Triggers from '../models/triggers';
 import UnsavedEdits from '../models/unsavedEdits';
 import Users from '../models/users';
 
+const fs = require('fs');
+
 // Anytime you change the schema of one of the collection in a non-backward
 // compatible way you have to write a migration in this file using the following
 // API:
@@ -1130,7 +1132,9 @@ Migrations.add('migrate-attachments-collectionFS-to-ostrioFiles', () => {
 
     // This directory must be writable on server, so a test run first
     // We are going to copy the files locally, then move them to S3
-    const fileName = `./assets/app/uploads/attachments/${fileObj.name()}`;
+    const fileName = `./assets/app/uploads/attachments/${
+      fileObj._id
+    }-${fileObj.name()}`;
     const newFileName = fileObj.name();
 
     // This is "example" variable, change it to the userId that you might be using.
@@ -1195,7 +1199,9 @@ Migrations.add('migrate-avatars-collectionFS-to-ostrioFiles', () => {
 
     // This directory must be writable on server, so a test run first
     // We are going to copy the files locally, then move them to S3
-    const fileName = `./assets/app/uploads/avatars/${fileObj.name()}`;
+    const fileName = `./assets/app/uploads/avatars/${
+      fileObj._id
+    }-${fileObj.name()}`;
     const newFileName = fileObj.name();
 
     // This is "example" variable, change it to the userId that you might be using.
@@ -1236,14 +1242,30 @@ Migrations.add('migrate-avatars-collectionFS-to-ostrioFiles', () => {
           if (err) {
             console.log(err);
           } else {
-            console.log('File Inserted: ', fileRef._id);
+            console.log('File Inserted: ', newFileName, fileRef._id);
             // Set the userId again
             Avatars.update({ _id: fileRef._id }, { $set: { userId } });
+            Users.find().forEach(user => {
+              const old_url = fileObj.url();
+              new_url = Avatars.findOne({ _id: fileRef._id }).link(
+                'original',
+                '/',
+              );
+              if (user.profile.avatarUrl.startsWith(old_url)) {
+                // Set avatar url to new url
+                Users.direct.update(
+                  { _id: user._id },
+                  { $set: { 'profile.avatarUrl': new_url } },
+                  noValidate,
+                );
+                console.log('User avatar updated: ', user._id, new_url);
+              }
+            });
             fileObj.remove();
           }
         },
-        true,
-      ); // proceedAfterUpload
+        true, // proceedAfterUpload
+      );
     });
 
     readStream.on('error', error => {
