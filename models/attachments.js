@@ -5,6 +5,8 @@ import { createOnAfterUpload } from './lib/fsHooks/createOnAfterUpload';
 import { createInterceptDownload } from './lib/fsHooks/createInterceptDownload';
 import { createOnAfterRemove } from './lib/fsHooks/createOnAfterRemove';
 
+const path = require('path');
+
 let attachmentBucket;
 if (Meteor.isServer) {
   attachmentBucket = createBucket('attachments');
@@ -32,6 +34,7 @@ Attachments = new FilesCollection({
   debug: false, // Change to `true` for debugging
   collectionName: 'attachments',
   allowClientCode: true,
+  storePath: path.join(Meteor.settings.writable_path, 'uploads', 'attachments');
   onAfterUpload: function onAfterUpload(fileRef) {
     createOnAfterUpload(attachmentBucket).call(this, fileRef);
     // If the attachment doesn't have a source field

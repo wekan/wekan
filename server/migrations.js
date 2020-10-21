@@ -1071,10 +1071,9 @@ Migrations.add('migrate-attachments-collectionFS-to-ostrioFiles', () => {
     //console.log('File: ', fileObj.userId);
 
     // This directory must be writable on server, so a test run first
-    // We are going to copy the files locally, then move them to S3
-    const fileName = `./assets/app/uploads/attachments/${
-      fileObj._id
-    }-${fileObj.name()}`;
+    const path = require('path');
+    const uploadPath: path.join(Meteor.settings.writable_path, 'uploads', 'attachments');
+    const fileName = path.join(uploadPath, `${fileObj._id}-${fileObj.name()}`;
     const newFileName = fileObj.name();
 
     // This is "example" variable, change it to the userId that you might be using.
@@ -1137,10 +1136,9 @@ Migrations.add('migrate-avatars-collectionFS-to-ostrioFiles', () => {
     //console.log('File: ', fileObj.userId);
 
     // This directory must be writable on server, so a test run first
-    // We are going to copy the files locally, then move them to S3
-    const fileName = `./assets/app/uploads/avatars/${
-      fileObj._id
-    }-${fileObj.name()}`;
+    const path = require('path');
+    const uploadPath: path.join(Meteor.settings.writable_path, 'uploads', 'avatars');
+    const fileName = path.join(uploadPath, `${fileObj._id}-${fileObj.name()}`;
     const newFileName = fileObj.name();
 
     // This is "example" variable, change it to the userId that you might be using.
