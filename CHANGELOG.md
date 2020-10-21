@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fixed: With ORACLE_OIM_ENABLED, allow setting OAUTH2_REQUEST_PERMISSIONS with environment variable](https://github.com/wekan/wekan/commit/1b429b3f99c32840ebb0ff9a29015aa8c28ec644).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.43 2020-10-20 Wekan release
 
 This release adds the following new features:
