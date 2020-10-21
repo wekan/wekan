@@ -81,7 +81,7 @@ Meteor.startup(() => {
             tokenEndpoint: process.env.OAUTH2_TOKEN_ENDPOINT,
             idTokenWhitelistFields:
               process.env.OAUTH2_ID_TOKEN_WHITELIST_FIELDS || [],
-            requestPermissions: 'BDFUserProfile.me',
+            requestPermissions: process.env.OAUTH2_REQUEST_PERMISSIONS,
           },
         },
       );
