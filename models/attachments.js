@@ -5,8 +5,6 @@ import { createOnAfterUpload } from './lib/fsHooks/createOnAfterUpload';
 import { createInterceptDownload } from './lib/fsHooks/createInterceptDownload';
 import { createOnAfterRemove } from './lib/fsHooks/createOnAfterRemove';
 
-const os = require('os');
-
 let attachmentBucket;
 if (Meteor.isServer) {
   attachmentBucket = createBucket('attachments');
@@ -33,7 +31,6 @@ const insertActivity = (fileObj, activityType) =>
 Attachments = new FilesCollection({
   debug: false, // Change to `true` for debugging
   collectionName: 'attachments',
-  storagePath: os.tmpdir(),
   allowClientCode: true,
   onAfterUpload: function onAfterUpload(fileRef) {
     createOnAfterUpload(attachmentBucket).call(this, fileRef);
