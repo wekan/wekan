@@ -5,6 +5,8 @@ import { createOnAfterUpload } from './lib/fsHooks/createOnAfterUpload';
 import { createInterceptDownload } from './lib/fsHooks/createInterceptDownload';
 import { createOnAfterRemove } from './lib/fsHooks/createOnAfterRemove';
 
+const os = require('os');
+
 let avatarsBucket;
 if (Meteor.isServer) {
   avatarsBucket = createBucket('avatars');
@@ -13,6 +15,7 @@ if (Meteor.isServer) {
 Avatars = new FilesCollection({
   debug: false, // Change to `true` for debugging
   collectionName: 'avatars',
+  storagePath: os.tmpdir(),
   allowClientCode: true,
   onBeforeUpload(file) {
     if (file.size <= 72000 && file.type.startsWith('image/')) {
