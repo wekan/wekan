@@ -23,9 +23,6 @@ import Swimlanes from '../models/swimlanes';
 import Triggers from '../models/triggers';
 import UnsavedEdits from '../models/unsavedEdits';
 import Users from '../models/users';
-
-const fs = require('fs');
-
 // Anytime you change the schema of one of the collection in a non-backward
 // compatible way you have to write a migration in this file using the following
 // API:
@@ -1131,14 +1128,17 @@ Migrations.add('add-card-details-show-lists', () => {
 });
 
 Migrations.add('migrate-attachments-collectionFS-to-ostrioFiles', () => {
+  const os = require('os');
+  const fs = require('fs');
+  const path = require('path');
+  tmdir = os.tmpdir();
+
   AttachmentsOld.find().forEach(function(fileObj) {
     //console.log('File: ', fileObj.userId);
 
     // This directory must be writable on server, so a test run first
-    // We are going to copy the files locally, then move them to S3
-    const fileName = `./assets/app/uploads/attachments/${
-      fileObj._id
-    }-${fileObj.name()}`;
+    // We are going to copy the files locally, then move them to mongo bucket
+    const fileName = path.join(tmpdir, `${fileObj._id}-${fileObj.name()}`);
     const newFileName = fileObj.name();
 
     // This is "example" variable, change it to the userId that you might be using.
@@ -1196,16 +1196,18 @@ Migrations.add('migrate-attachments-collectionFS-to-ostrioFiles', () => {
     readStream.pipe(writeStream);
   });
 });
-
 Migrations.add('migrate-avatars-collectionFS-to-ostrioFiles', () => {
+  const os = require('os');
+  const fs = require('fs');
+  const path = require('path');
+  tmdir = os.tmpdir();
+
   AvatarsOld.find().forEach(function(fileObj) {
     //console.log('File: ', fileObj.userId);
 
     // This directory must be writable on server, so a test run first
-    // We are going to copy the files locally, then move them to S3
-    const fileName = `./assets/app/uploads/avatars/${
-      fileObj._id
-    }-${fileObj.name()}`;
+    // We are going to copy the files locally, then move them to mongo bucket
+    const fileName = path.join(tmpdir, `${fileObj._id}-${fileObj.name()}`);
     const newFileName = fileObj.name();
 
     // This is "example" variable, change it to the userId that you might be using.
