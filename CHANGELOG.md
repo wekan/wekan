@@ -23,6 +23,10 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix Modern theme board canvas background](https://github.com/wekan/wekan/pull/3312).
   Thanks to helioguardabaxo.
+- [Fix: 1) Expose moving cards on mobile to workers. 2) Hide the move to another board functionality
+  in the submenu (only from the worker) so that the worker is still constrained to a single
+  board](https://github.com/wekan/wekan/pull/3315).
+  Thanks to jtbairdsr.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
@@ -38,7 +42,7 @@ and fixes the following bugs:
 - [Fixed CSV/TSV export](https://github.com/wekan/wekan/commit/d7333dec84328ca191f430d96aaf9e550840631a).
   Please test and report any problems [at issue #3173](https://github.com/wekan/wekan/issues/3173).
   Thanks to xet7.
-    
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v4.42 2020-10-14 Wekan release
