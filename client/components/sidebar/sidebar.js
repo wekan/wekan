@@ -1,5 +1,3 @@
-import { Cookies } from 'meteor/ostrio:cookies';
-const cookies = new Cookies();
 Sidebar = null;
 
 const defaultView = 'home';
@@ -112,10 +110,12 @@ BlazeComponent.extendComponent({
           currentUser = Meteor.user();
           if (currentUser) {
             Meteor.call('toggleMinicardLabelText');
-          } else if (cookies.has('hiddenMinicardLabelText')) {
-            cookies.remove('hiddenMinicardLabelText');
+          } else if (window.localStorage.getItem('hiddenMinicardLabelText')) {
+            window.localStorage.removeItem('hiddenMinicardLabelText');
+            location.reload();
           } else {
-            cookies.set('hiddenMinicardLabelText', 'true');
+            window.localStorage.setItem('hiddenMinicardLabelText', 'true');
+            location.reload();
           }
         },
         'click .js-shortcuts'() {
@@ -133,7 +133,7 @@ Template.homeSidebar.helpers({
     currentUser = Meteor.user();
     if (currentUser) {
       return (currentUser.profile || {}).hiddenMinicardLabelText;
-    } else if (cookies.has('hiddenMinicardLabelText')) {
+    } else if (window.localStorage.getItem('hiddenMinicardLabelText')) {
       return true;
     } else {
       return false;

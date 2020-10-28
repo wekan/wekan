@@ -1,5 +1,3 @@
-import { Cookies } from 'meteor/ostrio:cookies';
-const cookies = new Cookies();
 const { calculateIndex } = Utils;
 
 function currentListIsInThisSwimlane(swimlaneId) {
@@ -102,7 +100,7 @@ function initSortable(boardComponent, $listsDom) {
     if (currentUser) {
       showDesktopDragHandles = (currentUser.profile || {})
         .showDesktopDragHandles;
-    } else if (cookies.has('showDesktopDragHandles')) {
+    } else if (window.localStorage.getItem('showDesktopDragHandles')) {
       showDesktopDragHandles = true;
     } else {
       showDesktopDragHandles = false;
@@ -178,7 +176,7 @@ BlazeComponent.extendComponent({
           if (currentUser) {
             showDesktopDragHandles = (currentUser.profile || {})
               .showDesktopDragHandles;
-          } else if (cookies.has('showDesktopDragHandles')) {
+          } else if (window.localStorage.getItem('showDesktopDragHandles')) {
             showDesktopDragHandles = true;
           } else {
             showDesktopDragHandles = false;
@@ -269,7 +267,7 @@ Template.swimlane.helpers({
     currentUser = Meteor.user();
     if (currentUser) {
       return (currentUser.profile || {}).showDesktopDragHandles;
-    } else if (cookies.has('showDesktopDragHandles')) {
+    } else if (window.localStorage.getItem('showDesktopDragHandles')) {
       return true;
     } else {
       return false;

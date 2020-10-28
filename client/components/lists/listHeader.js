@@ -1,5 +1,3 @@
-import { Cookies } from 'meteor/ostrio:cookies';
-const cookies = new Cookies();
 let listsColors;
 Meteor.startup(() => {
   listsColors = Lists.simpleSchema()._schema.color.allowedValues;
@@ -110,7 +108,7 @@ Template.listHeader.helpers({
     currentUser = Meteor.user();
     if (currentUser) {
       return (currentUser.profile || {}).showDesktopDragHandles;
-    } else if (cookies.has('showDesktopDragHandles')) {
+    } else if (window.localStorage.getItem('showDesktopDragHandles')) {
       return true;
     } else {
       return false;

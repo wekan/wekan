@@ -1,5 +1,3 @@
-import { Cookies } from 'meteor/ostrio:cookies';
-const cookies = new Cookies();
 const subManager = new SubsManager();
 const { calculateIndex } = Utils;
 const swimlaneWhileSortingHeight = 150;
@@ -197,7 +195,7 @@ BlazeComponent.extendComponent({
       if (currentUser) {
         showDesktopDragHandles = (currentUser.profile || {})
           .showDesktopDragHandles;
-      } else if (cookies.has('showDesktopDragHandles')) {
+      } else if (window.localStorage.getItem('showDesktopDragHandles')) {
         showDesktopDragHandles = true;
       } else {
         showDesktopDragHandles = false;
@@ -237,7 +235,9 @@ BlazeComponent.extendComponent({
     if (currentUser) {
       return (currentUser.profile || {}).boardView === 'board-view-swimlanes';
     } else {
-      return cookies.get('boardView') === 'board-view-swimlanes';
+      return (
+        window.localStorage.getItem('boardView') === 'board-view-swimlanes'
+      );
     }
   },
 
@@ -246,7 +246,7 @@ BlazeComponent.extendComponent({
     if (currentUser) {
       return (currentUser.profile || {}).boardView === 'board-view-lists';
     } else {
-      return cookies.get('boardView') === 'board-view-lists';
+      return window.localStorage.getItem('boardView') === 'board-view-lists';
     }
   },
 
@@ -255,7 +255,7 @@ BlazeComponent.extendComponent({
     if (currentUser) {
       return (currentUser.profile || {}).boardView === 'board-view-cal';
     } else {
-      return cookies.get('boardView') === 'board-view-cal';
+      return window.localStorage.getItem('boardView') === 'board-view-cal';
     }
   },
 
@@ -417,7 +417,7 @@ BlazeComponent.extendComponent({
     if (currentUser) {
       return (currentUser.profile || {}).boardView === 'board-view-cal';
     } else {
-      return cookies.get('boardView') === 'board-view-cal';
+      return window.localStorage.getItem('boardView') === 'board-view-cal';
     }
   },
 }).register('calendarView');

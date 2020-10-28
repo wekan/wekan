@@ -1,6 +1,3 @@
-import { Cookies } from 'meteor/ostrio:cookies';
-const cookies = new Cookies();
-
 Template.headerUserBar.events({
   'click .js-open-header-member-menu': Popup.open('memberMenu'),
   'click .js-change-avatar': Popup.open('changeAvatar'),
@@ -200,7 +197,7 @@ Template.changeSettingsPopup.helpers({
     currentUser = Meteor.user();
     if (currentUser) {
       return (currentUser.profile || {}).showDesktopDragHandles;
-    } else if (cookies.has('showDesktopDragHandles')) {
+    } else if (window.localStorage.getItem('showDesktopDragHandles')) {
       return true;
     } else {
       return false;
@@ -210,7 +207,7 @@ Template.changeSettingsPopup.helpers({
     currentUser = Meteor.user();
     if (currentUser) {
       return (currentUser.profile || {}).hasHiddenSystemMessages;
-    } else if (cookies.has('hasHiddenSystemMessages')) {
+    } else if (window.localStorage.getItem('hasHiddenSystemMessages')) {
       return true;
     } else {
       return false;
@@ -221,7 +218,7 @@ Template.changeSettingsPopup.helpers({
     if (currentUser) {
       return Meteor.user().getLimitToShowCardsCount();
     } else {
-      return cookies.get('limitToShowCardsCount');
+      return window.localStorage.getItem('limitToShowCardsCount');
     }
   },
   weekDays(startDay) {
@@ -242,7 +239,7 @@ Template.changeSettingsPopup.helpers({
     if (currentUser) {
       return currentUser.getStartDayOfWeek();
     } else {
-      return cookies.get('startDayOfWeek');
+      return window.localStorage.getItem('startDayOfWeek');
     }
   },
 });
@@ -252,20 +249,20 @@ Template.changeSettingsPopup.events({
     currentUser = Meteor.user();
     if (currentUser) {
       Meteor.call('toggleDesktopDragHandles');
-    } else if (cookies.has('showDesktopDragHandles')) {
-      cookies.remove('showDesktopDragHandles');
+    } else if (window.localStorage.getItem('showDesktopDragHandles')) {
+      window.localStorage.removeItem('showDesktopDragHandles');
     } else {
-      cookies.set('showDesktopDragHandles', 'true');
+      window.localStorage.setItem('showDesktopDragHandles', 'true');
     }
   },
   'click .js-toggle-system-messages'() {
     currentUser = Meteor.user();
     if (currentUser) {
       Meteor.call('toggleSystemMessages');
-    } else if (cookies.has('hasHiddenSystemMessages')) {
-      cookies.remove('hasHiddenSystemMessages');
+    } else if (window.localStorage.getItem('hasHiddenSystemMessages')) {
+      window.localStorage.removeItem('hasHiddenSystemMessages');
     } else {
-      cookies.set('hasHiddenSystemMessages', 'true');
+      window.localStorage.setItem('hasHiddenSystemMessages', 'true');
     }
   },
   'click .js-apply-user-settings'(event, templateInstance) {
@@ -283,14 +280,14 @@ Template.changeSettingsPopup.events({
       if (currentUser) {
         Meteor.call('changeLimitToShowCardsCount', minLimit);
       } else {
-        cookies.set('limitToShowCardsCount', minLimit);
+        window.localStorage.setItem('limitToShowCardsCount', minLimit);
       }
     }
     if (!isNaN(startDay)) {
       if (currentUser) {
         Meteor.call('changeStartDayOfWeek', startDay);
       } else {
-        cookies.set('startDayOfWeek', startDay);
+        window.localStorage.setItem('startDayOfWeek', startDay);
       }
     }
     Popup.back();
