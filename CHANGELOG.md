@@ -15,6 +15,8 @@ and fixes the following bugs:
   from using cookies to using browser localStorage](https://github.com/wekan/wekan/commit/460b1d3a664b648bc03c40422b9d175401e229c1),
   to remove some errors from browser inspect console.
   Thanks to xet7.
+- [Fix Modern theme board canvas background](https://github.com/wekan/wekan/pull/3312).
+  Thanks to helioguardabaxo.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
