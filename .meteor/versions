@@ -69,6 +69,7 @@ fortawesome:fontawesome@4.7.0
 geojson-utils@1.0.10
 horka:swipebox@1.0.2
 hot-code-push@1.0.4
+hot-module-replacement@0.2.0-beta200.3
 html-tools@1.0.11
 htmljs@1.0.11
 http@1.4.2
@@ -108,6 +109,7 @@ mobile-status-bar@1.1.0
 modern-browsers@0.1.5
 modules@0.16.0-beta200.3
 modules-runtime@0.12.0
+modules-runtime-hot@0.13.0-beta200.3
 momentjs:moment@2.29.1
 mongo@1.10.0
 mongo-decimal@0.1.1
