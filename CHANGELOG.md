@@ -1,6 +1,12 @@
 # Upcoming Wekan release
 
-This release adds the following updates:
+This release adds the following new features:
+
+- For development, [add Meteor 2.0 Hot Module Replacement](https://github.com/wekan/wekan/commit/e6162472548d9dff497dd76e82d23044f779f757).
+  More info at https://forums.meteor.com/t/meteor-2-0-beta-with-hot-module-replacement-hmr/54313/8 .
+  Thanks to zodern.
+
+and adds the following updates:
 
 - [Upgrade to Node.js 14.15.0](https://github.com/wekan/wekan/commit/045e9db7b8f0de852ef4486cb1ad200d6ca7296d).
   Thanks to Node.js and Meteor.js developers.
