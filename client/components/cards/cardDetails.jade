@@ -381,17 +381,18 @@ template(name="cardDetailsActionsPopup")
         a.js-move-card-to-bottom
           i.fa.fa-arrow-down
           | {{_ 'moveCardToBottom-title'}}
-    unless currentUser.isWorker
       hr
-      ul.pop-over-list
-        li
-          a.js-move-card
-            i.fa.fa-arrow-right
-            | {{_ 'moveCardPopup-title'}}
+    ul.pop-over-list
+      li
+        a.js-move-card
+          i.fa.fa-arrow-right
+          | {{_ 'moveCardPopup-title'}}
+      unless currentUser.isWorker
         li
           a.js-copy-card
             i.fa.fa-copy
             | {{_ 'copyCardPopup-title'}}
+    unless currentUser.isWorker
       hr
       ul.pop-over-list
         li
@@ -430,13 +431,14 @@ template(name="copyChecklistToManyCardsPopup")
   +boardsAndLists
 
 template(name="boardsAndLists")
-  label {{_ 'boards'}}:
-  select.js-select-boards(autofocus)
-    each boards
-      if $eq _id currentBoard._id
-        option(value="{{_id}}" selected) {{_ 'current'}}
-      else
-        option(value="{{_id}}") {{title}}
+  unless currentUser.isWorker
+    label {{_ 'boards'}}:
+    select.js-select-boards(autofocus)
+      each boards
+        if $eq _id currentBoard._id
+          option(value="{{_id}}" selected) {{_ 'current'}}
+        else
+          option(value="{{_id}}") {{title}}
 
   label {{_ 'swimlanes'}}:
   select.js-select-swimlanes
