@@ -668,7 +668,11 @@ Template.moveCardPopup.events({
     // instead from a “component” state.
     const card = Cards.findOne(Session.get('currentCard'));
     const bSelect = $('.js-select-boards')[0];
-    const boardId = bSelect.options[bSelect.selectedIndex].value;
+    let boardId;
+    // if we are a worker, we won't have a board select so we just use the
+    // current boardId of the card.
+    if (bSelect) boardId = bSelect.options[bSelect.selectedIndex].value;
+    else boardId = card.boardId;
     const lSelect = $('.js-select-lists')[0];
     const listId = lSelect.options[lSelect.selectedIndex].value;
     const slSelect = $('.js-select-swimlanes')[0];
