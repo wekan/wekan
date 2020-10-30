@@ -6,8 +6,8 @@
 meteor-base@1.4.0
 
 # Build system
-ecmascript@0.15.0-beta200.3
-standard-minifier-css@1.7.0-beta200.3
+ecmascript@0.15.0-beta200.4
+standard-minifier-css@1.7.0-beta200.4
 standard-minifier-js@2.6.0
 mquandalle:jade
 coffeescript@2.4.1!
@@ -72,7 +72,7 @@ simple:rest-accounts-password
 useraccounts:core
 email@2.0.0
 horka:swipebox
-dynamic-import@0.6.0-beta200.3
+dynamic-import@0.6.0-beta200.4
 
 accounts-password@1.6.2
 cfs:gridfs
@@ -144,5 +144,5 @@ rajit:bootstrap3-datepicker-uk
 rajit:bootstrap3-datepicker-vi
 rajit:bootstrap3-datepicker-zh-cn
 rajit:bootstrap3-datepicker-zh-tw
-hot-module-replacement
+hot-module-replacement@0.2.0-beta200.4
 staringatlights:fast-render
