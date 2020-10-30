@@ -1,3 +1,11 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix: Use current boardId when a worker moves a card](https://github.com/wekan/wekan/pull/3323).
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.45 2020-10-30 Wekan release
 
 This release fixes the following bugs:
