@@ -518,7 +518,7 @@
   "custom-top-left-corner-logo-link-url": "カスタムの左上ロゴイメージのリンクURL",
   "custom-login-logo-image-url": "カスタムのログインロゴイメージのURL",
   "custom-login-logo-link-url": "カスタムのログインロゴイメージのリンクURL",
-  "text-below-custom-login-logo": "Text below Custom Login Logo",
+  "text-below-custom-login-logo": "カスタムログインロゴイメージの下のテキスト",
   "username": "ユーザー名",
   "view-it": "見る",
   "warn-list-archived": "警告：このカードはアーカイブされたリスト内にあります",
