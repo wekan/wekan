@@ -1,6 +1,11 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following updates:
+
+- [Upgrade to Meteor 2.0-beta.4](https://github.com/wekan/wekan/commit/af583145ed2b36af8e6c72765fd35d70a292fad6).
+  Thanks to Meteor developers.
+
+and fixes the following bugs:
 
 - [Fix: Use current boardId when a worker moves a card](https://github.com/wekan/wekan/pull/3323).
 
