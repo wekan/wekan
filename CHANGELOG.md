@@ -8,6 +8,7 @@ This release adds the following updates:
 and fixes the following bugs:
 
 - [Fix: Use current boardId when a worker moves a card](https://github.com/wekan/wekan/pull/3323).
+  Thanks to jtbairdsr.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
