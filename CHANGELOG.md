@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v4.47 2020-11-01 Wekan release
 
 This release fixes the following bugs:
 
