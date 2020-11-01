@@ -318,6 +318,8 @@ services:
       # Enable the OAuth2 connection
       # example: OAUTH2_ENABLED=true
       #- OAUTH2_ENABLED=false
+      # Optional OAuth2 CA Cert, see https://github.com/wekan/wekan/issues/3299
+      #- OAUTH2_CA_CERT=ABCD1234
       # Use OAuth2 ADFS additional changes. Also needs OAUTH2_ENABLED=true setting.
       #- OAUTH2_ADFS_ENABLED=false
       # OAuth2 docs: https://github.com/wekan/wekan/wiki/OAuth2

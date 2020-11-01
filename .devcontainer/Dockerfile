@@ -39,6 +39,7 @@ ENV \
     TRUSTED_URL="" \
     WEBHOOKS_ATTRIBUTES="" \
     OAUTH2_ENABLED=false \
+    OAUTH2_CA_CERT="" \
     OAUTH2_ADFS_ENABLED=false \
     OAUTH2_LOGIN_STYLE=redirect \
     OAUTH2_CLIENT_ID="" \

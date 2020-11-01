@@ -124,6 +124,9 @@ REM # OAuth2 docs: https://github.com/wekan/wekan/wiki/OAuth2
 REM # example: OAUTH2_ENABLED=true
 REM SET OAUTH2_ENABLED=false
 
+REM # Optional OAuth2 CA Cert, see https://github.com/wekan/wekan/issues/3299
+REM SET OAUTH2_CA_CERT=ABCD1234
+
 REM # Use OAuth2 ADFS additional changes. Also needs OAUTH2_ENABLED=true setting.
 REM SET OAUTH2_ADFS_ENABLED=false
 

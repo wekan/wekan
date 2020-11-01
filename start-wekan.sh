@@ -130,6 +130,8 @@
       # 2) Configure the environment variables. This differs slightly
       #     by installation type, but make sure you have the following:
       #export OAUTH2_ENABLED=true
+      # Optional OAuth2 CA Cert, see https://github.com/wekan/wekan/issues/3299
+      #export OAUTH2_CA_CERT=ABCD1234
       # Use OAuth2 ADFS additional changes. Also needs OAUTH2_ENABLED=true setting.
       #export OAUTH2_ADFS_ENABLED=false
       # OAuth2 docs: https://github.com/wekan/wekan/wiki/OAuth2
