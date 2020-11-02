@@ -5,6 +5,8 @@ This release adds the following new features:
 - [Smaller board icons to All Boards Page, and use full page width, so more board icons fit visible at once.
   Removed variable height, because different heights made it look a little unbalanced](https://github.com/wekan/wekan/commit/0a5f9307d27a4b77aa7ff005701fea8ce0d50ec8).
   Thanks to xet7.
+- [Admin Panel / Settings / Layout / Custom Top Left Corner Logo Height](https://github.com/wekan/wekan/commit/4cfddf1d8d37bdbbb58c050333ee6ea2afc3e6f9).
+  Thanks to xet7.
 
 and removes the following dependencies:
 
