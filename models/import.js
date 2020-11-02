@@ -2,7 +2,7 @@ import { TrelloCreator } from './trelloCreator';
 import { WekanCreator } from './wekanCreator';
 import { CsvCreator } from './csvCreator';
 import { Exporter } from './exporter';
-import wekanMembersMapper from './wekanmapper';
+import { getMembersToMap } from './wekanmapper';
 
 Meteor.methods({
   importBoard(board, data, importSource, currentBoard) {
@@ -43,7 +43,7 @@ Meteor.methods({
     const exporter = new Exporter(sourceBoardId);
     const data = exporter.build();
     const addData = {};
-    addData.membersMapping = wekanMembersMapper.getMembersToMap(data);
+    addData.membersMapping = getMembersToMap(data);
     const creator = new WekanCreator(addData);
     //data.title = `${data.title  } - ${  TAPi18n.__('copy-tag')}`;
     data.title = `${data.title}`;
