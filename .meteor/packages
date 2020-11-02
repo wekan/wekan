@@ -81,7 +81,6 @@ momentjs:moment@2.22.2
 browser-policy-framing@1.1.0
 mquandalle:moment
 msavin:usercache
-mdg:meteor-apm-agent@3.2.0-rc.0!
 # Keep stylus in 1.1.0, because building v2 takes extra 52 minutes.
 coagmano:stylus@1.1.0!
 lucasantoniassi:accounts-lockout
@@ -144,5 +143,4 @@ rajit:bootstrap3-datepicker-uk
 rajit:bootstrap3-datepicker-vi
 rajit:bootstrap3-datepicker-zh-cn
 rajit:bootstrap3-datepicker-zh-tw
-hot-module-replacement@0.2.0-beta200.4
 staringatlights:fast-render

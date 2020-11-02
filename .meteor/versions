@@ -70,7 +70,6 @@ fortawesome:fontawesome@4.7.0
 geojson-utils@1.0.10
 horka:swipebox@1.0.2
 hot-code-push@1.0.4
-hot-module-replacement@0.2.0-beta200.4
 html-tools@1.0.11
 htmljs@1.0.11
 http@1.4.2
@@ -92,7 +91,6 @@ logging@1.1.20
 lucasantoniassi:accounts-lockout@1.0.0
 matb33:collection-hooks@0.9.1
 matteodem:easy-search@1.6.4
-mdg:meteor-apm-agent@3.3.0
 mdg:validation-error@0.5.1
 meteor@1.9.3
 meteor-base@1.4.0
@@ -110,7 +108,6 @@ mobile-status-bar@1.1.0
 modern-browsers@0.1.5
 modules@0.16.0-beta200.4
 modules-runtime@0.12.0
-modules-runtime-hot@0.13.0-beta200.4
 momentjs:moment@2.29.1
 mongo@1.10.0
 mongo-decimal@0.1.1
