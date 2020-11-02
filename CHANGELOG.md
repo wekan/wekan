@@ -11,6 +11,11 @@ and removes the following dependencies:
 - [Removed hot-module-replacement and mdg:meteor-apm-agent](https://github.com/wekan/wekan/commit/aa454a5542e5ab1d581eef50cdb5c96ac2ada940).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Fix Clone Board](https://github.com/wekan/wekan/commit/f4fdb94a3fcd63432ef7ded4df970b3491700020).
+  Thanks to e-gaulue and xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v4.47 2020-11-01 Wekan release
