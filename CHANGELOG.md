@@ -1,6 +1,12 @@
 # Upcoming Wekan release
 
-This release removes the following dependencies:
+This release adds the following new features:
+
+- [Smaller board icons to All Boards Page, and use full page width, so more board icons fit visible at once.
+  Removed variable height, because different heights made it look a little unbalanced](https://github.com/wekan/wekan/commit/0a5f9307d27a4b77aa7ff005701fea8ce0d50ec8).
+  Thanks to xet7.
+
+and removes the following dependencies:
 
 - [Removed hot-module-replacement and mdg:meteor-apm-agent](https://github.com/wekan/wekan/commit/aa454a5542e5ab1d581eef50cdb5c96ac2ada940).
   Thanks to xet7.
