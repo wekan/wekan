@@ -516,6 +516,7 @@
   "uploaded-avatar": "Profiilikuva lähetetty",
   "custom-top-left-corner-logo-image-url": "Mukautettu oikean yläkulman logo kuvan URL",
   "custom-top-left-corner-logo-link-url": "Mukautettu oikean yläkulma logon linkki URL",
+  "custom-top-left-corner-logo-height": "Mukautettu oikean yläkulman logokuvan korkeus. Oletus: 27",
   "custom-login-logo-image-url": "Mukautettu kirjautumis logo kuvan URL",
   "custom-login-logo-link-url": "Mukautettu kirjautumis logon linkki URL",
   "text-below-custom-login-logo": "Teksti mukautetun kirjautumis logon alla",

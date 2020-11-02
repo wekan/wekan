@@ -516,6 +516,7 @@
   "uploaded-avatar": "Загруженный аватар",
   "custom-top-left-corner-logo-image-url": "URL пользовательского изображения в левом верхнем углу",
   "custom-top-left-corner-logo-link-url": "URL ссылки с пользовательского изображения в левом верхнем углу",
+  "custom-top-left-corner-logo-height": "Custom Top Left Corner Logo Height. Default: 27",
   "custom-login-logo-image-url": "URL пользовательского изображения при входе",
   "custom-login-logo-link-url": "URL ссылки с пользовательского изображения при входе",
   "text-below-custom-login-logo": "Текст под пользовательским изображением при входе",

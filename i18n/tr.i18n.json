@@ -516,6 +516,7 @@
   "uploaded-avatar": "Avatar yüklendi",
   "custom-top-left-corner-logo-image-url": "Özel Sol Üst Köşe Logo Resmi URL'si",
   "custom-top-left-corner-logo-link-url": "Özel Sol Üst Köşe Logo Bağlantı URL'si",
+  "custom-top-left-corner-logo-height": "Custom Top Left Corner Logo Height. Default: 27",
   "custom-login-logo-image-url": "Özel Oturum Açma Logosu Resmi URL'si",
   "custom-login-logo-link-url": "Özel Oturum Açma Logosu Bağlantı URL'si",
   "text-below-custom-login-logo": "Özel Oturum Açma Logosunun altındaki metin",

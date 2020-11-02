@@ -516,6 +516,7 @@
   "uploaded-avatar": "Wysłany avatar",
   "custom-top-left-corner-logo-image-url": "URL obrazu logo w lewym górnym rogu",
   "custom-top-left-corner-logo-link-url": "URL linku logo w lewym górnym rogu",
+  "custom-top-left-corner-logo-height": "Custom Top Left Corner Logo Height. Default: 27",
   "custom-login-logo-image-url": "URL obrazu logo ekranu logowania",
   "custom-login-logo-link-url": "URL linku logo ekranu logowania",
   "text-below-custom-login-logo": "Tekst pod logo na ekranie logowania",

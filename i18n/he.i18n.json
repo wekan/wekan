@@ -516,6 +516,7 @@
   "uploaded-avatar": "הועלתה תמונה משתמש",
   "custom-top-left-corner-logo-image-url": "כתובת תמונת לוגו משלך לפינה הימנית העליונה",
   "custom-top-left-corner-logo-link-url": "כתובת קישור לוגו משלך לפינה הימנית העליונה",
+  "custom-top-left-corner-logo-height": "Custom Top Left Corner Logo Height. Default: 27",
   "custom-login-logo-image-url": "כתובת תמונת לוגו משלך לכניסה",
   "custom-login-logo-link-url": "כתובת קישור לוגו משלך לכניסה",
   "text-below-custom-login-logo": "טקסט מתחת לשיטת כניסה מותאמת",

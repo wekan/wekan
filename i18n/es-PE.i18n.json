@@ -516,6 +516,7 @@
   "uploaded-avatar": "Avatar cargado",
   "custom-top-left-corner-logo-image-url": "URL de imagen del logo personalizado de la esquina superior izquierda",
   "custom-top-left-corner-logo-link-url": "URL de enlace del logo personalizado de la esquina superior izquierda",
+  "custom-top-left-corner-logo-height": "Custom Top Left Corner Logo Height. Default: 27",
   "custom-login-logo-image-url": "URL de imagen del logo personalizado de inicio de sesión",
   "custom-login-logo-link-url": "URL de enlace del logo personalizado de inicio de sesión",
   "text-below-custom-login-logo": "Texto debajo del logo personalizado de inicio de sesión",

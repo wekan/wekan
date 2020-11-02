@@ -516,6 +516,7 @@
   "uploaded-avatar": "Avatar téléchargé",
   "custom-top-left-corner-logo-image-url": "URL de l'Image du logo personnalisé dans le coin supérieur gauche",
   "custom-top-left-corner-logo-link-url": "Lien URL du logo personnalisé dans le coin supérieur gauche",
+  "custom-top-left-corner-logo-height": "Custom Top Left Corner Logo Height. Default: 27",
   "custom-login-logo-image-url": "URL de l'image du logo de connexion personnalisé",
   "custom-login-logo-link-url": "Lien URL du logo de connexion personnalisé",
   "text-below-custom-login-logo": "Texte sous le logo de connexion personnalisé",

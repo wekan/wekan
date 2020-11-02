@@ -516,6 +516,7 @@
   "uploaded-avatar": "Attēls augšuplādēts",
   "custom-top-left-corner-logo-image-url": "Logo attēls augšējā kreisā stūrī - URL",
   "custom-top-left-corner-logo-link-url": "Logo saite augšējā kreisajā stūrī - URL",
+  "custom-top-left-corner-logo-height": "Custom Top Left Corner Logo Height. Default: 27",
   "custom-login-logo-image-url": "Logo pierakstīšanās ekrānā - URL",
   "custom-login-logo-link-url": "Logo saite pierakstīšanās ekrānā - URL",
   "text-below-custom-login-logo": "Teksts zem logo pierakstīšanās lapā",

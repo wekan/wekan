@@ -516,6 +516,7 @@
   "uploaded-avatar": "Laddade upp en avatar",
   "custom-top-left-corner-logo-image-url": "Länk till anpassad logotypbild",
   "custom-top-left-corner-logo-link-url": "Länk för anpassad logotyp",
+  "custom-top-left-corner-logo-height": "Custom Top Left Corner Logo Height. Default: 27",
   "custom-login-logo-image-url": "Länk till bild för anpassad logotyp på inloggningssidan",
   "custom-login-logo-link-url": "Länk för anpassad logotyp på inloggningssidan",
   "text-below-custom-login-logo": "Text under anpassad logga för inloggning",
