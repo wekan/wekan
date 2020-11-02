@@ -91,6 +91,7 @@ Template.editor.onRendered(() => {
     };
     const editor = '.editor';
     const selectors = [
+      `.js-new-description-form ${editor}`,
       `.js-new-comment-form ${editor}`,
       `.js-edit-comment ${editor}`,
     ].join(','); // only new comment and edit comment
