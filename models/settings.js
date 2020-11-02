@@ -65,6 +65,10 @@ Settings.attachSchema(
       type: String,
       optional: true,
     },
+    customTopLeftCornerLogoHeight: {
+      type: String,
+      optional: true,
+    },
     createdAt: {
       type: Date,
       denyUpdate: true,

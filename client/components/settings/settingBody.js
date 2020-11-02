@@ -186,6 +186,11 @@ BlazeComponent.extendComponent({
     )
       .val()
       .trim();
+    const customTopLeftCornerLogoHeight = $(
+      '#custom-top-left-corner-logo-height',
+    )
+      .val()
+      .trim();
     const hideLogoChange = $('input[name=hideLogo]:checked').val() === 'true';
     const displayAuthenticationMethod =
       $('input[name=displayAuthenticationMethod]:checked').val() === 'true';
@@ -201,6 +206,7 @@ BlazeComponent.extendComponent({
           textBelowCustomLoginLogo,
           customTopLeftCornerLogoImageUrl,
           customTopLeftCornerLogoLinkUrl,
+          customTopLeftCornerLogoHeight,
           displayAuthenticationMethod,
           defaultAuthenticationMethod,
         },
