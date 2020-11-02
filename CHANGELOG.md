@@ -7,6 +7,8 @@ This release adds the following new features:
   Thanks to xet7.
 - [Admin Panel / Settings / Layout / Custom Top Left Corner Logo Height](https://github.com/wekan/wekan/commit/4cfddf1d8d37bdbbb58c050333ee6ea2afc3e6f9).
   Thanks to xet7.
+- [When RICHER_CARD_COMMENT_EDITOR=true, use richer editor also when editing card description](https://github.com/wekan/wekan/commit/4e2d337620ac490b8e99ee968e6f92477e09b900).
+  Thanks to xet7.
 
 and removes the following dependencies:
 
