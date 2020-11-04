@@ -1,6 +1,6 @@
-import trelloMembersMapper from './trelloMembersMapper';
-import wekanMembersMapper from './wekanMembersMapper';
-import csvMembersMapper from './csvMembersMapper';
+import { trelloGetMembersToMap } from './trelloMembersMapper';
+import { wekanGetMembersToMap } from './wekanMembersMapper';
+import { csvGetMembersToMap } from './csvMembersMapper';
 
 const Papa = require('papaparse');
 
@@ -99,13 +99,13 @@ BlazeComponent.extendComponent({
     let membersToMap;
     switch (importSource) {
       case 'trello':
-        membersToMap = trelloMembersMapper.getMembersToMap(dataObject);
+        membersToMap = trelloGetMembersToMap(dataObject);
         break;
       case 'wekan':
-        membersToMap = wekanMembersMapper.getMembersToMap(dataObject);
+        membersToMap = wekanGetMembersToMap(dataObject);
         break;
       case 'csv':
-        membersToMap = csvMembersMapper.getMembersToMap(dataObject);
+        membersToMap = csvGetMembersToMap(dataObject);
         break;
     }
     return membersToMap;
