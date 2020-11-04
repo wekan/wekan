@@ -10,6 +10,12 @@ and adds the following changes:
 - [Changed board icons bigger at All Boards page](https://github.com/wekan/wekan/commit/76273300e749ebe3b1d711dee84336d03b31ed49).
   Thanks to xet7.
 
+and adds the following translations:
+
+- [Translate some part of Gantt chart of Wekan Gantt GPL version](https://github.com/wekan/wekan/commit/fd363c69cc6e1cf3a283e3dbcc323edb1eae896e).
+  This only adds translations to all Wekan versions, not any GPL code to MIT version.
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v4.48 2020-11-02 Wekan release
