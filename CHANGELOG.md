@@ -5,6 +5,11 @@ This release adds the following new features:
 - [LDAP: Sync email address](https://github.com/wekan/wekan/pull/3329).
   Thanks to gramakri.
 
+and adds the following changes:
+
+- [Changed board icons bigger at All Boards page](https://github.com/wekan/wekan/commit/76273300e749ebe3b1d711dee84336d03b31ed49).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v4.48 2020-11-02 Wekan release
