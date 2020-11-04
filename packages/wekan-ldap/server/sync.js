@@ -247,6 +247,22 @@ export function syncUserData(user, ldapUser) {
     }
   }
 
+  if (LDAP.settings_get('LDAP_EMAIL_FIELD') !== '') {
+    const email = getLdapEmail(ldapUser);
+    log_debug('email=', email);
+
+    if (user && user._id && email !== '') {
+      log_info('Syncing user email:', email);
+      Meteor.users.update({
+        _id: user._id
+      }, {
+        $set: {
+          'emails.0.address': email,
+        }
+      });
+    }
+  }
+
 }
 
 export function addLdapUser(ldapUser, username, password) {
