@@ -138,6 +138,7 @@
   "board-view-cal": "日历",
   "board-view-swimlanes": "泳道图",
   "board-view-collapse": "崩溃",
+  "board-view-gantt": "Gantt",
   "board-view-lists": "列表",
   "bucket-example": "例如 “目标清单”",
   "cancel": "取消",
@@ -476,6 +477,7 @@
   "search-cards": "搜寻看板內的卡片/列表标题、描述、自定义字段",
   "search-example": "Write text you search and press Enter",
   "select-color": "选择颜色",
+  "select-board": "Select Board",
   "set-wip-limit-value": "设置此列表中的最大任务数",
   "setWipLimitPopup-title": "设置最大任务数",
   "shortcut-assign-self": "指派当前卡片给自己",
@@ -826,5 +828,8 @@
   "archived": "存档",
   "delete-linked-card-before-this-card": "在你首次删除卡片前你无法删除此选项卡片",
   "delete-linked-cards-before-this-list": "在首先删除指向此列表中的卡的链接卡之前，不能删除此列表",
-  "hide-checked-items": "隐藏选中项"
+  "hide-checked-items": "隐藏选中项",
+  "task": "Task",
+  "create-task": "Create Task",
+  "ok": "OK"
 }

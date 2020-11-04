@@ -138,6 +138,7 @@
   "board-view-cal": "Naptár",
   "board-view-swimlanes": "Swimlanes",
   "board-view-collapse": "Összecsukás",
+  "board-view-gantt": "Gantt",
   "board-view-lists": "Listák",
   "bucket-example": "Mint például „Bakancslista”",
   "cancel": "Mégse",
@@ -476,6 +477,7 @@
   "search-cards": "Search from card/list titles, descriptions and custom fields on this board",
   "search-example": "Write text you search and press Enter",
   "select-color": "Szín kiválasztása",
+  "select-board": "Select Board",
   "set-wip-limit-value": "Korlát beállítása a listán lévő feladatok legnagyobb számához",
   "setWipLimitPopup-title": "WIP korlát beállítása",
   "shortcut-assign-self": "Önmaga hozzárendelése a jelenlegi kártyához",
@@ -826,5 +828,8 @@
   "archived": "Archiválva",
   "delete-linked-card-before-this-card": "You can not delete this card before first deleting linked card that has",
   "delete-linked-cards-before-this-list": "You can not delete this list before first deleting linked cards that are pointing to cards in this list",
-  "hide-checked-items": "Kijelölt elemek elrejtése"
+  "hide-checked-items": "Kijelölt elemek elrejtése",
+  "task": "Task",
+  "create-task": "Create Task",
+  "ok": "OK"
 }

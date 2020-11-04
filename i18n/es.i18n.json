@@ -138,6 +138,7 @@
   "board-view-cal": "Calendario",
   "board-view-swimlanes": "Carriles",
   "board-view-collapse": "Contraer",
+  "board-view-gantt": "Gantt",
   "board-view-lists": "Listas",
   "bucket-example": "Como “Cosas por hacer” por ejemplo",
   "cancel": "Cancelar",
@@ -476,6 +477,7 @@
   "search-cards": "Buscar entre los títulos, las descripciones de las tarjetas/listas y los campos personalizados en este tablero. ",
   "search-example": "Write text you search and press Enter",
   "select-color": "Seleccionar el color",
+  "select-board": "Select Board",
   "set-wip-limit-value": "Cambiar el límite para el número máximo de tareas en esta lista.",
   "setWipLimitPopup-title": "Cambiar el límite del trabajo en proceso",
   "shortcut-assign-self": "Asignarte a ti mismo a la tarjeta actual",
@@ -826,5 +828,8 @@
   "archived": "Archivado",
   "delete-linked-card-before-this-card": "No puede borrar esta tarjeta antes de borrar la tarjeta enlazada que tiene",
   "delete-linked-cards-before-this-list": "No puede borrar esta lista antes de borrar las tarjetas enlazadas que apuntan a tarjetas en esta lista",
-  "hide-checked-items": "Ocultar elementos marcados"
+  "hide-checked-items": "Ocultar elementos marcados",
+  "task": "Task",
+  "create-task": "Create Task",
+  "ok": "OK"
 }

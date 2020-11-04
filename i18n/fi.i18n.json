@@ -138,6 +138,7 @@
   "board-view-cal": "Kalenteri",
   "board-view-swimlanes": "Swimlanet",
   "board-view-collapse": "Pienennä",
+  "board-view-gantt": "Gantt",
   "board-view-lists": "Listat",
   "bucket-example": "Kuten “Laatikko lista” esimerkiksi",
   "cancel": "Peruuta",
@@ -476,6 +477,7 @@
   "search-cards": "Etsi kortin/listan otsikoista, kuvauksista ja mukautetuista kentistä tällä taululla ",
   "search-example": "Kirjoita teksti jota etsit ja paina Enter",
   "select-color": "Valitse väri",
+  "select-board": "Valitse taulu",
   "set-wip-limit-value": "Aseta tämän listan tehtävien enimmäismäärä",
   "setWipLimitPopup-title": "Aseta WIP-raja",
   "shortcut-assign-self": "Valitse itsesi nykyiselle kortille",
@@ -826,5 +828,8 @@
   "archived": "Arkistoitu",
   "delete-linked-card-before-this-card": "Et voi poistaa tätä korttia ennenkuin ensin poistat linkitetyn kortin jolla on",
   "delete-linked-cards-before-this-list": "Et voi poistaa tätä listaa ennenkuin poistat linkitetyt kortit jotka osoittavat kortteihin tässä listassa",
-  "hide-checked-items": "Piilota ruksatut kohdat"
+  "hide-checked-items": "Piilota ruksatut kohdat",
+  "task": "Tehtävä",
+  "create-task": "Luo tehtävä",
+  "ok": "OK"
 }

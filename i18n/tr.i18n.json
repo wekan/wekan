@@ -138,6 +138,7 @@
   "board-view-cal": "Takvim",
   "board-view-swimlanes": "Kulvarlar",
   "board-view-collapse": "Katla",
+  "board-view-gantt": "Gantt",
   "board-view-lists": "Listeler",
   "bucket-example": "Örn: \"Marketten Alacaklarım\"",
   "cancel": "İptal",
@@ -476,6 +477,7 @@
   "search-cards": "Bu panodaki kart / liste başlıkları, açıklamalar ve özel alanlarda arama yapın",
   "search-example": "Aradığınız metni yazın ve Enter tuşuna basın",
   "select-color": "Renk Seç",
+  "select-board": "Select Board",
   "set-wip-limit-value": "Bu listedeki en fazla öğe sayısı için bir sınır belirleyin",
   "setWipLimitPopup-title": "Devam Eden İş Sınırı Belirle",
   "shortcut-assign-self": "Kendini karta ata",
@@ -826,5 +828,8 @@
   "archived": "Arşivlendi",
   "delete-linked-card-before-this-card": "Bu kartı, sahip olan bağlantılı kartı silmeden önce silemezsiniz.",
   "delete-linked-cards-before-this-list": "Bu listedeki kartlara işaret eden bağlantılı kartları silmeden önce bu listeyi silemezsiniz.",
-  "hide-checked-items": "İşaretli öğeleri gizle"
+  "hide-checked-items": "İşaretli öğeleri gizle",
+  "task": "Task",
+  "create-task": "Create Task",
+  "ok": "OK"
 }

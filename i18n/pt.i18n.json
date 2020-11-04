@@ -138,6 +138,7 @@
   "board-view-cal": "Calendário",
   "board-view-swimlanes": "Pistas",
   "board-view-collapse": "Colapsar ",
+  "board-view-gantt": "Gantt",
   "board-view-lists": "Listas",
   "bucket-example": "\"Lista de Desejos\", por exemplo",
   "cancel": "Cancelar",
@@ -476,6 +477,7 @@
   "search-cards": "Procurar nos títulos, descrições e campos personalizados de cartões/listas neste quadro",
   "search-example": "Escreva o texto a pesquisar e pressione Enter",
   "select-color": "Seleccionar Cor",
+  "select-board": "Select Board",
   "set-wip-limit-value": "Defina um limite máximo para o número de tarefas nesta lista",
   "setWipLimitPopup-title": "Definir Limite WIP",
   "shortcut-assign-self": "Atribuir a si o cartão actual",
@@ -826,5 +828,8 @@
   "archived": "Arquivado",
   "delete-linked-card-before-this-card": "Não pode apagar este cartão sem primeiro apagar o cartão ligado que tem",
   "delete-linked-cards-before-this-list": "Não pode apagar esta lista sem primeiro apagar cartões ligados que apontam para cartões nesta lista",
-  "hide-checked-items": "Ocultar items marcados"
+  "hide-checked-items": "Ocultar items marcados",
+  "task": "Task",
+  "create-task": "Create Task",
+  "ok": "OK"
 }

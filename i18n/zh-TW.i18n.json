@@ -138,6 +138,7 @@
   "board-view-cal": "日曆",
   "board-view-swimlanes": "泳道",
   "board-view-collapse": "損毀",
+  "board-view-gantt": "Gantt",
   "board-view-lists": "清單",
   "bucket-example": "例如 “目標清單”",
   "cancel": "取消",
@@ -476,6 +477,7 @@
   "search-cards": "搜尋看板內的卡片/清單標題、描述、自訂欄位",
   "search-example": "輸入欲查尋的文件並按下 Enter 鍵",
   "select-color": "選擇顏色",
+  "select-board": "Select Board",
   "set-wip-limit-value": "設定此清單中的最大任務數",
   "setWipLimitPopup-title": "設定 WIP 限制",
   "shortcut-assign-self": "分配當前卡片給自己",
@@ -826,5 +828,8 @@
   "archived": "Archived",
   "delete-linked-card-before-this-card": "You can not delete this card before first deleting linked card that has",
   "delete-linked-cards-before-this-list": "You can not delete this list before first deleting linked cards that are pointing to cards in this list",
-  "hide-checked-items": "隱藏已勾選項目"
+  "hide-checked-items": "隱藏已勾選項目",
+  "task": "Task",
+  "create-task": "Create Task",
+  "ok": "OK"
 }

@@ -138,6 +138,7 @@
   "board-view-cal": "Kalendar",
   "board-view-swimlanes": "Swimlanes",
   "board-view-collapse": "Sažmi",
+  "board-view-gantt": "Gantt",
   "board-view-lists": "Liste",
   "bucket-example": "Na primer \"Lista zadataka\"",
   "cancel": "Otkaži",
@@ -476,6 +477,7 @@
   "search-cards": "Pretraži u naslovima kartica/listi, opsima i proizvoljnim poljima sa ove table",
   "search-example": "Write text you search and press Enter",
   "select-color": "Izaberi boju",
+  "select-board": "Select Board",
   "set-wip-limit-value": "Set a limit for the maximum number of tasks in this list",
   "setWipLimitPopup-title": "Set WIP Limit",
   "shortcut-assign-self": "Pridruži sebe trenutnoj kartici",
@@ -826,5 +828,8 @@
   "archived": "Archived",
   "delete-linked-card-before-this-card": "You can not delete this card before first deleting linked card that has",
   "delete-linked-cards-before-this-list": "You can not delete this list before first deleting linked cards that are pointing to cards in this list",
-  "hide-checked-items": "Hide checked items"
+  "hide-checked-items": "Hide checked items",
+  "task": "Task",
+  "create-task": "Create Task",
+  "ok": "OK"
 }

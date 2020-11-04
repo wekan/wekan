@@ -138,6 +138,7 @@
   "board-view-cal": "Календарь",
   "board-view-swimlanes": "Дорожки",
   "board-view-collapse": "Свернуть",
+  "board-view-gantt": "Gantt",
   "board-view-lists": "Списки",
   "bucket-example": "Например “Список дел”",
   "cancel": "Отмена",
@@ -476,6 +477,7 @@
   "search-cards": "Поиск в названиях карточек/списков, описаниях и пользовательских полях на этой доске",
   "search-example": "Введите текст, который ищете, и нажмите Ввод.",
   "select-color": "Выбрать цвет",
+  "select-board": "Select Board",
   "set-wip-limit-value": "Устанавливает ограничение на максимальное количество задач в этом списке",
   "setWipLimitPopup-title": "Задать лимит на кол-во задач",
   "shortcut-assign-self": "Связать себя с текущей карточкой",
@@ -516,7 +518,7 @@
   "uploaded-avatar": "Загруженный аватар",
   "custom-top-left-corner-logo-image-url": "URL пользовательского изображения в левом верхнем углу",
   "custom-top-left-corner-logo-link-url": "URL ссылки с пользовательского изображения в левом верхнем углу",
-  "custom-top-left-corner-logo-height": "Custom Top Left Corner Logo Height. Default: 27",
+  "custom-top-left-corner-logo-height": "Задать высоту логотипа в верхнем левом углу. По умолчанию 27",
   "custom-login-logo-image-url": "URL пользовательского изображения при входе",
   "custom-login-logo-link-url": "URL ссылки с пользовательского изображения при входе",
   "text-below-custom-login-logo": "Текст под пользовательским изображением при входе",
@@ -826,5 +828,8 @@
   "archived": "Архивировано",
   "delete-linked-card-before-this-card": "Вы не можете удалить карточку, не удалив связанную c ней карточку, которая имеет ",
   "delete-linked-cards-before-this-list": "Вы не можете удалить этот список, не удалив карточки, которые указывают на карточки в этом списке",
-  "hide-checked-items": "Спрятать отмеченные"
+  "hide-checked-items": "Спрятать отмеченные",
+  "task": "Task",
+  "create-task": "Create Task",
+  "ok": "OK"
 }

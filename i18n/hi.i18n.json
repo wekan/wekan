@@ -138,6 +138,7 @@
   "board-view-cal": "तिथि-पत्र",
   "board-view-swimlanes": "तैरना",
   "board-view-collapse": "संक्षिप्त करें",
+  "board-view-gantt": "Gantt",
   "board-view-lists": "सूचियाँ",
   "bucket-example": "उदाहरण के लिए “बाल्टी सूची” की तरह",
   "cancel": "रद्द करें",
@@ -476,6 +477,7 @@
   "search-cards": "इस बोर्ड पर कार्ड / सूची शीर्षक, विवरण और आदत  क्षेत्र से खोजें",
   "search-example": "Write text you search and press Enter",
   "select-color": "Select Color",
+  "select-board": "Select Board",
   "set-wip-limit-value": "Set एक limit for the maximum number of tasks अंदर में  यह list",
   "setWipLimitPopup-title": "Set WIP Limit",
   "shortcut-assign-self": "Assign yourself तक current कार्ड",
@@ -826,5 +828,8 @@
   "archived": "Archived",
   "delete-linked-card-before-this-card": "You can not delete this card before first deleting linked card that has",
   "delete-linked-cards-before-this-list": "You can not delete this list before first deleting linked cards that are pointing to cards in this list",
-  "hide-checked-items": "Hide checked items"
+  "hide-checked-items": "Hide checked items",
+  "task": "Task",
+  "create-task": "Create Task",
+  "ok": "OK"
 }

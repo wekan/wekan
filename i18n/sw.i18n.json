@@ -138,6 +138,7 @@
   "board-view-cal": "Calendar",
   "board-view-swimlanes": "Swimlanes",
   "board-view-collapse": "Collapse",
+  "board-view-gantt": "Gantt",
   "board-view-lists": "Lists",
   "bucket-example": "Like “Bucket List” for example",
   "cancel": "Cancel",
@@ -476,6 +477,7 @@
   "search-cards": "Search from card/list titles, descriptions and custom fields on this board",
   "search-example": "Write text you search and press Enter",
   "select-color": "Select Color",
+  "select-board": "Select Board",
   "set-wip-limit-value": "Set a limit for the maximum number of tasks in this list",
   "setWipLimitPopup-title": "Set WIP Limit",
   "shortcut-assign-self": "Assign yourself to current card",
@@ -826,5 +828,8 @@
   "archived": "Archived",
   "delete-linked-card-before-this-card": "You can not delete this card before first deleting linked card that has",
   "delete-linked-cards-before-this-list": "You can not delete this list before first deleting linked cards that are pointing to cards in this list",
-  "hide-checked-items": "Hide checked items"
+  "hide-checked-items": "Hide checked items",
+  "task": "Task",
+  "create-task": "Create Task",
+  "ok": "OK"
 }

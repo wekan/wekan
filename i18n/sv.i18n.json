@@ -138,6 +138,7 @@
   "board-view-cal": "Kalender",
   "board-view-swimlanes": "Simbanor",
   "board-view-collapse": "Fäll ihop",
+  "board-view-gantt": "Gantt",
   "board-view-lists": "Listor",
   "bucket-example": "Som t.ex. \"Kalasplanering\"",
   "cancel": "Avbryt",
@@ -476,6 +477,7 @@
   "search-cards": "Sök i kort- och listtitlar, beskrivningar och anpassade fält på denna tavla",
   "search-example": "Text att söka efter?",
   "select-color": "Välj färg",
+  "select-board": "Select Board",
   "set-wip-limit-value": "Ange en gräns för det maximala antalet uppgifter i den här listan",
   "setWipLimitPopup-title": "Ställ in WIP-gräns",
   "shortcut-assign-self": "Tilldela dig nuvarande kort",
@@ -826,5 +828,8 @@
   "archived": "Arkiverad",
   "delete-linked-card-before-this-card": "Du kan inte radera det här kortet innan du raderat länkat kort som har",
   "delete-linked-cards-before-this-list": "Du kan inte radera den här listan innan du raderat länkade kort som pekar till kort i den här listan",
-  "hide-checked-items": "Dölj markerade objekt"
+  "hide-checked-items": "Dölj markerade objekt",
+  "task": "Task",
+  "create-task": "Create Task",
+  "ok": "OK"
 }

@@ -138,6 +138,7 @@
   "board-view-cal": "Kalender",
   "board-view-swimlanes": "Swimlanes",
   "board-view-collapse": "Klap in",
+  "board-view-gantt": "Gantt",
   "board-view-lists": "Lijsten",
   "bucket-example": "Zoals bijvoorbeeld een \"Bucket List\"",
   "cancel": "Annuleren",
@@ -476,6 +477,7 @@
   "search-cards": "Zoek in kaart/lijst, titels, beschrijvingen en maatwerkvelden op dit bord",
   "search-example": "Schijf je zoektekst en toets Enter",
   "select-color": "Selecteer kleur",
+  "select-board": "Select Board",
   "set-wip-limit-value": "Zet een limiet voor het maximaal aantal taken in deze lijst",
   "setWipLimitPopup-title": "Zet een WIP limiet",
   "shortcut-assign-self": "Voeg jezelf toe aan huidige kaart",
@@ -516,7 +518,7 @@
   "uploaded-avatar": "Avatar is geüpload",
   "custom-top-left-corner-logo-image-url": "URL Voor Maatwerk Logo Afbeelding In Linker Bovenhoek ",
   "custom-top-left-corner-logo-link-url": "URL Voor Maatwerk Logo Link In Linker Bovenhoek",
-  "custom-top-left-corner-logo-height": "Custom Top Left Corner Logo Height. Default: 27",
+  "custom-top-left-corner-logo-height": "Hoogte Van Maatwerk Logo In Linker Bovenhoek. Default: 27",
   "custom-login-logo-image-url": "URL Voor Maatwerk Login Logo Afbeelding",
   "custom-login-logo-link-url": "URL Voor Maatwerk Login Logo Link",
   "text-below-custom-login-logo": "Tekst onder Maatwerk Login Logo",
@@ -826,5 +828,8 @@
   "archived": "Gearchiveerd",
   "delete-linked-card-before-this-card": "Je kunt deze kaart niet verwijderen voordat de gekoppelde kaart is verwijderd ",
   "delete-linked-cards-before-this-list": "Je kunt deze lijst niet verwijderen voordat de gekoppelde kaarten verwijderd zijn die verwijzen naar kaarten in deze lijst",
-  "hide-checked-items": "Verberg aangevinkte items"
+  "hide-checked-items": "Verberg aangevinkte items",
+  "task": "Task",
+  "create-task": "Create Task",
+  "ok": "OK"
 }

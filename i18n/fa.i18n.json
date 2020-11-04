@@ -138,6 +138,7 @@
   "board-view-cal": "تقویم",
   "board-view-swimlanes": "مسیرها",
   "board-view-collapse": "جمع کردن",
+  "board-view-gantt": "Gantt",
   "board-view-lists": "لیست‌ها",
   "bucket-example": "برای مثال چیزی شبیه \"لیست سطل\"",
   "cancel": "انصراف",
@@ -476,6 +477,7 @@
   "search-cards": "جستجو در عناوین، توضیحات و فیلدهای سفارشیِ کارت‌ها/لیست‌ها در این برد",
   "search-example": "کلمه مورد جستجو را وارد و اینتر را بزنید",
   "select-color": "انتخاب رنگ",
+  "select-board": "Select Board",
   "set-wip-limit-value": "تعیین بیشینه تعداد وظایف در این فهرست",
   "setWipLimitPopup-title": "Set WIP Limit",
   "shortcut-assign-self": "انتصاب خود به کارت فعلی",
@@ -826,5 +828,8 @@
   "archived": "بایگانی شده",
   "delete-linked-card-before-this-card": "پیش از این‌که کارت‌های لینک شده به این کارت را حذف نکنید، نمی‌توانید این کارت را حذف کنید.",
   "delete-linked-cards-before-this-list": "پیش از حذف کارت‌هایی که به کارت‌های این لیست لینک شده‌اند نمی‌توانید این لیست را حذف کنید.",
-  "hide-checked-items": "مخفی کردن انتخاب‌شده‌ها"
+  "hide-checked-items": "مخفی کردن انتخاب‌شده‌ها",
+  "task": "Task",
+  "create-task": "Create Task",
+  "ok": "OK"
 }

@@ -138,6 +138,7 @@
   "board-view-cal": "Calendari",
   "board-view-swimlanes": "Carrils de Natació",
   "board-view-collapse": "Contraure",
+  "board-view-gantt": "Gantt",
   "board-view-lists": "Llistes",
   "bucket-example": "Igual que “Bucket List”,  per exemple",
   "cancel": "Cancel·la",
@@ -476,6 +477,7 @@
   "search-cards": "Search from card/list titles, descriptions and custom fields on this board",
   "search-example": "Write text you search and press Enter",
   "select-color": "Selecciona color",
+  "select-board": "Select Board",
   "set-wip-limit-value": "Limita el màxim nombre de tasques en aquesta llista",
   "setWipLimitPopup-title": "Configura el Límit de Treball en Progrès",
   "shortcut-assign-self": "Assigna't la ftixa actual",
@@ -826,5 +828,8 @@
   "archived": "Archived",
   "delete-linked-card-before-this-card": "You can not delete this card before first deleting linked card that has",
   "delete-linked-cards-before-this-list": "You can not delete this list before first deleting linked cards that are pointing to cards in this list",
-  "hide-checked-items": "Hide checked items"
+  "hide-checked-items": "Hide checked items",
+  "task": "Task",
+  "create-task": "Create Task",
+  "ok": "OK"
 }

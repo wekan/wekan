@@ -138,6 +138,7 @@
   "board-view-cal": "カレンダー",
   "board-view-swimlanes": "スイムレーン",
   "board-view-collapse": "折りたたむ",
+  "board-view-gantt": "Gantt",
   "board-view-lists": "リスト",
   "bucket-example": "例：バケットリスト",
   "cancel": "キャンセル",
@@ -476,6 +477,7 @@
   "search-cards": "このボード上のカード/リストタイトル、詳細、カスタムフィールドから検索",
   "search-example": "検索文字列を入力してエンターを押してください",
   "select-color": "色を選択",
+  "select-board": "Select Board",
   "set-wip-limit-value": "このリスト中のタスクの最大数を設定",
   "setWipLimitPopup-title": "仕掛中制限設定",
   "shortcut-assign-self": "自分をこのカードに割り当てる",
@@ -826,5 +828,8 @@
   "archived": "アーカイブ",
   "delete-linked-card-before-this-card": "カード内にある、リンクされているカードを削除しなければ、このカードは削除できません",
   "delete-linked-cards-before-this-list": "リスト内にある、他のカードを参照しているカードを削除しなければ、このリストは削除できません",
-  "hide-checked-items": "チェックした項目を隠す"
+  "hide-checked-items": "チェックした項目を隠す",
+  "task": "Task",
+  "create-task": "Create Task",
+  "ok": "OK"
 }

@@ -138,6 +138,7 @@
   "board-view-cal": "Kalendář",
   "board-view-swimlanes": "Swimlanes",
   "board-view-collapse": "Sbalit",
+  "board-view-gantt": "Gantt",
   "board-view-lists": "Sloupce",
   "bucket-example": "Například \"O čem sním\"",
   "cancel": "Zrušit",
@@ -476,6 +477,7 @@
   "search-cards": "Hledání napříč názvy karet/seznamů, popisy a vlasními poli tohoto tabla",
   "search-example": "Napište hledaný text a stiskněte Enter",
   "select-color": "Vybrat barvu",
+  "select-board": "Select Board",
   "set-wip-limit-value": "Nastaví limit pro maximální počet úkolů ve sloupci.",
   "setWipLimitPopup-title": "Nastavit WIP Limit",
   "shortcut-assign-self": "Přiřadit sebe k aktuální kartě",
@@ -516,7 +518,7 @@
   "uploaded-avatar": "Avatar nahrán",
   "custom-top-left-corner-logo-image-url": "URL obrázku vlastního loga v levém horním rohu",
   "custom-top-left-corner-logo-link-url": "URL odkazu vlastního loga v levém horním rohu",
-  "custom-top-left-corner-logo-height": "Custom Top Left Corner Logo Height. Default: 27",
+  "custom-top-left-corner-logo-height": "Výška vlastního loga v horním levém rohu. Defaultně: 27",
   "custom-login-logo-image-url": "URL vlastního loga přihlášení",
   "custom-login-logo-link-url": "URL odkazu vlastního loga přihlášení",
   "text-below-custom-login-logo": "Text pod vlastním logem přihlášení",
@@ -826,5 +828,8 @@
   "archived": "Archivováno",
   "delete-linked-card-before-this-card": "Tuto kratu nemůžete odstranit dokud nesmažete přiřazené karty",
   "delete-linked-cards-before-this-list": "Tento sloupec nemůžete smazat dokud nesmažete propojené karty, které jsou navázány na karty v tomto sloupci",
-  "hide-checked-items": "Skrýt zvolené položky"
+  "hide-checked-items": "Skrýt zvolené položky",
+  "task": "Task",
+  "create-task": "Create Task",
+  "ok": "OK"
 }

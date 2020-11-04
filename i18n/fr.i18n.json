@@ -138,6 +138,7 @@
   "board-view-cal": "Calendrier",
   "board-view-swimlanes": "Couloirs",
   "board-view-collapse": "Diminuer",
+  "board-view-gantt": "Gantt",
   "board-view-lists": "Listes",
   "bucket-example": "Comme « todo list » par exemple",
   "cancel": "Annuler",
@@ -476,6 +477,7 @@
   "search-cards": "Rechercher parmi les titres, descriptions et champs personnalisés des cartes/listes de ce tableau",
   "search-example": "Écrivez le texte que vous recherchez et appuyez sur Entrée",
   "select-color": "Sélectionner une couleur",
+  "select-board": "Select Board",
   "set-wip-limit-value": "Définit une limite maximale au nombre de cartes de cette liste",
   "setWipLimitPopup-title": "Définir la limite WIP",
   "shortcut-assign-self": "Affecter cette carte à vous-même",
@@ -516,7 +518,7 @@
   "uploaded-avatar": "Avatar téléchargé",
   "custom-top-left-corner-logo-image-url": "URL de l'Image du logo personnalisé dans le coin supérieur gauche",
   "custom-top-left-corner-logo-link-url": "Lien URL du logo personnalisé dans le coin supérieur gauche",
-  "custom-top-left-corner-logo-height": "Custom Top Left Corner Logo Height. Default: 27",
+  "custom-top-left-corner-logo-height": "Hauteur du logo personnalisé dans le coin supérieur gauche. Défaut : 27",
   "custom-login-logo-image-url": "URL de l'image du logo de connexion personnalisé",
   "custom-login-logo-link-url": "Lien URL du logo de connexion personnalisé",
   "text-below-custom-login-logo": "Texte sous le logo de connexion personnalisé",
@@ -826,5 +828,8 @@
   "archived": "Archivé",
   "delete-linked-card-before-this-card": "Vous ne pouvez pas supprimer cette carte avant d'avoir d'abord supprimé la carte liée qui a",
   "delete-linked-cards-before-this-list": "Vous ne pouvez pas supprimer cette liste avant d'avoir d'abord supprimé les cartes liées qui pointent vers des cartes de cette liste",
-  "hide-checked-items": "Cacher les éléments cochés"
+  "hide-checked-items": "Cacher les éléments cochés",
+  "task": "Task",
+  "create-task": "Create Task",
+  "ok": "OK"
 }

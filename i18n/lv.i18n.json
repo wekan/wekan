@@ -138,6 +138,7 @@
   "board-view-cal": "Kalendārs",
   "board-view-swimlanes": "Joslas",
   "board-view-collapse": "Sakļaut",
+  "board-view-gantt": "Gantt",
   "board-view-lists": "Saraksti",
   "bucket-example": "Piemēram \"Izdarāmie darbi\"",
   "cancel": "Atcelt",
@@ -476,6 +477,7 @@
   "search-cards": "Meklēt pa kartiņu/sarakstu virsrakstiem, aprakstiem un laukiem šajā dēlī",
   "search-example": "Ievadiet meklējamo tekstu un spiediet Enter",
   "select-color": "Mainīt krāsu",
+  "select-board": "Select Board",
   "set-wip-limit-value": "Iestatīt maksimālo skaitu ar kartiņām šajā sarakstā",
   "setWipLimitPopup-title": "Uzlikt WIP ierobežojumu",
   "shortcut-assign-self": "Pievienot sevi atvērtajai kartiņai",
@@ -826,5 +828,8 @@
   "archived": "Arhivēts",
   "delete-linked-card-before-this-card": "Nevar dzēst šo kartiņu pirms priekšteča kartiņas dzēšnas, kurai",
   "delete-linked-cards-before-this-list": "Nevar dzēst sarakstu pirms saistīto kartiņu, kas norada uz šī saraksta kartiņām, dzēšanas",
-  "hide-checked-items": "Slēpt atzīmētos elementus"
+  "hide-checked-items": "Slēpt atzīmētos elementus",
+  "task": "Task",
+  "create-task": "Create Task",
+  "ok": "OK"
 }

@@ -138,6 +138,7 @@
   "board-view-cal": "Kalendarz",
   "board-view-swimlanes": "Ścieżki",
   "board-view-collapse": "Zwiń",
+  "board-view-gantt": "Gantt",
   "board-view-lists": "Listy",
   "bucket-example": "Tak jak na przykład \"lista kubełkowa\"",
   "cancel": "Anuluj",
@@ -476,6 +477,7 @@
   "search-cards": "Szukaj w tytułach kart/list oraz opisach i niestandardowych polach na tej tablicy",
   "search-example": "Wpisz tekst do wyszukania i wciśnij Enter",
   "select-color": "Wybierz kolor",
+  "select-board": "Select Board",
   "set-wip-limit-value": "Ustaw maksymalny limit kart na tej liście",
   "setWipLimitPopup-title": "Ustaw limit kart na liście",
   "shortcut-assign-self": "Przypisz siebie do obecnej karty",
@@ -826,5 +828,8 @@
   "archived": "Zarchiwizowany",
   "delete-linked-card-before-this-card": "Nie możesz usunąć tej karty, dopóki nie usuniesz podpiętej karty, w której są",
   "delete-linked-cards-before-this-list": "Nie możesz usunąć tej karty, dopóki nie usuniesz podpiętych kart, które wskazują na karty w tej liście",
-  "hide-checked-items": "Ukryj ukończone"
+  "hide-checked-items": "Ukryj ukończone",
+  "task": "Task",
+  "create-task": "Create Task",
+  "ok": "OK"
 }

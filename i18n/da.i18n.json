@@ -138,6 +138,7 @@
   "board-view-cal": "Kalender",
   "board-view-swimlanes": "Svømmebaner",
   "board-view-collapse": "Sammenfold",
+  "board-view-gantt": "Gantt",
   "board-view-lists": "Lister",
   "bucket-example": "Eksempelvis \"Bucked-liste\"",
   "cancel": "Annullér",
@@ -476,6 +477,7 @@
   "search-cards": "Søg ud fra titler i kort/lister, beskrivelser og brugerdefinerede felter på denne tavle. ",
   "search-example": "Write text you search and press Enter",
   "select-color": "Vælg farve",
+  "select-board": "Select Board",
   "set-wip-limit-value": "Angiv en grænse for det maksimale antal opgaver i denne liste",
   "setWipLimitPopup-title": "Angiv WIP-begrænsning",
   "shortcut-assign-self": "Tilknyt dig selv til nuværende kort?",
@@ -826,5 +828,8 @@
   "archived": "Arkiveret",
   "delete-linked-card-before-this-card": "Du kan ikke slette dette kort før der slettes sammenkædede kort som har",
   "delete-linked-cards-before-this-list": "Du kan ikke slette denne liste før der slettes sammenkædede kort, der peger til kort i denne liste",
-  "hide-checked-items": "Hide checked items"
+  "hide-checked-items": "Hide checked items",
+  "task": "Task",
+  "create-task": "Create Task",
+  "ok": "OK"
 }

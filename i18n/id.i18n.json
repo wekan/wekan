@@ -138,6 +138,7 @@
   "board-view-cal": "Kalender",
   "board-view-swimlanes": "Swimlanes",
   "board-view-collapse": "Ciutkan",
+  "board-view-gantt": "Gantt",
   "board-view-lists": "Daftar",
   "bucket-example": "Contohnya seperti “Bucket List” ",
   "cancel": "Batal",
@@ -476,6 +477,7 @@
   "search-cards": "Cari dari judul kartu/daftar, deskripsi dan bidang khusus di papan ini",
   "search-example": "Write text you search and press Enter",
   "select-color": "Pilih Warna",
+  "select-board": "Select Board",
   "set-wip-limit-value": "Tetapkan batas untuk jumlah tugas maksimum dalam daftar ini",
   "setWipLimitPopup-title": "Tetapkan Batas WIP ",
   "shortcut-assign-self": "Masukkan diri anda sendiri ke kartu ini",
@@ -826,5 +828,8 @@
   "archived": "Diarsipkan",
   "delete-linked-card-before-this-card": "Kamu tidak dapat menghapus kartu ini sebelum menghapus kartu tertaut yang telah",
   "delete-linked-cards-before-this-list": "Kamu tidak dapat menghapus daftar ini sebelum menghapus kartu tertaut yang mengarah ke kartu dalam daftar ini",
-  "hide-checked-items": "Sembunyikan item yang dicentang"
+  "hide-checked-items": "Sembunyikan item yang dicentang",
+  "task": "Task",
+  "create-task": "Create Task",
+  "ok": "OK"
 }

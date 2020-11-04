@@ -138,6 +138,7 @@
   "board-view-cal": "Calendário",
   "board-view-swimlanes": "Raias",
   "board-view-collapse": "Expandir",
+  "board-view-gantt": "Gantt",
   "board-view-lists": "Listas",
   "bucket-example": "\"Bucket List\", por exemplo",
   "cancel": "Cancelar",
@@ -476,6 +477,7 @@
   "search-cards": "Buscar por título, descrição e campos customizados de cartão/lista neste quadro",
   "search-example": "Digite o que você procura e pressione Enter",
   "select-color": "Selecionar Cor",
+  "select-board": "Select Board",
   "set-wip-limit-value": "Defina um limite máximo para o número de tarefas nesta lista",
   "setWipLimitPopup-title": "Definir Limite WIP",
   "shortcut-assign-self": "Atribuir a si o cartão atual",
@@ -516,7 +518,7 @@
   "uploaded-avatar": "Avatar carregado",
   "custom-top-left-corner-logo-image-url": "URL da imagem do logo customizado do canto superior esquerdo",
   "custom-top-left-corner-logo-link-url": "URL do link do logo customizado do canto superior esquerdo",
-  "custom-top-left-corner-logo-height": "Custom Top Left Corner Logo Height. Default: 27",
+  "custom-top-left-corner-logo-height": "Altura da imagem do logo customizado do canto superior esquerdo. Padrão: 27",
   "custom-login-logo-image-url": "URL da Imagem do logo customizado de login",
   "custom-login-logo-link-url": "URL do link do logo customizado de login",
   "text-below-custom-login-logo": "Texto abaixo do logo customizado de login",
@@ -826,5 +828,8 @@
   "archived": "Arquivado",
   "delete-linked-card-before-this-card": "Você não pode excluir este cartão antes de excluir primeiro o cartão vinculado que possui",
   "delete-linked-cards-before-this-list": "Você não pode excluir esta lista antes de excluir primeiro os cartões vinculados que estão apontando para os cartões nesta lista",
-  "hide-checked-items": "Esconder itens marcados"
+  "hide-checked-items": "Esconder itens marcados",
+  "task": "Task",
+  "create-task": "Create Task",
+  "ok": "OK"
 }
