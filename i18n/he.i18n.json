@@ -138,7 +138,7 @@
   "board-view-cal": "לוח שנה",
   "board-view-swimlanes": "מסלולים",
   "board-view-collapse": "צמצום",
-  "board-view-gantt": "Gantt",
+  "board-view-gantt": "גאנט",
   "board-view-lists": "רשימות",
   "bucket-example": "כמו למשל „רשימת המשימות“",
   "cancel": "ביטול",
@@ -477,7 +477,7 @@
   "search-cards": "חיפוש מבין כותרות של כרטיסים/רשימות, תיאורים ושדות בהתאמה אישית בלוח זה",
   "search-example": "נא להקליד טקסט לחיפוש וללחוץ על Enter",
   "select-color": "בחירת צבע",
-  "select-board": "Select Board",
+  "select-board": "בחירת לוח",
   "set-wip-limit-value": "הגדרת מגבלה למספר המרבי של משימות ברשימה זו",
   "setWipLimitPopup-title": "הגדרת מגבלת „בעבודה”",
   "shortcut-assign-self": "להקצות אותי לכרטיס הנוכחי",
@@ -829,7 +829,7 @@
   "delete-linked-card-before-this-card": "לא ניתן למחוק את הכרטיס הזה לפני שמוחקים את הכרטיס המקושר שיש לו",
   "delete-linked-cards-before-this-list": "לא ניתן למחוק את הרשימה הזו לפני שמוחקים את הכרטיסים שמצביעים לכרטיסים ברשימה הזו",
   "hide-checked-items": "הסתרת הפריטים שסומנו",
-  "task": "Task",
-  "create-task": "Create Task",
-  "ok": "OK"
+  "task": "משימה",
+  "create-task": "צירת משימה",
+  "ok": "אישור"
 }

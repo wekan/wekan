@@ -138,7 +138,7 @@
   "board-view-cal": "Календарь",
   "board-view-swimlanes": "Дорожки",
   "board-view-collapse": "Свернуть",
-  "board-view-gantt": "Gantt",
+  "board-view-gantt": "Диаграмма Ганта",
   "board-view-lists": "Списки",
   "bucket-example": "Например “Список дел”",
   "cancel": "Отмена",
@@ -477,7 +477,7 @@
   "search-cards": "Поиск в названиях карточек/списков, описаниях и пользовательских полях на этой доске",
   "search-example": "Введите текст, который ищете, и нажмите Ввод.",
   "select-color": "Выбрать цвет",
-  "select-board": "Select Board",
+  "select-board": "Выбрать доску",
   "set-wip-limit-value": "Устанавливает ограничение на максимальное количество задач в этом списке",
   "setWipLimitPopup-title": "Задать лимит на кол-во задач",
   "shortcut-assign-self": "Связать себя с текущей карточкой",
@@ -829,7 +829,7 @@
   "delete-linked-card-before-this-card": "Вы не можете удалить карточку, не удалив связанную c ней карточку, которая имеет ",
   "delete-linked-cards-before-this-list": "Вы не можете удалить этот список, не удалив карточки, которые указывают на карточки в этом списке",
   "hide-checked-items": "Спрятать отмеченные",
-  "task": "Task",
-  "create-task": "Create Task",
-  "ok": "OK"
+  "task": "Задача",
+  "create-task": "Создать задачу",
+  "ok": "Ok"
 }
