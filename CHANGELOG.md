@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [LDAP: Sync email address](https://github.com/wekan/wekan/pull/3329).
+  Thanks to gramakri.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.48 2020-11-02 Wekan release
 
 This release adds the following new features:
