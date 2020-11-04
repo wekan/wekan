@@ -16,6 +16,11 @@ and adds the following translations:
   This only adds translations to all Wekan versions, not any GPL code to MIT version.
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Fix Trello import](https://github.com/wekan/wekan/commit/faad739f974a0392ca73e4db03e5267edcc5dec7).
+  Thanks to elct9620 and xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v4.48 2020-11-02 Wekan release
