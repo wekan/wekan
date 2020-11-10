@@ -190,6 +190,23 @@ Utils = {
     //return false;
   },
 
+  // returns if desktop drag handles are enabled
+  isShowDesktopDragHandles() {
+    let currentUser = Meteor.user();
+    if (currentUser) {
+      return (currentUser.profile || {}).showDesktopDragHandles;
+    } else if (cookies.has('showDesktopDragHandles')) {
+      return true;
+    } else {
+      return false;
+    }
+  },
+
+  // returns if mini screen or desktop drag handles
+  isMiniScreenOrShowDesktopDragHandles() {
+    return this.isMiniScreen() || this.isShowDesktopDragHandles()
+  },
+
   calculateIndexData(prevData, nextData, nItems = 1) {
     let base, increment;
     // If we drop the card to an empty column
