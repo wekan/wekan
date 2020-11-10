@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix edit description to require only one click](https://github.com/wekan/wekan/commit/0ef248574c2751be1245c5748a9cbbe5ba2969b5).
+  Thanks to uusijani and xet7.
+    
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.49 2020-11-04 Wekan release
 
 This release adds the following new features:
