@@ -589,15 +589,15 @@ setBoardClear(color1,color2)
     position relative
 
   &#header-quick-access #header-user-bar .header-user-bar-name
-    margin: 5px 3px 0 0;
+    margin: 5px 3px 0 0
 
   section#notifications-drawer
-    top: 46px;
+    top: 46px
     box-shadow: 0 4px 20px rgba(0,0,0,.1)
     max-width: 100%
 
   section#notifications-drawer .header
-    top: 46px;
+    top: 46px
     border-radius: 0 3px
     height: 21px
     background: #f7f7f7
@@ -742,3 +742,250 @@ setBoardClear(color1,color2)
 
   section#notifications-drawer .header .toggle-read
     top: 18px
+
+/*
+  Alternate "Modern Dark" Styling
+*/
+.board-color-moderndark
+  setBoardColor(#2a2a2a)
+
+  /* General */
+  body
+    background: #2a2a2a
+
+  /* FORMS */
+  button[type=submit].primary, .board-color-modern input[type=submit].primary
+    background-color: #819C5D
+
+  .toggle-switch:checked~.toggle-label
+    background-color: #D2E9B4
+
+  .toggle-label:after, .board-color-modern .toggle-switch:checked~.toggle-label:after
+    background-color: #819C5D
+
+
+  /* POP-UPS */
+  .pop-over
+    background-color: #454545
+    color: #cccccc
+    border: 1px solid #111111
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+
+  .pop-over .header
+    background-color: #333333
+
+  .pop-over .header-title
+    font-family: Poppins
+    font-size: 16px
+    color: #cccccc
+
+  .pop-over-list li:hover > a
+    background-color: #819C5D !important
+
+
+  /* HEADERS */
+  &#header-quick-access, .background-box, #header
+    background-color: #333333
+
+  &#header-quick-access
+    padding: 4px
+    font-size: 14px
+
+  &#header #header-main-bar
+    height: 30px
+    padding-top: 3px
+    padding-bottom: 3px
+
+  &#header
+    box-shadow: 0 6px 6px -6px rgba(0,0,0,0.8)
+
+  &#header-quick-access ul
+    overflow: visible
+
+  &#header-quick-access ul li.current
+    border: 0 !important
+    font-weight: bold
+
+  &#header-quick-access ul li.separator
+    display: none
+
+  &#header-quick-access ul li:nth-child(3)
+    margin-right: 10px
+
+  &#header-quick-access ul li a
+    padding: 5px 10px
+    border-radius: 2px
+
+  &#header-quick-access ul li.current a
+    border-radius: 2px
+    background: rgba(255,255,255,.2)
+
+  &#header #header-main-bar h1
+    font-family: Poppins
+    font-weight: bold
+    line-height: 0.8em
+    padding-top: 10px
+
+  /* CONTENT */
+  .board-canvas
+    background: #2a2a2a
+    padding: 10px 10px 0
+
+
+  /* SWIMLANES */
+  .swimlane .swimlane-header-wrap
+    background-color: #666666
+    color: #cccccc
+    padding: 4px 0
+    margin-bottom: 10px
+    /*display: none*/ /* REMOVE SWIMLANE HEADER */
+
+  .swimlane .swimlane-header-wrap .swimlane-header
+    font-family: Poppins
+
+  .swimlane
+    background: #2a2a2a
+    line-height: 15px
+    max-height: 100%
+
+
+  /* LISTS */
+  .swimlane .list
+    background: #666666
+    border-radius: 0
+    border: 0px solid #666666
+
+  .swimlane .list:nth-child(even)
+    background: #5f5f5f
+
+  .list-header
+    background: #333333
+    padding-top: 10px
+    border-bottom: 6px solid #333333
+
+  .list-header .viewer
+    padding-left: 10px
+
+  .list-header .list-header-name
+    line-height: 14px
+    color: #eeeeee
+
+  .list-header .list-header-menu
+    padding-top: 17px
+
+  .list-body
+    scrollbar-width: thin
+    scrollbar-color: #343434 #999999
+
+  .list-body::-webkit-scrollbar
+    width: 10px
+
+  .list-body::-webkit-scrollbar-track
+    background: #343434
+    border-radius: 3px
+    margin: 4px 0
+
+  .list-body::-webkit-scrollbar-thumb
+    background-color: #999999
+    border-radius: 6px
+    border: 3px solid #343434
+
+  .list-body .open-minicard-composer:hover /*me*/
+    background: none
+    box-shadow: none
+
+  .list-body a.open-minicard-composer, .list-body a.open-minicard-composer i
+    color: #bbbbbb
+
+  .list-body a.open-minicard-composer:hover, .list-body a.open-minicard-composer:hover i
+    color: #ffffff
+
+  /* remove the add list column for more space */
+  /*.board-color-modern .list.list-composer.js-list-composer
+    display: none*/
+
+  /* MINI CARD */
+  .minicard
+    background-color: #444444
+    color: #cccccc
+    border-radius: 2px
+    font-size: 0.9em
+    padding: 10px
+    box-shadow: 0 4px 3px -3px rgba(0,0,0,0.8)
+
+  .card-label
+    font-size: 11px
+    font-weight: 400
+
+  .minicard .badges
+    color: #bbbbbb
+
+  .minicard .date
+    margin-top: 7px
+
+  .minicard.minicard-composer textarea.minicard-composer-textarea:focus
+    background-color: #eeeeee
+    color: #333333
+
+
+  /* CARD DETAILS */
+  .card-details
+    background-color: #454545
+    color: #cccccc
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+    border: 1px solid #111111
+
+  .card-details
+    scrollbar-width: thin
+    scrollbar-color: #343434 #999999
+
+  .card-details::-webkit-scrollbar
+    width: 16px
+
+  .card-details::-webkit-scrollbar-track
+    background: #343434
+
+  .card-details::-webkit-scrollbar-thumb
+    background-color: #999999
+    border-radius: 6px
+    border: 4px solid #343434
+
+  .card-details .card-details-header
+    background: #333333
+    color: #cccccc
+    border-bottom: 2px solid #2d2d2d
+
+  .card-details hr
+    background: #2d2d2d
+
+  .card-details .card-details-item-title
+    color: #ffffff
+
+  .card-details .new-description textarea, .card-details .new-comment textarea
+    background-color: #999999
+    color: #111111
+
+  .card-details .checklist
+    background-color: transparent
+
+  .card-details .checklist-item
+    background-color: rgba(255,255,255,0.1)
+    padding: 2px 8px
+    border-radius: 3px
+
+  .card-details .check-box.materialCheckBox
+    border-color: #ffffff
+
+  .card-details .check-box.materialCheckBox.is-checked
+    border-bottom: 2px solid #819C5D
+    border-right: 2px solid #819C5D
+    border-top: 0
+    border-left: 0
+
+  .card-details .js-add-checklist-item
+    margin-top: 4px
+
+  .card-details .activities .activity .activity-desc .activity-comment
+    background-color: rgba(255,255,255,0.1)
+
+
