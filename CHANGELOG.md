@@ -1,6 +1,12 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+- Add 'Modern Dark' theme [Part1](https://github.com/wekan/wekan/pulls/3335)
+  and [Part2](https://github.com/wekan/wekan/commit/6801c960b115be4265bf18ba05c444ac79aef887).
+  Thanks to jghaanstra, helioguardabaxo and xet7.
+
+and fixes the following bugs:
 
 - [Fix edit description to require only one click](https://github.com/wekan/wekan/commit/0ef248574c2751be1245c5748a9cbbe5ba2969b5).
   Thanks to uusijani and xet7.
