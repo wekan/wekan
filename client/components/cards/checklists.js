@@ -58,8 +58,14 @@ BlazeComponent.extendComponent({
         $(self.itemsDom).sortable(
           'option',
           'disabled',
-          !userIsMember() || Utils.isMiniScreen(),
+          !userIsMember(),
         );
+        if (Utils.isMiniScreenOrShowDesktopDragHandles()) {
+          $(self.itemsDom).sortable({
+            handle: 'span.fa.checklistitem-handle',
+            appendTo: 'parent',
+          });
+        }
       }
     });
   },
