@@ -4,6 +4,8 @@ This release adds the following new features:
 
 - [Board admin can edit and delete comments as well](https://github.com/wekan/wekan/pull/3340).
   Thanks to mfilser.
+- [Drag handles for checklist](https://github.com/wekan/wekan/pull/3341).
+  Thanks to mfilser.
 - [Custom URL Schemes autolinked](https://github.com/wekan/wekan/pull/3339).
   Thanks to brian-j.
 
