@@ -265,6 +265,26 @@ Template.editor.onRendered(() => {
 
 import sanitizeXss from 'xss';
 
+// Additional  safeAttrValue function to allow for other specific protocols
+// See https://github.com/leizongmin/js-xss/issues/52#issuecomment-241354114
+function mySafeAttrValue(tag, name, value, cssFilter) {
+  // only when the tag is 'a' and attribute is 'href'
+  // then use your custom function
+  if (tag === 'a' && name === 'href') {
+    // only filter the value if starts with 'cbthunderlink:' or 'aodroplink'
+    if (/^thunderlink:/ig.test(value) || /^cbthunderlink:/ig.test(value) || /^aodroplink:/ig.test(value)) {
+      return value;
+    }
+    else {
+      // use the default safeAttrValue function to process all non cbthunderlinks
+      return sanitizeXss.safeAttrValue(tag, name, value, cssFilter);
+    }
+  } else {
+    // use the default safeAttrValue function to process it
+    return sanitizeXss.safeAttrValue(tag, name, value, cssFilter);
+  }
+};
+
 // XXX I believe we should compute a HTML rendered field on the server that
 // would handle markdown and user mentions. We can simply have two
 // fields, one source, and one compiled version (in HTML) and send only the
@@ -278,7 +298,7 @@ Blaze.Template.registerHelper(
     const view = this;
     let content = Blaze.toHTML(view.templateContentBlock);
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
-    if (!currentBoard) return HTML.Raw(sanitizeXss(content));
+    if (!currentBoard) return HTML.Raw(sanitizeXss(content, { safeAttrValue: mySafeAttrValue }));
     const knowedUsers = currentBoard.members.map(member => {
       const u = Users.findOne(member.userId);
       if (u) {
@@ -322,7 +342,7 @@ Blaze.Template.registerHelper(
       content = content.replace(fullMention, Blaze.toHTML(link));
     }
 
-    return HTML.Raw(sanitizeXss(content));
+    return HTML.Raw(sanitizeXss(content, { safeAttrValue: mySafeAttrValue }));
   }),
 );
 
