@@ -250,12 +250,15 @@ BlazeComponent.extendComponent({
 
     // Disable sorting if the current user is not a board member
     this.autorun(() => {
-      const disabled = !userIsMember() || Utils.isMiniScreen();
+      const disabled = !userIsMember();
       if (
         $checklistsDom.data('uiSortable') ||
         $checklistsDom.data('sortable')
       ) {
         $checklistsDom.sortable('option', 'disabled', disabled);
+        if (Utils.isMiniScreenOrShowDesktopDragHandles()) {
+          $checklistsDom.sortable({ handle: '.checklist-handle'});
+        }
       }
       if ($subtasksDom.data('uiSortable') || $subtasksDom.data('sortable')) {
         $subtasksDom.sortable('option', 'disabled', disabled);
