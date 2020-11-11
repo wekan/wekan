@@ -753,7 +753,7 @@ setBoardClear(color1,color2)
   body
     background: #2a2a2a
 
-  /* FORMS */
+  /* Forms */
   button[type=submit].primary, .board-color-modern input[type=submit].primary
     background-color: #819C5D
 
@@ -763,27 +763,7 @@ setBoardClear(color1,color2)
   .toggle-label:after, .board-color-modern .toggle-switch:checked~.toggle-label:after
     background-color: #819C5D
 
-
-  /* POP-UPS */
-  .pop-over
-    background-color: #454545
-    color: #cccccc
-    border: 1px solid #111111
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
-
-  .pop-over .header
-    background-color: #333333
-
-  .pop-over .header-title
-    font-family: Poppins
-    font-size: 16px
-    color: #cccccc
-
-  .pop-over-list li:hover > a
-    background-color: #819C5D !important
-
-
-  /* HEADERS */
+  /* Headers */
   &#header-quick-access, .background-box, #header
     background-color: #333333
 
@@ -826,19 +806,17 @@ setBoardClear(color1,color2)
     line-height: 0.8em
     padding-top: 10px
 
-  /* CONTENT */
+  /* Content */
   .board-canvas
     background: #2a2a2a
     padding: 10px 10px 0
 
-
-  /* SWIMLANES */
+  /* Swimlanes */
   .swimlane .swimlane-header-wrap
     background-color: #666666
     color: #cccccc
     padding: 4px 0
     margin-bottom: 10px
-    /*display: none*/ /* REMOVE SWIMLANE HEADER */
 
   .swimlane .swimlane-header-wrap .swimlane-header
     font-family: Poppins
@@ -848,8 +826,7 @@ setBoardClear(color1,color2)
     line-height: 15px
     max-height: 100%
 
-
-  /* LISTS */
+  /* Lists */
   .swimlane .list
     background: #666666
     border-radius: 0
@@ -890,9 +867,10 @@ setBoardClear(color1,color2)
     border-radius: 6px
     border: 3px solid #343434
 
-  .list-body .open-minicard-composer:hover /*me*/
+  .list-body .open-minicard-composer:hover
     background: none
     box-shadow: none
+    border-bottom: 0
 
   .list-body a.open-minicard-composer, .list-body a.open-minicard-composer i
     color: #bbbbbb
@@ -900,11 +878,7 @@ setBoardClear(color1,color2)
   .list-body a.open-minicard-composer:hover, .list-body a.open-minicard-composer:hover i
     color: #ffffff
 
-  /* remove the add list column for more space */
-  /*.board-color-modern .list.list-composer.js-list-composer
-    display: none*/
-
-  /* MINI CARD */
+  /* Mini Card */
   .minicard
     background-color: #444444
     color: #cccccc
@@ -912,6 +886,10 @@ setBoardClear(color1,color2)
     font-size: 0.9em
     padding: 10px
     box-shadow: 0 4px 3px -3px rgba(0,0,0,0.8)
+    border-bottom: 1px solid #666666
+
+  .minicard:hover
+    background-color: #555555
 
   .card-label
     font-size: 11px
@@ -926,9 +904,12 @@ setBoardClear(color1,color2)
   .minicard.minicard-composer textarea.minicard-composer-textarea:focus
     background-color: #eeeeee
     color: #333333
+    padding: 6px
 
+  .is-selected .minicard
+    background-color: #666666
 
-  /* CARD DETAILS */
+  /* Card Details */
   .card-details
     background-color: #454545
     color: #cccccc
@@ -988,4 +969,31 @@ setBoardClear(color1,color2)
   .card-details .activities .activity .activity-desc .activity-comment
     background-color: rgba(255,255,255,0.1)
 
+  /* Sidebar */
+  .sidebar .sidebar-shadow
+    background-color: #222222
+    box-shadow: -10px 0 5px -10px #444444
+    border-left: 1px solid #333333
+    color: #cccccc
 
+  .activities .activity .activity-desc .activity-comment
+    background-color: #cccccc
+    color: #222222
+
+  /* Pop-Ups for "Modern Dark" */
+.pop-over.board-color-moderndark
+  background-color: #454545
+  color: #cccccc
+  border: 1px solid #111111
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+
+.pop-over.board-color-moderndark .header
+  background-color: #333333
+
+.pop-over.board-color-moderndark .header-title
+  font-family: Poppins
+  font-size: 16px
+  color: #cccccc
+
+.pop-over.board-color-moderndark .pop-over-list li:hover > a
+  background-color: #819C5D !important
