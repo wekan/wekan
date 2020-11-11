@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release adds the following improvements:
+
+- [Some more small improvements to Modern Dark theme](https://github.com/wekan/wekan/pull/3346).
+  Thanks to jghaanstra.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.51 2020-11-11 Wekan release
 
 This release adds the following new features:
