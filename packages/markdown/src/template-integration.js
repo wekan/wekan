@@ -16,10 +16,10 @@ function mySafeAttrValue(tag, name, value, cssFilter) {
     if (/^thunderlink:/ig.test(value) || /^cbthunderlink:/ig.test(value) || /^aodroplink:/ig.test(value)) {
       return value;
     }
-		else {
-    	// use the default safeAttrValue function to process all non cbthunderlinks
-    	return sanitizeXss.safeAttrValue(tag, name, value, cssFilter);
-  	}
+    else {
+      // use the default safeAttrValue function to process all non cbthunderlinks
+      return sanitizeXss.safeAttrValue(tag, name, value, cssFilter);
+    }
   } else {
     // use the default safeAttrValue function to process it
     return sanitizeXss.safeAttrValue(tag, name, value, cssFilter);
