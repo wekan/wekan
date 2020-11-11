@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Board admin can edit and delete comments as well](https://github.com/wekan/wekan/pull/3340).
+  Thanks to mfilser.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.50 2020-11-10 Wekan release
 
 This release adds the following new features:
