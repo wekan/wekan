@@ -761,7 +761,7 @@ setBoardClear(color1,color2)
     background-color: #D2E9B4
 
   .toggle-label:after, .board-color-modern .toggle-switch:checked~.toggle-label:after
-    background-color: #819C5D
+    background-color: #819C5D !important
 
   /* Headers */
   &#header-quick-access, .background-box, #header
@@ -889,17 +889,22 @@ setBoardClear(color1,color2)
     border-bottom: 1px solid #666666
 
   .minicard:hover
-    background-color: #555555
+    background-color: #555555 !important
 
   .card-label
     font-size: 11px
     font-weight: 400
+    padding: 2px 6px 0
 
   .minicard .badges
     color: #bbbbbb
 
   .minicard .date
     margin-top: 7px
+    font-size: 11px
+
+  .card-date.almost-due
+    color: #666666
 
   .minicard.minicard-composer textarea.minicard-composer-textarea:focus
     background-color: #eeeeee
@@ -943,7 +948,7 @@ setBoardClear(color1,color2)
     color: #ffffff
 
   .card-details .new-description textarea, .card-details .new-comment textarea
-    background-color: #999999
+    background-color: #dddddd
     color: #111111
 
   .card-details .checklist
