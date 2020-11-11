@@ -15,6 +15,12 @@ template(name="cardActivities")
   each activityData in currentCard.activities
     +activity(activity=activityData card=card mode=mode)
 
+template(name="editOrDeleteComment")
+  = ' - '
+  a.js-open-inlined-form {{_ "edit"}}
+  = ' - '
+  a.js-delete-comment {{_ "delete"}}
+
 template(name="activity")
   .activity
     +userAvatar(userId=activity.user._id)
@@ -118,11 +124,10 @@ template(name="activity")
               +viewer
                 = activity.comment.text
             span(title=activity.createdAt).activity-meta {{ moment activity.createdAt }}
-              if ($eq currentUser._id activity.comment.userId)
-                = ' - '
-                a.js-open-inlined-form {{_ "edit"}}
-                = ' - '
-                a.js-delete-comment {{_ "delete"}}
+              if($eq currentUser._id activity.comment.userId)
+                +editOrDeleteComment
+              else if currentUser.isBoardAdmin
+                +editOrDeleteComment
 
         if($eq activity.activityType 'deleteComment')
           | {{{_ 'activity-deleteComment' currentData.commentId}}}.
