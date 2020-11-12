@@ -13,13 +13,12 @@ version: '2'
 #       see https://github.com/wekan/wekan/wiki/Backup
 # 1) Stop Wekan:
 #      docker-compose stop
-# 2) Download new version:
-#      docker-compose pull wekan
-# 3) If you have more networks for VPN etc as described at bottom of
-#    this config, download for them too:
-#      docker-compose pull wekan2
+# 2) Remove old Wekan app (wekan-app only, not that wekan-db container that has all your data)
+#      docker rm wekan-app
+# 3) Get newest docker-compose.yml from https://github.com/wekan/wekan to have correct image,
+#    for example: "image: quay.io/wekan/wekan" or version tag "image: quay.io/wekan/wekan:v4.52"
 # 4) Start Wekan:
-#      docker-compose start
+#      docker-compose up -d
 #----------------------------------------------------------------------------------
 # ==== OPTIONAL: DEDICATED DOCKER USER ====
 # 1) Optionally create a dedicated user for Wekan, for example:
