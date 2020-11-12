@@ -114,15 +114,12 @@ services:
   wekan:
     #-------------------------------------------------------------------------------------
     # ==== MONGODB AND METEOR VERSION ====
-    # NOTE: Quay is currently not updated, use Docker Hub image below c)
-    # a) For Wekan Meteor 1.8.x version at master branch,
-    #    using https://quay.io/wekan/wekan automatic builds
-    #image: quay.io/wekan/wekan
-    # b) Using specific Meteor 1.6.x version tag:
-    # image: quay.io/wekan/wekan:v1.95
-    # c) Using Docker Hub automatic builds https://hub.docker.com/r/wekanteam/wekan
-    image: wekanteam/wekan
-    # image: wekanteam/wekan:v2.99
+    # a) Quay automatic builds do work, https://quay.io/wekan7wekan
+    image: quay.io/wekan/wekan
+    # b) Using specific version tag:
+    # image: quay.io/wekan/wekan:v4.52
+    # c) Docker Hub builds are broken with error ENOMEM https://hub.docker.com/r/wekanteam/wekan
+    # image: wekanteam/wekan
     #-------------------------------------------------------------------------------------
     container_name: wekan-app
     restart: always

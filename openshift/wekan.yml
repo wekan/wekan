@@ -349,6 +349,6 @@ parameters:
   required: true
 - name: WEKAN_IMAGE
   displayName: Wekan Docker Image
-  value: wekanteam/wekan:latest
+  value: quay.io/wekan/wekan
   description: The metabase docker image to use
   required: true
