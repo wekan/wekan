@@ -63,7 +63,7 @@ do
 		sudo npm -g install fibers
 		# Install Meteor, if it's not yet installed
 		curl https://install.meteor.com | bash
-		sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
+		#sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
 		break
 		;;
 
@@ -77,7 +77,7 @@ do
 		#	sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' ~/repos/wekan/packages/meteor-useraccounts-core/package.js
 		#fi
 		#cd ..
-		sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
+		#sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
 		rm -rf node_modules .meteor/local
 		npm install
 		rm -rf .build
