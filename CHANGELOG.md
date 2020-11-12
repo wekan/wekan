@@ -1,3 +1,22 @@
+# Upcoming Wekan release
+
+This release adds the following updates:
+
+- [Use Quay for Docker builds, because Docker Hub builds show ENOMEM error](https://github.com/wekan/wekan/commit/22501749da708a51b89ef9ff0aee4ac6ba529ed9).
+  Thanks to xet7.
+- [Update Docker upgrade info](https://github.com/wekan/wekan/commit/d0040754ea75a26926a187ce47dbe529a15e0926).
+  Thanks to xet7.
+- [Use latest MongoDB on Docker](https://github.com/wekan/wekan/commit/8250cbcf6e417d21ffdc4f14495792768b0bc9ef).
+  Thanks to xet7.
+- [In rebuild-wekan.sh install dependencies, Install npm](https://github.com/wekan/wekan/commit/345e2357c8fd030e943f9729f790db980d3a727c).
+  Thanks to xet7.
+- [In rebuild-wekan.sh install dependencies, uncomment chown](https://github.com/wekan/wekan/commit/21aebe845f3f4911d9bb824f0f33bdb19a3a9af6).
+  Thanks to xet7.
+- [Update markdown-it and markdown-it-emoji dependencies](https://github.com/wekan/wekan/commit/222fca3ad7aa2b67329dca64e84eb72899fd8137).
+  Thanks to developers of markdown-it and markdown-it-emoji.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.52 2020-11-12 Wekan release
 
 This release adds the following improvements:
