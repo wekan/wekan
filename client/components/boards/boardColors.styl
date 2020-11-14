@@ -831,6 +831,7 @@ setBoardClear(color1,color2)
     background: #666666
     border-radius: 0
     border: 0px solid #666666
+    flex: 0 0 265px;
 
   .swimlane .list:nth-child(even)
     background: #5f5f5f
@@ -872,10 +873,10 @@ setBoardClear(color1,color2)
     box-shadow: none
     border-bottom: 0
 
-  .list-body a.open-minicard-composer, .list-body a.open-minicard-composer i
+  .list-body a.open-minicard-composer, .list-body a.open-minicard-composer i, .list .list-composer .open-list-composer i
     color: #bbbbbb
 
-  .list-body a.open-minicard-composer:hover, .list-body a.open-minicard-composer:hover i
+  .list-body a.open-minicard-composer:hover, .list-body a.open-minicard-composer:hover i, .list .list-composer .open-list-composer:hover i
     color: #ffffff
 
   /* Mini Card */
@@ -891,7 +892,7 @@ setBoardClear(color1,color2)
   .minicard:hover
     background-color: #555555 !important
 
-  .card-label
+  .minicard .card-label
     font-size: 11px
     font-weight: 400
     padding: 2px 6px 0
@@ -902,6 +903,9 @@ setBoardClear(color1,color2)
   .minicard .date
     margin-top: 7px
     font-size: 11px
+
+  .card-date
+    color: #555555
 
   .card-date.almost-due
     color: #666666
@@ -953,11 +957,14 @@ setBoardClear(color1,color2)
 
   .card-details .checklist
     background-color: transparent
+    margin-bottom: 10px
 
   .card-details .checklist-item
     background-color: rgba(255,255,255,0.1)
     padding: 2px 8px
     border-radius: 3px
+    font-size: 13px
+    margin-top: 5px
 
   .card-details .check-box.materialCheckBox
     border-color: #ffffff
@@ -971,8 +978,12 @@ setBoardClear(color1,color2)
   .card-details .js-add-checklist-item
     margin-top: 4px
 
+  .checklist-items .add-checklist-item
+    margin-top: .7em
+
   .card-details .activities .activity .activity-desc .activity-comment
-    background-color: rgba(255,255,255,0.1)
+    background-color: #cccccc
+    color: #222222
 
   /* Sidebar */
   .sidebar .sidebar-shadow
