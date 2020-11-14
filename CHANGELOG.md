@@ -19,6 +19,8 @@ and adds the following improvements:
 
 - [Minor improvements to Modern Dark theme](https://github.com/wekan/wekan/pull/3348).
   Thanks to jghaanstra.
+- [Added missing bottom padding to lists](https://github.com/wekan/wekan/pull/3351).
+  Thanks to danger89.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
