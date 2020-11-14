@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v4.53 2020-11-15 Wekan release
 
 This release adds the following updates:
 
