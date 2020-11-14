@@ -15,6 +15,11 @@ This release adds the following updates:
 - [Update markdown-it and markdown-it-emoji dependencies](https://github.com/wekan/wekan/commit/222fca3ad7aa2b67329dca64e84eb72899fd8137).
   Thanks to developers of markdown-it and markdown-it-emoji.
 
+and adds the following improvements:
+
+- [Minor improvements to Modern Dark theme](https://github.com/wekan/wekan/pull/3348).
+  Thanks to jghaanstra.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v4.52 2020-11-12 Wekan release
