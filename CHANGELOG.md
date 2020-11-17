@@ -4,6 +4,8 @@ This release adds the following new features:
 
 - [Add keyboard shortcut / for search](https://github.com/wekan/wekan/pull/3354).
   Thanks to helioguardabaxo.
+- [Added back variable auto height of icons at All Boards page](https://github.com/wekan/wekan/commit/9dbb10c59b4bb1b16b7942cc0b60741a1fbe9110).
+  Thanks to xet7.
 
 and adds the following updates:
 
