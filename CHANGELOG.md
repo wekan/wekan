@@ -5,6 +5,11 @@ This release adds the following new features:
 - [Add keyboard shortcut / for search](https://github.com/wekan/wekan/pull/3354).
   Thanks to helioguardabaxo.
 
+and adds the following updates:
+
+- [Upgrade to Node.js 12.19.1](https://github.com/wekan/wekan/commit/f786afc4b9d0e5e4a057b5f3d7995377873022cf).
+  Thanks to Node.js developers.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v4.53 2020-11-15 Wekan release
