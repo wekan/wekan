@@ -1,6 +1,6 @@
 {
   "accept": "Accepteren",
-  "act-activity-notify": "Activiteiten Notificatie",
+  "act-activity-notify": "Activiteit notificatie",
   "act-addAttachment": "heeft bijlage __attachment__ toegevoegd aan kaart __card__ van lijst __list__ in swimlane __swimlane__ op bord __board__",
   "act-deleteAttachment": "heeft bijlage __attachment__ verwijderd op kaart __card__ van lijst __list__ uit swimlane __swimlane__ op bord __board__",
   "act-addSubtask": "heeft subtaak __subtask__ toegevoegd aan kaart __card__ van lijst __list__ in swimlane __swimlane__ op bord __board__",
@@ -488,7 +488,7 @@
   "shortcut-filter-my-cards": "Filter mijn kaarten",
   "shortcut-show-shortcuts": "Haal lijst met snelkoppelingen tevoorschijn",
   "shortcut-toggle-filterbar": "Schakel Filter Zijbalk",
-  "shortcut-toggle-searchbar": "Toggle Search Sidebar",
+  "shortcut-toggle-searchbar": "Schakel Zoek Zijbalk",
   "shortcut-toggle-sidebar": "Schakel Bord Zijbalk",
   "show-cards-minimum-count": "Laat het aantal kaarten zien wanneer de lijst meer kaarten heeft dan",
   "sidebar-open": "Open Zijbalk",
