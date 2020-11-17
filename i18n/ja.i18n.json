@@ -488,6 +488,7 @@
   "shortcut-filter-my-cards": "カードをフィルター",
   "shortcut-show-shortcuts": "このショートカットリストを表示する",
   "shortcut-toggle-filterbar": "フィルターサイドバーの切り替え",
+  "shortcut-toggle-searchbar": "Toggle Search Sidebar",
   "shortcut-toggle-sidebar": "ボードサイドバーの切り替え",
   "show-cards-minimum-count": "以下より多い場合、リストにカード数を表示",
   "sidebar-open": "サイドバーを開く",
