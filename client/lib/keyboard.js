@@ -45,6 +45,14 @@ Mousetrap.bind('f', () => {
   }
 });
 
+Mousetrap.bind('/', () => {
+  if (Sidebar.isOpen() && Sidebar.getView() === 'search') {
+    Sidebar.toggle();
+  } else {
+    Sidebar.setView('search');
+  }
+});
+
 Mousetrap.bind(['down', 'up'], (evt, key) => {
   if (!Session.get('currentCard')) {
     return;
@@ -117,6 +125,10 @@ Template.keyboardShortcuts.helpers({
     {
       keys: ['f'],
       action: 'shortcut-toggle-filterbar',
+    },
+    {
+      keys: ['/'],
+      action: 'shortcut-toggle-searchbar',
     },
     {
       keys: ['x'],
