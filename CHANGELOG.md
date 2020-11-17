@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Add keyboard shortcut / for search](https://github.com/wekan/wekan/pull/3354).
+  Thanks to helioguardabaxo.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.53 2020-11-15 Wekan release
 
 This release adds the following updates:
