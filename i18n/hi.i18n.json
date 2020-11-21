@@ -120,7 +120,7 @@
   "attachmentDeletePopup-title": "मिटाएँ संलग्नक?",
   "attachments": "संलग्नक",
   "auto-watch": "स्वचालित रूप से देखो बोर्डों जब वे बनाए जाते हैं",
-  "avatar-too-big": "अवतार बहुत बड़ा है (70KB अधिकतम)",
+  "avatar-too-big": "The avatar is too large (520KB max)",
   "back": "वापस",
   "board-change-color": "रंग बदलना",
   "board-nb-stars": "%s पसंद होना",

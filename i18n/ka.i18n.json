@@ -120,7 +120,7 @@
   "attachmentDeletePopup-title": "გსურთ მიბმული ფაილის წაშლა? ",
   "attachments": "მიბმული ფაილები",
   "auto-watch": "დაფის ავტომატური ნახვა მას შემდეგ რაც ის შეიქმნება",
-  "avatar-too-big": "დიდი მოცულობის სურათი (მაქსიმუმ 70KB)",
+  "avatar-too-big": "The avatar is too large (520KB max)",
   "back": "უკან",
   "board-change-color": "ფერის შეცვლა",
   "board-nb-stars": "%s ვარსკვლავი",

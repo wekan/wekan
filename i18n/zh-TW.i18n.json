@@ -120,7 +120,7 @@
   "attachmentDeletePopup-title": "刪除附件？",
   "attachments": "附件",
   "auto-watch": "自動訂閱新建立的看板",
-  "avatar-too-big": "頭像過大 (上限 70 KB)",
+  "avatar-too-big": "The avatar is too large (520KB max)",
   "back": "返回",
   "board-change-color": "更改顏色",
   "board-nb-stars": "%s 星星",

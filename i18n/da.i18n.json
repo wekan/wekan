@@ -120,7 +120,7 @@
   "attachmentDeletePopup-title": "Slet vedhæftning?",
   "attachments": "Vedhæftninger",
   "auto-watch": "Følg automatisk tavler når de oprettes ",
-  "avatar-too-big": "Avataren fylder for meget (maks. 70KB)",
+  "avatar-too-big": "The avatar is too large (520KB max)",
   "back": "Tilbage",
   "board-change-color": "Skift farve",
   "board-nb-stars": "%s stjerner",

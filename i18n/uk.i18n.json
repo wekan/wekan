@@ -120,7 +120,7 @@
   "attachmentDeletePopup-title": "Видалити Додаток?",
   "attachments": "Додатки",
   "auto-watch": "Automatically watch boards when they are created",
-  "avatar-too-big": "The avatar is too large (70KB max)",
+  "avatar-too-big": "The avatar is too large (520KB max)",
   "back": "Назад",
   "board-change-color": "Змінити колір",
   "board-nb-stars": "%s stars",

@@ -120,7 +120,7 @@
   "attachmentDeletePopup-title": "Eliminare l'allegato?",
   "attachments": "Allegati",
   "auto-watch": "Segui automaticamente le bacheche quando vengono create.",
-  "avatar-too-big": "L'avatar è troppo grande (70KB max)",
+  "avatar-too-big": "The avatar is too large (520KB max)",
   "back": "Indietro",
   "board-change-color": "Cambia colore",
   "board-nb-stars": "%s stelle",

@@ -120,7 +120,7 @@
   "attachmentDeletePopup-title": "Briši priponko?",
   "attachments": "Priponke",
   "auto-watch": "Samodejno spremljaj ustvarjene table",
-  "avatar-too-big": "Velikost avatarja je prevelika (70kB maks.)",
+  "avatar-too-big": "The avatar is too large (520KB max)",
   "back": "Nazaj",
   "board-change-color": "Spremeni barvo",
   "board-nb-stars": "%s zvezdic",

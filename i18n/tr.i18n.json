@@ -120,7 +120,7 @@
   "attachmentDeletePopup-title": "Ek Silinsin mi?",
   "attachments": "Ekler",
   "auto-watch": "Oluşan yeni panoları kendiliğinden izlemeye al",
-  "avatar-too-big": "Avatar boyutu çok büyük (En fazla 70KB olabilir)",
+  "avatar-too-big": "The avatar is too large (520KB max)",
   "back": "Geri",
   "board-change-color": "Renk değiştir",
   "board-nb-stars": "%s yıldız",

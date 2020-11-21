@@ -120,7 +120,7 @@
   "attachmentDeletePopup-title": "Smazat přílohu?",
   "attachments": "Přílohy",
   "auto-watch": "Automaticky sleduj tabla když jsou vytvořena",
-  "avatar-too-big": "Avatar obrázek je příliš velký (70KB max)",
+  "avatar-too-big": "The avatar is too large (520KB max)",
   "back": "Zpět",
   "board-change-color": "Změnit barvu",
   "board-nb-stars": "%s hvězdiček",

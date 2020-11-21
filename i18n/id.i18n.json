@@ -120,7 +120,7 @@
   "attachmentDeletePopup-title": "Hapus Lampiran?",
   "attachments": "Daftar Lampiran",
   "auto-watch": "Otomatis diawasi saat membuat Panel",
-  "avatar-too-big": "Berkas avatar terlalu besar (70KB maks)",
+  "avatar-too-big": "The avatar is too large (520KB max)",
   "back": "Kembali",
   "board-change-color": "Ubah warna",
   "board-nb-stars": "%s bintang",

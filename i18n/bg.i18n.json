@@ -120,7 +120,7 @@
   "attachmentDeletePopup-title": "Желаете ли да изтриете прикачения файл?",
   "attachments": "Прикачени файлове",
   "auto-watch": "Автоматично наблюдаване на таблата, когато са създадени",
-  "avatar-too-big": "Аватарът е прекалено голям (максимум 70KB)",
+  "avatar-too-big": "The avatar is too large (520KB max)",
   "back": "Назад",
   "board-change-color": "Промени цвета",
   "board-nb-stars": "%s звезди",

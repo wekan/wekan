@@ -120,7 +120,7 @@
   "attachmentDeletePopup-title": "آیا می خواهید ضمیمه را حذف کنید؟",
   "attachments": "ضمائم",
   "auto-watch": "اضافه شدن خودکار دیده‌بانی بردها زمانی که ایجاد می‌شوند",
-  "avatar-too-big": "آواتار بسیار بزرگ است (حداکثر 70 کیلوبایت)",
+  "avatar-too-big": "The avatar is too large (520KB max)",
   "back": "بازگشت",
   "board-change-color": "تغییر رنگ",
   "board-nb-stars": "%s ستاره",

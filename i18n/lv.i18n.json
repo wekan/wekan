@@ -120,7 +120,7 @@
   "attachmentDeletePopup-title": "Dzēst failu?",
   "attachments": "Faili",
   "auto-watch": "Automātiski sekot dēļiem, kad tie tiek izveidoti",
-  "avatar-too-big": "Attēls ir par lielu (max 70KB)",
+  "avatar-too-big": "The avatar is too large (520KB max)",
   "back": "Atpakaļ",
   "board-change-color": "Mainīt krāsu",
   "board-nb-stars": "%s zvaigznes",

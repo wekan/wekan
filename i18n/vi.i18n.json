@@ -120,7 +120,7 @@
   "attachmentDeletePopup-title": "Xóa tệp đính kèm không?",
   "attachments": "Tệp Đính Kèm",
   "auto-watch": "Tự động xem bảng lúc được tạo ra",
-  "avatar-too-big": "Hình đại diện quá to (70KB tối đa)",
+  "avatar-too-big": "The avatar is too large (520KB max)",
   "back": "Trở Lại",
   "board-change-color": "Đổi màu",
   "board-nb-stars": "%s sao",

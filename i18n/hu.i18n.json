@@ -120,7 +120,7 @@
   "attachmentDeletePopup-title": "Törli a mellékletet?",
   "attachments": "Mellékletek",
   "auto-watch": "Táblák automatikus megtekintése, amikor létrejönnek",
-  "avatar-too-big": "Az avatár túl nagy (legfeljebb 70 KB)",
+  "avatar-too-big": "The avatar is too large (520KB max)",
   "back": "Vissza",
   "board-change-color": "Szín megváltoztatása",
   "board-nb-stars": "%s csillag",
