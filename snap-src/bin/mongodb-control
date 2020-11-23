@@ -56,21 +56,45 @@ if [ -z "$MONGO_URL" ]; then
     fi
     echo "mongodb bind options: $BIND_OPTIONS"
 
-    ## OLD: Logging to file.
-    #mongod --dbpath $SNAP_COMMON --logpath $SNAP_COMMON/mongodb.log --logappend --journal $BIND_OPTIONS --smallfiles
-    ## NEW: Logging to syslog, that usually has already log rotation.
-    mongod --dbpath $SNAP_COMMON --syslog --journal $BIND_OPTIONS --quiet
+    if [ "syslog" == "${MONGO_LOG_DESTINATION}" ]; then
+        echo "Sending mongodb logs to syslog"
+        mongod --dbpath $SNAP_COMMON --syslog --journal $BIND_OPTIONS --quiet
+        exit 0
+    fi
+
+    if [ "snapcommon" == "${MONGO_LOG_DESTINATION}" ]; then
+        echo "Sending mongodb logs to $SNAP_COMMON"
+        mongod --dbpath $SNAP_COMMON --logpath $SNAP_COMMON/mongodb.log --logappend --journal $BIND_OPTIONS --quiet
+    fi
+
+    if [ "devnull" == "${MONGO_LOG_DESTINATION}" ]; then
+        echo "Sending mongodb logs to /dev/null"
+        mongod --dbpath $SNAP_COMMON --logpath /dev/null --journal $BIND_OPTIONS --quiet
+    fi
+
+    # Drop indexes on database upgrade, when starting MongoDB
+    #mongo wekan --eval "db.getCollectionNames().forEach(function(col_name) { var coll = db.getCollection(col_name); coll.dropIndexes(); });" $BIND_OPTIONS
+    mongo wekan --eval 'db.adminCommand({ setFeatureCompatibilityVersion: "4.4" });' $BIND_OPTIONS
 
 else
 
-    ## OLD: Logging to file.
-    #mongod --dbpath $SNAP_COMMON --logpath $SNAP_COMMON/mongodb.log --logappend --journal $MONGO_URL --smallfiles
-    ## NEW: Logging to syslog, that usually has already log rotation.
-    mongod --dbpath $SNAP_COMMON --syslog --journal $MONGO_URL --quiet
+    if [ "syslog" == "${MONGO_LOG_DESTINATION}" ]; then
+        echo "Sending mongodb logs to syslog"
+        mongod --dbpath $SNAP_COMMON --syslog --journal $MONGO_URL --quiet
+    fi
+
+    if [ "snapcommon" == "${MONGO_LOG_DESTINATION}" ]; then
+        echo "Sending mongodb logs to $SNAP_COMMON"
+        mongod --dbpath $SNAP_COMMON --logpath $SNAP_COMMON/mongodb.log --logappend --journal $MONGO_URL --quiet
+    fi
+
+    if [ "devnull" == "${MONGO_LOG_DESTINATION}" ]; then
+        echo "Sending mongodb logs to /dev/null"
+        mongod --dbpath $SNAP_COMMON --logpath /dev/null --journal $MONGO_URL --quiet
+    fi
+
+    # Drop indexes on database upgrade, when starting MongoDB
+    #mongo wekan --eval "db.getCollectionNames().forEach(function(col_name) { var coll = db.getCollection(col_name); coll.dropIndexes(); });" $BIND_OPTIONS
+    mongo wekan --eval 'db.adminCommand({ setFeatureCompatibilityVersion: "4.4" });' $BIND_OPTIONS
 
 fi
-
-# Drop indexes on database upgrade, when starting MongoDB
-#mongo wekan --eval "db.getCollectionNames().forEach(function(col_name) { var coll = db.getCollection(col_name); coll.dropIndexes(); });" $BIND_OPTIONS
-
-mongo wekan --eval 'db.adminCommand({ setFeatureCompatibilityVersion: "4.2" });' $BIND_OPTIONS

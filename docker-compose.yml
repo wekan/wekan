@@ -96,7 +96,10 @@ services:
     #-------------------------------------------------------------------------------------
     container_name: wekan-db
     restart: always
-    command: mongod --oplogSize 128
+    # command: mongod --oplogSize 128
+    # Syslog: mongod --syslog --oplogSize 128 --quiet
+    # Disable MongoDB logs:
+    command: mongod --logpath /dev/null --oplogSize 128 --quiet
     networks:
       - wekan-tier
     expose:
