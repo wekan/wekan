@@ -10,7 +10,7 @@ DESCRIPTION_DEBUG="Debug OIDC OAuth2 etc. Example: sudo snap set wekan debug='tr
 DEFAULT_DEBUG="false"
 KEY_DEBUG="debug"
 
-DESCRIPTION_MONGOURL="MONGO_URL. Default: ''"
+DESCRIPTION_MONGO_URL="MONGO_URL. Default: ''"
 DEFAULT_MONGO_URL=""
 KEY_MONGO_URL='mongo-url'
 
