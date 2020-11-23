@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release adds the following improvements:
+
+- [Fix typo on MONGO_URL on Snap](https://github.com/wekan/wekan/commit/05a72f7c627e05ac4ce38cb9588f2aac45273ce8).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.55 2020-11-21 Wekan release
 
 This release adds the following improvements:
