@@ -22,12 +22,6 @@ image:
 
 replicaCount: 1
 
-## Specify wekan credentials
-##
-credentials:
-  accessKey: access-key
-  secretKey: secret-key
-
 ## Specify additional environmental variables for the Deployment
 ##
 env:
@@ -36,7 +30,7 @@ env:
 
 service:
   type: NodePort
-  port: 80
+  port: 8080
   annotations: {}
     # prometheus.io/scrape: "true"
     # prometheus.io/port: "8000"
@@ -104,13 +98,10 @@ autoscaling:
 # MongoDB:
 # ------------------------------------------------------------------------------
 
-mongodb-replicaset:
+mongodb:
   enabled: true
-  replicas: 3
+  architecture: replicaset
+  replicaCount: 3
   replicaSetName: rs0
-  securityContext:
-    runAsUser: 1000
-    fsGroup: 1000
-    runAsNonRoot: true
-  #image:
-  #  tag: 3.2.21
+  auth:
+    enabled: false

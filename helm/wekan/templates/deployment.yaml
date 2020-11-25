@@ -36,7 +36,7 @@ spec:
             - name: ROOT_URL
               value: {{ .Values.root_url | default "https://wekan.local" | quote }}
             - name: MONGO_URL
-              value: "{{ template "mongodb-replicaset.url" . }}"
+              value: "{{ template "mongodb.url" . }}"
           {{- range $key := .Values.env }}
           {{- if .value }}
             - name: {{ .name }}
