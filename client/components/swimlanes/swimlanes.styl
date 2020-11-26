@@ -36,6 +36,10 @@
 // Minimize swimlanes end https://www.w3schools.com/howto/howto_js_accordion.asp
 */
 
+[class=swimlane]
+  position: sticky
+  left: 0;
+
 .swimlane
   // Even if this background color is the same as the body we can't leave it
   // transparent, because that won't work during a swimlane drag.
@@ -44,8 +48,6 @@
   flex-direction: row
   overflow: 0;
   max-height: calc(100% - 26px)
-  position: sticky
-  left: 0;
 
   &.placeholder
     background-color: rgba(0, 0, 0, .2)
