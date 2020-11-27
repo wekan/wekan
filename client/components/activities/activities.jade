@@ -142,6 +142,33 @@ template(name="activity")
             +viewer
               = activity.comment.text
 
+      //- date activity ------------------------------------------------
+      if($eq mode 'card')
+        if($eq activity.activityType 'a-receivedAt')
+          | {{{_ 'activity-receivedDate' (sanitize receivedDate) cardLink}}}.
+
+        if($eq activity.activityType 'a-startAt')
+          | {{{_ 'activity-startDate' (sanitize startDate) cardLink}}}.
+        
+        if($eq activity.activityType 'a-dueAt')
+          | {{{_ 'activity-dueDate' (sanitize dueDate) cardLink}}}.
+
+        if($eq activity.activityType 'a-endAt')
+          | {{{_ 'activity-endDate' (sanitize endDate) cardLink}}}.
+      
+      if($eq mode 'board')
+        if($eq activity.activityType 'a-receivedAt')
+          | {{{_ 'activity-receivedDate' (sanitize receivedDate) cardLink}}}.
+
+        if($eq activity.activityType 'a-startAt')
+          | {{{_ 'activity-startDate' (sanitize startDate) cardLink}}}.
+        
+        if($eq activity.activityType 'a-dueAt')
+          | {{{_ 'activity-dueDate' (sanitize dueDate) cardLink}}}.
+
+        if($eq activity.activityType 'a-endAt')
+          | {{{_ 'activity-endDate' (sanitize endDate) cardLink}}}.
+
       //- customField activity ------------------------------------------------
       if($eq mode 'board')
         if($eq activity.activityType 'createCustomField')
