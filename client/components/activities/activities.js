@@ -81,6 +81,31 @@ BlazeComponent.extendComponent({
     return createCardLink(this.currentData().activity.card());
   },
 
+  receivedDate() {
+    const receivedDate = this.currentData().activity.card();
+    if (!receivedDate) return null;
+    return receivedDate.receivedAt;
+  },
+
+  startDate() {
+    const startDate = this.currentData().activity.card();
+    if (!startDate) return null;
+    return startDate.startAt;
+  },
+
+  dueDate() {
+    const dueDate = this.currentData().activity.card();
+    if (!dueDate) return null;
+    return dueDate.dueAt;
+  },
+
+  endDate() {
+    const endDate = this.currentData().activity.card();
+    if (!endDate) return null;
+    // return endDate.getEnd();
+    return endDate.getEnd().format('YYYY-MM-DD HH:mm');
+  },
+
   lastLabel() {
     const lastLabelId = this.currentData().activity.labelId;
     if (!lastLabelId) return null;
