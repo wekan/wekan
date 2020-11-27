@@ -102,8 +102,7 @@ BlazeComponent.extendComponent({
   endDate() {
     const endDate = this.currentData().activity.card();
     if (!endDate) return null;
-    // return endDate.getEnd();
-    return endDate.getEnd().format('YYYY-MM-DD HH:mm');
+    return endDate.endAt;
   },
 
   lastLabel() {
