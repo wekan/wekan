@@ -7,6 +7,8 @@ This release adds the following improvements:
 - [Added date notification icons](https://github.com/wekan/wekan/pull/3366).
   This partially resolves [#3363](https://github.com/wekan/wekan/issues/3363).
   Thanks to helioguardabaxo.
+- [Sticky swimlane](https://github.com/wekan/wekan/pull/3370).
+  Thanks to progressify and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
