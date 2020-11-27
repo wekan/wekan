@@ -1,14 +1,25 @@
 # Upcoming Wekan release
 
-This release adds the following improvements:
+This release adds the following new features:
 
-- [Fix typo on MONGO_URL on Snap](https://github.com/wekan/wekan/commit/05a72f7c627e05ac4ce38cb9588f2aac45273ce8).
-  Thanks to xet7.
 - [Added date notification icons](https://github.com/wekan/wekan/pull/3366).
   This partially resolves [#3363](https://github.com/wekan/wekan/issues/3363).
   Thanks to helioguardabaxo.
 - [Sticky swimlane](https://github.com/wekan/wekan/pull/3370).
   Thanks to progressify and xet7.
+- [1) New default: sudo snap set wekan mongo-log-destination='devnull'.
+  Other options: syslog/snapcommon.
+  This should lower amount of disk usage and logs.
+  2) Tried to fix command:
+  `sudo snap set wekan mongo-url='...'`](https://github.com/wekan/wekan/commit/5510c2a37dc6bcfa0ec588eceb8dc9f32cec9851).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Fix typo on MONGO_URL on Snap](https://github.com/wekan/wekan/commit/05a72f7c627e05ac4ce38cb9588f2aac45273ce8).
+  Thanks to xet7.
+- [Fix: Update helm mongodb dependency](https://github.com/wekan/wekan/pull/3369).
+  Thanks to jiangytcn.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
