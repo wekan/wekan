@@ -5,7 +5,8 @@ This release adds the following new features:
 - [Added date notification icons](https://github.com/wekan/wekan/pull/3366).
   This partially resolves [#3363](https://github.com/wekan/wekan/issues/3363).
   Thanks to helioguardabaxo.
-- [Attempt to implement date activities notification](https://github.com/wekan/wekan/pull/3372).
+- Attempt to implement date activities notification [Part1](https://github.com/wekan/wekan/pull/3372)
+  and [Part2](https://github.com/wekan/wekan/pull/3373).
   Thanks to helioguardabaxo.
 - [Sticky swimlane](https://github.com/wekan/wekan/pull/3370).
   Thanks to progressify and xet7.
