@@ -5,6 +5,8 @@ This release adds the following new features:
 - [Added date notification icons](https://github.com/wekan/wekan/pull/3366).
   This partially resolves [#3363](https://github.com/wekan/wekan/issues/3363).
   Thanks to helioguardabaxo.
+- [Attempt to implement date activities notification](https://github.com/wekan/wekan/pull/3372).
+  Thanks to helioguardabaxo.
 - [Sticky swimlane](https://github.com/wekan/wekan/pull/3370).
   Thanks to progressify and xet7.
 - [1) New default: sudo snap set wekan mongo-log-destination='devnull'.
