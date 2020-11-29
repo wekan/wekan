@@ -25,7 +25,8 @@ template(name="activity")
   .activity
     +userAvatar(userId=activity.user._id)
     p.activity-desc
-      +memberName(user=activity.user)
+      span.activity-member
+        +memberName(user=activity.user)
 
       //- attachment activity -------------------------------------------------
       if($eq activity.activityType 'deleteAttachment')
