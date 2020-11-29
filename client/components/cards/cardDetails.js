@@ -257,7 +257,7 @@ BlazeComponent.extendComponent({
       ) {
         $checklistsDom.sortable('option', 'disabled', disabled);
         if (Utils.isMiniScreenOrShowDesktopDragHandles()) {
-          $checklistsDom.sortable({ handle: '.checklist-handle'});
+          $checklistsDom.sortable({ handle: '.checklist-handle' });
         }
       }
       if ($subtasksDom.data('uiSortable') || $subtasksDom.data('sortable')) {
