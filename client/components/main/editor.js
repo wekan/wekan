@@ -272,10 +272,13 @@ function mySafeAttrValue(tag, name, value, cssFilter) {
   // then use your custom function
   if (tag === 'a' && name === 'href') {
     // only filter the value if starts with 'cbthunderlink:' or 'aodroplink'
-    if (/^thunderlink:/ig.test(value) || /^cbthunderlink:/ig.test(value) || /^aodroplink:/ig.test(value)) {
+    if (
+      /^thunderlink:/gi.test(value) ||
+      /^cbthunderlink:/gi.test(value) ||
+      /^aodroplink:/gi.test(value)
+    ) {
       return value;
-    }
-    else {
+    } else {
       // use the default safeAttrValue function to process all non cbthunderlinks
       return sanitizeXss.safeAttrValue(tag, name, value, cssFilter);
     }
@@ -283,7 +286,7 @@ function mySafeAttrValue(tag, name, value, cssFilter) {
     // use the default safeAttrValue function to process it
     return sanitizeXss.safeAttrValue(tag, name, value, cssFilter);
   }
-};
+}
 
 // XXX I believe we should compute a HTML rendered field on the server that
 // would handle markdown and user mentions. We can simply have two
@@ -298,7 +301,8 @@ Blaze.Template.registerHelper(
     const view = this;
     let content = Blaze.toHTML(view.templateContentBlock);
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
-    if (!currentBoard) return HTML.Raw(sanitizeXss(content, { safeAttrValue: mySafeAttrValue }));
+    if (!currentBoard)
+      return HTML.Raw(sanitizeXss(content, { safeAttrValue: mySafeAttrValue }));
     const knowedUsers = currentBoard.members.map(member => {
       const u = Users.findOne(member.userId);
       if (u) {
