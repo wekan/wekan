@@ -1777,8 +1777,6 @@ if (Meteor.isServer) {
         .map(function(doc) {
           return {
             attachmentId: doc._id,
-            // this preserves the name so that notifications can be meaningful after
-            // this file is removed
             attachmentName: doc.original.name,
             attachmentType: doc.original.type,
             cardId: doc.cardId,
