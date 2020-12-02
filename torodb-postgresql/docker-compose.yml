@@ -85,10 +85,14 @@ version: '2'
 #      # 11) Start wekan
 #             docker start wekan-app
 #-------------------------------------------------------------------------
+# 2020-12-03:
+# - base images copied from Docker Hub to Quay to avoid Docker Hub rate limits,
+#   from: torodb/stampede:1.0.0, postgres:9.6, mongo:3.2
+#-------------------------------------------------------------------------
 
 services:
   torodb-stampede:
-    image: torodb/stampede:latest
+    image: quay.io/wekan/torodb-stampede:1.0.0
     networks:
       - wekan-tier
     links:
@@ -105,7 +109,7 @@ services:
       - TORODB_BACKEND_PASSWORD=wekan
       - DEBUG
   postgres:
-    image: postgres:9.6
+    image: quay.io/wekan/postgres:9.6
     networks:
       - wekan-tier
     environment:
