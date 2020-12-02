@@ -1,5 +1,9 @@
-FROM ubuntu:rolling
+FROM quay.io/wekan/ubuntu:groovy-20201125.2
 LABEL maintainer="wekan"
+
+# 2020-12-03:
+# - Above Ubuntu base image copied from Docker Hub ubuntu:groovy-20201125.2
+#   to Quay to avoid Docker Hub rate limits.
 
 # Set the environment variables (defaults where required)
 # DOES NOT WORK: paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303

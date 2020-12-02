@@ -1,5 +1,9 @@
-FROM ubuntu:rolling
+FROM quay.io/wekan/ubuntu:groovy-20201125.2
 LABEL maintainer="sgr"
+
+# 2020-12-03:
+# - Above Ubuntu base image copied from Docker Hub ubuntu:groovy-20201125.2
+#   to Quay to avoid Docker Hub rate limits.
 
 ENV BUILD_DEPS="gnupg gosu bsdtar wget curl bzip2 g++ build-essential python git ca-certificates iproute2"
 ENV DEBIAN_FRONTEND=noninteractive

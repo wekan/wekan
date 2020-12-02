@@ -92,7 +92,10 @@ services:
     #-------------------------------------------------------------------------------------
     # ==== MONGODB AND METEOR VERSION ====
     # a) mongodb latest, like 3.2 - 4.4 or newer https://hub.docker.com/_/mongo?tab=description
-    image: quay.io/bitnami/mongodb:latest
+    # 2020-12-03:
+    # - Mongo image copied from Docker Hub mongo:4.4.2-bionic to Quay
+    #   to avoid Docker Hub rate limits.
+    image: quay.io/wekan/mongo:4.4.2-bionic
     #-------------------------------------------------------------------------------------
     container_name: wekan-db
     restart: always
