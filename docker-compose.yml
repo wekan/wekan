@@ -92,7 +92,7 @@ services:
     #-------------------------------------------------------------------------------------
     # ==== MONGODB AND METEOR VERSION ====
     # a) mongodb latest, like 3.2 - 4.4 or newer https://hub.docker.com/_/mongo?tab=description
-    image: mongo:latest
+    image: quay.io/bitnami/mongodb:latest
     #-------------------------------------------------------------------------------------
     container_name: wekan-db
     restart: always
