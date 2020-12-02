@@ -1,3 +1,16 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fixed Quay Docker builds that failed](https://github.com/wekan/wekan/issues/3380)
+  because of Docker Hub rate limits by copying base images from Docker Hub to Quay.
+  [Part1](https://github.com/wekan/wekan/commit/4537971300c6ffcc85b7dd930867eb942bd22f86),
+  [Part2](https://github.com/wekan/wekan/commit/2b2884d996b8fc6101eff50db058639631eb5945),
+  [Part3](https://github.com/wekan/wekan/commit/c09758fb913d73e9229f43d17663b3c4715a62b9).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.56 2020-11-30 Wekan release
 
 This release adds the following new features:
