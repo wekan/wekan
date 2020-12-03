@@ -43,6 +43,12 @@ spec:
               value: {{ .value | quote }}
           {{- end }}
           {{- end }}
+          {{- range $key := .Values.secretEnv }}
+          {{- if .value }}
+            - name: {{ .name }}
+              value: {{ .value | quote }}
+          {{- end }}
+          {{- end }}
           livenessProbe:
             httpGet:
               path: /
