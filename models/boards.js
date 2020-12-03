@@ -1780,7 +1780,7 @@ if (Meteor.isServer) {
             attachmentName: doc.original.name,
             attachmentType: doc.original.type,
             url: FlowRouter.url(doc.url()),
-            urlDownload: `${FlowRouter.url(doc.url())}?&download=true&token=`,
+            urlDownload: `${FlowRouter.url(doc.url())}?download=true&token=`,
             cardId: doc.cardId,
             listId: doc.listId,
             swimlaneId: doc.swimlaneId,
