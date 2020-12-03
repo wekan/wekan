@@ -133,7 +133,7 @@ at = 'attachment'
 ats = 'attachments'
 users = wekanurl + apiusers
 
-# ------- API URL GERENARTION END -----------
+# ------- API URL GENERATION END -----------
 
 # ------- LOGIN TOKEN START -----------
 
@@ -176,20 +176,6 @@ if arguments == 3:
         print("=== CREATE LIST ===\n")
         print(body.text)
         # ------- CREATE LIST END -----------
-
-    if sys.argv[1] == 'attachmentjson':
-
-        # ------- ATTACHMENT AS JSON BASE64 START -----------
-        boardid = sys.argv[2]
-        attachmentid = sys.argv[3]
-        attachmentjson = wekanurl + apiboards + boardid + s + ats + s + attachmentid
-        print(attachmentjson)
-        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
-        print("=== ATTACHMENT AS JSON BASE64 ===\n")
-        body = requests.get(attachmentjson, headers=headers)
-        data2 = body.text.replace('}',"}\n")
-        print(data2)
-        # ------- ATTACHMENT AS JSON BASE64 END -----------
 
 if arguments == 2:
 
