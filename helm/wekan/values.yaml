@@ -28,6 +28,14 @@ env:
   - name: ""
     value: ""
 
+## Specify additional secret environmental variables for the
+## Deployment. These can e.g. be provided by a Secret and allow
+## to store passwords separately
+##
+secretEnv:
+  - name: ""
+    value: ""
+
 service:
   type: NodePort
   port: 8080
