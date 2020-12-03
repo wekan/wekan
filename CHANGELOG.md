@@ -2,12 +2,17 @@
 
 This release adds the following new features:
 
+- [Helm: Introduce secretEnv for secret value provisioning](https://github.com/wekan/wekan/pull/3382).
+  Thanks to ThoreKr.
 - REST API: List attachments of a board, with download URLs of attachments.
   [Part 1](https://github.com/wekan/wekan/commit/bf94161f30adf9dec6aa41af6946ba54c1573a44),
   [Part 2](https://github.com/wekan/wekan/commit/2ec53b27d14049bc9622861492cac301512a1e33),
   [Part 3](https://github.com/wekan/wekan/commit/36e29a405ee943d15e6e1bd9ac02ecefb7a7a06f).
   For using this, Python code example:
   https://github.com/wekan/wekan/wiki/New-card-with-Python3-and-REST-API .
+  Thanks to xet7.
+- [REST API: Added Wekan REST API Python CLI, for adding card, downloading attachments
+  etc](https://github.com/wekan/wekan/commit/051f7b2769c51404063e7f0ddf85fbd0f9508a88).
   Thanks to xet7.
 
 and fixes the following bugs:
