@@ -11,8 +11,9 @@ This release adds the following new features:
   For using this, Python code example:
   https://github.com/wekan/wekan/wiki/New-card-with-Python3-and-REST-API .
   Thanks to xet7.
-- [REST API: Added Wekan REST API Python CLI, for adding card, downloading attachments
-  etc](https://github.com/wekan/wekan/commit/051f7b2769c51404063e7f0ddf85fbd0f9508a88).
+- REST API: Added Wekan REST API Python CLI, for adding card, downloading attachments etc.
+  [Part1](https://github.com/wekan/wekan/commit/051f7b2769c51404063e7f0ddf85fbd0f9508a88),
+  [Part2](https://github.com/wekan/wekan/commit/387f0600ce1389aab955cc125d331dcd5eeeafdd).
   Thanks to xet7.
 
 and fixes the following bugs:
