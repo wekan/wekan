@@ -50,8 +50,13 @@ template(name="header")
           else
             li.current {{_ 'quick-access-description'}}
 
-      a#header-new-board-icon.js-create-board
-        i.fa.fa-plus(title="Create a new board")
+      // Next line is used only for spacing at header,
+      // there is no visible clickable icon.
+      #header-new-board-icon
+      //  Hide duplicate create board button,
+      //  because it did not show board templates correctly.
+      //a#header-new-board-icon.js-create-board
+      //  i.fa.fa-plus(title="Create a new board")
 
       +notifications
 
