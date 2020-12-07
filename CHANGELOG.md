@@ -24,6 +24,9 @@ and fixes the following bugs:
   [Part2](https://github.com/wekan/wekan/commit/2b2884d996b8fc6101eff50db058639631eb5945),
   [Part3](https://github.com/wekan/wekan/commit/c09758fb913d73e9229f43d17663b3c4715a62b9).
   Thanks to xet7.
+- [Hide duplicate create board button, because it did not show board templates
+  correctly](https://github.com/wekan/wekan/commit/a7977a8fc7f171d046a228f81fb0cd481b0ccc41).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
