@@ -19,6 +19,11 @@ This release adds the following new features:
 - [Drag handles at checklist items on mobile view](https://github.com/wekan/wekan/pull/3342).
   Thanks to mfilser.
 
+and adds the following updates:
+
+- [Update to Meteor 1.12](https://github.com/wekan/wekan/commit/7a6abaac44b1235021dc7cc25e3224515c64a068).
+  Thanks to Meteor developers.
+
 and fixes the following bugs:
 
 - [Fixed Quay Docker builds that failed](https://github.com/wekan/wekan/issues/3380)
