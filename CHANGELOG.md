@@ -37,6 +37,8 @@ and fixes the following bugs:
 - [Hide duplicate create board button, because it did not show board templates
   correctly](https://github.com/wekan/wekan/commit/a7977a8fc7f171d046a228f81fb0cd481b0ccc41).
   Thanks to xet7.
+- [Minicard, reduce space after assignees label](https://github.com/wekan/wekan/pull/3385).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
