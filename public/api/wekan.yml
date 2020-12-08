@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v4.56
+  version: v4.57
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -288,6 +288,44 @@ paths:
         '200':
           description: |-
             200 response
+  /api/boards/{board}/attachments:
+    get:
+      operationId: get_board_attachments
+      summary: Get the list of attachments of a board
+      tags:
+        - Boards
+      parameters:
+        - name: board
+          in: path
+          description: |
+            the board ID
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                attachmentId:
+                  type: string
+                attachmentName:
+                  type: string
+                attachmentType:
+                  type: string
+                cardId:
+                  type: string
+                listId:
+                  type: string
+                swimlaneId:
+                  type: string
   /api/boards/{board}/cards/{card}/checklists:
     get:
       operationId: get_all_checklists
