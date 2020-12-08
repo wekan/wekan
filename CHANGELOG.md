@@ -21,8 +21,10 @@ This release adds the following new features:
 
 and adds the following updates:
 
-- [Update to Meteor 1.12](https://github.com/wekan/wekan/commit/7a6abaac44b1235021dc7cc25e3224515c64a068).
+- [Upgrade to Meteor 1.12](https://github.com/wekan/wekan/commit/7a6abaac44b1235021dc7cc25e3224515c64a068).
   Thanks to Meteor developers.
+- [Upgrade to Node 12.20.0](https://github.com/wekan/wekan/commit/015f4d671d136a4a344fe82e2a6bcbe0c2be6cfd).
+  Thanks to Node developers.
 
 and fixes the following bugs:
 
