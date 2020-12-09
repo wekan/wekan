@@ -355,6 +355,25 @@ export class WekanCreator {
           cardToCreate.members = wekanMembers;
         }
       }
+      // add assignees
+      if (card.assignees) {
+        const wekanAssignees = [];
+        // we can't just map, as some members may not have been mapped
+        card.assignees.forEach(sourceMemberId => {
+          if (this.members[sourceMemberId]) {
+            const wekanId = this.members[sourceMemberId];
+            // we may map multiple Wekan members to the same wekan user
+            // in which case we risk adding the same user multiple times
+            if (!wekanAssignees.find(wId => wId === wekanId)) {
+              wekanAssignees.push(wekanId);
+            }
+          }
+          return true;
+        });
+        if (wekanAssignees.length > 0) {
+          cardToCreate.assignees = wekanAssignees;
+        }
+      }
       // set color
       if (card.color) {
         cardToCreate.color = card.color;
