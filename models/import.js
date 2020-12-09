@@ -42,9 +42,23 @@ Meteor.methods({
     check(currentBoardId, Match.Maybe(String));
     const exporter = new Exporter(sourceBoardId);
     const data = exporter.build();
-    const addData = {};
-    addData.membersMapping = getMembersToMap(data);
-    const creator = new WekanCreator(addData);
+    const additionalData = {};
+
+    //get the members to map
+    const membersMapping = getMembersToMap(data);
+
+    //now mirror the mapping done in finishImport in client/components/import/import.js:
+    if (membersMapping) {
+      const mappingById = {};
+      membersMapping.forEach(member => {
+        if (member.wekanId) {
+          mappingById[member.id] = member.wekanId;
+        }
+      });
+      additionalData.membersMapping = mappingById;
+    }
+
+    const creator = new WekanCreator(additionalData);
     //data.title = `${data.title  } - ${  TAPi18n.__('copy-tag')}`;
     data.title = `${data.title}`;
     return creator.create(data, currentBoardId);
