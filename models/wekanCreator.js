@@ -247,6 +247,7 @@ export class WekanCreator {
           swimlaneId: false,
         },
       ],
+      presentParentTask: boardToImport.presentParentTask,
       // Standalone Export has modifiedAt missing, adding modifiedAt to fix it
       modifiedAt: this._now(boardToImport.modifiedAt),
       permission: boardToImport.permission,
@@ -626,6 +627,35 @@ export class WekanCreator {
     });
   }
 
+  createSubtasks(wekanCards) {
+    wekanCards.forEach(card => {
+      // get new id of card (in created / new board)
+      const cardIdInNewBoard = this.cards[card._id];
+
+      //If there is a mapped parent card, use the mapped card
+      //  this means, the card and parent were in the same source board
+      //If there is no mapped parent card, use the original parent id,
+      //  this should handle cases where source and parent are in different boards
+      //  Note: This can only handle board cloning (within the same wekan instance).
+      //        When importing boards between instances the IDs are definitely
+      //        lost if source and parent are two different boards
+      //        This is not the place to fix it, the entire subtask system needs to be rethought there.
+      const parentIdInNewBoard = this.cards[card.parentId]
+        ? this.cards[card.parentId]
+        : card.parentId;
+
+      //if the parent card exists, proceed
+      if (Cards.findOne(parentIdInNewBoard)) {
+        //set parent id of the card in the new board to the new id of the parent
+        Cards.direct.update(cardIdInNewBoard, {
+          $set: {
+            parentId: parentIdInNewBoard,
+          },
+        });
+      }
+    });
+  }
+
   createChecklists(wekanChecklists) {
     const result = [];
     wekanChecklists.forEach((checklist, checklistIndex) => {
@@ -913,6 +943,7 @@ export class WekanCreator {
     this.createSwimlanes(board.swimlanes, boardId);
     this.createCustomFields(board.customFields, boardId);
     this.createCards(board.cards, boardId);
+    this.createSubtasks(board.cards);
     this.createChecklists(board.checklists);
     this.createChecklistItems(board.checklistItems);
     this.importActivities(board.activities, boardId);
