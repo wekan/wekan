@@ -15,6 +15,7 @@ export class WekanCreator {
       cards: {},
       lists: {},
       swimlanes: {},
+      customFields: {},
     };
     // The object creator Wekan Id, indexed by the object Wekan id
     // (so we only parse actions once!)
@@ -30,6 +31,8 @@ export class WekanCreator {
     this.lists = {};
     // Map of cards Wekan ID => Wekan ID
     this.cards = {};
+    // Map of custom fields Wekan ID => Wekan ID
+    this.customFields = {};
     // Map of comments Wekan ID => Wekan ID
     this.commentIds = {};
     // Map of attachments Wekan ID => Wekan ID
@@ -356,6 +359,17 @@ export class WekanCreator {
       if (card.color) {
         cardToCreate.color = card.color;
       }
+
+      // add custom fields
+      if (card.customFields) {
+        cardToCreate.customFields = card.customFields.map(field => {
+          return {
+            _id: this.customFields[field._id],
+            value: field.value,
+          };
+        });
+      }
+
       // insert card
       const cardId = Cards.direct.insert(cardToCreate);
       // keep track of Wekan id => Wekan id
@@ -479,6 +493,39 @@ export class WekanCreator {
       result.push(cardId);
     });
     return result;
+  }
+
+  /**
+   * Create the Wekan custom fields corresponding to the supplied Wekan
+   * custom fields.
+   * @param wekanCustomFields
+   * @param boardId
+   */
+  createCustomFields(wekanCustomFields, boardId) {
+    wekanCustomFields.forEach((field, fieldIndex) => {
+      const fieldToCreate = {
+        boardIds: [boardId],
+        name: field.name,
+        type: field.type,
+        settings: field.settings,
+        showOnCard: field.showOnCard,
+        showLabelOnMiniCard: field.showLabelOnMiniCard,
+        automaticallyOnCard: field.automaticallyOnCard,
+        //use date "now" if now created at date is provided (e.g. for very old boards)
+        createdAt: this._now(this.createdAt.customFields[field._id]),
+        modifiedAt: field.modifiedAt,
+      };
+      //insert copy of custom field
+      const fieldId = CustomFields.direct.insert(fieldToCreate);
+      //set modified date to now
+      CustomFields.direct.update(fieldId, {
+        $set: {
+          modifiedAt: this._now(),
+        },
+      });
+      //store mapping of old id to new id
+      this.customFields[field._id] = fieldId;
+    });
   }
 
   // Create labels if they do not exist and load this.labels.
@@ -690,6 +737,11 @@ export class WekanCreator {
           this.createdAt.swimlanes[swimlaneId] = activity.createdAt;
           break;
         }
+        case 'createCustomField': {
+          const customFieldId = activity.customFieldId;
+          this.createdAt.customFields[customFieldId] = activity.createdAt;
+          break;
+        }
       }
     });
   }
@@ -840,6 +892,7 @@ export class WekanCreator {
     const boardId = this.createBoardAndLabels(board);
     this.createLists(board.lists, boardId);
     this.createSwimlanes(board.swimlanes, boardId);
+    this.createCustomFields(board.customFields, boardId);
     this.createCards(board.cards, boardId);
     this.createChecklists(board.checklists);
     this.createChecklistItems(board.checklistItems);
