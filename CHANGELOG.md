@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix issues when duplicating board](https://github.com/wekan/wekan/pull/3387).
+  Thanks to daniel-eder.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.57 2020-12-08 Wekan release
 
 This release adds the following new features:
