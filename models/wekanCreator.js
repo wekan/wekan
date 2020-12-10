@@ -716,18 +716,24 @@ export class WekanCreator {
 
   createChecklistItems(wekanChecklistItems) {
     wekanChecklistItems.forEach((checklistitem, checklistitemIndex) => {
-      // Create the checklistItem
-      const checklistItemTocreate = {
-        title: checklistitem.title,
-        checklistId: this.checklists[checklistitem.checklistId],
-        cardId: this.cards[checklistitem.cardId],
-        sort: checklistitem.sort ? checklistitem.sort : checklistitemIndex,
-        isFinished: checklistitem.isFinished,
-      };
-      const checklistItemId = ChecklistItems.direct.insert(
-        checklistItemTocreate,
-      );
-      this.checklistItems[checklistitem._id] = checklistItemId;
+      //Check if the checklist for this item (still) exists
+      //If a checklist was deleted, but items remain, the import would error out here
+      //Leading to no further checklist items being imported
+      if (this.checklists[checklistitem.checklistId]) {
+        // Create the checklistItem
+        const checklistItemTocreate = {
+          title: checklistitem.title,
+          checklistId: this.checklists[checklistitem.checklistId],
+          cardId: this.cards[checklistitem.cardId],
+          sort: checklistitem.sort ? checklistitem.sort : checklistitemIndex,
+          isFinished: checklistitem.isFinished,
+        };
+
+        const checklistItemId = ChecklistItems.direct.insert(
+          checklistItemTocreate,
+        );
+        this.checklistItems[checklistitem._id] = checklistItemId;
+      }
     });
   }
 
