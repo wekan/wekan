@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix not all checklist items being imported/cloned](https://github.com/wekan/wekan/pull/3389).
+  Thanks to daniel-eder.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.58 2020-12-09 Wekan release
 
 This release fixes the following bugs:
