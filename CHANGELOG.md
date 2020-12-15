@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Removed cookie code that is not in use](https://github.com/wekan/wekan/commit/3c406d955ec602d4b86c164acb9e94e715086f8e).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.60 2020-12-15 Wekan release
 
 This release adds the following updates:
