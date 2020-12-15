@@ -1,6 +1,13 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following updates:
+
+- Update dependencies.
+  [Part 1](https://github.com/wekan/wekan/commit/2e1e703e3591258462b3167f72e2b2319bf57bec),
+  [Part 2](https://github.com/wekan/wekan/commit/a75c162483795775db1631686f8e7017b42c87ca).
+  Thanks to developers of dependencies.
+
+and fixes the following bugs:
 
 - Prevent normal user deleting or modifying too much. Allow normal user to export board.
   [Part1](https://github.com/wekan/wekan/commit/4a205fcfcb40438faead3bf8973b10b8e42974f0),
