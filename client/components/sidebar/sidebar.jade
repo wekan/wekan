@@ -269,14 +269,16 @@ template(name="outgoingWebhooksPopup")
 
 template(name="boardMenuPopup")
   ul.pop-over-list
-    li
-      a.js-open-rules-view(title="{{_ 'rules'}}")
-        i.fa.fa-magic
-        | {{_ 'rules'}}
-    li
-      a.js-custom-fields
-        i.fa.fa-list-alt
-        | {{_ 'custom-fields'}}
+    if currentUser.isBoardAdmin
+      li
+        a.js-open-rules-view(title="{{_ 'rules'}}")
+          i.fa.fa-magic
+          | {{_ 'rules'}}
+    if currentUser.isBoardAdmin
+      li
+        a.js-custom-fields
+          i.fa.fa-list-alt
+          | {{_ 'custom-fields'}}
     li
       a.js-open-archives
         i.fa.fa-archive
@@ -297,14 +299,14 @@ template(name="boardMenuPopup")
           i.fa.fa-flag
           | {{_ 'language'}}
   unless isSandstorm
-    if currentUser.isBoardAdmin
-      hr
-      ul.pop-over-list
-        if withApi
-          li
-            a.js-export-board
-              i.fa.fa-share-alt
-              | {{_ 'export-board'}}
+    hr
+    ul.pop-over-list
+      if withApi
+        li
+          a.js-export-board
+            i.fa.fa-share-alt
+            | {{_ 'export-board'}}
+      if currentUser.isBoardAdmin
         li
           a.js-outgoing-webhooks
             i.fa.fa-globe
@@ -317,7 +319,8 @@ template(name="boardMenuPopup")
           a.js-subtask-settings
             i.fa.fa-sitemap
             | {{_ 'subtask-settings'}}
-      unless currentBoard.isTemplatesBoard
+    unless currentBoard.isTemplatesBoard
+      if currentUser.isBoardAdmin
         hr
         ul.pop-over-list
           li
@@ -329,20 +332,22 @@ template(name="boardMenuPopup")
   if isSandstorm
     hr
     ul.pop-over-list
-      li
-        a.js-export-board
-          i.fa.fa-share-alt
-          | {{_ 'export-board'}}
-      li
-        a.js-import-board
-          i.fa.fa-share-alt
-          i.fa.fa-sign-in
-          | {{_ 'import-board-c'}}
-      li
-        a.js-archive-board
-          i.fa.fa-arrow-right
-          i.fa.fa-archive
-          | {{_ 'archive-board'}}
+      if currentUser.isMember
+        li
+          a.js-export-board
+            i.fa.fa-share-alt
+            | {{_ 'export-board'}}
+        li
+          a.js-import-board
+            i.fa.fa-share-alt
+            i.fa.fa-sign-in
+            | {{_ 'import-board-c'}}
+      if currentUser.isBoardAdmin
+        li
+          a.js-archive-board
+            i.fa.fa-arrow-right
+            i.fa.fa-archive
+            | {{_ 'archive-board'}}
       li
         a.js-outgoing-webhooks
           i.fa.fa-globe

@@ -155,7 +155,7 @@ template(name="multiselectionSidebar")
               i.fa.fa-check
             else if someSelectedElementHave 'member' _id
               i.fa.fa-ellipsis-h
-  unless currentUser.isWorker
+  if currentUser.isBoardAdmin
     hr
     a.sidebar-btn.js-move-selection
       i.fa.fa-share

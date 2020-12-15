@@ -43,8 +43,9 @@ template(name="listHeader")
             if canSeeAddCard
               a.js-add-card.fa.fa-plus.list-header-plus-icon
             a.fa.fa-navicon.js-open-list-menu
-          if showDesktopDragHandles
-            a.list-header-handle.handle.fa.fa-arrows.js-list-handle
+          if currentUser.isBoardAdmin
+            if showDesktopDragHandles
+              a.list-header-handle.handle.fa.fa-arrows.js-list-handle
 
 template(name="editListTitleForm")
   .list-composer
@@ -115,8 +116,9 @@ template(name="listMorePopup")
       input.inline-input(type="text" readonly value="{{ rootUrl }}")
     | {{_ 'added'}}
     span.date(title=list.createdAt) {{ moment createdAt 'LLL' }}
-    unless currentUser.isWorker
-      a.js-delete {{_ 'delete'}}
+    //unless currentUser.isWorker
+    //  if currentUser.isBoardAdmin
+    //    a.js-delete {{_ 'delete'}}
 
 template(name="listDeletePopup")
   p {{_ "list-delete-pop"}}

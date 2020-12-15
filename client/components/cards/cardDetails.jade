@@ -354,10 +354,11 @@ template(name="cardDetailsActionsPopup")
           a.js-start-voting
             i.fa.fa-thumbs-up
             | {{_ 'card-edit-voting'}}
-        li
-          a.js-custom-fields
-            i.fa.fa-list-alt
-            | {{_ 'card-edit-custom-fields'}}
+        if currentBoard.isBoardAdmin
+          li
+            a.js-custom-fields
+              i.fa.fa-list-alt
+              | {{_ 'card-edit-custom-fields'}}
         //li: a.js-received-date {{_ 'editCardReceivedDatePopup-title'}}
         //li: a.js-start-date {{_ 'editCardStartDatePopup-title'}}
         //li: a.js-due-date {{_ 'editCardDueDatePopup-title'}}
@@ -382,10 +383,11 @@ template(name="cardDetailsActionsPopup")
           | {{_ 'moveCardToBottom-title'}}
       hr
     ul.pop-over-list
-      li
-        a.js-move-card
-          i.fa.fa-arrow-right
-          | {{_ 'moveCardPopup-title'}}
+      if currentBoard.isBoardAdmin
+        li
+          a.js-move-card
+            i.fa.fa-arrow-right
+            | {{_ 'moveCardPopup-title'}}
       unless currentUser.isWorker
         li
           a.js-copy-card
@@ -562,7 +564,8 @@ template(name="cardMorePopup")
     br
     | {{_ 'added'}}
     span.date(title=card.createdAt) {{ moment createdAt 'LLL' }}
-    a.js-delete(title="{{_ 'card-delete-notice'}}") {{_ 'delete'}}
+    if currentUser.isBoardAdmin
+      a.js-delete(title="{{_ 'card-delete-notice'}}") {{_ 'delete'}}
 
 template(name="setCardColorPopup")
   form.edit-label
@@ -609,7 +612,8 @@ template(name="cardStartVotingPopup")
 
     button.primary.js-submit {{_ 'save'}}
     if getVoteQuestion
-      button.js-remove-vote.negate.wide.right {{_ 'delete'}}
+      if currentUser.isBoardAdmin
+        button.js-remove-vote.negate.wide.right {{_ 'delete'}}
 
 template(name="positiveVoteMembersPopup")
   ul.pop-over-list.js-card-member-list
