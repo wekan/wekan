@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Prevent normal user deleting or modifying too much. Allow normal user to
+  export board](https://github.com/wekan/wekan/commit/4a205fcfcb40438faead3bf8973b10b8e42974f0).
+  Thanks to Samunosuke, pgh2357 and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.59 2020-12-10 Wekan release
 
 This release fixes the following bugs:
