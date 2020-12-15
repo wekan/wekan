@@ -2,8 +2,9 @@
 
 This release fixes the following bugs:
 
-- [Prevent normal user deleting or modifying too much. Allow normal user to
-  export board](https://github.com/wekan/wekan/commit/4a205fcfcb40438faead3bf8973b10b8e42974f0).
+- Prevent normal user deleting or modifying too much. Allow normal user to export board.
+  [Part1](https://github.com/wekan/wekan/commit/4a205fcfcb40438faead3bf8973b10b8e42974f0),
+  [Part2](https://github.com/wekan/wekan/commit/6cb4b9fe4a086202d642de54464088e0a1122ec0).
   Thanks to Samunosuke, pgh2357 and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
