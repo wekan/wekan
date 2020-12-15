@@ -55,11 +55,7 @@ BlazeComponent.extendComponent({
     self.autorun(() => {
       const $itemsDom = $(self.itemsDom);
       if ($itemsDom.data('uiSortable') || $itemsDom.data('sortable')) {
-        $(self.itemsDom).sortable(
-          'option',
-          'disabled',
-          !userIsMember(),
-        );
+        $(self.itemsDom).sortable('option', 'disabled', !userIsMember());
         if (Utils.isMiniScreenOrShowDesktopDragHandles()) {
           $(self.itemsDom).sortable({
             handle: 'span.fa.checklistitem-handle',
