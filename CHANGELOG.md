@@ -4,6 +4,8 @@ This release fixes the following bugs:
 
 - [Removed cookie code that is not in use](https://github.com/wekan/wekan/commit/3c406d955ec602d4b86c164acb9e94e715086f8e).
   Thanks to xet7.
+- [Allow normal user to delete checklist item](https://github.com/wekan/wekan/commit/f9ba17177e8f1146be1e571f47d26c13a9337034).
+  Thanks to Samunosuke and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
