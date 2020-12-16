@@ -82,8 +82,7 @@ template(name="editChecklistItemForm")
     a.fa.fa-times-thin.js-close-inlined-form
     span(title=createdAt) {{ moment createdAt }}
     if canModifyCard
-      if currentUser.isBoardAdmin
-        a.js-delete-checklist-item {{_ "delete"}}...
+      a.js-delete-checklist-item {{_ "delete"}}...
 
 template(name="checklistItems")
   .checklist-items.js-checklist-items
