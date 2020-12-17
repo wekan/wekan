@@ -567,6 +567,10 @@ Template.cardDetailsActionsPopup.helpers({
     return this.findWatcher(Meteor.userId());
   },
 
+  isBoardAdmin() {
+    return Meteor.user().isBoardAdmin();
+  },
+
   canModifyCard() {
     return (
       Meteor.user() &&

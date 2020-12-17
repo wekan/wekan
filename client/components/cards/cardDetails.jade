@@ -354,7 +354,7 @@ template(name="cardDetailsActionsPopup")
           a.js-start-voting
             i.fa.fa-thumbs-up
             | {{_ 'card-edit-voting'}}
-        if currentBoard.isBoardAdmin
+        if currentUser.isBoardAdmin
           li
             a.js-custom-fields
               i.fa.fa-list-alt
@@ -383,7 +383,7 @@ template(name="cardDetailsActionsPopup")
           | {{_ 'moveCardToBottom-title'}}
       hr
     ul.pop-over-list
-      if currentBoard.isBoardAdmin
+      if currentUser.isBoardAdmin
         li
           a.js-move-card
             i.fa.fa-arrow-right
