@@ -474,6 +474,12 @@ export class WekanCreator {
                 }
               });
             } else if (att.file) {
+              //If attribute type is null or empty string is set, assume binary stream
+              att.type =
+                !att.type || att.type.trim().length === 0
+                  ? 'application/octet-stream'
+                  : att.type;
+
               file.attachData(
                 Buffer.from(att.file, 'base64'),
                 {
