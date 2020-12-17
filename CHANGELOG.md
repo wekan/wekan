@@ -9,6 +9,8 @@ This release fixes the following bugs:
   Thanks to lezioul and xet7.
 - [Add some permission code, to see does it fix something](https://github.com/wekan/wekan/commit/7f3c4acf62deefa2f7b36b986e06336fd3b2754f).
   Thanks to xet7.
+- [Fix delete board button not visible](https://github.com/wekan/wekan/commit/53a925cf7ff95167cbf2f65f7c7e169e18b14b44).
+  Thanks to airtraxx and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
