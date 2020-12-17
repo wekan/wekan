@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Treat unknown attachment types as binary on board
+  import/clone](https://github.com/wekan/wekan/pull/3395).
+  Thanks to daniel-eder.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.61 2020-12-16 Wekan release
 
 This release fixes the following bugs:
