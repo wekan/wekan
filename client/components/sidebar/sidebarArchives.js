@@ -141,6 +141,9 @@ BlazeComponent.extendComponent({
 }).register('archivesSidebar');
 
 Template.archivesSidebar.helpers({
+  isBoardAdmin() {
+    return Meteor.user().isBoardAdmin();
+  },
   isWorker() {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
     return (

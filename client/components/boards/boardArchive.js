@@ -3,6 +3,10 @@ BlazeComponent.extendComponent({
     this.subscribe('archivedBoards');
   },
 
+  isBoardAdmin() {
+    return Meteor.user().isBoardAdmin();
+  },
+
   archivedBoards() {
     return Boards.find(
       { archived: true },

@@ -155,6 +155,9 @@ Template.memberPopup.helpers({
   user() {
     return Users.findOne(this.userId);
   },
+  isBoardAdmin() {
+    return Meteor.user().isBoardAdmin();
+  },
   memberType() {
     const type = Users.findOne(this.userId).isBoardAdmin() ? 'admin' : 'normal';
     if (type === 'normal') {
@@ -224,6 +227,9 @@ Template.boardMenuPopup.onCreated(function() {
 });
 
 Template.boardMenuPopup.helpers({
+  isBoardAdmin() {
+    return Meteor.user().isBoardAdmin();
+  },
   withApi() {
     return Template.instance().apiEnabled.get();
   },
@@ -293,6 +299,9 @@ Template.membersWidget.helpers({
     } else {
       return false;
     }
+  },
+  isBoardAdmin() {
+    return Meteor.user().isBoardAdmin();
   },
 });
 
@@ -473,6 +482,12 @@ Template.exportBoard.events({
 Template.labelsWidget.events({
   'click .js-label': Popup.open('editLabel'),
   'click .js-add-label': Popup.open('createLabel'),
+});
+
+Template.labelsWidget.helpers({
+  isBoardAdmin() {
+    return Meteor.user().isBoardAdmin();
+  },
 });
 
 // Board members can assign people or labels by drag-dropping elements from the

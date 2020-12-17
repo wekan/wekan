@@ -104,6 +104,10 @@ BlazeComponent.extendComponent({
 }).register('listHeader');
 
 Template.listHeader.helpers({
+  isBoardAdmin() {
+    return Meteor.user().isBoardAdmin();
+  },
+
   showDesktopDragHandles() {
     currentUser = Meteor.user();
     if (currentUser) {
@@ -117,6 +121,10 @@ Template.listHeader.helpers({
 });
 
 Template.listActionPopup.helpers({
+  isBoardAdmin() {
+    return Meteor.user().isBoardAdmin();
+  },
+
   isWipLimitEnabled() {
     return Template.currentData().getWipLimit('enabled');
   },
@@ -252,6 +260,12 @@ Template.listMorePopup.events({
     }
     Utils.goBoardId(this.boardId);
   }),
+});
+
+Template.listHeader.helpers({
+  isBoardAdmin() {
+    return Meteor.user().isBoardAdmin();
+  },
 });
 
 BlazeComponent.extendComponent({

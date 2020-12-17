@@ -41,12 +41,24 @@ Template.swimlaneHeader.helpers({
   },
 });
 
+Template.swimlaneFixedHeader.helpers({
+  isBoardAdmin() {
+    return Meteor.user().isBoardAdmin();
+  },
+});
+
 Template.swimlaneActionPopup.events({
   'click .js-set-swimlane-color': Popup.open('setSwimlaneColor'),
   'click .js-close-swimlane'(event) {
     event.preventDefault();
     this.archive();
     Popup.close();
+  },
+});
+
+Template.swimlaneActionPopup.helpers({
+  isCommentOnly() {
+    return Meteor.user().isCommentOnly();
   },
 });
 

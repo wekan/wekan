@@ -37,8 +37,7 @@ template(name="checklistDetail")
       .checklist-title
         span
         if canModifyCard
-          if currentUser.isBoardAdmin
-            a.js-delete-checklist.toggle-delete-checklist-dialog {{_ "delete"}}...
+          a.js-delete-checklist.toggle-delete-checklist-dialog {{_ "delete"}}...
 
         if canModifyCard
           h2.title.js-open-inlined-form.is-editable
@@ -60,10 +59,9 @@ template(name="checklistDeleteDialog")
       | {{_ 'confirm-checklist-delete-dialog'}}
       span {{checklist.title}}
       | ?
-    if currentUser.isBoardAdmin
-      .js-checklist-delete-buttons
-        button.confirm-checklist-delete(type="button") {{_ 'delete'}}
-        button.toggle-delete-checklist-dialog(type="button") {{_ 'cancel'}}
+    .js-checklist-delete-buttons
+      button.confirm-checklist-delete(type="button") {{_ 'delete'}}
+      button.toggle-delete-checklist-dialog(type="button") {{_ 'cancel'}}
 
 template(name="addChecklistItemForm")
   textarea.js-add-checklist-item(rows='1' autofocus)

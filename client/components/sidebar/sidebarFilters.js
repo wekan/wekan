@@ -134,6 +134,15 @@ BlazeComponent.extendComponent({
   },
 }).register('multiselectionSidebar');
 
+Template.multiselectionSidebar.helpers({
+  isBoardAdmin() {
+    return Meteor.user().isBoardAdmin();
+  },
+  isCommentOnly() {
+    return Meteor.user().isCommentOnly();
+  },
+});
+
 Template.disambiguateMultiLabelPopup.events({
   'click .js-remove-label'() {
     mutateSelectedCards('removeLabel', this._id);
