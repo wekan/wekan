@@ -5,6 +5,8 @@ This release fixes the following bugs:
 - [Treat unknown attachment types as binary on board
   import/clone](https://github.com/wekan/wekan/pull/3395).
   Thanks to daniel-eder.
+- [Fix Move card from a board to another does not work anymore](https://github.com/wekan/wekan/commit/9dd0fb88d6cb3378a8fc96aaf60214020efeaed1).
+  Thanks to lezioul and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
