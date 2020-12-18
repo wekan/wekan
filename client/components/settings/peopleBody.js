@@ -226,8 +226,14 @@ Template.editUserPopup.events({
 
     const isChangePassword = password.length > 0;
     const isChangeUserName = username !== user.username;
+
+    // If previously email address has not been set, it is undefined,
+    // check for undefined, and allow adding email address.
     const isChangeEmail =
-      email.toLowerCase() !== user.emails[0].address.toLowerCase();
+      email.toLowerCase() !==
+      (typeof user.emails !== 'undefined'
+        ? user.emails[0].address.toLowerCase()
+        : false);
 
     Users.update(this.userId, {
       $set: {
@@ -297,11 +303,6 @@ Template.editUserPopup.events({
       });
     } else Popup.close();
   },
-
-  'click #deleteButton': Popup.afterConfirm('userDelete', function() {
-    Users.remove(this.userId);
-    Popup.close();
-  }),
 });
 
 Template.newUserPopup.events({
@@ -355,5 +356,59 @@ Template.settingsUserPopup.events({
         Meteor.connection.setUserId(this.userId);
       }
     });
+  },
+  'click #deleteButton'(event) {
+    event.preventDefault();
+    /*
+    // Delete is not enabled yet, because it does leave empty user avatars
+    // to boards: boards members, card members and assignees have
+    // empty users. See:
+    // - wekan/client/components/settings/peopleBody.jade deleteButton
+    // - wekan/client/components/settings/peopleBody.js deleteButton
+    // - wekan/client/components/sidebar/sidebar.js Popup.afterConfirm('removeMember'
+    //   that does now remove member from board, card members and assignees correctly,
+    //   but that should be used to remove user from all boards similarly
+    // - wekan/models/users.js Delete is not enabled
+    //
+    //console.log('user id: ' + this.userId);
+    //Popup.afterConfirm('userDelete', function(event) {
+    //Boards.find({ members: this.userId }).forEach(board => {
+    //  console.log('board id: ' + board._id);
+      //Cards.find({ boardId: board._id, members: this.userId }).forEach(card => {
+      //  card.unassignMember(this.userId);
+      //});
+      //Cards.find({ boardId: board._id, members: this.userId }).forEach(card => {
+      //  card.unassignMember(this.userId);
+      //});
+      //Cards.find({ boardId: board._id, assignees: this.userId }).forEach(card => {
+      //  card.unassignAssignee(this.userId);
+      //});
+      //Boards.findOne({ boardId: board._id }).removeMember(this.userId);
+    //});
+    //Users.remove(this.userId);
+    */
+    Popup.close();
+  },
+});
+
+Template.settingsUserPopup.helpers({
+  user() {
+    return Users.findOne(this.userId);
+  },
+  authentications() {
+    return Template.instance().authenticationMethods.get();
+  },
+  isSelected(match) {
+    const userId = Template.instance().data.userId;
+    const selected = Users.findOne(userId).authenticationMethod;
+    return selected === match;
+  },
+  isLdap() {
+    const userId = Template.instance().data.userId;
+    const selected = Users.findOne(userId).authenticationMethod;
+    return selected === 'ldap';
+  },
+  errorMessage() {
+    return Template.instance().errorMessage.get();
   },
 });

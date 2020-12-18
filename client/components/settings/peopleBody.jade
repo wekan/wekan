@@ -112,7 +112,7 @@ template(name="editUserPopup")
     label.hide.userId(type="text" value=user._id)
     label
       | {{_ 'fullname'}}
-      input.js-profile-fullname(type="text" value=user.profile.fullname)
+      input.js-profile-fullname(type="text" value=user.profile.fullname required)
     label
       | {{_ 'username'}}
       span.error.hide.username-taken
@@ -120,7 +120,7 @@ template(name="editUserPopup")
       if isLdap
         input.js-profile-username(type="text" value=user.username readonly)
       else
-        input.js-profile-username(type="text" value=user.username)
+        input.js-profile-username(type="text" value=user.username required)
     label
       | {{_ 'email'}}
       span.error.hide.email-taken
@@ -128,7 +128,7 @@ template(name="editUserPopup")
       if isLdap
         input.js-profile-email(type="email" value="{{user.emails.[0].address}}" readonly)
       else
-        input.js-profile-email(type="email" value="{{user.emails.[0].address}}")
+        input.js-profile-email(type="email" value="{{user.emails.[0].address}}" required)
     label
       | {{_ 'admin'}}
       select.select-role.js-profile-isadmin
@@ -153,15 +153,13 @@ template(name="editUserPopup")
       input.js-profile-password(type="password")
     div.buttonsContainer
       input.primary.wide(type="submit" value="{{_ 'save'}}")
-    //  div
-    //  input#deleteButton.primary.wide(type="button" value="{{_ 'delete'}}")
 
 template(name="newUserPopup")
   form
     //label.hide.userId(type="text" value=user._id)
     label
       | {{_ 'fullname'}}
-      input.js-profile-fullname(type="text" value="")
+      input.js-profile-fullname(type="text" value="" required)
     label
       | {{_ 'username'}}
       span.error.hide.username-taken
@@ -169,7 +167,7 @@ template(name="newUserPopup")
       //if isLdap
       //  input.js-profile-username(type="text" value=user.username readonly)
       //else
-      input.js-profile-username(type="text" value="")
+      input.js-profile-username(type="text" value="" required)
     label
       | {{_ 'email'}}
       span.error.hide.email-taken
@@ -177,7 +175,7 @@ template(name="newUserPopup")
       //if isLdap
       //  input.js-profile-email(type="email" value="{{user.emails.[0].address}}" readonly)
       //else
-      input.js-profile-email(type="email" value="")
+      input.js-profile-email(type="email" value="" required)
     label
       | {{_ 'admin'}}
       select.select-role.js-profile-isadmin
@@ -199,7 +197,7 @@ template(name="newUserPopup")
     hr
     label
       | {{_ 'password'}}
-      input.js-profile-password(type="password")
+      input.js-profile-password(type="password" required)
     div.buttonsContainer
       input.primary.wide(type="submit" value="{{_ 'save'}}")
 
@@ -209,3 +207,21 @@ template(name="settingsUserPopup")
       a.impersonate-user
         i.fa.fa-user
         | {{_ 'impersonate-user'}}
+  // Delete is not enabled yet, because it does leave empty user avatars
+  // to boards: boards members, card members and assignees have
+  // empty users. See:
+  // - wekan/client/components/settings/peopleBody.jade deleteButton
+  // - wekan/client/components/settings/peopleBody.js deleteButton
+  // - wekan/client/components/sidebar/sidebar.js Popup.afterConfirm('removeMember'
+  //   that does now remove member from board, card members and assignees correctly,
+  //   but that should be used to remove user from all boards similarly
+  // - wekan/models/users.js Delete is not enabled
+  //li
+  //  br
+  //  br
+  //  hr
+  //li
+  //  form
+  //    label.hide.userId(type="text" value=user._id)
+  //    div.buttonsContainer
+  //      input#deleteButton.card-details-red.right.wide(type="button" value="{{_ 'delete'}}")

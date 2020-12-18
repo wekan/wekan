@@ -255,10 +255,14 @@ Template.memberPopup.events({
   },
   'click .js-change-role': Popup.open('changePermissions'),
   'click .js-remove-member': Popup.afterConfirm('removeMember', function() {
+    // This works from removing member from board, card members and assignees.
     const boardId = Session.get('currentBoard');
     const memberId = this.userId;
     Cards.find({ boardId, members: memberId }).forEach(card => {
       card.unassignMember(memberId);
+    });
+    Cards.find({ boardId, assignees: memberId }).forEach(card => {
+      card.unassignAssignee(memberId);
     });
     Boards.findOne(boardId).removeMember(memberId);
     Popup.close();
