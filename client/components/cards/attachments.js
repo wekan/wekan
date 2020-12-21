@@ -1,61 +1,55 @@
-Template.attachmentsGalery.events({});
+Template.attachmentsGalery.events({
+  'click .js-add-attachment': Popup.open('cardAttachments'),
+  'click .js-confirm-delete': Popup.afterConfirm(
+    'attachmentDelete',
+    function() {
+      Attachments.remove(this._id);
+      Popup.close();
+    },
+  ),
+  // If we let this event bubble, FlowRouter will handle it and empty the page
+  // content, see #101.
+  'click .js-download'(event) {
+    event.stopPropagation();
+  },
+  'click .js-add-cover'() {
+    Cards.findOne(this.cardId).setCover(this._id);
+  },
+  'click .js-remove-cover'() {
+    Cards.findOne(this.cardId).unsetCover();
+  },
+  'click .js-preview-image'(event) {
+    Popup.open('previewAttachedImage').call(this, event);
+    // when multiple thumbnails, if click one then another very fast,
+    // we might get a wrong width from previous img.
+    // when popup reused, onRendered() won't be called, so we cannot get there.
+    // here make sure to get correct size when this img fully loaded.
+    const img = $('img.preview-large-image')[0];
+    if (!img) return;
+    const rePosPopup = () => {
+      const w = img.width;
+      const h = img.height;
+      // if the image is too large, we resize & center the popup.
+      if (w > 300) {
+        $('div.pop-over').css({
+          width: w + 20,
+          position: 'absolute',
+          left: (window.innerWidth - w) / 2,
+          top: (window.innerHeight - h) / 2,
+        });
+      }
+    };
+    const url = $(event.currentTarget).attr('src');
+    if (img.src === url && img.complete) rePosPopup();
+    else img.onload = rePosPopup;
+  },
+});
 
-BlazeComponent.extendComponent({
+Template.attachmentsGalery.helpers({
   isBoardAdmin() {
     return Meteor.user().isBoardAdmin();
   },
-
-  events() {
-    return [
-      {
-        'click .js-add-attachment': Popup.open('cardAttachments'),
-        'click .js-confirm-delete': Popup.afterConfirm(
-          'attachmentDelete',
-          function() {
-            Attachments.remove(this._id);
-            Popup.close();
-          },
-        ),
-        // If we let this event bubble, FlowRouter will handle it and empty the page
-        // content, see #101.
-        'click .js-download'(event) {
-          event.stopPropagation();
-        },
-        'click .js-add-cover'() {
-          Cards.findOne(this.cardId).setCover(this._id);
-        },
-        'click .js-remove-cover'() {
-          Cards.findOne(this.cardId).unsetCover();
-        },
-        'click .js-preview-image'(event) {
-          Popup.open('previewAttachedImage').call(this, event);
-          // when multiple thumbnails, if click one then another very fast,
-          // we might get a wrong width from previous img.
-          // when popup reused, onRendered() won't be called, so we cannot get there.
-          // here make sure to get correct size when this img fully loaded.
-          const img = $('img.preview-large-image')[0];
-          if (!img) return;
-          const rePosPopup = () => {
-            const w = img.width;
-            const h = img.height;
-            // if the image is too large, we resize & center the popup.
-            if (w > 300) {
-              $('div.pop-over').css({
-                width: w + 20,
-                position: 'absolute',
-                left: (window.innerWidth - w) / 2,
-                top: (window.innerHeight - h) / 2,
-              });
-            }
-          };
-          const url = $(event.currentTarget).attr('src');
-          if (img.src === url && img.complete) rePosPopup();
-          else img.onload = rePosPopup;
-        },
-      },
-    ];
-  },
-}).register('attachmentsGalery');
+});
 
 Template.previewAttachedImagePopup.events({
   'click .js-large-image-clicked'() {
