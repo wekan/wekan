@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fixed Remove Cover button gives JS error](https://github.com/wekan/wekan/commit/28850e5510f2aaefcae404efac1973c12f1cca65).
+  Thanks to tsukasa1989 and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.62 2020-12-18 Wekan release
 
 This release fixes the following bugs:
