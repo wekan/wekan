@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Dark theme button background fix](https://github.com/wekan/wekan/pull/3401).
+  Thanks to jasontamez.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.63 2020-12-21 Wekan release
 
 This release fixes the following bugs:
