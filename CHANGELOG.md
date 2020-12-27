@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix Mobile miniscreen: Drag handle not visible in long checklist item
+  text](https://github.com/wekan/wekan/commit/a8453657c95a4bde2ae86b4c77e55bb2174adf26).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.65 2020-12-26 Wekan release
 
 This release fixes the following bugs:
