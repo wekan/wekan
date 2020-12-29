@@ -186,6 +186,12 @@ BlazeComponent.extendComponent({
     }
   },
 
+  // resize the textarea vertically to fit the user-input
+  autoResize(event) {
+    const textarea = event.target;
+    textarea.style.height = textarea.scrollHeight + 'px';
+  },
+
   events() {
     const events = {
       'click .toggle-delete-checklist-dialog'(event) {
@@ -209,6 +215,8 @@ BlazeComponent.extendComponent({
         'click .js-delete-checklist-item': this.deleteItem,
         'click .confirm-checklist-delete': this.deleteChecklist,
         'focus .js-add-checklist-item': this.focusChecklistItem,
+        'input textarea.js-edit-checklist-item': this.autoResize,
+        'focus textarea.js-edit-checklist-item': this.autoResize,
         keydown: this.pressKey,
       },
     ];
