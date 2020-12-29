@@ -76,7 +76,7 @@ template(name="orgGeneral")
         th {{_ 'active'}}
         th
           +newOrgRow
-      each user in orgList
+      each org in orgList
         +orgRow(orgId=org._id)
 
 template(name="teamGeneral")
@@ -100,6 +100,7 @@ template(name="peopleGeneral")
       tr
         th {{_ 'username'}}
         th {{_ 'fullname'}}
+        th {{_ 'initials'}}
         th {{_ 'admin'}}
         th {{_ 'email'}}
         th {{_ 'verified'}}
@@ -209,6 +210,10 @@ template(name="peopleRow")
     else
       td {{ userData.profile.fullname }}
     if userData.loginDisabled
+      td <s>{{ userData.profile.initials }}</s>
+    else
+      td {{ userData.profile.initials }}
+    if userData.loginDisabled
       td
         if userData.isAdmin
           | <s>{{_ 'yes'}}</s>
@@ -261,18 +266,18 @@ template(name="editOrgPopup")
     label.hide.orgId(type="text" value=org._id)
     label
       | {{_ 'orgDisplayName'}}
-      input.js-orgDisplayName(type="text" value=org.orgDisplayName required)
+      input.js-orgDisplayName(type="text" value=org.displayName required)
       span.error.hide.orgname-taken
         | {{_ 'error-orgname-taken'}}
     label
       | {{_ 'orgDesc'}}
-      input.js-orgDesc(type="text" value=org.orgDesc required)
+      input.js-orgDesc(type="text" value=org.desc required)
     label
       | {{_ 'orgName'}}
-      input.js-orgName(type="text" value=org.orgName required)
+      input.js-orgName(type="text" value=org.name required)
     label
       | {{_ 'orgWebsite'}}
-      input.js-orgWebsite(type="text" value=org.orgWebsite required)
+      input.js-orgWebsite(type="text" value=org.website required)
     label
       | {{_ 'active'}}
       select.select-active.js-org-isactive
@@ -312,9 +317,6 @@ template(name="editUserPopup")
   form
     label.hide.userId(type="text" value=user._id)
     label
-      | {{_ 'fullname'}}
-      input.js-profile-fullname(type="text" value=user.profile.fullname required)
-    label
       | {{_ 'username'}}
       span.error.hide.username-taken
         | {{_ 'error-username-taken'}}
@@ -322,6 +324,17 @@ template(name="editUserPopup")
         input.js-profile-username(type="text" value=user.username readonly)
       else
         input.js-profile-username(type="text" value=user.username required)
+    label
+      | {{_ 'fullname'}}
+      input.js-profile-fullname(type="text" value=user.profile.fullname required)
+    label
+      | {{_ 'initials'}}
+      input.js-profile-initials(type="text" value=user.profile.initials)
+    label
+      | {{_ 'admin'}}
+      select.select-role.js-profile-isadmin
+        option(value="false") {{_ 'no'}}
+        option(value="true" selected="{{user.isAdmin}}") {{_ 'yes'}}
     label
       | {{_ 'email'}}
       span.error.hide.email-taken
@@ -331,10 +344,10 @@ template(name="editUserPopup")
       else
         input.js-profile-email(type="email" value="{{user.emails.[0].address}}" required)
     label
-      | {{_ 'admin'}}
-      select.select-role.js-profile-isadmin
+      | {{_ 'verified'}}
+      select.select-verified.js-profile-email-verified
         option(value="false") {{_ 'no'}}
-        option(value="true" selected="{{user.isAdmin}}") {{_ 'yes'}}
+        option(value="true" selected="{{userData.emails.[0].verified}}") {{_ 'yes'}}
     label
       | {{_ 'active'}}
       select.select-active.js-profile-isactive

@@ -399,18 +399,24 @@ Template.editUserPopup.events({
   submit(event, templateInstance) {
     event.preventDefault();
     const user = Users.findOne(this.userId);
-    const fullname = templateInstance.find('.js-profile-fullname').value.trim();
     const username = templateInstance.find('.js-profile-username').value.trim();
+    const fullname = templateInstance.find('.js-profile-fullname').value.trim();
+    const initials = templateInstance.find('.js-profile-initials').value.trim();
     const password = templateInstance.find('.js-profile-password').value;
     const isAdmin = templateInstance.find('.js-profile-isadmin').value.trim();
     const isActive = templateInstance.find('.js-profile-isactive').value.trim();
     const email = templateInstance.find('.js-profile-email').value.trim();
+    const verified = templateInstance
+      .find('.js-profile-email-verified')
+      .value.trim();
     const authentication = templateInstance
       .find('.js-authenticationMethod')
       .value.trim();
 
     const isChangePassword = password.length > 0;
     const isChangeUserName = username !== user.username;
+    const isChangeInitials = initials.length > 0;
+    const isChangeEmailVerified = verified !== user.emails[0].verified;
 
     // If previously email address has not been set, it is undefined,
     // check for undefined, and allow adding email address.
@@ -431,6 +437,14 @@ Template.editUserPopup.events({
 
     if (isChangePassword) {
       Meteor.call('setPassword', password, this.userId);
+    }
+
+    if (isChangeEmailVerified) {
+      Meteor.call('setEmailVerified', email, verified === 'true', this.userId);
+    }
+
+    if (isChangeInitials) {
+      Meteor.call('setInitials', initials, this.userId);
     }
 
     if (isChangeUserName && isChangeEmail) {
