@@ -1,3 +1,14 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Checklist-Items, Drag-Drop Handle now at the left side](https://github.com/wekan/wekan/pull/3407).
+  Thanks to mfilser.
+- [Checklist-Items, Autoresize the textarea vertically to fit the user-input](https://github.com/wekan/wekan/pull/3408).
+  Thanks to mfilser.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.67 2020-12-29 Wekan release
 
 This release adds the following new features:
