@@ -774,6 +774,8 @@
   "display-authentication-method": "認証方式を表示",
   "default-authentication-method": "デフォルトの認証方式",
   "duplicate-board": "ボードの複製",
+  "org-number": "The number of organizations is:",
+  "team-number": "The number of teams is:",
   "people-number": "メンバー数:",
   "swimlaneDeletePopup-title": "スイムレーンを削除しますか？",
   "swimlane-delete-pop": "すべての内容がアクティビティから削除されます。この削除は元に戻すことができません。",
@@ -836,5 +838,11 @@
   "hide-checked-items": "チェックした項目を隠す",
   "task": "Task",
   "create-task": "Create Task",
-  "ok": "OK"
+  "ok": "OK",
+  "organizations": "Organizations",
+  "teams": "Teams",
+  "displayName": "Display Name",
+  "shortName": "Short Name",
+  "website": "Website",
+  "person": "Person"
 }

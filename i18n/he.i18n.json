@@ -774,6 +774,8 @@
   "display-authentication-method": "הצגת שיטת אימות",
   "default-authentication-method": "שיטת אימות כבררת מחדל",
   "duplicate-board": "שכפול לוח",
+  "org-number": "מספר הארגונים הוא:",
+  "team-number": "מספר הצוותים הוא:",
   "people-number": "מספר האנשים הוא:",
   "swimlaneDeletePopup-title": "למחוק מסלול?",
   "swimlane-delete-pop": "כל הפעולות יוסרו מהזנת הפעילות ולא תהיה לך אפשרות לשחזר את המסלול. אי אפשר לחזור אחורה.",
@@ -836,5 +838,11 @@
   "hide-checked-items": "הסתרת הפריטים שסומנו",
   "task": "משימה",
   "create-task": "צירת משימה",
-  "ok": "אישור"
+  "ok": "אישור",
+  "organizations": "ארגונים",
+  "teams": "צוותים",
+  "displayName": "שם התצוגה",
+  "shortName": "שם קצר",
+  "website": "אתר",
+  "person": "איש/ה"
 }

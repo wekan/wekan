@@ -774,6 +774,8 @@
   "display-authentication-method": "Mostrar el método de autenticación",
   "default-authentication-method": "Método de autenticación por defecto",
   "duplicate-board": "Duplicar tablero",
+  "org-number": "The number of organizations is:",
+  "team-number": "The number of teams is:",
   "people-number": "El número de personas es:",
   "swimlaneDeletePopup-title": "¿Eliminar el carril «swimlane»?",
   "swimlane-delete-pop": "Todas las acciones serán eliminadas de la fuente de actividades y no se podrá recuperar el carril «swimlane». Esta acción no puede deshacerse.",
@@ -836,5 +838,11 @@
   "hide-checked-items": "Ocultar elementos marcados",
   "task": "Tarea",
   "create-task": "Crear tarea",
-  "ok": "OK"
+  "ok": "OK",
+  "organizations": "Organizations",
+  "teams": "Teams",
+  "displayName": "Display Name",
+  "shortName": "Short Name",
+  "website": "Website",
+  "person": "Person"
 }

@@ -774,6 +774,8 @@
   "display-authentication-method": "Mostrar Método de Autenticação",
   "default-authentication-method": "Método de Autenticação Padrão",
   "duplicate-board": "Duplicar Quadro",
+  "org-number": "O número de organizações é:",
+  "team-number": "O número de times é:",
   "people-number": "O número de pessoas é:",
   "swimlaneDeletePopup-title": "Excluir Raia?",
   "swimlane-delete-pop": "Todas as ações serão excluídas da lista de atividades e você não poderá recuperar a raia. Não há como desfazer.",
@@ -836,5 +838,11 @@
   "hide-checked-items": "Esconder itens marcados",
   "task": "Tarefa",
   "create-task": "Criar Tarefa",
-  "ok": "OK"
+  "ok": "OK",
+  "organizations": "Organizações",
+  "teams": "Times",
+  "displayName": "Nome em exibição",
+  "shortName": "Nome curto",
+  "website": "Website",
+  "person": "Pessoa"
 }

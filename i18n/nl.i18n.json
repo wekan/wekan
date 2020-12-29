@@ -774,6 +774,8 @@
   "display-authentication-method": "Toon Authenticatiemethode",
   "default-authentication-method": "Standaard Authenticatiemethode",
   "duplicate-board": "Dupliceer Bord",
+  "org-number": "Het aantal organisaties is:",
+  "team-number": "Het aantal teams is:",
   "people-number": "Het aantal gebruikers is:",
   "swimlaneDeletePopup-title": "Swimlane verwijderen?",
   "swimlane-delete-pop": "Alle acties zullen verwijderd worden van de activiteiten feed en je kunt de swimlane niet terughalen. Er is geen herstelmogelijkheid.",
@@ -836,5 +838,11 @@
   "hide-checked-items": "Verberg aangevinkte items",
   "task": "Taak",
   "create-task": "Taak aanmaken",
-  "ok": "OK"
+  "ok": "OK",
+  "organizations": "Organisaties",
+  "teams": "Teams",
+  "displayName": "Schermnaam",
+  "shortName": "Korte naam",
+  "website": "Website",
+  "person": "Persoon"
 }
