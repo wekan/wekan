@@ -6,6 +6,11 @@ This release adds the following new features:
   [Part 1](https://github.com/wekan/wekan/commit/9e2093d6aed38e66fc4d63823315c9382e013a32).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Checklist Mini-Screen, appendTo: 'parent' not necessary anymore](https://github.com/wekan/wekan/pull/3405).
+  Thanks to mfilser.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v4.66 2020-12-27 Wekan release
