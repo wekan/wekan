@@ -59,7 +59,6 @@ BlazeComponent.extendComponent({
         if (Utils.isMiniScreenOrShowDesktopDragHandles()) {
           $(self.itemsDom).sortable({
             handle: 'span.fa.checklistitem-handle',
-            appendTo: 'parent',
           });
         }
       }
