@@ -10,6 +10,8 @@ and fixes the following bugs:
 
 - [Checklist Mini-Screen, appendTo: 'parent' not necessary anymore](https://github.com/wekan/wekan/pull/3405).
   Thanks to mfilser.
+- [Allow to edit email verified and initials at Admin Panel/People/People](https://github.com/wekan/wekan/commit/d03e2170dd10741bd78722cc35b52cffa220a2e7).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
