@@ -1,3 +1,14 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [New Checklistitems are now autoresized too](https://github.com/wekan/wekan/pull/3411).
+  Thanks to mfilser.
+- [Swimlane + and = Icons resized for better handling at mobile view](https://github.com/wekan/wekan/pull/3412).
+  Thanks to mfilser.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.68 2020-12-29 Wekan release
 
 This release fixes the following bugs:
