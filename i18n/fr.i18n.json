@@ -774,8 +774,8 @@
   "display-authentication-method": "Afficher la méthode d'authentification",
   "default-authentication-method": "Méthode d'authentification par défaut",
   "duplicate-board": "Dupliquer le tableau",
-  "org-number": "The number of organizations is:",
-  "team-number": "The number of teams is:",
+  "org-number": "Le nombre d'organisations est de :",
+  "team-number": "Le nombre d'équipes est de :",
   "people-number": "Le nombre d'utilisateurs est de :",
   "swimlaneDeletePopup-title": "Supprimer le couloir ?",
   "swimlane-delete-pop": "Toutes les actions vont être supprimées du suivi d'activités et vous ne pourrez plus utiliser ce couloir. Cette action est irréversible.",
@@ -839,10 +839,10 @@
   "task": "Tâche",
   "create-task": "Créer une tâche",
   "ok": "OK",
-  "organizations": "Organizations",
-  "teams": "Teams",
-  "displayName": "Display Name",
-  "shortName": "Short Name",
-  "website": "Website",
-  "person": "Person"
+  "organizations": "Organisations",
+  "teams": "Équipes",
+  "displayName": "Nom d'Affichage",
+  "shortName": "Nom Court",
+  "website": "Site Web",
+  "person": "Personne"
 }

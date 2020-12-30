@@ -774,8 +774,8 @@
   "display-authentication-method": "Wyświetl metodę logowania",
   "default-authentication-method": "Domyślna metoda logowania",
   "duplicate-board": "Duplikuj tablicę",
-  "org-number": "The number of organizations is:",
-  "team-number": "The number of teams is:",
+  "org-number": "Liczba organizacji:",
+  "team-number": "Liczba zespołów:",
   "people-number": "Liczba użytkowników to:",
   "swimlaneDeletePopup-title": "Usunąć ścieżkę?",
   "swimlane-delete-pop": "Wszystkie zdarzenia dotyczące tej ścieżki zostaną usunięte z historii aktywności. Tej operacji nie można cofnąć. Usunięcie jest nieodwracalne.",
@@ -839,10 +839,10 @@
   "task": "Zadanie",
   "create-task": "Utwórz zadanie",
   "ok": "OK",
-  "organizations": "Organizations",
-  "teams": "Teams",
-  "displayName": "Display Name",
-  "shortName": "Short Name",
-  "website": "Website",
-  "person": "Person"
+  "organizations": "Organizacje",
+  "teams": "Zespoły",
+  "displayName": "Nazwa wyświetlana",
+  "shortName": "Nazwa skrócona",
+  "website": "Strona internetowa",
+  "person": "Osoba"
 }
