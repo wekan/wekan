@@ -17,12 +17,11 @@ template(name="swimlaneFixedHeader")
     unless currentUser.isCommentOnly
       if currentUser.isBoardAdmin
         a.fa.fa-plus.js-open-add-swimlane-menu.swimlane-header-plus-icon
-        a.fa.fa-navicon.js-open-swimlane-menu
-      unless isMiniScreen
-        if showDesktopDragHandles
-          a.swimlane-header-handle.handle.fa.fa-arrows.js-swimlane-header-handle
-      if isMiniScreen
+        a.fa.fa-navicon.js-open-swimlane-menu.swimlane-header-menu-icon
+      if isMiniScreenOrShowDesktopDragHandles
         a.swimlane-header-miniscreen-handle.handle.fa.fa-arrows.js-swimlane-header-handle
+      else
+        a.swimlane-header-handle.handle.fa.fa-arrows.js-swimlane-header-handle
 
 template(name="editSwimlaneTitleForm")
   .list-composer
