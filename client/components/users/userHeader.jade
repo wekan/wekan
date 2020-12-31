@@ -14,6 +14,10 @@ template(name="memberMenuPopup")
   ul.pop-over-list
     with currentUser
       li
+        a.js-my-cards(href="{{pathFor 'my-cards'}}")
+          i.fa.fa-user
+          | {{_ 'my-cards'}}
+      li
         a.js-edit-profile
           i.fa.fa-user
           | {{_ 'edit-profile'}}

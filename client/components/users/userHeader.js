@@ -25,6 +25,9 @@ Template.memberMenuPopup.helpers({
 });
 
 Template.memberMenuPopup.events({
+  'click .js-my-cards'() {
+    Popup.close();
+  },
   'click .js-edit-profile': Popup.open('editProfile'),
   'click .js-change-settings': Popup.open('changeSettings'),
   'click .js-change-avatar': Popup.open('changeAvatar'),
