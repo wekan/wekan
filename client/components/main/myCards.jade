@@ -1,0 +1,29 @@
+template(name="myCardsHeaderBar")
+  h1
+    a.back-btn(href="{{pathFor 'home'}}")
+      i.fa.fa-chevron-left
+    | {{_ 'my-cards'}}
+
+template(name="myCardsModalTitle")
+  h2
+    i.fa.fa-keyboard-o
+    | {{_ 'my-cards'}}
+
+template(name="myCards")
+  .wrapper
+    h2 User Id
+    p= userId
+    //p= query.assignees
+    h1 My Cards
+    each board in cardsFind
+      .board-title
+        = board.title
+      each swimlane in board.swimlanes
+        .swimlane-title
+          = swimlane.title
+        each list in swimlane.lists
+          .list-title
+            = list.title
+          each card in list.cards
+            .card-details-title
+              = card.title
