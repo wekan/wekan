@@ -1,3 +1,5 @@
+const orgsPerPage = 25;
+const teamsPerPage = 25;
 const usersPerPage = 25;
 
 BlazeComponent.extendComponent({
@@ -7,17 +9,45 @@ BlazeComponent.extendComponent({
   onCreated() {
     this.error = new ReactiveVar('');
     this.loading = new ReactiveVar(false);
-    this.people = new ReactiveVar(true);
+    this.orgSetting = new ReactiveVar(true);
+    this.teamSetting = new ReactiveVar(true);
+    this.peopleSetting = new ReactiveVar(true);
+    this.findOrgsOptions = new ReactiveVar({});
+    this.findTeamsOptions = new ReactiveVar({});
     this.findUsersOptions = new ReactiveVar({});
-    this.number = new ReactiveVar(0);
+    this.numberOrgs = new ReactiveVar(0);
+    this.numberTeams = new ReactiveVar(0);
+    this.numberPeople = new ReactiveVar(0);
 
     this.page = new ReactiveVar(1);
     this.loadNextPageLocked = false;
     this.callFirstWith(null, 'resetNextPeak');
     this.autorun(() => {
-      const limit = this.page.get() * usersPerPage;
+      const limitOrgs = this.page.get() * orgsPerPage;
+      const limitTeams = this.page.get() * teamsPerPage;
+      const limitUsers = this.page.get() * usersPerPage;
 
-      this.subscribe('people', this.findUsersOptions.get(), limit, () => {
+      this.subscribe('org', this.findOrgsOptions.get(), limitOrgs, () => {
+        this.loadNextPageLocked = false;
+        const nextPeakBefore = this.callFirstWith(null, 'getNextPeak');
+        this.calculateNextPeak();
+        const nextPeakAfter = this.callFirstWith(null, 'getNextPeak');
+        if (nextPeakBefore === nextPeakAfter) {
+          this.callFirstWith(null, 'resetNextPeak');
+        }
+      });
+
+      this.subscribe('team', this.findTeamsOptions.get(), limitTeams, () => {
+        this.loadNextPageLocked = false;
+        const nextPeakBefore = this.callFirstWith(null, 'getNextPeak');
+        this.calculateNextPeak();
+        const nextPeakAfter = this.callFirstWith(null, 'getNextPeak');
+        if (nextPeakBefore === nextPeakAfter) {
+          this.callFirstWith(null, 'resetNextPeak');
+        }
+      });
+
+      this.subscribe('people', this.findUsersOptions.get(), limitUsers, () => {
         this.loadNextPageLocked = false;
         const nextPeakBefore = this.callFirstWith(null, 'getNextPeak');
         this.calculateNextPeak();
@@ -31,6 +61,22 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
+        'click #searchOrgButton'() {
+          this.filterOrg();
+        },
+        'keydown #searchOrgInput'(event) {
+          if (event.keyCode === 13 && !event.shiftKey) {
+            this.filterOrg();
+          }
+        },
+        'click #searchTeamButton'() {
+          this.filterTeam();
+        },
+        'keydown #searchTeamInput'(event) {
+          if (event.keyCode === 13 && !event.shiftKey) {
+            this.filterTeam();
+          }
+        },
         'click #searchButton'() {
           this.filterPeople();
         },
@@ -39,9 +85,18 @@ BlazeComponent.extendComponent({
             this.filterPeople();
           }
         },
+        'click #newOrgButton'() {
+          Popup.open('newOrg');
+        },
+        'click #newTeamButton'() {
+          Popup.open('newTeam');
+        },
         'click #newUserButton'() {
           Popup.open('newUser');
         },
+        'click a.js-org-menu': this.switchMenu,
+        'click a.js-team-menu': this.switchMenu,
+        'click a.js-people-menu': this.switchMenu,
       },
     ];
   },
@@ -84,17 +139,62 @@ BlazeComponent.extendComponent({
   setLoading(w) {
     this.loading.set(w);
   },
+  orgList() {
+    const orgs = Org.find(this.findOrgsOptions.get(), {
+      fields: { _id: true },
+    });
+    this.numberOrgs.set(org.count(false));
+    return orgs;
+  },
+  teamList() {
+    const teams = Team.find(this.findTeamsOptions.get(), {
+      fields: { _id: true },
+    });
+    this.numberTeams.set(team.count(false));
+    return teams;
+  },
   peopleList() {
     const users = Users.find(this.findUsersOptions.get(), {
       fields: { _id: true },
     });
-    this.number.set(users.count(false));
+    this.numberPeople.set(users.count(false));
     return users;
   },
+  orgNumber() {
+    return this.numberOrgs.get();
+  },
+  teamNumber() {
+    return this.numberTeams.get();
+  },
   peopleNumber() {
-    return this.number.get();
+    return this.numberPeople.get();
+  },
+  switchMenu(event) {
+    const target = $(event.target);
+    if (!target.hasClass('active')) {
+      $('.side-menu li.active').removeClass('active');
+      target.parent().addClass('active');
+      const targetID = target.data('id');
+      this.orgSetting.set('org-setting' === targetID);
+      this.teamSetting.set('team-setting' === targetID);
+      this.peopleSetting.set('people-setting' === targetID);
+    }
   },
 }).register('people');
+
+Template.orgRow.helpers({
+  orgData() {
+    const orgCollection = this.esSearch ? ESSearchResults : Org;
+    return orgCollection.findOne(this.orgId);
+  },
+});
+
+Template.teamRow.helpers({
+  teamData() {
+    const teamCollection = this.esSearch ? ESSearchResults : Team;
+    return teamCollection.findOne(this.teamId);
+  },
+});
 
 Template.peopleRow.helpers({
   userData() {
@@ -122,6 +222,51 @@ Template.editUserPopup.onCreated(function() {
   });
 });
 
+Template.editOrgPopup.helpers({
+  org() {
+    return Org.findOne(this.orgId);
+  },
+  /*
+  isSelected(match) {
+    const orgId = Template.instance().data.orgId;
+    const selected = Org.findOne(orgId).authenticationMethod;
+    return selected === match;
+  },
+  isLdap() {
+    const userId = Template.instance().data.userId;
+    const selected = Users.findOne(userId).authenticationMethod;
+    return selected === 'ldap';
+  },
+  */
+  errorMessage() {
+    return Template.instance().errorMessage.get();
+  },
+});
+
+Template.editTeamPopup.helpers({
+  team() {
+    return Team.findOne(this.teamId);
+  },
+  /*
+  authentications() {
+    return Template.instance().authenticationMethods.get();
+  },
+  isSelected(match) {
+    const userId = Template.instance().data.userId;
+    const selected = Users.findOne(userId).authenticationMethod;
+    return selected === match;
+  },
+  isLdap() {
+    const userId = Template.instance().data.userId;
+    const selected = Users.findOne(userId).authenticationMethod;
+    return selected === 'ldap';
+  },
+  */
+  errorMessage() {
+    return Template.instance().errorMessage.get();
+  },
+});
+
 Template.editUserPopup.helpers({
   user() {
     return Users.findOne(this.userId);
@@ -142,6 +287,46 @@ Template.editUserPopup.helpers({
   errorMessage() {
     return Template.instance().errorMessage.get();
   },
+});
+
+Template.newOrgPopup.onCreated(function() {
+  //this.authenticationMethods = new ReactiveVar([]);
+  this.errorMessage = new ReactiveVar('');
+  /*
+  Meteor.call('getAuthenticationsEnabled', (_, result) => {
+    if (result) {
+      // TODO : add a management of different languages
+      // (ex {value: ldap, text: TAPi18n.__('ldap', {}, T9n.getLanguage() || 'en')})
+      this.authenticationMethods.set([
+        { value: 'password' },
+        // Gets only the authentication methods availables
+        ...Object.entries(result)
+          .filter(e => e[1])
+          .map(e => ({ value: e[0] })),
+      ]);
+    }
+  });
+*/
+});
+
+Template.newTeamPopup.onCreated(function() {
+  //this.authenticationMethods = new ReactiveVar([]);
+  this.errorMessage = new ReactiveVar('');
+  /*
+  Meteor.call('getAuthenticationsEnabled', (_, result) => {
+    if (result) {
+      // TODO : add a management of different languages
+      // (ex {value: ldap, text: TAPi18n.__('ldap', {}, T9n.getLanguage() || 'en')})
+      this.authenticationMethods.set([
+        { value: 'password' },
+        // Gets only the authentication methods availables
+        ...Object.entries(result)
+          .filter(e => e[1])
+          .map(e => ({ value: e[0] })),
+      ]);
+    }
+  });
+*/
 });
 
 Template.newUserPopup.onCreated(function() {
@@ -214,18 +399,24 @@ Template.editUserPopup.events({
   submit(event, templateInstance) {
     event.preventDefault();
     const user = Users.findOne(this.userId);
-    const fullname = templateInstance.find('.js-profile-fullname').value.trim();
     const username = templateInstance.find('.js-profile-username').value.trim();
+    const fullname = templateInstance.find('.js-profile-fullname').value.trim();
+    const initials = templateInstance.find('.js-profile-initials').value.trim();
     const password = templateInstance.find('.js-profile-password').value;
     const isAdmin = templateInstance.find('.js-profile-isadmin').value.trim();
     const isActive = templateInstance.find('.js-profile-isactive').value.trim();
     const email = templateInstance.find('.js-profile-email').value.trim();
+    const verified = templateInstance
+      .find('.js-profile-email-verified')
+      .value.trim();
     const authentication = templateInstance
       .find('.js-authenticationMethod')
       .value.trim();
 
     const isChangePassword = password.length > 0;
     const isChangeUserName = username !== user.username;
+    const isChangeInitials = initials.length > 0;
+    const isChangeEmailVerified = verified !== user.emails[0].verified;
 
     // If previously email address has not been set, it is undefined,
     // check for undefined, and allow adding email address.
@@ -246,6 +437,14 @@ Template.editUserPopup.events({
 
     if (isChangePassword) {
       Meteor.call('setPassword', password, this.userId);
+    }
+
+    if (isChangeEmailVerified) {
+      Meteor.call('setEmailVerified', email, verified === 'true', this.userId);
+    }
+
+    if (isChangeInitials) {
+      Meteor.call('setInitials', initials, this.userId);
     }
 
     if (isChangeUserName && isChangeEmail) {

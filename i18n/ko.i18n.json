@@ -774,6 +774,8 @@
   "display-authentication-method": "Display Authentication Method",
   "default-authentication-method": "Default Authentication Method",
   "duplicate-board": "보드 복사",
+  "org-number": "The number of organizations is:",
+  "team-number": "The number of teams is:",
   "people-number": "The number of people is:",
   "swimlaneDeletePopup-title": "Delete Swimlane ?",
   "swimlane-delete-pop": "All actions will be removed from the activity feed and you won't be able to recover the swimlane. There is no undo.",
@@ -836,5 +838,11 @@
   "hide-checked-items": "선택된 항목 숨기기",
   "task": "과제",
   "create-task": "과제 생성",
-  "ok": "확인"
+  "ok": "확인",
+  "organizations": "Organizations",
+  "teams": "Teams",
+  "displayName": "Display Name",
+  "shortName": "Short Name",
+  "website": "Website",
+  "person": "Person"
 }

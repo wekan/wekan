@@ -836,6 +836,34 @@ if (Meteor.isServer) {
         }
       }
     },
+    setEmailVerified(email, verified, userId) {
+      if (Meteor.user() && Meteor.user().isAdmin) {
+        check(email, String);
+        check(verified, Boolean);
+        check(userId, String);
+        Users.update(userId, {
+          $set: {
+            emails: [
+              {
+                address: email,
+                verified,
+              },
+            ],
+          },
+        });
+      }
+    },
+    setInitials(initials, userId) {
+      if (Meteor.user() && Meteor.user().isAdmin) {
+        check(initials, String);
+        check(userId, String);
+        Users.update(userId, {
+          $set: {
+            'profile.initials': initials,
+          },
+        });
+      }
+    },
     // we accept userId, username, email
     inviteUserToBoard(username, boardId) {
       check(username, String);

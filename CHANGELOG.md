@@ -1,3 +1,64 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [New Checklistitems are now autoresized too](https://github.com/wekan/wekan/pull/3411).
+  Thanks to mfilser.
+- [Swimlane + and = Icons resized for better handling at mobile view](https://github.com/wekan/wekan/pull/3412).
+  Thanks to mfilser.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v4.68 2020-12-29 Wekan release
+
+This release fixes the following bugs:
+
+- [Checklist-Items, Drag-Drop Handle now at the left side](https://github.com/wekan/wekan/pull/3407).
+  Thanks to mfilser.
+- [Checklist-Items, Autoresize the textarea vertically to fit the user-input](https://github.com/wekan/wekan/pull/3408).
+  Thanks to mfilser.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v4.67 2020-12-29 Wekan release
+
+This release adds the following new features:
+
+- Teams/Organizations to Admin Panel. In Progress.
+  [Part 1](https://github.com/wekan/wekan/commit/9e2093d6aed38e66fc4d63823315c9382e013a32).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Checklist Mini-Screen, appendTo: 'parent' not necessary anymore](https://github.com/wekan/wekan/pull/3405).
+  Thanks to mfilser.
+- [Allow to edit email verified and initials at Admin Panel/People/People](https://github.com/wekan/wekan/commit/d03e2170dd10741bd78722cc35b52cffa220a2e7).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v4.66 2020-12-27 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix Mobile miniscreen: Drag handle not visible in long checklist item
+  text](https://github.com/wekan/wekan/commit/a8453657c95a4bde2ae86b4c77e55bb2174adf26).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v4.65 2020-12-26 Wekan release
+
+This release fixes the following bugs:
+
+- [Fixed Drag and drop between checklists closes the card sometimes on
+  Firefox](https://github.com/wekan/wekan/commit/c7808c5c03f98eae709e5ef89e8e17af4689cb2e).
+  xet7 thanks mfilser about [similar fix of appendTo parent](https://github.com/wekan/wekan/pull/3342)
+  that did work here too to fix this.
+  Thanks to mfilser and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.64 2020-12-24 Wekan release
 
 This release fixes the following bugs:

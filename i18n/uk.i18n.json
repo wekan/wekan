@@ -774,6 +774,8 @@
   "display-authentication-method": "Display Authentication Method",
   "default-authentication-method": "Default Authentication Method",
   "duplicate-board": "Duplicate Board",
+  "org-number": "The number of organizations is:",
+  "team-number": "The number of teams is:",
   "people-number": "The number of people is:",
   "swimlaneDeletePopup-title": "Delete Swimlane ?",
   "swimlane-delete-pop": "All actions will be removed from the activity feed and you won't be able to recover the swimlane. There is no undo.",
@@ -836,5 +838,11 @@
   "hide-checked-items": "Сховати обрані елементи",
   "task": "Task",
   "create-task": "Create Task",
-  "ok": "OK"
+  "ok": "OK",
+  "organizations": "Organizations",
+  "teams": "Teams",
+  "displayName": "Display Name",
+  "shortName": "Short Name",
+  "website": "Website",
+  "person": "Person"
 }

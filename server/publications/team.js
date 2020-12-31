@@ -1,4 +1,4 @@
-Meteor.publish('people', function(query, limit) {
+Meteor.publish('team', function(query, limit) {
   check(query, Match.OneOf(Object, null));
   check(limit, Number);
 
@@ -8,18 +8,17 @@ Meteor.publish('people', function(query, limit) {
 
   const user = Users.findOne(this.userId);
   if (user && user.isAdmin) {
-    return Users.find(query, {
+    return Team.find(query, {
       limit,
       sort: { createdAt: -1 },
       fields: {
-        username: 1,
-        'profile.fullname': 1,
-        'profile.initials': 1,
-        isAdmin: 1,
-        emails: 1,
+        displayName: 1,
+        desc: 1,
+        name: 1,
+        website: 1,
+        teams: 1,
         createdAt: 1,
         loginDisabled: 1,
-        authenticationMethod: 1,
       },
     });
   }

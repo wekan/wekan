@@ -774,6 +774,8 @@
   "display-authentication-method": "Показывать способ авторизации",
   "default-authentication-method": "Способ авторизации по умолчанию",
   "duplicate-board": "Клонировать доску",
+  "org-number": "Количество организаций:",
+  "team-number": "Количество команд:",
   "people-number": "Количество человек:",
   "swimlaneDeletePopup-title": "Удалить дорожку?",
   "swimlane-delete-pop": "Все действия будут удалены из ленты активности участников, и вы не сможете восстановить дорожку. Данное действие необратимо.",
@@ -836,5 +838,11 @@
   "hide-checked-items": "Спрятать отмеченные",
   "task": "Задача",
   "create-task": "Создать задачу",
-  "ok": "Ok"
+  "ok": "Ok",
+  "organizations": "Организации",
+  "teams": "Команды",
+  "displayName": "Отображаемое название",
+  "shortName": "Короткое название",
+  "website": "Вебсайт",
+  "person": "Представитель"
 }
