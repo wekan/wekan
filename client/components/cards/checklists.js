@@ -224,11 +224,11 @@ Template.checklists.helpers({
 });
 
 Template.addChecklistItemForm.onRendered(() => {
-  autosize($('textarea.js-add-checklist-item'))
+  autosize($('textarea.js-add-checklist-item'));
 });
 
 Template.editChecklistItemForm.onRendered(() => {
-  autosize($('textarea.js-edit-checklist-item'))
+  autosize($('textarea.js-edit-checklist-item'));
 });
 
 Template.checklistDeleteDialog.onCreated(() => {
