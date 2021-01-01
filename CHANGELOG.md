@@ -4,6 +4,7 @@ This release adds the following new features:
 
 - Teams/Organizations to Admin Panel. In Progress.
   [Part 2](https://github.com/wekan/wekan/commit/ad482d5cfb72591f1b5c749c3c0156000dbf660a).
+  [Part 3](https://github.com/wekan/wekan/commit/b64cd358ed0af4395357423ad172b8dac9dc3178).
   Thanks to xet7.
 
 and fixes the following bugs:
