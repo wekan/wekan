@@ -226,18 +226,6 @@ Template.editOrgPopup.helpers({
   org() {
     return Org.findOne(this.orgId);
   },
-  /*
-  isSelected(match) {
-    const orgId = Template.instance().data.orgId;
-    const selected = Org.findOne(orgId).authenticationMethod;
-    return selected === match;
-  },
-  isLdap() {
-    const userId = Template.instance().data.userId;
-    const selected = Users.findOne(userId).authenticationMethod;
-    return selected === 'ldap';
-  },
-  */
   errorMessage() {
     return Template.instance().errorMessage.get();
   },
@@ -247,21 +235,6 @@ Template.editTeamPopup.helpers({
   team() {
     return Team.findOne(this.teamId);
   },
-  /*
-  authentications() {
-    return Template.instance().authenticationMethods.get();
-  },
-  isSelected(match) {
-    const userId = Template.instance().data.userId;
-    const selected = Users.findOne(userId).authenticationMethod;
-    return selected === match;
-  },
-  isLdap() {
-    const userId = Template.instance().data.userId;
-    const selected = Users.findOne(userId).authenticationMethod;
-    return selected === 'ldap';
-  },
-  */
   errorMessage() {
     return Template.instance().errorMessage.get();
   },
@@ -290,43 +263,11 @@ Template.editUserPopup.helpers({
 });
 
 Template.newOrgPopup.onCreated(function() {
-  //this.authenticationMethods = new ReactiveVar([]);
   this.errorMessage = new ReactiveVar('');
-  /*
-  Meteor.call('getAuthenticationsEnabled', (_, result) => {
-    if (result) {
-      // TODO : add a management of different languages
-      // (ex {value: ldap, text: TAPi18n.__('ldap', {}, T9n.getLanguage() || 'en')})
-      this.authenticationMethods.set([
-        { value: 'password' },
-        // Gets only the authentication methods availables
-        ...Object.entries(result)
-          .filter(e => e[1])
-          .map(e => ({ value: e[0] })),
-      ]);
-    }
-  });
-*/
 });
 
 Template.newTeamPopup.onCreated(function() {
-  //this.authenticationMethods = new ReactiveVar([]);
   this.errorMessage = new ReactiveVar('');
-  /*
-  Meteor.call('getAuthenticationsEnabled', (_, result) => {
-    if (result) {
-      // TODO : add a management of different languages
-      // (ex {value: ldap, text: TAPi18n.__('ldap', {}, T9n.getLanguage() || 'en')})
-      this.authenticationMethods.set([
-        { value: 'password' },
-        // Gets only the authentication methods availables
-        ...Object.entries(result)
-          .filter(e => e[1])
-          .map(e => ({ value: e[0] })),
-      ]);
-    }
-  });
-*/
 });
 
 Template.newUserPopup.onCreated(function() {
@@ -348,27 +289,75 @@ Template.newUserPopup.onCreated(function() {
   });
 });
 
-Template.newUserPopup.helpers({
-  //user() {
-  //  return Users.findOne(this.userId);
-  //},
-  authentications() {
-    return Template.instance().authenticationMethods.get();
+Template.newOrgPopup.helpers({
+  org() {
+    return Org.findOne(this.orgId);
   },
-  //isSelected(match) {
-  //  const userId = Template.instance().data.userId;
-  //  const selected = Users.findOne(userId).authenticationMethod;
-  //  return selected === match;
-  //},
-  //isLdap() {
-  //  const userId = Template.instance().data.userId;
-  //  const selected = Users.findOne(userId).authenticationMethod;
-  //  return selected === 'ldap';
-  //},
   errorMessage() {
     return Template.instance().errorMessage.get();
   },
 });
+
+Template.newTeamPopup.helpers({
+  team() {
+    return Team.findOne(this.teamId);
+  },
+  errorMessage() {
+    return Template.instance().errorMessage.get();
+  },
+});
+
+Template.newUserPopup.helpers({
+  user() {
+    return Users.findOne(this.userId);
+  },
+  authentications() {
+    return Template.instance().authenticationMethods.get();
+  },
+  isSelected(match) {
+    const userId = Template.instance().data.userId;
+    const selected = Users.findOne(userId).authenticationMethod;
+    return selected === match;
+  },
+  isLdap() {
+    const userId = Template.instance().data.userId;
+    const selected = Users.findOne(userId).authenticationMethod;
+    return selected === 'ldap';
+  },
+  errorMessage() {
+    return Template.instance().errorMessage.get();
+  },
+});
+
+BlazeComponent.extendComponent({
+  onCreated() {},
+  org() {
+    return Org.findOne(this.orgId);
+  },
+  events() {
+    return [
+      {
+        'click a.edit-org': Popup.open('editOrg'),
+        'click a.more-settings-org': Popup.open('settingsOrg'),
+      },
+    ];
+  },
+}).register('orgRow');
+
+BlazeComponent.extendComponent({
+  onCreated() {},
+  team() {
+    return Team.findOne(this.teamId);
+  },
+  events() {
+    return [
+      {
+        'click a.edit-team': Popup.open('editTeam'),
+        'click a.more-settings-team': Popup.open('settingsTeam'),
+      },
+    ];
+  },
+}).register('teamRow');
 
 BlazeComponent.extendComponent({
   onCreated() {},
@@ -384,6 +373,26 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('peopleRow');
+
+BlazeComponent.extendComponent({
+  events() {
+    return [
+      {
+        'click a.new-org': Popup.open('newOrg'),
+      },
+    ];
+  },
+}).register('newOrgRow');
+
+BlazeComponent.extendComponent({
+  events() {
+    return [
+      {
+        'click a.new-team': Popup.open('newTeam'),
+      },
+    ];
+  },
+}).register('newTeamRow');
 
 BlazeComponent.extendComponent({
   events() {
@@ -501,6 +510,47 @@ Template.editUserPopup.events({
         }
       });
     } else Popup.close();
+  },
+});
+
+Template.newOrgPopup.events({
+  submit(event, templateInstance) {
+    event.preventDefault();
+    const displayName = templateInstance.find('.js-displayName').value.trim();
+    const desc = templateInstance.find('.js-desc').value.trim();
+    const name = templateInstance.find('.js-name').value.trim();
+    const teams = templateInstance.find('.js-teams').value.trim();
+    const website = templateInstance.find('.js-website').value.trim();
+    const isActive = templateInstance.find('.js-profile-isactive').value.trim();
+
+    Meteor.call(
+      'setCreateOrg',
+      displayName,
+      desc,
+      name,
+      teams,
+      website,
+      isActive,
+      email.toLowerCase(),
+      function(error) {
+        const nameMessageElement = templateInstance.$('.name-taken');
+        if (error) {
+          const errorElement = error.error;
+          if (errorElement === 'name-already-taken') {
+            nameMessageElement.show();
+            emailMessageElement.hide();
+          } else if (errorElement === 'email-already-taken') {
+            usernameMessageElement.hide();
+            emailMessageElement.show();
+          }
+        } else {
+          usernameMessageElement.hide();
+          emailMessageElement.hide();
+          Popup.close();
+        }
+      },
+    );
+    Popup.close();
   },
 });
 
