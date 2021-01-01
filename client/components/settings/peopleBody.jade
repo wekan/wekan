@@ -296,7 +296,7 @@ template(name="editTeamPopup")
       span.error.hide.teamname-taken
         | {{_ 'error-teamname-taken'}}
     label
-      | {{_ 'desc'}}
+      | {{_ 'description'}}
       input.js-orgDesc(type="text" value=org.desc required)
     label
       | {{_ 'name'}}
@@ -372,17 +372,20 @@ template(name="newOrgPopup")
   form
     //label.hide.userId(type="text" value=user._id)
     label
-      | {{_ 'orgDisplayName'}}
-      input.js-orgDisplayName(type="text" value="" required)
+      | {{_ 'displayName'}}
+      input.js-displayName(type="text" value="" required)
     label
-      | {{_ 'orgDesc'}}
-      input.js-orgDesc(type="text" value="" required)
+      | {{_ 'description'}}
+      input.js-desc(type="text" value="" required)
     label
-      | {{_ 'orgName'}}
-      input.js-orgName(type="text" value="")
+      | {{_ 'shortName'}}
+      input.js-name(type="text" value="")
     label
-      | {{_ 'orgWebsite'}}
-      input.js-orgWebsite(type="text" value="")
+      | {{_ 'teams'}}
+      input.js-teams(type="text" value="")
+    label
+      | {{_ 'website'}}
+      input.js-website(type="text" value="")
     label
       | {{_ 'active'}}
       select.select-active.js-profile-isactive
@@ -399,7 +402,7 @@ template(name="newTeamPopup")
       | {{_ 'displayName'}}
       input.js-teamDisplayName(type="text" value="" required)
     label
-      | {{_ 'desc'}}
+      | {{_ 'description'}}
       input.js-teamDesc(type="text" value="" required)
     label
       | {{_ 'shortName'}}
