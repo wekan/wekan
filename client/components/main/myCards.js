@@ -31,6 +31,7 @@ BlazeComponent.extendComponent({
   },
 
   cardsFind() {
+    const userId = Meteor.userId();
     const boards = [];
     let board = null;
     let swimlane = null;
@@ -38,8 +39,8 @@ BlazeComponent.extendComponent({
 
     const cursor = Cards.find(
       {
-        // archived: false,
-        // $or: [{ members: userId }, { assignees: userId }],
+        archived: false,
+        $or: [{ members: userId }, { assignees: userId }],
       },
       {
         sort: {

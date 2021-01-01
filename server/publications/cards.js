@@ -14,6 +14,7 @@ Meteor.publish('myCards', function() {
     {
       fields: {
         _id: 1,
+        archived: 1,
         boardId: 1,
         swimlaneId: 1,
         listId: 1,
@@ -22,6 +23,8 @@ Meteor.publish('myCards', function() {
         sort: 1,
         members: 1,
         assignees: 1,
+        colors: 1,
+        dueAt: 1,
       },
       // sort: {
       //   sort: ['boardId', 'listId', 'sort'],
