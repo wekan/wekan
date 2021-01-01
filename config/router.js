@@ -125,17 +125,17 @@ FlowRouter.route('/my-cards', {
     Utils.manageCustomUI();
     Utils.manageMatomo();
 
-    if (previousPath) {
-      Modal.open(myCardsTemplate, {
-        header: 'myCardsModalTitle',
-        onCloseGoTo: previousPath,
-      });
-    } else {
-      BlazeLayout.render('defaultLayout', {
-        headerBar: 'myCardsHeaderBar',
-        content: myCardsTemplate,
-      });
-    }
+    // if (previousPath) {
+    //   Modal.open(myCardsTemplate, {
+    //     header: 'myCardsModalTitle',
+    //     onCloseGoTo: previousPath,
+    //   });
+    // } else {
+    BlazeLayout.render('defaultLayout', {
+      headerBar: 'myCardsHeaderBar',
+      content: myCardsTemplate,
+    });
+    // }
   },
 });
 

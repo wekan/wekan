@@ -24,6 +24,5 @@ template(name="myCards")
             | {{_ 'list' }}:
             = list.title
           each card in list.cards
-            .card-title
-              | {{_ 'card' }}:
-              = card.title
+            a.minicard-wrapper.card-title(href="{{pathFor 'card' boardId=board.id slug=board.slug cardId=card._id }}")
+              +minicard(card)

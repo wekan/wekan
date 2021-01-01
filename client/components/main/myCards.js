@@ -1,5 +1,4 @@
 const subManager = new SubsManager();
-// import Cards from '../../../models/cards';
 Meteor.subscribe('myCards');
 Meteor.subscribe('mySwimlanes');
 Meteor.subscribe('myLists');
@@ -31,17 +30,6 @@ BlazeComponent.extendComponent({
     // subManager.subscribe('myCards');
   },
 
-  boards() {
-    boards = [];
-    const cursor = Boards.find({
-      archived: false,
-      'members.userId': Meteor.userId(),
-      type: 'board',
-    });
-
-    return cursor;
-  },
-
   cardsFind() {
     const boards = [];
     let board = null;
@@ -63,11 +51,7 @@ BlazeComponent.extendComponent({
       },
     );
     // eslint-disable-next-line no-console
-    console.log('cursor:', cursor);
-    // let card = null;
-    // if (cursor.hasNext()) {
-    //   card = cursor.next();
-    // }
+    // console.log('cursor:', cursor);
 
     let newBoard = false;
     let newSwimlane = false;
@@ -75,10 +59,10 @@ BlazeComponent.extendComponent({
 
     cursor.forEach(card => {
       // eslint-disable-next-line no-console
-      console.log('card:', card.title);
+      // console.log('card:', card.title);
       if (list === null || list.id !== card.listId) {
         // eslint-disable-next-line no-console
-        console.log('new list');
+        // console.log('new list');
         let l = Lists.findOne(card.listId);
         if (!l) {
           l = {
@@ -87,7 +71,7 @@ BlazeComponent.extendComponent({
           };
         }
         // eslint-disable-next-line no-console
-        console.log('list:', l);
+        // console.log('list:', l);
         list = {
           id: l._id,
           title: l.title,
@@ -97,7 +81,7 @@ BlazeComponent.extendComponent({
       }
       if (swimlane === null || card.swimlaneId !== swimlane.id) {
         // eslint-disable-next-line no-console
-        console.log('new swimlane');
+        // console.log('new swimlane');
         let s = Swimlanes.findOne(card.swimlaneId);
         if (!s) {
           s = {
@@ -106,7 +90,7 @@ BlazeComponent.extendComponent({
           };
         }
         // eslint-disable-next-line no-console
-        console.log('swimlane:', s);
+        // console.log('swimlane:', s);
         swimlane = {
           id: s._id,
           title: s.title,
@@ -116,13 +100,14 @@ BlazeComponent.extendComponent({
       }
       if (board === null || card.boardId !== board.id) {
         // eslint-disable-next-line no-console
-        console.log('new board');
+        // console.log('new board');
         const b = Boards.findOne(card.boardId);
         // eslint-disable-next-line no-console
-        console.log('board:', b, b._id, b.title);
+        // console.log('board:', b, b._id, b.title);
         board = {
           id: b._id,
           title: b.title,
+          slug: b.slug,
           swimlanes: [swimlane],
         };
         newBoard = true;
@@ -138,15 +123,31 @@ BlazeComponent.extendComponent({
         list.cards.push(card);
       }
 
-      // card = cursor.hasNext() ? cursor.next() : null;
-
       newBoard = false;
       newSwimlane = false;
       newList = false;
     });
 
     // eslint-disable-next-line no-console
-    console.log('boards:', boards);
+    // console.log('boards:', boards);
     return boards;
+  },
+
+  events() {
+    return [
+      {
+        'click .js-my-card'(evt) {
+          const card = this.currentData().card;
+          // eslint-disable-next-line no-console
+          console.log('currentData():', this.currentData());
+          // eslint-disable-next-line no-console
+          console.log('card:', card);
+          if (card) {
+            Utils.goCardId(card._id);
+          }
+          evt.preventDefault();
+        },
+      },
+    ];
   },
 }).register('myCards');
