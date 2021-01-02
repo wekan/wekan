@@ -848,5 +848,9 @@
   "displayName": "显示名称",
   "shortName": "简称",
   "website": "网站",
-  "person": "人员"
+  "person": "人员",
+  "my-cards": "My Cards",
+  "card": "卡片",
+  "list": "List",
+  "board": "Board"
 }

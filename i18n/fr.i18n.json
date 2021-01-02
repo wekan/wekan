@@ -848,5 +848,9 @@
   "displayName": "Nom d'Affichage",
   "shortName": "Nom Court",
   "website": "Site Web",
-  "person": "Personne"
+  "person": "Personne",
+  "my-cards": "My Cards",
+  "card": "Carte",
+  "list": "List",
+  "board": "Board"
 }

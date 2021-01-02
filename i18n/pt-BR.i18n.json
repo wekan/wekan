@@ -809,10 +809,10 @@
   "addmore-detail": "Adicionar descrição detalhada",
   "show-on-card": "Mostrar no Cartão",
   "new": "Novo",
-  "editOrgPopup-title": "Edit Organization",
-  "newOrgPopup-title": "New Organization",
-  "editTeamPopup-title": "Edit Team",
-  "newTeamPopup-title": "New Team",
+  "editOrgPopup-title": "Editar Organização",
+  "newOrgPopup-title": "Nova Organização",
+  "editTeamPopup-title": "Editar Time",
+  "newTeamPopup-title": "Novo Time",
   "editUserPopup-title": "Editar usuário",
   "newUserPopup-title": "Novo usuário",
   "notifications": "Notificações",
@@ -848,5 +848,9 @@
   "displayName": "Nome em exibição",
   "shortName": "Nome curto",
   "website": "Website",
-  "person": "Pessoa"
+  "person": "Pessoa",
+  "my-cards": "My Cards",
+  "card": "Cartão",
+  "list": "List",
+  "board": "Board"
 }
