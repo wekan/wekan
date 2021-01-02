@@ -12,20 +12,15 @@ template(name="headerUserBar")
 
 template(name="memberMenuPopup")
   ul.pop-over-list
-    if currentUser.isAdmin
-      li
-        a.js-go-setting(href="{{pathFor 'setting'}}")
-          i.fa.fa-lock
-          | {{_ 'admin-panel'}}
     with currentUser
-      li
-        a(href="{{pathFor 'home'}}")
-          span.fa.fa-home
-          | {{_ 'all-boards'}}
       li
         a.js-my-cards(href="{{pathFor 'my-cards'}}")
           i.fa.fa-list
           | {{_ 'my-cards'}}
+      li
+        a(href="{{pathFor 'home'}}")
+          span.fa.fa-home
+          | {{_ 'all-boards'}}
       li
         a(href="{{pathFor 'public'}}")
           span.fa.fa-globe
@@ -40,6 +35,11 @@ template(name="memberMenuPopup")
             a(href="{{pathFor 'board' id=templatesBoardId slug=templatesBoardSlug}}")
               i.fa.fa-clone
               | {{_ 'templates'}}
+      if currentUser.isAdmin
+        li
+          a.js-go-setting(href="{{pathFor 'setting'}}")
+            i.fa.fa-lock
+            | {{_ 'admin-panel'}}
       hr
       li
         a.js-edit-profile
