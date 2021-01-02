@@ -14,6 +14,8 @@ and adds the following UI changes:
 - [Moved Public/Archive/Templates/etc options to click right top username Member Settings menu, where My Cards also
   is](https://github.com/wekan/wekan/commit/0592b0c56ac372c87dea17f0a090e7d7569430d1).
   Thanks to xet7.
+- [Reorder My Cards to be first at menu](https://github.com/wekan/wekan/commit/bfc16fc5442e8cc8c3cc03df992d5b1d1724338b).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
