@@ -137,6 +137,7 @@
   "boardChangeWatchPopup-title": "تغيير المتابعة",
   "boardMenuPopup-title": "Board Settings",
   "boardChangeViewPopup-title": "عرض اللوحات",
+  "board": "لوحة",
   "boards": "لوحات",
   "board-view": "عرض اللوحات",
   "board-view-cal": "التقويم",
@@ -148,6 +149,7 @@
   "cancel": "إلغاء",
   "card-archived": "البطاقة منقولة الى الارشيف",
   "board-archived": "اللوحات منقولة الى الارشيف",
+  "card": "نطاقة",
   "card-comments-title": "%s تعليقات لهذه البطاقة",
   "card-delete-notice": "هذا حذف أبديّ . سوف تفقد كل الإجراءات المنوطة بهذه البطاقة",
   "card-delete-pop": "سيتم إزالة جميع الإجراءات من تبعات النشاط، وأنك لن تكون قادرا على إعادة فتح البطاقة. لا يوجد التراجع.",
@@ -403,6 +405,7 @@
   "leave-board-pop": "Are you sure you want to leave __boardTitle__? You will be removed from all cards on this board.",
   "leaveBoardPopup-title": "مغادرة اللوحة ؟",
   "link-card": "ربط هذه البطاقة",
+  "list": "قائمة",
   "list-archive-cards": "Move all cards in this list to Archive",
   "list-archive-cards-pop": "This will remove all the cards in this list from the board. To view cards in Archive and bring them back to the board, click “Menu” > “Archive”.",
   "list-move-cards": "نقل بطاقات هذه القائمة",
@@ -831,7 +834,7 @@
   "saturday": "Saturday",
   "sunday": "Sunday",
   "status": "Status",
-  "swimlane": "Swimlane",
+  "swimlane": "خط السباحة",
   "owner": "Owner",
   "last-modified-at": "Last modified at",
   "last-activity": "Last activity",
@@ -848,5 +851,6 @@
   "displayName": "Display Name",
   "shortName": "Short Name",
   "website": "Website",
-  "person": "Person"
+  "person": "Person",
+  "my-cards": "بطاقاتي"
 }

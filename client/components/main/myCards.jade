@@ -1,0 +1,28 @@
+template(name="myCardsHeaderBar")
+  h1
+    a.back-btn(href="{{pathFor 'home'}}")
+      i.fa.fa-chevron-left
+    | {{_ 'my-cards'}}
+
+template(name="myCardsModalTitle")
+  h2
+    i.fa.fa-keyboard-o
+    | {{_ 'my-cards'}}
+
+template(name="myCards")
+  .wrapper
+    each board in cardsFind
+      .board-title
+        | {{_ 'board' }}:
+        = board.title
+      each swimlane in board.swimlanes
+        .swimlane-title
+          | {{_ 'swimlane' }}:
+          = swimlane.title
+        each list in swimlane.lists
+          .list-title
+            | {{_ 'list' }}:
+            = list.title
+          each card in list.cards
+            a.minicard-wrapper.card-title(href="{{pathFor 'card' boardId=board.id slug=board.slug cardId=card._id }}")
+              +minicard(card)

@@ -113,6 +113,32 @@ FlowRouter.route('/shortcuts', {
   },
 });
 
+FlowRouter.route('/my-cards', {
+  name: 'my-cards',
+  action() {
+    const myCardsTemplate = 'myCards';
+
+    Filter.reset();
+    // EscapeActions.executeAll();
+    EscapeActions.executeUpTo('popup-close');
+
+    Utils.manageCustomUI();
+    Utils.manageMatomo();
+
+    // if (previousPath) {
+    //   Modal.open(myCardsTemplate, {
+    //     header: 'myCardsModalTitle',
+    //     onCloseGoTo: previousPath,
+    //   });
+    // } else {
+    BlazeLayout.render('defaultLayout', {
+      headerBar: 'myCardsHeaderBar',
+      content: myCardsTemplate,
+    });
+    // }
+  },
+});
+
 FlowRouter.route('/import/:source', {
   name: 'import',
   triggersEnter: [AccountsTemplates.ensureSignedIn],

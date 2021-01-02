@@ -42,6 +42,66 @@ Meteor.publish('boards', function() {
   );
 });
 
+Meteor.publish('mySwimlanes', function() {
+  const userId = this.userId;
+  const swimlanes = [];
+
+  Cards.find({
+    archived: false,
+    $or: [{ members: userId }, { assignees: userId }],
+  }).forEach(card => {
+    swimlanes.push(card.swimlaneId);
+  });
+
+  return Swimlanes.find(
+    {
+      archived: false,
+      _id: { $in: swimlanes },
+    },
+    {
+      fields: {
+        _id: 1,
+        title: 1,
+        type: 1,
+        sort: 1,
+      },
+      // sort: {
+      //   sort: ['boardId', 'listId', 'sort'],
+      // },
+    },
+  );
+});
+
+Meteor.publish('myLists', function() {
+  const userId = this.userId;
+  const lists = [];
+
+  Cards.find({
+    archived: false,
+    $or: [{ members: userId }, { assignees: userId }],
+  }).forEach(card => {
+    lists.push(card.listId);
+  });
+
+  return Lists.find(
+    {
+      archived: false,
+      _id: { $in: lists },
+    },
+    {
+      fields: {
+        _id: 1,
+        title: 1,
+        type: 1,
+        sort: 1,
+      },
+      // sort: {
+      //   sort: ['boardId', 'listId', 'sort'],
+      // },
+    },
+  );
+});
+
 Meteor.publish('archivedBoards', function() {
   const userId = this.userId;
   if (!Match.test(userId, String)) return [];
