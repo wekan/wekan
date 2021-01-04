@@ -153,7 +153,7 @@ template(name="setListColorPopup")
   form.edit-label
     .palette-colors: each colors
       // note: we use the swimlane palette to have more than just the border
-      span.card-label.palette-color.js-palette-color(class="swimlane-{{color}}")
+      span.card-label.palette-color.js-palette-color(class=colorClass)
         if(isSelected color)
           i.fa.fa-check
     button.primary.confirm.js-submit {{_ 'save'}}
