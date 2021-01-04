@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Added many new translations to Wekan, now there is total 60 translations in Wekan. Updated translations. Organized pull-translations.sh alphabetically by
+  language name](https://github.com/wekan/wekan/commit/d171f4088f40512d321969df3f0c280a620c0c5f).
+  Thanks to translators and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.69 2021-01-02 Wekan release
 
 This release adds the following new features:
