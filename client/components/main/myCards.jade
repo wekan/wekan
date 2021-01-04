@@ -16,18 +16,15 @@ template(name="myCards")
         .board-title
           +viewer
             = board.title
-            | {{#if board.archived}} ({{_ 'archived' }}){{/if}}
         each swimlane in board.mySwimlanes
-          .swimlane-title(class=swimlane.colorClass)
+          .swimlane-title(class="{{#if swimlane.colorClass}}{{ swimlane.colorClass }}{{else}}swimlane-default-color{{/if}}")
             +viewer
               = swimlane.title
-              | {{#if swimlane.archived}} ({{_ 'archived' }}){{/if}}
           each list in swimlane.myLists
             .my-cards-list-wrapper
               .list-title(class=list.colorClass)
                 +viewer
                   = list.title
-                  | {{#if list.archived}} ({{_ 'archived' }}){{/if}}
               each card in list.myCards
                 a.minicard-wrapper.card-title(href=card.absoluteUrl)
                   +minicard(card)
