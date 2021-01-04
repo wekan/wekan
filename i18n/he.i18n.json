@@ -848,5 +848,9 @@
   "displayName": "שם התצוגה",
   "shortName": "שם קצר",
   "website": "אתר",
-  "person": "איש/ה"
+  "person": "איש/ה",
+  "my-cards": "My Cards",
+  "card": "כרטיס",
+  "list": "List",
+  "board": "Board"
 }

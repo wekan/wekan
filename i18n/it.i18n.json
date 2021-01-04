@@ -848,5 +848,9 @@
   "displayName": "Nome da visualizzare",
   "shortName": "Nome Corto",
   "website": "Sito Web",
-  "person": "Persona"
+  "person": "Persona",
+  "my-cards": "My Cards",
+  "card": "Scheda",
+  "list": "List",
+  "board": "Board"
 }

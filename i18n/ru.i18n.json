@@ -809,10 +809,10 @@
   "addmore-detail": "Добавить более детальное описание",
   "show-on-card": "Показать на карточке",
   "new": "Новый",
-  "editOrgPopup-title": "Edit Organization",
-  "newOrgPopup-title": "New Organization",
-  "editTeamPopup-title": "Edit Team",
-  "newTeamPopup-title": "New Team",
+  "editOrgPopup-title": "Редактировать организацию",
+  "newOrgPopup-title": "Новая организация",
+  "editTeamPopup-title": "Редактировать команду",
+  "newTeamPopup-title": "Новая команда",
   "editUserPopup-title": "Редактировать пользователя",
   "newUserPopup-title": "Новый пользователь",
   "notifications": "Уведомления",
@@ -848,5 +848,9 @@
   "displayName": "Отображаемое название",
   "shortName": "Короткое название",
   "website": "Вебсайт",
-  "person": "Представитель"
+  "person": "Представитель",
+  "my-cards": "My Cards",
+  "card": "Карточка",
+  "list": "List",
+  "board": "Board"
 }

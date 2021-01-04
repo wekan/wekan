@@ -848,5 +848,9 @@
   "displayName": "Näyttönimi",
   "shortName": "Lyhyt nimi",
   "website": "Verkkosivusto",
-  "person": "Henkilö"
+  "person": "Henkilö",
+  "my-cards": "Korttini",
+  "card": "Kortti",
+  "list": "Lista",
+  "board": "Taulu"
 }

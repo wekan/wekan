@@ -18,6 +18,30 @@ template(name="memberMenuPopup")
           i.fa.fa-list
           | {{_ 'my-cards'}}
       li
+        a(href="{{pathFor 'home'}}")
+          span.fa.fa-home
+          | {{_ 'all-boards'}}
+      li
+        a(href="{{pathFor 'public'}}")
+          span.fa.fa-globe
+          | {{_ 'public'}}
+      li
+        a.board-header-btn.js-open-archived-board
+          i.fa.fa-archive
+          span {{_ 'archives'}}
+      unless currentUser.isWorker
+        ul.pop-over-list
+          li
+            a(href="{{pathFor 'board' id=templatesBoardId slug=templatesBoardSlug}}")
+              i.fa.fa-clone
+              | {{_ 'templates'}}
+      if currentUser.isAdmin
+        li
+          a.js-go-setting(href="{{pathFor 'setting'}}")
+            i.fa.fa-lock
+            | {{_ 'admin-panel'}}
+      hr
+      li
         a.js-edit-profile
           i.fa.fa-user
           | {{_ 'edit-profile'}}
@@ -38,18 +62,6 @@ template(name="memberMenuPopup")
           a.js-change-language
             i.fa.fa-flag
             | {{_ 'changeLanguagePopup-title'}}
-    if currentUser.isAdmin
-      li
-        a.js-go-setting(href="{{pathFor 'setting'}}")
-          i.fa.fa-lock
-          | {{_ 'admin-panel'}}
-  unless currentUser.isWorker
-    hr
-    ul.pop-over-list
-      li
-        a(href="{{pathFor 'board' id=templatesBoardId slug=templatesBoardSlug}}")
-          i.fa.fa-clone
-          | {{_ 'templates'}}
   unless isSandstorm
     hr
     ul.pop-over-list

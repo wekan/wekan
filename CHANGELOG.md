@@ -1,10 +1,20 @@
-# Upcoming Wekan release
+# v4.69 2021-01-02 Wekan release
 
 This release adds the following new features:
 
 - Teams/Organizations to Admin Panel. In Progress.
   [Part 2](https://github.com/wekan/wekan/commit/ad482d5cfb72591f1b5c749c3c0156000dbf660a).
   [Part 3](https://github.com/wekan/wekan/commit/b64cd358ed0af4395357423ad172b8dac9dc3178).
+  Thanks to xet7.
+- [My Cards](https://github.com/wekan/wekan/pull/3413).
+  Thanks to jrsupplee.
+
+and adds the following UI changes:
+
+- [Moved Public/Archive/Templates/etc options to click right top username Member Settings menu, where My Cards also
+  is](https://github.com/wekan/wekan/commit/0592b0c56ac372c87dea17f0a090e7d7569430d1).
+  Thanks to xet7.
+- [Reorder My Cards to be first at menu](https://github.com/wekan/wekan/commit/bfc16fc5442e8cc8c3cc03df992d5b1d1724338b).
   Thanks to xet7.
 
 and fixes the following bugs:

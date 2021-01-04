@@ -809,10 +809,10 @@
   "addmore-detail": "Voeg een meer gedetailleerde beschrijving toe",
   "show-on-card": "Toon op kaart",
   "new": "Nieuw",
-  "editOrgPopup-title": "Edit Organization",
-  "newOrgPopup-title": "New Organization",
-  "editTeamPopup-title": "Edit Team",
-  "newTeamPopup-title": "New Team",
+  "editOrgPopup-title": "Bewerk organisatie",
+  "newOrgPopup-title": "Nieuwe organisatie",
+  "editTeamPopup-title": "Bewerk team",
+  "newTeamPopup-title": "Nieuw team",
   "editUserPopup-title": "Wijzig gebruiker",
   "newUserPopup-title": "Nieuwe gebruiker",
   "notifications": "Meldingen",
@@ -848,5 +848,9 @@
   "displayName": "Schermnaam",
   "shortName": "Korte naam",
   "website": "Website",
-  "person": "Persoon"
+  "person": "Persoon",
+  "my-cards": "Mijn kaarten",
+  "card": "Kaart",
+  "list": "Lijst",
+  "board": "Bord"
 }
