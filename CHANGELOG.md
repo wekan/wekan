@@ -1,17 +1,19 @@
 # Upcoming Wekan release
 
-This release adds the following new features:
+This release adds the following CRITICAL SECURITY FIXES:
+
+- [Upgrade to Node.js 12.20.1](https://github.com/wekan/wekan/commit/4bfe017b08f573991fd1f9229ae53573798f475e).
+  Thanks to Node developers.
+
+and adds the following new features:
 
 - [Added many new translations to Wekan, now there is total 60 translations in Wekan. Updated translations. Organized pull-translations.sh alphabetically by
   language name](https://github.com/wekan/wekan/commit/d171f4088f40512d321969df3f0c280a620c0c5f).
   Thanks to translators and xet7.
 - [Added markdown and emoji to My Cards board, swimlane and list names](https://github.com/wekan/wekan/commit/763dc9c8e0122990c5f496392f2cce980c535dce).
   Thanks to xet7.
-
-and adds the following updates:
-
-- [Upgrade to Node 12.20.1](https://github.com/wekan/wekan/commit/4bfe017b08f573991fd1f9229ae53573798f475e).
-  Thanks to Node developers.
+- [Show Admin Panel / People and Version also on mobile MiniScreen](https://github.com/wekan/wekan/commit/754a91dbdc3d7111c367cb5dd0a02250a837e42a).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
