@@ -69,6 +69,7 @@ BlazeComponent.extendComponent({
           l = {
             _id: card.listId,
             title: 'undefined list',
+            colorClass: '',
           };
         }
         // eslint-disable-next-line no-console
@@ -76,6 +77,7 @@ BlazeComponent.extendComponent({
         list = {
           id: l._id,
           title: l.title,
+          colorClass: l.colorClass(),
           cards: [card],
         };
         newList = true;
@@ -87,6 +89,7 @@ BlazeComponent.extendComponent({
         if (!s) {
           s = {
             _id: card.swimlaneId,
+            colorClass: '',
             title: 'undefined swimlane',
           };
         }
@@ -94,6 +97,9 @@ BlazeComponent.extendComponent({
         // console.log('swimlane:', s);
         swimlane = {
           id: s._id,
+          colorClass: s.colorClass()
+            ? s.colorClass()
+            : 'swimlane-default-color',
           title: s.title,
           lists: [list],
         };
@@ -107,6 +113,7 @@ BlazeComponent.extendComponent({
         // console.log('board:', b, b._id, b.title);
         board = {
           id: b._id,
+          colorClass: b.colorClass(),
           title: b.title,
           slug: b.slug,
           swimlanes: [swimlane],
