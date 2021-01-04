@@ -8,6 +8,11 @@ This release adds the following new features:
 - [Added markdown and emoji to My Cards board, swimlane and list names](https://github.com/wekan/wekan/commit/763dc9c8e0122990c5f496392f2cce980c535dce).
   Thanks to xet7.
 
+and adds the following updates:
+
+- [Upgrade to Node 12.20.1](https://github.com/wekan/wekan/commit/4bfe017b08f573991fd1f9229ae53573798f475e).
+  Thanks to Node developers.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v4.69 2021-01-02 Wekan release
