@@ -809,10 +809,10 @@
   "addmore-detail": "添加更详细的说明",
   "show-on-card": "显示卡片",
   "new": "新",
-  "editOrgPopup-title": "Edit Organization",
-  "newOrgPopup-title": "New Organization",
-  "editTeamPopup-title": "Edit Team",
-  "newTeamPopup-title": "New Team",
+  "editOrgPopup-title": "编辑组织",
+  "newOrgPopup-title": "创建组织",
+  "editTeamPopup-title": "编辑团队",
+  "newTeamPopup-title": "创建团队",
   "editUserPopup-title": "修改用户",
   "newUserPopup-title": "新增用户",
   "notifications": "提示",
@@ -849,8 +849,8 @@
   "shortName": "简称",
   "website": "网站",
   "person": "人员",
-  "my-cards": "My Cards",
+  "my-cards": "我的卡片",
   "card": "卡片",
-  "list": "List",
-  "board": "Board"
+  "list": "列表",
+  "board": "看板"
 }

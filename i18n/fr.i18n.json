@@ -809,10 +809,10 @@
   "addmore-detail": "Ajouter une description plus détaillée",
   "show-on-card": "Afficher sur la carte",
   "new": "Nouveau",
-  "editOrgPopup-title": "Edit Organization",
-  "newOrgPopup-title": "New Organization",
-  "editTeamPopup-title": "Edit Team",
-  "newTeamPopup-title": "New Team",
+  "editOrgPopup-title": "Éditer l'Organisation",
+  "newOrgPopup-title": "Nouvelle Organisation",
+  "editTeamPopup-title": "Éditer l'Équipe",
+  "newTeamPopup-title": "Nouvelle Équipe",
   "editUserPopup-title": "Éditer l'utilisateur",
   "newUserPopup-title": "Nouvel utilisateur",
   "notifications": "Notifications",
@@ -849,8 +849,8 @@
   "shortName": "Nom Court",
   "website": "Site Web",
   "person": "Personne",
-  "my-cards": "My Cards",
+  "my-cards": "Mes Cartes",
   "card": "Carte",
-  "list": "List",
-  "board": "Board"
+  "list": "Liste",
+  "board": "Tableau"
 }
