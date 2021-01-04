@@ -30,7 +30,7 @@ BlazeComponent.extendComponent({
     // subManager.subscribe('myCards');
   },
 
-  cardsFind() {
+  myBoards() {
     const userId = Meteor.userId();
     const boards = [];
     let board = null;
@@ -39,8 +39,8 @@ BlazeComponent.extendComponent({
 
     const cursor = Cards.find(
       {
-        archived: false,
         $or: [{ members: userId }, { assignees: userId }],
+        archived: false,
       },
       {
         sort: {
@@ -51,8 +51,6 @@ BlazeComponent.extendComponent({
         },
       },
     );
-    // eslint-disable-next-line no-console
-    // console.log('cursor:', cursor);
 
     let newBoard = false;
     let newSwimlane = false;
@@ -61,79 +59,85 @@ BlazeComponent.extendComponent({
     cursor.forEach(card => {
       // eslint-disable-next-line no-console
       // console.log('card:', card.title);
-      if (list === null || list.id !== card.listId) {
+      if (list === null || card.listId !== list._id) {
         // eslint-disable-next-line no-console
         // console.log('new list');
-        let l = Lists.findOne(card.listId);
-        if (!l) {
-          l = {
-            _id: card.listId,
-            title: 'undefined list',
-            colorClass: '',
-          };
+        list = card.list();
+        if (list.archived) {
+          list = null;
+          return;
         }
-        // eslint-disable-next-line no-console
-        // console.log('list:', l);
-        list = {
-          id: l._id,
-          title: l.title,
-          colorClass: l.colorClass(),
-          cards: [card],
-        };
+        list.myCards = [card];
         newList = true;
       }
-      if (swimlane === null || card.swimlaneId !== swimlane.id) {
+      if (swimlane === null || card.swimlaneId !== swimlane._id) {
         // eslint-disable-next-line no-console
         // console.log('new swimlane');
-        let s = Swimlanes.findOne(card.swimlaneId);
-        if (!s) {
-          s = {
-            _id: card.swimlaneId,
-            colorClass: '',
-            title: 'undefined swimlane',
-          };
+        swimlane = card.swimlane();
+        if (swimlane.archived) {
+          swimlane = null;
+          return;
         }
-        // eslint-disable-next-line no-console
-        // console.log('swimlane:', s);
-        swimlane = {
-          id: s._id,
-          colorClass: s.colorClass()
-            ? s.colorClass()
-            : 'swimlane-default-color',
-          title: s.title,
-          lists: [list],
-        };
+        swimlane.myLists = [list];
         newSwimlane = true;
       }
-      if (board === null || card.boardId !== board.id) {
+      if (board === null || card.boardId !== board._id) {
         // eslint-disable-next-line no-console
         // console.log('new board');
-        const b = Boards.findOne(card.boardId);
+        board = card.board();
+        if (board.archived) {
+          board = null;
+          return;
+        }
         // eslint-disable-next-line no-console
         // console.log('board:', b, b._id, b.title);
-        board = {
-          id: b._id,
-          colorClass: b.colorClass(),
-          title: b.title,
-          slug: b.slug,
-          swimlanes: [swimlane],
-        };
+        board.mySwimlanes = [swimlane];
         newBoard = true;
       }
 
       if (newBoard) {
         boards.push(board);
       } else if (newSwimlane) {
-        board.swimlanes.push(swimlane);
+        board.mySwimlanes.push(swimlane);
       } else if (newList) {
-        swimlane.lists.push(list);
+        swimlane.myLists.push(list);
       } else {
-        list.cards.push(card);
+        list.myCards.push(card);
       }
 
       newBoard = false;
       newSwimlane = false;
       newList = false;
+    });
+
+    // sort the data structure
+    boards.forEach(board => {
+      board.mySwimlanes.forEach(swimlane => {
+        swimlane.myLists.forEach(list => {
+          list.myCards.sort((a, b) => {
+            return a.sort - b.sort;
+          });
+        });
+        swimlane.myLists.sort((a, b) => {
+          return a.sort - b.sort;
+        });
+      });
+      board.mySwimlanes.sort((a, b) => {
+        return a.sort - b.sort;
+      });
+    });
+
+    boards.sort((a, b) => {
+      let x = a.sort;
+      let y = b.sort;
+
+      // show the template board last
+      if (a.type === 'template-container') {
+        x = 99999999;
+      } else if (b.type === 'template-container') {
+        y = 99999999;
+      }
+      return x - y;
     });
 
     // eslint-disable-next-line no-console

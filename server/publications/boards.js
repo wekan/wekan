@@ -56,7 +56,7 @@ Meteor.publish('mySwimlanes', function() {
 
   return Swimlanes.find(
     {
-      archived: false,
+      // archived: false,
       _id: { $in: swimlanes },
     },
     {
@@ -88,7 +88,7 @@ Meteor.publish('myLists', function() {
 
   return Lists.find(
     {
-      archived: false,
+      // archived: false,
       _id: { $in: lists },
     },
     {
