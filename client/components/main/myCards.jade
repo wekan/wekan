@@ -13,30 +13,19 @@ template(name="myCards")
   .wrapper
     each board in cardsFind
       .board-title
-        ul
-          li
-            | {{_ 'board' }}:
-          li
-            +viewer
-              = board.title
+        | {{_ 'board' }}:
+        +viewer
+          = board.title
       each swimlane in board.swimlanes
         .swimlane-title
-          ul
-            li
-              | {{_ 'swimlane' }}:
-            li
-              +viewer
-                = swimlane.title
+          | {{_ 'swimlane' }}:
+          +viewer
+            = swimlane.title
         each list in swimlane.lists
           .list-title
-            ul
-              li
-                | {{_ 'list' }}:
-              li
-                +viewer
-                  = list.title
-            ul
-              each card in list.cards
-                li
-                  a.minicard-wrapper.card-title(href="{{pathFor 'card' boardId=board.id slug=board.slug cardId=card._id }}")
-                    +minicard(card)
+            | {{_ 'list' }}:
+            +viewer
+              = list.title
+            each card in list.cards
+              a.minicard-wrapper.card-title(href="{{pathFor 'card' boardId=board.id slug=board.slug cardId=card._id }}")
+                +minicard(card)
