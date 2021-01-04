@@ -10,33 +10,36 @@ template(name="people")
           else if orgSetting.get
             span
               i.fa.fa-sitemap
-              | {{_ 'organizations'}}
+              unless isMiniScreen
+                | {{_ 'organizations'}}
             input#searchOrgInput(placeholder="{{_ 'search'}}")
             button#searchOrgButton
               i.fa.fa-search
               | {{_ 'search'}}
             .ext-box-right
-              span {{_ 'org-number'}} #{orgNumber}
+              span {{#unless isMiniScreen}}{{_ 'org-number'}}{{/unless}} #{orgNumber}
           else if teamSetting.get
             span
               i.fa.fa-users
-              | {{_ 'teams'}}
+              unless isMiniScreen
+                | {{_ 'teams'}}
             input#searchTeamInput(placeholder="{{_ 'search'}}")
             button#searchTeamButton
               i.fa.fa-search
               | {{_ 'search'}}
             .ext-box-right
-              span {{_ 'team-number'}} #{teamNumber}
+              span {{#unless isMiniScreen}}{{_ 'team-number'}}{{/unless}} #{teamNumber}
           else if peopleSetting.get
             span
               i.fa.fa-user
-              | {{_ 'people'}}
+              unless isMiniScreen
+                | {{_ 'people'}}
             input#searchInput(placeholder="{{_ 'search'}}")
             button#searchButton
               i.fa.fa-search
               | {{_ 'search'}}
             .ext-box-right
-              span {{_ 'people-number'}} #{peopleNumber}
+              span {{#unless isMiniScreen}}{{_ 'people-number'}}{{/unless}} #{peopleNumber}
       .content-body
         .side-menu
           ul
