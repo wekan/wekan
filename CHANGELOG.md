@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release adds the following improvements:
+
+- [Update to My Cards](https://github.com/wekan/wekan/pulls/3416).
+  Thanks to jrsupplee.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.70 2021-01-04 Wekan release
 
 This release adds the following CRITICAL SECURITY FIXES:
