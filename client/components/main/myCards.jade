@@ -11,21 +11,20 @@ template(name="myCardsModalTitle")
 
 template(name="myCards")
   .wrapper
-    each board in cardsFind
-      .board-title
-        | {{_ 'board' }}:
-        +viewer
-          = board.title
-      each swimlane in board.swimlanes
-        .swimlane-title
-          | {{_ 'swimlane' }}:
+    each board in myBoards
+      .my-cards-board-wrapper
+        .board-title
           +viewer
-            = swimlane.title
-        each list in swimlane.lists
-          .list-title
-            | {{_ 'list' }}:
+            = board.title
+        each swimlane in board.mySwimlanes
+          .swimlane-title(class="{{#if swimlane.colorClass}}{{ swimlane.colorClass }}{{else}}swimlane-default-color{{/if}}")
             +viewer
-              = list.title
-            each card in list.cards
-              a.minicard-wrapper.card-title(href="{{pathFor 'card' boardId=board.id slug=board.slug cardId=card._id }}")
-                +minicard(card)
+              = swimlane.title
+          each list in swimlane.myLists
+            .my-cards-list-wrapper
+              .list-title(class=list.colorClass)
+                +viewer
+                  = list.title
+              each card in list.myCards
+                a.minicard-wrapper.card-title(href=card.absoluteUrl)
+                  +minicard(card)

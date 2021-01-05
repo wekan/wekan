@@ -216,7 +216,7 @@ Swimlanes.helpers({
   },
 
   colorClass() {
-    if (this.color) return this.color;
+    if (this.color) return `swimlane-${this.color}`;
     return '';
   },
 

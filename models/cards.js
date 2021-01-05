@@ -461,6 +461,10 @@ Cards.helpers({
     return Lists.findOne(this.listId);
   },
 
+  swimlane() {
+    return Swimlanes.findOne(this.swimlaneId);
+  },
+
   board() {
     return Boards.findOne(this.boardId);
   },

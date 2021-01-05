@@ -27,6 +27,7 @@ Meteor.publish('boards', function() {
     {
       fields: {
         _id: 1,
+        boardId: 1,
         archived: 1,
         slug: 1,
         title: 1,
@@ -55,14 +56,16 @@ Meteor.publish('mySwimlanes', function() {
 
   return Swimlanes.find(
     {
-      archived: false,
+      // archived: false,
       _id: { $in: swimlanes },
     },
     {
       fields: {
         _id: 1,
         title: 1,
+        boardId: 1,
         type: 1,
+        color: 1,
         sort: 1,
       },
       // sort: {
@@ -85,13 +88,16 @@ Meteor.publish('myLists', function() {
 
   return Lists.find(
     {
-      archived: false,
+      // archived: false,
       _id: { $in: lists },
     },
     {
       fields: {
         _id: 1,
+        boardId: 1,
+        swimlaneId: 1,
         title: 1,
+        color: 1,
         type: 1,
         sort: 1,
       },

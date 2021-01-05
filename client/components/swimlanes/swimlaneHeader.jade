@@ -1,5 +1,5 @@
 template(name="swimlaneHeader")
-  .swimlane-header-wrap.js-swimlane-header(class='{{#if colorClass}}swimlane-{{colorClass}}{{/if}}')
+  .swimlane-header-wrap.js-swimlane-header(class=colorClass)
     if this.isTemplateContainer
         +swimlaneFixedHeader(this)
     else
