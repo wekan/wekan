@@ -4,6 +4,8 @@ This release adds the following improvements:
 
 - [Update to My Cards](https://github.com/wekan/wekan/pulls/3416).
   Thanks to jrsupplee.
+- [Cards, custom fields are displayed in alphabetic order](https://github.com/wekan/wekan/pulls/3417).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
