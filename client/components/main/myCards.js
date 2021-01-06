@@ -1,22 +1,22 @@
-const subManager = new SubsManager();
-Meteor.subscribe('myCards');
-Meteor.subscribe('mySwimlanes');
-Meteor.subscribe('myLists');
+BlazeComponent.extendComponent({
+  myCardsSort() {
+    // eslint-disable-next-line no-console
+    console.log('sort:', Utils.myCardsSort());
+    return Utils.myCardsSort();
+  },
 
-Template.myCardsHeaderBar.events({
-  'click .js-open-archived-board'() {
-    Modal.open('archivedBoards');
+  events() {
+    return [
+      {
+        'click .js-toggle-my-cards-choose-sort'() {
+          Popup.open('myCardsSortPopup');
+          // eslint-disable-next-line no-console
+          console.log('open sort');
+        },
+      },
+    ];
   },
-});
-
-Template.myCardsHeaderBar.helpers({
-  title() {
-    return FlowRouter.getRouteName() === 'home' ? 'my-boards' : 'public';
-  },
-  templatesUser() {
-    return Meteor.user();
-  },
-});
+}).register('myCardsHeaderBar');
 
 Template.myCards.helpers({
   userId() {
@@ -24,10 +24,34 @@ Template.myCards.helpers({
   },
 });
 
+Template.myCardsSortPopup.events({
+  'click .js-my-cards-sort-board'() {
+    Utils.setMyCardsSort('board');
+    Popup.close();
+  },
+
+  'click .js-my-cards-sort-dueat'() {
+    Utils.setMyCardsSort('dueAt');
+    Popup.close();
+  },
+});
+
 BlazeComponent.extendComponent({
   onCreated() {
     Meteor.subscribe('setting');
-    // subManager.subscribe('myCards');
+    Meteor.subscribe('myCards');
+    Meteor.subscribe('mySwimlanes');
+    Meteor.subscribe('myLists');
+  },
+
+  myCardsSort() {
+    // eslint-disable-next-line no-console
+    console.log('sort:', Utils.myCardsSort());
+    return Utils.myCardsSort();
+  },
+
+  sortByBoard() {
+    return this.myCardsSort() === 'board';
   },
 
   myBoards() {
@@ -143,6 +167,48 @@ BlazeComponent.extendComponent({
     // eslint-disable-next-line no-console
     // console.log('boards:', boards);
     return boards;
+  },
+
+  myCardsList() {
+    const userId = Meteor.userId();
+
+    const cursor = Cards.find(
+      {
+        $or: [{ members: userId }, { assignees: userId }],
+        archived: false,
+      },
+      {
+        sort: {
+          dueAt: -1,
+          boardId: 1,
+          swimlaneId: 1,
+          listId: 1,
+          sort: 1,
+        },
+      },
+    );
+
+    // eslint-disable-next-line no-console
+    // console.log('cursor:', cursor);
+
+    const cards = [];
+    cursor.forEach(card => {
+      cards.push(card);
+    });
+
+    cards.sort((a, b) => {
+      const x = a.dueAt === null ? Date('2100-12-31') : a.dueAt;
+      const y = b.dueAt === null ? Date('2100-12-31') : b.dueAt;
+
+      if (x > y) return 1;
+      else if (x < y) return -1;
+
+      return 0;
+    });
+
+    // eslint-disable-next-line no-console
+    // console.log('cursor:', cards);
+    return cards;
   },
 
   events() {

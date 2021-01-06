@@ -44,6 +44,23 @@ Utils = {
     }
   },
 
+  myCardsSort() {
+    let sort = window.localStorage.getItem('myCardsSort');
+
+    if (!sort || !['board', 'dueAt'].includes(sort)) {
+      window.localStorage.setItem('myCardsSort', 'board');
+      location.reload();
+      sort = 'board';
+    }
+
+    return sort;
+  },
+
+  setMyCardsSort(sort) {
+    window.localStorage.setItem('myCardsSort', sort);
+    location.reload();
+  },
+
   // XXX We should remove these two methods
   goBoardId(_id) {
     const board = Boards.findOne(_id);
