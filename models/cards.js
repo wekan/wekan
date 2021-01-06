@@ -650,7 +650,7 @@ Cards.helpers({
 
     // match right definition to each field
     if (!this.customFields) return [];
-    let ret = this.customFields.map(customField => {
+    const ret = this.customFields.map(customField => {
       const definition = definitions.find(definition => {
         return definition._id === customField._id;
       });
