@@ -118,7 +118,7 @@ services:
     image: quay.io/wekan/wekan
     # b) Using specific version tag:
     # image: quay.io/wekan/wekan:v4.52
-    # c) Docker Hub builds are broken with error ENOMEM https://hub.docker.com/r/wekanteam/wekan
+    # c) Docker Hub builds work https://hub.docker.com/r/wekanteam/wekan
     # image: wekanteam/wekan
     #-------------------------------------------------------------------------------------
     container_name: wekan-app
