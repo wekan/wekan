@@ -1,7 +1,7 @@
 Oidc = {};
 httpCa = false;
 
-if (process.env.OAUTH2_CA_CERT !== undefined) {
+if (process.env.OAUTH2_CA_CERT.length > 0) {
     try {
         const fs = Npm.require('fs');
 	httpCa = fs.readFileSync(process.env.OAUTH2_CA_CERT);
