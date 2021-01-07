@@ -1,11 +1,21 @@
 # Upcoming Wekan release
 
-This release adds the following improvements:
+This release adds the following new features:
+
+- [My Cards add Due Date sort](https://github.com/wekan/wekan/pull/3419).
+  Thanks to jrsupplee.
+
+and adds the following improvements:
 
 - [Update to My Cards](https://github.com/wekan/wekan/pulls/3416).
   Thanks to jrsupplee.
 - [Cards, custom fields are displayed in alphabetic order](https://github.com/wekan/wekan/pulls/3417).
   Thanks to mfilser.
+
+and fixes the following bugs:
+
+- [Fixed Color picker of lists is empty. Fixed error about existing file at Wekan Docker version](https://github.com/wekan/wekan/issues/3418).
+  Thanks to bronger and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
