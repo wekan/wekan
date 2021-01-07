@@ -56,6 +56,14 @@ Utils = {
     return sort;
   },
 
+  myCardsSortToggle() {
+    if (this.myCardsSort() === 'board') {
+      this.setMyCardsSort('dueAt');
+    } else {
+      this.setMyCardsSort('board');
+    }
+  },
+
   setMyCardsSort(sort) {
     window.localStorage.setItem('myCardsSort', sort);
     location.reload();

@@ -1,7 +1,7 @@
 BlazeComponent.extendComponent({
   myCardsSort() {
     // eslint-disable-next-line no-console
-    console.log('sort:', Utils.myCardsSort());
+    // console.log('sort:', Utils.myCardsSort());
     return Utils.myCardsSort();
   },
 
@@ -9,9 +9,10 @@ BlazeComponent.extendComponent({
     return [
       {
         'click .js-toggle-my-cards-choose-sort'() {
-          Popup.open('myCardsSortPopup');
           // eslint-disable-next-line no-console
-          console.log('open sort');
+          // console.log('open sort');
+          // Popup.open('myCardsSortChange');
+          Utils.myCardsSortToggle();
         },
       },
     ];
@@ -24,17 +25,23 @@ Template.myCards.helpers({
   },
 });
 
-Template.myCardsSortPopup.events({
-  'click .js-my-cards-sort-board'() {
-    Utils.setMyCardsSort('board');
-    Popup.close();
-  },
+BlazeComponent.extendComponent({
+  events() {
+    return [
+      {
+        'click .js-my-cards-sort-board'() {
+          Utils.setMyCardsSort('board');
+          Popup.close();
+        },
 
-  'click .js-my-cards-sort-dueat'() {
-    Utils.setMyCardsSort('dueAt');
-    Popup.close();
+        'click .js-my-cards-sort-dueat'() {
+          Utils.setMyCardsSort('dueAt');
+          Popup.close();
+        },
+      },
+    ];
   },
-});
+}).register('myCardsSortChangePopup');
 
 BlazeComponent.extendComponent({
   onCreated() {
@@ -214,17 +221,17 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
-        'click .js-my-card'(evt) {
-          const card = this.currentData().card;
-          // eslint-disable-next-line no-console
-          console.log('currentData():', this.currentData());
-          // eslint-disable-next-line no-console
-          console.log('card:', card);
-          if (card) {
-            Utils.goCardId(card._id);
-          }
-          evt.preventDefault();
-        },
+        // 'click .js-my-card'(evt) {
+        //   const card = this.currentData().card;
+        //   // eslint-disable-next-line no-console
+        //   console.log('currentData():', this.currentData());
+        //   // eslint-disable-next-line no-console
+        //   console.log('card:', card);
+        //   if (card) {
+        //     Utils.goCardId(card._id);
+        //   }
+        //   evt.preventDefault();
+        // },
       },
     ];
   },

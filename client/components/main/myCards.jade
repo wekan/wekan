@@ -6,7 +6,8 @@ template(name="myCardsHeaderBar")
 
   .board-header-btns.left
     a.board-header-btn.js-toggle-my-cards-choose-sort(title="{{_ 'my-cards-sort'}}")
-      i.fa.fa-caret-down
+      //i.fa.fa-caret-down
+      i.fa.fa-sort
       if $eq myCardsSort 'board'
         i.fa.fa-th-large
         | {{_ 'my-cards-sort-board'}}
@@ -24,32 +25,33 @@ template(name="myCards")
     if $eq myCardsSort 'board'
       each board in myBoards
         .my-cards-board-wrapper
-          .board-title
+          .my-cards-board-title
             +viewer
               = board.title
           each swimlane in board.mySwimlanes
-            .swimlane-title(class="{{#if swimlane.colorClass}}{{ swimlane.colorClass }}{{else}}swimlane-default-color{{/if}}")
+            .my-cards-swimlane-title(class="{{#if swimlane.colorClass}}{{ swimlane.colorClass }}{{else}}swimlane-default-color{{/if}}")
               +viewer
                 = swimlane.title
             each list in swimlane.myLists
               .my-cards-list-wrapper
-                .list-title(class=list.colorClass)
+                .my-cards-list-title(class=list.colorClass)
                   +viewer
                     = list.title
                 each card in list.myCards
-                  a.minicard-wrapper.card-title(href=card.absoluteUrl)
-                    +minicard(card)
+                  .my-cards-card-wrapper
+                    a.minicard-wrapper(href=card.absoluteUrl)
+                      +minicard(card)
     else
       .my-cards-dueat-list-wrapper
         each card in myCardsList
-          .my-cards-card
+          .my-cards-card-wrapper
             a.minicard-wrapper.card-title(href=card.absoluteUrl)
               +minicard(card)
             ul.my-cards-context-list
               li.my-cards-context(title="{{_ 'board'}}")
                 +viewer
                   = card.board.title
-              li.my-cards-context
+              li.my-cards-context.my-cards-context-separator
                 = ' '
                 | {{_ 'context-separator'}}
                 = ' '
@@ -65,19 +67,30 @@ template(name="myCards")
                   = card.list.title
 
 
-template(name="myCardsSortPopup")
+template(name="myCardsSortChangePopup")
   ul.pop-over-list
     li
-      //with "my-cards-sort-board"
-      a.js-my-cards-sort-board
-        i.fa.fa-th-large.colorful
-        | {{_ 'my-cards-sort-board'}}
-        if $eq Utils.myCardsSort "board"
-          i.fa.fa-check
+      with "my-cards-sort-board"
+        a.js-my-cards-sort-board
+          i.fa.fa-th-large.colorful
+          | {{_ 'my-cards-sort-board'}}
+          if $eq Utils.myCardsSort "board"
+            i.fa.fa-check
     li
-      //with "my-cards-sort-dueat"
-      a.js-my-cards-sort-dueat
-        i.fa.fa-calendar.colorful
-        | {{_ 'my-cards-sort-dueat'}}
-        if $eq Utils.myCardsSort "dueAt"
-          i.fa.fa-check
+      with "my-cards-sort-dueat"
+        a.js-my-cards-sort-dueat
+          i.fa.fa-calendar.colorful
+          | {{_ 'my-cards-sort-dueat'}}
+          if $eq Utils.myCardsSort "dueAt"
+            i.fa.fa-check
+
+//template(name="myCardsSortChangePopup")
+//  ul.pop-over-list
+//    li
+//      a.js-my-cards-sort-board
+//        i.fa.fa-th-large.colorful
+//        | {{_ 'my-cards-sort-board'}}
+//    li
+//      a.js-my-cards-sort-dueat
+//        i.fa.fa-calendar.colorful
+//        | {{_ 'my-cards-sort-dueat'}}
