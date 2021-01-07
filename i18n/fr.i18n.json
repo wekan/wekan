@@ -802,7 +802,7 @@
   "act-atUserComment": "Vous avez été mentionné dans [__board__] __list__/__card__",
   "delete-user-confirm-popup": "Êtes-vous sûr de vouloir supprimer ce compte ? Cette opération ne peut pas être annulée. ",
   "accounts-allowUserDelete": "Autoriser les utilisateurs à supprimer leur compte",
-  "hide-minicard-label-text": "Cacher le label de la minicarte",
+  "hide-minicard-label-text": "Cacher l'étiquette de la minicarte",
   "show-desktop-drag-handles": "Voir les poignées de déplacement du bureau",
   "assignee": "Personne assignée",
   "cardAssigneesPopup-title": "Personne assignée",
@@ -852,5 +852,9 @@
   "my-cards": "Mes Cartes",
   "card": "Carte",
   "list": "Liste",
-  "board": "Tableau"
+  "board": "Tableau",
+  "context-separator": "/",
+  "my-cards-sort": "Trier Mes Cartes",
+  "my-cards-sort-board": "Par tableau",
+  "my-cards-sort-dueat": "Par date d'échéance"
 }

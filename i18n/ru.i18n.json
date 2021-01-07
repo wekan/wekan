@@ -852,5 +852,9 @@
   "my-cards": "Мои карточки",
   "card": "Карточка",
   "list": "Список",
-  "board": "Доска"
+  "board": "Доска",
+  "context-separator": "/",
+  "my-cards-sort": "My Cards Sort",
+  "my-cards-sort-board": "By Board",
+  "my-cards-sort-dueat": "By Due Date"
 }

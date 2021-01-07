@@ -852,5 +852,9 @@
   "my-cards": "Korttini",
   "card": "Kortti",
   "list": "Lista",
-  "board": "Taulu"
+  "board": "Taulu",
+  "context-separator": "/",
+  "my-cards-sort": "Korttini järjestys",
+  "my-cards-sort-board": "Taulun mukaan",
+  "my-cards-sort-dueat": "Eräpäivän mukaan"
 }

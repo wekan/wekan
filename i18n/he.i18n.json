@@ -852,5 +852,9 @@
   "my-cards": "הכרטיסים שלי",
   "card": "כרטיס",
   "list": "רשימה",
-  "board": "לוח"
+  "board": "לוח",
+  "context-separator": "/",
+  "my-cards-sort": "My Cards Sort",
+  "my-cards-sort-board": "By Board",
+  "my-cards-sort-dueat": "By Due Date"
 }

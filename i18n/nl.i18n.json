@@ -852,5 +852,9 @@
   "my-cards": "Mijn kaarten",
   "card": "Kaart",
   "list": "Lijst",
-  "board": "Bord"
+  "board": "Bord",
+  "context-separator": "/",
+  "my-cards-sort": "Mijn kaarten sortering",
+  "my-cards-sort-board": "Naar bord",
+  "my-cards-sort-dueat": "Naar vervaldatum"
 }
