@@ -1,28 +1,7 @@
-.my-cards-list
-  .my-cards-list-item
-    border-bottom: 1px solid darken(white, 25%)
-    padding: 10px 5px
-
-    &:last-child
-      border-bottom: none
-
-    .my-cards-list-item-keys
-      margin-top: 5px
-      float: right
-
-      kbd
-        padding: 5px 8px
-        margin: 5px
-        font-size: 18px
-
-    .my-cards-list-item-action
-      font-size: 1.4em
-      margin: 5px
-
 .my-cards-board-wrapper
   border-radius: 8px
   //padding: 0.5rem
-  max-width: 400px
+  min-width: 400px
   border-width: 8px
   border-color: grey
   border-style: solid
@@ -30,14 +9,14 @@
   margin-right: auto
   margin-left: auto
 
-.board-title
+.my-cards-board-title
   font-size: 1.4rem
   font-weight: bold
   padding: 0.5rem
   background-color: grey
   color: white
 
-.swimlane-title
+.my-cards-swimlane-title
   font-size: 1.1rem
   font-weight: bold
   padding: 0.5rem
@@ -51,7 +30,7 @@
 .swimlane-default-color
   background-color: lightgrey
 
-.list-title
+.my-cards-list-title
   font-weight: bold
   font-size: 1.1rem
   //padding-bottom: 0
@@ -59,18 +38,32 @@
   text-align: center
   margin-bottom: 0.7rem
 
-.list-color-bar
-  //height: 0.3rem
-  margin-bottom: 0.3rem
-  margin-top: 0
-  padding-top: 0
-
 .my-cards-list-wrapper
   margin: 1rem
-  margin-top: 1rem
   border-radius: 5px
   padding: 1.5rem
   padding-top: 0.75rem
+  display: inline-block
+  min-width: 250px
+  max-width: 350px
 
-.card-title
-  margin-top: 5px
+.my-cards-card-wrapper
+  margin-top: 0
+  margin-bottom: 10px
+
+.my-cards-dueat-list-wrapper
+  max-width: 500px
+  margin-right: auto
+  margin-left: auto
+
+.my-cards-field-name
+  font-weight: bold
+
+.my-cards-context
+  display: inline-block
+
+.my-cards-context-separator
+  font-weight: bold
+
+.my-cards-context-list
+  margin-bottom: 0.7rem
