@@ -69,6 +69,64 @@ Utils = {
     location.reload();
   },
 
+  archivedBoardIds() {
+    const archivedBoards = [];
+    Boards.find({ archived: false }).forEach(board => {
+      archivedBoards.push(board._id);
+    });
+    return archivedBoards;
+  },
+
+  dueCardsView() {
+    let view = window.localStorage.getItem('dueCardsView');
+
+    if (!view || !['user', 'all'].includes(view)) {
+      window.localStorage.setItem('dueCardsView', 'user');
+      location.reload();
+      view = 'user';
+    }
+
+    return view;
+  },
+
+  dueBoardsSelector() {
+    const user = Meteor.user();
+
+    const selector = {
+      archived: false,
+    };
+
+    // if user is not an admin allow her to see cards only from boards where
+    // she is a member
+    if (!user.isAdmin()) {
+      selector.$or = [
+        { permission: 'public' },
+        { members: { $elemMatch: { userId: user._id, isActive: true } } },
+      ];
+    }
+
+    return selector;
+  },
+
+  dueCardsSelector() {
+    const user = Meteor.user();
+
+    const selector = {
+      archived: false,
+    };
+
+    // if user is not an admin allow her to see cards only from boards where
+    // she is a member
+    if (!user.isAdmin()) {
+      selector.$or = [
+        { permission: 'public' },
+        { members: { $elemMatch: { userId: user._id, isActive: true } } },
+      ];
+    }
+
+    return selector;
+  },
+
   // XXX We should remove these two methods
   goBoardId(_id) {
     const board = Boards.findOne(_id);

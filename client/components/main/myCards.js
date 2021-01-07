@@ -200,7 +200,13 @@ BlazeComponent.extendComponent({
 
     const cards = [];
     cursor.forEach(card => {
-      cards.push(card);
+      if (
+        !card.board().archived &&
+        !card.swimlane().archived &&
+        !card.list().archived
+      ) {
+        cards.push(card);
+      }
     });
 
     cards.sort((a, b) => {

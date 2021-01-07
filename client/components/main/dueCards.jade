@@ -1,0 +1,76 @@
+template(name="dueCardsHeaderBar")
+  h1
+    //a.back-btn(href="{{pathFor 'home'}}")
+    //  i.fa.fa-chevron-left
+    | {{_ 'due-cards'}}
+
+  .board-header-btns.left
+    a.board-header-btn.js-toggle-due-cards-choose-sort(title="{{_ 'due-cards-sort'}}")
+      //i.fa.fa-caret-down
+      i.fa.fa-sort
+      if $eq dueCardsView 'user'
+        i.fa.fa-th-large
+        | {{_ 'due-cards-sort-board'}}
+      if $eq dueCardsView 'all'
+        i.fa.fa-calendar
+        | {{_ 'due-cards-sort-dueat'}}
+
+template(name="dueCardsModalTitle")
+  h2
+    i.fa.fa-keyboard-o
+    | {{_ 'due-cards'}}
+
+template(name="dueCards")
+  .wrapper
+    .due-cards-dueat-list-wrapper
+      each card in dueCardsList
+        .due-cards-card-wrapper
+          a.minicard-wrapper.card-title(href=card.absoluteUrl)
+            +minicard(card)
+          ul.due-cards-context-list
+            li.due-cards-context(title="{{_ 'board'}}")
+              +viewer
+                = card.board.title
+            li.due-cards-context.due-cards-context-separator
+              = ' '
+              | {{_ 'context-separator'}}
+              = ' '
+            li.due-cards-context(title="{{_ 'swimlane'}}")
+              +viewer
+                = card.swimlane.title
+            li.due-cards-context
+              = ' '
+              | {{_ 'context-separator'}}
+              = ' '
+            li.due-cards-context(title="{{_ 'list'}}")
+              +viewer
+                = card.list.title
+
+
+template(name="dueCardsViewChangePopup")
+  ul.pop-over-list
+    li
+      with "due-cards-view-user"
+        a.js-due-cards-sort-board
+          i.fa.fa-th-large.colorful
+          | {{_ 'due-cards-view-user'}}
+          if $eq Utils.dueCardsView "user"
+            i.fa.fa-check
+    li
+      with "due-cards-view-all"
+        a.js-due-cards-sort-dueat
+          i.fa.fa-calendar.colorful
+          | {{_ 'due-cards-view-all'}}
+          if $eq Utils.dueCardsView "all"
+            i.fa.fa-check
+
+//template(name="dueCardsViewChangePopup")
+//  ul.pop-over-list
+//    li
+//      a.js-due-cards-sort-board
+//        i.fa.fa-th-large.colorful
+//        | {{_ 'due-cards-sort-board'}}
+//    li
+//      a.js-due-cards-sort-dueat
+//        i.fa.fa-calendar.colorful
+//        | {{_ 'due-cards-sort-dueat'}}

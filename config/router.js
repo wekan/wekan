@@ -139,6 +139,32 @@ FlowRouter.route('/my-cards', {
   },
 });
 
+FlowRouter.route('/due-cards', {
+  name: 'my-cards',
+  action() {
+    const dueCardsTemplate = 'dueCards';
+
+    Filter.reset();
+    // EscapeActions.executeAll();
+    EscapeActions.executeUpTo('popup-close');
+
+    Utils.manageCustomUI();
+    Utils.manageMatomo();
+
+    // if (previousPath) {
+    //   Modal.open(dueCardsTemplate, {
+    //     header: 'dueCardsModalTitle',
+    //     onCloseGoTo: previousPath,
+    //   });
+    // } else {
+    BlazeLayout.render('defaultLayout', {
+      headerBar: 'dueCardsHeaderBar',
+      content: dueCardsTemplate,
+    });
+    // }
+  },
+});
+
 FlowRouter.route('/import/:source', {
   name: 'import',
   triggersEnter: [AccountsTemplates.ensureSignedIn],

@@ -32,3 +32,87 @@ Meteor.publish('myCards', function() {
     },
   );
 });
+
+Meteor.publish('dueCards', function(allUsers = false) {
+  check(allUsers, Boolean);
+
+  const user = Users.findOne(this.userId);
+
+  const archivedBoards = [];
+  Boards.find({ archived: true }).forEach(board => {
+    archivedBoards.push(board._id);
+  });
+
+  const permiitedBoards = [];
+  let selector = {
+    archived: false,
+  };
+  // if user is not an admin allow her to see cards only from boards where
+  // she is a member
+  if (!user.isAdmin) {
+    selector.$or = [
+      { permission: 'public' },
+      { members: { $elemMatch: { userId: user._id, isActive: true } } },
+    ];
+  }
+  Boards.find(selector).forEach(board => {
+    permiitedBoards.push(board._id);
+  });
+
+  const archivedSwimlanes = [];
+  Swimlanes.find({ archived: true }).forEach(swimlane => {
+    archivedSwimlanes.push(swimlane._id);
+  });
+
+  const archivedLists = [];
+  Lists.find({ archived: true }).forEach(list => {
+    archivedLists.push(list._id);
+  });
+
+  selector = {
+    archived: false,
+    boardId: { $nin: archivedBoards, $in: permiitedBoards },
+    swimlaneId: { $nin: archivedSwimlanes },
+    listId: { $nin: archivedLists },
+    dueAt: { $ne: null },
+    endAt: null,
+  };
+
+  if (!allUsers) {
+    selector.$or = [{ members: user._id }, { assignees: user._id }];
+  }
+
+  const cards = Cards.find(selector, {
+    fields: {
+      _id: 1,
+      archived: 1,
+      boardId: 1,
+      swimlaneId: 1,
+      listId: 1,
+      title: 1,
+      type: 1,
+      sort: 1,
+      members: 1,
+      assignees: 1,
+      colors: 1,
+      dueAt: 1,
+    },
+  });
+
+  const boards = [];
+  const swimlanes = [];
+  const lists = [];
+
+  cards.forEach(card => {
+    boards.push(card.boardId);
+    swimlanes.push(card.swimlaneId);
+    lists.push(card.listId);
+  });
+
+  return [
+    cards,
+    Boards.find({ _id: { $in: boards } }),
+    Swimlanes.find({ _id: { $in: swimlanes } }),
+    Lists.find({ _id: { $in: lists } }),
+  ];
+});
