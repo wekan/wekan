@@ -140,7 +140,7 @@ FlowRouter.route('/my-cards', {
 });
 
 FlowRouter.route('/due-cards', {
-  name: 'my-cards',
+  name: 'due-cards',
   action() {
     const dueCardsTemplate = 'dueCards';
 
