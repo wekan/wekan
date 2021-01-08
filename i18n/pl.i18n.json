@@ -852,5 +852,9 @@
   "my-cards": "Moje karty",
   "card": "karty",
   "list": "Lista",
-  "board": "Tablica"
+  "board": "Tablica",
+  "context-separator": "/",
+  "my-cards-sort": "My Cards Sort",
+  "my-cards-sort-board": "By Board",
+  "my-cards-sort-dueat": "By Due Date"
 }

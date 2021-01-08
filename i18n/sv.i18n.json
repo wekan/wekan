@@ -852,5 +852,9 @@
   "my-cards": "My Cards",
   "card": "Kort",
   "list": "List",
-  "board": "Board"
+  "board": "Board",
+  "context-separator": "/",
+  "my-cards-sort": "My Cards Sort",
+  "my-cards-sort-board": "By Board",
+  "my-cards-sort-dueat": "By Due Date"
 }

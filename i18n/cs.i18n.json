@@ -852,5 +852,9 @@
   "my-cards": "Moje karty",
   "card": "Karta",
   "list": "Seznam",
-  "board": "Tablo"
+  "board": "Tablo",
+  "context-separator": "/",
+  "my-cards-sort": "Pořadí mých karet",
+  "my-cards-sort-board": "Podle tabla",
+  "my-cards-sort-dueat": "Podle termínu"
 }

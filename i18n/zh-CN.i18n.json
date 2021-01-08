@@ -852,5 +852,9 @@
   "my-cards": "我的卡片",
   "card": "卡片",
   "list": "列表",
-  "board": "看板"
+  "board": "看板",
+  "context-separator": "/",
+  "my-cards-sort": "My Cards Sort",
+  "my-cards-sort-board": "By Board",
+  "my-cards-sort-dueat": "By Due Date"
 }

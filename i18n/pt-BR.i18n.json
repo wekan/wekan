@@ -852,5 +852,9 @@
   "my-cards": "Meus Cartões",
   "card": "Cartão",
   "list": "Lista",
-  "board": "Quadro"
+  "board": "Quadro",
+  "context-separator": "/",
+  "my-cards-sort": "Ordenar Meus Cartões",
+  "my-cards-sort-board": "por Quadro",
+  "my-cards-sort-dueat": "Por Prazo Final"
 }
