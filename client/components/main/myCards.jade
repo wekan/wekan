@@ -50,21 +50,21 @@ template(name="myCards")
             ul.my-cards-context-list
               li.my-cards-context(title="{{_ 'board'}}")
                 +viewer
-                  = card.board.title
+                  = card.getBoard.title
               li.my-cards-context.my-cards-context-separator
                 = ' '
                 | {{_ 'context-separator'}}
                 = ' '
               li.my-cards-context(title="{{_ 'swimlane'}}")
                 +viewer
-                  = card.swimlane.title
+                  = card.getSwimlane.title
               li.my-cards-context
                 = ' '
                 | {{_ 'context-separator'}}
                 = ' '
               li.my-cards-context(title="{{_ 'list'}}")
                 +viewer
-                  = card.list.title
+                  = card.getList.title
 
 
 template(name="myCardsSortChangePopup")

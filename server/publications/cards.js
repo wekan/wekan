@@ -104,9 +104,9 @@ Meteor.publish('dueCards', function(allUsers = false) {
   const lists = [];
 
   cards.forEach(card => {
-    boards.push(card.boardId);
-    swimlanes.push(card.swimlaneId);
-    lists.push(card.listId);
+    if (card.boardId) boards.push(card.boardId);
+    if (card.swimlaneId) swimlanes.push(card.swimlaneId);
+    if (card.listId) lists.push(card.listId);
   });
 
   return [

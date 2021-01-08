@@ -469,6 +469,45 @@ Cards.helpers({
     return Boards.findOne(this.boardId);
   },
 
+  getList() {
+    const list = this.list();
+    if (!list) {
+      return {
+        _id: this.listId,
+        title: 'Undefined List',
+        archived: false,
+        colorClass: '',
+      };
+    }
+    return list;
+  },
+
+  getSwimlane() {
+    const swimlane = this.swimlane();
+    if (!swimlane) {
+      return {
+        _id: this.swimlaneId,
+        title: 'Undefined Swimlane',
+        archived: false,
+        colorClass: '',
+      };
+    }
+    return swimlane;
+  },
+
+  getBoard() {
+    const board = this.board();
+    if (!board) {
+      return {
+        _id: this.boardId,
+        title: 'Undefined Board',
+        archived: false,
+        colorClass: '',
+      };
+    }
+    return board;
+  },
+
   labels() {
     const boardLabels = this.board().labels;
     const cardLabels = _.filter(boardLabels, label => {

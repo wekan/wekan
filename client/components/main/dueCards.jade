@@ -30,21 +30,21 @@ template(name="dueCards")
           ul.due-cards-context-list
             li.due-cards-context(title="{{_ 'board'}}")
               +viewer
-                = card.board.title
+                = card.getBoard.title
             li.due-cards-context.due-cards-context-separator
               = ' '
               | {{_ 'context-separator'}}
               = ' '
             li.due-cards-context(title="{{_ 'swimlane'}}")
               +viewer
-                = card.swimlane.title
+                = card.getSwimlane.title
             li.due-cards-context
               = ' '
               | {{_ 'context-separator'}}
               = ' '
             li.due-cards-context(title="{{_ 'list'}}")
               +viewer
-                = card.list.title
+                = card.getList.title
 
 
 template(name="dueCardsViewChangePopup")

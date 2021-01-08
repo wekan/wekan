@@ -142,22 +142,4 @@ BlazeComponent.extendComponent({
     // console.log('cards:', cards);
     return cards;
   },
-
-  events() {
-    return [
-      {
-        // 'click .js-my-card'(evt) {
-        //   const card = this.currentData().card;
-        //   // eslint-disable-next-line no-console
-        //   console.log('currentData():', this.currentData());
-        //   // eslint-disable-next-line no-console
-        //   console.log('card:', card);
-        //   if (card) {
-        //     Utils.goCardId(card._id);
-        //   }
-        //   evt.preventDefault();
-        // },
-      },
-    ];
-  },
 }).register('dueCards');
