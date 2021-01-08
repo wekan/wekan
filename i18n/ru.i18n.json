@@ -854,7 +854,7 @@
   "list": "Список",
   "board": "Доска",
   "context-separator": "/",
-  "my-cards-sort": "My Cards Sort",
-  "my-cards-sort-board": "By Board",
-  "my-cards-sort-dueat": "By Due Date"
+  "my-cards-sort": "Сортировать мои карточки",
+  "my-cards-sort-board": "По доскам",
+  "my-cards-sort-dueat": "По сроку выполнения"
 }

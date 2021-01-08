@@ -854,7 +854,7 @@
   "list": "רשימה",
   "board": "לוח",
   "context-separator": "/",
-  "my-cards-sort": "My Cards Sort",
-  "my-cards-sort-board": "By Board",
-  "my-cards-sort-dueat": "By Due Date"
+  "my-cards-sort": "סידור הכרטיסים שלי",
+  "my-cards-sort-board": "הלוח שלי",
+  "my-cards-sort-dueat": "לפי מועד סיום"
 }

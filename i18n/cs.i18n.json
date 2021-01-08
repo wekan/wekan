@@ -854,7 +854,7 @@
   "list": "Seznam",
   "board": "Tablo",
   "context-separator": "/",
-  "my-cards-sort": "My Cards Sort",
-  "my-cards-sort-board": "By Board",
-  "my-cards-sort-dueat": "By Due Date"
+  "my-cards-sort": "Pořadí mých karet",
+  "my-cards-sort-board": "Podle tabla",
+  "my-cards-sort-dueat": "Podle termínu"
 }
