@@ -1,0 +1,41 @@
+template(name="brokenCardsHeaderBar")
+  h1
+    | Broken Cards
+
+template(name="brokenCards")
+  .wrapper
+    .broken-cards-dueat-list-wrapper
+      each card in brokenCardsList
+        .broken-cards-card-wrapper
+          a.minicard-wrapper.card-title(href=card.absoluteUrl)
+            +minicard(card)
+          ul.broken-cards-context-list
+            li.broken-cards-context(title="{{_ 'board'}}")
+              if card.boardId
+                +viewer
+                  = card.getBoard.title
+              else
+                .broken-cards-null
+                  | NULL
+            li.broken-cards-context.broken-cards-context-separator
+              = ' '
+              | {{_ 'context-separator'}}
+              = ' '
+            li.broken-cards-context(title="{{_ 'swimlane'}}")
+              if card.swimlaneId
+                +viewer
+                  = card.getSwimlane.title
+              else
+                .broken-cards-null
+                  | NULL
+            li.broken-cards-context
+              = ' '
+              | {{_ 'context-separator'}}
+              = ' '
+            li.broken-cards-context(title="{{_ 'list'}}")
+              if card.listId
+                +viewer
+                  = card.getList.title
+              else
+                .broken-cards-null
+                  | NULL
