@@ -5,15 +5,14 @@ template(name="myCardsHeaderBar")
     | {{_ 'my-cards'}}
 
   .board-header-btns.left
-    a.board-header-btn.js-toggle-my-cards-choose-sort(title="{{_ 'my-cards-sort'}}")
-      //i.fa.fa-caret-down
-      i.fa.fa-sort
+    a.board-header-btn.js-toggle-my-cards-choose-sort(title="{{_ 'myCardsSortChange-title'}}")
+      i.fa.fa-caret-down
       if $eq myCardsSort 'board'
         i.fa.fa-th-large
-        | {{_ 'my-cards-sort-board'}}
+        | {{_ 'myCardsSortChange-choice-board'}}
       if $eq myCardsSort 'dueAt'
         i.fa.fa-calendar
-        | {{_ 'my-cards-sort-dueat'}}
+        | {{_ 'myCardsSortChange-choice-dueat'}}
 
 template(name="myCardsModalTitle")
   h2
@@ -50,21 +49,21 @@ template(name="myCards")
             ul.my-cards-context-list
               li.my-cards-context(title="{{_ 'board'}}")
                 +viewer
-                  = card.board.title
+                  = card.getBoard.title
               li.my-cards-context.my-cards-context-separator
                 = ' '
                 | {{_ 'context-separator'}}
                 = ' '
               li.my-cards-context(title="{{_ 'swimlane'}}")
                 +viewer
-                  = card.swimlane.title
+                  = card.getSwimlane.title
               li.my-cards-context
                 = ' '
                 | {{_ 'context-separator'}}
                 = ' '
               li.my-cards-context(title="{{_ 'list'}}")
                 +viewer
-                  = card.list.title
+                  = card.getList.title
 
 
 template(name="myCardsSortChangePopup")
@@ -73,24 +72,13 @@ template(name="myCardsSortChangePopup")
       with "my-cards-sort-board"
         a.js-my-cards-sort-board
           i.fa.fa-th-large.colorful
-          | {{_ 'my-cards-sort-board'}}
+          | {{_ 'myCardsSortChange-choice-board'}}
           if $eq Utils.myCardsSort "board"
             i.fa.fa-check
     li
       with "my-cards-sort-dueat"
         a.js-my-cards-sort-dueat
           i.fa.fa-calendar.colorful
-          | {{_ 'my-cards-sort-dueat'}}
+          | {{_ 'myCardsSortChange-choice-dueat'}}
           if $eq Utils.myCardsSort "dueAt"
             i.fa.fa-check
-
-//template(name="myCardsSortChangePopup")
-//  ul.pop-over-list
-//    li
-//      a.js-my-cards-sort-board
-//        i.fa.fa-th-large.colorful
-//        | {{_ 'my-cards-sort-board'}}
-//    li
-//      a.js-my-cards-sort-dueat
-//        i.fa.fa-calendar.colorful
-//        | {{_ 'my-cards-sort-dueat'}}

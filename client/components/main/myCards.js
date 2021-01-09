@@ -8,12 +8,9 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
-        'click .js-toggle-my-cards-choose-sort'() {
-          // eslint-disable-next-line no-console
-          // console.log('open sort');
-          // Popup.open('myCardsSortChange');
-          Utils.myCardsSortToggle();
-        },
+        'click .js-toggle-my-cards-choose-sort': Popup.open(
+          'myCardsSortChange',
+        ),
       },
     ];
   },
@@ -93,7 +90,7 @@ BlazeComponent.extendComponent({
       if (list === null || card.listId !== list._id) {
         // eslint-disable-next-line no-console
         // console.log('new list');
-        list = card.list();
+        list = card.getList();
         if (list.archived) {
           list = null;
           return;
@@ -104,7 +101,7 @@ BlazeComponent.extendComponent({
       if (swimlane === null || card.swimlaneId !== swimlane._id) {
         // eslint-disable-next-line no-console
         // console.log('new swimlane');
-        swimlane = card.swimlane();
+        swimlane = card.getSwimlane();
         if (swimlane.archived) {
           swimlane = null;
           return;
@@ -115,7 +112,7 @@ BlazeComponent.extendComponent({
       if (board === null || card.boardId !== board._id) {
         // eslint-disable-next-line no-console
         // console.log('new board');
-        board = card.board();
+        board = card.getBoard();
         if (board.archived) {
           board = null;
           return;
@@ -200,7 +197,13 @@ BlazeComponent.extendComponent({
 
     const cards = [];
     cursor.forEach(card => {
-      cards.push(card);
+      if (
+        !card.getBoard().archived &&
+        !card.getSwimlane().archived &&
+        !card.getList().archived
+      ) {
+        cards.push(card);
+      }
     });
 
     cards.sort((a, b) => {
