@@ -8,12 +8,7 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
-        'click .js-toggle-my-cards-choose-sort'() {
-          // eslint-disable-next-line no-console
-          // console.log('open sort');
-          // Popup.open('dueCardsViewChange');
-          Utils.dueCardsViewToggle();
-        },
+        'click .js-due-cards-view-change': Popup.open('dueCardsViewChange'),
       },
     ];
   },
@@ -29,13 +24,13 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
-        'click .js-my-cards-sort-board'() {
-          Utils.setMyCardsSort('board');
+        'click .js-due-cards-view-me'() {
+          Utils.setDueCardsView('me');
           Popup.close();
         },
 
-        'click .js-my-cards-sort-dueat'() {
-          Utils.setMyCardsSort('dueAt');
+        'click .js-due-cards-view-all'() {
+          Utils.setDueCardsView('all');
           Popup.close();
         },
       },
@@ -46,7 +41,7 @@ BlazeComponent.extendComponent({
 BlazeComponent.extendComponent({
   onCreated() {
     Meteor.subscribe('setting');
-    Meteor.subscribe('dueCards');
+    Meteor.subscribe('dueCards', Utils.dueCardsView() === 'all');
   },
 
   dueCardsView() {
@@ -60,7 +55,7 @@ BlazeComponent.extendComponent({
   },
 
   dueCardsList() {
-    const allUsers = false;
+    const allUsers = Utils.dueCardsView() === 'all';
 
     const user = Meteor.user();
 

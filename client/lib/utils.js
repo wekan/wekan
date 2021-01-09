@@ -80,51 +80,18 @@ Utils = {
   dueCardsView() {
     let view = window.localStorage.getItem('dueCardsView');
 
-    if (!view || !['user', 'all'].includes(view)) {
-      window.localStorage.setItem('dueCardsView', 'user');
+    if (!view || !['me', 'all'].includes(view)) {
+      window.localStorage.setItem('dueCardsView', 'me');
       location.reload();
-      view = 'user';
+      view = 'me';
     }
 
     return view;
   },
 
-  dueBoardsSelector() {
-    const user = Meteor.user();
-
-    const selector = {
-      archived: false,
-    };
-
-    // if user is not an admin allow her to see cards only from boards where
-    // she is a member
-    if (!user.isAdmin()) {
-      selector.$or = [
-        { permission: 'public' },
-        { members: { $elemMatch: { userId: user._id, isActive: true } } },
-      ];
-    }
-
-    return selector;
-  },
-
-  dueCardsSelector() {
-    const user = Meteor.user();
-
-    const selector = {
-      archived: false,
-    };
-
-    // if user is not an admin allow her to see cards only from boards where
-    // she is a member
-    if (!user.isAdmin()) {
-      selector.$or = [
-        { permission: 'public' },
-        { members: { $elemMatch: { userId: user._id, isActive: true } } },
-      ];
-    }
-
-    return selector;
+  setDueCardsView(view) {
+    window.localStorage.setItem('dueCardsView', view);
+    location.reload();
   },
 
   // XXX We should remove these two methods

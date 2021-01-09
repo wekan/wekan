@@ -36,6 +36,9 @@ Meteor.publish('myCards', function() {
 Meteor.publish('dueCards', function(allUsers = false) {
   check(allUsers, Boolean);
 
+  // eslint-disable-next-line no-console
+  // console.log('all users:', allUsers);
+
   const user = Users.findOne(this.userId);
 
   const archivedBoards = [];

@@ -8,12 +8,9 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
-        'click .js-toggle-my-cards-choose-sort'() {
-          // eslint-disable-next-line no-console
-          // console.log('open sort');
-          // Popup.open('myCardsSortChange');
-          Utils.myCardsSortToggle();
-        },
+        'click .js-toggle-my-cards-choose-sort': Popup.open(
+          'myCardsSortChange',
+        ),
       },
     ];
   },
