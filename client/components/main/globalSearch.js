@@ -37,6 +37,8 @@ BlazeComponent.extendComponent({
 BlazeComponent.extendComponent({
   onCreated() {
     this.isPageReady = new ReactiveVar(true);
+    this.searching = new ReactiveVar(false);
+    this.hasResults = new ReactiveVar(false);
     this.query = new ReactiveVar('');
 
     // this.autorun(() => {
@@ -50,16 +52,24 @@ BlazeComponent.extendComponent({
     Meteor.subscribe('setting');
   },
 
+  results() {
+    return Cards.find();
+  },
+
   events() {
     return [
       {
         'submit .js-search-query-form'(evt) {
           evt.preventDefault();
           this.query.set(evt.target.searchQuery.value);
-          // eslint-disable-next-line no-console
-          console.log('query:', this.query.get());
+
+          this.searching.set(true);
+          this.hasResults.set(false);
 
           let query = this.query.get();
+          // eslint-disable-next-line no-console
+          console.log('query:', query);
+
           const reUser = /^@(?<user>\w+)(\s+|$)/;
           const reLabel = /^#(?<label>\w+)(\s+|$)/;
           const reOperator1 = /^(?<operator>\w+):(?<value>\w+)(\s+|$)/;
@@ -139,6 +149,16 @@ BlazeComponent.extendComponent({
           console.log('selector:', selector);
           // eslint-disable-next-line no-console
           console.log('text:', text);
+
+          this.autorun(() => {
+            const handle = subManager.subscribe('globalSearch', selector);
+            Tracker.nonreactive(() => {
+              Tracker.autorun(() => {
+                this.searching.set(!handle.ready());
+                this.hasResults.set(handle.ready());
+              });
+            });
+          });
         },
       },
     ];

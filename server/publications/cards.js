@@ -174,3 +174,125 @@ Meteor.publish('dueCards', function(allUsers = false) {
     Users.find({ _id: { $in: users } }),
   ];
 });
+
+Meteor.publish('globalSearch', function(queryParams) {
+  check(queryParams, Object);
+
+  // eslint-disable-next-line no-console
+  console.log('selector:', queryParams);
+
+  const user = Users.findOne(this.userId);
+
+  const archivedBoards = [];
+  Boards.find({ archived: true }).forEach(board => {
+    archivedBoards.push(board._id);
+  });
+
+  const archivedSwimlanes = [];
+  Swimlanes.find({ archived: true }).forEach(swimlane => {
+    archivedSwimlanes.push(swimlane._id);
+  });
+
+  const archivedLists = [];
+  Lists.find({ archived: true }).forEach(list => {
+    archivedLists.push(list._id);
+  });
+
+  const permiitedBoards = [];
+  let selector = {
+    archived: false,
+  };
+  // if user is not an admin allow her to see cards only from boards where
+  // she is a member
+  if (!user.isAdmin) {
+    selector.$or = [
+      { permission: 'public' },
+      { members: { $elemMatch: { userId: user._id, isActive: true } } },
+    ];
+  }
+  if (queryParams.boards.length) {
+    selector.title = { $in: [] };
+    queryParams.boards.forEach(term => {
+      selector.title.$in.push(term);
+    });
+  }
+  Boards.find(selector).forEach(board => {
+    permiitedBoards.push(board._id);
+  });
+
+  const searchLists = [];
+  if (queryParams.lists.length) {
+    selector = {
+      archived: false,
+      title: { $in: [] },
+    };
+    queryParams.lists.forEach(term => {
+      selector.title.$in.push(term);
+    });
+
+    // eslint-disable-next-line no-console
+    console.log('search list selector:', selector);
+    Lists.find(selector).forEach(list => {
+      searchLists.push(list._id);
+    });
+    // eslint-disable-next-line no-console
+    console.log('search lists:', searchLists);
+  }
+
+  selector = {
+    archived: false,
+    boardId: { $nin: archivedBoards, $in: permiitedBoards },
+    swimlaneId: { $nin: archivedSwimlanes },
+    listId: { $nin: archivedLists },
+  };
+
+  if (searchLists.length) {
+    selector.listId.$in = searchLists;
+  }
+
+  const cards = Cards.find(selector, {
+    fields: {
+      _id: 1,
+      archived: 1,
+      boardId: 1,
+      swimlaneId: 1,
+      listId: 1,
+      title: 1,
+      type: 1,
+      sort: 1,
+      members: 1,
+      assignees: 1,
+      colors: 1,
+      dueAt: 1,
+    },
+  });
+
+  const boards = [];
+  const swimlanes = [];
+  const lists = [];
+  const users = [];
+
+  cards.forEach(card => {
+    if (card.boardId) boards.push(card.boardId);
+    if (card.swimlaneId) swimlanes.push(card.swimlaneId);
+    if (card.listId) lists.push(card.listId);
+    if (card.members) {
+      card.members.forEach(userId => {
+        users.push(userId);
+      });
+    }
+    if (card.assignees) {
+      card.assignees.forEach(userId => {
+        users.push(userId);
+      });
+    }
+  });
+
+  return [
+    cards,
+    Boards.find({ _id: { $in: boards } }),
+    Swimlanes.find({ _id: { $in: swimlanes } }),
+    Lists.find({ _id: { $in: lists } }),
+    Users.find({ _id: { $in: users } }),
+  ];
+});
