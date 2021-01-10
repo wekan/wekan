@@ -862,5 +862,5 @@
   "dueCardsViewChange-choice-me": "Minä",
   "dueCardsViewChange-choice-all": "Kaikki käyttäjät",
   "dueCardsViewChange-choice-all-description": "Näyttää kaikki keskeneräiset kortit joilla on *eräpäivä* tauluilta joihin käyttäjällä on oikeudet.",
-  "broken-cards": "Broken Cards"
+  "broken-cards": "Rikkinäiset kortit"
 }
