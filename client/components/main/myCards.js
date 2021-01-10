@@ -1,3 +1,5 @@
+const subManager = new SubsManager();
+
 BlazeComponent.extendComponent({
   myCardsSort() {
     // eslint-disable-next-line no-console
@@ -8,12 +10,9 @@ BlazeComponent.extendComponent({
   events() {
     return [
       {
-        'click .js-toggle-my-cards-choose-sort'() {
-          // eslint-disable-next-line no-console
-          // console.log('open sort');
-          // Popup.open('myCardsSortChange');
-          Utils.myCardsSortToggle();
-        },
+        'click .js-toggle-my-cards-choose-sort': Popup.open(
+          'myCardsSortChange',
+        ),
       },
     ];
   },
@@ -45,10 +44,17 @@ BlazeComponent.extendComponent({
 
 BlazeComponent.extendComponent({
   onCreated() {
+    this.isPageReady = new ReactiveVar(false);
+
+    this.autorun(() => {
+      const handle = subManager.subscribe('myCards');
+      Tracker.nonreactive(() => {
+        Tracker.autorun(() => {
+          this.isPageReady.set(handle.ready());
+        });
+      });
+    });
     Meteor.subscribe('setting');
-    Meteor.subscribe('myCards');
-    Meteor.subscribe('mySwimlanes');
-    Meteor.subscribe('myLists');
   },
 
   myCardsSort() {
@@ -61,7 +67,7 @@ BlazeComponent.extendComponent({
     return this.myCardsSort() === 'board';
   },
 
-  myBoards() {
+  myCardsList() {
     const userId = Meteor.userId();
     const boards = [];
     let board = null;
@@ -93,7 +99,7 @@ BlazeComponent.extendComponent({
       if (list === null || card.listId !== list._id) {
         // eslint-disable-next-line no-console
         // console.log('new list');
-        list = card.list();
+        list = card.getList();
         if (list.archived) {
           list = null;
           return;
@@ -104,7 +110,7 @@ BlazeComponent.extendComponent({
       if (swimlane === null || card.swimlaneId !== swimlane._id) {
         // eslint-disable-next-line no-console
         // console.log('new swimlane');
-        swimlane = card.swimlane();
+        swimlane = card.getSwimlane();
         if (swimlane.archived) {
           swimlane = null;
           return;
@@ -115,7 +121,7 @@ BlazeComponent.extendComponent({
       if (board === null || card.boardId !== board._id) {
         // eslint-disable-next-line no-console
         // console.log('new board');
-        board = card.board();
+        board = card.getBoard();
         if (board.archived) {
           board = null;
           return;
@@ -176,7 +182,7 @@ BlazeComponent.extendComponent({
     return boards;
   },
 
-  myCardsList() {
+  myDueCardsList() {
     const userId = Meteor.userId();
 
     const cursor = Cards.find(
@@ -200,7 +206,13 @@ BlazeComponent.extendComponent({
 
     const cards = [];
     cursor.forEach(card => {
-      cards.push(card);
+      if (
+        !card.getBoard().archived &&
+        !card.getSwimlane().archived &&
+        !card.getList().archived
+      ) {
+        cards.push(card);
+      }
     });
 
     cards.sort((a, b) => {

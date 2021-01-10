@@ -2,18 +2,18 @@ template(name="myCardsHeaderBar")
   h1
     //a.back-btn(href="{{pathFor 'home'}}")
     //  i.fa.fa-chevron-left
+    i.fa.fa-list
     | {{_ 'my-cards'}}
 
   .board-header-btns.left
-    a.board-header-btn.js-toggle-my-cards-choose-sort(title="{{_ 'my-cards-sort'}}")
-      //i.fa.fa-caret-down
-      i.fa.fa-sort
+    a.board-header-btn.js-toggle-my-cards-choose-sort(title="{{_ 'myCardsSortChange-title'}}")
+      i.fa.fa-caret-down
       if $eq myCardsSort 'board'
         i.fa.fa-th-large
-        | {{_ 'my-cards-sort-board'}}
+        | {{_ 'myCardsSortChange-choice-board'}}
       if $eq myCardsSort 'dueAt'
         i.fa.fa-calendar
-        | {{_ 'my-cards-sort-dueat'}}
+        | {{_ 'myCardsSortChange-choice-dueat'}}
 
 template(name="myCardsModalTitle")
   h2
@@ -21,51 +21,53 @@ template(name="myCardsModalTitle")
     | {{_ 'my-cards'}}
 
 template(name="myCards")
-  .wrapper
-    if $eq myCardsSort 'board'
-      each board in myBoards
-        .my-cards-board-wrapper
-          .my-cards-board-title
-            +viewer
-              = board.title
-          each swimlane in board.mySwimlanes
-            .my-cards-swimlane-title(class="{{#if swimlane.colorClass}}{{ swimlane.colorClass }}{{else}}swimlane-default-color{{/if}}")
+  if isPageReady.get
+    .wrapper
+      if $eq myCardsSort 'board'
+        each board in myCardsList
+          .my-cards-board-wrapper
+            .my-cards-board-title
               +viewer
-                = swimlane.title
-            each list in swimlane.myLists
-              .my-cards-list-wrapper
-                .my-cards-list-title(class=list.colorClass)
+                = board.title
+            each swimlane in board.mySwimlanes
+              .my-cards-swimlane-title(class="{{#if swimlane.colorClass}}{{ swimlane.colorClass }}{{else}}swimlane-default-color{{/if}}")
+                +viewer
+                  = swimlane.title
+              each list in swimlane.myLists
+                .my-cards-list-wrapper
+                  .my-cards-list-title(class=list.colorClass)
+                    +viewer
+                      = list.title
+                  each card in list.myCards
+                    .my-cards-card-wrapper
+                      a.minicard-wrapper(href=card.absoluteUrl)
+                        +minicard(card)
+      else
+        .my-cards-dueat-list-wrapper
+          each card in myDueCardsList
+            .my-cards-card-wrapper
+              a.minicard-wrapper.card-title(href=card.absoluteUrl)
+                +minicard(card)
+              ul.my-cards-context-list
+                li.my-cards-context(title="{{_ 'board'}}")
                   +viewer
-                    = list.title
-                each card in list.myCards
-                  .my-cards-card-wrapper
-                    a.minicard-wrapper(href=card.absoluteUrl)
-                      +minicard(card)
-    else
-      .my-cards-dueat-list-wrapper
-        each card in myCardsList
-          .my-cards-card-wrapper
-            a.minicard-wrapper.card-title(href=card.absoluteUrl)
-              +minicard(card)
-            ul.my-cards-context-list
-              li.my-cards-context(title="{{_ 'board'}}")
-                +viewer
-                  = card.board.title
-              li.my-cards-context.my-cards-context-separator
-                = ' '
-                | {{_ 'context-separator'}}
-                = ' '
-              li.my-cards-context(title="{{_ 'swimlane'}}")
-                +viewer
-                  = card.swimlane.title
-              li.my-cards-context
-                = ' '
-                | {{_ 'context-separator'}}
-                = ' '
-              li.my-cards-context(title="{{_ 'list'}}")
-                +viewer
-                  = card.list.title
-
+                    = card.getBoard.title
+                li.my-cards-context.my-cards-context-separator
+                  = ' '
+                  | {{_ 'context-separator'}}
+                  = ' '
+                li.my-cards-context(title="{{_ 'swimlane'}}")
+                  +viewer
+                    = card.getSwimlane.title
+                li.my-cards-context
+                  = ' '
+                  | {{_ 'context-separator'}}
+                  = ' '
+                li.my-cards-context(title="{{_ 'list'}}")
+                  +viewer
+                    = card.getList.title
+  else
+    +spinner
 
 template(name="myCardsSortChangePopup")
   ul.pop-over-list
@@ -73,24 +75,13 @@ template(name="myCardsSortChangePopup")
       with "my-cards-sort-board"
         a.js-my-cards-sort-board
           i.fa.fa-th-large.colorful
-          | {{_ 'my-cards-sort-board'}}
+          | {{_ 'myCardsSortChange-choice-board'}}
           if $eq Utils.myCardsSort "board"
             i.fa.fa-check
     li
       with "my-cards-sort-dueat"
         a.js-my-cards-sort-dueat
           i.fa.fa-calendar.colorful
-          | {{_ 'my-cards-sort-dueat'}}
+          | {{_ 'myCardsSortChange-choice-dueat'}}
           if $eq Utils.myCardsSort "dueAt"
             i.fa.fa-check
-
-//template(name="myCardsSortChangePopup")
-//  ul.pop-over-list
-//    li
-//      a.js-my-cards-sort-board
-//        i.fa.fa-th-large.colorful
-//        | {{_ 'my-cards-sort-board'}}
-//    li
-//      a.js-my-cards-sort-dueat
-//        i.fa.fa-calendar.colorful
-//        | {{_ 'my-cards-sort-dueat'}}
