@@ -139,7 +139,11 @@ Meteor.publish('brokenCards', function() {
 
   selector = {
     boardId: { $in: permiitedBoards },
-    $or: [{ boardId: null }, { swimlaneId: null }, { listId: null }],
+    $or: [
+      { boardId: { $in: [null, ''] } },
+      { swimlaneId: { $in: [null, ''] } },
+      { listId: { $in: [null, ''] } },
+    ],
   };
 
   const cards = Cards.find(selector, {

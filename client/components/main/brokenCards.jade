@@ -4,11 +4,11 @@ template(name="brokenCardsHeaderBar")
 
 template(name="brokenCards")
   .wrapper
-    .broken-cards-dueat-list-wrapper
+    .broken-cards-wrapper
       each card in brokenCardsList
         .broken-cards-card-wrapper
-          a.minicard-wrapper.card-title(href=card.absoluteUrl)
-            +minicard(card)
+          .broken-cards-card-title
+            = card.title
           ul.broken-cards-context-list
             li.broken-cards-context(title="{{_ 'board'}}")
               if card.boardId
