@@ -854,7 +854,13 @@
   "list": "Seznam",
   "board": "Tablo",
   "context-separator": "/",
-  "my-cards-sort": "Pořadí mých karet",
-  "my-cards-sort-board": "Podle tabla",
-  "my-cards-sort-dueat": "Podle termínu"
+  "myCardsSortChange-title": "Pořadí mých karet",
+  "myCardsSortChange-choice-board": "Podle tabla",
+  "myCardsSortChange-choice-dueat": "Podle termínu",
+  "dueCards-title": "Due Cards",
+  "dueCardsViewChange-title": "Due Cards View",
+  "dueCardsViewChange-choice-me": "Me",
+  "dueCardsViewChange-choice-all": "All Users",
+  "dueCardsViewChange-choice-all-description": "Shows all incomplete cards with a *Due* date from boards for which the user has permission.",
+  "broken-cards": "Broken Cards"
 }

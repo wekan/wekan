@@ -854,7 +854,13 @@
   "list": "Lista",
   "board": "Quadro",
   "context-separator": "/",
-  "my-cards-sort": "Ordenar Meus Cartões",
-  "my-cards-sort-board": "por Quadro",
-  "my-cards-sort-dueat": "Por Prazo Final"
+  "myCardsSortChange-title": "Ordenar Meus Cartões",
+  "myCardsSortChange-choice-board": "por Quadro",
+  "myCardsSortChange-choice-dueat": "Por Prazo Final",
+  "dueCards-title": "Cartões com prazo final",
+  "dueCardsViewChange-title": "Visão de Cartões com prazo final",
+  "dueCardsViewChange-choice-me": "Eu",
+  "dueCardsViewChange-choice-all": "Todos os usuários",
+  "dueCardsViewChange-choice-all-description": "Mostrar todos os cartões incompletos com *Prazo Final* nos quadros em que o usuário tem permissão",
+  "broken-cards": "Cartões quebrados"
 }

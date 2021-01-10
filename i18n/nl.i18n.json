@@ -854,7 +854,13 @@
   "list": "Lijst",
   "board": "Bord",
   "context-separator": "/",
-  "my-cards-sort": "Mijn kaarten sortering",
-  "my-cards-sort-board": "Naar bord",
-  "my-cards-sort-dueat": "Naar vervaldatum"
+  "myCardsSortChange-title": "Mijn kaarten sortering",
+  "myCardsSortChange-choice-board": "Naar bord",
+  "myCardsSortChange-choice-dueat": "Naar vervaldatum",
+  "dueCards-title": "Achterstallige kaarten",
+  "dueCardsViewChange-title": "Achterstallige kaart view",
+  "dueCardsViewChange-choice-me": "Mij",
+  "dueCardsViewChange-choice-all": "Alle gebruikers",
+  "dueCardsViewChange-choice-all-description": "Toon incomplete kaarten met een *achterstallige* datum van borden waarvoor de gebruiker toegang heeft.",
+  "broken-cards": "Broken Cards"
 }

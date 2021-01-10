@@ -854,7 +854,13 @@
   "list": "Список",
   "board": "Доска",
   "context-separator": "/",
-  "my-cards-sort": "Сортировать мои карточки",
-  "my-cards-sort-board": "По доскам",
-  "my-cards-sort-dueat": "По сроку выполнения"
+  "myCardsSortChange-title": "Сортировать мои карточки",
+  "myCardsSortChange-choice-board": "По доскам",
+  "myCardsSortChange-choice-dueat": "По сроку выполнения",
+  "dueCards-title": "Карточки с установленным сроком",
+  "dueCardsViewChange-title": "Просмотр карточки с установленным сроком",
+  "dueCardsViewChange-choice-me": "Мне",
+  "dueCardsViewChange-choice-all": "Все пользователи",
+  "dueCardsViewChange-choice-all-description": "Показать все незавершенные карточки с установленным сроком с досок для которых у пользователя есть разрешения.",
+  "broken-cards": "Просроченные карточки"
 }

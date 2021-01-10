@@ -108,8 +108,9 @@ tx pull -f -l mn_MN
 echo "Norwegian:"
 tx pull -f -l no
 
-echo "Norwegian Bokmål:"
-tx pull -f -l nb
+# This is same as no above
+#echo "Norwegian Bokmål:"
+#tx pull -f -l nb
 
 echo "Occitan (post 1500):"
 tx pull -f -l oc
@@ -145,10 +146,10 @@ echo "Spanish (Chile):"
 tx pull -f -l es_CL
 
 echo "Spanish (Mexico)":
-tx pull -f -l ex_MX
+tx pull -f -l es_MX
 
 echo "Spanish (Paraguay):"
-tx pull -f -l ex_PY
+tx pull -f -l es_PY
 
 echo "Spanish (Peru):"
 tx pull -f -l es_PE

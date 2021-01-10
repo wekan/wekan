@@ -854,7 +854,13 @@
   "list": "清單",
   "board": "看板",
   "context-separator": "/",
-  "my-cards-sort": "我的卡片排序",
-  "my-cards-sort-board": "依看板",
-  "my-cards-sort-dueat": "依到期日"
+  "myCardsSortChange-title": "我的卡片排序",
+  "myCardsSortChange-choice-board": "依看板",
+  "myCardsSortChange-choice-dueat": "依到期日",
+  "dueCards-title": "Due Cards",
+  "dueCardsViewChange-title": "Due Cards View",
+  "dueCardsViewChange-choice-me": "Me",
+  "dueCardsViewChange-choice-all": "All Users",
+  "dueCardsViewChange-choice-all-description": "Shows all incomplete cards with a *Due* date from boards for which the user has permission.",
+  "broken-cards": "Broken Cards"
 }

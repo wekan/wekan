@@ -854,7 +854,13 @@
   "list": "List",
   "board": "Board",
   "context-separator": "/",
-  "my-cards-sort": "My Cards Sort",
-  "my-cards-sort-board": "By Board",
-  "my-cards-sort-dueat": "By Due Date"
+  "myCardsSortChange-title": "My Cards Sort",
+  "myCardsSortChange-choice-board": "By Board",
+  "myCardsSortChange-choice-dueat": "By Due Date",
+  "dueCards-title": "Due Cards",
+  "dueCardsViewChange-title": "Due Cards View",
+  "dueCardsViewChange-choice-me": "Me",
+  "dueCardsViewChange-choice-all": "All Users",
+  "dueCardsViewChange-choice-all-description": "Shows all incomplete cards with a *Due* date from boards for which the user has permission.",
+  "broken-cards": "Broken Cards"
 }
