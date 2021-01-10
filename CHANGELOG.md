@@ -1,3 +1,14 @@
+# Upcoming Wekan release
+
+This release adds the following improvements:
+
+- [My Cards: Make code forgiving of possible null values for a card's board, swimlane, or list.
+  Added a new Due Cards page that displays cards with a Due date for either just the user or all
+  users](https://github.com/wekan/wekan/pull/3425).
+  Thanks to jrsupplee.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.72 2021-01-09 Wekan release
 
 This release fixes the following bugs:
