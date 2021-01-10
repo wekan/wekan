@@ -105,12 +105,12 @@ tx pull -f -l mk
 echo "Mongolian (Mongolia):"
 tx pull -f -l mn_MN
 
-echo "Norwegian:"
-tx pull -f -l no
+#echo "Norwegian:"
+#tx pull -f -l no
+# This is same as no below
 
-# This is same as no above
-#echo "Norwegian Bokmål:"
-#tx pull -f -l nb
+echo "Norwegian Bokmål:"
+tx pull -f -l nb
 
 echo "Occitan (post 1500):"
 tx pull -f -l oc
