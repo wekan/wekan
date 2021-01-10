@@ -1,3 +1,5 @@
+const subManager = new SubsManager();
+
 BlazeComponent.extendComponent({
   dueCardsView() {
     // eslint-disable-next-line no-console
@@ -40,8 +42,20 @@ BlazeComponent.extendComponent({
 
 BlazeComponent.extendComponent({
   onCreated() {
+    this.isPageReady = new ReactiveVar(false);
+
+    this.autorun(() => {
+      const handle = subManager.subscribe(
+        'dueCards',
+        Utils.dueCardsView() === 'all',
+      );
+      Tracker.nonreactive(() => {
+        Tracker.autorun(() => {
+          this.isPageReady.set(handle.ready());
+        });
+      });
+    });
     Meteor.subscribe('setting');
-    Meteor.subscribe('dueCards', Utils.dueCardsView() === 'all');
   },
 
   dueCardsView() {

@@ -1,7 +1,6 @@
 template(name="dueCardsHeaderBar")
   h1
-    //a.back-btn(href="{{pathFor 'home'}}")
-    //  i.fa.fa-chevron-left
+    i.fa.fa-calendar
     | {{_ 'dueCards-title'}}
 
   .board-header-btns.left
@@ -20,31 +19,33 @@ template(name="dueCardsModalTitle")
     | {{_ 'dueCards-title'}}
 
 template(name="dueCards")
-  .wrapper
-    .due-cards-dueat-list-wrapper
-      each card in dueCardsList
-        .due-cards-card-wrapper
-          a.minicard-wrapper.card-title(href=card.absoluteUrl)
-            +minicard(card)
-          ul.due-cards-context-list
-            li.due-cards-context(title="{{_ 'board'}}")
-              +viewer
-                = card.getBoard.title
-            li.due-cards-context.due-cards-context-separator
-              = ' '
-              | {{_ 'context-separator'}}
-              = ' '
-            li.due-cards-context(title="{{_ 'swimlane'}}")
-              +viewer
-                = card.getSwimlane.title
-            li.due-cards-context
-              = ' '
-              | {{_ 'context-separator'}}
-              = ' '
-            li.due-cards-context(title="{{_ 'list'}}")
-              +viewer
-                = card.getList.title
-
+  if isPageReady.get
+    .wrapper
+      .due-cards-dueat-list-wrapper
+        each card in dueCardsList
+          .due-cards-card-wrapper
+            a.minicard-wrapper.card-title(href=card.absoluteUrl)
+              +minicard(card)
+            ul.due-cards-context-list
+              li.due-cards-context(title="{{_ 'board'}}")
+                +viewer
+                  = card.getBoard.title
+              li.due-cards-context.due-cards-context-separator
+                = ' '
+                | {{_ 'context-separator'}}
+                = ' '
+              li.due-cards-context(title="{{_ 'swimlane'}}")
+                +viewer
+                  = card.getSwimlane.title
+              li.due-cards-context
+                = ' '
+                | {{_ 'context-separator'}}
+                = ' '
+              li.due-cards-context(title="{{_ 'list'}}")
+                +viewer
+                  = card.getList.title
+  else
+    +spinner
 
 template(name="dueCardsViewChangePopup")
   ul.pop-over-list
@@ -60,5 +61,8 @@ template(name="dueCardsViewChangePopup")
         a.js-due-cards-view-all
           i.fa.fa-users.colorful
           | {{_ 'dueCardsViewChange-choice-all'}}
+          span.sub-name
+            +viewer
+              | {{_ 'dueCardsViewChange-choice-all-description' }}
           if $eq Utils.dueCardsView "all"
             i.fa.fa-check

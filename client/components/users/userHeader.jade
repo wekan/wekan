@@ -18,6 +18,10 @@ template(name="memberMenuPopup")
           i.fa.fa-list
           | {{_ 'my-cards'}}
       li
+        a.js-due-cards(href="{{pathFor 'due-cards'}}")
+          i.fa.fa-calendar
+          | {{_ 'dueCards-title'}}
+      li
         a(href="{{pathFor 'home'}}")
           span.fa.fa-home
           | {{_ 'all-boards'}}

@@ -28,6 +28,9 @@ Template.memberMenuPopup.events({
   'click .js-my-cards'() {
     Popup.close();
   },
+  'click .js-due-cards'() {
+    Popup.close();
+  },
   'click .js-open-archived-board'() {
     Modal.open('archivedBoards');
   },
