@@ -861,5 +861,6 @@
   "dueCardsViewChange-title": "Due Cards View",
   "dueCardsViewChange-choice-me": "Me",
   "dueCardsViewChange-choice-all": "All Users",
-  "dueCardsViewChange-choice-all-description": "Shows all incomplete cards with a *Due* date from boards for which the user has permission."
+  "dueCardsViewChange-choice-all-description": "Shows all incomplete cards with a *Due* date from boards for which the user has permission.",
+  "broken-cards": "Broken Cards"
 }
