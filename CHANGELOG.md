@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release adds the following improvements:
+
+- [My Cards and Due Cards: Added popup title and horizontal line between menu
+  options](https://github.com/wekan/wekan/commit/9293de541b3fcccee52751808f0e95b04986c1bb).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.73 2020-01-10 Wekan release
 
 This release adds the following new features:
