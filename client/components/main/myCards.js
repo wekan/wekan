@@ -1,3 +1,5 @@
+const subManager = new SubsManager();
+
 BlazeComponent.extendComponent({
   myCardsSort() {
     // eslint-disable-next-line no-console
@@ -42,10 +44,17 @@ BlazeComponent.extendComponent({
 
 BlazeComponent.extendComponent({
   onCreated() {
+    this.isPageReady = new ReactiveVar(false);
+
+    this.autorun(() => {
+      const handle = subManager.subscribe('myCards');
+      Tracker.nonreactive(() => {
+        Tracker.autorun(() => {
+          this.isPageReady.set(handle.ready());
+        });
+      });
+    });
     Meteor.subscribe('setting');
-    Meteor.subscribe('myCards');
-    Meteor.subscribe('mySwimlanes');
-    Meteor.subscribe('myLists');
   },
 
   myCardsSort() {
@@ -58,7 +67,7 @@ BlazeComponent.extendComponent({
     return this.myCardsSort() === 'board';
   },
 
-  myBoards() {
+  myCardsList() {
     const userId = Meteor.userId();
     const boards = [];
     let board = null;
@@ -173,7 +182,7 @@ BlazeComponent.extendComponent({
     return boards;
   },
 
-  myCardsList() {
+  myDueCardsList() {
     const userId = Meteor.userId();
 
     const cursor = Cards.find(

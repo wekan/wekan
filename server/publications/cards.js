@@ -4,33 +4,76 @@ Meteor.publish('card', cardId => {
 });
 
 Meteor.publish('myCards', function() {
-  const userId = this.userId;
+  const userId = Meteor.userId();
 
-  return Cards.find(
-    {
-      archived: false,
-      $or: [{ members: userId }, { assignees: userId }],
+  const archivedBoards = [];
+  Boards.find({ archived: true }).forEach(board => {
+    archivedBoards.push(board._id);
+  });
+
+  const archivedSwimlanes = [];
+  Swimlanes.find({ archived: true }).forEach(swimlane => {
+    archivedSwimlanes.push(swimlane._id);
+  });
+
+  const archivedLists = [];
+  Lists.find({ archived: true }).forEach(list => {
+    archivedLists.push(list._id);
+  });
+
+  selector = {
+    archived: false,
+    boardId: { $nin: archivedBoards },
+    swimlaneId: { $nin: archivedSwimlanes },
+    listId: { $nin: archivedLists },
+    $or: [{ members: userId }, { assignees: userId }],
+  };
+
+  const cards = Cards.find(selector, {
+    fields: {
+      _id: 1,
+      archived: 1,
+      boardId: 1,
+      swimlaneId: 1,
+      listId: 1,
+      title: 1,
+      type: 1,
+      sort: 1,
+      members: 1,
+      assignees: 1,
+      colors: 1,
+      dueAt: 1,
     },
-    {
-      fields: {
-        _id: 1,
-        archived: 1,
-        boardId: 1,
-        swimlaneId: 1,
-        listId: 1,
-        title: 1,
-        type: 1,
-        sort: 1,
-        members: 1,
-        assignees: 1,
-        colors: 1,
-        dueAt: 1,
-      },
-      // sort: {
-      //   sort: ['boardId', 'listId', 'sort'],
-      // },
-    },
-  );
+  });
+
+  const boards = [];
+  const swimlanes = [];
+  const lists = [];
+  const users = [];
+
+  cards.forEach(card => {
+    if (card.boardId) boards.push(card.boardId);
+    if (card.swimlaneId) swimlanes.push(card.swimlaneId);
+    if (card.listId) lists.push(card.listId);
+    if (card.members) {
+      card.members.forEach(userId => {
+        users.push(userId);
+      });
+    }
+    if (card.assignees) {
+      card.assignees.forEach(userId => {
+        users.push(userId);
+      });
+    }
+  });
+
+  return [
+    cards,
+    Boards.find({ _id: { $in: boards } }),
+    Swimlanes.find({ _id: { $in: swimlanes } }),
+    Lists.find({ _id: { $in: lists } }),
+    Users.find({ _id: { $in: users } }),
+  ];
 });
 
 Meteor.publish('dueCards', function(allUsers = false) {
@@ -105,11 +148,22 @@ Meteor.publish('dueCards', function(allUsers = false) {
   const boards = [];
   const swimlanes = [];
   const lists = [];
+  const users = [];
 
   cards.forEach(card => {
     if (card.boardId) boards.push(card.boardId);
     if (card.swimlaneId) swimlanes.push(card.swimlaneId);
     if (card.listId) lists.push(card.listId);
+    if (card.members) {
+      card.members.forEach(userId => {
+        users.push(userId);
+      });
+    }
+    if (card.assignees) {
+      card.assignees.forEach(userId => {
+        users.push(userId);
+      });
+    }
   });
 
   return [
@@ -117,6 +171,7 @@ Meteor.publish('dueCards', function(allUsers = false) {
     Boards.find({ _id: { $in: boards } }),
     Swimlanes.find({ _id: { $in: swimlanes } }),
     Lists.find({ _id: { $in: lists } }),
+    Users.find({ _id: { $in: users } }),
   ];
 });
 

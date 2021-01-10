@@ -116,8 +116,6 @@ FlowRouter.route('/shortcuts', {
 FlowRouter.route('/my-cards', {
   name: 'my-cards',
   action() {
-    const myCardsTemplate = 'myCards';
-
     Filter.reset();
     // EscapeActions.executeAll();
     EscapeActions.executeUpTo('popup-close');
@@ -125,15 +123,9 @@ FlowRouter.route('/my-cards', {
     Utils.manageCustomUI();
     Utils.manageMatomo();
 
-    // if (previousPath) {
-    //   Modal.open(myCardsTemplate, {
-    //     header: 'myCardsModalTitle',
-    //     onCloseGoTo: previousPath,
-    //   });
-    // } else {
     BlazeLayout.render('defaultLayout', {
       headerBar: 'myCardsHeaderBar',
-      content: myCardsTemplate,
+      content: 'myCards',
     });
     // }
   },
@@ -142,8 +134,6 @@ FlowRouter.route('/my-cards', {
 FlowRouter.route('/due-cards', {
   name: 'due-cards',
   action() {
-    const dueCardsTemplate = 'dueCards';
-
     Filter.reset();
     // EscapeActions.executeAll();
     EscapeActions.executeUpTo('popup-close');
@@ -151,15 +141,9 @@ FlowRouter.route('/due-cards', {
     Utils.manageCustomUI();
     Utils.manageMatomo();
 
-    // if (previousPath) {
-    //   Modal.open(dueCardsTemplate, {
-    //     header: 'dueCardsModalTitle',
-    //     onCloseGoTo: previousPath,
-    //   });
-    // } else {
     BlazeLayout.render('defaultLayout', {
       headerBar: 'dueCardsHeaderBar',
-      content: dueCardsTemplate,
+      content: 'dueCards',
     });
     // }
   },
