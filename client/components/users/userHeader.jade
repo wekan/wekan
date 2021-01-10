@@ -22,6 +22,10 @@ template(name="memberMenuPopup")
           i.fa.fa-calendar
           | {{_ 'dueCards-title'}}
       li
+        a.js-broken-cards(href="{{pathFor 'broken-cards'}}")
+          i.fa.fa-chain-broken
+          | {{_ 'broken-cards'}}
+      li
         a(href="{{pathFor 'home'}}")
           span.fa.fa-home
           | {{_ 'all-boards'}}
