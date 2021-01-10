@@ -56,6 +56,7 @@ template(name="dueCardsViewChangePopup")
           | {{_ 'dueCardsViewChange-choice-me'}}
           if $eq Utils.dueCardsView "me"
             i.fa.fa-check
+    hr
     li
       with "dueCardsViewChange-choice-all"
         a.js-due-cards-view-all
