@@ -16,6 +16,11 @@ and adds the following improvements:
   users](https://github.com/wekan/wekan/pull/3425).
   Thanks to jrsupplee.
 
+and fixes the following bugs:
+
+- [Fixed Spanish language names to lowercase español](https://github.com/wekan/wekan/commit/9ec1904119e6bec4c00600cb8ea81c28e631ae2e).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v4.72 2021-01-09 Wekan release
