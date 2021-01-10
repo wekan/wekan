@@ -149,6 +149,26 @@ FlowRouter.route('/due-cards', {
   },
 });
 
+FlowRouter.route('/broken-cards', {
+  name: 'broken-cards',
+  action() {
+    const brokenCardsTemplate = 'brokenCards';
+
+    Filter.reset();
+    // EscapeActions.executeAll();
+    EscapeActions.executeUpTo('popup-close');
+
+    Utils.manageCustomUI();
+    Utils.manageMatomo();
+
+    BlazeLayout.render('defaultLayout', {
+      headerBar: 'brokenCardsHeaderBar',
+      content: brokenCardsTemplate,
+    });
+    // }
+  },
+});
+
 FlowRouter.route('/import/:source', {
   name: 'import',
   triggersEnter: [AccountsTemplates.ensureSignedIn],
