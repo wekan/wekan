@@ -149,6 +149,24 @@ FlowRouter.route('/due-cards', {
   },
 });
 
+FlowRouter.route('/global-search', {
+  name: 'global-search',
+  action() {
+    Filter.reset();
+    // EscapeActions.executeAll();
+    EscapeActions.executeUpTo('popup-close');
+
+    Utils.manageCustomUI();
+    Utils.manageMatomo();
+
+    BlazeLayout.render('defaultLayout', {
+      headerBar: 'globalSearchHeaderBar',
+      content: 'globalSearch',
+    });
+    // }
+  },
+});
+
 FlowRouter.route('/import/:source', {
   name: 'import',
   triggersEnter: [AccountsTemplates.ensureSignedIn],

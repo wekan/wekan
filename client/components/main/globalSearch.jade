@@ -1,0 +1,37 @@
+template(name="globalSearchHeaderBar")
+  h1
+    i.fa.fa-search
+    | {{_ 'globalSearch-title'}}
+
+template(name="globalSearchModalTitle")
+  h2
+    i.fa.fa-keyboard-o
+    | {{_ 'globalSearch-title'}}
+
+template(name="globalSearch")
+  if isPageReady.get
+    .wrapper
+      form.js-search-query-form
+        input(type="text" name="searchQuery" placeholder="{{_ 'search-example'}}" autofocus dir="auto")
+  else
+    +spinner
+
+template(name="globalSearchViewChangePopup")
+  ul.pop-over-list
+    li
+      with "globalSearchViewChange-choice-me"
+        a.js-due-cards-view-me
+          i.fa.fa-user.colorful
+          | {{_ 'globalSearchViewChange-choice-me'}}
+          if $eq Utils.globalSearchView "me"
+            i.fa.fa-check
+    li
+      with "globalSearchViewChange-choice-all"
+        a.js-due-cards-view-all
+          i.fa.fa-users.colorful
+          | {{_ 'globalSearchViewChange-choice-all'}}
+          span.sub-name
+            +viewer
+              | {{_ 'globalSearchViewChange-choice-all-description' }}
+          if $eq Utils.globalSearchView "all"
+            i.fa.fa-check
