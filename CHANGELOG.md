@@ -1,6 +1,15 @@
 # Upcoming Wekan release
 
-This release adds the following improvements:
+This release adds the following new features:
+
+- [Broken Cards](https://github.com/wekan/wekan/pull/3426) for debugging.
+  Thanks to jrsupplee.
+- ["Broken Cards" to be translatable](https://github.com/wekan/wekan/commit/d09e448fbd37ae84419aa3909b9a4594cd7ddb92).
+  Thanks to xet7.
+- [Added Broken Cards to User Settings menu](https://github.com/wekan/wekan/commit/b98df8ef87fc0c501d4f06e3e5af292605bd21cf).
+  Thanks to xet7.
+
+and adds the following improvements:
 
 - [My Cards: Make code forgiving of possible null values for a card's board, swimlane, or list.
   Added a new Due Cards page that displays cards with a Due date for either just the user or all
