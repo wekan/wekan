@@ -855,12 +855,14 @@
   "board": "Tableau",
   "context-separator": "/",
   "myCardsSortChange-title": "Trier Mes Cartes",
+  "myCardsSortChangePopup-title": "Trier Mes Cartes",
   "myCardsSortChange-choice-board": "Par tableau",
   "myCardsSortChange-choice-dueat": "Par date d'échéance",
-  "dueCards-title": "Due Cards",
-  "dueCardsViewChange-title": "Due Cards View",
-  "dueCardsViewChange-choice-me": "Me",
-  "dueCardsViewChange-choice-all": "All Users",
-  "dueCardsViewChange-choice-all-description": "Shows all incomplete cards with a *Due* date from boards for which the user has permission.",
-  "broken-cards": "Broken Cards"
+  "dueCards-title": "Cartes Échues",
+  "dueCardsViewChange-title": "Vue des Cartes Échues",
+  "dueCardsViewChangePopup-title": "Vue des Cartes Échues",
+  "dueCardsViewChange-choice-me": "Moi",
+  "dueCardsViewChange-choice-all": "Tous les utilisateurs",
+  "dueCardsViewChange-choice-all-description": "Visualise toutes les cartes incomplètes avec une date *échue* pour lesquelles l'utilisateur possède les droits",
+  "broken-cards": "Cartes en erreur"
 }

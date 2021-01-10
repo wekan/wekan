@@ -855,12 +855,14 @@
   "board": "לוח",
   "context-separator": "/",
   "myCardsSortChange-title": "סידור הכרטיסים שלי",
+  "myCardsSortChangePopup-title": "סידור הכרטיסים שלי",
   "myCardsSortChange-choice-board": "הלוח שלי",
   "myCardsSortChange-choice-dueat": "לפי מועד סיום",
-  "dueCards-title": "Due Cards",
-  "dueCardsViewChange-title": "Due Cards View",
-  "dueCardsViewChange-choice-me": "Me",
-  "dueCardsViewChange-choice-all": "All Users",
-  "dueCardsViewChange-choice-all-description": "Shows all incomplete cards with a *Due* date from boards for which the user has permission.",
-  "broken-cards": "Broken Cards"
+  "dueCards-title": "כרטיסים שתוקפם פג",
+  "dueCardsViewChange-title": "תצוגת כרטיסים שתוקפם פג",
+  "dueCardsViewChangePopup-title": "תצוגת כרטיסים שתוקפם פג",
+  "dueCardsViewChange-choice-me": "אני",
+  "dueCardsViewChange-choice-all": "כל המשתמשים",
+  "dueCardsViewChange-choice-all-description": "מציג את כל הכרטיסים שלא הושלמו ושיש להם *תוקף* מלוחות שלמשתמש יש הרשאה לגשת אליהם.",
+  "broken-cards": "כרטיסים פגומים"
 }
