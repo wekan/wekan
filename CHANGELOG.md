@@ -1,3 +1,14 @@
+# v4.72 2021-01-09 Wekan release
+
+This release fixes the following bugs:
+
+- [Fixed badges at readme](https://github.com/wekan/wekan/pull/3421).
+  Thanks to kuchengrab.
+- [Changed Sandstorm menus to be more similar like other Wekan versions, make Export visible, etc](https://github.com/wekan/wekan/commit/103d03d4c86df445b9d28d506f7d3098ab56368b).
+  Thanks to PizzaProgram and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.71 2021-01-08 Wekan release
 
 This release adds the following new features:
