@@ -82,14 +82,14 @@ BlazeComponent.extendComponent({
     let selector = {
       archived: false,
     };
-    // if user is not an admin allow her to see cards only from public boards
+    // for every user including admin allow her to see cards only from public boards
     // or those where she is a member
-    if (!user.isAdmin) {
-      selector.$or = [
-        { permission: 'public' },
-        { members: { $elemMatch: { userId: user._id, isActive: true } } },
-      ];
-    }
+    //if (!user.isAdmin) {
+    selector.$or = [
+      { permission: 'public' },
+      { members: { $elemMatch: { userId: user._id, isActive: true } } },
+    ];
+    //}
     Boards.find(selector).forEach(board => {
       permiitedBoards.push(board._id);
     });

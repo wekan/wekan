@@ -93,14 +93,14 @@ Meteor.publish('dueCards', function(allUsers = false) {
   let selector = {
     archived: false,
   };
-  // if user is not an admin allow her to see cards only from boards where
+  // for admins and users, allow her to see cards only from boards where
   // she is a member
-  if (!user.isAdmin) {
-    selector.$or = [
-      { permission: 'public' },
-      { members: { $elemMatch: { userId: user._id, isActive: true } } },
-    ];
-  }
+  //if (!user.isAdmin) {
+  selector.$or = [
+    { permission: 'public' },
+    { members: { $elemMatch: { userId: user._id, isActive: true } } },
+  ];
+  //}
   Boards.find(selector).forEach(board => {
     permiitedBoards.push(board._id);
   });
@@ -180,14 +180,14 @@ Meteor.publish('brokenCards', function() {
 
   const permiitedBoards = [null];
   let selector = {};
-  // if user is not an admin allow her to see cards only from boards where
+  // for admins and users, if user is not an admin allow her to see cards only from boards where
   // she is a member
-  if (!user.isAdmin) {
-    selector.$or = [
-      { permission: 'public' },
-      { members: { $elemMatch: { userId: user._id, isActive: true } } },
-    ];
-  }
+  //if (!user.isAdmin) {
+  selector.$or = [
+    { permission: 'public' },
+    { members: { $elemMatch: { userId: user._id, isActive: true } } },
+  ];
+  //}
   Boards.find(selector).forEach(board => {
     permiitedBoards.push(board._id);
   });

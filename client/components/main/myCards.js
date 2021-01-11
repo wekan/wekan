@@ -59,7 +59,7 @@ BlazeComponent.extendComponent({
 
   myCardsSort() {
     // eslint-disable-next-line no-console
-    console.log('sort:', Utils.myCardsSort());
+    //console.log('sort:', Utils.myCardsSort());
     return Utils.myCardsSort();
   },
 

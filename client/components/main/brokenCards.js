@@ -18,6 +18,8 @@ BlazeComponent.extendComponent({
         { boardId: { $in: [null, ''] } },
         { swimlaneId: { $in: [null, ''] } },
         { listId: { $in: [null, ''] } },
+        { permission: 'public' },
+        { members: { $elemMatch: { userId: user._id, isActive: true } } },
       ],
     };
 
