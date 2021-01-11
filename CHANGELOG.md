@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release adds the following improvements:
+
+- [Removed wekan- from export filenames for whitelabeling](https://github.com/wekan/wekan/commit/de27be0911053195838d6d0d4f1b6eae8a1d773a).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.75 2021-01-11 Wekan release
 
 This release adds the following CRITICAL SECURITY FIXES:
