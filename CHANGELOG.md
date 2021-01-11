@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release adds the following CRITICAL SECURITY FIXES:
+
+- [Due Cards and Broken Cards: In All Users view, fixed to show cards only from other users Public Boards. Not anymore from private
+  boards](https://github.com/wekan/wekan/commit/801d0aacf00eace05ec70d6f0229f2a752f119cd).
+  Thanks to xet7.
+    
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.74 2020-01-10 Wekan release
 
 This release adds the following improvements:
