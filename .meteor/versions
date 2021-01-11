@@ -11,7 +11,7 @@ allow-deny@1.1.0
 arillo:flow-router-helpers@0.5.2
 audit-argument-checks@1.0.7
 autoupdate@1.6.0
-babel-compiler@7.5.4
+babel-compiler@7.5.5
 babel-runtime@1.5.0
 base64@1.0.12
 binary-heap@1.0.11
@@ -55,7 +55,7 @@ ddp-rate-limiter@1.0.9
 ddp-server@2.3.2
 deps@1.0.12
 diff-sequence@1.1.1
-dynamic-import@0.5.4
+dynamic-import@0.5.5
 easylogic:summernote@0.8.8
 ecmascript@0.14.4
 ecmascript-runtime@0.7.0

@@ -72,7 +72,7 @@ simple:rest-accounts-password
 useraccounts:core
 email@2.0.0
 horka:swipebox
-dynamic-import@0.5.4
+dynamic-import@0.5.5
 
 accounts-password@1.6.3
 cfs:gridfs
