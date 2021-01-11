@@ -5,6 +5,11 @@ This release adds the following CRITICAL SECURITY FIXES:
 - [Due Cards and Broken Cards: In All Users view, fixed to show cards only from other users Public Boards. Not anymore from private
   boards](https://github.com/wekan/wekan/commit/801d0aacf00eace05ec70d6f0229f2a752f119cd).
   Thanks to xet7.
+
+and adds the following updates:
+
+- [Upgrade to Meteor 1.12.1](https://github.com/wekan/wekan/commit/3105548c98091773e86e4556c2980d5f533e98f1).
+  Thanks to Meteor developers.
     
 Thanks to above GitHub users for their contributions and translators for their translations.
 
