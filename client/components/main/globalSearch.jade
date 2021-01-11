@@ -12,33 +12,42 @@ template(name="globalSearch")
   .wrapper
     form.js-search-query-form
       input(type="text" name="searchQuery" placeholder="{{_ 'search-example'}}" autofocus dir="auto")
-  if searching.get
-    +spinner
-  else if hasResults.get
-    .global-search-dueat-list-wrapper
-      h1 Results
-      each card in results
-        .global-search-card-wrapper
-          a.minicard-wrapper.card-title(href=card.absoluteUrl)
-            +minicard(card)
-          ul.global-search-context-list
-            li.global-search-context(title="{{_ 'board'}}")
-              +viewer
-                = card.getBoard.title
-            li.global-search-context.global-search-context-separator
-              = ' '
-              | {{_ 'context-separator'}}
-              = ' '
-            li.global-search-context(title="{{_ 'swimlane'}}")
-              +viewer
-                = card.getSwimlane.title
-            li.global-search-context
-              = ' '
-              | {{_ 'context-separator'}}
-              = ' '
-            li.global-search-context(title="{{_ 'list'}}")
-              +viewer
-                = card.getList.title
+    if searching.get
+      +spinner
+    else if hasResults.get
+      .global-search-dueat-list-wrapper
+        h1 Results
+        each card in results
+          .global-search-card-wrapper
+            a.minicard-wrapper.card-title(href=card.absoluteUrl)
+              +minicard(card)
+              //= card.title
+            ul.global-search-context-list
+              li.global-search-context(title="{{_ 'board'}}")
+                +viewer
+                  = card.getBoard.title
+              li.global-search-context.global-search-context-separator
+                = ' '
+                | {{_ 'context-separator'}}
+                = ' '
+              li.global-search-context(title="{{_ 'swimlane'}}")
+                +viewer
+                  = card.getSwimlane.title
+              li.global-search-context
+                = ' '
+                | {{_ 'context-separator'}}
+                = ' '
+              li.global-search-context(title="{{_ 'list'}}")
+                +viewer
+                  = card.getList.title
+    else
+      h2 Search Operators
+      +viewer
+        = '*  `@`username\n'
+        = '*  `#`label\n'
+        = '*  `board:`<name> or `board:`"<name>"\n'
+        = '*  `swimlane:`<name> or `swimlane:`"<name>"\n'
+        = '*  `list:`<name> or `list:`"<name>"\n'
 
 template(name="globalSearchViewChangePopup")
   ul.pop-over-list

@@ -40,6 +40,7 @@ BlazeComponent.extendComponent({
     this.searching = new ReactiveVar(false);
     this.hasResults = new ReactiveVar(false);
     this.query = new ReactiveVar('');
+    this.queryParams = null;
 
     // this.autorun(() => {
     //   const handle = subManager.subscribe('globalSearch');
@@ -53,7 +54,10 @@ BlazeComponent.extendComponent({
   },
 
   results() {
-    return Cards.find();
+    if (this.queryParams) {
+      return Cards.globalSearch(this.queryParams);
+    }
+    return [];
   },
 
   events() {
@@ -63,6 +67,12 @@ BlazeComponent.extendComponent({
           evt.preventDefault();
           this.query.set(evt.target.searchQuery.value);
 
+          if (!this.query.get()) {
+            this.searching.set(false);
+            this.hasResults.set(false);
+            return;
+          }
+
           this.searching.set(true);
           this.hasResults.set(false);
 
@@ -70,8 +80,8 @@ BlazeComponent.extendComponent({
           // eslint-disable-next-line no-console
           console.log('query:', query);
 
-          const reUser = /^@(?<user>\w+)(\s+|$)/;
-          const reLabel = /^#(?<label>\w+)(\s+|$)/;
+          const reUser = /^@(?<user>[\w.:]+)(\s+|$)/;
+          const reLabel = /^#(?<label>[\w:-]+)(\s+|$)/;
           const reOperator1 = /^(?<operator>\w+):(?<value>\w+)(\s+|$)/;
           const reOperator2 = /^(?<operator>\w+):(?<quote>["']*)(?<value>.*?)\k<quote>(\s+|$)/;
           const reText = /^(?<text>[^:@#\s]+)(\s+|$)/;
@@ -148,7 +158,7 @@ BlazeComponent.extendComponent({
           }
 
           // eslint-disable-next-line no-console
-          console.log('selector:', selector);
+          // console.log('selector:', selector);
           // eslint-disable-next-line no-console
           console.log('text:', text);
 
@@ -193,13 +203,21 @@ BlazeComponent.extendComponent({
           }
 
           selector.text = text;
+          // eslint-disable-next-line no-console
+          console.log('selector:', selector);
+
+          this.queryParams = selector;
 
           this.autorun(() => {
             const handle = subManager.subscribe('globalSearch', selector);
             Tracker.nonreactive(() => {
               Tracker.autorun(() => {
-                this.searching.set(!handle.ready());
-                this.hasResults.set(handle.ready());
+                // eslint-disable-next-line no-console
+                console.log('ready:', handle.ready());
+                if (handle.ready()) {
+                  this.searching.set(false);
+                  this.hasResults.set(true);
+                }
               });
             });
           });

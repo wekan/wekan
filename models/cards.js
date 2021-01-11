@@ -1730,6 +1730,94 @@ Cards.mutations({
   },
 });
 
+Cards.globalSearch = queryParams => {
+  const userId = Meteor.userId;
+  // eslint-disable-next-line no-console
+  console.log('userId:', this.userId);
+
+  let selector = {
+    archived: false,
+  };
+
+  const searchLists = [];
+  // eslint-disable-next-line no-console
+  // console.log('listsSelector:', queryParams.keys());
+  if ('listsSelector' in queryParams) {
+    // eslint-disable-next-line no-console
+    // console.log('listsSelector:', queryParams.listsSelector.keys());
+    for (const key in queryParams.listsSelector) {
+      selector[key] = queryParams.listsSelector[key];
+    }
+
+    // eslint-disable-next-line no-console
+    console.log('search list selector:', selector);
+    Lists.find(selector).forEach(list => {
+      searchLists.push(list._id);
+    });
+    // eslint-disable-next-line no-console
+    console.log('search lists:', searchLists);
+  }
+
+  const searchSwimlanes = [];
+  if ('swimlanesSelector' in queryParams) {
+    for (const key in queryParams.swimlanesSelector) {
+      selector[key] = queryParams.swimlanesSelector[key];
+    }
+
+    Lists.find(selector).forEach(swim => {
+      searchSwimlanes.push(swim._id);
+    });
+  }
+
+  selector = {
+    archived: false,
+    type: 'cardType-card',
+    boardId: { $in: Boards.userBoardIds(userId) },
+    swimlaneId: { $nin: Swimlanes.archivedSwimlaneIds() },
+    listId: { $nin: Lists.archivedListIds() },
+  };
+
+  if (searchSwimlanes.length) {
+    selector.swimlaneId.$in = searchSwimlanes;
+  }
+
+  if (searchLists.length) {
+    selector.listId.$in = searchLists;
+  }
+
+  if (queryParams.users.length) {
+    const users = [];
+    Users.find({ username: { $in: queryParams.users } }).forEach(user => {
+      users.push(user._id);
+    });
+    if (users.length) {
+      selector.$or = [
+        { members: { $in: users } },
+        { assignees: { $in: users } },
+      ];
+    }
+  }
+
+  // eslint-disable-next-line no-console
+  console.log('selector:', selector);
+  return Cards.find(selector, {
+    fields: {
+      _id: 1,
+      archived: 1,
+      boardId: 1,
+      swimlaneId: 1,
+      listId: 1,
+      title: 1,
+      type: 1,
+      sort: 1,
+      members: 1,
+      assignees: 1,
+      colors: 1,
+      dueAt: 1,
+    },
+  });
+};
+
 //FUNCTIONS FOR creation of Activities
 
 function updateActivities(doc, fieldNames, modifier) {

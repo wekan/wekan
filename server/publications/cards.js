@@ -181,78 +181,7 @@ Meteor.publish('globalSearch', function(queryParams) {
   // eslint-disable-next-line no-console
   console.log('queryParams:', queryParams);
 
-  const user = Users.findOne(this.userId);
-
-  // const archivedSwimlanes = Swimlanes.archivedSwimlaneIds();
-
-  // const permiitedBoards = Boards.userBoardIds(user._id);
-
-  let selector = {
-    archived: false,
-  };
-  const searchLists = [];
-  // eslint-disable-next-line no-console
-  // console.log('listsSelector:', queryParams.keys());
-  if ('listsSelector' in queryParams) {
-    // eslint-disable-next-line no-console
-    // console.log('listsSelector:', queryParams.listsSelector.keys());
-    for (const key in queryParams.listsSelector) {
-      selector[key] = queryParams.listsSelector[key];
-    }
-
-    // eslint-disable-next-line no-console
-    console.log('search list selector:', selector);
-    Lists.find(selector).forEach(list => {
-      searchLists.push(list._id);
-    });
-    // eslint-disable-next-line no-console
-    console.log('search lists:', searchLists);
-  }
-
-  const searchSwimlanes = [];
-  if ('swimlanesSelector' in queryParams) {
-    for (const key in queryParams.swimlanesSelector) {
-      selector[key] = queryParams.swimlanesSelector[key];
-    }
-
-    Lists.find(selector).forEach(swim => {
-      searchSwimlanes.push(swim._id);
-    });
-  }
-
-  selector = {
-    archived: false,
-    boardId: { $in: Boards.userBoardIds(user._id) },
-    swimlaneId: { $nin: Swimlanes.archivedSwimlaneIds() },
-    listId: { $nin: Lists.archivedListIds() },
-  };
-
-  if (searchSwimlanes.length) {
-    selector.swimlaneId.$in = searchSwimlanes;
-  }
-
-  if (searchLists.length) {
-    selector.listId.$in = searchLists;
-  }
-
-  // eslint-disable-next-line no-console
-  console.log('selector:', selector);
-  const cards = Cards.find(selector, {
-    fields: {
-      _id: 1,
-      archived: 1,
-      boardId: 1,
-      swimlaneId: 1,
-      listId: 1,
-      title: 1,
-      type: 1,
-      sort: 1,
-      members: 1,
-      assignees: 1,
-      colors: 1,
-      dueAt: 1,
-    },
-  });
+  const cards = Cards.globalSearch(queryParams);
 
   const boards = [];
   const swimlanes = [];
