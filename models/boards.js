@@ -1208,6 +1208,26 @@ function boardRemover(userId, doc) {
   );
 }
 
+Boards.userBoards = (userId, includeArchived = false, selector = {}) => {
+  if (!includeArchived) {
+    selector = {
+      archived: false,
+    };
+  }
+  selector.$or = [
+    { permission: 'public' },
+    { members: { $elemMatch: { userId, isActive: true } } },
+  ];
+
+  return Boards.find(selector);
+};
+
+Boards.userBoardIds = (userId, includeArchived = false, selector = {}) => {
+  return Boards.userBoards(userId, includeArchived, selector).map(board => {
+    return board._id;
+  });
+};
+
 if (Meteor.isServer) {
   Boards.allow({
     insert: Meteor.userId,

@@ -328,6 +328,16 @@ Lists.mutations({
   },
 });
 
+Lists.archivedLists = () => {
+  return Lists.find({ archived: true });
+};
+
+Lists.archivedListIds = () => {
+  return Lists.archivedLists().map(list => {
+    return list._id;
+  });
+};
+
 Meteor.methods({
   applyWipLimit(listId, limit) {
     check(listId, String);

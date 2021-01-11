@@ -179,56 +179,26 @@ Meteor.publish('globalSearch', function(queryParams) {
   check(queryParams, Object);
 
   // eslint-disable-next-line no-console
-  console.log('selector:', queryParams);
+  console.log('queryParams:', queryParams);
 
   const user = Users.findOne(this.userId);
 
-  const archivedBoards = [];
-  Boards.find({ archived: true }).forEach(board => {
-    archivedBoards.push(board._id);
-  });
+  // const archivedSwimlanes = Swimlanes.archivedSwimlaneIds();
 
-  const archivedSwimlanes = [];
-  Swimlanes.find({ archived: true }).forEach(swimlane => {
-    archivedSwimlanes.push(swimlane._id);
-  });
+  // const permiitedBoards = Boards.userBoardIds(user._id);
 
-  const archivedLists = [];
-  Lists.find({ archived: true }).forEach(list => {
-    archivedLists.push(list._id);
-  });
-
-  const permiitedBoards = [];
   let selector = {
     archived: false,
   };
-  // if user is not an admin allow her to see cards only from boards where
-  // she is a member
-  if (!user.isAdmin) {
-    selector.$or = [
-      { permission: 'public' },
-      { members: { $elemMatch: { userId: user._id, isActive: true } } },
-    ];
-  }
-  if (queryParams.boards.length) {
-    selector.title = { $in: [] };
-    queryParams.boards.forEach(term => {
-      selector.title.$in.push(term);
-    });
-  }
-  Boards.find(selector).forEach(board => {
-    permiitedBoards.push(board._id);
-  });
-
   const searchLists = [];
-  if (queryParams.lists.length) {
-    selector = {
-      archived: false,
-      title: { $in: [] },
-    };
-    queryParams.lists.forEach(term => {
-      selector.title.$in.push(term);
-    });
+  // eslint-disable-next-line no-console
+  // console.log('listsSelector:', queryParams.keys());
+  if ('listsSelector' in queryParams) {
+    // eslint-disable-next-line no-console
+    // console.log('listsSelector:', queryParams.listsSelector.keys());
+    for (const key in queryParams.listsSelector) {
+      selector[key] = queryParams.listsSelector[key];
+    }
 
     // eslint-disable-next-line no-console
     console.log('search list selector:', selector);
@@ -239,17 +209,34 @@ Meteor.publish('globalSearch', function(queryParams) {
     console.log('search lists:', searchLists);
   }
 
+  const searchSwimlanes = [];
+  if ('swimlanesSelector' in queryParams) {
+    for (const key in queryParams.swimlanesSelector) {
+      selector[key] = queryParams.swimlanesSelector[key];
+    }
+
+    Lists.find(selector).forEach(swim => {
+      searchSwimlanes.push(swim._id);
+    });
+  }
+
   selector = {
     archived: false,
-    boardId: { $nin: archivedBoards, $in: permiitedBoards },
-    swimlaneId: { $nin: archivedSwimlanes },
-    listId: { $nin: archivedLists },
+    boardId: { $in: Boards.userBoardIds(user._id) },
+    swimlaneId: { $nin: Swimlanes.archivedSwimlaneIds() },
+    listId: { $nin: Lists.archivedListIds() },
   };
+
+  if (searchSwimlanes.length) {
+    selector.swimlaneId.$in = searchSwimlanes;
+  }
 
   if (searchLists.length) {
     selector.listId.$in = searchLists;
   }
 
+  // eslint-disable-next-line no-console
+  console.log('selector:', selector);
   const cards = Cards.find(selector, {
     fields: {
       _id: 1,
