@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v4.75 2021-01-11 Wekan release
 
 This release adds the following CRITICAL SECURITY FIXES:
 
@@ -13,7 +13,7 @@ and adds the following updates:
     
 Thanks to above GitHub users for their contributions and translators for their translations.
 
-# v4.74 2020-01-10 Wekan release
+# v4.74 2021-01-10 Wekan release
 
 This release adds the following improvements:
 
@@ -23,7 +23,7 @@ This release adds the following improvements:
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
-# v4.73 2020-01-10 Wekan release
+# v4.73 2021-01-10 Wekan release
 
 This release adds the following new features:
 
