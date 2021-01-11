@@ -244,7 +244,7 @@ Template.boardMenuPopup.helpers({
   },
   exportFilename() {
     const boardId = Session.get('currentBoard');
-    return `wekan-export-board-${boardId}.json`;
+    return `export-board-${boardId}.json`;
   },
 });
 
@@ -464,15 +464,15 @@ BlazeComponent.extendComponent({
   },
   exportJsonFilename() {
     const boardId = Session.get('currentBoard');
-    return `wekan-export-board-${boardId}.json`;
+    return `export-board-${boardId}.json`;
   },
   exportCsvFilename() {
     const boardId = Session.get('currentBoard');
-    return `wekan-export-board-${boardId}.csv`;
+    return `export-board-${boardId}.csv`;
   },
   exportTsvFilename() {
     const boardId = Session.get('currentBoard');
-    return `wekan-export-board-${boardId}.tsv`;
+    return `export-board-${boardId}.tsv`;
   },
 }).register('exportBoardPopup');
 
