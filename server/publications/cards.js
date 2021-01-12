@@ -93,14 +93,14 @@ Meteor.publish('dueCards', function(allUsers = false) {
   let selector = {
     archived: false,
   };
-  // if user is not an admin allow her to see cards only from boards where
+  // for admins and users, allow her to see cards only from boards where
   // she is a member
-  if (!user.isAdmin) {
-    selector.$or = [
-      { permission: 'public' },
-      { members: { $elemMatch: { userId: user._id, isActive: true } } },
-    ];
-  }
+  //if (!user.isAdmin) {
+  selector.$or = [
+    { permission: 'public' },
+    { members: { $elemMatch: { userId: user._id, isActive: true } } },
+  ];
+  //}
   Boards.find(selector).forEach(board => {
     permiitedBoards.push(board._id);
   });
@@ -182,6 +182,79 @@ Meteor.publish('globalSearch', function(queryParams) {
   console.log('queryParams:', queryParams);
 
   const cards = Cards.globalSearch(queryParams).cards;
+
+  const boards = [];
+  const swimlanes = [];
+  const lists = [];
+  const users = [];
+
+  cards.forEach(card => {
+    if (card.boardId) boards.push(card.boardId);
+    if (card.swimlaneId) swimlanes.push(card.swimlaneId);
+    if (card.listId) lists.push(card.listId);
+    if (card.members) {
+      card.members.forEach(userId => {
+        users.push(userId);
+      });
+    }
+    if (card.assignees) {
+      card.assignees.forEach(userId => {
+        users.push(userId);
+      });
+    }
+  });
+
+  return [
+    cards,
+    Boards.find({ _id: { $in: boards } }),
+    Swimlanes.find({ _id: { $in: swimlanes } }),
+    Lists.find({ _id: { $in: lists } }),
+    Users.find({ _id: { $in: users } }),
+  ];
+});
+
+Meteor.publish('brokenCards', function() {
+  const user = Users.findOne(this.userId);
+
+  const permiitedBoards = [null];
+  let selector = {};
+  // for admins and users, if user is not an admin allow her to see cards only from boards where
+  // she is a member
+  //if (!user.isAdmin) {
+  selector.$or = [
+    { permission: 'public' },
+    { members: { $elemMatch: { userId: user._id, isActive: true } } },
+  ];
+  //}
+  Boards.find(selector).forEach(board => {
+    permiitedBoards.push(board._id);
+  });
+
+  selector = {
+    boardId: { $in: permiitedBoards },
+    $or: [
+      { boardId: { $in: [null, ''] } },
+      { swimlaneId: { $in: [null, ''] } },
+      { listId: { $in: [null, ''] } },
+    ],
+  };
+
+  const cards = Cards.find(selector, {
+    fields: {
+      _id: 1,
+      archived: 1,
+      boardId: 1,
+      swimlaneId: 1,
+      listId: 1,
+      title: 1,
+      type: 1,
+      sort: 1,
+      members: 1,
+      assignees: 1,
+      colors: 1,
+      dueAt: 1,
+    },
+  });
 
   const boards = [];
   const swimlanes = [];

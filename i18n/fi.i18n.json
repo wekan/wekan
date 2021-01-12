@@ -854,7 +854,15 @@
   "list": "Lista",
   "board": "Taulu",
   "context-separator": "/",
-  "my-cards-sort": "Korttini järjestys",
-  "my-cards-sort-board": "Taulun mukaan",
-  "my-cards-sort-dueat": "Eräpäivän mukaan"
+  "myCardsSortChange-title": "Korttini järjestys",
+  "myCardsSortChangePopup-title": "Korttini järjestys",
+  "myCardsSortChange-choice-board": "Taulun mukaan",
+  "myCardsSortChange-choice-dueat": "Eräpäivän mukaan",
+  "dueCards-title": "Eräpäivä kortit",
+  "dueCardsViewChange-title": "Eräpäivä kortit näkymä",
+  "dueCardsViewChangePopup-title": "Eräpäivä kortit näkymä",
+  "dueCardsViewChange-choice-me": "Minä",
+  "dueCardsViewChange-choice-all": "Kaikki käyttäjät",
+  "dueCardsViewChange-choice-all-description": "Näyttää kaikki keskeneräiset kortit joilla on *eräpäivä* tauluilta joihin käyttäjällä on oikeudet.",
+  "broken-cards": "Rikkinäiset kortit"
 }

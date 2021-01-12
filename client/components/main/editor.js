@@ -275,7 +275,10 @@ function mySafeAttrValue(tag, name, value, cssFilter) {
     if (
       /^thunderlink:/gi.test(value) ||
       /^cbthunderlink:/gi.test(value) ||
-      /^aodroplink:/gi.test(value)
+      /^aodroplink:/gi.test(value) ||
+      /^onenote:/gi.test(value) ||
+      /^file:/gi.test(value) ||
+      /^mailspring:/gi.test(value)
     ) {
       return value;
     } else {

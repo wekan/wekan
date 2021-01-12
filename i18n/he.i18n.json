@@ -854,7 +854,15 @@
   "list": "רשימה",
   "board": "לוח",
   "context-separator": "/",
-  "my-cards-sort": "סידור הכרטיסים שלי",
-  "my-cards-sort-board": "הלוח שלי",
-  "my-cards-sort-dueat": "לפי מועד סיום"
+  "myCardsSortChange-title": "סידור הכרטיסים שלי",
+  "myCardsSortChangePopup-title": "סידור הכרטיסים שלי",
+  "myCardsSortChange-choice-board": "הלוח שלי",
+  "myCardsSortChange-choice-dueat": "לפי מועד סיום",
+  "dueCards-title": "כרטיסים שתוקפם פג",
+  "dueCardsViewChange-title": "תצוגת כרטיסים שתוקפם פג",
+  "dueCardsViewChangePopup-title": "תצוגת כרטיסים שתוקפם פג",
+  "dueCardsViewChange-choice-me": "אני",
+  "dueCardsViewChange-choice-all": "כל המשתמשים",
+  "dueCardsViewChange-choice-all-description": "מציג את כל הכרטיסים שלא הושלמו ושיש להם *תוקף* מלוחות שלמשתמש יש הרשאה לגשת אליהם.",
+  "broken-cards": "כרטיסים פגומים"
 }

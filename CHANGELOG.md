@@ -1,3 +1,67 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Try to allow links to onenote, mailspring and file](https://github.com/wekan/wekan/commit/3977f2187aa4dc0bd9ddfcd02065437df0f1a5c0).
+  Thanks to lime918, rgalonso, ocdtrekkie, gkarachuk and xet7.
+
+and adds the following improvements:
+
+- [Removed wekan- from export filenames for whitelabeling](https://github.com/wekan/wekan/commit/de27be0911053195838d6d0d4f1b6eae8a1d773a).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v4.75 2021-01-11 Wekan release
+
+This release adds the following CRITICAL SECURITY FIXES:
+
+- [Due Cards and Broken Cards: In All Users view, fixed to show cards only from other users Public Boards. Not anymore from private
+  boards](https://github.com/wekan/wekan/commit/801d0aacf00eace05ec70d6f0229f2a752f119cd).
+  Thanks to xet7.
+
+and adds the following updates:
+
+- [Upgrade to Meteor 1.12.1](https://github.com/wekan/wekan/commit/3105548c98091773e86e4556c2980d5f533e98f1).
+  Thanks to Meteor developers.
+    
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v4.74 2021-01-10 Wekan release
+
+This release adds the following improvements:
+
+- [My Cards and Due Cards: Added popup title and horizontal line between menu
+  options](https://github.com/wekan/wekan/commit/9293de541b3fcccee52751808f0e95b04986c1bb).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v4.73 2021-01-10 Wekan release
+
+This release adds the following new features:
+
+- [Broken Cards](https://github.com/wekan/wekan/pull/3426) for debugging.
+  Thanks to jrsupplee.
+- ["Broken Cards" to be translatable](https://github.com/wekan/wekan/commit/d09e448fbd37ae84419aa3909b9a4594cd7ddb92).
+  Thanks to xet7.
+- [Added Broken Cards to User Settings menu](https://github.com/wekan/wekan/commit/b98df8ef87fc0c501d4f06e3e5af292605bd21cf).
+  Thanks to xet7.
+
+and adds the following improvements:
+
+- [My Cards: Make code forgiving of possible null values for a card's board, swimlane, or list.
+  Added a new Due Cards page that displays cards with a Due date for either just the user or all
+  users](https://github.com/wekan/wekan/pull/3425).
+  Thanks to jrsupplee.
+
+and fixes the following bugs:
+
+- [Fixed Spanish language names to lowercase español](https://github.com/wekan/wekan/commit/9ec1904119e6bec4c00600cb8ea81c28e631ae2e).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.72 2021-01-09 Wekan release
 
 This release fixes the following bugs:

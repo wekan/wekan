@@ -2,8 +2,8 @@ import sanitizeXss from 'xss';
 var Markdown = require('markdown-it')({
   html: true,
   linkify: true,
-	typographer: true,
-	breaks: true,
+  typographer: true,
+  breaks: true,
 });
 
 // Additional  safeAttrValue function to allow for other specific protocols
@@ -13,7 +13,12 @@ function mySafeAttrValue(tag, name, value, cssFilter) {
   // then use your custom function
   if (tag === 'a' && name === 'href') {
     // only filter the value if starts with 'cbthunderlink:' or 'aodroplink'
-    if (/^thunderlink:/ig.test(value) || /^cbthunderlink:/ig.test(value) || /^aodroplink:/ig.test(value)) {
+    if (/^thunderlink:/ig.test(value) ||
+        /^cbthunderlink:/ig.test(value) ||
+        /^aodroplink:/ig.test(value) ||
+        /^onenote:/ig.test(value) ||
+        /^file:/ig.test(value) ||
+        /^mailspring:/ig.test(value)) {
       return value;
     }
     else {
@@ -30,18 +35,18 @@ var emoji = require('markdown-it-emoji');
 Markdown.use(emoji);
 
 if (Package.ui) {
-	const Template = Package.templating.Template;
-	const UI = Package.ui.UI;
-	const HTML = Package.htmljs.HTML;
-	const Blaze = Package.blaze.Blaze; // implied by `ui`
+  const Template = Package.templating.Template;
+  const UI = Package.ui.UI;
+  const HTML = Package.htmljs.HTML;
+  const Blaze = Package.blaze.Blaze; // implied by `ui`
 
-	UI.registerHelper('markdown', new Template('markdown', function () {
-		const self = this;
-		let text = '';
-		if (self.templateContentBlock) {
-			text = Blaze._toText(self.templateContentBlock, HTML.TEXTMODE.STRING);
-		}
+  UI.registerHelper('markdown', new Template('markdown', function () {
+    const self = this;
+    let text = '';
+    if (self.templateContentBlock) {
+      text = Blaze._toText(self.templateContentBlock, HTML.TEXTMODE.STRING);
+    }
 
-			return HTML.Raw(sanitizeXss(Markdown.render(text), { safeAttrValue: mySafeAttrValue }));
-	}));
+    return HTML.Raw(sanitizeXss(Markdown.render(text), { safeAttrValue: mySafeAttrValue }));
+  }));
 }

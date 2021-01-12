@@ -854,7 +854,15 @@
   "list": "Liste",
   "board": "Tableau",
   "context-separator": "/",
-  "my-cards-sort": "Trier Mes Cartes",
-  "my-cards-sort-board": "Par tableau",
-  "my-cards-sort-dueat": "Par date d'échéance"
+  "myCardsSortChange-title": "Trier Mes Cartes",
+  "myCardsSortChangePopup-title": "Trier Mes Cartes",
+  "myCardsSortChange-choice-board": "Par tableau",
+  "myCardsSortChange-choice-dueat": "Par date d'échéance",
+  "dueCards-title": "Cartes Échues",
+  "dueCardsViewChange-title": "Vue des Cartes Échues",
+  "dueCardsViewChangePopup-title": "Vue des Cartes Échues",
+  "dueCardsViewChange-choice-me": "Moi",
+  "dueCardsViewChange-choice-all": "Tous les utilisateurs",
+  "dueCardsViewChange-choice-all-description": "Visualise toutes les cartes incomplètes avec une date *échue* pour lesquelles l'utilisateur possède les droits",
+  "broken-cards": "Cartes en erreur"
 }
