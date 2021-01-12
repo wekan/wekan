@@ -1798,6 +1798,16 @@ Cards.globalSearch = queryParams => {
     }
   }
 
+  if (queryParams.text) {
+    const regex = new RegExp(queryParams.text, 'i');
+
+    selector.$or = [
+      { title: regex },
+      { description: regex },
+      { customFields: { $elemMatch: { value: regex } } },
+    ];
+  }
+
   // eslint-disable-next-line no-console
   console.log('selector:', selector);
   return Cards.find(selector, {
@@ -1815,6 +1825,7 @@ Cards.globalSearch = queryParams => {
       colors: 1,
       dueAt: 1,
     },
+    limit: 50,
   });
 };
 

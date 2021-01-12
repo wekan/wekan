@@ -16,7 +16,9 @@ template(name="globalSearch")
       +spinner
     else if hasResults.get
       .global-search-dueat-list-wrapper
-        h1 Results
+        h1
+          = resultsCount.get
+          | Results
         each card in results
           .global-search-card-wrapper
             a.minicard-wrapper.card-title(href=card.absoluteUrl)

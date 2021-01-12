@@ -41,6 +41,7 @@ BlazeComponent.extendComponent({
     this.hasResults = new ReactiveVar(false);
     this.query = new ReactiveVar('');
     this.queryParams = null;
+    this.resultsCount = new ReactiveVar(0);
 
     // this.autorun(() => {
     //   const handle = subManager.subscribe('globalSearch');
@@ -55,7 +56,9 @@ BlazeComponent.extendComponent({
 
   results() {
     if (this.queryParams) {
-      return Cards.globalSearch(this.queryParams);
+      const cards = Cards.globalSearch(this.queryParams);
+      this.resultsCount.set(cards.count());
+      return cards;
     }
     return [];
   },
