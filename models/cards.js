@@ -1735,41 +1735,7 @@ Cards.globalSearch = queryParams => {
   // eslint-disable-next-line no-console
   console.log('userId:', this.userId);
 
-  let selector = {
-    archived: false,
-  };
-
-  const searchLists = [];
-  // eslint-disable-next-line no-console
-  // console.log('listsSelector:', queryParams.keys());
-  if ('listsSelector' in queryParams) {
-    // eslint-disable-next-line no-console
-    // console.log('listsSelector:', queryParams.listsSelector.keys());
-    for (const key in queryParams.listsSelector) {
-      selector[key] = queryParams.listsSelector[key];
-    }
-
-    // eslint-disable-next-line no-console
-    console.log('search list selector:', selector);
-    Lists.find(selector).forEach(list => {
-      searchLists.push(list._id);
-    });
-    // eslint-disable-next-line no-console
-    console.log('search lists:', searchLists);
-  }
-
-  const searchSwimlanes = [];
-  if ('swimlanesSelector' in queryParams) {
-    for (const key in queryParams.swimlanesSelector) {
-      selector[key] = queryParams.swimlanesSelector[key];
-    }
-
-    Lists.find(selector).forEach(swim => {
-      searchSwimlanes.push(swim._id);
-    });
-  }
-
-  selector = {
+  const selector = {
     archived: false,
     type: 'cardType-card',
     boardId: { $in: Boards.userBoardIds(userId) },
@@ -1777,12 +1743,36 @@ Cards.globalSearch = queryParams => {
     listId: { $nin: Lists.archivedListIds() },
   };
 
-  if (searchSwimlanes.length) {
-    selector.swimlaneId.$in = searchSwimlanes;
+  if ('swimlanesSelector' in queryParams) {
+    const swimSelector = {
+      archived: false,
+    };
+
+    for (const key in queryParams.swimlanesSelector) {
+      swimSelector[key] = queryParams.swimlanesSelector[key];
+    }
+
+    selector.swimlaneId.$in = Swimlanes.find(swimSelector).map(swim => {
+      return swim._id;
+    });
   }
 
-  if (searchLists.length) {
-    selector.listId.$in = searchLists;
+  if ('listsSelector' in queryParams) {
+    const listsSelector = {
+      archived: false,
+    };
+
+    // eslint-disable-next-line no-console
+    // console.log('listsSelector:', queryParams.listsSelector.keys());
+    for (const key in queryParams.listsSelector) {
+      listsSelector[key] = queryParams.listsSelector[key];
+    }
+
+    // eslint-disable-next-line no-console
+    console.log('search list selector:', selector);
+    selector.listId.$in = Lists.find(listsSelector).map(list => {
+      return list._id;
+    });
   }
 
   if (queryParams.users.length) {
@@ -1810,7 +1800,7 @@ Cards.globalSearch = queryParams => {
 
   // eslint-disable-next-line no-console
   console.log('selector:', selector);
-  return Cards.find(selector, {
+  const cards = Cards.find(selector, {
     fields: {
       _id: 1,
       archived: 1,
@@ -1827,6 +1817,10 @@ Cards.globalSearch = queryParams => {
     },
     limit: 50,
   });
+
+  // eslint-disable-next-line no-console
+  console.log('count:', cards.count());
+  return cards;
 };
 
 //FUNCTIONS FOR creation of Activities
