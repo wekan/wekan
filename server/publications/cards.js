@@ -181,7 +181,7 @@ Meteor.publish('globalSearch', function(queryParams) {
   // eslint-disable-next-line no-console
   console.log('queryParams:', queryParams);
 
-  const cards = Cards.globalSearch(queryParams);
+  const cards = Cards.globalSearch(queryParams).cards;
 
   const boards = [];
   const swimlanes = [];

@@ -42,25 +42,41 @@ BlazeComponent.extendComponent({
     this.query = new ReactiveVar('');
     this.queryParams = null;
     this.resultsCount = new ReactiveVar(0);
-
-    // this.autorun(() => {
-    //   const handle = subManager.subscribe('globalSearch');
-    //   Tracker.nonreactive(() => {
-    //     Tracker.autorun(() => {
-    //       this.isPageReady.set(handle.ready());
-    //     });
-    //   });
-    // });
+    this.queryErrors = new ReactiveVar(null);
     Meteor.subscribe('setting');
   },
 
   results() {
     if (this.queryParams) {
-      const cards = Cards.globalSearch(this.queryParams);
-      this.resultsCount.set(cards.count());
-      return cards;
+      const results = Cards.globalSearch(this.queryParams);
+      // eslint-disable-next-line no-console
+      console.log('errors:', results.errors);
+      this.resultsCount.set(results.cards.count());
+      this.queryErrors.set(results.errors);
+      return results.cards;
     }
+    this.resultsCount.set(0);
     return [];
+  },
+
+  errorMessages() {
+    const errors = this.queryErrors.get();
+    const messages = [];
+
+    errors.notFound.boards.forEach(board => {
+      messages.push({ tag: 'board-title-not-found', value: board });
+    });
+    errors.notFound.swimlanes.forEach(swim => {
+      messages.push({ tag: 'swimlane-title-not-found', value: swim });
+    });
+    errors.notFound.lists.forEach(list => {
+      messages.push({ tag: 'list-title-not-found', value: list });
+    });
+    errors.notFound.users.forEach(user => {
+      messages.push({ tag: 'user-username-not-found', value: user });
+    });
+
+    return messages;
   },
 
   events() {
@@ -69,6 +85,7 @@ BlazeComponent.extendComponent({
         'submit .js-search-query-form'(evt) {
           evt.preventDefault();
           this.query.set(evt.target.searchQuery.value);
+          this.queryErrors.set(null);
 
           if (!this.query.get()) {
             this.searching.set(false);

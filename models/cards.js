@@ -1735,6 +1735,15 @@ Cards.globalSearch = queryParams => {
   // eslint-disable-next-line no-console
   console.log('userId:', this.userId);
 
+  const errors = {
+    notFound: {
+      boards: [],
+      swimlanes: [],
+      lists: [],
+      users: [],
+    },
+  };
+
   const selector = {
     archived: false,
     type: 'cardType-card',
@@ -1743,58 +1752,78 @@ Cards.globalSearch = queryParams => {
     listId: { $nin: Lists.archivedListIds() },
   };
 
-  if ('swimlanesSelector' in queryParams) {
-    const swimSelector = {
-      archived: false,
-    };
-
-    for (const key in queryParams.swimlanesSelector) {
-      swimSelector[key] = queryParams.swimlanesSelector[key];
-    }
-
-    selector.swimlaneId.$in = Swimlanes.find(swimSelector).map(swim => {
-      return swim._id;
+  if (queryParams.boards.length) {
+    const queryBoards = [];
+    queryParams.boards.forEach(query => {
+      const boards = Boards.userSearch(userId, {
+        title: query,
+      });
+      if (boards.count()) {
+        boards.forEach(board => {
+          queryBoards.push(board._id);
+        });
+      } else {
+        errors.notFound.boards.push(query);
+      }
     });
+
+    selector.boardId.$in = queryBoards;
   }
 
-  if ('listsSelector' in queryParams) {
-    const listsSelector = {
-      archived: false,
-    };
-
-    // eslint-disable-next-line no-console
-    // console.log('listsSelector:', queryParams.listsSelector.keys());
-    for (const key in queryParams.listsSelector) {
-      listsSelector[key] = queryParams.listsSelector[key];
-    }
-
-    // eslint-disable-next-line no-console
-    console.log('search list selector:', selector);
-    selector.listId.$in = Lists.find(listsSelector).map(list => {
-      return list._id;
+  if (queryParams.swimlanes.length) {
+    const querySwimlanes = [];
+    queryParams.swimlanes.forEach(query => {
+      const swimlanes = Swimlanes.find({
+        title: query,
+      });
+      if (swimlanes.count()) {
+        swimlanes.forEach(swim => {
+          querySwimlanes.push(swim._id);
+        });
+      } else {
+        errors.notFound.swimlanes.push(query);
+      }
     });
+
+    selector.swimlaneId.$in = querySwimlanes;
+  }
+
+  if (queryParams.lists.length) {
+    const queryLists = [];
+    queryParams.lists.forEach(query => {
+      const lists = Lists.find({
+        title: query,
+      });
+      if (lists.count()) {
+        lists.forEach(list => {
+          queryLists.push(list._id);
+        });
+      } else {
+        errors.notFound.lists.push(query);
+      }
+    });
+
+    selector.listId.$in = queryLists;
   }
 
   if (queryParams.users.length) {
-    const users = [];
-    Users.find({ username: { $in: queryParams.users } }).forEach(user => {
-      users.push(user._id);
+    const queryUsers = [];
+    queryParams.users.forEach(query => {
+      const users = Users.find({
+        username: query,
+      });
+      if (users.count()) {
+        users.forEach(user => {
+          queryUsers.push(user._id);
+        });
+      } else {
+        errors.notFound.users.push(query);
+      }
     });
-    if (users.length) {
-      selector.$or = [
-        { members: { $in: users } },
-        { assignees: { $in: users } },
-      ];
-    }
-  }
-
-  if (queryParams.text) {
-    const regex = new RegExp(queryParams.text, 'i');
 
     selector.$or = [
-      { title: regex },
-      { description: regex },
-      { customFields: { $elemMatch: { value: regex } } },
+      { members: { $in: queryUsers } },
+      { assignees: { $in: queryUsers } },
     ];
   }
 
@@ -1820,7 +1849,7 @@ Cards.globalSearch = queryParams => {
 
   // eslint-disable-next-line no-console
   console.log('count:', cards.count());
-  return cards;
+  return { cards, errors };
 };
 
 //FUNCTIONS FOR creation of Activities

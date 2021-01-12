@@ -19,6 +19,11 @@ template(name="globalSearch")
         h1
           = resultsCount.get
           | Results
+        if queryErrors.get
+          div
+            each msg in errorMessages
+              span.global-search-error-messages
+                | {{_ msg.tag msg.value }}
         each card in results
           .global-search-card-wrapper
             a.minicard-wrapper.card-title(href=card.absoluteUrl)

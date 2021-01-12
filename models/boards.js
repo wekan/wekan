@@ -1208,6 +1208,20 @@ function boardRemover(userId, doc) {
   );
 }
 
+Boards.userSearch = (userId, includeArchived = false, selector = {}) => {
+  if (!includeArchived) {
+    selector = {
+      archived: false,
+    };
+  }
+  selector.$or = [
+    { permission: 'public' },
+    { members: { $elemMatch: { userId, isActive: true } } },
+  ];
+
+  return Boards.find(selector);
+};
+
 Boards.userBoards = (userId, includeArchived = false, selector = {}) => {
   if (!includeArchived) {
     selector = {

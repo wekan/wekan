@@ -861,5 +861,9 @@
   "dueCardsViewChange-title": "Due Cards View",
   "dueCardsViewChange-choice-me": "Me",
   "dueCardsViewChange-choice-all": "All Users",
-  "dueCardsViewChange-choice-all-description": "Shows all incomplete cards with a *Due* date from boards for which the user has permission."
+  "dueCardsViewChange-choice-all-description": "Shows all incomplete cards with a *Due* date from boards for which the user has permission.",
+  "board-title-not-found": "Board '%s' not found.",
+  "swimlane-title-not-found": "Swimlane '%s' not found.",
+  "list-title-not-found": "List '%s' not found.",
+  "user-username-not-found": "Username '%s' not found."
 }
