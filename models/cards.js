@@ -1731,9 +1731,9 @@ Cards.mutations({
 });
 
 Cards.globalSearch = queryParams => {
-  const userId = Meteor.userId;
+  const userId = Meteor.userId();
   // eslint-disable-next-line no-console
-  // console.log('userId:', this.userId);
+  console.log('userId:', userId);
 
   const errors = {
     notFound: {
@@ -1838,9 +1838,9 @@ Cards.globalSearch = queryParams => {
       if (boards.count()) {
         boards.forEach(board => {
           // eslint-disable-next-line no-console
-          console.log('board:', board);
+          // console.log('board:', board);
           // eslint-disable-next-line no-console
-          console.log('board.labels:', board.labels);
+          // console.log('board.labels:', board.labels);
           board.labels
             .filter(boardLabel => {
               return boardLabel.color === label.toLowerCase();
@@ -1885,7 +1885,7 @@ Cards.globalSearch = queryParams => {
   }
 
   // eslint-disable-next-line no-console
-  // console.log('selector:', selector);
+  console.log('selector:', selector);
   const cards = Cards.find(selector, {
     fields: {
       _id: 1,
@@ -1906,7 +1906,7 @@ Cards.globalSearch = queryParams => {
   });
 
   // eslint-disable-next-line no-console
-  // console.log('count:', cards.count());
+  console.log('count:', cards.count());
   return { cards, errors };
 };
 

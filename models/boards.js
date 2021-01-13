@@ -1226,6 +1226,8 @@ Boards.userSearch = (
 };
 
 Boards.userBoards = (userId, includeArchived = false, selector = {}) => {
+  check(userId, String);
+
   if (!includeArchived) {
     selector = {
       archived: false,
