@@ -1,4 +1,13 @@
-# Upcoming Wekan release
+# v4.77 2021-01-13 Wekan release
+
+This release adds the following new features:
+
+- [Show membertype (admin, normal etc) in avatar/initials tooltip for board members](https://github.com/wekan/wekan/commit/afd5d1d0c0a14702a2ea6960a58b78153975dc0d).
+  Thanks to bronger and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v4.76 2021-01-13 Wekan release
 
 This release adds the following new features:
 
