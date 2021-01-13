@@ -10,8 +10,8 @@ template(name="globalSearchModalTitle")
 
 template(name="globalSearch")
   .wrapper
-    form.js-search-query-form
-      input(type="text" name="searchQuery" placeholder="{{_ 'search-example'}}" autofocus dir="auto")
+    form.global-search-instructions.js-search-query-form
+      input.global-search-query-input(type="text" name="searchQuery" placeholder="{{_ 'search-example'}}" autofocus dir="auto")
     if searching.get
       +spinner
     else if hasResults.get
@@ -52,20 +52,29 @@ template(name="globalSearch")
                 +viewer
                   = card.getList.title
     else
-      h2 Search Operators
-        .global-search-instructions
-          +viewer
-            = 'Searches can include the operators to refine the search.  Operators are specified by writing the operator'
-            = 'name and value separated by a colon.  An operator specification of `list:Blocked` would limit the search'
-            = 'to cards that are contained in a list named *Blocked*.  If the value contains spaces or special characters'
-            = 'it most be enclosed in quotation marks (e.g. `list:"To Review"`).\n'
-            = 'Available operators are:\n'
-            = '* `board` - searches for cards in boards with the specified title\n'
-            = '* `list` - searches for cards in lists with the specified title\n'
-            = '* `swimlane` - searches for cards in swimlanes with the specified title\n'
-            = '* `label` - searches for cards that have a label with the given color or name\n'
-            = '* `user` - cards where the given username is a member or assignee\n'
-
+      .global-search-instructions
+        h1 Search Operators
+        +viewer
+          = 'Searches can include the operators to refine the search.  Operators are specified by writing the operator'
+          = 'name and value separated by a colon.  An operator specification of `list:Blocked` would limit the search'
+          = 'to cards that are contained in a list named *Blocked*.  If the value contains spaces or special characters'
+          = 'it most be enclosed in quotation marks (e.g. `list:"To Review"`).\n'
+          = 'Available operators are:\n'
+          = '* `board:title` - cards in boards with the specified title\n'
+          = '* `list:title` - cards in lists with the specified title\n'
+          = '* `swimlane:title` - cards in swimlanes with the specified title\n'
+          = '* `label:color` - cards that have a label with the given color\n'
+          = '* `label:name` - cards that have a label with the given name\n'
+          = '* `user:username` - cards where the specified user is a member or assignee\n'
+          = '* `@username` - shorthand for `user:username`\n'
+          = '* `#label` - shorthand for `label:color-or-name`\n'
+          = '## Notes\n'
+          = '*  Multiple operators may be specified.\n'
+          = '*  Similar operators are ORed together.  Cards that match any of the conditions will be returned.\n'
+          = '    `list:Available list:Blocked` would return cards contained in any list named *Blocked* or *Available*.\n'
+          = '*  Differing operators are ANDed together.  Only cards that match each of the differing operators are returned.'
+          = '`list:Available label:red` returns only cards in the list *Available* with a *red* label.\n'
+          = '* Text searches are case insensitive.\n'
 
 template(name="globalSearchViewChangePopup")
   ul.pop-over-list
