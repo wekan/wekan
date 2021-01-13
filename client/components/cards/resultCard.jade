@@ -1,0 +1,23 @@
+template(name="resultCard")
+  .result-card-wrapper
+    a.minicard-wrapper.card-title(href=card.absoluteUrl)
+      +minicard(this)
+      //= card.title
+    ul.result-card-context-list
+      li.result-card-context(title="{{_ 'board'}}")
+        +viewer
+          = getBoard.title
+      li.result-card-context.result-card-context-separator
+        = ' '
+        | {{_ 'context-separator'}}
+        = ' '
+      li.result-card-context(title="{{_ 'swimlane'}}")
+        +viewer
+          = getSwimlane.title
+      li.result-card-context.result-card-context-separator
+        = ' '
+        | {{_ 'context-separator'}}
+        = ' '
+      li.result-card-context(title="{{_ 'list'}}")
+        +viewer
+          = getList.title

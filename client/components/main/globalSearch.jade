@@ -29,28 +29,7 @@ template(name="globalSearch")
               span.global-search-error-messages
                 | {{_ msg.tag msg.value }}
         each card in results
-          .global-search-card-wrapper
-            a.minicard-wrapper.card-title(href=card.absoluteUrl)
-              +minicard(card)
-              //= card.title
-            ul.global-search-context-list
-              li.global-search-context(title="{{_ 'board'}}")
-                +viewer
-                  = card.getBoard.title
-              li.global-search-context.global-search-context-separator
-                = ' '
-                | {{_ 'context-separator'}}
-                = ' '
-              li.global-search-context(title="{{_ 'swimlane'}}")
-                +viewer
-                  = card.getSwimlane.title
-              li.global-search-context
-                = ' '
-                | {{_ 'context-separator'}}
-                = ' '
-              li.global-search-context(title="{{_ 'list'}}")
-                +viewer
-                  = card.getList.title
+          +resultCard(card)
     else
       .global-search-instructions
         h1 Search Operators
