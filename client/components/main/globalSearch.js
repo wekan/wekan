@@ -181,48 +181,8 @@ BlazeComponent.extendComponent({
           // console.log('selector:', selector);
           // eslint-disable-next-line no-console
           console.log('text:', text);
-
-          if (selector.boards.length) {
-            selector.boardsSelector = {
-              archived: false,
-              title: { $in: [] },
-            };
-            selector.boards.forEach(term => {
-              selector.boardsSelector.title.$in.push(term);
-            });
-          }
-
-          if (selector.lists.length) {
-            selector.listsSelector = {
-              archived: false,
-              title: { $in: [] },
-            };
-            selector.lists.forEach(term => {
-              selector.listsSelector.title.$in.push(term);
-            });
-          }
-
-          if (selector.swimlanes.length) {
-            selector.swimlanesSelector = {
-              archived: false,
-              title: { $in: [] },
-            };
-            selector.swimlanes.forEach(term => {
-              selector.swimlanesSelector.title.$in.push(term);
-            });
-          }
-
-          if (selector.labels.length) {
-            selector.labelsSelector = {
-              archived: false,
-              title: { $in: [] },
-            };
-            selector.labels.forEach(term => {
-              selector.labelsSelector.title.$in.push(term);
-            });
-          }
-
           selector.text = text;
+
           // eslint-disable-next-line no-console
           console.log('selector:', selector);
 
