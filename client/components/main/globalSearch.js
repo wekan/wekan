@@ -50,7 +50,7 @@ BlazeComponent.extendComponent({
     if (this.queryParams) {
       const results = Cards.globalSearch(this.queryParams);
       // eslint-disable-next-line no-console
-      console.log('errors:', results.errors);
+      // console.log('errors:', results.errors);
       this.resultsCount.set(results.cards.count());
       this.queryErrors.set(results.errors);
       return results.cards;
@@ -98,7 +98,7 @@ BlazeComponent.extendComponent({
 
           let query = this.query.get();
           // eslint-disable-next-line no-console
-          console.log('query:', query);
+          // console.log('query:', query);
 
           const reUser = /^@(?<user>[\w.:]+)(\s+|$)/;
           const reLabel = /^#(?<label>[\w:-]+)(\s+|$)/;
@@ -180,11 +180,11 @@ BlazeComponent.extendComponent({
           // eslint-disable-next-line no-console
           // console.log('selector:', selector);
           // eslint-disable-next-line no-console
-          console.log('text:', text);
+          // console.log('text:', text);
           selector.text = text;
 
           // eslint-disable-next-line no-console
-          console.log('selector:', selector);
+          // console.log('selector:', selector);
 
           this.queryParams = selector;
 
@@ -193,7 +193,7 @@ BlazeComponent.extendComponent({
             Tracker.nonreactive(() => {
               Tracker.autorun(() => {
                 // eslint-disable-next-line no-console
-                console.log('ready:', handle.ready());
+                // console.log('ready:', handle.ready());
                 if (handle.ready()) {
                   this.searching.set(false);
                   this.hasResults.set(true);
@@ -205,6 +205,4 @@ BlazeComponent.extendComponent({
       },
     ];
   },
-
-  globalSearchList() {},
 }).register('globalSearch');

@@ -1733,7 +1733,7 @@ Cards.mutations({
 Cards.globalSearch = queryParams => {
   const userId = Meteor.userId;
   // eslint-disable-next-line no-console
-  console.log('userId:', this.userId);
+  // console.log('userId:', this.userId);
 
   const errors = {
     notFound: {
@@ -1885,7 +1885,7 @@ Cards.globalSearch = queryParams => {
   }
 
   // eslint-disable-next-line no-console
-  console.log('selector:', selector);
+  // console.log('selector:', selector);
   const cards = Cards.find(selector, {
     fields: {
       _id: 1,
@@ -1906,7 +1906,7 @@ Cards.globalSearch = queryParams => {
   });
 
   // eslint-disable-next-line no-console
-  console.log('count:', cards.count());
+  // console.log('count:', cards.count());
   return { cards, errors };
 };
 
