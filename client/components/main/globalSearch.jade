@@ -17,8 +17,12 @@ template(name="globalSearch")
     else if hasResults.get
       .global-search-dueat-list-wrapper
         h1
-          = resultsCount.get
-          | Results
+          if $eq resultCount.get 0
+            | {{_ 'no-results' }}
+          else if $eq resultCount.get 1
+            | {{_ 'one-result' }}
+          else
+            | {{_ 'n-results' resultsCount.get }}
         if queryErrors.get
           div
             each msg in errorMessages

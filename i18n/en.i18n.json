@@ -868,5 +868,8 @@
   "board-title-not-found": "Board '%s' not found.",
   "swimlane-title-not-found": "Swimlane '%s' not found.",
   "list-title-not-found": "List '%s' not found.",
-  "user-username-not-found": "Username '%s' not found."
+  "user-username-not-found": "Username '%s' not found.",
+  "globalSearch-title": "Search All Boards",
+  "one-results": "One Result",
+  "n-results": "%s Results"
 }

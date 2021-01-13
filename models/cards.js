@@ -1827,6 +1827,63 @@ Cards.globalSearch = queryParams => {
     ];
   }
 
+  if (queryParams.labels.length) {
+    queryParams.labels.forEach(label => {
+      const queryLabels = [];
+
+      let boards = Boards.userSearch(userId, {
+        labels: { $elemMatch: { color: label.toLowerCase() } },
+      });
+
+      if (boards.count()) {
+        boards.forEach(board => {
+          // eslint-disable-next-line no-console
+          console.log('board:', board);
+          // eslint-disable-next-line no-console
+          console.log('board.labels:', board.labels);
+          board.labels
+            .filter(boardLabel => {
+              return boardLabel.color === label.toLowerCase();
+            })
+            .forEach(boardLabel => {
+              queryLabels.push(boardLabel._id);
+            });
+        });
+      } else {
+        const reLabel = new RegExp(label, 'i');
+        boards = Boards.userSearch(userId, {
+          labels: { $elemMatch: { name: reLabel } },
+        });
+
+        if (boards.count()) {
+          boards.forEach(board => {
+            board.labels
+              .filter(boardLabel => {
+                return boardLabel.name.match(reLabel);
+              })
+              .forEach(boardLabel => {
+                queryLabels.push(boardLabel._id);
+              });
+          });
+        } else {
+          errors.notFound.labels.push({ tag: 'label', value: label });
+        }
+      }
+
+      selector.labelIds = { $in: queryLabels };
+    });
+  }
+
+  if (queryParams.text) {
+    const regex = new RegExp(queryParams.text, 'i');
+
+    selector.$or = [
+      { title: regex },
+      { description: regex },
+      { customFields: { $elemMatch: { value: regex } } },
+    ];
+  }
+
   // eslint-disable-next-line no-console
   console.log('selector:', selector);
   const cards = Cards.find(selector, {
@@ -1843,6 +1900,7 @@ Cards.globalSearch = queryParams => {
       assignees: 1,
       colors: 1,
       dueAt: 1,
+      labelIds: 1,
     },
     limit: 50,
   });

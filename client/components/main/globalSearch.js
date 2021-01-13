@@ -104,7 +104,7 @@ BlazeComponent.extendComponent({
           const reLabel = /^#(?<label>[\w:-]+)(\s+|$)/;
           const reOperator1 = /^(?<operator>\w+):(?<value>\w+)(\s+|$)/;
           const reOperator2 = /^(?<operator>\w+):(?<quote>["']*)(?<value>.*?)\k<quote>(\s+|$)/;
-          const reText = /^(?<text>[^:@#\s]+)(\s+|$)/;
+          const reText = /^(?<text>\S+)(\s+|$)/;
           const reQuotedText = /^(?<quote>["'])(?<text>\w+)\k<quote>(\s+|$)/;
           const operatorMap = {
             board: 'boards',
