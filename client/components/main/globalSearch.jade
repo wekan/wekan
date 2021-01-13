@@ -53,12 +53,19 @@ template(name="globalSearch")
                   = card.getList.title
     else
       h2 Search Operators
-      +viewer
-        = '*  `@`username\n'
-        = '*  `#`label\n'
-        = '*  `board:`<name> or `board:`"<name>"\n'
-        = '*  `swimlane:`<name> or `swimlane:`"<name>"\n'
-        = '*  `list:`<name> or `list:`"<name>"\n'
+        .global-search-instructions
+          +viewer
+            = 'Searches can include the operators to refine the search.  Operators are specified by writing the operator'
+            = 'name and value separated by a colon.  An operator specification of `list:Blocked` would limit the search'
+            = 'to cards that are contained in a list named *Blocked*.  If the value contains spaces or special characters'
+            = 'it most be enclosed in quotation marks (e.g. `list:"To Review"`).\n'
+            = 'Available operators are:\n'
+            = '* `board` - searches for cards in boards with the specified title\n'
+            = '* `list` - searches for cards in lists with the specified title\n'
+            = '* `swimlane` - searches for cards in swimlanes with the specified title\n'
+            = '* `label` - searches for cards that have a label with the given color or name\n'
+            = '* `user` - cards where the given username is a member or assignee\n'
+
 
 template(name="globalSearchViewChangePopup")
   ul.pop-over-list
