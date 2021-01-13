@@ -17,9 +17,9 @@ template(name="globalSearch")
     else if hasResults.get
       .global-search-dueat-list-wrapper
         h1
-          if $eq resultCount.get 0
+          if $eq resultsCount.get 0
             | {{_ 'no-results' }}
-          else if $eq resultCount.get 1
+          else if $eq resultsCount.get 1
             | {{_ 'one-result' }}
           else
             | {{_ 'n-results' resultsCount.get }}
