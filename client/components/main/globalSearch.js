@@ -106,20 +106,18 @@ BlazeComponent.extendComponent({
           const reOperator2 = /^(?<operator>\w+):(?<quote>["']*)(?<value>.*?)\k<quote>(\s+|$)/;
           const reText = /^(?<text>\S+)(\s+|$)/;
           const reQuotedText = /^(?<quote>["'])(?<text>\w+)\k<quote>(\s+|$)/;
-          const operatorMap = {
-            board: 'boards',
-            b: 'boards',
-            label: 'labels',
-            lable: 'labels',
-            user: 'users',
-            u: 'users',
-            swimlane: 'swimlanes',
-            swim: 'swimlanes',
-            s: 'swimlanes',
-            list: 'lists',
-            l: 'lists',
-            is: 'is',
-          };
+          const operatorMap = {};
+          operatorMap[TAPi18n.__('operator-board')] = 'boards';
+          operatorMap[TAPi18n.__('operator-board-abbrev')] = 'boards';
+          operatorMap[TAPi18n.__('operator-swimlane')] = 'swimlanes';
+          operatorMap[TAPi18n.__('operator-swimlane-abbrev')] = 'swimlanes';
+          operatorMap[TAPi18n.__('operator-list')] = 'lists';
+          operatorMap[TAPi18n.__('operator-list-abbrev')] = 'lists';
+          operatorMap[TAPi18n.__('operator-label')] = 'labels';
+          operatorMap[TAPi18n.__('operator-label-abbrev')] = 'labels';
+          operatorMap[TAPi18n.__('operator-user')] = 'users';
+          operatorMap[TAPi18n.__('operator-user-abbrev')] = 'users';
+          operatorMap[TAPi18n.__('operator-is')] = 'is';
           const selector = {
             boards: [],
             swimlanes: [],
