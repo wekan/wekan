@@ -21,8 +21,10 @@ template(name="globalSearch")
             | {{_ 'no-results' }}
           else if $eq resultsCount.get 1
             | {{_ 'one-result' }}
-          else
+          else if $eq resultsCount.get totalHits.get
             | {{_ 'n-results' resultsCount.get }}
+          else
+            | {{_ 'n-of-n-results' resultsCount.get totalHits.get }}
         if queryErrors.get
           div
             each msg in errorMessages

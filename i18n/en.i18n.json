@@ -872,6 +872,7 @@
   "globalSearch-title": "Search All Boards",
   "one-results": "One Result",
   "n-results": "%s Results",
+  "n-of-n-results": "%s of %s Results",
   "operator-board": "board",
   "operator-board-abbrev": "b",
   "operator-swimlane": "swimlane",

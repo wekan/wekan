@@ -42,6 +42,7 @@ BlazeComponent.extendComponent({
     this.query = new ReactiveVar('');
     this.queryParams = null;
     this.resultsCount = new ReactiveVar(0);
+    this.totalHits = new ReactiveVar(0);
     this.queryErrors = new ReactiveVar(null);
     Meteor.subscribe('setting');
   },
@@ -50,7 +51,9 @@ BlazeComponent.extendComponent({
     if (this.queryParams) {
       const results = Cards.globalSearch(this.queryParams);
       // eslint-disable-next-line no-console
+      console.log('count:', results.count);
       // console.log('errors:', results.errors);
+      this.totalHits.set(Meteor.user().sessionData.totalHits);
       this.resultsCount.set(results.cards.count());
       this.queryErrors.set(results.errors);
       return results.cards;

@@ -1733,7 +1733,7 @@ Cards.mutations({
 Cards.globalSearch = queryParams => {
   const userId = Meteor.userId();
   // eslint-disable-next-line no-console
-  console.log('userId:', userId);
+  // console.log('userId:', userId);
 
   const errors = {
     notFound: {
@@ -1756,7 +1756,7 @@ Cards.globalSearch = queryParams => {
     const queryBoards = [];
     queryParams.boards.forEach(query => {
       const boards = Boards.userSearch(userId, {
-        title: query,
+        title: new RegExp(query, 'i'),
       });
       if (boards.count()) {
         boards.forEach(board => {
@@ -1774,7 +1774,7 @@ Cards.globalSearch = queryParams => {
     const querySwimlanes = [];
     queryParams.swimlanes.forEach(query => {
       const swimlanes = Swimlanes.find({
-        title: query,
+        title: new RegExp(query, 'i'),
       });
       if (swimlanes.count()) {
         swimlanes.forEach(swim => {
@@ -1792,7 +1792,7 @@ Cards.globalSearch = queryParams => {
     const queryLists = [];
     queryParams.lists.forEach(query => {
       const lists = Lists.find({
-        title: query,
+        title: new RegExp(query, 'i'),
       });
       if (lists.count()) {
         lists.forEach(list => {
@@ -1885,7 +1885,7 @@ Cards.globalSearch = queryParams => {
   }
 
   // eslint-disable-next-line no-console
-  console.log('selector:', selector);
+  // console.log('selector:', selector);
   const cards = Cards.find(selector, {
     fields: {
       _id: 1,
@@ -1906,7 +1906,16 @@ Cards.globalSearch = queryParams => {
   });
 
   // eslint-disable-next-line no-console
-  console.log('count:', cards.count());
+  // console.log('count:', cards.count());
+
+  if (Meteor.isServer) {
+    Users.update(userId, {
+      $set: {
+        'sessionData.totalHits': cards.count(),
+        'sessionData.lastHit': cards.count() > 50 ? 50 : cards.count(),
+      },
+    });
+  }
   return { cards, errors };
 };
 
