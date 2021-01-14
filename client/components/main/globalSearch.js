@@ -106,6 +106,7 @@ BlazeComponent.extendComponent({
           const reOperator2 = /^(?<operator>\w+):(?<quote>["']*)(?<value>.*?)\k<quote>(\s+|$)/;
           const reText = /^(?<text>\S+)(\s+|$)/;
           const reQuotedText = /^(?<quote>["'])(?<text>\w+)\k<quote>(\s+|$)/;
+
           const operatorMap = {};
           operatorMap[TAPi18n.__('operator-board')] = 'boards';
           operatorMap[TAPi18n.__('operator-board-abbrev')] = 'boards';
@@ -118,7 +119,8 @@ BlazeComponent.extendComponent({
           operatorMap[TAPi18n.__('operator-user')] = 'users';
           operatorMap[TAPi18n.__('operator-user-abbrev')] = 'users';
           operatorMap[TAPi18n.__('operator-is')] = 'is';
-          const selector = {
+
+          const params = {
             boards: [],
             swimlanes: [],
             lists: [],
@@ -126,21 +128,22 @@ BlazeComponent.extendComponent({
             labels: [],
             is: [],
           };
+
           let text = '';
           while (query) {
             // eslint-disable-next-line no-console
-            console.log('query:', query);
+            // console.log('query:', query);
             let m = query.match(reUser);
             if (m) {
               query = query.replace(reUser, '');
-              selector.users.push(m.groups.user);
+              params.users.push(m.groups.user);
               continue;
             }
 
             m = query.match(reLabel);
             if (m) {
               query = query.replace(reLabel, '');
-              selector.labels.push(m.groups.label);
+              params.labels.push(m.groups.label);
               continue;
             }
 
@@ -156,7 +159,7 @@ BlazeComponent.extendComponent({
             if (m) {
               const op = m.groups.operator.toLowerCase();
               if (op in operatorMap) {
-                selector[operatorMap[op]].push(m.groups.value);
+                params[operatorMap[op]].push(m.groups.value);
               }
               continue;
             }
@@ -179,15 +182,15 @@ BlazeComponent.extendComponent({
           // console.log('selector:', selector);
           // eslint-disable-next-line no-console
           // console.log('text:', text);
-          selector.text = text;
+          params.text = text;
 
           // eslint-disable-next-line no-console
           // console.log('selector:', selector);
 
-          this.queryParams = selector;
+          this.queryParams = params;
 
           this.autorun(() => {
-            const handle = subManager.subscribe('globalSearch', selector);
+            const handle = subManager.subscribe('globalSearch', params);
             Tracker.nonreactive(() => {
               Tracker.autorun(() => {
                 // eslint-disable-next-line no-console
