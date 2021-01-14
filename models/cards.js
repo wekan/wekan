@@ -1740,7 +1740,9 @@ Cards.globalSearch = queryParams => {
       boards: [],
       swimlanes: [],
       lists: [],
+      labels: [],
       users: [],
+      is: [],
     },
   };
 
@@ -1850,7 +1852,11 @@ Cards.globalSearch = queryParams => {
             });
         });
       } else {
+        // eslint-disable-next-line no-console
+        // console.log('label:', label);
         const reLabel = new RegExp(label, 'i');
+        // eslint-disable-next-line no-console
+        // console.log('reLabel:', reLabel);
         boards = Boards.userSearch(userId, {
           labels: { $elemMatch: { name: reLabel } },
         });

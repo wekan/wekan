@@ -51,7 +51,9 @@ BlazeComponent.extendComponent({
     if (this.queryParams) {
       const results = Cards.globalSearch(this.queryParams);
       // eslint-disable-next-line no-console
-      console.log('count:', results.count);
+      // console.log('user:', Meteor.user());
+      // eslint-disable-next-line no-console
+      // console.log('user:', Meteor.user().sessionData);
       // console.log('errors:', results.errors);
       this.totalHits.set(Meteor.user().sessionData.totalHits);
       this.resultsCount.set(results.cards.count());
@@ -103,10 +105,8 @@ BlazeComponent.extendComponent({
           // eslint-disable-next-line no-console
           // console.log('query:', query);
 
-          const reUser = /^@(?<user>[\w.:]+)(\s+|$)/;
-          const reLabel = /^#(?<label>[\w:-]+)(\s+|$)/;
-          const reOperator1 = /^(?<operator>\w+):(?<value>\w+)(\s+|$)/;
-          const reOperator2 = /^(?<operator>\w+):(?<quote>["']*)(?<value>.*?)\k<quote>(\s+|$)/;
+          const reOperator1 = /^((?<operator>\w+):|(?<abbrev>[#@]))(?<value>\w+)(\s+|$)/;
+          const reOperator2 = /^((?<operator>\w+):|(?<abbrev>[#@]))(?<quote>["']*)(?<value>.*?)\k<quote>(\s+|$)/;
           const reText = /^(?<text>\S+)(\s+|$)/;
           const reQuotedText = /^(?<quote>["'])(?<text>\w+)\k<quote>(\s+|$)/;
 
@@ -123,6 +123,8 @@ BlazeComponent.extendComponent({
           operatorMap[TAPi18n.__('operator-user-abbrev')] = 'users';
           operatorMap[TAPi18n.__('operator-is')] = 'is';
 
+          // eslint-disable-next-line no-console
+          // console.log('operatorMap:', operatorMap);
           const params = {
             boards: [],
             swimlanes: [],
@@ -134,22 +136,6 @@ BlazeComponent.extendComponent({
 
           let text = '';
           while (query) {
-            // eslint-disable-next-line no-console
-            // console.log('query:', query);
-            let m = query.match(reUser);
-            if (m) {
-              query = query.replace(reUser, '');
-              params.users.push(m.groups.user);
-              continue;
-            }
-
-            m = query.match(reLabel);
-            if (m) {
-              query = query.replace(reLabel, '');
-              params.labels.push(m.groups.label);
-              continue;
-            }
-
             m = query.match(reOperator1);
             if (!m) {
               m = query.match(reOperator2);
@@ -160,7 +146,12 @@ BlazeComponent.extendComponent({
               query = query.replace(reOperator1, '');
             }
             if (m) {
-              const op = m.groups.operator.toLowerCase();
+              let op;
+              if (m.groups.operator) {
+                op = m.groups.operator.toLowerCase();
+              } else {
+                op = m.groups.abbrev;
+              }
               if (op in operatorMap) {
                 params[operatorMap[op]].push(m.groups.value);
               }
@@ -182,13 +173,11 @@ BlazeComponent.extendComponent({
           }
 
           // eslint-disable-next-line no-console
-          // console.log('selector:', selector);
-          // eslint-disable-next-line no-console
           // console.log('text:', text);
           params.text = text;
 
           // eslint-disable-next-line no-console
-          // console.log('selector:', selector);
+          // console.log('params:', params);
 
           this.queryParams = params;
 

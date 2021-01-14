@@ -179,14 +179,14 @@ Meteor.publish('globalSearch', function(queryParams) {
   check(queryParams, Object);
 
   // eslint-disable-next-line no-console
-  console.log('queryParams:', queryParams);
+  // console.log('queryParams:', queryParams);
 
   const cards = Cards.globalSearch(queryParams).cards;
 
   const boards = [];
   const swimlanes = [];
   const lists = [];
-  const users = [];
+  const users = [this.userId];
 
   cards.forEach(card => {
     if (card.boardId) boards.push(card.boardId);
@@ -204,6 +204,8 @@ Meteor.publish('globalSearch', function(queryParams) {
     }
   });
 
+  // eslint-disable-next-line no-console
+  // console.log('users:', users);
   return [
     cards,
     Boards.find({ _id: { $in: boards } }),
