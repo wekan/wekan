@@ -4,7 +4,9 @@ httpCa = false;
 if (process.env.OAUTH2_CA_CERT !== undefined) {
     try {
         const fs = Npm.require('fs');
-	httpCa = fs.readFileSync(process.env.OAUTH2_CA_CERT);
+        if (fs.existsSync(process.env.OAUTH2_CA_CERT)) {
+          httpCa = fs.readFileSync(process.env.OAUTH2_CA_CERT);
+        }
     } catch(e) {
 	console.log('WARNING: failed loading: ' + process.env.OAUTH2_CA_CERT);
 	console.log(e);

@@ -25,6 +25,15 @@ Template.memberMenuPopup.helpers({
 });
 
 Template.memberMenuPopup.events({
+  'click .js-my-cards'() {
+    Popup.close();
+  },
+  'click .js-due-cards'() {
+    Popup.close();
+  },
+  'click .js-open-archived-board'() {
+    Modal.open('archivedBoards');
+  },
   'click .js-edit-profile': Popup.open('editProfile'),
   'click .js-change-settings': Popup.open('changeSettings'),
   'click .js-change-avatar': Popup.open('changeAvatar'),
@@ -161,6 +170,22 @@ Template.changeLanguagePopup.helpers({
         name = 'Brezhoneg';
       } else if (lang.name === 'ig') {
         name = 'Igbo';
+      } else if (lang.name === 'Español') {
+        name = 'español';
+      } else if (lang.name === 'Español de Argentina') {
+        name = 'español de Argentina';
+      } else if (lang.name === 'Español de Chile') {
+        name = 'español de Chile';
+      } else if (lang.name === 'Español de Colombia') {
+        name = 'español de Colombia';
+      } else if (lang.name === 'Español de México') {
+        name = 'español de México';
+      } else if (lang.name === 'es-PY') {
+        name = 'español de Paraguayo';
+      } else if (lang.name === 'Español de Perú') {
+        name = 'español de Perú';
+      } else if (lang.name === 'Español de Puerto Rico') {
+        name = 'español de Puerto Rico';
       } else if (lang.name === 'oc') {
         name = 'Occitan';
       } else if (lang.name === '繁体中文（台湾）') {

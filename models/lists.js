@@ -257,7 +257,7 @@ Lists.helpers({
   },
 
   colorClass() {
-    if (this.color) return this.color;
+    if (this.color) return `list-header-${this.color}`;
     return '';
   },
 

@@ -1,0 +1,69 @@
+template(name="dueCardsHeaderBar")
+  h1
+    i.fa.fa-calendar
+    | {{_ 'dueCards-title'}}
+
+  .board-header-btns.left
+    a.board-header-btn.js-due-cards-view-change(title="{{_ 'dueCardsViewChange-title'}}")
+      i.fa.fa-caret-down
+      if $eq dueCardsView 'me'
+        i.fa.fa-user
+        | {{_ 'dueCardsViewChange-choice-me'}}
+      if $eq dueCardsView 'all'
+        i.fa.fa-users
+        | {{_ 'dueCardsViewChange-choice-all'}}
+
+template(name="dueCardsModalTitle")
+  h2
+    i.fa.fa-keyboard-o
+    | {{_ 'dueCards-title'}}
+
+template(name="dueCards")
+  if isPageReady.get
+    .wrapper
+      .due-cards-dueat-list-wrapper
+        each card in dueCardsList
+          .due-cards-card-wrapper
+            a.minicard-wrapper.card-title(href=card.absoluteUrl)
+              +minicard(card)
+            ul.due-cards-context-list
+              li.due-cards-context(title="{{_ 'board'}}")
+                +viewer
+                  = card.getBoard.title
+              li.due-cards-context.due-cards-context-separator
+                = ' '
+                | {{_ 'context-separator'}}
+                = ' '
+              li.due-cards-context(title="{{_ 'swimlane'}}")
+                +viewer
+                  = card.getSwimlane.title
+              li.due-cards-context
+                = ' '
+                | {{_ 'context-separator'}}
+                = ' '
+              li.due-cards-context(title="{{_ 'list'}}")
+                +viewer
+                  = card.getList.title
+  else
+    +spinner
+
+template(name="dueCardsViewChangePopup")
+  ul.pop-over-list
+    li
+      with "dueCardsViewChange-choice-me"
+        a.js-due-cards-view-me
+          i.fa.fa-user.colorful
+          | {{_ 'dueCardsViewChange-choice-me'}}
+          if $eq Utils.dueCardsView "me"
+            i.fa.fa-check
+    hr
+    li
+      with "dueCardsViewChange-choice-all"
+        a.js-due-cards-view-all
+          i.fa.fa-users.colorful
+          | {{_ 'dueCardsViewChange-choice-all'}}
+          span.sub-name
+            +viewer
+              | {{_ 'dueCardsViewChange-choice-all-description' }}
+          if $eq Utils.dueCardsView "all"
+            i.fa.fa-check

@@ -25,7 +25,8 @@ template(name="activity")
   .activity
     +userAvatar(userId=activity.user._id)
     p.activity-desc
-      +memberName(user=activity.user)
+      span.activity-member
+        +memberName(user=activity.user)
 
       //- attachment activity -------------------------------------------------
       if($eq activity.activityType 'deleteAttachment')
@@ -141,6 +142,33 @@ template(name="activity")
           a.activity-comment(href="{{ activity.card.absoluteUrl }}")
             +viewer
               = activity.comment.text
+
+      //- date activity ------------------------------------------------
+      if($eq mode 'card')
+        if($eq activity.activityType 'a-receivedAt')
+          | {{{_ 'activity-receivedDate' (sanitize receivedDate) cardLink}}}.
+
+        if($eq activity.activityType 'a-startAt')
+          | {{{_ 'activity-startDate' (sanitize startDate) cardLink}}}.
+        
+        if($eq activity.activityType 'a-dueAt')
+          | {{{_ 'activity-dueDate' (sanitize dueDate) cardLink}}}.
+
+        if($eq activity.activityType 'a-endAt')
+          | {{{_ 'activity-endDate' (sanitize endDate) cardLink}}}.
+      
+      if($eq mode 'board')
+        if($eq activity.activityType 'a-receivedAt')
+          | {{{_ 'activity-receivedDate' (sanitize receivedDate) cardLink}}}.
+
+        if($eq activity.activityType 'a-startAt')
+          | {{{_ 'activity-startDate' (sanitize startDate) cardLink}}}.
+        
+        if($eq activity.activityType 'a-dueAt')
+          | {{{_ 'activity-dueDate' (sanitize dueDate) cardLink}}}.
+
+        if($eq activity.activityType 'a-endAt')
+          | {{{_ 'activity-endDate' (sanitize endDate) cardLink}}}.
 
       //- customField activity ------------------------------------------------
       if($eq mode 'board')

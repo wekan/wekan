@@ -45,18 +45,19 @@ template(name="listsGroup")
 template(name="addListForm")
   unless currentUser.isWorker
     .list.list-composer.js-list-composer(class="{{#if isMiniScreen}}mini-list{{/if}}")
-      .list-header-add
-        +inlinedForm(autoclose=false)
-          input.list-name-input.full-line(type="text" placeholder="{{_ 'add-list'}}"
-            autocomplete="off" autofocus)
-          .edit-controls.clearfix
-            button.primary.confirm(type="submit") {{_ 'save'}}
-            unless currentBoard.isTemplatesBoard
-              unless currentBoard.isTemplateBoard
-                span.quiet
-                  | {{_ 'or'}}
-                  a.js-list-template {{_ 'template'}}
-        else
-          a.open-list-composer.js-open-inlined-form
-            i.fa.fa-plus
-            | {{_ 'add-list'}}
+      if currentUser.isBoardAdmin
+        .list-header-add
+          +inlinedForm(autoclose=false)
+            input.list-name-input.full-line(type="text" placeholder="{{_ 'add-list'}}"
+              autocomplete="off" autofocus)
+            .edit-controls.clearfix
+              button.primary.confirm(type="submit") {{_ 'save'}}
+              unless currentBoard.isTemplatesBoard
+                unless currentBoard.isTemplateBoard
+                  span.quiet
+                    | {{_ 'or'}}
+                    a.js-list-template {{_ 'template'}}
+          else
+            a.open-list-composer.js-open-inlined-form
+              i.fa.fa-plus
+              | {{_ 'add-list'}}

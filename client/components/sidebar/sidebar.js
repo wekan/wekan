@@ -155,6 +155,9 @@ Template.memberPopup.helpers({
   user() {
     return Users.findOne(this.userId);
   },
+  isBoardAdmin() {
+    return Meteor.user().isBoardAdmin();
+  },
   memberType() {
     const type = Users.findOne(this.userId).isBoardAdmin() ? 'admin' : 'normal';
     if (type === 'normal') {
@@ -224,6 +227,9 @@ Template.boardMenuPopup.onCreated(function() {
 });
 
 Template.boardMenuPopup.helpers({
+  isBoardAdmin() {
+    return Meteor.user().isBoardAdmin();
+  },
   withApi() {
     return Template.instance().apiEnabled.get();
   },
@@ -238,7 +244,7 @@ Template.boardMenuPopup.helpers({
   },
   exportFilename() {
     const boardId = Session.get('currentBoard');
-    return `wekan-export-board-${boardId}.json`;
+    return `export-board-${boardId}.json`;
   },
 });
 
@@ -249,10 +255,14 @@ Template.memberPopup.events({
   },
   'click .js-change-role': Popup.open('changePermissions'),
   'click .js-remove-member': Popup.afterConfirm('removeMember', function() {
+    // This works from removing member from board, card members and assignees.
     const boardId = Session.get('currentBoard');
     const memberId = this.userId;
     Cards.find({ boardId, members: memberId }).forEach(card => {
       card.unassignMember(memberId);
+    });
+    Cards.find({ boardId, assignees: memberId }).forEach(card => {
+      card.unassignAssignee(memberId);
     });
     Boards.findOne(boardId).removeMember(memberId);
     Popup.close();
@@ -293,6 +303,9 @@ Template.membersWidget.helpers({
     } else {
       return false;
     }
+  },
+  isBoardAdmin() {
+    return Meteor.user().isBoardAdmin();
   },
 });
 
@@ -451,15 +464,15 @@ BlazeComponent.extendComponent({
   },
   exportJsonFilename() {
     const boardId = Session.get('currentBoard');
-    return `wekan-export-board-${boardId}.json`;
+    return `export-board-${boardId}.json`;
   },
   exportCsvFilename() {
     const boardId = Session.get('currentBoard');
-    return `wekan-export-board-${boardId}.csv`;
+    return `export-board-${boardId}.csv`;
   },
   exportTsvFilename() {
     const boardId = Session.get('currentBoard');
-    return `wekan-export-board-${boardId}.tsv`;
+    return `export-board-${boardId}.tsv`;
   },
 }).register('exportBoardPopup');
 
@@ -473,6 +486,12 @@ Template.exportBoard.events({
 Template.labelsWidget.events({
   'click .js-label': Popup.open('editLabel'),
   'click .js-add-label': Popup.open('createLabel'),
+});
+
+Template.labelsWidget.helpers({
+  isBoardAdmin() {
+    return Meteor.user().isBoardAdmin();
+  },
 });
 
 // Board members can assign people or labels by drag-dropping elements from the

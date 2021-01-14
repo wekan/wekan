@@ -461,8 +461,51 @@ Cards.helpers({
     return Lists.findOne(this.listId);
   },
 
+  swimlane() {
+    return Swimlanes.findOne(this.swimlaneId);
+  },
+
   board() {
     return Boards.findOne(this.boardId);
+  },
+
+  getList() {
+    const list = this.list();
+    if (!list) {
+      return {
+        _id: this.listId,
+        title: 'Undefined List',
+        archived: false,
+        colorClass: '',
+      };
+    }
+    return list;
+  },
+
+  getSwimlane() {
+    const swimlane = this.swimlane();
+    if (!swimlane) {
+      return {
+        _id: this.swimlaneId,
+        title: 'Undefined Swimlane',
+        archived: false,
+        colorClass: '',
+      };
+    }
+    return swimlane;
+  },
+
+  getBoard() {
+    const board = this.board();
+    if (!board) {
+      return {
+        _id: this.boardId,
+        title: 'Undefined Board',
+        archived: false,
+        colorClass: '',
+      };
+    }
+    return board;
   },
 
   labels() {
@@ -646,7 +689,7 @@ Cards.helpers({
 
     // match right definition to each field
     if (!this.customFields) return [];
-    return this.customFields.map(customField => {
+    const ret = this.customFields.map(customField => {
       const definition = definitions.find(definition => {
         return definition._id === customField._id;
       });
@@ -672,6 +715,8 @@ Cards.helpers({
         definition,
       };
     });
+    ret.sort((a, b) => a.definition.name.localeCompare(b.definition.name));
+    return ret;
   },
 
   colorClass() {

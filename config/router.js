@@ -113,6 +113,62 @@ FlowRouter.route('/shortcuts', {
   },
 });
 
+FlowRouter.route('/my-cards', {
+  name: 'my-cards',
+  action() {
+    Filter.reset();
+    // EscapeActions.executeAll();
+    EscapeActions.executeUpTo('popup-close');
+
+    Utils.manageCustomUI();
+    Utils.manageMatomo();
+
+    BlazeLayout.render('defaultLayout', {
+      headerBar: 'myCardsHeaderBar',
+      content: 'myCards',
+    });
+    // }
+  },
+});
+
+FlowRouter.route('/due-cards', {
+  name: 'due-cards',
+  action() {
+    Filter.reset();
+    // EscapeActions.executeAll();
+    EscapeActions.executeUpTo('popup-close');
+
+    Utils.manageCustomUI();
+    Utils.manageMatomo();
+
+    BlazeLayout.render('defaultLayout', {
+      headerBar: 'dueCardsHeaderBar',
+      content: 'dueCards',
+    });
+    // }
+  },
+});
+
+FlowRouter.route('/broken-cards', {
+  name: 'broken-cards',
+  action() {
+    const brokenCardsTemplate = 'brokenCards';
+
+    Filter.reset();
+    // EscapeActions.executeAll();
+    EscapeActions.executeUpTo('popup-close');
+
+    Utils.manageCustomUI();
+    Utils.manageMatomo();
+
+    BlazeLayout.render('defaultLayout', {
+      headerBar: 'brokenCardsHeaderBar',
+      content: brokenCardsTemplate,
+    });
+    // }
+  },
+});
+
 FlowRouter.route('/import/:source', {
   name: 'import',
   triggersEnter: [AccountsTemplates.ensureSignedIn],

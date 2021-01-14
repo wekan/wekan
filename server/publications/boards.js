@@ -27,6 +27,7 @@ Meteor.publish('boards', function() {
     {
       fields: {
         _id: 1,
+        boardId: 1,
         archived: 1,
         slug: 1,
         title: 1,

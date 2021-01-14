@@ -1753,6 +1753,41 @@ if (Meteor.isServer) {
       });
     }
   });
+
+  //ATTACHMENTS REST API
+  /**
+   * @operation get_board_attachments
+   * @summary Get the list of attachments of a board
+   *
+   * @param {string} boardId the board ID
+   * @return_type [{attachmentId: string,
+   *                attachmentName: string,
+   *                attachmentType: string,
+   *                cardId: string,
+   *                listId: string,
+   *                swimlaneId: string}]
+   */
+  JsonRoutes.add('GET', '/api/boards/:boardId/attachments', function(req, res) {
+    const paramBoardId = req.params.boardId;
+    Authentication.checkBoardAccess(req.userId, paramBoardId);
+    JsonRoutes.sendResult(res, {
+      code: 200,
+      data: Attachments.files
+        .find({ boardId: paramBoardId }, { fields: { boardId: 0 } })
+        .map(function(doc) {
+          return {
+            attachmentId: doc._id,
+            attachmentName: doc.original.name,
+            attachmentType: doc.original.type,
+            url: FlowRouter.url(doc.url()),
+            urlDownload: `${FlowRouter.url(doc.url())}?download=true&token=`,
+            cardId: doc.cardId,
+            listId: doc.listId,
+            swimlaneId: doc.swimlaneId,
+          };
+        }),
+    });
+  });
 }
 
 export default Boards;

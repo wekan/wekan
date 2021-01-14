@@ -1,7 +1,7 @@
 Org = new Mongo.Collection('org');
 
 /**
- * A Organization in wekan
+ * A Organization in Wekan. A Enterprise in Trello.
  */
 Org.attachSchema(
   new SimpleSchema({
@@ -18,76 +18,96 @@ Org.attachSchema(
         }
       },
     },
-    version: {
+    displayName: {
       /**
-       * the version of the organization
+       * the name to display for the organization
        */
-      type: Number,
+      type: String,
       optional: true,
     },
-    name: {
+    desc: {
       /**
-       * name of the organization
+       * the description the organization
        */
       type: String,
       optional: true,
       max: 190,
     },
-    address1: {
+    name: {
       /**
-       * address1 of the organization
+       * short name of the organization
        */
       type: String,
       optional: true,
       max: 255,
     },
-    address2: {
+    website: {
       /**
-       * address2 of the organization
+       * website of the organization
        */
       type: String,
       optional: true,
       max: 255,
     },
-    city: {
+    teams: {
       /**
-       * city of the organization
+       * List of teams of a organization
        */
-      type: String,
-      optional: true,
-      max: 255,
+      type: [Object],
+      // eslint-disable-next-line consistent-return
+      autoValue() {
+        if (this.isInsert && !this.isSet) {
+          return [
+            {
+              teamId: this.teamId,
+              isAdmin: true,
+              isActive: true,
+              isNoComments: false,
+              isCommentOnly: false,
+              isWorker: false,
+            },
+          ];
+        }
+      },
     },
-    state: {
+    'teams.$.teamId': {
       /**
-       * state of the organization
+       * The uniq ID of the team
        */
       type: String,
-      optional: true,
-      max: 255,
     },
-    zipCode: {
+    'teams.$.isAdmin': {
       /**
-       * zipCode of the organization
+       * Is the team an admin of the board?
        */
-      type: String,
-      optional: true,
-      max: 50,
+      type: Boolean,
     },
-    country: {
+    'teams.$.isActive': {
       /**
-       * country of the organization
+       * Is the team active?
        */
-      type: String,
-      optional: true,
-      max: 255,
+      type: Boolean,
     },
-    billingEmail: {
+    'teams.$.isNoComments': {
       /**
-       * billingEmail of the organization
+       * Is the team not allowed to make comments
        */
-      type: String,
+      type: Boolean,
       optional: true,
-      max: 255,
+    },
+    'teams.$.isCommentOnly': {
+      /**
+       * Is the team only allowed to comment on the board
+       */
+      type: Boolean,
+      optional: true,
+    },
+    'teams.$.isWorker': {
+      /**
+       * Is the team only allowed to move card, assign himself to card and comment
+       */
+      type: Boolean,
+      optional: true,
     },
     createdAt: {
       /**

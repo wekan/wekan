@@ -616,6 +616,15 @@ Users.mutations({
       },
     };
   },
+
+  setName(value) {
+    return {
+      $set: {
+        'profile.fullname': value,
+      },
+    };
+  },
+
   toggleDesktopHandles(value = false) {
     return {
       $set: {
@@ -752,7 +761,6 @@ if (Meteor.isServer) {
           throw new Meteor.Error('email-already-taken');
         } else {
           Accounts.createUser({
-            fullname,
             username,
             password,
             isAdmin,
@@ -760,6 +768,12 @@ if (Meteor.isServer) {
             email: email.toLowerCase(),
             from: 'admin',
           });
+          user = Users.findOne(username) || Users.findOne({ username });
+          if (user) {
+            Users.update(user._id, {
+              $set: { 'profile.fullname': fullname },
+            });
+          }
         }
       }
     },
@@ -820,6 +834,34 @@ if (Meteor.isServer) {
         if (Meteor.user().isAdmin) {
           Accounts.setPassword(userId, newPassword);
         }
+      }
+    },
+    setEmailVerified(email, verified, userId) {
+      if (Meteor.user() && Meteor.user().isAdmin) {
+        check(email, String);
+        check(verified, Boolean);
+        check(userId, String);
+        Users.update(userId, {
+          $set: {
+            emails: [
+              {
+                address: email,
+                verified,
+              },
+            ],
+          },
+        });
+      }
+    },
+    setInitials(initials, userId) {
+      if (Meteor.user() && Meteor.user().isAdmin) {
+        check(initials, String);
+        check(userId, String);
+        Users.update(userId, {
+          $set: {
+            'profile.initials': initials,
+          },
+        });
       }
     },
     // we accept userId, username, email
@@ -1631,7 +1673,16 @@ if (Meteor.isServer) {
     try {
       Authentication.checkUserId(req.userId);
       const id = req.params.userId;
-      Meteor.users.remove({ _id: id });
+      // Delete is not enabled yet, because it does leave empty user avatars
+      // to boards: boards members, card members and assignees have
+      // empty users. See:
+      // - wekan/client/components/settings/peopleBody.jade deleteButton
+      // - wekan/client/components/settings/peopleBody.js deleteButton
+      // - wekan/client/components/sidebar/sidebar.js Popup.afterConfirm('removeMember'
+      //   that does now remove member from board, card members and assignees correctly,
+      //   but that should be used to remove user from all boards similarly
+      // - wekan/models/users.js Delete is not enabled
+      // Meteor.users.remove({ _id: id });
       JsonRoutes.sendResult(res, {
         code: 200,
         data: {

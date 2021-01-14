@@ -122,7 +122,8 @@ function initSortable(boardComponent, $listsDom) {
         'option',
         'disabled',
         // Disable drag-dropping when user is not member/is worker
-        !userIsMember() || Meteor.user().isWorker(),
+        //!userIsMember() || Meteor.user().isWorker(),
+        !Meteor.user().isBoardAdmin(),
         // Not disable drag-dropping while in multi-selection mode
         // MultiSelection.isActive() || !userIsMember(),
       );
@@ -274,12 +275,13 @@ Template.swimlane.helpers({
     }
   },
   canSeeAddList() {
-    return (
+    return Meteor.user().isBoardAdmin();
+    /*
       Meteor.user() &&
       Meteor.user().isBoardMember() &&
       !Meteor.user().isCommentOnly() &&
       !Meteor.user().isWorker()
-    );
+      */
   },
 });
 

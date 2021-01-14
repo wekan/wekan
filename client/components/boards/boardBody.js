@@ -211,7 +211,12 @@ BlazeComponent.extendComponent({
       }
 
       // Disable drag-dropping if the current user is not a board member
-      $swimlanesDom.sortable('option', 'disabled', !userIsMember());
+      //$swimlanesDom.sortable('option', 'disabled', !userIsMember());
+      $swimlanesDom.sortable(
+        'option',
+        'disabled',
+        !Meteor.user().isBoardAdmin(),
+      );
     });
 
     function userIsMember() {

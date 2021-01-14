@@ -44,6 +44,56 @@ Utils = {
     }
   },
 
+  myCardsSort() {
+    let sort = window.localStorage.getItem('myCardsSort');
+
+    if (!sort || !['board', 'dueAt'].includes(sort)) {
+      window.localStorage.setItem('myCardsSort', 'board');
+      location.reload();
+      sort = 'board';
+    }
+
+    return sort;
+  },
+
+  myCardsSortToggle() {
+    if (this.myCardsSort() === 'board') {
+      this.setMyCardsSort('dueAt');
+    } else {
+      this.setMyCardsSort('board');
+    }
+  },
+
+  setMyCardsSort(sort) {
+    window.localStorage.setItem('myCardsSort', sort);
+    location.reload();
+  },
+
+  archivedBoardIds() {
+    const archivedBoards = [];
+    Boards.find({ archived: false }).forEach(board => {
+      archivedBoards.push(board._id);
+    });
+    return archivedBoards;
+  },
+
+  dueCardsView() {
+    let view = window.localStorage.getItem('dueCardsView');
+
+    if (!view || !['me', 'all'].includes(view)) {
+      window.localStorage.setItem('dueCardsView', 'me');
+      location.reload();
+      view = 'me';
+    }
+
+    return view;
+  },
+
+  setDueCardsView(view) {
+    window.localStorage.setItem('dueCardsView', view);
+    location.reload();
+  },
+
   // XXX We should remove these two methods
   goBoardId(_id) {
     const board = Boards.findOne(_id);
@@ -192,11 +242,9 @@ Utils = {
 
   // returns if desktop drag handles are enabled
   isShowDesktopDragHandles() {
-    let currentUser = Meteor.user();
+    const currentUser = Meteor.user();
     if (currentUser) {
       return (currentUser.profile || {}).showDesktopDragHandles;
-    } else if (cookies.has('showDesktopDragHandles')) {
-      return true;
     } else {
       return false;
     }
@@ -204,7 +252,7 @@ Utils = {
 
   // returns if mini screen or desktop drag handles
   isMiniScreenOrShowDesktopDragHandles() {
-    return this.isMiniScreen() || this.isShowDesktopDragHandles()
+    return this.isMiniScreen() || this.isShowDesktopDragHandles();
   },
 
   calculateIndexData(prevData, nextData, nItems = 1) {

@@ -1,5 +1,5 @@
 template(name="userAvatar")
-  a.member.js-member(title="{{userData.profile.fullname}} ({{userData.username}})")
+  a.member.js-member(title="{{userData.profile.fullname}} ({{userData.username}}) {{_ memberType}}")
     if userData.profile.avatarUrl
       img.avatar.avatar-image(src="{{userData.profile.avatarUrl}}")
     else

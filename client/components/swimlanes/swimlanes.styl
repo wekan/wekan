@@ -36,6 +36,10 @@
 // Minimize swimlanes end https://www.w3schools.com/howto/howto_js_accordion.asp
 */
 
+[class=swimlane]
+  position: sticky
+  left: 0
+
 .swimlane
   // Even if this background color is the same as the body we can't leave it
   // transparent, because that won't work during a swimlane drag.
@@ -81,10 +85,16 @@
     .swimlane-header-menu
       position: absolute
       padding: 5px 5px
+      font-size: 22px
 
     .swimlane-header-plus-icon
       margin-left: 5px
-      margin-right: 10px
+      padding-right: 20px
+      font-size: 22px
+
+    .swimlane-header-menu-icon
+      padding-right: 20px
+      font-size: 22px
 
     .swimlane-header-handle
       position: absolute

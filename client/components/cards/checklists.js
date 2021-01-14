@@ -6,7 +6,7 @@ function initSorting(items) {
     helper: 'clone',
     items: '.js-checklist-item:not(.placeholder)',
     connectWith: '.js-checklist-items',
-    appendTo: '.board-canvas',
+    appendTo: 'parent',
     distance: 7,
     placeholder: 'checklist-item placeholder',
     scroll: false,
@@ -55,11 +55,12 @@ BlazeComponent.extendComponent({
     self.autorun(() => {
       const $itemsDom = $(self.itemsDom);
       if ($itemsDom.data('uiSortable') || $itemsDom.data('sortable')) {
-        $(self.itemsDom).sortable(
-          'option',
-          'disabled',
-          !userIsMember() || Utils.isMiniScreen(),
-        );
+        $(self.itemsDom).sortable('option', 'disabled', !userIsMember());
+        if (Utils.isMiniScreenOrShowDesktopDragHandles()) {
+          $(self.itemsDom).sortable({
+            handle: 'span.fa.checklistitem-handle',
+          });
+        }
       }
     });
   },
@@ -220,6 +221,14 @@ Template.checklists.helpers({
     if (currentUser) return currentUser.hasHideCheckedItems();
     return false;
   },
+});
+
+Template.addChecklistItemForm.onRendered(() => {
+  autosize($('textarea.js-add-checklist-item'));
+});
+
+Template.editChecklistItemForm.onRendered(() => {
+  autosize($('textarea.js-edit-checklist-item'));
 });
 
 Template.checklistDeleteDialog.onCreated(() => {
