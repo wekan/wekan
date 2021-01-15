@@ -3,32 +3,32 @@ template(name="cardActions")
     div.trigger-content
       div.trigger-dropdown
         select(id="setdate-action")
-          option(value="setDate") {{{_'r-set'}}}
-          option(value="updateDate") {{{_'r-update'}}}
+          option(value="setDate") {{_'r-set'}}
+          option(value="updateDate") {{_'r-update'}}
       div.trigger-text
-        | {{{_'r-datefield'}}}
+        | {{_'r-datefield'}}
       div.trigger-dropdown
         select(id="setdate-datefield")
-          option(value="startAt") {{{_'r-df-start-at'}}}
-          option(value="dueAt") {{{_'r-df-due-at'}}}
-          option(value="endAt") {{{_'r-df-end-at'}}}
-          option(value="receivedAt") {{{_'r-df-received-at'}}}
+          option(value="startAt") {{_'r-df-start-at'}}
+          option(value="dueAt") {{_'r-df-due-at'}}
+          option(value="endAt") {{_'r-df-end-at'}}
+          option(value="receivedAt") {{_'r-df-received-at'}}
       div.trigger-text
-        | {{{_'r-to-current-datetime'}}}
+        | {{_'r-to-current-datetime'}}
     div.trigger-button.js-set-date-action.js-goto-rules
       i.fa.fa-plus
 
   div.trigger-item
     div.trigger-content
       div.trigger-text
-        | {{{_'r-remove-value-from'}}}
-        | {{{_'r-datefield'}}}
+        | {{_'r-remove-value-from'}}
+        | {{_'r-datefield'}}
       div.trigger-dropdown
         select(id="setdate-removedatefieldvalue")
-          option(value="startAt") {{{_'r-df-start-at'}}}
-          option(value="dueAt") {{{_'r-df-due-at'}}}
-          option(value="endAt") {{{_'r-df-end-at'}}}
-          option(value="receivedAt") {{{_'r-df-received-at'}}}
+          option(value="startAt") {{_'r-df-start-at'}}
+          option(value="dueAt") {{_'r-df-due-at'}}
+          option(value="endAt") {{_'r-df-end-at'}}
+          option(value="receivedAt") {{_'r-df-received-at'}}
     div.trigger-button.js-remove-datevalue-action.js-goto-rules
       i.fa.fa-plus
 
@@ -36,10 +36,10 @@ template(name="cardActions")
     div.trigger-content
       div.trigger-dropdown
         select(id="label-action")
-          option(value="add") {{{_'r-add'}}}
-          option(value="remove") {{{_'r-remove'}}}
+          option(value="add") {{_'r-add'}}
+          option(value="remove") {{_'r-remove'}}
       div.trigger-text
-        | {{{_'r-label'}}}
+        | {{_'r-label'}}
       div.trigger-dropdown
         select(id="label-id")
           each labels
@@ -52,26 +52,26 @@ template(name="cardActions")
     div.trigger-content
       div.trigger-dropdown
         select(id="member-action")
-          option(value="add") {{{_'r-add'}}}
-          option(value="remove") {{{_'r-remove'}}}
+          option(value="add") {{_'r-add'}}
+          option(value="remove") {{_'r-remove'}}
       div.trigger-text
-        | {{{_'r-member'}}}
+        | {{_'r-member'}}
       div.trigger-dropdown
-        input(id="member-name",type=text,placeholder="{{{_'r-name'}}}")
+        input(id="member-name",type=text,placeholder="{{_'r-name'}}")
     div.trigger-button.js-add-member-action.js-goto-rules
       i.fa.fa-plus
 
   div.trigger-item
     div.trigger-content
       div.trigger-text
-        | {{{_'r-remove-all'}}}
+        | {{_'r-remove-all'}}
     div.trigger-button.js-add-removeall-action.js-goto-rules
       i.fa.fa-plus
 
   div.trigger-item
     div.trigger-content
       div.trigger-text
-        | {{{_'r-set-color'}}}
+        | {{_'r-set-color'}}
         button.trigger-button.trigger-button-color.js-show-color-palette(
           id="color-action"
           class="card-details-{{cardColorButton}}")

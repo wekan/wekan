@@ -2,7 +2,7 @@ template(name="rulesList")
   .rules
     h2
       i.fa.fa-magic
-      | {{{_ 'r-board-rules' }}}
+      | {{_ 'r-board-rules' }}
 
     ul.rules-list
       each rules
@@ -12,26 +12,26 @@ template(name="rulesList")
           div.rules-btns-group
             button.js-goto-details
               i.fa.fa-eye
-              | {{{_ 'r-view-rule'}}}
+              | {{_ 'r-view-rule'}}
             if currentUser.isAdmin
               button.js-delete-rule
                 i.fa.fa-trash-o
-                | {{{_ 'r-delete-rule'}}}
+                | {{_ 'r-delete-rule'}}
             else if currentUser.isBoardAdmin
               button.js-delete-rule
                 i.fa.fa-trash-o
-                | {{{_ 'r-delete-rule'}}}
+                | {{_ 'r-delete-rule'}}
       else
-        li.no-items-message {{{_ 'r-no-rules' }}}
+        li.no-items-message {{_ 'r-no-rules' }}
     if currentUser.isAdmin
       div.rules-add
         button.js-goto-trigger
           i.fa.fa-plus
-          | {{{_ 'r-add-rule'}}}
-        input(type=text,placeholder="{{{_ 'r-new-rule-name' }}}",id="ruleTitle")
+          | {{_ 'r-add-rule'}}
+        input(type=text,placeholder="{{_ 'r-new-rule-name' }}",id="ruleTitle")
     else if currentUser.isBoardAdmin
       div.rules-add
         button.js-goto-trigger
           i.fa.fa-plus
-          | {{{_ 'r-add-rule'}}}
-        input(type=text,placeholder="{{{_ 'r-new-rule-name' }}}",id="ruleTitle")
+          | {{_ 'r-add-rule'}}
+        input(type=text,placeholder="{{_ 'r-new-rule-name' }}",id="ruleTitle")
