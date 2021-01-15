@@ -1,3 +1,17 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Search All Boards](https://github.com/wekan/wekan/pull/3433). Currently limited to 50 results. Will be improved later.
+  Thanks to jrsuplee and xet7.
+
+and fixes the following bugs:
+
+- [HTML is not needed in Rules translations, so disabled it](https://github.com/wekan/wekan/commit/a2894bf0cb11161f2f9382e900ffbae2a1570d38).
+  Thanks to jrsuplee and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.77 2021-01-13 Wekan release
 
 This release adds the following new features:
