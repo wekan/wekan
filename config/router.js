@@ -149,6 +149,23 @@ FlowRouter.route('/due-cards', {
   },
 });
 
+FlowRouter.route('/global-search', {
+  name: 'global-search',
+  action() {
+    Filter.reset();
+    // EscapeActions.executeAll();
+    EscapeActions.executeUpTo('popup-close');
+
+    Utils.manageCustomUI();
+    Utils.manageMatomo();
+
+    BlazeLayout.render('defaultLayout', {
+      headerBar: 'globalSearchHeaderBar',
+      content: 'globalSearch',
+    });
+  },
+});
+
 FlowRouter.route('/broken-cards', {
   name: 'broken-cards',
   action() {
@@ -165,7 +182,6 @@ FlowRouter.route('/broken-cards', {
       headerBar: 'brokenCardsHeaderBar',
       content: brokenCardsTemplate,
     });
-    // }
   },
 });
 

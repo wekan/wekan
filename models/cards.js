@@ -1730,6 +1730,201 @@ Cards.mutations({
   },
 });
 
+Cards.globalSearch = queryParams => {
+  const userId = Meteor.userId();
+  // eslint-disable-next-line no-console
+  // console.log('userId:', userId);
+
+  const errors = {
+    notFound: {
+      boards: [],
+      swimlanes: [],
+      lists: [],
+      labels: [],
+      users: [],
+      is: [],
+    },
+  };
+
+  const selector = {
+    archived: false,
+    type: 'cardType-card',
+    boardId: { $in: Boards.userBoardIds(userId) },
+    swimlaneId: { $nin: Swimlanes.archivedSwimlaneIds() },
+    listId: { $nin: Lists.archivedListIds() },
+  };
+
+  if (queryParams.boards.length) {
+    const queryBoards = [];
+    queryParams.boards.forEach(query => {
+      const boards = Boards.userSearch(userId, {
+        title: new RegExp(query, 'i'),
+      });
+      if (boards.count()) {
+        boards.forEach(board => {
+          queryBoards.push(board._id);
+        });
+      } else {
+        errors.notFound.boards.push(query);
+      }
+    });
+
+    selector.boardId.$in = queryBoards;
+  }
+
+  if (queryParams.swimlanes.length) {
+    const querySwimlanes = [];
+    queryParams.swimlanes.forEach(query => {
+      const swimlanes = Swimlanes.find({
+        title: new RegExp(query, 'i'),
+      });
+      if (swimlanes.count()) {
+        swimlanes.forEach(swim => {
+          querySwimlanes.push(swim._id);
+        });
+      } else {
+        errors.notFound.swimlanes.push(query);
+      }
+    });
+
+    selector.swimlaneId.$in = querySwimlanes;
+  }
+
+  if (queryParams.lists.length) {
+    const queryLists = [];
+    queryParams.lists.forEach(query => {
+      const lists = Lists.find({
+        title: new RegExp(query, 'i'),
+      });
+      if (lists.count()) {
+        lists.forEach(list => {
+          queryLists.push(list._id);
+        });
+      } else {
+        errors.notFound.lists.push(query);
+      }
+    });
+
+    selector.listId.$in = queryLists;
+  }
+
+  if (queryParams.users.length) {
+    const queryUsers = [];
+    queryParams.users.forEach(query => {
+      const users = Users.find({
+        username: query,
+      });
+      if (users.count()) {
+        users.forEach(user => {
+          queryUsers.push(user._id);
+        });
+      } else {
+        errors.notFound.users.push(query);
+      }
+    });
+
+    selector.$or = [
+      { members: { $in: queryUsers } },
+      { assignees: { $in: queryUsers } },
+    ];
+  }
+
+  if (queryParams.labels.length) {
+    queryParams.labels.forEach(label => {
+      const queryLabels = [];
+
+      let boards = Boards.userSearch(userId, {
+        labels: { $elemMatch: { color: label.toLowerCase() } },
+      });
+
+      if (boards.count()) {
+        boards.forEach(board => {
+          // eslint-disable-next-line no-console
+          // console.log('board:', board);
+          // eslint-disable-next-line no-console
+          // console.log('board.labels:', board.labels);
+          board.labels
+            .filter(boardLabel => {
+              return boardLabel.color === label.toLowerCase();
+            })
+            .forEach(boardLabel => {
+              queryLabels.push(boardLabel._id);
+            });
+        });
+      } else {
+        // eslint-disable-next-line no-console
+        // console.log('label:', label);
+        const reLabel = new RegExp(label, 'i');
+        // eslint-disable-next-line no-console
+        // console.log('reLabel:', reLabel);
+        boards = Boards.userSearch(userId, {
+          labels: { $elemMatch: { name: reLabel } },
+        });
+
+        if (boards.count()) {
+          boards.forEach(board => {
+            board.labels
+              .filter(boardLabel => {
+                return boardLabel.name.match(reLabel);
+              })
+              .forEach(boardLabel => {
+                queryLabels.push(boardLabel._id);
+              });
+          });
+        } else {
+          errors.notFound.labels.push({ tag: 'label', value: label });
+        }
+      }
+
+      selector.labelIds = { $in: queryLabels };
+    });
+  }
+
+  if (queryParams.text) {
+    const regex = new RegExp(queryParams.text, 'i');
+
+    selector.$or = [
+      { title: regex },
+      { description: regex },
+      { customFields: { $elemMatch: { value: regex } } },
+    ];
+  }
+
+  // eslint-disable-next-line no-console
+  // console.log('selector:', selector);
+  const cards = Cards.find(selector, {
+    fields: {
+      _id: 1,
+      archived: 1,
+      boardId: 1,
+      swimlaneId: 1,
+      listId: 1,
+      title: 1,
+      type: 1,
+      sort: 1,
+      members: 1,
+      assignees: 1,
+      colors: 1,
+      dueAt: 1,
+      labelIds: 1,
+    },
+    limit: 50,
+  });
+
+  // eslint-disable-next-line no-console
+  // console.log('count:', cards.count());
+
+  if (Meteor.isServer) {
+    Users.update(userId, {
+      $set: {
+        'sessionData.totalHits': cards.count(),
+        'sessionData.lastHit': cards.count() > 50 ? 50 : cards.count(),
+      },
+    });
+  }
+  return { cards, errors };
+};
+
 //FUNCTIONS FOR creation of Activities
 
 function updateActivities(doc, fieldNames, modifier) {

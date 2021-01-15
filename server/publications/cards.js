@@ -175,6 +175,46 @@ Meteor.publish('dueCards', function(allUsers = false) {
   ];
 });
 
+Meteor.publish('globalSearch', function(queryParams) {
+  check(queryParams, Object);
+
+  // eslint-disable-next-line no-console
+  // console.log('queryParams:', queryParams);
+
+  const cards = Cards.globalSearch(queryParams).cards;
+
+  const boards = [];
+  const swimlanes = [];
+  const lists = [];
+  const users = [this.userId];
+
+  cards.forEach(card => {
+    if (card.boardId) boards.push(card.boardId);
+    if (card.swimlaneId) swimlanes.push(card.swimlaneId);
+    if (card.listId) lists.push(card.listId);
+    if (card.members) {
+      card.members.forEach(userId => {
+        users.push(userId);
+      });
+    }
+    if (card.assignees) {
+      card.assignees.forEach(userId => {
+        users.push(userId);
+      });
+    }
+  });
+
+  // eslint-disable-next-line no-console
+  // console.log('users:', users);
+  return [
+    cards,
+    Boards.find({ _id: { $in: boards } }),
+    Swimlanes.find({ _id: { $in: swimlanes } }),
+    Lists.find({ _id: { $in: lists } }),
+    Users.find({ _id: { $in: users } }),
+  ];
+});
+
 Meteor.publish('brokenCards', function() {
   const user = Users.findOne(this.userId);
 
@@ -221,11 +261,22 @@ Meteor.publish('brokenCards', function() {
   const boards = [];
   const swimlanes = [];
   const lists = [];
+  const users = [];
 
   cards.forEach(card => {
     if (card.boardId) boards.push(card.boardId);
     if (card.swimlaneId) swimlanes.push(card.swimlaneId);
     if (card.listId) lists.push(card.listId);
+    if (card.members) {
+      card.members.forEach(userId => {
+        users.push(userId);
+      });
+    }
+    if (card.assignees) {
+      card.assignees.forEach(userId => {
+        users.push(userId);
+      });
+    }
   });
 
   return [
@@ -233,5 +284,6 @@ Meteor.publish('brokenCards', function() {
     Boards.find({ _id: { $in: boards } }),
     Swimlanes.find({ _id: { $in: swimlanes } }),
     Lists.find({ _id: { $in: lists } }),
+    Users.find({ _id: { $in: users } }),
   ];
 });
