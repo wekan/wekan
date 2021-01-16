@@ -191,15 +191,6 @@ Meteor.publish('globalSearch', function(queryParams) {
     },
   );
 
-  // eslint-disable-next-line no-console
-  console.log('SessionData:', SessionData.find().fetch());
-  // Users.update(this.userId, {
-  //   $set: {
-  //     'sessionData.totalHits': cards.count(),
-  //     'sessionData.lastHit': cards.count() > 50 ? 50 : cards.count(),
-  //   },
-  // });
-
   const boards = [];
   const swimlanes = [];
   const lists = [];
