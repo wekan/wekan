@@ -72,7 +72,18 @@ Meteor.publish('myCards', function() {
     Boards.find({ _id: { $in: boards } }),
     Swimlanes.find({ _id: { $in: swimlanes } }),
     Lists.find({ _id: { $in: lists } }),
-    Users.find({ _id: { $in: users } }),
+    Users.find(
+      { _id: { $in: users } },
+      {
+        fields: {
+          _id: 1,
+          username: 1,
+          'profile.fullname': 1,
+          'profile.avatarUrl': 1,
+          'profile.initials': 1,
+        },
+      },
+    ),
   ];
 });
 
@@ -82,7 +93,18 @@ Meteor.publish('dueCards', function(allUsers = false) {
   // eslint-disable-next-line no-console
   // console.log('all users:', allUsers);
 
-  const user = Users.findOne(this.userId);
+  const user = Users.findOne(
+    { _id: this.userId },
+    {
+      fields: {
+        _id: 1,
+        username: 1,
+        'profile.fullname': 1,
+        'profile.avatarUrl': 1,
+        'profile.initials': 1,
+      },
+    },
+  );
 
   const archivedBoards = [];
   Boards.find({ archived: true }).forEach(board => {
@@ -171,7 +193,18 @@ Meteor.publish('dueCards', function(allUsers = false) {
     Boards.find({ _id: { $in: boards } }),
     Swimlanes.find({ _id: { $in: swimlanes } }),
     Lists.find({ _id: { $in: lists } }),
-    Users.find({ _id: { $in: users } }),
+    Users.find(
+      { _id: { $in: users } },
+      {
+        fields: {
+          _id: 1,
+          username: 1,
+          'profile.fullname': 1,
+          'profile.avatarUrl': 1,
+          'profile.initials': 1,
+        },
+      },
+    ),
   ];
 });
 
@@ -216,7 +249,18 @@ Meteor.publish('globalSearch', function(queryParams) {
 });
 
 Meteor.publish('brokenCards', function() {
-  const user = Users.findOne(this.userId);
+  const user = Users.findOne(
+    { _id: this.userId },
+    {
+      fields: {
+        _id: 1,
+        username: 1,
+        'profile.fullname': 1,
+        'profile.avatarUrl': 1,
+        'profile.initials': 1,
+      },
+    },
+  );
 
   const permiitedBoards = [null];
   let selector = {};
@@ -284,6 +328,17 @@ Meteor.publish('brokenCards', function() {
     Boards.find({ _id: { $in: boards } }),
     Swimlanes.find({ _id: { $in: swimlanes } }),
     Lists.find({ _id: { $in: lists } }),
-    Users.find({ _id: { $in: users } }),
+    Users.find(
+      { _id: { $in: users } },
+      {
+        fields: {
+          _id: 1,
+          username: 1,
+          'profile.fullname': 1,
+          'profile.avatarUrl': 1,
+          'profile.initials': 1,
+        },
+      },
+    ),
   ];
 });
