@@ -34,7 +34,8 @@ template(name="globalSearch")
                 span.global-search-error-messages
                   | {{_ msg.tag msg.value }}
           each card in results
-            +resultCard(card)
+            a.minicard-wrapper(href=card.absoluteUrl)
+              +resultCard(card)
       else
         .global-search-instructions
           h1 Search Operators
