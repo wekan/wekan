@@ -377,6 +377,14 @@ Users.initEasySearch(searchInFields, {
   returnFields: [...searchInFields, 'profile.avatarUrl'],
 });
 
+Users.safeFields = {
+  _id: 1,
+  username: 1,
+  'profile.fullname': 1,
+  'profile.avatarUrl': 1,
+  'profile.initials': 1,
+};
+
 if (Meteor.isClient) {
   Users.helpers({
     isBoardMember() {

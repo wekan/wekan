@@ -1914,14 +1914,6 @@ Cards.globalSearch = queryParams => {
   // eslint-disable-next-line no-console
   // console.log('count:', cards.count());
 
-  if (Meteor.isServer) {
-    Users.update(userId, {
-      $set: {
-        'sessionData.totalHits': cards.count(),
-        'sessionData.lastHit': cards.count() > 50 ? 50 : cards.count(),
-      },
-    });
-  }
   return { cards, errors };
 };
 

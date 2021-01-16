@@ -50,12 +50,11 @@ BlazeComponent.extendComponent({
   results() {
     if (this.queryParams) {
       const results = Cards.globalSearch(this.queryParams);
+      const sessionData = SessionData.findOne({ userId: Meteor.userId() });
       // eslint-disable-next-line no-console
-      // console.log('user:', Meteor.user());
-      // eslint-disable-next-line no-console
-      // console.log('user:', Meteor.user().sessionData);
+      console.log('sessionData:', sessionData);
       // console.log('errors:', results.errors);
-      this.totalHits.set(Meteor.user().sessionData.totalHits);
+      this.totalHits.set(sessionData.totalHits);
       this.resultsCount.set(results.cards.count());
       this.queryErrors.set(results.errors);
       return results.cards;
