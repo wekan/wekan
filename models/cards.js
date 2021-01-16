@@ -1872,7 +1872,7 @@ Cards.globalSearch = queryParams => {
               });
           });
         } else {
-          errors.notFound.labels.push({ tag: 'label', value: label });
+          errors.notFound.labels.push(label);
         }
       }
 

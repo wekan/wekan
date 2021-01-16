@@ -76,6 +76,9 @@ BlazeComponent.extendComponent({
     errors.notFound.lists.forEach(list => {
       messages.push({ tag: 'list-title-not-found', value: list });
     });
+    errors.notFound.labels.forEach(label => {
+      messages.push({ tag: 'label-not-found', value: label });
+    });
     errors.notFound.users.forEach(user => {
       messages.push({ tag: 'user-username-not-found', value: user });
     });
