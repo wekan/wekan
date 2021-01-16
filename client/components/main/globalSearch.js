@@ -52,7 +52,7 @@ BlazeComponent.extendComponent({
       const results = Cards.globalSearch(this.queryParams);
       const sessionData = SessionData.findOne({ userId: Meteor.userId() });
       // eslint-disable-next-line no-console
-      console.log('sessionData:', sessionData);
+      // console.log('sessionData:', sessionData);
       // console.log('errors:', results.errors);
       this.totalHits.set(sessionData.totalHits);
       this.resultsCount.set(results.cards.count());
@@ -81,6 +81,22 @@ BlazeComponent.extendComponent({
     });
 
     return messages;
+  },
+
+  resultsHeading() {
+    if (this.resultsCount.get() === 0) {
+      return TAPi18n.__('no-cards-found');
+    } else if (this.resultsCount.get() === 1) {
+      return TAPi18n.__('one-card-found');
+    } else if (this.resultsCount.get() === this.totalHits.get()) {
+      return TAPi18n.__('n-cards-found', this.resultsCount.get());
+    }
+
+    return TAPi18n.__('n-n-of-n-cards-found', {
+      start: 1,
+      end: this.resultsCount.get(),
+      total: this.totalHits.get(),
+    });
   },
 
   events() {

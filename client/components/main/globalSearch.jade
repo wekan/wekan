@@ -20,14 +20,7 @@ template(name="globalSearch")
       else if hasResults.get
         .global-search-dueat-list-wrapper
           h1
-            if $eq resultsCount.get 0
-              | {{_ 'no-cards-found' }}
-            else if $eq resultsCount.get 1
-              | {{_ 'one-card-found' }}
-            else if $eq resultsCount.get totalHits.get
-              | {{_ 'n-cards-found' resultsCount.get }}
-            else
-              | {{_ 'n-n-of-n-cards-found' 1 resultsCount.get totalHits.get }}
+            = resultsHeading
           if queryErrors.get
             div
               each msg in errorMessages

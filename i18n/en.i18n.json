@@ -873,7 +873,7 @@
   "no-cards-found": "No Cards Found",
   "one-card-found": "One Card Found",
   "n-cards-found": "%s Cards Found",
-  "n-n-of-n-cards-found": "%s-%s of %s Cards Found",
+  "n-n-of-n-cards-found": "__start__-__end__ of __total__ Cards Found",
   "operator-board": "board",
   "operator-board-abbrev": "b",
   "operator-swimlane": "swimlane",
