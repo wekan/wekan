@@ -30,28 +30,8 @@ template(name="globalSearch")
             +resultCard(card)
       else
         .global-search-instructions
-          h1 Search Operators
           +viewer
-            = 'Searches can include operators to refine the search.  Operators are specified by writing the operator'
-            = 'name and value separated by a colon.  For example, an operator specification of `list:Blocked` would limit the search'
-            = 'to cards that are contained in a list named *Blocked*.  If the value contains spaces or special characters'
-            = 'it must be enclosed in quotation marks (e.g. `list:"To Review"`).\n'
-            = 'Available operators are:\n'
-            = '* `board:title` - cards in boards matching the specified title\n'
-            = '* `list:title` - cards in lists matching the specified title\n'
-            = '* `swimlane:title` - cards in swimlanes matching the specified title\n'
-            = '* `label:color` - cards that have a label matching the given color\n'
-            = '* `label:name` - cards that have a label matching the given name\n'
-            = '* `user:username` - cards where the specified user is a member or assignee\n'
-            = '* `@username` - shorthand for `user:username`\n'
-            = '* `#label` - shorthand for `label:color-or-name`\n'
-            = '## Notes\n'
-            = '*  Multiple operators may be specified.\n'
-            = '*  Similar operators are *OR*ed together.  Cards that match any of the conditions will be returned.\n'
-            = '    `list:Available list:Blocked` would return cards contained in any list named *Blocked* or *Available*.\n'
-            = '*  Differing operators are *AND*ed together.  Only cards that match all of the differing operators are returned.\n'
-            = '`list:Available label:red` returns only cards in the list *Available* with a *red* label.\n'
-            = '* Text searches are case insensitive.\n'
+            = searchInstructions
 
 template(name="globalSearchViewChangePopup")
   if currentUser

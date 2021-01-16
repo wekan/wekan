@@ -102,6 +102,56 @@ BlazeComponent.extendComponent({
     });
   },
 
+  searchInstructions() {
+    tags = {
+      operator_board: TAPi18n.__('operator-board'),
+      operator_list: TAPi18n.__('operator-list'),
+      operator_swimlane: TAPi18n.__('operator-swimlane'),
+      operator_label: TAPi18n.__('operator-label'),
+      operator_label_abbrev: TAPi18n.__('operator-label-abbrev'),
+      operator_user: TAPi18n.__('operator-user'),
+      operator_user_abbrev: TAPi18n.__('operator-user-abbrev'),
+    };
+
+    text = `# ${TAPi18n.__('globalSearch-instructions-heading')}`;
+    text += `\n${TAPi18n.__('globalSearch-instructions-description', tags)}`;
+    text += `\n${TAPi18n.__('globalSearch-instructions-operators', tags)}`;
+    text += `\n* ${TAPi18n.__(
+      'globalSearch-instructions-operator-board',
+      tags,
+    )}`;
+    text += `\n* ${TAPi18n.__(
+      'globalSearch-instructions-operator-list',
+      tags,
+    )}`;
+    text += `\n* ${TAPi18n.__(
+      'globalSearch-instructions-operator-swimlane',
+      tags,
+    )}`;
+    text += `\n* ${TAPi18n.__(
+      'globalSearch-instructions-operator-label',
+      tags,
+    )}`;
+    text += `\n* ${TAPi18n.__(
+      'globalSearch-instructions-operator-hash',
+      tags,
+    )}`;
+    text += `\n* ${TAPi18n.__(
+      'globalSearch-instructions-operator-user',
+      tags,
+    )}`;
+    text += `\n* ${TAPi18n.__('globalSearch-instructions-operator-at', tags)}`;
+
+    text += `\n## ${TAPi18n.__('heading-notes')}`;
+    text += `\n* ${TAPi18n.__('globalSearch-instructions-notes-1', tags)}`;
+    text += `\n* ${TAPi18n.__('globalSearch-instructions-notes-2', tags)}`;
+    text += `\n* ${TAPi18n.__('globalSearch-instructions-notes-3', tags)}`;
+    text += `\n* ${TAPi18n.__('globalSearch-instructions-notes-4', tags)}`;
+    text += `\n* ${TAPi18n.__('globalSearch-instructions-notes-5', tags)}`;
+
+    return text;
+  },
+
   events() {
     return [
       {
