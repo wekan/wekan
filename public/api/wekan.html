@@ -1524,7 +1524,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
 	  	<ul class="toc-list-h1">
         
           <li>
-            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v4.77">Wekan REST API v4.77</a>
+            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v4.78">Wekan REST API v4.78</a>
             
           </li>
         
@@ -2017,6 +2017,11 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
                     
                   </li>
                 
+                  <li>
+                    <a href="#tocsuserssessiondata" class="toc-h2 toc-link" data-title="UsersSessiondata">UsersSessiondata</a>
+                    
+                  </li>
+                
               </ul>
             
           </li>
@@ -2032,7 +2037,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="wekan-rest-api">Wekan REST API v4.77</h1>
+        <h1 id="wekan-rest-api">Wekan REST API v4.78</h1>
 <blockquote>
 <p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
 </blockquote>
@@ -13138,7 +13143,11 @@ System.out.println(response.toString());
   <span class="hljs-attr">"isAdmin"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"createdThroughApi"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"loginDisabled"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"authenticationMethod"</span>: <span class="hljs-string">"string"</span>
+  <span class="hljs-attr">"authenticationMethod"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"sessionData"</span>: {
+    <span class="hljs-attr">"totalHits"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">"lastHit"</span>: <span class="hljs-number">0</span>
+  }
 }
 </code></pre>
 <h3 id="get_current_user-responses">Responses</h3>
@@ -13795,7 +13804,11 @@ System.out.println(response.toString());
   <span class="hljs-attr">"isAdmin"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"createdThroughApi"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"loginDisabled"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"authenticationMethod"</span>: <span class="hljs-string">"string"</span>
+  <span class="hljs-attr">"authenticationMethod"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"sessionData"</span>: {
+    <span class="hljs-attr">"totalHits"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">"lastHit"</span>: <span class="hljs-number">0</span>
+  }
 }
 </code></pre>
 <h3 id="get_user-responses">Responses</h3>
@@ -17275,7 +17288,11 @@ UserSecurity
   <span class="hljs-attr">"isAdmin"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"createdThroughApi"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"loginDisabled"</span>: <span class="hljs-literal">true</span>,
-  <span class="hljs-attr">"authenticationMethod"</span>: <span class="hljs-string">"string"</span>
+  <span class="hljs-attr">"authenticationMethod"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"sessionData"</span>: {
+    <span class="hljs-attr">"totalHits"</span>: <span class="hljs-number">0</span>,
+    <span class="hljs-attr">"lastHit"</span>: <span class="hljs-number">0</span>
+  }
 }
 
 </code></pre>
@@ -17368,6 +17385,13 @@ UserSecurity
 <td>true</td>
 <td>none</td>
 <td>authentication method of the user</td>
+</tr>
+<tr>
+<td>sessionData</td>
+<td><a href="#schemauserssessiondata">UsersSessiondata</a></td>
+<td>false</td>
+<td>none</td>
+<td>profile settings</td>
 </tr>
 </tbody>
 </table>
@@ -17661,6 +17685,42 @@ UserSecurity
 <tr>
 <td>listSortBy</td>
 <td>sort</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocsuserssessiondata">UsersSessiondata</h2>
+<p><a id="schemauserssessiondata"></a></p>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"totalHits"</span>: <span class="hljs-number">0</span>,
+  <span class="hljs-attr">"lastHit"</span>: <span class="hljs-number">0</span>
+}
+
+</code></pre>
+<h3 id="properties">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>totalHits</td>
+<td>number</td>
+<td>false</td>
+<td>none</td>
+<td>Total hits from last search</td>
+</tr>
+<tr>
+<td>lastHit</td>
+<td>number</td>
+<td>false</td>
+<td>none</td>
+<td>last hit that was returned</td>
 </tr>
 </tbody>
 </table>

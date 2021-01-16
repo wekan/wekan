@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v4.77
+  version: v4.78
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -3335,6 +3335,11 @@ definitions:
         description: |
            authentication method of the user
         type: string
+      sessionData:
+        description: |
+           profile settings
+        $ref: "#/definitions/UsersSessiondata"
+        x-nullable: true
     required:
       - createdAt
       - modifiedAt
@@ -3476,3 +3481,14 @@ definitions:
       - cardTemplatesSwimlaneId
       - listTemplatesSwimlaneId
       - boardTemplatesSwimlaneId
+  UsersSessiondata:
+    type: object
+    properties:
+      totalHits:
+        description: |
+           Total hits from last search
+        type: number
+      lastHit:
+        description: |
+           last hit that was returned
+        type: number

@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v4.78 2021-01-16 Wekan release
 
 This release adds the following new features:
 
@@ -10,6 +10,11 @@ and fixes the following bugs:
 - [HTML is not needed in Rules translations, so disabled it](https://github.com/wekan/wekan/commit/a2894bf0cb11161f2f9382e900ffbae2a1570d38).
   Thanks to jrsuplee and xet7.
 - [Limit amount of data in publications where possible](https://github.com/wekan/wekan/commit/4115d62bac882ceaaec531b1f9df2666097be51a).
+  Thanks to xet7.
+- [Fixed Display issues with assignee on minicard](https://github.com/wekan/wekan/commit/aa34da61fe80a2ab2a87b6413b3b9c25fb8ea96f).
+  Thanks to bronger and xet7.
+- [Limit visibility of Global Search, My Cards and Due Cards to logged in users, because they do not work without
+  logging in](https://github.com/wekan/wekan/commit/4180224fd9841a3e6cab9eacb1447978482e1e91).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
