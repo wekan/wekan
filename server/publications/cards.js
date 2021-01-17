@@ -72,18 +72,7 @@ Meteor.publish('myCards', function() {
     Boards.find({ _id: { $in: boards } }),
     Swimlanes.find({ _id: { $in: swimlanes } }),
     Lists.find({ _id: { $in: lists } }),
-    Users.find(
-      { _id: { $in: users } },
-      {
-        fields: {
-          _id: 1,
-          username: 1,
-          'profile.fullname': 1,
-          'profile.avatarUrl': 1,
-          'profile.initials': 1,
-        },
-      },
-    ),
+    Users.find({ _id: { $in: users } }, { fields: Users.safeFields }),
   ];
 });
 
@@ -93,18 +82,7 @@ Meteor.publish('dueCards', function(allUsers = false) {
   // eslint-disable-next-line no-console
   // console.log('all users:', allUsers);
 
-  const user = Users.findOne(
-    { _id: this.userId },
-    {
-      fields: {
-        _id: 1,
-        username: 1,
-        'profile.fullname': 1,
-        'profile.avatarUrl': 1,
-        'profile.initials': 1,
-      },
-    },
-  );
+  const user = Users.findOne({ _id: this.userId });
 
   const archivedBoards = [];
   Boards.find({ archived: true }).forEach(board => {
@@ -115,14 +93,12 @@ Meteor.publish('dueCards', function(allUsers = false) {
   let selector = {
     archived: false,
   };
-  // for admins and users, allow her to see cards only from boards where
-  // she is a member
-  //if (!user.isAdmin) {
+
   selector.$or = [
     { permission: 'public' },
     { members: { $elemMatch: { userId: user._id, isActive: true } } },
   ];
-  //}
+
   Boards.find(selector).forEach(board => {
     permiitedBoards.push(board._id);
   });
@@ -193,18 +169,7 @@ Meteor.publish('dueCards', function(allUsers = false) {
     Boards.find({ _id: { $in: boards } }),
     Swimlanes.find({ _id: { $in: swimlanes } }),
     Lists.find({ _id: { $in: lists } }),
-    Users.find(
-      { _id: { $in: users } },
-      {
-        fields: {
-          _id: 1,
-          username: 1,
-          'profile.fullname': 1,
-          'profile.avatarUrl': 1,
-          'profile.initials': 1,
-        },
-      },
-    ),
+    Users.find({ _id: { $in: users } }, { fields: Users.safeFields }),
   ];
 });
 
@@ -215,6 +180,20 @@ Meteor.publish('globalSearch', function(queryParams) {
   // console.log('queryParams:', queryParams);
 
   const cards = Cards.globalSearch(queryParams).cards;
+
+  if (!cards) {
+    return [];
+  }
+
+  SessionData.upsert(
+    { userId: this.userId },
+    {
+      $set: {
+        totalHits: cards.count(),
+        lastHit: cards.count() > 50 ? 50 : cards.count(),
+      },
+    },
+  );
 
   const boards = [];
   const swimlanes = [];
@@ -244,34 +223,21 @@ Meteor.publish('globalSearch', function(queryParams) {
     Boards.find({ _id: { $in: boards } }),
     Swimlanes.find({ _id: { $in: swimlanes } }),
     Lists.find({ _id: { $in: lists } }),
-    Users.find({ _id: { $in: users } }),
+    Users.find({ _id: { $in: users } }, { fields: Users.safeFields }),
+    SessionData.find({ userId: this.userId }),
   ];
 });
 
 Meteor.publish('brokenCards', function() {
-  const user = Users.findOne(
-    { _id: this.userId },
-    {
-      fields: {
-        _id: 1,
-        username: 1,
-        'profile.fullname': 1,
-        'profile.avatarUrl': 1,
-        'profile.initials': 1,
-      },
-    },
-  );
+  const user = Users.findOne({ _id: this.userId });
 
   const permiitedBoards = [null];
   let selector = {};
-  // for admins and users, if user is not an admin allow her to see cards only from boards where
-  // she is a member
-  //if (!user.isAdmin) {
   selector.$or = [
     { permission: 'public' },
     { members: { $elemMatch: { userId: user._id, isActive: true } } },
   ];
-  //}
+
   Boards.find(selector).forEach(board => {
     permiitedBoards.push(board._id);
   });
@@ -328,17 +294,6 @@ Meteor.publish('brokenCards', function() {
     Boards.find({ _id: { $in: boards } }),
     Swimlanes.find({ _id: { $in: swimlanes } }),
     Lists.find({ _id: { $in: lists } }),
-    Users.find(
-      { _id: { $in: users } },
-      {
-        fields: {
-          _id: 1,
-          username: 1,
-          'profile.fullname': 1,
-          'profile.avatarUrl': 1,
-          'profile.initials': 1,
-        },
-      },
-    ),
+    Users.find({ _id: { $in: users } }, { fields: Users.safeFields }),
   ];
 });
