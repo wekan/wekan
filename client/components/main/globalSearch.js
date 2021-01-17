@@ -49,8 +49,6 @@ BlazeComponent.extendComponent({
     this.queryErrors = null;
     Meteor.subscribe('setting');
     if (Session.get('globalQuery')) {
-      // eslint-disable-next-line no-console
-      // console.log(Session.get('globalQuery'));
       this.searchAllBoards(Session.get('globalQuery'));
     }
   },
@@ -68,12 +66,12 @@ BlazeComponent.extendComponent({
 
   results() {
     // eslint-disable-next-line no-console
-    console.log('getting results');
+    // console.log('getting results');
     if (this.queryParams) {
       const results = Cards.globalSearch(this.queryParams);
       this.queryErrors = results.errors;
       // eslint-disable-next-line no-console
-      console.log('errors:', this.queryErrors);
+      // console.log('errors:', this.queryErrors);
       if (this.errorMessages().length) {
         this.hasQueryErrors.set(true);
         return null;

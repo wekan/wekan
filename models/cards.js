@@ -1883,8 +1883,6 @@ Cards.globalSearch = queryParams => {
     hasErrors() {
       for (const prop in this.notFound) {
         if (this.notFound[prop].length) {
-          // eslint-disable-next-line no-console
-          console.log('errors in:', prop, this.notFound[prop]);
           return true;
         }
       }
