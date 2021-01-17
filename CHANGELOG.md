@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release adds the following improvements:
+
+- [Use table-cell instead of inline-block in my-cards-list-wrapper CSS](https://github.com/wekan/wekan/commit/3866ed31965eb5b722e88c4d3e7628d516375088).
+  Thanks to johappel and xet7 !
+    
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.79 2021-01-17 Wekan release
 
 This release adds the following new features:
