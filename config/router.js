@@ -158,7 +158,11 @@ FlowRouter.route('/global-search', {
 
     Utils.manageCustomUI();
     Utils.manageMatomo();
+    DocHead.setTitle(TAPi18n.__('globalSearch-title'));
 
+    // eslint-disable-next-line no-console
+    console.log('URL Params:', FlowRouter.getQueryParam('q'));
+    Session.set('globalQuery', decodeURI(FlowRouter.getQueryParam('q')));
     BlazeLayout.render('defaultLayout', {
       headerBar: 'globalSearchHeaderBar',
       content: 'globalSearch',

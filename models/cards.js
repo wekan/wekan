@@ -1735,16 +1735,31 @@ Cards.globalSearch = queryParams => {
   // eslint-disable-next-line no-console
   // console.log('userId:', userId);
 
-  const errors = {
-    notFound: {
-      boards: [],
-      swimlanes: [],
-      lists: [],
-      labels: [],
-      users: [],
-      is: [],
-    },
-  };
+  const errors = new (class {
+    constructor() {
+      this.notFound = {
+        boards: [],
+        swimlanes: [],
+        lists: [],
+        labels: [],
+        users: [],
+        members: [],
+        assignees: [],
+        is: [],
+      };
+    }
+
+    hasErrors() {
+      for (const prop in this.notFound) {
+        if (this.notFound[prop].length) {
+          // eslint-disable-next-line no-console
+          console.log('errors in:', prop, this.notFound[prop]);
+          return true;
+        }
+      }
+      return false;
+    }
+  })();
 
   const selector = {
     archived: false,
@@ -1808,25 +1823,63 @@ Cards.globalSearch = queryParams => {
     selector.listId.$in = queryLists;
   }
 
+  const queryMembers = [];
+  const queryAssignees = [];
   if (queryParams.users.length) {
-    const queryUsers = [];
     queryParams.users.forEach(query => {
       const users = Users.find({
         username: query,
       });
       if (users.count()) {
         users.forEach(user => {
-          queryUsers.push(user._id);
+          queryMembers.push(user._id);
+          queryAssignees.push(user._id);
         });
       } else {
         errors.notFound.users.push(query);
       }
     });
+  }
 
+  if (queryParams.members.length) {
+    queryParams.members.forEach(query => {
+      const users = Users.find({
+        username: query,
+      });
+      if (users.count()) {
+        users.forEach(user => {
+          queryMembers.push(user._id);
+        });
+      } else {
+        errors.notFound.members.push(query);
+      }
+    });
+  }
+
+  if (queryParams.assignees.length) {
+    queryParams.assignees.forEach(query => {
+      const users = Users.find({
+        username: query,
+      });
+      if (users.count()) {
+        users.forEach(user => {
+          queryAssignees.push(user._id);
+        });
+      } else {
+        errors.notFound.assignees.push(query);
+      }
+    });
+  }
+
+  if (queryMembers.length && queryAssignees.length) {
     selector.$or = [
-      { members: { $in: queryUsers } },
-      { assignees: { $in: queryUsers } },
+      { members: { $in: queryMembers } },
+      { assignees: { $in: queryAssignees } },
     ];
+  } else if (queryMembers.length) {
+    selector.members = { $in: queryMembers };
+  } else if (queryAssignees.length) {
+    selector.assignees = { $in: queryAssignees };
   }
 
   if (queryParams.labels.length) {
@@ -1878,6 +1931,10 @@ Cards.globalSearch = queryParams => {
 
       selector.labelIds = { $in: queryLabels };
     });
+  }
+
+  if (errors.hasErrors()) {
+    return { cards: null, errors };
   }
 
   if (queryParams.text) {

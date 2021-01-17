@@ -181,6 +181,10 @@ Meteor.publish('globalSearch', function(queryParams) {
 
   const cards = Cards.globalSearch(queryParams).cards;
 
+  if (!cards) {
+    return [];
+  }
+
   SessionData.upsert(
     { userId: this.userId },
     {
