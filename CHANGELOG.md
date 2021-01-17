@@ -1,3 +1,26 @@
+# Upcoming Wekan release
+
+This release adds the following improvements:
+
+- [Use table-cell instead of inline-block in my-cards-list-wrapper CSS](https://github.com/wekan/wekan/commit/3866ed31965eb5b722e88c4d3e7628d516375088).
+  Thanks to johappel and xet7 !
+    
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v4.79 2021-01-17 Wekan release
+
+This release adds the following new features:
+
+- [At Search All Cards, now it's possible to click found card to open it](https://github.com/wekan/wekan/commit/10f74f5152117358e9c6b9bb0e81b8c284841aff).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Fixed: Linked card makes board not load](https://github.com/wekan/wekan/commit/be03d2ae9aa708119992548145cbaf82e1f87419).
+  Thanks to akitzing, galletl, pdonias, olivierlambert and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.78 2021-01-16 Wekan release
 
 This release adds the following new features:

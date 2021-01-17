@@ -858,12 +858,20 @@ Cards.helpers({
   getMembers() {
     if (this.isLinkedCard()) {
       const card = Cards.findOne({ _id: this.linkedId });
-      return card.members;
+      if (card === undefined) {
+        return null;
+      } else {
+        return card.members;
+      }
     } else if (this.isLinkedBoard()) {
       const board = Boards.findOne({ _id: this.linkedId });
-      return board.activeMembers().map(member => {
-        return member.userId;
-      });
+      if (board === undefined) {
+        return null;
+      } else {
+        return board.activeMembers().map(member => {
+          return member.userId;
+        });
+      }
     } else {
       return this.members;
     }
@@ -872,12 +880,20 @@ Cards.helpers({
   getAssignees() {
     if (this.isLinkedCard()) {
       const card = Cards.findOne({ _id: this.linkedId });
-      return card.assignees;
+      if (card === undefined) {
+        return null;
+      } else {
+        return card.assignees;
+      }
     } else if (this.isLinkedBoard()) {
       const board = Boards.findOne({ _id: this.linkedId });
-      return board.activeMembers().map(assignee => {
-        return assignee.userId;
-      });
+      if (board === undefined) {
+        return null;
+      } else {
+        return board.activeMembers().map(assignee => {
+          return assignee.userId;
+        });
+      }
     } else {
       return this.assignees;
     }
@@ -967,7 +983,11 @@ Cards.helpers({
   getReceived() {
     if (this.isLinkedCard()) {
       const card = Cards.findOne({ _id: this.linkedId });
-      return card.receivedAt;
+      if (card === undefined) {
+        return null;
+      } else {
+        return card.receivedAt;
+      }
     } else {
       return this.receivedAt;
     }
@@ -984,10 +1004,18 @@ Cards.helpers({
   getStart() {
     if (this.isLinkedCard()) {
       const card = Cards.findOne({ _id: this.linkedId });
-      return card.startAt;
+      if (card === undefined) {
+        return null;
+      } else {
+        return card.startAt;
+      }
     } else if (this.isLinkedBoard()) {
       const board = Boards.findOne({ _id: this.linkedId });
-      return board.startAt;
+      if (board === undefined) {
+        return null;
+      } else {
+        return board.startAt;
+      }
     } else {
       return this.startAt;
     }
@@ -1006,10 +1034,18 @@ Cards.helpers({
   getDue() {
     if (this.isLinkedCard()) {
       const card = Cards.findOne({ _id: this.linkedId });
-      return card.dueAt;
+      if (card === undefined) {
+        return null;
+      } else {
+        return card.dueAt;
+      }
     } else if (this.isLinkedBoard()) {
       const board = Boards.findOne({ _id: this.linkedId });
-      return board.dueAt;
+      if (board === undefined) {
+        return null;
+      } else {
+        return board.dueAt;
+      }
     } else {
       return this.dueAt;
     }
@@ -1028,10 +1064,18 @@ Cards.helpers({
   getEnd() {
     if (this.isLinkedCard()) {
       const card = Cards.findOne({ _id: this.linkedId });
-      return card.endAt;
+      if (card === undefined) {
+        return null;
+      } else {
+        return card.endAt;
+      }
     } else if (this.isLinkedBoard()) {
       const board = Boards.findOne({ _id: this.linkedId });
-      return board.endAt;
+      if (board === undefined) {
+        return null;
+      } else {
+        return board.endAt;
+      }
     } else {
       return this.endAt;
     }
@@ -1050,10 +1094,18 @@ Cards.helpers({
   getIsOvertime() {
     if (this.isLinkedCard()) {
       const card = Cards.findOne({ _id: this.linkedId });
-      return card.isOvertime;
+      if (card === undefined) {
+        return null;
+      } else {
+        return card.isOvertime;
+      }
     } else if (this.isLinkedBoard()) {
       const board = Boards.findOne({ _id: this.linkedId });
-      return board.isOvertime;
+      if (board === undefined) {
+        return null;
+      } else {
+        return board.isOvertime;
+      }
     } else {
       return this.isOvertime;
     }
@@ -1072,10 +1124,18 @@ Cards.helpers({
   getSpentTime() {
     if (this.isLinkedCard()) {
       const card = Cards.findOne({ _id: this.linkedId });
-      return card.spentTime;
+      if (card === undefined) {
+        return null;
+      } else {
+        return card.spentTime;
+      }
     } else if (this.isLinkedBoard()) {
       const board = Boards.findOne({ _id: this.linkedId });
-      return board.spentTime;
+      if (board === undefined) {
+        return null;
+      } else {
+        return board.spentTime;
+      }
     } else {
       return this.spentTime;
     }
@@ -1094,12 +1154,22 @@ Cards.helpers({
   getVoteQuestion() {
     if (this.isLinkedCard()) {
       const card = Cards.findOne({ _id: this.linkedId });
-      if (card && card.vote) return card.vote.question;
-      else return null;
+      if (card === undefined) {
+        return null;
+      } else if (card && card.vote) {
+        return card.vote.question;
+      } else {
+        return null;
+      }
     } else if (this.isLinkedBoard()) {
       const board = Boards.findOne({ _id: this.linkedId });
-      if (board && board.vote) return board.vote.question;
-      else return null;
+      if (board === undefined) {
+        return null;
+      } else if (board && board.vote) {
+        return board.vote.question;
+      } else {
+        return null;
+      }
     } else if (this.vote) {
       return this.vote.question;
     } else {
@@ -1110,12 +1180,22 @@ Cards.helpers({
   getVotePublic() {
     if (this.isLinkedCard()) {
       const card = Cards.findOne({ _id: this.linkedId });
-      if (card && card.vote) return card.vote.public;
-      else return null;
+      if (card === undefined) {
+        return null;
+      } else if (card && card.vote) {
+        return card.vote.public;
+      } else {
+        return null;
+      }
     } else if (this.isLinkedBoard()) {
       const board = Boards.findOne({ _id: this.linkedId });
-      if (board && board.vote) return board.vote.public;
-      else return null;
+      if (board === undefined) {
+        return null;
+      } else if (board && board.vote) {
+        return board.vote.public;
+      } else {
+        return null;
+      }
     } else if (this.vote) {
       return this.vote.public;
     } else {
@@ -1126,12 +1206,22 @@ Cards.helpers({
   getVoteEnd() {
     if (this.isLinkedCard()) {
       const card = Cards.findOne({ _id: this.linkedId });
-      if (card && card.vote) return card.vote.end;
-      else return null;
+      if (card === undefined) {
+        return null;
+      } else if (card && card.vote) {
+        return card.vote.end;
+      } else {
+        return null;
+      }
     } else if (this.isLinkedBoard()) {
       const board = Boards.findOne({ _id: this.linkedId });
-      if (board && board.vote) return board.vote.end;
-      else return null;
+      if (board === undefined) {
+        return null;
+      } else if (board && board.vote) {
+        return board.vote.end;
+      } else {
+        return null;
+      }
     } else if (this.vote) {
       return this.vote.end;
     } else {
@@ -1184,10 +1274,20 @@ Cards.helpers({
   getTitle() {
     if (this.isLinkedCard()) {
       const card = Cards.findOne({ _id: this.linkedId });
-      return card.title;
+      if (card === undefined) {
+        return null;
+      } else {
+        return card.title;
+      }
     } else if (this.isLinkedBoard()) {
       const board = Boards.findOne({ _id: this.linkedId });
-      return board.title;
+      if (board === undefined) {
+        return null;
+      } else {
+        return board.title;
+      }
+    } else if (this.title === undefined) {
+      return null;
     } else {
       return this.title;
     }
@@ -1196,14 +1296,29 @@ Cards.helpers({
   getBoardTitle() {
     if (this.isLinkedCard()) {
       const card = Cards.findOne({ _id: this.linkedId });
+      if (card === undefined) {
+        return null;
+      }
       const board = Boards.findOne({ _id: card.boardId });
-      return board.title;
+      if (board === undefined) {
+        return null;
+      } else {
+        return board.title;
+      }
     } else if (this.isLinkedBoard()) {
       const board = Boards.findOne({ _id: this.linkedId });
-      return board.title;
+      if (board === undefined) {
+        return null;
+      } else {
+        return board.title;
+      }
     } else {
       const board = Boards.findOne({ _id: this.boardId });
-      return board.title;
+      if (board === undefined) {
+        return null;
+      } else {
+        return board.title;
+      }
     }
   },
 
@@ -1220,10 +1335,18 @@ Cards.helpers({
   getArchived() {
     if (this.isLinkedCard()) {
       const card = Cards.findOne({ _id: this.linkedId });
-      return card.archived;
+      if (card === undefined) {
+        return null;
+      } else {
+        return card.archived;
+      }
     } else if (this.isLinkedBoard()) {
       const board = Boards.findOne({ _id: this.linkedId });
-      return board.archived;
+      if (board === undefined) {
+        return null;
+      } else {
+        return board.archived;
+      }
     } else {
       return this.archived;
     }
@@ -1240,7 +1363,11 @@ Cards.helpers({
   getRequestedBy() {
     if (this.isLinkedCard()) {
       const card = Cards.findOne({ _id: this.linkedId });
-      return card.requestedBy;
+      if (card === undefined) {
+        return null;
+      } else {
+        return card.requestedBy;
+      }
     } else {
       return this.requestedBy;
     }
@@ -1257,7 +1384,11 @@ Cards.helpers({
   getAssignedBy() {
     if (this.isLinkedCard()) {
       const card = Cards.findOne({ _id: this.linkedId });
-      return card.assignedBy;
+      if (card === undefined) {
+        return null;
+      } else {
+        return card.assignedBy;
+      }
     } else {
       return this.assignedBy;
     }
