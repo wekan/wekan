@@ -27,6 +27,7 @@ template(name="globalSearch")
           else
             h1
               = resultsHeading.get
+              a.fa.fa-link(title="{{_ 'link-to-search' }}" href="{{ getSearchHref }}")
             each card in results
               +resultCard(card)
       else

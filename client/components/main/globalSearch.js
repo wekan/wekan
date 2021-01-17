@@ -41,6 +41,7 @@ BlazeComponent.extendComponent({
     this.hasQueryErrors = new ReactiveVar(false);
     this.query = new ReactiveVar('');
     this.resultsHeading = new ReactiveVar('');
+    this.searchLink = new ReactiveVar(null);
     this.queryParams = null;
     this.parsingErrors = [];
     this.resultsCount = 0;
@@ -256,6 +257,11 @@ BlazeComponent.extendComponent({
       end: this.resultsCount,
       total: this.totalHits,
     });
+  },
+
+  getSearchHref() {
+    const baseUrl = window.location.href.replace(/([?#].*$|\s*$)/, '');
+    return `${baseUrl}?q=${encodeURIComponent(this.query.get())}`;
   },
 
   searchInstructions() {
