@@ -1,4 +1,4 @@
-FROM quay.io/wekan/ubuntu:groovy-20201125.2 AS builder
+FROM quay.io/wekan/node:12.20.1 AS builder
 # This is our builder image. It will take the Wekan meteor code and
 # build it into a standalone NodeJS package
 
@@ -17,7 +17,7 @@ RUN sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' /usr/src/app/packages/met
 WORKDIR /usr/src/app
 
 # Install our NPM packages
-RUN apt -y install npm curl && npm -g install npm && npm install
+RUN npm install
 
 # Install Meteor
 RUN curl "https://install.meteor.com/" | sh
@@ -36,7 +36,7 @@ RUN cd /build/bundle/programs/server/ && \
 RUN rm -rf /build/bundle/programs/web.browser.legacy
 
 
-FROM quay.io/wekan/ubuntu:groovy-20201125.2 as app
+FROM quay.io/wekan/node:12.20.1-alpine as app
 # This is our runtime image. It takes the built NodeJS package and runs it using
 # the lighter Alpine NodeJS base image to keep image size down
 

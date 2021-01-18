@@ -10,14 +10,6 @@ This release adds the following improvements:
   Thanks to GavinLilly.
 - [Use MongoDB setFeatureCompatibilityVersion 4.2 on Snap. TODO: Docker](https://github.com/wekan/wekan/commit/2791b7da22ddb0ff5588eca56f1dc90ff5ffdd2d).
   Thanks to GuidoDr and xet7.
-
-and fixes the following bugs:
-
-- [Use Ubuntu base image in Dockerfile, because according to Quay.io security scan it does not have any vulnerabilities, that node base images
-  do have](https://github.com/wekan/wekan/commit/da2be59185525439a5755000da074754b2077157.
-  Thanks to xet7.
-- [Added npm and curl to Dockerfile, because Docker build failed](https://github.com/wekan/wekan/commit/fb771d46ddd1b8ee01981ed4e6b74444b71c4fd5).
-  Thanks to xet7.
     
 Thanks to above GitHub users for their contributions and translators for their translations.
 
