@@ -14,6 +14,11 @@ This release adds the following improvements:
 - [Use MongoDB setFeatureCompatibilityVersion 4.2 on Snap. TODO: Docker](https://github.com/wekan/wekan/commit/2791b7da22ddb0ff5588eca56f1dc90ff5ffdd2d).
   Thanks to GuidoDr and xet7.
 
+and adds the following updates:
+
+- [Update dependencies](https://github.com/wekan/wekan/commit/c0f748bcb5dfebe7fa90be647a1ed23f0edcc304).
+  Thanks to developers of dependencies.
+
 and fixes the following bugs:
 
 - [Fixed Linked card makes board not load when CustomField definition is undefined](https://github.com/wekan/wekan/commit/0d5f33299ee25e1bee4ca4fc3b3c2483c29e367c).
