@@ -1,4 +1,4 @@
-FROM node:12 AS builder
+FROM quay.io/wekan/ubuntu:groovy-20201125.2 AS builder
 # This is our builder image. It will take the Wekan meteor code and
 # build it into a standalone NodeJS package
 
@@ -36,7 +36,7 @@ RUN cd /build/bundle/programs/server/ && \
 RUN rm -rf /build/bundle/programs/web.browser.legacy
 
 
-FROM node:12-slim as app
+FROM quay.io/wekan/ubuntu:groovy-20201125.2 as app
 # This is our runtime image. It takes the built NodeJS package and runs it using
 # the lighter Alpine NodeJS base image to keep image size down
 
