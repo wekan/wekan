@@ -1,4 +1,4 @@
-FROM quay.io/wekan/node:12.20.1 AS builder
+FROM quay.io/wekan/node:12.20.1-buster AS builder
 # This is our builder image. It will take the Wekan meteor code and
 # build it into a standalone NodeJS package
 
@@ -36,7 +36,7 @@ RUN cd /build/bundle/programs/server/ && \
 RUN rm -rf /build/bundle/programs/web.browser.legacy
 
 
-FROM quay.io/wekan/node:12.20.1-alpine as app
+FROM quay.io/wekan/node:12.20.1-buster-slim as app
 # This is our runtime image. It takes the built NodeJS package and runs it using
 # the lighter Alpine NodeJS base image to keep image size down
 
