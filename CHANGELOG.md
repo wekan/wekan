@@ -4,6 +4,10 @@ This release fixes the following bugs:
 
 - [Restore original working Dockerfile](https://github.com/wekan/wekan/commit/c4ea7457dcf1db200c87784c35b7d3c390e94d80).
   Thanks to gpalyu and xet7.
+- [Reverted Cards, custom fields are displayed in alphabetic order from Wekan v4.71
+  https://github.com/wekan/wekan/pulls/3417 because it caused board not
+  loading](https://github.com/wekan/wekan/commit/413f91d0c8f2d3f9df9bf036bb20551dba29bc2e).
+  Thanks to olivierlambert and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
