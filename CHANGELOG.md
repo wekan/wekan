@@ -8,6 +8,9 @@ This release adds the following improvements:
   Thanks to johappel and xet7.
 - [Use multi stage build based on Node images](https://github.com/wekan/wekan/pull/3438).
   Thanks to GavinLilly.
+- [Try to use buster base images, because when using Wekan Alpine, registering new user of Wekan does not work,
+  maybe because of glibc/musl](https://github.com/wekan/wekan/commit/254a9abad2dec620d95c02ac9209e9f569407986).
+  Thanks to GavinLilly and xet7.
 - [Use MongoDB setFeatureCompatibilityVersion 4.2 on Snap. TODO: Docker](https://github.com/wekan/wekan/commit/2791b7da22ddb0ff5588eca56f1dc90ff5ffdd2d).
   Thanks to GuidoDr and xet7.
     
