@@ -144,6 +144,33 @@ BlazeComponent.extendComponent({
     const reText = /^(?<text>\S+)(\s+|$)/;
     const reQuotedText = /^(?<quote>["'])(?<text>\w+)\k<quote>(\s+|$)/;
 
+    const colorMap = {};
+    colorMap[TAPi18n.__('color-black')] = 'black';
+    colorMap[TAPi18n.__('color-blue')] = 'blue';
+    colorMap[TAPi18n.__('color-crimson')] = 'crimson';
+    colorMap[TAPi18n.__('color-darkgreen')] = 'darkgreen';
+    colorMap[TAPi18n.__('color-gold')] = 'gold';
+    colorMap[TAPi18n.__('color-gray')] = 'gray';
+    colorMap[TAPi18n.__('color-green')] = 'green';
+    colorMap[TAPi18n.__('color-indigo')] = 'indigo';
+    colorMap[TAPi18n.__('color-lime')] = 'lime';
+    colorMap[TAPi18n.__('color-magenta')] = 'magenta';
+    colorMap[TAPi18n.__('color-mistyrose')] = 'mistyrose';
+    colorMap[TAPi18n.__('color-navy')] = 'navy';
+    colorMap[TAPi18n.__('color-orange')] = 'orange';
+    colorMap[TAPi18n.__('color-paleturquoise')] = 'paleturquoise';
+    colorMap[TAPi18n.__('color-peachpuff')] = 'peachpuff';
+    colorMap[TAPi18n.__('color-pink')] = 'pink';
+    colorMap[TAPi18n.__('color-plum')] = 'plum';
+    colorMap[TAPi18n.__('color-purple')] = 'purple';
+    colorMap[TAPi18n.__('color-red')] = 'red';
+    colorMap[TAPi18n.__('color-saddlebrown')] = 'saddlebrown';
+    colorMap[TAPi18n.__('color-silver')] = 'silver';
+    colorMap[TAPi18n.__('color-sky')] = 'sky';
+    colorMap[TAPi18n.__('color-slateblue')] = 'slateblue';
+    colorMap[TAPi18n.__('color-white')] = 'white';
+    colorMap[TAPi18n.__('color-yellow')] = 'yellow';
+
     const operatorMap = {};
     operatorMap[TAPi18n.__('operator-board')] = 'boards';
     operatorMap[TAPi18n.__('operator-board-abbrev')] = 'boards';
@@ -193,7 +220,13 @@ BlazeComponent.extendComponent({
           op = m.groups.abbrev;
         }
         if (op in operatorMap) {
-          params[operatorMap[op]].push(m.groups.value);
+          let value = m.groups.value;
+          if (operatorMap[op] === 'labels') {
+            if (value in colorMap) {
+              value = colorMap[value];
+            }
+          }
+          params[operatorMap[op]].push(value);
         } else {
           this.parsingErrors.push({
             tag: 'operator-unknown-error',
