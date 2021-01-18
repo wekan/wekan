@@ -28,6 +28,10 @@ RUN meteor build --directory /build
 # Include the fix for CFS
 RUN cp /usr/src/app/fix-download-unicode/cfs_access-point.txt /build/bundle/programs/server/packages/cfs_access-point.js
 
+# Install server side NPM depedencies
+RUN cd /build/bundle/programs/server/ && \
+    npm install
+
 # Remove the legacy web browser bundle, so that Wekan works in Android Firefox, iOS Safari, etc.
 RUN rm -rf /build/bundle/programs/web.browser.legacy
 
@@ -159,14 +163,9 @@ COPY --from=builder /build/bundle /bundle
 
 WORKDIR /bundle
 
-# Install server side NPM depedencies
-RUN cd programs/server/ && \
-    npm install
-
-# Install client side NPM dependencies
-#RUN npm install
-
 ENV PORT=8080
 EXPOSE $PORT
+
+USER node
 
 CMD ["node", "/bundle/main.js"]
