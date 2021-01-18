@@ -693,7 +693,7 @@ Cards.helpers({
       const definition = definitions.find(definition => {
         return definition._id === customField._id;
       });
-      if (!definition) {
+      if (definition === undefined) {
         return {};
       }
       //search for "True Value" which is for DropDowns other then the Value (which is the id)
