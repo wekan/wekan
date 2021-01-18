@@ -906,7 +906,7 @@
   "globalSearch-instructions-operator-assignee": "`__operator_assignee__:käyttäjänimi` - kortit joilla määritelty käyttäjä on *käsittelijä*",
   "globalSearch-instructions-notes-1": "On mahdollista määritellä useita operaattoreita.",
   "globalSearch-instructions-notes-2": "Samankaltaiset operaattorit on *TAI* yhteen. Kortit jotka täsmää mihin tahansa ehtoon palautetaan.\n`__operator_list__:Saatavilla __operator_list__:Blokattu` palauttaisi kortit jotka sisältää minkä tahansa listan nimeltä *Blokattu* tai *Saatavilla*.",
-  "globalSearch-instructions-notes-3": "Erilaiset operaattorit ovat *JA* yhteen. Vain kortit jotka täsmää kaikkiin erilaisiin operaattoreihin palautetaan.\n`__operator_list__:Saatavilla __operator_label__:red` palauttaa vain kortit listassa *Saatavilla* jolla *red* punainen nimilappu.",
+  "globalSearch-instructions-notes-3": "Erilaiset operaattorit ovat *JA* yhteen. Vain kortit jotka täsmää kaikkiin erilaisiin operaattoreihin palautetaan.\n`__operator_list__:Saatavilla __operator_label__:punainen` palauttaa vain kortit listassa *Saatavilla* jolla *punainen* nimilappu.",
   "globalSearch-instructions-notes-4": "Tekstihaut ovat kirjainkoosta riippumattomia.",
   "globalSearch-instructions-notes-5": "Arkistoiduista korteista ei etsitä.",
   "link-to-search": "Linkki tähän hakuun"
