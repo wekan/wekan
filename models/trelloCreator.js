@@ -248,6 +248,18 @@ export class TrelloCreator {
           settings: {},
         };
 
+        if (field.type === 'list') {
+          fieldToCreate.type = 'dropdown';
+          fieldToCreate.settings = {
+            dropdownItems: field.options.map(opt => {
+              return {
+                _id: opt.id,
+                name: opt.value.text,
+              };
+            }),
+          };
+        }
+
         // We need to remember them by Trello ID, as this is the only ref we have
         // when importing cards.
         this.customFields[field.id] = CustomFields.direct.insert(fieldToCreate);
@@ -336,7 +348,9 @@ export class TrelloCreator {
           const custom = {
             _id: this.customFields[item.idCustomField],
           };
-          if (item.value.hasOwnProperty('checked')) {
+          if (item.idValue) {
+            custom.value = item.idValue;
+          } else if (item.value.hasOwnProperty('checked')) {
             custom.value = item.value.checked === 'true';
           } else if (item.value.hasOwnProperty('text')) {
             custom.value = item.value.text;
@@ -344,8 +358,6 @@ export class TrelloCreator {
             custom.value = item.value.date;
           } else if (item.value.hasOwnProperty('number')) {
             custom.value = item.value.number;
-          } else if (item.value.hasOwnProperty('dropdown')) {
-            custom.value = item.value.dropdown;
           }
           cardToCreate.customFields.push(custom);
         });
