@@ -55,13 +55,21 @@ template(name="cardCustomField-number")
 template(name="cardCustomField-checkbox")
   if canModifyCard
     +inlinedForm(classNames="js-card-customfield-checkbox")
-      input(type="checkbox" value=data.value)
+      input.materialCheckBox(type="checkbox" checked=data.value)
       .edit-controls.clearfix
         button.primary(type="submit") {{_ 'save'}}
         a.fa.fa-times-thin.js-close-inlined-form
+    else
+      a.js-open-inlined-form.checkbox-display
+        if value
+          i.fa.fa-check-square
+        else
+          i.fa.fa-square
   else
     if value
-      = value
+      i.fa.fa-check-square
+    else
+      i.fa.fa-square
 
 template(name="cardCustomField-currency")
     if canModifyCard

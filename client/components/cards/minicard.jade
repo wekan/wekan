@@ -77,6 +77,8 @@ template(name="minicard")
                 if $eq definition.type "currency"
                   +viewer
                     = formattedCurrencyCustomFieldValue(definition)
+                else if $eq definition.type "checkbox"
+                  i.fa.fa-check-square
                 else
                   +viewer
                     = trueValue

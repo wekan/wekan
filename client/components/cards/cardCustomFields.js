@@ -78,7 +78,7 @@ CardCustomField.register('cardCustomField');
       },
     ];
   }
-}.register('cardCustomField-checkbox'));
+}.register('cardCustomField-number'));
 
 // cardCustomField-checkbox
 (class extends CardCustomField {
@@ -86,12 +86,16 @@ CardCustomField.register('cardCustomField');
     super.onCreated();
   }
 
+  isNull() {
+    return !this.data().value;
+  }
+
   events() {
     return [
       {
         'submit .js-card-customfield-checkbox'(event) {
           event.preventDefault();
-          const value = this.find('input').value !== '';
+          const value = this.find('input').checked;
           this.card.setCustomField(this.customFieldId, value);
         },
       },
