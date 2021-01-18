@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Restore original working Dockerfile](https://github.com/wekan/wekan/commit/c4ea7457dcf1db200c87784c35b7d3c390e94d80).
+  Thanks to gpalyu and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.80 2021-01-18 Wekan release
 
 This release adds the following improvements:
