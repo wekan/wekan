@@ -689,11 +689,11 @@ Cards.helpers({
 
     // match right definition to each field
     if (!this.customFields) return [];
-    const ret = this.customFields.map(customField => {
+    return this.customFields.map(customField => {
       const definition = definitions.find(definition => {
         return definition._id === customField._id;
       });
-      if (definition === undefined) {
+      if (!definition) {
         return {};
       }
       //search for "True Value" which is for DropDowns other then the Value (which is the id)
@@ -715,8 +715,6 @@ Cards.helpers({
         definition,
       };
     });
-    ret.sort((a, b) => a.definition.name.localeCompare(b.definition.name));
-    return ret;
   },
 
   colorClass() {
