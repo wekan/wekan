@@ -1,6 +1,11 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+- [Global Search: Use translated color names](https://github.com/wekan/wekan/pull/3440).
+  Thanks to jrsupplee and xet7.
+
+and fixes the following bugs:
 
 - [Restore original working Dockerfile](https://github.com/wekan/wekan/commit/c4ea7457dcf1db200c87784c35b7d3c390e94d80).
   Thanks to gpalyu and xet7.
