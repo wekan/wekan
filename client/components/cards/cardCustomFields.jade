@@ -52,6 +52,17 @@ template(name="cardCustomField-number")
         if value
             = value
 
+template(name="cardCustomField-checkbox")
+  if canModifyCard
+    +inlinedForm(classNames="js-card-customfield-checkbox")
+      input(type="checkbox" value=data.value)
+      .edit-controls.clearfix
+        button.primary(type="submit") {{_ 'save'}}
+        a.fa.fa-times-thin.js-close-inlined-form
+  else
+    if value
+      = value
+
 template(name="cardCustomField-currency")
     if canModifyCard
         +inlinedForm(classNames="js-card-customfield-currency")

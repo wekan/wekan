@@ -78,7 +78,26 @@ CardCustomField.register('cardCustomField');
       },
     ];
   }
-}.register('cardCustomField-number'));
+}.register('cardCustomField-checkbox'));
+
+// cardCustomField-checkbox
+(class extends CardCustomField {
+  onCreated() {
+    super.onCreated();
+  }
+
+  events() {
+    return [
+      {
+        'submit .js-card-customfield-checkbox'(event) {
+          event.preventDefault();
+          const value = this.find('input').value !== '';
+          this.card.setCustomField(this.customFieldId, value);
+        },
+      },
+    ];
+  }
+}.register('cardCustomField-checkbox'));
 
 // cardCustomField-currency
 (class extends CardCustomField {

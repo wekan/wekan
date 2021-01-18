@@ -22,7 +22,14 @@ CustomFields.attachSchema(
        * type of the custom field
        */
       type: String,
-      allowedValues: ['text', 'number', 'date', 'dropdown', 'currency'],
+      allowedValues: [
+        'text',
+        'number',
+        'date',
+        'dropdown',
+        'checkbox',
+        'currency',
+      ],
     },
     settings: {
       /**

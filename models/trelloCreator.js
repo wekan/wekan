@@ -40,6 +40,8 @@ export class TrelloCreator {
 
     // maps a trelloCardId to an array of trelloAttachments
     this.attachments = {};
+
+    this.customFields = {};
   }
 
   /**
@@ -161,6 +163,7 @@ export class TrelloCreator {
       // very old boards won't have a creation activity so no creation date
       createdAt: this._now(this.createdAt.board),
       labels: [],
+      customFields: [],
       members: [
         {
           userId: Meteor.userId(),
@@ -215,6 +218,19 @@ export class TrelloCreator {
       // when importing cards.
       this.labels[label.id] = labelToCreate._id;
       boardToCreate.labels.push(labelToCreate);
+    });
+    trelloBoard.customFields.forEach(field => {
+      const fieldToCreate = {
+        _id: Random.id(6),
+        trelloId: field.id,
+        name: field.name,
+        showOnCard: field.display.cardFront,
+        type: field.type,
+      };
+      // We need to remember them by Trello ID, as this is the only ref we have
+      // when importing cards.
+      this.customFields[field.id] = fieldToCreate._id;
+      boardToCreate.customFields.push(fieldToCreate);
     });
     const boardId = Boards.direct.insert(boardToCreate);
     Boards.direct.update(boardId, { $set: { modifiedAt: this._now() } });
@@ -307,6 +323,10 @@ export class TrelloCreator {
             positive: positiveVotes,
           };
         }
+      }
+
+      if (card.customFieldItems) {
+        card.customFieldItems.forEach(item => {});
       }
 
       // insert card
