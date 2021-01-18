@@ -887,7 +887,7 @@
   "operator-user-abbrev": "@",
   "operator-member": "participant",
   "operator-member-abbrev": "m",
-  "operator-assignee": "assignee",
+  "operator-assignee": "personne assignée",
   "operator-assignee-abbrev": "a",
   "operator-is": "est",
   "operator-unknown-error": "'%s' n'est pas un opérateur",
@@ -901,13 +901,13 @@
   "globalSearch-instructions-operator-label": "`__operator_label__:couleur` `__operator_label__:nom` - cartes qui ont une étiquette correspondant à la couleur ou au nom donné.",
   "globalSearch-instructions-operator-hash": "`__operator_label_abbrev__label` - raccourci pour `__operator_label__:étiquette`",
   "globalSearch-instructions-operator-user": "`__operator_user__:utilisateur` - cartes *assignées* à cet utilisateur ou pour laquelle l'utilisateur spécifié est un *participant*.",
-  "globalSearch-instructions-operator-at": "`__operator_user_abbrev__username` - shorthand for `user:username`",
-  "globalSearch-instructions-operator-member": "`__operator_member__:username` - cards where the specified user is a *member*",
-  "globalSearch-instructions-operator-assignee": "`__operator_assignee__:username` - cards where the specified user is an *assignee*",
+  "globalSearch-instructions-operator-at": "`__operator_user_abbrev__utilisateur` - raccourci pour `user:utilisateur`",
+  "globalSearch-instructions-operator-member": "`__operator_member__:utilisateur` - cartes pour lesquelles l'utilisateur donné est *participant*",
+  "globalSearch-instructions-operator-assignee": "`__operator_assignee__:utilisateur` - cartes *assignées* à l'utilisateur spécifié",
   "globalSearch-instructions-notes-1": "Il est possible d'utiliser plusieurs opérateurs.",
   "globalSearch-instructions-notes-2": "Les opérateurs similaires deviennent *optionnels*. Les cartes correspondant à n'importe quelle condition sont retournées.\n`__operator_list__:Disponible __operator_list__:Bloquée` retournera les cartes contenues dans la liste *Disponible* ou dans la liste *Bloquée*.",
   "globalSearch-instructions-notes-3": "Les opérateurs différents sont *combinés*. Seules les cartes correspondant à tous les critères sont retournées.\n`__operator_list__:Disponible __operator_label__:rouge` ne retourne que les cartes dans la liste *Disponible* avec une étiquette *rouge*.",
   "globalSearch-instructions-notes-4": "Les recherches textuelles ne sont pas sensibles à la casse.",
   "globalSearch-instructions-notes-5": "Les cartes actuellement archivées ne sont pas recherchées.",
-  "link-to-search": "Link to this search"
+  "link-to-search": "Lien vers cette recherche"
 }
