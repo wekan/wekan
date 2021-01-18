@@ -17,7 +17,7 @@ RUN sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' /usr/src/app/packages/met
 WORKDIR /usr/src/app
 
 # Install our NPM packages
-RUN npm install
+RUN apt -y install npm curl && npm -g install npm && npm install
 
 # Install Meteor
 RUN curl "https://install.meteor.com/" | sh
