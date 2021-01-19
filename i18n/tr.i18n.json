@@ -327,6 +327,8 @@
   "export-board-json": "Panoyu JSON olarak dışarı aktar",
   "export-board-csv": "Panoyu CSV olarak dışarı aktar",
   "export-board-tsv": "Panoyu TSV olarak dışarı aktar",
+  "export-board-excel": "Export board to Excel",
+  "user-can-not-export-excel": "User can not export Excel",
   "export-board-html": "Panoyu HTML olarak dışarı aktar",
   "exportBoardPopup-title": "Panoyu dışarı aktar",
   "sort": "Sırala",
@@ -607,6 +609,7 @@
   "accounts-allowEmailChange": "E-posta Değiştirmeye İzin Ver",
   "accounts-allowUserNameChange": "Kullanıcı adı değiştirmeye izin ver",
   "createdAt": "Oluşturulma tarihi",
+  "modifiedAt": "Modified at",
   "verified": "Doğrulanmış",
   "active": "Aktif",
   "card-received": "Giriş",
@@ -669,6 +672,7 @@
   "r-removed-from": "Çıkarıldı:",
   "r-the-board": "pano",
   "r-list": "liste",
+  "list": "Liste",
   "set-filter": "Filtrele",
   "r-moved-to": "Şuraya taşındı:",
   "r-moved-from": "Şuradan taşındı:",
@@ -851,7 +855,6 @@
   "person": "Kişi",
   "my-cards": "My Cards",
   "card": "Kart",
-  "list": "Liste",
   "board": "Pano",
   "context-separator": "/",
   "myCardsSortChange-title": "Kartlarımı Sırala",
@@ -909,5 +912,7 @@
   "globalSearch-instructions-notes-3": "Differing operators are *AND*ed together.  Only cards that match all of the differing operators are returned.\n`__operator_list__:Available __operator_label__:red` returns only cards in the list *Available* with a *red* label.",
   "globalSearch-instructions-notes-4": "Text searches are case insensitive.",
   "globalSearch-instructions-notes-5": "Currently archived cards are not searched.",
-  "link-to-search": "Link to this search"
+  "link-to-search": "Link to this search",
+  "excel-font": "Arial",
+  "number": "Sayı"
 }

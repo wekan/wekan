@@ -327,6 +327,8 @@
   "export-board-json": "Εξαγωγή πίνακα σε JSON",
   "export-board-csv": "Εξαγωγή πίνακα σε CSV",
   "export-board-tsv": "Εξαγωγή πίνακα σε TSV",
+  "export-board-excel": "Export board to Excel",
+  "user-can-not-export-excel": "User can not export Excel",
   "export-board-html": "Εξαγωγή πίνακα σε HTML",
   "exportBoardPopup-title": "Εξαγωγή πίνακα",
   "sort": "Ταξινόμηση",
@@ -607,6 +609,7 @@
   "accounts-allowEmailChange": "Επίτρεψε Αλλαγή Email",
   "accounts-allowUserNameChange": "Επίτρεψε Αλλαγή Ονόματος χρήστη",
   "createdAt": "Δημιουργήθηκε στις",
+  "modifiedAt": "Modified at",
   "verified": "Επιβεβαιώθηκε",
   "active": "Ενεργό",
   "card-received": "Ελήφθη",
@@ -669,6 +672,7 @@
   "r-removed-from": "Διεγράφη από",
   "r-the-board": "ο πίνακας",
   "r-list": "λίστα",
+  "list": "List",
   "set-filter": "Καθορισμός Φίλτρου",
   "r-moved-to": "Μετακινήθηκε σε",
   "r-moved-from": "Μετακινήθηκε από",
@@ -851,7 +855,6 @@
   "person": "Person",
   "my-cards": "My Cards",
   "card": "Κάρτα",
-  "list": "List",
   "board": "Board",
   "context-separator": "/",
   "myCardsSortChange-title": "My Cards Sort",
@@ -909,5 +912,7 @@
   "globalSearch-instructions-notes-3": "Differing operators are *AND*ed together.  Only cards that match all of the differing operators are returned.\n`__operator_list__:Available __operator_label__:red` returns only cards in the list *Available* with a *red* label.",
   "globalSearch-instructions-notes-4": "Text searches are case insensitive.",
   "globalSearch-instructions-notes-5": "Currently archived cards are not searched.",
-  "link-to-search": "Link to this search"
+  "link-to-search": "Link to this search",
+  "excel-font": "Arial",
+  "number": "Αριθμός"
 }

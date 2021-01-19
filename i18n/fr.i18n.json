@@ -327,6 +327,8 @@
   "export-board-json": "Exporter le tableau en JSON",
   "export-board-csv": "Exporter le tableau en CSV",
   "export-board-tsv": "Exporter le tableau en TSV",
+  "export-board-excel": "Export board to Excel",
+  "user-can-not-export-excel": "User can not export Excel",
   "export-board-html": "Exporter le tableau en HTML",
   "exportBoardPopup-title": "Exporter le tableau",
   "sort": "Tri",
@@ -607,6 +609,7 @@
   "accounts-allowEmailChange": "Autoriser le changement d'adresse mail",
   "accounts-allowUserNameChange": "Autoriser le changement d'identifiant",
   "createdAt": "Créé le",
+  "modifiedAt": "Modified at",
   "verified": "Vérifié",
   "active": "Actif",
   "card-received": "Reçue",
@@ -669,6 +672,7 @@
   "r-removed-from": "Supprimé de",
   "r-the-board": "tableau",
   "r-list": "liste",
+  "list": "Liste",
   "set-filter": "Définir un filtre",
   "r-moved-to": "Déplacé vers",
   "r-moved-from": "Déplacé depuis",
@@ -851,7 +855,6 @@
   "person": "Personne",
   "my-cards": "Mes Cartes",
   "card": "Carte",
-  "list": "Liste",
   "board": "Tableau",
   "context-separator": "/",
   "myCardsSortChange-title": "Trier Mes Cartes",
@@ -909,5 +912,7 @@
   "globalSearch-instructions-notes-3": "Les opérateurs différents sont *combinés*. Seules les cartes correspondant à tous les critères sont retournées.\n`__operator_list__:Disponible __operator_label__:rouge` ne retourne que les cartes dans la liste *Disponible* avec une étiquette *rouge*.",
   "globalSearch-instructions-notes-4": "Les recherches textuelles ne sont pas sensibles à la casse.",
   "globalSearch-instructions-notes-5": "Les cartes actuellement archivées ne sont pas recherchées.",
-  "link-to-search": "Lien vers cette recherche"
+  "link-to-search": "Lien vers cette recherche",
+  "excel-font": "Arial",
+  "number": "Nombre"
 }

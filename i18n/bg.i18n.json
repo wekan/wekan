@@ -327,6 +327,8 @@
   "export-board-json": "Export board to JSON",
   "export-board-csv": "Export board to CSV",
   "export-board-tsv": "Export board to TSV",
+  "export-board-excel": "Export board to Excel",
+  "user-can-not-export-excel": "User can not export Excel",
   "export-board-html": "Export board to HTML",
   "exportBoardPopup-title": "Експортиране на Табло",
   "sort": "Sort",
@@ -607,6 +609,7 @@
   "accounts-allowEmailChange": "Разреши промяна на имейла",
   "accounts-allowUserNameChange": "Позволи смяна на потребителско име",
   "createdAt": "Създаден на",
+  "modifiedAt": "Modified at",
   "verified": "Потвърден",
   "active": "Активен",
   "card-received": "Получена",
@@ -669,6 +672,7 @@
   "r-removed-from": "премахната от",
   "r-the-board": "таблото",
   "r-list": "списък",
+  "list": "List",
   "set-filter": "Задай филтър",
   "r-moved-to": "Преместено в",
   "r-moved-from": "Преместено от",
@@ -851,7 +855,6 @@
   "person": "Person",
   "my-cards": "My Cards",
   "card": "Карта",
-  "list": "List",
   "board": "Board",
   "context-separator": "/",
   "myCardsSortChange-title": "My Cards Sort",
@@ -909,5 +912,7 @@
   "globalSearch-instructions-notes-3": "Differing operators are *AND*ed together.  Only cards that match all of the differing operators are returned.\n`__operator_list__:Available __operator_label__:red` returns only cards in the list *Available* with a *red* label.",
   "globalSearch-instructions-notes-4": "Text searches are case insensitive.",
   "globalSearch-instructions-notes-5": "Currently archived cards are not searched.",
-  "link-to-search": "Link to this search"
+  "link-to-search": "Link to this search",
+  "excel-font": "Arial",
+  "number": "Номер"
 }

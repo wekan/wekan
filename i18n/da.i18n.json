@@ -327,6 +327,8 @@
   "export-board-json": "Eksportér tavle til JSON",
   "export-board-csv": "Eksportér tavle til CSV",
   "export-board-tsv": "Eksportér tavle til TSV",
+  "export-board-excel": "Export board to Excel",
+  "user-can-not-export-excel": "User can not export Excel",
   "export-board-html": "Eksportér tavle til HTML",
   "exportBoardPopup-title": "Eksportér tavle",
   "sort": "Sortér",
@@ -607,6 +609,7 @@
   "accounts-allowEmailChange": "Tillad ændring af e-mail",
   "accounts-allowUserNameChange": "Tillad ændring af brugernavn",
   "createdAt": "Oprettet per",
+  "modifiedAt": "Modified at",
   "verified": "Verificeret",
   "active": "Aktiv",
   "card-received": "Modtaget",
@@ -669,6 +672,7 @@
   "r-removed-from": "Fjernes fra",
   "r-the-board": "tavlen",
   "r-list": "liste",
+  "list": "List",
   "set-filter": "Angiv filter",
   "r-moved-to": "Flyttet til",
   "r-moved-from": "Flyttet fra",
@@ -851,7 +855,6 @@
   "person": "Person",
   "my-cards": "My Cards",
   "card": "Kort",
-  "list": "List",
   "board": "Board",
   "context-separator": "/",
   "myCardsSortChange-title": "My Cards Sort",
@@ -909,5 +912,7 @@
   "globalSearch-instructions-notes-3": "Differing operators are *AND*ed together.  Only cards that match all of the differing operators are returned.\n`__operator_list__:Available __operator_label__:red` returns only cards in the list *Available* with a *red* label.",
   "globalSearch-instructions-notes-4": "Text searches are case insensitive.",
   "globalSearch-instructions-notes-5": "Currently archived cards are not searched.",
-  "link-to-search": "Link to this search"
+  "link-to-search": "Link to this search",
+  "excel-font": "Arial",
+  "number": "Tal"
 }

@@ -327,6 +327,8 @@
   "export-board-json": "Exportar quadro para JSON",
   "export-board-csv": "Exportar quadro para CSV",
   "export-board-tsv": "Exportar quadro para TSV",
+  "export-board-excel": "Export board to Excel",
+  "user-can-not-export-excel": "User can not export Excel",
   "export-board-html": "Exportar quadro para HTML",
   "exportBoardPopup-title": "Exportar quadro",
   "sort": "Ordenar",
@@ -607,6 +609,7 @@
   "accounts-allowEmailChange": "Permitir Alteração do E-mail",
   "accounts-allowUserNameChange": "Permitir Alteração de Nome de Utilizador",
   "createdAt": "Criado em",
+  "modifiedAt": "Modified at",
   "verified": "Verificado",
   "active": "Activo",
   "card-received": "Recebido",
@@ -669,6 +672,7 @@
   "r-removed-from": "Removido de",
   "r-the-board": "o quadro",
   "r-list": "lista",
+  "list": "List",
   "set-filter": "Definir Filtro",
   "r-moved-to": "Movido para",
   "r-moved-from": "Movido de",
@@ -851,7 +855,6 @@
   "person": "Person",
   "my-cards": "My Cards",
   "card": "Cartão",
-  "list": "List",
   "board": "Board",
   "context-separator": "/",
   "myCardsSortChange-title": "My Cards Sort",
@@ -909,5 +912,7 @@
   "globalSearch-instructions-notes-3": "Differing operators are *AND*ed together.  Only cards that match all of the differing operators are returned.\n`__operator_list__:Available __operator_label__:red` returns only cards in the list *Available* with a *red* label.",
   "globalSearch-instructions-notes-4": "Text searches are case insensitive.",
   "globalSearch-instructions-notes-5": "Currently archived cards are not searched.",
-  "link-to-search": "Link to this search"
+  "link-to-search": "Link to this search",
+  "excel-font": "Arial",
+  "number": "Número"
 }

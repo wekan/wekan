@@ -327,6 +327,8 @@
   "export-board-json": "Exportovat tablo do JSON",
   "export-board-csv": "Exportovat tablo do CSV",
   "export-board-tsv": "Exportovat tablo do TSV",
+  "export-board-excel": "Export board to Excel",
+  "user-can-not-export-excel": "User can not export Excel",
   "export-board-html": "Exportovat tablo do HTML",
   "exportBoardPopup-title": "Exportovat tablo",
   "sort": "řadit",
@@ -607,6 +609,7 @@
   "accounts-allowEmailChange": "Povolit změnu Emailu",
   "accounts-allowUserNameChange": "Povolit změnu uživatelského jména",
   "createdAt": "Vytvořeno v",
+  "modifiedAt": "Modified at",
   "verified": "Ověřen",
   "active": "Aktivní",
   "card-received": "Přijato",
@@ -669,6 +672,7 @@
   "r-removed-from": "Odstraněno z",
   "r-the-board": "tablo",
   "r-list": "sloupce",
+  "list": "Seznam",
   "set-filter": "Nastavit filtr",
   "r-moved-to": "Přesunuto do",
   "r-moved-from": "Přesunuto z",
@@ -851,7 +855,6 @@
   "person": "Osoba",
   "my-cards": "Moje karty",
   "card": "Karta",
-  "list": "Seznam",
   "board": "Tablo",
   "context-separator": "/",
   "myCardsSortChange-title": "Pořadí mých karet",
@@ -909,5 +912,7 @@
   "globalSearch-instructions-notes-3": "Differing operators are *AND*ed together.  Only cards that match all of the differing operators are returned.\n`__operator_list__:Available __operator_label__:red` returns only cards in the list *Available* with a *red* label.",
   "globalSearch-instructions-notes-4": "Text searches are case insensitive.",
   "globalSearch-instructions-notes-5": "Currently archived cards are not searched.",
-  "link-to-search": "Link to this search"
+  "link-to-search": "Link to this search",
+  "excel-font": "Arial",
+  "number": "Číslo"
 }

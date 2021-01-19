@@ -327,6 +327,8 @@
   "export-board-json": "Экспортировать доску в JSON",
   "export-board-csv": "Экспортировать доску в CSV",
   "export-board-tsv": "Экспортировать доску в TSV",
+  "export-board-excel": "Export board to Excel",
+  "user-can-not-export-excel": "User can not export Excel",
   "export-board-html": "Экспортировать доску в HTML",
   "exportBoardPopup-title": "Экспортировать доску",
   "sort": "Сортировать",
@@ -607,6 +609,7 @@
   "accounts-allowEmailChange": "Разрешить изменение электронной почты",
   "accounts-allowUserNameChange": "Разрешить изменение имени пользователя",
   "createdAt": "Создан",
+  "modifiedAt": "Modified at",
   "verified": "Подтвержден",
   "active": "Действующий",
   "card-received": "Получено",
@@ -669,6 +672,7 @@
   "r-removed-from": "Покидает",
   "r-the-board": "доску",
   "r-list": "список",
+  "list": "Список",
   "set-filter": "Установить фильтр",
   "r-moved-to": "Перемещается в",
   "r-moved-from": "Покидает",
@@ -851,7 +855,6 @@
   "person": "Представитель",
   "my-cards": "Мои карточки",
   "card": "Карточка",
-  "list": "Список",
   "board": "Доска",
   "context-separator": "/",
   "myCardsSortChange-title": "Сортировать мои карточки",
@@ -909,5 +912,7 @@
   "globalSearch-instructions-notes-3": "Differing operators are *AND*ed together.  Only cards that match all of the differing operators are returned.\n`__operator_list__:Available __operator_label__:red` returns only cards in the list *Available* with a *red* label.",
   "globalSearch-instructions-notes-4": "Text searches are case insensitive.",
   "globalSearch-instructions-notes-5": "Currently archived cards are not searched.",
-  "link-to-search": "Link to this search"
+  "link-to-search": "Link to this search",
+  "excel-font": "Arial",
+  "number": "Номер"
 }

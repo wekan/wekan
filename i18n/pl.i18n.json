@@ -327,6 +327,8 @@
   "export-board-json": "Eksportuj tablicę do JSON",
   "export-board-csv": "Eksportuj tablicę do CSV",
   "export-board-tsv": "Eksportuj tablicę do TSV",
+  "export-board-excel": "Export board to Excel",
+  "user-can-not-export-excel": "User can not export Excel",
   "export-board-html": "Eksportuj tablicę do HTML",
   "exportBoardPopup-title": "Eksportuj tablicę",
   "sort": "Sortuj",
@@ -607,6 +609,7 @@
   "accounts-allowEmailChange": "Zezwól na zmianę adresu email",
   "accounts-allowUserNameChange": "Zezwól na zmianę nazwy użytkownika",
   "createdAt": "Utworzone o",
+  "modifiedAt": "Modified at",
   "verified": "Zweryfikowane",
   "active": "Aktywny",
   "card-received": "Przyjęto",
@@ -669,6 +672,7 @@
   "r-removed-from": "usunięta z",
   "r-the-board": "na tablicy",
   "r-list": "listy",
+  "list": "Lista",
   "set-filter": "Ustaw filtr",
   "r-moved-to": "przenoszona do",
   "r-moved-from": "przenoszona z",
@@ -851,7 +855,6 @@
   "person": "Osoba",
   "my-cards": "Moje karty",
   "card": "karty",
-  "list": "Lista",
   "board": "Tablica",
   "context-separator": "/",
   "myCardsSortChange-title": "Moje karty sortuj",
@@ -909,5 +912,7 @@
   "globalSearch-instructions-notes-3": "Operatory różnych typów są traktowane jako koniunkcje. To znaczy, że zwracane są wyłącznie karty spełniające wszystkie różniące się kryteria.\n`__operator_list__:Dostępne __operator_label__:czerwona` zwróci wyłącznie karty z list o nazwie *Dostępne* posiadające etykietę *czerwona*.",
   "globalSearch-instructions-notes-4": "W kluczach wyszukiwania wielkie i małe litery można stosować zamiennie.",
   "globalSearch-instructions-notes-5": "Wyszukiwanie nie obejmuje obecnie kart zarchiwizowanych.",
-  "link-to-search": "Link do tego wyszukiwania"
+  "link-to-search": "Link do tego wyszukiwania",
+  "excel-font": "Arial",
+  "number": "Numer"
 }

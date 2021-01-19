@@ -74,6 +74,9 @@ Template.userFormsLayout.helpers({
       let name = lang.name;
       if (lang.name === 'br') {
         name = 'Brezhoneg';
+      } else if (lang.name === 'ar-EG') {
+        // ar-EG = Arabic (Egypt), simply Masri (مَصرى, [ˈmɑsˤɾi], Egyptian, Masr refers to Cairo)
+        name = 'مَصرى';
       } else if (lang.name === 'es-PY') {
         name = 'Español de Paraguayo';
       } else if (lang.name === 'fr-BE') {

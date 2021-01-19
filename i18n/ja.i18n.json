@@ -327,6 +327,8 @@
   "export-board-json": "ボードをJSONにエクスポート",
   "export-board-csv": "ボードをCSVにエクスポート",
   "export-board-tsv": "ボードをTSVにエクスポート",
+  "export-board-excel": "Export board to Excel",
+  "user-can-not-export-excel": "User can not export Excel",
   "export-board-html": "ボードをHTMLにエクスポート",
   "exportBoardPopup-title": "ボードのエクスポート",
   "sort": "並べ替え",
@@ -607,6 +609,7 @@
   "accounts-allowEmailChange": "メールアドレスの変更を許可",
   "accounts-allowUserNameChange": "ユーザー名の変更を許可",
   "createdAt": "作成日時",
+  "modifiedAt": "Modified at",
   "verified": "認証状況",
   "active": "有効状態",
   "card-received": "受付",
@@ -669,6 +672,7 @@
   "r-removed-from": "次から削除された時",
   "r-the-board": "ボード：",
   "r-list": "リスト：",
+  "list": "List",
   "set-filter": "フィルタを設定",
   "r-moved-to": "次に移動した時",
   "r-moved-from": "次から移動された時",
@@ -851,7 +855,6 @@
   "person": "Person",
   "my-cards": "自分のカード",
   "card": "カード",
-  "list": "List",
   "board": "Board",
   "context-separator": "/",
   "myCardsSortChange-title": "カードの並び替え",
@@ -909,5 +912,7 @@
   "globalSearch-instructions-notes-3": "Differing operators are *AND*ed together.  Only cards that match all of the differing operators are returned.\n`__operator_list__:Available __operator_label__:red` returns only cards in the list *Available* with a *red* label.",
   "globalSearch-instructions-notes-4": "Text searches are case insensitive.",
   "globalSearch-instructions-notes-5": "Currently archived cards are not searched.",
-  "link-to-search": "Link to this search"
+  "link-to-search": "Link to this search",
+  "excel-font": "Arial",
+  "number": "数値"
 }

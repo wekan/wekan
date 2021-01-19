@@ -3,6 +3,9 @@ cd ~/repos/wekan
 echo "Arabic:"
 tx pull -f -l ar
 
+echo "Arabic (Egypt), simply Masri (مَصرى, [ˈmɑsˤɾi], Egyptian, Masr refers to Cairo):"
+tx pull -f -l ar_EG
+
 echo "Armenian:"
 tx pull -f -l hy
 

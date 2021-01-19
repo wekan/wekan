@@ -327,6 +327,8 @@
   "export-board-json": "ייצוא לוח ל־JSON",
   "export-board-csv": "ייצוא לוח ל־CSV",
   "export-board-tsv": "ייצוא לוח ל־TSV",
+  "export-board-excel": "Export board to Excel",
+  "user-can-not-export-excel": "User can not export Excel",
   "export-board-html": "ייצוא לוח ל־HTML",
   "exportBoardPopup-title": "ייצוא לוח",
   "sort": "מיון",
@@ -607,6 +609,7 @@
   "accounts-allowEmailChange": "לאפשר שינוי דוא״ל",
   "accounts-allowUserNameChange": "לאפשר שינוי שם משתמש",
   "createdAt": "נוצר ב",
+  "modifiedAt": "Modified at",
   "verified": "עבר אימות",
   "active": "פעיל",
   "card-received": "התקבל",
@@ -669,6 +672,7 @@
   "r-removed-from": "מוסר מ־",
   "r-the-board": "הלוח",
   "r-list": "רשימה",
+  "list": "רשימה",
   "set-filter": "הגדרת מסנן",
   "r-moved-to": "מועבר אל",
   "r-moved-from": "מועבר מ־",
@@ -851,7 +855,6 @@
   "person": "איש/ה",
   "my-cards": "הכרטיסים שלי",
   "card": "כרטיס",
-  "list": "רשימה",
   "board": "לוח",
   "context-separator": "/",
   "myCardsSortChange-title": "סידור הכרטיסים שלי",
@@ -909,5 +912,7 @@
   "globalSearch-instructions-notes-3": "Differing operators are *AND*ed together.  Only cards that match all of the differing operators are returned.\n`__operator_list__:Available __operator_label__:red` returns only cards in the list *Available* with a *red* label.",
   "globalSearch-instructions-notes-4": "Text searches are case insensitive.",
   "globalSearch-instructions-notes-5": "Currently archived cards are not searched.",
-  "link-to-search": "Link to this search"
+  "link-to-search": "Link to this search",
+  "excel-font": "Arial",
+  "number": "מספר"
 }
