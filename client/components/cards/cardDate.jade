@@ -7,9 +7,3 @@ template(name="dateBadge")
     a.card-date(title="{{showTitle}}" class="{{classes}}")
       time(datetime="{{showISODate}}")
         | {{showDate}}
-
-template(name="dateCustomField")
-  a(title="{{showTitle}}" class="{{classes}}")
-    time(datetime="{{showISODate}}")
-      | {{showDate}}
-
