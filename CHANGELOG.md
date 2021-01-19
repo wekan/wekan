@@ -6,7 +6,7 @@ This release adds the following new features:
   [Part 1](https://github.com/wekan/wekan/commit/855151a8d18c14ec26a1ef09977b0f98f4c32759).
   Thanks to gameendman, alfredgu and xet7.
 - [Trello Import Custom Fields. Adds a new custom field type of checkbox to make importing Trello checkbox fields easier](https://github.com/wekan/wekan/pull/3444).
-  Thanks to jrsupplee and xet7.   
+  Thanks to jrsupplee and xet7.
 
 and adds the following features back after fixing:
 
@@ -25,6 +25,8 @@ and fixes the following bugs:
   Thanks to jrsupplee and xet7.
 - [Fixed Card activity shows only 20 last entries of activities and comments, by changing limit to 500 entries](https://github.com/wekan/wekan/commit/8e4eade00252353be5cfda1de768fea1bb87095e).
   Thanks to xet7.
+- [Fixed LDAP Group Filters not working in docker](https://github.com/wekan/wekan-ldap/issues/86).
+  Thanks to Sancretor.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
@@ -71,7 +73,7 @@ and fixes the following bugs:
 
 - [Fixed Linked card makes board not load when CustomField definition is undefined](https://github.com/wekan/wekan/commit/0d5f33299ee25e1bee4ca4fc3b3c2483c29e367c).
   Thanks to olivierlambert and xet7.
-    
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v4.79 2021-01-17 Wekan release
@@ -144,7 +146,7 @@ and adds the following updates:
 
 - [Upgrade to Meteor 1.12.1](https://github.com/wekan/wekan/commit/3105548c98091773e86e4556c2980d5f533e98f1).
   Thanks to Meteor developers.
-    
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v4.74 2021-01-10 Wekan release
