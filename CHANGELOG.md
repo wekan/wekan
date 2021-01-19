@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release adds the following features back after fixing:
+
+- [Cards, custom fields are displayed in alphabetic order](https://github.com/wekan/wekan/pull/3442).
+  This was added in Wekan v4.71, removed in Wekan v4.81 and added back at Wekan v4.82.
+  Thanks to mfilser.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.81 2021-01-18 Wekan release
 
 This release adds the following new features:
