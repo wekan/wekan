@@ -78,7 +78,7 @@ template(name="minicard")
                   +viewer
                     = formattedCurrencyCustomFieldValue(definition)
                 else if $eq definition.type "checkbox"
-                  i.fa.fa-check-square
+                  .materialCheckBox(class="{{#if value }}is-checked{{/if}}")
                 else
                   +viewer
                     = trueValue
