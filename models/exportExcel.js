@@ -201,6 +201,7 @@ export class ExporterExcel {
 
     const jdata = result;
     //init exceljs workbook
+    const Excel = require('exceljs');
     const workbook = new Excel.Workbook();
     workbook.creator = TAPi18n.__('export-board');
     workbook.lastModifiedBy = TAPi18n.__('export-board');
@@ -299,12 +300,12 @@ export class ExporterExcel {
     //get kanban list info
     const jlist = {};
     for (const klist in jdata.lists) {
-      jlist[jdata.lists[k]._id] = jdata.lists[klist].title;
+      jlist[jdata.lists[klist]._id] = jdata.lists[klist].title;
     }
     //get kanban label info
     const jlabel = {};
     for (const klabel in jdata.labels) {
-      jlabel[jdata.labels[k]._id] = jdata.labels[klabel].name;
+      jlabel[jdata.labels[klabel]._id] = jdata.labels[klabel].name;
     }
     //add data +8 hours
     function add8hours(jdate) {
