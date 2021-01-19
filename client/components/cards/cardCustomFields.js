@@ -86,18 +86,14 @@ CardCustomField.register('cardCustomField');
     super.onCreated();
   }
 
-  isNull() {
-    return !this.data().value;
+  toggleItem() {
+    this.card.setCustomField(this.customFieldId, !this.data().value);
   }
 
   events() {
     return [
       {
-        'submit .js-card-customfield-checkbox'(event) {
-          event.preventDefault();
-          const value = this.find('input').checked;
-          this.card.setCustomField(this.customFieldId, value);
-        },
+        'click .js-checklist-item .check-box-container': this.toggleItem,
       },
     ];
   }
