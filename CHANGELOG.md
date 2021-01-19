@@ -4,6 +4,7 @@ This release adds the following new features:
 
 - Export to Excel XLSX. Does work, but does not export all fields yet correctly. In Progress.
   [Part 1](https://github.com/wekan/wekan/commit/855151a8d18c14ec26a1ef09977b0f98f4c32759).
+  [Part 2](https://github.com/wekan/wekan/commit/56a530058b219696146ab8f8df17b3745b538d0e).
   Thanks to gameendman, alfredgu and xet7.
 - [Trello Import Custom Fields. Adds a new custom field type of checkbox to make importing Trello checkbox fields easier](https://github.com/wekan/wekan/pull/3444).
   Thanks to jrsupplee and xet7.
