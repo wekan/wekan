@@ -56,17 +56,17 @@ Accounts.registerLoginHandler('ldap', function(loginRequest) {
          throw new Error('User not Found');
        }
 
-       if (ldap.authSync(users[0].dn, loginRequest.ldapPass) === true) {
-         if (ldap.isUserInGroup(loginRequest.username, users[0])) {
-           ldapUser = users[0];
-         } else {
-           throw new Error('User not in a valid group');
-         }
-       } else {
-         log_info('Wrong password for', loginRequest.username);
-       }
-     }
+      if (ldap.isUserInGroup(loginRequest.username, users[0])) {
+        ldapUser = users[0];
+      } else {
+        throw new Error('User not in a valid group');
+      }
 
+      if (ldap.authSync(users[0].dn, loginRequest.ldapPass) !== true) {
+        ldapUser = null;
+        log_info('Wrong password for', loginRequest.username)
+      }
+     }
 
   } catch (error) {
      log_error(error);
