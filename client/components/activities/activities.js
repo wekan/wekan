@@ -1,6 +1,6 @@
 import sanitizeXss from 'xss';
 
-const activitiesPerPage = 20;
+const activitiesPerPage = 500;
 
 BlazeComponent.extendComponent({
   onCreated() {
