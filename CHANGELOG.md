@@ -1,10 +1,21 @@
 # Upcoming Wekan release
 
-This release adds the following features back after fixing:
+This release adds the following new features:
+
+- Export to Excel XLSX. Does work, but does not export all fields yet correctly. In Progress.
+  [Part 1](https://github.com/wekan/wekan/commit/855151a8d18c14ec26a1ef09977b0f98f4c32759).
+  Thanks to gameendman, alfredgu and xet7 !
+
+and adds the following features back after fixing:
 
 - [Cards, custom fields are displayed in alphabetic order](https://github.com/wekan/wekan/pull/3442).
   This was added in Wekan v4.71, removed in Wekan v4.81 and added back at Wekan v4.82.
   Thanks to mfilser.
+
+and adds the following new translations:
+
+- [Translations: Added ar-EG = Arabic (Egypt), simply Masri (مَصرى, [ˈmɑsˤɾi], Egyptian, Masr refers to Cairo)](https://github.com/wekan/wekan/commit/fc68354e836fa8f03e72d5af33b6c28e1c52f10b).
+  Thanks to translators and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
