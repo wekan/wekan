@@ -85,14 +85,14 @@ function initSortable(boardComponent, $listsDom) {
     },
   });
 
-  function userIsMember() {
-    return (
-      Meteor.user() &&
-      Meteor.user().isBoardMember() &&
-      !Meteor.user().isCommentOnly() &&
-      !Meteor.user().isWorker()
-    );
-  }
+  //function userIsMember() {
+  //  return (
+  //    Meteor.user() &&
+  //    Meteor.user().isBoardMember() &&
+  //    !Meteor.user().isCommentOnly() &&
+  //    !Meteor.user().isWorker()
+  //  );
+  //}
 
   boardComponent.autorun(() => {
     let showDesktopDragHandles = false;

@@ -325,6 +325,10 @@ template(name="exportBoard")
         i.fa.fa-share-alt
         | {{_ 'export-board-json'}}
     li
+      a(href="{{exportUrlExcel}}", download="{{exportFilenameExcel}}")
+        i.fa.fa-share-alt
+        | {{_ 'export-board-excel'}}
+    li
       a(href="{{exportCsvUrl}}", download="{{exportCsvFilename}}")
         i.fa.fa-share-alt
         | {{_ 'export-board-csv'}}

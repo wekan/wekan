@@ -435,6 +435,23 @@ BlazeComponent.extendComponent({
     };
     return FlowRouter.path('/api/boards/:boardId/export', params, queryParams);
   },
+  exportUrlExcel() {
+    const params = {
+      boardId: Session.get('currentBoard'),
+    };
+    const queryParams = {
+      authToken: Accounts._storedLoginToken(),
+    };
+    return FlowRouter.path(
+      '/api/boards/:boardId/exportExcel',
+      params,
+      queryParams,
+    );
+  },
+  exportFilenameExcel() {
+    const boardId = Session.get('currentBoard');
+    return `export-board-excel-${boardId}.xlsx`;
+  },
   exportCsvUrl() {
     const params = {
       boardId: Session.get('currentBoard'),

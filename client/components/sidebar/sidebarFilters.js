@@ -166,7 +166,7 @@ Template.disambiguateMultiMemberPopup.events({
 });
 
 Template.moveSelectionPopup.events({
-  'click .js-select-list'(event) {
+  'click .js-select-list'() {
     // Move the minicard to the end of the target list
     mutateSelectedCards('moveToEndOfList', { listId: this._id });
     EscapeActions.executeUpTo('multiselection');

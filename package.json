@@ -63,6 +63,7 @@
     "bson": "^4.0.3",
     "bunyan": "^1.8.12",
     "es6-promise": "^4.2.4",
+    "exceljs": "^4.2.0",
     "fibers": "^5.0.0",
     "flatted": "^3.0.4",
     "gridfs-stream": "https://github.com/wekan/gridfs-stream/tarball/master",
