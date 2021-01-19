@@ -19,6 +19,11 @@ and adds the following new translations:
 - [Translations: Added ar-EG = Arabic (Egypt), simply Masri (مَصرى, [ˈmɑsˤɾi], Egyptian, Masr refers to Cairo)](https://github.com/wekan/wekan/commit/fc68354e836fa8f03e72d5af33b6c28e1c52f10b).
   Thanks to translators and xet7.
 
+and fixes the following bugs:
+
+- [Display custom date fields in a shortened form on minicard](https://github.com/wekan/wekan/pull/3446).
+  Thanks to jrsupplee and xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v4.81 2021-01-18 Wekan release
