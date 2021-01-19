@@ -363,6 +363,33 @@ class CardEndDate extends CardDate {
 }
 CardEndDate.register('cardEndDate');
 
+class CardCustomFieldDate extends CardDate {
+  template() {
+    return 'dateCustomField';
+  }
+
+  onCreated() {
+    super.onCreated();
+    const self = this;
+    self.autorun(() => {
+      self.date.set(moment(self.data().value));
+    });
+  }
+
+  classes() {
+    return 'customfield-date';
+  }
+
+  showTitle() {
+    return '';
+  }
+
+  events() {
+    return [];
+  }
+}
+CardCustomFieldDate.register('cardCustomFieldDate');
+
 (class extends CardReceivedDate {
   showDate() {
     return this.date.get().format('l');
@@ -386,6 +413,12 @@ CardEndDate.register('cardEndDate');
     return this.date.get().format('l');
   }
 }.register('minicardEndDate'));
+
+(class extends CardCustomFieldDate {
+  showDate() {
+    return this.date.get().format('l');
+  }
+}.register('minicardCustomFieldDate'));
 
 class VoteEndDate extends CardDate {
   onCreated() {
