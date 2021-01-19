@@ -327,6 +327,8 @@
   "export-board-json": "匯出看板為JSON格式",
   "export-board-csv": "匯出看板為CSV格式",
   "export-board-tsv": "匯出看板為TSV格式\n ",
+  "export-board-excel": "Export board to Excel",
+  "user-can-not-export-excel": "User can not export Excel",
   "export-board-html": "匯出看板為HTML格式\n ",
   "exportBoardPopup-title": "匯出看板",
   "sort": "排序",
@@ -607,6 +609,7 @@
   "accounts-allowEmailChange": "允許變更 Email",
   "accounts-allowUserNameChange": "允許修改使用者名稱",
   "createdAt": "新增於",
+  "modifiedAt": "Modified at",
   "verified": "已驗證",
   "active": "啟用",
   "card-received": "已接收",
@@ -669,6 +672,7 @@
   "r-removed-from": "已移除",
   "r-the-board": "該看板",
   "r-list": "清單",
+  "list": "清單",
   "set-filter": "設定過濾器",
   "r-moved-to": "移至",
   "r-moved-from": "已移動",
@@ -851,7 +855,6 @@
   "person": "人物",
   "my-cards": "我的卡片",
   "card": "卡片",
-  "list": "清單",
   "board": "看板",
   "context-separator": "/",
   "myCardsSortChange-title": "我的卡片排序",
@@ -909,5 +912,7 @@
   "globalSearch-instructions-notes-3": "Differing operators are *AND*ed together.  Only cards that match all of the differing operators are returned.\n`__operator_list__:Available __operator_label__:red` returns only cards in the list *Available* with a *red* label.",
   "globalSearch-instructions-notes-4": "英文搜尋忽略大小寫",
   "globalSearch-instructions-notes-5": "未搜尋目前封存卡片",
-  "link-to-search": "連結到此搜尋"
+  "link-to-search": "連結到此搜尋",
+  "excel-font": "Arial",
+  "number": "數字"
 }

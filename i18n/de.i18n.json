@@ -327,6 +327,8 @@
   "export-board-json": "Board als JSON exportieren",
   "export-board-csv": "Board als CSV exportieren",
   "export-board-tsv": "Board als TSV exportieren",
+  "export-board-excel": "Export board to Excel",
+  "user-can-not-export-excel": "User can not export Excel",
   "export-board-html": "Board als HTML exportieren",
   "exportBoardPopup-title": "Board exportieren",
   "sort": "Sortieren",
@@ -607,6 +609,7 @@
   "accounts-allowEmailChange": "Ändern der E-Mailadresse erlauben",
   "accounts-allowUserNameChange": "Ändern des Benutzernamens erlauben",
   "createdAt": "Erstellt am",
+  "modifiedAt": "Modified at",
   "verified": "Geprüft",
   "active": "Aktiv",
   "card-received": "Empfangen",
@@ -669,6 +672,7 @@
   "r-removed-from": "entfernt von",
   "r-the-board": "das Board",
   "r-list": "Liste",
+  "list": "Liste",
   "set-filter": "Setze Filter",
   "r-moved-to": "verschoben nach",
   "r-moved-from": "verschoben von",
@@ -851,7 +855,6 @@
   "person": "Person",
   "my-cards": "Meine Karten",
   "card": "Karte",
-  "list": "Liste",
   "board": "Board",
   "context-separator": "/",
   "myCardsSortChange-title": "Meine Karten Sortierung",
@@ -909,5 +912,7 @@
   "globalSearch-instructions-notes-3": "Verschiedenartige Operatoren werden Und-verknüpft. Karten, für die alle Bedingungen zutreffen, werden ausgegeben.\n`__operator_list__:Verfügbar __operator_label__:red` würde alle Karten ausgeben, die in der Liste *Verfügbar* mit einem *roten* Label stehen.",
   "globalSearch-instructions-notes-4": "Bei Suchen in Texten ist die Groß-/Kleinschreibung egal.",
   "globalSearch-instructions-notes-5": "Zur Zeit werden keine archivierten Karten gefunden.",
-  "link-to-search": "Link auf diese Suche"
+  "link-to-search": "Link auf diese Suche",
+  "excel-font": "Arial",
+  "number": "Zahl"
 }

@@ -327,6 +327,8 @@
   "export-board-json": "Vie taulu JSON",
   "export-board-csv": "Vie taulu CSV",
   "export-board-tsv": "Vie taulu TSV",
+  "export-board-excel": "Vie taulu Excel",
+  "user-can-not-export-excel": "Käyttäjä ei voi viedä Excel tiedostoon",
   "export-board-html": "Vie taulu HTML",
   "exportBoardPopup-title": "Vie taulu",
   "sort": "Lajittele",
@@ -607,6 +609,7 @@
   "accounts-allowEmailChange": "Salli sähköpostiosoitteen muuttaminen",
   "accounts-allowUserNameChange": "Salli käyttäjätunnuksen muuttaminen",
   "createdAt": "Luotu",
+  "modifiedAt": "Muokattu",
   "verified": "Varmistettu",
   "active": "Aktiivinen",
   "card-received": "Vastaanotettu",
@@ -669,6 +672,7 @@
   "r-removed-from": "Poistettu kohteesta",
   "r-the-board": "taulu",
   "r-list": "lista",
+  "list": "Lista",
   "set-filter": "Aseta suodatin",
   "r-moved-to": "Siirretty kohteeseen",
   "r-moved-from": "Siirretty kohteesta",
@@ -851,7 +855,6 @@
   "person": "Henkilö",
   "my-cards": "Korttini",
   "card": "Kortti",
-  "list": "Lista",
   "board": "Taulu",
   "context-separator": "/",
   "myCardsSortChange-title": "Korttini järjestys",
@@ -909,5 +912,7 @@
   "globalSearch-instructions-notes-3": "Erilaiset operaattorit ovat *JA* yhteen. Vain kortit jotka täsmää kaikkiin erilaisiin operaattoreihin palautetaan.\n`__operator_list__:Saatavilla __operator_label__:punainen` palauttaa vain kortit listassa *Saatavilla* jolla *punainen* nimilappu.",
   "globalSearch-instructions-notes-4": "Tekstihaut ovat kirjainkoosta riippumattomia.",
   "globalSearch-instructions-notes-5": "Arkistoiduista korteista ei etsitä.",
-  "link-to-search": "Linkki tähän hakuun"
+  "link-to-search": "Linkki tähän hakuun",
+  "excel-font": "Arial",
+  "number": "Numero"
 }

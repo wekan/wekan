@@ -327,6 +327,8 @@
   "export-board-json": "Eksportēt dēli kā JSON",
   "export-board-csv": "Eksportēt dēli kā CSV",
   "export-board-tsv": "Eksportēt dēli kā TSV",
+  "export-board-excel": "Export board to Excel",
+  "user-can-not-export-excel": "User can not export Excel",
   "export-board-html": "Eksportēt dēli kā HTML",
   "exportBoardPopup-title": "Eksportēt dēli",
   "sort": "Kārtot",
@@ -607,6 +609,7 @@
   "accounts-allowEmailChange": "Ļaut e-pasta maiņu",
   "accounts-allowUserNameChange": "Ļaut lietotājvārda maiņu",
   "createdAt": "Izveidots",
+  "modifiedAt": "Modified at",
   "verified": "Apstiprināts",
   "active": "Aktīvs",
   "card-received": "Saņemts",
@@ -669,6 +672,7 @@
   "r-removed-from": "Noņemts no",
   "r-the-board": "dēlis",
   "r-list": "saraksts",
+  "list": "List",
   "set-filter": "Uzstādīt filtru",
   "r-moved-to": "Pārvietots uz",
   "r-moved-from": "Pārvietots no",
@@ -851,7 +855,6 @@
   "person": "Person",
   "my-cards": "My Cards",
   "card": "Kartiņa",
-  "list": "List",
   "board": "Board",
   "context-separator": "/",
   "myCardsSortChange-title": "My Cards Sort",
@@ -909,5 +912,7 @@
   "globalSearch-instructions-notes-3": "Differing operators are *AND*ed together.  Only cards that match all of the differing operators are returned.\n`__operator_list__:Available __operator_label__:red` returns only cards in the list *Available* with a *red* label.",
   "globalSearch-instructions-notes-4": "Text searches are case insensitive.",
   "globalSearch-instructions-notes-5": "Currently archived cards are not searched.",
-  "link-to-search": "Link to this search"
+  "link-to-search": "Link to this search",
+  "excel-font": "Arial",
+  "number": "Skaits"
 }

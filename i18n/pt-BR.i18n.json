@@ -327,6 +327,8 @@
   "export-board-json": "Exportar quadro para JSON",
   "export-board-csv": "Exportar quadro para CSV",
   "export-board-tsv": "Exportar quadro para TSV",
+  "export-board-excel": "Export board to Excel",
+  "user-can-not-export-excel": "User can not export Excel",
   "export-board-html": "Exportar quadro para HTML",
   "exportBoardPopup-title": "Exportar quadro",
   "sort": "Ordenar",
@@ -607,6 +609,7 @@
   "accounts-allowEmailChange": "Permitir Mudança de e-mail",
   "accounts-allowUserNameChange": "Permitir alteração de nome de usuário",
   "createdAt": "Criado em",
+  "modifiedAt": "Modified at",
   "verified": "Verificado",
   "active": "Ativo",
   "card-received": "Recebido",
@@ -669,6 +672,7 @@
   "r-removed-from": "Removido de",
   "r-the-board": "o quadro",
   "r-list": "lista",
+  "list": "Lista",
   "set-filter": "Inserir Filtro",
   "r-moved-to": "Movido para",
   "r-moved-from": "Movido de",
@@ -851,7 +855,6 @@
   "person": "Pessoa",
   "my-cards": "Meus Cartões",
   "card": "Cartão",
-  "list": "Lista",
   "board": "Quadro",
   "context-separator": "/",
   "myCardsSortChange-title": "Ordenar Meus Cartões",
@@ -909,5 +912,7 @@
   "globalSearch-instructions-notes-3": "Operadores de diferenciação são  *AND*, ou seja, do tipo \"E\". Apenas cartões que correspondam a todos os operadores de diferenciação são retornados.\n`__operator_list__:Available __operator_label__:red` retorna apenas os cartões na lista *Available* com uma etiqueta *red*.",
   "globalSearch-instructions-notes-4": "Textos de busca não distinguem maiúsculas e minúsculas",
   "globalSearch-instructions-notes-5": "Cartões recém arquivados não são buscados",
-  "link-to-search": "Link para esta busca"
+  "link-to-search": "Link para esta busca",
+  "excel-font": "Arial",
+  "number": "Número"
 }

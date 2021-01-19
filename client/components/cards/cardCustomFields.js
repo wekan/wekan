@@ -80,6 +80,25 @@ CardCustomField.register('cardCustomField');
   }
 }.register('cardCustomField-number'));
 
+// cardCustomField-checkbox
+(class extends CardCustomField {
+  onCreated() {
+    super.onCreated();
+  }
+
+  toggleItem() {
+    this.card.setCustomField(this.customFieldId, !this.data().value);
+  }
+
+  events() {
+    return [
+      {
+        'click .js-checklist-item .check-box-container': this.toggleItem,
+      },
+    ];
+  }
+}.register('cardCustomField-checkbox'));
+
 // cardCustomField-currency
 (class extends CardCustomField {
   onCreated() {

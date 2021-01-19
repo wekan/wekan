@@ -327,6 +327,8 @@
   "export-board-json": "Exportáld a táblát JSON formátumba",
   "export-board-csv": "Exportáld a táblát CSV (vesszővel elválasztott) formátumba",
   "export-board-tsv": "Exportáld a táblát TSV (tabulátorral elválasztott) formátumba",
+  "export-board-excel": "Export board to Excel",
+  "user-can-not-export-excel": "User can not export Excel",
   "export-board-html": "Exportáld a táblát HTML (webes) formátumba",
   "exportBoardPopup-title": "Tábla exportálása",
   "sort": "Rendezés",
@@ -607,6 +609,7 @@
   "accounts-allowEmailChange": "E-mail megváltoztatásának engedélyezése",
   "accounts-allowUserNameChange": "Felhasználónév megváltoztatásának engedélyezése",
   "createdAt": "Létrehozva",
+  "modifiedAt": "Modified at",
   "verified": "Ellenőrizve",
   "active": "Aktív",
   "card-received": "Érkezett",
@@ -669,6 +672,7 @@
   "r-removed-from": "Eltávolították innen",
   "r-the-board": "a Tábla",
   "r-list": "Lista",
+  "list": "Lista",
   "set-filter": "Szűrő beállítása",
   "r-moved-to": "Áttették ide:",
   "r-moved-from": "Áttették innen:",
@@ -851,7 +855,6 @@
   "person": "Személy",
   "my-cards": "Kártyáim",
   "card": "Kártya",
-  "list": "Lista",
   "board": "Tábla",
   "context-separator": "/",
   "myCardsSortChange-title": "Kártyáim rendezése",
@@ -909,5 +912,7 @@
   "globalSearch-instructions-notes-3": "Differing operators are *AND*ed together.  Only cards that match all of the differing operators are returned.\n`__operator_list__:Available __operator_label__:red` returns only cards in the list *Available* with a *red* label.",
   "globalSearch-instructions-notes-4": "Text searches are case insensitive.",
   "globalSearch-instructions-notes-5": "Currently archived cards are not searched.",
-  "link-to-search": "Link to this search"
+  "link-to-search": "Link to this search",
+  "excel-font": "Arial",
+  "number": "Szám"
 }

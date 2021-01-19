@@ -327,6 +327,8 @@
   "export-board-json": "看板导出为JSON",
   "export-board-csv": "看板导出为CSV",
   "export-board-tsv": "看板导出为TSV",
+  "export-board-excel": "Export board to Excel",
+  "user-can-not-export-excel": "User can not export Excel",
   "export-board-html": "看板导出为HTML",
   "exportBoardPopup-title": "导出看板",
   "sort": "排序",
@@ -607,6 +609,7 @@
   "accounts-allowEmailChange": "允许邮箱变更",
   "accounts-allowUserNameChange": "允许变更用户名",
   "createdAt": "创建于",
+  "modifiedAt": "Modified at",
   "verified": "已验证",
   "active": "活跃",
   "card-received": "已接收",
@@ -669,6 +672,7 @@
   "r-removed-from": "已移除",
   "r-the-board": "该看板",
   "r-list": "列表",
+  "list": "列表",
   "set-filter": "设置过滤器",
   "r-moved-to": "移至",
   "r-moved-from": "已移动",
@@ -851,7 +855,6 @@
   "person": "人员",
   "my-cards": "我的卡片",
   "card": "卡片",
-  "list": "列表",
   "board": "看板",
   "context-separator": "/",
   "myCardsSortChange-title": "My Cards Sort",
@@ -909,5 +912,7 @@
   "globalSearch-instructions-notes-3": "Differing operators are *AND*ed together.  Only cards that match all of the differing operators are returned.\n`__operator_list__:Available __operator_label__:red` returns only cards in the list *Available* with a *red* label.",
   "globalSearch-instructions-notes-4": "Text searches are case insensitive.",
   "globalSearch-instructions-notes-5": "Currently archived cards are not searched.",
-  "link-to-search": "Link to this search"
+  "link-to-search": "Link to this search",
+  "excel-font": "Arial",
+  "number": "数字"
 }

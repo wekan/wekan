@@ -52,6 +52,14 @@ template(name="cardCustomField-number")
         if value
             = value
 
+template(name="cardCustomField-checkbox")
+  .js-checklist-item.checklist-item(class="{{#if data.value }}is-checked{{/if}}")
+    if canModifyCard
+      .check-box-container
+        .check-box.materialCheckBox(class="{{#if data.value }}is-checked{{/if}}")
+    else
+      .materialCheckBox(class="{{#if data.value }}is-checked{{/if}}")
+
 template(name="cardCustomField-currency")
     if canModifyCard
         +inlinedForm(classNames="js-card-customfield-currency")
