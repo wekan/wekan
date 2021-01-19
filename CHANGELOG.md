@@ -23,6 +23,8 @@ and fixes the following bugs:
 
 - [Display custom date fields in a shortened form on minicard](https://github.com/wekan/wekan/pull/3446).
   Thanks to jrsupplee and xet7.
+- [Fixed Card activity shows only 20 last entries of activities and comments, by changing limit to 500 entries](https://github.com/wekan/wekan/commit/8e4eade00252353be5cfda1de768fea1bb87095e).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
