@@ -40,6 +40,8 @@ export class TrelloCreator {
 
     // maps a trelloCardId to an array of trelloAttachments
     this.attachments = {};
+
+    this.customFields = {};
   }
 
   /**
@@ -161,6 +163,7 @@ export class TrelloCreator {
       // very old boards won't have a creation activity so no creation date
       createdAt: this._now(this.createdAt.board),
       labels: [],
+      customFields: [],
       members: [
         {
           userId: Meteor.userId(),
@@ -232,6 +235,36 @@ export class TrelloCreator {
       // not the author from the original object.
       userId: this._user(),
     });
+    if (trelloBoard.customFields) {
+      trelloBoard.customFields.forEach(field => {
+        const fieldToCreate = {
+          // trelloId: field.id,
+          name: field.name,
+          showOnCard: field.display.cardFront,
+          showLabelOnMiniCard: field.display.cardFront,
+          automaticallyOnCard: true,
+          type: field.type,
+          boardIds: [boardId],
+          settings: {},
+        };
+
+        if (field.type === 'list') {
+          fieldToCreate.type = 'dropdown';
+          fieldToCreate.settings = {
+            dropdownItems: field.options.map(opt => {
+              return {
+                _id: opt.id,
+                name: opt.value.text,
+              };
+            }),
+          };
+        }
+
+        // We need to remember them by Trello ID, as this is the only ref we have
+        // when importing cards.
+        this.customFields[field.id] = CustomFields.direct.insert(fieldToCreate);
+      });
+    }
     return boardId;
   }
 
@@ -307,6 +340,27 @@ export class TrelloCreator {
             positive: positiveVotes,
           };
         }
+      }
+
+      if (card.customFieldItems) {
+        cardToCreate.customFields = [];
+        card.customFieldItems.forEach(item => {
+          const custom = {
+            _id: this.customFields[item.idCustomField],
+          };
+          if (item.idValue) {
+            custom.value = item.idValue;
+          } else if (item.value.hasOwnProperty('checked')) {
+            custom.value = item.value.checked === 'true';
+          } else if (item.value.hasOwnProperty('text')) {
+            custom.value = item.value.text;
+          } else if (item.value.hasOwnProperty('date')) {
+            custom.value = item.value.date;
+          } else if (item.value.hasOwnProperty('number')) {
+            custom.value = item.value.number;
+          }
+          cardToCreate.customFields.push(custom);
+        });
       }
 
       // insert card
