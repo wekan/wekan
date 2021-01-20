@@ -5,6 +5,11 @@ This release adds the following new features:
 - [When copying a board, copy Custom Fields to new board](https://github.com/wekan/wekan/pull/3451).
   Thanks to jrsupplee.
 
+and adds the following updates:
+
+- [Upgrade to Meteor 2.0](https://github.com/wekan/wekan/commit/23c1723ae1ee09101d5ad6334eee782763d0b354).
+  Thanks to Meteor developers.
+
 and fixes the following bugs:
 
 - [Custom field definitions duplicated on copy and move](https://github.com/wekan/wekan/pull/3449).
