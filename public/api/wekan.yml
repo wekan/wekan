@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v4.81
+  version: v4.82
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -3001,6 +3001,7 @@ definitions:
           - number
           - date
           - dropdown
+          - checkbox
           - currency
       settings:
         description: |
