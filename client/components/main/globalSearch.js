@@ -355,12 +355,25 @@ BlazeComponent.extendComponent({
     return text;
   },
 
+  labelColors() {
+    return Boards.simpleSchema()._schema['labels.$.color'].allowedValues.map(
+      color => {
+        return { color, name: TAPi18n.__(`color-${color}`) };
+      },
+    );
+  },
+
   events() {
     return [
       {
         'submit .js-search-query-form'(evt) {
           evt.preventDefault();
           this.searchAllBoards(evt.target.searchQuery.value);
+        },
+        'click .js-palette-color'(evt) {
+          this.query.set(
+            `${this.query.get()} label:"${evt.currentTarget.textContent}"`,
+          );
         },
       },
     ];

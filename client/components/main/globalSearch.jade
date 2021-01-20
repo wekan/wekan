@@ -34,6 +34,9 @@ template(name="globalSearch")
         .global-search-instructions
           +viewer
             = searchInstructions
+          .palette-colors: each label in labelColors
+            span.card-label.palette-color.js-palette-color(class="card-label-{{label.color}}")
+              = label.name
 
 template(name="globalSearchViewChangePopup")
   if currentUser
