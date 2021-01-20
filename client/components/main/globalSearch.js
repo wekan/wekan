@@ -42,6 +42,7 @@ BlazeComponent.extendComponent({
     this.query = new ReactiveVar('');
     this.resultsHeading = new ReactiveVar('');
     this.searchLink = new ReactiveVar(null);
+    this.myLists = new ReactiveVar([]);
     this.queryParams = null;
     this.parsingErrors = [];
     this.resultsCount = 0;
@@ -55,6 +56,13 @@ BlazeComponent.extendComponent({
     // }
     // // eslint-disable-next-line no-console
     // console.log('colorMap:', this.colorMap);
+
+    Meteor.call('myLists', (err, data) => {
+      if (!err) {
+        this.myLists.set(data);
+      }
+    });
+
     Meteor.subscribe('setting');
     if (Session.get('globalQuery')) {
       this.searchAllBoards(Session.get('globalQuery'));
@@ -373,6 +381,11 @@ BlazeComponent.extendComponent({
         'click .js-palette-color'(evt) {
           this.query.set(
             `${this.query.get()} label:"${evt.currentTarget.textContent}"`,
+          );
+        },
+        'click .js-list-title'(evt) {
+          this.query.set(
+            `${this.query.get()} list:"${evt.currentTarget.textContent}"`,
           );
         },
       },

@@ -32,11 +32,15 @@ template(name="globalSearch")
               +resultCard(card)
       else
         .global-search-instructions
-          +viewer
-            = searchInstructions
+          h2 Label Colors
           .palette-colors: each label in labelColors
             span.card-label.palette-color.js-palette-color(class="card-label-{{label.color}}")
               = label.name
+          h2 Lists
+          .lists-wrapper
+            each title in myLists.get
+              span.card-label.list-title.js-list-title
+                = title
 
 template(name="globalSearchViewChangePopup")
   if currentUser
