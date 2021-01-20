@@ -43,6 +43,8 @@ BlazeComponent.extendComponent({
     this.resultsHeading = new ReactiveVar('');
     this.searchLink = new ReactiveVar(null);
     this.myLists = new ReactiveVar([]);
+    this.myLabelNames = new ReactiveVar([]);
+    this.myBoardNames = new ReactiveVar([]);
     this.queryParams = null;
     this.parsingErrors = [];
     this.resultsCount = 0;
@@ -60,6 +62,18 @@ BlazeComponent.extendComponent({
     Meteor.call('myLists', (err, data) => {
       if (!err) {
         this.myLists.set(data);
+      }
+    });
+
+    Meteor.call('myLabelNames', (err, data) => {
+      if (!err) {
+        this.myLabelNames.set(data);
+      }
+    });
+
+    Meteor.call('myBoardNames', (err, data) => {
+      if (!err) {
+        this.myBoardNames.set(data);
       }
     });
 
@@ -119,11 +133,13 @@ BlazeComponent.extendComponent({
         messages.push({ tag: 'list-title-not-found', value: list });
       });
       this.queryErrors.notFound.labels.forEach(label => {
-        const color = TAPi18n.__(`color-${label}`);
-        if (color) {
+        const color = Object.entries(this.colorMap)
+          .filter(value => value[1] === label)
+          .map(value => value[0]);
+        if (color.length) {
           messages.push({
             tag: 'label-color-not-found',
-            value: color,
+            value: color[0],
           });
         } else {
           messages.push({ tag: 'label-not-found', value: label });
@@ -378,14 +394,36 @@ BlazeComponent.extendComponent({
           evt.preventDefault();
           this.searchAllBoards(evt.target.searchQuery.value);
         },
-        'click .js-palette-color'(evt) {
+        'click .js-label-color'(evt) {
+          evt.preventDefault();
           this.query.set(
-            `${this.query.get()} label:"${evt.currentTarget.textContent}"`,
+            `${this.query.get()} ${TAPi18n.__('operator-label')}:"${
+              evt.currentTarget.textContent
+            }"`,
+          );
+        },
+        'click .js-board-title'(evt) {
+          evt.preventDefault();
+          this.query.set(
+            `${this.query.get()} ${TAPi18n.__('operator-board')}:"${
+              evt.currentTarget.textContent
+            }"`,
           );
         },
         'click .js-list-title'(evt) {
+          evt.preventDefault();
           this.query.set(
-            `${this.query.get()} list:"${evt.currentTarget.textContent}"`,
+            `${this.query.get()} ${TAPi18n.__('operator-list')}:"${
+              evt.currentTarget.textContent
+            }"`,
+          );
+        },
+        'click .js-label-name'(evt) {
+          evt.preventDefault();
+          this.query.set(
+            `${this.query.get()} ${TAPi18n.__('operator-label')}:"${
+              evt.currentTarget.textContent
+            }"`,
           );
         },
       },

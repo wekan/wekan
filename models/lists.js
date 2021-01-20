@@ -374,7 +374,7 @@ Meteor.methods({
         .map(list => {
           return list.title;
         }),
-    );
+    ).sort();
   },
 });
 
