@@ -872,6 +872,7 @@
   "swimlane-title-not-found": "Raia '%s' não encontrada.",
   "list-title-not-found": "Lista '%s' não encontrada.",
   "label-not-found": "Etiqueta '%s' não encontrada.",
+  "label-color-not-found": "Cor de etiqueta %s não encontrada.",
   "user-username-not-found": "Nome de usuário '%s' não encontrado.",
   "globalSearch-title": "Pesquisar em todos os quadros",
   "no-cards-found": "Nenhum cartão encontrado",

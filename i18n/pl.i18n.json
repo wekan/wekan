@@ -872,6 +872,7 @@
   "swimlane-title-not-found": "Nie znaleziono ścieżki '%s'.",
   "list-title-not-found": "Nie znaleziono listy '%s'.",
   "label-not-found": "Nie znaleziono etykiety '%s'.",
+  "label-color-not-found": "Label color %s not found.",
   "user-username-not-found": "Nie znaleziono użytkownika '%s'.",
   "globalSearch-title": "Przeszukaj wszystkie tablice",
   "no-cards-found": "Nie znaleziono kart",

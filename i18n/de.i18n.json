@@ -872,6 +872,7 @@
   "swimlane-title-not-found": "Swimlane „%s“ nicht gefunden.",
   "list-title-not-found": "Liste „%s“ nicht gefunden.",
   "label-not-found": "Label „%s“ nicht gefunden.",
+  "label-color-not-found": "Label color %s not found.",
   "user-username-not-found": "Nutzername „%s“ nicht gefunden.",
   "globalSearch-title": "Alle Boards durchsuchen",
   "no-cards-found": "Keine Karten gefunden",

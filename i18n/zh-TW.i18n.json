@@ -872,6 +872,7 @@
   "swimlane-title-not-found": "泳道流程圖%s不存在",
   "list-title-not-found": "清單%s不存在",
   "label-not-found": "標籤%s不存在",
+  "label-color-not-found": "Label color %s not found.",
   "user-username-not-found": "使用者%s不存在",
   "globalSearch-title": "搜尋所有看板",
   "no-cards-found": "找不到卡片",

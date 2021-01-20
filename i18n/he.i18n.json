@@ -872,6 +872,7 @@
   "swimlane-title-not-found": "המסלול ‚%s’ לא נמצא.",
   "list-title-not-found": "הרשימה ‚%s’ לא נמצאה.",
   "label-not-found": "התווית ‚%s’ לא נמצאה.",
+  "label-color-not-found": "Label color %s not found.",
   "user-username-not-found": "שם המשתמש ‚%s’ לא נמצא.",
   "globalSearch-title": "חיפוש בכל הלוחות",
   "no-cards-found": "לא נמצאו כרטיסים",

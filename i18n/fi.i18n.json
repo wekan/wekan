@@ -872,6 +872,7 @@
   "swimlane-title-not-found": "Swimlanea '%s' ei löytynyt.",
   "list-title-not-found": "Listaa '%s' ei löytynyt.",
   "label-not-found": "Nimilappua '%s' ei löytynyt.",
+  "label-color-not-found": "Nimilapun väriä %s ei löytynyt.",
   "user-username-not-found": "Käyttäjänimeä '%s' ei löytynyt.",
   "globalSearch-title": "Etsi kaikilta tauluilta",
   "no-cards-found": "Kortteja ei löytynyt.",

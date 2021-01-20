@@ -872,6 +872,7 @@
   "swimlane-title-not-found": "Дорожка '%s' не найдена.",
   "list-title-not-found": "Список '%s' не найден.",
   "label-not-found": "Label '%s' not found.",
+  "label-color-not-found": "Label color %s not found.",
   "user-username-not-found": "Имя пользователя '%s' не найдено.",
   "globalSearch-title": "Искать на всех досках",
   "no-cards-found": "Ни одной карточки не найдено",

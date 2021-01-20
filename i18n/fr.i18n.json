@@ -872,6 +872,7 @@
   "swimlane-title-not-found": "Couloir '%s' non trouvé.",
   "list-title-not-found": "Liste '%s' non trouvée.",
   "label-not-found": "Étiquette '%s' non trouvée.",
+  "label-color-not-found": "Étiquette de couleur '%s' non trouvée",
   "user-username-not-found": "Utilisateur '%s' non trouvé.",
   "globalSearch-title": "Chercher dans tous les tableaux",
   "no-cards-found": "Aucune carte trouvée",

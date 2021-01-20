@@ -872,6 +872,7 @@
   "swimlane-title-not-found": "Swimlane '%s' not found.",
   "list-title-not-found": "Lista  '%s' no encontrada.",
   "label-not-found": "Etiqueta '%s' no encontrada.",
+  "label-color-not-found": "Label color %s not found.",
   "user-username-not-found": "Usuario '%s' no encontrado.",
   "globalSearch-title": "Buscar todas las tarjetas",
   "no-cards-found": "Ninguna tarjeta encontrada",

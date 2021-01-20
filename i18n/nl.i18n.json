@@ -872,6 +872,7 @@
   "swimlane-title-not-found": "Swimlane '%s' niet gevonden.",
   "list-title-not-found": "Lijst '%s' niet gevonden",
   "label-not-found": "Label '%s' is niet gevonden.",
+  "label-color-not-found": "Label color %s not found.",
   "user-username-not-found": "Gebruiker '%s' niet gevonden.",
   "globalSearch-title": "Zoek op alle borden",
   "no-cards-found": "Geen Kaarten Gevonden",
