@@ -1,6 +1,11 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+- [When copying a board, copy Custom Fields to new board](https://github.com/wekan/wekan/pull/3451).
+  Thanks to jrsupplee.
+
+and fixes the following bugs:
 
 - [Custom field definitions duplicated on copy and move](https://github.com/wekan/wekan/pull/3449).
   Thanks to jrsupplee.
