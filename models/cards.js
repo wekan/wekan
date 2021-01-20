@@ -367,6 +367,24 @@ Cards.allow({
 });
 
 Cards.helpers({
+  mapCustomFieldsToBoard(boardId) {
+    // Map custom fields to new board
+    return this.customFields.map(cf => {
+      const oldCf = CustomFields.findOne(cf._id);
+      const newCf = CustomFields.findOne({
+        boardIds: boardId,
+        name: oldCf.name,
+        type: oldCf.type,
+      });
+      if (newCf) {
+        cf._id = newCf._id;
+      } else if (!_.contains(oldCf.boardIds, boardId)) {
+        oldCf.addBoard(boardId);
+      }
+      return cf;
+    });
+  },
+
   copy(boardId, swimlaneId, listId) {
     const oldId = this._id;
     const oldCard = Cards.findOne(oldId);
@@ -397,16 +415,7 @@ Cards.helpers({
       delete this.labelIds;
       this.labelIds = newCardLabels;
 
-      // Copy Custom Fields
-      CustomFields.find({
-        _id: {
-          $in: oldCard.customFields.map(cf => {
-            return cf._id;
-          }),
-        },
-      }).forEach(cf => {
-        if (!_.contains(cf.boardIds, boardId)) cf.addBoard(boardId);
-      });
+      this.customFields = this.mapCustomFieldsToBoard(newBoard._id);
     }
 
     delete this._id;
@@ -1528,16 +1537,7 @@ Cards.mutations({
         labelIds: newCardLabelIds,
       });
 
-      // Copy custom fields
-      CustomFields.find({
-        _id: {
-          $in: this.customFields.map(cf => {
-            return cf._id;
-          }),
-        },
-      }).forEach(cf => {
-        if (!_.contains(cf.boardIds, boardId)) cf.addBoard(boardId);
-      });
+      mutatedFields.customFields = this.mapCustomFieldsToBoard(newBoard._id);
     }
 
     Cards.update(this._id, {
