@@ -26,27 +26,7 @@ template(name="dueCards")
       .wrapper
         .due-cards-dueat-list-wrapper
           each card in dueCardsList
-            .due-cards-card-wrapper
-              a.minicard-wrapper.card-title(href=card.absoluteUrl)
-                +minicard(card)
-              ul.due-cards-context-list
-                li.due-cards-context(title="{{_ 'board'}}")
-                  +viewer
-                    = card.getBoard.title
-                li.due-cards-context.due-cards-context-separator
-                  = ' '
-                  | {{_ 'context-separator'}}
-                  = ' '
-                li.due-cards-context(title="{{_ 'swimlane'}}")
-                  +viewer
-                    = card.getSwimlane.title
-                li.due-cards-context
-                  = ' '
-                  | {{_ 'context-separator'}}
-                  = ' '
-                li.due-cards-context(title="{{_ 'list'}}")
-                  +viewer
-                    = card.getList.title
+            +resultCard(card)
     else
       +spinner
 

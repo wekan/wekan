@@ -48,27 +48,7 @@ template(name="myCards")
         else
           .my-cards-dueat-list-wrapper
             each card in myDueCardsList
-              .my-cards-card-wrapper
-                a.minicard-wrapper.card-title(href=card.absoluteUrl)
-                  +minicard(card)
-                ul.my-cards-context-list
-                  li.my-cards-context(title="{{_ 'board'}}")
-                    +viewer
-                      = card.getBoard.title
-                  li.my-cards-context.my-cards-context-separator
-                    = ' '
-                    | {{_ 'context-separator'}}
-                    = ' '
-                  li.my-cards-context(title="{{_ 'swimlane'}}")
-                    +viewer
-                      = card.getSwimlane.title
-                  li.my-cards-context
-                    = ' '
-                    | {{_ 'context-separator'}}
-                    = ' '
-                  li.my-cards-context(title="{{_ 'list'}}")
-                    +viewer
-                      = card.getList.title
+              +resultCard(card)
     else
       +spinner
 
