@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Custom field definitions duplicated on copy and move](https://github.com/wekan/wekan/pull/3449).
+  Thanks to jrsupplee.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+  
 # v4.82 2021-01-20 Wekan release
 
 This release adds the following new features:
