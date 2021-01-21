@@ -401,6 +401,7 @@ BlazeComponent.extendComponent({
               evt.currentTarget.textContent
             }"`,
           );
+          document.getElementById('global-search-input').focus();
         },
         'click .js-board-title'(evt) {
           evt.preventDefault();
@@ -409,6 +410,7 @@ BlazeComponent.extendComponent({
               evt.currentTarget.textContent
             }"`,
           );
+          document.getElementById('global-search-input').focus();
         },
         'click .js-list-title'(evt) {
           evt.preventDefault();
@@ -417,6 +419,7 @@ BlazeComponent.extendComponent({
               evt.currentTarget.textContent
             }"`,
           );
+          document.getElementById('global-search-input').focus();
         },
         'click .js-label-name'(evt) {
           evt.preventDefault();
@@ -425,6 +428,7 @@ BlazeComponent.extendComponent({
               evt.currentTarget.textContent
             }"`,
           );
+          document.getElementById('global-search-input').focus();
         },
       },
     ];

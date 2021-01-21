@@ -916,5 +916,7 @@
   "globalSearch-instructions-notes-5": "Currently archived cards are not searched.",
   "link-to-search": "Link to this search",
   "excel-font": "Arial",
-  "number": "Number"
+  "number": "Number",
+  "label-colors": "Label Colors",
+  "label-names": "Label Names"
 }
