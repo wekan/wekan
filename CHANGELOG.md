@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fixed Upper/lowercase errors in some languages due to .toLowerCase](https://github.com/wekan/wekan/commit/a5f6dd6399142b3b05e9b6a0d106d931106807d6).
+  Thanks to bronger and xet7.
+    
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.83 2021-01-20 Wekan release
 
 This release adds the following new features:
