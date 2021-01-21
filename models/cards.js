@@ -1955,7 +1955,7 @@ Cards.globalSearch = queryParams => {
   }
 
   if (queryParams.dueAt !== null) {
-    selector.dueAt = { $gte: new Date(queryParams.dueAt) };
+    selector.dueAt = { $lte: new Date(queryParams.dueAt) };
   }
 
   if (queryParams.createdAt !== null) {
@@ -2092,7 +2092,8 @@ Cards.globalSearch = queryParams => {
 
   // eslint-disable-next-line no-console
   console.log('selector:', selector);
-  const cards = Cards.find(selector, {
+
+  const projection = {
     fields: {
       _id: 1,
       archived: 1,
@@ -2111,7 +2112,43 @@ Cards.globalSearch = queryParams => {
       labelIds: 1,
     },
     limit: 50,
-  });
+  };
+
+  if (queryParams.sort === 'due') {
+    projection.sort = {
+      dueAt: 1,
+      boardId: 1,
+      swimlaneId: 1,
+      listId: 1,
+      sort: 1,
+    };
+  } else if (queryParams.sort === 'modified') {
+    projection.sort = {
+      modifiedAt: -1,
+      boardId: 1,
+      swimlaneId: 1,
+      listId: 1,
+      sort: 1,
+    };
+  } else if (queryParams.sort === 'created') {
+    projection.sort = {
+      createdAt: -1,
+      boardId: 1,
+      swimlaneId: 1,
+      listId: 1,
+      sort: 1,
+    };
+  } else if (queryParams.sort === 'system') {
+    projection.sort = {
+      boardId: 1,
+      swimlaneId: 1,
+      listId: 1,
+      modifiedAt: 1,
+      sort: 1,
+    };
+  }
+
+  const cards = Cards.find(selector, projection);
 
   // eslint-disable-next-line no-console
   console.log('count:', cards.count());

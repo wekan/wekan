@@ -212,6 +212,7 @@ BlazeComponent.extendComponent({
     operatorMap[TAPi18n.__('operator-due')] = 'dueAt';
     operatorMap[TAPi18n.__('operator-created')] = 'createdAt';
     operatorMap[TAPi18n.__('operator-modified')] = 'modifiedAt';
+    operatorMap[TAPi18n.__('operator-sort')] = 'sort';
 
     // eslint-disable-next-line no-console
     console.log('operatorMap:', operatorMap);
@@ -256,12 +257,16 @@ BlazeComponent.extendComponent({
           } else if (
             ['dueAt', 'createdAt', 'modifiedAt'].includes(operatorMap[op])
           ) {
-            const days = parseInt(value, 10);
+            let days = parseInt(value, 10);
+            let duration = null;
             if (isNaN(days)) {
               if (['day', 'week', 'month', 'quarter', 'year'].includes(value)) {
-                value = moment()
-                  .subtract(1, value)
-                  .format();
+                duration = value;
+                value = moment();
+              } else if (value === 'overdue') {
+                value = moment();
+                duration = 'days';
+                days = 0;
               } else {
                 this.parsingErrors.push({
                   tag: 'operator-number-expected',
@@ -270,9 +275,23 @@ BlazeComponent.extendComponent({
                 value = null;
               }
             } else {
-              value = moment()
-                .subtract(days, 'days')
-                .format();
+              value = moment();
+            }
+            if (value) {
+              if (operatorMap[op] === 'dueAt') {
+                value = value.add(days, duration ? duration : 'days').format();
+              } else {
+                value = value
+                  .subtract(days, duration ? duration : 'days')
+                  .format();
+              }
+            }
+          } else if (operatorMap[op] === 'sort') {
+            if (!['due', 'modified', 'created', 'system'].includes(value)) {
+              this.parsingErrors.push({
+                tag: 'operator-sort-invalid',
+                value,
+              });
             }
           }
           if (Array.isArray(params[operatorMap[op]])) {
