@@ -537,6 +537,29 @@ Boards.helpers({
         },
       });
     });
+
+    // copy rules, actions, and triggers
+    const actionsMap = {};
+    Actions.find({ boardId: oldId }).forEach(action => {
+      const id = action._id;
+      delete action._id;
+      action.boardId = _id;
+      actionsMap[id] = Actions.insert(action);
+    });
+    const triggersMap = {};
+    Triggers.find({ boardId: oldId }).forEach(trigger => {
+      const id = trigger._id;
+      delete trigger._id;
+      trigger.boardId = _id;
+      triggersMap[id] = Triggers.insert(trigger);
+    });
+    Rules.find({ boardId: oldId }).forEach(rule => {
+      delete rule._id;
+      rule.boardId = _id;
+      rule.actionId = actionsMap[rule.actionId];
+      rule.triggerId = triggersMap[rule.triggerId];
+      Rules.insert(rule);
+    });
   },
   /**
    * Is supplied user authorized to view this board?
