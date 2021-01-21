@@ -166,16 +166,16 @@ Template.memberPopup.helpers({
       const noComments = currentBoard.hasNoComments(this.userId);
       const worker = currentBoard.hasWorker(this.userId);
       if (commentOnly) {
-        return TAPi18n.__('comment-only').toLowerCase();
+        return TAPi18n.__('comment-only');
       } else if (noComments) {
-        return TAPi18n.__('no-comments').toLowerCase();
+        return TAPi18n.__('no-comments');
       } else if (worker) {
-        return TAPi18n.__('worker').toLowerCase();
+        return TAPi18n.__('worker');
       } else {
-        return TAPi18n.__(type).toLowerCase();
+        return TAPi18n.__(type);
       }
     } else {
-      return TAPi18n.__(type).toLowerCase();
+      return TAPi18n.__(type);
     }
   },
   isInvited() {
