@@ -209,9 +209,12 @@ BlazeComponent.extendComponent({
     operatorMap[TAPi18n.__('operator-assignee')] = 'assignees';
     operatorMap[TAPi18n.__('operator-assignee-abbrev')] = 'assignees';
     operatorMap[TAPi18n.__('operator-is')] = 'is';
+    operatorMap[TAPi18n.__('operator-due')] = 'dueAt';
+    operatorMap[TAPi18n.__('operator-created')] = 'createdAt';
+    operatorMap[TAPi18n.__('operator-modified')] = 'modifiedAt';
 
     // eslint-disable-next-line no-console
-    // console.log('operatorMap:', operatorMap);
+    console.log('operatorMap:', operatorMap);
     const params = {
       boards: [],
       swimlanes: [],
@@ -221,6 +224,9 @@ BlazeComponent.extendComponent({
       assignees: [],
       labels: [],
       is: [],
+      dueAt: null,
+      createdAt: null,
+      modifiedAt: null,
     };
 
     let text = '';
@@ -247,8 +253,33 @@ BlazeComponent.extendComponent({
             if (value in this.colorMap) {
               value = this.colorMap[value];
             }
+          } else if (
+            ['dueAt', 'createdAt', 'modifiedAt'].includes(operatorMap[op])
+          ) {
+            const days = parseInt(value, 10);
+            if (isNaN(days)) {
+              if (['day', 'week', 'month', 'quarter', 'year'].includes(value)) {
+                value = moment()
+                  .subtract(1, value)
+                  .format();
+              } else {
+                this.parsingErrors.push({
+                  tag: 'operator-number-expected',
+                  value: { operator: op, value },
+                });
+                value = null;
+              }
+            } else {
+              value = moment()
+                .subtract(days, 'days')
+                .format();
+            }
           }
-          params[operatorMap[op]].push(value);
+          if (Array.isArray(params[operatorMap[op]])) {
+            params[operatorMap[op]].push(value);
+          } else {
+            params[operatorMap[op]] = value;
+          }
         } else {
           this.parsingErrors.push({
             tag: 'operator-unknown-error',
