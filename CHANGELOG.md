@@ -1,5 +1,33 @@
 # Upcoming Wekan release
 
+This release fixes the following bugs:
+
+- [Fixed Upper/lowercase errors in some languages due to .toLowerCase](https://github.com/wekan/wekan/commit/a5f6dd6399142b3b05e9b6a0d106d931106807d6).
+  Thanks to bronger and xet7.
+    
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v4.83 2021-01-20 Wekan release
+
+This release adds the following new features:
+
+- [When copying a board, copy Custom Fields to new board](https://github.com/wekan/wekan/pull/3451).
+  Thanks to jrsupplee.
+
+and adds the following updates:
+
+- [Upgrade to Meteor 2.0](https://github.com/wekan/wekan/commit/23c1723ae1ee09101d5ad6334eee782763d0b354).
+  Thanks to Meteor developers.
+
+and fixes the following bugs:
+
+- [Custom field definitions duplicated on copy and move](https://github.com/wekan/wekan/pull/3449).
+  Thanks to jrsupplee.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+  
+# v4.82 2021-01-20 Wekan release
+
 This release adds the following new features:
 
 - Export to Excel XLSX. Does work, but does not export all fields yet correctly. In Progress.

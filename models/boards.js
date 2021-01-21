@@ -518,6 +518,25 @@ Boards.helpers({
       swimlane.type = 'swimlane';
       swimlane.copy(_id);
     });
+
+    // copy custom field definitions
+    const cfMap = {};
+    CustomFields.find({ boardIds: oldId }).forEach(cf => {
+      const id = cf._id;
+      delete cf._id;
+      cf.boardIds = [_id];
+      cfMap[id] = CustomFields.insert(cf);
+    });
+    Cards.find({ boardId: _id }).forEach(card => {
+      Cards.update(card._id, {
+        $set: {
+          customFields: card.customFields.map(cf => {
+            cf._id = cfMap[cf._id];
+            return cf;
+          }),
+        },
+      });
+    });
   },
   /**
    * Is supplied user authorized to view this board?
