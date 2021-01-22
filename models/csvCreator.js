@@ -147,6 +147,7 @@ export class CsvCreator {
         settings,
         showOnCard: false,
         automaticallyOnCard: false,
+        alwaysOnCard: false,
         showLabelOnMiniCard: false,
         boardIds: [boardId],
       });

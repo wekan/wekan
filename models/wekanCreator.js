@@ -537,6 +537,7 @@ export class WekanCreator {
         showOnCard: field.showOnCard,
         showLabelOnMiniCard: field.showLabelOnMiniCard,
         automaticallyOnCard: field.automaticallyOnCard,
+        alwaysOnCard: field.alwaysOnCard,
         //use date "now" if now created at date is provided (e.g. for very old boards)
         createdAt: this._now(this.createdAt.customFields[field._id]),
         modifiedAt: field.modifiedAt,
