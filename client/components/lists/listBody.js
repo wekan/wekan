@@ -687,7 +687,6 @@ BlazeComponent.extendComponent({
                 _id = data;
               },
             );
-            // _id = board.copy();
           }
           Popup.close();
         },

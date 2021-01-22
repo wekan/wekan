@@ -563,6 +563,28 @@ Boards.helpers({
     });
   },
   /**
+   * Return a unique title based on the current title
+   *
+   * @returns {string|null}
+   */
+  copyTitle() {
+    const m = this.title.match(/^(?<title>.*?)\s*(\[(?<num>\d+)]\s*$|\s*$)/);
+    const title = m.groups.title;
+    let num = 0;
+    Boards.find({ title: new RegExp(`^${title}\\s*\\[\\d+]\\s*$`) }).forEach(
+      board => {
+        const m = board.title.match(/^(?<title>.*?)\s*\[(?<num>\d+)]\s*$/);
+        if (m) {
+          const n = parseInt(m.groups.num, 10);
+          num = num < n ? n : num;
+        }
+      },
+    );
+
+    return `${title} [${num + 1}]`;
+  },
+
+  /**
    * Is supplied user authorized to view this board?
    */
   isVisibleBy(user) {

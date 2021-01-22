@@ -124,9 +124,13 @@ BlazeComponent.extendComponent({
         },
         'click .js-clone-board'(evt) {
           Meteor.call(
-            'cloneBoard',
+            'copyBoard',
             this.currentData()._id,
-            Session.get('fromBoard'),
+            {
+              sort: Boards.find({ archived: false }).count(),
+              type: 'board',
+              title: Boards.findOne(this.currentData()._id).copyTitle(),
+            },
             (err, res) => {
               if (err) {
                 this.setError(err.error);
