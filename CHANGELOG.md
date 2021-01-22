@@ -15,6 +15,8 @@ and fixes the following bugs:
   Thanks to Deepcode.ai and xet7.
 - [Disable some logs that are not needed anymore](https://github.com/wekan/wekan/commit/0373da44b38f7300f69470fed3cabab9b63c8783).
   Thanks to xet7.
+- [Rules not copied during board copy](https://github.com/wekan/wekan/pull/3458).
+  Thanks to jrsupplee.
  
 Thanks to above GitHub users for their contributions and translators for their translations.
 
