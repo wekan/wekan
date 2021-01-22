@@ -508,6 +508,7 @@ Boards.helpers({
   copy() {
     const oldId = this._id;
     delete this._id;
+    delete this.slug;
     const _id = Boards.insert(this);
 
     // Copy all swimlanes in board
