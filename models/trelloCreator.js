@@ -243,6 +243,7 @@ export class TrelloCreator {
           showOnCard: field.display.cardFront,
           showLabelOnMiniCard: field.display.cardFront,
           automaticallyOnCard: true,
+          alwaysOnCard: false,
           type: field.type,
           boardIds: [boardId],
           settings: {},

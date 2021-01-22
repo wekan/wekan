@@ -239,7 +239,7 @@ BlazeComponent.extendComponent({
         .customFields()
         .fetch(),
       function(field) {
-        if (field.automaticallyOnCard)
+        if (field.automaticallyOnCard || field.alwaysOnCard)
           arr.push({ _id: field._id, value: null });
       },
     );
