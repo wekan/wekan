@@ -42,6 +42,9 @@ BlazeComponent.extendComponent({
     this.query = new ReactiveVar('');
     this.resultsHeading = new ReactiveVar('');
     this.searchLink = new ReactiveVar(null);
+    this.myLists = new ReactiveVar([]);
+    this.myLabelNames = new ReactiveVar([]);
+    this.myBoardNames = new ReactiveVar([]);
     this.queryParams = null;
     this.parsingErrors = [];
     this.resultsCount = 0;
@@ -55,6 +58,25 @@ BlazeComponent.extendComponent({
     // }
     // // eslint-disable-next-line no-console
     // console.log('colorMap:', this.colorMap);
+
+    Meteor.call('myLists', (err, data) => {
+      if (!err) {
+        this.myLists.set(data);
+      }
+    });
+
+    Meteor.call('myLabelNames', (err, data) => {
+      if (!err) {
+        this.myLabelNames.set(data);
+      }
+    });
+
+    Meteor.call('myBoardNames', (err, data) => {
+      if (!err) {
+        this.myBoardNames.set(data);
+      }
+    });
+
     Meteor.subscribe('setting');
     if (Session.get('globalQuery')) {
       this.searchAllBoards(Session.get('globalQuery'));
@@ -111,11 +133,13 @@ BlazeComponent.extendComponent({
         messages.push({ tag: 'list-title-not-found', value: list });
       });
       this.queryErrors.notFound.labels.forEach(label => {
-        const color = TAPi18n.__(`color-${label}`);
-        if (color) {
+        const color = Object.entries(this.colorMap)
+          .filter(value => value[1] === label)
+          .map(value => value[0]);
+        if (color.length) {
           messages.push({
             tag: 'label-color-not-found',
-            value: color,
+            value: color[0],
           });
         } else {
           messages.push({ tag: 'label-not-found', value: label });
@@ -185,9 +209,12 @@ BlazeComponent.extendComponent({
     operatorMap[TAPi18n.__('operator-assignee')] = 'assignees';
     operatorMap[TAPi18n.__('operator-assignee-abbrev')] = 'assignees';
     operatorMap[TAPi18n.__('operator-is')] = 'is';
+    operatorMap[TAPi18n.__('operator-due')] = 'dueAt';
+    operatorMap[TAPi18n.__('operator-created')] = 'createdAt';
+    operatorMap[TAPi18n.__('operator-modified')] = 'modifiedAt';
 
     // eslint-disable-next-line no-console
-    // console.log('operatorMap:', operatorMap);
+    console.log('operatorMap:', operatorMap);
     const params = {
       boards: [],
       swimlanes: [],
@@ -197,6 +224,9 @@ BlazeComponent.extendComponent({
       assignees: [],
       labels: [],
       is: [],
+      dueAt: null,
+      createdAt: null,
+      modifiedAt: null,
     };
 
     let text = '';
@@ -223,8 +253,33 @@ BlazeComponent.extendComponent({
             if (value in this.colorMap) {
               value = this.colorMap[value];
             }
+          } else if (
+            ['dueAt', 'createdAt', 'modifiedAt'].includes(operatorMap[op])
+          ) {
+            const days = parseInt(value, 10);
+            if (isNaN(days)) {
+              if (['day', 'week', 'month', 'quarter', 'year'].includes(value)) {
+                value = moment()
+                  .subtract(1, value)
+                  .format();
+              } else {
+                this.parsingErrors.push({
+                  tag: 'operator-number-expected',
+                  value: { operator: op, value },
+                });
+                value = null;
+              }
+            } else {
+              value = moment()
+                .subtract(days, 'days')
+                .format();
+            }
           }
-          params[operatorMap[op]].push(value);
+          if (Array.isArray(params[operatorMap[op]])) {
+            params[operatorMap[op]].push(value);
+          } else {
+            params[operatorMap[op]] = value;
+          }
         } else {
           this.parsingErrors.push({
             tag: 'operator-unknown-error',
@@ -355,12 +410,56 @@ BlazeComponent.extendComponent({
     return text;
   },
 
+  labelColors() {
+    return Boards.simpleSchema()._schema['labels.$.color'].allowedValues.map(
+      color => {
+        return { color, name: TAPi18n.__(`color-${color}`) };
+      },
+    );
+  },
+
   events() {
     return [
       {
         'submit .js-search-query-form'(evt) {
           evt.preventDefault();
           this.searchAllBoards(evt.target.searchQuery.value);
+        },
+        'click .js-label-color'(evt) {
+          evt.preventDefault();
+          this.query.set(
+            `${this.query.get()} ${TAPi18n.__('operator-label')}:"${
+              evt.currentTarget.textContent
+            }"`,
+          );
+          document.getElementById('global-search-input').focus();
+        },
+        'click .js-board-title'(evt) {
+          evt.preventDefault();
+          this.query.set(
+            `${this.query.get()} ${TAPi18n.__('operator-board')}:"${
+              evt.currentTarget.textContent
+            }"`,
+          );
+          document.getElementById('global-search-input').focus();
+        },
+        'click .js-list-title'(evt) {
+          evt.preventDefault();
+          this.query.set(
+            `${this.query.get()} ${TAPi18n.__('operator-list')}:"${
+              evt.currentTarget.textContent
+            }"`,
+          );
+          document.getElementById('global-search-input').focus();
+        },
+        'click .js-label-name'(evt) {
+          evt.preventDefault();
+          this.query.set(
+            `${this.query.get()} ${TAPi18n.__('operator-label')}:"${
+              evt.currentTarget.textContent
+            }"`,
+          );
+          document.getElementById('global-search-input').focus();
         },
       },
     ];

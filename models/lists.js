@@ -362,6 +362,20 @@ Meteor.methods({
     const list = Lists.findOne({ _id: listId });
     list.toggleSoftLimit(!list.getWipLimit('soft'));
   },
+
+  myLists() {
+    // my lists
+    return _.uniq(
+      Lists.find(
+        { boardId: { $in: Boards.userBoardIds(this.userId) } },
+        { fields: { title: 1 } },
+      )
+        .fetch()
+        .map(list => {
+          return list.title;
+        }),
+    ).sort();
+  },
 });
 
 Lists.hookOptions.after.update = { fetchPrevious: false };

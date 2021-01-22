@@ -1343,6 +1343,26 @@ if (Meteor.isServer) {
         },
       });
     },
+    myLabelNames() {
+      let names = [];
+      Boards.userBoards(Meteor.userId()).forEach(board => {
+        names = names.concat(
+          board.labels
+            .filter(label => !!label.name)
+            .map(label => {
+              return label.name;
+            }),
+        );
+      });
+      return _.uniq(names).sort();
+    },
+    myBoardNames() {
+      return _.uniq(
+        Boards.userBoards(Meteor.userId()).map(board => {
+          return board.title;
+        }),
+      ).sort();
+    },
   });
 
   Meteor.methods({

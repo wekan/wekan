@@ -1954,6 +1954,18 @@ Cards.globalSearch = queryParams => {
     selector.listId.$in = queryLists;
   }
 
+  if (queryParams.dueAt !== null) {
+    selector.dueAt = { $gte: new Date(queryParams.dueAt) };
+  }
+
+  if (queryParams.createdAt !== null) {
+    selector.createdAt = { $gte: new Date(queryParams.createdAt) };
+  }
+
+  if (queryParams.modifiedAt !== null) {
+    selector.modifiedAt = { $gte: new Date(queryParams.modifiedAt) };
+  }
+
   const queryMembers = [];
   const queryAssignees = [];
   if (queryParams.users.length) {
@@ -2079,7 +2091,7 @@ Cards.globalSearch = queryParams => {
   }
 
   // eslint-disable-next-line no-console
-  // console.log('selector:', selector);
+  console.log('selector:', selector);
   const cards = Cards.find(selector, {
     fields: {
       _id: 1,
@@ -2094,13 +2106,15 @@ Cards.globalSearch = queryParams => {
       assignees: 1,
       colors: 1,
       dueAt: 1,
+      createdAt: 1,
+      modifiedAt: 1,
       labelIds: 1,
     },
     limit: 50,
   });
 
   // eslint-disable-next-line no-console
-  // console.log('count:', cards.count());
+  console.log('count:', cards.count());
 
   return { cards, errors };
 };
