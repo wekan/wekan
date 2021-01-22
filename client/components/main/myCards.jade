@@ -30,6 +30,7 @@ template(name="myCards")
           each board in myCardsList
             .my-cards-board-wrapper
               .my-cards-board-title
+                a.fa.fa-window-maximize.my-cards-board-link(href=board.absoluteUrl) 
                 +viewer
                   = board.title
               each swimlane in board.mySwimlanes
