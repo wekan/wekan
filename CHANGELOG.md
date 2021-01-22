@@ -1,3 +1,21 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Option to add custom field to all cards](https://github.com/wekan/wekan/pulls/3466).
+  Thanks to jrsupplee.
+
+and fixes the following bugs:
+
+- [WIP Limit: Limited number of cards highlighting to true overbooking](https://github.com/wekan/wekan/pull/3468).
+  Thanks to bronger.
+- [Revert table-cell back to inline-block at my-cards-list-wrapper](https://github.com/wekan/wekan/commit/da12c84609674bdf5121ad6b74c97c65b9fc0164).
+  Thanks to jrsupplee and xet7.
+- [Fix for search operators with uppercase letters](https://github.com/wekan/wekan/pull/3470).
+  Thanks to jrsupplee.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.84 2021-01-22 Wekan release
 
 This release adds the following new features:
