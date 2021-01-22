@@ -508,6 +508,7 @@ Boards.helpers({
   copy() {
     const oldId = this._id;
     delete this._id;
+    delete this.slug;
     const _id = Boards.insert(this);
 
     // Copy all swimlanes in board
@@ -537,7 +538,52 @@ Boards.helpers({
         },
       });
     });
+
+    // copy rules, actions, and triggers
+    const actionsMap = {};
+    Actions.find({ boardId: oldId }).forEach(action => {
+      const id = action._id;
+      delete action._id;
+      action.boardId = _id;
+      actionsMap[id] = Actions.insert(action);
+    });
+    const triggersMap = {};
+    Triggers.find({ boardId: oldId }).forEach(trigger => {
+      const id = trigger._id;
+      delete trigger._id;
+      trigger.boardId = _id;
+      triggersMap[id] = Triggers.insert(trigger);
+    });
+    Rules.find({ boardId: oldId }).forEach(rule => {
+      delete rule._id;
+      rule.boardId = _id;
+      rule.actionId = actionsMap[rule.actionId];
+      rule.triggerId = triggersMap[rule.triggerId];
+      Rules.insert(rule);
+    });
   },
+  /**
+   * Return a unique title based on the current title
+   *
+   * @returns {string|null}
+   */
+  copyTitle() {
+    const m = this.title.match(/^(?<title>.*?)\s*(\[(?<num>\d+)]\s*$|\s*$)/);
+    const title = m.groups.title;
+    let num = 0;
+    Boards.find({ title: new RegExp(`^${title}\\s*\\[\\d+]\\s*$`) }).forEach(
+      board => {
+        const m = board.title.match(/^(?<title>.*?)\s*\[(?<num>\d+)]\s*$/);
+        if (m) {
+          const n = parseInt(m.groups.num, 10);
+          num = num < n ? n : num;
+        }
+      },
+    );
+
+    return `${title} [${num + 1}]`;
+  },
+
   /**
    * Is supplied user authorized to view this board?
    */

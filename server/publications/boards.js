@@ -209,3 +209,19 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
 
   return this.ready();
 });
+
+Meteor.methods({
+  copyBoard(boardId, properties) {
+    check(boardId, String);
+    check(properties, Object);
+
+    const board = Boards.findOne(boardId);
+    if (board) {
+      for (const key in properties) {
+        board[key] = properties[key];
+      }
+      return board.copy();
+    }
+    return null;
+  },
+});

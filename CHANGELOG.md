@@ -1,10 +1,23 @@
-# Upcoming Wekan release
+# v4.84 2021-01-22 Wekan release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+- [Search All Boards: Added list of board, list and color names. Added operators for due, created and modified.
+  Added support for clicking list titles, label names and board titles. Make some heading translatable.
+  Set focus back to search phrase input after clicking a predicate. Fixed some spacing issues](https://github.com/wekan/wekan/pull/3459).
+  Thanks to jrsupplee.
+
+and fixes the following bugs:
 
 - [Fixed Upper/lowercase errors in some languages due to .toLowerCase](https://github.com/wekan/wekan/commit/a5f6dd6399142b3b05e9b6a0d106d931106807d6).
   Thanks to bronger and xet7.
-    
+- [Tried to fix possible prototype pollution reported by Deepcode.ai](https://github.com/wekan/wekan/commit/8f553497e4f21d44e78243d22d80b18f729a3d6a).
+  Thanks to Deepcode.ai and xet7.
+- [Disable some logs that are not needed anymore](https://github.com/wekan/wekan/commit/0373da44b38f7300f69470fed3cabab9b63c8783).
+  Thanks to xet7.
+- [Rules not copied during board copy](https://github.com/wekan/wekan/pull/3458).
+  Thanks to jrsupplee.
+ 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v4.83 2021-01-20 Wekan release

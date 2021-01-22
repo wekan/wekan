@@ -894,7 +894,11 @@
   "operator-assignee": "Zugewiesener",
   "operator-assignee-abbrev": "a",
   "operator-is": "wird",
+  "operator-due": "Fällig",
+  "operator-created": "erstellt",
+  "operator-modified": "geändert",
   "operator-unknown-error": "„%s“ ist kein Operator",
+  "operator-number-expected": "Operator „__operator__“ erwartete eine Zahl, bekam aber „__value__“",
   "heading-notes": "Bemerkungen",
   "globalSearch-instructions-heading": "Hinweise zur Suche",
   "globalSearch-instructions-description": "Suchanfragen können Operatoren enthalten, um die Suche zu verfeinern. Operatoren bestehen aus ihrem Namen und ihrem Wert, getrennt durch einen Doppelpunkt. Beispielsweise würde die Operatorangabe `list:Blockiert` die Suche beschränken auf Karten in einer Liste namens *Blockiert*. Wenn der Wet Leerschritte oder andere Spezialzeichen enthält, muss er in Anführungszeichen gesetzt sein (z.B. `__operator_list__:\"Im Review\"`).",
@@ -915,5 +919,7 @@
   "globalSearch-instructions-notes-5": "Zur Zeit werden keine archivierten Karten gefunden.",
   "link-to-search": "Link auf diese Suche",
   "excel-font": "Arial",
-  "number": "Zahl"
+  "number": "Zahl",
+  "label-colors": "Label-Farben",
+  "label-names": "Label-Namen"
 }

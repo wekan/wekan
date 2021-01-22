@@ -894,7 +894,11 @@
   "operator-assignee": "personne assignée",
   "operator-assignee-abbrev": "a",
   "operator-is": "est",
+  "operator-due": "échéance",
+  "operator-created": "créé",
+  "operator-modified": "modifié",
   "operator-unknown-error": "'%s' n'est pas un opérateur",
+  "operator-number-expected": "L'opérateur __operator__ n'attend pas '__value__' mais un nombre",
   "heading-notes": "Remarques",
   "globalSearch-instructions-heading": "Instructions de recherche",
   "globalSearch-instructions-description": "Les recherches peuvent inclure des opérateurs pour affiner le résultat. Les opérateurs sont précisés en écrivant l'opérateur suivi d'une valeur séparé par un deux-point. Par exemple, une spécification comme `liste:Bloqué` limiterait le résultat aux cartes qui contiennent une liste appelée *Bloqué*. Si la valeur contient des espaces ou des caractères spéciaux, elle doit être entourée d'apostrophes (par ex. `__operator_list__:\"À valider\"`). ",
@@ -915,5 +919,7 @@
   "globalSearch-instructions-notes-5": "Les cartes actuellement archivées ne sont pas recherchées.",
   "link-to-search": "Lien vers cette recherche",
   "excel-font": "Arial",
-  "number": "Nombre"
+  "number": "Nombre",
+  "label-colors": "Couleurs d'étiquette",
+  "label-names": "Noms d'étiquette"
 }

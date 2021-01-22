@@ -174,6 +174,14 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
           $target.find('.materialCheckBox').toggleClass('is-checked');
           $target.toggleClass('is-checked');
         },
+        'click .js-field-always-on-card'(evt) {
+          let $target = $(evt.target);
+          if (!$target.hasClass('js-field-always-on-card')) {
+            $target = $target.parent();
+          }
+          $target.find('.materialCheckBox').toggleClass('is-checked');
+          $target.toggleClass('is-checked');
+        },
         'click .js-field-showLabel-on-card'(evt) {
           let $target = $(evt.target);
           if (!$target.hasClass('js-field-showLabel-on-card')) {
@@ -194,6 +202,8 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
               this.find('.js-field-showLabel-on-card.is-checked') !== null,
             automaticallyOnCard:
               this.find('.js-field-automatically-on-card.is-checked') !== null,
+            alwaysOnCard:
+              this.find('.js-field-always-on-card.is-checked') !== null,
           };
 
           // insert or update

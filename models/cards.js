@@ -2151,7 +2151,7 @@ Cards.globalSearch = queryParams => {
   const cards = Cards.find(selector, projection);
 
   // eslint-disable-next-line no-console
-  console.log('count:', cards.count());
+  //console.log('count:', cards.count());
 
   return { cards, errors };
 };

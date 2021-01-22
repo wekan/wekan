@@ -76,6 +76,12 @@ CustomFields.attachSchema(
        */
       type: Boolean,
     },
+    alwaysOnCard: {
+      /**
+       * should the custom field be automatically added to all cards?
+       */
+      type: Boolean,
+    },
     showLabelOnMiniCard: {
       /**
        * should the label of the custom field be shown on minicards?
@@ -110,6 +116,19 @@ CustomFields.attachSchema(
     },
   }),
 );
+
+CustomFields.addToAllCards = cf => {
+  Cards.update(
+    {
+      boardId: { $in: cf.boardIds },
+      customFields: { $not: { $elemMatch: { _id: cf._id } } },
+    },
+    {
+      $push: { customFields: { _id: cf._id, value: null } },
+    },
+    { multi: true },
+  );
+};
 
 CustomFields.mutations({
   addBoard(boardId) {
@@ -198,6 +217,10 @@ if (Meteor.isServer) {
 
   CustomFields.after.insert((userId, doc) => {
     customFieldCreation(userId, doc);
+
+    if (doc.alwaysOnCard) {
+      CustomFields.addToAllCards(doc);
+    }
   });
 
   CustomFields.before.update((userId, doc, fieldNames, modifier) => {
@@ -224,6 +247,11 @@ if (Meteor.isServer) {
     }
   });
 
+  CustomFields.after.update((userId, doc) => {
+    if (doc.alwaysOnCard) {
+      CustomFields.addToAllCards(doc);
+    }
+  });
   CustomFields.before.remove((userId, doc) => {
     customFieldDeletion(userId, doc);
     Activities.remove({

@@ -608,7 +608,7 @@
   "accounts": "Accounts",
   "accounts-allowEmailChange": "Sta E-mailadres wijzigingen toe",
   "accounts-allowUserNameChange": "Sta Gebruikersnaam wijzigingen toe",
-  "createdAt": "Gemaakt op",
+  "createdAt": "Aangemaakt op",
   "modifiedAt": "Gewijzigd op",
   "verified": "Geverifieerd",
   "active": "Actief",
@@ -894,7 +894,11 @@
   "operator-assignee": "toegewezen aan",
   "operator-assignee-abbrev": "a",
   "operator-is": "is",
+  "operator-due": "verval",
+  "operator-created": "aangemaakt",
+  "operator-modified": "gewijzigd",
   "operator-unknown-error": "%s is geen expressie",
+  "operator-number-expected": "expressie __operator__ verwachtte een getal maar kreeg '__value__'",
   "heading-notes": "Notities",
   "globalSearch-instructions-heading": "Zoek Instructies",
   "globalSearch-instructions-description": "Zoekacties kunnen expressies bevatten om het resultaat te verfijnen. Expressies worden gespecificeerd door de expressie-naam en de waarde, gescheiden door een dubbele punt. Voorbeeld, de expressie specificatie 'list:Blocked' moet het zoekresultaat limiteren tot alleen die kaarten uit een lijst met de naam *Blocked*. Als de waarde een speciaal karakter of spaties bevat dan moet deze tussen dubbele aanhalingstekens geschreven worden (bv.  `__operator_list__:\"To Review\"`).",
@@ -915,5 +919,7 @@
   "globalSearch-instructions-notes-5": "Op dit moment worden gearchiveerde kaarten niet doorzocht.",
   "link-to-search": "Link naar deze zoekactie",
   "excel-font": "Arial",
-  "number": "Aantal"
+  "number": "Aantal",
+  "label-colors": "Labelkleuren",
+  "label-names": "Labelnamen"
 }
