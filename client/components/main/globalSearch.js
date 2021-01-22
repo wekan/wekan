@@ -247,44 +247,46 @@ BlazeComponent.extendComponent({
         } else {
           op = m.groups.abbrev;
         }
-        if (op in operatorMap) {
-          let value = m.groups.value;
-          if (operatorMap[op] === 'labels') {
-            if (value in this.colorMap) {
-              value = this.colorMap[value];
-            }
-          } else if (
-            ['dueAt', 'createdAt', 'modifiedAt'].includes(operatorMap[op])
-          ) {
-            const days = parseInt(value, 10);
-            if (isNaN(days)) {
-              if (['day', 'week', 'month', 'quarter', 'year'].includes(value)) {
-                value = moment()
-                  .subtract(1, value)
-                  .format();
-              } else {
-                this.parsingErrors.push({
-                  tag: 'operator-number-expected',
-                  value: { operator: op, value },
-                });
-                value = null;
+        if (op !== "__proto__") {
+          if (op in operatorMap) {
+            let value = m.groups.value;
+            if (operatorMap[op] === 'labels') {
+              if (value in this.colorMap) {
+                value = this.colorMap[value];
               }
-            } else {
-              value = moment()
-                .subtract(days, 'days')
-                .format();
+            } else if (
+              ['dueAt', 'createdAt', 'modifiedAt'].includes(operatorMap[op])
+            ) {
+              const days = parseInt(value, 10);
+              if (isNaN(days)) {
+                if (['day', 'week', 'month', 'quarter', 'year'].includes(value)) {
+                  value = moment()
+                    .subtract(1, value)
+                    .format();
+                } else {
+                  this.parsingErrors.push({
+                    tag: 'operator-number-expected',
+                    value: { operator: op, value },
+                  });
+                  value = null;
+                }
+              } else {
+                value = moment()
+                  .subtract(days, 'days')
+                  .format();
+              }
             }
-          }
-          if (Array.isArray(params[operatorMap[op]])) {
-            params[operatorMap[op]].push(value);
+            if (Array.isArray(params[operatorMap[op]])) {
+              params[operatorMap[op]].push(value);
+            } else {
+              params[operatorMap[op]] = value;
+            }
           } else {
-            params[operatorMap[op]] = value;
+            this.parsingErrors.push({
+              tag: 'operator-unknown-error',
+              value: op,
+            });
           }
-        } else {
-          this.parsingErrors.push({
-            tag: 'operator-unknown-error',
-            value: op,
-          });
         }
         continue;
       }
