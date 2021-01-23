@@ -9,7 +9,8 @@ and adds the following updates:
 
 - Updated dependencies.
   [Part 1](https://github.com/wekan/wekan/commit/7a66cb46a0ec334f4e95a73322641ba029f770ad),
-  [Part 2](https://github.com/wekan/wekan/commit/953cfd6ecd291196ce2ad1d4a5eac19ca21a20d9).
+  [Part 2](https://github.com/wekan/wekan/commit/953cfd6ecd291196ce2ad1d4a5eac19ca21a20d9),
+  [Part 3 changed http to fetch](https://github.com/wekan/wekan/commit/b537275707d648fd4e58a9ae67df829c4cd4dc95).
   Thanks to developers of dependencies.
 
 and fixes the following bugs:
