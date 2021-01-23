@@ -33,6 +33,8 @@ and fixes the following bugs:
   Thanks to jrsupplee.
 - [Boards.copyTitle - escape string used in regex](https://github.com/wekan/wekan/pull/3473).
   Thanks to jrsupplee.
+- [Bug fix: import regex escape function](https://github.com/wekan/wekan/pull/3476).
+  Thanks to jrsupplee.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
