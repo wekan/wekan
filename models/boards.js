@@ -569,7 +569,7 @@ Boards.helpers({
    */
   copyTitle() {
     const m = this.title.match(/^(?<title>.*?)\s*(\[(?<num>\d+)]\s*$|\s*$)/);
-    const title = m.groups.title;
+    const title = escapeForRegex(m.groups.title);
     let num = 0;
     Boards.find({ title: new RegExp(`^${title}\\s*\\[\\d+]\\s*$`) }).forEach(
       board => {

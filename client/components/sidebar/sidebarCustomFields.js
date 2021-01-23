@@ -16,7 +16,7 @@ BlazeComponent.extendComponent({
 }).register('customFieldsSidebar');
 
 const CreateCustomFieldPopup = BlazeComponent.extendComponent({
-  _types: ['text', 'number', 'date', 'dropdown', 'currency'],
+  _types: ['text', 'number', 'date', 'dropdown', 'currency', 'checkbox'],
 
   _currencyList: [
     {

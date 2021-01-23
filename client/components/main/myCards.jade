@@ -29,9 +29,10 @@ template(name="myCards")
         if $eq myCardsSort 'board'
           each board in myCardsList
             .my-cards-board-wrapper
-              .my-cards-board-title
-                +viewer
-                  = board.title
+              .my-cards-board-title(class=board.colorClass, id="header")
+                a(href=board.absoluteUrl)
+                  +viewer 
+                    = board.title
               each swimlane in board.mySwimlanes
                 .my-cards-swimlane-title(class="{{#if swimlane.colorClass}}{{ swimlane.colorClass }}{{else}}swimlane-default-color{{/if}}")
                   +viewer

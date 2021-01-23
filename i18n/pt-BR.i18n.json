@@ -601,7 +601,8 @@
   "minutes": "minutos",
   "seconds": "segundos",
   "show-field-on-card": "Mostrar este campo no cartão",
-  "automatically-field-on-card": "Criar campo automaticamente para todos os cartões",
+  "automatically-field-on-card": "Add field to new cards",
+  "always-field-on-card": "Add field to all cards",
   "showLabel-field-on-card": "Mostrar etiqueta do campo no minicartão",
   "yes": "Sim",
   "no": "Não",
@@ -895,10 +896,10 @@
   "operator-assignee-abbrev": "a",
   "operator-is": "é",
   "operator-due": "prazo final",
-  "operator-created": "created",
-  "operator-modified": "modified",
+  "operator-created": "criado",
+  "operator-modified": "modificado",
   "operator-unknown-error": "%s não é um operador",
-  "operator-number-expected": "operator __operator__ expected a number, got '__value__'",
+  "operator-number-expected": "operador __operator__ esperava um número, obteve '__value__'",
   "heading-notes": "Notas",
   "globalSearch-instructions-heading": "Buscar instruções",
   "globalSearch-instructions-description": "Buscas podem incluir operadores para otimizar a consulta. Operadores são especificados para serem escritos com o nome do operador e o seu valor separados por sinal de dois pontos. Por exemplo, uma especificação de operador para `list:Blocked` poderia limitar a busca a cartões que estão em uma lista chamada *Blocked*. Se o valor contém espaços ou caracteres especiais deverá ser colocado entre aspas  (por exemplo, `__operator_list__:\"To Review\"`).",
@@ -920,6 +921,6 @@
   "link-to-search": "Link para esta busca",
   "excel-font": "Arial",
   "number": "Número",
-  "label-colors": "Label Colors",
-  "label-names": "Label Names"
+  "label-colors": "Cores de etiqueta",
+  "label-names": "Nomes de etiqueta"
 }
