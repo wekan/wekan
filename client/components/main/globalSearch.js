@@ -212,6 +212,7 @@ BlazeComponent.extendComponent({
       'operator-due': 'dueAt',
       'operator-created': 'createdAt',
       'operator-modified': 'modifiedAt',
+      'operator-comment': 'comments',
     };
 
     const operatorMap = {};
@@ -233,6 +234,7 @@ BlazeComponent.extendComponent({
       dueAt: null,
       createdAt: null,
       modifiedAt: null,
+      comments: [],
     };
 
     let text = '';
