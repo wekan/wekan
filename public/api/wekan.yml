@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v4.84
+  version: v4.85
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -2392,6 +2392,10 @@ definitions:
         description: |
            should the custom fields automatically be added on cards?
         type: boolean
+      alwaysOnCard:
+        description: |
+           should the custom field be automatically added to all cards?
+        type: boolean
       showLabelOnMiniCard:
         description: |
            should the label of the custom field be shown on minicards?
@@ -2408,6 +2412,7 @@ definitions:
       - settings
       - showOnCard
       - automaticallyOnCard
+      - alwaysOnCard
       - showLabelOnMiniCard
       - modifiedAt
   CustomFieldsSettings:
