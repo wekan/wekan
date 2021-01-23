@@ -1904,7 +1904,7 @@ Cards.globalSearch = queryParams => {
     const queryBoards = [];
     queryParams.boards.forEach(query => {
       const boards = Boards.userSearch(userId, {
-        title: new RegExp(query, 'i'),
+        title: new RegExp(escapeForRegex(query), 'i'),
       });
       if (boards.count()) {
         boards.forEach(board => {
@@ -1922,7 +1922,7 @@ Cards.globalSearch = queryParams => {
     const querySwimlanes = [];
     queryParams.swimlanes.forEach(query => {
       const swimlanes = Swimlanes.find({
-        title: new RegExp(query, 'i'),
+        title: new RegExp(escapeForRegex(query), 'i'),
       });
       if (swimlanes.count()) {
         swimlanes.forEach(swim => {
@@ -1940,7 +1940,7 @@ Cards.globalSearch = queryParams => {
     const queryLists = [];
     queryParams.lists.forEach(query => {
       const lists = Lists.find({
-        title: new RegExp(query, 'i'),
+        title: new RegExp(escapeForRegex(query), 'i'),
       });
       if (lists.count()) {
         lists.forEach(list => {
@@ -2050,7 +2050,7 @@ Cards.globalSearch = queryParams => {
       } else {
         // eslint-disable-next-line no-console
         // console.log('label:', label);
-        const reLabel = new RegExp(label, 'i');
+        const reLabel = new RegExp(escapeForRegex(label), 'i');
         // eslint-disable-next-line no-console
         // console.log('reLabel:', reLabel);
         boards = Boards.userSearch(userId, {
@@ -2081,7 +2081,7 @@ Cards.globalSearch = queryParams => {
   }
 
   if (queryParams.text) {
-    const regex = new RegExp(queryParams.text, 'i');
+    const regex = new RegExp(escapeForRegex(queryParams.text), 'i');
 
     selector.$or = [
       { title: regex },
