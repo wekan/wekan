@@ -1,3 +1,4 @@
+const escapeForRegex = require('escape-string-regexp');
 Boards = new Mongo.Collection('boards');
 
 /**
