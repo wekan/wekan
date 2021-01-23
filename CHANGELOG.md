@@ -5,6 +5,11 @@ This release adds the following new features:
 - [Option to add custom field to all cards](https://github.com/wekan/wekan/pulls/3466).
   Thanks to jrsupplee.
 
+and adds the following updates:
+
+- [Updated dependencies](https://github.com/wekan/wekan/commit/7a66cb46a0ec334f4e95a73322641ba029f770ad).
+  Thanks to developers of dependencies.
+
 and fixes the following bugs:
 
 - [WIP Limit: Limited number of cards highlighting to true overbooking](https://github.com/wekan/wekan/pull/3468).
