@@ -37,16 +37,15 @@ template(name="myCards")
                 .my-cards-swimlane-title(class="{{#if swimlane.colorClass}}{{ swimlane.colorClass }}{{else}}swimlane-default-color{{/if}}")
                   +viewer
                     = swimlane.title
-                .my-cards-lists-wrapper
-                  each list in swimlane.myLists
-                    .my-cards-list-wrapper
-                      .my-cards-list-title(class=list.colorClass)
-                        +viewer
-                          = list.title
-                      each card in list.myCards
-                        .my-cards-card-wrapper
-                          a.minicard-wrapper(href=card.absoluteUrl)
-                            +minicard(card)
+                each list in swimlane.myLists
+                  .my-cards-list-wrapper
+                    .my-cards-list-title(class=list.colorClass)
+                      +viewer
+                        = list.title
+                    each card in list.myCards
+                      .my-cards-card-wrapper
+                        a.minicard-wrapper(href=card.absoluteUrl)
+                          +minicard(card)
         else
           .my-cards-dueat-list-wrapper
             each card in myDueCardsList
