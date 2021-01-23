@@ -193,25 +193,31 @@ BlazeComponent.extendComponent({
     const reText = /^(?<text>\S+)(\s+|$)/;
     const reQuotedText = /^(?<quote>["'])(?<text>\w+)\k<quote>(\s+|$)/;
 
+    const operators = {
+      'operator-board': 'boards',
+      'operator-board-abbrev': 'boards',
+      'operator-swimlane': 'swimlanes',
+      'operator-swimlane-abbrev': 'swimlanes',
+      'operator-list': 'lists',
+      'operator-list-abbrev': 'lists',
+      'operator-label': 'labels',
+      'operator-label-abbrev': 'labels',
+      'operator-user': 'users',
+      'operator-user-abbrev': 'users',
+      'operator-member': 'members',
+      'operator-member-abbrev': 'members',
+      'operator-assignee': 'assignees',
+      'operator-assignee-abbrev': 'assignees',
+      'operator-is': 'is',
+      'operator-due': 'dueAt',
+      'operator-created': 'createdAt',
+      'operator-modified': 'modifiedAt',
+    };
+
     const operatorMap = {};
-    operatorMap[TAPi18n.__('operator-board')] = 'boards';
-    operatorMap[TAPi18n.__('operator-board-abbrev')] = 'boards';
-    operatorMap[TAPi18n.__('operator-swimlane')] = 'swimlanes';
-    operatorMap[TAPi18n.__('operator-swimlane-abbrev')] = 'swimlanes';
-    operatorMap[TAPi18n.__('operator-list')] = 'lists';
-    operatorMap[TAPi18n.__('operator-list-abbrev')] = 'lists';
-    operatorMap[TAPi18n.__('operator-label')] = 'labels';
-    operatorMap[TAPi18n.__('operator-label-abbrev')] = 'labels';
-    operatorMap[TAPi18n.__('operator-user')] = 'users';
-    operatorMap[TAPi18n.__('operator-user-abbrev')] = 'users';
-    operatorMap[TAPi18n.__('operator-member')] = 'members';
-    operatorMap[TAPi18n.__('operator-member-abbrev')] = 'members';
-    operatorMap[TAPi18n.__('operator-assignee')] = 'assignees';
-    operatorMap[TAPi18n.__('operator-assignee-abbrev')] = 'assignees';
-    operatorMap[TAPi18n.__('operator-is')] = 'is';
-    operatorMap[TAPi18n.__('operator-due')] = 'dueAt';
-    operatorMap[TAPi18n.__('operator-created')] = 'createdAt';
-    operatorMap[TAPi18n.__('operator-modified')] = 'modifiedAt';
+    for (const op in operators) {
+      operatorMap[TAPi18n.__(op).toLowerCase()] = operators[op];
+    }
 
     // eslint-disable-next-line no-console
     console.log('operatorMap:', operatorMap);
@@ -247,7 +253,7 @@ BlazeComponent.extendComponent({
         } else {
           op = m.groups.abbrev;
         }
-        if (op !== "__proto__") {
+        if (op !== '__proto__') {
           if (op in operatorMap) {
             let value = m.groups.value;
             if (operatorMap[op] === 'labels') {
@@ -259,7 +265,9 @@ BlazeComponent.extendComponent({
             ) {
               const days = parseInt(value, 10);
               if (isNaN(days)) {
-                if (['day', 'week', 'month', 'quarter', 'year'].includes(value)) {
+                if (
+                  ['day', 'week', 'month', 'quarter', 'year'].includes(value)
+                ) {
                   value = moment()
                     .subtract(1, value)
                     .format();
