@@ -7,7 +7,9 @@ This release adds the following new features:
 
 and adds the following updates:
 
-- [Updated dependencies](https://github.com/wekan/wekan/commit/7a66cb46a0ec334f4e95a73322641ba029f770ad).
+- Updated dependencies.
+  [Part 1](https://github.com/wekan/wekan/commit/7a66cb46a0ec334f4e95a73322641ba029f770ad),
+  [Part 2](https://github.com/wekan/wekan/commit/953cfd6ecd291196ce2ad1d4a5eac19ca21a20d9).
   Thanks to developers of dependencies.
 
 and fixes the following bugs:
