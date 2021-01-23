@@ -4,12 +4,17 @@ This release adds the following new features:
 
 - [Option to add custom field to all cards](https://github.com/wekan/wekan/pulls/3466).
   Thanks to jrsupplee.
-- [Added board title link and background color to My Cards](https://github.com/wekan/wekan/pull/3471).
-  Thanks to helioguardabaxo.
 - [Added checkbox as an option to custom field create dialog](https://github.com/wekan/wekan/pull/3472).
   Thanks to jrsupplee.
+
+and adds the following improvements:
+
 - [Display My Cards lists using inline-grid](https://github.com/wekan/wekan/pull/3474).
   Thanks to jrsupplee.
+- [Added board title link and background color to My Cards](https://github.com/wekan/wekan/pull/3471).
+  Thanks to helioguardabaxo.
+- [Use simple border at My Cards](https://github.com/wekan/wekan/pull/3475).
+  Thanks to helioguardabaxo.
 
 and adds the following updates:
 
