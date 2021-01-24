@@ -76,7 +76,9 @@ BlazeComponent.extendComponent({
         this.myBoardNames.set(data);
       }
     });
+  },
 
+  onRendered() {
     Meteor.subscribe('setting');
     if (Session.get('globalQuery')) {
       this.searchAllBoards(Session.get('globalQuery'));
@@ -326,8 +328,6 @@ BlazeComponent.extendComponent({
       const handle = subManager.subscribe('globalSearch', params);
       Tracker.nonreactive(() => {
         Tracker.autorun(() => {
-          // eslint-disable-next-line no-console
-          // console.log('ready:', handle.ready());
           if (handle.ready()) {
             this.searching.set(false);
             this.hasResults.set(true);
