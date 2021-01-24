@@ -45,6 +45,7 @@ BlazeComponent.extendComponent({
     this.myLists = new ReactiveVar([]);
     this.myLabelNames = new ReactiveVar([]);
     this.myBoardNames = new ReactiveVar([]);
+    this.results = new ReactiveVar([]);
     this.queryParams = null;
     this.parsingErrors = [];
     this.resultsCount = 0;
@@ -85,6 +86,7 @@ BlazeComponent.extendComponent({
 
   resetSearch() {
     this.searching.set(false);
+    this.results.set([]);
     this.hasResults.set(false);
     this.hasQueryErrors.set(false);
     this.resultsHeading.set('');
@@ -94,7 +96,7 @@ BlazeComponent.extendComponent({
     this.queryErrors = null;
   },
 
-  results() {
+  getResults() {
     // eslint-disable-next-line no-console
     // console.log('getting results');
     if (this.queryParams) {
@@ -102,6 +104,9 @@ BlazeComponent.extendComponent({
         userId: Meteor.userId(),
         sessionId: SessionData.getSessionId(),
       });
+      // eslint-disable-next-line no-console
+      console.log('session data:', sessionData);
+
       const cards = Cards.find({ _id: { $in: sessionData.cards } });
       this.queryErrors = sessionData.errorMessages;
       // eslint-disable-next-line no-console
@@ -120,11 +125,11 @@ BlazeComponent.extendComponent({
         this.totalHits = sessionData.totalHits;
         this.resultsCount = cards.count();
         this.resultsHeading.set(this.getResultsHeading());
-        return cards;
+        this.results.set(cards);
       }
     }
     this.resultsCount = 0;
-    return [];
+    return null;
   },
 
   errorMessages() {
@@ -141,6 +146,9 @@ BlazeComponent.extendComponent({
 
   searchAllBoards(query) {
     query = query.trim();
+    // eslint-disable-next-line no-console
+    console.log('query:', query);
+
     this.query.set(query);
 
     this.resetSearch();
@@ -148,9 +156,6 @@ BlazeComponent.extendComponent({
     if (!query) {
       return;
     }
-
-    // eslint-disable-next-line no-console
-    // console.log('query:', query);
 
     this.searching.set(true);
 
@@ -195,7 +200,7 @@ BlazeComponent.extendComponent({
     });
 
     // eslint-disable-next-line no-console
-    console.log('operatorMap:', operatorMap);
+    // console.log('operatorMap:', operatorMap);
     const params = {
       boards: [],
       swimlanes: [],
@@ -308,9 +313,16 @@ BlazeComponent.extendComponent({
     params.text = text;
 
     // eslint-disable-next-line no-console
-    // console.log('params:', params);
+    console.log('params:', params);
 
     this.queryParams = params;
+
+    if (this.parsingErrors.length) {
+      this.searching.set(false);
+      this.queryErrors = this.errorMessages();
+      this.hasQueryErrors.set(true);
+      return;
+    }
 
     this.autorun(() => {
       const handle = subManager.subscribe(
@@ -323,6 +335,7 @@ BlazeComponent.extendComponent({
           // eslint-disable-next-line no-console
           // console.log('ready:', handle.ready());
           if (handle.ready()) {
+            this.getResults();
             this.searching.set(false);
             this.hasResults.set(true);
           }

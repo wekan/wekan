@@ -35,7 +35,7 @@ template(name="globalSearch")
             h1
               = resultsHeading.get
               a.fa.fa-link(title="{{_ 'link-to-search' }}" href="{{ getSearchHref }}")
-            each card in results
+            each card in results.get
               +resultCard(card)
       else
         .global-search-instructions
