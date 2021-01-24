@@ -173,7 +173,8 @@ Meteor.publish('dueCards', function(allUsers = false) {
   ];
 });
 
-Meteor.publish('globalSearch', function(queryParams) {
+Meteor.publish('globalSearch', function(sessionId, queryParams) {
+  check(sessionId, String);
   check(queryParams, Object);
 
   // eslint-disable-next-line no-console
@@ -199,7 +200,7 @@ Meteor.publish('globalSearch', function(queryParams) {
     });
   }
 
-  SessionData.upsert({ userId: this.userId }, update);
+  SessionData.upsert({ userId: this.userId, sessionId }, update);
 
   const boards = [];
   const swimlanes = [];
@@ -236,7 +237,7 @@ Meteor.publish('globalSearch', function(queryParams) {
     Swimlanes.find({ _id: { $in: swimlanes } }, { fields }),
     Lists.find({ _id: { $in: lists } }, { fields }),
     Users.find({ _id: { $in: users } }, { fields: Users.safeFields }),
-    SessionData.find({ userId: this.userId }),
+    SessionData.find({ userId: this.userId, sessionId }),
   ];
 
   if (cards) {

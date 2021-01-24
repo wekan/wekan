@@ -25,6 +25,13 @@ SessionData.attachSchema(
       type: String,
       optional: false,
     },
+    sessionId: {
+      /**
+       * unique session ID
+       */
+      type: String,
+      optional: false,
+    },
     totalHits: {
       /**
        * total number of hits in the last report query
@@ -77,5 +84,17 @@ SessionData.attachSchema(
     },
   }),
 );
+
+if (!Meteor.isServer) {
+  SessionData.getSessionId = () => {
+    let sessionId = Session.get('sessionId');
+    if (!sessionId) {
+      sessionId = `${String(Meteor.userId())}-${String(Math.random())}`;
+      Session.set('sessionId', sessionId);
+    }
+
+    return sessionId;
+  };
+}
 
 export default SessionData;

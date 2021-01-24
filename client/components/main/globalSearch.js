@@ -98,7 +98,10 @@ BlazeComponent.extendComponent({
     // eslint-disable-next-line no-console
     // console.log('getting results');
     if (this.queryParams) {
-      const sessionData = SessionData.findOne({ userId: Meteor.userId() });
+      const sessionData = SessionData.findOne({
+        userId: Meteor.userId(),
+        sessionId: SessionData.getSessionId(),
+      });
       const cards = Cards.find({ _id: { $in: sessionData.cards } });
       this.queryErrors = sessionData.errorMessages;
       // eslint-disable-next-line no-console
@@ -310,7 +313,11 @@ BlazeComponent.extendComponent({
     this.queryParams = params;
 
     this.autorun(() => {
-      const handle = subManager.subscribe('globalSearch', params);
+      const handle = subManager.subscribe(
+        'globalSearch',
+        SessionData.getSessionId(),
+        params,
+      );
       Tracker.nonreactive(() => {
         Tracker.autorun(() => {
           // eslint-disable-next-line no-console
