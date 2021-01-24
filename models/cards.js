@@ -1882,6 +1882,12 @@ Cards.globalSearch = queryParams => {
         assignees: [],
         is: [],
       };
+
+      this.colorMap = {};
+      for (const color of Boards.simpleSchema()._schema['labels.$.color']
+        .allowedValues) {
+        this.colorMap[TAPi18n.__(`color-${color}`)] = color;
+      }
     }
 
     hasErrors() {
@@ -1891,6 +1897,41 @@ Cards.globalSearch = queryParams => {
         }
       }
       return false;
+    }
+
+    errorMessages() {
+      const messages = [];
+
+      this.notFound.boards.forEach(board => {
+        messages.push(TAPi18n.__('board-title-not-found', board));
+      });
+      this.notFound.swimlanes.forEach(swim => {
+        messages.push(TAPi18n.__('swimlane-title-not-found', swim));
+      });
+      this.notFound.lists.forEach(list => {
+        messages.push(TAPi18n.__('list-title-not-found', list));
+      });
+      this.notFound.labels.forEach(label => {
+        const color = Object.entries(this.colorMap)
+          .filter(value => value[1] === label)
+          .map(value => value[0]);
+        if (color.length) {
+          messages.push(TAPi18n.__('label-color-not-found', color[0]));
+        } else {
+          messages.push(TAPi18n.__('label-not-found', label));
+        }
+      });
+      this.notFound.users.forEach(user => {
+        messages.push(TAPi18n.__('user-username-not-found', user));
+      });
+      this.notFound.members.forEach(user => {
+        messages.push(TAPi18n.__('user-username-not-found', user));
+      });
+      this.notFound.assignees.forEach(user => {
+        messages.push(TAPi18n.__('user-username-not-found', user));
+      });
+
+      return messages;
     }
   })();
 
@@ -1954,6 +1995,14 @@ Cards.globalSearch = queryParams => {
     });
 
     selector.listId.$in = queryLists;
+  }
+
+  if (queryParams.comments.length) {
+    selector._id = {
+      $in: CardComments.textSearch(userId, queryParams.comments).map(com => {
+        return com.cardId;
+      }),
+    };
   }
 
   if (queryParams.dueAt !== null) {
@@ -2089,6 +2138,13 @@ Cards.globalSearch = queryParams => {
       { title: regex },
       { description: regex },
       { customFields: { $elemMatch: { value: regex } } },
+      {
+        _id: {
+          $in: CardComments.textSearch(userId, [queryParams.text]).map(
+            com => com.cardId,
+          ),
+        },
+      },
     ];
   }
 
@@ -2153,7 +2209,7 @@ Cards.globalSearch = queryParams => {
   const cards = Cards.find(selector, projection);
 
   // eslint-disable-next-line no-console
-  //console.log('count:', cards.count());
+  console.log('count:', cards.count());
 
   return { cards, errors };
 };

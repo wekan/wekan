@@ -179,53 +179,71 @@ Meteor.publish('globalSearch', function(queryParams) {
   // eslint-disable-next-line no-console
   // console.log('queryParams:', queryParams);
 
-  const cards = Cards.globalSearch(queryParams).cards;
+  const results = Cards.globalSearch(queryParams);
+  const cards = results.cards;
 
-  if (!cards) {
-    return [];
+  const update = {
+    $set: {
+      totalHits: 0,
+      lastHit: 0,
+      cards: [],
+      errorMessages: results.errors.errorMessages(),
+    },
+  };
+
+  if (cards) {
+    update.$set.totalHits = cards.count();
+    update.$set.lastHit = cards.count() > 50 ? 50 : cards.count();
+    update.$set.cards = cards.map(card => {
+      return card._id;
+    });
   }
 
-  SessionData.upsert(
-    { userId: this.userId },
-    {
-      $set: {
-        totalHits: cards.count(),
-        lastHit: cards.count() > 50 ? 50 : cards.count(),
-      },
-    },
-  );
+  SessionData.upsert({ userId: this.userId }, update);
 
   const boards = [];
   const swimlanes = [];
   const lists = [];
   const users = [this.userId];
 
-  cards.forEach(card => {
-    if (card.boardId) boards.push(card.boardId);
-    if (card.swimlaneId) swimlanes.push(card.swimlaneId);
-    if (card.listId) lists.push(card.listId);
-    if (card.members) {
-      card.members.forEach(userId => {
-        users.push(userId);
-      });
-    }
-    if (card.assignees) {
-      card.assignees.forEach(userId => {
-        users.push(userId);
-      });
-    }
-  });
+  if (cards) {
+    cards.forEach(card => {
+      if (card.boardId) boards.push(card.boardId);
+      if (card.swimlaneId) swimlanes.push(card.swimlaneId);
+      if (card.listId) lists.push(card.listId);
+      if (card.members) {
+        card.members.forEach(userId => {
+          users.push(userId);
+        });
+      }
+      if (card.assignees) {
+        card.assignees.forEach(userId => {
+          users.push(userId);
+        });
+      }
+    });
+  }
 
+  const fields = {
+    _id: 1,
+    title: 1,
+    archived: 1,
+  };
   // eslint-disable-next-line no-console
   // console.log('users:', users);
-  return [
-    cards,
-    Boards.find({ _id: { $in: boards } }),
-    Swimlanes.find({ _id: { $in: swimlanes } }),
-    Lists.find({ _id: { $in: lists } }),
+  const cursors = [
+    Boards.find({ _id: { $in: boards } }, { fields }),
+    Swimlanes.find({ _id: { $in: swimlanes } }, { fields }),
+    Lists.find({ _id: { $in: lists } }, { fields }),
     Users.find({ _id: { $in: users } }, { fields: Users.safeFields }),
     SessionData.find({ userId: this.userId }),
   ];
+
+  if (cards) {
+    cursors.push(cards);
+  }
+
+  return cursors;
 });
 
 Meteor.publish('brokenCards', function() {

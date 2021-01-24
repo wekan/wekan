@@ -900,6 +900,7 @@
   "operator-created": "created",
   "operator-modified": "modified",
   "operator-sort": "sort",
+  "operator-comment": "comment",
   "operator-unknown-error": "%s is not an operator",
   "operator-number-expected": "operator __operator__ expected a number, got '__value__'",
   "operator-sort-invalid": "sort of '%s' is invalid",

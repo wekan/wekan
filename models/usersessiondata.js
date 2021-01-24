@@ -39,6 +39,14 @@ SessionData.attachSchema(
       type: Number,
       optional: true,
     },
+    cards: {
+      type: [String],
+      optional: true,
+    },
+    errorMessages: {
+      type: [String],
+      optional: true,
+    },
     createdAt: {
       /**
        * creation date of the team

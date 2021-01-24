@@ -112,7 +112,7 @@ function commentCreation(userId, doc) {
 
 CardComments.textSearch = (userId, textArray) => {
   const selector = {
-    boardId: { $in: Boards.userBoardIds() },
+    boardId: { $in: Boards.userBoardIds(userId) },
     $and: [],
   };
 
@@ -121,9 +121,12 @@ CardComments.textSearch = (userId, textArray) => {
   }
 
   // eslint-disable-next-line no-console
-  console.log(textArray);
+  console.log('cardComments selector:', selector);
 
-  return CardComments.find(selector);
+  const comments = CardComments.find(selector);
+  // eslint-disable-next-line no-console
+  console.log('count:', comments.count());
+  return comments;
 };
 
 if (Meteor.isServer) {

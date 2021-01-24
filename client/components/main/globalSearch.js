@@ -98,21 +98,26 @@ BlazeComponent.extendComponent({
     // eslint-disable-next-line no-console
     // console.log('getting results');
     if (this.queryParams) {
-      const results = Cards.globalSearch(this.queryParams);
-      this.queryErrors = results.errors;
+      const sessionData = SessionData.findOne({ userId: Meteor.userId() });
+      const cards = Cards.find({ _id: { $in: sessionData.cards } });
+      this.queryErrors = sessionData.errorMessages;
       // eslint-disable-next-line no-console
       // console.log('errors:', this.queryErrors);
-      if (this.errorMessages().length) {
+      if (this.parsingErrors.length) {
+        this.queryErrors = this.errorMessages();
+        this.hasQueryErrors.set(true);
+        return null;
+      }
+      if (this.queryErrors.length) {
         this.hasQueryErrors.set(true);
         return null;
       }
 
-      if (results.cards) {
-        const sessionData = SessionData.findOne({ userId: Meteor.userId() });
+      if (cards) {
         this.totalHits = sessionData.totalHits;
-        this.resultsCount = results.cards.count();
+        this.resultsCount = cards.count();
         this.resultsHeading.set(this.getResultsHeading());
-        return results.cards;
+        return cards;
       }
     }
     this.resultsCount = 0;
@@ -122,43 +127,9 @@ BlazeComponent.extendComponent({
   errorMessages() {
     const messages = [];
 
-    if (this.queryErrors) {
-      this.queryErrors.notFound.boards.forEach(board => {
-        messages.push({ tag: 'board-title-not-found', value: board });
-      });
-      this.queryErrors.notFound.swimlanes.forEach(swim => {
-        messages.push({ tag: 'swimlane-title-not-found', value: swim });
-      });
-      this.queryErrors.notFound.lists.forEach(list => {
-        messages.push({ tag: 'list-title-not-found', value: list });
-      });
-      this.queryErrors.notFound.labels.forEach(label => {
-        const color = Object.entries(this.colorMap)
-          .filter(value => value[1] === label)
-          .map(value => value[0]);
-        if (color.length) {
-          messages.push({
-            tag: 'label-color-not-found',
-            value: color[0],
-          });
-        } else {
-          messages.push({ tag: 'label-not-found', value: label });
-        }
-      });
-      this.queryErrors.notFound.users.forEach(user => {
-        messages.push({ tag: 'user-username-not-found', value: user });
-      });
-      this.queryErrors.notFound.members.forEach(user => {
-        messages.push({ tag: 'user-username-not-found', value: user });
-      });
-      this.queryErrors.notFound.assignees.forEach(user => {
-        messages.push({ tag: 'user-username-not-found', value: user });
-      });
-    }
-
     if (this.parsingErrors.length) {
       this.parsingErrors.forEach(err => {
-        messages.push(err);
+        messages.push(TAPi18n.__(err.tag, err.value));
       });
     }
 

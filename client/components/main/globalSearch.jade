@@ -28,9 +28,9 @@ template(name="globalSearch")
         .global-search-results-list-wrapper
           if hasQueryErrors.get
             div
-              each msg in errorMessages
+              each msg in queryErrors
                 span.global-search-error-messages
-                  | {{_ msg.tag msg.value }}
+                  = msg
           else
             h1
               = resultsHeading.get
