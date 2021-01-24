@@ -444,8 +444,9 @@ BlazeComponent.extendComponent({
         },
         'click .js-label-color'(evt) {
           evt.preventDefault();
+          const input = document.getElementById('global-search-input');
           this.query.set(
-            `${this.query.get()} ${TAPi18n.__('operator-label')}:"${
+            `${input.value} ${TAPi18n.__('operator-label')}:"${
               evt.currentTarget.textContent
             }"`,
           );
@@ -453,8 +454,9 @@ BlazeComponent.extendComponent({
         },
         'click .js-board-title'(evt) {
           evt.preventDefault();
+          const input = document.getElementById('global-search-input');
           this.query.set(
-            `${this.query.get()} ${TAPi18n.__('operator-board')}:"${
+            `${input.value} ${TAPi18n.__('operator-board')}:"${
               evt.currentTarget.textContent
             }"`,
           );
@@ -462,8 +464,9 @@ BlazeComponent.extendComponent({
         },
         'click .js-list-title'(evt) {
           evt.preventDefault();
+          const input = document.getElementById('global-search-input');
           this.query.set(
-            `${this.query.get()} ${TAPi18n.__('operator-list')}:"${
+            `${input.value} ${TAPi18n.__('operator-list')}:"${
               evt.currentTarget.textContent
             }"`,
           );
@@ -471,8 +474,9 @@ BlazeComponent.extendComponent({
         },
         'click .js-label-name'(evt) {
           evt.preventDefault();
+          const input = document.getElementById('global-search-input');
           this.query.set(
-            `${this.query.get()} ${TAPi18n.__('operator-label')}:"${
+            `${input.value} ${TAPi18n.__('operator-label')}:"${
               evt.currentTarget.textContent
             }"`,
           );
