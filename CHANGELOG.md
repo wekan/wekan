@@ -1,9 +1,20 @@
-# Upcoming Wekan release
+# v4.85 2021-01-23 Wekan release
 
 This release adds the following new features:
 
 - [Option to add custom field to all cards](https://github.com/wekan/wekan/pulls/3466).
   Thanks to jrsupplee.
+- [Added checkbox as an option to custom field create dialog](https://github.com/wekan/wekan/pull/3472).
+  Thanks to jrsupplee.
+
+and adds the following improvements:
+
+- [Display My Cards lists using inline-grid](https://github.com/wekan/wekan/pull/3474).
+  Thanks to jrsupplee.
+- [Added board title link and background color to My Cards](https://github.com/wekan/wekan/pull/3471).
+  Thanks to helioguardabaxo.
+- [Use simple border at My Cards](https://github.com/wekan/wekan/pull/3475).
+  Thanks to helioguardabaxo.
 
 and adds the following updates:
 
@@ -19,6 +30,10 @@ and fixes the following bugs:
 - [Revert table-cell back to inline-block at my-cards-list-wrapper](https://github.com/wekan/wekan/commit/da12c84609674bdf5121ad6b74c97c65b9fc0164).
   Thanks to jrsupplee and xet7.
 - [Fix for search operators with uppercase letters](https://github.com/wekan/wekan/pull/3470).
+  Thanks to jrsupplee.
+- [Boards.copyTitle - escape string used in regex](https://github.com/wekan/wekan/pull/3473).
+  Thanks to jrsupplee.
+- [Bug fix: import regex escape function](https://github.com/wekan/wekan/pull/3476).
   Thanks to jrsupplee.
 
 Thanks to above GitHub users for their contributions and translators for their translations.

@@ -1524,7 +1524,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
 	  	<ul class="toc-list-h1">
         
           <li>
-            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v4.84">Wekan REST API v4.84</a>
+            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v4.85">Wekan REST API v4.85</a>
             
           </li>
         
@@ -1982,7 +1982,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="wekan-rest-api">Wekan REST API v4.84</h1>
+        <h1 id="wekan-rest-api">Wekan REST API v4.85</h1>
 <blockquote>
 <p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
 </blockquote>
@@ -7706,6 +7706,7 @@ System.out.println(response.toString());
   },
   <span class="hljs-attr">"showOnCard"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"automaticallyOnCard"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"alwaysOnCard"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"showLabelOnMiniCard"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"createdAt"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"modifiedAt"</span>: <span class="hljs-string">"string"</span>
@@ -13992,6 +13993,7 @@ UserSecurity
   },
   <span class="hljs-attr">"showOnCard"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"automaticallyOnCard"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"alwaysOnCard"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"showLabelOnMiniCard"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"createdAt"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"modifiedAt"</span>: <span class="hljs-string">"string"</span>
@@ -14052,6 +14054,13 @@ UserSecurity
 <td>true</td>
 <td>none</td>
 <td>should the custom fields automatically be added on cards?</td>
+</tr>
+<tr>
+<td>alwaysOnCard</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>should the custom field be automatically added to all cards?</td>
 </tr>
 <tr>
 <td>showLabelOnMiniCard</td>
