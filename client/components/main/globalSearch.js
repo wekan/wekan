@@ -52,13 +52,6 @@ BlazeComponent.extendComponent({
     this.totalHits = 0;
     this.queryErrors = null;
     this.colorMap = null;
-    // this.colorMap = {};
-    // for (const color of Boards.simpleSchema()._schema['labels.$.color']
-    //   .allowedValues) {
-    //   this.colorMap[TAPi18n.__(`color-${color}`)] = color;
-    // }
-    // // eslint-disable-next-line no-console
-    // console.log('colorMap:', this.colorMap);
 
     Meteor.call('myLists', (err, data) => {
       if (!err) {
@@ -81,6 +74,15 @@ BlazeComponent.extendComponent({
 
   onRendered() {
     Meteor.subscribe('setting');
+
+    this.colorMap = {};
+    for (const color of Boards.simpleSchema()._schema['labels.$.color']
+      .allowedValues) {
+      this.colorMap[TAPi18n.__(`color-${color}`)] = color;
+    }
+    // // eslint-disable-next-line no-console
+    // console.log('colorMap:', this.colorMap);
+
     if (Session.get('globalQuery')) {
       this.searchAllBoards(Session.get('globalQuery'));
     }
@@ -107,17 +109,10 @@ BlazeComponent.extendComponent({
         sessionId: SessionData.getSessionId(),
       });
       // eslint-disable-next-line no-console
-      console.log('session data:', sessionData);
+      // console.log('session data:', sessionData);
 
       const cards = Cards.find({ _id: { $in: sessionData.cards } });
-      this.queryErrors = sessionData.errorMessages;
-      // eslint-disable-next-line no-console
-      // console.log('errors:', this.queryErrors);
-      if (this.parsingErrors.length) {
-        this.queryErrors = this.errorMessages();
-        this.hasQueryErrors.set(true);
-        return null;
-      }
+      this.queryErrors = sessionData.errors;
       if (this.queryErrors.length) {
         this.hasQueryErrors.set(true);
         return null;
@@ -135,6 +130,13 @@ BlazeComponent.extendComponent({
   },
 
   errorMessages() {
+    if (this.parsingErrors.length) {
+      return this.parsingErrorMessages();
+    }
+    return this.queryErrorMessages();
+  },
+
+  parsingErrorMessages() {
     const messages = [];
 
     if (this.parsingErrors.length) {
@@ -142,6 +144,20 @@ BlazeComponent.extendComponent({
         messages.push(TAPi18n.__(err.tag, err.value));
       });
     }
+
+    return messages;
+  },
+
+  queryErrorMessages() {
+    messages = [];
+
+    this.queryErrors.forEach(err => {
+      let value = err.color ? TAPi18n.__(`color-${err.value}`) : err.value;
+      if (!value) {
+        value = err.value;
+      }
+      messages.push(TAPi18n.__(err.tag, value));
+    });
 
     return messages;
   },
@@ -160,14 +176,6 @@ BlazeComponent.extendComponent({
     }
 
     this.searching.set(true);
-
-    if (!this.colorMap) {
-      this.colorMap = {};
-      for (const color of Boards.simpleSchema()._schema['labels.$.color']
-        .allowedValues) {
-        this.colorMap[TAPi18n.__(`color-${color}`)] = color;
-      }
-    }
 
     const reOperator1 = /^((?<operator>\w+):|(?<abbrev>[#@]))(?<value>\w+)(\s+|$)/;
     const reOperator2 = /^((?<operator>\w+):|(?<abbrev>[#@]))(?<quote>["']*)(?<value>.*?)\k<quote>(\s+|$)/;
@@ -200,9 +208,9 @@ BlazeComponent.extendComponent({
     Object.entries(operators).forEach(([key, value]) => {
       operatorMap[TAPi18n.__(key).toLowerCase()] = value;
     });
-
     // eslint-disable-next-line no-console
     // console.log('operatorMap:', operatorMap);
+
     const params = {
       boards: [],
       swimlanes: [],
@@ -315,13 +323,13 @@ BlazeComponent.extendComponent({
     params.text = text;
 
     // eslint-disable-next-line no-console
-    console.log('params:', params);
+    // console.log('params:', params);
 
     this.queryParams = params;
 
     if (this.parsingErrors.length) {
       this.searching.set(false);
-      this.queryErrors = this.errorMessages();
+      this.queryErrors = this.parsingErrorMessages();
       this.hasQueryErrors.set(true);
       return;
     }

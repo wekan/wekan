@@ -1,3 +1,5 @@
+const escapeForRegex = require('escape-string-regexp');
+
 Meteor.publish('card', cardId => {
   check(cardId, String);
   return Cards.find({ _id: cardId });
@@ -177,18 +179,363 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
   check(sessionId, String);
   check(queryParams, Object);
 
+  const userId = Meteor.userId();
   // eslint-disable-next-line no-console
-  // console.log('queryParams:', queryParams);
+  // console.log('userId:', userId);
 
-  const results = Cards.globalSearch(queryParams);
-  const cards = results.cards;
+  const errors = new (class {
+    constructor() {
+      this.notFound = {
+        boards: [],
+        swimlanes: [],
+        lists: [],
+        labels: [],
+        users: [],
+        members: [],
+        assignees: [],
+        is: [],
+        comments: [],
+      };
+
+      this.colorMap = {};
+      for (const color of Boards.simpleSchema()._schema['labels.$.color']
+        .allowedValues) {
+        this.colorMap[TAPi18n.__(`color-${color}`)] = color;
+      }
+    }
+
+    hasErrors() {
+      for (const prop in this.notFound) {
+        if (this.notFound[prop].length) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    errorMessages() {
+      const messages = [];
+
+      this.notFound.boards.forEach(board => {
+        messages.push({ tag: 'board-title-not-found', value: board });
+      });
+      this.notFound.swimlanes.forEach(swim => {
+        messages.push({ tag: 'swimlane-title-not-found', value: swim });
+      });
+      this.notFound.lists.forEach(list => {
+        messages.push({ tag: 'list-title-not-found', value: list });
+      });
+      this.notFound.comments.forEach(comments => {
+        comments.forEach(text => {
+          messages.push({ tag: 'comment-not-found', value: text });
+        });
+      });
+      this.notFound.labels.forEach(label => {
+        messages.push({ tag: 'label-not-found', value: label, color: true });
+      });
+      this.notFound.users.forEach(user => {
+        messages.push({ tag: 'user-username-not-found', value: user });
+      });
+      this.notFound.members.forEach(user => {
+        messages.push({ tag: 'user-username-not-found', value: user });
+      });
+      this.notFound.assignees.forEach(user => {
+        messages.push({ tag: 'user-username-not-found', value: user });
+      });
+
+      return messages;
+    }
+  })();
+
+  const selector = {
+    archived: false,
+    type: 'cardType-card',
+    boardId: { $in: Boards.userBoardIds(userId) },
+    swimlaneId: { $nin: Swimlanes.archivedSwimlaneIds() },
+    listId: { $nin: Lists.archivedListIds() },
+  };
+
+  if (queryParams.boards.length) {
+    const queryBoards = [];
+    queryParams.boards.forEach(query => {
+      const boards = Boards.userSearch(userId, {
+        title: new RegExp(escapeForRegex(query), 'i'),
+      });
+      if (boards.count()) {
+        boards.forEach(board => {
+          queryBoards.push(board._id);
+        });
+      } else {
+        errors.notFound.boards.push(query);
+      }
+    });
+
+    selector.boardId.$in = queryBoards;
+  }
+
+  if (queryParams.swimlanes.length) {
+    const querySwimlanes = [];
+    queryParams.swimlanes.forEach(query => {
+      const swimlanes = Swimlanes.find({
+        title: new RegExp(escapeForRegex(query), 'i'),
+      });
+      if (swimlanes.count()) {
+        swimlanes.forEach(swim => {
+          querySwimlanes.push(swim._id);
+        });
+      } else {
+        errors.notFound.swimlanes.push(query);
+      }
+    });
+
+    selector.swimlaneId.$in = querySwimlanes;
+  }
+
+  if (queryParams.lists.length) {
+    const queryLists = [];
+    queryParams.lists.forEach(query => {
+      const lists = Lists.find({
+        title: new RegExp(escapeForRegex(query), 'i'),
+      });
+      if (lists.count()) {
+        lists.forEach(list => {
+          queryLists.push(list._id);
+        });
+      } else {
+        errors.notFound.lists.push(query);
+      }
+    });
+
+    selector.listId.$in = queryLists;
+  }
+
+  if (queryParams.comments.length) {
+    const cardIds = CardComments.textSearch(userId, queryParams.comments).map(
+      com => {
+        return com.cardId;
+      },
+    );
+    if (cardIds.length) {
+      selector._id = { $in: cardIds };
+    } else {
+      errors.notFound.comments.push(queryParams.comments);
+    }
+  }
+
+  if (queryParams.dueAt !== null) {
+    selector.dueAt = { $lte: new Date(queryParams.dueAt) };
+  }
+
+  if (queryParams.createdAt !== null) {
+    selector.createdAt = { $gte: new Date(queryParams.createdAt) };
+  }
+
+  if (queryParams.modifiedAt !== null) {
+    selector.modifiedAt = { $gte: new Date(queryParams.modifiedAt) };
+  }
+
+  const queryMembers = [];
+  const queryAssignees = [];
+  if (queryParams.users.length) {
+    queryParams.users.forEach(query => {
+      const users = Users.find({
+        username: query,
+      });
+      if (users.count()) {
+        users.forEach(user => {
+          queryMembers.push(user._id);
+          queryAssignees.push(user._id);
+        });
+      } else {
+        errors.notFound.users.push(query);
+      }
+    });
+  }
+
+  if (queryParams.members.length) {
+    queryParams.members.forEach(query => {
+      const users = Users.find({
+        username: query,
+      });
+      if (users.count()) {
+        users.forEach(user => {
+          queryMembers.push(user._id);
+        });
+      } else {
+        errors.notFound.members.push(query);
+      }
+    });
+  }
+
+  if (queryParams.assignees.length) {
+    queryParams.assignees.forEach(query => {
+      const users = Users.find({
+        username: query,
+      });
+      if (users.count()) {
+        users.forEach(user => {
+          queryAssignees.push(user._id);
+        });
+      } else {
+        errors.notFound.assignees.push(query);
+      }
+    });
+  }
+
+  if (queryMembers.length && queryAssignees.length) {
+    selector.$or = [
+      { members: { $in: queryMembers } },
+      { assignees: { $in: queryAssignees } },
+    ];
+  } else if (queryMembers.length) {
+    selector.members = { $in: queryMembers };
+  } else if (queryAssignees.length) {
+    selector.assignees = { $in: queryAssignees };
+  }
+
+  if (queryParams.labels.length) {
+    queryParams.labels.forEach(label => {
+      const queryLabels = [];
+
+      let boards = Boards.userSearch(userId, {
+        labels: { $elemMatch: { color: label.toLowerCase() } },
+      });
+
+      if (boards.count()) {
+        boards.forEach(board => {
+          // eslint-disable-next-line no-console
+          // console.log('board:', board);
+          // eslint-disable-next-line no-console
+          // console.log('board.labels:', board.labels);
+          board.labels
+            .filter(boardLabel => {
+              return boardLabel.color === label.toLowerCase();
+            })
+            .forEach(boardLabel => {
+              queryLabels.push(boardLabel._id);
+            });
+        });
+      } else {
+        // eslint-disable-next-line no-console
+        // console.log('label:', label);
+        const reLabel = new RegExp(escapeForRegex(label), 'i');
+        // eslint-disable-next-line no-console
+        // console.log('reLabel:', reLabel);
+        boards = Boards.userSearch(userId, {
+          labels: { $elemMatch: { name: reLabel } },
+        });
+
+        if (boards.count()) {
+          boards.forEach(board => {
+            board.labels
+              .filter(boardLabel => {
+                return boardLabel.name.match(reLabel);
+              })
+              .forEach(boardLabel => {
+                queryLabels.push(boardLabel._id);
+              });
+          });
+        } else {
+          errors.notFound.labels.push(label);
+        }
+      }
+
+      selector.labelIds = { $in: queryLabels };
+    });
+  }
+
+  let cards = null;
+
+  if (!errors.hasErrors()) {
+    if (queryParams.text) {
+      const regex = new RegExp(escapeForRegex(queryParams.text), 'i');
+
+      selector.$or = [
+        { title: regex },
+        { description: regex },
+        { customFields: { $elemMatch: { value: regex } } },
+        {
+          _id: {
+            $in: CardComments.textSearch(userId, [queryParams.text]).map(
+              com => com.cardId,
+            ),
+          },
+        },
+      ];
+    }
+
+    // eslint-disable-next-line no-console
+    // console.log('selector:', selector);
+    // eslint-disable-next-line no-console
+    // console.log('selector.$or:', selector.$or);
+
+    const projection = {
+      fields: {
+        _id: 1,
+        archived: 1,
+        boardId: 1,
+        swimlaneId: 1,
+        listId: 1,
+        title: 1,
+        type: 1,
+        sort: 1,
+        members: 1,
+        assignees: 1,
+        colors: 1,
+        dueAt: 1,
+        createdAt: 1,
+        modifiedAt: 1,
+        labelIds: 1,
+      },
+      limit: 50,
+    };
+
+    if (queryParams.sort === 'due') {
+      projection.sort = {
+        dueAt: 1,
+        boardId: 1,
+        swimlaneId: 1,
+        listId: 1,
+        sort: 1,
+      };
+    } else if (queryParams.sort === 'modified') {
+      projection.sort = {
+        modifiedAt: -1,
+        boardId: 1,
+        swimlaneId: 1,
+        listId: 1,
+        sort: 1,
+      };
+    } else if (queryParams.sort === 'created') {
+      projection.sort = {
+        createdAt: -1,
+        boardId: 1,
+        swimlaneId: 1,
+        listId: 1,
+        sort: 1,
+      };
+    } else if (queryParams.sort === 'system') {
+      projection.sort = {
+        boardId: 1,
+        swimlaneId: 1,
+        listId: 1,
+        modifiedAt: 1,
+        sort: 1,
+      };
+    }
+
+    cards = Cards.find(selector, projection);
+
+    // eslint-disable-next-line no-console
+    // console.log('count:', cards.count());
+  }
 
   const update = {
     $set: {
       totalHits: 0,
       lastHit: 0,
       cards: [],
-      errorMessages: results.errors.errorMessages(),
+      errors: errors.errorMessages(),
     },
   };
 
@@ -202,12 +549,12 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
 
   SessionData.upsert({ userId: this.userId, sessionId }, update);
 
-  const boards = [];
-  const swimlanes = [];
-  const lists = [];
-  const users = [this.userId];
-
   if (cards) {
+    const boards = [];
+    const swimlanes = [];
+    const lists = [];
+    const users = [this.userId];
+
     cards.forEach(card => {
       if (card.boardId) boards.push(card.boardId);
       if (card.swimlaneId) swimlanes.push(card.swimlaneId);
@@ -223,28 +570,24 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
         });
       }
     });
+
+    const fields = {
+      _id: 1,
+      title: 1,
+      archived: 1,
+    };
+
+    return [
+      cards,
+      Boards.find({ _id: { $in: boards } }, { fields }),
+      Swimlanes.find({ _id: { $in: swimlanes } }, { fields }),
+      Lists.find({ _id: { $in: lists } }, { fields }),
+      Users.find({ _id: { $in: users } }, { fields: Users.safeFields }),
+      SessionData.find({ userId: this.userId, sessionId }),
+    ];
   }
 
-  const fields = {
-    _id: 1,
-    title: 1,
-    archived: 1,
-  };
-  // eslint-disable-next-line no-console
-  // console.log('users:', users);
-  const cursors = [
-    Boards.find({ _id: { $in: boards } }, { fields }),
-    Swimlanes.find({ _id: { $in: swimlanes } }, { fields }),
-    Lists.find({ _id: { $in: lists } }, { fields }),
-    Users.find({ _id: { $in: users } }, { fields: Users.safeFields }),
-    SessionData.find({ userId: this.userId, sessionId }),
-  ];
-
-  if (cards) {
-    cursors.push(cards);
-  }
-
-  return cursors;
+  return [SessionData.find({ userId: this.userId, sessionId })];
 });
 
 Meteor.publish('brokenCards', function() {

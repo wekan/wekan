@@ -54,6 +54,35 @@ SessionData.attachSchema(
       type: [String],
       optional: true,
     },
+    errors: {
+      type: [Object],
+      optional: true,
+      defaultValue: [],
+    },
+    'errors.$': {
+      type: new SimpleSchema({
+        tag: {
+          /**
+           * i18n tag
+           */
+          type: String,
+          optional: false,
+        },
+        value: {
+          /**
+           * value for the tag
+           */
+          type: String,
+          optional: true,
+          defaultValue: null,
+        },
+        color: {
+          type: Boolean,
+          optional: true,
+          defaultValue: false,
+        },
+      }),
+    },
     createdAt: {
       /**
        * creation date of the team
