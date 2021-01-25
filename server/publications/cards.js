@@ -575,12 +575,20 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
       _id: 1,
       title: 1,
       archived: 1,
+      sort: 1,
+      type: 1,
     };
 
     return [
       cards,
-      Boards.find({ _id: { $in: boards } }, { fields }),
-      Swimlanes.find({ _id: { $in: swimlanes } }, { fields }),
+      Boards.find(
+        { _id: { $in: boards } },
+        { fields: { ...fields, labels: 1, color: 1 } },
+      ),
+      Swimlanes.find(
+        { _id: { $in: swimlanes } },
+        { fields: { ...fields, color: 1 } },
+      ),
       Lists.find({ _id: { $in: lists } }, { fields }),
       Users.find({ _id: { $in: users } }, { fields: Users.safeFields }),
       SessionData.find({ userId: this.userId, sessionId }),
