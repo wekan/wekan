@@ -115,11 +115,11 @@
   ul
     transition: opacity 0.2s
     margin: 4px 0 0 5px
-    overflow: hidden
+    overflow-x: auto
+    overflow-y: hidden
 
     li
-      display: block
-      float: left
+      display: inline
       width: auto
       color: darken(white, 15%)
       padding: 2px 5px 0
@@ -191,7 +191,7 @@
 
     ul
       width: calc(100% - 60px)
-      overflow: ellipsis
+      white-space: nowrap
       padding: 10px
       margin: -10px
 
