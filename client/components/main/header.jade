@@ -7,11 +7,11 @@ template(name="header")
   if currentUser
     #header-quick-access(class=currentBoard.colorClass)
       if isMiniScreen
-        ul
-          li
-            a(href="{{pathFor 'home'}}")
-              span.fa.fa-home
+        span
+          a(href="{{pathFor 'home'}}")
+            span.fa.fa-home
 
+        ul
           if currentList
             each currentBoard.lists
               li(class="{{#if $.Session.equals 'currentList' _id}}current{{/if}}")
