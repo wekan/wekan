@@ -32,6 +32,12 @@
             "sizes": "474x474",
             "type": "image/png",
             "purpose": "maskable"
+        },
+        {
+            "src": "/monochrome-icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "monochrome"
         }
     ],
     "screenshots" : [
