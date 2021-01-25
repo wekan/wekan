@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Move call to URL search to onRendered](https://github.com/wekan/wekan/pull/3478).
+  Thanks to jrsupplee.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.85 2021-01-23 Wekan release
 
 This release adds the following new features:
