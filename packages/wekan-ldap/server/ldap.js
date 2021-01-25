@@ -100,7 +100,7 @@ export default class LDAP {
 
     if (this.options.ca_cert && this.options.ca_cert !== '') {
       // Split CA cert into array of strings
-      const chainLines = this.constructor.settings_get('LDAP_CA_CERT').split('\n');
+      const chainLines = this.constructor.settings_get('LDAP_CA_CERT').replace(/\\n/g,'\n').split('\n');
       let cert         = [];
       const ca         = [];
       chainLines.forEach((line) => {
