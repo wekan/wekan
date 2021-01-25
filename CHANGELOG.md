@@ -1,6 +1,12 @@
 # Upcoming Wekan release
 
-This release adds the following updates:
+This release adds the following improvements:
+
+- [Added PWA related category, orientation, screenshots, maskable icon and
+  IARC rating ID](https://github.com/wekan/wekan/commit/027771b3021a709d9049015e7d7e6faccf1ad7f3).
+  Thanks to xet7.
+
+and adds the following updates:
 
 - [Use Node 12.20.1 in rebuild-wekan.sh](https://github.com/wekan/wekan/commit/37d76e9e061d31c11fca8e704e9b4c54f17c0023).
   Thanks to xet7.
