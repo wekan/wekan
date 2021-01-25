@@ -177,10 +177,10 @@ BlazeComponent.extendComponent({
 
     this.searching.set(true);
 
-    const reOperator1 = /^((?<operator>\w+):|(?<abbrev>[#@]))(?<value>\w+)(\s+|$)/;
-    const reOperator2 = /^((?<operator>\w+):|(?<abbrev>[#@]))(?<quote>["']*)(?<value>.*?)\k<quote>(\s+|$)/;
-    const reText = /^(?<text>\S+)(\s+|$)/;
-    const reQuotedText = /^(?<quote>["'])(?<text>\w+)\k<quote>(\s+|$)/;
+    const reOperator1 = /^((?<operator>[\w\p{L}]+):|(?<abbrev>[#@]))(?<value>[\w\p{L}]+)(\s+|$)/iu;
+    const reOperator2 = /^((?<operator>[\w\p{L}]+):|(?<abbrev>[#@]))(?<quote>["']*)(?<value>.*?)\k<quote>(\s+|$)/iu;
+    const reText = /^(?<text>\S+)(\s+|$)/u;
+    const reQuotedText = /^(?<quote>["'])(?<text>[\w\p{L}]+)\k<quote>(\s+|$)/u;
 
     const operators = {
       'operator-board': 'boards',
@@ -203,6 +203,35 @@ BlazeComponent.extendComponent({
       'operator-modified': 'modifiedAt',
       'operator-comment': 'comments',
     };
+
+    const predicates = {
+      due: {
+        'predicate-overdue': 'overdue',
+        'predicate-day': 'day',
+        'predicate-week': 'week',
+        'predicate-month': 'month',
+        'predicate-quarter': 'quarter',
+        'predicate-year': 'year',
+      },
+      date: {
+        'predicate-day': 'day',
+        'predicate-week': 'week',
+        'predicate-month': 'month',
+        'predicate-quarter': 'quarter',
+        'predicate-year': 'year',
+      },
+      is: {
+        'predicate-archived': 'archived',
+        'predicate-active': 'active',
+      },
+    };
+    const predicateTranslations = {};
+    Object.entries(predicates, ([category, predicates]) => {
+      predicateTranslations[category] = {};
+      Object.entries(predicates, ([tag, value]) => {
+        predicateTranslations[category][TAPi18n.__(tag)] = value;
+      });
+    });
 
     const operatorMap = {};
     Object.entries(operators).forEach(([key, value]) => {
@@ -256,10 +285,10 @@ BlazeComponent.extendComponent({
             let days = parseInt(value, 10);
             let duration = null;
             if (isNaN(days)) {
-              if (['day', 'week', 'month', 'quarter', 'year'].includes(value)) {
-                duration = value;
+              if (predicateTranslations.date.keys().includes(value)) {
+                duration = predicateTranslations.date[value];
                 value = moment();
-              } else if (value === 'overdue') {
+              } else if (predicateTranslations.due[value] === 'overdue') {
                 value = moment();
                 duration = 'days';
                 days = 0;
