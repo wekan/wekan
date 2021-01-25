@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v4.87 2021-01-26 Wekan release
 
 This release fixes the following bugs:
 
@@ -6,6 +6,11 @@ This release fixes the following bugs:
   Thanks to robert-scheck.
 - [Handle '\n' line breaks in PEM-encoded SSL/TLS certificates](https://github.com/wekan/wekan/pull/3485).
   Thanks to robert-scheck.
+
+and adds the following improvements
+
+- [Try parallel build of releases, does it work](https://github.com/wekan/wekan/commit/be238ac7439ce38b4403d9a611dec9bb421a856f).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
