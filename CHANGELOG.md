@@ -5,6 +5,8 @@ This release adds the following improvements:
 - [Added PWA related category, orientation, screenshots, maskable icon and
   IARC rating ID](https://github.com/wekan/wekan/commit/027771b3021a709d9049015e7d7e6faccf1ad7f3).
   Thanks to xet7.
+- [Added PWA related monochrome icon](https://github.com/wekan/wekan/commit/2977f7cf47626b429159cb7b7496919c07ece914).
+  Thanks to xet7.
 
 and adds the following updates:
 
