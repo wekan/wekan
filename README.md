@@ -20,13 +20,12 @@ New English strings of new features can be added as PRs to edge branch file weka
 
 ## [Wekan feature requests and bugs](https://github.com/wekan/wekan/issues)
 
-Please add most of your questions as GitHub issue: [Wekan feature requests and bugs](https://github.com/wekan/wekan/issues).
+Please add most of your questions as GitHub issue: [Wekan Feature Requests and Bugs](https://github.com/wekan/wekan/issues).
 It's better than at chat where details get lost when chat scrolls up.
 
 ## Chat
 
-[![Wekan Chat][vanila_badge]][wekan_chat] - Most Wekan community and developers are here. Works on webbrowser
-and PWA app that can be added as icon on Android and bookmark on iOS, used like native app.
+[Discussions][discussions] - Wekan Community GitHub Discussions, that are not [Feature Requests and Bugs](https://github.com/wekan/wekan/issues).
 
 [Wekan IRC FAQ](https://github.com/wekan/wekan/wiki/IRC-FAQ)
 
@@ -114,8 +113,6 @@ with [Meteor](https://www.meteor.com).
 [translate_wekan]: https://www.transifex.com/wekan/wekan/
 [open_source]: https://en.wikipedia.org/wiki/Open-source_software
 [free_software]: https://en.wikipedia.org/wiki/Free_software
-[vanila_badge]: https://vanila.io/img/join-chat-button2.png
-[wekan_chat]: https://community.vanila.io/wekan
-
+[discussions]: https://github.com/wekan/wekan/discussions
 
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fwekan%2Fwekan.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fwekan%2Fwekan?ref=badge_large)
