@@ -547,7 +547,19 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
     });
   }
 
-  SessionData.upsert({ userId: this.userId, sessionId }, update);
+  SessionData.upsert({ userId, sessionId }, update);
+
+  // remove old session data
+  SessionData.remove({
+    userId,
+    modifiedAt: {
+      $lt: new Date(
+        moment()
+          .subtract(1, 'day')
+          .format(),
+      ),
+    },
+  });
 
   if (cards) {
     const boards = [];
