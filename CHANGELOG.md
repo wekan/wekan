@@ -7,6 +7,8 @@ This release adds the following improvements:
   Thanks to xet7.
 - [Added PWA related monochrome icon](https://github.com/wekan/wekan/commit/2977f7cf47626b429159cb7b7496919c07ece914).
   Thanks to xet7.
+- [Mention Wekan GitHub Discussions at readme](https://github.com/wekan/wekan/commit/4c0bd359f921ae0ea722f78946fcc1168e8b939e).
+  Thanks to xet7.
 
 and adds the following updates:
 
