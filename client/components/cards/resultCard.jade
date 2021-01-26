@@ -5,19 +5,28 @@ template(name="resultCard")
       //= card.title
     ul.result-card-context-list
       li.result-card-context(title="{{_ 'board'}}")
-        +viewer
-          = getBoard.title
+        .result-card-block-wrapper
+          +viewer
+            = getBoard.title
+        if getBoard.archived
+          i.fa.fa-archive
       li.result-card-context.result-card-context-separator
         = ' '
         | {{_ 'context-separator'}}
         = ' '
       li.result-card-context(title="{{_ 'swimlane'}}")
-        +viewer
-          = getSwimlane.title
+        .result-card-block-wrapper
+          +viewer
+            = getSwimlane.title
+        if getSwimlane.archived
+          i.fa.fa-archive
       li.result-card-context.result-card-context-separator
         = ' '
         | {{_ 'context-separator'}}
         = ' '
       li.result-card-context(title="{{_ 'list'}}")
-        +viewer
-          = getList.title
+        .result-card-block-wrapper
+          +viewer
+            = getList.title
+        if getList.archived
+          i.fa.fa-archive

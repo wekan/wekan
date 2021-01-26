@@ -177,8 +177,8 @@ BlazeComponent.extendComponent({
 
     this.searching.set(true);
 
-    const reOperator1 = /^((?<operator>[\w\p{L}]+):|(?<abbrev>[#@]))(?<value>[\w\p{L}]+)(\s+|$)/iu;
-    const reOperator2 = /^((?<operator>[\w\p{L}]+):|(?<abbrev>[#@]))(?<quote>["']*)(?<value>.*?)\k<quote>(\s+|$)/iu;
+    const reOperator1 = /^((?<operator>[\p{Letter}\p{Mark}]+):|(?<abbrev>[#@]))(?<value>[\p{Letter}\p{Mark}]+)(\s+|$)/iu;
+    const reOperator2 = /^((?<operator>[\p{Letter}\p{Mark}]+):|(?<abbrev>[#@]))(?<quote>["']*)(?<value>.*?)\k<quote>(\s+|$)/iu;
     const reText = /^(?<text>\S+)(\s+|$)/u;
     const reQuotedText = /^(?<quote>["'])(?<text>[\w\p{L}]+)\k<quote>(\s+|$)/u;
 
@@ -197,7 +197,7 @@ BlazeComponent.extendComponent({
       'operator-member-abbrev': 'members',
       'operator-assignee': 'assignees',
       'operator-assignee-abbrev': 'assignees',
-      'operator-is': 'is',
+      'operator-status': 'status',
       'operator-due': 'dueAt',
       'operator-created': 'createdAt',
       'operator-modified': 'modifiedAt',
@@ -207,31 +207,33 @@ BlazeComponent.extendComponent({
     const predicates = {
       due: {
         'predicate-overdue': 'overdue',
-        'predicate-day': 'day',
+      },
+      durations: {
         'predicate-week': 'week',
         'predicate-month': 'month',
         'predicate-quarter': 'quarter',
         'predicate-year': 'year',
       },
-      date: {
-        'predicate-day': 'day',
-        'predicate-week': 'week',
-        'predicate-month': 'month',
-        'predicate-quarter': 'quarter',
-        'predicate-year': 'year',
-      },
-      is: {
+      status: {
         'predicate-archived': 'archived',
-        'predicate-active': 'active',
+        'predicate-all': 'all',
+        'predicate-ended': 'ended',
+      },
+      sorts: {
+        'predicate-due': 'dueAt',
+        'predicate-created': 'createdAt',
+        'predicate-modified': 'modifiedAt',
       },
     };
     const predicateTranslations = {};
-    Object.entries(predicates, ([category, predicates]) => {
+    Object.entries(predicates).forEach(([category, catPreds]) => {
       predicateTranslations[category] = {};
-      Object.entries(predicates, ([tag, value]) => {
+      Object.entries(catPreds).forEach(([tag, value]) => {
         predicateTranslations[category][TAPi18n.__(tag)] = value;
       });
     });
+    // eslint-disable-next-line no-console
+    // console.log('predicateTranslations:', predicateTranslations);
 
     const operatorMap = {};
     Object.entries(operators).forEach(([key, value]) => {
@@ -248,7 +250,7 @@ BlazeComponent.extendComponent({
       members: [],
       assignees: [],
       labels: [],
-      is: [],
+      status: [],
       dueAt: null,
       createdAt: null,
       modifiedAt: null,
@@ -285,8 +287,8 @@ BlazeComponent.extendComponent({
             let days = parseInt(value, 10);
             let duration = null;
             if (isNaN(days)) {
-              if (predicateTranslations.date.keys().includes(value)) {
-                duration = predicateTranslations.date[value];
+              if (predicateTranslations.durations[value]) {
+                duration = predicateTranslations.durations[value];
                 value = moment();
               } else if (predicateTranslations.due[value] === 'overdue') {
                 value = moment();
@@ -312,11 +314,22 @@ BlazeComponent.extendComponent({
               }
             }
           } else if (operatorMap[op] === 'sort') {
-            if (!['due', 'modified', 'created', 'system'].includes(value)) {
+            if (!predicateTranslations.sorts[value]) {
               this.parsingErrors.push({
                 tag: 'operator-sort-invalid',
                 value,
               });
+            } else {
+              value = predicateTranslations.sorts[value];
+            }
+          } else if (operatorMap[op] === 'status') {
+            if (!predicateTranslations.status[value]) {
+              this.parsingErrors.push({
+                tag: 'operator-status-invalid',
+                value,
+              });
+            } else {
+              value = predicateTranslations.status[value];
             }
           }
           if (Array.isArray(params[operatorMap[op]])) {
@@ -359,12 +372,13 @@ BlazeComponent.extendComponent({
     if (this.parsingErrors.length) {
       this.searching.set(false);
       this.queryErrors = this.parsingErrorMessages();
+      this.hasResults.set(true);
       this.hasQueryErrors.set(true);
       return;
     }
 
     this.autorun(() => {
-      const handle = subManager.subscribe(
+      const handle = Meteor.subscribe(
         'globalSearch',
         SessionData.getSessionId(),
         params,
@@ -407,6 +421,7 @@ BlazeComponent.extendComponent({
       operator_board: TAPi18n.__('operator-board'),
       operator_list: TAPi18n.__('operator-list'),
       operator_swimlane: TAPi18n.__('operator-swimlane'),
+      operator_comment: TAPi18n.__('operator-comment'),
       operator_label: TAPi18n.__('operator-label'),
       operator_label_abbrev: TAPi18n.__('operator-label-abbrev'),
       operator_user: TAPi18n.__('operator-user'),
@@ -415,6 +430,18 @@ BlazeComponent.extendComponent({
       operator_member_abbrev: TAPi18n.__('operator-member-abbrev'),
       operator_assignee: TAPi18n.__('operator-assignee'),
       operator_assignee_abbrev: TAPi18n.__('operator-assignee-abbrev'),
+      operator_due: TAPi18n.__('operator-due'),
+      operator_created: TAPi18n.__('operator-created'),
+      operator_modified: TAPi18n.__('operator-modified'),
+      operator_status: TAPi18n.__('operator-status'),
+      predicate_overdue: TAPi18n.__('predicate-overdue'),
+      predicate_archived: TAPi18n.__('predicate-archived'),
+      predicate_all: TAPi18n.__('predicate-all'),
+      predicate_ended: TAPi18n.__('predicate-ended'),
+      predicate_week: TAPi18n.__('predicate-week'),
+      predicate_month: TAPi18n.__('predicate-month'),
+      predicate_quarter: TAPi18n.__('predicate-quarter'),
+      predicate_year: TAPi18n.__('predicate-year'),
     };
 
     text = `# ${TAPi18n.__('globalSearch-instructions-heading')}`;
@@ -430,6 +457,10 @@ BlazeComponent.extendComponent({
     )}`;
     text += `\n* ${TAPi18n.__(
       'globalSearch-instructions-operator-swimlane',
+      tags,
+    )}`;
+    text += `\n* ${TAPi18n.__(
+      'globalSearch-instructions-operator-comment',
       tags,
     )}`;
     text += `\n* ${TAPi18n.__(
@@ -453,11 +484,27 @@ BlazeComponent.extendComponent({
       'globalSearch-instructions-operator-assignee',
       tags,
     )}`;
+    text += `\n* ${TAPi18n.__('globalSearch-instructions-operator-due', tags)}`;
+    text += `\n* ${TAPi18n.__(
+      'globalSearch-instructions-operator-created',
+      tags,
+    )}`;
+    text += `\n* ${TAPi18n.__(
+      'globalSearch-instructions-operator-modified',
+      tags,
+    )}`;
+    text += `\n* ${TAPi18n.__(
+      'globalSearch-instructions-status-archived',
+      tags,
+    )}`;
+    text += `\n* ${TAPi18n.__('globalSearch-instructions-status-all', tags)}`;
+    text += `\n* ${TAPi18n.__('globalSearch-instructions-status-ended', tags)}`;
 
     text += `\n## ${TAPi18n.__('heading-notes')}`;
     text += `\n* ${TAPi18n.__('globalSearch-instructions-notes-1', tags)}`;
     text += `\n* ${TAPi18n.__('globalSearch-instructions-notes-2', tags)}`;
     text += `\n* ${TAPi18n.__('globalSearch-instructions-notes-3', tags)}`;
+    text += `\n* ${TAPi18n.__('globalSearch-instructions-notes-3-2', tags)}`;
     text += `\n* ${TAPi18n.__('globalSearch-instructions-notes-4', tags)}`;
     text += `\n* ${TAPi18n.__('globalSearch-instructions-notes-5', tags)}`;
 
