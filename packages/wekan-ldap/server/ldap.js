@@ -19,7 +19,7 @@ export default class LDAP {
       idle_timeout                       : this.constructor.settings_get('LDAP_IDLE_TIMEOUT'),
       encryption                         : this.constructor.settings_get('LDAP_ENCRYPTION'),
       ca_cert                            : this.constructor.settings_get('LDAP_CA_CERT'),
-      reject_unauthorized                : this.constructor.settings_get('LDAP_REJECT_UNAUTHORIZED') || false,
+      reject_unauthorized                : this.constructor.settings_get('LDAP_REJECT_UNAUTHORIZED') || true,
       Authentication                     : this.constructor.settings_get('LDAP_AUTHENTIFICATION'),
       Authentication_UserDN              : this.constructor.settings_get('LDAP_AUTHENTIFICATION_USERDN'),
       Authentication_Password            : this.constructor.settings_get('LDAP_AUTHENTIFICATION_PASSWORD'),
@@ -100,7 +100,7 @@ export default class LDAP {
 
     if (this.options.ca_cert && this.options.ca_cert !== '') {
       // Split CA cert into array of strings
-      const chainLines = this.constructor.settings_get('LDAP_CA_CERT').split('\n');
+      const chainLines = this.constructor.settings_get('LDAP_CA_CERT').replace(/\\n/g,'\n').split('\n');
       let cert         = [];
       const ca         = [];
       chainLines.forEach((line) => {

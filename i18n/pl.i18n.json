@@ -601,8 +601,8 @@
   "minutes": "minut",
   "seconds": "sekund",
   "show-field-on-card": "Pokaż te pole na karcie",
-  "automatically-field-on-card": "Add field to new cards",
-  "always-field-on-card": "Add field to all cards",
+  "automatically-field-on-card": "Dodaj pole do nowych kart",
+  "always-field-on-card": "Dodaj pole do wszystkich kart",
   "showLabel-field-on-card": "Pokaż pole etykiety w minikarcie",
   "yes": "Tak",
   "no": "Nie",
@@ -896,10 +896,10 @@
   "operator-assignee-abbrev": "p",
   "operator-is": "jest",
   "operator-due": "wykonania",
-  "operator-created": "created",
-  "operator-modified": "modified",
+  "operator-created": "stworzono",
+  "operator-modified": "zmodyfikowano",
   "operator-unknown-error": "%s nie jest operatorem",
-  "operator-number-expected": "operator __operator__ expected a number, got '__value__'",
+  "operator-number-expected": "operator __operator__ oczekiwał wartości cyfrowej, otrzymał '__value__'",
   "heading-notes": "Notatki",
   "globalSearch-instructions-heading": "Instrukcja wyszukiwania",
   "globalSearch-instructions-description": "W wyszukiwanym ciągu można umieszczać specjalne klucze, aby doprecyzować zapytanie. Klucz składa się z operatora i argumentu, rozdzielonych dwukropkiem. Na przykład klucz `lista:Wstrzymane` zawęża wyszukiwanie do kart znajdujących się na listach o nazwie *Wstrzymane*. Jeśli argument zawiera spacje lub znaki specjalne, należy go umieścić w cudzysłowie, np. `__operator_list__:\"Do uzgodnienia\"`.",
@@ -921,6 +921,6 @@
   "link-to-search": "Link do tego wyszukiwania",
   "excel-font": "Arial",
   "number": "Numer",
-  "label-colors": "Label Colors",
-  "label-names": "Label Names"
+  "label-colors": "Kolory etykiet",
+  "label-names": "Nazwy etykiet"
 }
