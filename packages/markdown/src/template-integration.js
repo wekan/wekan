@@ -18,6 +18,8 @@ function mySafeAttrValue(tag, name, value, cssFilter) {
         /^aodroplink:/ig.test(value) ||
         /^onenote:/ig.test(value) ||
         /^file:/ig.test(value) ||
+        /^abasurl:/ig.test(value) ||
+        /^conisio:/ig.test(value) ||
         /^mailspring:/ig.test(value)) {
       return value;
     }

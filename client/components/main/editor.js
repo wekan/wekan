@@ -278,6 +278,8 @@ function mySafeAttrValue(tag, name, value, cssFilter) {
       /^aodroplink:/gi.test(value) ||
       /^onenote:/gi.test(value) ||
       /^file:/gi.test(value) ||
+      /^abasurl:/gi.test(value) ||
+      /^conisio:/gi.test(value) ||
       /^mailspring:/gi.test(value)
     ) {
       return value;
