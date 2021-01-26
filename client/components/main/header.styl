@@ -100,6 +100,7 @@
   font-size: 12px
   display: flex
   z-index: 21
+  padding: 10px 0px
 
   #header-user-bar,
   #header-new-board-icon,
@@ -114,9 +115,11 @@
 
   ul
     transition: opacity 0.2s
-    margin: 4px 0 0 5px
     overflow-x: auto
     overflow-y: hidden
+    white-space: nowrap
+    padding: 10px
+    margin: -10px
 
     li
       display: inline
@@ -186,14 +189,10 @@
   #header-quick-access
     transition: background-color 0.4s
     width: 100%
-    padding: 10px 0px
     z-index: 30
 
     ul
       width: calc(100% - 60px)
-      white-space: nowrap
-      padding: 10px
-      margin: -10px
       margin-right: 10px
 
       li

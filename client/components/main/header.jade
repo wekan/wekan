@@ -32,11 +32,11 @@ template(name="header")
               img(src="{{currentSetting.customTopLeftCornerLogoImageUrl}}" height="{{#if currentSetting.customTopLeftCornerLogoHeight}}#{currentSetting.customTopLeftCornerLogoHeight}{{else}}27{{/if}}" width="auto" margin="0" padding="0")
           unless currentSetting.customTopLeftCornerLogoImageUrl
             img(src="{{pathFor '/logo-header.png'}}" alt="")
+        span
+          a(href="{{pathFor 'home'}}")
+            span.fa.fa-home
+            | {{_ 'all-boards'}}
         ul
-          li
-            a(href="{{pathFor 'home'}}")
-              span.fa.fa-home
-              | {{_ 'all-boards'}}
           li.separator -
           //li
           //  a(href="{{pathFor 'public'}}")
