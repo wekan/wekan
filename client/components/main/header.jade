@@ -17,6 +17,11 @@ template(name="header")
               li(class="{{#if $.Session.equals 'currentList' _id}}current{{/if}}")
                 a.js-select-list
                   = title
+          else
+            each currentUser.starredBoards
+              li(class="{{#if $.Session.equals 'currentBoard' _id}}current{{/if}}")
+                a(href="{{pathFor 'board' id=_id slug=slug}}")
+                  = title
         #header-new-board-icon
       else
         //-
