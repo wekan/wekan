@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Additional URL schemes: SolidWorks PDM (conisio:) and abas ERP (abasurl:)](https://github.com/wekan/wekan/pull/3487).
+  Thanks to tod31.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.87 2021-01-26 Wekan release
 
 This release fixes the following bugs:
