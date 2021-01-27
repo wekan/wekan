@@ -554,6 +554,7 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
         createdAt: 1,
         modifiedAt: 1,
         labelIds: 1,
+        customFields: 1,
       },
       skip,
       limit,
@@ -640,6 +641,7 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
     const boards = [];
     const swimlanes = [];
     const lists = [];
+    const customFieldIds = [];
     const users = [this.userId];
 
     cards.forEach(card => {
@@ -654,6 +656,11 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
       if (card.assignees) {
         card.assignees.forEach(userId => {
           users.push(userId);
+        });
+      }
+      if (card.customFields) {
+        card.customFields.forEach(field => {
+          customFieldIds.push(field._id);
         });
       }
     });
@@ -677,6 +684,7 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
         { fields: { ...fields, color: 1 } },
       ),
       Lists.find({ _id: { $in: lists } }, { fields }),
+      CustomFields.find({ _id: { $in: customFieldIds } }),
       Users.find({ _id: { $in: users } }, { fields: Users.safeFields }),
       SessionData.find({ userId: this.userId, sessionId }),
     ];
