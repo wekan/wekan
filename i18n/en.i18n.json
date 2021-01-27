@@ -917,6 +917,8 @@
   "operator-number-expected": "operator __operator__ expected a number, got '__value__'",
   "operator-sort-invalid": "sort of '%s' is invalid",
   "operator-status-invalid": "'%s' is not a valid status",
+  "next-page": "Next Page",
+  "previous-page": "Previous Page",
   "heading-notes": "Notes",
   "globalSearch-instructions-heading": "Search Instructions",
   "globalSearch-instructions-description": "Searches can include operators to refine the search.  Operators are specified by writing the operator name and value separated by a colon.  For example, an operator specification of `list:Blocked` would limit the search to cards that are contained in a list named *Blocked*.  If the value contains spaces or special characters it must be enclosed in quotation marks (e.g. `__operator_list__:\"To Review\"`).",

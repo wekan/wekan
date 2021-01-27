@@ -39,6 +39,13 @@ SessionData.attachSchema(
       type: Number,
       optional: true,
     },
+    resultsCount: {
+      /**
+       * number of results returned
+       */
+      type: Number,
+      optional: true,
+    },
     lastHit: {
       /**
        * the last hit returned from a report query
@@ -49,6 +56,11 @@ SessionData.attachSchema(
     cards: {
       type: [String],
       optional: true,
+    },
+    selector: {
+      type: String,
+      optional: true,
+      blackbox: true,
     },
     errorMessages: {
       type: [String],

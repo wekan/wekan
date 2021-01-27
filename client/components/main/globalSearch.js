@@ -46,12 +46,15 @@ BlazeComponent.extendComponent({
     this.myLabelNames = new ReactiveVar([]);
     this.myBoardNames = new ReactiveVar([]);
     this.results = new ReactiveVar([]);
+    this.hasNextPage = new ReactiveVar(false);
+    this.hasPreviousPage = new ReactiveVar(false);
     this.queryParams = null;
     this.parsingErrors = [];
     this.resultsCount = 0;
     this.totalHits = 0;
     this.queryErrors = null;
     this.colorMap = null;
+    this.resultsPerPage = 25;
 
     Meteor.call('myLists', (err, data) => {
       if (!err) {
@@ -100,17 +103,21 @@ BlazeComponent.extendComponent({
     this.queryErrors = null;
   },
 
+  getSessionData() {
+    return SessionData.findOne({
+      userId: Meteor.userId(),
+      sessionId: SessionData.getSessionId(),
+    });
+  },
+
   getResults() {
     // eslint-disable-next-line no-console
     // console.log('getting results');
     if (this.queryParams) {
-      const sessionData = SessionData.findOne({
-        userId: Meteor.userId(),
-        sessionId: SessionData.getSessionId(),
-      });
+      const sessionData = this.getSessionData();
       // eslint-disable-next-line no-console
+      console.log('selector:', JSON.parse(sessionData.selector));
       // console.log('session data:', sessionData);
-
       const cards = Cards.find({ _id: { $in: sessionData.cards } });
       this.queryErrors = sessionData.errors;
       if (this.queryErrors.length) {
@@ -121,8 +128,14 @@ BlazeComponent.extendComponent({
       if (cards) {
         this.totalHits = sessionData.totalHits;
         this.resultsCount = cards.count();
+        this.resultsStart = sessionData.lastHit - this.resultsCount + 1;
+        this.resultsEnd = sessionData.lastHit;
         this.resultsHeading.set(this.getResultsHeading());
         this.results.set(cards);
+        this.hasNextPage.set(sessionData.lastHit < sessionData.totalHits);
+        this.hasPreviousPage.set(
+          sessionData.lastHit - sessionData.resultsCount > 0,
+        );
       }
     }
     this.resultsCount = 0;
@@ -243,6 +256,7 @@ BlazeComponent.extendComponent({
     // console.log('operatorMap:', operatorMap);
 
     const params = {
+      limit: this.resultsPerPage,
       boards: [],
       swimlanes: [],
       lists: [],
@@ -395,6 +409,61 @@ BlazeComponent.extendComponent({
     });
   },
 
+  nextPage() {
+    sessionData = this.getSessionData();
+
+    const params = {
+      limit: this.resultsPerPage,
+      selector: JSON.parse(sessionData.selector),
+      skip: sessionData.lastHit,
+    };
+
+    this.autorun(() => {
+      const handle = Meteor.subscribe(
+        'globalSearch',
+        SessionData.getSessionId(),
+        params,
+      );
+      Tracker.nonreactive(() => {
+        Tracker.autorun(() => {
+          if (handle.ready()) {
+            this.getResults();
+            this.searching.set(false);
+            this.hasResults.set(true);
+          }
+        });
+      });
+    });
+  },
+
+  previousPage() {
+    sessionData = this.getSessionData();
+
+    const params = {
+      limit: this.resultsPerPage,
+      selector: JSON.parse(sessionData.selector),
+      skip:
+        sessionData.lastHit - sessionData.resultsCount - this.resultsPerPage,
+    };
+
+    this.autorun(() => {
+      const handle = Meteor.subscribe(
+        'globalSearch',
+        SessionData.getSessionId(),
+        params,
+      );
+      Tracker.nonreactive(() => {
+        Tracker.autorun(() => {
+          if (handle.ready()) {
+            this.getResults();
+            this.searching.set(false);
+            this.hasResults.set(true);
+          }
+        });
+      });
+    });
+  },
+
   getResultsHeading() {
     if (this.resultsCount === 0) {
       return TAPi18n.__('no-cards-found');
@@ -405,8 +474,8 @@ BlazeComponent.extendComponent({
     }
 
     return TAPi18n.__('n-n-of-n-cards-found', {
-      start: 1,
-      end: this.resultsCount,
+      start: this.resultsStart,
+      end: this.resultsEnd,
       total: this.totalHits,
     });
   },
@@ -525,6 +594,14 @@ BlazeComponent.extendComponent({
         'submit .js-search-query-form'(evt) {
           evt.preventDefault();
           this.searchAllBoards(evt.target.searchQuery.value);
+        },
+        'click .js-next-page'(evt) {
+          evt.preventDefault();
+          this.nextPage();
+        },
+        'click .js-previous-page'(evt) {
+          evt.preventDefault();
+          this.previousPage();
         },
         'click .js-label-color'(evt) {
           evt.preventDefault();

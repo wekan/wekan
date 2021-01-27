@@ -205,8 +205,8 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
     }
 
     hasErrors() {
-      for (const prop in this.notFound) {
-        if (this.notFound[prop].length) {
+      for (const value of Object.values(this.notFound)) {
+        if (value.length) {
           return true;
         }
       }
@@ -247,245 +247,255 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
     }
   })();
 
-  let archived = false;
-  let endAt = null;
-  if (queryParams.status.length) {
-    queryParams.status.forEach(status => {
-      if (status === 'archived') {
-        archived = true;
-      } else if (status === 'all') {
-        archived = null;
-      } else if (status === 'ended') {
-        endAt = { $nin: [null, ''] };
-      }
-    });
+  let selector = {};
+  let skip = 0;
+  if (queryParams.skip) {
+    skip = queryParams.skip;
   }
-  const selector = {
-    type: 'cardType-card',
-    // boardId: { $in: Boards.userBoardIds(userId) },
-    $and: [],
-  };
+  let limit = 25;
+  if (queryParams.limit) {
+    limit = queryParams.limit;
+  }
 
-  const boardsSelector = {};
-  if (archived !== null) {
-    boardsSelector.archived = archived;
-    if (archived) {
+  if (queryParams.selector) {
+    selector = queryParams.selector;
+  } else {
+    let archived = false;
+    let endAt = null;
+    if (queryParams.status.length) {
+      queryParams.status.forEach(status => {
+        if (status === 'archived') {
+          archived = true;
+        } else if (status === 'all') {
+          archived = null;
+        } else if (status === 'ended') {
+          endAt = { $nin: [null, ''] };
+        }
+      });
+    }
+    selector = {
+      type: 'cardType-card',
+      // boardId: { $in: Boards.userBoardIds(userId) },
+      $and: [],
+    };
+
+    const boardsSelector = {};
+    if (archived !== null) {
+      boardsSelector.archived = archived;
+      if (archived) {
+        selector.boardId = { $in: Boards.userBoardIds(userId, null) };
+        selector.$and.push({
+          $or: [
+            { boardId: { $in: Boards.userBoardIds(userId, archived) } },
+            { swimlaneId: { $in: Swimlanes.archivedSwimlaneIds() } },
+            { listId: { $in: Lists.archivedListIds() } },
+            { archived: true },
+          ],
+        });
+      } else {
+        selector.boardId = { $in: Boards.userBoardIds(userId, false) };
+        selector.swimlaneId = { $nin: Swimlanes.archivedSwimlaneIds() };
+        selector.listId = { $nin: Lists.archivedListIds() };
+        selector.archived = false;
+      }
+    } else {
       selector.boardId = { $in: Boards.userBoardIds(userId, null) };
+    }
+    if (endAt !== null) {
+      selector.endAt = endAt;
+    }
+
+    if (queryParams.boards.length) {
+      const queryBoards = [];
+      queryParams.boards.forEach(query => {
+        const boards = Boards.userSearch(userId, {
+          title: new RegExp(escapeForRegex(query), 'i'),
+        });
+        if (boards.count()) {
+          boards.forEach(board => {
+            queryBoards.push(board._id);
+          });
+        } else {
+          errors.notFound.boards.push(query);
+        }
+      });
+
+      selector.boardId.$in = queryBoards;
+    }
+
+    if (queryParams.swimlanes.length) {
+      const querySwimlanes = [];
+      queryParams.swimlanes.forEach(query => {
+        const swimlanes = Swimlanes.find({
+          title: new RegExp(escapeForRegex(query), 'i'),
+        });
+        if (swimlanes.count()) {
+          swimlanes.forEach(swim => {
+            querySwimlanes.push(swim._id);
+          });
+        } else {
+          errors.notFound.swimlanes.push(query);
+        }
+      });
+
+      selector.swimlaneId.$in = querySwimlanes;
+    }
+
+    if (queryParams.lists.length) {
+      const queryLists = [];
+      queryParams.lists.forEach(query => {
+        const lists = Lists.find({
+          title: new RegExp(escapeForRegex(query), 'i'),
+        });
+        if (lists.count()) {
+          lists.forEach(list => {
+            queryLists.push(list._id);
+          });
+        } else {
+          errors.notFound.lists.push(query);
+        }
+      });
+
+      selector.listId.$in = queryLists;
+    }
+
+    if (queryParams.comments.length) {
+      const cardIds = CardComments.textSearch(userId, queryParams.comments).map(
+        com => {
+          return com.cardId;
+        },
+      );
+      if (cardIds.length) {
+        selector._id = { $in: cardIds };
+      } else {
+        errors.notFound.comments.push(queryParams.comments);
+      }
+    }
+
+    if (queryParams.dueAt !== null) {
+      selector.dueAt = { $lte: new Date(queryParams.dueAt) };
+    }
+
+    if (queryParams.createdAt !== null) {
+      selector.createdAt = { $gte: new Date(queryParams.createdAt) };
+    }
+
+    if (queryParams.modifiedAt !== null) {
+      selector.modifiedAt = { $gte: new Date(queryParams.modifiedAt) };
+    }
+
+    const queryMembers = [];
+    const queryAssignees = [];
+    if (queryParams.users.length) {
+      queryParams.users.forEach(query => {
+        const users = Users.find({
+          username: query,
+        });
+        if (users.count()) {
+          users.forEach(user => {
+            queryMembers.push(user._id);
+            queryAssignees.push(user._id);
+          });
+        } else {
+          errors.notFound.users.push(query);
+        }
+      });
+    }
+
+    if (queryParams.members.length) {
+      queryParams.members.forEach(query => {
+        const users = Users.find({
+          username: query,
+        });
+        if (users.count()) {
+          users.forEach(user => {
+            queryMembers.push(user._id);
+          });
+        } else {
+          errors.notFound.members.push(query);
+        }
+      });
+    }
+
+    if (queryParams.assignees.length) {
+      queryParams.assignees.forEach(query => {
+        const users = Users.find({
+          username: query,
+        });
+        if (users.count()) {
+          users.forEach(user => {
+            queryAssignees.push(user._id);
+          });
+        } else {
+          errors.notFound.assignees.push(query);
+        }
+      });
+    }
+
+    if (queryMembers.length && queryAssignees.length) {
       selector.$and.push({
         $or: [
-          { boardId: { $in: Boards.userBoardIds(userId, archived) } },
-          { swimlaneId: { $in: Swimlanes.archivedSwimlaneIds() } },
-          { listId: { $in: Lists.archivedListIds() } },
-          { archived: true },
+          { members: { $in: queryMembers } },
+          { assignees: { $in: queryAssignees } },
         ],
       });
-    } else {
-      selector.boardId = { $in: Boards.userBoardIds(userId, false) };
-      selector.swimlaneId = { $nin: Swimlanes.archivedSwimlaneIds() };
-      selector.listId = { $nin: Lists.archivedListIds() };
-      selector.archived = false;
+    } else if (queryMembers.length) {
+      selector.members = { $in: queryMembers };
+    } else if (queryAssignees.length) {
+      selector.assignees = { $in: queryAssignees };
     }
-  } else {
-    selector.boardId = { $in: Boards.userBoardIds(userId, null) };
-  }
-  if (endAt !== null) {
-    selector.endAt = endAt;
-  }
 
-  if (queryParams.boards.length) {
-    const queryBoards = [];
-    queryParams.boards.forEach(query => {
-      const boards = Boards.userSearch(userId, {
-        title: new RegExp(escapeForRegex(query), 'i'),
-      });
-      if (boards.count()) {
-        boards.forEach(board => {
-          queryBoards.push(board._id);
-        });
-      } else {
-        errors.notFound.boards.push(query);
-      }
-    });
+    if (queryParams.labels.length) {
+      queryParams.labels.forEach(label => {
+        const queryLabels = [];
 
-    selector.boardId.$in = queryBoards;
-  }
-
-  if (queryParams.swimlanes.length) {
-    const querySwimlanes = [];
-    queryParams.swimlanes.forEach(query => {
-      const swimlanes = Swimlanes.find({
-        title: new RegExp(escapeForRegex(query), 'i'),
-      });
-      if (swimlanes.count()) {
-        swimlanes.forEach(swim => {
-          querySwimlanes.push(swim._id);
-        });
-      } else {
-        errors.notFound.swimlanes.push(query);
-      }
-    });
-
-    selector.swimlaneId.$in = querySwimlanes;
-  }
-
-  if (queryParams.lists.length) {
-    const queryLists = [];
-    queryParams.lists.forEach(query => {
-      const lists = Lists.find({
-        title: new RegExp(escapeForRegex(query), 'i'),
-      });
-      if (lists.count()) {
-        lists.forEach(list => {
-          queryLists.push(list._id);
-        });
-      } else {
-        errors.notFound.lists.push(query);
-      }
-    });
-
-    selector.listId.$in = queryLists;
-  }
-
-  if (queryParams.comments.length) {
-    const cardIds = CardComments.textSearch(userId, queryParams.comments).map(
-      com => {
-        return com.cardId;
-      },
-    );
-    if (cardIds.length) {
-      selector._id = { $in: cardIds };
-    } else {
-      errors.notFound.comments.push(queryParams.comments);
-    }
-  }
-
-  if (queryParams.dueAt !== null) {
-    selector.dueAt = { $lte: new Date(queryParams.dueAt) };
-  }
-
-  if (queryParams.createdAt !== null) {
-    selector.createdAt = { $gte: new Date(queryParams.createdAt) };
-  }
-
-  if (queryParams.modifiedAt !== null) {
-    selector.modifiedAt = { $gte: new Date(queryParams.modifiedAt) };
-  }
-
-  const queryMembers = [];
-  const queryAssignees = [];
-  if (queryParams.users.length) {
-    queryParams.users.forEach(query => {
-      const users = Users.find({
-        username: query,
-      });
-      if (users.count()) {
-        users.forEach(user => {
-          queryMembers.push(user._id);
-          queryAssignees.push(user._id);
-        });
-      } else {
-        errors.notFound.users.push(query);
-      }
-    });
-  }
-
-  if (queryParams.members.length) {
-    queryParams.members.forEach(query => {
-      const users = Users.find({
-        username: query,
-      });
-      if (users.count()) {
-        users.forEach(user => {
-          queryMembers.push(user._id);
-        });
-      } else {
-        errors.notFound.members.push(query);
-      }
-    });
-  }
-
-  if (queryParams.assignees.length) {
-    queryParams.assignees.forEach(query => {
-      const users = Users.find({
-        username: query,
-      });
-      if (users.count()) {
-        users.forEach(user => {
-          queryAssignees.push(user._id);
-        });
-      } else {
-        errors.notFound.assignees.push(query);
-      }
-    });
-  }
-
-  if (queryMembers.length && queryAssignees.length) {
-    selector.$and.push({
-      $or: [
-        { members: { $in: queryMembers } },
-        { assignees: { $in: queryAssignees } },
-      ],
-    });
-  } else if (queryMembers.length) {
-    selector.members = { $in: queryMembers };
-  } else if (queryAssignees.length) {
-    selector.assignees = { $in: queryAssignees };
-  }
-
-  if (queryParams.labels.length) {
-    queryParams.labels.forEach(label => {
-      const queryLabels = [];
-
-      let boards = Boards.userSearch(userId, {
-        labels: { $elemMatch: { color: label.toLowerCase() } },
-      });
-
-      if (boards.count()) {
-        boards.forEach(board => {
-          // eslint-disable-next-line no-console
-          // console.log('board:', board);
-          // eslint-disable-next-line no-console
-          // console.log('board.labels:', board.labels);
-          board.labels
-            .filter(boardLabel => {
-              return boardLabel.color === label.toLowerCase();
-            })
-            .forEach(boardLabel => {
-              queryLabels.push(boardLabel._id);
-            });
-        });
-      } else {
-        // eslint-disable-next-line no-console
-        // console.log('label:', label);
-        const reLabel = new RegExp(escapeForRegex(label), 'i');
-        // eslint-disable-next-line no-console
-        // console.log('reLabel:', reLabel);
-        boards = Boards.userSearch(userId, {
-          labels: { $elemMatch: { name: reLabel } },
+        let boards = Boards.userSearch(userId, {
+          labels: { $elemMatch: { color: label.toLowerCase() } },
         });
 
         if (boards.count()) {
           boards.forEach(board => {
+            // eslint-disable-next-line no-console
+            // console.log('board:', board);
+            // eslint-disable-next-line no-console
+            // console.log('board.labels:', board.labels);
             board.labels
               .filter(boardLabel => {
-                return boardLabel.name.match(reLabel);
+                return boardLabel.color === label.toLowerCase();
               })
               .forEach(boardLabel => {
                 queryLabels.push(boardLabel._id);
               });
           });
         } else {
-          errors.notFound.labels.push(label);
+          // eslint-disable-next-line no-console
+          // console.log('label:', label);
+          const reLabel = new RegExp(escapeForRegex(label), 'i');
+          // eslint-disable-next-line no-console
+          // console.log('reLabel:', reLabel);
+          boards = Boards.userSearch(userId, {
+            labels: { $elemMatch: { name: reLabel } },
+          });
+
+          if (boards.count()) {
+            boards.forEach(board => {
+              board.labels
+                .filter(boardLabel => {
+                  return boardLabel.name.match(reLabel);
+                })
+                .forEach(boardLabel => {
+                  queryLabels.push(boardLabel._id);
+                });
+            });
+          } else {
+            errors.notFound.labels.push(label);
+          }
         }
-      }
 
-      selector.labelIds = { $in: queryLabels };
-    });
-  }
+        selector.labelIds = { $in: queryLabels };
+      });
+    }
 
-  let cards = null;
-
-  if (!errors.hasErrors()) {
     if (queryParams.text) {
       const regex = new RegExp(escapeForRegex(queryParams.text), 'i');
 
@@ -508,12 +518,16 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
     if (selector.$and.length === 0) {
       delete selector.$and;
     }
+  }
 
-    // eslint-disable-next-line no-console
-    console.log('selector:', selector);
-    // eslint-disable-next-line no-console
-    console.log('selector.$and:', selector.$and);
+  // eslint-disable-next-line no-console
+  console.log('selector:', selector);
+  // eslint-disable-next-line no-console
+  console.log('selector.$and:', selector.$and);
 
+  let cards = null;
+
+  if (!errors.hasErrors()) {
     const projection = {
       fields: {
         _id: 1,
@@ -532,7 +546,8 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
         modifiedAt: 1,
         labelIds: 1,
       },
-      limit: 50,
+      skip,
+      limit,
     };
 
     if (queryParams.sort === 'due') {
@@ -569,27 +584,33 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
       };
     }
 
+    // eslint-disable-next-line no-console
+    console.log('projection:', projection);
     cards = Cards.find(selector, projection);
 
     // eslint-disable-next-line no-console
-    // console.log('count:', cards.count());
+    console.log('count:', cards.count());
   }
 
   const update = {
     $set: {
       totalHits: 0,
       lastHit: 0,
+      resultsCount: 0,
       cards: [],
       errors: errors.errorMessages(),
+      selector: JSON.stringify(selector),
     },
   };
 
   if (cards) {
     update.$set.totalHits = cards.count();
-    update.$set.lastHit = cards.count() > 50 ? 50 : cards.count();
+    update.$set.lastHit =
+      skip + limit < cards.count() ? skip + limit : cards.count();
     update.$set.cards = cards.map(card => {
       return card._id;
     });
+    update.$set.resultsCount = update.$set.cards.length;
   }
 
   SessionData.upsert({ userId, sessionId }, update);
