@@ -69,24 +69,28 @@ CustomFields.attachSchema(
        * should we show on the cards this custom field
        */
       type: Boolean,
+      defaultValue: false,
     },
     automaticallyOnCard: {
       /**
        * should the custom fields automatically be added on cards?
        */
       type: Boolean,
+      defaultValue: false,
     },
     alwaysOnCard: {
       /**
        * should the custom field be automatically added to all cards?
        */
       type: Boolean,
+      defaultValue: false,
     },
     showLabelOnMiniCard: {
       /**
        * should the label of the custom field be shown on minicards?
        */
       type: Boolean,
+      defaultValue: false,
     },
     createdAt: {
       type: Date,
