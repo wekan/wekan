@@ -116,7 +116,7 @@ BlazeComponent.extendComponent({
     if (this.queryParams) {
       const sessionData = this.getSessionData();
       // eslint-disable-next-line no-console
-      console.log('selector:', JSON.parse(sessionData.selector));
+      console.log('selector:', sessionData.getSelector());
       // console.log('session data:', sessionData);
       const cards = Cards.find({ _id: { $in: sessionData.cards } });
       this.queryErrors = sessionData.errors;
@@ -414,7 +414,7 @@ BlazeComponent.extendComponent({
 
     const params = {
       limit: this.resultsPerPage,
-      selector: JSON.parse(sessionData.selector),
+      selector: sessionData.getSelector(),
       skip: sessionData.lastHit,
     };
 
@@ -441,7 +441,7 @@ BlazeComponent.extendComponent({
 
     const params = {
       limit: this.resultsPerPage,
-      selector: JSON.parse(sessionData.selector),
+      selector: sessionData.getSelector(),
       skip:
         sessionData.lastHit - sessionData.resultsCount - this.resultsPerPage,
     };

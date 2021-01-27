@@ -126,6 +126,40 @@ SessionData.attachSchema(
   }),
 );
 
+SessionData.helpers({
+  getSelector() {
+    return SessionData.unpickle(this.selector);
+  },
+});
+
+SessionData.unpickle = pickle => {
+  return JSON.parse(pickle, (key, value) => {
+    if (typeof value === 'object') {
+      if (value.hasOwnProperty('$$class')) {
+        if (value.$$class === 'RegExp') {
+          return new RegExp(value.source, value.flags);
+        }
+      }
+    }
+    return value;
+  });
+};
+
+SessionData.pickle = value => {
+  return JSON.stringify(value, (key, value) => {
+    if (typeof value === 'object') {
+      if (value.constructor.name === 'RegExp') {
+        return {
+          $$class: 'RegExp',
+          source: value.source,
+          flags: value.flags,
+        };
+      }
+    }
+    return value;
+  });
+};
+
 if (!Meteor.isServer) {
   SessionData.getSessionId = () => {
     let sessionId = Session.get('sessionId');

@@ -37,12 +37,16 @@ template(name="globalSearch")
               a.fa.fa-link(title="{{_ 'link-to-search' }}" href="{{ getSearchHref }}")
             each card in results.get
               +resultCard(card)
-            if hasPreviousPage.get
-              button.js-previous-page
-                | {{_ 'previous-page' }}
-            if hasNextPage.get
-              button.js-next-page
-                | {{_ 'next-page' }}
+            table.global-search-footer
+              tr
+                td.global-search-previous-page
+                  if hasPreviousPage.get
+                    button.js-previous-page
+                      | {{_ 'previous-page' }}
+                td.global-search-next-page(align="right")
+                  if hasNextPage.get
+                    button.js-next-page
+                      | {{_ 'next-page' }}
       else
         .global-search-instructions
           h2 {{_ 'boards' }}

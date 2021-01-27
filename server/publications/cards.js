@@ -179,6 +179,9 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
   check(sessionId, String);
   check(queryParams, Object);
 
+  // eslint-disable-next-line no-console
+  // console.log('queryParams:', queryParams);
+
   const userId = Meteor.userId();
   // eslint-disable-next-line no-console
   // console.log('userId:', userId);
@@ -338,6 +341,9 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
         }
       });
 
+      if (!selector.swimlaneId.hasOwnProperty('swimlaneId')) {
+        selector.swimlaneId = { $in: [] };
+      }
       selector.swimlaneId.$in = querySwimlanes;
     }
 
@@ -356,6 +362,9 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
         }
       });
 
+      if (!selector.hasOwnProperty('listId')) {
+        selector.listId = { $in: [] };
+      }
       selector.listId.$in = queryLists;
     }
 
@@ -521,9 +530,9 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
   }
 
   // eslint-disable-next-line no-console
-  console.log('selector:', selector);
+  // console.log('selector:', selector);
   // eslint-disable-next-line no-console
-  console.log('selector.$and:', selector.$and);
+  // console.log('selector.$and:', selector.$and);
 
   let cards = null;
 
@@ -585,11 +594,11 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
     }
 
     // eslint-disable-next-line no-console
-    console.log('projection:', projection);
+    // console.log('projection:', projection);
     cards = Cards.find(selector, projection);
 
     // eslint-disable-next-line no-console
-    console.log('count:', cards.count());
+    // console.log('count:', cards.count());
   }
 
   const update = {
@@ -599,7 +608,7 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
       resultsCount: 0,
       cards: [],
       errors: errors.errorMessages(),
-      selector: JSON.stringify(selector),
+      selector: SessionData.pickle(selector),
     },
   };
 

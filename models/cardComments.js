@@ -121,7 +121,7 @@ CardComments.textSearch = (userId, textArray) => {
   }
 
   // eslint-disable-next-line no-console
-  console.log('cardComments selector:', selector);
+  // console.log('cardComments selector:', selector);
 
   const comments = CardComments.find(selector);
   // eslint-disable-next-line no-console
