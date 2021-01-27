@@ -9,6 +9,8 @@ and adds the following improvements:
 
 - [Mobile and Desktop have now the same Quick Access view + scrollable](https://github.com/wekan/wekan/pull/3491).
   Thanks to mfilser.
+- [Global Search Update](https://github.com/wekan/wekan/pull/3492).
+  Thanks to jrsupplee.
 
 and fixes the following bugs:
 
