@@ -5,6 +5,11 @@ This release adds the following new features:
 - [Additional URL schemes: SolidWorks PDM (conisio:) and abas ERP (abasurl:)](https://github.com/wekan/wekan/pull/3487).
   Thanks to tod31.
 
+and adds the following improvements:
+
+- [Mobile and Desktop have now the same Quick Access view + scrollable](https://github.com/wekan/wekan/pull/3491).
+  Thanks to mfilser.
+
 and fixes the following bugs:
 
 - [Changed method to create initials same as others for new user of oidc](https://github.com/wekan/wekan/pull/3489).
