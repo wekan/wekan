@@ -100,6 +100,7 @@
   font-size: 12px
   display: flex
   z-index: 21
+  padding: 10px 0px
 
   #header-user-bar,
   #header-new-board-icon,
@@ -114,15 +115,22 @@
 
   ul
     transition: opacity 0.2s
-    margin: 4px 0 0 5px
-    overflow: hidden
+    overflow-x: auto
+    overflow-y: hidden
+    white-space: nowrap
+    padding: 10px
+    margin: -10px
 
     li
-      display: block
-      float: left
+      display: inline
       width: auto
       color: darken(white, 15%)
-      padding: 2px 5px 0
+      padding: 12px 0px
+      margin: -10px 0px
+
+      a
+        padding: 12px 10px
+        margin: -10px 0px
 
       &.current
         color: darken(white, 5%)
@@ -186,37 +194,31 @@
   #header-quick-access
     transition: background-color 0.4s
     width: 100%
-    padding: 10px 0px
     z-index: 30
 
     ul
       width: calc(100% - 60px)
-      overflow: ellipsis
-      padding: 10px
-      margin: -10px
+      margin-right: 10px
 
       li
         height: 100%
-        padding: 12px 0px
-        margin: -10px 0px
 
         a
           height: 100%
-          padding: 12px 10px
-          margin: -10px 0px
 
-        .fa-home
+    span
+      .fa-home
           font-size: 26px
           margin-top: -2px
+          margin-right: 20px
 
     #header-new-board-icon
       display: none
 
     #header-user-bar
-      position: absolute
       right: 0px
       padding: 10px
-      margin: -10px 0 -10px -10px
+      margin: -8px 0 -10px -10px
 
 .announcement .viewer
   display: inline-block

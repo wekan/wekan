@@ -7,15 +7,20 @@ template(name="header")
   if currentUser
     #header-quick-access(class=currentBoard.colorClass)
       if isMiniScreen
-        ul
-          li
-            a(href="{{pathFor 'home'}}")
-              span.fa.fa-home
+        span
+          a(href="{{pathFor 'home'}}")
+            span.fa.fa-home
 
+        ul
           if currentList
             each currentBoard.lists
               li(class="{{#if $.Session.equals 'currentList' _id}}current{{/if}}")
                 a.js-select-list
+                  = title
+          else
+            each currentUser.starredBoards
+              li(class="{{#if $.Session.equals 'currentBoard' _id}}current{{/if}}")
+                a(href="{{pathFor 'board' id=_id slug=slug}}")
                   = title
         #header-new-board-icon
       else
@@ -32,18 +37,16 @@ template(name="header")
               img(src="{{currentSetting.customTopLeftCornerLogoImageUrl}}" height="{{#if currentSetting.customTopLeftCornerLogoHeight}}#{currentSetting.customTopLeftCornerLogoHeight}{{else}}27{{/if}}" width="auto" margin="0" padding="0")
           unless currentSetting.customTopLeftCornerLogoImageUrl
             img(src="{{pathFor '/logo-header.png'}}" alt="")
+        span
+          a(href="{{pathFor 'home'}}")
+            span.fa.fa-home
+            | {{_ 'all-boards'}}
         ul
-          li
-            a(href="{{pathFor 'home'}}")
-              span.fa.fa-home
-              | {{_ 'all-boards'}}
-          li.separator -
           //li
           //  a(href="{{pathFor 'public'}}")
           //    span.fa.fa-globe
           //    | {{_ 'public'}}
           each currentUser.starredBoards
-            li.separator -
             li(class="{{#if $.Session.equals 'currentBoard' _id}}current{{/if}}")
               a(href="{{pathFor 'board' id=_id slug=slug}}")
                 = title
