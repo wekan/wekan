@@ -1278,37 +1278,33 @@ Boards.userSearch = (
   userId,
   selector = {},
   projection = {},
-  includeArchived = false,
+  // includeArchived = false,
 ) => {
-  if (!includeArchived) {
-    selector.archived = false;
-  }
-  selector.$or = [
-    { permission: 'public' },
-    { members: { $elemMatch: { userId, isActive: true } } },
-  ];
+  // if (!includeArchived) {
+  //   selector.archived = false;
+  // }
+  selector.$or = [{ permission: 'public' }];
 
+  if (userId) {
+    selector.$or.push({ members: { $elemMatch: { userId, isActive: true } } });
+  }
   return Boards.find(selector, projection);
 };
 
-Boards.userBoards = (userId, includeArchived = false, selector = {}) => {
-  check(userId, String);
-
-  if (!includeArchived) {
-    selector = {
-      archived: false,
-    };
+Boards.userBoards = (userId, archived = false, selector = {}) => {
+  if (typeof archived === 'boolean') {
+    selector.archived = archived;
   }
-  selector.$or = [
-    { permission: 'public' },
-    { members: { $elemMatch: { userId, isActive: true } } },
-  ];
+  selector.$or = [{ permission: 'public' }];
 
+  if (userId) {
+    selector.$or.push({ members: { $elemMatch: { userId, isActive: true } } });
+  }
   return Boards.find(selector);
 };
 
-Boards.userBoardIds = (userId, includeArchived = false, selector = {}) => {
-  return Boards.userBoards(userId, includeArchived, selector).map(board => {
+Boards.userBoardIds = (userId, archived = false, selector = {}) => {
+  return Boards.userBoards(userId, archived, selector).map(board => {
     return board._id;
   });
 };

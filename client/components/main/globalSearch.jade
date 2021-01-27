@@ -30,13 +30,23 @@ template(name="globalSearch")
             div
               each msg in errorMessages
                 span.global-search-error-messages
-                  | {{_ msg.tag msg.value }}
+                  = msg
           else
             h1
               = resultsHeading.get
               a.fa.fa-link(title="{{_ 'link-to-search' }}" href="{{ getSearchHref }}")
-            each card in results
+            each card in results.get
               +resultCard(card)
+            table.global-search-footer
+              tr
+                td.global-search-previous-page
+                  if hasPreviousPage.get
+                    button.js-previous-page
+                      | {{_ 'previous-page' }}
+                td.global-search-next-page(align="right")
+                  if hasNextPage.get
+                    button.js-next-page
+                      | {{_ 'next-page' }}
       else
         .global-search-instructions
           h2 {{_ 'boards' }}

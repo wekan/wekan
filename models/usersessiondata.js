@@ -25,9 +25,23 @@ SessionData.attachSchema(
       type: String,
       optional: false,
     },
+    sessionId: {
+      /**
+       * unique session ID
+       */
+      type: String,
+      optional: false,
+    },
     totalHits: {
       /**
        * total number of hits in the last report query
+       */
+      type: Number,
+      optional: true,
+    },
+    resultsCount: {
+      /**
+       * number of results returned
        */
       type: Number,
       optional: true,
@@ -38,6 +52,48 @@ SessionData.attachSchema(
        */
       type: Number,
       optional: true,
+    },
+    cards: {
+      type: [String],
+      optional: true,
+    },
+    selector: {
+      type: String,
+      optional: true,
+      blackbox: true,
+    },
+    errorMessages: {
+      type: [String],
+      optional: true,
+    },
+    errors: {
+      type: [Object],
+      optional: true,
+      defaultValue: [],
+    },
+    'errors.$': {
+      type: new SimpleSchema({
+        tag: {
+          /**
+           * i18n tag
+           */
+          type: String,
+          optional: false,
+        },
+        value: {
+          /**
+           * value for the tag
+           */
+          type: String,
+          optional: true,
+          defaultValue: null,
+        },
+        color: {
+          type: Boolean,
+          optional: true,
+          defaultValue: false,
+        },
+      }),
     },
     createdAt: {
       /**
@@ -69,5 +125,51 @@ SessionData.attachSchema(
     },
   }),
 );
+
+SessionData.helpers({
+  getSelector() {
+    return SessionData.unpickle(this.selector);
+  },
+});
+
+SessionData.unpickle = pickle => {
+  return JSON.parse(pickle, (key, value) => {
+    if (typeof value === 'object') {
+      if (value.hasOwnProperty('$$class')) {
+        if (value.$$class === 'RegExp') {
+          return new RegExp(value.source, value.flags);
+        }
+      }
+    }
+    return value;
+  });
+};
+
+SessionData.pickle = value => {
+  return JSON.stringify(value, (key, value) => {
+    if (typeof value === 'object') {
+      if (value.constructor.name === 'RegExp') {
+        return {
+          $$class: 'RegExp',
+          source: value.source,
+          flags: value.flags,
+        };
+      }
+    }
+    return value;
+  });
+};
+
+if (!Meteor.isServer) {
+  SessionData.getSessionId = () => {
+    let sessionId = Session.get('sessionId');
+    if (!sessionId) {
+      sessionId = `${String(Meteor.userId())}-${String(Math.random())}`;
+      Session.set('sessionId', sessionId);
+    }
+
+    return sessionId;
+  };
+}
 
 export default SessionData;

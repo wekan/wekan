@@ -1,3 +1,4 @@
+const escapeForRegex = require('escape-string-regexp');
 CardComments = new Mongo.Collection('card_comments');
 
 /**
@@ -108,6 +109,28 @@ function commentCreation(userId, doc) {
     swimlaneId: card.swimlaneId,
   });
 }
+
+CardComments.textSearch = (userId, textArray) => {
+  const selector = {
+    boardId: { $in: Boards.userBoardIds(userId) },
+    $and: [],
+  };
+
+  for (const text of textArray) {
+    selector.$and.push({ text: new RegExp(escapeForRegex(text)) });
+  }
+
+  // eslint-disable-next-line no-console
+  // console.log('cardComments selector:', selector);
+
+  const comments = CardComments.find(selector);
+  // eslint-disable-next-line no-console
+  // console.log('count:', comments.count());
+  // eslint-disable-next-line no-console
+  // console.log('cards with comments:', comments.map(com => { return com.cardId }));
+
+  return comments;
+};
 
 if (Meteor.isServer) {
   // Comments are often fetched within a card, so we create an index to make these
