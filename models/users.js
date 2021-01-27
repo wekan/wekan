@@ -1009,8 +1009,10 @@ if (Meteor.isServer) {
       user.username = user.services.oidc.username;
       user.emails = [{ address: email, verified: true }];
       const initials = user.services.oidc.fullname
-        .match(/\b[a-zA-Z]/g)
-        .join('')
+        .split(/\s+/)
+        .reduce((memo, word) => {
+          return memo + word[0];
+        }, '')
         .toUpperCase();
       user.profile = {
         initials,
