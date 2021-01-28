@@ -72,7 +72,7 @@
   "activity-checked-item-card": "a coché %s dans la checklist %s",
   "activity-unchecked-item-card": "a décoché %s dans la checklist %s",
   "activity-checklist-completed-card": "a complété la checklist __checklist__ de la carte __card__ de la liste __list__ du couloir __swimlane__ du tableau __board__",
-  "activity-checklist-uncompleted-card": "a rendu incomplète la checklist %s",
+  "activity-checklist-uncompleted-card": "a décoché la checklist %s",
   "activity-editComment": "commentaire modifié %s",
   "activity-deleteComment": "commentaire supprimé %s",
   "activity-receivedDate": "date de réception éditée de %s à %s",
