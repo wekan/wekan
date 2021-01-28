@@ -1524,7 +1524,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
 	  	<ul class="toc-list-h1">
         
           <li>
-            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v4.89">Wekan REST API v4.89</a>
+            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v4.90">Wekan REST API v4.90</a>
             
           </li>
         
@@ -1550,6 +1550,60 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
                 
                   <li>
                     <a href="#register" class="toc-h2 toc-link" data-title="register">register</a>
+                    
+                  </li>
+                
+              </ul>
+            
+          </li>
+        
+          <li>
+            <a href="#wekan-rest-api-boards" class="toc-h1 toc-link" data-title="Boards">Boards</a>
+            
+              <ul class="toc-list-h2">
+                
+                  <li>
+                    <a href="#get_public_boards" class="toc-h2 toc-link" data-title="get_public_boards">get_public_boards</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#new_board" class="toc-h2 toc-link" data-title="new_board">new_board</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#get_board" class="toc-h2 toc-link" data-title="get_board">get_board</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#delete_board" class="toc-h2 toc-link" data-title="delete_board">delete_board</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#get_board_attachments" class="toc-h2 toc-link" data-title="get_board_attachments">get_board_attachments</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#exportjson" class="toc-h2 toc-link" data-title="exportJson">exportJson</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#add_board_label" class="toc-h2 toc-link" data-title="add_board_label">add_board_label</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#set_board_member_permission" class="toc-h2 toc-link" data-title="set_board_member_permission">set_board_member_permission</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#get_boards_from_user" class="toc-h2 toc-link" data-title="get_boards_from_user">get_boards_from_user</a>
                     
                   </li>
                 
@@ -1705,20 +1759,6 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
                 
                   <li>
                     <a href="#delete_custom_field" class="toc-h2 toc-link" data-title="delete_custom_field">delete_custom_field</a>
-                    
-                  </li>
-                
-              </ul>
-            
-          </li>
-        
-          <li>
-            <a href="#wekan-rest-api-boards" class="toc-h1 toc-link" data-title="Boards">Boards</a>
-            
-              <ul class="toc-list-h2">
-                
-                  <li>
-                    <a href="#exportjson" class="toc-h2 toc-link" data-title="exportJson">exportJson</a>
                     
                   </li>
                 
@@ -1883,6 +1923,21 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
               <ul class="toc-list-h2">
                 
                   <li>
+                    <a href="#tocsboards" class="toc-h2 toc-link" data-title="Boards">Boards</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#tocsboardslabels" class="toc-h2 toc-link" data-title="BoardsLabels">BoardsLabels</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#tocsboardsmembers" class="toc-h2 toc-link" data-title="BoardsMembers">BoardsMembers</a>
+                    
+                  </li>
+                
+                  <li>
                     <a href="#tocscardcomments" class="toc-h2 toc-link" data-title="CardComments">CardComments</a>
                     
                   </li>
@@ -1982,7 +2037,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="wekan-rest-api">Wekan REST API v4.89</h1>
+        <h1 id="wekan-rest-api">Wekan REST API v4.90</h1>
 <blockquote>
 <p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
 </blockquote>
@@ -2567,6 +2622,1961 @@ System.out.println(response.toString());
 </table>
 <aside class="success">
 This operation does not require authentication
+</aside>
+<h1 id="wekan-rest-api-boards">Boards</h1>
+<h2 id="get_public_boards">get_public_boards</h2>
+<p><a id="opIdget_public_boards"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code><span class="hljs-comment"># You can also use wget</span>
+curl -X GET /api/boards \
+  -H <span class="hljs-string">'Accept: application/json'</span> \
+  -H <span class="hljs-string">'Authorization: API_KEY'</span>
+
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-keyword">GET</span> <span class="hljs-string">/api/boards</span> HTTP/1.1
+
+<span class="http"><span class="hljs-attribute">Accept</span>: application/json
+
+<span class="undefined"></span></span></code></pre>
+<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> headers = {
+  <span class="hljs-string">'Accept'</span>:<span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span>:<span class="hljs-string">'API_KEY'</span>
+
+};
+
+$.ajax({
+  <span class="hljs-attr">url</span>: <span class="hljs-string">'/api/boards'</span>,
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'get'</span>,
+
+  <span class="hljs-attr">headers</span>: headers,
+  <span class="hljs-attr">success</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.stringify(data));
+  }
+})
+
+</code></pre>
+<pre class="highlight tab tab-javascript--nodejs"><code><span class="hljs-keyword">const</span> fetch = <span class="hljs-built_in">require</span>(<span class="hljs-string">'node-fetch'</span>);
+
+<span class="hljs-keyword">const</span> headers = {
+  <span class="hljs-string">'Accept'</span>:<span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span>:<span class="hljs-string">'API_KEY'</span>
+
+};
+
+fetch(<span class="hljs-string">'/api/boards'</span>,
+{
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'GET'</span>,
+
+  <span class="hljs-attr">headers</span>: headers
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
+    <span class="hljs-keyword">return</span> res.json();
+}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">body</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(body);
+});
+
+</code></pre>
+<pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'rest-client'</span>
+<span class="hljs-keyword">require</span> <span class="hljs-string">'json'</span>
+
+headers = {
+  <span class="hljs-string">'Accept'</span> =&gt; <span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span> =&gt; <span class="hljs-string">'API_KEY'</span>
+}
+
+result = RestClient.get <span class="hljs-string">'/api/boards'</span>,
+  <span class="hljs-symbol">params:</span> {
+  }, <span class="hljs-symbol">headers:</span> headers
+
+p JSON.parse(result)
+
+</code></pre>
+<pre class="highlight tab tab-python"><code><span class="hljs-keyword">import</span> requests
+headers = {
+  <span class="hljs-string">'Accept'</span>: <span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span>: <span class="hljs-string">'API_KEY'</span>
+}
+
+r = requests.get(<span class="hljs-string">'/api/boards'</span>, params={
+
+}, headers = headers)
+
+<span class="hljs-keyword">print</span> r.json()
+
+</code></pre>
+<pre class="highlight tab tab-java"><code>URL obj = <span class="hljs-keyword">new</span> URL(<span class="hljs-string">"/api/boards"</span>);
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod(<span class="hljs-string">"GET"</span>);
+<span class="hljs-keyword">int</span> responseCode = con.getResponseCode();
+BufferedReader in = <span class="hljs-keyword">new</span> BufferedReader(
+    <span class="hljs-keyword">new</span> InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = <span class="hljs-keyword">new</span> StringBuffer();
+<span class="hljs-keyword">while</span> ((inputLine = in.readLine()) != <span class="hljs-keyword">null</span>) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+</code></pre>
+<pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+       <span class="hljs-string">"bytes"</span>
+       <span class="hljs-string">"net/http"</span>
+)
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+
+    headers := <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>][]<span class="hljs-keyword">string</span>{
+        <span class="hljs-string">"Accept"</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">"application/json"</span>},
+        <span class="hljs-string">"Authorization"</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">"API_KEY"</span>},
+        
+    }
+
+    data := bytes.NewBuffer([]<span class="hljs-keyword">byte</span>{jsonReq})
+    req, err := http.NewRequest(<span class="hljs-string">"GET"</span>, <span class="hljs-string">"/api/boards"</span>, data)
+    req.Header = headers
+
+    client := &amp;http.Client{}
+    resp, err := client.Do(req)
+    <span class="hljs-comment">// ...</span>
+}
+
+</code></pre>
+<p><code>GET /api/boards</code></p>
+<p><em>Get all public boards</em></p>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>[
+  {
+    <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"string"</span>,
+    <span class="hljs-attr">"title"</span>: <span class="hljs-string">"string"</span>
+  }
+]
+</code></pre>
+<h3 id="get_public_boards-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>200 response</td>
+<td>Inline</td>
+</tr>
+</tbody>
+</table>
+<h3 id="get_public_boards-responseschema">Response Schema</h3>
+<p>Status Code <strong>200</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>» _id</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» title</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+UserSecurity
+</aside>
+<h2 id="new_board">new_board</h2>
+<p><a id="opIdnew_board"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code><span class="hljs-comment"># You can also use wget</span>
+curl -X POST /api/boards \
+  -H <span class="hljs-string">'Content-Type: multipart/form-data'</span> \
+  -H <span class="hljs-string">'Accept: application/json'</span> \
+  -H <span class="hljs-string">'Authorization: API_KEY'</span>
+
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-keyword">POST</span> <span class="hljs-string">/api/boards</span> HTTP/1.1
+
+<span class="fortran">Content-<span class="hljs-keyword">Type</span>: multipart/<span class="hljs-keyword">form</span>-<span class="hljs-keyword">data</span>
+Accept: application/json
+
+</span></code></pre>
+<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> headers = {
+  <span class="hljs-string">'Content-Type'</span>:<span class="hljs-string">'multipart/form-data'</span>,
+  <span class="hljs-string">'Accept'</span>:<span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span>:<span class="hljs-string">'API_KEY'</span>
+
+};
+
+$.ajax({
+  <span class="hljs-attr">url</span>: <span class="hljs-string">'/api/boards'</span>,
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'post'</span>,
+
+  <span class="hljs-attr">headers</span>: headers,
+  <span class="hljs-attr">success</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.stringify(data));
+  }
+})
+
+</code></pre>
+<pre class="highlight tab tab-javascript--nodejs"><code><span class="hljs-keyword">const</span> fetch = <span class="hljs-built_in">require</span>(<span class="hljs-string">'node-fetch'</span>);
+<span class="hljs-keyword">const</span> inputBody = <span class="hljs-string">'{
+  "title": "string",
+  "owner": "string",
+  "isAdmin": true,
+  "isActive": true,
+  "isNoComments": true,
+  "isCommentOnly": true,
+  "isWorker": true,
+  "permission": "string",
+  "color": "string"
+}'</span>;
+<span class="hljs-keyword">const</span> headers = {
+  <span class="hljs-string">'Content-Type'</span>:<span class="hljs-string">'multipart/form-data'</span>,
+  <span class="hljs-string">'Accept'</span>:<span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span>:<span class="hljs-string">'API_KEY'</span>
+
+};
+
+fetch(<span class="hljs-string">'/api/boards'</span>,
+{
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
+  <span class="hljs-attr">body</span>: inputBody,
+  <span class="hljs-attr">headers</span>: headers
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
+    <span class="hljs-keyword">return</span> res.json();
+}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">body</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(body);
+});
+
+</code></pre>
+<pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'rest-client'</span>
+<span class="hljs-keyword">require</span> <span class="hljs-string">'json'</span>
+
+headers = {
+  <span class="hljs-string">'Content-Type'</span> =&gt; <span class="hljs-string">'multipart/form-data'</span>,
+  <span class="hljs-string">'Accept'</span> =&gt; <span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span> =&gt; <span class="hljs-string">'API_KEY'</span>
+}
+
+result = RestClient.post <span class="hljs-string">'/api/boards'</span>,
+  <span class="hljs-symbol">params:</span> {
+  }, <span class="hljs-symbol">headers:</span> headers
+
+p JSON.parse(result)
+
+</code></pre>
+<pre class="highlight tab tab-python"><code><span class="hljs-keyword">import</span> requests
+headers = {
+  <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'multipart/form-data'</span>,
+  <span class="hljs-string">'Accept'</span>: <span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span>: <span class="hljs-string">'API_KEY'</span>
+}
+
+r = requests.post(<span class="hljs-string">'/api/boards'</span>, params={
+
+}, headers = headers)
+
+<span class="hljs-keyword">print</span> r.json()
+
+</code></pre>
+<pre class="highlight tab tab-java"><code>URL obj = <span class="hljs-keyword">new</span> URL(<span class="hljs-string">"/api/boards"</span>);
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod(<span class="hljs-string">"POST"</span>);
+<span class="hljs-keyword">int</span> responseCode = con.getResponseCode();
+BufferedReader in = <span class="hljs-keyword">new</span> BufferedReader(
+    <span class="hljs-keyword">new</span> InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = <span class="hljs-keyword">new</span> StringBuffer();
+<span class="hljs-keyword">while</span> ((inputLine = in.readLine()) != <span class="hljs-keyword">null</span>) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+</code></pre>
+<pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+       <span class="hljs-string">"bytes"</span>
+       <span class="hljs-string">"net/http"</span>
+)
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+
+    headers := <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>][]<span class="hljs-keyword">string</span>{
+        <span class="hljs-string">"Content-Type"</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">"multipart/form-data"</span>},
+        <span class="hljs-string">"Accept"</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">"application/json"</span>},
+        <span class="hljs-string">"Authorization"</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">"API_KEY"</span>},
+        
+    }
+
+    data := bytes.NewBuffer([]<span class="hljs-keyword">byte</span>{jsonReq})
+    req, err := http.NewRequest(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/api/boards"</span>, data)
+    req.Header = headers
+
+    client := &amp;http.Client{}
+    resp, err := client.Do(req)
+    <span class="hljs-comment">// ...</span>
+}
+
+</code></pre>
+<p><code>POST /api/boards</code></p>
+<p><em>Create a board</em></p>
+<p>This allows to create a board.</p>
+<p>The color has to be chosen between <code>belize</code>, <code>nephritis</code>, <code>pomegranate</code>,
+<code>pumpkin</code>, <code>wisteria</code>, <code>moderatepink</code>, <code>strongcyan</code>,
+<code>limegreen</code>, <code>midnight</code>, <code>dark</code>, <code>relax</code>, <code>corteza</code>:</p>
+ <img src="https://wekan.github.io/board-colors.png" alt="Wekan logo" />
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="highlight tab tab-yaml"><code><span class="hljs-attr">title:</span> <span class="hljs-string">string</span>
+<span class="hljs-attr">owner:</span> <span class="hljs-string">string</span>
+<span class="hljs-attr">isAdmin:</span> <span class="hljs-literal">true</span>
+<span class="hljs-attr">isActive:</span> <span class="hljs-literal">true</span>
+<span class="hljs-attr">isNoComments:</span> <span class="hljs-literal">true</span>
+<span class="hljs-attr">isCommentOnly:</span> <span class="hljs-literal">true</span>
+<span class="hljs-attr">isWorker:</span> <span class="hljs-literal">true</span>
+<span class="hljs-attr">permission:</span> <span class="hljs-string">string</span>
+<span class="hljs-attr">color:</span> <span class="hljs-string">string</span>
+
+</code></pre>
+<h3 id="new_board-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>body</td>
+<td>body</td>
+<td>object</td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» title</td>
+<td>body</td>
+<td>string</td>
+<td>true</td>
+<td>the new title of the board</td>
+</tr>
+<tr>
+<td>» owner</td>
+<td>body</td>
+<td>string</td>
+<td>true</td>
+<td>&quot;ABCDE12345&quot; &lt;= User ID in Wekan.</td>
+</tr>
+<tr>
+<td>» isAdmin</td>
+<td>body</td>
+<td>boolean</td>
+<td>false</td>
+<td>is the owner an admin of the board (default true)</td>
+</tr>
+<tr>
+<td>» isActive</td>
+<td>body</td>
+<td>boolean</td>
+<td>false</td>
+<td>is the board active (default true)</td>
+</tr>
+<tr>
+<td>» isNoComments</td>
+<td>body</td>
+<td>boolean</td>
+<td>false</td>
+<td>disable comments (default false)</td>
+</tr>
+<tr>
+<td>» isCommentOnly</td>
+<td>body</td>
+<td>boolean</td>
+<td>false</td>
+<td>only enable comments (default false)</td>
+</tr>
+<tr>
+<td>» isWorker</td>
+<td>body</td>
+<td>boolean</td>
+<td>false</td>
+<td>only move cards, assign himself to card and comment (default false)</td>
+</tr>
+<tr>
+<td>» permission</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>&quot;private&quot; board &lt;== Set to &quot;public&quot; if you</td>
+</tr>
+<tr>
+<td>» color</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>the color of the board</td>
+</tr>
+</tbody>
+</table>
+<h4 id="detailed-descriptions">Detailed descriptions</h4>
+<p><strong>» owner</strong>: &quot;ABCDE12345&quot; &lt;= User ID in Wekan.
+(Not username or email)</p>
+<p><strong>» permission</strong>: &quot;private&quot; board &lt;== Set to &quot;public&quot; if you
+want public Wekan board</p>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"defaultSwimlaneId"</span>: <span class="hljs-string">"string"</span>
+}
+</code></pre>
+<h3 id="new_board-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>200 response</td>
+<td>Inline</td>
+</tr>
+</tbody>
+</table>
+<h3 id="new_board-responseschema">Response Schema</h3>
+<p>Status Code <strong>200</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>» _id</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» defaultSwimlaneId</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+UserSecurity
+</aside>
+<h2 id="get_board">get_board</h2>
+<p><a id="opIdget_board"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code><span class="hljs-comment"># You can also use wget</span>
+curl -X GET /api/boards/{board} \
+  -H <span class="hljs-string">'Accept: application/json'</span> \
+  -H <span class="hljs-string">'Authorization: API_KEY'</span>
+
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-keyword">GET</span> <span class="hljs-string">/api/boards/{board}</span> HTTP/1.1
+
+<span class="http"><span class="hljs-attribute">Accept</span>: application/json
+
+<span class="undefined"></span></span></code></pre>
+<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> headers = {
+  <span class="hljs-string">'Accept'</span>:<span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span>:<span class="hljs-string">'API_KEY'</span>
+
+};
+
+$.ajax({
+  <span class="hljs-attr">url</span>: <span class="hljs-string">'/api/boards/{board}'</span>,
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'get'</span>,
+
+  <span class="hljs-attr">headers</span>: headers,
+  <span class="hljs-attr">success</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.stringify(data));
+  }
+})
+
+</code></pre>
+<pre class="highlight tab tab-javascript--nodejs"><code><span class="hljs-keyword">const</span> fetch = <span class="hljs-built_in">require</span>(<span class="hljs-string">'node-fetch'</span>);
+
+<span class="hljs-keyword">const</span> headers = {
+  <span class="hljs-string">'Accept'</span>:<span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span>:<span class="hljs-string">'API_KEY'</span>
+
+};
+
+fetch(<span class="hljs-string">'/api/boards/{board}'</span>,
+{
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'GET'</span>,
+
+  <span class="hljs-attr">headers</span>: headers
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
+    <span class="hljs-keyword">return</span> res.json();
+}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">body</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(body);
+});
+
+</code></pre>
+<pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'rest-client'</span>
+<span class="hljs-keyword">require</span> <span class="hljs-string">'json'</span>
+
+headers = {
+  <span class="hljs-string">'Accept'</span> =&gt; <span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span> =&gt; <span class="hljs-string">'API_KEY'</span>
+}
+
+result = RestClient.get <span class="hljs-string">'/api/boards/{board}'</span>,
+  <span class="hljs-symbol">params:</span> {
+  }, <span class="hljs-symbol">headers:</span> headers
+
+p JSON.parse(result)
+
+</code></pre>
+<pre class="highlight tab tab-python"><code><span class="hljs-keyword">import</span> requests
+headers = {
+  <span class="hljs-string">'Accept'</span>: <span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span>: <span class="hljs-string">'API_KEY'</span>
+}
+
+r = requests.get(<span class="hljs-string">'/api/boards/{board}'</span>, params={
+
+}, headers = headers)
+
+<span class="hljs-keyword">print</span> r.json()
+
+</code></pre>
+<pre class="highlight tab tab-java"><code>URL obj = <span class="hljs-keyword">new</span> URL(<span class="hljs-string">"/api/boards/{board}"</span>);
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod(<span class="hljs-string">"GET"</span>);
+<span class="hljs-keyword">int</span> responseCode = con.getResponseCode();
+BufferedReader in = <span class="hljs-keyword">new</span> BufferedReader(
+    <span class="hljs-keyword">new</span> InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = <span class="hljs-keyword">new</span> StringBuffer();
+<span class="hljs-keyword">while</span> ((inputLine = in.readLine()) != <span class="hljs-keyword">null</span>) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+</code></pre>
+<pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+       <span class="hljs-string">"bytes"</span>
+       <span class="hljs-string">"net/http"</span>
+)
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+
+    headers := <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>][]<span class="hljs-keyword">string</span>{
+        <span class="hljs-string">"Accept"</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">"application/json"</span>},
+        <span class="hljs-string">"Authorization"</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">"API_KEY"</span>},
+        
+    }
+
+    data := bytes.NewBuffer([]<span class="hljs-keyword">byte</span>{jsonReq})
+    req, err := http.NewRequest(<span class="hljs-string">"GET"</span>, <span class="hljs-string">"/api/boards/{board}"</span>, data)
+    req.Header = headers
+
+    client := &amp;http.Client{}
+    resp, err := client.Do(req)
+    <span class="hljs-comment">// ...</span>
+}
+
+</code></pre>
+<p><code>GET /api/boards/{board}</code></p>
+<p><em>Get the board with that particular ID</em></p>
+<h3 id="get_board-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>board</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>the ID of the board to retrieve the data</td>
+</tr>
+</tbody>
+</table>
+<h4 id="detailed-descriptions">Detailed descriptions</h4>
+<p><strong>board</strong>: the ID of the board to retrieve the data</p>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"title"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"slug"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"archived"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"createdAt"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"modifiedAt"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"stars"</span>: <span class="hljs-number">0</span>,
+  <span class="hljs-attr">"labels"</span>: [
+    {
+      <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"string"</span>,
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"string"</span>,
+      <span class="hljs-attr">"color"</span>: <span class="hljs-string">"green"</span>
+    }
+  ],
+  <span class="hljs-attr">"members"</span>: [
+    {
+      <span class="hljs-attr">"userId"</span>: <span class="hljs-string">"string"</span>,
+      <span class="hljs-attr">"isAdmin"</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">"isActive"</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">"isNoComments"</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">"isCommentOnly"</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">"isWorker"</span>: <span class="hljs-literal">true</span>
+    }
+  ],
+  <span class="hljs-attr">"permission"</span>: <span class="hljs-string">"public"</span>,
+  <span class="hljs-attr">"color"</span>: <span class="hljs-string">"belize"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"subtasksDefaultBoardId"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"subtasksDefaultListId"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"dateSettingsDefaultBoardId"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"dateSettingsDefaultListId"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"allowsSubtasks"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsAttachments"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsChecklists"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsComments"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsDescriptionTitle"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsDescriptionText"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsActivities"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsLabels"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsAssignee"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsMembers"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsRequestedBy"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsAssignedBy"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsReceivedDate"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsStartDate"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsEndDate"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsDueDate"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"presentParentTask"</span>: <span class="hljs-string">"prefix-with-full-path"</span>,
+  <span class="hljs-attr">"startAt"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"dueAt"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"endAt"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"spentTime"</span>: <span class="hljs-number">0</span>,
+  <span class="hljs-attr">"isOvertime"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"sort"</span>: <span class="hljs-number">0</span>
+}
+</code></pre>
+<h3 id="get_board-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>200 response</td>
+<td><a href="#schemaboards">Boards</a></td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+UserSecurity
+</aside>
+<h2 id="delete_board">delete_board</h2>
+<p><a id="opIddelete_board"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code><span class="hljs-comment"># You can also use wget</span>
+curl -X DELETE /api/boards/{board} \
+  -H <span class="hljs-string">'Authorization: API_KEY'</span>
+
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-keyword">DELETE</span> <span class="hljs-string">/api/boards/{board}</span> HTTP/1.1
+
+<span class="undefined"></span></code></pre>
+<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> headers = {
+  <span class="hljs-string">'Authorization'</span>:<span class="hljs-string">'API_KEY'</span>
+
+};
+
+$.ajax({
+  <span class="hljs-attr">url</span>: <span class="hljs-string">'/api/boards/{board}'</span>,
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'delete'</span>,
+
+  <span class="hljs-attr">headers</span>: headers,
+  <span class="hljs-attr">success</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.stringify(data));
+  }
+})
+
+</code></pre>
+<pre class="highlight tab tab-javascript--nodejs"><code><span class="hljs-keyword">const</span> fetch = <span class="hljs-built_in">require</span>(<span class="hljs-string">'node-fetch'</span>);
+
+<span class="hljs-keyword">const</span> headers = {
+  <span class="hljs-string">'Authorization'</span>:<span class="hljs-string">'API_KEY'</span>
+
+};
+
+fetch(<span class="hljs-string">'/api/boards/{board}'</span>,
+{
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'DELETE'</span>,
+
+  <span class="hljs-attr">headers</span>: headers
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
+    <span class="hljs-keyword">return</span> res.json();
+}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">body</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(body);
+});
+
+</code></pre>
+<pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'rest-client'</span>
+<span class="hljs-keyword">require</span> <span class="hljs-string">'json'</span>
+
+headers = {
+  <span class="hljs-string">'Authorization'</span> =&gt; <span class="hljs-string">'API_KEY'</span>
+}
+
+result = RestClient.delete <span class="hljs-string">'/api/boards/{board}'</span>,
+  <span class="hljs-symbol">params:</span> {
+  }, <span class="hljs-symbol">headers:</span> headers
+
+p JSON.parse(result)
+
+</code></pre>
+<pre class="highlight tab tab-python"><code><span class="hljs-keyword">import</span> requests
+headers = {
+  <span class="hljs-string">'Authorization'</span>: <span class="hljs-string">'API_KEY'</span>
+}
+
+r = requests.delete(<span class="hljs-string">'/api/boards/{board}'</span>, params={
+
+}, headers = headers)
+
+<span class="hljs-keyword">print</span> r.json()
+
+</code></pre>
+<pre class="highlight tab tab-java"><code>URL obj = <span class="hljs-keyword">new</span> URL(<span class="hljs-string">"/api/boards/{board}"</span>);
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod(<span class="hljs-string">"DELETE"</span>);
+<span class="hljs-keyword">int</span> responseCode = con.getResponseCode();
+BufferedReader in = <span class="hljs-keyword">new</span> BufferedReader(
+    <span class="hljs-keyword">new</span> InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = <span class="hljs-keyword">new</span> StringBuffer();
+<span class="hljs-keyword">while</span> ((inputLine = in.readLine()) != <span class="hljs-keyword">null</span>) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+</code></pre>
+<pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+       <span class="hljs-string">"bytes"</span>
+       <span class="hljs-string">"net/http"</span>
+)
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+
+    headers := <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>][]<span class="hljs-keyword">string</span>{
+        <span class="hljs-string">"Authorization"</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">"API_KEY"</span>},
+        
+    }
+
+    data := bytes.NewBuffer([]<span class="hljs-keyword">byte</span>{jsonReq})
+    req, err := http.NewRequest(<span class="hljs-string">"DELETE"</span>, <span class="hljs-string">"/api/boards/{board}"</span>, data)
+    req.Header = headers
+
+    client := &amp;http.Client{}
+    resp, err := client.Do(req)
+    <span class="hljs-comment">// ...</span>
+}
+
+</code></pre>
+<p><code>DELETE /api/boards/{board}</code></p>
+<p><em>Delete a board</em></p>
+<h3 id="delete_board-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>board</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>the ID of the board</td>
+</tr>
+</tbody>
+</table>
+<h4 id="detailed-descriptions">Detailed descriptions</h4>
+<p><strong>board</strong>: the ID of the board</p>
+<h3 id="delete_board-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>200 response</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+UserSecurity
+</aside>
+<h2 id="get_board_attachments">get_board_attachments</h2>
+<p><a id="opIdget_board_attachments"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code><span class="hljs-comment"># You can also use wget</span>
+curl -X GET /api/boards/{board}/attachments \
+  -H <span class="hljs-string">'Accept: application/json'</span> \
+  -H <span class="hljs-string">'Authorization: API_KEY'</span>
+
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-keyword">GET</span> <span class="hljs-string">/api/boards/{board}/attachments</span> HTTP/1.1
+
+<span class="http"><span class="hljs-attribute">Accept</span>: application/json
+
+<span class="undefined"></span></span></code></pre>
+<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> headers = {
+  <span class="hljs-string">'Accept'</span>:<span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span>:<span class="hljs-string">'API_KEY'</span>
+
+};
+
+$.ajax({
+  <span class="hljs-attr">url</span>: <span class="hljs-string">'/api/boards/{board}/attachments'</span>,
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'get'</span>,
+
+  <span class="hljs-attr">headers</span>: headers,
+  <span class="hljs-attr">success</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.stringify(data));
+  }
+})
+
+</code></pre>
+<pre class="highlight tab tab-javascript--nodejs"><code><span class="hljs-keyword">const</span> fetch = <span class="hljs-built_in">require</span>(<span class="hljs-string">'node-fetch'</span>);
+
+<span class="hljs-keyword">const</span> headers = {
+  <span class="hljs-string">'Accept'</span>:<span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span>:<span class="hljs-string">'API_KEY'</span>
+
+};
+
+fetch(<span class="hljs-string">'/api/boards/{board}/attachments'</span>,
+{
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'GET'</span>,
+
+  <span class="hljs-attr">headers</span>: headers
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
+    <span class="hljs-keyword">return</span> res.json();
+}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">body</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(body);
+});
+
+</code></pre>
+<pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'rest-client'</span>
+<span class="hljs-keyword">require</span> <span class="hljs-string">'json'</span>
+
+headers = {
+  <span class="hljs-string">'Accept'</span> =&gt; <span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span> =&gt; <span class="hljs-string">'API_KEY'</span>
+}
+
+result = RestClient.get <span class="hljs-string">'/api/boards/{board}/attachments'</span>,
+  <span class="hljs-symbol">params:</span> {
+  }, <span class="hljs-symbol">headers:</span> headers
+
+p JSON.parse(result)
+
+</code></pre>
+<pre class="highlight tab tab-python"><code><span class="hljs-keyword">import</span> requests
+headers = {
+  <span class="hljs-string">'Accept'</span>: <span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span>: <span class="hljs-string">'API_KEY'</span>
+}
+
+r = requests.get(<span class="hljs-string">'/api/boards/{board}/attachments'</span>, params={
+
+}, headers = headers)
+
+<span class="hljs-keyword">print</span> r.json()
+
+</code></pre>
+<pre class="highlight tab tab-java"><code>URL obj = <span class="hljs-keyword">new</span> URL(<span class="hljs-string">"/api/boards/{board}/attachments"</span>);
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod(<span class="hljs-string">"GET"</span>);
+<span class="hljs-keyword">int</span> responseCode = con.getResponseCode();
+BufferedReader in = <span class="hljs-keyword">new</span> BufferedReader(
+    <span class="hljs-keyword">new</span> InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = <span class="hljs-keyword">new</span> StringBuffer();
+<span class="hljs-keyword">while</span> ((inputLine = in.readLine()) != <span class="hljs-keyword">null</span>) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+</code></pre>
+<pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+       <span class="hljs-string">"bytes"</span>
+       <span class="hljs-string">"net/http"</span>
+)
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+
+    headers := <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>][]<span class="hljs-keyword">string</span>{
+        <span class="hljs-string">"Accept"</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">"application/json"</span>},
+        <span class="hljs-string">"Authorization"</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">"API_KEY"</span>},
+        
+    }
+
+    data := bytes.NewBuffer([]<span class="hljs-keyword">byte</span>{jsonReq})
+    req, err := http.NewRequest(<span class="hljs-string">"GET"</span>, <span class="hljs-string">"/api/boards/{board}/attachments"</span>, data)
+    req.Header = headers
+
+    client := &amp;http.Client{}
+    resp, err := client.Do(req)
+    <span class="hljs-comment">// ...</span>
+}
+
+</code></pre>
+<p><code>GET /api/boards/{board}/attachments</code></p>
+<p><em>Get the list of attachments of a board</em></p>
+<h3 id="get_board_attachments-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>board</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>the board ID</td>
+</tr>
+</tbody>
+</table>
+<h4 id="detailed-descriptions">Detailed descriptions</h4>
+<p><strong>board</strong>: the board ID</p>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>[
+  {
+    <span class="hljs-attr">"attachmentId"</span>: <span class="hljs-string">"string"</span>,
+    <span class="hljs-attr">"attachmentName"</span>: <span class="hljs-string">"string"</span>,
+    <span class="hljs-attr">"attachmentType"</span>: <span class="hljs-string">"string"</span>,
+    <span class="hljs-attr">"cardId"</span>: <span class="hljs-string">"string"</span>,
+    <span class="hljs-attr">"listId"</span>: <span class="hljs-string">"string"</span>,
+    <span class="hljs-attr">"swimlaneId"</span>: <span class="hljs-string">"string"</span>
+  }
+]
+</code></pre>
+<h3 id="get_board_attachments-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>200 response</td>
+<td>Inline</td>
+</tr>
+</tbody>
+</table>
+<h3 id="get_board_attachments-responseschema">Response Schema</h3>
+<p>Status Code <strong>200</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>» attachmentId</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» attachmentName</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» attachmentType</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» cardId</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» listId</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» swimlaneId</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+UserSecurity
+</aside>
+<h2 id="exportjson">exportJson</h2>
+<p><a id="opIdexportJson"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code><span class="hljs-comment"># You can also use wget</span>
+curl -X GET /api/boards/{board}/<span class="hljs-built_in">export</span> \
+  -H <span class="hljs-string">'Authorization: API_KEY'</span>
+
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-keyword">GET</span> <span class="hljs-string">/api/boards/{board}/export</span> HTTP/1.1
+
+<span class="undefined"></span></code></pre>
+<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> headers = {
+  <span class="hljs-string">'Authorization'</span>:<span class="hljs-string">'API_KEY'</span>
+
+};
+
+$.ajax({
+  <span class="hljs-attr">url</span>: <span class="hljs-string">'/api/boards/{board}/export'</span>,
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'get'</span>,
+
+  <span class="hljs-attr">headers</span>: headers,
+  <span class="hljs-attr">success</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.stringify(data));
+  }
+})
+
+</code></pre>
+<pre class="highlight tab tab-javascript--nodejs"><code><span class="hljs-keyword">const</span> fetch = <span class="hljs-built_in">require</span>(<span class="hljs-string">'node-fetch'</span>);
+
+<span class="hljs-keyword">const</span> headers = {
+  <span class="hljs-string">'Authorization'</span>:<span class="hljs-string">'API_KEY'</span>
+
+};
+
+fetch(<span class="hljs-string">'/api/boards/{board}/export'</span>,
+{
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'GET'</span>,
+
+  <span class="hljs-attr">headers</span>: headers
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
+    <span class="hljs-keyword">return</span> res.json();
+}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">body</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(body);
+});
+
+</code></pre>
+<pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'rest-client'</span>
+<span class="hljs-keyword">require</span> <span class="hljs-string">'json'</span>
+
+headers = {
+  <span class="hljs-string">'Authorization'</span> =&gt; <span class="hljs-string">'API_KEY'</span>
+}
+
+result = RestClient.get <span class="hljs-string">'/api/boards/{board}/export'</span>,
+  <span class="hljs-symbol">params:</span> {
+  }, <span class="hljs-symbol">headers:</span> headers
+
+p JSON.parse(result)
+
+</code></pre>
+<pre class="highlight tab tab-python"><code><span class="hljs-keyword">import</span> requests
+headers = {
+  <span class="hljs-string">'Authorization'</span>: <span class="hljs-string">'API_KEY'</span>
+}
+
+r = requests.get(<span class="hljs-string">'/api/boards/{board}/export'</span>, params={
+
+}, headers = headers)
+
+<span class="hljs-keyword">print</span> r.json()
+
+</code></pre>
+<pre class="highlight tab tab-java"><code>URL obj = <span class="hljs-keyword">new</span> URL(<span class="hljs-string">"/api/boards/{board}/export"</span>);
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod(<span class="hljs-string">"GET"</span>);
+<span class="hljs-keyword">int</span> responseCode = con.getResponseCode();
+BufferedReader in = <span class="hljs-keyword">new</span> BufferedReader(
+    <span class="hljs-keyword">new</span> InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = <span class="hljs-keyword">new</span> StringBuffer();
+<span class="hljs-keyword">while</span> ((inputLine = in.readLine()) != <span class="hljs-keyword">null</span>) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+</code></pre>
+<pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+       <span class="hljs-string">"bytes"</span>
+       <span class="hljs-string">"net/http"</span>
+)
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+
+    headers := <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>][]<span class="hljs-keyword">string</span>{
+        <span class="hljs-string">"Authorization"</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">"API_KEY"</span>},
+        
+    }
+
+    data := bytes.NewBuffer([]<span class="hljs-keyword">byte</span>{jsonReq})
+    req, err := http.NewRequest(<span class="hljs-string">"GET"</span>, <span class="hljs-string">"/api/boards/{board}/export"</span>, data)
+    req.Header = headers
+
+    client := &amp;http.Client{}
+    resp, err := client.Do(req)
+    <span class="hljs-comment">// ...</span>
+}
+
+</code></pre>
+<p><code>GET /api/boards/{board}/export</code></p>
+<p><em>This route is used to export the board to a json file format.</em></p>
+<p>If user is already logged-in, pass loginToken as param
+&quot;authToken&quot;: '/api/boards/:boardId/export?authToken=:token'</p>
+<p>See <a href="https://blog.kayla.com.au/server-side-route-authentication-in-meteor/">https://blog.kayla.com.au/server-side-route-authentication-in-meteor/</a>
+for detailed explanations</p>
+<h3 id="exportjson-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>board</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>the ID of the board we are exporting</td>
+</tr>
+</tbody>
+</table>
+<h4 id="detailed-descriptions">Detailed descriptions</h4>
+<p><strong>board</strong>: the ID of the board we are exporting</p>
+<h3 id="exportjson-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>200 response</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+UserSecurity
+</aside>
+<h2 id="add_board_label">add_board_label</h2>
+<p><a id="opIdadd_board_label"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code><span class="hljs-comment"># You can also use wget</span>
+curl -X PUT /api/boards/{board}/labels \
+  -H <span class="hljs-string">'Content-Type: multipart/form-data'</span> \
+  -H <span class="hljs-string">'Accept: application/json'</span> \
+  -H <span class="hljs-string">'Authorization: API_KEY'</span>
+
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-keyword">PUT</span> <span class="hljs-string">/api/boards/{board}/labels</span> HTTP/1.1
+
+<span class="fortran">Content-<span class="hljs-keyword">Type</span>: multipart/<span class="hljs-keyword">form</span>-<span class="hljs-keyword">data</span>
+Accept: application/json
+
+</span></code></pre>
+<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> headers = {
+  <span class="hljs-string">'Content-Type'</span>:<span class="hljs-string">'multipart/form-data'</span>,
+  <span class="hljs-string">'Accept'</span>:<span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span>:<span class="hljs-string">'API_KEY'</span>
+
+};
+
+$.ajax({
+  <span class="hljs-attr">url</span>: <span class="hljs-string">'/api/boards/{board}/labels'</span>,
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'put'</span>,
+
+  <span class="hljs-attr">headers</span>: headers,
+  <span class="hljs-attr">success</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.stringify(data));
+  }
+})
+
+</code></pre>
+<pre class="highlight tab tab-javascript--nodejs"><code><span class="hljs-keyword">const</span> fetch = <span class="hljs-built_in">require</span>(<span class="hljs-string">'node-fetch'</span>);
+<span class="hljs-keyword">const</span> inputBody = <span class="hljs-string">'{
+  "label": "string"
+}'</span>;
+<span class="hljs-keyword">const</span> headers = {
+  <span class="hljs-string">'Content-Type'</span>:<span class="hljs-string">'multipart/form-data'</span>,
+  <span class="hljs-string">'Accept'</span>:<span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span>:<span class="hljs-string">'API_KEY'</span>
+
+};
+
+fetch(<span class="hljs-string">'/api/boards/{board}/labels'</span>,
+{
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'PUT'</span>,
+  <span class="hljs-attr">body</span>: inputBody,
+  <span class="hljs-attr">headers</span>: headers
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
+    <span class="hljs-keyword">return</span> res.json();
+}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">body</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(body);
+});
+
+</code></pre>
+<pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'rest-client'</span>
+<span class="hljs-keyword">require</span> <span class="hljs-string">'json'</span>
+
+headers = {
+  <span class="hljs-string">'Content-Type'</span> =&gt; <span class="hljs-string">'multipart/form-data'</span>,
+  <span class="hljs-string">'Accept'</span> =&gt; <span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span> =&gt; <span class="hljs-string">'API_KEY'</span>
+}
+
+result = RestClient.put <span class="hljs-string">'/api/boards/{board}/labels'</span>,
+  <span class="hljs-symbol">params:</span> {
+  }, <span class="hljs-symbol">headers:</span> headers
+
+p JSON.parse(result)
+
+</code></pre>
+<pre class="highlight tab tab-python"><code><span class="hljs-keyword">import</span> requests
+headers = {
+  <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'multipart/form-data'</span>,
+  <span class="hljs-string">'Accept'</span>: <span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span>: <span class="hljs-string">'API_KEY'</span>
+}
+
+r = requests.put(<span class="hljs-string">'/api/boards/{board}/labels'</span>, params={
+
+}, headers = headers)
+
+<span class="hljs-keyword">print</span> r.json()
+
+</code></pre>
+<pre class="highlight tab tab-java"><code>URL obj = <span class="hljs-keyword">new</span> URL(<span class="hljs-string">"/api/boards/{board}/labels"</span>);
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod(<span class="hljs-string">"PUT"</span>);
+<span class="hljs-keyword">int</span> responseCode = con.getResponseCode();
+BufferedReader in = <span class="hljs-keyword">new</span> BufferedReader(
+    <span class="hljs-keyword">new</span> InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = <span class="hljs-keyword">new</span> StringBuffer();
+<span class="hljs-keyword">while</span> ((inputLine = in.readLine()) != <span class="hljs-keyword">null</span>) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+</code></pre>
+<pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+       <span class="hljs-string">"bytes"</span>
+       <span class="hljs-string">"net/http"</span>
+)
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+
+    headers := <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>][]<span class="hljs-keyword">string</span>{
+        <span class="hljs-string">"Content-Type"</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">"multipart/form-data"</span>},
+        <span class="hljs-string">"Accept"</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">"application/json"</span>},
+        <span class="hljs-string">"Authorization"</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">"API_KEY"</span>},
+        
+    }
+
+    data := bytes.NewBuffer([]<span class="hljs-keyword">byte</span>{jsonReq})
+    req, err := http.NewRequest(<span class="hljs-string">"PUT"</span>, <span class="hljs-string">"/api/boards/{board}/labels"</span>, data)
+    req.Header = headers
+
+    client := &amp;http.Client{}
+    resp, err := client.Do(req)
+    <span class="hljs-comment">// ...</span>
+}
+
+</code></pre>
+<p><code>PUT /api/boards/{board}/labels</code></p>
+<p><em>Add a label to a board</em></p>
+<p>If the board doesn't have the name/color label, this function
+adds the label to the board.</p>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="highlight tab tab-yaml"><code><span class="hljs-attr">label:</span> <span class="hljs-string">string</span>
+
+</code></pre>
+<h3 id="add_board_label-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>board</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>the board</td>
+</tr>
+<tr>
+<td>body</td>
+<td>body</td>
+<td>object</td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» label</td>
+<td>body</td>
+<td>string</td>
+<td>true</td>
+<td>the label value</td>
+</tr>
+</tbody>
+</table>
+<h4 id="detailed-descriptions">Detailed descriptions</h4>
+<p><strong>board</strong>: the board</p>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code><span class="hljs-string">"string"</span>
+</code></pre>
+<h3 id="add_board_label-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>200 response</td>
+<td>string</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+UserSecurity
+</aside>
+<h2 id="set_board_member_permission">set_board_member_permission</h2>
+<p><a id="opIdset_board_member_permission"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code><span class="hljs-comment"># You can also use wget</span>
+curl -X POST /api/boards/{board}/members/{member} \
+  -H <span class="hljs-string">'Content-Type: multipart/form-data'</span> \
+  -H <span class="hljs-string">'Authorization: API_KEY'</span>
+
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-keyword">POST</span> <span class="hljs-string">/api/boards/{board}/members/{member}</span> HTTP/1.1
+
+<span class="fortran">Content-<span class="hljs-keyword">Type</span>: multipart/<span class="hljs-keyword">form</span>-<span class="hljs-keyword">data</span>
+
+</span></code></pre>
+<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> headers = {
+  <span class="hljs-string">'Content-Type'</span>:<span class="hljs-string">'multipart/form-data'</span>,
+  <span class="hljs-string">'Authorization'</span>:<span class="hljs-string">'API_KEY'</span>
+
+};
+
+$.ajax({
+  <span class="hljs-attr">url</span>: <span class="hljs-string">'/api/boards/{board}/members/{member}'</span>,
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'post'</span>,
+
+  <span class="hljs-attr">headers</span>: headers,
+  <span class="hljs-attr">success</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.stringify(data));
+  }
+})
+
+</code></pre>
+<pre class="highlight tab tab-javascript--nodejs"><code><span class="hljs-keyword">const</span> fetch = <span class="hljs-built_in">require</span>(<span class="hljs-string">'node-fetch'</span>);
+<span class="hljs-keyword">const</span> inputBody = <span class="hljs-string">'{
+  "isAdmin": true,
+  "isNoComments": true,
+  "isCommentOnly": true,
+  "isWorker": true
+}'</span>;
+<span class="hljs-keyword">const</span> headers = {
+  <span class="hljs-string">'Content-Type'</span>:<span class="hljs-string">'multipart/form-data'</span>,
+  <span class="hljs-string">'Authorization'</span>:<span class="hljs-string">'API_KEY'</span>
+
+};
+
+fetch(<span class="hljs-string">'/api/boards/{board}/members/{member}'</span>,
+{
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
+  <span class="hljs-attr">body</span>: inputBody,
+  <span class="hljs-attr">headers</span>: headers
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
+    <span class="hljs-keyword">return</span> res.json();
+}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">body</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(body);
+});
+
+</code></pre>
+<pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'rest-client'</span>
+<span class="hljs-keyword">require</span> <span class="hljs-string">'json'</span>
+
+headers = {
+  <span class="hljs-string">'Content-Type'</span> =&gt; <span class="hljs-string">'multipart/form-data'</span>,
+  <span class="hljs-string">'Authorization'</span> =&gt; <span class="hljs-string">'API_KEY'</span>
+}
+
+result = RestClient.post <span class="hljs-string">'/api/boards/{board}/members/{member}'</span>,
+  <span class="hljs-symbol">params:</span> {
+  }, <span class="hljs-symbol">headers:</span> headers
+
+p JSON.parse(result)
+
+</code></pre>
+<pre class="highlight tab tab-python"><code><span class="hljs-keyword">import</span> requests
+headers = {
+  <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'multipart/form-data'</span>,
+  <span class="hljs-string">'Authorization'</span>: <span class="hljs-string">'API_KEY'</span>
+}
+
+r = requests.post(<span class="hljs-string">'/api/boards/{board}/members/{member}'</span>, params={
+
+}, headers = headers)
+
+<span class="hljs-keyword">print</span> r.json()
+
+</code></pre>
+<pre class="highlight tab tab-java"><code>URL obj = <span class="hljs-keyword">new</span> URL(<span class="hljs-string">"/api/boards/{board}/members/{member}"</span>);
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod(<span class="hljs-string">"POST"</span>);
+<span class="hljs-keyword">int</span> responseCode = con.getResponseCode();
+BufferedReader in = <span class="hljs-keyword">new</span> BufferedReader(
+    <span class="hljs-keyword">new</span> InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = <span class="hljs-keyword">new</span> StringBuffer();
+<span class="hljs-keyword">while</span> ((inputLine = in.readLine()) != <span class="hljs-keyword">null</span>) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+</code></pre>
+<pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+       <span class="hljs-string">"bytes"</span>
+       <span class="hljs-string">"net/http"</span>
+)
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+
+    headers := <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>][]<span class="hljs-keyword">string</span>{
+        <span class="hljs-string">"Content-Type"</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">"multipart/form-data"</span>},
+        <span class="hljs-string">"Authorization"</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">"API_KEY"</span>},
+        
+    }
+
+    data := bytes.NewBuffer([]<span class="hljs-keyword">byte</span>{jsonReq})
+    req, err := http.NewRequest(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/api/boards/{board}/members/{member}"</span>, data)
+    req.Header = headers
+
+    client := &amp;http.Client{}
+    resp, err := client.Do(req)
+    <span class="hljs-comment">// ...</span>
+}
+
+</code></pre>
+<p><code>POST /api/boards/{board}/members/{member}</code></p>
+<p><em>Change the permission of a member of a board</em></p>
+<blockquote>
+<p>Body parameter</p>
+</blockquote>
+<pre class="highlight tab tab-yaml"><code><span class="hljs-attr">isAdmin:</span> <span class="hljs-literal">true</span>
+<span class="hljs-attr">isNoComments:</span> <span class="hljs-literal">true</span>
+<span class="hljs-attr">isCommentOnly:</span> <span class="hljs-literal">true</span>
+<span class="hljs-attr">isWorker:</span> <span class="hljs-literal">true</span>
+
+</code></pre>
+<h3 id="set_board_member_permission-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>board</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>the ID of the board that we are changing</td>
+</tr>
+<tr>
+<td>member</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>the ID of the user to change permissions</td>
+</tr>
+<tr>
+<td>body</td>
+<td>body</td>
+<td>object</td>
+<td>false</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» isAdmin</td>
+<td>body</td>
+<td>boolean</td>
+<td>true</td>
+<td>admin capability</td>
+</tr>
+<tr>
+<td>» isNoComments</td>
+<td>body</td>
+<td>boolean</td>
+<td>true</td>
+<td>NoComments capability</td>
+</tr>
+<tr>
+<td>» isCommentOnly</td>
+<td>body</td>
+<td>boolean</td>
+<td>true</td>
+<td>CommentsOnly capability</td>
+</tr>
+<tr>
+<td>» isWorker</td>
+<td>body</td>
+<td>boolean</td>
+<td>true</td>
+<td>Worker capability</td>
+</tr>
+</tbody>
+</table>
+<h4 id="detailed-descriptions">Detailed descriptions</h4>
+<p><strong>board</strong>: the ID of the board that we are changing</p>
+<p><strong>member</strong>: the ID of the user to change permissions</p>
+<h3 id="set_board_member_permission-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>200 response</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+UserSecurity
+</aside>
+<h2 id="get_boards_from_user">get_boards_from_user</h2>
+<p><a id="opIdget_boards_from_user"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code><span class="hljs-comment"># You can also use wget</span>
+curl -X GET /api/users/{user}/boards \
+  -H <span class="hljs-string">'Accept: application/json'</span> \
+  -H <span class="hljs-string">'Authorization: API_KEY'</span>
+
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-keyword">GET</span> <span class="hljs-string">/api/users/{user}/boards</span> HTTP/1.1
+
+<span class="http"><span class="hljs-attribute">Accept</span>: application/json
+
+<span class="undefined"></span></span></code></pre>
+<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> headers = {
+  <span class="hljs-string">'Accept'</span>:<span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span>:<span class="hljs-string">'API_KEY'</span>
+
+};
+
+$.ajax({
+  <span class="hljs-attr">url</span>: <span class="hljs-string">'/api/users/{user}/boards'</span>,
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'get'</span>,
+
+  <span class="hljs-attr">headers</span>: headers,
+  <span class="hljs-attr">success</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.stringify(data));
+  }
+})
+
+</code></pre>
+<pre class="highlight tab tab-javascript--nodejs"><code><span class="hljs-keyword">const</span> fetch = <span class="hljs-built_in">require</span>(<span class="hljs-string">'node-fetch'</span>);
+
+<span class="hljs-keyword">const</span> headers = {
+  <span class="hljs-string">'Accept'</span>:<span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span>:<span class="hljs-string">'API_KEY'</span>
+
+};
+
+fetch(<span class="hljs-string">'/api/users/{user}/boards'</span>,
+{
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'GET'</span>,
+
+  <span class="hljs-attr">headers</span>: headers
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
+    <span class="hljs-keyword">return</span> res.json();
+}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">body</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(body);
+});
+
+</code></pre>
+<pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'rest-client'</span>
+<span class="hljs-keyword">require</span> <span class="hljs-string">'json'</span>
+
+headers = {
+  <span class="hljs-string">'Accept'</span> =&gt; <span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span> =&gt; <span class="hljs-string">'API_KEY'</span>
+}
+
+result = RestClient.get <span class="hljs-string">'/api/users/{user}/boards'</span>,
+  <span class="hljs-symbol">params:</span> {
+  }, <span class="hljs-symbol">headers:</span> headers
+
+p JSON.parse(result)
+
+</code></pre>
+<pre class="highlight tab tab-python"><code><span class="hljs-keyword">import</span> requests
+headers = {
+  <span class="hljs-string">'Accept'</span>: <span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span>: <span class="hljs-string">'API_KEY'</span>
+}
+
+r = requests.get(<span class="hljs-string">'/api/users/{user}/boards'</span>, params={
+
+}, headers = headers)
+
+<span class="hljs-keyword">print</span> r.json()
+
+</code></pre>
+<pre class="highlight tab tab-java"><code>URL obj = <span class="hljs-keyword">new</span> URL(<span class="hljs-string">"/api/users/{user}/boards"</span>);
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod(<span class="hljs-string">"GET"</span>);
+<span class="hljs-keyword">int</span> responseCode = con.getResponseCode();
+BufferedReader in = <span class="hljs-keyword">new</span> BufferedReader(
+    <span class="hljs-keyword">new</span> InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = <span class="hljs-keyword">new</span> StringBuffer();
+<span class="hljs-keyword">while</span> ((inputLine = in.readLine()) != <span class="hljs-keyword">null</span>) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+</code></pre>
+<pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+       <span class="hljs-string">"bytes"</span>
+       <span class="hljs-string">"net/http"</span>
+)
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+
+    headers := <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>][]<span class="hljs-keyword">string</span>{
+        <span class="hljs-string">"Accept"</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">"application/json"</span>},
+        <span class="hljs-string">"Authorization"</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">"API_KEY"</span>},
+        
+    }
+
+    data := bytes.NewBuffer([]<span class="hljs-keyword">byte</span>{jsonReq})
+    req, err := http.NewRequest(<span class="hljs-string">"GET"</span>, <span class="hljs-string">"/api/users/{user}/boards"</span>, data)
+    req.Header = headers
+
+    client := &amp;http.Client{}
+    resp, err := client.Do(req)
+    <span class="hljs-comment">// ...</span>
+}
+
+</code></pre>
+<p><code>GET /api/users/{user}/boards</code></p>
+<p><em>Get all boards attached to a user</em></p>
+<h3 id="get_boards_from_user-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>user</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>the ID of the user to retrieve the data</td>
+</tr>
+</tbody>
+</table>
+<h4 id="detailed-descriptions">Detailed descriptions</h4>
+<p><strong>user</strong>: the ID of the user to retrieve the data</p>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>[
+  {
+    <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"string"</span>,
+    <span class="hljs-attr">"title"</span>: <span class="hljs-string">"string"</span>
+  }
+]
+</code></pre>
+<h3 id="get_boards_from_user-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>200 response</td>
+<td>Inline</td>
+</tr>
+</tbody>
+</table>
+<h3 id="get_boards_from_user-responseschema">Response Schema</h3>
+<p>Status Code <strong>200</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>» _id</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>» title</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+UserSecurity
 </aside>
 <h1 id="wekan-rest-api-checklists">Checklists</h1>
 <h2 id="get_all_checklists">get_all_checklists</h2>
@@ -7945,173 +9955,6 @@ System.out.println(response.toString());
 To perform this operation, you must be authenticated by means of one of the following methods:
 UserSecurity
 </aside>
-<h1 id="wekan-rest-api-boards">Boards</h1>
-<h2 id="exportjson">exportJson</h2>
-<p><a id="opIdexportJson"></a></p>
-<blockquote>
-<p>Code samples</p>
-</blockquote>
-<pre class="highlight tab tab-shell"><code><span class="hljs-comment"># You can also use wget</span>
-curl -X GET /api/boards/{board}/<span class="hljs-built_in">export</span> \
-  -H <span class="hljs-string">'Authorization: API_KEY'</span>
-
-</code></pre>
-<pre class="highlight tab tab-http"><code><span class="hljs-keyword">GET</span> <span class="hljs-string">/api/boards/{board}/export</span> HTTP/1.1
-
-<span class="undefined"></span></code></pre>
-<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> headers = {
-  <span class="hljs-string">'Authorization'</span>:<span class="hljs-string">'API_KEY'</span>
-
-};
-
-$.ajax({
-  <span class="hljs-attr">url</span>: <span class="hljs-string">'/api/boards/{board}/export'</span>,
-  <span class="hljs-attr">method</span>: <span class="hljs-string">'get'</span>,
-
-  <span class="hljs-attr">headers</span>: headers,
-  <span class="hljs-attr">success</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.stringify(data));
-  }
-})
-
-</code></pre>
-<pre class="highlight tab tab-javascript--nodejs"><code><span class="hljs-keyword">const</span> fetch = <span class="hljs-built_in">require</span>(<span class="hljs-string">'node-fetch'</span>);
-
-<span class="hljs-keyword">const</span> headers = {
-  <span class="hljs-string">'Authorization'</span>:<span class="hljs-string">'API_KEY'</span>
-
-};
-
-fetch(<span class="hljs-string">'/api/boards/{board}/export'</span>,
-{
-  <span class="hljs-attr">method</span>: <span class="hljs-string">'GET'</span>,
-
-  <span class="hljs-attr">headers</span>: headers
-})
-.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
-    <span class="hljs-keyword">return</span> res.json();
-}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">body</span>) </span>{
-    <span class="hljs-built_in">console</span>.log(body);
-});
-
-</code></pre>
-<pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'rest-client'</span>
-<span class="hljs-keyword">require</span> <span class="hljs-string">'json'</span>
-
-headers = {
-  <span class="hljs-string">'Authorization'</span> =&gt; <span class="hljs-string">'API_KEY'</span>
-}
-
-result = RestClient.get <span class="hljs-string">'/api/boards/{board}/export'</span>,
-  <span class="hljs-symbol">params:</span> {
-  }, <span class="hljs-symbol">headers:</span> headers
-
-p JSON.parse(result)
-
-</code></pre>
-<pre class="highlight tab tab-python"><code><span class="hljs-keyword">import</span> requests
-headers = {
-  <span class="hljs-string">'Authorization'</span>: <span class="hljs-string">'API_KEY'</span>
-}
-
-r = requests.get(<span class="hljs-string">'/api/boards/{board}/export'</span>, params={
-
-}, headers = headers)
-
-<span class="hljs-keyword">print</span> r.json()
-
-</code></pre>
-<pre class="highlight tab tab-java"><code>URL obj = <span class="hljs-keyword">new</span> URL(<span class="hljs-string">"/api/boards/{board}/export"</span>);
-HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-con.setRequestMethod(<span class="hljs-string">"GET"</span>);
-<span class="hljs-keyword">int</span> responseCode = con.getResponseCode();
-BufferedReader in = <span class="hljs-keyword">new</span> BufferedReader(
-    <span class="hljs-keyword">new</span> InputStreamReader(con.getInputStream()));
-String inputLine;
-StringBuffer response = <span class="hljs-keyword">new</span> StringBuffer();
-<span class="hljs-keyword">while</span> ((inputLine = in.readLine()) != <span class="hljs-keyword">null</span>) {
-    response.append(inputLine);
-}
-in.close();
-System.out.println(response.toString());
-
-</code></pre>
-<pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
-
-<span class="hljs-keyword">import</span> (
-       <span class="hljs-string">"bytes"</span>
-       <span class="hljs-string">"net/http"</span>
-)
-
-<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
-
-    headers := <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>][]<span class="hljs-keyword">string</span>{
-        <span class="hljs-string">"Authorization"</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">"API_KEY"</span>},
-        
-    }
-
-    data := bytes.NewBuffer([]<span class="hljs-keyword">byte</span>{jsonReq})
-    req, err := http.NewRequest(<span class="hljs-string">"GET"</span>, <span class="hljs-string">"/api/boards/{board}/export"</span>, data)
-    req.Header = headers
-
-    client := &amp;http.Client{}
-    resp, err := client.Do(req)
-    <span class="hljs-comment">// ...</span>
-}
-
-</code></pre>
-<p><code>GET /api/boards/{board}/export</code></p>
-<p><em>This route is used to export the board to a json file format.</em></p>
-<p>If user is already logged-in, pass loginToken as param
-&quot;authToken&quot;: '/api/boards/:boardId/export?authToken=:token'</p>
-<p>See <a href="https://blog.kayla.com.au/server-side-route-authentication-in-meteor/">https://blog.kayla.com.au/server-side-route-authentication-in-meteor/</a>
-for detailed explanations</p>
-<h3 id="exportjson-parameters">Parameters</h3>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>In</th>
-<th>Type</th>
-<th>Required</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>board</td>
-<td>path</td>
-<td>string</td>
-<td>true</td>
-<td>the ID of the board we are exporting</td>
-</tr>
-</tbody>
-</table>
-<h4 id="detailed-descriptions">Detailed descriptions</h4>
-<p><strong>board</strong>: the ID of the board we are exporting</p>
-<h3 id="exportjson-responses">Responses</h3>
-<table>
-<thead>
-<tr>
-<th>Status</th>
-<th>Meaning</th>
-<th>Description</th>
-<th>Schema</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>200</td>
-<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
-<td>200 response</td>
-<td>None</td>
-</tr>
-</tbody>
-</table>
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-UserSecurity
-</aside>
 <h1 id="wekan-rest-api-integrations">Integrations</h1>
 <h2 id="get_all_integrations">get_all_integrations</h2>
 <p><a id="opIdget_all_integrations"></a></p>
@@ -13293,6 +15136,676 @@ To perform this operation, you must be authenticated by means of one of the foll
 UserSecurity
 </aside>
 <h1 id="schemas">Schemas</h1>
+<h2 id="tocsboards">Boards</h2>
+<p><a id="schemaboards"></a></p>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"title"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"slug"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"archived"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"createdAt"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"modifiedAt"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"stars"</span>: <span class="hljs-number">0</span>,
+  <span class="hljs-attr">"labels"</span>: [
+    {
+      <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"string"</span>,
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"string"</span>,
+      <span class="hljs-attr">"color"</span>: <span class="hljs-string">"green"</span>
+    }
+  ],
+  <span class="hljs-attr">"members"</span>: [
+    {
+      <span class="hljs-attr">"userId"</span>: <span class="hljs-string">"string"</span>,
+      <span class="hljs-attr">"isAdmin"</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">"isActive"</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">"isNoComments"</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">"isCommentOnly"</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-attr">"isWorker"</span>: <span class="hljs-literal">true</span>
+    }
+  ],
+  <span class="hljs-attr">"permission"</span>: <span class="hljs-string">"public"</span>,
+  <span class="hljs-attr">"color"</span>: <span class="hljs-string">"belize"</span>,
+  <span class="hljs-attr">"description"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"subtasksDefaultBoardId"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"subtasksDefaultListId"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"dateSettingsDefaultBoardId"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"dateSettingsDefaultListId"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"allowsSubtasks"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsAttachments"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsChecklists"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsComments"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsDescriptionTitle"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsDescriptionText"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsActivities"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsLabels"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsAssignee"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsMembers"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsRequestedBy"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsAssignedBy"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsReceivedDate"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsStartDate"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsEndDate"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"allowsDueDate"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"presentParentTask"</span>: <span class="hljs-string">"prefix-with-full-path"</span>,
+  <span class="hljs-attr">"startAt"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"dueAt"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"endAt"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"spentTime"</span>: <span class="hljs-number">0</span>,
+  <span class="hljs-attr">"isOvertime"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"sort"</span>: <span class="hljs-number">0</span>
+}
+
+</code></pre>
+<p><em>This is a Board.</em></p>
+<h3 id="properties">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>title</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The title of the board</td>
+</tr>
+<tr>
+<td>slug</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The title slugified.</td>
+</tr>
+<tr>
+<td>archived</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Is the board archived?</td>
+</tr>
+<tr>
+<td>createdAt</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Creation time of the board</td>
+</tr>
+<tr>
+<td>modifiedAt</td>
+<td>string|null</td>
+<td>false</td>
+<td>none</td>
+<td>Last modification time of the board</td>
+</tr>
+<tr>
+<td>stars</td>
+<td>number</td>
+<td>true</td>
+<td>none</td>
+<td>How many stars the board has</td>
+</tr>
+<tr>
+<td>labels</td>
+<td>[<a href="#schemaboardslabels">BoardsLabels</a>]</td>
+<td>true</td>
+<td>none</td>
+<td>List of labels attached to a board</td>
+</tr>
+<tr>
+<td>members</td>
+<td>[<a href="#schemaboardsmembers">BoardsMembers</a>]</td>
+<td>true</td>
+<td>none</td>
+<td>List of members of a board</td>
+</tr>
+<tr>
+<td>permission</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>visibility of the board</td>
+</tr>
+<tr>
+<td>color</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The color of the board.</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string|null</td>
+<td>false</td>
+<td>none</td>
+<td>The description of the board</td>
+</tr>
+<tr>
+<td>subtasksDefaultBoardId</td>
+<td>string|null</td>
+<td>false</td>
+<td>none</td>
+<td>The default board ID assigned to subtasks.</td>
+</tr>
+<tr>
+<td>subtasksDefaultListId</td>
+<td>string|null</td>
+<td>false</td>
+<td>none</td>
+<td>The default List ID assigned to subtasks.</td>
+</tr>
+<tr>
+<td>dateSettingsDefaultBoardId</td>
+<td>string|null</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>dateSettingsDefaultListId</td>
+<td>string|null</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>allowsSubtasks</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allows subtasks?</td>
+</tr>
+<tr>
+<td>allowsAttachments</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allows attachments?</td>
+</tr>
+<tr>
+<td>allowsChecklists</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allows checklists?</td>
+</tr>
+<tr>
+<td>allowsComments</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allows comments?</td>
+</tr>
+<tr>
+<td>allowsDescriptionTitle</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allows description title?</td>
+</tr>
+<tr>
+<td>allowsDescriptionText</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allows description text?</td>
+</tr>
+<tr>
+<td>allowsActivities</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allows comments?</td>
+</tr>
+<tr>
+<td>allowsLabels</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allows labels?</td>
+</tr>
+<tr>
+<td>allowsAssignee</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allows assignee?</td>
+</tr>
+<tr>
+<td>allowsMembers</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allows members?</td>
+</tr>
+<tr>
+<td>allowsRequestedBy</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allows requested by?</td>
+</tr>
+<tr>
+<td>allowsAssignedBy</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allows requested by?</td>
+</tr>
+<tr>
+<td>allowsReceivedDate</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allows received date?</td>
+</tr>
+<tr>
+<td>allowsStartDate</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allows start date?</td>
+</tr>
+<tr>
+<td>allowsEndDate</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allows end date?</td>
+</tr>
+<tr>
+<td>allowsDueDate</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Does the board allows due date?</td>
+</tr>
+<tr>
+<td>presentParentTask</td>
+<td>string|null</td>
+<td>false</td>
+<td>none</td>
+<td>Controls how to present the parent task:  - <code>prefix-with-full-path</code>: add a prefix with the full path - <code>prefix-with-parent</code>: add a prefisx with the parent name - <code>subtext-with-full-path</code>: add a subtext with the full path - <code>subtext-with-parent</code>: add a subtext with the parent name - <code>no-parent</code>: does not show the parent at all</td>
+</tr>
+<tr>
+<td>startAt</td>
+<td>string|null</td>
+<td>false</td>
+<td>none</td>
+<td>Starting date of the board.</td>
+</tr>
+<tr>
+<td>dueAt</td>
+<td>string|null</td>
+<td>false</td>
+<td>none</td>
+<td>Due date of the board.</td>
+</tr>
+<tr>
+<td>endAt</td>
+<td>string|null</td>
+<td>false</td>
+<td>none</td>
+<td>End date of the board.</td>
+</tr>
+<tr>
+<td>spentTime</td>
+<td>number|null</td>
+<td>false</td>
+<td>none</td>
+<td>Time spent in the board.</td>
+</tr>
+<tr>
+<td>isOvertime</td>
+<td>boolean|null</td>
+<td>false</td>
+<td>none</td>
+<td>Is the board overtimed?</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The type of board</td>
+</tr>
+<tr>
+<td>sort</td>
+<td>number</td>
+<td>true</td>
+<td>none</td>
+<td>Sort value</td>
+</tr>
+</tbody>
+</table>
+<h4 id="enumerated-values">Enumerated Values</h4>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>permission</td>
+<td>public</td>
+</tr>
+<tr>
+<td>permission</td>
+<td>private</td>
+</tr>
+<tr>
+<td>color</td>
+<td>belize</td>
+</tr>
+<tr>
+<td>color</td>
+<td>nephritis</td>
+</tr>
+<tr>
+<td>color</td>
+<td>pomegranate</td>
+</tr>
+<tr>
+<td>color</td>
+<td>pumpkin</td>
+</tr>
+<tr>
+<td>color</td>
+<td>wisteria</td>
+</tr>
+<tr>
+<td>color</td>
+<td>moderatepink</td>
+</tr>
+<tr>
+<td>color</td>
+<td>strongcyan</td>
+</tr>
+<tr>
+<td>color</td>
+<td>limegreen</td>
+</tr>
+<tr>
+<td>color</td>
+<td>midnight</td>
+</tr>
+<tr>
+<td>color</td>
+<td>dark</td>
+</tr>
+<tr>
+<td>color</td>
+<td>relax</td>
+</tr>
+<tr>
+<td>color</td>
+<td>corteza</td>
+</tr>
+<tr>
+<td>color</td>
+<td>clearblue</td>
+</tr>
+<tr>
+<td>color</td>
+<td>natural</td>
+</tr>
+<tr>
+<td>color</td>
+<td>modern</td>
+</tr>
+<tr>
+<td>color</td>
+<td>moderndark</td>
+</tr>
+<tr>
+<td>presentParentTask</td>
+<td>prefix-with-full-path</td>
+</tr>
+<tr>
+<td>presentParentTask</td>
+<td>prefix-with-parent</td>
+</tr>
+<tr>
+<td>presentParentTask</td>
+<td>subtext-with-full-path</td>
+</tr>
+<tr>
+<td>presentParentTask</td>
+<td>subtext-with-parent</td>
+</tr>
+<tr>
+<td>presentParentTask</td>
+<td>no-parent</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocsboardslabels">BoardsLabels</h2>
+<p><a id="schemaboardslabels"></a></p>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"color"</span>: <span class="hljs-string">"green"</span>
+}
+
+</code></pre>
+<h3 id="properties">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>_id</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>Unique id of a label</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>Name of a label</td>
+</tr>
+<tr>
+<td>color</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>color of a label.  Can be amongst <code>green</code>, <code>yellow</code>, <code>orange</code>, <code>red</code>, <code>purple</code>, <code>blue</code>, <code>sky</code>, <code>lime</code>, <code>pink</code>, <code>black</code>, <code>silver</code>, <code>peachpuff</code>, <code>crimson</code>, <code>plum</code>, <code>darkgreen</code>, <code>slateblue</code>, <code>magenta</code>, <code>gold</code>, <code>navy</code>, <code>gray</code>, <code>saddlebrown</code>, <code>paleturquoise</code>, <code>mistyrose</code>, <code>indigo</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="enumerated-values">Enumerated Values</h4>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>color</td>
+<td>green</td>
+</tr>
+<tr>
+<td>color</td>
+<td>yellow</td>
+</tr>
+<tr>
+<td>color</td>
+<td>orange</td>
+</tr>
+<tr>
+<td>color</td>
+<td>red</td>
+</tr>
+<tr>
+<td>color</td>
+<td>purple</td>
+</tr>
+<tr>
+<td>color</td>
+<td>blue</td>
+</tr>
+<tr>
+<td>color</td>
+<td>sky</td>
+</tr>
+<tr>
+<td>color</td>
+<td>lime</td>
+</tr>
+<tr>
+<td>color</td>
+<td>pink</td>
+</tr>
+<tr>
+<td>color</td>
+<td>black</td>
+</tr>
+<tr>
+<td>color</td>
+<td>silver</td>
+</tr>
+<tr>
+<td>color</td>
+<td>peachpuff</td>
+</tr>
+<tr>
+<td>color</td>
+<td>crimson</td>
+</tr>
+<tr>
+<td>color</td>
+<td>plum</td>
+</tr>
+<tr>
+<td>color</td>
+<td>darkgreen</td>
+</tr>
+<tr>
+<td>color</td>
+<td>slateblue</td>
+</tr>
+<tr>
+<td>color</td>
+<td>magenta</td>
+</tr>
+<tr>
+<td>color</td>
+<td>gold</td>
+</tr>
+<tr>
+<td>color</td>
+<td>navy</td>
+</tr>
+<tr>
+<td>color</td>
+<td>gray</td>
+</tr>
+<tr>
+<td>color</td>
+<td>saddlebrown</td>
+</tr>
+<tr>
+<td>color</td>
+<td>paleturquoise</td>
+</tr>
+<tr>
+<td>color</td>
+<td>mistyrose</td>
+</tr>
+<tr>
+<td>color</td>
+<td>indigo</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocsboardsmembers">BoardsMembers</h2>
+<p><a id="schemaboardsmembers"></a></p>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"userId"</span>: <span class="hljs-string">"string"</span>,
+  <span class="hljs-attr">"isAdmin"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"isActive"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"isNoComments"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"isCommentOnly"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"isWorker"</span>: <span class="hljs-literal">true</span>
+}
+
+</code></pre>
+<h3 id="properties">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>userId</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The uniq ID of the member</td>
+</tr>
+<tr>
+<td>isAdmin</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Is the member an admin of the board?</td>
+</tr>
+<tr>
+<td>isActive</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>Is the member active?</td>
+</tr>
+<tr>
+<td>isNoComments</td>
+<td>boolean</td>
+<td>false</td>
+<td>none</td>
+<td>Is the member not allowed to make comments</td>
+</tr>
+<tr>
+<td>isCommentOnly</td>
+<td>boolean</td>
+<td>false</td>
+<td>none</td>
+<td>Is the member only allowed to comment on the board</td>
+</tr>
+<tr>
+<td>isWorker</td>
+<td>boolean</td>
+<td>false</td>
+<td>none</td>
+<td>Is the member only allowed to move card, assign himself to card and comment</td>
+</tr>
+</tbody>
+</table>
 <h2 id="tocscardcomments">CardComments</h2>
 <p><a id="schemacardcomments"></a></p>
 <pre class="highlight tab tab-json"><code>{
