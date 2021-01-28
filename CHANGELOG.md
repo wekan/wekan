@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Try to fix quotes in Global Search](https://github.com/wekan/wekan/commit/0ff215f78f03c81d153dfc0ffa08fac94b542ec2).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.88 2021-01-28 Wekan release
 
 This release adds the following new features:
