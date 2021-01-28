@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v4.89 2021-01-28 Wekan release
 
 This release fixes the following bugs:
 
