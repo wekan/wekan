@@ -19,7 +19,7 @@ export default class LDAP {
       idle_timeout                       : this.constructor.settings_get('LDAP_IDLE_TIMEOUT'),
       encryption                         : this.constructor.settings_get('LDAP_ENCRYPTION'),
       ca_cert                            : this.constructor.settings_get('LDAP_CA_CERT'),
-      reject_unauthorized                : this.constructor.settings_get('LDAP_REJECT_UNAUTHORIZED') || true,
+      reject_unauthorized                : this.constructor.settings_get('LDAP_REJECT_UNAUTHORIZED') !== undefined ? this.constructor.settings_get('LDAP_REJECT_UNAUTHORIZED') : true,
       Authentication                     : this.constructor.settings_get('LDAP_AUTHENTIFICATION'),
       Authentication_UserDN              : this.constructor.settings_get('LDAP_AUTHENTIFICATION_USERDN'),
       Authentication_Password            : this.constructor.settings_get('LDAP_AUTHENTIFICATION_PASSWORD'),
