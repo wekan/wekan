@@ -258,8 +258,9 @@ export class WekanCreator {
     // now add other members
     if (boardToImport.members) {
       boardToImport.members.forEach(wekanMember => {
-        // do we already have it in our list?
+        // is it defined and do we already have it in our list?
         if (
+          wekanMember.wekanId &&
           !boardToCreate.members.some(
             member => member.wekanId === wekanMember.wekanId,
           )
