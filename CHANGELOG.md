@@ -11,6 +11,9 @@ and adds the following improvements:
   Thanks to mfilser.
 - [Global Search Update](https://github.com/wekan/wekan/pull/3492).
   Thanks to jrsupplee.
+- [Added many more fields to Export to Excel, and better formatting. Does not yet have all
+  fields](https://github.com/wekan/wekan/commit/37372466ccd15c7d5d4a55510b349fac0953c425).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
