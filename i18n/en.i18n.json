@@ -371,7 +371,7 @@
   "import-board": "import board",
   "import-board-c": "Import board",
   "import-board-title-trello": "Import board from Trello",
-  "import-board-title-wekan": "Import board from previous export",
+  "import-board-title-wekan": "Import board from Wekan JSON",
   "import-board-title-csv": "Import board from CSV/TSV",
   "from-trello": "From Trello",
   "from-wekan": "From previous export",
