@@ -460,8 +460,8 @@ services:
       #
       # The search user DN - You need quotes when you have spaces in parameters
       # 2 examples:
-      #- LDAP_AUTHENTIFICATION_USERDN="CN=ldap admin,CN=users,DC=domainmatter,DC=lan"
-      #- LDAP_AUTHENTIFICATION_USERDN="CN=wekan_adm,OU=serviceaccounts,OU=admin,OU=prod,DC=mydomain,DC=com"
+      #- LDAP_AUTHENTIFICATION_USERDN=CN=ldap admin,CN=users,DC=domainmatter,DC=lan
+      #- LDAP_AUTHENTIFICATION_USERDN=CN=wekan_adm,OU=serviceaccounts,OU=admin,OU=prod,DC=mydomain,DC=com
       #
       # The password for the search user
       #- LDAP_AUTHENTIFICATION_PASSWORD=pwd
@@ -491,10 +491,10 @@ services:
       #- LDAP_REJECT_UNAUTHORIZED=false
       #
       # Option to login to the LDAP server with the user's own username and password, instead of an administrator key. Default: false (use administrator key).
-      #- LDAP_USER_AUTHENTICATION="true"
+      #- LDAP_USER_AUTHENTICATION=true
       #
       # Which field is used to find the user for the user authentication. Default: uid.
-      #- LDAP_USER_AUTHENTICATION_FIELD="uid"
+      #- LDAP_USER_AUTHENTICATION_FIELD=uid
       #
       # Optional extra LDAP filters. Don't forget the outmost enclosing parentheses if needed
       #- LDAP_USER_SEARCH_FILTER=
@@ -559,7 +559,7 @@ services:
       #
       #- LDAP_SYNC_USER_DATA_FIELDMAP={"cn":"name", "mail":"email"}
       #
-      #- LDAP_SYNC_GROUP_ROLES=''
+      #- LDAP_SYNC_GROUP_ROLES=
       #
       # The default domain of the ldap it is used to create email if the field is not map correctly with the LDAP_SYNC_USER_DATA_FIELDMAP
       # example :
