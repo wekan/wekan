@@ -21,6 +21,8 @@ and fixes the following bugs:
   Thanks to sato-64bit.
 - [Removed quotes from docker-compose.yml settings](https://github.com/wekan/wekan/commit/b1cdcda8ed78d48505a8da5180d7aed46a24fd64).
   Thanks to XL-Reaper, Vinc89 and xet7.
+- [Repair LDAP_REJECT_UNAUTHORIZED=false CVE-2021-3309](https://github.com/wekan/wekan/pull/3497).
+  Thanks to robert-scheck.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
