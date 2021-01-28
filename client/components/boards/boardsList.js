@@ -129,7 +129,7 @@ BlazeComponent.extendComponent({
             {
               sort: Boards.find({ archived: false }).count(),
               type: 'board',
-              title: Boards.findOne(this.currentData()._id).copyTitle(),
+              title: Boards.findOne(this.currentData()._id).title,
             },
             (err, res) => {
               if (err) {

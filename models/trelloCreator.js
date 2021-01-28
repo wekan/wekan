@@ -177,7 +177,7 @@ export class TrelloCreator {
       permission: this.getPermission(trelloBoard.prefs.permissionLevel),
       slug: getSlug(trelloBoard.name) || 'board',
       stars: 0,
-      title: trelloBoard.name,
+      title: Boards.uniqueTitle(trelloBoard.name),
     };
     // now add other members
     if (trelloBoard.memberships) {
