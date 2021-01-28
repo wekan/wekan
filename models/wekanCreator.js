@@ -253,7 +253,7 @@ export class WekanCreator {
       permission: boardToImport.permission,
       slug: getSlug(boardToImport.title) || 'board',
       stars: 0,
-      title: boardToImport.title,
+      title: Boards.uniqueTitle(boardToImport.title),
     };
     // now add other members
     if (boardToImport.members) {
