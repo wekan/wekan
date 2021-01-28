@@ -1,14 +1,12 @@
-Meteor.publish('user-miniprofile', function(userId) {
-  check(userId, String);
+Meteor.publish('user-miniprofile', function(usernames) {
+  check(usernames, Array);
 
-  return Users.find(userId, {
-    fields: {
-      username: 1,
-      'profile.fullname': 1,
-      'profile.avatarUrl': 1,
-      'profile.initials': 1,
-    },
-  });
+  // eslint-disable-next-line no-console
+  // console.log('usernames:', usernames);
+  return Users.find(
+    { username: { $in: usernames } },
+    { fields: Users.safeFields },
+  );
 });
 
 Meteor.publish('user-admin', function() {

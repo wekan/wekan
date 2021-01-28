@@ -150,14 +150,39 @@ BlazeComponent.extendComponent({
 
 BlazeComponent.extendComponent({
   onCreated() {
+    this.usersLoaded = new ReactiveVar(false);
+
     this.autorun(() => {
-      this.parentComponent()
-        .membersToMap.get()
-        .forEach(({ wekanId }) => {
-          if (wekanId) {
-            this.subscribe('user-miniprofile', wekanId);
+      const handle = this.subscribe(
+        'user-miniprofile',
+        this.members().map(member => {
+          return member.username;
+        }),
+      );
+      Tracker.nonreactive(() => {
+        Tracker.autorun(() => {
+          if (
+            handle.ready() &&
+            !this.usersLoaded.get() &&
+            this.members().length
+          ) {
+            this._refreshMembers(
+              this.members().map(member => {
+                if (!member.wekanId) {
+                  const user = Users.findOne({ username: member.username });
+                  if (user) {
+                    // eslint-disable-next-line no-console
+                    console.log('found username:', user.username);
+                    member.wekanId = user._id;
+                  }
+                }
+                return member;
+              }),
+            );
           }
+          this.usersLoaded.set(handle.ready());
         });
+      });
     });
   },
 

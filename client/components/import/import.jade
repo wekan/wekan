@@ -13,38 +13,41 @@ template(name="import")
 template(name="importTextarea")
   form
     p: label(for='import-textarea') {{_ instruction}} {{_ 'import-board-instruction-about-errors'}}
-    textarea.js-import-json(placeholder="{{_ importPlaceHolder}}" autofocus)
+    textarea.js-import-json(id='import-textarea' placeholder="{{_ importPlaceHolder}}" autofocus)
       | {{jsonText}}
     input.primary.wide(type="submit" value="{{_ 'import'}}")
 
 template(name="importMapMembers")
   h2 {{_ 'import-map-members'}}
-  .map-members
-    p {{_ 'import-members-map'}}
-    .mapping-list
-      each members
-        a.mapping-item.js-select-member(class="{{#if wekanId}}filled{{/if}}")
-          .profile-source
-            .full-name= fullName
-            .username
-              | ({{username}})
-          .wekan
-            if wekanId
-              +userAvatar(userId=wekanId)
-            else
-              a.member.add-member
-                i.fa.fa-plus
-      //-
-        Due to the way the flewbox layout is working, we need to set some
-        invisible items so that the last row items have a consistent width.
-        See http://jsfiddle.net/Ln4h3c4n/ for an minimal example of the issue.
-      .mapping-item.ghost-item
-      .mapping-item.ghost-item
-      .mapping-item.ghost-item
-      .mapping-item.ghost-item
-      .mapping-item.ghost-item
-    form
-      input.primary.wide(type="submit" value="{{_ 'done'}}")
+  if usersLoaded.get
+    .map-members
+      p {{_ 'import-members-map'}}
+      .mapping-list
+        each members
+          a.mapping-item.js-select-member(class="{{#if wekanId}}filled{{/if}}")
+            .profile-source
+              .full-name= fullName
+              .username
+                | ({{username}})
+            .wekan
+              if wekanId
+                +userAvatar(userId=wekanId)
+              else
+                a.member.add-member
+                  i.fa.fa-plus
+        //-
+          Due to the way the flewbox layout is working, we need to set some
+          invisible items so that the last row items have a consistent width.
+          See http://jsfiddle.net/Ln4h3c4n/ for an minimal example of the issue.
+        .mapping-item.ghost-item
+        .mapping-item.ghost-item
+        .mapping-item.ghost-item
+        .mapping-item.ghost-item
+        .mapping-item.ghost-item
+      form
+        input.primary.wide(type="submit" value="{{_ 'done'}}")
+  else
+    +spinner
 
 template(name="importMapMembersAddPopup")
   .select-member
