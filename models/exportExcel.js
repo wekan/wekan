@@ -24,7 +24,6 @@ if (Meteor.isServer) {
   Picker.route('/api/boards/:boardId/exportExcel', function(params, req, res) {
     const boardId = params.boardId;
     let user = null;
-    //console.log('Excel');
 
     const loginToken = params.query.authToken;
     if (loginToken) {
@@ -163,6 +162,11 @@ export class ExporterExcel {
           users[memberId] = true;
         });
       }
+      if (card.assignees) {
+        card.assignees.forEach(memberId => {
+          users[memberId] = true;
+        });
+      }
     });
     result.comments.forEach(comment => {
       users[comment.userId] = true;
@@ -184,7 +188,6 @@ export class ExporterExcel {
       fields: {
         _id: 1,
         username: 1,
-        'profile.fullname': 1,
         'profile.initials': 1,
         'profile.avatarUrl': 1,
       },
@@ -199,7 +202,6 @@ export class ExporterExcel {
         return user;
       });
 
-    const jdata = result;
     //init exceljs workbook
     const Excel = require('exceljs');
     const workbook = new Excel.Workbook();
@@ -208,9 +210,9 @@ export class ExporterExcel {
     workbook.created = new Date();
     workbook.modified = new Date();
     workbook.lastPrinted = new Date();
-    const filename = `${jdata.title}.xlsx`;
+    const filename = `${result.title}.xlsx`;
     //init worksheet
-    const worksheet = workbook.addWorksheet(jdata.title, {
+    const worksheet = workbook.addWorksheet(result.title, {
       properties: {
         tabColor: {
           argb: 'FFC0000',
@@ -222,26 +224,26 @@ export class ExporterExcel {
       },
     });
     //get worksheet
-    const ws = workbook.getWorksheet(jdata.title);
+    const ws = workbook.getWorksheet(result.title);
     ws.properties.defaultRowHeight = 20;
     //init columns
     //Excel font. Western: Arial. zh-CN: 宋体
     ws.columns = [
       {
         key: 'a',
-        width: 7,
+        width: 14,
       },
       {
         key: 'b',
-        width: 16,
+        width: 20,
       },
       {
         key: 'c',
-        width: 7,
+        width: 20,
       },
       {
         key: 'd',
-        width: 14,
+        width: 20,
         style: {
           font: {
             name: TAPi18n.__('excel-font'),
@@ -252,7 +254,7 @@ export class ExporterExcel {
       },
       {
         key: 'e',
-        width: 14,
+        width: 20,
         style: {
           font: {
             name: TAPi18n.__('excel-font'),
@@ -263,21 +265,88 @@ export class ExporterExcel {
       },
       {
         key: 'f',
-        width: 10,
+        width: 20,
+        style: {
+          font: {
+            name: TAPi18n.__('excel-font'),
+            size: '10',
+          },
+          numFmt: 'yyyy/mm/dd hh:mm:ss',
+        },
       },
       {
         key: 'g',
-        width: 10,
+        width: 20,
+        style: {
+          font: {
+            name: TAPi18n.__('excel-font'),
+            size: '10',
+          },
+          numFmt: 'yyyy/mm/dd hh:mm:ss',
+        },
       },
       {
         key: 'h',
-        width: 18,
+        width: 20,
+        style: {
+          font: {
+            name: TAPi18n.__('excel-font'),
+            size: '10',
+          },
+          numFmt: 'yyyy/mm/dd hh:mm:ss',
+        },
+      },
+      {
+        key: 'i',
+        width: 20,
+        style: {
+          font: {
+            name: TAPi18n.__('excel-font'),
+            size: '10',
+          },
+          numFmt: 'yyyy/mm/dd hh:mm:ss',
+        },
+      },
+      {
+        key: 'j',
+        width: 20,
+        style: {
+          font: {
+            name: TAPi18n.__('excel-font'),
+            size: '10',
+          },
+          numFmt: 'yyyy/mm/dd hh:mm:ss',
+        },
+      },
+      {
+        key: 'k',
+        width: 20,
+      },
+      {
+        key: 'l',
+        width: 20,
+      },
+      {
+        key: 'm',
+        width: 20,
+      },
+      {
+        key: 'n',
+        width: 20,
+      },
+      {
+        key: 'o',
+        width: 20,
+      },
+      {
+        key: 'p',
+        width: 20,
       },
     ];
 
     //add title line
     ws.mergeCells('A1:H1');
-    ws.getCell('A1').value = jdata.title;
+    ws.getCell('A1').value = result.title;
     ws.getCell('A1').style = {
       font: {
         name: TAPi18n.__('excel-font'),
@@ -289,38 +358,54 @@ export class ExporterExcel {
       horizontal: 'center',
     };
     ws.getRow(1).height = 40;
-    //get member info
+    //get member and assignee info
     let jmem = '';
+    let jassig = '';
     const jmeml = {};
-    for (const i in jdata.users) {
-      jmem = `${jmem + jdata.users[i].profile.fullname},`;
-      jmeml[jdata.users[i]._id] = jdata.users[i].profile.fullname;
+    const jassigl = {};
+    for (const i in result.users) {
+      jmem = `${jmem + result.users[i].username},`;
+      jmeml[result.users[i]._id] = result.users[i].username;
     }
     jmem = jmem.substr(0, jmem.length - 1);
+    for (const ia in result.users) {
+      jassig = `${jassig + result.users[ia].username},`;
+      jassigl[result.users[ia]._id] = result.users[ia].username;
+    }
+    jassig = jassig.substr(0, jassig.length - 1);
     //get kanban list info
     const jlist = {};
-    for (const klist in jdata.lists) {
-      jlist[jdata.lists[klist]._id] = jdata.lists[klist].title;
+    for (const klist in result.lists) {
+      jlist[result.lists[klist]._id] = result.lists[klist].title;
     }
     //get kanban label info
     const jlabel = {};
-    for (const klabel in jdata.labels) {
-      jlabel[jdata.labels[klabel]._id] = jdata.labels[klabel].name;
+    for (const klabel in result.labels) {
+      jlabel[result.labels[klabel]._id] = result.labels[klabel].name;
     }
     //add data +8 hours
-    function add8hours(jdate) {
-      const curdate = new Date(jdate);
-      return new Date(curdate.setHours(curdate.getHours() + 8));
+    function addTZhours(jdate) {
+      let curdate = new Date(jdate);
+      let checkCorrectDate = moment(curdate);
+      if (checkCorrectDate.isValid()) {
+        return curdate;
+      } else {
+        return ' ';
+      }
+      ////Do not add 8 hours to GMT. Use GMT instead.
+      ////Could not yet figure out how to get localtime.
+      //return new Date(curdate.setHours(curdate.getHours() + 8));
+      //return curdate;
     }
     //add blank row
-    ws.addRow().values = ['', '', '', '', '', '', '', ''];
+    ws.addRow().values = ['', '', '', '', '', ''];
     //add kanban info
     ws.addRow().values = [
       TAPi18n.__('createdAt'),
-      add8hours(jdata.createdAt),
+      addTZhours(result.createdAt),
       TAPi18n.__('modifiedAt'),
-      add8hours(jdata.modifiedAt),
-      TAPi18n.__('r-member'),
+      addTZhours(result.modifiedAt),
+      TAPi18n.__('members'),
       jmem,
     ];
     ws.getRow(3).font = {
@@ -328,6 +413,7 @@ export class ExporterExcel {
       size: 10,
       bold: true,
     };
+    ws.mergeCells('F3:P3');
     ws.getCell('B3').style = {
       font: {
         name: TAPi18n.__('excel-font'),
@@ -344,12 +430,19 @@ export class ExporterExcel {
         wrapText: true,
       };
     }
+    function cellLeft(cellno) {
+      ws.getCell(cellno).alignment = {
+        vertical: 'middle',
+        horizontal: 'left',
+        wrapText: true,
+      };
+    }
     cellCenter('A3');
     cellCenter('B3');
     cellCenter('C3');
     cellCenter('D3');
     cellCenter('E3');
-    cellCenter('F3');
+    cellLeft('F3');
     ws.getRow(3).height = 20;
     //all border
     function allBorder(cellno) {
@@ -375,18 +468,42 @@ export class ExporterExcel {
     allBorder('E3');
     allBorder('F3');
     //add blank row
-    ws.addRow().values = ['', '', '', '', '', '', '', '', ''];
+    ws.addRow().values = [
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+      '',
+    ];
     //add card title
     //ws.addRow().values = ['编号', '标题', '创建人', '创建时间', '更新时间', '列表', '成员', '描述', '标签'];
     ws.addRow().values = [
       TAPi18n.__('number'),
       TAPi18n.__('title'),
+      TAPi18n.__('description'),
       TAPi18n.__('owner'),
       TAPi18n.__('createdAt'),
       TAPi18n.__('last-modified-at'),
+      TAPi18n.__('card-received'),
+      TAPi18n.__('card-start'),
+      TAPi18n.__('card-due'),
+      TAPi18n.__('card-end'),
       TAPi18n.__('list'),
-      TAPi18n.__('description'),
-      TAPi18n.__('status'),
+      TAPi18n.__('assignee'),
+      TAPi18n.__('members'),
+      TAPi18n.__('labels'),
+      TAPi18n.__('overtime-hours'),
+      TAPi18n.__('spent-time-hours'),
     ];
     ws.getRow(5).height = 20;
     allBorder('A5');
@@ -398,6 +515,13 @@ export class ExporterExcel {
     allBorder('G5');
     allBorder('H5');
     allBorder('I5');
+    allBorder('J5');
+    allBorder('K5');
+    allBorder('L5');
+    allBorder('M5');
+    allBorder('N5');
+    allBorder('O5');
+    allBorder('P5');
     cellCenter('A5');
     cellCenter('B5');
     cellCenter('C5');
@@ -407,6 +531,13 @@ export class ExporterExcel {
     cellCenter('G5');
     cellCenter('H5');
     cellCenter('I5');
+    cellCenter('J5');
+    cellCenter('K5');
+    cellCenter('L5');
+    cellCenter('M5');
+    cellCenter('N5');
+    cellCenter('O5');
+    cellCenter('P5');
     ws.getRow(5).font = {
       name: TAPi18n.__('excel-font'),
       size: 12,
@@ -414,13 +545,19 @@ export class ExporterExcel {
     };
     //add blank row
     //add card info
-    for (const i in jdata.cards) {
-      const jcard = jdata.cards[i];
+    for (const i in result.cards) {
+      const jcard = result.cards[i];
       //get member info
       let jcmem = '';
       for (const j in jcard.members) {
         jcmem += jmeml[jcard.members[j]];
         jcmem += ' ';
+      }
+      //get assignee info
+      let jcassig = '';
+      for (const ja in jcard.assignees) {
+        jcassig += jassigl[jcard.assignees[ja]];
+        jcassig += ' ';
       }
       //get card label info
       let jclabel = '';
@@ -428,20 +565,26 @@ export class ExporterExcel {
         jclabel += jlabel[jcard.labelIds[jl]];
         jclabel += ' ';
       }
-      //      console.log(jclabel);
 
       //add card detail
       const t = Number(i) + 1;
       ws.addRow().values = [
         t.toString(),
         jcard.title,
-        jmeml[jcard.userId],
-        add8hours(jcard.createdAt),
-        add8hours(jcard.dateLastActivity),
-        jlist[jcard.listId],
-        jcmem,
         jcard.description,
+        jmeml[jcard.userId],
+        addTZhours(jcard.createdAt),
+        addTZhours(jcard.dateLastActivity),
+        addTZhours(jcard.receivedAt),
+        addTZhours(jcard.startAt),
+        addTZhours(jcard.dueAt),
+        addTZhours(jcard.endAt),
+        jlist[jcard.listId],
+        jcassig,
+        jcmem,
         jclabel,
+        jcard.isOvertime ? 'true' : 'false',
+        jcard.spentTime,
       ];
       const y = Number(i) + 6;
       //ws.getRow(y).height = 25;
@@ -454,20 +597,31 @@ export class ExporterExcel {
       allBorder(`G${y}`);
       allBorder(`H${y}`);
       allBorder(`I${y}`);
+      allBorder(`J${y}`);
+      allBorder(`K${y}`);
+      allBorder(`L${y}`);
+      allBorder(`M${y}`);
+      allBorder(`N${y}`);
+      allBorder(`O${y}`);
+      allBorder(`P${y}`);
       cellCenter(`A${y}`);
       ws.getCell(`B${y}`).alignment = {
         wrapText: true,
       };
-      ws.getCell(`H${y}`).alignment = {
+      ws.getCell(`C${y}`).alignment = {
         wrapText: true,
       };
-      ws.getCell(`I${y}`).alignment = {
+      ws.getCell(`L${y}`).alignment = {
+        wrapText: true,
+      };
+      ws.getCell(`M${y}`).alignment = {
+        wrapText: true,
+      };
+      ws.getCell(`N${y}`).alignment = {
         wrapText: true,
       };
     }
-    //    var exporte=new Stream;
     workbook.xlsx.write(res).then(function() {});
-    //     return exporte;
   }
 
   canExport(user) {
