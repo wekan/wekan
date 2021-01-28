@@ -480,6 +480,11 @@ BlazeComponent.extendComponent({
     });
   },
 
+  getSearchHref() {
+    const baseUrl = window.location.href.replace(/([?#].*$|\s*$)/, '');
+    return `${baseUrl}?q=${encodeURIComponent(this.query.get())}`;
+  },
+
   searchInstructions() {
     tags = {
       operator_board: TAPi18n.__('operator-board'),
