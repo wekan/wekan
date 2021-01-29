@@ -4,6 +4,8 @@ This release fixes the following bugs:
 
 - [Use `new RegExp(...)` to define a regex](https://github.com/wekan/wekan/pull/3505).
   Thanks to jrsupplee.
+- [Fixed typos in docker-compose.yml](https://github.com/wekan/wekan/commit/4acf8526509ffe852e6e48e3503560448239d8cd).
+  Thanks to farfoodyou and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
