@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Use `new RegExp(...)` to define a regex](https://github.com/wekan/wekan/pull/3505).
+  Thanks to jrsupplee.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.90 2021-01-28 Wekan release
 
 This release adds the following new features:
