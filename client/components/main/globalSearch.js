@@ -190,10 +190,19 @@ BlazeComponent.extendComponent({
 
     this.searching.set(true);
 
-    const reOperator1 = `/^((?<operator>[\p{Letter}\p{Mark}]+):|(?<abbrev>[#@]))(?<value>[\p{Letter}\p{Mark}]+)(\s+|$)/iu`;
-    const reOperator2 = `/^((?<operator>[\p{Letter}\p{Mark}]+):|(?<abbrev>[#@]))(?<quote>["']*)(?<value>.*?)\k<quote>(\s+|$)/iu`;
-    const reText = `/^(?<text>\S+)(\s+|$)/u`;
-    const reQuotedText = `/^(?<quote>["'])(?<text>[\w\p{L}]+)\k<quote>(\s+|$)/u`;
+    const reOperator1 = new RegExp(
+      '^((?<operator>[\\p{Letter}\\p{Mark}]+):|(?<abbrev>[#@]))(?<value>[\\p{Letter}\\p{Mark}]+)(\\s+|$)',
+      'iu',
+    );
+    const reOperator2 = new RegExp(
+      '^((?<operator>[\\p{Letter}\\p{Mark}]+):|(?<abbrev>[#@]))(?<quote>["\']*)(?<value>.*?)\\k<quote>(\\s+|$)',
+      'iu',
+    );
+    const reText = new RegExp('^(?<text>\\S+)(\\s+|$)', 'u');
+    const reQuotedText = new RegExp(
+      '^(?<quote>["\'])(?<text>.*?)\\k<quote>(\\s+|$)',
+      'u',
+    );
 
     const operators = {
       'operator-board': 'boards',

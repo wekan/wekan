@@ -1263,12 +1263,16 @@ function boardRemover(userId, doc) {
 }
 
 Boards.uniqueTitle = title => {
-  const m = title.match(`/^(?<title>.*?)\s*(\[(?<num>\d+)]\s*$|\s*$)/`);
+  const m = title.match(
+    new RegExp('^(?<title>.*?)\\s*(\\[(?<num>\\d+)]\\s*$|\\s*$)'),
+  );
   const base = escapeForRegex(m.groups.title);
   let num = 0;
   Boards.find({ title: new RegExp(`^${base}\\s*\\[\\d+]\\s*$`) }).forEach(
     board => {
-      const m = board.title.match(`/^(?<title>.*?)\s*\[(?<num>\d+)]\s*$/`);
+      const m = board.title.match(
+        new RegExp('^(?<title>.*?)\\s*\\[(?<num>\\d+)]\\s*$'),
+      );
       if (m) {
         const n = parseInt(m.groups.num, 10);
         num = num < n ? n : num;
