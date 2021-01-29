@@ -95,9 +95,9 @@ services:
     # 2020-12-03:
     # - Mongo image copied from Docker Hub mongo:4.4.2-bionic to Quay
     #   to avoid Docker Hub rate limits.
-    # Quay image 
+    # Quay image does work:
     #   image: quay.io/wekan/mongo:4.4.2-bionic
-    # Docker Hub MongoDB image works:
+    # Docker Hub MongoDB image does work:
     image: mongo:4.4
     #-------------------------------------------------------------------------------------
     container_name: wekan-db
@@ -117,12 +117,12 @@ services:
   wekan:
     #-------------------------------------------------------------------------------------
     # ==== MONGODB AND METEOR VERSION ====
-    # a) Quay automatic builds do not currently work, https://quay.io/wekan/wekan
+    # a) Quay automatic builds do work work, https://quay.io/wekan/wekan
     # image: quay.io/wekan/wekan
     # b) Using specific version tag:
     # image: quay.io/wekan/wekan:v4.52
-    c) Docker Hub builds do work https://hub.docker.com/r/wekanteam/wekan
-    # image: wekanteam/wekan
+    # c) Docker Hub builds do work https://hub.docker.com/r/wekanteam/wekan
+    image: wekanteam/wekan
     #-------------------------------------------------------------------------------------
     container_name: wekan-app
     restart: always
