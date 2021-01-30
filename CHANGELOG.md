@@ -5,6 +5,11 @@ This release adds the following improvements:
 - [Import user mapping improvements](https://github.com/wekan/wekan/pull/3510).
   Thanks to jrsupplee.
 
+and fixes the following bugs:
+
+- [Don't reload page when returning default sort](https://github.com/wekan/wekan/pull/3509).
+  Thanks to jrsupplee.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v4.91 2021-01-29 Wekan release
