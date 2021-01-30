@@ -143,7 +143,7 @@ BlazeComponent.extendComponent({
     const orgs = Org.find(this.findOrgsOptions.get(), {
       fields: { _id: true },
     });
-    this.numberOrgs.set(org.count(false));
+    this.numberOrgs.set(orgs.count(false));
     return orgs;
   },
   teamList() {
@@ -421,6 +421,9 @@ Template.editUserPopup.events({
     const authentication = templateInstance
       .find('.js-authenticationMethod')
       .value.trim();
+    const importUsernames = templateInstance
+      .find('.js-import-usernames')
+      .value.trim();
 
     const isChangePassword = password.length > 0;
     const isChangeUserName = username !== user.username;
@@ -441,6 +444,7 @@ Template.editUserPopup.events({
         isAdmin: isAdmin === 'true',
         loginDisabled: isActive === 'true',
         authenticationMethod: authentication,
+        importUsernames: Users.parseImportUsernames(importUsernames),
       },
     });
 
@@ -563,6 +567,9 @@ Template.newUserPopup.events({
     const isAdmin = templateInstance.find('.js-profile-isadmin').value.trim();
     const isActive = templateInstance.find('.js-profile-isactive').value.trim();
     const email = templateInstance.find('.js-profile-email').value.trim();
+    const importUsernames = templateInstance
+      .find('.js-import-usernames')
+      .value.trim();
 
     Meteor.call(
       'setCreateUser',
@@ -572,6 +579,7 @@ Template.newUserPopup.events({
       isAdmin,
       isActive,
       email.toLowerCase(),
+      importUsernames,
       function(error) {
         const usernameMessageElement = templateInstance.$('.username-taken');
         const emailMessageElement = templateInstance.$('.email-taken');

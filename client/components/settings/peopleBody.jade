@@ -110,6 +110,7 @@ template(name="peopleGeneral")
         th {{_ 'createdAt'}}
         th {{_ 'active'}}
         th {{_ 'authentication-method'}}
+        th {{_ 'import-usernames'}}
         th
           +newUserRow
       each user in peopleList
@@ -257,6 +258,10 @@ template(name="peopleRow")
       td <s>{{_ userData.authenticationMethod }}</s>
     else
       td {{_ userData.authenticationMethod }}
+    if userData.loginDisabled
+      td <s>{{ userData.importUsernamesString }}</s>
+    else
+      td {{ userData.importUsernamesString }}
     td
       a.edit-user
         i.fa.fa-edit
@@ -346,6 +351,9 @@ template(name="editUserPopup")
         input.js-profile-email(type="email" value="{{user.emails.[0].address}}" readonly)
       else
         input.js-profile-email(type="email" value="{{user.emails.[0].address}}" required)
+    label
+      | {{_ 'import-usernames'}}
+      input.js-import-usernames(type="text" value=user.importUsernames)
     label
       | {{_ 'verified'}}
       select.select-verified.js-profile-email-verified
@@ -444,6 +452,9 @@ template(name="newUserPopup")
       //  input.js-profile-email(type="email" value="{{user.emails.[0].address}}" readonly)
       //else
       input.js-profile-email(type="email" value="" required)
+    label
+      | {{_ 'import-usernames'}}
+      input.js-import-usernames(type="text" value="")
     label
       | {{_ 'admin'}}
       select.select-role.js-profile-isadmin

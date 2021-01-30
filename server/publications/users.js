@@ -4,8 +4,18 @@ Meteor.publish('user-miniprofile', function(usernames) {
   // eslint-disable-next-line no-console
   // console.log('usernames:', usernames);
   return Users.find(
-    { username: { $in: usernames } },
-    { fields: Users.safeFields },
+    {
+      $or: [
+        { username: { $in: usernames } },
+        { importUsernames: { $in: usernames } },
+      ],
+    },
+    {
+      fields: {
+        ...Users.safeFields,
+        importUsernames: 1,
+      },
+    },
   );
 });
 
