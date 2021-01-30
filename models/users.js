@@ -338,6 +338,13 @@ Users.attachSchema(
       type: Number,
       optional: true,
     },
+    importUsernames: {
+      /**
+       * username for imported
+       */
+      type: [String],
+      optional: true,
+    },
   }),
 );
 
@@ -433,7 +440,18 @@ if (Meteor.isClient) {
   });
 }
 
+Users.parseImportUsernames = usernamesString => {
+  return usernamesString.trim().split(new RegExp('\\s*[,;]\\s*'));
+};
+
 Users.helpers({
+  importUsernamesString() {
+    if (this.importUsernames) {
+      return this.importUsernames.join(', ');
+    }
+    return '';
+  },
+
   boards() {
     return Boards.find(
       { 'members.userId': this._id },
@@ -779,7 +797,15 @@ Meteor.methods({
 
 if (Meteor.isServer) {
   Meteor.methods({
-    setCreateUser(fullname, username, password, isAdmin, isActive, email) {
+    setCreateUser(
+      fullname,
+      username,
+      password,
+      isAdmin,
+      isActive,
+      email,
+      importUsernames,
+    ) {
       if (Meteor.user() && Meteor.user().isAdmin) {
         check(fullname, String);
         check(username, String);
@@ -787,6 +813,7 @@ if (Meteor.isServer) {
         check(isAdmin, String);
         check(isActive, String);
         check(email, String);
+        check(importUsernames, Array);
 
         const nUsersWithUsername = Users.find({ username }).count();
         const nUsersWithEmail = Users.find({ email }).count();
@@ -803,10 +830,10 @@ if (Meteor.isServer) {
             email: email.toLowerCase(),
             from: 'admin',
           });
-          user = Users.findOne(username) || Users.findOne({ username });
+          const user = Users.findOne(username) || Users.findOne({ username });
           if (user) {
             Users.update(user._id, {
-              $set: { 'profile.fullname': fullname },
+              $set: { 'profile.fullname': fullname, importUsernames },
             });
           }
         }

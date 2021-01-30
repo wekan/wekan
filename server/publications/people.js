@@ -20,6 +20,7 @@ Meteor.publish('people', function(query, limit) {
         createdAt: 1,
         loginDisabled: 1,
         authenticationMethod: 1,
+        importUsernames: 1,
       },
     });
   }
