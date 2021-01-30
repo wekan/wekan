@@ -22,6 +22,8 @@ template(name="importMapMembers")
   if usersLoaded.get
     .map-members
       p {{_ 'import-members-map'}}
+      p.import-members-map-note
+        | {{_ 'import-members-map-note' }}
       .mapping-list
         each members
           a.mapping-item.js-select-member(class="{{#if wekanId}}filled{{/if}}")
