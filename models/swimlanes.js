@@ -23,6 +23,13 @@ Swimlanes.attachSchema(
         }
       },
     },
+    archivedAt: {
+      /**
+       * latest archiving date of the swimlane
+       */
+      type: Date,
+      optional: true,
+    },
     boardId: {
       /**
        * the ID of the board the swimlane is attached to
@@ -259,7 +266,7 @@ Swimlanes.mutations({
         return list.archive();
       });
     }
-    return { $set: { archived: true } };
+    return { $set: { archived: true, archivedAt: new Date() } };
   },
 
   restore() {

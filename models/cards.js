@@ -26,6 +26,13 @@ Cards.attachSchema(
         }
       },
     },
+    archivedAt: {
+      /**
+       * latest archiving date
+       */
+      type: Date,
+      optional: true,
+    },
     parentId: {
       /**
        * ID of the parent card
@@ -1446,6 +1453,7 @@ Cards.mutations({
     return {
       $set: {
         archived: true,
+        archivedAt: new Date(),
       },
     };
   },
