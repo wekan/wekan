@@ -17,6 +17,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Try fix removed nonexistent document error](https://github.com/wekan/wekan/commit/f274b3c26be60813829dcf2b0e68a8dd876ff614).
   Thanks to Brulf, TheMasterFX and xet7.
+- [Fixed Cards and CustomFields sorted alphabetically](https://github.com/wekan/wekan/pull/3521).
+  Thanks to mfilser.
 
 and improves some security related info:
 
