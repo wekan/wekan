@@ -33,9 +33,13 @@
       .activity
         display: flex
 
-        a
-          margin: 0px 10px 0px 0px
+        a.member
+          margin: 0px 0px 0px -3px
           padding: 0px
+
+          svg
+            padding: 3px
+            margin: 0px 0px 0px -3px
 
         .activity-desc
           width: 100%;
@@ -59,3 +63,16 @@
     .remove
       a:hover
         color #eb4646 !important
+
+@media screen and (max-width: 800px)
+  #notifications-drawer
+    .notification
+      .details
+        .activity
+          a.member
+            padding: 12px 10px 12px 10px
+            margin: -10px 0px -10px 0px
+
+            svg
+              padding: 5px
+              margin: 0px 0px 0px -16px
