@@ -175,7 +175,7 @@ BlazeComponent.extendComponent({
                   }
                   if (user) {
                     // eslint-disable-next-line no-console
-                    console.log('found username:', user.username);
+                    // console.log('found username:', user.username);
                     member.wekanId = user._id;
                   }
                 }

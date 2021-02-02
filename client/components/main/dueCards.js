@@ -60,7 +60,7 @@ BlazeComponent.extendComponent({
 
   dueCardsView() {
     // eslint-disable-next-line no-console
-    console.log('sort:', Utils.dueCardsView());
+    //console.log('sort:', Utils.dueCardsView());
     return Utils.dueCardsView();
   },
 

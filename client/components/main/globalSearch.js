@@ -79,7 +79,7 @@ BlazeComponent.extendComponent({
     Meteor.subscribe('setting');
 
     // eslint-disable-next-line no-console
-    console.log('lang:', TAPi18n.getLanguage());
+    //console.log('lang:', TAPi18n.getLanguage());
     this.colorMap = Boards.colorMap();
     // eslint-disable-next-line no-console
     // console.log('colorMap:', this.colorMap);
@@ -114,7 +114,7 @@ BlazeComponent.extendComponent({
     if (this.queryParams) {
       const sessionData = this.getSessionData();
       // eslint-disable-next-line no-console
-      console.log('selector:', sessionData.getSelector());
+      // console.log('selector:', sessionData.getSelector());
       // console.log('session data:', sessionData);
       const cards = Cards.find({ _id: { $in: sessionData.cards } });
       this.queryErrors = sessionData.errors;
@@ -176,7 +176,7 @@ BlazeComponent.extendComponent({
   searchAllBoards(query) {
     query = query.trim();
     // eslint-disable-next-line no-console
-    console.log('query:', query);
+    //console.log('query:', query);
 
     this.query.set(query);
 

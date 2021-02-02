@@ -21,7 +21,7 @@ Meteor.startup(() => {
   if (language) {
     TAPi18n.setLanguage(language);
     // eslint-disable-next-line no-console
-    console.log('language set!');
+    // console.log('language set!');
     T9n.setLanguage(language);
   }
 });
