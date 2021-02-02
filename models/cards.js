@@ -724,7 +724,12 @@ Cards.helpers({
         definition,
       };
     });
-    ret.sort((a, b) => a.definition.name !== undefined && b.definition.name !== undefined && a.definition.name.localeCompare(b.definition.name));
+    ret.sort(
+      (a, b) =>
+        a.definition.name !== undefined &&
+        b.definition.name !== undefined &&
+        a.definition.name.localeCompare(b.definition.name),
+    );
     return ret;
   },
 

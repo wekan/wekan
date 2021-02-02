@@ -1768,7 +1768,7 @@ if (Meteor.isServer) {
    *
    * @description Only the admin user (the first user) can call the REST API.
    *
-   * @param {string} userId the ID of the user to delete
+   * @param {string} userId the ID of the user to create token for.
    * @return_type {_id: string}
    */
   JsonRoutes.add('POST', '/api/createtoken/:userId', function(req, res) {
