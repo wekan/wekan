@@ -1,0 +1,107 @@
+
+
+Tue Feb  2 15:32:43 2021
+Command line: TestDisk
+
+TestDisk 7.0, Data Recovery Utility, April 2015
+Christophe GRENIER <grenier@cgsecurity.org>
+http://www.cgsecurity.org
+OS: Linux, kernel 4.19.0-13-amd64 (#1 SMP Debian 4.19.160-2 (2020-11-28)) x86_64
+Compiler: GCC 8.2
+ext2fs lib: 1.44.5, ntfs lib: libntfs-3g, reiserfs lib: none, ewf lib: none, curses lib: ncurses 6.1
+/dev/sda: LBA, LBA48 support
+/dev/sda: size       40960000 sectors
+/dev/sda: user_max   40960000 sectors
+/dev/sdb: LBA, LBA48 support
+/dev/sdb: size       16777216 sectors
+/dev/sdb: user_max   16777216 sectors
+Warning: can't get size for Disk /dev/mapper/control - 0 B - 0 sectors, sector size=512
+/dev/sr0 is not an ATA disk
+Hard disk list
+Disk /dev/sda - 20 GB / 19 GiB - CHS 2549 255 63, sector size=512 - VBOX HARDDISK, S/N:VB0b6f207b-9457cb67, FW:1.0
+Disk /dev/sdb - 8589 MB / 8192 MiB - CHS 1044 255 63, sector size=512 - VBOX HARDDISK, S/N:VB58465fac-dc7acfae, FW:1.0
+Disk /dev/sr0 - 60 MB / 57 MiB - 29603 sectors (RO), sector size=2048 - VBOX CD-ROM, S/N:VB2-1a2b3c4d, FW:1.0
+
+Partition table type (auto): Intel
+Disk /dev/sda - 20 GB / 19 GiB - VBOX HARDDISK
+Partition table type: Intel
+
+Analyse Disk /dev/sda - 20 GB / 19 GiB - CHS 2549 255 63
+Geometry from i386 MBR: head=255 sector=63
+Current partition structure:
+ 1 * Linux                    0  32 33  2442 142  4   39237632
+ 2 P Linux Swap            2442 142  5  2549 163 46    1720320
+
+search_part()
+Disk /dev/sda - 20 GB / 19 GiB - CHS 2549 255 63
+
+recover_EXT2: s_block_group_nr=0/149, s_mnt_count=324/4294967295, s_blocks_per_group=32768, s_inodes_per_group=8192
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 4904704
+recover_EXT2: part_size 39237632
+     Linux                    0  32 33  2442 142  4   39237632
+     ext4 blocksize=4096 Large_file Sparse_SB Recover, 20 GB / 18 GiB
+     Linux Swap            2442 142  5  2549 163 30    1720304
+     SWAP2 version 1, pagesize=4096, 880 MB / 839 MiB
+
+Results
+   * Linux                    0  32 33  2442 142  4   39237632
+     ext4 blocksize=4096 Large_file Sparse_SB Recover, 20 GB / 18 GiB
+   P Linux Swap            2442 142  5  2549 163 46    1720320
+     SWAP2 version 1, pagesize=4096, 880 MB / 840 MiB
+
+Hint for advanced users. dmsetup may be used if you prefer to avoid to rewrite the partition table for the moment:
+echo "0 39237632 linear /dev/sda 2048" | dmsetup create test0
+echo "0 1720320 linear /dev/sda 39239680" | dmsetup create test1
+
+interface_write()
+ 1 * Linux                    0  32 33  2442 142  4   39237632
+ 2 P Linux Swap            2442 142  5  2549 163 46    1720320
+
+search_part()
+Disk /dev/sda - 20 GB / 19 GiB - CHS 2549 255 63
+
+recover_EXT2: s_block_group_nr=0/149, s_mnt_count=324/4294967295, s_blocks_per_group=32768, s_inodes_per_group=8192
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 4904704
+recover_EXT2: part_size 39237632
+     Linux                    0  32 33  2442 142  4   39237632
+     ext4 blocksize=4096 Large_file Sparse_SB Recover, 20 GB / 18 GiB
+
+recover_EXT2: s_block_group_nr=0/149, s_mnt_count=324/4294967295, s_blocks_per_group=32768, s_inodes_per_group=8192
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 4904704
+recover_EXT2: part_size 39237632
+     Linux                  282 127 38  2724 237  9   39237632
+     ext4 blocksize=4096 Large_file Sparse_SB Recover, 20 GB / 18 GiB
+This partition ends after the disk limits. (start=4538368, size=39237632, end=43775999, disk end=40960000)
+
+recover_EXT2: s_block_group_nr=0/149, s_mnt_count=324/4294967295, s_blocks_per_group=32768, s_inodes_per_group=8192
+recover_EXT2: s_blocksize=4096
+recover_EXT2: s_blocks_count 4904704
+recover_EXT2: part_size 39237632
+     Linux                  282 225  8  2725  79 42   39237632
+     ext4 blocksize=4096 Large_file Sparse_SB Recover, 20 GB / 18 GiB
+This partition ends after the disk limits. (start=4544512, size=39237632, end=43782143, disk end=40960000)
+     Linux Swap            2442 142  5  2549 163 30    1720304
+     SWAP2 version 1, pagesize=4096, 880 MB / 839 MiB
+Search for partition aborted
+Disk /dev/sda - 20 GB / 19 GiB - CHS 2549 255 63
+Check the harddisk size: HD jumpers settings, BIOS detection...
+The harddisk (20 GB / 19 GiB) seems too small! (< 22 GB / 20 GiB)
+The following partitions can't be recovered:
+     Linux                  282 127 38  2724 237  9   39237632
+     ext4 blocksize=4096 Large_file Sparse_SB Recover, 20 GB / 18 GiB
+     Linux                  282 225  8  2725  79 42   39237632
+     ext4 blocksize=4096 Large_file Sparse_SB Recover, 20 GB / 18 GiB
+
+Results
+   * Linux                    0  32 33  2442 142  4   39237632
+     ext4 blocksize=4096 Large_file Sparse_SB Recover, 20 GB / 18 GiB
+   P Linux Swap            2442 142  5  2549 163 46    1720320
+     SWAP2 version 1, pagesize=4096, 880 MB / 840 MiB
+
+Hint for advanced users. dmsetup may be used if you prefer to avoid to rewrite the partition table for the moment:
+echo "0 39237632 linear /dev/sda 2048" | dmsetup create test0
+echo "0 1720320 linear /dev/sda 39239680" | dmsetup create test1
+SIGINT detected! TestDisk has been killed.

@@ -1760,6 +1760,38 @@ if (Meteor.isServer) {
       });
     }
   });
+
+  /**
+   * @operation create_user_token
+   *
+   * @summary Create a user token
+   *
+   * @description Only the admin user (the first user) can call the REST API.
+   *
+   * @param {string} userId the ID of the user to delete
+   * @return_type {_id: string}
+   */
+  JsonRoutes.add('POST', '/api/createtoken/:userId', function(req, res) {
+    try {
+      Authentication.checkUserId(req.userId);
+      const id = req.params.userId;
+      const token = Accounts._generateStampedLoginToken();
+      Accounts._insertLoginToken(id, token);
+
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: {
+          _id: id,
+          authToken: token.token,
+        },
+      });
+    } catch (error) {
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: error,
+      });
+    }
+  });
 }
 
 export default Users;
