@@ -9,6 +9,10 @@ and fixes the following bugs:
 
 - [Don't reload page when returning default sort](https://github.com/wekan/wekan/pull/3509).
   Thanks to jrsupplee.
+- [Avatar overlaped notifications](https://github.com/wekan/wekan/pull/3516).
+  Thanks to mfilser.
+- [Hopeful fix for i18n not working in `onRendered()`](https://github.com/wekan/wekan/pull/3519).
+  Thanks to jrsupplee.
 
 and improves some security related info:
 
