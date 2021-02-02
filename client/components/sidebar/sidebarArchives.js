@@ -34,6 +34,8 @@ BlazeComponent.extendComponent({
     return Cards.find({
       archived: true,
       boardId: Session.get('currentBoard'),
+    }, {
+      sort: { archivedAt: -1, modifiedAt: -1 },
     });
   },
 
@@ -41,6 +43,8 @@ BlazeComponent.extendComponent({
     return Lists.find({
       archived: true,
       boardId: Session.get('currentBoard'),
+    }, {
+      sort: { archivedAt: -1, modifiedAt: -1 },
     });
   },
 
@@ -48,6 +52,8 @@ BlazeComponent.extendComponent({
     return Swimlanes.find({
       archived: true,
       boardId: Session.get('currentBoard'),
+    }, {
+      sort: { archivedAt: -1, modifiedAt: -1 },
     });
   },
 

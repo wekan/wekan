@@ -43,6 +43,13 @@ Boards.attachSchema(
         }
       },
     },
+    archivedAt: {
+      /**
+       * Latest archiving time of the board
+       */
+      type: Date,
+      optional: true,
+    },
     createdAt: {
       /**
        * Creation time of the board
@@ -1042,7 +1049,7 @@ Boards.helpers({
 
 Boards.mutations({
   archive() {
-    return { $set: { archived: true } };
+    return { $set: { archived: true, archivedAt: new Date() } };
   },
 
   restore() {

@@ -951,5 +951,6 @@
   "excel-font": "Arial",
   "number": "Number",
   "label-colors": "Label Colors",
-  "label-names": "Label Names"
+  "label-names": "Label Names",
+  "archived-at": "archived at"
 }
