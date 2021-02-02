@@ -168,9 +168,6 @@ if (Meteor.isServer) {
       listId: card.listId,
       swimlaneId: card.swimlaneId,
     });
-  });
-
-  CardComments.after.remove((userId, doc) => {
     const activity = Activities.findOne({ commentId: doc._id });
     if (activity) {
       Activities.remove(activity._id);
