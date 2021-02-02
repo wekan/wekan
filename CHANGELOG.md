@@ -4,6 +4,10 @@ This release adds the following improvements:
 
 - [Import user mapping improvements](https://github.com/wekan/wekan/pull/3510).
   Thanks to jrsupplee.
+- Added Createtoken API.
+  [Part 1](https://github.com/wekan/wekan/pull/3520),
+  [Part 2](https://github.com/wekan/wekan/commit/3774060d32abcfee17dc1c31958d4673794d8619).
+  Thanks to magicbelette and xet7.
 
 and fixes the following bugs:
 
