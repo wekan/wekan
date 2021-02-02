@@ -385,8 +385,8 @@ export class ExporterExcel {
     }
     //add data +8 hours
     function addTZhours(jdate) {
-      let curdate = new Date(jdate);
-      let checkCorrectDate = moment(curdate);
+      const curdate = new Date(jdate);
+      const checkCorrectDate = moment(curdate);
       if (checkCorrectDate.isValid()) {
         return curdate;
       } else {
