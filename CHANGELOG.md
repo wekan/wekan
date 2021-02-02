@@ -13,6 +13,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Hopeful fix for i18n not working in `onRendered()`](https://github.com/wekan/wekan/pull/3519).
   Thanks to jrsupplee.
+- [Disable some console.log code, that is only needed while developing](https://github.com/wekan/wekan/commit/f40c9804f848fdb91229c5718ad97495337109ba).
+  Thanks to xet7.
 
 and improves some security related info:
 
