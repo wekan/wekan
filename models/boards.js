@@ -1318,6 +1318,18 @@ Boards.userBoardIds = (userId, archived = false, selector = {}) => {
   });
 };
 
+Boards.colorMap = () => {
+  const colors = {};
+  for (const color of Boards.labelColors()) {
+    colors[TAPi18n.__(`color-${color}`)] = color;
+  }
+  return colors;
+};
+
+Boards.labelColors = () => {
+  return _.clone(Boards.simpleSchema()._schema['labels.$.color'].allowedValues);
+};
+
 if (Meteor.isServer) {
   Boards.allow({
     insert: Meteor.userId,

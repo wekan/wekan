@@ -200,11 +200,7 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
         comments: [],
       };
 
-      this.colorMap = {};
-      for (const color of Boards.simpleSchema()._schema['labels.$.color']
-        .allowedValues) {
-        this.colorMap[TAPi18n.__(`color-${color}`)] = color;
-      }
+      this.colorMap = Boards.colorMap();
     }
 
     hasErrors() {
@@ -234,7 +230,11 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
         });
       });
       this.notFound.labels.forEach(label => {
-        messages.push({ tag: 'label-not-found', value: label, color: true });
+        messages.push({
+          tag: 'label-not-found',
+          value: label,
+          color: Boards.labelColors().includes(label),
+        });
       });
       this.notFound.users.forEach(user => {
         messages.push({ tag: 'user-username-not-found', value: user });
