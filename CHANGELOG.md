@@ -27,6 +27,8 @@ and fixes the following bugs:
   Thanks to Brulf, TheMasterFX and xet7.
 - [Fixed Cards and CustomFields sorted alphabetically](https://github.com/wekan/wekan/pull/3521).
   Thanks to mfilser.
+- [Notifications avatar overlaped at mobile view](https://github.com/wekan/wekan/pull/3523).
+  Thanks to mfilser.
 
 and improves some security related info:
 
