@@ -63,8 +63,11 @@ Meteor.publish('archivedBoards', function() {
         archived: 1,
         slug: 1,
         title: 1,
+        createdAt: 1,
+        modifiedAt: 1,
+        archivedAt: 1,
       },
-      sort: { sort: 1 /* boards default sorting */ },
+      sort: { archivedAt: -1, modifiedAt: -1 },
     },
   );
 });

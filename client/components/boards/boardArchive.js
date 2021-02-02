@@ -11,7 +11,7 @@ BlazeComponent.extendComponent({
     return Boards.find(
       { archived: true },
       {
-        sort: { sort: 1 /* boards default sorting */ },
+        sort: { archivedAt: -1, modifiedAt: -1 },
       },
     );
   },

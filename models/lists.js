@@ -32,6 +32,13 @@ Lists.attachSchema(
         }
       },
     },
+    archivedAt: {
+      /**
+       * latest archiving date
+       */
+      type: Date,
+      optional: true,
+    },
     boardId: {
       /**
        * the board associated to this list
@@ -292,7 +299,7 @@ Lists.mutations({
         return card.archive();
       });
     }
-    return { $set: { archived: true } };
+    return { $set: { archived: true, archivedAt: new Date() } };
   },
 
   restore() {
@@ -384,6 +391,7 @@ if (Meteor.isServer) {
   Meteor.startup(() => {
     Lists._collection._ensureIndex({ modifiedAt: -1 });
     Lists._collection._ensureIndex({ boardId: 1 });
+    Lists._collection._ensureIndex({ archivedAt: -1 });
   });
 
   Lists.after.insert((userId, doc) => {
