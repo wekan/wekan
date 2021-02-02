@@ -4,8 +4,7 @@ the information responsibly by sending an email to support (at) wekan.team using
 creating a GitHub issue. We will respond swiftly to fix verifiable security issues.
 
 We thank you with a place at our hall of fame page, that is
-at https://wekan.github.io/hall-of-fame . Others have just posted public GitHub issue,
-so they are not at that hall-of-fame page.
+at https://wekan.github.io/hall-of-fame
 
 ## How should reports be formatted?
 
