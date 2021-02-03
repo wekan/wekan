@@ -276,9 +276,9 @@ RUN \
     #gosu wekan:wekan /home/wekan/.meteor/meteor add standard-minifier-js && \
     gosu wekan:wekan npm install && \
     gosu wekan:wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build && \
-    cp /home/wekan/app/fix-download-unicode/cfs_access-point.txt /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
+    #cp /home/wekan/app/fix-download-unicode/cfs_access-point.txt /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
     #rm /home/wekan/app_build/bundle/programs/server/npm/node_modules/meteor/rajit_bootstrap3-datepicker/lib/bootstrap-datepicker/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs && \
-    chown wekan /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
+    #chown wekan /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
     #Removed binary version of bcrypt because of security vulnerability that is not fixed yet.
     #https://github.com/wekan/wekan/commit/4b2010213907c61b0e0482ab55abb06f6a668eac
     #https://github.com/wekan/wekan/commit/7eeabf14be3c63fae2226e561ef8a0c1390c8d3c
@@ -294,7 +294,7 @@ RUN \
     gosu wekan:wekan npm install && \
     #gosu wekan:wekan npm install bcrypt && \
     # Remove legacy webbroser bundle, so that Wekan works also at Android Firefox, iOS Safari, etc.
-		rm -rf /home/wekan/app_build/bundle/programs/web.browser.legacy && \
+    rm -rf /home/wekan/app_build/bundle/programs/web.browser.legacy && \
     mv /home/wekan/app_build/bundle /build && \
     \
     # Put back the original tar
