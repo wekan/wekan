@@ -213,6 +213,7 @@ Template.changeLanguagePopup.events({
         'profile.language': this.tag,
       },
     });
+    TAPi18n.setLanguage(this.tag);
     event.preventDefault();
   },
 });
