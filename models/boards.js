@@ -1287,7 +1287,11 @@ Boards.uniqueTitle = title => {
     },
   );
 
-  return `${base} [${num + 1}]`;
+  if (num > 0) {
+    return `${base} [${num + 1}]`;
+  }
+
+  return title;
 };
 
 Boards.userSearch = (
