@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v4.91
+  version: v4.92
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -245,46 +245,6 @@ paths:
                 type: string
               defaultSwimlaneId:
                 type: string
-  /api/createtoken/{user}:
-    post:
-      operationId: createtoken
-      summary: CreateToken for a user with REST API
-      description: |
-        Only the admin user (the first user) can call the REST API.
-      consumes:
-        - application/x-www-form-urlencoded
-        - application/json
-      tags:
-        - Login
-      parameters:
-        - name: user
-          in: path
-          description: |
-            the user ID
-          type: string
-          required: true
-      responses:
-        200:
-          description: |-
-            Successful
-          schema:
-            items:
-              properties:
-                id:
-                  type: string
-                token:
-                  type: string
-        400:
-          description: |
-            Error
-          schema:
-            items:
-              properties:
-                error:
-                  type: number
-                reason:
-                  type: string
-
   /api/boards/{board}:
     get:
       operationId: get_board
@@ -2176,6 +2136,37 @@ paths:
                   type: string
                 listId:
                   type: string
+  /api/createtoken/{user}:
+    post:
+      operationId: create_user_token
+      summary: Create a user token
+      description: |
+        Only the admin user (the first user) can call the REST API.
+      tags:
+        - Users
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: user
+          in: path
+          description: |
+            the ID of the user to create token for.
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
   /api/user:
     get:
       operationId: get_current_user
@@ -2401,6 +2392,11 @@ definitions:
         description: |
            Is the board archived?
         type: boolean
+      archivedAt:
+        description: |
+           Latest archiving time of the board
+        type: string
+        x-nullable: true
       createdAt:
         description: |
            Creation time of the board
@@ -2742,6 +2738,11 @@ definitions:
         description: |
            is the card archived
         type: boolean
+      archivedAt:
+        description: |
+           latest archiving date
+        type: string
+        x-nullable: true
       parentId:
         description: |
            ID of the parent card
@@ -3162,6 +3163,11 @@ definitions:
         description: |
            is the list archived
         type: boolean
+      archivedAt:
+        description: |
+           latest archiving date
+        type: string
+        x-nullable: true
       boardId:
         description: |
            the board associated to this list
@@ -3264,6 +3270,11 @@ definitions:
         description: |
            is the swimlane archived?
         type: boolean
+      archivedAt:
+        description: |
+           latest archiving date of the swimlane
+        type: string
+        x-nullable: true
       boardId:
         description: |
            the ID of the board the swimlane is attached to
@@ -3385,6 +3396,14 @@ definitions:
         description: |
            profile settings
         $ref: "#/definitions/UsersSessiondata"
+        x-nullable: true
+      importUsernames:
+        description: |
+           username for imported
+        type: array
+        items:
+          type: string
+          x-nullable: true
         x-nullable: true
     required:
       - createdAt

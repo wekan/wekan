@@ -1524,7 +1524,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
 	  	<ul class="toc-list-h1">
         
           <li>
-            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v4.91">Wekan REST API v4.91</a>
+            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v4.92">Wekan REST API v4.92</a>
             
           </li>
         
@@ -1855,6 +1855,11 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
                   </li>
                 
                   <li>
+                    <a href="#create_user_token" class="toc-h2 toc-link" data-title="create_user_token">create_user_token</a>
+                    
+                  </li>
+                
+                  <li>
                     <a href="#get_current_user" class="toc-h2 toc-link" data-title="get_current_user">get_current_user</a>
                     
                   </li>
@@ -2037,7 +2042,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="wekan-rest-api">Wekan REST API v4.91</h1>
+        <h1 id="wekan-rest-api">Wekan REST API v4.92</h1>
 <blockquote>
 <p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
 </blockquote>
@@ -3282,6 +3287,7 @@ System.out.println(response.toString());
   <span class="hljs-attr">"title"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"slug"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"archived"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"archivedAt"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"createdAt"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"modifiedAt"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"stars"</span>: <span class="hljs-number">0</span>,
@@ -8086,6 +8092,7 @@ System.out.println(response.toString());
 <pre class="highlight tab tab-json"><code>{
   <span class="hljs-attr">"title"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"archived"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"archivedAt"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"parentId"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"listId"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"swimlaneId"</span>: <span class="hljs-string">"string"</span>,
@@ -12192,6 +12199,7 @@ System.out.println(response.toString());
   <span class="hljs-attr">"title"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"starred"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"archived"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"archivedAt"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"boardId"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"swimlaneId"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"createdAt"</span>: <span class="hljs-string">"string"</span>,
@@ -12968,6 +12976,209 @@ System.out.println(response.toString());
 To perform this operation, you must be authenticated by means of one of the following methods:
 UserSecurity
 </aside>
+<h2 id="create_user_token">create_user_token</h2>
+<p><a id="opIdcreate_user_token"></a></p>
+<blockquote>
+<p>Code samples</p>
+</blockquote>
+<pre class="highlight tab tab-shell"><code><span class="hljs-comment"># You can also use wget</span>
+curl -X POST /api/createtoken/{user} \
+  -H <span class="hljs-string">'Accept: application/json'</span> \
+  -H <span class="hljs-string">'Authorization: API_KEY'</span>
+
+</code></pre>
+<pre class="highlight tab tab-http"><code><span class="hljs-keyword">POST</span> <span class="hljs-string">/api/createtoken/{user}</span> HTTP/1.1
+
+<span class="http"><span class="hljs-attribute">Accept</span>: application/json
+
+<span class="undefined"></span></span></code></pre>
+<pre class="highlight tab tab-javascript"><code><span class="hljs-keyword">var</span> headers = {
+  <span class="hljs-string">'Accept'</span>:<span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span>:<span class="hljs-string">'API_KEY'</span>
+
+};
+
+$.ajax({
+  <span class="hljs-attr">url</span>: <span class="hljs-string">'/api/createtoken/{user}'</span>,
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'post'</span>,
+
+  <span class="hljs-attr">headers</span>: headers,
+  <span class="hljs-attr">success</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">data</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">JSON</span>.stringify(data));
+  }
+})
+
+</code></pre>
+<pre class="highlight tab tab-javascript--nodejs"><code><span class="hljs-keyword">const</span> fetch = <span class="hljs-built_in">require</span>(<span class="hljs-string">'node-fetch'</span>);
+
+<span class="hljs-keyword">const</span> headers = {
+  <span class="hljs-string">'Accept'</span>:<span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span>:<span class="hljs-string">'API_KEY'</span>
+
+};
+
+fetch(<span class="hljs-string">'/api/createtoken/{user}'</span>,
+{
+  <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
+
+  <span class="hljs-attr">headers</span>: headers
+})
+.then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) </span>{
+    <span class="hljs-keyword">return</span> res.json();
+}).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">body</span>) </span>{
+    <span class="hljs-built_in">console</span>.log(body);
+});
+
+</code></pre>
+<pre class="highlight tab tab-ruby"><code><span class="hljs-keyword">require</span> <span class="hljs-string">'rest-client'</span>
+<span class="hljs-keyword">require</span> <span class="hljs-string">'json'</span>
+
+headers = {
+  <span class="hljs-string">'Accept'</span> =&gt; <span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span> =&gt; <span class="hljs-string">'API_KEY'</span>
+}
+
+result = RestClient.post <span class="hljs-string">'/api/createtoken/{user}'</span>,
+  <span class="hljs-symbol">params:</span> {
+  }, <span class="hljs-symbol">headers:</span> headers
+
+p JSON.parse(result)
+
+</code></pre>
+<pre class="highlight tab tab-python"><code><span class="hljs-keyword">import</span> requests
+headers = {
+  <span class="hljs-string">'Accept'</span>: <span class="hljs-string">'application/json'</span>,
+  <span class="hljs-string">'Authorization'</span>: <span class="hljs-string">'API_KEY'</span>
+}
+
+r = requests.post(<span class="hljs-string">'/api/createtoken/{user}'</span>, params={
+
+}, headers = headers)
+
+<span class="hljs-keyword">print</span> r.json()
+
+</code></pre>
+<pre class="highlight tab tab-java"><code>URL obj = <span class="hljs-keyword">new</span> URL(<span class="hljs-string">"/api/createtoken/{user}"</span>);
+HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+con.setRequestMethod(<span class="hljs-string">"POST"</span>);
+<span class="hljs-keyword">int</span> responseCode = con.getResponseCode();
+BufferedReader in = <span class="hljs-keyword">new</span> BufferedReader(
+    <span class="hljs-keyword">new</span> InputStreamReader(con.getInputStream()));
+String inputLine;
+StringBuffer response = <span class="hljs-keyword">new</span> StringBuffer();
+<span class="hljs-keyword">while</span> ((inputLine = in.readLine()) != <span class="hljs-keyword">null</span>) {
+    response.append(inputLine);
+}
+in.close();
+System.out.println(response.toString());
+
+</code></pre>
+<pre class="highlight tab tab-go"><code><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+       <span class="hljs-string">"bytes"</span>
+       <span class="hljs-string">"net/http"</span>
+)
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+
+    headers := <span class="hljs-keyword">map</span>[<span class="hljs-keyword">string</span>][]<span class="hljs-keyword">string</span>{
+        <span class="hljs-string">"Accept"</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">"application/json"</span>},
+        <span class="hljs-string">"Authorization"</span>: []<span class="hljs-keyword">string</span>{<span class="hljs-string">"API_KEY"</span>},
+        
+    }
+
+    data := bytes.NewBuffer([]<span class="hljs-keyword">byte</span>{jsonReq})
+    req, err := http.NewRequest(<span class="hljs-string">"POST"</span>, <span class="hljs-string">"/api/createtoken/{user}"</span>, data)
+    req.Header = headers
+
+    client := &amp;http.Client{}
+    resp, err := client.Do(req)
+    <span class="hljs-comment">// ...</span>
+}
+
+</code></pre>
+<p><code>POST /api/createtoken/{user}</code></p>
+<p><em>Create a user token</em></p>
+<p>Only the admin user (the first user) can call the REST API.</p>
+<h3 id="create_user_token-parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>In</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>user</td>
+<td>path</td>
+<td>string</td>
+<td>true</td>
+<td>the ID of the user to create token for.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="detailed-descriptions">Detailed descriptions</h4>
+<p><strong>user</strong>: the ID of the user to create token for.</p>
+<blockquote>
+<p>Example responses</p>
+</blockquote>
+<blockquote>
+<p>200 Response</p>
+</blockquote>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">"_id"</span>: <span class="hljs-string">"string"</span>
+}
+</code></pre>
+<h3 id="create_user_token-responses">Responses</h3>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Description</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td><a href="https://tools.ietf.org/html/rfc7231#section-6.3.1">OK</a></td>
+<td>200 response</td>
+<td>Inline</td>
+</tr>
+</tbody>
+</table>
+<h3 id="create_user_token-responseschema">Response Schema</h3>
+<p>Status Code <strong>200</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>» _id</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+</tbody>
+</table>
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+UserSecurity
+</aside>
 <h2 id="get_current_user">get_current_user</h2>
 <p><a id="opIdget_current_user"></a></p>
 <blockquote>
@@ -13148,7 +13359,10 @@ System.out.println(response.toString());
   <span class="hljs-attr">"sessionData"</span>: {
     <span class="hljs-attr">"totalHits"</span>: <span class="hljs-number">0</span>,
     <span class="hljs-attr">"lastHit"</span>: <span class="hljs-number">0</span>
-  }
+  },
+  <span class="hljs-attr">"importUsernames"</span>: [
+    <span class="hljs-string">"string"</span>
+  ]
 }
 </code></pre>
 <h3 id="get_current_user-responses">Responses</h3>
@@ -13809,7 +14023,10 @@ System.out.println(response.toString());
   <span class="hljs-attr">"sessionData"</span>: {
     <span class="hljs-attr">"totalHits"</span>: <span class="hljs-number">0</span>,
     <span class="hljs-attr">"lastHit"</span>: <span class="hljs-number">0</span>
-  }
+  },
+  <span class="hljs-attr">"importUsernames"</span>: [
+    <span class="hljs-string">"string"</span>
+  ]
 }
 </code></pre>
 <h3 id="get_user-responses">Responses</h3>
@@ -14892,6 +15109,7 @@ System.out.println(response.toString());
 <pre class="highlight tab tab-json"><code>{
   <span class="hljs-attr">"title"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"archived"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"archivedAt"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"boardId"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"createdAt"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"sort"</span>: <span class="hljs-number">0</span>,
@@ -15142,6 +15360,7 @@ UserSecurity
   <span class="hljs-attr">"title"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"slug"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"archived"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"archivedAt"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"createdAt"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"modifiedAt"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"stars"</span>: <span class="hljs-number">0</span>,
@@ -15229,6 +15448,13 @@ UserSecurity
 <td>true</td>
 <td>none</td>
 <td>Is the board archived?</td>
+</tr>
+<tr>
+<td>archivedAt</td>
+<td>string|null</td>
+<td>false</td>
+<td>none</td>
+<td>Latest archiving time of the board</td>
 </tr>
 <tr>
 <td>createdAt</td>
@@ -15880,6 +16106,7 @@ UserSecurity
 <pre class="highlight tab tab-json"><code>{
   <span class="hljs-attr">"title"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"archived"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"archivedAt"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"parentId"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"listId"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"swimlaneId"</span>: <span class="hljs-string">"string"</span>,
@@ -15955,6 +16182,13 @@ UserSecurity
 <td>true</td>
 <td>none</td>
 <td>is the card archived</td>
+</tr>
+<tr>
+<td>archivedAt</td>
+<td>string|null</td>
+<td>false</td>
+<td>none</td>
+<td>latest archiving date</td>
 </tr>
 <tr>
 <td>parentId</td>
@@ -16787,6 +17021,7 @@ UserSecurity
   <span class="hljs-attr">"title"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"starred"</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">"archived"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"archivedAt"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"boardId"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"swimlaneId"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"createdAt"</span>: <span class="hljs-string">"string"</span>,
@@ -16836,6 +17071,13 @@ UserSecurity
 <td>true</td>
 <td>none</td>
 <td>is the list archived</td>
+</tr>
+<tr>
+<td>archivedAt</td>
+<td>string|null</td>
+<td>false</td>
+<td>none</td>
+<td>latest archiving date</td>
 </tr>
 <tr>
 <td>boardId</td>
@@ -17058,6 +17300,7 @@ UserSecurity
 <pre class="highlight tab tab-json"><code>{
   <span class="hljs-attr">"title"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"archived"</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">"archivedAt"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"boardId"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"createdAt"</span>: <span class="hljs-string">"string"</span>,
   <span class="hljs-attr">"sort"</span>: <span class="hljs-number">0</span>,
@@ -17094,6 +17337,13 @@ UserSecurity
 <td>true</td>
 <td>none</td>
 <td>is the swimlane archived?</td>
+</tr>
+<tr>
+<td>archivedAt</td>
+<td>string|null</td>
+<td>false</td>
+<td>none</td>
+<td>latest archiving date of the swimlane</td>
 </tr>
 <tr>
 <td>boardId</td>
@@ -17305,7 +17555,10 @@ UserSecurity
   <span class="hljs-attr">"sessionData"</span>: {
     <span class="hljs-attr">"totalHits"</span>: <span class="hljs-number">0</span>,
     <span class="hljs-attr">"lastHit"</span>: <span class="hljs-number">0</span>
-  }
+  },
+  <span class="hljs-attr">"importUsernames"</span>: [
+    <span class="hljs-string">"string"</span>
+  ]
 }
 
 </code></pre>
@@ -17405,6 +17658,13 @@ UserSecurity
 <td>false</td>
 <td>none</td>
 <td>profile settings</td>
+</tr>
+<tr>
+<td>importUsernames</td>
+<td>[string]|null</td>
+<td>false</td>
+<td>none</td>
+<td>username for imported</td>
 </tr>
 </tbody>
 </table>
