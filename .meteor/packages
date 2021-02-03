@@ -52,7 +52,6 @@ mquandalle:autofocus
 ongoworks:speakingurl
 raix:handlebar-helpers
 tap:i18n
-http@1.4.2
 
 # UI components
 blaze
@@ -145,3 +144,4 @@ rajit:bootstrap3-datepicker-zh-cn
 rajit:bootstrap3-datepicker-zh-tw
 staringatlights:fast-render
 spacebars
+jkuester:http
