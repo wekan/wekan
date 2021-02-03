@@ -1,3 +1,14 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Set the language on `TAPi18n` when user selects language](https://github.com/wekan/wekan/pull/3525).
+  Thanks to jrsupplee.
+- [Fix bug in `uniqueTitle`](https://github.com/wekan/wekan/pull/3526).
+  Thanks to jrsupplee.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.92 2021-02-03 Wekan release
 
 This release adds the following improvements:
