@@ -13,6 +13,11 @@ This release adds the following improvements:
   [Part 2](https://github.com/wekan/wekan/commit/3da66a0fe30c2b54b63e5d098232b375d899925e).
   Thanks to bronger, jrsupplee and xet7.
 
+and adds the following updates:
+
+- [Updated dependencies](https://github.com/wekan/wekan/commit/05ebae7329ba0dd3fe9b04cd63b1f983830cdeee).
+  Thanks to developers of dependencies.
+
 and fixes the following bugs:
 
 - [Don't reload page when returning default sort](https://github.com/wekan/wekan/pull/3509).
