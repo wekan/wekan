@@ -6,6 +6,8 @@ This release fixes the following bugs:
   Thanks to jrsupplee.
 - [Fix bug in `uniqueTitle`](https://github.com/wekan/wekan/pull/3526).
   Thanks to jrsupplee.
+- [Fixed file permissions in build scripts](https://github.com/wekan/wekan/commit/ea697f2238842893953dee76bed03ffd5b4a107e).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
