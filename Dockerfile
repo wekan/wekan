@@ -274,6 +274,7 @@ RUN \
     mkdir -p /home/wekan/.npm && \
     chown wekan --recursive /home/wekan/.npm /home/wekan/.config /home/wekan/.meteor && \
     #gosu wekan:wekan /home/wekan/.meteor/meteor add standard-minifier-js && \
+    chmod u+w *.json && \
     gosu wekan:wekan npm install && \
     gosu wekan:wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build && \
     #cp /home/wekan/app/fix-download-unicode/cfs_access-point.txt /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
@@ -291,6 +292,7 @@ RUN \
     #find . -name "*phantomjs*" | xargs rm -rf && \
     #
     cd /home/wekan/app_build/bundle/programs/server/ && \
+    chmod u+w *.json && \
     gosu wekan:wekan npm install && \
     #gosu wekan:wekan npm install bcrypt && \
     # Remove legacy webbroser bundle, so that Wekan works also at Android Firefox, iOS Safari, etc.

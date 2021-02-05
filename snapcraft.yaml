@@ -220,6 +220,7 @@ parts:
             rm -rf .build/bundle/programs/web.browser.legacy
             # Change to directory .build/bundle/programs/server
             cd .build/bundle/programs/server
+            chmod u+w *.json
             npm install
             npm install --allow-superuser --save babel-runtime
             #meteor npm install --save bcrypt

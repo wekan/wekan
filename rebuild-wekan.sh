@@ -93,6 +93,7 @@ do
 		#meteor npm install bcrypt
 		cd .build/bundle/programs/server
 		rm -rf node_modules
+                chmod u+w *.json
 		npm install
 		#meteor npm install bcrypt
 		cd ../../../..
