@@ -1,6 +1,11 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+- [Add the ability to call get_user operation with username](https://github.com/wekan/wekan/pull/3530).
+  Thanks to magicbelette.
+
+and fixes the following bugs:
 
 - [Set the language on `TAPi18n` when user selects language](https://github.com/wekan/wekan/pull/3525).
   Thanks to jrsupplee.
