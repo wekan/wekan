@@ -11,7 +11,7 @@ template(name="header")
           a(href="{{pathFor 'home'}}")
             span.fa.fa-home
 
-        ul
+        ul.header-quick-access-list
           if currentList
             each currentBoard.lists
               li(class="{{#if $.Session.equals 'currentList' _id}}current{{/if}}")
@@ -41,7 +41,7 @@ template(name="header")
           a(href="{{pathFor 'home'}}")
             span.fa.fa-home
             | {{_ 'all-boards'}}
-        ul
+        ul.header-quick-access-list
           //li
           //  a(href="{{pathFor 'public'}}")
           //    span.fa.fa-globe
