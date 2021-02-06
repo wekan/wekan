@@ -90,7 +90,6 @@ template(name="minicard")
       .minicard-assignees.js-minicard-assignees
         each getAssignees
           +userAvatar(userId=this)
-        hr(class="assigneehr" title="{{_ 'assignee'}}")
 
     if getMembers
       .minicard-members.js-minicard-members
