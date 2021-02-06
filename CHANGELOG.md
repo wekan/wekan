@@ -18,6 +18,8 @@ and fixes the following bugs:
   Thanks to jrsupplee.
 - [Fixed file permissions in build scripts](https://github.com/wekan/wekan/commit/ea697f2238842893953dee76bed03ffd5b4a107e).
   Thanks to xet7.
+- [Red line below the avatar now correctly on FireFox](https://github.com/wekan/wekan/pull/3532).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
