@@ -1,4 +1,4 @@
-FROM quay.io/wekan/ubuntu:groovy-20201125.2
+FROM quay.io/wekan/ubuntu:groovy-20210115
 LABEL maintainer="wekan"
 
 # 2020-12-03:
