@@ -22,7 +22,7 @@ do
 		if [[ "$OSTYPE" == "linux-gnu" ]]; then
 	                echo "Linux";
 			# Debian, Ubuntu, Mint
-			sudo apt-get install -y build-essential gcc g++ make git curl wget npm
+			sudo apt-get install -y build-essential gcc g++ make git curl wget npm p7zip-full
 			# npm nodejs
 			#sudo npm -g install npm
 			#curl -0 -L https://npmjs.org/install.sh | sudo sh
@@ -78,25 +78,29 @@ do
 		#fi
 		#cd ..
 		#sudo chown -R $(id -u):$(id -g) $HOME/.npm $HOME/.meteor
-		rm -rf node_modules .meteor/local
+		rm -rf node_modules .meteor/local .build
+                chmod u+w *.json
 		npm install
-		rm -rf .build
 		meteor build .build --directory
-		#cp -f fix-download-unicode/cfs_access-point.txt .build/bundle/programs/server/packages/cfs_access-point.js
-		# Remove legacy webbroser bundle, so that Wekan works also at Android Firefox, iOS Safari, etc.
 		rm -rf .build/bundle/programs/web.browser.legacy
-		#Removed binary version of bcrypt because of security vulnerability that is not fixed yet.
-		#https://github.com/wekan/wekan/commit/4b2010213907c61b0e0482ab55abb06f6a668eac
-		#https://github.com/wekan/wekan/commit/7eeabf14be3c63fae2226e561ef8a0c1390c8d3c
-		#cd ~/repos/wekan/.build/bundle/programs/server/npm/node_modules/meteor/npm-bcrypt
-		#rm -rf node_modules/bcrypt
-		#meteor npm install bcrypt
 		cd .build/bundle/programs/server
 		rm -rf node_modules
                 chmod u+w *.json
 		npm install
-		#meteor npm install bcrypt
 		cd ../../../..
+		# Cleanup
+		cd .build/bundle
+		find . -type d -name '*-garbage*' | xargs rm -rf
+		find . -name '*phantom*' | xargs rm -rf
+		find . -name '.*.swp' | xargs rm -f
+		find . -name '*.swp' | xargs rm -f
+                cd ../..
+		# Add fibers multi arch
+		cd .build/bundle/programs/server/node_modules/fibers/bin
+		curl https://releases.wekan.team/fibers-multi.7z -o fibers-multi.7z
+		7z x fibers-multi.7z
+		rm fibers-multi.7z
+		cd ../../../../../../..
 		echo Done.
 		break
 		;;
