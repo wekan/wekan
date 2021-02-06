@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v4.92
+  version: v4.93
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -2262,7 +2262,7 @@ paths:
         - name: user
           in: path
           description: |
-            the user ID
+            the user ID or username
           type: string
           required: true
       produces:
