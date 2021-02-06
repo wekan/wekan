@@ -20,6 +20,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Red line below the avatar now correctly on FireFox](https://github.com/wekan/wekan/pull/3532).
   Thanks to mfilser.
+- [Notifications, enable line wrapping](https://github.com/wekan/wekan/pull/3533).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
