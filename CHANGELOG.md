@@ -5,6 +5,11 @@ This release adds the following new features:
 - [Add the ability to call get_user operation with username](https://github.com/wekan/wekan/pull/3530).
   Thanks to magicbelette.
 
+and adds the following updates:
+
+- [Updated Ubuntu base image in Dockerfile](https://github.com/wekan/wekan/commit/bcdaf77a9c675530cfa21d038e8abd7c62aef70d).
+  Thanks to Ubuntu and xet7.
+
 and fixes the following bugs:
 
 - [Set the language on `TAPi18n` when user selects language](https://github.com/wekan/wekan/pull/3525).
