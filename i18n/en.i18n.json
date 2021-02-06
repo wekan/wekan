@@ -928,7 +928,7 @@
   "globalSearch-instructions-operator-board": "`__operator_board__:title` - cards in boards matching the specified title",
   "globalSearch-instructions-operator-list": "`__operator_list__:title` - cards in lists matching the specified title",
   "globalSearch-instructions-operator-swimlane": "`__operator_swimlane__:title` - cards in swimlanes matching the specified title",
-  "globalSearch-instructions-operator-comment": "`__operator_comment__:text` - cards with with a comment containing *text*.",
+  "globalSearch-instructions-operator-comment": "`__operator_comment__:text` - cards with a comment containing *text*.",
   "globalSearch-instructions-operator-label": "`__operator_label__:color` `__operator_label__:name` - cards that have a label matching the given color or name",
   "globalSearch-instructions-operator-hash": "`__operator_label_abbrev__label` - shorthand for `__operator_label__:label`",
   "globalSearch-instructions-operator-user": "`__operator_user__:username` - cards where the specified user is a *member* or *assignee*",
