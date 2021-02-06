@@ -274,7 +274,7 @@ Template.changeSettingsPopup.events({
   'keypress/paste #show-cards-count-at'() {
     let keyCode = event.keyCode;
     let charCode = String.fromCharCode(keyCode);
-    let regex = new RegExp("[0-9]");
+    let regex = new RegExp("[-0-9]");
     let ret = regex.test(charCode);
     return ret;
   },
@@ -309,8 +309,8 @@ Template.changeSettingsPopup.events({
       10,
     );
     const currentUser = Meteor.user();
-    if (isNaN(minLimit)) {
-      minLimit = 0;
+    if (isNaN(minLimit) || minLimit < -1) {
+      minLimit = -1;
     }
     if (!isNaN(minLimit)) {
       if (currentUser) {
