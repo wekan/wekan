@@ -702,7 +702,7 @@ Cards.helpers({
     const definitions = CustomFields.find({
       boardIds: { $in: [this.boardId] },
     }).fetch();
-    if (definitions === undefined) {
+    if (!definitions) {
       return {};
     }
     // match right definition to each field
@@ -711,7 +711,7 @@ Cards.helpers({
       const definition = definitions.find(definition => {
         return definition._id === customField._id;
       });
-      if (definition === undefined) {
+      if (!definition) {
         return {};
       }
       //search for "True Value" which is for DropDowns other then the Value (which is the id)
@@ -733,28 +733,15 @@ Cards.helpers({
         definition,
       };
     });
-    /*
-    Sometimes sorting custom fields returns a is undefined or
-    something else is undefined, so only trying does it work,
-    and catching errors.
-      => Custom Fields sorting disabled, because could not
-        get with working with any error handling logic,
-        board did have errors with many variations of below changes.
-
-    if (definition === undefined) {
-      return {};
-    }
-    if (definition.name === undefined) {
-      return {};
-    }
-    try {
-      ret.sort((a, b) =>
-        a.definition.name.localeCompare(b.definition.name),
-      );
-    } catch (error) {
-      console.error(error);
-    }
-    */
+    // at linked cards custom fields definition is not found
+    ret.sort(
+      (a, b) =>
+        a.definition      !== undefined &&
+        b.definition      !== undefined &&
+        a.definition.name !== undefined &&
+        b.definition.name !== undefined &&
+        a.definition.name.localeCompare(b.definition.name)
+    );
     return ret;
   },
 
