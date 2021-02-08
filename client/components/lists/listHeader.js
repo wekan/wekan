@@ -82,7 +82,7 @@ BlazeComponent.extendComponent({
 
   showCardsCountForList(count) {
     const limit = this.limitToShowCardsCount();
-    return limit > 0 && count > limit;
+    return limit >= 0 && count > limit;
   },
 
   events() {
