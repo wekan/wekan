@@ -6,7 +6,9 @@ This release adds the following updates:
   Thanks to xet7.
 - [Fix typo](https://github.com/wekan/wekan/commit/0bd0a70564d3dda67706deb1bbfbd1d5a96f811f).
   Thanks to xet7.
-- [Updated release scripts](https://github.com/wekan/wekan/commit/d0df3a2915d08b255d7ab92f9bcac195a1e7f442).
+- Updated release scripts
+  [Part 1](https://github.com/wekan/wekan/commit/d0df3a2915d08b255d7ab92f9bcac195a1e7f442),
+  [Part 2](https://github.com/wekan/wekan/commit/e34a2840366351c0e069515ac2210db3911dbc0f).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
