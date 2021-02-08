@@ -96,11 +96,11 @@ do
 		find . -name '*.swp' | xargs rm -f
                 cd ../..
 		# Add fibers multi arch
-		cd .build/bundle/programs/server/node_modules/fibers/bin
-		curl https://releases.wekan.team/fibers-multi.7z -o fibers-multi.7z
-		7z x fibers-multi.7z
-		rm fibers-multi.7z
-		cd ../../../../../../..
+		#cd .build/bundle/programs/server/node_modules/fibers/bin
+		#curl https://releases.wekan.team/fibers-multi.7z -o fibers-multi.7z
+		#7z x fibers-multi.7z
+		#rm fibers-multi.7z
+		#cd ../../../../../../..
 		echo Done.
 		break
 		;;
