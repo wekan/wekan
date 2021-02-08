@@ -927,7 +927,7 @@
   "globalSearch-instructions-operator-board": "`__operator_board__:Titel` – Karten in Boards mit dem angegebenen Titel",
   "globalSearch-instructions-operator-list": "`__operator_list__:Titel` – Karten in Listen, auf die der angegebene Titel passt",
   "globalSearch-instructions-operator-swimlane": "`__operator_swimlane__:Titel` – Karten in Swimlanes, auf die der angegebene Titel passt",
-  "globalSearch-instructions-operator-comment": "`__operator_comment__:text` - cards with a comment containing *text*.",
+  "globalSearch-instructions-operator-comment": "`__operator_comment__:Text` – Karten mit einem Kommentar, der *Text* enthält.",
   "globalSearch-instructions-operator-label": "`__operator_label__:Farbe` `__operator_label__:Name` – Karten, die ein Label haben, auf das die angegebene Farbe oder Name passt",
   "globalSearch-instructions-operator-hash": "`__operator_label_abbrev__Label` – Kurzform von `__operator_label__:Label`",
   "globalSearch-instructions-operator-user": "`__operator_user__:Nutzername` – Karten, für die der angegebene Nutzer ein *Mitglied* oder ein *Zugewiesener* ist",
@@ -935,8 +935,8 @@
   "globalSearch-instructions-operator-member": "`__operator_member__:Nutzername` – Karten, für die der angegebene Nutzer ein *Mitglied* ist",
   "globalSearch-instructions-operator-assignee": "`__operator_assignee__:Nutzername` – Karten, für die der angegebene Nutzer ein *Zugewiesener* ist",
   "globalSearch-instructions-operator-due": "`__operator_due__:n` – Karten, die seit *n* Tagen überfällig sind.  `__operator_due__:__predicate_overdue__ listet alle überfälligen Karten.",
-  "globalSearch-instructions-operator-created": "`__operator_created__:n` - cards which were created *n* days ago",
-  "globalSearch-instructions-operator-modified": "`__operator_modified__:n` - cards which were modified *n* days ago",
+  "globalSearch-instructions-operator-created": "`__operator_created__:n` – Karten, die vor *n* Tagen angelegt wurden",
+  "globalSearch-instructions-operator-modified": "`__operator_modified__:n` – Karten, die vor *n* Tagen geändert wurden",
   "globalSearch-instructions-status-archived": "`__operator_status__:__predicate_archived__` – archivierte Karten.",
   "globalSearch-instructions-status-all": "`__operator_status__:__predicate_all__` – alle archivierten und nicht-archivierten Karten.",
   "globalSearch-instructions-status-ended": "`__operator_status__:__predicate_ended__` – Karten mit Abschlussdatum.",
@@ -951,5 +951,5 @@
   "number": "Zahl",
   "label-colors": "Label-Farben",
   "label-names": "Label-Namen",
-  "archived-at": "archived at"
+  "archived-at": "archiviert am"
 }

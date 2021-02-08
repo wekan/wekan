@@ -927,7 +927,7 @@
   "globalSearch-instructions-operator-board": "`__operator_board__:title` - cartões em quadros com o título especificado",
   "globalSearch-instructions-operator-list": "`__operator_list__:title` - cartões em listas com o título especificado",
   "globalSearch-instructions-operator-swimlane": "`__operator_swimlane__:title` - cartões em raias com o título especificado",
-  "globalSearch-instructions-operator-comment": "`__operator_comment__:text` - cards with a comment containing *text*.",
+  "globalSearch-instructions-operator-comment": "`__operator_comment__:text` - cartões com um comentário que contenha *text*.",
   "globalSearch-instructions-operator-label": "`__operator_label__:color` `__operator_label__:name` - cartões que possuem uma etiqueta com a cor ou o nome especificado",
   "globalSearch-instructions-operator-hash": "`__operator_label_abbrev__label` - abreviação para `__operator_label__:label`",
   "globalSearch-instructions-operator-user": "`__operator_user__:username` - cartões em que o usuário especificado é \"membro\" ou \"administrador\"",
@@ -935,8 +935,8 @@
   "globalSearch-instructions-operator-member": "`__operator_member__:username` - cartões em que o usuário especificado é \"membro\"",
   "globalSearch-instructions-operator-assignee": "`__operator_assignee__:username` - cartões em que o usuário especificado é \"administrador\"",
   "globalSearch-instructions-operator-due": "`__operator_due__:n` - cartões com vencimento em *n* dias a partir de hoje.  `__operator_due__:__predicate_overdue__ lista todos os cartões após data de vencimento.",
-  "globalSearch-instructions-operator-created": "`__operator_created__:n` - cards which were created *n* days ago",
-  "globalSearch-instructions-operator-modified": "`__operator_modified__:n` - cards which were modified *n* days ago",
+  "globalSearch-instructions-operator-created": "`__operator_created__:n` - cartões que foram criados *n* dias atrás",
+  "globalSearch-instructions-operator-modified": "`__operator_modified__:n` - cartões que foram modificados *n* dias atrás",
   "globalSearch-instructions-status-archived": "`__operator_status__:__predicate_archived__` - cartões que estão arquivados.",
   "globalSearch-instructions-status-all": "`__operator_status__:__predicate_all__` - todos os cartões arquivados e não arquivados.",
   "globalSearch-instructions-status-ended": "`__operator_status__:__predicate_ended__` - cartões com uma data de conclusão.",
@@ -951,5 +951,5 @@
   "number": "Número",
   "label-colors": "Cores de etiqueta",
   "label-names": "Nomes de etiqueta",
-  "archived-at": "archived at"
+  "archived-at": "arquivado em"
 }
