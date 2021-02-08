@@ -5,8 +5,6 @@ sudo apt -y install parallel
 cd ~/repos/wekan/.build
 zip -r wekan-$1.zip bundle
 
-mv ~/repos/wekan/.build/wekan-$1.zip .
-
 {
   scp wekan-$1.zip x2:/var/snap/wekan/common/releases.wekan.team/
   scp wekan-$1.zip a:/home/wekan/repos/
