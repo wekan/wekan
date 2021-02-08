@@ -29,7 +29,6 @@ and fixes the following bugs:
 
 - [Fix bug in adding new users](https://github.com/wekan/wekan/pull/3544).
   Thanks to jrsupplee.
-- [Issue - Deleting a linked card blocked the parent board to load
 - [Fixed Board does not load, by disabling Custom Fields sorting](https://github.com/wekan/wekan/commit/d57eb6a2fc73c7b25c957ad42b5f7a06f680e1a1).
   Thanks to marcungeschikts, olivierlambert and xet7.
 - [Fixed lint](https://github.com/wekan/wekan/commit/60fedad3fe384a2b0652941e57ecaa5fc4b7897a).
