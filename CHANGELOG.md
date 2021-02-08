@@ -1,6 +1,11 @@
 # Upcoming Wekan release
 
-This release adds the following updates:
+This release adds back the following features:
+
+- [Added back Custom Fields sorting, because it now does not prevent loading boards](https://github.com/wekan/wekan/pull/3547).
+  Thanks to mfilser.
+
+and adds the following updates:
 
 - [Updated dependencies](https://github.com/wekan/wekan/commit/1c494803b091d987e26ccb783432434e7fee15a5).
   Thanks to xet7.
