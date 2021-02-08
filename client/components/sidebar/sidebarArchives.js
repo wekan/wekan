@@ -31,30 +31,39 @@ BlazeComponent.extendComponent({
   },
 
   archivedCards() {
-    return Cards.find({
-      archived: true,
-      boardId: Session.get('currentBoard'),
-    }, {
-      sort: { archivedAt: -1, modifiedAt: -1 },
-    });
+    return Cards.find(
+      {
+        archived: true,
+        boardId: Session.get('currentBoard'),
+      },
+      {
+        sort: { archivedAt: -1, modifiedAt: -1 },
+      },
+    );
   },
 
   archivedLists() {
-    return Lists.find({
-      archived: true,
-      boardId: Session.get('currentBoard'),
-    }, {
-      sort: { archivedAt: -1, modifiedAt: -1 },
-    });
+    return Lists.find(
+      {
+        archived: true,
+        boardId: Session.get('currentBoard'),
+      },
+      {
+        sort: { archivedAt: -1, modifiedAt: -1 },
+      },
+    );
   },
 
   archivedSwimlanes() {
-    return Swimlanes.find({
-      archived: true,
-      boardId: Session.get('currentBoard'),
-    }, {
-      sort: { archivedAt: -1, modifiedAt: -1 },
-    });
+    return Swimlanes.find(
+      {
+        archived: true,
+        boardId: Session.get('currentBoard'),
+      },
+      {
+        sort: { archivedAt: -1, modifiedAt: -1 },
+      },
+    );
   },
 
   cardIsInArchivedList() {

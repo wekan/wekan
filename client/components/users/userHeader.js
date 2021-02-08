@@ -274,7 +274,7 @@ Template.changeSettingsPopup.events({
   'keypress/paste #show-cards-count-at'() {
     let keyCode = event.keyCode;
     let charCode = String.fromCharCode(keyCode);
-    let regex = new RegExp("[-0-9]");
+    let regex = new RegExp('[-0-9]');
     let ret = regex.test(charCode);
     return ret;
   },
