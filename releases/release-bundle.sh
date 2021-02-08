@@ -1,5 +1,5 @@
 cd ~/repos/wekan
-sudo apt -y install parallel
+sudo apt-get -y install parallel
 ./releases/rebuild-release.sh
 #./releases/delete-phantomjs.sh
 cd ~/repos/wekan/.build
