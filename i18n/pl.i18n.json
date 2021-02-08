@@ -927,7 +927,7 @@
   "globalSearch-instructions-operator-board": "`__operator_board__:nazwa` - karty na tablicach o podanej nazwie",
   "globalSearch-instructions-operator-list": "`__operator_list__:nazwa` - karty na listach o podanej nazwie",
   "globalSearch-instructions-operator-swimlane": "`__operator_swimlane__:nazwa` - karty na ścieżkach o podanej nazwie",
-  "globalSearch-instructions-operator-comment": "`__operator_comment__:tekst` - karty z komentarzem zawierającym *tekst*.",
+  "globalSearch-instructions-operator-comment": "`__operator_comment__:text` - cards with a comment containing *text*.",
   "globalSearch-instructions-operator-label": "`__operator_label__:kolor` `__operator_label__:nazwa` - karty posiadające etykietę w podanym kolorze lub o podanej nazwie",
   "globalSearch-instructions-operator-hash": "`__operator_label_abbrev__:etykieta` - skrót dla `__operator_label__:etykieta`",
   "globalSearch-instructions-operator-user": "`__operator_user__:użytkownik` - karty, do których dany użytkownik jest dołączony lub przypisany",
@@ -935,8 +935,8 @@
   "globalSearch-instructions-operator-member": "`__operator_member__:użytkownik` - karty, do których dany użytkownik jest dołączony",
   "globalSearch-instructions-operator-assignee": "`__operator_assignee__:użytkownik` - karty, do których dany użytkownik jest przypisany",
   "globalSearch-instructions-operator-due": "`__operator_due__:n` - karty, których termin upływa za *n* dni.  `__operator_due__:__predicate_overdue__ wyświetla wszystkie karty przeterminowane.",
-  "globalSearch-instructions-operator-created": "`__operator_created__:n` - karty utworzone *n* dni temu",
-  "globalSearch-instructions-operator-modified": "`__operator_modified__:n` - karty zmodyfikowane *n* dni temu",
+  "globalSearch-instructions-operator-created": "`__operator_created__:n` - cards which were created *n* days ago",
+  "globalSearch-instructions-operator-modified": "`__operator_modified__:n` - cards which were modified *n* days ago",
   "globalSearch-instructions-status-archived": "`__operator_status__:__predicate_archived__` - karty zarchiwizowane.",
   "globalSearch-instructions-status-all": "`__operator_status__:__predicate_all__` - wszystkie karty zarchiwizowane i przywrócone z archiwum.",
   "globalSearch-instructions-status-ended": "`__operator_status__:__predicate_ended__` - karty z ustalonym terminem.",
@@ -950,5 +950,6 @@
   "excel-font": "Arial",
   "number": "Numer",
   "label-colors": "Kolory etykiet",
-  "label-names": "Nazwy etykiet"
+  "label-names": "Nazwy etykiet",
+  "archived-at": "archived at"
 }

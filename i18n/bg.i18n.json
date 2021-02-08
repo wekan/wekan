@@ -927,7 +927,7 @@
   "globalSearch-instructions-operator-board": "`__operator_board__:title` - cards in boards matching the specified title",
   "globalSearch-instructions-operator-list": "`__operator_list__:title` - cards in lists matching the specified title",
   "globalSearch-instructions-operator-swimlane": "`__operator_swimlane__:title` - cards in swimlanes matching the specified title",
-  "globalSearch-instructions-operator-comment": "`__operator_comment__:text` - cards with with a comment containing *text*.",
+  "globalSearch-instructions-operator-comment": "`__operator_comment__:text` - cards with a comment containing *text*.",
   "globalSearch-instructions-operator-label": "`__operator_label__:color` `__operator_label__:name` - cards that have a label matching the given color or name",
   "globalSearch-instructions-operator-hash": "`__operator_label_abbrev__label` - shorthand for `__operator_label__:label`",
   "globalSearch-instructions-operator-user": "`__operator_user__:username` - cards where the specified user is a *member* or *assignee*",
@@ -935,8 +935,8 @@
   "globalSearch-instructions-operator-member": "`__operator_member__:username` - cards where the specified user is a *member*",
   "globalSearch-instructions-operator-assignee": "`__operator_assignee__:username` - cards where the specified user is an *assignee*",
   "globalSearch-instructions-operator-due": "`__operator_due__:n` - cards which are due *n* days from now.  `__operator_due__:__predicate_overdue__ lists all cards past their due date.",
-  "globalSearch-instructions-operator-created": "`__operator_created__:n` - cards which which were created *n* days ago",
-  "globalSearch-instructions-operator-modified": "`__operator_modified__:n` - cards which which were modified *n* days ago",
+  "globalSearch-instructions-operator-created": "`__operator_created__:n` - cards which were created *n* days ago",
+  "globalSearch-instructions-operator-modified": "`__operator_modified__:n` - cards which were modified *n* days ago",
   "globalSearch-instructions-status-archived": "`__operator_status__:__predicate_archived__` - cards that are archived.",
   "globalSearch-instructions-status-all": "`__operator_status__:__predicate_all__` - all archived and unarchived cards.",
   "globalSearch-instructions-status-ended": "`__operator_status__:__predicate_ended__` - cards with an end date.",
@@ -950,5 +950,6 @@
   "excel-font": "Arial",
   "number": "Номер",
   "label-colors": "Label Colors",
-  "label-names": "Label Names"
+  "label-names": "Label Names",
+  "archived-at": "archived at"
 }

@@ -927,7 +927,7 @@
   "globalSearch-instructions-operator-board": "`__operator_board__:title` - schede in bacheche corrispondenti al titolo specificato",
   "globalSearch-instructions-operator-list": "`__operator_list__:title` - schede nelle liste che corrispondono al titolo specificato",
   "globalSearch-instructions-operator-swimlane": "`__operator_swimlane__:title` - cards in swimlanes matching the specified title",
-  "globalSearch-instructions-operator-comment": "`__operator_comment__:text` - schede con commenti contenenti *text*.",
+  "globalSearch-instructions-operator-comment": "`__operator_comment__:text` - cards with a comment containing *text*.",
   "globalSearch-instructions-operator-label": "`__operator_label__:color` `__operator_label__:name` - cards that have a label matching the given color or name",
   "globalSearch-instructions-operator-hash": "`__operator_label_abbrev__label` - abbreviazione per `__operator_label__:label`",
   "globalSearch-instructions-operator-user": "`__operator_user__:username` - cards where the specified user is a *member* or *assignee*",
@@ -935,8 +935,8 @@
   "globalSearch-instructions-operator-member": "`__operator_member__:username` - schede dove l'utente specificato è un *membro*",
   "globalSearch-instructions-operator-assignee": "`__operator_assignee__:username` - cards where the specified user is an *assignee*",
   "globalSearch-instructions-operator-due": "`__operator_due__:n` - cards which are due *n* days from now.  `__operator_due__:__predicate_overdue__ lists all cards past their due date.",
-  "globalSearch-instructions-operator-created": "`__operator_created__:n` - cards which which were created *n* days ago",
-  "globalSearch-instructions-operator-modified": "`__operator_modified__:n` - cards which which were modified *n* days ago",
+  "globalSearch-instructions-operator-created": "`__operator_created__:n` - cards which were created *n* days ago",
+  "globalSearch-instructions-operator-modified": "`__operator_modified__:n` - cards which were modified *n* days ago",
   "globalSearch-instructions-status-archived": "`__operator_status__:__predicate_archived__` - schede che sono state archiviate.",
   "globalSearch-instructions-status-all": "`__operator_status__:__predicate_all__` - tutte le schede archiviate e non archiviate.",
   "globalSearch-instructions-status-ended": "`__operator_status__:__predicate_ended__` - schede con una data di fine.",
@@ -950,5 +950,6 @@
   "excel-font": "Arial",
   "number": "Numero",
   "label-colors": "Colori etichetta",
-  "label-names": "Nomi etichette"
+  "label-names": "Nomi etichette",
+  "archived-at": "archived at"
 }
