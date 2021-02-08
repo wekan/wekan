@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fix bug in adding new users](https://github.com/wekan/wekan/pull/3544).
+  Thanks to jrsupplee.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # 4.93 2021-02-06 Wekan release
 
 This release adds the following new features:
