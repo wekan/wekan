@@ -567,9 +567,9 @@ Template.newUserPopup.events({
     const isAdmin = templateInstance.find('.js-profile-isadmin').value.trim();
     const isActive = templateInstance.find('.js-profile-isactive').value.trim();
     const email = templateInstance.find('.js-profile-email').value.trim();
-    const importUsernames = templateInstance
-      .find('.js-import-usernames')
-      .value.trim();
+    const importUsernames = Users.parseImportUsernames(
+      templateInstance.find('.js-import-usernames').value,
+    );
 
     Meteor.call(
       'setCreateUser',
