@@ -1,6 +1,11 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+- [Settings, "Show cards count" now works at mobile view too](https://github.com/wekan/wekan/pull/3545).
+  Thanks to mfilser.
+
+and fixes the following bugs:
 
 - [Fix bug in adding new users](https://github.com/wekan/wekan/pull/3544).
   Thanks to jrsupplee.
