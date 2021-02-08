@@ -1,3 +1,16 @@
+# Upcoming Wekan release
+
+This release adds the following updates:
+
+- [Updated dependencies](https://github.com/wekan/wekan/commit/1c494803b091d987e26ccb783432434e7fee15a5).
+  Thanks to xet7.
+- [Fix typo](https://github.com/wekan/wekan/commit/0bd0a70564d3dda67706deb1bbfbd1d5a96f811f).
+  Thanks to xet7.
+- [Updated release scripts](https://github.com/wekan/wekan/commit/d0df3a2915d08b255d7ab92f9bcac195a1e7f442).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.94 2021-02-08 Wekan release
 
 This release adds the following new features:
