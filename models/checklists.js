@@ -91,6 +91,11 @@ Checklists.helpers({
       { sort: ['sort'] },
     );
   },
+  lastItem() {
+    const allItems = this.items().fetch();
+    const ret = allItems[allItems.length - 1];
+    return ret;
+  },
   finishedCount() {
     return ChecklistItems.find({
       checklistId: this._id,
