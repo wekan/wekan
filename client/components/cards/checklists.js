@@ -111,7 +111,7 @@ BlazeComponent.extendComponent({
         title,
         checklistId: checklist._id,
         cardId: checklist.cardId,
-        sort: checklist.itemCount(),
+        sort: Utils.calculateIndexData(checklist.lastItem()).base,
       });
     }
     // We keep the form opened, empty it.
