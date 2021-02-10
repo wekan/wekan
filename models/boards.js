@@ -1701,6 +1701,30 @@ if (Meteor.isServer) {
   });
 
   /**
+   * @operation get_boards_count
+   * @summary Get public and private boards count
+   *
+   * @return_type {private: integer, public: integer}
+   */
+  JsonRoutes.add('GET', '/api/boards_count', function(req, res) {
+    try {
+      Authentication.checkUserId(req.userId);
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: {
+          private: Boards.find({ permission: 'private' }).count(),
+          public: Boards.find({ permission: 'public' }).count(),
+        },
+      });
+    } catch (error) {
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: error,
+      });
+    }
+  });
+
+  /**
    * @operation get_board
    * @summary Get the board with that particular ID
    *

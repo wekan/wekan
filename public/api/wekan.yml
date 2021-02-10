@@ -245,6 +245,27 @@ paths:
                 type: string
               defaultSwimlaneId:
                 type: string
+  /api/boards_count:
+    get:
+      operationId: get_boards_count
+      summary: Get boards count
+      tags:
+        - Boards
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: object
+            properties:
+              private:
+                type: integer
+              public:
+                type: integer
   /api/boards/{board}:
     get:
       operationId: get_board
