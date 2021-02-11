@@ -37,7 +37,7 @@ template(name="header")
               img(src="{{currentSetting.customTopLeftCornerLogoImageUrl}}" height="{{#if currentSetting.customTopLeftCornerLogoHeight}}#{currentSetting.customTopLeftCornerLogoHeight}{{else}}27{{/if}}" width="auto" margin="0" padding="0")
           unless currentSetting.customTopLeftCornerLogoImageUrl
             img(src="{{pathFor '/logo-header.png'}}" alt="")
-        span
+        span.allBoards
           a(href="{{pathFor 'home'}}")
             span.fa.fa-home
             | {{_ 'all-boards'}}
@@ -51,7 +51,7 @@ template(name="header")
               a(href="{{pathFor 'board' id=_id slug=slug}}")
                 = title
           else
-            li.current {{_ 'quick-access-description'}}
+            li.current.empty {{_ 'quick-access-description'}}
 
       // Next line is used only for spacing at header,
       // there is no visible clickable icon.
