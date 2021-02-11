@@ -322,6 +322,8 @@
   "error-user-notAllowSelf": "You can not invite yourself",
   "error-user-notCreated": "This user is not created",
   "error-username-taken": "This username is already taken",
+  "error-orgname-taken": "This organization name is already taken",
+  "error-teamname-taken": "This team name is already taken",
   "error-email-taken": "Email has already been taken",
   "export-board": "Export board",
   "export-board-json": "Export board to JSON",

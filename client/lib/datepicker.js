@@ -1,6 +1,9 @@
 // Helper function to replace HH with H for 24 hours format, because H allows also single-digit hours
 function adjustedTimeFormat() {
-  return moment.localeData().longDateFormat('LT').replace(/HH/i, 'H');
+  return moment
+    .localeData()
+    .longDateFormat('LT')
+    .replace(/HH/i, 'H');
 }
 
 DatePicker = BlazeComponent.extendComponent({
@@ -82,7 +85,11 @@ DatePicker = BlazeComponent.extendComponent({
         },
         'keyup .js-time-field'() {
           // parse for localized time format in strict mode
-          const dateMoment = moment(this.find('#time').value, adjustedTimeFormat(), true);
+          const dateMoment = moment(
+            this.find('#time').value,
+            adjustedTimeFormat(),
+            true,
+          );
           if (dateMoment.isValid()) {
             this.error.set('');
           }
@@ -97,7 +104,11 @@ DatePicker = BlazeComponent.extendComponent({
           const newTime = moment(time, adjustedTimeFormat(), true);
           const newDate = moment(evt.target.date.value, 'L', true);
           const dateString = `${evt.target.date.value} ${time}`;
-          const newCompleteDate = moment(dateString, 'L ' + adjustedTimeFormat(), true);
+          const newCompleteDate = moment(
+            dateString,
+            'L ' + adjustedTimeFormat(),
+            true,
+          );
           if (!newTime.isValid()) {
             this.error.set('invalid-time');
             evt.target.time.focus();
@@ -110,7 +121,7 @@ DatePicker = BlazeComponent.extendComponent({
             this._storeDate(newCompleteDate.toDate());
             Popup.close();
           } else {
-            if (!this.error){
+            if (!this.error) {
               this.error.set('invalid');
             }
           }

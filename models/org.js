@@ -5,27 +5,14 @@ Org = new Mongo.Collection('org');
  */
 Org.attachSchema(
   new SimpleSchema({
-    _id: {
-      /**
-       * the organization id
-       */
-      type: Number,
-      optional: true,
-      // eslint-disable-next-line consistent-return
-      autoValue() {
-        if (this.isInsert && !this.isSet) {
-          return incrementCounter('counters', 'orgId', 1);
-        }
-      },
-    },
-    displayName: {
+    orgDisplayName: {
       /**
        * the name to display for the organization
        */
       type: String,
       optional: true,
     },
-    desc: {
+    orgDesc: {
       /**
        * the description the organization
        */
@@ -33,7 +20,7 @@ Org.attachSchema(
       optional: true,
       max: 190,
     },
-    name: {
+    orgShortName: {
       /**
        * short name of the organization
        */
@@ -41,73 +28,13 @@ Org.attachSchema(
       optional: true,
       max: 255,
     },
-    website: {
+    orgWebsite: {
       /**
        * website of the organization
        */
       type: String,
       optional: true,
       max: 255,
-    },
-    teams: {
-      /**
-       * List of teams of a organization
-       */
-      type: [Object],
-      // eslint-disable-next-line consistent-return
-      autoValue() {
-        if (this.isInsert && !this.isSet) {
-          return [
-            {
-              teamId: this.teamId,
-              isAdmin: true,
-              isActive: true,
-              isNoComments: false,
-              isCommentOnly: false,
-              isWorker: false,
-            },
-          ];
-        }
-      },
-    },
-    'teams.$.teamId': {
-      /**
-       * The uniq ID of the team
-       */
-      type: String,
-    },
-    'teams.$.isAdmin': {
-      /**
-       * Is the team an admin of the board?
-       */
-      type: Boolean,
-    },
-    'teams.$.isActive': {
-      /**
-       * Is the team active?
-       */
-      type: Boolean,
-    },
-    'teams.$.isNoComments': {
-      /**
-       * Is the team not allowed to make comments
-       */
-      type: Boolean,
-      optional: true,
-    },
-    'teams.$.isCommentOnly': {
-      /**
-       * Is the team only allowed to comment on the board
-       */
-      type: Boolean,
-      optional: true,
-    },
-    'teams.$.isWorker': {
-      /**
-       * Is the team only allowed to move card, assign himself to card and comment
-       */
-      type: Boolean,
-      optional: true,
     },
     createdAt: {
       /**
@@ -139,6 +66,79 @@ Org.attachSchema(
     },
   }),
 );
+
+if (Meteor.isServer) {
+  Meteor.methods({
+    setCreateOrg(
+      orgDisplayName,
+      orgDesc,
+      orgShortName,
+      orgWebsite,
+      orgIsActive,
+    ) {
+      if (Meteor.user() && Meteor.user().isAdmin) {
+        check(orgDisplayName, String);
+        check(orgDesc, String);
+        check(orgShortName, String);
+        check(orgWebsite, String);
+        check(orgIsActive, String);
+
+        const nOrgNames = Org.find({ orgShortName }).count();
+        if (nOrgNames > 0) {
+          throw new Meteor.Error('orgname-already-taken');
+        } else {
+          Org.insert({
+            orgDisplayName,
+            orgDesc,
+            orgShortName,
+            orgWebsite,
+            orgIsActive,
+          });
+        }
+      }
+    },
+
+    setOrgDisplayName(org, orgDisplayName) {
+      if (Meteor.user() && Meteor.user().isAdmin) {
+        check(org, String);
+        check(orgDisplayName, String);
+        Org.update(org, {
+          $set: { orgDisplayName: orgDisplayName },
+        });
+      }
+    },
+
+    setOrgDesc(org, orgDesc) {
+      if (Meteor.user() && Meteor.user().isAdmin) {
+        check(org, String);
+        check(orgDesc, String);
+        Org.update(org, {
+          $set: { orgDesc: orgDesc },
+        });
+      }
+    },
+
+    setOrgShortName(org, orgShortName) {
+      if (Meteor.user() && Meteor.user().isAdmin) {
+        check(org, String);
+        check(orgShortName, String);
+        Org.update(org, {
+          $set: { orgShortName: orgShortName },
+        });
+      }
+    },
+
+    setOrgIsActive(org, orgIsActive) {
+      if (Meteor.user() && Meteor.user().isAdmin) {
+        check(org, String);
+        check(orgIsActive, String);
+        Org.update(org, {
+          $set: { orgIsActive: orgIsActive },
+        });
+      }
+    },
+  });
+}
 
 if (Meteor.isServer) {
   // Index for Organization name.

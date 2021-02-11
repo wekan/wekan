@@ -5,27 +5,14 @@ Team = new Mongo.Collection('team');
  */
 Team.attachSchema(
   new SimpleSchema({
-    _id: {
-      /**
-       * the organization id
-       */
-      type: Number,
-      optional: true,
-      // eslint-disable-next-line consistent-return
-      autoValue() {
-        if (this.isInsert && !this.isSet) {
-          return incrementCounter('counters', 'orgId', 1);
-        }
-      },
-    },
-    displayName: {
+    teamDisplayName: {
       /**
        * the name to display for the team
        */
       type: String,
       optional: true,
     },
-    desc: {
+    teamDesc: {
       /**
        * the description the team
        */
@@ -33,7 +20,7 @@ Team.attachSchema(
       optional: true,
       max: 190,
     },
-    name: {
+    teamShortName: {
       /**
        * short name of the team
        */
@@ -41,7 +28,7 @@ Team.attachSchema(
       optional: true,
       max: 255,
     },
-    website: {
+    teamWebsite: {
       /**
        * website of the team
        */
@@ -79,6 +66,79 @@ Team.attachSchema(
     },
   }),
 );
+
+if (Meteor.isServer) {
+  Meteor.methods({
+    setCreateTeam(
+      teamDisplayName,
+      teamDesc,
+      teamShortName,
+      teamWebsite,
+      teamIsActive,
+    ) {
+      if (Meteor.user() && Meteor.user().isAdmin) {
+        check(teamDisplayName, String);
+        check(teamDesc, String);
+        check(teamShortName, String);
+        check(teamWebsite, String);
+        check(teamIsActive, String);
+
+        const nTeamNames = Team.find({ teamShortName }).count();
+        if (nTeamNames > 0) {
+          throw new Meteor.Error('teamname-already-taken');
+        } else {
+          Team.insert({
+            teamDisplayName,
+            teamDesc,
+            teamShortName,
+            teamWebsite,
+            teamIsActive,
+          });
+        }
+      }
+    },
+
+    setTeamDisplayName(team, teamDisplayName) {
+      if (Meteor.user() && Meteor.user().isAdmin) {
+        check(team, String);
+        check(teamDisplayName, String);
+        Team.update(team, {
+          $set: { teamDisplayName: teamDisplayName },
+        });
+      }
+    },
+
+    setTeamDesc(team, teamDesc) {
+      if (Meteor.user() && Meteor.user().isAdmin) {
+        check(team, String);
+        check(teamDesc, String);
+        Team.update(team, {
+          $set: { teamDesc: teamDesc },
+        });
+      }
+    },
+
+    setTeamShortName(team, teamShortName) {
+      if (Meteor.user() && Meteor.user().isAdmin) {
+        check(team, String);
+        check(teamShortName, String);
+        Team.update(team, {
+          $set: { teamShortName: teamShortName },
+        });
+      }
+    },
+
+    setTeamIsActive(team, teamIsActive) {
+      if (Meteor.user() && Meteor.user().isAdmin) {
+        check(team, String);
+        check(teamIsActive, String);
+        Team.update(team, {
+          $set: { teamIsActive: teamIsActive },
+        });
+      }
+    },
+  });
+}
 
 if (Meteor.isServer) {
   // Index for Team name.

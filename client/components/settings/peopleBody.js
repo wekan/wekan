@@ -404,6 +404,88 @@ BlazeComponent.extendComponent({
   },
 }).register('newUserRow');
 
+Template.editOrgPopup.events({
+  submit(event, templateInstance) {
+    event.preventDefault();
+    const org = Orgs.findOne(this.orgId);
+
+    const orgDisplayName = templateInstance
+      .find('.js-orgDisplayName')
+      .value.trim();
+    const orgDesc = templateInstance.find('.js-orgDesc').value.trim();
+    const orgShortName = templateInstance.find('.js-orgShortName').value.trim();
+    const orgWebsite = templateInstance.find('.js-orgWebsite').value.trim();
+    const orgIsActive = templateInstance.find('.js-org-isactive').value.trim();
+
+    const isChangeOrgDisplayName = orgDisplayName !== org.orgDisplayName;
+    const isChangeOrgDesc = orgDesc !== org.orgDesc;
+    const isChangeOrgShortName = orgShortName !== org.orgShortName;
+    const isChangeOrgWebsite = orgWebsite !== org.orgWebsite;
+    const isChangeOrgIsActive = orgIsActive !== org.orgIsActive;
+
+    if (isChangeOrgDisplayName) {
+      Meteor.call('setOrgDisplayName', org, orgDisplayName);
+    }
+
+    if (isChangeOrgDesc) {
+      Meteor.call('setOrgDesc', org, orgDesc);
+    }
+
+    if (isChangeOrgShortName) {
+      Meteor.call('setOrgShortName', org, orgShortName);
+    }
+
+    if (isChangeOrgIsActive) {
+      Meteor.call('setOrgIsActive', org, orgIsActive);
+    }
+
+    Popup.close();
+  },
+});
+
+Template.editTeamPopup.events({
+  submit(event, templateInstance) {
+    event.preventDefault();
+    const team = Teams.findOne(this.teamId);
+
+    const teamDisplayName = templateInstance
+      .find('.js-teamDisplayName')
+      .value.trim();
+    const teamDesc = templateInstance.find('.js-teamDesc').value.trim();
+    const teamShortName = templateInstance
+      .find('.js-teamShortName')
+      .value.trim();
+    const teamWebsite = templateInstance.find('.js-teamWebsite').value.trim();
+    const teamIsActive = templateInstance
+      .find('.js-team-isactive')
+      .value.trim();
+
+    const isChangeTeamDisplayName = teamDisplayName !== team.teamDisplayName;
+    const isChangeTeamDesc = teamDesc !== team.teamDesc;
+    const isChangeTeamShortName = teamShortName !== team.teamShortName;
+    const isChangeTeamWebsite = teamWebsite !== team.teamWebsite;
+    const isChangeTeamIsActive = teamIsActive !== team.teamIsActive;
+
+    if (isChangeTeamDisplayName) {
+      Meteor.call('setTeamDisplayName', team, teamDisplayName);
+    }
+
+    if (isChangeTeamDesc) {
+      Meteor.call('setTeamDesc', team, teamDesc);
+    }
+
+    if (isChangeTeamShortName) {
+      Meteor.call('setTeamShortName', team, teamShortName);
+    }
+
+    if (isChangeTeamIsActive) {
+      Meteor.call('setTeamIsActive', team, teamIsActive);
+    }
+
+    Popup.close();
+  },
+});
+
 Template.editUserPopup.events({
   submit(event, templateInstance) {
     event.preventDefault();
@@ -520,39 +602,48 @@ Template.editUserPopup.events({
 Template.newOrgPopup.events({
   submit(event, templateInstance) {
     event.preventDefault();
-    const displayName = templateInstance.find('.js-displayName').value.trim();
-    const desc = templateInstance.find('.js-desc').value.trim();
-    const name = templateInstance.find('.js-name').value.trim();
-    const teams = templateInstance.find('.js-teams').value.trim();
-    const website = templateInstance.find('.js-website').value.trim();
-    const isActive = templateInstance.find('.js-profile-isactive').value.trim();
+    const orgDisplayName = templateInstance
+      .find('.js-orgDisplayName')
+      .value.trim();
+    const orgDesc = templateInstance.find('.js-orgDesc').value.trim();
+    const orgShortName = templateInstance.find('.js-orgShortName').value.trim();
+    const orgWebsite = templateInstance.find('.js-orgWebsite').value.trim();
+    const orgIsActive = templateInstance.find('.js-org-isactive').value.trim();
 
     Meteor.call(
       'setCreateOrg',
-      displayName,
-      desc,
-      name,
-      teams,
-      website,
-      isActive,
-      email.toLowerCase(),
-      function(error) {
-        const nameMessageElement = templateInstance.$('.name-taken');
-        if (error) {
-          const errorElement = error.error;
-          if (errorElement === 'name-already-taken') {
-            nameMessageElement.show();
-            emailMessageElement.hide();
-          } else if (errorElement === 'email-already-taken') {
-            usernameMessageElement.hide();
-            emailMessageElement.show();
-          }
-        } else {
-          usernameMessageElement.hide();
-          emailMessageElement.hide();
-          Popup.close();
-        }
-      },
+      orgDisplayName,
+      orgDesc,
+      orgShortName,
+      orgWebsite,
+      orgIsActive,
+    );
+    Popup.close();
+  },
+});
+
+Template.newTeamPopup.events({
+  submit(event, templateInstance) {
+    event.preventDefault();
+    const teamDisplayName = templateInstance
+      .find('.js-teamDisplayName')
+      .value.trim();
+    const teamDesc = templateInstance.find('.js-teamDesc').value.trim();
+    const teamShortName = templateInstance
+      .find('.js-teamShortName')
+      .value.trim();
+    const teamWebsite = templateInstance.find('.js-teamWebsite').value.trim();
+    const teamIsActive = templateInstance
+      .find('.js-team-isactive')
+      .value.trim();
+
+    Meteor.call(
+      'setCreateTeam',
+      teamDisplayName,
+      teamDesc,
+      teamShortName,
+      teamWebsite,
+      teamIsActive,
     );
     Popup.close();
   },

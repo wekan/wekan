@@ -74,7 +74,6 @@ template(name="orgGeneral")
         th {{_ 'description'}}
         th {{_ 'shortName'}}
         th {{_ 'website'}}
-        th {{_ 'teams'}}
         th {{_ 'createdAt'}}
         th {{_ 'active'}}
         th
@@ -134,25 +133,21 @@ template(name="newUserRow")
 template(name="orgRow")
   tr
     if orgData.loginDisabled
-      td <s>{{ orgData.displayName }}</s>
+      td <s>{{ orgData.orgDisplayName }}</s>
     else
-      td {{ orgData.displayName }}
+      td {{ orgData.orgDisplayName }}
     if orgData.loginDisabled
       td <s>{{ orgData.orgDesc }}</s>
     else
-      td {{ orgData.desc }}
+      td {{ orgData.orgDesc }}
     if orgData.loginDisabled
-      td <s>{{ orgData.name }}</s>
+      td <s>{{ orgData.orgName }}</s>
     else
-      td {{ orgData.name }}
+      td {{ orgData.orgName }}
     if orgData.loginDisabled
-      td <s>{{ orgData.website }}</s>
+      td <s>{{ orgData.orgWebsite }}</s>
     else
-      td {{ orgData.website }}
-    if orgData.loginDisabled
-      td <s>{{ orgData.teams }}</s>
-    else
-      td {{ orgData.teams }}
+      td {{ orgData.orgWebsite }}
     if orgData.loginDisabled
       td <s>{{ moment orgData.createdAt 'LLL' }}</s>
     else
@@ -172,21 +167,21 @@ template(name="orgRow")
 template(name="teamRow")
   tr
     if teamData.loginDisabled
-      td <s>{{ teamData.displayName }}</s>
+      td <s>{{ teamData.teamDisplayName }}</s>
     else
-      td {{ teamData.displayName }}
+      td {{ teamData.teamDisplayName }}
     if teamData.loginDisabled
-      td <s>{{ teamData.desc }}</s>
+      td <s>{{ teamData.teamDesc }}</s>
     else
-      td {{ teamData.desc }}
+      td {{ teamData.teamDesc }}
     if teamData.loginDisabled
-      td <s>{{ teamData.dame }}</s>
+      td <s>{{ teamData.teamName }}</s>
     else
-      td {{ teamData.name }}
+      td {{ teamData.teamName }}
     if teamData.loginDisabled
-      td <s>{{ teamData.website }}</s>
+      td <s>{{ teamData.teamWebsite }}</s>
     else
-      td {{ teamData.website }}
+      td {{ teamData.teamWebsite }}
     if orgData.loginDisabled
       td <s>{{ moment teamData.createdAt 'LLL' }}</s>
     else
@@ -273,19 +268,19 @@ template(name="editOrgPopup")
   form
     label.hide.orgId(type="text" value=org._id)
     label
-      | {{_ 'orgDisplayName'}}
+      | {{_ 'displayName'}}
       input.js-orgDisplayName(type="text" value=org.displayName required)
       span.error.hide.orgname-taken
         | {{_ 'error-orgname-taken'}}
     label
-      | {{_ 'orgDesc'}}
-      input.js-orgDesc(type="text" value=org.desc required)
+      | {{_ 'description'}}
+      input.js-orgDesc(type="text" value=org.orgDesc required)
     label
-      | {{_ 'orgName'}}
-      input.js-orgName(type="text" value=org.name required)
+      | {{_ 'shortName'}}
+      input.js-orgShortName(type="text" value=org.orgShortName required)
     label
-      | {{_ 'orgWebsite'}}
-      input.js-orgWebsite(type="text" value=org.website required)
+      | {{_ 'website'}}
+      input.js-orgWebsite(type="text" value=org.orgWebsite required)
     label
       | {{_ 'active'}}
       select.select-active.js-org-isactive
@@ -300,18 +295,18 @@ template(name="editTeamPopup")
     label.hide.teamId(type="text" value=team._id)
     label
       | {{_ 'displayName'}}
-      input.js-teamDisplayName(type="text" value=team.displayName required)
+      input.js-teamDisplayName(type="text" value=team.teamDisplayName required)
       span.error.hide.teamname-taken
         | {{_ 'error-teamname-taken'}}
     label
       | {{_ 'description'}}
-      input.js-orgDesc(type="text" value=org.desc required)
+      input.js-teamDesc(type="text" value=team.teamDesc required)
     label
-      | {{_ 'name'}}
-      input.js-orgName(type="text" value=org.name required)
+      | {{_ 'shortName'}}
+      input.js-teamShortName(type="text" value=team.teamShortName required)
     label
       | {{_ 'website'}}
-      input.js-orgWebsite(type="text" value=org.website required)
+      input.js-teamWebsite(type="text" value=team.teamWebsite required)
     label
       | {{_ 'active'}}
       select.select-active.js-team-isactive
@@ -384,22 +379,19 @@ template(name="newOrgPopup")
     //label.hide.userId(type="text" value=user._id)
     label
       | {{_ 'displayName'}}
-      input.js-displayName(type="text" value="" required)
+      input.js-orgDisplayName(type="text" value="" required)
     label
       | {{_ 'description'}}
-      input.js-desc(type="text" value="" required)
+      input.js-orgDesc(type="text" value="" required)
     label
       | {{_ 'shortName'}}
-      input.js-name(type="text" value="")
-    label
-      | {{_ 'teams'}}
-      input.js-teams(type="text" value="")
+      input.js-orgName(type="text" value="" required)
     label
       | {{_ 'website'}}
-      input.js-website(type="text" value="")
+      input.js-orgWebsite(type="text" value="" required)
     label
       | {{_ 'active'}}
-      select.select-active.js-profile-isactive
+      select.select-active.js-org-isactive
         option(value="false" selected="selected") {{_ 'yes'}}
         option(value="true") {{_ 'no'}}
     hr
@@ -417,13 +409,13 @@ template(name="newTeamPopup")
       input.js-teamDesc(type="text" value="" required)
     label
       | {{_ 'shortName'}}
-      input.js-teamName(type="text" value="")
+      input.js-teamName(type="text" value="" required)
     label
       | {{_ 'website'}}
-      input.js-teamWebsite(type="text" value="")
+      input.js-teamWebsite(type="text" value="" required)
     label
       | {{_ 'active'}}
-      select.select-active.js-profile-isactive
+      select.select-active.js-team-isactive
         option(value="false" selected="selected") {{_ 'yes'}}
         option(value="true") {{_ 'no'}}
     hr

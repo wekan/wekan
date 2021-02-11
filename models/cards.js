@@ -736,11 +736,11 @@ Cards.helpers({
     // at linked cards custom fields definition is not found
     ret.sort(
       (a, b) =>
-        a.definition      !== undefined &&
-        b.definition      !== undefined &&
+        a.definition !== undefined &&
+        b.definition !== undefined &&
         a.definition.name !== undefined &&
         b.definition.name !== undefined &&
-        a.definition.name.localeCompare(b.definition.name)
+        a.definition.name.localeCompare(b.definition.name),
     );
     return ret;
   },
