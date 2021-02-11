@@ -12,6 +12,11 @@ and adds the following improvements:
 - [Checklistitems are now inserted always at the end of the checklist](https://github.com/wekan/wekan/pull/3551).
   Thanks to mfilser.
 
+and adds the following updates:
+
+- [Updated Node.js to v12.20.2](https://github.com/wekan/wekan/commit/011f86f368a83c2e70f597c11ec60ec857e0fab0).
+  Thanks to Node.js developers.
+
 and fixes the following bugs:
 
 - [Minicard, remove red line below member avatar icon](https://github.com/wekan/wekan/pull/3560).
