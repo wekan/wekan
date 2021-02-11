@@ -1,6 +1,11 @@
 # Upcoming Wekan release
 
-This release adds the following improvements:
+This release adds the following new features:
+
+- [Add /api/boards_count endpoint for statistics](https://github.com/wekan/wekan/pull/3556).
+  Thanks to pichouk.
+
+and adds the following improvements:
 
 - [Checklistitems are now inserted always at the end of the checklist](https://github.com/wekan/wekan/pull/3551).
   Thanks to mfilser.
