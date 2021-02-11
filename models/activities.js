@@ -254,17 +254,19 @@ if (Meteor.isServer) {
       if (value) params[key] = value;
     });
     if (board) {
-      const BIGEVENTS = process.env.BIGEVENTS_PATTERN || 'due'; // if environment BIGEVENTS_PATTERN is set or default, any activityType matching it is important
-      try {
-        const atype = activity.activityType;
-        if (new RegExp(BIGEVENTS).exec(atype)) {
-          watchers = _.union(
-            watchers,
-            board.activeMembers().map(member => member.userId),
-          ); // notify all active members for important events system defined or default to all activity related to due date
+      const BIGEVENTS = process.env.BIGEVENTS_PATTERN; // if environment BIGEVENTS_PATTERN is set, any activityType matching it is important
+      if (BIGEVENTS) {
+        try {
+          const atype = activity.activityType;
+          if (new RegExp(BIGEVENTS).exec(atype)) {
+            watchers = _.union(
+              watchers,
+              board.activeMembers().map(member => member.userId),
+            ); // notify all active members for important events
+          }
+        } catch (e) {
+          // passed env var BIGEVENTS_PATTERN is not a valid regex
         }
-      } catch (e) {
-        // passed env var BIGEVENTS_PATTERN is not a valid regex
       }
 
       const watchingUsers = _.pluck(
