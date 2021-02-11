@@ -23,6 +23,8 @@ and fixes the following bugs:
   Thanks to mfilser.
 - [Added padding](https://github.com/wekan/wekan/pull/3559).
   Thanks to lindhork.
+- [Changed default behaviour for BIGEVENTS that no activity matches it](https://github.com/wekan/wekan/pull/3561).
+  Thanks to bronger.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
