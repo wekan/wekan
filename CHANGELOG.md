@@ -10,6 +10,11 @@ and adds the following improvements:
 - [Checklistitems are now inserted always at the end of the checklist](https://github.com/wekan/wekan/pull/3551).
   Thanks to mfilser.
 
+and fixes the following bugs:
+
+- [Minicard, remove red line below member avatar icon](https://github.com/wekan/wekan/pull/3560).
+  Thanks to mfilser.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v4.95 2021-02-08 Wekan release
