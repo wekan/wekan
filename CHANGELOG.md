@@ -4,6 +4,8 @@ This release adds the following new features:
 
 - [Add /api/boards_count endpoint for statistics](https://github.com/wekan/wekan/pull/3556).
   Thanks to pichouk.
+- [Added possibility to specify hours in single digits in 24 hour format](https://github.com/wekan/wekan/pull/3557).
+  Thanks to lindhork.
 
 and adds the following improvements:
 
