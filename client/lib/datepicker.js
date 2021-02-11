@@ -94,13 +94,25 @@ DatePicker = BlazeComponent.extendComponent({
           const time =
             evt.target.time.value ||
             moment(new Date().setHours(12, 0, 0)).format('LT');
+          const newTime = moment(time, adjustedTimeFormat(), true);
+          const newDate = moment(evt.target.date.value, 'L', true);
           const dateString = `${evt.target.date.value} ${time}`;
-          const newDate = moment(dateString, 'L ' + adjustedTimeFormat(), true);
-          if (newDate.isValid()) {
-            this._storeDate(newDate.toDate());
+          const newCompleteDate = moment(dateString, 'L ' + adjustedTimeFormat(), true);
+          if (!newTime.isValid()) {
+            this.error.set('invalid-time');
+            evt.target.time.focus();
+          }
+          if (!newDate.isValid()) {
+            this.error.set('invalid-date');
+            evt.target.date.focus();
+          }
+          if (newCompleteDate.isValid()) {
+            this._storeDate(newCompleteDate.toDate());
             Popup.close();
           } else {
-            this.error.set('invalid');
+            if (!this.error){
+              this.error.set('invalid');
+            }
           }
         },
         'click .js-delete-date'(evt) {
