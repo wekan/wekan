@@ -1,3 +1,8 @@
+// Helper function to replace HH with H for 24 hours format, because H allows also single-digit hours
+function adjustedTimeFormat() {
+  return moment.localeData().longDateFormat('LT').replace(/HH/i, 'H');
+}
+
 // Edit received, start, due & end dates
 BlazeComponent.extendComponent({
   template() {
@@ -59,7 +64,7 @@ BlazeComponent.extendComponent({
         },
         'keyup .js-time-field'() {
           // parse for localized time format in strict mode
-          const dateMoment = moment(this.find('#time').value, 'LT', true);
+          const dateMoment = moment(this.find('#time').value, adjustedTimeFormat(), true);
           if (dateMoment.isValid()) {
             this.error.set('');
           }
@@ -71,15 +76,13 @@ BlazeComponent.extendComponent({
           const time =
             evt.target.time.value ||
             moment(new Date().setHours(12, 0, 0)).format('LT');
-
           const dateString = `${evt.target.date.value} ${time}`;
-          const newDate = moment(dateString, 'L LT', true);
+          const newDate = moment(dateString, 'L ' + adjustedTimeFormat(), true);
           if (newDate.isValid()) {
             this._storeDate(newDate.toDate());
             Popup.close();
           } else {
-            this.error.set('invalid-date');
-            evt.target.date.focus();
+            this.error.set('invalid');
           }
         },
         'click .js-delete-date'(evt) {
