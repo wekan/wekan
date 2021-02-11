@@ -16,6 +16,8 @@ and fixes the following bugs:
 
 - [Minicard, remove red line below member avatar icon](https://github.com/wekan/wekan/pull/3560).
   Thanks to mfilser.
+- [Added padding](https://github.com/wekan/wekan/pull/3559).
+  Thanks to lindhork.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
