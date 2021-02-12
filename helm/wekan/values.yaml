@@ -33,7 +33,6 @@ env:
 ## Deployment. These can e.g. be provided by a Secret and allow
 ## to store passwords separately
 ##
-secretname: wekanlocal-secret
 secretEnv:
   - name: ""
     value: ""
