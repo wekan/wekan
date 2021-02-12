@@ -21,6 +21,8 @@ and adds the following improvements:
   Thanks to xet7.
 - [Helm: Made SecretEnv a secret and added default mongodb name as Wekan](https://github.com/wekan/wekan/pull/3570).
   Thanks to meerkampdvv.
+- [Checklist drag handle now at the left side (same place as for the checklist items)](https://github.com/wekan/wekan/pull/3571).
+  Thanks to mfilser.
 
 and adds the following updates:
 
