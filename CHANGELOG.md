@@ -6,6 +6,8 @@ This release adds the following new features:
   Thanks to pichouk.
 - [Added possibility to specify hours in single digits in 24 hour format](https://github.com/wekan/wekan/pull/3557).
   Thanks to lindhork.
+- [Added replacement from comma to dot](https://github.com/wekan/wekan/pull/3564).
+  Thanks to lindhork.
 
 and adds the following improvements:
 
