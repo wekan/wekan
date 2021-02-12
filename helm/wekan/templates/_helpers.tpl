@@ -81,7 +81,7 @@ else use user-provided URL.
 {{- $release := .Release.Name -}}
 {{- $replicaSetName := (index .Values "mongodb" "replicaSetName") -}}
 {{- $mongodbSvcName := include "wekan.mongodb.svcname" . -}}
-mongodb://{{- range $v := until $count }}{{ $release }}-mongodb-{{ $v }}.{{ $mongodbSvcName }}:27017{{ if ne $v (sub $count 1) }},{{- end -}}{{- end -}}?replicaSet={{ $replicaSetName }}
+mongodb://{{- range $v := until $count }}{{ $release }}-mongodb-{{ $v }}.{{ $mongodbSvcName }}:27017{{ if ne $v (sub $count 1) }},{{- end -}}{{- end -}}/{{ .Values.dbname }}?replicaSet={{ $replicaSetName }}
 {{- else -}}
 {{- index .Values "mongodb" "url" -}}
 {{- end -}}

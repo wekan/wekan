@@ -21,6 +21,7 @@ image:
 ##
 
 replicaCount: 1
+dbname: wekan
 
 ## Specify additional environmental variables for the Deployment
 ##
@@ -32,9 +33,9 @@ env:
 ## Deployment. These can e.g. be provided by a Secret and allow
 ## to store passwords separately
 ##
-secretEnv:
-  - name: ""
-    value: ""
+secretEnv: {}
+  # - name: ""
+  #   value: ""
 
 service:
   type: NodePort
