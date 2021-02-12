@@ -121,7 +121,7 @@ CardCustomField.register('cardCustomField');
       {
         'submit .js-card-customfield-currency'(event) {
           event.preventDefault();
-          const value = Number(this.find('input').value, 10);
+          const value = Number(this.find('input').value.replace(/,/i,'.'), 10);
           this.card.setCustomField(this.customFieldId, value);
         },
       },
