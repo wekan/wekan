@@ -33,6 +33,8 @@ and fixes the following bugs:
   Thanks to lindhork.
 - [Changed default behaviour for BIGEVENTS that no activity matches it](https://github.com/wekan/wekan/pull/3561).
   Thanks to bronger.
+- [Modern theme: Remove font color when the card has a color](https://github.com/wekan/wekan/pull/3569).
+  Thanks to helioguardabaxo.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
