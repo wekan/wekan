@@ -13,6 +13,8 @@ and adds the following improvements:
   Thanks to mfilser.
 - [Teams/Organizations: Added more code to Admin Panel for saving and editing. In Progress](https://github.com/wekan/wekan/commit/1bc07b1b4a3e8cd1a177f3f1776ed8e189bc627a).
   Thanks to xet7.
+- [Mobile View, list header is now always at top and only lists/cards view have a scroll area](https://github.com/wekan/wekan/pull/3563).
+  Thanks to mfilser.
 
 and adds the following updates:
 
