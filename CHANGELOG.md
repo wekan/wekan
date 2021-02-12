@@ -19,6 +19,8 @@ and adds the following improvements:
   Thanks to mfilser.
 - [Added ChangeLog update script](https://github.com/wekan/wekan/commit/c7ec07ed4748fe9b00f622af7472fd291cf1a3ce).
   Thanks to xet7.
+- [Helm: Made SecretEnv a secret and added default mongodb name as Wekan](https://github.com/wekan/wekan/pull/3570).
+  Thanks to meerkampdvv.
 
 and adds the following updates:
 
