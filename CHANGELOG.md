@@ -23,6 +23,8 @@ and adds the following improvements:
   Thanks to meerkampdvv.
 - [Checklist drag handle now at the left side (same place as for the checklist items)](https://github.com/wekan/wekan/pull/3571).
   Thanks to mfilser.
+- [Lists, show also 0 cards at column description](https://github.com/wekan/wekan/pull/3572).
+  Thanks to mfilser.
 
 and adds the following updates:
 
