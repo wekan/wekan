@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This releases fixes the following bugs:
+
+- [Fix development script to escape character](https://github.com/wekan/wekan/commit/2e9ad941c0b63b384ee215548a3f31b4a635b28b).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.96 2021-02-13 Wekan release
 
 This release adds the following new features:
