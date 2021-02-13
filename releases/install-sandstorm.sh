@@ -6,7 +6,7 @@ cd ~
 wget https://releases.wekan.team/meteor-spk/projects.7z
 7z x projects.7z
 rm projects.7z
-echo "export PATH=$PATH:~/projects/meteor-spk/meteor-spk-0.5.1" >> ~/.bashrc
+echo "export PATH=\$PATH:~/projects/meteor-spk/meteor-spk-0.5.1" >> ~/.bashrc
 source ~/.bashrc
 echo "INSTALL DEV VERSION OF SANDSTORM:"
 curl https://install.sandstorm.io | bash
