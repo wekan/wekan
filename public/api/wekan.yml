@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v4.95
+  version: v4.96
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -245,27 +245,6 @@ paths:
                 type: string
               defaultSwimlaneId:
                 type: string
-  /api/boards_count:
-    get:
-      operationId: get_boards_count
-      summary: Get boards count
-      tags:
-        - Boards
-      produces:
-        - application/json
-      security:
-          - UserSecurity: []
-      responses:
-        '200':
-          description: |-
-            200 response
-          schema:
-            type: object
-            properties:
-              private:
-                type: integer
-              public:
-                type: integer
   /api/boards/{board}:
     get:
       operationId: get_board
@@ -2157,6 +2136,27 @@ paths:
                   type: string
                 listId:
                   type: string
+  /api/boards_count:
+    get:
+      operationId: get_boards_count
+      summary: Get public and private boards count
+      tags:
+        - Boards
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: object
+            properties:
+              private:
+                type: integer
+              public:
+                type: integer
   /api/createtoken/{user}:
     post:
       operationId: create_user_token
