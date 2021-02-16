@@ -164,6 +164,19 @@
 .edit-labels-pop-over .shortcut
   display: inline-block
 
+.labels
+  background: darken(white, 3%)
+
+  &.placeholder
+    background: darken(white, 20%)
+    border-radius: 2px
+
+  &.ui-sortable-helper
+    box-shadow: -2px 2px 8px rgba(0, 0, 0, .3),
+                0 0 1px rgba(0, 0, 0, .5)
+    transform: rotate(4deg)
+    cursor: grabbing
+
 .card-label-selectable
   border-radius: 3px
   cursor: pointer

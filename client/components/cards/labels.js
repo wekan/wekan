@@ -1,3 +1,4 @@
+const { calculateIndexData } = Utils;
 let labelColors;
 Meteor.startup(() => {
   labelColors = Boards.simpleSchema()._schema['labels.$.color'].allowedValues;
@@ -26,6 +27,50 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('formLabel');
+
+BlazeComponent.extendComponent({
+  onRendered() {
+    const $subtasksDom = this.$('.edit-labels-pop-over');
+
+    $subtasksDom.sortable({
+      tolerance: 'pointer',
+      helper: 'clone',
+      handle: '.card-label',
+      items: '.js-label-item',
+      placeholder: 'labels placeholder',
+      distance: 7,
+      start(evt, ui) {
+        ui.placeholder.height(ui.helper.height());
+        // EscapeActions.executeUpTo('popup-close');        
+      },
+      stop(evt, ui) {
+        let prevChecklist = ui.item.prev('.js-label-item').get(0);
+        if (prevChecklist) {
+          prevChecklist = Blaze.getData(prevChecklist).label;
+        }
+        let nextChecklist = ui.item.next('.js-label-item').get(0);
+        if (nextChecklist) {
+          nextChecklist = Blaze.getData(nextChecklist).label;
+        }
+        const sortIndex = calculateIndexData(prevChecklist, nextChecklist, 1);
+
+        $subtasksDom.sortable('cancel');
+        const label = Blaze.getData(ui.item.get(0)).label;
+        
+        /*
+        console.log('Stopped works here') //test
+
+        Cards.update(label._id, {
+          $set: {
+            labelSort: sortIndex.base,
+          },
+        });
+        */
+      },
+    });
+  },
+
+}).register('cardLabelsPopup');
 
 Template.createLabelPopup.helpers({
   // This is the default color for a new label. We search the first color that
