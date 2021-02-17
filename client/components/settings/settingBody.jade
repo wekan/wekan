@@ -143,6 +143,14 @@ template(name='accountSettings')
         input.wekan-form-control#accounts-allowUserDelete(type="radio" name="allowUserDelete" value="false" checked="{{#unless allowUserDelete}}checked{{/unless}}")
         span {{_ 'no'}}
     li
+    li.accounts-form
+      .title {{_ 'accounts-allowPasswordChange'}}
+      .form-group.flex
+        input.wekan-form-control#accounts-allowPasswordChange(type="radio" name="allowPasswordChange" value="true" checked="{{#if allowPasswordChange}}checked{{/if}}")
+        span {{_ 'yes'}}
+        input.wekan-form-control#accounts-allowPasswordChange(type="radio" name="allowPasswordChange" value="false" checked="{{#unless allowPasswordChange}}checked{{/unless}}")
+        span {{_ 'no'}}
+    li
       button.js-accounts-save.primary {{_ 'save'}}
 
 template(name='announcementSettings')

@@ -1,3 +1,5 @@
+import AccountSettings from "../../../models/accountSettings";
+
 BlazeComponent.extendComponent({
   onCreated() {
     this.error = new ReactiveVar('');
@@ -260,6 +262,9 @@ BlazeComponent.extendComponent({
       $('input[name=allowUserNameChange]:checked').val() === 'true';
     const allowUserDelete =
       $('input[name=allowUserDelete]:checked').val() === 'true';
+    const allowPasswordChange =
+      $('input[name=allowPasswordChange]:checked').val() === 'true';
+
     AccountSettings.update('accounts-allowEmailChange', {
       $set: { booleanValue: allowEmailChange },
     });
@@ -269,6 +274,11 @@ BlazeComponent.extendComponent({
     AccountSettings.update('accounts-allowUserDelete', {
       $set: { booleanValue: allowUserDelete },
     });
+    AccountSettings.update('accounts-allowPasswordChange', {
+      $set: { booleanValue: allowPasswordChange },
+    });
+    console.log(allowPasswordChange);
+    console.log(AccountSettings.findOne('accounts-allowPasswordChange').booleanValue);
   },
 
   allowEmailChange() {
@@ -279,6 +289,9 @@ BlazeComponent.extendComponent({
   },
   allowUserDelete() {
     return AccountSettings.findOne('accounts-allowUserDelete').booleanValue;
+  },
+  allowPasswordChange() {
+    return AccountSettings.findOne('accounts-allowPasswordChange').booleanValue;
   },
 
   events() {
