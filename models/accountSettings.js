@@ -1,5 +1,4 @@
 AccountSettings = new Mongo.Collection('accountSettings');
-// import { Meteor } from 'meteor/meteor';
 
 AccountSettings.attachSchema(
   new SimpleSchema({
