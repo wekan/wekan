@@ -116,6 +116,9 @@ Meteor.methods({
   'accountSettings.allowUserDelete': function() {
     return AccountSettings.findOne('accounts-allowUserDelete').booleanValue;
   },
+  'accountSettings.allowPasswordChange': function() {
+    return AccountSettings.findOne('accounts-allowPasswordChange').booleanValue;
+  },
 });
 
 export default AccountSettings;
