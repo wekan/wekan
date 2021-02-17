@@ -79,6 +79,15 @@ if (Meteor.isServer) {
         },
       },
     );
+    AccountSettings.upsert(
+      { _id: 'accounts-allowPasswordChange' },
+      {
+        $setOnInsert: {
+          booleanValue: true,
+          sort: 0,
+        },
+      },
+    );
   });
 }
 
@@ -91,6 +100,9 @@ AccountSettings.helpers({
   },
   allowUserDelete() {
     return AccountSettings.findOne('accounts-allowUserDelete').booleanValue;
+  },
+  allowPasswordChange() {
+    return AccountSettings.findOne('accounts-allowPasswordChange').booleanValue;
   },
 });
 
