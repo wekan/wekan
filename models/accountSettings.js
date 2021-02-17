@@ -107,16 +107,16 @@ AccountSettings.helpers({
 });
 
 Meteor.methods({
-  'accountSettings.allowEmailChange': function() {
+  'accountSettings.allowEmailChange'() {
     return AccountSettings.findOne('accounts-allowEmailChange').booleanValue;
   },
-  'accountSettings.allowUserNameChange': function() {
+  'accountSettings.allowUserNameChange'() {
     return AccountSettings.findOne('accounts-allowUserNameChange').booleanValue;
   },
-  'accountSettings.allowUserDelete': function() {
+  'accountSettings.allowUserDelete'() {
     return AccountSettings.findOne('accounts-allowUserDelete').booleanValue;
   },
-  'accountSettings.allowPasswordChange': function() {
+  'accountSettings.allowPasswordChange'() {
     return AccountSettings.findOne('accounts-allowPasswordChange').booleanValue;
   },
 });
