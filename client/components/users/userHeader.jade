@@ -65,7 +65,8 @@ template(name="memberMenuPopup")
         a.js-change-avatar
           i.fa.fa-picture-o
           | {{_ 'edit-avatar'}}
-      unless isSandstorm
+      //- unless isSandstorm
+      if allowPasswordChange
         li
           a.js-change-password
             i.fa.fa-key
