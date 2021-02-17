@@ -23,7 +23,7 @@ Template.memberMenuPopup.helpers({
     }
   },
   allowPasswordChange(){
-    Meteor.call('AccountSettings.allowPasswordChange', (_, result) => {
+    Meteor.call('accountSettings.allowPasswordChange', (_, result) => {
       // console.log(result);
       if (result) {
         console.log(true);
