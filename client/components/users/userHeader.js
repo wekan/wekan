@@ -22,6 +22,18 @@ Template.memberMenuPopup.helpers({
       return false;
     }
   },
+  allowPasswordChange(){
+    Meteor.call('AccountSettings.allowPasswordChange', (_, result) => {
+      console.log(result);
+      if (result) {
+        console.log(true);
+        return true;
+      } else {
+        console.log(false);
+        return false;
+      }
+    });
+  },
 });
 
 Template.memberMenuPopup.events({
@@ -52,27 +64,36 @@ Template.memberMenuPopup.events({
 Template.editProfilePopup.helpers({
   allowEmailChange() {
     Meteor.call('AccountSettings.allowEmailChange', (_, result) => {
+      console.log(result);
       if (result) {
+        console.log(true);
         return true;
       } else {
+        console.log(false);
         return false;
       }
     });
   },
   allowUserNameChange() {
     Meteor.call('AccountSettings.allowUserNameChange', (_, result) => {
+      console.log(result);
       if (result) {
+        console.log(true);
         return true;
       } else {
+        console.log(false);
         return false;
       }
     });
   },
   allowUserDelete() {
     Meteor.call('AccountSettings.allowUserDelete', (_, result) => {
+      console.log(result);
       if (result) {
+        console.log(true);
         return true;
       } else {
+        console.log(false);
         return false;
       }
     });
