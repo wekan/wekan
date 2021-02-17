@@ -1,4 +1,5 @@
 AccountSettings = new Mongo.Collection('accountSettings');
+// import { Meteor } from 'meteor/meteor';
 
 AccountSettings.attachSchema(
   new SimpleSchema({
@@ -103,6 +104,18 @@ AccountSettings.helpers({
   },
   allowPasswordChange() {
     return AccountSettings.findOne('accounts-allowPasswordChange').booleanValue;
+  },
+});
+
+Meteor.methods({
+  'accountSettings.allowEmailChange': function() {
+    return AccountSettings.findOne('accounts-allowEmailChange').booleanValue;
+  },
+  'accountSettings.allowUserNameChange': function() {
+    return AccountSettings.findOne('accounts-allowUserNameChange').booleanValue;
+  },
+  'accountSettings.allowUserDelete': function() {
+    return AccountSettings.findOne('accounts-allowUserDelete').booleanValue;
   },
 });
 
