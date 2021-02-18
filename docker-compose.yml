@@ -309,7 +309,7 @@ services:
       #- TRUSTED_URL=https://intra.example.com
       #-----------------------------------------------------------------
       # ==== OUTGOING WEBHOOKS ====
-      # What to send to Outgoing Webhook, or leave out. Example, that includes all that are default: cardId,listId,oldListId,boardId,comment,user,card,commentId .
+      # What to send to Outgoing Webhook, or leave out. If commented out the default values will be: cardId,listId,oldListId,boardId,comment,user,card,commentId,swimlaneId,customerField,customFieldValue
       #- WEBHOOKS_ATTRIBUTES=cardId,listId,oldListId,boardId,comment,user,card,commentId
       #-----------------------------------------------------------------
       # ==== Debug OIDC OAuth2 etc ====
