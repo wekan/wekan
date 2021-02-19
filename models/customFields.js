@@ -371,6 +371,99 @@ if (Meteor.isServer) {
   });
 
   /**
+   * @operation edit_custom_field
+   * @summary Update a Custom Field
+   *
+   * @param {string} name the name of the custom field
+   * @param {string} type the type of the custom field
+   * @param {string} settings the settings object of the custom field
+   * @param {boolean} showOnCard should we show the custom field on cards?
+   * @param {boolean} automaticallyOnCard should the custom fields automatically be added on cards?
+   * @param {boolean} showLabelOnMiniCard should the label of the custom field be shown on minicards?
+   * @return_type {_id: string}
+   */
+  JsonRoutes.add(
+    'PUT',
+    '/api/boards/:boardId/custom-fields/:customFieldId',
+    function(req, res) {
+      Authentication.checkUserId(req.userId);
+
+      const paramFieldId = req.params.customFieldId;
+      const paramBoardId = req.params.boardId;
+
+      if (req.body.hasOwnProperty('name')) {
+        CustomFields.direct.update(
+          {
+            _id: paramFieldId,
+            boardId: paramBoardId,
+          },
+          { $set: { title: req.body.name } },
+        );
+      }
+      if (req.body.hasOwnProperty('type')) {
+        CustomFields.direct.update(
+          {
+            _id: paramFieldId,
+            boardId: paramBoardId,
+          },
+          { $set: { title: req.body.type } },
+        );
+      }
+      if (req.body.hasOwnProperty('settings')) {
+        CustomFields.direct.update(
+          {
+            _id: paramFieldId,
+            boardId: paramBoardId,
+          },
+          // TODO: should I just wholesale set the settings obj?
+          { $set: { title: req.body.settings } },
+        );
+      }
+      if (req.body.hasOwnProperty('showOnCard')) {
+        CustomFields.direct.update(
+          {
+            _id: paramFieldId,
+            boardId: paramBoardId,
+          },
+          { $set: { title: req.body.showOnCard } },
+        );
+      }
+      if (req.body.hasOwnProperty('automaticallyOnCard')) {
+        CustomFields.direct.update(
+          {
+            _id: paramFieldId,
+            boardId: paramBoardId,
+          },
+          { $set: { title: req.body.automaticallyOnCard } },
+        );
+      }
+      if (req.body.hasOwnProperty('alwaysOnCard')) {
+        CustomFields.direct.update(
+          {
+            _id: paramFieldId,
+            boardId: paramBoardId,
+          },
+          { $set: { title: req.body.alwaysOnCard } },
+        );
+      }
+      if (req.body.hasOwnProperty('showLabelOnMiniCard')) {
+        CustomFields.direct.update(
+          {
+            _id: paramFieldId,
+            boardId: paramBoardId,
+          },
+          { $set: { title: req.body.showLabelOnMiniCard } },
+        );
+      }
+
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: { _id: paramFieldId },
+      });
+    },
+  );
+
+  /**
    * @operation delete_custom_field
    * @summary Delete a Custom Fields attached to a board
    *
