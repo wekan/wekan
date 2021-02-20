@@ -385,74 +385,51 @@ if (Meteor.isServer) {
   JsonRoutes.add(
     'PUT',
     '/api/boards/:boardId/custom-fields/:customFieldId',
-    function(req, res) {
+    (req, res) => {
       Authentication.checkUserId(req.userId);
 
       const paramFieldId = req.params.customFieldId;
-      const paramBoardId = req.params.boardId;
 
       if (req.body.hasOwnProperty('name')) {
         CustomFields.direct.update(
-          {
-            _id: paramFieldId,
-            boardId: paramBoardId,
-          },
-          { $set: { title: req.body.name } },
+          { _id: paramFieldId },
+          { $set: { name: req.body.name } },
         );
       }
       if (req.body.hasOwnProperty('type')) {
         CustomFields.direct.update(
-          {
-            _id: paramFieldId,
-            boardId: paramBoardId,
-          },
-          { $set: { title: req.body.type } },
+          { _id: paramFieldId },
+          { $set: { type: req.body.type } },
         );
       }
       if (req.body.hasOwnProperty('settings')) {
         CustomFields.direct.update(
-          {
-            _id: paramFieldId,
-            boardId: paramBoardId,
-          },
-          // TODO: should I just wholesale set the settings obj?
-          { $set: { title: req.body.settings } },
+          { _id: paramFieldId },
+          { $set: { settings: req.body.settings } },
         );
       }
       if (req.body.hasOwnProperty('showOnCard')) {
         CustomFields.direct.update(
-          {
-            _id: paramFieldId,
-            boardId: paramBoardId,
-          },
-          { $set: { title: req.body.showOnCard } },
+          { _id: paramFieldId },
+          { $set: { showOnCard: req.body.showOnCard } },
         );
       }
       if (req.body.hasOwnProperty('automaticallyOnCard')) {
         CustomFields.direct.update(
-          {
-            _id: paramFieldId,
-            boardId: paramBoardId,
-          },
-          { $set: { title: req.body.automaticallyOnCard } },
+          { _id: paramFieldId },
+          { $set: { automaticallyOnCard: req.body.automaticallyOnCard } },
         );
       }
       if (req.body.hasOwnProperty('alwaysOnCard')) {
         CustomFields.direct.update(
-          {
-            _id: paramFieldId,
-            boardId: paramBoardId,
-          },
-          { $set: { title: req.body.alwaysOnCard } },
+          { _id: paramFieldId },
+          { $set: { alwaysOnCard: req.body.alwaysOnCard } },
         );
       }
       if (req.body.hasOwnProperty('showLabelOnMiniCard')) {
         CustomFields.direct.update(
-          {
-            _id: paramFieldId,
-            boardId: paramBoardId,
-          },
-          { $set: { title: req.body.showLabelOnMiniCard } },
+          { _id: paramFieldId },
+          { $set: { showLabelOnMiniCard: req.body.showLabelOnMiniCard } },
         );
       }
 
