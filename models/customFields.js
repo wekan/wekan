@@ -441,6 +441,71 @@ if (Meteor.isServer) {
   );
 
   /**
+   * @operation add_custom_field_dropdown_items
+   * @summary Update a Custom Field's dropdown items
+   *
+   * @param {string[]} items names of the custom field
+   * @return_type {_id: string}
+   */
+  JsonRoutes.add(
+    'POST',
+    '/api/boards/:boardId/custom-fields/:customFieldId/dropdown-items',
+    (req, res) => {
+      Authentication.checkUserId(req.userId);
+
+      if (req.body.hasOwnProperty('items')) {
+        CustomFields.direct.update(
+          { _id: req.params.customFieldId },
+          {
+            $push: {
+              'settings.dropdownItems': {
+                $each: req.body.items.map(name => ({
+                  _id: Random.id(6),
+                  name,
+                })),
+              },
+            },
+          },
+        );
+      }
+
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: { _id: req.params.customFieldId },
+      });
+    },
+  );
+
+  /**
+   * @operation delete_custom_field_dropdown_item
+   * @summary Update a Custom Field's dropdown items
+   *
+   * @param {string} itemId ID of the dropdown item
+   * @return_type {_id: string}
+   */
+  JsonRoutes.add(
+    'DELETE',
+    '/api/boards/:boardId/custom-fields/:customFieldId/dropdown-items/:dropdownItemId',
+    (req, res) => {
+      Authentication.checkUserId(req.userId);
+
+      CustomFields.direct.update(
+        { _id: req.params.customFieldId },
+        {
+          $pull: {
+            'settings.dropdownItems': { _id: req.params.dropdownItemId },
+          },
+        },
+      );
+
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: { _id: req.params.customFieldId },
+      });
+    },
+  );
+
+  /**
    * @operation delete_custom_field
    * @summary Delete a Custom Fields attached to a board
    *
