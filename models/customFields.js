@@ -477,6 +477,43 @@ if (Meteor.isServer) {
   );
 
   /**
+   * @operation edit_custom_field_dropdown_item
+   * @summary Update a Custom Field's dropdown item
+   *
+   * @param {string} name names of the custom field
+   * @return_type {_id: string}
+   */
+  JsonRoutes.add(
+    'PUT',
+    '/api/boards/:boardId/custom-fields/:customFieldId/dropdown-items/:dropdownItemId',
+    (req, res) => {
+      Authentication.checkUserId(req.userId);
+
+      if (req.body.hasOwnProperty('name')) {
+        CustomFields.direct.update(
+          {
+            _id: req.params.customFieldId,
+            'settings.dropdownItems._id': req.params.dropdownItemId,
+          },
+          {
+            $set: {
+              'settings.dropdownItems.$': {
+                _id: req.params.dropdownItemId,
+                name: req.body.name,
+              },
+            },
+          },
+        );
+      }
+
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: { _id: req.params.customFieldId },
+      });
+    },
+  );
+
+  /**
    * @operation delete_custom_field_dropdown_item
    * @summary Update a Custom Field's dropdown items
    *
