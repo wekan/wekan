@@ -507,7 +507,13 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
 
     if (queryParams.text) {
       const regex = new RegExp(escapeForRegex(queryParams.text), 'i');
-
+      const items = ChecklistItems.find({ title: regex });
+      const checklists = Checklists.find({
+        $or: [
+          { title: regex },
+          { _id: { $in: items.map(item => item.checklistId) } },
+        ],
+      });
       selector.$and.push({
         $or: [
           { title: regex },
@@ -520,6 +526,7 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
               ),
             },
           },
+          { _id: { $in: checklists.map(list => list.cardId) } },
         ],
       });
     }
