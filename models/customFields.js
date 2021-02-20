@@ -453,16 +453,18 @@ if (Meteor.isServer) {
     (req, res) => {
       Authentication.checkUserId(req.userId);
 
-      if (req.body.hasOwnProperty('items')) {
+      if (req.body.hasOwnProperty('items') && Array.isArray(req.body.items)) {
         CustomFields.direct.update(
           { _id: req.params.customFieldId },
           {
             $push: {
               'settings.dropdownItems': {
-                $each: req.body.items.map(name => ({
-                  _id: Random.id(6),
-                  name,
-                })),
+                $each: req.body.items
+                  .filter(name => typeof name === 'string')
+                  .map(name => ({
+                    _id: Random.id(6),
+                    name,
+                  })),
               },
             },
           },
