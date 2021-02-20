@@ -507,6 +507,20 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
       });
     }
 
+    if (queryParams.has.length) {
+      queryParams.has.forEach(has => {
+        if (has === 'description') {
+          selector.description = { $exists: true, $nin: [null, ''] };
+        } else if (has === 'attachment') {
+          const attachments = Attachments.find({}, { fields: { cardId: 1 } });
+          selector.$and.push({ _id: { $in: attachments.map(a => a.cardId) } });
+        } else if (has === 'checklist') {
+          const checklists = Checklists.find({}, { fields: { cardId: 1 } });
+          selector.$and.push({ _id: { $in: checklists.map(a => a.cardId) } });
+        }
+      });
+    }
+
     if (queryParams.text) {
       const regex = new RegExp(escapeForRegex(queryParams.text), 'i');
 

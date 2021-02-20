@@ -222,6 +222,7 @@ BlazeComponent.extendComponent({
       'operator-created': 'createdAt',
       'operator-modified': 'modifiedAt',
       'operator-comment': 'comments',
+      'operator-has': 'has',
     };
 
     const predicates = {
@@ -243,6 +244,11 @@ BlazeComponent.extendComponent({
         'predicate-due': 'dueAt',
         'predicate-created': 'createdAt',
         'predicate-modified': 'modifiedAt',
+      },
+      has: {
+        'predicate-description': 'description',
+        'predicate-checklist': 'checklist',
+        'predicate-attachment': 'attachment',
       },
     };
     const predicateTranslations = {};
@@ -276,6 +282,7 @@ BlazeComponent.extendComponent({
       createdAt: null,
       modifiedAt: null,
       comments: [],
+      has: [],
     };
 
     let text = '';
@@ -296,6 +303,7 @@ BlazeComponent.extendComponent({
         } else {
           op = m.groups.abbrev.toLowerCase();
         }
+        // eslint-disable-next-line no-prototype-builtins
         if (operatorMap.hasOwnProperty(op)) {
           let value = m.groups.value;
           if (operatorMap[op] === 'labels') {
@@ -352,6 +360,15 @@ BlazeComponent.extendComponent({
               });
             } else {
               value = predicateTranslations.status[value];
+            }
+          } else if (operatorMap[op] === 'has') {
+            if (!predicateTranslations.has[value]) {
+              this.parsingErrors.push({
+                tag: 'operator-has-invalid',
+                value,
+              });
+            } else {
+              value = predicateTranslations.has[value];
             }
           }
           if (Array.isArray(params[operatorMap[op]])) {
