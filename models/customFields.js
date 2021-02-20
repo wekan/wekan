@@ -121,7 +121,7 @@ CustomFields.attachSchema(
   }),
 );
 
-CustomFields.addToAllCards = (cf) => {
+CustomFields.addToAllCards = cf => {
   Cards.update(
     {
       boardId: { $in: cf.boardIds },
@@ -281,26 +281,25 @@ if (Meteor.isServer) {
    *                name: string,
    *                type: string}]
    */
-  JsonRoutes.add(
-    'GET',
-    '/api/boards/:boardId/custom-fields',
-    function (req, res) {
-      Authentication.checkUserId(req.userId);
-      const paramBoardId = req.params.boardId;
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: CustomFields.find({ boardIds: { $in: [paramBoardId] } }).map(
-          function (cf) {
-            return {
-              _id: cf._id,
-              name: cf.name,
-              type: cf.type,
-            };
-          },
-        ),
-      });
-    },
-  );
+  JsonRoutes.add('GET', '/api/boards/:boardId/custom-fields', function(
+    req,
+    res,
+  ) {
+    Authentication.checkUserId(req.userId);
+    const paramBoardId = req.params.boardId;
+    JsonRoutes.sendResult(res, {
+      code: 200,
+      data: CustomFields.find({ boardIds: { $in: [paramBoardId] } }).map(
+        function(cf) {
+          return {
+            _id: cf._id,
+            name: cf.name,
+            type: cf.type,
+          };
+        },
+      ),
+    });
+  });
 
   /**
    * @operation get_custom_field
@@ -313,7 +312,7 @@ if (Meteor.isServer) {
   JsonRoutes.add(
     'GET',
     '/api/boards/:boardId/custom-fields/:customFieldId',
-    function (req, res) {
+    function(req, res) {
       Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
       const paramCustomFieldId = req.params.customFieldId;
@@ -340,37 +339,36 @@ if (Meteor.isServer) {
    * @param {boolean} showLabelOnMiniCard should the label of the custom field be shown on minicards?
    * @return_type {_id: string}
    */
-  JsonRoutes.add(
-    'POST',
-    '/api/boards/:boardId/custom-fields',
-    function (req, res) {
-      Authentication.checkUserId(req.userId);
-      const paramBoardId = req.params.boardId;
-      const board = Boards.findOne({ _id: paramBoardId });
-      const id = CustomFields.direct.insert({
-        name: req.body.name,
-        type: req.body.type,
-        settings: req.body.settings,
-        showOnCard: req.body.showOnCard,
-        automaticallyOnCard: req.body.automaticallyOnCard,
-        showLabelOnMiniCard: req.body.showLabelOnMiniCard,
-        boardIds: [board._id],
-      });
+  JsonRoutes.add('POST', '/api/boards/:boardId/custom-fields', function(
+    req,
+    res,
+  ) {
+    Authentication.checkUserId(req.userId);
+    const paramBoardId = req.params.boardId;
+    const board = Boards.findOne({ _id: paramBoardId });
+    const id = CustomFields.direct.insert({
+      name: req.body.name,
+      type: req.body.type,
+      settings: req.body.settings,
+      showOnCard: req.body.showOnCard,
+      automaticallyOnCard: req.body.automaticallyOnCard,
+      showLabelOnMiniCard: req.body.showLabelOnMiniCard,
+      boardIds: [board._id],
+    });
 
-      const customField = CustomFields.findOne({
+    const customField = CustomFields.findOne({
+      _id: id,
+      boardIds: { $in: [paramBoardId] },
+    });
+    customFieldCreation(req.body.authorId, customField);
+
+    JsonRoutes.sendResult(res, {
+      code: 200,
+      data: {
         _id: id,
-        boardIds: { $in: [paramBoardId] },
-      });
-      customFieldCreation(req.body.authorId, customField);
-
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: {
-          _id: id,
-        },
-      });
-    },
-  );
+      },
+    });
+  });
 
   /**
    * @operation edit_custom_field
@@ -455,7 +453,7 @@ if (Meteor.isServer) {
   JsonRoutes.add(
     'DELETE',
     '/api/boards/:boardId/custom-fields/:customFieldId',
-    function (req, res) {
+    function(req, res) {
       Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
       const id = req.params.customFieldId;
