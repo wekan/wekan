@@ -341,6 +341,7 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
         }
       });
 
+      // eslint-disable-next-line no-prototype-builtins
       if (!selector.swimlaneId.hasOwnProperty('swimlaneId')) {
         selector.swimlaneId = { $in: [] };
       }
@@ -362,6 +363,7 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
         }
       });
 
+      // eslint-disable-next-line no-prototype-builtins
       if (!selector.hasOwnProperty('listId')) {
         selector.listId = { $in: [] };
       }
@@ -507,13 +509,23 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
 
     if (queryParams.text) {
       const regex = new RegExp(escapeForRegex(queryParams.text), 'i');
-      const items = ChecklistItems.find({ title: regex });
-      const checklists = Checklists.find({
-        $or: [
-          { title: regex },
-          { _id: { $in: items.map(item => item.checklistId) } },
-        ],
-      });
+
+      const items = ChecklistItems.find(
+        { title: regex },
+        { fields: { cardId: 1 } },
+      );
+      const checklists = Checklists.find(
+        {
+          $or: [
+            { title: regex },
+            { _id: { $in: items.map(item => item.checklistId) } },
+          ],
+        },
+        { fields: { cardId: 1 } },
+      );
+
+      const attachments = Attachments.find({ 'original.name': regex });
+
       selector.$and.push({
         $or: [
           { title: regex },
@@ -527,6 +539,7 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
             },
           },
           { _id: { $in: checklists.map(list => list.cardId) } },
+          { _id: { $in: attachments.map(attach => attach.cardId) } },
         ],
       });
     }
