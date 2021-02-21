@@ -2112,6 +2112,8 @@ function cardCustomFields(userId, doc, fieldNames, modifier) {
             activityType: 'setCustomField',
             boardId: doc.boardId,
             cardId: doc._id,
+            listId: doc.listId,
+            swimlaneId: doc.swimlaneId
           };
           Activities.insert(act);
         }
