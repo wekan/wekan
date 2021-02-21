@@ -4,6 +4,8 @@ This releases fixes the following bugs:
 
 - [Fix development script to escape character](https://github.com/wekan/wekan/commit/2e9ad941c0b63b384ee215548a3f31b4a635b28b).
   Thanks to xet7.
+- [Fix bugs with customFields in Webhooks](https://github.com/wekan/wekan/pull/3584).
+  Thanks to n8ores.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
