@@ -528,6 +528,7 @@ BlazeComponent.extendComponent({
       operator_created: TAPi18n.__('operator-created'),
       operator_modified: TAPi18n.__('operator-modified'),
       operator_status: TAPi18n.__('operator-status'),
+      operator_has: TAPi18n.__('operator-has'),
       predicate_overdue: TAPi18n.__('predicate-overdue'),
       predicate_archived: TAPi18n.__('predicate-archived'),
       predicate_all: TAPi18n.__('predicate-all'),
@@ -536,6 +537,9 @@ BlazeComponent.extendComponent({
       predicate_month: TAPi18n.__('predicate-month'),
       predicate_quarter: TAPi18n.__('predicate-quarter'),
       predicate_year: TAPi18n.__('predicate-year'),
+      predicate_attachment: TAPi18n.__('predicate-attachment'),
+      predicate_description: TAPi18n.__('predicate-description'),
+      predicate_checklist: TAPi18n.__('predicate-checklist'),
     };
 
     text = `# ${TAPi18n.__('globalSearch-instructions-heading')}`;
@@ -593,6 +597,8 @@ BlazeComponent.extendComponent({
     )}`;
     text += `\n* ${TAPi18n.__('globalSearch-instructions-status-all', tags)}`;
     text += `\n* ${TAPi18n.__('globalSearch-instructions-status-ended', tags)}`;
+
+    text += `\n* ${TAPi18n.__('globalSearch-instructions-operator-has', tags)}`;
 
     text += `\n## ${TAPi18n.__('heading-notes')}`;
     text += `\n* ${TAPi18n.__('globalSearch-instructions-notes-1', tags)}`;
