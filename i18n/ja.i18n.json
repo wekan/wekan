@@ -322,6 +322,8 @@
   "error-user-notAllowSelf": "自分を招待することはできません。",
   "error-user-notCreated": "ユーザーが作成されていません",
   "error-username-taken": "このユーザ名は既に使用されています",
+  "error-orgname-taken": "This organization name is already taken",
+  "error-teamname-taken": "This team name is already taken",
   "error-email-taken": "メールは既に受け取られています",
   "export-board": "ボードのエクスポート",
   "export-board-json": "ボードをJSONにエクスポート",
@@ -951,5 +953,11 @@
   "number": "数値",
   "label-colors": "ラベル色",
   "label-names": "ラベル名",
-  "archived-at": "archived at"
+  "archived-at": "archived at",
+  "sort-cards-by": "Sort Cards By",
+  "cardsSortPopup-title": "Sort Cards By",
+  "due-date": "Due Date",
+  "title-alphabetically": "Title (Alphabetically)",
+  "created-at-newest-first": "Created At (Newest First)",
+  "created-at-oldest-first": "Created At (Oldest First)"
 }

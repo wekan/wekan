@@ -322,6 +322,8 @@
   "error-user-notAllowSelf": "Nemůžeš pozvat sám sebe",
   "error-user-notCreated": "Tento uživatel není vytvořen",
   "error-username-taken": "Toto uživatelské jméno již existuje",
+  "error-orgname-taken": "This organization name is already taken",
+  "error-teamname-taken": "This team name is already taken",
   "error-email-taken": "Tento email byl již použit",
   "export-board": "Exportovat tablo",
   "export-board-json": "Exportovat tablo do JSON",
@@ -951,5 +953,11 @@
   "number": "Číslo",
   "label-colors": "Štítek barvy",
   "label-names": "Štítek jména",
-  "archived-at": "archivováno"
+  "archived-at": "archivováno",
+  "sort-cards-by": "Sort Cards By",
+  "cardsSortPopup-title": "Sort Cards By",
+  "due-date": "Due Date",
+  "title-alphabetically": "Title (Alphabetically)",
+  "created-at-newest-first": "Created At (Newest First)",
+  "created-at-oldest-first": "Created At (Oldest First)"
 }
