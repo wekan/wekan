@@ -239,6 +239,8 @@ BlazeComponent.extendComponent({
         'predicate-archived': 'archived',
         'predicate-all': 'all',
         'predicate-ended': 'ended',
+        'predicate-public': 'public',
+        'predicate-private': 'private',
       },
       sorts: {
         'predicate-due': 'dueAt',
@@ -540,6 +542,8 @@ BlazeComponent.extendComponent({
       predicate_attachment: TAPi18n.__('predicate-attachment'),
       predicate_description: TAPi18n.__('predicate-description'),
       predicate_checklist: TAPi18n.__('predicate-checklist'),
+      predicate_public: TAPi18n.__('predicate-public'),
+      predicate_private: TAPi18n.__('predicate-private'),
     };
 
     text = `# ${TAPi18n.__('globalSearch-instructions-heading')}`;
@@ -593,6 +597,14 @@ BlazeComponent.extendComponent({
     )}`;
     text += `\n* ${TAPi18n.__(
       'globalSearch-instructions-status-archived',
+      tags,
+    )}`;
+    text += `\n* ${TAPi18n.__(
+      'globalSearch-instructions-status-public',
+      tags,
+    )}`;
+    text += `\n* ${TAPi18n.__(
+      'globalSearch-instructions-status-private',
       tags,
     )}`;
     text += `\n* ${TAPi18n.__('globalSearch-instructions-status-all', tags)}`;

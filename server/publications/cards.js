@@ -263,6 +263,8 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
   if (queryParams.selector) {
     selector = queryParams.selector;
   } else {
+    const boardsSelector = {};
+
     let archived = false;
     let endAt = null;
     if (queryParams.status.length) {
@@ -273,6 +275,8 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
           archived = null;
         } else if (status === 'ended') {
           endAt = { $nin: [null, ''] };
+        } else if (['private', 'public'].includes(status)) {
+          boardsSelector.permission = status;
         }
       });
     }
@@ -282,27 +286,35 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
       $and: [],
     };
 
-    const boardsSelector = {};
     if (archived !== null) {
-      boardsSelector.archived = archived;
       if (archived) {
-        selector.boardId = { $in: Boards.userBoardIds(userId, null) };
+        selector.boardId = {
+          $in: Boards.userBoardIds(userId, null, boardsSelector),
+        };
         selector.$and.push({
           $or: [
-            { boardId: { $in: Boards.userBoardIds(userId, archived) } },
+            {
+              boardId: {
+                $in: Boards.userBoardIds(userId, archived, boardsSelector),
+              },
+            },
             { swimlaneId: { $in: Swimlanes.archivedSwimlaneIds() } },
             { listId: { $in: Lists.archivedListIds() } },
             { archived: true },
           ],
         });
       } else {
-        selector.boardId = { $in: Boards.userBoardIds(userId, false) };
+        selector.boardId = {
+          $in: Boards.userBoardIds(userId, false, boardsSelector),
+        };
         selector.swimlaneId = { $nin: Swimlanes.archivedSwimlaneIds() };
         selector.listId = { $nin: Lists.archivedListIds() };
         selector.archived = false;
       }
     } else {
-      selector.boardId = { $in: Boards.userBoardIds(userId, null) };
+      selector.boardId = {
+        $in: Boards.userBoardIds(userId, null, boardsSelector),
+      };
     }
     if (endAt !== null) {
       selector.endAt = endAt;
@@ -720,6 +732,9 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
       Lists.find({ _id: { $in: lists } }, { fields }),
       CustomFields.find({ _id: { $in: customFieldIds } }),
       Users.find({ _id: { $in: users } }, { fields: Users.safeFields }),
+      Checklists.find({ cardId: { $in: cards.map(c => c._id) } }),
+      Attachments.find({ cardId: { $in: cards.map(c => c._id) } }),
+      CardComments.find({ cardId: { $in: cards.map(c => c._id) } }),
       SessionData.find({ userId: this.userId, sessionId }),
     ];
   }
