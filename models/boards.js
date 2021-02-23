@@ -1420,15 +1420,17 @@ if (Meteor.isServer) {
     },
     myLabelNames() {
       let names = [];
-      Boards.userBoards(Meteor.userId()).forEach(board => {
-        names = names.concat(
-          board.labels
-            .filter(label => !!label.name)
-            .map(label => {
-              return label.name;
-            }),
-        );
-      });
+      Boards.userBoards(Meteor.userId(), false, { type: 'board' }).forEach(
+        board => {
+          names = names.concat(
+            board.labels
+              .filter(label => !!label.name)
+              .map(label => {
+                return label.name;
+              }),
+          );
+        },
+      );
       return _.uniq(names).sort();
     },
     myBoardNames() {
