@@ -2,6 +2,7 @@
 const DOWNCLS = 'fa-sort-down';
 const UPCLS = 'fa-sort-up';
 */
+const sortCardsBy = new ReactiveVar('');
 Template.boardMenuPopup.events({
   'click .js-rename-board': Popup.open('boardChangeTitle'),
   'click .js-custom-fields'() {
@@ -110,6 +111,7 @@ BlazeComponent.extendComponent({
         'click .js-open-filter-view'() {
           Sidebar.setView('filter');
         },
+        'click .js-sort-cards': Popup.open('cardsSort'),
         /*
         'click .js-open-sort-view'(evt) {
           const target = evt.target;
@@ -368,3 +370,52 @@ BlazeComponent.extendComponent({
   },
 }).register('listsortPopup');
 */
+
+BlazeComponent.extendComponent({
+  events() {
+    return [
+      {
+        'click .js-sort-due'() {
+          const sortBy = {
+            dueAt: 1,
+          };
+          Session.set('sortBy', sortBy);
+          sortCardsBy.set(TAPi18n.__('due-date'));
+          Popup.close();
+        },
+        'click .js-sort-title'() {
+          const sortBy = {
+            title: 1,
+          };
+          Session.set('sortBy', sortBy);
+          sortCardsBy.set(TAPi18n.__('title'));
+          Popup.close();
+        },
+        'click .js-sort-created-asc'() {
+          const sortBy = {
+            createdAt: 1,
+          };
+          Session.set('sortBy', sortBy);
+          sortCardsBy.set(TAPi18n.__('date-created-newest-first'));
+          Popup.close();
+        },
+        'click .js-sort-created-desc'() {
+          const sortBy = {
+            createdAt: -1,
+          };
+          Session.set('sortBy', sortBy);
+          sortCardsBy.set(TAPi18n.__('date-created-oldest-first'));
+          Popup.close();
+        },
+        'click .js-sort-default'() {
+          const sortBy = {
+            sort: 1,
+          };
+          Session.set('sortBy', sortBy);
+          sortCardsBy.set(TAPi18n.__('default'));
+          Popup.close();
+        },
+      },
+    ];
+  },
+}).register('cardsSortPopup');
