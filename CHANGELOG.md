@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release adds the following updates:
+
+- [Update wekan/releases/up.sh script: Can not build ppc64le version because OpenPower Minicloud
+  is having emergency maintenance](https://github.com/wekan/wekan/commit/a43736b5c6196c65770d8ae17af927406dce2c43).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.98 2021-02-24 Wekan release
 
 This release adds the following CRITICAL SECURITY FIXES:
