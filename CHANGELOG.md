@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v4.97 2021-02-24 Wekan release
 
 This release adds the following CRITICAL SECURITY FIXES:
 
