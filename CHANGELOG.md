@@ -31,6 +31,9 @@ and adds the following updates:
 - [Update release-bundle.sh script: Can not build ppc64le version because OpenPower Minicloud
   is having emergency maintenance](https://github.com/wekan/wekan/commit/799ae886c5fedad3bafa18a14f8fbbca7ad2c227).
   Thanks to xet7.
+- [Update release.sh script: Also build Sandstorm version of Wekan with same
+  script](https://github.com/wekan/wekan/commit/b105088c2858bc04120551a8a8e5a75f187041e5).
+  Thanks to xet7.
 
 and adds the following new translations:
 
