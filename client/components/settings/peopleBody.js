@@ -654,6 +654,7 @@ Template.newUserPopup.events({
     event.preventDefault();
     const fullname = templateInstance.find('.js-profile-fullname').value.trim();
     const username = templateInstance.find('.js-profile-username').value.trim();
+    const initials = templateInstance.find('.js-profile-initials').value.trim();
     const password = templateInstance.find('.js-profile-password').value;
     const isAdmin = templateInstance.find('.js-profile-isadmin').value.trim();
     const isActive = templateInstance.find('.js-profile-isactive').value.trim();
@@ -666,6 +667,7 @@ Template.newUserPopup.events({
       'setCreateUser',
       fullname,
       username,
+      initials,
       password,
       isAdmin,
       isActive,

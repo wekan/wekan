@@ -332,7 +332,7 @@ template(name="editUserPopup")
       input.js-profile-fullname(type="text" value=user.profile.fullname required)
     label
       | {{_ 'initials'}}
-      input.js-profile-initials(type="text" value=user.profile.initials)
+      input.js-profile-initials(type="text" value=user.profile.initials required)
     label
       | {{_ 'admin'}}
       select.select-role.js-profile-isadmin
@@ -436,6 +436,9 @@ template(name="newUserPopup")
       //  input.js-profile-username(type="text" value=user.username readonly)
       //else
       input.js-profile-username(type="text" value="" required)
+    label
+      | {{_ 'initials'}}
+      input.js-profile-initials(type="text" value="" required)
     label
       | {{_ 'email'}}
       span.error.hide.email-taken
