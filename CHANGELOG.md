@@ -23,6 +23,8 @@ and adds the following improvements:
   Thanks to jrsupplee.
 - [Updated GitHub issue template links](https://github.com/wekan/wekan/commit/c23aca78babd51857271134aed9247615b87b895).
   Thanks to atlantsecurity and xet7.
+- [Admin Panel/People/People/New User: Added Initials](https://github.com/wekan/wekan/commit/3a2deb00399eb213472ef169826bd15ad655e490).
+  Thanks to xet7.
 
 and adds the following new translations:
 
