@@ -62,7 +62,7 @@ if (Meteor.isServer) {
     'commentId',
     'swimlaneId',
     'customField',
-    'customFieldValue'
+    'customFieldValue',
   ];
   const responseFunc = data => {
     const paramCommentId = data.commentId;

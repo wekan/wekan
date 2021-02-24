@@ -2113,7 +2113,7 @@ function cardCustomFields(userId, doc, fieldNames, modifier) {
             boardId: doc.boardId,
             cardId: doc._id,
             listId: doc.listId,
-            swimlaneId: doc.swimlaneId
+            swimlaneId: doc.swimlaneId,
           };
           Activities.insert(act);
         }

@@ -81,6 +81,9 @@ tx pull -f -l lt
 echo "Persian:"
 tx pull -f -l fa
 
+echo "Persian (Iran) فارسی/پارسی (ایران‎):"
+tx pull -f -l fa_IR
+
 echo "Indonesian (Indonesia):"
 tx pull -f -l id_ID
 
