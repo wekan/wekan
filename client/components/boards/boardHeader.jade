@@ -31,9 +31,9 @@ template(name="boardHeaderBar")
             if $eq watchLevel "muted"
               i.fa.fa-bell-slash
             span {{_ watchLevel}}
-          a.board-header-btn.js-sort-cards(title="Sort Cards")
+          a.board-header-btn.js-sort-cards(title="{{_ 'sort-cards'}}")
             i.fa.fa-sort
-            | Sort By {{sortCardsBy.get}}
+            | {{_ 'sort-cards'}} {{sortCardsBy.get}}
 
         else
           a.board-header-btn.js-log-in(
@@ -255,14 +255,14 @@ template(name="boardCreateRulePopup")
 template(name="cardsSortPopup")
   ul.pop-over-list
     li
-      a.js-sort-due Due Date
+      a.js-sort-due {{_ 'due-date'}}
       hr
     li
-      a.js-sort-title Title(Alphabetically)
+      a.js-sort-title {{_ 'title-alphabetically'}}
       hr
     li
-      a.js-sort-created-desc Created At(Newest First)
+      a.js-sort-created-desc {{_ 'created-at-newest-first'}}
       hr
     li
-      a.js-sort-created-asc Created At(Oldest First)
+      a.js-sort-created-asc {{_ 'created-at-oldest-first'}}
 

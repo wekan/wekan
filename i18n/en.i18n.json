@@ -964,5 +964,11 @@
   "number": "Number",
   "label-colors": "Label Colors",
   "label-names": "Label Names",
-  "archived-at": "archived at"
+  "archived-at": "archived at",
+  "sort-cards": "Sort Cards",
+  "cardsSortPopup-title": "Sort Cards",
+  "due-date": "Due Date",
+  "title-alphabetically": "Title (Alphabetically)",
+  "created-at-newest-first": "Created At (Newest First)",
+  "created-at-oldest-first": "Created At (Oldest First)"
 }

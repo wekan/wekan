@@ -168,8 +168,8 @@ BlazeComponent.extendComponent({
 
   cardsWithLimit(swimlaneId) {
     const limit = this.cardlimit.get();
-    const defaultSort = { sort: 1  };
-    const sortBy = Session.get('sortBy') ?  Session.get('sortBy') : defaultSort;
+    const defaultSort = { sort: 1 };
+    const sortBy = Session.get('sortBy') ? Session.get('sortBy') : defaultSort;
     const selector = {
       listId: this.currentData()._id,
       archived: false,
@@ -177,7 +177,7 @@ BlazeComponent.extendComponent({
     if (swimlaneId) selector.swimlaneId = swimlaneId;
     return Cards.find(Filter.mongoSelector(selector), {
       // sort: ['sort'],
-      sort:sortBy,
+      sort: sortBy,
       limit,
     });
   },

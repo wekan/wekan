@@ -2,7 +2,7 @@
 const DOWNCLS = 'fa-sort-down';
 const UPCLS = 'fa-sort-up';
 */
-const sortCardsBy = new ReactiveVar('')
+const sortCardsBy = new ReactiveVar('');
 Template.boardMenuPopup.events({
   'click .js-rename-board': Popup.open('boardChangeTitle'),
   'click .js-custom-fields'() {
@@ -371,49 +371,48 @@ BlazeComponent.extendComponent({
 }).register('listsortPopup');
 */
 
-
 BlazeComponent.extendComponent({
   events() {
     return [
       {
         'click .js-sort-due'() {
           const sortBy = {
-            'dueAt': 1
-          }
-          Session.set('sortBy',sortBy)
-          sortCardsBy.set('Due Date')
+            dueAt: 1,
+          };
+          Session.set('sortBy', sortBy);
+          sortCardsBy.set(TAPi18n.__('due-date'));
           Popup.close();
         },
         'click .js-sort-title'() {
           const sortBy = {
-            'title': 1
-          }
-          Session.set('sortBy',sortBy)
-          sortCardsBy.set('Title')
+            title: 1,
+          };
+          Session.set('sortBy', sortBy);
+          sortCardsBy.set(TAPi18n.__('title'));
           Popup.close();
         },
         'click .js-sort-created-asc'() {
           const sortBy = {
-            'createdAt': 1
-          }
-          Session.set('sortBy',sortBy)
-          sortCardsBy.set('Date Created (Newest First)')
+            createdAt: 1,
+          };
+          Session.set('sortBy', sortBy);
+          sortCardsBy.set(TAPi18n.__('date-created-newest-first'));
           Popup.close();
         },
         'click .js-sort-created-desc'() {
           const sortBy = {
-            'createdAt': -1
-          }
-          Session.set('sortBy',sortBy)
-          sortCardsBy.set('Date Created (Oldest First)')
+            createdAt: -1,
+          };
+          Session.set('sortBy', sortBy);
+          sortCardsBy.set(TAPi18n.__('date-created-oldest-first'));
           Popup.close();
         },
         'click .js-sort-default'() {
           const sortBy = {
-            'sort': 1
-          }
-          Session.set('sortBy',sortBy)
-          sortCardsBy.set('Default')
+            sort: 1,
+          };
+          Session.set('sortBy', sortBy);
+          sortCardsBy.set(TAPi18n.__('default'));
           Popup.close();
         },
       },
