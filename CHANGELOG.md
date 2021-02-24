@@ -7,6 +7,11 @@ This releases fixes the following bugs:
 - [Fix bugs with customFields in Webhooks](https://github.com/wekan/wekan/pull/3584).
   Thanks to n8ores.
 
+and adds the following improvements:
+
+- [Global Search Updates](https://github.com/wekan/wekan/pull/3597).
+  Thanks to jrsupplee.
+
 and adds the following new translations:
 
 - [Added translation: Persian (Iran)](https://github.com/wekan/wekan/commit/0a728f805b336588741ca93f2ecbd1ca31ee53f2).
