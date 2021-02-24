@@ -19,6 +19,8 @@ and adds the following new features:
 
 - [Added sort feature for viewing of cards](https://github.com/wekan/wekan/pull/3586).
   Thanks to ednamaeG.
+- [Made sort cards feature translatable](https://github.com/wekan/wekan/commit/09a13ef75f478b0fc02ae3cdbfe918367664aa0c).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
