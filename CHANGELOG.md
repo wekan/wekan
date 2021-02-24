@@ -1,5 +1,10 @@
 # Upcoming Wekan release
 
+This release adds the following new features:
+
+- [Added sort feature for viewing of cards](https://github.com/wekan/wekan/pull/3586).
+
+
 This releases fixes the following bugs:
 
 - [Fix development script to escape character](https://github.com/wekan/wekan/commit/2e9ad941c0b63b384ee215548a3f31b4a635b28b).
@@ -11,6 +16,8 @@ and adds the following improvements:
 
 - [Global Search Updates](https://github.com/wekan/wekan/pull/3597).
   Thanks to jrsupplee.
+- [Updated GitHub issue template links](https://github.com/wekan/wekan/commit/c23aca78babd51857271134aed9247615b87b895).
+  Thanks to atlantsecurity and xet7.
 
 and adds the following new translations:
 
