@@ -1,11 +1,16 @@
 # Upcoming Wekan release
 
-This release adds the following new features:
+This release adds the following CRITICAL SECURITY FIXES:
+
+- [Updated Node.js to v12.21.0](https://github.com/wekan/wekan/commit/fde6a6593379277d601408ec83f6f5a4347afef0).
+  Thanks to Node.js developers.
+
+and adds the following new features:
 
 - [Added sort feature for viewing of cards](https://github.com/wekan/wekan/pull/3586).
+  Thanks to ednamaeG.
 
-
-This releases fixes the following bugs:
+and fixes the following bugs:
 
 - [Fix development script to escape character](https://github.com/wekan/wekan/commit/2e9ad941c0b63b384ee215548a3f31b4a635b28b).
   Thanks to xet7.
