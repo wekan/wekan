@@ -134,7 +134,10 @@ SessionData.helpers({
 
 SessionData.unpickle = pickle => {
   return JSON.parse(pickle, (key, value) => {
-    if (typeof value === 'object') {
+    if (value === null) {
+      return null;
+    } else if (typeof value === 'object') {
+      // eslint-disable-next-line no-prototype-builtins
       if (value.hasOwnProperty('$$class')) {
         if (value.$$class === 'RegExp') {
           return new RegExp(value.source, value.flags);
@@ -147,7 +150,9 @@ SessionData.unpickle = pickle => {
 
 SessionData.pickle = value => {
   return JSON.stringify(value, (key, value) => {
-    if (typeof value === 'object') {
+    if (value === null) {
+      return null;
+    } else if (typeof value === 'object') {
       if (value.constructor.name === 'RegExp') {
         return {
           $$class: 'RegExp',
