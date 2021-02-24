@@ -1,4 +1,4 @@
-# v4.97 2021-02-24 Wekan release
+# v4.98 2021-02-24 Wekan release
 
 This release adds the following CRITICAL SECURITY FIXES:
 
@@ -41,6 +41,10 @@ and adds the following new translations:
   Thanks to translators.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v4.97 2021-02-24 Wekan release
+
+Release skipped, because not all required files had new version number updated yet.
 
 # v4.96 2021-02-13 Wekan release
 
