@@ -7,6 +7,11 @@ This releases fixes the following bugs:
 - [Fix bugs with customFields in Webhooks](https://github.com/wekan/wekan/pull/3584).
   Thanks to n8ores.
 
+and adds the following new translations:
+
+- [Added translation: Persian (Iran)](https://github.com/wekan/wekan/commit/0a728f805b336588741ca93f2ecbd1ca31ee53f2).
+  Thanks to translators.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v4.96 2021-02-13 Wekan release
