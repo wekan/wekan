@@ -22,7 +22,7 @@ sudo sandstorm update
 #rm -rf $WEKANDIR
 #git clone git@github.com:wekan/wekan.git
 #cd $WEKANDIR
-#sudo n 12.20.2
+#sudo n 12.21.0
 #sudo mkdir -p /usr/local/lib/node_modules/fibers/.node-gyp
 # Build Wekan
 #./releases/rebuild-release.sh
