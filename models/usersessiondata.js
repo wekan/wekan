@@ -62,6 +62,12 @@ SessionData.attachSchema(
       optional: true,
       blackbox: true,
     },
+    projection: {
+      type: String,
+      optional: true,
+      blackbox: true,
+      defaultValue: {},
+    },
     errorMessages: {
       type: [String],
       optional: true,
@@ -129,6 +135,9 @@ SessionData.attachSchema(
 SessionData.helpers({
   getSelector() {
     return SessionData.unpickle(this.selector);
+  },
+  getProjection() {
+    return SessionData.unpickle(this.projection);
   },
 });
 

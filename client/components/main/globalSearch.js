@@ -116,7 +116,12 @@ BlazeComponent.extendComponent({
       // eslint-disable-next-line no-console
       // console.log('selector:', sessionData.getSelector());
       // console.log('session data:', sessionData);
-      const cards = Cards.find({ _id: { $in: sessionData.cards } });
+      const projection = sessionData.getProjection();
+      projection.skip = 0;
+      const cards = Cards.find(
+        { _id: { $in: sessionData.cards } },
+        projection,
+      );
       this.queryErrors = sessionData.errors;
       if (this.queryErrors.length) {
         this.hasQueryErrors.set(true);
@@ -201,6 +206,7 @@ BlazeComponent.extendComponent({
       '^(?<quote>["\'])(?<text>.*?)\\k<quote>(\\s+|$)',
       'u',
     );
+    const reNegatedOperator = new RegExp('^-(?<operator>.*)$');
 
     const operators = {
       'operator-board': 'boards',
@@ -223,6 +229,7 @@ BlazeComponent.extendComponent({
       'operator-modified': 'modifiedAt',
       'operator-comment': 'comments',
       'operator-has': 'has',
+      'operator-sort': 'sort',
     };
 
     const predicates = {
@@ -346,13 +353,22 @@ BlazeComponent.extendComponent({
               }
             }
           } else if (operatorMap[op] === 'sort') {
+            let negated = false;
+            const m = value.match(reNegatedOperator);
+            if (m) {
+              value = m.groups.operator;
+              negated = true;
+            }
             if (!predicateTranslations.sorts[value]) {
               this.parsingErrors.push({
                 tag: 'operator-sort-invalid',
                 value,
               });
             } else {
-              value = predicateTranslations.sorts[value];
+              value = {
+                name: predicateTranslations.sorts[value],
+                order: negated ? 'des' : 'asc',
+              };
             }
           } else if (operatorMap[op] === 'status') {
             if (!predicateTranslations.status[value]) {
@@ -437,20 +453,10 @@ BlazeComponent.extendComponent({
   },
 
   nextPage() {
-    sessionData = this.getSessionData();
-
-    const params = {
-      limit: this.resultsPerPage,
-      selector: sessionData.getSelector(),
-      skip: sessionData.lastHit,
-    };
+    const sessionData = this.getSessionData();
 
     this.autorun(() => {
-      const handle = Meteor.subscribe(
-        'globalSearch',
-        SessionData.getSessionId(),
-        params,
-      );
+      const handle = Meteor.subscribe('nextPage', sessionData.sessionId);
       Tracker.nonreactive(() => {
         Tracker.autorun(() => {
           if (handle.ready()) {
@@ -464,21 +470,10 @@ BlazeComponent.extendComponent({
   },
 
   previousPage() {
-    sessionData = this.getSessionData();
-
-    const params = {
-      limit: this.resultsPerPage,
-      selector: sessionData.getSelector(),
-      skip:
-        sessionData.lastHit - sessionData.resultsCount - this.resultsPerPage,
-    };
+    const sessionData = this.getSessionData();
 
     this.autorun(() => {
-      const handle = Meteor.subscribe(
-        'globalSearch',
-        SessionData.getSessionId(),
-        params,
-      );
+      const handle = Meteor.subscribe('previousPage', sessionData.sessionId);
       Tracker.nonreactive(() => {
         Tracker.autorun(() => {
           if (handle.ready()) {
