@@ -395,17 +395,14 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
       }
     }
 
-    if (queryParams.dueAt !== null) {
-      selector.dueAt = { $lte: new Date(queryParams.dueAt) };
-    }
-
-    if (queryParams.createdAt !== null) {
-      selector.createdAt = { $gte: new Date(queryParams.createdAt) };
-    }
-
-    if (queryParams.modifiedAt !== null) {
-      selector.modifiedAt = { $gte: new Date(queryParams.modifiedAt) };
-    }
+    ['dueAt', 'createdAt', 'modifiedAt'].forEach(field => {
+      if (queryParams[field]) {
+        selector[field] = {};
+        selector[field][queryParams[field]['operator']] = new Date(
+          queryParams[field]['value'],
+        );
+      }
+    });
 
     const queryMembers = [];
     const queryAssignees = [];

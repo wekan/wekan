@@ -118,10 +118,7 @@ BlazeComponent.extendComponent({
       // console.log('session data:', sessionData);
       const projection = sessionData.getProjection();
       projection.skip = 0;
-      const cards = Cards.find(
-        { _id: { $in: sessionData.cards } },
-        projection,
-      );
+      const cards = Cards.find({ _id: { $in: sessionData.cards } }, projection);
       this.queryErrors = sessionData.errors;
       if (this.queryErrors.length) {
         this.hasQueryErrors.set(true);
@@ -314,25 +311,65 @@ BlazeComponent.extendComponent({
         }
         // eslint-disable-next-line no-prototype-builtins
         if (operatorMap.hasOwnProperty(op)) {
+          const operator = operatorMap[op];
           let value = m.groups.value;
-          if (operatorMap[op] === 'labels') {
+          if (operator === 'labels') {
             if (value in this.colorMap) {
               value = this.colorMap[value];
               // console.log('found color:', value);
             }
-          } else if (
-            ['dueAt', 'createdAt', 'modifiedAt'].includes(operatorMap[op])
-          ) {
+          } else if (['dueAt', 'createdAt', 'modifiedAt'].includes(operator)) {
             let days = parseInt(value, 10);
             let duration = null;
             if (isNaN(days)) {
+              // duration was specified as text
               if (predicateTranslations.durations[value]) {
                 duration = predicateTranslations.durations[value];
-                value = moment();
-              } else if (predicateTranslations.due[value] === 'overdue') {
-                value = moment();
-                duration = 'days';
-                days = 0;
+                let date = null;
+                switch (duration) {
+                  case 'week':
+                    let week = moment().week();
+                    if (week === 52) {
+                      date = moment(1, 'W');
+                      date.set('year', date.year() + 1);
+                    } else {
+                      date = moment(week + 1, 'W');
+                    }
+                    break;
+                  case 'month':
+                    let month = moment().month();
+                    // .month() is zero indexed
+                    if (month === 11) {
+                      date = moment(1, 'M');
+                      date.set('year', date.year() + 1);
+                    } else {
+                      date = moment(month + 2, 'M');
+                    }
+                    break;
+                  case 'quarter':
+                    let quarter = moment().quarter();
+                    if (quarter === 4) {
+                      date = moment(1, 'Q');
+                      date.set('year', date.year() + 1);
+                    } else {
+                      date = moment(quarter + 1, 'Q');
+                    }
+                    break;
+                  case 'year':
+                    date = moment(moment().year() + 1, 'YYYY');
+                    break;
+                }
+                if (date) {
+                  value = {
+                    operator: '$lt',
+                    value: date.format(),
+                  };
+                }
+              } else if (operator === 'dueAt' && value === 'overdue') {
+                value = {
+                  operator: '$lt',
+                  value: moment().format(),
+                };
               } else {
                 this.parsingErrors.push({
                   tag: 'operator-number-expected',
@@ -341,18 +378,23 @@ BlazeComponent.extendComponent({
                 value = null;
               }
             } else {
-              value = moment();
-            }
-            if (value) {
-              if (operatorMap[op] === 'dueAt') {
-                value = value.add(days, duration ? duration : 'days').format();
+              if (operator === 'dueAt') {
+                value = {
+                  operator: '$lte',
+                  value: moment()
+                    .add(days, duration ? duration : 'days')
+                    .format(),
+                };
               } else {
-                value = value
-                  .subtract(days, duration ? duration : 'days')
-                  .format();
+                value = {
+                  operator: '$gte',
+                  value: moment()
+                    .subtract(days, duration ? duration : 'days')
+                    .format(),
+                };
               }
             }
-          } else if (operatorMap[op] === 'sort') {
+          } else if (operator === 'sort') {
             let negated = false;
             const m = value.match(reNegatedOperator);
             if (m) {
@@ -370,7 +412,7 @@ BlazeComponent.extendComponent({
                 order: negated ? 'des' : 'asc',
               };
             }
-          } else if (operatorMap[op] === 'status') {
+          } else if (operator === 'status') {
             if (!predicateTranslations.status[value]) {
               this.parsingErrors.push({
                 tag: 'operator-status-invalid',
@@ -379,7 +421,7 @@ BlazeComponent.extendComponent({
             } else {
               value = predicateTranslations.status[value];
             }
-          } else if (operatorMap[op] === 'has') {
+          } else if (operator === 'has') {
             if (!predicateTranslations.has[value]) {
               this.parsingErrors.push({
                 tag: 'operator-has-invalid',
@@ -389,10 +431,10 @@ BlazeComponent.extendComponent({
               value = predicateTranslations.has[value];
             }
           }
-          if (Array.isArray(params[operatorMap[op]])) {
-            params[operatorMap[op]].push(value);
+          if (Array.isArray(params[operator])) {
+            params[operator].push(value);
           } else {
-            params[operatorMap[op]] = value;
+            params[operator] = value;
           }
         } else {
           this.parsingErrors.push({
