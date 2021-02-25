@@ -943,7 +943,7 @@
   "globalSearch-instructions-operator-at": "`__operator_user_abbrev__Nutzername` – Kurzform von `Nutzer:Nutzername`",
   "globalSearch-instructions-operator-member": "`__operator_member__:Nutzername` – Karten, für die der angegebene Nutzer ein *Mitglied* ist",
   "globalSearch-instructions-operator-assignee": "`__operator_assignee__:Nutzername` – Karten, für die der angegebene Nutzer ein *Zugewiesener* ist",
-  "globalSearch-instructions-operator-due": "`__operator_due__:n` – Karten, die seit *n* Tagen überfällig sind.  `__operator_due__:__predicate_overdue__ listet alle überfälligen Karten.",
+  "globalSearch-instructions-operator-due": "`__operator_due__:n` – Karten, die bis in *n* Tagen fällig sind.  `__operator_due__:__predicate_overdue__ listet alle überfälligen Karten.",
   "globalSearch-instructions-operator-created": "`__operator_created__:n` – Karten, die vor *n* Tagen angelegt wurden",
   "globalSearch-instructions-operator-modified": "`__operator_modified__:n` – Karten, die vor *n* Tagen geändert wurden",
   "globalSearch-instructions-status-archived": "`__operator_status__:__predicate_archived__` – archivierte Karten.",
