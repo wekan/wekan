@@ -117,9 +117,17 @@ if (Meteor.isServer) {
       // No need send notification to user of activity
       // participants = _.union(participants, [activity.userId]);
       const user = activity.user();
-      params.user = user.getName();
-      params.userEmails = user.emails;
-      params.userId = activity.userId;
+      if (user) {
+        if (user.getName()) {
+          params.user = user.getName();
+        }
+        if (user.emails) {
+          params.userEmails = user.emails;
+        }
+        if (activity.userId) {
+          params.userId = activity.userId;
+        }
+      }
     }
     if (activity.boardId) {
       if (board.title.length > 0) {
@@ -222,16 +230,30 @@ if (Meteor.isServer) {
     }
     if (activity.checklistId) {
       const checklist = activity.checklist();
-      params.checklist = checklist.title;
+      if (checklist) {
+        if (checklist.title) {
+          params.checklist = checklist.title;
+        }
+      }
     }
     if (activity.checklistItemId) {
       const checklistItem = activity.checklistItem();
-      params.checklistItem = checklistItem.title;
+      if (checklistItem) {
+        if (checklistItem.title) {
+          params.checklistItem = checklistItem.title;
+        }
+      }
     }
     if (activity.customFieldId) {
       const customField = activity.customField();
-      params.customField = customField.name;
-      params.customFieldValue = activity.value;
+      if (customField) {
+        if (customField.name) {
+          params.customField = customField.name;
+        }
+        if (actitivy.value) {
+          params.customFieldValue = activity.value;
+        }
+      }
     }
     // Label activity did not work yet, unable to edit labels when tried this.
     //if (activity.labelId) {
