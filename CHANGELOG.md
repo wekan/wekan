@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fixed Unable to remove old Board, reappears](https://github.com/wekan/wekan/commit/332f830cc2e44ab66ca891690b09a425b9fd7e68).
+  Thanks to chirrut2, uusijani, cimm, anicolaides, Philipoo0 and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v4.99 2021-02-25 Wekan release
 
 This release fixes the following CRITICAL SECURITY ISSUES:
