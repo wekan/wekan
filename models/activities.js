@@ -250,7 +250,7 @@ if (Meteor.isServer) {
         if (customField.name) {
           params.customField = customField.name;
         }
-        if (actitivy.value) {
+        if (activity.value) {
           params.customFieldValue = activity.value;
         }
       }
