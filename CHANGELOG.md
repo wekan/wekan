@@ -1,3 +1,12 @@
+# v5.01 2021-02-26 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix typo in activities code](https://github.com/wekan/wekan/pull/3610).
+  Thanks to n8ores.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.00 2021-02-25 Wekan release
 
 This release fixes the following bugs:
