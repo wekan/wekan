@@ -753,16 +753,16 @@ Meteor.publish('previousPage', function(sessionId) {
 function findCards(sessionId, selector, projection, errors = null) {
   const userId = Meteor.userId();
 
-  console.log('selector:', selector);
-  console.log('projection:', projection);
-  // if (selector.dueAt) {
-  //   console.log('dueAt:', typeof selector.dueAt.$lt, selector.dueAt.$lt.constructor.name, selector.dueAt.$lt);
-  // }
+  // eslint-disable-next-line no-console
+  // console.log('selector:', selector);
+  // eslint-disable-next-line no-console
+  // console.log('projection:', projection);
   let cards;
   if (!errors || !errors.hasErrors()) {
     cards = Cards.find(selector, projection);
   }
-  console.log('count:', cards.count());
+  // eslint-disable-next-line no-console
+  // console.log('count:', cards.count());
 
   const update = {
     $set: {
