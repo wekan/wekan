@@ -368,7 +368,7 @@ BlazeComponent.extendComponent({
               } else if (operator === 'dueAt' && value === 'overdue') {
                 value = {
                   operator: '$lt',
-                  value: moment().format(),
+                  value: moment(moment().format('YYYY-MM-DD')).format(),
                 };
               } else {
                 this.parsingErrors.push({
@@ -380,15 +380,15 @@ BlazeComponent.extendComponent({
             } else {
               if (operator === 'dueAt') {
                 value = {
-                  operator: '$lte',
-                  value: moment()
-                    .add(days, duration ? duration : 'days')
+                  operator: '$lt',
+                  value: moment(moment().format('YYYY-MM-DD'))
+                    .add(days + 1, duration ? duration : 'days')
                     .format(),
                 };
               } else {
                 value = {
                   operator: '$gte',
-                  value: moment()
+                  value: moment(moment().format('YYYY-MM-DD'))
                     .subtract(days, duration ? duration : 'days')
                     .format(),
                 };
