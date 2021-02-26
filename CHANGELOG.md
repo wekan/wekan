@@ -2,7 +2,7 @@
 
 This release fixes the following bugs:
 
-- [Fix typo in activities code](https://github.com/wekan/wekan/pull/3610).
+- [Fix typo in activities code. Fixes can not edit Custom Field](https://github.com/wekan/wekan/pull/3610).
   Thanks to n8ores.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
