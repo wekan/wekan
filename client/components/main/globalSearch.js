@@ -649,6 +649,8 @@ BlazeComponent.extendComponent({
 
     text += `\n* ${TAPi18n.__('globalSearch-instructions-operator-has', tags)}`;
 
+    text += `\n* ${TAPi18n.__('globalSearch-instructions-operator-sort', tags)}`;
+
     text += `\n## ${TAPi18n.__('heading-notes')}`;
     text += `\n* ${TAPi18n.__('globalSearch-instructions-notes-1', tags)}`;
     text += `\n* ${TAPi18n.__('globalSearch-instructions-notes-2', tags)}`;
