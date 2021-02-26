@@ -755,13 +755,14 @@ function findCards(sessionId, selector, projection, errors = null) {
   // check(projection, Object);
   const userId = Meteor.userId();
 
+  console.log('selector:', selector);
+  console.log('projection:', projection);
+
   let cards;
   if (!errors || !errors.hasErrors()) {
     cards = Cards.find(selector, projection);
   }
 
-  console.log('selector:', selector);
-  console.log('projection:', projection);
   console.log('count:', cards.count());
   const update = {
     $set: {

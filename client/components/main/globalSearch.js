@@ -227,6 +227,7 @@ BlazeComponent.extendComponent({
       'operator-comment': 'comments',
       'operator-has': 'has',
       'operator-sort': 'sort',
+      'operator-limit': 'limit',
     };
 
     const predicates = {
@@ -429,6 +430,16 @@ BlazeComponent.extendComponent({
               });
             } else {
               value = predicateTranslations.has[value];
+            }
+          } else if (operator === 'limit') {
+            const limit = parseInt(value, 10);
+            if (isNaN(limit) || limit < 1) {
+              this.parsingErrors.push({
+                tag: 'operator-limit-invalid',
+                value,
+              });
+            } else {
+              value = limit;
             }
           }
           if (Array.isArray(params[operator])) {
