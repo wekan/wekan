@@ -363,13 +363,13 @@ BlazeComponent.extendComponent({
                 if (date) {
                   value = {
                     operator: '$lt',
-                    value: date.format(),
+                    value: date.format('YYYY-MM-DD'),
                   };
                 }
               } else if (operator === 'dueAt' && value === 'overdue') {
                 value = {
                   operator: '$lt',
-                  value: moment(moment().format('YYYY-MM-DD')).format(),
+                  value: moment().format('YYYY-MM-DD'),
                 };
               } else {
                 this.parsingErrors.push({

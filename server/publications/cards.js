@@ -751,19 +751,19 @@ Meteor.publish('previousPage', function(sessionId) {
 });
 
 function findCards(sessionId, selector, projection, errors = null) {
-  // check(selector, Object);
-  // check(projection, Object);
   const userId = Meteor.userId();
 
   console.log('selector:', selector);
   console.log('projection:', projection);
-
+  // if (selector.dueAt) {
+  //   console.log('dueAt:', typeof selector.dueAt.$lt, selector.dueAt.$lt.constructor.name, selector.dueAt.$lt);
+  // }
   let cards;
   if (!errors || !errors.hasErrors()) {
     cards = Cards.find(selector, projection);
   }
-
   console.log('count:', cards.count());
+
   const update = {
     $set: {
       totalHits: 0,
