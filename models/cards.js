@@ -2575,6 +2575,7 @@ if (Meteor.isServer) {
    * @param {string} list the list ID of the card
    * @param {string} cardId the ID of the card
    * @param {string} [title] the new title of the card
+   * @param {string} [sort] the new sort value of the card
    * @param {string} [listId] the new list ID of the card (move operation)
    * @param {string} [description] the new description of the card
    * @param {string} [authorId] change the owner of the card
@@ -2621,6 +2622,22 @@ if (Meteor.isServer) {
           {
             $set: {
               title: newTitle,
+            },
+          },
+        );
+      }
+      if (req.body.hasOwnProperty('sort')) {
+        const newSort = req.body.sort;
+        Cards.direct.update(
+          {
+            _id: paramCardId,
+            listId: paramListId,
+            boardId: paramBoardId,
+            archived: false,
+          },
+          {
+            $set: {
+              sort: newSort,
             },
           },
         );
