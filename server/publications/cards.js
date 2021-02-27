@@ -518,14 +518,33 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
 
     if (queryParams.has.length) {
       queryParams.has.forEach(has => {
-        if (has === 'description') {
-          selector.description = { $exists: true, $nin: [null, ''] };
-        } else if (has === 'attachment') {
-          const attachments = Attachments.find({}, { fields: { cardId: 1 } });
-          selector.$and.push({ _id: { $in: attachments.map(a => a.cardId) } });
-        } else if (has === 'checklist') {
-          const checklists = Checklists.find({}, { fields: { cardId: 1 } });
-          selector.$and.push({ _id: { $in: checklists.map(a => a.cardId) } });
+        switch (has.field) {
+          case 'attachment':
+            const attachments = Attachments.find({}, { fields: { cardId: 1 } });
+            selector.$and.push({ _id: { $in: attachments.map(a => a.cardId) } });
+            break;
+          case 'checklist':
+            const checklists = Checklists.find({}, { fields: { cardId: 1 } });
+            selector.$and.push({ _id: { $in: checklists.map(a => a.cardId) } });
+            break;
+          case 'description':
+          case 'startAt':
+          case 'dueAt':
+          case 'endAt':
+            if (has.exists) {
+              selector[has.field] = { $exists: true, $nin: [null, ''] };
+            } else {
+              selector[has.field] = { $in: [null, ''] };
+            }
+            break;
+          case 'assignees':
+          case 'members':
+            if (has.exists) {
+              selector[has.field] = { $exists: true, $nin: [null, []] };
+            } else {
+              selector[has.field] = { $in: [null, []] };
+            }
+            break;
         }
       });
     }

@@ -243,6 +243,7 @@ BlazeComponent.extendComponent({
       status: {
         'predicate-archived': 'archived',
         'predicate-all': 'all',
+        'predicate-open': 'open',
         'predicate-ended': 'ended',
         'predicate-public': 'public',
         'predicate-private': 'private',
@@ -256,6 +257,11 @@ BlazeComponent.extendComponent({
         'predicate-description': 'description',
         'predicate-checklist': 'checklist',
         'predicate-attachment': 'attachment',
+        'predicate-start': 'startAt',
+        'predicate-end': 'endAt',
+        'predicate-due': 'dueAt',
+        'predicate-assignee': 'assignees',
+        'predicate-member': 'members',
       },
     };
     const predicateTranslations = {};
@@ -423,13 +429,22 @@ BlazeComponent.extendComponent({
               value = predicateTranslations.status[value];
             }
           } else if (operator === 'has') {
+            let negated = false;
+            const m = value.match(reNegatedOperator);
+            if (m) {
+              value = m.groups.operator;
+              negated = true;
+            }
             if (!predicateTranslations.has[value]) {
               this.parsingErrors.push({
                 tag: 'operator-has-invalid',
                 value,
               });
             } else {
-              value = predicateTranslations.has[value];
+              value = {
+                field: predicateTranslations.has[value],
+                exists: !negated,
+              };
             }
           } else if (operator === 'limit') {
             const limit = parseInt(value, 10);
@@ -597,6 +612,10 @@ BlazeComponent.extendComponent({
       predicate_due: TAPi18n.__('predicate-due'),
       predicate_created: TAPi18n.__('predicate-created'),
       predicate_modified: TAPi18n.__('predicate-modified'),
+      predicate_start: TAPi18n.__('predicate-start'),
+      predicate_end: TAPi18n.__('predicate-end'),
+      predicate_assignee: TAPi18n.__('predicate-assignee'),
+      predicate_member: TAPi18n.__('predicate-member'),
     };
 
     text = `# ${TAPi18n.__('globalSearch-instructions-heading')}`;
