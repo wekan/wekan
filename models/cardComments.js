@@ -117,7 +117,7 @@ CardComments.textSearch = (userId, textArray) => {
   };
 
   for (const text of textArray) {
-    selector.$and.push({ text: new RegExp(escapeForRegex(text)) });
+    selector.$and.push({ text: new RegExp(escapeForRegex(text), 'i') });
   }
 
   // eslint-disable-next-line no-console
