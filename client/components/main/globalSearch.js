@@ -618,83 +618,58 @@ BlazeComponent.extendComponent({
       predicate_member: TAPi18n.__('predicate-member'),
     };
 
-    text = `# ${TAPi18n.__('globalSearch-instructions-heading')}`;
+    let text = `# ${TAPi18n.__('globalSearch-instructions-heading')}`;
     text += `\n${TAPi18n.__('globalSearch-instructions-description', tags)}`;
-    text += `\n${TAPi18n.__('globalSearch-instructions-operators', tags)}`;
-    text += `\n* ${TAPi18n.__(
+    text += `\n\n${TAPi18n.__('globalSearch-instructions-operators', tags)}`;
+
+    [
       'globalSearch-instructions-operator-board',
-      tags,
-    )}`;
-    text += `\n* ${TAPi18n.__(
       'globalSearch-instructions-operator-list',
-      tags,
-    )}`;
-    text += `\n* ${TAPi18n.__(
       'globalSearch-instructions-operator-swimlane',
-      tags,
-    )}`;
-    text += `\n* ${TAPi18n.__(
       'globalSearch-instructions-operator-comment',
-      tags,
-    )}`;
-    text += `\n* ${TAPi18n.__(
       'globalSearch-instructions-operator-label',
-      tags,
-    )}`;
-    text += `\n* ${TAPi18n.__(
       'globalSearch-instructions-operator-hash',
-      tags,
-    )}`;
-    text += `\n* ${TAPi18n.__(
       'globalSearch-instructions-operator-user',
-      tags,
-    )}`;
-    text += `\n* ${TAPi18n.__('globalSearch-instructions-operator-at', tags)}`;
-    text += `\n* ${TAPi18n.__(
+      'globalSearch-instructions-operator-at',
       'globalSearch-instructions-operator-member',
-      tags,
-    )}`;
-    text += `\n* ${TAPi18n.__(
       'globalSearch-instructions-operator-assignee',
-      tags,
-    )}`;
-    text += `\n* ${TAPi18n.__('globalSearch-instructions-operator-due', tags)}`;
-    text += `\n* ${TAPi18n.__(
+      'globalSearch-instructions-operator-due',
       'globalSearch-instructions-operator-created',
-      tags,
-    )}`;
-    text += `\n* ${TAPi18n.__(
       'globalSearch-instructions-operator-modified',
-      tags,
-    )}`;
-    text += `\n* ${TAPi18n.__(
+      'globalSearch-instructions-operator-status',
+    ].forEach(instruction => {
+      text += `\n* ${TAPi18n.__(instruction, tags)}`;
+    });
+
+    [
       'globalSearch-instructions-status-archived',
-      tags,
-    )}`;
-    text += `\n* ${TAPi18n.__(
       'globalSearch-instructions-status-public',
-      tags,
-    )}`;
-    text += `\n* ${TAPi18n.__(
       'globalSearch-instructions-status-private',
-      tags,
-    )}`;
-    text += `\n* ${TAPi18n.__('globalSearch-instructions-status-all', tags)}`;
-    text += `\n* ${TAPi18n.__('globalSearch-instructions-status-ended', tags)}`;
+      'globalSearch-instructions-status-all',
+      'globalSearch-instructions-status-ended',
+    ].forEach(instruction => {
+      text += `\n    * ${TAPi18n.__(instruction, tags)}`;
+    });
 
-    text += `\n* ${TAPi18n.__('globalSearch-instructions-operator-has', tags)}`;
-
-    text += `\n* ${TAPi18n.__('globalSearch-instructions-operator-sort', tags)}`;
-
-    text += `\n* ${TAPi18n.__('globalSearch-instructions-operator-limit', tags)}`;
+    [
+      'globalSearch-instructions-operator-has',
+      'globalSearch-instructions-operator-sort',
+      'globalSearch-instructions-operator-limit'
+    ].forEach(instruction => {
+      text += `\n* ${TAPi18n.__(instruction, tags)}`;
+    });
 
     text += `\n## ${TAPi18n.__('heading-notes')}`;
-    text += `\n* ${TAPi18n.__('globalSearch-instructions-notes-1', tags)}`;
-    text += `\n* ${TAPi18n.__('globalSearch-instructions-notes-2', tags)}`;
-    text += `\n* ${TAPi18n.__('globalSearch-instructions-notes-3', tags)}`;
-    text += `\n* ${TAPi18n.__('globalSearch-instructions-notes-3-2', tags)}`;
-    text += `\n* ${TAPi18n.__('globalSearch-instructions-notes-4', tags)}`;
-    text += `\n* ${TAPi18n.__('globalSearch-instructions-notes-5', tags)}`;
+    [
+      'globalSearch-instructions-notes-1',
+      'globalSearch-instructions-notes-2',
+      'globalSearch-instructions-notes-3',
+      'globalSearch-instructions-notes-3-2',
+      'globalSearch-instructions-notes-4',
+      'globalSearch-instructions-notes-5',
+    ].forEach(instruction => {
+      text += `\n* ${TAPi18n.__(instruction, tags)}`;
+    });
 
     return text;
   },

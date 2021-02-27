@@ -13,7 +13,7 @@ template(name="globalSearchModalTitle")
 template(name="globalSearch")
   if currentUser
     .wrapper
-      form.global-search-instructions.js-search-query-form
+      form.global-search-page.js-search-query-form
         input.global-search-query-input(
           id="global-search-input"
           type="text"
@@ -48,29 +48,31 @@ template(name="globalSearch")
                     button.js-next-page
                       | {{_ 'next-page' }}
       else
-        .global-search-instructions
-          h2 {{_ 'boards' }}
-          .lists-wrapper
-            each title in myBoardNames.get
-              span.card-label.list-title.js-board-title
-                = title
-          h2 {{_ 'lists' }}
-          .lists-wrapper
-            each title in myLists.get
-              span.card-label.list-title.js-list-title
-                = title
-          h2 {{_ 'label-colors' }}
-          .palette-colors: each label in labelColors
-            span.card-label.palette-color.js-label-color(class="card-label-{{label.color}}")
-              = label.name
-          if myLabelNames.get.length
-            h2 {{_ 'label-names' }}
+        .global-search-page
+          .global-search-help
+            h2 {{_ 'boards' }}
             .lists-wrapper
-              each name in myLabelNames.get
-                span.card-label.list-title.js-label-name
-                  = name
-          +viewer
-            = searchInstructions
+              each title in myBoardNames.get
+                span.card-label.list-title.js-board-title
+                  = title
+            h2 {{_ 'lists' }}
+            .lists-wrapper
+              each title in myLists.get
+                span.card-label.list-title.js-list-title
+                  = title
+            h2 {{_ 'label-colors' }}
+            .palette-colors: each label in labelColors
+              span.card-label.palette-color.js-label-color(class="card-label-{{label.color}}")
+                = label.name
+            if myLabelNames.get.length
+              h2 {{_ 'label-names' }}
+              .lists-wrapper
+                each name in myLabelNames.get
+                  span.card-label.list-title.js-label-name
+                    = name
+          .global-search-instructions
+            +viewer
+              = searchInstructions
 
 template(name="globalSearchViewChangePopup")
   if currentUser
