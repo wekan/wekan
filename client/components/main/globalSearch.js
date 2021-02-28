@@ -116,7 +116,9 @@ BlazeComponent.extendComponent({
       // eslint-disable-next-line no-console
       // console.log('selector:', sessionData.getSelector());
       // console.log('session data:', sessionData);
-      const cards = Cards.find({ _id: { $in: sessionData.cards } });
+      const projection = sessionData.getProjection();
+      projection.skip = 0;
+      const cards = Cards.find({ _id: { $in: sessionData.cards } }, projection);
       this.queryErrors = sessionData.errors;
       if (this.queryErrors.length) {
         this.hasQueryErrors.set(true);
@@ -201,6 +203,7 @@ BlazeComponent.extendComponent({
       '^(?<quote>["\'])(?<text>.*?)\\k<quote>(\\s+|$)',
       'u',
     );
+    const reNegatedOperator = new RegExp('^-(?<operator>.*)$');
 
     const operators = {
       'operator-board': 'boards',
@@ -223,6 +226,8 @@ BlazeComponent.extendComponent({
       'operator-modified': 'modifiedAt',
       'operator-comment': 'comments',
       'operator-has': 'has',
+      'operator-sort': 'sort',
+      'operator-limit': 'limit',
     };
 
     const predicates = {
@@ -238,6 +243,7 @@ BlazeComponent.extendComponent({
       status: {
         'predicate-archived': 'archived',
         'predicate-all': 'all',
+        'predicate-open': 'open',
         'predicate-ended': 'ended',
         'predicate-public': 'public',
         'predicate-private': 'private',
@@ -251,6 +257,11 @@ BlazeComponent.extendComponent({
         'predicate-description': 'description',
         'predicate-checklist': 'checklist',
         'predicate-attachment': 'attachment',
+        'predicate-start': 'startAt',
+        'predicate-end': 'endAt',
+        'predicate-due': 'dueAt',
+        'predicate-assignee': 'assignees',
+        'predicate-member': 'members',
       },
     };
     const predicateTranslations = {};
@@ -307,25 +318,65 @@ BlazeComponent.extendComponent({
         }
         // eslint-disable-next-line no-prototype-builtins
         if (operatorMap.hasOwnProperty(op)) {
+          const operator = operatorMap[op];
           let value = m.groups.value;
-          if (operatorMap[op] === 'labels') {
+          if (operator === 'labels') {
             if (value in this.colorMap) {
               value = this.colorMap[value];
               // console.log('found color:', value);
             }
-          } else if (
-            ['dueAt', 'createdAt', 'modifiedAt'].includes(operatorMap[op])
-          ) {
+          } else if (['dueAt', 'createdAt', 'modifiedAt'].includes(operator)) {
             let days = parseInt(value, 10);
             let duration = null;
             if (isNaN(days)) {
+              // duration was specified as text
               if (predicateTranslations.durations[value]) {
                 duration = predicateTranslations.durations[value];
-                value = moment();
-              } else if (predicateTranslations.due[value] === 'overdue') {
-                value = moment();
-                duration = 'days';
-                days = 0;
+                let date = null;
+                switch (duration) {
+                  case 'week':
+                    let week = moment().week();
+                    if (week === 52) {
+                      date = moment(1, 'W');
+                      date.set('year', date.year() + 1);
+                    } else {
+                      date = moment(week + 1, 'W');
+                    }
+                    break;
+                  case 'month':
+                    let month = moment().month();
+                    // .month() is zero indexed
+                    if (month === 11) {
+                      date = moment(1, 'M');
+                      date.set('year', date.year() + 1);
+                    } else {
+                      date = moment(month + 2, 'M');
+                    }
+                    break;
+                  case 'quarter':
+                    let quarter = moment().quarter();
+                    if (quarter === 4) {
+                      date = moment(1, 'Q');
+                      date.set('year', date.year() + 1);
+                    } else {
+                      date = moment(quarter + 1, 'Q');
+                    }
+                    break;
+                  case 'year':
+                    date = moment(moment().year() + 1, 'YYYY');
+                    break;
+                }
+                if (date) {
+                  value = {
+                    operator: '$lt',
+                    value: date.format('YYYY-MM-DD'),
+                  };
+                }
+              } else if (operator === 'dueAt' && value === 'overdue') {
+                value = {
+                  operator: '$lt',
+                  value: moment().format('YYYY-MM-DD'),
+                };
               } else {
                 this.parsingErrors.push({
                   tag: 'operator-number-expected',
@@ -334,27 +385,41 @@ BlazeComponent.extendComponent({
                 value = null;
               }
             } else {
-              value = moment();
-            }
-            if (value) {
-              if (operatorMap[op] === 'dueAt') {
-                value = value.add(days, duration ? duration : 'days').format();
+              if (operator === 'dueAt') {
+                value = {
+                  operator: '$lt',
+                  value: moment(moment().format('YYYY-MM-DD'))
+                    .add(days + 1, duration ? duration : 'days')
+                    .format(),
+                };
               } else {
-                value = value
-                  .subtract(days, duration ? duration : 'days')
-                  .format();
+                value = {
+                  operator: '$gte',
+                  value: moment(moment().format('YYYY-MM-DD'))
+                    .subtract(days, duration ? duration : 'days')
+                    .format(),
+                };
               }
             }
-          } else if (operatorMap[op] === 'sort') {
+          } else if (operator === 'sort') {
+            let negated = false;
+            const m = value.match(reNegatedOperator);
+            if (m) {
+              value = m.groups.operator;
+              negated = true;
+            }
             if (!predicateTranslations.sorts[value]) {
               this.parsingErrors.push({
                 tag: 'operator-sort-invalid',
                 value,
               });
             } else {
-              value = predicateTranslations.sorts[value];
+              value = {
+                name: predicateTranslations.sorts[value],
+                order: negated ? 'des' : 'asc',
+              };
             }
-          } else if (operatorMap[op] === 'status') {
+          } else if (operator === 'status') {
             if (!predicateTranslations.status[value]) {
               this.parsingErrors.push({
                 tag: 'operator-status-invalid',
@@ -363,20 +428,39 @@ BlazeComponent.extendComponent({
             } else {
               value = predicateTranslations.status[value];
             }
-          } else if (operatorMap[op] === 'has') {
+          } else if (operator === 'has') {
+            let negated = false;
+            const m = value.match(reNegatedOperator);
+            if (m) {
+              value = m.groups.operator;
+              negated = true;
+            }
             if (!predicateTranslations.has[value]) {
               this.parsingErrors.push({
                 tag: 'operator-has-invalid',
                 value,
               });
             } else {
-              value = predicateTranslations.has[value];
+              value = {
+                field: predicateTranslations.has[value],
+                exists: !negated,
+              };
+            }
+          } else if (operator === 'limit') {
+            const limit = parseInt(value, 10);
+            if (isNaN(limit) || limit < 1) {
+              this.parsingErrors.push({
+                tag: 'operator-limit-invalid',
+                value,
+              });
+            } else {
+              value = limit;
             }
           }
-          if (Array.isArray(params[operatorMap[op]])) {
-            params[operatorMap[op]].push(value);
+          if (Array.isArray(params[operator])) {
+            params[operator].push(value);
           } else {
-            params[operatorMap[op]] = value;
+            params[operator] = value;
           }
         } else {
           this.parsingErrors.push({
@@ -437,20 +521,10 @@ BlazeComponent.extendComponent({
   },
 
   nextPage() {
-    sessionData = this.getSessionData();
-
-    const params = {
-      limit: this.resultsPerPage,
-      selector: sessionData.getSelector(),
-      skip: sessionData.lastHit,
-    };
+    const sessionData = this.getSessionData();
 
     this.autorun(() => {
-      const handle = Meteor.subscribe(
-        'globalSearch',
-        SessionData.getSessionId(),
-        params,
-      );
+      const handle = Meteor.subscribe('nextPage', sessionData.sessionId);
       Tracker.nonreactive(() => {
         Tracker.autorun(() => {
           if (handle.ready()) {
@@ -464,21 +538,10 @@ BlazeComponent.extendComponent({
   },
 
   previousPage() {
-    sessionData = this.getSessionData();
-
-    const params = {
-      limit: this.resultsPerPage,
-      selector: sessionData.getSelector(),
-      skip:
-        sessionData.lastHit - sessionData.resultsCount - this.resultsPerPage,
-    };
+    const sessionData = this.getSessionData();
 
     this.autorun(() => {
-      const handle = Meteor.subscribe(
-        'globalSearch',
-        SessionData.getSessionId(),
-        params,
-      );
+      const handle = Meteor.subscribe('previousPage', sessionData.sessionId);
       Tracker.nonreactive(() => {
         Tracker.autorun(() => {
           if (handle.ready()) {
@@ -531,6 +594,8 @@ BlazeComponent.extendComponent({
       operator_modified: TAPi18n.__('operator-modified'),
       operator_status: TAPi18n.__('operator-status'),
       operator_has: TAPi18n.__('operator-has'),
+      operator_sort: TAPi18n.__('operator-sort'),
+      operator_limit: TAPi18n.__('operator-limit'),
       predicate_overdue: TAPi18n.__('predicate-overdue'),
       predicate_archived: TAPi18n.__('predicate-archived'),
       predicate_all: TAPi18n.__('predicate-all'),
@@ -544,81 +609,67 @@ BlazeComponent.extendComponent({
       predicate_checklist: TAPi18n.__('predicate-checklist'),
       predicate_public: TAPi18n.__('predicate-public'),
       predicate_private: TAPi18n.__('predicate-private'),
+      predicate_due: TAPi18n.__('predicate-due'),
+      predicate_created: TAPi18n.__('predicate-created'),
+      predicate_modified: TAPi18n.__('predicate-modified'),
+      predicate_start: TAPi18n.__('predicate-start'),
+      predicate_end: TAPi18n.__('predicate-end'),
+      predicate_assignee: TAPi18n.__('predicate-assignee'),
+      predicate_member: TAPi18n.__('predicate-member'),
     };
 
-    text = `# ${TAPi18n.__('globalSearch-instructions-heading')}`;
+    let text = `# ${TAPi18n.__('globalSearch-instructions-heading')}`;
     text += `\n${TAPi18n.__('globalSearch-instructions-description', tags)}`;
-    text += `\n${TAPi18n.__('globalSearch-instructions-operators', tags)}`;
-    text += `\n* ${TAPi18n.__(
-      'globalSearch-instructions-operator-board',
-      tags,
-    )}`;
-    text += `\n* ${TAPi18n.__(
-      'globalSearch-instructions-operator-list',
-      tags,
-    )}`;
-    text += `\n* ${TAPi18n.__(
-      'globalSearch-instructions-operator-swimlane',
-      tags,
-    )}`;
-    text += `\n* ${TAPi18n.__(
-      'globalSearch-instructions-operator-comment',
-      tags,
-    )}`;
-    text += `\n* ${TAPi18n.__(
-      'globalSearch-instructions-operator-label',
-      tags,
-    )}`;
-    text += `\n* ${TAPi18n.__(
-      'globalSearch-instructions-operator-hash',
-      tags,
-    )}`;
-    text += `\n* ${TAPi18n.__(
-      'globalSearch-instructions-operator-user',
-      tags,
-    )}`;
-    text += `\n* ${TAPi18n.__('globalSearch-instructions-operator-at', tags)}`;
-    text += `\n* ${TAPi18n.__(
-      'globalSearch-instructions-operator-member',
-      tags,
-    )}`;
-    text += `\n* ${TAPi18n.__(
-      'globalSearch-instructions-operator-assignee',
-      tags,
-    )}`;
-    text += `\n* ${TAPi18n.__('globalSearch-instructions-operator-due', tags)}`;
-    text += `\n* ${TAPi18n.__(
-      'globalSearch-instructions-operator-created',
-      tags,
-    )}`;
-    text += `\n* ${TAPi18n.__(
-      'globalSearch-instructions-operator-modified',
-      tags,
-    )}`;
-    text += `\n* ${TAPi18n.__(
-      'globalSearch-instructions-status-archived',
-      tags,
-    )}`;
-    text += `\n* ${TAPi18n.__(
-      'globalSearch-instructions-status-public',
-      tags,
-    )}`;
-    text += `\n* ${TAPi18n.__(
-      'globalSearch-instructions-status-private',
-      tags,
-    )}`;
-    text += `\n* ${TAPi18n.__('globalSearch-instructions-status-all', tags)}`;
-    text += `\n* ${TAPi18n.__('globalSearch-instructions-status-ended', tags)}`;
+    text += `\n\n${TAPi18n.__('globalSearch-instructions-operators', tags)}`;
 
-    text += `\n* ${TAPi18n.__('globalSearch-instructions-operator-has', tags)}`;
+    [
+      'globalSearch-instructions-operator-board',
+      'globalSearch-instructions-operator-list',
+      'globalSearch-instructions-operator-swimlane',
+      'globalSearch-instructions-operator-comment',
+      'globalSearch-instructions-operator-label',
+      'globalSearch-instructions-operator-hash',
+      'globalSearch-instructions-operator-user',
+      'globalSearch-instructions-operator-at',
+      'globalSearch-instructions-operator-member',
+      'globalSearch-instructions-operator-assignee',
+      'globalSearch-instructions-operator-due',
+      'globalSearch-instructions-operator-created',
+      'globalSearch-instructions-operator-modified',
+      'globalSearch-instructions-operator-status',
+    ].forEach(instruction => {
+      text += `\n* ${TAPi18n.__(instruction, tags)}`;
+    });
+
+    [
+      'globalSearch-instructions-status-archived',
+      'globalSearch-instructions-status-public',
+      'globalSearch-instructions-status-private',
+      'globalSearch-instructions-status-all',
+      'globalSearch-instructions-status-ended',
+    ].forEach(instruction => {
+      text += `\n    * ${TAPi18n.__(instruction, tags)}`;
+    });
+
+    [
+      'globalSearch-instructions-operator-has',
+      'globalSearch-instructions-operator-sort',
+      'globalSearch-instructions-operator-limit'
+    ].forEach(instruction => {
+      text += `\n* ${TAPi18n.__(instruction, tags)}`;
+    });
 
     text += `\n## ${TAPi18n.__('heading-notes')}`;
-    text += `\n* ${TAPi18n.__('globalSearch-instructions-notes-1', tags)}`;
-    text += `\n* ${TAPi18n.__('globalSearch-instructions-notes-2', tags)}`;
-    text += `\n* ${TAPi18n.__('globalSearch-instructions-notes-3', tags)}`;
-    text += `\n* ${TAPi18n.__('globalSearch-instructions-notes-3-2', tags)}`;
-    text += `\n* ${TAPi18n.__('globalSearch-instructions-notes-4', tags)}`;
-    text += `\n* ${TAPi18n.__('globalSearch-instructions-notes-5', tags)}`;
+    [
+      'globalSearch-instructions-notes-1',
+      'globalSearch-instructions-notes-2',
+      'globalSearch-instructions-notes-3',
+      'globalSearch-instructions-notes-3-2',
+      'globalSearch-instructions-notes-4',
+      'globalSearch-instructions-notes-5',
+    ].forEach(instruction => {
+      text += `\n* ${TAPi18n.__(instruction, tags)}`;
+    });
 
     return text;
   },

@@ -1,3 +1,20 @@
+# Upcoming Wekan release
+
+This release adds the following 
+
+- [Added sort to edit card REST API](https://github.com/wekan/wekan/pull/3618).
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.01 2021-02-26 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix typo in activities code. Fixes can not edit Custom Field](https://github.com/wekan/wekan/pull/3610).
+  Thanks to n8ores.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.00 2021-02-25 Wekan release
 
 This release fixes the following bugs:

@@ -395,17 +395,14 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
       }
     }
 
-    if (queryParams.dueAt !== null) {
-      selector.dueAt = { $lte: new Date(queryParams.dueAt) };
-    }
-
-    if (queryParams.createdAt !== null) {
-      selector.createdAt = { $gte: new Date(queryParams.createdAt) };
-    }
-
-    if (queryParams.modifiedAt !== null) {
-      selector.modifiedAt = { $gte: new Date(queryParams.modifiedAt) };
-    }
+    ['dueAt', 'createdAt', 'modifiedAt'].forEach(field => {
+      if (queryParams[field]) {
+        selector[field] = {};
+        selector[field][queryParams[field]['operator']] = new Date(
+          queryParams[field]['value'],
+        );
+      }
+    });
 
     const queryMembers = [];
     const queryAssignees = [];
@@ -521,14 +518,33 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
 
     if (queryParams.has.length) {
       queryParams.has.forEach(has => {
-        if (has === 'description') {
-          selector.description = { $exists: true, $nin: [null, ''] };
-        } else if (has === 'attachment') {
-          const attachments = Attachments.find({}, { fields: { cardId: 1 } });
-          selector.$and.push({ _id: { $in: attachments.map(a => a.cardId) } });
-        } else if (has === 'checklist') {
-          const checklists = Checklists.find({}, { fields: { cardId: 1 } });
-          selector.$and.push({ _id: { $in: checklists.map(a => a.cardId) } });
+        switch (has.field) {
+          case 'attachment':
+            const attachments = Attachments.find({}, { fields: { cardId: 1 } });
+            selector.$and.push({ _id: { $in: attachments.map(a => a.cardId) } });
+            break;
+          case 'checklist':
+            const checklists = Checklists.find({}, { fields: { cardId: 1 } });
+            selector.$and.push({ _id: { $in: checklists.map(a => a.cardId) } });
+            break;
+          case 'description':
+          case 'startAt':
+          case 'dueAt':
+          case 'endAt':
+            if (has.exists) {
+              selector[has.field] = { $exists: true, $nin: [null, ''] };
+            } else {
+              selector[has.field] = { $in: [null, ''] };
+            }
+            break;
+          case 'assignees':
+          case 'members':
+            if (has.exists) {
+              selector[has.field] = { $exists: true, $nin: [null, []] };
+            } else {
+              selector[has.field] = { $in: [null, []] };
+            }
+            break;
         }
       });
     }
@@ -552,6 +568,11 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
 
       const attachments = Attachments.find({ 'original.name': regex });
 
+      // const comments = CardComments.find(
+      //   { text: regex },
+      //   { fields: { cardId: 1 } },
+      // );
+
       selector.$and.push({
         $or: [
           { title: regex },
@@ -566,6 +587,7 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
           },
           { _id: { $in: checklists.map(list => list.cardId) } },
           { _id: { $in: attachments.map(attach => attach.cardId) } },
+          // { _id: { $in: comments.map(com => com.cardId) } },
         ],
       });
     }
@@ -580,73 +602,186 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
   // eslint-disable-next-line no-console
   // console.log('selector.$and:', selector.$and);
 
-  let cards = null;
+  const projection = {
+    fields: {
+      _id: 1,
+      archived: 1,
+      boardId: 1,
+      swimlaneId: 1,
+      listId: 1,
+      title: 1,
+      type: 1,
+      sort: 1,
+      members: 1,
+      assignees: 1,
+      colors: 1,
+      dueAt: 1,
+      createdAt: 1,
+      modifiedAt: 1,
+      labelIds: 1,
+      customFields: 1,
+    },
+    sort: {
+      boardId: 1,
+      swimlaneId: 1,
+      listId: 1,
+      sort: 1,
+    },
+    skip,
+    limit,
+  };
 
-  if (!errors.hasErrors()) {
-    const projection = {
-      fields: {
-        _id: 1,
-        archived: 1,
-        boardId: 1,
-        swimlaneId: 1,
-        listId: 1,
-        title: 1,
-        type: 1,
-        sort: 1,
-        members: 1,
-        assignees: 1,
-        colors: 1,
-        dueAt: 1,
-        createdAt: 1,
-        modifiedAt: 1,
-        labelIds: 1,
-        customFields: 1,
-      },
-      skip,
-      limit,
-    };
-
-    if (queryParams.sort === 'due') {
-      projection.sort = {
-        dueAt: 1,
-        boardId: 1,
-        swimlaneId: 1,
-        listId: 1,
-        sort: 1,
-      };
-    } else if (queryParams.sort === 'modified') {
-      projection.sort = {
-        modifiedAt: -1,
-        boardId: 1,
-        swimlaneId: 1,
-        listId: 1,
-        sort: 1,
-      };
-    } else if (queryParams.sort === 'created') {
-      projection.sort = {
-        createdAt: -1,
-        boardId: 1,
-        swimlaneId: 1,
-        listId: 1,
-        sort: 1,
-      };
-    } else if (queryParams.sort === 'system') {
-      projection.sort = {
-        boardId: 1,
-        swimlaneId: 1,
-        listId: 1,
-        modifiedAt: 1,
-        sort: 1,
-      };
+  if (queryParams.sort) {
+    const order = queryParams.sort.order === 'asc' ? 1 : -1;
+    switch (queryParams.sort.name) {
+      case 'dueAt':
+        projection.sort = {
+          dueAt: order,
+          boardId: 1,
+          swimlaneId: 1,
+          listId: 1,
+          sort: 1,
+        };
+        break;
+      case 'modifiedAt':
+        projection.sort = {
+          modifiedAt: order,
+          boardId: 1,
+          swimlaneId: 1,
+          listId: 1,
+          sort: 1,
+        };
+        break;
+      case 'createdAt':
+        projection.sort = {
+          createdAt: order,
+          boardId: 1,
+          swimlaneId: 1,
+          listId: 1,
+          sort: 1,
+        };
+        break;
+      case 'system':
+        projection.sort = {
+          boardId: order,
+          swimlaneId: order,
+          listId: order,
+          modifiedAt: order,
+          sort: order,
+        };
+        break;
     }
-
-    // eslint-disable-next-line no-console
-    // console.log('projection:', projection);
-    cards = Cards.find(selector, projection);
-
-    // eslint-disable-next-line no-console
-    // console.log('count:', cards.count());
   }
+
+  // eslint-disable-next-line no-console
+  // console.log('projection:', projection);
+
+  return findCards(sessionId, selector, projection, errors);
+});
+
+Meteor.publish('brokenCards', function() {
+  const user = Users.findOne({ _id: this.userId });
+
+  const permiitedBoards = [null];
+  let selector = {};
+  selector.$or = [
+    { permission: 'public' },
+    { members: { $elemMatch: { userId: user._id, isActive: true } } },
+  ];
+
+  Boards.find(selector).forEach(board => {
+    permiitedBoards.push(board._id);
+  });
+
+  selector = {
+    boardId: { $in: permiitedBoards },
+    $or: [
+      { boardId: { $in: [null, ''] } },
+      { swimlaneId: { $in: [null, ''] } },
+      { listId: { $in: [null, ''] } },
+    ],
+  };
+
+  const cards = Cards.find(selector, {
+    fields: {
+      _id: 1,
+      archived: 1,
+      boardId: 1,
+      swimlaneId: 1,
+      listId: 1,
+      title: 1,
+      type: 1,
+      sort: 1,
+      members: 1,
+      assignees: 1,
+      colors: 1,
+      dueAt: 1,
+    },
+  });
+
+  const boards = [];
+  const swimlanes = [];
+  const lists = [];
+  const users = [];
+
+  cards.forEach(card => {
+    if (card.boardId) boards.push(card.boardId);
+    if (card.swimlaneId) swimlanes.push(card.swimlaneId);
+    if (card.listId) lists.push(card.listId);
+    if (card.members) {
+      card.members.forEach(userId => {
+        users.push(userId);
+      });
+    }
+    if (card.assignees) {
+      card.assignees.forEach(userId => {
+        users.push(userId);
+      });
+    }
+  });
+
+  return [
+    cards,
+    Boards.find({ _id: { $in: boards } }),
+    Swimlanes.find({ _id: { $in: swimlanes } }),
+    Lists.find({ _id: { $in: lists } }),
+    Users.find({ _id: { $in: users } }, { fields: Users.safeFields }),
+  ];
+});
+
+Meteor.publish('nextPage', function(sessionId) {
+  check(sessionId, String);
+
+  const session = SessionData.findOne({ sessionId });
+  const projection = session.getProjection();
+  projection.skip = session.lastHit;
+
+  return findCards(sessionId, session.getSelector(), projection);
+});
+
+Meteor.publish('previousPage', function(sessionId) {
+  check(sessionId, String);
+
+  const session = SessionData.findOne({ sessionId });
+  const projection = session.getProjection();
+  projection.skip = session.lastHit - session.resultsCount - projection.limit;
+
+  return findCards(sessionId, session.getSelector(), projection);
+});
+
+function findCards(sessionId, selector, projection, errors = null) {
+  const userId = Meteor.userId();
+
+  // eslint-disable-next-line no-console
+  // console.log('selector:', selector);
+  // eslint-disable-next-line no-console
+  // console.log('projection:', projection);
+  let cards;
+  if (!errors || !errors.hasErrors()) {
+    cards = Cards.find(selector, projection);
+  }
+  // eslint-disable-next-line no-console
+  // console.log('count:', cards.count());
 
   const update = {
     $set: {
@@ -654,15 +789,20 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
       lastHit: 0,
       resultsCount: 0,
       cards: [],
-      errors: errors.errorMessages(),
       selector: SessionData.pickle(selector),
+      projection: SessionData.pickle(projection),
     },
   };
+  if (errors) {
+    update.$set.errors = errors.errorMessages();
+  }
 
   if (cards) {
     update.$set.totalHits = cards.count();
     update.$set.lastHit =
-      skip + limit < cards.count() ? skip + limit : cards.count();
+      projection.skip + projection.limit < cards.count()
+        ? projection.skip + projection.limit
+        : cards.count();
     update.$set.cards = cards.map(card => {
       return card._id;
     });
@@ -735,79 +875,9 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
       Checklists.find({ cardId: { $in: cards.map(c => c._id) } }),
       Attachments.find({ cardId: { $in: cards.map(c => c._id) } }),
       CardComments.find({ cardId: { $in: cards.map(c => c._id) } }),
-      SessionData.find({ userId: this.userId, sessionId }),
+      SessionData.find({ userId, sessionId }),
     ];
   }
 
-  return [SessionData.find({ userId: this.userId, sessionId })];
-});
-
-Meteor.publish('brokenCards', function() {
-  const user = Users.findOne({ _id: this.userId });
-
-  const permiitedBoards = [null];
-  let selector = {};
-  selector.$or = [
-    { permission: 'public' },
-    { members: { $elemMatch: { userId: user._id, isActive: true } } },
-  ];
-
-  Boards.find(selector).forEach(board => {
-    permiitedBoards.push(board._id);
-  });
-
-  selector = {
-    boardId: { $in: permiitedBoards },
-    $or: [
-      { boardId: { $in: [null, ''] } },
-      { swimlaneId: { $in: [null, ''] } },
-      { listId: { $in: [null, ''] } },
-    ],
-  };
-
-  const cards = Cards.find(selector, {
-    fields: {
-      _id: 1,
-      archived: 1,
-      boardId: 1,
-      swimlaneId: 1,
-      listId: 1,
-      title: 1,
-      type: 1,
-      sort: 1,
-      members: 1,
-      assignees: 1,
-      colors: 1,
-      dueAt: 1,
-    },
-  });
-
-  const boards = [];
-  const swimlanes = [];
-  const lists = [];
-  const users = [];
-
-  cards.forEach(card => {
-    if (card.boardId) boards.push(card.boardId);
-    if (card.swimlaneId) swimlanes.push(card.swimlaneId);
-    if (card.listId) lists.push(card.listId);
-    if (card.members) {
-      card.members.forEach(userId => {
-        users.push(userId);
-      });
-    }
-    if (card.assignees) {
-      card.assignees.forEach(userId => {
-        users.push(userId);
-      });
-    }
-  });
-
-  return [
-    cards,
-    Boards.find({ _id: { $in: boards } }),
-    Swimlanes.find({ _id: { $in: swimlanes } }),
-    Lists.find({ _id: { $in: lists } }),
-    Users.find({ _id: { $in: users } }, { fields: Users.safeFields }),
-  ];
-});
+  return [SessionData.find({ userId: userId, sessionId })];
+}
