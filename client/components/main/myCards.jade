@@ -24,14 +24,16 @@ template(name="myCardsModalTitle")
 
 template(name="myCards")
   if currentUser
-    if isPageReady.get
+    if searching.get
+      +spinner
+    else
       .wrapper
         if $eq myCardsSort 'board'
           each board in myCardsList
             .my-cards-board-wrapper
               .my-cards-board-title(class=board.colorClass, id="header")
                 a(href=board.absoluteUrl)
-                  +viewer 
+                  +viewer
                     = board.title
               each swimlane in board.mySwimlanes
                 .my-cards-swimlane-title(class="{{#if swimlane.colorClass}}{{ swimlane.colorClass }}{{else}}swimlane-default-color{{/if}}")
@@ -50,8 +52,6 @@ template(name="myCards")
           .my-cards-dueat-list-wrapper
             each card in myDueCardsList
               +resultCard(card)
-    else
-      +spinner
 
 template(name="myCardsSortChangePopup")
   if currentUser

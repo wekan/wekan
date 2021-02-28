@@ -10,6 +10,23 @@ template(name="globalSearchModalTitle")
       i.fa.fa-keyboard-o
       | {{_ 'globalSearch-title'}}
 
+template(name="resultsPaged")
+  h1
+    = resultsHeading.get
+    a.fa.fa-link(title="{{_ 'link-to-search' }}" href="{{ getSearchHref }}")
+  each card in results.get
+    +resultCard(card)
+  table.global-search-footer
+    tr
+      td.global-search-previous-page
+        if hasPreviousPage.get
+          button.js-previous-page
+            | {{_ 'previous-page' }}
+      td.global-search-next-page(align="right")
+        if hasNextPage.get
+          button.js-next-page
+            | {{_ 'next-page' }}
+
 template(name="globalSearch")
   if currentUser
     .wrapper
@@ -32,21 +49,7 @@ template(name="globalSearch")
                 span.global-search-error-messages
                   = msg
           else
-            h1
-              = resultsHeading.get
-              a.fa.fa-link(title="{{_ 'link-to-search' }}" href="{{ getSearchHref }}")
-            each card in results.get
-              +resultCard(card)
-            table.global-search-footer
-              tr
-                td.global-search-previous-page
-                  if hasPreviousPage.get
-                    button.js-previous-page
-                      | {{_ 'previous-page' }}
-                td.global-search-next-page(align="right")
-                  if hasNextPage.get
-                    button.js-next-page
-                      | {{_ 'next-page' }}
+            +resultsPaged(this)
       else
         .global-search-page
           .global-search-help

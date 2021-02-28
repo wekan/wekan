@@ -1,4 +1,6 @@
-const subManager = new SubsManager();
+import { CardSearchPagedComponent } from '../../lib/cardSearch';
+
+// const subManager = new SubsManager();
 
 BlazeComponent.extendComponent({
   events() {
@@ -34,27 +36,15 @@ BlazeComponent.extendComponent({
   },
 }).register('globalSearchViewChangePopup');
 
-BlazeComponent.extendComponent({
+class GlobalSearchComponent extends CardSearchPagedComponent {
   onCreated() {
-    this.searching = new ReactiveVar(false);
-    this.hasResults = new ReactiveVar(false);
-    this.hasQueryErrors = new ReactiveVar(false);
-    this.query = new ReactiveVar('');
-    this.resultsHeading = new ReactiveVar('');
-    this.searchLink = new ReactiveVar(null);
+    super.onCreated();
     this.myLists = new ReactiveVar([]);
     this.myLabelNames = new ReactiveVar([]);
     this.myBoardNames = new ReactiveVar([]);
-    this.results = new ReactiveVar([]);
-    this.hasNextPage = new ReactiveVar(false);
-    this.hasPreviousPage = new ReactiveVar(false);
-    this.queryParams = null;
     this.parsingErrors = [];
-    this.resultsCount = 0;
-    this.totalHits = 0;
-    this.queryErrors = null;
     this.colorMap = null;
-    this.resultsPerPage = 25;
+    this.queryParams = null;
 
     Meteor.call('myLists', (err, data) => {
       if (!err) {
@@ -73,7 +63,7 @@ BlazeComponent.extendComponent({
         this.myBoardNames.set(data);
       }
     });
-  },
+  }
 
   onRendered() {
     Meteor.subscribe('setting');
@@ -87,67 +77,19 @@ BlazeComponent.extendComponent({
     if (Session.get('globalQuery')) {
       this.searchAllBoards(Session.get('globalQuery'));
     }
-  },
+  }
 
   resetSearch() {
-    this.searching.set(false);
-    this.results.set([]);
-    this.hasResults.set(false);
-    this.hasQueryErrors.set(false);
-    this.resultsHeading.set('');
+    super.resetSearch();
     this.parsingErrors = [];
-    this.resultsCount = 0;
-    this.totalHits = 0;
-    this.queryErrors = null;
-  },
-
-  getSessionData() {
-    return SessionData.findOne({
-      userId: Meteor.userId(),
-      sessionId: SessionData.getSessionId(),
-    });
-  },
-
-  getResults() {
-    // eslint-disable-next-line no-console
-    // console.log('getting results');
-    if (this.queryParams) {
-      const sessionData = this.getSessionData();
-      // eslint-disable-next-line no-console
-      // console.log('selector:', sessionData.getSelector());
-      // console.log('session data:', sessionData);
-      const projection = sessionData.getProjection();
-      projection.skip = 0;
-      const cards = Cards.find({ _id: { $in: sessionData.cards } }, projection);
-      this.queryErrors = sessionData.errors;
-      if (this.queryErrors.length) {
-        this.hasQueryErrors.set(true);
-        return null;
-      }
-
-      if (cards) {
-        this.totalHits = sessionData.totalHits;
-        this.resultsCount = cards.count();
-        this.resultsStart = sessionData.lastHit - this.resultsCount + 1;
-        this.resultsEnd = sessionData.lastHit;
-        this.resultsHeading.set(this.getResultsHeading());
-        this.results.set(cards);
-        this.hasNextPage.set(sessionData.lastHit < sessionData.totalHits);
-        this.hasPreviousPage.set(
-          sessionData.lastHit - sessionData.resultsCount > 0,
-        );
-      }
-    }
-    this.resultsCount = 0;
-    return null;
-  },
+  }
 
   errorMessages() {
     if (this.parsingErrors.length) {
       return this.parsingErrorMessages();
     }
     return this.queryErrorMessages();
-  },
+  }
 
   parsingErrorMessages() {
     const messages = [];
@@ -159,21 +101,7 @@ BlazeComponent.extendComponent({
     }
 
     return messages;
-  },
-
-  queryErrorMessages() {
-    messages = [];
-
-    this.queryErrors.forEach(err => {
-      let value = err.color ? TAPi18n.__(`color-${err.value}`) : err.value;
-      if (!value) {
-        value = err.value;
-      }
-      messages.push(TAPi18n.__(err.tag, value));
-    });
-
-    return messages;
-  },
+  }
 
   searchAllBoards(query) {
     query = query.trim();
@@ -300,7 +228,7 @@ BlazeComponent.extendComponent({
 
     let text = '';
     while (query) {
-      m = query.match(reOperator1);
+      let m = query.match(reOperator1);
       if (!m) {
         m = query.match(reOperator2);
         if (m) {
@@ -326,7 +254,7 @@ BlazeComponent.extendComponent({
               // console.log('found color:', value);
             }
           } else if (['dueAt', 'createdAt', 'modifiedAt'].includes(operator)) {
-            let days = parseInt(value, 10);
+            const days = parseInt(value, 10);
             let duration = null;
             if (isNaN(days)) {
               // duration was specified as text
@@ -335,7 +263,8 @@ BlazeComponent.extendComponent({
                 let date = null;
                 switch (duration) {
                   case 'week':
-                    let week = moment().week();
+                    // eslint-disable-next-line no-case-declarations
+                    const week = moment().week();
                     if (week === 52) {
                       date = moment(1, 'W');
                       date.set('year', date.year() + 1);
@@ -344,7 +273,8 @@ BlazeComponent.extendComponent({
                     }
                     break;
                   case 'month':
-                    let month = moment().month();
+                    // eslint-disable-next-line no-case-declarations
+                    const month = moment().month();
                     // .month() is zero indexed
                     if (month === 11) {
                       date = moment(1, 'M');
@@ -354,7 +284,8 @@ BlazeComponent.extendComponent({
                     }
                     break;
                   case 'quarter':
-                    let quarter = moment().quarter();
+                    // eslint-disable-next-line no-case-declarations
+                    const quarter = moment().quarter();
                     if (quarter === 4) {
                       date = moment(1, 'Q');
                       date.set('year', date.year() + 1);
@@ -384,22 +315,20 @@ BlazeComponent.extendComponent({
                 });
                 value = null;
               }
+            } else if (operator === 'dueAt') {
+              value = {
+                operator: '$lt',
+                value: moment(moment().format('YYYY-MM-DD'))
+                  .add(days + 1, duration ? duration : 'days')
+                  .format(),
+              };
             } else {
-              if (operator === 'dueAt') {
-                value = {
-                  operator: '$lt',
-                  value: moment(moment().format('YYYY-MM-DD'))
-                    .add(days + 1, duration ? duration : 'days')
-                    .format(),
-                };
-              } else {
-                value = {
-                  operator: '$gte',
-                  value: moment(moment().format('YYYY-MM-DD'))
-                    .subtract(days, duration ? duration : 'days')
-                    .format(),
-                };
-              }
+              value = {
+                operator: '$gte',
+                value: moment(moment().format('YYYY-MM-DD'))
+                  .subtract(days, duration ? duration : 'days')
+                  .format(),
+              };
             }
           } else if (operator === 'sort') {
             let negated = false;
@@ -502,81 +431,11 @@ BlazeComponent.extendComponent({
       return;
     }
 
-    this.autorun(() => {
-      const handle = Meteor.subscribe(
-        'globalSearch',
-        SessionData.getSessionId(),
-        params,
-      );
-      Tracker.nonreactive(() => {
-        Tracker.autorun(() => {
-          if (handle.ready()) {
-            this.getResults();
-            this.searching.set(false);
-            this.hasResults.set(true);
-          }
-        });
-      });
-    });
-  },
-
-  nextPage() {
-    const sessionData = this.getSessionData();
-
-    this.autorun(() => {
-      const handle = Meteor.subscribe('nextPage', sessionData.sessionId);
-      Tracker.nonreactive(() => {
-        Tracker.autorun(() => {
-          if (handle.ready()) {
-            this.getResults();
-            this.searching.set(false);
-            this.hasResults.set(true);
-          }
-        });
-      });
-    });
-  },
-
-  previousPage() {
-    const sessionData = this.getSessionData();
-
-    this.autorun(() => {
-      const handle = Meteor.subscribe('previousPage', sessionData.sessionId);
-      Tracker.nonreactive(() => {
-        Tracker.autorun(() => {
-          if (handle.ready()) {
-            this.getResults();
-            this.searching.set(false);
-            this.hasResults.set(true);
-          }
-        });
-      });
-    });
-  },
-
-  getResultsHeading() {
-    if (this.resultsCount === 0) {
-      return TAPi18n.__('no-cards-found');
-    } else if (this.resultsCount === 1) {
-      return TAPi18n.__('one-card-found');
-    } else if (this.resultsCount === this.totalHits) {
-      return TAPi18n.__('n-cards-found', this.resultsCount);
-    }
-
-    return TAPi18n.__('n-n-of-n-cards-found', {
-      start: this.resultsStart,
-      end: this.resultsEnd,
-      total: this.totalHits,
-    });
-  },
-
-  getSearchHref() {
-    const baseUrl = window.location.href.replace(/([?#].*$|\s*$)/, '');
-    return `${baseUrl}?q=${encodeURIComponent(this.query.get())}`;
-  },
+    this.autorunGlobalSearch(params);
+  }
 
   searchInstructions() {
-    tags = {
+    const tags = {
       operator_board: TAPi18n.__('operator-board'),
       operator_list: TAPi18n.__('operator-list'),
       operator_swimlane: TAPi18n.__('operator-swimlane'),
@@ -654,7 +513,7 @@ BlazeComponent.extendComponent({
     [
       'globalSearch-instructions-operator-has',
       'globalSearch-instructions-operator-sort',
-      'globalSearch-instructions-operator-limit'
+      'globalSearch-instructions-operator-limit',
     ].forEach(instruction => {
       text += `\n* ${TAPi18n.__(instruction, tags)}`;
     });
@@ -672,7 +531,7 @@ BlazeComponent.extendComponent({
     });
 
     return text;
-  },
+  }
 
   labelColors() {
     return Boards.simpleSchema()._schema['labels.$.color'].allowedValues.map(
@@ -680,22 +539,15 @@ BlazeComponent.extendComponent({
         return { color, name: TAPi18n.__(`color-${color}`) };
       },
     );
-  },
+  }
 
   events() {
     return [
       {
+        ...super.events()[0],
         'submit .js-search-query-form'(evt) {
           evt.preventDefault();
           this.searchAllBoards(evt.target.searchQuery.value);
-        },
-        'click .js-next-page'(evt) {
-          evt.preventDefault();
-          this.nextPage();
-        },
-        'click .js-previous-page'(evt) {
-          evt.preventDefault();
-          this.previousPage();
         },
         'click .js-label-color'(evt) {
           evt.preventDefault();
@@ -739,5 +591,7 @@ BlazeComponent.extendComponent({
         },
       },
     ];
-  },
-}).register('globalSearch');
+  }
+}
+
+GlobalSearchComponent.register('globalSearch');
