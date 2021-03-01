@@ -184,7 +184,7 @@ function pickleValue(value) {
   if (value === null) {
     return null;
   } else if (typeof value === 'object') {
-    switch(value.constructor.name) {
+    switch (value.constructor.name) {
       case 'RegExp':
         return {
           $$class: 'RegExp',

@@ -6,7 +6,6 @@ Meteor.publish('card', cardId => {
 });
 
 Meteor.publish('myCards', function(sessionId) {
-
   const queryParams = {
     users: [Meteor.user().username],
     // limit: 25,
