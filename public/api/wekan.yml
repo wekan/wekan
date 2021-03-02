@@ -1618,6 +1618,12 @@ paths:
             the new title of the card
           type: string
           required: false
+        - name: sort
+          in: formData
+          description: |
+            the new sort value of the card
+          type: string
+          required: false
         - name: parentId
           in: formData
           description: |
