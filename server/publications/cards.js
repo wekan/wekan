@@ -521,7 +521,9 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
         switch (has.field) {
           case 'attachment':
             const attachments = Attachments.find({}, { fields: { cardId: 1 } });
-            selector.$and.push({ _id: { $in: attachments.map(a => a.cardId) } });
+            selector.$and.push({
+              _id: { $in: attachments.map(a => a.cardId) },
+            });
             break;
           case 'checklist':
             const checklists = Checklists.find({}, { fields: { cardId: 1 } });

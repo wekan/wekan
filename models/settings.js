@@ -153,7 +153,7 @@ if (Meteor.isServer) {
       // At Sandstorm, Admin Panel has SMTP settings
       const newSetting = Settings.findOne();
       if (!process.env.MAIL_URL && newSetting.mailUrl())
-      process.env.MAIL_URL = newSetting.mailUrl();
+        process.env.MAIL_URL = newSetting.mailUrl();
       Accounts.emailTemplates.from = process.env.MAIL_FROM
         ? process.env.MAIL_FROM
         : newSetting.mailServer.from;

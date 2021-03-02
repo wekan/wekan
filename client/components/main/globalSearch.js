@@ -654,7 +654,7 @@ BlazeComponent.extendComponent({
     [
       'globalSearch-instructions-operator-has',
       'globalSearch-instructions-operator-sort',
-      'globalSearch-instructions-operator-limit'
+      'globalSearch-instructions-operator-limit',
     ].forEach(instruction => {
       text += `\n* ${TAPi18n.__(instruction, tags)}`;
     });
