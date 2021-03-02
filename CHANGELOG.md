@@ -1,8 +1,17 @@
 # Upcoming Wekan release
 
-This release adds the following 
+This release adds the following improvements:
 
 - [Added sort to edit card REST API](https://github.com/wekan/wekan/pull/3618).
+  Thanks to ChrisMagnuson.
+- [Add attachmentId to the Webhook data](https://github.com/wekan/wekan/pull/3620).
+  Thanks to n8ores.
+
+and fixes the following bugs:
+
+- [Fix SMTP port lost after upgrade. STMP settings are made only with environment variables on non-Sandstorm platforms.
+  Note: Sending email on Sandstorm Wekan does not work yet](https://github.com/wekan/wekan/commit/65b8220fe53349695a335bdb8b9692f82d4b3329).
+  Thanks to jrsupplee and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
