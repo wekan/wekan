@@ -1,3 +1,13 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Try to fix Snap: Removed fibers multi arch from Snap, because Snap build servers do not build corretly with
+  it](https://github.com/wekan/wekan/commit/a44ca39eb84508441f0f8bdac852745f417f12e7).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.03 2021-03-03 Wekan release
 
 This release adds the following changes:
