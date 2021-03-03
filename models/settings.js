@@ -1,3 +1,8 @@
+// Sandstorm context is detected using the METEOR_SETTINGS environment variable
+// in the package definition.
+const isSandstorm =
+  Meteor.settings && Meteor.settings.public && Meteor.settings.public.sandstorm;
+
 Settings = new Mongo.Collection('settings');
 
 Settings.attachSchema(
@@ -144,29 +149,38 @@ if (Meteor.isServer) {
       };
       Settings.insert(defaultSetting);
     }
-    const newSetting = Settings.findOne();
-    if (!process.env.MAIL_URL && newSetting.mailUrl())
-      process.env.MAIL_URL = newSetting.mailUrl();
-    Accounts.emailTemplates.from = process.env.MAIL_FROM
-      ? process.env.MAIL_FROM
-      : newSetting.mailServer.from;
-  });
-  Settings.after.update((userId, doc, fieldNames) => {
-    // assign new values to mail-from & MAIL_URL in environment
-    if (_.contains(fieldNames, 'mailServer') && doc.mailServer.host) {
-      const protocol = doc.mailServer.enableTLS ? 'smtps://' : 'smtp://';
-      if (!doc.mailServer.username && !doc.mailServer.password) {
-        process.env.MAIL_URL = `${protocol}${doc.mailServer.host}:${doc.mailServer.port}/`;
-      } else {
-        process.env.MAIL_URL = `${protocol}${
-          doc.mailServer.username
-        }:${encodeURIComponent(doc.mailServer.password)}@${
-          doc.mailServer.host
-        }:${doc.mailServer.port}/`;
-      }
-      Accounts.emailTemplates.from = doc.mailServer.from;
+    if (isSandstorm) {
+      // At Sandstorm, Admin Panel has SMTP settings
+      const newSetting = Settings.findOne();
+      if (!process.env.MAIL_URL && newSetting.mailUrl())
+        process.env.MAIL_URL = newSetting.mailUrl();
+      Accounts.emailTemplates.from = process.env.MAIL_FROM
+        ? process.env.MAIL_FROM
+        : newSetting.mailServer.from;
+    } else {
+      // Not running on Sandstorm, so using environment variables
+      Accounts.emailTemplates.from = process.env.MAIL_FROM;
     }
   });
+  if (isSandstorm) {
+    // At Sandstorm Wekan Admin Panel, save SMTP settings.
+    Settings.after.update((userId, doc, fieldNames) => {
+      // assign new values to mail-from & MAIL_URL in environment
+      if (_.contains(fieldNames, 'mailServer') && doc.mailServer.host) {
+        const protocol = doc.mailServer.enableTLS ? 'smtps://' : 'smtp://';
+        if (!doc.mailServer.username && !doc.mailServer.password) {
+          process.env.MAIL_URL = `${protocol}${doc.mailServer.host}:${doc.mailServer.port}/`;
+        } else {
+          process.env.MAIL_URL = `${protocol}${
+            doc.mailServer.username
+          }:${encodeURIComponent(doc.mailServer.password)}@${
+            doc.mailServer.host
+          }:${doc.mailServer.port}/`;
+        }
+        Accounts.emailTemplates.from = doc.mailServer.from;
+      }
+    });
+  }
 
   function getRandomNum(min, max) {
     const range = max - min;

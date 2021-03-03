@@ -1524,7 +1524,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
 	  	<ul class="toc-list-h1">
         
           <li>
-            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v5.01">Wekan REST API v5.01</a>
+            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v5.02">Wekan REST API v5.02</a>
             
           </li>
         
@@ -8396,6 +8396,7 @@ $.ajax({
 <pre class="highlight tab tab-javascript--nodejs"><code><span class="hljs-keyword">const</span> fetch = <span class="hljs-built_in">require</span>(<span class="hljs-string">'node-fetch'</span>);
 <span class="hljs-keyword">const</span> inputBody = <span class="hljs-string">'{
   "title": "string",
+  "sort": "string",
   "parentId": "string",
   "description": "string",
   "color": "string",
@@ -8521,6 +8522,7 @@ System.out.println(response.toString());
 <p>Body parameter</p>
 </blockquote>
 <pre class="highlight tab tab-yaml"><code><span class="hljs-attr">title:</span> <span class="hljs-string">string</span>
+<span class="hljs-attr">sort:</span> <span class="hljs-string">string</span>
 <span class="hljs-attr">parentId:</span> <span class="hljs-string">string</span>
 <span class="hljs-attr">description:</span> <span class="hljs-string">string</span>
 <span class="hljs-attr">color:</span> <span class="hljs-string">string</span>
@@ -8588,6 +8590,13 @@ System.out.println(response.toString());
 <td>string</td>
 <td>false</td>
 <td>the new title of the card</td>
+</tr>
+<tr>
+<td>» sort</td>
+<td>body</td>
+<td>string</td>
+<td>false</td>
+<td>the new sort value of the card</td>
 </tr>
 <tr>
 <td>» parentId</td>
