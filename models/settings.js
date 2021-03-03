@@ -74,6 +74,10 @@ Settings.attachSchema(
       type: String,
       optional: true,
     },
+    automaticLinkedUrlSchemes: {
+      type: String,
+      optional: true,
+    },
     createdAt: {
       type: Date,
       denyUpdate: true,

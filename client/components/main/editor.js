@@ -307,7 +307,7 @@ Blaze.Template.registerHelper(
     let content = Blaze.toHTML(view.templateContentBlock);
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
     if (!currentBoard)
-      return HTML.Raw(sanitizeXss(content, { safeAttrValue: mySafeAttrValue }));
+   return HTML.Raw(sanitizeXss(content, { safeAttrValue: mySafeAttrValue }));
     const knowedUsers = currentBoard.members.map(member => {
       const u = Users.findOne(member.userId);
       if (u) {
@@ -350,7 +350,6 @@ Blaze.Template.registerHelper(
 
       content = content.replace(fullMention, Blaze.toHTML(link));
     }
-
     return HTML.Raw(sanitizeXss(content, { safeAttrValue: mySafeAttrValue }));
   }),
 );

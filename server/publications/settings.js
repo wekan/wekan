@@ -20,6 +20,7 @@ Meteor.publish('setting', () => {
         customTopLeftCornerLogoHeight: 1,
         customHTMLafterBodyStart: 1,
         customHTMLbeforeBodyEnd: 1,
+	automaticLinkedUrlSchemes: 1,
         displayAuthenticationMethod: 1,
         defaultAuthenticationMethod: 1,
       },

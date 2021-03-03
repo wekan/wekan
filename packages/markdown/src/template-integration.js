@@ -6,14 +6,28 @@ var Markdown = require('markdown-it')({
   breaks: true,
 });
 
+//var urlschemes = currentSetting.automaticLinkedUrlSchemes.split('\n');
+var urlschemes = ["aodroplink", "mailspring"];
+for(var i=0; i<urlschemes.length;i++){
+  console.log("adding autolink for "+urlschemes[i]);
+  Markdown.linkify.add(urlschemes[i]+":",'http:');
+}
+
+
+
+//Markdown.linkify.add('aodroplink:', 'http:') ;
+
 // Additional  safeAttrValue function to allow for other specific protocols
 // See https://github.com/leizongmin/js-xss/issues/52#issuecomment-241354114
 function mySafeAttrValue(tag, name, value, cssFilter) {
   // only when the tag is 'a' and attribute is 'href'
   // then use your custom function
   if (tag === 'a' && name === 'href') {
+    urlscheme = value.split(/:\/\//);
+    console.log("validating "+urlscheme[0]);
+    if(urlschemes.includes(urlscheme[0])) return value;
     // only filter the value if starts with 'cbthunderlink:' or 'aodroplink'
-    if (/^thunderlink:/ig.test(value) ||
+/*    if (/^thunderlink:/ig.test(value) ||
         /^cbthunderlink:/ig.test(value) ||
         /^aodroplink:/ig.test(value) ||
         /^onenote:/ig.test(value) ||
@@ -22,7 +36,7 @@ function mySafeAttrValue(tag, name, value, cssFilter) {
         /^conisio:/ig.test(value) ||
         /^mailspring:/ig.test(value)) {
       return value;
-    }
+    }*/
     else {
       // use the default safeAttrValue function to process all non cbthunderlinks
       return sanitizeXss.safeAttrValue(tag, name, value, cssFilter);
