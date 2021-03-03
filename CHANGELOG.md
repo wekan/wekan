@@ -5,6 +5,12 @@ This release adds the following changes:
 - [Hide email settings from Sandstorm Wekan Admin Panel](https://github.com/wekan/wekan/commit/626f435edf75fac68448ba2e14c62acb749f9c9b).
   Thanks to ocdtrekkie and xet7.
 
+and fixes the following bugs:
+
+- [Revert Removed extra imports of Meteor. Hopefully fixes email notifications and rules
+  on old cars not working](https://github.com/wekan/wekan/commit/e4a9dc25ecc230829afea07dbb3915b96115f7f7).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v5.02 2021-03-02 Wekan release
