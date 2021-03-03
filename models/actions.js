@@ -1,3 +1,5 @@
+import { Meteor } from 'meteor/meteor';
+
 Actions = new Mongo.Collection('actions');
 
 Actions.allow({
