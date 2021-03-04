@@ -211,6 +211,10 @@ template(name='layoutSettings')
       .title {{_ 'custom-top-left-corner-logo-height'}}
       .form-group
         input.wekan-form-control#custom-top-left-corner-logo-height(type="text", placeholder="" value="{{currentSetting.customTopLeftCornerLogoHeight}}")
+    li.layout-form
+      .title {{_ 'automatic-linked-url-schemes'}}
+      .form-group
+        textarea#automatic-linked-url-schemes.wekan-form-control= currentSetting.automaticLinkedUrlSchemes
     li
       button.js-save-layout.primary {{_ 'save'}}
 
