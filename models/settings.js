@@ -62,7 +62,7 @@ Settings.attachSchema(
       type: String,
       optional: true,
     },
-    automaticLinkedUrlScheme: {
+    automaticLinkedUrlSchemes: {
       type: String,
       optional: true,
     },
