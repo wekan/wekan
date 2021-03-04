@@ -94,11 +94,19 @@ function buildQuery(sessionId, queryParams) {
         });
       });
       this.notFound.labels.forEach(label => {
-        messages.push({
-          tag: 'label-not-found',
-          value: label,
-          color: Boards.labelColors().includes(label),
-        });
+        if (Boards.labelColors().includes(label)) {
+          messages.push({
+            tag: 'label-color-not-found',
+            value: label,
+            color: true,
+          });
+        } else {
+          messages.push({
+            tag: 'label-not-found',
+            value: label,
+            color: false,
+          });
+        }
       });
       this.notFound.users.forEach(user => {
         messages.push({ tag: 'user-username-not-found', value: user });
@@ -643,7 +651,7 @@ Meteor.publish('previousPage', function(sessionId) {
   return findCards(sessionId, session.getSelector(), projection);
 });
 
-function findCards(sessionId, selector, projection, errors = null) {
+function findCards(sessionId, selector, projection, errors = []) {
   const userId = Meteor.userId();
 
   // eslint-disable-next-line no-console
@@ -666,11 +674,12 @@ function findCards(sessionId, selector, projection, errors = null) {
       cards: [],
       selector: SessionData.pickle(selector),
       projection: SessionData.pickle(projection),
+      errors: errors.errorMessages(),
     },
   };
-  if (errors) {
-    update.$set.errors = errors.errorMessages();
-  }
+  // if (errors) {
+  //   update.$set.errors = errors.errorMessages();
+  // }
 
   if (cards) {
     update.$set.totalHits = cards.count();

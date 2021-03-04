@@ -477,57 +477,42 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
       predicate_member: TAPi18n.__('predicate-member'),
     };
 
-    let text = `# ${TAPi18n.__('globalSearch-instructions-heading')}`;
-    text += `\n${TAPi18n.__('globalSearch-instructions-description', tags)}`;
-    text += `\n\n${TAPi18n.__('globalSearch-instructions-operators', tags)}`;
-
+    let text = '';
     [
-      'globalSearch-instructions-operator-board',
-      'globalSearch-instructions-operator-list',
-      'globalSearch-instructions-operator-swimlane',
-      'globalSearch-instructions-operator-comment',
-      'globalSearch-instructions-operator-label',
-      'globalSearch-instructions-operator-hash',
-      'globalSearch-instructions-operator-user',
-      'globalSearch-instructions-operator-at',
-      'globalSearch-instructions-operator-member',
-      'globalSearch-instructions-operator-assignee',
-      'globalSearch-instructions-operator-due',
-      'globalSearch-instructions-operator-created',
-      'globalSearch-instructions-operator-modified',
-      'globalSearch-instructions-operator-status',
-    ].forEach(instruction => {
-      text += `\n* ${TAPi18n.__(instruction, tags)}`;
-    });
-
-    [
-      'globalSearch-instructions-status-archived',
-      'globalSearch-instructions-status-public',
-      'globalSearch-instructions-status-private',
-      'globalSearch-instructions-status-all',
-      'globalSearch-instructions-status-ended',
-    ].forEach(instruction => {
-      text += `\n    * ${TAPi18n.__(instruction, tags)}`;
-    });
-
-    [
-      'globalSearch-instructions-operator-has',
-      'globalSearch-instructions-operator-sort',
-      'globalSearch-instructions-operator-limit',
-    ].forEach(instruction => {
-      text += `\n* ${TAPi18n.__(instruction, tags)}`;
-    });
-
-    text += `\n## ${TAPi18n.__('heading-notes')}`;
-    [
-      'globalSearch-instructions-notes-1',
-      'globalSearch-instructions-notes-2',
-      'globalSearch-instructions-notes-3',
-      'globalSearch-instructions-notes-3-2',
-      'globalSearch-instructions-notes-4',
-      'globalSearch-instructions-notes-5',
-    ].forEach(instruction => {
-      text += `\n* ${TAPi18n.__(instruction, tags)}`;
+      ['# ', 'globalSearch-instructions-heading'],
+      ['\n', 'globalSearch-instructions-description'],
+      ['\n\n', 'globalSearch-instructions-operators'],
+      ['\n* ', 'globalSearch-instructions-operator-board'],
+      ['\n* ', 'globalSearch-instructions-operator-list'],
+      ['\n* ', 'globalSearch-instructions-operator-swimlane'],
+      ['\n* ', 'globalSearch-instructions-operator-comment'],
+      ['\n* ', 'globalSearch-instructions-operator-label'],
+      ['\n* ', 'globalSearch-instructions-operator-hash'],
+      ['\n* ', 'globalSearch-instructions-operator-user'],
+      ['\n* ', 'globalSearch-instructions-operator-at'],
+      ['\n* ', 'globalSearch-instructions-operator-member'],
+      ['\n* ', 'globalSearch-instructions-operator-assignee'],
+      ['\n* ', 'globalSearch-instructions-operator-due'],
+      ['\n* ', 'globalSearch-instructions-operator-created'],
+      ['\n* ', 'globalSearch-instructions-operator-modified'],
+      ['\n* ', 'globalSearch-instructions-operator-status'],
+      ['\n    * ', 'globalSearch-instructions-status-archived'],
+      ['\n    * ', 'globalSearch-instructions-status-public'],
+      ['\n    * ', 'globalSearch-instructions-status-private'],
+      ['\n    * ', 'globalSearch-instructions-status-all'],
+      ['\n    * ', 'globalSearch-instructions-status-ended'],
+      ['\n* ', 'globalSearch-instructions-operator-has'],
+      ['\n* ', 'globalSearch-instructions-operator-sort'],
+      ['\n* ', 'globalSearch-instructions-operator-limit'],
+      ['\n## ', 'heading-notes'],
+      ['\n* ', 'globalSearch-instructions-notes-1'],
+      ['\n* ', 'globalSearch-instructions-notes-2'],
+      ['\n* ', 'globalSearch-instructions-notes-3'],
+      ['\n* ', 'globalSearch-instructions-notes-3-2'],
+      ['\n* ', 'globalSearch-instructions-notes-4'],
+      ['\n* ', 'globalSearch-instructions-notes-5'],
+    ].forEach(([prefix, instruction]) => {
+      text += `${prefix}${TAPi18n.__(instruction, tags)}`;
     });
 
     return text;
