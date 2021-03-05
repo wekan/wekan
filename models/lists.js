@@ -280,6 +280,10 @@ Lists.helpers({
     const card = Cards.findOne({ listId: this._id });
     return card && card.absoluteUrl();
   },
+  originRelativeUrl() {
+    const card = Cards.findOne({ listId: this._id });
+    return card && card.originRelativeUrl();
+  },
   remove() {
     Lists.remove({ _id: this._id });
   },

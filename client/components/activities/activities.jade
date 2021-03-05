@@ -82,7 +82,7 @@ template(name="activity")
             +viewer
               = activity.checklist.title
         else
-          a.activity-checklist(href="{{ activity.card.absoluteUrl }}")
+          a.activity-checklist(href="{{ activity.card.originRelativeUrl }}")
             +viewer
               = activity.checklist.title
 
@@ -103,7 +103,7 @@ template(name="activity")
 
       if($eq activity.activityType 'addChecklistItem')
         | {{{_ 'activity-checklist-item-added' (sanitize activity.checklist.title) cardLink}}}.
-        .activity-checklist(href="{{ activity.card.absoluteUrl }}")
+        .activity-checklist(href="{{ activity.card.originRelativeUrl }}")
           +viewer
             = activity.checklistItem.title
 
@@ -139,7 +139,7 @@ template(name="activity")
         //- if we are not in card mode we only display a summary of the comment
         if($eq activity.activityType 'addComment')
           | {{{_ 'activity-on' cardLink}}}
-          a.activity-comment(href="{{ activity.card.absoluteUrl }}")
+          a.activity-comment(href="{{ activity.card.originRelativeUrl }}")
             +viewer
               = activity.comment.text
 
