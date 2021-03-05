@@ -4,6 +4,8 @@ This release adds the following new features:
 
 - [Added autolinking settings in Admin Panel](https://github.com/wekan/wekan/pull/3633).
   Thanks to chrisi51.
+- [Add custom field editing to the REST API](https://github.com/wekan/wekan/pull/3593).
+  Thanks to dudeofawesome.
 
 and fixes the following bugs:
 
