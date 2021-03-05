@@ -5,7 +5,7 @@ template(name="listBody")
         +inlinedForm(autoclose=false position="top")
           +addCardForm(listId=_id position="top")
       each (cardsWithLimit (idOrNull ../../_id))
-        a.minicard-wrapper.js-minicard(href=absoluteUrl
+        a.minicard-wrapper.js-minicard(href=originRelativeUrl
           class="{{#if cardIsSelected}}is-selected{{/if}}"
           class="{{#if MultiSelection.isSelected _id}}is-checked{{/if}}")
           if MultiSelection.isActive

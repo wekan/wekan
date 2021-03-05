@@ -136,7 +136,7 @@ if (Meteor.isServer) {
         params.board = '';
       }
       title = 'act-withBoardTitle';
-      params.url = board.absoluteUrl();
+      params.url = board.originRelativeUrl();
       params.boardId = activity.boardId;
     }
     if (activity.oldBoardId) {
@@ -179,7 +179,7 @@ if (Meteor.isServer) {
       watchers = _.union(watchers, card.watchers || []);
       params.card = card.title;
       title = 'act-withCardTitle';
-      params.url = card.absoluteUrl();
+      params.url = card.originRelativeUrl();
       params.cardId = activity.cardId;
     }
     if (activity.swimlaneId) {
