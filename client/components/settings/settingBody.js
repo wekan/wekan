@@ -176,6 +176,9 @@ BlazeComponent.extendComponent({
     const textBelowCustomLoginLogo = $('#text-below-custom-login-logo')
       .val()
       .trim();
+    const automaticLinkedUrlSchemes = $('#automatic-linked-url-schemes')
+      .val()
+      .trim();
     const customTopLeftCornerLogoImageUrl = $(
       '#custom-top-left-corner-logo-image-url',
     )
@@ -209,6 +212,7 @@ BlazeComponent.extendComponent({
           customTopLeftCornerLogoHeight,
           displayAuthenticationMethod,
           defaultAuthenticationMethod,
+          automaticLinkedUrlSchemes,
         },
       });
     } catch (e) {

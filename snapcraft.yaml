@@ -97,7 +97,7 @@ parts:
             - execstack
             - nodejs
             - npm
-            - p7zip-full
+#            - p7zip-full
         stage-packages:
             - libfontconfig1
         override-build: |
@@ -128,11 +128,11 @@ parts:
             find . -name '*.swp' | xargs rm -f
             cd ../..
             # Add fibers multi arch
-            cd .build/bundle/programs/server/node_modules/fibers/bin
-            curl https://releases.wekan.team/fibers-multi.7z -o fibers-multi.7z
-            7z x fibers-multi.7z
-            rm fibers-multi.7z
-            cd ../../../../../../..
+            #cd .build/bundle/programs/server/node_modules/fibers/bin
+            #curl https://releases.wekan.team/fibers-multi.7z -o fibers-multi.7z
+            #7z x fibers-multi.7z
+            #rm fibers-multi.7z
+            #cd ../../../../../../..
             # Copy to Snap
             cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
             cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/

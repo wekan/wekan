@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v5.01
+  version: v5.03
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -1616,6 +1616,12 @@ paths:
           in: formData
           description: |
             the new title of the card
+          type: string
+          required: false
+        - name: sort
+          in: formData
+          description: |
+            the new sort value of the card
           type: string
           required: false
         - name: parentId

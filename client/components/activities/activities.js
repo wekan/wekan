@@ -243,7 +243,7 @@ function createCardLink(card) {
     Blaze.toHTML(
       HTML.A(
         {
-          href: card.absoluteUrl(),
+          href: card.originRelativeUrl(),
           class: 'action-card',
         },
         sanitizeXss(card.title),
@@ -260,7 +260,7 @@ function createBoardLink(board, list) {
     Blaze.toHTML(
       HTML.A(
         {
-          href: board.absoluteUrl(),
+          href: board.originRelativeUrl(),
           class: 'action-board',
         },
         sanitizeXss(text),

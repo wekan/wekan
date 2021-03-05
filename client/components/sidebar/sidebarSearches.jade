@@ -4,9 +4,9 @@ template(name="searchSidebar")
   .list-body
     .minilists.clearfix.js-minilists
       each (lists)
-        a.minilist-wrapper.js-minilist(href=absoluteUrl)
+        a.minilist-wrapper.js-minilist(href=originRelativeUrl)
           +minilist(this)
     .minicards.clearfix.js-minicards
       each (results)
-        a.minicard-wrapper.js-minicard(href=absoluteUrl)
+        a.minicard-wrapper.js-minicard(href=originRelativeUrl)
           +minicard(this)
