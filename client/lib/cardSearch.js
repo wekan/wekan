@@ -13,6 +13,28 @@ export class CardSearchPagedComponent extends BlazeComponent {
     this.totalHits = 0;
     this.queryErrors = null;
     this.resultsPerPage = 25;
+    this.sessionId = SessionData.getSessionId();
+    this.subscriptionHandle = null;
+    this.serverError = new ReactiveVar(false);
+
+    const that = this;
+    this.subscriptionCallbacks = {
+      onReady() {
+        that.getResults();
+        that.searching.set(false);
+        that.hasResults.set(true);
+        that.serverError.set(false);
+      },
+      onError(error) {
+        that.searching.set(false);
+        that.hasResults.set(false);
+        that.serverError.set(true);
+        console.log('Error.reason:', error.reason);
+        console.log('Error.message:', error.message);
+        console.log('Error.stack:', error.stack);
+      }
+    };
+
   }
 
   resetSearch() {
@@ -21,15 +43,15 @@ export class CardSearchPagedComponent extends BlazeComponent {
     this.hasResults.set(false);
     this.hasQueryErrors.set(false);
     this.resultsHeading.set('');
+    this.serverError.set(false);
     this.resultsCount = 0;
     this.totalHits = 0;
     this.queryErrors = null;
   }
 
-  getSessionData() {
+  getSessionData(sessionId) {
     return SessionData.findOne({
-      userId: Meteor.userId(),
-      sessionId: SessionData.getSessionId(),
+      sessionId: sessionId ? sessionId : SessionData.getSessionId(),
     });
   }
 
@@ -45,6 +67,7 @@ export class CardSearchPagedComponent extends BlazeComponent {
     const cards = Cards.find({ _id: { $in: sessionData.cards } }, projection);
     this.queryErrors = sessionData.errors;
     if (this.queryErrors.length) {
+      // console.log('queryErrors:', this.queryErrorMessages());
       this.hasQueryErrors.set(true);
       return null;
     }
@@ -67,25 +90,21 @@ export class CardSearchPagedComponent extends BlazeComponent {
     return null;
   }
 
-  autorunGlobalSearch(params) {
-    this.searching.set(true);
+  stopSubscription() {
+    if (this.subscriptionHandle) {
+      this.subscriptionHandle.stop();
+    }
+  }
 
-    this.autorun(() => {
-      const handle = Meteor.subscribe(
-        'globalSearch',
-        SessionData.getSessionId(),
-        params,
-      );
-      Tracker.nonreactive(() => {
-        Tracker.autorun(() => {
-          if (handle.ready()) {
-            this.getResults();
-            this.searching.set(false);
-            this.hasResults.set(true);
-          }
-        });
-      });
-    });
+  runGlobalSearch(params) {
+    this.searching.set(true);
+    this.stopSubscription();
+    this.subscriptionHandle = Meteor.subscribe(
+      'globalSearch',
+      this.sessionId,
+      params,
+      this.subscriptionCallbacks,
+    );
   }
 
   queryErrorMessages() {
@@ -103,37 +122,23 @@ export class CardSearchPagedComponent extends BlazeComponent {
   }
 
   nextPage() {
-    const sessionData = this.getSessionData();
-
-    this.autorun(() => {
-      const handle = Meteor.subscribe('nextPage', sessionData.sessionId);
-      Tracker.nonreactive(() => {
-        Tracker.autorun(() => {
-          if (handle.ready()) {
-            this.getResults();
-            this.searching.set(false);
-            this.hasResults.set(true);
-          }
-        });
-      });
-    });
+    this.searching.set(true);
+    this.stopSubscription();
+    this.subscriptionHandle = Meteor.subscribe(
+      'nextPage',
+      this.sessionId,
+      this.subscriptionCallbacks,
+    );
   }
 
   previousPage() {
-    const sessionData = this.getSessionData();
-
-    this.autorun(() => {
-      const handle = Meteor.subscribe('previousPage', sessionData.sessionId);
-      Tracker.nonreactive(() => {
-        Tracker.autorun(() => {
-          if (handle.ready()) {
-            this.getResults();
-            this.searching.set(false);
-            this.hasResults.set(true);
-          }
-        });
-      });
-    });
+    this.searching.set(true);
+    this.stopSubscription();
+    this.subscriptionHandle = Meteor.subscribe(
+      'previousPage',
+      this.sessionId,
+      this.subscriptionCallbacks,
+    );
   }
 
   getResultsHeading() {

@@ -50,6 +50,12 @@ template(name="globalSearch")
                   = msg
           else
             +resultsPaged(this)
+      else if serverError.get
+        .global-search-page
+          .global-search-help
+            h1 {{_ 'server-error' }}
+            +viewer
+              | {{_ 'server-error-troubleshooting' }}
       else
         .global-search-page
           .global-search-help

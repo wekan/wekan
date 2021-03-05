@@ -431,7 +431,7 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
       return;
     }
 
-    this.autorunGlobalSearch(params);
+    this.runGlobalSearch(params);
   }
 
   searchInstructions() {
