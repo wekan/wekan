@@ -501,6 +501,9 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
             boards.forEach(board => {
               board.labels
                 .filter(boardLabel => {
+                  if (!boardLabel.name) {
+                    return false;
+                  }
                   return boardLabel.name.match(reLabel);
                 })
                 .forEach(boardLabel => {
