@@ -1,6 +1,11 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+- [Added autolinking settings in Admin Panel](https://github.com/wekan/wekan/pull/3633).
+  Thanks to chrisi51.
+
+and fixes the following bugs:
 
 - [Try to fix Snap: Removed fibers multi arch from Snap, because Snap build servers do not build corretly with
   it](https://github.com/wekan/wekan/commit/a44ca39eb84508441f0f8bdac852745f417f12e7).
