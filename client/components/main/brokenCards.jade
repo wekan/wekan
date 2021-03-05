@@ -3,39 +3,15 @@ template(name="brokenCardsHeaderBar")
     | {{_ 'broken-cards'}}
 
 template(name="brokenCards")
-  .wrapper
-    .broken-cards-wrapper
-      each card in brokenCardsList
-        .broken-cards-card-wrapper
-          .broken-cards-card-title
-            = card.title
-          ul.broken-cards-context-list
-            li.broken-cards-context(title="{{_ 'board'}}")
-              if card.boardId
-                +viewer
-                  = card.getBoard.title
-              else
-                .broken-cards-null
-                  | NULL
-            li.broken-cards-context.broken-cards-context-separator
-              = ' '
-              | {{_ 'context-separator'}}
-              = ' '
-            li.broken-cards-context(title="{{_ 'swimlane'}}")
-              if card.swimlaneId
-                +viewer
-                  = card.getSwimlane.title
-              else
-                .broken-cards-null
-                  | NULL
-            li.broken-cards-context
-              = ' '
-              | {{_ 'context-separator'}}
-              = ' '
-            li.broken-cards-context(title="{{_ 'list'}}")
-              if card.listId
-                +viewer
-                  = card.getList.title
-              else
-                .broken-cards-null
-                  | NULL
+  if currentUser
+    if searching.get
+      +spinner
+    else if hasResults.get
+      .global-search-results-list-wrapper
+        if hasQueryErrors.get
+          div
+            each msg in errorMessages
+              span.global-search-error-messages
+                = msg
+        else
+          +resultsPaged(this)

@@ -13,7 +13,7 @@ Meteor.publish('myCards', function(sessionId) {
     // sort: { name: 'dueAt', order: 'des' },
   };
 
-  return buildQuery(sessionId, queryParams);
+  return findCards(sessionId, buildQuery(queryParams));
 });
 
 // Meteor.publish('dueCards', function(sessionId, allUsers = false) {
@@ -44,93 +44,104 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
   // eslint-disable-next-line no-console
   // console.log('queryParams:', queryParams);
 
-  return buildQuery(sessionId, queryParams);
+  return findCards(sessionId, buildQuery(queryParams));
 });
 
-function buildQuery(sessionId, queryParams) {
+class QueryErrors {
+  constructor() {
+    this.notFound = {
+      boards: [],
+      swimlanes: [],
+      lists: [],
+      labels: [],
+      users: [],
+      members: [],
+      assignees: [],
+      status: [],
+      comments: [],
+    };
+
+    this.colorMap = Boards.colorMap();
+  }
+
+  hasErrors() {
+    for (const value of Object.values(this.notFound)) {
+      if (value.length) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  errorMessages() {
+    const messages = [];
+
+    this.notFound.boards.forEach(board => {
+      messages.push({ tag: 'board-title-not-found', value: board });
+    });
+    this.notFound.swimlanes.forEach(swim => {
+      messages.push({ tag: 'swimlane-title-not-found', value: swim });
+    });
+    this.notFound.lists.forEach(list => {
+      messages.push({ tag: 'list-title-not-found', value: list });
+    });
+    this.notFound.comments.forEach(comments => {
+      comments.forEach(text => {
+        messages.push({ tag: 'comment-not-found', value: text });
+      });
+    });
+    this.notFound.labels.forEach(label => {
+      if (Boards.labelColors().includes(label)) {
+        messages.push({
+          tag: 'label-color-not-found',
+          value: label,
+          color: true,
+        });
+      } else {
+        messages.push({
+          tag: 'label-not-found',
+          value: label,
+          color: false,
+        });
+      }
+    });
+    this.notFound.users.forEach(user => {
+      messages.push({ tag: 'user-username-not-found', value: user });
+    });
+    this.notFound.members.forEach(user => {
+      messages.push({ tag: 'user-username-not-found', value: user });
+    });
+    this.notFound.assignees.forEach(user => {
+      messages.push({ tag: 'user-username-not-found', value: user });
+    });
+
+    return messages;
+  }
+};
+
+class Query {
+  params = {};
+  selector = {};
+  projection = {};
+  errors = new QueryErrors();
+
+  constructor(selector, projection) {
+    if (selector) {
+      this.selector = selector;
+    }
+
+    if (projection) {
+      this.projection = projection;
+    }
+  }
+}
+
+function buildSelector(queryParams) {
   const userId = Meteor.userId();
 
-  const errors = new (class {
-    constructor() {
-      this.notFound = {
-        boards: [],
-        swimlanes: [],
-        lists: [],
-        labels: [],
-        users: [],
-        members: [],
-        assignees: [],
-        status: [],
-        comments: [],
-      };
-
-      this.colorMap = Boards.colorMap();
-    }
-
-    hasErrors() {
-      for (const value of Object.values(this.notFound)) {
-        if (value.length) {
-          return true;
-        }
-      }
-      return false;
-    }
-
-    errorMessages() {
-      const messages = [];
-
-      this.notFound.boards.forEach(board => {
-        messages.push({ tag: 'board-title-not-found', value: board });
-      });
-      this.notFound.swimlanes.forEach(swim => {
-        messages.push({ tag: 'swimlane-title-not-found', value: swim });
-      });
-      this.notFound.lists.forEach(list => {
-        messages.push({ tag: 'list-title-not-found', value: list });
-      });
-      this.notFound.comments.forEach(comments => {
-        comments.forEach(text => {
-          messages.push({ tag: 'comment-not-found', value: text });
-        });
-      });
-      this.notFound.labels.forEach(label => {
-        if (Boards.labelColors().includes(label)) {
-          messages.push({
-            tag: 'label-color-not-found',
-            value: label,
-            color: true,
-          });
-        } else {
-          messages.push({
-            tag: 'label-not-found',
-            value: label,
-            color: false,
-          });
-        }
-      });
-      this.notFound.users.forEach(user => {
-        messages.push({ tag: 'user-username-not-found', value: user });
-      });
-      this.notFound.members.forEach(user => {
-        messages.push({ tag: 'user-username-not-found', value: user });
-      });
-      this.notFound.assignees.forEach(user => {
-        messages.push({ tag: 'user-username-not-found', value: user });
-      });
-
-      return messages;
-    }
-  })();
+  errors = new QueryErrors();
 
   let selector = {};
-  let skip = 0;
-  if (queryParams.skip) {
-    skip = queryParams.skip;
-  }
-  let limit = 25;
-  if (queryParams.limit) {
-    limit = queryParams.limit;
-  }
 
   if (queryParams.selector) {
     selector = queryParams.selector;
@@ -487,6 +498,25 @@ function buildQuery(sessionId, queryParams) {
   // eslint-disable-next-line no-console
   // console.log('selector.$and:', selector.$and);
 
+  const query = new Query();
+  query.selector = selector;
+  query.params = queryParams;
+  query.errors = errors;
+
+  return query;
+}
+
+function buildProjection(query) {
+
+  let skip = 0;
+  if (query.params.skip) {
+    skip = query.params.skip;
+  }
+  let limit = 25;
+  if (query.params.limit) {
+    limit = query.params.limit;
+  }
+
   const projection = {
     fields: {
       _id: 1,
@@ -516,9 +546,9 @@ function buildQuery(sessionId, queryParams) {
     limit,
   };
 
-  if (queryParams.sort) {
-    const order = queryParams.sort.order === 'asc' ? 1 : -1;
-    switch (queryParams.sort.name) {
+  if (query.params.sort) {
+    const order = query.params.sort.order === 'asc' ? 1 : -1;
+    switch (query.params.sort.name) {
       case 'dueAt':
         projection.sort = {
           dueAt: order,
@@ -561,77 +591,33 @@ function buildQuery(sessionId, queryParams) {
   // eslint-disable-next-line no-console
   // console.log('projection:', projection);
 
-  return findCards(sessionId, selector, projection, errors);
+  query.projection = projection;
+
+  return query;
 }
 
-Meteor.publish('brokenCards', function() {
-  const user = Users.findOne({ _id: this.userId });
+function buildQuery(queryParams) {
+  const query = buildSelector(queryParams);
 
-  const permiitedBoards = [null];
-  let selector = {};
-  selector.$or = [
-    { permission: 'public' },
-    { members: { $elemMatch: { userId: user._id, isActive: true } } },
-  ];
+  return buildProjection(query);
+}
 
-  Boards.find(selector).forEach(board => {
-    permiitedBoards.push(board._id);
-  });
+Meteor.publish('brokenCards', function(sessionId) {
 
-  selector = {
-    boardId: { $in: permiitedBoards },
-    $or: [
-      { boardId: { $in: [null, ''] } },
-      { swimlaneId: { $in: [null, ''] } },
-      { listId: { $in: [null, ''] } },
-    ],
+  const queryParams = {
+    users: [Meteor.user().username],
+    // limit: 25,
+    skip: 0,
+    // sort: { name: 'dueAt', order: 'des' },
   };
-
-  const cards = Cards.find(selector, {
-    fields: {
-      _id: 1,
-      archived: 1,
-      boardId: 1,
-      swimlaneId: 1,
-      listId: 1,
-      title: 1,
-      type: 1,
-      sort: 1,
-      members: 1,
-      assignees: 1,
-      colors: 1,
-      dueAt: 1,
-    },
-  });
-
-  const boards = [];
-  const swimlanes = [];
-  const lists = [];
-  const users = [];
-
-  cards.forEach(card => {
-    if (card.boardId) boards.push(card.boardId);
-    if (card.swimlaneId) swimlanes.push(card.swimlaneId);
-    if (card.listId) lists.push(card.listId);
-    if (card.members) {
-      card.members.forEach(userId => {
-        users.push(userId);
-      });
-    }
-    if (card.assignees) {
-      card.assignees.forEach(userId => {
-        users.push(userId);
-      });
-    }
-  });
-
-  return [
-    cards,
-    Boards.find({ _id: { $in: boards } }),
-    Swimlanes.find({ _id: { $in: swimlanes } }),
-    Lists.find({ _id: { $in: lists } }),
-    Users.find({ _id: { $in: users } }, { fields: Users.safeFields }),
+  const query = buildQuery(queryParams);
+  query.selector.$or = [
+    { boardId: { $in: [null, ''] } },
+    { swimlaneId: { $in: [null, ''] } },
+    { listId: { $in: [null, ''] } },
   ];
+
+  return findCards(sessionId, query);
 });
 
 Meteor.publish('nextPage', function(sessionId) {
@@ -641,7 +627,7 @@ Meteor.publish('nextPage', function(sessionId) {
   const projection = session.getProjection();
   projection.skip = session.lastHit;
 
-  return findCards(sessionId, session.getSelector(), projection);
+  return findCards(sessionId, new Query(session.getSelector(), projection));
 });
 
 Meteor.publish('previousPage', function(sessionId) {
@@ -651,20 +637,20 @@ Meteor.publish('previousPage', function(sessionId) {
   const projection = session.getProjection();
   projection.skip = session.lastHit - session.resultsCount - projection.limit;
 
-  return findCards(sessionId, session.getSelector(), projection);
+  return findCards(sessionId, new Query(session.getSelector(), projection));
 });
 
-function findCards(sessionId, selector, projection, errors = []) {
+function findCards(sessionId, query) {
   const userId = Meteor.userId();
 
   // eslint-disable-next-line no-console
-  console.log('selector:', selector);
-  console.log('selector.$and:', selector.$and);
+  console.log('selector:', query.selector);
+  console.log('selector.$and:', query.selector.$and);
   // eslint-disable-next-line no-console
   // console.log('projection:', projection);
   let cards;
   if (!errors || !errors.hasErrors()) {
-    cards = Cards.find(selector, projection);
+    cards = Cards.find(query.selector, query.projection);
   }
   // eslint-disable-next-line no-console
   // console.log('count:', cards.count());
@@ -675,9 +661,9 @@ function findCards(sessionId, selector, projection, errors = []) {
       lastHit: 0,
       resultsCount: 0,
       cards: [],
-      selector: SessionData.pickle(selector),
-      projection: SessionData.pickle(projection),
-      errors: errors.errorMessages(),
+      selector: SessionData.pickle(query.selector),
+      projection: SessionData.pickle(query.projection),
+      errors: query.errors.errorMessages(),
     },
   };
   // if (errors) {
@@ -687,8 +673,8 @@ function findCards(sessionId, selector, projection, errors = []) {
   if (cards) {
     update.$set.totalHits = cards.count();
     update.$set.lastHit =
-      projection.skip + projection.limit < cards.count()
-        ? projection.skip + projection.limit
+      query.projection.skip + query.projection.limit < cards.count()
+        ? query.projection.skip + query.projection.limit
         : cards.count();
     update.$set.cards = cards.map(card => {
       return card._id;
