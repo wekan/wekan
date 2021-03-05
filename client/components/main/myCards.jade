@@ -30,8 +30,8 @@ template(name="myCards")
           each board in myCardsList
             .my-cards-board-wrapper
               .my-cards-board-title(class=board.colorClass, id="header")
-                a(href=board.absoluteUrl)
-                  +viewer 
+                a(href=board.originRelativeUrl)
+                  +viewer
                     = board.title
               each swimlane in board.mySwimlanes
                 .my-cards-swimlane-title(class="{{#if swimlane.colorClass}}{{ swimlane.colorClass }}{{else}}swimlane-default-color{{/if}}")
@@ -44,7 +44,7 @@ template(name="myCards")
                         = list.title
                     each card in list.myCards
                       .my-cards-card-wrapper
-                        a.minicard-wrapper(href=card.absoluteUrl)
+                        a.minicard-wrapper(href=card.originRelativeUrl)
                           +minicard(card)
         else
           .my-cards-dueat-list-wrapper
