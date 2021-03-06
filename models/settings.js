@@ -62,6 +62,10 @@ Settings.attachSchema(
       type: String,
       optional: true,
     },
+    automaticLinkedUrlSchemes: {
+      type: String,
+      optional: true,
+    },
     customTopLeftCornerLogoImageUrl: {
       type: String,
       optional: true,

@@ -758,6 +758,14 @@ Cards.helpers({
       cardId: this._id,
     });
   },
+  originRelativeUrl() {
+    const board = this.board();
+    return FlowRouter.path('card', {
+      boardId: board._id,
+      slug: board.slug,
+      cardId: this._id,
+    });
+  },
 
   canBeRestored() {
     const list = Lists.findOne({

@@ -1,11 +1,40 @@
 # Upcoming Wekan release
 
+This release adds the following new features:
+
+- [Added autolinking settings in Admin Panel](https://github.com/wekan/wekan/pull/3633).
+  Thanks to chrisi51.
+- [Add custom field editing to the REST API](https://github.com/wekan/wekan/pull/3593).
+  Thanks to dudeofawesome.
+
+and fixes the following bugs:
+
+- [Try to fix Snap: Removed fibers multi arch from Snap, because Snap build servers do not build correctly with
+  it](https://github.com/wekan/wekan/commit/a44ca39eb84508441f0f8bdac852745f417f12e7).
+  Thanks to xet7.
+- [Fix search on labels server error](https://github.com/wekan/wekan/pull/3634).
+  Thanks to jrsupplee.
+- [Fixed Bug: inconsistent use of relative/absolute URLs](https://github.com/wekan/wekan/pull/3635).
+  Thanks to Majed6.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.03 2021-03-03 Wekan release
+
 This release adds the following changes:
 
 - [Hide email settings from Sandstorm Wekan Admin Panel](https://github.com/wekan/wekan/commit/626f435edf75fac68448ba2e14c62acb749f9c9b).
   Thanks to ocdtrekkie and xet7.
 
-Thanks to above GitHub users for their contributions and translators for their translations.
+and fixes the following bugs:
+
+- [Revert Removed extra imports of Meteor. Hopefully fixes email notifications and rules
+  on old cars not working](https://github.com/wekan/wekan/commit/e4a9dc25ecc230829afea07dbb3915b96115f7f7).
+  Thanks to xet7.
+- [Fixed Bug: Link at board title can not be edited](https://github.com/wekan/wekan/commit/7d3917adb79be09356d32612585029392bac1e49).
+  Thanks to jonesrussell42, aiac, bbyszio and xet7.
+
+Thanks to above GitHub and Wekan vanila.io community users for their contributions and translators for their translations.
 
 # v5.02 2021-03-02 Wekan release
 

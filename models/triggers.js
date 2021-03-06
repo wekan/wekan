@@ -1,3 +1,5 @@
+import { Meteor } from 'meteor/meteor';
+
 Triggers = new Mongo.Collection('triggers');
 
 Triggers.mutations({

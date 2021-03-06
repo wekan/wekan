@@ -53,7 +53,7 @@ class MyCardsComponent extends CardSearchPagedComponent {
       sort: { name: 'dueAt', order: 'des' },
     };
 
-    this.autorunGlobalSearch(queryParams);
+    this.runGlobalSearch(queryParams);
     Meteor.subscribe('setting');
   }
 

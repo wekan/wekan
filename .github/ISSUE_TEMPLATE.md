@@ -1,5 +1,8 @@
 ## Issue
 
+Email settings:
+- https://github.com/wekan/wekan/wiki/Troubleshooting-Mail
+
 Add these issues to elsewhere:
 - SECURITY ISSUES: https://github.com/wekan/wekan/blob/master/SECURITY.md
 - UCS: https://github.com/wekan/univention/issues

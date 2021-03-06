@@ -57,7 +57,7 @@ class DueCardsComponent extends CardSearchPagedComponent {
       queryParams.users = [Meteor.user().username];
     }
 
-    this.autorunGlobalSearch(queryParams);
+    this.runGlobalSearch(queryParams);
   }
 
   dueCardsView() {

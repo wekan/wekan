@@ -1,3 +1,5 @@
+import { Meteor } from 'meteor/meteor';
+
 Rules = new Mongo.Collection('rules');
 
 Rules.attachSchema(
