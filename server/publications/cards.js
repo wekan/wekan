@@ -1,3 +1,14 @@
+import Users from '../../models/users';
+import Boards from '../../models/boards';
+import Lists from '../../models/lists';
+import Swimlanes from '../../models/swimlanes';
+import CardComments from '../../models/cardComments';
+import Attachments from '../../models/attachments';
+import Checklists from '../../models/checklists';
+import ChecklistItems from '../../models/checklistItems';
+import SessionData from '../../models/usersessiondata';
+import CustomFields from '../../models/customFields';
+
 const escapeForRegex = require('escape-string-regexp');
 
 Meteor.publish('card', cardId => {
@@ -117,7 +128,7 @@ class QueryErrors {
 
     return messages;
   }
-};
+}
 
 class Query {
   params = {};
@@ -139,7 +150,7 @@ class Query {
 function buildSelector(queryParams) {
   const userId = Meteor.userId();
 
-  errors = new QueryErrors();
+  const errors = new QueryErrors();
 
   let selector = {};
 
@@ -287,8 +298,10 @@ function buildSelector(queryParams) {
       }
     });
 
-    const queryMembers = [];
-    const queryAssignees = [];
+    const queryUsers = {
+      members: [],
+      assignees: [],
+    };
     if (queryParams.users && queryParams.users.length) {
       queryParams.users.forEach(query => {
         const users = Users.find({
@@ -296,8 +309,8 @@ function buildSelector(queryParams) {
         });
         if (users.count()) {
           users.forEach(user => {
-            queryMembers.push(user._id);
-            queryAssignees.push(user._id);
+            queryUsers.members.push(user._id);
+            queryUsers.assignees.push(user._id);
           });
         } else {
           errors.notFound.users.push(query);
@@ -305,47 +318,34 @@ function buildSelector(queryParams) {
       });
     }
 
-    if (queryParams.members && queryParams.members.length) {
-      queryParams.members.forEach(query => {
-        const users = Users.find({
-          username: query,
-        });
-        if (users.count()) {
-          users.forEach(user => {
-            queryMembers.push(user._id);
+    ['members', 'assignees'].forEach(key => {
+      if (queryParams[key] && queryParams[key].length) {
+        queryParams[key].forEach(query => {
+          const users = Users.find({
+            username: query,
           });
-        } else {
-          errors.notFound.members.push(query);
-        }
-      });
-    }
-
-    if (queryParams.assignees && queryParams.assignees.length) {
-      queryParams.assignees.forEach(query => {
-        const users = Users.find({
-          username: query,
+          if (users.count()) {
+            users.forEach(user => {
+              queryUsers[key].push(user._id);
+            });
+          } else {
+            errors.notFound[key].push(query);
+          }
         });
-        if (users.count()) {
-          users.forEach(user => {
-            queryAssignees.push(user._id);
-          });
-        } else {
-          errors.notFound.assignees.push(query);
-        }
-      });
-    }
+      }
+    });
 
-    if (queryMembers.length && queryAssignees.length) {
+    if (queryUsers.members.length && queryUsers.assignees.length) {
       selector.$and.push({
         $or: [
-          { members: { $in: queryMembers } },
-          { assignees: { $in: queryAssignees } },
+          { members: { $in: queryUsers.members } },
+          { assignees: { $in: queryUsers.assignees } },
         ],
       });
-    } else if (queryMembers.length) {
-      selector.members = { $in: queryMembers };
-    } else if (queryAssignees.length) {
-      selector.assignees = { $in: queryAssignees };
+    } else if (queryUsers.members.length) {
+      selector.members = { $in: queryUsers.members };
+    } else if (queryUsers.assignees.length) {
+      selector.assignees = { $in: queryUsers.assignees };
     }
 
     if (queryParams.labels && queryParams.labels.length) {
@@ -398,7 +398,7 @@ function buildSelector(queryParams) {
           }
         }
 
-        selector.labelIds = { $in: queryLabels };
+        selector.labelIds = { $in: _.uniq(queryLabels) };
       });
     }
 
@@ -507,7 +507,6 @@ function buildSelector(queryParams) {
 }
 
 function buildProjection(query) {
-
   let skip = 0;
   if (query.params.skip) {
     skip = query.params.skip;
@@ -603,7 +602,6 @@ function buildQuery(queryParams) {
 }
 
 Meteor.publish('brokenCards', function(sessionId) {
-
   const queryParams = {
     users: [Meteor.user().username],
     // limit: 25,
@@ -649,7 +647,7 @@ function findCards(sessionId, query) {
   // eslint-disable-next-line no-console
   // console.log('projection:', projection);
   let cards;
-  if (!errors || !errors.hasErrors()) {
+  if (!query.errors || !query.errors.hasErrors()) {
     cards = Cards.find(query.selector, query.projection);
   }
   // eslint-disable-next-line no-console

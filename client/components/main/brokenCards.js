@@ -1,4 +1,4 @@
-import { CardSearchPagedComponent } from "../../lib/cardSearch";
+import { CardSearchPagedComponent } from '../../lib/cardSearch';
 
 BlazeComponent.extendComponent({}).register('brokenCardsHeaderBar');
 

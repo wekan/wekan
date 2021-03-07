@@ -32,9 +32,8 @@ export class CardSearchPagedComponent extends BlazeComponent {
         console.log('Error.reason:', error.reason);
         console.log('Error.message:', error.message);
         console.log('Error.stack:', error.stack);
-      }
+      },
     };
-
   }
 
   resetSearch() {

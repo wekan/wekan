@@ -1,6 +1,6 @@
 import { CardSearchPagedComponent } from '../../lib/cardSearch';
 
-const subManager = new SubsManager();
+// const subManager = new SubsManager();
 
 BlazeComponent.extendComponent({
   myCardsSort() {
@@ -180,8 +180,8 @@ class MyCardsComponent extends CardSearchPagedComponent {
     });
 
     cards.sort((a, b) => {
-      const x = a.dueAt === null ? Date('2100-12-31') : a.dueAt;
-      const y = b.dueAt === null ? Date('2100-12-31') : b.dueAt;
+      const x = a.dueAt === null ? new Date('2100-12-31') : a.dueAt;
+      const y = b.dueAt === null ? new Date('2100-12-31') : b.dueAt;
 
       if (x > y) return 1;
       else if (x < y) return -1;
