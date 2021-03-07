@@ -1,4 +1,4 @@
-# Upcoming Wekan release
+# v5.04 2021-03-07 Wekan release
 
 This release adds the following speed improvements:
 
@@ -12,6 +12,9 @@ and adds the following new features:
   Thanks to chrisi51.
 - [Add custom field editing to the REST API](https://github.com/wekan/wekan/pull/3593).
   Thanks to dudeofawesome.
+- [Related to custom field editing, Fixed generating API docs and Wekan Custom Fields
+  REST API](https://github.com/wekan/wekan/commit/0bb3b670753c6ba20b0ad63f63d273036f609ee5).
+  Thanks to xet7.
 
 and adds back the following platforms:
 
