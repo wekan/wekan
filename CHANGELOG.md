@@ -13,6 +13,12 @@ and adds the following new features:
 - [Add custom field editing to the REST API](https://github.com/wekan/wekan/pull/3593).
   Thanks to dudeofawesome.
 
+and adds back the following platforms:
+
+- [OpenPower Minicloud emergency maintenance has finished, so can now build Wekan for
+  ppc64le](https://github.com/wekan/wekan/commit/ac9b23f00f10b0170b8693e1e997bfb54f807adc).
+  Thanks to OpenPower Minicloud.
+
 and fixes the following bugs:
 
 - [Try to fix Snap: Removed fibers multi arch from Snap, because Snap build servers do not build correctly with
