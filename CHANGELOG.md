@@ -1,6 +1,12 @@
 # Upcoming Wekan release
 
-This release adds the following new features:
+This release adds the following speed improvements:
+
+- [Speed improvement: Delete presences older than one week, and add database index to presences
+  serverId](https://github.com/wekan/wekan/commit/9db3c931161adfbeb6fc52d3e4cf621fb9a4955f).
+  Thanks to xet7.
+
+and adds the following new features:
 
 - [Added autolinking settings in Admin Panel](https://github.com/wekan/wekan/pull/3633).
   Thanks to chrisi51.
