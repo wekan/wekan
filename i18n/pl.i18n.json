@@ -532,6 +532,7 @@
   "custom-login-logo-image-url": "URL obrazu logo ekranu logowania",
   "custom-login-logo-link-url": "URL linku logo ekranu logowania",
   "text-below-custom-login-logo": "Tekst pod logo na ekranie logowania",
+  "automatic-linked-url-schemes": "Custom URL Schemes which should automatically be clickable. One URL Scheme per line",
   "username": "Nazwa użytkownika",
   "import-usernames": "Importuj użytkowników",
   "view-it": "Zobacz",

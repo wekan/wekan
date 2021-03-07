@@ -532,6 +532,7 @@
   "custom-login-logo-image-url": "自訂登入商標圖示網址",
   "custom-login-logo-link-url": "自訂登入商標連結網址",
   "text-below-custom-login-logo": "登入商標下方文字",
+  "automatic-linked-url-schemes": "Custom URL Schemes which should automatically be clickable. One URL Scheme per line",
   "username": "使用者名稱",
   "import-usernames": "匯入使用者名稱",
   "view-it": "檢視",

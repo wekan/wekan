@@ -532,6 +532,7 @@
   "custom-login-logo-image-url": "URL Voor Maatwerk Login Logo Afbeelding",
   "custom-login-logo-link-url": "URL Voor Maatwerk Login Logo Link",
   "text-below-custom-login-logo": "Tekst onder Maatwerk Login Logo",
+  "automatic-linked-url-schemes": "Maatwerk URL's die automatisch klikbaar zouden moeten zijn. Een URL per regel.",
   "username": "Gebruikersnaam",
   "import-usernames": "Importeer Gebruikersnamen",
   "view-it": "Bekijk het",

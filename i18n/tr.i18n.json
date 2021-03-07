@@ -532,6 +532,7 @@
   "custom-login-logo-image-url": "Özel Oturum Açma Logosu Resmi URL'si",
   "custom-login-logo-link-url": "Özel Oturum Açma Logosu Bağlantı URL'si",
   "text-below-custom-login-logo": "Özel Oturum Açma Logosunun altındaki metin",
+  "automatic-linked-url-schemes": "Custom URL Schemes which should automatically be clickable. One URL Scheme per line",
   "username": "Kullanıcı adı",
   "import-usernames": "Import Usernames",
   "view-it": "Görüntüle",

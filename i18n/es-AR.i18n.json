@@ -532,6 +532,7 @@
   "custom-login-logo-image-url": "Custom Login Logo Image URL",
   "custom-login-logo-link-url": "Custom Login Logo Link URL",
   "text-below-custom-login-logo": "Text below Custom Login Logo",
+  "automatic-linked-url-schemes": "Custom URL Schemes which should automatically be clickable. One URL Scheme per line",
   "username": "Nombre de usuario",
   "import-usernames": "Import Usernames",
   "view-it": "Verlo",
