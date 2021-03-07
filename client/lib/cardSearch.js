@@ -61,9 +61,10 @@ export class CardSearchPagedComponent extends BlazeComponent {
     // eslint-disable-next-line no-console
     // console.log('selector:', sessionData.getSelector());
     console.log('session data:', sessionData);
-    const projection = sessionData.getProjection();
-    projection.skip = 0;
-    const cards = Cards.find({ _id: { $in: sessionData.cards } }, projection);
+    const cards = [];
+    sessionData.cards.forEach(cardId => {
+      cards.push(Cards.findOne({ _id: cardId }));
+    });
     this.queryErrors = sessionData.errors;
     if (this.queryErrors.length) {
       // console.log('queryErrors:', this.queryErrorMessages());
@@ -73,7 +74,7 @@ export class CardSearchPagedComponent extends BlazeComponent {
 
     if (cards) {
       this.totalHits = sessionData.totalHits;
-      this.resultsCount = cards.count();
+      this.resultsCount = cards.length;
       this.resultsStart = sessionData.lastHit - this.resultsCount + 1;
       this.resultsEnd = sessionData.lastHit;
       this.resultsHeading.set(this.getResultsHeading());
