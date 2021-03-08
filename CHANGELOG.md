@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Change URL scheme recognition for allowing abasurl to link](https://github.com/wekan/wekan/pull/3641).
+  Thanks to tod31 and chrisi51.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.04 2021-03-07 Wekan release
 
 This release adds the following speed improvements:
