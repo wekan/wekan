@@ -37,7 +37,7 @@ function mySafeAttrValue(tag, name, value, cssFilter) {
   // then use your custom function
   if (tag === 'a' && name === 'href') {
     // only filter the value if starts with an registered url scheme
-    urlscheme = value.split(/:\/\//);
+    urlscheme = value.split(/:/);
     //console.log("validating "+urlscheme[0]);
     if(urlschemes.includes(urlscheme[0])) return value;
     else {
