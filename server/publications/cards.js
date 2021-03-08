@@ -8,6 +8,27 @@ import Checklists from '../../models/checklists';
 import ChecklistItems from '../../models/checklistItems';
 import SessionData from '../../models/usersessiondata';
 import CustomFields from '../../models/customFields';
+import {
+  OPERATOR_BOARD,
+  OPERATOR_DUE, OPERATOR_LIST, OPERATOR_SWIMLANE, OPERATOR_USER,
+  ORDER_ASCENDING,
+  PREDICATE_ALL,
+  PREDICATE_ARCHIVED,
+  PREDICATE_ASSIGNEES,
+  PREDICATE_ATTACHMENT,
+  PREDICATE_CHECKLIST,
+  PREDICATE_CREATED_AT,
+  PREDICATE_DESCRIPTION,
+  PREDICATE_DUE_AT,
+  PREDICATE_END_AT,
+  PREDICATE_ENDED,
+  PREDICATE_MEMBERS,
+  PREDICATE_MODIFIED_AT,
+  PREDICATE_PRIVATE,
+  PREDICATE_PUBLIC,
+  PREDICATE_START_AT,
+  PREDICATE_SYSTEM,
+} from '../../config/search-const';
 
 const escapeForRegex = require('escape-string-regexp');
 
@@ -17,12 +38,8 @@ Meteor.publish('card', cardId => {
 });
 
 Meteor.publish('myCards', function(sessionId) {
-  const queryParams = {
-    users: [Meteor.user().username],
-    // limit: 25,
-    skip: 0,
-    // sort: { name: 'dueAt', order: 'des' },
-  };
+  const queryParams = {}
+  queryParams[OPERATOR_USER] = [Meteor.user().username];
 
   return findCards(sessionId, buildQuery(queryParams));
 });
@@ -61,16 +78,20 @@ Meteor.publish('globalSearch', function(sessionId, queryParams) {
 class QueryErrors {
   constructor() {
     this.notFound = {
-      boards: [],
-      swimlanes: [],
-      lists: [],
+      // boards: [],
+      // swimlanes: [],
+      // lists: [],
       labels: [],
-      users: [],
+      // users: [],
       members: [],
       assignees: [],
       status: [],
       comments: [],
     };
+    this.notFound[OPERATOR_BOARD] = [];
+    this.notFound[OPERATOR_LIST] = [];
+    this.notFound[OPERATOR_SWIMLANE] = [];
+    this.notFound[OPERATOR_USER] = [];
 
     this.colorMap = Boards.colorMap();
   }
@@ -87,13 +108,13 @@ class QueryErrors {
   errorMessages() {
     const messages = [];
 
-    this.notFound.boards.forEach(board => {
+    this.notFound[OPERATOR_BOARD].forEach(board => {
       messages.push({ tag: 'board-title-not-found', value: board });
     });
-    this.notFound.swimlanes.forEach(swim => {
+    this.notFound[OPERATOR_SWIMLANE].forEach(swim => {
       messages.push({ tag: 'swimlane-title-not-found', value: swim });
     });
-    this.notFound.lists.forEach(list => {
+    this.notFound[OPERATOR_LIST].forEach(list => {
       messages.push({ tag: 'list-title-not-found', value: list });
     });
     this.notFound.comments.forEach(comments => {
@@ -116,7 +137,7 @@ class QueryErrors {
         });
       }
     });
-    this.notFound.users.forEach(user => {
+    this.notFound[OPERATOR_USER].forEach(user => {
       messages.push({ tag: 'user-username-not-found', value: user });
     });
     this.notFound.members.forEach(user => {
@@ -163,13 +184,13 @@ function buildSelector(queryParams) {
     let endAt = null;
     if (queryParams.status && queryParams.status.length) {
       queryParams.status.forEach(status => {
-        if (status === 'archived') {
+        if (status === PREDICATE_ARCHIVED) {
           archived = true;
-        } else if (status === 'all') {
+        } else if (status === PREDICATE_ALL) {
           archived = null;
-        } else if (status === 'ended') {
+        } else if (status === PREDICATE_ENDED) {
           endAt = { $nin: [null, ''] };
-        } else if (['private', 'public'].includes(status)) {
+        } else if ([PREDICATE_PRIVATE, PREDICATE_PUBLIC].includes(status)) {
           boardsSelector.permission = status;
         }
       });
@@ -214,9 +235,9 @@ function buildSelector(queryParams) {
       selector.endAt = endAt;
     }
 
-    if (queryParams.boards && queryParams.boards.length) {
+    if (queryParams[OPERATOR_BOARD] && queryParams[OPERATOR_BOARD].length) {
       const queryBoards = [];
-      queryParams.boards.forEach(query => {
+      queryParams[OPERATOR_BOARD].forEach(query => {
         const boards = Boards.userSearch(userId, {
           title: new RegExp(escapeForRegex(query), 'i'),
         });
@@ -225,16 +246,19 @@ function buildSelector(queryParams) {
             queryBoards.push(board._id);
           });
         } else {
-          errors.notFound.boards.push(query);
+          errors.notFound[OPERATOR_BOARD].push(query);
         }
       });
 
       selector.boardId.$in = queryBoards;
     }
 
-    if (queryParams.swimlanes && queryParams.swimlanes.length) {
+    if (
+      queryParams[OPERATOR_SWIMLANE] &&
+      queryParams[OPERATOR_SWIMLANE].length
+    ) {
       const querySwimlanes = [];
-      queryParams.swimlanes.forEach(query => {
+      queryParams[OPERATOR_SWIMLANE].forEach(query => {
         const swimlanes = Swimlanes.find({
           title: new RegExp(escapeForRegex(query), 'i'),
         });
@@ -243,7 +267,7 @@ function buildSelector(queryParams) {
             querySwimlanes.push(swim._id);
           });
         } else {
-          errors.notFound.swimlanes.push(query);
+          errors.notFound[OPERATOR_SWIMLANE].push(query);
         }
       });
 
@@ -254,9 +278,9 @@ function buildSelector(queryParams) {
       selector.swimlaneId.$in = querySwimlanes;
     }
 
-    if (queryParams.lists && queryParams.lists.length) {
+    if (queryParams[OPERATOR_LIST] && queryParams[OPERATOR_LIST].length) {
       const queryLists = [];
-      queryParams.lists.forEach(query => {
+      queryParams[OPERATOR_LIST].forEach(query => {
         const lists = Lists.find({
           title: new RegExp(escapeForRegex(query), 'i'),
         });
@@ -265,7 +289,7 @@ function buildSelector(queryParams) {
             queryLists.push(list._id);
           });
         } else {
-          errors.notFound.lists.push(query);
+          errors.notFound[OPERATOR_LIST].push(query);
         }
       });
 
@@ -289,7 +313,7 @@ function buildSelector(queryParams) {
       }
     }
 
-    ['dueAt', 'createdAt', 'modifiedAt'].forEach(field => {
+    [OPERATOR_DUE, 'createdAt', 'modifiedAt'].forEach(field => {
       if (queryParams[field]) {
         selector[field] = {};
         selector[field][queryParams[field].operator] = new Date(
@@ -302,8 +326,8 @@ function buildSelector(queryParams) {
       members: [],
       assignees: [],
     };
-    if (queryParams.users && queryParams.users.length) {
-      queryParams.users.forEach(query => {
+    if (queryParams[OPERATOR_USER] && queryParams[OPERATOR_USER].length) {
+      queryParams[OPERATOR_USER].forEach(query => {
         const users = Users.find({
           username: query,
         });
@@ -313,7 +337,7 @@ function buildSelector(queryParams) {
             queryUsers.assignees.push(user._id);
           });
         } else {
-          errors.notFound.users.push(query);
+          errors.notFound[OPERATOR_USER].push(query);
         }
       });
     }
@@ -405,7 +429,7 @@ function buildSelector(queryParams) {
     if (queryParams.has && queryParams.has.length) {
       queryParams.has.forEach(has => {
         switch (has.field) {
-          case 'attachment':
+          case PREDICATE_ATTACHMENT:
             selector.$and.push({
               _id: {
                 $in: Attachments.find({}, { fields: { cardId: 1 } }).map(
@@ -414,7 +438,7 @@ function buildSelector(queryParams) {
               },
             });
             break;
-          case 'checklist':
+          case PREDICATE_CHECKLIST:
             selector.$and.push({
               _id: {
                 $in: Checklists.find({}, { fields: { cardId: 1 } }).map(
@@ -423,18 +447,18 @@ function buildSelector(queryParams) {
               },
             });
             break;
-          case 'description':
-          case 'startAt':
-          case 'dueAt':
-          case 'endAt':
+          case PREDICATE_DESCRIPTION:
+          case PREDICATE_START_AT:
+          case PREDICATE_DUE_AT:
+          case PREDICATE_END_AT:
             if (has.exists) {
               selector[has.field] = { $exists: true, $nin: [null, ''] };
             } else {
               selector[has.field] = { $in: [null, ''] };
             }
             break;
-          case 'assignees':
-          case 'members':
+          case PREDICATE_ASSIGNEES:
+          case PREDICATE_MEMBERS:
             if (has.exists) {
               selector[has.field] = { $exists: true, $nin: [null, []] };
             } else {
@@ -546,9 +570,9 @@ function buildProjection(query) {
   };
 
   if (query.params.sort) {
-    const order = query.params.sort.order === 'asc' ? 1 : -1;
+    const order = query.params.sort.order === ORDER_ASCENDING ? 1 : -1;
     switch (query.params.sort.name) {
-      case 'dueAt':
+      case PREDICATE_DUE_AT:
         projection.sort = {
           dueAt: order,
           boardId: 1,
@@ -557,7 +581,7 @@ function buildProjection(query) {
           sort: 1,
         };
         break;
-      case 'modifiedAt':
+      case PREDICATE_MODIFIED_AT:
         projection.sort = {
           modifiedAt: order,
           boardId: 1,
@@ -566,7 +590,7 @@ function buildProjection(query) {
           sort: 1,
         };
         break;
-      case 'createdAt':
+      case PREDICATE_CREATED_AT:
         projection.sort = {
           createdAt: order,
           boardId: 1,
@@ -575,7 +599,7 @@ function buildProjection(query) {
           sort: 1,
         };
         break;
-      case 'system':
+      case PREDICATE_SYSTEM:
         projection.sort = {
           boardId: order,
           swimlaneId: order,
@@ -602,18 +626,15 @@ function buildQuery(queryParams) {
 }
 
 Meteor.publish('brokenCards', function(sessionId) {
-  const queryParams = {
-    users: [Meteor.user().username],
-    // limit: 25,
-    skip: 0,
-    // sort: { name: 'dueAt', order: 'des' },
-  };
-  const query = buildQuery(queryParams);
+  check(sessionId, String);
+
+  const query = buildQuery({ status: [PREDICATE_ALL] });
   query.selector.$or = [
     { boardId: { $in: [null, ''] } },
     { swimlaneId: { $in: [null, ''] } },
     { listId: { $in: [null, ''] } },
   ];
+  console.log('brokenCards selector:', query.selector);
 
   return findCards(sessionId, query);
 });

@@ -1,5 +1,33 @@
 import { CardSearchPagedComponent } from '../../lib/cardSearch';
 import moment from 'moment';
+import {
+  OPERATOR_BOARD,
+  OPERATOR_DUE, OPERATOR_LIST,
+  OPERATOR_SWIMLANE, OPERATOR_USER,
+  ORDER_ASCENDING,
+  ORDER_DESCENDING,
+  PREDICATE_ALL,
+  PREDICATE_ARCHIVED,
+  PREDICATE_ASSIGNEES,
+  PREDICATE_ATTACHMENT,
+  PREDICATE_CHECKLIST,
+  PREDICATE_CREATED_AT,
+  PREDICATE_DESCRIPTION,
+  PREDICATE_DUE_AT,
+  PREDICATE_END_AT,
+  PREDICATE_ENDED,
+  PREDICATE_MEMBERS,
+  PREDICATE_MODIFIED_AT,
+  PREDICATE_MONTH,
+  PREDICATE_OPEN,
+  PREDICATE_OVERDUE,
+  PREDICATE_PRIVATE,
+  PREDICATE_PUBLIC,
+  PREDICATE_QUARTER,
+  PREDICATE_START_AT,
+  PREDICATE_WEEK,
+  PREDICATE_YEAR,
+} from '../../../config/search-const';
 
 // const subManager = new SubsManager();
 
@@ -135,22 +163,22 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
     const reNegatedOperator = new RegExp('^-(?<operator>.*)$');
 
     const operators = {
-      'operator-board': 'boards',
-      'operator-board-abbrev': 'boards',
-      'operator-swimlane': 'swimlanes',
-      'operator-swimlane-abbrev': 'swimlanes',
-      'operator-list': 'lists',
-      'operator-list-abbrev': 'lists',
+      'operator-board': OPERATOR_BOARD,
+      'operator-board-abbrev': OPERATOR_BOARD,
+      'operator-swimlane': OPERATOR_SWIMLANE,
+      'operator-swimlane-abbrev': OPERATOR_SWIMLANE,
+      'operator-list': OPERATOR_LIST,
+      'operator-list-abbrev': OPERATOR_LIST,
       'operator-label': 'labels',
       'operator-label-abbrev': 'labels',
-      'operator-user': 'users',
-      'operator-user-abbrev': 'users',
+      'operator-user': OPERATOR_USER,
+      'operator-user-abbrev': OPERATOR_USER,
       'operator-member': 'members',
       'operator-member-abbrev': 'members',
       'operator-assignee': 'assignees',
       'operator-assignee-abbrev': 'assignees',
       'operator-status': 'status',
-      'operator-due': 'dueAt',
+      'operator-due': OPERATOR_DUE,
       'operator-created': 'createdAt',
       'operator-modified': 'modifiedAt',
       'operator-comment': 'comments',
@@ -161,36 +189,36 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
 
     const predicates = {
       due: {
-        'predicate-overdue': 'overdue',
+        'predicate-overdue': PREDICATE_OVERDUE,
       },
       durations: {
-        'predicate-week': 'week',
-        'predicate-month': 'month',
-        'predicate-quarter': 'quarter',
-        'predicate-year': 'year',
+        'predicate-week': PREDICATE_WEEK,
+        'predicate-month': PREDICATE_MONTH,
+        'predicate-quarter': PREDICATE_QUARTER,
+        'predicate-year': PREDICATE_YEAR,
       },
       status: {
-        'predicate-archived': 'archived',
-        'predicate-all': 'all',
-        'predicate-open': 'open',
-        'predicate-ended': 'ended',
-        'predicate-public': 'public',
-        'predicate-private': 'private',
+        'predicate-archived': PREDICATE_ARCHIVED,
+        'predicate-all': PREDICATE_ALL,
+        'predicate-open': PREDICATE_OPEN,
+        'predicate-ended': PREDICATE_ENDED,
+        'predicate-public': PREDICATE_PUBLIC,
+        'predicate-private': PREDICATE_PRIVATE,
       },
       sorts: {
-        'predicate-due': 'dueAt',
-        'predicate-created': 'createdAt',
-        'predicate-modified': 'modifiedAt',
+        'predicate-due': PREDICATE_DUE_AT,
+        'predicate-created': PREDICATE_CREATED_AT,
+        'predicate-modified': PREDICATE_MODIFIED_AT,
       },
       has: {
-        'predicate-description': 'description',
-        'predicate-checklist': 'checklist',
-        'predicate-attachment': 'attachment',
-        'predicate-start': 'startAt',
-        'predicate-end': 'endAt',
-        'predicate-due': 'dueAt',
-        'predicate-assignee': 'assignees',
-        'predicate-member': 'members',
+        'predicate-description': PREDICATE_DESCRIPTION,
+        'predicate-checklist': PREDICATE_CHECKLIST,
+        'predicate-attachment': PREDICATE_ATTACHMENT,
+        'predicate-start': PREDICATE_START_AT,
+        'predicate-end': PREDICATE_END_AT,
+        'predicate-due': PREDICATE_DUE_AT,
+        'predicate-assignee': PREDICATE_ASSIGNEES,
+        'predicate-member': PREDICATE_MEMBERS,
       },
     };
     const predicateTranslations = {};
@@ -212,20 +240,25 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
 
     const params = {
       limit: this.resultsPerPage,
-      boards: [],
-      swimlanes: [],
-      lists: [],
-      users: [],
+      // boards: [],
+      // swimlanes: [],
+      // lists: [],
+      // users: [],
       members: [],
       assignees: [],
       labels: [],
       status: [],
-      dueAt: null,
+      // dueAt: null,
       createdAt: null,
       modifiedAt: null,
       comments: [],
       has: [],
     };
+    params[OPERATOR_BOARD] = [];
+    params[OPERATOR_DUE] = null;
+    params[OPERATOR_LIST] = [];
+    params[OPERATOR_SWIMLANE] = [];
+    params[OPERATOR_USER] = [];
 
     let text = '';
     while (query) {
@@ -254,7 +287,9 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
               value = this.colorMap[value];
               // console.log('found color:', value);
             }
-          } else if (['dueAt', 'createdAt', 'modifiedAt'].includes(operator)) {
+          } else if (
+            [OPERATOR_DUE, 'createdAt', 'modifiedAt'].includes(operator)
+          ) {
             const days = parseInt(value, 10);
             let duration = null;
             if (isNaN(days)) {
@@ -263,7 +298,7 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
                 duration = predicateTranslations.durations[value];
                 let date = null;
                 switch (duration) {
-                  case 'week':
+                  case PREDICATE_WEEK:
                     // eslint-disable-next-line no-case-declarations
                     const week = moment().week();
                     if (week === 52) {
@@ -273,7 +308,7 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
                       date = moment(week + 1, 'W');
                     }
                     break;
-                  case 'month':
+                  case PREDICATE_MONTH:
                     // eslint-disable-next-line no-case-declarations
                     const month = moment().month();
                     // .month() is zero indexed
@@ -284,7 +319,7 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
                       date = moment(month + 2, 'M');
                     }
                     break;
-                  case 'quarter':
+                  case PREDICATE_QUARTER:
                     // eslint-disable-next-line no-case-declarations
                     const quarter = moment().quarter();
                     if (quarter === 4) {
@@ -294,7 +329,7 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
                       date = moment(quarter + 1, 'Q');
                     }
                     break;
-                  case 'year':
+                  case PREDICATE_YEAR:
                     date = moment(moment().year() + 1, 'YYYY');
                     break;
                 }
@@ -304,7 +339,7 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
                     value: date.format('YYYY-MM-DD'),
                   };
                 }
-              } else if (operator === 'dueAt' && value === 'overdue') {
+              } else if (operator === 'dueAt' && value === PREDICATE_OVERDUE) {
                 value = {
                   operator: '$lt',
                   value: moment().format('YYYY-MM-DD'),
@@ -346,7 +381,7 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
             } else {
               value = {
                 name: predicateTranslations.sorts[value],
-                order: negated ? 'des' : 'asc',
+                order: negated ? ORDER_DESCENDING : ORDER_ASCENDING,
               };
             }
           } else if (operator === 'status') {
