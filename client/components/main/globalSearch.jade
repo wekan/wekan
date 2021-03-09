@@ -44,9 +44,9 @@ template(name="globalSearch")
       else if hasResults.get
         .global-search-results-list-wrapper
           if hasQueryErrors.get
-            div
+            ul
               each msg in errorMessages
-                span.global-search-error-messages
+                li.global-search-error-messages
                   = msg
           else
             +resultsPaged(this)

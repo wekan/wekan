@@ -1,16 +1,22 @@
 import { CardSearchPagedComponent } from '../../lib/cardSearch';
+import Boards from '../../../models/boards';
 import moment from 'moment';
 import {
   OPERATOR_ASSIGNEE,
   OPERATOR_BOARD,
+  OPERATOR_COMMENT,
+  OPERATOR_CREATED_AT,
   OPERATOR_DUE,
   OPERATOR_HAS,
   OPERATOR_LABEL,
+  OPERATOR_LIMIT,
   OPERATOR_LIST,
   OPERATOR_MEMBER,
+  OPERATOR_MODIFIED_AT,
   OPERATOR_SORT,
   OPERATOR_STATUS,
   OPERATOR_SWIMLANE,
+  OPERATOR_UNKNOWN,
   OPERATOR_USER,
   ORDER_ASCENDING,
   ORDER_DESCENDING,
@@ -36,7 +42,7 @@ import {
   PREDICATE_WEEK,
   PREDICATE_YEAR,
 } from '../../../config/search-const';
-import { QueryParams } from "../../../config/query-classes";
+import { QueryErrors, QueryParams } from '../../../config/query-classes';
 
 // const subManager = new SubsManager();
 
@@ -80,7 +86,7 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
     this.myLists = new ReactiveVar([]);
     this.myLabelNames = new ReactiveVar([]);
     this.myBoardNames = new ReactiveVar([]);
-    this.parsingErrors = [];
+    this.parsingErrors = new QueryErrors();
     this.colorMap = null;
     this.queryParams = null;
 
@@ -119,26 +125,18 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
 
   resetSearch() {
     super.resetSearch();
-    this.parsingErrors = [];
+    this.parsingErrors = new QueryErrors();
   }
 
   errorMessages() {
-    if (this.parsingErrors.length) {
-      return this.parsingErrorMessages();
+    if (this.parsingErrors.hasErrors()) {
+      return this.parsingErrors.errorMessages();
     }
     return this.queryErrorMessages();
   }
 
   parsingErrorMessages() {
-    const messages = [];
-
-    if (this.parsingErrors.length) {
-      this.parsingErrors.forEach(err => {
-        messages.push(TAPi18n.__(err.tag, err.value));
-      });
-    }
-
-    return messages;
+    this.parsingErrors.errorMessages();
   }
 
   searchAllBoards(query) {
@@ -188,12 +186,12 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
       'operator-assignee-abbrev': OPERATOR_ASSIGNEE,
       'operator-status': OPERATOR_STATUS,
       'operator-due': OPERATOR_DUE,
-      'operator-created': 'createdAt',
-      'operator-modified': 'modifiedAt',
-      'operator-comment': 'comments',
+      'operator-created': OPERATOR_CREATED_AT,
+      'operator-modified': OPERATOR_MODIFIED_AT,
+      'operator-comment': OPERATOR_COMMENT,
       'operator-has': OPERATOR_HAS,
       'operator-sort': OPERATOR_SORT,
-      'operator-limit': 'limit',
+      'operator-limit': OPERATOR_LIMIT,
     };
 
     const predicates = {
@@ -247,29 +245,6 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
     // eslint-disable-next-line no-console
     // console.log('operatorMap:', operatorMap);
 
-    // const params = {
-    //   limit: this.resultsPerPage,
-    //   // boards: [],
-    //   // swimlanes: [],
-    //   // lists: [],
-    //   // users: [],
-    //   members: [],
-    //   assignees: [],
-    //   // labels: [],
-    //   status: [],
-    //   // dueAt: null,
-    //   createdAt: null,
-    //   modifiedAt: null,
-    //   comments: [],
-    //   has: [],
-    // };
-    // params[OPERATOR_BOARD] = [];
-    // params[OPERATOR_DUE] = null;
-    // params[OPERATOR_LABEL] = [];
-    // params[OPERATOR_LIST] = [];
-    // params[OPERATOR_SWIMLANE] = [];
-    // params[OPERATOR_USER] = [];
-
     const params = new QueryParams();
     let text = '';
     while (query) {
@@ -299,7 +274,9 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
               // console.log('found color:', value);
             }
           } else if (
-            [OPERATOR_DUE, 'createdAt', 'modifiedAt'].includes(operator)
+            [OPERATOR_DUE, OPERATOR_CREATED_AT, OPERATOR_MODIFIED_AT].includes(
+              operator,
+            )
           ) {
             const days = parseInt(value, 10);
             let duration = null;
@@ -350,19 +327,22 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
                     value: date.format('YYYY-MM-DD'),
                   };
                 }
-              } else if (operator === 'dueAt' && value === PREDICATE_OVERDUE) {
+              } else if (
+                operator === OPERATOR_DUE &&
+                value === PREDICATE_OVERDUE
+              ) {
                 value = {
                   operator: '$lt',
                   value: moment().format('YYYY-MM-DD'),
                 };
               } else {
-                this.parsingErrors.push({
+                this.parsingErrors.addError(OPERATOR_DUE, {
                   tag: 'operator-number-expected',
                   value: { operator: op, value },
                 });
-                value = null;
+                continue;
               }
-            } else if (operator === 'dueAt') {
+            } else if (operator === OPERATOR_DUE) {
               value = {
                 operator: '$lt',
                 value: moment(moment().format('YYYY-MM-DD'))
@@ -385,10 +365,11 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
               negated = true;
             }
             if (!predicateTranslations.sorts[value]) {
-              this.parsingErrors.push({
+              this.parsingErrors.addError(OPERATOR_SORT, {
                 tag: 'operator-sort-invalid',
                 value,
               });
+              continue;
             } else {
               value = {
                 name: predicateTranslations.sorts[value],
@@ -397,10 +378,11 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
             }
           } else if (operator === OPERATOR_STATUS) {
             if (!predicateTranslations.status[value]) {
-              this.parsingErrors.push({
+              this.parsingErrors.addError(OPERATOR_STATUS, {
                 tag: 'operator-status-invalid',
                 value,
               });
+              continue;
             } else {
               value = predicateTranslations.status[value];
             }
@@ -412,23 +394,25 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
               negated = true;
             }
             if (!predicateTranslations.has[value]) {
-              this.parsingErrors.push({
+              this.parsingErrors.addError(OPERATOR_HAS, {
                 tag: 'operator-has-invalid',
                 value,
               });
+              continue;
             } else {
               value = {
                 field: predicateTranslations.has[value],
                 exists: !negated,
               };
             }
-          } else if (operator === 'limit') {
+          } else if (operator === OPERATOR_LIMIT) {
             const limit = parseInt(value, 10);
             if (isNaN(limit) || limit < 1) {
-              this.parsingErrors.push({
+              this.parsingErrors.addError(OPERATOR_LIMIT, {
                 tag: 'operator-limit-invalid',
                 value,
               });
+              continue;
             } else {
               value = limit;
             }
@@ -436,7 +420,7 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
 
           params.addPredicate(operator, value);
         } else {
-          this.parsingErrors.push({
+          this.parsingErrors.addError(OPERATOR_UNKNOWN, {
             tag: 'operator-unknown-error',
             value: op,
           });
@@ -467,7 +451,7 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
 
     this.queryParams = params;
 
-    if (this.parsingErrors.length) {
+    if (this.parsingErrors.hasErrors()) {
       this.searching.set(false);
       this.queryErrors = this.parsingErrorMessages();
       this.hasResults.set(true);

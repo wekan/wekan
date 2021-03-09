@@ -9,12 +9,14 @@ import ChecklistItems from '../../models/checklistItems';
 import SessionData from '../../models/usersessiondata';
 import CustomFields from '../../models/customFields';
 import {
+  DEFAULT_LIMIT,
   OPERATOR_ASSIGNEE,
   OPERATOR_BOARD,
   OPERATOR_COMMENT,
   OPERATOR_DUE,
   OPERATOR_HAS,
   OPERATOR_LABEL,
+  OPERATOR_LIMIT,
   OPERATOR_LIST,
   OPERATOR_MEMBER,
   OPERATOR_SORT,
@@ -81,7 +83,7 @@ Meteor.publish('globalSearch', function(sessionId, params) {
   check(params, Object);
 
   // eslint-disable-next-line no-console
-  // console.log('queryParams:', queryParams);
+  console.log('queryParams:', params);
 
   return findCards(sessionId, buildQuery(new QueryParams(params)));
 });
@@ -164,7 +166,7 @@ function buildSelector(queryParams) {
             queryBoards.push(board._id);
           });
         } else {
-          errors.addError(OPERATOR_BOARD, query);
+          errors.addNotFound(OPERATOR_BOARD, query);
         }
       });
 
@@ -182,7 +184,7 @@ function buildSelector(queryParams) {
             querySwimlanes.push(swim._id);
           });
         } else {
-          errors.addError(OPERATOR_SWIMLANE, query);
+          errors.addNotFound(OPERATOR_SWIMLANE, query);
         }
       });
 
@@ -204,7 +206,7 @@ function buildSelector(queryParams) {
             queryLists.push(list._id);
           });
         } else {
-          errors.addError(OPERATOR_LIST, query);
+          errors.addNotFound(OPERATOR_LIST, query);
         }
       });
 
@@ -216,7 +218,9 @@ function buildSelector(queryParams) {
     }
 
     if (queryParams.hasOperator(OPERATOR_COMMENT)) {
-      const cardIds = CardComments.textSearch(userId, queryParams.getPredicates(OPERATOR_COMMENT)).map(
+      const cardIds = CardComments.textSearch(
+        userId,
+        queryParams.getPredicates(OPERATOR_COMMENT),
         com => {
           return com.cardId;
         },
@@ -225,7 +229,7 @@ function buildSelector(queryParams) {
         selector._id = { $in: cardIds };
       } else {
         queryParams.getPredicates(OPERATOR_COMMENT).forEach(comment => {
-          errors.addError(OPERATOR_COMMENT, comment);
+          errors.addNotFound(OPERATOR_COMMENT, comment);
         });
       }
     }
@@ -238,7 +242,7 @@ function buildSelector(queryParams) {
       }
     });
 
-    const queryUsers = {}
+    const queryUsers = {};
     queryUsers[OPERATOR_ASSIGNEE] = [];
     queryUsers[OPERATOR_MEMBER] = [];
 
@@ -253,7 +257,7 @@ function buildSelector(queryParams) {
             queryUsers[OPERATOR_ASSIGNEE].push(user._id);
           });
         } else {
-          errors.addError(OPERATOR_USER, query);
+          errors.addNotFound(OPERATOR_USER, query);
         }
       });
     }
@@ -269,13 +273,16 @@ function buildSelector(queryParams) {
               queryUsers[key].push(user._id);
             });
           } else {
-            errors.addError(key, query);
+            errors.addNotFound(key, query);
           }
         });
       }
     });
 
-    if (queryUsers[OPERATOR_MEMBER].length && queryUsers[OPERATOR_ASSIGNEE].length) {
+    if (
+      queryUsers[OPERATOR_MEMBER].length &&
+      queryUsers[OPERATOR_ASSIGNEE].length
+    ) {
       selector.$and.push({
         $or: [
           { members: { $in: queryUsers[OPERATOR_MEMBER] } },
@@ -334,7 +341,7 @@ function buildSelector(queryParams) {
                 });
             });
           } else {
-            errors.addError(OPERATOR_LABEL, label);
+            errors.addNotFound(OPERATOR_LABEL, label);
           }
         }
 
@@ -441,7 +448,7 @@ function buildSelector(queryParams) {
   const query = new Query();
   query.selector = selector;
   query.params = queryParams;
-  query.errors = errors;
+  query._errors = errors;
 
   return query;
 }
@@ -451,9 +458,9 @@ function buildProjection(query) {
   if (query.params.skip) {
     skip = query.params.skip;
   }
-  let limit = 25;
-  if (query.params.limit) {
-    limit = query.params.limit;
+  let limit = DEFAULT_LIMIT;
+  if (query.params.hasOperator(OPERATOR_LIMIT)) {
+    limit = query.params.getPredicate(OPERATOR_LIMIT);
   }
 
   const projection = {
@@ -485,9 +492,12 @@ function buildProjection(query) {
     limit,
   };
 
-  if (query.params[OPERATOR_SORT]) {
-    const order = query.params[OPERATOR_SORT].order === ORDER_ASCENDING ? 1 : -1;
-    switch (query.params[OPERATOR_SORT].name) {
+  if (query.params.hasOperator(OPERATOR_SORT)) {
+    const order =
+      query.params.getPredicate(OPERATOR_SORT).order === ORDER_ASCENDING
+        ? 1
+        : -1;
+    switch (query.params.getPredicate(OPERATOR_SORT).name) {
       case PREDICATE_DUE_AT:
         projection.sort = {
           dueAt: order,
@@ -586,12 +596,13 @@ function findCards(sessionId, query) {
   // eslint-disable-next-line no-console
   // console.log('projection:', projection);
   let cards;
-  if (!query.errors || !query.errors.hasErrors()) {
+  if (!query.hasErrors()) {
     cards = Cards.find(query.selector, query.projection);
   }
   // eslint-disable-next-line no-console
   // console.log('count:', cards.count());
 
+  console.log(query);
   const update = {
     $set: {
       totalHits: 0,
@@ -600,12 +611,14 @@ function findCards(sessionId, query) {
       cards: [],
       selector: SessionData.pickle(query.selector),
       projection: SessionData.pickle(query.projection),
-      errors: query.errors.errorMessages(),
+      errors: query.errors(),
     },
   };
   // if (errors) {
-  //   update.$set.errors = errors.errorMessages();
+  //   update.$set.errors = errors.errors();
   // }
+
+  console.log('errors:', query.errors());
 
   if (cards) {
     update.$set.totalHits = cards.count();

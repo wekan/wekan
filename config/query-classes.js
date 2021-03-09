@@ -8,9 +8,9 @@ import {
   OPERATOR_SWIMLANE,
   OPERATOR_USER,
 } from './search-const';
+import Boards from '../models/boards';
 
 export class QueryParams {
-
   text = '';
 
   constructor(params = {}) {
@@ -46,58 +46,81 @@ export class QueryParams {
 }
 
 export class QueryErrors {
+  operatorTagMap = [
+    [OPERATOR_BOARD, 'board-title-not-found'],
+    [OPERATOR_SWIMLANE, 'swimlane-title-not-found'],
+    [
+      OPERATOR_LABEL,
+      label => {
+        if (Boards.labelColors().includes(label)) {
+          return {
+            tag: 'label-color-not-found',
+            value: label,
+            color: true,
+          };
+        } else {
+          return {
+            tag: 'label-not-found',
+            value: label,
+            color: false,
+          };
+        }
+      },
+    ],
+    [OPERATOR_LIST, 'list-title-not-found'],
+    [OPERATOR_COMMENT, 'comment-not-found'],
+    [OPERATOR_USER, 'user-username-not-found'],
+    [OPERATOR_ASSIGNEE, 'user-username-not-found'],
+    [OPERATOR_MEMBER, 'user-username-not-found'],
+  ];
+
   constructor() {
-    this.errors = {};
+    this._errors = {};
+
+    this.operatorTags = {};
+    this.operatorTagMap.forEach(([operator, tag]) => {
+      this.operatorTags[operator] = tag;
+    });
 
     this.colorMap = Boards.colorMap();
   }
 
-  addError(operator, value) {
-    if (!this.errors[operator]) {
-      this.errors[operator] = [];
+  addError(operator, error) {
+    if (!this._errors[operator]) {
+      this._errors[operator] = [];
     }
-    this.errors[operator].push(value)
+    this._errors[operator].push(error);
+  }
+
+  addNotFound(operator, value) {
+    if (typeof this.operatorTags[operator] === 'function') {
+      this.addError(operator, this.operatorTags[operator](value));
+    } else {
+      this.addError(operator, { tag: this.operatorTags[operator], value });
+    }
   }
 
   hasErrors() {
-    return Object.entries(this.errors).length > 0;
+    return Object.entries(this._errors).length > 0;
+  }
+
+  errors() {
+    const errs = [];
+    Object.entries(this._errors).forEach(([operator, errors]) => {
+      errors.forEach(err => {
+        errs.push(err);
+      });
+    });
+    return errs;
   }
 
   errorMessages() {
     const messages = [];
-
-    const operatorTags = {};
-    operatorTags[OPERATOR_BOARD] = 'board-title-not-found';
-    operatorTags[OPERATOR_SWIMLANE] = 'swimlane-title-not-found';
-    operatorTags[OPERATOR_LABEL] = label => {
-      if (Boards.labelColors().includes(label)) {
-        return {
-          tag: 'label-color-not-found',
-          value: label,
-          color: true,
-        };
-      } else {
-        return {
-          tag: 'label-not-found',
-          value: label,
-          color: false,
-        };
-      }
-    };
-    operatorTags[OPERATOR_LIST] = 'list-title-not-found';
-    operatorTags[OPERATOR_COMMENT] = 'comment-not-found';
-    operatorTags[OPERATOR_USER] = 'user-username-not-found';
-    operatorTags[OPERATOR_ASSIGNEE] = 'user-username-not-found';
-    operatorTags[OPERATOR_MEMBER] = 'user-username-not-found';
-
-    Object.entries(this.errors, ([operator, value]) => {
-      if (typeof operatorTags[operator] === 'function') {
-        messages.push(operatorTags[operator](value));
-      } else {
-        messages.push({ tag: operatorTags[operator], value: value });
-      }
+    Object.entries(this._errors).forEach(([operator, errors]) => {
+      errors.forEach(err => {
+        messages.push(TAPi18n.__(err.tag, err.value));
+      });
     });
-
     return messages;
   }
 }
@@ -106,9 +129,9 @@ export class Query {
   params = {};
   selector = {};
   projection = {};
-  errors = new QueryErrors();
 
   constructor(selector, projection) {
+    this._errors = new QueryErrors();
     if (selector) {
       this.selector = selector;
     }
@@ -116,5 +139,17 @@ export class Query {
     if (projection) {
       this.projection = projection;
     }
+  }
+
+  hasErrors() {
+    return this._errors.hasErrors();
+  }
+
+  errors() {
+    return this._errors.errors();
+  }
+
+  errorMessages() {
+    return this._errors.errorMessages();
   }
 }
