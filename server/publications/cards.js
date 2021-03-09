@@ -9,8 +9,18 @@ import ChecklistItems from '../../models/checklistItems';
 import SessionData from '../../models/usersessiondata';
 import CustomFields from '../../models/customFields';
 import {
+  OPERATOR_ASSIGNEE,
   OPERATOR_BOARD,
-  OPERATOR_DUE, OPERATOR_LIST, OPERATOR_SWIMLANE, OPERATOR_USER,
+  OPERATOR_COMMENT,
+  OPERATOR_DUE,
+  OPERATOR_HAS,
+  OPERATOR_LABEL,
+  OPERATOR_LIST,
+  OPERATOR_MEMBER,
+  OPERATOR_SORT,
+  OPERATOR_STATUS,
+  OPERATOR_SWIMLANE,
+  OPERATOR_USER,
   ORDER_ASCENDING,
   PREDICATE_ALL,
   PREDICATE_ARCHIVED,
@@ -29,6 +39,7 @@ import {
   PREDICATE_START_AT,
   PREDICATE_SYSTEM,
 } from '../../config/search-const';
+import { QueryErrors, QueryParams, Query } from '../../config/query-classes';
 
 const escapeForRegex = require('escape-string-regexp');
 
@@ -38,8 +49,8 @@ Meteor.publish('card', cardId => {
 });
 
 Meteor.publish('myCards', function(sessionId) {
-  const queryParams = {}
-  queryParams[OPERATOR_USER] = [Meteor.user().username];
+  const queryParams = new QueryParams();
+  queryParams.addPredicate(OPERATOR_USER, Meteor.user().username);
 
   return findCards(sessionId, buildQuery(queryParams));
 });
@@ -65,108 +76,15 @@ Meteor.publish('myCards', function(sessionId) {
 //   return buildQuery(sessionId, queryParams);
 // });
 
-Meteor.publish('globalSearch', function(sessionId, queryParams) {
+Meteor.publish('globalSearch', function(sessionId, params) {
   check(sessionId, String);
-  check(queryParams, Object);
+  check(params, Object);
 
   // eslint-disable-next-line no-console
   // console.log('queryParams:', queryParams);
 
-  return findCards(sessionId, buildQuery(queryParams));
+  return findCards(sessionId, buildQuery(new QueryParams(params)));
 });
-
-class QueryErrors {
-  constructor() {
-    this.notFound = {
-      // boards: [],
-      // swimlanes: [],
-      // lists: [],
-      labels: [],
-      // users: [],
-      members: [],
-      assignees: [],
-      status: [],
-      comments: [],
-    };
-    this.notFound[OPERATOR_BOARD] = [];
-    this.notFound[OPERATOR_LIST] = [];
-    this.notFound[OPERATOR_SWIMLANE] = [];
-    this.notFound[OPERATOR_USER] = [];
-
-    this.colorMap = Boards.colorMap();
-  }
-
-  hasErrors() {
-    for (const value of Object.values(this.notFound)) {
-      if (value.length) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  errorMessages() {
-    const messages = [];
-
-    this.notFound[OPERATOR_BOARD].forEach(board => {
-      messages.push({ tag: 'board-title-not-found', value: board });
-    });
-    this.notFound[OPERATOR_SWIMLANE].forEach(swim => {
-      messages.push({ tag: 'swimlane-title-not-found', value: swim });
-    });
-    this.notFound[OPERATOR_LIST].forEach(list => {
-      messages.push({ tag: 'list-title-not-found', value: list });
-    });
-    this.notFound.comments.forEach(comments => {
-      comments.forEach(text => {
-        messages.push({ tag: 'comment-not-found', value: text });
-      });
-    });
-    this.notFound.labels.forEach(label => {
-      if (Boards.labelColors().includes(label)) {
-        messages.push({
-          tag: 'label-color-not-found',
-          value: label,
-          color: true,
-        });
-      } else {
-        messages.push({
-          tag: 'label-not-found',
-          value: label,
-          color: false,
-        });
-      }
-    });
-    this.notFound[OPERATOR_USER].forEach(user => {
-      messages.push({ tag: 'user-username-not-found', value: user });
-    });
-    this.notFound.members.forEach(user => {
-      messages.push({ tag: 'user-username-not-found', value: user });
-    });
-    this.notFound.assignees.forEach(user => {
-      messages.push({ tag: 'user-username-not-found', value: user });
-    });
-
-    return messages;
-  }
-}
-
-class Query {
-  params = {};
-  selector = {};
-  projection = {};
-  errors = new QueryErrors();
-
-  constructor(selector, projection) {
-    if (selector) {
-      this.selector = selector;
-    }
-
-    if (projection) {
-      this.projection = projection;
-    }
-  }
-}
 
 function buildSelector(queryParams) {
   const userId = Meteor.userId();
@@ -182,8 +100,8 @@ function buildSelector(queryParams) {
 
     let archived = false;
     let endAt = null;
-    if (queryParams.status && queryParams.status.length) {
-      queryParams.status.forEach(status => {
+    if (queryParams.hasOperator(OPERATOR_STATUS)) {
+      queryParams.getPredicates(OPERATOR_STATUS).forEach(status => {
         if (status === PREDICATE_ARCHIVED) {
           archived = true;
         } else if (status === PREDICATE_ALL) {
@@ -235,9 +153,9 @@ function buildSelector(queryParams) {
       selector.endAt = endAt;
     }
 
-    if (queryParams[OPERATOR_BOARD] && queryParams[OPERATOR_BOARD].length) {
+    if (queryParams.hasOperator(OPERATOR_BOARD)) {
       const queryBoards = [];
-      queryParams[OPERATOR_BOARD].forEach(query => {
+      queryParams.hasOperator(OPERATOR_BOARD).forEach(query => {
         const boards = Boards.userSearch(userId, {
           title: new RegExp(escapeForRegex(query), 'i'),
         });
@@ -246,19 +164,16 @@ function buildSelector(queryParams) {
             queryBoards.push(board._id);
           });
         } else {
-          errors.notFound[OPERATOR_BOARD].push(query);
+          errors.addError(OPERATOR_BOARD, query);
         }
       });
 
       selector.boardId.$in = queryBoards;
     }
 
-    if (
-      queryParams[OPERATOR_SWIMLANE] &&
-      queryParams[OPERATOR_SWIMLANE].length
-    ) {
+    if (queryParams.hasOperator(OPERATOR_SWIMLANE)) {
       const querySwimlanes = [];
-      queryParams[OPERATOR_SWIMLANE].forEach(query => {
+      queryParams.getPredicates(OPERATOR_SWIMLANE).forEach(query => {
         const swimlanes = Swimlanes.find({
           title: new RegExp(escapeForRegex(query), 'i'),
         });
@@ -267,7 +182,7 @@ function buildSelector(queryParams) {
             querySwimlanes.push(swim._id);
           });
         } else {
-          errors.notFound[OPERATOR_SWIMLANE].push(query);
+          errors.addError(OPERATOR_SWIMLANE, query);
         }
       });
 
@@ -278,9 +193,9 @@ function buildSelector(queryParams) {
       selector.swimlaneId.$in = querySwimlanes;
     }
 
-    if (queryParams[OPERATOR_LIST] && queryParams[OPERATOR_LIST].length) {
+    if (queryParams.hasOperator(OPERATOR_LIST)) {
       const queryLists = [];
-      queryParams[OPERATOR_LIST].forEach(query => {
+      queryParams.getPredicates(OPERATOR_LIST).forEach(query => {
         const lists = Lists.find({
           title: new RegExp(escapeForRegex(query), 'i'),
         });
@@ -289,7 +204,7 @@ function buildSelector(queryParams) {
             queryLists.push(list._id);
           });
         } else {
-          errors.notFound[OPERATOR_LIST].push(query);
+          errors.addError(OPERATOR_LIST, query);
         }
       });
 
@@ -300,8 +215,8 @@ function buildSelector(queryParams) {
       selector.listId.$in = queryLists;
     }
 
-    if (queryParams.comments && queryParams.comments.length) {
-      const cardIds = CardComments.textSearch(userId, queryParams.comments).map(
+    if (queryParams.hasOperator(OPERATOR_COMMENT)) {
+      const cardIds = CardComments.textSearch(userId, queryParams.getPredicates(OPERATOR_COMMENT)).map(
         com => {
           return com.cardId;
         },
@@ -309,42 +224,43 @@ function buildSelector(queryParams) {
       if (cardIds.length) {
         selector._id = { $in: cardIds };
       } else {
-        errors.notFound.comments.push(queryParams.comments);
+        queryParams.getPredicates(OPERATOR_COMMENT).forEach(comment => {
+          errors.addError(OPERATOR_COMMENT, comment);
+        });
       }
     }
 
     [OPERATOR_DUE, 'createdAt', 'modifiedAt'].forEach(field => {
-      if (queryParams[field]) {
+      if (queryParams.hasOperator(field)) {
         selector[field] = {};
-        selector[field][queryParams[field].operator] = new Date(
-          queryParams[field].value,
-        );
+        const predicate = queryParams.getPredicate(field);
+        selector[field][predicate.operator] = new Date(predicate.value);
       }
     });
 
-    const queryUsers = {
-      members: [],
-      assignees: [],
-    };
-    if (queryParams[OPERATOR_USER] && queryParams[OPERATOR_USER].length) {
-      queryParams[OPERATOR_USER].forEach(query => {
+    const queryUsers = {}
+    queryUsers[OPERATOR_ASSIGNEE] = [];
+    queryUsers[OPERATOR_MEMBER] = [];
+
+    if (queryParams.hasOperator(OPERATOR_USER)) {
+      queryParams.getPredicates(OPERATOR_USER).forEach(query => {
         const users = Users.find({
           username: query,
         });
         if (users.count()) {
           users.forEach(user => {
-            queryUsers.members.push(user._id);
-            queryUsers.assignees.push(user._id);
+            queryUsers[OPERATOR_MEMBER].push(user._id);
+            queryUsers[OPERATOR_ASSIGNEE].push(user._id);
           });
         } else {
-          errors.notFound[OPERATOR_USER].push(query);
+          errors.addError(OPERATOR_USER, query);
         }
       });
     }
 
-    ['members', 'assignees'].forEach(key => {
-      if (queryParams[key] && queryParams[key].length) {
-        queryParams[key].forEach(query => {
+    [OPERATOR_MEMBER, OPERATOR_ASSIGNEE].forEach(key => {
+      if (queryParams.hasOperator(key)) {
+        queryParams.getPredicates(key).forEach(query => {
           const users = Users.find({
             username: query,
           });
@@ -353,27 +269,27 @@ function buildSelector(queryParams) {
               queryUsers[key].push(user._id);
             });
           } else {
-            errors.notFound[key].push(query);
+            errors.addError(key, query);
           }
         });
       }
     });
 
-    if (queryUsers.members.length && queryUsers.assignees.length) {
+    if (queryUsers[OPERATOR_MEMBER].length && queryUsers[OPERATOR_ASSIGNEE].length) {
       selector.$and.push({
         $or: [
-          { members: { $in: queryUsers.members } },
-          { assignees: { $in: queryUsers.assignees } },
+          { members: { $in: queryUsers[OPERATOR_MEMBER] } },
+          { assignees: { $in: queryUsers[OPERATOR_ASSIGNEE] } },
         ],
       });
-    } else if (queryUsers.members.length) {
-      selector.members = { $in: queryUsers.members };
-    } else if (queryUsers.assignees.length) {
-      selector.assignees = { $in: queryUsers.assignees };
+    } else if (queryUsers[OPERATOR_MEMBER].length) {
+      selector.members = { $in: queryUsers[OPERATOR_MEMBER] };
+    } else if (queryUsers[OPERATOR_ASSIGNEE].length) {
+      selector.assignees = { $in: queryUsers[OPERATOR_ASSIGNEE] };
     }
 
-    if (queryParams.labels && queryParams.labels.length) {
-      queryParams.labels.forEach(label => {
+    if (queryParams.hasOperator(OPERATOR_LABEL)) {
+      queryParams.getPredicates(OPERATOR_LABEL).forEach(label => {
         const queryLabels = [];
 
         let boards = Boards.userSearch(userId, {
@@ -418,7 +334,7 @@ function buildSelector(queryParams) {
                 });
             });
           } else {
-            errors.notFound.labels.push(label);
+            errors.addError(OPERATOR_LABEL, label);
           }
         }
 
@@ -426,8 +342,8 @@ function buildSelector(queryParams) {
       });
     }
 
-    if (queryParams.has && queryParams.has.length) {
-      queryParams.has.forEach(has => {
+    if (queryParams.hasOperator(OPERATOR_HAS)) {
+      queryParams.getPredicates(OPERATOR_HAS).forEach(has => {
         switch (has.field) {
           case PREDICATE_ATTACHMENT:
             selector.$and.push({
@@ -569,9 +485,9 @@ function buildProjection(query) {
     limit,
   };
 
-  if (query.params.sort) {
-    const order = query.params.sort.order === ORDER_ASCENDING ? 1 : -1;
-    switch (query.params.sort.name) {
+  if (query.params[OPERATOR_SORT]) {
+    const order = query.params[OPERATOR_SORT].order === ORDER_ASCENDING ? 1 : -1;
+    switch (query.params[OPERATOR_SORT].name) {
       case PREDICATE_DUE_AT:
         projection.sort = {
           dueAt: order,
@@ -628,7 +544,9 @@ function buildQuery(queryParams) {
 Meteor.publish('brokenCards', function(sessionId) {
   check(sessionId, String);
 
-  const query = buildQuery({ status: [PREDICATE_ALL] });
+  const params = new QueryParams();
+  params.addPredicate(OPERATOR_STATUS, PREDICATE_ALL);
+  const query = buildQuery(params);
   query.selector.$or = [
     { boardId: { $in: [null, ''] } },
     { swimlaneId: { $in: [null, ''] } },

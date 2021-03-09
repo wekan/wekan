@@ -1,9 +1,17 @@
 import { CardSearchPagedComponent } from '../../lib/cardSearch';
 import moment from 'moment';
 import {
+  OPERATOR_ASSIGNEE,
   OPERATOR_BOARD,
-  OPERATOR_DUE, OPERATOR_LIST,
-  OPERATOR_SWIMLANE, OPERATOR_USER,
+  OPERATOR_DUE,
+  OPERATOR_HAS,
+  OPERATOR_LABEL,
+  OPERATOR_LIST,
+  OPERATOR_MEMBER,
+  OPERATOR_SORT,
+  OPERATOR_STATUS,
+  OPERATOR_SWIMLANE,
+  OPERATOR_USER,
   ORDER_ASCENDING,
   ORDER_DESCENDING,
   PREDICATE_ALL,
@@ -28,6 +36,7 @@ import {
   PREDICATE_WEEK,
   PREDICATE_YEAR,
 } from '../../../config/search-const';
+import { QueryParams } from "../../../config/query-classes";
 
 // const subManager = new SubsManager();
 
@@ -169,21 +178,21 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
       'operator-swimlane-abbrev': OPERATOR_SWIMLANE,
       'operator-list': OPERATOR_LIST,
       'operator-list-abbrev': OPERATOR_LIST,
-      'operator-label': 'labels',
-      'operator-label-abbrev': 'labels',
+      'operator-label': OPERATOR_LABEL,
+      'operator-label-abbrev': OPERATOR_LABEL,
       'operator-user': OPERATOR_USER,
       'operator-user-abbrev': OPERATOR_USER,
-      'operator-member': 'members',
-      'operator-member-abbrev': 'members',
-      'operator-assignee': 'assignees',
-      'operator-assignee-abbrev': 'assignees',
-      'operator-status': 'status',
+      'operator-member': OPERATOR_MEMBER,
+      'operator-member-abbrev': OPERATOR_MEMBER,
+      'operator-assignee': OPERATOR_ASSIGNEE,
+      'operator-assignee-abbrev': OPERATOR_ASSIGNEE,
+      'operator-status': OPERATOR_STATUS,
       'operator-due': OPERATOR_DUE,
       'operator-created': 'createdAt',
       'operator-modified': 'modifiedAt',
       'operator-comment': 'comments',
-      'operator-has': 'has',
-      'operator-sort': 'sort',
+      'operator-has': OPERATOR_HAS,
+      'operator-sort': OPERATOR_SORT,
       'operator-limit': 'limit',
     };
 
@@ -238,28 +247,30 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
     // eslint-disable-next-line no-console
     // console.log('operatorMap:', operatorMap);
 
-    const params = {
-      limit: this.resultsPerPage,
-      // boards: [],
-      // swimlanes: [],
-      // lists: [],
-      // users: [],
-      members: [],
-      assignees: [],
-      labels: [],
-      status: [],
-      // dueAt: null,
-      createdAt: null,
-      modifiedAt: null,
-      comments: [],
-      has: [],
-    };
-    params[OPERATOR_BOARD] = [];
-    params[OPERATOR_DUE] = null;
-    params[OPERATOR_LIST] = [];
-    params[OPERATOR_SWIMLANE] = [];
-    params[OPERATOR_USER] = [];
+    // const params = {
+    //   limit: this.resultsPerPage,
+    //   // boards: [],
+    //   // swimlanes: [],
+    //   // lists: [],
+    //   // users: [],
+    //   members: [],
+    //   assignees: [],
+    //   // labels: [],
+    //   status: [],
+    //   // dueAt: null,
+    //   createdAt: null,
+    //   modifiedAt: null,
+    //   comments: [],
+    //   has: [],
+    // };
+    // params[OPERATOR_BOARD] = [];
+    // params[OPERATOR_DUE] = null;
+    // params[OPERATOR_LABEL] = [];
+    // params[OPERATOR_LIST] = [];
+    // params[OPERATOR_SWIMLANE] = [];
+    // params[OPERATOR_USER] = [];
 
+    const params = new QueryParams();
     let text = '';
     while (query) {
       let m = query.match(reOperator1);
@@ -282,7 +293,7 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
         if (operatorMap.hasOwnProperty(op)) {
           const operator = operatorMap[op];
           let value = m.groups.value;
-          if (operator === 'labels') {
+          if (operator === OPERATOR_LABEL) {
             if (value in this.colorMap) {
               value = this.colorMap[value];
               // console.log('found color:', value);
@@ -366,7 +377,7 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
                   .format(),
               };
             }
-          } else if (operator === 'sort') {
+          } else if (operator === OPERATOR_SORT) {
             let negated = false;
             const m = value.match(reNegatedOperator);
             if (m) {
@@ -384,7 +395,7 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
                 order: negated ? ORDER_DESCENDING : ORDER_ASCENDING,
               };
             }
-          } else if (operator === 'status') {
+          } else if (operator === OPERATOR_STATUS) {
             if (!predicateTranslations.status[value]) {
               this.parsingErrors.push({
                 tag: 'operator-status-invalid',
@@ -393,7 +404,7 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
             } else {
               value = predicateTranslations.status[value];
             }
-          } else if (operator === 'has') {
+          } else if (operator === OPERATOR_HAS) {
             let negated = false;
             const m = value.match(reNegatedOperator);
             if (m) {
@@ -422,11 +433,8 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
               value = limit;
             }
           }
-          if (Array.isArray(params[operator])) {
-            params[operator].push(value);
-          } else {
-            params[operator] = value;
-          }
+
+          params.addPredicate(operator, value);
         } else {
           this.parsingErrors.push({
             tag: 'operator-unknown-error',
@@ -467,7 +475,7 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
       return;
     }
 
-    this.runGlobalSearch(params);
+    this.runGlobalSearch(params.getParams());
   }
 
   searchInstructions() {

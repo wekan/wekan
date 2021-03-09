@@ -1,4 +1,6 @@
 import { CardSearchPagedComponent } from '../../lib/cardSearch';
+import {QueryParams} from "../../../config/query-classes";
+import {OPERATOR_SORT, OPERATOR_USER} from "../../../config/search-const";
 
 // const subManager = new SubsManager();
 
@@ -48,10 +50,9 @@ class MyCardsComponent extends CardSearchPagedComponent {
   onCreated() {
     super.onCreated();
 
-    const queryParams = {
-      users: [Meteor.user().username],
-      sort: { name: 'dueAt', order: 'des' },
-    };
+    const queryParams = new QueryParams();
+    queryParams.addPredicate(OPERATOR_USER, Meteor.user().username);
+    queryParams.addPredicate(OPERATOR_SORT, { name: 'dueAt', order: 'des' });
 
     this.runGlobalSearch(queryParams);
     Meteor.subscribe('setting');
