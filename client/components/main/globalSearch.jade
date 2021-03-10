@@ -82,24 +82,3 @@ template(name="globalSearch")
           .global-search-instructions
             +viewer
               = searchInstructions
-
-template(name="globalSearchViewChangePopup")
-  if currentUser
-    ul.pop-over-list
-      li
-        with "globalSearchViewChange-choice-me"
-          a.js-global-search-view-me
-            i.fa.fa-user.colorful
-            | {{_ 'globalSearchViewChange-choice-me'}}
-            if $eq Utils.globalSearchView "me"
-              i.fa.fa-check
-      li
-        with "globalSearchViewChange-choice-all"
-          a.js-global-search-view-all
-            i.fa.fa-users.colorful
-            | {{_ 'globalSearchViewChange-choice-all'}}
-            span.sub-name
-              +viewer
-                | {{_ 'globalSearchViewChange-choice-all-description' }}
-            if $eq Utils.globalSearchView "all"
-              i.fa.fa-check

@@ -85,7 +85,7 @@ Meteor.publish('globalSearch', function(sessionId, params) {
   check(params, Object);
 
   // eslint-disable-next-line no-console
-  console.log('queryParams:', params);
+  // console.log('queryParams:', params);
 
   return findCards(sessionId, buildQuery(new QueryParams(params)));
 });
@@ -564,7 +564,7 @@ Meteor.publish('brokenCards', function(sessionId) {
     { swimlaneId: { $in: [null, ''] } },
     { listId: { $in: [null, ''] } },
   ];
-  console.log('brokenCards selector:', query.selector);
+  // console.log('brokenCards selector:', query.selector);
 
   return findCards(sessionId, query);
 });
@@ -593,8 +593,8 @@ function findCards(sessionId, query) {
   const userId = Meteor.userId();
 
   // eslint-disable-next-line no-console
-  console.log('selector:', query.selector);
-  console.log('selector.$and:', query.selector.$and);
+  // console.log('selector:', query.selector);
+  // console.log('selector.$and:', query.selector.$and);
   // eslint-disable-next-line no-console
   // console.log('projection:', projection);
   let cards;
@@ -604,7 +604,6 @@ function findCards(sessionId, query) {
   // eslint-disable-next-line no-console
   // console.log('count:', cards.count());
 
-  console.log(query);
   const update = {
     $set: {
       totalHits: 0,
@@ -616,11 +615,6 @@ function findCards(sessionId, query) {
       errors: query.errors(),
     },
   };
-  // if (errors) {
-  //   update.$set.errors = errors.errors();
-  // }
-
-  console.log('errors:', query.errors());
 
   if (cards) {
     update.$set.totalHits = cards.count();
