@@ -1,48 +1,6 @@
 import { CardSearchPagedComponent } from '../../lib/cardSearch';
 import Boards from '../../../models/boards';
-import moment from 'moment';
-import {
-  OPERATOR_ASSIGNEE,
-  OPERATOR_BOARD,
-  OPERATOR_COMMENT,
-  OPERATOR_CREATED_AT,
-  OPERATOR_DUE,
-  OPERATOR_HAS,
-  OPERATOR_LABEL,
-  OPERATOR_LIMIT,
-  OPERATOR_LIST,
-  OPERATOR_MEMBER,
-  OPERATOR_MODIFIED_AT,
-  OPERATOR_SORT,
-  OPERATOR_STATUS,
-  OPERATOR_SWIMLANE,
-  OPERATOR_UNKNOWN,
-  OPERATOR_USER,
-  ORDER_ASCENDING,
-  ORDER_DESCENDING,
-  PREDICATE_ALL,
-  PREDICATE_ARCHIVED,
-  PREDICATE_ASSIGNEES,
-  PREDICATE_ATTACHMENT,
-  PREDICATE_CHECKLIST,
-  PREDICATE_CREATED_AT,
-  PREDICATE_DESCRIPTION,
-  PREDICATE_DUE_AT,
-  PREDICATE_END_AT,
-  PREDICATE_ENDED,
-  PREDICATE_MEMBERS,
-  PREDICATE_MODIFIED_AT,
-  PREDICATE_MONTH,
-  PREDICATE_OPEN,
-  PREDICATE_OVERDUE,
-  PREDICATE_PRIVATE,
-  PREDICATE_PUBLIC,
-  PREDICATE_QUARTER,
-  PREDICATE_START_AT,
-  PREDICATE_WEEK,
-  PREDICATE_YEAR,
-} from '../../../config/search-const';
-import { QueryErrors, QueryParams } from '../../../config/query-classes';
+import { Query, QueryErrors } from '../../../config/query-classes';
 
 // const subManager = new SubsManager();
 
@@ -62,24 +20,6 @@ Template.globalSearch.helpers({
   },
 });
 
-BlazeComponent.extendComponent({
-  events() {
-    return [
-      {
-        'click .js-due-cards-view-me'() {
-          Utils.setDueCardsView('me');
-          Popup.close();
-        },
-
-        'click .js-due-cards-view-all'() {
-          Utils.setDueCardsView('all');
-          Popup.close();
-        },
-      },
-    ];
-  },
-}).register('globalSearchViewChangePopup');
-
 class GlobalSearchComponent extends CardSearchPagedComponent {
   onCreated() {
     super.onCreated();
@@ -87,7 +27,6 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
     this.myLabelNames = new ReactiveVar([]);
     this.myBoardNames = new ReactiveVar([]);
     this.parsingErrors = new QueryErrors();
-    this.colorMap = null;
     this.queryParams = null;
 
     Meteor.call('myLists', (err, data) => {
@@ -114,9 +53,6 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
 
     // eslint-disable-next-line no-console
     //console.log('lang:', TAPi18n.getLanguage());
-    this.colorMap = Boards.colorMap();
-    // eslint-disable-next-line no-console
-    // console.log('colorMap:', this.colorMap);
 
     if (Session.get('globalQuery')) {
       this.searchAllBoards(Session.get('globalQuery'));
@@ -139,327 +75,38 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
     this.parsingErrors.errorMessages();
   }
 
-  searchAllBoards(query) {
-    query = query.trim();
+  searchAllBoards(queryText) {
+    queryText = queryText.trim();
     // eslint-disable-next-line no-console
-    //console.log('query:', query);
+    //console.log('queryText:', queryText);
 
-    this.query.set(query);
+    this.query.set(queryText);
 
     this.resetSearch();
 
-    if (!query) {
+    if (!queryText) {
       return;
     }
 
     this.searching.set(true);
 
-    const reOperator1 = new RegExp(
-      '^((?<operator>[\\p{Letter}\\p{Mark}]+):|(?<abbrev>[#@]))(?<value>[\\p{Letter}\\p{Mark}]+)(\\s+|$)',
-      'iu',
-    );
-    const reOperator2 = new RegExp(
-      '^((?<operator>[\\p{Letter}\\p{Mark}]+):|(?<abbrev>[#@]))(?<quote>["\']*)(?<value>.*?)\\k<quote>(\\s+|$)',
-      'iu',
-    );
-    const reText = new RegExp('^(?<text>\\S+)(\\s+|$)', 'u');
-    const reQuotedText = new RegExp(
-      '^(?<quote>["\'])(?<text>.*?)\\k<quote>(\\s+|$)',
-      'u',
-    );
-    const reNegatedOperator = new RegExp('^-(?<operator>.*)$');
-
-    const operators = {
-      'operator-board': OPERATOR_BOARD,
-      'operator-board-abbrev': OPERATOR_BOARD,
-      'operator-swimlane': OPERATOR_SWIMLANE,
-      'operator-swimlane-abbrev': OPERATOR_SWIMLANE,
-      'operator-list': OPERATOR_LIST,
-      'operator-list-abbrev': OPERATOR_LIST,
-      'operator-label': OPERATOR_LABEL,
-      'operator-label-abbrev': OPERATOR_LABEL,
-      'operator-user': OPERATOR_USER,
-      'operator-user-abbrev': OPERATOR_USER,
-      'operator-member': OPERATOR_MEMBER,
-      'operator-member-abbrev': OPERATOR_MEMBER,
-      'operator-assignee': OPERATOR_ASSIGNEE,
-      'operator-assignee-abbrev': OPERATOR_ASSIGNEE,
-      'operator-status': OPERATOR_STATUS,
-      'operator-due': OPERATOR_DUE,
-      'operator-created': OPERATOR_CREATED_AT,
-      'operator-modified': OPERATOR_MODIFIED_AT,
-      'operator-comment': OPERATOR_COMMENT,
-      'operator-has': OPERATOR_HAS,
-      'operator-sort': OPERATOR_SORT,
-      'operator-limit': OPERATOR_LIMIT,
-    };
-
-    const predicates = {
-      due: {
-        'predicate-overdue': PREDICATE_OVERDUE,
-      },
-      durations: {
-        'predicate-week': PREDICATE_WEEK,
-        'predicate-month': PREDICATE_MONTH,
-        'predicate-quarter': PREDICATE_QUARTER,
-        'predicate-year': PREDICATE_YEAR,
-      },
-      status: {
-        'predicate-archived': PREDICATE_ARCHIVED,
-        'predicate-all': PREDICATE_ALL,
-        'predicate-open': PREDICATE_OPEN,
-        'predicate-ended': PREDICATE_ENDED,
-        'predicate-public': PREDICATE_PUBLIC,
-        'predicate-private': PREDICATE_PRIVATE,
-      },
-      sorts: {
-        'predicate-due': PREDICATE_DUE_AT,
-        'predicate-created': PREDICATE_CREATED_AT,
-        'predicate-modified': PREDICATE_MODIFIED_AT,
-      },
-      has: {
-        'predicate-description': PREDICATE_DESCRIPTION,
-        'predicate-checklist': PREDICATE_CHECKLIST,
-        'predicate-attachment': PREDICATE_ATTACHMENT,
-        'predicate-start': PREDICATE_START_AT,
-        'predicate-end': PREDICATE_END_AT,
-        'predicate-due': PREDICATE_DUE_AT,
-        'predicate-assignee': PREDICATE_ASSIGNEES,
-        'predicate-member': PREDICATE_MEMBERS,
-      },
-    };
-    const predicateTranslations = {};
-    Object.entries(predicates).forEach(([category, catPreds]) => {
-      predicateTranslations[category] = {};
-      Object.entries(catPreds).forEach(([tag, value]) => {
-        predicateTranslations[category][TAPi18n.__(tag)] = value;
-      });
-    });
-    // eslint-disable-next-line no-console
-    // console.log('predicateTranslations:', predicateTranslations);
-
-    const operatorMap = {};
-    Object.entries(operators).forEach(([key, value]) => {
-      operatorMap[TAPi18n.__(key).toLowerCase()] = value;
-    });
-    // eslint-disable-next-line no-console
-    // console.log('operatorMap:', operatorMap);
-
-    const params = new QueryParams();
-    let text = '';
-    while (query) {
-      let m = query.match(reOperator1);
-      if (!m) {
-        m = query.match(reOperator2);
-        if (m) {
-          query = query.replace(reOperator2, '');
-        }
-      } else {
-        query = query.replace(reOperator1, '');
-      }
-      if (m) {
-        let op;
-        if (m.groups.operator) {
-          op = m.groups.operator.toLowerCase();
-        } else {
-          op = m.groups.abbrev.toLowerCase();
-        }
-        // eslint-disable-next-line no-prototype-builtins
-        if (operatorMap.hasOwnProperty(op)) {
-          const operator = operatorMap[op];
-          let value = m.groups.value;
-          if (operator === OPERATOR_LABEL) {
-            if (value in this.colorMap) {
-              value = this.colorMap[value];
-              // console.log('found color:', value);
-            }
-          } else if (
-            [OPERATOR_DUE, OPERATOR_CREATED_AT, OPERATOR_MODIFIED_AT].includes(
-              operator,
-            )
-          ) {
-            const days = parseInt(value, 10);
-            let duration = null;
-            if (isNaN(days)) {
-              // duration was specified as text
-              if (predicateTranslations.durations[value]) {
-                duration = predicateTranslations.durations[value];
-                let date = null;
-                switch (duration) {
-                  case PREDICATE_WEEK:
-                    // eslint-disable-next-line no-case-declarations
-                    const week = moment().week();
-                    if (week === 52) {
-                      date = moment(1, 'W');
-                      date.set('year', date.year() + 1);
-                    } else {
-                      date = moment(week + 1, 'W');
-                    }
-                    break;
-                  case PREDICATE_MONTH:
-                    // eslint-disable-next-line no-case-declarations
-                    const month = moment().month();
-                    // .month() is zero indexed
-                    if (month === 11) {
-                      date = moment(1, 'M');
-                      date.set('year', date.year() + 1);
-                    } else {
-                      date = moment(month + 2, 'M');
-                    }
-                    break;
-                  case PREDICATE_QUARTER:
-                    // eslint-disable-next-line no-case-declarations
-                    const quarter = moment().quarter();
-                    if (quarter === 4) {
-                      date = moment(1, 'Q');
-                      date.set('year', date.year() + 1);
-                    } else {
-                      date = moment(quarter + 1, 'Q');
-                    }
-                    break;
-                  case PREDICATE_YEAR:
-                    date = moment(moment().year() + 1, 'YYYY');
-                    break;
-                }
-                if (date) {
-                  value = {
-                    operator: '$lt',
-                    value: date.format('YYYY-MM-DD'),
-                  };
-                }
-              } else if (
-                operator === OPERATOR_DUE &&
-                value === PREDICATE_OVERDUE
-              ) {
-                value = {
-                  operator: '$lt',
-                  value: moment().format('YYYY-MM-DD'),
-                };
-              } else {
-                this.parsingErrors.addError(OPERATOR_DUE, {
-                  tag: 'operator-number-expected',
-                  value: { operator: op, value },
-                });
-                continue;
-              }
-            } else if (operator === OPERATOR_DUE) {
-              value = {
-                operator: '$lt',
-                value: moment(moment().format('YYYY-MM-DD'))
-                  .add(days + 1, duration ? duration : 'days')
-                  .format(),
-              };
-            } else {
-              value = {
-                operator: '$gte',
-                value: moment(moment().format('YYYY-MM-DD'))
-                  .subtract(days, duration ? duration : 'days')
-                  .format(),
-              };
-            }
-          } else if (operator === OPERATOR_SORT) {
-            let negated = false;
-            const m = value.match(reNegatedOperator);
-            if (m) {
-              value = m.groups.operator;
-              negated = true;
-            }
-            if (!predicateTranslations.sorts[value]) {
-              this.parsingErrors.addError(OPERATOR_SORT, {
-                tag: 'operator-sort-invalid',
-                value,
-              });
-              continue;
-            } else {
-              value = {
-                name: predicateTranslations.sorts[value],
-                order: negated ? ORDER_DESCENDING : ORDER_ASCENDING,
-              };
-            }
-          } else if (operator === OPERATOR_STATUS) {
-            if (!predicateTranslations.status[value]) {
-              this.parsingErrors.addError(OPERATOR_STATUS, {
-                tag: 'operator-status-invalid',
-                value,
-              });
-              continue;
-            } else {
-              value = predicateTranslations.status[value];
-            }
-          } else if (operator === OPERATOR_HAS) {
-            let negated = false;
-            const m = value.match(reNegatedOperator);
-            if (m) {
-              value = m.groups.operator;
-              negated = true;
-            }
-            if (!predicateTranslations.has[value]) {
-              this.parsingErrors.addError(OPERATOR_HAS, {
-                tag: 'operator-has-invalid',
-                value,
-              });
-              continue;
-            } else {
-              value = {
-                field: predicateTranslations.has[value],
-                exists: !negated,
-              };
-            }
-          } else if (operator === OPERATOR_LIMIT) {
-            const limit = parseInt(value, 10);
-            if (isNaN(limit) || limit < 1) {
-              this.parsingErrors.addError(OPERATOR_LIMIT, {
-                tag: 'operator-limit-invalid',
-                value,
-              });
-              continue;
-            } else {
-              value = limit;
-            }
-          }
-
-          params.addPredicate(operator, value);
-        } else {
-          this.parsingErrors.addError(OPERATOR_UNKNOWN, {
-            tag: 'operator-unknown-error',
-            value: op,
-          });
-        }
-        continue;
-      }
-
-      m = query.match(reQuotedText);
-      if (!m) {
-        m = query.match(reText);
-        if (m) {
-          query = query.replace(reText, '');
-        }
-      } else {
-        query = query.replace(reQuotedText, '');
-      }
-      if (m) {
-        text += (text ? ' ' : '') + m.groups.text;
-      }
-    }
+    const query = new Query();
+    query.buildParams(queryText);
 
     // eslint-disable-next-line no-console
-    // console.log('text:', text);
-    params.text = text;
+    // console.log('params:', query.getParams());
 
-    // eslint-disable-next-line no-console
-    console.log('params:', params);
+    this.queryParams = query.getParams();
 
-    this.queryParams = params;
-
-    if (this.parsingErrors.hasErrors()) {
+    if (query.hasErrors()) {
       this.searching.set(false);
-      this.queryErrors = this.parsingErrorMessages();
+      this.queryErrors = query.errors();
       this.hasResults.set(true);
       this.hasQueryErrors.set(true);
       return;
     }
 
-    this.runGlobalSearch(params.getParams());
+    this.runGlobalSearch(query.getParams());
   }
 
   searchInstructions() {

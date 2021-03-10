@@ -1,7 +1,9 @@
+import moment from 'moment';
 import Users from '../../models/users';
 import Boards from '../../models/boards';
 import Lists from '../../models/lists';
 import Swimlanes from '../../models/swimlanes';
+import Cards from '../../models/cards';
 import CardComments from '../../models/cardComments';
 import Attachments from '../../models/attachments';
 import Checklists from '../../models/checklists';
@@ -411,26 +413,26 @@ function buildSelector(queryParams) {
 
       const attachments = Attachments.find({ 'original.name': regex });
 
-      // const comments = CardComments.find(
-      //   { text: regex },
-      //   { fields: { cardId: 1 } },
-      // );
+      const comments = CardComments.find(
+        { text: regex },
+        { fields: { cardId: 1 } },
+      );
 
       selector.$and.push({
         $or: [
           { title: regex },
           { description: regex },
           { customFields: { $elemMatch: { value: regex } } },
-          {
-            _id: {
-              $in: CardComments.textSearch(userId, [queryParams.text]).map(
-                com => com.cardId,
-              ),
-            },
-          },
+          // {
+          //   _id: {
+          //     $in: CardComments.textSearch(userId, [queryParams.text]).map(
+          //       com => com.cardId,
+          //     ),
+          //   },
+          // },
           { _id: { $in: checklists.map(list => list.cardId) } },
           { _id: { $in: attachments.map(attach => attach.cardId) } },
-          // { _id: { $in: comments.map(com => com.cardId) } },
+          { _id: { $in: comments.map(com => com.cardId) } },
         ],
       });
     }
