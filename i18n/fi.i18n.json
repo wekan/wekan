@@ -532,6 +532,7 @@
   "custom-login-logo-image-url": "Mukautettu kirjautumis logo kuvan URL",
   "custom-login-logo-link-url": "Mukautettu kirjautumis logon linkki URL",
   "text-below-custom-login-logo": "Teksti mukautetun kirjautumis logon alla",
+  "automatic-linked-url-schemes": "Mukautetut URL-mallit, joiden pitäisi olla automaattisesti klikattavissa. Yksi URL-malli riviä kohden",
   "username": "Käyttäjätunnus",
   "import-usernames": "Tuo käyttäjänimet",
   "view-it": "Näytä se",

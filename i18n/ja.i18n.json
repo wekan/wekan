@@ -532,6 +532,7 @@
   "custom-login-logo-image-url": "カスタムのログインロゴイメージのURL",
   "custom-login-logo-link-url": "カスタムのログインロゴイメージのリンクURL",
   "text-below-custom-login-logo": "カスタムログインロゴイメージの下のテキスト",
+  "automatic-linked-url-schemes": "Custom URL Schemes which should automatically be clickable. One URL Scheme per line",
   "username": "ユーザー名",
   "import-usernames": "インポートするユーザー名",
   "view-it": "見る",
@@ -974,10 +975,10 @@
   "label-colors": "ラベル色",
   "label-names": "ラベル名",
   "archived-at": "archived at",
-  "sort-cards": "Sort Cards",
-  "cardsSortPopup-title": "Sort Cards",
-  "due-date": "Due Date",
-  "title-alphabetically": "Title (Alphabetically)",
-  "created-at-newest-first": "Created At (Newest First)",
-  "created-at-oldest-first": "Created At (Oldest First)"
+  "sort-cards": "カードの並び替え",
+  "cardsSortPopup-title": "カードの並び替え",
+  "due-date": "期限日",
+  "title-alphabetically": "タイトル（アルファベット順）",
+  "created-at-newest-first": "作成日（新しいものから）",
+  "created-at-oldest-first": "作成日（古いものから）"
 }

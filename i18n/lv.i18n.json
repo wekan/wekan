@@ -532,6 +532,7 @@
   "custom-login-logo-image-url": "Logo pierakstīšanās ekrānā - URL",
   "custom-login-logo-link-url": "Logo saite pierakstīšanās ekrānā - URL",
   "text-below-custom-login-logo": "Teksts zem logo pierakstīšanās lapā",
+  "automatic-linked-url-schemes": "Custom URL Schemes which should automatically be clickable. One URL Scheme per line",
   "username": "Lietotājvārds",
   "import-usernames": "Import Usernames",
   "view-it": "Skatīt",

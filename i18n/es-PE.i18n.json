@@ -532,6 +532,7 @@
   "custom-login-logo-image-url": "URL de imagen del logo personalizado de inicio de sesión",
   "custom-login-logo-link-url": "URL de enlace del logo personalizado de inicio de sesión",
   "text-below-custom-login-logo": "Texto debajo del logo personalizado de inicio de sesión",
+  "automatic-linked-url-schemes": "Custom URL Schemes which should automatically be clickable. One URL Scheme per line",
   "username": "Nombre de usuario",
   "import-usernames": "Import Usernames",
   "view-it": "Verla",

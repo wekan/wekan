@@ -1,7 +1,6 @@
 #!/bin/env python3
 
 import argparse
-import esprima
 import json
 import logging
 import os

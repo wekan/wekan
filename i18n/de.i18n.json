@@ -532,6 +532,7 @@
   "custom-login-logo-image-url": "Benutzerdefiniertes Login Logo Bild URL",
   "custom-login-logo-link-url": "Benutzerdefiniertes Login Logo Link URL",
   "text-below-custom-login-logo": "Text unterhalb benutzerdefiniertem Login Logo",
+  "automatic-linked-url-schemes": "Spezielle URL-Schemas, die durch Klick automatisch öffenbar sein sollen. Ein URL-Schema pro Zeile",
   "username": "Benutzername",
   "import-usernames": "Nutzernamen importieren",
   "view-it": "Ansehen",

@@ -532,6 +532,7 @@
   "custom-login-logo-image-url": "设置登陆图标链接地址",
   "custom-login-logo-link-url": "通过连接上传logo",
   "text-below-custom-login-logo": "自定义登陆图标下方文字",
+  "automatic-linked-url-schemes": "Custom URL Schemes which should automatically be clickable. One URL Scheme per line",
   "username": "用户名",
   "import-usernames": "导入用户名",
   "view-it": "查看",

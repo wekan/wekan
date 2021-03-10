@@ -532,6 +532,7 @@
   "custom-login-logo-image-url": "آدرس تصویر لوگوی سفارشی در لاگین",
   "custom-login-logo-link-url": "آدرس لینک لوگوی سفارشی در لاگین",
   "text-below-custom-login-logo": "متن پایین لوگوی سفارشی در فرم لاگین",
+  "automatic-linked-url-schemes": "Custom URL Schemes which should automatically be clickable. One URL Scheme per line",
   "username": "نام کاربری",
   "import-usernames": "درون ریزی کاربران",
   "view-it": "مشاهده",
