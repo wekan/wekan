@@ -1,4 +1,12 @@
 import { CardSearchPagedComponent } from '../../lib/cardSearch';
+import {
+  OPERATOR_HAS,
+  OPERATOR_SORT,
+  OPERATOR_USER,
+  ORDER_DESCENDING,
+  PREDICATE_DUE_AT,
+} from '../../../config/search-const';
+import { QueryParams } from '../../../config/query-classes';
 
 // const subManager = new SubsManager();
 
@@ -46,18 +54,22 @@ class DueCardsComponent extends CardSearchPagedComponent {
   onCreated() {
     super.onCreated();
 
-    const queryParams = {
-      has: [{ field: 'dueAt', exists: true }],
-      limit: 5,
-      skip: 0,
-      sort: { name: 'dueAt', order: 'des' },
-    };
+    const queryParams = new QueryParams();
+    queryParams.addPredicate(OPERATOR_HAS, {
+      field: PREDICATE_DUE_AT,
+      exists: true,
+    });
+    // queryParams[OPERATOR_LIMIT] = 5;
+    queryParams.addPredicate(OPERATOR_SORT, {
+      name: PREDICATE_DUE_AT,
+      order: ORDER_DESCENDING,
+    });
 
     if (Utils.dueCardsView() !== 'all') {
-      queryParams.users = [Meteor.user().username];
+      queryParams.addPredicate(OPERATOR_USER, Meteor.user().username);
     }
 
-    this.runGlobalSearch(queryParams);
+    this.runGlobalSearch(queryParams.getParams());
   }
 
   dueCardsView() {

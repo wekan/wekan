@@ -193,6 +193,10 @@ export class Query {
     return this.queryParams.getParams();
   }
 
+  addPredicate(operator, predicate) {
+    this.queryParams.addPredicate(operator, predicate);
+  }
+
   buildParams(queryText) {
     queryText = queryText.trim();
     // eslint-disable-next-line no-console

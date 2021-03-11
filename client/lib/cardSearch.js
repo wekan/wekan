@@ -1,3 +1,6 @@
+import Cards from '../../models/cards';
+import SessionData from '../../models/usersessiondata';
+
 export class CardSearchPagedComponent extends BlazeComponent {
   onCreated() {
     this.searching = new ReactiveVar(false);

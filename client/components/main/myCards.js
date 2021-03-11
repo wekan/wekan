@@ -1,6 +1,12 @@
 import { CardSearchPagedComponent } from '../../lib/cardSearch';
-import {QueryParams} from "../../../config/query-classes";
-import {OPERATOR_SORT, OPERATOR_USER} from "../../../config/search-const";
+import { QueryParams } from '../../../config/query-classes';
+import {
+  OPERATOR_LIMIT,
+  OPERATOR_SORT,
+  OPERATOR_USER,
+  ORDER_DESCENDING,
+  PREDICATE_DUE_AT,
+} from '../../../config/search-const';
 
 // const subManager = new SubsManager();
 
@@ -52,7 +58,11 @@ class MyCardsComponent extends CardSearchPagedComponent {
 
     const queryParams = new QueryParams();
     queryParams.addPredicate(OPERATOR_USER, Meteor.user().username);
-    queryParams.addPredicate(OPERATOR_SORT, { name: 'dueAt', order: 'des' });
+    queryParams.addPredicate(OPERATOR_SORT, {
+      name: PREDICATE_DUE_AT,
+      order: ORDER_DESCENDING,
+    });
+    queryParams.addPredicate(OPERATOR_LIMIT, 100);
 
     this.runGlobalSearch(queryParams);
     Meteor.subscribe('setting');
