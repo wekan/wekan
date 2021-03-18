@@ -360,7 +360,7 @@ BlazeComponent.extendComponent({
             end: end || card.endAt,
             allDay:
               Math.abs(end.getTime() - start.getTime()) / 1000 === 24 * 3600,
-            url: FlowRouter.url('card', {
+            url: FlowRouter.path('card', {
               boardId: currentBoard._id,
               slug: currentBoard.slug,
               cardId: card._id,
