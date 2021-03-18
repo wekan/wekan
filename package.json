@@ -1,6 +1,6 @@
 {
   "name": "wekan",
-  "version": "v5.05.0",
+  "version": "v5.06.0",
   "description": "Open-Source kanban",
   "private": true,
   "scripts": {
@@ -72,7 +72,7 @@
     "ldapjs": "^2.2.3",
     "markdown-it": "^12.0.4",
     "markdown-it-emoji": "^2.0.0",
-    "meteor-node-stubs": "^1.0.1",
+    "meteor-node-stubs": "^1.0.2",
     "mongodb": "^3.6.4",
     "os": "^0.1.1",
     "page": "^1.11.5",
