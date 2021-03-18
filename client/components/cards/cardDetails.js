@@ -291,6 +291,8 @@ BlazeComponent.extendComponent({
         },
         'click .js-copy-link'() {
           StringToCopyElement = document.getElementById('cardURL_copy');
+          StringToCopyElement.value =
+            window.location.origin + window.location.pathname;
           StringToCopyElement.select();
           if (document.execCommand('copy')) {
             StringToCopyElement.blur();
