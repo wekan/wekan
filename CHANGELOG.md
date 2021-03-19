@@ -1,3 +1,23 @@
+# v5.07 2021-03-19 Wekan release
+
+This release fixes the following bugs:
+
+- [Fixed sort cards feature](https://github.com/wekan/wekan/pull/3662).
+  Thanks to ednamaeG.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.06 2021-03-18 Wekan release
+
+This release fixes the following bugs:
+
+- [Fixed Bug: Calendar & parent cards URLs used absolute URLs](https://github.com/wekan/wekan/pull/3648).
+  Thanks to Majed6.
+- [Fixed Bug: copy to clipboard uses pathname](https://github.com/wekan/wekan/pull/3661).
+  Thanks to Majed6.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.05 2021-03-11 Wekan release
 
 This release fixes the following bugs:
