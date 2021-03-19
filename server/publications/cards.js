@@ -461,6 +461,11 @@ function buildProjection(query) {
     skip = query.params.skip;
   }
   let limit = DEFAULT_LIMIT;
+  const configLimit = parseInt(process.env.RESULTS_PER_PAGE, 10);
+  if (!isNaN(configLimit) && configLimit > 0) {
+    limit = configLimit;
+  }
+
   if (query.params.hasOperator(OPERATOR_LIMIT)) {
     limit = query.params.getPredicate(OPERATOR_LIMIT);
   }
