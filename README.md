@@ -1,4 +1,4 @@
-[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/wekan/wekan) 
+[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/wekan/wekan)
 
 # Wekan - Open Source kanban
 
@@ -32,7 +32,7 @@ It's better than at chat where details get lost when chat scrolls up.
 
 ## FAQ
 
-**NOTE**: 
+**NOTE**:
 - Please read the [FAQ](https://github.com/wekan/wekan/wiki/FAQ) first
 - Please don't feed the [trolls](https://github.com/wekan/wekan/wiki/FAQ#why-am-i-called-a-troll) and [spammers](https://github.com/wekan/wekan/wiki/FAQ#why-am-i-called-a-spammer) that are mentioned in the FAQ :)
 
@@ -52,7 +52,7 @@ that by providing one-click installation on various platforms.
 
 - Wekan is used in [most countries of the world](https://snapcraft.io/wekan).
 - Wekan largest user has 13k users using Wekan in their company.
-- Wekan has been [translated](https://transifex.com/wekan/wekan) to about 61 languages.
+- Wekan has been [translated](https://transifex.com/wekan/wekan) to about 62 languages.
 - [Features][features]: Wekan has real-time user interface.
 - [Platforms][platforms]: Wekan supports many platforms.
   Wekan is critical part of new platforms Wekan is currently being integrated to.
@@ -64,7 +64,7 @@ that by providing one-click installation on various platforms.
   [More Platforms](https://github.com/wekan/wekan/wiki/Platforms), bundle for RasPi3 ARM and other CPUs where Node.js and MongoDB exists.
 - 1 GB RAM minimum free for Wekan. Production server should have minimum total 4 GB RAM.
   For thousands of users, for example with [Docker](https://github.com/wekan/wekan/blob/master/docker-compose.yml): 3 frontend servers,
-  each having 2 CPU and 2 wekan-app containers. One backend wekan-db server with many CPUs.  
+  each having 2 CPU and 2 wekan-app containers. One backend wekan-db server with many CPUs.
 - Enough disk space and alerts about low disk space. If you run out disk space, MongoDB database gets corrupted.
 - SECURITY: Updating to newest Wekan version very often. Please check you do not have automatic updates of Sandstorm or Snap turned off.
   Old versions have security issues because of old versions Node.js etc. Only newest Wekan is supported.

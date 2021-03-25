@@ -171,8 +171,6 @@ Template.changeLanguagePopup.helpers({
       } else if (lang.name === 'ar-EG') {
         // ar-EG = Arabic (Egypt), simply Masri (مَصرى, [ˈmɑsˤɾi], Egyptian, Masr refers to Cairo)
         name = 'مَصرى';
-      } else if (lang.name === 'es-PY') {
-        name = 'Español de Paraguayo';
       } else if (lang.name === 'fa-IR') {
         // fa-IR = Persian (Iran)
         name = 'فارسی/پارسی (ایران‎)';
@@ -188,6 +186,14 @@ Template.changeLanguagePopup.helpers({
         name = 'Latviešu';
       } else if (lang.name === 'Español') {
         name = 'español';
+      } else if (lang.name === 'es_419') {
+        name = 'español de América Latina';
+      } else if (lang.name === 'es-419') {
+        name = 'español de América Latina';
+      } else if (lang.name === 'Español de América Latina') {
+        name = 'español de América Latina';
+      } else if (lang.name === 'es-LA') {
+        name = 'español de América Latina';
       } else if (lang.name === 'Español de Argentina') {
         name = 'español de Argentina';
       } else if (lang.name === 'Español de Chile') {
