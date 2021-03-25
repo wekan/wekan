@@ -204,6 +204,8 @@ Template.changeLanguagePopup.helpers({
         name = 'español de México';
       } else if (lang.name === 'es-PY') {
         name = 'español de Paraguayo';
+      } else if (lang.name === 'Español de Paraguayo') {
+        name = 'español de Paraguayo';
       } else if (lang.name === 'Español de Perú') {
         name = 'español de Perú';
       } else if (lang.name === 'Español de Puerto Rico') {
