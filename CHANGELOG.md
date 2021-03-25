@@ -5,6 +5,11 @@ This release adds the following improvements:
 - [Add Trello attached links to the card description](https://github.com/wekan/wekan/pull/3669).
   Thanks to jrsupplee.
 
+and adds the following new translations:
+
+- [Added translation: español de América Latina](https://github.com/wekan/wekan/commit/ccc9efb2703efda4e199a861920b9ec88e634b59).
+  Thanks to translators.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v5.07 2021-03-19 Wekan release
