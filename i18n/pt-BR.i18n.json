@@ -982,6 +982,6 @@
   "created-at-newest-first": "Criado em (o mais recente primeiro) ",
   "created-at-oldest-first": "Criado em (o mais antigo primeiro) ",
   "links-heading": "Links",
-  "hide-system-messages-of-all-users": "Hide system messages of all users",
-  "now-system-messages-of-all-users-are-hidden": "Now system messages of all users are hidden"
+  "hide-system-messages-of-all-users": "Esconder mensagens do sistema para todos os usuários",
+  "now-system-messages-of-all-users-are-hidden": "Agora as mensagens do sistema para todos os usuários estão escondidas "
 }
