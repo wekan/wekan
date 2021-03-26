@@ -4,6 +4,11 @@
 sudo apt-get install python3-pip
 sudo pip3 install -U setuptools wheel
 sudo npm install -g api2html
+mkdir -p ~/python
+cd ~/python
+git clone --depth 1 -b master https://github.com/Kronuz/esprima-python
+cd ~/python/esprima-python
+sudo python3 setup.py install --record files.txt
 cd ~/repos/wekan
 mkdir -p public/api
 
