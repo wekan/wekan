@@ -9,6 +9,8 @@ and adds the following improvements:
 
 - [Add Trello attached links to the card description](https://github.com/wekan/wekan/pull/3669).
   Thanks to jrsupplee.
+- [Added package-lock.json and updated .gitignore](https://github.com/wekan/wekan/commit/d532a3591f338cec9a3839d43d9a1e9d69f59dc2).
+  Thanks to xet7.
 
 and adds the following new translations:
 
