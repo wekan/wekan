@@ -269,7 +269,7 @@ Swimlanes.mutations({
     return { $set: { archived: true, archivedAt: new Date() } };
   },
 
-  move(boardId, sort=null) {
+  move(boardId, sort = null) {
     const mutatedFields = {};
 
     if (this.boardId !== boardId) {
@@ -282,14 +282,21 @@ Swimlanes.mutations({
 
     if (Object.keys(mutatedFields).length) {
       this.lists().forEach(list => {
-        list.move(boardId, this._id);
+        const boardList = Lists.findOne({ boardId, title: list.title });
+
+        if (boardList) {
+          list.cards().forEach(card => {
+            card.move(boardId, this._id, boardList._id);
+          });
+        } else {
+          list.move(boardId, this._id);
+        }
       });
 
       Swimlanes.update(this._id, {
         $set: mutatedFields,
       });
     }
-
   },
 
   restore() {

@@ -323,3 +323,50 @@ BlazeComponent.extendComponent({
     initSortable(boardComponent, $listsDom);
   },
 }).register('listsGroup');
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.currentSwimlane = this.currentData();
+  },
+
+  board() {
+    return Boards.findOne(Session.get('currentBoard'));
+  },
+
+  toBoards() {
+    const boards = Boards.find(
+      {
+        archived: false,
+        'members.userId': Meteor.userId(),
+        type: 'board',
+        _id: { $ne: this.board()._id },
+      },
+      {
+        sort: { title: 1 },
+      },
+    );
+
+    console.log('boards.count():', boards.count());
+    console.log('boards:', boards);
+
+    return boards;
+  },
+
+  events() {
+    return [
+      {
+        'click .js-done'() {
+          const swimlane = Swimlanes.findOne(this.currentSwimlane._id);
+          const bSelect = $('.js-select-boards')[0];
+          let boardId;
+          if (bSelect) {
+            boardId = bSelect.options[bSelect.selectedIndex].value;
+            swimlane.move(boardId);
+            this.board().getDefaultSwimline();
+          }
+          Popup.close();
+        },
+      },
+    ];
+  },
+}).register('moveSwimlanePopup');
