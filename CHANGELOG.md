@@ -1,6 +1,11 @@
 # Upcoming Wekan release
 
-This release adds the following improvements:
+This release adds the following new features:
+
+- [Admin Panel/Settings/Accounts: Hide system messages of all users](https://github.com/wekan/wekan/commit/a249ffc8054189d8e3db9b4c8f082cc7ce7dcb52).
+  Thanks to bbyszio, r4nc0r and xet7.
+
+and adds the following improvements:
 
 - [Add Trello attached links to the card description](https://github.com/wekan/wekan/pull/3669).
   Thanks to jrsupplee.
