@@ -269,6 +269,29 @@ Swimlanes.mutations({
     return { $set: { archived: true, archivedAt: new Date() } };
   },
 
+  move(boardId, sort=null) {
+    const mutatedFields = {};
+
+    if (this.boardId !== boardId) {
+      mutatedFields.boardId = boardId;
+    }
+
+    if (sort !== null && sort !== this.sort) {
+      mutatedFields.sort = sort;
+    }
+
+    if (Object.keys(mutatedFields).length) {
+      this.lists().forEach(list => {
+        list.move(boardId, this._id);
+      });
+
+      Swimlanes.update(this._id, {
+        $set: mutatedFields,
+      });
+    }
+
+  },
+
   restore() {
     if (this.isTemplateSwimlane()) {
       this.myLists().forEach(list => {

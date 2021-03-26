@@ -297,6 +297,36 @@ Lists.mutations({
     return { $set: { starred: !!enable } };
   },
 
+  move(boardId, swimlaneId, sort=null) {
+    const mutatedFields = {
+      boardId,
+      swimlaneId,
+      sort,
+    };
+
+    if (this.boardId !== boardId) {
+      mutatedFields.boardId = boardId;
+    }
+
+    if (this.swimlaneId !== swimlaneId) {
+      mutatedFields.swimlaneId = swimlaneId;
+    }
+
+    if (sort !== null && sort !== this.sort) {
+      mutatedFields.sort = sort;
+    }
+
+    if (Object.keys(mutatedFields).length) {
+      this.cards().forEach(card => {
+        card.move(boardId, swimlaneId, this._id);
+      });
+
+      Lists.update(this._id, {
+        $set: mutatedFields,
+      });
+    }
+  },
+
   archive() {
     if (this.isTemplateList()) {
       this.cards().forEach(card => {
