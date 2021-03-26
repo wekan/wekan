@@ -981,5 +981,7 @@
   "title-alphabetically": "标题（按字母顺序）",
   "created-at-newest-first": "创建时间（最新）",
   "created-at-oldest-first": "创建时间（最旧）",
-  "links-heading": "Links"
+  "links-heading": "Links",
+  "hide-system-messages-of-all-users": "Hide system messages of all users",
+  "now-system-messages-of-all-users-are-hidden": "Now system messages of all users are hidden"
 }

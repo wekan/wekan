@@ -981,5 +981,7 @@
   "title-alphabetically": "Überschrift (alphabetisch)",
   "created-at-newest-first": "Erstelldatum (neueste zuerst)",
   "created-at-oldest-first": "Erstelldatum (älteste zuerst)",
-  "links-heading": "Links"
+  "links-heading": "Links",
+  "hide-system-messages-of-all-users": "Hide system messages of all users",
+  "now-system-messages-of-all-users-are-hidden": "Now system messages of all users are hidden"
 }

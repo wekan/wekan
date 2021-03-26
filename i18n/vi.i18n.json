@@ -981,5 +981,7 @@
   "title-alphabetically": "Tiêu đề (theo thứ tự bảng chữ cái)",
   "created-at-newest-first": "Được tạo lúc (Mới nhất đầu tiên)",
   "created-at-oldest-first": "Được tạo lúc (Cũ nhất trước)",
-  "links-heading": "Links"
+  "links-heading": "Links",
+  "hide-system-messages-of-all-users": "Hide system messages of all users",
+  "now-system-messages-of-all-users-are-hidden": "Now system messages of all users are hidden"
 }

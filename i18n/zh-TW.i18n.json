@@ -981,5 +981,7 @@
   "title-alphabetically": "標題 (按字母順序)",
   "created-at-newest-first": "創建於（最新優先）",
   "created-at-oldest-first": "創建於（最早優先）",
-  "links-heading": "Links"
+  "links-heading": "Links",
+  "hide-system-messages-of-all-users": "Hide system messages of all users",
+  "now-system-messages-of-all-users-are-hidden": "Now system messages of all users are hidden"
 }

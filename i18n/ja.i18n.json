@@ -981,5 +981,7 @@
   "title-alphabetically": "タイトル（アルファベット順）",
   "created-at-newest-first": "作成日（新しいものから）",
   "created-at-oldest-first": "作成日（古いものから）",
-  "links-heading": "Links"
+  "links-heading": "Links",
+  "hide-system-messages-of-all-users": "Hide system messages of all users",
+  "now-system-messages-of-all-users-are-hidden": "Now system messages of all users are hidden"
 }

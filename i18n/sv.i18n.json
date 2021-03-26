@@ -981,5 +981,7 @@
   "title-alphabetically": "Titel (Alfabetisk)",
   "created-at-newest-first": "Skapad den (Nyast först)",
   "created-at-oldest-first": "Skapad den (äldst först)",
-  "links-heading": "Links"
+  "links-heading": "Links",
+  "hide-system-messages-of-all-users": "Hide system messages of all users",
+  "now-system-messages-of-all-users-are-hidden": "Now system messages of all users are hidden"
 }

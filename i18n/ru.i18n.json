@@ -981,5 +981,7 @@
   "title-alphabetically": "Название (по алфавиту)",
   "created-at-newest-first": "Дата создания (сначала новые)",
   "created-at-oldest-first": "Дата создания (сначала старые)",
-  "links-heading": "Links"
+  "links-heading": "Links",
+  "hide-system-messages-of-all-users": "Hide system messages of all users",
+  "now-system-messages-of-all-users-are-hidden": "Now system messages of all users are hidden"
 }
