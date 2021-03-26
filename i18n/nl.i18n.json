@@ -982,6 +982,6 @@
   "created-at-newest-first": "Aangemaakt op (Nieuwste Eerst)",
   "created-at-oldest-first": "Aangemaakt op (Oudste Eerst)",
   "links-heading": "Links",
-  "hide-system-messages-of-all-users": "Hide system messages of all users",
-  "now-system-messages-of-all-users-are-hidden": "Now system messages of all users are hidden"
+  "hide-system-messages-of-all-users": "Verberg systeemberichten voor alle gebruikers",
+  "now-system-messages-of-all-users-are-hidden": "Systeemberichten zijn nu verborgen voor alle gebruikers"
 }
