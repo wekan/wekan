@@ -532,6 +532,7 @@
   "custom-login-logo-image-url": "Mukautettu kirjautumis logo kuvan URL",
   "custom-login-logo-link-url": "Mukautettu kirjautumis logon linkki URL",
   "text-below-custom-login-logo": "Teksti mukautetun kirjautumis logon alla",
+  "automatic-linked-url-schemes": "Mukautetut URL-mallit, joiden pitäisi olla automaattisesti klikattavissa. Yksi URL-malli riviä kohden",
   "username": "Käyttäjätunnus",
   "import-usernames": "Tuo käyttäjänimet",
   "view-it": "Näytä se",
@@ -979,5 +980,8 @@
   "due-date": "Eräpäivä",
   "title-alphabetically": "Otsikko (Aakkosjärjestyksessä)",
   "created-at-newest-first": "Luotu (Uusin ensin)",
-  "created-at-oldest-first": "Luotu (Vanhin ensin)"
+  "created-at-oldest-first": "Luotu (Vanhin ensin)",
+  "links-heading": "Linkit",
+  "hide-system-messages-of-all-users": "Piilota kaikkien käyttäjien järjestelmäviestit",
+  "now-system-messages-of-all-users-are-hidden": "Nyt kaikkien käyttäjien järjestelmäviestit on piilotettu"
 }

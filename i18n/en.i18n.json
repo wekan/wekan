@@ -981,5 +981,8 @@
   "due-date": "Due Date",
   "title-alphabetically": "Title (Alphabetically)",
   "created-at-newest-first": "Created At (Newest First)",
-  "created-at-oldest-first": "Created At (Oldest First)"
+  "created-at-oldest-first": "Created At (Oldest First)",
+  "links-heading": "Links",
+  "hide-system-messages-of-all-users": "Hide system messages of all users",
+  "now-system-messages-of-all-users-are-hidden": "Now system messages of all users are hidden"
 }

@@ -532,6 +532,7 @@
   "custom-login-logo-image-url": "آدرس تصویر لوگوی سفارشی در لاگین",
   "custom-login-logo-link-url": "آدرس لینک لوگوی سفارشی در لاگین",
   "text-below-custom-login-logo": "متن پایین لوگوی سفارشی در فرم لاگین",
+  "automatic-linked-url-schemes": "Custom URL Schemes which should automatically be clickable. One URL Scheme per line",
   "username": "نام کاربری",
   "import-usernames": "درون ریزی کاربران",
   "view-it": "مشاهده",
@@ -979,5 +980,8 @@
   "due-date": "تاریخ اجرا",
   "title-alphabetically": "تیتر (به صورت الفبا)",
   "created-at-newest-first": "ساخته شده در تاریخ (با اولویت جدید تر)",
-  "created-at-oldest-first": "ساخته شده در تاریخ (با اولویت قدیمی تر)"
+  "created-at-oldest-first": "ساخته شده در تاریخ (با اولویت قدیمی تر)",
+  "links-heading": "Links",
+  "hide-system-messages-of-all-users": "Hide system messages of all users",
+  "now-system-messages-of-all-users-are-hidden": "Now system messages of all users are hidden"
 }

@@ -54,6 +54,10 @@ Template.boardChangeTitlePopup.events({
 });
 
 BlazeComponent.extendComponent({
+  onCreated() {
+    // set sort to default
+    Session.set('sortBy', '');
+  },
   watchLevel() {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
     return currentBoard && currentBoard.getWatchLevel(Meteor.userId());
@@ -129,6 +133,9 @@ BlazeComponent.extendComponent({
           Sidebar.setView();
           Filter.reset();
         },
+        'click .js-sort-reset'() {
+          Session.set('sortBy', '');
+        },
         'click .js-open-search-view'() {
           Sidebar.setView('search');
         },
@@ -161,6 +168,9 @@ Template.boardHeaderBar.helpers({
   },
   boardView() {
     return Utils.boardView();
+  },
+  isSortActive() {
+    return Session.get('sortBy') ? true : false;
   },
 });
 
@@ -405,14 +415,6 @@ BlazeComponent.extendComponent({
           };
           Session.set('sortBy', sortBy);
           sortCardsBy.set(TAPi18n.__('date-created-oldest-first'));
-          Popup.close();
-        },
-        'click .js-sort-default'() {
-          const sortBy = {
-            sort: 1,
-          };
-          Session.set('sortBy', sortBy);
-          sortCardsBy.set(TAPi18n.__('default'));
           Popup.close();
         },
       },

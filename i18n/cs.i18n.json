@@ -532,6 +532,7 @@
   "custom-login-logo-image-url": "URL vlastního loga přihlášení",
   "custom-login-logo-link-url": "URL odkazu vlastního loga přihlášení",
   "text-below-custom-login-logo": "Text pod vlastním logem přihlášení",
+  "automatic-linked-url-schemes": "Custom URL Schemes which should automatically be clickable. One URL Scheme per line",
   "username": "Uživatelské jméno",
   "import-usernames": "Importovat uživatelská jména",
   "view-it": "Zobrazit",
@@ -905,7 +906,7 @@
   "operator-modified": "modifikováno",
   "operator-sort": "třídění",
   "operator-comment": "komentář",
-  "operator-has": "has",
+  "operator-has": "má",
   "operator-limit": "limit",
   "predicate-archived": "archivováno",
   "predicate-open": "otevřít",
@@ -979,5 +980,8 @@
   "due-date": "Požadovaný termín",
   "title-alphabetically": "Nadpis (Abecedně)",
   "created-at-newest-first": "Vyvtořeno (Od nejnovějších)",
-  "created-at-oldest-first": "Vytvořeno (Od nejstarších)"
+  "created-at-oldest-first": "Vytvořeno (Od nejstarších)",
+  "links-heading": "Links",
+  "hide-system-messages-of-all-users": "Hide system messages of all users",
+  "now-system-messages-of-all-users-are-hidden": "Now system messages of all users are hidden"
 }

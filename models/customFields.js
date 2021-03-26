@@ -307,7 +307,8 @@ if (Meteor.isServer) {
    *
    * @param {string} boardID the ID of the board
    * @param {string} customFieldId the ID of the custom field
-   * @return_type CustomFields
+   * @return_type [{_id: string,
+   *                boardIds: string}]
    */
   JsonRoutes.add(
     'GET',
@@ -377,9 +378,9 @@ if (Meteor.isServer) {
    * @param {string} name the name of the custom field
    * @param {string} type the type of the custom field
    * @param {string} settings the settings object of the custom field
-   * @param {boolean} showOnCard should we show the custom field on cards?
-   * @param {boolean} automaticallyOnCard should the custom fields automatically be added on cards?
-   * @param {boolean} showLabelOnMiniCard should the label of the custom field be shown on minicards?
+   * @param {boolean} showOnCard should we show the custom field on cards
+   * @param {boolean} automaticallyOnCard should the custom fields automatically be added on cards
+   * @param {boolean} showLabelOnMiniCard should the label of the custom field be shown on minicards
    * @return_type {_id: string}
    */
   JsonRoutes.add(
@@ -444,7 +445,7 @@ if (Meteor.isServer) {
    * @operation add_custom_field_dropdown_items
    * @summary Update a Custom Field's dropdown items
    *
-   * @param {string[]} items names of the custom field
+   * @param {string} [items] names of the custom field
    * @return_type {_id: string}
    */
   JsonRoutes.add(
@@ -453,27 +454,32 @@ if (Meteor.isServer) {
     (req, res) => {
       Authentication.checkUserId(req.userId);
 
-      if (req.body.hasOwnProperty('items') && Array.isArray(req.body.items)) {
-        CustomFields.direct.update(
-          { _id: req.params.customFieldId },
-          {
-            $push: {
-              'settings.dropdownItems': {
-                $each: req.body.items
-                  .filter(name => typeof name === 'string')
-                  .map(name => ({
-                    _id: Random.id(6),
-                    name,
-                  })),
+      const paramCustomFieldId = req.params.customFieldId;
+      const paramItems = req.body.items;
+
+      if (req.body.hasOwnProperty('items')) {
+        if (Array.isArray(paramItems)) {
+          CustomFields.direct.update(
+            { _id: paramCustomFieldId },
+            {
+              $push: {
+                'settings.dropdownItems': {
+                  $each: paramItems
+                    .filter(name => typeof name === 'string')
+                    .map(name => ({
+                      _id: Random.id(6),
+                      name,
+                    })),
+                },
               },
             },
-          },
-        );
+          );
+        }
       }
 
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: { _id: req.params.customFieldId },
+        data: { _id: paramCustomFieldId },
       });
     },
   );
@@ -491,17 +497,21 @@ if (Meteor.isServer) {
     (req, res) => {
       Authentication.checkUserId(req.userId);
 
+      const paramDropdownItemId = req.params.dropdownItemId;
+      const paramCustomFieldId = req.params.customFieldId;
+      const paramName = req.body.name;
+
       if (req.body.hasOwnProperty('name')) {
         CustomFields.direct.update(
           {
-            _id: req.params.customFieldId,
-            'settings.dropdownItems._id': req.params.dropdownItemId,
+            _id: paramCustomFieldId,
+            'settings.dropdownItems._id': paramDropdownItemId,
           },
           {
             $set: {
               'settings.dropdownItems.$': {
-                _id: req.params.dropdownItemId,
-                name: req.body.name,
+                _id: paramDropdownItemId,
+                name: paramName,
               },
             },
           },
@@ -510,7 +520,7 @@ if (Meteor.isServer) {
 
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: { _id: req.params.customFieldId },
+        data: { _id: customFieldId },
       });
     },
   );
@@ -528,18 +538,21 @@ if (Meteor.isServer) {
     (req, res) => {
       Authentication.checkUserId(req.userId);
 
+      paramCustomFieldId = req.params.customFieldId;
+      paramDropdownItemId = req.params.dropdownItemId;
+
       CustomFields.direct.update(
-        { _id: req.params.customFieldId },
+        { _id: paramCustomFieldId },
         {
           $pull: {
-            'settings.dropdownItems': { _id: req.params.dropdownItemId },
+            'settings.dropdownItems': { _id: paramDropdownItemId },
           },
         },
       );
 
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: { _id: req.params.customFieldId },
+        data: { _id: paramCustomFieldId },
       });
     },
   );
