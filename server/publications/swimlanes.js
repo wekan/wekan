@@ -4,19 +4,20 @@ Meteor.methods({
     check(toBoardId, String);
 
     const swimlane = Swimlanes.findOne(swimlaneId);
-    const board = Boards.findOne(toBoardId);
+    const fromBoard = Boards.findOne(swimlane.boardId);
+    const toBoard = Boards.findOne(toBoardId);
 
-    if (swimlane && board) {
+    if (swimlane && toBoard) {
       swimlane.lists().forEach(list => {
-        const boardList = Lists.findOne({
+        const toList = Lists.findOne({
           boardId: toBoardId,
           title: list.title,
           archived: false,
         });
 
         let toListId;
-        if (boardList) {
-          toListId = boardList._id;
+        if (toList) {
+          toListId = toList._id;
         } else {
           toListId = Lists.insert({
             title: list.title,
@@ -42,7 +43,7 @@ Meteor.methods({
       });
 
       // make sure there is a default swimlane
-      this.board().getDefaultSwimline();
+      fromBoard.getDefaultSwimline();
 
       return true;
     }
