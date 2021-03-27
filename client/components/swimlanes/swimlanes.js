@@ -346,9 +346,6 @@ BlazeComponent.extendComponent({
       },
     );
 
-    console.log('boards.count():', boards.count());
-    console.log('boards:', boards);
-
     return boards;
   },
 
@@ -361,8 +358,7 @@ BlazeComponent.extendComponent({
           let boardId;
           if (bSelect) {
             boardId = bSelect.options[bSelect.selectedIndex].value;
-            swimlane.move(boardId);
-            this.board().getDefaultSwimline();
+            Meteor.call('moveSwimlane', this.currentSwimlane._id, boardId);
           }
           Popup.close();
         },
