@@ -981,7 +981,9 @@
   "title-alphabetically": "Titel (Alfabetisk)",
   "created-at-newest-first": "Skapad den (Nyast först)",
   "created-at-oldest-first": "Skapad den (äldst först)",
-  "links-heading": "Links",
-  "hide-system-messages-of-all-users": "Hide system messages of all users",
-  "now-system-messages-of-all-users-are-hidden": "Now system messages of all users are hidden"
+  "links-heading": "Länkar",
+  "hide-system-messages-of-all-users": "Göm systemmeddelanden för alla användare",
+  "now-system-messages-of-all-users-are-hidden": "Systemmeddelande dolda för alla användare",
+  "move-swimlane": "Move Swimlane",
+  "moveSwimlanePopup-title": "Move Swimlane"
 }

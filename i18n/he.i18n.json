@@ -983,5 +983,7 @@
   "created-at-oldest-first": "מועד יצירה (הישן ביותר בהתחלה)",
   "links-heading": "קישורים",
   "hide-system-messages-of-all-users": "להסתיר את הודעות המערכת של כל המשתמשים",
-  "now-system-messages-of-all-users-are-hidden": "כעת הודעות המערכת של כל המשתמשים מוסתרות"
+  "now-system-messages-of-all-users-are-hidden": "כעת הודעות המערכת של כל המשתמשים מוסתרות",
+  "move-swimlane": "Move Swimlane",
+  "moveSwimlanePopup-title": "Move Swimlane"
 }
