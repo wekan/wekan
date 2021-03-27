@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v5.09
+  version: v5.10
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -326,6 +326,36 @@ paths:
                   type: string
                 swimlaneId:
                   type: string
+  /api/boards/{board}/attachments/{attachment}/export:
+    get:
+      operationId: exportJson
+      summary: This route is used to export a attachement to a json file format.
+      description: |
+        If user is already logged-in, pass loginToken as param
+         "authToken": '/api/boards/:boardId/attachments/:attachmentId/export?authToken=:token'
+      tags:
+        - Boards
+      parameters:
+        - name: board
+          in: path
+          description: |
+            the ID of the board we are exporting
+          type: string
+          required: true
+        - name: attachment
+          in: path
+          description: |
+            the ID of the attachment we are exporting
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
   /api/boards/{board}/cards/{card}/checklists:
     get:
       operationId: get_all_checklists
