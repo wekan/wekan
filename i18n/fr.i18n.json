@@ -980,5 +980,8 @@
   "due-date": "Date d'échéance",
   "title-alphabetically": "Titre (Alphabétiquement)",
   "created-at-newest-first": "Date de création (Plus récentes en premier)",
-  "created-at-oldest-first": "Date de création (Plus anciennes en premier)"
+  "created-at-oldest-first": "Date de création (Plus anciennes en premier)",
+  "links-heading": "Liens",
+  "hide-system-messages-of-all-users": "Hide system messages of all users",
+  "now-system-messages-of-all-users-are-hidden": "Now system messages of all users are hidden"
 }

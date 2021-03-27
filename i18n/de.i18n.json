@@ -980,5 +980,8 @@
   "due-date": "Fälligkeitsdatum",
   "title-alphabetically": "Überschrift (alphabetisch)",
   "created-at-newest-first": "Erstelldatum (neueste zuerst)",
-  "created-at-oldest-first": "Erstelldatum (älteste zuerst)"
+  "created-at-oldest-first": "Erstelldatum (älteste zuerst)",
+  "links-heading": "Links",
+  "hide-system-messages-of-all-users": "Alle System-Nachrichten aller Nutzer verbergen",
+  "now-system-messages-of-all-users-are-hidden": "Alle System-Nachrichten aller Nutzer sind nun verborgen"
 }

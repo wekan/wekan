@@ -322,8 +322,8 @@
   "error-user-notAllowSelf": "自分を招待することはできません。",
   "error-user-notCreated": "ユーザーが作成されていません",
   "error-username-taken": "このユーザ名は既に使用されています",
-  "error-orgname-taken": "This organization name is already taken",
-  "error-teamname-taken": "This team name is already taken",
+  "error-orgname-taken": "この組織名はすでに使われています",
+  "error-teamname-taken": "このチーム名はすでに使われています",
   "error-email-taken": "メールは既に受け取られています",
   "export-board": "ボードのエクスポート",
   "export-board-json": "ボードをJSONにエクスポート",
@@ -931,7 +931,7 @@
   "predicate-private": "非公開",
   "operator-unknown-error": "%sは演算子ではありません",
   "operator-number-expected": "演算子 __operator__ には数値の指定が必要ですが、「__value__」が入力されました",
-  "operator-sort-invalid": "sort of '%s' is invalid",
+  "operator-sort-invalid": "ソート「%s」は無効です",
   "operator-status-invalid": "「%s」は無効なステータスです",
   "operator-has-invalid": "%s is not a valid existence check",
   "operator-limit-invalid": "%s is not a valid limit.  Limit should be a positive integer.",
@@ -980,5 +980,8 @@
   "due-date": "期限日",
   "title-alphabetically": "タイトル（アルファベット順）",
   "created-at-newest-first": "作成日（新しいものから）",
-  "created-at-oldest-first": "作成日（古いものから）"
+  "created-at-oldest-first": "作成日（古いものから）",
+  "links-heading": "Links",
+  "hide-system-messages-of-all-users": "Hide system messages of all users",
+  "now-system-messages-of-all-users-are-hidden": "Now system messages of all users are hidden"
 }

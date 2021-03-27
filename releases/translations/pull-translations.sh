@@ -151,6 +151,9 @@ tx pull -f -l es_AR
 echo "Spanish (Chile):"
 tx pull -f -l es_CL
 
+echo "Spanish (Latin America)":
+tx pull -f -l es_419
+
 echo "Spanish (Mexico)":
 tx pull -f -l es_MX
 

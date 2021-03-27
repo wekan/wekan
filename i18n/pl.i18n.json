@@ -532,7 +532,7 @@
   "custom-login-logo-image-url": "URL obrazu logo ekranu logowania",
   "custom-login-logo-link-url": "URL linku logo ekranu logowania",
   "text-below-custom-login-logo": "Tekst pod logo na ekranie logowania",
-  "automatic-linked-url-schemes": "Custom URL Schemes which should automatically be clickable. One URL Scheme per line",
+  "automatic-linked-url-schemes": "Schematy adresów URL, które powinny być automatycznie przekształcane w aktywne. Wpisz jeden schemat URL w każdej linii",
   "username": "Nazwa użytkownika",
   "import-usernames": "Importuj użytkowników",
   "view-it": "Zobacz",
@@ -980,5 +980,8 @@
   "due-date": "terminu wykonania",
   "title-alphabetically": "nazwy (alfabetycznie)",
   "created-at-newest-first": "daty utworzenia (najpierw najnowsze)",
-  "created-at-oldest-first": "daty utworzenia (najpierw najstarsze)"
+  "created-at-oldest-first": "daty utworzenia (najpierw najstarsze)",
+  "links-heading": "Linki",
+  "hide-system-messages-of-all-users": "Ukryj powiadomienia systemowe wszystkich użytkowników",
+  "now-system-messages-of-all-users-are-hidden": "Odtąd powiadomienia systemowe wszystkich użytkowników będą ukryte"
 }

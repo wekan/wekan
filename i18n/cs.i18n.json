@@ -906,7 +906,7 @@
   "operator-modified": "modifikováno",
   "operator-sort": "třídění",
   "operator-comment": "komentář",
-  "operator-has": "has",
+  "operator-has": "má",
   "operator-limit": "limit",
   "predicate-archived": "archivováno",
   "predicate-open": "otevřít",
@@ -980,5 +980,8 @@
   "due-date": "Požadovaný termín",
   "title-alphabetically": "Nadpis (Abecedně)",
   "created-at-newest-first": "Vyvtořeno (Od nejnovějších)",
-  "created-at-oldest-first": "Vytvořeno (Od nejstarších)"
+  "created-at-oldest-first": "Vytvořeno (Od nejstarších)",
+  "links-heading": "Links",
+  "hide-system-messages-of-all-users": "Hide system messages of all users",
+  "now-system-messages-of-all-users-are-hidden": "Now system messages of all users are hidden"
 }
