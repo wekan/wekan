@@ -1,3 +1,17 @@
+# v5.09 2021-03-26 Wekan release
+
+This release adds the following improvements:
+
+- [Replace edit icon by plus-square on new links](https://github.com/wekan/wekan/pull/3671).
+  Thanks to sim51.
+
+and fixes the following bugs:
+
+- [Fix openapi docs generation](https://github.com/wekan/wekan/pull/3672).
+  Thanks to bentiss.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.08 2021-03-26 Wekan release
 
 This release adds the following new features:
