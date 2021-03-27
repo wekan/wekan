@@ -9,6 +9,11 @@ This release adds the following new features:
 - [REST API: Export one attachment](https://github.com/wekan/wekan/pull/3673).
   Thanks to vagnernascimento.
 
+and adds the following updates:
+
+- [Updated package-lock.json](https://github.com/wekan/wekan/commit/3145ec65a3defb8ac8d97aed7e43595f661f7100).
+  Thanks to developers of dependencies.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v5.09 2021-03-26 Wekan release
