@@ -1,3 +1,14 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Move swimlane from one board to another](https://github.com/wekan/wekan/pull/3674).
+  Thanks to jrsupplee.
+- [Added translatable Move Swimlane popup title](https://github.com/wekan/wekan/commit/16665bccf912c5e907739c35f7ef5a376c81740e).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.09 2021-03-26 Wekan release
 
 This release adds the following improvements:
