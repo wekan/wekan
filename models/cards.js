@@ -1527,13 +1527,16 @@ Cards.mutations({
     return this.move(boardId, swimlaneId, listId, sort);
   },
 
-  move(boardId, swimlaneId, listId, sort) {
+  move(boardId, swimlaneId, listId, sort=null) {
     const mutatedFields = {
       boardId,
       swimlaneId,
       listId,
-      sort,
     };
+
+    if (sort !== null) {
+      mutatedFields.sort = sort;
+    }
 
     // we must only copy the labels and custom fields if the target board
     // differs from the source board
