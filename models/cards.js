@@ -1527,7 +1527,7 @@ Cards.mutations({
     return this.move(boardId, swimlaneId, listId, sort);
   },
 
-  move(boardId, swimlaneId, listId, sort=null) {
+  move(boardId, swimlaneId, listId, sort = null) {
     const mutatedFields = {
       boardId,
       swimlaneId,
