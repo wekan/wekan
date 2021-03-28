@@ -249,6 +249,13 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
           );
           document.getElementById('global-search-input').focus();
         },
+        'click .js-new-search'(evt) {
+          evt.preventDefault();
+          const input = document.getElementById('global-search-input');
+          input.value = '';
+          this.query.set('');
+          this.hasResults.set(false);
+        },
       },
     ];
   }
