@@ -1,3 +1,12 @@
+# v5.13 2021-03-28 Wekan release
+
+This release fixes the following bugs:
+
+- [Fixed Sandstorm Wekan attachments upload](https://github.com/wekan/wekan/commit/d4a1611b86521cd5913277cfa2c86c43958eec7b).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.12 2021-03-28 Wekan release
 
 This release fixes the following bugs:
