@@ -52,6 +52,7 @@ mquandalle:autofocus
 ongoworks:speakingurl
 raix:handlebar-helpers
 tap:i18n
+http@1.4.2
 
 # UI components
 blaze
@@ -66,6 +67,7 @@ templates:tabs
 verron:autosize
 simple:json-routes
 rajit:bootstrap3-datepicker
+shell-server@0.5.0
 simple:rest-accounts-password
 useraccounts:core
 email@2.0.0
@@ -143,4 +145,3 @@ rajit:bootstrap3-datepicker-zh-tw
 staringatlights:fast-render
 spacebars
 georgemccann:meteor-emoji-picker
-jkuester:http
