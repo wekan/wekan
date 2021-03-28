@@ -61,3 +61,13 @@ template(name="addListForm")
             a.open-list-composer.js-open-inlined-form
               i.fa.fa-plus
               | {{_ 'add-list'}}
+
+template(name="moveSwimlanePopup")
+  unless currentUser.isWorker
+    label {{_ 'boards'}}:
+    select.js-select-boards(autofocus)
+      each toBoard in toBoards
+        option(value="{{toBoard._id}}") {{toBoard.title}}
+
+  .edit-controls.clearfix
+    button.primary.confirm.js-done {{_ 'done'}}

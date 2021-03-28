@@ -983,5 +983,7 @@
   "created-at-oldest-first": "daty utworzenia (najpierw najstarsze)",
   "links-heading": "Linki",
   "hide-system-messages-of-all-users": "Ukryj powiadomienia systemowe wszystkich użytkowników",
-  "now-system-messages-of-all-users-are-hidden": "Odtąd powiadomienia systemowe wszystkich użytkowników będą ukryte"
+  "now-system-messages-of-all-users-are-hidden": "Odtąd powiadomienia systemowe wszystkich użytkowników będą ukryte",
+  "move-swimlane": "Move Swimlane",
+  "moveSwimlanePopup-title": "Move Swimlane"
 }

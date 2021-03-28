@@ -983,5 +983,7 @@
   "created-at-oldest-first": "Luotu (Vanhin ensin)",
   "links-heading": "Linkit",
   "hide-system-messages-of-all-users": "Piilota kaikkien käyttäjien järjestelmäviestit",
-  "now-system-messages-of-all-users-are-hidden": "Nyt kaikkien käyttäjien järjestelmäviestit on piilotettu"
+  "now-system-messages-of-all-users-are-hidden": "Nyt kaikkien käyttäjien järjestelmäviestit on piilotettu",
+  "move-swimlane": "Siirrä Swimlane",
+  "moveSwimlanePopup-title": "Siirrä Swimlane"
 }

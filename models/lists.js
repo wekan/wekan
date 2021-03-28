@@ -202,7 +202,7 @@ Lists.helpers({
     this.swimlaneId = swimlaneId;
 
     let _id = null;
-    existingListWithSameName = Lists.findOne({
+    const existingListWithSameName = Lists.findOne({
       boardId,
       title: this.title,
       archived: false,
@@ -222,6 +222,35 @@ Lists.helpers({
       archived: false,
     }).forEach(card => {
       card.copy(boardId, swimlaneId, _id);
+    });
+  },
+
+  move(boardId, swimlaneId) {
+    const boardList = Lists.findOne({
+      boardId,
+      title: this.title,
+      archived: false,
+    });
+    let listId;
+    if (boardList) {
+      listId = boardList._id;
+      this.cards().forEach(card => {
+        card.move(boardId, this._id, boardList._id);
+      });
+    } else {
+      console.log('list.title:', this.title);
+      console.log('boardList:', boardList);
+      listId = Lists.insert({
+        title: this.title,
+        boardId,
+        type: this.type,
+        archived: false,
+        wipLimit: this.wipLimit,
+      });
+    }
+
+    this.cards(swimlaneId).forEach(card => {
+      card.move(boardId, swimlaneId, listId);
     });
   },
 

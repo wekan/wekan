@@ -1,3 +1,64 @@
+# Upcoming Wekan release
+
+This release adds the following updates:
+
+- [Updated release scripts](https://github.com/wekan/wekan/commit/59580e4b0f711ca55e8cb0d73803a4ff8b56352d).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.13 2021-03-28 Wekan release
+
+This release fixes the following bugs:
+
+- [Fixed Sandstorm Wekan attachments upload](https://github.com/wekan/wekan/commit/d4a1611b86521cd5913277cfa2c86c43958eec7b).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.12 2021-03-28 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix HTTP not defined](https://github.com/wekan/wekan/commit/4c609161915cc46ebfccad3d9e7ffdecdef1f85c).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.11 2021-03-28 Wekan release
+
+This release adds the following new features:
+
+- [Added emoji picker to card description edit and card comment edit.
+  Removed and disabled Summernote wysiwyg editor, package-lock.json
+  etc](https://github.com/wekan/wekan/commit/84fde1ecfc81e89ed1895cab3bcb328e4f166a87).
+  Thanks to xet7.
+
+and adds the following updates:
+
+- [Updated dependencies. Fixed lint](https://github.com/wekan/wekan/commit/4e1c0fdce82e3b4add8c4ffd1832752181573e88).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.10 2021-03-28 Wekan release
+
+This release adds the following new features:
+
+- [Move swimlane from one board to another](https://github.com/wekan/wekan/pull/3674).
+  Thanks to jrsupplee.
+- [Added translatable Move Swimlane popup title](https://github.com/wekan/wekan/commit/16665bccf912c5e907739c35f7ef5a376c81740e).
+  Thanks to xet7.
+- [REST API: Export one attachment](https://github.com/wekan/wekan/pull/3673).
+  Thanks to vagnernascimento.
+
+and adds the following updates:
+
+- [Updated package-lock.json](https://github.com/wekan/wekan/commit/3145ec65a3defb8ac8d97aed7e43595f661f7100).
+  Thanks to developers of dependencies.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.09 2021-03-26 Wekan release
 
 This release adds the following improvements:

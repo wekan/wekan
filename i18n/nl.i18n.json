@@ -983,5 +983,7 @@
   "created-at-oldest-first": "Aangemaakt op (Oudste Eerst)",
   "links-heading": "Links",
   "hide-system-messages-of-all-users": "Verberg systeemberichten voor alle gebruikers",
-  "now-system-messages-of-all-users-are-hidden": "Systeemberichten zijn nu verborgen voor alle gebruikers"
+  "now-system-messages-of-all-users-are-hidden": "Systeemberichten zijn nu verborgen voor alle gebruikers",
+  "move-swimlane": "Move Swimlane",
+  "moveSwimlanePopup-title": "Move Swimlane"
 }

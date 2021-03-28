@@ -1,21 +1,33 @@
-# Usage: ./release.sh 4.37
+#!/bin/bash
 
-# Commit and push version number changes
+# Release script for wekan.
+
+# 1) Check that there is only one parameter
+#    of Wekan version number:
+
+if [ $# -ne 1 ]
+  then
+    echo "Syntax with Wekan version number:"
+    echo "  ./release.sh 5.10"
+    exit 1
+fi
+
+# 2) Commit and push version number changes
 cd ~/repos/wekan
 git add --all
 git commit -m "v$1"
 git push
 
-# Add release tag
+# 3) Add release tag
 ~/repos/wekan/releases/add-tag.sh v$1
 
-# Push to repo
+# 4) Push to repo
 git push
 
-# Build Bundle
+# 5) Build Bundle
 ~/repos/wekan/releases/release-bundle.sh $1
 
-# Build Sandstorm
+# 6) Build Sandstorm
 ~/repos/wekan/releases/release-sandstorm.sh $1
 
 # Build Snap
