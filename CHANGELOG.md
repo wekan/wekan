@@ -1,3 +1,14 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Added emoji picker to card description edit and card comment edit.
+  Removed and disabled Summernote wysiwyg editor, package-lock.json
+  etc](https://github.com/wekan/wekan/commit/84fde1ecfc81e89ed1895cab3bcb328e4f166a87).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.10 2021-03-28 Wekan release
 
 This release adds the following new features:
