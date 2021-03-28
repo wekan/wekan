@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release adds the following updates:
+
+- [Updated release scripts](https://github.com/wekan/wekan/commit/59580e4b0f711ca55e8cb0d73803a4ff8b56352d).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.13 2021-03-28 Wekan release
 
 This release fixes the following bugs:
