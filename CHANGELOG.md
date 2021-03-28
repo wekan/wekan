@@ -1,3 +1,12 @@
+# v5.12 2021-03-28 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix HTTP not defined](https://github.com/wekan/wekan/commit/4c609161915cc46ebfccad3d9e7ffdecdef1f85c).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.11 2021-03-28 Wekan release
 
 This release adds the following new features:
