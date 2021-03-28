@@ -32,3 +32,4 @@ ehthumbs.db
 .eslintcache
 .meteor/local
 .devcontainer/docker-compose.extend.yml
+package-lock.json

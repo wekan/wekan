@@ -4,21 +4,16 @@
   "description": "Open-Source kanban",
   "private": true,
   "scripts": {
-    "lint": "eslint --cache --ext .js --ignore-path .eslintignore .",
-    "lint:eslint:fix": "eslint --ext .js --ignore-path .eslintignore --fix .",
     "lint:staged": "lint-staged",
-    "prettify": "prettier --write '**/*.js' '**/*.jsx'",
-    "test": "npm run lint"
+    "prettify": "prettier --write '**/*.js' '**/*.jsx'"
   },
   "lint-staged": {
     "*.js": [
       "meteor npm run prettify",
-      "meteor npm run lint:eslint:fix",
       "git add --force"
     ],
     "*.jsx": [
       "meteor npm run prettify",
-      "meteor npm run lint:eslint:fix",
       "git add --force"
     ],
     "*.json": [
@@ -27,9 +22,6 @@
     ]
   },
   "pre-commit": "lint:staged",
-  "eslintConfig": {
-    "extends": "@meteorjs/eslint-config-meteor"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wekan/wekan.git"
@@ -40,23 +32,14 @@
   },
   "homepage": "https://wekan.github.io",
   "devDependencies": {
-    "eslint": "^7.19.0",
-    "eslint-config-meteor": "0.0.9",
-    "eslint-config-prettier": "^3.6.0",
-    "eslint-import-resolver-meteor": "^0.4.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-meteor": "^7.2.2",
-    "eslint-plugin-prettier": "^3.3.1",
     "lint-staged": "^7.3.0",
     "pre-commit": "^1.2.2",
-    "prettier": "^1.19.1",
-    "prettier-eslint": "^9.0.2"
+    "prettier": "^1.19.1"
   },
   "dependencies": {
     "@babel/core": "^7.12.10",
     "@babel/eslint-parser": "^7.12.13",
     "@babel/runtime": "^7.12.5",
-    "@typescript-eslint/parser": "^4.14.2",
     "ajv": "^7.0.4",
     "babel-runtime": "^6.26.0",
     "bcrypt": "^5.0.0",
@@ -78,9 +61,6 @@
     "page": "^1.11.5",
     "papaparse": "^5.3.0",
     "qs": "^6.9.6",
-    "source-map-resolve": "^0.6.0",
-    "source-map-support": "^0.5.19",
-    "typescript": "^4.1.3",
     "xss": "^1.0.8"
   }
 }
