@@ -1,3 +1,15 @@
+#!/bin/bash
+
+# This script is only for Wekan maintainer to
+# convert x64 bundle to s390x bundle.
+
+if [ $# -ne 1 ]
+  then
+    echo "Syntax with Wekan version number:"
+    echo "  ./maintainer-make-bundle-s.sh 5.10"
+    exit 1
+fi
+
 cd /home/linux1
 rm -rf bundle
 unzip wekan-$1.zip
