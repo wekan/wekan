@@ -544,6 +544,6 @@ DESCRIPTION_SAML_ATTRIBUTES="SAML Attributes"
 DEFAULT_SAML_ATTRIBUTES=""
 KEY_SAML_ATTRIBUTES="saml-attributes"
 
-DESCRIPTION_RESULTS_PER_PAGE="Number of results to show per page by default"
+DESCRIPTION_RESULTS_PER_PAGE="Number of search results to show per page by default"
 DEFAULT_RESULTS_PER_PAGE=""
 KEY_RESULTS_PER_PAGE="results-per-page"
