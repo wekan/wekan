@@ -5,7 +5,7 @@ This release adds the following new features:
 - [Clean-up Global Search, Due Cards, and My Cards. New environment variable `RESULTS_PER_PAGE` for search
   results](https://github.com/wekan/wekan/pull/3676).
   Thanks to jrsupplee.
-- [Added environment variable `RESULTS_PER_PAGE` to all Wekan platforms](https://github.com/wekan/wekan/commit/ba05f383ca2>
+- [Added environment variable `RESULTS_PER_PAGE` to all Wekan platforms](https://github.com/wekan/wekan/commit/ba05f383ca29211c5474e06c5ba6673e712afe7a).
   Thanks to xet7.
 
 and adds the following updates:
