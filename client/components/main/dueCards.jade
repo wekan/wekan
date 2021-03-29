@@ -22,13 +22,17 @@ template(name="dueCardsModalTitle")
 
 template(name="dueCards")
   if currentUser
-    if isPageReady.get
-      .wrapper
-        .due-cards-dueat-list-wrapper
-          each card in dueCardsList
-            +resultCard(card)
-    else
+    if searching.get
       +spinner
+    else if hasResults.get
+      .global-search-results-list-wrapper
+        if hasQueryErrors.get
+          div
+            each msg in errorMessages
+              span.global-search-error-messages
+                = msg
+        else
+          +resultsPaged(this)
 
 template(name="dueCardsViewChangePopup")
   if currentUser

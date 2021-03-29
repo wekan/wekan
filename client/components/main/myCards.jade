@@ -24,7 +24,9 @@ template(name="myCardsModalTitle")
 
 template(name="myCards")
   if currentUser
-    if isPageReady.get
+    if searching.get
+      +spinner
+    else
       .wrapper
         if $eq myCardsSort 'board'
           each board in myCardsList
@@ -50,8 +52,6 @@ template(name="myCards")
           .my-cards-dueat-list-wrapper
             each card in myDueCardsList
               +resultCard(card)
-    else
-      +spinner
 
 template(name="myCardsSortChangePopup")
   if currentUser

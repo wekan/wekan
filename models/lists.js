@@ -407,8 +407,13 @@ Meteor.methods({
     // my lists
     return _.uniq(
       Lists.find(
-        { boardId: { $in: Boards.userBoardIds(this.userId) } },
-        { fields: { title: 1 } },
+        {
+          boardId: { $in: Boards.userBoardIds(this.userId) },
+          archived: false,
+        },
+        {
+          fields: { title: 1 },
+        },
       )
         .fetch()
         .map(list => {
