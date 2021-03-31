@@ -20,11 +20,11 @@ cd ~/repos/w/wekan.github.io
 git pull
 
 # 4) Change version number in website
-sed -i 's|v$1|v$2|g' index.html
+sed -i "s|>v$1<\/span>|>v$2<\/span>|g" index.html
 
 # 5) Change version number in API docs index page
 cd api
-sed -i 's|v$1|v$2|g' index.html
+sed -i "s|v$1|v$2|g" index.html
 
 # 6) Create directory for new docs
 mkdir v$2
@@ -42,6 +42,6 @@ mv wekan.html index.html
 cd ~/repos/w/wekan.github.io
 
 # 11) Commit all changes to git and push website changes live
-git add --all
-git commit -m "v$2"
-git push
+#git add --all
+#git commit -m "v$2"
+#git push
