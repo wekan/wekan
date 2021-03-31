@@ -6,6 +6,8 @@ This release fixes the following bugs:
   Thanks to ednamaeG.
 - [Fix bug in My Cards and Global Search](https://github.com/wekan/wekan/pull/3687).
   Thanks to jrsupplee.
+- [Fix bug in Due Cards introduced by last bug fix](https://github.com/wekan/wekan/pull/3688).
+  Thanks to jrsupplee.
 
 and adds the following updates:
 
