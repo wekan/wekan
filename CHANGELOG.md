@@ -1,9 +1,14 @@
-# Upcoming Wekan release
+# v5.17 2021-04-01 Wekan release
 
 This release fixes the following bugs:
 
 - [Fix Link dialog closes card when clicking in dialog](https://github.com/wekan/wekan/commit/454d3b5bbeed6cef8ecface7e6094cabfcc4847c).
   Thanks to ryanMushy.
+
+and adds the following updates:
+
+- [Added stable tag release script](https://github.com/wekan/wekan/commit/8dfb6916c5180f5d074748840d51dd04f9adb2bb).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
