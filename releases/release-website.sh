@@ -42,6 +42,6 @@ mv wekan.html index.html
 cd ~/repos/w/wekan.github.io
 
 # 11) Commit all changes to git and push website changes live
-#git add --all
-#git commit -m "v$2"
-#git push
+git add --all
+git commit -m "v$2"
+git push
