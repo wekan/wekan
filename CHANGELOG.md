@@ -8,6 +8,9 @@ This release fixes the following bugs:
   Thanks to jrsupplee.
 - [Fix bug in Due Cards introduced by last bug fix](https://github.com/wekan/wekan/pull/3688).
   Thanks to jrsupplee.
+- [Fixed Bug: Move Swimlane to Archive does not work anymore. Fixed lint in
+  router.js](https://github.com/wekan/wekan/commit/0b263cf582a9649ef72efbd289927105a27583af).
+  Thanks to marcungeschikts and xet7.
 
 and adds the following updates:
 
