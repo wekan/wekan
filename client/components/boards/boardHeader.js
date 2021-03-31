@@ -54,10 +54,6 @@ Template.boardChangeTitlePopup.events({
 });
 
 BlazeComponent.extendComponent({
-  onCreated() {
-    // set sort to default
-    Session.set('sortBy', '');
-  },
   watchLevel() {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
     return currentBoard && currentBoard.getWatchLevel(Meteor.userId());

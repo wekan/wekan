@@ -14,6 +14,7 @@ FlowRouter.route('/', {
     Session.set('currentCard', null);
 
     Filter.reset();
+    Session.set('sortBy', '')
     EscapeActions.executeAll();
 
     Utils.manageCustomUI();
@@ -35,6 +36,7 @@ FlowRouter.route('/public', {
     Session.set('currentCard', null);
 
     Filter.reset();
+    Session.set('sortBy', '')
     EscapeActions.executeAll();
 
     Utils.manageCustomUI();
@@ -59,6 +61,7 @@ FlowRouter.route('/b/:id/:slug', {
     // want to excape every current actions (filters, etc.)
     if (previousBoard !== currentBoard) {
       Filter.reset();
+      Session.set('sortBy', '')
       EscapeActions.executeAll();
     } else {
       EscapeActions.executeUpTo('popup-close');
@@ -118,6 +121,7 @@ FlowRouter.route('/my-cards', {
   triggersEnter: [AccountsTemplates.ensureSignedIn],
   action() {
     Filter.reset();
+    Session.set('sortBy', '')
     // EscapeActions.executeAll();
     EscapeActions.executeUpTo('popup-close');
 
@@ -137,6 +141,7 @@ FlowRouter.route('/due-cards', {
   triggersEnter: [AccountsTemplates.ensureSignedIn],
   action() {
     Filter.reset();
+    Session.set('sortBy', '')
     // EscapeActions.executeAll();
     EscapeActions.executeUpTo('popup-close');
 
@@ -156,6 +161,7 @@ FlowRouter.route('/global-search', {
   triggersEnter: [AccountsTemplates.ensureSignedIn],
   action() {
     Filter.reset();
+    Session.set('sortBy', '')
     // EscapeActions.executeAll();
     EscapeActions.executeUpTo('popup-close');
 
@@ -182,6 +188,7 @@ FlowRouter.route('/broken-cards', {
     const brokenCardsTemplate = 'brokenCards';
 
     Filter.reset();
+    Session.set('sortBy', '')
     // EscapeActions.executeAll();
     EscapeActions.executeUpTo('popup-close');
 
@@ -208,6 +215,7 @@ FlowRouter.route('/import/:source', {
     Session.set('importSource', params.source);
 
     Filter.reset();
+    Session.set('sortBy', '')
     EscapeActions.executeAll();
     BlazeLayout.render('defaultLayout', {
       headerBar: 'importHeaderBar',
@@ -226,6 +234,7 @@ FlowRouter.route('/setting', {
       Session.set('currentCard', null);
 
       Filter.reset();
+      Session.set('sortBy', '')
       EscapeActions.executeAll();
     },
   ],
@@ -248,6 +257,7 @@ FlowRouter.route('/information', {
       Session.set('currentCard', null);
 
       Filter.reset();
+      Session.set('sortBy', '')
       EscapeActions.executeAll();
     },
   ],
@@ -269,6 +279,7 @@ FlowRouter.route('/people', {
       Session.set('currentCard', null);
 
       Filter.reset();
+      Session.set('sortBy', '')
       EscapeActions.executeAll();
     },
   ],
