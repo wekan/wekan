@@ -1,3 +1,137 @@
+# v5.14 2021-03-29 Wekan release
+
+This release adds the following new features:
+
+- [Clean-up Global Search, Due Cards, and My Cards. New environment variable `RESULTS_PER_PAGE` for search
+  results](https://github.com/wekan/wekan/pull/3676).
+  Thanks to jrsupplee.
+- [Added environment variable `RESULTS_PER_PAGE` to all Wekan platforms](https://github.com/wekan/wekan/commit/ba05f383ca29211c5474e06c5ba6673e712afe7a).
+  Thanks to xet7.
+
+and adds the following updates:
+
+- [Updated release scripts](https://github.com/wekan/wekan/commit/59580e4b0f711ca55e8cb0d73803a4ff8b56352d).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Require signed-in user for My Cards, Due Cards, and global search](https://github.com/wekan/wekan/pull/3677).
+  Thanks to jrsupplee.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.13 2021-03-28 Wekan release
+
+This release fixes the following bugs:
+
+- [Fixed Sandstorm Wekan attachments upload](https://github.com/wekan/wekan/commit/d4a1611b86521cd5913277cfa2c86c43958eec7b).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.12 2021-03-28 Wekan release
+
+This release fixes the following bugs:
+
+- [Fix HTTP not defined](https://github.com/wekan/wekan/commit/4c609161915cc46ebfccad3d9e7ffdecdef1f85c).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.11 2021-03-28 Wekan release
+
+This release adds the following new features:
+
+- [Added emoji picker to card description edit and card comment edit.
+  Removed and disabled Summernote wysiwyg editor, package-lock.json
+  etc](https://github.com/wekan/wekan/commit/84fde1ecfc81e89ed1895cab3bcb328e4f166a87).
+  Thanks to xet7.
+
+and adds the following updates:
+
+- [Updated dependencies. Fixed lint](https://github.com/wekan/wekan/commit/4e1c0fdce82e3b4add8c4ffd1832752181573e88).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.10 2021-03-28 Wekan release
+
+This release adds the following new features:
+
+- [Move swimlane from one board to another](https://github.com/wekan/wekan/pull/3674).
+  Thanks to jrsupplee.
+- [Added translatable Move Swimlane popup title](https://github.com/wekan/wekan/commit/16665bccf912c5e907739c35f7ef5a376c81740e).
+  Thanks to xet7.
+- [REST API: Export one attachment](https://github.com/wekan/wekan/pull/3673).
+  Thanks to vagnernascimento.
+
+and adds the following updates:
+
+- [Updated package-lock.json](https://github.com/wekan/wekan/commit/3145ec65a3defb8ac8d97aed7e43595f661f7100).
+  Thanks to developers of dependencies.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.09 2021-03-26 Wekan release
+
+This release adds the following improvements:
+
+- [Replace edit icon by plus-square on new links](https://github.com/wekan/wekan/pull/3671).
+  Thanks to sim51.
+
+and fixes the following bugs:
+
+- [Fix openapi docs generation](https://github.com/wekan/wekan/pull/3672).
+  Thanks to bentiss.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.08 2021-03-26 Wekan release
+
+This release adds the following new features:
+
+- [Admin Panel/Settings/Accounts: Hide system messages of all users](https://github.com/wekan/wekan/commit/a249ffc8054189d8e3db9b4c8f082cc7ce7dcb52).
+  Thanks to bbyszio, r4nc0r and xet7.
+
+and adds the following improvements:
+
+- [Add Trello attached links to the card description](https://github.com/wekan/wekan/pull/3669).
+  Thanks to jrsupplee.
+- [Added package-lock.json and updated .gitignore](https://github.com/wekan/wekan/commit/d532a3591f338cec9a3839d43d9a1e9d69f59dc2).
+  Thanks to xet7.
+
+and adds the following new translations:
+
+- [Added translation: español de América Latina](https://github.com/wekan/wekan/commit/ccc9efb2703efda4e199a861920b9ec88e634b59).
+  Thanks to translators.
+
+and fixes the following bugs:
+
+- [Fix typos in translations](https://github.com/wekan/wekan/commit/a0e1b6f918dbb252a13db05d6b9e1f832c28654f).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.07 2021-03-19 Wekan release
+
+This release fixes the following bugs:
+
+- [Fixed sort cards feature](https://github.com/wekan/wekan/pull/3662).
+  Thanks to ednamaeG.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.06 2021-03-18 Wekan release
+
+This release fixes the following bugs:
+
+- [Fixed Bug: Calendar & parent cards URLs used absolute URLs](https://github.com/wekan/wekan/pull/3648).
+  Thanks to Majed6.
+- [Fixed Bug: copy to clipboard uses pathname](https://github.com/wekan/wekan/pull/3661).
+  Thanks to Majed6.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.05 2021-03-11 Wekan release
 
 This release fixes the following bugs:

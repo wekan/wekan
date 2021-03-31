@@ -21,6 +21,7 @@ ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-
     ARCHITECTURE=linux-x64 \
     SRC_PATH=./ \
     WITH_API=true \
+    RESULTS_PER_PAGE="" \
     ACCOUNTS_LOCKOUT_KNOWN_USERS_FAILURES_BEFORE=3 \
     ACCOUNTS_LOCKOUT_KNOWN_USERS_PERIOD=60 \
     ACCOUNTS_LOCKOUT_KNOWN_USERS_FAILURE_WINDOW=15 \

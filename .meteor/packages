@@ -52,6 +52,7 @@ mquandalle:autofocus
 ongoworks:speakingurl
 raix:handlebar-helpers
 tap:i18n
+http@1.4.2
 
 # UI components
 blaze
@@ -90,7 +91,6 @@ meteorhacks:aggregate@1.3.0
 wekan-markdown
 konecty:mongo-counter
 percolate:synced-cron
-easylogic:summernote
 cfs:filesystem
 tmeasday:check-npm-versions
 steffo:meteor-accounts-saml
@@ -144,4 +144,4 @@ rajit:bootstrap3-datepicker-zh-cn
 rajit:bootstrap3-datepicker-zh-tw
 staringatlights:fast-render
 spacebars
-jkuester:http
+georgemccann:meteor-emoji-picker

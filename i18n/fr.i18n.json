@@ -978,7 +978,14 @@
   "sort-cards": "Trier les cartes",
   "cardsSortPopup-title": "Trier les cartes",
   "due-date": "Date d'échéance",
+  "server-error": "Erreur serveur",
+  "server-error-troubleshooting": "Merci de soumettre l'erreur générée par le serveur. Pour une installation snap, lancer `sudo snap logs wekan.wekan`. Pour une installation docker, lancer `sudo docker logs wekan-app`",
   "title-alphabetically": "Titre (Alphabétiquement)",
   "created-at-newest-first": "Date de création (Plus récentes en premier)",
-  "created-at-oldest-first": "Date de création (Plus anciennes en premier)"
+  "created-at-oldest-first": "Date de création (Plus anciennes en premier)",
+  "links-heading": "Liens",
+  "hide-system-messages-of-all-users": "Masquer les messages système de tous les utilisateurs",
+  "now-system-messages-of-all-users-are-hidden": "Les messages système de tous les utilisateurs seront dorénavant masqués",
+  "move-swimlane": "Déplacer le couloir",
+  "moveSwimlanePopup-title": "Déplacer le Couloir"
 }

@@ -1,6 +1,7 @@
 #!/bin/env python3
 
 import argparse
+import esprima
 import json
 import logging
 import os
@@ -14,7 +15,7 @@ err_context = 3
 
 
 def get_req_body_elems(obj, elems):
-    if obj.type == 'FunctionExpression':
+    if obj.type in ['FunctionExpression', 'ArrowFunctionExpression']:
         get_req_body_elems(obj.body, elems)
     elif obj.type == 'BlockStatement':
         for s in obj.body:

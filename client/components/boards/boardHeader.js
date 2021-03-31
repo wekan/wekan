@@ -130,7 +130,7 @@ BlazeComponent.extendComponent({
           Filter.reset();
         },
         'click .js-sort-reset'() {
-          Session.set('sortBy','')
+          Session.set('sortBy', '');
         },
         'click .js-open-search-view'() {
           Sidebar.setView('search');
@@ -165,9 +165,9 @@ Template.boardHeaderBar.helpers({
   boardView() {
     return Utils.boardView();
   },
-  isSortActive(){
+  isSortActive() {
     return Session.get('sortBy') ? true : false;
-  }
+  },
 });
 
 Template.boardChangeViewPopup.events({
@@ -412,7 +412,7 @@ BlazeComponent.extendComponent({
           Session.set('sortBy', sortBy);
           sortCardsBy.set(TAPi18n.__('date-created-oldest-first'));
           Popup.close();
-        }
+        },
       },
     ];
   },

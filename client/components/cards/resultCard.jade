@@ -6,8 +6,12 @@ template(name="resultCard")
     ul.result-card-context-list
       li.result-card-context(title="{{_ 'board'}}")
         .result-card-block-wrapper
-          +viewer
-            = getBoard.title
+          if boardId
+            +viewer
+              = getBoard.title
+          else
+            .broken-cards-null
+              | NULL
         if getBoard.archived
           i.fa.fa-archive
       li.result-card-context.result-card-context-separator
@@ -16,8 +20,12 @@ template(name="resultCard")
         = ' '
       li.result-card-context(title="{{_ 'swimlane'}}")
         .result-card-block-wrapper
-          +viewer
-            = getSwimlane.title
+          if swimlaneId
+            +viewer
+              = getSwimlane.title
+          else
+            .broken-cards-null
+              | NULL
         if getSwimlane.archived
           i.fa.fa-archive
       li.result-card-context.result-card-context-separator
@@ -26,7 +34,11 @@ template(name="resultCard")
         = ' '
       li.result-card-context(title="{{_ 'list'}}")
         .result-card-block-wrapper
-          +viewer
-            = getList.title
+          if listId
+            +viewer
+              = getList.title
+          else
+            .broken-cards-null
+              | NULL
         if getList.archived
           i.fa.fa-archive

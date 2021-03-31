@@ -3,5 +3,5 @@ template(name="descriptionForm")
   .new-description.js-new-description(
     class="{{#if descriptionFormIsOpen}}is-open{{/if}}")
     form.js-new-description-form
-      +editor(class="js-new-description-input" data-meteor-emoji-large="true" autofocus="autofocus")
+      +editor(class="js-new-description-input" autofocus="autofocus")
         | {{getUnsavedValue 'cardDescription' _id getDescription}}

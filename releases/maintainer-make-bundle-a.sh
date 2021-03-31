@@ -3,6 +3,13 @@
 # This script is only for Wekan maintainer to
 # convert x64 bundle to arm64 bundle.
 
+if [ $# -ne 1 ]
+  then
+    echo "Syntax with Wekan version number:"
+    echo "  ./maintainer-make-bundle-a.sh 5.10"
+    exit 1
+fi
+
 cd ~/repos
 rm -rf bundle
 
@@ -21,13 +28,11 @@ sudo rm -rf /home/wekan/repos/bundle/programs/server/npm/node_modules/meteor/ost
 
 cd bundle/programs/server
 chmod u+w *.json
-npm uninstall fibers node-gyp node-pre-gyp
-npm install node-gyp@5.0.4 node-pre-gyp fibers
+npm uninstall fibers node-gyp node-pre-gyp @mapbox/node-pre-gyp
 npm install
-npm uninstall fibers node-gyp node-pre-gyp
-npm install node-pre-gyp
+npm install node-gyp
+npm install @mapbox/node-pre-gyp
 npm install fibers
-npm install node-gyp@5.0.4
 
 cd /home/wekan/repos/bundle
 find . -type d -name '*-garbage*' | xargs rm -rf

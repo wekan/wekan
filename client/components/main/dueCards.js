@@ -1,4 +1,14 @@
-const subManager = new SubsManager();
+import { CardSearchPagedComponent } from '../../lib/cardSearch';
+import {
+  OPERATOR_HAS,
+  OPERATOR_SORT,
+  OPERATOR_USER,
+  ORDER_DESCENDING,
+  PREDICATE_DUE_AT,
+} from '../../../config/search-const';
+import { QueryParams } from '../../../config/query-classes';
+
+// const subManager = new SubsManager();
 
 BlazeComponent.extendComponent({
   dueCardsView() {
@@ -40,106 +50,51 @@ BlazeComponent.extendComponent({
   },
 }).register('dueCardsViewChangePopup');
 
-BlazeComponent.extendComponent({
+class DueCardsComponent extends CardSearchPagedComponent {
   onCreated() {
-    this.isPageReady = new ReactiveVar(false);
+    super.onCreated();
 
-    this.autorun(() => {
-      const handle = subManager.subscribe(
-        'dueCards',
-        Utils.dueCardsView() === 'all',
-      );
-      Tracker.nonreactive(() => {
-        Tracker.autorun(() => {
-          this.isPageReady.set(handle.ready());
-        });
-      });
+    const queryParams = new QueryParams();
+    queryParams.addPredicate(OPERATOR_HAS, {
+      field: PREDICATE_DUE_AT,
+      exists: true,
     });
-    Meteor.subscribe('setting');
-  },
+    // queryParams[OPERATOR_LIMIT] = 5;
+    queryParams.addPredicate(OPERATOR_SORT, {
+      name: PREDICATE_DUE_AT,
+      order: ORDER_DESCENDING,
+    });
+
+    if (Utils.dueCardsView() !== 'all') {
+      queryParams.addPredicate(OPERATOR_USER, Meteor.user().username);
+    }
+
+    this.runGlobalSearch(queryParams.getParams());
+  }
 
   dueCardsView() {
     // eslint-disable-next-line no-console
     //console.log('sort:', Utils.dueCardsView());
     return Utils.dueCardsView();
-  },
+  }
 
   sortByBoard() {
     return this.dueCardsView() === 'board';
-  },
+  }
 
   dueCardsList() {
-    const allUsers = Utils.dueCardsView() === 'all';
-
-    const user = Meteor.user();
-
-    const archivedBoards = [];
-    Boards.find({ archived: true }).forEach(board => {
-      archivedBoards.push(board._id);
-    });
-
-    const permiitedBoards = [];
-    let selector = {
-      archived: false,
-    };
-    // for every user including admin allow her to see cards only from public boards
-    // or those where she is a member
-    //if (!user.isAdmin) {
-    selector.$or = [
-      { permission: 'public' },
-      { members: { $elemMatch: { userId: user._id, isActive: true } } },
-    ];
-    //}
-    Boards.find(selector).forEach(board => {
-      permiitedBoards.push(board._id);
-    });
-
-    const archivedSwimlanes = [];
-    Swimlanes.find({ archived: true }).forEach(swimlane => {
-      archivedSwimlanes.push(swimlane._id);
-    });
-
-    const archivedLists = [];
-    Lists.find({ archived: true }).forEach(list => {
-      archivedLists.push(list._id);
-    });
-
-    selector = {
-      archived: false,
-      boardId: {
-        $nin: archivedBoards,
-        $in: permiitedBoards,
-      },
-      swimlaneId: { $nin: archivedSwimlanes },
-      listId: { $nin: archivedLists },
-      dueAt: { $ne: null },
-      endAt: null,
-    };
-
-    if (!allUsers) {
-      selector.$or = [{ members: user._id }, { assignees: user._id }];
+    const results = this.getResults();
+    console.log('results:', results);
+    const cards = [];
+    if (results) {
+      results.forEach(card => {
+        cards.push(card);
+      });
     }
 
-    const cards = [];
-
-    // eslint-disable-next-line no-console
-    // console.log('cards selector:', selector);
-    Cards.find(selector).forEach(card => {
-      cards.push(card);
-      // eslint-disable-next-line no-console
-      // console.log(
-      //   'board:',
-      //   card.board(),
-      //   'swimlane:',
-      //   card.swimlane(),
-      //   'list:',
-      //   card.list(),
-      // );
-    });
-
     cards.sort((a, b) => {
-      const x = a.dueAt === null ? Date('2100-12-31') : a.dueAt;
-      const y = b.dueAt === null ? Date('2100-12-31') : b.dueAt;
+      const x = a.dueAt === null ? new Date('2100-12-31') : a.dueAt;
+      const y = b.dueAt === null ? new Date('2100-12-31') : b.dueAt;
 
       if (x > y) return 1;
       else if (x < y) return -1;
@@ -148,7 +103,9 @@ BlazeComponent.extendComponent({
     });
 
     // eslint-disable-next-line no-console
-    // console.log('cards:', cards);
+    console.log('cards:', cards);
     return cards;
-  },
-}).register('dueCards');
+  }
+}
+
+DueCardsComponent.register('dueCards');

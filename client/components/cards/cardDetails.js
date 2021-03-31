@@ -114,7 +114,7 @@ BlazeComponent.extendComponent({
     if (card) {
       const board = Boards.findOne(card.boardId);
       if (board) {
-        result = FlowRouter.url('card', {
+        result = FlowRouter.path('card', {
           boardId: card.boardId,
           slug: board.slug,
           cardId: card._id,
@@ -291,6 +291,8 @@ BlazeComponent.extendComponent({
         },
         'click .js-copy-link'() {
           StringToCopyElement = document.getElementById('cardURL_copy');
+          StringToCopyElement.value =
+            window.location.origin + window.location.pathname;
           StringToCopyElement.select();
           if (document.execCommand('copy')) {
             StringToCopyElement.blur();

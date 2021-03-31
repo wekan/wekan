@@ -11,9 +11,12 @@ SET ROOT_URL=http://localhost
 SET PORT=80
 SET MONGO_URL=mongodb://127.0.0.1:27017/wekan
 
-REM https://github.com/wekan/wekan/wiki/Troubleshooting-Mail
+REM # https://github.com/wekan/wekan/wiki/Troubleshooting-Mail
 REM SET MAIL_URL=smtps://username:password@email-smtp.eu-west-1.amazonaws.com:587/
 REM SET MAIL_FROM="Wekan Boards <info@example.com>"
+
+REM # ==== NUMBER OF SEARCH RESULTS PER PAGE BY DEFAULT ====
+REM SET RESULTS_PER_PAGE=20
 
 REM # If you disable Wekan API with false, Export Board does not work.
 SET WITH_API=true

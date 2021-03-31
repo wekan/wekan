@@ -118,6 +118,7 @@ FlowRouter.route('/shortcuts', {
 
 FlowRouter.route('/my-cards', {
   name: 'my-cards',
+  triggersEnter: [AccountsTemplates.ensureSignedIn],
   action() {
     Filter.reset();
     Session.set('sortBy', '')
@@ -137,6 +138,7 @@ FlowRouter.route('/my-cards', {
 
 FlowRouter.route('/due-cards', {
   name: 'due-cards',
+  triggersEnter: [AccountsTemplates.ensureSignedIn],
   action() {
     Filter.reset();
     Session.set('sortBy', '')
@@ -156,6 +158,7 @@ FlowRouter.route('/due-cards', {
 
 FlowRouter.route('/global-search', {
   name: 'global-search',
+  triggersEnter: [AccountsTemplates.ensureSignedIn],
   action() {
     Filter.reset();
     Session.set('sortBy', '')

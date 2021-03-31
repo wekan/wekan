@@ -209,6 +209,9 @@ services:
       # There is Feature Request: Logging date and time of all activity with summary reports,
       # and requesting reason for changing card to other column https://github.com/wekan/wekan/issues/1598
       #---------------------------------------------------------------
+      # ==== NUMBER OF SEARCH RESULTS PER PAGE BY DEFAULT ====
+      #- RESULTS_PER_PAGE=20
+      #---------------------------------------------------------------
       # ==== WEKAN API AND EXPORT BOARD ====
       # Wekan Export Board works when WITH_API=true.
       # https://github.com/wekan/wekan/wiki/REST-API
