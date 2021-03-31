@@ -47,25 +47,21 @@ Template.swimlaneFixedHeader.helpers({
   },
 });
 
-BlazeComponent.extendComponent({
+Template.swimlaneActionPopup.events({
+  'click .js-set-swimlane-color': Popup.open('setSwimlaneColor'),
+  'click .js-close-swimlane'(event) {
+    event.preventDefault();
+    this.archive();
+    Popup.close();
+  },
+  'click .js-move-swimlane': Popup.open('moveSwimlane'),
+});
+
+Template.swimlaneActionPopup.events({
   isCommentOnly() {
     return Meteor.user().isCommentOnly();
   },
-
-  events() {
-    return [
-      {
-        'click .js-set-swimlane-color': Popup.open('setSwimlaneColor'),
-        'click .js-close-swimlane'(event) {
-          event.preventDefault();
-          this.archive();
-          Popup.close();
-        },
-        'click .js-move-swimlane': Popup.open('moveSwimlane'),
-      },
-    ];
-  },
-}).register('swimlaneActionPopup');
+});
 
 BlazeComponent.extendComponent({
   onCreated() {
