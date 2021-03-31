@@ -2,8 +2,8 @@
 
 # Update node version.
 
-# 1) Check that there is only one parameter
-#    of Wekan version number:
+# Check that there is only one parameter
+# of Wekan version number:
 
 if [ $# -ne 2 ]
   then
