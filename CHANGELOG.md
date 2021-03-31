@@ -4,6 +4,8 @@ This release adds the following new features:
 
 - [Added stable tag](https://github.com/wekan/wekan/commit/c40668be3fb9c35d44698f49ab06fec5bcabbe1b).
   Thanks to rynr and xet7.
+- [Added back Summernote editor. Removed emoji picker](https://github.com/wekan/wekan/commit/47ecc654b825a875074dfd4826c36e2c5c55f599).
+  Thanks to ryanMushy and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
