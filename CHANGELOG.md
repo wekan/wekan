@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Added stable tag](https://github.com/wekan/wekan/commit/c40668be3fb9c35d44698f49ab06fec5bcabbe1b).
+  Thanks to rynr and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.15 2021-03-31 Wekan release
 
 This release fixes the following bugs:
