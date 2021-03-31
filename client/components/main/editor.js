@@ -1,5 +1,4 @@
 Template.editor.onRendered(() => {
-  new MeteorEmoji();
   const textareaSelector = 'textarea';
   const mentions = [
     // User mentions
@@ -100,9 +99,7 @@ Template.editor.onRendered(() => {
     if (inputs.length === 0) {
       // only enable richereditor to new comment or edit comment no others
       enableTextarea();
-    }
-    /*
-      else {
+    } else {
       const placeholder = inputs.attr('placeholder') || '';
       const mSummernotes = [];
       const getSummernote = function(input) {
@@ -261,7 +258,6 @@ Template.editor.onRendered(() => {
         });
       });
     }
-    */
   } else {
     enableTextarea();
   }
