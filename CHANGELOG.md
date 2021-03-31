@@ -13,6 +13,8 @@ and adds the following updates:
   Thanks to xet7.
 - [Set release script node-update.sh as executeable](https://github.com/wekan/wekan/commit/01de3f187c90af3ac94215ba7e8c7e780c98768d).
   Thanks to xet7.
+- [Updated node update scipts](https://github.com/wekan/wekan/commit/1d3673e9d320926127b46383321023f149287d6d).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
