@@ -37,10 +37,10 @@ echo "5) Updating Travis"
 sed -i "s|$1|$2|g" ~/repos/wekan/.travis.yml
 
 #echo "6) Adding changes to be committed."
-#git add snapcraft.yaml .future-snap/snapcraft.yaml .future-snap/broken-snapcraft.yaml \
-#Dockerfile Dockerfile.arm64v8 .devcontainer/Dockerfile rebuild-wekan.sh \
-#rebuild-wekan.bat stacksmith/user-scripts/build.sh
+git add snapcraft.yaml .future-snap/snapcraft.yaml .future-snap/broken-snapcraft.yaml \
+Dockerfile Dockerfile.arm64v8 .devcontainer/Dockerfile rebuild-wekan.sh \
+rebuild-wekan.bat stacksmith/user-scripts/build.sh .travis.yml
 
-#echo "7) Commit changes and push to GitHub"
-#git commit -n -m "Updated to Node.js v$2. Thanks to Node.js developers."
-#git push
+echo "7) Commit changes and push to GitHub"
+git commit -n -m "Updated to Node.js v$2. Thanks to Node.js developers."
+git push
