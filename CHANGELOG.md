@@ -4,6 +4,8 @@ This release fixes the following bugs:
 
 - [Fixed card sort reset](https://github.com/wekan/wekan/pull/3686).
   Thanks to ednamaeG.
+- [Fix bug in My Cards and Global Search](https://github.com/wekan/wekan/pull/3687).
+  Thanks to jrsupplee.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
