@@ -69,7 +69,7 @@ class DueCardsComponent extends CardSearchPagedComponent {
       queryParams.addPredicate(OPERATOR_USER, Meteor.user().username);
     }
 
-    this.runGlobalSearch(queryParams.getParams());
+    this.runGlobalSearch(queryParams.getQueryParams());
   }
 
   dueCardsView() {
