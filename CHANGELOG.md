@@ -25,6 +25,8 @@ and adds the following updates:
   [Part 1](https://github.com/wekan/wekan/commit/7a9c3972642601e9d89d5e7a3816643f91448c63),
   [Part 2](https://github.com/wekan/wekan/commit/c2b7525864048694c39f9cbe8f8c4cd96e36f7aa).
   Thanks to Node.js developers.
+- [Fixed release website script](https://github.com/wekan/wekan/commit/b6f60c08e55c2620fe6724ae2b5da0d9dfc9ec31).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
