@@ -99,13 +99,14 @@ export class CardSearchPagedComponent extends BlazeComponent {
     }
   }
 
-  runGlobalSearch(params) {
+  runGlobalSearch(queryParams) {
     this.searching.set(true);
     this.stopSubscription();
     this.subscriptionHandle = Meteor.subscribe(
       'globalSearch',
       this.sessionId,
-      params,
+      queryParams.params,
+      queryParams.text,
       this.subscriptionCallbacks,
     );
   }

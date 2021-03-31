@@ -45,12 +45,15 @@ import moment from 'moment';
 export class QueryParams {
   text = '';
 
-  constructor(params = {}) {
+  constructor(params = {}, text = '') {
     this.params = params;
+    this.text = text;
   }
 
   hasOperator(operator) {
-    return this.params[operator];
+    return (
+      this.params[operator] !== undefined && this.params[operator].length > 0
+    );
   }
 
   addPredicate(operator, predicate) {
@@ -189,8 +192,8 @@ export class Query {
     return this._errors.errorMessages();
   }
 
-  getParams() {
-    return this.queryParams.getParams();
+  getQueryParams() {
+    return this.queryParams;
   }
 
   addPredicate(operator, predicate) {

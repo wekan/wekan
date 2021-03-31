@@ -80,14 +80,15 @@ Meteor.publish('myCards', function(sessionId) {
 //   return buildQuery(sessionId, queryParams);
 // });
 
-Meteor.publish('globalSearch', function(sessionId, params) {
+Meteor.publish('globalSearch', function(sessionId, params, text) {
   check(sessionId, String);
   check(params, Object);
+  check(text, String);
 
   // eslint-disable-next-line no-console
   // console.log('queryParams:', params);
 
-  return findCards(sessionId, buildQuery(new QueryParams(params)));
+  return findCards(sessionId, buildQuery(new QueryParams(params, text)));
 });
 
 function buildSelector(queryParams) {
@@ -96,6 +97,9 @@ function buildSelector(queryParams) {
   const errors = new QueryErrors();
 
   let selector = {};
+
+  // eslint-disable-next-line no-console
+  // console.log('queryParams:', queryParams);
 
   if (queryParams.selector) {
     selector = queryParams.selector;
@@ -249,17 +253,13 @@ function buildSelector(queryParams) {
     queryUsers[OPERATOR_MEMBER] = [];
 
     if (queryParams.hasOperator(OPERATOR_USER)) {
-      queryParams.getPredicates(OPERATOR_USER).forEach(query => {
-        const users = Users.find({
-          username: query,
-        });
-        if (users.count()) {
-          users.forEach(user => {
-            queryUsers[OPERATOR_MEMBER].push(user._id);
-            queryUsers[OPERATOR_ASSIGNEE].push(user._id);
-          });
+      queryParams.getPredicates(OPERATOR_USER).forEach(username => {
+        const user = Users.findOne({ username });
+        if (user) {
+          queryUsers[OPERATOR_MEMBER].push(user._id);
+          queryUsers[OPERATOR_ASSIGNEE].push(user._id);
         } else {
-          errors.addNotFound(OPERATOR_USER, query);
+          errors.addNotFound(OPERATOR_USER, username);
         }
       });
     }
