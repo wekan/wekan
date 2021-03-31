@@ -96,7 +96,7 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
     // eslint-disable-next-line no-console
     // console.log('params:', query.getParams());
 
-    this.queryParams = query.getParams();
+    this.queryParams = query.getQueryParams().getParams();
 
     if (query.hasErrors()) {
       this.searching.set(false);
@@ -106,7 +106,7 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
       return;
     }
 
-    this.runGlobalSearch(query.getParams());
+    this.runGlobalSearch(query.getQueryParams());
   }
 
   searchInstructions() {
