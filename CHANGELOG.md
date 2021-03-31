@@ -9,12 +9,16 @@ This release fixes the following bugs:
 
 and adds the following updates:
 
-- [Updated release scripts and added node-update.sh](https://github.com/wekan/wekan/commit/34b6aa0858678da937eacf9a87878bbcb476fd4b).
+- Updated sandstorm release script and added new node update script
+  [Part 1](https://github.com/wekan/wekan/commit/34b6aa0858678da937eacf9a87878bbcb476fd4b),
+  [Part 2](https://github.com/wekan/wekan/commit/01de3f187c90af3ac94215ba7e8c7e780c98768d),
+  [Part 3](https://github.com/wekan/wekan/commit/1d3673e9d320926127b46383321023f149287d6d) and 
+  [Part 4](https://github.com/wekan/wekan/commit/09b9f690b162ae2797d1996e82c96ed8b8c74221).
   Thanks to xet7.
-- [Set release script node-update.sh as executeable](https://github.com/wekan/wekan/commit/01de3f187c90af3ac94215ba7e8c7e780c98768d).
-  Thanks to xet7.
-- [Updated node update scipts](https://github.com/wekan/wekan/commit/1d3673e9d320926127b46383321023f149287d6d).
-  Thanks to xet7.
+- Updated to Node.js v12.22.0
+  [Part 1](https://github.com/wekan/wekan/commit/7a9c3972642601e9d89d5e7a3816643f91448c63) and
+  [Part 2](https://github.com/wekan/wekan/commit/c2b7525864048694c39f9cbe8f8c4cd96e36f7aa).
+  Thanks to Node.js developers.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
