@@ -9,7 +9,9 @@ This release fixes the following bugs:
 
 and adds the following updates:
 
-- [Updated release scripts](https://github.com/wekan/wekan/commit/34b6aa0858678da937eacf9a87878bbcb476fd4b).
+- [Updated release scripts and added node-update.sh](https://github.com/wekan/wekan/commit/34b6aa0858678da937eacf9a87878bbcb476fd4b).
+  Thanks to xet7.
+- [Set release script node-update.sh as executeable](https://github.com/wekan/wekan/commit/01de3f187c90af3ac94215ba7e8c7e780c98768d).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
