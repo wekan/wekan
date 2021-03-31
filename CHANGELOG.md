@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fixed card sort reset](https://github.com/wekan/wekan/pull/3686).
+  Thanks to ednamaeG.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.14 2021-03-29 Wekan release
 
 This release adds the following new features:
