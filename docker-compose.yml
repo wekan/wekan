@@ -118,11 +118,11 @@ services:
     #-------------------------------------------------------------------------------------
     # ==== MONGODB AND METEOR VERSION ====
     # a) Quay automatic builds do work work, https://quay.io/wekan/wekan
-    # image: quay.io/wekan/wekan
+    image: quay.io/wekan/wekan:stable
     # b) Using specific version tag:
     # image: quay.io/wekan/wekan:v4.52
     # c) Docker Hub builds do work https://hub.docker.com/r/wekanteam/wekan
-    image: wekanteam/wekan
+    # image: wekanteam/wekan
     #-------------------------------------------------------------------------------------
     container_name: wekan-app
     restart: always
