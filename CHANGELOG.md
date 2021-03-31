@@ -7,6 +7,11 @@ This release fixes the following bugs:
 - [Fix bug in My Cards and Global Search](https://github.com/wekan/wekan/pull/3687).
   Thanks to jrsupplee.
 
+and adds the following updates:
+
+- [Updated release scripts](https://github.com/wekan/wekan/commit/34b6aa0858678da937eacf9a87878bbcb476fd4b).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v5.14 2021-03-29 Wekan release
