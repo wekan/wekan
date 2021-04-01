@@ -15,12 +15,15 @@ import {
   OPERATOR_ASSIGNEE,
   OPERATOR_BOARD,
   OPERATOR_COMMENT,
+  OPERATOR_CREATED_AT,
+  OPERATOR_CREATOR,
   OPERATOR_DUE,
   OPERATOR_HAS,
   OPERATOR_LABEL,
   OPERATOR_LIMIT,
   OPERATOR_LIST,
   OPERATOR_MEMBER,
+  OPERATOR_MODIFIED_AT,
   OPERATOR_SORT,
   OPERATOR_STATUS,
   OPERATOR_SWIMLANE,
@@ -163,7 +166,7 @@ function buildSelector(queryParams) {
 
     if (queryParams.hasOperator(OPERATOR_BOARD)) {
       const queryBoards = [];
-      queryParams.hasOperator(OPERATOR_BOARD).forEach(query => {
+      queryParams.getPredicates(OPERATOR_BOARD).forEach(query => {
         const boards = Boards.userSearch(userId, {
           title: new RegExp(escapeForRegex(query), 'i'),
         });
@@ -240,7 +243,7 @@ function buildSelector(queryParams) {
       }
     }
 
-    [OPERATOR_DUE, 'createdAt', 'modifiedAt'].forEach(field => {
+    [OPERATOR_DUE, OPERATOR_CREATED_AT, OPERATOR_MODIFIED_AT].forEach(field => {
       if (queryParams.hasOperator(field)) {
         selector[field] = {};
         const predicate = queryParams.getPredicate(field);
@@ -251,51 +254,41 @@ function buildSelector(queryParams) {
     const queryUsers = {};
     queryUsers[OPERATOR_ASSIGNEE] = [];
     queryUsers[OPERATOR_MEMBER] = [];
+    queryUsers[OPERATOR_CREATOR] = [];
 
     if (queryParams.hasOperator(OPERATOR_USER)) {
+      const users = [];
       queryParams.getPredicates(OPERATOR_USER).forEach(username => {
         const user = Users.findOne({ username });
         if (user) {
-          queryUsers[OPERATOR_MEMBER].push(user._id);
-          queryUsers[OPERATOR_ASSIGNEE].push(user._id);
+          users.push(user._id);
         } else {
           errors.addNotFound(OPERATOR_USER, username);
         }
       });
-    }
-
-    [OPERATOR_MEMBER, OPERATOR_ASSIGNEE].forEach(key => {
-      if (queryParams.hasOperator(key)) {
-        queryParams.getPredicates(key).forEach(query => {
-          const users = Users.find({
-            username: query,
-          });
-          if (users.count()) {
-            users.forEach(user => {
-              queryUsers[key].push(user._id);
-            });
-          } else {
-            errors.addNotFound(key, query);
-          }
+      if (users.length) {
+        selector.$and.push({
+          $or: [{ members: { $in: users } }, { assignees: { $in: users } }],
         });
       }
-    });
-
-    if (
-      queryUsers[OPERATOR_MEMBER].length &&
-      queryUsers[OPERATOR_ASSIGNEE].length
-    ) {
-      selector.$and.push({
-        $or: [
-          { members: { $in: queryUsers[OPERATOR_MEMBER] } },
-          { assignees: { $in: queryUsers[OPERATOR_ASSIGNEE] } },
-        ],
-      });
-    } else if (queryUsers[OPERATOR_MEMBER].length) {
-      selector.members = { $in: queryUsers[OPERATOR_MEMBER] };
-    } else if (queryUsers[OPERATOR_ASSIGNEE].length) {
-      selector.assignees = { $in: queryUsers[OPERATOR_ASSIGNEE] };
     }
+
+    [OPERATOR_MEMBER, OPERATOR_ASSIGNEE, OPERATOR_CREATOR].forEach(key => {
+      if (queryParams.hasOperator(key)) {
+        const users = [];
+        queryParams.getPredicates(key).forEach(username => {
+          const user = Users.findOne({ username });
+          if (user) {
+            users.push(user._id);
+          } else {
+            errors.addNotFound(key, username);
+          }
+        });
+        if (users.length) {
+          selector[key] = { $in: users };
+        }
+      }
+    });
 
     if (queryParams.hasOperator(OPERATOR_LABEL)) {
       queryParams.getPredicates(OPERATOR_LABEL).forEach(label => {
@@ -443,9 +436,9 @@ function buildSelector(queryParams) {
   }
 
   // eslint-disable-next-line no-console
-  // console.log('selector:', selector);
+  console.log('selector:', selector);
   // eslint-disable-next-line no-console
-  // console.log('selector.$and:', selector.$and);
+  console.log('selector.$and:', selector.$and);
 
   const query = new Query();
   query.selector = selector;
