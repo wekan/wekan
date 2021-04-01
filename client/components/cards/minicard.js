@@ -21,6 +21,18 @@ BlazeComponent.extendComponent({
     }).format(customFieldTrueValue);
   },
 
+  showCreator() {
+    if (this.data().board()) {
+      return (
+        this.data().board.allowsCreator === null ||
+        this.data().board().allowsCreator === undefined ||
+        this.data().board().allowsCreator
+      );
+      // return this.data().board().allowsCreator;
+    }
+    return false;
+  },
+
   events() {
     return [
       {

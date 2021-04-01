@@ -372,6 +372,14 @@ Boards.attachSchema(
       defaultValue: true,
     },
 
+    allowsCreator: {
+      /**
+       * Does the board allow creator?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
     allowsAssignee: {
       /**
        * Does the board allows assignee?
@@ -1185,6 +1193,10 @@ Boards.mutations({
 
   setAllowsSubtasks(allowsSubtasks) {
     return { $set: { allowsSubtasks } };
+  },
+
+  setAllowsCreator(allowsCreator) {
+    return { $set: { allowsCreator } };
   },
 
   setAllowsMembers(allowsMembers) {

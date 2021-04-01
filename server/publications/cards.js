@@ -488,6 +488,7 @@ function buildProjection(query) {
       modifiedAt: 1,
       labelIds: 1,
       customFields: 1,
+      userId: 1,
     },
     sort: {
       boardId: 1,
@@ -658,6 +659,9 @@ function findCards(sessionId, query) {
       if (card.boardId) boards.push(card.boardId);
       if (card.swimlaneId) swimlanes.push(card.swimlaneId);
       if (card.listId) lists.push(card.listId);
+      if (card.userId) {
+        users.push(card.userId);
+      }
       if (card.members) {
         card.members.forEach(userId => {
           users.push(userId);
