@@ -5,15 +5,15 @@ ENV QEMU_VERSION=v4.2.0-6 \
     QEMU_ARCHITECTURE=aarch64 \
     NODE_ARCHITECTURE=linux-arm64 \
     NODE_VERSION=v12.22.0 \
-    WEKAN_VERSION=3.96  \
+    WEKAN_VERSION=5.17  \
     WEKAN_ARCHITECTURE=arm64
 
-     # Install dependencies
-RUN  apk update && apk add ca-certificates outils-sha1 && \
-     \
-     # Download qemu static for our architecture
-     wget https://github.com/multiarch/qemu-user-static/releases/download/${QEMU_VERSION}/qemu-${QEMU_ARCHITECTURE}-static.tar.gz -O - | tar -xz && \
-     \
+    # Install dependencies
+RUN apk update && apk add ca-certificates outils-sha1 && \
+    \
+    # Download qemu static for our architecture
+    wget https://github.com/multiarch/qemu-user-static/releases/download/${QEMU_VERSION}/qemu-${QEMU_ARCHITECTURE}-static.tar.gz -O - | tar -xz && \
+    \
     # Download wekan and shasum
     wget https://releases.wekan.team/raspi3/wekan-${WEKAN_VERSION}-${WEKAN_ARCHITECTURE}.zip && \
     wget https://releases.wekan.team/raspi3/SHA256SUMS.txt && \
