@@ -1330,8 +1330,11 @@ Boards.userBoards = (userId, archived = false, selector = {}) => {
   if (typeof archived === 'boolean') {
     selector.archived = archived;
   }
-  selector.$or = [{ permission: 'public' }];
+  if (!selector.type) {
+    selector.type = 'board';
+  }
 
+  selector.$or = [{ permission: 'public' }];
   if (userId) {
     selector.$or.push({ members: { $elemMatch: { userId, isActive: true } } });
   }
@@ -1435,17 +1438,15 @@ if (Meteor.isServer) {
     },
     myLabelNames() {
       let names = [];
-      Boards.userBoards(Meteor.userId(), false, { type: 'board' }).forEach(
-        board => {
-          names = names.concat(
-            board.labels
-              .filter(label => !!label.name)
-              .map(label => {
-                return label.name;
-              }),
-          );
-        },
-      );
+      Boards.userBoards(Meteor.userId()).forEach(board => {
+        names = names.concat(
+          board.labels
+            .filter(label => !!label.name)
+            .map(label => {
+              return label.name;
+            }),
+        );
+      });
       return _.uniq(names).sort();
     },
     myBoardNames() {
