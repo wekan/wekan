@@ -1,3 +1,11 @@
+import {
+  ALLOWED_BOARD_COLORS,
+  ALLOWED_COLORS,
+  TYPE_BOARD,
+  TYPE_TEMPLATE_BOARD,
+  TYPE_TEMPLATE_CONTAINER,
+} from '../config/const';
+
 const escapeForRegex = require('escape-string-regexp');
 Boards = new Mongo.Collection('boards');
 
@@ -144,32 +152,7 @@ Boards.attachSchema(
        * `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`
        */
       type: String,
-      allowedValues: [
-        'green',
-        'yellow',
-        'orange',
-        'red',
-        'purple',
-        'blue',
-        'sky',
-        'lime',
-        'pink',
-        'black',
-        'silver',
-        'peachpuff',
-        'crimson',
-        'plum',
-        'darkgreen',
-        'slateblue',
-        'magenta',
-        'gold',
-        'navy',
-        'gray',
-        'saddlebrown',
-        'paleturquoise',
-        'mistyrose',
-        'indigo',
-      ],
+      allowedValues: ALLOWED_COLORS,
     },
     // XXX We might want to maintain more informations under the member sub-
     // documents like de-normalized meta-data (the date the member joined the
@@ -246,28 +229,11 @@ Boards.attachSchema(
        * The color of the board.
        */
       type: String,
-      allowedValues: [
-        'belize',
-        'nephritis',
-        'pomegranate',
-        'pumpkin',
-        'wisteria',
-        'moderatepink',
-        'strongcyan',
-        'limegreen',
-        'midnight',
-        'dark',
-        'relax',
-        'corteza',
-        'clearblue',
-        'natural',
-        'modern',
-        'moderndark',
-      ],
+      allowedValues: ALLOWED_BOARD_COLORS,
       // eslint-disable-next-line consistent-return
       autoValue() {
         if (this.isInsert && !this.isSet) {
-          return Boards.simpleSchema()._schema.color.allowedValues[0];
+          return ALLOWED_BOARD_COLORS[0];
         }
       },
     },
@@ -508,7 +474,8 @@ Boards.attachSchema(
        * possible values: board, template-board, template-container
        */
       type: String,
-      defaultValue: 'board',
+      defaultValue: TYPE_BOARD,
+      allowedValues: [TYPE_BOARD, TYPE_TEMPLATE_BOARD, TYPE_TEMPLATE_CONTAINER],
     },
     sort: {
       /**

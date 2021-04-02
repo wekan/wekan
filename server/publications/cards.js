@@ -102,7 +102,7 @@ function buildSelector(queryParams) {
   let selector = {};
 
   // eslint-disable-next-line no-console
-  // console.log('queryParams:', queryParams);
+  console.log('queryParams:', queryParams);
 
   if (queryParams.selector) {
     selector = queryParams.selector;
@@ -291,9 +291,8 @@ function buildSelector(queryParams) {
     });
 
     if (queryParams.hasOperator(OPERATOR_LABEL)) {
+      const queryLabels = [];
       queryParams.getPredicates(OPERATOR_LABEL).forEach(label => {
-        const queryLabels = [];
-
         let boards = Boards.userBoards(userId, null, {
           labels: { $elemMatch: { color: label.toLowerCase() } },
         });
@@ -339,9 +338,12 @@ function buildSelector(queryParams) {
             errors.addNotFound(OPERATOR_LABEL, label);
           }
         }
-
-        selector.labelIds = { $in: _.uniq(queryLabels) };
       });
+      if (queryLabels.length) {
+        // eslint-disable-next-line no-console
+        // console.log('queryLabels:', queryLabels);
+        selector.labelIds = { $in: _.uniq(queryLabels) };
+      }
     }
 
     if (queryParams.hasOperator(OPERATOR_HAS)) {
@@ -597,9 +599,9 @@ function findCards(sessionId, query) {
   // eslint-disable-next-line no-console
   // console.log('projection:', projection);
   let cards;
-  if (!query.hasErrors()) {
-    cards = Cards.find(query.selector, query.projection);
-  }
+  // if (!query.hasErrors()) {
+  cards = Cards.find(query.selector, query.projection);
+  // }
   // eslint-disable-next-line no-console
   // console.log('count:', cards.count());
 

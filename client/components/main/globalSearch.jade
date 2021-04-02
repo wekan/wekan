@@ -50,8 +50,7 @@ template(name="globalSearch")
               each msg in errorMessages
                 li.global-search-error-messages
                   = msg
-          else
-            +resultsPaged(this)
+          +resultsPaged(this)
       else if serverError.get
         .global-search-page
           .global-search-help
