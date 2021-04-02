@@ -299,6 +299,7 @@ Cards.attachSchema(
     type: {
       /**
        * type of the card
+       * possible values: cardType-card, cardType-linkedCard, cardType-linkedBoard
        */
       type: String,
       defaultValue: 'cardType-card',

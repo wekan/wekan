@@ -505,6 +505,7 @@ Boards.attachSchema(
     type: {
       /**
        * The type of board
+       * possible values: board, template-board, template-container
        */
       type: String,
       defaultValue: 'board',

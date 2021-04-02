@@ -294,7 +294,7 @@ function buildSelector(queryParams) {
       queryParams.getPredicates(OPERATOR_LABEL).forEach(label => {
         const queryLabels = [];
 
-        let boards = Boards.userSearch(userId, {
+        let boards = Boards.userBoards(userId, null, {
           labels: { $elemMatch: { color: label.toLowerCase() } },
         });
 
@@ -318,7 +318,7 @@ function buildSelector(queryParams) {
           const reLabel = new RegExp(escapeForRegex(label), 'i');
           // eslint-disable-next-line no-console
           // console.log('reLabel:', reLabel);
-          boards = Boards.userSearch(userId, {
+          boards = Boards.userBoards(userId, null, {
             labels: { $elemMatch: { name: reLabel } },
           });
 
