@@ -4,7 +4,7 @@ import {
   TYPE_BOARD,
   TYPE_TEMPLATE_BOARD,
   TYPE_TEMPLATE_CONTAINER,
-} from '../config/const';
+} from '/config/const';
 
 const escapeForRegex = require('escape-string-regexp');
 Boards = new Mongo.Collection('boards');
@@ -1324,7 +1324,7 @@ Boards.colorMap = () => {
 };
 
 Boards.labelColors = () => {
-  return _.clone(Boards.simpleSchema()._schema['labels.$.color'].allowedValues);
+  return ALLOWED_COLORS;
 };
 
 if (Meteor.isServer) {
