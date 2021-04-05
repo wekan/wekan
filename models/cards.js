@@ -1,3 +1,10 @@
+import {
+  ALLOWED_COLORS,
+  TYPE_CARD,
+  TYPE_LINKED_BOARD,
+  TYPE_LINKED_CARD,
+} from '../config/const';
+
 Cards = new Mongo.Collection('cards');
 
 // XXX To improve pub/sub performances a card document should include a
@@ -77,33 +84,7 @@ Cards.attachSchema(
     color: {
       type: String,
       optional: true,
-      allowedValues: [
-        'white',
-        'green',
-        'yellow',
-        'orange',
-        'red',
-        'purple',
-        'blue',
-        'sky',
-        'lime',
-        'pink',
-        'black',
-        'silver',
-        'peachpuff',
-        'crimson',
-        'plum',
-        'darkgreen',
-        'slateblue',
-        'magenta',
-        'gold',
-        'navy',
-        'gray',
-        'saddlebrown',
-        'paleturquoise',
-        'mistyrose',
-        'indigo',
-      ],
+      allowedValues: ALLOWED_COLORS,
     },
     createdAt: {
       /**
@@ -301,7 +282,8 @@ Cards.attachSchema(
        * type of the card
        */
       type: String,
-      defaultValue: 'cardType-card',
+      defaultValue: TYPE_CARD,
+      allowedValues: [TYPE_CARD, TYPE_LINKED_CARD, TYPE_LINKED_BOARD],
     },
     linkedId: {
       /**

@@ -72,7 +72,7 @@ export class CardSearchPagedComponent extends BlazeComponent {
     if (this.queryErrors.length) {
       // console.log('queryErrors:', this.queryErrorMessages());
       this.hasQueryErrors.set(true);
-      return null;
+      // return null;
     }
 
     if (cards) {

@@ -110,9 +110,18 @@ template(name="cardDetails")
                 a.card-label.add-label.js-end-date
                   i.fa.fa-plus
 
+      hr
+      if currentBoard.allowsCreator
+        .card-details-item.card-details-item-creator
+          h3.card-details-item-title
+            i.fa.fa-user
+            | {{_ 'creator'}}
+
+          +userAvatar(userId=userId noRemove=true)
+          | {{! XXX Hack to hide syntaxic coloration /// }}
+
       //.card-details-items
       if currentBoard.allowsMembers
-        hr
         .card-details-item.card-details-item-members
           h3.card-details-item-title
             i.fa.fa-users

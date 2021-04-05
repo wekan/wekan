@@ -1,14 +1,15 @@
 export const DEFAULT_LIMIT = 25;
-export const OPERATOR_ASSIGNEE = 'assignee';
+export const OPERATOR_ASSIGNEE = 'assignees';
 export const OPERATOR_COMMENT = 'comment';
 export const OPERATOR_CREATED_AT = 'createdAt';
+export const OPERATOR_CREATOR = 'userId';
 export const OPERATOR_DUE = 'dueAt';
 export const OPERATOR_BOARD = 'board';
 export const OPERATOR_HAS = 'has';
 export const OPERATOR_LABEL = 'label';
 export const OPERATOR_LIMIT = 'limit';
 export const OPERATOR_LIST = 'list';
-export const OPERATOR_MEMBER = 'member';
+export const OPERATOR_MEMBER = 'members';
 export const OPERATOR_MODIFIED_AT = 'modifiedAt';
 export const OPERATOR_SORT = 'sort';
 export const OPERATOR_STATUS = 'status';

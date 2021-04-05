@@ -1,3 +1,11 @@
+import {
+  ALLOWED_BOARD_COLORS,
+  ALLOWED_COLORS,
+  TYPE_BOARD,
+  TYPE_TEMPLATE_BOARD,
+  TYPE_TEMPLATE_CONTAINER,
+} from '/config/const';
+
 const escapeForRegex = require('escape-string-regexp');
 Boards = new Mongo.Collection('boards');
 
@@ -144,32 +152,7 @@ Boards.attachSchema(
        * `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`
        */
       type: String,
-      allowedValues: [
-        'green',
-        'yellow',
-        'orange',
-        'red',
-        'purple',
-        'blue',
-        'sky',
-        'lime',
-        'pink',
-        'black',
-        'silver',
-        'peachpuff',
-        'crimson',
-        'plum',
-        'darkgreen',
-        'slateblue',
-        'magenta',
-        'gold',
-        'navy',
-        'gray',
-        'saddlebrown',
-        'paleturquoise',
-        'mistyrose',
-        'indigo',
-      ],
+      allowedValues: ALLOWED_COLORS,
     },
     // XXX We might want to maintain more informations under the member sub-
     // documents like de-normalized meta-data (the date the member joined the
@@ -246,28 +229,11 @@ Boards.attachSchema(
        * The color of the board.
        */
       type: String,
-      allowedValues: [
-        'belize',
-        'nephritis',
-        'pomegranate',
-        'pumpkin',
-        'wisteria',
-        'moderatepink',
-        'strongcyan',
-        'limegreen',
-        'midnight',
-        'dark',
-        'relax',
-        'corteza',
-        'clearblue',
-        'natural',
-        'modern',
-        'moderndark',
-      ],
+      allowedValues: ALLOWED_BOARD_COLORS,
       // eslint-disable-next-line consistent-return
       autoValue() {
         if (this.isInsert && !this.isSet) {
-          return Boards.simpleSchema()._schema.color.allowedValues[0];
+          return ALLOWED_BOARD_COLORS[0];
         }
       },
     },
@@ -367,6 +333,14 @@ Boards.attachSchema(
     allowsLabels: {
       /**
        * Does the board allows labels?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
+    allowsCreator: {
+      /**
+       * Does the board allow creator?
        */
       type: Boolean,
       defaultValue: true,
@@ -497,9 +471,11 @@ Boards.attachSchema(
     type: {
       /**
        * The type of board
+       * possible values: board, template-board, template-container
        */
       type: String,
-      defaultValue: 'board',
+      defaultValue: TYPE_BOARD,
+      allowedValues: [TYPE_BOARD, TYPE_TEMPLATE_BOARD, TYPE_TEMPLATE_CONTAINER],
     },
     sort: {
       /**
@@ -1187,6 +1163,10 @@ Boards.mutations({
     return { $set: { allowsSubtasks } };
   },
 
+  setAllowsCreator(allowsCreator) {
+    return { $set: { allowsCreator } };
+  },
+
   setAllowsMembers(allowsMembers) {
     return { $set: { allowsMembers } };
   },
@@ -1318,8 +1298,11 @@ Boards.userBoards = (userId, archived = false, selector = {}) => {
   if (typeof archived === 'boolean') {
     selector.archived = archived;
   }
-  selector.$or = [{ permission: 'public' }];
+  if (!selector.type) {
+    selector.type = 'board';
+  }
 
+  selector.$or = [{ permission: 'public' }];
   if (userId) {
     selector.$or.push({ members: { $elemMatch: { userId, isActive: true } } });
   }
@@ -1341,7 +1324,7 @@ Boards.colorMap = () => {
 };
 
 Boards.labelColors = () => {
-  return _.clone(Boards.simpleSchema()._schema['labels.$.color'].allowedValues);
+  return ALLOWED_COLORS;
 };
 
 if (Meteor.isServer) {
@@ -1423,17 +1406,15 @@ if (Meteor.isServer) {
     },
     myLabelNames() {
       let names = [];
-      Boards.userBoards(Meteor.userId(), false, { type: 'board' }).forEach(
-        board => {
-          names = names.concat(
-            board.labels
-              .filter(label => !!label.name)
-              .map(label => {
-                return label.name;
-              }),
-          );
-        },
-      );
+      Boards.userBoards(Meteor.userId()).forEach(board => {
+        names = names.concat(
+          board.labels
+            .filter(label => !!label.name)
+            .map(label => {
+              return label.name;
+            }),
+        );
+      });
       return _.uniq(names).sort();
     },
     myBoardNames() {

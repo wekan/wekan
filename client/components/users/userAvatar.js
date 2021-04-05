@@ -32,6 +32,7 @@ Template.userAvatar.helpers({
 
 Template.userAvatar.events({
   'click .js-change-avatar': Popup.open('changeAvatar'),
+  'click .js-member': Popup.open('cardMember'),
 });
 
 Template.userAvatarInitials.helpers({

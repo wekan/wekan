@@ -3,6 +3,7 @@ import {
   OPERATOR_BOARD,
   OPERATOR_COMMENT,
   OPERATOR_CREATED_AT,
+  OPERATOR_CREATOR,
   OPERATOR_DUE,
   OPERATOR_HAS,
   OPERATOR_LABEL,
@@ -107,6 +108,7 @@ export class QueryErrors {
     [OPERATOR_USER, 'user-username-not-found'],
     [OPERATOR_ASSIGNEE, 'user-username-not-found'],
     [OPERATOR_MEMBER, 'user-username-not-found'],
+    [OPERATOR_CREATOR, 'user-username-not-found'],
   ];
 
   constructor() {
@@ -238,6 +240,7 @@ export class Query {
       'operator-member': OPERATOR_MEMBER,
       'operator-member-abbrev': OPERATOR_MEMBER,
       'operator-assignee': OPERATOR_ASSIGNEE,
+      'operator-creator': OPERATOR_CREATOR,
       'operator-assignee-abbrev': OPERATOR_ASSIGNEE,
       'operator-status': OPERATOR_STATUS,
       'operator-due': OPERATOR_DUE,

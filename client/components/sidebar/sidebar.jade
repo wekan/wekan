@@ -105,6 +105,14 @@ template(name="boardCardSettingsPopup")
         span
           i.fa.fa-users
           | {{_ 'members'}}
+
+    div.check-div
+      a.flex.js-field-has-creator(class="{{#if allowsCreator}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsCreator}}is-checked{{/if}}")
+        span
+          i.fa.fa-user
+          | {{_ 'creator'}}
+
     div.check-div
       a.flex.js-field-has-assignee(class="{{#if allowsAssignee}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsAssignee}}is-checked{{/if}}")
