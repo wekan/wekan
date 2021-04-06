@@ -126,8 +126,8 @@ template(name="cardDetails")
           h3.card-details-item-title
             i.fa.fa-users
             | {{_ 'members'}}
-          each getMembers
-            +userAvatar(userId=this cardId=../_id)
+          each userId in getMembers
+            +userAvatar(userId=userId cardId=_id)
             | {{! XXX Hack to hide syntaxic coloration /// }}
           if canModifyCard
             unless currentUser.isWorker
@@ -140,8 +140,8 @@ template(name="cardDetails")
           h3.card-details-item-title
             i.fa.fa-user
             | {{_ 'assignee'}}
-          each getAssignees
-            +userAvatarAssignee(userId=this cardId=../_id)
+          each userId in getAssignees
+            +userAvatar(userId=userId cardId=_id assignee=true)
             | {{! XXX Hack to hide syntaxic coloration /// }}
           if canModifyCard
             a.assignee.add-assignee.card-details-item-add-button.js-add-assignees(title="{{_ 'assignee'}}")
@@ -497,23 +497,6 @@ template(name="cardAssigneesPopup")
           if currentUser.isCardAssignee
             i.fa.fa-check
 
-template(name="userAvatarAssignee")
-  a.assignee.js-assignee(title="{{userData.profile.fullname}} ({{userData.username}})")
-    if userData.profile.avatarUrl
-      img.avatar.avatar-image(src="{{userData.profile.avatarUrl}}")
-    else
-      +userAvatarAssigneeInitials(userId=userData._id)
-
-    if showStatus
-      span.assignee-presence-status(class=presenceStatusClassName)
-      span.member-type(class=memberType)
-
-    unless isSandstorm
-      if showEdit
-        if $eq currentUser._id userData._id
-          a.edit-avatar.js-change-avatar
-            i.fa.fa-pencil
-
 template(name="cardAssigneePopup")
   .board-assignee-menu
     .mini-profile-info
@@ -530,10 +513,6 @@ template(name="cardAssigneePopup")
         if $eq currentUser._id user._id
           with currentUser
             li: a.js-edit-profile {{_ 'edit-profile'}}
-
-template(name="userAvatarAssigneeInitials")
-  svg.avatar.avatar-assignee-initials(viewBox="0 0 {{viewPortWidth}} 15")
-    text(x="50%" y="13" text-anchor="middle")= initials
 
 template(name="cardMorePopup")
   p.quiet
