@@ -1,3 +1,7 @@
+import { DatePicker } from '/client/lib/datepicker';
+import moment from 'moment';
+import Cards from '/models/cards';
+
 Template.cardCustomFieldsPopup.helpers({
   hasCustomField() {
     const card = Cards.findOne(Session.get('currentCard'));
