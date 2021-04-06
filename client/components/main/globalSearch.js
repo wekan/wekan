@@ -204,9 +204,8 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
   }
 
   events() {
-    return [
+    return super.events().concat([
       {
-        ...super.events()[0],
         'submit .js-search-query-form'(evt) {
           evt.preventDefault();
           this.searchAllBoards(evt.target.searchQuery.value);
@@ -259,7 +258,7 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
           this.hasResults.set(false);
         },
       },
-    ];
+    ]);
   }
 }
 

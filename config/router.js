@@ -291,6 +291,28 @@ FlowRouter.route('/people', {
   },
 });
 
+FlowRouter.route('/admin-reports', {
+  name: 'admin-reports',
+  triggersEnter: [
+    AccountsTemplates.ensureSignedIn,
+    () => {
+      Session.set('currentBoard', null);
+      Session.set('currentList', null);
+      Session.set('currentCard', null);
+
+      Filter.reset();
+      Session.set('sortBy', '');
+      EscapeActions.executeAll();
+    },
+  ],
+  action() {
+    BlazeLayout.render('defaultLayout', {
+      headerBar: 'settingHeaderBar',
+      content: 'adminReports',
+    });
+  },
+});
+
 FlowRouter.notFound = {
   action() {
     BlazeLayout.render('defaultLayout', { content: 'notFound' });

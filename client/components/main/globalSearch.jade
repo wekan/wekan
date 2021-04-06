@@ -11,9 +11,10 @@ template(name="globalSearchModalTitle")
       | {{_ 'globalSearch-title'}}
 
 template(name="resultsPaged")
-  h1
-    = resultsHeading.get
-    a.fa.fa-link(title="{{_ 'link-to-search' }}" href="{{ getSearchHref }}")
+  if resultsHeading.get
+    h1
+      = resultsHeading.get
+      a.fa.fa-link(title="{{_ 'link-to-search' }}" href="{{ getSearchHref }}")
   each card in results.get
     +resultCard(card)
   table.global-search-footer

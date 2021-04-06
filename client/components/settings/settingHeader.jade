@@ -12,6 +12,10 @@ template(name="settingHeaderBar")
         i.fa(class="fa-users")
         span {{_ 'people'}}
 
+      a.setting-header-btn.informations(href="{{pathFor 'admin-reports'}}")
+        i.fa(class="fa-list")
+        span {{_ 'reports'}}
+
       a.setting-header-btn.informations(href="{{pathFor 'information'}}")
         i.fa(class="fa-info-circle")
         span {{_ 'info'}}

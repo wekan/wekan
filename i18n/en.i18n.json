@@ -991,5 +991,8 @@
   "now-system-messages-of-all-users-are-hidden": "Now system messages of all users are hidden",
   "move-swimlane": "Move Swimlane",
   "moveSwimlanePopup-title": "Move Swimlane",
-  "creator": "Creator"
+  "creator": "Creator",
+  "filesReportTitle": "Attachments Report",
+  "orphanedFilesReportTitle": "Orphaned Files Report",
+  "reports": "Reports"
 }
