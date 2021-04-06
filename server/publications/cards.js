@@ -45,8 +45,8 @@ import {
   PREDICATE_PUBLIC,
   PREDICATE_START_AT,
   PREDICATE_SYSTEM,
-} from '../../config/search-const';
-import { QueryErrors, QueryParams, Query } from '../../config/query-classes';
+} from '/config/search-const';
+import { QueryErrors, QueryParams, Query } from '/config/query-classes';
 
 const escapeForRegex = require('escape-string-regexp');
 
@@ -598,10 +598,8 @@ function findCards(sessionId, query) {
   // console.log('selector.$and:', query.selector.$and);
   // eslint-disable-next-line no-console
   // console.log('projection:', projection);
-  let cards;
-  // if (!query.hasErrors()) {
-  cards = Cards.find(query.selector, query.projection);
-  // }
+
+  const cards = Cards.find(query.selector, query.projection);
   // eslint-disable-next-line no-console
   // console.log('count:', cards.count());
 
