@@ -16,7 +16,7 @@ BlazeComponent.extendComponent({
 }).register('customFieldsSidebar');
 
 const CreateCustomFieldPopup = BlazeComponent.extendComponent({
-  _types: ['text', 'number', 'date', 'dropdown', 'currency', 'checkbox'],
+  _types: ['text', 'number', 'date', 'dropdown', 'currency', 'checkbox', 'stringtemplate'],
 
   _currencyList: [
     {
@@ -77,6 +77,12 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
         ? this.data().settings.dropdownItems
         : [],
     );
+
+    this.stringtemplateFormat = new ReactiveVar(
+      this.data().settings && this.data().settings.stringtemplateFormat
+        ? this.data().settings.stringtemplateFormat
+        : "",
+    );
   },
 
   types() {
@@ -121,6 +127,10 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
     return items;
   },
 
+  getStringtemplateFormat() {
+    return this.stringtemplateFormat.get();
+  },
+
   getSettings() {
     const settings = {};
     switch (this.type.get()) {
@@ -134,6 +144,11 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
           item => !!item.name.trim(),
         );
         settings.dropdownItems = dropdownItems;
+        break;
+      }
+      case 'stringtemplate': {
+        const stringtemplateFormat = this.stringtemplateFormat.get();
+        settings.stringtemplateFormat = stringtemplateFormat;
         break;
       }
     }
@@ -157,6 +172,10 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
             this.dropdownItems.set(items);
             evt.target.value = '';
           }
+        },
+        'input .js-field-stringtemplate'(evt) {
+          const value = evt.target.value;
+          this.stringtemplateFormat.set(value);
         },
         'click .js-field-show-on-card'(evt) {
           let $target = $(evt.target);

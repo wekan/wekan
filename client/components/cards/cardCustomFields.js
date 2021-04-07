@@ -234,3 +234,33 @@ CardCustomField.register('cardCustomField');
     ];
   }
 }.register('cardCustomField-dropdown'));
+
+// cardCustomField-stringtemplate
+(class extends CardCustomField {
+  onCreated() {
+    super.onCreated();
+
+    this.stringtemplateFormat = this.data().definition.settings.stringtemplateFormat;
+  }
+
+  formattedValue() {
+    lines = this.data().value.replace(/\r\n|\n\r|\n|\r/g, '\n').split('\n');
+    lines = lines.map(line =>
+      this.stringtemplateFormat.replace(/%\{value\}/gi, line)
+    );
+
+    return lines.join(' ');
+  }
+
+  events() {
+    return [
+      {
+        'submit .js-card-customfield-stringtemplate'(event) {
+          event.preventDefault();
+          const value = this.currentComponent().getValue();
+          this.card.setCustomField(this.customFieldId, value);
+        },
+      },
+    ];
+  }
+}.register('cardCustomField-stringtemplate'));

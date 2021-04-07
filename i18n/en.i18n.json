@@ -988,5 +988,7 @@
   "hide-system-messages-of-all-users": "Hide system messages of all users",
   "now-system-messages-of-all-users-are-hidden": "Now system messages of all users are hidden",
   "move-swimlane": "Move Swimlane",
-  "moveSwimlanePopup-title": "Move Swimlane"
+  "moveSwimlanePopup-title": "Move Swimlane",
+  "custom-field-stringtemplate": "String Template",
+  "custom-field-stringtemplate-format": "Format"
 }
