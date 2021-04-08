@@ -32,7 +32,7 @@ BlazeComponent.extendComponent({
     return customFieldTrueValue
       .replace(/\r\n|\n\r|\n|\r/g, '\n')
       .split('\n')
-      .filter(value => value.trim() != '')
+      .filter(value => value.trim() !== '')
       .map(value => definition.settings.stringtemplateFormat.replace(/%\{value\}/gi, value))
       .join(' ');
   },

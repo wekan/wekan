@@ -247,7 +247,7 @@ CardCustomField.register('cardCustomField');
     return this.data().value
       .replace(/\r\n|\n\r|\n|\r/g, '\n')
       .split('\n')
-      .filter(value => value.trim() != '')
+      .filter(value => value.trim() !== '')
       .map(value => this.stringtemplateFormat.replace(/%\{value\}/gi, value))
       .join(' ');
   }
