@@ -51,7 +51,7 @@ template(name="createCustomFieldPopup")
                 input.js-dropdown-item(type="text" value=name placeholder="")
             input.js-dropdown-item.last(type="text" value="" placeholder="{{_ 'custom-field-dropdown-options-placeholder'}}")
 
-        div.js-field-settings.js-field-settings-paramlink(class="{{#if isTypeNotSelected 'stringtemplate'}}hide{{/if}}")
+        div.js-field-settings.js-field-settings-stringtemplate(class="{{#if isTypeNotSelected 'stringtemplate'}}hide{{/if}}")
             label
                 | {{_ 'custom-field-stringtemplate-format'}}
             input.js-field-stringtemplate(type="text" value=getStringtemplateFormat)
