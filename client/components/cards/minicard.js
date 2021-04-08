@@ -26,16 +26,15 @@ BlazeComponent.extendComponent({
       .customFieldsWD()
       .find(f => f._id === definition._id);
 
-    if(customField && customField.trueValue) {
-      lines = customField.trueValue.replace(/\r\n|\n\r|\n|\r/g, '\n').split('\n');
-      lines = lines.map(line =>
-        definition.settings.stringtemplateFormat.replace(/%\{value\}/gi, line)
-      );
+    const customFieldTrueValue =
+      customField && customField.trueValue ? customField.trueValue : '';
 
-      return lines.join(' ');
-    } else {
-      return '';
-    }
+    return customFieldTrueValue
+      .replace(/\r\n|\n\r|\n|\r/g, '\n')
+      .split('\n')
+      .filter(value => value.trim() != '')
+      .map(value => definition.settings.stringtemplateFormat.replace(/%\{value\}/gi, value))
+      .join(' ');
   },
 
   events() {

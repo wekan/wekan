@@ -244,12 +244,12 @@ CardCustomField.register('cardCustomField');
   }
 
   formattedValue() {
-    lines = this.data().value.replace(/\r\n|\n\r|\n|\r/g, '\n').split('\n');
-    lines = lines.map(line =>
-      this.stringtemplateFormat.replace(/%\{value\}/gi, line)
-    );
-
-    return lines.join(' ');
+    return this.data().value
+      .replace(/\r\n|\n\r|\n|\r/g, '\n')
+      .split('\n')
+      .filter(value => value.trim() != '')
+      .map(value => this.stringtemplateFormat.replace(/%\{value\}/gi, value))
+      .join(' ');
   }
 
   events() {
