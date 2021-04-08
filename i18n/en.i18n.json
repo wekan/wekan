@@ -990,5 +990,5 @@
   "move-swimlane": "Move Swimlane",
   "moveSwimlanePopup-title": "Move Swimlane",
   "custom-field-stringtemplate": "String Template",
-  "custom-field-stringtemplate-format": "Format"
+  "custom-field-stringtemplate-format": "Format (use %{value} as placeholder)"
 }
