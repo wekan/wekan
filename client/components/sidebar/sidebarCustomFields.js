@@ -91,6 +91,12 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
         ? this.data().settings.stringtemplateFormat
         : '',
     );
+
+    this.stringtemplateSeparator = new ReactiveVar(
+      this.data().settings && this.data().settings.stringtemplateSeparator
+        ? this.data().settings.stringtemplateSeparator
+        : '',
+    );
   },
 
   types() {
@@ -139,6 +145,10 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
     return this.stringtemplateFormat.get();
   },
 
+  getStringtemplateSeparator() {
+    return this.stringtemplateSeparator.get();
+  },
+
   getSettings() {
     const settings = {};
     switch (this.type.get()) {
@@ -157,6 +167,9 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
       case 'stringtemplate': {
         const stringtemplateFormat = this.stringtemplateFormat.get();
         settings.stringtemplateFormat = stringtemplateFormat;
+
+        const stringtemplateSeparator = this.stringtemplateSeparator.get();
+        settings.stringtemplateSeparator = stringtemplateSeparator;
         break;
       }
     }
@@ -181,9 +194,13 @@ const CreateCustomFieldPopup = BlazeComponent.extendComponent({
             evt.target.value = '';
           }
         },
-        'input .js-field-stringtemplate'(evt) {
+        'input .js-field-stringtemplate-format'(evt) {
           const value = evt.target.value;
           this.stringtemplateFormat.set(value);
+        },
+        'input .js-field-stringtemplate-separator'(evt) {
+          const value = evt.target.value;
+          this.stringtemplateSeparator.set(value);
         },
         'click .js-field-show-on-card'(evt) {
           let $target = $(evt.target);

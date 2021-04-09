@@ -241,6 +241,7 @@ CardCustomField.register('cardCustomField');
     super.onCreated();
 
     this.stringtemplateFormat = this.data().definition.settings.stringtemplateFormat;
+    this.stringtemplateSeparator = this.data().definition.settings.stringtemplateSeparator;
   }
 
   formattedValue() {
@@ -249,7 +250,7 @@ CardCustomField.register('cardCustomField');
       .split('\n')
       .filter(value => value.trim() !== '')
       .map(value => this.stringtemplateFormat.replace(/%\{value\}/gi, value))
-      .join(' ');
+      .join(this.stringtemplateSeparator ?? '');
   }
 
   events() {

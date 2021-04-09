@@ -69,6 +69,10 @@ CustomFields.attachSchema(
       type: String,
       optional: true,
     },
+    'settings.stringtemplateSeparator': {
+      type: String,
+      optional: true,
+    },
     showOnCard: {
       /**
        * should we show on the cards this custom field

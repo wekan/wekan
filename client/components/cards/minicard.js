@@ -34,7 +34,7 @@ BlazeComponent.extendComponent({
       .split('\n')
       .filter(value => value.trim() !== '')
       .map(value => definition.settings.stringtemplateFormat.replace(/%\{value\}/gi, value))
-      .join(' ');
+      .join(definition.settings.stringtemplateSeparator ?? '');
   },
 
   events() {
