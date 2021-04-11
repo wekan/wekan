@@ -27,7 +27,7 @@ BlazeComponent.extendComponent({
       .find(f => f._id === definition._id);
 
     const customFieldTrueValue =
-      customField && customField.trueValue ? customField.trueValue : '';
+      customField && customField.trueValue ? customField.trueValue : [];
 
     return customFieldTrueValue
       // .replace(/\r\n|\n\r|\n|\r/g, '\n')
