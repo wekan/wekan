@@ -155,10 +155,14 @@ Cards.attachSchema(
           /**
            * value attached to the custom field
            */
-          type: Match.OneOf(String, Number, Boolean, Date),
+          type: Match.OneOf(String, Number, Boolean, Date, [String]),
           optional: true,
           defaultValue: '',
         },
+        'value.$': {
+          type: String,
+          optional: true,
+        }
       }),
     },
     dateLastActivity: {

@@ -242,15 +242,25 @@ CardCustomField.register('cardCustomField');
 
     this.stringtemplateFormat = this.data().definition.settings.stringtemplateFormat;
     this.stringtemplateSeparator = this.data().definition.settings.stringtemplateSeparator;
+
+    this.stringtemplateItems = new ReactiveVar(
+      this.data().value ?? [],
+    );
   }
 
   formattedValue() {
-    return this.data().value
-      .replace(/\r\n|\n\r|\n|\r/g, '\n')
-      .split('\n')
-      .filter(value => value.trim() !== '')
+    return this.stringtemplateItems.get()
+      // .replace(/\r\n|\n\r|\n|\r/g, '\n')
+      // .split('\n')
+      .filter(value => !!value.trim())
       .map(value => this.stringtemplateFormat.replace(/%\{value\}/gi, value))
       .join(this.stringtemplateSeparator ?? '');
+  }
+
+  getItems() {
+    return Array.from(this.findAll('input'))
+      .map(input => input.value)
+      .filter(value => !!value.trim());
   }
 
   events() {
@@ -258,9 +268,42 @@ CardCustomField.register('cardCustomField');
       {
         'submit .js-card-customfield-stringtemplate'(event) {
           event.preventDefault();
-          const value = this.currentComponent().getValue();
-          this.card.setCustomField(this.customFieldId, value);
+          const items = this.getItems();
+          this.card.setCustomField(this.customFieldId, items);
         },
+
+        'keydown .js-card-customfield-stringtemplate-item'(event) {
+          if (event.keyCode === 13) {
+            event.preventDefault();
+
+            if (event.target.value.trim()) {
+              if(event.target === this.find('input.last')) {
+                const items = this.getItems();
+                this.stringtemplateItems.set(items);
+                this.find('input.last').value = '';
+              } else {
+                const idx = Array.from(this.findAll('input'))
+                  .indexOf(event.target);
+                let items = this.getItems();
+                items.splice(idx + 1, 0, '');
+                this.stringtemplateItems.set(items);
+                //event.target.nextSibling.focus();
+              }
+            }
+          }
+        },
+
+        'focusout .js-card-customfield-stringtemplate-item'(event) {
+          if (!event.target.value.trim() || event.target === this.find('input.last')) {
+            const items = this.getItems();
+            this.stringtemplateItems.set(items);
+            this.find('input.last').value = '';
+          }
+        },
+
+        'click .js-close-inlined-form'(event) {
+          this.stringtemplateItems.set(this.data().value ?? []);
+        }
       },
     ];
   }

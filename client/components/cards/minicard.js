@@ -30,9 +30,9 @@ BlazeComponent.extendComponent({
       customField && customField.trueValue ? customField.trueValue : '';
 
     return customFieldTrueValue
-      .replace(/\r\n|\n\r|\n|\r/g, '\n')
-      .split('\n')
-      .filter(value => value.trim() !== '')
+      // .replace(/\r\n|\n\r|\n|\r/g, '\n')
+      // .split('\n')
+      .filter(value => !!value.trim())
       .map(value => definition.settings.stringtemplateFormat.replace(/%\{value\}/gi, value))
       .join(definition.settings.stringtemplateSeparator ?? '');
   },

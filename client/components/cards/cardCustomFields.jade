@@ -123,8 +123,9 @@ template(name="cardCustomField-dropdown")
 template(name="cardCustomField-stringtemplate")
     if canModifyCard
         +inlinedForm(classNames="js-card-customfield-stringtemplate")
-            +editor(autofocus=true)
-                = data.value
+            each item in stringtemplateItems.get
+                input.js-card-customfield-stringtemplate-item(type="text" value=item placeholder="")
+            input.js-card-customfield-stringtemplate-item.last(type="text" value="" placeholder="{{_ 'custom-field-dropdown-options-placeholder'}}")
             .edit-controls.clearfix
                 button.primary(type="submit") {{_ 'save'}}
                 a.fa.fa-times-thin.js-close-inlined-form
