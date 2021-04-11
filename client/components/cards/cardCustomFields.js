@@ -287,7 +287,12 @@ CardCustomField.register('cardCustomField');
                 let items = this.getItems();
                 items.splice(idx + 1, 0, '');
                 this.stringtemplateItems.set(items);
-                //event.target.nextSibling.focus();
+
+                Tracker.afterFlush(() => {
+                  const element = this.findAll('input')[idx + 1];
+                  element.focus();
+                  element.value = '';
+                });
               }
             }
           }
