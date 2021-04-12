@@ -371,6 +371,13 @@ BlazeComponent.extendComponent({
             card.move(card.boardId, card.swimlaneId, card.listId, sort);
           }
         },
+        'keypress/paste input.js-edit-card-sort'() {
+          let keyCode = event.keyCode;
+          let charCode = String.fromCharCode(keyCode);
+          let regex = new RegExp('[0-9.]');
+          let ret = regex.test(charCode);
+          return ret;
+        },
         'click .js-go-to-linked-card'() {
           Utils.goCardId(this.data().linkedId);
         },
