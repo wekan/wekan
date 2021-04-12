@@ -71,7 +71,7 @@
     "ldapjs": "^2.1.1",
     "markdown-it": "^12.0.2",
     "markdown-it-emoji": "^2.0.0",
-    "meteor-node-stubs": "^1.0.1",
+    "meteor-node-stubs": "^1.0.3",
     "mongodb": "^3.6.2",
     "os": "^0.1.1",
     "page": "^1.11.5",
