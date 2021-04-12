@@ -754,6 +754,10 @@ BlazeComponent.extendComponent({
     return this.currentBoard.allowsRequestedBy;
   },
 
+  allowsCardSortingByNumber() {
+    return this.currentBoard.allowsCardSortingByNumber;
+  },
+
   allowsLabels() {
     return this.currentBoard.allowsLabels;
   },
@@ -966,6 +970,22 @@ BlazeComponent.extendComponent({
           $('.js-field-has-requested-by').toggleClass(
             CKCLS,
             this.currentBoard.allowsRequestedBy,
+          );
+        },
+        'click .js-field-has-card-sorting-by-number'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsCardSortingByNumber = !this.currentBoard
+            .allowsCardSortingByNumber;
+          this.currentBoard.setAllowsCardSortingByNumber(
+            this.currentBoard.allowsCardSortingByNumber,
+          );
+          $(`.js-field-has-card-sorting-by-number ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsCardSortingByNumber,
+          );
+          $('.js-field-has-card-sorting-by-number').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsCardSortingByNumber,
           );
         },
         'click .js-field-has-labels'(evt) {

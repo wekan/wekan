@@ -134,6 +134,12 @@ template(name="boardCardSettingsPopup")
           i.fa.fa-user-plus
           | {{_ 'requested-by'}}
     div.check-div
+      a.flex.js-field-has-card-sorting-by-number(class="{{#if allowsCardSortingByNumber}}is-checked{{/if}}")
+        .materialCheckBox(class="{{#if allowsCardSortingByNumber}}is-checked{{/if}}")
+        span
+          i.fa.fa-sort
+          | {{_ 'card-sorting-by-number'}}
+    div.check-div
       a.flex.js-field-has-labels(class="{{#if allowsLabels}}is-checked{{/if}}")
         .materialCheckBox(class="{{#if allowsLabels}}is-checked{{/if}}")
         span

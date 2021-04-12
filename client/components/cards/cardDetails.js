@@ -361,6 +361,16 @@ BlazeComponent.extendComponent({
             this.data().setRequestedBy('');
           }
         },
+        'submit .js-card-details-sort'(event) {
+          event.preventDefault();
+          const sort = parseFloat(this.currentComponent()
+            .getValue()
+            .trim());
+          if (sort) {
+            let card = this.data();
+            card.move(card.boardId, card.swimlaneId, card.listId, sort);
+          }
+        },
         'click .js-go-to-linked-card'() {
           Utils.goCardId(this.data().linkedId);
         },
