@@ -1,6 +1,11 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following updates:
+
+- [Upgraded to Meteor 2.1.1 an updated dependencies](https://github.com/wekan/wekan/commit/bb8c4325c60582cdcda5d406071586f18681e737).
+  Thanks to developers of dependencies.
+
+and fixes the following bugs:
 
 - [Revert stable tag, because it did break Wekan version numbers](https://github.com/wekan/wekan/commit/5ca90f4d2245910580cb0af885fac17dcec44ef0).
   Thanks to xet7.
