@@ -62,6 +62,15 @@ Rules.helpers({
   getTrigger() {
     return Triggers.findOne({ _id: this.triggerId });
   },
+  board() {
+    return Boards.findOne({ _id: this.boardId });
+  },
+  trigger() {
+    return Triggers.findOne({ _id: this.triggerId });
+  },
+  action() {
+    return Actions.findOne({ _id: this.actionId });
+  },
 });
 
 Rules.allow({

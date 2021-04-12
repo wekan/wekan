@@ -7,6 +7,7 @@ BlazeComponent.extendComponent({
   showFilesReport: new ReactiveVar(false),
   showBrokenCardsReport: new ReactiveVar(false),
   showOrphanedFilesReport: new ReactiveVar(false),
+  showRulesReport: new ReactiveVar(false),
 
   onCreated() {
     this.error = new ReactiveVar('');
@@ -19,6 +20,7 @@ BlazeComponent.extendComponent({
         'click a.js-report-broken': this.switchMenu,
         'click a.js-report-files': this.switchMenu,
         'click a.js-report-orphaned-files': this.switchMenu,
+        'click a.js-report-rules': this.switchMenu,
       },
     ];
   },
@@ -57,6 +59,11 @@ BlazeComponent.extendComponent({
         this.subscription = Meteor.subscribe('orphanedAttachments', () => {
           this.loading.set(false);
         });
+      } else if ('report-rules' === targetID) {
+        this.subscription = Meteor.subscribe('rulesReport', () => {
+          this.showRulesReport.set(true);
+          this.loading.set(false);
+        });
       }
     }
   },
@@ -68,6 +75,23 @@ Template.filesReport.helpers({
     // console.log('attachments:', AttachmentStorage.find());
     // console.log('attachments.count:', AttachmentStorage.find().count());
     return AttachmentStorage.find();
+  },
+
+  rulesReport() {
+    const rules = [];
+
+    Rules.find().forEach(rule => {
+      rules.push({
+        _id: rule._id,
+        title: rule.title,
+        boardId: rule.boardId,
+        boardTitle: rule.board().title,
+        action: rule.action().fetch(),
+        trigger: rule.trigger().fetch(),
+      });
+    });
+
+    return rules;
   },
 
   resultsCount() {
@@ -97,6 +121,30 @@ Template.orphanedFilesReport.helpers({
 
   fileSize(size) {
     return Math.round(size / 1024);
+  },
+});
+
+Template.rulesReport.helpers({
+  rows() {
+    const rules = [];
+
+    Rules.find().forEach(rule => {
+      rules.push({
+        _id: rule._id,
+        title: rule.title,
+        boardId: rule.boardId,
+        boardTitle: rule.board().title,
+        action: rule.action(),
+        trigger: rule.trigger(),
+      });
+    });
+
+    console.log('rows:', rules);
+    return rules;
+  },
+
+  resultsCount() {
+    return Rules.find().count();
   },
 });
 

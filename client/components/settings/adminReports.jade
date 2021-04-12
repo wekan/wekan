@@ -21,6 +21,11 @@ template(name="adminReports")
                 i.fa.fa-paperclip
                 | {{_ 'filesReportTitle'}}
 
+            li
+              a.js-report-rules(data-id="report-rules")
+                i.fa.fa-paperclip
+                | {{_ 'rulesReportTitle'}}
+
         .main-body
           if loading.get
             +spinner
@@ -30,6 +35,8 @@ template(name="adminReports")
             +filesReport
           else if showOrphanedFilesReport.get
             +orphanedFilesReport
+          else if showRulesReport.get
+            +rulesReport
 
 
 template(name="brokenCardsReport")
@@ -39,6 +46,25 @@ template(name="brokenCardsReport")
       +resultsPaged(this)
     else
       div {{_ 'no-results' }}
+
+template(name="rulesReport")
+  h1 {{_ 'rulesReportTitle'}}
+  if resultsCount
+    table.table
+      tr
+        th Rule Title
+        th Board Title
+        th actionType
+        th activityType
+
+      each rule in rows
+        tr
+          td {{ rule.title }}
+          td {{ rule.boardTitle }}
+          td {{ rule.action.actionType }}
+          td {{ rule.trigger.activityType }}
+  else
+    div {{_ 'no-results' }}
 
 template(name="filesReport")
   h1 {{_ 'filesReportTitle'}}
