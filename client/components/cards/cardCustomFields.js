@@ -272,7 +272,9 @@ CardCustomField.register('cardCustomField');
           if (event.keyCode === 13) {
             event.preventDefault();
 
-            if (event.target.value.trim()) {
+            if (event.metaKey || event.ctrlKey) {
+              this.find('button[type=submit]').click();
+            } else if (event.target.value.trim()) {
               const inputLast = this.find('input.last');
 
               let items = this.getItems();
