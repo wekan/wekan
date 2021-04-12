@@ -53,10 +53,20 @@ Meteor.publish('card', cardId => {
 });
 
 Meteor.publish('myCards', function(sessionId) {
+  check(sessionId, String);
+
   const queryParams = new QueryParams();
   queryParams.addPredicate(OPERATOR_USER, Meteor.user().username);
+  queryParams.setPredicate(OPERATOR_LIMIT, 200);
 
-  return findCards(sessionId, buildQuery(queryParams));
+  const query = buildQuery(queryParams);
+  query.projection.sort = {
+    boardId: 1,
+    swimlaneId: 1,
+    listId: 1,
+  };
+
+  return findCards(sessionId, query);
 });
 
 // Meteor.publish('dueCards', function(sessionId, allUsers = false) {
@@ -449,16 +459,18 @@ function buildSelector(queryParams) {
 
   const query = new Query();
   query.selector = selector;
-  query.params = queryParams;
+  query.setQueryParams(queryParams);
   query._errors = errors;
 
   return query;
 }
 
 function buildProjection(query) {
+  // eslint-disable-next-line no-console
+  // console.log('query:', query);
   let skip = 0;
-  if (query.params.skip) {
-    skip = query.params.skip;
+  if (query.getQueryParams().skip) {
+    skip = query.getQueryParams().skip;
   }
   let limit = DEFAULT_LIMIT;
   const configLimit = parseInt(process.env.RESULTS_PER_PAGE, 10);
@@ -466,8 +478,8 @@ function buildProjection(query) {
     limit = configLimit;
   }
 
-  if (query.params.hasOperator(OPERATOR_LIMIT)) {
-    limit = query.params.getPredicate(OPERATOR_LIMIT);
+  if (query.getQueryParams().hasOperator(OPERATOR_LIMIT)) {
+    limit = query.getQueryParams().getPredicate(OPERATOR_LIMIT);
   }
 
   const projection = {
@@ -499,12 +511,13 @@ function buildProjection(query) {
     limit,
   };
 
-  if (query.params.hasOperator(OPERATOR_SORT)) {
+  if (query.getQueryParams().hasOperator(OPERATOR_SORT)) {
     const order =
-      query.params.getPredicate(OPERATOR_SORT).order === ORDER_ASCENDING
+      query.getQueryParams().getPredicate(OPERATOR_SORT).order ===
+      ORDER_ASCENDING
         ? 1
         : -1;
-    switch (query.params.getPredicate(OPERATOR_SORT).name) {
+    switch (query.getQueryParams().getPredicate(OPERATOR_SORT).name) {
       case PREDICATE_DUE_AT:
         projection.sort = {
           dueAt: order,
@@ -633,6 +646,12 @@ function findCards(sessionId, query) {
     update.$set.resultsCount = update.$set.cards.length;
   }
 
+  // eslint-disable-next-line no-console
+  // console.log('sessionId:', sessionId);
+  // eslint-disable-next-line no-console
+  // console.log('userId:', userId);
+  // eslint-disable-next-line no-console
+  // console.log('update:', update);
   SessionData.upsert({ userId, sessionId }, update);
 
   // remove old session data
