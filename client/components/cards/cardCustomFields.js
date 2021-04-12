@@ -243,15 +243,11 @@ CardCustomField.register('cardCustomField');
     this.stringtemplateFormat = this.data().definition.settings.stringtemplateFormat;
     this.stringtemplateSeparator = this.data().definition.settings.stringtemplateSeparator;
 
-    this.stringtemplateItems = new ReactiveVar(
-      this.data().value ?? [],
-    );
+    this.stringtemplateItems = new ReactiveVar(this.data().value ?? []);
   }
 
   formattedValue() {
-    return this.stringtemplateItems.get()
-      // .replace(/\r\n|\n\r|\n|\r/g, '\n')
-      // .split('\n')
+    return (this.data().value ?? [])
       .filter(value => !!value.trim())
       .map(value => this.stringtemplateFormat.replace(/%\{value\}/gi, value))
       .join(this.stringtemplateSeparator ?? '');
@@ -276,28 +272,21 @@ CardCustomField.register('cardCustomField');
           if (event.keyCode === 13) {
             event.preventDefault();
 
-            if (!!event.target.value.trim()) {
+            if (event.target.value.trim()) {
               const inputLast = this.find('input.last');
 
-              if(event.target === inputLast) {
-                console.log("keydown[enter] - last");
-                const items = this.getItems();
-                this.stringtemplateItems.set(items);
+              let items = this.getItems();
+
+              if (event.target === inputLast) {
                 inputLast.value = '';
-              } else if(event.target.nextSibling === inputLast) {
-                console.log("keydown[enter] - last-1");
-                const items = this.getItems();
-                this.stringtemplateItems.set(items);
+              } else if (event.target.nextSibling === inputLast) {
                 inputLast.focus();
               } else {
-                console.log("keydown[enter]");
                 event.target.blur();
 
                 const idx = Array.from(this.findAll('input'))
                   .indexOf(event.target);
-                let items = this.getItems();
                 items.splice(idx + 1, 0, '');
-                this.stringtemplateItems.set(items);
 
                 Tracker.afterFlush(() => {
                   const element = this.findAll('input')[idx + 1];
@@ -305,11 +294,13 @@ CardCustomField.register('cardCustomField');
                   element.value = '';
                 });
               }
+
+              this.stringtemplateItems.set(items);
             }
           }
         },
 
-        'focusout .js-card-customfield-stringtemplate-item'(event) {
+        'blur .js-card-customfield-stringtemplate-item'(event) {
           if (!event.target.value.trim() || event.target === this.find('input.last')) {
             const items = this.getItems();
             this.stringtemplateItems.set(items);
@@ -319,7 +310,7 @@ CardCustomField.register('cardCustomField');
 
         'click .js-close-inlined-form'(event) {
           this.stringtemplateItems.set(this.data().value ?? []);
-        }
+        },
       },
     ];
   }

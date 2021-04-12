@@ -162,7 +162,7 @@ Cards.attachSchema(
         'value.$': {
           type: String,
           optional: true,
-        }
+        },
       }),
     },
     dateLastActivity: {
