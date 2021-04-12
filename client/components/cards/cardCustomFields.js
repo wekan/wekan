@@ -276,12 +276,23 @@ CardCustomField.register('cardCustomField');
           if (event.keyCode === 13) {
             event.preventDefault();
 
-            if (event.target.value.trim()) {
-              if(event.target === this.find('input.last')) {
+            if (!!event.target.value.trim()) {
+              const inputLast = this.find('input.last');
+
+              if(event.target === inputLast) {
+                console.log("keydown[enter] - last");
                 const items = this.getItems();
                 this.stringtemplateItems.set(items);
-                this.find('input.last').value = '';
+                inputLast.value = '';
+              } else if(event.target.nextSibling === inputLast) {
+                console.log("keydown[enter] - last-1");
+                const items = this.getItems();
+                this.stringtemplateItems.set(items);
+                inputLast.focus();
               } else {
+                console.log("keydown[enter]");
+                event.target.blur();
+
                 const idx = Array.from(this.findAll('input'))
                   .indexOf(event.target);
                 let items = this.getItems();
