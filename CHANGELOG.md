@@ -30,6 +30,8 @@ and fixes the following bugs:
   Thanks to loganballard.
 - [Added latest arm64 bundle symlink](https://github.com/wekan/wekan/commit/6fe3edebb18414ebe7e69b2de3269438662b6163).
   Thanks to xet7.
+- [Bug fix: Rules for moving from list/swimlane](https://github.com/wekan/wekan/pull/3706).
+  Thanks to jrsupplee.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
