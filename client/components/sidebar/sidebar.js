@@ -730,6 +730,14 @@ BlazeComponent.extendComponent({
     return this.currentBoard.allowsSubtasks;
   },
 
+  allowsCreator() {
+    return (
+      this.currentBoard.allowsCreator === null ||
+      this.currentBoard.allowsCreator === undefined ||
+      this.currentBoard.allowsCreator
+    );
+  },
+
   allowsMembers() {
     return this.currentBoard.allowsMembers;
   },
@@ -887,6 +895,19 @@ BlazeComponent.extendComponent({
           $('.js-field-has-subtasks').toggleClass(
             CKCLS,
             this.currentBoard.allowsSubtasks,
+          );
+        },
+        'click .js-field-has-creator'(evt) {
+          evt.preventDefault();
+          this.currentBoard.allowsCreator = !this.currentBoard.allowsCreator;
+          this.currentBoard.setAllowsCreator(this.currentBoard.allowsCreator);
+          $(`.js-field-has-creator ${MCB}`).toggleClass(
+            CKCLS,
+            this.currentBoard.allowsCreator,
+          );
+          $('.js-field-has-creator').toggleClass(
+            CKCLS,
+            this.currentBoard.allowsCreator,
           );
         },
         'click .js-field-has-members'(evt) {

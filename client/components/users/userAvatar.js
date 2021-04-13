@@ -1,3 +1,7 @@
+import Cards from '/models/cards';
+import Avatars from '/models/avatars';
+import Users from '/models/users';
+
 Template.userAvatar.helpers({
   userData() {
     // We need to handle a special case for the search results provided by the
@@ -28,10 +32,6 @@ Template.userAvatar.helpers({
       return 'active';
     else return 'idle';
   },
-});
-
-Template.userAvatar.events({
-  'click .js-change-avatar': Popup.open('changeAvatar'),
 });
 
 Template.userAvatarInitials.helpers({

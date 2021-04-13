@@ -1,5 +1,5 @@
 template(name="userAvatar")
-  a.member.js-member(title="{{userData.profile.fullname}} ({{userData.username}}) {{_ memberType}}")
+  a.member(class="js-{{#if assignee}}assignee{{else}}member{{/if}}" title="{{userData.profile.fullname}} ({{userData.username}}) {{_ memberType}}")
     if userData.profile.avatarUrl
       img.avatar.avatar-image(src="{{userData.profile.avatarUrl}}")
     else
@@ -72,9 +72,10 @@ template(name="cardMemberPopup")
         h3= user.profile.fullname
         p.quiet @{{ user.username }}
     ul.pop-over-list
-      if currentUser.isNotCommentOnly
-        if currentUser.isNotWorker
-          li: a.js-remove-member {{_ 'remove-member-from-card'}}
+      unless noRemove
+        if currentUser.isNotCommentOnly
+          if currentUser.isNotWorker
+            li: a.js-remove-member {{_ 'remove-member-from-card'}}
 
       if $eq currentUser._id user._id
         with currentUser
