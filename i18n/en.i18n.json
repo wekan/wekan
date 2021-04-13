@@ -988,5 +988,9 @@
   "hide-system-messages-of-all-users": "Hide system messages of all users",
   "now-system-messages-of-all-users-are-hidden": "Now system messages of all users are hidden",
   "move-swimlane": "Move Swimlane",
-  "moveSwimlanePopup-title": "Move Swimlane"
+  "moveSwimlanePopup-title": "Move Swimlane",
+  "custom-field-stringtemplate": "String Template",
+  "custom-field-stringtemplate-format": "Format (use %{value} as placeholder)",
+  "custom-field-stringtemplate-separator": "Separator (use &#32; or &nbsp; for a space)",
+  "custom-field-stringtemplate-item-placeholder": "Press enter to add more items"
 }

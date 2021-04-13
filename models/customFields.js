@@ -29,6 +29,7 @@ CustomFields.attachSchema(
         'dropdown',
         'checkbox',
         'currency',
+        'stringtemplate',
       ],
     },
     settings: {
@@ -63,6 +64,14 @@ CustomFields.attachSchema(
           type: String,
         },
       }),
+    },
+    'settings.stringtemplateFormat': {
+      type: String,
+      optional: true,
+    },
+    'settings.stringtemplateSeparator': {
+      type: String,
+      optional: true,
     },
     showOnCard: {
       /**

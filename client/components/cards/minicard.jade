@@ -82,6 +82,9 @@ template(name="minicard")
                     +minicardCustomFieldDate
                 else if $eq definition.type "checkbox"
                   .materialCheckBox(class="{{#if value }}is-checked{{/if}}")
+                else if $eq definition.type "stringtemplate"
+                  +viewer
+                    = formattedStringtemplateCustomFieldValue(definition)
                 else
                   +viewer
                     = trueValue
