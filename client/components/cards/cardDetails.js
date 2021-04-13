@@ -371,13 +371,6 @@ BlazeComponent.extendComponent({
             card.move(card.boardId, card.swimlaneId, card.listId, sort);
           }
         },
-        'keypress/paste input.js-edit-card-sort'() {
-          let keyCode = event.keyCode;
-          let charCode = String.fromCharCode(keyCode);
-          let regex = new RegExp('[0-9.]');
-          let ret = regex.test(charCode);
-          return ret;
-        },
         'click .js-go-to-linked-card'() {
           Utils.goCardId(this.data().linkedId);
         },
@@ -505,6 +498,18 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('cardDetails');
+
+// only allow number input
+Template.editCardSortOrderForm.onRendered(function() {
+  this.$('input').on("keypress paste", function() {
+    let keyCode = event.keyCode;
+    let charCode = String.fromCharCode(keyCode);
+    let regex = new RegExp('[-0-9.]');
+    let ret = regex.test(charCode);
+    // only working here, defining in events() doesn't handle the return value correctly
+    return ret;
+  });
+});
 
 // We extends the normal InlinedForm component to support UnsavedEdits draft
 // feature.
