@@ -123,6 +123,7 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
       operator_member_abbrev: TAPi18n.__('operator-member-abbrev'),
       operator_assignee: TAPi18n.__('operator-assignee'),
       operator_assignee_abbrev: TAPi18n.__('operator-assignee-abbrev'),
+      operator_creator: TAPi18n.__('operator-creator'),
       operator_due: TAPi18n.__('operator-due'),
       operator_created: TAPi18n.__('operator-created'),
       operator_modified: TAPi18n.__('operator-modified'),
@@ -167,6 +168,7 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
       ['\n* ', 'globalSearch-instructions-operator-at'],
       ['\n* ', 'globalSearch-instructions-operator-member'],
       ['\n* ', 'globalSearch-instructions-operator-assignee'],
+      ['\n* ', 'globalSearch-instructions-operator-creator'],
       ['\n* ', 'globalSearch-instructions-operator-due'],
       ['\n* ', 'globalSearch-instructions-operator-created'],
       ['\n* ', 'globalSearch-instructions-operator-modified'],
@@ -202,9 +204,8 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
   }
 
   events() {
-    return [
+    return super.events().concat([
       {
-        ...super.events()[0],
         'submit .js-search-query-form'(evt) {
           evt.preventDefault();
           this.searchAllBoards(evt.target.searchQuery.value);
@@ -257,7 +258,7 @@ class GlobalSearchComponent extends CardSearchPagedComponent {
           this.hasResults.set(false);
         },
       },
-    ];
+    ]);
   }
 }
 

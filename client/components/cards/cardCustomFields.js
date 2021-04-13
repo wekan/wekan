@@ -1,3 +1,7 @@
+import { DatePicker } from '/client/lib/datepicker';
+import moment from 'moment';
+import Cards from '/models/cards';
+
 Template.cardCustomFieldsPopup.helpers({
   hasCustomField() {
     const card = Cards.findOne(Session.get('currentCard'));
@@ -286,8 +290,9 @@ CardCustomField.register('cardCustomField');
               } else {
                 event.target.blur();
 
-                const idx = Array.from(this.findAll('input'))
-                  .indexOf(event.target);
+                const idx = Array.from(this.findAll('input')).indexOf(
+                  event.target,
+                );
                 items.splice(idx + 1, 0, '');
 
                 Tracker.afterFlush(() => {
@@ -303,7 +308,10 @@ CardCustomField.register('cardCustomField');
         },
 
         'blur .js-card-customfield-stringtemplate-item'(event) {
-          if (!event.target.value.trim() || event.target === this.find('input.last')) {
+          if (
+            !event.target.value.trim() ||
+            event.target === this.find('input.last')
+          ) {
             const items = this.getItems();
             this.stringtemplateItems.set(items);
             this.find('input.last').value = '';

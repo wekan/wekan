@@ -1,3 +1,5 @@
+import { ALLOWED_COLORS } from '/config/const';
+
 Lists = new Mongo.Collection('lists');
 
 /**
@@ -144,32 +146,7 @@ Lists.attachSchema(
       type: String,
       optional: true,
       // silver is the default, so it is left out
-      allowedValues: [
-        'white',
-        'green',
-        'yellow',
-        'orange',
-        'red',
-        'purple',
-        'blue',
-        'sky',
-        'lime',
-        'pink',
-        'black',
-        'peachpuff',
-        'crimson',
-        'plum',
-        'darkgreen',
-        'slateblue',
-        'magenta',
-        'gold',
-        'navy',
-        'gray',
-        'saddlebrown',
-        'paleturquoise',
-        'mistyrose',
-        'indigo',
-      ],
+      allowedValues: ALLOWED_COLORS,
     },
     type: {
       /**

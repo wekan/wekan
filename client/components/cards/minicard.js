@@ -31,8 +31,22 @@ BlazeComponent.extendComponent({
 
     return customFieldTrueValue
       .filter(value => !!value.trim())
-      .map(value => definition.settings.stringtemplateFormat.replace(/%\{value\}/gi, value))
+      .map(value =>
+        definition.settings.stringtemplateFormat.replace(/%\{value\}/gi, value),
+      )
       .join(definition.settings.stringtemplateSeparator ?? '');
+  },
+
+  showCreator() {
+    if (this.data().board()) {
+      return (
+        this.data().board.allowsCreator === null ||
+        this.data().board().allowsCreator === undefined ||
+        this.data().board().allowsCreator
+      );
+      // return this.data().board().allowsCreator;
+    }
+    return false;
   },
 
   events() {
