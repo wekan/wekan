@@ -53,7 +53,9 @@ export class QueryParams {
 
   hasOperator(operator) {
     return (
-      this.params[operator] !== undefined && this.params[operator].length > 0
+      this.params[operator] !== undefined &&
+      (this.params[operator].length === undefined ||
+        this.params[operator].length > 0)
     );
   }
 
@@ -69,7 +71,11 @@ export class QueryParams {
   }
 
   getPredicate(operator) {
-    return this.params[operator][0];
+    if (typeof this.params[operator] === 'object') {
+      return this.params[operator][0];
+    } else {
+      return this.params[operator];
+    }
   }
 
   getPredicates(operator) {
@@ -196,6 +202,10 @@ export class Query {
 
   getQueryParams() {
     return this.queryParams;
+  }
+
+  setQueryParams(queryParams) {
+    this.queryParams = queryParams;
   }
 
   addPredicate(operator, predicate) {

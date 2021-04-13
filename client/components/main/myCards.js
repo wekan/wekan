@@ -1,14 +1,4 @@
 import { CardSearchPagedComponent } from '../../lib/cardSearch';
-import { QueryParams } from '../../../config/query-classes';
-import {
-  OPERATOR_LIMIT,
-  OPERATOR_SORT,
-  OPERATOR_USER,
-  ORDER_DESCENDING,
-  PREDICATE_DUE_AT,
-} from '../../../config/search-const';
-
-// const subManager = new SubsManager();
 
 BlazeComponent.extendComponent({
   myCardsSort() {
@@ -34,48 +24,21 @@ Template.myCards.helpers({
   },
 });
 
-BlazeComponent.extendComponent({
-  events() {
-    return [
-      {
-        'click .js-my-cards-sort-board'() {
-          Utils.setMyCardsSort('board');
-          Popup.close();
-        },
-
-        'click .js-my-cards-sort-dueat'() {
-          Utils.setMyCardsSort('dueAt');
-          Popup.close();
-        },
-      },
-    ];
-  },
-}).register('myCardsSortChangePopup');
-
 class MyCardsComponent extends CardSearchPagedComponent {
   onCreated() {
     super.onCreated();
 
-    const queryParams = new QueryParams();
-    queryParams.addPredicate(OPERATOR_USER, Meteor.user().username);
-    queryParams.addPredicate(OPERATOR_SORT, {
-      name: PREDICATE_DUE_AT,
-      order: ORDER_DESCENDING,
-    });
-    queryParams.addPredicate(OPERATOR_LIMIT, 100);
-
-    this.runGlobalSearch(queryParams);
+    this.runGlobalSearch(null);
     Meteor.subscribe('setting');
   }
 
-  myCardsSort() {
-    // eslint-disable-next-line no-console
-    //console.log('sort:', Utils.myCardsSort());
-    return Utils.myCardsSort();
-  }
-
-  sortByBoard() {
-    return this.myCardsSort() === 'board';
+  // eslint-disable-next-line no-unused-vars
+  getSubscription(queryParams) {
+    return Meteor.subscribe(
+      'myCards',
+      this.sessionId,
+      this.subscriptionCallbacks,
+    );
   }
 
   myCardsList() {
@@ -87,35 +50,9 @@ class MyCardsComponent extends CardSearchPagedComponent {
     const cursor = this.getResults();
 
     if (cursor) {
-      let newBoard = false;
-      let newSwimlane = false;
-      let newList = false;
-
       cursor.forEach(card => {
         // eslint-disable-next-line no-console
         // console.log('card:', card.title);
-        if (list === null || card.listId !== list._id) {
-          // eslint-disable-next-line no-console
-          // console.log('new list');
-          list = card.getList();
-          if (list.archived) {
-            list = null;
-            return;
-          }
-          list.myCards = [card];
-          newList = true;
-        }
-        if (swimlane === null || card.swimlaneId !== swimlane._id) {
-          // eslint-disable-next-line no-console
-          // console.log('new swimlane');
-          swimlane = card.getSwimlane();
-          if (swimlane.archived) {
-            swimlane = null;
-            return;
-          }
-          swimlane.myLists = [list];
-          newSwimlane = true;
-        }
         if (board === null || card.boardId !== board._id) {
           // eslint-disable-next-line no-console
           // console.log('new board');
@@ -126,23 +63,38 @@ class MyCardsComponent extends CardSearchPagedComponent {
           }
           // eslint-disable-next-line no-console
           // console.log('board:', b, b._id, b.title);
-          board.mySwimlanes = [swimlane];
-          newBoard = true;
-        }
-
-        if (newBoard) {
           boards.push(board);
-        } else if (newSwimlane) {
-          board.mySwimlanes.push(swimlane);
-        } else if (newList) {
-          swimlane.myLists.push(list);
-        } else {
-          list.myCards.push(card);
+          board.mySwimlanes = [];
+          swimlane = null;
+          list = null;
         }
 
-        newBoard = false;
-        newSwimlane = false;
-        newList = false;
+        if (swimlane === null || card.swimlaneId !== swimlane._id) {
+          // eslint-disable-next-line no-console
+          // console.log('new swimlane');
+          swimlane = card.getSwimlane();
+          if (swimlane.archived) {
+            swimlane = null;
+            return;
+          }
+          board.mySwimlanes.push(swimlane);
+          swimlane.myLists = [];
+          list = null;
+        }
+
+        if (list === null || card.listId !== list._id) {
+          // eslint-disable-next-line no-console
+          // console.log('new list');
+          list = card.getList();
+          if (list.archived) {
+            list = null;
+            return;
+          }
+          swimlane.myLists.push(list);
+          list.myCards = [];
+        }
+
+        list.myCards.push(card);
       });
 
       // sort the data structure
@@ -181,28 +133,6 @@ class MyCardsComponent extends CardSearchPagedComponent {
     }
 
     return [];
-  }
-
-  myDueCardsList() {
-    const cursor = this.getResults();
-    const cards = [];
-    cursor.forEach(card => {
-      cards.push(card);
-    });
-
-    cards.sort((a, b) => {
-      const x = a.dueAt === null ? new Date('2100-12-31') : a.dueAt;
-      const y = b.dueAt === null ? new Date('2100-12-31') : b.dueAt;
-
-      if (x > y) return 1;
-      else if (x < y) return -1;
-
-      return 0;
-    });
-
-    // eslint-disable-next-line no-console
-    // console.log('cursor:', cards);
-    return cards;
   }
 }
 MyCardsComponent.register('myCards');

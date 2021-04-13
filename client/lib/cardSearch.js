@@ -65,7 +65,6 @@ export class CardSearchPagedComponent extends BlazeComponent {
     // console.log('getting results');
     const sessionData = this.getSessionData();
     // eslint-disable-next-line no-console
-    // console.log('selector:', sessionData.getSelector());
     console.log('session data:', sessionData);
     const cards = [];
     sessionData.cards.forEach(cardId => {
@@ -102,16 +101,20 @@ export class CardSearchPagedComponent extends BlazeComponent {
     }
   }
 
-  runGlobalSearch(queryParams) {
-    this.searching.set(true);
-    this.stopSubscription();
-    this.subscriptionHandle = Meteor.subscribe(
+  getSubscription(queryParams) {
+    return Meteor.subscribe(
       'globalSearch',
       this.sessionId,
       queryParams.params,
       queryParams.text,
       this.subscriptionCallbacks,
     );
+  }
+
+  runGlobalSearch(queryParams) {
+    this.searching.set(true);
+    this.stopSubscription();
+    this.subscriptionHandle = this.getSubscription(queryParams);
   }
 
   queryErrorMessages() {
