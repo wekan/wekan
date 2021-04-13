@@ -29,14 +29,26 @@ RulesHelper = {
   },
   buildMatchingFieldsMap(activity, matchingFields) {
     const matchingMap = { activityType: activity.activityType };
-    for (let i = 0; i < matchingFields.length; i++) {
+    matchingFields.forEach(field => {
       // Creating a matching map with the actual field of the activity
       // and with the wildcard (for example: trigger when a card is added
       // in any [*] board
-      matchingMap[matchingFields[i]] = {
-        $in: [activity[matchingFields[i]], '*'],
+      let value = activity[field];
+      if (field === 'oldListName') {
+        const oldList = Lists.findOne({ _id: activity.oldListId });
+        if (oldList) {
+          value = oldList.title;
+        }
+      } else if (field === 'oldSwimlaneName') {
+        const oldSwimlane = Swimlanes.findOne({ _id: activity.oldSwimlaneId });
+        if (oldSwimlane) {
+          value = oldSwimlane.title;
+        }
+      }
+      matchingMap[field] = {
+        $in: [value, '*'],
       };
-    }
+    });
     return matchingMap;
   },
   performAction(activity, action) {
