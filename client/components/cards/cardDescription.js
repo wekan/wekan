@@ -3,6 +3,7 @@ const descriptionFormIsOpen = new ReactiveVar(false);
 BlazeComponent.extendComponent({
   onDestroyed() {
     descriptionFormIsOpen.set(false);
+    $(".note-popover").hide();
   },
 
   descriptionFormIsOpen() {
