@@ -4,9 +4,10 @@ This release adds the following updates:
 
 - [Upgraded to Meteor 2.1.1 an updated dependencies](https://github.com/wekan/wekan/commit/bb8c4325c60582cdcda5d406071586f18681e737).
   Thanks to developers of dependencies.
-
 - [Updated to Node.js v12.22.1](https://github.com/wekan/wekan/commit/2201372744639ade3ba74b6ff9115988f011b9ac).
   Thanks to Node.js developers.
+- [Updated release scripts](https://github.com/wekan/wekan/commit/9871bf196352edcb5475e1b0ee4983e8f312e449).
+  Thanks to xet7.
 
 and fixes the following bugs:
 
