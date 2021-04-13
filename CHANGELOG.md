@@ -9,6 +9,10 @@ and fixes the following bugs:
 
 - [Revert stable tag, because it did break Wekan version numbers](https://github.com/wekan/wekan/commit/5ca90f4d2245910580cb0af885fac17dcec44ef0).
   Thanks to xet7.
+- [Updating ARM Dockerfile](https://github.com/wekan/wekan/pull/3692).
+  Thanks to loganballard.
+- [Added latest arm64 bundle symlink](https://github.com/wekan/wekan/commit/6fe3edebb18414ebe7e69b2de3269438662b6163).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
