@@ -1,4 +1,4 @@
-# v5.18 2021-04-14 Wekan release
+# Upcoming Wekan release
 
 This release adds the following new features:
 
@@ -41,6 +41,10 @@ and fixes the following bugs:
   Thanks to jrsupplee.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.18 2021-04-14 Wekan release
+
+Not released version, because some version numbers not changed in all release files.
 
 # v5.17 2021-04-01 Wekan release
 
