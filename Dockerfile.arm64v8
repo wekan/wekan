@@ -5,7 +5,7 @@ ENV QEMU_VERSION=v4.2.0-6 \
     QEMU_ARCHITECTURE=aarch64 \
     NODE_ARCHITECTURE=linux-arm64 \
     NODE_VERSION=v12.22.0 \
-    WEKAN_VERSION=5.17  \
+    WEKAN_VERSION=latest  \
     WEKAN_ARCHITECTURE=arm64
 
     # Install dependencies
