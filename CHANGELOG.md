@@ -1,6 +1,11 @@
 # Upcoming Wekan release
 
-This release adds the following updates:
+This release adds the following new features:
+
+- [Custom Field "String Template"](https://github.com/wekan/wekan/pull/3701).
+  Thanks to tod31.
+
+and adds the following updates:
 
 - [Upgraded to Meteor 2.1.1 an updated dependencies](https://github.com/wekan/wekan/commit/bb8c4325c60582cdcda5d406071586f18681e737).
   Thanks to developers of dependencies.
