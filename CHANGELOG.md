@@ -32,6 +32,11 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Bug fix: Rules for moving from list/swimlane](https://github.com/wekan/wekan/pull/3706).
   Thanks to jrsupplee.
+- [Fixed Elements are duplicated on the view "My cards".
+  Rewrite routine for building the My Cards hierarchical list.
+  Use a separate publication for retrieving My Cards.
+  Fixed bug with limit and skip projection](https://github.com/wekan/wekan/pull/3708).
+  Thanks to jrsupplee.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
