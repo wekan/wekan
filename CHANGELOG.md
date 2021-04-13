@@ -4,6 +4,14 @@ This release adds the following new features:
 
 - [Custom Field "String Template"](https://github.com/wekan/wekan/pull/3701).
   Thanks to tod31.
+- [1) Admin reports. An option added to the admin panel that has reports an admin can run. 
+      Right now it has two reports for attachments and broken cards.
+  2) Add the creator avatar to `cardDetails` and `minicard`.  Avatar is only shown if it is selected in card settings.
+  3) Added a new search operator `creator`.
+  4) Bug fix for multiple label predicates](https://github.com/wekan/wekan/pull/3705).
+  Thanks to jrsupplee.
+- [Update Admin Panel Rules report icon and add missing translations](https://github.com/wekan/wekan/commit/8417fae89cc89adb4559874050ff7c56cc08eb00).
+  Thanks to xet7.
 
 and adds the following updates:
 
