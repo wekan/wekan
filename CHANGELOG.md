@@ -39,6 +39,8 @@ and fixes the following bugs:
   Use a separate publication for retrieving My Cards.
   Fixed bug with limit and skip projection](https://github.com/wekan/wekan/pull/3708).
   Thanks to jrsupplee.
+- [Popover needs to be destroyed anytime the details panel is closed](https://github.com/wekan/wekan/pull/3712).
+  Thanks to ryanMushy.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
