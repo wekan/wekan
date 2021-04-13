@@ -900,6 +900,7 @@
   "operator-member-abbrev": "m",
   "operator-assignee": "personne assignée",
   "operator-assignee-abbrev": "a",
+  "operator-creator": "creator",
   "operator-status": "statut",
   "operator-due": "échéance",
   "operator-created": "créé",
@@ -951,6 +952,7 @@
   "globalSearch-instructions-operator-at": "`__operator_user_abbrev__nom` - raccourci pour `__operator_user__:<nom>`",
   "globalSearch-instructions-operator-member": "`__operator_member__:<nom>` - cartes pour lesquelles l'utilisateur *<nom>* est *participant*",
   "globalSearch-instructions-operator-assignee": "`__operator_assignee__:<nom>` - cartes *assignées* à l'utilisateur *<nom>*",
+  "globalSearch-instructions-operator-creator": "`__operator_creator__:<username>` - cards where *<username>* is the card's creator",
   "globalSearch-instructions-operator-due": "`__operator_due__:<n>` - cartes qui arrive à échéance dans moins de *<n>* jours à partir d'aujourd'hui.\n`__operator_due__:__predicate_overdue__` liste toutes les cartes ayant passé la date d'échéance.",
   "globalSearch-instructions-operator-created": "`__operator_created__:<n>` - cartes qui ont été créées il y a *<n>* jours ou moins",
   "globalSearch-instructions-operator-modified": "`__operator_modified__:<n>` - cartes qui ont été modifiées il y a *<n>* jours ou moins",
@@ -987,5 +989,14 @@
   "hide-system-messages-of-all-users": "Masquer les messages système de tous les utilisateurs",
   "now-system-messages-of-all-users-are-hidden": "Les messages système de tous les utilisateurs seront dorénavant masqués",
   "move-swimlane": "Déplacer le couloir",
-  "moveSwimlanePopup-title": "Déplacer le Couloir"
+  "moveSwimlanePopup-title": "Déplacer le Couloir",
+  "custom-field-stringtemplate": "String Template",
+  "custom-field-stringtemplate-format": "Format (use %{value} as placeholder)",
+  "custom-field-stringtemplate-separator": "Separator (use &#32; or &nbsp; for a space)",
+  "custom-field-stringtemplate-item-placeholder": "Press enter to add more items",
+  "creator": "Creator",
+  "filesReportTitle": "Files Report",
+  "orphanedFilesReportTitle": "Orphaned Files Report",
+  "reports": "Reports",
+  "rulesReportTitle": "Rules Report"
 }

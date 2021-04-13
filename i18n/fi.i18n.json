@@ -900,6 +900,7 @@
   "operator-member-abbrev": "m",
   "operator-assignee": "käsittelijä",
   "operator-assignee-abbrev": "a",
+  "operator-creator": "luoja",
   "operator-status": "tilanne",
   "operator-due": "erääntyy",
   "operator-created": "luotu",
@@ -951,6 +952,7 @@
   "globalSearch-instructions-operator-at": "`__operator_user_abbrev__username` - lyhenne `user:<username>`",
   "globalSearch-instructions-operator-member": "`__operator_member__:<username>` - cards joilla *<username>* on *jäsen*",
   "globalSearch-instructions-operator-assignee": "`__operator_assignee__:<username>` - kortit joilla *<username>* on *käsittelijä*",
+  "globalSearch-instructions-operator-creator": "`__operator_creator__:<username>` - kortit joissa *<username>* on kortin luoja",
   "globalSearch-instructions-operator-due": "`__operator_due__:<n>` - kortit joilla on eräpäivä korkeitaan *<n>* päivän päästä tästä hetkestä.  `__operator_due__:__predicate_overdue__ listaa kaikki kortit joilla eräpäivä meni jo.",
   "globalSearch-instructions-operator-created": "`__operator_created__:<n>` - kortit jotka on luotu *<n>* päivää sitten tai vähemmän",
   "globalSearch-instructions-operator-modified": "`__operator_modified__:<n>` - kortit joita on muokattu *<n>* päivää sitten tai vähemmän",
@@ -987,5 +989,14 @@
   "hide-system-messages-of-all-users": "Piilota kaikkien käyttäjien järjestelmäviestit",
   "now-system-messages-of-all-users-are-hidden": "Nyt kaikkien käyttäjien järjestelmäviestit on piilotettu",
   "move-swimlane": "Siirrä Swimlane",
-  "moveSwimlanePopup-title": "Siirrä Swimlane"
+  "moveSwimlanePopup-title": "Siirrä Swimlane",
+  "custom-field-stringtemplate": "Merkkijono malli",
+  "custom-field-stringtemplate-format": "Muoto (käytä %{arvo} paikanpitäjänä) ",
+  "custom-field-stringtemplate-separator": "Erotin (käytä &#32; tai &nbsp; välilyöntinä)",
+  "custom-field-stringtemplate-item-placeholder": "Paina Enter lisätäksesi lisää kohtia",
+  "creator": "Luoja",
+  "filesReportTitle": "Tiedostot raportti",
+  "orphanedFilesReportTitle": "Orvot tiedostot raportti",
+  "reports": "Raportit",
+  "rulesReportTitle": "Säännöt raportti"
 }

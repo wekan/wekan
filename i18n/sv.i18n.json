@@ -900,6 +900,7 @@
   "operator-member-abbrev": "m",
   "operator-assignee": "Tilldelad",
   "operator-assignee-abbrev": "a",
+  "operator-creator": "creator",
   "operator-status": "status",
   "operator-due": "förfallotid",
   "operator-created": "skapad",
@@ -951,6 +952,7 @@
   "globalSearch-instructions-operator-at": "`__operator_user_abbrev__username` - förkortning för `user:<username>`",
   "globalSearch-instructions-operator-member": "`__operator_member__:<username>` - kort där *<username>* är en *medlem*",
   "globalSearch-instructions-operator-assignee": "`__operator_assignee__:<username>` - kort där *<username>* är en *tilldelad*",
+  "globalSearch-instructions-operator-creator": "`__operator_creator__:<username>` - cards where *<username>* is the card's creator",
   "globalSearch-instructions-operator-due": "`__operator_due__:1` - cards which are due up to *2* days from now. `__operator_due__:__predicate_overdue__ lists all cards past their due date.",
   "globalSearch-instructions-operator-created": "`__operator_created__:<n>` - kort som skapade för *<n>* dagar sedan eller mindre.",
   "globalSearch-instructions-operator-modified": "`__operator_modified__:<n>` - kort som är modifierade för *<n>* dagar sedan eller mindre",
@@ -987,5 +989,14 @@
   "hide-system-messages-of-all-users": "Göm systemmeddelanden för alla användare",
   "now-system-messages-of-all-users-are-hidden": "Systemmeddelande dolda för alla användare",
   "move-swimlane": "Flytta simbana",
-  "moveSwimlanePopup-title": "Flytta simbana"
+  "moveSwimlanePopup-title": "Flytta simbana",
+  "custom-field-stringtemplate": "String Template",
+  "custom-field-stringtemplate-format": "Format (use %{value} as placeholder)",
+  "custom-field-stringtemplate-separator": "Separator (use &#32; or &nbsp; for a space)",
+  "custom-field-stringtemplate-item-placeholder": "Press enter to add more items",
+  "creator": "Creator",
+  "filesReportTitle": "Files Report",
+  "orphanedFilesReportTitle": "Orphaned Files Report",
+  "reports": "Reports",
+  "rulesReportTitle": "Rules Report"
 }

@@ -900,6 +900,7 @@
   "operator-member-abbrev": "m",
   "operator-assignee": "người được giao",
   "operator-assignee-abbrev": "a",
+  "operator-creator": "creator",
   "operator-status": "trạng thái",
   "operator-due": "đến hạn",
   "operator-created": "đã tạo",
@@ -951,6 +952,7 @@
   "globalSearch-instructions-operator-at": "`__operator_user_abbrev__username` - viết tắt cho `người dùng:<username>`",
   "globalSearch-instructions-operator-member": "`__operator_member__:<username>` - thẻ trong đó *<username>* là *thành viên*",
   "globalSearch-instructions-operator-assignee": "`__operator_assignee__:<username>` - thẻ trong đó *<username>* là *người được giao*",
+  "globalSearch-instructions-operator-creator": "`__operator_creator__:<username>` - cards where *<username>* is the card's creator",
   "globalSearch-instructions-operator-due": "`__operator_due__:<n>` - thẻ có thời hạn lên đến *<n>* ngày kể từ bây giờ.  `__operator_due__:__predicate_overdue__ liệt kê tất cả các thẻ đã quá hạn sử dụng.",
   "globalSearch-instructions-operator-created": "`__operator_created__:<n>` - thẻ đã được tạo *<n>* ngày trước hoặc ít hơn",
   "globalSearch-instructions-operator-modified": "`__operator_modified__:<n>` - thẻ đã được sửa đổi *<n>* ngày trước hoặc ít hơn",
@@ -987,5 +989,14 @@
   "hide-system-messages-of-all-users": "Hide system messages of all users",
   "now-system-messages-of-all-users-are-hidden": "Now system messages of all users are hidden",
   "move-swimlane": "Move Swimlane",
-  "moveSwimlanePopup-title": "Move Swimlane"
+  "moveSwimlanePopup-title": "Move Swimlane",
+  "custom-field-stringtemplate": "String Template",
+  "custom-field-stringtemplate-format": "Format (use %{value} as placeholder)",
+  "custom-field-stringtemplate-separator": "Separator (use &#32; or &nbsp; for a space)",
+  "custom-field-stringtemplate-item-placeholder": "Press enter to add more items",
+  "creator": "Creator",
+  "filesReportTitle": "Files Report",
+  "orphanedFilesReportTitle": "Orphaned Files Report",
+  "reports": "Reports",
+  "rulesReportTitle": "Rules Report"
 }

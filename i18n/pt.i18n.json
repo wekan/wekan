@@ -900,6 +900,7 @@
   "operator-member-abbrev": "m",
   "operator-assignee": "assignee",
   "operator-assignee-abbrev": "a",
+  "operator-creator": "creator",
   "operator-status": "status",
   "operator-due": "data limite",
   "operator-created": "created",
@@ -951,6 +952,7 @@
   "globalSearch-instructions-operator-at": "`__operator_user_abbrev__username` - shorthand for `user:<username>`",
   "globalSearch-instructions-operator-member": "`__operator_member__:<username>` - cards where *<username>* is a *member*",
   "globalSearch-instructions-operator-assignee": "`__operator_assignee__:<username>` - cards where *<username>* is an *assignee*",
+  "globalSearch-instructions-operator-creator": "`__operator_creator__:<username>` - cards where *<username>* is the card's creator",
   "globalSearch-instructions-operator-due": "`__operator_due__:<n>` - cards which are due up to *<n>* days from now.  `__operator_due__:__predicate_overdue__ lists all cards past their due date.",
   "globalSearch-instructions-operator-created": "`__operator_created__:<n>` - cards which were created *<n>* days ago or less",
   "globalSearch-instructions-operator-modified": "`__operator_modified__:<n>` - cards which were modified *<n>* days ago or less",
@@ -987,5 +989,14 @@
   "hide-system-messages-of-all-users": "Hide system messages of all users",
   "now-system-messages-of-all-users-are-hidden": "Now system messages of all users are hidden",
   "move-swimlane": "Move Swimlane",
-  "moveSwimlanePopup-title": "Move Swimlane"
+  "moveSwimlanePopup-title": "Move Swimlane",
+  "custom-field-stringtemplate": "String Template",
+  "custom-field-stringtemplate-format": "Format (use %{value} as placeholder)",
+  "custom-field-stringtemplate-separator": "Separator (use &#32; or &nbsp; for a space)",
+  "custom-field-stringtemplate-item-placeholder": "Press enter to add more items",
+  "creator": "Creator",
+  "filesReportTitle": "Files Report",
+  "orphanedFilesReportTitle": "Orphaned Files Report",
+  "reports": "Reports",
+  "rulesReportTitle": "Rules Report"
 }

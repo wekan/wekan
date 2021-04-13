@@ -900,6 +900,7 @@
   "operator-member-abbrev": "m",
   "operator-assignee": "担当者",
   "operator-assignee-abbrev": "a",
+  "operator-creator": "creator",
   "operator-status": "ステータス",
   "operator-due": "期限日",
   "operator-created": "作成日",
@@ -951,6 +952,7 @@
   "globalSearch-instructions-operator-at": "`__operator_user_abbrev__username` - `ユーザー:<username>` の短縮表現",
   "globalSearch-instructions-operator-member": "`__operator_member__:<username>` - *<username>* が *メンバー* のカード",
   "globalSearch-instructions-operator-assignee": "`__operator_assignee__:<username>` - *<username>* が *担当者* のカード",
+  "globalSearch-instructions-operator-creator": "`__operator_creator__:<username>` - cards where *<username>* is the card's creator",
   "globalSearch-instructions-operator-due": "`__operator_due__:<n>` - 今から *<n>* 日以内に期限が切れるカード `__operator_due__:__predicate_overdue__` - 期限が切れたすべてのカード",
   "globalSearch-instructions-operator-created": "`__operator_created__:<n>` - *<n>* 日以内に作成されたカード",
   "globalSearch-instructions-operator-modified": "`__operator_modified__:<n>` - *<n>* 日以内に変更されたカード",
@@ -987,5 +989,14 @@
   "hide-system-messages-of-all-users": "Hide system messages of all users",
   "now-system-messages-of-all-users-are-hidden": "Now system messages of all users are hidden",
   "move-swimlane": "スイムレーンを移動する",
-  "moveSwimlanePopup-title": "スイムレーンを移動する"
+  "moveSwimlanePopup-title": "スイムレーンを移動する",
+  "custom-field-stringtemplate": "String Template",
+  "custom-field-stringtemplate-format": "Format (use %{value} as placeholder)",
+  "custom-field-stringtemplate-separator": "Separator (use &#32; or &nbsp; for a space)",
+  "custom-field-stringtemplate-item-placeholder": "Press enter to add more items",
+  "creator": "Creator",
+  "filesReportTitle": "Files Report",
+  "orphanedFilesReportTitle": "Orphaned Files Report",
+  "reports": "Reports",
+  "rulesReportTitle": "Rules Report"
 }
