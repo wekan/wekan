@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v5.17
+  version: v5.19
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -2757,6 +2757,10 @@ definitions:
         description: |
            Does the board allows labels?
         type: boolean
+      allowsCreator:
+        description: |
+           Does the board allow creator?
+        type: boolean
       allowsAssignee:
         description: |
            Does the board allows assignee?
@@ -2834,7 +2838,12 @@ definitions:
       type:
         description: |
            The type of board
+           possible values: board, template-board, template-container
         type: string
+        enum:
+          - board
+          - template-board
+          - template-container
       sort:
         description: |
            Sort value
@@ -2857,6 +2866,7 @@ definitions:
       - allowsDescriptionText
       - allowsActivities
       - allowsLabels
+      - allowsCreator
       - allowsAssignee
       - allowsMembers
       - allowsRequestedBy
@@ -2889,6 +2899,7 @@ definitions:
            `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`
         type: string
         enum:
+          - white
           - green
           - yellow
           - orange
@@ -3154,6 +3165,10 @@ definitions:
         description: |
            type of the card
         type: string
+        enum:
+          - cardtype-card
+          - cardtype-linkedcard
+          - cardtype-linkedboard
       linkedId:
         description: |
            ID of the linked card
@@ -3298,6 +3313,7 @@ definitions:
           - dropdown
           - checkbox
           - currency
+          - stringtemplate
       settings:
         description: |
            settings of the custom field
@@ -3344,6 +3360,10 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/CustomFieldsSettingsDropdownitems"
+      stringtemplateFormat:
+        type: string
+      stringtemplateSeparator:
+        type: string
   CustomFieldsSettingsDropdownitems:
     type: object
   Integrations:
@@ -3467,6 +3487,7 @@ definitions:
           - lime
           - pink
           - black
+          - silver
           - peachpuff
           - crimson
           - plum
@@ -3558,6 +3579,7 @@ definitions:
           - lime
           - pink
           - black
+          - silver
           - peachpuff
           - crimson
           - plum
