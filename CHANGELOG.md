@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [OpenAPI: rework the allowedValues to allow for imported variables](https://github.com/wekan/wekan/pull/3715).
+  Thanks to bentiss.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.19 2021-04-14 Wekan release
 
 This release adds the following new features:
