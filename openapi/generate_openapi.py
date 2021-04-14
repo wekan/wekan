@@ -466,6 +466,7 @@ class SchemaProperty(object):
         self.type = 'object'
         self.blackbox = False
         self.required = True
+        imports = {}
         for p in statement.value.properties:
             try:
                 if p.key.name == 'type':
@@ -477,41 +478,79 @@ class SchemaProperty(object):
 
                 elif p.key.name == 'allowedValues':
                     self.type = 'enum'
-                    if p.value.type == 'ArrayExpression':
-                        self.enum = [e.value.lower() for e in p.value.elements]
-                    elif p.value.type == 'Identifier':
-                        # tree wide lookout for the identifier
-                        def find_variable(elem, match):
-                            if isinstance(elem, list):
-                                for value in elem:
-                                    ret = find_variable(value, match)
+                    self.enum = []
+
+                    def parse_enum(value, enum):
+                        if value.type == 'ArrayExpression':
+                            for e in value.elements:
+                                parse_enum(e, enum)
+                        elif value.type == 'Literal':
+                            enum.append(value.value.lower())
+                            return
+                        elif value.type == 'Identifier':
+                            # tree wide lookout for the identifier
+                            def find_variable(elem, match):
+                                if isinstance(elem, list):
+                                    for value in elem:
+                                        ret = find_variable(value, match)
+                                        if ret is not None:
+                                            return ret
+
+                                try:
+                                    items = elem.items()
+                                except AttributeError:
+                                    return None
+                                except TypeError:
+                                    return None
+
+                                if (elem.type == 'VariableDeclarator' and
+                                   elem.id.name == match):
+                                    return elem
+                                elif (elem.type == 'ImportSpecifier' and
+                                     elem.local.name == match):
+                                    # we have to treat that case in the caller, because we lack
+                                    # information of the source of the import at that point
+                                    return elem
+                                elif (elem.type == 'ExportNamedDeclaration' and
+                                     elem.declaration.type == 'VariableDeclaration'):
+                                    ret = find_variable(elem.declaration.declarations, match)
                                     if ret is not None:
                                         return ret
 
-                            try:
-                                items = elem.items()
-                            except AttributeError:
+                                for type, value in items:
+                                    ret = find_variable(value, match)
+                                    if ret is not None:
+                                        if ret.type == 'ImportSpecifier':
+                                            # first open and read the import source, if
+                                            # we haven't already done so
+                                            path = elem.source.value
+                                            if elem.source.value.startswith('/'):
+                                                script_dir = os.path.dirname(os.path.realpath(__file__))
+                                                path = os.path.abspath(os.path.join('{}/..'.format(script_dir), elem.source.value.lstrip('/')))
+                                            else:
+                                                path = os.path.abspath(os.path.join(os.path.dirname(context.path), elem.source.value))
+                                            path += '.js'
+
+                                            if path not in imports:
+                                                imported_context = parse_file(path)
+                                                imports[path] = imported_context
+                                            imported_context = imports[path]
+
+                                            # and then re-run the find in the imported file
+                                            return find_variable(imported_context.program.body, match)
+
+                                        return ret
+
                                 return None
-                            except TypeError:
-                                return None
 
-                            if (elem.type == 'VariableDeclarator' and
-                               elem.id.name == match):
-                                return elem
+                            elem = find_variable(context.program.body, value.name)
 
-                            for type, value in items:
-                                ret = find_variable(value, match)
-                                if ret is not None:
-                                    return ret
+                            if elem is None:
+                                raise TypeError('can not find "{}"'.format(value.name))
 
-                            return None
+                            return parse_enum(elem.init, enum)
 
-                        elem = find_variable(context.program.body, p.value.name)
-
-                        if elem.init.type != 'ArrayExpression':
-                            raise TypeError('can not find "{}"'.format(p.value.name))
-
-                        self.enum = [e.value.lower() for e in elem.init.elements]
+                    parse_enum(p.value, self.enum)
 
                 elif p.key.name == 'blackbox':
                     self.blackbox = True
@@ -757,6 +796,15 @@ class Context(object):
         return ''.join(self._txt[begin - 1:end])
 
 
+def parse_file(path):
+    try:
+        # if the file failed, it's likely it doesn't contain a schema
+        context = Context(path)
+    except:
+        return
+
+    return context
+
 def parse_schemas(schemas_dir):
 
     schemas = {}
@@ -766,12 +814,7 @@ def parse_schemas(schemas_dir):
         files.sort()
         for filename in files:
             path = os.path.join(root, filename)
-            try:
-                # if the file failed, it's likely it doesn't contain a schema
-                context = Context(path)
-            except:
-                continue
-
+            context = parse_file(path)
             program = context.program
 
             current_schema = None
@@ -1012,7 +1055,7 @@ def main():
     script_dir = os.path.dirname(os.path.realpath(__file__))
     parser.add_argument('--release', default='git-master', nargs=1,
                         help='the current version of the API, can be retrieved by running `git describe --tags --abbrev=0`')
-    parser.add_argument('dir', default='{}/../models'.format(script_dir), nargs='?',
+    parser.add_argument('dir', default=os.path.abspath('{}/../models'.format(script_dir)), nargs='?',
                         help='the directory where to look for schemas')
 
     args = parser.parse_args()
