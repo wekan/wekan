@@ -1,3 +1,16 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Summernote Rich Text Editor:
+  1) Add new button to insert a URL link.
+  2) Add new popover allowing you to edit existing URL links.
+  3) Enable spell check.
+  4) Allow client side grammerly extension](https://github.com/wekan/wekan/pull/3720).
+  Thanks to ryanMushy.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.20 2021-04-14 Wekan release
 
 This release fixes the following bugs:
