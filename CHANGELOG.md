@@ -9,6 +9,16 @@ This release adds the following new features:
   4) Allow client side grammerly extension](https://github.com/wekan/wekan/pull/3720).
   Thanks to ryanMushy.
 
+and adds the following updates:
+
+- [Upgraded to Meteor 2.2](https://github.com/wekan/wekan/commit/0e7c2b4b94b1c48e8839cfba635b53cdc1a797b1).
+  Thanks to Meteor developers.
+
+and fixes the following bugs:
+
+- [Bugfix, date format not changed to local format](https://github.com/wekan/wekan/pull/3723).
+  Thanks to mfilser.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v5.20 2021-04-14 Wekan release
