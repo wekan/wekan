@@ -1,6 +1,11 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following new translations:
+
+- [Added German (Switzerland) (de_CH). Updated translations](https://github.com/wekan/wekan/commit/09506c78f3c3439db622574eb851fa0c20d3a066).
+  Thanks to translators.
+
+and fixes the following bugs:
 
 - [Remove allowedValues from Cards.type schema](https://github.com/wekan/wekan/pull/3724).
   Thanks to jrsupplee.
