@@ -287,7 +287,7 @@ Cards.attachSchema(
        */
       type: String,
       defaultValue: TYPE_CARD,
-      allowedValues: [TYPE_CARD, TYPE_LINKED_CARD, TYPE_LINKED_BOARD],
+      // allowedValues: [TYPE_CARD, TYPE_LINKED_CARD, TYPE_LINKED_BOARD, TYPE_TEMPLATE_CARD],
     },
     linkedId: {
       /**
