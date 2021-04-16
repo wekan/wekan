@@ -2,9 +2,10 @@
 
 This release adds the following new translations:
 
-- Added German (Switzerland) (de_CH). Updated translations.
+- Added German (Switzerland) (de_CH) (Schwiizerdütsch). Updated translations.
   [Part 1](https://github.com/wekan/wekan/commit/09506c78f3c3439db622574eb851fa0c20d3a066),
-  [Part 1](https://github.com/wekan/wekan/commit/dce99c00be80cceba686fd73b4b78b6c778d78a6).
+  [Part 2](https://github.com/wekan/wekan/commit/dce99c00be80cceba686fd73b4b78b6c778d78a6).
+  [Part 3](https://github.com/wekan/wekan/commit/6ff9c5b58d25ba52b11e5429c9cfe6ed6a97000e).
   Thanks to translators.
 
 and fixes the following bugs:
