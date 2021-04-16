@@ -946,7 +946,7 @@
   "globalSearch-instructions-operator-list": "`__operator_list__:<title>` - 指定された *<title>* に一致するリスト内のカード",
   "globalSearch-instructions-operator-swimlane": "`__operator_swimlane__:<title>` - 指定された *<title>* に一致するスイムレーン内のカード",
   "globalSearch-instructions-operator-comment": "`__operator_comment__:<text>` - *<text>* を含むコメントがあるカード",
-  "globalSearch-instructions-operator-label": "`__operator_label__:<color>` `__operator_label__:<name>` - *<color>* または *<name> に一致するラベルを持つカード",
+  "globalSearch-instructions-operator-label": "`__operator_label__:<color>` `__operator_label__:<name>` - *<color>* または *<name>* に一致するラベルを持つカード",
   "globalSearch-instructions-operator-hash": "`__operator_label_abbrev__<name|color>` - `__operator_label__:<color>` または `__operator_label__:<name>` の短縮表現",
   "globalSearch-instructions-operator-user": "`__operator_user__:<username>` - *<username>* が *メンバー* または *担当者* に割り当てられたカード",
   "globalSearch-instructions-operator-at": "`__operator_user_abbrev__username` - `ユーザー:<username>` の短縮表現",
