@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v5.21
+  version: v5.22
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -3165,10 +3165,6 @@ definitions:
         description: |
            type of the card
         type: string
-        enum:
-          - cardtype-card
-          - cardtype-linkedcard
-          - cardtype-linkedboard
       linkedId:
         description: |
            ID of the linked card
