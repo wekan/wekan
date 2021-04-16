@@ -3,7 +3,7 @@ const commentFormIsOpen = new ReactiveVar(false);
 BlazeComponent.extendComponent({
   onDestroyed() {
     commentFormIsOpen.set(false);
-    $(".note-popover").hide();
+    $('.note-popover').hide();
   },
 
   commentFormIsOpen() {
