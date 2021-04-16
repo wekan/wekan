@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Remove allowedValues from Cards.type schema](https://github.com/wekan/wekan/pull/3724).
+  Thanks to jrsupplee.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.21 2021-04-16 Wekan release
 
 This release adds the following new features:
