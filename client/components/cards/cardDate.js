@@ -1,4 +1,3 @@
-import moment from 'moment';
 import { DatePicker } from '/client/lib/datepicker';
 
 Template.dateBadge.helpers({

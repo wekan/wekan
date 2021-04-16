@@ -1,5 +1,3 @@
-import moment from 'moment';
-
 // Helper function to replace HH with H for 24 hours format, because H allows also single-digit hours
 function adjustedTimeFormat() {
   return moment
