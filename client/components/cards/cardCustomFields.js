@@ -1,5 +1,4 @@
 import { DatePicker } from '/client/lib/datepicker';
-import moment from 'moment';
 import Cards from '/models/cards';
 
 Template.cardCustomFieldsPopup.helpers({
