@@ -47,6 +47,7 @@ import {
   PREDICATE_SYSTEM,
 } from '/config/search-const';
 import { QueryErrors, QueryParams, Query } from '/config/query-classes';
+import { CARD_TYPES } from '../../config/const';
 
 const escapeForRegex = require('escape-string-regexp');
 
@@ -577,6 +578,7 @@ Meteor.publish('brokenCards', function(sessionId) {
     { boardId: { $in: [null, ''] } },
     { swimlaneId: { $in: [null, ''] } },
     { listId: { $in: [null, ''] } },
+    { type: { $nin: CARD_TYPES } },
   ];
   // console.log('brokenCards selector:', query.selector);
 

@@ -999,5 +999,6 @@
   "filesReportTitle": "Files Report",
   "orphanedFilesReportTitle": "Orphaned Files Report",
   "reports": "Reports",
-  "rulesReportTitle": "Rules Report"
+  "rulesReportTitle": "Rules Report",
+  "cardsReportTitle": "Cards Report"
 }
