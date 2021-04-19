@@ -72,6 +72,43 @@ template(name="filterSidebar")
               | (<span class="username">{{ username }}</span>)
             if Filter.assignees.isSelected _id
               i.fa.fa-check
+
+  hr
+  h3
+    i.fa.fa-list-alt
+    | {{_ 'filter-dates-label' }}
+  ul.sidebar-list
+    li(class="{{#if Filter.dueAt.isSelected 'noDate'}}active{{/if}}")
+      a.name.js-toggle-no-due-date-filter
+        span.sidebar-list-item-description
+          | {{_ 'filter-no-due-date' }}
+        if Filter.dueAt.isSelected 'noDate'
+          i.fa.fa-check
+    li(class="{{#if Filter.dueAt.isSelected 'past'}}active{{/if}}")
+      a.name.js-toggle-overdue-filter
+        span.sidebar-list-item-description
+          | {{_ 'filter-overdue' }}
+        if Filter.dueAt.isSelected 'past'
+          i.fa.fa-check
+    li(class="{{#if Filter.dueAt.isSelected 'today'}}active{{/if}}")
+      a.name.js-toggle-due-today-filter
+        span.sidebar-list-item-description
+          | {{_ 'filter-due-today' }}
+        if Filter.dueAt.isSelected 'today'
+          i.fa.fa-check
+    li(class="{{#if Filter.dueAt.isSelected 'tomorrow'}}active{{/if}}")
+      a.name.js-toggle-due-tomorrow-filter
+        span.sidebar-list-item-description
+          | {{_ 'filter-due-tomorrow' }}
+        if Filter.dueAt.isSelected 'tomorrow'
+          i.fa.fa-check
+    li(class="{{#if Filter.dueAt.isSelected 'week'}}active{{/if}}")
+      a.name.js-toggle-due-this-week-filter
+        span.sidebar-list-item-description
+          | {{_ 'filter-due-this-week' }}
+        if Filter.dueAt.isSelected 'week'
+          i.fa.fa-check
+
   hr
   h3
     i.fa.fa-list-alt
