@@ -14,6 +14,8 @@ and fixes the following bugs:
 
 - [Fix: Trello data without labels definition](https://github.com/wekan/wekan/pull/3733).
   Thanks to jrsupplee.
+- [Bug fix for Due Cards](https://github.com/wekan/wekan/pull/3741).
+  Thanks to jrsupplee.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
