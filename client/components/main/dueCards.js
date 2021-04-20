@@ -3,7 +3,7 @@ import {
   OPERATOR_HAS,
   OPERATOR_SORT,
   OPERATOR_USER,
-  ORDER_DESCENDING,
+  ORDER_ASCENDING,
   PREDICATE_DUE_AT,
 } from '../../../config/search-const';
 import { QueryParams } from '../../../config/query-classes';
@@ -62,14 +62,14 @@ class DueCardsComponent extends CardSearchPagedComponent {
     // queryParams[OPERATOR_LIMIT] = 5;
     queryParams.addPredicate(OPERATOR_SORT, {
       name: PREDICATE_DUE_AT,
-      order: ORDER_DESCENDING,
+      order: ORDER_ASCENDING,
     });
 
     if (Utils.dueCardsView() !== 'all') {
       queryParams.addPredicate(OPERATOR_USER, Meteor.user().username);
     }
 
-    this.runGlobalSearch(queryParams.getQueryParams());
+    this.runGlobalSearch(queryParams);
   }
 
   dueCardsView() {
