@@ -1,3 +1,17 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Filtering by due date](https://github.com/wekan/wekan/pull/3731).
+  Thanks to mcrute.
+
+and fixes the following bugs:
+
+- [Fix: Trello data without labels definition](https://github.com/wekan/wekan/pull/3733).
+  Thanks to jrsupplee.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.22 2021-04-16 Wekan release
 
 This release adds the following new translations:
