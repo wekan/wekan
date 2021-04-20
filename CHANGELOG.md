@@ -5,6 +5,11 @@ This release adds the following new features:
 - [Filtering by due date](https://github.com/wekan/wekan/pull/3731).
   Thanks to mcrute.
 
+and adds the following updates:
+
+- [Updated dependencies](https://github.com/wekan/wekan/commit/676bf686c7a121b0da744afce5911807a6be48fe).
+  Thanks to developers of dependencies.
+
 and fixes the following bugs:
 
 - [Fix: Trello data without labels definition](https://github.com/wekan/wekan/pull/3733).
