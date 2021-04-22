@@ -1,6 +1,11 @@
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+- [Copy Swimlane](https://github.com/wekan/wekan/pull/3753).
+  Thanks to jrsupplee.
+
+and fixes the following bugs:
 
 - [Fix Snap: Delete extra symlink that prevented building Snap](https://github.com/wekan/wekan/commit/45124a39f34a918b251a4a36fb016639b558f119).
   Thanks to xet7.
