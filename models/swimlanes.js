@@ -147,6 +147,45 @@ Swimlanes.helpers({
     });
   },
 
+  move(toBoardId) {
+    this.lists().forEach(list => {
+      const toList = Lists.findOne({
+        boardId: toBoardId,
+        title: list.title,
+        archived: false,
+      });
+
+      let toListId;
+      if (toList) {
+        toListId = toList._id;
+      } else {
+        toListId = Lists.insert({
+          title: list.title,
+          boardId: toBoardId,
+          type: list.type,
+          archived: false,
+          wipLimit: list.wipLimit,
+        });
+      }
+
+      Cards.find({
+        listId: list._id,
+        swimlaneId: this._id,
+      }).forEach(card => {
+        card.move(toBoardId, this._id, toListId);
+      });
+    });
+
+    Swimlanes.update(this._id, {
+      $set: {
+        boardId: toBoardId,
+      },
+    });
+
+    // make sure there is a default swimlane
+    this.board().getDefaultSwimline();
+  },
+
   cards() {
     return Cards.find(
       Filter.mongoSelector({

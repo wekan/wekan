@@ -55,6 +55,7 @@ Template.swimlaneActionPopup.events({
     Popup.close();
   },
   'click .js-move-swimlane': Popup.open('moveSwimlane'),
+  'click .js-copy-swimlane': Popup.open('copySwimlane'),
 });
 
 Template.swimlaneActionPopup.events({
