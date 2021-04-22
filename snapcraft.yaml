@@ -154,6 +154,7 @@ parts:
             README: README.wekan
         prime:
             - -lib/node_modules/node-pre-gyp/node_modules/tar/lib/.unpack.js.swp
+            - -lib/node_modules/weka*
 
     helpers:
         source: snap-src
