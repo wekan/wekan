@@ -16,6 +16,8 @@ and fixes the following bugs:
   Thanks to jrsupplee.
 - [Bug fix for Due Cards](https://github.com/wekan/wekan/pull/3741).
   Thanks to jrsupplee.
+- [Fix: The bg color of start at button is almost-due](https://github.com/wekan/wekan/pull/3749).
+  Thanks to listenerri.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
