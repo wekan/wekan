@@ -1005,5 +1005,7 @@
   "filesReportTitle": "Files Report",
   "orphanedFilesReportTitle": "Orphaned Files Report",
   "reports": "Reports",
-  "rulesReportTitle": "Rules Report"
+  "rulesReportTitle": "Rules Report",
+  "copy-swimlane": "Copy Swimlane",
+  "copySwimlanePopup-title": "Copy Swimlane"
 }
