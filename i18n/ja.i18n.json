@@ -1004,5 +1004,7 @@
     "filesReportTitle": "ファイルレポート",
     "orphanedFilesReportTitle": "孤立ファイルレポート",
     "reports": "レポート",
-    "rulesReportTitle": "ルールレポート"
+    "rulesReportTitle": "ルールレポート",
+    "copy-swimlane": "Copy Swimlane",
+    "copySwimlanePopup-title": "Copy Swimlane"
 }

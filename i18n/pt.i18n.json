@@ -905,7 +905,7 @@
     "operator-member": "membro",
     "operator-member-abbrev": "m",
     "operator-assignee": "responsável",
-    "operator-assignee-abbrev": "a",
+    "operator-assignee-abbrev": "r",
     "operator-creator": "criador",
     "operator-status": "estado",
     "operator-due": "data limite",
@@ -1004,5 +1004,7 @@
     "filesReportTitle": "Relatório de Ficheiros",
     "orphanedFilesReportTitle": "Relatórios de Ficheiros Soltos",
     "reports": "Relatórios",
-    "rulesReportTitle": "Relatório de Regras"
+    "rulesReportTitle": "Relatório de Regras",
+    "copy-swimlane": "Copy Swimlane",
+    "copySwimlanePopup-title": "Copy Swimlane"
 }

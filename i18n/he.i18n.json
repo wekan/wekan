@@ -1004,5 +1004,7 @@
     "filesReportTitle": "דוח קבצים",
     "orphanedFilesReportTitle": "דוח קבצים יתומים",
     "reports": "דוחות",
-    "rulesReportTitle": "דוח כללים"
+    "rulesReportTitle": "דוח כללים",
+    "copy-swimlane": "Copy Swimlane",
+    "copySwimlanePopup-title": "Copy Swimlane"
 }

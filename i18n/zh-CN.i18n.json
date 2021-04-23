@@ -1004,5 +1004,7 @@
     "filesReportTitle": "文件报告",
     "orphanedFilesReportTitle": "孤立文件报告",
     "reports": "报告",
-    "rulesReportTitle": "规则报告"
+    "rulesReportTitle": "规则报告",
+    "copy-swimlane": "Copy Swimlane",
+    "copySwimlanePopup-title": "Copy Swimlane"
 }

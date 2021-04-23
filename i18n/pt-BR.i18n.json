@@ -1004,5 +1004,7 @@
     "filesReportTitle": "Relatório de Arquivos",
     "orphanedFilesReportTitle": "Relatório de Arquivos Órfãos",
     "reports": "Relatórios",
-    "rulesReportTitle": "Regras de Relatório"
+    "rulesReportTitle": "Regras de Relatório",
+    "copy-swimlane": "Copy Swimlane",
+    "copySwimlanePopup-title": "Copy Swimlane"
 }

@@ -1004,5 +1004,7 @@
     "filesReportTitle": "Tiedostot raportti",
     "orphanedFilesReportTitle": "Orvot tiedostot raportti",
     "reports": "Raportit",
-    "rulesReportTitle": "Säännöt raportti"
+    "rulesReportTitle": "Säännöt raportti",
+    "copy-swimlane": "Kopioi Swimlane",
+    "copySwimlanePopup-title": "Kopioi Swimlane"
 }

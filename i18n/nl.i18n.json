@@ -172,7 +172,7 @@
     "card-edit-voting": "Wijzig stemming",
     "editVoteEndDatePopup-title": "Wijzig einddatum stemming",
     "allowNonBoardMembers": "Sta alle ingelogde gebruikers toe",
-    "vote-question": "Stemvraag",
+    "vote-question": "Vraag",
     "vote-public": "Toon wie wat gestemd heeft",
     "vote-for-it": "Voor",
     "vote-against": "tegen",
@@ -1004,5 +1004,7 @@
     "filesReportTitle": "Bestanden Rapportage",
     "orphanedFilesReportTitle": "Verweesde Bestanden Rapportage",
     "reports": "Rapportages",
-    "rulesReportTitle": "Regels Rapportage"
+    "rulesReportTitle": "Regels Rapportage",
+    "copy-swimlane": "Copy Swimlane",
+    "copySwimlanePopup-title": "Copy Swimlane"
 }
