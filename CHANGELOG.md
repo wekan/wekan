@@ -1,9 +1,14 @@
-# Upcoming Wekan release
+# v5.24 2021-04-24 Wekan release
 
 This release adds the following new features:
 
 - [Copy Swimlane](https://github.com/wekan/wekan/pull/3753).
   Thanks to jrsupplee.
+
+and adds the following updates:
+
+- [Updated dependencies](https://github.com/wekan/wekan/commit/e738177e081e4a7e83fed3389f47847403551fc2).
+  Thanks to developers of dependencies.
 
 and fixes the following bugs:
 
