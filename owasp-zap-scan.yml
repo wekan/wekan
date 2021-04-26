@@ -1,0 +1,5 @@
+steps:
+  - name: OWASP ZAP Scan
+    uses: zaproxy/action-baseline@v0.4.0
+    with:
+      target: 'https://boards.wekan.team'

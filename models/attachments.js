@@ -1,3 +1,8 @@
+export const AttachmentStorage = new Mongo.Collection(
+  'cfs_gridfs.attachments.files',
+);
+export const AvatarStorage = new Mongo.Collection('cfs_gridfs.avatars.files');
+
 const localFSStore = process.env.ATTACHMENTS_STORE_PATH;
 const storeName = 'attachments';
 const defaultStoreOptions = {

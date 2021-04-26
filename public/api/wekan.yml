@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v4.96
+  version: v5.24
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -326,6 +326,36 @@ paths:
                   type: string
                 swimlaneId:
                   type: string
+  /api/boards/{board}/attachments/{attachment}/export:
+    get:
+      operationId: exportJson
+      summary: This route is used to export a attachement to a json file format.
+      description: |
+        If user is already logged-in, pass loginToken as param
+         "authToken": '/api/boards/:boardId/attachments/:attachmentId/export?authToken=:token'
+      tags:
+        - Boards
+      parameters:
+        - name: board
+          in: path
+          description: |
+            the ID of the board we are exporting
+          type: string
+          required: true
+        - name: attachment
+          in: path
+          description: |
+            the ID of the attachment we are exporting
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
   /api/boards/{board}/cards/{card}/checklists:
     get:
       operationId: get_all_checklists
@@ -980,7 +1010,87 @@ paths:
           description: |-
             200 response
           schema:
-            $ref: "#/definitions/CustomFields"
+            type: array
+            items:
+              type: object
+              properties:
+                _id:
+                  type: string
+                boardIds:
+                  type: string
+    put:
+      operationId: edit_custom_field
+      summary: Update a Custom Field
+      tags:
+        - CustomFields
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: name
+          in: formData
+          description: |
+            the name of the custom field
+          type: string
+          required: true
+        - name: type
+          in: formData
+          description: |
+            the type of the custom field
+          type: string
+          required: true
+        - name: settings
+          in: formData
+          description: |
+            the settings object of the custom field
+          type: string
+          required: true
+        - name: showOnCard
+          in: formData
+          description: |
+            should we show the custom field on cards
+          type: boolean
+          required: true
+        - name: automaticallyOnCard
+          in: formData
+          description: |
+            should the custom fields automatically be added on cards
+          type: boolean
+          required: true
+        - name: alwaysOnCard
+          in: formData
+          description: the alwaysOnCard value
+          type: string
+          required: true
+        - name: showLabelOnMiniCard
+          in: formData
+          description: |
+            should the label of the custom field be shown on minicards
+          type: boolean
+          required: true
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: customField
+          in: path
+          description: the customField value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
     delete:
       operationId: delete_custom_field
       summary: Delete a Custom Fields attached to a board
@@ -998,6 +1108,123 @@ paths:
           in: path
           description: |
             the ID of the custom field
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
+  /api/boards/{board}/custom-fields/{customField}/dropdown-items:
+    post:
+      operationId: add_custom_field_dropdown_items
+      summary: Update a Custom Field's dropdown items
+      tags:
+        - CustomFields
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: items
+          in: formData
+          description: |
+            names of the custom field
+          type: string
+          required: false
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: customField
+          in: path
+          description: the customField value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
+  /api/boards/{board}/custom-fields/{customField}/dropdown-items/{dropdownItem}:
+    put:
+      operationId: edit_custom_field_dropdown_item
+      summary: Update a Custom Field's dropdown item
+      tags:
+        - CustomFields
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: name
+          in: formData
+          description: |
+            names of the custom field
+          type: string
+          required: true
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: customField
+          in: path
+          description: the customField value
+          type: string
+          required: true
+        - name: dropdownItem
+          in: path
+          description: the dropdownItem value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
+    delete:
+      operationId: delete_custom_field_dropdown_item
+      summary: Update a Custom Field's dropdown items
+      tags:
+        - CustomFields
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: customField
+          in: path
+          description: the customField value
+          type: string
+          required: true
+        - name: dropdownItem
+          in: path
+          description: the dropdownItem value
           type: string
           required: true
       produces:
@@ -1616,6 +1843,12 @@ paths:
           in: formData
           description: |
             the new title of the card
+          type: string
+          required: false
+        - name: sort
+          in: formData
+          description: |
+            the new sort value of the card
           type: string
           required: false
         - name: parentId
@@ -2524,6 +2757,10 @@ definitions:
         description: |
            Does the board allows labels?
         type: boolean
+      allowsCreator:
+        description: |
+           Does the board allow creator?
+        type: boolean
       allowsAssignee:
         description: |
            Does the board allows assignee?
@@ -2601,7 +2838,12 @@ definitions:
       type:
         description: |
            The type of board
+           possible values: board, template-board, template-container
         type: string
+        enum:
+          - board
+          - template-board
+          - template-container
       sort:
         description: |
            Sort value
@@ -2624,6 +2866,7 @@ definitions:
       - allowsDescriptionText
       - allowsActivities
       - allowsLabels
+      - allowsCreator
       - allowsAssignee
       - allowsMembers
       - allowsRequestedBy
@@ -2656,6 +2899,7 @@ definitions:
            `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`
         type: string
         enum:
+          - white
           - green
           - yellow
           - orange
@@ -3065,6 +3309,7 @@ definitions:
           - dropdown
           - checkbox
           - currency
+          - stringtemplate
       settings:
         description: |
            settings of the custom field
@@ -3111,6 +3356,10 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/CustomFieldsSettingsDropdownitems"
+      stringtemplateFormat:
+        type: string
+      stringtemplateSeparator:
+        type: string
   CustomFieldsSettingsDropdownitems:
     type: object
   Integrations:
@@ -3234,6 +3483,7 @@ definitions:
           - lime
           - pink
           - black
+          - silver
           - peachpuff
           - crimson
           - plum
@@ -3325,6 +3575,7 @@ definitions:
           - lime
           - pink
           - black
+          - silver
           - peachpuff
           - crimson
           - plum

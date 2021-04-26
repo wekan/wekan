@@ -5,7 +5,7 @@ echo "      with 'sudo dpkg-reconfigure locales' , so that MongoDB works correct
 echo "      You can still use any other locale as your main locale."
 
 #Below script installs newest node 8.x for Debian/Ubuntu/Mint.
-#NODE_VERSION=12.18.2
+#NODE_VERSION=12.21.0
 #X64NODE="https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz"
 
 function pause(){
@@ -80,7 +80,7 @@ do
 			curl -0 -L https://npmjs.org/install.sh | sudo sh
 			sudo chown -R $(id -u):$(id -g) $HOME/.npm
 			sudo npm -g install n
-			sudo n 12.18.2
+			sudo n 12.21.0
 			#curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 			#sudo apt-get install -y nodejs
 		elif [[ "$OSTYPE" == "darwin"* ]]; then

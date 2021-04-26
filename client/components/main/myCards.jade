@@ -6,16 +6,6 @@ template(name="myCardsHeaderBar")
       i.fa.fa-list
       | {{_ 'my-cards'}}
 
-    .board-header-btns.left
-      a.board-header-btn.js-toggle-my-cards-choose-sort(title="{{_ 'myCardsSortChange-title'}}")
-        i.fa.fa-caret-down
-        if $eq myCardsSort 'board'
-          i.fa.fa-th-large
-          | {{_ 'myCardsSortChange-choice-board'}}
-        if $eq myCardsSort 'dueAt'
-          i.fa.fa-calendar
-          | {{_ 'myCardsSortChange-choice-dueat'}}
-
 template(name="myCardsModalTitle")
   if currentUser
     h2
@@ -24,50 +14,26 @@ template(name="myCardsModalTitle")
 
 template(name="myCards")
   if currentUser
-    if isPageReady.get
-      .wrapper
-        if $eq myCardsSort 'board'
-          each board in myCardsList
-            .my-cards-board-wrapper
-              .my-cards-board-title(class=board.colorClass, id="header")
-                a(href=board.absoluteUrl)
-                  +viewer 
-                    = board.title
-              each swimlane in board.mySwimlanes
-                .my-cards-swimlane-title(class="{{#if swimlane.colorClass}}{{ swimlane.colorClass }}{{else}}swimlane-default-color{{/if}}")
-                  +viewer
-                    = swimlane.title
-                each list in swimlane.myLists
-                  .my-cards-list-wrapper
-                    .my-cards-list-title(class=list.colorClass)
-                      +viewer
-                        = list.title
-                    each card in list.myCards
-                      .my-cards-card-wrapper
-                        a.minicard-wrapper(href=card.absoluteUrl)
-                          +minicard(card)
-        else
-          .my-cards-dueat-list-wrapper
-            each card in myDueCardsList
-              +resultCard(card)
-    else
+    if searching.get
       +spinner
-
-template(name="myCardsSortChangePopup")
-  if currentUser
-    ul.pop-over-list
-      li
-        with "my-cards-sort-board"
-          a.js-my-cards-sort-board
-            i.fa.fa-th-large.colorful
-            | {{_ 'myCardsSortChange-choice-board'}}
-            if $eq Utils.myCardsSort "board"
-              i.fa.fa-check
-      hr
-      li
-        with "my-cards-sort-dueat"
-          a.js-my-cards-sort-dueat
-            i.fa.fa-calendar.colorful
-            | {{_ 'myCardsSortChange-choice-dueat'}}
-            if $eq Utils.myCardsSort "dueAt"
-              i.fa.fa-check
+    else
+      .wrapper
+        each board in myCardsList
+          .my-cards-board-wrapper
+            .my-cards-board-title(class=board.colorClass, id="header")
+              a(href=board.originRelativeUrl)
+                +viewer
+                  = board.title
+            each swimlane in board.mySwimlanes
+              .my-cards-swimlane-title(class="{{#if swimlane.colorClass}}{{ swimlane.colorClass }}{{else}}swimlane-default-color{{/if}}")
+                +viewer
+                  = swimlane.title
+              each list in swimlane.myLists
+                .my-cards-list-wrapper
+                  .my-cards-list-title(class=list.colorClass)
+                    +viewer
+                      = list.title
+                  each card in list.myCards
+                    .my-cards-card-wrapper
+                      a.minicard-wrapper(href=card.originRelativeUrl)
+                        +minicard(card)

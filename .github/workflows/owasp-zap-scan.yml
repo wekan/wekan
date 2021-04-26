@@ -1,0 +1,12 @@
+on: [push]
+
+jobs:
+  zap_scan:
+    runs-on: ubuntu-latest
+    name: Scan the webapplication
+    steps:
+      - name: OWASP ZAP Scan
+        runs-on: ubuntu-latest
+        uses: zaproxy/action-baseline@v0.4.0
+        with:
+          target: 'https://boards.wekan.team/sign-in'

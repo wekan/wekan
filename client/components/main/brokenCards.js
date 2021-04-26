@@ -1,3 +1,5 @@
+import { CardSearchPagedComponent } from '../../lib/cardSearch';
+
 BlazeComponent.extendComponent({}).register('brokenCardsHeaderBar');
 
 Template.brokenCards.helpers({
@@ -6,23 +8,11 @@ Template.brokenCards.helpers({
   },
 });
 
-BlazeComponent.extendComponent({
+class BrokenCardsComponent extends CardSearchPagedComponent {
   onCreated() {
-    Meteor.subscribe('setting');
-    Meteor.subscribe('brokenCards');
-  },
+    super.onCreated();
 
-  brokenCardsList() {
-    const selector = {
-      $or: [
-        { boardId: { $in: [null, ''] } },
-        { swimlaneId: { $in: [null, ''] } },
-        { listId: { $in: [null, ''] } },
-        { permission: 'public' },
-        { members: { $elemMatch: { userId: user._id, isActive: true } } },
-      ],
-    };
-
-    return Cards.find(selector);
-  },
-}).register('brokenCards');
+    Meteor.subscribe('brokenCards', this.sessionId);
+  }
+}
+BrokenCardsComponent.register('brokenCards');

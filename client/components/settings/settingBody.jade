@@ -13,10 +13,11 @@ template(name="setting")
               a.js-setting-menu(data-id="registration-setting")
                 i.fa.fa-sign-in
                 | {{_ 'registration'}}
-            li
-              a.js-setting-menu(data-id="email-setting")
-                i.fa.fa-envelope
-                | {{_ 'email'}}
+            unless isSandstorm
+              li
+                a.js-setting-menu(data-id="email-setting")
+                  i.fa.fa-envelope
+                  | {{_ 'email'}}
             li
               a.js-setting-menu(data-id="account-setting")
                 i.fa.fa-users
@@ -39,7 +40,8 @@ template(name="setting")
           else if generalSetting.get
             +general
           else if emailSetting.get
-            +email
+            unless isSandstorm
+              +email
           else if accountSetting.get
             +accountSettings
           else if announcementSetting.get
@@ -80,45 +82,48 @@ template(name="general")
 
 template(name='email')
   ul#email-setting.setting-detail
-    li.smtp-form
-      .title {{_ 'smtp-host'}}
-      .description {{_ 'smtp-host-description'}}
-      .form-group
-        input.wekan-form-control#mail-server-host(type="text", placeholder="smtp.domain.com" value="{{currentSetting.mailServer.host}}")
-    li.smtp-form
-      .title {{_ 'smtp-port'}}
-      .description {{_ 'smtp-port-description'}}
-      .form-group
-        input.wekan-form-control#mail-server-port(type="text", placeholder="25" value="{{currentSetting.mailServer.port}}")
-    li.smtp-form
-      .title {{_ 'smtp-username'}}
-      .form-group
-        input.wekan-form-control#mail-server-username(type="text", placeholder="{{_ 'username'}}" value="{{currentSetting.mailServer.username}}")
-    li.smtp-form
-      .title {{_ 'smtp-password'}}
-      .form-group
-        input.wekan-form-control#mail-server-password(type="password", placeholder="{{_ 'password'}}" value="{{currentSetting.mailServer.password}}")
-    li.smtp-form
-      .title {{_ 'smtp-tls'}}
-      .form-group
-        a.flex.js-toggle-tls
-          .materialCheckBox#mail-server-tls(class="{{#if currentSetting.mailServer.enableTLS}}is-checked{{/if}}")
-
-          span {{_ 'smtp-tls-description'}}
-
-    li.smtp-form
-      .title {{_ 'send-from'}}
-      .form-group
-        input.wekan-form-control#mail-server-from(type="email", placeholder="no-reply@domain.com" value="{{currentSetting.mailServer.from}}")
-
-    li
-      button.js-save.primary {{_ 'save'}}
+    //if isSandstorm
+    //  li.smtp-form
+    //    .title {{_ 'smtp-host'}}
+    //    .description {{_ 'smtp-host-description'}}
+    //    .form-group
+    //      input.wekan-form-control#mail-server-host(type="text", placeholder="smtp.domain.com" value="{{currentSetting.mailServer.host}}")
+    //  li.smtp-form
+    //    .title {{_ 'smtp-port'}}
+    //    .description {{_ 'smtp-port-description'}}
+    //    .form-group
+    //      input.wekan-form-control#mail-server-port(type="text", placeholder="25" value="{{currentSetting.mailServer.port}}")
+    //  li.smtp-form
+    //    .title {{_ 'smtp-username'}}
+    //    .form-group
+    //      input.wekan-form-control#mail-server-username(type="text", placeholder="{{_ 'username'}}" value="{{currentSetting.mailServer.username}}")
+    //  li.smtp-form
+    //    .title {{_ 'smtp-password'}}
+    //    .form-group
+    //      input.wekan-form-control#mail-server-password(type="password", placeholder="{{_ 'password'}}" value="")
+    //  li.smtp-form
+    //    .title {{_ 'smtp-tls'}}
+    //    .form-group
+    //      a.flex.js-toggle-tls
+    //        .materialCheckBox#mail-server-tls(class="{{#if currentSetting.mailServer.enableTLS}}is-checked{{/if}}")
+    //
+    //        span {{_ 'smtp-tls-description'}}
+    //
+    //  li.smtp-form
+    //    .title {{_ 'send-from'}}
+    //    .form-group
+    //      input.wekan-form-control#mail-server-from(type="email", placeholder="no-reply@domain.com" value="{{currentSetting.mailServer.from}}")
+    //
+    //  li
+    //    button.js-save.primary {{_ 'save'}}
 
     li
       button.js-send-smtp-test-email.primary {{_ 'send-smtp-test'}}
 
 template(name='accountSettings')
   ul#account-setting.setting-detail
+    li
+      button.js-all-hide-system-messages.primary {{_ 'hide-system-messages-of-all-users'}}
     li.accounts-form
       .title {{_ 'accounts-allowEmailChange'}}
       .form-group.flex
@@ -126,23 +131,18 @@ template(name='accountSettings')
         span {{_ 'yes'}}
         input.wekan-form-control#accounts-allowEmailChange(type="radio" name="allowEmailChange" value="false" checked="{{#unless allowEmailChange}}checked{{/unless}}")
         span {{_ 'no'}}
-    li
-    li.accounts-form
       .title {{_ 'accounts-allowUserNameChange'}}
       .form-group.flex
         input.wekan-form-control#accounts-allowUserNameChange(type="radio" name="allowUserNameChange" value="true" checked="{{#if allowUserNameChange}}checked{{/if}}")
         span {{_ 'yes'}}
         input.wekan-form-control#accounts-allowUserNameChange(type="radio" name="allowUserNameChange" value="false" checked="{{#unless allowUserNameChange}}checked{{/unless}}")
         span {{_ 'no'}}
-    li
-    li.accounts-form
       .title {{_ 'accounts-allowUserDelete'}}
       .form-group.flex
         input.wekan-form-control#accounts-allowUserDelete(type="radio" name="allowUserDelete" value="true" checked="{{#if allowUserDelete}}checked{{/if}}")
         span {{_ 'yes'}}
         input.wekan-form-control#accounts-allowUserDelete(type="radio" name="allowUserDelete" value="false" checked="{{#unless allowUserDelete}}checked{{/unless}}")
         span {{_ 'no'}}
-    li
       button.js-accounts-save.primary {{_ 'save'}}
 
 template(name='announcementSettings')
@@ -208,6 +208,10 @@ template(name='layoutSettings')
       .title {{_ 'custom-top-left-corner-logo-height'}}
       .form-group
         input.wekan-form-control#custom-top-left-corner-logo-height(type="text", placeholder="" value="{{currentSetting.customTopLeftCornerLogoHeight}}")
+    li.layout-form
+      .title {{_ 'automatic-linked-url-schemes'}}
+      .form-group
+        textarea#automatic-linked-url-schemes.wekan-form-control= currentSetting.automaticLinkedUrlSchemes
     li
       button.js-save-layout.primary {{_ 'save'}}
 

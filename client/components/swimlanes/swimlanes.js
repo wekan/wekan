@@ -323,3 +323,55 @@ BlazeComponent.extendComponent({
     initSortable(boardComponent, $listsDom);
   },
 }).register('listsGroup');
+
+class MoveSwimlaneComponent extends BlazeComponent {
+  serverMethod = 'moveSwimlane';
+
+  onCreated() {
+    this.currentSwimlane = this.currentData();
+  }
+
+  board() {
+    return Boards.findOne(Session.get('currentBoard'));
+  }
+
+  toBoardsSelector() {
+    return {
+      archived: false,
+      'members.userId': Meteor.userId(),
+      type: 'board',
+      _id: { $ne: this.board()._id },
+    };
+  }
+
+  toBoards() {
+    return Boards.find(this.toBoardsSelector(), { sort: { title: 1 } });
+  }
+
+  events() {
+    return [
+      {
+        'click .js-done'() {
+          // const swimlane = Swimlanes.findOne(this.currentSwimlane._id);
+          const bSelect = $('.js-select-boards')[0];
+          let boardId;
+          if (bSelect) {
+            boardId = bSelect.options[bSelect.selectedIndex].value;
+            Meteor.call(this.serverMethod, this.currentSwimlane._id, boardId);
+          }
+          Popup.close();
+        },
+      },
+    ];
+  }
+}
+MoveSwimlaneComponent.register('moveSwimlanePopup');
+
+(class extends MoveSwimlaneComponent {
+  serverMethod = 'copySwimlane';
+  toBoardsSelector() {
+    const selector = super.toBoardsSelector();
+    delete selector._id;
+    return selector;
+  }
+}.register('copySwimlanePopup'));

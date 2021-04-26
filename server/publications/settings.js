@@ -15,6 +15,7 @@ Meteor.publish('setting', () => {
         customLoginLogoImageUrl: 1,
         customLoginLogoLinkUrl: 1,
         textBelowCustomLoginLogo: 1,
+        automaticLinkedUrlSchemes: 1,
         customTopLeftCornerLogoImageUrl: 1,
         customTopLeftCornerLogoLinkUrl: 1,
         customTopLeftCornerLogoHeight: 1,
@@ -31,7 +32,18 @@ Meteor.publish('mailServer', function() {
   if (!Match.test(this.userId, String)) return [];
   const user = Users.findOne(this.userId);
   if (user && user.isAdmin) {
-    return Settings.find({}, { fields: { mailServer: 1 } });
+    return Settings.find(
+      {},
+      {
+        fields: {
+          'mailServer.host': 1,
+          'mailServer.port': 1,
+          'mailServer.username': 1,
+          'mailServer.enableTLS': 1,
+          'mailServer.from': 1,
+        },
+      },
+    );
   }
   return [];
 });

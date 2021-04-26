@@ -1,10 +1,17 @@
+import { DatePicker } from '/client/lib/datepicker';
+import Cards from '/models/cards';
+import Boards from '/models/boards';
+import Checklists from '/models/checklists';
+import Integrations from '/models/integrations';
+import Users from '/models/users';
+import Lists from '/models/lists';
+import CardComments from '/models/cardComments';
+import { ALLOWED_COLORS } from '/config/const';
+import moment from 'moment';
+import { UserAvatar } from '../users/userAvatar';
+
 const subManager = new SubsManager();
 const { calculateIndexData } = Utils;
-
-let cardColors;
-Meteor.startup(() => {
-  cardColors = Cards.simpleSchema()._schema.color.allowedValues;
-});
 
 BlazeComponent.extendComponent({
   mixins() {
@@ -114,7 +121,7 @@ BlazeComponent.extendComponent({
     if (card) {
       const board = Boards.findOne(card.boardId);
       if (board) {
-        result = FlowRouter.url('card', {
+        result = FlowRouter.path('card', {
           boardId: card.boardId,
           slug: board.slug,
           cardId: card._id,
@@ -160,9 +167,7 @@ BlazeComponent.extendComponent({
             integration,
             'CardSelected',
             params,
-            () => {
-              return;
-            },
+            () => {},
           );
         });
       }
@@ -290,7 +295,9 @@ BlazeComponent.extendComponent({
           Utils.goBoardId(this.data().boardId);
         },
         'click .js-copy-link'() {
-          StringToCopyElement = document.getElementById('cardURL_copy');
+          const StringToCopyElement = document.getElementById('cardURL_copy');
+          StringToCopyElement.value =
+            window.location.origin + window.location.pathname;
           StringToCopyElement.select();
           if (document.execCommand('copy')) {
             StringToCopyElement.blur();
@@ -404,122 +411,6 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('cardDetails');
-
-Template.cardDetails.helpers({
-  userData() {
-    // We need to handle a special case for the search results provided by the
-    // `matteodem:easy-search` package. Since these results gets published in a
-    // separate collection, and not in the standard Meteor.Users collection as
-    // expected, we use a component parameter ("property") to distinguish the
-    // two cases.
-    const userCollection = this.esSearch ? ESSearchResults : Users;
-    return userCollection.findOne(this.userId, {
-      fields: {
-        profile: 1,
-        username: 1,
-      },
-    });
-  },
-
-  receivedSelected() {
-    if (this.getReceived().length === 0) {
-      return false;
-    } else {
-      return true;
-    }
-  },
-
-  startSelected() {
-    if (this.getStart().length === 0) {
-      return false;
-    } else {
-      return true;
-    }
-  },
-
-  endSelected() {
-    if (this.getEnd().length === 0) {
-      return false;
-    } else {
-      return true;
-    }
-  },
-
-  dueSelected() {
-    if (this.getDue().length === 0) {
-      return false;
-    } else {
-      return true;
-    }
-  },
-
-  memberSelected() {
-    if (this.getMembers().length === 0) {
-      return false;
-    } else {
-      return true;
-    }
-  },
-
-  labelSelected() {
-    if (this.getLabels().length === 0) {
-      return false;
-    } else {
-      return true;
-    }
-  },
-
-  assigneeSelected() {
-    if (this.getAssignees().length === 0) {
-      return false;
-    } else {
-      return true;
-    }
-  },
-
-  requestBySelected() {
-    if (this.getRequestBy().length === 0) {
-      return false;
-    } else {
-      return true;
-    }
-  },
-
-  assigneeBySelected() {
-    if (this.getAssigneeBy().length === 0) {
-      return false;
-    } else {
-      return true;
-    }
-  },
-
-  memberType() {
-    const user = Users.findOne(this.userId);
-    return user && user.isBoardAdmin() ? 'admin' : 'normal';
-  },
-
-  presenceStatusClassName() {
-    const user = Users.findOne(this.userId);
-    const userPresence = presences.findOne({ userId: this.userId });
-    if (user && user.isInvitedTo(Session.get('currentBoard'))) return 'pending';
-    else if (!userPresence) return 'disconnected';
-    else if (Session.equals('currentBoard', userPresence.state.currentBoardId))
-      return 'active';
-    else return 'idle';
-  },
-});
-
-Template.userAvatarAssigneeInitials.helpers({
-  initials() {
-    const user = Users.findOne(this.userId);
-    return user && user.getInitials();
-  },
-
-  viewPortWidth() {
-    const user = Users.findOne(this.userId);
-    return ((user && user.getInitials().length) || 1) * 12;
-  },
-});
 
 // We extends the normal InlinedForm component to support UnsavedEdits draft
 // feature.
@@ -695,7 +586,7 @@ BlazeComponent.extendComponent({
   },
 
   boards() {
-    const boards = Boards.find(
+    return Boards.find(
       {
         archived: false,
         'members.userId': Meteor.userId(),
@@ -705,7 +596,6 @@ BlazeComponent.extendComponent({
         sort: { sort: 1 /* boards default sorting */ },
       },
     );
-    return boards;
   },
 
   swimlanes() {
@@ -734,7 +624,7 @@ Template.copyCardPopup.events({
   'click .js-done'() {
     const card = Cards.findOne(Session.get('currentCard'));
     const lSelect = $('.js-select-lists')[0];
-    listId = lSelect.options[lSelect.selectedIndex].value;
+    const listId = lSelect.options[lSelect.selectedIndex].value;
     const slSelect = $('.js-select-swimlanes')[0];
     const swimlaneId = slSelect.options[slSelect.selectedIndex].value;
     const bSelect = $('.js-select-boards')[0];
@@ -799,7 +689,7 @@ Template.copyChecklistToManyCardsPopup.events({
         });
 
         // copy subtasks
-        cursor = Cards.find({ parentId: oldId });
+        const cursor = Cards.find({ parentId: oldId });
         cursor.forEach(function() {
           'use strict';
           const subtask = arguments[0];
@@ -825,7 +715,7 @@ BlazeComponent.extendComponent({
   },
 
   colors() {
-    return cardColors.map(color => ({ color, name: '' }));
+    return ALLOWED_COLORS.map(color => ({ color, name: '' }));
   },
 
   isSelected(color) {
@@ -869,7 +759,7 @@ BlazeComponent.extendComponent({
   },
 
   boards() {
-    const boards = Boards.find(
+    return Boards.find(
       {
         archived: false,
         'members.userId': Meteor.userId(),
@@ -881,7 +771,6 @@ BlazeComponent.extendComponent({
         sort: { sort: 1 /* boards default sorting */ },
       },
     );
-    return boards;
   },
 
   cards() {

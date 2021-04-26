@@ -21,6 +21,34 @@ BlazeComponent.extendComponent({
     }).format(customFieldTrueValue);
   },
 
+  formattedStringtemplateCustomFieldValue(definition) {
+    const customField = this.data()
+      .customFieldsWD()
+      .find(f => f._id === definition._id);
+
+    const customFieldTrueValue =
+      customField && customField.trueValue ? customField.trueValue : [];
+
+    return customFieldTrueValue
+      .filter(value => !!value.trim())
+      .map(value =>
+        definition.settings.stringtemplateFormat.replace(/%\{value\}/gi, value),
+      )
+      .join(definition.settings.stringtemplateSeparator ?? '');
+  },
+
+  showCreator() {
+    if (this.data().board()) {
+      return (
+        this.data().board.allowsCreator === null ||
+        this.data().board().allowsCreator === undefined ||
+        this.data().board().allowsCreator
+      );
+      // return this.data().board().allowsCreator;
+    }
+    return false;
+  },
+
   events() {
     return [
       {

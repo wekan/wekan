@@ -1,6 +1,5 @@
 name: wekan
-version: 0
-version-script: git describe --tags |  cut -c 2-
+version: '5.24'
 summary: The open-source kanban
 description: |
    Wekan is an open-source and collaborative kanban board application.
@@ -81,7 +80,7 @@ parts:
     wekan:
         source: .
         plugin: nodejs
-        node-engine: 12.20.2
+        node-engine: 12.22.1
         node-packages:
             - node-gyp
             - node-pre-gyp
@@ -97,7 +96,7 @@ parts:
             - execstack
             - nodejs
             - npm
-            - p7zip-full
+#            - p7zip-full
         stage-packages:
             - libfontconfig1
         override-build: |
@@ -128,11 +127,11 @@ parts:
             find . -name '*.swp' | xargs rm -f
             cd ../..
             # Add fibers multi arch
-            cd .build/bundle/programs/server/node_modules/fibers/bin
-            curl https://releases.wekan.team/fibers-multi.7z -o fibers-multi.7z
-            7z x fibers-multi.7z
-            rm fibers-multi.7z
-            cd ../../../../../../..
+            #cd .build/bundle/programs/server/node_modules/fibers/bin
+            #curl https://releases.wekan.team/fibers-multi.7z -o fibers-multi.7z
+            #7z x fibers-multi.7z
+            #rm fibers-multi.7z
+            #cd ../../../../../../..
             # Copy to Snap
             cp -r .build/bundle/* $SNAPCRAFT_PART_INSTALL/
             cp .build/bundle/.node_version.txt $SNAPCRAFT_PART_INSTALL/
@@ -155,6 +154,7 @@ parts:
             README: README.wekan
         prime:
             - -lib/node_modules/node-pre-gyp/node_modules/tar/lib/.unpack.js.swp
+            - -lib/node_modules/weka*
 
     helpers:
         source: snap-src

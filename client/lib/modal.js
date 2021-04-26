@@ -50,5 +50,5 @@ EscapeActions.register(
   'modalWindow',
   () => Modal.close(),
   () => Modal.isOpen(),
-  { noClickEscapeOn: '.modal-container' },
+  { noClickEscapeOn: '.modal-container,.model-content' },
 );

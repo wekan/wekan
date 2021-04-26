@@ -48,6 +48,57 @@ if (Meteor.isServer) {
     }
   });
 
+  // todo XXX once we have a real API in place, move that route there
+  // todo XXX also  share the route definition between the client and the server
+  // so that we could use something like
+  // `ApiRoutes.path('boards/export', boardId)``
+  // on the client instead of copy/pasting the route path manually between the
+  // client and the server.
+  /**
+   * @operation exportJson
+   * @tag Boards
+   *
+   * @summary This route is used to export a attachement to a json file format.
+   *
+   * @description If user is already logged-in, pass loginToken as param
+   * "authToken": '/api/boards/:boardId/attachments/:attachmentId/export?authToken=:token'
+   *
+   *
+   * @param {string} boardId the ID of the board we are exporting
+   * @param {string} attachmentId the ID of the attachment we are exporting
+   * @param {string} authToken the loginToken
+   */
+  JsonRoutes.add(
+    'get',
+    '/api/boards/:boardId/attachments/:attachmentId/export',
+    function(req, res) {
+      const boardId = req.params.boardId;
+      const attachmentId = req.params.attachmentId;
+      let user = null;
+      const loginToken = req.query.authToken;
+      if (loginToken) {
+        const hashToken = Accounts._hashLoginToken(loginToken);
+        user = Meteor.users.findOne({
+          'services.resume.loginTokens.hashedToken': hashToken,
+        });
+      } else if (!Meteor.settings.public.sandstorm) {
+        Authentication.checkUserId(req.userId);
+        user = Users.findOne({ _id: req.userId, isAdmin: true });
+      }
+      const exporter = new Exporter(boardId, attachmentId);
+      if (exporter.canExport(user)) {
+        JsonRoutes.sendResult(res, {
+          code: 200,
+          data: exporter.build(),
+        });
+      } else {
+        // we could send an explicit error message, but on the other hand the only
+        // way to get there is by hacking the UI so let's keep it raw.
+        JsonRoutes.sendResult(res, 403);
+      }
+    },
+  );
+
   /**
    * @operation exportCSV/TSV
    * @tag Boards

@@ -8,11 +8,10 @@ template(name="cardDetails")
           a.fa.fa-times-thin.close-card-details.js-close-card-details
           if currentUser.isBoardMember
             a.fa.fa-navicon.card-details-menu.js-open-card-details-menu
-            input.inline-input(type="text" id="cardURL_copy" value="{{ absoluteUrl }}")
+            input.inline-input(type="text" id="cardURL_copy" value="{{ originRelativeUrl }}")
             a.fa.fa-link.card-copy-button.js-copy-link(
               class="fa-link"
               title="{{_ 'copy-card-link-to-clipboard'}}"
-              value="{{ absoluteUrl }}"
             )
         if isMiniScreen
           a.fa.fa-times-thin.close-card-details-mobile-web.js-close-card-details
@@ -111,15 +110,24 @@ template(name="cardDetails")
                 a.card-label.add-label.js-end-date
                   i.fa.fa-plus
 
+      hr
+      if currentBoard.allowsCreator
+        .card-details-item.card-details-item-creator
+          h3.card-details-item-title
+            i.fa.fa-user
+            | {{_ 'creator'}}
+
+          +userAvatar(userId=userId noRemove=true)
+          | {{! XXX Hack to hide syntaxic coloration /// }}
+
       //.card-details-items
       if currentBoard.allowsMembers
-        hr
         .card-details-item.card-details-item-members
           h3.card-details-item-title
             i.fa.fa-users
             | {{_ 'members'}}
-          each getMembers
-            +userAvatar(userId=this cardId=../_id)
+          each userId in getMembers
+            +userAvatar(userId=userId cardId=_id)
             | {{! XXX Hack to hide syntaxic coloration /// }}
           if canModifyCard
             unless currentUser.isWorker
@@ -132,8 +140,8 @@ template(name="cardDetails")
           h3.card-details-item-title
             i.fa.fa-user
             | {{_ 'assignee'}}
-          each getAssignees
-            +userAvatarAssignee(userId=this cardId=../_id)
+          each userId in getAssignees
+            +userAvatar(userId=userId cardId=_id assignee=true)
             | {{! XXX Hack to hide syntaxic coloration /// }}
           if canModifyCard
             a.assignee.add-assignee.card-details-item-add-button.js-add-assignees(title="{{_ 'assignee'}}")
@@ -489,23 +497,6 @@ template(name="cardAssigneesPopup")
           if currentUser.isCardAssignee
             i.fa.fa-check
 
-template(name="userAvatarAssignee")
-  a.assignee.js-assignee(title="{{userData.profile.fullname}} ({{userData.username}})")
-    if userData.profile.avatarUrl
-      img.avatar.avatar-image(src="{{userData.profile.avatarUrl}}")
-    else
-      +userAvatarAssigneeInitials(userId=userData._id)
-
-    if showStatus
-      span.assignee-presence-status(class=presenceStatusClassName)
-      span.member-type(class=memberType)
-
-    unless isSandstorm
-      if showEdit
-        if $eq currentUser._id userData._id
-          a.edit-avatar.js-change-avatar
-            i.fa.fa-pencil
-
 template(name="cardAssigneePopup")
   .board-assignee-menu
     .mini-profile-info
@@ -523,17 +514,13 @@ template(name="cardAssigneePopup")
           with currentUser
             li: a.js-edit-profile {{_ 'edit-profile'}}
 
-template(name="userAvatarAssigneeInitials")
-  svg.avatar.avatar-assignee-initials(viewBox="0 0 {{viewPortWidth}} 15")
-    text(x="50%" y="13" text-anchor="middle")= initials
-
 template(name="cardMorePopup")
   p.quiet
     span.clearfix
       span {{_ 'link-card'}}
       = ' '
       i.fa.colorful(class="{{#if board.isPublic}}fa-globe{{else}}fa-lock{{/if}}")
-      input.inline-input(type="text" id="cardURL" readonly value="{{ absoluteUrl }}" autofocus="autofocus")
+      input.inline-input(type="text" id="cardURL" readonly value="{{ originRelativeUrl }}" autofocus="autofocus")
       button.js-copy-card-link-to-clipboard(class="btn" id="clipboard") {{_ 'copy-card-link-to-clipboard'}}
     span.clearfix
     br

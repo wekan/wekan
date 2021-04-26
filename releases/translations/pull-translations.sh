@@ -63,6 +63,9 @@ tx pull -f -l ka
 echo "German:"
 tx pull -f -l de
 
+echo "German (Switzerland):"
+tx pull -f -l de_CH
+
 echo "Greek:"
 tx pull -f -l el
 
@@ -80,6 +83,9 @@ tx pull -f -l lt
 
 echo "Persian:"
 tx pull -f -l fa
+
+echo "Persian (Iran) فارسی/پارسی (ایران‎):"
+tx pull -f -l fa_IR
 
 echo "Indonesian (Indonesia):"
 tx pull -f -l id_ID
@@ -147,6 +153,9 @@ tx pull -f -l es_AR
 
 echo "Spanish (Chile):"
 tx pull -f -l es_CL
+
+echo "Spanish (Latin America)":
+tx pull -f -l es_419
 
 echo "Spanish (Mexico)":
 tx pull -f -l es_MX

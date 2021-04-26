@@ -118,11 +118,11 @@ services:
     #-------------------------------------------------------------------------------------
     # ==== MONGODB AND METEOR VERSION ====
     # a) Quay automatic builds do work work, https://quay.io/wekan/wekan
-    # image: quay.io/wekan/wekan
+    image: quay.io/wekan/wekan
     # b) Using specific version tag:
     # image: quay.io/wekan/wekan:v4.52
     # c) Docker Hub builds do work https://hub.docker.com/r/wekanteam/wekan
-    image: wekanteam/wekan
+    # image: wekanteam/wekan
     #-------------------------------------------------------------------------------------
     container_name: wekan-app
     restart: always
@@ -208,6 +208,9 @@ services:
       #
       # There is Feature Request: Logging date and time of all activity with summary reports,
       # and requesting reason for changing card to other column https://github.com/wekan/wekan/issues/1598
+      #---------------------------------------------------------------
+      # ==== NUMBER OF SEARCH RESULTS PER PAGE BY DEFAULT ====
+      #- RESULTS_PER_PAGE=20
       #---------------------------------------------------------------
       # ==== WEKAN API AND EXPORT BOARD ====
       # Wekan Export Board works when WITH_API=true.
@@ -309,7 +312,7 @@ services:
       #- TRUSTED_URL=https://intra.example.com
       #-----------------------------------------------------------------
       # ==== OUTGOING WEBHOOKS ====
-      # What to send to Outgoing Webhook, or leave out. Example, that includes all that are default: cardId,listId,oldListId,boardId,comment,user,card,commentId .
+      # What to send to Outgoing Webhook, or leave out. If commented out the default values will be: cardId,listId,oldListId,boardId,comment,user,card,commentId,swimlaneId,customerField,customFieldValue
       #- WEBHOOKS_ATTRIBUTES=cardId,listId,oldListId,boardId,comment,user,card,commentId
       #-----------------------------------------------------------------
       # ==== Debug OIDC OAuth2 etc ====

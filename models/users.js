@@ -797,9 +797,29 @@ Meteor.methods({
 
 if (Meteor.isServer) {
   Meteor.methods({
+    setAllUsersHideSystemMessages() {
+      if (Meteor.user() && Meteor.user().isAdmin) {
+        // If setting is missing, add it
+        Users.update(
+          { 'profile.hiddenSystemMessages': { $exists: false } },
+          { $set: { 'profile.hiddenSystemMessages': true } },
+          { multi: true },
+        );
+        // If setting is false, set it to true
+        Users.update(
+          { 'profile.hiddenSystemMessages': false },
+          { $set: { 'profile.hiddenSystemMessages': true } },
+          { multi: true },
+        );
+        return true;
+      } else {
+        return false;
+      }
+    },
     setCreateUser(
       fullname,
       username,
+      initials,
       password,
       isAdmin,
       isActive,
@@ -809,6 +829,7 @@ if (Meteor.isServer) {
       if (Meteor.user() && Meteor.user().isAdmin) {
         check(fullname, String);
         check(username, String);
+        check(initials, String);
         check(password, String);
         check(isAdmin, String);
         check(isActive, String);
@@ -833,7 +854,11 @@ if (Meteor.isServer) {
           const user = Users.findOne(username) || Users.findOne({ username });
           if (user) {
             Users.update(user._id, {
-              $set: { 'profile.fullname': fullname, importUsernames },
+              $set: {
+                'profile.fullname': fullname,
+                importUsernames,
+                'profile.initials': initials,
+              },
             });
           }
         }

@@ -1,3 +1,5 @@
+import { ALLOWED_COLORS } from '/config/const';
+
 Swimlanes = new Mongo.Collection('swimlanes');
 
 /**
@@ -68,32 +70,7 @@ Swimlanes.attachSchema(
       type: String,
       optional: true,
       // silver is the default, so it is left out
-      allowedValues: [
-        'white',
-        'green',
-        'yellow',
-        'orange',
-        'red',
-        'purple',
-        'blue',
-        'sky',
-        'lime',
-        'pink',
-        'black',
-        'peachpuff',
-        'crimson',
-        'plum',
-        'darkgreen',
-        'slateblue',
-        'magenta',
-        'gold',
-        'navy',
-        'gray',
-        'saddlebrown',
-        'paleturquoise',
-        'mistyrose',
-        'indigo',
-      ],
+      allowedValues: ALLOWED_COLORS,
     },
     updatedAt: {
       /**
@@ -168,6 +145,45 @@ Swimlanes.helpers({
       list.boardId = boardId;
       list.copy(boardId, _id);
     });
+  },
+
+  move(toBoardId) {
+    this.lists().forEach(list => {
+      const toList = Lists.findOne({
+        boardId: toBoardId,
+        title: list.title,
+        archived: false,
+      });
+
+      let toListId;
+      if (toList) {
+        toListId = toList._id;
+      } else {
+        toListId = Lists.insert({
+          title: list.title,
+          boardId: toBoardId,
+          type: list.type,
+          archived: false,
+          wipLimit: list.wipLimit,
+        });
+      }
+
+      Cards.find({
+        listId: list._id,
+        swimlaneId: this._id,
+      }).forEach(card => {
+        card.move(toBoardId, this._id, toListId);
+      });
+    });
+
+    Swimlanes.update(this._id, {
+      $set: {
+        boardId: toBoardId,
+      },
+    });
+
+    // make sure there is a default swimlane
+    this.board().getDefaultSwimline();
   },
 
   cards() {

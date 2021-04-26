@@ -176,6 +176,9 @@ BlazeComponent.extendComponent({
     const textBelowCustomLoginLogo = $('#text-below-custom-login-logo')
       .val()
       .trim();
+    const automaticLinkedUrlSchemes = $('#automatic-linked-url-schemes')
+      .val()
+      .trim();
     const customTopLeftCornerLogoImageUrl = $(
       '#custom-top-left-corner-logo-image-url',
     )
@@ -209,6 +212,7 @@ BlazeComponent.extendComponent({
           customTopLeftCornerLogoHeight,
           displayAuthenticationMethod,
           defaultAuthenticationMethod,
+          automaticLinkedUrlSchemes,
         },
       });
     } catch (e) {
@@ -270,7 +274,6 @@ BlazeComponent.extendComponent({
       $set: { booleanValue: allowUserDelete },
     });
   },
-
   allowEmailChange() {
     return AccountSettings.findOne('accounts-allowEmailChange').booleanValue;
   },
@@ -280,11 +283,30 @@ BlazeComponent.extendComponent({
   allowUserDelete() {
     return AccountSettings.findOne('accounts-allowUserDelete').booleanValue;
   },
+  allHideSystemMessages() {
+    Meteor.call('setAllUsersHideSystemMessages', (err, ret) => {
+      if (!err && ret) {
+        if (ret === true) {
+          const message = `${TAPi18n.__(
+            'now-system-messages-of-all-users-are-hidden',
+          )}`;
+          alert(message);
+        }
+      } else {
+        const reason = err.reason || '';
+        const message = `${TAPi18n.__(err.error)}\n${reason}`;
+        alert(message);
+      }
+    });
+  },
 
   events() {
     return [
       {
         'click button.js-accounts-save': this.saveAccountsChange,
+      },
+      {
+        'click button.js-all-hide-system-messages': this.allHideSystemMessages,
       },
     ];
   },

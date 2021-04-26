@@ -208,17 +208,19 @@ export class TrelloCreator {
         }
       });
     }
-    trelloBoard.labels.forEach(label => {
-      const labelToCreate = {
-        _id: Random.id(6),
-        color: label.color ? label.color : 'black',
-        name: label.name,
-      };
-      // We need to remember them by Trello ID, as this is the only ref we have
-      // when importing cards.
-      this.labels[label.id] = labelToCreate._id;
-      boardToCreate.labels.push(labelToCreate);
-    });
+    if (trelloBoard.labels) {
+      trelloBoard.labels.forEach(label => {
+        const labelToCreate = {
+          _id: Random.id(6),
+          color: label.color ? label.color : 'black',
+          name: label.name,
+        };
+        // We need to remember them by Trello ID, as this is the only ref we have
+        // when importing cards.
+        this.labels[label.id] = labelToCreate._id;
+        boardToCreate.labels.push(labelToCreate);
+      });
+    }
     const boardId = Boards.direct.insert(boardToCreate);
     Boards.direct.update(boardId, { $set: { modifiedAt: this._now() } });
     // log activity
@@ -416,39 +418,62 @@ export class TrelloCreator {
       const attachments = this.attachments[card.id];
       const trelloCoverId = card.idAttachmentCover;
       if (attachments) {
+        const links = [];
         attachments.forEach(att => {
-          const file = new FS.File();
-          // Simulating file.attachData on the client generates multiple errors
-          // - HEAD returns null, which causes exception down the line
-          // - the template then tries to display the url to the attachment which causes other errors
-          // so we make it server only, and let UI catch up once it is done, forget about latency comp.
-          const self = this;
-          if (Meteor.isServer) {
-            file.attachData(att.url, function(error) {
-              file.boardId = boardId;
-              file.cardId = cardId;
-              file.userId = self._user(att.idMemberCreator);
-              // The field source will only be used to prevent adding
-              // attachments' related activities automatically
-              file.source = 'import';
-              if (error) {
-                throw error;
-              } else {
-                const wekanAtt = Attachments.insert(file, () => {
-                  // we do nothing
-                });
-                self.attachmentIds[att.id] = wekanAtt._id;
-                //
-                if (trelloCoverId === att.id) {
-                  Cards.direct.update(cardId, {
-                    $set: { coverId: wekanAtt._id },
+          // if the attachment `name` and `url` are the same, then the
+          // attachment is an attached link
+          if (att.name === att.url) {
+            links.push(att.url);
+          } else {
+            const file = new FS.File();
+            // Simulating file.attachData on the client generates multiple errors
+            // - HEAD returns null, which causes exception down the line
+            // - the template then tries to display the url to the attachment which causes other errors
+            // so we make it server only, and let UI catch up once it is done, forget about latency comp.
+            const self = this;
+            if (Meteor.isServer) {
+              file.attachData(att.url, function(error) {
+                file.boardId = boardId;
+                file.cardId = cardId;
+                file.userId = self._user(att.idMemberCreator);
+                // The field source will only be used to prevent adding
+                // attachments' related activities automatically
+                file.source = 'import';
+                if (error) {
+                  throw error;
+                } else {
+                  const wekanAtt = Attachments.insert(file, () => {
+                    // we do nothing
                   });
+                  self.attachmentIds[att.id] = wekanAtt._id;
+                  //
+                  if (trelloCoverId === att.id) {
+                    Cards.direct.update(cardId, {
+                      $set: { coverId: wekanAtt._id },
+                    });
+                  }
                 }
-              }
-            });
+              });
+            }
           }
           // todo XXX set cover - if need be
         });
+
+        if (links.length) {
+          let desc = cardToCreate.description.trim();
+          if (desc) {
+            desc += '\n\n';
+          }
+          desc += `## ${TAPi18n.__('links-heading')}\n`;
+          links.forEach(link => {
+            desc += `* ${link}\n`;
+          });
+          Cards.direct.update(cardId, {
+            $set: {
+              description: desc,
+            },
+          });
+        }
       }
       result.push(cardId);
     });
