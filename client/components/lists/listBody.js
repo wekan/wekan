@@ -770,16 +770,21 @@ BlazeComponent.extendComponent({
   },
 
   spinnerInView() {
-    const parentViewHeight = this.container.clientHeight;
-    const bottomViewPosition = this.container.scrollTop + parentViewHeight;
-
-    const threshold = this.spinner.offsetTop;
-
     // spinner deleted
     if (!this.spinner.offsetTop) {
       return false;
     }
 
-    return bottomViewPosition > threshold;
+    const parentViewHeight = this.container.clientHeight;
+    const bottomViewPosition = this.container.scrollTop + parentViewHeight;
+
+    let spinnerOffsetTop = this.spinner.offsetTop;
+
+    const addCard = $(this.container).find("a.open-minicard-composer").first()[0];
+    if (addCard !== undefined) {
+      spinnerOffsetTop -= addCard.clientHeight;
+    }
+
+    return bottomViewPosition > spinnerOffsetTop;
   },
 }).register('spinnerList');
