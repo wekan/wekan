@@ -344,6 +344,12 @@
   "list-label-short-sort": "(M)",
   "filter": "Filter",
   "filter-cards": "Filter Cards or Lists",
+  "filter-dates-label": "Filter by date",
+  "filter-no-due-date": "No due date",
+  "filter-overdue": "Overdue",
+  "filter-due-today": "Due today",
+  "filter-due-this-week": "Due this week",
+  "filter-due-tomorrow": "Due tomorrow",
   "list-filter-label": "Filter List by Title",
   "filter-clear": "Clear filter",
   "filter-labels-label": "Filter by label",
@@ -999,5 +1005,7 @@
   "filesReportTitle": "Files Report",
   "orphanedFilesReportTitle": "Orphaned Files Report",
   "reports": "Reports",
-  "rulesReportTitle": "Rules Report"
+  "rulesReportTitle": "Rules Report",
+  "copy-swimlane": "Copy Swimlane",
+  "copySwimlanePopup-title": "Copy Swimlane"
 }

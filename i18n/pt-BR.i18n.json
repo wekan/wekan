@@ -344,6 +344,12 @@
   "list-label-short-sort": "(M)",
   "filter": "Filtrar",
   "filter-cards": "Filtrar Cartões ou Listas",
+  "filter-dates-label": "Filtrar por data",
+  "filter-no-due-date": "Sem prazo final",
+  "filter-overdue": "Atrasado",
+  "filter-due-today": "Para hoje",
+  "filter-due-this-week": "Para nesta semana",
+  "filter-due-tomorrow": "Para amanhã",
   "list-filter-label": "Filtrar Lista por Título",
   "filter-clear": "Limpar filtro",
   "filter-labels-label": "Filtrar por etiqueta",
@@ -998,5 +1004,7 @@
   "filesReportTitle": "Relatório de Arquivos",
   "orphanedFilesReportTitle": "Relatório de Arquivos Órfãos",
   "reports": "Relatórios",
-  "rulesReportTitle": "Regras de Relatório"
+  "rulesReportTitle": "Regras de Relatório",
+  "copy-swimlane": "Copiar Raia",
+  "copySwimlanePopup-title": "Copiar Raia"
 }

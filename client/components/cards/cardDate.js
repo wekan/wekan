@@ -1,4 +1,3 @@
-import moment from 'moment';
 import { DatePicker } from '/client/lib/datepicker';
 
 Template.dateBadge.helpers({
@@ -188,7 +187,6 @@ class CardStartDate extends CardDate {
     // if dueAt or endAt exist & are > startAt, startAt doesn't need to be flagged
     if ((endAt && theDate.isAfter(endAt)) || (dueAt && theDate.isAfter(dueAt)))
       classes += 'long-overdue';
-    else if (theDate.isBefore(now, 'minute')) classes += 'almost-due';
     else classes += 'current';
     return classes;
   }

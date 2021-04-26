@@ -344,6 +344,12 @@
   "list-label-short-sort": "(י)",
   "filter": "מסנן",
   "filter-cards": "סינון כרטיסים או רשימות",
+  "filter-dates-label": "סינון לפי תאריך",
+  "filter-no-due-date": "אין מועד סיום",
+  "filter-overdue": "מועד הסיום עבר",
+  "filter-due-today": "מועד הסיום הוא היום",
+  "filter-due-this-week": "מועד הסיום הוא השבוע",
+  "filter-due-tomorrow": "מועד הסיום הוא מחר",
   "list-filter-label": "סינון רשימה לפי כותרת",
   "filter-clear": "ניקוי המסנן",
   "filter-labels-label": "סינון לפי תווית",
@@ -998,5 +1004,7 @@
   "filesReportTitle": "דוח קבצים",
   "orphanedFilesReportTitle": "דוח קבצים יתומים",
   "reports": "דוחות",
-  "rulesReportTitle": "דוח כללים"
+  "rulesReportTitle": "דוח כללים",
+  "copy-swimlane": "העתקת מסלול",
+  "copySwimlanePopup-title": "העתקת מסלול"
 }

@@ -208,17 +208,19 @@ export class TrelloCreator {
         }
       });
     }
-    trelloBoard.labels.forEach(label => {
-      const labelToCreate = {
-        _id: Random.id(6),
-        color: label.color ? label.color : 'black',
-        name: label.name,
-      };
-      // We need to remember them by Trello ID, as this is the only ref we have
-      // when importing cards.
-      this.labels[label.id] = labelToCreate._id;
-      boardToCreate.labels.push(labelToCreate);
-    });
+    if (trelloBoard.labels) {
+      trelloBoard.labels.forEach(label => {
+        const labelToCreate = {
+          _id: Random.id(6),
+          color: label.color ? label.color : 'black',
+          name: label.name,
+        };
+        // We need to remember them by Trello ID, as this is the only ref we have
+        // when importing cards.
+        this.labels[label.id] = labelToCreate._id;
+        boardToCreate.labels.push(labelToCreate);
+      });
+    }
     const boardId = Boards.direct.insert(boardToCreate);
     Boards.direct.update(boardId, { $set: { modifiedAt: this._now() } });
     // log activity

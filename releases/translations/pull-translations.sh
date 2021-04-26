@@ -63,6 +63,9 @@ tx pull -f -l ka
 echo "German:"
 tx pull -f -l de
 
+echo "German (Switzerland):"
+tx pull -f -l de_CH
+
 echo "Greek:"
 tx pull -f -l el
 

@@ -172,7 +172,7 @@
   "card-edit-voting": "Wijzig stemming",
   "editVoteEndDatePopup-title": "Wijzig einddatum stemming",
   "allowNonBoardMembers": "Sta alle ingelogde gebruikers toe",
-  "vote-question": "Stemvraag",
+  "vote-question": "Vraag",
   "vote-public": "Toon wie wat gestemd heeft",
   "vote-for-it": "Voor",
   "vote-against": "tegen",
@@ -344,6 +344,12 @@
   "list-label-short-sort": "(M)",
   "filter": "Filter",
   "filter-cards": "Filter kaarten of lijsten",
+  "filter-dates-label": "Filter op datum",
+  "filter-no-due-date": "Geen vervaldatum",
+  "filter-overdue": "verlopen",
+  "filter-due-today": "Vervalt vandaag",
+  "filter-due-this-week": "Vervalt deze week",
+  "filter-due-tomorrow": "Vervalt morgen",
   "list-filter-label": "Filter lijst op titel",
   "filter-clear": "Wis filter",
   "filter-labels-label": "Filter op label",
@@ -998,5 +1004,7 @@
   "filesReportTitle": "Bestanden Rapportage",
   "orphanedFilesReportTitle": "Verweesde Bestanden Rapportage",
   "reports": "Rapportages",
-  "rulesReportTitle": "Regels Rapportage"
+  "rulesReportTitle": "Regels Rapportage",
+  "copy-swimlane": "Kopieer Swimlane",
+  "copySwimlanePopup-title": "Kopieer Swimlane"
 }
