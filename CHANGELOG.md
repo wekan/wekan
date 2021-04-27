@@ -1,6 +1,11 @@
 # Upcoming Wekan release
 
-This release adds the following updates:
+This release adds the following new features:
+
+- [Swimlane in Export to Excel](https://github.com/wekan/wekan/pull/3764).
+  Thanks to Keelan and ryanMushy.
+
+and adds the following updates:
 
 - [Updated release scripts](https://github.com/wekan/wekan/commit/9f0f6841b01b88f5559724b047d5e245617a02c8).
   Thanks to xet7.
