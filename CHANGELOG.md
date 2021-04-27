@@ -5,6 +5,11 @@ This release adds the following updates:
 - [Updated release scripts](https://github.com/wekan/wekan/commit/9f0f6841b01b88f5559724b047d5e245617a02c8).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Added missing PostgreSQL password to ToroDB](https://github.com/wekan/wekan/commit/995de525d96946702536f0cdcb98ef281b9df94e).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v5.24 2021-04-24 Wekan release
