@@ -145,6 +145,7 @@ Template.editor.onRendered(() => {
                 const MAX_IMAGE_PIXEL = Utils.MAX_IMAGE_PIXEL;
                 const COMPRESS_RATIO = Utils.IMAGE_COMPRESS_RATIO;
                 const insertImage = src => {
+                  // process all image upload types to the description/comment window
                   const img = document.createElement('img');
                   img.src = src;
                   img.setAttribute('width', '100%');
@@ -210,7 +211,16 @@ Template.editor.onRendered(() => {
                 }
               }
             },
-            onPaste() {
+            onPaste(e) {
+              var clipboardData = e.clipboardData;
+              var pastedData = clipboardData.getData('Text');
+
+              //if pasted data is an image, exit
+              if( !pastedData.length ){
+                e.preventDefault();
+                return;
+              }
+
               // clear up unwanted tag info when user pasted in text
               const thisNote = this;
               const updatePastedText = function(object) {
@@ -219,7 +229,7 @@ Template.editor.onRendered(() => {
                 // (and multiplies by pasting more) by changing paste "p" to "br".
                 // Fixes https://github.com/wekan/wekan/2890 .
                 // == Fix Start ==
-                someNote.execCommand('defaultParagraphSeparator', false, 'br');
+                //someNote.execCommand('defaultParagraphSeparator', false, 'br');
                 // == Fix End ==
                 const original = someNote.summernote('code');
                 const cleaned = cleanPastedHTML(original); //this is where to call whatever clean function you want. I have mine in a different file, called CleanPastedHTML.
@@ -231,19 +241,16 @@ Template.editor.onRendered(() => {
                 //the function is called before the text is really pasted.
                 updatePastedText(thisNote);
               }, 10);
-            },
+            }
           },
           dialogsInBody: true,
           spellCheck: true,
           disableGrammar: false,
-          disableDragAndDrop: true,
+          disableDragAndDrop: false,
           toolbar,
           popover: {
             image: [
-              [
-                'image',
-                ['resizeFull', 'resizeHalf', 'resizeQuarter', 'resizeNone'],
-              ],
+              ['imagesize', ['imageSize100', 'imageSize50', 'imageSize25']],
               ['float', ['floatLeft', 'floatRight', 'floatNone']],
               ['remove', ['removeMedia']],
             ],
