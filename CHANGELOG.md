@@ -13,6 +13,8 @@ and fixes the following bugs:
   Thanks to urmel1960.
 - [Bugfix/Summernote on paste](https://github.com/wekan/wekan/pull/3761).
   Thanks to ryanMushy.
+- [OpenAPI: Better handle nested schemas](https://github.com/wekan/wekan/pull/3762).
+  Thanks to bentiss.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
