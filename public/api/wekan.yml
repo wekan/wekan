@@ -3681,20 +3681,6 @@ definitions:
       - createdAt
       - modifiedAt
       - authenticationMethod
-  UsersEmails:
-    type: object
-    properties:
-      address:
-        description: |
-           The email address
-        type: string
-      verified:
-        description: |
-           Has the email been verified
-        type: boolean
-    required:
-      - address
-      - verified
   UsersProfile:
     type: object
     properties:
@@ -3750,14 +3736,6 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/UsersProfileNotifications"
-      activity:
-        description: |
-           The id of the activity this notification references
-        type: string
-      read:
-        description: |
-           the date on which this notification was read
-        type: string
       showCardsCountAt:
         description: |
            showCardCountAt field of the user
@@ -3813,7 +3791,6 @@ definitions:
            Reference to the board templates swimlane Id
         type: string
     required:
-      - activity
       - templatesBoardId
       - cardTemplatesSwimlaneId
       - listTemplatesSwimlaneId
@@ -3829,3 +3806,30 @@ definitions:
         description: |
            last hit that was returned
         type: number
+  UsersEmails:
+    type: object
+    properties:
+      address:
+        description: |
+           The email address
+        type: string
+      verified:
+        description: |
+           Has the email been verified
+        type: boolean
+    required:
+      - address
+      - verified
+  UsersProfileNotifications:
+    type: object
+    properties:
+      activity:
+        description: |
+           The id of the activity this notification references
+        type: string
+      read:
+        description: |
+           the date on which this notification was read
+        type: string
+    required:
+      - activity
