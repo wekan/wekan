@@ -11,6 +11,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fixed language name of Deutsch (Schweiz)](https://github.com/wekan/wekan/commit/621c701bef1d09d4ddfc93be411cfad98869f0ae).
   Thanks to urmel1960.
+- [Bugfix/Summernote on paste](https://github.com/wekan/wekan/pull/3761).
+  Thanks to ryanMushy.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
