@@ -9,6 +9,8 @@ and fixes the following bugs:
 
 - [Added missing PostgreSQL password to ToroDB](https://github.com/wekan/wekan/commit/995de525d96946702536f0cdcb98ef281b9df94e).
   Thanks to xet7.
+- [Fixed language name of Deutsch (Schweiz)](https://github.com/wekan/wekan/commit/621c701bef1d09d4ddfc93be411cfad98869f0ae).
+  Thanks to urmel1960.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
