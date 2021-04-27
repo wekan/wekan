@@ -239,7 +239,7 @@ export class ExporterExcel {
       },
       {
         key: 'c',
-        width: 20,
+        width: 60,
       },
       {
         key: 'd',
@@ -342,6 +342,10 @@ export class ExporterExcel {
         key: 'p',
         width: 20,
       },
+      {
+        key: 'q',
+        width: 20,
+      },
     ];
 
     //add title line
@@ -378,10 +382,23 @@ export class ExporterExcel {
     for (const klist in result.lists) {
       jlist[result.lists[klist]._id] = result.lists[klist].title;
     }
+    //get kanban swimlanes info
+    const jswimlane = {};
+    for (const kswimlane in result.swimlanes) {
+      jswimlane[result.swimlanes[kswimlane]._id] = result.swimlanes[kswimlane].title;
+    }
     //get kanban label info
     const jlabel = {};
-    for (const klabel in result.labels) {
-      jlabel[result.labels[klabel]._id] = result.labels[klabel].name;
+    var isFirst = 1;
+    for (const klabel in result.labels){
+      console.log(klabel);
+      if (isFirst == 0){
+        jlabel[result.labels[klabel]._id] = `,${result.labels[klabel].name}`;
+      }
+      else{
+        isFirst = 0;
+        jlabel[result.labels[klabel]._id] = result.labels[klabel].name;
+      }
     }
     //add data +8 hours
     function addTZhours(jdate) {
@@ -413,7 +430,7 @@ export class ExporterExcel {
       size: 10,
       bold: true,
     };
-    ws.mergeCells('F3:P3');
+    ws.mergeCells('F3:Q3');
     ws.getCell('B3').style = {
       font: {
         name: TAPi18n.__('excel-font'),
@@ -487,6 +504,7 @@ export class ExporterExcel {
     ];
     //add card title
     //ws.addRow().values = ['编号', '标题', '创建人', '创建时间', '更新时间', '列表', '成员', '描述', '标签'];
+    //this is where order in which the excel file generates
     ws.addRow().values = [
       TAPi18n.__('number'),
       TAPi18n.__('title'),
@@ -499,6 +517,7 @@ export class ExporterExcel {
       TAPi18n.__('card-due'),
       TAPi18n.__('card-end'),
       TAPi18n.__('list'),
+      TAPi18n.__('swimlane'),
       TAPi18n.__('assignee'),
       TAPi18n.__('members'),
       TAPi18n.__('labels'),
@@ -522,6 +541,7 @@ export class ExporterExcel {
     allBorder('N5');
     allBorder('O5');
     allBorder('P5');
+    allBorder('Q5');
     cellCenter('A5');
     cellCenter('B5');
     cellCenter('C5');
@@ -538,6 +558,7 @@ export class ExporterExcel {
     cellCenter('N5');
     cellCenter('O5');
     cellCenter('P5');
+    cellCenter('Q5');
     ws.getRow(5).font = {
       name: TAPi18n.__('excel-font'),
       size: 12,
@@ -580,6 +601,7 @@ export class ExporterExcel {
         addTZhours(jcard.dueAt),
         addTZhours(jcard.endAt),
         jlist[jcard.listId],
+        jswimlane[jcard.swimlaneId],
         jcassig,
         jcmem,
         jclabel,
@@ -604,6 +626,7 @@ export class ExporterExcel {
       allBorder(`N${y}`);
       allBorder(`O${y}`);
       allBorder(`P${y}`);
+      allBorder(`Q${y}`);
       cellCenter(`A${y}`);
       ws.getCell(`B${y}`).alignment = {
         wrapText: true,
