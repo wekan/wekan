@@ -99,7 +99,7 @@ services:
       - postgres
       - mongodb
     environment:
-      - POSTGRES_PASSWORD
+      - POSTGRES_PASSWORD=wekan
       - TORODB_SETUP=true
       - TORODB_SYNC_SOURCE=mongodb:27017
       - TORODB_BACKEND_HOST=postgres
@@ -113,7 +113,7 @@ services:
     networks:
       - wekan-tier
     environment:
-      - POSTGRES_PASSWORD
+      - POSTGRES_PASSWORD=wekan
     ports:
       - "5432:5432"
   mongodb:

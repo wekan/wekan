@@ -5,6 +5,17 @@ This release adds the following updates:
 - [Updated release scripts](https://github.com/wekan/wekan/commit/9f0f6841b01b88f5559724b047d5e245617a02c8).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Added missing PostgreSQL password to ToroDB](https://github.com/wekan/wekan/commit/995de525d96946702536f0cdcb98ef281b9df94e).
+  Thanks to xet7.
+- [Fixed language name of Deutsch (Schweiz)](https://github.com/wekan/wekan/commit/621c701bef1d09d4ddfc93be411cfad98869f0ae).
+  Thanks to urmel1960.
+- [Bugfix/Summernote on paste](https://github.com/wekan/wekan/pull/3761).
+  Thanks to ryanMushy.
+- [OpenAPI: Better handle nested schemas](https://github.com/wekan/wekan/pull/3762).
+  Thanks to bentiss.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v5.24 2021-04-24 Wekan release
