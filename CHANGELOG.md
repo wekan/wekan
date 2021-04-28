@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Feature/mini card subtask count](https://github.com/wekan/wekan/pull/3765).
+  Thanks to ryanMushy.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.25 2021-04-27 Wekan release
 
 This release adds the following new features:
