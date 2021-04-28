@@ -129,3 +129,8 @@ template(name="minicard")
         .badge(class="{{#if checklistFinished}}is-finished{{/if}}")
           span.badge-icon.fa.fa-check-square-o
           span.badge-text.check-list-text {{checklistFinishedCount}}/{{checklistItemCount}}
+      if allSubtasks.count
+        .badge
+          span.badge-icon.fa.fa-sitemap
+          span.badge-text.check-list-text {{subtasksFinishedCount}}/{{allSubtasksCount}}
+          //{{subtasksFinishedCount}}/{{subtasksCount}} does not work because when a subtaks is archived, the count goes down
