@@ -5,6 +5,11 @@ This release adds the following new features:
 - [Feature/mini card subtask count](https://github.com/wekan/wekan/pull/3765).
   Thanks to ryanMushy.
 
+and fixes the following bugs:
+
+- [Bring back Almost-Due for Start Date](https://github.com/wekan/wekan/commit/8ca1b25daf3be60c2dc64f03830dea8437bbd8ad).
+  Thanks to darren-teo.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v5.25 2021-04-27 Wekan release
