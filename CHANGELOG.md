@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fixed Non-ASCII attachment filename will crash when downloading](https://github.com/wekan/wekan/commit/c2da47773552a61d45b010a095f73d2e441f687c).
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.26 2021-04-28 Wekan release
 
 This release adds the following new features:
