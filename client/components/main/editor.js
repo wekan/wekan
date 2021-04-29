@@ -216,7 +216,7 @@ Template.editor.onRendered(() => {
               var pastedData = clipboardData.getData('Text');
 
               //if pasted data is an image, exit
-              if( !pastedData.length ){
+              if (!pastedData.length) {
                 e.preventDefault();
                 return;
               }
@@ -241,7 +241,7 @@ Template.editor.onRendered(() => {
                 //the function is called before the text is really pasted.
                 updatePastedText(thisNote);
               }, 10);
-            }
+            },
           },
           dialogsInBody: true,
           spellCheck: true,

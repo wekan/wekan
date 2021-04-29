@@ -385,17 +385,17 @@ export class ExporterExcel {
     //get kanban swimlanes info
     const jswimlane = {};
     for (const kswimlane in result.swimlanes) {
-      jswimlane[result.swimlanes[kswimlane]._id] = result.swimlanes[kswimlane].title;
+      jswimlane[result.swimlanes[kswimlane]._id] =
+        result.swimlanes[kswimlane].title;
     }
     //get kanban label info
     const jlabel = {};
     var isFirst = 1;
-    for (const klabel in result.labels){
+    for (const klabel in result.labels) {
       console.log(klabel);
-      if (isFirst == 0){
+      if (isFirst == 0) {
         jlabel[result.labels[klabel]._id] = `,${result.labels[klabel].name}`;
-      }
-      else{
+      } else {
         isFirst = 0;
         jlabel[result.labels[klabel]._id] = result.labels[klabel].name;
       }

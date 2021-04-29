@@ -650,10 +650,10 @@ Cards.helpers({
 
   allSubtasks() {
     return Cards.find({
-      parentId: this._id
+      parentId: this._id,
     });
   },
-  
+
   subtasksCount() {
     const subtasks = this.subtasks();
     return subtasks.count();

@@ -23,21 +23,30 @@ class DateFilter {
 
   // past builds a filter for all dates before now
   past() {
-    if (this._filterState == 'past') { this.reset(); return; }
+    if (this._filterState == 'past') {
+      this.reset();
+      return;
+    }
     this._filter = { $lte: moment().toDate() };
     this._updateState('past');
   }
 
   // today is a convenience method for calling relativeDay with 0
   today() {
-    if (this._filterState == 'today') { this.reset(); return; }
+    if (this._filterState == 'today') {
+      this.reset();
+      return;
+    }
     this.relativeDay(0);
     this._updateState('today');
   }
 
   // tomorrow is a convenience method for calling relativeDay with 1
   tomorrow() {
-    if (this._filterState == 'tomorrow') { this.reset(); return; }
+    if (this._filterState == 'tomorrow') {
+      this.reset();
+      return;
+    }
     this.relativeDay(1);
     this._updateState('tomorrow');
   }
@@ -50,10 +59,18 @@ class DateFilter {
   // relativeDay builds a filter starting from now and including all
   // days up to today +/- offset.
   relativeDay(offset) {
-    if (this._filterState == 'day') { this.reset(); return; }
+    if (this._filterState == 'day') {
+      this.reset();
+      return;
+    }
 
-    var startDay = moment().startOf('day').toDate(),
-      endDay = moment().endOf('day').add(offset, 'day').toDate();
+    var startDay = moment()
+        .startOf('day')
+        .toDate(),
+      endDay = moment()
+        .endOf('day')
+        .add(offset, 'day')
+        .toDate();
 
     if (offset >= 0) {
       this._filter = { $gte: startDay, $lte: endDay };
@@ -68,7 +85,10 @@ class DateFilter {
   // weeks up to today +/- offset. This considers the user's preferred
   // start of week day (as defined by Meteor).
   relativeWeek(offset) {
-    if (this._filterState == 'week') { this.reset(); return; }
+    if (this._filterState == 'week') {
+      this.reset();
+      return;
+    }
 
     // getStartDayOfWeek returns the offset from Sunday of the user's
     // preferred starting day of the week. This date should be added
@@ -78,8 +98,14 @@ class DateFilter {
     const weekStartDay = currentUser ? currentUser.getStartDayOfWeek() : 1;
 
     // Moments are mutable so they must be cloned before modification
-    var thisWeekStart = moment().startOf('day').startOf('week').add(weekStartDay, 'days');
-    var thisWeekEnd = thisWeekStart.clone().add(offset, 'week').endOf('day');
+    var thisWeekStart = moment()
+      .startOf('day')
+      .startOf('week')
+      .add(weekStartDay, 'days');
+    var thisWeekEnd = thisWeekStart
+      .clone()
+      .add(offset, 'week')
+      .endOf('day');
     var startDate = thisWeekStart.toDate();
     var endDate = thisWeekEnd.toDate();
 
@@ -94,7 +120,10 @@ class DateFilter {
 
   // noDate builds a filter for items where date is not set
   noDate() {
-    if (this._filterState == 'noDate') { this.reset(); return; }
+    if (this._filterState == 'noDate') {
+      this.reset();
+      return;
+    }
     this._filter = null;
     this._updateState('noDate');
   }
