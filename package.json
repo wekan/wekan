@@ -45,7 +45,7 @@
     "eslint-config-meteor": "0.0.9",
     "eslint-config-prettier": "^3.6.0",
     "eslint-import-resolver-meteor": "^0.4.0",
-    "eslint-plugin-import": "^2.20.0",
+    "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-meteor": "^5.1.0",
     "eslint-plugin-prettier": "^3.1.2",
     "lint-staged": "^7.3.0",
@@ -56,11 +56,13 @@
   "dependencies": {
     "@babel/core": "^7.9.6",
     "@babel/runtime": "^7.9.6",
+    "@liradb2000/markdown-it-mermaid": "^0.4.2",
     "ajv": "^6.12.4",
     "babel-runtime": "^6.26.0",
     "bcrypt": "^5.0.0",
     "bson": "^4.0.3",
     "bunyan": "^1.8.12",
+    "dompurify": "^2.2.8",
     "es6-promise": "^4.2.4",
     "exceljs": "^4.2.1",
     "fibers": "^5.0.0",
@@ -76,7 +78,6 @@
     "page": "^1.11.5",
     "papaparse": "^5.2.0",
     "qs": "^6.9.4",
-    "source-map-support": "^0.5.19",
-    "xss": "^1.0.8"
+    "source-map-support": "^0.5.19"
   }
 }

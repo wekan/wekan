@@ -1,4 +1,4 @@
-import sanitizeXss from 'xss';
+import DOMPurify from 'dompurify';
 
 const activitiesPerPage = 500;
 
@@ -162,11 +162,15 @@ BlazeComponent.extendComponent({
             {
               href: source.url,
             },
-            sanitizeXss(source.system),
+            DOMPurify.sanitize(source.system, {
+              ALLOW_UNKNOWN_PROTOCOLS: true,
+            }),
           ),
         );
       } else {
-        return sanitizeXss(source.system);
+        return DOMPurify.sanitize(source.system, {
+          ALLOW_UNKNOWN_PROTOCOLS: true,
+        });
       }
     }
     return null;
@@ -190,10 +194,10 @@ BlazeComponent.extendComponent({
               href: attachment.url({ download: true }),
               target: '_blank',
             },
-            sanitizeXss(attachment.name()),
+            DOMPurify.sanitize(attachment.name()),
           ),
         )) ||
-      sanitizeXss(this.currentData().activity.attachmentName)
+      DOMPurify.sanitize(this.currentData().activity.attachmentName)
     );
   },
 
@@ -232,7 +236,7 @@ BlazeComponent.extendComponent({
 
 Template.activity.helpers({
   sanitize(value) {
-    return sanitizeXss(value);
+    return DOMPurify.sanitize(value, { ALLOW_UNKNOWN_PROTOCOLS: true });
   },
 });
 
@@ -246,7 +250,7 @@ function createCardLink(card) {
           href: card.originRelativeUrl(),
           class: 'action-card',
         },
-        sanitizeXss(card.title),
+        DOMPurify.sanitize(card.title, { ALLOW_UNKNOWN_PROTOCOLS: true }),
       ),
     )
   );
@@ -263,7 +267,7 @@ function createBoardLink(board, list) {
           href: board.originRelativeUrl(),
           class: 'action-board',
         },
-        sanitizeXss(text),
+        DOMPurify.sanitize(text, { ALLOW_UNKNOWN_PROTOCOLS: true }),
       ),
     )
   );

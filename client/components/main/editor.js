@@ -273,10 +273,12 @@ Template.editor.onRendered(() => {
   }
 });
 
-import sanitizeXss from 'xss';
+import DOMPurify from 'dompurify';
 
 // Additional  safeAttrValue function to allow for other specific protocols
 // See https://github.com/leizongmin/js-xss/issues/52#issuecomment-241354114
+
+/*
 function mySafeAttrValue(tag, name, value, cssFilter) {
   // only when the tag is 'a' and attribute is 'href'
   // then use your custom function
@@ -302,6 +304,7 @@ function mySafeAttrValue(tag, name, value, cssFilter) {
     return sanitizeXss.safeAttrValue(tag, name, value, cssFilter);
   }
 }
+*/
 
 // XXX I believe we should compute a HTML rendered field on the server that
 // would handle markdown and user mentions. We can simply have two
@@ -317,7 +320,9 @@ Blaze.Template.registerHelper(
     let content = Blaze.toHTML(view.templateContentBlock);
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
     if (!currentBoard)
-      return HTML.Raw(sanitizeXss(content, { safeAttrValue: mySafeAttrValue }));
+      return HTML.Raw(
+        DOMPurify.sanitize(content, { ALLOW_UNKNOWN_PROTOCOLS: true }),
+      );
     const knowedUsers = currentBoard.members.map(member => {
       const u = Users.findOne(member.userId);
       if (u) {
@@ -361,7 +366,9 @@ Blaze.Template.registerHelper(
       content = content.replace(fullMention, Blaze.toHTML(link));
     }
 
-    return HTML.Raw(sanitizeXss(content, { safeAttrValue: mySafeAttrValue }));
+    return HTML.Raw(
+      DOMPurify.sanitize(content, { ALLOW_UNKNOWN_PROTOCOLS: true }),
+    );
   }),
 );
 
