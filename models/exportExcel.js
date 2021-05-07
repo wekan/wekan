@@ -235,7 +235,7 @@ export class ExporterExcel {
       },
       {
         key: 'b',
-        width: 20,
+        width: 40,
       },
       {
         key: 'c',
@@ -243,25 +243,11 @@ export class ExporterExcel {
       },
       {
         key: 'd',
-        width: 20,
-        style: {
-          font: {
-            name: TAPi18n.__('excel-font'),
-            size: '10',
-          },
-          numFmt: 'yyyy/mm/dd hh:mm:ss',
-        },
+        width: 40,
       },
       {
         key: 'e',
         width: 20,
-        style: {
-          font: {
-            name: TAPi18n.__('excel-font'),
-            size: '10',
-          },
-          numFmt: 'yyyy/mm/dd hh:mm:ss',
-        },
       },
       {
         key: 'f',
@@ -321,6 +307,13 @@ export class ExporterExcel {
       {
         key: 'k',
         width: 20,
+        style: {
+          font: {
+            name: TAPi18n.__('excel-font'),
+            size: '10',
+          },
+          numFmt: 'yyyy/mm/dd hh:mm:ss',
+        },
       },
       {
         key: 'l',
@@ -344,6 +337,10 @@ export class ExporterExcel {
       },
       {
         key: 'q',
+        width: 20,
+      },
+      {
+        key: 'r',
         width: 20,
       },
     ];
@@ -430,7 +427,7 @@ export class ExporterExcel {
       size: 10,
       bold: true,
     };
-    ws.mergeCells('F3:Q3');
+    ws.mergeCells('F3:R3');
     ws.getCell('B3').style = {
       font: {
         name: TAPi18n.__('excel-font'),
@@ -509,6 +506,7 @@ export class ExporterExcel {
       TAPi18n.__('number'),
       TAPi18n.__('title'),
       TAPi18n.__('description'),
+      TAPi18n.__('parent-card'),
       TAPi18n.__('owner'),
       TAPi18n.__('createdAt'),
       TAPi18n.__('last-modified-at'),
@@ -542,6 +540,7 @@ export class ExporterExcel {
     allBorder('O5');
     allBorder('P5');
     allBorder('Q5');
+    allBorder('R5');
     cellCenter('A5');
     cellCenter('B5');
     cellCenter('C5');
@@ -559,6 +558,7 @@ export class ExporterExcel {
     cellCenter('O5');
     cellCenter('P5');
     cellCenter('Q5');
+    cellCenter('R5');
     ws.getRow(5).font = {
       name: TAPi18n.__('excel-font'),
       size: 12,
@@ -586,6 +586,11 @@ export class ExporterExcel {
         jclabel += jlabel[jcard.labelIds[jl]];
         jclabel += ' ';
       }
+      //get parent name
+      if (jcard.parentId) {
+        const parent = result.cards.find(card => card._id === jcard.parentId);
+        jcard.parentName = parent ? parent.title : '';
+      }
 
       //add card detail
       const t = Number(i) + 1;
@@ -593,6 +598,7 @@ export class ExporterExcel {
         t.toString(),
         jcard.title,
         jcard.description,
+        jcard.parentName,
         jmeml[jcard.userId],
         addTZhours(jcard.createdAt),
         addTZhours(jcard.dateLastActivity),
@@ -627,6 +633,7 @@ export class ExporterExcel {
       allBorder(`O${y}`);
       allBorder(`P${y}`);
       allBorder(`Q${y}`);
+      allBorder(`R${y}`);
       cellCenter(`A${y}`);
       ws.getCell(`B${y}`).alignment = {
         wrapText: true,
@@ -634,13 +641,13 @@ export class ExporterExcel {
       ws.getCell(`C${y}`).alignment = {
         wrapText: true,
       };
-      ws.getCell(`L${y}`).alignment = {
-        wrapText: true,
-      };
       ws.getCell(`M${y}`).alignment = {
         wrapText: true,
       };
       ws.getCell(`N${y}`).alignment = {
+        wrapText: true,
+      };
+      ws.getCell(`O${y}`).alignment = {
         wrapText: true,
       };
     }
