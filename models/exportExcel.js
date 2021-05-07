@@ -588,8 +588,10 @@ export class ExporterExcel {
       }
       //get parent name
       if (jcard.parentId) {
-        const parent = result.cards.find(card => card._id === jcard.parentId);
-        jcard.parentName = parent ? parent.title : '';
+        const parentCard = result.cards.find(
+          card => card._id === jcard.parentId,
+        );
+        jcard.parentCardTitle = parentCard ? parentCard.title : '';
       }
 
       //add card detail
@@ -598,7 +600,7 @@ export class ExporterExcel {
         t.toString(),
         jcard.title,
         jcard.description,
-        jcard.parentName,
+        jcard.parentCardTitle,
         jmeml[jcard.userId],
         addTZhours(jcard.createdAt),
         addTZhours(jcard.dateLastActivity),
