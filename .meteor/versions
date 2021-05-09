@@ -1,7 +1,7 @@
 3stack:presence@1.1.2
 accounts-base@1.9.0
 accounts-oauth@1.2.0
-accounts-password@1.7.0
+accounts-password@1.7.1
 aldeed:collection2@2.10.0
 aldeed:collection2-core@1.2.0
 aldeed:schema-deny@1.1.0
@@ -32,7 +32,7 @@ coffeescript-compiler@2.4.1
 cottz:publish-relations@2.0.8
 dburles:collection-helpers@1.1.0
 ddp@1.4.0
-ddp-client@2.4.0
+ddp-client@2.4.1
 ddp-common@1.4.0
 ddp-rate-limiter@1.0.9
 ddp-server@2.3.3
@@ -92,7 +92,7 @@ modern-browsers@0.1.5
 modules@0.16.0
 modules-runtime@0.12.0
 momentjs:moment@2.29.1
-mongo@1.11.0
+mongo@1.11.1
 mongo-decimal@0.1.2
 mongo-dev-server@1.1.0
 mongo-id@1.0.7
