@@ -1,3 +1,12 @@
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Excel parent card name export](https://github.com/wekan/wekan/pull/3799).
+  Thanks to marcungeschikts and Enishowk.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.28 2021-05-07 Wekan release
 
 This release adds the following new features:
