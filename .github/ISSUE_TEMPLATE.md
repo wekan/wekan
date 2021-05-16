@@ -1,6 +1,6 @@
 ## Issue
 
-Forgot Password:
+If you can not login for any reason:
 - https://github.com/wekan/wekan/wiki/Forgot-Password
 
 Email settings:
