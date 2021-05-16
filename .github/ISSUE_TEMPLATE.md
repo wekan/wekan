@@ -1,5 +1,8 @@
 ## Issue
 
+Forgot Password:
+- https://github.com/wekan/wekan/wiki/Forgot-Password
+
 Email settings:
 - https://github.com/wekan/wekan/wiki/Troubleshooting-Mail
 
