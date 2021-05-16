@@ -1,3 +1,5 @@
+[Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
+
 # Upcoming Wekan release
 
 This release adds the following new features:
