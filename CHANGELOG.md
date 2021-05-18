@@ -7,6 +7,26 @@ This release adds the following new features:
 - [Excel parent card name export](https://github.com/wekan/wekan/pull/3799).
   Thanks to marcungeschikts and Enishowk.
 
+and adds the following updates:
+
+- Updated dependencies
+  [Part 1](https://github.com/wekan/wekan/commit/62150ce6c406359fba068552b4526c60faf392bb),
+  [Part 2](https://github.com/wekan/wekan/commit/1d9346513e4f378379b9f5192e8dad5535287f8a).
+  Thanks to developers of dependencies.
+- Added updated `Forgot Password` page to GitHub issue template
+  [Part 1](https://github.com/wekan/wekan/commit/6d0578fd5ad5f13f5ff9a285577e35fd62bba95f),
+  [Part 2](https://github.com/wekan/wekan/commit/ea64b17b82cd52320c0495e16385f11031dfbe3a).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Try to fix Snap: Removed linting packages](https://github.com/wekan/wekan/commit/8911fe5c8de941808585a7d3462305d5b3d2763d).
+  Thanks to xet7.
+- [Removed not working GitHub workflow](https://github.com/wekan/wekan/commit/5dd6466c0aa7479015c72519f36c2485b16e3341).
+  Thanks to xet7.
+- [Fix typos](https://github.com/wekan/wekan/pull/3813).
+  Thanks to spasche.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v5.28 2021-05-07 Wekan release
