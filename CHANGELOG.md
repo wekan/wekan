@@ -6,10 +6,6 @@ This release adds the following new features:
 
 - [Excel parent card name export](https://github.com/wekan/wekan/pull/3799).
   Thanks to marcungeschikts and Enishowk.
-- [Fix: Impersonate user can now export Excel/CSV/TSV/JSON.
-  Impersonate user and export Excel/CSV/TSV/JSON is now logged into database table
-  impersonatedUsers](https://github.com/wekan/wekan/commit/3908cd5413b775d1ee549f0a95304cf9998d3855).
-  Thanks to xet7.
 
 and adds the following updates:
 
@@ -31,6 +27,12 @@ and fixes the following bugs:
   Thanks to xet7.
 - [Fix typos](https://github.com/wekan/wekan/pull/3813).
   Thanks to spasche.
+- [Fix: Impersonate user can now export Excel/CSV/TSV/JSON.
+  Impersonate user and export Excel/CSV/TSV/JSON is now logged into database table
+  impersonatedUsers](https://github.com/wekan/wekan/commit/3908cd5413b775d1ee549f0a95304cf9998d3855).
+  Thanks to xet7.
+- [Fixed Importing JSON exports fails](https://github.com/wekan/wekan/commit/bd1de94312e428e56d6cf5f343098475573cba0b).
+  Thanks to KeptnArgo and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
