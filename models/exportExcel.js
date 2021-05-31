@@ -21,15 +21,20 @@ if (Meteor.isServer) {
    * @param {string} authToken the loginToken
    */
   const Excel = require('exceljs');
-  Picker.route('/api/boards/:boardId/exportExcel', function(params, req, res) {
+  Picker.route('/api/boards/:boardId/exportExcel', function (params, req, res) {
     const boardId = params.boardId;
     let user = null;
-
+    let impersonateDone = false;
+    let adminId = null;
     const loginToken = params.query.authToken;
     if (loginToken) {
       const hashToken = Accounts._hashLoginToken(loginToken);
       user = Meteor.users.findOne({
         'services.resume.loginTokens.hashedToken': hashToken,
+      });
+      adminId = user._id.toString();
+      impersonateDone = ImpersonatedUsers.findOne({
+        adminId: adminId,
       });
     } else if (!Meteor.settings.public.sandstorm) {
       Authentication.checkUserId(req.userId);
@@ -39,7 +44,14 @@ if (Meteor.isServer) {
       });
     }
     const exporterExcel = new ExporterExcel(boardId);
-    if (exporterExcel.canExport(user)) {
+    if (exporterExcel.canExport(user) || impersonateDone) {
+      if (impersonateDone) {
+        ImpersonatedUsers.insert({
+          adminId: adminId,
+          boardId: boardId,
+          reason: 'exportExcel',
+        });
+      }
       exporterExcel.build(res);
     } else {
       res.end(TAPi18n.__('user-can-not-export-excel'));
@@ -108,7 +120,7 @@ export class ExporterExcel {
     result.subtaskItems = [];
     result.triggers = [];
     result.actions = [];
-    result.cards.forEach(card => {
+    result.cards.forEach((card) => {
       result.checklists.push(
         ...Checklists.find({
           cardId: card._id,
@@ -125,7 +137,7 @@ export class ExporterExcel {
         }).fetch(),
       );
     });
-    result.rules.forEach(rule => {
+    result.rules.forEach((rule) => {
       result.triggers.push(
         ...Triggers.find(
           {
@@ -149,32 +161,32 @@ export class ExporterExcel {
     // 1- only exports users that are linked somehow to that board
     // 2- do not export any sensitive information
     const users = {};
-    result.members.forEach(member => {
+    result.members.forEach((member) => {
       users[member.userId] = true;
     });
-    result.lists.forEach(list => {
+    result.lists.forEach((list) => {
       users[list.userId] = true;
     });
-    result.cards.forEach(card => {
+    result.cards.forEach((card) => {
       users[card.userId] = true;
       if (card.members) {
-        card.members.forEach(memberId => {
+        card.members.forEach((memberId) => {
           users[memberId] = true;
         });
       }
       if (card.assignees) {
-        card.assignees.forEach(memberId => {
+        card.assignees.forEach((memberId) => {
           users[memberId] = true;
         });
       }
     });
-    result.comments.forEach(comment => {
+    result.comments.forEach((comment) => {
       users[comment.userId] = true;
     });
-    result.activities.forEach(activity => {
+    result.activities.forEach((activity) => {
       users[activity.userId] = true;
     });
-    result.checklists.forEach(checklist => {
+    result.checklists.forEach((checklist) => {
       users[checklist.userId] = true;
     });
     const byUserIds = {
@@ -194,7 +206,7 @@ export class ExporterExcel {
     };
     result.users = Users.find(byUserIds, userFields)
       .fetch()
-      .map(user => {
+      .map((user) => {
         // user avatar is stored as a relative url, we export absolute
         if ((user.profile || {}).avatarUrl) {
           user.profile.avatarUrl = FlowRouter.url(user.profile.avatarUrl);
@@ -235,7 +247,7 @@ export class ExporterExcel {
       },
       {
         key: 'b',
-        width: 20,
+        width: 40,
       },
       {
         key: 'c',
@@ -243,25 +255,11 @@ export class ExporterExcel {
       },
       {
         key: 'd',
-        width: 20,
-        style: {
-          font: {
-            name: TAPi18n.__('excel-font'),
-            size: '10',
-          },
-          numFmt: 'yyyy/mm/dd hh:mm:ss',
-        },
+        width: 40,
       },
       {
         key: 'e',
         width: 20,
-        style: {
-          font: {
-            name: TAPi18n.__('excel-font'),
-            size: '10',
-          },
-          numFmt: 'yyyy/mm/dd hh:mm:ss',
-        },
       },
       {
         key: 'f',
@@ -321,6 +319,13 @@ export class ExporterExcel {
       {
         key: 'k',
         width: 20,
+        style: {
+          font: {
+            name: TAPi18n.__('excel-font'),
+            size: '10',
+          },
+          numFmt: 'yyyy/mm/dd hh:mm:ss',
+        },
       },
       {
         key: 'l',
@@ -344,6 +349,10 @@ export class ExporterExcel {
       },
       {
         key: 'q',
+        width: 20,
+      },
+      {
+        key: 'r',
         width: 20,
       },
     ];
@@ -392,7 +401,7 @@ export class ExporterExcel {
     const jlabel = {};
     var isFirst = 1;
     for (const klabel in result.labels) {
-      console.log(klabel);
+      // console.log(klabel);
       if (isFirst == 0) {
         jlabel[result.labels[klabel]._id] = `,${result.labels[klabel].name}`;
       } else {
@@ -430,7 +439,7 @@ export class ExporterExcel {
       size: 10,
       bold: true,
     };
-    ws.mergeCells('F3:Q3');
+    ws.mergeCells('F3:R3');
     ws.getCell('B3').style = {
       font: {
         name: TAPi18n.__('excel-font'),
@@ -509,6 +518,7 @@ export class ExporterExcel {
       TAPi18n.__('number'),
       TAPi18n.__('title'),
       TAPi18n.__('description'),
+      TAPi18n.__('parent-card'),
       TAPi18n.__('owner'),
       TAPi18n.__('createdAt'),
       TAPi18n.__('last-modified-at'),
@@ -542,6 +552,7 @@ export class ExporterExcel {
     allBorder('O5');
     allBorder('P5');
     allBorder('Q5');
+    allBorder('R5');
     cellCenter('A5');
     cellCenter('B5');
     cellCenter('C5');
@@ -559,6 +570,7 @@ export class ExporterExcel {
     cellCenter('O5');
     cellCenter('P5');
     cellCenter('Q5');
+    cellCenter('R5');
     ws.getRow(5).font = {
       name: TAPi18n.__('excel-font'),
       size: 12,
@@ -586,6 +598,13 @@ export class ExporterExcel {
         jclabel += jlabel[jcard.labelIds[jl]];
         jclabel += ' ';
       }
+      //get parent name
+      if (jcard.parentId) {
+        const parentCard = result.cards.find(
+          (card) => card._id === jcard.parentId,
+        );
+        jcard.parentCardTitle = parentCard ? parentCard.title : '';
+      }
 
       //add card detail
       const t = Number(i) + 1;
@@ -593,6 +612,7 @@ export class ExporterExcel {
         t.toString(),
         jcard.title,
         jcard.description,
+        jcard.parentCardTitle,
         jmeml[jcard.userId],
         addTZhours(jcard.createdAt),
         addTZhours(jcard.dateLastActivity),
@@ -627,14 +647,12 @@ export class ExporterExcel {
       allBorder(`O${y}`);
       allBorder(`P${y}`);
       allBorder(`Q${y}`);
+      allBorder(`R${y}`);
       cellCenter(`A${y}`);
       ws.getCell(`B${y}`).alignment = {
         wrapText: true,
       };
       ws.getCell(`C${y}`).alignment = {
-        wrapText: true,
-      };
-      ws.getCell(`L${y}`).alignment = {
         wrapText: true,
       };
       ws.getCell(`M${y}`).alignment = {
@@ -643,8 +661,11 @@ export class ExporterExcel {
       ws.getCell(`N${y}`).alignment = {
         wrapText: true,
       };
+      ws.getCell(`O${y}`).alignment = {
+        wrapText: true,
+      };
     }
-    workbook.xlsx.write(res).then(function() {});
+    workbook.xlsx.write(res).then(function () {});
   }
 
   canExport(user) {

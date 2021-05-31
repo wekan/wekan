@@ -68,7 +68,7 @@ version: '2'
 #             docker exec -it wekan-db bash
 #      # 3) and data directory
 #             cd /data
-#      # 4) Remove previos dump
+#      # 4) Remove previous dump
 #             rm -rf dump
 #      # 5) Exit db container
 #             exit
@@ -281,7 +281,7 @@ services:
       #- NOTIFY_DUE_AT_HOUR_OF_DAY=8
       #-----------------------------------------------------------------
       # ==== EMAIL NOTIFICATION TIMEOUT, ms =====
-      # Defaut: 30000 ms = 30s
+      # Default: 30000 ms = 30s
       #- EMAIL_NOTIFICATION_TIMEOUT=30000
       #-----------------------------------------------------------------
       # ==== CORS =====
@@ -348,7 +348,7 @@ services:
       #- OAUTH2_USERNAME_MAP=email
       # The claim name you want to map to the full name field:
       #- OAUTH2_FULLNAME_MAP=name
-      # Tthe claim name you want to map to the email field:
+      # The claim name you want to map to the email field:
       #- OAUTH2_EMAIL_MAP=email
       #-----------------------------------------------------------------
       # ==== OAUTH2 Nextcloud ====
@@ -374,7 +374,7 @@ services:
       #- OAUTH2_USERNAME_MAP=id
       # The claim name you want to map to the full name field:
       #- OAUTH2_FULLNAME_MAP=display-name
-      # Tthe claim name you want to map to the email field:
+      # The claim name you want to map to the email field:
       #- OAUTH2_EMAIL_MAP=email
       #-----------------------------------------------------------------
       # ==== OAUTH2 KEYCLOAK ====
@@ -526,7 +526,7 @@ services:
       # The attribute inside a group object listing its members. Example: member
       #- LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE=
       #
-      # The format of the value of LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE. Example: 'dn' if the users dn ist saved as value into the attribute.
+      # The format of the value of LDAP_GROUP_FILTER_GROUP_MEMBER_ATTRIBUTE. Example: 'dn' if the users dn is saved as value into the attribute.
       #- LDAP_GROUP_FILTER_GROUP_MEMBER_FORMAT=
       #
       # The group name (id) that matches all users.
