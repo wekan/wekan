@@ -1294,7 +1294,12 @@ Boards.userSearch = (
   return Boards.find(selector, projection);
 };
 
-Boards.userBoards = (userId, archived = false, selector = {}) => {
+Boards.userBoards = (
+  userId,
+  archived = false,
+  selector = {},
+  projection = {},
+) => {
   if (typeof archived === 'boolean') {
     selector.archived = archived;
   }
@@ -1304,13 +1309,18 @@ Boards.userBoards = (userId, archived = false, selector = {}) => {
 
   selector.$or = [{ permission: 'public' }];
   if (userId) {
-    selector.$or.push({ members: { $elemMatch: { userId, isActive: true } } });
+    selector.$or.push(
+      { members: { $elemMatch: { userId, isActive: true } } },
+      projection,
+    );
   }
   return Boards.find(selector);
 };
 
 Boards.userBoardIds = (userId, archived = false, selector = {}) => {
-  return Boards.userBoards(userId, archived, selector).map(board => {
+  return Boards.userBoards(userId, archived, selector, {
+    fields: { _id: 1 },
+  }).map(board => {
     return board._id;
   });
 };

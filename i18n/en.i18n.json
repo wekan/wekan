@@ -1006,6 +1006,7 @@
   "orphanedFilesReportTitle": "Orphaned Files Report",
   "reports": "Reports",
   "rulesReportTitle": "Rules Report",
+  "cardsReportTitle": "Cards Report",
   "copy-swimlane": "Copy Swimlane",
   "copySwimlanePopup-title": "Copy Swimlane"
 }
