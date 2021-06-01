@@ -22,6 +22,15 @@ Template.boardListHeaderBar.helpers({
 BlazeComponent.extendComponent({
   onCreated() {
     Meteor.subscribe('setting');
+    let currUser = Meteor.user();
+    let userLanguage;
+    if(currUser && currUser.profile){
+      userLanguage = currUser.profile.language
+    }
+    if (userLanguage) {
+      TAPi18n.setLanguage(userLanguage);
+      T9n.setLanguage(userLanguage);
+    }
   },
 
   onRendered() {
