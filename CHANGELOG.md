@@ -6,6 +6,8 @@ This release fixes the following bugs:
 
 - [Fixed Python API example: Edit card, etc](https://github.com/wekan/wekan/commit/bf62a947fbfa7d387074550288376e682fd6ad47).
   Thanks to Lucky-Shi and xet7.
+- [Default language is still used although this one has been modified previously](https://github.com/wekan/wekan/pull/3833).
+  Thanks to Emile840.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
