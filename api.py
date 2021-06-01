@@ -28,12 +28,16 @@ if arguments == 0:
     print("  python3 api.py board BOARDID      # Info of BOARDID")
     print("  python3 api.py swimlanes BOARDID  # Swimlanes of BOARDID")
     print("  python3 api.py lists BOARDID      # Lists of BOARDID")
+    print("  python3 api.py list BOARDID LISTID # Info of LISTID")
     print("  python3 api.py createlist BOARDID LISTTITLE # Create list")
     print("  python3 api.py addcard AUTHORID BOARDID SWIMLANEID LISTID CARDTITLE CARDDESCRIPTION")
+    print("  python3 api.py editcard BOARDID LISTID CARDID NEWCARDTITLE NEWCARDDESCRIPTION")
     print("  python3 api.py listattachments BOARDID # List attachments")
 # TODO:
-#    print("  python3 api.py attachmentdownload BOARDID ATTACHMENTID # One attachment as file")
-#    print("  python3 api.py attachmentsdownload BOARDID # All attachments as files")
+#   print("  python3 api.py attachmentjson BOARDID ATTACHMENTID # One attachment as JSON base64")
+#   print("  python3 api.py attachmentbinary BOARDID ATTACHMENTID # One attachment as binary file")
+#   print("  python3 api.py attachmentdownload BOARDID ATTACHMENTID # One attachment as file")
+#   print("  python3 api.py attachmentsdownload BOARDID # All attachments as files")
     exit
 
 # ------- SETTINGS START -------------
@@ -61,13 +65,15 @@ chmod +x api.py
 === Wekan API Python CLI: Shows IDs for addcard ===
 AUTHORID is USERID that writes card.
 Syntax:
-  python3 api.py users              # All users
-  python3 api.py boards USERID      # Boards of USERID
-  python3 api.py board BOARDID      # Info of BOARDID
-  python3 api.py swimlanes BOARDID  # Swimlanes of BOARDID
-  python3 api.py lists BOARDID      # Lists of BOARDID
+  python3 api.py users               # All users
+  python3 api.py boards USERID       # Boards of USERID
+  python3 api.py board BOARDID       # Info of BOARDID
+  python3 api.py swimlanes BOARDID   # Swimlanes of BOARDID
+  python3 api.py lists BOARDID       # Lists of BOARDID
+  python3 api.py list BOARDID LISTID # Info of LISTID
   python3 api.py createlist BOARDID LISTTITLE # Create list
   python3 api.py addcard AUTHORID BOARDID SWIMLANEID LISTID CARDTITLE CARDDESCRIPTION
+  python3 api.py editcard BOARDID LISTID CARDID NEWCARDTITLE NEWCARDDESCRIPTION
   python3 api.py listattachments BOARDID # List attachments
   python3 api.py attachmentjson BOARDID ATTACHMENTID # One attachment as JSON base64
   python3 api.py attachmentbinary BOARDID ATTACHMENTID # One attachment as binary file
@@ -162,6 +168,27 @@ if arguments == 7:
         print(body.text)
         # ------- WRITE TO CARD END -----------
 
+if arguments == 6:
+
+    if sys.argv[1] == 'editcard':
+
+        # ------- LIST OF BOARD START -----------
+        boardid = sys.argv[2]
+        listid = sys.argv[3]
+        cardid = sys.argv[4]
+        newcardtitle = sys.argv[5]
+        newcarddescription = sys.argv[6]
+        edcard = wekanurl + apiboards + boardid + s + l + s + listid + s + cs + s + cardid
+        print(edcard)
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        put_data = {'title': '{}'.format(newcardtitle), 'description': '{}'.format(newcarddescription)}
+        body = requests.put(edcard, data=put_data, headers=headers)
+        print("=== EDIT CARD ===\n")
+        body = requests.get(edcard, headers=headers)
+        data2 = body.text.replace('}',"}\n")
+        print(data2)
+        # ------- LISTS OF BOARD END -----------
+
 if arguments == 3:
 
     if sys.argv[1] == 'createlist':
@@ -176,6 +203,19 @@ if arguments == 3:
         print("=== CREATE LIST ===\n")
         print(body.text)
         # ------- CREATE LIST END -----------
+
+    if sys.argv[1] == 'list':
+
+        # ------- LIST OF BOARD START -----------
+        boardid = sys.argv[2]
+        listid = sys.argv[3]
+        listone = wekanurl + apiboards + boardid + s + l + s + listid
+        headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
+        print("=== INFO OF ONE LIST ===\n")
+        body = requests.get(listone, headers=headers)
+        data2 = body.text.replace('}',"}\n")
+        print(data2)
+        # ------- LISTS OF BOARD END -----------
 
 if arguments == 2:
 
@@ -217,7 +257,7 @@ if arguments == 2:
 
         # ------- LISTS OF BOARD START -----------
         boardid = sys.argv[2]
-        attachments = wekanurl + apiboards + boardid
+        lists = wekanurl + apiboards + boardid + s + l
         headers = {'Accept': 'application/json', 'Authorization': 'Bearer {}'.format(apikey)}
         print("=== LISTS ===\n")
         body = requests.get(lists, headers=headers)
