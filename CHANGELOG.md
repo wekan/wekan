@@ -1,5 +1,14 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Fixed Python API example: Edit card, etc](https://github.com/wekan/wekan/commit/bf62a947fbfa7d387074550288376e682fd6ad47).
+  Thanks to Lucky-Shi and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.29 2021-05-29 Wekan release
 
 This release adds the following new features:
