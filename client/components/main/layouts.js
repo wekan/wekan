@@ -19,7 +19,7 @@ const validator = {
     return true;
   },
 };
-let isSettingDatabaseFctCallDone = false;
+
 Template.userFormsLayout.onCreated(function() {
   const templateInstance = this;
   templateInstance.currentSetting = new ReactiveVar();
@@ -28,7 +28,6 @@ Template.userFormsLayout.onCreated(function() {
   Meteor.subscribe('setting', {
     onReady() {
       templateInstance.currentSetting.set(Settings.findOne());
-      isSettingDatabaseFctCallDone = true;
       return this.stop();
     },
   });
@@ -56,9 +55,7 @@ Template.userFormsLayout.helpers({
   currentSetting() {
     return Template.instance().currentSetting.get();
   },
-  isSettingDatabaseCallDone(){
-    return isSettingDatabaseFctCallDone;
-  },
+
   isLoading() {
     return Template.instance().isLoading.get();
   },
