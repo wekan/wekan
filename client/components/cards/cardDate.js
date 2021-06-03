@@ -354,3 +354,30 @@ class VoteEndDate extends CardDate {
   }
 }
 VoteEndDate.register('voteEndDate');
+
+class PokerEndDate extends CardDate {
+  onCreated() {
+    super.onCreated();
+    const self = this;
+    self.autorun(() => {
+      self.date.set(moment(self.data().getPokerEnd()));
+    });
+  }
+  classes() {
+    const classes = 'end-date' + ' ';
+    return classes;
+  }
+  showDate() {
+    return this.date.get().format('l LT');
+  }
+  showTitle() {
+    return `${TAPi18n.__('card-end-on')} ${this.date.get().format('LLLL')}`;
+  }
+
+  events() {
+    return super.events().concat({
+      'click .js-edit-date': Popup.open('editPokerEndDate'),
+    });
+  }
+}
+PokerEndDate.register('pokerEndDate');

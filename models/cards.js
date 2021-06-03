@@ -338,6 +338,113 @@ Cards.attachSchema(
       type: Boolean,
       defaultValue: false,
     },
+    poker: {
+      /**
+       * poker object, see below
+       */
+      type: Object,
+      optional: true,
+    },
+    'poker.question': {
+      type: Boolean,
+      defaultValue: false,
+    },
+    'poker.one': {
+      /**
+       * poker card one
+       */
+      type: [String],
+      optional: true,
+      defaultValue: [],
+    },
+    'poker.two': {
+      /**
+       * poker card two
+       */
+      type: [String],
+      optional: true,
+      defaultValue: [],
+    },
+    'poker.three': {
+      /**
+       * poker card three
+       */
+      type: [String],
+      optional: true,
+      defaultValue: [],
+    },
+    'poker.five': {
+      /**
+       * poker card five
+       */
+      type: [String],
+      optional: true,
+      defaultValue: [],
+    },
+    'poker.eight': {
+      /**
+       * poker card eight
+       */
+      type: [String],
+      optional: true,
+      defaultValue: [],
+    },
+    'poker.thirteen': {
+      /**
+       * poker card thirteen
+       */
+      type: [String],
+      optional: true,
+      defaultValue: [],
+    },
+    'poker.twenty': {
+      /**
+       * poker card twenty
+       */
+      type: [String],
+      optional: true,
+      defaultValue: [],
+    },
+    'poker.forty': {
+      /**
+       * poker card forty
+       */
+      type: [String],
+      optional: true,
+      defaultValue: [],
+    },
+    'poker.oneHundred': {
+      /**
+       * poker card oneHundred
+       */
+      type: [String],
+      optional: true,
+      defaultValue: [],
+    },
+    'poker.unsure': {
+      /**
+       * poker card unsure
+       */
+      type: [String],
+      optional: true,
+      defaultValue: [],
+    },
+    'poker.end': {
+      type: Date,
+      optional: true,
+      defaultValue: null,
+    },
+    'poker.allowNonBoardMembers': {
+      type: Boolean,
+      defaultValue: false,
+    },
+    'poker.estimation': {
+      /**
+       * poker estimation value
+       */
+      type: Number,
+      optional: true,
+    },
   }),
 );
 
@@ -1279,6 +1386,191 @@ Cards.helpers({
     return null;
   },
 
+  getPokerQuestion() {
+    if (this.isLinkedCard()) {
+      const card = Cards.findOne({ _id: this.linkedId });
+      if (card === undefined) {
+        return null;
+      } else if (card && card.poker) {
+        return card.poker.question;
+      } else {
+        return null;
+      }
+    } else if (this.isLinkedBoard()) {
+      const board = Boards.findOne({ _id: this.linkedId });
+      if (board === undefined) {
+        return null;
+      } else if (board && board.poker) {
+        return board.poker.question;
+      } else {
+        return null;
+      }
+    } else if (this.poker) {
+      return this.poker.question;
+    } else {
+      return null;
+    }
+  },
+
+  getPokerEstimation() {
+    if (this.poker) {
+      return this.poker.estimation;
+    } else {
+      return null;
+    }
+  },
+
+  getPokerEnd() {
+    if (this.isLinkedCard()) {
+      const card = Cards.findOne({ _id: this.linkedId });
+      if (card === undefined) {
+        return null;
+      } else if (card && card.poker) {
+        return card.poker.end;
+      } else {
+        return null;
+      }
+    } else if (this.isLinkedBoard()) {
+      const board = Boards.findOne({ _id: this.linkedId });
+      if (board === undefined) {
+        return null;
+      } else if (board && board.poker) {
+        return board.poker.end;
+      } else {
+        return null;
+      }
+    } else if (this.poker) {
+      return this.poker.end;
+    } else {
+      return null;
+    }
+  },
+  expiredPoker() {
+    let end = this.getPokerEnd();
+    if (end) {
+      end = moment(end);
+      return end.isBefore(new Date());
+    }
+    return false;
+  },
+  pokerMemberOne() {
+    if (this.poker && this.poker.one)
+      return Users.find({ _id: { $in: this.poker.one } });
+    return [];
+  },
+  pokerMemberTwo() {
+    if (this.poker && this.poker.two)
+      return Users.find({ _id: { $in: this.poker.two } });
+    return [];
+  },
+  pokerMemberThree() {
+    if (this.poker && this.poker.three)
+      return Users.find({ _id: { $in: this.poker.three } });
+    return [];
+  },
+  pokerMemberFive() {
+    if (this.poker && this.poker.five)
+      return Users.find({ _id: { $in: this.poker.five } });
+    return [];
+  },
+  pokerMemberEight() {
+    if (this.poker && this.poker.eight)
+      return Users.find({ _id: { $in: this.poker.eight } });
+    return [];
+  },
+  pokerMemberThirteen() {
+    if (this.poker && this.poker.thirteen)
+      return Users.find({ _id: { $in: this.poker.thirteen } });
+    return [];
+  },
+  pokerMemberTwenty() {
+    if (this.poker && this.poker.twenty)
+      return Users.find({ _id: { $in: this.poker.twenty } });
+    return [];
+  },
+  pokerMemberForty() {
+    if (this.poker && this.poker.forty)
+      return Users.find({ _id: { $in: this.poker.forty } });
+    return [];
+  },
+  pokerMemberOneHundred() {
+    if (this.poker && this.poker.oneHundred)
+      return Users.find({ _id: { $in: this.poker.oneHundred } });
+    return [];
+  },
+  pokerMemberUnsure() {
+    if (this.poker && this.poker.unsure)
+      return Users.find({ _id: { $in: this.poker.unsure } });
+    return [];
+  },
+  pokerState() {
+    const userId = Meteor.userId();
+    let state;
+    if (this.poker) {
+      if (this.poker.one) {
+        state = _.contains(this.poker.one, userId);
+        if (state === true) {
+          return 'one';
+        }
+      }
+      if (this.poker.two) {
+        state = _.contains(this.poker.two, userId);
+        if (state === true) {
+          return 'two';
+        }
+      }
+      if (this.poker.three) {
+        state = _.contains(this.poker.three, userId);
+        if (state === true) {
+          return 'three';
+        }
+      }
+      if (this.poker.five) {
+        state = _.contains(this.poker.five, userId);
+        if (state === true) {
+          return 'five';
+        }
+      }
+      if (this.poker.eight) {
+        state = _.contains(this.poker.eight, userId);
+        if (state === true) {
+          return 'eight';
+        }
+      }
+      if (this.poker.thirteen) {
+        state = _.contains(this.poker.thirteen, userId);
+        if (state === true) {
+          return 'thirteen';
+        }
+      }
+      if (this.poker.twenty) {
+        state = _.contains(this.poker.twenty, userId);
+        if (state === true) {
+          return 'twenty';
+        }
+      }
+      if (this.poker.forty) {
+        state = _.contains(this.poker.forty, userId);
+        if (state === true) {
+          return 'forty';
+        }
+      }
+      if (this.poker.oneHundred) {
+        state = _.contains(this.poker.oneHundred, userId);
+        if (state === true) {
+          return 'oneHundred';
+        }
+      }
+      if (this.poker.unsure) {
+        state = _.contains(this.poker.unsure, userId);
+        if (state === true) {
+          return 'unsure';
+        }
+      }
+    }
+    return null;
+  },
+
   getId() {
     if (this.isLinked()) {
       return this.linkedId;
@@ -1432,6 +1724,101 @@ Cards.helpers({
   },
   voteCount() {
     return this.voteCountPositive() + this.voteCountNegative();
+  },
+
+  pokerAllowNonBoardMembers() {
+    if (this.poker) return this.poker.allowNonBoardMembers;
+    return null;
+  },
+  pokerCountOne() {
+    if (this.poker && this.poker.one) return this.poker.one.length;
+    return null;
+  },
+  pokerCountTwo() {
+    if (this.poker && this.poker.two) return this.poker.two.length;
+    return null;
+  },
+  pokerCountThree() {
+    if (this.poker && this.poker.three) return this.poker.three.length;
+    return null;
+  },
+  pokerCountFive() {
+    if (this.poker && this.poker.five) return this.poker.five.length;
+    return null;
+  },
+  pokerCountEight() {
+    if (this.poker && this.poker.eight) return this.poker.eight.length;
+    return null;
+  },
+  pokerCountThirteen() {
+    if (this.poker && this.poker.thirteen) return this.poker.thirteen.length;
+    return null;
+  },
+  pokerCountTwenty() {
+    if (this.poker && this.poker.twenty) return this.poker.twenty.length;
+    return null;
+  },
+  pokerCountForty() {
+    if (this.poker && this.poker.forty) return this.poker.forty.length;
+    return null;
+  },
+  pokerCountOneHundred() {
+    if (this.poker && this.poker.oneHundred) return this.poker.oneHundred.length;
+    return null;
+  },
+  pokerCountUnsure() {
+    if (this.poker && this.poker.unsure) return this.poker.unsure.length;
+    return null;
+  },
+  pokerCount() {
+    return (
+      this.pokerCountOne() +
+      this.pokerCountTwo() +
+      this.pokerCountThree() +
+      this.pokerCountFive() +
+      this.pokerCountEight() +
+      this.pokerCountThirteen() +
+      this.pokerCountTwenty() +
+      this.pokerCountForty() +
+      this.pokerCountOneHundred() +
+      this.pokerCountUnsure()
+    );
+  },
+  pokerWinner() {
+    const pokerListMaps = [];
+    let pokerWinnersListMap = [];
+    if (this.expiredPoker()) {
+      const one = { count: this.pokerCountOne(), pokerCard: 1 };
+      const two = { count: this.pokerCountTwo(), pokerCard: 2 };
+      const three = { count: this.pokerCountThree(), pokerCard: 3 };
+      const five = { count: this.pokerCountFive(), pokerCard: 5 };
+      const eight = { count: this.pokerCountEight(), pokerCard: 8 };
+      const thirteen = { count: this.pokerCountThirteen(), pokerCard: 13 };
+      const twenty = { count: this.pokerCountTwenty(), pokerCard: 20 };
+      const forty = { count: this.pokerCountForty(), pokerCard: 40 };
+      const oneHundred = { count: this.pokerCountOneHundred(), pokerCard: 100 };
+      const unsure = { count: this.pokerCountUnsure(), pokerCard: 'Unsure' };
+      pokerListMaps.push(one);
+      pokerListMaps.push(two);
+      pokerListMaps.push(three);
+      pokerListMaps.push(five);
+      pokerListMaps.push(eight);
+      pokerListMaps.push(thirteen);
+      pokerListMaps.push(twenty);
+      pokerListMaps.push(forty);
+      pokerListMaps.push(oneHundred);
+      pokerListMaps.push(unsure);
+
+      pokerListMaps.sort(function(a, b) {
+        return b.count - a.count;
+      });
+      const max = pokerListMaps[0].count;
+      pokerWinnersListMap = pokerListMaps.filter(task => task.count >= max);
+      pokerWinnersListMap.sort(function(a, b) {
+        return b.pokerCard - a.pokerCard;
+      });
+    }
+    return pokerWinnersListMap[0].pokerCard;
   },
 });
 
@@ -1869,6 +2256,279 @@ Cards.mutations({
           },
         };
     }
+  },
+
+  setPokerQuestion(question, allowNonBoardMembers) {
+    return {
+      $set: {
+        poker: {
+          question,
+          allowNonBoardMembers,
+          one: [],
+          two: [],
+          three: [],
+          five: [],
+          eight: [],
+          thirteen: [],
+          twenty: [],
+          forty: [],
+          oneHundred: [],
+          unsure: [],
+        },
+      },
+    };
+  },
+  setPokerEstimation(estimation) {
+    return {
+      $set: { 'poker.estimation': estimation },
+    };
+  },
+  unsetPokerEstimation() {
+    return {
+      $unset: { 'poker.estimation': '' },
+    };
+  },
+  unsetPoker() {
+    return {
+      $unset: {
+        poker: '',
+      },
+    };
+  },
+  setPokerEnd(end) {
+    return {
+      $set: { 'poker.end': end },
+    };
+  },
+  unsetPokerEnd() {
+    return {
+      $unset: { 'poker.end': '' },
+    };
+  },
+  setPoker(userId, state) {
+    switch (state) {
+      case 'one':
+        // poker one
+        return {
+          $pull: {
+            'poker.two': userId,
+            'poker.three': userId,
+            'poker.five': userId,
+            'poker.eight': userId,
+            'poker.thirteen': userId,
+            'poker.twenty': userId,
+            'poker.forty': userId,
+            'poker.oneHundred': userId,
+            'poker.unsure': userId,
+          },
+          $addToSet: {
+            'poker.one': userId,
+          },
+        };
+      case 'two':
+        // poker two
+        return {
+          $pull: {
+            'poker.one': userId,
+            'poker.three': userId,
+            'poker.five': userId,
+            'poker.eight': userId,
+            'poker.thirteen': userId,
+            'poker.twenty': userId,
+            'poker.forty': userId,
+            'poker.oneHundred': userId,
+            'poker.unsure': userId,
+          },
+          $addToSet: {
+            'poker.two': userId,
+          },
+        };
+
+      case 'three':
+        // poker three
+        return {
+          $pull: {
+            'poker.one': userId,
+            'poker.two': userId,
+            'poker.five': userId,
+            'poker.eight': userId,
+            'poker.thirteen': userId,
+            'poker.twenty': userId,
+            'poker.forty': userId,
+            'poker.oneHundred': userId,
+            'poker.unsure': userId,
+          },
+          $addToSet: {
+            'poker.three': userId,
+          },
+        };
+
+      case 'five':
+        // poker five
+        return {
+          $pull: {
+            'poker.one': userId,
+            'poker.two': userId,
+            'poker.three': userId,
+            'poker.eight': userId,
+            'poker.thirteen': userId,
+            'poker.twenty': userId,
+            'poker.forty': userId,
+            'poker.oneHundred': userId,
+            'poker.unsure': userId,
+          },
+          $addToSet: {
+            'poker.five': userId,
+          },
+        };
+
+      case 'eight':
+        // poker eight
+        return {
+          $pull: {
+            'poker.one': userId,
+            'poker.two': userId,
+            'poker.three': userId,
+            'poker.five': userId,
+            'poker.thirteen': userId,
+            'poker.twenty': userId,
+            'poker.forty': userId,
+            'poker.oneHundred': userId,
+            'poker.unsure': userId,
+          },
+          $addToSet: {
+            'poker.eight': userId,
+          },
+        };
+
+      case 'thirteen':
+        // poker thirteen
+        return {
+          $pull: {
+            'poker.one': userId,
+            'poker.two': userId,
+            'poker.three': userId,
+            'poker.five': userId,
+            'poker.eight': userId,
+            'poker.twenty': userId,
+            'poker.forty': userId,
+            'poker.oneHundred': userId,
+            'poker.unsure': userId,
+          },
+          $addToSet: {
+            'poker.thirteen': userId,
+          },
+        };
+
+      case 'twenty':
+        // poker twenty
+        return {
+          $pull: {
+            'poker.one': userId,
+            'poker.two': userId,
+            'poker.three': userId,
+            'poker.five': userId,
+            'poker.eight': userId,
+            'poker.thirteen': userId,
+            'poker.forty': userId,
+            'poker.oneHundred': userId,
+            'poker.unsure': userId,
+          },
+          $addToSet: {
+            'poker.twenty': userId,
+          },
+        };
+
+      case 'forty':
+        // poker forty
+        return {
+          $pull: {
+            'poker.one': userId,
+            'poker.two': userId,
+            'poker.three': userId,
+            'poker.five': userId,
+            'poker.eight': userId,
+            'poker.thirteen': userId,
+            'poker.twenty': userId,
+            'poker.oneHundred': userId,
+            'poker.unsure': userId,
+          },
+          $addToSet: {
+            'poker.forty': userId,
+          },
+        };
+
+      case 'oneHundred':
+        // poker one hundred
+        return {
+          $pull: {
+            'poker.one': userId,
+            'poker.two': userId,
+            'poker.three': userId,
+            'poker.five': userId,
+            'poker.eight': userId,
+            'poker.thirteen': userId,
+            'poker.twenty': userId,
+            'poker.forty': userId,
+            'poker.unsure': userId,
+          },
+          $addToSet: {
+            'poker.oneHundred': userId,
+          },
+        };
+
+      case 'unsure':
+        // poker unsure
+        return {
+          $pull: {
+            'poker.one': userId,
+            'poker.two': userId,
+            'poker.three': userId,
+            'poker.five': userId,
+            'poker.eight': userId,
+            'poker.thirteen': userId,
+            'poker.twenty': userId,
+            'poker.forty': userId,
+            'poker.oneHundred': userId,
+          },
+          $addToSet: {
+            'poker.unsure': userId,
+          },
+        };
+
+      default:
+        // Remove pokers
+        return {
+          $pull: {
+            'poker.one': userId,
+            'poker.two': userId,
+            'poker.three': userId,
+            'poker.five': userId,
+            'poker.eight': userId,
+            'poker.thirteen': userId,
+            'poker.twenty': userId,
+            'poker.forty': userId,
+            'poker.oneHundred': userId,
+            'poker.unsure': userId,
+          },
+        };
+    }
+  },
+  replayPoker() {
+    return {
+      $set: {
+        'poker.one': [],
+        'poker.two': [],
+        'poker.three': [],
+        'poker.five': [],
+        'poker.eight': [],
+        'poker.thirteen': [],
+        'poker.twelve': [],
+        'poker.forty': [],
+        'poker.oneHundred': [],
+        'poker.unsure': [],
+      },
+    };
   },
 });
 
@@ -2593,6 +3253,9 @@ if (Meteor.isServer) {
    * @param {string} vote.question the vote question
    * @param {boolean} vote.public show who voted what
    * @param {boolean} vote.allowNonBoardMembers allow all logged in users to vote?
+   * @param {Object} [poker] the poker object
+   * @param {string} poker.question the vote question
+   * @param {boolean} poker.allowNonBoardMembers allow all logged in users to vote?
    * @return_type {_id: string}
    */
   JsonRoutes.add(
@@ -2696,6 +3359,31 @@ if (Meteor.isServer) {
             archived: false,
           },
           { $set: { vote: newVote } },
+        );
+      }
+      if (req.body.hasOwnProperty('poker')) {
+        const newPoker = req.body.poker;
+        newPoker.one = [];
+        newPoker.two = [];
+        newPoker.three = [];
+        newPoker.five = [];
+        newPoker.eight = [];
+        newPoker.thirteen = [];
+        newPoker.twenty = [];
+        newPoker.forty = [];
+        newPoker.oneHundred = [];
+        newPoker.unsure = [];
+        if (!newPoker.hasOwnProperty('allowNonBoardMembers'))
+          newPoker.allowNonBoardMembers = false;
+
+        Cards.direct.update(
+          {
+            _id: paramCardId,
+            listId: paramListId,
+            boardId: paramBoardId,
+            archived: false,
+          },
+          { $set: { poker: newPoker } },
         );
       }
       if (req.body.hasOwnProperty('labelIds')) {

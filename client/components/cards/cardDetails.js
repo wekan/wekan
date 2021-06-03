@@ -140,6 +140,15 @@ BlazeComponent.extendComponent({
     );
   },
 
+  showPlanningPokerButtons() {
+    const card = this.currentData();
+    return (
+      (currentUser.isBoardMember() ||
+        (currentUser && card.pokerAllowNonBoardMembers())) &&
+      !card.expiredPoker()
+    );
+  },
+
   onRendered() {
     if (Meteor.settings.public.CARD_OPENED_WEBHOOK_ENABLED) {
       // Send Webhook but not create Activities records ---
@@ -407,6 +416,80 @@ BlazeComponent.extendComponent({
           }
           this.data().setVote(Meteor.userId(), newState);
         },
+        'click .js-poker'(e) {
+          let newState = null;
+          if ($(e.target).hasClass('js-poker-vote-one')) {
+            newState = 'one';
+            this.data().setPoker(Meteor.userId(), newState);
+          }
+          if ($(e.target).hasClass('js-poker-vote-two')) {
+            newState = 'two';
+            this.data().setPoker(Meteor.userId(), newState);
+          }
+          if ($(e.target).hasClass('js-poker-vote-three')) {
+            newState = 'three';
+            this.data().setPoker(Meteor.userId(), newState);
+          }
+          if ($(e.target).hasClass('js-poker-vote-five')) {
+            newState = 'five';
+            this.data().setPoker(Meteor.userId(), newState);
+          }
+          if ($(e.target).hasClass('js-poker-vote-eight')) {
+            newState = 'eight';
+            this.data().setPoker(Meteor.userId(), newState);
+          }
+          if ($(e.target).hasClass('js-poker-vote-thirteen')) {
+            newState = 'thirteen';
+            this.data().setPoker(Meteor.userId(), newState);
+          }
+          if ($(e.target).hasClass('js-poker-vote-twenty')) {
+            newState = 'twenty';
+            this.data().setPoker(Meteor.userId(), newState);
+          }
+          if ($(e.target).hasClass('js-poker-vote-forty')) {
+            newState = 'forty';
+            this.data().setPoker(Meteor.userId(), newState);
+          }
+          if ($(e.target).hasClass('js-poker-vote-one-hundred')) {
+            newState = 'oneHundred';
+            this.data().setPoker(Meteor.userId(), newState);
+          }
+          if ($(e.target).hasClass('js-poker-vote-unsure')) {
+            newState = 'unsure';
+            this.data().setPoker(Meteor.userId(), newState);
+          }
+        },
+        'click .js-poker-finish'(e) {
+          if ($(e.target).hasClass('js-poker-finish')) {
+            e.preventDefault();
+            const now = moment().format('YYYY-MM-DD HH:mm');
+            this.data().setPokerEnd(now);
+          }
+        },
+
+        'click .js-poker-replay'(e) {
+          if ($(e.target).hasClass('js-poker-replay')) {
+            e.preventDefault();
+            this.currentCard = this.currentData();
+            this.currentCard.replayPoker();
+            this.data().unsetPokerEnd();
+            this.data().unsetPokerEstimation();
+          }
+        },
+        'click .js-poker-estimation'(event) {
+          event.preventDefault();
+
+          const ruleTitle = this.find('#pokerEstimation').value;
+          if (ruleTitle !== undefined && ruleTitle !== '') {
+            this.find('#pokerEstimation').value = '';
+
+            if (ruleTitle) {
+              this.data().setPokerEstimation(parseInt(ruleTitle, 10));
+            } else {
+              this.data().setPokerEstimation('');
+            }
+          }
+        },
       },
     ];
   },
@@ -477,6 +560,7 @@ Template.cardDetailsActionsPopup.events({
   'click .js-labels': Popup.open('cardLabels'),
   'click .js-attachments': Popup.open('cardAttachments'),
   'click .js-start-voting': Popup.open('cardStartVoting'),
+  'click .js-start-planning-poker': Popup.open('cardStartPlanningPoker'),
   'click .js-custom-fields': Popup.open('cardCustomFields'),
   'click .js-received-date': Popup.open('editCardReceivedDate'),
   'click .js-start-date': Popup.open('editCardStartDate'),
@@ -975,6 +1059,96 @@ BlazeComponent.extendComponent({
     this.card.unsetVoteEnd();
   }
 }.register('editVoteEndDatePopup'));
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.currentCard = this.currentData();
+    this.pokerQuestion = new ReactiveVar(this.currentCard.pokerQuestion);
+  },
+
+  events() {
+    return [
+      {
+        'click .js-end-date': Popup.open('editPokerEndDate'),
+        'submit .edit-poker-question'(evt) {
+          evt.preventDefault();
+          const pokerQuestion = true;
+          const allowNonBoardMembers = $('#poker-allow-non-members').hasClass(
+            'is-checked',
+          );
+          const endString = this.currentCard.getPokerEnd();
+
+          this.currentCard.setPokerQuestion(
+            pokerQuestion,
+            allowNonBoardMembers,
+          );
+          if (endString) {
+            this.currentCard.setPokerEnd(endString);
+          }
+          Popup.close();
+        },
+        'click .js-remove-poker': Popup.afterConfirm('deletePoker', () => {
+          event.preventDefault();
+          this.currentCard.unsetPoker();
+          Popup.close();
+        }),
+        'click a.js-toggle-poker-allow-non-members'(event) {
+          event.preventDefault();
+          $('#poker-allow-non-members').toggleClass('is-checked');
+        },
+      },
+    ];
+  },
+}).register('cardStartPlanningPokerPopup');
+
+// editPokerEndDatePopup
+(class extends DatePicker {
+  onCreated() {
+    super.onCreated(moment().format('YYYY-MM-DD HH:mm'));
+    this.data().getPokerEnd() && this.date.set(moment(this.data().getPokerEnd()));
+  }
+  events() {
+    return [
+      {
+        'submit .edit-date'(evt) {
+          evt.preventDefault();
+
+          // if no time was given, init with 12:00
+          const time =
+            evt.target.time.value ||
+            moment(new Date().setHours(12, 0, 0)).format('LT');
+
+          const dateString = `${evt.target.date.value} ${time}`;
+          const newDate = moment(dateString, 'L LT', true);
+          if (newDate.isValid()) {
+            // if active poker -  store it
+            if (this.currentData().getPokerQuestion()) {
+              this._storeDate(newDate.toDate());
+              Popup.close();
+            } else {
+              this.currentData().poker = { end: newDate.toDate() }; // set poker end temp
+              Popup.back();
+            }
+          } else {
+            this.error.set('invalid-date');
+            evt.target.date.focus();
+          }
+        },
+        'click .js-delete-date'(evt) {
+          evt.preventDefault();
+          this._deleteDate();
+          Popup.close();
+        },
+      },
+    ];
+  }
+  _storeDate(newDate) {
+    this.card.setPokerEnd(newDate);
+  }
+  _deleteDate() {
+    this.card.unsetPokerEnd();
+  }
+}.register('editPokerEndDatePopup'));
 
 // Close the card details pane by pressing escape
 EscapeActions.register(
