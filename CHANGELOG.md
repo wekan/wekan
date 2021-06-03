@@ -14,6 +14,8 @@ and fixes the following bugs:
   Thanks to Lucky-Shi and xet7.
 - [Default language is still used although this one has been modified previously](https://github.com/wekan/wekan/pull/3833).
   Thanks to Emile840.
+- [Moved Keyboard Shortcuts from bottom to top of Sidebar](https://github.com/wekan/wekan/commit/659a65b8b919a49ba0beef5cc53d8e61e0f794aa).
+  Thanks to ClaudiaK21 and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
