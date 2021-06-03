@@ -5,10 +5,6 @@ template(name="sidebar")
     //  title="{{showTongueTitle}}")
     //  i.fa.fa-navicon
     .sidebar-shadow
-      .sidebar-content.sidebar-shortcuts
-        a.board-header-btn.js-shortcuts
-          i.fa.fa-keyboard-o
-          span {{_ 'keyboard-shortcuts' }}
       .sidebar-content.js-board-sidebar-content
         //a.hide-btn.js-hide-sidebar
         //  i.fa.fa-navicon
@@ -39,6 +35,12 @@ template(name="membersWidget")
     h3
       i.fa.fa-users
       | {{_ 'members'}}
+
+      .sidebar-shortcuts
+        a.board-header-btn.js-shortcuts
+          i.fa.fa-keyboard-o
+          span {{_ 'keyboard-shortcuts' }}
+
       unless currentUser.isCommentOnly
         unless currentUser.isWorker
           a.board-header-btn.js-open-board-menu(title="{{_ 'boardMenuPopup-title'}}").right
