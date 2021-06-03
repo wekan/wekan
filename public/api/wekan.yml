@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v5.29
+  version: v5.30
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -1875,6 +1875,12 @@ paths:
             the vote object
           type: object
           required: false
+        - name: poker
+          in: formData
+          description: |
+            the poker object
+          type: object
+          required: false
         - name: labelIds
           in: formData
           description: |
@@ -3176,6 +3182,11 @@ definitions:
            vote object, see below
         $ref: "#/definitions/CardsVote"
         x-nullable: true
+      poker:
+        description: |
+           poker object, see below
+        $ref: "#/definitions/CardsPoker"
+        x-nullable: true
     required:
       - archived
       - swimlaneId
@@ -3212,6 +3223,92 @@ definitions:
     required:
       - question
       - public
+      - allowNonBoardMembers
+  CardsPoker:
+    type: object
+    properties:
+      question:
+        type: boolean
+      one:
+        description: |
+           poker card one
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      two:
+        description: |
+           poker card two
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      three:
+        description: |
+           poker card three
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      five:
+        description: |
+           poker card five
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      eight:
+        description: |
+           poker card eight
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      thirteen:
+        description: |
+           poker card thirteen
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      twenty:
+        description: |
+           poker card twenty
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      forty:
+        description: |
+           poker card forty
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      oneHundred:
+        description: |
+           poker card oneHundred
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      unsure:
+        description: |
+           poker card unsure
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      end:
+        type: string
+      allowNonBoardMembers:
+        type: boolean
+      estimation:
+        description: |
+           poker estimation value
+        type: number
+    required:
+      - question
       - allowNonBoardMembers
   CardsCustomfields:
     type: object

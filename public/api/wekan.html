@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Wekan REST API v5.29</title>
+    <title>Wekan REST API v5.30</title>
 
     <style>
     </style>
@@ -1488,6 +1488,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
 <!-- backwards compatibility -->
 <!-- backwards compatibility -->
 <!-- backwards compatibility -->
+<!-- backwards compatibility -->
   </head>
 
   <body data-languages="[&quot;shell&quot;,&quot;http&quot;,&quot;javascript&quot;,&quot;javascript--nodejs&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;java&quot;,&quot;go&quot;,&quot;php&quot;]">
@@ -1550,7 +1551,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
 	  	<ul class="toc-list-h1">
         
           <li>
-            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v5.29">Wekan REST API v5.29</a>
+            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v5.30">Wekan REST API v5.30</a>
             
           </li>
         
@@ -2009,6 +2010,11 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
                   </li>
                 
                   <li>
+                    <a href="#tocs_cardspoker" class="toc-h2 toc-link" data-title="">CardsPoker</a>
+                    
+                  </li>
+                
+                  <li>
                     <a href="#tocs_cardscustomfields" class="toc-h2 toc-link" data-title="">CardsCustomfields</a>
                     
                   </li>
@@ -2098,7 +2104,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="wekan-rest-api">Wekan REST API v5.29</h1>
+        <h1 id="wekan-rest-api">Wekan REST API v5.30</h1>
 <blockquote>
 <p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
 </blockquote>
@@ -9048,6 +9054,42 @@ System.out.println(response.toString());
     <span class="hljs-attr">&quot;end&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;public&quot;</span>: <span class="hljs-literal">true</span>,
     <span class="hljs-attr">&quot;allowNonBoardMembers&quot;</span>: <span class="hljs-literal">true</span>
+  },
+  <span class="hljs-attr">&quot;poker&quot;</span>: {
+    <span class="hljs-attr">&quot;question&quot;</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">&quot;one&quot;</span>: [
+      <span class="hljs-string">&quot;string&quot;</span>
+    ],
+    <span class="hljs-attr">&quot;two&quot;</span>: [
+      <span class="hljs-string">&quot;string&quot;</span>
+    ],
+    <span class="hljs-attr">&quot;three&quot;</span>: [
+      <span class="hljs-string">&quot;string&quot;</span>
+    ],
+    <span class="hljs-attr">&quot;five&quot;</span>: [
+      <span class="hljs-string">&quot;string&quot;</span>
+    ],
+    <span class="hljs-attr">&quot;eight&quot;</span>: [
+      <span class="hljs-string">&quot;string&quot;</span>
+    ],
+    <span class="hljs-attr">&quot;thirteen&quot;</span>: [
+      <span class="hljs-string">&quot;string&quot;</span>
+    ],
+    <span class="hljs-attr">&quot;twenty&quot;</span>: [
+      <span class="hljs-string">&quot;string&quot;</span>
+    ],
+    <span class="hljs-attr">&quot;forty&quot;</span>: [
+      <span class="hljs-string">&quot;string&quot;</span>
+    ],
+    <span class="hljs-attr">&quot;oneHundred&quot;</span>: [
+      <span class="hljs-string">&quot;string&quot;</span>
+    ],
+    <span class="hljs-attr">&quot;unsure&quot;</span>: [
+      <span class="hljs-string">&quot;string&quot;</span>
+    ],
+    <span class="hljs-attr">&quot;end&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;allowNonBoardMembers&quot;</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">&quot;estimation&quot;</span>: <span class="hljs-number">0</span>
   }
 }
 </code></pre>
@@ -9099,6 +9141,7 @@ Accept: application/json
   &quot;description&quot;: &quot;string&quot;,
   &quot;color&quot;: &quot;string&quot;,
   &quot;vote&quot;: {},
+  &quot;poker&quot;: {},
   &quot;labelIds&quot;: &quot;string&quot;,
   &quot;requestedBy&quot;: &quot;string&quot;,
   &quot;assignedBy&quot;: &quot;string&quot;,
@@ -9142,6 +9185,7 @@ fetch(<span class="hljs-string">&#x27;/api/boards/{board}/lists/{list}/cards/{ca
   <span class="hljs-string">&quot;description&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-string">&quot;color&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-string">&quot;vote&quot;</span>: {},
+  <span class="hljs-string">&quot;poker&quot;</span>: {},
   <span class="hljs-string">&quot;labelIds&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-string">&quot;requestedBy&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-string">&quot;assignedBy&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -9290,6 +9334,7 @@ System.out.println(response.toString());
 <span class="hljs-attr">description:</span> <span class="hljs-string">string</span>
 <span class="hljs-attr">color:</span> <span class="hljs-string">string</span>
 <span class="hljs-attr">vote:</span> {}
+<span class="hljs-attr">poker:</span> {}
 <span class="hljs-attr">labelIds:</span> <span class="hljs-string">string</span>
 <span class="hljs-attr">requestedBy:</span> <span class="hljs-string">string</span>
 <span class="hljs-attr">assignedBy:</span> <span class="hljs-string">string</span>
@@ -9388,6 +9433,13 @@ System.out.println(response.toString());
 <td>object</td>
 <td>false</td>
 <td>the vote object</td>
+</tr>
+<tr>
+<td>» poker</td>
+<td>body</td>
+<td>object</td>
+<td>false</td>
+<td>the poker object</td>
 </tr>
 <tr>
 <td>» labelIds</td>
@@ -19003,6 +19055,42 @@ UserSecurity
     <span class="hljs-attr">&quot;end&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;public&quot;</span>: <span class="hljs-literal">true</span>,
     <span class="hljs-attr">&quot;allowNonBoardMembers&quot;</span>: <span class="hljs-literal">true</span>
+  },
+  <span class="hljs-attr">&quot;poker&quot;</span>: {
+    <span class="hljs-attr">&quot;question&quot;</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">&quot;one&quot;</span>: [
+      <span class="hljs-string">&quot;string&quot;</span>
+    ],
+    <span class="hljs-attr">&quot;two&quot;</span>: [
+      <span class="hljs-string">&quot;string&quot;</span>
+    ],
+    <span class="hljs-attr">&quot;three&quot;</span>: [
+      <span class="hljs-string">&quot;string&quot;</span>
+    ],
+    <span class="hljs-attr">&quot;five&quot;</span>: [
+      <span class="hljs-string">&quot;string&quot;</span>
+    ],
+    <span class="hljs-attr">&quot;eight&quot;</span>: [
+      <span class="hljs-string">&quot;string&quot;</span>
+    ],
+    <span class="hljs-attr">&quot;thirteen&quot;</span>: [
+      <span class="hljs-string">&quot;string&quot;</span>
+    ],
+    <span class="hljs-attr">&quot;twenty&quot;</span>: [
+      <span class="hljs-string">&quot;string&quot;</span>
+    ],
+    <span class="hljs-attr">&quot;forty&quot;</span>: [
+      <span class="hljs-string">&quot;string&quot;</span>
+    ],
+    <span class="hljs-attr">&quot;oneHundred&quot;</span>: [
+      <span class="hljs-string">&quot;string&quot;</span>
+    ],
+    <span class="hljs-attr">&quot;unsure&quot;</span>: [
+      <span class="hljs-string">&quot;string&quot;</span>
+    ],
+    <span class="hljs-attr">&quot;end&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+    <span class="hljs-attr">&quot;allowNonBoardMembers&quot;</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">&quot;estimation&quot;</span>: <span class="hljs-number">0</span>
   }
 }
 
@@ -19236,6 +19324,13 @@ UserSecurity
 <td>none</td>
 <td>none</td>
 </tr>
+<tr>
+<td>poker</td>
+<td><a href="#schemacardspoker">CardsPoker</a></td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
 </tbody>
 </table>
 <h4 id="enumerated-values-3">Enumerated Values</h4>
@@ -19424,6 +19519,161 @@ UserSecurity
 </tr>
 </tbody>
 </table>
+<h2 id="tocs_cardspoker">CardsPoker</h2>
+<p><a id="schemacardspoker"></a>
+<a id="schema_CardsPoker"></a>
+<a id="tocScardspoker"></a>
+<a id="tocscardspoker"></a></p>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">&quot;question&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;one&quot;</span>: [
+    <span class="hljs-string">&quot;string&quot;</span>
+  ],
+  <span class="hljs-attr">&quot;two&quot;</span>: [
+    <span class="hljs-string">&quot;string&quot;</span>
+  ],
+  <span class="hljs-attr">&quot;three&quot;</span>: [
+    <span class="hljs-string">&quot;string&quot;</span>
+  ],
+  <span class="hljs-attr">&quot;five&quot;</span>: [
+    <span class="hljs-string">&quot;string&quot;</span>
+  ],
+  <span class="hljs-attr">&quot;eight&quot;</span>: [
+    <span class="hljs-string">&quot;string&quot;</span>
+  ],
+  <span class="hljs-attr">&quot;thirteen&quot;</span>: [
+    <span class="hljs-string">&quot;string&quot;</span>
+  ],
+  <span class="hljs-attr">&quot;twenty&quot;</span>: [
+    <span class="hljs-string">&quot;string&quot;</span>
+  ],
+  <span class="hljs-attr">&quot;forty&quot;</span>: [
+    <span class="hljs-string">&quot;string&quot;</span>
+  ],
+  <span class="hljs-attr">&quot;oneHundred&quot;</span>: [
+    <span class="hljs-string">&quot;string&quot;</span>
+  ],
+  <span class="hljs-attr">&quot;unsure&quot;</span>: [
+    <span class="hljs-string">&quot;string&quot;</span>
+  ],
+  <span class="hljs-attr">&quot;end&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;allowNonBoardMembers&quot;</span>: <span class="hljs-literal">true</span>,
+  <span class="hljs-attr">&quot;estimation&quot;</span>: <span class="hljs-number">0</span>
+}
+
+</code></pre>
+<h3 id="properties-7">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>question</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>one</td>
+<td>[string]</td>
+<td>false</td>
+<td>none</td>
+<td>poker card one</td>
+</tr>
+<tr>
+<td>two</td>
+<td>[string]</td>
+<td>false</td>
+<td>none</td>
+<td>poker card two</td>
+</tr>
+<tr>
+<td>three</td>
+<td>[string]</td>
+<td>false</td>
+<td>none</td>
+<td>poker card three</td>
+</tr>
+<tr>
+<td>five</td>
+<td>[string]</td>
+<td>false</td>
+<td>none</td>
+<td>poker card five</td>
+</tr>
+<tr>
+<td>eight</td>
+<td>[string]</td>
+<td>false</td>
+<td>none</td>
+<td>poker card eight</td>
+</tr>
+<tr>
+<td>thirteen</td>
+<td>[string]</td>
+<td>false</td>
+<td>none</td>
+<td>poker card thirteen</td>
+</tr>
+<tr>
+<td>twenty</td>
+<td>[string]</td>
+<td>false</td>
+<td>none</td>
+<td>poker card twenty</td>
+</tr>
+<tr>
+<td>forty</td>
+<td>[string]</td>
+<td>false</td>
+<td>none</td>
+<td>poker card forty</td>
+</tr>
+<tr>
+<td>oneHundred</td>
+<td>[string]</td>
+<td>false</td>
+<td>none</td>
+<td>poker card oneHundred</td>
+</tr>
+<tr>
+<td>unsure</td>
+<td>[string]</td>
+<td>false</td>
+<td>none</td>
+<td>poker card unsure</td>
+</tr>
+<tr>
+<td>end</td>
+<td>string</td>
+<td>false</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>allowNonBoardMembers</td>
+<td>boolean</td>
+<td>true</td>
+<td>none</td>
+<td>none</td>
+</tr>
+<tr>
+<td>estimation</td>
+<td>number</td>
+<td>false</td>
+<td>none</td>
+<td>poker estimation value</td>
+</tr>
+</tbody>
+</table>
 <h2 id="tocs_cardscustomfields">CardsCustomfields</h2>
 <p><a id="schemacardscustomfields"></a>
 <a id="schema_CardsCustomfields"></a>
@@ -19432,7 +19682,7 @@ UserSecurity
 <pre class="highlight tab tab-json"><code>{}
 
 </code></pre>
-<h3 id="properties-7">Properties</h3>
+<h3 id="properties-8">Properties</h3>
 <p><em>None</em></p>
 <h2 id="tocs_checklistitems">ChecklistItems</h2>
 <p><a id="schemachecklistitems"></a>
@@ -19451,7 +19701,7 @@ UserSecurity
 
 </code></pre>
 <p>An item in a checklist</p>
-<h3 id="properties-8">Properties</h3>
+<h3 id="properties-9">Properties</h3>
 <table>
 <thead>
 <tr>
@@ -19530,7 +19780,7 @@ UserSecurity
 
 </code></pre>
 <p>A Checklist</p>
-<h3 id="properties-9">Properties</h3>
+<h3 id="properties-10">Properties</h3>
 <table>
 <thead>
 <tr>
@@ -19615,7 +19865,7 @@ UserSecurity
 
 </code></pre>
 <p>A custom field on a card in the board</p>
-<h3 id="properties-10">Properties</h3>
+<h3 id="properties-11">Properties</h3>
 <table>
 <thead>
 <tr>
@@ -19753,7 +20003,7 @@ UserSecurity
 }
 
 </code></pre>
-<h3 id="properties-11">Properties</h3>
+<h3 id="properties-12">Properties</h3>
 <table>
 <thead>
 <tr>
@@ -19803,7 +20053,7 @@ UserSecurity
 <pre class="highlight tab tab-json"><code>{}
 
 </code></pre>
-<h3 id="properties-12">Properties</h3>
+<h3 id="properties-13">Properties</h3>
 <p><em>None</em></p>
 <h2 id="tocs_integrations">Integrations</h2>
 <p><a id="schemaintegrations"></a>
@@ -19827,7 +20077,7 @@ UserSecurity
 
 </code></pre>
 <p>Integration with third-party applications</p>
-<h3 id="properties-13">Properties</h3>
+<h3 id="properties-14">Properties</h3>
 <table>
 <thead>
 <tr>
@@ -19938,7 +20188,7 @@ UserSecurity
 
 </code></pre>
 <p>A list (column) in the Wekan board.</p>
-<h3 id="properties-14">Properties</h3>
+<h3 id="properties-15">Properties</h3>
 <table>
 <thead>
 <tr>
@@ -20166,7 +20416,7 @@ UserSecurity
 }
 
 </code></pre>
-<h3 id="properties-15">Properties</h3>
+<h3 id="properties-16">Properties</h3>
 <table>
 <thead>
 <tr>
@@ -20221,7 +20471,7 @@ UserSecurity
 
 </code></pre>
 <p>A swimlane is an line in the kaban board.</p>
-<h3 id="properties-16">Properties</h3>
+<h3 id="properties-17">Properties</h3>
 <table>
 <thead>
 <tr>
@@ -20482,7 +20732,7 @@ UserSecurity
 
 </code></pre>
 <p>A User in wekan</p>
-<h3 id="properties-17">Properties</h3>
+<h3 id="properties-18">Properties</h3>
 <table>
 <thead>
 <tr>
@@ -20628,7 +20878,7 @@ UserSecurity
 }
 
 </code></pre>
-<h3 id="properties-18">Properties</h3>
+<h3 id="properties-19">Properties</h3>
 <table>
 <thead>
 <tr>
@@ -20847,7 +21097,7 @@ UserSecurity
 }
 
 </code></pre>
-<h3 id="properties-19">Properties</h3>
+<h3 id="properties-20">Properties</h3>
 <table>
 <thead>
 <tr>
@@ -20886,7 +21136,7 @@ UserSecurity
 }
 
 </code></pre>
-<h3 id="properties-20">Properties</h3>
+<h3 id="properties-21">Properties</h3>
 <table>
 <thead>
 <tr>
@@ -20925,7 +21175,7 @@ UserSecurity
 }
 
 </code></pre>
-<h3 id="properties-21">Properties</h3>
+<h3 id="properties-22">Properties</h3>
 <table>
 <thead>
 <tr>
@@ -20955,6 +21205,7 @@ UserSecurity
 </table>
 <!-- Renderer: Shins v2.6.0 -->
 <!-- Generator: Widdershins v4.0.1 -->
+<!-- backwards compatibility -->
 <!-- backwards compatibility -->
 <!-- backwards compatibility -->
 <!-- backwards compatibility -->
