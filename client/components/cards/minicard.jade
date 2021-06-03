@@ -121,6 +121,11 @@ template(name="minicard")
           span.badge-text {{ voteCountPositive }}
           span.badge-icon.fa.fa-thumbs-down(class="{{#if $eq voteState false}}text-red{{/if}}")
           span.badge-text {{ voteCountNegative }}
+      if getPokerQuestion
+        .badge.badge-state-image-only(title=getPokerQuestion)
+          span.badge-icon.fa.fa-check(class="{{#if pokerState}}text-green{{/if}}")
+          if expiredPoker
+            span.badge-text {{ getPokerEstimation }}
       if attachments.count
         .badge
           span.badge-icon.fa.fa-paperclip
