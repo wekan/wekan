@@ -344,12 +344,12 @@
     "list-label-short-sort": "(M)",
     "filter": "フィルター",
     "filter-cards": "カードまたはリストをフィルタ",
-    "filter-dates-label": "Filter by date",
-    "filter-no-due-date": "No due date",
-    "filter-overdue": "Overdue",
-    "filter-due-today": "Due today",
-    "filter-due-this-week": "Due this week",
-    "filter-due-tomorrow": "Due tomorrow",
+    "filter-dates-label": "日付によるフィルタ",
+    "filter-no-due-date": "期限なし",
+    "filter-overdue": "期限切れ",
+    "filter-due-today": "本日期限",
+    "filter-due-this-week": "今週期限",
+    "filter-due-tomorrow": "明日期限",
     "list-filter-label": "タイトルでリストをフィルタ",
     "filter-clear": "フィルターの解除",
     "filter-labels-label": "ラベルによるフィルタ",
@@ -1005,6 +1005,6 @@
     "orphanedFilesReportTitle": "孤立ファイルレポート",
     "reports": "レポート",
     "rulesReportTitle": "ルールレポート",
-    "copy-swimlane": "Copy Swimlane",
-    "copySwimlanePopup-title": "Copy Swimlane"
+    "copy-swimlane": "スイムレーンをコピーする",
+    "copySwimlanePopup-title": "スイムレーンをコピーする"
 }

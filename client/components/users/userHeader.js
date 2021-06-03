@@ -175,7 +175,7 @@ Template.changeLanguagePopup.helpers({
         // fa-IR = Persian (Iran)
         name = 'فارسی/پارسی (ایران‎)';
       } else if (lang.name === 'de-CH') {
-        name = 'Schwiizerdütsch';
+        name = 'Deutsch (Schweiz)';
       } else if (lang.name === 'fr-BE') {
         name = 'Français (Belgique)';
       } else if (lang.name === 'fr-CA') {

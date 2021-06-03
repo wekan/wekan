@@ -22,21 +22,35 @@ if (Meteor.isServer) {
    * @param {string} boardId the ID of the board we are exporting
    * @param {string} authToken the loginToken
    */
-  JsonRoutes.add('get', '/api/boards/:boardId/export', function(req, res) {
+  JsonRoutes.add('get', '/api/boards/:boardId/export', function (req, res) {
     const boardId = req.params.boardId;
     let user = null;
+    let impersonateDone = false;
+    let adminId = null;
     const loginToken = req.query.authToken;
     if (loginToken) {
       const hashToken = Accounts._hashLoginToken(loginToken);
       user = Meteor.users.findOne({
         'services.resume.loginTokens.hashedToken': hashToken,
       });
+      adminId = user._id.toString();
+      impersonateDone = ImpersonatedUsers.findOne({
+        adminId: adminId,
+      });
     } else if (!Meteor.settings.public.sandstorm) {
       Authentication.checkUserId(req.userId);
       user = Users.findOne({ _id: req.userId, isAdmin: true });
     }
     const exporter = new Exporter(boardId);
-    if (exporter.canExport(user)) {
+    if (exporter.canExport(user) || impersonateDone) {
+      if (impersonateDone) {
+        ImpersonatedUsers.insert({
+          adminId: adminId,
+          boardId: boardId,
+          reason: 'exportJSON',
+        });
+      }
+
       JsonRoutes.sendResult(res, {
         code: 200,
         data: exporter.build(),
@@ -71,22 +85,36 @@ if (Meteor.isServer) {
   JsonRoutes.add(
     'get',
     '/api/boards/:boardId/attachments/:attachmentId/export',
-    function(req, res) {
+    function (req, res) {
       const boardId = req.params.boardId;
       const attachmentId = req.params.attachmentId;
       let user = null;
+      let impersonateDone = false;
+      let adminId = null;
       const loginToken = req.query.authToken;
       if (loginToken) {
         const hashToken = Accounts._hashLoginToken(loginToken);
         user = Meteor.users.findOne({
           'services.resume.loginTokens.hashedToken': hashToken,
         });
+        adminId = user._id.toString();
+        impersonateDone = ImpersonatedUsers.findOne({
+          adminId: adminId,
+        });
       } else if (!Meteor.settings.public.sandstorm) {
         Authentication.checkUserId(req.userId);
         user = Users.findOne({ _id: req.userId, isAdmin: true });
       }
       const exporter = new Exporter(boardId, attachmentId);
-      if (exporter.canExport(user)) {
+      if (exporter.canExport(user) || impersonateDone) {
+        if (impersonateDone) {
+          ImpersonatedUsers.insert({
+            adminId: adminId,
+            boardId: boardId,
+            attachmentId: attachmentId,
+            reason: 'exportJSONattachment',
+          });
+        }
         JsonRoutes.sendResult(res, {
           code: 200,
           data: exporter.build(),
@@ -114,14 +142,20 @@ if (Meteor.isServer) {
    * @param {string} authToken the loginToken
    * @param {string} delimiter delimiter to use while building export. Default is comma ','
    */
-  Picker.route('/api/boards/:boardId/export/csv', function(params, req, res) {
+  Picker.route('/api/boards/:boardId/export/csv', function (params, req, res) {
     const boardId = params.boardId;
     let user = null;
+    let impersonateDone = false;
+    let adminId = null;
     const loginToken = params.query.authToken;
     if (loginToken) {
       const hashToken = Accounts._hashLoginToken(loginToken);
       user = Meteor.users.findOne({
         'services.resume.loginTokens.hashedToken': hashToken,
+      });
+      adminId = user._id.toString();
+      impersonateDone = ImpersonatedUsers.findOne({
+        adminId: adminId,
       });
     } else if (!Meteor.settings.public.sandstorm) {
       Authentication.checkUserId(req.userId);
@@ -131,19 +165,31 @@ if (Meteor.isServer) {
       });
     }
     const exporter = new Exporter(boardId);
-    //if (exporter.canExport(user)) {
-    body = params.query.delimiter
-      ? exporter.buildCsv(params.query.delimiter)
-      : exporter.buildCsv();
-    //'Content-Length': body.length,
-    res.writeHead(200, {
-      'Content-Type': params.query.delimiter ? 'text/csv' : 'text/tsv',
-    });
-    res.write(body);
-    res.end();
-    //} else {
-    //  res.writeHead(403);
-    //  res.end('Permission Error');
-    //}
+    if (exporter.canExport(user) || impersonateDone) {
+      if (impersonateDone) {
+        // TODO: Checking for CSV or TSV export type does not work:
+        //   let exportType = 'export' + params.query.delimiter ? 'CSV' : 'TSV';
+        // So logging export to CSV:
+        let exportType = 'exportCSV';
+        ImpersonatedUsers.insert({
+          adminId: adminId,
+          boardId: boardId,
+          reason: exportType,
+        });
+      }
+
+      body = params.query.delimiter
+        ? exporter.buildCsv(params.query.delimiter)
+        : exporter.buildCsv();
+      //'Content-Length': body.length,
+      res.writeHead(200, {
+        'Content-Type': params.query.delimiter ? 'text/csv' : 'text/tsv',
+      });
+      res.write(body);
+      res.end();
+    } else {
+      res.writeHead(403);
+      res.end('Permission Error');
+    }
   });
 }

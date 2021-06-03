@@ -271,6 +271,7 @@ Cards.attachSchema(
       type: Number,
       decimal: true,
       defaultValue: 0,
+      optional: true,
     },
     subtaskSort: {
       /**
@@ -641,37 +642,32 @@ Cards.helpers({
     );
   },
 
-  allSubtasks() {
-    return Cards.find(
-      {
-        parentId: this._id,
-        archived: false,
-      },
-      {
-        sort: {
-          sort: 1,
-        },
-      },
-    );
-  },
-
-  subtasksCount() {
-    return Cards.find({
-      parentId: this._id,
-      archived: false,
-    }).count();
-  },
-
-  subtasksFinishedCount() {
+  subtasksFinished() {
     return Cards.find({
       parentId: this._id,
       archived: true,
-    }).count();
+    });
   },
 
-  subtasksFinished() {
-    const finishCount = this.subtasksFinishedCount();
-    return finishCount > 0 && this.subtasksCount() === finishCount;
+  allSubtasks() {
+    return Cards.find({
+      parentId: this._id,
+    });
+  },
+
+  subtasksCount() {
+    const subtasks = this.subtasks();
+    return subtasks.count();
+  },
+
+  subtasksFinishedCount() {
+    const subtasksArchived = this.subtasksFinished();
+    return subtasksArchived.count();
+  },
+
+  allSubtasksCount() {
+    const allSubtasks = this.allSubtasks();
+    return allSubtasks.count();
   },
 
   allowsSubtasks() {

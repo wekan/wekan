@@ -607,6 +607,9 @@ class SchemaProperty(object):
 
         # deal with subschemas
         if '.' in name:
+            subschema = name.split('.')[0]
+            subschema = subschema.capitalize()
+
             if name.endswith('$'):
                 # reference in reference
                 subschema = ''.join([n.capitalize() for n in self.name.split('.')[:-1]])
@@ -621,9 +624,12 @@ class SchemaProperty(object):
                     print('''  {}:
     type: object'''.format(subschema))
                     return current_schema
+            elif '$' in name:
+                # In the form of 'profile.notifications.$.activity'
+                subschema = name[:name.index('$') - 1]  # 'profile.notifications'
+                subschema = ''.join([s.capitalize() for s in subschema.split('.')])
 
-            subschema = name.split('.')[0]
-            schema_name = self.schema.name + subschema.capitalize()
+            schema_name = self.schema.name + subschema
             name = name.split('.')[-1]
 
             if current_schema != schema_name:
@@ -755,7 +761,7 @@ class Schemas(object):
         # then print the references
         current = None
         required_properties = []
-        properties = [f for f in self.fields if '.' in f.name and not f.name.endswith('$')]
+        properties = [f for f in self.fields if '.' in f.name and not '$' in f.name]
         for prop in properties:
             current = prop.print_openapi(6, current, required_properties)
 
@@ -766,7 +772,7 @@ class Schemas(object):
 
         required_properties = []
         # then print the references in the references
-        for prop in [f for f in self.fields if '.' in f.name and f.name.endswith('$')]:
+        for prop in [f for f in self.fields if '.' in f.name and '$' in f.name]:
             current = prop.print_openapi(6, current, required_properties)
 
         if required_properties:

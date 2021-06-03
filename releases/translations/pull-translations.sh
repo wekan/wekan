@@ -63,7 +63,7 @@ tx pull -f -l ka
 echo "German:"
 tx pull -f -l de
 
-echo "German (Switzerland):"
+echo "German (Switzerland) => Deutsch (Schweiz):"
 tx pull -f -l de_CH
 
 echo "Greek:"

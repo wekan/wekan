@@ -951,7 +951,7 @@
     "globalSearch-instructions-operator-board": "看板：看板中的卡片<title>必须匹配相应的*<title>*",
     "globalSearch-instructions-operator-list": "列表：列表内的卡片<title>必须匹配对应的*<title>*",
     "globalSearch-instructions-operator-swimlane": "泳道：泳道中的卡片<title>必须匹配相应的*<title>*",
-    "globalSearch-instructions-operator-comment": "`__operator_comment__:<text>` - cards with a comment containing *<text>*.",
+    "globalSearch-instructions-operator-comment": "`__operator_comment__:<text>` - 卡片评论包含 *<text>*.",
     "globalSearch-instructions-operator-label": "标签：【标签<color>】卡片<name>要匹配*<color>*或*<name>*",
     "globalSearch-instructions-operator-hash": "`__operator_label_abbrev__<name|color>` - shorthand for `__operator_label__:<color>` or `__operator_label__:<name>`",
     "globalSearch-instructions-operator-user": "`__operator_user__:<username>` - cards where *<username>* is a *member* or *assignee*",
@@ -1005,6 +1005,6 @@
     "orphanedFilesReportTitle": "孤立文件报告",
     "reports": "报告",
     "rulesReportTitle": "规则报告",
-    "copy-swimlane": "Copy Swimlane",
-    "copySwimlanePopup-title": "Copy Swimlane"
+    "copy-swimlane": "复制泳道",
+    "copySwimlanePopup-title": "复制泳道"
 }

@@ -78,7 +78,7 @@ Template.userFormsLayout.helpers({
         // ar-EG = Arabic (Egypt), simply Masri (مَصرى, [ˈmɑsˤɾi], Egyptian, Masr refers to Cairo)
         name = 'مَصرى';
       } else if (lang.name === 'de-CH') {
-        name = 'Schwiizerdütsch';
+        name = 'Deutsch (Schweiz)';
       } else if (lang.name === 'fa-IR') {
         // fa-IR = Persian (Iran)
         name = 'فارسی/پارسی (ایران‎)';
