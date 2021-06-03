@@ -4,7 +4,8 @@
 
 This release adds the following new features:
 
-- [Planning Poker](https://github.com/wekan/wekan/pull/3836).
+- [Planning Poker / Scrum Poker](https://github.com/wekan/wekan/pull/3836),
+  see https://en.wikipedia.org/wiki/Planning_poker .
   Thanks to helioguardabaxo.
 
 and fixes the following bugs:
