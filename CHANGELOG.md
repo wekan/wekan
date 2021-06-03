@@ -2,7 +2,12 @@
 
 # Upcoming Wekan release
 
-This release fixes the following bugs:
+This release adds the following new features:
+
+- [Planning Poker](https://github.com/wekan/wekan/pull/3836).
+  Thanks to helioguardabaxo.
+
+and fixes the following bugs:
 
 - [Fixed Python API example: Edit card, etc](https://github.com/wekan/wekan/commit/bf62a947fbfa7d387074550288376e682fd6ad47).
   Thanks to Lucky-Shi and xet7.
