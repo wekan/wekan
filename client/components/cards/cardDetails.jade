@@ -243,6 +243,205 @@ template(name="cardDetails")
             i.fa.fa-thumbs-down
           | {{_ 'vote-against'}}
 
+    if getPokerQuestion
+      hr
+      .poker-title
+        div.flex
+          h3
+            i.fa.fa-thumbs-up
+            | {{_ 'poker-question'}}
+          if getPokerEnd
+            +pokerEndDate
+        div.flex
+          .poker-result
+            if expiredPoker
+              unless ($and currentBoard.isPublic pokerAllowNonBoardMembers )
+                .card-label.card-label-gray  {{ pokerCount }} {{_ 'r-of' }} {{ currentBoard.activeMembers.length }}
+      if showPlanningPokerButtons
+        .poker-result
+          .poker-deck
+            .poker-card
+              span.inner.js-poker.js-poker-vote-one(class="{{#if $eq pokerState 'one'}}poker-voted{{/if}}") {{_ 'poker-one'}}
+            if $eq pokerState "one"
+              i.fa.fa-check
+          .poker-deck
+            .poker-card
+              span.inner.js-poker.js-poker-vote-two(class="{{#if $eq pokerState 'two'}}poker-voted{{/if}}") {{_ 'poker-two'}}
+            if $eq pokerState "two"
+              i.fa.fa-check
+          .poker-deck
+            .poker-card
+              span.inner.js-poker.js-poker-vote-three(class="{{#if $eq pokerState 'three'}}poker-voted{{/if}}") {{_ 'poker-three'}}
+            if $eq pokerState "three"
+              i.fa.fa-check
+          .poker-deck
+            .poker-card
+              span.inner.js-poker.js-poker-vote-five(class="{{#if $eq pokerState 'five'}}poker-voted{{/if}}") {{_ 'poker-five'}}
+            if $eq pokerState "five"
+              i.fa.fa-check
+          .poker-deck
+            .poker-card
+              span.inner.js-poker.js-poker-vote-eight(class="{{#if $eq pokerState 'eight'}}poker-voted{{/if}}") {{_ 'poker-eight'}}
+            if $eq pokerState "eight"
+              i.fa.fa-check
+          .poker-deck
+            .poker-card
+              span.inner.js-poker.js-poker-vote-thirteen(class="{{#if $eq pokerState 'thirteen'}}poker-voted{{/if}}") {{_ 'poker-thirteen'}}
+            if $eq pokerState "thirteen"
+              i.fa.fa-check
+          .poker-deck
+            .poker-card
+              span.inner.js-poker.js-poker-vote-twenty(class="{{#if $eq pokerState 'twenty'}}poker-voted{{/if}}") {{_ 'poker-twenty'}}
+            if $eq pokerState "twenty"
+              i.fa.fa-check
+          .poker-deck
+            .poker-card
+              span.inner.js-poker.js-poker-vote-forty(class="{{#if $eq pokerState 'forty'}}poker-voted{{/if}}") {{_ 'poker-forty'}}
+            if $eq pokerState "forty"
+              i.fa.fa-check
+          .poker-deck
+            .poker-card
+              span.inner.js-poker.js-poker-vote-one-hundred(class="{{#if $eq pokerState 'oneHundred'}}poker-voted{{/if}}") {{_ 'poker-oneHundred'}}
+            if $eq pokerState "oneHundred"
+              i.fa.fa-check
+          .poker-deck
+            .poker-card
+              span.inner.js-poker.js-poker-vote-unsure(class="{{#if $eq pokerState 'unsure'}}poker-voted{{/if}}") {{_ 'poker-unsure'}}
+            if $eq pokerState "unsure"
+              i.fa.fa-check
+
+        if currentUser.isBoardAdmin
+          button.card-details-blue.js-poker-finish(class="{{#if $eq voteState false}}poker-voted{{/if}}") {{_ 'poker-finish'}}
+
+      if expiredPoker
+        .poker-table
+          .poker-table-side-left
+            .poker-table-heading-left
+              .poker-table-row
+                .poker-table-cell
+                .poker-table-cell
+                  | {{_ 'poker-result-votes' }}
+                .poker-table-cell.poker-table-cell-who
+                  | {{_ 'poker-result-who' }}
+            .poker-table-body
+              .poker-table-row
+                .poker-table-cell
+                  button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 1}}winner{{else}}loser{{/if}}") {{_ 'poker-one'}}
+                .poker-table-cell {{ pokerCountOne }}
+                .poker-table-cell.poker-table-cell-who
+                  .poker-result
+                      each m in pokerMemberOne
+                        a.name
+                          +userAvatar(userId=m._id noRemove=true)
+
+              .poker-table-row
+                .poker-table-cell
+                  button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 2}}winner{{else}}loser{{/if}}") {{_ 'poker-two'}}
+                .poker-table-cell {{ pokerCountTwo }}
+                .poker-table-cell.poker-table-cell-who
+                  .poker-result
+                      each m in pokerMemberTwo
+                        a.name
+                          +userAvatar(userId=m._id noRemove=true)
+
+              .poker-table-row
+                .poker-table-cell
+                  button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 3}}winner{{else}}loser{{/if}}") {{_ 'poker-three'}}
+                .poker-table-cell {{ pokerCountThree }}
+                .poker-table-cell.poker-table-cell-who
+                  .poker-result
+                      each m in pokerMemberThree
+                        a.name
+                          +userAvatar(userId=m._id noRemove=true)
+
+              .poker-table-row
+                .poker-table-cell
+                  button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 5}}winner{{else}}loser{{/if}}") {{_ 'poker-five'}}
+                .poker-table-cell {{ pokerCountFive }}
+                .poker-table-cell.poker-table-cell-who
+                  .poker-result
+                      each m in pokerMemberFive
+                        a.name
+                          +userAvatar(userId=m._id noRemove=true)
+
+              .poker-table-row
+                .poker-table-cell
+                  button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 8}}winner{{else}}loser{{/if}}") {{_ 'poker-eight'}}
+                .poker-table-cell {{ pokerCountEight }}
+                .poker-table-cell.poker-table-cell-who
+                  .poker-result
+                      each m in pokerMemberEight
+                        a.name
+                          +userAvatar(userId=m._id noRemove=true)
+
+          .poker-table-side-right
+            .poker-table-heading-right
+              .poker-table-row
+                .poker-table-cell
+                .poker-table-cell
+                  | {{_ 'poker-result-votes' }}
+                .poker-table-cell.poker-table-cell-who
+                  | {{_ 'poker-result-who' }}
+            .poker-table-body
+              .poker-table-row
+                .poker-table-cell
+                  button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 13}}winner{{else}}loser{{/if}}") {{_ 'poker-thirteen'}}
+                .poker-table-cell {{ pokerCountThirteen }}
+                .poker-table-cell.poker-table-cell-who
+                  .poker-result
+                      each m in pokerMemberThirteen
+                        a.name
+                          +userAvatar(userId=m._id noRemove=true)
+
+              .poker-table-row
+                .poker-table-cell
+                  button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 20}}winner{{else}}loser{{/if}}") {{_ 'poker-twenty'}}
+                .poker-table-cell {{ pokerCountTwenty }}
+                .poker-table-cell.poker-table-cell-who
+                  .poker-result
+                      each m in pokerMemberTwenty
+                        a.name
+                          +userAvatar(userId=m._id noRemove=true)
+
+              .poker-table-row
+                .poker-table-cell
+                  button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 40}}winner{{else}}loser{{/if}}") {{_ 'poker-forty'}}
+                .poker-table-cell {{ pokerCountForty }}
+                .poker-table-cell.poker-table-cell-who
+                  .poker-result
+                      each m in pokerMemberForty
+                        a.name
+                          +userAvatar(userId=m._id noRemove=true)
+
+              .poker-table-row
+                .poker-table-cell
+                  button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 100}}winner{{else}}loser{{/if}}") {{_ 'poker-oneHundred'}}
+                .poker-table-cell {{ pokerCountOneHundred }}
+                .poker-table-cell.poker-table-cell-who
+                  .poker-result
+                      each m in pokerMemberOneHundred
+                        a.name
+                          +userAvatar(userId=m._id noRemove=true)
+
+              .poker-table-row
+                .poker-table-cell
+                  button.card-details-gray.js-poker.poker-card-result(class="{{#if $eq pokerWinner 'unsure'}}winner{{else}}loser{{/if}}") {{_ 'poker-unsure'}}
+                .poker-table-cell {{ pokerCountUnsure }}
+                .poker-table-cell.poker-table-cell-who
+                  .poker-result
+                      each m in pokerMemberUnsure
+                        a.name
+                          +userAvatar(userId=m._id noRemove=true)
+
+        if currentUser.isBoardAdmin
+          div.estimation-add
+            button.card-details-red.js-poker-replay(class="{{#if $eq voteState false}}voted{{/if}}") {{_ 'poker-replay'}}
+          div.estimation-add
+            button.js-poker-estimation
+              i.fa.fa-plus
+              | {{_ 'set-estimation'}}
+            input(type=text,autofocus value=getPokerEstimation,id="pokerEstimation")
+
     //- XXX We should use "editable" to avoid repetiting ourselves
     if canModifyCard
       unless currentUser.isWorker
@@ -362,6 +561,10 @@ template(name="cardDetailsActionsPopup")
           a.js-start-voting
             i.fa.fa-thumbs-up
             | {{_ 'card-edit-voting'}}
+        li
+          a.js-start-planning-poker
+            i.fa.fa-thumbs-up
+            | {{_ 'card-edit-planning-poker'}}
         if currentUser.isBoardAdmin
           li
             a.js-custom-fields
@@ -621,3 +824,29 @@ template(name="negativeVoteMembersPopup")
           span.full-name
             = m.profile.fullname
             | (<span class="username">{{ m.username }}</span>)
+
+template(name="deletePokerPopup")
+  p {{_ "poker-delete-pop"}}
+  button.js-confirm.negate.full(type="submit") {{_ 'delete'}}
+
+template(name="cardStartPlanningPokerPopup")
+  form.edit-poker-question
+    .fields
+      .check-div
+        a.flex(class="{{#if getPokerQuestion}}is-disabled{{else}}js-toggle-poker-allow-non-members{{/if}}")
+          .materialCheckBox#poker-allow-non-members(name="poker-allow-non-members" class="{{#if pokerAllowNonBoardMembers}}is-checked{{/if}}")
+          span {{_ 'allowNonBoardMembers'}}
+      .check-div.flex
+        i.fa.fa-hourglass-end
+        a.js-end-date
+          span
+            | {{_ 'card-end'}}
+            unless getPokerEnd
+              i.fa.fa-plus
+        if getPokerEnd
+          +pokerEndDate
+
+    button.primary.js-submit {{_ 'save'}}
+    if getPokerQuestion
+      if currentUser.isBoardAdmin
+        button.js-remove-poker.negate.wide.right {{_ 'delete'}}
