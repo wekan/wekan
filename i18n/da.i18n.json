@@ -1028,5 +1028,6 @@
     "reports": "Reports",
     "rulesReportTitle": "Rules Report",
     "copy-swimlane": "Copy Swimlane",
-    "copySwimlanePopup-title": "Copy Swimlane"
+    "copySwimlanePopup-title": "Copy Swimlane",
+    "display-card-creator": "Display Card Creator"
 }

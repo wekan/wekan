@@ -1028,5 +1028,6 @@
     "reports": "Отчёты",
     "rulesReportTitle": "Отчёт по правилам",
     "copy-swimlane": "Скопировать дорожку",
-    "copySwimlanePopup-title": "Скопировать дорожку"
+    "copySwimlanePopup-title": "Скопировать дорожку",
+    "display-card-creator": "Display Card Creator"
 }

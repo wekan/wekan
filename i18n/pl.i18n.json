@@ -1028,5 +1028,6 @@
     "reports": "Wykazy",
     "rulesReportTitle": "Wykaz reguł",
     "copy-swimlane": "Skopiuj ścieżkę",
-    "copySwimlanePopup-title": "Kopiowanie ścieżki"
+    "copySwimlanePopup-title": "Kopiowanie ścieżki",
+    "display-card-creator": "Display Card Creator"
 }

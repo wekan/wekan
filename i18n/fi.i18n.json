@@ -1028,5 +1028,6 @@
     "reports": "Raportit",
     "rulesReportTitle": "Säännöt raportti",
     "copy-swimlane": "Kopioi Swimlane",
-    "copySwimlanePopup-title": "Kopioi Swimlane"
+    "copySwimlanePopup-title": "Kopioi Swimlane",
+    "display-card-creator": "Näytä kortin luoja"
 }
