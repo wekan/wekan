@@ -207,7 +207,6 @@ templating@1.4.0
 templating-compiler@1.4.0
 templating-runtime@1.4.0
 templating-tools@1.2.0
-tmeasday:check-npm-versions@0.3.2
 tracker@1.2.0
 twbs:bootstrap@3.3.6
 ui@1.0.13

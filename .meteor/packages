@@ -92,7 +92,6 @@ wekan-markdown
 konecty:mongo-counter
 percolate:synced-cron
 wekan-cfs-filesystem
-tmeasday:check-npm-versions
 steffo:meteor-accounts-saml
 rajit:bootstrap3-datepicker-fi
 rajit:bootstrap3-datepicker-ar
