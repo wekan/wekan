@@ -150,7 +150,7 @@ BlazeComponent.extendComponent({
     const teams = Team.find(this.findTeamsOptions.get(), {
       fields: { _id: true },
     });
-    this.numberTeams.set(team.count(false));
+    this.numberTeams.set(teams.count(false));
     return teams;
   },
   peopleList() {
@@ -407,7 +407,7 @@ BlazeComponent.extendComponent({
 Template.editOrgPopup.events({
   submit(event, templateInstance) {
     event.preventDefault();
-    const org = Orgs.findOne(this.orgId);
+    const org = Org.findOne(this.orgId);
 
     const orgDisplayName = templateInstance
       .find('.js-orgDisplayName')
@@ -415,7 +415,7 @@ Template.editOrgPopup.events({
     const orgDesc = templateInstance.find('.js-orgDesc').value.trim();
     const orgShortName = templateInstance.find('.js-orgShortName').value.trim();
     const orgWebsite = templateInstance.find('.js-orgWebsite').value.trim();
-    const orgIsActive = templateInstance.find('.js-org-isactive').value.trim();
+    const orgIsActive = templateInstance.find('.js-org-isactive').value.trim() == 'true';
 
     const isChangeOrgDisplayName = orgDisplayName !== org.orgDisplayName;
     const isChangeOrgDesc = orgDesc !== org.orgDesc;
@@ -423,21 +423,25 @@ Template.editOrgPopup.events({
     const isChangeOrgWebsite = orgWebsite !== org.orgWebsite;
     const isChangeOrgIsActive = orgIsActive !== org.orgIsActive;
 
-    if (isChangeOrgDisplayName) {
-      Meteor.call('setOrgDisplayName', org, orgDisplayName);
+    if(isChangeOrgDisplayName || isChangeOrgDesc || isChangeOrgShortName || isChangeOrgWebsite || isChangeOrgIsActive){
+      Meteor.call('setOrgAllFields', org, orgDisplayName, orgDesc, orgShortName, orgWebsite, orgIsActive);
     }
 
-    if (isChangeOrgDesc) {
-      Meteor.call('setOrgDesc', org, orgDesc);
-    }
+    // if (isChangeOrgDisplayName) {
+    //   Meteor.call('setOrgDisplayName', org, orgDisplayName);
+    // }
 
-    if (isChangeOrgShortName) {
-      Meteor.call('setOrgShortName', org, orgShortName);
-    }
+    // if (isChangeOrgDesc) {
+    //   Meteor.call('setOrgDesc', org, orgDesc);
+    // }
 
-    if (isChangeOrgIsActive) {
-      Meteor.call('setOrgIsActive', org, orgIsActive);
-    }
+    // if (isChangeOrgShortName) {
+    //   Meteor.call('setOrgShortName', org, orgShortName);
+    // }
+
+    // if (isChangeOrgIsActive) {
+    //   Meteor.call('setOrgIsActive', org, orgIsActive);
+    // }
 
     Popup.close();
   },
@@ -446,7 +450,7 @@ Template.editOrgPopup.events({
 Template.editTeamPopup.events({
   submit(event, templateInstance) {
     event.preventDefault();
-    const team = Teams.findOne(this.teamId);
+    const team = Team.findOne(this.teamId);
 
     const teamDisplayName = templateInstance
       .find('.js-teamDisplayName')
@@ -456,9 +460,7 @@ Template.editTeamPopup.events({
       .find('.js-teamShortName')
       .value.trim();
     const teamWebsite = templateInstance.find('.js-teamWebsite').value.trim();
-    const teamIsActive = templateInstance
-      .find('.js-team-isactive')
-      .value.trim();
+    const teamIsActive = templateInstance.find('.js-team-isactive').value.trim() == 'true';
 
     const isChangeTeamDisplayName = teamDisplayName !== team.teamDisplayName;
     const isChangeTeamDesc = teamDesc !== team.teamDesc;
@@ -466,21 +468,24 @@ Template.editTeamPopup.events({
     const isChangeTeamWebsite = teamWebsite !== team.teamWebsite;
     const isChangeTeamIsActive = teamIsActive !== team.teamIsActive;
 
-    if (isChangeTeamDisplayName) {
-      Meteor.call('setTeamDisplayName', team, teamDisplayName);
+    if(isChangeTeamDisplayName || isChangeTeamDesc || isChangeTeamShortName || isChangeTeamWebsite || isChangeTeamIsActive){
+      Meteor.call('setTeamAllFields', team, teamDisplayName, teamDesc, teamShortName, teamWebsite, teamIsActive);
     }
+    // if (isChangeTeamDisplayName) {
+    //   Meteor.call('setTeamDisplayName', team, teamDisplayName);
+    // }
 
-    if (isChangeTeamDesc) {
-      Meteor.call('setTeamDesc', team, teamDesc);
-    }
+    // if (isChangeTeamDesc) {
+    //   Meteor.call('setTeamDesc', team, teamDesc);
+    // }
 
-    if (isChangeTeamShortName) {
-      Meteor.call('setTeamShortName', team, teamShortName);
-    }
+    // if (isChangeTeamShortName) {
+    //   Meteor.call('setTeamShortName', team, teamShortName);
+    // }
 
-    if (isChangeTeamIsActive) {
-      Meteor.call('setTeamIsActive', team, teamIsActive);
-    }
+    // if (isChangeTeamIsActive) {
+    //   Meteor.call('setTeamIsActive', team, teamIsActive);
+    // }
 
     Popup.close();
   },
@@ -608,7 +613,7 @@ Template.newOrgPopup.events({
     const orgDesc = templateInstance.find('.js-orgDesc').value.trim();
     const orgShortName = templateInstance.find('.js-orgShortName').value.trim();
     const orgWebsite = templateInstance.find('.js-orgWebsite').value.trim();
-    const orgIsActive = templateInstance.find('.js-org-isactive').value.trim();
+    const orgIsActive = templateInstance.find('.js-org-isactive').value.trim() == 'true';
 
     Meteor.call(
       'setCreateOrg',
@@ -633,9 +638,7 @@ Template.newTeamPopup.events({
       .find('.js-teamShortName')
       .value.trim();
     const teamWebsite = templateInstance.find('.js-teamWebsite').value.trim();
-    const teamIsActive = templateInstance
-      .find('.js-team-isactive')
-      .value.trim();
+    const teamIsActive = templateInstance.find('.js-team-isactive').value.trim() == 'true';
 
     Meteor.call(
       'setCreateTeam',
