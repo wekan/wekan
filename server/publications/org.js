@@ -12,13 +12,13 @@ Meteor.publish('org', function(query, limit) {
       limit,
       sort: { createdAt: -1 },
       fields: {
-        displayName: 1,
-        desc: 1,
-        name: 1,
-        website: 1,
-        teams: 1,
+        orgDisplayName: 1,
+        orgDesc: 1,
+        orgShortName: 1,
+        orgWebsite: 1,
+        orgTeams: 1,
         createdAt: 1,
-        loginDisabled: 1,
+        orgIsActive: 1,
       },
     });
   }

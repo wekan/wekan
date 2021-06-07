@@ -36,6 +36,13 @@ Team.attachSchema(
       optional: true,
       max: 255,
     },
+    teamIsActive: {
+      /**
+       * status of the team
+       */
+      type: Boolean,
+      optional: true,
+    },
     createdAt: {
       /**
        * creation date of the team
@@ -81,7 +88,7 @@ if (Meteor.isServer) {
         check(teamDesc, String);
         check(teamShortName, String);
         check(teamWebsite, String);
-        check(teamIsActive, String);
+        check(teamIsActive, Boolean);
 
         const nTeamNames = Team.find({ teamShortName }).count();
         if (nTeamNames > 0) {
@@ -100,7 +107,7 @@ if (Meteor.isServer) {
 
     setTeamDisplayName(team, teamDisplayName) {
       if (Meteor.user() && Meteor.user().isAdmin) {
-        check(team, String);
+        check(team, Object);
         check(teamDisplayName, String);
         Team.update(team, {
           $set: { teamDisplayName: teamDisplayName },
@@ -110,7 +117,7 @@ if (Meteor.isServer) {
 
     setTeamDesc(team, teamDesc) {
       if (Meteor.user() && Meteor.user().isAdmin) {
-        check(team, String);
+        check(team, Object);
         check(teamDesc, String);
         Team.update(team, {
           $set: { teamDesc: teamDesc },
@@ -120,7 +127,7 @@ if (Meteor.isServer) {
 
     setTeamShortName(team, teamShortName) {
       if (Meteor.user() && Meteor.user().isAdmin) {
-        check(team, String);
+        check(team, Object);
         check(teamShortName, String);
         Team.update(team, {
           $set: { teamShortName: teamShortName },
@@ -130,10 +137,24 @@ if (Meteor.isServer) {
 
     setTeamIsActive(team, teamIsActive) {
       if (Meteor.user() && Meteor.user().isAdmin) {
-        check(team, String);
-        check(teamIsActive, String);
+        check(team, Object);
+        check(teamIsActive, Boolean);
         Team.update(team, {
           $set: { teamIsActive: teamIsActive },
+        });
+      }
+    },
+
+    setTeamAllFields(team, teamDisplayName, teamDesc, teamShortName, teamWebsite, teamIsActive) {
+      if (Meteor.user() && Meteor.user().isAdmin) {
+        check(team, Object);
+        check(teamDisplayName, String);
+        check(teamDesc, String);
+        check(teamShortName, String);
+        check(teamWebsite, String);
+        check(teamIsActive, Boolean);
+        Team.update(team, {
+          $set: { teamDisplayName: teamDisplayName, teamDesc: teamDesc, teamShortName: teamShortName, teamWebsite: teamWebsite, teamIsActive: teamIsActive },
         });
       }
     },
@@ -143,7 +164,7 @@ if (Meteor.isServer) {
 if (Meteor.isServer) {
   // Index for Team name.
   Meteor.startup(() => {
-    Team._collection._ensureIndex({ name: -1 });
+    Team._collection._ensureIndex({ teamDisplayName: -1 });
   });
 }
 
