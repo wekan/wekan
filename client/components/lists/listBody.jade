@@ -24,7 +24,7 @@ template(name="listBody")
 
 template(name="spinnerList")
   .sk-spinner.sk-spinner-list(
-    class="{{currentBoard.colorClass}} sk-spinner-{{Spinner.spinnerName}}"
+    class="{{currentBoard.colorClass}} sk-spinner-{{Spinner.getSpinnerNameLC}}"
     id="showMoreResults")
     +spinnerRaw
 
