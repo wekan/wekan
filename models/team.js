@@ -75,6 +75,43 @@ Team.attachSchema(
 );
 
 if (Meteor.isServer) {
+  Team.allow({
+    insert(userId, doc) {
+      const user = Users.findOne({
+        _id: userId,
+      });
+      if ((user && user.isAdmin) || (Meteor.user() && Meteor.user().isAdmin))
+        return true;
+      if (!user) {
+        return false;
+      }
+      return doc._id === userId;
+    },
+    update(userId, doc) {
+      const user = Users.findOne({
+        _id: userId,
+      });
+      if ((user && user.isAdmin) || (Meteor.user() && Meteor.user().isAdmin))
+        return true;
+      if (!user) {
+        return false;
+      }
+      return doc._id === userId;
+    },
+    remove(userId, doc) {
+      const user = Users.findOne({
+        _id: userId,
+      });
+      if ((user && user.isAdmin) || (Meteor.user() && Meteor.user().isAdmin))
+        return true;
+      if (!user) {
+        return false;
+      }
+      return doc._id === userId;
+    },
+    fetch: [],
+  });
+
   Meteor.methods({
     setCreateTeam(
       teamDisplayName,
@@ -145,7 +182,14 @@ if (Meteor.isServer) {
       }
     },
 
-    setTeamAllFields(team, teamDisplayName, teamDesc, teamShortName, teamWebsite, teamIsActive) {
+    setTeamAllFields(
+      team,
+      teamDisplayName,
+      teamDesc,
+      teamShortName,
+      teamWebsite,
+      teamIsActive,
+    ) {
       if (Meteor.user() && Meteor.user().isAdmin) {
         check(team, Object);
         check(teamDisplayName, String);
@@ -154,7 +198,13 @@ if (Meteor.isServer) {
         check(teamWebsite, String);
         check(teamIsActive, Boolean);
         Team.update(team, {
-          $set: { teamDisplayName: teamDisplayName, teamDesc: teamDesc, teamShortName: teamShortName, teamWebsite: teamWebsite, teamIsActive: teamIsActive },
+          $set: {
+            teamDisplayName: teamDisplayName,
+            teamDesc: teamDesc,
+            teamShortName: teamShortName,
+            teamWebsite: teamWebsite,
+            teamIsActive: teamIsActive,
+          },
         });
       }
     },

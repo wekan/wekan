@@ -76,6 +76,43 @@ Org.attachSchema(
 );
 
 if (Meteor.isServer) {
+  Org.allow({
+    insert(userId, doc) {
+      const user = Users.findOne({
+        _id: userId,
+      });
+      if ((user && user.isAdmin) || (Meteor.user() && Meteor.user().isAdmin))
+        return true;
+      if (!user) {
+        return false;
+      }
+      return doc._id === userId;
+    },
+    update(userId, doc) {
+      const user = Users.findOne({
+        _id: userId,
+      });
+      if ((user && user.isAdmin) || (Meteor.user() && Meteor.user().isAdmin))
+        return true;
+      if (!user) {
+        return false;
+      }
+      return doc._id === userId;
+    },
+    remove(userId, doc) {
+      const user = Users.findOne({
+        _id: userId,
+      });
+      if ((user && user.isAdmin) || (Meteor.user() && Meteor.user().isAdmin))
+        return true;
+      if (!user) {
+        return false;
+      }
+      return doc._id === userId;
+    },
+    fetch: [],
+  });
+
   Meteor.methods({
     setCreateOrg(
       orgDisplayName,
@@ -111,7 +148,7 @@ if (Meteor.isServer) {
         check(org, Object);
         check(orgDisplayName, String);
         Org.update(org, {
-          $set: { orgDisplayName: orgDisplayNameorgShortName},
+          $set: { orgDisplayName: orgDisplayNameorgShortName },
         });
       }
     },
@@ -146,7 +183,14 @@ if (Meteor.isServer) {
       }
     },
 
-    setOrgAllFields(org, orgDisplayName, orgDesc, orgShortName, orgWebsite, orgIsActive) {
+    setOrgAllFields(
+      org,
+      orgDisplayName,
+      orgDesc,
+      orgShortName,
+      orgWebsite,
+      orgIsActive,
+    ) {
       if (Meteor.user() && Meteor.user().isAdmin) {
         check(org, Object);
         check(orgDisplayName, String);
@@ -155,7 +199,13 @@ if (Meteor.isServer) {
         check(orgWebsite, String);
         check(orgIsActive, Boolean);
         Org.update(org, {
-          $set: { orgDisplayName : orgDisplayName, orgDesc : orgDesc, orgShortName : orgShortName, orgWebsite : orgWebsite, orgIsActive: orgIsActive },
+          $set: {
+            orgDisplayName: orgDisplayName,
+            orgDesc: orgDesc,
+            orgShortName: orgShortName,
+            orgWebsite: orgWebsite,
+            orgIsActive: orgIsActive,
+          },
         });
       }
     },

@@ -268,7 +268,7 @@ template(name="editOrgPopup")
   form
     label.hide.orgId(type="text" value=org._id)
     label
-      | {{_ 'orgDisplayName'}}
+      | {{_ 'displayName'}}
       input.js-orgDisplayName(type="text" value=org.orgDisplayName required)
       span.error.hide.orgname-taken
         | {{_ 'error-orgname-taken'}}
@@ -478,27 +478,39 @@ template(name="newUserPopup")
 template(name="settingsOrgPopup")
   ul.pop-over-list
     li
-      a.impersonate-org
-        i.fa.fa-user
-        | {{_ 'impersonate-org'}}
-  // Delete is not enabled yet, because it does leave empty user avatars
-  // to boards: boards members, card members and assignees have
-  // empty users. See:
-  // - wekan/client/components/settings/peopleBody.jade deleteButton
-  // - wekan/client/components/settings/peopleBody.js deleteButton
-  // - wekan/client/components/sidebar/sidebar.js Popup.afterConfirm('removeMember'
-  //   that does now remove member from board, card members and assignees correctly,
-  //   but that should be used to remove user from all boards similarly
-  // - wekan/models/users.js Delete is not enabled
-  //li
-  //  br
-  //  br
-  //  hr
-  //li
-  //  form
-  //    label.hide.userId(type="text" value=user._id)
-  //    div.buttonsContainer
-  //      input#deleteButton.card-details-red.right.wide(type="button" value="{{_ 'delete'}}")
+      br
+      br
+      br
+      br
+    hr
+    li
+      form
+        label.hide.orgId(type="text" value=org._id)
+        div.buttonsContainer
+          input#deleteButton.card-details-red.right.wide(type="button" value="{{_ 'delete'}}")
+  // It's not yet possible to impersonate organization. Only impersonate user,
+  // because that changes current user ID. What would it mean in practice
+  // to impersonate organization?
+  //  li
+  //    a.impersonate-org
+  //      i.fa.fa-user
+  //      | {{_ 'impersonate-org'}}
+  //
+  //
+
+template(name="settingsTeamPopup")
+  ul.pop-over-list
+    li
+      br
+      br
+      br
+      br
+    hr
+    li
+      form
+        label.hide.teamId(type="text" value=team._id)
+        div.buttonsContainer
+          input#deleteButton.card-details-red.right.wide(type="button" value="{{_ 'delete'}}")
 
 template(name="settingsUserPopup")
   ul.pop-over-list
@@ -506,6 +518,15 @@ template(name="settingsUserPopup")
       a.impersonate-user
         i.fa.fa-user
         | {{_ 'impersonate-user'}}
+    li
+      br
+      br
+    //hr
+    //li
+    //  form
+    //    label.hide.userId(type="text" value=user._id)
+    //    div.buttonsContainer
+    //      input#deleteButton.card-details-red.right.wide(type="button" value="{{_ 'delete'}}")
   // Delete is not enabled yet, because it does leave empty user avatars
   // to boards: boards members, card members and assignees have
   // empty users. See:
@@ -515,12 +536,3 @@ template(name="settingsUserPopup")
   //   that does now remove member from board, card members and assignees correctly,
   //   but that should be used to remove user from all boards similarly
   // - wekan/models/users.js Delete is not enabled
-  //li
-  //  br
-  //  br
-  //  hr
-  //li
-  //  form
-  //    label.hide.userId(type="text" value=user._id)
-  //    div.buttonsContainer
-  //      input#deleteButton.card-details-red.right.wide(type="button" value="{{_ 'delete'}}")
