@@ -22,6 +22,8 @@ and fixes the following bugs:
   Thanks to tedkoch and xet7.
 - [Try to fix OAUTH2_LOGIN_STYLE=redirect Has No Effect](https://github.com/wekan/wekan/commit/78324263c1c78e7e9e99f153e3158e39f564b67a).
   Thanks to 1ubuntuuser and xet7.
+- [Try to fix: Wekan UI fails to finish import of closed Trello boards](https://github.com/wekan/wekan/commit/007e0f1c16c935ce580093a6aec31305c75d1e45).
+  Thanks to berezovskyi and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
