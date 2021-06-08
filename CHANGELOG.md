@@ -20,6 +20,8 @@ and fixes the following bugs:
 
 - [Now new boards do not have any labels added by default](https://github.com/wekan/wekan/commit/481404e8d7bad7799c2ad34d6a94eaf5e87602c2).
   Thanks to tedkoch and xet7.
+- [Try to fix OAUTH2_LOGIN_STYLE=redirect Has No Effect](https://github.com/wekan/wekan/commit/78324263c1c78e7e9e99f153e3158e39f564b67a).
+  Thanks to 1ubuntuuser and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
