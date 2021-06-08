@@ -15,6 +15,11 @@ and adds the following updates:
 - [Removed extra package](https://github.com/wekan/wekan/commit/646497c3f041e2f562d032fe28ef29169f671ac1).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Now new boards do not have any labels added by default](https://github.com/wekan/wekan/commit/481404e8d7bad7799c2ad34d6a94eaf5e87602c2).
+  Thanks to tedkoch and xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v5.30 2021-06-03 Wekan release
