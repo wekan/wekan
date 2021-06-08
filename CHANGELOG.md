@@ -24,6 +24,9 @@ and fixes the following bugs:
   Thanks to 1ubuntuuser and xet7.
 - [Try to fix: Wekan UI fails to finish import of closed Trello boards](https://github.com/wekan/wekan/commit/007e0f1c16c935ce580093a6aec31305c75d1e45).
   Thanks to berezovskyi and xet7.
+- [Partial Fix: Vote and Planning Poker: Setting date and time now works for some languages that have
+  ascii characters in date format](https://github.com/wekan/wekan/commit/57f31d443faaa32d6c7b53d81af3be133af5f040).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
