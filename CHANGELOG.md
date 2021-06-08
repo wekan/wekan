@@ -10,6 +10,9 @@ This release adds the following new features:
   Thanks to xet7.
 - [Admin Panel Organizations/Teams: Show confirm text above delete button](https://github.com/wekan/wekan/commit/16379201704ea1a43ce14859633ffb1b9fae6710).
   Thanks to xet7.
+- [Gantt: Retain links created between tasks. Part 1: Database changes, not active in
+  MIT Wekan](https://github.com/wekan/wekan/commit/07a3a0b3882147effac890514b19ff84f1d76bdb).
+  Thanks to benjaminhrivera.
 
 and adds the following updates:
 
