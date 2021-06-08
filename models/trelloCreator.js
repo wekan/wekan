@@ -92,7 +92,7 @@ export class TrelloCreator {
     check(
       trelloBoard,
       Match.ObjectIncluding({
-        closed: Boolean,
+        // closed: Boolean,  // issue #3840, should import closed Trello boards
         name: String,
         prefs: Match.ObjectIncluding({
           // XXX refine control by validating 'background' against a list of
