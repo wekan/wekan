@@ -7,9 +7,10 @@ This release adds the following new features:
 - [Admin Panel: Edit Organizations and Teams](https://github.com/wekan/wekan/issues/802).
   Thanks to Emile840.
 - [Admin Panel: Delete Organizations and Teams](https://github.com/wekan/wekan/commit/14b2c1309f0f910c1e46b5681d3612d7ff0cbf81).
+  Note: Delete button deletes immediately, it currently does not ask for confirmation.
   Thanks to xet7.
 
-This release adds the following updates:
+and adds the following updates:
 
 - [Removed extra package](https://github.com/wekan/wekan/commit/646497c3f041e2f562d032fe28ef29169f671ac1).
   Thanks to xet7.
