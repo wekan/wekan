@@ -445,6 +445,31 @@ Cards.attachSchema(
       type: Number,
       optional: true,
     },
+    targetId_gantt: {
+      /**
+       * ID of card which is the child link in gantt view
+       */
+      type: [String],
+      optional: true,
+      defaultValue: [],
+    },
+    linkType_gantt: {
+      /**
+       * ID of card which is the parent link in gantt view
+       */
+      type: [Number],
+      decimal: false,
+      optional: true,
+      defaultValue: [],
+    },
+    linkId_gantt: {
+      /**
+       * ID of card which is the parent link in gantt view
+       */
+      type: [String],
+      optional: true,
+      defaultValue: [],
+    },
   }),
 );
 
@@ -468,6 +493,27 @@ Cards.allow({
 });
 
 Cards.helpers({
+  // Gantt https://github.com/wekan/wekan/issues/2870#issuecomment-857171127
+  setGanttTargetId(sourceId, targetId, linkType, linkId){
+    return Cards.update({ _id: sourceId}, {
+      $push: {
+        targetId_gantt: targetId,
+        linkType_gantt : linkType,
+        linkId_gantt: linkId
+      }
+    });
+  },
+
+  removeGanttTargetId(sourceId, targetId, linkType, linkId){
+    return Cards.update({ _id: sourceId}, {
+      $pull: {
+        targetId_gantt: targetId,
+        linkType_gantt : linkType,
+        linkId_gantt: linkId
+      }
+    });
+  },
+
   mapCustomFieldsToBoard(boardId) {
     // Map custom fields to new board
     return this.customFields.map(cf => {
