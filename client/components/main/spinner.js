@@ -1,37 +1,31 @@
-import Settings from '/models/settings';
+Meteor.subscribe('setting');
 
-Spinner = {
-  getSpinnerTemplate() {
-    return 'spinner' + this.getSpinnerName();
-  },
-
-  getSpinnerTemplateRaw() {
-    return 'spinner' + this.getSpinnerName() + 'Raw';
-  },
-
-  currentSetting: new ReactiveVar(),
-
+export class Spinner extends BlazeComponent {
   currentSettings() {
-    return this.currentSetting.get();
-  },
+    return Settings.findOne();
+  }
 
   getSpinnerName() {
     let ret = 'Bounce';
-    if (this.currentSettings()) {
-      ret = this.currentSettings().spinnerName;
+    let settings = this.currentSettings();
+
+    if (settings && settings.spinnerName) {
+      ret = settings.spinnerName;
     }
     return ret;
-  },
+  }
 
-  getSpinnerNameLC() {
-    return this.getSpinnerName().toLowerCase();
-  },
+  getSpinnerTemplate() {
+    return 'spinner' + this.getSpinnerName();
+  }
 }
 
-Blaze.registerHelper('Spinner', Spinner);
+(class extends Spinner {
+}.register('spinner'));
 
-Meteor.subscribe('setting', {
-  onReady() {
-    Spinner.currentSetting.set(Settings.findOne());
-  },
-});
+(class extends Spinner {
+  getSpinnerTemplateRaw() {
+    let ret = super.getSpinnerTemplate() + 'Raw';
+    return ret;
+  }
+}.register('spinnerRaw'));

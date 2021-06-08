@@ -1,3 +1,5 @@
+import { Spinner } from '/client/components/main/spinner';
+
 const subManager = new SubsManager();
 const InfiniteScrollIter = 10;
 
@@ -696,7 +698,7 @@ BlazeComponent.extendComponent({
   },
 }).register('searchElementPopup');
 
-BlazeComponent.extendComponent({
+(class extends Spinner {
   onCreated() {
     this.cardlimit = this.parentComponent().cardlimit;
 
@@ -724,7 +726,7 @@ BlazeComponent.extendComponent({
         .parentComponent()
         .data()._id;
     }
-  },
+  }
 
   onRendered() {
     this.spinner = this.find('.sk-spinner-list');
@@ -739,35 +741,37 @@ BlazeComponent.extendComponent({
     );
 
     this.updateList();
-  },
+  }
 
   onDestroyed() {
     $(this.container).off(`scroll.spinner_${this.swimlaneId}_${this.listId}`);
     $(window).off(`resize.spinner_${this.swimlaneId}_${this.listId}`);
-  },
+  }
+
+  checkIdleTime() {
+    return window.requestIdleCallback ||
+    function(handler) {
+      const startTime = Date.now();
+      return setTimeout(function() {
+        handler({
+          didTimeout: false,
+          timeRemaining() {
+            return Math.max(0, 50.0 - (Date.now() - startTime));
+          },
+        });
+      }, 1);
+    };
+  }
 
   updateList() {
     // Use fallback when requestIdleCallback is not available on iOS and Safari
     // https://www.afasterweb.com/2017/11/20/utilizing-idle-moments/
-    checkIdleTime =
-      window.requestIdleCallback ||
-      function(handler) {
-        const startTime = Date.now();
-        return setTimeout(function() {
-          handler({
-            didTimeout: false,
-            timeRemaining() {
-              return Math.max(0, 50.0 - (Date.now() - startTime));
-            },
-          });
-        }, 1);
-      };
 
     if (this.spinnerInView()) {
       this.cardlimit.set(this.cardlimit.get() + InfiniteScrollIter);
-      checkIdleTime(() => this.updateList());
+      this.checkIdleTime(() => this.updateList());
     }
-  },
+  }
 
   spinnerInView() {
     // spinner deleted
@@ -786,5 +790,9 @@ BlazeComponent.extendComponent({
     }
 
     return bottomViewPosition > spinnerOffsetTop;
-  },
-}).register('spinnerList');
+  }
+
+  getSkSpinnerName() {
+    return "sk-spinner-" + super.getSpinnerName().toLowerCase();
+  }
+}.register('spinnerList'));
