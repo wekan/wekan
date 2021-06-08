@@ -478,14 +478,12 @@ template(name="newUserPopup")
 template(name="settingsOrgPopup")
   ul.pop-over-list
     li
-      br
-      br
-      br
-      br
-    hr
-    li
       form
+        label
+          | {{_ 'delete-org-confirm-popup'}}
+        br
         label.hide.orgId(type="text" value=org._id)
+        labeldelete-org-confirm-popup
         div.buttonsContainer
           input#deleteButton.card-details-red.right.wide(type="button" value="{{_ 'delete'}}")
   // It's not yet possible to impersonate organization. Only impersonate user,
@@ -501,13 +499,10 @@ template(name="settingsOrgPopup")
 template(name="settingsTeamPopup")
   ul.pop-over-list
     li
-      br
-      br
-      br
-      br
-    hr
-    li
       form
+        label
+          | {{_ 'delete-team-confirm-popup'}}
+        br
         label.hide.teamId(type="text" value=team._id)
         div.buttonsContainer
           input#deleteButton.card-details-red.right.wide(type="button" value="{{_ 'delete'}}")
@@ -518,9 +513,6 @@ template(name="settingsUserPopup")
       a.impersonate-user
         i.fa.fa-user
         | {{_ 'impersonate-user'}}
-    li
-      br
-      br
     //hr
     //li
     //  form

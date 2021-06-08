@@ -706,7 +706,7 @@ Template.settingsOrgPopup.events({
     event.preventDefault();
     Org.remove(this.orgId);
     Popup.close();
-  },
+  }
 });
 
 Template.settingsTeamPopup.events({
@@ -714,7 +714,7 @@ Template.settingsTeamPopup.events({
     event.preventDefault();
     Team.remove(this.teamId);
     Popup.close();
-  },
+  }
 });
 
 Template.settingsUserPopup.events({
