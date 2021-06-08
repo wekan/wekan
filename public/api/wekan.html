@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Wekan REST API v5.30</title>
+    <title>Wekan REST API v5.31</title>
 
     <style>
     </style>
@@ -1551,7 +1551,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
 	  	<ul class="toc-list-h1">
         
           <li>
-            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v5.30">Wekan REST API v5.30</a>
+            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v5.31">Wekan REST API v5.31</a>
             
           </li>
         
@@ -2104,7 +2104,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="wekan-rest-api">Wekan REST API v5.30</h1>
+        <h1 id="wekan-rest-api">Wekan REST API v5.31</h1>
 <blockquote>
 <p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
 </blockquote>
@@ -9090,7 +9090,16 @@ System.out.println(response.toString());
     <span class="hljs-attr">&quot;end&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;allowNonBoardMembers&quot;</span>: <span class="hljs-literal">true</span>,
     <span class="hljs-attr">&quot;estimation&quot;</span>: <span class="hljs-number">0</span>
-  }
+  },
+  <span class="hljs-attr">&quot;targetId_gantt&quot;</span>: [
+    <span class="hljs-string">&quot;string&quot;</span>
+  ],
+  <span class="hljs-attr">&quot;linkType_gantt&quot;</span>: [
+    <span class="hljs-number">0</span>
+  ],
+  <span class="hljs-attr">&quot;linkId_gantt&quot;</span>: [
+    <span class="hljs-string">&quot;string&quot;</span>
+  ]
 }
 </code></pre>
 <h3 id="get_card-responses">Responses</h3>
@@ -18346,8 +18355,8 @@ UserSecurity
 </tr>
 <tr>
 <td>labels</td>
-<td>[<a href="#schemaboardslabels">BoardsLabels</a>]</td>
-<td>true</td>
+<td>[<a href="#schemaboardslabels">BoardsLabels</a>]¦null</td>
+<td>false</td>
 <td>none</td>
 <td>List of labels attached to a board</td>
 </tr>
@@ -19091,7 +19100,16 @@ UserSecurity
     <span class="hljs-attr">&quot;end&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
     <span class="hljs-attr">&quot;allowNonBoardMembers&quot;</span>: <span class="hljs-literal">true</span>,
     <span class="hljs-attr">&quot;estimation&quot;</span>: <span class="hljs-number">0</span>
-  }
+  },
+  <span class="hljs-attr">&quot;targetId_gantt&quot;</span>: [
+    <span class="hljs-string">&quot;string&quot;</span>
+  ],
+  <span class="hljs-attr">&quot;linkType_gantt&quot;</span>: [
+    <span class="hljs-number">0</span>
+  ],
+  <span class="hljs-attr">&quot;linkId_gantt&quot;</span>: [
+    <span class="hljs-string">&quot;string&quot;</span>
+  ]
 }
 
 </code></pre>
@@ -19330,6 +19348,27 @@ UserSecurity
 <td>false</td>
 <td>none</td>
 <td>none</td>
+</tr>
+<tr>
+<td>targetId_gantt</td>
+<td>[string]¦null</td>
+<td>false</td>
+<td>none</td>
+<td>ID of card which is the child link in gantt view</td>
+</tr>
+<tr>
+<td>linkType_gantt</td>
+<td>[number]¦null</td>
+<td>false</td>
+<td>none</td>
+<td>ID of card which is the parent link in gantt view</td>
+</tr>
+<tr>
+<td>linkId_gantt</td>
+<td>[string]¦null</td>
+<td>false</td>
+<td>none</td>
+<td>ID of card which is the parent link in gantt view</td>
 </tr>
 </tbody>
 </table>
