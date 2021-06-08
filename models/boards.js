@@ -109,6 +109,8 @@ Boards.attachSchema(
        * List of labels attached to a board
        */
       type: [Object],
+      optional: true,
+      /* Commented out, so does not create labels to new boards.
       // eslint-disable-next-line consistent-return
       autoValue() {
         if (this.isInsert && !this.isSet) {
@@ -122,6 +124,7 @@ Boards.attachSchema(
           }));
         }
       },
+      */
     },
     'labels.$._id': {
       /**
