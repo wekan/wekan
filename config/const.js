@@ -51,5 +51,6 @@ export const TYPE_TEMPLATE_BOARD = 'template-board';
 export const TYPE_TEMPLATE_CONTAINER = 'template-container';
 export const ALLOWED_WAIT_SPINNERS = [
   'Bounce',
+  'Cube',
   'Wave'
 ];
