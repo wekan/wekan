@@ -1,5 +1,14 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Moved many button texts etc to tooltips. Added more tooltips](https://github.com/wekan/wekan/commit/6ce5ab40a7dc013247717b5107a306eb0402cd63).
+  Thanks to JFa-Orkis and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.31 2021-06-09 Wekan release
 
 This release adds the following new features:
