@@ -388,6 +388,9 @@
       #export SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE=
       #export SAML_ATTRIBUTES=
       #---------------------------------------------------------------------
+      # Default wait spinner to use
+      #export DEFAULT_WAIT_SPINNER=Bounce
+      #---------------------------------------------------------------------
       node main.js
       # & >> ../../wekan.log
       cd ../..
