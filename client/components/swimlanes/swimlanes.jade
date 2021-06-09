@@ -58,9 +58,8 @@ template(name="addListForm")
                     | {{_ 'or'}}
                     a.js-list-template {{_ 'template'}}
           else
-            a.open-list-composer.js-open-inlined-form
+            a.open-list-composer.js-open-inlined-form(title="{{_ 'add-list'}}")
               i.fa.fa-plus
-              | {{_ 'add-list'}}
 
 template(name="moveSwimlanePopup")
   unless currentUser.isWorker

@@ -15,9 +15,8 @@ template(name="subtasks")
     +inlinedForm(autoclose=false classNames="js-add-subtask" cardId = cardId)
       +addSubtaskItemForm
     else
-      a.js-open-inlined-form
+      a.js-open-inlined-form(title="{{_ 'add-subtask'}}")
         i.fa.fa-plus
-        | {{_ 'add-subtask'}}...
 
 template(name="subtaskDetail")
   .js-subtasks.subtask

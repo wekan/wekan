@@ -1,5 +1,5 @@
 template(name="swimlaneHeader")
-  .swimlane-header-wrap.js-swimlane-header(class=colorClass)
+  .swimlane-header-wrap.js-swimlane-header(class=colorClass title="{{_ 'rename'}}")
     if this.isTemplateContainer
         +swimlaneFixedHeader(this)
     else
@@ -16,8 +16,8 @@ template(name="swimlaneFixedHeader")
   .swimlane-header-menu
     unless currentUser.isCommentOnly
       if currentUser.isBoardAdmin
-        a.fa.fa-plus.js-open-add-swimlane-menu.swimlane-header-plus-icon
-        a.fa.fa-navicon.js-open-swimlane-menu
+        a.fa.fa-plus.js-open-add-swimlane-menu.swimlane-header-plus-icon(title="{{_ 'add-swimlane'}}")
+        a.fa.fa-navicon.js-open-swimlane-menu(title="{{_ 'swimlaneActionPopup-title'}}")
       unless isMiniScreen
         if showDesktopDragHandles
           a.swimlane-header-handle.handle.fa.fa-arrows.js-swimlane-header-handle

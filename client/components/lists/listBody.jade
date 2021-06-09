@@ -19,9 +19,8 @@ template(name="listBody")
         +inlinedForm(autoclose=false position="bottom")
           +addCardForm(listId=_id position="bottom")
         else
-          a.open-minicard-composer.js-card-composer.js-open-inlined-form
+          a.open-minicard-composer.js-card-composer.js-open-inlined-form(title="{{_ 'add-card-to-bottom-of-list'}}")
             i.fa.fa-plus
-            | {{_ 'add-card'}}
 
 template(name="spinnerList")
   .sk-spinner.sk-spinner-wave.sk-spinner-list(

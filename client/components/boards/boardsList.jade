@@ -2,7 +2,8 @@ template(name="boardList")
   .wrapper
     ul.board-list.clearfix.js-boards
       li.js-add-board
-        a.board-list-item.label {{_ 'add-board'}}
+        a.board-list-item.label(title="{{_ 'add-board'}}")
+          | {{_ 'add-board'}}
       each boards
         li(class="{{#if isStarred}}starred{{/if}}" class=colorClass).js-board
           if isInvited
@@ -18,7 +19,7 @@ template(name="boardList")
           else
             a.js-open-board.board-list-item(href="{{pathFor 'board' id=_id slug=slug}}")
               span.details
-                span.board-list-item-name
+                span.board-list-item-name(title="{{_ 'board-drag-drop-reorder-or-click-open'}}")
                   +viewer
                     = title
                 i.fa.js-star-board(

@@ -5,18 +5,18 @@ template(name="cardDetails")
         +editCardTitleForm
       else
         unless isMiniScreen
-          a.fa.fa-times-thin.close-card-details.js-close-card-details
+          a.fa.fa-times-thin.close-card-details.js-close-card-details(title="{{_ 'close-card'}}")
           if currentUser.isBoardMember
-            a.fa.fa-navicon.card-details-menu.js-open-card-details-menu
+            a.fa.fa-navicon.card-details-menu.js-open-card-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
             input.inline-input(type="text" id="cardURL_copy" value="{{ originRelativeUrl }}")
             a.fa.fa-link.card-copy-button.js-copy-link(
               class="fa-link"
               title="{{_ 'copy-card-link-to-clipboard'}}"
             )
         if isMiniScreen
-          a.fa.fa-times-thin.close-card-details-mobile-web.js-close-card-details
+          a.fa.fa-times-thin.close-card-details-mobile-web.js-close-card-details(title="{{_ 'close-card'}}")
           if currentUser.isBoardMember
-            a.fa.fa-navicon.card-details-menu-mobile-web.js-open-card-details-menu
+            a.fa.fa-navicon.card-details-menu-mobile-web.js-open-card-details-menu(title="{{_ 'cardDetailsActionsPopup-title'}}")
             a.fa.fa-link.card-copy-mobile-button
         h2.card-details-title.js-card-title(
           class="{{#if canModifyCard}}js-open-inlined-form is-editable{{/if}}")
@@ -501,8 +501,8 @@ template(name="cardDetails")
           i.fa.fa-history
           | {{ _ 'activity'}}
         if currentUser.isBoardMember
-          .material-toggle-switch
-            span.toggle-switch-title {{_ 'hide-system-messages'}}
+          .material-toggle-switch(title="{{_ 'hide-system-messages'}}")
+            //span.toggle-switch-title
             if hiddenSystemMessages
               input.toggle-switch(type="checkbox" id="toggleButton" checked="checked")
             else

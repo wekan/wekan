@@ -19,7 +19,7 @@ template(name='homeSidebar')
   hr
   +labelsWidget
   ul#cards.label-text-hidden
-    a.flex.js-toggle-minicard-label-text
+    a.flex.js-toggle-minicard-label-text(title="{{_ 'hide-minicard-label-text'}}")
       span {{_ 'hide-minicard-label-text'}}
       b &nbsp;
       .materialCheckBox(class="{{#if hiddenMinicardLabelText}}is-checked{{/if}}")
@@ -37,7 +37,7 @@ template(name="membersWidget")
       | {{_ 'members'}}
 
       .sidebar-shortcuts
-        a.board-header-btn.js-shortcuts
+        a.board-header-btn.js-shortcuts(title="{{_ 'keyboard-shortcuts' }}")
           i.fa.fa-keyboard-o
           span {{_ 'keyboard-shortcuts' }}
 
@@ -51,10 +51,10 @@ template(name="membersWidget")
         +userAvatar(userId=this.userId showStatus=true)
       if isSandstorm
         if currentUser.isBoardMember
-          a.member.add-member.sandstorm-powerbox-request-identity
+          a.member.add-member.sandstorm-powerbox-request-identity(title="{{_ 'add-members'}}")
             i.fa.fa-plus
       else if currentUser.isBoardAdmin
-        a.member.add-member.js-manage-board-members
+        a.member.add-member.js-manage-board-members(title="{{_ 'add-members'}}")
           i.fa.fa-plus
       .clearfix
   if isInvited
@@ -364,7 +364,7 @@ template(name="labelsWidget")
               +viewer
                 = name
       if currentUser.isBoardAdmin
-        a.card-label.add-label.js-add-label
+        a.card-label.add-label.js-add-label(title="{{_ 'label-create'}}")
           i.fa.fa-plus
 
 template(name="memberPopup")
