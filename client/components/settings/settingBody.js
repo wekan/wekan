@@ -1,3 +1,5 @@
+import { ALLOWED_WAIT_SPINNERS } from '/config/const';
+
 BlazeComponent.extendComponent({
   onCreated() {
     this.error = new ReactiveVar('');
@@ -390,7 +392,7 @@ Template.selectAuthenticationMethod.helpers({
 
 Template.selectSpinnerName.helpers({
   spinners() {
-    return ['Bounce', 'Wave']
+    return ALLOWED_WAIT_SPINNERS;
   },
   isSelected(match) {
     return Template.instance().data.spinnerName === match;

@@ -1,5 +1,7 @@
 Meteor.subscribe('setting');
 
+import { ALLOWED_WAIT_SPINNERS } from '/config/const';
+
 export class Spinner extends BlazeComponent {
   currentSettings() {
     return Settings.findOne();
@@ -7,6 +9,10 @@ export class Spinner extends BlazeComponent {
 
   getSpinnerName() {
     let ret = 'Bounce';
+    let defaultWaitSpinner = Meteor.settings.public.DEFAULT_WAIT_SPINNER;
+    if (defaultWaitSpinner && ALLOWED_WAIT_SPINNERS.includes(defaultWaitSpinner)) {
+      ret = defaultWaitSpinner;
+    }
     let settings = this.currentSettings();
 
     if (settings && settings.spinnerName) {
