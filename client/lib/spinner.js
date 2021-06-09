@@ -22,6 +22,6 @@ export class Spinner extends BlazeComponent {
   }
 
   getSpinnerTemplate() {
-    return 'spinner' + this.getSpinnerName();
+    return 'spinner' + this.getSpinnerName().replace(/-/, '');
   }
 }
