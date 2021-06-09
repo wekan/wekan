@@ -53,5 +53,6 @@ export const ALLOWED_WAIT_SPINNERS = [
   'Bounce',
   'Cube',
   'Dot',
+  'Rotateplane',
   'Wave'
 ];
