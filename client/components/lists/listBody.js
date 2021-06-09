@@ -1,4 +1,4 @@
-import { Spinner } from '/client/components/main/spinner';
+import { Spinner } from '/client/lib/spinner';
 
 const subManager = new SubsManager();
 const InfiniteScrollIter = 10;
