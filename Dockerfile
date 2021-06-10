@@ -10,7 +10,7 @@ LABEL maintainer="wekan"
 # ENV BUILD_DEPS="paxctl"
 ARG DEBIAN_FRONTEND=noninteractive
 
-ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-essential git ca-certificates python3" \
+ENV BUILD_DEPS="apt-utils libarchive-tools gpgv2 gosu wget curl bzip2 g++ build-essential git ca-certificates python3" \
     DEBUG=false \
     NODE_VERSION=v12.22.1 \
     METEOR_RELEASE=1.10.2 \
