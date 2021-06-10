@@ -102,7 +102,9 @@ BlazeComponent.extendComponent({
     ];
   },
   filterPeople() {
-    const value = $('#searchInput').first().val();
+    const value = $('#searchInput')
+      .first()
+      .val();
     if (value === '') {
       this.findUsersOptions.set({});
     } else {
@@ -513,18 +515,24 @@ Template.editUserPopup.events({
     const isAdmin = templateInstance.find('.js-profile-isadmin').value.trim();
     const isActive = templateInstance.find('.js-profile-isactive').value.trim();
     const email = templateInstance.find('.js-profile-email').value.trim();
-    const verified = templateInstance.find('.js-profile-email-verified').value.trim();
-    const authentication = templateInstance.find('.js-authenticationMethod').value.trim();
-    const importUsernames = templateInstance.find('.js-import-usernames').value.trim();
-    const userOrgs = templateInstance.find('.js-userOrgs').value.trim();
-    const userOrgsIds = templateInstance.find('.js-userOrgIds').value.trim();
-    const userTeams = templateInstance.find('.js-userteams').value.trim();
-    const userTeamsIds = templateInstance.find('.js-userteamIds').value.trim();
+    const verified = templateInstance
+      .find('.js-profile-email-verified')
+      .value.trim();
+    const authentication = templateInstance
+      .find('.js-authenticationMethod')
+      .value.trim();
+    const importUsernames = templateInstance
+      .find('.js-import-usernames')
+      .value.trim();
 
     const isChangePassword = password.length > 0;
     const isChangeUserName = username !== user.username;
     const isChangeInitials = initials.length > 0;
     const isChangeEmailVerified = verified !== user.emails[0].verified;
+    const userOrgs = templateInstance.find('.js-userOrgs').value.trim();
+    const userOrgsIds = templateInstance.find('.js-userOrgIds').value.trim();
+    const userTeams = templateInstance.find('.js-userteams').value.trim();
+    const userTeamsIds = templateInstance.find('.js-userteamIds').value.trim();
 
     // If previously email address has not been set, it is undefined,
     // check for undefined, and allow adding email address.
@@ -882,10 +890,6 @@ Template.newUserPopup.events({
   },
   'click #removeUserOrgNewUser'(event) {
     event.preventDefault();
-    Org.remove(this.orgId);
-    Popup.close();
-  }
-});
 
     userOrgsTeamsAction = "removeOrg";
     document.getElementById("jsOrgsNewUser").style.display = 'block';
