@@ -1,7 +1,7 @@
-FROM debian
+FROM quay.io/wekan/ubuntu:groovy-20210115
 LABEL maintainer="sgr"
 
-ENV BUILD_DEPS="gnupg gosu bsdtar wget curl bzip2 g++ build-essential python git ca-certificates iproute2"
+ENV BUILD_DEPS="gnupg gosu libarchive-tools wget curl bzip2 g++ build-essential python git ca-certificates iproute2"
 ENV DEBIAN_FRONTEND=noninteractive
 
 ENV \
