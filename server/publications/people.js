@@ -21,6 +21,8 @@ Meteor.publish('people', function(query, limit) {
         loginDisabled: 1,
         authenticationMethod: 1,
         importUsernames: 1,
+        orgs: 1,
+        teams: 1,
       },
     });
   }
