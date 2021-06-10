@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Wekan REST API v5.32</title>
+    <title>Wekan REST API v5.33</title>
 
     <style>
     </style>
@@ -1489,6 +1489,8 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
 <!-- backwards compatibility -->
 <!-- backwards compatibility -->
 <!-- backwards compatibility -->
+<!-- backwards compatibility -->
+<!-- backwards compatibility -->
   </head>
 
   <body data-languages="[&quot;shell&quot;,&quot;http&quot;,&quot;javascript&quot;,&quot;javascript--nodejs&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;java&quot;,&quot;go&quot;,&quot;php&quot;]">
@@ -1551,7 +1553,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
 	  	<ul class="toc-list-h1">
         
           <li>
-            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v5.32">Wekan REST API v5.32</a>
+            <a href="#wekan-rest-api" class="toc-h1 toc-link" data-title="Wekan REST API v5.33">Wekan REST API v5.33</a>
             
           </li>
         
@@ -2080,6 +2082,16 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
                   </li>
                 
                   <li>
+                    <a href="#tocs_usersorgs" class="toc-h2 toc-link" data-title="">UsersOrgs</a>
+                    
+                  </li>
+                
+                  <li>
+                    <a href="#tocs_usersteams" class="toc-h2 toc-link" data-title="">UsersTeams</a>
+                    
+                  </li>
+                
+                  <li>
                     <a href="#tocs_usersemails" class="toc-h2 toc-link" data-title="">UsersEmails</a>
                     
                   </li>
@@ -2104,7 +2116,7 @@ var n=this.pipeline.run(e.tokenizer(t)),r=new e.Vector,i=[],o=this._fields.reduc
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id="wekan-rest-api">Wekan REST API v5.32</h1>
+        <h1 id="wekan-rest-api">Wekan REST API v5.33</h1>
 <blockquote>
 <p>Scroll down for code samples, example requests and responses. Select a language for code samples from the tabs above or the mobile navigation menu.</p>
 </blockquote>
@@ -15959,6 +15971,18 @@ System.out.println(response.toString());
 </blockquote>
 <pre class="highlight tab tab-json"><code>{
   <span class="hljs-attr">&quot;username&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;orgs&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;orgId&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;orgDisplayName&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+    }
+  ],
+  <span class="hljs-attr">&quot;teams&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;teamId&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;teamDisplayName&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+    }
+  ],
   <span class="hljs-attr">&quot;emails&quot;</span>: [
     {
       <span class="hljs-attr">&quot;address&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -16008,8 +16032,7 @@ System.out.println(response.toString());
   <span class="hljs-attr">&quot;loginDisabled&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;authenticationMethod&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;sessionData&quot;</span>: {
-    <span class="hljs-attr">&quot;totalHits&quot;</span>: <span class="hljs-number">0</span>,
-    <span class="hljs-attr">&quot;lastHit&quot;</span>: <span class="hljs-number">0</span>
+    <span class="hljs-attr">&quot;totalHits&quot;</span>: <span class="hljs-number">0</span>
   },
   <span class="hljs-attr">&quot;importUsernames&quot;</span>: [
     <span class="hljs-string">&quot;string&quot;</span>
@@ -16700,6 +16723,18 @@ System.out.println(response.toString());
 </blockquote>
 <pre class="highlight tab tab-json"><code>{
   <span class="hljs-attr">&quot;username&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;orgs&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;orgId&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;orgDisplayName&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+    }
+  ],
+  <span class="hljs-attr">&quot;teams&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;teamId&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;teamDisplayName&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+    }
+  ],
   <span class="hljs-attr">&quot;emails&quot;</span>: [
     {
       <span class="hljs-attr">&quot;address&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -16749,8 +16784,7 @@ System.out.println(response.toString());
   <span class="hljs-attr">&quot;loginDisabled&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;authenticationMethod&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;sessionData&quot;</span>: {
-    <span class="hljs-attr">&quot;totalHits&quot;</span>: <span class="hljs-number">0</span>,
-    <span class="hljs-attr">&quot;lastHit&quot;</span>: <span class="hljs-number">0</span>
+    <span class="hljs-attr">&quot;totalHits&quot;</span>: <span class="hljs-number">0</span>
   },
   <span class="hljs-attr">&quot;importUsernames&quot;</span>: [
     <span class="hljs-string">&quot;string&quot;</span>
@@ -20712,6 +20746,18 @@ UserSecurity
 <a id="tocsusers"></a></p>
 <pre class="highlight tab tab-json"><code>{
   <span class="hljs-attr">&quot;username&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;orgs&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;orgId&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;orgDisplayName&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+    }
+  ],
+  <span class="hljs-attr">&quot;teams&quot;</span>: [
+    {
+      <span class="hljs-attr">&quot;teamId&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+      <span class="hljs-attr">&quot;teamDisplayName&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+    }
+  ],
   <span class="hljs-attr">&quot;emails&quot;</span>: [
     {
       <span class="hljs-attr">&quot;address&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
@@ -20761,8 +20807,7 @@ UserSecurity
   <span class="hljs-attr">&quot;loginDisabled&quot;</span>: <span class="hljs-literal">true</span>,
   <span class="hljs-attr">&quot;authenticationMethod&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
   <span class="hljs-attr">&quot;sessionData&quot;</span>: {
-    <span class="hljs-attr">&quot;totalHits&quot;</span>: <span class="hljs-number">0</span>,
-    <span class="hljs-attr">&quot;lastHit&quot;</span>: <span class="hljs-number">0</span>
+    <span class="hljs-attr">&quot;totalHits&quot;</span>: <span class="hljs-number">0</span>
   },
   <span class="hljs-attr">&quot;importUsernames&quot;</span>: [
     <span class="hljs-string">&quot;string&quot;</span>
@@ -20789,6 +20834,20 @@ UserSecurity
 <td>false</td>
 <td>none</td>
 <td>the username of the user</td>
+</tr>
+<tr>
+<td>orgs</td>
+<td>[<a href="#schemausersorgs">UsersOrgs</a>]¦null</td>
+<td>false</td>
+<td>none</td>
+<td>the list of organizations that a user belongs to</td>
+</tr>
+<tr>
+<td>teams</td>
+<td>[<a href="#schemausersteams">UsersTeams</a>]¦null</td>
+<td>false</td>
+<td>none</td>
+<td>the list of teams that a user belongs to</td>
 </tr>
 <tr>
 <td>emails</td>
@@ -21131,8 +21190,7 @@ UserSecurity
 <a id="tocSuserssessiondata"></a>
 <a id="tocsuserssessiondata"></a></p>
 <pre class="highlight tab tab-json"><code>{
-  <span class="hljs-attr">&quot;totalHits&quot;</span>: <span class="hljs-number">0</span>,
-  <span class="hljs-attr">&quot;lastHit&quot;</span>: <span class="hljs-number">0</span>
+  <span class="hljs-attr">&quot;totalHits&quot;</span>: <span class="hljs-number">0</span>
 }
 
 </code></pre>
@@ -21153,14 +21211,85 @@ UserSecurity
 <td>number</td>
 <td>false</td>
 <td>none</td>
-<td>Total hits from last search</td>
+<td>Total hits from last searchquery['members.userId'] = Meteor.userId();<br />last hit that was returned</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocs_usersorgs">UsersOrgs</h2>
+<p><a id="schemausersorgs"></a>
+<a id="schema_UsersOrgs"></a>
+<a id="tocSusersorgs"></a>
+<a id="tocsusersorgs"></a></p>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">&quot;orgId&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;orgDisplayName&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+
+</code></pre>
+<h3 id="properties-21">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>orgId</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The uniq ID of the organization</td>
 </tr>
 <tr>
-<td>lastHit</td>
-<td>number</td>
-<td>false</td>
+<td>orgDisplayName</td>
+<td>string</td>
+<td>true</td>
 <td>none</td>
-<td>last hit that was returned</td>
+<td>The display name of the organization</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tocs_usersteams">UsersTeams</h2>
+<p><a id="schemausersteams"></a>
+<a id="schema_UsersTeams"></a>
+<a id="tocSusersteams"></a>
+<a id="tocsusersteams"></a></p>
+<pre class="highlight tab tab-json"><code>{
+  <span class="hljs-attr">&quot;teamId&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>,
+  <span class="hljs-attr">&quot;teamDisplayName&quot;</span>: <span class="hljs-string">&quot;string&quot;</span>
+}
+
+</code></pre>
+<h3 id="properties-22">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Required</th>
+<th>Restrictions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>teamId</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The uniq ID of the team</td>
+</tr>
+<tr>
+<td>teamDisplayName</td>
+<td>string</td>
+<td>true</td>
+<td>none</td>
+<td>The display name of the team</td>
 </tr>
 </tbody>
 </table>
@@ -21175,7 +21304,7 @@ UserSecurity
 }
 
 </code></pre>
-<h3 id="properties-21">Properties</h3>
+<h3 id="properties-23">Properties</h3>
 <table>
 <thead>
 <tr>
@@ -21214,7 +21343,7 @@ UserSecurity
 }
 
 </code></pre>
-<h3 id="properties-22">Properties</h3>
+<h3 id="properties-24">Properties</h3>
 <table>
 <thead>
 <tr>
@@ -21244,6 +21373,8 @@ UserSecurity
 </table>
 <!-- Renderer: Shins v2.6.0 -->
 <!-- Generator: Widdershins v4.0.1 -->
+<!-- backwards compatibility -->
+<!-- backwards compatibility -->
 <!-- backwards compatibility -->
 <!-- backwards compatibility -->
 <!-- backwards compatibility -->

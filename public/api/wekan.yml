@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v5.32
+  version: v5.33
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -3738,6 +3738,20 @@ definitions:
            the username of the user
         type: string
         x-nullable: true
+      orgs:
+        description: |
+           the list of organizations that a user belongs to
+        type: array
+        items:
+          $ref: "#/definitions/UsersOrgs"
+        x-nullable: true
+      teams:
+        description: |
+           the list of teams that a user belongs to
+        type: array
+        items:
+          $ref: "#/definitions/UsersTeams"
+        x-nullable: true
       emails:
         description: |
            the list of emails attached to a user
@@ -3921,12 +3935,37 @@ definitions:
     properties:
       totalHits:
         description: |
-           Total hits from last search
-        type: number
-      lastHit:
-        description: |
+           Total hits from last searchquery['members.userId'] = Meteor.userId();
            last hit that was returned
         type: number
+  UsersOrgs:
+    type: object
+    properties:
+      orgId:
+        description: |
+           The uniq ID of the organization
+        type: string
+      orgDisplayName:
+        description: |
+           The display name of the organization
+        type: string
+    required:
+      - orgId
+      - orgDisplayName
+  UsersTeams:
+    type: object
+    properties:
+      teamId:
+        description: |
+           The uniq ID of the team
+        type: string
+      teamDisplayName:
+        description: |
+           The display name of the team
+        type: string
+    required:
+      - teamId
+      - teamDisplayName
   UsersEmails:
     type: object
     properties:
