@@ -1,4 +1,4 @@
-FROM quay.io/wekan/ubuntu:hirsute-20210522
+FROM quay.io/wekan/ubuntu:groovy-20210115
 LABEL maintainer="wekan"
 
 # 2020-12-03:
@@ -10,7 +10,7 @@ LABEL maintainer="wekan"
 # ENV BUILD_DEPS="paxctl"
 ARG DEBIAN_FRONTEND=noninteractive
 
-ENV BUILD_DEPS="apt-utils libarchive-tools gnupg2 gosu wget curl bzip2 g++ build-essential git ca-certificates python3" \
+ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-essential git ca-certificates python3" \
     DEBUG=false \
     NODE_VERSION=v12.22.1 \
     METEOR_RELEASE=1.10.2 \
