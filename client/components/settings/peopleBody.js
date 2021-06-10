@@ -1,6 +1,7 @@
 const orgsPerPage = 25;
 const teamsPerPage = 25;
 const usersPerPage = 25;
+let userOrgsTeamsAction = ""; //poosible actions 'addOrg', 'addTeam', 'removeOrg' or 'removeTeam' when adding or modifying a user
 
 BlazeComponent.extendComponent({
   mixins() {
@@ -245,6 +246,12 @@ Template.editUserPopup.helpers({
   authentications() {
     return Template.instance().authenticationMethods.get();
   },
+  orgsDatas() {
+    return Org.find({}, {sort: { createdAt: -1 }});
+  },
+  teamsDatas() {
+    return Team.find({}, {sort: { createdAt: -1 }});
+  },
   isSelected(match) {
     const userId = Template.instance().data.userId;
     const selected = Users.findOne(userId).authenticationMethod;
@@ -312,10 +319,21 @@ Template.newUserPopup.helpers({
   authentications() {
     return Template.instance().authenticationMethods.get();
   },
+  orgsDatas() {
+    return Org.find({}, {sort: { createdAt: -1 }});
+  },
+  teamsDatas() {
+    return Team.find({}, {sort: { createdAt: -1 }});
+  },
   isSelected(match) {
     const userId = Template.instance().data.userId;
-    const selected = Users.findOne(userId).authenticationMethod;
-    return selected === match;
+    if(userId){
+      const selected = Users.findOne(userId).authenticationMethod;
+      return selected === match;
+    }
+    else{
+      false;
+    }
   },
   isLdap() {
     const userId = Template.instance().data.userId;
@@ -499,15 +517,13 @@ Template.editUserPopup.events({
     const isAdmin = templateInstance.find('.js-profile-isadmin').value.trim();
     const isActive = templateInstance.find('.js-profile-isactive').value.trim();
     const email = templateInstance.find('.js-profile-email').value.trim();
-    const verified = templateInstance
-      .find('.js-profile-email-verified')
-      .value.trim();
-    const authentication = templateInstance
-      .find('.js-authenticationMethod')
-      .value.trim();
-    const importUsernames = templateInstance
-      .find('.js-import-usernames')
-      .value.trim();
+    const verified = templateInstance.find('.js-profile-email-verified').value.trim();
+    const authentication = templateInstance.find('.js-authenticationMethod').value.trim();
+    const importUsernames = templateInstance.find('.js-import-usernames').value.trim();
+    const userOrgs = templateInstance.find('.js-userOrgs').value.trim();
+    const userOrgsIds = templateInstance.find('.js-userOrgIds').value.trim();
+    const userTeams = templateInstance.find('.js-userteams').value.trim();
+    const userTeamsIds = templateInstance.find('.js-userteamIds').value.trim();
 
     const isChangePassword = password.length > 0;
     const isChangeUserName = username !== user.username;
@@ -530,6 +546,36 @@ Template.editUserPopup.events({
         authenticationMethod: authentication,
         importUsernames: Users.parseImportUsernames(importUsernames),
       },
+    });
+
+    let userTeamsList = userTeams.split(",");
+    let userTeamsIdsList = userTeamsIds.split(",");
+    let userTms = [];
+    for(let i = 0; i < userTeamsList.length; i++){
+      userTms.push({
+        "teamId": userTeamsIdsList[i],
+        "teamDisplayName": userTeamsList[i],
+      })
+    }
+    Users.update(this.userId, {
+      $set:{
+        teams: userTms
+      }
+    });
+
+    let userOrgsList = userOrgs.split(",");
+    let userOrgsIdsList = userOrgsIds.split(",");
+    let userOrganizations = [];
+    for(let i = 0; i < userOrgsList.length; i++){
+      userOrganizations.push({
+        "orgId": userOrgsIdsList[i],
+        "orgDisplayName": userOrgsList[i],
+      })
+    }
+    Users.update(this.userId, {
+      $set:{
+        orgs: userOrganizations
+      }
     });
 
     if (isChangePassword) {
@@ -602,7 +648,118 @@ Template.editUserPopup.events({
       );
     } else Popup.close();
   },
+  'click #addUserOrg'(event) {
+    event.preventDefault();
+
+    userOrgsTeamsAction = "addOrg";
+    document.getElementById("jsOrgs").style.display = 'block';
+    document.getElementById("jsTeams").style.display = 'none';
+  },
+  'click #removeUserOrg'(event) {
+    event.preventDefault();
+
+    userOrgsTeamsAction = "removeOrg";
+    document.getElementById("jsOrgs").style.display = 'block';
+    document.getElementById("jsTeams").style.display = 'none';
+  },
+  'click #addUserTeam'(event) {
+    event.preventDefault();
+
+    userOrgsTeamsAction = "addTeam";
+    document.getElementById("jsTeams").style.display = 'block';
+    document.getElementById("jsOrgs").style.display = 'none';
+  },
+  'click #removeUserTeam'(event) {
+    event.preventDefault();
+
+    userOrgsTeamsAction = "removeTeam";
+    document.getElementById("jsTeams").style.display = 'block';
+    document.getElementById("jsOrgs").style.display = 'none';
+  },
+  'change #jsOrgs'(event) {
+    event.preventDefault();
+    UpdateUserOrgsOrTeamsElement();
+  },
+  'change #jsTeams'(event) {
+    event.preventDefault();
+    UpdateUserOrgsOrTeamsElement();
+  },
 });
+
+UpdateUserOrgsOrTeamsElement = function(isNewUser = false){
+  let selectedElt;
+  let selectedEltValue;
+  let selectedEltValueId;
+  let inputElt;
+  let inputEltId;
+  let lstInputValues = [];
+  let lstInputValuesIds = [];
+  let index;
+  let indexId;
+  switch(userOrgsTeamsAction)
+  {
+    case "addOrg":
+    case "removeOrg":
+      inputElt = !isNewUser ? document.getElementById("jsUserOrgsInPut") : document.getElementById("jsUserOrgsInPutNewUser");
+      inputEltId = !isNewUser ? document.getElementById("jsUserOrgIdsInPut") : document.getElementById("jsUserOrgIdsInPutNewUser");
+      selectedElt = !isNewUser ? document.getElementById("jsOrgs") : document.getElementById("jsOrgsNewUser");
+      break;
+    case "addTeam":
+    case "removeTeam":
+      inputElt = !isNewUser ? document.getElementById("jsUserTeamsInPut") : document.getElementById("jsUserTeamsInPutNewUser");
+      inputEltId = !isNewUser ? document.getElementById("jsUserTeamIdsInPut") : document.getElementById("jsUserTeamIdsInPutNewUser");
+      selectedElt = !isNewUser ? document.getElementById("jsTeams") : document.getElementById("jsTeamsNewUser");
+      break;
+    default:
+      break;
+  }
+  selectedEltValue = selectedElt.options[selectedElt.selectedIndex].text;
+  selectedEltValueId = selectedElt.options[selectedElt.selectedIndex].value;
+  lstInputValues = inputElt.value.trim().split(",");
+  if(lstInputValues.length == 1 && lstInputValues[0] == ''){
+    lstInputValues = [];
+  }
+  lstInputValuesIds = inputEltId.value.trim().split(",");
+  if(lstInputValuesIds.length == 1 && lstInputValuesIds[0] == ''){
+    lstInputValuesIds = [];
+  }
+  index = lstInputValues.indexOf(selectedEltValue);
+  indexId = lstInputValuesIds.indexOf(selectedEltValue);
+  if(userOrgsTeamsAction == "addOrg" || userOrgsTeamsAction == "addTeam"){
+    if(index <= -1 && selectedEltValueId != "-1"){
+      lstInputValues.push(selectedEltValue);
+    }
+
+    if(indexId <= -1 && selectedEltValueId != "-1"){
+      lstInputValuesIds.push(selectedEltValueId);
+    }
+  }
+  else{
+    if(index > -1 && selectedEltValueId != "-1"){
+      lstInputValues.splice(index, 1);
+    }
+
+    if(indexId > -1 && selectedEltValueId != "-1"){
+      lstInputValuesIds.splice(indexId, 1);
+    }
+  }
+
+  if(lstInputValues.length > 0){
+    inputElt.value = lstInputValues.join(",");
+  }
+  else{
+    inputElt.value = "";
+  }
+
+  if(lstInputValuesIds.length > 0){
+    inputEltId.value = lstInputValuesIds.join(",");
+  }
+  else{
+    inputEltId.value = "";
+  }
+  selectedElt.value = "-1";
+  selectedElt.style.display = "none";
+}
 
 Template.newOrgPopup.events({
   submit(event, templateInstance) {
@@ -667,6 +824,30 @@ Template.newUserPopup.events({
     const importUsernames = Users.parseImportUsernames(
       templateInstance.find('.js-import-usernames').value,
     );
+    const userOrgs = templateInstance.find('.js-userOrgsNewUser').value.trim();
+    const userOrgsIds = templateInstance.find('.js-userOrgIdsNewUser').value.trim();
+    const userTeams = templateInstance.find('.js-userteamsNewUser').value.trim();
+    const userTeamsIds = templateInstance.find('.js-userteamIdsNewUser').value.trim();
+
+    let userTeamsList = userTeams.split(",");
+    let userTeamsIdsList = userTeamsIds.split(",");
+    let userTms = [];
+    for(let i = 0; i < userTeamsList.length; i++){
+      userTms.push({
+        "teamId": userTeamsIdsList[i],
+        "teamDisplayName": userTeamsList[i],
+      })
+    }
+
+    let userOrgsList = userOrgs.split(",");
+    let userOrgsIdsList = userOrgsIds.split(",");
+    let userOrganizations = [];
+    for(let i = 0; i < userOrgsList.length; i++){
+      userOrganizations.push({
+        "orgId": userOrgsIdsList[i],
+        "orgDisplayName": userOrgsList[i],
+      })
+    }
 
     Meteor.call(
       'setCreateUser',
@@ -678,7 +859,9 @@ Template.newUserPopup.events({
       isActive,
       email.toLowerCase(),
       importUsernames,
-      function (error) {
+      userOrganizations,
+      userTms,
+      function(error) {
         const usernameMessageElement = templateInstance.$('.username-taken');
         const emailMessageElement = templateInstance.$('.email-taken');
         if (error) {
@@ -698,6 +881,42 @@ Template.newUserPopup.events({
       },
     );
     Popup.close();
+  },
+  'click #addUserOrgNewUser'(event) {
+    event.preventDefault();
+
+    userOrgsTeamsAction = "addOrg";
+    document.getElementById("jsOrgsNewUser").style.display = 'block';
+    document.getElementById("jsTeamsNewUser").style.display = 'none';
+  },
+  'click #removeUserOrgNewUser'(event) {
+    event.preventDefault();
+
+    userOrgsTeamsAction = "removeOrg";
+    document.getElementById("jsOrgsNewUser").style.display = 'block';
+    document.getElementById("jsTeamsNewUser").style.display = 'none';
+  },
+  'click #addUserTeamNewUser'(event) {
+    event.preventDefault();
+
+    userOrgsTeamsAction = "addTeam";
+    document.getElementById("jsTeamsNewUser").style.display = 'block';
+    document.getElementById("jsOrgsNewUser").style.display = 'none';
+  },
+  'click #removeUserTeamNewUser'(event) {
+    event.preventDefault();
+
+    userOrgsTeamsAction = "removeTeam";
+    document.getElementById("jsTeamsNewUser").style.display = 'block';
+    document.getElementById("jsOrgsNewUser").style.display = 'none';
+  },
+  'change #jsOrgsNewUser'(event) {
+    event.preventDefault();
+    UpdateUserOrgsOrTeamsElement(true);
+  },
+  'change #jsTeamsNewUser'(event) {
+    event.preventDefault();
+    UpdateUserOrgsOrTeamsElement(true);
   },
 });
 

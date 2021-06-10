@@ -38,6 +38,44 @@ Users.attachSchema(
         }
       },
     },
+    orgs: {
+      /**
+       * the list of organizations that a user belongs to
+       */
+       type: [Object],
+       optional: true,
+    },
+    'orgs.$.orgId':{
+      /**
+       * The uniq ID of the organization
+       */
+       type: String,
+    },
+    'orgs.$.orgDisplayName':{
+      /**
+       * The display name of the organization
+       */
+       type: String,
+    },
+    teams: {
+      /**
+       * the list of teams that a user belongs to
+       */
+       type: [Object],
+       optional: true,
+    },
+    'teams.$.teamId':{
+      /**
+       * The uniq ID of the team
+       */
+       type: String,
+    },
+    'teams.$.teamDisplayName':{
+      /**
+       * The display name of the team
+       */
+       type: String,
+    },
     emails: {
       /**
        * the list of emails attached to a user
@@ -329,13 +367,7 @@ Users.attachSchema(
     },
     'sessionData.totalHits': {
       /**
-       * Total hits from last search
-       */
-      type: Number,
-      optional: true,
-    },
-    'sessionData.lastHit': {
-      /**
+       * Total hits from last searchquery['members.userId'] = Meteor.userId();
        * last hit that was returned
        */
       type: Number,
@@ -464,7 +496,30 @@ Users.helpers({
     }
     return '';
   },
-
+  orgsUserBelongs() {
+    if (this.orgs) {
+      return this.orgs.map(function(org){return org.orgDisplayName}).join(',');
+    }
+    return '';
+  },
+  orgIdsUserBelongs() {
+    if (this.orgs) {
+      return this.orgs.map(function(org){return org.orgId}).join(',');
+    }
+    return '';
+  },
+  teamsUserBelongs() {
+    if (this.teams) {
+      return this.teams.map(function(team){ return team.teamDisplayName}).join(',');
+    }
+    return '';
+  },
+  teamIdsUserBelongs() {
+    if (this.teams) {
+      return this.teams.map(function(team){ return team.teamId}).join(',');
+    }
+    return '';
+  },
   boards() {
     return Boards.find(
       {
@@ -894,6 +949,8 @@ if (Meteor.isServer) {
       isActive,
       email,
       importUsernames,
+      userOrgsArray,
+      userTeamsArray,
     ) {
       if (Meteor.user() && Meteor.user().isAdmin) {
         check(fullname, String);
@@ -904,6 +961,8 @@ if (Meteor.isServer) {
         check(isActive, String);
         check(email, String);
         check(importUsernames, Array);
+        check(userOrgsArray, Array);
+        check(userTeamsArray, Array);
 
         const nUsersWithUsername = Users.find({
           username,
@@ -935,6 +994,8 @@ if (Meteor.isServer) {
                 'profile.fullname': fullname,
                 importUsernames,
                 'profile.initials': initials,
+                orgs: userOrgsArray,
+                teams: userTeamsArray,
               },
             });
           }
