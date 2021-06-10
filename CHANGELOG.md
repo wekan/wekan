@@ -1,5 +1,14 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming Wekan release
+
+This release adds the following new improvements:
+
+- [Card Description has now the same color on view and editing](https://github.com/wekan/wekan/pull/3851).
+  Thanks to mfilser.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.33 2021-06-10 Wekan release
 
 This release adds the following new features:
