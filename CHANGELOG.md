@@ -1,5 +1,14 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming Wekan release
+
+This release adds the following new improvements:
+
+- [Custom Fields stringtemplate, autofocus the last input box](https://github.com/wekan/wekan/pull/3849).
+  Thanks to mfilser.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.32 2021-06-09 Wekan release
 
 This release adds the following new features:
