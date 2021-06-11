@@ -9,6 +9,12 @@ This release adds the following new improvements:
 - [Development in docker container](https://github.com/wekan/wekan/pull/3852).
   Thanks to mfilser.
 
+and fixes the following bugs:
+
+- [Fix Google SSO to access Wekan has not been working by reverting Wekan v5.31 not-working fixes
+  to OAUTH2_LOGIN_STYLE=redirect Has No Effect](https://github.com/wekan/wekan/commit/1e837dec11dc5cb266b83efcff4f462aa02d733d).
+  Thanks to unpokitodxfavor and xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v5.33 2021-06-10 Wekan release
