@@ -952,18 +952,17 @@ if (Meteor.isServer) {
       userOrgsArray,
       userTeamsArray,
     ) {
+      check(fullname, String);
+      check(username, String);
+      check(initials, String);
+      check(password, String);
+      check(isAdmin, String);
+      check(isActive, String);
+      check(email, String);
+      check(importUsernames, Array);
+      check(userOrgsArray, Array);
+      check(userTeamsArray, Array);
       if (Meteor.user() && Meteor.user().isAdmin) {
-        check(fullname, String);
-        check(username, String);
-        check(initials, String);
-        check(password, String);
-        check(isAdmin, String);
-        check(isActive, String);
-        check(email, String);
-        check(importUsernames, Array);
-        check(userOrgsArray, Array);
-        check(userTeamsArray, Array);
-
         const nUsersWithUsername = Users.find({
           username,
         }).count();
@@ -1003,9 +1002,9 @@ if (Meteor.isServer) {
       }
     },
     setUsername(username, userId) {
+      check(username, String);
+      check(userId, String);
       if (Meteor.user() && Meteor.user().isAdmin) {
-        check(username, String);
-        check(userId, String);
         const nUsersWithUsername = Users.find({
           username,
         }).count();
@@ -1021,11 +1020,12 @@ if (Meteor.isServer) {
       }
     },
     setEmail(email, userId) {
+      check(email, String);
+      check(username, String);
       if (Meteor.user() && Meteor.user().isAdmin) {
         if (Array.isArray(email)) {
           email = email.shift();
         }
-        check(email, String);
         const existingUser = Users.findOne(
           {
             'emails.address': email,
@@ -1053,31 +1053,31 @@ if (Meteor.isServer) {
       }
     },
     setUsernameAndEmail(username, email, userId) {
+      check(username, String);
+      check(email, String);
+      check(userId, String);
       if (Meteor.user() && Meteor.user().isAdmin) {
-        check(username, String);
         if (Array.isArray(email)) {
           email = email.shift();
         }
-        check(email, String);
-        check(userId, String);
         Meteor.call('setUsername', username, userId);
         Meteor.call('setEmail', email, userId);
       }
     },
     setPassword(newPassword, userId) {
+      check(userId, String);
+      check(newPassword, String);
       if (Meteor.user() && Meteor.user().isAdmin) {
-        check(userId, String);
-        check(newPassword, String);
         if (Meteor.user().isAdmin) {
           Accounts.setPassword(userId, newPassword);
         }
       }
     },
     setEmailVerified(email, verified, userId) {
+      check(email, String);
+      check(verified, Boolean);
+      check(userId, String);
       if (Meteor.user() && Meteor.user().isAdmin) {
-        check(email, String);
-        check(verified, Boolean);
-        check(userId, String);
         Users.update(userId, {
           $set: {
             emails: [
@@ -1091,9 +1091,9 @@ if (Meteor.isServer) {
       }
     },
     setInitials(initials, userId) {
+      check(initials, String);
+      check(userId, String);
       if (Meteor.user() && Meteor.user().isAdmin) {
-        check(initials, String);
-        check(userId, String);
         Users.update(userId, {
           $set: {
             'profile.initials': initials,
