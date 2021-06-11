@@ -8,6 +8,8 @@ This release adds the following new features:
   Thanks to mfilser.
 - [More spinners + configureable in admin panel](https://github.com/wekan/wekan/pull/3858).
   Thanks to mfilser.
+- [Added remaining spinner settings](https://github.com/wekan/wekan/commit/488b765f95ad67b19630cd125543836c04eaa24f).
+  Thanks to xet7.
 
 and adds the following new improvements:
 
