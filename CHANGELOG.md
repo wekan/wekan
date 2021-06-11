@@ -4,7 +4,9 @@
 
 This release adds the following new features:
 
-- [Wait Spinners can now be translated](https://github.com/wekan/wekan/commit/8703dd42296d531450eb21a3d3adea17558a8500).
+- Wait Spinners can now be translated
+  [Part 1](https://github.com/wekan/wekan/commit/8703dd42296d531450eb21a3d3adea17558a8500),
+  [Part 1](https://github.com/wekan/wekan/commit/7f3f0825573b1f8a7b0388e4bacbb0bd2525e886).
   Added Wait Spinners docs: https://github.com/wekan/wekan/wiki/Wait-Spinners .
   Thanks to xet7.
 
