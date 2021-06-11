@@ -230,6 +230,6 @@ template(name='selectSpinnerName')
   select#spinnerName
     each spinner in spinners
       if isSelected spinner
-        option(value="{{spinner}}" selected) {{spinner}}
+        option(value="{{spinner}}" selected) {{_ spinner}}
       else
-        option(value="{{spinner}}") {{spinner}}
+        option(value="{{spinner}}") {{_ spinner}}
