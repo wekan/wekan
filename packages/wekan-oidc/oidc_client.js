@@ -32,8 +32,6 @@ Oidc.requestCredential = function (options, credentialRequestCompleteCallback) {
 
   if (config.loginStyle && config.loginStyle == 'popup') {
     options.display = 'popup';
-  } else if (config.loginStyle && config.loginStyle == 'redirect') {
-    options.display = 'redirect';
   }
 
   var loginUrl = config.serverUrl + config.authorizationEndpoint;
@@ -52,28 +50,18 @@ Oidc.requestCredential = function (options, credentialRequestCompleteCallback) {
 
   //console.log('XXX: loginURL: ' + loginUrl)
 
-  if (config.loginStyle && config.loginStyle == 'popup') {
-    options.popupOptions = options.popupOptions || {};
-    var popupOptions = {
-      width:  options.popupOptions.width || 320,
-      height: options.popupOptions.height || 450
-    };
+  options.popupOptions = options.popupOptions || {};
+  var popupOptions = {
+    width:  options.popupOptions.width || 320,
+    height: options.popupOptions.height || 450
+  };
 
-    OAuth.launchLogin({
-      loginService: 'oidc',
-      loginStyle: loginStyle,
-      loginUrl: loginUrl,
-      credentialRequestCompleteCallback: credentialRequestCompleteCallback,
-      credentialToken: credentialToken,
-      popupOptions: popupOptions,
-    });
-  } else if (config.loginStyle && config.loginStyle == 'redirect') {
-    OAuth.launchLogin({
-      loginService: 'oidc',
-      loginStyle: loginStyle,
-      loginUrl: loginUrl,
-      credentialRequestCompleteCallback: credentialRequestCompleteCallback,
-      credentialToken: credentialToken,
-    });
-  }
+  OAuth.launchLogin({
+    loginService: 'oidc',
+    loginStyle: loginStyle,
+    loginUrl: loginUrl,
+    credentialRequestCompleteCallback: credentialRequestCompleteCallback,
+    credentialToken: credentialToken,
+    popupOptions: popupOptions,
+  });
 };
