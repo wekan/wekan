@@ -49,3 +49,13 @@ export const TYPE_LINKED_BOARD = 'cardType-linkedBoard';
 export const TYPE_LINKED_CARD = 'cardType-linkedCard';
 export const TYPE_TEMPLATE_BOARD = 'template-board';
 export const TYPE_TEMPLATE_CONTAINER = 'template-container';
+export const ALLOWED_WAIT_SPINNERS = [
+  'Bounce',
+  'Cube',
+  'Cube-Grid',
+  'Dot',
+  'Double-Bounce',
+  'Rotateplane',
+  'Scaleout',
+  'Wave'
+];
