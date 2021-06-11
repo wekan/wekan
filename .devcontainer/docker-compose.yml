@@ -12,8 +12,8 @@ services:
     expose:
       - 27017
     volumes:
-      - wekan-dev-db:/data/db
-      - wekan-dev-db-dump:/dump
+      - ./volumes/wekan-db:/data/db
+      - ./volumes/wekan-db-dump:/dump
       - /etc/localtime:/etc/localtime:ro
 
   wekan-dev:

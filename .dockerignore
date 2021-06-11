@@ -32,4 +32,5 @@ ehthumbs.db
 .eslintcache
 .meteor/local
 .devcontainer/docker-compose.extend.yml
+.devcontainer/volumes*/
 .git
