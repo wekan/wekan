@@ -2,7 +2,12 @@
 
 # Upcoming Wekan release
 
-This release adds the following new improvements:
+This release adds the following new features:
+
+- [View and change card sort number](https://github.com/wekan/wekan/pull/3857).
+  Thanks to mfilser.
+
+and adds the following new improvements:
 
 - [Card Description has now the same color on view and editing](https://github.com/wekan/wekan/pull/3851).
   Thanks to mfilser.
