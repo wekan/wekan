@@ -116,8 +116,6 @@ BlazeComponent.extendComponent({
       if (position === 'bottom') {
         this.scrollToBottom();
       }
-
-      formComponent.reset();
     }
   },
 
