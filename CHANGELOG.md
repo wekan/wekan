@@ -6,11 +6,8 @@ This release adds the following new improvements:
 
 - [Card Description has now the same color on view and editing](https://github.com/wekan/wekan/pull/3851).
   Thanks to mfilser.
-
-and adds the following updates:
-
-- [Updated Docker Ubuntu base image to newest hirsute](https://github.com/wekan/wekan/commit/2a5147a0c173e8610269a6a0d826dab7c2ca3faf).
-  Thanks to xet7.
+- [Development in docker container](https://github.com/wekan/wekan/pull/3852).
+  Thanks to mfilser.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
