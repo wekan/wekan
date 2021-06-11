@@ -664,7 +664,7 @@
     "setListColorPopup-title": "בחירת צבע",
     "assigned-by": "הוקצה על ידי",
     "requested-by": "התבקש על ידי",
-    "card-sorting-by-number": "Card sorting by number",
+    "card-sorting-by-number": "מיון כרטיסים לפי מספר",
     "board-delete-notice": "מחיקה היא לצמיתות. כל הרשימות, הכרטיבים והפעולות שקשורים בלוח הזה ילכו לאיבוד.",
     "delete-board-confirm-popup": "כל הרשימות, הכרטיסים, התווית והפעולות יימחקו ולא תהיה לך דרך לשחזר את תכני הלוח. אין אפשרות לבטל.",
     "boardDeletePopup-title": "למחוק את הלוח?",
@@ -1039,5 +1039,5 @@
     "copy-swimlane": "העתקת מסלול",
     "copySwimlanePopup-title": "העתקת מסלול",
     "display-card-creator": "להציג את יוצר הכרטיסים",
-    "wait-spinner": "Wait Spinner"
+    "wait-spinner": "שבשבת המתנה"
 }
