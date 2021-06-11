@@ -6,6 +6,8 @@ This release adds the following new features:
 
 - [View and change card sort number](https://github.com/wekan/wekan/pull/3857).
   Thanks to mfilser.
+- [More spinners + configureable in admin panel](https://github.com/wekan/wekan/pull/3858).
+  Thanks to mfilser.
 
 and adds the following new improvements:
 
