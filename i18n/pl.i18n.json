@@ -664,6 +664,7 @@
     "setListColorPopup-title": "Wybierz barwę",
     "assigned-by": "Przypisane przez",
     "requested-by": "Zlecone przez",
+    "card-sorting-by-number": "Card sorting by number",
     "board-delete-notice": "Usunięcie jest nieodwracalne. Stracisz wszystkie listy, karty oraz reguły przypisane do tej tablicy.",
     "delete-board-confirm-popup": "Wszystkie listy, etykiety oraz aktywności zostaną usunięte i nie będziesz w stanie przywrócić zawartości tablicy. Tego nie da się cofnąć.",
     "boardDeletePopup-title": "Usunąć tablicę?",
@@ -1037,5 +1038,6 @@
     "rulesReportTitle": "Wykaz reguł",
     "copy-swimlane": "Skopiuj ścieżkę",
     "copySwimlanePopup-title": "Kopiowanie ścieżki",
-    "display-card-creator": "Display Card Creator"
+    "display-card-creator": "Display Card Creator",
+    "wait-spinner": "Wait Spinner"
 }

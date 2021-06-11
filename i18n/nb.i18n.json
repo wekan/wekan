@@ -664,6 +664,7 @@
     "setListColorPopup-title": "Velg en farge",
     "assigned-by": "Tildelt av",
     "requested-by": "Forespurt av",
+    "card-sorting-by-number": "Card sorting by number",
     "board-delete-notice": "Sletting er permanent. Du vil miste alle lister, kort og aksjoner assosiert med denne tavlen,",
     "delete-board-confirm-popup": "Alle lister, kort, etiketter og aktiviteter vil bli slettet og du vil ikke kunne gjenopprette innholdet på tavlen. Det er ikke mulig å angre.",
     "boardDeletePopup-title": "Slett Tavle?",
@@ -1037,5 +1038,6 @@
     "rulesReportTitle": "Rapportering Regler",
     "copy-swimlane": "Kopiér Svømmebane",
     "copySwimlanePopup-title": "Kopiér Svømmebane",
-    "display-card-creator": "Display Card Creator"
+    "display-card-creator": "Display Card Creator",
+    "wait-spinner": "Wait Spinner"
 }

@@ -664,6 +664,7 @@
     "setListColorPopup-title": "Elegir un color",
     "assigned-by": "Asignado por",
     "requested-by": "Solicitado por",
+    "card-sorting-by-number": "Card sorting by number",
     "board-delete-notice": "Se eliminarán todas las listas, tarjetas y acciones asociadas a este tablero. Esta acción no puede deshacerse.",
     "delete-board-confirm-popup": "Se eliminarán todas las listas, tarjetas, etiquetas y actividades, y no podrás recuperar los contenidos del tablero. Esta acción no puede deshacerse.",
     "boardDeletePopup-title": "¿Eliminar el tablero?",
@@ -1037,5 +1038,6 @@
     "rulesReportTitle": "Rules Report",
     "copy-swimlane": "Copy Swimlane",
     "copySwimlanePopup-title": "Copy Swimlane",
-    "display-card-creator": "Display Card Creator"
+    "display-card-creator": "Display Card Creator",
+    "wait-spinner": "Wait Spinner"
 }

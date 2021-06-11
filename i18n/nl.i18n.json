@@ -82,8 +82,8 @@
     "add-attachment": "Bijlage Toevoegen",
     "add-board": "Bord Toevoegen",
     "add-card": "Kaart Toevoegen",
-    "add-card-to-top-of-list": "Add Card to Top of List",
-    "add-card-to-bottom-of-list": "Add Card to Bottom of List",
+    "add-card-to-top-of-list": "Voeg Kaart Boven Aan de Lijst Toe",
+    "add-card-to-bottom-of-list": "Voeg Kaart Onder Aan de Lijst Toe",
     "add-swimlane": "Swimlane Toevoegen",
     "add-subtask": "Subtaak Toevoegen",
     "add-checklist": "Checklist toevoegen",
@@ -664,6 +664,7 @@
     "setListColorPopup-title": "Kies een kleur",
     "assigned-by": "Toegewezen door",
     "requested-by": "Aangevraagd door",
+    "card-sorting-by-number": "Card sorting by number",
     "board-delete-notice": "Verwijdering kan niet ongedaan gemaakt worden. Je raakt alle met dit bord gerelateerde lijsten, kaarten en acties kwijt.",
     "delete-board-confirm-popup": "Alle lijsten, kaarten, labels en activiteiten zullen worden verwijderd en je kunt de bordinhoud niet terughalen. Er is geen herstelmogelijkheid. ",
     "boardDeletePopup-title": "Bord verwijderen?",
@@ -1037,5 +1038,6 @@
     "rulesReportTitle": "Regels Rapportage",
     "copy-swimlane": "Kopieer Swimlane",
     "copySwimlanePopup-title": "Kopieer Swimlane",
-    "display-card-creator": "Toon Aanmaker Kaart"
+    "display-card-creator": "Toon Aanmaker Kaart",
+    "wait-spinner": "Wait Spinner"
 }

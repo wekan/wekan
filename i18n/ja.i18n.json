@@ -664,6 +664,7 @@
     "setListColorPopup-title": "色を選択",
     "assigned-by": "任命者",
     "requested-by": "依頼者",
+    "card-sorting-by-number": "Card sorting by number",
     "board-delete-notice": "永久に削除されます。このボードに関連するリスト、カード、アクションはすべて失われます。",
     "delete-board-confirm-popup": "すべてのリスト、カード、ラベル、アクティビティは削除され、ボードの内容を元に戻すことができません。",
     "boardDeletePopup-title": "ボードを削除しますか？",
@@ -1037,5 +1038,6 @@
     "rulesReportTitle": "ルールレポート",
     "copy-swimlane": "スイムレーンをコピーする",
     "copySwimlanePopup-title": "スイムレーンをコピーする",
-    "display-card-creator": "Display Card Creator"
+    "display-card-creator": "Display Card Creator",
+    "wait-spinner": "Wait Spinner"
 }

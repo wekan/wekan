@@ -664,6 +664,7 @@
     "setListColorPopup-title": "Scegli un colore",
     "assigned-by": "Assegnato da",
     "requested-by": "Richiesto da",
+    "card-sorting-by-number": "Card sorting by number",
     "board-delete-notice": "L'eliminazione è permanente. Tutte le azioni, liste e schede associate a questa bacheca andranno perse.",
     "delete-board-confirm-popup": "Tutte le liste, schede, etichette e azioni saranno rimosse e non sarai più in grado di recuperare il contenuto della bacheca. L'azione non è annullabile.",
     "boardDeletePopup-title": "Eliminare la bacheca?",
@@ -1037,5 +1038,6 @@
     "rulesReportTitle": "Rules Report",
     "copy-swimlane": "Copy Swimlane",
     "copySwimlanePopup-title": "Copy Swimlane",
-    "display-card-creator": "Display Card Creator"
+    "display-card-creator": "Display Card Creator",
+    "wait-spinner": "Wait Spinner"
 }

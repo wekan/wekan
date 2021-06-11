@@ -664,6 +664,7 @@
     "setListColorPopup-title": "Escolha uma cor",
     "assigned-by": "Atribuído Por",
     "requested-by": "Solicitado Por",
+    "card-sorting-by-number": "Card sorting by number",
     "board-delete-notice": "Apagar é permanente. Irá perder todas as listas, cartões e acções associadas a este quadro.",
     "delete-board-confirm-popup": "Todas as listas, cartões, etiquetas e atividades serão apagadas e não poderá recuperar o conteúdo do quadro. Não é reversível.",
     "boardDeletePopup-title": "Apagar Quadro?",
@@ -1037,5 +1038,6 @@
     "rulesReportTitle": "Relatório de Regras",
     "copy-swimlane": "Copiar Pista",
     "copySwimlanePopup-title": "Copiar Pista",
-    "display-card-creator": "Display Card Creator"
+    "display-card-creator": "Display Card Creator",
+    "wait-spinner": "Wait Spinner"
 }

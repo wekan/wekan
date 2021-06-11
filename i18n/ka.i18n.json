@@ -664,6 +664,7 @@
     "setListColorPopup-title": "Choose a color",
     "assigned-by": "უფლებამოსილების გამცემი ",
     "requested-by": "მომთხოვნი",
+    "card-sorting-by-number": "Card sorting by number",
     "board-delete-notice": "წაშლის შემთხვევაში თქვენ დაკარგავთ ამ დაფასთან ასოცირებულ ყველა მონაცემს მათ შორის : ჩამონათვალს, ბარათებს და მოქმედებებს. ",
     "delete-board-confirm-popup": "ყველა ჩამონათვალი, ბარათი, ნიშანი და აქტივობა წაიშლება და თქვენ ვეღარ შეძლებთ მის აღდგენას. ",
     "boardDeletePopup-title": "წავშალოთ დაფა? ",
@@ -1037,5 +1038,6 @@
     "rulesReportTitle": "Rules Report",
     "copy-swimlane": "Copy Swimlane",
     "copySwimlanePopup-title": "Copy Swimlane",
-    "display-card-creator": "Display Card Creator"
+    "display-card-creator": "Display Card Creator",
+    "wait-spinner": "Wait Spinner"
 }

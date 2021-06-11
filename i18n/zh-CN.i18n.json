@@ -664,6 +664,7 @@
     "setListColorPopup-title": "选择一种颜色",
     "assigned-by": "指派人",
     "requested-by": "需求人",
+    "card-sorting-by-number": "Card sorting by number",
     "board-delete-notice": "删除时永久操作，将会丢失此看板上的所有列表、卡片和动作。",
     "delete-board-confirm-popup": "所有列表、卡片、标签和活动都回被删除，将无法恢复看板内容。不支持撤销。",
     "boardDeletePopup-title": "删除看板？",
@@ -1037,5 +1038,6 @@
     "rulesReportTitle": "规则报告",
     "copy-swimlane": "复制泳道",
     "copySwimlanePopup-title": "复制泳道",
-    "display-card-creator": "Display Card Creator"
+    "display-card-creator": "Display Card Creator",
+    "wait-spinner": "Wait Spinner"
 }

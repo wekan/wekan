@@ -664,6 +664,7 @@
     "setListColorPopup-title": "選擇顏色",
     "assigned-by": "分配者",
     "requested-by": "請求者",
+    "card-sorting-by-number": "Card sorting by number",
     "board-delete-notice": "永久刪除是無法復原的，你將會失去這個看板上的所有清單、卡片和動作。",
     "delete-board-confirm-popup": "所有清單、卡片、標籤和活動都會被刪除，將無法恢覆看板內容。不支援撤銷。",
     "boardDeletePopup-title": "刪除看板？",
@@ -1037,5 +1038,6 @@
     "rulesReportTitle": "Rules Report",
     "copy-swimlane": "Copy Swimlane",
     "copySwimlanePopup-title": "Copy Swimlane",
-    "display-card-creator": "Display Card Creator"
+    "display-card-creator": "Display Card Creator",
+    "wait-spinner": "Wait Spinner"
 }

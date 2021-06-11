@@ -664,6 +664,7 @@
     "setListColorPopup-title": "Vælg en farve",
     "assigned-by": "Tildelt af",
     "requested-by": "Anmodet af",
+    "card-sorting-by-number": "Card sorting by number",
     "board-delete-notice": "Sletning er permanent. Du vil miste alle lister, kort og handlinger knyttet til denne tavle.",
     "delete-board-confirm-popup": "Alle lister, kort, etiketter og aktiviteter vil blive slettet og du får ikke mulighed for at genskabe tavlens indhold. Dette kan ikke fortrydes.",
     "boardDeletePopup-title": "Slet tavle?",
@@ -1037,5 +1038,6 @@
     "rulesReportTitle": "Rules Report",
     "copy-swimlane": "Copy Swimlane",
     "copySwimlanePopup-title": "Copy Swimlane",
-    "display-card-creator": "Display Card Creator"
+    "display-card-creator": "Display Card Creator",
+    "wait-spinner": "Wait Spinner"
 }

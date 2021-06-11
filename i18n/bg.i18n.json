@@ -664,6 +664,7 @@
     "setListColorPopup-title": "Избери цвят",
     "assigned-by": "Разпределена от",
     "requested-by": "Поискан от",
+    "card-sorting-by-number": "Card sorting by number",
     "board-delete-notice": "Изтриването е перманентно. Ще загубите всички списъци, карти и действия асоциирани с тази дъска.",
     "delete-board-confirm-popup": "Всички списъци, карти, имена и действия ще бъдат изтрити и няма да можете да възстановите съдържанието на дъската. Няма връщане назад.",
     "boardDeletePopup-title": "Изтриване на Таблото?",
@@ -1037,5 +1038,6 @@
     "rulesReportTitle": "Rules Report",
     "copy-swimlane": "Copy Swimlane",
     "copySwimlanePopup-title": "Copy Swimlane",
-    "display-card-creator": "Display Card Creator"
+    "display-card-creator": "Display Card Creator",
+    "wait-spinner": "Wait Spinner"
 }

@@ -664,6 +664,7 @@
     "setListColorPopup-title": "Válassz színt",
     "assigned-by": "Hozzárendelte ",
     "requested-by": "Igényelte",
+    "card-sorting-by-number": "Card sorting by number",
     "board-delete-notice": "A törlés végleges. Minden Lista, Kártya és kapcsolódó esemény megsemmisül ezen a Táblán.",
     "delete-board-confirm-popup": "Minden Lista, Kártya, Címke és Esemény véglegesen törlésre kerül és nincs rá mód, hogy visszanyerd a Tábla tartalmát. Nincs visszavonási lehetőség sem.",
     "boardDeletePopup-title": "TÖRLÖD a Táblát?",
@@ -1037,5 +1038,6 @@
     "rulesReportTitle": "Rules Report",
     "copy-swimlane": "Copy Swimlane",
     "copySwimlanePopup-title": "Copy Swimlane",
-    "display-card-creator": "Display Card Creator"
+    "display-card-creator": "Display Card Creator",
+    "wait-spinner": "Wait Spinner"
 }

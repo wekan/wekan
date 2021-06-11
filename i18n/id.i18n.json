@@ -664,6 +664,7 @@
     "setListColorPopup-title": "Pilih warna",
     "assigned-by": "Ditandatangani Oleh",
     "requested-by": "Diminta Oleh",
+    "card-sorting-by-number": "Card sorting by number",
     "board-delete-notice": "Deleting is permanent. You will lose all lists, cards and actions associated with this board.",
     "delete-board-confirm-popup": "All lists, cards, labels, and activities will be deleted and you won't be able to recover the board contents. There is no undo.",
     "boardDeletePopup-title": "Hapus Papan?",
@@ -1037,5 +1038,6 @@
     "rulesReportTitle": "Rules Report",
     "copy-swimlane": "Copy Swimlane",
     "copySwimlanePopup-title": "Copy Swimlane",
-    "display-card-creator": "Display Card Creator"
+    "display-card-creator": "Display Card Creator",
+    "wait-spinner": "Wait Spinner"
 }

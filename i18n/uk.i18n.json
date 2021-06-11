@@ -664,6 +664,7 @@
     "setListColorPopup-title": "Оберіть колір",
     "assigned-by": "Assigned By",
     "requested-by": "Запитано",
+    "card-sorting-by-number": "Card sorting by number",
     "board-delete-notice": "Це видалення назавжди. Ви втратите всі листи, картки та дії, пов'язані з цією дошкою.",
     "delete-board-confirm-popup": "All lists, cards, labels, and activities will be deleted and you won't be able to recover the board contents. There is no undo.",
     "boardDeletePopup-title": "Delete Board?",
@@ -1037,5 +1038,6 @@
     "rulesReportTitle": "Rules Report",
     "copy-swimlane": "Copy Swimlane",
     "copySwimlanePopup-title": "Copy Swimlane",
-    "display-card-creator": "Display Card Creator"
+    "display-card-creator": "Display Card Creator",
+    "wait-spinner": "Wait Spinner"
 }

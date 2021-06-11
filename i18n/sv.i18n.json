@@ -664,6 +664,7 @@
     "setListColorPopup-title": "Välj en färg",
     "assigned-by": "Tilldelad av",
     "requested-by": "Efterfrågad av",
+    "card-sorting-by-number": "Card sorting by number",
     "board-delete-notice": "Radering är permanent. Du kommer förlora alla listor, kort och händelser kopplade till den här tavlan.",
     "delete-board-confirm-popup": "Alla listor, kort, etiketter och aktiviteter kommer tas bort och du kommer inte kunna återställa tavlans innehåll. Det går inte att ångra.",
     "boardDeletePopup-title": "Ta bort tavla?",
@@ -1037,5 +1038,6 @@
     "rulesReportTitle": "Regelrapport",
     "copy-swimlane": "Copy Swimlane",
     "copySwimlanePopup-title": "Copy Swimlane",
-    "display-card-creator": "Display Card Creator"
+    "display-card-creator": "Display Card Creator",
+    "wait-spinner": "Wait Spinner"
 }

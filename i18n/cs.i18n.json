@@ -664,6 +664,7 @@
     "setListColorPopup-title": "Vyber barvu",
     "assigned-by": "Přidělil(a)",
     "requested-by": "Vyžádal(a)",
+    "card-sorting-by-number": "Card sorting by number",
     "board-delete-notice": "Smazání je trvalé. Přijdete o všechny sloupce, karty a akce spojené s tímto tablem.",
     "delete-board-confirm-popup": "Všechny sloupce, štítky a aktivity budou smazány a obsah tabla nebude možné obnovit. Toto nelze vrátit zpět.",
     "boardDeletePopup-title": "Smazat tablo?",
@@ -1037,5 +1038,6 @@
     "rulesReportTitle": "Report pravidel",
     "copy-swimlane": "Kopírovat dráhu",
     "copySwimlanePopup-title": "Kopírovat dráhu",
-    "display-card-creator": "Display Card Creator"
+    "display-card-creator": "Display Card Creator",
+    "wait-spinner": "Wait Spinner"
 }

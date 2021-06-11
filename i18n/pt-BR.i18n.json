@@ -664,6 +664,7 @@
     "setListColorPopup-title": "Escolha uma cor",
     "assigned-by": "Atribuído por",
     "requested-by": "Solicitado por",
+    "card-sorting-by-number": "Card sorting by number",
     "board-delete-notice": "Excluir é permanente. Você perderá todas as listas, cartões e ações associados nesse quadro.",
     "delete-board-confirm-popup": "Todas as listas, cartões, etiquetas e atividades serão excluídas e você não poderá recuperar o conteúdo do quadro. Não há como desfazer.",
     "boardDeletePopup-title": "Excluir quadro?",
@@ -1037,5 +1038,6 @@
     "rulesReportTitle": "Regras de Relatório",
     "copy-swimlane": "Copiar Raia",
     "copySwimlanePopup-title": "Copiar Raia",
-    "display-card-creator": "Exibir Criador do Cartão"
+    "display-card-creator": "Exibir Criador do Cartão",
+    "wait-spinner": "Wait Spinner"
 }

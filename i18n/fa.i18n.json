@@ -664,6 +664,7 @@
     "setListColorPopup-title": "انتخاب کردن رنگ",
     "assigned-by": "محول شده توسط",
     "requested-by": "تقاضا شده توسط",
+    "card-sorting-by-number": "Card sorting by number",
     "board-delete-notice": "حذف دائمی است شما تمام لیست ها، کارت ها و اقدامات مرتبط با این برد را از دست خواهید داد.",
     "delete-board-confirm-popup": "تمام لیست ها، کارت ها، لیبل ها و فعالیت ها حذف خواهند شد و شما نمی توانید محتوای برد را بازیابی کنید. هیچ واکنشی وجود ندارد",
     "boardDeletePopup-title": "حذف برد؟",
@@ -1037,5 +1038,6 @@
     "rulesReportTitle": "گزارش قوانین",
     "copy-swimlane": "کپی از مسیر",
     "copySwimlanePopup-title": "کپی از مسیر",
-    "display-card-creator": "Display Card Creator"
+    "display-card-creator": "Display Card Creator",
+    "wait-spinner": "Wait Spinner"
 }

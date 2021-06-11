@@ -664,6 +664,7 @@
     "setListColorPopup-title": "Izberi barvo",
     "assigned-by": "Dodelil",
     "requested-by": "Zahteval",
+    "card-sorting-by-number": "Card sorting by number",
     "board-delete-notice": "Brisanje je trajno. Izgubili boste vse sezname, kartice in akcije, povezane z desko.",
     "delete-board-confirm-popup": "Vsi seznami, kartice, oznake in dejavnosti bodo izbrisani in vsebine table ne boste mogli obnoviti. Razveljavitve ni.",
     "boardDeletePopup-title": "Izbriši tablo?",
@@ -1037,5 +1038,6 @@
     "rulesReportTitle": "Rules Report",
     "copy-swimlane": "Copy Swimlane",
     "copySwimlanePopup-title": "Copy Swimlane",
-    "display-card-creator": "Display Card Creator"
+    "display-card-creator": "Display Card Creator",
+    "wait-spinner": "Wait Spinner"
 }

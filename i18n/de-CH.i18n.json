@@ -664,6 +664,7 @@
     "setListColorPopup-title": "Farbe wählen",
     "assigned-by": "Zugewiesen von",
     "requested-by": "Angefordert von",
+    "card-sorting-by-number": "Card sorting by number",
     "board-delete-notice": "Löschen kann nicht rückgängig gemacht werden. Sie werden alle Listen, Karten und Aktionen, die mit diesem Board verbunden sind, verlieren.",
     "delete-board-confirm-popup": "Alle Listen, Karten, Labels und Akivitäten werden gelöscht und Sie können die Inhalte des Boards nicht wiederherstellen! Die Aktion kann nicht rückgängig gemacht werden.",
     "boardDeletePopup-title": "Board löschen?",
@@ -1037,5 +1038,6 @@
     "rulesReportTitle": "Regeln-Bericht",
     "copy-swimlane": "Swimlane kopieren",
     "copySwimlanePopup-title": "Swimlane kopieren",
-    "display-card-creator": "Zeige Karten-Erstellung"
+    "display-card-creator": "Zeige Karten-Erstellung",
+    "wait-spinner": "Wait Spinner"
 }

@@ -664,6 +664,7 @@
     "setListColorPopup-title": "Izvēlieties krāsu",
     "assigned-by": "Īpašnieks",
     "requested-by": "Pieprasītājs",
+    "card-sorting-by-number": "Card sorting by number",
     "board-delete-notice": "Dzēšana nav atsaucama. Zaudēsiet visus sarakstus, kartiņas un darbības šajā dēlī.",
     "delete-board-confirm-popup": "Visi saraksti, kartiņas, birkas un darbības tiks dzēstas un dēli nevarēs atgūt. Darbība nav atsaucama.",
     "boardDeletePopup-title": "Dzēst dēli?",
@@ -1037,5 +1038,6 @@
     "rulesReportTitle": "Rules Report",
     "copy-swimlane": "Copy Swimlane",
     "copySwimlanePopup-title": "Copy Swimlane",
-    "display-card-creator": "Display Card Creator"
+    "display-card-creator": "Display Card Creator",
+    "wait-spinner": "Wait Spinner"
 }

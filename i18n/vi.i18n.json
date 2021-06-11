@@ -664,6 +664,7 @@
     "setListColorPopup-title": "Chọn một màu",
     "assigned-by": "Được chỉ định bởi",
     "requested-by": "Yêu cầu bởi",
+    "card-sorting-by-number": "Card sorting by number",
     "board-delete-notice": "Việc xóa là vĩnh viễn. Bạn sẽ mất tất cả danh sách, thẻ và hành động liên quan đến bảng này.",
     "delete-board-confirm-popup": "Tất cả danh sách, thẻ, nhãn và hoạt động sẽ bị xóa và bạn sẽ không thể khôi phục nội dung bảng. Không thể hoàn tác.",
     "boardDeletePopup-title": "Xoá Bảng?",
@@ -1037,5 +1038,6 @@
     "rulesReportTitle": "Quy tắc Báo cáo",
     "copy-swimlane": "Sao chép Làn ngang",
     "copySwimlanePopup-title": "Sao chép Làn ngang",
-    "display-card-creator": "Display Card Creator"
+    "display-card-creator": "Display Card Creator",
+    "wait-spinner": "Wait Spinner"
 }

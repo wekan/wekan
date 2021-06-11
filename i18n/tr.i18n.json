@@ -664,6 +664,7 @@
     "setListColorPopup-title": "Renk seçimi yap",
     "assigned-by": "Atamayı yapan",
     "requested-by": "Talep Eden",
+    "card-sorting-by-number": "Card sorting by number",
     "board-delete-notice": "Silme kalıcıdır. Bu kartla ilişkili tüm listeleri, kartları ve işlemleri kaybedeceksiniz.",
     "delete-board-confirm-popup": "Tüm listeler, kartlar, etiketler ve etkinlikler silinecek ve pano içeriğini kurtaramayacaksınız. Geri dönüş yok.",
     "boardDeletePopup-title": "Panoyu Sil?",
@@ -1037,5 +1038,6 @@
     "rulesReportTitle": "Rules Report",
     "copy-swimlane": "Copy Swimlane",
     "copySwimlanePopup-title": "Copy Swimlane",
-    "display-card-creator": "Display Card Creator"
+    "display-card-creator": "Display Card Creator",
+    "wait-spinner": "Wait Spinner"
 }
