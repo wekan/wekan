@@ -138,7 +138,7 @@ ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-
     SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE="" \
     SAML_ATTRIBUTES="" \
     ORACLE_OIM_ENABLED=false \
-    DEFAULT_WAIT_SPINNER=""
+    WAIT_SPINNER=""
 
 # Copy the app to the image
 COPY ${SRC_PATH} /home/wekan/app

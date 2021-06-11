@@ -9,7 +9,7 @@ export class Spinner extends BlazeComponent {
 
   getSpinnerName() {
     let ret = 'Bounce';
-    let defaultWaitSpinner = Meteor.settings.public.DEFAULT_WAIT_SPINNER;
+    let defaultWaitSpinner = Meteor.settings.public.WAIT_SPINNER;
     if (defaultWaitSpinner && ALLOWED_WAIT_SPINNERS.includes(defaultWaitSpinner)) {
       ret = defaultWaitSpinner;
     }
