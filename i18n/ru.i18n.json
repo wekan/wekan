@@ -1039,5 +1039,12 @@
     "copy-swimlane": "Скопировать дорожку",
     "copySwimlanePopup-title": "Скопировать дорожку",
     "display-card-creator": "Показать создателя карты",
-    "wait-spinner": "Wait Spinner"
+    "wait-spinner": "Wait Spinner",
+    "Bounce": "Bounce Wait Spinner",
+    "Cube": "Cube Wait Spinner",
+    "Cube-Grid": "Cube-Grid Wait Spinner",
+    "Dot": "Dot Wait Spinner",
+    "Rotateplane": "Rotateplane Wait Spinner",
+    "Scaleout": "Scaleout Wait Spinner",
+    "Wave": "Wave Wait Spinner"
 }

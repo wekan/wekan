@@ -664,7 +664,7 @@
     "setListColorPopup-title": "Choisissez une couleur",
     "assigned-by": "Assigné par",
     "requested-by": "Demandé par",
-    "card-sorting-by-number": "Card sorting by number",
+    "card-sorting-by-number": "Tri numérique des cartes",
     "board-delete-notice": "La suppression est définitive. Vous perdrez toutes les listes, cartes et actions associées à ce tableau.",
     "delete-board-confirm-popup": "Toutes les listes, cartes, étiquettes et activités seront supprimées et vous ne pourrez pas retrouver le contenu du tableau. Il n'y a pas d'annulation possible.",
     "boardDeletePopup-title": "Supprimer le tableau ?",
@@ -1039,5 +1039,12 @@
     "copy-swimlane": "Copier le couloir",
     "copySwimlanePopup-title": "Copie de Couloir",
     "display-card-creator": "Afficher le créateur de la carte",
-    "wait-spinner": "Wait Spinner"
+    "wait-spinner": "Icône d'attente",
+    "Bounce": "Bounce Wait Spinner",
+    "Cube": "Cube Wait Spinner",
+    "Cube-Grid": "Cube-Grid Wait Spinner",
+    "Dot": "Dot Wait Spinner",
+    "Rotateplane": "Rotateplane Wait Spinner",
+    "Scaleout": "Scaleout Wait Spinner",
+    "Wave": "Wave Wait Spinner"
 }

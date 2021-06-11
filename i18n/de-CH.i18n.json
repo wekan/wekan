@@ -1039,5 +1039,12 @@
     "copy-swimlane": "Swimlane kopieren",
     "copySwimlanePopup-title": "Swimlane kopieren",
     "display-card-creator": "Zeige Karten-Erstellung",
-    "wait-spinner": "Wait Spinner"
+    "wait-spinner": "Wait Spinner",
+    "Bounce": "Bounce Wait Spinner",
+    "Cube": "Cube Wait Spinner",
+    "Cube-Grid": "Cube-Grid Wait Spinner",
+    "Dot": "Dot Wait Spinner",
+    "Rotateplane": "Rotateplane Wait Spinner",
+    "Scaleout": "Scaleout Wait Spinner",
+    "Wave": "Wave Wait Spinner"
 }

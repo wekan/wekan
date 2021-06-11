@@ -1039,5 +1039,12 @@
     "copy-swimlane": "Kopieer Swimlane",
     "copySwimlanePopup-title": "Kopieer Swimlane",
     "display-card-creator": "Toon Aanmaker Kaart",
-    "wait-spinner": "Wacht Spinner"
+    "wait-spinner": "Wacht Spinner",
+    "Bounce": "Bounce Wait Spinner",
+    "Cube": "Cube Wait Spinner",
+    "Cube-Grid": "Cube-Grid Wait Spinner",
+    "Dot": "Dot Wait Spinner",
+    "Rotateplane": "Rotateplane Wait Spinner",
+    "Scaleout": "Scaleout Wait Spinner",
+    "Wave": "Wave Wait Spinner"
 }

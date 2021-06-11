@@ -1039,5 +1039,12 @@
     "copy-swimlane": "העתקת מסלול",
     "copySwimlanePopup-title": "העתקת מסלול",
     "display-card-creator": "להציג את יוצר הכרטיסים",
-    "wait-spinner": "שבשבת המתנה"
+    "wait-spinner": "שבשבת המתנה",
+    "Bounce": "Bounce Wait Spinner",
+    "Cube": "Cube Wait Spinner",
+    "Cube-Grid": "Cube-Grid Wait Spinner",
+    "Dot": "Dot Wait Spinner",
+    "Rotateplane": "Rotateplane Wait Spinner",
+    "Scaleout": "Scaleout Wait Spinner",
+    "Wave": "Wave Wait Spinner"
 }

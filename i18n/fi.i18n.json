@@ -1039,5 +1039,12 @@
     "copy-swimlane": "Kopioi Swimlane",
     "copySwimlanePopup-title": "Kopioi Swimlane",
     "display-card-creator": "Näytä kortin luoja",
-    "wait-spinner": "Odotus pyörijä"
+    "wait-spinner": "Odotus pyörijä",
+    "Bounce": "Pomppu odotus pyörijä",
+    "Cube": "Kuutio odotus pyörijä",
+    "Cube-Grid": "Kuutio ristikko odotus pyörijä",
+    "Dot": "Piste odotus pyörijä",
+    "Rotateplane": "Pyöritä tasoa odotus pyörijä",
+    "Scaleout": "Skaalaus ulos odotus pyörijä",
+    "Wave": "Aalto odotus pyörijä"
 }
