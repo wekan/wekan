@@ -3,10 +3,10 @@ version: '3.7'
 services:
 
   wekandb-dev:
-    image: mongo:4.0.12
+    image: mongo:4.4
     container_name: wekan-dev-db
     restart: unless-stopped
-    command: mongod --smallfiles --oplogSize 128
+    command: mongod --oplogSize 128
     networks:
       - wekan-dev-tier
     expose:
