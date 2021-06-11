@@ -21,6 +21,8 @@ and fixes the following bugs:
   Thanks to unpokitodxfavor and xet7.
 - [CustomFields were not created after adding 1 card](https://github.com/wekan/wekan/pull/3856).
   Thanks to mfilser.
+- [Try to fix BUG: Database error attempting to change a account](https://github.com/wekan/wekan/commit/762391965e6ae3cd5682d5b164131500e7d92338).
+  Thanks to bbyszio and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
