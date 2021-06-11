@@ -1,5 +1,15 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Wait Spinners can now be translated](https://github.com/wekan/wekan/commit/8703dd42296d531450eb21a3d3adea17558a8500).
+  Added Wait Spinners docs: https://github.com/wekan/wekan/wiki/Wait-Spinners .
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.34 2021-06-11 Wekan release
 
 This release adds the following new features:
