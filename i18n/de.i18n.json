@@ -1040,12 +1040,12 @@
     "copySwimlanePopup-title": "Swimlane kopieren",
     "display-card-creator": "Karten-Ersteller anzeigen",
     "wait-spinner": "Warte-Symbol",
-    "Bounce": "Bounce Wait Spinner",
-    "Cube": "Cube Wait Spinner",
-    "Cube-Grid": "Cube-Grid Wait Spinner",
-    "Dot": "Dot Wait Spinner",
-    "Double-Bounce": "Double Bounce Wait Spinner",
-    "Rotateplane": "Rotateplane Wait Spinner",
-    "Scaleout": "Scaleout Wait Spinner",
-    "Wave": "Wave Wait Spinner"
+    "Bounce": "Puls-Warte-Symbol",
+    "Cube": "Würfel-Warte-Symbol",
+    "Cube-Grid": "Würfel-Gitter-Warte-Symbol",
+    "Dot": "Punkt-Warte-Symbol",
+    "Double-Bounce": "Doppelpuls-Warte-Symbol",
+    "Rotateplane": "Drehscheibe-Warte-Symbol",
+    "Scaleout": "Scaleout-Warte-Symbol",
+    "Wave": "Wellen-Warte-Symbol"
 }
