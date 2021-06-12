@@ -511,9 +511,38 @@ BlazeComponent.extendComponent({
   },
 }).register('cardDetails');
 
+BlazeComponent.extendComponent({
+  template() {
+    return 'exportCard';
+  },
+  withApi() {
+    return Template.instance().apiEnabled.get();
+  },
+  exportUrlCardPDF() {
+    const params = {
+      boardId: Session.get('currentBoard'),
+      listId: this.listId,
+      cardId: this.cardId,
+    };
+    const queryParams = {
+      authToken: Accounts._storedLoginToken(),
+    };
+    return FlowRouter.path(
+      '/api/boards/:boardId/lists/:listId/cards/:cardId/exportPDF',
+      params,
+      queryParams,
+    );
+  },
+  exportFilenameCardPDF() {
+    //const boardId = Session.get('currentBoard');
+    //return `export-card-pdf-${boardId}.xlsx`;
+    return `export-card.pdf`;
+  },
+}).register('exportCardPopup');
+
 // only allow number input
 Template.editCardSortOrderForm.onRendered(function() {
-  this.$('input').on("keypress paste", function() {
+  this.$('input').on("keypress paste", function(event) {
     let keyCode = event.keyCode;
     let charCode = String.fromCharCode(keyCode);
     let regex = new RegExp('[-0-9.]');
@@ -583,6 +612,7 @@ Template.cardDetailsActionsPopup.helpers({
 });
 
 Template.cardDetailsActionsPopup.events({
+  'click .js-export-card': Popup.open('exportCard'),
   'click .js-members': Popup.open('cardMembers'),
   'click .js-assignees': Popup.open('cardAssignees'),
   'click .js-labels': Popup.open('cardLabels'),

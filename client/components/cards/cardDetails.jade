@@ -611,6 +611,12 @@ template(name="cardDetailsActionsPopup")
       hr
     ul.pop-over-list
       li
+        a.js-export-card
+          i.fa.fa-share-alt
+          | {{_ 'export-card'}}
+      hr
+    ul.pop-over-list
+      li
         a.js-move-card-to-top
           i.fa.fa-arrow-up
           | {{_ 'moveCardToTop-title'}}
@@ -652,6 +658,13 @@ template(name="cardDetailsActionsPopup")
           a.js-more
             i.fa.fa-link
             | {{_ 'cardMorePopup-title'}}
+
+template(name="exportCard")
+  ul.pop-over-list
+    li
+      a(href="{{exportUrlCardPDF}}",, download="{{exportFilenameCardPDF}}")
+        i.fa.fa-share-alt
+        | {{_ 'export-card-pdf'}}
 
 template(name="moveCardPopup")
   +boardsAndLists
