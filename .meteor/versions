@@ -71,7 +71,6 @@ launch-screen@1.2.1
 livedata@1.0.18
 localstorage@1.2.0
 logging@1.2.0
-lucasantoniassi:accounts-lockout@1.0.0
 matb33:collection-hooks@0.9.1
 matteodem:easy-search@1.6.4
 mdg:validation-error@0.5.1
@@ -220,6 +219,7 @@ verron:autosize@3.0.8
 webapp@1.10.1
 webapp-hashing@1.1.0
 wekan-accounts-cas@0.1.0
+wekan-accounts-lockout@1.0.0
 wekan-accounts-oidc@1.0.10
 wekan-cfs-access-point@0.1.50
 wekan-cfs-base-package@0.0.30
