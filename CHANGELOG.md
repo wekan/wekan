@@ -20,6 +20,7 @@ and removes some not needed files:
 
 - [Reduced Wekan bundle size from 636 MB to 467 MB by deleting all dependencies of lucasantoniassi:accounts-lockout and including
   only required 10 files](https://github.com/wekan/wekan/commit/23e5e1e3bd081699ce39ce5887db7e612616014d).
+  Wekan Docker image size changed from 269.6 MB to 165.1 MB.
   Thanks to xet7.
 
 and adds the following improvements:
