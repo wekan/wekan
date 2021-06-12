@@ -358,11 +358,11 @@
     "export-board-excel": "Exportar quadro para Excel",
     "user-can-not-export-excel": "Usuário não pode exportar Excel",
     "export-board-html": "Exportar quadro para HTML",
-    "export-card": "Export card",
-    "export-card-pdf": "Export card to PDF",
-    "user-can-not-export-card-to-pdf": "User can not export card to PDF",
+    "export-card": "Exportar cartão",
+    "export-card-pdf": "Exportar cartão para PDF",
+    "user-can-not-export-card-to-pdf": "Usuário não pode exportar cartão para PDF",
     "exportBoardPopup-title": "Exportar quadro",
-    "exportCardPopup-title": "Export card",
+    "exportCardPopup-title": "Exportar cartão",
     "sort": "Ordenar",
     "sort-desc": "Clique para Ordenar Lista",
     "list-sort-by": "Ordenar a Lista por:",
@@ -1052,6 +1052,6 @@
     "Rotateplane": "Rotateplane Wait Spinner",
     "Scaleout": "Scaleout Wait Spinner",
     "Wave": "Wave Wait Spinner",
-    "maximize-card": "Maximize Card",
-    "minimize-card": "Minimize Card"
+    "maximize-card": "Maximizar Cartão",
+    "minimize-card": "Minimizar Cartão"
 }
