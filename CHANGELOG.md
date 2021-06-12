@@ -9,6 +9,13 @@ This release adds the following new features:
   [Part 1](https://github.com/wekan/wekan/commit/7f3f0825573b1f8a7b0388e4bacbb0bd2525e886).
   Added Wait Spinners docs: https://github.com/wekan/wekan/wiki/Wait-Spinners .
   Thanks to xet7.
+- [Maximize Card. In Progress](https://github.com/wekan/wekan/commit/8c572502436a2eb22bd1eb1e4069c1c9145e2070).
+  Thanks to xet7.
+
+and adds the following improvements:
+
+- [Add border and update label colors for better visibility](https://github.com/wekan/wekan/commit/2e1eb1e224c83f16a384316626d7a4183639d4cd).
+  Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
