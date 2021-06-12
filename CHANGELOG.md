@@ -16,6 +16,12 @@ This release adds the following new features:
   [Part 2](https://github.com/wekan/wekan/commit/17acf1884850d8d95ae79493289adf18966df652).
   Thanks to xet7.
 
+and removes some not needed files:
+
+- [Reduced Wekan bundle size from 636 MB to 467 MB by deleting all dependencies of lucasantoniassi:accounts-lockout and including
+  only required 10 files](https://github.com/wekan/wekan/commit/23e5e1e3bd081699ce39ce5887db7e612616014d).
+  Thanks to xet7.
+
 and adds the following improvements:
 
 - [Add border and update label colors for better visibility](https://github.com/wekan/wekan/commit/2e1eb1e224c83f16a384316626d7a4183639d4cd).
