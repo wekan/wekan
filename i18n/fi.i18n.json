@@ -1047,5 +1047,7 @@
     "Double-Bounce": "Tupla pomppu odotus pyörijä",
     "Rotateplane": "Pyöritä tasoa odotus pyörijä",
     "Scaleout": "Skaalaus ulos odotus pyörijä",
-    "Wave": "Aalto odotus pyörijä"
+    "Wave": "Aalto odotus pyörijä",
+    "maximize-card": "Suurenna kortti",
+    "minimize-card": "Pienennä kortti"
 }

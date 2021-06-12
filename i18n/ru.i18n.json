@@ -1047,5 +1047,7 @@
     "Double-Bounce": "Двойной прыгающий спинер ожидания",
     "Rotateplane": "Rotateplane Wait Spinner",
     "Scaleout": "Scaleout Wait Spinner",
-    "Wave": "Wave Wait Spinner"
+    "Wave": "Wave Wait Spinner",
+    "maximize-card": "Maximize Card",
+    "minimize-card": "Minimize Card"
 }

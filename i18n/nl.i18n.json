@@ -1040,12 +1040,14 @@
     "copySwimlanePopup-title": "Kopieer Swimlane",
     "display-card-creator": "Toon Aanmaker Kaart",
     "wait-spinner": "Wacht Spinner",
-    "Bounce": "Bounce Wait Spinner",
-    "Cube": "Cube Wait Spinner",
-    "Cube-Grid": "Cube-Grid Wait Spinner",
-    "Dot": "Dot Wait Spinner",
-    "Double-Bounce": "Double Bounce Wait Spinner",
-    "Rotateplane": "Rotateplane Wait Spinner",
-    "Scaleout": "Scaleout Wait Spinner",
-    "Wave": "Wave Wait Spinner"
+    "Bounce": "Stuiterende Wacht Spinner",
+    "Cube": "Kubus Wacht Spinner",
+    "Cube-Grid": "Raster-Kubus Wacht Spinner",
+    "Dot": "Stip Wacht Spinner",
+    "Double-Bounce": "Dubbel Stuiterende Wacht Spinner",
+    "Rotateplane": "Roterend Vlak Wacht Spinner",
+    "Scaleout": "Vergrotende Wacht Spinner",
+    "Wave": "Golvende Wacht Spinner",
+    "maximize-card": "Maximize Card",
+    "minimize-card": "Minimize Card"
 }

@@ -1047,5 +1047,7 @@
     "Double-Bounce": "Doppelpuls-Warte-Symbol",
     "Rotateplane": "Drehscheibe-Warte-Symbol",
     "Scaleout": "Scaleout-Warte-Symbol",
-    "Wave": "Wellen-Warte-Symbol"
+    "Wave": "Wellen-Warte-Symbol",
+    "maximize-card": "Karte maximieren",
+    "minimize-card": "Karte minimieren"
 }
