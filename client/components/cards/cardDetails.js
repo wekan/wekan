@@ -54,6 +54,10 @@ BlazeComponent.extendComponent({
     return Meteor.user().hasHiddenSystemMessages();
   },
 
+  cardMaximized() {
+    return Meteor.user().hasCardMaximized();
+  },
+
   canModifyCard() {
     return (
       Meteor.user() &&
@@ -407,6 +411,14 @@ BlazeComponent.extendComponent({
         },
         'click #toggleButton'() {
           Meteor.call('toggleSystemMessages');
+        },
+        'click #js-maximize-card-details'() {
+          Meteor.call('toggleCardMaximized');
+          autosize($('.card-details'));
+        },
+        'click #js-minimize-card-details'() {
+          Meteor.call('toggleCardMaximized');
+          autosize($('.card-details'));
         },
         'click .js-vote'(e) {
           const forIt = $(e.target).hasClass('js-vote-positive');

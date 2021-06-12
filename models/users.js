@@ -164,7 +164,7 @@ Users.attachSchema(
     },
     'profile.showDesktopDragHandles': {
       /**
-       * does the user want to hide system messages?
+       * does the user want to show desktop drag handles?
        */
       type: Boolean,
       optional: true,
@@ -172,6 +172,13 @@ Users.attachSchema(
     'profile.hideCheckedItems': {
       /**
        * does the user want to hide checked checklist items?
+       */
+      type: Boolean,
+      optional: true,
+    },
+    'profile.cardMaximized': {
+      /**
+       * has user clicked maximize card?
        */
       type: Boolean,
       optional: true,
@@ -641,6 +648,11 @@ Users.helpers({
     return profile.hiddenSystemMessages || false;
   },
 
+  hasCardMaximized() {
+    const profile = this.profile || {};
+    return profile.cardMaximized || false;
+  },
+
   hasHiddenMinicardLabelText() {
     const profile = this.profile || {};
     return profile.hiddenMinicardLabelText || false;
@@ -793,6 +805,14 @@ Users.mutations({
     };
   },
 
+  toggleCardMaximized(value = false) {
+    return {
+      $set: {
+        'profile.cardMaximized': !value,
+      },
+    };
+  },
+
   toggleLabelText(value = false) {
     return {
       $set: {
@@ -886,6 +906,10 @@ Meteor.methods({
   toggleSystemMessages() {
     const user = Meteor.user();
     user.toggleSystem(user.hasHiddenSystemMessages());
+  },
+  toggleCardMaximized() {
+    const user = Meteor.user();
+    user.toggleCardMaximized(user.hasCardMaximized());
   },
   toggleMinicardLabelText() {
     const user = Meteor.user();
