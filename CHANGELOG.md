@@ -28,6 +28,11 @@ and adds the following improvements:
 - [Add border and update label colors for better visibility](https://github.com/wekan/wekan/commit/2e1eb1e224c83f16a384316626d7a4183639d4cd).
   Thanks to xet7.
 
+and fixes the following bugs:
+
+- [Manual sort number 0 accepted](https://github.com/wekan/wekan/pull/3861).
+  Thanks to mfilser.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v5.34 2021-06-11 Wekan release
