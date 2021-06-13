@@ -370,7 +370,7 @@ BlazeComponent.extendComponent({
           const sort = parseFloat(this.currentComponent()
             .getValue()
             .trim());
-          if (sort) {
+          if (!Number.isNaN(sort)) {
             let card = this.data();
             card.move(card.boardId, card.swimlaneId, card.listId, sort);
           }
