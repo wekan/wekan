@@ -358,11 +358,11 @@
     "export-board-excel": "Exporteer bord naar Excel",
     "user-can-not-export-excel": "Gebruiker kan niet exporteren naar Excel",
     "export-board-html": "Exporteer bord naar HTML",
-    "export-card": "Export card",
-    "export-card-pdf": "Export card to PDF",
-    "user-can-not-export-card-to-pdf": "User can not export card to PDF",
+    "export-card": "Exporteer kaart",
+    "export-card-pdf": "Exporteer kaart naar PDF",
+    "user-can-not-export-card-to-pdf": "Gebruiker kan kaart niet naar PDF exporteren",
     "exportBoardPopup-title": "Exporteer bord",
-    "exportCardPopup-title": "Export card",
+    "exportCardPopup-title": "Exporteer kaart",
     "sort": "Sorteer",
     "sort-desc": "Klik om lijst te sorteren",
     "list-sort-by": "Sorteer lijst op",
@@ -1052,6 +1052,6 @@
     "Rotateplane": "Roterend Vlak Wacht Spinner",
     "Scaleout": "Vergrotende Wacht Spinner",
     "Wave": "Golvende Wacht Spinner",
-    "maximize-card": "Maximize Card",
-    "minimize-card": "Minimize Card"
+    "maximize-card": "Maximaliseer Kaart",
+    "minimize-card": "Minimaliseer Kaart"
 }
