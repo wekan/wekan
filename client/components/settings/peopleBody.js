@@ -329,8 +329,13 @@ Template.newUserPopup.helpers({
   },
   isSelected(match) {
     const userId = Template.instance().data.userId;
-    const selected = Users.findOne(userId).authenticationMethod;
-    return selected === match;
+    if(userId){
+      const selected = Users.findOne(userId).authenticationMethod;
+      return selected === match;
+    }
+    else{
+      false;
+    }
   },
   isLdap() {
     const userId = Template.instance().data.userId;
@@ -515,15 +520,13 @@ Template.editUserPopup.events({
     const isAdmin = templateInstance.find('.js-profile-isadmin').value.trim();
     const isActive = templateInstance.find('.js-profile-isactive').value.trim();
     const email = templateInstance.find('.js-profile-email').value.trim();
-    const verified = templateInstance
-      .find('.js-profile-email-verified')
-      .value.trim();
-    const authentication = templateInstance
-      .find('.js-authenticationMethod')
-      .value.trim();
-    const importUsernames = templateInstance
-      .find('.js-import-usernames')
-      .value.trim();
+    const verified = templateInstance.find('.js-profile-email-verified').value.trim();
+    const authentication = templateInstance.find('.js-authenticationMethod').value.trim();
+    const importUsernames = templateInstance.find('.js-import-usernames').value.trim();
+    const userOrgs = templateInstance.find('.js-userOrgs').value.trim();
+    const userOrgsIds = templateInstance.find('.js-userOrgIds').value.trim();
+    const userTeams = templateInstance.find('.js-userteams').value.trim();
+    const userTeamsIds = templateInstance.find('.js-userteamIds').value.trim();
 
     const isChangePassword = password.length > 0;
     const isChangeUserName = username !== user.username;
@@ -555,12 +558,24 @@ Template.editUserPopup.events({
     let userTeamsList = userTeams.split(",");
     let userTeamsIdsList = userTeamsIds.split(",");
     let userTms = [];
+<<<<<<< HEAD
     for(let i = 0; i < userTeamsList.length; i++){
       userTms.push({
         "teamId": userTeamsIdsList[i],
         "teamDisplayName": userTeamsList[i],
       })
     }
+=======
+    if(userTeams != ''){
+      for(let i = 0; i < userTeamsList.length; i++){
+        userTms.push({
+          "teamId": userTeamsIdsList[i],
+          "teamDisplayName": userTeamsList[i],
+        })
+      }
+    }
+
+>>>>>>> feature/250f95de
     Users.update(this.userId, {
       $set:{
         teams: userTms
@@ -570,12 +585,24 @@ Template.editUserPopup.events({
     let userOrgsList = userOrgs.split(",");
     let userOrgsIdsList = userOrgsIds.split(",");
     let userOrganizations = [];
+<<<<<<< HEAD
     for(let i = 0; i < userOrgsList.length; i++){
       userOrganizations.push({
         "orgId": userOrgsIdsList[i],
         "orgDisplayName": userOrgsList[i],
       })
     }
+=======
+    if(userOrgs != ''){
+      for(let i = 0; i < userOrgsList.length; i++){
+        userOrganizations.push({
+          "orgId": userOrgsIdsList[i],
+          "orgDisplayName": userOrgsList[i],
+        })
+      }
+    }
+
+>>>>>>> feature/250f95de
     Users.update(this.userId, {
       $set:{
         orgs: userOrganizations
@@ -725,7 +752,11 @@ UpdateUserOrgsOrTeamsElement = function(isNewUser = false){
     lstInputValuesIds = [];
   }
   index = lstInputValues.indexOf(selectedEltValue);
+<<<<<<< HEAD
   indexId = lstInputValuesIds.indexOf(selectedEltValue);
+=======
+  indexId = lstInputValuesIds.indexOf(selectedEltValueId);
+>>>>>>> feature/250f95de
   if(userOrgsTeamsAction == "addOrg" || userOrgsTeamsAction == "addTeam"){
     if(index <= -1 && selectedEltValueId != "-1"){
       lstInputValues.push(selectedEltValue);
@@ -883,6 +914,8 @@ Template.newUserPopup.events({
   },
   'click #addUserOrgNewUser'(event) {
     event.preventDefault();
+<<<<<<< HEAD
+=======
 
     userOrgsTeamsAction = "addOrg";
     document.getElementById("jsOrgsNewUser").style.display = 'block';
@@ -917,6 +950,75 @@ Template.newUserPopup.events({
     event.preventDefault();
     UpdateUserOrgsOrTeamsElement(true);
   },
+});
+>>>>>>> feature/250f95de
+
+    userOrgsTeamsAction = "addOrg";
+    document.getElementById("jsOrgsNewUser").style.display = 'block';
+    document.getElementById("jsTeamsNewUser").style.display = 'none';
+  },
+  'click #removeUserOrgNewUser'(event) {
+    event.preventDefault();
+<<<<<<< HEAD
+=======
+    if(Users.find({"orgs.orgId": this.orgId}).count() > 0)
+    {
+      let orgClassList = document.getElementById("deleteOrgWarningMessage").classList;
+      if(orgClassList.contains('hide'))
+      {
+        orgClassList.remove('hide');
+        document.getElementById("deleteOrgWarningMessage").style.color = "red";
+      }
+      return;
+    }
+    Org.remove(this.orgId);
+    Popup.close();
+  }
+});
+>>>>>>> feature/250f95de
+
+    userOrgsTeamsAction = "removeOrg";
+    document.getElementById("jsOrgsNewUser").style.display = 'block';
+    document.getElementById("jsTeamsNewUser").style.display = 'none';
+  },
+  'click #addUserTeamNewUser'(event) {
+    event.preventDefault();
+<<<<<<< HEAD
+
+    userOrgsTeamsAction = "addTeam";
+    document.getElementById("jsTeamsNewUser").style.display = 'block';
+    document.getElementById("jsOrgsNewUser").style.display = 'none';
+  },
+  'click #removeUserTeamNewUser'(event) {
+    event.preventDefault();
+
+    userOrgsTeamsAction = "removeTeam";
+    document.getElementById("jsTeamsNewUser").style.display = 'block';
+    document.getElementById("jsOrgsNewUser").style.display = 'none';
+  },
+  'change #jsOrgsNewUser'(event) {
+    event.preventDefault();
+    UpdateUserOrgsOrTeamsElement(true);
+  },
+  'change #jsTeamsNewUser'(event) {
+    event.preventDefault();
+    UpdateUserOrgsOrTeamsElement(true);
+  },
+=======
+    if(Users.find({"teams.teamId": this.teamId}).count() > 0)
+    {
+      let teamClassList = document.getElementById("deleteTeamWarningMessage").classList;
+      if(teamClassList.contains('hide'))
+      {
+        teamClassList.remove('hide');
+        document.getElementById("deleteTeamWarningMessage").style.color = "red";
+      }
+      return;
+    }
+    Team.remove(this.teamId);
+    Popup.close();
+  }
+>>>>>>> feature/250f95de
 });
 
 Template.settingsUserPopup.events({

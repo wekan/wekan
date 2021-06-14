@@ -618,6 +618,9 @@ services:
       #- SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE=
       #- SAML_ATTRIBUTES=
       #---------------------------------------------------------------------
+      # Wait spinner to use
+      # - WAIT_SPINNER=Bounce
+      #---------------------------------------------------------------------
     depends_on:
       - wekandb
 

@@ -1,3 +1,5 @@
+import { Spinner } from '/client/lib/spinner';
+
 const subManager = new SubsManager();
 const InfiniteScrollIter = 10;
 
@@ -116,8 +118,6 @@ BlazeComponent.extendComponent({
       if (position === 'bottom') {
         this.scrollToBottom();
       }
-
-      formComponent.reset();
     }
   },
 
@@ -698,7 +698,7 @@ BlazeComponent.extendComponent({
   },
 }).register('searchElementPopup');
 
-BlazeComponent.extendComponent({
+(class extends Spinner {
   onCreated() {
     this.cardlimit = this.parentComponent().cardlimit;
 
@@ -726,7 +726,7 @@ BlazeComponent.extendComponent({
         .parentComponent()
         .data()._id;
     }
-  },
+  }
 
   onRendered() {
     this.spinner = this.find('.sk-spinner-list');
@@ -741,47 +741,58 @@ BlazeComponent.extendComponent({
     );
 
     this.updateList();
-  },
+  }
 
   onDestroyed() {
     $(this.container).off(`scroll.spinner_${this.swimlaneId}_${this.listId}`);
     $(window).off(`resize.spinner_${this.swimlaneId}_${this.listId}`);
-  },
+  }
+
+  checkIdleTime() {
+    return window.requestIdleCallback ||
+    function(handler) {
+      const startTime = Date.now();
+      return setTimeout(function() {
+        handler({
+          didTimeout: false,
+          timeRemaining() {
+            return Math.max(0, 50.0 - (Date.now() - startTime));
+          },
+        });
+      }, 1);
+    };
+  }
 
   updateList() {
     // Use fallback when requestIdleCallback is not available on iOS and Safari
     // https://www.afasterweb.com/2017/11/20/utilizing-idle-moments/
-    checkIdleTime =
-      window.requestIdleCallback ||
-      function(handler) {
-        const startTime = Date.now();
-        return setTimeout(function() {
-          handler({
-            didTimeout: false,
-            timeRemaining() {
-              return Math.max(0, 50.0 - (Date.now() - startTime));
-            },
-          });
-        }, 1);
-      };
 
     if (this.spinnerInView()) {
       this.cardlimit.set(this.cardlimit.get() + InfiniteScrollIter);
-      checkIdleTime(() => this.updateList());
+      this.checkIdleTime(() => this.updateList());
     }
-  },
+  }
 
   spinnerInView() {
-    const parentViewHeight = this.container.clientHeight;
-    const bottomViewPosition = this.container.scrollTop + parentViewHeight;
-
-    const threshold = this.spinner.offsetTop;
-
     // spinner deleted
     if (!this.spinner.offsetTop) {
       return false;
     }
 
-    return bottomViewPosition > threshold;
-  },
-}).register('spinnerList');
+    const parentViewHeight = this.container.clientHeight;
+    const bottomViewPosition = this.container.scrollTop + parentViewHeight;
+
+    let spinnerOffsetTop = this.spinner.offsetTop;
+
+    const addCard = $(this.container).find("a.open-minicard-composer").first()[0];
+    if (addCard !== undefined) {
+      spinnerOffsetTop -= addCard.clientHeight;
+    }
+
+    return bottomViewPosition > spinnerOffsetTop;
+  }
+
+  getSkSpinnerName() {
+    return "sk-spinner-" + super.getSpinnerName().toLowerCase();
+  }
+}.register('spinnerList'));

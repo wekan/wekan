@@ -373,6 +373,14 @@ Boards.attachSchema(
       defaultValue: true,
     },
 
+    allowsCardSortingByNumber: {
+      /**
+       * Does the board allows card sorting by number?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
     allowsAssignedBy: {
       /**
        * Does the board allows requested by?
@@ -1188,6 +1196,10 @@ Boards.mutations({
 
   setAllowsRequestedBy(allowsRequestedBy) {
     return { $set: { allowsRequestedBy } };
+  },
+
+  setAllowsCardSortingByNumber(allowsCardSortingByNumber) {
+    return { $set: { allowsCardSortingByNumber } };
   },
 
   setAllowsAttachments(allowsAttachments) {

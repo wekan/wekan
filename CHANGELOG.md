@@ -1,5 +1,84 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- Wait Spinners can now be translated
+  [Part 1](https://github.com/wekan/wekan/commit/8703dd42296d531450eb21a3d3adea17558a8500),
+  [Part 1](https://github.com/wekan/wekan/commit/7f3f0825573b1f8a7b0388e4bacbb0bd2525e886).
+  Added Wait Spinners docs: https://github.com/wekan/wekan/wiki/Wait-Spinners .
+  Thanks to xet7.
+- [Maximize Card. In Progress](https://github.com/wekan/wekan/commit/8c572502436a2eb22bd1eb1e4069c1c9145e2070).
+  Thanks to xet7.
+- Export Card to PDF. In Progress.
+  [Part 1](https://github.com/wekan/wekan/commit/a2f2ce11354a8dbfdd6759e3b65797e4be4cc6ec),
+  [Part 2](https://github.com/wekan/wekan/commit/17acf1884850d8d95ae79493289adf18966df652).
+  Thanks to xet7.
+
+and removes some not needed files:
+
+- [Reduced Wekan bundle size from 636 MB to 467 MB by deleting all dependencies of lucasantoniassi:accounts-lockout and including
+  only required 10 files](https://github.com/wekan/wekan/commit/23e5e1e3bd081699ce39ce5887db7e612616014d).
+  Wekan Docker image size changed from 269.6 MB to 165.1 MB.
+  Thanks to xet7.
+
+and adds the following improvements:
+
+- [Add border and update label colors for better visibility](https://github.com/wekan/wekan/commit/2e1eb1e224c83f16a384316626d7a4183639d4cd).
+  Thanks to xet7.
+
+and fixes the following bugs:
+
+- [Manual sort number 0 accepted](https://github.com/wekan/wekan/pull/3861).
+  Thanks to mfilser.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.34 2021-06-11 Wekan release
+
+This release adds the following new features:
+
+- [View and change card sort number](https://github.com/wekan/wekan/pull/3857).
+  Thanks to mfilser.
+- [More spinners + configureable in admin panel](https://github.com/wekan/wekan/pull/3858).
+  Thanks to mfilser.
+- [Added remaining spinner settings](https://github.com/wekan/wekan/commit/488b765f95ad67b19630cd125543836c04eaa24f).
+  Thanks to xet7.
+
+and adds the following new improvements:
+
+- [Card Description has now the same color on view and editing](https://github.com/wekan/wekan/pull/3851).
+  Thanks to mfilser.
+- [Development in docker container](https://github.com/wekan/wekan/pull/3852).
+  Thanks to mfilser.
+
+and fixes the following bugs:
+
+- [Fix Google SSO to access Wekan has not been working by reverting Wekan v5.31 not-working fixes
+  to OAUTH2_LOGIN_STYLE=redirect Has No Effect](https://github.com/wekan/wekan/commit/1e837dec11dc5cb266b83efcff4f462aa02d733d).
+  Thanks to unpokitodxfavor and xet7.
+- [CustomFields were not created after adding 1 card](https://github.com/wekan/wekan/pull/3856).
+  Thanks to mfilser.
+- [Try to fix BUG: Database error attempting to change a account](https://github.com/wekan/wekan/commit/762391965e6ae3cd5682d5b164131500e7d92338).
+  Thanks to bbyszio and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.33 2021-06-10 Wekan release
+
+This release adds the following new features:
+
+- [Assigning a user to a team or an organization](https://github.com/wekan/wekan/pull/3850).
+  Thanks to Emile840.
+
+and adds the following new improvements:
+
+- [Custom Fields stringtemplate, autofocus the last input box](https://github.com/wekan/wekan/pull/3849).
+  Thanks to mfilser.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.32 2021-06-09 Wekan release
 
 This release adds the following new features:

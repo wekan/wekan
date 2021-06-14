@@ -3,17 +3,18 @@ version: '3.7'
 services:
 
   wekandb-dev:
-    image: mongo:4.0.12
+    image: mongo:4.4
     container_name: wekan-dev-db
     restart: unless-stopped
-    command: mongod --smallfiles --oplogSize 128
+    command: mongod --oplogSize 128
     networks:
       - wekan-dev-tier
     expose:
       - 27017
     volumes:
-      - wekan-dev-db:/data/db
-      - wekan-dev-db-dump:/dump
+      - ./volumes/wekan-db:/data/db
+      - ./volumes/wekan-db-dump:/dump
+      - /etc/localtime:/etc/localtime:ro
 
   wekan-dev:
     container_name: wekan-dev-app
@@ -35,9 +36,13 @@ services:
     depends_on:
       - wekandb-dev
     volumes:
-      - ..:/app:delegated
-    command:
-      sleep infinity
+      - ../client:/home/wekan/app/client
+      - ../models:/home/wekan/app/models
+      - ../config:/home/wekan/app/config
+      - ../i18n:/home/wekan/app/i18n
+      - ../server:/home/wekan/app/server
+      - ../public:/home/wekan/app/public
+      - /etc/localtime:/etc/localtime:ro
 
 volumes:
   wekan-dev-db:

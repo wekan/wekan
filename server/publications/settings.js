@@ -23,6 +23,7 @@ Meteor.publish('setting', () => {
         customHTMLbeforeBodyEnd: 1,
         displayAuthenticationMethod: 1,
         defaultAuthenticationMethod: 1,
+        spinnerName: 1,
       },
     },
   );
