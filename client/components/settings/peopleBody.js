@@ -931,11 +931,11 @@ Template.settingsOrgPopup.events({
     event.preventDefault();
     if(Users.find({"orgs.orgId": this.orgId}).count() > 0)
     {
-      let orgClassList = document.getElementById("deleteOrgWarningMsg").classList;
+      let orgClassList = document.getElementById("deleteOrgWarningMessage").classList;
       if(orgClassList.contains('hide'))
       {
         orgClassList.remove('hide');
-        document.getElementById("deleteOrgWarningMsg").style.color = "red";
+        document.getElementById("deleteOrgWarningMessage").style.color = "red";
       }
       return;
     }
@@ -949,11 +949,11 @@ Template.settingsTeamPopup.events({
     event.preventDefault();
     if(Users.find({"teams.teamId": this.teamId}).count() > 0)
     {
-      let teamClassList = document.getElementById("deleteTeamWarningMsg").classList;
+      let teamClassList = document.getElementById("deleteTeamWarningMessage").classList;
       if(teamClassList.contains('hide'))
       {
         teamClassList.remove('hide');
-        document.getElementById("deleteTeamWarningMsg").style.color = "red";
+        document.getElementById("deleteTeamWarningMessage").style.color = "red";
       }
       return;
     }
