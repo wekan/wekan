@@ -531,6 +531,9 @@ template(name="settingsOrgPopup")
   ul.pop-over-list
     li
       form
+        label#deleteOrgWarningMsg.hide
+          | {{_ 'delete-org-warning-message'}}
+        br
         label
           | {{_ 'delete-org-confirm-popup'}}
         br
@@ -552,6 +555,9 @@ template(name="settingsTeamPopup")
   ul.pop-over-list
     li
       form
+        label#deleteTeamWarningMsg.hide
+          | {{_ 'delete-team-warning-message'}}
+        br
         label
           | {{_ 'delete-team-confirm-popup'}}
         br
