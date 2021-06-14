@@ -1053,5 +1053,7 @@
     "Scaleout": "Ventehjul - Utskaliering",
     "Wave": "Ventehjul - Bølge",
     "maximize-card": "Maksimer Kort",
-    "minimize-card": "Minimer Kort"
+    "minimize-card": "Minimer Kort",
+    "delete-org-warning-message": "Can not delete this organization, there is at least one user belongs to is",
+    "delete-team-warning-message": "Can not delete this team, there is at least one user belongs to is"
 }

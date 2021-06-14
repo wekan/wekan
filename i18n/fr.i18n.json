@@ -1053,5 +1053,7 @@
     "Scaleout": "Icône d'attente mise à l'échelle",
     "Wave": "Icône d'attente onde",
     "maximize-card": "Maximiser la carte",
-    "minimize-card": "Minimiser la carte"
+    "minimize-card": "Minimiser la carte",
+    "delete-org-warning-message": "Impossible de supprimer cette organisation, il y a au moins un utilisateur qui appartient à cette organisation",
+    "delete-team-warning-message": "Impossible de supprimer cette équipe, il y a au moins un utilisateur qui appartient à cette équipe"
 }
