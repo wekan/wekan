@@ -987,23 +987,6 @@ if (Meteor.isServer) {
       check(userOrgsArray, Array);
       check(userTeamsArray, Array);
       if (Meteor.user() && Meteor.user().isAdmin) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-        check(fullname, String);
-        check(username, String);
-        check(initials, String);
-        check(password, String);
-        check(isAdmin, String);
-        check(isActive, String);
-        check(email, String);
-        check(importUsernames, Array);
-        check(userOrgsArray, Array);
-        check(userTeamsArray, Array);
-
-=======
->>>>>>> feature/250f95de
-=======
->>>>>>> feature/250f95de
         const nUsersWithUsername = Users.find({
           username,
         }).count();
