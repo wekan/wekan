@@ -86,62 +86,21 @@ avatar-radius = 50%
 
 // Other card details
 
-unless isMiniScreen
-  if cardMaximized
-    .card-details
-      padding: 0
-      flex-shrink: 0
-      flex-basis: calc(100% - 20px)
-      will-change: flex-basis
-      overflow-y: scroll
-      overflow-x: scroll
-      background: darken(white, 3%)
-      border-radius: bottom 3px
-      z-index: 1000 !important
-      animation: flexGrowIn 0.1s
-      box-shadow: 0 0 7px 0 darken(white, 30%)
-      transition: flex-basis 0.1s
-      box-sizing: border-box
-      position: absolute
-      top: 0
-      left: 0
-      height: calc(100% - 20px)
-      width: calc(100% - 20px)
-      float: left
-
-      .card-details-left
-        position: absolute
-        float: left
-        top: 60px
-        left: 20px
-        width: 47%
-
-      .card-details-right
-        position: absolute
-        float: right
-        top: 20px
-        left: 50%
-
-      .card-details-header
-        width: 47%
-
-if isMiniScreen
-  .card-details
-    padding: 0
-    flex-shrink: 0
-    flex-basis: 600px
-    will-change: flex-basis
-    overflow-y: scroll
-    overflow-x: hidden
-    background: darken(white, 3%)
-    border-radius: bottom 3px
-    z-index: 20 !important
-    animation: flexGrowIn 0.1s
-    box-shadow: 0 0 7px 0 darken(white, 30%)
-    transition: flex-basis 0.1s
-    box-sizing: border-box
-
 .card-details
+  padding: 0
+  flex-shrink: 0
+  flex-basis: 600px
+  will-change: flex-basis
+  overflow-y: scroll
+  overflow-x: hidden
+  background: darken(white, 3%)
+  border-radius: bottom 3px
+  z-index: 20 !important
+  animation: flexGrowIn 0.1s
+  box-shadow: 0 0 7px 0 darken(white, 30%)
+  transition: flex-basis 0.1s
+  box-sizing: border-box
+
   .mCustomScrollBox
     padding-left: 0
 
@@ -169,7 +128,7 @@ if isMiniScreen
     .maximize-card-details,
     .minimize-card-details
       font-size: 24px
-      padding: 5px
+      padding: 5px 10px 5px 10px
       margin-right: -8px
 
     .close-card-details-mobile-web
@@ -277,6 +236,43 @@ if isMiniScreen
 
   .activities
     padding-top: 10px
+
+.card-details-maximized
+  padding: 0
+  flex-shrink: 0
+  flex-basis: calc(100% - 20px)
+  will-change: flex-basis
+  overflow-y: scroll
+  overflow-x: scroll
+  background: darken(white, 3%)
+  border-radius: bottom 3px
+  z-index: 1000 !important
+  animation: flexGrowIn 0.1s
+  box-shadow: 0 0 7px 0 darken(white, 30%)
+  transition: flex-basis 0.1s
+  box-sizing: border-box
+  position: absolute
+  top: 0
+  left: 0
+  height: calc(100% - 20px)
+  width: calc(100% - 20px)
+  float: left
+
+  .card-details-left
+    position: absolute
+    float: left
+    top: 60px
+    left: 20px
+    width: 47%
+
+  .card-details-right
+    position: absolute
+    float: right
+    top: 20px
+    left: 50%
+
+  .card-details-header
+    width: 47%
 
 input[type="text"].attachment-add-link-input
   float: left

@@ -412,11 +412,11 @@ BlazeComponent.extendComponent({
         'click #toggleButton'() {
           Meteor.call('toggleSystemMessages');
         },
-        'click #js-maximize-card-details'() {
+        'click .js-maximize-card-details'() {
           Meteor.call('toggleCardMaximized');
           autosize($('.card-details'));
         },
-        'click #js-minimize-card-details'() {
+        'click .js-minimize-card-details'() {
           Meteor.call('toggleCardMaximized');
           autosize($('.card-details'));
         },
