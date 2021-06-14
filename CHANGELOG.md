@@ -34,6 +34,9 @@ and fixes the following bugs:
 
 - [Manual sort number 0 accepted](https://github.com/wekan/wekan/pull/3861).
   Thanks to mfilser.
+- [Allow board members to use more of API. Please add issue (or pull request) if this allows too
+  much](https://github.com/wekan/wekan/commit/a719e8fda1f78bcbf9af6e7b4341f8be1d141e90).
+  Thanks to JayVii and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
