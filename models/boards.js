@@ -1678,7 +1678,8 @@ if (Meteor.isServer) {
                     */
   JsonRoutes.add('GET', '/api/boards', function(req, res) {
     try {
-      Authentication.checkUserId(req.userId);
+      const paramBoardId = req.params.boardId;
+      Authentication.checkBoardAccess(req.userId, paramBoardId);
       JsonRoutes.sendResult(res, {
         code: 200,
         data: Boards.find(
@@ -1852,7 +1853,8 @@ if (Meteor.isServer) {
    * @return_type string
    */
   JsonRoutes.add('PUT', '/api/boards/:boardId/labels', function(req, res) {
-    Authentication.checkUserId(req.userId);
+    const paramBoardId = req.params.boardId;
+    Authentication.checkBoardAccess(req.userId, paramBoardId);
     const id = req.params.boardId;
     try {
       if (req.body.hasOwnProperty('label')) {

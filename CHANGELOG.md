@@ -1,6 +1,6 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
-# Upcoming Wekan release
+# v5.35 2021-06-14 Wekan release
 
 This release adds the following new features:
 
@@ -9,9 +9,11 @@ This release adds the following new features:
   [Part 1](https://github.com/wekan/wekan/commit/7f3f0825573b1f8a7b0388e4bacbb0bd2525e886).
   Added Wait Spinners docs: https://github.com/wekan/wekan/wiki/Wait-Spinners .
   Thanks to xet7.
-- [Maximize Card. In Progress](https://github.com/wekan/wekan/commit/8c572502436a2eb22bd1eb1e4069c1c9145e2070).
-  Thanks to xet7.
-- Export Card to PDF. In Progress.
+- Maximize Card.
+  [Part 1](https://github.com/wekan/wekan/commit/8c572502436a2eb22bd1eb1e4069c1c9145e2070),
+  [Part 2](https://github.com/wekan/wekan/pull/3863).
+  Thanks to mfilser and xet7.
+- Export Card to PDF. In Progress, does not work yet.
   [Part 1](https://github.com/wekan/wekan/commit/a2f2ce11354a8dbfdd6759e3b65797e4be4cc6ec),
   [Part 2](https://github.com/wekan/wekan/commit/17acf1884850d8d95ae79493289adf18966df652).
   Thanks to xet7.
@@ -28,10 +30,19 @@ and adds the following improvements:
 - [Add border and update label colors for better visibility](https://github.com/wekan/wekan/commit/2e1eb1e224c83f16a384316626d7a4183639d4cd).
   Thanks to xet7.
 
+and adds the following updates:
+
+- [Updated dependencies](https://github.com/wekan/wekan/commit/f80fcfd7c0a83f4181c7a0b8beb52da9ba1446d3).
+  Thanks to developers of dependencies.
+
 and fixes the following bugs:
 
 - [Manual sort number 0 accepted](https://github.com/wekan/wekan/pull/3861).
   Thanks to mfilser.
+- Allow board members to use more of API. Please add issue (or pull request) if this allows too much.
+  [Part 1](https://github.com/wekan/wekan/commit/a719e8fda1f78bcbf9af6e7b4341f8be1d141e90),
+  [Part 2](https://github.com/wekan/wekan/commit/164b6e9070199dca36d12fa3048d6b22bf6850b0).
+  Thanks to JayVii and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
