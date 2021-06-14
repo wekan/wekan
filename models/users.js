@@ -988,6 +988,7 @@ if (Meteor.isServer) {
       check(userTeamsArray, Array);
       if (Meteor.user() && Meteor.user().isAdmin) {
 <<<<<<< HEAD
+<<<<<<< HEAD
         check(fullname, String);
         check(username, String);
         check(initials, String);
@@ -999,6 +1000,8 @@ if (Meteor.isServer) {
         check(userOrgsArray, Array);
         check(userTeamsArray, Array);
 
+=======
+>>>>>>> feature/250f95de
 =======
 >>>>>>> feature/250f95de
         const nUsersWithUsername = Users.find({

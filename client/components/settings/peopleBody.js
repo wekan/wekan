@@ -559,6 +559,7 @@ Template.editUserPopup.events({
     let userTeamsIdsList = userTeamsIds.split(",");
     let userTms = [];
 <<<<<<< HEAD
+<<<<<<< HEAD
     for(let i = 0; i < userTeamsList.length; i++){
       userTms.push({
         "teamId": userTeamsIdsList[i],
@@ -566,6 +567,8 @@ Template.editUserPopup.events({
       })
     }
 =======
+=======
+>>>>>>> feature/250f95de
     if(userTeams != ''){
       for(let i = 0; i < userTeamsList.length; i++){
         userTms.push({
@@ -575,6 +578,9 @@ Template.editUserPopup.events({
       }
     }
 
+<<<<<<< HEAD
+>>>>>>> feature/250f95de
+=======
 >>>>>>> feature/250f95de
     Users.update(this.userId, {
       $set:{
@@ -586,6 +592,7 @@ Template.editUserPopup.events({
     let userOrgsIdsList = userOrgsIds.split(",");
     let userOrganizations = [];
 <<<<<<< HEAD
+<<<<<<< HEAD
     for(let i = 0; i < userOrgsList.length; i++){
       userOrganizations.push({
         "orgId": userOrgsIdsList[i],
@@ -593,6 +600,8 @@ Template.editUserPopup.events({
       })
     }
 =======
+=======
+>>>>>>> feature/250f95de
     if(userOrgs != ''){
       for(let i = 0; i < userOrgsList.length; i++){
         userOrganizations.push({
@@ -602,6 +611,9 @@ Template.editUserPopup.events({
       }
     }
 
+<<<<<<< HEAD
+>>>>>>> feature/250f95de
+=======
 >>>>>>> feature/250f95de
     Users.update(this.userId, {
       $set:{
@@ -753,7 +765,11 @@ UpdateUserOrgsOrTeamsElement = function(isNewUser = false){
   }
   index = lstInputValues.indexOf(selectedEltValue);
 <<<<<<< HEAD
+<<<<<<< HEAD
   indexId = lstInputValuesIds.indexOf(selectedEltValue);
+=======
+  indexId = lstInputValuesIds.indexOf(selectedEltValueId);
+>>>>>>> feature/250f95de
 =======
   indexId = lstInputValuesIds.indexOf(selectedEltValueId);
 >>>>>>> feature/250f95de
@@ -915,7 +931,10 @@ Template.newUserPopup.events({
   'click #addUserOrgNewUser'(event) {
     event.preventDefault();
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> feature/250f95de
 
     userOrgsTeamsAction = "addOrg";
     document.getElementById("jsOrgsNewUser").style.display = 'block';
@@ -960,7 +979,10 @@ Template.newUserPopup.events({
   'click #removeUserOrgNewUser'(event) {
     event.preventDefault();
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> feature/250f95de
     if(Users.find({"orgs.orgId": this.orgId}).count() > 0)
     {
       let orgClassList = document.getElementById("deleteOrgWarningMessage").classList;
@@ -1002,9 +1024,12 @@ Template.newUserPopup.events({
   },
   'change #jsTeamsNewUser'(event) {
     event.preventDefault();
+<<<<<<< HEAD
     UpdateUserOrgsOrTeamsElement(true);
   },
 =======
+=======
+>>>>>>> feature/250f95de
     if(Users.find({"teams.teamId": this.teamId}).count() > 0)
     {
       let teamClassList = document.getElementById("deleteTeamWarningMessage").classList;
