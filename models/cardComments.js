@@ -192,8 +192,8 @@ if (Meteor.isServer) {
     res,
   ) {
     try {
-      Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
+      Authentication.checkBoardAccess(req.userId, paramBoardId);
       const paramCardId = req.params.cardId;
       JsonRoutes.sendResult(res, {
         code: 200,
@@ -230,8 +230,8 @@ if (Meteor.isServer) {
     '/api/boards/:boardId/cards/:cardId/comments/:commentId',
     function(req, res) {
       try {
-        Authentication.checkUserId(req.userId);
         const paramBoardId = req.params.boardId;
+        Authentication.checkBoardAccess(req.userId, paramBoardId);
         const paramCommentId = req.params.commentId;
         const paramCardId = req.params.cardId;
         JsonRoutes.sendResult(res, {
@@ -266,8 +266,8 @@ if (Meteor.isServer) {
     '/api/boards/:boardId/cards/:cardId/comments',
     function(req, res) {
       try {
-        Authentication.checkUserId(req.userId);
         const paramBoardId = req.params.boardId;
+        Authentication.checkBoardAccess(req.userId, paramBoardId);
         const paramCardId = req.params.cardId;
         const id = CardComments.direct.insert({
           userId: req.body.authorId,
@@ -312,8 +312,8 @@ if (Meteor.isServer) {
     '/api/boards/:boardId/cards/:cardId/comments/:commentId',
     function(req, res) {
       try {
-        Authentication.checkUserId(req.userId);
         const paramBoardId = req.params.boardId;
+        Authentication.checkBoardAccess(req.userId, paramBoardId);
         const paramCommentId = req.params.commentId;
         const paramCardId = req.params.cardId;
         CardComments.remove({

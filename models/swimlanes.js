@@ -454,8 +454,8 @@ if (Meteor.isServer) {
    */
   JsonRoutes.add('POST', '/api/boards/:boardId/swimlanes', function(req, res) {
     try {
-      Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
+      Authentication.checkBoardAccess(req.userId, paramBoardId);
       const board = Boards.findOne(paramBoardId);
       const id = Swimlanes.insert({
         title: req.body.title,

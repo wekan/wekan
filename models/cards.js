@@ -3308,8 +3308,8 @@ if (Meteor.isServer) {
     'PUT',
     '/api/boards/:boardId/lists/:listId/cards/:cardId',
     function(req, res) {
-      Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
+      Authentication.checkBoardAccess(req.userId, paramBoardId);
       const paramCardId = req.params.cardId;
       const paramListId = req.params.listId;
 
@@ -3666,8 +3666,8 @@ if (Meteor.isServer) {
     'DELETE',
     '/api/boards/:boardId/lists/:listId/cards/:cardId',
     function(req, res) {
-      Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
+      Authentication.checkBoardAccess(req.userId, paramBoardId);
       const paramListId = req.params.listId;
       const paramCardId = req.params.cardId;
 
