@@ -533,7 +533,6 @@ if (Meteor.isServer) {
     try {
       const paramBoardId = req.params.boardId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
-      const paramBoardId = req.params.boardId;
       const board = Boards.findOne(paramBoardId);
       const id = Lists.insert({
         title: req.body.title,
@@ -572,7 +571,6 @@ if (Meteor.isServer) {
     try {
       const paramBoardId = req.params.boardId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
-      const paramBoardId = req.params.boardId;
       const paramListId = req.params.listId;
       Lists.remove({ _id: paramListId, boardId: paramBoardId });
       JsonRoutes.sendResult(res, {

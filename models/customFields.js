@@ -586,7 +586,6 @@ if (Meteor.isServer) {
     function(req, res) {
       const paramBoardId = req.params.boardId;
       Authentication.checkBoardAccess(req.userId, paramBoardId);
-      const paramBoardId = req.params.boardId;
       const id = req.params.customFieldId;
       CustomFields.remove({ _id: id, boardIds: { $in: [paramBoardId] } });
       JsonRoutes.sendResult(res, {
