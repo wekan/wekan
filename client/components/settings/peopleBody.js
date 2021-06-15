@@ -551,12 +551,15 @@ Template.editUserPopup.events({
     let userTeamsList = userTeams.split(",");
     let userTeamsIdsList = userTeamsIds.split(",");
     let userTms = [];
-    for(let i = 0; i < userTeamsList.length; i++){
-      userTms.push({
-        "teamId": userTeamsIdsList[i],
-        "teamDisplayName": userTeamsList[i],
-      })
+    if(userTeams != ''){
+      for(let i = 0; i < userTeamsList.length; i++){
+        userTms.push({
+          "teamId": userTeamsIdsList[i],
+          "teamDisplayName": userTeamsList[i],
+        })
+      }
     }
+
     Users.update(this.userId, {
       $set:{
         teams: userTms
@@ -566,12 +569,15 @@ Template.editUserPopup.events({
     let userOrgsList = userOrgs.split(",");
     let userOrgsIdsList = userOrgsIds.split(",");
     let userOrganizations = [];
-    for(let i = 0; i < userOrgsList.length; i++){
-      userOrganizations.push({
-        "orgId": userOrgsIdsList[i],
-        "orgDisplayName": userOrgsList[i],
-      })
+    if(userOrgs != ''){
+      for(let i = 0; i < userOrgsList.length; i++){
+        userOrganizations.push({
+          "orgId": userOrgsIdsList[i],
+          "orgDisplayName": userOrgsList[i],
+        })
+      }
     }
+
     Users.update(this.userId, {
       $set:{
         orgs: userOrganizations
@@ -724,7 +730,7 @@ UpdateUserOrgsOrTeamsElement = function(isNewUser = false){
     lstInputValuesIds = [];
   }
   index = lstInputValues.indexOf(selectedEltValue);
-  indexId = lstInputValuesIds.indexOf(selectedEltValue);
+  indexId = lstInputValuesIds.indexOf(selectedEltValueId);
   if(userOrgsTeamsAction == "addOrg" || userOrgsTeamsAction == "addTeam"){
     if(index <= -1 && selectedEltValueId != "-1"){
       lstInputValues.push(selectedEltValue);
@@ -923,6 +929,16 @@ Template.newUserPopup.events({
 Template.settingsOrgPopup.events({
   'click #deleteButton'(event) {
     event.preventDefault();
+    if(Users.find({"orgs.orgId": this.orgId}).count() > 0)
+    {
+      let orgClassList = document.getElementById("deleteOrgWarningMessage").classList;
+      if(orgClassList.contains('hide'))
+      {
+        orgClassList.remove('hide');
+        document.getElementById("deleteOrgWarningMessage").style.color = "red";
+      }
+      return;
+    }
     Org.remove(this.orgId);
     Popup.close();
   }
@@ -931,6 +947,16 @@ Template.settingsOrgPopup.events({
 Template.settingsTeamPopup.events({
   'click #deleteButton'(event) {
     event.preventDefault();
+    if(Users.find({"teams.teamId": this.teamId}).count() > 0)
+    {
+      let teamClassList = document.getElementById("deleteTeamWarningMessage").classList;
+      if(teamClassList.contains('hide'))
+      {
+        teamClassList.remove('hide');
+        document.getElementById("deleteTeamWarningMessage").style.color = "red";
+      }
+      return;
+    }
     Team.remove(this.teamId);
     Popup.close();
   }

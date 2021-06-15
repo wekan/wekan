@@ -1053,5 +1053,7 @@
     "Scaleout": "שבשבת המתנה התרחקות",
     "Wave": "שבשבת המתנה גל",
     "maximize-card": "הגדלת כרטיס",
-    "minimize-card": "מזעור כרטיס"
+    "minimize-card": "מזעור כרטיס",
+    "delete-org-warning-message": "Can not delete this organization, there is at least one user belongs to is",
+    "delete-team-warning-message": "Can not delete this team, there is at least one user belongs to is"
 }

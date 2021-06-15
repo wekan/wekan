@@ -1053,5 +1053,7 @@
     "Scaleout": "Skaalaus ulos odotus pyörijä",
     "Wave": "Aalto odotus pyörijä",
     "maximize-card": "Suurenna kortti",
-    "minimize-card": "Pienennä kortti"
+    "minimize-card": "Pienennä kortti",
+    "delete-org-warning-message": "Can not delete this organization, there is at least one user belongs to is",
+    "delete-team-warning-message": "Can not delete this team, there is at least one user belongs to is"
 }
