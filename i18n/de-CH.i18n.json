@@ -1054,6 +1054,6 @@
     "Wave": "Wave Wait Spinner",
     "maximize-card": "Karte maximieren",
     "minimize-card": "Karte minimieren",
-    "delete-org-warning-message": "Can not delete this organization, there is at least one user that belongs to it",
-    "delete-team-warning-message": "Can not delete this team, there is at least one user that belongs to it"
+    "delete-org-warning-message": "Diese Organisation kann nicht gelöscht werden. Zumindest ein Benutzer ist ihr noch zugehörig.",
+    "delete-team-warning-message": "Dieses Team kann nicht gelöscht werden. Zumindest ein Benutzer ist ihm noch zugehörig."
 }

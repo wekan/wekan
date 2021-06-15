@@ -1054,6 +1054,6 @@
     "Wave": "Wellen-Warte-Symbol",
     "maximize-card": "Karte maximieren",
     "minimize-card": "Karte minimieren",
-    "delete-org-warning-message": "Can not delete this organization, there is at least one user that belongs to it",
-    "delete-team-warning-message": "Can not delete this team, there is at least one user that belongs to it"
+    "delete-org-warning-message": "Diese Organisation kann nicht gelöscht werden, da wenigstens ein Nutzer dazu gehört.",
+    "delete-team-warning-message": "Dieses Team kann nicht gelöscht werden, da wenigstens ein Nutzer dazu gehört."
 }

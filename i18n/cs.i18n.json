@@ -1054,6 +1054,6 @@
     "Wave": "Wave Wait Spinner",
     "maximize-card": "Maximalizovat kartu",
     "minimize-card": "Minimalizovat kartu",
-    "delete-org-warning-message": "Can not delete this organization, there is at least one user that belongs to it",
-    "delete-team-warning-message": "Can not delete this team, there is at least one user that belongs to it"
+    "delete-org-warning-message": "Tuto organizaci není možné smazat, protože do ní patří uživatel(é)",
+    "delete-team-warning-message": "Tento tým není možné smazat, protože do nej patří uživatel(é)"
 }
