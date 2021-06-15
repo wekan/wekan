@@ -1054,6 +1054,6 @@
     "Wave": "Wave Wait Spinner",
     "maximize-card": "Maximizar Cartão",
     "minimize-card": "Minimizar Cartão",
-    "delete-org-warning-message": "Can not delete this organization, there is at least one user belongs to is",
-    "delete-team-warning-message": "Can not delete this team, there is at least one user belongs to is"
+    "delete-org-warning-message": "Can not delete this organization, there is at least one user that belongs to it",
+    "delete-team-warning-message": "Can not delete this team, there is at least one user that belongs to it"
 }

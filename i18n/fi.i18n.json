@@ -1054,6 +1054,6 @@
     "Wave": "Aalto odotus pyörijä",
     "maximize-card": "Suurenna kortti",
     "minimize-card": "Pienennä kortti",
-    "delete-org-warning-message": "Can not delete this organization, there is at least one user belongs to is",
-    "delete-team-warning-message": "Can not delete this team, there is at least one user belongs to is"
+    "delete-org-warning-message": "Ei voi poistaa tätä organisaatiota, ainakin yksi käyttäjä kuuluu siihen",
+    "delete-team-warning-message": "Ei voi poistaa tätä tiimiä, ainakin yksi käyttäjä kuuluu siihen"
 }

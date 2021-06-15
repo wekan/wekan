@@ -1054,6 +1054,6 @@
     "Wave": "Icône d'attente onde",
     "maximize-card": "Maximiser la carte",
     "minimize-card": "Minimiser la carte",
-    "delete-org-warning-message": "Impossible de supprimer cette organisation, il y a au moins un utilisateur qui appartient à cette organisation",
-    "delete-team-warning-message": "Impossible de supprimer cette équipe, il y a au moins un utilisateur qui appartient à cette équipe"
+    "delete-org-warning-message": "Can not delete this organization, there is at least one user that belongs to it",
+    "delete-team-warning-message": "Can not delete this team, there is at least one user that belongs to it"
 }
