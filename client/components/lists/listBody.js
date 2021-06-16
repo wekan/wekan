@@ -552,7 +552,7 @@ BlazeComponent.extendComponent({
       board = Boards.findOne((Meteor.user().profile || {}).templatesBoardId);
     } else {
       // Prefetch first non-current board id
-      board = Boards.findOne({
+      board = Boards.find({
         archived: false,
         'members.userId': Meteor.userId(),
         _id: {

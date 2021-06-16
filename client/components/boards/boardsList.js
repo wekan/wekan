@@ -88,7 +88,7 @@ BlazeComponent.extendComponent({
   boards() {
     const query = {
       archived: false,
-      type: 'board',
+      type: { $in: ['board','template-container'] },
     };
     if (FlowRouter.getRouteName() === 'home')
       query['members.userId'] = Meteor.userId();

@@ -229,6 +229,97 @@ const CreateBoard = BlazeComponent.extendComponent({
     Utils.goBoardId(this.boardId.get());
   },
 
+  addBoardTemplateContainer(event) {
+    event.preventDefault();
+    const title = this.find('.js-new-board-title').value;
+
+    // Insert Template Container
+    const Future = require('fibers/future');
+    const future1 = new Future();
+    const future2 = new Future();
+    const future3 = new Future();
+    Boards.insert(
+      {
+        title: title || TAPi18n.__('templates'),
+        permission: 'private',
+        type: 'template-container',
+      },
+      fakeUser,
+      (err, boardId) => {
+        // Insert the reference to our templates board
+        Users.update(fakeUserId.get(), {
+          $set: {
+            'profile.templatesBoardId': boardId,
+          },
+        });
+
+        // Insert the card templates swimlane
+        Swimlanes.insert(
+          {
+            title: TAPi18n.__('card-templates-swimlane'),
+            boardId,
+            sort: 1,
+            type: 'template-container',
+          },
+          fakeUser,
+          (err, swimlaneId) => {
+            // Insert the reference to out card templates swimlane
+            Users.update(fakeUserId.get(), {
+              $set: {
+                'profile.cardTemplatesSwimlaneId': swimlaneId,
+              },
+            });
+            future1.return();
+          },
+        );
+
+        // Insert the list templates swimlane
+        Swimlanes.insert(
+          {
+            title: TAPi18n.__('list-templates-swimlane'),
+            boardId,
+            sort: 2,
+            type: 'template-container',
+          },
+          fakeUser,
+          (err, swimlaneId) => {
+            // Insert the reference to out list templates swimlane
+            Users.update(fakeUserId.get(), {
+              $set: {
+                'profile.listTemplatesSwimlaneId': swimlaneId,
+              },
+            });
+            future2.return();
+          },
+        );
+
+        // Insert the board templates swimlane
+        Swimlanes.insert(
+          {
+            title: TAPi18n.__('board-templates-swimlane'),
+            boardId,
+            sort: 3,
+            type: 'template-container',
+          },
+          fakeUser,
+          (err, swimlaneId) => {
+            // Insert the reference to out board templates swimlane
+            Users.update(fakeUserId.get(), {
+              $set: {
+                'profile.boardTemplatesSwimlaneId': swimlaneId,
+              },
+            });
+            future3.return();
+          },
+        );
+      },
+    );
+    // HACK
+    future1.wait();
+    future2.wait();
+    future3.wait();
+  },
+
   events() {
     return [
       {
@@ -240,6 +331,7 @@ const CreateBoard = BlazeComponent.extendComponent({
         submit: this.onSubmit,
         'click .js-import-board': Popup.open('chooseBoardSource'),
         'click .js-board-template': Popup.open('searchElement'),
+        'click .js-board-template-container': this.addBoardTemplateContainer,
       },
     ];
   },
