@@ -209,115 +209,75 @@ const CreateBoard = BlazeComponent.extendComponent({
     this.visibilityMenuIsOpen.set(!this.visibilityMenuIsOpen.get());
   },
 
+  toggleAddTemplateContainer() {
+    $('#add-template-container').toggleClass('is-checked');
+  },
+
   onSubmit(event) {
     event.preventDefault();
     const title = this.find('.js-new-board-title').value;
-    const visibility = this.visibility.get();
 
-    this.boardId.set(
-      Boards.insert({
-        title,
-        permission: visibility,
-      }),
-    );
+    const addTemplateContainer = $('#add-template-container.is-checked').length > 0;
+    if (addTemplateContainer) {
+      //const templateContainerId = Meteor.call('setCreateTemplateContainer');
+      //Utils.goBoardId(templateContainerId);
+      //alert('niinku template ' + Meteor.call('setCreateTemplateContainer'));
 
-    Swimlanes.insert({
-      title: 'Default',
-      boardId: this.boardId.get(),
-    });
-
-    Utils.goBoardId(this.boardId.get());
-  },
-
-  addBoardTemplateContainer(event) {
-    event.preventDefault();
-    const title = this.find('.js-new-board-title').value;
-
-    // Insert Template Container
-    const Future = require('fibers/future');
-    const future1 = new Future();
-    const future2 = new Future();
-    const future3 = new Future();
-    Boards.insert(
-      {
-        title: title || TAPi18n.__('templates'),
-        permission: 'private',
-        type: 'template-container',
-      },
-      fakeUser,
-      (err, boardId) => {
-        // Insert the reference to our templates board
-        Users.update(fakeUserId.get(), {
-          $set: {
-            'profile.templatesBoardId': boardId,
-          },
-        });
-
-        // Insert the card templates swimlane
-        Swimlanes.insert(
-          {
-            title: TAPi18n.__('card-templates-swimlane'),
-            boardId,
-            sort: 1,
+      this.boardId.set(
+        Boards.insert({
+            title: TAPi18n.__('templates'),
+            permission: 'private',
             type: 'template-container',
-          },
-          fakeUser,
-          (err, swimlaneId) => {
-            // Insert the reference to out card templates swimlane
-            Users.update(fakeUserId.get(), {
-              $set: {
-                'profile.cardTemplatesSwimlaneId': swimlaneId,
-              },
-            });
-            future1.return();
-          },
-        );
+          }),
+       );
 
-        // Insert the list templates swimlane
-        Swimlanes.insert(
-          {
-            title: TAPi18n.__('list-templates-swimlane'),
-            boardId,
-            sort: 2,
-            type: 'template-container',
-          },
-          fakeUser,
-          (err, swimlaneId) => {
-            // Insert the reference to out list templates swimlane
-            Users.update(fakeUserId.get(), {
-              $set: {
-                'profile.listTemplatesSwimlaneId': swimlaneId,
-              },
-            });
-            future2.return();
-          },
-        );
+      // Insert the card templates swimlane
+      Swimlanes.insert({
+          title: TAPi18n.__('card-templates-swimlane'),
+          boardId: this.boardId.get(),
+          sort: 1,
+          type: 'template-container',
+        }),
 
-        // Insert the board templates swimlane
-        Swimlanes.insert(
-          {
-            title: TAPi18n.__('board-templates-swimlane'),
-            boardId,
-            sort: 3,
-            type: 'template-container',
-          },
-          fakeUser,
-          (err, swimlaneId) => {
-            // Insert the reference to out board templates swimlane
-            Users.update(fakeUserId.get(), {
-              $set: {
-                'profile.boardTemplatesSwimlaneId': swimlaneId,
-              },
-            });
-            future3.return();
-          },
-        );
-      },
-    );
-    // HACK
-    future1.wait();
-    future2.wait();
-    future3.wait();
+      // Insert the list templates swimlane
+      Swimlanes.insert(
+        {
+          title: TAPi18n.__('list-templates-swimlane'),
+          boardId: this.boardId.get(),
+          sort: 2,
+          type: 'template-container',
+        },
+      );
+
+      // Insert the board templates swimlane
+      Swimlanes.insert(
+        {
+          title: TAPi18n.__('board-templates-swimlane'),
+          boardId: this.boardId.get(),
+          sort: 3,
+          type: 'template-container',
+        },
+      );
+
+      Utils.goBoardId(this.boardId.get());
+
+    } else {
+      const visibility = this.visibility.get();
+
+      this.boardId.set(
+        Boards.insert({
+          title,
+          permission: visibility,
+        }),
+      );
+
+      Swimlanes.insert({
+        title: 'Default',
+        boardId: this.boardId.get(),
+      });
+
+      Utils.goBoardId(this.boardId.get());
+    }
   },
 
   events() {
@@ -331,7 +291,7 @@ const CreateBoard = BlazeComponent.extendComponent({
         submit: this.onSubmit,
         'click .js-import-board': Popup.open('chooseBoardSource'),
         'click .js-board-template': Popup.open('searchElement'),
-        'click .js-board-template-container': this.addBoardTemplateContainer,
+        'click .js-toggle-add-template-container': this.toggleAddTemplateContainer,
       },
     ];
   },

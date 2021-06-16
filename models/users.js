@@ -1490,24 +1490,26 @@ if (Meteor.isServer) {
 
       fakeUserId.withValue(doc._id, () => {
         /*
-                // Insert the Welcome Board
-                Boards.insert({
-                  title: TAPi18n.__('welcome-board'),
-                  permission: 'private',
-                }, fakeUser, (err, boardId) => {
 
-                  Swimlanes.insert({
-                    title: TAPi18n.__('welcome-swimlane'),
-                    boardId,
-                    sort: 1,
-                  }, fakeUser);
+        // Insert the Welcome Board
+        Boards.insert({
+          title: TAPi18n.__('welcome-board'),
+          permission: 'private',
+        }, fakeUser, (err, boardId) => {
 
-                  ['welcome-list1', 'welcome-list2'].forEach((title, titleIndex) => {
-                    Lists.insert({title: TAPi18n.__(title), boardId, sort: titleIndex}, fakeUser);
-                  });
-                });
-                */
+          Swimlanes.insert({
+            title: TAPi18n.__('welcome-swimlane'),
+            boardId,
+            sort: 1,
+          }, fakeUser);
 
+          ['welcome-list1', 'welcome-list2'].forEach((title, titleIndex) => {
+            Lists.insert({title: TAPi18n.__(title), boardId, sort: titleIndex}, fakeUser);
+          });
+        });
+
+
+        // Insert Template Container
         const Future = require('fibers/future');
         const future1 = new Future();
         const future2 = new Future();
@@ -1592,6 +1594,7 @@ if (Meteor.isServer) {
         future1.wait();
         future2.wait();
         future3.wait();
+        */
       });
     });
   }

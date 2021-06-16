@@ -225,6 +225,9 @@ template(name="createBoard")
           = " "
           | {{{_ 'board-private-info'}}}
         a.js-change-visibility {{_ 'change'}}.
+    a.flex.js-toggle-add-template-container
+      .materialCheckBox#add-template-container
+      span {{_ 'add-template-container'}}
     input.primary.wide(type="submit" value="{{_ 'create'}}")
     span.quiet
       | {{_ 'or'}}
@@ -232,11 +235,6 @@ template(name="createBoard")
     span.quiet
       | /
       a.js-board-template {{_ 'template'}}
-    br
-    br
-    span.quiet.right
-      | /
-      a.js-board-template-container {{_ 'add-template-container'}}
 
 //template(name="listsortPopup")
 //  h2
