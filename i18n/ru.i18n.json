@@ -81,7 +81,7 @@
     "activity-endDate": "отредактировал дату завершения на %s с %s",
     "add-attachment": "Добавить вложение",
     "add-board": "Добавить доску",
-    "add-template": "Add Template",
+    "add-template": "Добавить шаблон",
     "add-card": "Добавить карточку",
     "add-card-to-top-of-list": "Добавить карточку в начало списка",
     "add-card-to-bottom-of-list": "Добавить карточку в конец списка",
@@ -1057,6 +1057,6 @@
     "Wave": "Волновой спиннер",
     "maximize-card": "Максимизировать карточку",
     "minimize-card": "Минимизировать карточку",
-    "delete-org-warning-message": "Can not delete this organization, there is at least one user that belongs to it",
-    "delete-team-warning-message": "Can not delete this team, there is at least one user that belongs to it"
+    "delete-org-warning-message": "Невозможно удалить эту организацию, она включает в себя как минимум одного пользователя",
+    "delete-team-warning-message": "Невозможно удалить эту команду, она включает в себя как минимум одного пользователя"
 }

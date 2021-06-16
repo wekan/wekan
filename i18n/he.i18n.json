@@ -81,7 +81,7 @@
     "activity-endDate": "תאריך הסיום השתנה מ־%s ל־%s",
     "add-attachment": "הוספת קובץ מצורף",
     "add-board": "הוספת לוח",
-    "add-template": "Add Template",
+    "add-template": "הוספת תבנית",
     "add-card": "הוספת כרטיס",
     "add-card-to-top-of-list": "הוספת כרטיס לראש הרשימה",
     "add-card-to-bottom-of-list": "הוספת כרטיס לתחתית הרשימה",
@@ -120,8 +120,8 @@
     "archives": "להעביר לארכיון",
     "template": "תבנית",
     "templates": "תבניות",
-    "template-container": "Template Container",
-    "add-template-container": "Add Template Container",
+    "template-container": "מכולה לתבנית",
+    "add-template-container": "הוספת מכולה לתבנית",
     "assign-member": "הקצאת חבר",
     "attached": "מצורף",
     "attachment": "קובץ מצורף",
@@ -1057,6 +1057,6 @@
     "Wave": "שבשבת המתנה גל",
     "maximize-card": "הגדלת כרטיס",
     "minimize-card": "מזעור כרטיס",
-    "delete-org-warning-message": "Can not delete this organization, there is at least one user that belongs to it",
-    "delete-team-warning-message": "Can not delete this team, there is at least one user that belongs to it"
+    "delete-org-warning-message": "לא ניתן למחוק את הארגון הזה, יש לפחות משתמש אחד ששייך אליו",
+    "delete-team-warning-message": "לא ניתן למחוק את הצוות הזה, יש לפחות משתמש אחד ששייך אליו"
 }
