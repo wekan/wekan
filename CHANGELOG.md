@@ -1,5 +1,22 @@
 [Mac ChangeLog](https://github.com/wekan/wekan/wiki/Mac)
 
+# Upcoming Wekan release
+
+This release adds the following new features:
+
+- [Added some controls and warning messages when user try to delete an organization or team that has
+  at least one user belongs to it](https://github.com/wekan/wekan/pull/3865).
+  Thanks to Emile840.
+- Shared Templates. In Progress.
+  [Part 1](https://github.com/wekan/wekan/commit/0a0cec6ef0eb55391608aade897004db430ba10a).
+  Template Containers visible at All Boards page, with white border around board icon.
+  [Part 2](https://github.com/wekan/wekan/commit/d1d4453120005de61eaf2cbadc6a7b9d80e75fc1).
+  Ablity to Add Template Container, checkbox in Create Board popup.
+  Do not create Template Container by default, when creating user.
+  Thanks to xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.35 2021-06-14 Wekan release
 
 This release adds the following new features:
