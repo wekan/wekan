@@ -1,8 +1,11 @@
 template(name="boardHeaderBar")
   h1.header-board-menu
     with currentBoard
-      +viewer
-        = title
+      if $eq title 'Templates'
+        | {{_ 'templates'}}
+      else
+        +viewer
+          = title
 
   .board-header-btns.left
     unless isMiniScreen

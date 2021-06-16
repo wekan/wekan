@@ -225,7 +225,8 @@ const CreateBoard = BlazeComponent.extendComponent({
 
       this.boardId.set(
         Boards.insert({
-            title: TAPi18n.__('templates'),
+            // title: TAPi18n.__('templates'),
+            title: title,
             permission: 'private',
             type: 'template-container',
           }),
@@ -233,7 +234,8 @@ const CreateBoard = BlazeComponent.extendComponent({
 
       // Insert the card templates swimlane
       Swimlanes.insert({
-          title: TAPi18n.__('card-templates-swimlane'),
+          // title: TAPi18n.__('card-templates-swimlane'),
+          title: 'Card Templates',
           boardId: this.boardId.get(),
           sort: 1,
           type: 'template-container',
@@ -242,7 +244,8 @@ const CreateBoard = BlazeComponent.extendComponent({
       // Insert the list templates swimlane
       Swimlanes.insert(
         {
-          title: TAPi18n.__('list-templates-swimlane'),
+          // title: TAPi18n.__('list-templates-swimlane'),
+          title: 'List Templates',
           boardId: this.boardId.get(),
           sort: 2,
           type: 'template-container',
@@ -252,7 +255,8 @@ const CreateBoard = BlazeComponent.extendComponent({
       // Insert the board templates swimlane
       Swimlanes.insert(
         {
-          title: TAPi18n.__('board-templates-swimlane'),
+          //title: TAPi18n.__('board-templates-swimlane'),
+          title: 'Board Templates',
           boardId: this.boardId.get(),
           sort: 3,
           type: 'template-container',

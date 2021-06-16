@@ -11,8 +11,15 @@ template(name="swimlaneHeader")
 template(name="swimlaneFixedHeader")
   .swimlane-header(
     class="{{#if currentUser.isBoardMember}}js-open-inlined-form is-editable{{/if}}")
-      +viewer
-        = title
+      if $eq title 'Card Templates'
+        | {{_ 'card-templates-swimlane'}}
+      else if $eq title 'List Templates'
+        | {{_ 'list-templates-swimlane'}}
+      else if $eq title 'Board Templates'
+        | {{_ 'board-templates-swimlane'}}
+      else
+        +viewer
+          = title
   .swimlane-header-menu
     unless currentUser.isCommentOnly
       if currentUser.isBoardAdmin
