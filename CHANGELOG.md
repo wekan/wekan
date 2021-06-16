@@ -13,6 +13,8 @@ This release adds the following new features:
   [Part 2](https://github.com/wekan/wekan/commit/d1d4453120005de61eaf2cbadc6a7b9d80e75fc1).
   Ablity to Add Template Container, checkbox in Create Board popup.
   Do not create Template Container by default, when creating user.
+  [Part 3](https://github.com/wekan/wekan/commit/7f17bc9fb03d6f4b43a2cd71ecc372e0f1b0f491).
+  Template container titles "Card/List/Board Templates" automatically translated.
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
