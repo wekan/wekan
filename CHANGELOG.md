@@ -20,8 +20,7 @@ This release adds the following new features:
 and adds the following improvements:
 
 - [Remove unused exceljs from client bundle](https://github.com/wekan/wekan/pull/3871).
-  This makes Wekan frontend browserside to smaller amount of Javascript, so
-  Wekan webpages load faster.
+  This decreased Wekan browserside frontend amount of Javascript from 5.4 MB to 4.3 MB.
   Thanks to jankapunkt.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
