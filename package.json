@@ -13,7 +13,11 @@
   },
   "homepage": "https://wekan.github.io",
   "devDependencies": {
-    "flatted": "^3.1.1"
+    "babel-plugin-istanbul": "^6.0.0",
+    "chai": "^4.3.4",
+    "flatted": "^3.1.1",
+    "puppeteer": "^10.0.0",
+    "sinon": "^11.1.1"
   },
   "dependencies": {
     "@babel/core": "^7.14.0",
@@ -41,5 +45,8 @@
     "papaparse": "^5.3.0",
     "qs": "^6.10.1",
     "source-map-support": "^0.5.19"
+  },
+  "meteor": {
+    "testModule": "tests/main.js"
   }
 }

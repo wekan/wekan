@@ -69,6 +69,7 @@ lamhieu:meteorx@2.1.1
 lamhieu:unblock@1.0.0
 launch-screen@1.2.1
 livedata@1.0.18
+lmieulet:meteor-coverage@3.2.0
 localstorage@1.2.0
 logging@1.2.0
 matb33:collection-hooks@0.9.1
@@ -82,6 +83,9 @@ meteorhacks:collection-utils@1.2.0
 meteorhacks:picker@1.0.3
 meteorhacks:subs-manager@1.6.4
 meteorspark:util@0.2.0
+meteortesting:browser-tests@1.3.4
+meteortesting:mocha@2.0.1
+meteortesting:mocha-core@8.0.1
 minifier-css@1.5.4
 minifier-js@2.6.0
 minifiers@1.1.8-faster-rebuild.0

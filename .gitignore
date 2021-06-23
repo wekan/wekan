@@ -33,3 +33,4 @@ ehthumbs.db
 .meteor/local
 .devcontainer/docker-compose.extend.yml
 .devcontainer/volumes*/
+.coverage
