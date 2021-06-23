@@ -1,20 +1,27 @@
 Utils = {
+  reload () {
+    // we move all window.location.reload calls into this function
+    // so we can disable it when running tests.
+    // This is because we are not allowed to override location.reload but
+    // we can override Utils.reload to prevent reload during tests.
+    window.location.reload();
+  },
   setBoardView(view) {
     currentUser = Meteor.user();
     if (currentUser) {
       Meteor.user().setBoardView(view);
     } else if (view === 'board-view-swimlanes') {
       window.localStorage.setItem('boardView', 'board-view-swimlanes'); //true
-      location.reload();
+      Utils.reload();
     } else if (view === 'board-view-lists') {
       window.localStorage.setItem('boardView', 'board-view-lists'); //true
-      location.reload();
+      Utils.reload();
     } else if (view === 'board-view-cal') {
       window.localStorage.setItem('boardView', 'board-view-cal'); //true
-      location.reload();
+      Utils.reload();
     } else {
       window.localStorage.setItem('boardView', 'board-view-swimlanes'); //true
-      location.reload();
+      Utils.reload();
     }
   },
 
@@ -39,7 +46,7 @@ Utils = {
       return 'board-view-cal';
     } else {
       window.localStorage.setItem('boardView', 'board-view-swimlanes'); //true
-      location.reload();
+      Utils.reload();
       return 'board-view-swimlanes';
     }
   },
@@ -64,7 +71,7 @@ Utils = {
 
   setMyCardsSort(sort) {
     window.localStorage.setItem('myCardsSort', sort);
-    location.reload();
+    Utils.reload();
   },
 
   archivedBoardIds() {
@@ -87,7 +94,7 @@ Utils = {
 
   setDueCardsView(view) {
     window.localStorage.setItem('dueCardsView', view);
-    location.reload();
+    Utils.reload();
   },
 
   // XXX We should remove these two methods
