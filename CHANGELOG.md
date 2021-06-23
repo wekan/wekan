@@ -16,10 +16,13 @@ This release adds the following new features:
   [Part 3](https://github.com/wekan/wekan/commit/7f17bc9fb03d6f4b43a2cd71ecc372e0f1b0f491).
   Template container titles "Card/List/Board Templates" automatically translated.
   Thanks to xet7.
+- [Added testsuite](https://github.com/wekan/wekan/pull/3872).
+  Thanks to jankapunkt.
+
 
 and adds the following improvements:
 
-- [Remove unused exceljs from client bundle](https://github.com/wekan/wekan/pull/3871).
+- [Removed unused exceljs from client bundle](https://github.com/wekan/wekan/pull/3871).
   This decreased Wekan browserside frontend amount of Javascript from 5.4 MB to 4.3 MB.
   Thanks to jankapunkt.
 
