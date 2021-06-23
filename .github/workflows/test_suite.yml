@@ -131,7 +131,7 @@ jobs:
         run: meteor npm ci
 
       - name: Run Tests
-        run: sh ./test-wkan.sh -cv
+        run: sh ./test-wekan.sh -cv
 
       - name: Upload coverage
         uses: actions/upload-artifact@v2
