@@ -145,3 +145,5 @@ spacebars
 easylogic:summernote
 pascoual:pdfkit
 wekan-accounts-lockout
+lmieulet:meteor-coverage
+meteortesting:mocha
