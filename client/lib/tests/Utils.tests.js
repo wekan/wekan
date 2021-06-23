@@ -98,4 +98,100 @@ describe('Utils', function() {
       expect(window.localStorage.getItem(boardView)).to.equal('board-view-swimlanes');
     });
   });
+
+  describe(Utils.myCardsSort.name, function() {
+    it('has no tests yet');
+  });
+
+  describe(Utils.myCardsSortToggle.name, function() {
+    it('has no tests yet');
+  });
+
+  describe(Utils.setMyCardsSort.name, function() {
+    it('has no tests yet');
+  });
+
+  describe(Utils.archivedBoardIds.name, function() {
+    it('has no tests yet');
+  });
+
+  describe(Utils.dueCardsView.name, function() {
+    it('has no tests yet');
+  });
+
+  describe(Utils.setDueCardsView.name, function() {
+    it('has no tests yet');
+  });
+
+  describe(Utils.goBoardId.name, function() {
+    it('has no tests yet');
+  });
+
+  describe(Utils.goCardId.name, function() {
+    it('has no tests yet');
+  });
+
+  describe(Utils.processUploadedAttachment.name, function() {
+    it('has no tests yet');
+  });
+
+  describe(Utils.shrinkImage.name, function() {
+    it('has no tests yet');
+  });
+
+  describe(Utils.capitalize.name, function() {
+    it('has no tests yet');
+  });
+
+  describe(Utils.isMiniScreen.name, function() {
+    it('has no tests yet');
+  });
+
+  describe(Utils.isShowDesktopDragHandles.name, function() {
+    it('has no tests yet');
+  });
+
+  describe(Utils.isMiniScreenOrShowDesktopDragHandles.name, function() {
+    it('has no tests yet');
+  });
+
+  describe(Utils.calculateIndexData.name, function() {
+    it('has no tests yet');
+  });
+
+  describe(Utils.calculateIndex.name, function() {
+    it('has no tests yet');
+  });
+
+  describe(Utils.isTouchDevice.name, function() {
+    it('has no tests yet');
+  });
+
+  describe(Utils.calculateTouchDistance.name, function() {
+    it('has no tests yet');
+  });
+
+  describe(Utils.enableClickOnTouch.name, function() {
+    it('has no tests yet');
+  });
+
+  describe(Utils.manageCustomUI.name, function() {
+    it('has no tests yet');
+  });
+
+  describe(Utils.setCustomUI.name, function() {
+    it('has no tests yet');
+  });
+
+  describe(Utils.setMatomo.name, function() {
+    it('has no tests yet');
+  });
+
+  describe(Utils.manageMatomo.name, function() {
+    it('has no tests yet');
+  });
+
+  describe(Utils.getTriggerActionDesc.name, function() {
+    it('has no tests yet');
+  });
 });
