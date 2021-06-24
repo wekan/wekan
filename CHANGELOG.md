@@ -18,7 +18,10 @@ This release adds the following new features:
   Thanks to xet7.
 - [Added testsuite](https://github.com/wekan/wekan/pull/3872).
   Thanks to jankapunkt.
-
+- [Delete user at REST API and `Admin Panel/People/People`](https://github.com/wekan/wekan/commit/9e16a405d8ca32a4e1be9cf89f8f978a2985593c).
+  There is still bug of leaving empty user avatars to boards: boards members, card members and assignees have
+  empty users. So it would be better to delete user from all boards before deleting user.
+  Thanks to darren-teo and xet7.
 
 and adds the following improvements:
 
