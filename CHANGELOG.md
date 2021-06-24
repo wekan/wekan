@@ -36,7 +36,8 @@ and fixes the following bugs:
   Thanks to xet7.
 - Try to fix tests.
   [Part 1](https://github.com/wekan/wekan/commit/78555f57a7c2ba0fb3e3986608bcf11509af9a21),
-  [Part 2](https://github.com/wekan/wekan/commit/7f648720afa42a2b53bfdee7e709fd891eb33373).
+  [Part 2](https://github.com/wekan/wekan/commit/7f648720afa42a2b53bfdee7e709fd891eb33373),
+  [Part 3](https://github.com/wekan/wekan/commit/0f34d407a43c8a63d882e69ea64ea17fc4b22c7b).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
