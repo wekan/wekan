@@ -26,6 +26,12 @@ and adds the following improvements:
   This decreased Wekan browserside frontend amount of Javascript from 5.4 MB to 4.3 MB.
   Thanks to jankapunkt.
 
+and fixes the following bugs:
+
+- [Fixed tests, that need to be in tests directory to not get build
+  errors](https://github.com/wekan/wekan/commit/56197274b6c4782fa20c7d9b5b9d58255d1f830a).
+  Thanks to xet7.
+
 Thanks to above GitHub users for their contributions and translators for their translations.
 
 # v5.35 2021-06-14 Wekan release
