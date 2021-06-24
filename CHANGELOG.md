@@ -34,7 +34,9 @@ and fixes the following bugs:
 - [Fixed tests, that need to be in tests directory to not get build
   errors](https://github.com/wekan/wekan/commit/56197274b6c4782fa20c7d9b5b9d58255d1f830a).
   Thanks to xet7.
-- [Try to fix tests](https://github.com/wekan/wekan/commit/78555f57a7c2ba0fb3e3986608bcf11509af9a21).
+- Try to fix tests.
+  [Part 1](https://github.com/wekan/wekan/commit/78555f57a7c2ba0fb3e3986608bcf11509af9a21),
+  [Part 2](https://github.com/wekan/wekan/commit/7f648720afa42a2b53bfdee7e709fd891eb33373).
   Thanks to xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
