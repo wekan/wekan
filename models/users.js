@@ -2065,16 +2065,18 @@ if (Meteor.isServer) {
     try {
       Authentication.checkUserId(req.userId);
       const id = req.params.userId;
-      // Delete is not enabled yet, because it does leave empty user avatars
+      // Delete user is enabled, but is still has bug of leaving empty user avatars
       // to boards: boards members, card members and assignees have
-      // empty users. See:
+      // empty users. So it would be better to delete user from all boards before
+      // deleting user.
+      // See:
       // - wekan/client/components/settings/peopleBody.jade deleteButton
       // - wekan/client/components/settings/peopleBody.js deleteButton
       // - wekan/client/components/sidebar/sidebar.js Popup.afterConfirm('removeMember'
       //   that does now remove member from board, card members and assignees correctly,
       //   but that should be used to remove user from all boards similarly
       // - wekan/models/users.js Delete is not enabled
-      // Meteor.users.remove({ _id: id });
+      Meteor.users.remove({ _id: id });
       JsonRoutes.sendResult(res, {
         code: 200,
         data: {

@@ -571,15 +571,16 @@ template(name="settingsUserPopup")
       a.impersonate-user
         i.fa.fa-user
         | {{_ 'impersonate-user'}}
-    //hr
-    //li
-    //  form
-    //    label.hide.userId(type="text" value=user._id)
-    //    div.buttonsContainer
-    //      input#deleteButton.card-details-red.right.wide(type="button" value="{{_ 'delete'}}")
-  // Delete is not enabled yet, because it does leave empty user avatars
+    hr
+    li
+      form
+        label.hide.userId(type="text" value=user._id)
+        div.buttonsContainer
+          input#deleteButton.card-details-red.right.wide(type="button" value="{{_ 'delete'}}")
+  // Delete is enabled, but there is still bug of leaving empty user avatars
   // to boards: boards members, card members and assignees have
-  // empty users. See:
+  // empty users. So it is better to remove user from all boards before removing user.
+  // See:
   // - wekan/client/components/settings/peopleBody.jade deleteButton
   // - wekan/client/components/settings/peopleBody.js deleteButton
   // - wekan/client/components/sidebar/sidebar.js Popup.afterConfirm('removeMember'
