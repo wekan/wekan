@@ -1,5 +1,8 @@
 ## Issue
 
+Note: With Docker, please don't use latest tag. Only use release tags.
+See https://github.com/wekan/wekan/issues/3874
+
 If you can not login for any reason:
 - https://github.com/wekan/wekan/wiki/Forgot-Password
 
