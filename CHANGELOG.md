@@ -31,6 +31,9 @@ and adds the following improvements:
 - [Removed unused exceljs from client bundle](https://github.com/wekan/wekan/pull/3871).
   This decreased Wekan browserside frontend amount of Javascript from 5.4 MB to 4.3 MB.
   Thanks to jankapunkt.
+- Added note: With Docker, please don't use latest tag. Only use release tags.
+  See https://github.com/wekan/wekan/issues/3874 .
+  Thanks to xet7.
 
 and fixes the following bugs:
 
