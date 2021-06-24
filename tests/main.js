@@ -19,7 +19,7 @@
 
 if (Meteor.isServer) {
   describe('server', function() {
-    import '../server/lib/tests';
+    import '../server/lib/tests/utils.tests';
   });
 }
 

@@ -1,1 +1,1 @@
-import './Utils.tests';
+import './utils.tests';
