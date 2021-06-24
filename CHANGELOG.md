@@ -33,6 +33,8 @@ and adds the following improvements:
   Thanks to jankapunkt.
 - Added note: With Docker, please don't use latest tag. Only use release tags.
   See https://github.com/wekan/wekan/issues/3874 .
+  [Part 1](https://github.com/wekan/wekan/commit/f18a57b059994b8a6a3588a69cf095fe599b3a90),
+  [Part 2](https://github.com/wekan/wekan/commit/c4cea9e71b467731fd8290538dd039b7691097af).
   Thanks to xet7.
 
 and fixes the following bugs:
