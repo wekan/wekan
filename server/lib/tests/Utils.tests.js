@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 import { Random } from 'meteor/random';
 import { expect } from 'chai';
-import './utils';
+import '../utils';
 
 describe('utils', function() {
   describe(allowIsBoardAdmin.name, function() {
