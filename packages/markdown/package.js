@@ -12,11 +12,11 @@ Package.onUse(function (api) {
 	if(api.versionsFrom) api.versionsFrom('1.8.2');
 
 	api.use('templating');
-  api.use("ecmascript", ['server', 'client']);
+	api.use("ecmascript", ['server', 'client']);
 
 	api.export('Markdown', ['server', 'client']);
 
-  api.use('ui', 'client', {weak: true});
+	api.use('ui', 'client', {weak: true});
 
-	api.add_files('src/template-integration.js', 'client');
+	api.addFiles('src/template-integration.js', 'client');
 });

@@ -1795,6 +1795,7 @@ Template.cardAssigneePopup.helpers({
     return user && user.isBoardAdmin() ? 'admin' : 'normal';
   },
 
+/*
   presenceStatusClassName() {
     const user = Users.findOne(this.userId);
     const userPresence = presences.findOne({ userId: this.userId });
@@ -1804,7 +1805,7 @@ Template.cardAssigneePopup.helpers({
       return 'active';
     else return 'idle';
   },
-
+*/
   isCardAssignee() {
     const card = Template.parentData();
     const cardAssignees = card.getAssignees();
