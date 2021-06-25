@@ -1,3 +1,5 @@
+/*
+
 Avatars = new FS.Collection('avatars', {
   stores: [new FS.Store.GridFS('avatars')],
   filter: {
@@ -27,3 +29,4 @@ Avatars.files.before.insert((userId, doc) => {
 });
 
 export default Avatars;
+*/

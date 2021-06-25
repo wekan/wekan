@@ -1,3 +1,4 @@
+/*
 const passwordField = AccountsTemplates.removeField('password');
 const emailField = AccountsTemplates.removeField('email');
 
@@ -88,3 +89,5 @@ if (Meteor.isServer) {
     };
   });
 }
+
+*/

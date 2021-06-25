@@ -205,7 +205,7 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
           ),
         );
 
-        this.cursor(presences.find({ userId: { $in: memberIds } }));
+        //this.cursor(presences.find({ userId: { $in: memberIds } }));
       }
     },
   );

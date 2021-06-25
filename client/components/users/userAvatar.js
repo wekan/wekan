@@ -23,6 +23,7 @@ Template.userAvatar.helpers({
     return user && user.isBoardAdmin() ? 'admin' : 'normal';
   },
 
+/*
   presenceStatusClassName() {
     const user = Users.findOne(this.userId);
     const userPresence = presences.findOne({ userId: this.userId });
@@ -32,6 +33,8 @@ Template.userAvatar.helpers({
       return 'active';
     else return 'idle';
   },
+*/
+
 });
 
 Template.userAvatarInitials.helpers({

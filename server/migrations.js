@@ -76,6 +76,7 @@ Migrations.add('lowercase-board-permission', () => {
   });
 });
 
+/*
 // Security migration: see https://github.com/wekan/wekan/issues/99
 Migrations.add('change-attachments-type-for-non-images', () => {
   const newTypeForNonImage = 'application/octet-stream';
@@ -104,6 +105,8 @@ Migrations.add('card-covers', () => {
   });
   Attachments.update({}, { $unset: { cover: '' } }, noValidateMulti);
 });
+
+*/
 
 Migrations.add('use-css-class-for-boards-colors', () => {
   const associationTable = {

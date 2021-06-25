@@ -1,3 +1,5 @@
+/*
+
 export const AttachmentStorage = new Mongo.Collection(
   'cfs_gridfs.attachments.files',
 );
@@ -24,7 +26,7 @@ if (localFSStore) {
   const Grid = Npm.require('gridfs-stream');
   // calulate the absolute path here, because FS.Store.FileSystem didn't expose the aboslutepath or FS.Store didn't expose api calls :(
   let pathname = localFSStore;
-  /*eslint camelcase: ["error", {allow: ["__meteor_bootstrap__"]}] */
+  // eslint camelcase: ["error", {allow: ["__meteor_bootstrap__"]}]
 
   if (!pathname && __meteor_bootstrap__ && __meteor_bootstrap__.serverDir) {
     pathname = path.join(
@@ -180,6 +182,8 @@ Attachments = new FS.Collection('attachments', {
   stores: [store],
 });
 
+
+
 if (Meteor.isServer) {
   Meteor.startup(() => {
     Attachments.files._ensureIndex({ cardId: 1 });
@@ -266,3 +270,4 @@ if (Meteor.isServer) {
 }
 
 export default Attachments;
+*/
