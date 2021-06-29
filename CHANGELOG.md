@@ -19,6 +19,10 @@ This release adds the following new features:
   [Part 3](https://github.com/wekan/wekan/commit/7f17bc9fb03d6f4b43a2cd71ecc372e0f1b0f491).
   Template container titles "Card/List/Board Templates" automatically translated.
   Thanks to xet7.
+  [Part 4](https://github.com/wekan/wekan/commit/3b4a44abb1c1c4339c3d1b00dfac1c69ec3684cd).
+  Hide this Shared Templates feature while it's not finished yet.
+  Added back creating Template Container by default, when creating user.
+  Thanks to xet7.
 - [Added testsuite](https://github.com/wekan/wekan/pull/3872).
   Thanks to jankapunkt.
 - [Delete user at REST API and `Admin Panel/People/People`](https://github.com/wekan/wekan/commit/9e16a405d8ca32a4e1be9cf89f8f978a2985593c).
