@@ -1422,13 +1422,18 @@ if (Meteor.isServer) {
     myLabelNames() {
       let names = [];
       Boards.userBoards(Meteor.userId()).forEach(board => {
-        names = names.concat(
-          board.labels
-            .filter(label => !!label.name)
-            .map(label => {
-              return label.name;
-            }),
-        );
+        // Only return labels when they exist.
+        if (board.labels !== undefined) {
+          names = names.concat(
+            board.labels
+              .filter(label => !!label.name)
+              .map(label => {
+                return label.name;
+              }),
+          );
+        } else {
+          return [];
+        }
       });
       return _.uniq(names).sort();
     },
