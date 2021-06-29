@@ -47,6 +47,8 @@ and fixes the following bugs:
   [Part 2](https://github.com/wekan/wekan/commit/7f648720afa42a2b53bfdee7e709fd891eb33373),
   [Part 3](https://github.com/wekan/wekan/commit/0f34d407a43c8a63d882e69ea64ea17fc4b22c7b).
   Thanks to xet7.
+- [Fixed "Search All Boards" instructions are gone](https://github.com/wekan/wekan/commit/30ffcc924663f39406b250d93b14384a2f38ab6a).
+  Thanks to ClaudiaK21 and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
