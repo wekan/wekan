@@ -1507,7 +1507,7 @@ if (Meteor.isServer) {
             Lists.insert({title: TAPi18n.__(title), boardId, sort: titleIndex}, fakeUser);
           });
         });
-
+        */
 
         // Insert Template Container
         const Future = require('fibers/future');
@@ -1594,7 +1594,7 @@ if (Meteor.isServer) {
         future1.wait();
         future2.wait();
         future3.wait();
-        */
+        // End of Insert Template Container
       });
     });
   }
