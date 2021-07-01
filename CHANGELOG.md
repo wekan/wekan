@@ -3,6 +3,15 @@
 Note: With Docker, please don't use latest tag. Only use release tags.
 See https://github.com/wekan/wekan/issues/3874
 
+# Upcoming Wekan release
+
+This release fixes the following bugs:
+
+- [Building OpenAPI docs is broken in Wekan v3.56](https://github.com/wekan/wekan/pull/3889).
+  Thanks to bentiss.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
 # v5.36 2021-06-29 Wekan release
 
 This release adds the following new features:
