@@ -821,6 +821,11 @@ def parse_schemas(schemas_dir):
         for filename in files:
             path = os.path.join(root, filename)
             context = parse_file(path)
+
+            if context is None:
+              # the file doesn't contain a schema (see above)
+              continue
+
             program = context.program
 
             current_schema = None
