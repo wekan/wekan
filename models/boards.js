@@ -227,6 +227,56 @@ Boards.attachSchema(
       type: String,
       allowedValues: ['public', 'private'],
     },
+    orgs: {
+      /**
+       * the list of organizations that a board belongs to
+       */
+       type: [Object],
+       optional: true,
+    },
+    'orgs.$.orgId':{
+      /**
+       * The uniq ID of the organization
+       */
+       type: String,
+    },
+    'orgs.$.orgDisplayName':{
+      /**
+       * The display name of the organization
+       */
+       type: String,
+    },
+    'orgs.$.isActive': {
+      /**
+       * Is the organization active?
+       */
+      type: Boolean,
+    },
+    teams: {
+      /**
+       * the list of teams that a board belongs to
+       */
+       type: [Object],
+       optional: true,
+    },
+    'teams.$.teamId':{
+      /**
+       * The uniq ID of the team
+       */
+       type: String,
+    },
+    'teams.$.teamDisplayName':{
+      /**
+       * The display name of the team
+       */
+       type: String,
+    },
+    'teams.$.isActive': {
+      /**
+       * Is the team active?
+       */
+      type: Boolean,
+    },
     color: {
       /**
        * The color of the board.
@@ -694,6 +744,23 @@ Boards.helpers({
   activeMembers() {
     return _.where(this.members, { isActive: true });
   },
+
+
+  activeOrgs() {
+    return _.where(this.orgs, { isActive: true });
+  },
+
+  // hasNotAnyOrg(){
+  //   return this.orgs === undefined || this.orgs.length <= 0;
+  // },
+
+  activeteams() {
+    return _.where(this.teams, { isActive: true });
+  },
+
+  // hasNotAnyTeam(){
+  //   return this.teams === undefined || this.teams.length <= 0;
+  // },
 
   activeAdmins() {
     return _.where(this.members, { isActive: true, isAdmin: true });
@@ -1458,6 +1525,24 @@ if (Meteor.isServer) {
           return true;
         } else throw new Meteor.Error('error-board-notAMember');
       } else throw new Meteor.Error('error-board-doesNotExist');
+    },
+    setBoardOrgs(boardOrgsArray, currBoardId){
+      check(boardOrgsArray, Array);
+      check(currBoardId, String);
+      Boards.update(currBoardId, {
+        $set: {
+          orgs: boardOrgsArray,
+        },
+      });
+    },
+    setBoardTeams(boardTeamsArray, currBoardId){
+      check(boardTeamsArray, Array);
+      check(currBoardId, String);
+      Boards.update(currBoardId, {
+        $set: {
+          teams: boardTeamsArray,
+        },
+      });
     },
   });
 }
