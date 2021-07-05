@@ -1,6 +1,8 @@
 import Cards from '/models/cards';
 import Avatars from '/models/avatars';
 import Users from '/models/users';
+import Org from '/models/org';
+import Team from '/models/team';
 
 Template.userAvatar.helpers({
   userData() {
@@ -43,6 +45,132 @@ Template.userAvatarInitials.helpers({
   viewPortWidth() {
     const user = Users.findOne(this.userId);
     return ((user && user.getInitials().length) || 1) * 12;
+  },
+});
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.error = new ReactiveVar('');
+    this.loading = new ReactiveVar(false);
+    this.findOrgsOptions = new ReactiveVar({});
+
+    this.page = new ReactiveVar(1);
+    this.autorun(() => {
+      const limitOrgs = this.page.get() * Number.MAX_SAFE_INTEGER;
+      this.subscribe('org', this.findOrgsOptions.get(), limitOrgs, () => {});
+    });
+  },
+
+  onRendered() {
+    this.setLoading(false);
+  },
+
+  setError(error) {
+    this.error.set(error);
+  },
+
+  setLoading(w) {
+    this.loading.set(w);
+  },
+
+  isLoading() {
+    return this.loading.get();
+  },
+
+  events() {
+    return [
+      {
+        'keyup input'() {
+          this.setError('');
+        },
+        'click .js-manage-board-removeOrg': Popup.open('removeBoardOrg'),
+      },
+    ];
+  },
+}).register('boardOrgRow');
+
+Template.boardOrgRow.helpers({
+  orgData() {
+    const orgCollection = this.esSearch ? ESSearchResults : Org;
+    return orgCollection.findOne(this.orgId);
+  },
+  currentUser(){
+    return Meteor.user();
+  },
+});
+
+Template.boardOrgName.helpers({
+  orgName() {
+    const org = Org.findOne(this.orgId);
+    return org && org.orgDisplayName;
+  },
+
+  orgViewPortWidth() {
+    const org = Org.findOne(this.orgId);
+    return ((org && org.orgDisplayName.length) || 1) * 12;
+  },
+});
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.error = new ReactiveVar('');
+    this.loading = new ReactiveVar(false);
+    this.findOrgsOptions = new ReactiveVar({});
+
+    this.page = new ReactiveVar(1);
+    this.autorun(() => {
+      const limitTeams = this.page.get() * Number.MAX_SAFE_INTEGER;
+      this.subscribe('team', this.findOrgsOptions.get(), limitTeams, () => {});
+    });
+  },
+
+  onRendered() {
+    this.setLoading(false);
+  },
+
+  setError(error) {
+    this.error.set(error);
+  },
+
+  setLoading(w) {
+    this.loading.set(w);
+  },
+
+  isLoading() {
+    return this.loading.get();
+  },
+
+  events() {
+    return [
+      {
+        'keyup input'() {
+          this.setError('');
+        },
+        'click .js-manage-board-removeTeam': Popup.open('removeBoardTeam'),
+      },
+    ];
+  },
+}).register('boardTeamRow');
+
+Template.boardTeamRow.helpers({
+  teamData() {
+    const teamCollection = this.esSearch ? ESSearchResults : Team;
+    return teamCollection.findOne(this.teamId);
+  },
+  currentUser(){
+    return Meteor.user();
+  },
+});
+
+Template.boardTeamName.helpers({
+  teamName() {
+    const team = Team.findOne(this.teamId);
+    return team && team.teamDisplayName;
+  },
+
+  teamViewPortWidth() {
+    const team = Team.findOne(this.teamId);
+    return ((team && team.teamDisplayName.length) || 1) * 12;
   },
 });
 

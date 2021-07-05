@@ -442,6 +442,8 @@ Users.safeFields = {
   'profile.fullname': 1,
   'profile.avatarUrl': 1,
   'profile.initials': 1,
+  orgs: 1,
+  teams: 1,
 };
 
 if (Meteor.isClient) {
