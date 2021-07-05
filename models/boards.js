@@ -754,7 +754,7 @@ Boards.helpers({
   //   return this.orgs === undefined || this.orgs.length <= 0;
   // },
 
-  activeteams() {
+  activeTeams() {
     return _.where(this.teams, { isActive: true });
   },
 

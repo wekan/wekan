@@ -106,7 +106,7 @@ template(name="boardTeamGeneral")
           if currentUser.isBoardAdmin
             a.member.orgOrTeamMember.add-member.js-manage-board-addTeam(title="{{_ 'add-members'}}")
               i.fa.fa-plus
-      each currentBoard.activeteams
+      each currentBoard.activeTeams
         +boardTeamRow(teamId=this.teamId)
 
 template(name="boardChangeColorPopup")
