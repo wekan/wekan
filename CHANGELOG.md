@@ -14,6 +14,11 @@ and fixes the following bugs:
 
 - [Building OpenAPI docs is broken in Wekan v3.56](https://github.com/wekan/wekan/pull/3889).
   Thanks to bentiss.
+- [Fixed Line break which is wrongly added in Cards description and Cards comments.
+  Added Code View `</>` button when `RICHER_CARD_COMMENT_EDITOR=true` and in desktop view
+  (=non-mobile, so there is enough screen space for buttons in desktop
+  view)](https://github.com/wekan/wekan/commit/ec01e5182d6b8c848d752540887a8113472b0226).
+  Thanks to Emile840 and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
