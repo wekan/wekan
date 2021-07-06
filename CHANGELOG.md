@@ -12,6 +12,11 @@ This release adds the following new features:
   view)](https://github.com/wekan/wekan/commit/ec01e5182d6b8c848d752540887a8113472b0226).
   Thanks to xet7.
 
+and adds the following updates:
+
+- [Updated dependencies](https://github.com/wekan/wekan/commit/7024929881c05cad472de74c86517cf80c8e240c).
+  Thanks to developers of dependencies.
+
 and fixes the following bugs:
 
 - [Fixed Line break which is wrongly added in Cards description and Cards
