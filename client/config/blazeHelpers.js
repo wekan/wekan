@@ -1,3 +1,5 @@
+import { TAPi18n } from '../../i18n/i18n';
+
 Blaze.registerHelper('currentBoard', () => {
   const boardId = Session.get('currentBoard');
   if (boardId) {
@@ -38,3 +40,7 @@ Blaze.registerHelper('isShowDesktopDragHandles', () =>
 Blaze.registerHelper('isMiniScreenOrShowDesktopDragHandles', () =>
   Utils.isMiniScreenOrShowDesktopDragHandles(),
 );
+
+Blaze.registerHelper('_', str => {
+  return TAPi18n.__(str)
+});

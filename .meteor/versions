@@ -108,6 +108,8 @@ npm-mongo@3.9.0
 observe-sequence@1.0.18
 ongoworks:speakingurl@1.1.0
 ordered-dict@1.1.0
+ostrio:cstorage@2.2.2
+ostrio:i18n@3.1.0
 pascoual:pdfkit@1.0.7
 peerlibrary:assert@0.3.0
 peerlibrary:base-component@0.16.0

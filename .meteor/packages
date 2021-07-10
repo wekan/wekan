@@ -41,10 +41,11 @@ kadira:dochead
 mquandalle:autofocus
 ongoworks:speakingurl
 raix:handlebar-helpers
-http@2.0.0
+http@2.0.0! # force new http package
 
 # UI components
 blaze
+ostrio:i18n
 reactive-var@1.0.11
 fortawesome:fontawesome
 mousetrap:mousetrap
