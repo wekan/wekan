@@ -1,3 +1,4 @@
+import moment from 'moment';
 import {
   ALLOWED_COLORS,
   TYPE_CARD,

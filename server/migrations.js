@@ -1,3 +1,4 @@
+import { TAPi18n } from '/imports/i18n';
 import AccountSettings from '../models/accountSettings';
 import TableVisibilityModeSettings from '../models/tableVisibilityModeSettings';
 import Actions from '../models/actions';

@@ -1,3 +1,4 @@
+import { TAPi18n } from '/imports/i18n';
 //var nodemailer = require('nodemailer');
 
 // Sandstorm context is detected using the METEOR_SETTINGS environment variable

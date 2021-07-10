@@ -1,5 +1,6 @@
 //var nodemailer = require('nodemailer');
 import { SyncedCron } from 'meteor/percolate:synced-cron';
+import { TAPi18n } from '/imports/i18n';
 import ImpersonatedUsers from './impersonatedUsers';
 
 // Sandstorm context is detected using the METEOR_SETTINGS environment variable

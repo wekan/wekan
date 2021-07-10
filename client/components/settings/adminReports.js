@@ -1,3 +1,4 @@
+import { TAPi18n } from '/imports/i18n';
 import { AttachmentStorage } from '/models/attachments';
 import { CardSearchPagedComponent } from '/client/lib/cardSearch';
 import SessionData from '/models/usersessiondata';

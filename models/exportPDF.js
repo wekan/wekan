@@ -1,3 +1,4 @@
+import { TAPi18n } from '/imports/i18n';
 import { runOnServer } from './runOnServer';
 
 runOnServer(function() {

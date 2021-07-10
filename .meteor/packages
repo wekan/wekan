@@ -41,10 +41,11 @@ kadira:dochead
 mquandalle:autofocus
 ongoworks:speakingurl
 raix:handlebar-helpers
-http@2.0.0
+http@2.0.0! # force new http package
 
 # UI components
 blaze
+ostrio:i18n
 reactive-var@1.0.11
 fortawesome:fontawesome
 mousetrap:mousetrap
@@ -59,9 +60,7 @@ email@2.1.1
 horka:swipebox
 dynamic-import@0.7.1
 rzymek:fullcalendar
-momentjs:moment@2.22.2
 browser-policy-framing@1.1.0
-mquandalle:moment
 msavin:usercache
 # Keep stylus in 1.1.0, because building v2 takes extra 52 minutes.
 coagmano:stylus@1.1.0!
@@ -124,8 +123,13 @@ pascoual:pdfkit
 lmieulet:meteor-coverage
 meteortesting:mocha
 aldeed:simple-schema
-accounts-password@2.0.0
+accounts-password
 matb33:collection-hooks
 simple:json-routes
 kadira:flow-router
 spacebars
+communitypackages:picker
+useraccounts:core
+useraccounts:unstyled
+useraccounts:flow-routing
+service-configuration

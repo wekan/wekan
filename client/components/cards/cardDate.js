@@ -1,3 +1,5 @@
+import moment from 'moment';
+import { TAPi18n } from '/imports/i18n';
 import { DatePicker } from '/client/lib/datepicker';
 
 Template.dateBadge.helpers({

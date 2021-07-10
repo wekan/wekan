@@ -28,13 +28,16 @@
     "bcryptjs": "^2.4.3",
     "bson": "^4.4.1",
     "bunyan": "^1.8.15",
-    "core-js": "^2.6.12",
-    "dompurify": "^2.3.0",
+    "chai-as-promised": "^7.1.1",
+    "core-js": "^3.18.2",
+    "dompurify": "^2.3.2",
     "es6-promise": "^4.2.4",
     "escape-string-regexp": "^5.0.0",
     "exceljs": "^4.2.1",
     "fibers": "^5.0.0",
     "gridfs-stream": "https://github.com/wekan/gridfs-stream/tarball/master",
+    "i18next": "^21.6.16",
+    "i18next-sprintf-postprocessor": "^0.2.2",
     "jquery": "^2.2.4",
     "jquery-ui": "^1.13.0",
     "jquery-ui-touch-punch": "^0.2.3",
@@ -42,6 +45,7 @@
     "ldapjs": "^2.3.1",
     "markdown-it": "^12.3.2",
     "markdown-it-emoji": "^2.0.0",
+    "meteor-accounts-t9n": "^2.6.0",
     "meteor-node-stubs": "^1.1.0",
     "moment": "^2.29.1",
     "mongodb": "^3.7.3",
@@ -50,7 +54,9 @@
     "papaparse": "^5.3.1",
     "qs": "^6.10.1",
     "simpl-schema": "^1.12.0",
-    "source-map-support": "^0.5.19"
+    "sinon-chai": "^3.7.0",
+    "source-map-support": "^0.5.20",
+    "uuid": "^8.3.2"
   },
   "meteor": {
     "testModule": "tests/main.js"

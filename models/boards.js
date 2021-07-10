@@ -1,3 +1,5 @@
+import escapeForRegex from 'escape-string-regexp';
+import { TAPi18n } from '/imports/i18n';
 import {
   ALLOWED_BOARD_COLORS,
   ALLOWED_COLORS,
@@ -7,7 +9,6 @@ import {
 } from '/config/const';
 import Users from "./users";
 
-const escapeForRegex = require('escape-string-regexp');
 Boards = new Mongo.Collection('boards');
 
 /**

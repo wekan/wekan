@@ -1,3 +1,5 @@
+import { TAPi18n } from '/imports/i18n';
+
 /*
 const DOWNCLS = 'fa-sort-down';
 const UPCLS = 'fa-sort-up';

@@ -1,3 +1,5 @@
+import { TAPi18n } from '/imports/i18n';
+
 let previousPath;
 FlowRouter.triggers.exit([
   ({ path }) => {
@@ -7,7 +9,7 @@ FlowRouter.triggers.exit([
 
 FlowRouter.route('/', {
   name: 'home',
-  //triggersEnter: [qAccountsTemplates.ensureSignedIn],
+  triggersEnter: [AccountsTemplates.ensureSignedIn],
   action() {
     Session.set('currentBoard', null);
     Session.set('currentList', null);
@@ -31,7 +33,7 @@ FlowRouter.route('/', {
 
 FlowRouter.route('/public', {
   name: 'public',
-  //triggersEnter: [AccountsTemplates.ensureSignedIn],
+  triggersEnter: [AccountsTemplates.ensureSignedIn],
   action() {
     Session.set('currentBoard', null);
     Session.set('currentList', null);
@@ -150,7 +152,7 @@ FlowRouter.route('/b/templates', {
 
 FlowRouter.route('/my-cards', {
   name: 'my-cards',
-  //triggersEnter: [AccountsTemplates.ensureSignedIn],
+  triggersEnter: [AccountsTemplates.ensureSignedIn],
   action() {
     Filter.reset();
     Session.set('sortBy', '');
@@ -170,7 +172,7 @@ FlowRouter.route('/my-cards', {
 
 FlowRouter.route('/due-cards', {
   name: 'due-cards',
-  //triggersEnter: [AccountsTemplates.ensureSignedIn],
+  triggersEnter: [AccountsTemplates.ensureSignedIn],
   action() {
     Filter.reset();
     Session.set('sortBy', '');
@@ -190,7 +192,7 @@ FlowRouter.route('/due-cards', {
 
 FlowRouter.route('/global-search', {
   name: 'global-search',
-  //triggersEnter: [AccountsTemplates.ensureSignedIn],
+  triggersEnter: [AccountsTemplates.ensureSignedIn],
   action() {
     Filter.reset();
     Session.set('sortBy', '');
@@ -236,7 +238,7 @@ FlowRouter.route('/broken-cards', {
 
 FlowRouter.route('/import/:source', {
   name: 'import',
-  //triggersEnter: [AccountsTemplates.ensureSignedIn],
+  triggersEnter: [AccountsTemplates.ensureSignedIn],
   action(params) {
     if (Session.get('currentBoard')) {
       Session.set('fromBoard', Session.get('currentBoard'));
@@ -261,7 +263,7 @@ FlowRouter.route('/import/:source', {
 FlowRouter.route('/setting', {
   name: 'setting',
   triggersEnter: [
-    //AccountsTemplates.ensureSignedIn,
+    AccountsTemplates.ensureSignedIn,
     () => {
       Session.set('currentBoard', null);
       Session.set('currentList', null);
@@ -286,7 +288,7 @@ FlowRouter.route('/setting', {
 FlowRouter.route('/information', {
   name: 'information',
   triggersEnter: [
-    //AccountsTemplates.ensureSignedIn,
+    AccountsTemplates.ensureSignedIn,
     () => {
       Session.set('currentBoard', null);
       Session.set('currentList', null);
@@ -310,7 +312,7 @@ FlowRouter.route('/information', {
 FlowRouter.route('/people', {
   name: 'people',
   triggersEnter: [
-    //AccountsTemplates.ensureSignedIn,
+    AccountsTemplates.ensureSignedIn,
     () => {
       Session.set('currentBoard', null);
       Session.set('currentList', null);
@@ -334,7 +336,7 @@ FlowRouter.route('/people', {
 FlowRouter.route('/admin-reports', {
   name: 'admin-reports',
   triggersEnter: [
-    //AccountsTemplates.ensureSignedIn,
+    AccountsTemplates.ensureSignedIn,
     () => {
       Session.set('currentBoard', null);
       Session.set('currentList', null);

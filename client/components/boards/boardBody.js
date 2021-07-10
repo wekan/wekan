@@ -1,3 +1,5 @@
+import { TAPi18n } from '/imports/i18n';
+
 const subManager = new SubsManager();
 const { calculateIndex } = Utils;
 const swimlaneWhileSortingHeight = 150;

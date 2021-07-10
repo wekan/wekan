@@ -1,3 +1,4 @@
+import { TAPi18n } from '/imports/i18n';
 import { Spinner } from '/client/lib/spinner';
 
 const subManager = new SubsManager();

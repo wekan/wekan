@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 const DateString = Match.Where(function(dateAsString) {
   check(dateAsString, String);
   return moment(dateAsString, moment.ISO_8601).isValid();
