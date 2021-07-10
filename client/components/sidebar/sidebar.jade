@@ -34,6 +34,26 @@ template(name="membersWidget")
   .board-widget.board-widget-members
     h3
       i.fa.fa-users
+      | {{_ 'organizations'}}
+
+    .board-widget-content
+      +boardOrgGeneral
+      .clearfix
+  br
+  hr
+  .board-widget.board-widget-members
+    h3
+      i.fa.fa-users
+      | {{_ 'teams'}}
+
+    .board-widget-content
+      +boardTeamGeneral
+      .clearfix
+  br
+  hr
+  .board-widget.board-widget-members
+    h3
+      i.fa.fa-users
       | {{_ 'members'}}
 
       .sidebar-shortcuts
@@ -64,6 +84,30 @@ template(name="membersWidget")
       | {{_ 'just-invited'}}
     button.js-member-invite-accept.primary {{_ 'accept'}}
     button.js-member-invite-decline {{_ 'decline'}}
+
+template(name="boardOrgGeneral")
+  table
+    tbody
+      tr
+        th {{_ 'displayName'}}
+        th
+          if currentUser.isBoardAdmin
+            a.member.orgOrTeamMember.add-member.js-manage-board-addOrg(title="{{_ 'add-members'}}")
+              i.fa.fa-plus
+      each org in currentBoard.activeOrgs
+        +boardOrgRow(orgId=org.orgId)
+
+template(name="boardTeamGeneral")
+  table
+    tbody
+      tr
+        th {{_ 'displayName'}}
+        th
+          if currentUser.isBoardAdmin
+            a.member.orgOrTeamMember.add-member.js-manage-board-addTeam(title="{{_ 'add-members'}}")
+              i.fa.fa-plus
+      each currentBoard.activeTeams
+        +boardTeamRow(teamId=this.teamId)
 
 template(name="boardChangeColorPopup")
   .board-backgrounds-list.clearfix
@@ -408,6 +452,40 @@ template(name="removeMemberPopup")
 template(name="leaveBoardPopup")
   p {{_ 'leave-board-pop' boardTitle=board.title}}
   button.js-confirm.negate.full(type="submit") {{_ 'leave-board'}}
+
+template(name="addBoardOrgPopup")
+  select.js-boardOrgs#jsBoardOrgs
+    option(value="-1") {{_ 'organizations'}} :
+    each value in orgsDatas
+      option(value="{{value._id}}") {{_ value.orgDisplayName}}
+
+template(name="removeBoardOrgPopup")
+  form
+    input.hide#hideOrgId(type="text" value=org._id)
+    label
+      | {{_ 'leave-board'}} ?
+  br
+  hr
+  div.buttonsContainer
+    input.primary.wide.leaveBoardBtn#leaveBoardBtn(type="submit" value="{{_ 'leave-board'}}")
+    input.primary.wide.cancelLeaveBoardBtn#cancelLeaveBoardBtn(type="submit" value="{{_ 'Cancel'}}")
+
+template(name="addBoardTeamPopup")
+  select.js-boardTeams#jsBoardTeams
+    option(value="-1") {{_ 'teams'}} :
+    each value in teamsDatas
+      option(value="{{value._id}}") {{_ value.teamDisplayName}}
+
+template(name="removeBoardTeamPopup")
+  form
+    input.hide#hideTeamId(type="text" value=team._id)
+    label
+      | {{_ 'leave-board'}} ?
+  br
+  hr
+  div.buttonsContainer
+    input.primary.wide.leaveBoardBtn#leaveBoardTeamBtn(type="submit" value="{{_ 'leave-board'}}")
+    input.primary.wide.cancelLeaveBoardBtn#cancelLeaveBoardTeamBtn(type="submit" value="{{_ 'Cancel'}}")
 
 template(name="addMemberPopup")
   .js-search-member

@@ -50,7 +50,7 @@ Template.editor.onRendered(() => {
           ['table', ['table']],
           //['insert', ['link', 'picture', 'video']], // iframe tag will be sanitized TODO if iframe[class=note-video-clip] can be added into safe list, insert video can be enabled
           ['insert', ['link']], //, 'picture']], // modal popup has issue somehow :(
-          ['view', ['fullscreen', 'help']],
+          ['view', ['fullscreen', 'codeview', 'help']],
         ];
     const cleanPastedHTML = function(input) {
       const badTags = [
@@ -229,7 +229,7 @@ Template.editor.onRendered(() => {
                 // (and multiplies by pasting more) by changing paste "p" to "br".
                 // Fixes https://github.com/wekan/wekan/2890 .
                 // == Fix Start ==
-                //someNote.execCommand('defaultParagraphSeparator', false, 'br');
+                someNote.execCommand('defaultParagraphSeparator', false, 'br');
                 // == Fix End ==
                 const original = someNote.summernote('code');
                 const cleaned = cleanPastedHTML(original); //this is where to call whatever clean function you want. I have mine in a different file, called CleanPastedHTML.

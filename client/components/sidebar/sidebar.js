@@ -313,6 +313,8 @@ Template.membersWidget.events({
   'click .js-member': Popup.open('member'),
   'click .js-open-board-menu': Popup.open('boardMenu'),
   'click .js-manage-board-members': Popup.open('addMember'),
+  'click .js-manage-board-addOrg': Popup.open('addBoardOrg'),
+  'click .js-manage-board-addTeam': Popup.open('addBoardTeam'),
   'click .js-import': Popup.open('boardImportBoard'),
   submit: this.onSubmit,
   'click .js-import-board': Popup.open('chooseBoardSource'),
@@ -1167,6 +1169,283 @@ BlazeComponent.extendComponent({
     ];
   },
 }).register('addMemberPopup');
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.error = new ReactiveVar('');
+    this.loading = new ReactiveVar(false);
+    this.findOrgsOptions = new ReactiveVar({});
+
+    this.page = new ReactiveVar(1);
+    this.autorun(() => {
+      const limitOrgs = this.page.get() * Number.MAX_SAFE_INTEGER;
+      this.subscribe('org', this.findOrgsOptions.get(), limitOrgs, () => {});
+    });
+  },
+
+  onRendered() {
+    this.setLoading(false);
+  },
+
+  setError(error) {
+    this.error.set(error);
+  },
+
+  setLoading(w) {
+    this.loading.set(w);
+  },
+
+  isLoading() {
+    return this.loading.get();
+  },
+
+  events() {
+    return [
+      {
+        'keyup input'() {
+          this.setError('');
+        },
+        'change #jsBoardOrgs'() {
+          let currentBoard = Boards.findOne(Session.get('currentBoard'));
+          let selectElt = document.getElementById("jsBoardOrgs");
+          let selectedOrgId = selectElt.options[selectElt.selectedIndex].value;
+          let selectedOrgDisplayName = selectElt.options[selectElt.selectedIndex].text;
+          let boardOrganizations = [];
+          if(currentBoard.orgs !== undefined){
+            for(let i = 0; i < currentBoard.orgs.length; i++){
+              boardOrganizations.push(currentBoard.orgs[i]);
+            }
+          }
+
+          if(!boardOrganizations.some((org) => org.orgDisplayName == selectedOrgDisplayName)){
+            boardOrganizations.push({
+              "orgId": selectedOrgId,
+              "orgDisplayName": selectedOrgDisplayName,
+              "isActive" : true,
+            })
+
+            if (selectedOrgId != "-1") {
+              Meteor.call('setBoardOrgs', boardOrganizations, currentBoard._id);
+            }
+          }
+
+          Popup.close();
+        },
+      },
+    ];
+  },
+}).register('addBoardOrgPopup');
+
+Template.addBoardOrgPopup.helpers({
+  orgsDatas() {
+    // return Org.find({}, {sort: { createdAt: -1 }});
+    let orgs = Org.find({}, {sort: { createdAt: -1 }});
+    return orgs;
+  },
+});
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.error = new ReactiveVar('');
+    this.loading = new ReactiveVar(false);
+    this.findOrgsOptions = new ReactiveVar({});
+
+    this.page = new ReactiveVar(1);
+    this.autorun(() => {
+      const limitOrgs = this.page.get() * Number.MAX_SAFE_INTEGER;
+      this.subscribe('org', this.findOrgsOptions.get(), limitOrgs, () => {});
+    });
+  },
+
+  onRendered() {
+    this.setLoading(false);
+  },
+
+  setError(error) {
+    this.error.set(error);
+  },
+
+  setLoading(w) {
+    this.loading.set(w);
+  },
+
+  isLoading() {
+    return this.loading.get();
+  },
+
+  events() {
+    return [
+      {
+        'keyup input'() {
+          this.setError('');
+        },
+        'click #leaveBoardBtn'(){
+          let stringOrgId = document.getElementById('hideOrgId').value;
+          let currentBoard = Boards.findOne(Session.get('currentBoard'));
+          let boardOrganizations = [];
+          if(currentBoard.orgs !== undefined){
+            for(let i = 0; i < currentBoard.orgs.length; i++){
+              if(currentBoard.orgs[i].orgId != stringOrgId){
+                boardOrganizations.push(currentBoard.orgs[i]);
+              }
+            }
+          }
+
+          Meteor.call('setBoardOrgs', boardOrganizations, currentBoard._id);
+
+          Popup.close();
+        },
+        'click #cancelLeaveBoardBtn'(){
+          Popup.close();
+        },
+      },
+    ];
+  },
+}).register('removeBoardOrgPopup');
+
+Template.removeBoardOrgPopup.helpers({
+  org() {
+    return Org.findOne(this.orgId);
+  },
+});
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.error = new ReactiveVar('');
+    this.loading = new ReactiveVar(false);
+    this.findOrgsOptions = new ReactiveVar({});
+
+    this.page = new ReactiveVar(1);
+    this.autorun(() => {
+      const limitTeams = this.page.get() * Number.MAX_SAFE_INTEGER;
+      this.subscribe('team', this.findOrgsOptions.get(), limitTeams, () => {});
+    });
+  },
+
+  onRendered() {
+    this.setLoading(false);
+  },
+
+  setError(error) {
+    this.error.set(error);
+  },
+
+  setLoading(w) {
+    this.loading.set(w);
+  },
+
+  isLoading() {
+    return this.loading.get();
+  },
+
+  events() {
+    return [
+      {
+        'keyup input'() {
+          this.setError('');
+        },
+        'change #jsBoardTeams'() {
+          let currentBoard = Boards.findOne(Session.get('currentBoard'));
+          let selectElt = document.getElementById("jsBoardTeams");
+          let selectedTeamId = selectElt.options[selectElt.selectedIndex].value;
+          let selectedTeamDisplayName = selectElt.options[selectElt.selectedIndex].text;
+          let boardTeams = [];
+          if(currentBoard.teams !== undefined){
+            for(let i = 0; i < currentBoard.teams.length; i++){
+              boardTeams.push(currentBoard.teams[i]);
+            }
+          }
+
+          if(!boardTeams.some((team) => team.teamDisplayName == selectedTeamDisplayName)){
+            boardTeams.push({
+              "teamId": selectedTeamId,
+              "teamDisplayName": selectedTeamDisplayName,
+              "isActive" : true,
+            })
+
+            if (selectedTeamId != "-1") {
+              Meteor.call('setBoardTeams', boardTeams, currentBoard._id);
+            }
+          }
+
+          Popup.close();
+        },
+      },
+    ];
+  },
+}).register('addBoardTeamPopup');
+
+Template.addBoardTeamPopup.helpers({
+  teamsDatas() {
+    let teams = Team.find({}, {sort: { createdAt: -1 }});
+    return teams;
+  },
+});
+
+BlazeComponent.extendComponent({
+  onCreated() {
+    this.error = new ReactiveVar('');
+    this.loading = new ReactiveVar(false);
+    this.findOrgsOptions = new ReactiveVar({});
+
+    this.page = new ReactiveVar(1);
+    this.autorun(() => {
+      const limitTeams = this.page.get() * Number.MAX_SAFE_INTEGER;
+      this.subscribe('team', this.findOrgsOptions.get(), limitTeams, () => {});
+    });
+  },
+
+  onRendered() {
+    this.setLoading(false);
+  },
+
+  setError(error) {
+    this.error.set(error);
+  },
+
+  setLoading(w) {
+    this.loading.set(w);
+  },
+
+  isLoading() {
+    return this.loading.get();
+  },
+
+  events() {
+    return [
+      {
+        'keyup input'() {
+          this.setError('');
+        },
+        'click #leaveBoardTeamBtn'(){
+          let stringTeamId = document.getElementById('hideTeamId').value;
+          let currentBoard = Boards.findOne(Session.get('currentBoard'));
+          let boardTeams = [];
+          if(currentBoard.teams !== undefined){
+            for(let i = 0; i < currentBoard.teams.length; i++){
+              if(currentBoard.teams[i].teamId != stringTeamId){
+                boardTeams.push(currentBoard.teams[i]);
+              }
+            }
+          }
+
+          Meteor.call('setBoardTeams', boardTeams, currentBoard._id);
+
+          Popup.close();
+        },
+        'click #cancelLeaveBoardTeamBtn'(){
+          Popup.close();
+        },
+      },
+    ];
+  },
+}).register('removeBoardTeamPopup');
+
+Template.removeBoardTeamPopup.helpers({
+  team() {
+    return Team.findOne(this.teamId);
+  },
+});
 
 Template.changePermissionsPopup.events({
   'click .js-set-admin, click .js-set-normal, click .js-set-no-comments, click .js-set-comment-only, click .js-set-worker'(

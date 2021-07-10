@@ -34,6 +34,8 @@ Meteor.publish('boards', function() {
         description: 1,
         color: 1,
         members: 1,
+        orgs: 1,
+        teams: 1,
         permission: 1,
         type: 1,
         sort: 1,

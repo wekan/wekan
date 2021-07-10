@@ -7,6 +7,42 @@ See https://github.com/wekan/wekan/issues/3874
 
 This release adds the following new features:
 
+- [Added Code View `</>` button when `RICHER_CARD_COMMENT_EDITOR=true` and in desktop view
+  where is enough screen space for buttons (not added to mobile
+  view)](https://github.com/wekan/wekan/commit/ec01e5182d6b8c848d752540887a8113472b0226).
+  Thanks to xet7.
+
+and adds the following updates:
+
+- [Updated dependencies](https://github.com/wekan/wekan/commit/7024929881c05cad472de74c86517cf80c8e240c).
+  Thanks to developers of dependencies.
+
+and fixes the following bugs:
+
+- [Fixed Line break which is wrongly added in Cards description and Cards
+  comments](https://github.com/wekan/wekan/commit/ec01e5182d6b8c848d752540887a8113472b0226).
+  Thanks to Emile840 and xet7.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.37 2021-07-04 Wekan release
+
+This release adds the following CRITICAL SECURITY UPDATES:
+
+- [Updated to Node.js v12.22.2](https://github.com/wekan/wekan/commit/4feffd90e3f466609e09524e0ddccdafa2faef32).
+  Thanks to Node.js developers.
+
+and fixes the following bugs:
+
+- [Building OpenAPI docs is broken in Wekan v3.56](https://github.com/wekan/wekan/pull/3889).
+  Thanks to bentiss.
+
+Thanks to above GitHub users for their contributions and translators for their translations.
+
+# v5.36 2021-06-29 Wekan release
+
+This release adds the following new features:
+
 - [Added some controls and warning messages when user try to delete an organization or team that has
   at least one user belongs to it](https://github.com/wekan/wekan/pull/3865).
   Thanks to Emile840.
@@ -18,6 +54,10 @@ This release adds the following new features:
   Do not create Template Container by default, when creating user.
   [Part 3](https://github.com/wekan/wekan/commit/7f17bc9fb03d6f4b43a2cd71ecc372e0f1b0f491).
   Template container titles "Card/List/Board Templates" automatically translated.
+  Thanks to xet7.
+  [Part 4](https://github.com/wekan/wekan/commit/3b4a44abb1c1c4339c3d1b00dfac1c69ec3684cd).
+  Hide this Shared Templates feature while it's not finished yet.
+  Added back creating Template Container by default, when creating user.
   Thanks to xet7.
 - [Added testsuite](https://github.com/wekan/wekan/pull/3872).
   Thanks to jankapunkt.
@@ -47,6 +87,8 @@ and fixes the following bugs:
   [Part 2](https://github.com/wekan/wekan/commit/7f648720afa42a2b53bfdee7e709fd891eb33373),
   [Part 3](https://github.com/wekan/wekan/commit/0f34d407a43c8a63d882e69ea64ea17fc4b22c7b).
   Thanks to xet7.
+- [Fixed "Search All Boards" instructions are gone](https://github.com/wekan/wekan/commit/30ffcc924663f39406b250d93b14384a2f38ab6a).
+  Thanks to ClaudiaK21 and xet7.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 

@@ -442,6 +442,8 @@ Users.safeFields = {
   'profile.fullname': 1,
   'profile.avatarUrl': 1,
   'profile.initials': 1,
+  orgs: 1,
+  teams: 1,
 };
 
 if (Meteor.isClient) {
@@ -1507,7 +1509,7 @@ if (Meteor.isServer) {
             Lists.insert({title: TAPi18n.__(title), boardId, sort: titleIndex}, fakeUser);
           });
         });
-
+        */
 
         // Insert Template Container
         const Future = require('fibers/future');
@@ -1594,7 +1596,7 @@ if (Meteor.isServer) {
         future1.wait();
         future2.wait();
         future3.wait();
-        */
+        // End of Insert Template Container
       });
     });
   }
