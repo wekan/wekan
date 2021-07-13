@@ -766,7 +766,15 @@ setBoardClear(color1,color2)
   .toggle-label:after, .board-color-modern .toggle-switch:checked~.toggle-label:after
     background-color: #819C5D !important
 
+  button, input:not([type=file]), select, textarea
+    border-radius: 2px
+
   /* Headers */
+  &#header
+    background-color: #262626
+    border-bottom: 1px solid #555555;
+    border-top: 1px solid #555555;
+
   &#header-quick-access, .background-box, #header
     background-color: #333333
 
@@ -774,13 +782,15 @@ setBoardClear(color1,color2)
     padding: 4px
     font-size: 14px
 
+  &#header-quick-access .allBoards
+    padding: 5px 10px 0 10px;
+
+  &#header-quick-access ul.header-quick-access-list
+    margin: -5px 0 -5px 0
+
   &#header #header-main-bar
-    height: 30px
     padding-top: 3px
     padding-bottom: 3px
-
-  &#header
-    box-shadow: 0 6px 6px -6px rgba(0,0,0,0.8)
 
   &#header-quick-access ul
     overflow: visible
@@ -812,17 +822,22 @@ setBoardClear(color1,color2)
   /* Content */
   .board-canvas
     background: #2a2a2a
-    padding: 10px 10px 0
 
   /* Swimlanes */
   .swimlane .swimlane-header-wrap
-    background-color: #666666
+    background-color: #494949
     color: #cccccc
     padding: 4px 0
-    margin-bottom: 10px
 
   .swimlane .swimlane-header-wrap .swimlane-header
     font-family: Poppins
+
+  .swimlane .swimlane-header-wrap .swimlane-header-menu
+    padding: 6px
+    font-size: 16px
+
+  .swimlane .swimlane-header-wrap .swimlane-header-plus-icon
+    font-size: 16px
 
   .swimlane
     background: #2a2a2a
@@ -836,13 +851,19 @@ setBoardClear(color1,color2)
     border: 0px solid #666666
     flex: 0 0 265px;
 
+  .swimlane .list:first-child
+    margin-left: 0
+
   .swimlane .list:nth-child(even)
     background: #5f5f5f
 
+  .swimlane .list:nth-child(odd) .list-header
+    background: #3b3b3b
+
   .list-header
     background: #333333
-    padding-top: 10px
-    border-bottom: 6px solid #333333
+    padding: 10px
+    border-bottom: 0
 
   .list-header .viewer
     padding-left: 10px
@@ -852,7 +873,11 @@ setBoardClear(color1,color2)
     color: #eeeeee
 
   .list-header .list-header-menu
-    padding-top: 17px
+    padding: 10px
+    top: 0
+
+  .list-header .list-header-plus-icon
+    color: #a6a6a6
 
   .list-body
     scrollbar-width: thin
@@ -883,35 +908,43 @@ setBoardClear(color1,color2)
     color: #ffffff
 
   /* Mini Card */
+  .minicard-wrapper
+    margin-bottom: 12px
+
   .minicard
     background-color: #444444
     color: #cccccc
     border-radius: 2px
-    font-size: 0.9em
+    font-size: 0.95em
     padding: 10px
     box-shadow: 0 4px 3px -3px rgba(0,0,0,0.8)
     border-bottom: 1px solid #666666
 
   .minicard:hover
-    background-color: #555555 !important
+    background-color: #494949 !important
+
+  .minicard .minicard-labels
+    margin-bottom: 4px
 
   .minicard .card-label
     font-size: 11px
     font-weight: 400
-    padding: 2px 6px 0
+    padding: 1px 6px 0
+    border-radius: 2px
 
   .minicard .badges
     color: #bbbbbb
 
   .minicard .date
-    margin-top: 7px
+    margin-top: 10px
     font-size: 11px
 
   .card-date
-    color: #555555
+    color: #444444
+    border-radius: 2px
 
   .card-date.almost-due
-    color: #666666
+    color: #444444
 
   .minicard.minicard-composer textarea.minicard-composer-textarea:focus
     background-color: #eeeeee
@@ -970,10 +1003,16 @@ setBoardClear(color1,color2)
 
   .card-details .checklist-item
     background-color: rgba(255,255,255,0.1)
-    padding: 2px 8px
-    border-radius: 3px
+    padding: 4px 8px
+    border-radius: 2px
     font-size: 13px
     margin-top: 5px
+
+  .card-details .checklist-item:hover
+    background-color: rgba(255,255,255,0.2)
+
+  .card-details .checklist-item .item-title .viewer p
+    max-width: auto
 
   .card-details .check-box.materialCheckBox
     border-color: #ffffff
