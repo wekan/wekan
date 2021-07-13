@@ -22,6 +22,8 @@ and fixes the following bugs:
 - [Fixed Line break which is wrongly added in Cards description and Cards
   comments](https://github.com/wekan/wekan/commit/ec01e5182d6b8c848d752540887a8113472b0226).
   Thanks to Emile840 and xet7.
+- [Small fixes for ModernDark theme](https://github.com/wekan/wekan/pull/3902).
+  Thanks to jghaanstra.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
