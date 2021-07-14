@@ -3,12 +3,12 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-meteor-base@1.5.0
+meteor-base@1.5.1
 
 # Build system
 ecmascript@0.15.2
-standard-minifier-css@1.7.2
-standard-minifier-js@2.6.0
+standard-minifier-css@1.7.3
+standard-minifier-js@2.6.1
 mquandalle:jade
 coffeescript@2.4.1!
 
@@ -59,7 +59,7 @@ rajit:bootstrap3-datepicker
 shell-server@0.5.0
 email@2.1.0
 horka:swipebox
-dynamic-import@0.7.0
+dynamic-import@0.7.1
 rzymek:fullcalendar
 momentjs:moment@2.22.2
 browser-policy-framing@1.1.0
@@ -126,7 +126,7 @@ pascoual:pdfkit
 lmieulet:meteor-coverage
 meteortesting:mocha
 aldeed:simple-schema
-accounts-password
+accounts-password@2.0.0
 matb33:collection-hooks
 simple:json-routes
 kadira:flow-router
