@@ -5,6 +5,7 @@ runOnServer(function() {
   // it here we use runOnServer to have it inside a function instead of an
   // if (Meteor.isServer) block
   import { ExporterCardPDF } from './server/ExporterCardPDF';
+  import { Picker } from 'meteor/communitypackages:picker';
 
   // todo XXX once we have a real API in place, move that route there
   // todo XXX also  share the route definition between the client and the server

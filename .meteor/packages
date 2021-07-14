@@ -68,7 +68,6 @@ msavin:usercache
 # Keep stylus in 1.1.0, because building v2 takes extra 52 minutes.
 coagmano:stylus@1.1.0!
 meteorhacks:subs-manager
-meteorhacks:picker
 meteorhacks:aggregate@1.3.0
 wekan-markdown
 konecty:mongo-counter
@@ -132,3 +131,4 @@ simple:json-routes
 kadira:flow-router
 mrt:just-i18n
 spacebars
+communitypackages:picker

@@ -1,7 +1,9 @@
+import { Meteor } from 'meteor/meteor';
+import { Picker } from 'meteor/communitypackages:picker';
+
 // Sandstorm context is detected using the METEOR_SETTINGS environment variable
 // in the package definition.
-const isSandstorm =
-  Meteor.settings && Meteor.settings.public && Meteor.settings.public.sandstorm;
+const isSandstorm = Meteor.settings?.public?.sandstorm;
 
 // In sandstorm we only have one board per sandstorm instance. Since we want to
 // keep most of our code unchanged, we simply hard-code a board `_id` and
