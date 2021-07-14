@@ -51,7 +51,7 @@ fortawesome:fontawesome
 mousetrap:mousetrap
 mquandalle:jquery-textcomplete
 mquandalle:mousetrap-bindglobal
-peerlibrary:blaze-components@=0.15.1
+peerlibrary:blaze-components
 templates:tabs
 meteor-autosize
 rajit:bootstrap3-datepicker
