@@ -14,7 +14,9 @@ This release adds the following new features:
 
 and adds the following updates:
 
-- [Updated dependencies](https://github.com/wekan/wekan/commit/7024929881c05cad472de74c86517cf80c8e240c).
+- Updated dependencies
+  [Part 1](https://github.com/wekan/wekan/commit/7024929881c05cad472de74c86517cf80c8e240c),
+  [Part 2](https://github.com/wekan/wekan/commit/609adcdf100db226c5f310577195afa4b1a4aead).
   Thanks to developers of dependencies.
 
 and fixes the following bugs:
@@ -22,6 +24,10 @@ and fixes the following bugs:
 - [Fixed Line break which is wrongly added in Cards description and Cards
   comments](https://github.com/wekan/wekan/commit/ec01e5182d6b8c848d752540887a8113472b0226).
   Thanks to Emile840 and xet7.
+- [Fixed rebuild-wekan.sh](https://github.com/wekan/wekan/commit/1d5dd5e60fec151de6c7dce7ef4e758b562923b9).
+  Thanks to xet7.
+- [Small fixes for ModernDark theme](https://github.com/wekan/wekan/pull/3902).
+  Thanks to jghaanstra.
 
 Thanks to above GitHub users for their contributions and translators for their translations.
 
