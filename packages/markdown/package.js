@@ -5,9 +5,6 @@ Package.describe({
 	git: 'https://github.com/wekan/markdown.git',
 });
 
-// Before Meteor 0.9?
-if(!Package.onUse) Package.onUse = Package.on_use;
-
 Package.onUse(function (api) {
 	if(api.versionsFrom) api.versionsFrom('1.8.2');
 
