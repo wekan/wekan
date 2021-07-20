@@ -14,6 +14,29 @@ FlowRouter.route('/', {
     Session.set('currentCard', null);
 
     Filter.reset();
+    Session.set('sortBy', '');
+    EscapeActions.executeAll();
+
+    Utils.manageCustomUI();
+    Utils.manageMatomo();
+
+    BlazeLayout.render('defaultLayout', {
+      headerBar: 'boardListHeaderBar',
+      content: 'boardList',
+    });
+  },
+});
+
+FlowRouter.route('/public', {
+  name: 'public',
+  triggersEnter: [AccountsTemplates.ensureSignedIn],
+  action() {
+    Session.set('currentBoard', null);
+    Session.set('currentList', null);
+    Session.set('currentCard', null);
+
+    Filter.reset();
+    Session.set('sortBy', '');
     EscapeActions.executeAll();
 
     Utils.manageCustomUI();
@@ -38,6 +61,7 @@ FlowRouter.route('/b/:id/:slug', {
     // want to excape every current actions (filters, etc.)
     if (previousBoard !== currentBoard) {
       Filter.reset();
+      Session.set('sortBy', '');
       EscapeActions.executeAll();
     } else {
       EscapeActions.executeUpTo('popup-close');
@@ -92,6 +116,92 @@ FlowRouter.route('/shortcuts', {
   },
 });
 
+FlowRouter.route('/my-cards', {
+  name: 'my-cards',
+  triggersEnter: [AccountsTemplates.ensureSignedIn],
+  action() {
+    Filter.reset();
+    Session.set('sortBy', '');
+    // EscapeActions.executeAll();
+    EscapeActions.executeUpTo('popup-close');
+
+    Utils.manageCustomUI();
+    Utils.manageMatomo();
+
+    BlazeLayout.render('defaultLayout', {
+      headerBar: 'myCardsHeaderBar',
+      content: 'myCards',
+    });
+    // }
+  },
+});
+
+FlowRouter.route('/due-cards', {
+  name: 'due-cards',
+  triggersEnter: [AccountsTemplates.ensureSignedIn],
+  action() {
+    Filter.reset();
+    Session.set('sortBy', '');
+    // EscapeActions.executeAll();
+    EscapeActions.executeUpTo('popup-close');
+
+    Utils.manageCustomUI();
+    Utils.manageMatomo();
+
+    BlazeLayout.render('defaultLayout', {
+      headerBar: 'dueCardsHeaderBar',
+      content: 'dueCards',
+    });
+    // }
+  },
+});
+
+FlowRouter.route('/global-search', {
+  name: 'global-search',
+  triggersEnter: [AccountsTemplates.ensureSignedIn],
+  action() {
+    Filter.reset();
+    Session.set('sortBy', '');
+    // EscapeActions.executeAll();
+    EscapeActions.executeUpTo('popup-close');
+
+    Utils.manageCustomUI();
+    Utils.manageMatomo();
+    DocHead.setTitle(TAPi18n.__('globalSearch-title'));
+
+    if (FlowRouter.getQueryParam('q')) {
+      Session.set(
+        'globalQuery',
+        decodeURIComponent(FlowRouter.getQueryParam('q')),
+      );
+    }
+    BlazeLayout.render('defaultLayout', {
+      headerBar: 'globalSearchHeaderBar',
+      content: 'globalSearch',
+    });
+  },
+});
+
+FlowRouter.route('/broken-cards', {
+  name: 'broken-cards',
+  action() {
+    const brokenCardsTemplate = 'brokenCards';
+
+    Filter.reset();
+    Session.set('sortBy', '');
+    // EscapeActions.executeAll();
+    EscapeActions.executeUpTo('popup-close');
+
+    Utils.manageCustomUI();
+    Utils.manageMatomo();
+
+    BlazeLayout.render('defaultLayout', {
+      headerBar: 'brokenCardsHeaderBar',
+      content: brokenCardsTemplate,
+    });
+  },
+});
+
 FlowRouter.route('/import/:source', {
   name: 'import',
   triggersEnter: [AccountsTemplates.ensureSignedIn],
@@ -105,6 +215,7 @@ FlowRouter.route('/import/:source', {
     Session.set('importSource', params.source);
 
     Filter.reset();
+    Session.set('sortBy', '');
     EscapeActions.executeAll();
     BlazeLayout.render('defaultLayout', {
       headerBar: 'importHeaderBar',
@@ -123,6 +234,7 @@ FlowRouter.route('/setting', {
       Session.set('currentCard', null);
 
       Filter.reset();
+      Session.set('sortBy', '');
       EscapeActions.executeAll();
     },
   ],
@@ -145,6 +257,7 @@ FlowRouter.route('/information', {
       Session.set('currentCard', null);
 
       Filter.reset();
+      Session.set('sortBy', '');
       EscapeActions.executeAll();
     },
   ],
@@ -166,6 +279,7 @@ FlowRouter.route('/people', {
       Session.set('currentCard', null);
 
       Filter.reset();
+      Session.set('sortBy', '');
       EscapeActions.executeAll();
     },
   ],
@@ -173,6 +287,28 @@ FlowRouter.route('/people', {
     BlazeLayout.render('defaultLayout', {
       headerBar: 'settingHeaderBar',
       content: 'people',
+    });
+  },
+});
+
+FlowRouter.route('/admin-reports', {
+  name: 'admin-reports',
+  triggersEnter: [
+    AccountsTemplates.ensureSignedIn,
+    () => {
+      Session.set('currentBoard', null);
+      Session.set('currentList', null);
+      Session.set('currentCard', null);
+
+      Filter.reset();
+      Session.set('sortBy', '');
+      EscapeActions.executeAll();
+    },
+  ],
+  action() {
+    BlazeLayout.render('defaultLayout', {
+      headerBar: 'settingHeaderBar',
+      content: 'adminReports',
     });
   },
 });

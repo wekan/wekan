@@ -1,3 +1,5 @@
+import { Spinner } from '/client/lib/spinner';
+
 const subManager = new SubsManager();
 const InfiniteScrollIter = 10;
 
@@ -8,7 +10,7 @@ BlazeComponent.extendComponent({
   },
 
   mixins() {
-    return [Mixins.PerfectScrollbar];
+    return [];
   },
 
   openForm(options) {
@@ -77,7 +79,7 @@ BlazeComponent.extendComponent({
       else if (
         Utils.boardView() === 'board-view-lists' ||
         Utils.boardView() === 'board-view-cal' ||
-        !Utils.boardView
+        !Utils.boardView()
       )
         swimlaneId = board.getDefaultSwimline()._id;
 
@@ -116,8 +118,6 @@ BlazeComponent.extendComponent({
       if (position === 'bottom') {
         this.scrollToBottom();
       }
-
-      formComponent.reset();
     }
   },
 
@@ -168,13 +168,16 @@ BlazeComponent.extendComponent({
 
   cardsWithLimit(swimlaneId) {
     const limit = this.cardlimit.get();
+    const defaultSort = { sort: 1 };
+    const sortBy = Session.get('sortBy') ? Session.get('sortBy') : defaultSort;
     const selector = {
       listId: this.currentData()._id,
       archived: false,
     };
     if (swimlaneId) selector.swimlaneId = swimlaneId;
     return Cards.find(Filter.mongoSelector(selector), {
-      sort: ['sort'],
+      // sort: ['sort'],
+      sort: sortBy,
       limit,
     });
   },
@@ -239,7 +242,7 @@ BlazeComponent.extendComponent({
         .customFields()
         .fetch(),
       function(field) {
-        if (field.automaticallyOnCard)
+        if (field.automaticallyOnCard || field.alwaysOnCard)
           arr.push({ _id: field._id, value: null });
       },
     );
@@ -411,7 +414,7 @@ BlazeComponent.extendComponent({
         type: 'board',
       },
       {
-        sort: ['title'],
+        sort: { sort: 1 /* boards default sorting */ },
       },
     );
     return boards;
@@ -523,7 +526,7 @@ BlazeComponent.extendComponent({
 
 BlazeComponent.extendComponent({
   mixins() {
-    return [Mixins.PerfectScrollbar];
+    return [];
   },
 
   onCreated() {
@@ -549,7 +552,7 @@ BlazeComponent.extendComponent({
       board = Boards.findOne((Meteor.user().profile || {}).templatesBoardId);
     } else {
       // Prefetch first non-current board id
-      board = Boards.findOne({
+      board = Boards.find({
         archived: false,
         'members.userId': Meteor.userId(),
         _id: {
@@ -597,7 +600,7 @@ BlazeComponent.extendComponent({
         type: 'board',
       },
       {
-        sort: ['title'],
+        sort: { sort: 1 /* boards default sorting */ },
       },
     );
     return boards;
@@ -658,10 +661,7 @@ BlazeComponent.extendComponent({
               _id = element.copy(this.boardId, this.swimlaneId, this.listId);
               // 1.B Linked card
             } else {
-              delete element._id;
-              element.type = 'cardType-linkedCard';
-              element.linkedId = element.linkedId || element._id;
-              _id = Cards.insert(element);
+              _id = element.link(this.boardId, this.swimlaneId, this.listId);
             }
             Filter.addException(_id);
             // List insertion
@@ -675,15 +675,21 @@ BlazeComponent.extendComponent({
             element.sort = Boards.findOne(this.boardId)
               .swimlanes()
               .count();
-            element.type = 'swimlalne';
+            element.type = 'swimlane';
             _id = element.copy(this.boardId);
           } else if (this.isBoardTemplateSearch) {
-            board = Boards.findOne(element.linkedId);
-            board.sort = Boards.find({ archived: false }).count();
-            board.type = 'board';
-            board.title = element.title;
-            delete board.slug;
-            _id = board.copy();
+            Meteor.call(
+              'copyBoard',
+              element.linkedId,
+              {
+                sort: Boards.find({ archived: false }).count(),
+                type: 'board',
+                title: element.title,
+              },
+              (err, data) => {
+                _id = data;
+              },
+            );
           }
           Popup.close();
         },
@@ -692,7 +698,7 @@ BlazeComponent.extendComponent({
   },
 }).register('searchElementPopup');
 
-BlazeComponent.extendComponent({
+(class extends Spinner {
   onCreated() {
     this.cardlimit = this.parentComponent().cardlimit;
 
@@ -720,11 +726,11 @@ BlazeComponent.extendComponent({
         .parentComponent()
         .data()._id;
     }
-  },
+  }
 
   onRendered() {
     this.spinner = this.find('.sk-spinner-list');
-    this.container = this.$(this.spinner).parents('.js-perfect-scrollbar')[0];
+    this.container = this.$(this.spinner).parents('.list-body')[0];
 
     $(this.container).on(
       `scroll.spinner_${this.swimlaneId}_${this.listId}`,
@@ -735,47 +741,58 @@ BlazeComponent.extendComponent({
     );
 
     this.updateList();
-  },
+  }
 
   onDestroyed() {
     $(this.container).off(`scroll.spinner_${this.swimlaneId}_${this.listId}`);
     $(window).off(`resize.spinner_${this.swimlaneId}_${this.listId}`);
-  },
+  }
+
+  checkIdleTime() {
+    return window.requestIdleCallback ||
+    function(handler) {
+      const startTime = Date.now();
+      return setTimeout(function() {
+        handler({
+          didTimeout: false,
+          timeRemaining() {
+            return Math.max(0, 50.0 - (Date.now() - startTime));
+          },
+        });
+      }, 1);
+    };
+  }
 
   updateList() {
     // Use fallback when requestIdleCallback is not available on iOS and Safari
     // https://www.afasterweb.com/2017/11/20/utilizing-idle-moments/
-    checkIdleTime =
-      window.requestIdleCallback ||
-      function(handler) {
-        const startTime = Date.now();
-        return setTimeout(function() {
-          handler({
-            didTimeout: false,
-            timeRemaining() {
-              return Math.max(0, 50.0 - (Date.now() - startTime));
-            },
-          });
-        }, 1);
-      };
 
     if (this.spinnerInView()) {
       this.cardlimit.set(this.cardlimit.get() + InfiniteScrollIter);
-      checkIdleTime(() => this.updateList());
+      this.checkIdleTime(() => this.updateList());
     }
-  },
+  }
 
   spinnerInView() {
-    const parentViewHeight = this.container.clientHeight;
-    const bottomViewPosition = this.container.scrollTop + parentViewHeight;
-
-    const threshold = this.spinner.offsetTop;
-
     // spinner deleted
     if (!this.spinner.offsetTop) {
       return false;
     }
 
-    return bottomViewPosition > threshold;
-  },
-}).register('spinnerList');
+    const parentViewHeight = this.container.clientHeight;
+    const bottomViewPosition = this.container.scrollTop + parentViewHeight;
+
+    let spinnerOffsetTop = this.spinner.offsetTop;
+
+    const addCard = $(this.container).find("a.open-minicard-composer").first()[0];
+    if (addCard !== undefined) {
+      spinnerOffsetTop -= addCard.clientHeight;
+    }
+
+    return bottomViewPosition > spinnerOffsetTop;
+  }
+
+  getSkSpinnerName() {
+    return "sk-spinner-" + super.getSpinnerName().toLowerCase();
+  }
+}.register('spinnerList'));

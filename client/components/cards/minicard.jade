@@ -4,8 +4,8 @@ template(name="minicard")
     class="{{#if isLinkedBoard}}linked-board{{/if}}"
     class="minicard-{{colorClass}}")
     if isMiniScreen
-      //.handle
-      //  .fa.fa-arrows
+      .handle
+        .fa.fa-arrows
     unless isMiniScreen
       if showDesktopDragHandles
         .handle
@@ -74,19 +74,34 @@ template(name="minicard")
                   +viewer
                     = definition.name
               .minicard-custom-field-item
-                +viewer
-                  = trueValue
+                if $eq definition.type "currency"
+                  +viewer
+                    = formattedCurrencyCustomFieldValue(definition)
+                else if $eq definition.type "date"
+                  .date
+                    +minicardCustomFieldDate
+                else if $eq definition.type "checkbox"
+                  .materialCheckBox(class="{{#if value }}is-checked{{/if}}")
+                else if $eq definition.type "stringtemplate"
+                  +viewer
+                    = formattedStringtemplateCustomFieldValue(definition)
+                else
+                  +viewer
+                    = trueValue
 
     if getAssignees
       .minicard-assignees.js-minicard-assignees
         each getAssignees
           +userAvatar(userId=this)
-        hr
 
     if getMembers
       .minicard-members.js-minicard-members
         each getMembers
           +userAvatar(userId=this)
+
+    if showCreator
+      .minicard-creator
+        +userAvatar(userId=this.userId noRemove=true)
 
     .badges
       unless currentUser.isNoComments
@@ -100,6 +115,17 @@ template(name="minicard")
       if getDescription
         .badge.badge-state-image-only(title=getDescription)
           span.badge-icon.fa.fa-align-left
+      if getVoteQuestion
+        .badge.badge-state-image-only(title=getVoteQuestion)
+          span.badge-icon.fa.fa-thumbs-up(class="{{#if voteState}}text-green{{/if}}")
+          span.badge-text {{ voteCountPositive }}
+          span.badge-icon.fa.fa-thumbs-down(class="{{#if $eq voteState false}}text-red{{/if}}")
+          span.badge-text {{ voteCountNegative }}
+      if getPokerQuestion
+        .badge.badge-state-image-only(title=getPokerQuestion)
+          span.badge-icon.fa.fa-check(class="{{#if pokerState}}text-green{{/if}}")
+          if expiredPoker
+            span.badge-text {{ getPokerEstimation }}
       if attachments.count
         .badge
           span.badge-icon.fa.fa-paperclip
@@ -108,3 +134,12 @@ template(name="minicard")
         .badge(class="{{#if checklistFinished}}is-finished{{/if}}")
           span.badge-icon.fa.fa-check-square-o
           span.badge-text.check-list-text {{checklistFinishedCount}}/{{checklistItemCount}}
+      if allSubtasks.count
+        .badge
+          span.badge-icon.fa.fa-sitemap
+          span.badge-text.check-list-text {{subtasksFinishedCount}}/{{allSubtasksCount}}
+          //{{subtasksFinishedCount}}/{{subtasksCount}} does not work because when a subtaks is archived, the count goes down
+      if currentBoard.allowsCardSortingByNumber
+        .badge
+          span.badge-icon.fa.fa-sort
+          span.badge-text {{ sort }}

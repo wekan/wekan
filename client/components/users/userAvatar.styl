@@ -9,7 +9,6 @@ avatar-radius = 50%
   float: left
   height: 30px
   width: @height
-  margin: 0 4px 4px 0
   cursor: pointer
   user-select: none
   z-index: 1
@@ -29,6 +28,8 @@ avatar-radius = 50%
       position: absolute
 
     &.avatar-image
+      object-fit: cover;
+      object-position: center;
       height: 100%
       width: @height
 

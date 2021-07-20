@@ -16,6 +16,10 @@ textarea.js-add-checklist-item, textarea.js-edit-checklist-item
   &:hover
     color: inherit
 
+.checklists-title
+  display: flex
+  justify-content: space-between
+
 .checklist-title
   .checkbox
     float: left
@@ -37,6 +41,11 @@ textarea.js-add-checklist-item, textarea.js-edit-checklist-item
 
   .js-delete-checklist
     @extends .delete-text
+
+  span.fa.checklist-handle
+    padding-right: 20px
+    padding-top: 3px
+    float: left
 
 
 .js-confirm-checklist-delete
@@ -99,6 +108,17 @@ textarea.js-add-checklist-item, textarea.js-edit-checklist-item
   margin-top: 3px
   display: flex
   background: darken(white, 3%)
+  opacity: 1
+  transition: height 0ms 400ms, opacity 400ms 0ms
+  height: auto
+  overflow: hidden
+
+  &.is-checked.invisible
+    opacity: 0
+    height: 0
+    transition: height 0ms 0ms, opacity 600ms 0ms
+    margin-top: 0
+    margin-bottom: 0
 
   &.placeholder
     background: darken(white, 20%)
@@ -113,6 +133,9 @@ textarea.js-add-checklist-item, textarea.js-edit-checklist-item
   &:hover
     background-color: darken(white, 8%)
 
+  .check-box-container
+    padding-right: 10px;
+
   .check-box
     margin: 0.1em 0 0 0;
     &.is-checked
@@ -121,16 +144,20 @@ textarea.js-add-checklist-item, textarea.js-edit-checklist-item
 
   .item-title
     flex: 1
-    padding-left: 10px;
     &.is-checked
       color: #8c8c8c
       font-style: italic
+      text-decoration: line-through
     & .viewer
       p
         margin-bottom: 2px
         display: block
         word-wrap: break-word
         max-width: 420px
+
+  span.fa.checklistitem-handle
+    padding-top: 2px
+    padding-right: 10px;
 
 .js-delete-checklist-item
   margin: 0 0 0.5em 1.33em

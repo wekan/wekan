@@ -1,0 +1,62 @@
+{
+    "name": "Wekan",
+    "short_name": "Wekan",
+    "icons": [
+        {
+            "src": "/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "/Square150x150Logo.scale-100.png",
+            "sizes": "150x150",
+            "type": "image/png"
+        },
+        {
+            "src": "/Square44x44Logo.scale-100.png",
+            "sizes": "44x44",
+            "type": "image/png"
+        },
+        {
+            "src": "/StoreLogo.scale-100.png",
+            "sizes": "50x50",
+            "type": "image/png"
+        },
+        {
+            "src": "/maskable_icon.png",
+            "sizes": "474x474",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "/monochrome-icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "monochrome"
+        }
+    ],
+    "screenshots" : [
+      {
+        "src": "/screenshot1.webp",
+        "sizes": "1280x720",
+        "type": "image/webp"
+      },
+      {
+        "src": "/screenshot2.webp",
+        "sizes": "1280x720",
+        "type": "image/webp"
+      }
+    ],
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
+    "start_url": "/sign-in",
+    "display": "standalone",
+    "orientation": "any",
+    "categories": ["productivity"],
+    "iarc_rating_id": "70d7c4a4-3e5a-4714-a7dc-fa006613ba96"
+}

@@ -1,3 +1,6 @@
+import { DatePicker } from '/client/lib/datepicker';
+import Cards from '/models/cards';
+
 Template.cardCustomFieldsPopup.helpers({
   hasCustomField() {
     const card = Cards.findOne(Session.get('currentCard'));
@@ -79,6 +82,56 @@ CardCustomField.register('cardCustomField');
     ];
   }
 }.register('cardCustomField-number'));
+
+// cardCustomField-checkbox
+(class extends CardCustomField {
+  onCreated() {
+    super.onCreated();
+  }
+
+  toggleItem() {
+    this.card.setCustomField(this.customFieldId, !this.data().value);
+  }
+
+  events() {
+    return [
+      {
+        'click .js-checklist-item .check-box-container': this.toggleItem,
+      },
+    ];
+  }
+}.register('cardCustomField-checkbox'));
+
+// cardCustomField-currency
+(class extends CardCustomField {
+  onCreated() {
+    super.onCreated();
+
+    this.currencyCode = this.data().definition.settings.currencyCode;
+  }
+
+  formattedValue() {
+    const locale = TAPi18n.getLanguage();
+
+    return new Intl.NumberFormat(locale, {
+      style: 'currency',
+      currency: this.currencyCode,
+    }).format(this.data().value);
+  }
+
+  events() {
+    return [
+      {
+        'submit .js-card-customfield-currency'(event) {
+          event.preventDefault();
+          // To allow input separated by comma, the comma is replaced by a period.
+          const value = Number(this.find('input').value.replace(/,/i, '.'), 10);
+          this.card.setCustomField(this.customFieldId, value);
+        },
+      },
+    ];
+  }
+}.register('cardCustomField-currency'));
 
 // cardCustomField-date
 (class extends CardCustomField {
@@ -184,3 +237,90 @@ CardCustomField.register('cardCustomField');
     ];
   }
 }.register('cardCustomField-dropdown'));
+
+// cardCustomField-stringtemplate
+(class extends CardCustomField {
+  onCreated() {
+    super.onCreated();
+
+    this.stringtemplateFormat = this.data().definition.settings.stringtemplateFormat;
+    this.stringtemplateSeparator = this.data().definition.settings.stringtemplateSeparator;
+
+    this.stringtemplateItems = new ReactiveVar(this.data().value ?? []);
+  }
+
+  formattedValue() {
+    return (this.data().value ?? [])
+      .filter(value => !!value.trim())
+      .map(value => this.stringtemplateFormat.replace(/%\{value\}/gi, value))
+      .join(this.stringtemplateSeparator ?? '');
+  }
+
+  getItems() {
+    return Array.from(this.findAll('input'))
+      .map(input => input.value)
+      .filter(value => !!value.trim());
+  }
+
+  events() {
+    return [
+      {
+        'submit .js-card-customfield-stringtemplate'(event) {
+          event.preventDefault();
+          const items = this.getItems();
+          this.card.setCustomField(this.customFieldId, items);
+        },
+
+        'keydown .js-card-customfield-stringtemplate-item'(event) {
+          if (event.keyCode === 13) {
+            event.preventDefault();
+
+            if (event.metaKey || event.ctrlKey) {
+              this.find('button[type=submit]').click();
+            } else if (event.target.value.trim()) {
+              const inputLast = this.find('input.last');
+
+              let items = this.getItems();
+
+              if (event.target === inputLast) {
+                inputLast.value = '';
+              } else if (event.target.nextSibling === inputLast) {
+                inputLast.focus();
+              } else {
+                event.target.blur();
+
+                const idx = Array.from(this.findAll('input')).indexOf(
+                  event.target,
+                );
+                items.splice(idx + 1, 0, '');
+
+                Tracker.afterFlush(() => {
+                  const element = this.findAll('input')[idx + 1];
+                  element.focus();
+                  element.value = '';
+                });
+              }
+
+              this.stringtemplateItems.set(items);
+            }
+          }
+        },
+
+        'blur .js-card-customfield-stringtemplate-item'(event) {
+          if (
+            !event.target.value.trim() ||
+            event.target === this.find('input.last')
+          ) {
+            const items = this.getItems();
+            this.stringtemplateItems.set(items);
+            this.find('input.last').value = '';
+          }
+        },
+
+        'click .js-close-inlined-form'(event) {
+          this.stringtemplateItems.set(this.data().value ?? []);
+        },
+      },
+    ];
+  }
+}.register('cardCustomField-stringtemplate'));

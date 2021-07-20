@@ -1,8 +1,16 @@
 ## Issue
 
+Note: With Docker, please don't use latest tag. Only use release tags.
+See https://github.com/wekan/wekan/issues/3874
+
+If you can not login for any reason:
+- https://github.com/wekan/wekan/wiki/Forgot-Password
+
+Email settings:
+- https://github.com/wekan/wekan/wiki/Troubleshooting-Mail
+
 Add these issues to elsewhere:
-- Snap: https://github.com/wekan/wekan-snap/issues
-- LDAP: https://github.com/wekan/wekan-ldap/issues
+- SECURITY ISSUES: https://github.com/wekan/wekan/blob/master/SECURITY.md
 - UCS: https://github.com/wekan/univention/issues
 
 Other Wekan issues can be added here.

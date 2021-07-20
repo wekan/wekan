@@ -1,5 +1,3 @@
-import { Cookies } from 'meteor/ostrio:cookies';
-const cookies = new Cookies();
 // Template.cards.events({
 //   'click .member': Popup.open('cardMember')
 // });
@@ -7,6 +5,48 @@ const cookies = new Cookies();
 BlazeComponent.extendComponent({
   template() {
     return 'minicard';
+  },
+
+  formattedCurrencyCustomFieldValue(definition) {
+    const customField = this.data()
+      .customFieldsWD()
+      .find(f => f._id === definition._id);
+    const customFieldTrueValue =
+      customField && customField.trueValue ? customField.trueValue : '';
+
+    const locale = TAPi18n.getLanguage();
+    return new Intl.NumberFormat(locale, {
+      style: 'currency',
+      currency: definition.settings.currencyCode,
+    }).format(customFieldTrueValue);
+  },
+
+  formattedStringtemplateCustomFieldValue(definition) {
+    const customField = this.data()
+      .customFieldsWD()
+      .find(f => f._id === definition._id);
+
+    const customFieldTrueValue =
+      customField && customField.trueValue ? customField.trueValue : [];
+
+    return customFieldTrueValue
+      .filter(value => !!value.trim())
+      .map(value =>
+        definition.settings.stringtemplateFormat.replace(/%\{value\}/gi, value),
+      )
+      .join(definition.settings.stringtemplateSeparator ?? '');
+  },
+
+  showCreator() {
+    if (this.data().board()) {
+      return (
+        this.data().board.allowsCreator === null ||
+        this.data().board().allowsCreator === undefined ||
+        this.data().board().allowsCreator
+      );
+      // return this.data().board().allowsCreator;
+    }
+    return false;
   },
 
   events() {
@@ -20,10 +60,10 @@ BlazeComponent.extendComponent({
       },
       {
         'click .js-toggle-minicard-label-text'() {
-          if (cookies.has('hiddenMinicardLabelText')) {
-            cookies.remove('hiddenMinicardLabelText'); //true
+          if (window.localStorage.getItem('hiddenMinicardLabelText')) {
+            window.localStorage.removeItem('hiddenMinicardLabelText'); //true
           } else {
-            cookies.set('hiddenMinicardLabelText', 'true'); //true
+            window.localStorage.setItem('hiddenMinicardLabelText', 'true'); //true
           }
         },
       },
@@ -36,7 +76,7 @@ Template.minicard.helpers({
     currentUser = Meteor.user();
     if (currentUser) {
       return (currentUser.profile || {}).showDesktopDragHandles;
-    } else if (cookies.has('showDesktopDragHandles')) {
+    } else if (window.localStorage.getItem('showDesktopDragHandles')) {
       return true;
     } else {
       return false;
@@ -46,7 +86,7 @@ Template.minicard.helpers({
     currentUser = Meteor.user();
     if (currentUser) {
       return (currentUser.profile || {}).hiddenMinicardLabelText;
-    } else if (cookies.has('hiddenMinicardLabelText')) {
+    } else if (window.localStorage.getItem('hiddenMinicardLabelText')) {
       return true;
     } else {
       return false;

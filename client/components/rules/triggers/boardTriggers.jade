@@ -100,7 +100,7 @@ template(name="boardTriggers")
   div.trigger-item
       div.trigger-content
         div.trigger-text 
-          | {{{_'r-board-note'}}}
+          | {{_'r-board-note'}}
 
 template(name="boardCardTitlePopup")
     form
@@ -108,9 +108,4 @@ template(name="boardCardTitlePopup")
         | Card Title Filter
         input.js-card-filter-name(type="text" value=title autofocus)
       input.js-card-filter-button.primary.wide(type="submit" value="{{_ 'set-filter'}}")
-
-   
-  
-
-
 

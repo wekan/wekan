@@ -164,6 +164,7 @@ BlazeComponent.extendComponent({
           const boardId = Session.get('currentBoard');
           const actionId = Actions.insert({
             actionType: 'removeMember',
+            //  deepcode ignore NoHardcodedCredentials: it's no credential
             username: '*',
             boardId,
             desc,

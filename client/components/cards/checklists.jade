@@ -1,7 +1,17 @@
 template(name="checklists")
-  h3
-    i.fa.fa-check
-    | {{_ 'checklists'}}
+  .checklists-title
+    h3.card-details-item-title
+      i.fa.fa-check
+      | {{_ 'checklists'}}
+    if currentUser.isBoardMember
+      .material-toggle-switch(title="{{_ 'hide-checked-items'}}")
+        //span.toggle-switch-title
+        if hideCheckedItems
+          input.toggle-switch(type="checkbox" id="toggleHideCheckedItemsButton" checked="checked")
+        else
+          input.toggle-switch(type="checkbox" id="toggleHideCheckedItemsButton")
+        label.toggle-label(for="toggleHideCheckedItemsButton")
+
   if toggleDeleteDialog.get
     .board-overlay#card-details-overlay
     +checklistDeleteDialog(checklist = checklistToDelete)
@@ -15,9 +25,8 @@ template(name="checklists")
     +inlinedForm(autoclose=false classNames="js-add-checklist" cardId = cardId)
       +addChecklistItemForm
     else
-      a.js-open-inlined-form
+      a.js-open-inlined-form(title="{{_ 'add-checklist'}}")
         i.fa.fa-plus
-        | {{_ 'add-checklist'}}...
 
 template(name="checklistDetail")
   .js-checklist.checklist
@@ -31,6 +40,8 @@ template(name="checklistDetail")
 
         if canModifyCard
           h2.title.js-open-inlined-form.is-editable
+            if isMiniScreenOrShowDesktopDragHandles
+              span.fa.checklist-handle(class="fa-arrows" title="{{_ 'dragChecklist'}}")
             +viewer
               = checklist.title
         else
@@ -81,14 +92,16 @@ template(name="checklistItems")
       +inlinedForm(autoclose=false classNames="js-add-checklist-item" checklist = checklist)
         +addChecklistItemForm
       else
-        a.add-checklist-item.js-open-inlined-form
+        a.add-checklist-item.js-open-inlined-form(title="{{_ 'add-checklist-item'}}")
           i.fa.fa-plus
-          | {{_ 'add-checklist-item'}}...
 
 template(name='checklistItemDetail')
-  .js-checklist-item.checklist-item
+  .js-checklist-item.checklist-item(class="{{#if item.isFinished }}is-checked{{#if hideCheckedItems}} invisible{{/if}}{{/if}}")
     if canModifyCard
-      .check-box.materialCheckBox(class="{{#if item.isFinished }}is-checked{{/if}}")
+      .check-box-container
+        .check-box.materialCheckBox(class="{{#if item.isFinished }}is-checked{{/if}}")
+      if isMiniScreenOrShowDesktopDragHandles
+        span.fa.checklistitem-handle(class="fa-arrows" title="{{_ 'dragChecklistItem'}}")
       .item-title.js-open-inlined-form.is-editable(class="{{#if item.isFinished }}is-checked{{/if}}")
         +viewer
           = item.title

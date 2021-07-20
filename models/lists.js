@@ -1,3 +1,5 @@
+import { ALLOWED_COLORS } from '/config/const';
+
 Lists = new Mongo.Collection('lists');
 
 /**
@@ -31,6 +33,13 @@ Lists.attachSchema(
           return false;
         }
       },
+    },
+    archivedAt: {
+      /**
+       * latest archiving date
+       */
+      type: Date,
+      optional: true,
     },
     boardId: {
       /**
@@ -137,32 +146,7 @@ Lists.attachSchema(
       type: String,
       optional: true,
       // silver is the default, so it is left out
-      allowedValues: [
-        'white',
-        'green',
-        'yellow',
-        'orange',
-        'red',
-        'purple',
-        'blue',
-        'sky',
-        'lime',
-        'pink',
-        'black',
-        'peachpuff',
-        'crimson',
-        'plum',
-        'darkgreen',
-        'slateblue',
-        'magenta',
-        'gold',
-        'navy',
-        'gray',
-        'saddlebrown',
-        'paleturquoise',
-        'mistyrose',
-        'indigo',
-      ],
+      allowedValues: ALLOWED_COLORS,
     },
     type: {
       /**
@@ -195,7 +179,7 @@ Lists.helpers({
     this.swimlaneId = swimlaneId;
 
     let _id = null;
-    existingListWithSameName = Lists.findOne({
+    const existingListWithSameName = Lists.findOne({
       boardId,
       title: this.title,
       archived: false,
@@ -215,6 +199,35 @@ Lists.helpers({
       archived: false,
     }).forEach(card => {
       card.copy(boardId, swimlaneId, _id);
+    });
+  },
+
+  move(boardId, swimlaneId) {
+    const boardList = Lists.findOne({
+      boardId,
+      title: this.title,
+      archived: false,
+    });
+    let listId;
+    if (boardList) {
+      listId = boardList._id;
+      this.cards().forEach(card => {
+        card.move(boardId, this._id, boardList._id);
+      });
+    } else {
+      console.log('list.title:', this.title);
+      console.log('boardList:', boardList);
+      listId = Lists.insert({
+        title: this.title,
+        boardId,
+        type: this.type,
+        archived: false,
+        wipLimit: this.wipLimit,
+      });
+    }
+
+    this.cards(swimlaneId).forEach(card => {
+      card.move(boardId, swimlaneId, listId);
     });
   },
 
@@ -257,7 +270,7 @@ Lists.helpers({
   },
 
   colorClass() {
-    if (this.color) return this.color;
+    if (this.color) return `list-header-${this.color}`;
     return '';
   },
 
@@ -272,6 +285,10 @@ Lists.helpers({
   absoluteUrl() {
     const card = Cards.findOne({ listId: this._id });
     return card && card.absoluteUrl();
+  },
+  originRelativeUrl() {
+    const card = Cards.findOne({ listId: this._id });
+    return card && card.originRelativeUrl();
   },
   remove() {
     Lists.remove({ _id: this._id });
@@ -292,7 +309,7 @@ Lists.mutations({
         return card.archive();
       });
     }
-    return { $set: { archived: true } };
+    return { $set: { archived: true, archivedAt: new Date() } };
   },
 
   restore() {
@@ -328,6 +345,16 @@ Lists.mutations({
   },
 });
 
+Lists.archivedLists = () => {
+  return Lists.find({ archived: true });
+};
+
+Lists.archivedListIds = () => {
+  return Lists.archivedLists().map(list => {
+    return list._id;
+  });
+};
+
 Meteor.methods({
   applyWipLimit(listId, limit) {
     check(listId, String);
@@ -352,6 +379,25 @@ Meteor.methods({
     const list = Lists.findOne({ _id: listId });
     list.toggleSoftLimit(!list.getWipLimit('soft'));
   },
+
+  myLists() {
+    // my lists
+    return _.uniq(
+      Lists.find(
+        {
+          boardId: { $in: Boards.userBoardIds(this.userId) },
+          archived: false,
+        },
+        {
+          fields: { title: 1 },
+        },
+      )
+        .fetch()
+        .map(list => {
+          return list.title;
+        }),
+    ).sort();
+  },
 });
 
 Lists.hookOptions.after.update = { fetchPrevious: false };
@@ -360,6 +406,7 @@ if (Meteor.isServer) {
   Meteor.startup(() => {
     Lists._collection._ensureIndex({ modifiedAt: -1 });
     Lists._collection._ensureIndex({ boardId: 1 });
+    Lists._collection._ensureIndex({ archivedAt: -1 });
   });
 
   Lists.after.insert((userId, doc) => {
@@ -484,8 +531,8 @@ if (Meteor.isServer) {
    */
   JsonRoutes.add('POST', '/api/boards/:boardId/lists', function(req, res) {
     try {
-      Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
+      Authentication.checkBoardAccess(req.userId, paramBoardId);
       const board = Boards.findOne(paramBoardId);
       const id = Lists.insert({
         title: req.body.title,
@@ -522,8 +569,8 @@ if (Meteor.isServer) {
     res,
   ) {
     try {
-      Authentication.checkUserId(req.userId);
       const paramBoardId = req.params.boardId;
+      Authentication.checkBoardAccess(req.userId, paramBoardId);
       const paramListId = req.params.listId;
       Lists.remove({ _id: paramListId, boardId: paramBoardId });
       JsonRoutes.sendResult(res, {

@@ -9,15 +9,16 @@ version: '2'
 # https://github.com/wekan/wekan/wiki/Forgot-Password
 #---------------------------------------------------------------------------------------------------------
 # ==== Upgrading Wekan to new version =====
+# NOTE: MongoDB has changed from 3.x to 4.x, in that case you need backup/restore with --noIndexRestore
+#       see https://github.com/wekan/wekan/wiki/Backup
 # 1) Stop Wekan:
 #      docker-compose stop
-# 2) Download new version:
-#      docker-compose pull wekan
-# 3) If you have more networks for VPN etc as described at bottom of
-#    this config, download for them too:
-#      docker-compose pull wekan2
+# 2) Remove old Wekan app (wekan-app only, not that wekan-db container that has all your data)
+#      docker rm wekan-app
+# 3) Get newest docker-compose.yml from https://github.com/wekan/wekan to have correct image,
+#    for example: "image: quay.io/wekan/wekan" or version tag "image: quay.io/wekan/wekan:v4.52"
 # 4) Start Wekan:
-#      docker-compose start
+#      docker-compose up -d
 #----------------------------------------------------------------------------------
 # ==== OPTIONAL: DEDICATED DOCKER USER ====
 # 1) Optionally create a dedicated user for Wekan, for example:
@@ -84,17 +85,21 @@ version: '2'
 #      # 11) Start wekan
 #             docker start wekan-app
 #-------------------------------------------------------------------------
+# 2020-12-03:
+# - base images copied from Docker Hub to Quay to avoid Docker Hub rate limits,
+#   from: torodb/stampede:1.0.0, postgres:9.6, mongo:3.2
+#-------------------------------------------------------------------------
 
 services:
   torodb-stampede:
-    image: torodb/stampede:latest
+    image: quay.io/wekan/torodb-stampede:1.0.0
     networks:
       - wekan-tier
     links:
       - postgres
       - mongodb
     environment:
-      - POSTGRES_PASSWORD
+      - POSTGRES_PASSWORD=wekan
       - TORODB_SETUP=true
       - TORODB_SYNC_SOURCE=mongodb:27017
       - TORODB_BACKEND_HOST=postgres
@@ -104,11 +109,11 @@ services:
       - TORODB_BACKEND_PASSWORD=wekan
       - DEBUG
   postgres:
-    image: postgres:9.6
+    image: quay.io/wekan/postgres:9.6
     networks:
       - wekan-tier
     environment:
-      - POSTGRES_PASSWORD
+      - POSTGRES_PASSWORD=wekan
     ports:
       - "5432:5432"
   mongodb:
@@ -173,7 +178,7 @@ services:
       # that if you're using more than 1 instance of Wekan
       # (or any MeteorJS based tool) you're supposed to set
       # MONGO_OPLOG_URL as an environment variable.
-      # Without setting it, Meteor will perform a pull-and-diff
+      # Without setting it, Meteor will perform a poll-and-diff
       # update of it's dataset. With it, Meteor will update from
       # the OPLOG. See here
       #   https://blog.meteor.com/tuning-meteor-mongo-livedata-for-scalability-13fe9deb8908
@@ -205,6 +210,9 @@ services:
       # There is Feature Request: Logging date and time of all activity with summary reports,
       # and requesting reason for changing card to other column https://github.com/wekan/wekan/issues/1598
       #---------------------------------------------------------------
+      # ==== NUMBER OF SEARCH RESULTS PER PAGE BY DEFAULT ====
+      #- RESULTS_PER_PAGE=20
+      #---------------------------------------------------------------
       # ==== WEKAN API AND EXPORT BOARD ====
       # Wekan Export Board works when WITH_API=true.
       # https://github.com/wekan/wekan/wiki/REST-API
@@ -230,11 +238,6 @@ services:
       # https://github.com/wekan/wekan/pull/2560
       - RICHER_CARD_COMMENT_EDITOR=false
       #---------------------------------------------------------------
-      # ==== MOUSE SCROLL ====
-      # https://github.com/wekan/wekan/issues/2949
-      - SCROLLINERTIA=0
-      - SCROLLAMOUNT=auto
-      #---------------------------------------------------------------
       # ==== CARD OPENED, SEND WEBHOOK MESSAGE ====
       # https://github.com/wekan/wekan/issues/2518
       - CARD_OPENED_WEBHOOK_ENABLED=false
@@ -243,6 +246,11 @@ services:
       # https://github.com/wekan/wekan/pull/2544
       #-MAX_IMAGE_PIXEL=1024
       #-IMAGE_COMPRESS_RATIO=80
+      #---------------------------------------------------------------
+      # ==== NOTIFICATION TRAY AFTER READ DAYS BEFORE REMOVE =====
+      # Number of days after a notification is read before we remove it.
+      # Default: 2
+      #- NOTIFICATION_TRAY_AFTER_READ_DAYS_BEFORE_REMOVE=2
       #---------------------------------------------------------------
       # ==== BIGEVENTS DUE ETC NOTIFICATIONS =====
       # https://github.com/wekan/wekan/pull/2541
@@ -309,12 +317,19 @@ services:
       # example: WEBHOOKS_ATTRIBUTES=cardId,listId,oldListId,boardId,comment,user,card,commentId
       #- WEBHOOKS_ATTRIBUTES=
       #-----------------------------------------------------------------
+      # ==== OAUTH2 ORACLE on premise identity manager OIM ====
+      #- ORACLE_OIM_ENABLED=true
+      #-----------------------------------------------------------------
       # ==== OAUTH2 ONLY WITH OIDC AND DOORKEEPER AS INDENTITY PROVIDER
       # https://github.com/wekan/wekan/issues/1874
       # https://github.com/wekan/wekan/wiki/OAuth2
       # Enable the OAuth2 connection
       # example: OAUTH2_ENABLED=true
       #- OAUTH2_ENABLED=false
+      # Optional OAuth2 CA Cert, see https://github.com/wekan/wekan/issues/3299
+      #- OAUTH2_CA_CERT=ABCD1234
+      # Use OAuth2 ADFS additional changes. Also needs OAUTH2_ENABLED=true setting.
+      #- OAUTH2_ADFS_ENABLED=false
       # OAuth2 docs: https://github.com/wekan/wekan/wiki/OAuth2
       # OAuth2 Client ID, for example from Rocket.Chat. Example: abcde12345
       # example: OAUTH2_CLIENT_ID=abcde12345
@@ -522,7 +537,31 @@ services:
       # LOGOUT_ON_MINUTES : The number of minutes
       # example : LOGOUT_ON_MINUTES=55
       #- LOGOUT_ON_MINUTES=
+      #---------------------------------------------------------------------
+      # PASSWORD_LOGIN_ENABLED : Enable or not the password login form.
+      # example: PASSWORD_LOGIN_ENABLED=false
+      # - PASSWORD_LOGIN_ENABLED
       #-------------------------------------------------------------------
+      #- CAS_ENABLED=true
+      #- CAS_BASE_URL=https://cas.example.com/cas
+      #- CAS_LOGIN_URL=https://cas.example.com/login
+      #- CAS_VALIDATE_URL=https://cas.example.com/cas/p3/serviceValidate
+      #---------------------------------------------------------------------
+      #- SAML_ENABLED=true
+      #- SAML_PROVIDER=
+      #- SAML_ENTRYPOINT=
+      #- SAML_ISSUER=
+      #- SAML_CERT=
+      #- SAML_IDPSLO_REDIRECTURL=
+      #- SAML_PRIVATE_KEYFILE=
+      #- SAML_PUBLIC_CERTFILE=
+      #- SAML_IDENTIFIER_FORMAT=
+      #- SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE=
+      #- SAML_ATTRIBUTES=
+      #---------------------------------------------------------------------
+      # Wait spinner to use
+      #- WAIT_SPINNER=Bounce
+      #---------------------------------------------------------------------
 
     depends_on:
       - mongodb

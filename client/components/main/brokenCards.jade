@@ -1,0 +1,17 @@
+template(name="brokenCardsHeaderBar")
+  h1
+    | {{_ 'broken-cards'}}
+
+template(name="brokenCards")
+  if currentUser
+    if searching.get
+      +spinner
+    else if hasResults.get
+      .global-search-results-list-wrapper
+        if hasQueryErrors.get
+          div
+            each msg in errorMessages
+              span.global-search-error-messages
+                = msg
+        else
+          +resultsPaged(this)

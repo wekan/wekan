@@ -4,24 +4,24 @@
 
 Meteor.startup(() => {
   TAPi18n.conf.i18n_files_route = Meteor._relativeToSiteRootUrl('/tap-i18n');
-  Tracker.autorun(() => {
-    const currentUser = Meteor.user();
-    let language;
-    if (currentUser) {
-      language = currentUser.profile && currentUser.profile.language;
-    }
+  const currentUser = Meteor.user();
+  let language;
+  if (currentUser) {
+    language = currentUser.profile && currentUser.profile.language;
+  }
 
-    if (!language) {
-      if (navigator.languages) {
-        language = navigator.languages[0];
-      } else {
-        language = navigator.language || navigator.userLanguage;
-      }
+  if (!language) {
+    if (navigator.languages) {
+      language = navigator.languages[0];
+    } else {
+      language = navigator.language || navigator.userLanguage;
     }
+  }
 
-    if (language) {
-      TAPi18n.setLanguage(language);
-      T9n.setLanguage(language);
-    }
-  });
+  if (language) {
+    TAPi18n.setLanguage(language);
+    // eslint-disable-next-line no-console
+    // console.log('language set!');
+    T9n.setLanguage(language);
+  }
 });

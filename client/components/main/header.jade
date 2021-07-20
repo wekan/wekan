@@ -7,33 +7,59 @@ template(name="header")
   if currentUser
     #header-quick-access(class=currentBoard.colorClass)
       if isMiniScreen
-        ul
-          li
-            a(href="{{pathFor 'home'}}")
-              span.fa.fa-home
+        span
+          a(href="{{pathFor 'home'}}")
+            span.fa.fa-home
 
+        ul.header-quick-access-list
           if currentList
             each currentBoard.lists
               li(class="{{#if $.Session.equals 'currentList' _id}}current{{/if}}")
                 a.js-select-list
                   = title
+          else
+            each currentUser.starredBoards
+              li(class="{{#if $.Session.equals 'currentBoard' _id}}current{{/if}}")
+                a(href="{{pathFor 'board' id=_id slug=slug}}")
+                  = title
         #header-new-board-icon
       else
-        ul
-          li
-            a(href="{{pathFor 'home'}}")
-              span.fa.fa-home
-              | {{_ 'all-boards'}}
+        //-
+          On sandstorm, the logo shouldn't be clickable, because we only have one
+          page/document on it, and we don't want to see the home page containing
+          the list of all boards.
+        unless currentSetting.hideLogo
+          if currentSetting.customTopLeftCornerLogoImageUrl
+            if currentSetting.customTopLeftCornerLogoLinkUrl
+              a(href="{{currentSetting.customTopLeftCornerLogoLinkUrl}}" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")
+                img(src="{{currentSetting.customTopLeftCornerLogoImageUrl}}" height="{{#if currentSetting.customTopLeftCornerLogoHeight}}#{currentSetting.customTopLeftCornerLogoHeight}{{else}}27{{/if}}" width="auto" margin="0" padding="0")
+            unless currentSetting.customTopLeftCornerLogoLinkUrl
+              img(src="{{currentSetting.customTopLeftCornerLogoImageUrl}}" height="{{#if currentSetting.customTopLeftCornerLogoHeight}}#{currentSetting.customTopLeftCornerLogoHeight}{{else}}27{{/if}}" width="auto" margin="0" padding="0" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")
+          unless currentSetting.customTopLeftCornerLogoImageUrl
+            img(src="{{pathFor '/logo-header.png'}}" alt="{{currentSetting.productName}}" title="{{currentSetting.productName}}")
+        span.allBoards
+          a(href="{{pathFor 'home'}}")
+            span.fa.fa-home
+            | {{_ 'all-boards'}}
+        ul.header-quick-access-list
+          //li
+          //  a(href="{{pathFor 'public'}}")
+          //    span.fa.fa-globe
+          //    | {{_ 'public'}}
           each currentUser.starredBoards
-            li.separator -
             li(class="{{#if $.Session.equals 'currentBoard' _id}}current{{/if}}")
               a(href="{{pathFor 'board' id=_id slug=slug}}")
                 = title
           else
-            li.current {{_ 'quick-access-description'}}
+            li.current.empty {{_ 'quick-access-description'}}
 
-      a#header-new-board-icon.js-create-board
-        i.fa.fa-plus(title="Create a new board")
+      // Next line is used only for spacing at header,
+      // there is no visible clickable icon.
+      #header-new-board-icon
+      //  Hide duplicate create board button,
+      //  because it did not show board templates correctly.
+      //a#header-new-board-icon.js-create-board
+      //  i.fa.fa-plus(title="Create a new board")
 
       +notifications
 
@@ -46,17 +72,6 @@ template(name="header")
       If the user is not connected we display "sign in" and "log in" buttons.
     #header-main-bar(class="{{#if wrappedHeader}}wrapper{{/if}}")
       +Template.dynamic(template=headerBar)
-
-      //unless hideLogo
-
-        //-
-          On sandstorm, the logo shouldn't be clickable, because we only have one
-          page/document on it, and we don't want to see the home page containing
-          the list of all boards.
-
-      //  unless currentSetting.hideLogo
-      //    a.wekan-logo(href="{{pathFor 'home'}}" title="{{_ 'header-logo-title'}}")
-      //    img(src="{{pathFor '/logo-header.png'}}" alt="")
 
   if appIsOffline
     +offlineWarning

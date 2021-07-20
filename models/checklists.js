@@ -70,7 +70,9 @@ Checklists.helpers({
     this._id = null;
     this.cardId = newCardId;
     const newChecklistId = Checklists.insert(this);
-    ChecklistItems.find({ checklistId: oldChecklistId }).forEach(item => {
+    ChecklistItems.find({ checklistId: oldChecklistId }).forEach(function(
+      item,
+    ) {
       item._id = null;
       item.checklistId = newChecklistId;
       item.cardId = newCardId;
@@ -88,6 +90,11 @@ Checklists.helpers({
       },
       { sort: ['sort'] },
     );
+  },
+  lastItem() {
+    const allItems = this.items().fetch();
+    const ret = allItems[allItems.length - 1];
+    return ret;
   },
   finishedCount() {
     return ChecklistItems.find({
@@ -197,7 +204,8 @@ if (Meteor.isServer) {
     'GET',
     '/api/boards/:boardId/cards/:cardId/checklists',
     function(req, res) {
-      Authentication.checkUserId(req.userId);
+      const paramBoardId = req.params.boardId;
+      Authentication.checkBoardAccess(req.userId, paramBoardId);
       const paramCardId = req.params.cardId;
       const checklists = Checklists.find({ cardId: paramCardId }).map(function(
         doc,
@@ -240,7 +248,8 @@ if (Meteor.isServer) {
     'GET',
     '/api/boards/:boardId/cards/:cardId/checklists/:checklistId',
     function(req, res) {
-      Authentication.checkUserId(req.userId);
+      const paramBoardId = req.params.boardId;
+      Authentication.checkBoardAccess(req.userId, paramBoardId);
       const paramChecklistId = req.params.checklistId;
       const paramCardId = req.params.cardId;
       const checklist = Checklists.findOne({
@@ -344,7 +353,8 @@ if (Meteor.isServer) {
     'DELETE',
     '/api/boards/:boardId/cards/:cardId/checklists/:checklistId',
     function(req, res) {
-      Authentication.checkUserId(req.userId);
+      const paramBoardId = req.params.boardId;
+      Authentication.checkBoardAccess(req.userId, paramBoardId);
       const paramChecklistId = req.params.checklistId;
       Checklists.remove({ _id: paramChecklistId });
       JsonRoutes.sendResult(res, {

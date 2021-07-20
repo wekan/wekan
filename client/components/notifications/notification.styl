@@ -5,7 +5,7 @@
   .notification
     display: flex
     float: none
-    padding: 12px 8px 8px
+    padding: 15px 8px 8px
     color: black
     border-bottom: 1px solid #dbdbdb
 
@@ -14,6 +14,7 @@
 
     .read-status
       width: 30px
+      padding: 0px 10px 0px 0px
 
       input
         width: 24px
@@ -28,13 +29,16 @@
         color: #bbb
 
     .details
-      width: calc(100% - 30px)
-
       .activity
-        display: flex
+        a.member
+          margin: 0px 0px 0px 0px
+          padding: 0px
+
+          svg
+            padding: 3px
 
         .activity-desc
-          width: 100%;
+          margin: 0px 0px 0px 5px
 
         .activity-comment
           display: block
@@ -55,3 +59,14 @@
     .remove
       a:hover
         color #eb4646 !important
+
+@media screen and (max-width: 800px)
+  #notifications-drawer
+    .notification
+      height: auto
+
+      .details
+        .activity
+          a.member
+            height: 36px
+            width: 36px

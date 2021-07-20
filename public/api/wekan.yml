@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v3.90
+  version: v5.38
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -288,20 +288,17 @@ paths:
         '200':
           description: |-
             200 response
-  /api/boards/{board}/cards/{card}/checklists:
+  /api/boards/{board}/attachments:
     get:
-      operationId: get_board_card_checklists
+      operationId: get_board_attachments
+      summary: Get the list of attachments of a board
       tags:
-        - Checklists
+        - Boards
       parameters:
         - name: board
           in: path
-          description: the board value
-          type: string
-          required: true
-        - name: card
-          in: path
-          description: the card value
+          description: |
+            the board ID
           type: string
           required: true
       produces:
@@ -312,8 +309,92 @@ paths:
         '200':
           description: |-
             200 response
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                attachmentId:
+                  type: string
+                attachmentName:
+                  type: string
+                attachmentType:
+                  type: string
+                cardId:
+                  type: string
+                listId:
+                  type: string
+                swimlaneId:
+                  type: string
+  /api/boards/{board}/attachments/{attachment}/export:
+    get:
+      operationId: exportJson
+      summary: This route is used to export a attachement to a json file format.
+      description: |
+        If user is already logged-in, pass loginToken as param
+         "authToken": '/api/boards/:boardId/attachments/:attachmentId/export?authToken=:token'
+      tags:
+        - Boards
+      parameters:
+        - name: board
+          in: path
+          description: |
+            the ID of the board we are exporting
+          type: string
+          required: true
+        - name: attachment
+          in: path
+          description: |
+            the ID of the attachment we are exporting
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+  /api/boards/{board}/cards/{card}/checklists:
+    get:
+      operationId: get_all_checklists
+      summary: Get the list of checklists attached to a card
+      tags:
+        - Checklists
+      parameters:
+        - name: board
+          in: path
+          description: |
+            the board ID
+          type: string
+          required: true
+        - name: card
+          in: path
+          description: |
+            the card ID
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                _id:
+                  type: string
+                title:
+                  type: string
     post:
-      operationId: post_board_card_checklists
+      operationId: new_checklist
+      summary: create a new checklist
       tags:
         - Checklists
       consumes:
@@ -322,22 +403,26 @@ paths:
       parameters:
         - name: title
           in: formData
-          description: the title value
+          description: |
+            the title of the new checklist
           type: string
           required: true
         - name: items
           in: formData
-          description: the items value
+          description: |
+            the list of items on the new checklist
           type: string
-          required: true
+          required: false
         - name: board
           in: path
-          description: the board value
+          description: |
+            the board ID
           type: string
           required: true
         - name: card
           in: path
-          description: the card value
+          description: |
+            the card ID
           type: string
           required: true
       produces:
@@ -348,25 +433,34 @@ paths:
         '200':
           description: |-
             200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
   /api/boards/{board}/cards/{card}/checklists/{checklist}:
     get:
-      operationId: get_board_card_checklist
+      operationId: get_checklist
+      summary: Get a checklist
       tags:
         - Checklists
       parameters:
         - name: board
           in: path
-          description: the board value
+          description: |
+            the board ID
           type: string
           required: true
         - name: card
           in: path
-          description: the card value
+          description: |
+            the card ID
           type: string
           required: true
         - name: checklist
           in: path
-          description: the checklist value
+          description: |
+            the ID of the checklist
           type: string
           required: true
       produces:
@@ -377,24 +471,54 @@ paths:
         '200':
           description: |-
             200 response
+          schema:
+            type: object
+            properties:
+              cardId:
+                type: string
+              title:
+                type: string
+              finishedAt:
+                type: string
+              createdAt:
+                type: string
+              sort:
+                type: number
+              items:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                    title:
+                      type: string
+                    isFinished:
+                      type: boolean
     delete:
-      operationId: delete_board_card_checklist
+      operationId: delete_checklist
+      summary: Delete a checklist
+      description: |
+        The checklist will be removed, not put in the recycle bin.
       tags:
         - Checklists
       parameters:
         - name: board
           in: path
-          description: the board value
+          description: |
+            the board ID
           type: string
           required: true
         - name: card
           in: path
-          description: the card value
+          description: |
+            the card ID
           type: string
           required: true
         - name: checklist
           in: path
-          description: the checklist value
+          description: |
+            the ID of the checklist to remove
           type: string
           required: true
       produces:
@@ -405,30 +529,41 @@ paths:
         '200':
           description: |-
             200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
   /api/boards/{board}/cards/{card}/checklists/{checklist}/items/{item}:
     get:
-      operationId: get_board_card_checklist_item
+      operationId: get_checklist_item
+      summary: Get a checklist item
       tags:
         - ChecklistItems
+        - Checklists
       parameters:
         - name: board
           in: path
-          description: the board value
+          description: |
+            the board ID
           type: string
           required: true
         - name: card
           in: path
-          description: the card value
+          description: |
+            the card ID
           type: string
           required: true
         - name: checklist
           in: path
-          description: the checklist value
+          description: |
+            the checklist ID
           type: string
           required: true
         - name: item
           in: path
-          description: the item value
+          description: |
+            the ID of the item
           type: string
           required: true
       produces:
@@ -439,42 +574,52 @@ paths:
         '200':
           description: |-
             200 response
+          schema:
+            $ref: "#/definitions/ChecklistItems"
     put:
-      operationId: put_board_card_checklist_item
+      operationId: edit_checklist_item
+      summary: Edit a checklist item
       tags:
         - ChecklistItems
+        - Checklists
       consumes:
         - multipart/form-data
         - application/json
       parameters:
         - name: isFinished
           in: formData
-          description: the isFinished value
+          description: |
+            is the item checked?
           type: string
-          required: true
+          required: false
         - name: title
           in: formData
-          description: the title value
+          description: |
+            the new text of the item
           type: string
-          required: true
+          required: false
         - name: board
           in: path
-          description: the board value
+          description: |
+            the board ID
           type: string
           required: true
         - name: card
           in: path
-          description: the card value
+          description: |
+            the card ID
           type: string
           required: true
         - name: checklist
           in: path
-          description: the checklist value
+          description: |
+            the checklist ID
           type: string
           required: true
         - name: item
           in: path
-          description: the item value
+          description: |
+            the ID of the item
           type: string
           required: true
       produces:
@@ -485,29 +630,42 @@ paths:
         '200':
           description: |-
             200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
     delete:
-      operationId: delete_board_card_checklist_item
+      operationId: delete_checklist_item
+      summary: Delete a checklist item
+      description: |
+        Note: this operation can't be reverted.
       tags:
         - ChecklistItems
+        - Checklists
       parameters:
         - name: board
           in: path
-          description: the board value
+          description: |
+            the board ID
           type: string
           required: true
         - name: card
           in: path
-          description: the card value
+          description: |
+            the card ID
           type: string
           required: true
         - name: checklist
           in: path
-          description: the checklist value
+          description: |
+            the checklist ID
           type: string
           required: true
         - name: item
           in: path
-          description: the item value
+          description: |
+            the ID of the item to be removed
           type: string
           required: true
       produces:
@@ -518,6 +676,11 @@ paths:
         '200':
           description: |-
             200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
   /api/boards/{board}/cards/{card}/comments:
     get:
       operationId: get_all_comments
@@ -557,7 +720,8 @@ paths:
                 authorId:
                   type: string
     post:
-      operationId: post_board_card_comments
+      operationId: new_comment
+      summary: Add a comment on a card
       tags:
         - CardComments
       consumes:
@@ -566,7 +730,8 @@ paths:
       parameters:
         - name: authorId
           in: formData
-          description: the authorId value
+          description: |
+            the user who 'posted' the comment
           type: string
           required: true
         - name: comment
@@ -576,12 +741,14 @@ paths:
           required: true
         - name: board
           in: path
-          description: the board value
+          description: |
+            the board ID of the card
           type: string
           required: true
         - name: card
           in: path
-          description: the card value
+          description: |
+            the ID of the card
           type: string
           required: true
       produces:
@@ -592,25 +759,34 @@ paths:
         '200':
           description: |-
             200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
   /api/boards/{board}/cards/{card}/comments/{comment}:
     get:
-      operationId: get_board_card_comment
+      operationId: get_comment
+      summary: Get a comment on a card
       tags:
         - CardComments
       parameters:
         - name: board
           in: path
-          description: the board value
+          description: |
+            the board ID of the card
           type: string
           required: true
         - name: card
           in: path
-          description: the card value
+          description: |
+            the ID of the card
           type: string
           required: true
         - name: comment
           in: path
-          description: the comment value
+          description: |
+            the ID of the comment to retrieve
           type: string
           required: true
       produces:
@@ -621,24 +797,30 @@ paths:
         '200':
           description: |-
             200 response
+          schema:
+            $ref: "#/definitions/CardComments"
     delete:
-      operationId: delete_board_card_comment
+      operationId: delete_comment
+      summary: Delete a comment on a card
       tags:
         - CardComments
       parameters:
         - name: board
           in: path
-          description: the board value
+          description: |
+            the board ID of the card
           type: string
           required: true
         - name: card
           in: path
-          description: the card value
+          description: |
+            the ID of the card
           type: string
           required: true
         - name: comment
           in: path
-          description: the comment value
+          description: |
+            the ID of the comment to delete
           type: string
           required: true
       produces:
@@ -649,6 +831,59 @@ paths:
         '200':
           description: |-
             200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
+  /api/boards/{board}/cardsByCustomField/{customField}/{customFieldValue}:
+    get:
+      operationId: get_cards_by_custom_field
+      summary: Get all Cards that matchs a value of a specific custom field
+      tags:
+        - Cards
+      parameters:
+        - name: board
+          in: path
+          description: |
+            the board ID
+          type: string
+          required: true
+        - name: customField
+          in: path
+          description: |
+            the list ID
+          type: string
+          required: true
+        - name: customFieldValue
+          in: path
+          description: |
+            the value to look for
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                _id:
+                  type: string
+                title:
+                  type: string
+                description:
+                  type: string
+                listId:
+                  type: string
+                swinlaneId:
+                  type: string
   /api/boards/{board}/custom-fields:
     get:
       operationId: get_all_custom_fields
@@ -750,10 +985,89 @@ paths:
                 type: string
   /api/boards/{board}/custom-fields/{customField}:
     get:
-      operationId: get_board_customField
+      operationId: get_custom_field
+      summary: Get a Custom Fields attached to a board
       tags:
         - CustomFields
       parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: customField
+          in: path
+          description: |
+            the ID of the custom field
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                _id:
+                  type: string
+                boardIds:
+                  type: string
+    put:
+      operationId: edit_custom_field
+      summary: Update a Custom Field
+      tags:
+        - CustomFields
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: name
+          in: formData
+          description: |
+            the name of the custom field
+          type: string
+          required: true
+        - name: type
+          in: formData
+          description: |
+            the type of the custom field
+          type: string
+          required: true
+        - name: settings
+          in: formData
+          description: |
+            the settings object of the custom field
+          type: string
+          required: true
+        - name: showOnCard
+          in: formData
+          description: |
+            should we show the custom field on cards
+          type: boolean
+          required: true
+        - name: automaticallyOnCard
+          in: formData
+          description: |
+            should the custom fields automatically be added on cards
+          type: boolean
+          required: true
+        - name: alwaysOnCard
+          in: formData
+          description: the alwaysOnCard value
+          type: string
+          required: true
+        - name: showLabelOnMiniCard
+          in: formData
+          description: |
+            should the label of the custom field be shown on minicards
+          type: boolean
+          required: true
         - name: board
           in: path
           description: the board value
@@ -772,11 +1086,59 @@ paths:
         '200':
           description: |-
             200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
     delete:
-      operationId: delete_board_customField
+      operationId: delete_custom_field
+      summary: Delete a Custom Fields attached to a board
+      description: |
+        The Custom Field can't be retrieved after this operation
       tags:
         - CustomFields
       parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: customField
+          in: path
+          description: |
+            the ID of the custom field
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
+  /api/boards/{board}/custom-fields/{customField}/dropdown-items:
+    post:
+      operationId: add_custom_field_dropdown_items
+      summary: Update a Custom Field's dropdown items
+      tags:
+        - CustomFields
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: items
+          in: formData
+          description: |
+            names of the custom field
+          type: string
+          required: false
         - name: board
           in: path
           description: the board value
@@ -795,10 +1157,93 @@ paths:
         '200':
           description: |-
             200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
+  /api/boards/{board}/custom-fields/{customField}/dropdown-items/{dropdownItem}:
+    put:
+      operationId: edit_custom_field_dropdown_item
+      summary: Update a Custom Field's dropdown item
+      tags:
+        - CustomFields
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: name
+          in: formData
+          description: |
+            names of the custom field
+          type: string
+          required: true
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: customField
+          in: path
+          description: the customField value
+          type: string
+          required: true
+        - name: dropdownItem
+          in: path
+          description: the dropdownItem value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
+    delete:
+      operationId: delete_custom_field_dropdown_item
+      summary: Update a Custom Field's dropdown items
+      tags:
+        - CustomFields
+      parameters:
+        - name: board
+          in: path
+          description: the board value
+          type: string
+          required: true
+        - name: customField
+          in: path
+          description: the customField value
+          type: string
+          required: true
+        - name: dropdownItem
+          in: path
+          description: the dropdownItem value
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
   /api/boards/{board}/export:
     get:
-      operationId: export
-      summary: This route is used to export the board.
+      operationId: exportJson
+      summary: This route is used to export the board to a json file format.
       description: |
         If user is already logged-in, pass loginToken as param
          "authToken": '/api/boards/:boardId/export?authToken=:token'
@@ -1007,18 +1452,21 @@ paths:
                 type: string
   /api/boards/{board}/integrations/{int}/activities:
     delete:
-      operationId: delete_board_int_activities
+      operationId: delete_integration_activities
+      summary: Delete subscribed activities
       tags:
         - Integrations
       parameters:
         - name: board
           in: path
-          description: the board value
+          description: |
+            the board ID
           type: string
           required: true
         - name: int
           in: path
-          description: the int value
+          description: |
+            the integration ID
           type: string
           required: true
       produces:
@@ -1029,8 +1477,11 @@ paths:
         '200':
           description: |-
             200 response
+          schema:
+            $ref: "#/definitions/Integrations"
     post:
-      operationId: post_board_int_activities
+      operationId: new_integration_activities
+      summary: Add subscribed activities
       tags:
         - Integrations
       consumes:
@@ -1044,12 +1495,14 @@ paths:
           required: true
         - name: board
           in: path
-          description: the board value
+          description: |
+            the board ID
           type: string
           required: true
         - name: int
           in: path
-          description: the int value
+          description: |
+            the integration ID
           type: string
           required: true
       produces:
@@ -1060,6 +1513,8 @@ paths:
         '200':
           description: |-
             200 response
+          schema:
+            $ref: "#/definitions/Integrations"
   /api/boards/{board}/labels:
     put:
       operationId: add_board_label
@@ -1330,23 +1785,27 @@ paths:
                 type: string
   /api/boards/{board}/lists/{list}/cards/{card}:
     get:
-      operationId: get_board_list_card
+      operationId: get_card
+      summary: Get a Card
       tags:
         - Cards
       parameters:
         - name: board
           in: path
-          description: the board value
+          description: |
+            the board ID
           type: string
           required: true
         - name: list
           in: path
-          description: the list value
+          description: |
+            the list ID of the card
           type: string
           required: true
         - name: card
           in: path
-          description: the card value
+          description: |
+            the card ID
           type: string
           required: true
       produces:
@@ -1357,8 +1816,23 @@ paths:
         '200':
           description: |-
             200 response
+          schema:
+            $ref: "#/definitions/Cards"
     put:
-      operationId: put_board_list_card
+      operationId: edit_card
+      summary: Edit Fields in a Card
+      description: |
+        Edit a card
+
+         The color has to be chosen between `white`, `green`, `yellow`, `orange`,
+         `red`, `purple`, `blue`, `sky`, `lime`, `pink`, `black`, `silver`,
+         `peachpuff`, `crimson`, `plum`, `darkgreen`, `slateblue`, `magenta`,
+         `gold`, `navy`, `gray`, `saddlebrown`, `paleturquoise`, `mistyrose`,
+         `indigo`:
+
+         <img src="/card-colors.png" width="40%" alt="Wekan card colors" />
+
+         Note: setting the color to white has the same effect than removing it.
       tags:
         - Cards
       consumes:
@@ -1367,112 +1841,152 @@ paths:
       parameters:
         - name: title
           in: formData
-          description: the title value
+          description: |
+            the new title of the card
           type: string
-          required: true
-        - name: listId
+          required: false
+        - name: sort
           in: formData
-          description: the listId value
+          description: |
+            the new sort value of the card
           type: string
-          required: true
-        - name: authorId
-          in: formData
-          description: the authorId value
-          type: string
-          required: true
+          required: false
         - name: parentId
           in: formData
-          description: the parentId value
+          description: |
+            change the parent of the card
           type: string
-          required: true
+          required: false
         - name: description
           in: formData
-          description: the description value
+          description: |
+            the new description of the card
           type: string
-          required: true
+          required: false
         - name: color
           in: formData
-          description: the color value
+          description: |
+            the new color of the card
           type: string
-          required: true
+          required: false
+        - name: vote
+          in: formData
+          description: |
+            the vote object
+          type: object
+          required: false
+        - name: poker
+          in: formData
+          description: |
+            the poker object
+          type: object
+          required: false
         - name: labelIds
           in: formData
-          description: the labelIds value
+          description: |
+            the new list of label IDs attached to the card
           type: string
-          required: true
+          required: false
         - name: requestedBy
           in: formData
-          description: the requestedBy value
+          description: |
+            the new requestedBy field of the card
           type: string
-          required: true
+          required: false
         - name: assignedBy
           in: formData
-          description: the assignedBy value
+          description: |
+            the new assignedBy field of the card
           type: string
-          required: true
+          required: false
         - name: receivedAt
           in: formData
-          description: the receivedAt value
+          description: |
+            the new receivedAt field of the card
           type: string
-          required: true
+          required: false
         - name: startAt
           in: formData
-          description: the startAt value
+          description: |
+            the new startAt field of the card
           type: string
-          required: true
+          required: false
         - name: dueAt
           in: formData
-          description: the dueAt value
+          description: |
+            the new dueAt field of the card
           type: string
-          required: true
+          required: false
         - name: endAt
           in: formData
-          description: the endAt value
+          description: |
+            the new endAt field of the card
           type: string
-          required: true
+          required: false
         - name: spentTime
           in: formData
-          description: the spentTime value
+          description: |
+            the new spentTime field of the card
           type: string
-          required: true
+          required: false
         - name: isOverTime
           in: formData
-          description: the isOverTime value
-          type: string
-          required: true
+          description: |
+            the new isOverTime field of the card
+          type: boolean
+          required: false
         - name: customFields
           in: formData
-          description: the customFields value
+          description: |
+            the new customFields value of the card
           type: string
-          required: true
+          required: false
         - name: members
           in: formData
-          description: the members value
+          description: |
+            the new list of member IDs attached to the card
           type: string
-          required: true
+          required: false
         - name: assignees
           in: formData
-          description: the assignees value
+          description: |
+            the array of maximum one ID of assignee attached to the card
           type: string
-          required: true
+          required: false
         - name: swimlaneId
           in: formData
-          description: the swimlaneId value
+          description: |
+            the new swimlane ID of the card
           type: string
-          required: true
+          required: false
+        - name: listId
+          in: formData
+          description: |
+            the new list ID of the card (move operation)
+          type: string
+          required: false
+        - name: authorId
+          in: formData
+          description: |
+            change the owner of the card
+          type: string
+          required: false
         - name: board
           in: path
-          description: the board value
+          description: |
+            the board ID of the card
           type: string
           required: true
         - name: list
           in: path
-          description: the list value
+          description: |
+            the list ID of the card
           type: string
           required: true
         - name: card
           in: path
-          description: the card value
+          description: |
+            the ID of the card
           type: string
           required: true
       produces:
@@ -1483,24 +1997,36 @@ paths:
         '200':
           description: |-
             200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
     delete:
-      operationId: delete_board_list_card
+      operationId: delete_card
+      summary: Delete a card from a board
+      description: |
+        This operation **deletes** a card, and therefore the card
+         is not put in the recycle bin.
       tags:
         - Cards
       parameters:
         - name: board
           in: path
-          description: the board value
+          description: |
+            the board ID of the card
           type: string
           required: true
         - name: list
           in: path
-          description: the list value
+          description: |
+            the list ID of the card
           type: string
           required: true
         - name: card
           in: path
-          description: the card value
+          description: |
+            the ID of the card
           type: string
           required: true
       produces:
@@ -1511,6 +2037,11 @@ paths:
         '200':
           description: |-
             200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
   /api/boards/{board}/members/{member}:
     post:
       operationId: set_board_member_permission
@@ -1634,26 +2165,33 @@ paths:
                 type: string
   /api/boards/{board}/members/{user}/remove:
     post:
-      operationId: post_board_user_remove
+      operationId: remove_board_member
+      summary: Remove Member from Board
+      description: |
+        Only the admin user (the first user) can call the REST API.
       tags:
         - Users
+        - Boards
       consumes:
         - multipart/form-data
         - application/json
       parameters:
         - name: action
           in: formData
-          description: the action value
+          description: |
+            the action (needs to be `remove`)
           type: string
           required: true
         - name: board
           in: path
-          description: the board value
+          description: |
+            the board ID
           type: string
           required: true
         - name: user
           in: path
-          description: the user value
+          description: |
+            the user ID
           type: string
           required: true
       produces:
@@ -1664,6 +2202,13 @@ paths:
         '200':
           description: |-
             200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
+              title:
+                type: string
   /api/boards/{board}/swimlanes:
     get:
       operationId: get_all_swimlanes
@@ -1758,18 +2303,23 @@ paths:
           schema:
             $ref: "#/definitions/Swimlanes"
     delete:
-      operationId: delete_board_swimlane
+      operationId: delete_swimlane
+      summary: Delete a swimlane
+      description: |
+        The swimlane will be deleted, not moved to the recycle bin
       tags:
         - Swimlanes
       parameters:
         - name: board
           in: path
-          description: the board value
+          description: |
+            the ID of the board
           type: string
           required: true
         - name: swimlane
           in: path
-          description: the swimlane value
+          description: |
+            the ID of the swimlane
           type: string
           required: true
       produces:
@@ -1780,20 +2330,28 @@ paths:
         '200':
           description: |-
             200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
   /api/boards/{board}/swimlanes/{swimlane}/cards:
     get:
-      operationId: get_board_swimlane_cards
+      operationId: get_swimlane_cards
+      summary: get all cards attached to a swimlane
       tags:
         - Cards
       parameters:
         - name: board
           in: path
-          description: the board value
+          description: |
+            the board ID
           type: string
           required: true
         - name: swimlane
           in: path
-          description: the swimlane value
+          description: |
+            the swimlane ID
           type: string
           required: true
       produces:
@@ -1804,6 +2362,71 @@ paths:
         '200':
           description: |-
             200 response
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                _id:
+                  type: string
+                title:
+                  type: string
+                description:
+                  type: string
+                listId:
+                  type: string
+  /api/boards_count:
+    get:
+      operationId: get_boards_count
+      summary: Get public and private boards count
+      tags:
+        - Boards
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: object
+            properties:
+              private:
+                type: integer
+              public:
+                type: integer
+  /api/createtoken/{user}:
+    post:
+      operationId: create_user_token
+      summary: Create a user token
+      description: |
+        Only the admin user (the first user) can call the REST API.
+      tags:
+        - Users
+      consumes:
+        - multipart/form-data
+        - application/json
+      parameters:
+        - name: user
+          in: path
+          description: |
+            the ID of the user to create token for.
+          type: string
+          required: true
+      produces:
+        - application/json
+      security:
+          - UserSecurity: []
+      responses:
+        '200':
+          description: |-
+            200 response
+          schema:
+            type: object
+            properties:
+              _id:
+                type: string
   /api/user:
     get:
       operationId: get_current_user
@@ -1899,7 +2522,7 @@ paths:
         - name: user
           in: path
           description: |
-            the user ID
+            the user ID or username
           type: string
           required: true
       produces:
@@ -2029,6 +2652,11 @@ definitions:
         description: |
            Is the board archived?
         type: boolean
+      archivedAt:
+        description: |
+           Latest archiving time of the board
+        type: string
+        x-nullable: true
       createdAt:
         description: |
            Creation time of the board
@@ -2048,6 +2676,7 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/BoardsLabels"
+        x-nullable: true
       members:
         description: |
            List of members of a board
@@ -2061,6 +2690,20 @@ definitions:
         enum:
           - public
           - private
+      orgs:
+        description: |
+           the list of organizations that a board belongs to
+        type: array
+        items:
+          $ref: "#/definitions/BoardsOrgs"
+        x-nullable: true
+      teams:
+        description: |
+           the list of teams that a board belongs to
+        type: array
+        items:
+          $ref: "#/definitions/BoardsTeams"
+        x-nullable: true
       color:
         description: |
            The color of the board.
@@ -2078,6 +2721,10 @@ definitions:
           - dark
           - relax
           - corteza
+          - clearblue
+          - natural
+          - modern
+          - moderndark
       description:
         description: |
            The description of the board
@@ -2131,6 +2778,10 @@ definitions:
         description: |
            Does the board allows labels?
         type: boolean
+      allowsCreator:
+        description: |
+           Does the board allow creator?
+        type: boolean
       allowsAssignee:
         description: |
            Does the board allows assignee?
@@ -2142,6 +2793,10 @@ definitions:
       allowsRequestedBy:
         description: |
            Does the board allows requested by?
+        type: boolean
+      allowsCardSortingByNumber:
+        description: |
+           Does the board allows card sorting by number?
         type: boolean
       allowsAssignedBy:
         description: |
@@ -2208,14 +2863,22 @@ definitions:
       type:
         description: |
            The type of board
+           possible values: board, template-board, template-container
         type: string
+        enum:
+          - board
+          - template-board
+          - template-container
+      sort:
+        description: |
+           Sort value
+        type: number
     required:
       - title
       - slug
       - archived
       - createdAt
       - stars
-      - labels
       - members
       - permission
       - color
@@ -2227,15 +2890,18 @@ definitions:
       - allowsDescriptionText
       - allowsActivities
       - allowsLabels
+      - allowsCreator
       - allowsAssignee
       - allowsMembers
       - allowsRequestedBy
+      - allowsCardSortingByNumber
       - allowsAssignedBy
       - allowsReceivedDate
       - allowsStartDate
       - allowsEndDate
       - allowsDueDate
       - type
+      - sort
   BoardsLabels:
     type: object
     properties:
@@ -2258,6 +2924,7 @@ definitions:
            `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`
         type: string
         enum:
+          - white
           - green
           - yellow
           - orange
@@ -2316,6 +2983,44 @@ definitions:
       - userId
       - isAdmin
       - isActive
+  BoardsOrgs:
+    type: object
+    properties:
+      orgId:
+        description: |
+           The uniq ID of the organization
+        type: string
+      orgDisplayName:
+        description: |
+           The display name of the organization
+        type: string
+      isActive:
+        description: |
+           Is the organization active?
+        type: boolean
+    required:
+      - orgId
+      - orgDisplayName
+      - isActive
+  BoardsTeams:
+    type: object
+    properties:
+      teamId:
+        description: |
+           The uniq ID of the team
+        type: string
+      teamDisplayName:
+        description: |
+           The display name of the team
+        type: string
+      isActive:
+        description: |
+           Is the team active?
+        type: boolean
+    required:
+      - teamId
+      - teamDisplayName
+      - isActive
   CardComments:
     type: object
     description:  A comment on a card
@@ -2361,6 +3066,11 @@ definitions:
         description: |
            is the card archived
         type: boolean
+      archivedAt:
+        description: |
+           latest archiving date
+        type: string
+        x-nullable: true
       parentId:
         description: |
            ID of the parent card
@@ -2509,6 +3219,7 @@ definitions:
         description: |
            Sort value
         type: number
+        x-nullable: true
       subtaskSort:
         description: |
            subtask sort value
@@ -2523,6 +3234,40 @@ definitions:
            ID of the linked card
         type: string
         x-nullable: true
+      vote:
+        description: |
+           vote object, see below
+        $ref: "#/definitions/CardsVote"
+        x-nullable: true
+      poker:
+        description: |
+           poker object, see below
+        $ref: "#/definitions/CardsPoker"
+        x-nullable: true
+      targetId_gantt:
+        description: |
+           ID of card which is the child link in gantt view
+        type: array
+        items:
+          type: string
+          x-nullable: true
+        x-nullable: true
+      linkType_gantt:
+        description: |
+           ID of card which is the parent link in gantt view
+        type: array
+        items:
+          type: number
+          x-nullable: true
+        x-nullable: true
+      linkId_gantt:
+        description: |
+           ID of card which is the parent link in gantt view
+        type: array
+        items:
+          type: string
+          x-nullable: true
+        x-nullable: true
     required:
       - archived
       - swimlaneId
@@ -2530,8 +3275,122 @@ definitions:
       - modifiedAt
       - dateLastActivity
       - userId
-      - sort
       - type
+  CardsVote:
+    type: object
+    properties:
+      question:
+        type: string
+      positive:
+        description: |
+           list of members (user IDs)
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      negative:
+        description: |
+           list of members (user IDs)
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      end:
+        type: string
+      public:
+        type: boolean
+      allowNonBoardMembers:
+        type: boolean
+    required:
+      - question
+      - public
+      - allowNonBoardMembers
+  CardsPoker:
+    type: object
+    properties:
+      question:
+        type: boolean
+      one:
+        description: |
+           poker card one
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      two:
+        description: |
+           poker card two
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      three:
+        description: |
+           poker card three
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      five:
+        description: |
+           poker card five
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      eight:
+        description: |
+           poker card eight
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      thirteen:
+        description: |
+           poker card thirteen
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      twenty:
+        description: |
+           poker card twenty
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      forty:
+        description: |
+           poker card forty
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      oneHundred:
+        description: |
+           poker card oneHundred
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      unsure:
+        description: |
+           poker card unsure
+        type: array
+        items:
+          type: string
+          x-nullable: true
+      end:
+        type: string
+      allowNonBoardMembers:
+        type: boolean
+      estimation:
+        description: |
+           poker estimation value
+        type: number
+    required:
+      - question
+      - allowNonBoardMembers
   CardsCustomfields:
     type: object
   ChecklistItems:
@@ -2626,6 +3485,9 @@ definitions:
           - number
           - date
           - dropdown
+          - checkbox
+          - currency
+          - stringtemplate
       settings:
         description: |
            settings of the custom field
@@ -2637,6 +3499,10 @@ definitions:
       automaticallyOnCard:
         description: |
            should the custom fields automatically be added on cards?
+        type: boolean
+      alwaysOnCard:
+        description: |
+           should the custom field be automatically added to all cards?
         type: boolean
       showLabelOnMiniCard:
         description: |
@@ -2654,17 +3520,24 @@ definitions:
       - settings
       - showOnCard
       - automaticallyOnCard
+      - alwaysOnCard
       - showLabelOnMiniCard
       - modifiedAt
   CustomFieldsSettings:
     type: object
     properties:
+      currencyCode:
+        type: string
       dropdownItems:
         description: |
            list of drop down items objects
         type: array
         items:
           $ref: "#/definitions/CustomFieldsSettingsDropdownitems"
+      stringtemplateFormat:
+        type: string
+      stringtemplateSeparator:
+        type: string
   CustomFieldsSettingsDropdownitems:
     type: object
   Integrations:
@@ -2738,6 +3611,11 @@ definitions:
         description: |
            is the list archived
         type: boolean
+      archivedAt:
+        description: |
+           latest archiving date
+        type: string
+        x-nullable: true
       boardId:
         description: |
            the board associated to this list
@@ -2783,6 +3661,7 @@ definitions:
           - lime
           - pink
           - black
+          - silver
           - peachpuff
           - crimson
           - plum
@@ -2840,6 +3719,11 @@ definitions:
         description: |
            is the swimlane archived?
         type: boolean
+      archivedAt:
+        description: |
+           latest archiving date of the swimlane
+        type: string
+        x-nullable: true
       boardId:
         description: |
            the ID of the board the swimlane is attached to
@@ -2869,6 +3753,7 @@ definitions:
           - lime
           - pink
           - black
+          - silver
           - peachpuff
           - crimson
           - plum
@@ -2909,6 +3794,20 @@ definitions:
         description: |
            the username of the user
         type: string
+        x-nullable: true
+      orgs:
+        description: |
+           the list of organizations that a user belongs to
+        type: array
+        items:
+          $ref: "#/definitions/UsersOrgs"
+        x-nullable: true
+      teams:
+        description: |
+           the list of teams that a user belongs to
+        type: array
+        items:
+          $ref: "#/definitions/UsersTeams"
         x-nullable: true
       emails:
         description: |
@@ -2957,24 +3856,23 @@ definitions:
         description: |
            authentication method of the user
         type: string
+      sessionData:
+        description: |
+           profile settings
+        $ref: "#/definitions/UsersSessiondata"
+        x-nullable: true
+      importUsernames:
+        description: |
+           username for imported
+        type: array
+        items:
+          type: string
+          x-nullable: true
+        x-nullable: true
     required:
       - createdAt
       - modifiedAt
       - authenticationMethod
-  UsersEmails:
-    type: object
-    properties:
-      address:
-        description: |
-           The email address
-        type: string
-      verified:
-        description: |
-           Has the email been verified
-        type: boolean
-    required:
-      - address
-      - verified
   UsersProfile:
     type: object
     properties:
@@ -2995,7 +3893,15 @@ definitions:
         type: string
       showDesktopDragHandles:
         description: |
-           does the user want to hide system messages?
+           does the user want to show desktop drag handles?
+        type: boolean
+      hideCheckedItems:
+        description: |
+           does the user want to hide checked checklist items?
+        type: boolean
+      cardMaximized:
+        description: |
+           has user clicked maximize card?
         type: boolean
       hiddenSystemMessages:
         description: |
@@ -3026,17 +3932,13 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/UsersProfileNotifications"
-      activity:
-        description: |
-           The id of the activity this notification references
-        type: string
-      read:
-        description: |
-           the date on which this notification was read
-        type: string
       showCardsCountAt:
         description: |
            showCardCountAt field of the user
+        type: number
+      startDayOfWeek:
+        description: |
+           startDayOfWeek field of the user
         type: number
       starredBoards:
         description: |
@@ -3054,8 +3956,8 @@ definitions:
            boardView field of the user
         type: string
         enum:
-          - board-view-lists
           - board-view-swimlanes
+          - board-view-lists
           - board-view-cal
       listSortBy:
         description: |
@@ -3085,8 +3987,70 @@ definitions:
            Reference to the board templates swimlane Id
         type: string
     required:
-      - activity
       - templatesBoardId
       - cardTemplatesSwimlaneId
       - listTemplatesSwimlaneId
       - boardTemplatesSwimlaneId
+  UsersSessiondata:
+    type: object
+    properties:
+      totalHits:
+        description: |
+           Total hits from last searchquery['members.userId'] = Meteor.userId();
+           last hit that was returned
+        type: number
+  UsersOrgs:
+    type: object
+    properties:
+      orgId:
+        description: |
+           The uniq ID of the organization
+        type: string
+      orgDisplayName:
+        description: |
+           The display name of the organization
+        type: string
+    required:
+      - orgId
+      - orgDisplayName
+  UsersTeams:
+    type: object
+    properties:
+      teamId:
+        description: |
+           The uniq ID of the team
+        type: string
+      teamDisplayName:
+        description: |
+           The display name of the team
+        type: string
+    required:
+      - teamId
+      - teamDisplayName
+  UsersEmails:
+    type: object
+    properties:
+      address:
+        description: |
+           The email address
+        type: string
+      verified:
+        description: |
+           Has the email been verified
+        type: boolean
+    required:
+      - address
+      - verified
+  UsersProfileNotifications:
+    type: object
+    properties:
+      activity:
+        description: |
+           The id of the activity this notification references
+        type: string
+      read:
+        description: |
+           the date on which this notification was read
+        type: string
+    required:
+      - activity

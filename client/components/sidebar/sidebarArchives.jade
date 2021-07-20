@@ -5,17 +5,24 @@ template(name="archivesSidebar")
         unless isWorker
           p.quiet
             a.js-restore-all-cards {{_ 'restore-all'}}
-            | -
-            a.js-delete-all-cards {{_ 'delete-all'}}
+            if currentUser.isBoardAdmin
+              | -
+              a.js-delete-all-cards {{_ 'delete-all'}}
         each archivedCards
           .minicard-wrapper.js-minicard
             +minicard(this)
           if currentUser.isBoardMember
             unless isWorker
               p.quiet
+                if this.archivedAt
+                  | {{_ 'archived-at' }}
+                  | 
+                  | {{ moment this.archivedAt 'LLL' }}
+                  br
                 a.js-restore-card {{_ 'restore'}}
-                | -
-                a.js-delete-card {{_ 'delete'}}
+                if currentUser.isBoardAdmin
+                  | -
+                  a.js-delete-card {{_ 'delete'}}
             if cardIsInArchivedList
               p.quiet.small ({{_ 'warn-list-archived'}})
         else
@@ -25,8 +32,9 @@ template(name="archivesSidebar")
         unless isWorker
           p.quiet
             a.js-restore-all-lists {{_ 'restore-all'}}
-            | -
-            a.js-delete-all-lists {{_ 'delete-all'}}
+            if currentUser.isBoardAdmin
+              | -
+              a.js-delete-all-lists {{_ 'delete-all'}}
         ul.archived-lists
           each archivedLists
             li.archived-lists-item
@@ -34,9 +42,15 @@ template(name="archivesSidebar")
               if currentUser.isBoardMember
                 unless isWorker
                   p.quiet
+                    if this.archivedAt
+                      | {{_ 'archived-at' }}
+                      | 
+                      | {{ moment this.archivedAt 'LLL' }}
+                      br
                     a.js-restore-list {{_ 'restore'}}
-                    | -
-                    a.js-delete-list {{_ 'delete'}}
+                    if currentUser.isBoardAdmin
+                      | -
+                      a.js-delete-list {{_ 'delete'}}
           else
             li.no-items-message {{_ 'no-archived-lists'}}
 
@@ -44,8 +58,9 @@ template(name="archivesSidebar")
         unless isWorker
           p.quiet
             a.js-restore-all-swimlanes {{_ 'restore-all'}}
-            | -
-            a.js-delete-all-swimlanes {{_ 'delete-all'}}
+            if currentUser.isBoardAdmin
+              | -
+              a.js-delete-all-swimlanes {{_ 'delete-all'}}
         ul.archived-lists
           each archivedSwimlanes
             li.archived-lists-item
@@ -53,9 +68,15 @@ template(name="archivesSidebar")
               if currentUser.isBoardMember
                 unless isWorker
                   p.quiet
+                    if this.archivedAt
+                      | {{_ 'archived-at' }}
+                      | 
+                      | {{ moment this.archivedAt 'LLL' }}
+                      br
                     a.js-restore-swimlane {{_ 'restore'}}
-                    | -
-                    a.js-delete-swimlane {{_ 'delete'}}
+                    if currentUser.isBoardAdmin
+                      | -
+                      a.js-delete-swimlane {{_ 'delete'}}
           else
             li.no-items-message {{_ 'no-archived-swimlanes'}}
   else

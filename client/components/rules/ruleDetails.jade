@@ -2,14 +2,18 @@ template(name="ruleDetails")
   .rules
     h2
       i.fa.fa-magic
-      | {{{_ 'r-rule-details' }}}
+      | {{_ 'r-rule-details' }}
     .triggers-content
         .triggers-body
             .triggers-main-body
+                h4
+                  | {{_ 'r-trigger'}}
                 div.trigger-item
                     div.trigger-content
                         div.trigger-text 
-                        = trigger 
+                        = trigger
+                h4 
+                  | {{_ 'r-action'}}
                 div.trigger-item
                     div.trigger-content
                         div.trigger-text 
@@ -17,4 +21,4 @@ template(name="ruleDetails")
     div.rules-back
         button.js-goback
           i.fa.fa-chevron-left
-          | {{{_ 'back'}}}
+          | {{_ 'back'}}

@@ -1,3 +1,5 @@
+import { ALLOWED_WAIT_SPINNERS } from '/config/const';
+
 BlazeComponent.extendComponent({
   onCreated() {
     this.error = new ReactiveVar('');
@@ -48,7 +50,7 @@ BlazeComponent.extendComponent({
         'members.isAdmin': true,
       },
       {
-        sort: ['title'],
+        sort: { sort: 1 /* boards default sorting */ },
       },
     );
   },
@@ -167,18 +169,55 @@ BlazeComponent.extendComponent({
     const productName = $('#product-name')
       .val()
       .trim();
+    const customLoginLogoImageUrl = $('#custom-login-logo-image-url')
+      .val()
+      .trim();
+    const customLoginLogoLinkUrl = $('#custom-login-logo-link-url')
+      .val()
+      .trim();
+    const textBelowCustomLoginLogo = $('#text-below-custom-login-logo')
+      .val()
+      .trim();
+    const automaticLinkedUrlSchemes = $('#automatic-linked-url-schemes')
+      .val()
+      .trim();
+    const customTopLeftCornerLogoImageUrl = $(
+      '#custom-top-left-corner-logo-image-url',
+    )
+      .val()
+      .trim();
+    const customTopLeftCornerLogoLinkUrl = $(
+      '#custom-top-left-corner-logo-link-url',
+    )
+      .val()
+      .trim();
+    const customTopLeftCornerLogoHeight = $(
+      '#custom-top-left-corner-logo-height',
+    )
+      .val()
+      .trim();
     const hideLogoChange = $('input[name=hideLogo]:checked').val() === 'true';
     const displayAuthenticationMethod =
       $('input[name=displayAuthenticationMethod]:checked').val() === 'true';
     const defaultAuthenticationMethod = $('#defaultAuthenticationMethod').val();
+
+    const spinnerName = $('#spinnerName').val();
 
     try {
       Settings.update(Settings.findOne()._id, {
         $set: {
           productName,
           hideLogo: hideLogoChange,
+          customLoginLogoImageUrl,
+          customLoginLogoLinkUrl,
+          textBelowCustomLoginLogo,
+          customTopLeftCornerLogoImageUrl,
+          customTopLeftCornerLogoLinkUrl,
+          customTopLeftCornerLogoHeight,
           displayAuthenticationMethod,
           defaultAuthenticationMethod,
+          automaticLinkedUrlSchemes,
+          spinnerName,
         },
       });
     } catch (e) {
@@ -240,7 +279,6 @@ BlazeComponent.extendComponent({
       $set: { booleanValue: allowUserDelete },
     });
   },
-
   allowEmailChange() {
     return AccountSettings.findOne('accounts-allowEmailChange').booleanValue;
   },
@@ -250,11 +288,30 @@ BlazeComponent.extendComponent({
   allowUserDelete() {
     return AccountSettings.findOne('accounts-allowUserDelete').booleanValue;
   },
+  allHideSystemMessages() {
+    Meteor.call('setAllUsersHideSystemMessages', (err, ret) => {
+      if (!err && ret) {
+        if (ret === true) {
+          const message = `${TAPi18n.__(
+            'now-system-messages-of-all-users-are-hidden',
+          )}`;
+          alert(message);
+        }
+      } else {
+        const reason = err.reason || '';
+        const message = `${TAPi18n.__(err.error)}\n${reason}`;
+        alert(message);
+      }
+    });
+  },
 
   events() {
     return [
       {
         'click button.js-accounts-save': this.saveAccountsChange,
+      },
+      {
+        'click button.js-all-hide-system-messages': this.allHideSystemMessages,
       },
     ];
   },
@@ -330,5 +387,14 @@ Template.selectAuthenticationMethod.helpers({
   },
   isSelected(match) {
     return Template.instance().data.authenticationMethod === match;
+  },
+});
+
+Template.selectSpinnerName.helpers({
+  spinners() {
+    return ALLOWED_WAIT_SPINNERS;
+  },
+  isSelected(match) {
+    return Template.instance().data.spinnerName === match;
   },
 });

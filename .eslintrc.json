@@ -11,6 +11,7 @@
     "browser": true,
     "meteor": true
   },
+  "parser": "babel-eslint",
   "parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module"
@@ -44,7 +45,7 @@
     "no-spaced-func": 2,
     "no-trailing-spaces": 2,
     "operator-linebreak": 2,
-    "quotes": [2, "single"],
+    "quotes": [2, "single", { "avoidEscape": true }],
     "semi-spacing": 2,
     "space-unary-ops": 2,
     "arrow-spacing": 2,

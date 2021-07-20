@@ -1,0 +1,44 @@
+template(name="resultCard")
+  .result-card-wrapper
+    a.minicard-wrapper.card-title(href=originRelativeUrl)
+      +minicard(this)
+      //= card.title
+    ul.result-card-context-list
+      li.result-card-context(title="{{_ 'board'}}")
+        .result-card-block-wrapper
+          if boardId
+            +viewer
+              = getBoard.title
+          else
+            .broken-cards-null
+              | NULL
+        if getBoard.archived
+          i.fa.fa-archive
+      li.result-card-context.result-card-context-separator
+        = ' '
+        | {{_ 'context-separator'}}
+        = ' '
+      li.result-card-context(title="{{_ 'swimlane'}}")
+        .result-card-block-wrapper
+          if swimlaneId
+            +viewer
+              = getSwimlane.title
+          else
+            .broken-cards-null
+              | NULL
+        if getSwimlane.archived
+          i.fa.fa-archive
+      li.result-card-context.result-card-context-separator
+        = ' '
+        | {{_ 'context-separator'}}
+        = ' '
+      li.result-card-context(title="{{_ 'list'}}")
+        .result-card-block-wrapper
+          if listId
+            +viewer
+              = getList.title
+          else
+            .broken-cards-null
+              | NULL
+        if getList.archived
+          i.fa.fa-archive

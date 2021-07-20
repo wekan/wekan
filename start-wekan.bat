@@ -1,9 +1,4 @@
-REM ------------------------------------------------------------
-
-REM NOTE: THIS .BAT DOES NOT WORK !!
-REM Use instead this webpage instructions to build on Windows:
-REM https://github.com/wekan/wekan/wiki/Install-Wekan-from-source-on-Windows
-REM Please add fix PRs, like config of MongoDB etc.
+@ECHO OFF
 
 REM ------------------------------------------------------------
 
@@ -12,11 +7,16 @@ REM SET DEBUG=true
 
 REM ------------------------------------------------------------
 
+SET ROOT_URL=http://localhost
+SET PORT=80
 SET MONGO_URL=mongodb://127.0.0.1:27017/wekan
-SET ROOT_URL=http://127.0.0.1:2000/
-SET MAIL_URL=smtp://user:pass@mailserver.example.com:25/
-SET MAIL_FROM=admin@example.com
-SET PORT=2000
+
+REM # https://github.com/wekan/wekan/wiki/Troubleshooting-Mail
+REM SET MAIL_URL=smtps://username:password@email-smtp.eu-west-1.amazonaws.com:587/
+REM SET MAIL_FROM="Wekan Boards <info@example.com>"
+
+REM # ==== NUMBER OF SEARCH RESULTS PER PAGE BY DEFAULT ====
+REM SET RESULTS_PER_PAGE=20
 
 REM # If you disable Wekan API with false, Export Board does not work.
 SET WITH_API=true
@@ -24,11 +24,6 @@ SET WITH_API=true
 REM # ==== RICH TEXT EDITOR IN CARD COMMENTS ====
 REM # https://github.com/wekan/wekan/pull/2560
 SET RICHER_CARD_COMMENT_EDITOR=false
-
-REM # ==== MOUSE SCROLL ====
-REM # https://github.com/wekan/wekan/issues/2949
-SET SCROLLINERTIA=0
-SET SCROLLAMOUNT=auto
 
 REM # ==== CARD OPENED, SEND WEBHOOK MESSAGE ====
 SET CARD_OPENED_WEBHOOK_ENABLED=false
@@ -47,6 +42,11 @@ REM SET ACCOUNTS_LOCKOUT_KNOWN_USERS_FAILURE_WINDOW=15
 REM SET ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURES_BERORE=3
 REM SET ACCOUNTS_LOCKOUT_UNKNOWN_USERS_LOCKOUT_PERIOD=60
 REM SET ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURE_WINDOW=15
+
+REM # ==== NOTIFICATION TRAY AFTER READ DAYS BEFORE REMOVE =====
+REM # Number of days after a notification is read before we remove it.
+REM # Default: 2
+REM SET NOTIFICATION_TRAY_AFTER_READ_DAYS_BEFORE_REMOVE=2
 
 REM # ==== BIGEVENTS DUE ETC NOTIFICATIONS =====
 REM # https://github.com/wekan/wekan/pull/2541
@@ -117,10 +117,21 @@ REM SET WEBHOOKS_ATTRIBUTES=
 
 REM ------------------------------------------------------------
 
+REM # OAUTH2 ORACLE on premise identity manager OIM
+REM SET ORACLE_OIM_ENABLED=true
+
+REM ------------------------------------------------------------
+
 REM # Enable the OAuth2 connection
 REM # OAuth2 docs: https://github.com/wekan/wekan/wiki/OAuth2
 REM # example: OAUTH2_ENABLED=true
 REM SET OAUTH2_ENABLED=false
+
+REM # Optional OAuth2 CA Cert, see https://github.com/wekan/wekan/issues/3299
+REM SET OAUTH2_CA_CERT=ABCD1234
+
+REM # Use OAuth2 ADFS additional changes. Also needs OAUTH2_ENABLED=true setting.
+REM SET OAUTH2_ADFS_ENABLED=false
 
 REM # OAuth2 Client ID, for example from Rocket.Chat. Example: abcde12345
 REM # example: OAUTH2_CLIENT_ID=abcde12345
@@ -358,6 +369,13 @@ REM SET LDAP_SYNC_ADMIN_STATUS=true
 REM # Comma separated list of admin group names to sync.
 REM SET LDAP_SYNC_ADMIN_GROUPS=group1,group2
 
+REM ------------------------------------------------
+
+REM # Enable/Disable password login form.
+REM SET PASSWORD_LOGIN_ENABLED=true
+
+REM ------------------------------------------------
+
 REM # Login to LDAP automatically with HTTP header.
 REM # In below example for siteminder, at right side of = is header name.
 REM SET HEADER_LOGIN_ID=HEADERUID
@@ -383,6 +401,24 @@ REM # LOGOUT_ON_MINUTES : The number of minutes
 REM # example : LOGOUT_ON_MINUTES=55
 REM SET LOGOUT_ON_MINUTES=
 
-cd .build\bundle
+REM SET CAS_ENABLED=true
+REM SET CAS_BASE_URL=https://cas.example.com/cas
+REM SET CAS_LOGIN_URL=https://cas.example.com/login
+REM SET CAS_VALIDATE_URL=https://cas.example.com/cas/p3/serviceValidate
+
+REM SET SAML_ENABLED=true
+REM SET SAML_PROVIDER=
+REM SET SAML_ENTRYPOINT=
+REM SET SAML_ISSUER=
+REM SET SAML_CERT=
+REM SET SAML_IDPSLO_REDIRECTURL=
+REM SET SAML_PRIVATE_KEYFILE=
+REM SET SAML_PUBLIC_CERTFILE=
+REM SET SAML_IDENTIFIER_FORMAT=
+REM SET SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE=
+REM SET SAML_ATTRIBUTES=
+
+REM # Wait spinner to use
+REM SET WAIT_SPINNER=Bounce
+
 node main.js
-cd ..\..

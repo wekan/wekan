@@ -1,7 +1,7 @@
 template(name="listHeader")
   .list-header.js-list-header(
     class="{{#if limitToShowCardsCount}}list-header-card-count{{/if}}"
-    class="{{#if colorClass}}list-header-{{colorClass}}{{/if}}")
+    class=colorClass)
     +inlinedForm
       +editListTitleForm
     else
@@ -15,7 +15,7 @@ template(name="listHeader")
           = title
         if wipLimit.enabled
          |&nbsp;(
-         span(class="{{#if reachedWipLimit}}highlight{{/if}}") {{cards.count}}
+         span(class="{{#if exceededWipLimit}}highlight{{/if}}") {{cards.count}}
          |/#{wipLimit.value})
 
         if showCardsCountForList cards.count
@@ -28,12 +28,11 @@ template(name="listHeader")
           div.list-header-menu
             unless currentUser.isCommentOnly
               if canSeeAddCard
-                a.js-add-card.fa.fa-plus.list-header-plus-icon
-              a.fa.fa-navicon.js-open-list-menu
-          //a.list-header-handle.handle.fa.fa-arrows.js-list-handle
+                a.js-add-card.fa.fa-plus.list-header-plus-icon(title="{{_ 'add-card-to-top-of-list'}}")
+              a.fa.fa-navicon.js-open-list-menu(title="{{_ 'listActionPopup-title'}}")
         else
           a.list-header-menu-icon.fa.fa-angle-right.js-select-list
-          //a.list-header-handle.handle.fa.fa-arrows.js-list-handle
+          a.list-header-handle.handle.fa.fa-arrows.js-list-handle
       else if currentUser.isBoardMember
         if isWatching
           i.list-header-watch-icon.fa.fa-eye
@@ -42,10 +41,11 @@ template(name="listHeader")
             //if isBoardAdmin
             //  a.fa.js-list-star.list-header-plus-icon(class="fa-star{{#unless starred}}-o{{/unless}}")
             if canSeeAddCard
-              a.js-add-card.fa.fa-plus.list-header-plus-icon
-            a.fa.fa-navicon.js-open-list-menu
-          if showDesktopDragHandles
-            a.list-header-handle.handle.fa.fa-arrows.js-list-handle
+              a.js-add-card.fa.fa-plus.list-header-plus-icon(title="{{_ 'add-card-to-top-of-list'}}")
+            a.fa.fa-navicon.js-open-list-menu(title="{{_ 'listActionPopup-title'}}")
+          if currentUser.isBoardAdmin
+            if showDesktopDragHandles
+              a.list-header-handle.handle.fa.fa-arrows.js-list-handle
 
 template(name="editListTitleForm")
   .list-composer
@@ -116,8 +116,9 @@ template(name="listMorePopup")
       input.inline-input(type="text" readonly value="{{ rootUrl }}")
     | {{_ 'added'}}
     span.date(title=list.createdAt) {{ moment createdAt 'LLL' }}
-    unless currentUser.isWorker
-      a.js-delete {{_ 'delete'}}
+    //unless currentUser.isWorker
+    //  if currentUser.isBoardAdmin
+    //    a.js-delete {{_ 'delete'}}
 
 template(name="listDeletePopup")
   p {{_ "list-delete-pop"}}
@@ -152,7 +153,7 @@ template(name="setListColorPopup")
   form.edit-label
     .palette-colors: each colors
       // note: we use the swimlane palette to have more than just the border
-      span.card-label.palette-color.js-palette-color(class="swimlane-{{color}}")
+      span.card-label.palette-color.js-palette-color(class="card-details-{{color}}")
         if(isSelected color)
           i.fa.fa-check
     button.primary.confirm.js-submit {{_ 'save'}}

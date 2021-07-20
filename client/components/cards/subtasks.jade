@@ -1,11 +1,11 @@
 template(name="subtasks")
-  h3
+  h3.card-details-item-title
     i.fa.fa-sitemap
     | {{_ 'subtasks'}}
-  if toggleDeleteDialog.get
-    .board-overlay#card-details-overlay
-    +subtaskDeleteDialog(subtask = subtaskToDelete)
-
+  if currentUser.isBoardAdmin
+    if toggleDeleteDialog.get
+      .board-overlay#card-details-overlay
+      +subtaskDeleteDialog(subtask = subtaskToDelete)
 
   .card-subtasks-items
     each subtask in currentCard.subtasks
@@ -15,9 +15,8 @@ template(name="subtasks")
     +inlinedForm(autoclose=false classNames="js-add-subtask" cardId = cardId)
       +addSubtaskItemForm
     else
-      a.js-open-inlined-form
+      a.js-open-inlined-form(title="{{_ 'add-subtask'}}")
         i.fa.fa-plus
-        | {{_ 'add-subtask'}}...
 
 template(name="subtaskDetail")
   .js-subtasks.subtask
@@ -28,7 +27,8 @@ template(name="subtaskDetail")
         span
         a.js-view-subtask(title="{{ subtask.title }}") {{_ "view-it"}}
         if canModifyCard
-          a.js-delete-subtask.toggle-delete-subtask-dialog {{_ "delete"}}...
+          if currentUser.isBoardAdmin
+            a.js-delete-subtask.toggle-delete-subtask-dialog {{_ "delete"}}...
 
         if canModifyCard
           h2.title.js-open-inlined-form.is-editable
@@ -68,7 +68,8 @@ template(name="editSubtaskItemForm")
     a.fa.fa-times-thin.js-close-inlined-form
     span(title=createdAt) {{ moment createdAt }}
     if canModifyCard
-      a.js-delete-subtask-item {{_ "delete"}}...
+      if currentUser.isBoardAdmin
+        a.js-delete-subtask-item {{_ "delete"}}...
 
 template(name="subtasksItems")
   .subtasks-items.js-subtasks-items

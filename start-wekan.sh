@@ -23,6 +23,9 @@
       # This is local port where Wekan Node.js runs, same as below on Caddyfile settings.
       export PORT=2000
       #---------------------------------------------
+      # ==== NUMBER OF SEARCH RESULTS PER PAGE BY DEFAULT ====
+      #export RESULTS_PER_PAGE=20
+      #---------------------------------------------
       # Wekan Export Board works when WITH_API=true.
       # If you disable Wekan API with false, Export Board does not work.
       export WITH_API='true'
@@ -41,11 +44,6 @@
       # https://github.com/wekan/wekan/pull/2560
       export RICHER_CARD_COMMENT_EDITOR=false
       #---------------------------------------------------------------
-      # ==== MOUSE SCROLL ====
-      # https://github.com/wekan/wekan/issues/2949
-      export SCROLLINERTIA=0
-      export SCROLLAMOUNT=auto
-      #---------------------------------------------------------------
       # ==== CARD OPENED, SEND WEBHOOK MESSAGE ====
       export CARD_OPENED_WEBHOOK_ENABLED=false
       #---------------------------------------------------------------
@@ -53,6 +51,11 @@
       # https://github.com/wekan/wekan/pull/2544
       #export MAX_IMAGE_PIXEL=1024
       #export IMAGE_COMPRESS_RATIO=80
+      #---------------------------------------------------------------
+      # ==== NOTIFICATION TRAY AFTER READ DAYS BEFORE REMOVE =====
+      # Number of days after a notification is read before we remove it.
+      # Default: 2
+      #- NOTIFICATION_TRAY_AFTER_READ_DAYS_BEFORE_REMOVE=2
       #---------------------------------------------------------------
       # ==== BIGEVENTS DUE ETC NOTIFICATIONS =====
       # https://github.com/wekan/wekan/pull/2541
@@ -120,6 +123,9 @@
       # Example: export WEBHOOKS_ATTRIBUTES=cardId,listId,oldListId,boardId,comment,user,card,commentId
       export WEBHOOKS_ATTRIBUTES=''
       #---------------------------------------------
+      # OAUTH2 ORACLE on premise identity manager OIM
+      #export ORACLE_OIM_ENABLED=true
+      #---------------------------------------------
       # ==== OAUTH2 AZURE ====
       # https://github.com/wekan/wekan/wiki/Azure
       # 1) Register the application with Azure. Make sure you capture
@@ -127,6 +133,10 @@
       # 2) Configure the environment variables. This differs slightly
       #     by installation type, but make sure you have the following:
       #export OAUTH2_ENABLED=true
+      # Optional OAuth2 CA Cert, see https://github.com/wekan/wekan/issues/3299
+      #export OAUTH2_CA_CERT=ABCD1234
+      # Use OAuth2 ADFS additional changes. Also needs OAUTH2_ENABLED=true setting.
+      #export OAUTH2_ADFS_ENABLED=false
       # OAuth2 docs: https://github.com/wekan/wekan/wiki/OAuth2
       # OAuth2 login style: popup or redirect.
       #export OAUTH2_LOGIN_STYLE=redirect
@@ -357,7 +367,30 @@
       # LOGOUT_ON_MINUTES : The number of minutes
       # example : LOGOUT_ON_MINUTES=55
       #export LOGOUT_ON_MINUTES=
-
+      #---------------------------------------------------------------------
+      # PASSWORD_LOGIN_ENABLED : Enable or not the password login form.
+      #export PASSWORD_LOGIN_ENABLED=true
+      #---------------------------------------------------------------------
+      #export CAS_ENABLED=true
+      #export CAS_BASE_URL=https://cas.example.com/cas
+      #export CAS_LOGIN_URL=https://cas.example.com/login
+      #export CAS_VALIDATE_URL=https://cas.example.com/cas/p3/serviceValidate
+      #---------------------------------------------------------------------
+      #export SAML_ENABLED=true
+      #export SAML_PROVIDER=
+      #export SAML_ENTRYPOINT=
+      #export SAML_ISSUER=
+      #export SAML_CERT=
+      #export SAML_IDPSLO_REDIRECTURL=
+      #export SAML_PRIVATE_KEYFILE=
+      #export SAML_PUBLIC_CERTFILE=
+      #export SAML_IDENTIFIER_FORMAT=
+      #export SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE=
+      #export SAML_ATTRIBUTES=
+      #---------------------------------------------------------------------
+      # Wait spinner to use
+      #export WAIT_SPINNER=Bounce
+      #---------------------------------------------------------------------
       node main.js
       # & >> ../../wekan.log
       cd ../..

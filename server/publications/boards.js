@@ -18,7 +18,7 @@ Meteor.publish('boards', function() {
       archived: false,
       $or: [
         {
-          _id: { $in: starredBoards },
+          // _id: { $in: starredBoards },  // Commented out, to get a list of all public boards
           permission: 'public',
         },
         { members: { $elemMatch: { userId, isActive: true } } },
@@ -27,15 +27,20 @@ Meteor.publish('boards', function() {
     {
       fields: {
         _id: 1,
+        boardId: 1,
         archived: 1,
         slug: 1,
         title: 1,
         description: 1,
         color: 1,
         members: 1,
+        orgs: 1,
+        teams: 1,
         permission: 1,
         type: 1,
+        sort: 1,
       },
+      sort: { sort: 1 /* boards default sorting */ },
     },
   );
 });
@@ -60,7 +65,11 @@ Meteor.publish('archivedBoards', function() {
         archived: 1,
         slug: 1,
         title: 1,
+        createdAt: 1,
+        modifiedAt: 1,
+        archivedAt: 1,
       },
+      sort: { archivedAt: -1, modifiedAt: -1 },
     },
   );
 });
@@ -90,7 +99,7 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
         $or,
         // Sort required to ensure oplog usage
       },
-      { limit: 1, sort: { _id: 1 } },
+      { limit: 1, sort: { sort: 1 /* boards default sorting */ } },
     ),
     function(boardId, board) {
       this.cursor(Lists.find({ boardId, archived: isArchived }));
@@ -204,4 +213,20 @@ Meteor.publishRelations('board', function(boardId, isArchived) {
   );
 
   return this.ready();
+});
+
+Meteor.methods({
+  copyBoard(boardId, properties) {
+    check(boardId, String);
+    check(properties, Object);
+
+    const board = Boards.findOne(boardId);
+    if (board) {
+      for (const key in properties) {
+        board[key] = properties[key];
+      }
+      return board.copy();
+    }
+    return null;
+  },
 });

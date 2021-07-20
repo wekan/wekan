@@ -1,3 +1,8 @@
+// Sandstorm context is detected using the METEOR_SETTINGS environment variable
+// in the package definition.
+const isSandstorm =
+  Meteor.settings && Meteor.settings.public && Meteor.settings.public.sandstorm;
+
 Settings = new Mongo.Collection('settings');
 
 Settings.attachSchema(
@@ -41,8 +46,40 @@ Settings.attachSchema(
       type: String,
       optional: false,
     },
+    spinnerName: {
+      type: String,
+      optional: true,
+    },
     hideLogo: {
       type: Boolean,
+      optional: true,
+    },
+    customLoginLogoImageUrl: {
+      type: String,
+      optional: true,
+    },
+    customLoginLogoLinkUrl: {
+      type: String,
+      optional: true,
+    },
+    textBelowCustomLoginLogo: {
+      type: String,
+      optional: true,
+    },
+    automaticLinkedUrlSchemes: {
+      type: String,
+      optional: true,
+    },
+    customTopLeftCornerLogoImageUrl: {
+      type: String,
+      optional: true,
+    },
+    customTopLeftCornerLogoLinkUrl: {
+      type: String,
+      optional: true,
+    },
+    customTopLeftCornerLogoHeight: {
+      type: String,
       optional: true,
     },
     createdAt: {
@@ -120,29 +157,38 @@ if (Meteor.isServer) {
       };
       Settings.insert(defaultSetting);
     }
-    const newSetting = Settings.findOne();
-    if (!process.env.MAIL_URL && newSetting.mailUrl())
-      process.env.MAIL_URL = newSetting.mailUrl();
-    Accounts.emailTemplates.from = process.env.MAIL_FROM
-      ? process.env.MAIL_FROM
-      : newSetting.mailServer.from;
-  });
-  Settings.after.update((userId, doc, fieldNames) => {
-    // assign new values to mail-from & MAIL_URL in environment
-    if (_.contains(fieldNames, 'mailServer') && doc.mailServer.host) {
-      const protocol = doc.mailServer.enableTLS ? 'smtps://' : 'smtp://';
-      if (!doc.mailServer.username && !doc.mailServer.password) {
-        process.env.MAIL_URL = `${protocol}${doc.mailServer.host}:${doc.mailServer.port}/`;
-      } else {
-        process.env.MAIL_URL = `${protocol}${
-          doc.mailServer.username
-        }:${encodeURIComponent(doc.mailServer.password)}@${
-          doc.mailServer.host
-        }:${doc.mailServer.port}/`;
-      }
-      Accounts.emailTemplates.from = doc.mailServer.from;
+    if (isSandstorm) {
+      // At Sandstorm, Admin Panel has SMTP settings
+      const newSetting = Settings.findOne();
+      if (!process.env.MAIL_URL && newSetting.mailUrl())
+        process.env.MAIL_URL = newSetting.mailUrl();
+      Accounts.emailTemplates.from = process.env.MAIL_FROM
+        ? process.env.MAIL_FROM
+        : newSetting.mailServer.from;
+    } else {
+      // Not running on Sandstorm, so using environment variables
+      Accounts.emailTemplates.from = process.env.MAIL_FROM;
     }
   });
+  if (isSandstorm) {
+    // At Sandstorm Wekan Admin Panel, save SMTP settings.
+    Settings.after.update((userId, doc, fieldNames) => {
+      // assign new values to mail-from & MAIL_URL in environment
+      if (_.contains(fieldNames, 'mailServer') && doc.mailServer.host) {
+        const protocol = doc.mailServer.enableTLS ? 'smtps://' : 'smtp://';
+        if (!doc.mailServer.username && !doc.mailServer.password) {
+          process.env.MAIL_URL = `${protocol}${doc.mailServer.host}:${doc.mailServer.port}/`;
+        } else {
+          process.env.MAIL_URL = `${protocol}${
+            doc.mailServer.username
+          }:${encodeURIComponent(doc.mailServer.password)}@${
+            doc.mailServer.host
+          }:${doc.mailServer.port}/`;
+        }
+        Accounts.emailTemplates.from = doc.mailServer.from;
+      }
+    });
+  }
 
   function getRandomNum(min, max) {
     const range = max - min;
@@ -187,15 +233,26 @@ if (Meteor.isServer) {
   }
 
   function isLdapEnabled() {
-    return process.env.LDAP_ENABLE === 'true';
+    return (
+      process.env.LDAP_ENABLE === 'true' || process.env.LDAP_ENABLE === true
+    );
   }
 
   function isOauth2Enabled() {
-    return process.env.OAUTH2_ENABLED === 'true';
+    return (
+      process.env.OAUTH2_ENABLED === 'true' ||
+      process.env.OAUTH2_ENABLED === true
+    );
   }
 
   function isCasEnabled() {
-    return process.env.CAS_ENABLED === 'true';
+    return (
+      process.env.CAS_ENABLED === 'true' || process.env.CAS_ENABLED === true
+    );
+  }
+
+  function isApiEnabled() {
+    return process.env.WITH_API === 'true' || process.env.WITH_API === true;
   }
 
   Meteor.methods({
@@ -255,7 +312,7 @@ if (Meteor.isServer) {
         throw new Meteor.Error('invalid-user');
       }
       const user = Meteor.user();
-      if (!user.emails && !user.emails[0] && user.emails[0].address) {
+      if (!user.emails || !user.emails[0] || !user.emails[0].address) {
         throw new Meteor.Error('email-invalid');
       }
       this.unblock();
@@ -314,6 +371,10 @@ if (Meteor.isServer) {
       return isCasEnabled();
     },
 
+    _isApiEnabled() {
+      return isApiEnabled();
+    },
+
     // Gets all connection methods to use it in the Template
     getAuthenticationsEnabled() {
       return {
@@ -325,6 +386,10 @@ if (Meteor.isServer) {
 
     getDefaultAuthenticationMethod() {
       return process.env.DEFAULT_AUTHENTICATION_METHOD;
+    },
+
+    isPasswordLoginDisabled() {
+      return process.env.PASSWORD_LOGIN_ENABLED === 'false';
     },
   });
 }

@@ -1,0 +1,57 @@
+template(name="dueCardsHeaderBar")
+  if currentUser
+    h1
+      i.fa.fa-calendar
+      | {{_ 'dueCards-title'}}
+
+    .board-header-btns.left
+      a.board-header-btn.js-due-cards-view-change(title="{{_ 'dueCardsViewChange-title'}}")
+        i.fa.fa-caret-down
+        if $eq dueCardsView 'me'
+          i.fa.fa-user
+          | {{_ 'dueCardsViewChange-choice-me'}}
+        if $eq dueCardsView 'all'
+          i.fa.fa-users
+          | {{_ 'dueCardsViewChange-choice-all'}}
+
+template(name="dueCardsModalTitle")
+  if currentUser
+    h2
+      i.fa.fa-keyboard-o
+      | {{_ 'dueCards-title'}}
+
+template(name="dueCards")
+  if currentUser
+    if searching.get
+      +spinner
+    else if hasResults.get
+      .global-search-results-list-wrapper
+        if hasQueryErrors.get
+          div
+            each msg in errorMessages
+              span.global-search-error-messages
+                = msg
+        else
+          +resultsPaged(this)
+
+template(name="dueCardsViewChangePopup")
+  if currentUser
+    ul.pop-over-list
+      li
+        with "dueCardsViewChange-choice-me"
+          a.js-due-cards-view-me
+            i.fa.fa-user.colorful
+            | {{_ 'dueCardsViewChange-choice-me'}}
+            if $eq Utils.dueCardsView "me"
+              i.fa.fa-check
+      hr
+      li
+        with "dueCardsViewChange-choice-all"
+          a.js-due-cards-view-all
+            i.fa.fa-users.colorful
+            | {{_ 'dueCardsViewChange-choice-all'}}
+            span.sub-name
+              +viewer
+                | {{_ 'dueCardsViewChange-choice-all-description' }}
+            if $eq Utils.dueCardsView "all"
+              i.fa.fa-check

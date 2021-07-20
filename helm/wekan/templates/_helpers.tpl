@@ -62,21 +62,27 @@ Create the name of the service account to use for the api component
 Create a default fully qualified mongodb-replicaset name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 */}}
-{{- define "wekan.mongodb-replicaset.fullname" -}}
-{{- $name := default "mongodb-replicaset" (index .Values "mongodb-replicaset" "nameOverride") -}}
+{{- define "wekan.mongodb.svcname" -}}
+{{- $name := default "mongodb" (index .Values "mongodb" "nameOverride") -}}
+{{- if eq .Values.mongodb.architecture "replicaset" }}
+{{- printf "%s-%s-headless" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+{{- else -}}
 {{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
 {{- end -}}
 
 {{/*
 Create the MongoDB URL. If MongoDB is installed as part of this chart, use k8s service discovery,
 else use user-provided URL.
 */}}
-{{- define "mongodb-replicaset.url" -}}
-{{- if (index .Values "mongodb-replicaset" "enabled") -}}
-{{- $count := (int (index .Values "mongodb-replicaset" "replicas")) -}}
+{{- define "mongodb.url" -}}
+{{- if (index .Values "mongodb" "enabled") -}}
+{{- $count := (int (index .Values "mongodb" "replicaCount")) -}}
 {{- $release := .Release.Name -}}
-mongodb://{{ $release }}-mongodb-replicaset:27017/admin?replicaSet={{ index .Values "mongodb-replicaset" "replicaSetName" }}
+{{- $replicaSetName := (index .Values "mongodb" "replicaSetName") -}}
+{{- $mongodbSvcName := include "wekan.mongodb.svcname" . -}}
+mongodb://{{- range $v := until $count }}{{ $release }}-mongodb-{{ $v }}.{{ $mongodbSvcName }}:27017{{ if ne $v (sub $count 1) }},{{- end -}}{{- end -}}/{{ .Values.dbname }}?replicaSet={{ $replicaSetName }}
 {{- else -}}
-{{- index .Values "mongodb-replicaset" "url" -}}
+{{- index .Values "mongodb" "url" -}}
 {{- end -}}
 {{- end -}}

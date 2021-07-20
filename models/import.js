@@ -1,21 +1,27 @@
 import { TrelloCreator } from './trelloCreator';
 import { WekanCreator } from './wekanCreator';
-import { Exporter } from './export';
-import wekanMembersMapper from './wekanmapper';
+import { CsvCreator } from './csvCreator';
+import { Exporter } from './exporter';
+import { getMembersToMap } from './wekanmapper';
 
 Meteor.methods({
   importBoard(board, data, importSource, currentBoard) {
-    check(board, Object);
     check(data, Object);
     check(importSource, String);
     check(currentBoard, Match.Maybe(String));
     let creator;
     switch (importSource) {
       case 'trello':
+        check(board, Object);
         creator = new TrelloCreator(data);
         break;
       case 'wekan':
+        check(board, Object);
         creator = new WekanCreator(data);
+        break;
+      case 'csv':
+        check(board, Array);
+        creator = new CsvCreator(data);
         break;
     }
 
@@ -36,9 +42,23 @@ Meteor.methods({
     check(currentBoardId, Match.Maybe(String));
     const exporter = new Exporter(sourceBoardId);
     const data = exporter.build();
-    const addData = {};
-    addData.membersMapping = wekanMembersMapper.getMembersToMap(data);
-    const creator = new WekanCreator(addData);
+    const additionalData = {};
+
+    //get the members to map
+    const membersMapping = getMembersToMap(data);
+
+    //now mirror the mapping done in finishImport in client/components/import/import.js:
+    if (membersMapping) {
+      const mappingById = {};
+      membersMapping.forEach(member => {
+        if (member.wekanId) {
+          mappingById[member.id] = member.wekanId;
+        }
+      });
+      additionalData.membersMapping = mappingById;
+    }
+
+    const creator = new WekanCreator(additionalData);
     //data.title = `${data.title  } - ${  TAPi18n.__('copy-tag')}`;
     data.title = `${data.title}`;
     return creator.create(data, currentBoardId);

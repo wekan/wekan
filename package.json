@@ -1,35 +1,8 @@
 {
   "name": "wekan",
-  "version": "v3.90.0",
+  "version": "v5.38.0",
   "description": "Open-Source kanban",
   "private": true,
-  "scripts": {
-    "lint": "eslint --cache --ext .js --ignore-path .eslintignore .",
-    "lint:eslint:fix": "eslint --ext .js --ignore-path .eslintignore --fix .",
-    "lint:staged": "lint-staged",
-    "prettify": "prettier --write '**/*.js' '**/*.jsx'",
-    "test": "npm run lint"
-  },
-  "lint-staged": {
-    "*.js": [
-      "meteor npm run prettify",
-      "meteor npm run lint:eslint:fix",
-      "git add --force"
-    ],
-    "*.jsx": [
-      "meteor npm run prettify",
-      "meteor npm run lint:eslint:fix",
-      "git add --force"
-    ],
-    "*.json": [
-      "prettier --write",
-      "git add --force"
-    ]
-  },
-  "pre-commit": "lint:staged",
-  "eslintConfig": {
-    "extends": "@meteorjs/eslint-config-meteor"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/wekan/wekan.git"
@@ -40,35 +13,40 @@
   },
   "homepage": "https://wekan.github.io",
   "devDependencies": {
-    "eslint": "^5.16.0",
-    "eslint-config-meteor": "0.0.9",
-    "eslint-config-prettier": "^3.6.0",
-    "eslint-import-resolver-meteor": "^0.4.0",
-    "eslint-plugin-import": "^2.20.0",
-    "eslint-plugin-meteor": "^5.1.0",
-    "eslint-plugin-prettier": "^3.1.2",
-    "lint-staged": "^7.3.0",
-    "pre-commit": "^1.2.2",
-    "prettier": "^1.19.1",
-    "prettier-eslint": "^9.0.1"
+    "babel-plugin-istanbul": "^6.0.0",
+    "chai": "^4.3.4",
+    "flatted": "^3.2.0",
+    "puppeteer": "^10.0.0",
+    "sinon": "^11.1.1"
   },
   "dependencies": {
-    "@babel/runtime": "^7.8.4",
-    "ajv": "^5.0.0",
+    "@babel/core": "^7.14.6",
+    "@babel/runtime": "^7.14.6",
+    "@liradb2000/markdown-it-mermaid": "^0.4.3",
+    "ajv": "^6.12.6",
     "babel-runtime": "^6.26.0",
-    "bcrypt": "^3.0.7",
-    "bson": "^4.0.3",
-    "bunyan": "^1.8.12",
+    "bcryptjs": "^2.4.3",
+    "bson": "^4.4.1",
+    "bunyan": "^1.8.15",
+    "core-js": "^2.6.12",
+    "dompurify": "^2.3.0",
     "es6-promise": "^4.2.4",
-    "flatted": "^2.0.1",
-    "gridfs-stream": "^0.5.3",
-    "ldapjs": "^1.0.2",
-    "meteor-node-stubs": "^0.4.1",
-    "mongodb": "^3.5.0",
+    "exceljs": "^4.2.1",
+    "fibers": "^5.0.0",
+    "gridfs-stream": "https://github.com/wekan/gridfs-stream/tarball/master",
+    "jszip": "^3.6.0",
+    "ldapjs": "^2.3.0",
+    "markdown-it": "^12.1.0",
+    "markdown-it-emoji": "^2.0.0",
+    "meteor-node-stubs": "^1.0.3",
+    "mongodb": "^3.6.9",
     "os": "^0.1.1",
     "page": "^1.11.5",
-    "qs": "^6.9.1",
-    "source-map-support": "^0.5.16",
-    "xss": "^1.0.6"
+    "papaparse": "^5.3.1",
+    "qs": "^6.10.1",
+    "source-map-support": "^0.5.19"
+  },
+  "meteor": {
+    "testModule": "tests/main.js"
   }
 }

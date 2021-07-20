@@ -117,9 +117,17 @@ if (Meteor.isServer) {
       // No need send notification to user of activity
       // participants = _.union(participants, [activity.userId]);
       const user = activity.user();
-      params.user = user.getName();
-      params.userEmails = user.emails;
-      params.userId = activity.userId;
+      if (user) {
+        if (user.getName()) {
+          params.user = user.getName();
+        }
+        if (user.emails) {
+          params.userEmails = user.emails;
+        }
+        if (activity.userId) {
+          params.userId = activity.userId;
+        }
+      }
     }
     if (activity.boardId) {
       if (board.title.length > 0) {
@@ -222,18 +230,30 @@ if (Meteor.isServer) {
     }
     if (activity.checklistId) {
       const checklist = activity.checklist();
-      params.checklist = checklist.title;
+      if (checklist) {
+        if (checklist.title) {
+          params.checklist = checklist.title;
+        }
+      }
     }
     if (activity.checklistItemId) {
       const checklistItem = activity.checklistItem();
-      params.checklistItem = checklistItem.title;
+      if (checklistItem) {
+        if (checklistItem.title) {
+          params.checklistItem = checklistItem.title;
+        }
+      }
     }
     if (activity.customFieldId) {
       const customField = activity.customField();
-      params.customField = customField.name;
-      params.customFieldValue = Activities.findOne({
-        customFieldId: customField._id,
-      }).value;
+      if (customField) {
+        if (customField.name) {
+          params.customField = customField.name;
+        }
+        if (activity.value) {
+          params.customFieldValue = activity.value;
+        }
+      }
     }
     // Label activity did not work yet, unable to edit labels when tried this.
     //if (activity.labelId) {
@@ -254,17 +274,19 @@ if (Meteor.isServer) {
       if (value) params[key] = value;
     });
     if (board) {
-      const BIGEVENTS = process.env.BIGEVENTS_PATTERN || 'due'; // if environment BIGEVENTS_PATTERN is set or default, any activityType matching it is important
-      try {
-        const atype = activity.activityType;
-        if (new RegExp(BIGEVENTS).exec(atype)) {
-          watchers = _.union(
-            watchers,
-            board.activeMembers().map(member => member.userId),
-          ); // notify all active members for important events system defined or default to all activity related to due date
+      const BIGEVENTS = process.env.BIGEVENTS_PATTERN; // if environment BIGEVENTS_PATTERN is set, any activityType matching it is important
+      if (BIGEVENTS) {
+        try {
+          const atype = activity.activityType;
+          if (new RegExp(BIGEVENTS).exec(atype)) {
+            watchers = _.union(
+              watchers,
+              board.activeMembers().map(member => member.userId),
+            ); // notify all active members for important events
+          }
+        } catch (e) {
+          // passed env var BIGEVENTS_PATTERN is not a valid regex
         }
-      } catch (e) {
-        // passed env var BIGEVENTS_PATTERN is not a valid regex
       }
 
       const watchingUsers = _.pluck(
@@ -282,7 +304,10 @@ if (Meteor.isServer) {
       );
     }
     Notifications.getUsers(watchers).forEach(user => {
-      Notifications.notify(user, title, description, params);
+      // don't notify a user of their own behavior
+      if (user._id !== userId) {
+        Notifications.notify(user, title, description, params);
+      }
     });
 
     const integrations = Integrations.find({

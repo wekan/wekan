@@ -26,6 +26,10 @@ template(name='notificationIcon')
     i.fa.fa-code.activity-type(title="custom field")
   else if($in activityType 'addedLabel' 'removedLabel')
     i.fa.fa-tag.activity-type(title="label")
+  else if($in activityType 'a-startAt' 'a-receivedAt')
+    i.fa.fa-clock-o.activity-type(title="date")
+  else if($in activityType 'a-dueAt' 'a-endAt')
+    i.fa.fa-clock-o.activity-type(title="date")
 
   else if($in activityType 'createList' 'removeList' 'archivedList')
     +listNotificationIcon

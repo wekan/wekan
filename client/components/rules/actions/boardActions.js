@@ -11,7 +11,7 @@ BlazeComponent.extendComponent({
         },
       },
       {
-        sort: ['title'],
+        sort: { sort: 1 /* boards default sorting */ },
       },
     );
     return boards;
@@ -68,8 +68,8 @@ BlazeComponent.extendComponent({
           const ruleName = this.data().ruleName.get();
           const trigger = this.data().triggerVar.get();
           const actionSelected = this.find('#move-spec-action').value;
-          const swimlaneName = this.find('#swimlaneName').value;
-          const listName = this.find('#listName').value;
+          const swimlaneName = this.find('#swimlaneName').value || '*';
+          const listName = this.find('#listName').value || '*';
           const boardId = Session.get('currentBoard');
           const destBoardId = this.find('#board-id').value;
           const desc = Utils.getTriggerActionDesc(event, this);

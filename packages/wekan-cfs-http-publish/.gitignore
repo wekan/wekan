@@ -1,0 +1,4 @@
+/versions.json
+.build*
+smart.lock
+/nbproject/

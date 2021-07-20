@@ -1,7 +1,6 @@
 name: wekan
-version: 1.0.0
-appVersion: 2.x.x
-kubeVersion: "^1.8.0-0"
+version: 1.0.3
+apiVersion: v1
 description: Open Source kanban
 home: https://wekan.github.io/
 icon: https://wekan.github.io/wekan-logo.svg
@@ -10,4 +9,6 @@ sources:
 maintainers:
   - name: technotaff
     email: github@randall.cc
+  - name: jiangytcn
+    email: jiangyt.cn@gmail.com
 engine: gotpl

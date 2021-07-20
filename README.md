@@ -1,3 +1,5 @@
+[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/wekan/wekan)
+
 # Wekan - Open Source kanban
 
 [![Contributors](https://img.shields.io/github/contributors/wekan/wekan.svg "Contributors")](https://github.com/wekan/wekan/graphs/contributors)
@@ -10,6 +12,7 @@
 [![Project Dependencies](https://david-dm.org/wekan/wekan.svg "Project Dependencies")](https://david-dm.org/wekan/wekan)
 [![Code analysis at Open Hub](https://img.shields.io/badge/code%20analysis-at%20Open%20Hub-brightgreen.svg "Code analysis at Open Hub")](https://www.openhub.net/p/wekan)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fwekan%2Fwekan.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fwekan%2Fwekan?ref=badge_shield)
+[![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/4619/badge)](https://bestpractices.coreinfrastructure.org/projects/4619)
 
 ## [Translate Wekan at Transifex](https://transifex.com/wekan/wekan)
 
@@ -18,21 +21,25 @@ New English strings of new features can be added as PRs to edge branch file weka
 
 ## [Wekan feature requests and bugs](https://github.com/wekan/wekan/issues)
 
-Please add most of your questions as GitHub issue: [Wekan feature requests and bugs](https://github.com/wekan/wekan/issues).
+Please add most of your questions as GitHub issue: [Wekan Feature Requests and Bugs](https://github.com/wekan/wekan/issues).
 It's better than at chat where details get lost when chat scrolls up.
 
 ## Chat
 
-[![Wekan Chat][vanila_badge]][wekan_chat] - Most Wekan community and developers are here. Works on webbrowser
-and PWA app that can be added as icon on Android and bookmark on iOS, used like native app.
+[Discussions][discussions] - Wekan Community GitHub Discussions, that are not [Feature Requests and Bugs](https://github.com/wekan/wekan/issues).
 
 [Wekan IRC FAQ](https://github.com/wekan/wekan/wiki/IRC-FAQ)
 
+## Docker: Please only use Docker release tags
+
+Note: With Docker, please don't use latest tag. Only use release tags.
+See https://github.com/wekan/wekan/issues/3874
+
 ## FAQ
 
-**NOTE**: 
+**NOTE**:
 - Please read the [FAQ](https://github.com/wekan/wekan/wiki/FAQ) first
-- Please don't feed the trolls and spammers that are mentioned in the FAQ :)
+- Please don't feed the [trolls](https://github.com/wekan/wekan/wiki/FAQ#why-am-i-called-a-troll) and [spammers](https://github.com/wekan/wekan/wiki/FAQ#why-am-i-called-a-spammer) that are mentioned in the FAQ :)
 
 ## About Wekan
 
@@ -50,7 +57,7 @@ that by providing one-click installation on various platforms.
 
 - Wekan is used in [most countries of the world](https://snapcraft.io/wekan).
 - Wekan largest user has 13k users using Wekan in their company.
-- Wekan has been [translated](https://transifex.com/wekan/wekan) to about 50 languages.
+- Wekan has been [translated](https://transifex.com/wekan/wekan) to about 63 languages.
 - [Features][features]: Wekan has real-time user interface.
 - [Platforms][platforms]: Wekan supports many platforms.
   Wekan is critical part of new platforms Wekan is currently being integrated to.
@@ -62,7 +69,7 @@ that by providing one-click installation on various platforms.
   [More Platforms](https://github.com/wekan/wekan/wiki/Platforms), bundle for RasPi3 ARM and other CPUs where Node.js and MongoDB exists.
 - 1 GB RAM minimum free for Wekan. Production server should have minimum total 4 GB RAM.
   For thousands of users, for example with [Docker](https://github.com/wekan/wekan/blob/master/docker-compose.yml): 3 frontend servers,
-  each having 2 CPU and 2 wekan-app containers. One backend wekan-db server with many CPUs.  
+  each having 2 CPU and 2 wekan-app containers. One backend wekan-db server with many CPUs.
 - Enough disk space and alerts about low disk space. If you run out disk space, MongoDB database gets corrupted.
 - SECURITY: Updating to newest Wekan version very often. Please check you do not have automatic updates of Sandstorm or Snap turned off.
   Old versions have security issues because of old versions Node.js etc. Only newest Wekan is supported.
@@ -112,8 +119,6 @@ with [Meteor](https://www.meteor.com).
 [translate_wekan]: https://www.transifex.com/wekan/wekan/
 [open_source]: https://en.wikipedia.org/wiki/Open-source_software
 [free_software]: https://en.wikipedia.org/wiki/Free_software
-[vanila_badge]: https://vanila.io/img/join-chat-button2.png
-[wekan_chat]: https://community.vanila.io/wekan
-
+[discussions]: https://github.com/wekan/wekan/discussions
 
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fwekan%2Fwekan.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fwekan%2Fwekan?ref=badge_large)

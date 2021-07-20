@@ -1,0 +1,40 @@
+@import 'nib'
+
+// From https://github.com/tobiasahlin/SpinKit
+.sk-spinner-scaleout {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+
+  margin: 100px auto;
+
+  border-radius: 100%;
+  -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
+  animation: sk-scaleout 1.0s infinite ease-in-out;
+
+  div {
+    background-color: #333;
+    height: 100%;
+    width: 100%;
+    display: inline-block;
+  }
+}
+
+@-webkit-keyframes sk-scaleout {
+  0% { -webkit-transform: scale(0) }
+  100% {
+    -webkit-transform: scale(1.0);
+    opacity: 0;
+  }
+}
+
+@keyframes sk-scaleout {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  } 100% {
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+    opacity: 0;
+  }
+}

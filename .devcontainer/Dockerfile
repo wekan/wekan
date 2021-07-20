@@ -1,13 +1,13 @@
-FROM ubuntu:disco
+FROM quay.io/wekan/ubuntu:groovy-20210115
 LABEL maintainer="sgr"
 
-ENV BUILD_DEPS="gnupg gosu bsdtar wget curl bzip2 g++ build-essential python git ca-certificates iproute2"
+ENV BUILD_DEPS="gnupg gosu libarchive-tools wget curl bzip2 g++ build-essential python git ca-certificates iproute2"
 ENV DEBIAN_FRONTEND=noninteractive
 
 ENV \
     DEBUG=false \
-    NODE_VERSION=8.17.0 \
-    METEOR_RELEASE=1.8.1 \
+    NODE_VERSION=v12.22.3 \
+    METEOR_RELEASE=1.10.2 \
     USE_EDGE=false \
     METEOR_EDGE=1.5-beta.17 \
     NPM_VERSION=latest \
@@ -15,16 +15,20 @@ ENV \
     ARCHITECTURE=linux-x64 \
     SRC_PATH=./ \
     WITH_API=true \
+    RESULTS_PER_PAGE="" \
     ACCOUNTS_LOCKOUT_KNOWN_USERS_FAILURES_BEFORE=3 \
     ACCOUNTS_LOCKOUT_KNOWN_USERS_PERIOD=60 \
     ACCOUNTS_LOCKOUT_KNOWN_USERS_FAILURE_WINDOW=15 \
     ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURES_BERORE=3 \
     ACCOUNTS_LOCKOUT_UNKNOWN_USERS_LOCKOUT_PERIOD=60 \
     ACCOUNTS_LOCKOUT_UNKNOWN_USERS_FAILURE_WINDOW=15 \
-    RICHER_CARD_COMMENT_EDITOR=true \
+    RICHER_CARD_COMMENT_EDITOR=false \
+    CARD_OPENED_WEBHOOK_ENABLED=false \
+    ATTACHMENTS_STORE_PATH="" \
     MAX_IMAGE_PIXEL="" \
     IMAGE_COMPRESS_RATIO="" \
-    BIGEVENTS_PATTERN="" \
+    NOTIFICATION_TRAY_AFTER_READ_DAYS_BEFORE_REMOVE="" \
+    BIGEVENTS_PATTERN=NONE \
     NOTIFY_DUE_DAYS_BEFORE_AND_AFTER="" \
     NOTIFY_DUE_AT_HOUR_OF_DAY="" \
     EMAIL_NOTIFICATION_TIMEOUT=30000 \
@@ -36,6 +40,8 @@ ENV \
     TRUSTED_URL="" \
     WEBHOOKS_ATTRIBUTES="" \
     OAUTH2_ENABLED=false \
+    OAUTH2_CA_CERT="" \
+    OAUTH2_ADFS_ENABLED=false \
     OAUTH2_LOGIN_STYLE=redirect \
     OAUTH2_CLIENT_ID="" \
     OAUTH2_SECRET="" \
@@ -108,23 +114,40 @@ ENV \
     CORS="" \
     CORS_ALLOW_HEADERS="" \
     CORS_EXPOSE_HEADERS="" \
-    DEFAULT_AUTHENTICATION_METHOD=""
+    DEFAULT_AUTHENTICATION_METHOD="" \
+    PASSWORD_LOGIN_ENABLED=true \
+    CAS_ENABLED=false \
+    CAS_BASE_URL="" \
+    CAS_LOGIN_URL="" \
+    CAS_VALIDATE_URL="" \
+    SAML_ENABLED=false \
+    SAML_PROVIDER="" \
+    SAML_ENTRYPOINT="" \
+    SAML_ISSUER="" \
+    SAML_CERT="" \
+    SAML_IDPSLO_REDIRECTURL="" \
+    SAML_PRIVATE_KEYFILE="" \
+    SAML_PUBLIC_CERTFILE="" \
+    SAML_IDENTIFIER_FORMAT="" \
+    SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE="" \
+    SAML_ATTRIBUTES="" \
+    DEFAULT_WAIT_SPINNER=""
 
 # Install OS
 RUN set -o xtrace \
   && useradd --user-group -m --system --home-dir /home/wekan wekan \
   && apt-get update \
-	&& apt-get install --assume-yes --no-install-recommends apt-utils apt-transport-https ca-certificates 2>&1 \
-	&& apt-get install --assume-yes --no-install-recommends ${BUILD_DEPS}
+  && apt-get install --assume-yes --no-install-recommends apt-utils apt-transport-https ca-certificates 2>&1 \
+  && apt-get install --assume-yes --no-install-recommends ${BUILD_DEPS}
 
 # Install NodeJS
 RUN set -o xtrace \
   && cd /tmp \
-  && curl -fsSLO --compressed "https://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-$ARCHITECTURE.tar.xz" \
-  && curl -fsSLO --compressed "https://nodejs.org/dist/v$NODE_VERSION/SHASUMS256.txt.asc" \
-  && grep " node-v$NODE_VERSION-$ARCHITECTURE.tar.xz\$" SHASUMS256.txt.asc | sha256sum -c - \
-  && tar -xJf "node-v$NODE_VERSION-$ARCHITECTURE.tar.xz" -C /usr/local --strip-components=1 --no-same-owner \
-  && rm "node-v$NODE_VERSION-$ARCHITECTURE.tar.xz" SHASUMS256.txt.asc \
+  && curl -fsSLO --compressed "https://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-$ARCHITECTURE.tar.xz" \
+  && curl -fsSLO --compressed "https://nodejs.org/dist/$NODE_VERSION/SHASUMS256.txt.asc" \
+  && grep " node-$NODE_VERSION-$ARCHITECTURE.tar.xz\$" SHASUMS256.txt.asc | sha256sum -c - \
+  && tar -xJf "node-$NODE_VERSION-$ARCHITECTURE.tar.xz" -C /usr/local --strip-components=1 --no-same-owner \
+  && rm "node-$NODE_VERSION-$ARCHITECTURE.tar.xz" SHASUMS256.txt.asc \
   && ln -s /usr/local/bin/node /usr/local/bin/nodejs \
   && mkdir -p /usr/local/lib/node_modules/fibers/.node-gyp /root/.node-gyp/${NODE_VERSION} /home/wekan/.config \
   && npm install -g npm@${NPM_VERSION} \
@@ -146,17 +169,65 @@ RUN set -o xtrace \
 
 ENV PATH=$PATH:/home/wekan/.meteor/
 
-# Copy source dir
 USER root
 
 RUN echo "export PATH=$PATH" >> /etc/environment
 
-RUN set -o xtrace \
-  && mkdir /home/wekan/app
+USER wekan
 
-COPY ${SRC_PATH} /home/wekan/app/
+# Copy source dir
+RUN set -o xtrace \
+  && mkdir -p /home/wekan/app/.meteor \
+  && mkdir -p /home/wekan/app/packages
+
+COPY \
+    .meteor/.finished-upgraders \
+    .meteor/.id \
+    .meteor/cordova-plugins \
+    .meteor/packages \
+    .meteor/platforms \
+    .meteor/release \
+    .meteor/versions \
+    /home/wekan/app/.meteor/
+
+COPY \
+    package.json \
+    settings.json \
+    /home/wekan/app/
+
+COPY \
+    packages \
+    /home/wekan/app/packages/
+
+USER root
 
 RUN set -o xtrace \
   && chown -R wekan:wekan /home/wekan/app /home/wekan/.meteor
 
 USER wekan
+
+RUN \
+    set -o xtrace && \
+    sed -i 's/api\.versionsFrom/\/\/api.versionsFrom/' /home/wekan/app/packages/meteor-useraccounts-core/package.js && \
+    cd /home/wekan/.meteor && \
+    /home/wekan/.meteor/meteor -- help;
+
+RUN \
+    set -o xtrace && \
+    # Build app
+    cd /home/wekan/app && \
+    /home/wekan/.meteor/meteor add standard-minifier-js && \
+    /home/wekan/.meteor/meteor npm install && \
+    /home/wekan/.meteor/meteor build --directory /home/wekan/app_build
+
+RUN \
+    set -o xtrace && \
+    cd /home/wekan/app_build/bundle/programs/server/ && \
+    chmod u+w package.json npm-shrinkwrap.json && \
+    npm install
+
+ENV PORT=3000
+EXPOSE $PORT
+WORKDIR /home/wekan/app
+
+CMD ["/home/wekan/.meteor/meteor", "run", "--verbose", "--settings", "settings.json"]

@@ -15,7 +15,7 @@ err_context = 3
 
 
 def get_req_body_elems(obj, elems):
-    if obj.type == 'FunctionExpression':
+    if obj.type in ['FunctionExpression', 'ArrowFunctionExpression']:
         get_req_body_elems(obj.body, elems)
     elif obj.type == 'BlockStatement':
         for s in obj.body:
@@ -249,7 +249,10 @@ class EntryPoint(object):
 
                 if name.startswith('{'):
                     param_type = name.strip('{}')
-                    if param_type not in ['string', 'number', 'boolean', 'integer', 'array', 'file']:
+                    if param_type == 'Object':
+                        # hope for the best
+                        param_type = 'object'
+                    elif param_type not in ['string', 'number', 'boolean', 'integer', 'array', 'file']:
                         self.warn('unknown type {}\n allowed values: string, number, boolean, integer, array, file'.format(param_type))
                     try:
                         name, desc = desc.split(maxsplit=1)
@@ -463,6 +466,7 @@ class SchemaProperty(object):
         self.type = 'object'
         self.blackbox = False
         self.required = True
+        imports = {}
         for p in statement.value.properties:
             try:
                 if p.key.name == 'type':
@@ -474,41 +478,79 @@ class SchemaProperty(object):
 
                 elif p.key.name == 'allowedValues':
                     self.type = 'enum'
-                    if p.value.type == 'ArrayExpression':
-                        self.enum = [e.value.lower() for e in p.value.elements]
-                    elif p.value.type == 'Identifier':
-                        # tree wide lookout for the identifier
-                        def find_variable(elem, match):
-                            if isinstance(elem, list):
-                                for value in elem:
-                                    ret = find_variable(value, match)
+                    self.enum = []
+
+                    def parse_enum(value, enum):
+                        if value.type == 'ArrayExpression':
+                            for e in value.elements:
+                                parse_enum(e, enum)
+                        elif value.type == 'Literal':
+                            enum.append(value.value.lower())
+                            return
+                        elif value.type == 'Identifier':
+                            # tree wide lookout for the identifier
+                            def find_variable(elem, match):
+                                if isinstance(elem, list):
+                                    for value in elem:
+                                        ret = find_variable(value, match)
+                                        if ret is not None:
+                                            return ret
+
+                                try:
+                                    items = elem.items()
+                                except AttributeError:
+                                    return None
+                                except TypeError:
+                                    return None
+
+                                if (elem.type == 'VariableDeclarator' and
+                                   elem.id.name == match):
+                                    return elem
+                                elif (elem.type == 'ImportSpecifier' and
+                                     elem.local.name == match):
+                                    # we have to treat that case in the caller, because we lack
+                                    # information of the source of the import at that point
+                                    return elem
+                                elif (elem.type == 'ExportNamedDeclaration' and
+                                     elem.declaration.type == 'VariableDeclaration'):
+                                    ret = find_variable(elem.declaration.declarations, match)
                                     if ret is not None:
                                         return ret
 
-                            try:
-                                items = elem.items()
-                            except AttributeError:
+                                for type, value in items:
+                                    ret = find_variable(value, match)
+                                    if ret is not None:
+                                        if ret.type == 'ImportSpecifier':
+                                            # first open and read the import source, if
+                                            # we haven't already done so
+                                            path = elem.source.value
+                                            if elem.source.value.startswith('/'):
+                                                script_dir = os.path.dirname(os.path.realpath(__file__))
+                                                path = os.path.abspath(os.path.join('{}/..'.format(script_dir), elem.source.value.lstrip('/')))
+                                            else:
+                                                path = os.path.abspath(os.path.join(os.path.dirname(context.path), elem.source.value))
+                                            path += '.js'
+
+                                            if path not in imports:
+                                                imported_context = parse_file(path)
+                                                imports[path] = imported_context
+                                            imported_context = imports[path]
+
+                                            # and then re-run the find in the imported file
+                                            return find_variable(imported_context.program.body, match)
+
+                                        return ret
+
                                 return None
-                            except TypeError:
-                                return None
 
-                            if (elem.type == 'VariableDeclarator' and
-                               elem.id.name == match):
-                                return elem
+                            elem = find_variable(context.program.body, value.name)
 
-                            for type, value in items:
-                                ret = find_variable(value, match)
-                                if ret is not None:
-                                    return ret
+                            if elem is None:
+                                raise TypeError('can not find "{}"'.format(value.name))
 
-                            return None
+                            return parse_enum(elem.init, enum)
 
-                        elem = find_variable(context.program.body, p.value.name)
-
-                        if elem.init.type != 'ArrayExpression':
-                            raise TypeError('can not find "{}"'.format(p.value.name))
-
-                        self.enum = [e.value.lower() for e in elem.init.elements]
+                    parse_enum(p.value, self.enum)
 
                 elif p.key.name == 'blackbox':
                     self.blackbox = True
@@ -565,6 +607,9 @@ class SchemaProperty(object):
 
         # deal with subschemas
         if '.' in name:
+            subschema = name.split('.')[0]
+            subschema = subschema.capitalize()
+
             if name.endswith('$'):
                 # reference in reference
                 subschema = ''.join([n.capitalize() for n in self.name.split('.')[:-1]])
@@ -579,9 +624,12 @@ class SchemaProperty(object):
                     print('''  {}:
     type: object'''.format(subschema))
                     return current_schema
+            elif '$' in name:
+                # In the form of 'profile.notifications.$.activity'
+                subschema = name[:name.index('$') - 1]  # 'profile.notifications'
+                subschema = ''.join([s.capitalize() for s in subschema.split('.')])
 
-            subschema = name.split('.')[0]
-            schema_name = self.schema.name + subschema.capitalize()
+            schema_name = self.schema.name + subschema
             name = name.split('.')[-1]
 
             if current_schema != schema_name:
@@ -713,7 +761,7 @@ class Schemas(object):
         # then print the references
         current = None
         required_properties = []
-        properties = [f for f in self.fields if '.' in f.name and not f.name.endswith('$')]
+        properties = [f for f in self.fields if '.' in f.name and not '$' in f.name]
         for prop in properties:
             current = prop.print_openapi(6, current, required_properties)
 
@@ -724,7 +772,7 @@ class Schemas(object):
 
         required_properties = []
         # then print the references in the references
-        for prop in [f for f in self.fields if '.' in f.name and f.name.endswith('$')]:
+        for prop in [f for f in self.fields if '.' in f.name and '$' in f.name]:
             current = prop.print_openapi(6, current, required_properties)
 
         if required_properties:
@@ -754,6 +802,15 @@ class Context(object):
         return ''.join(self._txt[begin - 1:end])
 
 
+def parse_file(path):
+    try:
+        # if the file failed, it's likely it doesn't contain a schema
+        context = Context(path)
+    except:
+        return
+
+    return context
+
 def parse_schemas(schemas_dir):
 
     schemas = {}
@@ -763,11 +820,11 @@ def parse_schemas(schemas_dir):
         files.sort()
         for filename in files:
             path = os.path.join(root, filename)
-            try:
-                # if the file failed, it's likely it doesn't contain a schema
-                context = Context(path)
-            except:
-                continue
+            context = parse_file(path)
+
+            if context is None:
+              # the file doesn't contain a schema (see above)
+              continue
 
             program = context.program
 
@@ -814,13 +871,21 @@ def parse_schemas(schemas_dir):
                                                        for d in data]
                                 entry_points.extend(schema_entry_points)
 
+                                end_of_previous_operation = -1
+
                                 # try to match JSDoc to the operations
                                 for entry_point in schema_entry_points:
                                     operation = entry_point.method  # POST/GET/PUT/DELETE
+
+                                    # find all jsdocs that end before the current operation,
+                                    # the last item in the list is the one we need
                                     jsdoc = [j for j in jsdocs
-                                             if j.loc.end.line + 1 == operation.loc.start.line]
+                                             if j.loc.end.line + 1 <= operation.loc.start.line and
+                                                j.loc.start.line > end_of_previous_operation]
                                     if bool(jsdoc):
-                                        entry_point.doc = jsdoc[0]
+                                        entry_point.doc = jsdoc[-1]
+
+                                    end_of_previous_operation = operation.loc.end.line
             except TypeError:
                 logger.warning(context.txt_for(statement))
                 logger.error('{}:{}-{} can not parse {}'.format(path,
@@ -1001,7 +1066,7 @@ def main():
     script_dir = os.path.dirname(os.path.realpath(__file__))
     parser.add_argument('--release', default='git-master', nargs=1,
                         help='the current version of the API, can be retrieved by running `git describe --tags --abbrev=0`')
-    parser.add_argument('dir', default='{}/../models'.format(script_dir), nargs='?',
+    parser.add_argument('dir', default=os.path.abspath('{}/../models'.format(script_dir)), nargs='?',
                         help='the directory where to look for schemas')
 
     args = parser.parse_args()

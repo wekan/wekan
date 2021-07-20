@@ -4,11 +4,11 @@
 var Meteor = Package.meteor.Meteor;
 var global = Package.meteor.global;
 var meteorEnv = Package.meteor.meteorEnv;
-var FS = Package['cfs:base-package'].FS;
+var FS = Package['wekan-cfs-base-package'].FS;
 var check = Package.check.check;
 var Match = Package.check.Match;
 var EJSON = Package.ejson.EJSON;
-var HTTP = Package['cfs:http-methods'].HTTP;
+var HTTP = Package['wekan-cfs-http-methods'].HTTP;
 
 /* Package-scope variables */
 var rootUrlPathPrefix, baseUrl, getHeaders, getHeadersByCollection, _existingMountPoints, mountUrls;
@@ -25,7 +25,7 @@ var rootUrlPathPrefix, baseUrl, getHeaders, getHeadersByCollection, _existingMou
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                    //
-// packages/cfs:access-point/access-point-common.js                                                                   //
+// packages/wekan-cfs-access-point/access-point-common.js                                                                   //
 //                                                                                                                    //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                       //
@@ -217,7 +217,7 @@ FS.File.prototype.url = function(options) {                                     
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                    //
-// packages/cfs:access-point/access-point-handlers.js                                                                 //
+// packages/wekan-cfs-access-point/access-point-handlers.js                                                                 //
 //                                                                                                                    //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                       //
@@ -537,7 +537,7 @@ FS.HTTP.Handlers.PutUpdate = function httpPutUpdateHandler(ref) {               
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                    //
-// packages/cfs:access-point/access-point-server.js                                                                   //
+// packages/wekan-cfs-access-point/access-point-server.js                                                                   //
 //                                                                                                                    //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                       //
@@ -909,6 +909,6 @@ Meteor.startup(function () {                                                    
 
 /* Exports */
 if (typeof Package === 'undefined') Package = {};
-Package['cfs:access-point'] = {};
+Package['wekan-cfs-access-point'] = {};
 
 })();

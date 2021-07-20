@@ -1,0 +1,111 @@
+template(name="adminReports")
+  .setting-content
+    unless currentUser.isAdmin
+      | {{_ 'error-notAuthorized'}}
+    else
+      .content-body
+        .side-menu
+          ul
+            li
+              a.js-report-broken(data-id="report-broken")
+                i.fa.fa-chain-broken
+                | {{_ 'broken-cards'}}
+
+            li
+              a.js-report-files(data-id="report-orphaned-files")
+                i.fa.fa-paperclip
+                | {{_ 'orphanedFilesReportTitle'}}
+
+            li
+              a.js-report-files(data-id="report-files")
+                i.fa.fa-paperclip
+                | {{_ 'filesReportTitle'}}
+
+            li
+              a.js-report-rules(data-id="report-rules")
+                i.fa.fa-magic
+                | {{_ 'rulesReportTitle'}}
+
+        .main-body
+          if loading.get
+            +spinner
+          else if showBrokenCardsReport.get
+            +brokenCardsReport
+          else if showFilesReport.get
+            +filesReport
+          else if showOrphanedFilesReport.get
+            +orphanedFilesReport
+          else if showRulesReport.get
+            +rulesReport
+
+
+template(name="brokenCardsReport")
+  .global-search-results-list-wrapper
+    h1 {{_ 'broken-cards'}}
+    if resultsCount
+      +resultsPaged(this)
+    else
+      div {{_ 'no-results' }}
+
+template(name="rulesReport")
+  h1 {{_ 'rulesReportTitle'}}
+  if resultsCount
+    table.table
+      tr
+        th Rule Title
+        th Board Title
+        th actionType
+        th activityType
+
+      each rule in rows
+        tr
+          td {{ rule.title }}
+          td {{ rule.boardTitle }}
+          td {{ rule.action.actionType }}
+          td {{ rule.trigger.activityType }}
+  else
+    div {{_ 'no-results' }}
+
+template(name="filesReport")
+  h1 {{_ 'filesReportTitle'}}
+  if resultsCount
+    table.table
+      tr
+        th Filename
+        th.right Size (kB)
+        th MIME Type
+        th.center Usage
+        th MD5 Sum
+        th ID
+
+      each att in attachmentFiles
+        tr
+          td {{ att.filename }}
+          td.right {{fileSize att.length }}
+          td {{ att.contentType }}
+          td.center {{usageCount att._id.toHexString }}
+          td {{ att.md5 }}
+          td {{ att._id.toHexString }}
+  else
+    div {{_ 'no-results' }}
+
+template(name="orphanedFilesReport")
+  h1 {{_ 'orphanedFilesReportTitle'}}
+  if resultsCount
+    table.table
+      tr
+        th Filename
+        th.right Size (kB)
+        th MIME Type
+        th MD5 Sum
+        th ID
+
+      each att in attachmentFiles
+        tr
+          td {{ att.filename }}
+          td.right {{fileSize att.length }}
+          td {{ att.contentType }}
+          td {{ att.md5 }}
+          td {{ att._id.toHexString }}
+  else
+    div {{_ 'no-results' }}

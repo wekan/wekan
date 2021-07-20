@@ -45,6 +45,12 @@ Template.attachmentsGalery.events({
   },
 });
 
+Template.attachmentsGalery.helpers({
+  isBoardAdmin() {
+    return Meteor.user().isBoardAdmin();
+  },
+});
+
 Template.previewAttachedImagePopup.events({
   'click .js-large-image-clicked'() {
     Popup.close();

@@ -61,6 +61,9 @@ if (Meteor.isServer) {
     'card',
     'commentId',
     'swimlaneId',
+    'customField',
+    'customFieldValue',
+    'attachmentId',
   ];
   const responseFunc = data => {
     const paramCommentId = data.commentId;
@@ -122,6 +125,7 @@ if (Meteor.isServer) {
           'oldSwimlane',
           'label',
           'attachment',
+          'attachmentId',
         ].forEach(key => {
           if (quoteParams[key]) quoteParams[key] = `"${params[key]}"`;
         });

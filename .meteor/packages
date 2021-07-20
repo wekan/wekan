@@ -6,8 +6,8 @@
 meteor-base@1.4.0
 
 # Build system
-ecmascript@0.14.2
-standard-minifier-css@1.6.0
+ecmascript@0.15.1
+standard-minifier-css@1.7.2
 standard-minifier-js@2.6.0
 mquandalle:jade
 coffeescript@2.4.1!
@@ -17,13 +17,13 @@ es5-shim@4.8.0
 
 # Collections
 aldeed:collection2
-cfs:standard-packages
+wekan-cfs-standard-packages
 cottz:publish-relations
 dburles:collection-helpers
 idmontie:migrations
 matb33:collection-hooks
 matteodem:easy-search
-mongo@1.9.0
+mongo@1.11.0
 mquandalle:collection-mutations
 
 # Account system
@@ -70,24 +70,19 @@ rajit:bootstrap3-datepicker
 shell-server@0.5.0
 simple:rest-accounts-password
 useraccounts:core
-email@1.2.3
+email@2.0.0
 horka:swipebox
-dynamic-import@0.5.1
-staringatlights:fast-render
+dynamic-import@0.6.0
 
-accounts-password@1.6.0
-cfs:gridfs
+accounts-password@1.7.0
+wekan-cfs-gridfs
 rzymek:fullcalendar
 momentjs:moment@2.22.2
 browser-policy-framing@1.1.0
 mquandalle:moment
 msavin:usercache
-wekan-scrollbar
-mquandalle:perfect-scrollbar
-mdg:meteor-apm-agent@3.2.0-rc.0!
 # Keep stylus in 1.1.0, because building v2 takes extra 52 minutes.
 coagmano:stylus@1.1.0!
-lucasantoniassi:accounts-lockout
 meteorhacks:subs-manager
 meteorhacks:picker
 lamhieu:unblock
@@ -95,6 +90,60 @@ meteorhacks:aggregate@1.3.0
 wekan-markdown
 konecty:mongo-counter
 percolate:synced-cron
+wekan-cfs-filesystem
+steffo:meteor-accounts-saml
+rajit:bootstrap3-datepicker-fi
+rajit:bootstrap3-datepicker-ar
+rajit:bootstrap3-datepicker-bg
+rajit:bootstrap3-datepicker-br
+rajit:bootstrap3-datepicker-ca
+rajit:bootstrap3-datepicker-cs
+rajit:bootstrap3-datepicker-da
+rajit:bootstrap3-datepicker-de
+rajit:bootstrap3-datepicker-el
+rajit:bootstrap3-datepicker-en-gb
+rajit:bootstrap3-datepicker-eo
+rajit:bootstrap3-datepicker-es
+rajit:bootstrap3-datepicker-eu
+rajit:bootstrap3-datepicker-fa
+rajit:bootstrap3-datepicker-fr
+rajit:bootstrap3-datepicker-gl
+rajit:bootstrap3-datepicker-he
+rajit:bootstrap3-datepicker-hi
+rajit:bootstrap3-datepicker-hu
+rajit:bootstrap3-datepicker-hy
+rajit:bootstrap3-datepicker-id
+rajit:bootstrap3-datepicker-it
+rajit:bootstrap3-datepicker-ja
+rajit:bootstrap3-datepicker-ka
+rajit:bootstrap3-datepicker-km
+rajit:bootstrap3-datepicker-ko
+rajit:bootstrap3-datepicker-lv
+rajit:bootstrap3-datepicker-mk
+rajit:bootstrap3-datepicker-mn
+rajit:bootstrap3-datepicker-nb
+rajit:bootstrap3-datepicker-nl
+rajit:bootstrap3-datepicker-oc
+rajit:bootstrap3-datepicker-pl
+rajit:bootstrap3-datepicker-pt-br
+rajit:bootstrap3-datepicker-pt
+rajit:bootstrap3-datepicker-ro
+rajit:bootstrap3-datepicker-ru
+rajit:bootstrap3-datepicker-sl
+rajit:bootstrap3-datepicker-sr
+rajit:bootstrap3-datepicker-sv
+rajit:bootstrap3-datepicker-sw
+rajit:bootstrap3-datepicker-ta
+rajit:bootstrap3-datepicker-th
+rajit:bootstrap3-datepicker-tr
+rajit:bootstrap3-datepicker-uk
+rajit:bootstrap3-datepicker-vi
+rajit:bootstrap3-datepicker-zh-cn
+rajit:bootstrap3-datepicker-zh-tw
+staringatlights:fast-render
+spacebars
 easylogic:summernote
-cfs:filesystem
-ostrio:cookies
+pascoual:pdfkit
+wekan-accounts-lockout
+lmieulet:meteor-coverage
+meteortesting:mocha

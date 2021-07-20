@@ -31,24 +31,39 @@ BlazeComponent.extendComponent({
   },
 
   archivedCards() {
-    return Cards.find({
-      archived: true,
-      boardId: Session.get('currentBoard'),
-    });
+    return Cards.find(
+      {
+        archived: true,
+        boardId: Session.get('currentBoard'),
+      },
+      {
+        sort: { archivedAt: -1, modifiedAt: -1 },
+      },
+    );
   },
 
   archivedLists() {
-    return Lists.find({
-      archived: true,
-      boardId: Session.get('currentBoard'),
-    });
+    return Lists.find(
+      {
+        archived: true,
+        boardId: Session.get('currentBoard'),
+      },
+      {
+        sort: { archivedAt: -1, modifiedAt: -1 },
+      },
+    );
   },
 
   archivedSwimlanes() {
-    return Swimlanes.find({
-      archived: true,
-      boardId: Session.get('currentBoard'),
-    });
+    return Swimlanes.find(
+      {
+        archived: true,
+        boardId: Session.get('currentBoard'),
+      },
+      {
+        sort: { archivedAt: -1, modifiedAt: -1 },
+      },
+    );
   },
 
   cardIsInArchivedList() {
@@ -141,6 +156,9 @@ BlazeComponent.extendComponent({
 }).register('archivesSidebar');
 
 Template.archivesSidebar.helpers({
+  isBoardAdmin() {
+    return Meteor.user().isBoardAdmin();
+  },
   isWorker() {
     const currentBoard = Boards.findOne(Session.get('currentBoard'));
     return (

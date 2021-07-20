@@ -87,7 +87,9 @@
       width: 11px
       height: @width
       border-radius: 2px
-      margin-left: 3px
+      margin-right: 3px
+      margin-bottom: 3px
+
   .minicard-custom-fields
     display:block;
   .minicard-custom-field
@@ -161,15 +163,18 @@
         line-height: 12px
 
   .minicard-members,
-  .minicard-assignees
+  .minicard-assignees,
+  .minicard-creator
     float: right
-    margin: 2px -8px 12px 0
+    margin-left: 5px
+    margin-bottom: 4px
 
     .member
       float: right
       border-radius: 50%
       height: 28px
       width: @height
+      margin-bottom: 4px
 
     .assignee
       float: right
@@ -178,7 +183,13 @@
       width: @height
 
     + .badges
-      margin-top: 10px
+      margin-top: 5px
+
+  .minicard-assignees
+    border-bottom: 1px solid red
+
+  .minicard-creator
+    border-bottom: 1px solid green
 
   .minicard-members:empty,
   .minicard-assignees:empty
@@ -299,3 +310,8 @@ minicard-color(background, color...)
 
 .minicard-indigo
   minicard-color(#4b0082, #ffffff) //White text for better visibility
+
+.text-red
+  color:red
+.text-green
+  color:green

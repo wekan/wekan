@@ -1,6 +1,4 @@
-import { Cookies } from 'meteor/ostrio:cookies';
-const cookies = new Cookies();
-const { calculateIndex, enableClickOnTouch } = Utils;
+const { calculateIndex } = Utils;
 
 function currentListIsInThisSwimlane(swimlaneId) {
   const currentList = Lists.findOne(Session.get('currentList'));
@@ -23,8 +21,8 @@ function currentCardIsInThisList(listId, swimlaneId) {
       currentCard.listId === listId &&
       currentCard.swimlaneId === swimlaneId
     );
-  // Default view: board-view-lists
   else return currentCard && currentCard.listId === listId;
+
   // https://github.com/wekan/wekan/issues/1623
   // https://github.com/ChronikEwok/wekan/commit/cad9b20451bb6149bfb527a99b5001873b06c3de
   // TODO: In public board, if you would like to switch between List/Swimlane view, you could
@@ -87,17 +85,14 @@ function initSortable(boardComponent, $listsDom) {
     },
   });
 
-  // ugly touch event hotfix
-  enableClickOnTouch('.js-list:not(.js-list-composer)');
-
-  function userIsMember() {
-    return (
-      Meteor.user() &&
-      Meteor.user().isBoardMember() &&
-      !Meteor.user().isCommentOnly() &&
-      !Meteor.user().isWorker()
-    );
-  }
+  //function userIsMember() {
+  //  return (
+  //    Meteor.user() &&
+  //    Meteor.user().isBoardMember() &&
+  //    !Meteor.user().isCommentOnly() &&
+  //    !Meteor.user().isWorker()
+  //  );
+  //}
 
   boardComponent.autorun(() => {
     let showDesktopDragHandles = false;
@@ -105,13 +100,13 @@ function initSortable(boardComponent, $listsDom) {
     if (currentUser) {
       showDesktopDragHandles = (currentUser.profile || {})
         .showDesktopDragHandles;
-    } else if (cookies.has('showDesktopDragHandles')) {
+    } else if (window.localStorage.getItem('showDesktopDragHandles')) {
       showDesktopDragHandles = true;
     } else {
       showDesktopDragHandles = false;
     }
 
-    if (!Utils.isMiniScreen() && showDesktopDragHandles) {
+    if (Utils.isMiniScreen() || showDesktopDragHandles) {
       $listsDom.sortable({
         handle: '.js-list-handle',
       });
@@ -122,34 +117,13 @@ function initSortable(boardComponent, $listsDom) {
     }
 
     const $listDom = $listsDom;
-    if ($listDom.data('sortable')) {
+    if ($listDom.data('uiSortable') || $listDom.data('sortable')) {
       $listsDom.sortable(
         'option',
         'disabled',
-        // Disable drag-dropping when user is not member/is worker/is miniscreen
-        !userIsMember(),
-        // Not disable drag-dropping while in multi-selection mode
-        // MultiSelection.isActive() || !userIsMember(),
-      );
-    }
-
-    if ($listDom.data('sortable')) {
-      $listsDom.sortable(
-        'option',
-        'disabled',
-        // Disable drag-dropping when user is not member/is worker/is miniscreen
-        Meteor.user().isWorker(),
-        // Not disable drag-dropping while in multi-selection mode
-        // MultiSelection.isActive() || !userIsMember(),
-      );
-    }
-
-    if ($listDom.data('sortable')) {
-      $listsDom.sortable(
-        'option',
-        'disabled',
-        // Disable drag-dropping when user is not member/is worker/is miniscreen
-        Utils.isMiniScreen(),
+        // Disable drag-dropping when user is not member/is worker
+        //!userIsMember() || Meteor.user().isWorker(),
+        !Meteor.user().isBoardAdmin(),
         // Not disable drag-dropping while in multi-selection mode
         // MultiSelection.isActive() || !userIsMember(),
       );
@@ -203,15 +177,14 @@ BlazeComponent.extendComponent({
           if (currentUser) {
             showDesktopDragHandles = (currentUser.profile || {})
               .showDesktopDragHandles;
-          } else if (cookies.has('showDesktopDragHandles')) {
+          } else if (window.localStorage.getItem('showDesktopDragHandles')) {
             showDesktopDragHandles = true;
           } else {
             showDesktopDragHandles = false;
           }
 
           const noDragInside = ['a', 'input', 'textarea', 'p'].concat(
-            Utils.isMiniScreen() ||
-              (!Utils.isMiniScreen() && showDesktopDragHandles)
+            Utils.isMiniScreen() || showDesktopDragHandles
               ? ['.js-list-handle', '.js-swimlane-header-handle']
               : ['.js-list-header'],
           );
@@ -295,19 +268,20 @@ Template.swimlane.helpers({
     currentUser = Meteor.user();
     if (currentUser) {
       return (currentUser.profile || {}).showDesktopDragHandles;
-    } else if (cookies.has('showDesktopDragHandles')) {
+    } else if (window.localStorage.getItem('showDesktopDragHandles')) {
       return true;
     } else {
       return false;
     }
   },
   canSeeAddList() {
-    return (
+    return Meteor.user().isBoardAdmin();
+    /*
       Meteor.user() &&
       Meteor.user().isBoardMember() &&
       !Meteor.user().isCommentOnly() &&
       !Meteor.user().isWorker()
-    );
+      */
   },
 });
 
@@ -349,3 +323,55 @@ BlazeComponent.extendComponent({
     initSortable(boardComponent, $listsDom);
   },
 }).register('listsGroup');
+
+class MoveSwimlaneComponent extends BlazeComponent {
+  serverMethod = 'moveSwimlane';
+
+  onCreated() {
+    this.currentSwimlane = this.currentData();
+  }
+
+  board() {
+    return Boards.findOne(Session.get('currentBoard'));
+  }
+
+  toBoardsSelector() {
+    return {
+      archived: false,
+      'members.userId': Meteor.userId(),
+      type: 'board',
+      _id: { $ne: this.board()._id },
+    };
+  }
+
+  toBoards() {
+    return Boards.find(this.toBoardsSelector(), { sort: { title: 1 } });
+  }
+
+  events() {
+    return [
+      {
+        'click .js-done'() {
+          // const swimlane = Swimlanes.findOne(this.currentSwimlane._id);
+          const bSelect = $('.js-select-boards')[0];
+          let boardId;
+          if (bSelect) {
+            boardId = bSelect.options[bSelect.selectedIndex].value;
+            Meteor.call(this.serverMethod, this.currentSwimlane._id, boardId);
+          }
+          Popup.close();
+        },
+      },
+    ];
+  }
+}
+MoveSwimlaneComponent.register('moveSwimlanePopup');
+
+(class extends MoveSwimlaneComponent {
+  serverMethod = 'copySwimlane';
+  toBoardsSelector() {
+    const selector = super.toBoardsSelector();
+    delete selector._id;
+    return selector;
+  }
+}.register('copySwimlanePopup'));

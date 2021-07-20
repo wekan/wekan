@@ -15,6 +15,7 @@ export class WekanCreator {
       cards: {},
       lists: {},
       swimlanes: {},
+      customFields: {},
     };
     // The object creator Wekan Id, indexed by the object Wekan id
     // (so we only parse actions once!)
@@ -30,6 +31,8 @@ export class WekanCreator {
     this.lists = {};
     // Map of cards Wekan ID => Wekan ID
     this.cards = {};
+    // Map of custom fields Wekan ID => Wekan ID
+    this.customFields = {};
     // Map of comments Wekan ID => Wekan ID
     this.commentIds = {};
     // Map of attachments Wekan ID => Wekan ID
@@ -244,18 +247,20 @@ export class WekanCreator {
           swimlaneId: false,
         },
       ],
+      presentParentTask: boardToImport.presentParentTask,
       // Standalone Export has modifiedAt missing, adding modifiedAt to fix it
       modifiedAt: this._now(boardToImport.modifiedAt),
       permission: boardToImport.permission,
       slug: getSlug(boardToImport.title) || 'board',
       stars: 0,
-      title: boardToImport.title,
+      title: Boards.uniqueTitle(boardToImport.title),
     };
     // now add other members
     if (boardToImport.members) {
       boardToImport.members.forEach(wekanMember => {
-        // do we already have it in our list?
+        // is it defined and do we already have it in our list?
         if (
+          wekanMember.wekanId &&
           !boardToCreate.members.some(
             member => member.wekanId === wekanMember.wekanId,
           )
@@ -352,10 +357,40 @@ export class WekanCreator {
           cardToCreate.members = wekanMembers;
         }
       }
+      // add assignees
+      if (card.assignees) {
+        const wekanAssignees = [];
+        // we can't just map, as some members may not have been mapped
+        card.assignees.forEach(sourceMemberId => {
+          if (this.members[sourceMemberId]) {
+            const wekanId = this.members[sourceMemberId];
+            // we may map multiple Wekan members to the same wekan user
+            // in which case we risk adding the same user multiple times
+            if (!wekanAssignees.find(wId => wId === wekanId)) {
+              wekanAssignees.push(wekanId);
+            }
+          }
+          return true;
+        });
+        if (wekanAssignees.length > 0) {
+          cardToCreate.assignees = wekanAssignees;
+        }
+      }
       // set color
       if (card.color) {
         cardToCreate.color = card.color;
       }
+
+      // add custom fields
+      if (card.customFields) {
+        cardToCreate.customFields = card.customFields.map(field => {
+          return {
+            _id: this.customFields[field._id],
+            value: field.value,
+          };
+        });
+      }
+
       // insert card
       const cardId = Cards.direct.insert(cardToCreate);
       // keep track of Wekan id => Wekan id
@@ -440,6 +475,12 @@ export class WekanCreator {
                 }
               });
             } else if (att.file) {
+              //If attribute type is null or empty string is set, assume binary stream
+              att.type =
+                !att.type || att.type.trim().length === 0
+                  ? 'application/octet-stream'
+                  : att.type;
+
               file.attachData(
                 Buffer.from(att.file, 'base64'),
                 {
@@ -479,6 +520,40 @@ export class WekanCreator {
       result.push(cardId);
     });
     return result;
+  }
+
+  /**
+   * Create the Wekan custom fields corresponding to the supplied Wekan
+   * custom fields.
+   * @param wekanCustomFields
+   * @param boardId
+   */
+  createCustomFields(wekanCustomFields, boardId) {
+    wekanCustomFields.forEach((field, fieldIndex) => {
+      const fieldToCreate = {
+        boardIds: [boardId],
+        name: field.name,
+        type: field.type,
+        settings: field.settings,
+        showOnCard: field.showOnCard,
+        showLabelOnMiniCard: field.showLabelOnMiniCard,
+        automaticallyOnCard: field.automaticallyOnCard,
+        alwaysOnCard: field.alwaysOnCard,
+        //use date "now" if now created at date is provided (e.g. for very old boards)
+        createdAt: this._now(this.createdAt.customFields[field._id]),
+        modifiedAt: field.modifiedAt,
+      };
+      //insert copy of custom field
+      const fieldId = CustomFields.direct.insert(fieldToCreate);
+      //set modified date to now
+      CustomFields.direct.update(fieldId, {
+        $set: {
+          modifiedAt: this._now(),
+        },
+      });
+      //store mapping of old id to new id
+      this.customFields[field._id] = fieldId;
+    });
   }
 
   // Create labels if they do not exist and load this.labels.
@@ -560,6 +635,35 @@ export class WekanCreator {
     });
   }
 
+  createSubtasks(wekanCards) {
+    wekanCards.forEach(card => {
+      // get new id of card (in created / new board)
+      const cardIdInNewBoard = this.cards[card._id];
+
+      //If there is a mapped parent card, use the mapped card
+      //  this means, the card and parent were in the same source board
+      //If there is no mapped parent card, use the original parent id,
+      //  this should handle cases where source and parent are in different boards
+      //  Note: This can only handle board cloning (within the same wekan instance).
+      //        When importing boards between instances the IDs are definitely
+      //        lost if source and parent are two different boards
+      //        This is not the place to fix it, the entire subtask system needs to be rethought there.
+      const parentIdInNewBoard = this.cards[card.parentId]
+        ? this.cards[card.parentId]
+        : card.parentId;
+
+      //if the parent card exists, proceed
+      if (Cards.findOne(parentIdInNewBoard)) {
+        //set parent id of the card in the new board to the new id of the parent
+        Cards.direct.update(cardIdInNewBoard, {
+          $set: {
+            parentId: parentIdInNewBoard,
+          },
+        });
+      }
+    });
+  }
+
   createChecklists(wekanChecklists) {
     const result = [];
     wekanChecklists.forEach((checklist, checklistIndex) => {
@@ -620,18 +724,24 @@ export class WekanCreator {
 
   createChecklistItems(wekanChecklistItems) {
     wekanChecklistItems.forEach((checklistitem, checklistitemIndex) => {
-      // Create the checklistItem
-      const checklistItemTocreate = {
-        title: checklistitem.title,
-        checklistId: this.checklists[checklistitem.checklistId],
-        cardId: this.cards[checklistitem.cardId],
-        sort: checklistitem.sort ? checklistitem.sort : checklistitemIndex,
-        isFinished: checklistitem.isFinished,
-      };
-      const checklistItemId = ChecklistItems.direct.insert(
-        checklistItemTocreate,
-      );
-      this.checklistItems[checklistitem._id] = checklistItemId;
+      //Check if the checklist for this item (still) exists
+      //If a checklist was deleted, but items remain, the import would error out here
+      //Leading to no further checklist items being imported
+      if (this.checklists[checklistitem.checklistId]) {
+        // Create the checklistItem
+        const checklistItemTocreate = {
+          title: checklistitem.title,
+          checklistId: this.checklists[checklistitem.checklistId],
+          cardId: this.cards[checklistitem.cardId],
+          sort: checklistitem.sort ? checklistitem.sort : checklistitemIndex,
+          isFinished: checklistitem.isFinished,
+        };
+
+        const checklistItemId = ChecklistItems.direct.insert(
+          checklistItemTocreate,
+        );
+        this.checklistItems[checklistitem._id] = checklistItemId;
+      }
     });
   }
 
@@ -688,6 +798,11 @@ export class WekanCreator {
         case 'createSwimlane': {
           const swimlaneId = activity.swimlaneId;
           this.createdAt.swimlanes[swimlaneId] = activity.createdAt;
+          break;
+        }
+        case 'createCustomField': {
+          const customFieldId = activity.customFieldId;
+          this.createdAt.customFields[customFieldId] = activity.createdAt;
           break;
         }
       }
@@ -840,7 +955,9 @@ export class WekanCreator {
     const boardId = this.createBoardAndLabels(board);
     this.createLists(board.lists, boardId);
     this.createSwimlanes(board.swimlanes, boardId);
+    this.createCustomFields(board.customFields, boardId);
     this.createCards(board.cards, boardId);
+    this.createSubtasks(board.cards);
     this.createChecklists(board.checklists);
     this.createChecklistItems(board.checklistItems);
     this.importActivities(board.activities, boardId);

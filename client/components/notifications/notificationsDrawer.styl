@@ -2,7 +2,7 @@ belize = #2980b9
 
 section#notifications-drawer
   position: fixed
-  top: 28px
+  top: 48px
   right: 0
   width: 400px
   background-color: #fafafa
@@ -10,15 +10,14 @@ section#notifications-drawer
   border-radius: 2px
   max-height: calc(100vh - 28px - 36px)
   color: black
-  padding-top 36px;
-  overflow: scroll
+  padding-top 36px
 
   a:hover
     color: belize !important
 
   .header
     position: fixed
-    top 28px
+    top 48px
     right 0
     width calc(400px - 32px)
     padding: 8px 16px
@@ -45,13 +44,26 @@ section#notifications-drawer
       line-height: 24px
       opacity 1
 
-  .all-read
+  .all-read,
+  .remove-read
     color belize
     background-color: #fafafa
     margin 8px 16px 12px
     display inline-block
 
+  .remove-read
+    float right
+
+    &:hover
+      color #eb4646 !important
+
+      i.fa
+        color inherit
+
+
   ul.notifications
     display: block
-    padding: 0px 16px
+    padding: 0px 16px 0px 16px
     margin: 0
+    height: calc(100vh - 122px)
+    overflow-y: scroll

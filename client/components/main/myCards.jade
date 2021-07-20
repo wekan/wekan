@@ -1,0 +1,39 @@
+template(name="myCardsHeaderBar")
+  if currentUser
+    h1
+      //a.back-btn(href="{{pathFor 'home'}}")
+      //  i.fa.fa-chevron-left
+      i.fa.fa-list
+      | {{_ 'my-cards'}}
+
+template(name="myCardsModalTitle")
+  if currentUser
+    h2
+      i.fa.fa-keyboard-o
+      | {{_ 'my-cards'}}
+
+template(name="myCards")
+  if currentUser
+    if searching.get
+      +spinner
+    else
+      .wrapper
+        each board in myCardsList
+          .my-cards-board-wrapper
+            .my-cards-board-title(class=board.colorClass, id="header")
+              a(href=board.originRelativeUrl)
+                +viewer
+                  = board.title
+            each swimlane in board.mySwimlanes
+              .my-cards-swimlane-title(class="{{#if swimlane.colorClass}}{{ swimlane.colorClass }}{{else}}swimlane-default-color{{/if}}")
+                +viewer
+                  = swimlane.title
+              each list in swimlane.myLists
+                .my-cards-list-wrapper
+                  .my-cards-list-title(class=list.colorClass)
+                    +viewer
+                      = list.title
+                  each card in list.myCards
+                    .my-cards-card-wrapper
+                      a.minicard-wrapper(href=card.originRelativeUrl)
+                        +minicard(card)

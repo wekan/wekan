@@ -1,11 +1,11 @@
 template(name="listBody")
-  .list-body.js-perfect-scrollbar
+  .list-body
     .minicards.clearfix.js-minicards(class="{{#if reachedWipLimit}}js-list-full{{/if}}")
       if cards.count
         +inlinedForm(autoclose=false position="top")
           +addCardForm(listId=_id position="top")
       each (cardsWithLimit (idOrNull ../../_id))
-        a.minicard-wrapper.js-minicard(href=absoluteUrl
+        a.minicard-wrapper.js-minicard(href=originRelativeUrl
           class="{{#if cardIsSelected}}is-selected{{/if}}"
           class="{{#if MultiSelection.isSelected _id}}is-checked{{/if}}")
           if MultiSelection.isActive
@@ -19,19 +19,14 @@ template(name="listBody")
         +inlinedForm(autoclose=false position="bottom")
           +addCardForm(listId=_id position="bottom")
         else
-          a.open-minicard-composer.js-card-composer.js-open-inlined-form
+          a.open-minicard-composer.js-card-composer.js-open-inlined-form(title="{{_ 'add-card-to-bottom-of-list'}}")
             i.fa.fa-plus
-            | {{_ 'add-card'}}
 
 template(name="spinnerList")
-  .sk-spinner.sk-spinner-wave.sk-spinner-list(
-    class=currentBoard.colorClass
+  .sk-spinner.sk-spinner-list(
+    class="{{currentBoard.colorClass}} {{getSkSpinnerName}}"
     id="showMoreResults")
-    .sk-rect1
-    .sk-rect2
-    .sk-rect3
-    .sk-rect4
-    .sk-rect5
+    +spinnerRaw
 
 template(name="addCardForm")
   .minicard.minicard-composer.js-composer
@@ -105,8 +100,10 @@ template(name="searchElementPopup")
         each boards
           option(value="{{_id}}") {{title}}
   form.js-search-term-form
+    label
+      | {{_ 'template'}}
     input(type="text" name="searchTerm" placeholder="{{_ 'search-example'}}" autofocus dir="auto")
-  .list-body.js-perfect-scrollbar.search-card-results
+  .list-body.search-card-results
     .minicards.clearfix.js-minicards
       if isBoardTemplateSearch
         each results

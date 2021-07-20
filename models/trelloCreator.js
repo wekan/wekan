@@ -40,6 +40,8 @@ export class TrelloCreator {
 
     // maps a trelloCardId to an array of trelloAttachments
     this.attachments = {};
+
+    this.customFields = {};
   }
 
   /**
@@ -90,7 +92,7 @@ export class TrelloCreator {
     check(
       trelloBoard,
       Match.ObjectIncluding({
-        closed: Boolean,
+        // closed: Boolean,  // issue #3840, should import closed Trello boards
         name: String,
         prefs: Match.ObjectIncluding({
           // XXX refine control by validating 'background' against a list of
@@ -155,12 +157,18 @@ export class TrelloCreator {
 
   // You must call parseActions before calling this one.
   createBoardAndLabels(trelloBoard) {
+    let color = 'blue';
+    if (this.getColor(trelloBoard.prefs.background) !== undefined) {
+      color = this.getColor(trelloBoard.prefs.background);
+    }
+
     const boardToCreate = {
       archived: trelloBoard.closed,
-      color: this.getColor(trelloBoard.prefs.background),
+      color: color,
       // very old boards won't have a creation activity so no creation date
       createdAt: this._now(this.createdAt.board),
       labels: [],
+      customFields: [],
       members: [
         {
           userId: Meteor.userId(),
@@ -174,7 +182,7 @@ export class TrelloCreator {
       permission: this.getPermission(trelloBoard.prefs.permissionLevel),
       slug: getSlug(trelloBoard.name) || 'board',
       stars: 0,
-      title: trelloBoard.name,
+      title: Boards.uniqueTitle(trelloBoard.name),
     };
     // now add other members
     if (trelloBoard.memberships) {
@@ -205,17 +213,19 @@ export class TrelloCreator {
         }
       });
     }
-    trelloBoard.labels.forEach(label => {
-      const labelToCreate = {
-        _id: Random.id(6),
-        color: label.color ? label.color : 'black',
-        name: label.name,
-      };
-      // We need to remember them by Trello ID, as this is the only ref we have
-      // when importing cards.
-      this.labels[label.id] = labelToCreate._id;
-      boardToCreate.labels.push(labelToCreate);
-    });
+    if (trelloBoard.labels) {
+      trelloBoard.labels.forEach(label => {
+        const labelToCreate = {
+          _id: Random.id(6),
+          color: label.color ? label.color : 'black',
+          name: label.name,
+        };
+        // We need to remember them by Trello ID, as this is the only ref we have
+        // when importing cards.
+        this.labels[label.id] = labelToCreate._id;
+        boardToCreate.labels.push(labelToCreate);
+      });
+    }
     const boardId = Boards.direct.insert(boardToCreate);
     Boards.direct.update(boardId, { $set: { modifiedAt: this._now() } });
     // log activity
@@ -232,6 +242,37 @@ export class TrelloCreator {
       // not the author from the original object.
       userId: this._user(),
     });
+    if (trelloBoard.customFields) {
+      trelloBoard.customFields.forEach(field => {
+        const fieldToCreate = {
+          // trelloId: field.id,
+          name: field.name,
+          showOnCard: field.display.cardFront,
+          showLabelOnMiniCard: field.display.cardFront,
+          automaticallyOnCard: true,
+          alwaysOnCard: false,
+          type: field.type,
+          boardIds: [boardId],
+          settings: {},
+        };
+
+        if (field.type === 'list') {
+          fieldToCreate.type = 'dropdown';
+          fieldToCreate.settings = {
+            dropdownItems: field.options.map(opt => {
+              return {
+                _id: opt.id,
+                name: opt.value.text,
+              };
+            }),
+          };
+        }
+
+        // We need to remember them by Trello ID, as this is the only ref we have
+        // when importing cards.
+        this.customFields[field.id] = CustomFields.direct.insert(fieldToCreate);
+      });
+    }
     return boardId;
   }
 
@@ -285,6 +326,51 @@ export class TrelloCreator {
           cardToCreate.members = wekanMembers;
         }
       }
+      // add vote
+      if (card.idMembersVoted) {
+        // Trello only know's positive votes
+        const positiveVotes = [];
+        card.idMembersVoted.forEach(trelloId => {
+          if (this.members[trelloId]) {
+            const wekanId = this.members[trelloId];
+            // we may map multiple Trello members to the same wekan user
+            // in which case we risk adding the same user multiple times
+            if (!positiveVotes.find(wId => wId === wekanId)) {
+              positiveVotes.push(wekanId);
+            }
+          }
+          return true;
+        });
+        if (positiveVotes.length > 0) {
+          cardToCreate.vote = {
+            question: cardToCreate.title,
+            public: true,
+            positive: positiveVotes,
+          };
+        }
+      }
+
+      if (card.customFieldItems) {
+        cardToCreate.customFields = [];
+        card.customFieldItems.forEach(item => {
+          const custom = {
+            _id: this.customFields[item.idCustomField],
+          };
+          if (item.idValue) {
+            custom.value = item.idValue;
+          } else if (item.value.hasOwnProperty('checked')) {
+            custom.value = item.value.checked === 'true';
+          } else if (item.value.hasOwnProperty('text')) {
+            custom.value = item.value.text;
+          } else if (item.value.hasOwnProperty('date')) {
+            custom.value = item.value.date;
+          } else if (item.value.hasOwnProperty('number')) {
+            custom.value = item.value.number;
+          }
+          cardToCreate.customFields.push(custom);
+        });
+      }
+
       // insert card
       const cardId = Cards.direct.insert(cardToCreate);
       // keep track of Trello id => Wekan id
@@ -337,39 +423,62 @@ export class TrelloCreator {
       const attachments = this.attachments[card.id];
       const trelloCoverId = card.idAttachmentCover;
       if (attachments) {
+        const links = [];
         attachments.forEach(att => {
-          const file = new FS.File();
-          // Simulating file.attachData on the client generates multiple errors
-          // - HEAD returns null, which causes exception down the line
-          // - the template then tries to display the url to the attachment which causes other errors
-          // so we make it server only, and let UI catch up once it is done, forget about latency comp.
-          const self = this;
-          if (Meteor.isServer) {
-            file.attachData(att.url, function(error) {
-              file.boardId = boardId;
-              file.cardId = cardId;
-              file.userId = self._user(att.idMemberCreator);
-              // The field source will only be used to prevent adding
-              // attachments' related activities automatically
-              file.source = 'import';
-              if (error) {
-                throw error;
-              } else {
-                const wekanAtt = Attachments.insert(file, () => {
-                  // we do nothing
-                });
-                self.attachmentIds[att.id] = wekanAtt._id;
-                //
-                if (trelloCoverId === att.id) {
-                  Cards.direct.update(cardId, {
-                    $set: { coverId: wekanAtt._id },
+          // if the attachment `name` and `url` are the same, then the
+          // attachment is an attached link
+          if (att.name === att.url) {
+            links.push(att.url);
+          } else {
+            const file = new FS.File();
+            // Simulating file.attachData on the client generates multiple errors
+            // - HEAD returns null, which causes exception down the line
+            // - the template then tries to display the url to the attachment which causes other errors
+            // so we make it server only, and let UI catch up once it is done, forget about latency comp.
+            const self = this;
+            if (Meteor.isServer) {
+              file.attachData(att.url, function(error) {
+                file.boardId = boardId;
+                file.cardId = cardId;
+                file.userId = self._user(att.idMemberCreator);
+                // The field source will only be used to prevent adding
+                // attachments' related activities automatically
+                file.source = 'import';
+                if (error) {
+                  throw error;
+                } else {
+                  const wekanAtt = Attachments.insert(file, () => {
+                    // we do nothing
                   });
+                  self.attachmentIds[att.id] = wekanAtt._id;
+                  //
+                  if (trelloCoverId === att.id) {
+                    Cards.direct.update(cardId, {
+                      $set: { coverId: wekanAtt._id },
+                    });
+                  }
                 }
-              }
-            });
+              });
+            }
           }
           // todo XXX set cover - if need be
         });
+
+        if (links.length) {
+          let desc = cardToCreate.description.trim();
+          if (desc) {
+            desc += '\n\n';
+          }
+          desc += `## ${TAPi18n.__('links-heading')}\n`;
+          links.forEach(link => {
+            desc += `* ${link}\n`;
+          });
+          Cards.direct.update(cardId, {
+            $set: {
+              description: desc,
+            },
+          });
+        }
       }
       result.push(cardId);
     });

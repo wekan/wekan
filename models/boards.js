@@ -1,3 +1,12 @@
+import {
+  ALLOWED_BOARD_COLORS,
+  ALLOWED_COLORS,
+  TYPE_BOARD,
+  TYPE_TEMPLATE_BOARD,
+  TYPE_TEMPLATE_CONTAINER,
+} from '/config/const';
+
+const escapeForRegex = require('escape-string-regexp');
 Boards = new Mongo.Collection('boards');
 
 /**
@@ -18,18 +27,14 @@ Boards.attachSchema(
       type: String,
       // eslint-disable-next-line consistent-return
       autoValue() {
-        // XXX We need to improve slug management. Only the id should be necessary
-        // to identify a board in the code.
-        // XXX If the board title is updated, the slug should also be updated.
         // In some cases (Chinese and Japanese for instance) the `getSlug` function
         // return an empty string. This is causes bugs in our application so we set
         // a default slug in this case.
-        if (this.isInsert && !this.isSet) {
+        // Improvment would be to change client URL after slug is changed
+        const title = this.field('title');
+        if (title.isSet && !this.isSet) {
           let slug = 'board';
-          const title = this.field('title');
-          if (title.isSet) {
-            slug = getSlug(title.value) || slug;
-          }
+          slug = getSlug(title.value) || slug;
           return slug;
         }
       },
@@ -45,6 +50,13 @@ Boards.attachSchema(
           return false;
         }
       },
+    },
+    archivedAt: {
+      /**
+       * Latest archiving time of the board
+       */
+      type: Date,
+      optional: true,
     },
     createdAt: {
       /**
@@ -97,6 +109,8 @@ Boards.attachSchema(
        * List of labels attached to a board
        */
       type: [Object],
+      optional: true,
+      /* Commented out, so does not create labels to new boards.
       // eslint-disable-next-line consistent-return
       autoValue() {
         if (this.isInsert && !this.isSet) {
@@ -110,6 +124,7 @@ Boards.attachSchema(
           }));
         }
       },
+      */
     },
     'labels.$._id': {
       /**
@@ -140,32 +155,7 @@ Boards.attachSchema(
        * `saddlebrown`, `paleturquoise`, `mistyrose`, `indigo`
        */
       type: String,
-      allowedValues: [
-        'green',
-        'yellow',
-        'orange',
-        'red',
-        'purple',
-        'blue',
-        'sky',
-        'lime',
-        'pink',
-        'black',
-        'silver',
-        'peachpuff',
-        'crimson',
-        'plum',
-        'darkgreen',
-        'slateblue',
-        'magenta',
-        'gold',
-        'navy',
-        'gray',
-        'saddlebrown',
-        'paleturquoise',
-        'mistyrose',
-        'indigo',
-      ],
+      allowedValues: ALLOWED_COLORS,
     },
     // XXX We might want to maintain more informations under the member sub-
     // documents like de-normalized meta-data (the date the member joined the
@@ -237,29 +227,66 @@ Boards.attachSchema(
       type: String,
       allowedValues: ['public', 'private'],
     },
+    orgs: {
+      /**
+       * the list of organizations that a board belongs to
+       */
+       type: [Object],
+       optional: true,
+    },
+    'orgs.$.orgId':{
+      /**
+       * The uniq ID of the organization
+       */
+       type: String,
+    },
+    'orgs.$.orgDisplayName':{
+      /**
+       * The display name of the organization
+       */
+       type: String,
+    },
+    'orgs.$.isActive': {
+      /**
+       * Is the organization active?
+       */
+      type: Boolean,
+    },
+    teams: {
+      /**
+       * the list of teams that a board belongs to
+       */
+       type: [Object],
+       optional: true,
+    },
+    'teams.$.teamId':{
+      /**
+       * The uniq ID of the team
+       */
+       type: String,
+    },
+    'teams.$.teamDisplayName':{
+      /**
+       * The display name of the team
+       */
+       type: String,
+    },
+    'teams.$.isActive': {
+      /**
+       * Is the team active?
+       */
+      type: Boolean,
+    },
     color: {
       /**
        * The color of the board.
        */
       type: String,
-      allowedValues: [
-        'belize',
-        'nephritis',
-        'pomegranate',
-        'pumpkin',
-        'wisteria',
-        'moderatepink',
-        'strongcyan',
-        'limegreen',
-        'midnight',
-        'dark',
-        'relax',
-        'corteza',
-      ],
+      allowedValues: ALLOWED_BOARD_COLORS,
       // eslint-disable-next-line consistent-return
       autoValue() {
         if (this.isInsert && !this.isSet) {
-          return Boards.simpleSchema()._schema.color.allowedValues[0];
+          return ALLOWED_BOARD_COLORS[0];
         }
       },
     },
@@ -364,6 +391,14 @@ Boards.attachSchema(
       defaultValue: true,
     },
 
+    allowsCreator: {
+      /**
+       * Does the board allow creator?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
     allowsAssignee: {
       /**
        * Does the board allows assignee?
@@ -383,6 +418,14 @@ Boards.attachSchema(
     allowsRequestedBy: {
       /**
        * Does the board allows requested by?
+       */
+      type: Boolean,
+      defaultValue: true,
+    },
+
+    allowsCardSortingByNumber: {
+      /**
+       * Does the board allows card sorting by number?
        */
       type: Boolean,
       defaultValue: true,
@@ -489,9 +532,19 @@ Boards.attachSchema(
     type: {
       /**
        * The type of board
+       * possible values: board, template-board, template-container
        */
       type: String,
-      defaultValue: 'board',
+      defaultValue: TYPE_BOARD,
+      allowedValues: [TYPE_BOARD, TYPE_TEMPLATE_BOARD, TYPE_TEMPLATE_CONTAINER],
+    },
+    sort: {
+      /**
+       * Sort value
+       */
+      type: Number,
+      decimal: true,
+      defaultValue: -1,
     },
   }),
 );
@@ -500,6 +553,8 @@ Boards.helpers({
   copy() {
     const oldId = this._id;
     delete this._id;
+    delete this.slug;
+    this.title = this.copyTitle();
     const _id = Boards.insert(this);
 
     // Copy all swimlanes in board
@@ -510,7 +565,58 @@ Boards.helpers({
       swimlane.type = 'swimlane';
       swimlane.copy(_id);
     });
+
+    // copy custom field definitions
+    const cfMap = {};
+    CustomFields.find({ boardIds: oldId }).forEach(cf => {
+      const id = cf._id;
+      delete cf._id;
+      cf.boardIds = [_id];
+      cfMap[id] = CustomFields.insert(cf);
+    });
+    Cards.find({ boardId: _id }).forEach(card => {
+      Cards.update(card._id, {
+        $set: {
+          customFields: card.customFields.map(cf => {
+            cf._id = cfMap[cf._id];
+            return cf;
+          }),
+        },
+      });
+    });
+
+    // copy rules, actions, and triggers
+    const actionsMap = {};
+    Actions.find({ boardId: oldId }).forEach(action => {
+      const id = action._id;
+      delete action._id;
+      action.boardId = _id;
+      actionsMap[id] = Actions.insert(action);
+    });
+    const triggersMap = {};
+    Triggers.find({ boardId: oldId }).forEach(trigger => {
+      const id = trigger._id;
+      delete trigger._id;
+      trigger.boardId = _id;
+      triggersMap[id] = Triggers.insert(trigger);
+    });
+    Rules.find({ boardId: oldId }).forEach(rule => {
+      delete rule._id;
+      rule.boardId = _id;
+      rule.actionId = actionsMap[rule.actionId];
+      rule.triggerId = triggersMap[rule.triggerId];
+      Rules.insert(rule);
+    });
   },
+  /**
+   * Return a unique title based on the current title
+   *
+   * @returns {string|null}
+   */
+  copyTitle() {
+    return Boards.uniqueTitle(this.title);
+  },
+
   /**
    * Is supplied user authorized to view this board?
    */
@@ -639,6 +745,23 @@ Boards.helpers({
     return _.where(this.members, { isActive: true });
   },
 
+
+  activeOrgs() {
+    return _.where(this.orgs, { isActive: true });
+  },
+
+  // hasNotAnyOrg(){
+  //   return this.orgs === undefined || this.orgs.length <= 0;
+  // },
+
+  activeTeams() {
+    return _.where(this.teams, { isActive: true });
+  },
+
+  // hasNotAnyTeam(){
+  //   return this.teams === undefined || this.teams.length <= 0;
+  // },
+
   activeAdmins() {
     return _.where(this.members, { isActive: true, isAdmin: true });
   },
@@ -707,6 +830,9 @@ Boards.helpers({
 
   absoluteUrl() {
     return FlowRouter.url('board', { id: this._id, slug: this.slug });
+  },
+  originRelativeUrl() {
+    return FlowRouter.path('board', { id: this._id, slug: this.slug });
   },
 
   colorClass() {
@@ -980,7 +1106,7 @@ Boards.helpers({
 
 Boards.mutations({
   archive() {
-    return { $set: { archived: true } };
+    return { $set: { archived: true, archivedAt: new Date() } };
   },
 
   restore() {
@@ -1115,6 +1241,10 @@ Boards.mutations({
     return { $set: { allowsSubtasks } };
   },
 
+  setAllowsCreator(allowsCreator) {
+    return { $set: { allowsCreator } };
+  },
+
   setAllowsMembers(allowsMembers) {
     return { $set: { allowsMembers } };
   },
@@ -1133,6 +1263,10 @@ Boards.mutations({
 
   setAllowsRequestedBy(allowsRequestedBy) {
     return { $set: { allowsRequestedBy } };
+  },
+
+  setAllowsCardSortingByNumber(allowsCardSortingByNumber) {
+    return { $set: { allowsCardSortingByNumber } };
   },
 
   setAllowsAttachments(allowsAttachments) {
@@ -1186,6 +1320,10 @@ Boards.mutations({
   setPresentParentTask(presentParentTask) {
     return { $set: { presentParentTask } };
   },
+
+  move(sortIndex) {
+    return { $set: { sort: sortIndex } };
+  },
 });
 
 function boardRemover(userId, doc) {
@@ -1196,12 +1334,95 @@ function boardRemover(userId, doc) {
   );
 }
 
+Boards.uniqueTitle = title => {
+  const m = title.match(
+    new RegExp('^(?<title>.*?)\\s*(\\[(?<num>\\d+)]\\s*$|\\s*$)'),
+  );
+  const base = escapeForRegex(m.groups.title);
+  let num = 0;
+  Boards.find({ title: new RegExp(`^${base}\\s*\\[\\d+]\\s*$`) }).forEach(
+    board => {
+      const m = board.title.match(
+        new RegExp('^(?<title>.*?)\\s*\\[(?<num>\\d+)]\\s*$'),
+      );
+      if (m) {
+        const n = parseInt(m.groups.num, 10);
+        num = num < n ? n : num;
+      }
+    },
+  );
+
+  if (num > 0) {
+    return `${base} [${num + 1}]`;
+  }
+
+  return title;
+};
+
+Boards.userSearch = (
+  userId,
+  selector = {},
+  projection = {},
+  // includeArchived = false,
+) => {
+  // if (!includeArchived) {
+  //   selector.archived = false;
+  // }
+  selector.$or = [{ permission: 'public' }];
+
+  if (userId) {
+    selector.$or.push({ members: { $elemMatch: { userId, isActive: true } } });
+  }
+  return Boards.find(selector, projection);
+};
+
+Boards.userBoards = (userId, archived = false, selector = {}) => {
+  if (typeof archived === 'boolean') {
+    selector.archived = archived;
+  }
+  if (!selector.type) {
+    selector.type = 'board';
+  }
+
+  selector.$or = [{ permission: 'public' }];
+  if (userId) {
+    selector.$or.push({ members: { $elemMatch: { userId, isActive: true } } });
+  }
+  return Boards.find(selector);
+};
+
+Boards.userBoardIds = (userId, archived = false, selector = {}) => {
+  return Boards.userBoards(userId, archived, selector).map(board => {
+    return board._id;
+  });
+};
+
+Boards.colorMap = () => {
+  const colors = {};
+  for (const color of Boards.labelColors()) {
+    colors[TAPi18n.__(`color-${color}`)] = color;
+  }
+  return colors;
+};
+
+Boards.labelColors = () => {
+  return ALLOWED_COLORS;
+};
+
 if (Meteor.isServer) {
   Boards.allow({
     insert: Meteor.userId,
     update: allowIsBoardAdmin,
     remove: allowIsBoardAdmin,
     fetch: ['members'],
+  });
+
+  // All logged in users are allowed to reorder boards by dragging at All Boards page and Public Boards page.
+  Boards.allow({
+    update(userId, board, fieldNames) {
+      return _.contains(fieldNames, 'sort');
+    },
+    fetch: [],
   });
 
   // The number of users that have starred this board is managed by trusted code
@@ -1265,6 +1486,31 @@ if (Meteor.isServer) {
         },
       });
     },
+    myLabelNames() {
+      let names = [];
+      Boards.userBoards(Meteor.userId()).forEach(board => {
+        // Only return labels when they exist.
+        if (board.labels !== undefined) {
+          names = names.concat(
+            board.labels
+              .filter(label => !!label.name)
+              .map(label => {
+                return label.name;
+              }),
+          );
+        } else {
+          return [];
+        }
+      });
+      return _.uniq(names).sort();
+    },
+    myBoardNames() {
+      return _.uniq(
+        Boards.userBoards(Meteor.userId()).map(board => {
+          return board.title;
+        }),
+      ).sort();
+    },
   });
 
   Meteor.methods({
@@ -1280,8 +1526,37 @@ if (Meteor.isServer) {
         } else throw new Meteor.Error('error-board-notAMember');
       } else throw new Meteor.Error('error-board-doesNotExist');
     },
+    setBoardOrgs(boardOrgsArray, currBoardId){
+      check(boardOrgsArray, Array);
+      check(currBoardId, String);
+      Boards.update(currBoardId, {
+        $set: {
+          orgs: boardOrgsArray,
+        },
+      });
+    },
+    setBoardTeams(boardTeamsArray, currBoardId){
+      check(boardTeamsArray, Array);
+      check(currBoardId, String);
+      Boards.update(currBoardId, {
+        $set: {
+          teams: boardTeamsArray,
+        },
+      });
+    },
   });
 }
+
+// Insert new board at last position in sort order.
+Boards.before.insert((userId, doc) => {
+  const lastBoard = Boards.findOne(
+    { sort: { $exists: true } },
+    { sort: { sort: -1 } },
+  );
+  if (lastBoard && typeof lastBoard.sort !== 'undefined') {
+    doc.sort = lastBoard.sort + 1;
+  }
+});
 
 if (Meteor.isServer) {
   // Let MongoDB ensure that a member is not included twice in the same board
@@ -1466,7 +1741,7 @@ if (Meteor.isServer) {
           'members.userId': paramUserId,
         },
         {
-          sort: ['title'],
+          sort: { sort: 1 /* boards default sorting */ },
         },
       ).map(function(board) {
         return {
@@ -1493,15 +1768,45 @@ if (Meteor.isServer) {
                     */
   JsonRoutes.add('GET', '/api/boards', function(req, res) {
     try {
-      Authentication.checkUserId(req.userId);
+      const paramBoardId = req.params.boardId;
+      Authentication.checkBoardAccess(req.userId, paramBoardId);
       JsonRoutes.sendResult(res, {
         code: 200,
-        data: Boards.find({ permission: 'public' }).map(function(doc) {
+        data: Boards.find(
+          { permission: 'public' },
+          {
+            sort: { sort: 1 /* boards default sorting */ },
+          },
+        ).map(function(doc) {
           return {
             _id: doc._id,
             title: doc.title,
           };
         }),
+      });
+    } catch (error) {
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: error,
+      });
+    }
+  });
+
+  /**
+   * @operation get_boards_count
+   * @summary Get public and private boards count
+   *
+   * @return_type {private: integer, public: integer}
+   */
+  JsonRoutes.add('GET', '/api/boards_count', function(req, res) {
+    try {
+      Authentication.checkUserId(req.userId);
+      JsonRoutes.sendResult(res, {
+        code: 200,
+        data: {
+          private: Boards.find({ permission: 'private' }).count(),
+          public: Boards.find({ permission: 'public' }).count(),
+        },
       });
     } catch (error) {
       JsonRoutes.sendResult(res, {
@@ -1638,7 +1943,8 @@ if (Meteor.isServer) {
    * @return_type string
    */
   JsonRoutes.add('PUT', '/api/boards/:boardId/labels', function(req, res) {
-    Authentication.checkUserId(req.userId);
+    const paramBoardId = req.params.boardId;
+    Authentication.checkBoardAccess(req.userId, paramBoardId);
     const id = req.params.boardId;
     try {
       if (req.body.hasOwnProperty('label')) {
@@ -1716,6 +2022,41 @@ if (Meteor.isServer) {
         data: error,
       });
     }
+  });
+
+  //ATTACHMENTS REST API
+  /**
+   * @operation get_board_attachments
+   * @summary Get the list of attachments of a board
+   *
+   * @param {string} boardId the board ID
+   * @return_type [{attachmentId: string,
+   *                attachmentName: string,
+   *                attachmentType: string,
+   *                cardId: string,
+   *                listId: string,
+   *                swimlaneId: string}]
+   */
+  JsonRoutes.add('GET', '/api/boards/:boardId/attachments', function(req, res) {
+    const paramBoardId = req.params.boardId;
+    Authentication.checkBoardAccess(req.userId, paramBoardId);
+    JsonRoutes.sendResult(res, {
+      code: 200,
+      data: Attachments.files
+        .find({ boardId: paramBoardId }, { fields: { boardId: 0 } })
+        .map(function(doc) {
+          return {
+            attachmentId: doc._id,
+            attachmentName: doc.original.name,
+            attachmentType: doc.original.type,
+            url: FlowRouter.url(doc.url()),
+            urlDownload: `${FlowRouter.url(doc.url())}?download=true&token=`,
+            cardId: doc.cardId,
+            listId: doc.listId,
+            swimlaneId: doc.swimlaneId,
+          };
+        }),
+    });
   });
 }
 

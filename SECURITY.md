@@ -1,10 +1,10 @@
 Security is very important to us. If you discover any issue regarding security, please disclose
-the information responsibly by sending an email to security (at) wekan.team and not by
+the information responsibly by sending an email to support (at) wekan.team using
+[this PGP public key](support-at-wekan.team_pgp-publickey.asc) and not by
 creating a GitHub issue. We will respond swiftly to fix verifiable security issues.
 
 We thank you with a place at our hall of fame page, that is
-at https://wekan.github.io/hall-of-fame . Others have just posted public GitHub issue,
-so they are not at that hall-of-fame page.
+at https://wekan.github.io/hall-of-fame
 
 ## How should reports be formatted?
 

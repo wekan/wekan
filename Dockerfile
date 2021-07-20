@@ -1,13 +1,19 @@
-FROM ubuntu:rolling
+FROM quay.io/wekan/ubuntu:groovy-20210115
 LABEL maintainer="wekan"
+
+# 2020-12-03:
+# - Above Ubuntu base image copied from Docker Hub ubuntu:groovy-20201125.2
+#   to Quay to avoid Docker Hub rate limits.
 
 # Set the environment variables (defaults where required)
 # DOES NOT WORK: paxctl fix for alpine linux: https://github.com/wekan/wekan/issues/1303
 # ENV BUILD_DEPS="paxctl"
+ARG DEBIAN_FRONTEND=noninteractive
+
 ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-essential git ca-certificates python3" \
     DEBUG=false \
-    NODE_VERSION=v12.16.1 \
-    METEOR_RELEASE=1.10-rc.2 \
+    NODE_VERSION=v12.22.3 \
+    METEOR_RELEASE=1.10.2 \
     USE_EDGE=false \
     METEOR_EDGE=1.5-beta.17 \
     NPM_VERSION=latest \
@@ -15,6 +21,7 @@ ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-
     ARCHITECTURE=linux-x64 \
     SRC_PATH=./ \
     WITH_API=true \
+    RESULTS_PER_PAGE="" \
     ACCOUNTS_LOCKOUT_KNOWN_USERS_FAILURES_BEFORE=3 \
     ACCOUNTS_LOCKOUT_KNOWN_USERS_PERIOD=60 \
     ACCOUNTS_LOCKOUT_KNOWN_USERS_FAILURE_WINDOW=15 \
@@ -26,6 +33,7 @@ ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-
     ATTACHMENTS_STORE_PATH="" \
     MAX_IMAGE_PIXEL="" \
     IMAGE_COMPRESS_RATIO="" \
+    NOTIFICATION_TRAY_AFTER_READ_DAYS_BEFORE_REMOVE="" \
     BIGEVENTS_PATTERN=NONE \
     NOTIFY_DUE_DAYS_BEFORE_AND_AFTER="" \
     NOTIFY_DUE_AT_HOUR_OF_DAY="" \
@@ -38,6 +46,8 @@ ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-
     TRUSTED_URL="" \
     WEBHOOKS_ATTRIBUTES="" \
     OAUTH2_ENABLED=false \
+    OAUTH2_CA_CERT="" \
+    OAUTH2_ADFS_ENABLED=false \
     OAUTH2_LOGIN_STYLE=redirect \
     OAUTH2_CLIENT_ID="" \
     OAUTH2_SECRET="" \
@@ -111,8 +121,24 @@ ENV BUILD_DEPS="apt-utils libarchive-tools gnupg gosu wget curl bzip2 g++ build-
     CORS_ALLOW_HEADERS="" \
     CORS_EXPOSE_HEADERS="" \
     DEFAULT_AUTHENTICATION_METHOD="" \
-    SCROLLINERTIA="0" \
-    SCROLLAMOUNT="auto"
+    PASSWORD_LOGIN_ENABLED=true \
+    CAS_ENABLED=false \
+    CAS_BASE_URL="" \
+    CAS_LOGIN_URL="" \
+    CAS_VALIDATE_URL="" \
+    SAML_ENABLED=false \
+    SAML_PROVIDER="" \
+    SAML_ENTRYPOINT="" \
+    SAML_ISSUER="" \
+    SAML_CERT="" \
+    SAML_IDPSLO_REDIRECTURL="" \
+    SAML_PRIVATE_KEYFILE="" \
+    SAML_PUBLIC_CERTFILE="" \
+    SAML_IDENTIFIER_FORMAT="" \
+    SAML_LOCAL_PROFILE_MATCH_ATTRIBUTE="" \
+    SAML_ATTRIBUTES="" \
+    ORACLE_OIM_ENABLED=false \
+    WAIT_SPINNER=""
 
 # Copy the app to the image
 COPY ${SRC_PATH} /home/wekan/app
@@ -250,11 +276,12 @@ RUN \
     mkdir -p /home/wekan/.npm && \
     chown wekan --recursive /home/wekan/.npm /home/wekan/.config /home/wekan/.meteor && \
     #gosu wekan:wekan /home/wekan/.meteor/meteor add standard-minifier-js && \
+    chmod u+w *.json && \
     gosu wekan:wekan npm install && \
     gosu wekan:wekan /home/wekan/.meteor/meteor build --directory /home/wekan/app_build && \
-    cp /home/wekan/app/fix-download-unicode/cfs_access-point.txt /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
+    #cp /home/wekan/app/fix-download-unicode/cfs_access-point.txt /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
     #rm /home/wekan/app_build/bundle/programs/server/npm/node_modules/meteor/rajit_bootstrap3-datepicker/lib/bootstrap-datepicker/node_modules/phantomjs-prebuilt/lib/phantom/bin/phantomjs && \
-    chown wekan /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
+    #chown wekan /home/wekan/app_build/bundle/programs/server/packages/cfs_access-point.js && \
     #Removed binary version of bcrypt because of security vulnerability that is not fixed yet.
     #https://github.com/wekan/wekan/commit/4b2010213907c61b0e0482ab55abb06f6a668eac
     #https://github.com/wekan/wekan/commit/7eeabf14be3c63fae2226e561ef8a0c1390c8d3c
@@ -267,8 +294,11 @@ RUN \
     #find . -name "*phantomjs*" | xargs rm -rf && \
     #
     cd /home/wekan/app_build/bundle/programs/server/ && \
+    chmod u+w *.json && \
     gosu wekan:wekan npm install && \
     #gosu wekan:wekan npm install bcrypt && \
+    # Remove legacy webbroser bundle, so that Wekan works also at Android Firefox, iOS Safari, etc.
+    rm -rf /home/wekan/app_build/bundle/programs/web.browser.legacy && \
     mv /home/wekan/app_build/bundle /build && \
     \
     # Put back the original tar

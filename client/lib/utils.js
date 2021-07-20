@@ -1,38 +1,100 @@
-import { Cookies } from 'meteor/ostrio:cookies';
-const cookies = new Cookies();
-
 Utils = {
+  reload () {
+    // we move all window.location.reload calls into this function
+    // so we can disable it when running tests.
+    // This is because we are not allowed to override location.reload but
+    // we can override Utils.reload to prevent reload during tests.
+    window.location.reload();
+  },
   setBoardView(view) {
     currentUser = Meteor.user();
     if (currentUser) {
       Meteor.user().setBoardView(view);
-    } else if (view === 'board-view-lists') {
-      cookies.set('boardView', 'board-view-lists'); //true
     } else if (view === 'board-view-swimlanes') {
-      cookies.set('boardView', 'board-view-swimlanes'); //true
+      window.localStorage.setItem('boardView', 'board-view-swimlanes'); //true
+      Utils.reload();
+    } else if (view === 'board-view-lists') {
+      window.localStorage.setItem('boardView', 'board-view-lists'); //true
+      Utils.reload();
     } else if (view === 'board-view-cal') {
-      cookies.set('boardView', 'board-view-cal'); //true
+      window.localStorage.setItem('boardView', 'board-view-cal'); //true
+      Utils.reload();
+    } else {
+      window.localStorage.setItem('boardView', 'board-view-swimlanes'); //true
+      Utils.reload();
     }
   },
 
   unsetBoardView() {
-    cookies.remove('boardView');
-    cookies.remove('collapseSwimlane');
+    window.localStorage.removeItem('boardView');
+    window.localStorage.removeItem('collapseSwimlane');
   },
 
   boardView() {
     currentUser = Meteor.user();
     if (currentUser) {
       return (currentUser.profile || {}).boardView;
-    } else if (cookies.get('boardView') === 'board-view-lists') {
-      return 'board-view-lists';
-    } else if (cookies.get('boardView') === 'board-view-swimlanes') {
+    } else if (
+      window.localStorage.getItem('boardView') === 'board-view-swimlanes'
+    ) {
       return 'board-view-swimlanes';
-    } else if (cookies.get('boardView') === 'board-view-cal') {
+    } else if (
+      window.localStorage.getItem('boardView') === 'board-view-lists'
+    ) {
+      return 'board-view-lists';
+    } else if (window.localStorage.getItem('boardView') === 'board-view-cal') {
       return 'board-view-cal';
     } else {
-      return false;
+      window.localStorage.setItem('boardView', 'board-view-swimlanes'); //true
+      Utils.reload();
+      return 'board-view-swimlanes';
     }
+  },
+
+  myCardsSort() {
+    let sort = window.localStorage.getItem('myCardsSort');
+
+    if (!sort || !['board', 'dueAt'].includes(sort)) {
+      sort = 'board';
+    }
+
+    return sort;
+  },
+
+  myCardsSortToggle() {
+    if (this.myCardsSort() === 'board') {
+      this.setMyCardsSort('dueAt');
+    } else {
+      this.setMyCardsSort('board');
+    }
+  },
+
+  setMyCardsSort(sort) {
+    window.localStorage.setItem('myCardsSort', sort);
+    Utils.reload();
+  },
+
+  archivedBoardIds() {
+    const archivedBoards = [];
+    Boards.find({ archived: false }).forEach(board => {
+      archivedBoards.push(board._id);
+    });
+    return archivedBoards;
+  },
+
+  dueCardsView() {
+    let view = window.localStorage.getItem('dueCardsView');
+
+    if (!view || !['me', 'all'].includes(view)) {
+      view = 'me';
+    }
+
+    return view;
+  },
+
+  setDueCardsView(view) {
+    window.localStorage.setItem('dueCardsView', view);
+    Utils.reload();
   },
 
   // XXX We should remove these two methods
@@ -179,6 +241,21 @@ Utils = {
     //if (hasTouchScreen)
     //    document.getElementById("exampleButton").style.padding="1em";
     //return false;
+  },
+
+  // returns if desktop drag handles are enabled
+  isShowDesktopDragHandles() {
+    const currentUser = Meteor.user();
+    if (currentUser) {
+      return (currentUser.profile || {}).showDesktopDragHandles;
+    } else {
+      return false;
+    }
+  },
+
+  // returns if mini screen or desktop drag handles
+  isMiniScreenOrShowDesktopDragHandles() {
+    return this.isMiniScreen() || this.isShowDesktopDragHandles();
   },
 
   calculateIndexData(prevData, nextData, nItems = 1) {
