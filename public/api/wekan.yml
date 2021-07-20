@@ -1,7 +1,7 @@
 swagger: '2.0'
 info:
   title: Wekan REST API
-  version: v5.37
+  version: v5.38
   description: |
     The REST API allows you to control and extend Wekan with ease.
 
@@ -2690,6 +2690,20 @@ definitions:
         enum:
           - public
           - private
+      orgs:
+        description: |
+           the list of organizations that a board belongs to
+        type: array
+        items:
+          $ref: "#/definitions/BoardsOrgs"
+        x-nullable: true
+      teams:
+        description: |
+           the list of teams that a board belongs to
+        type: array
+        items:
+          $ref: "#/definitions/BoardsTeams"
+        x-nullable: true
       color:
         description: |
            The color of the board.
@@ -2968,6 +2982,44 @@ definitions:
     required:
       - userId
       - isAdmin
+      - isActive
+  BoardsOrgs:
+    type: object
+    properties:
+      orgId:
+        description: |
+           The uniq ID of the organization
+        type: string
+      orgDisplayName:
+        description: |
+           The display name of the organization
+        type: string
+      isActive:
+        description: |
+           Is the organization active?
+        type: boolean
+    required:
+      - orgId
+      - orgDisplayName
+      - isActive
+  BoardsTeams:
+    type: object
+    properties:
+      teamId:
+        description: |
+           The uniq ID of the team
+        type: string
+      teamDisplayName:
+        description: |
+           The display name of the team
+        type: string
+      isActive:
+        description: |
+           Is the team active?
+        type: boolean
+    required:
+      - teamId
+      - teamDisplayName
       - isActive
   CardComments:
     type: object

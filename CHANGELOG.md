@@ -3,7 +3,7 @@
 Note: With Docker, please don't use latest tag. Only use release tags.
 See https://github.com/wekan/wekan/issues/3874
 
-# Upcoming Wekan release
+# v5.38 2021-07-18 Wekan release
 
 This release adds the following new features:
 
@@ -18,6 +18,8 @@ and adds the following updates:
   [Part 1](https://github.com/wekan/wekan/commit/7024929881c05cad472de74c86517cf80c8e240c),
   [Part 2](https://github.com/wekan/wekan/commit/609adcdf100db226c5f310577195afa4b1a4aead).
   Thanks to developers of dependencies.
+- [Updated to Node.js v12.22.3](https://github.com/wekan/wekan/commit/d538a01d1962464cf4cb001462669150eeafaa99).
+  Thanks to Node.js developers.
 
 and fixes the following bugs:
 

@@ -1,5 +1,5 @@
 name: wekan
-version: '5.37'
+version: '5.38'
 summary: The open-source kanban
 description: |
    Wekan is an open-source and collaborative kanban board application.
@@ -80,7 +80,7 @@ parts:
     wekan:
         source: .
         plugin: nodejs
-        node-engine: 12.22.2
+        node-engine: 12.22.3
         node-packages:
             - node-gyp
             - node-pre-gyp
